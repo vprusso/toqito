@@ -4,6 +4,7 @@ import functools
 
 from toqito.matrix.operations.vec import vec
 
+
 def permute_systems(X, perm, dim=None, row_only: bool = False, inv_perm: bool = False):
     if len(X.shape) == 1:
         dX = (1, X.shape[0])
@@ -19,7 +20,6 @@ def permute_systems(X, perm, dim=None, row_only: bool = False, inv_perm: bool = 
         # 2 if row vector
         else:
             vec_orien = 0
-        print(f"vec_orien: {vec_orien}")
 
     if dim is None:
         x = dX[0]**(1/num_sys) * np.ones(num_sys)
