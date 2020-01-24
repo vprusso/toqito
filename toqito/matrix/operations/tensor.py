@@ -26,7 +26,7 @@ def tensor_list(input_list: List[np.ndarray]) -> np.ndarray:
     elif len(input_list) == 2:
         return np.kron(input_list[0], input_list[1])
     elif len(input_list) >= 3:
-        result = np.kron(input_list[0], input_list[1])
-        for i in range(2, len(input_list)):
+        result = input_list[0]
+        for i in range(1, len(input_list)):
             result = np.kron(result, input_list[i])
     return result

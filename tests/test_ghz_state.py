@@ -45,6 +45,18 @@ class TestGHZState(unittest.TestCase):
         bool_mat = np.isclose(res, expected_res)
         self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
 
+    def test_invalid_dim(self):
+        with self.assertRaises(ValueError):
+            ghz_state(1, 2)
+
+    def test_invalid_qubits(self):
+        with self.assertRaises(ValueError):
+            ghz_state(2, 1)
+
+    def test_invalid_coeff(self):
+        with self.assertRaises(ValueError):
+            ghz_state(2, 3, [1, 2, 3, 4, 5])
+
 
 
 

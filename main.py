@@ -14,11 +14,16 @@ import operator
 import functools
 from scipy import sparse
 from toqito.states.ghz_state import ghz_state
+from toqito.hedging.pi_perm import pi_perm
+from typing import List
+from scipy.sparse import issparse
+from toqito.helper.swap import swap
+from toqito.helper.swap_operator import swap_operator
+
 
 def main():
-    x = ghz_state(2, 3)
-    print(x[7][0])
-#    print(ghz_state(3, 10))
+    X = swap_operator([2, 2])
+    print(X)
 
 if __name__ == "__main__":
     main()
