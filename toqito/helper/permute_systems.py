@@ -5,7 +5,7 @@ import functools
 from toqito.matrix.operations.vec import vec
 
 
-def permute_systems(X, perm, dim=None, row_only: bool = False, inv_perm: bool = False):
+def permute_systems(X, perm, dim=None, row_only: bool=False, inv_perm: bool=False):
     if len(X.shape) == 1:
         dX = (1, X.shape[0])
     else:
