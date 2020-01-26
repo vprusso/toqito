@@ -24,6 +24,9 @@ from toqito.states.pure_to_mixed import pure_to_mixed
 from toqito.states.purity import purity
 from numpy.linalg import matrix_power
 from toqito.super_operators.choi_map import choi_map
+from toqito.super_operators.reduction_map import reduction_map
 
-C = choi_map()
-print(C)
+x = reduction_map(3)
+
+print(x[0,4])
+
