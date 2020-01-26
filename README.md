@@ -1,6 +1,11 @@
 # ToQITo (Theory of Quantum Information Toolkit)
 
 Suite of Python tools that come in handy when considering various concepts in quantum information.
+
+The inspiration for this package is heavily influenced by the 
+[QETLAB](http://www.qetlab.com) package in MATLAB. Many of the functions found 
+here are direct ports of those functions converted into Python code.
+
  
 ## Testing
 

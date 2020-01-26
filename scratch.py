@@ -21,5 +21,11 @@ from toqito.helper.swap import swap
 from toqito.helper.swap_operator import swap_operator
 from toqito.hedging.calculate_hedging_value import calculate_hedging_value
 from toqito.states.pure_to_mixed import pure_to_mixed
+from toqito.states.purity import purity
+from numpy.linalg import matrix_power
 
+rho = np.identity(4)
+print(purity(rho))
+
+print(np.real(np.trace(matrix_power(rho, 2))))
 
