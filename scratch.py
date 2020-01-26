@@ -25,8 +25,24 @@ from toqito.states.purity import purity
 from numpy.linalg import matrix_power
 from toqito.super_operators.choi_map import choi_map
 from toqito.super_operators.reduction_map import reduction_map
+from toqito.super_operators.partial_trace import partial_trace
+from toqito.super_operators.apply_map import apply_map
 
-x = reduction_map(3)
+X = np.array([[1, 2],
+              [3, 4]])
 
-print(x[0,4])
+K1 = np.array([[1, 5], [1, 0], [0, 2]])
+K2 = np.array([[0, 1], [2, 3], [4, 5]])
+K3 = np.array([[-1, 0], [0, 0], [0, -1]])
+K4 = np.array([[0, 0], [1, 1], [0, 0]])
 
+#print(apply_map(X, swap_operator(3)))
+print(apply_map(X, [[K1, K2], [K3, K4]]))
+
+
+#X = np.array([[1, 2, 3, 4],
+#              [5, 6, 7, 8],
+#              [9, 10, 11, 12],
+#              [13, 14, 15, 16]])
+
+#print(partial_trace(X))
