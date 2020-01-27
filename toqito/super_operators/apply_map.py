@@ -25,11 +25,9 @@ def apply_map(X: np.ndarray, Phi) -> np.ndarray:
     # The superoperator was given as a list of Kraus operators:
     if isinstance(Phi, list):
         sPhi = [len(Phi), len(Phi[0])]
-       
+
         # Map is completely positive.
         if sPhi[1] == 1 or (sPhi[0] == 1 and sPhi[1] > 2):
-            # TODO
-            Phi = Phi[:]
             for i in range(sPhi[0]):
                 Phi[i][1] = Phi[i][0].conj().T
         else:

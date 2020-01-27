@@ -40,15 +40,28 @@ def permute_systems(X, perm, dim=None, row_only: bool=False, inv_perm: bool=Fals
     prod_dimC = np.prod(dim[1, :])
 
     if len(perm) != num_sys:
-        raise ValueError("InvalidPerm: length(PERM) must equal length(DIM).")
+        msg = """
+            InvalidPerm: length(PERM) must be equal to length(DIM).
+        """
+        raise ValueError(msg)
     elif sorted(perm) != list(range(1, num_sys+1)):
-        raise ValueError("InvalidPerm: PERM must be a permutation vector")
+        msg = """
+            InvalidPerm: PERM must be a permutation vector.
+        """
+        raise ValueError(msg)
     elif dX[0] != prod_dimR or (not row_only and dX[1] != prod_dimC):
-        raise ValueError("InvalidDim: The dimensions specified in DIM do not")
+        msg = """
+            InvalidDim: The dimensions specified in DIM do not agree with
+            the size of X.
+        """
+        raise ValueError(msg)
 
     if is_vec:
         if inv_perm:
-            PX = None
+            PX_1 = X.reshape(dim[vec_orien, ::-1].astype(int), order="F")
+            PX = vec(np.transpose(PX_1, num_sys - np.array(perm[::-1]))).T
+            # We need to flatten out the array.
+            PX = functools.reduce(operator.iconcat, PX, [])
         else:
             PX_1 = X.reshape(dim[vec_orien, ::-1].astype(int), order="F")
             PX = vec(np.transpose(PX_1, num_sys - np.array(perm[::-1]))).T

@@ -1,6 +1,7 @@
 import numpy as np
 from numpy import linalg as LA
 import cvxpy as cvx
+import itertools
 from toqito.helper.constants import e0, e1, e00, e11
 from toqito.matrix.operations.tensor import tensor_list
 from collections import defaultdict
@@ -27,22 +28,29 @@ from toqito.super_operators.choi_map import choi_map
 from toqito.super_operators.reduction_map import reduction_map
 from toqito.super_operators.partial_trace import partial_trace
 from toqito.super_operators.apply_map import apply_map
+from toqito.super_operators.partial_transpose import partial_transpose
 
-X = np.array([[1, 2],
-              [3, 4]])
+X = np.array([[1, 2, 3, 4],
+              [5, 6, 7, 8],
+              [9, 10, 11, 12],
+              [13, 14, 15, 16]])
 
-K1 = np.array([[1, 5], [1, 0], [0, 2]])
-K2 = np.array([[0, 1], [2, 3], [4, 5]])
-K3 = np.array([[-1, 0], [0, 0], [0, -1]])
-K4 = np.array([[0, 0], [1, 1], [0, 0]])
+Y = np.array([[1, 5, 3, 7],
+              [2, 6, 4, 8],
+              [9, 13, 11, 15],
+              [10, 14, 12, 16]])
 
-#print(apply_map(X, swap_operator(3)))
-print(apply_map(X, [[K1, K2], [K3, K4]]))
+Y2 = np.array([[1, 2, 9, 10],
+               [5, 6, 13, 14],
+               [3, 4, 11, 12],
+               [7, 8, 15, 16]])
+
+Z = partial_transpose(X,2)
+print(Z)
+#bool_mat = np.isclose(Y, Z)
+#print(all(x == 1 for x in itertools.chain(*bool_mat)))
+
+#print(Y == Z)
 
 
-#X = np.array([[1, 2, 3, 4],
-#              [5, 6, 7, 8],
-#              [9, 10, 11, 12],
-#              [13, 14, 15, 16]])
-
-#print(partial_trace(X))
+#print(partial_transpose(X))
