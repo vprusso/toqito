@@ -30,6 +30,7 @@ from toqito.super_operators.partial_trace import partial_trace
 from toqito.super_operators.apply_map import apply_map
 from toqito.super_operators.partial_transpose import partial_transpose
 from toqito.super_operators.dephasing_channel import dephasing_channel
+from toqito.super_operators.depolarizing_channel import depolarizing_channel
 
 rho = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
 rho = np.array([[1, 2, 3, 4],
@@ -37,6 +38,8 @@ rho = np.array([[1, 2, 3, 4],
                            [9, 10, 11, 12],
                            [13, 14, 15, 16]])
 
-print(apply_map(rho, dephasing_channel(4)))
+rho = np.array([[1/2, 0, 0, 1/2], [0, 0, 0, 0], [0, 0, 0, 0], [1/2, 0, 0, 1/2]])
+
+print(apply_map(rho, depolarizing_channel(4)))
 
 

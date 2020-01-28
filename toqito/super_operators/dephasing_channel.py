@@ -16,7 +16,7 @@ def dephasing_channel(dim: int, p: int = 0) -> np.ndarray:
     :param dim: The dimensionality on which the channel acts.
     :param p: Default 0.
     """
-    # Compute the Choi matrix of the depolarizng channel.
+    # Compute the Choi matrix of the dephasing channel.
 
     # Gives a sparse non-normalized state.
     psi = max_entangled(dim, True, False).toarray()

@@ -5,7 +5,7 @@ from toqito.helper.iden import iden
 
 def max_entangled(dim: int,
                   is_sparse: bool = False,
-                  is_normalized: bool = True) -> np.ndarray:
+                  is_normalized: bool = True):
     """
     Produces a maximally entangled bipartite pure state
     :param dim: Dimension of the entangled state.
