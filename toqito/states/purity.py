@@ -1,3 +1,4 @@
+"""Computes the purity of a quantum state."""
 import numpy as np
 
 

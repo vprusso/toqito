@@ -1,3 +1,5 @@
+"""Converts a state vector or density matrix representation of a state to a
+density matrix."""
 import numpy as np
 
 
@@ -14,19 +16,16 @@ def pure_to_mixed(phi: np.ndarray) -> np.ndarray:
 
     # Compute the size of PHI. If it's already a mixed state, leave it alone.
     # If it's a vector (pure state), make it into a density matrix.
-    m, n = phi.shape[0], phi.shape[1]
+    row_dim, col_dim = phi.shape[0], phi.shape[1]
 
     # It's a pure state vector.
-    if min(m, n) == 1:
+    if min(row_dim, col_dim) == 1:
         return phi * phi.conj().T
     # It's a density matrix.
-    elif m == n:
+    if row_dim == col_dim:
         return phi
     # It's neither.
-    else:
-        msg = """
-            InvalidDim: PHI must be either a vector or square matrix.
-        """
-        raise ValueError(msg)
-
-
+    msg = """
+        InvalidDim: PHI must be either a vector or square matrix.
+    """
+    raise ValueError(msg)

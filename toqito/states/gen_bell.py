@@ -1,3 +1,4 @@
+"""Produces a generalized Bell state."""
 import numpy as np
 from toqito.matrix.matrices.gen_pauli import gen_pauli
 from toqito.matrix.operations.vec import vec
@@ -19,8 +20,9 @@ def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
     bell(3) -> gen_bell(1, 1, 2)
 
     References:
-    [1] Sych, Denis, and Gerd Leuchs. "A complete basis of generalized Bell states." 
+    [1] Sych, Denis, and Gerd Leuchs.
+        "A complete basis of generalized Bell states."
         New Journal of Physics 11.1 (2009): 013006.
     """
-    W = gen_pauli(k_1, k_2, dim)
-    return 1/dim * vec(W) * vec(W).conj().T
+    gen_pauli_w = gen_pauli(k_1, k_2, dim)
+    return 1/dim * vec(gen_pauli_w) * vec(gen_pauli_w).conj().T

@@ -6,7 +6,6 @@ import numpy as np
 def clock_matrix(dim: int) -> np.ndarray:
     """
     Produces a clock matrix.
-    :param dim: Dimension of the matrix.
 
     Returns the clock matrix of dimension DIM described in [1].
 
@@ -23,6 +22,9 @@ def clock_matrix(dim: int) -> np.ndarray:
     References:
     [1] Wikipedia: Generalizations of Pauli matrices
         (https://en.wikipedia.org/wiki/Generalizations_of_Pauli_matrices).
+
+    :param dim: Dimension of the matrix.
+    :return: DIM-by-DIM clock matrix.
     """
     c_var = 2j * pi / dim
     omega = (exp(k * c_var) for k in range(dim))

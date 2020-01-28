@@ -1,5 +1,6 @@
-import numpy as np
+"""Generates a (generalized) W-state."""
 from typing import List
+import numpy as np
 from scipy.sparse import csr_matrix
 
 
@@ -17,7 +18,7 @@ def w_state(num_qubits: int, coeff: List[int] = None) -> np.ndarray:
 
     References:
     [1] Three qubits can be entangled in two inequivalent ways.
-        W. Dur, G. Vidal, and J. I. Cirac. 
+        W. Dur, G. Vidal, and J. I. Cirac.
         E-print: arXiv:quant-ph/0005115, 2000.
 
     """
@@ -26,12 +27,12 @@ def w_state(num_qubits: int, coeff: List[int] = None) -> np.ndarray:
 
     if num_qubits < 2:
         raise ValueError("ValueError: NUM_QUBITS must be at least 2.")
-    elif len(coeff) != num_qubits:
+    if len(coeff) != num_qubits:
         raise ValueError("ValueError: COEFF must be a vector of length equal to NUM_QUBITS.")
 
-    w_state = csr_matrix((2**num_qubits, 1)).toarray()
+    ret_w_state = csr_matrix((2**num_qubits, 1)).toarray()
 
     for i in range(num_qubits):
-        w_state[2**(i)] = coeff[num_qubits-i-1]
+        ret_w_state[2**i] = coeff[num_qubits-i-1]
 
-    return np.around(w_state, 4)
+    return np.around(ret_w_state, 4)

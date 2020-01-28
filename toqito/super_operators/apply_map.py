@@ -1,6 +1,4 @@
 import numpy as np
-from typing import List
-from scipy.sparse import identity
 from toqito.matrix.operations.vec import vec
 from toqito.perms.swap import swap
 
@@ -58,6 +56,6 @@ def apply_map(X: np.ndarray, Phi) -> np.ndarray:
                             [1, 2],
                             [sX[1], sNX[1], [sX[0], sNX[0]]],
                             True).T,
-                    (int(sNX[0]*np.prod(sX)), int(sNX[1])))
+                       (int(sNX[0]*np.prod(sX)), int(sNX[1])))
         return np.matmul(A, B)
 

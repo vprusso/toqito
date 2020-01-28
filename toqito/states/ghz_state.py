@@ -1,6 +1,9 @@
+"""Generates a (generalized) GHZ state."""
+from typing import List
+
 import numpy as np
 import scipy as sp
-from typing import List
+
 from scipy.sparse import lil_matrix
 
 
@@ -20,8 +23,8 @@ def ghz_state(dim: int,
     3-qubit GHZ state on qubits. The output of this function is sparse.
 
     For a system of NUM_QUBITS qubits (i.e., DIM = 2), the GHZ state can be
-    written as 
-    |GHZ> = (|0>^{\otimes NUM_QUBITS} + |1>^{\otimes NUM_QUBITS})/sqrt(2)
+    written as
+    |GHZ> = (|0>^{otimes NUM_QUBITS} + |1>^{otimes NUM_QUBITS})/sqrt(2)
 
     Reference:
     [1] Going beyond Bell's theorem.
@@ -34,9 +37,9 @@ def ghz_state(dim: int,
     # Error checking:
     if dim < 2:
         raise ValueError("InvalidDim: DIM must be at least 2.")
-    elif num_qubits < 2:
+    if num_qubits < 2:
         raise ValueError("InvalidNumQubits: NUM_QUBITS must be at least 2.")
-    elif len(coeff) != dim:
+    if len(coeff) != dim:
         raise ValueError("InvalidCoeff: COEFF must be a vector of length equal to DIM.")
 
     # Construct the state (and do it in a way that is less memory-intensive

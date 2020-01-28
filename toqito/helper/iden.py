@@ -1,13 +1,10 @@
 """Computes a sparse or full identity matrix."""
-from typing import Union
-
 import numpy as np
-import scipy as sp
 
 from scipy import sparse
 
 
-def iden(dim: int, is_sparse: bool) -> Union[sp.sparse, np.ndarray]:
+def iden(dim: int, is_sparse: bool):
     """
     Returns the DIM-by-DIM identity matrix. If IS_SPARSE = False
     then ID will be full. If IS_SPARSE = True then the matrix  will be sparse.

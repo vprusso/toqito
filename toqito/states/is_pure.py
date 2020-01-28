@@ -1,3 +1,4 @@
+"""Determines if state is pure."""
 from numpy import linalg as LA
 import numpy as np
 

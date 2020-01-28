@@ -1,3 +1,4 @@
+"""Generates a 2-qubit Gisin state."""
 import numpy as np
 
 
