@@ -19,19 +19,21 @@ def pi_perm(n: int) -> np.ndarray:
     if n == 1:
         return np.identity(n)
 
-    # Simultates a sorting network of depth n - 1. For n = 2, we swithc the
+    # Simultates a sorting network of depth n - 1. For n = 2, we switch the
     # order from:
     #    (x_1, y_1), (x_2, y_2) -> (x_1, x_2), (y_1, y_2).
     if n > 1:
         perm_cell = []
-        # The element at depth i of the sorting network makes sure that the 
+        # The element at depth i of the sorting network makes sure that the
         # first and last i + 1 qubits are in the right place, and doesn't
         # modify the qubits already sorted by previous steps.
         for i in range(n-1):
             s_tensor = tensor_n(swap_matrix, n-(i+1))
-            t_list = tensor_list([np.identity(2**(i+1)), s_tensor, np.identity(2**(i+1))])
+            t_list = tensor_list([np.identity(2**(i+1)),
+                                  s_tensor,
+                                  np.identity(2**(i+1))])
             perm_cell.append(t_list)
-        
+
         # We concatenate the steps of the sorting network.
         perm_mat = perm_cell[0]
         for i in range(1, n-1):

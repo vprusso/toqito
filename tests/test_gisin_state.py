@@ -1,5 +1,4 @@
 """Tests for gisin_state function."""
-import itertools
 import unittest
 import numpy as np
 
@@ -19,7 +18,7 @@ class TestGisinState(unittest.TestCase):
         res = gisin_state(0.5, 1)
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
     def test_invalid_gisin(self):
         """Invalid Gisin state parameters."""
