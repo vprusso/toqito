@@ -1,5 +1,5 @@
 import numpy as np
-from toqito.helper.unique_perms import unique_perms
+from toqito.perms.unique_perms import unique_perms
 
 
 def calculate_q(Q0, Q1, n, k):

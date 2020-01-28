@@ -1,5 +1,5 @@
 import numpy as np
-from toqito.helper.permute_systems import permute_systems
+from toqito.perms.permute_systems import permute_systems
 from typing import List
 
 

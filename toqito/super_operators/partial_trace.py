@@ -1,17 +1,21 @@
 import numpy as np
 from scipy.sparse import issparse, csr_matrix
 from skimage.util.shape import view_as_blocks
-from toqito.helper.permute_systems import permute_systems
+from toqito.perms.permute_systems import permute_systems
+from typing import Any
 
 
 def partial_trace(X: np.ndarray,
-                  sys: int = 2,
+                  sys: Any = None,
                   dim: int = None,
                   mode: int = None):
     """
     Computes the partial trace of a matrix.
 
     :param X: A square matrix.
+    :param sys:
+    :param dim:
+    :param mode:
 
     Gives the partial trace of the matrix X, where the dimensions of the
     (possibly more than 2) subsystems are given by the vector DIM and the
@@ -35,6 +39,9 @@ def partial_trace(X: np.ndarray,
         dim = np.array([np.round(np.sqrt(lX))])
     if mode is None:
         mode = -1
+
+    if sys is None:
+        sys = 2
     
     num_sys = len(dim)
 

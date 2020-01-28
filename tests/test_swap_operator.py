@@ -1,8 +1,9 @@
-from toqito.helper.swap_operator import swap_operator
-
+"""Tests for swap_operator function."""
 import itertools
 import unittest
 import numpy as np
+
+from toqito.perms.swap_operator import swap_operator
 
 
 class TestSwapOperator(unittest.TestCase):

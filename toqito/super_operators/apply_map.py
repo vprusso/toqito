@@ -2,7 +2,7 @@ import numpy as np
 from typing import List
 from scipy.sparse import identity
 from toqito.matrix.operations.vec import vec
-from toqito.helper.swap import swap
+from toqito.perms.swap import swap
 
 
 def apply_map(X: np.ndarray, Phi) -> np.ndarray:

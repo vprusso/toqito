@@ -1,7 +1,8 @@
-from toqito.super_operators.partial_transpose import partial_transpose
-
+"""Tests for partial_transpose function."""
 import unittest
 import numpy as np
+
+from toqito.super_operators.partial_transpose import partial_transpose
 
 
 class TestPartialTranspose(unittest.TestCase):

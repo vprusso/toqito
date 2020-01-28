@@ -1,8 +1,9 @@
-from toqito.super_operators.choi_map import choi_map
-
+"""Tests for choi_map function."""
 import itertools
 import unittest
 import numpy as np
+
+from toqito.super_operators.choi_map import choi_map
 
 
 class TestChoiMap(unittest.TestCase):
@@ -19,7 +20,7 @@ class TestChoiMap(unittest.TestCase):
                                  [0, 0, 0, 0, 0, 0, 0, 0, 0],
                                  [0, 0, 0, 0, 0, 0, 0, 1, 0],
                                  [-1, 0, 0, 0, -1, 0, 0, 0, 1]])
-        
+
         res = choi_map()
 
         bool_mat = np.isclose(res, expected_res)
@@ -40,7 +41,7 @@ class TestChoiMap(unittest.TestCase):
                                  [0, 0, 0, 0, 0, 0, 1, 0, 0],
                                  [0, 0, 0, 0, 0, 0, 0, 1, 0],
                                  [-1, 0, 0, 0, -1, 0, 0, 0, 0]])
-        
+
         res = choi_map(0, 1, 1)
 
         bool_mat = np.isclose(res, expected_res)

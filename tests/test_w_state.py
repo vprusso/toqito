@@ -1,10 +1,11 @@
-from toqito.helper.constants import e0, e1
-from toqito.matrix.operations.tensor import tensor_list
-from toqito.states.w_state import w_state
-
+"""Tests for w_state function."""
 import itertools
 import unittest
 import numpy as np
+
+from toqito.helper.constants import e0, e1
+from toqito.matrix.operations.tensor import tensor_list
+from toqito.states.w_state import w_state
 
 
 class TestWState(unittest.TestCase):
@@ -15,7 +16,7 @@ class TestWState(unittest.TestCase):
         expected_res = 1/np.sqrt(3) * (tensor_list([e1, e0, e0]) +
                                        tensor_list([e0, e1, e0]) +
                                        tensor_list([e0, e0, e1]))
-        
+
         res = w_state(3)
 
         bool_mat = np.isclose(res, expected_res, atol=0.2)
@@ -27,7 +28,7 @@ class TestWState(unittest.TestCase):
                                         2 * tensor_list([e0, e1, e0, e0]) +
                                         3 * tensor_list([e0, e0, e1, e0]) +
                                         4 * tensor_list([e0, e0, e0, e1]))
-        
+
         res = w_state(4, [1, 2, 3, 4]/np.sqrt(30))
 
         bool_mat = np.isclose(res, expected_res, atol=0.2)

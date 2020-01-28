@@ -1,7 +1,8 @@
-from toqito.super_operators.partial_trace import partial_trace
-
+"""Tests for partial_trace function."""
 import unittest
 import numpy as np
+
+from toqito.super_operators.partial_trace import partial_trace
 
 
 class TestPartialTrace(unittest.TestCase):

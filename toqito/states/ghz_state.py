@@ -1,11 +1,12 @@
 import numpy as np
+import scipy as sp
 from typing import List
 from scipy.sparse import lil_matrix
 
 
 def ghz_state(dim: int,
               num_qubits: int,
-              coeff: List[int] = None) -> np.ndarray:
+              coeff: List[int] = None) -> sp.sparse:
     """
     Generates a (generalized) GHZ state.
     :param dim: The local dimension.
@@ -28,7 +29,7 @@ def ghz_state(dim: int,
         E-print: [quant-ph] arXiv:0712.0921. 2007.
     """
     if coeff is None:
-        coeff = np.ones((dim))/np.sqrt(dim)
+        coeff = np.ones(dim)/np.sqrt(dim)
 
     # Error checking:
     if dim < 2:
@@ -44,7 +45,7 @@ def ghz_state(dim: int,
     for i in range(1, num_qubits):
         dim_sum += dim**i
 
-    ghz_state = lil_matrix((dim**num_qubits, 1))
+    ret_ghz_state = lil_matrix((dim**num_qubits, 1))
     for i in range(1, dim+1):
-        ghz_state[(i-1)*dim_sum] = coeff[i-1]
-    return ghz_state
+        ret_ghz_state[(i-1)*dim_sum] = coeff[i-1]
+    return ret_ghz_state

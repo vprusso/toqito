@@ -5,7 +5,7 @@ import functools
 from toqito.matrix.operations.vec import vec
 
 
-def permute_systems(X, perm, dim=None, row_only: bool=False, inv_perm: bool=False):
+def permute_systems(X: np.ndarray, perm, dim=None, row_only: bool = False, inv_perm: bool = False) -> np.ndarray:
     if len(X.shape) == 1:
         dX = (1, X.shape[0])
     else:
@@ -67,7 +67,7 @@ def permute_systems(X, perm, dim=None, row_only: bool=False, inv_perm: bool=Fals
             PX = vec(np.transpose(PX_1, num_sys - np.array(perm[::-1]))).T
             # We need to flatten out the array.
             PX = functools.reduce(operator.iconcat, PX, [])
-        return PX
+        return np.array(PX)
     
     vec_arg = np.array(list(range(0, dX[0])))
 

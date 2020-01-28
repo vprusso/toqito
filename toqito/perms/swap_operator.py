@@ -1,6 +1,6 @@
 import numpy as np
 from toqito.helper.iden import iden
-from toqito.helper.swap import swap
+from toqito.perms.swap import swap
 from typing import List
 
 

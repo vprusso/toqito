@@ -1,6 +1,6 @@
 import numpy as np
 from typing import List
-from toqito.helper.permute_systems import permute_systems
+from toqito.perms.permute_systems import permute_systems
 
 
 def partial_transpose(X: np.ndarray,

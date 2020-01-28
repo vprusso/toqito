@@ -11,6 +11,7 @@ omit =
         *__init__*
         tests/*
         main.py
+        scratch.py
         setup.py
 
 

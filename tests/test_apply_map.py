@@ -1,9 +1,10 @@
-from toqito.super_operators.apply_map import apply_map
-from toqito.helper.swap_operator import swap_operator
-
+"""Tests for apply_map function."""
 import itertools
 import unittest
 import numpy as np
+
+from toqito.super_operators.apply_map import apply_map
+from toqito.perms.swap_operator import swap_operator
 
 
 class TestApplyMap(unittest.TestCase):
@@ -38,16 +39,17 @@ class TestApplyMap(unittest.TestCase):
         test_input_mat = np.array([[1, 2],
                                    [3, 4]])
 
-        K1 = np.array([[1, 5], [1, 0], [0, 2]])
-        K2 = np.array([[0, 1], [2, 3], [4, 5]])
-        K3 = np.array([[-1, 0], [0, 0], [0, -1]])
-        K4 = np.array([[0, 0], [1, 1], [0, 0]])
+        kraus_1 = np.array([[1, 5], [1, 0], [0, 2]])
+        kraus_2 = np.array([[0, 1], [2, 3], [4, 5]])
+        kraus_3 = np.array([[-1, 0], [0, 0], [0, -1]])
+        kraus_4 = np.array([[0, 0], [1, 1], [0, 0]])
 
         expected_res = np.array([[22, 95, 174],
                                  [2, 8, 14],
                                  [8, 29, 64]])
 
-        res = apply_map(test_input_mat, [[K1, K2], [K3, K4]])
+        res = apply_map(test_input_mat, [[kraus_1, kraus_2],
+                                         [kraus_3, kraus_4]])
 
         bool_mat = np.isclose(res, expected_res)
         self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)

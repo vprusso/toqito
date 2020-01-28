@@ -1,6 +1,7 @@
-from toqito.super_operators.reduction_map import reduction_map
-
+"""Tests for reduction_map function."""
 import unittest
+
+from toqito.super_operators.reduction_map import reduction_map
 
 
 class TestReductionMap(unittest.TestCase):

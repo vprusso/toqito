@@ -1,5 +1,7 @@
-from toqito.matrix.operations.tensor import tensor
 import numpy as np
+
+from toqito.matrix.operations.tensor import tensor
+
 
 e0 = np.array([[1], [0]])
 e1 = np.array([[0], [1]])

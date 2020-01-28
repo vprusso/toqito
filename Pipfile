@@ -7,14 +7,21 @@ verify_ssl = true
 
 [packages]
 coverage = "*"
-nose = "*"
-numpy = "*"
-sympy = "*"
-picos = "*"
+coveralls = "*"
 cvx = "*"
 cvxpy = {editable = true,git = "https://github.com/cvxgrp/cvxpy"}
-skimage = "*"
+flake8 = "*"
+flake8-docstrings = "*"
+nose = "*"
+mypy = "*"
+numpy = "*"
+picos = "*"
+pylint = "*"
+scipy = "*"
 scikit-image = "*"
+skimage = "*"
+sympy = "*"
+
 
 [requires]
 python_version = "3.7"
