@@ -13,6 +13,8 @@ sympy = "*"
 picos = "*"
 cvx = "*"
 cvxpy = {editable = true,git = "https://github.com/cvxgrp/cvxpy"}
+skimage = "*"
+scikit-image = "*"
 
 [requires]
 python_version = "3.7"

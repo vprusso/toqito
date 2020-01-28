@@ -30,27 +30,10 @@ from toqito.super_operators.partial_trace import partial_trace
 from toqito.super_operators.apply_map import apply_map
 from toqito.super_operators.partial_transpose import partial_transpose
 
-X = np.array([[1, 2, 3, 4],
-              [5, 6, 7, 8],
-              [9, 10, 11, 12],
-              [13, 14, 15, 16]])
+X = np.array([[1, 2, 3, 4],[5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
+Y = np.array([[12, 14], [20, 22]])
 
-Y = np.array([[1, 5, 3, 7],
-              [2, 6, 4, 8],
-              [9, 13, 11, 15],
-              [10, 14, 12, 16]])
+print(partial_trace(X,[1,2]))
 
-Y2 = np.array([[1, 2, 9, 10],
-               [5, 6, 13, 14],
-               [3, 4, 11, 12],
-               [7, 8, 15, 16]])
-
-Z = partial_transpose(X,2)
-print(Z)
-#bool_mat = np.isclose(Y, Z)
 #print(all(x == 1 for x in itertools.chain(*bool_mat)))
 
-#print(Y == Z)
-
-
-#print(partial_transpose(X))

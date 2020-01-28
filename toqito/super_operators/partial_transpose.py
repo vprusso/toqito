@@ -13,14 +13,14 @@ def partial_transpose(X: np.ndarray,
     :returns: The partial transpose of matrix X.
 
     By default, the returned matrix is the partial transpose of the matrix X,
-    where it is assumed that the number of rows and columns of X are both 
+    where it is assumed that the number of rows and columns of X are both
     perfect squares and both subsystems have equal dimension. The transpose is
     applied to the second subsystem.
 
-    In the case where SYS amd DIM are specified, this function gives the partial
-    transpose of the matrix X where the dimensions of the (possibly more than 2)
-    subsystems are given by the vector DIM and the subsystems to take the
-    partial transpose are given by the scalaer or vector SYS. If X is
+    In the case where SYS amd DIM are specified, this function gives the
+    partial transpose of the matrix X where the dimensions of the (possibly
+    more than 2) subsystems are given by the vector DIM and the subsystems to
+    take the partial transpose are given by the scalaer or vector SYS. If X is
     non-square, different row and column dimensions can be specified by putting
     the row dimensions in the first row of DIM and the column dimensions in the
     second row of DIM.

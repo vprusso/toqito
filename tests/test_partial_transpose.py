@@ -1,6 +1,5 @@
 from toqito.super_operators.partial_transpose import partial_transpose
 
-import itertools
 import unittest
 import numpy as np
 
@@ -26,7 +25,7 @@ class TestPartialTranspose(unittest.TestCase):
         res = partial_transpose(test_input_mat)
 
         bool_mat = np.isclose(expected_res, res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
     def test_partial_transpose_sys(self):
         """
@@ -46,7 +45,7 @@ class TestPartialTranspose(unittest.TestCase):
         res = partial_transpose(test_input_mat, 1)
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
 
 if __name__ == '__main__':

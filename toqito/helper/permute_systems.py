@@ -71,12 +71,17 @@ def permute_systems(X, perm, dim=None, row_only: bool=False, inv_perm: bool=Fals
     
     vec_arg = np.array(list(range(0, dX[0])))
 
-    row_perm = permute_systems(vec_arg, perm, dim[0, :], False, inv_perm)
+    # If the dimensions are specified, ensure they are given to the 
+    # recursive calls as flattened lists.
+    if len(dim[0][:]) == 1:
+        dim = functools.reduce(operator.iconcat, dim, [])
+
+    row_perm = permute_systems(vec_arg, perm, dim[0][:], False, inv_perm)
     PX = X[row_perm, :]
 
     if not row_only:
         vec_arg = np.array(list(range(0, dX[1])))
-        col_perm = permute_systems(vec_arg, perm, dim[1, :], False, inv_perm)
+        col_perm = permute_systems(vec_arg, perm, dim[1][:], False, inv_perm)
         PX = PX[:, col_perm]
 
     return PX
