@@ -13,7 +13,7 @@ def isotropic_state(dim: int, alpha: float) -> np.ndarray:
 
     Returns the isotropic state with parameter ALPHA acting on
     (DIM*DIM)-dimensional space. More specifically, the state is the density
-    operator defined by (1-ALPAH)*I/DIM^2 + ALPHAE, where I is the identity
+    operator defined by (1-ALPHA)*I/DIM^2 + ALPHA, where I is the identity
     operator and E is the projection onto the standard maximally-entangled
     pure state on two copies of DIM-dimensional space.
 

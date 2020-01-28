@@ -29,11 +29,14 @@ from toqito.super_operators.reduction_map import reduction_map
 from toqito.super_operators.partial_trace import partial_trace
 from toqito.super_operators.apply_map import apply_map
 from toqito.super_operators.partial_transpose import partial_transpose
+from toqito.super_operators.dephasing_channel import dephasing_channel
 
-X = np.array([[1, 2, 3, 4],[5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
-Y = np.array([[12, 14], [20, 22]])
+rho = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+rho = np.array([[1, 2, 3, 4],
+                           [5, 6, 7, 8],
+                           [9, 10, 11, 12],
+                           [13, 14, 15, 16]])
 
-print(partial_trace(X,[1,2]))
+print(apply_map(rho, dephasing_channel(4)))
 
-#print(all(x == 1 for x in itertools.chain(*bool_mat)))
 
