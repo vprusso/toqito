@@ -1,10 +1,9 @@
 import numpy as np
 from toqito.perms.permute_systems import permute_systems
-from typing import List
 
 
-def swap(X: np.ndarray,
-         sys: List[int] = [1, 2],
+def swap(input_mat: np.ndarray,
+         sys=None,
          dim: int = None,
          row_only: bool = False) -> np.ndarray:
     """
@@ -22,19 +21,22 @@ def swap(X: np.ndarray,
     the columns -- this is equivalent to multiplying X on the left by the
     corresponding swap operator, but not on the right.
 
-    :param X: A vector or matrix to have its subsystems swapped.
+    :param input_mat: A vector or matrix to have its subsystems swapped.
     :param sys: Default: [1, 2]
     :param dim: Default: [sqrt(len(X), sqrt(len(X)))]
     :param row_only: Default: False
     :return: The swapped matrix.
     """
     eps = np.finfo(float).eps
-    if len(X.shape) == 1:
-        dX = (1, X.shape[0])
+    if len(input_mat.shape) == 1:
+        dX = (1, input_mat.shape[0])
     else:
-        dX = X.shape
+        dX = input_mat.shape
     
     round_dim = np.round(np.sqrt(dX))
+
+    if sys is None:
+        sys = [1, 2]
 
     dim = np.array([[round_dim[0], round_dim[0]],
                     [round_dim[1], round_dim[1]]])
@@ -72,5 +74,5 @@ def swap(X: np.ndarray,
     # Swap the indicated subsystems.
     perm = list(range(1, num_sys+1))
     perm = perm[::-1]
-    return permute_systems(X, perm, dim, row_only)
+    return permute_systems(input_mat, perm, dim, row_only)
 

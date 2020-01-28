@@ -1,3 +1,4 @@
+"""Determines whether or not a matrix is positive definite."""
 import numpy as np
 
 
@@ -15,4 +16,3 @@ def is_pd(mat: np.ndarray) -> bool:
             return False
     else:
         return False
-

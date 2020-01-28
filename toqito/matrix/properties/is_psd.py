@@ -1,3 +1,4 @@
+"""Determines whether or not a matrix is positive semidefinite."""
 import numpy as np
 
 
@@ -10,4 +11,3 @@ def is_psd(mat: np.ndarray, tol: float = 1e-8) -> bool:
     """
     ret_mat = np.linalg.eigvalsh(mat)
     return np.all(ret_mat > -tol)
-
