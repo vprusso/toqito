@@ -1,8 +1,9 @@
+"""Produces the Choi map or one of its generalizations."""
 import numpy as np
 from toqito.states.max_entangled import max_entangled
 
 
-def choi_map(a: int = 1, b: int = 1, c: int = 0) -> np.ndarray:
+def choi_map(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
     """
     Produces the Choi map or one of its generalizations.
 
@@ -13,14 +14,21 @@ def choi_map(a: int = 1, b: int = 1, c: int = 0) -> np.ndarray:
     Choi matrix of the positive map defined in [1]. Many of these
     maps are capable of detecting PPT entanglement.
 
-    :param a: Default integer for standard Choi map.
-    :param b: Default integer for standard Choi map.
-    :param c: Default integer for standard Choi map.
+    :param a_var: Default integer for standard Choi map.
+    :param b_var: Default integer for standard Choi map.
+    :param c_var: Default integer for standard Choi map.
 
     [1] S. J. Cho, S.-H. Kye, and S. G. Lee,
         Linear Alebr. Appl. 171, 213
         (1992).
     """
-    psi = max_entangled(3, 0, 0)
-    return np.diag([a+1, c, b, b, a+1, c, c, b, a+1]) - psi*psi.conj().T
-
+    psi = max_entangled(3, False, False)
+    return np.diag([a_var+1,
+                    c_var,
+                    b_var,
+                    b_var,
+                    a_var+1,
+                    c_var,
+                    c_var,
+                    b_var,
+                    a_var+1]) - psi*psi.conj().T

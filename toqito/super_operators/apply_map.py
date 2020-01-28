@@ -1,3 +1,4 @@
+"""Applies a superoperator to an operator."""
 import numpy as np
 from toqito.matrix.operations.vec import vec
 from toqito.perms.swap import swap

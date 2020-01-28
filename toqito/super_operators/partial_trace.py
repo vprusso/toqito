@@ -62,6 +62,8 @@ def partial_trace(X: np.ndarray,
         prod_dim_sys = np.prod(dim)
     elif isinstance(sys, int):
         prod_dim_sys = np.prod(dim[sys-1])
+    else:
+        raise ValueError("ERROR")
 
     sub_sys_vec = prod_dim * np.ones(int(prod_dim_sys))//prod_dim_sys
 
@@ -70,12 +72,16 @@ def partial_trace(X: np.ndarray,
         s2 = sys
     elif isinstance(sys, int):
         s2 = [sys]
+    else:
+        raise ValueError("ERROR")
     set_diff = list(set(s1) - set(s2))
    
     if isinstance(sys, list):
         perm = sys
     elif isinstance(sys, int):
         perm = [sys]
+    else:
+        raise ValueError("ERROR")
     perm.extend(set_diff)
 
     A = permute_systems(X, perm, dim)
