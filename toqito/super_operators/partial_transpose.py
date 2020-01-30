@@ -1,5 +1,6 @@
 import numpy as np
 from typing import List
+from skimage.util.shape import view_as_blocks
 from toqito.perms.permute_systems import permute_systems
 
 
@@ -7,7 +8,7 @@ def partial_transpose(X: np.ndarray,
                       sys: int = 2,
                       dim: List[int] = None) -> np.ndarray:
     """
-    Computes the partial transpose of a matrix.
+    Compute the partial transpose of a matrix.
 
     :param X: A matrix.
     :returns: The partial transpose of matrix X.
@@ -65,7 +66,7 @@ def partial_transpose(X: np.ndarray,
     s1 = list(range(1, num_sys+1))
     s2 = [sys]
     set_diff = list(set(s1) - set(s2))
-    
+
     perm = [sys]
     perm.extend(set_diff)
 
@@ -73,20 +74,11 @@ def partial_transpose(X: np.ndarray,
     # on the first (potentially larger) subsystem.
     Xpt = permute_systems(X, perm, dim)
 
-    A = np.reshape(
-            Xpt,
-            (int(sub_sys_vecR[0]),
-                int(sub_prodR),
-                int(sub_sys_vecC[0]),
-                int(sub_prodC)),
-            order="F")
-    
-    B = np.transpose(A, [0, 3, 2, 1])
-
-    Xpt = np.reshape(B, (int(prod_dimR), int(prod_dimC)), order="F")
+    blocks = view_as_blocks(Xpt, block_shape=(int(sub_sys_vecR[0]), int(sub_sys_vecC[0])))
+    Xpt = np.hstack([np.vstack(block) for block in blocks])
 
     # Return the subsystems back to their original positions.
-    dim[:][sys-1] = dim[[1, 0], sys-1]
+    dim[:, sys-1] = dim[[1, 0], sys-1]
     perm_np = np.array(perm)
     perm_np = list(perm_np - 1)
     dim = dim[:][perm_np]

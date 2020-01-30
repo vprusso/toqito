@@ -1,8 +1,8 @@
 import numpy as np
+from cvxpy.expressions.expression import Expression
 from numpy import linalg as LA
-import cvxpy as cvx
-import itertools
-from toqito.helper.constants import e0, e1, e00, e11
+import cvxpy
+from toqito.helper.constants import e0, e1, e00, e01, e10, e11, ep, em
 from toqito.matrix.operations.tensor import tensor_list
 from collections import defaultdict
 from toqito.states.w_state import w_state
@@ -11,8 +11,6 @@ from toqito.perms.unique_perms import unique_perms
 from toqito.matrix.operations.vec import vec
 from toqito.helper.iden import iden
 from scipy.sparse import csr_matrix, lil_matrix
-import operator
-import functools
 from scipy import sparse
 from toqito.states.ghz_state import ghz_state
 from toqito.hedging.pi_perm import pi_perm
@@ -26,7 +24,7 @@ from toqito.states.purity import purity
 from numpy.linalg import matrix_power
 from toqito.super_operators.choi_map import choi_map
 from toqito.super_operators.reduction_map import reduction_map
-from toqito.super_operators.partial_trace import partial_trace
+from toqito.super_operators.partial_trace import partial_trace, partial_trace_cvx
 from toqito.super_operators.apply_map import apply_map
 from toqito.super_operators.partial_transpose import partial_transpose
 from toqito.super_operators.dephasing_channel import dephasing_channel
@@ -34,6 +32,10 @@ from toqito.super_operators.depolarizing_channel import depolarizing_channel
 from toqito.matrix.matrices.fourier_matrix import fourier_matrix
 from toqito.super_operators.partial_map import partial_map
 from toqito.states.state_exclusion import state_exclusion
+from toqito.super_operators.ptrace import np_partial_trace, expr_as_np_array, np_array_as_expr
+from toqito.hedging.weak_coin_flipping import weak_coin_flipping
+from toqito.super_operators.realignment import realignment
+
 
 n = 2
 k = 1
@@ -44,19 +46,33 @@ v = np.cos(theta)*e00 + np.sin(theta)*e11
 P1 = v * v.conj().T
 P0 = np.identity(4) - P1
 
+X = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
+#print(realignment(X, np.array([[2], [2]])))
 
-X = np.array([[1, 2, 3], [5, 6, 7], [9, 10, 11]])
-Phi = choi_map(3)
-#print(apply_map(X, Phi))
-#print(partial_map(X, Phi))
+print("\n\n")
+X = np.reshape(list(range(1,211)),(15, 14))
+#dim = np.array([np.array([5, 3]), np.array([2, 7])])
+print(realignment(X, [[5, 3], [2, 7]]))
 
-rho0 = bell(0) * bell(0).conj().T
-rho1 = bell(1) * bell(1).conj().T
-rho2 = bell(2) * bell(2).conj().T
-states = [rho0, rho1, rho2]
-probs = [1/3, 1/3, 1/3]
+w = alpha * np.cos(theta)*e00 + np.sqrt(1-alpha**2)*np.sin(theta)*e11
+l1 = -alpha*np.sin(theta)*e00 + np.sqrt(1-alpha**2)*np.cos(theta)*e11
+l2 = alpha*np.sin(theta)*e10
+l3 = np.sqrt(1-alpha**2)*np.cos(theta)*e01
+ 
+Q1 = w * w.conj().T
+Q0 = l1 * l1.conj().T + l2 * l2.conj().T + l3 * l3.conj().T
 
-print(state_exclusion(states))
+# Q11 = np.kron(Q1, Q1)
+#X = cvxpy.Variable((4, 4), PSD=True)
+#objective = cvxpy.Maximize(cvxpy.trace(Q0 * X))
+#constraints = [partial_trace_cvx(X, sys=1, dim=[2]) == np.identity(2)]
+#problem = cvxpy.Problem(objective, constraints)
+#sol_default = problem.solve()
+
+# #print(partial_trace(Q11, sys=[1, 2]))
+# 
+#print(sol_default)
+#print(np.around(X.value, decimals=4))
 
 # sdp_vars = []
 # obj_func = []

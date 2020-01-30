@@ -9,7 +9,7 @@ verify_ssl = true
 coverage = "*"
 coveralls = "*"
 cvx = "*"
-cvxpy = {editable = true,git = "https://github.com/cvxgrp/cvxpy"}
+cvxpy = {editable = true,git = "https://github.com/cvxgrp/cvxpy.git"}
 flake8 = "*"
 flake8-docstrings = "*"
 nose = "*"
@@ -19,9 +19,6 @@ picos = "*"
 pylint = "*"
 scipy = "*"
 scikit-image = "*"
-skimage = "*"
-sympy = "*"
-
 
 [requires]
 python_version = "3.7"

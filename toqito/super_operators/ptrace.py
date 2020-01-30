@@ -1,28 +1,9 @@
 import cvxpy
 import numpy as np
 from cvxpy.expressions.expression import Expression
+from toqito.helper.cvx_helper import expr_as_np_array, np_array_as_expr
+import toqito.super_operators.partial_trace as tpt
 from typing import List
-
-
-def expr_as_np_array(cvx_expr):
-    if cvx_expr.is_scalar():
-        return np.array(cvx_expr)
-    elif len(cvx_expr.shape) == 1:
-        return np.array([v for v in cvx_expr])
-    else:
-        # then cvx_expr is a 2d array
-        rows = []
-        for i in range(cvx_expr.shape[0]):
-            row = [cvx_expr[i,j] for j in range(cvx_expr.shape[1])]
-            rows.append(row)
-        arr = np.array(rows)
-        return arr
-
-
-def np_array_as_expr(np_arr):
-    aslist = np_arr.tolist()
-    expr = cvxpy.bmat(aslist)
-    return expr
 
 
 def np_partial_trace(rho, dims, axis=0):
@@ -57,7 +38,7 @@ def partial_trace(rho, dims, axis=0):
     if not isinstance(rho, Expression):
         rho = cvxpy.Constant(shape=rho.shape, value=rho)
     rho_np = expr_as_np_array(rho)
-    traced_rho = np_partial_trace(rho_np, dims, axis)
+    traced_rho = tpt.partial_trace(rho_np)
     traced_rho = np_array_as_expr(traced_rho)
     return traced_rho
 

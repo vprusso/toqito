@@ -53,9 +53,11 @@ def apply_map(X: np.ndarray, Phi) -> np.ndarray:
         arg_2 = np.identity(int(sNX[0]))
 
         A = np.kron(arg_1, arg_2)
+        sys = [1, 2]
+        dim = [[sX[1], sNX[1]], [sX[0], sNX[0]]]
         B = np.reshape(swap(Phi.T,
-                            [1, 2],
-                            [sX[1], sNX[1], [sX[0], sNX[0]]],
+                            sys,
+                            dim,
                             True).T,
                        (int(sNX[0]*np.prod(sX)), int(sNX[1])))
         return np.matmul(A, B)

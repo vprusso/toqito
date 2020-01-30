@@ -4,10 +4,10 @@ from toqito.perms.permute_systems import permute_systems
 
 def swap(input_mat: np.ndarray,
          sys=None,
-         dim: int = None,
+         dim=None,
          row_only: bool = False) -> np.ndarray:
     """
-    Swaps two subsystems within a state or operator.
+    Swap two subsystems within a state or operator.
 
     Swaps the two subsystems of the vector or matrix X, where the dimensions
     of the (possibly more than 2) subsystems are given by DIM and the indices
@@ -38,8 +38,11 @@ def swap(input_mat: np.ndarray,
     if sys is None:
         sys = [1, 2]
 
-    dim = np.array([[round_dim[0], round_dim[0]],
-                    [round_dim[1], round_dim[1]]])
+    if isinstance(dim, list):
+        dim = np.array(dim)
+    if dim is None:
+        dim = np.array([[round_dim[0], round_dim[0]],
+                        [round_dim[1], round_dim[1]]])
 
     num_sys = len(dim)
     if num_sys == 1:

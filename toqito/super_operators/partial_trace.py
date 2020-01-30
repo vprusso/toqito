@@ -2,7 +2,19 @@ import numpy as np
 from scipy.sparse import issparse, csr_matrix
 from skimage.util.shape import view_as_blocks
 from toqito.perms.permute_systems import permute_systems
+from toqito.helper.cvx_helper import expr_as_np_array, np_array_as_expr
 from typing import Any
+import cvxpy
+from cvxpy.expressions.expression import Expression
+
+
+def partial_trace_cvx(rho, sys=None, dim=None):
+    if not isinstance(rho, Expression):
+        rho = cvxpy.Constant(shape=rho.shape, value=rho)
+    rho_np = expr_as_np_array(rho)
+    traced_rho = partial_trace(rho_np, sys, dim)
+    traced_rho = np_array_as_expr(traced_rho)
+    return traced_rho
 
 
 def partial_trace(X: np.ndarray,
@@ -86,13 +98,17 @@ def partial_trace(X: np.ndarray,
 
     A = permute_systems(X, perm, dim)
 
-    # Convert the elements of sub_sys_vec to integers and 
+    # Convert the elements of sub_sys_vec to integers and
     # convert from a numpy array to a tuple to feed it into
-    # the view_as_blocks function.
+    # the view_as_blocks function. This has a similar behavior
+    # to the "mat2cell" function in MATLAB.
     X = view_as_blocks(A, block_shape=(int(sub_sys_vec[0]), int(sub_sys_vec[1])))
 
-    Xpt = csr_matrix((int(sub_sys_vec[0]), int(sub_sys_vec[0])))
-    
+    if is_sparse:
+        Xpt = csr_matrix((int(sub_sys_vec[0]), int(sub_sys_vec[0])))
+    else:
+        Xpt = np.empty([int(sub_sys_vec[0]), int(sub_sys_vec[0])])
+
     for i in range(int(prod_dim_sys)):
         Xpt = Xpt + X[i, i]
 
