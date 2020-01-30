@@ -1,5 +1,4 @@
 """Tests for tensor function."""
-import itertools
 import numpy as np
 import unittest
 
@@ -17,7 +16,7 @@ class TestTensor(unittest.TestCase):
         res = tensor(e0, e0)
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
     def test_tensor_n_0(self):
         """Test tensor n=0 times."""
@@ -32,7 +31,7 @@ class TestTensor(unittest.TestCase):
 
         res = tensor_n(e0, 1)
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
     def test_tensor_n_2(self):
         """Test tensor n=2 times."""
@@ -40,7 +39,7 @@ class TestTensor(unittest.TestCase):
 
         res = tensor_n(e0, 2)
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
     def test_tensor_n_3(self):
         """Test tensor n=3 times."""
@@ -48,7 +47,7 @@ class TestTensor(unittest.TestCase):
 
         res = tensor_n(e0, 3)
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
     def test_tensor_list_0(self):
         """Test tensor empty list."""
@@ -64,7 +63,7 @@ class TestTensor(unittest.TestCase):
         res = tensor_list([e0])
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
     def test_tensor_list_2(self):
         """Test tensor list with two items."""
@@ -73,7 +72,7 @@ class TestTensor(unittest.TestCase):
         res = tensor_list([e0, e1])
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
     def test_tensor_list_3(self):
         """Test tensor list with three items."""
@@ -82,7 +81,7 @@ class TestTensor(unittest.TestCase):
         res = tensor_list([e0, e1, e0])
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
 
 if __name__ == '__main__':

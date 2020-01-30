@@ -1,5 +1,4 @@
 """Tests for pure_to_mixed function."""
-import itertools
 import unittest
 import numpy as np
 
@@ -21,7 +20,7 @@ class TestPureToMixed(unittest.TestCase):
         res = pure_to_mixed(phi)
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
     def test_pure_to_mixed_density_matrix(self):
         """Convert pure state to mixed state density matrix."""
@@ -34,7 +33,7 @@ class TestPureToMixed(unittest.TestCase):
         res = pure_to_mixed(phi)
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
     def test_invalid_pure_to_mixed_input(self):
         """Invalid arguments for pure_to_mixed."""

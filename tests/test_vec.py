@@ -1,5 +1,4 @@
 """Tests for vec function."""
-import itertools
 import numpy as np
 import unittest
 
@@ -18,7 +17,7 @@ class TestVec(unittest.TestCase):
         res = vec(test_input_mat)
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
 
 if __name__ == '__main__':

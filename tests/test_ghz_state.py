@@ -1,5 +1,4 @@
 """Tests for ghz_state function."""
-import itertools
 import unittest
 import numpy as np
 
@@ -22,7 +21,7 @@ class TestGHZState(unittest.TestCase):
         res = ghz_state(2, 3).toarray()
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
     def test_ghz_4_7(self):
         """
@@ -43,7 +42,7 @@ class TestGHZState(unittest.TestCase):
         res = ghz_state(4, 7, [1, 2, 3, 4]/np.sqrt(30)).toarray()
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
     def test_invalid_dim(self):
         """Tests for invalid dimensions."""

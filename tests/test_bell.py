@@ -1,5 +1,4 @@
 """Tests for bell function."""
-import itertools
 import unittest
 import numpy as np
 
@@ -20,7 +19,7 @@ class TestBell(unittest.TestCase):
         res = bell(0)
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
     def test_bell_1(self):
         """
@@ -32,7 +31,7 @@ class TestBell(unittest.TestCase):
         res = bell(1)
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
     def test_bell_2(self):
         """
@@ -44,7 +43,7 @@ class TestBell(unittest.TestCase):
         res = bell(2)
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
     def test_bell_3(self):
         """
@@ -56,7 +55,7 @@ class TestBell(unittest.TestCase):
         res = bell(3)
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
     def test_bell_invalid(self):
         """

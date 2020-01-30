@@ -1,5 +1,4 @@
 """Tests for gen_bell function."""
-import itertools
 import unittest
 import numpy as np
 
@@ -21,7 +20,7 @@ class TestGenBell(unittest.TestCase):
         res = gen_bell(k_1, k_2, dim)
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
     def test_gen_bell_0_1_2(self):
         """Generalized Bell state for k_1 = 0, k_2 = 1 and dim = 2."""
@@ -34,7 +33,7 @@ class TestGenBell(unittest.TestCase):
         res = gen_bell(k_1, k_2, dim)
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
     def test_gen_bell_1_0_2(self):
         """Generalized Bell state for k_1 = 1, k_2 = 0 and dim = 2."""
@@ -47,7 +46,7 @@ class TestGenBell(unittest.TestCase):
         res = gen_bell(k_1, k_2, dim)
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
     def test_gen_bell_1_1_2(self):
         """Generalized Bell state for k_1 = 1, k_2 = 1 and dim = 2."""
@@ -60,7 +59,7 @@ class TestGenBell(unittest.TestCase):
         res = gen_bell(k_1, k_2, dim)
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
 
 if __name__ == '__main__':

@@ -1,5 +1,4 @@
 """Tests for iden function."""
-import itertools
 import unittest
 import numpy as np
 
@@ -16,7 +15,7 @@ class TestIden(unittest.TestCase):
         res = iden(2, False)
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
     def test_iden_sparse(self):
         """Sparse 2-dimensional identity matrix."""
@@ -24,7 +23,7 @@ class TestIden(unittest.TestCase):
         res = iden(2, True).toarray()
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
 
 if __name__ == '__main__':

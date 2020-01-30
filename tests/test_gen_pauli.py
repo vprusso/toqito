@@ -1,5 +1,4 @@
 """Tests for gen_pauli function."""
-import itertools
 import unittest
 import numpy as np
 
@@ -21,7 +20,7 @@ class TestGenPauli(unittest.TestCase):
         res = gen_pauli(k_1, k_2, dim)
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
     def test_gen_pauli_0_1_2(self):
         """Generalized Pauli operator for k_1 = 0, k_2 = 1, and dim = 2."""
@@ -35,7 +34,7 @@ class TestGenPauli(unittest.TestCase):
         res = gen_pauli(k_1, k_2, dim)
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
     def test_gen_pauli_1_1_2(self):
         """Generalized Pauli operator for k_1 = 1, k_2 = 1, and dim = 2."""
@@ -49,7 +48,7 @@ class TestGenPauli(unittest.TestCase):
         res = gen_pauli(k_1, k_2, dim)
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
 
 if __name__ == '__main__':

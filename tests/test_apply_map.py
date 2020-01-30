@@ -1,5 +1,4 @@
 """Tests for apply_map function."""
-import itertools
 import unittest
 import numpy as np
 
@@ -27,7 +26,7 @@ class TestApplyMap(unittest.TestCase):
         res = apply_map(test_input_mat, swap_operator(3))
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
     def test_apply_map_kraus(self):
         """
@@ -52,7 +51,7 @@ class TestApplyMap(unittest.TestCase):
                                          [kraus_3, kraus_4]])
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
 
 if __name__ == '__main__':

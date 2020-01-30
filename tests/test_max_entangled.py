@@ -1,5 +1,4 @@
 """Tests for max_entangled function."""
-import itertools
 import unittest
 import numpy as np
 
@@ -19,7 +18,7 @@ class TestMaxEntangled(unittest.TestCase):
         res = max_entangled(2)
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
     def test_max_ent_2_0_0(self):
         """
@@ -30,7 +29,7 @@ class TestMaxEntangled(unittest.TestCase):
         res = max_entangled(2, False, False)
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
 
 if __name__ == '__main__':

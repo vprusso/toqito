@@ -1,5 +1,4 @@
 """Tests for permute_systems function."""
-import itertools
 import unittest
 import numpy as np
 
@@ -24,7 +23,7 @@ class TestPermuteSystems(unittest.TestCase):
         res = permute_systems(test_input_mat, [2, 1])
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
     def test_2(self):
         """Test permute systems for dim = [2,3,1]."""
@@ -49,7 +48,7 @@ class TestPermuteSystems(unittest.TestCase):
         res = permute_systems(test_input_mat, [2, 3, 1])
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
 
 if __name__ == '__main__':

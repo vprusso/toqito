@@ -1,5 +1,4 @@
 """Tests for w_state function."""
-import itertools
 import unittest
 import numpy as np
 
@@ -20,7 +19,7 @@ class TestWState(unittest.TestCase):
         res = w_state(3)
 
         bool_mat = np.isclose(res, expected_res, atol=0.2)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
     def test_generalized_w_state(self):
         """Generalized 4-qubit W-state."""
@@ -32,7 +31,7 @@ class TestWState(unittest.TestCase):
         res = w_state(4, [1, 2, 3, 4]/np.sqrt(30))
 
         bool_mat = np.isclose(res, expected_res, atol=0.2)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
     def test_invalid_num_qubits(self):
         """Number of qubits needs to be greater than 2."""

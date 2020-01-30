@@ -1,5 +1,4 @@
 """Tests for swap function."""
-import itertools
 import unittest
 import numpy as np
 
@@ -24,7 +23,7 @@ class TestSwap(unittest.TestCase):
         res = swap(test_mat)
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
     def test_swap_vector(self):
         """Tests swap operation on vector."""
@@ -35,7 +34,7 @@ class TestSwap(unittest.TestCase):
         res = swap(test_vec)
 
         bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(all(x == 1 for x in itertools.chain(*bool_mat)), True)
+        self.assertEqual(np.all(bool_mat), True)
 
 
 if __name__ == '__main__':
