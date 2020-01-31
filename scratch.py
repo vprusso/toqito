@@ -36,7 +36,7 @@ from toqito.hedging.weak_coin_flipping import weak_coin_flipping
 from toqito.super_operators.realignment import realignment
 from toqito.states.chessboard_state import chessboard_state
 from toqito.states.horodecki_state import horodecki_state
-
+from toqito.matrix.matrices.gell_man import gell_man
 
 n = 2
 k = 1
