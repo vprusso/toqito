@@ -1,0 +1,44 @@
+The toqito software package is a suite of Python tools that can be used when
+studying various concepts in quantum information. The inspiration for this
+package is heavily influenced by the QETLAB package in MATLAB. Many of the
+functions found in toqito are direct Python ports of those functions. While the
+QETLAB package is a fantastic piece of software, it requires a MATLAB license
+for use, and therefore excludes those who are not able to afford this license.
+
+While there is a large set of software tools for concepts involving topics like
+circuit synthesis or simulation, there is far less software for studying topics
+that arise more in the theory of quantum information. The toqito package
+includes many of the fundamental operations that one desires to apply to a
+quantum state (partial trace, partial transpose, etc.) and also has support for
+applying various superoperators and channels. Certain problems that involve the
+use of convex optimization to solve such as state distinguishability make use
+of the cvxpy package.
+
+Support for common operations and tools to study nonlocal games are also
+intended to be provided. This would involve calculating the classical, quantum,
+and non-signaling values of specific games using approximation tools such as
+the NPA hierarchy which can be used to bound the value of Bell inequalities and
+by proxy the values of nonlocal games. Various tools in operator theory and
+matrix analysis that often arise in the study of quantum information will also
+be provided. These include the addition of various well-known maps (Choi map,
+realignment map, etc.) as well as various classes of matrices and quantum
+states that often arise in the study of quantum information. The toqito package
+will also include functions for studying other concepts in quantum information,
+including entanglement, unextendible product bases, and other such topics. 
+
+Many software packages that exist in the quantum information space often have
+language that is very specific to physics. For instance, the Python package
+qutip refers to the standard basis as Fock states. Naming conventions such as
+these can be confusing and misleading for individuals without a proper physics
+background. The intent of this software package is geared towards individuals
+with either a math background or a computer science background and towards
+those individuals who wish to study certain features in quantum information.
+
+During my time as a PhD student, I would often read various papers that would
+either not release software or release software that was written by an
+researcher who is not a specialist in writing software. As a result, the
+quality and generalizability of the code (if any) provided was not ideal. The
+toqito package will be a professionally written software package in Python with
+high-testing coverage, proper commenting and style (enforced by a linter),
+along with an automated CI/CD system to automate the build process and
+deliverable content to individuals who wish to use the software.

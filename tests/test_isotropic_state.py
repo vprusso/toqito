@@ -1,6 +1,6 @@
 """Tests for isotropic_state function."""
-import numpy as np
 import unittest
+import numpy as np
 
 from toqito.states.isotropic_state import isotropic_state
 

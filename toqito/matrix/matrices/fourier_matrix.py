@@ -15,5 +15,3 @@ def fourier_matrix(dim: int) -> np.ndarray:
     entry_1 = np.arange(0, dim)[:, None]
     entry_2 = np.arange(0, dim)
     return np.power(root_unity, entry_1 * entry_2) / np.sqrt(dim)
-
-

@@ -20,7 +20,7 @@ class TestDephasingChannel(unittest.TestCase):
                                  [0, 6, 0, 0],
                                  [0, 0, 11, 0],
                                  [0, 0, 0, 16]])
-    
+
         res = apply_map(test_input_mat, dephasing_channel(4))
 
         bool_mat = np.isclose(expected_res, res)

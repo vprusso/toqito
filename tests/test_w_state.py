@@ -28,7 +28,8 @@ class TestWState(unittest.TestCase):
                                         3 * tensor_list([e0, e0, e1, e0]) +
                                         4 * tensor_list([e0, e0, e0, e1]))
 
-        res = w_state(4, [1, 2, 3, 4]/np.sqrt(30))
+        coeffs = np.array([1, 2, 3, 4])/np.sqrt(30)
+        res = w_state(4, coeffs)
 
         bool_mat = np.isclose(res, expected_res, atol=0.2)
         self.assertEqual(np.all(bool_mat), True)

@@ -7,9 +7,6 @@ from scipy.sparse import csr_matrix
 def w_state(num_qubits: int, coeff: List[int] = None) -> np.ndarray:
     """
     Produces a W-state.
-    :param num_qubits: An integer representing the number of qubits.
-    :param coeff: default is [1, 1, ..., 1]/sqrt(NUM_QUBITS): a 1-by-NUM_QUBITS
-                  vector of coefficients.
 
     Returns the W-state described in [1].
 
@@ -21,6 +18,9 @@ def w_state(num_qubits: int, coeff: List[int] = None) -> np.ndarray:
         W. Dur, G. Vidal, and J. I. Cirac.
         E-print: arXiv:quant-ph/0005115, 2000.
 
+    :param num_qubits: An integer representing the number of qubits.
+    :param coeff: default is [1, 1, ..., 1]/sqrt(NUM_QUBITS): a 1-by-NUM_QUBITS
+                  vector of coefficients.
     """
     if coeff is None:
         coeff = np.ones(num_qubits)/np.sqrt(num_qubits)

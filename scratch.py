@@ -32,9 +32,10 @@ from toqito.super_operators.depolarizing_channel import depolarizing_channel
 from toqito.matrix.matrices.fourier_matrix import fourier_matrix
 from toqito.super_operators.partial_map import partial_map
 from toqito.states.state_exclusion import state_exclusion
-from toqito.super_operators.ptrace import np_partial_trace, expr_as_np_array, np_array_as_expr
 from toqito.hedging.weak_coin_flipping import weak_coin_flipping
 from toqito.super_operators.realignment import realignment
+from toqito.states.chessboard_state import chessboard_state
+from toqito.states.horodecki_state import horodecki_state
 
 
 n = 2
@@ -46,14 +47,6 @@ v = np.cos(theta)*e00 + np.sin(theta)*e11
 P1 = v * v.conj().T
 P0 = np.identity(4) - P1
 
-X = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
-#print(realignment(X, np.array([[2], [2]])))
-
-print("\n\n")
-X = np.reshape(list(range(1,211)),(15, 14))
-#dim = np.array([np.array([5, 3]), np.array([2, 7])])
-print(realignment(X, [[5, 3], [2, 7]]))
-
 w = alpha * np.cos(theta)*e00 + np.sqrt(1-alpha**2)*np.sin(theta)*e11
 l1 = -alpha*np.sin(theta)*e00 + np.sqrt(1-alpha**2)*np.cos(theta)*e11
 l2 = alpha*np.sin(theta)*e10
@@ -61,6 +54,11 @@ l3 = np.sqrt(1-alpha**2)*np.cos(theta)*e01
  
 Q1 = w * w.conj().T
 Q0 = l1 * l1.conj().T + l2 * l2.conj().T + l3 * l3.conj().T
+
+u = 1/np.sqrt(2) * (e00 + e11)
+rho = u * u.conj().T
+
+print(horodecki_state(0.5, [2, 4]))
 
 # Q11 = np.kron(Q1, Q1)
 #X = cvxpy.Variable((4, 4), PSD=True)

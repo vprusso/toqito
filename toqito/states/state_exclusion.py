@@ -23,12 +23,19 @@ def state_exclusion(states: List[np.ndarray],
             Physical Review A 89.2 (2014): 022336.
             arXiv:1306.4683
     """
+    # Assume that at least one state is provided.
+    if states is None or states == []:
+        msg = """
+            InvalidStates: There must be at least one state provided.
+        """
+        raise ValueError(msg)
+
     # Assume uniform probability if no specific distribution is given.
     if probs is None:
         probs = [1/len(states)] * len(states)
     if sum(probs) != 1:
         raise ValueError("Invalid: Probabilities must sum to 1.")
-
+    
     if len(states) >= 1:
         dim = states[0].shape
 

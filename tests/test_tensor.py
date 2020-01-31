@@ -1,6 +1,6 @@
 """Tests for tensor function."""
-import numpy as np
 import unittest
+import numpy as np
 
 from toqito.helper.constants import e0, e1
 from toqito.matrix.operations.tensor import tensor, tensor_n, tensor_list

@@ -36,6 +36,13 @@ class TestStateExclusion(unittest.TestCase):
             states = [rho1, rho2]
             state_exclusion(states, [1, 2, 3])
 
+    def test_invalid_states(self):
+        """Invalid number of states."""
+        with self.assertRaises(ValueError):
+            states = []
+            state_exclusion(states)
+
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -5,26 +5,37 @@ import functools
 from toqito.matrix.operations.vec import vec
 
 
-def permute_systems(X: np.ndarray, perm, dim=None, row_only: bool = False, inv_perm: bool = False) -> np.ndarray:
-    if len(X.shape) == 1:
-        dX = (1, X.shape[0])
+def permute_systems(input_mat: np.ndarray,
+                    perm,
+                    dim=None,
+                    row_only: bool = False,
+                    inv_perm: bool = False) -> np.ndarray:
+    if len(input_mat.shape) == 1:
+        dX = (1, input_mat.shape[0])
     else:
-        dX = X.shape
+        dX = input_mat.shape
 
-    is_vec = X.ndim == 1
+    is_vec = input_mat.ndim == 1
     num_sys = len(perm)
-    if is_vec:
-        # 1 if column vector
-        if len(dX) == 2:
-            vec_orien = 1
-        # 2 if row vector
-        else:
-            vec_orien = 0
 
     if dim is None:
         x = dX[0]**(1/num_sys) * np.ones(num_sys)
         y = dX[1]**(1/num_sys) * np.ones(num_sys)
         dim = np.array([x, y])
+
+    if is_vec:
+        # 1 if column vector
+        if len(dX) == 2:
+            vec_orien = 1
+        # 2 if row vector
+        elif len(dX) == 1:
+            vec_orien = 0
+        else:
+            msg = """
+                InvalidMat: Length of tuple of dimensions specifying the input 
+                matrix can only be of length 1 or length 2.
+            """
+            raise ValueError(msg)
 
     if len(dim.shape) == 1:
         # Force dim to be a row vector.
@@ -58,12 +69,12 @@ def permute_systems(X: np.ndarray, perm, dim=None, row_only: bool = False, inv_p
 
     if is_vec:
         if inv_perm:
-            PX_1 = X.reshape(dim[vec_orien, ::-1].astype(int), order="F")
+            PX_1 = input_mat.reshape(dim[vec_orien, ::-1].astype(int), order="F")
             PX = vec(np.transpose(PX_1, num_sys - np.array(perm[::-1]))).T
             # We need to flatten out the array.
             PX = functools.reduce(operator.iconcat, PX, [])
         else:
-            PX_1 = X.reshape(dim[vec_orien, ::-1].astype(int), order="F")
+            PX_1 = input_mat.reshape(dim[vec_orien, ::-1].astype(int), order="F")
             PX = vec(np.transpose(PX_1, num_sys - np.array(perm[::-1]))).T
             # We need to flatten out the array.
             PX = functools.reduce(operator.iconcat, PX, [])
@@ -77,7 +88,7 @@ def permute_systems(X: np.ndarray, perm, dim=None, row_only: bool = False, inv_p
         dim = functools.reduce(operator.iconcat, dim, [])
 
     row_perm = permute_systems(vec_arg, perm, dim[0][:], False, inv_perm)
-    PX = X[row_perm, :]
+    PX = input_mat[row_perm, :]
 
     if not row_only:
         vec_arg = np.array(list(range(0, dX[1])))

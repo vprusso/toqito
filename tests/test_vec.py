@@ -1,6 +1,6 @@
 """Tests for vec function."""
-import numpy as np
 import unittest
+import numpy as np
 
 from toqito.matrix.operations.vec import vec
 
