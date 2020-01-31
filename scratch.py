@@ -37,6 +37,7 @@ from toqito.super_operators.realignment import realignment
 from toqito.states.chessboard_state import chessboard_state
 from toqito.states.horodecki_state import horodecki_state
 from toqito.matrix.matrices.gell_man import gell_man
+from toqito.perms.permutation_operator import permutation_operator
 
 n = 2
 k = 1
@@ -58,7 +59,8 @@ Q0 = l1 * l1.conj().T + l2 * l2.conj().T + l3 * l3.conj().T
 u = 1/np.sqrt(2) * (e00 + e11)
 rho = u * u.conj().T
 
-print(horodecki_state(0.5, [2, 4]))
+print(permutation_operator(2, [2, 1]))
+
 
 # Q11 = np.kron(Q1, Q1)
 #X = cvxpy.Variable((4, 4), PSD=True)
