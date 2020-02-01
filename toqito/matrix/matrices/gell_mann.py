@@ -3,7 +3,7 @@ import numpy as np
 from scipy.sparse import csr_matrix
 
 
-def gell_man(ind: int, is_sparse: bool = False) -> np.ndarray:
+def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray:
     """
     Produce a Gell-Mann operator.
 

@@ -32,7 +32,7 @@ def swap(input_mat: np.ndarray,
         dX = (1, input_mat.shape[0])
     else:
         dX = input_mat.shape
-    
+
     round_dim = np.round(np.sqrt(dX))
 
     if sys is None:
@@ -44,8 +44,7 @@ def swap(input_mat: np.ndarray,
         dim = np.array([[round_dim[0], round_dim[0]],
                         [round_dim[1], round_dim[1]]])
 
-    num_sys = len(dim)
-    if num_sys == 1:
+    if isinstance(dim, int):
         dim = np.array([[dim, dX[0]/dim],
                         [dim, dX[1]/dim]])
         if np.abs(dim[0, 1] - np.round(dim[0, 1])) + \
@@ -60,6 +59,8 @@ def swap(input_mat: np.ndarray,
         dim[0, 1] = np.round(dim[0, 1])
         dim[1, 1] = np.round(dim[1, 1])
         num_sys = 2
+    else:
+        num_sys = len(dim)
 
     # Verify that the input sys makes sense.
     if any(sys) < 1 or any(sys) > num_sys:

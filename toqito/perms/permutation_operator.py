@@ -30,6 +30,8 @@ def permutation_operator(dim: Any,
     # Allow the user to enter a single number for DIM:
     if isinstance(dim, int):
         dim = dim * np.ones(max(perm))
+    if isinstance(dim, list):
+        dim = np.array(dim)
 
     # Swap the rows of Id appropriately.
     return permute_systems(

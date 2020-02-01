@@ -36,8 +36,9 @@ from toqito.hedging.weak_coin_flipping import weak_coin_flipping
 from toqito.super_operators.realignment import realignment
 from toqito.states.chessboard_state import chessboard_state
 from toqito.states.horodecki_state import horodecki_state
-from toqito.matrix.matrices.gell_man import gell_man
+from toqito.matrix.matrices.gell_mann import gell_mann
 from toqito.perms.permutation_operator import permutation_operator
+import scipy as sp
 
 n = 2
 k = 1
@@ -59,7 +60,33 @@ Q0 = l1 * l1.conj().T + l2 * l2.conj().T + l3 * l3.conj().T
 u = 1/np.sqrt(2) * (e00 + e11)
 rho = u * u.conj().T
 
-print(permutation_operator(2, [2, 1]))
+test_mat = np.array([[1, 5, 9, 13],
+                     [2, 6, 10, 14],
+                     [3, 7, 11, 15],
+                     [4, 8, 12, 16]])
+
+expected_res = np.array([[1, 9, 5, 13],
+                         [3, 11, 7, 15],
+                         [2, 10, 6, 14],
+                         [4, 12, 8, 16]])
+
+print(any([0]) < 1)
+res = swap(test_mat, [1], 2)
+print(res)
+
+test_vec = np.array([[1, 2, 3, 4]])
+
+expected_res = np.array([[1, 3, 2, 4]])
+
+#res = swap(np.array([1, 2, 3, 4]), [1, 2], [2])
+#print(res)
+
+
+
+#print(isinstance(iden(4, is_sparse=True), sp.sparse.dia_matrix))
+#print(permutation_operator(2, 2))
+#print(permutation_operator([2, 2], [2, 1]))
+#print(permutation_operator(3, [2, 1], False, True))
 
 
 # Q11 = np.kron(Q1, Q1)
