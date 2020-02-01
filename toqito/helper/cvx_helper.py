@@ -1,3 +1,4 @@
+"""Helper functions for dealing with CVXPY objects."""
 import cvxpy
 import numpy as np
 from cvxpy.expressions.expression import Expression
