@@ -1,49 +1,51 @@
 import numpy as np
-from typing import List
+from typing import List, Union
 from skimage.util.shape import view_as_blocks
 from toqito.perms.permute_systems import permute_systems
 
 
-def partial_transpose(X: np.ndarray,
-                      sys: int = 2,
-                      dim: List[int] = None) -> np.ndarray:
+def partial_transpose(rho: np.ndarray,
+                      sys: Union[List[int], np.ndarray, int] = 2,
+                      dim: Union[List[int], np.ndarray] = None) -> np.ndarray:
     """
     Compute the partial transpose of a matrix.
 
-    :param X: A matrix.
-    :returns: The partial transpose of matrix X.
+    :param rho: A matrix.
+    :param sys: Scalar or vector specifying the size of the subsystems.
+    :param dim: Dimension of the subsystems. If `None`, all dimensions
+                are assumed to be equal.
+    :returns: The partial transpose of matrix `rho`.
 
-    By default, the returned matrix is the partial transpose of the matrix X,
-    where it is assumed that the number of rows and columns of X are both
-    perfect squares and both subsystems have equal dimension. The transpose is
-    applied to the second subsystem.
+    By default, the returned matrix is the partial transpose of the matrix
+    `rho`, where it is assumed that the number of rows and columns of `rho` are
+    both perfect squares and both subsystems have equal dimension. The
+    transpose is applied to the second subsystem.
 
-    In the case where SYS amd DIM are specified, this function gives the
-    partial transpose of the matrix X where the dimensions of the (possibly
-    more than 2) subsystems are given by the vector DIM and the subsystems to
-    take the partial transpose are given by the scalaer or vector SYS. If X is
-    non-square, different row and column dimensions can be specified by putting
-    the row dimensions in the first row of DIM and the column dimensions in the
-    second row of DIM.
+    In the case where `sys` amd `dim` are specified, this function gives the
+    partial transpose of the matrix `rho` where the dimensions of the (possibly
+    more than 2) subsystems are given by the vector `dim` and the subsystems to
+    take the partial transpose are given by the scalaer or vector `sys`. If
+    `rho` is non-square, different row and column dimensions can be specified
+    by putting the row dimensions in the first row of `dim` and the column
+    dimensions in the second row of `dim`.
     """
     eps = np.finfo(float).eps
-    dX = list(X.shape)
-    sdX = np.round(np.sqrt(dX))
+    rho_dims = list(rho.shape)
+    sqrt_rho_dims = np.round(np.sqrt(rho_dims))
 
     if dim is None:
-        dim = np.array([[sdX[0], sdX[0]],
-                        [sdX[1], sdX[1]]])
-
+        dim = np.array([[sqrt_rho_dims[0], sqrt_rho_dims[0]],
+                        [sqrt_rho_dims[1], sqrt_rho_dims[1]]])
     num_sys = len(dim)
 
     # Allow the user to enter a single number for dim.
     if num_sys == 1:
-        dim = np.array([dim, dX[0]/dim])
-        if np.abs(dim[1] - np.round(dim[1])) >= 2*dX[0]*eps:
+        dim = np.array([dim, rho_dims[0]/dim])
+        if np.abs(dim[1] - np.round(dim[1])) >= 2*rho_dims[0]*eps:
             msg = """
-                InvalidDim: If DIM is a scalar, X must be square and DIM must
-                evenly divide length(X); please provide the DIM array containing
-                the dimensions of the subsystems.
+                InvalidDim: If `dim` is a scalar, `rho` must be square and
+                `dim` must evenly divide `len(rho)`; please provide the `dim`
+                array containing the dimensions of the subsystems.
             """
             raise ValueError(msg)
             dim[1] = np.round(dim[1])
@@ -72,10 +74,15 @@ def partial_transpose(X: np.ndarray,
 
     # Permute the subsystems so that we just have to do the partial transpose
     # on the first (potentially larger) subsystem.
-    Xpt = permute_systems(X, perm, dim)
+    rho_permuted = permute_systems(rho, perm, dim)
 
-    blocks = view_as_blocks(Xpt, block_shape=(int(sub_sys_vecR[0]), int(sub_sys_vecC[0])))
-    Xpt = np.hstack([np.vstack(block) for block in blocks])
+    # The `view_as_blocks` function behaves in a similar manner to the
+    # "cell2mat" function provided from MATLAB.
+    block_shape_x = int(sub_sys_vecR[0])
+    block_shape_y = int(sub_sys_vecC[0])
+    blocks = view_as_blocks(rho_permuted,
+                            block_shape=(block_shape_x, block_shape_y))
+    rho_permuted = np.hstack([np.vstack(block) for block in blocks])
 
     # Return the subsystems back to their original positions.
     dim[:, sys-1] = dim[[1, 0], sys-1]
@@ -83,5 +90,5 @@ def partial_transpose(X: np.ndarray,
     perm_np = list(perm_np - 1)
     dim = dim[:][perm_np]
 
-    return permute_systems(Xpt, perm, dim, False, True)
+    return permute_systems(rho_permuted, perm, dim, False, True)
 

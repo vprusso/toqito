@@ -9,7 +9,7 @@ def bell(idx: int) -> np.ndarray:
     :param idx: A parameter in [0, 1, 2, 3]
 
     Returns one of the following four Bell states depending on the value
-    of IDX:
+    of `idx`:
         0: (|0>|0> + |1>|1>)/sqrt(2)
         1: (|0>|0> - |1>|1>)/sqrt(2)
         2: (|0>|1> + |1>|0>)/sqrt(2)

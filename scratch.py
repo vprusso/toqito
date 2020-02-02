@@ -72,12 +72,12 @@ expected_res = np.array([[1, 2, 3],
 
 test_input_mat = np.array([[1, 2],
                            [3, 4]])
+
+np.identity(2)
+#print(iden([2, 2], is_sparse=False))
 #kraus_1 = np.array([[1, 5], [1, 0], [0, 2]])
 #res = apply_map(test_input_mat, kraus_1)
 #print(res)
-
-print(negativity(rho, [2, 5]))
-
 
 
 #print(isinstance(iden(4, is_sparse=True), sp.sparse.dia_matrix))

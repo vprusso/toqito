@@ -10,12 +10,12 @@ def horodecki_state(a_param: float,
 
     Returns the Horodecki state in either (3 ⊗ 3)-dimensional space or
     (2 ⊗ 4)-dimensional space, depending on the dimensions in the 1-by-2
-    vector DIM.
+    vector `dim`.
 
-    The Horodecki state was introduced in [1] which serves as an example in 
+    The Horodecki state was introduced in [1] which serves as an example in
     C^3 ⊗ C^3 or C^2 ⊗ C^4 of an entangled state that is positive under partial
     transpose (PPT). The state is PPT for all a ∈ [0, 1] and separable only for
-    A_PARAM = 0 or A_PARAM = 1.
+    `a_param = 0` or `a_param = 1`.
 
     Note: Refer to [2] (specifically equations (1) and (2)) for more information
     on this state and its properties. The 3x3 Horodecki state is defined
@@ -24,7 +24,7 @@ def horodecki_state(a_param: float,
 
     References:
     [1] P. Horodecki.
-        Separability criterion and inseparable mixed states with positive 
+        Separability criterion and inseparable mixed states with positive
         partial transpose.
         arXiv: 970.3004.
 
@@ -47,36 +47,34 @@ def horodecki_state(a_param: float,
         c_param = np.sqrt(1-a_param**2)/2
 
         horo_state = n_a_param * np.array(
-                [[a_param, 0, 0, 0, a_param, 0, 0, 0, a_param],
-                 [0, a_param, 0, 0, 0, 0, 0, 0, 0],
-                 [0, 0, a_param, 0, 0, 0, 0, 0, 0],
-                 [0, 0, 0, a_param, 0, 0, 0, 0, 0],
-                 [a_param, 0, 0, 0, a_param, 0, 0, 0, a_param],
-                 [0, 0, 0, 0, 0, a_param, 0, 0, 0],
-                 [0, 0, 0, 0, 0, 0, b_param, 0, c_param],
-                 [0, 0, 0, 0, 0, 0, 0, a_param, 0],
-                 [a_param, 0, 0, 0, a_param, 0, c_param, 0, b_param]])
+            [[a_param, 0, 0, 0, a_param, 0, 0, 0, a_param],
+             [0, a_param, 0, 0, 0, 0, 0, 0, 0],
+             [0, 0, a_param, 0, 0, 0, 0, 0, 0],
+             [0, 0, 0, a_param, 0, 0, 0, 0, 0],
+             [a_param, 0, 0, 0, a_param, 0, 0, 0, a_param],
+             [0, 0, 0, 0, 0, a_param, 0, 0, 0],
+             [0, 0, 0, 0, 0, 0, b_param, 0, c_param],
+             [0, 0, 0, 0, 0, 0, 0, a_param, 0],
+             [a_param, 0, 0, 0, a_param, 0, c_param, 0, b_param]])
         return horo_state
 
-    elif np.array_equal(dim, np.array([2, 4])):
+    if np.array_equal(dim, np.array([2, 4])):
         n_a_param = 1/(7*a_param+1)
         b_param = (1+a_param)/2
         c_param = np.sqrt(1-a_param**2)/2
 
         horo_state = n_a_param * np.array(
-                [[a_param, 0, 0, 0, 0, a_param, 0, 0],
-                 [0, a_param, 0, 0, 0, 0, a_param, 0],
-                 [0, 0, a_param, 0, 0, 0, 0, a_param],
-                 [0, 0, 0, a_param, 0, 0, 0, 0],
-                 [0, 0, 0, 0, b_param, 0, 0, c_param],
-                 [a_param, 0, 0, 0, 0, a_param, 0, 0],
-                 [0, a_param, 0, 0, 0, 0, a_param, 0],
-                 [0, 0, a_param, 0, c_param, 0, 0, b_param]])
+            [[a_param, 0, 0, 0, 0, a_param, 0, 0],
+             [0, a_param, 0, 0, 0, 0, a_param, 0],
+             [0, 0, a_param, 0, 0, 0, 0, a_param],
+             [0, 0, 0, a_param, 0, 0, 0, 0],
+             [0, 0, 0, 0, b_param, 0, 0, c_param],
+             [a_param, 0, 0, 0, 0, a_param, 0, 0],
+             [0, a_param, 0, 0, 0, 0, a_param, 0],
+             [0, 0, a_param, 0, c_param, 0, 0, b_param]])
         return horo_state
 
-    else:
-        msg = """
-            InvalidDim: DIM must be one of [3, 3], or [2, 4].
-        """
-        raise ValueError(msg)
-
+    msg = """
+        InvalidDim: DIM must be one of [3, 3], or [2, 4].
+    """
+    raise ValueError(msg)

@@ -10,14 +10,14 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
     """
     Produces a generalized Pauli operator.
 
-    P = GenPauli(IND1,IND2,DIM) is a DIM-by-DIM unitary operator. More
-    specifically, it is the operator X^IND1*Z^IND2, where X and Z are the
-    "shift" and "clock" operators that naturally generalize the Pauli X and
-    Z operators. These matrices span the entire space of DIM-by-DIM
-    matrices as IND1 and IND2 range from 0 to DIM-1, inclusive.
+    Generates a `dim`-by-`dim` unitary operator. More specifically, it is the
+    operator X^IND1*Z^IND2, where X and Z are the "shift" and "clock" operators
+    that naturally generalize the Pauli X and Z operators. These matrices span
+    the entire space of `dim`-by-`dim` matrices as `k_1` and `k_2` range from 0
+    to `dim-1`, inclusive.
 
-    :param k_1: (a non-negative integer from 0 to DIM-1 inclusive).
-    :param k_2: (a non-negative integer from 0 to DIM-1 inclusive).
+    :param k_1: (a non-negative integer from 0 to `dim-1` inclusive).
+    :param k_2: (a non-negative integer from 0 to `dim-1` inclusive).
     :param dim: (a positive integer indicating the dimension).
     :return: A generalized Pauli operator.
     """

@@ -7,9 +7,9 @@ def shift_matrix(dim: int) -> np.ndarray:
     Produces a shift matrix.
     :param dim: Dimension of the matrix.
 
-    Returns the shift matrix of dimension DIM described in [1].
+    Returns the shift matrix of dimension `dim` described in [1].
 
-    The shift matrix generates the following DIM x DIM matrix
+    The shift matrix generates the following `dim`-by-`dim` matrix:
 
     Sigma_1 = [[0 0 0 ... 0 1],
                [1 0 0 ... 0 0],

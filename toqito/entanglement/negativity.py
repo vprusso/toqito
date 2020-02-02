@@ -1,6 +1,6 @@
 """Computes the negativity of a bipartite density matrix."""
 from typing import List, Union
-from numpy import linalg as LA
+from numpy import linalg as lin_alg
 import numpy as np
 
 from toqito.states.pure_to_mixed import pure_to_mixed
@@ -38,7 +38,7 @@ def negativity(rho: np.ndarray, dim: Union[List[int], int] = None) -> float:
         dim = np.array([dim, rho_dims[0]/dim])
         if abs(dim[1] - np.round(dim[1])) >= 2*rho_dims[0]*np.finfo(float).eps:
             msg = """
-                InvalidDim: If `dim` is a scalr, `rho` must be square and `dim`
+                InvalidDim: If `dim` is a scalar, `rho` must be square and `dim`
                 must evenly divide `len(rho)`. Please provide the `dim` array
                 containing the dimensions of the subsystems.
             """
@@ -53,4 +53,4 @@ def negativity(rho: np.ndarray, dim: Union[List[int], int] = None) -> float:
         raise ValueError(msg)
 
     # Compute the negativity.
-    return (LA.norm(partial_transpose(rho, 2, dim), ord="nuc") - 1)/2
+    return (lin_alg.norm(partial_transpose(rho, 2, dim), ord="nuc") - 1)/2

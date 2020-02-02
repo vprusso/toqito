@@ -5,10 +5,11 @@ import numpy as np
 
 def fourier_matrix(dim: int) -> np.ndarray:
     """
-    Generates the DIM-by-DIM unitary matrix that implements the quantum
+    Generates the `dim`-by-`dim` unitary matrix that implements the quantum
     Fourier transform.
+
     :param dim: The size of the Fourier matrix.
-    :return: The Fourier matrix of dimension DIM.
+    :return: The Fourier matrix of dimension `dim`.
     """
     # Primitive root of unity.
     root_unity = np.exp(2*1j*np.pi/dim)

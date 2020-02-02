@@ -14,17 +14,17 @@ def ghz_state(dim: int,
     Generates a (generalized) GHZ state.
     :param dim: The local dimension.
     :param num_qubits: The number of parties (qubits/qudits)
-    :param coeff: (default [1, 1, ..., 1])/sqrt(DIM):
-                  a 1-by-DIM vector of coefficients.
+    :param coeff: (default `[1, 1, ..., 1])/sqrt(dim)`:
+                  a 1-by-`dim` vector of coefficients.
     :returns: Numpy vector array as GHZ state.
 
-    Returns a NUM_QUBITS-partite GHZ state acting on DIM local dimensions,
-    described in [1]. For example, ghz_state(2, 3) returns the standard
+    Returns a `num_qubits`-partite GHZ state acting on `dim` local dimensions,
+    described in [1]. For example, `ghz_state(2, 3)` returns the standard
     3-qubit GHZ state on qubits. The output of this function is sparse.
 
-    For a system of NUM_QUBITS qubits (i.e., DIM = 2), the GHZ state can be
+    For a system of `num_qubits` qubits (i.e., `dim = 2`), the GHZ state can be
     written as
-    |GHZ> = (|0>^{otimes NUM_QUBITS} + |1>^{otimes NUM_QUBITS})/sqrt(2)
+    |GHZ> = (|0>^{⊗ `num_qubits`} + |1>^{⊗ `num_qubits`})/sqrt(2)
 
     Reference:
     [1] Going beyond Bell's theorem.
@@ -36,11 +36,15 @@ def ghz_state(dim: int,
 
     # Error checking:
     if dim < 2:
-        raise ValueError("InvalidDim: DIM must be at least 2.")
+        raise ValueError("InvalidDim: `dim` must be at least 2.")
     if num_qubits < 2:
-        raise ValueError("InvalidNumQubits: NUM_QUBITS must be at least 2.")
+        raise ValueError("InvalidNumQubits: `num_qubits` must be at least 2.")
     if len(coeff) != dim:
-        raise ValueError("InvalidCoeff: COEFF must be a vector of length equal to DIM.")
+        msg = """
+            InvalidCoeff: The variable `coeff` must be a vector of length equal
+            to `dim`.
+        """
+        raise ValueError(msg)
 
     # Construct the state (and do it in a way that is less memory-intensive
     # than naively tensoring things together.

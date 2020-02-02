@@ -7,8 +7,8 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray:
     """
     Produce a Gell-Mann operator.
 
-    Generates the 3-by-3 Gell-Mann matrix indicated by the value of IND.
-    IND = 0 gives the identity matrix, while values 1 through 8 each indicate 
+    Generates the 3-by-3 Gell-Mann matrix indicated by the value of `ind`.
+    `ind = 0` gives the identity matrix, while values 1 through 8 each indicate
     one of the other 8 Gell-Mann matrices.
 
     References:
@@ -63,4 +63,3 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray:
         gm_op = csr_matrix(gm_op)
 
     return gm_op
-

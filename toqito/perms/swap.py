@@ -1,39 +1,42 @@
+"""Swaps two subsystems within a state or operator."""
+from typing import List, Union
 import numpy as np
 from toqito.perms.permute_systems import permute_systems
 
 
-def swap(input_mat: np.ndarray,
-         sys=None,
-         dim=None,
+def swap(rho: np.ndarray,
+         sys: List[int] = None,
+         dim: Union[List[int], int] = None,
          row_only: bool = False) -> np.ndarray:
     """
     Swap two subsystems within a state or operator.
 
-    Swaps the two subsystems of the vector or matrix X, where the dimensions
-    of the (possibly more than 2) subsystems are given by DIM and the indices
-    of the two subsystems to be swapped are specified in the 1-by-2 vector SYS.
+    Swaps the two subsystems of the vector or matrix `rho`, where the
+    dimensions of the (possibly more than 2) subsystems are given by `dim` and
+    the indices of the two subsystems to be swapped are specified in the 1-by-2
+     vector `sys`.
 
-    If X is non-square and not a vector, different row and column dimensions
-    can be specified by putting the row dimensions in the first row of DIM and
-    the column dimensions in the second row of DIM.
+    If `rho` is non-square and not a vector, different row and column
+    dimensions can be specified by putting the row dimensions in the first row
+    of `dim` and the column dimensions in the second row of `dim`.
 
-    If ROW_ONLY is set to True, then only the rows of X are swapped, but not
-    the columns -- this is equivalent to multiplying X on the left by the
-    corresponding swap operator, but not on the right.
+    If `row_only` is set to `True`, then only the rows of `rho` are swapped,
+    but not the columns -- this is equivalent to multiplying `rho` on the left
+    by the corresponding swap operator, but not on the right.
 
-    :param input_mat: A vector or matrix to have its subsystems swapped.
+    :param rho: A vector or matrix to have its subsystems swapped.
     :param sys: Default: [1, 2]
     :param dim: Default: [sqrt(len(X), sqrt(len(X)))]
     :param row_only: Default: False
     :return: The swapped matrix.
     """
     eps = np.finfo(float).eps
-    if len(input_mat.shape) == 1:
-        dX = (1, input_mat.shape[0])
+    if len(rho.shape) == 1:
+        rho_dims = (1, rho.shape[0])
     else:
-        dX = input_mat.shape
+        rho_dims = rho.shape
 
-    round_dim = np.round(np.sqrt(dX))
+    round_dim = np.round(np.sqrt(rho_dims))
 
     if sys is None:
         sys = [1, 2]
@@ -45,14 +48,14 @@ def swap(input_mat: np.ndarray,
                         [round_dim[1], round_dim[1]]])
 
     if isinstance(dim, int):
-        dim = np.array([[dim, dX[0]/dim],
-                        [dim, dX[1]/dim]])
+        dim = np.array([[dim, rho_dims[0]/dim],
+                        [dim, rho_dims[1]/dim]])
         if np.abs(dim[0, 1] - np.round(dim[0, 1])) + \
-           np.abs(dim[1, 1] - np.round(dim[1, 1])) >= 2 * np.prod(dX) * eps:
+           np.abs(dim[1, 1] - np.round(dim[1, 1])) >= 2*np.prod(rho_dims)*eps:
             val_error = """
-                InvalidDim: The value of DIM must evenly divide the number of
-                rows and columns of X; please provide the DIM array containing
-                the dimensions of the subsystems.
+                InvalidDim: The value of `dim` must evenly divide the number of
+                rows and columns of `rho`; please provide the `dim` array 
+                containing the dimensions of the subsystems.
             """
             raise ValueError(val_error)
 
@@ -65,18 +68,17 @@ def swap(input_mat: np.ndarray,
     # Verify that the input sys makes sense.
     if any(sys) < 1 or any(sys) > num_sys:
         val_error = """
-            InvalidSys: The subsystems in SYS must be between 1 and len(DIM)
-            inclusive.
+            InvalidSys: The subsystems in `sys` must be between 1 and 
+            `len(dim).` inclusive.
         """
         raise ValueError(val_error)
-    elif len(sys) != 2:
+    if len(sys) != 2:
         val_error = """
-            InvalidSys: SYS must be a vector with exactly two elements.
+            InvalidSys: `sys` must be a vector with exactly two elements.
         """
         raise ValueError(val_error)
 
     # Swap the indicated subsystems.
     perm = list(range(1, num_sys+1))
     perm = perm[::-1]
-    return permute_systems(input_mat, perm, dim, row_only)
-
+    return permute_systems(rho, perm, dim, row_only)
