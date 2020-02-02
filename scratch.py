@@ -39,6 +39,7 @@ from toqito.states.chessboard_state import chessboard_state
 from toqito.states.horodecki_state import horodecki_state
 from toqito.matrix.matrices.gell_mann import gell_mann
 from toqito.perms.permutation_operator import permutation_operator
+from toqito.entanglement.negativity import negativity
 import scipy as sp
 
 n = 2
@@ -69,10 +70,13 @@ expected_res = np.array([[1, 2, 3],
                          [4, 5, 6],
                          [7, 8, 9]])
 
-res = apply_map(test_input_mat, swap_operator(3))
-
-#res = swap(np.array([1, 2, 3, 4]), [1, 2], [2])
+test_input_mat = np.array([[1, 2],
+                           [3, 4]])
+#kraus_1 = np.array([[1, 5], [1, 0], [0, 2]])
+#res = apply_map(test_input_mat, kraus_1)
 #print(res)
+
+print(negativity(rho, [2, 5]))
 
 
 

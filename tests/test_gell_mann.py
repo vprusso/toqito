@@ -22,8 +22,8 @@ class TestGellMann(unittest.TestCase):
     def test_gell_mann_idx_1(self):
         """Gell-Mann operator for index = 1."""
         expected_res = np.array([[0, 1, 0],
-                                [1, 0, 0],
-                                [0, 0, 0]])
+                                 [1, 0, 0],
+                                 [0, 0, 0]])
         res = gell_mann(1)
 
         bool_mat = np.isclose(expected_res, res)

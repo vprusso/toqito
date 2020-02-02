@@ -50,10 +50,10 @@ def partial_transpose(X: np.ndarray,
             num_sys = 2
 
     # Allow the user to enter a vector for dim if X is square.
-    if min(X.shape) == 1:
+    if min(dim.shape) == 1 or len(dim.shape) == 1:
         # Force dim to be a row vector.
-        dim = dim[:]
-        dim = np.array([[dim], [dim]])
+        dim = dim.T.flatten()
+        dim = np.array([dim, dim])
 
     # Prepare the partial transposition.
     prod_dimR = np.prod(dim[0][:])

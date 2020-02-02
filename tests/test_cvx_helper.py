@@ -24,9 +24,8 @@ class TestCVXHelper(unittest.TestCase):
         expr = cvxpy.bmat([[1, 2], [3, 4]])
 
         res_mat = expr_as_np_array(expr)
-        self.assertEqual(
-                type(res_mat) == np.ndarray,
-                True)
+        self.assertEqual(type(res_mat) == np.ndarray,
+                         True)
 
     def test_expr_as_np_array_scalar(self):
         """Ensure return type is numpy object for scalar expression."""

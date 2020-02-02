@@ -48,6 +48,7 @@ class TestSwap(unittest.TestCase):
         self.assertEqual(np.all(bool_mat), True)
 
     def test_swap_int_dim(self):
+        """Test swap operation when int is provided."""
         test_mat = np.array([[1, 5, 9, 13],
                              [2, 6, 10, 14],
                              [3, 7, 11, 15],
@@ -62,7 +63,7 @@ class TestSwap(unittest.TestCase):
 
         bool_mat = np.isclose(res, expected_res)
         self.assertEqual(np.all(bool_mat), True)
-        
+
     def test_invalid_dim(self):
         """Invalid dim parameters."""
         test_mat = np.array([[1, 5, 9, 13],
@@ -80,7 +81,7 @@ class TestSwap(unittest.TestCase):
                              [4, 8, 12, 16]])
         with self.assertRaises(ValueError):
             swap(test_mat, [0])
-            
+
     def test_invalid_sys_len(self):
         """Invalid sys parameters."""
         test_mat = np.array([[1, 5, 9, 13],
