@@ -1,8 +1,7 @@
 """Calculates probability of state exclusion."""
+from typing import List
 import cvxpy as cvx
 import numpy as np
-
-from typing import List
 
 
 def state_exclusion(states: List[np.ndarray],
@@ -11,7 +10,7 @@ def state_exclusion(states: List[np.ndarray],
     Computes probability of state exclusion.
 
     State exclusion implies that ability to discard (with certainty) at least
-    one out of the "n" possible quantum states by applying a measurment.
+    one out of the "n" possible quantum states by applying a measurement.
 
     References:
         [1] "On the reality of the quantum state"
@@ -35,24 +34,22 @@ def state_exclusion(states: List[np.ndarray],
         probs = [1/len(states)] * len(states)
     if sum(probs) != 1:
         raise ValueError("Invalid: Probabilities must sum to 1.")
-    
-    if len(states) >= 1:
-        dim = states[0].shape
 
-        obj_func = []
-        measurements = []
-        constraints = []
-        for i in range(len(states)):
-            measurements.append(cvx.Variable(dim, PSD=True))
+    dim = states[0].shape
 
-            obj_func.append(probs[i] * cvx.trace(
-                states[i].conj().T * measurements[i]))
+    obj_func = []
+    measurements = []
+    constraints = []
+    for i, _ in enumerate(states):
+        measurements.append(cvx.Variable(dim, PSD=True))
 
-        constraints.append(sum(measurements) == np.identity(dim[0]))
+        obj_func.append(probs[i] * cvx.trace(
+            states[i].conj().T * measurements[i]))
 
-        objective = cvx.Minimize(sum(obj_func))
-        problem = cvx.Problem(objective, constraints)
-        sol_default = problem.solve()
+    constraints.append(sum(measurements) == np.identity(dim[0]))
 
-        return 1/len(states) * sol_default
+    objective = cvx.Minimize(sum(obj_func))
+    problem = cvx.Problem(objective, constraints)
+    sol_default = problem.solve()
 
+    return 1/len(states) * sol_default

@@ -11,16 +11,15 @@ def isotropic_state(dim: int, alpha: float) -> np.ndarray:
     :param alpha: The parameter of the isotropic state.
     :return: Isotropic state.
 
-    Returns the isotropic state with parameter ALPHA acting on
-    (DIM*DIM)-dimensional space. More specifically, the state is the density
-    operator defined by (1-ALPHA)*I/DIM^2 + ALPHA, where I is the identity
-    operator and E is the projection onto the standard maximally-entangled
-    pure state on two copies of DIM-dimensional space.
+    Returns the isotropic state with parameter `alpha` acting on
+    (`dim`-by-`dim`)-dimensional space. More specifically, the state is the
+    density operator defined by `(1-alpha)*I(dim)/dim**2 + alpha*E`, where I is
+    the identity operator and E is the projection onto the standard
+    maximally-entangled pure state on two copies of `dim`-dimensional space.
 
     References:
     [1] N. Gisin. Hidden quantum nonlocality revealed by local filters.
         (http://dx.doi.org/10.1016/S0375-9601(96)80001-6). 1996.
-
     """
     # Compute the isotropic state.
     psi = max_entangled(dim, True, False)

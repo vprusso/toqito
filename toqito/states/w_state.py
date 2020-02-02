@@ -10,8 +10,8 @@ def w_state(num_qubits: int, coeff: List[int] = None) -> np.ndarray:
 
     Returns the W-state described in [1].
 
-    The W-state on NUM_QUBITS qubits is defined by:
-        |W> = 1/sqrt(NUM_QUBITS) * (|100...0> + |010...0> + ... + |000...1>).
+    The W-state on `num_qubits` qubits is defined by:
+        |W> = 1/sqrt(num_qubits) * (|100...0> + |010...0> + ... + |000...1>).
 
     References:
     [1] Three qubits can be entangled in two inequivalent ways.
@@ -19,16 +19,20 @@ def w_state(num_qubits: int, coeff: List[int] = None) -> np.ndarray:
         E-print: arXiv:quant-ph/0005115, 2000.
 
     :param num_qubits: An integer representing the number of qubits.
-    :param coeff: default is [1, 1, ..., 1]/sqrt(NUM_QUBITS): a 1-by-NUM_QUBITS
-                  vector of coefficients.
+    :param coeff: default is `[1, 1, ..., 1]/sqrt(num_qubits)`: a
+                  1-by-`num_qubts` vector of coefficients.
     """
     if coeff is None:
         coeff = np.ones(num_qubits)/np.sqrt(num_qubits)
 
     if num_qubits < 2:
-        raise ValueError("ValueError: NUM_QUBITS must be at least 2.")
+        raise ValueError("InvalidNumQubits: `num_qubits` must be at least 2.")
     if len(coeff) != num_qubits:
-        raise ValueError("ValueError: COEFF must be a vector of length equal to NUM_QUBITS.")
+        msg = """
+            InvalidCoeff: The variable `coeff` must be a vector of length equal
+            to `num_qubits`.
+        """
+        raise ValueError(msg)
 
     ret_w_state = csr_matrix((2**num_qubits, 1)).toarray()
 

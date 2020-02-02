@@ -70,10 +70,12 @@ expected_res = np.array([[1, 2, 3],
                          [4, 5, 6],
                          [7, 8, 9]])
 
-test_input_mat = np.array([[1, 2],
-                           [3, 4]])
 
-np.identity(2)
+print(type(iden(2, is_sparse=True)))
+
+import scipy
+print(isinstance(iden(2, is_sparse=True), type(scipy.sparse)))
+
 #print(iden([2, 2], is_sparse=False))
 #kraus_1 = np.array([[1, 5], [1, 0], [0, 2]])
 #res = apply_map(test_input_mat, kraus_1)
