@@ -4,6 +4,8 @@ python:
     - "3.7"
 install:
     - pip install pipenv
+script:
+    - python main.py
 notifications:
     email: false
 after_success:
