@@ -3,11 +3,12 @@ language:
 python:
     - "3.7"
 install:
-    - pip install pipenv
-    - pipenv install
-    - pipenv run
+    - pip install poetry
+    - poetry install
+    - poetry config virtualenvs.in-project true
+    - source $(poetry env info --path)/bin/activate
 script:
-    - nosetests --with-coverage --cover-erase --cover-package .
+    - nosetests --with-coverage --cover-erase --cover-package=toqito
 notifications:
     email: false
 after_success:
