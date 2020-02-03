@@ -3,6 +3,7 @@ language:
 python:
     - "3.7"
 install:
+    - sudo apt-get install libblas-dev liblapack-dev
     - pip install poetry
     - poetry install
     - poetry config virtualenvs.in-project true
