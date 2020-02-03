@@ -6,7 +6,7 @@ install:
     - pip install pipenv
     - pipenv install
 script:
-    - python main.py
+    - nosetests --with-coverage --cover-erase --cover-package .
 notifications:
     email: false
 after_success:
