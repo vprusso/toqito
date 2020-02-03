@@ -4,19 +4,19 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-
-[packages]
-coverage = "*"
-coveralls = "*"
-cvx = "*"
-cvxpy = {editable = true,git = "https://github.com/cvxgrp/cvxpy.git"}
 flake8 = "*"
 flake8-docstrings = "*"
 nose = "*"
 mypy = "*"
+pylint = "*"
+coverage = "*"
+coveralls = "*"
+
+[packages]
+cvx = "*"
+cvxpy = {editable = true,git = "https://github.com/cvxgrp/cvxpy.git"}
 numpy = "*"
 picos = "*"
-pylint = "*"
 scipy = "*"
 scikit-image = "*"
 
