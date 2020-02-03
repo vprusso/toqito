@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="toqito",
-    description="Python module for quantum information."
+    description="Python module for quantum information.",
     long_description=open("README.md").read(),
     url="https://github.com/vprusso/toqito",
 
