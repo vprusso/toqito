@@ -3,9 +3,7 @@ language:
 python:
     - "3.7"
 install:
-    - pipenv install
-    - pipenv shell
-    - pip install coveralls
+    - pip install pipenv
 notifications:
     email: false
 after_success:
