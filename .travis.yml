@@ -5,7 +5,7 @@ python:
 install:
     - pip install pipenv
     - pipenv install
-    - pipenv shell
+    - pipenv run
 script:
     - nosetests --with-coverage --cover-erase --cover-package .
 notifications:
