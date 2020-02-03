@@ -5,7 +5,7 @@ python:
 install:
     - pipenv install
     - pipenv shell
-script: nosetests --with-coverage --cover-package=toqito
+    - pip install coveralls
 notifications:
     email: false
 after_success:
