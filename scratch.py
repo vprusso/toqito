@@ -41,6 +41,9 @@ from toqito.matrix.matrices.gell_mann import gell_mann
 from toqito.perms.permutation_operator import permutation_operator
 from toqito.entanglement.negativity import negativity
 import scipy as sp
+from toqito.states.entropy import entropy
+from toqito.states.schmidt_decomposition import schmidt_decomposition
+from toqito.states.max_entangled import max_entangled
 
 n = 2
 k = 1
@@ -70,11 +73,17 @@ expected_res = np.array([[1, 2, 3],
                          [4, 5, 6],
                          [7, 8, 9]])
 
+test_input_mat = np.array([[1, 2],
+                           [3, 4]])
 
-print(type(iden(2, is_sparse=True)))
+schmidt_decomposition(max_entangled(3))
 
-import scipy
-print(isinstance(iden(2, is_sparse=True), type(scipy.sparse)))
+
+#print(entropy(rho))
+#print(entropy(rho, 10))
+#print(entropy(np.identity(4)/4))
+#print(entropy(np.identity(4)/4))
+#print(entropy(rho, 2, -1))
 
 #print(iden([2, 2], is_sparse=False))
 #kraus_1 = np.array([[1, 5], [1, 0], [0, 2]])
