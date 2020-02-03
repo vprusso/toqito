@@ -16,7 +16,7 @@ keywords = ["quantum information", "quantum computing"]
 [tool.poetry.dependencies]
 python = "^3.7"
 cvx = "*"
-cvxpy = {git = "https://github.com/cvxgrp/cvxpy.git"}
+cvxpy = "*"
 numpy = "*"
 picos = "*"
 scipy = "*"
