@@ -57,20 +57,20 @@ class TestRealignment(unittest.TestCase):
         bool_mat = np.isclose(expected_res, res)
         self.assertEqual(np.all(bool_mat), True)
 
-    def test_realignment_int_dim(self):
-        """
-        """
-        test_input_mat = np.array([[1, 2, 3, 4],
-                                   [5, 6, 7, 8],
-                                   [9, 10, 11, 12],
-                                   [13, 14, 15, 16]])
-
-        expected_res = np.array([[1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15, 4, 8, 12, 16]])
-
-        res = realignment(test_input_mat, 1)
-
-        bool_mat = np.isclose(expected_res, res)
-        self.assertEqual(np.all(bool_mat), True)
+    # def test_realignment_int_dim(self):
+    #     """
+    #     """
+    #     test_input_mat = np.array([[1, 2, 3, 4],
+    #                                [5, 6, 7, 8],
+    #                                [9, 10, 11, 12],
+    #                                [13, 14, 15, 16]])
+    #
+    #     expected_res = np.array([[1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15, 4, 8, 12, 16]])
+    #
+    #     res = realignment(test_input_mat, 1)
+    #
+    #     bool_mat = np.isclose(expected_res, res)
+    #     self.assertEqual(np.all(bool_mat), True)
 
 
 if __name__ == '__main__':
