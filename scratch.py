@@ -45,10 +45,8 @@ from toqito.states.entropy import entropy
 from toqito.states.schmidt_decomposition import schmidt_decomposition
 from toqito.states.max_entangled import max_entangled
 from toqito.random.random_unitary import random_unitary
+from toqito.matrix.properties.is_unitary import is_unitary
 
-def is_unitary(mat):
-    print(mat.conj().T * mat)
-    return np.isclose(np.identity(mat.shape[0]), mat.conj().T * mat, rtol=0.01)
 
 n = 2
 k = 1
@@ -82,8 +80,9 @@ test_input_mat = np.array([[1, 2],
                            [3, 4]])
 
 u = np.matrix(random_unitary(2))
-print(np.allclose(np.identity(u.shape[0]), u * u.H))
-#print(is_unitary(u))
+#u = np.array([[1, 0], [1, 1]])
+
+print(is_unitary(u))
 #print(u * np.transpose(u))
 #print(is_unitary(u))
 
