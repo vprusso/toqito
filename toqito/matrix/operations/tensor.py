@@ -6,6 +6,7 @@ def tensor(input_1: np.ndarray, input_2: np.ndarray) -> np.ndarray:
     """
     Tensor two matrices or vectors together using the standard kronecker
     operation provided from numpy.
+
     :param input_1:
     :param input_2:
     :return:

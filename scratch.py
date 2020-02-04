@@ -45,8 +45,10 @@ from toqito.states.entropy import entropy
 from toqito.states.schmidt_decomposition import schmidt_decomposition
 from toqito.states.max_entangled import max_entangled
 from toqito.random.random_unitary import random_unitary
+from toqito.random.random_density_matrix import random_density_matrix
 from toqito.matrix.properties.is_unitary import is_unitary
-
+from toqito.matrix.properties.is_density import is_density
+from toqito.matrix.properties.is_psd import is_psd
 
 n = 2
 k = 1
@@ -79,10 +81,10 @@ expected_res = np.array([[1, 2, 3],
 test_input_mat = np.array([[1, 2],
                            [3, 4]])
 
-u = np.matrix(random_unitary(2))
-#u = np.array([[1, 0], [1, 1]])
-
-print(is_unitary(u))
+#u = np.matrix(random_unitary(2))
+d = random_density_matrix(2, True)
+print(is_density(d))
+print(is_psd(d))
 #print(u * np.transpose(u))
 #print(is_unitary(u))
 

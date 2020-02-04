@@ -2,7 +2,6 @@
 import unittest
 import numpy as np
 
-from scipy.sparse import csr_matrix
 from toqito.perms.permutation_operator import permutation_operator
 
 

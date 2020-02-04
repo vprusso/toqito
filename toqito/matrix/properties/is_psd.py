@@ -10,5 +10,4 @@ def is_psd(mat: np.ndarray, tol: float = 1e-8) -> bool:
     :param tol: Tolerance for numerical accuracy.
     :return: Return True if matrix is PSD, and False otherwise.
     """
-    ret_mat = np.linalg.eigvalsh(mat)
-    return np.all(ret_mat > -tol)
+    return np.all(np.linalg.eigvalsh(mat) > -tol)

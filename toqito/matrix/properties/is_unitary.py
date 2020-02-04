@@ -1,6 +1,6 @@
 """Determines whether or not a matrix is unitary."""
-import numpy as np
 from typing import Union
+import numpy as np
 
 
 def is_unitary(mat: Union[np.ndarray, np.matrix]) -> bool:
@@ -17,4 +17,3 @@ def is_unitary(mat: Union[np.ndarray, np.matrix]) -> bool:
 
     # If U^* * U = I U * U^*, the matrix "U" is unitary.
     return np.allclose(np.identity(mat.shape[0]), mat * mat.H)
-
