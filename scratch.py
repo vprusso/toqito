@@ -44,6 +44,11 @@ import scipy as sp
 from toqito.states.entropy import entropy
 from toqito.states.schmidt_decomposition import schmidt_decomposition
 from toqito.states.max_entangled import max_entangled
+from toqito.random.random_unitary import random_unitary
+
+def is_unitary(mat):
+    print(mat.conj().T * mat)
+    return np.isclose(np.identity(mat.shape[0]), mat.conj().T * mat, rtol=0.01)
 
 n = 2
 k = 1
@@ -76,7 +81,13 @@ expected_res = np.array([[1, 2, 3],
 test_input_mat = np.array([[1, 2],
                            [3, 4]])
 
-schmidt_decomposition(max_entangled(3))
+u = np.matrix(random_unitary(2))
+print(np.allclose(np.identity(u.shape[0]), u * u.H))
+#print(is_unitary(u))
+#print(u * np.transpose(u))
+#print(is_unitary(u))
+
+#schmidt_decomposition(max_entangled(3))
 
 
 #print(entropy(rho))
