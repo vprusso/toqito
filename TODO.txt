@@ -1,0 +1,5 @@
+- Realignment test fix
+- Random state vector test fix
+- Bell diagonal state
+- Complete coverage of tests
+

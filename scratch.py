@@ -104,6 +104,8 @@ test_input_mat = np.array([[1/2, 0, 0, 1/2],
                        [1/2, 0, 0, 1/2]])
 
 print(random_state_vector(3, False, 1))
+print(random_state_vector([3, 4], False, 2))
+
 
 x = np.array([1, 2, 3])
 y = np.array([[1], [2], [3]])

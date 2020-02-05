@@ -3,7 +3,6 @@ import unittest
 
 from toqito.random.random_density_matrix import random_density_matrix
 from toqito.matrix.properties.is_density import is_density
-from toqito.matrix.properties.is_psd import is_psd
 
 
 class TestRandomDensity(unittest.TestCase):

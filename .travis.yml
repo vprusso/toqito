@@ -10,6 +10,7 @@ install:
     - source $(poetry env info --path)/bin/activate
 script:
     - nosetests --with-coverage --cover-erase --cover-package=toqito
+    - pylint tests/
 notifications:
     email: false
 after_success:
