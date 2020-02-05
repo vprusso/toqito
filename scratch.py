@@ -51,6 +51,7 @@ from toqito.matrix.properties.is_unitary import is_unitary
 from toqito.matrix.properties.is_density import is_density
 from toqito.matrix.properties.is_psd import is_psd
 from toqito.matrix.properties.is_symmetric import is_symmetric
+from toqito.matrix.properties.is_square import is_square
 
 n = 2
 k = 1

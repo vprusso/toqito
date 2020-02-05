@@ -5,12 +5,14 @@ import numpy as np
 from toqito.matrix.properties.is_symmetric import is_symmetric
 
 
-class TestSymmetric(unittest.TestCase):
+class TestIsSymmetric(unittest.TestCase):
     """Unit test for is_symmetric."""
 
     def test_is_symmetric(self):
         """Test that symmetric matrix returns True."""
-        mat = np.array([[1, 7, 3], [7, 4, -5], [3, -5, 6]])
+        mat = np.array([[1, 7, 3],
+                        [7, 4, -5],
+                        [3, -5, 6]])
         self.assertEqual(is_symmetric(mat), True)
 
     def test_is_not_symmetric(self):
