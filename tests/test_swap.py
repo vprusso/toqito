@@ -36,17 +36,6 @@ class TestSwap(unittest.TestCase):
         bool_mat = np.isclose(res, expected_res)
         self.assertEqual(np.all(bool_mat), True)
 
-    def test_swap_vector_2(self):
-        """Tests swap operation on vector."""
-        test_vec = np.array([[1, 2, 3, 4]])
-
-        expected_res = np.array([[1, 3, 2, 4]])
-
-        res = swap(test_vec)
-
-        bool_mat = np.isclose(res, expected_res)
-        self.assertEqual(np.all(bool_mat), True)
-
     def test_swap_int_dim(self):
         """Test swap operation when int is provided."""
         test_mat = np.array([[1, 5, 9, 13],

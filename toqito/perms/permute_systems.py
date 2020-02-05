@@ -12,12 +12,14 @@ def permute_systems(input_mat: np.ndarray,
                     dim=None,
                     row_only: bool = False,
                     inv_perm: bool = False) -> np.ndarray:
+    """
+    """
     if len(input_mat.shape) == 1:
         dX = (1, input_mat.shape[0])
     else:
         dX = input_mat.shape
 
-    is_vec = input_mat.ndim == 1
+    is_vec = np.min(dX) == 1
     num_sys = len(perm)
 
     if dim is None:
@@ -27,30 +29,31 @@ def permute_systems(input_mat: np.ndarray,
 
     if is_vec:
         # 1 if column vector
-        if len(dX) == 2:
-            vec_orien = 1
-        # 2 if row vector
-        elif len(dX) == 1:
+        if len(input_mat.shape) > 1:
             vec_orien = 0
+        # 2 if row vector
+        elif len(input_mat.shape) == 1:
+            vec_orien = 1
         else:
             msg = """
                 InvalidMat: Length of tuple of dimensions specifying the input 
                 matrix can only be of length 1 or length 2.
             """
             raise ValueError(msg)
-
+    
     if len(dim.shape) == 1:
         # Force dim to be a row vector.
         dim_tmp = dim[:].T
         if is_vec:
             dim = np.ones((2, len(dim)))
+            print(dim)
             dim[vec_orien, :] = dim_tmp
         else:
             dim = np.array([[dim_tmp],
                             [dim_tmp]])
 
-    prod_dimR = np.prod(dim[0, :])
-    prod_dimC = np.prod(dim[1, :])
+    prod_dimR = int(np.prod(dim[0, :]))
+    prod_dimC = int(np.prod(dim[1, :]))
 
     if len(perm) != num_sys:
         msg = """
