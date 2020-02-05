@@ -39,6 +39,7 @@ from toqito.states.chessboard_state import chessboard_state
 from toqito.states.horodecki_state import horodecki_state
 from toqito.matrix.matrices.gell_mann import gell_mann
 from toqito.perms.permutation_operator import permutation_operator
+from toqito.perms.permute_systems import permute_systems
 from toqito.entanglement.negativity import negativity
 import scipy as sp
 from toqito.states.entropy import entropy
@@ -49,6 +50,7 @@ from toqito.random.random_density_matrix import random_density_matrix
 from toqito.matrix.properties.is_unitary import is_unitary
 from toqito.matrix.properties.is_density import is_density
 from toqito.matrix.properties.is_psd import is_psd
+from toqito.matrix.properties.is_symmetric import is_symmetric
 
 n = 2
 k = 1
@@ -82,11 +84,25 @@ test_input_mat = np.array([[1, 2],
                            [3, 4]])
 
 #u = np.matrix(random_unitary(2))
-d = random_density_matrix(2, True)
-print(is_density(d))
-print(is_psd(d))
 #print(u * np.transpose(u))
 #print(is_unitary(u))
+test_input_mat = np.array([[1, 2, 3, 4],
+                           [5, 6, 7, 8],
+                           [9, 10, 11, 12],
+                           [13, 14, 15, 16]])
+
+expected_res = np.array([[1, 3, 2, 4],
+                         [9, 11, 10, 12],
+                         [5, 7, 6, 8],
+                         [13, 15, 14, 16]])
+
+test_input_mat = np.array([[1/2, 0, 0, 1/2],
+                       [0, 0, 0, 0],
+                       [0, 0, 0, 0],
+                       [1/2, 0, 0, 1/2]])
+
+#res = permute_systems(test_input_mat, [2, 1])
+#print(res)
 
 #schmidt_decomposition(max_entangled(3))
 

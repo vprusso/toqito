@@ -5,7 +5,7 @@ import numpy as np
 from toqito.matrix.properties.is_psd import is_psd
 
 
-def is_density(mat: Union[np.ndarray, np.matrix]) -> bool:
+def is_density(mat: np.ndarray) -> bool:
     """
     Check if matrix is a density matrix.
 
@@ -16,8 +16,5 @@ def is_density(mat: Union[np.ndarray, np.matrix]) -> bool:
     :return: Return `True` if matrix is a density matrix, and `False`
              otherwise.
     """
-    if not isinstance(mat, np.matrix):
-        mat = np.matrix(mat)
-
     return is_psd(mat) and np.isclose(np.trace(mat), 1)
 

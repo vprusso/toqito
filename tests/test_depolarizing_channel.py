@@ -10,7 +10,10 @@ class TestDepolarizingChannel(unittest.TestCase):
     """Unit test for depolarizing_channel."""
 
     def test_standard_depolarizing_channel(self):
-        """Depolarizing channel maps every density matrix to the maximally-mixed state."""
+        """
+        Depolarizing channel maps every density matrix to the
+        maximally-mixed state.
+        """
         test_input_mat = np.array([[1/2, 0, 0, 1/2],
                                    [0, 0, 0, 0],
                                    [0, 0, 0, 0],
