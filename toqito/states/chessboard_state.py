@@ -1,13 +1,9 @@
 """Produces a chessboard state."""
+from typing import List
 import numpy as np
 
 
-def chessboard_state(a_param: float,
-                     b_param: float,
-                     c_param: float,
-                     d_param: float,
-                     m_param: float,
-                     n_param: float,
+def chessboard_state(mat_params: List[float],
                      s_param: float = None,
                      t_param: float = None) -> np.ndarray:
     """
@@ -24,16 +20,20 @@ def chessboard_state(a_param: float,
         arXiv: 991.1056
     """
     if s_param is None:
-        s_param = np.conj(c_param)/np.conj(n_param)
+        s_param = np.conj(mat_params[2])/np.conj(mat_params[5])
     if t_param is None:
-        t_param = a_param * d_param/m_param
+        t_param = mat_params[0] * mat_params[3]/mat_params[4]
 
-    v_1 = np.array([[m_param, 0, s_param, 0, n_param, 0, 0, 0, 0]])
-    v_2 = np.array([[0, a_param, 0, b_param, 0, c_param, 0, 0, 0]])
-    v_3 = np.array([[np.conj(n_param), 0, 0, 0,
-                     -np.conj(m_param), 0, t_param, 0, 0]])
-    v_4 = np.array([[0, np.conj(b_param), 0,
-                     -np.conj(a_param), 0, 0, 0, d_param, 0]])
+    v_1 = np.array([[mat_params[4], 0, s_param, 0, mat_params[5], 0, 0, 0, 0]])
+
+    v_2 = np.array([[0, mat_params[0], 0, mat_params[1],
+                     0, mat_params[2], 0, 0, 0]])
+
+    v_3 = np.array([[np.conj(mat_params[5]), 0, 0, 0,
+                     -np.conj(mat_params[4]), 0, t_param, 0, 0]])
+
+    v_4 = np.array([[0, np.conj(mat_params[1]), 0,
+                     -np.conj(mat_params[0]), 0, 0, 0, mat_params[3], 0]])
 
     rho = v_1.conj().T * v_1 + v_2.conj().T * v_2 + \
         v_3.conj().T * v_3 + v_4.conj().T * v_4

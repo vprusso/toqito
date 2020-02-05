@@ -43,4 +43,3 @@ def random_unitary(dim: Union[List[int], int],
     r_mat[r_mat == 0] = 1
 
     return np.matmul(q_mat, np.diag(r_mat))
-

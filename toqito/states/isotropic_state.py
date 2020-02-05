@@ -1,7 +1,7 @@
 """Produces an isotropic state."""
 import numpy as np
-from toqito.states.max_entangled import max_entangled
 from scipy.sparse import identity
+from toqito.states.max_entangled import max_entangled
 
 
 def isotropic_state(dim: int, alpha: float) -> np.ndarray:

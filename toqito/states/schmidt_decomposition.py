@@ -1,3 +1,4 @@
+"""Computes the Schmidt decomposition of a bipartite vector."""
 from typing import List, Union
 from scipy.sparse.linalg import svds
 from scipy.linalg import svd
@@ -8,8 +9,11 @@ import scipy as sp
 
 def schmidt_decomposition(vec: np.ndarray,
                           dim: Union[int, List[int]] = None,
-                          k_param: int = 0) -> (float, float, float):
+                          k_param: int = 0) -> np.ndarray:
     """
+    Compute the Schmidt decomposition of a bipartite vector.
+
+
     """
     eps = np.finfo(float).eps
 
@@ -30,7 +34,7 @@ def schmidt_decomposition(vec: np.ndarray,
     adj = 20 + 1000 * (not sp.sparse.issparse(vec))
 
     # Just a few Schmidt coefficients.
-    if k_param > 0 and k_param <= np.ceil(np.min(dim) / adj):
+    if 0 < k_param <= np.ceil(np.min(dim) / adj):
         u_mat, singular_vals, vt_mat = svds(np.reshape(vec, dim[::-1]), k_param)
     # Otherwise, use lots of Schmidt coefficients.
     else:

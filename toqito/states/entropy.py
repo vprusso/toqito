@@ -1,10 +1,20 @@
-import numpy as np
+"""Computes the von Neumann or Rényi entropy of a density matrix."""
 import warnings
+import numpy as np
 from numpy import linalg as lin_alg
 
 
 def entropy(rho: np.ndarray, log_base: int = 2, alpha: float = 1) -> float:
     """
+    Compute the von Neumann or Renyi entropy of a denisty matrix.
+
+    Calculates the entropy of `rho`, computed with logarithms in the base
+    specified by `log_base`. If `alpha = 1`, then this is the von Neumann
+    entropy. If `alpha > 1`, then this is the Renyi-`alpha` entropy.
+
+    :param rho: A density matrix.
+    :param log_base: Log base. Default set to 2.
+    :param alpha: Default parameter set to 1.
     """
     eigs, _ = lin_alg.eig(rho)
     eigs = [eig for eig in eigs if eig > 0]
@@ -17,7 +27,7 @@ def entropy(rho: np.ndarray, log_base: int = 2, alpha: float = 1) -> float:
             ent = -np.sum(np.real(eigs * np.log(eigs)))/np.log(log_base)
         return ent
 
-    elif alpha >= 0:
+    if alpha >= 0:
 
         # Renyi-alpha entropy with `alpha < float("inf")`
         if alpha < float("inf"):
@@ -44,9 +54,7 @@ def entropy(rho: np.ndarray, log_base: int = 2, alpha: float = 1) -> float:
 
         return ent
 
-    else:
-        msg = """
-            InvalidAlpha: The `alpha` parameter must be non-negative.
-        """
-        raise ValueError(msg)
-
+    msg = """
+        InvalidAlpha: The `alpha` parameter must be non-negative.
+    """
+    raise ValueError(msg)

@@ -20,7 +20,7 @@ def random_state_vector(dim: Union[List[int], int],
     """
 
     # Schmidt rank plays a role.
-    if k_param > 0 and k_param < np.min(dim):
+    if 0 < k_param < np.min(dim):
         # Allow the user to enter a single number for dim.
         if isinstance(dim, int):
             dim = [dim, dim]
@@ -36,12 +36,17 @@ def random_state_vector(dim: Union[List[int], int],
         if not is_real:
             a_param = a_param + 1j * np.random.rand(dim[0]*k_param, 1)
             b_param = b_param + 1j * np.random.rand(dim[1]*k_param, 1)
-        v = np.kron(psi.conj().T, np.identity(np.prod(dim))) * swap(np.kron(a_param, b_param), [2, 3], [k_param, dim[0], k_param, dim[1]])
-        return np.divide(v, np.linalg.norm(v))
+
+        mat_1 = np.kron(psi.conj().T, np.identity(np.prod(dim)))
+        mat_2 = swap(np.kron(a_param, b_param),
+                     sys=[2, 3],
+                     dim=[k_param, dim[0], k_param, dim[1]])
+
+        ret_vec = np.matmul(mat_1, mat_2)
+        return np.divide(ret_vec, np.linalg.norm(ret_vec))
 
     # Schmidt rank is full, so ignore it.
-    else:
-        v = np.random.rand(dim, 1)
-        if not is_real:
-            v = v + 1j * np.random.rand(dim, 1)
-        return np.divide(v, np.linalg.norm(v))
+    ret_vec = np.random.rand(dim, 1)
+    if not is_real:
+        ret_vec = ret_vec + 1j * np.random.rand(dim, 1)
+    return np.divide(ret_vec, np.linalg.norm(ret_vec))
