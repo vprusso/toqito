@@ -2,4 +2,7 @@
 - Random state vector test fix
 - Bell diagonal state
 - Complete coverage of tests
+- Schmidt decomposition
+- Perfect matching fix
+- Permute systems pylint
 

@@ -53,6 +53,7 @@ from toqito.matrix.properties.is_psd import is_psd
 from toqito.matrix.properties.is_symmetric import is_symmetric
 from toqito.matrix.properties.is_square import is_square
 from toqito.random.random_state_vector import random_state_vector
+from toqito.perms.perfect_matchings import perfect_matchings
 
 n = 2
 k = 1
@@ -103,16 +104,11 @@ test_input_mat = np.array([[1/2, 0, 0, 1/2],
                        [0, 0, 0, 0],
                        [1/2, 0, 0, 1/2]])
 
-print(random_state_vector(3, False, 1))
-print(random_state_vector([3, 4], False, 2))
 
 
-x = np.array([1, 2, 3])
-y = np.array([[1], [2], [3]])
 
-print(len(x.shape))
-print(y.shape)
-
+pm = perfect_matchings(2)
+print(pm)
 #res = permute_systems(test_input_mat, [2, 1])
 #print(res)
 

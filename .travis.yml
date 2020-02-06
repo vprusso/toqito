@@ -15,6 +15,10 @@ script:
     - pylint toqito/random/
     - pylint toqito/states/
 notifications:
-    email: true
+  email:
+    recipients:
+      - vincentrusso1@gmail.com
+    on_success: always # default: change
+    on_failure: always # default: always
 after_success:
     coveralls

@@ -1,3 +1,4 @@
+"""Permutes subsystems within a state or operator."""
 import numpy as np
 import scipy as sp
 import operator
@@ -15,16 +16,16 @@ def permute_systems(input_mat: np.ndarray,
     """
     """
     if len(input_mat.shape) == 1:
-        dX = (1, input_mat.shape[0])
+        input_mat_dims = (1, input_mat.shape[0])
     else:
-        dX = input_mat.shape
+        input_mat_dims = input_mat.shape
 
-    is_vec = np.min(dX) == 1
+    is_vec = np.min(input_mat_dims) == 1
     num_sys = len(perm)
 
     if dim is None:
-        x = dX[0]**(1/num_sys) * np.ones(num_sys)
-        y = dX[1]**(1/num_sys) * np.ones(num_sys)
+        x = input_mat_dims[0]**(1/num_sys) * np.ones(num_sys)
+        y = input_mat_dims[1]**(1/num_sys) * np.ones(num_sys)
         dim = np.array([x, y])
 
     if is_vec:
@@ -65,7 +66,8 @@ def permute_systems(input_mat: np.ndarray,
             InvalidPerm: PERM must be a permutation vector.
         """
         raise ValueError(msg)
-    elif dX[0] != prod_dimR or (not row_only and dX[1] != prod_dimC):
+    elif input_mat_dims[0] != prod_dimR or \
+            (not row_only and input_mat_dims[1] != prod_dimC):
         msg = """
             InvalidDim: The dimensions specified in DIM do not agree with
             the size of X.
@@ -84,7 +86,7 @@ def permute_systems(input_mat: np.ndarray,
             PX = functools.reduce(operator.iconcat, PX, [])
         return np.array(PX)
     
-    vec_arg = np.array(list(range(0, dX[0])))
+    vec_arg = np.array(list(range(0, input_mat_dims[0])))
 
     # If the dimensions are specified, ensure they are given to the
     # recursive calls as flattened lists.
@@ -103,7 +105,7 @@ def permute_systems(input_mat: np.ndarray,
         PX = input_mat[row_perm, :]
 
     if not row_only:
-        vec_arg = np.array(list(range(0, dX[1])))
+        vec_arg = np.array(list(range(0, input_mat_dims[1])))
         col_perm = permute_systems(vec_arg, perm, dim[1][:], False, inv_perm)
         PX = PX[:, col_perm]
     

@@ -13,7 +13,6 @@ def schmidt_decomposition(vec: np.ndarray,
     """
     Compute the Schmidt decomposition of a bipartite vector.
 
-
     """
     eps = np.finfo(float).eps
 
