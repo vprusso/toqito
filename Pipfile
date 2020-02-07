@@ -14,7 +14,7 @@ coveralls = "*"
 
 [packages]
 cvx = "*"
-cvxpy = {editable = true,git = "https://github.com/cvxgrp/cvxpy.git"}
+cvxpy = {git = "https://github.com/cvxgrp/cvxpy"}
 numpy = "*"
 picos = "*"
 scipy = "*"

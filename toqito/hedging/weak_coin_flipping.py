@@ -1,6 +1,5 @@
 """Weak coin flipping protocol."""
 import numpy as np
-from toqito.states.bell import bell
 from toqito.super_operators.partial_trace import partial_trace_cvx
 import cvxpy
 

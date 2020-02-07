@@ -54,6 +54,8 @@ from toqito.matrix.properties.is_symmetric import is_symmetric
 from toqito.matrix.properties.is_square import is_square
 from toqito.random.random_state_vector import random_state_vector
 from toqito.perms.perfect_matchings import perfect_matchings
+from toqito.states.is_product_vector import is_product_vector
+from toqito.hedging.hedging_sdps import maximize_losing_less_than_k
 
 n = 2
 k = 1
@@ -75,44 +77,31 @@ Q0 = l1 * l1.conj().T + l2 * l2.conj().T + l3 * l3.conj().T
 u = 1/np.sqrt(2) * (e00 + e11)
 rho = u * u.conj().T
 
-test_input_mat = np.array([[1, 4, 7],
-                           [2, 5, 8],
-                           [3, 6, 9]])
+n = 2
+k = 1
+Q11 = np.kron(Q1, Q1)
+x = maximize_losing_less_than_k(Q1, n)
 
-expected_res = np.array([[1, 2, 3],
-                         [4, 5, 6],
-                         [7, 8, 9]])
+a = pi_perm(n-1)
+b = np.kron(np.identity(2**(n-1)), np.identity(2**(n-1)))
+c = pi_perm(n-1).conj().T
 
-test_input_mat = np.array([[1, 2],
-                           [3, 4]])
+u = a * b * c
+print(a.shape)
+print(b.shape)
+print(c.shape)
+print(u.shape)
 
-#u = np.matrix(random_unitary(2))
-#print(u * np.transpose(u))
-#print(is_unitary(u))
-test_input_mat = np.array([[1, 2, 3, 4],
-                           [5, 6, 7, 8],
-                           [9, 10, 11, 12],
-                           [13, 14, 15, 16]])
+#X = cvxpy.Variable((4**(n-1), 4**(n-1)), PSD=True)
+#objective = cvxpy.Maximize(cvxpy.trace(Q1.conj().T * X))
+#constraints = [partial_trace_cvx(X, 1, [2, 2]) == np.identity(2**(n-1))]
+#problem = cvxpy.Problem(objective, constraints)
+#sol_default = problem.solve()
+#print(sol_default)
 
-expected_res = np.array([[1, 3, 2, 4],
-                         [9, 11, 10, 12],
-                         [5, 7, 6, 8],
-                         [13, 15, 14, 16]])
-
-test_input_mat = np.array([[1/2, 0, 0, 1/2],
-                       [0, 0, 0, 0],
-                       [0, 0, 0, 0],
-                       [1/2, 0, 0, 1/2]])
-
-
-
-
-pm = perfect_matchings(2)
-print(pm)
 #res = permute_systems(test_input_mat, [2, 1])
 #print(res)
 
-#schmidt_decomposition(max_entangled(3))
 
 
 #print(entropy(rho))

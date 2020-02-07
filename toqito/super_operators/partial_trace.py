@@ -19,8 +19,7 @@ def partial_trace_cvx(rho, sys=None, dim=None):
 
 def partial_trace(X: np.ndarray,
                   sys: Any = None,
-                  dim: int = None,
-                  mode: int = None):
+                  dim: int = None):
     """
     Computes the partial trace of a matrix.
 
@@ -49,8 +48,8 @@ def partial_trace(X: np.ndarray,
 
     if dim is None:
         dim = np.array([np.round(np.sqrt(lX))])
-    if mode is None:
-        mode = -1
+    if isinstance(dim, list):
+        dim = np.array(dim)
 
     if sys is None:
         sys = 2
