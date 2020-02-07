@@ -87,10 +87,7 @@ b = np.kron(np.identity(2**(n-1)), np.identity(2**(n-1)))
 c = pi_perm(n-1).conj().T
 
 u = a * b * c
-print(a.shape)
-print(b.shape)
-print(c.shape)
-print(u.shape)
+
 
 #X = cvxpy.Variable((4**(n-1), 4**(n-1)), PSD=True)
 #objective = cvxpy.Maximize(cvxpy.trace(Q1.conj().T * X))

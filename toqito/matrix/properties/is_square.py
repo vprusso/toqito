@@ -1,3 +1,4 @@
+"""Determines whether or not a matrix is square."""
 import numpy as np
 
 

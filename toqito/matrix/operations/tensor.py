@@ -1,3 +1,4 @@
+"""Kronecker tensor product of two or more matrices."""
 from typing import List
 import numpy as np
 
@@ -14,20 +15,29 @@ def tensor(input_1: np.ndarray, input_2: np.ndarray) -> np.ndarray:
     return np.kron(input_1, input_2)
 
 
-def tensor_n(input_val: np.ndarray, n: int) -> np.ndarray:
+def tensor_n(input_val: np.ndarray, num_tensor: int) -> np.ndarray:
+    """
+    :param input_val:
+    :param num_tensor:
+    :return:
+    """
     result = None
-    if n == 1:
+    if num_tensor == 1:
         return input_val
-    if n == 2:
+    if num_tensor == 2:
         return np.kron(input_val, input_val)
-    if n >= 3:
+    if num_tensor >= 3:
         result = np.kron(input_val, input_val)
-        for _ in range(2, n):
+        for _ in range(2, num_tensor):
             result = np.kron(result, input_val)
     return result
 
 
 def tensor_list(input_list: List[np.ndarray]) -> np.ndarray:
+    """
+    :param input_list:
+    :return:
+    """
     result = None
     if len(input_list) == 1:
         return input_list[0]

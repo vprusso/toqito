@@ -43,6 +43,5 @@ class TestStateExclusion(unittest.TestCase):
             state_exclusion(states)
 
 
-
 if __name__ == '__main__':
     unittest.main()

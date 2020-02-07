@@ -1,3 +1,4 @@
+"""Determines whether or not a matrix is symmetric."""
 import numpy as np
 
 

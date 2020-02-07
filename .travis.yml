@@ -12,13 +12,15 @@ script:
     - nosetests --with-coverage --cover-erase --cover-package=toqito
     - pylint tests/
     - pylint toqito/entanglement/
+    - pylint toqito/matrix/
     - pylint toqito/random/
     - pylint toqito/states/
+    - pylint toqito/upb/
 notifications:
   email:
     recipients:
       - vincentrusso1@gmail.com
-    on_success: always # default: change
-    on_failure: always # default: always
+    on_success: always
+    on_failure: always
 after_success:
     coveralls

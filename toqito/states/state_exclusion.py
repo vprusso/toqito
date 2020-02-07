@@ -44,7 +44,7 @@ def state_exclusion(states: List[np.ndarray],
         measurements.append(cvx.Variable(dim, PSD=True))
 
         obj_func.append(probs[i] * cvx.trace(
-            states[i].conj().T * measurements[i]))
+            states[i].conj().T @ measurements[i]))
 
     constraints.append(sum(measurements) == np.identity(dim[0]))
 
