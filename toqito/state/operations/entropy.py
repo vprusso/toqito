@@ -6,7 +6,7 @@ from numpy import linalg as lin_alg
 
 def entropy(rho: np.ndarray, log_base: int = 2, alpha: float = 1) -> float:
     """
-    Compute the von Neumann or Renyi entropy of a denisty matrix.
+    Compute the von Neumann or Renyi entropy of a density matrix.
 
     Calculates the entropy of `rho`, computed with logarithms in the base
     specified by `log_base`. If `alpha = 1`, then this is the von Neumann

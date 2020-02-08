@@ -1,7 +1,7 @@
 """Produces a depolarizng channel."""
 import numpy as np
 from scipy.sparse import identity
-from toqito.states.states.max_entangled import max_entangled
+from toqito.state.states.max_entangled import max_entangled
 
 
 def depolarizing_channel(dim: int, param_p: int = 0) -> np.ndarray:

@@ -2,7 +2,7 @@
 from typing import List, Union
 import numpy as np
 
-from toqito.states.operations.schmidt_decomposition import schmidt_decomposition
+from toqito.state.operations.schmidt_decomposition import schmidt_decomposition
 
 
 def is_product_vector(vec: np.ndarray, dim: Union[int, List[int]]):

@@ -1,8 +1,8 @@
 """Tests for is_pure function."""
 import unittest
 
-from toqito.states.states.bell import bell
-from toqito.states.properties.is_pure import is_pure
+from toqito.state.states.bell import bell
+from toqito.state.properties.is_pure import is_pure
 
 
 class TestIsPure(unittest.TestCase):

@@ -1,7 +1,7 @@
 """Tests for purity function."""
 import unittest
 import numpy as np
-from toqito.states.properties.purity import purity
+from toqito.state.properties.purity import purity
 
 
 class TestPurity(unittest.TestCase):

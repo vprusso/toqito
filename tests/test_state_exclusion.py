@@ -2,8 +2,8 @@
 import unittest
 import numpy as np
 
-from toqito.states.states.bell import bell
-from toqito.states.operations.state_exclusion import state_exclusion
+from toqito.state.states.bell import bell
+from toqito.state.operations.state_exclusion import state_exclusion
 
 
 class TestStateExclusion(unittest.TestCase):

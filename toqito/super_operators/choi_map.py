@@ -1,6 +1,6 @@
 """Produces the Choi map or one of its generalizations."""
 import numpy as np
-from toqito.states.states.max_entangled import max_entangled
+from toqito.state.states.max_entangled import max_entangled
 
 
 def choi_map(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:

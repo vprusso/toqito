@@ -2,7 +2,7 @@
 import unittest
 
 from toqito.helper.constants import e0, e1
-from toqito.states.properties.is_mixed import is_mixed
+from toqito.state.properties.is_mixed import is_mixed
 
 
 class TestIsMixed(unittest.TestCase):

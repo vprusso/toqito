@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from toqito.helper.constants import e0, e1
-from toqito.states.states.max_entangled import max_entangled
+from toqito.state.states.max_entangled import max_entangled
 
 
 class TestMaxEntangled(unittest.TestCase):
