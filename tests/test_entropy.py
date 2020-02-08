@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.state.operations.entropy import entropy
+from toqito.state.distance.entropy import entropy
 
 
 class TestEntropy(unittest.TestCase):

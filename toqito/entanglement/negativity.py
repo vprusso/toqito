@@ -48,7 +48,7 @@ def negativity(rho: np.ndarray, dim: Union[List[int], int] = None) -> float:
     if np.prod(dim) != rho_dims[0]:
         msg = """
             InvalidDim: Please provide local dimensions in the argument `dim`
-            that matach the size of `rho`.
+            that match the size of `rho`.
         """
         raise ValueError(msg)
 

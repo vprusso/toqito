@@ -4,6 +4,8 @@ from toqito.hedging.hedging_sdps import maximize_losing_less_than_k
 from toqito.matrix.properties.is_normal import is_normal
 from toqito.random.random_state_vector import random_state_vector
 from toqito.base.ket import ket
+from toqito.state.distance.trace_norm import trace_norm
+from toqito.state.distance.trace_distance import trace_distance
 
 n = 2
 k = 1
@@ -40,8 +42,14 @@ c = pi_perm(n-1).conj().T
 
 u = a * b * c
 
-print(ket(4, 0))
+#print(trace_norm(rho))
 
+print(trace_distance(rho, rho))
+
+#u, s, vh = np.linalg.svd(rho)
+
+#print(np.sum(s))
+#print(np.linalg.norm(rho, ord="nuc"))
 
 #print(np.sum(random_state_vector(2)))
 
