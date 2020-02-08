@@ -12,10 +12,10 @@ class TestWState(unittest.TestCase):
 
     def test_w_state_3(self):
         """The 3-qubit W-state."""
-        e0, e1 = ket(2, 0), ket(2, 1)
-        expected_res = 1/np.sqrt(3) * (tensor_list([e1, e0, e0]) +
-                                       tensor_list([e0, e1, e0]) +
-                                       tensor_list([e0, e0, e1]))
+        e_0, e_1 = ket(2, 0), ket(2, 1)
+        expected_res = 1/np.sqrt(3) * (tensor_list([e_1, e_0, e_0]) +
+                                       tensor_list([e_0, e_1, e_0]) +
+                                       tensor_list([e_0, e_0, e_1]))
 
         res = w_state(3)
 
@@ -24,11 +24,11 @@ class TestWState(unittest.TestCase):
 
     def test_generalized_w_state(self):
         """Generalized 4-qubit W-state."""
-        e0, e1 = ket(2, 0), ket(2, 1)
-        expected_res = 1/np.sqrt(30) * (tensor_list([e1, e0, e0, e0]) +
-                                        2 * tensor_list([e0, e1, e0, e0]) +
-                                        3 * tensor_list([e0, e0, e1, e0]) +
-                                        4 * tensor_list([e0, e0, e0, e1]))
+        e_0, e_1 = ket(2, 0), ket(2, 1)
+        expected_res = 1/np.sqrt(30) * (tensor_list([e_1, e_0, e_0, e_0]) +
+                                        2 * tensor_list([e_0, e_1, e_0, e_0]) +
+                                        3 * tensor_list([e_0, e_0, e_1, e_0]) +
+                                        4 * tensor_list([e_0, e_0, e_0, e_1]))
 
         coeffs = np.array([1, 2, 3, 4])/np.sqrt(30)
         res = w_state(4, coeffs)
