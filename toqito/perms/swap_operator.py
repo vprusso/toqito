@@ -1,7 +1,7 @@
 """Produces a unitary operator that swaps two subsystems."""
 from typing import List, Union
 import numpy as np
-from toqito.helper.iden import iden
+from toqito.matrix.matrices.iden import iden
 from toqito.perms.swap import swap
 
 

@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.helper.constants import e0, e1
+from toqito.base.ket import ket
 from toqito.state.states.max_entangled import max_entangled
 
 
@@ -14,6 +14,7 @@ class TestMaxEntangled(unittest.TestCase):
         Generate maximally entangled state:
             1/sqrt(2) * (|00> + |11>)
         """
+        e0, e1 = ket(2, 0), ket(2, 1)
         expected_res = 1/np.sqrt(2) * (np.kron(e0, e0) + np.kron(e1, e1))
         res = max_entangled(2)
 
@@ -25,6 +26,7 @@ class TestMaxEntangled(unittest.TestCase):
         Generate maximally entangled state:
             |00> + |11>
         """
+        e0, e1 = ket(2, 0), ket(2, 1)
         expected_res = 1 * (np.kron(e0, e0) + np.kron(e1, e1))
         res = max_entangled(2, False, False)
 

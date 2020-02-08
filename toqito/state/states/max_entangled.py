@@ -1,7 +1,7 @@
 """Produces a maximally entangled bipartite pure state."""
 import numpy as np
 import scipy as sp
-from toqito.helper.iden import iden
+from toqito.matrix.matrices.iden import iden
 
 
 def max_entangled(dim: int,

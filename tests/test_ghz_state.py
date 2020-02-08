@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.helper.constants import e0, e1
+from toqito.base.ket import ket
 from toqito.state.states.ghz_state import ghz_state
 from toqito.matrix.operations.tensor import tensor_list
 
@@ -15,6 +15,7 @@ class TestGHZState(unittest.TestCase):
         The following generates the 3-qubit GHZ state:
             1/sqrt(2) * (|000> + |111>)
         """
+        e0, e1 = ket(2, 0), ket(2, 1)
         expected_res = 1/np.sqrt(2) * (tensor_list([e0, e0, e0]) +
                                        tensor_list([e1, e1, e1]))
 

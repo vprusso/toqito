@@ -1,9 +1,14 @@
-from toqito.helper.constants import e0, e1, e00, e01, e10, e11, ep, em
+from toqito.base.ket import ket
 from toqito.hedging.calculate_q import calculate_q
 import numpy as np
 
 
 def calculate_hedging_value(n, k, alpha, theta):
+    e0, e1 = ket(2, 0), ket(2, 1)
+    e00 = np.kron(e0, e0)
+    e01 = np.kron(e0, e1)
+    e10 = np.kron(e1, e0)
+    e11 = np.kron(e1, e1)
     v = np.cos(theta)*e00 + np.sin(theta)*e11
     sigma = v * v.conj().T
 

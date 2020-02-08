@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.helper.constants import e0, e1
+from toqito.base.ket import ket
 from toqito.state.states.bell import bell
 
 
@@ -14,6 +14,7 @@ class TestBell(unittest.TestCase):
         Generates the Bell state:
             1/sqrt(2) * (|00> + |11>)
         """
+        e0, e1 = ket(2, 0), ket(2, 1)
         expected_res = 1/np.sqrt(2) * (np.kron(e0, e0) + np.kron(e1, e1))
 
         res = bell(0)
@@ -26,6 +27,7 @@ class TestBell(unittest.TestCase):
         Generates the Bell state:
             1/sqrt(2) * (|00> - |11>)
         """
+        e0, e1 = ket(2, 0), ket(2, 1)
         expected_res = 1/np.sqrt(2) * (np.kron(e0, e0) - np.kron(e1, e1))
 
         res = bell(1)
@@ -38,6 +40,7 @@ class TestBell(unittest.TestCase):
         Generates the Bell state:
             1/sqrt(2) * (|01> + |10>)
         """
+        e0, e1 = ket(2, 0), ket(2, 1)
         expected_res = 1/np.sqrt(2) * (np.kron(e0, e1) + np.kron(e1, e0))
 
         res = bell(2)
@@ -50,6 +53,7 @@ class TestBell(unittest.TestCase):
         Generates the Bell state:
             1/sqrt(2) * (|01> - |10>)
         """
+        e0, e1 = ket(2, 0), ket(2, 1)
         expected_res = 1/np.sqrt(2) * (np.kron(e0, e1) - np.kron(e1, e0))
 
         res = bell(3)

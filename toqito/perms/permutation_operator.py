@@ -2,7 +2,7 @@
 from typing import List, Union
 import numpy as np
 from toqito.perms.permute_systems import permute_systems
-from toqito.helper.iden import iden
+from toqito.matrix.matrices.iden import iden
 
 
 def permutation_operator(dim: Union[List[int], int],

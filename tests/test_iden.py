@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.helper.iden import iden
+from toqito.matrix.matrices.iden import iden
 
 
 class TestIden(unittest.TestCase):

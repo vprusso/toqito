@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.helper.constants import e0, e1
+from toqito.base.ket import ket
 from toqito.matrix.operations.tensor import tensor, tensor_n, tensor_list
 
 
@@ -11,6 +11,7 @@ class TestTensor(unittest.TestCase):
 
     def test_tensor(self):
         """Test standard tensor on vectors."""
+        e0, e1 = ket(2, 0), ket(2, 1)
         expected_res = np.kron(e0, e0)
 
         res = tensor(e0, e0)
@@ -20,6 +21,7 @@ class TestTensor(unittest.TestCase):
 
     def test_tensor_n_0(self):
         """Test tensor n=0 times."""
+        e0, e1 = ket(2, 0), ket(2, 1)
         expected_res = None
 
         res = tensor_n(e0, 0)
@@ -27,6 +29,7 @@ class TestTensor(unittest.TestCase):
 
     def test_tensor_n_1(self):
         """Test tensor n=1 times."""
+        e0, e1 = ket(2, 0), ket(2, 1)
         expected_res = e0
 
         res = tensor_n(e0, 1)
@@ -35,6 +38,7 @@ class TestTensor(unittest.TestCase):
 
     def test_tensor_n_2(self):
         """Test tensor n=2 times."""
+        e0, e1 = ket(2, 0), ket(2, 1)
         expected_res = np.kron(e0, e0)
 
         res = tensor_n(e0, 2)
@@ -43,6 +47,7 @@ class TestTensor(unittest.TestCase):
 
     def test_tensor_n_3(self):
         """Test tensor n=3 times."""
+        e0, e1 = ket(2, 0), ket(2, 1)
         expected_res = np.kron(np.kron(e0, e0), e0)
 
         res = tensor_n(e0, 3)
@@ -58,6 +63,7 @@ class TestTensor(unittest.TestCase):
 
     def test_tensor_list_1(self):
         """Test tensor list with one item."""
+        e0, e1 = ket(2, 0), ket(2, 1)
         expected_res = e0
 
         res = tensor_list([e0])
@@ -67,6 +73,7 @@ class TestTensor(unittest.TestCase):
 
     def test_tensor_list_2(self):
         """Test tensor list with two items."""
+        e0, e1 = ket(2, 0), ket(2, 1)
         expected_res = np.kron(e0, e1)
 
         res = tensor_list([e0, e1])
@@ -76,6 +83,7 @@ class TestTensor(unittest.TestCase):
 
     def test_tensor_list_3(self):
         """Test tensor list with three items."""
+        e0, e1 = ket(2, 0), ket(2, 1)
         expected_res = np.kron(np.kron(e0, e1), e0)
 
         res = tensor_list([e0, e1, e0])

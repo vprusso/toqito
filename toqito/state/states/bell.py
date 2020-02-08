@@ -1,6 +1,6 @@
 """Produces a Bell state."""
 import numpy as np
-from toqito.helper.constants import e0, e1
+from toqito.base.ket import ket
 
 
 def bell(idx: int) -> np.ndarray:
@@ -15,6 +15,7 @@ def bell(idx: int) -> np.ndarray:
         2: (|0>|1> + |1>|0>)/sqrt(2)
         3: (|0>|1> - |1>|0>)/sqrt(2)
     """
+    e0, e1 = ket(2, 0), ket(2, 1)
     if idx == 0:
         return 1/np.sqrt(2) * (np.kron(e0, e0) + np.kron(e1, e1))
     if idx == 1:

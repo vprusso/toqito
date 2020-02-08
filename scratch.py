@@ -1,68 +1,20 @@
 import numpy as np
-from cvxpy.expressions.expression import Expression
-from toqito.helper.cvx_helper import expr_as_np_array, np_array_as_expr
-from numpy import linalg as LA
-import cvxpy
-from toqito.helper.constants import e0, e1, e00, e01, e10, e11, ep, em
-from toqito.matrix.operations.tensor import tensor_list
-from collections import defaultdict
-from toqito.state.states.w_state import w_state
-from toqito.state.states.bell import bell
-from toqito.perms.unique_perms import unique_perms
-from toqito.matrix.operations.vec import vec
-from toqito.helper.iden import iden
-from scipy.sparse import csr_matrix, lil_matrix
-from scipy import sparse
-from toqito.state.states.ghz_state import ghz_state
 from toqito.hedging.pi_perm import pi_perm
-from typing import List
-from scipy.sparse import issparse
-from toqito.perms.swap import swap
-from toqito.perms.swap_operator import swap_operator
-from toqito.hedging.calculate_hedging_value import calculate_hedging_value
-from toqito.state.operations.pure_to_mixed import pure_to_mixed
-from toqito.state.properties.purity import purity
-from numpy.linalg import matrix_power
-from toqito.super_operators.choi_map import choi_map
-from toqito.super_operators.reduction_map import reduction_map
-from toqito.super_operators.partial_trace import partial_trace, partial_trace_cvx
-from toqito.super_operators.apply_map import apply_map
-from toqito.super_operators.partial_transpose import partial_transpose
-from toqito.super_operators.dephasing_channel import dephasing_channel
-from toqito.super_operators.depolarizing_channel import depolarizing_channel
-from toqito.matrix.matrices.fourier_matrix import fourier_matrix
-from toqito.super_operators.partial_map import partial_map
-from toqito.state.operations.state_exclusion import state_exclusion
-from toqito.hedging.weak_coin_flipping import weak_coin_flipping
-from toqito.super_operators.realignment import realignment
-from toqito.state.states.chessboard_state import chessboard_state
-from toqito.state.states.horodecki_state import horodecki_state
-from toqito.matrix.matrices.gell_mann import gell_mann
-from toqito.perms.permutation_operator import permutation_operator
-from toqito.perms.permute_systems import permute_systems
-from toqito.entanglement.negativity import negativity
-import scipy as sp
-from toqito.state.operations.entropy import entropy
-from toqito.state.operations.schmidt_decomposition import schmidt_decomposition
-from toqito.state.states.max_entangled import max_entangled
-from toqito.random.random_unitary import random_unitary
-from toqito.random.random_density_matrix import random_density_matrix
-from toqito.matrix.properties.is_unitary import is_unitary
-from toqito.matrix.properties.is_density import is_density
-from toqito.matrix.properties.is_psd import is_psd
-from toqito.matrix.properties.is_symmetric import is_symmetric
-from toqito.matrix.properties.is_square import is_square
-from toqito.random.random_state_vector import random_state_vector
-from toqito.perms.perfect_matchings import perfect_matchings
-from toqito.state.properties.is_product_vector import is_product_vector
 from toqito.hedging.hedging_sdps import maximize_losing_less_than_k
-from toqito.state.operations.fidelity import fidelity
-from toqito.matrix.properties.is_hermitian import is_hermitian
+from toqito.matrix.properties.is_normal import is_normal
+from toqito.random.random_state_vector import random_state_vector
+from toqito.base.ket import ket
 
 n = 2
 k = 1
 alpha = 1/np.sqrt(2)
 theta = np.pi/8
+
+e0, e1 = ket(2, 0), ket(2, 1)
+e00 = np.kron(e0, e0)
+e01 = np.kron(e0, e1)
+e10 = np.kron(e1, e0)
+e11 = np.kron(e1, e1)
 
 v = np.cos(theta)*e00 + np.sin(theta)*e11
 P1 = v * v.conj().T
@@ -87,7 +39,15 @@ b = np.kron(np.identity(2**(n-1)), np.identity(2**(n-1)))
 c = pi_perm(n-1).conj().T
 
 u = a * b * c
-print(np.sum(np.linalg.svd(rho)))
+
+print(ket(4, 0))
+
+
+#print(np.sum(random_state_vector(2)))
+
+# This is the trace norm
+#print(np.sum(np.linalg.svd(rho)))
+
 #X = cvxpy.Variable((4**(n-1), 4**(n-1)), PSD=True)
 #objective = cvxpy.Maximize(cvxpy.trace(Q1.conj().T * X))
 #constraints = [partial_trace_cvx(X, 1, [2, 2]) == np.identity(2**(n-1))]

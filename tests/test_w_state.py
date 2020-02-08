@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.helper.constants import e0, e1
+from toqito.base.ket import ket
 from toqito.matrix.operations.tensor import tensor_list
 from toqito.state.states.w_state import w_state
 
@@ -12,6 +12,7 @@ class TestWState(unittest.TestCase):
 
     def test_w_state_3(self):
         """The 3-qubit W-state."""
+        e0, e1 = ket(2, 0), ket(2, 1)
         expected_res = 1/np.sqrt(3) * (tensor_list([e1, e0, e0]) +
                                        tensor_list([e0, e1, e0]) +
                                        tensor_list([e0, e0, e1]))
@@ -23,6 +24,7 @@ class TestWState(unittest.TestCase):
 
     def test_generalized_w_state(self):
         """Generalized 4-qubit W-state."""
+        e0, e1 = ket(2, 0), ket(2, 1)
         expected_res = 1/np.sqrt(30) * (tensor_list([e1, e0, e0, e0]) +
                                         2 * tensor_list([e0, e1, e0, e0]) +
                                         3 * tensor_list([e0, e0, e1, e0]) +

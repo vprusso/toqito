@@ -37,7 +37,7 @@ def random_state_vector(dim: Union[List[int], int],
             a_param = a_param + 1j * np.random.rand(dim[0]*k_param, 1)
             b_param = b_param + 1j * np.random.rand(dim[1]*k_param, 1)
 
-        mat_1 = np.kron(psi.conj().T, np.identity(np.prod(dim)))
+        mat_1 = np.kron(psi.conj().T, np.identity(int(np.prod(dim))))
         mat_2 = swap(np.kron(a_param, b_param),
                      sys=[2, 3],
                      dim=[k_param, dim[0], k_param, dim[1]])
