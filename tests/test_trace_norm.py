@@ -18,7 +18,7 @@ class TestTraceNorm(unittest.TestCase):
         rho = u * u.conj().T
 
         res = trace_norm(rho)
-        u_mat, singular_vals, vt_mat = np.linalg.svd(rho)
+        _, singular_vals, _ = np.linalg.svd(rho)
         expected_res = float(np.sum(singular_vals))
 
         self.assertEqual(np.isclose(res, expected_res), True)
