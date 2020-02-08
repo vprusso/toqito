@@ -1,6 +1,6 @@
 """Produces a dephasing channel."""
 import numpy as np
-from toqito.states.max_entangled import max_entangled
+from toqito.states.states.max_entangled import max_entangled
 
 
 def dephasing_channel(dim: int, param_p: int = 0) -> np.ndarray:

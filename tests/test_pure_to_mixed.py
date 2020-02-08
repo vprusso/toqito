@@ -2,8 +2,8 @@
 import unittest
 import numpy as np
 
-from toqito.states.bell import bell
-from toqito.states.pure_to_mixed import pure_to_mixed
+from toqito.states.states.bell import bell
+from toqito.states.operations.pure_to_mixed import pure_to_mixed
 
 
 class TestPureToMixed(unittest.TestCase):

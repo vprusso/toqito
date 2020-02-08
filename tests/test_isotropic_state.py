@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.states.isotropic_state import isotropic_state
+from toqito.states.states.isotropic_state import isotropic_state
 
 
 class TestIsotropicState(unittest.TestCase):

@@ -2,8 +2,8 @@
 import unittest
 import numpy as np
 
-from toqito.states.bell import bell
-from toqito.states.gen_bell import gen_bell
+from toqito.states.states.bell import bell
+from toqito.states.states.gen_bell import gen_bell
 
 
 class TestGenBell(unittest.TestCase):

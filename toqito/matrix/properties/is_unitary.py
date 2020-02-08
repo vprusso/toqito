@@ -16,4 +16,4 @@ def is_unitary(mat: Union[np.ndarray, np.matrix]) -> bool:
         mat = np.matrix(mat)
 
     # If U^* * U = I U * U^*, the matrix "U" is unitary.
-    return np.allclose(np.identity(mat.shape[0]), mat * mat.H)
+    return np.allclose(np.identity(mat.shape[0]), mat * mat.conj().T)

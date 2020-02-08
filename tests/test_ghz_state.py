@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from toqito.helper.constants import e0, e1
-from toqito.states.ghz_state import ghz_state
+from toqito.states.states.ghz_state import ghz_state
 from toqito.matrix.operations.tensor import tensor_list
 
 

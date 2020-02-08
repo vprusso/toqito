@@ -3,7 +3,7 @@ from typing import List, Union
 from numpy import linalg as lin_alg
 import numpy as np
 
-from toqito.states.pure_to_mixed import pure_to_mixed
+from toqito.states.operations.pure_to_mixed import pure_to_mixed
 from toqito.super_operators.partial_transpose import partial_transpose
 
 

@@ -24,7 +24,7 @@ def partial_transpose(rho: np.ndarray,
     In the case where `sys` amd `dim` are specified, this function gives the
     partial transpose of the matrix `rho` where the dimensions of the (possibly
     more than 2) subsystems are given by the vector `dim` and the subsystems to
-    take the partial transpose are given by the scalaer or vector `sys`. If
+    take the partial transpose are given by the scalar or vector `sys`. If
     `rho` is non-square, different row and column dimensions can be specified
     by putting the row dimensions in the first row of `dim` and the column
     dimensions in the second row of `dim`.
@@ -48,8 +48,8 @@ def partial_transpose(rho: np.ndarray,
                 array containing the dimensions of the subsystems.
             """
             raise ValueError(msg)
-            dim[1] = np.round(dim[1])
-            num_sys = 2
+        dim[1] = np.round(dim[1])
+        num_sys = 2
 
     # Allow the user to enter a vector for dim if X is square.
     if min(dim.shape) == 1 or len(dim.shape) == 1:

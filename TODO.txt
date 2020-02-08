@@ -5,4 +5,4 @@
 - Schmidt decomposition
 - Perfect matching fix
 - Permute systems pylint
-
+- Fidelity CVX variables.

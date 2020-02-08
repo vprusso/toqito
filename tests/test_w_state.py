@@ -4,7 +4,7 @@ import numpy as np
 
 from toqito.helper.constants import e0, e1
 from toqito.matrix.operations.tensor import tensor_list
-from toqito.states.w_state import w_state
+from toqito.states.states.w_state import w_state
 
 
 class TestWState(unittest.TestCase):

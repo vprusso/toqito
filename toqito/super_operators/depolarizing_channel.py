@@ -1,10 +1,10 @@
 """Produces a depolarizng channel."""
 import numpy as np
 from scipy.sparse import identity
-from toqito.states.max_entangled import max_entangled
+from toqito.states.states.max_entangled import max_entangled
 
 
-def depolarizing_channel(dim: int, p: int = 0) -> np.ndarray:
+def depolarizing_channel(dim: int, param_p: int = 0) -> np.ndarray:
     """
     Produces the depolarizng channel.
 
@@ -15,10 +15,10 @@ def depolarizing_channel(dim: int, p: int = 0) -> np.ndarray:
     the completely depolarizing channel and `ID` is the identity channel.
 
     :param dim: The dimensionality on which the channel acts.
-    :param p: Default 0.
+    :param param_p: Default 0.
     """
     # Compute the Choi matrix of the depolarizng channel.
 
     # Gives a sparse non-normalized state.
     psi = max_entangled(dim=dim, is_sparse=False, is_normalized=False)
-    return (1-p)*identity(dim**2)/dim + p * (psi*psi.conj().T)
+    return (1-param_p)*identity(dim**2)/dim + param_p * (psi*psi.conj().T)

@@ -1,6 +1,6 @@
 """Determines if state is mixed."""
 import numpy as np
-from toqito.states.is_pure import is_pure
+from toqito.states.properties.is_pure import is_pure
 
 
 def is_mixed(state: np.ndarray) -> bool:

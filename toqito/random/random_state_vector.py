@@ -2,7 +2,7 @@
 from typing import List, Union
 import numpy as np
 
-from toqito.states.max_entangled import max_entangled
+from toqito.states.states.max_entangled import max_entangled
 from toqito.perms.swap import swap
 
 
