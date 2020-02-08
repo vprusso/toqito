@@ -5,10 +5,10 @@ import numpy as np
 from toqito.super_operators.partial_trace import partial_trace_cvx
 
 
-def state_dist(states: List[np.ndarray],
-               sys: List[int],
-               dims: List[int],
-               probs: List[float] = None) -> float:
+def state_distance(states: List[np.ndarray],
+                   sys: List[int],
+                   dims: List[int],
+                   probs: List[float] = None) -> float:
     """
     Calculate the probability that a given quantum state can be distinguished
     from a set of quantum states.

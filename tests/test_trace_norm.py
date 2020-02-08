@@ -14,8 +14,8 @@ class TestTraceNorm(unittest.TestCase):
         e_00 = np.kron(e_0, e_0)
         e_11 = np.kron(e_1, e_1)
 
-        u = 1 / np.sqrt(2) * (e_00 + e_11)
-        rho = u * u.conj().T
+        u_vec = 1 / np.sqrt(2) * (e_00 + e_11)
+        rho = u_vec * u_vec.conj().T
 
         res = trace_norm(rho)
         _, singular_vals, _ = np.linalg.svd(rho)
