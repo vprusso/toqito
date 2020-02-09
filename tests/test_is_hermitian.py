@@ -6,7 +6,7 @@ from toqito.matrix.properties.is_hermitian import is_hermitian
 
 
 class TestIsHermitian(unittest.TestCase):
-    """Unit test for is_density."""
+    """Unit test for is_hermitian."""
 
     def test_is_hermitian(self):
         """Test if matrix is Hermitian."""

@@ -11,6 +11,7 @@ from toqito.state.operations.schmidt_decomposition import schmidt_decomposition
 from toqito.state.states.max_entangled import max_entangled
 from toqito.matrix.matrices.pauli import pauli
 from toqito.entanglement.concurrence import concurrence
+from toqito.matrix.properties.is_diagonal import is_diagonal
 import scipy
 
 n = 2
@@ -48,15 +49,8 @@ c = pi_perm(n-1).conj().T
 
 u = a * b * c
 
-v = random_state_vector(30)
-print(is_product_vector(v, [2, 3, 5]))
-#v = np.array([1, 0, 0, 0, 1, 0, 0, 0])/np.sqrt(2)
-#print(is_product_vector(v, [2, 2, 2]))
-
-#print(concurrence(rho))
-
-x = pauli("i", True)
-print(scipy.sparse.issparse(x))
+x = np.array([[1, 1, 0], [0, 1, 1]])
+print(is_diagonal(x))
 
 #print(trace_norm(rho))
 

@@ -6,3 +6,6 @@
 - Perfect matching fix
 - Permute systems pylint
 - Fidelity CVX variables.
+- Bures metric
+- Bures distance
+- Super fidelity
