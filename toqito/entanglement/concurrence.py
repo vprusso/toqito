@@ -5,7 +5,7 @@ from toqito.matrix.matrices.pauli import pauli
 
 def concurrence(rho: np.ndarray) -> float:
     r"""
-    The concurrence of a two-qubit state `rho` is defined as
+    The concurrence of a bipartite state `rho` is defined as
 
     :math: `\max(0, \lambda_1 - \lambda_2 - \lambda_3 - \lambda_4)`,
 
@@ -33,4 +33,3 @@ def concurrence(rho: np.ndarray) -> float:
     eig_vals = np.linalg.eigvalsh(np.matmul(rho, rho_hat))
     eig_vals = np.sort(np.sqrt(eig_vals))[::-1]
     return max(0, eig_vals[0]-eig_vals[1]-eig_vals[2]-eig_vals[3])
-
