@@ -19,6 +19,7 @@ class TestIsDiagonal(unittest.TestCase):
         self.assertEqual(is_diagonal(mat), False)
 
     def test_non_square(self):
+        """Test on a non-square matrix."""
         mat = np.array([[1, 0, 0], [0, 1, 0]])
         self.assertEqual(is_diagonal(mat), False)
 
