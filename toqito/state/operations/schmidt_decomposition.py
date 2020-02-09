@@ -22,12 +22,17 @@ def schmidt_decomposition(vec: np.ndarray,
 
     if dim is None:
         dim = np.round(np.sqrt(len(vec)))
+    if dim is list:
+        dim = np.array(dim)
 
     # Allow the user to enter a single number for `dim`.
     if isinstance(dim, float):
         dim = np.array([dim, len(vec)/dim])
         if np.abs(dim[1] - np.round(dim[1])) >= 2 * len(vec) * eps:
             msg = """
+                InvalidDim: The value of `dim` must evenly divide `len(vec)`;
+                please provide a `dim` array containing the dimensions of the
+                subsystems.
             """
             raise ValueError(msg)
         dim[1] = np.round(dim[1])
@@ -39,18 +44,20 @@ def schmidt_decomposition(vec: np.ndarray,
     # Just a few Schmidt coefficients.
     if 0 < k_param <= np.ceil(np.min(dim) / adj):
         u_mat, singular_vals, vt_mat = \
-            sp.sparse.linalg.svds(LinearOperator(np.reshape(vec, dim[::-1]),
+            sp.sparse.linalg.svds(LinearOperator(np.reshape(vec, dim[::-1].astype(int)),
                                                  k_param))
     # Otherwise, use lots of Schmidt coefficients.
     else:
         u_mat, singular_vals, vt_mat = \
             np.linalg.svd(np.reshape(vec, dim[::-1].astype(int)))
+
     if k_param > 0:
         u_mat = u_mat[:, :k_param]
-        singular_vals = singular_vals[:, :k_param]
+        singular_vals = singular_vals[:k_param]
         vt_mat = vt_mat[:, :k_param]
 
     #singular_vals = np.diag(singular_vals)
+    singular_vals = singular_vals.reshape(-1, 1)
     if k_param == 0:
         # Schmidt rank.
         r_param = np.sum(

@@ -15,7 +15,7 @@ class TestSchmidtDecomposition(unittest.TestCase):
 
         expected_u_mat = np.identity(3)
         expected_vt_mat = np.identity(3)
-        expected_singular_vals = 1/np.sqrt(3) * np.array([1, 1, 1])
+        expected_singular_vals = 1/np.sqrt(3) * np.array([[1], [1], [1]])
 
         bool_mat = np.isclose(expected_u_mat, u_mat)
         self.assertEqual(np.all(bool_mat), True)

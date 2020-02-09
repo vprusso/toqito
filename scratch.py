@@ -6,6 +6,12 @@ from toqito.random.random_state_vector import random_state_vector
 from toqito.base.ket import ket
 from toqito.state.distance.trace_norm import trace_norm
 from toqito.state.distance.trace_distance import trace_distance
+from toqito.state.properties.is_product_vector import is_product_vector
+from toqito.state.operations.schmidt_decomposition import schmidt_decomposition
+from toqito.state.states.max_entangled import max_entangled
+from toqito.matrix.matrices.pauli import pauli
+from toqito.entanglement.concurrence import concurrence
+import scipy
 
 n = 2
 k = 1
@@ -42,9 +48,18 @@ c = pi_perm(n-1).conj().T
 
 u = a * b * c
 
+v = random_state_vector(30)
+print(is_product_vector(v, [2, 3, 5]))
+#v = np.array([1, 0, 0, 0, 1, 0, 0, 0])/np.sqrt(2)
+#print(is_product_vector(v, [2, 2, 2]))
+
+#print(concurrence(rho))
+
+x = pauli("i", True)
+print(scipy.sparse.issparse(x))
+
 #print(trace_norm(rho))
 
-print(trace_distance(rho, rho))
 
 #u, s, vh = np.linalg.svd(rho)
 
