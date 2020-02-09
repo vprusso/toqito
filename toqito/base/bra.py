@@ -1,4 +1,4 @@
-""" """
+"""Construct the bra object."""
 import numpy as np
 
 

@@ -14,7 +14,7 @@ def expr_as_np_array(cvx_expr: Expression) -> np.ndarray:
     if cvx_expr.is_scalar():
         return np.array(cvx_expr)
     if len(cvx_expr.shape) == 1:
-        return np.array([v for v in cvx_expr])
+        return np.array(list(cvx_expr))
     # Then cvx_expr is a 2-D array.
     rows = []
     for i in range(cvx_expr.shape[0]):

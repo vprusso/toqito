@@ -1,4 +1,4 @@
-""" """
+"""Construct the ket object."""
 import numpy as np
 
 

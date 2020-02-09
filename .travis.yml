@@ -11,8 +11,11 @@ install:
 script:
     - nosetests --with-coverage --cover-erase --cover-package=toqito
     - pylint tests/
+    - pylint toqito/base/
     - pylint toqito/entanglement/
+    - pylint toqito/helper/
     - pylint toqito/matrix/
+    - pylint toqito/nonlocal_games/
     - pylint toqito/random/
     - pylint toqito/state/
     - pylint toqito/upb/
