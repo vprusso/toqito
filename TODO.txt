@@ -9,3 +9,4 @@
 - Bures metric
 - Bures distance
 - Super fidelity
+- Generalized Gell-man operators

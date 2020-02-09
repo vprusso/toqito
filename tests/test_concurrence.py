@@ -21,6 +21,12 @@ class TestConcurrence(unittest.TestCase):
 
         self.assertEqual(np.isclose(res, 1), True)
 
+    def test_invalid_dim(self):
+        """Tests for invalid dimension inputs."""
+        with self.assertRaises(ValueError):
+            rho = np.identity(5)
+            concurrence(rho)
+
 
 if __name__ == '__main__':
     unittest.main()
