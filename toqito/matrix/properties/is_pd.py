@@ -1,6 +1,5 @@
 """Determines whether or not a matrix is positive definite."""
 import numpy as np
-from toqito.matrix.properties.is_square import is_square
 
 
 def is_pd(mat: np.ndarray) -> bool:
