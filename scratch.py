@@ -15,6 +15,9 @@ from toqito.matrix.properties.is_diagonal import is_diagonal
 import scipy
 import cvxpy
 from toqito.state.distance.fidelity import fidelity
+from toqito.state.properties.is_ppt import is_ppt
+from toqito.super_operators.partial_transpose import partial_transpose
+#from toqito.state.states.werner import 
 
 
 n = 2
@@ -57,12 +60,13 @@ print(fidelity(rho, sigma))
 
 rho = cvxpy.bmat([[1/2, 0, 0, 1/2], [0, 0, 0, 0], [0, 0, 0, 0], [1/2, 0, 0, 1/2]])
 sigma = rho
-Z = cvxpy.Variable(rho.shape, complex=True)
-objective = cvxpy.Maximize(cvxpy.real(cvxpy.trace(Z + Z.H)))
-constraints = [cvxpy.bmat([[rho, Z], [Z.H, sigma]]) >> 0]
-problem = cvxpy.Problem(objective, constraints)
+#Z = cvxpy.Variable(rho.shape, complex=True)
+#objective = cvxpy.Maximize(cvxpy.real(cvxpy.trace(Z + Z.H)))
+#constraints = [cvxpy.bmat([[rho, Z], [Z.H, sigma]]) >> 0]
+#problem = cvxpy.Problem(objective, constraints)
 
-print(fidelity(rho, rho))
+#print(is_ppt(np.identity(9)))
+print(is_ppt(rho))
 
 #X = cvxpy.Variable((4**(n-1), 4**(n-1)), PSD=True)
 #objective = cvxpy.Maximize(cvxpy.trace(Q_a.conj().T @ X))

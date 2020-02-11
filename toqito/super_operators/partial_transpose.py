@@ -36,6 +36,9 @@ def partial_transpose(rho: np.ndarray,
     if dim is None:
         dim = np.array([[sqrt_rho_dims[0], sqrt_rho_dims[0]],
                         [sqrt_rho_dims[1], sqrt_rho_dims[1]]])
+    if isinstance(dim, float):
+        dim = np.array([dim])
+
     num_sys = len(dim)
 
     # Allow the user to enter a single number for dim.
