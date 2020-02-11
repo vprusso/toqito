@@ -17,7 +17,7 @@ import cvxpy
 from toqito.state.distance.fidelity import fidelity
 from toqito.state.properties.is_ppt import is_ppt
 from toqito.super_operators.partial_transpose import partial_transpose
-#from toqito.state.states.werner import 
+from toqito.state.states.werner_state import werner_state
 
 
 n = 2
@@ -60,13 +60,18 @@ print(fidelity(rho, sigma))
 
 rho = cvxpy.bmat([[1/2, 0, 0, 1/2], [0, 0, 0, 0], [0, 0, 0, 0], [1/2, 0, 0, 1/2]])
 sigma = rho
+
+print(werner_state(3, 1/2))
+print(werner_state(2,[0.01,0.02,0.03,0.04,0.05]))
+
+
 #Z = cvxpy.Variable(rho.shape, complex=True)
 #objective = cvxpy.Maximize(cvxpy.real(cvxpy.trace(Z + Z.H)))
 #constraints = [cvxpy.bmat([[rho, Z], [Z.H, sigma]]) >> 0]
 #problem = cvxpy.Problem(objective, constraints)
 
 #print(is_ppt(np.identity(9)))
-print(is_ppt(rho))
+#print(is_ppt(rho))
 
 #X = cvxpy.Variable((4**(n-1), 4**(n-1)), PSD=True)
 #objective = cvxpy.Maximize(cvxpy.trace(Q_a.conj().T @ X))

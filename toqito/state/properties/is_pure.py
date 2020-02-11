@@ -11,4 +11,4 @@ def is_pure(state: np.ndarray) -> bool:
     :return: True if state is pure and False otherwise.
     """
     eigs, _ = lin_alg.eig(state)
-    return np.isclose(np.max(np.diag(eigs)), 1)
+    return np.allclose(np.max(np.diag(eigs)), 1)

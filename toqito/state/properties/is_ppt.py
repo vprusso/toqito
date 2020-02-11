@@ -32,4 +32,3 @@ def is_ppt(mat: np.ndarray,
     if tol is None:
         tol = np.sqrt(eps)
     return is_psd(partial_transpose(mat, sys, dim), tol)
-
