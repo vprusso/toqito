@@ -1,6 +1,6 @@
 """Produces a Werner state."""
-import numpy as np
 import itertools
+import numpy as np
 
 from toqito.perms.permutation_operator import permutation_operator
 from toqito.perms.swap_operator import swap_operator
@@ -26,7 +26,7 @@ def werner_state(dim, alpha) -> np.ndarray:
 
     so P(4) in this case equals permutation_operator(dim, [2, 3, 1]).
     """
-   
+
     # The total number of permutation operators.
     if isinstance(alpha, float):
         n_fac = 2
@@ -36,13 +36,13 @@ def werner_state(dim, alpha) -> np.ndarray:
     # Multipartite Werner state.
     if n_fac > 2:
         # Compute the number of parties from `len(alpha)`.
-        n = n_fac
+        n_var = n_fac
         # We won't actually go all the way to `n_fac`.
         for i in range(2, n_fac):
-            n = n//i
-            if n == i + 1:
+            n_var = n_var//i
+            if n_var == i + 1:
                 break
-            elif n < i:
+            if n_var < i:
                 msg = """
                     InvalidAlpha: The `alpha` vector must contain p!-1 entries
                     for some integer p > 1.
@@ -51,11 +51,11 @@ def werner_state(dim, alpha) -> np.ndarray:
 
         # Done error checking and computing the number of parties -- now
         # compute the Werner state.
-        perms = list(itertools.permutations(np.arange(n)))
+        perms = list(itertools.permutations(np.arange(n_var)))
         sorted_perms = np.argsort(perms, axis=1) + 1
 
         for i in range(2, n_fac):
-            rho = np.identity(dim**n) - alpha[i-1] \
+            rho = np.identity(dim**n_var) - alpha[i-1] \
                   * permutation_operator(dim,
                                          sorted_perms[i, :],
                                          False,
@@ -63,7 +63,5 @@ def werner_state(dim, alpha) -> np.ndarray:
         rho = rho / np.trace(rho)
         return rho
     # Bipartite Werner state.
-    else:
-        return (np.identity(dim**2) - alpha
-                * swap_operator(dim, True)) / (dim * (dim - alpha))
-
+    return (np.identity(dim**2) - alpha
+            * swap_operator(dim, True)) / (dim * (dim - alpha))
