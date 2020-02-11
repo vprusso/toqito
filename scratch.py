@@ -13,6 +13,9 @@ from toqito.matrix.matrices.pauli import pauli
 from toqito.entanglement.concurrence import concurrence
 from toqito.matrix.properties.is_diagonal import is_diagonal
 import scipy
+import cvxpy
+from toqito.state.distance.fidelity import fidelity
+
 
 n = 2
 k = 1
@@ -49,8 +52,22 @@ c = pi_perm(n-1).conj().T
 
 u = a * b * c
 
-x = np.array([[1, 1, 0], [0, 1, 1]])
-print(is_diagonal(x))
+sigma = rho
+print(fidelity(rho, sigma))
+
+rho = cvxpy.bmat([[1/2, 0, 0, 1/2], [0, 0, 0, 0], [0, 0, 0, 0], [1/2, 0, 0, 1/2]])
+sigma = rho
+Z = cvxpy.Variable(rho.shape, complex=True)
+objective = cvxpy.Maximize(cvxpy.real(cvxpy.trace(Z + Z.H)))
+constraints = [cvxpy.bmat([[rho, Z], [Z.H, sigma]]) >> 0]
+problem = cvxpy.Problem(objective, constraints)
+
+print(fidelity(rho, rho))
+
+#X = cvxpy.Variable((4**(n-1), 4**(n-1)), PSD=True)
+#objective = cvxpy.Maximize(cvxpy.trace(Q_a.conj().T @ X))
+#constraints = [partial_trace_cvx(X, sys, dim) == np.identity(2**(n-1))]
+#problem = cvxpy.Problem(objective, constraints)
 
 #print(trace_norm(rho))
 

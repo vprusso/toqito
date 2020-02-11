@@ -34,9 +34,17 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
         """
         raise ValueError(msg)
 
-    if isinstance(rho, cvxpy.expressions.expression.Expression) or \
-            isinstance(sigma, cvxpy.expressions.expression.Expression):
-        pass
+    # If `rho` or `sigma` is a cvxpy variable then compute fidelity via
+    # semidefinite programming, so that this function can be used in the
+    # objective function or constraints of other cvxpy optimization problems.
+    if isinstance(rho, cvxpy.atoms.affine.vstack.Vstack) or \
+            isinstance(sigma, cvxpy.atoms.affine.vstack.Vstack):
+        z_var = cvxpy.Variable(rho.shape, complex=True)
+        objective = cvxpy.Maximize(cvxpy.real(cvxpy.trace(z_var + z_var.H)))
+        constraints = [cvxpy.bmat([[rho, z_var], [z_var.H, sigma]]) >> 0]
+        problem = cvxpy.Problem(objective, constraints)
+
+        return 1/2*problem.solve()
 
     # If `rho` or `sigma` are *not* cvxpy variables, compute fidelity normally,
     # since this is much faster.
