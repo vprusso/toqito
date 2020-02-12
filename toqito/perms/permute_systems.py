@@ -70,7 +70,6 @@ def permute_systems(input_mat: np.ndarray,
         dim_tmp = dim[:].T
         if is_vec:
             dim = np.ones((2, len(dim)))
-            print(dim)
             dim[vec_orien, :] = dim_tmp
         else:
             dim = np.array([[dim_tmp],

@@ -1,10 +1,10 @@
 import numpy as np
-from toqito.matrix.operations.tensor import tensor_n, tensor, tensor_list
+from toqito.matrix.operations.tensor import tensor_n, tensor_list
 
 
 def pi_perm(n: int) -> np.ndarray:
     """
-    Computes the permutation operatr that is used in the hedging SDPs in both
+    Computes the permutation operator that is used in the hedging SDPs in both
     [1] and [2] to properly align the complex Euclidean spaces.
     References:
         [1]: https://arxiv.org/abs/1310.7954
@@ -19,7 +19,7 @@ def pi_perm(n: int) -> np.ndarray:
     if n == 1:
         return np.identity(n)
 
-    # Simultates a sorting network of depth n - 1. For n = 2, we switch the
+    # Simulates a sorting network of depth n - 1. For n = 2, we switch the
     # order from:
     #    (x_1, y_1), (x_2, y_2) -> (x_1, x_2), (y_1, y_2).
     if n > 1:
@@ -39,6 +39,3 @@ def pi_perm(n: int) -> np.ndarray:
         for i in range(1, n-1):
             perm_mat = np.matmul(perm_mat, perm_cell[i])
         return perm_mat
-
-
-
