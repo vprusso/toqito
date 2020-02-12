@@ -29,6 +29,7 @@ def calculate_q(Q0, Q1, n, k):
     Q0_nk = np.concatenate(t_prods_0)
     Q1_nk = np.concatenate(t_prods_1)
 
-    print(Q0_nk.size)
+    Q0_nk = Q0_nk.reshape((4**n, 4**n))
+    Q1_nk = Q1_nk.reshape((4**n, 4**n))
 
     return Q0_nk, Q1_nk

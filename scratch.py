@@ -52,9 +52,8 @@ n = 2
 k = 1
 Q0_nk, Q1_nk = calculate_q(Q0, Q1, n, k)
 
-print(Q1_nk)
-#maximize_losing_less_than_k(Q1_nk, n)
-#minimize_losing_less_than_k(Q0_nk, n)
+maximize_losing_less_than_k(Q1_nk, n)
+minimize_losing_less_than_k(Q0_nk, n)
 #minimize_losing_less_than_k(Q00, n=2)
 
 
