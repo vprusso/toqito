@@ -2,7 +2,6 @@
 import unittest
 import numpy as np
 
-from toqito.base.ket import ket
 from toqito.super_operators.partial_trace import partial_trace
 
 
