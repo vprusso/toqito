@@ -1,8 +1,9 @@
 """Produces a Werner state."""
+from typing import List, Union
+
 import itertools
 import numpy as np
 
-from typing import List, Union
 from toqito.perms.permutation_operator import permutation_operator
 from toqito.perms.swap_operator import swap_operator
 

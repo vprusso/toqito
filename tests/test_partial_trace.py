@@ -95,31 +95,6 @@ class TestPartialTrace(unittest.TestCase):
         bool_mat = np.isclose(expected_res, res)
         self.assertEqual(np.all(bool_mat), True)
 
-    def test_partial_trace_16_by_16(self):
-        """
-        By default, the partial_transpose function takes the trace over
-        the second subsystem.
-        """
-        alpha = 1/np.sqrt(2)
-        theta = np.pi/8
-        e_0, e_1 = ket(2, 0), ket(2, 1)
-        e_00 = np.kron(e_0, e_0)
-        e_01 = np.kron(e_0, e_1)
-        e_10 = np.kron(e_1, e_0)
-        e_11 = np.kron(e_1, e_1)
-        l1 = -alpha * np.sin(theta) * e_00 + np.sqrt(1 - alpha ** 2) * np.cos(theta) * e_11
-        l2 = alpha * np.sin(theta) * e_10
-        l3 = np.sqrt(1 - alpha ** 2) * np.cos(theta) * e_01
-
-        test_input_mat = l1 * l1.conj().T + l2 * l2.conj().T + l3 * l3.conj().T
-
-        expected_res = 34
-
-        #res = partial_trace(test_input_mat, 2, 1)
-
-        #bool_mat = np.isclose(expected_res, res)
-        #self.assertEqual(np.all(bool_mat), True)
-
 
 if __name__ == '__main__':
     unittest.main()
