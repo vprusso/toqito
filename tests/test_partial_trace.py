@@ -2,6 +2,7 @@
 import unittest
 import numpy as np
 
+from toqito.base.ket import ket
 from toqito.super_operators.partial_trace import partial_trace
 
 
@@ -58,6 +59,66 @@ class TestPartialTrace(unittest.TestCase):
 
         res = partial_trace(test_input_mat, [1, 2])
         self.assertEqual(res, expected_res)
+
+    def test_partial_trace_sys_int_dim_int(self):
+        """
+        By default, the partial_transpose function takes the trace over
+        the second subsystem.
+        """
+        test_input_mat = np.array([[1, 2, 3, 4],
+                                   [5, 6, 7, 8],
+                                   [9, 10, 11, 12],
+                                   [13, 14, 15, 16]])
+
+        expected_res = np.array([[7, 11],
+                                 [23, 27]])
+
+        res = partial_trace(test_input_mat, 2, 2)
+
+        bool_mat = np.isclose(expected_res, res)
+        self.assertEqual(np.all(bool_mat), True)
+
+    def test_partial_trace_sys_int_dim_int_2(self):
+        """
+        By default, the partial_transpose function takes the trace over
+        the second subsystem.
+        """
+        test_input_mat = np.array([[1, 2, 3, 4],
+                                   [5, 6, 7, 8],
+                                   [9, 10, 11, 12],
+                                   [13, 14, 15, 16]])
+
+        expected_res = 34
+
+        res = partial_trace(test_input_mat, 2, 1)
+
+        bool_mat = np.isclose(expected_res, res)
+        self.assertEqual(np.all(bool_mat), True)
+
+    def test_partial_trace_16_by_16(self):
+        """
+        By default, the partial_transpose function takes the trace over
+        the second subsystem.
+        """
+        alpha = 1/np.sqrt(2)
+        theta = np.pi/8
+        e_0, e_1 = ket(2, 0), ket(2, 1)
+        e_00 = np.kron(e_0, e_0)
+        e_01 = np.kron(e_0, e_1)
+        e_10 = np.kron(e_1, e_0)
+        e_11 = np.kron(e_1, e_1)
+        l1 = -alpha * np.sin(theta) * e_00 + np.sqrt(1 - alpha ** 2) * np.cos(theta) * e_11
+        l2 = alpha * np.sin(theta) * e_10
+        l3 = np.sqrt(1 - alpha ** 2) * np.cos(theta) * e_01
+
+        test_input_mat = l1 * l1.conj().T + l2 * l2.conj().T + l3 * l3.conj().T
+
+        expected_res = 34
+
+        #res = partial_trace(test_input_mat, 2, 1)
+
+        #bool_mat = np.isclose(expected_res, res)
+        #self.assertEqual(np.all(bool_mat), True)
 
 
 if __name__ == '__main__':

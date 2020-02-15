@@ -11,8 +11,6 @@ class TestWernerState(unittest.TestCase):
     def test_qutrit_werner(self):
         """Test for qutrit Werner state."""
         res = werner_state(3, 1/2)
-        print(res[0][0])
-        print(2/3)
         self.assertEqual(np.isclose(res[0][0], 0.0666666), True)
         self.assertEqual(np.isclose(res[1][3], -0.066666), True)
 

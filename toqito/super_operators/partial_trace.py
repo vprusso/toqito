@@ -3,7 +3,7 @@ from scipy.sparse import issparse, csr_matrix
 from skimage.util.shape import view_as_blocks
 from toqito.perms.permute_systems import permute_systems
 from toqito.helper.cvx_helper import expr_as_np_array, np_array_as_expr
-from typing import Any
+from typing import Union, List
 import cvxpy
 from cvxpy.expressions.expression import Expression
 
@@ -17,99 +17,87 @@ def partial_trace_cvx(rho, sys=None, dim=None):
     return traced_rho
 
 
-def partial_trace(X: np.ndarray,
-                  sys: Any = None,
-                  dim: int = None):
+def partial_trace(input_mat: np.ndarray,
+                  sys: Union[int, List[int]] = 2,
+                  dim: Union[int, List[int]] = None):
     """
     Computes the partial trace of a matrix.
 
-    :param X: A square matrix.
+    :param input_mat: A square matrix.
     :param sys:
     :param dim:
-    :param mode:
 
     Gives the partial trace of the matrix X, where the dimensions of the
     (possibly more than 2) subsystems are given by the vector DIM and the
     subsystems to take the trace on are given by the scalar or vector SYS.
-
-    MODE is a flag that determines which of two algorithms is used to compute
-    the partial trace.
-
-    If MODE = -1, then this script chooses whichever algorithm it thinks will
-    be faster based on the dimensions of the subsystems being traced out and
-    the sparisity of X. If you wish to force one specific algorithm, set either
-    MODE = 0 (which generally works best for full or non- numeric matrices, or
-    sparse matrices when most of the subsystems are being trace out) or MODE =
-    1 (which generally works best when X is large and sparse, and the partial
-    trace of X will also be large).
     """
     eps = np.finfo(float).eps
-    lX = len(X)
-
+  
     if dim is None:
-        dim = np.array([np.round(np.sqrt(lX))])
+        dim = np.array([np.round(np.sqrt(len(input_mat)))])
+    if isinstance(dim, int):
+        dim = np.array([dim])
     if isinstance(dim, list):
         dim = np.array(dim)
-
+    
     if sys is None:
         sys = 2
-    
+     
     num_sys = len(dim)
 
     # Allow the user to enter a single number for dim.
     if num_sys == 1:
-        dim = np.array([dim[0], lX/dim[0]])
-        if np.abs(dim[1] - np.round(dim[1])) >= 2 * lX * eps:
+        dim = np.array([dim[0], len(input_mat)/dim[0]])
+        if np.abs(dim[1] - np.round(dim[1])) >= 2 * len(input_mat) * eps:
             msg = """
-                InvalidDim: If DIM is a scalar, DIM must evenly divide length(X).
+                InvalidDim: If `dim` is a scalar, `dim` must evenly divide 
+                `len(input_mat)`.
             """
             raise ValueError(msg)
         dim[1] = np.round(dim[1])
         num_sys = 2
 
-    is_sparse = issparse(X)
+    is_sparse = issparse(input_mat)
     prod_dim = np.prod(dim)
     if isinstance(sys, list):
         prod_dim_sys = np.prod(dim)
     elif isinstance(sys, int):
         prod_dim_sys = np.prod(dim[sys-1])
     else:
-        raise ValueError("ERROR")
-
+        msg = """
+            InvalidSys: The variable `sys` must either be of type int of a
+            list of ints.
+        """
+        raise ValueError(msg)
+ 
     sub_sys_vec = prod_dim * np.ones(int(prod_dim_sys))//prod_dim_sys
 
     s1 = list(range(1, num_sys+1))
-    if isinstance(sys, list):
-        s2 = sys
-    elif isinstance(sys, int):
-        s2 = [sys]
-    else:
-        raise ValueError("ERROR")
+    if isinstance(sys, int):
+        sys = [sys]
+    s2 = sys
     set_diff = list(set(s1) - set(s2))
-   
-    if isinstance(sys, list):
-        perm = sys
-    elif isinstance(sys, int):
-        perm = [sys]
-    else:
-        raise ValueError("ERROR")
+
+    perm = sys
     perm.extend(set_diff)
 
-    A = permute_systems(X, perm, dim)
+    A = permute_systems(input_mat, perm, dim)
 
     # Convert the elements of sub_sys_vec to integers and
     # convert from a numpy array to a tuple to feed it into
     # the view_as_blocks function. This has a similar behavior
     # to the "mat2cell" function in MATLAB.
-    X = view_as_blocks(A, block_shape=(int(sub_sys_vec[0]), int(sub_sys_vec[1])))
+    input_mat = view_as_blocks(A, block_shape=(int(sub_sys_vec[0]),
+                                               int(sub_sys_vec[1])))
 
     if is_sparse:
-        Xpt = csr_matrix((int(sub_sys_vec[0]), int(sub_sys_vec[0])))
+        input_mat_pt = csr_matrix((int(sub_sys_vec[0]),
+                                   int(sub_sys_vec[0])))
     else:
-        Xpt = np.empty([int(sub_sys_vec[0]), int(sub_sys_vec[0])])
+        input_mat_pt = np.empty([int(sub_sys_vec[0]),
+                                 int(sub_sys_vec[0])])
 
     for i in range(int(prod_dim_sys)):
-        Xpt = Xpt + X[i, i]
+        input_mat_pt = input_mat_pt + input_mat[i, i]
 
-    return Xpt
-
+    return input_mat_pt
