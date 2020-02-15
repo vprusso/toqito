@@ -20,7 +20,9 @@ from toqito.state.distance.fidelity import fidelity
 from toqito.state.properties.is_ppt import is_ppt
 from toqito.super_operators.partial_transpose import partial_transpose
 from toqito.state.states.werner_state import werner_state
-
+from toqito.perms.permutation_operator import permutation_operator
+from toqito.perms.swap_operator import swap_operator
+from toqito.perms.swap import swap
 
 n = 2
 k = 1
@@ -48,12 +50,16 @@ Q0 = l1 * l1.conj().T + l2 * l2.conj().T + l3 * l3.conj().T
 u = 1/np.sqrt(2) * (e00 + e11)
 rho = u * u.conj().T
 
+k = 2
 n = 2
-k = 1
 Q0_nk, Q1_nk = calculate_q(Q0, Q1, n, k)
+print(Q0_nk.shape)
+print(Q0_nk.size)
 
-maximize_losing_less_than_k(Q1_nk, n)
-minimize_losing_less_than_k(Q0_nk, n)
+#print(permutation_operator(2, swap_operator(2)))
+
+#maximize_losing_less_than_k(Q1_nk, n)
+#minimize_losing_less_than_k(Q0_nk, n)
 #minimize_losing_less_than_k(Q00, n=2)
 
 

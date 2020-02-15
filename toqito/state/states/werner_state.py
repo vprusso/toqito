@@ -2,11 +2,12 @@
 import itertools
 import numpy as np
 
+from typing import List, Union
 from toqito.perms.permutation_operator import permutation_operator
 from toqito.perms.swap_operator import swap_operator
 
 
-def werner_state(dim, alpha) -> np.ndarray:
+def werner_state(dim: int, alpha: Union[int, List[float]]) -> np.ndarray:
     """
     Produce a Werner state.
 
