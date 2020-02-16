@@ -48,6 +48,14 @@ class TestPartialTranspose(unittest.TestCase):
         bool_mat = np.isclose(res, expected_res)
         self.assertEqual(np.all(bool_mat), True)
 
+    def test_non_square_matrix(self):
+        """Matrix must be square."""
+        with self.assertRaises(ValueError):
+            test_input_mat = np.array([[1, 2, 3, 4],
+                                       [5, 6, 7, 8],
+                                       [13, 14, 15, 16]])
+            partial_transpose(test_input_mat)
+
 
 if __name__ == '__main__':
     unittest.main()

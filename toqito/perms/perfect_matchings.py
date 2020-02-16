@@ -30,10 +30,11 @@ def perfect_matchings(items: Union[int, np.ndarray]) -> np.ndarray:
         tlower_fac = lower_fac
         tlower_fac[tlower_fac == items[i]] = items[1]
         a = pm
-        b = np.ones((lfac_size))
+        b = np.ones((lfac_size, 1))
         c = np.array([items[0], items[i]])
         d = tlower_fac
+        print("PERM", a)
         
-        pm = np.array([pm, b * c, d])
+        pm = [pm, b * c, d]
 
     return pm

@@ -23,6 +23,11 @@ class TestIsPPT(unittest.TestCase):
         mat = np.identity(9)
         self.assertEqual(is_ppt(mat, 2, np.round(np.sqrt(mat.size))), True)
 
+    def test_is_ppt_tol(self):
+        """Check that PPT matrix returns True."""
+        mat = np.identity(9)
+        self.assertEqual(is_ppt(mat, 2, np.round(np.sqrt(mat.size)), 1e-10), True)
+
 
 if __name__ == '__main__':
     unittest.main()

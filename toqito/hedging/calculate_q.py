@@ -23,31 +23,27 @@ def calculate_q(Q0, Q1, n, k):
     mats_1 = [[None]*c]*r
     for i in range(r):
         for j in range(c):
-            print(perms[i][j])
+#            print(perms[i][j])
             if perms[i][j] == 1:
                 mats_0[i][j] = Q0
                 mats_1[i][j] = Q1
             if perms[i][j] == 2:
                 mats_0[i][j] = Q1
                 mats_1[i][j] = Q0
-            print(i, j, mats_0[i][j])
-
-    t_prods_0 = []
-    t_prods_1 = []
+#            print(i, j, mats_0[i][j])
 
     print(mats_0[0][0])
     print(mats_0[0][1])
-    print(tensor_list(mats_0[0]))
+    t_prods_0 = []
+    t_prods_1 = []
 
-    print(np.kron(mats_0[0][0], mats_0[0][1]))
+    for i in range(len(mats_0)):
+        t_prods_0.append(tensor_list(mats_0[i]))
+        t_prods_1.append(tensor_list(mats_1[i]))
 
-    # for i in range(len(mats_0)):
-    #     t_prods_0.append(tensor_list(mats_0[i]))
-    #     t_prods_1.append(tensor_list(mats_1[i]))
-    #
-    # Q0_nk = np.concatenate(t_prods_0)
-    # Q1_nk = np.concatenate(t_prods_1)
-    #
+    Q0_nk = np.concatenate(t_prods_0)
+    Q1_nk = np.concatenate(t_prods_1)
+
     # print(Q0_nk.shape)
     # print(Q0_nk.size)
     #

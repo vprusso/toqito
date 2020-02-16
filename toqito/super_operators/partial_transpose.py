@@ -61,12 +61,12 @@ def partial_transpose(rho: np.ndarray,
         dim = np.array([dim, dim])
 
     # Prepare the partial transposition.
-    prod_dimR = np.prod(dim[0][:])
-    prod_dimC = np.prod(dim[1][:])
-    sub_prodR = np.prod(dim[0][sys-1])
-    sub_prodC = np.prod(dim[1][sys-1])
-    sub_sys_vecR = prod_dimR * np.ones(int(sub_prodR)) / sub_prodR
-    sub_sys_vecC = prod_dimC * np.ones(int(sub_prodC)) / sub_prodC
+    prod_dim_r = np.prod(dim[0][:])
+    prod_dim_c = np.prod(dim[1][:])
+    sub_prod_r = np.prod(dim[0][sys-1])
+    sub_prod_c = np.prod(dim[1][sys-1])
+    sub_sys_vec_r = prod_dim_r * np.ones(int(sub_prod_r)) / sub_prod_r
+    sub_sys_vec_c = prod_dim_c * np.ones(int(sub_prod_c)) / sub_prod_c
 
     s1 = list(range(1, num_sys+1))
     s2 = [sys]
@@ -81,8 +81,8 @@ def partial_transpose(rho: np.ndarray,
 
     # The `view_as_blocks` function behaves in a similar manner to the
     # "cell2mat" function provided from MATLAB.
-    block_shape_x = int(sub_sys_vecR[0])
-    block_shape_y = int(sub_sys_vecC[0])
+    block_shape_x = int(sub_sys_vec_r[0])
+    block_shape_y = int(sub_sys_vec_c[0])
     blocks = view_as_blocks(rho_permuted,
                             block_shape=(block_shape_x, block_shape_y))
     rho_permuted = np.hstack([np.vstack(block) for block in blocks])
@@ -91,7 +91,7 @@ def partial_transpose(rho: np.ndarray,
     dim[:, sys-1] = dim[[1, 0], sys-1]
     perm_np = np.array(perm)
     perm_np = list(perm_np - 1)
-    dim = dim[:][perm_np]
+    dim = dim[:, perm_np]
 
     return permute_systems(rho_permuted, perm, dim, False, True)
 

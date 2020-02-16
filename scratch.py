@@ -24,6 +24,8 @@ from toqito.perms.permutation_operator import permutation_operator
 from toqito.perms.swap_operator import swap_operator
 from toqito.perms.swap import swap
 from toqito.super_operators.partial_trace import partial_trace
+from toqito.perms.perfect_matchings import perfect_matchings
+
 
 n = 2
 k = 1
@@ -53,14 +55,7 @@ rho = u * u.conj().T
 
 k = 2
 n = 2
-#Q0_nk, Q1_nk = calculate_q(Q0, Q1, n, k)
-
-
-Q00 = np.kron(Q0, Q0)
-print(np.around(partial_trace(Q00, 2, [2, 2, 2, 2]), decimals=8))
-
-
-#print(permutation_operator(2, swap_operator(2)))
+calculate_q(Q0, Q1, n, k)
 
 #maximize_losing_less_than_k(Q1_nk, n)
 #minimize_losing_less_than_k(Q0_nk, n)
