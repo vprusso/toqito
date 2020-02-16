@@ -25,6 +25,7 @@ from toqito.perms.swap_operator import swap_operator
 from toqito.perms.swap import swap
 from toqito.super_operators.partial_trace import partial_trace
 from toqito.perms.perfect_matchings import perfect_matchings
+from toqito.hedging.weak_coin_flipping import weak_coin_flipping
 
 
 n = 2
@@ -37,6 +38,8 @@ e00 = np.kron(e0, e0)
 e01 = np.kron(e0, e1)
 e10 = np.kron(e1, e0)
 e11 = np.kron(e1, e1)
+ep = (e0 + e1)/np.sqrt(2)
+em = (e0 - e1)/np.sqrt(2)
 
 v = np.cos(theta)*e00 + np.sin(theta)*e11
 P1 = v * v.conj().T
@@ -55,7 +58,10 @@ rho = u * u.conj().T
 
 k = 2
 n = 2
-calculate_q(Q0, Q1, n, k)
+#calculate_q(Q0, Q1, n, k)
+
+x = np.kron(e1*e1.conj().T, e0*e0.conj().T) + np.kron(em*em.conj().T, e1*e1.conj().T)
+print(weak_coin_flipping(x))
 
 #maximize_losing_less_than_k(Q1_nk, n)
 #minimize_losing_less_than_k(Q0_nk, n)

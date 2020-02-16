@@ -34,32 +34,34 @@ def apply_map(mat: np.ndarray,
         else:
             for i in range(s_phi_op[0]):
                 phi_op[i][1] = phi_op[i][1].conj().T
-        Phi_0_list = []
-        Phi_1_list = []
+        phi_0_list = []
+        phi_1_list = []
         for i in range(s_phi_op[0]):
-            Phi_0_list.append(phi_op[i][0])
-            Phi_1_list.append(phi_op[i][1])
+            phi_0_list.append(phi_op[i][0])
+            phi_1_list.append(phi_op[i][1])
 
-        K_1 = np.concatenate(Phi_0_list, axis=1)
-        K_2 = np.concatenate(Phi_1_list, axis=0)
+        k_1 = np.concatenate(phi_0_list, axis=1)
+        k_2 = np.concatenate(phi_1_list, axis=0)
 
-        A = np.kron(np.identity(len(phi_op)), mat)
-        return np.matmul(np.matmul(K_1, A), K_2)
+        a_mat = np.kron(np.identity(len(phi_op)), mat)
+        return np.matmul(np.matmul(k_1, a_mat), k_2)
 
     # The superoperator was given as a Choi matrix:
     if isinstance(phi_op, np.ndarray):
-        sX = np.array(list(mat.shape))
-        sNX = np.array(list(phi_op.shape)) / sX
+        mat_size = np.array(list(mat.shape))
+        phi_size = np.array(list(phi_op.shape)) / mat_size
 
-        arg_1 = vec(mat).T[0]
-        arg_2 = np.identity(int(sNX[0]))
-
-        A = np.kron(arg_1, arg_2)
-        sys = [1, 2]
-        dim = [[sX[1], sNX[1]], [sX[0], sNX[0]]]
-        B = np.reshape(swap(phi_op.T,
-                            sys,
-                            dim,
-                            True).T,
-                       (int(sNX[0]*np.prod(sX)), int(sNX[1])))
-        return np.matmul(A, B)
+        a_mat = np.kron(vec(mat).T[0], np.identity(int(phi_size[0])))
+        b_mat = np.reshape(swap(phi_op.T,
+                                [1, 2],
+                                [[mat_size[1], phi_size[1]],
+                                 [mat_size[0], phi_size[0]]],
+                                True).T,
+                           (int(phi_size[0]*np.prod(mat_size)),
+                            int(phi_size[1])))
+        return np.matmul(a_mat, b_mat)
+    msg = """
+        Invalid: The variable `phi_op` must either be a list of Kraus 
+        operators or as a Choi matrix.
+    """
+    raise ValueError(msg)

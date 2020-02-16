@@ -32,6 +32,11 @@ class TestBra(unittest.TestCase):
         bool_mat = np.isclose(res, expected_res)
         self.assertEqual(np.all(bool_mat), True)
 
+    def test_invalid_dim(self):
+        """Tests for invalid dimension inputs."""
+        with self.assertRaises(ValueError):
+            bra(4, 4)
+
 
 if __name__ == '__main__':
     unittest.main()

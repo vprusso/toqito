@@ -1,14 +1,21 @@
+"""Computes the partial trace of a matrix."""
+from typing import Union, List
 import numpy as np
 from scipy.sparse import issparse, csr_matrix
 from skimage.util.shape import view_as_blocks
 from toqito.perms.permute_systems import permute_systems
 from toqito.helper.cvx_helper import expr_as_np_array, np_array_as_expr
-from typing import Union, List
 import cvxpy
 from cvxpy.expressions.expression import Expression
 
 
 def partial_trace_cvx(rho, sys=None, dim=None):
+    """
+    :param rho:
+    :param sys:
+    :param dim:
+    :return:
+    """
     if not isinstance(rho, Expression):
         rho = cvxpy.Constant(shape=rho.shape, value=rho)
     rho_np = expr_as_np_array(rho)
@@ -31,24 +38,23 @@ def partial_trace(input_mat: np.ndarray,
     (possibly more than 2) subsystems are given by the vector DIM and the
     subsystems to take the trace on are given by the scalar or vector SYS.
     """
-    eps = np.finfo(float).eps
-  
     if dim is None:
         dim = np.array([np.round(np.sqrt(len(input_mat)))])
     if isinstance(dim, int):
         dim = np.array([dim])
     if isinstance(dim, list):
         dim = np.array(dim)
-    
+
     if sys is None:
         sys = 2
-     
+
     num_sys = len(dim)
 
     # Allow the user to enter a single number for dim.
     if num_sys == 1:
         dim = np.array([dim[0], len(input_mat)/dim[0]])
-        if np.abs(dim[1] - np.round(dim[1])) >= 2 * len(input_mat) * eps:
+        if np.abs(dim[1] - np.round(dim[1])) >= 2 * \
+                len(input_mat) * np.finfo(float).eps:
             msg = """
                 InvalidDim: If `dim` is a scalar, `dim` must evenly divide 
                 `len(input_mat)`.
@@ -69,26 +75,25 @@ def partial_trace(input_mat: np.ndarray,
             list of ints.
         """
         raise ValueError(msg)
- 
+
     sub_sys_vec = prod_dim * np.ones(int(prod_dim_sys))//prod_dim_sys
 
-    s1 = list(range(1, num_sys+1))
     if isinstance(sys, int):
         sys = [sys]
     s2 = sys
-    set_diff = list(set(s1) - set(s2))
+    set_diff = list(set(list(range(1, num_sys+1))) - set(s2))
 
     perm = sys
     perm.extend(set_diff)
 
-    A = permute_systems(input_mat, perm, dim)
+    a_mat = permute_systems(input_mat, perm, dim)
 
     # Convert the elements of sub_sys_vec to integers and
     # convert from a numpy array to a tuple to feed it into
     # the view_as_blocks function. This has a similar behavior
     # to the "mat2cell" function in MATLAB.
-    input_mat = view_as_blocks(A, block_shape=(int(sub_sys_vec[0]),
-                                               int(sub_sys_vec[1])))
+    input_mat = view_as_blocks(a_mat, block_shape=(int(sub_sys_vec[0]),
+                                                   int(sub_sys_vec[1])))
 
     if is_sparse:
         input_mat_pt = csr_matrix((int(sub_sys_vec[0]),

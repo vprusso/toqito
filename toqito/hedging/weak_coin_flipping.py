@@ -14,7 +14,7 @@ def weak_coin_flipping(rho: np.ndarray) -> float:
     id_dim = int(np.sqrt(dims[0]))
 
     sdp_var = cvxpy.Variable(dims, PSD=True)
-    objective = cvxpy.Maximize(cvxpy.trace(rho.conj().T * sdp_var))
+    objective = cvxpy.Maximize(cvxpy.trace(rho.conj().T @ sdp_var))
     constraints = [
             partial_trace_cvx(sdp_var) == 1/id_dim * np.identity(id_dim)
             ]
@@ -22,4 +22,3 @@ def weak_coin_flipping(rho: np.ndarray) -> float:
     sol_default = problem.solve()
 
     return sol_default
-

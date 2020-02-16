@@ -6,8 +6,8 @@ from toqito.matrix.matrices.pauli import pauli
 def concurrence(rho: np.ndarray) -> float:
     r"""
     The concurrence of a bipartite state `rho` is defined as
-
-    :math: `\max(0, \lambda_1 - \lambda_2 - \lambda_3 - \lambda_4)`,
+    .. math::
+         \max(0, \lambda_1 - \lambda_2 - \lambda_3 - \lambda_4),
 
     where :math: `\lambda_1, \ldots, \lambda_4` are the eigenvalues in
     decreasing order of the matrix.

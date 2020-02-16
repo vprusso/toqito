@@ -1,18 +1,18 @@
 """Produces the reduction map."""
 import numpy as np
-
-from toqito.state.states.max_entangled import max_entangled
 from scipy.sparse import identity
+from toqito.state.states.max_entangled import max_entangled
 
 
 def reduction_map(dim: int, k: int = 1) -> np.ndarray:
-    """
+    r"""
     Produces the reduction map.
 
     :param dim: A positive integer (the dimension of the reduction map).
     :param k:  If this positive integer is provided, the script will instead
                return the Choi matrix of the following linear map:
-                Phi(X) := K * Tr(X)I - X.
+                .. math::
+                    Phi(X) := K * Tr(X)I - X.
     :return: The reduction map.
 
     If K = 1, this returns the Choi matrix of the reduction map which is a

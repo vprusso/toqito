@@ -1,5 +1,6 @@
-import numpy as np
+"""Computes the partial transpose of a matrix."""
 from typing import List, Union
+import numpy as np
 from skimage.util.shape import view_as_blocks
 from toqito.perms.permute_systems import permute_systems
 
@@ -29,9 +30,7 @@ def partial_transpose(rho: np.ndarray,
     by putting the row dimensions in the first row of `dim` and the column
     dimensions in the second row of `dim`.
     """
-    eps = np.finfo(float).eps
-    rho_dims = list(rho.shape)
-    sqrt_rho_dims = np.round(np.sqrt(rho_dims))
+    sqrt_rho_dims = np.round(np.sqrt(list(rho.shape)))
 
     if dim is None:
         dim = np.array([[sqrt_rho_dims[0], sqrt_rho_dims[0]],
@@ -43,8 +42,8 @@ def partial_transpose(rho: np.ndarray,
 
     # Allow the user to enter a single number for dim.
     if num_sys == 1:
-        dim = np.array([dim, rho_dims[0]/dim])
-        if np.abs(dim[1] - np.round(dim[1])) >= 2*rho_dims[0]*eps:
+        dim = np.array([dim, list(rho.shape)[0]/dim])
+        if np.abs(dim[1] - np.round(dim[1])) >= 2*list(rho.shape)[0]*np.finfo(float).eps:
             msg = """
                 InvalidDim: If `dim` is a scalar, `rho` must be square and
                 `dim` must evenly divide `len(rho)`; please provide the `dim`
@@ -61,16 +60,15 @@ def partial_transpose(rho: np.ndarray,
         dim = np.array([dim, dim])
 
     # Prepare the partial transposition.
-    prod_dim_r = np.prod(dim[0][:])
-    prod_dim_c = np.prod(dim[1][:])
-    sub_prod_r = np.prod(dim[0][sys-1])
-    sub_prod_c = np.prod(dim[1][sys-1])
-    sub_sys_vec_r = prod_dim_r * np.ones(int(sub_prod_r)) / sub_prod_r
-    sub_sys_vec_c = prod_dim_c * np.ones(int(sub_prod_c)) / sub_prod_c
+    sub_sys_vec_r = np.prod(dim[0][:]) * \
+        np.ones(int(np.prod(dim[0][sys-1]))) / \
+        np.prod(dim[0][sys-1])
 
-    s1 = list(range(1, num_sys+1))
-    s2 = [sys]
-    set_diff = list(set(s1) - set(s2))
+    sub_sys_vec_c = np.prod(dim[1][:]) * \
+        np.ones(int(np.prod(dim[1][sys-1]))) / \
+        np.prod(dim[1][sys-1])
+
+    set_diff = list(set(list(range(1, num_sys+1))) - {sys})
 
     perm = [sys]
     perm.extend(set_diff)
@@ -94,4 +92,3 @@ def partial_transpose(rho: np.ndarray,
     dim = dim[:, perm_np]
 
     return permute_systems(rho_permuted, perm, dim, False, True)
-
