@@ -15,7 +15,6 @@ script:
     - pylint toqito/entanglement/
     - pylint toqito/helper/
     - pylint toqito/matrix/
-    - pylint toqito/nonlocal_games/
     - pylint toqito/random/
     - pylint toqito/state/
     - pylint toqito/upb/

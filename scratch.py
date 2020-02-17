@@ -26,7 +26,7 @@ from toqito.perms.swap import swap
 from toqito.super_operators.partial_trace import partial_trace
 from toqito.perms.perfect_matchings import perfect_matchings
 from toqito.hedging.weak_coin_flipping import weak_coin_flipping
-
+from toqito.nonlocal_games.xor_game_value import xor_game_value
 
 n = 2
 k = 1
@@ -61,7 +61,8 @@ n = 2
 #calculate_q(Q0, Q1, n, k)
 
 x = np.kron(e1*e1.conj().T, e0*e0.conj().T) + np.kron(em*em.conj().T, e1*e1.conj().T)
-print(weak_coin_flipping(x))
+#print(weak_coin_flipping(x))
+
 
 #maximize_losing_less_than_k(Q1_nk, n)
 #minimize_losing_less_than_k(Q0_nk, n)
