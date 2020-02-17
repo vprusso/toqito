@@ -27,6 +27,16 @@ from toqito.super_operators.partial_trace import partial_trace
 from toqito.perms.perfect_matchings import perfect_matchings
 from toqito.hedging.weak_coin_flipping import weak_coin_flipping
 from toqito.nonlocal_games.xor_game_value import xor_game_value
+from toqito.nonlocal_games.nonlocal_game_value_lb import nonlocal_game_value_lb
+
+
+d = 2
+p = np.array([[1/4, 1/4], [1/4, 1/4]])
+V = np.array([[0, 0, 0, 0], [0, 0, 1, 1], [0, 1, 0, 0], [0, 1, 1, 1], [1, 0, 0, 0], [1, 0, 1, 1], [1, 1, 0, 1], [1, 1, 1, 0]])
+#V = np.array([[0, 0], [0, 1]])
+
+nonlocal_game_value_lb(d, p, V)
+
 
 n = 2
 k = 1

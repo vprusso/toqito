@@ -66,7 +66,7 @@ def xor_game_value(prob_mat: np.ndarray,
                 a_vec = (a_ans >> np.arange(s)) & 1
                 b_vec = (b_ans >> np.arange(t)) & 1
 
-                # Now compute the winning probability under this straegy: XOR
+                # Now compute the winning probability under this strategy: XOR
                 # together Alice's responses and Bob's responses, then check
                 # where the XORed value equals the value in the given matrix F.
                 # Where the values match, multiply by the probability of
@@ -88,3 +88,4 @@ def xor_game_value(prob_mat: np.ndarray,
                     return val
         return val
     raise ValueError(f"Strategy {strategy} is not supported.")
+
