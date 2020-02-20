@@ -28,14 +28,30 @@ from toqito.perms.perfect_matchings import perfect_matchings
 from toqito.hedging.weak_coin_flipping import weak_coin_flipping
 from toqito.nonlocal_games.xor_game_value import xor_game_value
 from toqito.nonlocal_games.nonlocal_game_value_lb import nonlocal_game_value_lb
-
+from toqito.nonlocal_games.nonlocal_game_value import nonlocal_game_value
+from toqito.nonlocal_games.bell_inequality_max_qubits import bell_inequality_max_qubits
+from toqito.super_operators.diamond_norm import diamond_norm
+from toqito.super_operators.partial_trace import partial_trace_cvx, partial_trace
 
 d = 2
 p = np.array([[1/4, 1/4], [1/4, 1/4]])
-V = np.array([[0, 0, 0, 0], [0, 0, 1, 1], [0, 1, 0, 0], [0, 1, 1, 1], [1, 0, 0, 0], [1, 0, 1, 1], [1, 1, 0, 1], [1, 1, 1, 0]])
-#V = np.array([[0, 0], [0, 1]])
+V = np.zeros((d, d, d, d))
 
-nonlocal_game_value_lb(d, p, V)
+for a in range(d):
+    for b in range(d):
+        for x in range(d):
+            for y in range(d):
+                if np.mod(a+b+x*y, d) == 0:
+                    V[a, b, x, y] = 1
+
+#nonlocal_game_value(p, V)
+
+joint_coe = np.array([[1, 1, -1], [1, 1, 1], [-1, 1, 0]])
+a_coe = np.array([0, -1, 0])
+b_coe = np.array([-1, -2, 0])
+a_val = np.array([0, 1])
+b_val = np.array([0, 1])
+#bell_inequality_max_qubits(joint_coe, a_coe, b_coe, a_val, b_val)
 
 
 n = 2
@@ -66,16 +82,25 @@ Q0 = l1 * l1.conj().T + l2 * l2.conj().T + l3 * l3.conj().T
 u = 1/np.sqrt(2) * (e00 + e11)
 rho = u * u.conj().T
 
-k = 2
-n = 2
+k = 1
+n = 3
 #calculate_q(Q0, Q1, n, k)
 
-x = np.kron(e1*e1.conj().T, e0*e0.conj().T) + np.kron(em*em.conj().T, e1*e1.conj().T)
+#x = np.kron(e1*e1.conj().T, e0*e0.conj().T) + np.kron(em*em.conj().T, e1*e1.conj().T)
 #print(weak_coin_flipping(x))
 
+#X = np.arange(1, 17).reshape(4, 4)
+#print(partial_trace(X, 2, [2, 2]))
 
-#maximize_losing_less_than_k(Q1_nk, n)
-#minimize_losing_less_than_k(Q0_nk, n)
+#X = np.arange(1, 257).reshape(16, 16)
+#print(partial_trace(X, [1, 3], [2, 2, 2, 2]))
+
+Q1 = np.kron(Q1, np.kron(Q1, Q1))
+#Q1 = np.kron(Q1, Q1)
+#print(partial_trace(Q1, [1, 3, 5], [2, 2, 2, 2, 2, 2]))
+#print(partial_trace(Q1, [1, 3, 5, 7], [2, 2, 2, 2, 2, 2, 2, 2]))
+maximize_losing_less_than_k(Q1, n)
+#minimize_losing_less_than_k(Q0, n)
 #minimize_losing_less_than_k(Q00, n=2)
 
 

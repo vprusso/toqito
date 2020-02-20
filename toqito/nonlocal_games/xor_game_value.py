@@ -88,4 +88,3 @@ def xor_game_value(prob_mat: np.ndarray,
                     return val
         return val
     raise ValueError(f"Strategy {strategy} is not supported.")
-

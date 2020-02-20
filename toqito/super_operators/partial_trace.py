@@ -5,7 +5,6 @@ from scipy.sparse import issparse, csr_matrix
 from skimage.util.shape import view_as_blocks
 from toqito.perms.permute_systems import permute_systems
 from toqito.helper.cvx_helper import expr_as_np_array, np_array_as_expr
-import cvxpy
 from cvxpy.expressions.expression import Expression
 
 
@@ -16,8 +15,6 @@ def partial_trace_cvx(rho, sys=None, dim=None):
     :param dim:
     :return:
     """
-    if not isinstance(rho, Expression):
-        rho = cvxpy.Constant(shape=rho.shape, value=rho)
     rho_np = expr_as_np_array(rho)
     traced_rho = partial_trace(rho_np, sys, dim)
     traced_rho = np_array_as_expr(traced_rho)
@@ -66,7 +63,7 @@ def partial_trace(input_mat: np.ndarray,
     is_sparse = issparse(input_mat)
     prod_dim = np.prod(dim)
     if isinstance(sys, list):
-        prod_dim_sys = np.prod(dim)
+        prod_dim_sys = np.prod(dim[sys])
     elif isinstance(sys, int):
         prod_dim_sys = np.prod(dim[sys-1])
     else:
@@ -75,34 +72,27 @@ def partial_trace(input_mat: np.ndarray,
             list of ints.
         """
         raise ValueError(msg)
-
-    sub_sys_vec = prod_dim * np.ones(int(prod_dim_sys))//prod_dim_sys
+    
+    sub_prod = prod_dim / prod_dim_sys
+    sub_sys_vec = prod_dim * np.ones(int(sub_prod)) / sub_prod
 
     if isinstance(sys, int):
         sys = [sys]
     s2 = sys
     set_diff = list(set(list(range(1, num_sys+1))) - set(s2))
 
-    perm = sys
-    perm.extend(set_diff)
+    perm = set_diff
+    perm.extend(sys)
 
     a_mat = permute_systems(input_mat, perm, dim)
 
-    # Convert the elements of sub_sys_vec to integers and
-    # convert from a numpy array to a tuple to feed it into
-    # the view_as_blocks function. This has a similar behavior
-    # to the "mat2cell" function in MATLAB.
-    input_mat = view_as_blocks(a_mat, block_shape=(int(sub_sys_vec[0]),
-                                                   int(sub_sys_vec[1])))
+    x = np.reshape(a_mat, [int(sub_sys_vec[0]), int(sub_prod), int(sub_sys_vec[0]), int(sub_prod)], order="F")
+    y = x.transpose((1, 3, 0, 2))
+    z = np.reshape(y, [int(sub_prod), int(sub_prod), int(sub_sys_vec[0]**2)], order="F")
 
-    if is_sparse:
-        input_mat_pt = csr_matrix((int(sub_sys_vec[0]),
-                                   int(sub_sys_vec[0])))
-    else:
-        input_mat_pt = np.empty([int(sub_sys_vec[0]),
-                                 int(sub_sys_vec[0])])
+    q = z[:, :, list(range(0, int(sub_sys_vec[0]**2), int(sub_sys_vec[0]+1)))]
 
-    for i in range(int(prod_dim_sys)):
-        input_mat_pt = input_mat_pt + input_mat[i, i]
+    Xpt = np.sum(q, axis=2)
 
-    return input_mat_pt
+    return Xpt
+

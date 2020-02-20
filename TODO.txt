@@ -1,12 +1,15 @@
 - Realignment test fix
 - Random state vector test fix
 - Bell diagonal state
+- Maximally mixed state
 - Complete coverage of tests
 - Schmidt decomposition
 - Perfect matching fix
 - Permute systems pylint
-- Fidelity CVX variables.
 - Bures metric
 - Bures distance
 - Super fidelity
 - Generalized Gell-man operators
+- Is mutually unbiased basis
+- Is quantum latin square
+- Quantum money functionality
