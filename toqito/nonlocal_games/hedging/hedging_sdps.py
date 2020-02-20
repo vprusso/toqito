@@ -3,7 +3,7 @@ import cvxpy
 import numpy as np
 
 from toqito.super_operators.partial_trace import partial_trace_cvx
-from toqito.hedging.pi_perm import pi_perm
+from toqito.nonlocal_games.hedging.pi_perm import pi_perm
 
 
 def max_prob_outcome_a_primal(q_a: np.ndarray, num_reps: int) -> float:

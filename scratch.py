@@ -1,36 +1,6 @@
-import numpy as np
-from toqito.hedging.pi_perm import pi_perm
-from toqito.hedging.hedging_sdps import *
-from toqito.matrix.properties.is_normal import is_normal
-from toqito.random.random_state_vector import random_state_vector
+from toqito.nonlocal_games.hedging.hedging_sdps import *
 from toqito.base.ket import ket
 from toqito.matrix.operations.tensor import tensor_list
-from toqito.state.distance.trace_norm import trace_norm
-from toqito.state.distance.trace_distance import trace_distance
-from toqito.state.properties.is_product_vector import is_product_vector
-from toqito.state.operations.schmidt_decomposition import schmidt_decomposition
-from toqito.state.states.max_entangled import max_entangled
-from toqito.matrix.matrices.pauli import pauli
-from toqito.entanglement.concurrence import concurrence
-from toqito.matrix.properties.is_diagonal import is_diagonal
-import scipy
-import cvxpy
-from toqito.state.distance.fidelity import fidelity
-from toqito.state.properties.is_ppt import is_ppt
-from toqito.super_operators.partial_transpose import partial_transpose
-from toqito.state.states.werner_state import werner_state
-from toqito.perms.permutation_operator import permutation_operator
-from toqito.perms.swap_operator import swap_operator
-from toqito.perms.swap import swap
-from toqito.super_operators.partial_trace import partial_trace
-from toqito.perms.perfect_matchings import perfect_matchings
-from toqito.hedging.weak_coin_flipping import weak_coin_flipping
-from toqito.nonlocal_games.xor_game_value import xor_game_value
-from toqito.nonlocal_games.nonlocal_game_value_lb import nonlocal_game_value_lb
-from toqito.nonlocal_games.nonlocal_game_value import nonlocal_game_value
-from toqito.nonlocal_games.bell_inequality_max_qubits import bell_inequality_max_qubits
-from toqito.super_operators.diamond_norm import diamond_norm
-from toqito.super_operators.partial_trace import partial_trace_cvx, partial_trace
 
 d = 2
 p = np.array([[1/4, 1/4], [1/4, 1/4]])

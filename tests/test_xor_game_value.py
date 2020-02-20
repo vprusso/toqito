@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.nonlocal_games.xor_game_value import xor_game_value
+from toqito.nonlocal_games.xor_games.xor_game_value import xor_game_value
 
 
 class TestXORGameValue(unittest.TestCase):
