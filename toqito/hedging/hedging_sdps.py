@@ -1,3 +1,4 @@
+"""Semidefinite programs for calculating values of quantum hedging scenarios."""
 import cvxpy
 import numpy as np
 
@@ -5,53 +6,91 @@ from toqito.super_operators.partial_trace import partial_trace_cvx
 from toqito.hedging.pi_perm import pi_perm
 
 
-def minimize_losing_less_than_k(Q_a, n):
-    Y = cvxpy.Variable((2**n, 2**n), hermitian=True)
-    objective = cvxpy.Maximize(cvxpy.trace(cvxpy.real(Y)))
-
-    a = pi_perm(n)
-    b = cvxpy.kron(np.eye(2**n), Y)
-    c = pi_perm(n).conj().T
-    if n == 1:
-        u = cvxpy.multiply(cvxpy.multiply(a, b), c)
-        constraints = [cvxpy.real(u) << Q_a]
-    else:
-        constraints = [cvxpy.real(a @ b @ c) << Q_a]
-    problem = cvxpy.Problem(objective, constraints)
-
-    dual = problem.solve()
-    print(dual)
-
-
-def maximize_losing_less_than_k(Q_a, n):
-    sys = list(range(1, 2*n, 2))
+def max_prob_outcome_a_primal(q_a: np.ndarray, num_reps: int) -> float:
+    """
+    :param q_a:
+    :param num_reps:
+    :return:
+    """
+    sys = list(range(1, 2*num_reps, 2))
     if len(sys) == 1:
         sys = sys[0]
-    dim = 2*np.ones((1, 2*n)).astype(int).flatten()
+    dim = 2 * np.ones((1, 2*num_reps)).astype(int).flatten()
     dim = dim.tolist()
 
-    X = cvxpy.Variable((4**n, 4**n), PSD=True)
-    objective = cvxpy.Maximize(cvxpy.trace(Q_a.conj().T @ X))
-    constraints = [partial_trace_cvx(X, sys, dim) == np.identity(2**n)]
+    x_var = cvxpy.Variable((4**num_reps, 4**num_reps), PSD=True)
+    objective = cvxpy.Maximize(cvxpy.trace(q_a.conj().T @ x_var))
+    constraints = [
+        partial_trace_cvx(x_var, sys, dim) == np.identity(2 ** num_reps)
+    ]
     problem = cvxpy.Problem(objective, constraints)
-   
-    primal = problem.solve()
-    print(primal)
 
-    Y = cvxpy.Variable((2**n, 2**n), hermitian=True)
-    objective = cvxpy.Minimize(cvxpy.trace(cvxpy.real(Y)))
+    return problem.solve()
 
-    a = pi_perm(n)
-    b = cvxpy.kron(np.eye(2**n), Y)
-    c = pi_perm(n).conj().T
 
-    if n == 1:
-        u = cvxpy.multiply(cvxpy.multiply(a, b), c)
-        constraints = [cvxpy.real(u) >> Q_a]
+def max_prob_outcome_a_dual(q_a: np.ndarray, num_reps: int) -> float:
+    """
+    :param q_a:
+    :param num_reps:
+    :return:
+    """
+    y_var = cvxpy.Variable((2**num_reps, 2**num_reps), hermitian=True)
+    objective = cvxpy.Minimize(cvxpy.trace(cvxpy.real(y_var)))
+
+    pperm = pi_perm(num_reps)
+    kron_var = cvxpy.kron(np.eye(2**num_reps), y_var)
+    pperm_conj = pi_perm(num_reps).conj().T
+
+    if num_reps == 1:
+        u_var = cvxpy.multiply(cvxpy.multiply(pperm, kron_var), pperm_conj)
+        constraints = [cvxpy.real(u_var) >> q_a]
     else:
-        constraints = [cvxpy.real(a @ b @ c) >> Q_a]
+        constraints = [cvxpy.real(pperm @ kron_var @ pperm_conj) >> q_a]
     problem = cvxpy.Problem(objective, constraints)
 
-    dual = problem.solve()
-    print(dual)
-    
+    return problem.solve()
+
+
+def min_prob_outcome_a_primal(q_a: np.ndarray, num_reps: int) -> float:
+    """
+    :param q_a:
+    :param num_reps:
+    :return:
+    """
+    sys = list(range(1, 2*num_reps, 2))
+    if len(sys) == 1:
+        sys = sys[0]
+    dim = 2 * np.ones((1, 2*num_reps)).astype(int).flatten()
+    dim = dim.tolist()
+
+    x_var = cvxpy.Variable((4**num_reps, 4**num_reps), PSD=True)
+    objective = cvxpy.Minimize(cvxpy.trace(q_a.conj().T @ x_var))
+    constraints = [
+        partial_trace_cvx(x_var, sys, dim) == np.identity(2 ** num_reps)
+    ]
+    problem = cvxpy.Problem(objective, constraints)
+
+    return problem.solve()
+
+
+def min_prob_outcome_a_dual(q_a: np.ndarray, num_reps: int) -> float:
+    """
+    :param q_a:
+    :param num_reps:
+    :return:
+    """
+    y_var = cvxpy.Variable((2**num_reps, 2**num_reps), hermitian=True)
+    objective = cvxpy.Maximize(cvxpy.trace(cvxpy.real(y_var)))
+
+    pperm = pi_perm(num_reps)
+    kron_var = cvxpy.kron(np.eye(2**num_reps), y_var)
+    pperm_conj = pi_perm(num_reps).conj().T
+
+    if num_reps == 1:
+        u_var = cvxpy.multiply(cvxpy.multiply(pperm, kron_var), pperm_conj)
+        constraints = [cvxpy.real(u_var) << q_a]
+    else:
+        constraints = [cvxpy.real(pperm @ kron_var @ pperm_conj) << q_a]
+    problem = cvxpy.Problem(objective, constraints)
+
+    return problem.solve()

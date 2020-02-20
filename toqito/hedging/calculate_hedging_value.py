@@ -1,5 +1,4 @@
 from toqito.base.ket import ket
-from toqito.hedging.calculate_q import calculate_q
 import numpy as np
 
 

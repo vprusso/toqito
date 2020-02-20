@@ -66,6 +66,46 @@ class TestXORGameValue(unittest.TestCase):
         expected_res = 0.9
         self.assertEqual(np.isclose(res, expected_res), True)
 
+    def test_negative_prob_mat(self):
+        """Tests for invalid negative probability matrix."""
+        with self.assertRaises(ValueError):
+            prob_mat = np.array([[1 / 4, -1 / 4],
+                                 [1 / 4, 1 / 4]])
+            pred_mat = np.array([[0, 0],
+                                 [0, 1]])
+
+            xor_game_value(prob_mat, pred_mat, "quantum")
+
+    def test_invalid_prob_mat(self):
+        """Tests for invalid probability matrix."""
+        with self.assertRaises(ValueError):
+            prob_mat = np.array([[1 / 4, 1],
+                                 [1 / 4, 1 / 4]])
+            pred_mat = np.array([[0, 0],
+                                 [0, 1]])
+
+            xor_game_value(prob_mat, pred_mat, "quantum")
+
+    def test_non_square_prob_mat(self):
+        """Tests for invalid non-square probability matrix."""
+        with self.assertRaises(ValueError):
+            prob_mat = np.array([[1/4, 1/4, 1/4],
+                                 [1/4, 1/4, 1/4]])
+            pred_mat = np.array([[0, 0],
+                                 [0, 1]])
+
+            xor_game_value(prob_mat, pred_mat, "quantum")
+
+    def test_invalid_strategy(self):
+        """Tests for invalid strategy argument."""
+        with self.assertRaises(ValueError):
+            prob_mat = np.array([[1/4, 1/4],
+                                 [1/4, 1/4]])
+            pred_mat = np.array([[0, 0],
+                                 [0, 1]])
+
+            xor_game_value(prob_mat, pred_mat, "invalid")
+
 
 if __name__ == '__main__':
     unittest.main()

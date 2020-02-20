@@ -1,11 +1,9 @@
 """Computes the partial trace of a matrix."""
 from typing import Union, List
 import numpy as np
-from scipy.sparse import issparse, csr_matrix
-from skimage.util.shape import view_as_blocks
+from scipy.sparse import issparse
 from toqito.perms.permute_systems import permute_systems
 from toqito.helper.cvx_helper import expr_as_np_array, np_array_as_expr
-from cvxpy.expressions.expression import Expression
 
 
 def partial_trace_cvx(rho, sys=None, dim=None):

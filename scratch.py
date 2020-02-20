@@ -1,7 +1,6 @@
 import numpy as np
 from toqito.hedging.pi_perm import pi_perm
-from toqito.hedging.hedging_sdps import maximize_losing_less_than_k, minimize_losing_less_than_k
-from toqito.hedging.calculate_q import calculate_q
+from toqito.hedging.hedging_sdps import *
 from toqito.matrix.properties.is_normal import is_normal
 from toqito.random.random_state_vector import random_state_vector
 from toqito.base.ket import ket
@@ -82,8 +81,15 @@ Q0 = l1 * l1.conj().T + l2 * l2.conj().T + l3 * l3.conj().T
 u = 1/np.sqrt(2) * (e00 + e11)
 rho = u * u.conj().T
 
-k = 1
+k = 2
 n = 3
+Q0 = tensor_list([Q0, Q0, Q0])
+Q1 = tensor_list([Q1, Q1, Q1])
+print(max_prob_outcome_a_primal(Q0, n))
+print(max_prob_outcome_a_dual(Q0, n))
+
+print(min_prob_outcome_a_primal(Q1, n))
+print(min_prob_outcome_a_dual(Q1, n))
 #calculate_q(Q0, Q1, n, k)
 
 #x = np.kron(e1*e1.conj().T, e0*e0.conj().T) + np.kron(em*em.conj().T, e1*e1.conj().T)
@@ -95,11 +101,11 @@ n = 3
 #X = np.arange(1, 257).reshape(16, 16)
 #print(partial_trace(X, [1, 3], [2, 2, 2, 2]))
 
-Q1 = np.kron(Q1, np.kron(Q1, Q1))
+#Q1 = np.kron(Q1, np.kron(Q1, Q1))
 #Q1 = np.kron(Q1, Q1)
 #print(partial_trace(Q1, [1, 3, 5], [2, 2, 2, 2, 2, 2]))
 #print(partial_trace(Q1, [1, 3, 5, 7], [2, 2, 2, 2, 2, 2, 2, 2]))
-maximize_losing_less_than_k(Q1, n)
+#maximize_losing_less_than_k(Q1, n)
 #minimize_losing_less_than_k(Q0, n)
 #minimize_losing_less_than_k(Q00, n=2)
 
