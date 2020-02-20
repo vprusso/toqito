@@ -1,6 +1,31 @@
-from toqito.nonlocal_games.hedging.hedging_sdps import *
+import numpy as np
+from toqito.matrix.properties.is_normal import is_normal
+from toqito.random.random_state_vector import random_state_vector
 from toqito.base.ket import ket
 from toqito.matrix.operations.tensor import tensor_list
+from toqito.state.distance.trace_norm import trace_norm
+from toqito.state.distance.trace_distance import trace_distance
+from toqito.state.properties.is_product_vector import is_product_vector
+from toqito.state.operations.schmidt_decomposition import schmidt_decomposition
+from toqito.state.states.max_entangled import max_entangled
+from toqito.matrix.matrices.pauli import pauli
+from toqito.entanglement.concurrence import concurrence
+from toqito.matrix.properties.is_diagonal import is_diagonal
+import scipy
+import cvxpy
+from toqito.state.distance.fidelity import fidelity
+from toqito.state.properties.is_ppt import is_ppt
+from toqito.super_operators.partial_transpose import partial_transpose
+from toqito.state.states.werner_state import werner_state
+from toqito.perms.permutation_operator import permutation_operator
+from toqito.perms.swap_operator import swap_operator
+from toqito.perms.swap import swap
+from toqito.super_operators.partial_trace import partial_trace
+from toqito.perms.perfect_matchings import perfect_matchings
+from toqito.super_operators.diamond_norm import diamond_norm
+from toqito.super_operators.partial_trace import partial_trace_cvx, partial_trace
+from toqito.super_operators.realignment import realignment
+
 
 d = 2
 p = np.array([[1/4, 1/4], [1/4, 1/4]])
@@ -51,15 +76,14 @@ Q0 = l1 * l1.conj().T + l2 * l2.conj().T + l3 * l3.conj().T
 u = 1/np.sqrt(2) * (e00 + e11)
 rho = u * u.conj().T
 
-k = 2
+k = 1
 n = 3
-Q0 = tensor_list([Q0, Q0, Q0])
-Q1 = tensor_list([Q1, Q1, Q1])
-print(max_prob_outcome_a_primal(Q0, n))
-print(max_prob_outcome_a_dual(Q0, n))
 
-print(min_prob_outcome_a_primal(Q1, n))
-print(min_prob_outcome_a_dual(Q1, n))
+X = np.arange(1, 211).reshape(15, 14)
+mat = np.array([[5, 3], [2, 7]])
+print(realignment(X, mat))
+
+
 #calculate_q(Q0, Q1, n, k)
 
 #x = np.kron(e1*e1.conj().T, e0*e0.conj().T) + np.kron(em*em.conj().T, e1*e1.conj().T)
@@ -67,8 +91,10 @@ print(min_prob_outcome_a_dual(Q1, n))
 
 #X = np.arange(1, 17).reshape(4, 4)
 #print(partial_trace(X, 2, [2, 2]))
+#print(partial_transpose(X, [1, 2], [2, 2]))
 
 #X = np.arange(1, 257).reshape(16, 16)
+#print(partial_transpose(X, [1, 3], [2, 2, 2, 2]))
 #print(partial_trace(X, [1, 3], [2, 2, 2, 2]))
 
 #Q1 = np.kron(Q1, np.kron(Q1, Q1))

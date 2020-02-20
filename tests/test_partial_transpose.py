@@ -30,7 +30,7 @@ class TestPartialTranspose(unittest.TestCase):
 
     def test_partial_transpose_sys(self):
         """
-        By specifying the SYS argument, you can perform the transposition on
+        By specifying the `sys` argument, you can perform the transposition on
         the first subsystem instead:
         """
         test_input_mat = np.array([[1, 2, 3, 4],
@@ -44,6 +44,43 @@ class TestPartialTranspose(unittest.TestCase):
                                  [7, 8, 15, 16]])
 
         res = partial_transpose(test_input_mat, 1)
+
+        bool_mat = np.isclose(res, expected_res)
+        self.assertEqual(np.all(bool_mat), True)
+
+    def test_partial_transpose_sys_vec(self):
+        """Partial transpose on matrix with `sys` defined as vector."""
+        test_input_mat = np.array([[1, 2, 3, 4],
+                                   [5, 6, 7, 8],
+                                   [9, 10, 11, 12],
+                                   [13, 14, 15, 16]])
+
+        expected_res = np.array([[1, 5, 9, 13],
+                                 [2, 6, 10, 14],
+                                 [3, 7, 11, 15],
+                                 [4, 8, 12, 16]])
+
+        res = partial_transpose(test_input_mat, [1, 2])
+
+        bool_mat = np.isclose(res, expected_res)
+        self.assertEqual(np.all(bool_mat), True)
+
+    def test_partial_transpose_sys_vec_dim_vec(self):
+        """
+        Partial transpose on matrix with `sys` and `dim` defined as
+        vector.
+        """
+        test_input_mat = np.array([[1, 2, 3, 4],
+                                   [5, 6, 7, 8],
+                                   [9, 10, 11, 12],
+                                   [13, 14, 15, 16]])
+
+        expected_res = np.array([[1, 5, 9, 13],
+                                 [2, 6, 10, 14],
+                                 [3, 7, 11, 15],
+                                 [4, 8, 12, 16]])
+
+        res = partial_transpose(test_input_mat, [1, 2], [2, 2])
 
         bool_mat = np.isclose(res, expected_res)
         self.assertEqual(np.all(bool_mat), True)

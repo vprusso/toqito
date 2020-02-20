@@ -13,3 +13,4 @@
 - Is mutually unbiased basis
 - Is quantum latin square
 - Quantum money functionality
+- Partial transpose check

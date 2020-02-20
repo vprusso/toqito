@@ -37,6 +37,12 @@ def partial_transpose(rho: np.ndarray,
                         [sqrt_rho_dims[1], sqrt_rho_dims[1]]])
     if isinstance(dim, float):
         dim = np.array([dim])
+    if isinstance(dim, list):
+        dim = np.array(dim)
+    if isinstance(sys, list):
+        sys = np.array(sys)
+    if isinstance(sys, int):
+        sys = np.array([sys])
 
     num_sys = len(dim)
 
@@ -59,36 +65,38 @@ def partial_transpose(rho: np.ndarray,
         dim = dim.T.flatten()
         dim = np.array([dim, dim])
 
-    # Prepare the partial transposition.
-    sub_sys_vec_r = np.prod(dim[0][:]) * \
-        np.ones(int(np.prod(dim[0][sys-1]))) / \
-        np.prod(dim[0][sys-1])
+    prod_dim_r = int(np.prod(dim[0, :]))
+    prod_dim_c = int(np.prod(dim[1, :]))
 
-    sub_sys_vec_c = np.prod(dim[1][:]) * \
-        np.ones(int(np.prod(dim[1][sys-1]))) / \
-        np.prod(dim[1][sys-1])
+    sub_prod_r = np.prod(dim[0, sys-1])
+    sub_prod_c = np.prod(dim[1, sys-1])
 
-    set_diff = list(set(list(range(1, num_sys+1))) - {sys})
+    sub_sys_vec_r = prod_dim_r * np.ones(int(sub_prod_r)) / sub_prod_r
+    sub_sys_vec_c = prod_dim_c * np.ones(int(sub_prod_c)) / sub_prod_c
 
-    perm = [sys]
+    if isinstance(sys, int):
+        sys = [sys]
+    s2 = sys
+    set_diff = list(set(list(range(1, num_sys+1))) - set(s2))
+
+    perm = sys.tolist()
     perm.extend(set_diff)
 
     # Permute the subsystems so that we just have to do the partial transpose
     # on the first (potentially larger) subsystem.
     rho_permuted = permute_systems(rho, perm, dim)
-
-    # The `view_as_blocks` function behaves in a similar manner to the
-    # "cell2mat" function provided from MATLAB.
-    block_shape_x = int(sub_sys_vec_r[0])
-    block_shape_y = int(sub_sys_vec_c[0])
-    blocks = view_as_blocks(rho_permuted,
-                            block_shape=(block_shape_x, block_shape_y))
-    rho_permuted = np.hstack([np.vstack(block) for block in blocks])
+ 
+    x = np.reshape(rho_permuted, [int(sub_sys_vec_r[0]), int(sub_prod_r), int(sub_sys_vec_c[0]), int(sub_prod_c)], order="F")
+    y = np.transpose(x, [0, 3, 2, 1])
+    z = np.reshape(y, [int(prod_dim_r), int(prod_dim_c)], order="F")
 
     # Return the subsystems back to their original positions.
-    dim[:, sys-1] = dim[[1, 0], sys-1]
-    perm_np = np.array(perm)
-    perm_np = list(perm_np - 1)
-    dim = dim[:, perm_np]
+    if len(sys) > 1:
+        dim[:, sys-1] = dim[[1, 0], sys-1]
 
-    return permute_systems(rho_permuted, perm, dim, False, True)
+    dim = dim[:, np.array(perm)-1]
+
+    Xpt = permute_systems(z, perm, dim, False, True)
+
+    return Xpt
+

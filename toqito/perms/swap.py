@@ -54,7 +54,7 @@ def swap(rho: np.ndarray,
            np.abs(dim[1, 1] - np.round(dim[1, 1])) >= 2*np.prod(rho_dims)*eps:
             val_error = """
                 InvalidDim: The value of `dim` must evenly divide the number of
-                rows and columns of `rho`; please provide the `dim` array 
+                rows and columns of `rho`; please provide the `dim` array
                 containing the dimensions of the subsystems.
             """
             raise ValueError(val_error)
