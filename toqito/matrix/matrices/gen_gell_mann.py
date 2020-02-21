@@ -36,7 +36,7 @@ def gen_gell_mann(ind_1: int,
 
             gm_op = sparse.lil_matrix((dim, dim))
             gm_op.setdiag(diag)
-            
+
     else:
         e_mat = sparse.lil_matrix((dim, dim))
         e_mat[ind_1, ind_2] = 1
@@ -48,4 +48,3 @@ def gen_gell_mann(ind_1: int,
     if not is_sparse:
         return gm_op.todense()
     return gm_op
-
