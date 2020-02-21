@@ -25,7 +25,9 @@ from toqito.perms.perfect_matchings import perfect_matchings
 from toqito.super_operators.diamond_norm import diamond_norm
 from toqito.super_operators.partial_trace import partial_trace_cvx, partial_trace
 from toqito.super_operators.realignment import realignment
+from toqito.matrix.matrices.gen_gell_mann import gen_gell_mann
 
+print(gen_gell_mann(205, 34, 500, True))
 
 d = 2
 p = np.array([[1/4, 1/4], [1/4, 1/4]])
@@ -79,9 +81,9 @@ rho = u * u.conj().T
 k = 1
 n = 3
 
-X = np.arange(1, 211).reshape(15, 14)
-mat = np.array([[5, 3], [2, 7]])
-print(realignment(X, mat))
+#X = np.arange(1, 211).reshape(15, 14)
+#mat = np.array([[5, 3], [2, 7]])
+#print(realignment(X, mat))
 
 
 #calculate_q(Q0, Q1, n, k)
@@ -90,11 +92,12 @@ print(realignment(X, mat))
 #print(weak_coin_flipping(x))
 
 #X = np.arange(1, 17).reshape(4, 4)
+#print(np.linalg.norm(partial_transpose(X, [1, 2]) - X.conj().T))
 #print(partial_trace(X, 2, [2, 2]))
 #print(partial_transpose(X, [1, 2], [2, 2]))
 
 #X = np.arange(1, 257).reshape(16, 16)
-#print(partial_transpose(X, [1, 3], [2, 2, 2, 2]))
+#Y = partial_transpose(X, [1, 3], [2, 2, 2, 2])
 #print(partial_trace(X, [1, 3], [2, 2, 2, 2]))
 
 #Q1 = np.kron(Q1, np.kron(Q1, Q1))
