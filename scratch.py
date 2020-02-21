@@ -26,8 +26,16 @@ from toqito.super_operators.diamond_norm import diamond_norm
 from toqito.super_operators.partial_trace import partial_trace_cvx, partial_trace
 from toqito.super_operators.realignment import realignment
 from toqito.matrix.matrices.gen_gell_mann import gen_gell_mann
+from toqito.perms.perm_sign import perm_sign
+from toqito.perms.symmetric_projection import symmetric_projection
+from toqito.state.operations.schmidt_rank import schmidt_rank
 
-print(gen_gell_mann(205, 34, 500, True))
+#print(symmetric_projection(2))
+symmetric_projection(2, 3, True)
+#print(random_state_vector(3, False, 3))
+#x = np.array([1, 2, 3])
+#print(schmidt_rank(x, 1))
+
 
 d = 2
 p = np.array([[1/4, 1/4], [1/4, 1/4]])

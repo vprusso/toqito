@@ -14,3 +14,5 @@
 - Is quantum latin square
 - Quantum money functionality
 - Partial transpose check
+- Tests for symmetric projection
+- Tests for Schmidt rank
