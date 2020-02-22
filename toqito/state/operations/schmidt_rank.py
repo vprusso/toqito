@@ -19,21 +19,20 @@ def schmidt_rank(vec: np.ndarray,
     :param tol: The tolerance parameter for rank calculation.
     :return: The Schmidt rank of vector `vec`.
     """
-    lv = len(vec)
-    slv = np.round(np.sqrt(lv))
+    eps = np.finfo(float).eps
+    slv = np.round(np.sqrt(len(vec)))
 
     if dim is None:
         dim = slv
     if tol is None:
-        tol = np.finfo(float).eps
+        tol = eps
 
     if isinstance(dim, int):
-        dim = np.array([dim, lv/dim])
-        if np.abs(dim[1] - np.round(dim[1])) >= 2 * lv * np.finfo(float).eps:
+        dim = np.array([dim, len(vec)/dim])
+        if np.abs(dim[1] - np.round(dim[1])) >= 2 * len(vec) * eps:
             raise ValueError("Invalid: The value of `dim` must evenly divide "
                              "`len(vec)`; please provide a `dim` array "
                              "containing the dimensions of the subsystems")
         dim[1] = np.round(dim[1])
 
     return np.linalg.matrix_rank(vec, dim[::-1], tol)
-
