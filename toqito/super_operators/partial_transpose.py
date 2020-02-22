@@ -1,7 +1,6 @@
 """Computes the partial transpose of a matrix."""
 from typing import List, Union
 import numpy as np
-from skimage.util.shape import view_as_blocks
 from toqito.perms.permute_systems import permute_systems
 
 
@@ -74,10 +73,7 @@ def partial_transpose(rho: np.ndarray,
     sub_sys_vec_r = prod_dim_r * np.ones(int(sub_prod_r)) / sub_prod_r
     sub_sys_vec_c = prod_dim_c * np.ones(int(sub_prod_c)) / sub_prod_c
 
-    if isinstance(sys, int):
-        sys = [sys]
-    s2 = sys
-    set_diff = list(set(list(range(1, num_sys+1))) - set(s2))
+    set_diff = list(set(list(range(1, num_sys+1))) - set(sys))
 
     perm = sys.tolist()
     perm.extend(set_diff)

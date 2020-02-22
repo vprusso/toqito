@@ -15,6 +15,7 @@ script:
     - pylint toqito/entanglement/
     - pylint toqito/helper/
     - pylint toqito/matrix/
+    - pylint toqito/measure/
     - pylint toqito/random/
     - pylint toqito/state/
     - pylint toqito/upb/

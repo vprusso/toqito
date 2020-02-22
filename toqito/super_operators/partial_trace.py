@@ -1,7 +1,6 @@
 """Computes the partial trace of a matrix."""
 from typing import Union, List
 import numpy as np
-from scipy.sparse import issparse
 from toqito.perms.permute_systems import permute_systems
 from toqito.helper.cvx_helper import expr_as_np_array, np_array_as_expr
 
@@ -50,47 +49,48 @@ def partial_trace(input_mat: np.ndarray,
         dim = np.array([dim[0], len(input_mat)/dim[0]])
         if np.abs(dim[1] - np.round(dim[1])) >= 2 * \
                 len(input_mat) * np.finfo(float).eps:
-            msg = """
-                InvalidDim: If `dim` is a scalar, `dim` must evenly divide 
-                `len(input_mat)`.
-            """
-            raise ValueError(msg)
+            raise ValueError("Invalid: If `dim` is a scalar, `dim` must evenly "
+                             "divide `len(input_mat)`.")
         dim[1] = np.round(dim[1])
         num_sys = 2
 
-    is_sparse = issparse(input_mat)
     prod_dim = np.prod(dim)
     if isinstance(sys, list):
         prod_dim_sys = np.prod(dim[sys])
     elif isinstance(sys, int):
         prod_dim_sys = np.prod(dim[sys-1])
     else:
-        msg = """
-            InvalidSys: The variable `sys` must either be of type int of a
-            list of ints.
-        """
-        raise ValueError(msg)
-    
+        raise ValueError("Invalid: The variable `sys` must either be of type "
+                         "int or of a list of ints.")
+
     sub_prod = prod_dim / prod_dim_sys
     sub_sys_vec = prod_dim * np.ones(int(sub_prod)) / sub_prod
 
     if isinstance(sys, int):
         sys = [sys]
-    s2 = sys
-    set_diff = list(set(list(range(1, num_sys+1))) - set(s2))
+    set_diff = list(set(list(range(1, num_sys+1))) - set(sys))
 
     perm = set_diff
     perm.extend(sys)
 
     a_mat = permute_systems(input_mat, perm, dim)
 
-    x = np.reshape(a_mat, [int(sub_sys_vec[0]), int(sub_prod), int(sub_sys_vec[0]), int(sub_prod)], order="F")
-    y = x.transpose((1, 3, 0, 2))
-    z = np.reshape(y, [int(sub_prod), int(sub_prod), int(sub_sys_vec[0]**2)], order="F")
+    ret_mat = np.reshape(a_mat,
+                         [int(sub_sys_vec[0]),
+                          int(sub_prod),
+                          int(sub_sys_vec[0]),
+                          int(sub_prod)],
+                         order="F")
+    permuted_mat = ret_mat.transpose((1, 3, 0, 2))
+    permuted_reshaped_mat = np.reshape(permuted_mat,
+                                       [int(sub_prod),
+                                        int(sub_prod),
+                                        int(sub_sys_vec[0]**2)],
+                                       order="F")
 
-    q = z[:, :, list(range(0, int(sub_sys_vec[0]**2), int(sub_sys_vec[0]+1)))]
+    pt_mat = permuted_reshaped_mat[:, :, list(range(0,
+                                                    int(sub_sys_vec[0]**2),
+                                                    int(sub_sys_vec[0]+1)))]
+    pt_mat = np.sum(pt_mat, axis=2)
 
-    Xpt = np.sum(q, axis=2)
-
-    return Xpt
-
+    return pt_mat

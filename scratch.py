@@ -22,16 +22,19 @@ from toqito.perms.swap_operator import swap_operator
 from toqito.perms.swap import swap
 from toqito.super_operators.partial_trace import partial_trace
 from toqito.perms.perfect_matchings import perfect_matchings
-from toqito.super_operators.diamond_norm import diamond_norm
 from toqito.super_operators.partial_trace import partial_trace_cvx, partial_trace
 from toqito.super_operators.realignment import realignment
 from toqito.matrix.matrices.gen_gell_mann import gen_gell_mann
 from toqito.perms.perm_sign import perm_sign
 from toqito.perms.symmetric_projection import symmetric_projection
+from toqito.perms.antisymmetric_projection import antisymmetric_projection
 from toqito.state.operations.schmidt_rank import schmidt_rank
 
-#print(symmetric_projection(2))
-symmetric_projection(2, 3, True)
+print(antisymmetric_projection(2).todense())
+x = antisymmetric_projection(3, 3, True).todense()
+print(np.isclose(x[5].item(), -0.40824829))
+#print(symmetric_projection(2).todense())
+#symmetric_projection(2, 3, True)
 #print(random_state_vector(3, False, 3))
 #x = np.array([1, 2, 3])
 #print(schmidt_rank(x, 1))
