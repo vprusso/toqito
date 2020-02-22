@@ -19,7 +19,7 @@ class TestAntisymmetricProjection(unittest.TestCase):
         bool_mat = np.isclose(res, expected_res)
         self.assertEqual(np.all(bool_mat), True)
 
-    def test_antisymmetric_projection_3_3_True(self):
+    def test_antisymmetric_projection_3_3_true(self):
         """
         Generates the antisymmetric_projection where the `dim` is 3, the `p`
         is 3, and `partial` is True.

@@ -8,12 +8,12 @@ from toqito.perms.perm_sign import perm_sign
 
 def antisymmetric_projection(dim: int,
                              p: int = 2,
-                             partial: bool = False) -> np.ndarray:
+                             partial: bool = False) -> sp.sparse.lil_matrix:
     """
     Produce the projection onto the antisymmetric subspace.
 
     Produces the orthogonal projection onto the anitsymmetric subspace of `p`
-    copies of `dim`-dimensional space. If `partail = True`, then the
+    copies of `dim`-dimensional space. If `partial = True`, then the
     antisymmetric projection (PA) isn't the orthogonal projection itself, but
     rather a matrix whose columns form an orthonormal basis for the symmetric
     subspace (and hence the PA * PA' is the orthogonal projection onto the
