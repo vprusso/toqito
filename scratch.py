@@ -11,8 +11,6 @@ from toqito.state.states.max_entangled import max_entangled
 from toqito.matrix.matrices.pauli import pauli
 from toqito.entanglement.concurrence import concurrence
 from toqito.matrix.properties.is_diagonal import is_diagonal
-import scipy
-import cvxpy
 from toqito.state.distance.fidelity import fidelity
 from toqito.state.properties.is_ppt import is_ppt
 from toqito.super_operators.partial_transpose import partial_transpose
@@ -29,29 +27,21 @@ from toqito.perms.perm_sign import perm_sign
 from toqito.perms.symmetric_projection import symmetric_projection
 from toqito.perms.antisymmetric_projection import antisymmetric_projection
 from toqito.state.operations.schmidt_rank import schmidt_rank
-
-print(antisymmetric_projection(2).todense())
-x = antisymmetric_projection(3, 3, True).todense()
-print(np.isclose(x[5].item(), -0.40824829))
-#print(symmetric_projection(2).todense())
-#symmetric_projection(2, 3, True)
-#print(random_state_vector(3, False, 3))
-#x = np.array([1, 2, 3])
-#print(schmidt_rank(x, 1))
-
+from toqito.nonlocal_games.nonlocal_game_value_lb import nonlocal_game_value_lb
 
 d = 2
+oa, ob, ia, ib = 2, 2, 2, 2
 p = np.array([[1/4, 1/4], [1/4, 1/4]])
-V = np.zeros((d, d, d, d))
+V = np.zeros((oa, ob, ia, ib))
 
-for a in range(d):
-    for b in range(d):
-        for x in range(d):
-            for y in range(d):
+for a in range(oa):
+    for b in range(ob):
+        for x in range(ia):
+            for y in range(ib):
                 if np.mod(a+b+x*y, d) == 0:
                     V[a, b, x, y] = 1
 
-#nonlocal_game_value(p, V)
+nonlocal_game_value_lb(d, p, V)
 
 joint_coe = np.array([[1, 1, -1], [1, 1, 1], [-1, 1, 0]])
 a_coe = np.array([0, -1, 0])
