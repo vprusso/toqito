@@ -28,11 +28,13 @@ from toqito.perms.symmetric_projection import symmetric_projection
 from toqito.perms.antisymmetric_projection import antisymmetric_projection
 from toqito.state.operations.schmidt_rank import schmidt_rank
 from toqito.nonlocal_games.nonlocal_game_value_lb import nonlocal_game_value_lb
+from toqito.random.random_povm import random_povm
 
 d = 2
 oa, ob, ia, ib = 2, 2, 2, 2
 p = np.array([[1/4, 1/4], [1/4, 1/4]])
 V = np.zeros((oa, ob, ia, ib))
+
 
 for a in range(oa):
     for b in range(ob):
