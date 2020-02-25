@@ -13,7 +13,7 @@ def concurrence(rho: np.ndarray) -> float:
     decreasing order of the matrix.
 
     References:
-        [1] Concurrence (quantum computing)
+        [1] Wikipedia page for concurrence (quantum computing)
             https://en.wikipedia.org/wiki/Concurrence_(quantum_computing)
 
     :param rho: The bipartite system specified as a matrix.

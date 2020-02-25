@@ -17,6 +17,11 @@ def gen_gell_mann(ind_1: int,
     to `dim-1`, inclusive, and they generalize the Pauli operators when `dim =
     2` and the Gell-Mann operators when `dim = 3`.
 
+    References:
+    [1] Gell-Mann matrices:
+        Wikipedia:
+        https://en.wikipedia.org/wiki/Gell-Mann_matrices
+
     :param ind_1: A non-negative integer from 0 to `dim-1` (inclusive).
     :param ind_2: A non-negative integer from 0 to `dim-1` (inclusive).
     :param dim: The dimension of the Gell-Mann operator.

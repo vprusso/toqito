@@ -17,6 +17,10 @@ def negativity(rho: np.ndarray, dim: Union[List[int], int] = None) -> float:
     negativity of `rho` is the sum of the absolute value of the negative
     eigenvalues of the partial transpose of `rho`.
 
+    References:
+    [1] Wikipedia page for negativity (quantum mechanics):
+        https://en.wikipedia.org/wiki/Negativity_(quantum_mechanics)
+
     :param rho: A density matrix of a pure state vector.
     :param dim: The default has both subsystems of equal dimension.
     :return: A value between 0 and 1 that corresponds to the negativity of
