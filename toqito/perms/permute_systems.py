@@ -59,11 +59,9 @@ def permute_systems(input_mat: np.ndarray,
         elif len(input_mat.shape) == 1:
             vec_orien = 1
         else:
-            msg = """
-                InvalidMat: Length of tuple of dimensions specifying the input 
-                matrix can only be of length 1 or length 2.
-            """
-            raise ValueError(msg)
+            raise ValueError("InvalidMat: Length of tuple of dimensions "
+                             "specifying the input matrix can only be of "
+                             "length 1 or length 2.")
 
     if len(dim.shape) == 1:
         # Force dim to be a row vector.
@@ -79,22 +77,14 @@ def permute_systems(input_mat: np.ndarray,
     prod_dim_c = int(np.prod(dim[1, :]))
 
     if len(perm) != num_sys:
-        msg = """
-            InvalidPerm: length(PERM) must be equal to length(DIM).
-        """
-        raise ValueError(msg)
+        raise ValueError("InvalidPerm: `len(perm)` must be equal to "
+                         "`len(dim)`.")
     elif sorted(perm) != list(range(1, num_sys+1)):
-        msg = """
-            InvalidPerm: PERM must be a permutation vector.
-        """
-        raise ValueError(msg)
+        raise ValueError("InvalidPerm: `perm` must be a permutation vector.")
     elif input_mat_dims[0] != prod_dim_r or \
             (not row_only and input_mat_dims[1] != prod_dim_c):
-        msg = """
-            InvalidDim: The dimensions specified in DIM do not agree with
-            the size of X.
-        """
-        raise ValueError(msg)
+        raise ValueError("InvalidDim: The dimensions specified in DIM do not "
+                         "agree with the size of X.")
     if is_vec:
         if inv_perm:
             permuted_mat_1 = input_mat.reshape(dim[vec_orien, ::-1].astype(int), order="F")

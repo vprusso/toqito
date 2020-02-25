@@ -38,12 +38,9 @@ def entropy(rho: np.ndarray, log_base: int = 2, alpha: float = 1) -> float:
             # `alpha` being large. If so, compute the infinity-entropy instead.
             if ent == float("inf"):
                 alpha = float("inf")
-                msg = """
-                    LargeAlpha: Numerical problems were encountered due to a
-                    large value of `alpha`. Computing the entropy with
-                    `alpha = float("inf")` instead.
-                """
-                warnings.warn(msg)
+                warnings.warn("LargeAlpha: Numerical problems were encountered "
+                              "due to a large value of `alpha`. Computing the "
+                              "entropy with `alpha = float('inf')` instead.")
 
         # Do not merge the following if statement with the previous one: we
         # need them separate, since this one catches a warning from the
@@ -54,7 +51,5 @@ def entropy(rho: np.ndarray, log_base: int = 2, alpha: float = 1) -> float:
 
         return ent
 
-    msg = """
-        InvalidAlpha: The `alpha` parameter must be non-negative.
-    """
-    raise ValueError(msg)
+    raise ValueError("InvalidAlpha: The `alpha` parameter must be "
+                     "non-negative.")

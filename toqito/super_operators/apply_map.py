@@ -60,8 +60,5 @@ def apply_map(mat: np.ndarray,
                            (int(phi_size[0]*np.prod(mat_size)),
                             int(phi_size[1])))
         return np.matmul(a_mat, b_mat)
-    msg = """
-        Invalid: The variable `phi_op` must either be a list of Kraus 
-        operators or as a Choi matrix.
-    """
-    raise ValueError(msg)
+    raise ValueError("Invalid: The variable `phi_op` must either be a list of "
+                     "Kraus operators or as a Choi matrix.")

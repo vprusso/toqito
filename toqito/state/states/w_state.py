@@ -28,11 +28,8 @@ def w_state(num_qubits: int, coeff: List[int] = None) -> np.ndarray:
     if num_qubits < 2:
         raise ValueError("InvalidNumQubits: `num_qubits` must be at least 2.")
     if len(coeff) != num_qubits:
-        msg = """
-            InvalidCoeff: The variable `coeff` must be a vector of length equal
-            to `num_qubits`.
-        """
-        raise ValueError(msg)
+        raise ValueError("InvalidCoeff: The variable `coeff` must be a vector "
+                         "of length equal to `num_qubits`.")
 
     ret_w_state = csr_matrix((2**num_qubits, 1)).toarray()
 

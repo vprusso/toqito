@@ -1,34 +1,6 @@
 import numpy as np
-from toqito.matrix.properties.is_normal import is_normal
-from toqito.random.random_state_vector import random_state_vector
 from toqito.base.ket import ket
-from toqito.matrix.operations.tensor import tensor_list
-from toqito.state.distance.trace_norm import trace_norm
-from toqito.state.distance.trace_distance import trace_distance
-from toqito.state.properties.is_product_vector import is_product_vector
-from toqito.state.operations.schmidt_decomposition import schmidt_decomposition
-from toqito.state.states.max_entangled import max_entangled
-from toqito.matrix.matrices.pauli import pauli
-from toqito.entanglement.concurrence import concurrence
-from toqito.matrix.properties.is_diagonal import is_diagonal
-from toqito.state.distance.fidelity import fidelity
-from toqito.state.properties.is_ppt import is_ppt
-from toqito.super_operators.partial_transpose import partial_transpose
-from toqito.state.states.werner_state import werner_state
-from toqito.perms.permutation_operator import permutation_operator
-from toqito.perms.swap_operator import swap_operator
-from toqito.perms.swap import swap
-from toqito.super_operators.partial_trace import partial_trace
-from toqito.perms.perfect_matchings import perfect_matchings
-from toqito.super_operators.partial_trace import partial_trace_cvx, partial_trace
-from toqito.super_operators.realignment import realignment
-from toqito.matrix.matrices.gen_gell_mann import gen_gell_mann
-from toqito.perms.perm_sign import perm_sign
-from toqito.perms.symmetric_projection import symmetric_projection
-from toqito.perms.antisymmetric_projection import antisymmetric_projection
-from toqito.state.operations.schmidt_rank import schmidt_rank
-from toqito.nonlocal_games.nonlocal_game_value_lb import nonlocal_game_value_lb
-from toqito.random.random_povm import random_povm
+from toqito.nonlocal_games.nonlocal_games.quantum_lower_bound import quantum_lower_bound
 
 d = 2
 oa, ob, ia, ib = 2, 2, 2, 2
@@ -42,7 +14,7 @@ for a in range(oa):
                 if np.mod(a+b+x*y, d) == 0:
                     V[a, b, x, y] = 1
 
-nonlocal_game_value_lb(d, p, V)
+quantum_lower_bound(d, p, V)
 
 # d = 3
 # oa, ob, ia, ib = 3, 3, 3, 3

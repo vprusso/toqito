@@ -45,11 +45,8 @@ def werner_state(dim: int, alpha: Union[float, List[float]]) -> np.ndarray:
             if n_var == i + 1:
                 break
             if n_var < i:
-                msg = """
-                    InvalidAlpha: The `alpha` vector must contain p!-1 entries
-                    for some integer p > 1.
-                """
-                raise ValueError(msg)
+                raise ValueError("InvalidAlpha: The `alpha` vector must contain"
+                                 " p!-1 entries for some integer p > 1.")
 
         # Done error checking and computing the number of parties -- now
         # compute the Werner state.

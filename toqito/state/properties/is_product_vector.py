@@ -30,12 +30,9 @@ def is_product_vector(vec: np.ndarray, dim: Union[int, List[int]]):
     if num_sys == 1:
         dim = np.array([dim, len(vec)/dim])
         if np.abs(dim[1] - np.round(dim[1])) >= 2 * len(vec) * eps:
-            msg = """
-                InvalidDim: The value of `dim` must evenly divide `len(vec)`.
-                Please provide a `dim` array containing the dimensions of the
-                subsystems.
-            """
-            raise ValueError(msg)
+            raise ValueError("InvalidDim: The value of `dim` must evenly divide"
+                             " `len(vec)`. Please provide a `dim` array "
+                             "containing the dimensions of the subsystems.")
         dim[1] = np.round(dim[1])
         num_sys = 2
 

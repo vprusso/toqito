@@ -33,10 +33,8 @@ def horodecki_state(a_param: float,
         arXiv: 1009.4385.
     """
     if a_param < 0 or a_param > 1:
-        msg = """
-            Invalid: Argument A_PARAM must be in the interval [0, 1].
-        """
-        raise ValueError(msg)
+        raise ValueError("Invalid: Argument A_PARAM must be in the interval "
+                         "[0, 1].")
 
     if dim is None:
         dim = np.array([3, 3])
@@ -73,8 +71,4 @@ def horodecki_state(a_param: float,
              [0, a_param, 0, 0, 0, 0, a_param, 0],
              [0, 0, a_param, 0, c_param, 0, 0, b_param]])
         return horo_state
-
-    msg = """
-        InvalidDim: DIM must be one of [3, 3], or [2, 4].
-    """
-    raise ValueError(msg)
+    raise ValueError("InvalidDim: DIM must be one of [3, 3], or [2, 4].")

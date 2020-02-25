@@ -24,15 +24,10 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
 
     # Perform some error checking.
     if not np.all(rho.shape == sigma.shape):
-        msg = """
-            InvalidDim: `rho` and `sigma` must be matrices of the same size.
-        """
-        raise ValueError(msg)
+        raise ValueError("InvalidDim: `rho` and `sigma` must be matrices of the"
+                         " same size.")
     if rho.shape[0] != rho.shape[1]:
-        msg = """
-            InvalidDim: `rho` and `sigma` must be square.
-        """
-        raise ValueError(msg)
+        raise ValueError("InvalidDim: `rho` and `sigma` must be square.")
 
     # If `rho` or `sigma` is a cvxpy variable then compute fidelity via
     # semidefinite programming, so that this function can be used in the

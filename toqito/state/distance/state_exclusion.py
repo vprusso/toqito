@@ -24,10 +24,8 @@ def state_exclusion(states: List[np.ndarray],
     """
     # Assume that at least one state is provided.
     if states is None or states == []:
-        msg = """
-            InvalidStates: There must be at least one state provided.
-        """
-        raise ValueError(msg)
+        raise ValueError("InvalidStates: There must be at least one state "
+                         "provided.")
 
     # Assume uniform probability if no specific distribution is given.
     if probs is None:

@@ -40,11 +40,8 @@ def ghz_state(dim: int,
     if num_qubits < 2:
         raise ValueError("InvalidNumQubits: `num_qubits` must be at least 2.")
     if len(coeff) != dim:
-        msg = """
-            InvalidCoeff: The variable `coeff` must be a vector of length equal
-            to `dim`.
-        """
-        raise ValueError(msg)
+        raise ValueError("InvalidCoeff: The variable `coeff` must be a vector"
+                         " of length equal to `dim`.")
 
     # Construct the state (and do it in a way that is less memory-intensive
     # than naively tensoring things together.

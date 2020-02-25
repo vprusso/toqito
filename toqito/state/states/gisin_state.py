@@ -20,10 +20,8 @@ def gisin_state(lambda_var: float, theta: float) -> np.ndarray:
 
     """
     if lambda_var < 0 or lambda_var > 1:
-        msg = """
-            InvalidLambda: Variable lambda must be between 0 and 1.
-        """
-        raise ValueError(msg)
+        raise ValueError("InvalidLambda: Variable lambda must be between "
+                         "0 and 1.")
 
     rho_theta = np.array([[0, 0, 0, 0],
                           [0, np.sin(theta)**2, -np.sin(2*theta)/2, 0],

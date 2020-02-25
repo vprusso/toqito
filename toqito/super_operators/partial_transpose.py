@@ -49,12 +49,10 @@ def partial_transpose(rho: np.ndarray,
     if num_sys == 1:
         dim = np.array([dim, list(rho.shape)[0]/dim])
         if np.abs(dim[1] - np.round(dim[1])) >= 2*list(rho.shape)[0]*np.finfo(float).eps:
-            msg = """
-                InvalidDim: If `dim` is a scalar, `rho` must be square and
-                `dim` must evenly divide `len(rho)`; please provide the `dim`
-                array containing the dimensions of the subsystems.
-            """
-            raise ValueError(msg)
+            raise ValueError("InvalidDim: If `dim` is a scalar, `rho` must be "
+                             "square and `dim` must evenly divide `len(rho)`; "
+                             "please provide the `dim` array containing the "
+                             "dimensions of the subsystems.")
         dim[1] = np.round(dim[1])
         num_sys = 2
 

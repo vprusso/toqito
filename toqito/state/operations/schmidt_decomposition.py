@@ -29,12 +29,9 @@ def schmidt_decomposition(vec: np.ndarray,
     if isinstance(dim, float):
         dim = np.array([dim, len(vec)/dim])
         if np.abs(dim[1] - np.round(dim[1])) >= 2 * len(vec) * eps:
-            msg = """
-                InvalidDim: The value of `dim` must evenly divide `len(vec)`;
-                please provide a `dim` array containing the dimensions of the
-                subsystems.
-            """
-            raise ValueError(msg)
+            raise ValueError("InvalidDim: The value of `dim` must evenly divide"
+                             " `len(vec)`; please provide a `dim` array "
+                             "containing the dimensions of the subsystems.")
         dim[1] = np.round(dim[1])
 
     # Try to guess whether SVD or SVDS will be faster, and then perform the
