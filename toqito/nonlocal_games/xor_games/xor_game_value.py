@@ -5,7 +5,8 @@ import numpy as np
 
 def xor_game_value(prob_mat: np.ndarray,
                    pred_mat: np.ndarray,
-                   strategy: str = "classical") -> float:
+                   strategy: str = "classical",
+                   tol: float = None) -> float:
     """
     Computes the classical or quantum value of a nonlocal binary XOR game.
 
@@ -21,21 +22,23 @@ def xor_game_value(prob_mat: np.ndarray,
     :param strategy: Default is "classical". Either argument "classical" or
                      "quantum" indicating what type of value the game should be
                      computed.
+    :param tol: The error tolerance for the value.
     :return: The optimal value that Alice and Bob can win the XOR game using a
              specific type of strategy.
     """
     s, t = prob_mat.shape
 
-    tol = np.finfo(float).eps * s**2 * t**2
-    if np.abs(np.sum(np.sum(prob_mat)) - 1) > tol:
-        raise ValueError("Invalid: The variable `prob_mat` must be a "
-                         "probability matrix: its entries must sum to 1.")
-    if np.min(np.min(prob_mat)) < -tol:
-        raise ValueError("Invalid: The variable `prob_mat` must be a "
-                         "probability matrix: its entries must be non-negative.")
+    if tol is None:
+        tol = np.finfo(float).eps * s**2 * t**2
     if (s, t) != pred_mat.shape:
         raise ValueError("Invalid: The matrices `prob_mat` and `pred_mat` must"
                          " be matrices of the same size.")
+    if np.min(np.min(prob_mat)) < -tol:
+        raise ValueError("Invalid: The variable `prob_mat` must be a "
+                         "probability matrix: its entries must be non-negative.")
+    if np.abs(np.sum(np.sum(prob_mat)) - 1) > tol:
+        raise ValueError("Invalid: The variable `prob_mat` must be a "
+                         "probability matrix: its entries must sum to 1.")
 
     # Compute the value of the game, depending on which type of value was
     # requested.
@@ -85,6 +88,7 @@ def xor_game_value(prob_mat: np.ndarray,
 
                 # Already optimal? Quit.
                 if val >= 1 - tol:
+                    print("EWF@E#")
                     return val
         return val
     raise ValueError(f"Strategy {strategy} is not supported.")

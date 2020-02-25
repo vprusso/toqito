@@ -30,6 +30,17 @@ class TestXORGameValue(unittest.TestCase):
         expected_res = 3/4
         self.assertEqual(np.isclose(res, expected_res), True)
 
+    def test_chsh_game_classical_value_tol_optimal(self):
+        """Classical value for the CHSH game with optimal tolerance."""
+        prob_mat = np.array([[1/4, 1/4],
+                             [1/4, 1/4]])
+        pred_mat = np.array([[0, 0],
+                             [0, 1]])
+
+        res = xor_game_value(prob_mat, pred_mat, "classical", 1)
+        expected_res = 3/4
+        self.assertEqual(np.isclose(res, expected_res), True)
+
     def test_odd_cycle_game_quantum_value(self):
         """Quantum value for the odd-cycle game"""
         prob_mat = np.array([[0.1, 0.1, 0, 0, 0],
@@ -91,6 +102,16 @@ class TestXORGameValue(unittest.TestCase):
         with self.assertRaises(ValueError):
             prob_mat = np.array([[1/4, 1/4, 1/4],
                                  [1/4, 1/4, 1/4]])
+            pred_mat = np.array([[0, 0],
+                                 [0, 1]])
+
+            xor_game_value(prob_mat, pred_mat, "quantum")
+
+    def test_zero_prob_mat(self):
+        """Tests for zero probability matrix."""
+        with self.assertRaises(ValueError):
+            prob_mat = np.array([[1/4, 0],
+                                 [1/4, 0]])
             pred_mat = np.array([[0, 0],
                                  [0, 1]])
 
