@@ -35,7 +35,6 @@ oa, ob, ia, ib = 2, 2, 2, 2
 p = np.array([[1/4, 1/4], [1/4, 1/4]])
 V = np.zeros((oa, ob, ia, ib))
 
-
 for a in range(oa):
     for b in range(ob):
         for x in range(ia):
@@ -44,6 +43,20 @@ for a in range(oa):
                     V[a, b, x, y] = 1
 
 nonlocal_game_value_lb(d, p, V)
+
+# d = 3
+# oa, ob, ia, ib = 3, 3, 3, 3
+# p = np.ones((d, d))/d**2
+# V = np.zeros((oa, ob, ia, ib))
+# for a in range(oa):
+#     for b in range(ob):
+#         for x in range(ia):
+#             for y in range(ib):
+#                 if np.mod(a+b+x*y, d) == 0:
+#                     V[a, b, x, y] = 1
+# 
+# print(nonlocal_game_value_lb(d, p, V))
+
 
 joint_coe = np.array([[1, 1, -1], [1, 1, 1], [-1, 1, 0]])
 a_coe = np.array([0, -1, 0])

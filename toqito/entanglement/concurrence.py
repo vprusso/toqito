@@ -20,10 +20,8 @@ def concurrence(rho: np.ndarray) -> float:
     :return: The concurrence of the bipartite state `rho`.
     """
     if rho.shape != (4, 4):
-        msg = """
-            InvalidDim: Concurrence is only defined for bipartite systems.
-        """
-        raise ValueError(msg)
+        raise ValueError("InvalidDim: Concurrence is only defined for bipartite"
+                         " systems.")
 
     sigma_y = pauli("Y", False)
     sigma_y_y = np.kron(sigma_y, sigma_y)

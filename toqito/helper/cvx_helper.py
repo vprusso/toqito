@@ -1,15 +1,8 @@
 """Helper functions for dealing with cvxpy objects."""
-import cvxpy
 import numpy as np
 from cvxpy import bmat
 from cvxpy.expressions.expression import Expression
 
-
-def ip_cvx(var_1, var_2):
-    if isinstance(var_1, cvxpy.expressions.variable.Variable):
-        return cvxpy.trace(var_1.H @ var_2)
-    if isinstance(var_1, np.ndarray):
-        return cvxpy.trace(var_1.conj().T @ var_2)
 
 def expr_as_np_array(cvx_expr: Expression) -> np.ndarray:
     """
