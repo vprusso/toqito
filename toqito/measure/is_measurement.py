@@ -27,7 +27,7 @@ def is_measurement(mat_list: List[np.ndarray]) -> bool:
     """
     dim = mat_list[0].shape[0]
 
-    mat_sum = np.zeros((dim, dim))
+    mat_sum = np.zeros((dim, dim), dtype=complex)
     for mat in mat_list:
         # Each measurement in the set must be positive semidefinite.
         if not is_psd(mat):

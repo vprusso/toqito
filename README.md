@@ -4,7 +4,7 @@ Suite of Python tools that come in handy when considering various concepts in
 quantum information.
 
 [![build status](http://img.shields.io/travis/vprusso/toqito.svg)](https://travis-ci.org/vprusso/toqito)
-[![coverage report](http://img.shields.io/coveralls/vprusso/toqito.svg)](https://coveralls.io/r/vprusso/toqito)
+[![Coverage Status](https://coveralls.io/repos/github/vprusso/toqito/badge.svg?branch=master)](https://coveralls.io/github/vprusso/toqito?branch=master)
 
 The inspiration for this package is heavily influenced by the
 [QETLAB](http://www.qetlab.com) package in MATLAB by Nathaniel Johnston.  Many

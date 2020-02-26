@@ -4,14 +4,15 @@ from toqito.nonlocal_games.nonlocal_game_lower_bound import nonlocal_game_lower_
 from toqito.perms.pi_perm import pi_perm
 from toqito.perms.permutation_operator import permutation_operator
 from toqito.perms.antisymmetric_projection import antisymmetric_projection
+from toqito.measure.is_measurement import is_measurement
+from toqito.random.random_povm import random_povm
 
-print(antisymmetric_projection(2).todense())
 
-#x = pi_perm(3)
-#y = permutation_operator(2, [1, 3, 2, 4])
+x = pi_perm(2)
+y = permutation_operator(2, [1, 3, 2, 4])
 #print(x.shape)
 #print(y.shape)
-#print(np.allclose(x, y))
+print(np.allclose(x, y))
 
 d = 2
 oa, ob, ia, ib = 2, 2, 2, 2
