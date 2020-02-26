@@ -1,8 +1,17 @@
 import numpy as np
 from toqito.base.ket import ket
-from toqito.nonlocal_games.nonlocal_games.quantum_lower_bound import quantum_lower_bound
-from toqito.nonlocal_games.xor_games.xor_game_value import xor_game_value
+from toqito.nonlocal_games.nonlocal_game_lower_bound import nonlocal_game_lower_bound
+from toqito.perms.pi_perm import pi_perm
+from toqito.perms.permutation_operator import permutation_operator
 from toqito.perms.antisymmetric_projection import antisymmetric_projection
+
+print(antisymmetric_projection(2).todense())
+
+#x = pi_perm(3)
+#y = permutation_operator(2, [1, 3, 2, 4])
+#print(x.shape)
+#print(y.shape)
+#print(np.allclose(x, y))
 
 d = 2
 oa, ob, ia, ib = 2, 2, 2, 2
@@ -16,14 +25,15 @@ for a in range(oa):
                 if np.mod(a+b+x*y, d) == 0:
                     V[a, b, x, y] = 1
 
-#quantum_lower_bound(d, p, V)
+#v = nonlocal_game_lower_bound(d, p, V)
+#print(np.isclose(v, np.cos(np.pi/8)**2))
+
 prob_mat = np.array([[1/4, 1/4],
                      [1/4, 1/4]])
 pred_mat = np.array([[0, 0],
                      [0, 1]])
 #print(xor_game_value(prob_mat, pred_mat, tol=1))
 
-print(antisymmetric_projection(2, 3).todense())
 
 # d = 3
 # oa, ob, ia, ib = 3, 3, 3, 3

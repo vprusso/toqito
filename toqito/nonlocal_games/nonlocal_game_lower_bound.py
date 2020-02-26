@@ -1,4 +1,4 @@
-"""Computes a lower bound on the quantum value of a non-local game."""
+"""Computes a lower bound on the quantum value of a nonlocal game."""
 from typing import Dict, Tuple
 import cvxpy
 import numpy as np
@@ -6,12 +6,12 @@ from collections import defaultdict
 from toqito.random.random_povm import random_povm
 
 
-def quantum_lower_bound(dim: int,
-                        prob_mat: np.ndarray,
-                        pred_mat: np.ndarray,
-                        iters: int = 5,
-                        tol: float = 10e-6,
-                        verbose: bool = True):
+def nonlocal_game_lower_bound(dim: int,
+                              prob_mat: np.ndarray,
+                              pred_mat: np.ndarray,
+                              iters: int = 5,
+                              tol: float = 10e-6,
+                              verbose: bool = True):
     """
     Compute a lower bound on the quantum value of a nonlocal game.
 

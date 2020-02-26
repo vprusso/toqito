@@ -2,7 +2,7 @@
 import cvxpy
 import numpy as np
 
-from toqito.nonlocal_games.hedging.pi_perm import pi_perm
+from toqito.perms.pi_perm import pi_perm
 from toqito.super_operators.partial_trace import partial_trace_cvx
 
 

@@ -1,13 +1,13 @@
 """Produces the projection onto the antisymmetric subspace."""
+from itertools import permutations
 import numpy as np
 import scipy as sp
-from itertools import permutations
 from toqito.perms.permutation_operator import permutation_operator
 from toqito.perms.perm_sign import perm_sign
 
 
 def antisymmetric_projection(dim: int,
-                             p: int = 2,
+                             p_param: int = 2,
                              partial: bool = False) -> sp.sparse.lil_matrix:
     """
     Produce the projection onto the antisymmetric subspace.
@@ -20,28 +20,28 @@ def antisymmetric_projection(dim: int,
     symmetric subspace.)
 
     :param dim: The dimension of the local systems.
-    :param p: Default value of 2.
+    :param p_param: Default value of 2.
     :param partial: Default value of 0.
     :return: Projection onto the antisymmetric subspace.
     """
-    dimp = dim**p
-    
-    if p == 1:
+    dimp = dim**p_param
+
+    if p_param == 1:
         return sp.sparse.eye(dim)
     # The antisymmetric subspace is empty if `dim < p`.
-    if dim < p:
+    if dim < p_param:
         return sp.sparse.lil_matrix((dimp, dimp*(1-partial)))
-    
-    p_list = np.array(list(permutations(np.arange(1, p+1))))
+
+    p_list = np.array(list(permutations(np.arange(1, p_param+1))))
     p_fac = p_list.shape[0]
 
-    PA = sp.sparse.lil_matrix((dimp, dimp))
+    anti_proj = sp.sparse.lil_matrix((dimp, dimp))
     for j in range(p_fac):
-        PA += perm_sign(p_list[j, :]) * permutation_operator(dim*np.ones(p), p_list[j, :], False, True)
-    PA = PA/p_fac
+        anti_proj += perm_sign(p_list[j, :]) * permutation_operator(
+            dim*np.ones(p_param), p_list[j, :], False, True)
+    anti_proj = anti_proj/p_fac
 
     if partial:
-        PA = PA.todense()
-        PA = sp.sparse.lil_matrix(sp.linalg.orth(PA))
-    return PA
-
+        anti_proj = anti_proj.todense()
+        anti_proj = sp.sparse.lil_matrix(sp.linalg.orth(anti_proj))
+    return anti_proj
