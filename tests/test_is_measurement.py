@@ -13,7 +13,7 @@ class TestIsMeasurement(unittest.TestCase):
         """Test if valid measurement returns True."""
         dim, num_inputs, num_outputs = 2, 2, 2
         measurements = random_povm(dim, num_inputs, num_outputs)
-        
+
         self.assertEqual(is_measurement([measurements[:, :, 0, 0],
                                          measurements[:, :, 0, 1]]), True)
 
