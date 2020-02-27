@@ -29,7 +29,7 @@ class TestNonlocalGameLowerBound(unittest.TestCase):
 
         lower_bound = nonlocal_game_lower_bound(dim, prob_mat, pred_mat)
         self.assertEqual(np.isclose(lower_bound,
-                                    np.cos(np.pi/8)**2, rtol=1e-03), True)
+                                    np.cos(np.pi/8)**2, rtol=1e-02), True)
 
     def test_chsh_lower_bound_verbose(self):
         """Calculate the lower bound on the quantum value for the CHSH game."""
@@ -54,7 +54,7 @@ class TestNonlocalGameLowerBound(unittest.TestCase):
                                                 pred_mat,
                                                 verbose=False)
         self.assertEqual(np.isclose(lower_bound,
-                                    np.cos(np.pi/8)**2, rtol=1e-03), True)
+                                    np.cos(np.pi/8)**2, rtol=1e-02), True)
 
 
 if __name__ == '__main__':

@@ -88,7 +88,6 @@ def xor_game_value(prob_mat: np.ndarray,
 
                 # Already optimal? Quit.
                 if val >= 1 - tol:
-                    print("EWF@E#")
                     return val
         return val
     raise ValueError(f"Strategy {strategy} is not supported.")

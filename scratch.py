@@ -6,13 +6,22 @@ from toqito.perms.permutation_operator import permutation_operator
 from toqito.perms.antisymmetric_projection import antisymmetric_projection
 from toqito.measure.is_measurement import is_measurement
 from toqito.random.random_povm import random_povm
+from toqito.nonlocal_games.xor_games.xor_game_value import xor_game_value
 
+prob_mat = np.array([[1/4, 1/4],
+                     [1/4, 1/4]])
+pred_mat = np.array([[0, 0],
+                     [0, 1]])
 
-x = pi_perm(2)
-y = permutation_operator(2, [1, 3, 2, 4])
-#print(x.shape)
-#print(y.shape)
-print(np.allclose(x, y))
+prob_mat = np.array([[1/4, 0, 0],
+                     [1/4, 0, 1/4],
+                     [0, 1/4, 0]])
+pred_mat = np.array([[1, 1, 0],
+                     [1, 1, 0],
+                     [1, 1, 1]])
+
+res = xor_game_value(prob_mat, pred_mat, "classical")
+print(res)
 
 d = 2
 oa, ob, ia, ib = 2, 2, 2, 2

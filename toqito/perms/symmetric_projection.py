@@ -12,7 +12,7 @@ def symmetric_projection(dim: int,
     Produce the projection onto the symmetric subspace.
 
     Produces the orthogonal projection onto the symmetric subspace of `p`
-    copies of `dim`-dimensional space. If `partail = True`, then the symmetric
+    copies of `dim`-dimensional space. If `partial = True`, then the symmetric
     projection (PS) isn't the orthogonal projection itself, but rather a matrix
     whose columns form an orthonormal basis for the symmetric subspace (and
     hence the PS * PS' is the orthogonal projection onto the symmetric
@@ -30,14 +30,14 @@ def symmetric_projection(dim: int,
 
     p_list = np.array(list(permutations(np.arange(1, p+1))))
     p_fac = np.math.factorial(p)
-    PS = sp.sparse.lil_matrix((dimp, dimp))
+    sym_proj = sp.sparse.lil_matrix((dimp, dimp))
 
     for j in range(p_fac):
-        PS += permutation_operator(dim*np.ones(p), p_list[j, :], False, True)
-    PS = PS/p_fac
+        sym_proj += permutation_operator(dim*np.ones(p), p_list[j, :], False, True)
+    sym_proj = sym_proj/p_fac
 
     if partial:
-        PS = PS.todense()
-        PS = sp.sparse.lil_matrix(sp.linalg.orth(PS))
-    return PS
+        sym_proj = sym_proj.todense()
+        sym_proj = sp.sparse.lil_matrix(sp.linalg.orth(sym_proj))
+    return sym_proj
 

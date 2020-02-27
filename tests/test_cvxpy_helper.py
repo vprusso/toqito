@@ -3,10 +3,10 @@ import unittest
 import cvxpy
 import numpy as np
 
-from toqito.helper.cvx_helper import expr_as_np_array, np_array_as_expr
+from toqito.helper.cvxpy_helper import expr_as_np_array, np_array_as_expr
 
 
-class TestCVXHelper(unittest.TestCase):
+class TestCVXPYHelper(unittest.TestCase):
     """Unit test for cvx_helper."""
 
     def test_np_array_as_expr(self):

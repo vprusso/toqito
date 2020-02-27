@@ -2,7 +2,7 @@
 from typing import Union, List
 import numpy as np
 from toqito.perms.permute_systems import permute_systems
-from toqito.helper.cvx_helper import expr_as_np_array, np_array_as_expr
+from toqito.helper.cvxpy_helper import expr_as_np_array, np_array_as_expr
 
 
 def partial_trace_cvx(rho, sys=None, dim=None):
