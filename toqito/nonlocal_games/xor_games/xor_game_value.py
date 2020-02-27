@@ -1,4 +1,4 @@
-"""Computes the classical or quantum value of a non-local binary XOR game."""
+"""Compute the classical or quantum value of a two-player nonlocal XOR game."""
 import cvxpy
 import numpy as np
 
@@ -8,7 +8,7 @@ def xor_game_value(prob_mat: np.ndarray,
                    strategy: str = "classical",
                    tol: float = None) -> float:
     """
-    Computes the classical or quantum value of a nonlocal binary XOR game.
+    Compute the classical or quantum value of a two-player nonlocal XOR game.
 
     Calculates the optimal probability that Alice and Bob win the game if they
     are allowed to determine a join strategy beforehand, but not allowed to

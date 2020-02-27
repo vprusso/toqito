@@ -2,8 +2,8 @@
 import unittest
 import numpy as np
 
-from toqito.nonlocal_games.nonlocal_game_lower_bound \
-    import nonlocal_game_lower_bound
+from toqito.nonlocal_games.two_player_quantum_lower_bound \
+    import two_player_quantum_lower_bound
 
 
 class TestNonlocalGameLowerBound(unittest.TestCase):
@@ -27,7 +27,7 @@ class TestNonlocalGameLowerBound(unittest.TestCase):
                         if np.mod(a_alice + b_bob + x_alice * y_bob, dim) == 0:
                             pred_mat[a_alice, b_bob, x_alice, y_bob] = 1
 
-        lower_bound = nonlocal_game_lower_bound(dim, prob_mat, pred_mat)
+        lower_bound = two_player_quantum_lower_bound(dim, prob_mat, pred_mat)
         self.assertEqual(np.isclose(lower_bound,
                                     np.cos(np.pi/8)**2, rtol=1e-02), True)
 
@@ -49,10 +49,10 @@ class TestNonlocalGameLowerBound(unittest.TestCase):
                         if np.mod(a_alice + b_bob + x_alice * y_bob, dim) == 0:
                             pred_mat[a_alice, b_bob, x_alice, y_bob] = 1
 
-        lower_bound = nonlocal_game_lower_bound(dim,
-                                                prob_mat,
-                                                pred_mat,
-                                                verbose=False)
+        lower_bound = two_player_quantum_lower_bound(dim,
+                                                     prob_mat,
+                                                     pred_mat,
+                                                     verbose=False)
         self.assertEqual(np.isclose(lower_bound,
                                     np.cos(np.pi/8)**2, rtol=1e-02), True)
 

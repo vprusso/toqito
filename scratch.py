@@ -1,12 +1,6 @@
 import numpy as np
 from toqito.base.ket import ket
-from toqito.nonlocal_games.nonlocal_game_lower_bound import nonlocal_game_lower_bound
-from toqito.perms.pi_perm import pi_perm
-from toqito.perms.permutation_operator import permutation_operator
-from toqito.perms.antisymmetric_projection import antisymmetric_projection
-from toqito.measure.is_measurement import is_measurement
-from toqito.random.random_povm import random_povm
-from toqito.nonlocal_games.xor_games.xor_game_value import xor_game_value
+from toqito.nonlocal_games.xor_games import xor_game_value
 
 prob_mat = np.array([[1/4, 1/4],
                      [1/4, 1/4]])

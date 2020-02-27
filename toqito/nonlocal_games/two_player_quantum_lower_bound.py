@@ -6,12 +6,12 @@ from collections import defaultdict
 from toqito.random.random_povm import random_povm
 
 
-def nonlocal_game_lower_bound(dim: int,
-                              prob_mat: np.ndarray,
-                              pred_mat: np.ndarray,
-                              iters: int = 5,
-                              tol: float = 10e-6,
-                              verbose: bool = True):
+def two_player_quantum_lower_bound(dim: int,
+                                   prob_mat: np.ndarray,
+                                   pred_mat: np.ndarray,
+                                   iters: int = 5,
+                                   tol: float = 10e-6,
+                                   verbose: bool = True):
     """
     Compute a lower bound on the quantum value of a nonlocal game.
 
@@ -30,7 +30,10 @@ def nonlocal_game_lower_bound(dim: int,
     times and keep the highest value obtained.
 
     References:
-    [1] 
+    [1] Liang, Yeong-Cherng, and Andrew C. Doherty.
+        "Bounds on quantum correlations in Bell-inequality experiments."
+        Physical Review A 75.4 (2007): 042103.
+        https://arxiv.org/abs/quant-ph/0608128
 
     :param dim: The local dimension (e.g. `dim = 2` corresponds to Alice and
                 Bob each having access to a qubit.
