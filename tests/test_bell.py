@@ -7,6 +7,7 @@ from toqito.state.states.bell import bell
 
 
 class TestBell(unittest.TestCase):
+
     """Unit test for bell."""
 
     def test_bell_0(self):
@@ -62,9 +63,7 @@ class TestBell(unittest.TestCase):
         self.assertEqual(np.all(bool_mat), True)
 
     def test_bell_invalid(self):
-        """
-        Ensures that an integer above 3 is error-checked.
-        """
+        """Ensures that an integer above 3 is error-checked."""
         with self.assertRaises(ValueError):
             bell(4)
 

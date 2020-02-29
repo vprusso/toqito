@@ -11,18 +11,18 @@ The inspiration for this package is heavily influenced by the
 of the functions found here are direct ports of those functions converted into
 Python code.
 
-### Usage
+## Usage
 
 TODO
  
-### Testing
+## Testing
 
 The `nose` module is used for testing. To run the suite of tests for `toqito`,
 run the following command in the root directory of this project.
 
     nosetests --with-coverage --cover-erase --cover-package .
 
-### License
+## License
 
 [MIT License](http://opensource.org/licenses/mit-license.php>)
 

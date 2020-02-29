@@ -23,7 +23,7 @@ def state_discrimination(states: List[np.ndarray],
     Alice chooses :math: `i` with probability `p_i` and creates the state
     :math: `rho_i`
 
-    Bob wants to guess which state he was given from the collection of states. 
+    Bob wants to guess which state he was given from the collection of states.
 
     This function implements the following semidefinite program that provides
     the optimal probability with which Bob can conduct quantum state exclusion.
@@ -40,7 +40,7 @@ def state_discrimination(states: List[np.ndarray],
     References:
         [1]
 
-    :param states: A list of density operators (matrices) corresponding to 
+    :param states: A list of density operators (matrices) corresponding to
                    quantum states.
     :param probs: A list of probabilities where `probs[i]` corresponds to the
                   probability that `states[i]` is selected by Alice.

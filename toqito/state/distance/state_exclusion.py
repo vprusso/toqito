@@ -49,7 +49,7 @@ def state_exclusion(states: List[np.ndarray],
             Physical Review A 89.2 (2014): 022336.
             arXiv:1306.4683
 
-    :param states: A list of density operators (matrices) corresponding to 
+    :param states: A list of density operators (matrices) corresponding to
                    quantum states.
     :param probs: A list of probabilities where `probs[i]` corresponds to the
                   probability that `states[i]` is selected by Alice.

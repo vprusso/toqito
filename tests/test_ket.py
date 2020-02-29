@@ -6,10 +6,11 @@ from toqito.base.ket import ket
 
 
 class TestKet(unittest.TestCase):
+
     """Unit test for ket."""
 
     def test_ket_0(self):
-        """Test for |0>"""
+        """Test for |0>."""
         expected_res = np.array([[1], [0]])
         res = ket(2, 0)
 
@@ -17,7 +18,7 @@ class TestKet(unittest.TestCase):
         self.assertEqual(np.all(bool_mat), True)
 
     def test_ket_1(self):
-        """Test for |1>"""
+        """Test for |1>."""
         expected_res = np.array([[0], [1]])
         res = ket(2, 1)
 
@@ -25,7 +26,7 @@ class TestKet(unittest.TestCase):
         self.assertEqual(np.all(bool_mat), True)
 
     def test_ket_0000(self):
-        """Test for |0000>"""
+        """Test for |0000>."""
         expected_res = np.array([[1], [0], [0], [0]])
         res = ket(4, 0)
 
