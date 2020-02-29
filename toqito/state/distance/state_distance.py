@@ -27,24 +27,23 @@ def state_distance(states: List[np.ndarray],
     if len(states) == 2:
         return 1/2 + 1/4*np.linalg.norm(states[0] - states[1], 1)
 
-    if len(states) >= 3:
-        dim = states[0].shape
+    dim = states[0].shape
 
-        obj_func = []
-        sdp_vars = []
-        constraints = []
-        for i, _ in enumerate(states):
-            sdp_vars.append(cvx.Variable(dim, PSD=True))
+    obj_func = []
+    sdp_vars = []
+    constraints = []
+    for i, _ in enumerate(states):
+        sdp_vars.append(cvx.Variable(dim, PSD=True))
 
-            obj_func.append(probs[i] * cvx.trace(
-                states[i].conj().T * sdp_vars[i]))
+        obj_func.append(probs[i] * cvx.trace(states[i].conj().T * sdp_vars[i]))
 
-            constraints.append(partial_trace_cvx(
-                sdp_vars[i],
-                sys=sys,
-                dim=dims) == np.identity(dim[0]//2))
+        constraints.append(partial_trace_cvx(
+            sdp_vars[i],
+            sys=sys,
+            dim=dims) == np.identity(dim[0]//2))
 
-        objective = cvx.Maximize(sum(obj_func))
-        problem = cvx.Problem(objective, constraints)
-        sol_default = problem.solve()
+    objective = cvx.Maximize(sum(obj_func))
+    problem = cvx.Problem(objective, constraints)
+    sol_default = problem.solve()
+
     return 1/len(states) * sol_default

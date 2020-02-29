@@ -1,5 +1,4 @@
 """Generate a random set of positive-operator-valued measurements (POVMs)."""
-from typing import List
 import numpy as np
 
 
@@ -12,7 +11,7 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int) -> np.ndarray:
     :param num_outputs: The number of outputs for the measurement.
     :return: A set of POVMs of dimension `dim`.
     """
-    povms: List[np.ndarray] = []
+    povms = []
     gram_vectors = np.random.normal(size=(dim, dim, num_inputs, num_outputs))
     for input_block in gram_vectors:
         normalizer = sum([np.matmul(np.array(output_block).T.conj(),

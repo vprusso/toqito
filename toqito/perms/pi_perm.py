@@ -45,20 +45,19 @@ def pi_perm(dim: int) -> np.ndarray:
     # Simulates a sorting network of depth `dim - 1`. For `dim = 2`, we switch
     # the order from:
     #    (x_1, y_1), (x_2, y_2) -> (x_1, x_2), (y_1, y_2).
-    if dim > 1:
-        perm_cell = []
-        # The element at depth i of the sorting network makes sure that the
-        # first and last i + 1 qubits are in the right place, and doesn't
-        # modify the qubits already sorted by previous steps.
-        for i in range(dim-1):
-            s_tensor = tensor_n(swap_matrix, dim-(i+1))
-            t_list = tensor_list([np.identity(2**(i+1)),
-                                  s_tensor,
-                                  np.identity(2**(i+1))])
-            perm_cell.append(t_list)
+    perm_cell = []
+    # The element at depth i of the sorting network makes sure that the
+    # first and last i + 1 qubits are in the right place, and doesn't
+    # modify the qubits already sorted by previous steps.
+    for i in range(dim-1):
+        s_tensor = tensor_n(swap_matrix, dim-(i+1))
+        t_list = tensor_list([np.identity(2**(i+1)),
+                              s_tensor,
+                              np.identity(2**(i+1))])
+        perm_cell.append(t_list)
 
-        # We concatenate the steps of the sorting network.
-        perm_mat = perm_cell[0]
-        for i in range(1, dim-1):
-            perm_mat = np.matmul(perm_mat, perm_cell[i])
-        return perm_mat
+    # We concatenate the steps of the sorting network.
+    perm_mat = perm_cell[0]
+    for i in range(1, dim-1):
+        perm_mat = np.matmul(perm_mat, perm_cell[i])
+    return perm_mat

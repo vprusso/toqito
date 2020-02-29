@@ -1,16 +1,16 @@
-"""Calculates probability of state exclusion."""
+"""Calculates probability of state discrimination."""
 from typing import List
 import cvxpy as cvx
 import numpy as np
 
 
-def state_exclusion(states: List[np.ndarray],
-                    probs: List[float] = None) -> float:
+def state_discrimination(states: List[np.ndarray],
+                         probs: List[float] = None) -> float:
     r"""
-    Compute optimal probability of state exclusion.
+    Compute optimal probability of state discrimination.
 
-    The "quantum state exclusion" problem involves a collection of :math: `n`
-    quantum states
+    The "quantum state discrimination" problem involves a collection of :math:
+    `n` quantum states
 
     ..math::
         `\rho = \{ \rho_0, \ldots, \rho_n \},`
@@ -23,9 +23,7 @@ def state_exclusion(states: List[np.ndarray],
     Alice chooses :math: `i` with probability `p_i` and creates the state
     :math: `rho_i`
 
-    Bob wants to guess which state he was *not* given from the collection of
-    states. State exclusion implies that ability to discard (with certainty) at
-    least one out of the "n" possible quantum states by applying a measurement.
+    Bob wants to guess which state he was given from the collection of states. 
 
     This function implements the following semidefinite program that provides
     the optimal probability with which Bob can conduct quantum state exclusion.
@@ -33,21 +31,14 @@ def state_exclusion(states: List[np.ndarray],
     ..math::
         ````
         \begin{align*}
-            \text{minimize:} \quad & \sum_{i=0}^n p_i \ip{M_i}{\rho_i} \\
+            \text{maximize:} \quad & \sum_{i=0}^n p_i \ip{M_i}{\rho_i} \\
             \text{subject to:} \quad & M_0 + \ldots + M_n = \mathbb{I},\\
                                      & M_0, \ldots, M_n >= 0
             \end{align*}
         ```
 
     References:
-        [1] "On the reality of the quantum state"
-            Pusey, Matthew F., Jonathan Barrett, and Terry Rudolph.
-            Nature Physics 8.6 (2012): 475-478.
-            arXiv:1111.3328
-        [2] "Conclusive exclusion of quantum states"
-            Bandyopadhyay, Somshubhro, et al.
-            Physical Review A 89.2 (2014): 022336.
-            arXiv:1306.4683
+        [1]
 
     :param states: A list of density operators (matrices) corresponding to 
                    quantum states.
@@ -80,7 +71,7 @@ def state_exclusion(states: List[np.ndarray],
 
     constraints.append(sum(measurements) == np.identity(dim[0]))
 
-    objective = cvx.Minimize(sum(obj_func))
+    objective = cvx.Maximize(sum(obj_func))
     problem = cvx.Problem(objective, constraints)
     sol_default = problem.solve()
 

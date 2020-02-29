@@ -8,8 +8,14 @@ from toqito.super_operators.partial_transpose import partial_transpose
 
 
 def negativity(rho: np.ndarray, dim: Union[List[int], int] = None) -> float:
-    """
+    r"""
     Compute the negativity of a bipartite quantum state.
+
+    The negativity of a subsystem can be defined in terms of a denisty matrix
+    :math: `rho`:
+
+    .. math::
+        \mathcal{N}(\rho) \equiv \frac{||\rho^{\Gamma_A}||_1-1}{2}
 
     Calculate the negativity of the quantum state `rho`, assuming that the two
     subsystems on which `rho` acts are of equal dimension (if the local
