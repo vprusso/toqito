@@ -7,8 +7,7 @@ from toqito.perms.permute_systems import permute_systems
 def partial_transpose(rho: np.ndarray,
                       sys: Union[List[int], np.ndarray, int] = 2,
                       dim: Union[List[int], np.ndarray] = None) -> np.ndarray:
-    """
-    Compute the partial transpose of a matrix.
+    """Compute the partial transpose of a matrix.
 
     :param rho: A matrix.
     :param sys: Scalar or vector specifying the size of the subsystems.
@@ -79,7 +78,7 @@ def partial_transpose(rho: np.ndarray,
     # Permute the subsystems so that we just have to do the partial transpose
     # on the first (potentially larger) subsystem.
     rho_permuted = permute_systems(rho, perm, dim)
- 
+
     x = np.reshape(rho_permuted, [int(sub_sys_vec_r[0]), int(sub_prod_r), int(sub_sys_vec_c[0]), int(sub_prod_c)], order="F")
     y = np.transpose(x, [0, 3, 2, 1])
     z = np.reshape(y, [int(prod_dim_r), int(prod_dim_c)], order="F")

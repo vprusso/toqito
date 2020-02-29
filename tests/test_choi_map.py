@@ -6,6 +6,7 @@ from toqito.super_operators.choi_map import choi_map
 
 
 class TestChoiMap(unittest.TestCase):
+
     """Unit test for choi_map."""
 
     def test_standard_choi_map(self):
@@ -27,7 +28,8 @@ class TestChoiMap(unittest.TestCase):
 
     def test_reduction_map(self):
         """
-        The reduction map is the map R defined by R(X) = Tr(X)I - X
+        The reduction map is the map R defined by:
+            R(X) = Tr(X)I - X,
         where I is the identity operator. The reduction map is the Choi map
         that arises when a = 0, b = c = 1.
         """
