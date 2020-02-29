@@ -1,6 +1,7 @@
 import numpy as np
 from toqito.base.ket import ket
-from toqito.nonlocal_games.three_player_quantum_lower_bound import three_player_quantum_lower_bound
+from toqito.nonlocal_games.hedging.hedging_sdps import min_prob_outcome_a_dual, min_prob_outcome_a_primal
+
 
 d = 2
 ia, ib, ic = 2, 2, 2
@@ -41,7 +42,7 @@ p[1, 0, 1] = 1/8
 p[1, 1, 0] = 1/8
 p[1, 1, 1] = 1/8
 
-three_player_quantum_lower_bound(d, p, V)
+#three_player_quantum_lower_bound(d, p, V)
 
 
 prob_mat = np.array([[1/4, 1/4],
@@ -93,7 +94,7 @@ b_val = np.array([0, 1])
 #bell_inequality_max_qubits(joint_coe, a_coe, b_coe, a_val, b_val)
 
 
-n = 2
+n = 1
 k = 1
 alpha = 1/np.sqrt(2)
 theta = np.pi/8
@@ -122,7 +123,12 @@ u = 1/np.sqrt(2) * (e00 + e11)
 rho = u * u.conj().T
 
 k = 1
-n = 3
+n = 1
+
+#Q0 = np.kron(Q0, Q0)
+print(min_prob_outcome_a_primal(Q1, 1))
+print(min_prob_outcome_a_dual(Q1, 1))
+
 
 #X = np.arange(1, 211).reshape(15, 14)
 #mat = np.array([[5, 3], [2, 7]])
