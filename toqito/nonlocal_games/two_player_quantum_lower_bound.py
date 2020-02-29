@@ -60,11 +60,11 @@ def two_player_quantum_lower_bound(dim: int,
                   f" method.")
         # Generate a set of random POVMs for Bob. These measurements serve as a
         # rough starting point for the alternating projection algorithm.
-        bob_tmp = random_povm(dim, ia, oa)
-        bob_povm = defaultdict(int)
+        bob_tmp = random_povm(dim, ib, ob)
+        bob_povms = defaultdict(int)
         for y in range(ib):
             for b in range(ob):
-                bob_povm[y, b] = bob_tmp[:, :, y, b]
+                bob_povms[y, b] = bob_tmp[:, :, y, b]
 
         # Run the alternating projection algorithm between the two SDPs.
         it_diff = 1
@@ -75,14 +75,14 @@ def two_player_quantum_lower_bound(dim: int,
             # If this is the first iteration, then the previously randomly
             # generated operators in the outer loop are Bob's. Otherwise, Bob's
             # operators come from running the next SDP.
-            alice_povm, lower_bound = optimize_alice(dim,
-                                                     prob_mat,
-                                                     pred_mat,
-                                                     bob_povm)
-            bob_povm, lower_bound = optimize_bob(dim,
-                                                 prob_mat,
-                                                 pred_mat,
-                                                 alice_povm)
+            alice_povms, lower_bound = optimize_alice(dim,
+                                                      prob_mat,
+                                                      pred_mat,
+                                                      bob_povms)
+            bob_povms, lower_bound = optimize_bob(dim,
+                                                  prob_mat,
+                                                  pred_mat,
+                                                  alice_povms)
 
             it_diff = lower_bound - prev_win
             prev_win = lower_bound

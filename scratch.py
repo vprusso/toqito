@@ -1,21 +1,53 @@
 import numpy as np
 from toqito.base.ket import ket
-from toqito.nonlocal_games.xor_games import xor_game_value
+from toqito.nonlocal_games.three_player_quantum_lower_bound import three_player_quantum_lower_bound
+
+d = 2
+ia, ib, ic = 2, 2, 2
+oa, ob, oc = 2, 2, 2
+
+V = np.zeros((oa, ob, oc, ia, ib, ic))
+p = np.zeros((ia, ib, ic))
+for a in range(oa):
+    for b in range(ob):
+        for c in range(oc):
+            for x in range(ia):
+                for y in range(ib):
+                    for z in range(ic):
+                        if (x or y or z) == (a ^ b ^ c):
+                            V[a, b, c, x, y, z] = 1
+
+p[0, 0, 0] = 1/4
+p[0, 1, 1] = 1/4
+p[1, 0, 1] = 1/4
+p[1, 1, 0] = 1/4
+
+V = np.zeros((oa, ob, oc, ia, ib, ic))
+p = np.zeros((ia, ib, ic))
+for a in range(oa):
+    for b in range(ob):
+        for c in range(oc):
+            for x in range(ia):
+                for y in range(ib):
+                    for z in range(ic):
+                        if (x and y and z) == (a ^ b ^ c):
+                            V[a, b, c, x, y, z] = 1
+p[0, 0, 0] = 1/8
+p[0, 0, 1] = 1/8
+p[0, 1, 0] = 1/8
+p[0, 1, 1] = 1/8
+p[1, 0, 0] = 1/8
+p[1, 0, 1] = 1/8
+p[1, 1, 0] = 1/8
+p[1, 1, 1] = 1/8
+
+three_player_quantum_lower_bound(d, p, V)
+
 
 prob_mat = np.array([[1/4, 1/4],
                      [1/4, 1/4]])
 pred_mat = np.array([[0, 0],
                      [0, 1]])
-
-prob_mat = np.array([[1/4, 0, 0],
-                     [1/4, 0, 1/4],
-                     [0, 1/4, 0]])
-pred_mat = np.array([[1, 1, 0],
-                     [1, 1, 0],
-                     [1, 1, 1]])
-
-res = xor_game_value(prob_mat, pred_mat, "classical")
-print(res)
 
 d = 2
 oa, ob, ia, ib = 2, 2, 2, 2
