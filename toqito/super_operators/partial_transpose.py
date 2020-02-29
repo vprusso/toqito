@@ -9,12 +9,6 @@ def partial_transpose(rho: np.ndarray,
                       dim: Union[List[int], np.ndarray] = None) -> np.ndarray:
     """Compute the partial transpose of a matrix.
 
-    :param rho: A matrix.
-    :param sys: Scalar or vector specifying the size of the subsystems.
-    :param dim: Dimension of the subsystems. If `None`, all dimensions
-                are assumed to be equal.
-    :returns: The partial transpose of matrix `rho`.
-
     By default, the returned matrix is the partial transpose of the matrix
     `rho`, where it is assumed that the number of rows and columns of `rho` are
     both perfect squares and both subsystems have equal dimension. The
@@ -27,6 +21,12 @@ def partial_transpose(rho: np.ndarray,
     `rho` is non-square, different row and column dimensions can be specified
     by putting the row dimensions in the first row of `dim` and the column
     dimensions in the second row of `dim`.
+
+    :param rho: A matrix.
+    :param sys: Scalar or vector specifying the size of the subsystems.
+    :param dim: Dimension of the subsystems. If `None`, all dimensions
+                are assumed to be equal.
+    :returns: The partial transpose of matrix `rho`.
     """
     sqrt_rho_dims = np.round(np.sqrt(list(rho.shape)))
 
