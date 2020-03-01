@@ -6,7 +6,7 @@ import numpy as np
 def random_unitary(dim: Union[List[int], int],
                    is_real: bool = False) -> np.ndarray:
     """
-    Generates a random unitary or orthogonal matrix.
+    Generate a random unitary or orthogonal matrix.
 
     Calculates a random unitary matrix (if `is_real = False`) or a random real
     orthogonal matrix (if `is_real = True`), uniformly distributed according to
@@ -23,7 +23,6 @@ def random_unitary(dim: Union[List[int], int],
                     entries or not. Default is `False`.
     :return: A `dim`-by-`dim` random unitary matrix.
     """
-
     if isinstance(dim, int):
         dim = [dim, dim]
 

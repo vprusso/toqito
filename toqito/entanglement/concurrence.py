@@ -5,6 +5,8 @@ from toqito.matrix.matrices.pauli import pauli
 
 def concurrence(rho: np.ndarray) -> float:
     r"""
+    Calculate the concurrence of a bipartite state.
+
     The concurrence of a bipartite state `rho` is defined as
     .. math::
          \max(0, \lambda_1 - \lambda_2 - \lambda_3 - \lambda_4),

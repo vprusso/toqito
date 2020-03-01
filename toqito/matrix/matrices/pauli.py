@@ -17,6 +17,10 @@ def pauli(ind: Union[int, str, List[int], List[str]],
     identity operator. Alternatively, `ind` can be set to "I", "X", "Y", or "Z"
     (case insensitive) to indicate the Pauli identity, X, Y, or Z operator.
 
+    References:
+    [1] Wikipedia: Pauli matrices
+        https://en.wikipedia.org/wiki/Pauli_matrices
+
     :param ind: The index to indicate which Pauli operator to generate.
     :param is_sparse: Returns a sparse matrix if set to True and a non-sparse
                       matrix if set to False.

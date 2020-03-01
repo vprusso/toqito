@@ -5,11 +5,10 @@ import numpy as np
 
 def clock_matrix(dim: int) -> np.ndarray:
     r"""
-    Produces a clock matrix.
+    Produce clock matrix.
 
-    Returns the clock matrix of dimension `dim` described in [1].
-
-    The clock matrix generates the following `dim`-by-`dim` matrix
+    Returns the clock matrix of dimension `dim` described in [1]. The clock
+    matrix generates the following `dim`-by-`dim` matrix
 
     .. math::
          \max(0, \lambda_1 - \lambda_2 - \lambda_3 - \lambda_4),
@@ -24,8 +23,8 @@ def clock_matrix(dim: int) -> np.ndarray:
     where :math: `\omega`  is the n-th primitive root of unity.
 
     References:
-    [1] Wikipedia: Generalizations of Pauli matrices
-        https://en.wikipedia.org/wiki/Generalizations_of_Pauli_matrices.
+    [1] Wikipedia: Generalizations of Pauli matrices,
+        https://en.wikipedia.org/wiki/Generalizations_of_Pauli_matrices
 
     :param dim: Dimension of the matrix.
     :return: `dim`-by-`dim` clock matrix.

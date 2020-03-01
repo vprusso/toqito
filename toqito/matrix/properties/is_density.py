@@ -11,6 +11,10 @@ def is_density(mat: np.ndarray) -> bool:
     A matrix is a density matrix if its trace is equal to one and it has the
     property of being positive semidefinite (PSD).
 
+    References:
+    [1] Wikipedia: Density matrix
+        https://en.wikipedia.org/wiki/Density_matrix
+
     :param mat: Matrix to check.
     :return: Return `True` if matrix is a density matrix, and `False`
              otherwise.

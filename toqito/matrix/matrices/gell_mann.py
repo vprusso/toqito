@@ -12,8 +12,7 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray:
     one of the other 8 Gell-Mann matrices.
 
     References:
-    [1] Gell-Mann matrices:
-        Wikipedia:
+    [1] Wikipedia: Gell-Mann matrices,
         https://en.wikipedia.org/wiki/Gell-Mann_matrices
 
     :param ind: An integer between 0 and 8 (inclusive).

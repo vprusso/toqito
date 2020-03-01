@@ -7,7 +7,7 @@ from toqito.matrix.properties.is_psd import is_psd
 
 def is_measurement(mat_list: List[np.ndarray]) -> bool:
     r"""
-    Determines if a list of matrices constitute a valid set of measurements.
+    Determine if a list of matrices constitute a valid set of measurements.
 
     A valid set of measurements are defined by a set of positive semidefinite
     operators

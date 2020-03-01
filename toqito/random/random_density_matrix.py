@@ -9,7 +9,7 @@ def random_density_matrix(dim: int,
                           k_param: Union[List[int], int] = None,
                           distance_metric: str = "haar") -> np.ndarray:
     """
-    Generates a random density matrix.
+    Generate a random density matrix.
 
     Generates a random `dim`-by-`dim` density matrix distributed according to
     the Hilbert-Schmidt measure. The matrix is of rank <= `k_param` distributed

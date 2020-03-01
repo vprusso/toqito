@@ -6,7 +6,7 @@ from cvxpy.expressions.expression import Expression
 
 def expr_as_np_array(cvx_expr: Expression) -> np.ndarray:
     """
-    Converts a cvxpy expression into a numpy array.
+    Convert cvxpy expression into a numpy array.
 
     :param cvx_expr: The cvxpy expression to be converted.
     :return: The numpy array of the cvxpy expression.
@@ -26,7 +26,7 @@ def expr_as_np_array(cvx_expr: Expression) -> np.ndarray:
 
 def np_array_as_expr(np_arr: [np.ndarray]) -> Expression:
     """
-    Converts a numpy array into a cvxpy expression.
+    Convert numpy array into a cvxpy expression.
 
     :param np_arr: The numpy array to be converted.
     :return: The cvxpy expression of the numpy array.

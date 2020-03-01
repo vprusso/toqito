@@ -9,8 +9,7 @@ from toqito.perms.swap import swap
 def random_state_vector(dim: Union[List[int], int],
                         is_real: bool = False,
                         k_param: int = 0) -> np.ndarray:
-    """
-    Generates a random pure state vector.
+    """Generate a random pure state vector.
 
     :param dim: The number of rows (and columns) of the unitary matrix.
     :param is_real: Boolean denoting whether the returned matrix has real
@@ -18,7 +17,6 @@ def random_state_vector(dim: Union[List[int], int],
     :param k_param: Default 0.
     :return: A `dim`-by-`dim` random unitary matrix.
     """
-
     # Schmidt rank plays a role.
     if 0 < k_param < np.min(dim):
         # Allow the user to enter a single number for dim.

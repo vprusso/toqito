@@ -5,6 +5,8 @@ import numpy as np
 
 def tensor(input_1: np.ndarray, input_2: np.ndarray) -> np.ndarray:
     """
+    Tensor product between two matrices.
+
     Tensor two matrices or vectors together using the standard kronecker
     operation provided from numpy.
 
@@ -17,6 +19,8 @@ def tensor(input_1: np.ndarray, input_2: np.ndarray) -> np.ndarray:
 
 def tensor_n(input_val: np.ndarray, num_tensor: int) -> np.ndarray:
     """
+    Tensor product one matrix `n` times with itself.
+
     :param input_val:
     :param num_tensor:
     :return:
@@ -35,6 +39,8 @@ def tensor_n(input_val: np.ndarray, num_tensor: int) -> np.ndarray:
 
 def tensor_list(input_list: List[np.ndarray]) -> np.ndarray:
     """
+    Perform the tensor product on a list of matrices.
+
     :param input_list:
     :return:
     """

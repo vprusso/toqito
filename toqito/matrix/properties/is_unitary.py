@@ -7,7 +7,11 @@ def is_unitary(mat: Union[np.ndarray, np.matrix]) -> bool:
     """
     Check if matrix is unitary.
 
-    A matrix is unitary if its inverse is equal to its conjugate transose.
+    A matrix is unitary if its inverse is equal to its conjugate transpose.
+
+    References:
+    [1] Wikipedia: Unitary matrix.
+        https://en.wikipedia.org/wiki/Unitary_matrix
 
     :param mat: Matrix to check.
     :return: Return `True` if matrix is unitary, and `False` otherwise.

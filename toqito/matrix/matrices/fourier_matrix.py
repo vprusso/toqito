@@ -1,12 +1,17 @@
-"""Generates the unitary matrix that implements the quantum Fourier
-transform."""
+"""Generate unitary matrix that implements the quantum Fourier transform."""
 import numpy as np
 
 
 def fourier_matrix(dim: int) -> np.ndarray:
     """
+    Generate the Fourier transform matrix.
+
     Generates the `dim`-by-`dim` unitary matrix that implements the quantum
     Fourier transform.
+
+    References:
+    [1] Wikipedia: DFT matrix,
+        https://en.wikipedia.org/wiki/DFT_matrix
 
     :param dim: The size of the Fourier matrix.
     :return: The Fourier matrix of dimension `dim`.

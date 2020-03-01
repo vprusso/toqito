@@ -4,12 +4,10 @@ import numpy as np
 
 def shift_matrix(dim: int) -> np.ndarray:
     r"""
-    Produces a shift matrix.
-    :param dim: Dimension of the matrix.
+    Produce a `dim`-by-`dim` shift matrix.
 
-    Returns the shift matrix of dimension `dim` described in [1].
-
-    The shift matrix generates the following `dim`-by-`dim` matrix:
+    Returns the shift matrix of dimension `dim` described in [1]. The shift
+    matrix generates the following `dim`-by-`dim` matrix:
 
     .. math::
         \Sigma_1 = \begin{pmatrix}

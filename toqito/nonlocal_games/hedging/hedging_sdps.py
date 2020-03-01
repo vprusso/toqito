@@ -8,6 +8,8 @@ from toqito.super_operators.partial_trace import partial_trace_cvx
 
 def max_prob_outcome_a_primal(q_a: np.ndarray, num_reps: int) -> float:
     """
+    Compute the maximal probability for calculating outcome "a".
+
     :param q_a:
     :param num_reps:
     :return:
@@ -30,6 +32,8 @@ def max_prob_outcome_a_primal(q_a: np.ndarray, num_reps: int) -> float:
 
 def max_prob_outcome_a_dual(q_a: np.ndarray, num_reps: int) -> float:
     """
+    Compute the maximal probability for calculating outcome "a".
+
     :param q_a:
     :param num_reps:
     :return:
@@ -53,6 +57,8 @@ def max_prob_outcome_a_dual(q_a: np.ndarray, num_reps: int) -> float:
 
 def min_prob_outcome_a_primal(q_a: np.ndarray, num_reps: int) -> float:
     """
+    Compute the minimal probability for calculating outcome "a".
+
     :param q_a:
     :param num_reps:
     :return:
@@ -75,6 +81,8 @@ def min_prob_outcome_a_primal(q_a: np.ndarray, num_reps: int) -> float:
 
 def min_prob_outcome_a_dual(q_a: np.ndarray, num_reps: int) -> float:
     """
+    Compute the minimal probability for calculating outcome "a".
+
     :param q_a:
     :param num_reps:
     :return:
