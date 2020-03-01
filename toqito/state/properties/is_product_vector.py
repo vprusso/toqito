@@ -13,7 +13,6 @@ def is_product_vector(vec: np.ndarray, dim: Union[int, List[int]]):
     :param dim:
     :return:
     """
-
     eps = np.finfo(float).eps
 
     if dim is None:

@@ -6,7 +6,7 @@ from toqito.state.states.max_entangled import max_entangled
 
 def depolarizing_channel(dim: int, param_p: int = 0) -> np.ndarray:
     """
-    Produces the depolarizng channel.
+    Produce the depolarizng channel.
 
     The depolarizng channel is the Choi matrix of the completely depolarizng
     channel that acts on `dim`-by-`dim` matrices.

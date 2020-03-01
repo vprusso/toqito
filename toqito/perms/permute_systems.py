@@ -1,10 +1,10 @@
 """Permutes subsystems within a state or operator."""
+from typing import List
+import functools
+import operator
 import numpy as np
 import scipy as sp
-import operator
-import functools
 
-from typing import List
 from toqito.matrix.operations.vec import vec
 
 
@@ -14,7 +14,7 @@ def permute_systems(input_mat: np.ndarray,
                     row_only: bool = False,
                     inv_perm: bool = False) -> np.ndarray:
     """
-    Permutes subsystems within a state or operator.
+    Permute subsystems within a state or operator.
 
     Permutes the order of the subsystems of the vector or matrix `input_mat`
     according to the permutation vector `perm`, where the dimensions of the
@@ -47,9 +47,9 @@ def permute_systems(input_mat: np.ndarray,
     num_sys = len(perm)
 
     if dim is None:
-        x = input_mat_dims[0]**(1/num_sys) * np.ones(num_sys)
-        y = input_mat_dims[1]**(1/num_sys) * np.ones(num_sys)
-        dim = np.array([x, y])
+        x_tmp = input_mat_dims[0]**(1/num_sys) * np.ones(num_sys)
+        y_tmp = input_mat_dims[1]**(1/num_sys) * np.ones(num_sys)
+        dim = np.array([x_tmp, y_tmp])
 
     if is_vec:
         # 1 if column vector
@@ -79,9 +79,9 @@ def permute_systems(input_mat: np.ndarray,
     if len(perm) != num_sys:
         raise ValueError("InvalidPerm: `len(perm)` must be equal to "
                          "`len(dim)`.")
-    elif sorted(perm) != list(range(1, num_sys+1)):
+    if sorted(perm) != list(range(1, num_sys+1)):
         raise ValueError("InvalidPerm: `perm` must be a permutation vector.")
-    elif input_mat_dims[0] != prod_dim_r or \
+    if input_mat_dims[0] != prod_dim_r or \
             (not row_only and input_mat_dims[1] != prod_dim_c):
         raise ValueError("InvalidDim: The dimensions specified in DIM do not "
                          "agree with the size of X.")
@@ -108,8 +108,7 @@ def permute_systems(input_mat: np.ndarray,
     row_perm = permute_systems(vec_arg, perm, dim[0][:], False, inv_perm)
 
     # This condition is only necessary if the `input_mat` variable is sparse.
-    if isinstance(input_mat, sp.sparse.dia_matrix) or \
-            isinstance(input_mat, sp.sparse.csr_matrix):
+    if isinstance(input_mat, (sp.sparse.csr_matrix, sp.sparse.dia_matrix)):
         input_mat = input_mat.toarray()
         permuted_mat = input_mat[row_perm, :]
         permuted_mat = np.array(permuted_mat)

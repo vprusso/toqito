@@ -1,12 +1,14 @@
-"""Computes all distinct permutations of a given vector."""
+"""Compute all distinct permutations of a given vector."""
 from typing import List
+from dataclasses import dataclass
 
 
+@dataclass
 class UniqueElement:
     """Class for unique elements to keep track of occurrences."""
-    def __init__(self, value: int, occurrences: int) -> None:
-        self.value = value
-        self.occurrences = occurrences
+
+    value: int
+    occurrences: int
 
 
 def unique_perms(elements: List[int]):
@@ -17,7 +19,7 @@ def unique_perms(elements: List[int]):
     :return:
     """
     elem_set = set(elements)
-    list_unique = [UniqueElement(i, elements.count(i)) for i in elem_set]
+    list_unique = [UniqueElement(value=i, occurrences=elements.count(i)) for i in elem_set]
     len_elems = len(elements)
 
     return perm_unique_helper(list_unique, [0]*len_elems, len_elems-1)
@@ -27,7 +29,7 @@ def perm_unique_helper(list_unique: List[UniqueElement],
                        result_list: List[int],
                        elem_d: int):
     """
-    Helper function for unique_perms.
+    Provide helper function for unique_perms.
 
     :param list_unique:
     :param result_list:

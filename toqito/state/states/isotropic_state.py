@@ -6,10 +6,7 @@ from toqito.state.states.max_entangled import max_entangled
 
 def isotropic_state(dim: int, alpha: float) -> np.ndarray:
     """
-    Produces a Isotropic state.
-    :param dim: The local dimension.
-    :param alpha: The parameter of the isotropic state.
-    :return: Isotropic state.
+    Produce a Isotropic state.
 
     Returns the isotropic state with parameter `alpha` acting on
     (`dim`-by-`dim`)-dimensional space. More specifically, the state is the
@@ -20,6 +17,10 @@ def isotropic_state(dim: int, alpha: float) -> np.ndarray:
     References:
     [1] N. Gisin. Hidden quantum nonlocality revealed by local filters.
         (http://dx.doi.org/10.1016/S0375-9601(96)80001-6). 1996.
+
+    :param dim: The local dimension.
+    :param alpha: The parameter of the isotropic state.
+    :return: Isotropic state.
     """
     # Compute the isotropic state.
     psi = max_entangled(dim, True, False)

@@ -5,8 +5,7 @@ from toqito.base.ket import ket
 
 def bell(idx: int) -> np.ndarray:
     """
-    Produces a Bell state.
-    :param idx: A parameter in [0, 1, 2, 3]
+    Produce a Bell state.
 
     Returns one of the following four Bell states depending on the value
     of `idx`:
@@ -14,6 +13,8 @@ def bell(idx: int) -> np.ndarray:
         1: (|0>|0> - |1>|1>)/sqrt(2)
         2: (|0>|1> + |1>|0>)/sqrt(2)
         3: (|0>|1> - |1>|0>)/sqrt(2)
+
+    :param idx: A parameter in [0, 1, 2, 3]
     """
     e_0, e_1 = ket(2, 0), ket(2, 1)
     if idx == 0:

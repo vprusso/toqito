@@ -7,6 +7,8 @@ def schmidt_rank(vec: np.ndarray,
                  dim: Union[int, List[int], np.ndarray] = None,
                  tol: float = None) -> float:
     """
+    Compute the Schmidt rank.
+
     Compute the Schmidt rank of the vector `vec`, assumed to live in bipartite
     space, where both subsystems have dimension equal to `sqrt(len(vec))`.
 

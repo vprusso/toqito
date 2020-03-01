@@ -11,22 +11,9 @@ install:
 script:
     - nosetests --with-coverage --cover-erase --cover-package=toqito
     - pylint tests/
+    - pylint toqito/
     - pydocstyle tests/
-    - pylint toqito/base/
-    - pydocstyle toqito/base/
-    - pylint toqito/entanglement/
-    - pydocstyle toqito/entanglement/
-    - pylint toqito/helper/
-    - pydocstyle toqito/helper/
-    - pylint toqito/matrix/
-    - pydocstyle toqito/matrix/
-    - pylint toqito/measure/
-    - pydocstyle toqito/measure/
-    - pylint toqito/mub/
-    - pydocstyle toqito/mub/
-    - pylint toqito/random/
-    - pylint toqito/state/
-    - pylint toqito/upb/
+    - pydocstyle toqito/
 notifications:
   email:
     recipients:

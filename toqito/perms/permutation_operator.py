@@ -26,7 +26,6 @@ def permutation_operator(dim: Union[List[int], int],
     :param is_sparse: Boolean indicating if return is sparse or not.
     :return: Permutation operator of dimension `dim`.
     """
-
     # Allow the user to enter a single number for `dim`.
     if isinstance(dim, int):
         dim = dim * np.ones(max(perm))

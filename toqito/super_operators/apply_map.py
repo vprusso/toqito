@@ -8,7 +8,7 @@ from toqito.perms.swap import swap
 def apply_map(mat: np.ndarray,
               phi_op: Union[np.ndarray, List[List[np.ndarray]]]) -> np.ndarray:
     """
-    Applies a superoperator to an operator.
+    Apply a superoperator to an operator.
 
     :param mat: A matrix.
     :param phi_op: A superoperator.
@@ -18,7 +18,6 @@ def apply_map(mat: np.ndarray,
     `phi_op` should be provided either as a Choi matrix, or as a list of numpy
     arrays with either 1 or 2 columns whose entries are its Kraus operators.
     """
-
     # Both of the following methods of applying the superoperator are much
     # faster than naively looping through the Kraus operators or constructing
     # eigenvectors of a Choi matrix.

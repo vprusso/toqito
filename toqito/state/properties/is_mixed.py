@@ -5,7 +5,7 @@ from toqito.state.properties.is_pure import is_pure
 
 def is_mixed(state: np.ndarray) -> bool:
     """
-    Determines if a given quantum state is mixed.
+    Determine if a given quantum state is mixed.
 
     :param state: The density matrix representing the quantum state.
     :return: True if state is mixed and False otherwise.

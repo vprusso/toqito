@@ -5,7 +5,7 @@ from toqito.matrix.operations.tensor import tensor_n, tensor_list
 
 def pi_perm(dim: int) -> np.ndarray:
     """
-    A cycle with only two elements is called a transposition.
+    Compute a cycle with only two elements is called a transposition.
 
     Gives the unitary operator π which is defined by the action
         π(y1 ⊗ y2 ⊗ x1 ⊗ x2) = y1 ⊗ x1 ⊗ y2 ⊗ x2
@@ -33,7 +33,6 @@ def pi_perm(dim: int) -> np.ndarray:
     :param dim: The dimension of the permutation operator.
     :return: A permutation operator of dimension `dim`.
     """
-
     # Permutes the order for two qubits
     swap_matrix = np.array([[1, 0, 0, 0],
                             [0, 0, 1, 0],

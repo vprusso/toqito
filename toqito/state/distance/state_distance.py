@@ -10,6 +10,8 @@ def state_distance(states: List[np.ndarray],
                    dims: List[int],
                    probs: List[float] = None) -> float:
     """
+    Calculate probability of distinguishing a quantum state.
+
     Calculate the probability that a given quantum state can be distinguished
     from a set of quantum states.
 
@@ -19,7 +21,6 @@ def state_distance(states: List[np.ndarray],
     :param probs:
     :return:
     """
-
     # Assume uniform probability if no specific distribution is given.
     if probs is None:
         probs = [1/len(states)] * len(states)

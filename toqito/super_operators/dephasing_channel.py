@@ -5,7 +5,7 @@ from toqito.state.states.max_entangled import max_entangled
 
 def dephasing_channel(dim: int, param_p: int = 0) -> np.ndarray:
     """
-    Produces the dephasing channel.
+    Produce the dephasing channel.
 
     The dephasing channel is the Choi matrix of the completely dephasing
     channel that acts on `dim`-by-`dim` matrices.

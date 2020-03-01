@@ -21,7 +21,6 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     :param sigma: Density matrix.
     :return: The fidelity between `rho` and `sigma`.
     """
-
     # Perform some error checking.
     if not np.all(rho.shape == sigma.shape):
         raise ValueError("InvalidDim: `rho` and `sigma` must be matrices of the"

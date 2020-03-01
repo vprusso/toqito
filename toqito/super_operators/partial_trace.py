@@ -7,6 +7,12 @@ from toqito.helper.cvxpy_helper import expr_as_np_array, np_array_as_expr
 
 def partial_trace_cvx(rho, sys=None, dim=None):
     """
+    Perform the partial trace on a cvxpy variable.
+
+    References:
+    [1] Adapted from:
+        https://github.com/cvxgrp/cvxpy/issues/563
+
     :param rho:
     :param sys:
     :param dim:
@@ -22,7 +28,7 @@ def partial_trace(input_mat: np.ndarray,
                   sys: Union[int, List[int]] = 2,
                   dim: Union[int, List[int]] = None):
     """
-    Computes the partial trace of a matrix.
+    Compute the partial trace of a matrix.
 
     :param input_mat: A square matrix.
     :param sys:

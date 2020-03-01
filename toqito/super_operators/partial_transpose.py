@@ -47,7 +47,8 @@ def partial_transpose(rho: np.ndarray,
     # Allow the user to enter a single number for dim.
     if num_sys == 1:
         dim = np.array([dim, list(rho.shape)[0]/dim])
-        if np.abs(dim[1] - np.round(dim[1]))[0] >= 2*list(rho.shape)[0]*np.finfo(float).eps:
+        if np.abs(dim[1] - np.round(dim[1]))[0] >= \
+                2*list(rho.shape)[0]*np.finfo(float).eps:
             raise ValueError("InvalidDim: If `dim` is a scalar, `rho` must be "
                              "square and `dim` must evenly divide `len(rho)`; "
                              "please provide the `dim` array containing the "
@@ -79,9 +80,12 @@ def partial_transpose(rho: np.ndarray,
     # on the first (potentially larger) subsystem.
     rho_permuted = permute_systems(rho, perm, dim)
 
-    x = np.reshape(rho_permuted, [int(sub_sys_vec_r[0]), int(sub_prod_r), int(sub_sys_vec_c[0]), int(sub_prod_c)], order="F")
-    y = np.transpose(x, [0, 3, 2, 1])
-    z = np.reshape(y, [int(prod_dim_r), int(prod_dim_c)], order="F")
+    x_tmp = np.reshape(rho_permuted, [int(sub_sys_vec_r[0]),
+                                      int(sub_prod_r),
+                                      int(sub_sys_vec_c[0]),
+                                      int(sub_prod_c)], order="F")
+    y_tmp = np.transpose(x_tmp, [0, 3, 2, 1])
+    z_tmp = np.reshape(y_tmp, [int(prod_dim_r), int(prod_dim_c)], order="F")
 
     # Return the subsystems back to their original positions.
     if len(sys) > 1:
@@ -89,7 +93,4 @@ def partial_transpose(rho: np.ndarray,
 
     dim = dim[:, np.array(perm)-1]
 
-    Xpt = permute_systems(z, perm, dim, False, True)
-
-    return Xpt
-
+    return permute_systems(z_tmp, perm, dim, False, True)

@@ -3,10 +3,13 @@ from toqito.base.ket import ket
 from toqito.nonlocal_games.hedging.hedging_sdps import min_prob_outcome_a_dual, min_prob_outcome_a_primal
 from toqito.random.random_state_vector import random_state_vector
 from toqito.state.operations.schmidt_rank import schmidt_rank
-
+from toqito.perms.antisymmetric_projection import antisymmetric_projection
 
 #print(schmidt_rank(np.array([[1], [2], [3], [4]])))
 
+res = antisymmetric_projection(2).todense()
+#res = antisymmetric_projection(2, 1).todense()
+print(res)
 
 d = 2
 ia, ib, ic = 2, 2, 2

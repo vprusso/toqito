@@ -4,9 +4,7 @@ import numpy as np
 
 def gisin_state(lambda_var: float, theta: float) -> np.ndarray:
     """
-    Produces a Gisin state.
-    :param lambda_var: A real parameter in [0, 1].
-    :param theta: A real parameter.
+    Produce a Gisin state.
 
     Returns the Gisin state described in [1].
 
@@ -18,6 +16,8 @@ def gisin_state(lambda_var: float, theta: float) -> np.ndarray:
         Hidden quantum nonlocality revealed by local filters.
         (http://dx.doi.org/10.1016/S0375-9601(96)80001-6). 1996.
 
+    :param lambda_var: A real parameter in [0, 1].
+    :param theta: A real parameter.
     """
     if lambda_var < 0 or lambda_var > 1:
         raise ValueError("InvalidLambda: Variable lambda must be between "

@@ -4,7 +4,7 @@ import numpy as np
 
 def purity(rho: np.ndarray) -> float:
     """
-    Computes the purity of a quantum state.
+    Compute the purity of a quantum state.
 
     :param rho: A density matrix.
     :return: The purity of the quantum state `rho` (i.e., `gamma` is the)

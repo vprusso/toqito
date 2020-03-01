@@ -28,7 +28,6 @@ def werner_state(dim: int, alpha: Union[float, List[float]]) -> np.ndarray:
 
     so P(4) in this case equals permutation_operator(dim, [2, 3, 1]).
     """
-
     # The total number of permutation operators.
     if isinstance(alpha, float):
         n_fac = 2

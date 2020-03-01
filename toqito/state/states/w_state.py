@@ -6,7 +6,7 @@ from scipy.sparse import csr_matrix
 
 def w_state(num_qubits: int, coeff: List[int] = None) -> np.ndarray:
     """
-    Produces a W-state.
+    Produce a W-state.
 
     Returns the W-state described in [1].
 

@@ -8,7 +8,7 @@ from toqito.perms.swap import swap
 def swap_operator(dim: Union[List[int], int],
                   is_sparse: bool = False) -> np.ndarray:
     """
-    Produces a unitary operator that swaps two subsystems.
+    Produce a unitary operator that swaps two subsystems.
 
     Provides the unitary operator that swaps two copies of `dim`-dimensional
     space. If the two subsystems are not of the same dimension, `dim` should
@@ -18,7 +18,6 @@ def swap_operator(dim: Union[List[int], int],
     :param is_sparse: Sparse if `True` and non-sparse if `False`.
     :return: The swap operator of dimension `dim`.
     """
-
     # Allow the user to enter a single number for dimension.
     if isinstance(dim, int):
         dim = np.array([dim, dim])
