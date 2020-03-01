@@ -42,7 +42,7 @@ class TestXORGameValue(unittest.TestCase):
         self.assertEqual(np.isclose(res, expected_res), True)
 
     def test_odd_cycle_game_quantum_value(self):
-        """Quantum value for the odd-cycle game"""
+        """Quantum value for the odd-cycle game."""
         prob_mat = np.array([[0.1, 0.1, 0, 0, 0],
                              [0, 0.1, 0.1, 0, 0],
                              [0, 0, 0.1, 0.1, 0],
@@ -60,7 +60,7 @@ class TestXORGameValue(unittest.TestCase):
         self.assertEqual(np.isclose(res, expected_res), True)
 
     def test_odd_cycle_game_classical_value(self):
-        """Classical value for the odd-cycle game"""
+        """Classical value for the odd-cycle game."""
         prob_mat = np.array([[0.1, 0.1, 0, 0, 0],
                              [0, 0.1, 0.1, 0, 0],
                              [0, 0, 0.1, 0.1, 0],

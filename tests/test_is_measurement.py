@@ -26,10 +26,7 @@ class TestIsMeasurement(unittest.TestCase):
         self.assertEqual(is_measurement(non_meas), False)
 
     def test_is_measurement_false_not_sum_identity(self):
-        """
-        Test if invalid measurement (does not sum to identity)
-        returns False.
-        """
+        """Test if invalid measurement (does not sum to identity)."""
         non_meas_1 = np.array([[1, 0], [0, 1]])
         non_meas_2 = np.array([[1, 0], [0, 1]])
         non_meas = [non_meas_1, non_meas_2]

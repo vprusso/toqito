@@ -8,7 +8,7 @@ class TestWState(unittest.TestCase):
     """Unit test for w_state."""
 
     def test_unique_perms_len(self):
-        """Checks the number of unique perms"""
+        """Checks the number of unique perms."""
         vec = [1, 1, 2, 2, 1, 2, 1, 3, 3, 3]
 
         self.assertEqual(len(list(unique_perms(vec))), 4200)

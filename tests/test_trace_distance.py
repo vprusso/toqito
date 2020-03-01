@@ -9,9 +9,7 @@ class TestTraceDistance(unittest.TestCase):
     """Unit test for trace_distance."""
 
     def test_trace_distance_same_state(self):
-        r"""Test that:
-            :math: `T(\rho, \sigma) = 0` iff `\rho = \sigma`.
-        """
+        r"""Test that: :math: `T(\rho, \sigma) = 0` iff `\rho = \sigma`."""
         e_0, e_1 = ket(2, 0), ket(2, 1)
         e_00 = np.kron(e_0, e_0)
         e_11 = np.kron(e_1, e_1)

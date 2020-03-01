@@ -9,9 +9,7 @@ class TestIsotropicState(unittest.TestCase):
     """Unit test for isotropic_state."""
 
     def test_isotropic_qutrit(self):
-        """
-        Generate a qutrit isotropic state with ALPHA = 1/2.
-        """
+        """Generate a qutrit isotropic state with `alpha` = 1/2."""
         res = isotropic_state(3, 1/2)
 
         self.assertEqual(np.isclose(res[0, 0], 2/9), True)

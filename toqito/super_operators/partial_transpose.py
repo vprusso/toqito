@@ -9,7 +9,6 @@ def partial_transpose(rho: np.ndarray,
                       dim: Union[List[int], np.ndarray] = None) -> np.ndarray:
     """Compute the partial transpose of a matrix.
 
-
     By default, the returned matrix is the partial transpose of the matrix
     `rho`, where it is assumed that the number of rows and columns of `rho` are
     both perfect squares and both subsystems have equal dimension. The

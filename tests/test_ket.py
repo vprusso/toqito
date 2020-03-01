@@ -6,7 +6,6 @@ from toqito.base.ket import ket
 
 
 class TestKet(unittest.TestCase):
-
     """Unit test for ket."""
 
     def test_ket_0(self):

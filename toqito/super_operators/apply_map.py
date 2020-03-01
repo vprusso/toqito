@@ -6,7 +6,7 @@ from toqito.perms.swap import swap
 
 
 def apply_map(mat: np.ndarray,
-              phi_op: Union[np.ndarray, List[np.ndarray]]) -> np.ndarray:
+              phi_op: Union[np.ndarray, List[List[np.ndarray]]]) -> np.ndarray:
     """
     Applies a superoperator to an operator.
 

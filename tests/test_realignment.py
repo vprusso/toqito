@@ -10,6 +10,8 @@ class TestRealignment(unittest.TestCase):
 
     def test_realignment_two_qubit(self):
         """
+        Standard realignment map.
+
         When viewed as a map on block matrices, the realignment map takes each
         block of the original matrix and makes its vectorization the rows of
         the realignment matrix. This is illustrated by the following small
@@ -72,7 +74,8 @@ class TestRealignment(unittest.TestCase):
     #                                [9, 10, 11, 12],
     #                                [13, 14, 15, 16]])
     #
-    #     expected_res = np.array([[1, 5, 9, 13, 2, 6, 10, 14, 3, 7, 11, 15, 4, 8, 12, 16]])
+    #     expected_res = np.array([[1, 5, 9, 13, 2, 6, 10, 14, 3, 7,
+    #     11, 15, 4, 8, 12, 16]])
     #
     #     res = realignment(test_input_mat, 1)
     #

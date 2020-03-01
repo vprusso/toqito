@@ -6,11 +6,12 @@ from toqito.super_operators.partial_transpose import partial_transpose
 
 
 class TestPartialTranspose(unittest.TestCase):
-
     """Unit test for partial_transpose."""
 
     def test_partial_transpose(self):
         """
+        Default partial_transpose.
+
         By default, the partial_transpose function performs the transposition
         on the second subsystem.
         """
@@ -28,6 +29,8 @@ class TestPartialTranspose(unittest.TestCase):
 
     def test_partial_transpose_sys(self):
         """
+        Default partial transpose `sys` argument.
+
         By specifying the `sys` argument, you can perform the transposition on
         the first subsystem instead:
         """
@@ -58,10 +61,7 @@ class TestPartialTranspose(unittest.TestCase):
         self.assertEqual(np.all(bool_mat), True)
 
     def test_partial_transpose_sys_vec_dim_vec(self):
-        """
-        Partial transpose on matrix with `sys` and `dim` defined as
-        vector.
-        """
+        """Variables `sys` and `dim` defined as vector."""
         test_input_mat = np.arange(1, 17).reshape(4, 4)
 
         expected_res = np.array([[1, 5, 9, 13],
@@ -76,6 +76,8 @@ class TestPartialTranspose(unittest.TestCase):
 
     def test_partial_transpose_norm_diff(self):
         """
+        Apply partial transpose to first and second subsystem.
+
         Applying the transpose to both the first and second subsystems results
         in the standard transpose of the matrix.
         """
@@ -93,7 +95,8 @@ class TestPartialTranspose(unittest.TestCase):
         first_expected_row = np.array([1, 2, 33, 34, 5, 6, 37, 38, 129, 130,
                                        161, 162, 133, 134, 165, 166])
 
-        first_expected_col = np.array([1, 17, 3, 19, 65, 81, 67, 83, 9, 25, 11, 27, 73, 89, 75, 91])
+        first_expected_col = np.array([1, 17, 3, 19, 65, 81, 67, 83, 9, 25, 11,
+                                       27, 73, 89, 75, 91])
 
         self.assertEqual(np.allclose(res[0, :], first_expected_row), True)
         self.assertEqual(np.allclose(res[:, 0], first_expected_col), True)

@@ -11,6 +11,7 @@ install:
 script:
     - nosetests --with-coverage --cover-erase --cover-package=toqito
     - pylint tests/
+    - pydocstyle tests/
     - pylint toqito/base/
     - pylint toqito/entanglement/
     - pylint toqito/helper/

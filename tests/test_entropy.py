@@ -9,9 +9,7 @@ class TestEntropy(unittest.TestCase):
     """Unit test for entropy."""
 
     def test_entropy_default(self):
-        """
-        Test entropy default arguments.
-        """
+        """Test entropy default arguments."""
         test_input_mat = np.array([[1/2, 0, 0, 1/2],
                                    [0, 0, 0, 0],
                                    [0, 0, 0, 0],
@@ -21,9 +19,7 @@ class TestEntropy(unittest.TestCase):
         self.assertEqual(np.isclose(res, 0), True)
 
     def test_entropy_log_base_10(self):
-        """
-        Test entropy log base 10.
-        """
+        """Test entropy log base 10."""
         test_input_mat = np.array([[1/2, 0, 0, 1/2],
                                    [0, 0, 0, 0],
                                    [0, 0, 0, 0],
@@ -33,9 +29,7 @@ class TestEntropy(unittest.TestCase):
         self.assertEqual(np.isclose(res, 0), True)
 
     def test_entropy_inf_alpha(self):
-        """
-        Test entropy with infinite alph.
-        """
+        """Test entropy with infinite alpha."""
         test_input_mat = np.array([[1/2, 0, 0, 1/2],
                                    [0, 0, 0, 0],
                                    [0, 0, 0, 0],
@@ -45,9 +39,7 @@ class TestEntropy(unittest.TestCase):
         self.assertEqual(np.isclose(res, 0), True)
 
     def test_entropy_identity(self):
-        """
-        Test entropy identity.
-        """
+        """Test entropy identity."""
         res = entropy(np.identity(4)/4)
         self.assertEqual(np.isclose(res, 2), True)
 

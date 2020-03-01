@@ -10,8 +10,10 @@ class TestPartialTrace(unittest.TestCase):
 
     def test_partial_trace(self):
         """
-        By default, the partial_transpose function takes the trace over
-        the second subsystem.
+        Standard call to partial_trace.
+
+        By default, the partial_trace function takes the trace over the second
+        subsystem.
         """
         test_input_mat = np.array([[1, 2, 3, 4],
                                    [5, 6, 7, 8],
@@ -28,7 +30,9 @@ class TestPartialTrace(unittest.TestCase):
 
     def test_partial_trace_sys(self):
         """
-        By specifying the SYS argument, you can perform the partial trace
+        Specify the `sys` argument.
+
+        By specifying the `sys` argument, you can perform the partial trace
         the first subsystem instead:
         """
         test_input_mat = np.array([[1, 2, 3, 4],
@@ -46,6 +50,8 @@ class TestPartialTrace(unittest.TestCase):
 
     def test_partial_trace_sys_int_dim_int(self):
         """
+        Default second subsystem.
+
         By default, the partial_transpose function takes the trace over
         the second subsystem.
         """
@@ -64,6 +70,8 @@ class TestPartialTrace(unittest.TestCase):
 
     def test_partial_trace_sys_int_dim_int_2(self):
         """
+        Default second subsystem.
+
         By default, the partial_transpose function takes the trace over
         the second subsystem.
         """
@@ -81,7 +89,6 @@ class TestPartialTrace(unittest.TestCase):
 
     def test_partial_trace_16_by_16(self):
         """Test for 16-by-16 matrix."""
-
         test_input_mat = np.arange(1, 257).reshape(16, 16)
         res = partial_trace(test_input_mat, [1, 3], [2, 2, 2, 2])
 
@@ -95,7 +102,6 @@ class TestPartialTrace(unittest.TestCase):
 
     def test_partial_trace_16_by_16_2(self):
         """Test for 16-by-16 matrix."""
-
         test_input_mat = np.arange(1, 257).reshape(16, 16)
         res = partial_trace(test_input_mat, [1, 2], [2, 2, 2, 2])
 

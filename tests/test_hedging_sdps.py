@@ -3,14 +3,19 @@ import unittest
 from numpy import kron, cos, sin, pi, sqrt, isclose
 
 from toqito.base.ket import ket
-from toqito.nonlocal_games.hedging.hedging_sdps import max_prob_outcome_a_primal
-from toqito.nonlocal_games .hedging.hedging_sdps import max_prob_outcome_a_dual
-from toqito.nonlocal_games.hedging.hedging_sdps import min_prob_outcome_a_primal
-from toqito.nonlocal_games.hedging.hedging_sdps import min_prob_outcome_a_dual
+from toqito.nonlocal_games.hedging.hedging_sdps \
+    import max_prob_outcome_a_primal
+from toqito.nonlocal_games .hedging.hedging_sdps \
+    import max_prob_outcome_a_dual
+from toqito.nonlocal_games.hedging.hedging_sdps \
+    import min_prob_outcome_a_primal
+from toqito.nonlocal_games.hedging.hedging_sdps \
+    import min_prob_outcome_a_dual
 
 
 class TestHedgingSDPs(unittest.TestCase):
     """Unit test for hedging_sdps."""
+
     e_0, e_1 = ket(2, 0), ket(2, 1)
     e_00, e_01 = kron(e_0, e_0), kron(e_0, e_1)
     e_10, e_11 = kron(e_1, e_0), kron(e_1, e_1)
@@ -35,8 +40,9 @@ class TestHedgingSDPs(unittest.TestCase):
 
     def test_max_prob_outcome_a_primal_1_dim(self):
         """
-        Test maximal probability of outcome "a" when dim == 1 using the primal
-        problem of the hedging SDP.
+        Maximal probability of outcome "a" when dim == 1.
+
+        The primal problem of the hedging semidefinite program.
         """
         q_0 = TestHedgingSDPs.q_0
         self.assertEqual(isclose(max_prob_outcome_a_primal(q_0, 1),
@@ -44,8 +50,9 @@ class TestHedgingSDPs(unittest.TestCase):
 
     def test_max_prob_outcome_a_primal_2_dim(self):
         """
-        Test maximal probability of outcome "a" when dim == 2 using the primal
-        problem of the hedging SDP.
+        Test maximal probability of outcome "a" when dim == 2.
+
+        The primal problem of the hedging semidefinite program.
         """
         q_00 = kron(TestHedgingSDPs.q_0, TestHedgingSDPs.q_0)
         self.assertEqual(isclose(max_prob_outcome_a_primal(q_00, 2),
@@ -53,8 +60,9 @@ class TestHedgingSDPs(unittest.TestCase):
 
     def test_max_prob_outcome_a_dual_1_dim(self):
         """
-        Test maximal probability of outcome "a" when dim == 1 using the dual
-        problem of the hedging SDP.
+        Test maximal probability of outcome "a" when dim == 1.
+
+        The dual problem of the hedging semidefinite program.
         """
         q_0 = TestHedgingSDPs.q_0
         self.assertEqual(isclose(max_prob_outcome_a_dual(q_0, 1),
@@ -62,8 +70,9 @@ class TestHedgingSDPs(unittest.TestCase):
 
     def test_max_prob_outcome_a_dual_2_dim(self):
         """
-        Test maximal probability of outcome "a" when dim == 2 using the dual
-        problem of the hedging SDP.
+        Test maximal probability of outcome "a" when dim == 2.
+
+        The dual problem of the hedging semidefinite program.
         """
         q_00 = kron(TestHedgingSDPs.q_0, TestHedgingSDPs.q_0)
         self.assertEqual(isclose(max_prob_outcome_a_dual(q_00, 2),
@@ -71,8 +80,9 @@ class TestHedgingSDPs(unittest.TestCase):
 
     def test_min_prob_outcome_a_primal_1_dim(self):
         """
-        Test minimal probability of outcome "a" when dim == 1 using the primal
-        problem of the hedging SDP.
+        Test minimal probability of outcome "a" when dim == 1.
+
+        The primal problem of the hedging semidefinite program.
         """
         q_1 = TestHedgingSDPs.q_1
         self.assertEqual(isclose(min_prob_outcome_a_primal(q_1, 1),
@@ -80,8 +90,9 @@ class TestHedgingSDPs(unittest.TestCase):
 
     def test_min_prob_outcome_a_primal_2_dim(self):
         """
-        Test minimal probability of outcome "a" when dim == 2 using the primal
-        problem of the hedging SDP.
+        Test minimal probability of outcome "a" when dim == 2.
+
+        The primal problem of the hedging semidefinite program.
         """
         q_11 = kron(TestHedgingSDPs.q_1, TestHedgingSDPs.q_1)
         self.assertEqual(isclose(min_prob_outcome_a_primal(q_11, 2),
@@ -89,8 +100,9 @@ class TestHedgingSDPs(unittest.TestCase):
 
     def test_min_prob_outcome_a_dual_1_dim(self):
         """
-        Test minimal probability of outcome "a" when dim == 1 using the dual
-        problem of the hedging SDP.
+        Test minimal probability of outcome "a" when dim == 1.
+
+        The dual problem of the hedging semidefinite program.
         """
         q_1 = TestHedgingSDPs.q_1
         self.assertEqual(isclose(min_prob_outcome_a_dual(q_1, 1),
@@ -98,8 +110,9 @@ class TestHedgingSDPs(unittest.TestCase):
 
     def test_min_prob_outcome_a_dual_2_dim(self):
         """
-        Test minimal probability of outcome "a" when dim == 2 using the dual
-        problem of the hedging SDP.
+        Test minimal probability of outcome "a" when dim == 2.
+
+        The dual problem of the hedging semidefinite program.
         """
         q_11 = kron(TestHedgingSDPs.q_1, TestHedgingSDPs.q_1)
         self.assertEqual(isclose(min_prob_outcome_a_dual(q_11, 2),

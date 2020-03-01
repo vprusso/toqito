@@ -9,7 +9,7 @@ class TestBra(unittest.TestCase):
     """Unit test for bra."""
 
     def test_bra_0(self):
-        """Test for <0|"""
+        """Test for <0|."""
         expected_res = np.array([1, 0])
         res = bra(2, 0)
 
@@ -17,7 +17,7 @@ class TestBra(unittest.TestCase):
         self.assertEqual(np.all(bool_mat), True)
 
     def test_bra_1(self):
-        """Test for <1|"""
+        """Test for <1|."""
         expected_res = np.array([0, 1])
         res = bra(2, 1)
 
@@ -25,7 +25,7 @@ class TestBra(unittest.TestCase):
         self.assertEqual(np.all(bool_mat), True)
 
     def test_bra_0000(self):
-        """Test for <0000|"""
+        """Test for <0000|."""
         expected_res = np.array([1, 0, 0, 0])
         res = bra(4, 0)
 

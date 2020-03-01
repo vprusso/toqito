@@ -1,6 +1,11 @@
 import numpy as np
 from toqito.base.ket import ket
 from toqito.nonlocal_games.hedging.hedging_sdps import min_prob_outcome_a_dual, min_prob_outcome_a_primal
+from toqito.random.random_state_vector import random_state_vector
+from toqito.state.operations.schmidt_rank import schmidt_rank
+
+
+#print(schmidt_rank(np.array([[1], [2], [3], [4]])))
 
 
 d = 2

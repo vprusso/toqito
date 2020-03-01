@@ -6,7 +6,7 @@ from toqito.perms.permute_systems import permute_systems
 
 def swap(rho: np.ndarray,
          sys: List[int] = None,
-         dim: Union[List[int], int, np.ndarray] = None,
+         dim: Union[List[int], List[List[int]], int, np.ndarray] = None,
          row_only: bool = False) -> np.ndarray:
     """
     Swap two subsystems within a state or operator.

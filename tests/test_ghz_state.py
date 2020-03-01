@@ -11,10 +11,7 @@ class TestGHZState(unittest.TestCase):
     """Unit test for ghz_state."""
 
     def test_ghz_2_3(self):
-        """
-        The following generates the 3-qubit GHZ state:
-            1/sqrt(2) * (|000> + |111>)
-        """
+        """Produces the 3-qubit GHZ state: 1/sqrt(2) * (|000> + |111>)."""
         e_0, e_1 = ket(2, 0), ket(2, 1)
         expected_res = 1/np.sqrt(2) * (tensor_list([e_0, e_0, e_0]) +
                                        tensor_list([e_1, e_1, e_1]))
@@ -26,8 +23,9 @@ class TestGHZState(unittest.TestCase):
 
     def test_ghz_4_7(self):
         """
-        The following generates the following GHZ state in (C^4)^{otimes 7}:
-            1/sqrt(30) * (|0000000> + 2|1111111> + 3|2222222> + 4|3333333>)
+        The following generates the following GHZ state in (C^4)^{otimes 7}.
+
+        1/sqrt(30) * (|0000000> + 2|1111111> + 3|2222222> + 4|3333333>).
         """
         e0_4 = np.array([[1], [0], [0], [0]])
         e1_4 = np.array([[0], [1], [0], [0]])

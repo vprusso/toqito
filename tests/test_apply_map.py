@@ -12,7 +12,8 @@ class TestApplyMap(unittest.TestCase):
     def test_apply_map_choi(self):
         """
         The swap operator is the Choi matrix of the transpose map.
-        Thus, the following test is (a slow and ugly) way of computing
+
+        The following test is (a slow and ugly) way of computing
         the transpose of a matrix.
         """
         test_input_mat = np.array([[1, 4, 7],
@@ -30,6 +31,8 @@ class TestApplyMap(unittest.TestCase):
 
     def test_apply_map_kraus(self):
         """
+        Apply Kraus map.
+
         The following test computes PHI(X) where X = [[1, 2], [3, 4]] and
         where PHI is the superoperator defined by:
             Phi(X) = [[1,5],[1,0],[0,2]] X [[0,1][2,3][4,5]].conj().T -

@@ -19,7 +19,7 @@ class TestRandomDensity(unittest.TestCase):
         self.assertEqual(is_density(mat), True)
 
     def test_random_density_not_real_bures(self):
-        """Generate random non-real density matrix according to Bures metric."""
+        """Random non-real density matrix according to Bures metric."""
         mat = random_density_matrix(2, distance_metric="bures")
         self.assertEqual(is_density(mat), True)
 
