@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from toqito.state.states.bell import bell
-from toqito.state.distance.state_exclusion import state_exclusion
+from toqito.state.optimizations.state_exclusion import state_exclusion
 
 
 class TestStateExclusion(unittest.TestCase):

@@ -7,7 +7,7 @@ import numpy as np
 def state_exclusion(states: List[np.ndarray],
                     probs: List[float] = None) -> float:
     r"""
-    Compute optimal probability of state exclusion.
+    Compute probability of state exclusion.
 
     The "quantum state exclusion" problem involves a collection of :math: `n`
     quantum states

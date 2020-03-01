@@ -1,15 +1,124 @@
 import numpy as np
+import itertools
+import cvxpy
 from toqito.base.ket import ket
+from numpy import kron, sqrt, cos, sin
 from toqito.nonlocal_games.hedging.hedging_sdps import min_prob_outcome_a_dual, min_prob_outcome_a_primal
 from toqito.random.random_state_vector import random_state_vector
 from toqito.state.operations.schmidt_rank import schmidt_rank
+from toqito.matrix.operations.tensor import tensor_list
 from toqito.perms.antisymmetric_projection import antisymmetric_projection
+from toqito.super_operators.partial_trace import partial_trace_cvx, partial_trace
+from toqito.perms.pi_perm import pi_perm
+from toqito.perms.permutation_operator import permutation_operator
 
-#print(schmidt_rank(np.array([[1], [2], [3], [4]])))
 
-res = antisymmetric_projection(2).todense()
-#res = antisymmetric_projection(2, 1).todense()
-print(res)
+e0, e1 = ket(2, 0), ket(2, 1)
+ep = (e0 + e1)/np.sqrt(2)
+em = (e0 - e1)/np.sqrt(2)
+
+states = [e0, e1, ep, em]
+probs = [1/4, 1/4, 1/4, 1/4]
+dim = states[0].shape[0]**3
+
+
+Q = np.zeros((dim, dim))
+for i in range(len(states)):
+    Q += probs[i] * tensor_list([states[i], states[i], states[i].conj()])*tensor_list([states[i], states[i], states[i].conj()]).conj().T
+
+sys = [1, 2]
+dims = [2, 2, 2]
+
+x_var = cvxpy.Variable((dim, dim), PSD=True)
+objective = cvxpy.Maximize(cvxpy.trace(Q.conj().T @ x_var))
+constraints = [
+    partial_trace_cvx(x_var, sys, dims) == np.identity(2)
+]
+problem = cvxpy.Problem(objective, constraints)
+
+print(problem.solve())
+
+q00 = kron(e0, e0)
+q01 = kron(e0, e1)
+q02 = kron(e0, ep)
+q03 = kron(e0, em)
+
+q10 = kron(e1, e0)
+q11 = kron(e1, e1)
+q12 = kron(e1, ep)
+q13 = kron(e1, em)
+
+q20 = kron(ep, e0)
+q21 = kron(ep, e1)
+q22 = kron(ep, ep)
+q23 = kron(ep, em)
+
+q30 = kron(em, e0)
+q31 = kron(em, e1)
+q32 = kron(em, ep)
+q33 = kron(em, em)
+
+qb00 = q00 * q00.conj().T
+qb01 = q01 * q01.conj().T
+qb02 = q02 * q02.conj().T
+qb03 = q03 * q03.conj().T
+
+qb10 = q10 * q10.conj().T
+qb11 = q11 * q11.conj().T
+qb12 = q12 * q12.conj().T
+qb13 = q13 * q13.conj().T
+
+qb20 = q20 * q20.conj().T
+qb21 = q21 * q21.conj().T
+qb22 = q22 * q22.conj().T
+qb23 = q23 * q23.conj().T
+
+qb30 = q30 * q30.conj().T
+qb31 = q31 * q31.conj().T
+qb32 = q32 * q32.conj().T
+qb33 = q33 * q33.conj().T
+
+C = 1/16 * np.kron(np.kron(qb00, qb00), qb00) + 1/16 * np.kron(np.kron(qb01, qb01), qb01) + \
+    1/16 * np.kron(np.kron(qb02, qb02), qb02) + 1/16 * np.kron(np.kron(qb03, qb03), qb03) + \
+    1/16 * np.kron(np.kron(qb10, qb10), qb10) + 1/16 * np.kron(np.kron(qb11, qb11), qb11) + \
+    1/16 * np.kron(np.kron(qb12, qb12), qb12) + 1/16 * np.kron(np.kron(qb13, qb13), qb13) + \
+    1/16 * np.kron(np.kron(qb20, qb20), qb20) + 1/16 * np.kron(np.kron(qb21, qb21), qb21) + \
+    1/16 * np.kron(np.kron(qb22, qb22), qb22) + 1/16 * np.kron(np.kron(qb23, qb23), qb23) + \
+    1/16 * np.kron(np.kron(qb30, qb30), qb30) + 1/16 * np.kron(np.kron(qb31, qb31), qb31) + \
+    1/16 * np.kron(np.kron(qb32, qb32), qb32) + 1/16 * np.kron(np.kron(qb33, qb33), qb33)
+
+
+#p = permutation_operator(2, [1, 4, 2, 5, 3, 6])
+#p = permutation_operator(4, [1, 2, 3])
+
+l1 = list(range())
+l2 = list(range())
+perm = [*sum(zip(l1,l2),())]
+# perms = list(itertools.permutations([1, 2, 3, 4, 5, 6]))
+# for i in range(len(perms)):
+#     p = permutation_operator(2, list(perms[i]))
+#     Q2 = p * np.kron(Q, Q) * p.conj().T
+#
+#     if np.allclose(Q2, C, atol=0.01):
+#         print(perms[i])
+#         break
+
+#print(Q[0][0])
+#print(Q2[0][0])
+
+#0.3125
+#0.09765625
+
+num_reps = 2
+sys = [1, 2]
+dims = num_reps * np.array([2, 2, 2])
+x_var = cvxpy.Variable((dim**num_reps, dim**num_reps), PSD=True)
+objective = cvxpy.Maximize(cvxpy.trace(Q2.conj().T @ x_var))
+constraints = [
+    partial_trace_cvx(x_var, sys, dims) == np.identity(2*num_reps)
+]
+problem = cvxpy.Problem(objective, constraints)
+print(problem.solve())
 
 d = 2
 ia, ib, ic = 2, 2, 2
@@ -80,28 +189,6 @@ pred_mat = np.array([[0, 0],
 #print(xor_game_value(prob_mat, pred_mat, tol=1))
 
 
-# d = 3
-# oa, ob, ia, ib = 3, 3, 3, 3
-# p = np.ones((d, d))/d**2
-# V = np.zeros((oa, ob, ia, ib))
-# for a in range(oa):
-#     for b in range(ob):
-#         for x in range(ia):
-#             for y in range(ib):
-#                 if np.mod(a+b+x*y, d) == 0:
-#                     V[a, b, x, y] = 1
-# 
-# print(nonlocal_game_value_lb(d, p, V))
-
-
-joint_coe = np.array([[1, 1, -1], [1, 1, 1], [-1, 1, 0]])
-a_coe = np.array([0, -1, 0])
-b_coe = np.array([-1, -2, 0])
-a_val = np.array([0, 1])
-b_val = np.array([0, 1])
-#bell_inequality_max_qubits(joint_coe, a_coe, b_coe, a_val, b_val)
-
-
 n = 1
 k = 1
 alpha = 1/np.sqrt(2)
@@ -130,12 +217,9 @@ Q0 = l1 * l1.conj().T + l2 * l2.conj().T + l3 * l3.conj().T
 u = 1/np.sqrt(2) * (e00 + e11)
 rho = u * u.conj().T
 
-k = 1
-n = 1
-
 #Q0 = np.kron(Q0, Q0)
-print(min_prob_outcome_a_primal(Q1, 1))
-print(min_prob_outcome_a_dual(Q1, 1))
+#print(min_prob_outcome_a_primal(Q1, 1))
+#print(min_prob_outcome_a_dual(Q1, 1))
 
 
 #X = np.arange(1, 211).reshape(15, 14)

@@ -26,3 +26,22 @@ class TestPiPerm(unittest.TestCase):
         res = pi_perm(dim)
         bool_mat = np.isclose(expected_res, res)
         self.assertEqual(np.all(bool_mat), True)
+
+    def test_pi_perm_3(self):
+        """Test for pi_perm with dimension equal to 3."""
+        dim = 3
+        expected_res = permutation_operator(2, [1, 4, 2, 5, 3, 6])
+
+        res = pi_perm(dim)
+        bool_mat = np.isclose(expected_res, res)
+        self.assertEqual(np.all(bool_mat), True)
+
+    def test_pi_perm_4(self):
+        """Test for pi_perm with dimension equal to 4."""
+        dim = 4
+        expected_res = permutation_operator(2, [1, 5, 2, 6, 3, 7, 4, 8])
+
+        res = pi_perm(dim)
+        bool_mat = np.isclose(expected_res, res)
+        self.assertEqual(np.all(bool_mat), True)
+

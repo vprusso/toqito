@@ -7,7 +7,7 @@ import numpy as np
 def state_discrimination(states: List[np.ndarray],
                          probs: List[float] = None) -> float:
     r"""
-    Compute optimal probability of state discrimination.
+    Compute probability of state discrimination.
 
     The "quantum state discrimination" problem involves a collection of :math:
     `n` quantum states

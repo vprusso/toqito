@@ -1,1 +1,1 @@
-"""Various functions for calculating values for weak-coin flipping."""
+"""Various functions for calculating values for flipping."""
