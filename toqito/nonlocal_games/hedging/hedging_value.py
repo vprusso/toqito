@@ -7,12 +7,19 @@ from toqito.super_operators.partial_trace import partial_trace_cvx
 
 
 class HedgingValue:
+    """
+    Calculate optimal winning probabilities for hedging scenarios.
+
+    Calculate the maximal and minimal winning probabilities for quantum
+    hedging to occur in certain two-party scenarios.
+    """
+
     def __init__(self, q_a: np.ndarray, num_reps: int) -> None:
         """
         Initialize the variables for semidefinite program.
 
-        :param q_a:
-        :param num_reps:
+        :param q_a: The fixed SDP variable.
+        :param num_reps: The number of parallel repetitions.
         """
         self._q_a = q_a
         self._num_reps = num_reps
@@ -38,14 +45,22 @@ class HedgingValue:
         self._pperm = permutation_operator(self._num_reps, perm)
 
     def max_prob_outcome_a_primal(self) -> float:
-        """
+        r"""
         Compute the maximal probability for calculating outcome "a".
 
         The primal problem for the maximal probability of "a" is given as:
 
         ..math::
-        `
-        `
+        ```
+            \begin{align*}
+                \text{maximize:} \quad & \ip{Q_{a_1} \otimes \ldots \otimes
+                                         Q_{a_n}}{X} \\
+                \text{subject to:} \quad & \tr_{\Y_1 \otimes \ldots \otimes
+                                           \Y_n}(X) = \mathbb{\I_1} \otimes
+                                           \ldots \otimes \mathbb{\I_n},\\
+                & X \in \Pos(\X_1 \otimes \ldots \otimes \X_n)
+            \end{align*}
+        ```
 
         :return: The optimal maximal probability for obtaining outcome "a".
         """
@@ -61,15 +76,21 @@ class HedgingValue:
         return problem.solve()
 
     def max_prob_outcome_a_dual(self) -> float:
-        """
+        r"""
         Compute the maximal probability for calculating outcome "a".
 
         The dual problem for the maximal probability of "a" is given as:
 
         ..math::
-        `
-        `
-
+        ```
+            \begin{align*}
+                \text{minimize:} \quad & \tr(Y) \\
+                \text{subject to:} \quad & \mathbb{I}_{\y_1} \otimes \ldots
+                                   \otimes \mathbb{I}_{y_n} \otimes Y >=
+                                   Q_{a_1} \otimes \ldots \otimes Q_{a_n},\\
+                & Y \in \Herm(\X_1 \otimes \ldots \otimes \X_n)
+            \end{align*}
+        ```
         :return: The optimal maximal probability for obtaining outcome "a".
         """
         y_var = cvxpy.Variable((2**self._num_reps,
@@ -92,14 +113,22 @@ class HedgingValue:
         return problem.solve()
 
     def min_prob_outcome_a_primal(self) -> float:
-        """
+        r"""
         Compute the minimal probability for calculating outcome "a".
 
         The primal problem for the minimal probability of "a" is given as:
 
         ..math::
-        `
-        `
+        ```
+            \begin{align*}
+                \text{minimize:} \quad & \ip{Q_{a_1} \otimes \ldots \otimes
+                                         Q_{a_n}}{X} \\
+                \text{subject to:} \quad & \tr_{\Y_1 \otimes \ldots \otimes
+                                           \Y_n}(X) = \mathbb{\I_1} \otimes
+                                           \ldots \otimes \mathbb{\I_n},\\
+                & X \in \Pos(\X_1 \otimes \ldots \otimes \X_n)
+            \end{align*}
+        ```
 
         :return: The optimal minimal probability for obtaining outcome "a".
         """
@@ -115,14 +144,21 @@ class HedgingValue:
         return problem.solve()
 
     def min_prob_outcome_a_dual(self) -> float:
-        """
+        r"""
         Compute the minimal probability for calculating outcome "a".
 
         The dual problem for the minimal probability of "a" is given as:
 
         ..math::
-        `
-        `
+        ```
+            \begin{align*}
+                \text{maximize:} \quad & \tr(Y) \\
+                \text{subject to:} \quad & \mathbb{I}_{\y_1} \otimes \ldots
+                                   \otimes \mathbb{I}_{y_n} \otimes Y <=
+                                   Q_{a_1} \otimes \ldots \otimes Q_{a_n},\\
+                & Y \in \Herm(\X_1 \otimes \ldots \otimes \X_n)
+            \end{align*}
+        ```
 
         :return: The optimal minimal probability for obtaining outcome "a".
         """
