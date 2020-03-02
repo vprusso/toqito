@@ -44,4 +44,3 @@ class TestPiPerm(unittest.TestCase):
         res = pi_perm(dim)
         bool_mat = np.isclose(expected_res, res)
         self.assertEqual(np.all(bool_mat), True)
-
