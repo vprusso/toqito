@@ -3,7 +3,7 @@ import itertools
 import cvxpy
 from toqito.base.ket import ket
 from numpy import kron, sqrt, cos, sin
-from toqito.nonlocal_games.hedging.hedging_sdps import min_prob_outcome_a_dual, min_prob_outcome_a_primal
+from toqito.nonlocal_games.hedging.hedging_value import HedgingValue
 from toqito.random.random_state_vector import random_state_vector
 from toqito.state.operations.schmidt_rank import schmidt_rank
 from toqito.matrix.operations.tensor import tensor_list
@@ -12,6 +12,7 @@ from toqito.super_operators.partial_trace import partial_trace_cvx, partial_trac
 from toqito.perms.pi_perm import pi_perm
 from toqito.perms.permutation_operator import permutation_operator
 
+print(pi_perm(2))
 
 e0, e1 = ket(2, 0), ket(2, 1)
 ep = (e0 + e1)/np.sqrt(2)
@@ -91,9 +92,15 @@ C = 1/16 * np.kron(np.kron(qb00, qb00), qb00) + 1/16 * np.kron(np.kron(qb01, qb0
 #p = permutation_operator(2, [1, 4, 2, 5, 3, 6])
 #p = permutation_operator(4, [1, 2, 3])
 
-l1 = list(range())
-l2 = list(range())
-perm = [*sum(zip(l1,l2),())]
+# dim = 2
+# l_1 = list(range(1, dim+1))
+# l_2 = list(range(dim+1, dim**2+1))
+# if dim == 1:
+#     perm = [1]
+# else:
+#     perm = [*sum(zip(l_1, l_2), ())]
+print(permutation_operator(2, [1, 2, 3, 4]).shape)
+# print(perm)
 # perms = list(itertools.permutations([1, 2, 3, 4, 5, 6]))
 # for i in range(len(perms)):
 #     p = permutation_operator(2, list(perms[i]))
@@ -103,22 +110,19 @@ perm = [*sum(zip(l1,l2),())]
 #         print(perms[i])
 #         break
 
-#print(Q[0][0])
-#print(Q2[0][0])
-
 #0.3125
 #0.09765625
 
-num_reps = 2
-sys = [1, 2]
-dims = num_reps * np.array([2, 2, 2])
-x_var = cvxpy.Variable((dim**num_reps, dim**num_reps), PSD=True)
-objective = cvxpy.Maximize(cvxpy.trace(Q2.conj().T @ x_var))
-constraints = [
-    partial_trace_cvx(x_var, sys, dims) == np.identity(2*num_reps)
-]
-problem = cvxpy.Problem(objective, constraints)
-print(problem.solve())
+# num_reps = 2
+# sys = [1, 2]
+# dims = num_reps * np.array([2, 2, 2])
+# x_var = cvxpy.Variable((dim**num_reps, dim**num_reps), PSD=True)
+# objective = cvxpy.Maximize(cvxpy.trace(Q2.conj().T @ x_var))
+# constraints = [
+#     partial_trace_cvx(x_var, sys, dims) == np.identity(2*num_reps)
+# ]
+# problem = cvxpy.Problem(objective, constraints)
+# print(problem.solve())
 
 d = 2
 ia, ib, ic = 2, 2, 2
@@ -218,6 +222,9 @@ u = 1/np.sqrt(2) * (e00 + e11)
 rho = u * u.conj().T
 
 #Q0 = np.kron(Q0, Q0)
+# hv = HedgingValue(Q0, 1)
+# print(hv.max_prob_outcome_a_primal())
+# print(hv.max_prob_outcome_a_dual())
 #print(min_prob_outcome_a_primal(Q1, 1))
 #print(min_prob_outcome_a_dual(Q1, 1))
 
