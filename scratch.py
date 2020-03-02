@@ -1,6 +1,7 @@
 import numpy as np
 import itertools
 import cvxpy
+import sys
 from toqito.base.ket import ket
 from numpy import kron, sqrt, cos, sin
 from toqito.nonlocal_games.hedging.hedging_value import HedgingValue
@@ -11,8 +12,8 @@ from toqito.perms.antisymmetric_projection import antisymmetric_projection
 from toqito.super_operators.partial_trace import partial_trace_cvx, partial_trace
 from toqito.perms.pi_perm import pi_perm
 from toqito.perms.permutation_operator import permutation_operator
+np.set_printoptions(threshold=sys.maxsize)
 
-print(pi_perm(2))
 
 e0, e1 = ket(2, 0), ket(2, 1)
 ep = (e0 + e1)/np.sqrt(2)
@@ -99,7 +100,10 @@ C = 1/16 * np.kron(np.kron(qb00, qb00), qb00) + 1/16 * np.kron(np.kron(qb01, qb0
 #     perm = [1]
 # else:
 #     perm = [*sum(zip(l_1, l_2), ())]
-print(permutation_operator(2, [1, 2, 3, 4]).shape)
+Q2 = kron(Q, Q)
+#print(Q2[0])
+#print(np.around(C[0], decimals=8))
+#print(permutation_operator(2, [1, 2, 3, 4]).shape)
 # print(perm)
 # perms = list(itertools.permutations([1, 2, 3, 4, 5, 6]))
 # for i in range(len(perms)):
@@ -221,10 +225,12 @@ Q0 = l1 * l1.conj().T + l2 * l2.conj().T + l3 * l3.conj().T
 u = 1/np.sqrt(2) * (e00 + e11)
 rho = u * u.conj().T
 
-#Q0 = np.kron(Q0, Q0)
-# hv = HedgingValue(Q0, 1)
-# print(hv.max_prob_outcome_a_primal())
-# print(hv.max_prob_outcome_a_dual())
+Q000 = tensor_list([Q0, Q1, Q0])
+hv = HedgingValue(Q0, 1)
+#print(pi_perm(3) == permutation_operator(2, [1, 4, 2, 5, 3, 6]))
+print(hv.max_prob_outcome_a_dual())
+print(hv.min_prob_outcome_a_dual())
+
 #print(min_prob_outcome_a_primal(Q1, 1))
 #print(min_prob_outcome_a_dual(Q1, 1))
 

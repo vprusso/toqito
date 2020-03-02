@@ -39,10 +39,10 @@ class HedgingValue:
         l_1 = list(range(1, self._num_reps + 1))
         l_2 = list(range(self._num_reps + 1, self._num_reps ** 2 + 1))
         if self._num_reps == 1:
-            perm = [1]
+            self._pperm = np.array([1])
         else:
             perm = [*sum(zip(l_1, l_2), ())]
-        self._pperm = permutation_operator(self._num_reps, perm)
+            self._pperm = permutation_operator(2, perm)
 
     def max_prob_outcome_a_primal(self) -> float:
         r"""
@@ -52,14 +52,15 @@ class HedgingValue:
 
         ..math::
         ```
-            \begin{align*}
-                \text{maximize:} \quad & \ip{Q_{a_1} \otimes \ldots \otimes
-                                         Q_{a_n}}{X} \\
-                \text{subject to:} \quad & \tr_{\Y_1 \otimes \ldots \otimes
-                                           \Y_n}(X) = \mathbb{\I_1} \otimes
-                                           \ldots \otimes \mathbb{\I_n},\\
-                & X \in \Pos(\X_1 \otimes \ldots \otimes \X_n)
-            \end{align*}
+        \begin{align*}
+            \text{maximize:} \quad & \ip{Q_{a_1} \otimes \ldots \otimes
+                                     Q_{a_n}}{X} \\
+            \text{subject to:} \quad & \tr_{\Y_1 \otimes \ldots \otimes
+                               \Y_n}(X) = \I_{\X_1 \otimes \ldots \otimes
+                               \X_n},\\
+                                & X \in \Pos(\Y_1 \otimes \X_1 \otimes \ldots
+                                \otimes \Y_n \otimes \X_n)
+        \end{align*}
         ```
 
         :return: The optimal maximal probability for obtaining outcome "a".
@@ -83,13 +84,13 @@ class HedgingValue:
 
         ..math::
         ```
-            \begin{align*}
-                \text{minimize:} \quad & \tr(Y) \\
-                \text{subject to:} \quad & \mathbb{I}_{\y_1} \otimes \ldots
-                                   \otimes \mathbb{I}_{y_n} \otimes Y >=
-                                   Q_{a_1} \otimes \ldots \otimes Q_{a_n},\\
-                & Y \in \Herm(\X_1 \otimes \ldots \otimes \X_n)
-            \end{align*}
+        \begin{align*}
+            \text{minimize:} \quad & \tr(Y) \\
+            \text{subject to:} \quad & \pi \left(\I_{\Y_1 \otimes \ldots
+            \otimes \Y_n} \otimes Y \right) \pi^* \geq Q_{a_1} \otimes \ldots
+            \otimes Q_{a_n},\\
+            & Y \in \Herm(\X_1 \otimes \ldots \otimes \X_n)
+        \end{align*}
         ```
         :return: The optimal maximal probability for obtaining outcome "a".
         """
@@ -120,14 +121,15 @@ class HedgingValue:
 
         ..math::
         ```
-            \begin{align*}
-                \text{minimize:} \quad & \ip{Q_{a_1} \otimes \ldots \otimes
-                                         Q_{a_n}}{X} \\
-                \text{subject to:} \quad & \tr_{\Y_1 \otimes \ldots \otimes
-                                           \Y_n}(X) = \mathbb{\I_1} \otimes
-                                           \ldots \otimes \mathbb{\I_n},\\
-                & X \in \Pos(\X_1 \otimes \ldots \otimes \X_n)
-            \end{align*}
+        \begin{align*}
+            \text{minimize:} \quad & \ip{Q_{a_1} \otimes \ldots \otimes
+                                     Q_{a_n}}{X} \\
+            \text{subject to:} \quad & \tr_{\Y_1 \otimes \ldots \otimes
+                               \Y_n}(X) = \I_{\X_1 \otimes \ldots \otimes
+                               \X_n},\\
+                                & X \in \Pos(\Y_1 \otimes \X_1 \otimes \ldots
+                                \otimes \Y_n \otimes \X_n)
+        \end{align*}
         ```
 
         :return: The optimal minimal probability for obtaining outcome "a".
@@ -151,13 +153,13 @@ class HedgingValue:
 
         ..math::
         ```
-            \begin{align*}
-                \text{maximize:} \quad & \tr(Y) \\
-                \text{subject to:} \quad & \mathbb{I}_{\y_1} \otimes \ldots
-                                   \otimes \mathbb{I}_{y_n} \otimes Y <=
-                                   Q_{a_1} \otimes \ldots \otimes Q_{a_n},\\
-                & Y \in \Herm(\X_1 \otimes \ldots \otimes \X_n)
-            \end{align*}
+        \begin{align*}
+            \text{maximize:} \quad & \tr(Y) \\
+            \text{subject to:} \quad & \pi \left(\I_{\Y_1 \otimes \ldots
+            \otimes \Y_n} \otimes Y \right) \pi^* \leq Q_{a_1} \otimes \ldots
+            \otimes Q_{a_n},\\
+            & Y \in \Herm(\X_1 \otimes \ldots \otimes \X_n)
+        \end{align*}
         ```
 
         :return: The optimal minimal probability for obtaining outcome "a".
