@@ -12,12 +12,20 @@ from toqito.perms.antisymmetric_projection import antisymmetric_projection
 from toqito.super_operators.partial_trace import partial_trace_cvx, partial_trace
 from toqito.perms.pi_perm import pi_perm
 from toqito.perms.permutation_operator import permutation_operator
+from toqito.nonlocal_games.coin_flipping.weak_coin_flipping import weak_coin_flipping
+from toqito.state.optimizations.state_discrimination import state_discrimination
 np.set_printoptions(threshold=sys.maxsize)
 
 
 e0, e1 = ket(2, 0), ket(2, 1)
 ep = (e0 + e1)/np.sqrt(2)
 em = (e0 - e1)/np.sqrt(2)
+
+states = [e0]
+probs = [1/2, 1/2]
+print(e0.shape)
+
+print(state_discrimination(states))
 
 states = [e0, e1, ep, em]
 probs = [1/4, 1/4, 1/4, 1/4]
@@ -241,9 +249,6 @@ print(hv.min_prob_outcome_a_dual())
 
 
 #calculate_q(Q0, Q1, n, k)
-
-#x = np.kron(e1*e1.conj().T, e0*e0.conj().T) + np.kron(em*em.conj().T, e1*e1.conj().T)
-#print(weak_coin_flipping(x))
 
 #X = np.arange(1, 17).reshape(4, 4)
 #print(np.linalg.norm(partial_transpose(X, [1, 2]) - X.conj().T))

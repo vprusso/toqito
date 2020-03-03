@@ -67,18 +67,24 @@ def state_exclusion(states: List[np.ndarray],
     if sum(probs) != 1:
         raise ValueError("Invalid: Probabilities must sum to 1.")
 
-    dim = states[0].shape
+    dim_x, dim_y = states[0].shape
+
+    # The variable `states` is provided as a list of vectors. Transform them
+    # into density matrices.
+    if dim_y == 1:
+        for i, state_ket in enumerate(states):
+            states[i] = state_ket * state_ket.conj().T
 
     obj_func = []
     measurements = []
     constraints = []
     for i, _ in enumerate(states):
-        measurements.append(cvx.Variable(dim, PSD=True))
+        measurements.append(cvx.Variable((dim_x, dim_x), PSD=True))
 
         obj_func.append(probs[i] * cvx.trace(
             states[i].conj().T @ measurements[i]))
 
-    constraints.append(sum(measurements) == np.identity(dim[0]))
+    constraints.append(sum(measurements) == np.identity(dim_x))
 
     objective = cvx.Minimize(sum(obj_func))
     problem = cvx.Problem(objective, constraints)

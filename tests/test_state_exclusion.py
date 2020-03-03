@@ -17,11 +17,30 @@ class TestStateExclusion(unittest.TestCase):
         res = state_exclusion(states)
         self.assertEqual(np.isclose(res, 1), True)
 
+    def test_state_exclusion_one_state_vec(self):
+        """State exclusion for single vector state."""
+        rho = bell(0)
+        states = [rho]
+
+        res = state_exclusion(states)
+        self.assertEqual(np.isclose(res, 1), True)
+
     def test_state_exclusion_three_state(self):
-        """State exclusion for single state."""
+        """State exclusion for three Bell state density matrices."""
         rho1 = bell(0) * bell(0).conj().T
         rho2 = bell(1) * bell(1).conj().T
         rho3 = bell(2) * bell(2).conj().T
+        states = [rho1, rho2, rho3]
+        probs = [1/3, 1/3, 1/3]
+
+        res = state_exclusion(states, probs)
+        self.assertEqual(np.isclose(res, 0), True)
+
+    def test_state_exclusion_three_state_vec(self):
+        """State exclusion for three Bell state vectors."""
+        rho1 = bell(0)
+        rho2 = bell(1)
+        rho3 = bell(2)
         states = [rho1, rho2, rho3]
         probs = [1/3, 1/3, 1/3]
 
