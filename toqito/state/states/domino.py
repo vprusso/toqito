@@ -20,25 +20,25 @@ def domino(idx: int) -> np.ndarray:
                     \left(\frac{\ket{0} + \ket{1}}{\sqrt{2}}\right)\\
     \ket{\phi_2} &= \ket{2}
                     \left(\frac{\ket{1} + \ket{2}}{\sqrt{2}}\right)\\
-    \ket{\phi_3} &= \left(\frac{\ket{1} + \ket{2}}{\sqrt{2}}\right) 
+    \ket{\phi_3} &= \left(\frac{\ket{1} + \ket{2}}{\sqrt{2}}\right)
                     \ket{0}\\
-    \ket{\phi_4} &= \left(\frac{\ket{0} + \ket{1}}{\sqrt{2}}\right) 
+    \ket{\phi_4} &= \left(\frac{\ket{0} + \ket{1}}{\sqrt{2}}\right)
                     \ket{2}\\
     \ket{\phi_5} &= \ket{0}
                     \left(\frac{\ket{0} - \ket{1}}{\sqrt{2}}\right)\\
     \ket{\phi_6} &= \ket{2}
                     \left(\frac{\ket{1} - \ket{2}}{\sqrt{2}}\right)\\
-    \ket{\phi_7} &= \left(\frac{\ket{1} - \ket{2}}{\sqrt{2}}\right) 
+    \ket{\phi_7} &= \left(\frac{\ket{1} - \ket{2}}{\sqrt{2}}\right)
                     \ket{0}\\
-    \ket{\phi_8} &= \left(\frac{\ket{0} - \ket{1}}{\sqrt{2}}\right) 
+    \ket{\phi_8} &= \left(\frac{\ket{0} - \ket{1}}{\sqrt{2}}\right)
                     \ket{2}\\
     \end{aligned}
     \end{equation}
     `
 
     Reference:
-    [1] Bennett, Charles H., et al. 
-        "Unextendible product bases and bound entanglement." 
+    [1] Bennett, Charles H., et al.
+        "Unextendible product bases and bound entanglement."
         Physical Review Letters 82.26 (1999): 5385.
 
     :param idx: A parameter in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
