@@ -46,7 +46,7 @@ class TestStateDiscrimination(unittest.TestCase):
         res = state_discrimination(states, probs)
         self.assertEqual(np.isclose(res, 1/2), True)
 
-    def test_invalid_probs(self):
+    def test_invalid_state_discrim_probs(self):
         """Invalid probability vector."""
         with self.assertRaises(ValueError):
             rho1 = bell(0) * bell(0).conj().T
@@ -54,7 +54,7 @@ class TestStateDiscrimination(unittest.TestCase):
             states = [rho1, rho2]
             state_discrimination(states, [1, 2, 3])
 
-    def test_invalid_states(self):
+    def test_invalid_state_discrim_states(self):
         """Invalid number of states."""
         with self.assertRaises(ValueError):
             states = []

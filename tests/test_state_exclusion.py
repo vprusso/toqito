@@ -47,7 +47,7 @@ class TestStateExclusion(unittest.TestCase):
         res = state_exclusion(states, probs)
         self.assertEqual(np.isclose(res, 0), True)
 
-    def test_invalid_probs(self):
+    def test_invalid_state_exclusion_probs(self):
         """Invalid probability vector."""
         with self.assertRaises(ValueError):
             rho1 = bell(0) * bell(0).conj().T
@@ -55,7 +55,7 @@ class TestStateExclusion(unittest.TestCase):
             states = [rho1, rho2]
             state_exclusion(states, [1, 2, 3])
 
-    def test_invalid_states(self):
+    def test_invalid_state_exclusion_states(self):
         """Invalid number of states."""
         with self.assertRaises(ValueError):
             states = []

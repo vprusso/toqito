@@ -55,7 +55,7 @@ def state_discrimination(states: List[np.ndarray],
     # Assume uniform probability if no specific distribution is given.
     if probs is None:
         probs = [1/len(states)] * len(states)
-    if sum(probs) != 1:
+    if not np.isclose(sum(probs), 1):
         raise ValueError("Invalid: Probabilities must sum to 1.")
 
     dim_x, dim_y = states[0].shape
