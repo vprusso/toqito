@@ -17,12 +17,15 @@ The following lists the current functionality of `toqito`. Each bullet item
 currently links to or will link to a Jupyter notebook file that showcases the
 usage.
 
+Filling in the jupyter notebook example files lags behind the features
+presently offered in `toqito` and will be periodically updated as time allows.
+
 ### Entanglement
 
 Calculate various quantities of interest pertaining to entanglement.
 
 - Concurrence
-- Negativity  
+- Negativity
 
 ### Matrix
 
@@ -60,9 +63,13 @@ Calculate various quantities of interest pertaining to entanglement.
 
 ### Nonlocal games
 
+- Two-player quantum value lower bound
+
 #### Bit commitment
 
 #### Coin flipping
+
+- Weak coin flipping
 
 #### Die rolling
 
@@ -70,7 +77,11 @@ Calculate various quantities of interest pertaining to entanglement.
 
 #### Hedging
 
+- Hedging value
+
 #### XOR games
+
+- XOR game value
 
 ### Permutations
 
@@ -95,13 +106,48 @@ Calculate various quantities of interest pertaining to entanglement.
 
 #### Distance
 
+- Bures distance
+- Bures metric
+- Entropy
+- Fidelity
+- Purity
+- Super fidelity
+- Trace distance
+- Trace norm
+
 #### Operations
+
+- Pure-to-mixed
+- Schmidt decomposition
+- Schmidt rank
 
 #### Optimizations
 
+- State cloning
+- State discrimination
+- State distance
+- State exclusion
+
 #### Properties
 
+- Is mixed
+- Is PPT
+- Is product vector
+- Is pure
+
 #### States
+
+- Bell states
+- Chessboard state
+- Domino states
+- Generalized Bell states
+- GHZ states
+- Gisin states
+- Horodecki states
+- Isotropic states
+- Maximally entangled states
+- W-state
+- Werner state
 
 ### Super operators
 

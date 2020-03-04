@@ -2,6 +2,7 @@
 *.idea
 test.py
 scratch.py
+irreducible/*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
