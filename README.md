@@ -13,7 +13,106 @@ Python code.
 
 ## Usage
 
-TODO
+The following lists the current functionality of `toqito`. Each bullet item 
+currently links to or will link to a Jupyter notebook file that showcases the
+usage.
+
+### Entanglement
+
+Calculate various quantities of interest pertaining to entanglement.
+
+- Concurrence
+- Negativity  
+
+### Matrix
+
+#### Matrices
+
+- [Clock matrix](https://github.com/vprusso/toqito/blob/master/jupyter_notebooks/matrix/matrices/clock_matrix.ipynb)
+- Fourier matrix
+- Gell-Mann matrix
+- Generalized Gell-Mann matrices
+- Generalized Pauli matrices
+- Identity matrix
+- Pauli matrices
+- [Shift matrix](https://github.com/vprusso/toqito/blob/master/jupyter_notebooks/matrix/matrices/shift_matrix.ipynb)
+
+#### Operations
+
+- Tensor product
+- Vec
+
+#### Properties
+
+- Density matrix
+- Diagonal matrix
+- Hermitian matrix
+- Normal matrix
+- Positive-definite matrix
+- Positive-semidefinite matrix
+- Square matrix
+- Symmetric matrix
+- Unitary matrix
+
+### Measure
+
+- Is measurement
+
+### Nonlocal games
+
+#### Bit commitment
+
+#### Coin flipping
+
+#### Die rolling
+
+#### Extended nonlocal games
+
+#### Hedging
+
+#### XOR games
+
+### Permutations
+
+- Antisymmetric projection
+- Perfect matchings
+- Perm sign
+- Permutation operator
+- Permute systems
+- Swap
+- Swap Operator
+- Symmetric projection
+- Unique perms
+
+### Random
+
+- Random density matrix
+- Random POVM
+- Random state vector
+- Random unitary
+
+### State
+
+#### Distance
+
+#### Operations
+
+#### Optimizations
+
+#### Properties
+
+#### States
+
+### Super operators
+
+- Apply map
+- Choi map
+- Dephasing channel
+- Depolarizing channel
+- Partial trace
+- Partial transpose
+- Realignment
+- Reduction map
  
 ## Testing
 
