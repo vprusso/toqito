@@ -7,7 +7,6 @@ def domino(idx: int) -> np.ndarray:
     r"""
     Produce a domino state.
 
-
     Returns one of the following nine domino states depending on the value
     of `idx`:
 
