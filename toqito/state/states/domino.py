@@ -5,7 +5,8 @@ from toqito.base.ket import ket
 
 def domino(idx: int) -> np.ndarray:
     r"""
-    Produce a Domino state.
+    Produce a domino state.
+
 
     Returns one of the following nine domino states depending on the value
     of `idx`:
@@ -36,12 +37,17 @@ def domino(idx: int) -> np.ndarray:
     \end{equation}
     `
 
-    Reference:
+    References:
     [1] Bennett, Charles H., et al.
+        Quantum nonlocality without entanglement.
+        Phys. Rev. A, 59:1070–1091, Feb 1999.
+        https://arxiv.org/abs/quant-ph/9804053
+
+    [2] Bennett, Charles H., et al.
         "Unextendible product bases and bound entanglement."
         Physical Review Letters 82.26 (1999): 5385.
 
-    :param idx: A parameter in [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    :param idx: A parameter in [0, 1, 2, 3, 4, 5, 6, 7, 8]
     """
     e_0, e_1, e_2 = ket(3, 0), ket(3, 1), ket(3, 2)
     if idx == 0:
