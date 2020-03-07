@@ -1,13 +1,13 @@
-"""Calculates probability of state exclusion."""
+"""Calculates probability of single state exclusion."""
 from typing import List
-import cvxpy as cvx
+import cvxpy
 import numpy as np
 
 
-def state_exclusion(states: List[np.ndarray],
-                    probs: List[float] = None) -> float:
+def single_state_exclusion(states: List[np.ndarray],
+                           probs: List[float] = None) -> float:
     r"""
-    Compute probability of state exclusion.
+    Compute probability of single state exclusion.
 
     The "quantum state exclusion" problem involves a collection of :math: `n`
     quantum states
@@ -44,6 +44,7 @@ def state_exclusion(states: List[np.ndarray],
             Pusey, Matthew F., Jonathan Barrett, and Terry Rudolph.
             Nature Physics 8.6 (2012): 475-478.
             arXiv:1111.3328
+
         [2] "Conclusive exclusion of quantum states"
             Bandyopadhyay, Somshubhro, et al.
             Physical Review A 89.2 (2014): 022336.
@@ -64,7 +65,7 @@ def state_exclusion(states: List[np.ndarray],
     # Assume uniform probability if no specific distribution is given.
     if probs is None:
         probs = [1/len(states)] * len(states)
-    if sum(probs) != 1:
+    if not np.isclose(sum(probs), 1):
         raise ValueError("Invalid: Probabilities must sum to 1.")
 
     dim_x, dim_y = states[0].shape
@@ -79,15 +80,19 @@ def state_exclusion(states: List[np.ndarray],
     measurements = []
     constraints = []
     for i, _ in enumerate(states):
-        measurements.append(cvx.Variable((dim_x, dim_x), PSD=True))
+        measurements.append(cvxpy.Variable((dim_x, dim_x), PSD=True))
 
-        obj_func.append(probs[i] * cvx.trace(
+        obj_func.append(probs[i] * cvxpy.trace(
             states[i].conj().T @ measurements[i]))
 
     constraints.append(sum(measurements) == np.identity(dim_x))
 
-    objective = cvx.Minimize(sum(obj_func))
-    problem = cvx.Problem(objective, constraints)
+    if np.iscomplexobj(states[0]):
+        objective = cvxpy.Minimize(cvxpy.real(sum(obj_func)))
+    else:
+        objective = cvxpy.Minimize(sum(obj_func))
+
+    problem = cvxpy.Problem(objective, constraints)
     sol_default = problem.solve()
 
     return 1/len(states) * sol_default
