@@ -1,4 +1,4 @@
-"""Determines if state is pure."""
+"""Determines if a state is pure or a list of states are pure."""
 from typing import List, Union
 from numpy import linalg as lin_alg
 import numpy as np
@@ -6,7 +6,7 @@ import numpy as np
 
 def is_pure(state: Union[List[np.ndarray], np.ndarray]) -> bool:
     r"""
-    Determine if a given quantum state is pure.
+    Determine if a given state is pure or list of states are pure.
 
     A state is said to be pure if it is a density matrix with rank equal to
     1. Equivalently, the state :math: `\rho` is pure if there exists a unit
