@@ -90,6 +90,11 @@ class TestDomino(unittest.TestCase):
         bool_mat = np.isclose(res, expected_res)
         self.assertEqual(np.all(bool_mat), True)
 
+    def test_invalid_index(self):
+        """Tests for invalid index input."""
+        with self.assertRaises(ValueError):
+            domino(9)
+
 
 if __name__ == '__main__':
     unittest.main()

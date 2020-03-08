@@ -161,7 +161,8 @@ Calculate various quantities of interest pertaining to entanglement.
 - Is mixed
 - Is PPT
 - Is product vector
-- Is pure
+- [Is pure](https://github.com/vprusso/toqito/blob/master/jupyter_notebooks/state/properties/is_pure.ipynb)
+
 
 #### States
 
