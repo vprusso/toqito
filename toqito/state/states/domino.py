@@ -7,8 +7,7 @@ def domino(idx: int) -> np.ndarray:
     r"""
     Produce a domino state.
 
-    Returns one of the following nine domino states depending on the value
-    of `idx`:
+    The orthonormal product basis of domino states is given as
 
     ..math::
     `
@@ -18,23 +17,26 @@ def domino(idx: int) -> np.ndarray:
                     \ket{1}\\
     \ket{\phi_1} &= \ket{0}
                     \left(\frac{\ket{0} + \ket{1}}{\sqrt{2}}\right)\\
-    \ket{\phi_2} &= \ket{2}
-                    \left(\frac{\ket{1} + \ket{2}}{\sqrt{2}}\right)\\
-    \ket{\phi_3} &= \left(\frac{\ket{1} + \ket{2}}{\sqrt{2}}\right)
-                    \ket{0}\\
-    \ket{\phi_4} &= \left(\frac{\ket{0} + \ket{1}}{\sqrt{2}}\right)
-                    \ket{2}\\
-    \ket{\phi_5} &= \ket{0}
+    \ket{\phi_2} &= \ket{0}
                     \left(\frac{\ket{0} - \ket{1}}{\sqrt{2}}\right)\\
-    \ket{\phi_6} &= \ket{2}
-                    \left(\frac{\ket{1} - \ket{2}}{\sqrt{2}}\right)\\
-    \ket{\phi_7} &= \left(\frac{\ket{1} - \ket{2}}{\sqrt{2}}\right)
-                    \ket{0}\\
-    \ket{\phi_8} &= \left(\frac{\ket{0} - \ket{1}}{\sqrt{2}}\right)
-                    \ket{2}\\
+    \ket{\phi_3} &= \ket{2}
+                    \left(\frac{\ket{0} + \ket{1}}{\sqrt{2}}\right)\\
+    \ket{\phi_4} &= \ket{2}
+                    \left(\frac{\ket{0} - \ket{1}}{\sqrt{2}}\right)\\
+    \ket{\phi_5} &= \left(\frac{\ket{0} + \ket{1}}{\sqrt{2}}\right)\\
+                    \ket{0}
+    \ket{\phi_6} &= \left(\frac{\ket{0} - \ket{1}}{\sqrt{2}}\right)\\
+                    \ket{0}
+    \ket{\phi_7} &= \left(\frac{\ket{0} + \ket{1}}{\sqrt{2}}\right)\\
+                    \ket{2}
+    \ket{\phi_8} &= \left(\frac{\ket{0} - \ket{1}}{\sqrt{2}}\right)\\
+                    \ket{2}
     \end{aligned}
     \end{equation}
     `
+
+    Returns one of the following nine domino states depending on the value
+    of `idx`:
 
     References:
     [1] Bennett, Charles H., et al.
@@ -54,17 +56,17 @@ def domino(idx: int) -> np.ndarray:
     if idx == 1:
         return np.kron(e_0, 1/np.sqrt(2)*(e_0 + e_1))
     if idx == 2:
-        return np.kron(e_2, 1/np.sqrt(2)*(e_1 + e_2))
-    if idx == 3:
-        return np.kron(1/np.sqrt(2)*(e_1 + e_2), e_0)
-    if idx == 4:
-        return np.kron(1/np.sqrt(2)*(e_0 + e_1), e_2)
-    if idx == 5:
         return np.kron(e_0, 1/np.sqrt(2)*(e_0 - e_1))
-    if idx == 6:
+    if idx == 3:
+        return np.kron(e_2, 1/np.sqrt(2)*(e_1 + e_2))
+    if idx == 4:
         return np.kron(e_2, 1/np.sqrt(2)*(e_1 - e_2))
-    if idx == 7:
+    if idx == 5:
+        return np.kron(1/np.sqrt(2)*(e_1 + e_2), e_0)
+    if idx == 6:
         return np.kron(1/np.sqrt(2)*(e_1 - e_2), e_0)
+    if idx == 7:
+        return np.kron(1/np.sqrt(2)*(e_0 + e_1), e_2)
     if idx == 8:
         return np.kron(1/np.sqrt(2)*(e_0 - e_1), e_2)
     raise ValueError("Invalid integer value for Domino state.")
