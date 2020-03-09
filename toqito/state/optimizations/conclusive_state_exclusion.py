@@ -1,13 +1,13 @@
-"""Calculates probability of single state exclusion."""
+"""Calculates probability of conclusive single state exclusion."""
 from typing import List
 import cvxpy
 import numpy as np
 
 
-def single_state_exclusion(states: List[np.ndarray],
-                           probs: List[float] = None) -> float:
+def conclusive_state_exclusion(states: List[np.ndarray],
+                               probs: List[float] = None) -> float:
     r"""
-    Compute probability of single state exclusion.
+    Compute probability of conclusive single state exclusion.
 
     The "quantum state exclusion" problem involves a collection of :math: `n`
     quantum states
@@ -40,15 +40,15 @@ def single_state_exclusion(states: List[np.ndarray],
         ```
 
     References:
-        [1] "On the reality of the quantum state"
-            Pusey, Matthew F., Jonathan Barrett, and Terry Rudolph.
-            Nature Physics 8.6 (2012): 475-478.
-            arXiv:1111.3328
+    [1] "On the reality of the quantum state"
+        Pusey, Matthew F., Jonathan Barrett, and Terry Rudolph.
+        Nature Physics 8.6 (2012): 475-478.
+        arXiv:1111.3328
 
-        [2] "Conclusive exclusion of quantum states"
-            Bandyopadhyay, Somshubhro, et al.
-            Physical Review A 89.2 (2014): 022336.
-            arXiv:1306.4683
+    [2] "Conclusive exclusion of quantum states"
+        Bandyopadhyay, Somshubhro, et al.
+        Physical Review A 89.2 (2014): 022336.
+        arXiv:1306.4683
 
     :param states: A list of density operators (matrices) corresponding to
                    quantum states.

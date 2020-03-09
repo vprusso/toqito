@@ -1,7 +1,7 @@
 """Produces the projection onto the symmetric subspace."""
 from itertools import permutations
+from scipy import linalg, sparse
 import numpy as np
-import scipy as sp
 from toqito.perms.permutation_operator import permutation_operator
 
 
@@ -26,11 +26,11 @@ def symmetric_projection(dim: int,
     dimp = dim**p_val
 
     if p_val == 1:
-        return sp.sparse.eye(dim)
+        return sparse.eye(dim)
 
     p_list = np.array(list(permutations(np.arange(1, p_val+1))))
     p_fac = np.math.factorial(p_val)
-    sym_proj = sp.sparse.lil_matrix((dimp, dimp))
+    sym_proj = sparse.lil_matrix((dimp, dimp))
 
     for j in range(p_fac):
         sym_proj += permutation_operator(dim*np.ones(p_val), p_list[j, :], False, True)
@@ -38,5 +38,5 @@ def symmetric_projection(dim: int,
 
     if partial:
         sym_proj = sym_proj.todense()
-        sym_proj = sp.sparse.lil_matrix(sp.linalg.orth(sym_proj))
+        sym_proj = sparse.lil_matrix(linalg.orth(sym_proj))
     return sym_proj

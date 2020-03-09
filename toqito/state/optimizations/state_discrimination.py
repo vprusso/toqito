@@ -38,7 +38,11 @@ def state_discrimination(states: List[np.ndarray],
         ```
 
     References:
-        [1]
+    [1] Eldar, Yonina C.
+        "A semidefinite programming approach to optimal unambiguous
+        discrimination of quantum states."
+        IEEE Transactions on information theory 49.2 (2003): 446-456.
+        https://arxiv.org/abs/quant-ph/0206093
 
     :param states: A list of density operators (matrices) corresponding to
                    quantum states.

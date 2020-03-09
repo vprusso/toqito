@@ -8,7 +8,10 @@ def weak_coin_flipping(rho: np.ndarray) -> float:
     """
     Weak coin flipping protocol.
 
-    SDP from : https://arxiv.org/pdf/1703.03887.pdf
+    References:
+    [1] Ganz, Maor and Sattath, Or
+        Quantum coin hedging, and a counter measure
+        https://arxiv.org/pdf/1703.03887.pdf
     """
     dims = rho.shape
     id_dim = int(np.sqrt(dims[0]))

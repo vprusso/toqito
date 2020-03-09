@@ -10,9 +10,9 @@ def tensor(input_1: np.ndarray, input_2: np.ndarray) -> np.ndarray:
     Tensor two matrices or vectors together using the standard kronecker
     operation provided from numpy.
 
-    :param input_1:
-    :param input_2:
-    :return:
+    :param input_1: The first matrix argument.
+    :param input_2: The second matrix argument.
+    :return: The tensor product between `input_1` and `input_2`.
     """
     return np.kron(input_1, input_2)
 
@@ -21,9 +21,9 @@ def tensor_n(input_val: np.ndarray, num_tensor: int) -> np.ndarray:
     """
     Tensor product one matrix `n` times with itself.
 
-    :param input_val:
-    :param num_tensor:
-    :return:
+    :param input_val: The matrix argument.
+    :param num_tensor: The number of times to tensor.
+    :return: The matrix `input_val` tensored with itself `num_tensor` times.
     """
     result = None
     if num_tensor == 1:
@@ -41,8 +41,8 @@ def tensor_list(input_list: List[np.ndarray]) -> np.ndarray:
     """
     Perform the tensor product on a list of matrices.
 
-    :param input_list:
-    :return:
+    :param input_list: A list of matrices.
+    :return: The tensor product of all matrices in the list.
     """
     result = None
     if len(input_list) == 1:

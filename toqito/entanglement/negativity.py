@@ -11,7 +11,7 @@ def negativity(rho: np.ndarray, dim: Union[List[int], int] = None) -> float:
     r"""
     Compute the negativity of a bipartite quantum state.
 
-    The negativity of a subsystem can be defined in terms of a denisty matrix
+    The negativity of a subsystem can be defined in terms of a density matrix
     :math: `rho`:
 
     .. math::

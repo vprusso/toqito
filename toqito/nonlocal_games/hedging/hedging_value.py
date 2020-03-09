@@ -12,6 +12,19 @@ class HedgingValue:
 
     Calculate the maximal and minimal winning probabilities for quantum
     hedging to occur in certain two-party scenarios.
+
+    References:
+    [1] Molina, Abel, and John Watrous.
+        "Hedging bets with correlated quantum strategies."
+        Proceedings of the Royal Society A:
+        Mathematical, Physical and Engineering Sciences
+        468.2145 (2012): 2614-2629.
+        https://arxiv.org/abs/1104.1140
+
+    [2] Arunachalam, Srinivasan, Abel Molina, and Vincent Russo.
+        "Quantum hedging in two-round prover-verifier interactions."
+        arXiv preprint arXiv:1310.7954 (2013).
+        https://arxiv.org/pdf/1310.7954.pdf
     """
 
     def __init__(self, q_a: np.ndarray, num_reps: int) -> None:
@@ -92,6 +105,7 @@ class HedgingValue:
             & Y \in \Herm(\X_1 \otimes \ldots \otimes \X_n)
         \end{align*}
         ```
+
         :return: The optimal maximal probability for obtaining outcome "a".
         """
         y_var = cvxpy.Variable((2**self._num_reps,

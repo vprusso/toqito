@@ -24,6 +24,12 @@ def unambiguous_state_exclusion(states: List[np.ndarray],
             \end{align*}
         ```
 
+    References:
+    [1] "Conclusive exclusion of quantum states"
+        Bandyopadhyay, Somshubhro, et al.
+        Physical Review A 89.2 (2014): 022336.
+        arXiv:1306.4683
+
     :param states: A list of density operators (matrices) corresponding to
                    quantum states.
     :param probs: A list of probabilities where `probs[i]` corresponds to the

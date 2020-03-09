@@ -1,10 +1,10 @@
-"""Tests for state_exclusion function."""
+"""Tests for conclusive_state_exclusion function."""
 import unittest
 import numpy as np
 
 from toqito.state.states.bell import bell
-from toqito.state.optimizations.single_state_exclusion import \
-    single_state_exclusion
+from toqito.state.optimizations.conclusive_state_exclusion import \
+    conclusive_state_exclusion
 
 
 class TestStateExclusion(unittest.TestCase):
@@ -15,7 +15,7 @@ class TestStateExclusion(unittest.TestCase):
         rho = bell(0) * bell(0).conj().T
         states = [rho]
 
-        res = single_state_exclusion(states)
+        res = conclusive_state_exclusion(states)
         self.assertEqual(np.isclose(res, 1), True)
 
     def test_state_exclusion_one_state_vec(self):
@@ -23,7 +23,7 @@ class TestStateExclusion(unittest.TestCase):
         rho = bell(0)
         states = [rho]
 
-        res = single_state_exclusion(states)
+        res = conclusive_state_exclusion(states)
         self.assertEqual(np.isclose(res, 1), True)
 
     def test_state_exclusion_three_state(self):
@@ -34,7 +34,7 @@ class TestStateExclusion(unittest.TestCase):
         states = [rho1, rho2, rho3]
         probs = [1/3, 1/3, 1/3]
 
-        res = single_state_exclusion(states, probs)
+        res = conclusive_state_exclusion(states, probs)
         self.assertEqual(np.isclose(res, 0), True)
 
     def test_state_exclusion_three_state_vec(self):
@@ -45,7 +45,7 @@ class TestStateExclusion(unittest.TestCase):
         states = [rho1, rho2, rho3]
         probs = [1/3, 1/3, 1/3]
 
-        res = single_state_exclusion(states, probs)
+        res = conclusive_state_exclusion(states, probs)
         self.assertEqual(np.isclose(res, 0), True)
 
     def test_invalid_state_exclusion_probs(self):
@@ -54,13 +54,13 @@ class TestStateExclusion(unittest.TestCase):
             rho1 = bell(0) * bell(0).conj().T
             rho2 = bell(1) * bell(1).conj().T
             states = [rho1, rho2]
-            single_state_exclusion(states, [1, 2, 3])
+            conclusive_state_exclusion(states, [1, 2, 3])
 
     def test_invalid_state_exclusion_states(self):
         """Invalid number of states."""
         with self.assertRaises(ValueError):
             states = []
-            single_state_exclusion(states)
+            conclusive_state_exclusion(states)
 
 
 if __name__ == '__main__':

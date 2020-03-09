@@ -17,6 +17,10 @@ def is_ppt(mat: np.ndarray,
     have positive partial transpose (within numerical error). The variable
     `mat` is assumed to act on bipartite space.
 
+    References:
+    [1] Quantiki: Positive partial transpose
+        https://www.quantiki.org/wiki/positive-partial-transpose
+
     :param mat: A square matrix.
     :param sys: Scalar or vector indicating which subsystems the transpose
                 should be applied on.

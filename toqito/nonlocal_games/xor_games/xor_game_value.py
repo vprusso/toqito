@@ -14,6 +14,11 @@ def xor_game_value(prob_mat: np.ndarray,
     are allowed to determine a join strategy beforehand, but not allowed to
     communicate during the game itself.
 
+    References:
+    [1] Cleve, Richard, et al.
+        Strong parallel repetition theorem for quantum XOR proof systems,
+        https://arxiv.org/abs/quant-ph/0608146
+
     :param prob_mat: A matrix whose (q_0, q_1)-entry gives the probability that
                      the referee will give Alice the value `q_0` and Bob the
                      value `q_1`.
@@ -36,7 +41,8 @@ def xor_game_value(prob_mat: np.ndarray,
                          " be matrices of the same size.")
     if -np.min(np.min(prob_mat)) > tol:
         raise ValueError("Invalid: The variable `prob_mat` must be a "
-                         "probability matrix: its entries must be non-negative.")
+                         "probability matrix: its entries must be "
+                         "non-negative.")
     if np.abs(np.sum(np.sum(prob_mat)) - 1) > tol:
         raise ValueError("Invalid: The variable `prob_mat` must be a "
                          "probability matrix: its entries must sum to 1.")

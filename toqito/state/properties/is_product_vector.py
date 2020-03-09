@@ -5,13 +5,13 @@ import numpy as np
 from toqito.state.operations.schmidt_decomposition import schmidt_decomposition
 
 
-def is_product_vector(vec: np.ndarray, dim: Union[int, List[int]]):
+def is_product_vector(vec: np.ndarray, dim: Union[int, List[int]]) -> bool:
     """
     Determine if a given vector is a product vector.
 
-    :param vec:
-    :param dim:
-    :return:
+    :param vec: The vector to check.
+    :param dim: The dimension of the vector
+    :return: True if `vec` is a product vector and False otherwise.
     """
     eps = np.finfo(float).eps
 
