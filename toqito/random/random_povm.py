@@ -22,9 +22,7 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int) -> np.ndarray:
 
         output_povms = []
         for output_block in input_block:
-            partial = np.array(output_block,
-                               dtype=complex).dot(u_mat).dot(
-                np.diag(d_mat**(-1/2.)))
+            partial = np.array(output_block, dtype=complex).dot(u_mat).dot(np.diag(d_mat**(-1/2.)))
             internal = partial.dot(np.diag(np.ones(dim))**(1/2.))
             output_povms.append(np.matmul(internal.T.conj(), internal))
         povms.append(output_povms)
