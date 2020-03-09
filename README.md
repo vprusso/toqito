@@ -59,14 +59,14 @@ Calculate various quantities of interest pertaining to entanglement.
 
 #### Matrices
 
-- [Clock matrix](https://github.com/vprusso/toqito/blob/master/jupyter_notebooks/matrix/matrices/clock_matrix.ipynb)
+- [Clock matrix](https://github.com/vprusso/toqito/blob/master/docs/tutorials/matrix/matrices/clock_matrix.ipynb)
 - Fourier matrix
 - Gell-Mann matrix
 - Generalized Gell-Mann matrices
 - Generalized Pauli matrices
 - Identity matrix
 - Pauli matrices
-- [Shift matrix](https://github.com/vprusso/toqito/blob/master/jupyter_notebooks/matrix/matrices/shift_matrix.ipynb)
+- [Shift matrix](https://github.com/vprusso/toqito/blob/master/docs/tutorials/matrix/matrices/shift_matrix.ipynb)
 
 #### Operations
 
@@ -161,7 +161,7 @@ Calculate various quantities of interest pertaining to entanglement.
 - Is mixed
 - Is PPT
 - Is product vector
-- [Is pure](https://github.com/vprusso/toqito/blob/master/jupyter_notebooks/state/properties/is_pure.ipynb)
+- [Is pure](https://github.com/vprusso/toqito/blob/master/docs/tutorials/state/properties/is_pure.ipynb)
 
 
 #### States
