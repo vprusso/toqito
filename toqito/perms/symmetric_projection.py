@@ -7,7 +7,8 @@ from toqito.perms.permutation_operator import permutation_operator
 
 def symmetric_projection(dim: int,
                          p_val: int = 2,
-                         partial: bool = False) -> np.ndarray:
+                         partial: bool = False) -> [np.ndarray,
+                                                    sparse.lil_matrix]:
     """
     Produce the projection onto the symmetric subspace.
 
@@ -33,7 +34,10 @@ def symmetric_projection(dim: int,
     sym_proj = sparse.lil_matrix((dimp, dimp))
 
     for j in range(p_fac):
-        sym_proj += permutation_operator(dim*np.ones(p_val), p_list[j, :], False, True)
+        sym_proj += permutation_operator(dim*np.ones(p_val),
+                                         p_list[j, :],
+                                         False,
+                                         True)
     sym_proj = sym_proj/p_fac
 
     if partial:
