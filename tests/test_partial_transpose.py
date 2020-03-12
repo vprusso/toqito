@@ -103,6 +103,7 @@ class TestPartialTranspose(unittest.TestCase):
         self.assertEqual(np.allclose(res[:, 0], first_expected_col), True)
 
     def test_bell_state_pt(self):
+        """Test partial transpose on a Bell state."""
         rho = bell(2) * bell(2).conj().T
         expected_res = np.array([[0, 0, 0, 1/2],
                                  [0, 1/2, 0, 0],
