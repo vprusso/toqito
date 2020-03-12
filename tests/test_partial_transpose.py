@@ -2,6 +2,7 @@
 import unittest
 import numpy as np
 
+from toqito.state.states.bell import bell
 from toqito.super_operators.partial_transpose import partial_transpose
 
 
@@ -100,6 +101,15 @@ class TestPartialTranspose(unittest.TestCase):
 
         self.assertEqual(np.allclose(res[0, :], first_expected_row), True)
         self.assertEqual(np.allclose(res[:, 0], first_expected_col), True)
+
+    def test_bell_state_pt(self):
+        rho = bell(2) * bell(2).conj().T
+        expected_res = np.array([[0, 0, 0, 1/2],
+                                 [0, 1/2, 0, 0],
+                                 [0, 0, 1/2, 0],
+                                 [1/2, 0, 0, 0]])
+        res = partial_transpose(rho)
+        self.assertEqual(np.allclose(res, expected_res), True)
 
     def test_non_square_matrix(self):
         """Matrix must be square."""

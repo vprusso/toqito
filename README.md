@@ -203,8 +203,7 @@ Calculate various quantities of interest pertaining to entanglement.
 The `nose` module is used for testing. To run the suite of tests for `toqito`,
 run the following command in the root directory of this project.
 
-    nosetests --with-coverage --cover-erase --cover-package .
-
+    nosetests --with-coverage --cover-erase --cover-package toqito
 
 ## License
 

@@ -31,8 +31,11 @@ def is_ppt(mat: np.ndarray,
     """
     eps = np.finfo(float).eps
 
+    sqrt_rho_dims = np.round(np.sqrt(list(mat.shape)))
+
     if dim is None:
-        dim = np.round(np.sqrt(mat.size))
+        dim = np.array([[sqrt_rho_dims[0], sqrt_rho_dims[0]],
+                        [sqrt_rho_dims[1], sqrt_rho_dims[1]]])
     if tol is None:
         tol = np.sqrt(eps)
     return is_psd(partial_transpose(mat, sys, dim), tol)

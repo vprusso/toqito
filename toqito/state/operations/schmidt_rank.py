@@ -4,9 +4,9 @@ import numpy as np
 
 from toqito.super_operators.partial_trace import partial_trace
 
+
 def schmidt_rank(vec: np.ndarray,
-                 dim: Union[int, List[int], np.ndarray] = None,
-                 tol: float = None) -> float:
+                 dim: Union[int, List[int], np.ndarray] = None) -> float:
     r"""
     Compute the Schmidt rank.
 
@@ -51,8 +51,6 @@ def schmidt_rank(vec: np.ndarray,
 
     if dim is None:
         dim = slv
-    if tol is None:
-        tol = eps
 
     if isinstance(dim, int):
         dim = np.array([dim, len(vec)/dim])
