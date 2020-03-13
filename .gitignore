@@ -1,8 +1,6 @@
 *.DS_Store
 *.idea
-test.py
-scratch.py
-irreducible/*
+main.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

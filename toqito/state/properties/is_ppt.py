@@ -17,6 +17,11 @@ def is_ppt(mat: np.ndarray,
     have positive partial transpose (within numerical error). The variable
     `mat` is assumed to act on bipartite space.
 
+    For shared systems of 2 ⊗ 2 or 2 ⊗ 3, the PPT criterion serves as a method
+    to determine whether a given state is entangled or separable. Therefore, for
+    systems of this size, the return value "True" would indicate that the state
+    is separable and a value of "False" would indicate the state is entangled.
+
     References:
     [1] Quantiki: Positive partial transpose
         https://www.quantiki.org/wiki/positive-partial-transpose
