@@ -7,8 +7,8 @@ from toqito.state.optimizations.conclusive_state_exclusion import \
     conclusive_state_exclusion
 
 
-class TestStateExclusion(unittest.TestCase):
-    """Unit test for state_exclusion."""
+class TestConclusiveStateExclusion(unittest.TestCase):
+    """Unit test for conclusive_state_exclusion."""
 
     def test_state_exclusion_one_state(self):
         """State exclusion for single state."""
