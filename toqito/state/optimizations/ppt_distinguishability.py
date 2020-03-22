@@ -12,7 +12,7 @@ def ppt_distinguishability(states: List[np.ndarray],
     Compute probability of distinguishing a state via PPT measurements.
 
     Implements the semidefinie program (SDP) whose optimal value is equal to
-    the maximum probablity of perfectly distinguishing orthogonal maximally
+    the maximum probability of perfectly distinguishing orthogonal maximally
     entangled states using any PPT measurement; a measurement whose operators
     are positive under partial transpose. This SDP was explicitly provided in
     [1].
@@ -54,10 +54,14 @@ def ppt_distinguishability(states: List[np.ndarray],
     y_var = cvxpy.Variable((dim_x, dim_x), hermitian=True)
     objective = 1/len(states) * cvxpy.Minimize(cvxpy.trace(cvxpy.real(y_var)))
 
+    dim = int(np.log2(dim_x))
+    dim_list = [2] * int(np.log2(dim_x))
+    sys_list = list(range(1, dim, 2))
+
     for i, _ in enumerate(states):
         constraints.append(cvxpy.real(y_var) >> partial_transpose(states[i],
-                                                                  sys=1,
-                                                                  dim=[2]*len(states)))
+                                                                  sys=sys_list,
+                                                                  dim=dim_list))
 
     problem = cvxpy.Problem(objective, constraints)
     sol_default = problem.solve()

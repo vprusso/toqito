@@ -1,27 +1,7 @@
 """Computes the partial transpose of a matrix."""
 from typing import List, Union
 import numpy as np
-from toqito.helper.cvxpy_helper import expr_as_np_array, np_array_as_expr
 from toqito.perms.permute_systems import permute_systems
-
-
-def partial_transpose_cvx(rho, sys=None, dim=None):
-    """
-    Perform the partial transpose on a cvxpy variable.
-
-    References:
-    [1] Adapted from:
-        https://github.com/cvxgrp/cvxpy/issues/563
-
-    :param rho:
-    :param sys:
-    :param dim:
-    :return:
-    """
-    rho_np = expr_as_np_array(rho)
-    pt_rho = partial_transpose(rho_np, sys, dim)
-    pt_rho = np_array_as_expr(pt_rho)
-    return pt_rho
 
 
 def partial_transpose(rho: np.ndarray,
