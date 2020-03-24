@@ -1,12 +1,12 @@
-"""Tests for horodeck_state function."""
+"""Tests for horodecki function."""
 import unittest
 import numpy as np
 
-from toqito.state.states.horodecki_state import horodecki_state
+from toqito.state.states.horodecki import horodecki
 
 
-class TestHorodeckiState(unittest.TestCase):
-    """Unit test for horodecki_state."""
+class TestHorodecki(unittest.TestCase):
+    """Unit test for horodecki."""
 
     def test_horodecki_state_3_3_default(self):
         """The 3-by-3 Horodecki state (no dimensions specified on input)."""
@@ -21,7 +21,7 @@ class TestHorodeckiState(unittest.TestCase):
              [0, 0, 0, 0, 0, 0, 0, 0.1000, 0],
              [0.1000, 0, 0, 0, 0.1000, 0, 0.0866, 0, 0.1500]])
 
-        res = horodecki_state(0.5)
+        res = horodecki(0.5)
         bool_mat = np.isclose(expected_res, res, atol=0.0001)
         self.assertEqual(np.all(bool_mat), True)
 
@@ -38,7 +38,7 @@ class TestHorodeckiState(unittest.TestCase):
              [0, 0, 0, 0, 0, 0, 0, 0.1000, 0],
              [0.1000, 0, 0, 0, 0.1000, 0, 0.0866, 0, 0.1500]])
 
-        res = horodecki_state(0.5, [3, 3])
+        res = horodecki(0.5, [3, 3])
         bool_mat = np.isclose(expected_res, res, atol=0.0001)
         self.assertEqual(np.all(bool_mat), True)
 
@@ -54,21 +54,21 @@ class TestHorodeckiState(unittest.TestCase):
              [0, 0.1111, 0, 0, 0, 0, 0.1111, 0],
              [0, 0, 0.1111, 0, 0, 0.0962, 0, 0.1667]])
 
-        res = horodecki_state(0.5, [2, 4])
+        res = horodecki(0.5, [2, 4])
         bool_mat = np.isclose(expected_res, res, atol=0.2)
         self.assertEqual(np.all(bool_mat), True)
 
     def test_invalid_a_param(self):
         """Tests for invalid a_param inputs."""
         with self.assertRaises(ValueError):
-            horodecki_state(-5)
+            horodecki(-5)
         with self.assertRaises(ValueError):
-            horodecki_state(5)
+            horodecki(5)
 
     def test_invalid_dim(self):
         """Tests for invalid dimension inputs."""
         with self.assertRaises(ValueError):
-            horodecki_state(0.5, [3, 4])
+            horodecki(0.5, [3, 4])
 
 
 if __name__ == '__main__':

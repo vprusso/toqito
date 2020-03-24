@@ -4,7 +4,7 @@ from scipy.sparse import identity
 from toqito.state.states.max_entangled import max_entangled
 
 
-def isotropic_state(dim: int, alpha: float) -> np.ndarray:
+def isotropic(dim: int, alpha: float) -> np.ndarray:
     """
     Produce a Isotropic state.
 

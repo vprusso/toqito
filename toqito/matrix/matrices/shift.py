@@ -2,7 +2,7 @@
 import numpy as np
 
 
-def shift_matrix(dim: int) -> np.ndarray:
+def shift(dim: int) -> np.ndarray:
     r"""
     Produce a `dim`-by-`dim` shift matrix.
 

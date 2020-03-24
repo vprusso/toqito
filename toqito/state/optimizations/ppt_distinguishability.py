@@ -6,12 +6,28 @@ import numpy as np
 from toqito.super_operators.partial_transpose import partial_transpose
 
 
+def _partial_transpose_dense(rho, mask):
+    """
+    Based on Jonas' implementation using numpy.
+    Very fast for dense problems.
+    """
+    nsys = len(mask)
+    pt_dims = np.arange(2 * nsys).reshape(2, nsys).T
+    pt_idx = np.concatenate([[pt_dims[n, mask[n]] for n in range(nsys)],
+                            [pt_dims[n, 1 - mask[n]] for n in range(nsys)]])
+
+    dim = [2] * len(mask) * 2
+    data = rho.reshape(np.array(dim).flatten()).transpose(pt_idx).reshape(rho.shape)
+
+    return data
+
+
 def ppt_distinguishability(states: List[np.ndarray],
                            probs: List[float] = None) -> float:
     r"""
     Compute probability of distinguishing a state via PPT measurements.
 
-    Implements the semidefinie program (SDP) whose optimal value is equal to
+    Implements the semidefinite program (SDP) whose optimal value is equal to
     the maximum probability of perfectly distinguishing orthogonal maximally
     entangled states using any PPT measurement; a measurement whose operators
     are positive under partial transpose. This SDP was explicitly provided in

@@ -57,53 +57,53 @@ presently offered in `toqito` and will be periodically updated as time allows.
 
 Calculate various quantities of interest pertaining to entanglement.
 
-  - Concurrence: Computes the concurrence for a bipartite system.
-  - Negativity: Computes the negativity of a bipartite density matrix.
+  - concurrence: Computes the concurrence for a bipartite system.
+  - negativity: Computes the negativity of a bipartite density matrix.
 
 ### Matrix
 
 #### Matrices
 
-  - [Clock matrix](https://github.com/vprusso/toqito/blob/master/docs/tutorials/matrix/matrices/clock_matrix.ipynb): Generates the clock matrix.
-  - Fourier matrix: Generate unitary matrix that implements the quantum Fourier transform.
-  - Gell-Mann matrix: Produces a Gell-Mann operator.
-  - Generalized Gell-Mann matrices: Produces a generalized Gell-Mann operator.
-  - Generalized Pauli matrices: Produces a generalized Pauli operator (sometimes called a Weyl operator).
-  - Identity matrix: Computes a sparse or full identity matrix.
-  - Pauli matrices: Produces a Pauli operator.
-  - [Shift matrix](https://github.com/vprusso/toqito/blob/master/docs/tutorials/matrix/matrices/shift_matrix.ipynb): Generates the shift matrix.
+  - [clock](https://github.com/vprusso/toqito/blob/master/docs/tutorials/matrix/matrices/clock.ipynb): Generates the clock matrix.
+  - [fourier](https://github.com/vprusso/toqito/blob/master/docs/tutorials/matrix/matrices/fourier.ipynb): Generate unitary matrix that implements the quantum Fourier transform.
+  - [gell_mann](https://github.com/vprusso/toqito/blob/master/docs/tutorials/matrix/matrices/gell_mann.ipynb): Produces a Gell-Mann operator.
+  - gen_gell_man: Produces a generalized Gell-Mann operator.
+  - gen_pauli: Produces a generalized Pauli operator (sometimes called a Weyl operator).
+  - iden: Computes a sparse or full identity matrix.
+  - pauli: Produces a Pauli operator.
+  - [shift](https://github.com/vprusso/toqito/blob/master/docs/tutorials/matrix/matrices/shift.ipynb): Generates the shift matrix.
 
 #### Operations
 
-  - Tensor product: Kronecker tensor product of two or more matrices.
-  - Vec: Computes the vec representation of a given matrix.
+  - tensor: Kronecker tensor product of two or more matrices.
+  - vec: Computes the vec representation of a given matrix.
 
 #### Properties
 
-  - Density matrix: Determines whether or not a matrix is a density matrix.
-  - Diagonal matrix: Determines whether or not a matrix is diagonal.
-  - Hermitian matrix: Determines whether or not a matrix is Hermitian.
-  - Normal matrix: Determines whether or not a matrix is normal.
-  - Positive-definite matrix: Determines whether or not a matrix is positive definite.
-  - Projection matrix: Determines whether or not a matrix is a projection matrix.
-  - Positive-semidefinite matrix: Determines whether or not a matrix is positive semidefinite.
-  - Square matrix: Determines whether or not a matrix is square.
-  - Symmetric matrix: Determines whether or not a matrix is symmetric.
-  - Unitary matrix: Determines whether or not a matrix is unitary.
+  - is_density: Determines whether or not a matrix is a density matrix.
+  - is_diagonal: Determines whether or not a matrix is diagonal.
+  - is_hermitian: Determines whether or not a matrix is Hermitian.
+  - is_normal: Determines whether or not a matrix is normal.
+  - is_pd: Determines whether or not a matrix is positive definite.
+  - is_projection: Determines whether or not a matrix is a projection matrix.
+  - is_psd: Determines whether or not a matrix is positive semidefinite.
+  - is_square: Determines whether or not a matrix is square.
+  - is_symmetric: Determines whether or not a matrix is symmetric.
+  - is_unitary: Determines whether or not a matrix is unitary.
 
 ### Measure
 
-  - Is measurement: Determines if a set of matrices are valid measurements operators.
+  - is_measurement: Determines if a set of matrices are valid measurements operators.
 
 ### Nonlocal games
 
-  - Two-player quantum value lower bound: Computes a lower bound on the quantum value of a nonlocal game.
+  - two_player_quantum_lower_bound: Computes a lower bound on the quantum value of a nonlocal game.
 
 #### Bit commitment
 
 #### Coin flipping
 
-  - Weak coin flipping: Weak coin flipping protocol.
+  - weak_coin_flipping: Weak coin flipping protocol.
 
 #### Die rolling
 
@@ -111,92 +111,93 @@ Calculate various quantities of interest pertaining to entanglement.
 
 #### Hedging
 
-  - Hedging value: Semidefinite programs for obtaining values of quantum hedging scenarios.
+  - hedging_value: Semidefinite programs for obtaining values of quantum hedging scenarios.
 
 #### XOR games
 
-  - XOR game value: Compute the classical or quantum value of a two-player nonlocal XOR game.
+  - xor_game_value: Compute the classical or quantum value of a two-player nonlocal XOR game.
 
 ### Permutations
 
-  - Antisymmetric projection: Produces the projection onto the antisymmetric subspace.
-  - Perfect matchings: Gives all perfect matchings of N objects.
-  - Perm sign: Computes the sign of a permutation.
-  - Permutation operator: Produces a unitary operator that permutes subsystems.
-  - Permute systems: Permutes subsystems within a state or operator.
-  - Swap: Swaps two subsystems within a state or operator.
-  - Swap operator: Produces a unitary operator that swaps two subsystems.
-  - Symmetric projection: Produces the projection onto the symmetric subspace.
-  - Unique perms: Compute all distinct permutations of a given vector.
+  - antisymmetric_projection: Produces the projection onto the antisymmetric subspace.
+  - perfect_matchings: Gives all perfect matchings of N objects.
+  - perm_sign: Computes the sign of a permutation.
+  - permutation_operator: Produces a unitary operator that permutes subsystems.
+  - permute_systems: Permutes subsystems within a state or operator.
+  - swap: Swaps two subsystems within a state or operator.
+  - swap_operator: Produces a unitary operator that swaps two subsystems.
+  - symmetric_projection: Produces the projection onto the symmetric subspace.
+  - unique_perms: Compute all distinct permutations of a given vector.
 
 ### Random
 
-  - Random density matrix: Generates a random density matrix.
-  - Random POVM: Generate a random set of positive-operator-valued measurements (POVMs).
-  - Random state vector: Generates a random pure state vector.
-  - Random unitary: Generates a random unitary or orthogonal matrix.
+  - random_density_matrix: Generates a random density matrix.
+  - random_povm: Generate a random set of positive-operator-valued measurements (POVMs).
+  - random_state_vector: Generates a random pure state vector.
+  - random_unitary: Generates a random unitary or orthogonal matrix.
 
 ### State
 
 #### Distance
 
-  - Bures distance: Computes the Bures distance of two density matrices.
-  - Bures metric: Computes the Bures metric between two density matrices.
-  - Entropy: Computes the von Neumann or Rényi entropy of a density matrix.
-  - Fidelity: Computes the fidelity of two density matrices.
-  - Purity: Computes the purity of a quantum state.
-  - Super fidelity: Computes the super-fidelity of two density matrices.
-  - Trace distance: Computes the trace distance of two matrices.
-  - Trace norm: Computes the trace norm of a matrix.
+  - bures_distance: Computes the Bures distance of two density matrices.
+  - bures_metric: Computes the Bures metric between two density matrices.
+  - entropy: Computes the von Neumann or Rényi entropy of a density matrix.
+  - fidelity: Computes the fidelity of two density matrices.
+  - purity: Computes the purity of a quantum state.
+  - super_fidelity: Computes the super-fidelity of two density matrices.
+  - trace_distance: Computes the trace distance of two matrices.
+  - trace_norm: Computes the trace norm of a matrix.
 
 #### Operations
 
-  - Pure-to-mixed: Converts a state vector or density matrix to a density matrix.
-  - Schmidt decomposition: Computes the Schmidt decomposition of a bipartite vector.
-  - Schmidt rank: Computes the Schmidt rank of a bipartite vector.
+  - pure_to_mixed: Converts a state vector or density matrix to a density matrix.
+  - schmidt_decomposition: Computes the Schmidt decomposition of a bipartite vector.
+  - schmidt_rank: Computes the Schmidt rank of a bipartite vector.
 
 #### Optimizations
-  - Conclusive state exclusion: Calculates probability of conclusive single state exclusion.
-  - State cloning: Calculate the optimal probability of cloning a quantum state.
-  - State discrimination: Calculates probability of state discrimination.
-  - State distance: Distinguish a set of quantum states.
-  - Unambiguous state exclusion: Calculates probability of unambiguous state exclusion.
+  - conclusive_state_exclusion: Calculates probability of conclusive single state exclusion.
+  - ppt_distinguishability: Calculates probability of distinguishing via PPT measurements.
+  - state_cloning: Calculate the optimal probability of cloning a quantum state.
+  - state_discrimination: Calculates probability of state discrimination.
+  - state_distance: Distinguish a set of quantum states.
+  - unambiguous_state_exclusion: Calculates probability of unambiguous state exclusion.
   
 #### Properties
 
-  - Is mixed: Determines if state is mixed.
-  - Is mutually unbiased basis: Check if list of vectors constitute a mutually unbiased basis.
-  - Is PPT: Determines whether or not a matrix has positive partial transpose.
-  - Is product vector: Determines if a pure state is a product vector.
-  - [Is pure](https://github.com/vprusso/toqito/blob/master/docs/tutorials/state/properties/is_pure.ipynb): Determines if a state is pure or a list of states are pure.
-  - Is quantum Latin square: Check if list of vectors constitute a quantum Latin square.
+  - is_mixed: Determines if state is mixed.
+  - is_mutually_unbiased_basis: Check if list of vectors constitute a mutually unbiased basis.
+  - is_ppt: Determines whether or not a matrix has positive partial transpose.
+  - is_product_vector: Determines if a pure state is a product vector.
+  - [is_pure](https://github.com/vprusso/toqito/blob/master/docs/tutorials/state/properties/is_pure.ipynb): Determines if a state is pure or a list of states are pure.
+  - is_quantum_latin_square: Check if list of vectors constitute a quantum Latin square.
 
 
 #### States
 
-  - Bell states: Produces a Bell state.
-  - Chessboard state: Produces a chessboard state.
-  - Domino states: Produces a Domino state.
-  - Generalized Bell states: Produces a generalized Bell state.
-  - GHZ states: Generates a (generalized) GHZ state.
-  - Gisin states: Generates a 2-qubit Gisin state.
-  - Horodecki states: Produces a Horodecki_state.
-  - Isotropic states: Produces an isotropic state.
-  - Maximally entangled states: Produces a maximally entangled bipartite pure state.
-  - Maximally mixed states: Produces the maximally mixed state.
-  - W-state: Generates a (generalized) W-state.
-  - Werner state: Produces a Werner state.
+  - bell: Produces a Bell state.
+  - chessboard: Produces a chessboard state.
+  - domino: Produces a Domino state.
+  - gen_bell: Produces a generalized Bell state.
+  - ghz: Generates a (generalized) GHZ state.
+  - gisin: Generates a 2-qubit Gisin state.
+  - horodecki: Produces a Horodecki_state.
+  - isotropic: Produces an isotropic state.
+  - max_entangled: Produces a maximally entangled bipartite pure state.
+  - max_mixed: Produces the maximally mixed state.
+  - w_state: Generates a (generalized) W-state.
+  - werner: Produces a Werner state.
 
 ### Super operators
 
-  - Apply map: Applies a superoperator to an operator.
-  - Choi map: Produces the Choi map or one of its generalizations.
-  - Dephasing channel: Produces a dephasing channel.
-  - Depolarizing channel: Produces a depolarizng channel.
-  - Partial trace: Computes the partial trace of a matrix.
-  - Partial transpose: Computes the partial transpose of a matrix.
-  - Realignment: Computes the realignment of a bipartite operator.
-  - Reduction map: Produces the reduction map.
+  - apply_map: Applies a superoperator to an operator.
+  - choi_map: Produces the Choi map or one of its generalizations.
+  - dephasing_channel: Produces a dephasing channel.
+  - depolarizing_channel: Produces a depolarizng channel.
+  - partial_trace: Computes the partial trace of a matrix.
+  - partial_transpose: Computes the partial transpose of a matrix.
+  - realignment: Computes the realignment of a bipartite operator.
+  - reduction_map: Produces the reduction map.
  
 ## Testing
 

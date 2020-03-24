@@ -2,8 +2,8 @@
 import numpy as np
 
 from numpy.linalg import matrix_power
-from toqito.matrix.matrices.clock_matrix import clock_matrix
-from toqito.matrix.matrices.shift_matrix import shift_matrix
+from toqito.matrix.matrices.clock import clock
+from toqito.matrix.matrices.shift import shift
 
 
 def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
@@ -25,8 +25,8 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
     :param dim: (a positive integer indicating the dimension).
     :return: A generalized Pauli operator.
     """
-    gen_pauli_x = shift_matrix(dim)
-    gen_pauli_z = clock_matrix(dim)
+    gen_pauli_x = shift(dim)
+    gen_pauli_z = clock(dim)
 
     gen_pauli_w = np.matmul(
         matrix_power(gen_pauli_x, k_1), matrix_power(gen_pauli_z, k_2)

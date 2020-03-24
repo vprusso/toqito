@@ -71,8 +71,7 @@ def partial_transpose(rho: np.ndarray,
     sub_sys_vec_c = prod_dim_c * np.ones(int(sub_prod_c)) / sub_prod_c
 
     set_diff = list(set(list(range(1, num_sys+1))) - set(sys))
-
-    perm = sys.tolist()
+    perm = sys.tolist()[:]
     perm.extend(set_diff)
 
     # Permute the subsystems so that we just have to do the partial transpose
@@ -86,9 +85,9 @@ def partial_transpose(rho: np.ndarray,
     y_tmp = np.transpose(x_tmp, [0, 3, 2, 1])
     z_tmp = np.reshape(y_tmp, [int(prod_dim_r), int(prod_dim_c)], order="F")
 
-    # Return the subsystems back to their original positions.
-    if len(sys) > 1:
-        dim[:, sys-1] = dim[[1, 0], sys-1]
+    # # Return the subsystems back to their original positions.
+    # if len(sys) > 1:
+    #     dim[:, sys-1] = dim[[1, 0], sys-1]
 
     dim = dim[:, np.array(perm)-1]
 

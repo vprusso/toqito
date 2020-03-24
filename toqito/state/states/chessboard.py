@@ -3,9 +3,9 @@ from typing import List
 import numpy as np
 
 
-def chessboard_state(mat_params: List[float],
-                     s_param: float = None,
-                     t_param: float = None) -> np.ndarray:
+def chessboard(mat_params: List[float],
+               s_param: float = None,
+               t_param: float = None) -> np.ndarray:
     """
     Produce a chessboard state.
 

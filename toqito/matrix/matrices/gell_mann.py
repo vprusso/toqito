@@ -4,12 +4,63 @@ from scipy.sparse import csr_matrix
 
 
 def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray:
-    """
+    r"""
     Produce a Gell-Mann operator.
 
     Generates the 3-by-3 Gell-Mann matrix indicated by the value of `ind`.
     `ind = 0` gives the identity matrix, while values 1 through 8 each indicate
     one of the other 8 Gell-Mann matrices.
+
+    The 9 Gell-Mann matrices are defined as follows:
+
+    ..math::
+    `
+    \lambda_0 = \begin{pmatrix}
+                    1 & 0 & 0 \\
+                    0 & 1 & 0 \\
+                    0 & 0 & 1
+                \end{pmatrix}
+    \lambda_1 = \begin{pmatrix}
+                    0 & 1 & 0 \\
+                    1 & 0 & 0 \\
+                    0 & 0 & 0
+                \end{pmatrix}
+    \lambda_2 = \begin{pmatrix}
+                    0 & -i & 0 \\
+                    i & 0 & 0 \\
+                    0 & 0 & 0
+                \end{pmatrix}
+    \lambda_3 = \begin{pmatrix}
+                    1 & 0 & 0 \\
+                    0 & -1 & 0 \\
+                    0 & 0 & 0
+                \end{pmatrix}
+    \lambda_4 = \begin{pmatrix}
+                    0 & 0 & 1 \\
+                    0 & 0 & 0 \\
+                    1 & 0 & 0
+                \end{pmatrix}
+    \lambda_5 = \begin{pmatrix}
+                    0 & 0 & -i \\
+                    0 & 0 & 0 \\
+                    i & 0 & 0
+                \end{pmatrix}
+    \lambda_6 = \begin{pmatrix}
+                    0 & 0 & 0 \\
+                    0 & 0 & 1 \\
+                    0 & 1 & 0
+                \end{pmatrix}
+    \lambda_7 = \begin{pmatrix}
+                    0 & 0 & 0 \\
+                    0 & 0 & -i \\
+                    0 & i & 0
+                \end{pmatrix}
+    \lambda_8 = \frac{1}{\sqrt{3}} \begin{pmatrix}
+                                        1 & 0 & 0 \\
+                                        0 & 1 & 0 \\
+                                        0 & 0 & -2
+                                    \end{pmatrix}
+    `
 
     References:
     [1] Wikipedia: Gell-Mann matrices,

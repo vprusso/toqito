@@ -7,14 +7,14 @@ import scipy as sp
 from scipy.sparse import lil_matrix
 
 
-def ghz_state(dim: int,
-              num_qubits: int,
-              coeff: List[int] = None) -> sp.sparse:
+def ghz(dim: int,
+        num_qubits: int,
+        coeff: List[int] = None) -> sp.sparse:
     """
     Generate a (generalized) GHZ state.
 
     Returns a `num_qubits`-partite GHZ state acting on `dim` local dimensions,
-    described in [1]. For example, `ghz_state(2, 3)` returns the standard
+    described in [1]. For example, `ghz(2, 3)` returns the standard
     3-qubit GHZ state on qubits. The output of this function is sparse.
 
     For a system of `num_qubits` qubits (i.e., `dim = 2`), the GHZ state can be

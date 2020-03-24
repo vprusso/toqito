@@ -1,14 +1,14 @@
-"""Tests for ghz_state function."""
+"""Tests for ghz function."""
 import unittest
 import numpy as np
 
 from toqito.base.ket import ket
-from toqito.state.states.ghz_state import ghz_state
+from toqito.state.states.ghz import ghz
 from toqito.matrix.operations.tensor import tensor_list
 
 
-class TestGHZState(unittest.TestCase):
-    """Unit test for ghz_state."""
+class TestGHZ(unittest.TestCase):
+    """Unit test for ghz."""
 
     def test_ghz_2_3(self):
         """Produces the 3-qubit GHZ state: 1/sqrt(2) * (|000> + |111>)."""
@@ -16,7 +16,7 @@ class TestGHZState(unittest.TestCase):
         expected_res = 1/np.sqrt(2) * (tensor_list([e_0, e_0, e_0]) +
                                        tensor_list([e_1, e_1, e_1]))
 
-        res = ghz_state(2, 3).toarray()
+        res = ghz(2, 3).toarray()
 
         bool_mat = np.isclose(res, expected_res)
         self.assertEqual(np.all(bool_mat), True)
@@ -38,7 +38,7 @@ class TestGHZState(unittest.TestCase):
             3 * tensor_list([e2_4, e2_4, e2_4, e2_4, e2_4, e2_4, e2_4]) +
             4 * tensor_list([e3_4, e3_4, e3_4, e3_4, e3_4, e3_4, e3_4]))
 
-        res = ghz_state(4, 7, [1, 2, 3, 4]/np.sqrt(30)).toarray()
+        res = ghz(4, 7, [1, 2, 3, 4]/np.sqrt(30)).toarray()
 
         bool_mat = np.isclose(res, expected_res)
         self.assertEqual(np.all(bool_mat), True)
@@ -46,17 +46,17 @@ class TestGHZState(unittest.TestCase):
     def test_invalid_dim(self):
         """Tests for invalid dimensions."""
         with self.assertRaises(ValueError):
-            ghz_state(1, 2)
+            ghz(1, 2)
 
     def test_invalid_qubits(self):
         """Tests for invalid number of qubits."""
         with self.assertRaises(ValueError):
-            ghz_state(2, 1)
+            ghz(2, 1)
 
     def test_invalid_coeff(self):
         """Tests for invalid coefficients."""
         with self.assertRaises(ValueError):
-            ghz_state(2, 3, [1, 2, 3, 4, 5])
+            ghz(2, 3, [1, 2, 3, 4, 5])
 
 
 if __name__ == '__main__':

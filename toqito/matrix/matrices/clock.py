@@ -3,7 +3,7 @@ from cmath import exp, pi
 import numpy as np
 
 
-def clock_matrix(dim: int) -> np.ndarray:
+def clock(dim: int) -> np.ndarray:
     r"""
     Produce clock matrix.
 

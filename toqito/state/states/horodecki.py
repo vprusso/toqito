@@ -3,8 +3,8 @@ from typing import List
 import numpy as np
 
 
-def horodecki_state(a_param: float,
-                    dim: List[int] = None) -> np.ndarray:
+def horodecki(a_param: float,
+              dim: List[int] = None) -> np.ndarray:
     """
     Produce a Horodecki state.
 

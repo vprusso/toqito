@@ -2,7 +2,7 @@
 import numpy as np
 
 
-def gisin_state(lambda_var: float, theta: float) -> np.ndarray:
+def gisin(lambda_var: float, theta: float) -> np.ndarray:
     """
     Produce a Gisin state.
 

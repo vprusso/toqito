@@ -8,7 +8,7 @@ from toqito.perms.permutation_operator import permutation_operator
 from toqito.perms.swap_operator import swap_operator
 
 
-def werner_state(dim: int, alpha: Union[float, List[float]]) -> np.ndarray:
+def werner(dim: int, alpha: Union[float, List[float]]) -> np.ndarray:
     """
     Produce a Werner state.
 
