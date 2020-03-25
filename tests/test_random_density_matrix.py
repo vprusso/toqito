@@ -34,5 +34,5 @@ class TestRandomDensity(unittest.TestCase):
         self.assertEqual(is_density(mat), True)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

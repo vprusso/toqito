@@ -3,8 +3,7 @@ from typing import List, Union
 import numpy as np
 
 
-def random_unitary(dim: Union[List[int], int],
-                   is_real: bool = False) -> np.ndarray:
+def random_unitary(dim: Union[List[int], int], is_real: bool = False) -> np.ndarray:
     """
     Generate a random unitary or orthogonal matrix.
 

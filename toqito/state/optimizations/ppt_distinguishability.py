@@ -6,8 +6,9 @@ import numpy as np
 from toqito.super_operators.partial_transpose import partial_transpose
 
 
-def ppt_distinguishability(states: List[np.ndarray],
-                           probs: List[float] = None) -> float:
+def ppt_distinguishability(
+    states: List[np.ndarray], probs: List[float] = None
+) -> float:
     r"""
     Compute probability of distinguishing a state via PPT measurements.
 
@@ -33,12 +34,11 @@ def ppt_distinguishability(states: List[np.ndarray],
     """
     # Assume that at least one state is provided.
     if states is None or states == []:
-        raise ValueError("InvalidStates: There must be at least one state "
-                         "provided.")
+        raise ValueError("InvalidStates: There must be at least one state " "provided.")
 
     # Assume uniform probability if no specific distribution is given.
     if probs is None:
-        probs = [1/len(states)] * len(states)
+        probs = [1 / len(states)] * len(states)
     if not np.isclose(sum(probs), 1):
         raise ValueError("Invalid: Probabilities must sum to 1.")
 
@@ -52,16 +52,17 @@ def ppt_distinguishability(states: List[np.ndarray],
 
     constraints = []
     y_var = cvxpy.Variable((dim_x, dim_x), hermitian=True)
-    objective = 1/len(states) * cvxpy.Minimize(cvxpy.trace(cvxpy.real(y_var)))
+    objective = 1 / len(states) * cvxpy.Minimize(cvxpy.trace(cvxpy.real(y_var)))
 
     dim = int(np.log2(dim_x))
     dim_list = [2] * int(np.log2(dim_x))
     sys_list = list(range(1, dim, 2))
 
     for i, _ in enumerate(states):
-        constraints.append(cvxpy.real(y_var) >> partial_transpose(states[i],
-                                                                  sys=sys_list,
-                                                                  dim=dim_list))
+        constraints.append(
+            cvxpy.real(y_var)
+            >> partial_transpose(states[i], sys=sys_list, dim=dim_list)
+        )
 
     problem = cvxpy.Problem(objective, constraints)
     sol_default = problem.solve()

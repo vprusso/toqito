@@ -4,10 +4,12 @@ import numpy as np
 from toqito.random.random_unitary import random_unitary
 
 
-def random_density_matrix(dim: int,
-                          is_real: bool = False,
-                          k_param: Union[List[int], int] = None,
-                          distance_metric: str = "haar") -> np.ndarray:
+def random_density_matrix(
+    dim: int,
+    is_real: bool = False,
+    k_param: Union[List[int], int] = None,
+    distance_metric: str = "haar",
+) -> np.ndarray:
     """
     Generate a random density matrix.
 

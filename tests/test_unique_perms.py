@@ -14,5 +14,5 @@ class TestWState(unittest.TestCase):
         self.assertEqual(len(list(unique_perms(vec))), 4200)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

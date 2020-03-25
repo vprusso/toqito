@@ -24,4 +24,6 @@ def isotropic(dim: int, alpha: float) -> np.ndarray:
     """
     # Compute the isotropic state.
     psi = max_entangled(dim, True, False)
-    return (1 - alpha) * identity(dim**2)/dim**2 + alpha*psi*psi.conj().T/dim
+    return (1 - alpha) * identity(
+        dim ** 2
+    ) / dim ** 2 + alpha * psi * psi.conj().T / dim

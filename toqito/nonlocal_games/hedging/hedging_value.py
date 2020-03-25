@@ -14,14 +14,14 @@ class HedgingValue:
     hedging to occur in certain two-party scenarios.
 
     References:
-    [1] Molina, Abel, and John Watrous.
+    [1] Molina, Abel, and Watrous, John.
         "Hedging bets with correlated quantum strategies."
         Proceedings of the Royal Society A:
         Mathematical, Physical and Engineering Sciences
         468.2145 (2012): 2614-2629.
         https://arxiv.org/abs/1104.1140
 
-    [2] Arunachalam, Srinivasan, Abel Molina, and Vincent Russo.
+    [2] Arunachalam, Srinivasan, Molina, Abel and Russo, Vincent.
         "Quantum hedging in two-round prover-verifier interactions."
         arXiv preprint arXiv:1310.7954 (2013).
         https://arxiv.org/pdf/1310.7954.pdf
@@ -37,11 +37,11 @@ class HedgingValue:
         self._q_a = q_a
         self._num_reps = num_reps
 
-        self._sys = list(range(1, 2*self._num_reps, 2))
+        self._sys = list(range(1, 2 * self._num_reps, 2))
         if len(self._sys) == 1:
             self._sys = self._sys[0]
 
-        self._dim = 2 * np.ones((1, 2*self._num_reps)).astype(int).flatten()
+        self._dim = 2 * np.ones((1, 2 * self._num_reps)).astype(int).flatten()
         self._dim = self._dim.tolist()
 
         # For the dual problem, the following unitary operator is used to
@@ -78,12 +78,11 @@ class HedgingValue:
 
         :return: The optimal maximal probability for obtaining outcome "a".
         """
-        x_var = cvxpy.Variable((4**self._num_reps, 4**self._num_reps), PSD=True)
+        x_var = cvxpy.Variable((4 ** self._num_reps, 4 ** self._num_reps), PSD=True)
         objective = cvxpy.Maximize(cvxpy.trace(self._q_a.conj().T @ x_var))
         constraints = [
-            partial_trace_cvx(x_var,
-                              self._sys,
-                              self._dim) == np.identity(2 ** self._num_reps)
+            partial_trace_cvx(x_var, self._sys, self._dim)
+            == np.identity(2 ** self._num_reps)
         ]
         problem = cvxpy.Problem(objective, constraints)
 
@@ -108,21 +107,21 @@ class HedgingValue:
 
         :return: The optimal maximal probability for obtaining outcome "a".
         """
-        y_var = cvxpy.Variable((2**self._num_reps,
-                                2**self._num_reps), hermitian=True)
+        y_var = cvxpy.Variable(
+            (2 ** self._num_reps, 2 ** self._num_reps), hermitian=True
+        )
         objective = cvxpy.Minimize(cvxpy.trace(cvxpy.real(y_var)))
 
-        kron_var = cvxpy.kron(np.eye(2**self._num_reps), y_var)
+        kron_var = cvxpy.kron(np.eye(2 ** self._num_reps), y_var)
         if self._num_reps == 1:
-            u_var = cvxpy.multiply(cvxpy.multiply(self._pperm,
-                                                  kron_var),
-                                   self._pperm.conj().T)
+            u_var = cvxpy.multiply(
+                cvxpy.multiply(self._pperm, kron_var), self._pperm.conj().T
+            )
             constraints = [cvxpy.real(u_var) >> self._q_a]
         else:
             constraints = [
-                cvxpy.real(self._pperm @
-                           kron_var @
-                           self._pperm.conj().T) >> self._q_a]
+                cvxpy.real(self._pperm @ kron_var @ self._pperm.conj().T) >> self._q_a
+            ]
         problem = cvxpy.Problem(objective, constraints)
 
         return problem.solve()
@@ -148,12 +147,11 @@ class HedgingValue:
 
         :return: The optimal minimal probability for obtaining outcome "a".
         """
-        x_var = cvxpy.Variable((4**self._num_reps, 4**self._num_reps), PSD=True)
+        x_var = cvxpy.Variable((4 ** self._num_reps, 4 ** self._num_reps), PSD=True)
         objective = cvxpy.Minimize(cvxpy.trace(self._q_a.conj().T @ x_var))
         constraints = [
-            partial_trace_cvx(x_var,
-                              self._sys,
-                              self._dim) == np.identity(2 ** self._num_reps)
+            partial_trace_cvx(x_var, self._sys, self._dim)
+            == np.identity(2 ** self._num_reps)
         ]
         problem = cvxpy.Problem(objective, constraints)
 
@@ -178,20 +176,22 @@ class HedgingValue:
 
         :return: The optimal minimal probability for obtaining outcome "a".
         """
-        y_var = cvxpy.Variable((2**self._num_reps,
-                                2**self._num_reps), hermitian=True)
+        y_var = cvxpy.Variable(
+            (2 ** self._num_reps, 2 ** self._num_reps), hermitian=True
+        )
         objective = cvxpy.Maximize(cvxpy.trace(cvxpy.real(y_var)))
 
-        kron_var = cvxpy.kron(np.eye(2**self._num_reps), y_var)
+        kron_var = cvxpy.kron(np.eye(2 ** self._num_reps), y_var)
 
         if self._num_reps == 1:
-            u_var = cvxpy.multiply(cvxpy.multiply(self._pperm, kron_var),
-                                   self._pperm.conj().T)
+            u_var = cvxpy.multiply(
+                cvxpy.multiply(self._pperm, kron_var), self._pperm.conj().T
+            )
             constraints = [cvxpy.real(u_var) << self._q_a]
         else:
-            constraints = [cvxpy.real(self._pperm @
-                                      kron_var @
-                                      self._pperm.conj().T) << self._q_a]
+            constraints = [
+                cvxpy.real(self._pperm @ kron_var @ self._pperm.conj().T) << self._q_a
+            ]
         problem = cvxpy.Problem(objective, constraints)
 
         return problem.solve()

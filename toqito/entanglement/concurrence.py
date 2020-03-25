@@ -22,8 +22,9 @@ def concurrence(rho: np.ndarray) -> float:
     :return: The concurrence of the bipartite state `rho`.
     """
     if rho.shape != (4, 4):
-        raise ValueError("InvalidDim: Concurrence is only defined for bipartite"
-                         " systems.")
+        raise ValueError(
+            "InvalidDim: Concurrence is only defined for bipartite" " systems."
+        )
 
     sigma_y = pauli("Y", False)
     sigma_y_y = np.kron(sigma_y, sigma_y)
@@ -32,4 +33,4 @@ def concurrence(rho: np.ndarray) -> float:
 
     eig_vals = np.linalg.eigvalsh(np.matmul(rho, rho_hat))
     eig_vals = np.sort(np.sqrt(eig_vals))[::-1]
-    return max(0, eig_vals[0]-eig_vals[1]-eig_vals[2]-eig_vals[3])
+    return max(0, eig_vals[0] - eig_vals[1] - eig_vals[2] - eig_vals[3])

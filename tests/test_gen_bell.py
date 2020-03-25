@@ -62,5 +62,5 @@ class TestGenBell(unittest.TestCase):
         self.assertEqual(np.all(bool_mat), True)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

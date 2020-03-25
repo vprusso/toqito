@@ -15,5 +15,5 @@ class TestRandomStateVector(unittest.TestCase):
         self.assertEqual(is_pure(mat), True)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

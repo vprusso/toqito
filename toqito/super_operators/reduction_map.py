@@ -21,4 +21,4 @@ def reduction_map(dim: int, k: int = 1) -> np.ndarray:
     :return: The reduction map.
     """
     psi = max_entangled(dim, True, False)
-    return k * identity(dim**2) - psi*psi.conj().T
+    return k * identity(dim ** 2) - psi * psi.conj().T

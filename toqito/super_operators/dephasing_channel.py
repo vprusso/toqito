@@ -20,5 +20,6 @@ def dephasing_channel(dim: int, param_p: int = 0) -> np.ndarray:
 
     # Gives a sparse non-normalized state.
     psi = max_entangled(dim=dim, is_sparse=False, is_normalized=False)
-    return (1 - param_p) * np.diag(np.diag(psi*psi.conj().T)) + \
-        param_p * (psi*psi.conj().T)
+    return (1 - param_p) * np.diag(np.diag(psi * psi.conj().T)) + param_p * (
+        psi * psi.conj().T
+    )

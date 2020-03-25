@@ -6,9 +6,9 @@ from toqito.perms.permutation_operator import permutation_operator
 from toqito.perms.perm_sign import perm_sign
 
 
-def antisymmetric_projection(dim: int,
-                             p_param: int = 2,
-                             partial: bool = False) -> sparse.lil_matrix:
+def antisymmetric_projection(
+    dim: int, p_param: int = 2, partial: bool = False
+) -> sparse.lil_matrix:
     """
     Produce the projection onto the antisymmetric subspace.
 
@@ -28,22 +28,23 @@ def antisymmetric_projection(dim: int,
     :param partial: Default value of 0.
     :return: Projection onto the antisymmetric subspace.
     """
-    dimp = dim**p_param
+    dimp = dim ** p_param
 
     if p_param == 1:
         return sparse.eye(dim)
     # The antisymmetric subspace is empty if `dim < p`.
     if dim < p_param:
-        return sparse.lil_matrix((dimp, dimp*(1-partial)))
+        return sparse.lil_matrix((dimp, dimp * (1 - partial)))
 
-    p_list = np.array(list(permutations(np.arange(1, p_param+1))))
+    p_list = np.array(list(permutations(np.arange(1, p_param + 1))))
     p_fac = p_list.shape[0]
 
     anti_proj = sparse.lil_matrix((dimp, dimp))
     for j in range(p_fac):
         anti_proj += perm_sign(p_list[j, :]) * permutation_operator(
-            dim*np.ones(p_param), p_list[j, :], False, True)
-    anti_proj = anti_proj/p_fac
+            dim * np.ones(p_param), p_list[j, :], False, True
+        )
+    anti_proj = anti_proj / p_fac
 
     if partial:
         anti_proj = anti_proj.todense()

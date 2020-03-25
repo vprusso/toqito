@@ -12,10 +12,10 @@ class TestRandomPOVM(unittest.TestCase):
         """Generate random POVMs and check that they sum to the identity."""
         dim, num_inputs, num_outputs = 2, 2, 2
         povms = random_povm(dim, num_inputs, num_outputs)
-        self.assertEqual(np.allclose(
-            povms[:, :, 0, 0] + povms[:, :, 0, 1],
-            np.identity(dim)), True)
+        self.assertEqual(
+            np.allclose(povms[:, :, 0, 0] + povms[:, :, 0, 1], np.identity(dim)), True
+        )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

@@ -3,8 +3,7 @@ from typing import List
 import numpy as np
 
 
-def horodecki(a_param: float,
-              dim: List[int] = None) -> np.ndarray:
+def horodecki(a_param: float, dim: List[int] = None) -> np.ndarray:
     """
     Produce a Horodecki state.
 
@@ -33,42 +32,47 @@ def horodecki(a_param: float,
         arXiv: 1009.4385.
     """
     if a_param < 0 or a_param > 1:
-        raise ValueError("Invalid: Argument A_PARAM must be in the interval "
-                         "[0, 1].")
+        raise ValueError("Invalid: Argument A_PARAM must be in the interval " "[0, 1].")
 
     if dim is None:
         dim = np.array([3, 3])
 
     if np.array_equal(dim, np.array([3, 3])):
-        n_a_param = 1/(8 * a_param + 1)
-        b_param = (1 + a_param)/2
-        c_param = np.sqrt(1-a_param**2)/2
+        n_a_param = 1 / (8 * a_param + 1)
+        b_param = (1 + a_param) / 2
+        c_param = np.sqrt(1 - a_param ** 2) / 2
 
         horo_state = n_a_param * np.array(
-            [[a_param, 0, 0, 0, a_param, 0, 0, 0, a_param],
-             [0, a_param, 0, 0, 0, 0, 0, 0, 0],
-             [0, 0, a_param, 0, 0, 0, 0, 0, 0],
-             [0, 0, 0, a_param, 0, 0, 0, 0, 0],
-             [a_param, 0, 0, 0, a_param, 0, 0, 0, a_param],
-             [0, 0, 0, 0, 0, a_param, 0, 0, 0],
-             [0, 0, 0, 0, 0, 0, b_param, 0, c_param],
-             [0, 0, 0, 0, 0, 0, 0, a_param, 0],
-             [a_param, 0, 0, 0, a_param, 0, c_param, 0, b_param]])
+            [
+                [a_param, 0, 0, 0, a_param, 0, 0, 0, a_param],
+                [0, a_param, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, a_param, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, a_param, 0, 0, 0, 0, 0],
+                [a_param, 0, 0, 0, a_param, 0, 0, 0, a_param],
+                [0, 0, 0, 0, 0, a_param, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, b_param, 0, c_param],
+                [0, 0, 0, 0, 0, 0, 0, a_param, 0],
+                [a_param, 0, 0, 0, a_param, 0, c_param, 0, b_param],
+            ]
+        )
         return horo_state
 
     if np.array_equal(dim, np.array([2, 4])):
-        n_a_param = 1/(7*a_param+1)
-        b_param = (1+a_param)/2
-        c_param = np.sqrt(1-a_param**2)/2
+        n_a_param = 1 / (7 * a_param + 1)
+        b_param = (1 + a_param) / 2
+        c_param = np.sqrt(1 - a_param ** 2) / 2
 
         horo_state = n_a_param * np.array(
-            [[a_param, 0, 0, 0, 0, a_param, 0, 0],
-             [0, a_param, 0, 0, 0, 0, a_param, 0],
-             [0, 0, a_param, 0, 0, 0, 0, a_param],
-             [0, 0, 0, a_param, 0, 0, 0, 0],
-             [0, 0, 0, 0, b_param, 0, 0, c_param],
-             [a_param, 0, 0, 0, 0, a_param, 0, 0],
-             [0, a_param, 0, 0, 0, 0, a_param, 0],
-             [0, 0, a_param, 0, c_param, 0, 0, b_param]])
+            [
+                [a_param, 0, 0, 0, 0, a_param, 0, 0],
+                [0, a_param, 0, 0, 0, 0, a_param, 0],
+                [0, 0, a_param, 0, 0, 0, 0, a_param],
+                [0, 0, 0, a_param, 0, 0, 0, 0],
+                [0, 0, 0, 0, b_param, 0, 0, c_param],
+                [a_param, 0, 0, 0, 0, a_param, 0, 0],
+                [0, a_param, 0, 0, 0, 0, a_param, 0],
+                [0, 0, a_param, 0, c_param, 0, 0, b_param],
+            ]
+        )
         return horo_state
     raise ValueError("InvalidDim: DIM must be one of [3, 3], or [2, 4].")

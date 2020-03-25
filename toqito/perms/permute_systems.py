@@ -8,11 +8,13 @@ import scipy as sp
 from toqito.matrix.operations.vec import vec
 
 
-def permute_systems(input_mat: np.ndarray,
-                    perm: List[int],
-                    dim=None,
-                    row_only: bool = False,
-                    inv_perm: bool = False) -> np.ndarray:
+def permute_systems(
+    input_mat: np.ndarray,
+    perm: List[int],
+    dim=None,
+    row_only: bool = False,
+    inv_perm: bool = False,
+) -> np.ndarray:
     """
     Permute subsystems within a state or operator.
 
@@ -47,8 +49,8 @@ def permute_systems(input_mat: np.ndarray,
     num_sys = len(perm)
 
     if dim is None:
-        x_tmp = input_mat_dims[0]**(1/num_sys) * np.ones(num_sys)
-        y_tmp = input_mat_dims[1]**(1/num_sys) * np.ones(num_sys)
+        x_tmp = input_mat_dims[0] ** (1 / num_sys) * np.ones(num_sys)
+        y_tmp = input_mat_dims[1] ** (1 / num_sys) * np.ones(num_sys)
         dim = np.array([x_tmp, y_tmp])
 
     if is_vec:
@@ -59,9 +61,11 @@ def permute_systems(input_mat: np.ndarray,
         elif len(input_mat.shape) == 1:
             vec_orien = 1
         else:
-            raise ValueError("InvalidMat: Length of tuple of dimensions "
-                             "specifying the input matrix can only be of "
-                             "length 1 or length 2.")
+            raise ValueError(
+                "InvalidMat: Length of tuple of dimensions "
+                "specifying the input matrix can only be of "
+                "length 1 or length 2."
+            )
 
     if len(dim.shape) == 1:
         # Force dim to be a row vector.
@@ -70,30 +74,39 @@ def permute_systems(input_mat: np.ndarray,
             dim = np.ones((2, len(dim)))
             dim[vec_orien, :] = dim_tmp
         else:
-            dim = np.array([[dim_tmp],
-                            [dim_tmp]])
+            dim = np.array([[dim_tmp], [dim_tmp]])
 
     prod_dim_r = int(np.prod(dim[0, :]))
     prod_dim_c = int(np.prod(dim[1, :]))
 
     if len(perm) != num_sys:
-        raise ValueError("InvalidPerm: `len(perm)` must be equal to "
-                         "`len(dim)`.")
-    if sorted(perm) != list(range(1, num_sys+1)):
+        raise ValueError("InvalidPerm: `len(perm)` must be equal to " "`len(dim)`.")
+    if sorted(perm) != list(range(1, num_sys + 1)):
         raise ValueError("InvalidPerm: `perm` must be a permutation vector.")
-    if input_mat_dims[0] != prod_dim_r or \
-            (not row_only and input_mat_dims[1] != prod_dim_c):
-        raise ValueError("InvalidDim: The dimensions specified in DIM do not "
-                         "agree with the size of X.")
+    if input_mat_dims[0] != prod_dim_r or (
+        not row_only and input_mat_dims[1] != prod_dim_c
+    ):
+        raise ValueError(
+            "InvalidDim: The dimensions specified in DIM do not "
+            "agree with the size of X."
+        )
     if is_vec:
         if inv_perm:
-            permuted_mat_1 = input_mat.reshape(dim[vec_orien, ::-1].astype(int), order="F")
-            permuted_mat = vec(np.transpose(permuted_mat_1, num_sys - np.array(perm[::-1]))).T
+            permuted_mat_1 = input_mat.reshape(
+                dim[vec_orien, ::-1].astype(int), order="F"
+            )
+            permuted_mat = vec(
+                np.transpose(permuted_mat_1, num_sys - np.array(perm[::-1]))
+            ).T
             # We need to flatten out the array.
             permuted_mat = functools.reduce(operator.iconcat, permuted_mat, [])
         else:
-            permuted_mat_1 = input_mat.reshape(dim[vec_orien, ::-1].astype(int), order="F")
-            permuted_mat = vec(np.transpose(permuted_mat_1, num_sys - np.array(perm[::-1]))).T
+            permuted_mat_1 = input_mat.reshape(
+                dim[vec_orien, ::-1].astype(int), order="F"
+            )
+            permuted_mat = vec(
+                np.transpose(permuted_mat_1, num_sys - np.array(perm[::-1]))
+            ).T
             # We need to flatten out the array.
             permuted_mat = functools.reduce(operator.iconcat, permuted_mat, [])
         return np.array(permuted_mat)

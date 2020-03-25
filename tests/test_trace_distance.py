@@ -23,5 +23,5 @@ class TestTraceDistance(unittest.TestCase):
         self.assertEqual(np.isclose(res, 0), True)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

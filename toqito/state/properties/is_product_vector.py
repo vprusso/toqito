@@ -27,18 +27,20 @@ def is_product_vector(vec: np.ndarray, dim: Union[int, List[int]]) -> bool:
         num_sys = len(dim)
 
     if num_sys == 1:
-        dim = np.array([dim, len(vec)/dim])
+        dim = np.array([dim, len(vec) / dim])
         if np.abs(dim[1] - np.round(dim[1])) >= 2 * len(vec) * eps:
-            raise ValueError("InvalidDim: The value of `dim` must evenly divide"
-                             " `len(vec)`. Please provide a `dim` array "
-                             "containing the dimensions of the subsystems.")
+            raise ValueError(
+                "InvalidDim: The value of `dim` must evenly divide"
+                " `len(vec)`. Please provide a `dim` array "
+                "containing the dimensions of the subsystems."
+            )
         dim[1] = np.round(dim[1])
         num_sys = 2
 
     # If there are only two subsystems, just use the Schmidt decomposition.
     if num_sys == 2:
         singular_vals, u_mat, vt_mat = schmidt_decomposition(vec, dim, 2)
-        ipv = (singular_vals[1] <= np.prod(dim) * np.spacing(singular_vals[0]))
+        ipv = singular_vals[1] <= np.prod(dim) * np.spacing(singular_vals[0])
         # Provide this even if not requested, since it is needed if this
         # function was called as part of its recursive algorithm (see below)
         if ipv:

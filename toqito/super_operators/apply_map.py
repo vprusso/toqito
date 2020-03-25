@@ -5,8 +5,9 @@ from toqito.matrix.operations.vec import vec
 from toqito.perms.swap import swap
 
 
-def apply_map(mat: np.ndarray,
-              phi_op: Union[np.ndarray, List[List[np.ndarray]]]) -> np.ndarray:
+def apply_map(
+    mat: np.ndarray, phi_op: Union[np.ndarray, List[List[np.ndarray]]]
+) -> np.ndarray:
     """
     Apply a superoperator to an operator.
 
@@ -51,13 +52,17 @@ def apply_map(mat: np.ndarray,
         phi_size = np.array(list(phi_op.shape)) / mat_size
 
         a_mat = np.kron(vec(mat).T[0], np.identity(int(phi_size[0])))
-        b_mat = np.reshape(swap(phi_op.T,
-                                [1, 2],
-                                [[mat_size[1], phi_size[1]],
-                                 [mat_size[0], phi_size[0]]],
-                                True).T,
-                           (int(phi_size[0]*np.prod(mat_size)),
-                            int(phi_size[1])))
+        b_mat = np.reshape(
+            swap(
+                phi_op.T,
+                [1, 2],
+                [[mat_size[1], phi_size[1]], [mat_size[0], phi_size[0]]],
+                True,
+            ).T,
+            (int(phi_size[0] * np.prod(mat_size)), int(phi_size[1])),
+        )
         return np.matmul(a_mat, b_mat)
-    raise ValueError("Invalid: The variable `phi_op` must either be a list of "
-                     "Kraus operators or as a Choi matrix.")
+    raise ValueError(
+        "Invalid: The variable `phi_op` must either be a list of "
+        "Kraus operators or as a Choi matrix."
+    )

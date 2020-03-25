@@ -11,4 +11,4 @@ def purity(rho: np.ndarray) -> float:
              quantity `np.trace(rho**2)`.
     """
     # "np.real" get rid of the close-to-0 imaginary part.
-    return np.real(np.trace(rho**2))
+    return np.real(np.trace(rho ** 2))

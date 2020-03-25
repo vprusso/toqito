@@ -4,8 +4,9 @@ import cvxpy
 import numpy as np
 
 
-def unambiguous_state_exclusion(states: List[np.ndarray],
-                                probs: List[float] = None) -> float:
+def unambiguous_state_exclusion(
+    states: List[np.ndarray], probs: List[float] = None
+) -> float:
     r"""
     Compute probability of unambiguous state exclusion.
 
@@ -39,12 +40,11 @@ def unambiguous_state_exclusion(states: List[np.ndarray],
     """
     # Assume that at least one state is provided.
     if states is None or states == []:
-        raise ValueError("InvalidStates: There must be at least one state "
-                         "provided.")
+        raise ValueError("InvalidStates: There must be at least one state " "provided.")
 
     # Assume uniform probability if no specific distribution is given.
     if probs is None:
-        probs = [1/len(states)] * len(states)
+        probs = [1 / len(states)] * len(states)
     if not np.isclose(sum(probs), 1):
         raise ValueError("Invalid: Probabilities must sum to 1.")
 
@@ -62,8 +62,7 @@ def unambiguous_state_exclusion(states: List[np.ndarray],
     for i, _ in enumerate(states):
         measurements.append(cvxpy.Variable((dim_x, dim_x), PSD=True))
 
-        obj_func.append(probs[i] * cvxpy.trace(
-            states[i].conj().T @ measurements[i]))
+        obj_func.append(probs[i] * cvxpy.trace(states[i].conj().T @ measurements[i]))
 
         constraints.append(cvxpy.trace(states[i] @ measurements[i]) == 0)
 
@@ -77,4 +76,4 @@ def unambiguous_state_exclusion(states: List[np.ndarray],
     problem = cvxpy.Problem(objective, constraints)
     sol_default = problem.solve()
 
-    return 1/len(states) * sol_default
+    return 1 / len(states) * sol_default

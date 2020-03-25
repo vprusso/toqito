@@ -32,19 +32,19 @@ class TestStateDiscrimination(unittest.TestCase):
         e_00 = e_0 * e_0.conj().T
         e_11 = e_1 * e_1.conj().T
         states = [e_00, e_11]
-        probs = [1/2, 1/2]
+        probs = [1 / 2, 1 / 2]
 
         res = state_discrimination(states, probs)
-        self.assertEqual(np.isclose(res, 1/2), True)
+        self.assertEqual(np.isclose(res, 1 / 2), True)
 
     def test_state_discrimination_three_state_vec(self):
         """State discrimination for two state vectors."""
         e_0, e_1 = ket(2, 0), ket(2, 1)
         states = [e_0, e_1]
-        probs = [1/2, 1/2]
+        probs = [1 / 2, 1 / 2]
 
         res = state_discrimination(states, probs)
-        self.assertEqual(np.isclose(res, 1/2), True)
+        self.assertEqual(np.isclose(res, 1 / 2), True)
 
     def test_invalid_state_discrim_probs(self):
         """Invalid probability vector."""
@@ -61,5 +61,5 @@ class TestStateDiscrimination(unittest.TestCase):
             state_discrimination(states)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

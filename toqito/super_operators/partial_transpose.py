@@ -4,9 +4,11 @@ import numpy as np
 from toqito.perms.permute_systems import permute_systems
 
 
-def partial_transpose(rho: np.ndarray,
-                      sys: Union[List[int], np.ndarray, int] = 2,
-                      dim: Union[List[int], np.ndarray] = None) -> np.ndarray:
+def partial_transpose(
+    rho: np.ndarray,
+    sys: Union[List[int], np.ndarray, int] = 2,
+    dim: Union[List[int], np.ndarray] = None,
+) -> np.ndarray:
     """Compute the partial transpose of a matrix.
 
     By default, the returned matrix is the partial transpose of the matrix
@@ -31,8 +33,9 @@ def partial_transpose(rho: np.ndarray,
     sqrt_rho_dims = np.round(np.sqrt(list(rho.shape)))
 
     if dim is None:
-        dim = np.array([[sqrt_rho_dims[0], sqrt_rho_dims[0]],
-                        [sqrt_rho_dims[1], sqrt_rho_dims[1]]])
+        dim = np.array(
+            [[sqrt_rho_dims[0], sqrt_rho_dims[0]], [sqrt_rho_dims[1], sqrt_rho_dims[1]]]
+        )
     if isinstance(dim, float):
         dim = np.array([dim])
     if isinstance(dim, list):
@@ -45,13 +48,17 @@ def partial_transpose(rho: np.ndarray,
     num_sys = len(dim)
     # Allow the user to enter a single number for dim.
     if num_sys == 1:
-        dim = np.array([dim, list(rho.shape)[0]/dim])
-        if np.abs(dim[1] - np.round(dim[1]))[0] >= \
-                2*list(rho.shape)[0]*np.finfo(float).eps:
-            raise ValueError("InvalidDim: If `dim` is a scalar, `rho` must be "
-                             "square and `dim` must evenly divide `len(rho)`; "
-                             "please provide the `dim` array containing the "
-                             "dimensions of the subsystems.")
+        dim = np.array([dim, list(rho.shape)[0] / dim])
+        if (
+            np.abs(dim[1] - np.round(dim[1]))[0]
+            >= 2 * list(rho.shape)[0] * np.finfo(float).eps
+        ):
+            raise ValueError(
+                "InvalidDim: If `dim` is a scalar, `rho` must be "
+                "square and `dim` must evenly divide `len(rho)`; "
+                "please provide the `dim` array containing the "
+                "dimensions of the subsystems."
+            )
         dim[1] = np.round(dim[1])
         num_sys = 2
 
@@ -64,13 +71,13 @@ def partial_transpose(rho: np.ndarray,
     prod_dim_r = int(np.prod(dim[0, :]))
     prod_dim_c = int(np.prod(dim[1, :]))
 
-    sub_prod_r = np.prod(dim[0, sys-1])
-    sub_prod_c = np.prod(dim[1, sys-1])
+    sub_prod_r = np.prod(dim[0, sys - 1])
+    sub_prod_c = np.prod(dim[1, sys - 1])
 
     sub_sys_vec_r = prod_dim_r * np.ones(int(sub_prod_r)) / sub_prod_r
     sub_sys_vec_c = prod_dim_c * np.ones(int(sub_prod_c)) / sub_prod_c
 
-    set_diff = list(set(list(range(1, num_sys+1))) - set(sys))
+    set_diff = list(set(list(range(1, num_sys + 1))) - set(sys))
     perm = sys.tolist()[:]
     perm.extend(set_diff)
 
@@ -78,10 +85,16 @@ def partial_transpose(rho: np.ndarray,
     # on the first (potentially larger) subsystem.
     rho_permuted = permute_systems(rho, perm, dim)
 
-    x_tmp = np.reshape(rho_permuted, [int(sub_sys_vec_r[0]),
-                                      int(sub_prod_r),
-                                      int(sub_sys_vec_c[0]),
-                                      int(sub_prod_c)], order="F")
+    x_tmp = np.reshape(
+        rho_permuted,
+        [
+            int(sub_sys_vec_r[0]),
+            int(sub_prod_r),
+            int(sub_sys_vec_c[0]),
+            int(sub_prod_c),
+        ],
+        order="F",
+    )
     y_tmp = np.transpose(x_tmp, [0, 3, 2, 1])
     z_tmp = np.reshape(y_tmp, [int(prod_dim_r), int(prod_dim_c)], order="F")
 
@@ -89,6 +102,6 @@ def partial_transpose(rho: np.ndarray,
     # if len(sys) > 1:
     #     dim[:, sys-1] = dim[[1, 0], sys-1]
 
-    dim = dim[:, np.array(perm)-1]
+    dim = dim[:, np.array(perm) - 1]
 
     return permute_systems(z_tmp, perm, dim, False, True)

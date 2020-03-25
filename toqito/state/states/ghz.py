@@ -7,9 +7,7 @@ import scipy as sp
 from scipy.sparse import lil_matrix
 
 
-def ghz(dim: int,
-        num_qubits: int,
-        coeff: List[int] = None) -> sp.sparse:
+def ghz(dim: int, num_qubits: int, coeff: List[int] = None) -> sp.sparse:
     """
     Generate a (generalized) GHZ state.
 
@@ -33,7 +31,7 @@ def ghz(dim: int,
     :returns: Numpy vector array as GHZ state.
     """
     if coeff is None:
-        coeff = np.ones(dim)/np.sqrt(dim)
+        coeff = np.ones(dim) / np.sqrt(dim)
 
     # Error checking:
     if dim < 2:
@@ -41,16 +39,18 @@ def ghz(dim: int,
     if num_qubits < 2:
         raise ValueError("InvalidNumQubits: `num_qubits` must be at least 2.")
     if len(coeff) != dim:
-        raise ValueError("InvalidCoeff: The variable `coeff` must be a vector"
-                         " of length equal to `dim`.")
+        raise ValueError(
+            "InvalidCoeff: The variable `coeff` must be a vector"
+            " of length equal to `dim`."
+        )
 
     # Construct the state (and do it in a way that is less memory-intensive
     # than naively tensoring things together.
     dim_sum = 1
     for i in range(1, num_qubits):
-        dim_sum += dim**i
+        dim_sum += dim ** i
 
-    ret_ghz_state = lil_matrix((dim**num_qubits, 1))
-    for i in range(1, dim+1):
-        ret_ghz_state[(i-1)*dim_sum] = coeff[i-1]
+    ret_ghz_state = lil_matrix((dim ** num_qubits, 1))
+    for i in range(1, dim + 1):
+        ret_ghz_state[(i - 1) * dim_sum] = coeff[i - 1]
     return ret_ghz_state

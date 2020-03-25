@@ -79,10 +79,9 @@ class TestPauli(unittest.TestCase):
 
     def test_pauli_int_list(self):
         """Test with list of Paulis of ints."""
-        expected_res = np.array([[0, 0, 0, 1],
-                                 [0, 0, 1, 0],
-                                 [0, 1, 0, 0],
-                                 [1, 0, 0, 0]])
+        expected_res = np.array(
+            [[0, 0, 0, 1], [0, 0, 1, 0], [0, 1, 0, 0], [1, 0, 0, 0]]
+        )
         res = pauli([1, 1])
 
         bool_mat = np.isclose(res, expected_res)
@@ -90,15 +89,14 @@ class TestPauli(unittest.TestCase):
 
     def test_pauli_str_list(self):
         """Test with list of Paulis of str."""
-        expected_res = np.array([[0, 0, 0, 1],
-                                 [0, 0, 1, 0],
-                                 [0, 1, 0, 0],
-                                 [1, 0, 0, 0]])
+        expected_res = np.array(
+            [[0, 0, 0, 1], [0, 0, 1, 0], [0, 1, 0, 0], [1, 0, 0, 0]]
+        )
         res = pauli(["x", "x"])
 
         bool_mat = np.isclose(res, expected_res)
         self.assertEqual(np.all(bool_mat), True)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

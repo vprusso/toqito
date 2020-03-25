@@ -13,8 +13,11 @@ class TestGHZ(unittest.TestCase):
     def test_ghz_2_3(self):
         """Produces the 3-qubit GHZ state: 1/sqrt(2) * (|000> + |111>)."""
         e_0, e_1 = ket(2, 0), ket(2, 1)
-        expected_res = 1/np.sqrt(2) * (tensor_list([e_0, e_0, e_0]) +
-                                       tensor_list([e_1, e_1, e_1]))
+        expected_res = (
+            1
+            / np.sqrt(2)
+            * (tensor_list([e_0, e_0, e_0]) + tensor_list([e_1, e_1, e_1]))
+        )
 
         res = ghz(2, 3).toarray()
 
@@ -32,13 +35,18 @@ class TestGHZ(unittest.TestCase):
         e2_4 = np.array([[0], [0], [1], [0]])
         e3_4 = np.array([[0], [0], [0], [1]])
 
-        expected_res = 1/np.sqrt(30) * (
-            tensor_list([e0_4, e0_4, e0_4, e0_4, e0_4, e0_4, e0_4]) +
-            2 * tensor_list([e1_4, e1_4, e1_4, e1_4, e1_4, e1_4, e1_4]) +
-            3 * tensor_list([e2_4, e2_4, e2_4, e2_4, e2_4, e2_4, e2_4]) +
-            4 * tensor_list([e3_4, e3_4, e3_4, e3_4, e3_4, e3_4, e3_4]))
+        expected_res = (
+            1
+            / np.sqrt(30)
+            * (
+                tensor_list([e0_4, e0_4, e0_4, e0_4, e0_4, e0_4, e0_4])
+                + 2 * tensor_list([e1_4, e1_4, e1_4, e1_4, e1_4, e1_4, e1_4])
+                + 3 * tensor_list([e2_4, e2_4, e2_4, e2_4, e2_4, e2_4, e2_4])
+                + 4 * tensor_list([e3_4, e3_4, e3_4, e3_4, e3_4, e3_4, e3_4])
+            )
+        )
 
-        res = ghz(4, 7, [1, 2, 3, 4]/np.sqrt(30)).toarray()
+        res = ghz(4, 7, [1, 2, 3, 4] / np.sqrt(30)).toarray()
 
         bool_mat = np.isclose(res, expected_res)
         self.assertEqual(np.all(bool_mat), True)
@@ -59,5 +67,5 @@ class TestGHZ(unittest.TestCase):
             ghz(2, 3, [1, 2, 3, 4, 5])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

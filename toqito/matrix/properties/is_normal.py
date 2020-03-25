@@ -2,9 +2,7 @@
 import numpy as np
 
 
-def is_normal(mat: np.ndarray,
-              rtol: float = 1e-05,
-              atol: float = 1e-08) -> bool:
+def is_normal(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
     r"""
     Determine if a matrix is normal.
 
@@ -25,7 +23,6 @@ def is_normal(mat: np.ndarray,
     :param atol: The absolute tolerance parameter (default 1e-08).
     :return: Returns True if the matrix is normal and False otherwise.
     """
-    return np.allclose(np.matmul(mat, mat.conj().T),
-                       np.matmul(mat.conj().T, mat),
-                       rtol=rtol,
-                       atol=atol)
+    return np.allclose(
+        np.matmul(mat, mat.conj().T), np.matmul(mat.conj().T, mat), rtol=rtol, atol=atol
+    )

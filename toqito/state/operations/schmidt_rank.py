@@ -5,8 +5,9 @@ import numpy as np
 from toqito.super_operators.partial_trace import partial_trace
 
 
-def schmidt_rank(vec: np.ndarray,
-                 dim: Union[int, List[int], np.ndarray] = None) -> float:
+def schmidt_rank(
+    vec: np.ndarray, dim: Union[int, List[int], np.ndarray] = None
+) -> float:
     r"""
     Compute the Schmidt rank.
 
@@ -53,11 +54,13 @@ def schmidt_rank(vec: np.ndarray,
         dim = slv
 
     if isinstance(dim, int):
-        dim = np.array([dim, len(vec)/dim])
+        dim = np.array([dim, len(vec) / dim])
         if np.abs(dim[1] - np.round(dim[1])) >= 2 * len(vec) * eps:
-            raise ValueError("Invalid: The value of `dim` must evenly divide "
-                             "`len(vec)`; please provide a `dim` array "
-                             "containing the dimensions of the subsystems")
+            raise ValueError(
+                "Invalid: The value of `dim` must evenly divide "
+                "`len(vec)`; please provide a `dim` array "
+                "containing the dimensions of the subsystems"
+            )
         dim[1] = np.round(dim[1])
 
     rho = vec.conj().T * vec

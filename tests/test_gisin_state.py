@@ -10,10 +10,14 @@ class TestGisin(unittest.TestCase):
 
     def test_valid_gisin(self):
         """Standard Gisin state."""
-        expected_res = np.array([[1/4, 0, 0, 0],
-                                 [0, 0.35403671, -0.22732436, 0],
-                                 [0, -0.22732436, 0.14596329, 0],
-                                 [0, 0, 0, 1/4]])
+        expected_res = np.array(
+            [
+                [1 / 4, 0, 0, 0],
+                [0, 0.35403671, -0.22732436, 0],
+                [0, -0.22732436, 0.14596329, 0],
+                [0, 0, 0, 1 / 4],
+            ]
+        )
 
         res = gisin(0.5, 1)
 
@@ -26,5 +30,5 @@ class TestGisin(unittest.TestCase):
             gisin(5, 1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

@@ -33,7 +33,7 @@ def fourier(dim: int) -> np.ndarray:
     :return: The Fourier matrix of dimension `dim`.
     """
     # Primitive root of unity.
-    root_unity = np.exp(2*1j*np.pi/dim)
+    root_unity = np.exp(2 * 1j * np.pi / dim)
     entry_1 = np.arange(0, dim)[:, None]
     entry_2 = np.arange(0, dim)
     return np.power(root_unity, entry_1 * entry_2) / np.sqrt(dim)

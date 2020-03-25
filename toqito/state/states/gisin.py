@@ -20,17 +20,17 @@ def gisin(lambda_var: float, theta: float) -> np.ndarray:
     :param theta: A real parameter.
     """
     if lambda_var < 0 or lambda_var > 1:
-        raise ValueError("InvalidLambda: Variable lambda must be between "
-                         "0 and 1.")
+        raise ValueError("InvalidLambda: Variable lambda must be between " "0 and 1.")
 
-    rho_theta = np.array([[0, 0, 0, 0],
-                          [0, np.sin(theta)**2, -np.sin(2*theta)/2, 0],
-                          [0, -np.sin(2*theta)/2, np.cos(theta)**2, 0],
-                          [0, 0, 0, 0]])
+    rho_theta = np.array(
+        [
+            [0, 0, 0, 0],
+            [0, np.sin(theta) ** 2, -np.sin(2 * theta) / 2, 0],
+            [0, -np.sin(2 * theta) / 2, np.cos(theta) ** 2, 0],
+            [0, 0, 0, 0],
+        ]
+    )
 
-    rho_uu_dd = np.array([[1, 0, 0, 0],
-                          [0, 0, 0, 0],
-                          [0, 0, 0, 0],
-                          [0, 0, 0, 1]])
+    rho_uu_dd = np.array([[1, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 1]])
 
-    return lambda_var * rho_theta + (1-lambda_var) * rho_uu_dd/2
+    return lambda_var * rho_theta + (1 - lambda_var) * rho_uu_dd / 2

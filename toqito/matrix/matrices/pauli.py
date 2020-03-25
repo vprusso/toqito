@@ -6,8 +6,9 @@ import numpy as np
 from toqito.matrix.operations.tensor import tensor_list
 
 
-def pauli(ind: Union[int, str, List[int], List[str]],
-          is_sparse: bool = False) -> Union[np.ndarray, sparse.csr_matrix]:
+def pauli(
+    ind: Union[int, str, List[int], List[str]], is_sparse: bool = False
+) -> Union[np.ndarray, sparse.csr_matrix]:
     """
     Produce a Pauli operator.
 
@@ -42,6 +43,6 @@ def pauli(ind: Union[int, str, List[int], List[str]],
 
     num_qubits = len(ind)
     pauli_mats = []
-    for i in range(num_qubits-1, -1, -1):
+    for i in range(num_qubits - 1, -1, -1):
         pauli_mats.append(pauli(ind[i], is_sparse))
     return tensor_list(pauli_mats)

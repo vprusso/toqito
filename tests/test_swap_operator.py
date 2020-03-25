@@ -10,10 +10,9 @@ class TestSwapOperator(unittest.TestCase):
 
     def test_swap_operator_num(self):
         """Tests swap operator when argument is number."""
-        expected_res = np.array([[1, 0, 0, 0],
-                                 [0, 0, 1, 0],
-                                 [0, 1, 0, 0],
-                                 [0, 0, 0, 1]])
+        expected_res = np.array(
+            [[1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 1]]
+        )
 
         res = swap_operator(2)
 
@@ -22,10 +21,9 @@ class TestSwapOperator(unittest.TestCase):
 
     def test_swap_operator_vec_dims(self):
         """Tests swap operator when argument is vector of dims."""
-        expected_res = np.array([[1, 0, 0, 0],
-                                 [0, 0, 1, 0],
-                                 [0, 1, 0, 0],
-                                 [0, 0, 0, 1]])
+        expected_res = np.array(
+            [[1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 1]]
+        )
 
         res = swap_operator([2, 2])
 
@@ -33,5 +31,5 @@ class TestSwapOperator(unittest.TestCase):
         self.assertEqual(np.all(bool_mat), True)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

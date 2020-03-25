@@ -38,5 +38,5 @@ class TestKet(unittest.TestCase):
             ket(4, 4)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

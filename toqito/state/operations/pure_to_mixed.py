@@ -22,5 +22,4 @@ def pure_to_mixed(phi: np.ndarray) -> np.ndarray:
     if row_dim == col_dim:
         return phi
     # It's neither.
-    raise ValueError("InvalidDim: `phi` must be either a vector or square "
-                     "matrix.")
+    raise ValueError("InvalidDim: `phi` must be either a vector or square " "matrix.")

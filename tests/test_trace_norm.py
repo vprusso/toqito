@@ -24,5 +24,5 @@ class TestTraceNorm(unittest.TestCase):
         self.assertEqual(np.isclose(res, expected_res), True)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

@@ -6,11 +6,13 @@ import numpy as np
 from toqito.random.random_povm import random_povm
 
 
-def two_player_quantum_lower_bound(dim: int,
-                                   prob_mat: np.ndarray,
-                                   pred_mat: np.ndarray,
-                                   iters: int = 5,
-                                   tol: float = 10e-6):
+def two_player_quantum_lower_bound(
+    dim: int,
+    prob_mat: np.ndarray,
+    pred_mat: np.ndarray,
+    iters: int = 5,
+    tol: float = 10e-6,
+):
     """
     Compute a lower bound on the quantum value of a nonlocal game.
 
@@ -70,14 +72,10 @@ def two_player_quantum_lower_bound(dim: int,
             # If this is the first iteration, then the previously randomly
             # generated operators in the outer loop are Bob's. Otherwise, Bob's
             # operators come from running the next SDP.
-            alice_povms, lower_bound = optimize_alice(dim,
-                                                      prob_mat,
-                                                      pred_mat,
-                                                      bob_povms)
-            bob_povms, lower_bound = optimize_bob(dim,
-                                                  prob_mat,
-                                                  pred_mat,
-                                                  alice_povms)
+            alice_povms, lower_bound = optimize_alice(
+                dim, prob_mat, pred_mat, bob_povms
+            )
+            bob_povms, lower_bound = optimize_bob(dim, prob_mat, pred_mat, alice_povms)
 
             it_diff = lower_bound - prev_win
             prev_win = lower_bound
@@ -93,10 +91,9 @@ def two_player_quantum_lower_bound(dim: int,
     return best_lower_bound
 
 
-def optimize_alice(dim: int,
-                   prob_mat: np.ndarray,
-                   pred_mat: np.ndarray,
-                   bob_povms) -> Tuple[Dict, float]:
+def optimize_alice(
+    dim: int, prob_mat: np.ndarray, pred_mat: np.ndarray, bob_povms
+) -> Tuple[Dict, float]:
     """Fix Bob's measurements and optimize over Alice's measurements."""
     # Get number of inputs and outputs.
     num_inputs_alice, num_inputs_bob = prob_mat.shape
@@ -122,19 +119,26 @@ def optimize_alice(dim: int,
             for a_ans in range(num_outputs_alice):
                 for b_ans in range(num_outputs_bob):
                     if isinstance(bob_povms[y_ques, b_ans], np.ndarray):
-                        win += prob_mat[x_ques, y_ques] * \
-                               pred_mat[a_ans, b_ans, x_ques, y_ques] * \
-                               cvxpy.trace(bob_povms[y_ques, b_ans].conj().T @
-                                           alice_povms[x_ques, a_ans])
-                    if isinstance(bob_povms[y_ques, b_ans],
-                                  cvxpy.expressions.variable.Variable):
-                        is_real = False
-                        win += prob_mat[x_ques, y_ques] * \
-                            pred_mat[a_ans, b_ans, x_ques, y_ques] * \
-                            cvxpy.trace(
-                                bob_povms[y_ques, b_ans].value.conj().T @
-                                alice_povms[x_ques, a_ans]
+                        win += (
+                            prob_mat[x_ques, y_ques]
+                            * pred_mat[a_ans, b_ans, x_ques, y_ques]
+                            * cvxpy.trace(
+                                bob_povms[y_ques, b_ans].conj().T
+                                @ alice_povms[x_ques, a_ans]
                             )
+                        )
+                    if isinstance(
+                        bob_povms[y_ques, b_ans], cvxpy.expressions.variable.Variable
+                    ):
+                        is_real = False
+                        win += (
+                            prob_mat[x_ques, y_ques]
+                            * pred_mat[a_ans, b_ans, x_ques, y_ques]
+                            * cvxpy.trace(
+                                bob_povms[y_ques, b_ans].value.conj().T
+                                @ alice_povms[x_ques, a_ans]
+                            )
+                        )
 
     if is_real:
         objective = cvxpy.Maximize(cvxpy.real(win))
@@ -158,10 +162,9 @@ def optimize_alice(dim: int,
     return alice_povms, lower_bound
 
 
-def optimize_bob(dim: int,
-                 prob_mat: np.ndarray,
-                 pred_mat: np.ndarray,
-                 alice_povms) -> Tuple[Dict, float]:
+def optimize_bob(
+    dim: int, prob_mat: np.ndarray, pred_mat: np.ndarray, alice_povms
+) -> Tuple[Dict, float]:
     """Fix Alice's measurements and optimize over Bob's measurements."""
     # Get number of inputs and outputs.
     num_inputs_alice, num_inputs_bob = prob_mat.shape
@@ -179,10 +182,14 @@ def optimize_bob(dim: int,
         for y_ques in range(num_inputs_bob):
             for a_ans in range(num_outputs_alice):
                 for b_ans in range(num_outputs_bob):
-                    win += prob_mat[x_ques, y_ques] * \
-                           pred_mat[a_ans, b_ans, x_ques, y_ques] * \
-                           cvxpy.trace(bob_povms[y_ques, b_ans].H @
-                                       alice_povms[x_ques, a_ans].value)
+                    win += (
+                        prob_mat[x_ques, y_ques]
+                        * pred_mat[a_ans, b_ans, x_ques, y_ques]
+                        * cvxpy.trace(
+                            bob_povms[y_ques, b_ans].H
+                            @ alice_povms[x_ques, a_ans].value
+                        )
+                    )
 
     objective = cvxpy.Maximize(win)
     constraints = []

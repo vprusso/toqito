@@ -1,13 +1,13 @@
-"""Determines if a set of matrices are valid measurements operators."""
+"""Determines if a set of matrices are valid POVM operators."""
 from typing import List
 import numpy as np
 
 from toqito.matrix.properties.is_psd import is_psd
 
 
-def is_measurement(mat_list: List[np.ndarray]) -> bool:
+def is_povm(mat_list: List[np.ndarray]) -> bool:
     r"""
-    Determine if a list of matrices constitute a valid set of measurements.
+    Determine if a list of matrices constitute a valid set of POVMs.
 
     A valid set of measurements are defined by a set of positive semidefinite
     operators

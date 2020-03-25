@@ -24,5 +24,5 @@ class TestChessboard(unittest.TestCase):
         self.assertEqual(np.isclose(res[0][0], 0.3863449236810438), True)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

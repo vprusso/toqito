@@ -32,8 +32,8 @@ def realignment(input_mat: np.ndarray, dim=None) -> np.ndarray:
         dim = np.array(dim)
 
     if isinstance(dim, int):
-        dim = np.array([[dim], [dim_mat[0]/dim]])
-        if np.abs(dim[1] - np.round(dim[1])) >= 2*dim_mat[0]*eps:
+        dim = np.array([[dim], [dim_mat[0] / dim]])
+        if np.abs(dim[1] - np.round(dim[1])) >= 2 * dim_mat[0] * eps:
             raise ValueError("InvalidDim:")
         dim[1] = np.round(dim[1])
         dim = np.array([[1], [4]])
@@ -42,7 +42,7 @@ def realignment(input_mat: np.ndarray, dim=None) -> np.ndarray:
         dim = dim[:].T
         dim = functools.reduce(operator.iconcat, dim, [])
         dim = np.array([dim, dim])
-        #dim = functools.reduce(operator.iconcat, dim, [])
+        # dim = functools.reduce(operator.iconcat, dim, [])
 
     dim_x = np.array([[dim[0][1], dim[0][0]], [dim[1][0], dim[1][1]]])
     dim_y = np.array([[dim[1][0], dim[0][0]], [dim[0][1], dim[1][1]]])

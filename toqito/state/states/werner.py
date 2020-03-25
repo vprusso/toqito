@@ -40,12 +40,14 @@ def werner(dim: int, alpha: Union[float, List[float]]) -> np.ndarray:
         n_var = n_fac
         # We won't actually go all the way to `n_fac`.
         for i in range(2, n_fac):
-            n_var = n_var//i
+            n_var = n_var // i
             if n_var == i + 1:
                 break
             if n_var < i:
-                raise ValueError("InvalidAlpha: The `alpha` vector must contain"
-                                 " p!-1 entries for some integer p > 1.")
+                raise ValueError(
+                    "InvalidAlpha: The `alpha` vector must contain"
+                    " p!-1 entries for some integer p > 1."
+                )
 
         # Done error checking and computing the number of parties -- now
         # compute the Werner state.
@@ -53,13 +55,12 @@ def werner(dim: int, alpha: Union[float, List[float]]) -> np.ndarray:
         sorted_perms = np.argsort(perms, axis=1) + 1
 
         for i in range(2, n_fac):
-            rho = np.identity(dim**n_var) - alpha[i-1] \
-                  * permutation_operator(dim,
-                                         sorted_perms[i, :],
-                                         False,
-                                         True)
+            rho = np.identity(dim ** n_var) - alpha[i - 1] * permutation_operator(
+                dim, sorted_perms[i, :], False, True
+            )
         rho = rho / np.trace(rho)
         return rho
     # Bipartite Werner state.
-    return (np.identity(dim**2) - alpha
-            * swap_operator(dim, True)) / (dim * (dim - alpha))
+    return (np.identity(dim ** 2) - alpha * swap_operator(dim, True)) / (
+        dim * (dim - alpha)
+    )

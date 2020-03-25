@@ -24,5 +24,5 @@ class TestRandomUnitary(unittest.TestCase):
         self.assertEqual(is_unitary(mat), True)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

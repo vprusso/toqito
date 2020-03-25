@@ -10,8 +10,7 @@ class TestIden(unittest.TestCase):
 
     def test_iden_full(self):
         """Full 2-dimensional identity matrix."""
-        expected_res = np.array([[1, 0],
-                                 [0, 1]])
+        expected_res = np.array([[1, 0], [0, 1]])
         res = iden(2, False)
 
         bool_mat = np.isclose(res, expected_res)
@@ -26,5 +25,5 @@ class TestIden(unittest.TestCase):
         self.assertEqual(np.all(bool_mat), True)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

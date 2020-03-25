@@ -5,10 +5,9 @@ import numpy as np
 from toqito.perms.permutation_operator import permutation_operator
 
 
-def symmetric_projection(dim: int,
-                         p_val: int = 2,
-                         partial: bool = False) -> [np.ndarray,
-                                                    sparse.lil_matrix]:
+def symmetric_projection(
+    dim: int, p_val: int = 2, partial: bool = False
+) -> [np.ndarray, sparse.lil_matrix]:
     """
     Produce the projection onto the symmetric subspace.
 
@@ -24,21 +23,20 @@ def symmetric_projection(dim: int,
     :param partial: Default value of 0.
     :return: Projection onto the symmetric subspace.
     """
-    dimp = dim**p_val
+    dimp = dim ** p_val
 
     if p_val == 1:
         return sparse.eye(dim)
 
-    p_list = np.array(list(permutations(np.arange(1, p_val+1))))
+    p_list = np.array(list(permutations(np.arange(1, p_val + 1))))
     p_fac = np.math.factorial(p_val)
     sym_proj = sparse.lil_matrix((dimp, dimp))
 
     for j in range(p_fac):
-        sym_proj += permutation_operator(dim*np.ones(p_val),
-                                         p_list[j, :],
-                                         False,
-                                         True)
-    sym_proj = sym_proj/p_fac
+        sym_proj += permutation_operator(
+            dim * np.ones(p_val), p_list[j, :], False, True
+        )
+    sym_proj = sym_proj / p_fac
 
     if partial:
         sym_proj = sym_proj.todense()

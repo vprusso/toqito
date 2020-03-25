@@ -23,6 +23,7 @@ scipy = "*"
 scikit-image = "*"
 
 [tool.poetry.dev-dependencies]
+black = "*"
 flake8 = "^3.7"
 flake8-docstrings = "^1.5"
 nose = "^1.3"

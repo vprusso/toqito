@@ -16,17 +16,15 @@ class TestIsUnitary(unittest.TestCase):
 
     def test_is_not_unitary(self):
         """Test that non-unitary matrix returns False."""
-        mat = np.array([[1, 0],
-                        [1, 1]])
+        mat = np.array([[1, 0], [1, 1]])
         self.assertEqual(is_unitary(mat), False)
 
     def test_is_not_unitary_matrix(self):
         """Test that non-unitary matrix returns False."""
-        mat = np.array([[1, 0],
-                        [1, 1]])
+        mat = np.array([[1, 0], [1, 1]])
         mat = np.matrix(mat)
         self.assertEqual(is_unitary(mat), False)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

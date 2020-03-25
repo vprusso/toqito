@@ -3,8 +3,9 @@ import unittest
 import numpy as np
 
 from toqito.state.states.bell import bell
-from toqito.state.optimizations.conclusive_state_exclusion import \
-    conclusive_state_exclusion
+from toqito.state.optimizations.conclusive_state_exclusion import (
+    conclusive_state_exclusion,
+)
 
 
 class TestConclusiveStateExclusion(unittest.TestCase):
@@ -32,7 +33,7 @@ class TestConclusiveStateExclusion(unittest.TestCase):
         rho2 = bell(1) * bell(1).conj().T
         rho3 = bell(2) * bell(2).conj().T
         states = [rho1, rho2, rho3]
-        probs = [1/3, 1/3, 1/3]
+        probs = [1 / 3, 1 / 3, 1 / 3]
 
         res = conclusive_state_exclusion(states, probs)
         self.assertEqual(np.isclose(res, 0), True)
@@ -43,7 +44,7 @@ class TestConclusiveStateExclusion(unittest.TestCase):
         rho2 = bell(1)
         rho3 = bell(2)
         states = [rho1, rho2, rho3]
-        probs = [1/3, 1/3, 1/3]
+        probs = [1 / 3, 1 / 3, 1 / 3]
 
         res = conclusive_state_exclusion(states, probs)
         self.assertEqual(np.isclose(res, 0), True)
@@ -63,5 +64,5 @@ class TestConclusiveStateExclusion(unittest.TestCase):
             conclusive_state_exclusion(states)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

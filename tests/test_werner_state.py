@@ -10,7 +10,7 @@ class TestWernerState(unittest.TestCase):
 
     def test_qutrit_werner(self):
         """Test for qutrit Werner state."""
-        res = werner(3, 1/2)
+        res = werner(3, 1 / 2)
         self.assertEqual(np.isclose(res[0][0], 0.0666666), True)
         self.assertEqual(np.isclose(res[1][3], -0.066666), True)
 
@@ -25,5 +25,5 @@ class TestWernerState(unittest.TestCase):
             werner(3, [1, 2])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

@@ -16,8 +16,10 @@ def bra(dim: int, pos: int) -> np.ndarray:
              except the entry at position `1`.
     """
     if pos >= dim:
-        raise ValueError("Invalid: The `pos` variable needs to be less than "
-                         "`dim` for bra function.")
+        raise ValueError(
+            "Invalid: The `pos` variable needs to be less than "
+            "`dim` for bra function."
+        )
 
     ret = np.array(list(map(int, list(f"{0:0{dim}}"))))
     ret[pos] = 1

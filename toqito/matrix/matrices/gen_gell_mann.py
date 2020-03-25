@@ -4,11 +4,9 @@ import numpy as np
 from scipy import sparse
 
 
-def gen_gell_mann(ind_1: int,
-                  ind_2: int,
-                  dim: int,
-                  is_sparse: bool = False
-                  ) -> Union[np.ndarray, sparse.lil_matrix]:
+def gen_gell_mann(
+    ind_1: int, ind_2: int, dim: int, is_sparse: bool = False
+) -> Union[np.ndarray, sparse.lil_matrix]:
     """
     Produce a generalized Gell-Mann operator.
 
@@ -33,10 +31,10 @@ def gen_gell_mann(ind_1: int,
         if ind_1 == 0:
             gm_op = sparse.eye(dim)
         else:
-            scalar = np.sqrt(2/(ind_1*(ind_1+1)))
+            scalar = np.sqrt(2 / (ind_1 * (ind_1 + 1)))
             diag = np.ones((ind_1, 1))
             diag = np.append(diag, -ind_1)
-            diag = scalar * np.append(diag, np.zeros((dim-ind_1-1, 1)))
+            diag = scalar * np.append(diag, np.zeros((dim - ind_1 - 1, 1)))
 
             gm_op = sparse.lil_matrix((dim, dim))
             gm_op.setdiag(diag)
@@ -47,7 +45,7 @@ def gen_gell_mann(ind_1: int,
         if ind_1 < ind_2:
             gm_op = e_mat + e_mat.conj().T
         else:
-            gm_op = 1j*e_mat - 1j*e_mat.conj().T
+            gm_op = 1j * e_mat - 1j * e_mat.conj().T
 
     if not is_sparse:
         return gm_op.todense()

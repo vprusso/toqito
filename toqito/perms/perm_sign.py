@@ -19,4 +19,4 @@ def perm_sign(perm: np.ndarray) -> float:
              -1 if the permutation is of odd length.
     """
     iden = np.eye(len(perm))
-    return sp.linalg.det(iden[:, np.array(perm)-1])
+    return sp.linalg.det(iden[:, np.array(perm) - 1])

@@ -10,17 +10,14 @@ class TestIsSymmetric(unittest.TestCase):
 
     def test_is_symmetric(self):
         """Test that symmetric matrix returns True."""
-        mat = np.array([[1, 7, 3],
-                        [7, 4, -5],
-                        [3, -5, 6]])
+        mat = np.array([[1, 7, 3], [7, 4, -5], [3, -5, 6]])
         self.assertEqual(is_symmetric(mat), True)
 
     def test_is_not_symmetric(self):
         """Test that non-symmetric matrix returns False."""
-        mat = np.array([[1, 2],
-                        [3, 4]])
+        mat = np.array([[1, 2], [3, 4]])
         self.assertEqual(is_symmetric(mat), False)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

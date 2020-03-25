@@ -25,5 +25,5 @@ def is_diagonal(mat: np.ndarray) -> bool:
     if not is_square(mat):
         return False
     i, j = mat.shape
-    test = mat.reshape(-1)[:-1].reshape(i-1, j+1)
+    test = mat.reshape(-1)[:-1].reshape(i - 1, j + 1)
     return ~np.any(test[:, 1:])

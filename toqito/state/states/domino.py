@@ -54,19 +54,19 @@ def domino(idx: int) -> np.ndarray:
     if idx == 0:
         return np.kron(e_1, e_1)
     if idx == 1:
-        return np.kron(e_0, 1/np.sqrt(2)*(e_0 + e_1))
+        return np.kron(e_0, 1 / np.sqrt(2) * (e_0 + e_1))
     if idx == 2:
-        return np.kron(e_0, 1/np.sqrt(2)*(e_0 - e_1))
+        return np.kron(e_0, 1 / np.sqrt(2) * (e_0 - e_1))
     if idx == 3:
-        return np.kron(e_2, 1/np.sqrt(2)*(e_1 + e_2))
+        return np.kron(e_2, 1 / np.sqrt(2) * (e_1 + e_2))
     if idx == 4:
-        return np.kron(e_2, 1/np.sqrt(2)*(e_1 - e_2))
+        return np.kron(e_2, 1 / np.sqrt(2) * (e_1 - e_2))
     if idx == 5:
-        return np.kron(1/np.sqrt(2)*(e_1 + e_2), e_0)
+        return np.kron(1 / np.sqrt(2) * (e_1 + e_2), e_0)
     if idx == 6:
-        return np.kron(1/np.sqrt(2)*(e_1 - e_2), e_0)
+        return np.kron(1 / np.sqrt(2) * (e_1 - e_2), e_0)
     if idx == 7:
-        return np.kron(1/np.sqrt(2)*(e_0 + e_1), e_2)
+        return np.kron(1 / np.sqrt(2) * (e_0 + e_1), e_2)
     if idx == 8:
-        return np.kron(1/np.sqrt(2)*(e_0 - e_1), e_2)
+        return np.kron(1 / np.sqrt(2) * (e_0 - e_1), e_2)
     raise ValueError("Invalid integer value for Domino state.")

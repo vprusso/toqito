@@ -6,10 +6,9 @@ import numpy as np
 import scipy as sp
 
 
-def schmidt_decomposition(vec: np.ndarray,
-                          dim: Union[int, List[int]] = None,
-                          k_param: int = 0) \
-        -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+def schmidt_decomposition(
+    vec: np.ndarray, dim: Union[int, List[int]] = None, k_param: int = 0
+) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
     """
     Compute the Schmidt decomposition of a bipartite vector.
 
@@ -27,11 +26,13 @@ def schmidt_decomposition(vec: np.ndarray,
 
     # Allow the user to enter a single number for `dim`.
     if isinstance(dim, float):
-        dim = np.array([dim, len(vec)/dim])
+        dim = np.array([dim, len(vec) / dim])
         if np.abs(dim[1] - np.round(dim[1])) >= 2 * len(vec) * eps:
-            raise ValueError("InvalidDim: The value of `dim` must evenly divide"
-                             " `len(vec)`; please provide a `dim` array "
-                             "containing the dimensions of the subsystems.")
+            raise ValueError(
+                "InvalidDim: The value of `dim` must evenly divide"
+                " `len(vec)`; please provide a `dim` array "
+                "containing the dimensions of the subsystems."
+            )
         dim[1] = np.round(dim[1])
 
     # Try to guess whether SVD or SVDS will be faster, and then perform the
@@ -40,26 +41,25 @@ def schmidt_decomposition(vec: np.ndarray,
 
     # Just a few Schmidt coefficients.
     if 0 < k_param <= np.ceil(np.min(dim) / adj):
-        u_mat, singular_vals, vt_mat = \
-            sp.sparse.linalg.svds(LinearOperator(np.reshape(vec, dim[::-1].astype(int)),
-                                                 k_param))
+        u_mat, singular_vals, vt_mat = sp.sparse.linalg.svds(
+            LinearOperator(np.reshape(vec, dim[::-1].astype(int)), k_param)
+        )
     # Otherwise, use lots of Schmidt coefficients.
     else:
-        u_mat, singular_vals, vt_mat = \
-            np.linalg.svd(np.reshape(vec, dim[::-1].astype(int)))
+        u_mat, singular_vals, vt_mat = np.linalg.svd(
+            np.reshape(vec, dim[::-1].astype(int))
+        )
 
     if k_param > 0:
         u_mat = u_mat[:, :k_param]
         singular_vals = singular_vals[:k_param]
         vt_mat = vt_mat[:, :k_param]
 
-    #singular_vals = np.diag(singular_vals)
+    # singular_vals = np.diag(singular_vals)
     singular_vals = singular_vals.reshape(-1, 1)
     if k_param == 0:
         # Schmidt rank.
-        r_param = np.sum(
-            singular_vals > np.max(dim) * np.spacing(singular_vals[0])
-        )
+        r_param = np.sum(singular_vals > np.max(dim) * np.spacing(singular_vals[0]))
         # Schmidt coefficients.
         singular_vals = singular_vals[:r_param]
         u_mat = u_mat[:, :r_param]

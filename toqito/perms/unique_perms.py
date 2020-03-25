@@ -19,15 +19,17 @@ def unique_perms(elements: List[int]):
     :return:
     """
     elem_set = set(elements)
-    list_unique = [UniqueElement(value=i, occurrences=elements.count(i)) for i in elem_set]
+    list_unique = [
+        UniqueElement(value=i, occurrences=elements.count(i)) for i in elem_set
+    ]
     len_elems = len(elements)
 
-    return perm_unique_helper(list_unique, [0]*len_elems, len_elems-1)
+    return perm_unique_helper(list_unique, [0] * len_elems, len_elems - 1)
 
 
-def perm_unique_helper(list_unique: List[UniqueElement],
-                       result_list: List[int],
-                       elem_d: int):
+def perm_unique_helper(
+    list_unique: List[UniqueElement], result_list: List[int], elem_d: int
+):
     """
     Provide helper function for unique_perms.
 
@@ -43,8 +45,6 @@ def perm_unique_helper(list_unique: List[UniqueElement],
             if i.occurrences > 0:
                 result_list[elem_d] = i.value
                 i.occurrences -= 1
-                for g_perm in perm_unique_helper(list_unique,
-                                                 result_list,
-                                                 elem_d-1):
+                for g_perm in perm_unique_helper(list_unique, result_list, elem_d - 1):
                     yield g_perm
                 i.occurrences += 1

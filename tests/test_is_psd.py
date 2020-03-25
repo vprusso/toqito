@@ -10,16 +10,14 @@ class TestIsPSD(unittest.TestCase):
 
     def test_is_psd(self):
         """Test that positive semidefinite matrix returns True."""
-        mat = np.array([[1, -1],
-                        [-1, 1]])
+        mat = np.array([[1, -1], [-1, 1]])
         self.assertEqual(is_psd(mat), True)
 
     def test_is_not_psd(self):
         """Test that non-positive semidefinite matrix returns False."""
-        mat = np.array([[-1, -1],
-                        [-1, -1]])
+        mat = np.array([[-1, -1], [-1, -1]])
         self.assertEqual(is_psd(mat), False)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

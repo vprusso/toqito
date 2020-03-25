@@ -4,10 +4,9 @@ from scipy import sparse
 from toqito.matrix.matrices.iden import iden
 
 
-def max_entangled(dim: int,
-                  is_sparse: bool = False,
-                  is_normalized: bool = True) -> [np.ndarray,
-                                                  sparse.dia.dia_matrix]:
+def max_entangled(
+    dim: int, is_sparse: bool = False, is_normalized: bool = True
+) -> [np.ndarray, sparse.dia.dia_matrix]:
     """
     Produce a maximally entangled bipartite pure state.
 
@@ -22,7 +21,7 @@ def max_entangled(dim: int,
     :param is_normalized: `True` if vector is normalized and `False` otherwise.
     :return: The maximally entangled state of dimension `dim`.
     """
-    psi = np.reshape(iden(dim, is_sparse), (dim**2, 1))
+    psi = np.reshape(iden(dim, is_sparse), (dim ** 2, 1))
     if is_normalized:
-        psi = psi/np.sqrt(dim)
+        psi = psi / np.sqrt(dim)
     return psi

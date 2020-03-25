@@ -5,10 +5,12 @@ from toqito.perms.permute_systems import permute_systems
 from toqito.matrix.matrices.iden import iden
 
 
-def permutation_operator(dim: Union[List[int], int],
-                         perm: List[int],
-                         inv_perm: bool = False,
-                         is_sparse: bool = False) -> np.ndarray:
+def permutation_operator(
+    dim: Union[List[int], int],
+    perm: List[int],
+    inv_perm: bool = False,
+    is_sparse: bool = False,
+) -> np.ndarray:
     """
     Produce a unitary operator that permutes subsystems.
 
@@ -33,8 +35,6 @@ def permutation_operator(dim: Union[List[int], int],
         dim = np.array(dim)
 
     # Swap the rows of the identity matrix appropriately.
-    return permute_systems(iden(int(np.prod(dim)), is_sparse),
-                           perm,
-                           dim,
-                           True,
-                           inv_perm)
+    return permute_systems(
+        iden(int(np.prod(dim)), is_sparse), perm, dim, True, inv_perm
+    )

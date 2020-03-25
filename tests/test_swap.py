@@ -10,15 +10,13 @@ class TestSwap(unittest.TestCase):
 
     def test_swap_matrix(self):
         """Tests swap operation on matrix."""
-        test_mat = np.array([[1, 5, 9, 13],
-                             [2, 6, 10, 14],
-                             [3, 7, 11, 15],
-                             [4, 8, 12, 16]])
+        test_mat = np.array(
+            [[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]]
+        )
 
-        expected_res = np.array([[1, 9, 5, 13],
-                                 [3, 11, 7, 15],
-                                 [2, 10, 6, 14],
-                                 [4, 12, 8, 16]])
+        expected_res = np.array(
+            [[1, 9, 5, 13], [3, 11, 7, 15], [2, 10, 6, 14], [4, 12, 8, 16]]
+        )
 
         res = swap(test_mat)
 
@@ -38,15 +36,13 @@ class TestSwap(unittest.TestCase):
 
     def test_swap_int_dim(self):
         """Test swap operation when int is provided."""
-        test_mat = np.array([[1, 5, 9, 13],
-                             [2, 6, 10, 14],
-                             [3, 7, 11, 15],
-                             [4, 8, 12, 16]])
+        test_mat = np.array(
+            [[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]]
+        )
 
-        expected_res = np.array([[1, 9, 5, 13],
-                                 [3, 11, 7, 15],
-                                 [2, 10, 6, 14],
-                                 [4, 12, 8, 16]])
+        expected_res = np.array(
+            [[1, 9, 5, 13], [3, 11, 7, 15], [2, 10, 6, 14], [4, 12, 8, 16]]
+        )
 
         res = swap(test_mat, [1, 2], 2)
 
@@ -55,31 +51,28 @@ class TestSwap(unittest.TestCase):
 
     def test_invalid_dim(self):
         """Invalid dim parameters."""
-        test_mat = np.array([[1, 5, 9, 13],
-                             [2, 6, 10, 14],
-                             [3, 7, 11, 15],
-                             [4, 8, 12, 16]])
+        test_mat = np.array(
+            [[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]]
+        )
         with self.assertRaises(ValueError):
             swap(test_mat, [1, 2], 5)
 
     def test_invalid_sys(self):
         """Invalid sys parameters."""
-        test_mat = np.array([[1, 5, 9, 13],
-                             [2, 6, 10, 14],
-                             [3, 7, 11, 15],
-                             [4, 8, 12, 16]])
+        test_mat = np.array(
+            [[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]]
+        )
         with self.assertRaises(ValueError):
             swap(test_mat, [0])
 
     def test_invalid_sys_len(self):
         """Invalid sys parameters."""
-        test_mat = np.array([[1, 5, 9, 13],
-                             [2, 6, 10, 14],
-                             [3, 7, 11, 15],
-                             [4, 8, 12, 16]])
+        test_mat = np.array(
+            [[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]]
+        )
         with self.assertRaises(ValueError):
             swap(test_mat, [1], 2)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

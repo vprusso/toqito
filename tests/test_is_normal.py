@@ -15,11 +15,9 @@ class TestIsNormal(unittest.TestCase):
 
     def test_is_not_normal(self):
         """Test that non-normal matrix returns False."""
-        mat = np.array([[1, 2, 3],
-                        [4, 5, 6],
-                        [7, 8, 9]])
+        mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
         self.assertEqual(is_normal(mat), False)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

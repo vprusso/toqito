@@ -23,22 +23,24 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     """
     # Perform some error checking.
     if not np.all(rho.shape == sigma.shape):
-        raise ValueError("InvalidDim: `rho` and `sigma` must be matrices of the"
-                         " same size.")
+        raise ValueError(
+            "InvalidDim: `rho` and `sigma` must be matrices of the" " same size."
+        )
     if rho.shape[0] != rho.shape[1]:
         raise ValueError("InvalidDim: `rho` and `sigma` must be square.")
 
     # If `rho` or `sigma` is a cvxpy variable then compute fidelity via
     # semidefinite programming, so that this function can be used in the
     # objective function or constraints of other cvxpy optimization problems.
-    if isinstance(rho, cvxpy.atoms.affine.vstack.Vstack) or \
-            isinstance(sigma, cvxpy.atoms.affine.vstack.Vstack):
+    if isinstance(rho, cvxpy.atoms.affine.vstack.Vstack) or isinstance(
+        sigma, cvxpy.atoms.affine.vstack.Vstack
+    ):
         z_var = cvxpy.Variable(rho.shape, complex=True)
         objective = cvxpy.Maximize(cvxpy.real(cvxpy.trace(z_var + z_var.H)))
         constraints = [cvxpy.bmat([[rho, z_var], [z_var.H, sigma]]) >> 0]
         problem = cvxpy.Problem(objective, constraints)
 
-        return 1/2*problem.solve()
+        return 1 / 2 * problem.solve()
 
     # If `rho` or `sigma` are *not* cvxpy variables, compute fidelity normally,
     # since this is much faster.

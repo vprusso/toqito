@@ -12,7 +12,7 @@ class TestBell(unittest.TestCase):
     def test_bell_0(self):
         """Generates the Bell state: 1/sqrt(2) * (|00> + |11>)."""
         e_0, e_1 = ket(2, 0), ket(2, 1)
-        expected_res = 1/np.sqrt(2) * (np.kron(e_0, e_0) + np.kron(e_1, e_1))
+        expected_res = 1 / np.sqrt(2) * (np.kron(e_0, e_0) + np.kron(e_1, e_1))
 
         res = bell(0)
 
@@ -22,7 +22,7 @@ class TestBell(unittest.TestCase):
     def test_bell_1(self):
         """Generates the Bell state: 1/sqrt(2) * (|00> - |11>)."""
         e_0, e_1 = ket(2, 0), ket(2, 1)
-        expected_res = 1/np.sqrt(2) * (np.kron(e_0, e_0) - np.kron(e_1, e_1))
+        expected_res = 1 / np.sqrt(2) * (np.kron(e_0, e_0) - np.kron(e_1, e_1))
 
         res = bell(1)
 
@@ -32,7 +32,7 @@ class TestBell(unittest.TestCase):
     def test_bell_2(self):
         """Generates the Bell state: 1/sqrt(2) * (|01> + |10>)."""
         e_0, e_1 = ket(2, 0), ket(2, 1)
-        expected_res = 1/np.sqrt(2) * (np.kron(e_0, e_1) + np.kron(e_1, e_0))
+        expected_res = 1 / np.sqrt(2) * (np.kron(e_0, e_1) + np.kron(e_1, e_0))
 
         res = bell(2)
 
@@ -42,7 +42,7 @@ class TestBell(unittest.TestCase):
     def test_bell_3(self):
         """Generates the Bell state: 1/sqrt(2) * (|01> - |10>)."""
         e_0, e_1 = ket(2, 0), ket(2, 1)
-        expected_res = 1/np.sqrt(2) * (np.kron(e_0, e_1) - np.kron(e_1, e_0))
+        expected_res = 1 / np.sqrt(2) * (np.kron(e_0, e_1) - np.kron(e_1, e_0))
 
         res = bell(3)
 
@@ -55,5 +55,5 @@ class TestBell(unittest.TestCase):
             bell(4)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

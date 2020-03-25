@@ -11,15 +11,17 @@ class TestDepolarizingChannel(unittest.TestCase):
 
     def test_standard_depolarizing_channel(self):
         """Maps every density matrix to the maximally-mixed state."""
-        test_input_mat = np.array([[1/2, 0, 0, 1/2],
-                                   [0, 0, 0, 0],
-                                   [0, 0, 0, 0],
-                                   [1/2, 0, 0, 1/2]])
+        test_input_mat = np.array(
+            [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
+        )
 
-        expected_res = 1/4 * np.array([[1/2, 0, 0, 1/2],
-                                       [0, 0, 0, 0],
-                                       [0, 0, 0, 0],
-                                       [1/2, 0, 0, 1/2]])
+        expected_res = (
+            1
+            / 4
+            * np.array(
+                [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
+            )
+        )
 
         res = apply_map(test_input_mat, depolarizing_channel(4))
 
@@ -27,5 +29,5 @@ class TestDepolarizingChannel(unittest.TestCase):
         self.assertEqual(np.all(bool_mat), True)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

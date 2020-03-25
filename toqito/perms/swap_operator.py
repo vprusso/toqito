@@ -5,8 +5,7 @@ from toqito.matrix.matrices.iden import iden
 from toqito.perms.swap import swap
 
 
-def swap_operator(dim: Union[List[int], int],
-                  is_sparse: bool = False) -> np.ndarray:
+def swap_operator(dim: Union[List[int], int], is_sparse: bool = False) -> np.ndarray:
     """
     Produce a unitary operator that swaps two subsystems.
 

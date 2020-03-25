@@ -23,17 +23,19 @@ def w_state(num_qubits: int, coeff: List[int] = None) -> np.ndarray:
                   1-by-`num_qubts` vector of coefficients.
     """
     if coeff is None:
-        coeff = np.ones(num_qubits)/np.sqrt(num_qubits)
+        coeff = np.ones(num_qubits) / np.sqrt(num_qubits)
 
     if num_qubits < 2:
         raise ValueError("InvalidNumQubits: `num_qubits` must be at least 2.")
     if len(coeff) != num_qubits:
-        raise ValueError("InvalidCoeff: The variable `coeff` must be a vector "
-                         "of length equal to `num_qubits`.")
+        raise ValueError(
+            "InvalidCoeff: The variable `coeff` must be a vector "
+            "of length equal to `num_qubits`."
+        )
 
-    ret_w_state = csr_matrix((2**num_qubits, 1)).toarray()
+    ret_w_state = csr_matrix((2 ** num_qubits, 1)).toarray()
 
     for i in range(num_qubits):
-        ret_w_state[2**i] = coeff[num_qubits-i-1]
+        ret_w_state[2 ** i] = coeff[num_qubits - i - 1]
 
     return np.around(ret_w_state, 4)

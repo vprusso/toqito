@@ -19,9 +19,9 @@ class TestIsPure(unittest.TestCase):
         """Check that list of pure states returns True."""
         e_0, e_1, e_2 = ket(3, 0), ket(3, 1), ket(3, 2)
 
-        e0_dm = e_0*e_0.conj().T
-        e1_dm = e_1*e_1.conj().T
-        e2_dm = e_2*e_2.conj().T
+        e0_dm = e_0 * e_0.conj().T
+        e1_dm = e_1 * e_1.conj().T
+        e2_dm = e_2 * e_2.conj().T
 
         self.assertEqual(is_pure([e0_dm, e1_dm, e2_dm]), True)
 
@@ -37,5 +37,5 @@ class TestIsPure(unittest.TestCase):
         self.assertEqual(is_pure([rho, sigma]), False)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

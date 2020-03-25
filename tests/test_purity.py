@@ -9,10 +9,10 @@ class TestPurity(unittest.TestCase):
 
     def test_purity(self):
         """Test for identity matrix."""
-        expected_res = 1/4
-        res = purity(np.identity(4)/4)
+        expected_res = 1 / 4
+        res = purity(np.identity(4) / 4)
         self.assertEqual(res, expected_res)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

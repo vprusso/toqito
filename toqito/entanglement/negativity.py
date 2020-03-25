@@ -45,17 +45,21 @@ def negativity(rho: np.ndarray, dim: Union[List[int], int] = None) -> float:
 
     # Allow the user to enter a single number for dim.
     if isinstance(dim, int):
-        dim = np.array([dim, rho_dims[0]/dim])
-        if abs(dim[1] - np.round(dim[1])) >= 2*rho_dims[0]*np.finfo(float).eps:
-            raise ValueError("InvalidDim: If `dim` is a scalar, `rho` must be "
-                             "square and `dim` must evenly divide `len(rho)`. "
-                             "Please provide the `dim` array containing the "
-                             "dimensions of the subsystems.")
+        dim = np.array([dim, rho_dims[0] / dim])
+        if abs(dim[1] - np.round(dim[1])) >= 2 * rho_dims[0] * np.finfo(float).eps:
+            raise ValueError(
+                "InvalidDim: If `dim` is a scalar, `rho` must be "
+                "square and `dim` must evenly divide `len(rho)`. "
+                "Please provide the `dim` array containing the "
+                "dimensions of the subsystems."
+            )
         dim[1] = np.round(dim[1])
 
     if np.prod(dim) != rho_dims[0]:
-        raise ValueError("InvalidDim: Please provide local dimensions in the "
-                         "argument `dim` that match the size of `rho`.")
+        raise ValueError(
+            "InvalidDim: Please provide local dimensions in the "
+            "argument `dim` that match the size of `rho`."
+        )
 
     # Compute the negativity.
-    return (lin_alg.norm(partial_transpose(rho, 2, dim), ord="nuc") - 1)/2
+    return (lin_alg.norm(partial_transpose(rho, 2, dim), ord="nuc") - 1) / 2

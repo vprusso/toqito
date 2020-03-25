@@ -10,8 +10,9 @@ class TestFourierMatrix(unittest.TestCase):
 
     def test_fourier_matrix_dim_2(self):
         """Fourier matrix of dimension 2."""
-        expected_res = np.array([[1/np.sqrt(2), 1/np.sqrt(2)],
-                                 [1/np.sqrt(2), -1/np.sqrt(2)]])
+        expected_res = np.array(
+            [[1 / np.sqrt(2), 1 / np.sqrt(2)], [1 / np.sqrt(2), -1 / np.sqrt(2)]]
+        )
 
         res = fourier(2)
 
@@ -19,5 +20,5 @@ class TestFourierMatrix(unittest.TestCase):
         self.assertEqual(np.all(bool_mat), True)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

@@ -3,9 +3,7 @@ import numpy as np
 from scipy import sparse
 
 
-def max_mixed(dim: int,
-              is_sparse: bool = False) -> [np.ndarray,
-                                           sparse.dia.dia_matrix]:
+def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, sparse.dia.dia_matrix]:
     r"""
     Produce the maximally mixed state.
 
@@ -29,5 +27,5 @@ def max_mixed(dim: int,
     :return: The maximally mixed state of dimension `dim`.
     """
     if is_sparse:
-        return 1/dim * sparse.eye(dim)
-    return 1/dim * np.eye(dim)
+        return 1 / dim * sparse.eye(dim)
+    return 1 / dim * np.eye(dim)

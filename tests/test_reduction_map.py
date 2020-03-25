@@ -24,5 +24,5 @@ class TestReductionMap(unittest.TestCase):
         self.assertEqual(res[4, 8], -1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

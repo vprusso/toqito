@@ -2,9 +2,7 @@
 import numpy as np
 
 
-def is_symmetric(mat: np.ndarray,
-                 rtol: float = 1e-05,
-                 atol: float = 1e-08) -> bool:
+def is_symmetric(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
     r"""
     Determine if a matrix is symmetric.
 

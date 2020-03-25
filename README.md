@@ -6,6 +6,7 @@ quantum information.
 [![build status](http://img.shields.io/travis/vprusso/toqito.svg)](https://travis-ci.org/vprusso/toqito)
 [![Coverage Status](https://coveralls.io/repos/github/vprusso/toqito/badge.svg?branch=master)](https://coveralls.io/github/vprusso/toqito?branch=master)
 [![DOI](https://zenodo.org/badge/235493396.svg)](https://zenodo.org/badge/latestdoi/235493396)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 The inspiration for this package is heavily influenced by the
 [QETLAB](http://www.qetlab.com) package in MATLAB by Nathaniel Johnston.  Many
@@ -64,14 +65,14 @@ Calculate various quantities of interest pertaining to entanglement.
 
 #### Matrices
 
-  - [clock](https://github.com/vprusso/toqito/blob/master/docs/tutorials/matrix/matrices/clock.ipynb): Generates the clock matrix.
-  - [fourier](https://github.com/vprusso/toqito/blob/master/docs/tutorials/matrix/matrices/fourier.ipynb): Generate unitary matrix that implements the quantum Fourier transform.
-  - [gell_mann](https://github.com/vprusso/toqito/blob/master/docs/tutorials/matrix/matrices/gell_mann.ipynb): Produces a Gell-Mann operator.
+  - [clock](https://github.com/vprusso/toqito/blob/master/docs/notebooks/matrix/matrices/clock.ipynb): Generates the clock matrix.
+  - [fourier](https://github.com/vprusso/toqito/blob/master/docs/notebooks/matrix/matrices/fourier.ipynb): Generate unitary matrix that implements the quantum Fourier transform.
+  - [gell_mann](https://github.com/vprusso/toqito/blob/master/docs/notebooks/matrix/matrices/gell_mann.ipynb): Produces a Gell-Mann operator.
   - gen_gell_man: Produces a generalized Gell-Mann operator.
   - gen_pauli: Produces a generalized Pauli operator (sometimes called a Weyl operator).
   - iden: Computes a sparse or full identity matrix.
   - pauli: Produces a Pauli operator.
-  - [shift](https://github.com/vprusso/toqito/blob/master/docs/tutorials/matrix/matrices/shift.ipynb): Generates the shift matrix.
+  - [shift](https://github.com/vprusso/toqito/blob/master/docs/notebooks/matrix/matrices/shift.ipynb): Generates the shift matrix.
 
 #### Operations
 
@@ -93,7 +94,7 @@ Calculate various quantities of interest pertaining to entanglement.
 
 ### Measure
 
-  - is_measurement: Determines if a set of matrices are valid measurements operators.
+  - is_povm: Determines if a set of matrices are valid measurements operators.
 
 ### Nonlocal games
 
@@ -144,6 +145,7 @@ Calculate various quantities of interest pertaining to entanglement.
   - bures_metric: Computes the Bures metric between two density matrices.
   - entropy: Computes the von Neumann or Rényi entropy of a density matrix.
   - fidelity: Computes the fidelity of two density matrices.
+  - helstrom_holevo: Computes the Helstrom-Holevo distance between two density matrices.
   - purity: Computes the purity of a quantum state.
   - super_fidelity: Computes the super-fidelity of two density matrices.
   - trace_distance: Computes the trace distance of two matrices.
@@ -169,7 +171,7 @@ Calculate various quantities of interest pertaining to entanglement.
   - is_mutually_unbiased_basis: Check if list of vectors constitute a mutually unbiased basis.
   - is_ppt: Determines whether or not a matrix has positive partial transpose.
   - is_product_vector: Determines if a pure state is a product vector.
-  - [is_pure](https://github.com/vprusso/toqito/blob/master/docs/tutorials/state/properties/is_pure.ipynb): Determines if a state is pure or a list of states are pure.
+  - [is_pure](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/properties/is_pure.ipynb): Determines if a state is pure or a list of states are pure.
   - is_quantum_latin_square: Check if list of vectors constitute a quantum Latin square.
 
 

@@ -24,5 +24,5 @@ class TestIsDiagonal(unittest.TestCase):
         self.assertEqual(is_diagonal(mat), False)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

@@ -13,8 +13,8 @@ class TestIsMUB(unittest.TestCase):
         """Return True for MUB of dimension 2."""
         e_0, e_1 = ket(2, 0), ket(2, 1)
         mub_1 = [e_0, e_1]
-        mub_2 = [1/np.sqrt(2) * (e_0 + e_1), 1/np.sqrt(2) * (e_0 - e_1)]
-        mub_3 = [1/np.sqrt(2) * (e_0 + 1j*e_1), 1/np.sqrt(2) * (e_0 - 1j*e_1)]
+        mub_2 = [1 / np.sqrt(2) * (e_0 + e_1), 1 / np.sqrt(2) * (e_0 - e_1)]
+        mub_3 = [1 / np.sqrt(2) * (e_0 + 1j * e_1), 1 / np.sqrt(2) * (e_0 - 1j * e_1)]
         mubs = [mub_1, mub_2, mub_3]
         self.assertEqual(is_mub(mubs), True)
 
@@ -22,8 +22,8 @@ class TestIsMUB(unittest.TestCase):
         """Return False for non-MUB of dimension 2."""
         e_0, e_1 = ket(2, 0), ket(2, 1)
         mub_1 = [e_0, e_1]
-        mub_2 = [1/np.sqrt(2) * (e_0 + e_1), e_1]
-        mub_3 = [1/np.sqrt(2) * (e_0 + 1j*e_1), e_0]
+        mub_2 = [1 / np.sqrt(2) * (e_0 + e_1), e_1]
+        mub_3 = [1 / np.sqrt(2) * (e_0 + 1j * e_1), e_0]
         mubs = [mub_1, mub_2, mub_3]
         self.assertEqual(is_mub(mubs), False)
 
@@ -34,5 +34,5 @@ class TestIsMUB(unittest.TestCase):
             is_mub(vec_list)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

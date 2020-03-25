@@ -72,40 +72,25 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray:
     if ind == 0:
         gm_op = np.identity(3)
     elif ind == 1:
-        gm_op = np.array([[0, 1, 0],
-                          [1, 0, 0],
-                          [0, 0, 0]])
+        gm_op = np.array([[0, 1, 0], [1, 0, 0], [0, 0, 0]])
     elif ind == 2:
-        gm_op = np.array([[0, -1j, 0],
-                          [1j, 0, 0],
-                          [0, 0, 0]])
+        gm_op = np.array([[0, -1j, 0], [1j, 0, 0], [0, 0, 0]])
     elif ind == 3:
-        gm_op = np.array([[1, 0, 0],
-                          [0, -1, 0],
-                          [0, 0, 0]])
+        gm_op = np.array([[1, 0, 0], [0, -1, 0], [0, 0, 0]])
     elif ind == 4:
-        gm_op = np.array([[0, 0, 1],
-                          [0, 0, 0],
-                          [1, 0, 0]])
+        gm_op = np.array([[0, 0, 1], [0, 0, 0], [1, 0, 0]])
     elif ind == 5:
-        gm_op = np.array([[0, 0, -1j],
-                          [0, 0, 0],
-                          [1j, 0, 0]])
+        gm_op = np.array([[0, 0, -1j], [0, 0, 0], [1j, 0, 0]])
     elif ind == 6:
-        gm_op = np.array([[0, 0, 0],
-                          [0, 0, 1],
-                          [0, 1, 0]])
+        gm_op = np.array([[0, 0, 0], [0, 0, 1], [0, 1, 0]])
     elif ind == 7:
-        gm_op = np.array([[0, 0, 0],
-                          [0, 0, -1j],
-                          [0, 1j, 0]])
+        gm_op = np.array([[0, 0, 0], [0, 0, -1j], [0, 1j, 0]])
     elif ind == 8:
-        gm_op = np.array([[1, 0, 0],
-                          [0, 1, 0],
-                          [0, 0, -2]])/np.sqrt(3)
+        gm_op = np.array([[1, 0, 0], [0, 1, 0], [0, 0, -2]]) / np.sqrt(3)
     else:
-        raise ValueError("Gell-Mann index values can only be values from 0 to "
-                         "8 (inclusive).")
+        raise ValueError(
+            "Gell-Mann index values can only be values from 0 to " "8 (inclusive)."
+        )
 
     if is_sparse:
         gm_op = csr_matrix(gm_op)

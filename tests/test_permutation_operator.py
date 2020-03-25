@@ -10,10 +10,9 @@ class TestPermutationOperator(unittest.TestCase):
 
     def test_standard_swap(self):
         """Generates the standard swap operator on two qubits."""
-        expected_res = np.array([[1, 0, 0, 0],
-                                 [0, 0, 1, 0],
-                                 [0, 1, 0, 0],
-                                 [0, 0, 0, 1]])
+        expected_res = np.array(
+            [[1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 1]]
+        )
 
         res = permutation_operator(2, [2, 1])
 
@@ -22,10 +21,9 @@ class TestPermutationOperator(unittest.TestCase):
 
     def test_standard_swap_list_dim(self):
         """Generates the standard swap operator on two qubits."""
-        expected_res = np.array([[1, 0, 0, 0],
-                                 [0, 0, 1, 0],
-                                 [0, 1, 0, 0],
-                                 [0, 0, 0, 1]])
+        expected_res = np.array(
+            [[1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 1]]
+        )
 
         res = permutation_operator([2, 2], [2, 1])
 
@@ -39,5 +37,5 @@ class TestPermutationOperator(unittest.TestCase):
         self.assertEqual(res[0][0], 1)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
