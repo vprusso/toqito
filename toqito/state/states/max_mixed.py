@@ -10,15 +10,14 @@ def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, sparse.dia.dia_
     Produces the maximally mixed state on of `dim` dimensions. The maximally
     mixed state is defined as
 
-    ..math ::
-    `
-    \frac{1}{d} \begin{align}
-                    1 & 0 & \ldots & 0 \\
-                    0 & 1 & \ldots & 0 \\
-                    \vdots & \vdots & \ddots & \vdots \\
-                    0 & 0 & \ldots & 1
-                \end{align}
-    `
+    .. math::
+        \frac{1}{d} \begin{pmatrix}
+                        1 & 0 & \ldots & 0 \\
+                        0 & 1 & \ldots & 0 \\
+                        \vdots & \vdots & \ddots & \vdots \\
+                        0 & 0 & \ldots & 1
+                    \end{pmatrix}
+
     The maximally mixed state is returned as a sparse matrix if
     `is_sparse = True` and is full if `is_sparse = False`.
 
