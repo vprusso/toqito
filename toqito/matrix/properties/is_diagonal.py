@@ -10,14 +10,25 @@ def is_diagonal(mat: np.ndarray) -> bool:
     A matrix is diagonal if the matrix is square and if the diagonal of the
     matrix is non-zero, while the off-diagonal elements are all zero.
 
+    The following is an example of a 3-by-3 diagonal matrix:
+
+    .. math::
+        \begin{equation}
+            \begin{pmatrix}
+                1 & 0 & 0 \\
+                0 & 2 & 0 \\
+                0 & 0 & 3
+            \end{pmatrix}
+        \end{equation}
+
     This quick implementation is given by Daniel F. from StackOverflow in [2]:
 
     References:
         [1] Wikipedia: Diagonal matrix
-            https://en.wikipedia.org/wiki/Diagonal_matrix
+        https://en.wikipedia.org/wiki/Diagonal_matrix
 
         [2] StackOverflow post
-            https://stackoverflow.com/questions/43884189/
+        https://stackoverflow.com/questions/43884189/
 
     :param mat: The matrix to check.
     :return: Returns True if the matrix is diagonal and False otherwise.

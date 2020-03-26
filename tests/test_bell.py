@@ -10,7 +10,7 @@ class TestBell(unittest.TestCase):
     """Unit test for bell."""
 
     def test_bell_0(self):
-        """Generates the Bell state: 1/sqrt(2) * (|00> + |11>)."""
+        """Generate the Bell state: `1/sqrt(2) * (|00> + |11>)`."""
         e_0, e_1 = ket(2, 0), ket(2, 1)
         expected_res = 1 / np.sqrt(2) * (np.kron(e_0, e_0) + np.kron(e_1, e_1))
 
@@ -20,7 +20,7 @@ class TestBell(unittest.TestCase):
         self.assertEqual(np.all(bool_mat), True)
 
     def test_bell_1(self):
-        """Generates the Bell state: 1/sqrt(2) * (|00> - |11>)."""
+        """Generates the Bell state: `1/sqrt(2) * (|00> - |11>)`."""
         e_0, e_1 = ket(2, 0), ket(2, 1)
         expected_res = 1 / np.sqrt(2) * (np.kron(e_0, e_0) - np.kron(e_1, e_1))
 
@@ -30,7 +30,7 @@ class TestBell(unittest.TestCase):
         self.assertEqual(np.all(bool_mat), True)
 
     def test_bell_2(self):
-        """Generates the Bell state: 1/sqrt(2) * (|01> + |10>)."""
+        """Generates the Bell state: `1/sqrt(2) * (|01> + |10>)`."""
         e_0, e_1 = ket(2, 0), ket(2, 1)
         expected_res = 1 / np.sqrt(2) * (np.kron(e_0, e_1) + np.kron(e_1, e_0))
 
@@ -40,7 +40,7 @@ class TestBell(unittest.TestCase):
         self.assertEqual(np.all(bool_mat), True)
 
     def test_bell_3(self):
-        """Generates the Bell state: 1/sqrt(2) * (|01> - |10>)."""
+        """Generates the Bell state: `1/sqrt(2) * (|01> - |10>)`."""
         e_0, e_1 = ket(2, 0), ket(2, 1)
         expected_res = 1 / np.sqrt(2) * (np.kron(e_0, e_1) - np.kron(e_1, e_0))
 

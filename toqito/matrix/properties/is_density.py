@@ -12,7 +12,7 @@ def is_density(mat: np.ndarray) -> bool:
     property of being positive semidefinite (PSD).
 
     References:
-    [1] Wikipedia: Density matrix
+        [1] Wikipedia: Density matrix
         https://en.wikipedia.org/wiki/Density_matrix
 
     :param mat: Matrix to check.

@@ -8,7 +8,7 @@ def is_psd(mat: np.ndarray, tol: float = 1e-8) -> bool:
     Check if matrix is positive semidefinite (PSD).
 
     References:
-    [1] Wikipedia: Definiteness of a matrix.
+        [1] Wikipedia: Definiteness of a matrix.
         https://en.wikipedia.org/wiki/Definiteness_of_a_matrix
 
     :param mat: Matrix to check.

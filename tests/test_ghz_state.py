@@ -11,7 +11,7 @@ class TestGHZ(unittest.TestCase):
     """Unit test for ghz."""
 
     def test_ghz_2_3(self):
-        """Produces the 3-qubit GHZ state: 1/sqrt(2) * (|000> + |111>)."""
+        """Produces the 3-qubit GHZ state: `1/sqrt(2) * (|000> + |111>)`."""
         e_0, e_1 = ket(2, 0), ket(2, 1)
         expected_res = (
             1
@@ -25,10 +25,10 @@ class TestGHZ(unittest.TestCase):
         self.assertEqual(np.all(bool_mat), True)
 
     def test_ghz_4_7(self):
-        """
-        The following generates the following GHZ state in (C^4)^{otimes 7}.
+        r"""
+        The following generates the following GHZ state in `(C^4)^{\otimes 7}`.
 
-        1/sqrt(30) * (|0000000> + 2|1111111> + 3|2222222> + 4|3333333>).
+        `1/sqrt(30) * (|0000000> + 2|1111111> + 3|2222222> + 4|3333333>)`.
         """
         e0_4 = np.array([[1], [0], [0], [0]])
         e1_4 = np.array([[0], [1], [0], [0]])
@@ -46,7 +46,7 @@ class TestGHZ(unittest.TestCase):
             )
         )
 
-        res = ghz(4, 7, [1, 2, 3, 4] / np.sqrt(30)).toarray()
+        res = ghz(4, 7, np.array([1, 2, 3, 4]) / np.sqrt(30)).toarray()
 
         bool_mat = np.isclose(res, expected_res)
         self.assertEqual(np.all(bool_mat), True)

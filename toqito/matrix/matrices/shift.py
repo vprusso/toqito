@@ -15,12 +15,15 @@ def shift(dim: int) -> np.ndarray:
                         1 & 0 & 0 & \ldots & 0 & 0 \\
                         0 & 1 & 0 & \ldots & 0 & 0 \\
                         0 & 0 & 1 & \ldots & 0 & 0 \\
-                        \ddots & \ldots & \vdots & \ddots \\
+                        \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
                         0 & 0 & 0 & \ldots & 1 & 0
                     \end{pmatrix}
 
+    The shift matrix is primarily used in the construction of the generalized
+    Pauli operators.
+
     References:
-    [1] Wikipedia: Generalizations of Pauli matrices
+        [1] Wikipedia: Generalizations of Pauli matrices
         (https://en.wikipedia.org/wiki/Generalizations_of_Pauli_matrices.
 
     :param dim: Dimension of the matrix.

@@ -8,14 +8,20 @@ def is_normal(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool
 
     A matrix is normal if it commutes with its adjoint
 
-    :math: `[X, X^*] = 0`,
+    .. math::
+        \begin{equation}
+            [X, X^*] = 0,
+        \end{equation}
 
     or, equivalently if
 
-    :math: `X^* X = X X^*`.
+    .. math::
+        \begin{equation}
+            X^* X = X X^*.
+        \end{equation}
 
     References:
-    [1] Wikipedia: Normal matrix.
+        [1] Wikipedia: Normal matrix.
         https://en.wikipedia.org/wiki/Normal_matrix
 
     :param mat: The matrix to check.

@@ -7,19 +7,20 @@ def concurrence(rho: np.ndarray) -> float:
     r"""
     Calculate the concurrence of a bipartite state.
 
-    The concurrence of a bipartite state `rho` is defined as
-    .. math::
-         \max(0, \lambda_1 - \lambda_2 - \lambda_3 - \lambda_4),
+    The concurrence of a bipartite state :math:`\rho` is defined as
 
-    where :math: `\lambda_1, \ldots, \lambda_4` are the eigenvalues in
+    .. math::
+        \max(0, \lambda_1 - \lambda_2 - \lambda_3 - \lambda_4),
+
+    where :math:`\lambda_1, \ldots, \lambda_4` are the eigenvalues in
     decreasing order of the matrix.
 
     References:
         [1] Wikipedia page for concurrence (quantum computing)
-            https://en.wikipedia.org/wiki/Concurrence_(quantum_computing)
+        https://en.wikipedia.org/wiki/Concurrence_(quantum_computing)
 
     :param rho: The bipartite system specified as a matrix.
-    :return: The concurrence of the bipartite state `rho`.
+    :return: The concurrence of the bipartite state :math:`\rho`.
     """
     if rho.shape != (4, 4):
         raise ValueError(

@@ -7,7 +7,7 @@ def is_pd(mat: np.ndarray) -> bool:
     Check if matrix is positive definite (PD).
 
     References:
-    [1] Wikipedia: Definiteness of a matrix.
+        [1] Wikipedia: Definiteness of a matrix.
         https://en.wikipedia.org/wiki/Definiteness_of_a_matrix
 
     :param mat: Matrix to check.

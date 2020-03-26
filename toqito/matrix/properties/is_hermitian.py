@@ -7,7 +7,7 @@ def is_hermitian(mat: np.ndarray) -> bool:
     Check if matrix is Hermitian.
 
     References:
-    [1] Wikipedia: Hermitian matrix.
+        [1] Wikipedia: Hermitian matrix.
         https://en.wikipedia.org/wiki/Hermitian_matrix
 
     :param mat: Matrix to check.

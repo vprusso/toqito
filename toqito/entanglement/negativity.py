@@ -12,7 +12,7 @@ def negativity(rho: np.ndarray, dim: Union[List[int], int] = None) -> float:
     Compute the negativity of a bipartite quantum state.
 
     The negativity of a subsystem can be defined in terms of a density matrix
-    :math: `rho`:
+    :math:`\rho`:
 
     .. math::
         \mathcal{N}(\rho) \equiv \frac{||\rho^{\Gamma_A}||_1-1}{2}
@@ -24,13 +24,13 @@ def negativity(rho: np.ndarray, dim: Union[List[int], int] = None) -> float:
     eigenvalues of the partial transpose of `rho`.
 
     References:
-    [1] Wikipedia page for negativity (quantum mechanics):
+        [1] Wikipedia page for negativity (quantum mechanics):
         https://en.wikipedia.org/wiki/Negativity_(quantum_mechanics)
 
     :param rho: A density matrix of a pure state vector.
     :param dim: The default has both subsystems of equal dimension.
     :return: A value between 0 and 1 that corresponds to the negativity of
-            `rho`.
+            :math:`\rho`.
     """
     # Allow the user to input either a pure state vector or a density matrix.
     rho = pure_to_mixed(rho)

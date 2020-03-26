@@ -9,12 +9,15 @@ def is_projection(mat: np.ndarray) -> bool:
 
     A matrix is a projection matrix if it is positive semidefinite (PSD) and if
 
-    :math: `X^2 = X`
+    .. math::
+        \begin{equation}
+            X^2 = X
+        \end{equation}
 
-    where `X` is the matrix in question.
+    where :math:`X` is the matrix in question.
 
     References:
-    [1] Wikipedia: Projection matrix.
+        [1] Wikipedia: Projection matrix.
         https://en.wikipedia.org/wiki/Projection_matrix
 
     :param mat: Matrix to check.

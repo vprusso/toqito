@@ -16,7 +16,7 @@ def gen_gell_mann(
     2` and the Gell-Mann operators when `dim = 3`.
 
     References:
-    [1] Wikipedia: Gell-Mann matrices,
+        [1] Wikipedia: Gell-Mann matrices,
         https://en.wikipedia.org/wiki/Gell-Mann_matrices
 
     :param ind_1: A non-negative integer from 0 to `dim-1` (inclusive).

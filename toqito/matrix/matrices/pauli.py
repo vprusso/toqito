@@ -9,7 +9,7 @@ from toqito.matrix.operations.tensor import tensor_list
 def pauli(
     ind: Union[int, str, List[int], List[str]], is_sparse: bool = False
 ) -> Union[np.ndarray, sparse.csr_matrix]:
-    """
+    r"""
     Produce a Pauli operator.
 
     Provides the 2-by-2 Pauli matrix indicated by the value of `ind`. The
@@ -18,8 +18,32 @@ def pauli(
     identity operator. Alternatively, `ind` can be set to "I", "X", "Y", or "Z"
     (case insensitive) to indicate the Pauli identity, X, Y, or Z operator.
 
+    The 2-by-2 Pauli matrices are defined as the following matrices:
+
+    .. math::
+        \begin{equation}
+            \begin{aligned}
+                X = \begin{pmatrix}
+                        0 & 1 \\
+                        1 & 0
+                    \end{pmatrix}, \quad
+                Y = \begin{pmatrix}
+                        0 & -i \\
+                        i & 0
+                    \end{pmatrix}, \quad
+                Z = \begin{pmatrix}
+                        1 & 0 \\
+                        0 & -1
+                    \end{pmatrix}, \quad
+                I = \begin{pmatrix}
+                        1 & 0 \\
+                        0 & 1
+                    \end{pmatrix}.
+                \end{aligned}
+            \end{equation}
+
     References:
-    [1] Wikipedia: Pauli matrices
+        [1] Wikipedia: Pauli matrices
         https://en.wikipedia.org/wiki/Pauli_matrices
 
     :param ind: The index to indicate which Pauli operator to generate.

@@ -7,7 +7,7 @@ def bra(dim: int, pos: int) -> np.ndarray:
     Obtain the bra of dimension `dim`.
 
     References:
-    [1] Wikipedia page for bra–ket notation:
+        [1] Wikipedia page for bra–ket notation:
         https://en.wikipedia.org/wiki/Bra%E2%80%93ket_notation
 
     :param dim: The dimension of the row vector.

@@ -1,5 +1,5 @@
 .. toqito documentation master file, created by
-   sphinx-quickstart on Wed Mar 25 16:53:22 2020.
+   sphinx-quickstart on Thu Mar 26 14:32:10 2020.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
@@ -11,7 +11,6 @@ Welcome to toqito's documentation!
    :caption: Contents:
 
     modules
-
 
 Indices and tables
 ==================

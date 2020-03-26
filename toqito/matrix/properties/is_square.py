@@ -9,7 +9,7 @@ def is_square(mat: np.ndarray) -> bool:
     A matrix is square if the dimensions of the rows and columns are equivalent.
 
     References:
-    [1] Wikipedia: Square matrix.
+        [1] Wikipedia: Square matrix.
         https://en.wikipedia.org/wiki/Square_matrix
 
     :param mat: The matrix to check.

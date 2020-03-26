@@ -13,57 +13,59 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray:
 
     The 9 Gell-Mann matrices are defined as follows:
 
-    ..math::
-    `
-    \lambda_0 = \begin{pmatrix}
-                    1 & 0 & 0 \\
-                    0 & 1 & 0 \\
-                    0 & 0 & 1
-                \end{pmatrix}
-    \lambda_1 = \begin{pmatrix}
-                    0 & 1 & 0 \\
-                    1 & 0 & 0 \\
-                    0 & 0 & 0
-                \end{pmatrix}
-    \lambda_2 = \begin{pmatrix}
-                    0 & -i & 0 \\
-                    i & 0 & 0 \\
-                    0 & 0 & 0
-                \end{pmatrix}
-    \lambda_3 = \begin{pmatrix}
-                    1 & 0 & 0 \\
-                    0 & -1 & 0 \\
-                    0 & 0 & 0
-                \end{pmatrix}
-    \lambda_4 = \begin{pmatrix}
-                    0 & 0 & 1 \\
-                    0 & 0 & 0 \\
-                    1 & 0 & 0
-                \end{pmatrix}
-    \lambda_5 = \begin{pmatrix}
-                    0 & 0 & -i \\
-                    0 & 0 & 0 \\
-                    i & 0 & 0
-                \end{pmatrix}
-    \lambda_6 = \begin{pmatrix}
-                    0 & 0 & 0 \\
-                    0 & 0 & 1 \\
-                    0 & 1 & 0
-                \end{pmatrix}
-    \lambda_7 = \begin{pmatrix}
-                    0 & 0 & 0 \\
-                    0 & 0 & -i \\
-                    0 & i & 0
-                \end{pmatrix}
-    \lambda_8 = \frac{1}{\sqrt{3}} \begin{pmatrix}
-                                        1 & 0 & 0 \\
-                                        0 & 1 & 0 \\
-                                        0 & 0 & -2
-                                    \end{pmatrix}
-    `
+    .. math::
+        \begin{equation}
+            \begin{aligned}
+                \lambda_0 = \begin{pmatrix}
+                                1 & 0 & 0 \\
+                                0 & 1 & 0 \\
+                                0 & 0 & 1
+                            \end{pmatrix}, \quad
+                \lambda_1 = \begin{pmatrix}
+                                0 & 1 & 0 \\
+                                1 & 0 & 0 \\
+                                0 & 0 & 0
+                            \end{pmatrix}, \quad &
+                \lambda_2 = \begin{pmatrix}
+                                0 & -i & 0 \\
+                                i & 0 & 0 \\
+                                0 & 0 & 0
+                            \end{pmatrix},  \\
+                \lambda_3 = \begin{pmatrix}
+                                1 & 0 & 0 \\
+                                0 & -1 & 0 \\
+                                0 & 0 & 0
+                            \end{pmatrix}, \quad
+                \lambda_4 = \begin{pmatrix}
+                                0 & 0 & 1 \\
+                                0 & 0 & 0 \\
+                                1 & 0 & 0
+                            \end{pmatrix}, \quad &
+                \lambda_5 = \begin{pmatrix}
+                                0 & 0 & -i \\
+                                0 & 0 & 0 \\
+                                i & 0 & 0
+                            \end{pmatrix},  \\
+                \lambda_6 = \begin{pmatrix}
+                                0 & 0 & 0 \\
+                                0 & 0 & 1 \\
+                                0 & 1 & 0
+                            \end{pmatrix}, \quad
+                \lambda_7 = \begin{pmatrix}
+                                0 & 0 & 0 \\
+                                0 & 0 & -i \\
+                                0 & i & 0
+                            \end{pmatrix}, \quad &
+                \lambda_8 = \frac{1}{\sqrt{3}} \begin{pmatrix}
+                                                    1 & 0 & 0 \\
+                                                    0 & 1 & 0 \\
+                                                    0 & 0 & -2
+                                                \end{pmatrix}.
+                \end{aligned}
+            \end{equation}
 
     References:
-    [1] Wikipedia: Gell-Mann matrices,
+        [1] Wikipedia: Gell-Mann matrices,
         https://en.wikipedia.org/wiki/Gell-Mann_matrices
 
     :param ind: An integer between 0 and 8 (inclusive).

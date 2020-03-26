@@ -10,8 +10,8 @@ def vec(mat: np.ndarray) -> np.ndarray:
     obtain the "vec" representation of the matrix.
 
     References:
-    [1] Watrous, John.
-        The theory of quantum information.
+        [1] Watrous, John.
+        "The theory of quantum information."
         Section: "The operator-vector correspondence".
         Cambridge University Press, 2018.
 

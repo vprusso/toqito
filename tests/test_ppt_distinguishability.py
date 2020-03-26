@@ -11,16 +11,16 @@ class TestPPTDistinguishability(unittest.TestCase):
 
     def test_ppt_distinguishability_yyd_density_matrices(self):
         """
-        PPT distinguishing the YYD states from [1] should yield 7/8 ~ 0.875
+        PPT distinguishing the YYD states from [1] should yield `7/8 ~ 0.875`
 
         Feeding the input to the function as density matrices.
 
         References:
         [1]: Yu, Nengkun, Runyao Duan, and Mingsheng Ying.
-             "Four locally indistinguishable ququad-ququad orthogonal
-             maximally entangled states."
-             Physical review letters 109.2 (2012): 020506.
-             https://arxiv.org/abs/1107.3224
+        "Four locally indistinguishable ququad-ququad orthogonal
+        maximally entangled states."
+        Physical review letters 109.2 (2012): 020506.
+        https://arxiv.org/abs/1107.3224
         """
         psi_0 = bell(0)
         psi_1 = bell(2)
@@ -45,16 +45,16 @@ class TestPPTDistinguishability(unittest.TestCase):
 
     def test_ppt_distinguishability_yyd_vectors(self):
         """
-        PPT distinguishing the YYD states from [1] should yield 7/8 ~ 0.875
+        PPT distinguishing the YYD states from [1] should yield `7/8 ~ 0.875`
 
         Feeding the input to the function as state vectors.
 
         References:
         [1]: Yu, Nengkun, Runyao Duan, and Mingsheng Ying.
-             "Four locally indistinguishable ququad-ququad orthogonal
-             maximally entangled states."
-             Physical review letters 109.2 (2012): 020506.
-             https://arxiv.org/abs/1107.3224
+        "Four locally indistinguishable ququad-ququad orthogonal
+        maximally entangled states."
+        Physical review letters 109.2 (2012): 020506.
+        https://arxiv.org/abs/1107.3224
         """
         psi_0 = bell(0)
         psi_1 = bell(2)
@@ -81,10 +81,10 @@ class TestPPTDistinguishability(unittest.TestCase):
 
         References:
         [1]: Yu, Nengkun, Runyao Duan, and Mingsheng Ying.
-             "Four locally indistinguishable ququad-ququad orthogonal
-             maximally entangled states."
-             Physical review letters 109.2 (2012): 020506.
-             https://arxiv.org/abs/1107.3224
+        "Four locally indistinguishable ququad-ququad orthogonal
+        maximally entangled states."
+        Physical review letters 109.2 (2012): 020506.
+        https://arxiv.org/abs/1107.3224
         """
         psi_0 = bell(0)
         psi_1 = bell(2)

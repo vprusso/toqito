@@ -17,7 +17,7 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
     to `dim-1`, inclusive.
 
     References:
-    [1] Wikipedia: Generalizations of Pauli matrices
+        [1] Wikipedia: Generalizations of Pauli matrices
         https://en.wikipedia.org/wiki/Generalizations_of_Pauli_matrices
 
     :param k_1: (a non-negative integer from 0 to `dim-1` inclusive).

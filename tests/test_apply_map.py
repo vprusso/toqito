@@ -31,8 +31,8 @@ class TestApplyMap(unittest.TestCase):
 
         The following test computes PHI(X) where X = [[1, 2], [3, 4]] and
         where PHI is the superoperator defined by:
-            Phi(X) = [[1,5],[1,0],[0,2]] X [[0,1][2,3][4,5]].conj().T -
-                     [[1,0],[0,0],[0,1]] X [[0,0][1,1],[0,0]].conj().T
+        Phi(X) = [[1,5],[1,0],[0,2]] X [[0,1][2,3][4,5]].conj().T -
+        [[1,0],[0,0],[0,1]] X [[0,0][1,1],[0,0]].conj().T
         """
         test_input_mat = np.array([[1, 2], [3, 4]])
 
