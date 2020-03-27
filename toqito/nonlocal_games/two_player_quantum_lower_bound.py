@@ -42,10 +42,18 @@ def two_player_quantum_lower_bound(
         \begin{equation}
             \begin{aligned}
                 \textbf{SDP-1:} \quad & \\
-                \text{maximize:} \quad & \sum_{(x,y \in \Sigma)} \pi(x,y) \sum_{(a,b) \in \Gamma} V(a,b|x,y) \langle B_b^y, A_a^x \rangle \\
-                \text{subject to:} \quad & \sum_{a \in \Gamma_{\mathsf{A}}} = \tau, \qquad \qquad \forall x \in \Sigma_{\mathsf{A}}, \\
-                                   \quad & A_a^x \in \text{Pos}(\mathcal{A}), \qquad \forall x \in \Sigma_{\mathsf{A}}, \ \forall a \in \Gamma_{\mathsf{A}}, \\
-                                   \tau \in \text{D}(\mathcal{A}).
+                \text{maximize:} \quad & \sum_{(x,y \in \Sigma)} \pi(x,y)
+                                         \sum_{(a,b) \in \Gamma}
+                                         V(a,b|x,y)
+                                         \langle B_b^y, A_a^x \rangle \\
+                \text{subject to:} \quad & \sum_{a \in \Gamma_{\mathsf{A}}} =
+                                           \tau, \qquad \qquad
+                                           \forall x \in \Sigma_{\mathsf{A}}, \\
+                                   \quad & A_a^x \in \text{Pos}(\mathcal{A}),
+                                           \qquad
+                                           \forall x \in \Sigma_{\mathsf{A}}, \
+                                           \forall a \in \Gamma_{\mathsf{A}}, \\
+                                           \tau \in \text{D}(\mathcal{A}).
             \end{aligned}
         \end{equation}
 
@@ -54,9 +62,15 @@ def two_player_quantum_lower_bound(
         \begin{equation}
             \begin{aligned}
                 \textbf{SDP-2:} \quad & \\
-                \text{maximize:} \quad & \sum_{(x,y \in \Sigma)} \pi(x,y) \sum_{(a,b) \in \Gamma} V(a,b|x,y) \langle B_b^y, A_a^x \rangle \\
-                \text{subject to:} \quad & \sum_{b \in \Gamma_{\mathsf{B}}} = \mathbb{I}, \qquad \qquad \forall y \in \Sigma_{\mathsf{B}}, \\
-                                   \quad & B_b^y \in \text{Pos}(\mathcal{B}), \qquad \forall y \in \Sigma_{\mathsf{B}}, \ \forall b \in \Gamma_{\mathsf{B}}.
+                \text{maximize:} \quad & \sum_{(x,y \in \Sigma)} \pi(x,y)
+                                         \sum_{(a,b) \in \Gamma} V(a,b|x,y)
+                                         \langle B_b^y, A_a^x \rangle \\
+                \text{subject to:} \quad & \sum_{b \in \Gamma_{\mathsf{B}}} =
+                                           \mathbb{I}, \qquad \qquad
+                                           \forall y \in \Sigma_{\mathsf{B}}, \\
+                                   \quad & B_b^y \in \text{Pos}(\mathcal{B}),
+                                   \qquad \forall y \in \Sigma_{\mathsf{B}}, \
+                                   \forall b \in \Gamma_{\mathsf{B}}.
             \end{aligned}
         \end{equation}
 
