@@ -12,6 +12,10 @@ def entropy(rho: np.ndarray, log_base: int = 2, alpha: float = 1) -> float:
     specified by `log_base`. If `alpha = 1`, then this is the von Neumann
     entropy. If `alpha > 1`, then this is the Renyi-`alpha` entropy.
 
+    References:
+        [1] Wikipedia: Von Neumann entropy
+        https://en.wikipedia.org/wiki/Von_Neumann_entropy
+
     :param rho: A density matrix.
     :param log_base: Log base. Default set to 2.
     :param alpha: Default parameter set to 1.

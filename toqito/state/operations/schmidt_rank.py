@@ -11,24 +11,22 @@ def schmidt_rank(
     r"""
     Compute the Schmidt rank.
 
-    For complex Euclidean spaces :math: `\X` and :math: `\Y`, a pure state
-    :math: `u \in \X \otimes \Y` possesses an expansion of the form:
+    For complex Euclidean spaces :math:`\mathcal{X}` and :math:`\mathcal{Y}`, a
+    pure state :math:`u \in \mathcal{X} \otimes \mathcal{Y}` possesses an
+    expansion of the form:
 
-    ..math::
-    `
+    .. math::
         u = \sum_{i} \lambda_i v_i w_i
-    `
 
-    where :math: `v_i \in \X` and :math: `w_i \in \Y` are orthonormal states.
+    where :math:`v_i \in \mathcal{X}` and :math:`w_i \in \mathcal{Y}` are
+    orthonormal states.
 
     The Schmidt coefficients are calculated from
 
-    ..math::
-    `
-    A = \tr_{\B}(u^* u).
-    `
+    .. math::
+        A = \text{Tr}_{\mathcal{B}}(u^* u).
 
-    The Schmidt rank is the number of non-zero eignevalues of A. The Schmidt
+    The Schmidt rank is the number of non-zero eigenvalues of A. The Schmidt
     rank allows us to determine if a given state is entangled or separable.
     For instance:
 
@@ -44,7 +42,6 @@ def schmidt_rank(
 
     :param vec: A bipartite vector to have its Schmidt rank computed.
     :param dim: A 1-by-2 vector.
-    :param tol: The tolerance parameter for rank calculation.
     :return: The Schmidt rank of vector `vec`.
     """
     eps = np.finfo(float).eps

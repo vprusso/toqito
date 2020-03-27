@@ -17,8 +17,8 @@ def xor_game_value(
     communicate during the game itself.
 
     References:
-    [1] Cleve, Richard, et al.
-        Strong parallel repetition theorem for quantum XOR proof systems,
+        [1] Cleve, Richard, et al.
+        "Strong parallel repetition theorem for quantum XOR proof systems",
         https://arxiv.org/abs/quant-ph/0608146
 
     :param prob_mat: A matrix whose (q_0, q_1)-entry gives the probability that

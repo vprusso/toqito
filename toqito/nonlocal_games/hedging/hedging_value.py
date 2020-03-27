@@ -14,14 +14,14 @@ class HedgingValue:
     hedging to occur in certain two-party scenarios.
 
     References:
-    [1] Molina, Abel, and Watrous, John.
+        [1] Molina, Abel, and Watrous, John.
         "Hedging bets with correlated quantum strategies."
         Proceedings of the Royal Society A:
         Mathematical, Physical and Engineering Sciences
         468.2145 (2012): 2614-2629.
         https://arxiv.org/abs/1104.1140
 
-    [2] Arunachalam, Srinivasan, Molina, Abel and Russo, Vincent.
+        [2] Arunachalam, Srinivasan, Molina, Abel and Russo, Vincent.
         "Quantum hedging in two-round prover-verifier interactions."
         arXiv preprint arXiv:1310.7954 (2013).
         https://arxiv.org/pdf/1310.7954.pdf
@@ -63,18 +63,22 @@ class HedgingValue:
 
         The primal problem for the maximal probability of "a" is given as:
 
-        ..math::
-        ```
-        \begin{align*}
-            \text{maximize:} \quad & \ip{Q_{a_1} \otimes \ldots \otimes
-                                     Q_{a_n}}{X} \\
-            \text{subject to:} \quad & \tr_{\Y_1 \otimes \ldots \otimes
-                               \Y_n}(X) = \I_{\X_1 \otimes \ldots \otimes
-                               \X_n},\\
-                                & X \in \Pos(\Y_1 \otimes \X_1 \otimes \ldots
-                                \otimes \Y_n \otimes \X_n)
-        \end{align*}
-        ```
+        .. math::
+
+            \begin{equation}
+                \begin{aligned}
+                    \text{maximize:} \quad & \langle Q_{a_1} \otimes \ldots
+                                             \otimes Q_{a_n}, X \rangle \\
+                \text{subject to:} \quad & \text{Tr}_{\mathcal{Y}_1 \otimes
+                                            \ldots \otimes \mathcal{Y}_n}(X) =
+                                            I_{\mathcal{X}_1 \otimes \ldots
+                                            \otimes \mathcal{X}_n},\\
+                                            & X \in \text{Pos}(\mathcal{Y}_1
+                                            \otimes \mathcal{X}_1 \otimes \ldots
+                                            \otimes \mathcal{Y}_n \otimes
+                                            \mathcal{X}_n)
+                \end{aligned}
+            \end{equation}
 
         :return: The optimal maximal probability for obtaining outcome "a".
         """
@@ -94,16 +98,18 @@ class HedgingValue:
 
         The dual problem for the maximal probability of "a" is given as:
 
-        ..math::
-        ```
-        \begin{align*}
-            \text{minimize:} \quad & \tr(Y) \\
-            \text{subject to:} \quad & \pi \left(\I_{\Y_1 \otimes \ldots
-            \otimes \Y_n} \otimes Y \right) \pi^* \geq Q_{a_1} \otimes \ldots
-            \otimes Q_{a_n},\\
-            & Y \in \Herm(\X_1 \otimes \ldots \otimes \X_n)
-        \end{align*}
-        ```
+        .. math::
+
+            \begin{equation}
+                \begin{aligned}
+                    \text{minimize:} \quad & \text{Tr}(Y) \\
+                    \text{subject to:} \quad & \pi \left(I_{\mathcal{Y}_1
+                    \otimes \ldots \otimes \mathcal{Y}_n} \otimes Y \right)
+                    \pi^* \geq Q_{a_1} \otimes \ldots \otimes Q_{a_n}, \\
+                    & Y \in \text{Herm} \left(\mathcal{X} \otimes \ldots \otimes
+                    \mathcal{X}_n \right)
+                \end{aligned}
+            \end{equation}
 
         :return: The optimal maximal probability for obtaining outcome "a".
         """
@@ -132,18 +138,22 @@ class HedgingValue:
 
         The primal problem for the minimal probability of "a" is given as:
 
-        ..math::
-        ```
-        \begin{align*}
-            \text{minimize:} \quad & \ip{Q_{a_1} \otimes \ldots \otimes
-                                     Q_{a_n}}{X} \\
-            \text{subject to:} \quad & \tr_{\Y_1 \otimes \ldots \otimes
-                               \Y_n}(X) = \I_{\X_1 \otimes \ldots \otimes
-                               \X_n},\\
-                                & X \in \Pos(\Y_1 \otimes \X_1 \otimes \ldots
-                                \otimes \Y_n \otimes \X_n)
-        \end{align*}
-        ```
+        .. math::
+
+            \begin{equation}
+                \begin{aligned}
+                    \text{minimize:} \quad & \langle Q_{a_1} \otimes \ldots
+                                             \otimes Q_{a_n}, X \rangle \\
+                \text{subject to:} \quad & \text{Tr}_{\mathcal{Y}_1 \otimes
+                                            \ldots \otimes \mathcal{Y}_n}(X) =
+                                            I_{\mathcal{X}_1 \otimes \ldots
+                                            \otimes \mathcal{X}_n},\\
+                                            & X \in \text{Pos}(\mathcal{Y}_1
+                                            \otimes \mathcal{X}_1 \otimes \ldots
+                                            \otimes \mathcal{Y}_n \otimes
+                                            \mathcal{X}_n)
+                \end{aligned}
+            \end{equation}
 
         :return: The optimal minimal probability for obtaining outcome "a".
         """
@@ -163,16 +173,18 @@ class HedgingValue:
 
         The dual problem for the minimal probability of "a" is given as:
 
-        ..math::
-        ```
-        \begin{align*}
-            \text{maximize:} \quad & \tr(Y) \\
-            \text{subject to:} \quad & \pi \left(\I_{\Y_1 \otimes \ldots
-            \otimes \Y_n} \otimes Y \right) \pi^* \leq Q_{a_1} \otimes \ldots
-            \otimes Q_{a_n},\\
-            & Y \in \Herm(\X_1 \otimes \ldots \otimes \X_n)
-        \end{align*}
-        ```
+        .. math::
+
+            \begin{equation}
+                \begin{aligned}
+                    \text{maximize:} \quad & \text{Tr}(Y) \\
+                    \text{subject to:} \quad & \pi \left(I_{\mathcal{Y}_1
+                    \otimes \ldots \otimes \mathcal{Y}_n} \otimes Y \right)
+                    \pi^* \leq Q_{a_1} \otimes \ldots \otimes Q_{a_n}, \\
+                    & Y \in \text{Herm} \left(\mathcal{X} \otimes \ldots \otimes
+                    \mathcal{X}_n \right)
+                \end{aligned}
+            \end{equation}
 
         :return: The optimal minimal probability for obtaining outcome "a".
         """

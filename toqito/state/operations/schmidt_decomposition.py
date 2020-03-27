@@ -12,6 +12,10 @@ def schmidt_decomposition(
     """
     Compute the Schmidt decomposition of a bipartite vector.
 
+    References:
+        [1] Wikipedia: Schmidt decomposition
+        https://en.wikipedia.org/wiki/Schmidt_decomposition
+
     :param vec:
     :param dim:
     :param k_param:

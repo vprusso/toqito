@@ -20,7 +20,7 @@ def ghz(dim: int, num_qubits: int, coeff: List[int] = None) -> sp.sparse:
     |GHZ> = (|0>^{⊗ `num_qubits`} + |1>^{⊗ `num_qubits`})/sqrt(2)
 
     Reference:
-    [1] Going beyond Bell's theorem.
+        [1] Going beyond Bell's theorem.
         D. Greenberger and M. Horne and A. Zeilinger.
         E-print: [quant-ph] arXiv:0712.0921. 2007.
 

@@ -20,8 +20,8 @@ def antisymmetric_projection(
     symmetric subspace.)
 
     References:
-    [1] Wikipedia: Anti-symmetric operator
-    https://en.wikipedia.org/wiki/Anti-symmetric_operator
+        [1] Wikipedia: Anti-symmetric operator
+        https://en.wikipedia.org/wiki/Anti-symmetric_operator
 
     :param dim: The dimension of the local systems.
     :param p_param: Default value of 2.

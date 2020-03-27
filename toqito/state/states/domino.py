@@ -9,42 +9,45 @@ def domino(idx: int) -> np.ndarray:
 
     The orthonormal product basis of domino states is given as
 
-    ..math::
-    `
-    \begin{equation}
-    \begin{aligned}
-    \ket{\phi_0} &= \ket{1}
-                    \ket{1}\\
-    \ket{\phi_1} &= \ket{0}
-                    \left(\frac{\ket{0} + \ket{1}}{\sqrt{2}}\right)\\
-    \ket{\phi_2} &= \ket{0}
-                    \left(\frac{\ket{0} - \ket{1}}{\sqrt{2}}\right)\\
-    \ket{\phi_3} &= \ket{2}
-                    \left(\frac{\ket{0} + \ket{1}}{\sqrt{2}}\right)\\
-    \ket{\phi_4} &= \ket{2}
-                    \left(\frac{\ket{0} - \ket{1}}{\sqrt{2}}\right)\\
-    \ket{\phi_5} &= \left(\frac{\ket{0} + \ket{1}}{\sqrt{2}}\right)\\
-                    \ket{0}
-    \ket{\phi_6} &= \left(\frac{\ket{0} - \ket{1}}{\sqrt{2}}\right)\\
-                    \ket{0}
-    \ket{\phi_7} &= \left(\frac{\ket{0} + \ket{1}}{\sqrt{2}}\right)\\
-                    \ket{2}
-    \ket{\phi_8} &= \left(\frac{\ket{0} - \ket{1}}{\sqrt{2}}\right)\\
-                    \ket{2}
-    \end{aligned}
-    \end{equation}
-    `
+    .. math::
+
+        \begin{equation}
+            \begin{aligned}
+            |\phi_0\rangle = |1\rangle
+                            |1 \rangle \qquad
+            |\phi_1\rangle = |0 \rangle
+                            \left(\frac{|0 \rangle + |1 \rangle}{\sqrt{2}}
+                            \right) & \qquad
+            |\phi_2\rangle = |0\rangle
+                            \left(\frac{|0\rangle - |1\rangle}{\sqrt{2}}\right)
+                            \\
+            |\phi_3\rangle = |2\rangle
+                            \left(\frac{|0\rangle + |1\rangle}{\sqrt{2}}\right)
+                            \qquad
+            |\phi_4\rangle = |2\rangle
+                            \left(\frac{|0\rangle - |1\rangle}{\sqrt{2}}\right)
+                            & \qquad
+            |\phi_5\rangle = \left(\frac{|0\rangle + |1\rangle}{\sqrt{2}}\right)
+                            |0\rangle \\
+            |\phi_6\rangle = \left(\frac{|0\rangle - |1\rangle}{\sqrt{2}}\right)
+                            |0\rangle \qquad
+            |\phi_7\rangle = \left(\frac{|0\rangle + |1\rangle}{\sqrt{2}}\right)
+                            |2\rangle & \qquad
+            |\phi_8\rangle = \left(\frac{|0\rangle - |1\rangle}{\sqrt{2}}\right)
+                            |2\rangle
+            \end{aligned}
+        \end{equation}
 
     Returns one of the following nine domino states depending on the value
     of `idx`:
 
     References:
-    [1] Bennett, Charles H., et al.
+        [1] Bennett, Charles H., et al.
         Quantum nonlocality without entanglement.
         Phys. Rev. A, 59:1070–1091, Feb 1999.
         https://arxiv.org/abs/quant-ph/9804053
 
-    [2] Bennett, Charles H., et al.
+        [2] Bennett, Charles H., et al.
         "Unextendible product bases and bound entanglement."
         Physical Review Letters 82.26 (1999): 5385.
 

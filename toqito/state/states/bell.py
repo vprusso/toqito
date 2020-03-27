@@ -4,15 +4,27 @@ from toqito.base.ket import ket
 
 
 def bell(idx: int) -> np.ndarray:
-    """
+    r"""
     Produce a Bell state.
 
     Returns one of the following four Bell states depending on the value
     of `idx`:
-        0: (|0>|0> + |1>|1>)/sqrt(2)
-        1: (|0>|0> - |1>|1>)/sqrt(2)
-        2: (|0>|1> + |1>|0>)/sqrt(2)
-        3: (|0>|1> - |1>|0>)/sqrt(2)
+
+    .. math::
+        \begin{equation}
+            \begin{aligned}
+                \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) &
+                \qquad &
+                \frac{1}{\sqrt{2}} \left( |00 \rangle - |11 \rangle \right) \\
+                \frac{1}{\sqrt{2}} \left( |01 \rangle + |10 \rangle \right) &
+                \qquad &
+                \frac{1}{\sqrt{2}} \left( |01 \rangle - |10 \rangle \right)
+            \end{aligned}
+        \end{equation}
+
+    References:
+        [1] Wikipedia: Bell state
+        https://en.wikipedia.org/wiki/Bell_state
 
     :param idx: A parameter in [0, 1, 2, 3]
     """

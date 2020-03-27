@@ -18,8 +18,23 @@ def ppt_distinguishability(
     are positive under partial transpose. This SDP was explicitly provided in
     [1].
 
+    Specifically, the function implements the dual problem (as this is
+    computationally more efficient) and is defined as:
+
+    .. math::
+
+        \begin{equation}
+            \begin{aligned}
+                \text{minimize:} \quad & \frac{1}{k} \text{Tr}(Y) \\
+                \text{subject to:} \quad & Y \geq \text{T}_{\mathcal{A}}
+                                          (\rho_j), \quad j = 1, \ldots, k, \\
+                                         & Y \in \text{Herm}(\mathcal{A} \otimes
+                                          \mathcal{B}).
+            \end{aligned}
+        \end{equation}
+
     References:
-    [1] Cosentino, Alessandro.
+        [1] Cosentino, Alessandro.
         "Positive-partial-transpose-indistinguishable states via semidefinite
         programming."
         Physical Review A 87.1 (2013): 012321.

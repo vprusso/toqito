@@ -17,6 +17,10 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     between 0 and 1, with 0 corresponding to matrices `rho` and `sigma` with
     orthogonal support, and 1 corresponding to the case `rho = sigma`.
 
+    References:
+        [1] Wikipedia: Fidelity of quantum states
+        https://en.wikipedia.org/wiki/Fidelity_of_quantum_states
+
     :param rho: Density matrix.
     :param sigma: Density matrix.
     :return: The fidelity between `rho` and `sigma`.

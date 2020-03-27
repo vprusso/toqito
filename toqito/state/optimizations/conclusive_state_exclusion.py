@@ -10,19 +10,19 @@ def conclusive_state_exclusion(
     r"""
     Compute probability of conclusive single state exclusion.
 
-    The "quantum state exclusion" problem involves a collection of :math: `n`
+    The "quantum state exclusion" problem involves a collection of :math:`n`
     quantum states
 
-    ..math::
-        `\rho = \{ \rho_0, \ldots, \rho_n \},`
+    .. math::
+        \rho = \{ \rho_0, \ldots, \rho_n \},
 
     as well as a list of corresponding probabilities
 
-    ..math::
-        `p = \{ p_0, \ldots, p_n \}`
+    .. math::
+        p = \{ p_0, \ldots, p_n \}
 
-    Alice chooses :math: `i` with probability `p_i` and creates the state
-    :math: `rho_i`
+    Alice chooses :math:`i` with probability :math:`p_i` and creates the state
+    :math:`\rho_i`.
 
     Bob wants to guess which state he was *not* given from the collection of
     states. State exclusion implies that ability to discard (with certainty) at
@@ -31,22 +31,25 @@ def conclusive_state_exclusion(
     This function implements the following semidefinite program that provides
     the optimal probability with which Bob can conduct quantum state exclusion.
 
-    ..math::
-        ````
-        \begin{align*}
-            \text{minimize:} \quad & \sum_{i=0}^n p_i \ip{M_i}{\rho_i} \\
-            \text{subject to:} \quad & M_0 + \ldots + M_n = \mathbb{I},\\
-                                     & M_0, \ldots, M_n >= 0
-            \end{align*}
-        ```
+        .. math::
+
+            \begin{equation}
+                \begin{aligned}
+                    \text{minimize:} \quad & \sum_{i=0}^n p_i \langle M_i,
+                                                \rho_i \rangle \\
+                    \text{subject to:} \quad & M_0 + \ldots + M_n =
+                                               \mathbb{I}, \\
+                                             & M_0, \ldots, M_n >= 0
+                \end{aligned}
+            \end{equation}
 
     References:
-    [1] "On the reality of the quantum state"
+        [1] "On the reality of the quantum state"
         Pusey, Matthew F., Jonathan Barrett, and Terry Rudolph.
         Nature Physics 8.6 (2012): 475-478.
         arXiv:1111.3328
 
-    [2] "Conclusive exclusion of quantum states"
+        [2] "Conclusive exclusion of quantum states"
         Bandyopadhyay, Somshubhro, et al.
         Physical Review A 89.2 (2014): 022336.
         arXiv:1306.4683

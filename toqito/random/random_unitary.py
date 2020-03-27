@@ -11,11 +11,11 @@ def random_unitary(dim: Union[List[int], int], is_real: bool = False) -> np.ndar
     orthogonal matrix (if `is_real = True`), uniformly distributed according to
     the Haar measure.
 
-    [1] References:
-    How to generate a random unitary matrix,
-    Maris Ozols
-    March 16, 2009,
-    http://home.lu.lv/~sd20008/papers/essays/Random%20unitary%20%5Bpaper%5D.pdf
+    References:
+        How to generate a random unitary matrix,
+        Maris Ozols
+        March 16, 2009,
+        home.lu.lv/~sd20008/papers/essays/Random%20unitary%20%5Bpaper%5D.pdf
 
     :param dim: The number of rows (and columns) of the unitary matrix.
     :param is_real: Boolean denoting whether the returned matrix has real

@@ -13,13 +13,17 @@ def is_povm(mat_list: List[np.ndarray]) -> bool:
     operators
 
     .. math::
-         \{P_a : a \in \Gamma\} \subset Pos(\X)
+         \{P_a : a \in \Gamma\} \subset \text{Pos}(\mathcal{X})
 
-    indexed by the alphabet :math: `\Gamma` of measurement outcomes satisfying
+    indexed by the alphabet :math:`\Gamma` of measurement outcomes satisfying
     the constraint that
 
-    .. math ::
-        \sum_{a \in \Gamma\} P_a = \I_{\X}.
+    .. math::
+        \sum_{a \in \Gamma} P_a = I_{\mathcal{X}}.
+
+    References:
+        [1] Wikipedia: POVM
+        https://en.wikipedia.org/wiki/POVM
 
     :param mat_list: A list of matrices.
     :return: True if set of matrices constitutes a set of measurements, and

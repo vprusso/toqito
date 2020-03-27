@@ -31,7 +31,7 @@ def two_player_quantum_lower_bound(
     times and keep the highest value obtained.
 
     References:
-    [1] Liang, Yeong-Cherng, and Andrew C. Doherty.
+        [1] Liang, Yeong-Cherng, and Andrew C. Doherty.
         "Bounds on quantum correlations in Bell-inequality experiments."
         Physical Review A 75.4 (2007): 042103.
         https://arxiv.org/abs/quant-ph/0608128

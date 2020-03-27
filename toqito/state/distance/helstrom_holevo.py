@@ -16,12 +16,12 @@ def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float:
     .. math::
          \frac{1}{2}+\frac{1}{2} \left(\frac{1}{2} \norm{\rho - \sigma}_1\right)
 
-    :param rho: An input matrix.
-    :param sigma: An input matrix.
-    :return: The Helstrom-Holevo distance between `rho` and `sigma`.
-
     References:
         [1] Wikipedia: Holevo's theorem.
             https://en.wikipedia.org/wiki/Holevo%27s_theorem
+
+    :param rho: An input matrix.
+    :param sigma: An input matrix.
+    :return: The Helstrom-Holevo distance between `rho` and `sigma`.
     """
     return 1 / 2 + 1 / 2 * (trace_norm(rho - sigma)) / 2

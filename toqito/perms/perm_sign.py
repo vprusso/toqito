@@ -11,8 +11,8 @@ def perm_sign(perm: np.ndarray) -> float:
     `inv` is the number of inversions contained in `perm`.
 
     References:
-    [1] Wikipedia: Parity of a permutation
-    https://en.wikipedia.org/wiki/Parity_of_a_permutation
+        [1] Wikipedia: Parity of a permutation
+        https://en.wikipedia.org/wiki/Parity_of_a_permutation
 
     :param perm: The permutation vector to be checked.
     :return: The value 1 if the permutation is of even length and the value of
