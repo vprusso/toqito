@@ -18,7 +18,8 @@ def choi_map(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
     :param b_var: Default integer for standard Choi map.
     :param c_var: Default integer for standard Choi map.
 
-    [1] S. J. Cho, S.-H. Kye, and S. G. Lee,
+    References:
+        [1] S. J. Cho, S.-H. Kye, and S. G. Lee,
         Linear Alebr. Appl. 171, 213
         (1992).
     """

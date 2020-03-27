@@ -14,6 +14,10 @@ def depolarizing_channel(dim: int, param_p: int = 0) -> np.ndarray:
     Produces the partially depolarizng channel `(1-P)*D + P*ID` where `D` is
     the completely depolarizing channel and `ID` is the identity channel.
 
+    References:
+        [1] Wikipedia: Quantum depolarizing channel
+        https://en.wikipedia.org/wiki/Quantum_depolarizing_channel
+
     :param dim: The dimensionality on which the channel acts.
     :param param_p: Default 0.
     """

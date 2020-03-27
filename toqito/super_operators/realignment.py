@@ -7,17 +7,25 @@ from toqito.super_operators.partial_transpose import partial_transpose
 
 
 def realignment(input_mat: np.ndarray, dim=None) -> np.ndarray:
-    """
+    r"""
     Compute the realignment of a bipartite operator.
 
     Gives the realignment of the matrix INPUT_MAT, where it is assumed that
     the number of rows and columns of INPUT_MAT are both perfect squares and
     both subsystems have equal dimension. The realignment is defined by mapping
-    the operator |ij><kl| to |ik><jl| and extending linearly.
+    the operator :math:`|ij \rangle \langle kl |` to :math:`|ik \rangle \langle
+    jl |` and extending linearly.
 
-    If INPUT_MAT is non-square, different row and column dimensions can be
-    specified by putting the row dimensions in the first row of DIM and the
-    column dimensions in the second row of DIM.
+    If `input_mat` is non-square, different row and column dimensions can be
+    specified by putting the row dimensions in the first row of `dim` and the
+    column dimensions in the second row of `dim`.
+
+    References:
+        [1] Lupo, Cosmo, Paolo Aniello, and Antonello Scardicchio.
+        "Bipartite quantum systems: on the realignment criterion and beyond."
+        Journal of Physics A: Mathematical and Theoretical
+        41.41 (2008): 415301.
+        https://arxiv.org/abs/0802.2019
 
     :param input_mat: The input matrix.
     :param dim: Default has all equal dimensions.

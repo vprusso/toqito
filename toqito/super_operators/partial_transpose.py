@@ -24,6 +24,10 @@ def partial_transpose(
     by putting the row dimensions in the first row of `dim` and the column
     dimensions in the second row of `dim`.
 
+    References:
+        [1] Wikipedia: Partial transpose
+        https://en.wikipedia.org/w/index.php?title=Partial_transpose&redirect=no
+
     :param rho: A matrix.
     :param sys: Scalar or vector specifying the size of the subsystems.
     :param dim: Dimension of the subsystems. If `None`, all dimensions

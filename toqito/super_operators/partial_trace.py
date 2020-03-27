@@ -10,13 +10,14 @@ def partial_trace_cvx(rho, sys=None, dim=None):
     Perform the partial trace on a cvxpy variable.
 
     References:
-    [1] Adapted from:
+        [1] Adapted from:
         https://github.com/cvxgrp/cvxpy/issues/563
 
-    :param rho:
-    :param sys:
-    :param dim:
-    :return:
+    :param rho: A square matrix.
+    :param sys: Scalar or vector specifying the size of the subsystems.
+    :param dim: Dimension of the subsystems. If `None`, all dimensions
+                are assumed to be equal.
+    :return: The partial trace of matrix `input_mat`.
     """
     rho_np = expr_as_np_array(rho)
     traced_rho = partial_trace(rho_np, sys, dim)
@@ -32,13 +33,19 @@ def partial_trace(
     """
     Compute the partial trace of a matrix.
 
-    :param input_mat: A square matrix.
-    :param sys:
-    :param dim:
-
     Gives the partial trace of the matrix X, where the dimensions of the
-    (possibly more than 2) subsystems are given by the vector DIM and the
-    subsystems to take the trace on are given by the scalar or vector SYS.
+    (possibly more than 2) subsystems are given by the vector `dim` and the
+    subsystems to take the trace on are given by the scalar or vector `sys`.
+
+    References:
+        [1] Wikipedia: Partial trace
+        https://en.wikipedia.org/wiki/Partial_trace
+
+    :param input_mat: A square matrix.
+    :param sys: Scalar or vector specifying the size of the subsystems.
+    :param dim: Dimension of the subsystems. If `None`, all dimensions
+                are assumed to be equal.
+    :return: The partial trace of matrix `input_mat`.
     """
     if dim is None:
         dim = np.array([np.round(np.sqrt(len(input_mat)))])

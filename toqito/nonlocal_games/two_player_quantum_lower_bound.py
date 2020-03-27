@@ -13,7 +13,7 @@ def two_player_quantum_lower_bound(
     iters: int = 5,
     tol: float = 10e-6,
 ):
-    """
+    r"""
     Compute a lower bound on the quantum value of a nonlocal game.
 
     Calculates a lower bound on the maximum value that the specified nonlocal
@@ -29,6 +29,36 @@ def two_player_quantum_lower_bound(
     and can get stuck in local minimum values. The alleviate this, the `iter`
     parameter allows one to run the algorithm some pre-specified number of
     times and keep the highest value obtained.
+
+    The algorithm is based on the alternating projections algorithm as it can
+    be applied to Bell inequalities as shown in [1].
+
+    The alternating projection algorithm has also been referred to as the
+    "see-saw" algorithm as it goes back and forth between the following two
+    semidefinite programs:
+
+    .. math::
+
+        \begin{equation}
+            \begin{aligned}
+                \textbf{SDP-1:} \quad & \\
+                \text{maximize:} \quad & \sum_{(x,y \in \Sigma)} \pi(x,y) \sum_{(a,b) \in \Gamma} V(a,b|x,y) \langle B_b^y, A_a^x \rangle \\
+                \text{subject to:} \quad & \sum_{a \in \Gamma_{\mathsf{A}}} = \tau, \qquad \qquad \forall x \in \Sigma_{\mathsf{A}}, \\
+                                   \quad & A_a^x \in \text{Pos}(\mathcal{A}), \qquad \forall x \in \Sigma_{\mathsf{A}}, \ \forall a \in \Gamma_{\mathsf{A}}, \\
+                                   \tau \in \text{D}(\mathcal{A}).
+            \end{aligned}
+        \end{equation}
+
+    .. math::
+
+        \begin{equation}
+            \begin{aligned}
+                \textbf{SDP-2:} \quad & \\
+                \text{maximize:} \quad & \sum_{(x,y \in \Sigma)} \pi(x,y) \sum_{(a,b) \in \Gamma} V(a,b|x,y) \langle B_b^y, A_a^x \rangle \\
+                \text{subject to:} \quad & \sum_{b \in \Gamma_{\mathsf{B}}} = \mathbb{I}, \qquad \qquad \forall y \in \Sigma_{\mathsf{B}}, \\
+                                   \quad & B_b^y \in \text{Pos}(\mathcal{B}), \qquad \forall y \in \Sigma_{\mathsf{B}}, \ \forall b \in \Gamma_{\mathsf{B}}.
+            \end{aligned}
+        \end{equation}
 
     References:
         [1] Liang, Yeong-Cherng, and Andrew C. Doherty.

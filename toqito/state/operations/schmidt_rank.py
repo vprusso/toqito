@@ -40,6 +40,10 @@ def schmidt_rank(
     that case is determined as the number of Schmidt coefficients larger than
     `tol`.
 
+    References:
+        [1] Wikipedia: Schmidt rank
+        https://en.wikipedia.org/wiki/Schmidt_decomposition#Schmidt_rank_and_entanglement
+
     :param vec: A bipartite vector to have its Schmidt rank computed.
     :param dim: A 1-by-2 vector.
     :return: The Schmidt rank of vector `vec`.

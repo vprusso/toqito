@@ -9,7 +9,7 @@ def weak_coin_flipping(rho: np.ndarray) -> float:
     Weak coin flipping protocol.
 
     References:
-    [1] Ganz, Maor and Sattath, Or
+        [1] Ganz, Maor and Sattath, Or
         Quantum coin hedging, and a counter measure
         https://arxiv.org/pdf/1703.03887.pdf
     """
