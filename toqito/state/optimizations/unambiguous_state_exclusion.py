@@ -68,10 +68,10 @@ def unambiguous_state_exclusion(
 
     constraints.append(sum(measurements) <= np.identity(dim_x))
 
-    if np.iscomplexobj(states[0]):
-        objective = cvxpy.Maximize(cvxpy.real(sum(obj_func)))
-    else:
-        objective = cvxpy.Maximize(sum(obj_func))
+    # if np.iscomplexobj(states[0]):
+    #   objective = cvxpy.Maximize(cvxpy.real(sum(obj_func)))
+    # else:
+    objective = cvxpy.Maximize(sum(obj_func))
 
     problem = cvxpy.Problem(objective, constraints)
     sol_default = problem.solve()

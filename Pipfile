@@ -20,7 +20,6 @@ numpy = "*"
 picos = "*"
 scipy = "*"
 scikit-image = "*"
-black = "*"
 
 [requires]
 python_version = "3.7"
