@@ -19,11 +19,12 @@ bibliography: paper.bib
 
 # Summary
 
+toqito is a Python package that aims 
+
 toqito is released under the BSD 3-Clause License and is available from GitHub and PyPI.
 
 # Acknowledgements
-
-This research is supported by the Unitary Fund [@unitary_fund]
+This research is supported by the Unitary Fund [@zeng2019unitary]
 
 # References
 
