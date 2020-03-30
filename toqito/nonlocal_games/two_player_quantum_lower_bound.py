@@ -53,7 +53,7 @@ def two_player_quantum_lower_bound(
                                            \qquad
                                            \forall x \in \Sigma_{\mathsf{A}}, \
                                            \forall a \in \Gamma_{\mathsf{A}}, \\
-                                           \tau \in \text{D}(\mathcal{A}).
+                                           & \tau \in \text{D}(\mathcal{A}).
             \end{aligned}
         \end{equation}
 

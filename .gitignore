@@ -1,5 +1,6 @@
 *.DS_Store
 *.idea
+*.pdf
 main.py
 
 # Byte-compiled / optimized / DLL files
