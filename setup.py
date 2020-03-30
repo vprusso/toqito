@@ -18,7 +18,7 @@ setuptools.setup(
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Science/Research",
-        "Topic :: Scientific/Engineering :: Quantum Information",
+        "Topic :: Scientific/Engineering :: Physics",
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: BSD License",
         "Operating System :: OS Independent",

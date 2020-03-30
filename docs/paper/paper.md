@@ -1,10 +1,11 @@
 ---
-title: 'toqito: A Python package for quantum information'
+title: 'toqito: Theory of quantum information toolkit'
 tags:
   - Python
   - quantum information
   - quantum computing
   - entanglement
+  - nonlocal games
   - matrix analysis
 authors:
   - name: Vincent Russo

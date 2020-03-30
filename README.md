@@ -1,7 +1,10 @@
 # ToQITo (Theory of Quantum Information Toolkit)
 
-Suite of Python tools that come in handy when considering various concepts in
-quantum information.
+The `toqito` package is a Python package for studying various aspects of
+quantum information theory. Specifically, `toqito` focuses on providing
+numerical tools to study problems pertaining to entanglement theory, nonlocal
+games, matrix analysis, and other aspects of quantum information that are often
+associated with computer science. 
 
 [![build status](http://img.shields.io/travis/vprusso/toqito.svg)](https://travis-ci.org/vprusso/toqito)
 [![Coverage Status](https://coveralls.io/repos/github/vprusso/toqito/badge.svg?branch=master)](https://coveralls.io/github/vprusso/toqito?branch=master)
@@ -9,37 +12,30 @@ quantum information.
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Unitary Fund](https://img.shields.io/badge/Supported%20By-UNITARY%20FUND-brightgreen.svg?style=for-the-badge)](http://unitary.fund)
 
+`toqito` aims to fill the needs of quantum information researchers who want
+numerical and computational tools for manipulating quantum states,
+measurements, and channels. It can also be used as a tool to enhance the
+experience of students and instructors in classes pertaining to quantum
+information. 
 
 The inspiration for this package is heavily influenced by the
 [QETLAB](http://www.qetlab.com) package in MATLAB by Nathaniel Johnston.  Many
 of the functions found here are direct ports of those functions converted into
 Python code.
 
-## Citing toqito
+## Installation
 
-You can cite `toqito` using the following DOI: 
-10.5281/zenodo.3699578
-
-If you are using the `toqito` software package in research work, please include
-an explicit mention of `toqito` in your publication. Something along the lines
-of:
+The preferred way to install the `toqito` package is via `pip`:
 
 ```
-To solve problem "X" we used `toqito`; a package for studying certain
-aspects of quantum information.
+pip install toqito
 ```
 
-A BibTeX entry that you can use to cite `toqito` is provided here:
+Alternatively, to install, you may also run the following command from the
+top-level package directory.
 
 ```
- @misc{toqito,
-   author       = {Vincent Russo},
-   title        = {toqito: A {P}ython toolkit for quantum information, version 0.1},
-   howpublished = {\url{https://github.com/vprusso/toqito}},
-   month        = Mar,
-   year         = 2020,
-   doi          = {10.5281/zenodo.3699578}
- }
+python setup.py install
 ```
 
 ## Examples
@@ -166,7 +162,7 @@ Calculate various quantities of interest pertaining to entanglement.
   - state_discrimination: Calculates probability of state discrimination.
   - state_distance: Distinguish a set of quantum states.
   - unambiguous_state_exclusion: Calculates probability of unambiguous state exclusion.
-  
+
 #### Properties
 
   - is_mixed: Determines if state is mixed.
@@ -175,7 +171,6 @@ Calculate various quantities of interest pertaining to entanglement.
   - is_product_vector: Determines if a pure state is a product vector.
   - [is_pure](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/properties/is_pure.ipynb): Determines if a state is pure or a list of states are pure.
   - is_quantum_latin_square: Check if list of vectors constitute a quantum Latin square.
-
 
 #### States
 
@@ -210,7 +205,33 @@ run the following command in the root directory of this project.
 
     nosetests --with-coverage --cover-erase --cover-package toqito
 
+## Citing toqito
+
+You can cite `toqito` using the following DOI: 
+10.5281/zenodo.3699578
+
+If you are using the `toqito` software package in research work, please include
+an explicit mention of `toqito` in your publication. Something along the lines
+of:
+
+```
+To solve problem "X" we used `toqito`; a package for studying certain
+aspects of quantum information.
+```
+
+A BibTeX entry that you can use to cite `toqito` is provided here:
+
+```
+ @misc{toqito,
+   author       = {Vincent Russo},
+   title        = {toqito: A {P}ython toolkit for quantum information, version 0.1},
+   howpublished = {\url{https://github.com/vprusso/toqito}},
+   month        = Mar,
+   year         = 2020,
+   doi          = {10.5281/zenodo.3699578}
+ }
+```
+
 ## License
 
 [MIT License](http://opensource.org/licenses/mit-license.php>)
-
