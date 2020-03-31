@@ -75,7 +75,7 @@ Calculate various quantities of interest pertaining to entanglement.
 #### Operations
 
   - tensor: Kronecker tensor product of two or more matrices.
-  - vec: Computes the vec representation of a given matrix.
+  - [vec](https://github.com/vprusso/toqito/blob/master/docs/notebooks/matrix/operations/vec.ipynb): Computes the vec representation of a given matrix.
 
 #### Properties
 

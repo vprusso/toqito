@@ -1,7 +1,6 @@
 """Computes the Schmidt decomposition of a bipartite vector."""
 from typing import List, Tuple, Union
 from scipy import sparse
-from scipy.sparse.linalg import LinearOperator
 
 import numpy as np
 

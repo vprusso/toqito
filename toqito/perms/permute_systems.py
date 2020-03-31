@@ -1,10 +1,10 @@
 """Permutes subsystems within a state or operator."""
 from typing import List
-from scipy import sparse
 import functools
 import operator
 import numpy as np
 
+from scipy import sparse
 from toqito.matrix.operations.vec import vec
 
 
