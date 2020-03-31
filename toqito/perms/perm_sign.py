@@ -1,6 +1,6 @@
 """Computes the sign of a permutation."""
 import numpy as np
-import scipy as sp
+from scipy import linalg
 
 
 def perm_sign(perm: np.ndarray) -> float:
@@ -19,4 +19,4 @@ def perm_sign(perm: np.ndarray) -> float:
              -1 if the permutation is of odd length.
     """
     iden = np.eye(len(perm))
-    return sp.linalg.det(iden[:, np.array(perm) - 1])
+    return linalg.det(iden[:, np.array(perm) - 1])

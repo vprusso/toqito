@@ -114,6 +114,20 @@ class TestPartialTrace(unittest.TestCase):
         bool_mat = np.isclose(expected_res, res)
         self.assertEqual(np.all(bool_mat), True)
 
+    def test_invalid_sys_arg(self):
+        """The `sys` argument must be either a list or int."""
+        with self.assertRaises(ValueError):
+            rho = np.array(
+                [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
+            )
+            partial_trace(rho, "invalid_input")
+
+    def test_non_square_matrix_dim_2(self):
+        """Matrix must be square for partial trace."""
+        with self.assertRaises(ValueError):
+            rho = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
+            partial_trace(rho, 2, [2])
+
 
 if __name__ == "__main__":
     unittest.main()

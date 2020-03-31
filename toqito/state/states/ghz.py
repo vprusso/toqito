@@ -1,13 +1,11 @@
 """Generates a (generalized) GHZ state."""
 from typing import List
+from scipy import sparse
 
 import numpy as np
-import scipy as sp
-
-from scipy.sparse import lil_matrix
 
 
-def ghz(dim: int, num_qubits: int, coeff: List[int] = None) -> sp.sparse:
+def ghz(dim: int, num_qubits: int, coeff: List[int] = None) -> sparse:
     """
     Generate a (generalized) GHZ state.
 
@@ -50,7 +48,7 @@ def ghz(dim: int, num_qubits: int, coeff: List[int] = None) -> sp.sparse:
     for i in range(1, num_qubits):
         dim_sum += dim ** i
 
-    ret_ghz_state = lil_matrix((dim ** num_qubits, 1))
+    ret_ghz_state = sparse.lil_matrix((dim ** num_qubits, 1))
     for i in range(1, dim + 1):
         ret_ghz_state[(i - 1) * dim_sum] = coeff[i - 1]
     return ret_ghz_state

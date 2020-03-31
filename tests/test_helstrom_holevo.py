@@ -20,7 +20,7 @@ class TestHelstromHolevo(unittest.TestCase):
 
         res = helstrom_holevo(rho, sigma)
 
-        self.assertEqual(np.isclose(res, 1/2), True)
+        self.assertEqual(np.isclose(res, 1 / 2), True)
 
 
 if __name__ == "__main__":

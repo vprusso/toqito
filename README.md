@@ -56,8 +56,8 @@ presently offered in `toqito` and will be periodically updated as time allows.
 
 Calculate various quantities of interest pertaining to entanglement.
 
-  - concurrence: Computes the concurrence for a bipartite system.
-  - negativity: Computes the negativity of a bipartite density matrix.
+  - [concurrence](https://github.com/vprusso/toqito/blob/master/docs/notebooks/entanglement/concurrence.ipynb): Computes the concurrence for a bipartite system.
+  - [negativity](https://github.com/vprusso/toqito/blob/master/docs/notebooks/entanglement/negativity.ipynb): Computes the negativity of a bipartite density matrix.
 
 ### Matrix
 

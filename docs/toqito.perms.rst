@@ -12,14 +12,6 @@ toqito.perms.antisymmetric\_projection module
    :undoc-members:
    :show-inheritance:
 
-toqito.perms.perfect\_matchings module
---------------------------------------
-
-.. automodule:: toqito.perms.perfect_matchings
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 toqito.perms.perm\_sign module
 ------------------------------
 

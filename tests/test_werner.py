@@ -5,7 +5,7 @@ import numpy as np
 from toqito.state.states.werner import werner
 
 
-class TestWernerState(unittest.TestCase):
+class TestWerner(unittest.TestCase):
     """Unit test for werner."""
 
     def test_qutrit_werner(self):

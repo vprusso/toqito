@@ -36,10 +36,10 @@ tests.test\_bra module
    :undoc-members:
    :show-inheritance:
 
-tests.test\_chessboard\_state module
-------------------------------------
+tests.test\_chessboard module
+-----------------------------
 
-.. automodule:: tests.test_chessboard_state
+.. automodule:: tests.test_chessboard
    :members:
    :undoc-members:
    :show-inheritance:
@@ -156,18 +156,18 @@ tests.test\_gen\_pauli module
    :undoc-members:
    :show-inheritance:
 
-tests.test\_ghz\_state module
------------------------------
+tests.test\_ghz module
+----------------------
 
-.. automodule:: tests.test_ghz_state
+.. automodule:: tests.test_ghz
    :members:
    :undoc-members:
    :show-inheritance:
 
-tests.test\_gisin\_state module
--------------------------------
+tests.test\_gisin module
+------------------------
 
-.. automodule:: tests.test_gisin_state
+.. automodule:: tests.test_gisin
    :members:
    :undoc-members:
    :show-inheritance:
@@ -180,10 +180,18 @@ tests.test\_hedging\_value module
    :undoc-members:
    :show-inheritance:
 
-tests.test\_horodecki\_state module
+tests.test\_helstrom\_holevo module
 -----------------------------------
 
-.. automodule:: tests.test_horodecki_state
+.. automodule:: tests.test_helstrom_holevo
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+tests.test\_horodecki module
+----------------------------
+
+.. automodule:: tests.test_horodecki
    :members:
    :undoc-members:
    :show-inheritance:
@@ -380,14 +388,6 @@ tests.test\_pauli module
    :undoc-members:
    :show-inheritance:
 
-tests.test\_perfect\_matchings module
--------------------------------------
-
-.. automodule:: tests.test_perfect_matchings
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 tests.test\_perm\_sign module
 -----------------------------
 
@@ -564,6 +564,14 @@ tests.test\_two\_player\_quantum\_lower\_bound module
    :undoc-members:
    :show-inheritance:
 
+tests.test\_unambiguous\_state\_exclusion module
+------------------------------------------------
+
+.. automodule:: tests.test_unambiguous_state_exclusion
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 tests.test\_unique\_perms module
 --------------------------------
 
@@ -596,10 +604,10 @@ tests.test\_weak\_coin\_flipping module
    :undoc-members:
    :show-inheritance:
 
-tests.test\_werner\_state module
---------------------------------
+tests.test\_werner module
+-------------------------
 
-.. automodule:: tests.test_werner_state
+.. automodule:: tests.test_werner
    :members:
    :undoc-members:
    :show-inheritance:
