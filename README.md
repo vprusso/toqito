@@ -79,9 +79,9 @@ Calculate various quantities of interest pertaining to entanglement.
 
 #### Properties
 
-  - is_density: Determines whether or not a matrix is a density matrix.
-  - is_diagonal: Determines whether or not a matrix is diagonal.
-  - is_hermitian: Determines whether or not a matrix is Hermitian.
+  - [is_density](https://github.com/vprusso/toqito/blob/master/docs/notebooks/matrix/properties/is_density.ipynb): Determines whether or not a matrix is a density matrix.
+  - [is_diagonal](https://github.com/vprusso/toqito/blob/master/docs/notebooks/matrix/properties/is_diagonal.ipynb): Determines whether or not a matrix is diagonal.
+  - [is_hermitian](https://github.com/vprusso/toqito/blob/master/docs/notebooks/matrix/properties/is_hermitian.ipynb): Determines whether or not a matrix is Hermitian.
   - is_normal: Determines whether or not a matrix is normal.
   - is_pd: Determines whether or not a matrix is positive definite.
   - is_projection: Determines whether or not a matrix is a projection matrix.

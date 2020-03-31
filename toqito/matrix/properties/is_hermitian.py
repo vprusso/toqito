@@ -6,6 +6,9 @@ def is_hermitian(mat: np.ndarray) -> bool:
     """
     Check if matrix is Hermitian.
 
+    A Hermitian matrix is a complex square matrix that is equal to its own
+    conjugate transpose.
+
     References:
         [1] Wikipedia: Hermitian matrix.
         https://en.wikipedia.org/wiki/Hermitian_matrix
