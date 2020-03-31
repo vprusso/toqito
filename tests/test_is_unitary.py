@@ -10,7 +10,7 @@ class TestIsUnitary(unittest.TestCase):
     """Unit test for is_unitary."""
 
     def test_is_unitary(self):
-        """Test that unitar matrix returns True."""
+        """Test that unitary matrix returns True."""
         mat = random_unitary(2)
         self.assertEqual(is_unitary(mat), True)
 

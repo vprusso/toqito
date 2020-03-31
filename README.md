@@ -82,13 +82,13 @@ Calculate various quantities of interest pertaining to entanglement.
   - [is_density](https://github.com/vprusso/toqito/blob/master/docs/notebooks/matrix/properties/is_density.ipynb): Determines whether or not a matrix is a density matrix.
   - [is_diagonal](https://github.com/vprusso/toqito/blob/master/docs/notebooks/matrix/properties/is_diagonal.ipynb): Determines whether or not a matrix is diagonal.
   - [is_hermitian](https://github.com/vprusso/toqito/blob/master/docs/notebooks/matrix/properties/is_hermitian.ipynb): Determines whether or not a matrix is Hermitian.
-  - is_normal: Determines whether or not a matrix is normal.
-  - is_pd: Determines whether or not a matrix is positive definite.
-  - is_projection: Determines whether or not a matrix is a projection matrix.
-  - is_psd: Determines whether or not a matrix is positive semidefinite.
-  - is_square: Determines whether or not a matrix is square.
-  - is_symmetric: Determines whether or not a matrix is symmetric.
-  - is_unitary: Determines whether or not a matrix is unitary.
+  - [is_normal](https://github.com/vprusso/toqito/blob/master/docs/notebooks/matrix/properties/is_normal.ipynb): Determines whether or not a matrix is normal.
+  - [is_pd](https://github.com/vprusso/toqito/blob/master/docs/notebooks/matrix/properties/is_pd.ipynb): Determines whether or not a matrix is positive definite.
+  - [is_projection](https://github.com/vprusso/toqito/blob/master/docs/notebooks/matrix/properties/is_projection.ipynb): Determines whether or not a matrix is a projection matrix.
+  - [is_psd](https://github.com/vprusso/toqito/blob/master/docs/notebooks/matrix/properties/is_psd.ipynb): Determines whether or not a matrix is positive semidefinite.
+  - [is_square](https://github.com/vprusso/toqito/blob/master/docs/notebooks/matrix/properties/is_square.ipynb): Determines whether or not a matrix is square.
+  - [is_symmetric](https://github.com/vprusso/toqito/blob/master/docs/notebooks/matrix/properties/is_symmetric.ipynb): Determines whether or not a matrix is symmetric.
+  - [is_unitary](https://github.com/vprusso/toqito/blob/master/docs/notebooks/matrix/properties/is_unitary.ipynb): Determines whether or not a matrix is unitary.
 
 ### Measure
 
