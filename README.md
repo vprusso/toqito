@@ -96,7 +96,7 @@ Calculate various quantities of interest pertaining to entanglement.
 
 ### Nonlocal games
 
-  - two_player_quantum_lower_bound: Computes a lower bound on the quantum value of a nonlocal game.
+  - [two_player_quantum_lower_bound](https://github.com/vprusso/toqito/blob/master/docs/notebooks/nonlocal_games/nonlocal_games/two_player_quantum_lower_bound.ipynb): Computes a lower bound on the quantum value of a nonlocal game.
 
 #### Bit commitment
 
@@ -110,7 +110,7 @@ Calculate various quantities of interest pertaining to entanglement.
 
 #### Hedging
 
-  - hedging_value: Semidefinite programs for obtaining values of quantum hedging scenarios.
+  - [hedging_value](https://github.com/vprusso/toqito/blob/master/docs/notebooks/nonlocal_games/hedging/hedging_value.ipynb): Semidefinite programs for obtaining values of quantum hedging scenarios.
 
 #### XOR games
 
