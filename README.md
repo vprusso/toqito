@@ -92,7 +92,7 @@ Calculate various quantities of interest pertaining to entanglement.
 
 ### Measure
 
-  - is_povm: Determines if a set of matrices are valid measurements operators.
+  - [is_povm](https://github.com/vprusso/toqito/blob/master/docs/notebooks/measure/is_povm.ipynb): Determines if a set of matrices are valid measurements operators.
 
 ### Nonlocal games
 
