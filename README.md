@@ -118,7 +118,7 @@ Calculate various quantities of interest pertaining to entanglement.
 
 ### Permutations
 
-  - antisymmetric_projection: Produces the projection onto the antisymmetric subspace.
+  - [antisymmetric_projection](https://github.com/vprusso/toqito/blob/master/docs/notebooks/perms/antisymmetric_projection.ipynb): Produces the projection onto the antisymmetric subspace.
   - perfect_matchings: Gives all perfect matchings of N objects.
   - perm_sign: Computes the sign of a permutation.
   - permutation_operator: Produces a unitary operator that permutes subsystems.
@@ -174,18 +174,18 @@ Calculate various quantities of interest pertaining to entanglement.
 
 #### States
 
-  - bell: Produces a Bell state.
-  - chessboard: Produces a chessboard state.
-  - domino: Produces a Domino state.
-  - gen_bell: Produces a generalized Bell state.
-  - ghz: Generates a (generalized) GHZ state.
-  - gisin: Generates a 2-qubit Gisin state.
-  - horodecki: Produces a Horodecki_state.
-  - isotropic: Produces an isotropic state.
-  - max_entangled: Produces a maximally entangled bipartite pure state.
-  - max_mixed: Produces the maximally mixed state.
-  - w_state: Generates a (generalized) W-state.
-  - werner: Produces a Werner state.
+  - [bell](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/states/bell.ipynb): Produces a Bell state.
+  - [chessboard](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/states/chessboard.ipynb): Produces a chessboard state.
+  - [domino](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/states/domino.ipynb): Produces a Domino state.
+  - [gen_bell](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/states/gen_bell.ipynb): Produces a generalized Bell state.
+  - [ghz](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/states/ghz.ipynb): Generates a (generalized) GHZ state.
+  - [gisin](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/states/gisin.ipynb): Generates a 2-qubit Gisin state.
+  - [horodecki](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/states/horodecki.ipynb): Produces a Horodecki_state.
+  - [isotropic](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/states/isotropic.ipynb): Produces an isotropic state.
+  - [max_entangled](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/states/max_entangled.ipynb): Produces a maximally entangled bipartite pure state.
+  - [max_mixed](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/states/max_mixed.ipynb): Produces the maximally mixed state.
+  - [w_state](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/states/w_state.ipynb): Generates a (generalized) W-state.
+  - [werner](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/states/werner.ipynb): Produces a Werner state.
 
 ### Super operators
 

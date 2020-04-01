@@ -5,13 +5,17 @@ from scipy.sparse import csr_matrix
 
 
 def w_state(num_qubits: int, coeff: List[int] = None) -> np.ndarray:
-    """
+    r"""
     Produce a W-state.
 
     Returns the W-state described in [1].
 
     The W-state on `num_qubits` qubits is defined by:
-        |W> = 1/sqrt(num_qubits) * (|100...0> + |010...0> + ... + |000...1>).
+
+    .. math::
+        |W \rangle = \frac{1}{\sqrt{num\_qubits}}
+        \left(|100 \ldots 0 \rangle + |010 \ldots 0 \rangle + \ldots +
+        |000 \ldots 1 \rangle \right).
 
     References:
     [1] Three qubits can be entangled in two inequivalent ways.

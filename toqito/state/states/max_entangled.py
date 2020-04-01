@@ -16,6 +16,10 @@ def max_entangled(
     is unnormalized (i.e. each entry in the vector is 0 or 1 and the
     Euclidean norm of the vector is `sqrt(dim)` if `is_normalized = False`.
 
+    References:
+        [1] Wikipedia: Quantum entanglement
+        https://en.wikipedia.org/wiki/Quantum_entanglement
+
     :param dim: Dimension of the entangled state.
     :param is_sparse: `True` if vector is spare and `False` otherwise.
     :param is_normalized: `True` if vector is normalized and `False` otherwise.

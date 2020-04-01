@@ -3,13 +3,33 @@ import numpy as np
 
 
 def gisin(lambda_var: float, theta: float) -> np.ndarray:
-    """
+    r"""
     Produce a Gisin state.
 
     Returns the Gisin state described in [1].
 
-    The Gisin states are a mixture of the entangled state `rho_theta` and the
-    separable states `rho_uu` and `rho_dd`.
+    Specifically, the Gisin state can be defined as:
+
+    .. math::
+
+        \begin{equation}
+            \rho_{\lambda, \theta} = \lambda 
+                                    \begin{pmatrix}
+                                        0 & 0 & 0 & 0 \\
+                                        0 & \sin^2(\theta) & 
+                                        -\sin(\theta)\cos(\theta) & 0 \\
+                                        0 & -\sin(\theta)\cos(\theta) &
+                                        \cos^2(\theta) & 0 \\
+                                        0 & 0 & 0 & 0
+                                    \end{pmatrix} +
+                                    \frac{1 - \lambda}{2}
+                                    \begin{pmatrix}
+                                        1 & 0 & 0 & 0 \\
+                                        0 & 0 & 0 & 0 \\
+                                        0 & 0 & 0 & 0 \\
+                                        0 & 0 & 0 & 1
+                                    \end{pmatrix}
+        \end{equation}
 
     References:
     [1] N. Gisin.

@@ -9,8 +9,17 @@ from toqito.perms.swap_operator import swap_operator
 
 
 def werner(dim: int, alpha: Union[float, List[float]]) -> np.ndarray:
-    """
+    r"""
     Produce a Werner state.
+
+    A Werner state is a state of the following form
+
+    .. math::
+
+        \begin{equation}
+            \rho_{\alpha} = \frac{1}{d^2 - d\alpha} \left(\mathbb{I} \otimes
+            \mathbb{I} - \alpha S \right) \in \mathbb{C}^d \otimes \mathbb{C}^d
+        \end{equation}
 
     Yields a Werner state with parameter `alpha` acting on `(dim *
     dim)`-dimensional space. More specifically, `rho` is the density operator
@@ -27,6 +36,15 @@ def werner(dim: int, alpha: Union[float, List[float]]) -> np.ndarray:
         [1, 2, 3], [1, 3, 2], [2, 1,3], [2, 3, 1], [3, 1, 2], [3, 2, 1],
 
     so P(4) in this case equals permutation_operator(dim, [2, 3, 1]).
+
+    References:
+        [1] R. F. Werner.
+        Quantum states with Einstein-Podolsky-Rosen correlations admitting a
+        hidden-variable model. Phys. Rev. A, 40(8):4277–4281
+
+    :param dim: The dimension of the Werner state.
+    :param alpha: Parameter to specify Werner state.
+    :return: A Werner state of dimension `dim`.
     """
     # The total number of permutation operators.
     if isinstance(alpha, float):
