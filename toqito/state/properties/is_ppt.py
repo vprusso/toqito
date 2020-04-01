@@ -22,7 +22,7 @@ def is_ppt(
     is separable and a value of "False" would indicate the state is entangled.
 
     References:
-    [1] Quantiki: Positive partial transpose
+        [1] Quantiki: Positive partial transpose
         https://www.quantiki.org/wiki/positive-partial-transpose
 
     :param mat: A square matrix.

@@ -14,7 +14,7 @@ def chessboard(
     and thus may not be bound entangled.
 
     References:
-    [1] Three qubits can be entangled in two inequivalent ways.
+        [1] Three qubits can be entangled in two inequivalent ways.
         D. Bruss and A. Peres
         Phys. Rev. A, 61:30301(R), 2000
         arXiv: 991.1056

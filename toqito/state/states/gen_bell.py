@@ -17,7 +17,7 @@ def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
     bell(3) -> gen_bell(1, 1, 2)
 
     References:
-    [1] Sych, Denis, and Gerd Leuchs.
+        [1] Sych, Denis, and Gerd Leuchs.
         "A complete basis of generalized Bell states."
         New Journal of Physics 11.1 (2009): 013006.
 

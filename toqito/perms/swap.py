@@ -16,7 +16,7 @@ def swap(
     Swaps the two subsystems of the vector or matrix `rho`, where the
     dimensions of the (possibly more than 2) subsystems are given by `dim` and
     the indices of the two subsystems to be swapped are specified in the 1-by-2
-     vector `sys`.
+    vector `sys`.
 
     If `rho` is non-square and not a vector, different row and column
     dimensions can be specified by putting the row dimensions in the first row

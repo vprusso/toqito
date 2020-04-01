@@ -8,9 +8,8 @@ def w_state(num_qubits: int, coeff: List[int] = None) -> np.ndarray:
     r"""
     Produce a W-state.
 
-    Returns the W-state described in [1].
-
-    The W-state on `num_qubits` qubits is defined by:
+    Returns the W-state described in [1]. The W-state on `num_qubits` qubits is
+    defined by:
 
     .. math::
         |W \rangle = \frac{1}{\sqrt{num\_qubits}}
@@ -18,7 +17,7 @@ def w_state(num_qubits: int, coeff: List[int] = None) -> np.ndarray:
         |000 \ldots 1 \rangle \right).
 
     References:
-    [1] Three qubits can be entangled in two inequivalent ways.
+        [1] Three qubits can be entangled in two inequivalent ways.
         W. Dur, G. Vidal, and J. I. Cirac.
         E-print: arXiv:quant-ph/0005115, 2000.
 

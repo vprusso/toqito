@@ -6,7 +6,7 @@ import numpy as np
 
 
 def ghz(dim: int, num_qubits: int, coeff: List[int] = None) -> sparse:
-    """
+    r"""
     Generate a (generalized) GHZ state.
 
     Returns a `num_qubits`-partite GHZ state acting on `dim` local dimensions,
@@ -15,7 +15,10 @@ def ghz(dim: int, num_qubits: int, coeff: List[int] = None) -> sparse:
 
     For a system of `num_qubits` qubits (i.e., `dim = 2`), the GHZ state can be
     written as
-    |GHZ> = (|0>^{⊗ `num_qubits`} + |1>^{⊗ `num_qubits`})/sqrt(2)
+
+    .. math::
+        |GHZ \rangle = \frac{1}{\sqrt{n}} \left(|0\rangle^{\otimes n} +
+        |1 \rangle^{\otimes n} \right))
 
     Reference:
         [1] Going beyond Bell's theorem.

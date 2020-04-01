@@ -13,8 +13,8 @@ def unambiguous_state_exclusion(
     This function implements the following semidefinite program that provides
     the optimal probability with which Bob can conduct quantum state exclusion.
 
-    ..math::
-        ````
+    .. math::
+
         \begin{align*}
             \text{maximize:} \quad & \sum_{i=0}^n \sum_{j=0}^n
                                      \ip{M_i}{\rho_j} \\
@@ -23,10 +23,9 @@ def unambiguous_state_exclusion(
                                        \forall 1  \leq i \leq n, \\
                                      & M_0, \ldots, M_n >= 0
             \end{align*}
-        ```
 
     References:
-    [1] "Conclusive exclusion of quantum states"
+        [1] "Conclusive exclusion of quantum states"
         Bandyopadhyay, Somshubhro, et al.
         Physical Review A 89.2 (2014): 022336.
         arXiv:1306.4683

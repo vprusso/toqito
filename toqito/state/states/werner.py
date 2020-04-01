@@ -21,8 +21,8 @@ def werner(dim: int, alpha: Union[float, List[float]]) -> np.ndarray:
             \mathbb{I} - \alpha S \right) \in \mathbb{C}^d \otimes \mathbb{C}^d
         \end{equation}
 
-    Yields a Werner state with parameter `alpha` acting on `(dim *
-    dim)`-dimensional space. More specifically, `rho` is the density operator
+    Yields a Werner state with parameter `alpha` acting on `(dim * dim)`-
+    dimensional space. More specifically, `rho` is the density operator
     defined by (I - `alpha`*S) (normalized to have trace 1), where I is the
     density operator and S is the operator that swaps two copies of
     `dim`-dimensional space (see swap and swap_operator for example).
@@ -33,7 +33,7 @@ def werner(dim: int, alpha: Union[float, List[float]]) -> np.ndarray:
     P(i) is the operator that permutes p subsystems according to the i-th
     permutation when they are written in lexicographical order (for example,
     the lexicographical ordering when p = 3 is:
-        [1, 2, 3], [1, 3, 2], [2, 1,3], [2, 3, 1], [3, 1, 2], [3, 2, 1],
+    `[1, 2, 3], [1, 3, 2], [2, 1,3], [2, 3, 1], [3, 1, 2], [3, 2, 1],`
 
     so P(4) in this case equals permutation_operator(dim, [2, 3, 1]).
 

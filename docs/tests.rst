@@ -228,14 +228,6 @@ tests.test\_is\_hermitian module
    :undoc-members:
    :show-inheritance:
 
-tests.test\_is\_measurement module
-----------------------------------
-
-.. automodule:: tests.test_is_measurement
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 tests.test\_is\_mixed module
 ----------------------------
 
@@ -264,6 +256,14 @@ tests.test\_is\_pd module
 -------------------------
 
 .. automodule:: tests.test_is_pd
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+tests.test\_is\_povm module
+---------------------------
+
+.. automodule:: tests.test_is_povm
    :members:
    :undoc-members:
    :show-inheritance:

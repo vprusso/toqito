@@ -27,17 +27,16 @@ def state_discrimination(states: List[np.ndarray], probs: List[float] = None) ->
     This function implements the following semidefinite program that provides
     the optimal probability with which Bob can conduct quantum state exclusion.
 
-    ..math::
-        ````
+    .. math::
+
         \begin{align*}
             \text{maximize:} \quad & \sum_{i=0}^n p_i \ip{M_i}{\rho_i} \\
             \text{subject to:} \quad & M_0 + \ldots + M_n = \mathbb{I},\\
                                      & M_0, \ldots, M_n >= 0
             \end{align*}
-        ```
 
     References:
-    [1] Eldar, Yonina C.
+        [1] Eldar, Yonina C.
         "A semidefinite programming approach to optimal unambiguous
         discrimination of quantum states."
         IEEE Transactions on information theory 49.2 (2003): 446-456.

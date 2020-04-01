@@ -32,7 +32,7 @@ def gisin(lambda_var: float, theta: float) -> np.ndarray:
         \end{equation}
 
     References:
-    [1] N. Gisin.
+        [1] N. Gisin.
         Hidden quantum nonlocality revealed by local filters.
         (http://dx.doi.org/10.1016/S0375-9601(96)80001-6). 1996.
 

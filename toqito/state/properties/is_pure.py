@@ -16,7 +16,7 @@ def is_pure(state: Union[List[np.ndarray], np.ndarray]) -> bool:
         \rho = u u^*
 
     References:
-    [1] Wikipedia: Quantum state - Pure states
+        [1] Wikipedia: Quantum state - Pure states
         https://en.wikipedia.org/wiki/Quantum_state#Pure_states
 
     :param state: The density matrix representing the quantum state or a list

@@ -62,12 +62,12 @@ def horodecki(a_param: float, dim: List[int] = None) -> np.ndarray:
     explicitly in Section 4.2 of [1].
 
     References:
-    [1] P. Horodecki.
+        [1] P. Horodecki.
         Separability criterion and inseparable mixed states with positive
         partial transpose.
         arXiv: 970.3004.
 
-    [2] K. Chruscinski.
+        [2] K. Chruscinski.
         On the symmetry of the seminal Horodecki state.
         arXiv: 1009.4385.
     """
