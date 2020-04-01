@@ -30,10 +30,10 @@ def horodecki(a_param: float, dim: List[int] = None) -> np.ndarray:
                 0 & 0 & 0 & a & 0 & 0 & 0 & 0 & 0 \\
                 0 & 0 & 0 & 0 & a & 0 & 0 & 0 & 0 \\
                 0 & 0 & 0 & 0 & 0 & a & 0 & 0 & 0 \\
-                0 & 0 & 0 & 0 & 0 & 0 & \frac{1}{2} 
+                0 & 0 & 0 & 0 & 0 & 0 & \frac{1}{2}
                 \left( 1 + a \right) & 0 & \frac{1}{2} \sqrt{1 - a^2} \\
                 0 & 0 & 0 & 0 & 0 & 0 & 0 & a & 0 \\
-                0 & 0 & 0 & 0 & 0 & 0 & \frac{1}{2} \sqrt{1 - a^2} & 0 
+                0 & 0 & 0 & 0 & 0 & 0 & \frac{1}{2} \sqrt{1 - a^2} & 0
                 & \frac{1}{2} \left(1 + a \right) \\
             \end{pmatrix}
         \end{equation}

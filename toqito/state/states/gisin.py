@@ -13,10 +13,10 @@ def gisin(lambda_var: float, theta: float) -> np.ndarray:
     .. math::
 
         \begin{equation}
-            \rho_{\lambda, \theta} = \lambda 
+            \rho_{\lambda, \theta} = \lambda
                                     \begin{pmatrix}
                                         0 & 0 & 0 & 0 \\
-                                        0 & \sin^2(\theta) & 
+                                        0 & \sin^2(\theta) &
                                         -\sin(\theta)\cos(\theta) & 0 \\
                                         0 & -\sin(\theta)\cos(\theta) &
                                         \cos^2(\theta) & 0 \\
