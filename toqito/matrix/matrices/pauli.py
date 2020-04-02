@@ -21,6 +21,7 @@ def pauli(
     The 2-by-2 Pauli matrices are defined as the following matrices:
 
     .. math::
+
         \begin{equation}
             \begin{aligned}
                 X = \begin{pmatrix}

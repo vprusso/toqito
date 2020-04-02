@@ -41,7 +41,7 @@ python setup.py install
 ## Examples
 
 All of the examples can be found in the form of 
-[Python Jupyter notebook tutorials](https://github.com/vprusso/toqito/tree/master/docs/tutorials)
+[Python Jupyter notebook tutorials](https://github.com/vprusso/toqito/tree/master/docs/notebooks)
 
 ## Usage
 
@@ -66,10 +66,10 @@ Calculate various quantities of interest pertaining to entanglement.
   - [clock](https://github.com/vprusso/toqito/blob/master/docs/notebooks/matrix/matrices/clock.ipynb): Generates the clock matrix.
   - [fourier](https://github.com/vprusso/toqito/blob/master/docs/notebooks/matrix/matrices/fourier.ipynb): Generate unitary matrix that implements the quantum Fourier transform.
   - [gell_mann](https://github.com/vprusso/toqito/blob/master/docs/notebooks/matrix/matrices/gell_mann.ipynb): Produces a Gell-Mann operator.
-  - gen_gell_man: Produces a generalized Gell-Mann operator.
-  - gen_pauli: Produces a generalized Pauli operator (sometimes called a Weyl operator).
-  - iden: Computes a sparse or full identity matrix.
-  - pauli: Produces a Pauli operator.
+  - [gen_gell_man](https://github.com/vprusso/toqito/blob/master/docs/notebooks/matrix/matrices/gen_gell_mann.ipynb): Produces a generalized Gell-Mann operator.
+  - [gen_pauli](https://github.com/vprusso/toqito/blob/master/docs/notebooks/matrix/matrices/gen_pauli.ipynb): Produces a generalized Pauli operator (sometimes called a Weyl operator).
+  - [iden](https://github.com/vprusso/toqito/blob/master/docs/notebooks/matrix/matrices/iden.ipynb): Computes a sparse or full identity matrix.
+  - [pauli](https://github.com/vprusso/toqito/blob/master/docs/notebooks/matrix/matrices/pauli.ipynb): Produces a Pauli operator.
   - [shift](https://github.com/vprusso/toqito/blob/master/docs/notebooks/matrix/matrices/shift.ipynb): Generates the shift matrix.
 
 #### Operations
@@ -119,7 +119,6 @@ Calculate various quantities of interest pertaining to entanglement.
 ### Permutations
 
   - [antisymmetric_projection](https://github.com/vprusso/toqito/blob/master/docs/notebooks/perms/antisymmetric_projection.ipynb): Produces the projection onto the antisymmetric subspace.
-  - perfect_matchings: Gives all perfect matchings of N objects.
   - perm_sign: Computes the sign of a permutation.
   - permutation_operator: Produces a unitary operator that permutes subsystems.
   - permute_systems: Permutes subsystems within a state or operator.

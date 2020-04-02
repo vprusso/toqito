@@ -13,7 +13,7 @@ def iden(dim: int, is_sparse: bool = False) -> np.ndarray:
     sparse.
 
     .. math::
-        \Sigma_1 = \begin{pmatrix}
+        \mathbb{I} = \begin{pmatrix}
                         1 & 0 & 0 & \ldots & 0 \\
                         0 & 1 & 0 & \ldots & 0 \\
                         0 & 0 & 1 & \ldots & 0 \\

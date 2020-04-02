@@ -26,7 +26,7 @@ def random_state_vector(
         # If you start with a separable state on a larger space and multiply
         # the extra `k_param` dimensions by a maximally entangled state, you
         # get a Schmidt rank `<= k_param` state.
-        psi = max_entangled(k_param, True, False)
+        psi = max_entangled(k_param, True, False).toarray()
 
         a_param = np.random.rand(dim[0] * k_param, 1)
         b_param = np.random.rand(dim[1] * k_param, 1)
@@ -42,7 +42,7 @@ def random_state_vector(
             dim=[k_param, dim[0], k_param, dim[1]],
         )
 
-        ret_vec = np.matmul(mat_1, mat_2)
+        ret_vec = mat_1 * mat_2
         return np.divide(ret_vec, np.linalg.norm(ret_vec))
 
     # Schmidt rank is full, so ignore it.
