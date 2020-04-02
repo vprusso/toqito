@@ -12,7 +12,7 @@ def random_unitary(dim: Union[List[int], int], is_real: bool = False) -> np.ndar
     the Haar measure.
 
     References:
-        How to generate a random unitary matrix,
+        [1] How to generate a random unitary matrix,
         Maris Ozols
         March 16, 2009,
         home.lu.lv/~sd20008/papers/essays/Random%20unitary%20%5Bpaper%5D.pdf

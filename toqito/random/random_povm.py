@@ -6,6 +6,10 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int) -> np.ndarray:
     """
     Generate random positive operator valued measurements (POVMs).
 
+    References:
+        [1] Wikipedia: POVM
+        https://en.wikipedia.org/wiki/POVM
+
     :param dim: The dimension of the measurements.
     :param num_inputs: The number of inputs for the measurement.
     :param num_outputs: The number of outputs for the measurement.

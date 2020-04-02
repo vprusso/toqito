@@ -130,9 +130,9 @@ Calculate various quantities of interest pertaining to entanglement.
 ### Random
 
   - [random_density_matrix](https://github.com/vprusso/toqito/blob/master/docs/notebooks/random/random_density_matrix.ipynb): Generates a random density matrix.
-  - random_povm: Generate a random set of positive-operator-valued measurements (POVMs).
-  - random_state_vector: Generates a random pure state vector.
-  - random_unitary: Generates a random unitary or orthogonal matrix.
+  - [random_povm](https://github.com/vprusso/toqito/blob/master/docs/notebooks/random/random_povm.ipynb): Generate a random set of positive-operator-valued measurements (POVMs).
+  - [random_state_vector](https://github.com/vprusso/toqito/blob/master/docs/notebooks/random/random_state_vector.ipynb): Generates a random pure state vector.
+  - [random_unitary](https://github.com/vprusso/toqito/blob/master/docs/notebooks/random/random_unitary.ipynb): Generates a random unitary or orthogonal matrix.
 
 ### State
 
@@ -164,9 +164,9 @@ Calculate various quantities of interest pertaining to entanglement.
 
 #### Properties
 
-  - is_mixed: Determines if state is mixed.
+  - [is_mixed](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/properties/is_mixed.ipynb): Determines if state is mixed.
   - is_mutually_unbiased_basis: Check if list of vectors constitute a mutually unbiased basis.
-  - is_ppt: Determines whether or not a matrix has positive partial transpose.
+  - [is_ppt](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/properties/is_ppt.ipynb): Determines whether or not a matrix has positive partial transpose.
   - is_product_vector: Determines if a pure state is a product vector.
   - [is_pure](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/properties/is_pure.ipynb): Determines if a state is pure or a list of states are pure.
   - is_quantum_latin_square: Check if list of vectors constitute a quantum Latin square.
