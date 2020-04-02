@@ -119,17 +119,17 @@ Calculate various quantities of interest pertaining to entanglement.
 ### Permutations
 
   - [antisymmetric_projection](https://github.com/vprusso/toqito/blob/master/docs/notebooks/perms/antisymmetric_projection.ipynb): Produces the projection onto the antisymmetric subspace.
-  - perm_sign: Computes the sign of a permutation.
-  - permutation_operator: Produces a unitary operator that permutes subsystems.
-  - permute_systems: Permutes subsystems within a state or operator.
-  - swap: Swaps two subsystems within a state or operator.
-  - swap_operator: Produces a unitary operator that swaps two subsystems.
-  - symmetric_projection: Produces the projection onto the symmetric subspace.
-  - unique_perms: Compute all distinct permutations of a given vector.
+  - [perm_sign](https://github.com/vprusso/toqito/blob/master/docs/notebooks/perms/perm_sign.ipynb): Computes the sign of a permutation.
+  - [permutation_operator](https://github.com/vprusso/toqito/blob/master/docs/notebooks/perms/permutation_operator.ipynb): Produces a unitary operator that permutes subsystems.
+  - [permute_systems](https://github.com/vprusso/toqito/blob/master/docs/notebooks/perms/permute_systems.ipynb): Permutes subsystems within a state or operator.
+  - [swap](https://github.com/vprusso/toqito/blob/master/docs/notebooks/perms/swap.ipynb): Swaps two subsystems within a state or operator.
+  - [swap_operator](https://github.com/vprusso/toqito/blob/master/docs/notebooks/perms/swap_operator.ipynb): Produces a unitary operator that swaps two subsystems.
+  - [symmetric_projection](https://github.com/vprusso/toqito/blob/master/docs/notebooks/perms/symmetric_projection.ipynb): Produces the projection onto the symmetric subspace.
+  - [unique_perms](https://github.com/vprusso/toqito/blob/master/docs/notebooks/perms/unique_perms.ipynb): Compute all distinct permutations of a given vector.
 
 ### Random
 
-  - random_density_matrix: Generates a random density matrix.
+  - [random_density_matrix](https://github.com/vprusso/toqito/blob/master/docs/notebooks/random/random_density_matrix.ipynb): Generates a random density matrix.
   - random_povm: Generate a random set of positive-operator-valued measurements (POVMs).
   - random_state_vector: Generates a random pure state vector.
   - random_unitary: Generates a random unitary or orthogonal matrix.

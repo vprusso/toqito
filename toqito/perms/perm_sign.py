@@ -1,9 +1,10 @@
 """Computes the sign of a permutation."""
+from typing import List, Union
 import numpy as np
 from scipy import linalg
 
 
-def perm_sign(perm: np.ndarray) -> float:
+def perm_sign(perm: Union[np.ndarray, List[int]]) -> float:
     """
     Compute the "sign" of a permutation.
 
