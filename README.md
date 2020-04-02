@@ -140,9 +140,9 @@ Calculate various quantities of interest pertaining to entanglement.
 
   - bures_distance: Computes the Bures distance of two density matrices.
   - bures_metric: Computes the Bures metric between two density matrices.
-  - entropy: Computes the von Neumann or Rényi entropy of a density matrix.
-  - fidelity: Computes the fidelity of two density matrices.
-  - helstrom_holevo: Computes the Helstrom-Holevo distance between two density matrices.
+  - [entropy](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/distance/entropy.ipynb): Computes the von Neumann or Rényi entropy of a density matrix.
+  - [fidelity](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/distance/fidelity.ipynb): Computes the fidelity of two density matrices.
+  - [helstrom_holevo](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/distance/helstorm_holevo.ipynb): Computes the Helstrom-Holevo distance between two density matrices.
   - purity: Computes the purity of a quantum state.
   - super_fidelity: Computes the super-fidelity of two density matrices.
   - trace_distance: Computes the trace distance of two matrices.

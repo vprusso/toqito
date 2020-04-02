@@ -8,13 +8,16 @@ def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float:
     Compute the Helstrom-Holevo distance between states `rho` and `sigma`.
 
     In general, the best success probability to discriminate
-    two mixed states represented by ρ1 and ρ2 is given by 1
+    two mixed states represented by :math:`\rho_1` and :math:`\rho_2` is given
+    by 1.
 
     In general, the best success probability to discriminate two mixed states
-    represented by ρ and σ is given by
+    represented by :math:`\rho` and :math:`\sigma` is given by
 
     .. math::
-         \frac{1}{2}+\frac{1}{2} \left(\frac{1}{2} \norm{\rho - \sigma}_1\right)
+
+         \frac{1}{2}+\frac{1}{2} \left(\frac{1}{2} \left|\rho - \sigma
+         \right|_1\right).
 
     References:
         [1] Wikipedia: Holevo's theorem.
