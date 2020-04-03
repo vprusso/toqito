@@ -17,9 +17,15 @@ def xor_game_value(
     communicate during the game itself.
 
     References:
-        [1] Cleve, Richard, et al.
+        [1] Richard Cleve, William Slofstra, Falk Unger, Sarvagya Upadhyay
         "Strong parallel repetition theorem for quantum XOR proof systems",
         https://arxiv.org/abs/quant-ph/0608146
+
+        [2] Richard Cleve, Peter Hoyer, Ben Toner, John Watrous
+        "Consequences and limits of nonlocal strategies."
+        Proceedings. 19th IEEE Annual Conference on Computational Complexity,
+        2004.. IEEE, 2004.
+        https://arxiv.org/abs/quant-ph/0404076
 
     :param prob_mat: A matrix whose (q_0, q_1)-entry gives the probability that
                      the referee will give Alice the value `q_0` and Bob the

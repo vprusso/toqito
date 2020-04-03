@@ -5,7 +5,7 @@ from toqito.state.distance.trace_norm import trace_norm
 
 def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float:
     """
-    Compute the trace distance between matrices `rho` and `sigma`.
+    Compute the trace distance between density operators `rho` and `sigma`.
 
     References:
             [1] Quantiki: Trace distance

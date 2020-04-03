@@ -114,7 +114,7 @@ Calculate various quantities of interest pertaining to entanglement.
 
 #### XOR games
 
-  - xor_game_value: Compute the classical or quantum value of a two-player nonlocal XOR game.
+  - [xor_game_value](https://github.com/vprusso/toqito/blob/master/docs/notebooks/nonlocal_games/xor_games/xor_game_value.ipynb): Compute the classical or quantum value of a two-player nonlocal XOR game.
 
 ### Permutations
 
@@ -143,16 +143,16 @@ Calculate various quantities of interest pertaining to entanglement.
   - [entropy](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/distance/entropy.ipynb): Computes the von Neumann or Rényi entropy of a density matrix.
   - [fidelity](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/distance/fidelity.ipynb): Computes the fidelity of two density matrices.
   - [helstrom_holevo](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/distance/helstorm_holevo.ipynb): Computes the Helstrom-Holevo distance between two density matrices.
-  - purity: Computes the purity of a quantum state.
+  - [purity](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/distance/purity.ipynb): Computes the purity of a quantum state.
   - super_fidelity: Computes the super-fidelity of two density matrices.
-  - trace_distance: Computes the trace distance of two matrices.
-  - trace_norm: Computes the trace norm of a matrix.
+  - [trace_distance](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/distance/trace_distance.ipynb): Computes the trace distance of two matrices.
+  - [trace_norm](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/distance/trace_norm.ipynb): Computes the trace norm of a matrix.
 
 #### Operations
 
-  - pure_to_mixed: Converts a state vector or density matrix to a density matrix.
-  - schmidt_decomposition: Computes the Schmidt decomposition of a bipartite vector.
-  - schmidt_rank: Computes the Schmidt rank of a bipartite vector.
+  - [pure_to_mixed](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/operations/pure_to_mixed.ipynb): Converts a state vector or density matrix to a density matrix.
+  - [schmidt_decomposition](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/operations/schmidt_decomposition.ipynb): Computes the Schmidt decomposition of a bipartite vector.
+  - [schmidt_rank](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/operations/schmidt_rank.ipynb): Computes the Schmidt rank of a bipartite vector.
 
 #### Optimizations
   - conclusive_state_exclusion: Calculates probability of conclusive single state exclusion.
