@@ -195,7 +195,7 @@ Calculate various quantities of interest pertaining to entanglement.
   - partial_trace: Computes the partial trace of a matrix.
   - partial_transpose: Computes the partial transpose of a matrix.
   - realignment: Computes the realignment of a bipartite operator.
-  - reduction_map: Produces the reduction map.
+  - [reduction_map](https://github.com/vprusso/toqito/blob/master/docs/notebooks/super_operators/reduction_map.ipynb): Produces the reduction map.
  
 ## Testing
 

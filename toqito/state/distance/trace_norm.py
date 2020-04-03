@@ -3,7 +3,7 @@ import numpy as np
 
 
 def trace_norm(rho: np.ndarray) -> float:
-    """
+    r"""
     Compute the trace norm of the matrix `rho`.
 
     The trace norm :math:`||\rho||_1` of a density matrix :math:`\rho` is the

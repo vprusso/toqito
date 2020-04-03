@@ -13,9 +13,11 @@ def reduction_map(dim: int, k: int = 1) -> np.ndarray:
     yields the Choi matrix of the map defined by:
 
     .. math::
-        R(X) = k * \text{Tr}(X) * I - X.
 
-    This map is :math:`k`-positive.
+        R(X) = k * \text{Tr}(X) * \mathbb{I} - X,
+
+    where :math:`\mathbb{I}` is the identity matrix. This map is
+    :math:`k`-positive.
 
     :param dim: A positive integer (the dimension of the reduction map).
     :param k:  If this positive integer is provided, the script will instead
