@@ -138,13 +138,11 @@ Calculate various quantities of interest pertaining to entanglement.
 
 #### Distance
 
-  - bures_distance: Computes the Bures distance of two density matrices.
-  - bures_metric: Computes the Bures metric between two density matrices.
   - [entropy](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/distance/entropy.ipynb): Computes the von Neumann or Rényi entropy of a density matrix.
   - [fidelity](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/distance/fidelity.ipynb): Computes the fidelity of two density matrices.
   - [helstrom_holevo](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/distance/helstorm_holevo.ipynb): Computes the Helstrom-Holevo distance between two density matrices.
   - [purity](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/distance/purity.ipynb): Computes the purity of a quantum state.
-  - super_fidelity: Computes the super-fidelity of two density matrices.
+  - [super_fidelity](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/distance/super_fidelity.ipynb): Computes the super-fidelity of two density matrices.
   - [trace_distance](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/distance/trace_distance.ipynb): Computes the trace distance of two matrices.
   - [trace_norm](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/distance/trace_norm.ipynb): Computes the trace norm of a matrix.
 
@@ -188,13 +186,13 @@ Calculate various quantities of interest pertaining to entanglement.
 
 ### Super operators
 
-  - apply_map: Applies a superoperator to an operator.
-  - choi_map: Produces the Choi map or one of its generalizations.
-  - dephasing_channel: Produces a dephasing channel.
-  - depolarizing_channel: Produces a depolarizng channel.
-  - partial_trace: Computes the partial trace of a matrix.
-  - partial_transpose: Computes the partial transpose of a matrix.
-  - realignment: Computes the realignment of a bipartite operator.
+  - [apply_map](https://github.com/vprusso/toqito/blob/master/docs/notebooks/super_operators/apply_map.ipynb): Applies a superoperator to an operator.
+  - [choi_map](https://github.com/vprusso/toqito/blob/master/docs/notebooks/super_operators/choi_map.ipynb): Produces the Choi map or one of its generalizations.
+  - [dephasing_channel](https://github.com/vprusso/toqito/blob/master/docs/notebooks/super_operators/dephasing_channel.ipynb): Produces a dephasing channel.
+  - [depolarizing_channel](https://github.com/vprusso/toqito/blob/master/docs/notebooks/super_operators/depolarizing_channel.ipynb): Produces a depolarizng channel.
+  - [partial_trace](https://github.com/vprusso/toqito/blob/master/docs/notebooks/super_operators/partial_trace.ipynb): Computes the partial trace of a matrix.
+  - [partial_transpose](https://github.com/vprusso/toqito/blob/master/docs/notebooks/super_operators/partial_transpose.ipynb): Computes the partial transpose of a matrix.
+  - [realignment](https://github.com/vprusso/toqito/blob/master/docs/notebooks/super_operators/realignment.ipynb): Computes the realignment of a bipartite operator.
   - [reduction_map](https://github.com/vprusso/toqito/blob/master/docs/notebooks/super_operators/reduction_map.ipynb): Produces the reduction map.
  
 ## Testing

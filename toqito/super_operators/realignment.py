@@ -10,8 +10,8 @@ def realignment(input_mat: np.ndarray, dim=None) -> np.ndarray:
     r"""
     Compute the realignment of a bipartite operator.
 
-    Gives the realignment of the matrix INPUT_MAT, where it is assumed that
-    the number of rows and columns of INPUT_MAT are both perfect squares and
+    Gives the realignment of the matrix `input_mat`, where it is assumed that
+    the number of rows and columns of `input_mat` are both perfect squares and
     both subsystems have equal dimension. The realignment is defined by mapping
     the operator :math:`|ij \rangle \langle kl |` to :math:`|ik \rangle \langle
     jl |` and extending linearly.

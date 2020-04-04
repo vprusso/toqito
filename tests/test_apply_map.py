@@ -13,7 +13,7 @@ class TestApplyMap(unittest.TestCase):
         """
         The swap operator is the Choi matrix of the transpose map.
 
-        The following test is (a slow and ugly) way of computing
+        The following test is a (non-ideal, but illustrative) way of computing
         the transpose of a matrix.
         """
         test_input_mat = np.array([[1, 4, 7], [2, 5, 8], [3, 6, 9]])

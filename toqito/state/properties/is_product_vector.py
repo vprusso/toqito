@@ -26,6 +26,8 @@ def is_product_vector(vec: np.ndarray, dim: Union[int, List[int]]) -> bool:
     else:
         num_sys = len(dim)
 
+    print(num_sys)
+
     if num_sys == 1:
         dim = np.array([dim, len(vec) / dim])
         if np.abs(dim[1] - np.round(dim[1])) >= 2 * len(vec) * eps:
