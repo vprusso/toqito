@@ -19,8 +19,8 @@ class TestSuperFidelity(unittest.TestCase):
 
     def test_non_square_super_fidelity(self):
         """Tests for invalid dim for super_fidelity."""
-        rho = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
-        sigma = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
+        rho = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [1, 0, 0, 1]])
+        sigma = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [2, 0, 0, 2]])
         with self.assertRaises(ValueError):
             super_fidelity(rho, sigma)
 
@@ -29,7 +29,7 @@ class TestSuperFidelity(unittest.TestCase):
         rho = np.array(
             [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
         )
-        sigma = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+        sigma = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
         with self.assertRaises(ValueError):
             super_fidelity(rho, sigma)
 
