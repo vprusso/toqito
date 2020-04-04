@@ -14,6 +14,10 @@ def tensor(input_1: np.ndarray, input_2: np.ndarray) -> np.ndarray:
     The same concept also applies to two vectors :math:`v` and :math:`w` which
     computes :math: `v \otimes w`.
 
+    References:
+        [1] Wikipedia: Tensor product
+        https://en.wikipedia.org/wiki/Tensor_product
+
     :param input_1: The first matrix argument.
     :param input_2: The second matrix argument.
     :return: The tensor product between `input_1` and `input_2`.

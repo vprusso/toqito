@@ -17,12 +17,12 @@ def unambiguous_state_exclusion(
 
         \begin{align*}
             \text{maximize:} \quad & \sum_{i=0}^n \sum_{j=0}^n
-                                     \ip{M_i}{\rho_j} \\
-            \text{subject to:} \quad & M_0 + \ldots + M_n <= \mathbb{I},\\
-                                     & \tr(\rho_i M_i) = 0
-                                       \forall 1  \leq i \leq n, \\
-                                     & M_0, \ldots, M_n >= 0
-            \end{align*}
+                                     \langle M_i, \rho_j \rangle \\
+            \text{subject to:} \quad & \sum_{i=0}^n M_i \leq \mathbb{I},\\
+                                     & \text{Tr}(\rho_i M_i) = 0,
+                                       \quad \quad \forall 1  \leq i \leq n, \\
+                                     & M_0, \ldots, M_n \geq 0
+        \end{align*}
 
     References:
         [1] "Conclusive exclusion of quantum states"

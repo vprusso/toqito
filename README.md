@@ -74,7 +74,7 @@ Calculate various quantities of interest pertaining to entanglement.
 
 #### Operations
 
-  - tensor: Kronecker tensor product of two or more matrices.
+  - [tensor](https://github.com/vprusso/toqito/blob/master/docs/notebooks/matrix/operations/tensor.ipynb): Kronecker tensor product of two or more matrices.
   - [vec](https://github.com/vprusso/toqito/blob/master/docs/notebooks/matrix/operations/vec.ipynb): Computes the vec representation of a given matrix.
 
 #### Properties
@@ -158,7 +158,7 @@ Calculate various quantities of interest pertaining to entanglement.
   - state_cloning: Calculate the optimal probability of cloning a quantum state.
   - state_discrimination: Calculates probability of state discrimination.
   - state_distance: Distinguish a set of quantum states.
-  - unambiguous_state_exclusion: Calculates probability of unambiguous state exclusion.
+  - [unambiguous_state_exclusion](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/optimizations/unambiguous_state_exclusion.ipynb): Calculates probability of unambiguous state exclusion.
 
 #### Properties
 
