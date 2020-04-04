@@ -153,7 +153,7 @@ Calculate various quantities of interest pertaining to entanglement.
   - [schmidt_rank](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/operations/schmidt_rank.ipynb): Computes the Schmidt rank of a bipartite vector.
 
 #### Optimizations
-  - conclusive_state_exclusion: Calculates probability of conclusive single state exclusion.
+  - [conclusive_state_exclusion](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/optimizations/conclusive_state_exclusion.ipynb): Calculates probability of conclusive single state exclusion.
   - ppt_distinguishability: Calculates probability of distinguishing via PPT measurements.
   - state_cloning: Calculate the optimal probability of cloning a quantum state.
   - state_discrimination: Calculates probability of state discrimination.
@@ -194,6 +194,10 @@ Calculate various quantities of interest pertaining to entanglement.
   - [partial_transpose](https://github.com/vprusso/toqito/blob/master/docs/notebooks/super_operators/partial_transpose.ipynb): Computes the partial transpose of a matrix.
   - [realignment](https://github.com/vprusso/toqito/blob/master/docs/notebooks/super_operators/realignment.ipynb): Computes the realignment of a bipartite operator.
   - [reduction_map](https://github.com/vprusso/toqito/blob/master/docs/notebooks/super_operators/reduction_map.ipynb): Produces the reduction map.
+ 
+ ### Base
+   - [bra](https://github.com/vprusso/toqito/blob/master/docs/notebooks/base/bra.ipynb): Construct the bra object. 
+   - [ket](https://github.com/vprusso/toqito/blob/master/docs/notebooks/base/ket.ipynb): Construct the ket object.
  
 ## Testing
 
