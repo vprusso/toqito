@@ -1,4 +1,5 @@
 *.DS_Store
+*.lock
 *.idea
 *.pdf
 main.py

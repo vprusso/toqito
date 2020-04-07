@@ -1,39 +1,44 @@
-"""Calculates probability of state discrimination."""
+"""Calculates probability of state distinguishability."""
 from typing import List
 import cvxpy as cvx
 import numpy as np
 
 
-def state_discrimination(states: List[np.ndarray], probs: List[float] = None) -> float:
+def state_distinguishability(states: List[np.ndarray],
+                             probs: List[float] = None) -> float:
     r"""
-    Compute probability of state discrimination.
+    Compute probability of state distinguishability.
 
-    The "quantum state discrimination" problem involves a collection of :math:
-    `n` quantum states
+    The "quantum state distinguishability" problem involves a collection of
+    :math:`n` quantum states
 
-    ..math::
+    .. math::
+
         `\rho = \{ \rho_0, \ldots, \rho_n \},`
 
     as well as a list of corresponding probabilities
 
-    ..math::
+    .. math::
+
         `p = \{ p_0, \ldots, p_n \}`
 
-    Alice chooses :math: `i` with probability `p_i` and creates the state
-    :math: `rho_i`
+    Alice chooses :math:`i` with probability :math:`p_i` and creates the state
+    :math:`rho_i`
 
     Bob wants to guess which state he was given from the collection of states.
 
     This function implements the following semidefinite program that provides
-    the optimal probability with which Bob can conduct quantum state exclusion.
+    the optimal probability with which Bob can conduct quantum state
+    distinguishability.
 
     .. math::
 
         \begin{align*}
-            \text{maximize:} \quad & \sum_{i=0}^n p_i \ip{M_i}{\rho_i} \\
+            \text{maximize:} \quad & \sum_{i=0}^n p_i \langle M_i,
+            \rho_i \rangle \\
             \text{subject to:} \quad & M_0 + \ldots + M_n = \mathbb{I},\\
-                                     & M_0, \ldots, M_n >= 0
-            \end{align*}
+                                     & M_0, \ldots, M_n \geq 0
+        \end{align*}
 
     References:
         [1] Eldar, Yonina C.
@@ -46,8 +51,7 @@ def state_discrimination(states: List[np.ndarray], probs: List[float] = None) ->
                    quantum states.
     :param probs: A list of probabilities where `probs[i]` corresponds to the
                   probability that `states[i]` is selected by Alice.
-    :return: The optimal probability with which Bob can guess the state he was
-             not given from `states`.
+    :return: The optimal probability with which Bob can distinguish the state.
     """
     # Assume that at least one state is provided.
     if states is None or states == []:

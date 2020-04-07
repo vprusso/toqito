@@ -5,9 +5,9 @@ import numpy as np
 from toqito.state.operations.schmidt_decomposition import schmidt_decomposition
 
 
-def is_product_vector(vec: np.ndarray, dim: Union[int, List[int]]) -> bool:
+def _is_product_vector(vec: np.ndarray, dim: Union[int, List[int]] = None) -> [int, bool]:
     """
-    Determine if a given vector is a product vector.
+    Helper function for to determine if a given vector is a product vector.
 
     :param vec: The vector to check.
     :param dim: The dimension of the vector
@@ -26,23 +26,17 @@ def is_product_vector(vec: np.ndarray, dim: Union[int, List[int]]) -> bool:
     else:
         num_sys = len(dim)
 
-    print(num_sys)
-
     if num_sys == 1:
-        dim = np.array([dim, len(vec) / dim])
-        if np.abs(dim[1] - np.round(dim[1])) >= 2 * len(vec) * eps:
-            raise ValueError(
-                "InvalidDim: The value of `dim` must evenly divide"
-                " `len(vec)`. Please provide a `dim` array "
-                "containing the dimensions of the subsystems."
-            )
+        dim = np.array([dim, len(vec) // dim])
         dim[1] = np.round(dim[1])
         num_sys = 2
 
+    dec = 0
     # If there are only two subsystems, just use the Schmidt decomposition.
     if num_sys == 2:
         singular_vals, u_mat, vt_mat = schmidt_decomposition(vec, dim, 2)
         ipv = singular_vals[1] <= np.prod(dim) * np.spacing(singular_vals[0])
+
         # Provide this even if not requested, since it is needed if this
         # function was called as part of its recursive algorithm (see below)
         if ipv:
@@ -52,12 +46,21 @@ def is_product_vector(vec: np.ndarray, dim: Union[int, List[int]]) -> bool:
     else:
         new_dim = [dim[0] * dim[1]]
         new_dim.extend(dim[2:])
-        ipv, dec = is_product_vector(vec, new_dim)
+        ipv, dec = _is_product_vector(vec, new_dim)
         if ipv:
-            ipv, tdec = is_product_vector(dec[0], [dim[0], dim[1]])
+            ipv, tdec = _is_product_vector(dec[0], [dim[0], dim[1]])
             if ipv:
                 dec = [tdec, dec[1:]]
-    if not ipv:
-        dec = 0
 
     return ipv, dec
+
+
+def is_product_vector(vec: np.ndarray, dim: Union[int, List[int]] = None) -> bool:
+    """
+    Determine if a given vector is a product vector.
+
+    :param vec: The vector to check.
+    :param dim: The dimension of the vector
+    :return: True if `vec` is a product vector and False otherwise.
+    """
+    return _is_product_vector(vec, dim)[0][0]

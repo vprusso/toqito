@@ -156,8 +156,7 @@ Calculate various quantities of interest pertaining to entanglement.
   - [conclusive_state_exclusion](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/optimizations/conclusive_state_exclusion.ipynb): Calculates probability of conclusive single state exclusion.
   - ppt_distinguishability: Calculates probability of distinguishing via PPT measurements.
   - state_cloning: Calculate the optimal probability of cloning a quantum state.
-  - state_discrimination: Calculates probability of state discrimination.
-  - state_distance: Distinguish a set of quantum states.
+  - state_distinguishability: Calculates probability of state distinguishability.
   - [unambiguous_state_exclusion](https://github.com/vprusso/toqito/blob/master/docs/notebooks/state/optimizations/unambiguous_state_exclusion.ipynb): Calculates probability of unambiguous state exclusion.
 
 #### Properties
