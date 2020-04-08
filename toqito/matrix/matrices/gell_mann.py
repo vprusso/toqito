@@ -5,7 +5,7 @@ from scipy.sparse import csr_matrix
 
 def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray:
     r"""
-    Produce a Gell-Mann operator.
+    Produce a Gell-Mann operator [3]_.
 
     Generates the 3-by-3 Gell-Mann matrix indicated by the value of `ind`.
     `ind = 0` gives the identity matrix, while values 1 through 8 each indicate
@@ -64,8 +64,29 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray:
                 \end{aligned}
             \end{equation}
 
-    References:
-        [1] Wikipedia: Gell-Mann matrices,
+    Examples
+    ==========
+
+    The Gell-Mann matrix generated from :math:`idx = 2` yields the following
+    matrix:
+
+    .. math::
+
+        \lambda_2 = \begin{pmatrix}
+                            0 & -i & 0 \\
+                            i & 0 & 0 \\
+                            0 & 0 & 0
+                    \end{pmatrix}
+
+    >>> from toqito.matrix.matrices.gell_mann import gell_mann
+    >>> gell_mann(2)
+    array([[ 0.+0.j, -0.-1.j,  0.+0.j],
+           [ 0.+1.j,  0.+0.j,  0.+0.j],
+           [ 0.+0.j,  0.+0.j,  0.+0.j]])
+
+    References
+    ==========
+    .. [3] Wikipedia: Gell-Mann matrices,
         https://en.wikipedia.org/wiki/Gell-Mann_matrices
 
     :param ind: An integer between 0 and 8 (inclusive).

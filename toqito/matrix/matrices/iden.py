@@ -6,7 +6,7 @@ from scipy import sparse
 
 def iden(dim: int, is_sparse: bool = False) -> np.ndarray:
     r"""
-    Calculate the `dim`-by-`dim` identity matrix.
+    Calculate the `dim`-by-`dim` identity matrix [6]_.
 
     Returns the `dim`-by-`dim` identity matrix. If `is_sparse = False` then
     the matrix will be full. If `is_sparse = True` then the matrix will be
@@ -25,8 +25,36 @@ def iden(dim: int, is_sparse: bool = False) -> np.ndarray:
     identity matrix. If you always want either the full or the sparse
     identity matrix, just use numpy's built-in np.identity function.
 
-    References:
-        [1] Wikipedia: Identity matrix
+    Examples
+    ==========
+
+    The identity matrix generated from :math:`d = 3` yields the following
+    matrix:
+
+    .. math::
+        \mathbb{I}_3 = \begin{pmatrix}
+            1 & 0 & 0 \\
+            0 & 1 & 0 \\
+            0 & 0 & 1
+        \end{pmatrix}
+
+    >>> from toqito.matrix.matrices.iden import iden
+    >>> iden(3)
+    array([[1., 0., 0.],
+           [0., 1., 0.],
+           [0., 0., 1.]])
+
+    It is also possible to create sparse identity matrices. The sparse identity
+    matrix generated from :math:`d = 10` yields the following matrix:
+
+    >>> from toqito.matrix.matrices.iden import iden
+    >>> iden(10, True)
+    <10x10 sparse matrix of type '<class 'numpy.float64'>' with 10 stored
+    elements (1 diagonals) in DIAgonal format>
+
+    References
+    ==========
+    .. [6] Wikipedia: Identity matrix
         https://en.wikipedia.org/wiki/Identity_matrix
 
     :param dim: Integer representing dimension of identity matrix.

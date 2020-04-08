@@ -3,12 +3,40 @@ import numpy as np
 
 
 def ket(dim: int, pos: int) -> np.ndarray:
-    """
-    Obtain the ket of dimension `dim`.
+    r"""
 
-    References:
-        [1] Wikipedia page for bra–ket notation:
-        https://en.wikipedia.org/wiki/Bra%E2%80%93ket_notation
+    Obtain the ket of dimension `dim` [2]_.
+
+    Examples
+    ==========
+
+    The standard basis bra vectors given as :math:`|0\rangle` and
+    :math:`|1\rangle` where
+
+    .. math::
+        |0 \rangle = \left[1, 0 \right]^{\text{T}} \quad \text{and} \quad
+        |1\rangle = \left[0, 1 \right]^{\text{T}},
+
+    can be obtained in `toqito` as follows.
+
+    Example:  Ket vector: :math:`| 0 \rangle`.
+
+    >>> from toqito.base.ket import ket
+    >>> ket(2, 0)
+    [[1]
+    [0]]
+
+    Example:  Ket vector: :math:`| 1 \rangle`.
+
+    >>> from toqito.base.ket import ket
+    >>> ket(2, 1)
+    [[0]
+    [1]]
+
+    References
+    ==========
+    .. [2] Wikipedia page for bra–ket notation:
+           https://en.wikipedia.org/wiki/Bra%E2%80%93ket_notation
 
     :param dim: The dimension of the column vector.
     :param pos: The position in which to place a 1.

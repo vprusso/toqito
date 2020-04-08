@@ -10,7 +10,7 @@ def pauli(
     ind: Union[int, str, List[int], List[str]], is_sparse: bool = False
 ) -> Union[np.ndarray, sparse.csr_matrix]:
     r"""
-    Produce a Pauli operator.
+    Produce a Pauli operator [7]_.
 
     Provides the 2-by-2 Pauli matrix indicated by the value of `ind`. The
     variable `ind = 1` gives the Pauli-X operator, `ind = 2` gives the Pauli-Y
@@ -43,8 +43,40 @@ def pauli(
                 \end{aligned}
             \end{equation}
 
-    References:
-        [1] Wikipedia: Pauli matrices
+    Examples
+    ==========
+
+    Example for identity Pauli matrix.
+
+    >>> from toqito.matrix.matrices.pauli import pauli
+    >>> pauli("I")
+    array([[1., 0.],
+           [0., 1.]])
+
+    Example for Pauli-X matrix.
+
+    >>> from toqito.matrix.matrices.pauli import pauli
+    >>> pauli("X")
+    array([[0, 1],
+           [1, 0]])
+
+    Example for Pauli-Y matrix.
+
+    >>> from toqito.matrix.matrices.pauli import pauli
+    >>> pauli("Y")
+    array([[ 0.+0.j, -0.-1.j],
+           [ 0.+1.j,  0.+0.j]])
+
+    Example for Pauli-Z matrix.
+
+    >>> from toqito.matrix.matrices.pauli import pauli
+    >>> pauli("Z")
+    array([[ 1,  0],
+           [ 0, -1]])
+
+    References
+    ==========
+    .. [7] Wikipedia: Pauli matrices
         https://en.wikipedia.org/wiki/Pauli_matrices
 
     :param ind: The index to indicate which Pauli operator to generate.

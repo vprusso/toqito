@@ -7,16 +7,56 @@ from scipy import sparse
 def gen_gell_mann(
     ind_1: int, ind_2: int, dim: int, is_sparse: bool = False
 ) -> Union[np.ndarray, sparse.lil_matrix]:
-    """
-    Produce a generalized Gell-Mann operator.
+    r"""
+    Produce a generalized Gell-Mann operator [4]_.
 
     Construct a `dim`-by-`dim` Hermitian operator. These matrices span the
     entire space of `dim`-by-`dim` matrices as `ind_1` and `ind_2` range from 0
     to `dim-1`, inclusive, and they generalize the Pauli operators when `dim =
     2` and the Gell-Mann operators when `dim = 3`.
 
-    References:
-        [1] Wikipedia: Gell-Mann matrices,
+    Examples
+    ==========
+
+    The generalized Gell-Mann matrix for `ind_1 = 0`, `ind_2 = 1` and `dim = 2`
+    is given as
+
+    .. math::
+        G_{0, 1, 2} = \begin{pmatrix}
+                         0 & 1 \\
+                         1 & 0
+                      \end{pmatrix}.
+
+    This can be obtained in `toqito` as follows.
+
+    >>> from toqito.matrix.matrices.gen_gell_mann import gen_gell_mann
+    >>> gen_gell_mann(0, 1, 2)
+    matrix([[0., 1.],
+            [1., 0.]])
+
+    The generalized Gell-Mann matrix `ind_1 = 2`, `ind_2 = 3`, and `dim = 4` is
+    given as
+
+    .. math::
+        G_{2, 3, 4} = \begin{pmatrix}
+                        0 & 0 & 0 & 0 \\
+                        0 & 0 & 0 & 0 \\
+                        0 & 0 & 0 & 1 \\
+                        0 & 0 & 1 & 0
+                      \end{pmatrix}.
+
+    This can be obtained in `toqito` as follows.
+
+    >>> from toqito.matrix.matrices.gen_gell_mann import gen_gell_mann
+    >>> gen_gell_mann(2, 3, 4)
+    matrix([[0., 0., 0., 0.],
+            [0., 0., 0., 0.],
+            [0., 0., 0., 1.],
+            [0., 0., 1., 0.]])
+
+    References
+    ==========
+    .. [4] Wikipedia: Gell-Mann matrices,
         https://en.wikipedia.org/wiki/Gell-Mann_matrices
 
     :param ind_1: A non-negative integer from 0 to `dim-1` (inclusive).
@@ -25,7 +65,7 @@ def gen_gell_mann(
     :param is_sparse: If set to `True`, the returned Gell-Mann operator is a
                       sparse lil_matrix and if set to `False`, the returned
                       Gell-Mann operator is a dense numpy array.
-    :return: The Gell-Mann operator.
+    :return: The generalized Gell-Mann operator.
     """
     if ind_1 == ind_2:
         if ind_1 == 0:

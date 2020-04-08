@@ -9,7 +9,7 @@ from toqito.super_operators.partial_transpose import partial_transpose
 
 def negativity(rho: np.ndarray, dim: Union[List[int], int] = None) -> float:
     r"""
-    Compute the negativity of a bipartite quantum state.
+    Compute the negativity of a bipartite quantum state [2]_.
 
     The negativity of a subsystem can be defined in terms of a density matrix
     :math:`\rho`:
@@ -23,8 +23,20 @@ def negativity(rho: np.ndarray, dim: Union[List[int], int] = None) -> float:
     negativity of `rho` is the sum of the absolute value of the negative
     eigenvalues of the partial transpose of `rho`.
 
-    References:
-        [1] Wikipedia page for negativity (quantum mechanics):
+    Examples
+    ==========
+
+    Example of the negativity of density matrix of Bell state.
+
+    >>> from toqito.state.states.bell import bell
+    >>> from toqito.entanglement.negativity import negativity
+    >>> rho = bell(0) * bell(0).conj().T
+    >>> negativity(rho)
+    0.4999999999999998
+
+    References
+    ==========
+    .. [2] Wikipedia page for negativity (quantum mechanics):
         https://en.wikipedia.org/wiki/Negativity_(quantum_mechanics)
 
     :param rho: A density matrix of a pure state vector.

@@ -5,7 +5,7 @@ from toqito.matrix.matrices.pauli import pauli
 
 def concurrence(rho: np.ndarray) -> float:
     r"""
-    Calculate the concurrence of a bipartite state.
+    Calculate the concurrence of a bipartite state [1]_.
 
     The concurrence of a bipartite state :math:`\rho` is defined as
 
@@ -15,9 +15,36 @@ def concurrence(rho: np.ndarray) -> float:
     where :math:`\lambda_1, \ldots, \lambda_4` are the eigenvalues in
     decreasing order of the matrix.
 
-    References:
-        [1] Wikipedia page for concurrence (quantum computing)
-        https://en.wikipedia.org/wiki/Concurrence_(quantum_computing)
+    Examples
+    ==========
+
+    Consider the following Bell state:
+
+    .. math::
+        u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right).
+
+    The concurrence of the density matrix :math:`\rho = u u^*` defined by the
+    vector :math:`u` is given as
+
+    .. math::
+        \mathcal{C}(\rho) \approx 1.
+
+    The following example calculates this quantity using the `toqito` package.
+
+    >>> import numpy as np
+    >>> from toqito.base.ket import ket
+    >>> from toqito.entanglement.concurrence import concurrence
+    >>> e_0, e_1 = ket(2, 0), ket(2, 1)
+    >>> e_00, e_11 = np.kron(e_0, e_0), np.kron(e_1, e_1)
+    >>> u_vec = 1 / np.sqrt(2) * (e_00 + e_11)
+    >>> rho = u_vec * u_vec.conj().T
+    >>> concurrence(rho)
+    0.9999999999999998
+
+    References
+    ==========
+    .. [1] Wikipedia page for concurrence (quantum computing)
+       https://en.wikipedia.org/wiki/Concurrence_(quantum_computing)
 
     :param rho: The bipartite system specified as a matrix.
     :return: The concurrence of the bipartite state :math:`\rho`.

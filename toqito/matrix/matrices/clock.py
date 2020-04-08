@@ -5,13 +5,13 @@ import numpy as np
 
 def clock(dim: int) -> np.ndarray:
     r"""
-    Produce clock matrix.
+    Produce clock matrix [1]_.
 
     Returns the clock matrix of dimension `dim` described in [1]. The clock
     matrix generates the following `dim`-by-`dim` matrix
 
     .. math::
-        \Sigma_1 = \begin{pmatrix}
+        \Sigma_{1, d} = \begin{pmatrix}
                         1 & 0 & 0 & \ldots & 0 \\
                         0 & \omega & 0 & \ldots & 0 \\
                         0 & 0 & \omega^2 & \ldots & 0 \\
@@ -24,8 +24,27 @@ def clock(dim: int) -> np.ndarray:
     The clock matrix is primarily used in the construction of the generalized
     Pauli operators.
 
-    References:
-        [1] Wikipedia: Generalizations of Pauli matrices,
+    Examples
+    ==========
+
+    The clock matrix generated from :math:`d = 3` yields the following matrix:
+
+    .. math::
+        \Sigma_{1, 3} = \begin{pmatrix}
+            1 & 0 & 0 \\
+            0 & \omega & 0 \\
+            0 & 0 & \omega^2
+        \end{pmatrix}
+
+    >>> from toqito.matrix.matrices.clock import clock
+    >>> clock(3)
+    array([[ 1. +0.j       ,  0. +0.j       ,  0. +0.j       ],
+           [ 0. +0.j       , -0.5+0.8660254j,  0. +0.j       ],
+           [ 0. +0.j       ,  0. +0.j       , -0.5-0.8660254j]])
+
+    References
+    ==========
+    .. [1] Wikipedia: Generalizations of Pauli matrices,
         https://en.wikipedia.org/wiki/Generalizations_of_Pauli_matrices
 
     :param dim: Dimension of the matrix.
