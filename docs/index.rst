@@ -1,8 +1,3 @@
-.. toqito documentation master file, created by
-   sphinx-quickstart on Wed Apr  1 00:23:08 2020.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 Welcome to toqito's documentation!
 ==================================
 
@@ -10,7 +5,14 @@ Welcome to toqito's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-    modules
+toqito
+======
+
+.. toctree::
+   :maxdepth: 4
+
+   toqito
+
 
 Indices and tables
 ==================

@@ -5,6 +5,7 @@ Subpackages
 -----------
 
 .. toctree::
+   :maxdepth: 4
 
    toqito.nonlocal_games.bit_commitment
    toqito.nonlocal_games.coin_flipping

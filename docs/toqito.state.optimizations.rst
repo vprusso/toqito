@@ -28,18 +28,10 @@ toqito.state.optimizations.state\_cloning module
    :undoc-members:
    :show-inheritance:
 
-toqito.state.optimizations.state\_discrimination module
--------------------------------------------------------
+toqito.state.optimizations.state\_distinguishability module
+-----------------------------------------------------------
 
-.. automodule:: toqito.state.optimizations.state_discrimination
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-toqito.state.optimizations.state\_distance module
--------------------------------------------------
-
-.. automodule:: toqito.state.optimizations.state_distance
+.. automodule:: toqito.state.optimizations.state_distinguishability
    :members:
    :undoc-members:
    :show-inheritance:

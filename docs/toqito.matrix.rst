@@ -5,6 +5,7 @@ Subpackages
 -----------
 
 .. toctree::
+   :maxdepth: 4
 
    toqito.matrix.matrices
    toqito.matrix.operations

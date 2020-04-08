@@ -4,8 +4,9 @@ import cvxpy as cvx
 import numpy as np
 
 
-def state_distinguishability(states: List[np.ndarray],
-                             probs: List[float] = None) -> float:
+def state_distinguishability(
+    states: List[np.ndarray], probs: List[float] = None
+) -> float:
     r"""
     Compute probability of state distinguishability.
 

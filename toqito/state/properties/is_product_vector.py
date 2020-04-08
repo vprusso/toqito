@@ -5,7 +5,9 @@ import numpy as np
 from toqito.state.operations.schmidt_decomposition import schmidt_decomposition
 
 
-def _is_product_vector(vec: np.ndarray, dim: Union[int, List[int]] = None) -> [int, bool]:
+def _is_product_vector(
+    vec: np.ndarray, dim: Union[int, List[int]] = None
+) -> [int, bool]:
     """
     Determine if a given vector is a product vector recursive helper.
 
