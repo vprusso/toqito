@@ -28,11 +28,8 @@ class TestIsProductVector(unittest.TestCase):
     def test_is_product_separable_state(self):
         """Check that is_product_vector returns True for a separable state."""
         e_0, e_1 = ket(2, 0), ket(2, 1)
-        e_00 = np.kron(e_0, e_0)
-        e_01 = np.kron(e_0, e_1)
-        e_10 = np.kron(e_1, e_0)
-        e_11 = np.kron(e_1, e_1)
-        sep_vec = 1 / 2 * (e_00 - e_01 - e_10 + e_11)
+        sep_vec = 1 / 2 * (np.kron(e_0, e_0) - np.kron(e_0, e_1) -
+                           np.kron(e_1, e_0) + np.kron(e_1, e_1))
         self.assertEqual(is_product_vector(sep_vec), True)
 
 

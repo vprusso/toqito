@@ -7,7 +7,7 @@ from toqito.state.operations.schmidt_decomposition import schmidt_decomposition
 
 def _is_product_vector(vec: np.ndarray, dim: Union[int, List[int]] = None) -> [int, bool]:
     """
-    Helper function for to determine if a given vector is a product vector.
+    Determine if a given vector is a product vector (recursive helper).
 
     :param vec: The vector to check.
     :param dim: The dimension of the vector
