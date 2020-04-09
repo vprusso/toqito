@@ -6,7 +6,7 @@ import numpy as np
 
 def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     r"""
-    Compute the fidelity of two density matrices.
+    Compute the fidelity of two density matrices [2]_.
 
     Calculate the fidelity between the two density matrices `rho` and `sigma`,
     defined by:
@@ -17,8 +17,41 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     between 0 and 1, with 0 corresponding to matrices `rho` and `sigma` with
     orthogonal support, and 1 corresponding to the case `rho = sigma`.
 
-    References:
-        [1] Wikipedia: Fidelity of quantum states
+    Examples
+    ==========
+
+    Consider the following Bell state
+
+    .. math::
+        u = \frac{1}{\sqrt{2}} \left( e_0 \otimes e_0 + e_1 \otimes e_1 \right)
+        \in \mathcal{X}.
+
+    The corresponding density matrix of :math:`u` may be calculated by:
+
+    .. math::
+        \rho = u u^* = \frac{1}{2} \begin{pmatrix}
+                         1 & 0 & 0 & 1 \\
+                         0 & 0 & 0 & 0 \\
+                         0 & 0 & 0 & 0 \\
+                         1 & 0 & 0 & 1
+                       \end{pmatrix} \text{D}(\mathcal{X}).
+
+    In the event where we calculate the fidelity between states that are
+    identical, we should obtain the value of :math:`1`. This can be observed in
+    `toqito` as follows.
+
+    >>> from toqito.state.distance.fidelity import fidelity
+    >>> import numpy as np
+    >>> rho = np.array(
+    >>>     [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
+    >>> )
+    >>> sigma = rho
+    >>> fidelity(rho, sigma)
+    1.0000000000000002
+
+    References
+    ==========
+    .. [2] Wikipedia: Fidelity of quantum states
         https://en.wikipedia.org/wiki/Fidelity_of_quantum_states
 
     :param rho: Density matrix.

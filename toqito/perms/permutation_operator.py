@@ -11,7 +11,7 @@ def permutation_operator(
     inv_perm: bool = False,
     is_sparse: bool = False,
 ) -> np.ndarray:
-    """
+    r"""
     Produce a unitary operator that permutes subsystems.
 
     Generates a unitary operator that permutes the order of subsystems
@@ -21,6 +21,29 @@ def permutation_operator(
     If `inv_perm` = True, it implements the inverse permutation of `perm`. The
     permutation operator return is full is `is_sparse` is False and sparse if
     `is_sparse` is True.
+
+    Examples
+    ==========
+
+    The permutation operator obtained with dimension :math:`d = 2` is equivalent
+    to the standard swap operator on two qubits
+
+    .. math::
+        \begin{pmatrix}
+            1 & 0 & 0 & 0 \\
+            0 & 0 & 1 & 0 \\
+            0 & 1 & 0 & 0 \\
+            0 & 0 & 0 & 1
+        \end{pmatrix}
+
+    Using `toqito`, this can be achieved in the following manner.
+
+    >>> from toqito.perms.permutation_operator import permutation_operator
+    >>> permutation_operator(2, [2, 1])
+    array([[1., 0., 0., 0.],
+           [0., 0., 1., 0.],
+           [0., 1., 0., 0.],
+           [0., 0., 0., 1.]])
 
     :param dim: The dimensions of the subsystems to be permuted.
     :param perm: A permutation vector.

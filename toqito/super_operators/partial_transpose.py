@@ -9,7 +9,7 @@ def partial_transpose(
     sys: Union[List[int], np.ndarray, int] = 2,
     dim: Union[List[int], np.ndarray] = None,
 ) -> np.ndarray:
-    """Compute the partial transpose of a matrix.
+    r"""Compute the partial transpose of a matrix [4]_.
 
     By default, the returned matrix is the partial transpose of the matrix
     `rho`, where it is assumed that the number of rows and columns of `rho` are
@@ -24,8 +24,69 @@ def partial_transpose(
     by putting the row dimensions in the first row of `dim` and the column
     dimensions in the second row of `dim`.
 
-    References:
-        [1] Wikipedia: Partial transpose
+    Examples
+    ==========
+
+    Consider the following matrix
+
+    .. math::
+        X = \begin{pmatrix}
+                1 & 2 & 3 & 4 \\
+                5 & 6 & 7 & 8 \\
+                9 & 10 & 11 & 12 \\
+                13 & 14 & 15 & 16
+            \end{pmatrix}.
+
+    Performing the partial transpose on the matrix :math:`X` over the second
+    subsystem yields the following matrix
+
+    .. math::
+        X_{pt, 2} = \begin{pmatrix}
+                    1 & 5 & 3 & 7 \\
+                    2 & 6 & 4 & 8 \\
+                    9 & 13 & 11 & 15 \\
+                    10 & 14 & 12 & 16
+                 \end{pmatrix}.
+
+    By default, in `toqito`, the partial transpose function performs the
+    transposition on the second subsystem as follows.
+
+    >>> from toqito.super_operators.partial_transpose import partial_transpose
+    >>> import numpy as np
+    >>> test_input_mat = np.arange(1, 17).reshape(4, 4)
+    >>> partial_transpose(test_input_mat)
+    [[ 1  5  3  7]
+     [ 2  6  4  8]
+     [ 9 13 11 15]
+     [10 14 12 16]]
+
+    By specifying the `sys = 1` argument, we can perform the partial transpose
+    over the first subsystem (instead of the default second subsystem as done
+    above). Performing the partial transpose over the first subsystem yields the
+    following matrix
+
+    .. math::
+        X_{pt, 1} = \begin{pmatrix}
+                        1 & 2 & 9 & 10 \\
+                        5 & 6 & 13 & 14 \\
+                        3 & 4 & 11 & 12 \\
+                        7 & 8 & 15 & 16
+                    \end{pmatrix}
+
+    >>> from toqito.super_operators.partial_transpose import partial_transpose
+    >>> import numpy as np
+    >>> test_input_mat = np.array(
+    >>>     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
+    >>> )
+    >>> partial_transpose(test_input_mat, 1)
+    [[ 1  2  9 10]
+     [ 5  6 13 14]
+     [ 3  4 11 12]
+     [ 7  8 15 16]]
+
+    References
+    ==========
+    .. [4] Wikipedia: Partial transpose
         https://en.wikipedia.org/w/index.php?title=Partial_transpose&redirect=no
 
     :param rho: A matrix.

@@ -9,8 +9,8 @@ from toqito.perms.perm_sign import perm_sign
 def antisymmetric_projection(
     dim: int, p_param: int = 2, partial: bool = False
 ) -> sparse.lil_matrix:
-    """
-    Produce the projection onto the antisymmetric subspace.
+    r"""
+    Produce the projection onto the antisymmetric subspace [1]_.
 
     Produces the orthogonal projection onto the anti-symmetric subspace of `p`
     copies of `dim`-dimensional space. If `partial = True`, then the
@@ -19,8 +19,57 @@ def antisymmetric_projection(
     subspace (and hence the PA * PA' is the orthogonal projection onto the
     symmetric subspace.)
 
-    References:
-        [1] Wikipedia: Anti-symmetric operator
+    Examples
+    ==========
+
+    The :math:`2`-dimensional antisymmetric projection with :math:`p=1` is given
+    as :math:`2`-by-:math:`2` identity matrix
+
+    .. math::
+        \begin{pmatrix}
+            1 & 0 \\
+            0 & 1
+        \end{pmatrix}.
+
+    Using `toqito`, we can see this gives the proper result.
+
+    >>> from toqito.perms.antisymmetric_projection import antisymmetric_projection
+    >>> antisymmetric_projection(2, 1).todense()
+    matrix([[1., 0.],
+            [0., 1.]])
+
+    When the :math:`p` value is greater than the dimension of the antisymmetric
+    projection, this just gives the matrix consisting of all zero entries. For
+    instance, when :math:`d = 2` and :math:`p = 3` we have that
+
+    .. math::
+        \begin{pmatrix}
+            0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
+        \end{pmatrix}.
+
+    Using `toqito` we can see this gives the proper result.
+
+    >>> from toqito.perms.antisymmetric_projection import antisymmetric_projection
+    >>> antisymmetric_projection(2, 3).todense()
+    matrix([[0., 0., 0., 0., 0., 0., 0., 0.],
+            [0., 0., 0., 0., 0., 0., 0., 0.],
+            [0., 0., 0., 0., 0., 0., 0., 0.],
+            [0., 0., 0., 0., 0., 0., 0., 0.],
+            [0., 0., 0., 0., 0., 0., 0., 0.],
+            [0., 0., 0., 0., 0., 0., 0., 0.],
+            [0., 0., 0., 0., 0., 0., 0., 0.],
+            [0., 0., 0., 0., 0., 0., 0., 0.]])
+
+    References
+    ==========
+    .. [1] Wikipedia: Anti-symmetric operator
         https://en.wikipedia.org/wiki/Anti-symmetric_operator
 
     :param dim: The dimension of the local systems.

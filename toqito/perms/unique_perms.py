@@ -12,11 +12,27 @@ class UniqueElement:
 
 
 def unique_perms(elements: List[int]):
-    """
+    r"""
     Determine the number of unique permutations of a list.
 
-    :param elements:
-    :return:
+    Examples
+    ==========
+
+    Consider the following vector
+
+    .. math::
+        \left[1, 1, 2, 2, 1, 2, 1, 3, 3, 3\right].
+
+    The number of possible permutations possible with the above vector is
+    :math:`4200`. This can be obtained using the `toqito` package as follows.
+
+    >>> from toqito.perms.unique_perms import unique_perms
+    >>> vec = [1, 1, 2, 2, 1, 2, 1, 3, 3, 3]
+    >>> len(list(unique_perms(vec)))
+    4200
+
+    :param elements: List of integers.
+    :return: The number of possible permutations possible.
     """
     elem_set = set(elements)
     list_unique = [

@@ -8,7 +8,7 @@ from toqito.perms.permutation_operator import permutation_operator
 def symmetric_projection(
     dim: int, p_val: int = 2, partial: bool = False
 ) -> [np.ndarray, sparse.lil_matrix]:
-    """
+    r"""
     Produce the projection onto the symmetric subspace.
 
     Produces the orthogonal projection onto the symmetric subspace of `p`
@@ -17,6 +17,44 @@ def symmetric_projection(
     whose columns form an orthonormal basis for the symmetric subspace (and
     hence the PS * PS' is the orthogonal projection onto the symmetric
     subspace.)
+
+    Examples
+    ==========
+
+    The :math:`2`-dimensional symmetric projection with :math:`p=1` is given as
+    :math:`2`-by-:math:`2` identity matrix
+
+    .. math::
+        \begin{pmatrix}
+            1 & 0 \\
+            0 & 1
+        \end{pmatrix}.
+
+    Using `toqito`, we can see this gives the proper result.
+
+    >>> from toqito.perms.symmetric_projection import symmetric_projection
+    >>> symmetric_projection(2, 1).todense()
+    matrix([[1., 0.],
+            [0., 1.]])
+
+    When :math:`d = 2` and :math:`p = 2` we have that
+
+    .. math::
+        \begin{pmatrix}
+            1 & 0 & 0 & 0 \\
+            0 & 1/2 & 1/2 & 0 \\
+            0 & 1/2 & 1/2 & 0 \\
+            0 & 0 & 0 & 1
+        \end{pmatrix}.
+
+    Using `toqito` we can see this gives the proper result.
+
+    >>> from toqito.perms.symmetric_projection import symmetric_projection
+    >>> symmetric_projection(dim=2).todense()
+    matrix([[1. , 0. , 0. , 0. ],
+            [0. , 0.5, 0.5, 0. ],
+            [0. , 0.5, 0.5, 0. ],
+            [0. , 0. , 0. , 1. ]])
 
     :param dim: The dimension of the local systems.
     :param p_val: Default value of 2.

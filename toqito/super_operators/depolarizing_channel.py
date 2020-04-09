@@ -5,8 +5,8 @@ from toqito.state.states.max_entangled import max_entangled
 
 
 def depolarizing_channel(dim: int, param_p: int = 0) -> np.ndarray:
-    """
-    Produce the depolarizng channel.
+    r"""
+    Produce the depolarizng channel [2]_.
 
     The depolarizng channel is the Choi matrix of the completely depolarizng
     channel that acts on `dim`-by-`dim` matrices.
@@ -14,8 +14,48 @@ def depolarizing_channel(dim: int, param_p: int = 0) -> np.ndarray:
     Produces the partially depolarizng channel `(1-P)*D + P*ID` where `D` is
     the completely depolarizing channel and `ID` is the identity channel.
 
-    References:
-        [1] Wikipedia: Quantum depolarizing channel
+    Examples
+    ==========
+
+    The depolarizing channel maps every density matrix to the maximally-mixed
+    state. For example, consider the density operator
+
+    .. math::
+        \rho = \frac{1}{2} \begin{pmatrix}
+                             1 & 0 & 0 & 1 \\
+                             0 & 0 & 0 & 0 \\
+                             0 & 0 & 0 & 0 \\
+                             1 & 0 & 0 & 1
+                           \end{pmatrix}
+
+    corresponding to one of the Bell states. Applying the depolarizing channel
+    to :math:`\rho` we have that
+
+    .. math::
+        \Phi(\rho) = \frac{1}{4} \begin{pmatrix}
+                                    \frac{1}{2} & 0 & 0 & \frac{1}{2} \\
+                                    0 & 0 & 0 & 0 \\
+                                    0 & 0 & 0 & 0 \\
+                                    \frac{1}{2} & 0 & 0 & \frac{1}{2}
+                                 \end{pmatrix}.
+
+    This can be observed in `toqito` as follows.
+
+    >>> from toqito.super_operators.apply_map import apply_map
+    >>> from toqito.super_operators.depolarizing_channel import depolarizing_channel
+    >>> import numpy as np
+    >>> test_input_mat = np.array(
+    >>>     [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
+    >>> )
+    >>> apply_map(test_input_mat, depolarizing_channel(4))
+    matrix([[0.125, 0.   , 0.   , 0.125],
+            [0.   , 0.   , 0.   , 0.   ],
+            [0.   , 0.   , 0.   , 0.   ],
+            [0.125, 0.   , 0.   , 0.125]])
+
+    References
+    ==========
+    .. [2] Wikipedia: Quantum depolarizing channel
         https://en.wikipedia.org/wiki/Quantum_depolarizing_channel
 
     :param dim: The dimensionality on which the channel acts.

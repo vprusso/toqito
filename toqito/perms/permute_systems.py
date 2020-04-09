@@ -15,7 +15,7 @@ def permute_systems(
     row_only: bool = False,
     inv_perm: bool = False,
 ) -> np.ndarray:
-    """
+    r"""
     Permute subsystems within a state or operator.
 
     Permutes the order of the subsystems of the vector or matrix `input_mat`
@@ -32,6 +32,113 @@ def permute_systems(
     If `row_only = False`, then `dim` only needs to contain the row dimensions
     of the subsystems, even if `input_mat` is not square. If `inv_perm = True`,
     then the inverse permutation of `perm` is applied instead of `perm` itself.
+
+    Examples
+    ==========
+
+    For spaces :math:`\mathcal{A}` and :math:`\mathcal{B}` where
+    :math:`\text{dim}(\mathcal{A}) = \text{dim}(\mathcal{B}) = 2` we may
+    consider an operator :math:`X \in \mathcal{A} \otimes \mathcal{B}`. Applying
+    the `permute_systems` function with vector :math:`[2,1]` on :math:`X`, we
+    may reorient the spaces such that
+    :math:`X \in \mathcal{B} \otimes \mathcal{A}`.
+
+    For example, if we define :math:`X \in \mathcal{A} \otimes \mathcal{B}` as
+
+    .. math::
+        X = \begin{pmatrix}
+            1 & 2 & 3 & 4 \\
+            5 & 6 & 7 & 8 \\
+            9 & 10 & 11 & 12 \\
+            13 & 14 & 15 & 16
+        \end{pmatrix}
+
+    then applying the `permute_systems` function on :math:`X` to obtain
+    :math:`X \in \mathcal{B} \otimes \mathcal{A}` yield the following matrix
+
+    .. math::
+        X_{[2,1]} = \begin{pmatrix}
+            1 & 3 & 2 & 4 \\
+            9 & 11 & 10 & 12 \\
+            5 & 7 & 6 & 8 \\
+            13 & 15 & 14 & 16
+        \end{pmatrix}
+
+    >>> from toqito.perms.permute_systems import permute_systems
+    >>> import numpy as np
+    >>> test_input_mat = np.array(
+    >>>    [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
+    >>> )
+    >>> permute_systems(test_input_mat, [2, 1])
+    [[ 1  3  2  4]
+     [ 9 11 10 12]
+     [ 5  7  6  8]
+     [13 15 14 16]]
+
+    For spaces :math:`\mathcal{A}, \mathcal{B}`, and :math:`\mathcal{C}`
+    where :math:`\text{dim}(\mathcal{A}) = \text{dim}(\mathcal{B}) =
+    \text{dim}(\mathcal{C}) = 2` we may consider an operator
+    :math:`X \in \mathcal{A} \otimes \mathcal{B} \otimes \mathcal{C}`. Applying
+    the `permute_systems` function with vector :math:`[2,3,1]` on :math:`X`, we
+    may reorient the spaces such that
+    :math:`X \in \mathcal{B} \otimes \mathcal{C} \otimes \mathcal{A}`.
+
+    For example, if we define
+    :math:`X \in \mathcal{A} \otimes \mathcal{B} \otimes \mathcal{C}` as
+
+    .. math::
+        X =
+        \begin{pmatrix}
+            1 & 2 & 3 & 4, 5 & 6 & 7 & 8 \\
+            9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 \\
+            17 & 18 & 19 & 20 & 21 & 22 & 23 & 24 \\
+            25 & 26 & 27 & 28 & 29 & 30 & 31 & 32 \\
+            33 & 34 & 35 & 36 & 37 & 38 & 39 & 40 \\
+            41 & 42 & 43 & 44 & 45 & 46 & 47 & 48 \\
+            49 & 50 & 51 & 52 & 53 & 54 & 55 & 56 \\
+            57 & 58 & 59 & 60 & 61 & 62 & 63 & 64
+        \end{pmatrix}
+
+    then applying the `permute_systems` function on :math:`X` to obtain
+    :math:`X \in \mathcal{B} \otimes \mathcal{C} \otimes \mathcal{C}` yield the
+    following matrix
+
+    .. math::
+        X_{[2, 3, 1]} =
+        \begin{pmatrix}
+            1 & 5 & 2 & 6 & 3 & 7 & 4, 8 \\
+            33 & 37 & 34 & 38 & 35 & 39 & 36 & 40 \\
+            9 & 13 & 10 & 14 & 11 & 15 & 12 & 16 \\
+            41 & 45 & 42 & 46 & 43 & 47 & 44 & 48 \\
+            17 & 21 & 18 & 22 & 19 & 23 & 20 & 24 \\
+            49 & 53 & 50 & 54 & 51 & 55 & 52 & 56 \\
+            25 & 29 & 26 & 30 & 27 & 31 & 28 & 32 \\
+            57 & 61 & 58 & 62 & 59 & 63 & 60 & 64
+        \end{pmatrix}
+
+    >>> from toqito.perms.permute_systems import permute_systems
+    >>> import numpy as np
+    >>> test_input_mat = np.array(
+    >>>    [
+    >>>        [1, 2, 3, 4, 5, 6, 7, 8],
+    >>>        [9, 10, 11, 12, 13, 14, 15, 16],
+    >>>        [17, 18, 19, 20, 21, 22, 23, 24],
+    >>>        [25, 26, 27, 28, 29, 30, 31, 32],
+    >>>        [33, 34, 35, 36, 37, 38, 39, 40],
+    >>>        [41, 42, 43, 44, 45, 46, 47, 48],
+    >>>        [49, 50, 51, 52, 53, 54, 55, 56],
+    >>>        [57, 58, 59, 60, 61, 62, 63, 64],
+    >>>    ]
+    >>> )
+    >>> permute_systems(test_input_mat, [2, 3, 1])
+    [[ 1  5  2  6  3  7  4  8]
+     [33 37 34 38 35 39 36 40]
+     [ 9 13 10 14 11 15 12 16]
+     [41 45 42 46 43 47 44 48]
+     [17 21 18 22 19 23 20 24]
+     [49 53 50 54 51 55 52 56]
+     [25 29 26 30 27 31 28 32]
+     [57 61 58 62 59 63 60 64]]
 
     :param input_mat: The vector or matrix.
     :param perm: A permutation vector.

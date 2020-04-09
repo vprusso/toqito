@@ -31,7 +31,7 @@ def two_player_quantum_lower_bound(
     times and keep the highest value obtained.
 
     The algorithm is based on the alternating projections algorithm as it can
-    be applied to Bell inequalities as shown in [1].
+    be applied to Bell inequalities as shown in [1]_.
 
     The alternating projection algorithm has also been referred to as the
     "see-saw" algorithm as it goes back and forth between the following two

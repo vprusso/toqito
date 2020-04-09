@@ -10,7 +10,7 @@ def swap(
     dim: Union[List[int], List[List[int]], int, np.ndarray] = None,
     row_only: bool = False,
 ) -> np.ndarray:
-    """
+    r"""
     Swap two subsystems within a state or operator.
 
     Swaps the two subsystems of the vector or matrix `rho`, where the
@@ -25,6 +25,79 @@ def swap(
     If `row_only` is set to `True`, then only the rows of `rho` are swapped,
     but not the columns -- this is equivalent to multiplying `rho` on the left
     by the corresponding swap operator, but not on the right.
+
+    Examples
+    ==========
+
+    Consider the following matrix
+
+    .. math::
+        X =
+        \begin{pmatrix}
+            1 & 5 & 9 & 13 \\
+            2 & 6 & 10 & 14 \\
+            3 & 7 & 11 & 15 \\
+            4 & 8 & 12 & 16
+        \end{pmatrix}
+
+    If we apply the `swap` function provided by `toqito` on :math:`X`, we should
+    obtain the following matrix
+
+    .. math::
+        \text{Swap}(X) =
+        \begin{pmatrix}
+            1 & 9 & 5 & 13 \\
+            3 & 11 & 7 & 15 \\
+            2 & 10 & 6 & 14 \\
+            4 & 12 & 8 & 16
+        \end{pmatrix}
+
+    This can be observed by the following example in `toqito`.
+
+    >>> from toqito.perms.swap import swap
+    >>> import numpy as np
+    >>> test_mat = np.array(
+    >>>     [[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]]
+    >>> )
+    >>> swap(test_mat)
+    [[ 1  9  5 13]
+     [ 3 11  7 15]
+     [ 2 10  6 14]
+     [ 4 12  8 16]]
+
+    It is also possible to use the `sys` and `dim` arguments, it is possible to
+    specify the system and dimension on which to apply the swap operator. For
+    instance for `sys = [1 ,2]` and `dim = 2` we have that
+
+    .. math::
+        \begin{pmatrix}
+            1 & 9 & 5 & 13 \\
+            3 & 11 & 7 & 15 \\
+            2 & 10 & 6 & 14 \\
+            4 & 12 & 8 & 16
+        \end{pmatrix}.
+
+    Using `toqito` we can see this gives the proper result.
+
+    >>> from toqito.perms.swap import swap
+    >>> import numpy as np
+    >>> test_mat = np.array(
+    >>>     [[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]]
+    >>> )
+    >>> swap(test_mat, [1, 2], 2)
+    [[ 1  9  5 13]
+     [ 3 11  7 15]
+     [ 2 10  6 14]
+     [ 4 12  8 16]]
+
+    It is also possible to perform the `swap` function on vectors in addition to
+    matrices.
+
+    >>> from toqito.perms.swap import swap
+    >>> import numpy as np
+    >>> test_vec = np.array([1, 2, 3, 4])
+    >>> swap(test_vec)
+    [1 3 2 4]
 
     :param rho: A vector or matrix to have its subsystems swapped.
     :param sys: Default: [1, 2]

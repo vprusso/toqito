@@ -5,15 +5,57 @@ from numpy import linalg as lin_alg
 
 
 def entropy(rho: np.ndarray, log_base: int = 2, alpha: float = 1) -> float:
-    """
-    Compute the von Neumann or Renyi entropy of a density matrix.
+    r"""
+    Compute the von Neumann or Renyi entropy of a density matrix [1]_.
 
     Calculates the entropy of `rho`, computed with logarithms in the base
     specified by `log_base`. If `alpha = 1`, then this is the von Neumann
     entropy. If `alpha > 1`, then this is the Renyi-`alpha` entropy.
 
-    References:
-        [1] Wikipedia: Von Neumann entropy
+    Examples
+    ==========
+
+    Consider the following Bell state
+
+    .. math::
+        u = \frac{1}{\sqrt{2}} \left( e_0 \otimes e_0 + e_1 \otimes e_1 \right)
+        \in \mathcal{X}.
+
+    The corresponding density matrix of $u$ may be calculated by:
+
+    .. math::
+        \rho = u u^* = \frac{1}{2} \begin{pmatrix}
+                         1 & 0 & 0 & 1 \\
+                         0 & 0 & 0 & 0 \\
+                         0 & 0 & 0 & 0 \\
+                         1 & 0 & 0 & 1
+                       \end{pmatrix} \text{D}(\mathcal{X}).
+
+    Calculating the entropy of :math:`\rho` in `toqito` can be done as follows.
+
+    >>> from toqito.state.distance.entropy import entropy
+    >>> import numpy as np
+    >>> test_input_mat = np.array(
+    >>>     [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
+    >>> )
+    >>> entropy(test_input_mat)
+    5.88418203051333e-15
+
+    It is also possible to tweak the `log` parameter of the `entropy` function.
+    For instance, we may compute the entropy of :math:`\rho` with the parameter
+    `log=10` in `toqito` as follows.
+
+    >>> from toqito.state.distance.entropy import entropy
+    >>> import numpy as np
+    >>> test_input_mat = np.array(
+    >>>     [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
+    >>> )
+    >>> entropy(test_input_mat, 10)
+    1.7713152911315034e-15
+
+    References
+    ==========
+    .. [1] Wikipedia: Von Neumann entropy
         https://en.wikipedia.org/wiki/Von_Neumann_entropy
 
     :param rho: A density matrix.

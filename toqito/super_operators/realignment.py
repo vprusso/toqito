@@ -8,7 +8,7 @@ from toqito.super_operators.partial_transpose import partial_transpose
 
 def realignment(input_mat: np.ndarray, dim=None) -> np.ndarray:
     r"""
-    Compute the realignment of a bipartite operator.
+    Compute the realignment of a bipartite operator [5]_.
 
     Gives the realignment of the matrix `input_mat`, where it is assumed that
     the number of rows and columns of `input_mat` are both perfect squares and
@@ -20,8 +20,30 @@ def realignment(input_mat: np.ndarray, dim=None) -> np.ndarray:
     specified by putting the row dimensions in the first row of `dim` and the
     column dimensions in the second row of `dim`.
 
-    References:
-        [1] Lupo, Cosmo, Paolo Aniello, and Antonello Scardicchio.
+    Examples
+    ==========
+
+    The standard realignmnet map
+
+    Using `toqito`, we can generate the standard realignment map as follows.
+    When viewed as a map on block matrices, the realignment map takes each block
+    of the original matrix and makes its vectorization the rows of the
+    realignment matrix. This is illustrated by the following small example:
+
+    >>> from toqito.super_operators.realignment import realignment
+    >>> import numpy as np
+    >>> test_input_mat = np.array(
+    >>>     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
+    >>> )
+    >>> realignment(test_input_mat)
+    [[ 1  2  5  6]
+     [ 3  4  7  8]
+     [ 9 10 13 14]
+     [11 12 15 16]]
+
+    References
+    ==========
+    .. [5] Lupo, Cosmo, Paolo Aniello, and Antonello Scardicchio.
         "Bipartite quantum systems: on the realignment criterion and beyond."
         Journal of Physics A: Mathematical and Theoretical
         41.41 (2008): 415301.

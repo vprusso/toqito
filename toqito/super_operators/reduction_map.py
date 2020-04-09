@@ -13,11 +13,28 @@ def reduction_map(dim: int, k: int = 1) -> np.ndarray:
     yields the Choi matrix of the map defined by:
 
     .. math::
-
         R(X) = k * \text{Tr}(X) * \mathbb{I} - X,
 
     where :math:`\mathbb{I}` is the identity matrix. This map is
     :math:`k`-positive.
+
+    Examples
+    ==========
+
+    Using `toqito`, we can generate the $3$-dimensional (or standard) reduction
+    map as follows.
+
+    >>> from toqito.super_operators.reduction_map import reduction_map
+    >>> reduction_map(3).toarray()
+    array([[ 0.,  0.,  0.,  0., -1.,  0.,  0.,  0., -1.],
+           [ 0.,  1.,  0.,  0.,  0.,  0.,  0.,  0.,  0.],
+           [ 0.,  0.,  1.,  0.,  0.,  0.,  0.,  0.,  0.],
+           [ 0.,  0.,  0.,  1.,  0.,  0.,  0.,  0.,  0.],
+           [-1.,  0.,  0.,  0.,  0.,  0.,  0.,  0., -1.],
+           [ 0.,  0.,  0.,  0.,  0.,  1.,  0.,  0.,  0.],
+           [ 0.,  0.,  0.,  0.,  0.,  0.,  1.,  0.,  0.],
+           [ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  1.,  0.],
+           [-1.,  0.,  0.,  0., -1.,  0.,  0.,  0.,  0.]])
 
     :param dim: A positive integer (the dimension of the reduction map).
     :param k:  If this positive integer is provided, the script will instead

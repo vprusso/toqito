@@ -8,8 +8,58 @@ from toqito.perms.swap import swap
 def apply_map(
     mat: np.ndarray, phi_op: Union[np.ndarray, List[List[np.ndarray]]]
 ) -> np.ndarray:
-    """
+    r"""
     Apply a superoperator to an operator.
+
+    Examples
+    ==========
+
+    The swap operator is the Choi matrix of the transpose map. The following is
+    a (non-ideal, but illustrative) way of computing the transpose of a matrix.
+
+    Consider the following matrix
+
+    .. math::
+        X = \begin{pmatrix}
+                1 & 4 & 7 \\
+                2 & 5 & 8 \\
+                3 & 6 & 9
+            \end{pmatrix}
+
+    Applying the swap operator given as
+
+    .. math::
+        \begin{pmatrix}
+            1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+            0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+            0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1
+         \end{pmatrix}
+
+    to the matrix :math:`X`, we have the resulting matrix of
+
+    .. math::
+        X_{swap} = \begin{pmatrix}
+                        1 & 2 & 3 \\
+                        4 & 5 & 6 \\
+                        7 & 8 & 9
+                   \end{pmatrix}
+
+    Using `toqito`, we can obtain the above matrices as follows.
+
+    >>> from toqito.super_operators.apply_map import apply_map
+    >>> from toqito.perms.swap_operator import swap_operator
+    >>> import numpy as np
+    >>> test_input_mat = np.array([[1, 4, 7], [2, 5, 8], [3, 6, 9]])
+    >>> apply_map(test_input_mat, swap_operator(3))
+    array([[1., 2., 3.],
+           [4., 5., 6.],
+           [7., 8., 9.]])
 
     :param mat: A matrix.
     :param phi_op: A superoperator.
