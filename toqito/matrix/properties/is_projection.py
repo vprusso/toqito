@@ -5,7 +5,7 @@ from toqito.matrix.properties.is_psd import is_psd
 
 def is_projection(mat: np.ndarray) -> bool:
     r"""
-    Check if matrix is a projection matrix.
+    Check if matrix is a projection matrix [7]_.
 
     A matrix is a projection matrix if it is positive semidefinite (PSD) and if
 
@@ -16,8 +16,44 @@ def is_projection(mat: np.ndarray) -> bool:
 
     where :math:`X` is the matrix in question.
 
-    References:
-        [1] Wikipedia: Projection matrix.
+    Examples
+    ==========
+
+    Consider the following matrix
+
+    .. math::
+        A = \begin{pmatrix}
+                                0 & 1 \\
+                                0 & 1
+                           \end{pmatrix}
+
+    our function indicates that this is indeed a projection matrix.
+
+    >>> from toqito.matrix.properties.is_projection import is_projection
+    >>> import numpy as np
+    >>> A = np.array([[0, 1], [0, 1]])
+    >>> is_projection(A)
+    True
+
+    Alternatively, the following example matrix :math:`B` defined as
+
+    .. math::
+        B = \begin{pmatrix}
+                                -1 & -1 \\
+                                -1 & -1
+                             \end{pmatrix}
+
+    is not positive definite.
+
+    >>> from toqito.matrix.properties.is_projection import is_projection
+    >>> import numpy as np
+    >>> B = np.array([[-1, -1], [-1, -1]])
+    >>> is_projection(B)
+    False
+
+    References
+    ==========
+    .. [7] Wikipedia: Projection matrix.
         https://en.wikipedia.org/wiki/Projection_matrix
 
     :param mat: Matrix to check.

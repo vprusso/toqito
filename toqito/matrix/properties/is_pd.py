@@ -3,11 +3,48 @@ import numpy as np
 
 
 def is_pd(mat: np.ndarray) -> bool:
-    """
-    Check if matrix is positive definite (PD).
+    r"""
+    Check if matrix is positive definite (PD) [6]_.
 
-    References:
-        [1] Wikipedia: Definiteness of a matrix.
+    Examples
+    ==========
+
+    Consider the following matrix
+
+    .. math::
+        A = \begin{pmatrix}
+                                2 & -1 & 0 \\
+                                -1 & 2 & -1 \\
+                                0 & -1 & 2
+                           \end{pmatrix}
+
+    our function indicates that this is indeed a positive definite matrix.
+
+    >>> from toqito.matrix.properties.is_pd import is_pd
+    >>> import numpy as np
+    >>> A = np.array([[2, -1, 0], [-1, 2, -1], [0, -1, 2]])
+    >>> is_pd(A)
+    True
+
+    Alternatively, the following example matrix :math:`B` defined as
+
+    .. math::
+        B = \begin{pmatrix}
+                                -1 & -1 \\
+                                -1 & -1
+                             \end{pmatrix}
+
+    is not positive definite.
+
+    >>> from toqito.matrix.properties.is_pd import is_pd
+    >>> import numpy as np
+    >>> B = np.array([[-1, -1], [-1, -1]])
+    >>> is_pd(B)
+    False
+
+    References
+    ==========
+    .. [6] Wikipedia: Definiteness of a matrix.
         https://en.wikipedia.org/wiki/Definiteness_of_a_matrix
 
     :param mat: Matrix to check.

@@ -5,7 +5,7 @@ import numpy as np
 
 def tensor(input_1: np.ndarray, input_2: np.ndarray) -> np.ndarray:
     r"""
-    Tensor product between two matrices.
+    Tensor product between two matrices [1]_.
 
     Tensor two matrices or vectors together using the standard kronecker
     operation provided from numpy.
@@ -14,8 +14,77 @@ def tensor(input_1: np.ndarray, input_2: np.ndarray) -> np.ndarray:
     The same concept also applies to two vectors :math:`v` and :math:`w` which
     computes :math: `v \otimes w`.
 
-    References:
-        [1] Wikipedia: Tensor product
+    Examples
+    ==========
+
+    Tensor product two matrices or vectors
+
+    Consider the following ket vector
+
+    .. math::
+        |0 \rangle = \left[1, 0 \right]^{\text{T}}
+
+    Computing the following tensor product
+
+    .. math:
+        |0 \rangle \otimes |0 \rangle = \left[1, 0, 0, 0 \right]^{\text{T}}
+
+    This can be accomplished in `toqito` as follows.
+
+    >>> from toqito.base.ket import ket
+    >>> from toqito.matrix.operations.tensor import tensor
+    >>> e_0 = ket(2, 0)
+    >>> tensor(e_0, e_0)
+    array([[1],
+           [0],
+           [0],
+           [0]])
+
+    Tensor product one matrix :math:`n` times with itself.
+
+    We may also tensor some element with itself some integer number of times. For instance we can compute
+
+    .. math::
+        |0 \rangle^{\otimes 3} = \left[1, 0, 0, 0, 0, 0, 0, 0 \right]^{\text{T}}
+
+    in `toqito` as follows.
+
+    >>> from toqito.base.ket import ket
+    >>> from toqito.matrix.operations.tensor import tensor_n
+    >>> e_0 = ket(2, 0)
+    >>> tensor_n(e_0, 3)
+    array([[1],
+           [0],
+           [0],
+           [0],
+           [0],
+           [0],
+           [0],
+           [0]])
+
+    Perform the tensor product on a list of vectors or matrices.
+
+    If we wish to compute the tensor product against more than two matrices or
+    vectors, we can feed them in as a `list`. For instance, if we wish to
+    compute :math:`|0 \rangle \otimes |1 \rangle \otimes |0 \rangle`, we can do
+    so as follows.
+
+    >>> from toqito.base.ket import ket
+    >>> from toqito.matrix.operations.tensor import tensor_list
+    >>> e_0, e_1 = ket(2, 0), ket(2, 1)
+    >>> tensor_list([e_0, e_1, e_0])
+    array([[0],
+           [0],
+           [1],
+           [0],
+           [0],
+           [0],
+           [0],
+           [0]])
+
+    References
+    ==========
+    .. [1] Wikipedia: Tensor product
         https://en.wikipedia.org/wiki/Tensor_product
 
     :param input_1: The first matrix argument.

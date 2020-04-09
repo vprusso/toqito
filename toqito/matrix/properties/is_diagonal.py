@@ -5,7 +5,7 @@ from toqito.matrix.properties.is_square import is_square
 
 def is_diagonal(mat: np.ndarray) -> bool:
     r"""
-    Determine if a matrix is diagonal.
+    Determine if a matrix is diagonal [2]_.
 
     A matrix is diagonal if the matrix is square and if the diagonal of the
     matrix is non-zero, while the off-diagonal elements are all zero.
@@ -21,13 +21,49 @@ def is_diagonal(mat: np.ndarray) -> bool:
             \end{pmatrix}
         \end{equation}
 
-    This quick implementation is given by Daniel F. from StackOverflow in [2]:
+    This quick implementation is given by Daniel F. from StackOverflow in [3]_.
 
-    References:
-        [1] Wikipedia: Diagonal matrix
+    Examples
+    ==========
+
+    Consider the following diagonal matrix
+
+    .. math::
+        A = \begin{pmatrix}
+                                1 & 0 \\
+                                0 & 1
+                           \end{pmatrix}.
+
+    Our function indicates that this is indeed a diagonal matrix:
+
+    >>> from toqito.matrix.properties.is_diagonal import is_diagonal
+    >>> import numpy as np
+    >>> A = np.array([[1, 0], [0, 1]])
+    >>> is_diagonal(A)
+    True
+
+    Alternatively, the following example matrix
+
+    .. math::
+        B = \begin{pmatrix}
+                                1 & 2 \\
+                                3 & 4
+                             \end{pmatrix}
+
+    is not diagonal, as shown using `toqito`
+
+    >>> from toqito.matrix.properties.is_diagonal import is_diagonal
+    >>> import numpy as np
+    >>> B = np.array([[1, 2], [3, 4]])
+    >>> is_diagonal(B)
+    False
+
+    References
+    ==========
+    .. [2] Wikipedia: Diagonal matrix
         https://en.wikipedia.org/wiki/Diagonal_matrix
 
-        [2] StackOverflow post
+    .. [3] StackOverflow post
         https://stackoverflow.com/questions/43884189/
 
     :param mat: The matrix to check.

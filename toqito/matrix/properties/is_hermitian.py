@@ -3,14 +3,55 @@ import numpy as np
 
 
 def is_hermitian(mat: np.ndarray) -> bool:
-    """
-    Check if matrix is Hermitian.
+    r"""
+    Check if matrix is Hermitian [4]_.
 
     A Hermitian matrix is a complex square matrix that is equal to its own
     conjugate transpose.
 
-    References:
-        [1] Wikipedia: Hermitian matrix.
+    Examples
+    ==========
+
+    Consider the following matrix
+
+    .. math::
+        A = \begin{pmatrix}
+                                2 & 2 +1j & 4 \\
+                                2 - 1j & 3 & 1j \\
+                                4 & -1j & 1
+                           \end{pmatrix}
+
+    our function indicates that this is indeed a Hermitian matrix as it holds that
+
+    .. math::
+        A = A^*.
+
+    >>> from toqito.matrix.properties.is_hermitian import is_hermitian
+    >>> import numpy as np
+    >>> mat = np.array([[2, 2 + 1j, 4], [2 - 1j, 3, 1j], [4, -1j, 1]])
+    >>> is_hermitian(mat)
+    True
+
+    Alternatively, the following example matrix :math:`B` defined as
+
+    .. math::
+        B = \begin{pmatrix}
+                                1 & 2 & 3 \\
+                                4 & 5 & 6 \\
+                                7 & 8 & 9
+                             \end{pmatrix}
+
+    is not Hermitian.
+
+    >>> from toqito.matrix.properties.is_hermitian import is_hermitian
+    >>> import numpy as np
+    >>> mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+    >>> is_hermitian(mat)
+    False
+
+    References
+    ==========
+    .. [4] Wikipedia: Hermitian matrix.
         https://en.wikipedia.org/wiki/Hermitian_matrix
 
     :param mat: Matrix to check.

@@ -4,7 +4,7 @@ import numpy as np
 
 def is_normal(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
     r"""
-    Determine if a matrix is normal.
+    Determine if a matrix is normal [5]_.
 
     A matrix is normal if it commutes with its adjoint
 
@@ -20,8 +20,47 @@ def is_normal(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool
             X^* X = X X^*.
         \end{equation}
 
-    References:
-        [1] Wikipedia: Normal matrix.
+    Examples
+    ==========
+
+    Consider the following matrix
+
+    .. math::
+        A = \begin{pmatrix}
+                                1 & 0 & 0 & 0 \\
+                                0 & 1 & 0 & 0 \\
+                                0 & 0 & 1 & 0 \\
+                                0 & 0 & 0 & 1
+                           \end{pmatrix}
+
+    our function indicates that this is indeed a normal matrix.
+
+    >>> from toqito.matrix.properties.is_normal import is_normal
+    >>> import numpy as np
+    >>> A = np.identity(4)
+    >>> is_normal(A)
+    True
+
+    Alternatively, the following example matrix :math:`B` defined as
+
+    .. math::
+        B = \begin{pmatrix}
+                                1 & 2 & 3 \\
+                                4 & 5 & 6 \\
+                                7 & 8 & 9
+                             \end{pmatrix}
+
+    is not normal.
+
+    >>> from toqito.matrix.properties.is_normal import is_normal
+    >>> import numpy as np
+    >>> B = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+    >>> is_normal(B)
+    False
+
+    References
+    ==========
+    .. [5] Wikipedia: Normal matrix.
         https://en.wikipedia.org/wiki/Normal_matrix
 
     :param mat: The matrix to check.
