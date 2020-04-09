@@ -9,7 +9,29 @@ from toqito.perms.swap import swap
 def random_state_vector(
     dim: Union[List[int], int], is_real: bool = False, k_param: int = 0
 ) -> np.ndarray:
-    """Generate a random pure state vector.
+    r"""Generate a random pure state vector.
+
+    Examples
+    ==========
+
+    Using `toqito`, we may generate a random state vector. For instance, here is
+    an example where we can genereate a :math:`2`-dimensional random state
+    vector.
+
+    >>> from toqito.random.random_state_vector import random_state_vector
+    >>> vec = random_state_vector(2)
+    >>> vec
+    array([[0.50993973+0.15292408j],
+           [0.27787332+0.79960122j]])
+
+    We can verify that this is in fact a valid state vector by computing the
+    corresponding density matrix of the vector and checking if the density
+    matrix is pure.
+
+    >>> from toqito.state.properties.is_pure import is_pure
+    >>> dm = vec.conj().T * vec
+    >>> is_pure(dm)
+    True
 
     :param dim: The number of rows (and columns) of the unitary matrix.
     :param is_real: Boolean denoting whether the returned matrix has real

@@ -6,10 +6,14 @@ from toqito.super_operators.partial_trace import partial_trace_cvx
 
 def weak_coin_flipping(rho: np.ndarray) -> float:
     """
-    Weak coin flipping protocol.
+    Weak coin flipping protocol [1]_.
 
-    References:
-        [1] Ganz, Maor and Sattath, Or
+    Examples
+    ==========
+
+    References
+    ==========
+    .. [1] Ganz, Maor and Sattath, Or
         Quantum coin hedging, and a counter measure
         https://arxiv.org/pdf/1703.03887.pdf
     """

@@ -9,19 +9,78 @@ def xor_game_value(
     strategy: str = "classical",
     tol: float = None,
 ) -> float:
-    """
+    r"""
     Compute the classical or quantum value of a two-player nonlocal XOR game.
 
     Calculates the optimal probability that Alice and Bob win the game if they
     are allowed to determine a join strategy beforehand, but not allowed to
     communicate during the game itself.
 
-    References:
-        [1] Richard Cleve, William Slofstra, Falk Unger, Sarvagya Upadhyay
+    The quantum value of an XOR game can be solved via the semidefinite program
+    from [2]_.
+
+    Examples
+    ==========
+
+    The CHSH game
+
+    The CHSH game is a two-player nonlocal game with the following probability
+    distribution and question and answer sets [1]_.
+
+    .. math::
+        \begin{equation}
+            \begin{aligned} \pi(x,y) = \frac{1}{4}, \qquad (x,y) \in
+                            \Sigma_A \times
+                \Sigma_B, \qquad \text{and} \qquad (a, b) \in \Gamma_A \times
+                \Gamma_B,
+            \end{aligned}
+        \end{equation}
+
+    where
+
+    .. math::
+        \begin{equation}
+            \Sigma_A = \{0, 1\}, \quad \Sigma_B = \{0, 1\}, \quad \Gamma_A =
+            \{0,1\}, \quad \text{and} \quad \Gamma_B = \{0, 1\}.
+        \end{equation}
+
+    Alice and Bob win the CHSH game if and only if the following equation is
+    satisfied
+
+    .. math::
+        \begin{equation}
+        a \oplus b = x \land y.
+        \end{equation}
+
+    Recall that :math`\oplus` refers to the XOR operation.
+
+    The optimal quantum value of CHSH is :math:`\cos(\pi/8)^2 \approx 0.8536`
+    where the optimal classical value is :math:`3/4`.
+
+    In order to specify the CHSH game, we can define the probability matrix and
+    predicate matrix for the CHSH game as `numpy` arrays as follows.
+
+    >>> prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
+    >>> pred_mat = np.array([[0, 0], [0, 1]])
+
+    In `toqito`, we can calculate both the quantum and classical value of the
+    CHSH game as follows.
+
+    >>> import numpy as np
+    >>> from toqito.nonlocal_games.xor_games.xor_game_value import xor_game_value
+    >>> xor_game_value(prob_mat, pred_mat, "quantum")
+    0.8535533885683664
+    >>>
+    >>> xor_game_value(prob_mat, pred_mat, "classical")
+    0.75
+
+    References
+    ==========
+    .. [1] Richard Cleve, William Slofstra, Falk Unger, Sarvagya Upadhyay
         "Strong parallel repetition theorem for quantum XOR proof systems",
         https://arxiv.org/abs/quant-ph/0608146
 
-        [2] Richard Cleve, Peter Hoyer, Ben Toner, John Watrous
+    .. [2] Richard Cleve, Peter Hoyer, Ben Toner, John Watrous
         "Consequences and limits of nonlocal strategies."
         Proceedings. 19th IEEE Annual Conference on Computational Complexity,
         2004.. IEEE, 2004.

@@ -40,48 +40,6 @@ def tensor(input_1: np.ndarray, input_2: np.ndarray) -> np.ndarray:
            [0],
            [0]])
 
-    Tensor product one matrix :math:`n` times with itself.
-
-    We may also tensor some element with itself some integer number of times. For instance we can compute
-
-    .. math::
-        |0 \rangle^{\otimes 3} = \left[1, 0, 0, 0, 0, 0, 0, 0 \right]^{\text{T}}
-
-    in `toqito` as follows.
-
-    >>> from toqito.base.ket import ket
-    >>> from toqito.matrix.operations.tensor import tensor_n
-    >>> e_0 = ket(2, 0)
-    >>> tensor_n(e_0, 3)
-    array([[1],
-           [0],
-           [0],
-           [0],
-           [0],
-           [0],
-           [0],
-           [0]])
-
-    Perform the tensor product on a list of vectors or matrices.
-
-    If we wish to compute the tensor product against more than two matrices or
-    vectors, we can feed them in as a `list`. For instance, if we wish to
-    compute :math:`|0 \rangle \otimes |1 \rangle \otimes |0 \rangle`, we can do
-    so as follows.
-
-    >>> from toqito.base.ket import ket
-    >>> from toqito.matrix.operations.tensor import tensor_list
-    >>> e_0, e_1 = ket(2, 0), ket(2, 1)
-    >>> tensor_list([e_0, e_1, e_0])
-    array([[0],
-           [0],
-           [1],
-           [0],
-           [0],
-           [0],
-           [0],
-           [0]])
-
     References
     ==========
     .. [1] Wikipedia: Tensor product
@@ -103,6 +61,29 @@ def tensor_n(input_val: np.ndarray, num_tensor: int) -> np.ndarray:
 
     Similarly for a vector :math:`v` and an integer :math:`n`, the result of
     of this function computes :math:`v^{\otimes n}`.
+
+    Tensor product one matrix :math:`n` times with itself.
+
+    We may also tensor some element with itself some integer number of times.
+    For instance we can compute
+
+    .. math::
+        |0 \rangle^{\otimes 3} = \left[1, 0, 0, 0, 0, 0, 0, 0 \right]^{\text{T}}
+
+    in `toqito` as follows.
+
+    >>> from toqito.base.ket import ket
+    >>> from toqito.matrix.operations.tensor import tensor_n
+    >>> e_0 = ket(2, 0)
+    >>> tensor_n(e_0, 3)
+    array([[1],
+           [0],
+           [0],
+           [0],
+           [0],
+           [0],
+           [0],
+           [0]])
 
     :param input_val: The matrix argument.
     :param num_tensor: The number of times to tensor.
@@ -131,6 +112,26 @@ def tensor_list(input_list: List[np.ndarray]) -> np.ndarray:
     Similarly, for a list of :math:`n` vectors :math:`v_1, v_2, \ldots, v_n`,
     the result of this function computes :math:`v_1 \otimes v_2 \otimes \ldots
     \otimes v_n`.
+
+    Perform the tensor product on a list of vectors or matrices.
+
+    If we wish to compute the tensor product against more than two matrices or
+    vectors, we can feed them in as a `list`. For instance, if we wish to
+    compute :math:`|0 \rangle \otimes |1 \rangle \otimes |0 \rangle`, we can do
+    so as follows.
+
+    >>> from toqito.base.ket import ket
+    >>> from toqito.matrix.operations.tensor import tensor_list
+    >>> e_0, e_1 = ket(2, 0), ket(2, 1)
+    >>> tensor_list([e_0, e_1, e_0])
+    array([[0],
+           [0],
+           [1],
+           [0],
+           [0],
+           [0],
+           [0],
+           [0]])
 
     :param input_list: A list of matrices.
     :return: The tensor product of all matrices in the list.

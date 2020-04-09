@@ -4,10 +4,45 @@ import numpy as np
 
 def random_povm(dim: int, num_inputs: int, num_outputs: int) -> np.ndarray:
     """
-    Generate random positive operator valued measurements (POVMs).
+    Generate random positive operator valued measurements (POVMs) [1]_.
 
-    References:
-        [1] Wikipedia: POVM
+    Examples
+    ==========
+
+    Using `toqito`, we can generate a set of POVMs consisting of a specific
+    dimension along with a given number of measurement inputs and measurement
+    outputs. As an example, we can construct a random set of POVMs of dimension
+    :math:`2` with :math:`2` inputs and :math:`2` outputs.
+
+    >>> from toqito.random.random_povm import random_povm
+    >>> import numpy as np
+    >>>
+    >>> dim, num_inputs, num_outputs = 2, 2, 2
+    >>> povms = random_povm(dim, num_inputs, num_outputs)
+    >>> povms
+    array([[[[ 0.40313832+0.j,  0.59686168+0.j],
+             [ 0.91134633+0.j,  0.08865367+0.j]],
+
+            [[-0.27285707+0.j,  0.27285707+0.j],
+             [-0.12086852+0.j,  0.12086852+0.j]]],
+
+
+           [[[-0.27285707+0.j,  0.27285707+0.j],
+             [-0.12086852+0.j,  0.12086852+0.j]],
+
+            [[ 0.452533  +0.j,  0.547467  +0.j],
+             [ 0.34692158+0.j,  0.65307842+0.j]]]])
+
+    We can verify that this constitutes a valid set of POVM elements as checking
+    that these operators all sum to the identity operator.
+
+    >>> np.round(povms[:, :, 0, 0] + povms[:, :, 0, 1])
+    array([[1.+0.j, 0.+0.j],
+           [0.+0.j, 1.+0.j]])
+
+    References
+    ==========
+    .. [1] Wikipedia: POVM
         https://en.wikipedia.org/wiki/POVM
 
     :param dim: The dimension of the measurements.
