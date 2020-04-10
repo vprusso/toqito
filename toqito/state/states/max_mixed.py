@@ -5,7 +5,7 @@ from scipy import sparse
 
 def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, sparse.dia.dia_matrix]:
     r"""
-    Produce the maximally mixed state.
+    Produce the maximally mixed state [12]_.
 
     Produces the maximally mixed state on of `dim` dimensions. The maximally
     mixed state is defined as
@@ -21,8 +21,36 @@ def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, sparse.dia.dia_
     The maximally mixed state is returned as a sparse matrix if
     `is_sparse = True` and is full if `is_sparse = False`.
 
-    References:
-        [1] Scott Aaronson: Lecture 6, Thurs Feb 2: Mixed States
+    Examples
+    ==========
+
+    Using `toqito`, we can generate the :math:`2`-dimensional maximally mixed
+    state
+
+    .. math::
+        \frac{1}{2}
+        \begin{pmatrix}
+            1 & 0 \\
+            0 & 1
+        \end{pmatrix}
+
+    as follows.
+
+    >>> from toqito.state.states.max_mixed import max_mixed
+    >>> max_mixed(2, is_sparse=False)
+    array([[0.5, 0. ],
+           [0. , 0.5]])
+
+    One may also generate a maximally mixed state returned as a sparse matrix
+
+    >>> from toqito.state.states.max_mixed import max_mixed
+    >>> max_mixed(2, is_sparse=True)
+        <2x2 sparse matrix of type '<class 'numpy.float64'>'
+        with 2 stored elements (1 diagonals) in DIAgonal format>
+
+    References
+    ==========
+    .. [12] Scott Aaronson: Lecture 6, Thurs Feb 2: Mixed States
         https://www.scottaaronson.com/qclec/6.pdf
 
     :param dim: Dimension of the entangled state.

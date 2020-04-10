@@ -6,7 +6,7 @@ from scipy.sparse import csr_matrix
 
 def w_state(num_qubits: int, coeff: List[int] = None) -> np.ndarray:
     r"""
-    Produce a W-state.
+    Produce a W-state [13]_.
 
     Returns the W-state described in [1]. The W-state on `num_qubits` qubits is
     defined by:
@@ -16,8 +16,61 @@ def w_state(num_qubits: int, coeff: List[int] = None) -> np.ndarray:
         \left(|100 \ldots 0 \rangle + |010 \ldots 0 \rangle + \ldots +
         |000 \ldots 1 \rangle \right).
 
-    References:
-        [1] Three qubits can be entangled in two inequivalent ways.
+    Examples
+    ==========
+
+    Using `toqito`, we can generate the :math:`3`-qubit W-state
+
+    .. math::
+        |W_3 \rangle = \frac{1}{\sqrt{3}} \left( |100\rangle + |010 \rangle +
+        |001 \rangle \right)
+
+    as follows.
+
+    >>> from toqito.state.states.w_state import w_state
+    >>> w_state(3)
+    array([[0.    ],
+           [0.5774],
+           [0.5774],
+           [0.    ],
+           [0.5774],
+           [0.    ],
+           [0.    ],
+           [0.    ]])
+
+    We may also generate a generalized :math:`W`-state. For instance, here is a
+    :math:`4`-dimensional :math:`W`-state
+
+    .. math::
+        \frac{1}{\sqrt{30}} \left( |1000 \rangle + 2|0100 \rangle + 3|0010
+        \rangle + 4 |0001 \rangle \right)
+
+    We can generate this state in `toqito` as
+
+    >>> from toqito.state.states.w_state import w_state
+    >>> import numpy as np
+    >>> coeffs = np.array([1, 2, 3, 4]) / np.sqrt(30)
+    >>> w_state(4, coeffs)
+    array([[0.    ],
+           [0.7303],
+           [0.5477],
+           [0.    ],
+           [0.3651],
+           [0.    ],
+           [0.    ],
+           [0.    ],
+           [0.1826],
+           [0.    ],
+           [0.    ],
+           [0.    ],
+           [0.    ],
+           [0.    ],
+           [0.    ],
+           [0.    ]])
+
+    References
+    ==========
+    .. [13] Three qubits can be entangled in two inequivalent ways.
         W. Dur, G. Vidal, and J. I. Cirac.
         E-print: arXiv:quant-ph/0005115, 2000.
 

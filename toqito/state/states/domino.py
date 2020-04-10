@@ -5,7 +5,7 @@ from toqito.base.ket import ket
 
 def domino(idx: int) -> np.ndarray:
     r"""
-    Produce a domino state.
+    Produce a domino state [3]_, [4]_.
 
     The orthonormal product basis of domino states is given as
 
@@ -39,15 +39,58 @@ def domino(idx: int) -> np.ndarray:
         \end{equation}
 
     Returns one of the following nine domino states depending on the value
-    of `idx`:
+    of `idx`.
 
-    References:
-        [1] Bennett, Charles H., et al.
+    Examples
+    ==========
+
+    When `idx = 0`, this produces the following Domino state
+
+    .. math::
+        |\phi_0 \rangle = |11 \rangle |11 \rangle.
+
+    Using `toqito`, we can see that this yields the proper state.
+
+    >>> from toqito.state.states.domino import domino
+    >>> domino(0)
+    array([[0],
+           [0],
+           [0],
+           [0],
+           [1],
+           [0],
+           [0],
+           [0],
+           [0]])
+
+    When `idx = 3`, this produces the following Domino state
+
+    .. math::
+        |\phi_3\rangle = |2\rangle \left(\frac{|0\rangle + |1\rangle}
+        {\sqrt{2}}\right)
+
+    Using `toqito`, we can see that this yields the proper state.
+
+    >>> from toqito.state.states.domino import domino
+    >>> domino(3)
+    array([[0.        ],
+           [0.        ],
+           [0.        ],
+           [0.        ],
+           [0.        ],
+           [0.        ],
+           [0.        ],
+           [0.70710678],
+           [0.70710678]])
+
+    References
+    ==========
+    .. [3] Bennett, Charles H., et al.
         Quantum nonlocality without entanglement.
         Phys. Rev. A, 59:1070–1091, Feb 1999.
         https://arxiv.org/abs/quant-ph/9804053
 
-        [2] Bennett, Charles H., et al.
+    .. [4] Bennett, Charles H., et al.
         "Unextendible product bases and bound entanglement."
         Physical Review Letters 82.26 (1999): 5385.
 

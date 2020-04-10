@@ -9,7 +9,7 @@ def schmidt_rank(
     vec: np.ndarray, dim: Union[int, List[int], np.ndarray] = None
 ) -> float:
     r"""
-    Compute the Schmidt rank.
+    Compute the Schmidt rank [2]_.
 
     For complex Euclidean spaces :math:`\mathcal{X}` and :math:`\mathcal{Y}`, a
     pure state :math:`u \in \mathcal{X} \otimes \mathcal{Y}` possesses an
@@ -40,8 +40,47 @@ def schmidt_rank(
     that case is determined as the number of Schmidt coefficients larger than
     `tol`.
 
-    References:
-        [1] Wikipedia: Schmidt rank
+    Examples
+    ==========
+
+    Computing the Schmidt rank of the entangled Bell state should yield a value
+    greater than one.
+
+    >>> from toqito.state.states.bell import bell
+    >>> from toqito.state.operations.schmidt_rank import schmidt_rank
+    >>> rho = bell(0).conj().T * bell(0)
+    >>> schmidt_rank(rho)
+    2
+
+    Computing the Schmidt rank of the entangled singlet state should yield a
+    value greater than :math:`1`.
+
+    >>> from toqito.state.states.bell import bell
+    >>> from toqito.state.operations.schmidt_rank import schmidt_rank
+    >>> u = bell(2).conj().T * bell(2)
+    >>> schmidt_rank(u)
+    2
+
+    Computing the Schmidt rank of a separable state should yield a value equal
+    to :math:`1`.
+
+    >>> from toqito.base.ket import ket
+    >>> from toqito.state.operations.schmidt_rank import schmidt_rank
+    >>> import numpy as np
+    >>> e_0, e_1 = ket(2, 0), ket(2, 1)
+    >>> e_00 = np.kron(e_0, e_0)
+    >>> e_01 = np.kron(e_0, e_1)
+    >>> e_10 = np.kron(e_1, e_0)
+    >>> e_11 = np.kron(e_1, e_1)
+    >>>
+    >>> rho = 1 / 2 * (e_00 - e_01 - e_10 + e_11)
+    >>> rho = rho.conj().T * rho
+    >>> schmidt_rank(rho)
+    1
+
+    References
+    ==========
+    .. [2] Wikipedia: Schmidt rank
         https://en.wikipedia.org/wiki/Schmidt_decomposition#Schmidt_rank_and_entanglement
 
     :param vec: A bipartite vector to have its Schmidt rank computed.

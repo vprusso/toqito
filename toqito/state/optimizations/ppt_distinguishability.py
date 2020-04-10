@@ -10,13 +10,13 @@ def ppt_distinguishability(
     states: List[np.ndarray], probs: List[float] = None
 ) -> float:
     r"""
-    Compute probability of distinguishing a state via PPT measurements.
+    Compute probability of distinguishing a state via PPT measurements [5]_.
 
     Implements the semidefinite program (SDP) whose optimal value is equal to
     the maximum probability of perfectly distinguishing orthogonal maximally
     entangled states using any PPT measurement; a measurement whose operators
     are positive under partial transpose. This SDP was explicitly provided in
-    [1].
+    [5]_.
 
     Specifically, the function implements the dual problem (as this is
     computationally more efficient) and is defined as:
@@ -33,12 +33,69 @@ def ppt_distinguishability(
             \end{aligned}
         \end{equation}
 
-    References:
-        [1] Cosentino, Alessandro.
+    Examples
+    ==========
+
+    Consider the following Bell states
+
+    .. math::
+        \begin{equation}
+            |\psi_0 \rangle = \frac{|00\rangle + |11\rangle}{\sqrt{2}}, \quad
+            |\psi_1 \rangle = \frac{|01\rangle + |10\rangle}{\sqrt{2}}, \quad
+            |\psi_2 \rangle = \frac{|01\rangle - |10\rangle}{\sqrt{2}}, \quad
+            |\psi_3 \rangle = \frac{|00\rangle - |11\rangle}{\sqrt{2}}. \quad
+        \end{equation}
+
+    It was illustrated in [6]_ that for the following set of states:
+
+    The PPT distinguishability of the following states
+
+    .. math::
+        \begin{equation}
+            \rho_1^{(2)} = \psi_0 \otimes \psi_0, \quad
+            \rho_2^{(2)} = \psi_1 \otimes \psi_1, \quad
+        \end{equation}
+
+    should yield :math:`7/8 ~ 0.875` as was proved in [6]_.
+
+    >>> from toqito.state.states.bell import bell
+    >>> from toqito.state.optimizations.ppt_distinguishability import ppt_distinguishability
+    >>> # Bell vectors:
+    >>> psi_0 = bell(0)
+    >>> psi_1 = bell(2)
+    >>> psi_2 = bell(3)
+    >>> psi_3 = bell(1)
+    >>>
+    >>> # YYD vectors from [6]_.
+    >>> x_1 = np.kron(psi_0, psi_0)
+    >>> x_2 = np.kron(psi_1, psi_3)
+    >>> x_3 = np.kron(psi_2, psi_3)
+    >>> x_4 = np.kron(psi_3, psi_3)
+    >>>
+    >>> # YYD density matrices.
+    >>> rho_1 = x_1 * x_1.conj().T
+    >>> rho_2 = x_2 * x_2.conj().T
+    >>> rho_3 = x_3 * x_3.conj().T
+    >>> rho_4 = x_4 * x_4.conj().T
+    >>>
+    >>> states = [rho_1, rho_2, rho_3, rho_4]
+    >>> probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
+    >>> res = ppt_distinguishability(states, probs)
+    0.875
+
+    References
+    ==========
+    .. [5] Cosentino, Alessandro.
         "Positive-partial-transpose-indistinguishable states via semidefinite
         programming."
         Physical Review A 87.1 (2013): 012321.
         https://arxiv.org/abs/1205.1031
+
+    .. [6] Yu, Nengkun, Runyao Duan, and Mingsheng Ying.
+        "Four locally indistinguishable ququad-ququad orthogonal
+        maximally entangled states."
+        Physical review letters 109.2 (2012): 020506.
+        https://arxiv.org/abs/1107.3224
 
     :param states: A list of density operators (matrices) corresponding to
                    quantum states.

@@ -7,8 +7,8 @@ from toqito.matrix.matrices.iden import iden
 def max_entangled(
     dim: int, is_sparse: bool = False, is_normalized: bool = True
 ) -> [np.ndarray, sparse.dia.dia_matrix]:
-    """
-    Produce a maximally entangled bipartite pure state.
+    r"""
+    Produce a maximally entangled bipartite pure state [11]_.
 
     Produces a maximally entangled pure state as above that is sparse
     if `is_sparse = True` and is full if `is_sparse = False`. The pure state
@@ -16,8 +16,42 @@ def max_entangled(
     is unnormalized (i.e. each entry in the vector is 0 or 1 and the
     Euclidean norm of the vector is `sqrt(dim)` if `is_normalized = False`.
 
-    References:
-        [1] Wikipedia: Quantum entanglement
+    Examples
+    ==========
+
+    We can generate the canonical :math:`2`-dimensional maximally entangled
+    state
+
+    .. math::
+        \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right)
+
+    using `toqito` as follows.
+
+    >>> from toqito.state.states.max_entangled import max_entangled
+    >>> max_entangled(2)
+    array([[0.70710678],
+           [0.        ],
+           [0.        ],
+           [0.70710678]])
+
+    By default, the state returned in normalized, however we can generate the
+    unnormalized state
+
+    .. math::
+        |00\rangle + |11 \rangle
+
+    using `toqito` as follows.
+
+    >>> from toqito.state.states.max_entangled import max_entangled
+    >>> max_entangled(2, False, False)
+    array([[1.],
+           [0.],
+           [0.],
+           [1.]])
+
+    References
+    ==========
+    .. [11] Wikipedia: Quantum entanglement
         https://en.wikipedia.org/wiki/Quantum_entanglement
 
     :param dim: Dimension of the entangled state.

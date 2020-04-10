@@ -8,7 +8,7 @@ def conclusive_state_exclusion(
     states: List[np.ndarray], probs: List[float] = None
 ) -> float:
     r"""
-    Compute probability of conclusive single state exclusion.
+    Compute probability of conclusive single state exclusion [1]_, [2]_.
 
     The "quantum state exclusion" problem involves a collection of :math:`n`
     quantum states
@@ -43,13 +43,51 @@ def conclusive_state_exclusion(
                 \end{aligned}
             \end{equation}
 
-    References:
-        [1] "On the reality of the quantum state"
+    Examples
+    ==========
+
+    Consider the following two Bell states
+
+    .. math::
+        u_0 = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \\
+        u_1 = \frac{1}{\sqrt{2}} \left( |00 \rangle - |11 \rangle \right).
+
+    For the corresponding density matrices :math:`\rho_0 = u_0 u_0^*` and
+    :math:`\rho_1 = u_1 u_1^*`, we may construct a set
+
+    .. math::
+        \rho = \{\rho_0, \rho_1 \}
+
+    such that
+
+    .. math::
+        p = \{1/2, 1/2\}.
+
+    It is not possible to conclusively exclude either of the two states. We can
+    see that the result of the function in `toqito` yields a value of :math`0`
+    as the probability for this to occur.
+
+    >>> from toqito.state.optimizations.conclusive_state_exclusion import
+    >>>    conclusive_state_exclusion
+    >>> from toqito.state.states.bell import bell
+    >>> import numpy as np
+    >>> rho1 = bell(0) * bell(0).conj().T
+    >>> rho2 = bell(1) * bell(1).conj().T
+    >>>
+    >>> states = [rho1, rho2]
+    >>> probs = [1/2, 1/2]
+    >>>
+    >>> conclusive_state_exclusion(states, probs)
+    1.6824720366950206e-09
+
+    References
+    ==========
+    .. [1] "On the reality of the quantum state"
         Pusey, Matthew F., Jonathan Barrett, and Terry Rudolph.
         Nature Physics 8.6 (2012): 475-478.
         arXiv:1111.3328
 
-        [2] "Conclusive exclusion of quantum states"
+    .. [2] "Conclusive exclusion of quantum states"
         Bandyopadhyay, Somshubhro, et al.
         Physical Review A 89.2 (2014): 022336.
         arXiv:1306.4683

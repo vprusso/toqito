@@ -5,8 +5,8 @@ from toqito.matrix.operations.vec import vec
 
 
 def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
-    """
-    Produce a generalized Bell state.
+    r"""
+    Produce a generalized Bell state [5]_.
 
     Produces a generalized Bell state. Note that the standard Bell states
     can be recovered as:
@@ -16,8 +16,79 @@ def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
     bell(2) -> gen_bell(1, 0, 2)
     bell(3) -> gen_bell(1, 1, 2)
 
-    References:
-        [1] Sych, Denis, and Gerd Leuchs.
+    Examples
+    ==========
+
+    For :math:`d = 2` and :math:`k_1 = k_2 = 0`, this generates the following
+    matrix
+
+    .. math::
+        \frac{1}{2} \begin{pmatrix}
+                        1 & 0 & 0 & 1 \\
+                        0 & 0 & 0 & 0 \\
+                        0 & 0 & 0 & 0 \\
+                        1 & 0 & 0 & 1
+                    \end{pmatrix}
+
+    which is equivalent to :math:`|\phi_0 \rangle \langle \phi_0 |` where
+
+    .. math::
+        |\phi_0\rangle = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle
+        \right)
+
+    is one of the four standard Bell states. This can be computed via `toqito`
+    as follows.
+
+    >>> from toqito.state.states.gen_bell import gen_bell
+    >>> dim = 2
+    >>> k_1 = 0
+    >>> k_2 = 0
+    >>> gen_bell(k_1, k_2, dim)
+    array([[0.5+0.j, 0. +0.j, 0. +0.j, 0.5+0.j],
+           [0. +0.j, 0. +0.j, 0. +0.j, 0. +0.j],
+           [0. +0.j, 0. +0.j, 0. +0.j, 0. +0.j],
+           [0.5+0.j, 0. +0.j, 0. +0.j, 0.5+0.j]])
+
+    It is possible for us to consider higher dimensional Bell states. For
+    instance, we can consider the :math:`3`-dimensional Bell state for
+    :math:`k_1 = k_2 = 0` as follows.
+
+    >>> from toqito.state.states.gen_bell import gen_bell
+    >>> dim = 3
+    >>> k_1 = 0
+    >>> k_2 = 0
+    >>> gen_bell(k_1, k_2, dim)
+    array([[0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.33333333+0.j],
+           [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.        +0.j],
+           [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.        +0.j],
+           [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.        +0.j],
+           [0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.33333333+0.j],
+           [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.        +0.j],
+           [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.        +0.j],
+           [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.        +0.j],
+           [0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.33333333+0.j]])
+
+    References
+    ==========
+    .. [5] Sych, Denis, and Gerd Leuchs.
         "A complete basis of generalized Bell states."
         New Journal of Physics 11.1 (2009): 013006.
 

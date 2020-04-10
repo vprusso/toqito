@@ -9,20 +9,64 @@ from toqito.super_operators.partial_transpose import partial_transpose
 def is_ppt(
     mat: np.ndarray, sys: int = 2, dim: Union[int, List[int]] = None, tol: float = None
 ) -> bool:
-    """
-    Determine whether or not a matrix has positive partial transpose.
+    r"""
+    Determine whether or not a matrix has positive partial transpose [3]_.
 
     Yields either `True` or `False`, indicating that `mat` does or does not
     have positive partial transpose (within numerical error). The variable
     `mat` is assumed to act on bipartite space.
 
-    For shared systems of 2 ⊗ 2 or 2 ⊗ 3, the PPT criterion serves as a method
-    to determine whether a given state is entangled or separable. Therefore, for
-    systems of this size, the return value "True" would indicate that the state
-    is separable and a value of "False" would indicate the state is entangled.
+    For shared systems of :math:`2 \otimes 2` or :math:`2 \otimes 3`, the PPT
+    criterion serves as a method to determine whether a given state is entangled
+    or separable. Therefore, for systems of this size, the return value "True"
+    would indicate that the state is separable and a value of "False" would
+    indicate the state is entangled.
 
-    References:
-        [1] Quantiki: Positive partial transpose
+    Examples
+    ==========
+
+    Consider the following matrix
+
+    .. math::
+        \begin{pmatrix}
+            1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+            0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+            0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+            0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+            0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
+        \end{pmatrix}.
+
+    This matrix trivially satisfies the PPT criterion as can be seen using the
+    `toqito` package.
+
+    >>> from toqito.state.properties.is_ppt import is_ppt
+    >>> import numpy as np
+    >>> mat = np.identity(9)
+    >>> is_ppt(mat)
+    True
+
+    Consider the following Bell state:
+
+    .. math::
+        u = \frac{1}{\sqrt{2}}\left( |01 \rangle + |10 \rangle \right)
+
+    For the density matrix :math:`\rho = u u^*`, as this is an entangled state
+    of dimension :math:`2`, it will violate the PPT criterion, which can be seen
+    using the `toqito` package.
+
+    >>> from toqito.state.states.bell import bell
+    >>> from toqito.state.properties.is_ppt import is_ppt
+    >>> rho = bell(2) * bell(2).conj().T
+    >>> is_ppt(rho)
+    False
+
+    References
+    ==========
+    .. [3] Quantiki: Positive partial transpose
         https://www.quantiki.org/wiki/positive-partial-transpose
 
     :param mat: A square matrix.

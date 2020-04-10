@@ -4,9 +4,9 @@ import numpy as np
 
 def gisin(lambda_var: float, theta: float) -> np.ndarray:
     r"""
-    Produce a Gisin state.
+    Produce a Gisin state [7]_.
 
-    Returns the Gisin state described in [1].
+    Returns the Gisin state described in [7]_.
 
     Specifically, the Gisin state can be defined as:
 
@@ -31,8 +31,21 @@ def gisin(lambda_var: float, theta: float) -> np.ndarray:
                                     \end{pmatrix}
         \end{equation}
 
-    References:
-        [1] N. Gisin.
+    Examples
+    ==========
+
+    The following code generates the Gisin state :math:`\rho_{0.5, 1}`.
+
+    >>> from toqito.state.states.gisin import gisin
+    >>> gisin(0.5, 1)
+    array([[ 0.25      ,  0.        ,  0.        ,  0.        ],
+           [ 0.        ,  0.35403671, -0.22732436,  0.        ],
+           [ 0.        , -0.22732436,  0.14596329,  0.        ],
+           [ 0.        ,  0.        ,  0.        ,  0.25      ]])
+
+    References
+    ==========
+    .. [7] N. Gisin.
         Hidden quantum nonlocality revealed by local filters.
         (http://dx.doi.org/10.1016/S0375-9601(96)80001-6). 1996.
 

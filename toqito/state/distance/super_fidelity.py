@@ -55,9 +55,6 @@ def super_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
         arXiv preprint arXiv:0805.2037 (2008).
         https://arxiv.org/abs/0805.2037
 
-    References:
-
-
     :param rho: Density matrix.
     :param sigma: Density matrix.
     :return: The super fidelity between `rho` and `sigma`.

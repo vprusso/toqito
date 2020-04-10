@@ -6,7 +6,7 @@ from toqito.state.states.max_entangled import max_entangled
 
 def isotropic(dim: int, alpha: float) -> np.ndarray:
     r"""
-    Produce a isotropic state.
+    Produce a isotropic state [10]_.
 
     Returns the isotropic state with parameter `alpha` acting on
     (`dim`-by-`dim`)-dimensional space. More specifically, the state is the
@@ -27,8 +27,36 @@ def isotropic(dim: int, alpha: float) -> np.ndarray:
     where :math:`|\psi_+ \rangle = \frac{1}{\sqrt{d}} \sum_j |j \rangle \otimes
     |j \rangle` is the maximally entangled state.
 
-    References:
-        [1] Horodecki, Michał, and Paweł Horodecki.
+    Examples
+    ==========
+
+    To generate the isotropic state with parameter :math:`\alpha=1/2`, we can
+    make the following call to `toqito` as
+
+    >>> from toqito.state.states.isotropic import isotropic
+    >>> isotropic(3, 1 / 2).toarray()
+    array([[0.22222222, 0.        , 0.        , 0.        , 0.16666667,
+            0.        , 0.        , 0.        , 0.16666667],
+           [0.        , 0.05555556, 0.        , 0.        , 0.        ,
+            0.        , 0.        , 0.        , 0.        ],
+           [0.        , 0.        , 0.05555556, 0.        , 0.        ,
+            0.        , 0.        , 0.        , 0.        ],
+           [0.        , 0.        , 0.        , 0.05555556, 0.        ,
+            0.        , 0.        , 0.        , 0.        ],
+           [0.16666667, 0.        , 0.        , 0.        , 0.22222222,
+            0.        , 0.        , 0.        , 0.16666667],
+           [0.        , 0.        , 0.        , 0.        , 0.        ,
+            0.05555556, 0.        , 0.        , 0.        ],
+           [0.        , 0.        , 0.        , 0.        , 0.        ,
+            0.        , 0.05555556, 0.        , 0.        ],
+           [0.        , 0.        , 0.        , 0.        , 0.        ,
+            0.        , 0.        , 0.05555556, 0.        ],
+           [0.16666667, 0.        , 0.        , 0.        , 0.16666667,
+            0.        , 0.        , 0.        , 0.22222222]])
+
+    References
+    ==========
+    .. [10] Horodecki, Michał, and Paweł Horodecki.
         "Reduction criterion of separability and limits for a class of
         distillation protocols." Physical Review A 59.6 (1999): 4206.
 

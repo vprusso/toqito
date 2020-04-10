@@ -8,7 +8,7 @@ def state_distinguishability(
     states: List[np.ndarray], probs: List[float] = None
 ) -> float:
     r"""
-    Compute probability of state distinguishability.
+    Compute probability of state distinguishability [7]_.
 
     The "quantum state distinguishability" problem involves a collection of
     :math:`n` quantum states
@@ -41,8 +41,25 @@ def state_distinguishability(
                                      & M_0, \ldots, M_n \geq 0
         \end{align*}
 
-    References:
-        [1] Eldar, Yonina C.
+    Examples
+    ==========
+
+    State distinguishability for two state density matrices.
+
+    >>> from toqito.base.ket import ket
+    >>> from toqito.state.states.bell import bell
+    >>> from toqito.state.optimizations.state_distinguishability import state_distinguishability
+    >>> e_0, e_1 = ket(2, 0), ket(2, 1)
+    >>> e_00 = e_0 * e_0.conj().T
+    >>> e_11 = e_1 * e_1.conj().T
+    >>> states = [e_00, e_11]
+    >>> probs = [1 / 2, 1 / 2]
+    >>> res = state_distinguishability(states, probs)
+    0.5000000000006083
+
+    References
+    ==========
+    .. [7] Eldar, Yonina C.
         "A semidefinite programming approach to optimal unambiguous
         discrimination of quantum states."
         IEEE Transactions on information theory 49.2 (2003): 446-456.

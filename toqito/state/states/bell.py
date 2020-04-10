@@ -5,7 +5,7 @@ from toqito.base.ket import ket
 
 def bell(idx: int) -> np.ndarray:
     r"""
-    Produce a Bell state.
+    Produce a Bell state [1]_.
 
     Returns one of the following four Bell states depending on the value
     of `idx`:
@@ -22,8 +22,28 @@ def bell(idx: int) -> np.ndarray:
             \end{aligned}
         \end{equation}
 
-    References:
-        [1] Wikipedia: Bell state
+
+    Examples
+    ==========
+
+    When `idx = 0`, this produces the following Bell state
+
+    .. math::
+        \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right).
+
+    Using `toqito`, we can see that this yields the proper state.
+
+    >>> from toqito.state.states.bell import bell
+    >>> import numpy as np
+    >>> bell(0)
+    array([[0.70710678],
+           [0.        ],
+           [0.        ],
+           [0.70710678]])
+
+    References
+    ==========
+    .. [1] Wikipedia: Bell state
         https://en.wikipedia.org/wiki/Bell_state
 
     :param idx: A parameter in [0, 1, 2, 3]

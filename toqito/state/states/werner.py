@@ -10,7 +10,7 @@ from toqito.perms.swap_operator import swap_operator
 
 def werner(dim: int, alpha: Union[float, List[float]]) -> np.ndarray:
     r"""
-    Produce a Werner state.
+    Produce a Werner state [14]_.
 
     A Werner state is a state of the following form
 
@@ -37,8 +37,57 @@ def werner(dim: int, alpha: Union[float, List[float]]) -> np.ndarray:
 
     so P(4) in this case equals permutation_operator(dim, [2, 3, 1]).
 
-    References:
-        [1] R. F. Werner.
+    Examples
+    ==========
+
+    Computing the qutrit Werner state with $\alpha = 1/2$ can be done in
+    `toqito` as
+
+    >>> from toqito.state.states.werner import werner
+    >>> werner(3, 1 / 2)
+    array([[ 0.06666667,  0.        ,  0.        ,  0.        ,  0.        ,
+             0.        ,  0.        ,  0.        ,  0.        ],
+           [ 0.        ,  0.13333333,  0.        , -0.06666667,  0.        ,
+             0.        ,  0.        ,  0.        ,  0.        ],
+           [ 0.        ,  0.        ,  0.13333333,  0.        ,  0.        ,
+             0.        , -0.06666667,  0.        ,  0.        ],
+           [ 0.        , -0.06666667,  0.        ,  0.13333333,  0.        ,
+             0.        ,  0.        ,  0.        ,  0.        ],
+           [ 0.        ,  0.        ,  0.        ,  0.        ,  0.06666667,
+             0.        ,  0.        ,  0.        ,  0.        ],
+           [ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
+             0.13333333,  0.        , -0.06666667,  0.        ],
+           [ 0.        ,  0.        , -0.06666667,  0.        ,  0.        ,
+             0.        ,  0.13333333,  0.        ,  0.        ],
+           [ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
+            -0.06666667,  0.        ,  0.13333333,  0.        ],
+           [ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
+             0.        ,  0.        ,  0.        ,  0.06666667]])
+
+    We may also compute multipartite Werner states in `toqito` as well.
+
+    >>> from toqito.state.states.werner import werner
+    >>> werner(2, [0.01, 0.02, 0.03, 0.04, 0.05])
+    array([[ 0.12179487,  0.        ,  0.        ,  0.        ,  0.        ,
+             0.        ,  0.        ,  0.        ],
+           [ 0.        ,  0.12820513,  0.        ,  0.        , -0.00641026,
+             0.        ,  0.        ,  0.        ],
+           [ 0.        ,  0.        ,  0.12179487,  0.        ,  0.        ,
+             0.        ,  0.        ,  0.        ],
+           [ 0.        ,  0.        ,  0.        ,  0.12820513,  0.        ,
+             0.        , -0.00641026,  0.        ],
+           [ 0.        , -0.00641026,  0.        ,  0.        ,  0.12820513,
+             0.        ,  0.        ,  0.        ],
+           [ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
+             0.12179487,  0.        ,  0.        ],
+           [ 0.        ,  0.        ,  0.        , -0.00641026,  0.        ,
+             0.        ,  0.12820513,  0.        ],
+           [ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
+             0.        ,  0.        ,  0.12179487]])
+
+    References
+    ==========
+    .. [14] R. F. Werner.
         Quantum states with Einstein-Podolsky-Rosen correlations admitting a
         hidden-variable model. Phys. Rev. A, 40(8):4277–4281
 

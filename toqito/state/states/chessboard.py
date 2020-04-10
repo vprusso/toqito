@@ -6,15 +6,42 @@ import numpy as np
 def chessboard(
     mat_params: List[float], s_param: float = None, t_param: float = None
 ) -> np.ndarray:
-    """
-    Produce a chessboard state.
+    r"""
+    Produce a chessboard state [2]_.
 
-    Generates the chessboard state defined in [1]. Note that, for certain
+    Generates the chessboard state defined in [2]_. Note that, for certain
     choices of S and T, this state will not have positive partial transpose,
     and thus may not be bound entangled.
 
-    References:
-        [1] Three qubits can be entangled in two inequivalent ways.
+    Examples
+    ==========
+
+    The standard chessboard state can be invoked using `toqito` as
+
+    >>> from toqito.state.states.chessboard import chessboard
+    >>> chessboard([1, 2, 3, 4, 5, 6], 7, 8)
+    array([[ 0.22592593,  0.        ,  0.12962963,  0.        ,  0.        ,
+             0.        ,  0.17777778,  0.        ,  0.        ],
+           [ 0.        ,  0.01851852,  0.        ,  0.        ,  0.        ,
+             0.01111111,  0.        ,  0.02962963,  0.        ],
+           [ 0.12962963,  0.        ,  0.18148148,  0.        ,  0.15555556,
+             0.        ,  0.        ,  0.        ,  0.        ],
+           [ 0.        ,  0.        ,  0.        ,  0.01851852,  0.        ,
+             0.02222222,  0.        , -0.01481481,  0.        ],
+           [ 0.        ,  0.        ,  0.15555556,  0.        ,  0.22592593,
+             0.        , -0.14814815,  0.        ,  0.        ],
+           [ 0.        ,  0.01111111,  0.        ,  0.02222222,  0.        ,
+             0.03333333,  0.        ,  0.        ,  0.        ],
+           [ 0.17777778,  0.        ,  0.        ,  0.        , -0.14814815,
+             0.        ,  0.23703704,  0.        ,  0.        ],
+           [ 0.        ,  0.02962963,  0.        , -0.01481481,  0.        ,
+             0.        ,  0.        ,  0.05925926,  0.        ],
+           [ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
+             0.        ,  0.        ,  0.        ,  0.        ]])
+
+    References
+    ==========
+    .. [2] Three qubits can be entangled in two inequivalent ways.
         D. Bruss and A. Peres
         Phys. Rev. A, 61:30301(R), 2000
         arXiv: 991.1056
