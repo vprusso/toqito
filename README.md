@@ -6,11 +6,11 @@ numerical tools to study problems pertaining to entanglement theory, nonlocal
 games, matrix analysis, and other aspects of quantum information that are often
 associated with computer science. 
 
-[![build status](http://img.shields.io/travis/vprusso/toqito.svg)](https://travis-ci.org/vprusso/toqito)
+[![build status](http://img.shields.io/travis/vprusso/toqito.svg?style=plastic)](https://travis-ci.org/vprusso/toqito)
 [![doc status](https://readthedocs.org/projects/toqito/badge/?version=latest&style=plastic)](https://toqito.readthedocs.io/en/latest/)
-[![Coverage Status](https://coveralls.io/repos/github/vprusso/toqito/badge.svg?branch=master)](https://coveralls.io/github/vprusso/toqito?branch=master)
-[![DOI](https://zenodo.org/badge/235493396.svg)](https://zenodo.org/badge/latestdoi/235493396)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Coverage Status](https://coveralls.io/repos/github/vprusso/toqito/badge.svg?branch=master?style=plastic)](https://coveralls.io/github/vprusso/toqito?branch=master)
+[![DOI](https://zenodo.org/badge/235493396.svg?style=plastic)](https://zenodo.org/badge/latestdoi/235493396)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg?styl=plastic)](https://github.com/psf/black)
 [![Unitary Fund](https://img.shields.io/badge/Supported%20By-UNITARY%20FUND-brightgreen.svg?style=plastic)](http://unitary.fund)
 
 `toqito` aims to fill the needs of quantum information researchers who want

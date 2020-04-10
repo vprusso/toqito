@@ -74,6 +74,40 @@ def xor_game_value(
     >>> xor_game_value(prob_mat, pred_mat, "classical")
     0.75
 
+    The odd cycle game
+
+    The odd cycle game is another XOR game [2]_. For this game, we can specify
+    the probability and predicate matrices as follows.
+
+    >>> prob_mat = np.array(
+    >>> [
+    >>>     [0.1, 0.1, 0, 0, 0],
+    >>>     [0, 0.1, 0.1, 0, 0],
+    >>>     [0, 0, 0.1, 0.1, 0],
+    >>>     [0, 0, 0, 0.1, 0.1],
+    >>>     [0.1, 0, 0, 0, 0.1],
+    >>> ]
+    >>> )
+    >>> pred_mat = np.array(
+    >>> [
+    >>>     [0, 1, 0, 0, 0],
+    >>>     [0, 0, 1, 0, 0],
+    >>>     [0, 0, 0, 1, 0],
+    >>>     [0, 0, 0, 0, 1],
+    >>>     [1, 0, 0, 0, 0],
+    >>> ]
+    >>> )
+
+    In `toqito`, we can calculate both the quantum and classical value of the
+    odd cycle game as follows.
+
+    >>> import numpy as np
+    >>> from toqito.nonlocal_games.xor_games.xor_game_value import xor_game_value
+    >>> xor_game_value(prob_mat, pred_mat, "quantum")
+    0.9755282544736033
+    >>> xor_game_value(prob_mat, pred_mat, "classical")
+    0.9
+
     References
     ==========
     .. [1] Richard Cleve, William Slofstra, Falk Unger, Sarvagya Upadhyay
