@@ -21,11 +21,6 @@ numpy = "*"
 picos = "*"
 scipy = "*"
 scikit-image = "*"
-sphinx = { version = "^2.2", optional = true }
-sphinx_rtd_theme = { version = "^0.4.3", optional = true  }
-
-[tool.poetry.extras]
-docs = ["sphinx", "sphinx_rtd_theme"]
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.7"
