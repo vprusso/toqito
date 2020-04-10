@@ -11,7 +11,7 @@ toqito
 .. toctree::
    :maxdepth: 4
 
-   modules
+   source/modules
 
 
 Indices and tables
