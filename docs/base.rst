@@ -4,18 +4,18 @@ toqito.base package
 Submodules
 ----------
 
-toqito.base.bra module
+base.bra module
 ----------------------
 
-.. automodule:: toqito.base.bra
+.. automodule:: base.bra
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.base.ket module
+base.ket module
 ----------------------
 
-.. automodule:: toqito.base.ket
+.. automodule:: base.ket
    :members:
    :undoc-members:
    :show-inheritance:
