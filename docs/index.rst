@@ -11,7 +11,7 @@ toqito
 .. toctree::
    :maxdepth: 4
 
-   source/modules
+   api.rst
 
 
 Indices and tables
