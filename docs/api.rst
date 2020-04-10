@@ -6,6 +6,6 @@ API Reference
 Py functons
 -----------
 
-.. automodule:: toqito.base.ket
+.. automodule:: base.ket
 	:members:
 	:inherited-members:
