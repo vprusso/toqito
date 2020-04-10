@@ -42,6 +42,10 @@ def is_pd(mat: np.ndarray) -> bool:
     >>> is_pd(B)
     False
 
+    See Also
+    ========
+    is_psd
+
     References
     ==========
     .. [6] Wikipedia: Definiteness of a matrix.
