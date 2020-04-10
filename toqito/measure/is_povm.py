@@ -24,7 +24,7 @@ def is_povm(mat_list: List[np.ndarray]) -> bool:
     Examples
     ==========
 
-    Consider the following matrix
+    Consider the following matrices
 
     .. math::
         M_0 = \begin{pmatrix}
