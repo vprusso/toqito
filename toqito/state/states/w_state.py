@@ -8,8 +8,8 @@ def w_state(num_qubits: int, coeff: List[int] = None) -> np.ndarray:
     r"""
     Produce a W-state [13]_.
 
-    Returns the W-state described in [1]. The W-state on `num_qubits` qubits is
-    defined by:
+    Returns the W-state described in [13]_. The W-state on `num_qubits` qubits
+    is defined by:
 
     .. math::
         |W \rangle = \frac{1}{\sqrt{num\_qubits}}
