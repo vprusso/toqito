@@ -4,7 +4,9 @@ import numpy as np
 
 from toqito.base.ket import ket
 from toqito.states.states.bell import bell
-from toqito.states.optimizations.state_distinguishability import state_distinguishability
+from toqito.states.optimizations.state_distinguishability import (
+    state_distinguishability,
+)
 
 
 class TestStateDistinguishability(unittest.TestCase):
