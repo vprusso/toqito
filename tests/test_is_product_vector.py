@@ -3,8 +3,8 @@ import unittest
 import numpy as np
 
 from toqito.base.ket import ket
-from toqito.state.states.max_entangled import max_entangled
-from toqito.state.properties.is_product_vector import is_product_vector
+from toqito.states.states.max_entangled import max_entangled
+from toqito.states.properties.is_product_vector import is_product_vector
 
 
 class TestIsProductVector(unittest.TestCase):

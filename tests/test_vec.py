@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.matrix.operations.vec import vec
+from toqito.linear_algebra.operations.vec import vec
 
 
 class TestVec(unittest.TestCase):

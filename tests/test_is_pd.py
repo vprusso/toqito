@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.matrix.properties.is_pd import is_pd
+from toqito.linear_algebra.properties.is_pd import is_pd
 
 
 class TestIsPD(unittest.TestCase):

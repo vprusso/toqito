@@ -1,45 +1,45 @@
-toqito.state.optimizations package
+toqito.states.optimizations package
 ==================================
 
 Submodules
 ----------
 
-toqito.state.optimizations.conclusive\_state\_exclusion module
+toqito.states.optimizations.conclusive\_state\_exclusion module
 --------------------------------------------------------------
 
-.. automodule:: toqito.state.optimizations.conclusive_state_exclusion
+.. automodule:: toqito.states.optimizations.conclusive_state_exclusion
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.state.optimizations.ppt\_distinguishability module
+toqito.states.optimizations.ppt\_distinguishability module
 ---------------------------------------------------------
 
-.. automodule:: toqito.state.optimizations.ppt_distinguishability
+.. automodule:: toqito.states.optimizations.ppt_distinguishability
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.state.optimizations.state\_cloning module
+toqito.states.optimizations.state\_cloning module
 ------------------------------------------------
 
-.. automodule:: toqito.state.optimizations.state_cloning
+.. automodule:: toqito.states.optimizations.state_cloning
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.state.optimizations.state\_distinguishability module
+toqito.states.optimizations.state\_distinguishability module
 -----------------------------------------------------------
 
-.. automodule:: toqito.state.optimizations.state_distinguishability
+.. automodule:: toqito.states.optimizations.state_distinguishability
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.state.optimizations.unambiguous\_state\_exclusion module
+toqito.states.optimizations.unambiguous\_state\_exclusion module
 ---------------------------------------------------------------
 
-.. automodule:: toqito.state.optimizations.unambiguous_state_exclusion
+.. automodule:: toqito.states.optimizations.unambiguous_state_exclusion
    :members:
    :undoc-members:
    :show-inheritance:
@@ -48,7 +48,7 @@ toqito.state.optimizations.unambiguous\_state\_exclusion module
 Module contents
 ---------------
 
-.. automodule:: toqito.state.optimizations
+.. automodule:: toqito.states.optimizations
    :members:
    :undoc-members:
    :show-inheritance:

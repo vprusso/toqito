@@ -2,8 +2,8 @@
 import unittest
 import numpy as np
 
-from toqito.state.states.bell import bell
-from toqito.state.optimizations.unambiguous_state_exclusion import (
+from toqito.states.states.bell import bell
+from toqito.states.optimizations.unambiguous_state_exclusion import (
     unambiguous_state_exclusion,
 )
 

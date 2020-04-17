@@ -3,8 +3,8 @@ import unittest
 import numpy as np
 
 from toqito.base.ket import ket
-from toqito.matrix.operations.tensor import tensor_list
-from toqito.state.states.w_state import w_state
+from toqito.linear_algebra.operations.tensor import tensor_list
+from toqito.states.states.w_state import w_state
 
 
 class TestWState(unittest.TestCase):

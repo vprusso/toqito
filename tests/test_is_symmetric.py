@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.matrix.properties.is_symmetric import is_symmetric
+from toqito.linear_algebra.properties.is_symmetric import is_symmetric
 
 
 class TestIsSymmetric(unittest.TestCase):

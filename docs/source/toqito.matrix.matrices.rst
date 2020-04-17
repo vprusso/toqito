@@ -1,69 +1,69 @@
-toqito.matrix.matrices package
+toqito.linear_algebra.matrices package
 ==============================
 
 Submodules
 ----------
 
-toqito.matrix.matrices.clock module
+toqito.linear_algebra.matrices.clock module
 -----------------------------------
 
-.. automodule:: toqito.matrix.matrices.clock
+.. automodule:: toqito.linear_algebra.matrices.clock
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.matrix.matrices.fourier module
+toqito.linear_algebra.matrices.fourier module
 -------------------------------------
 
-.. automodule:: toqito.matrix.matrices.fourier
+.. automodule:: toqito.linear_algebra.matrices.fourier
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.matrix.matrices.gell\_mann module
+toqito.linear_algebra.matrices.gell\_mann module
 ----------------------------------------
 
-.. automodule:: toqito.matrix.matrices.gell_mann
+.. automodule:: toqito.linear_algebra.matrices.gell_mann
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.matrix.matrices.gen\_gell\_mann module
+toqito.linear_algebra.matrices.gen\_gell\_mann module
 ---------------------------------------------
 
-.. automodule:: toqito.matrix.matrices.gen_gell_mann
+.. automodule:: toqito.linear_algebra.matrices.gen_gell_mann
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.matrix.matrices.gen\_pauli module
+toqito.linear_algebra.matrices.gen\_pauli module
 ----------------------------------------
 
-.. automodule:: toqito.matrix.matrices.gen_pauli
+.. automodule:: toqito.linear_algebra.matrices.gen_pauli
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.matrix.matrices.iden module
+toqito.linear_algebra.matrices.iden module
 ----------------------------------
 
-.. automodule:: toqito.matrix.matrices.iden
+.. automodule:: toqito.linear_algebra.matrices.iden
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.matrix.matrices.pauli module
+toqito.linear_algebra.matrices.pauli module
 -----------------------------------
 
-.. automodule:: toqito.matrix.matrices.pauli
+.. automodule:: toqito.linear_algebra.matrices.pauli
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.matrix.matrices.shift module
+toqito.linear_algebra.matrices.shift module
 -----------------------------------
 
-.. automodule:: toqito.matrix.matrices.shift
+.. automodule:: toqito.linear_algebra.matrices.shift
    :members:
    :undoc-members:
    :show-inheritance:
@@ -72,7 +72,7 @@ toqito.matrix.matrices.shift module
 Module contents
 ---------------
 
-.. automodule:: toqito.matrix.matrices
+.. automodule:: toqito.linear_algebra.matrices
    :members:
    :undoc-members:
    :show-inheritance:

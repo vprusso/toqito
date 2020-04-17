@@ -43,7 +43,7 @@ def random_density_matrix(
     We can verify that this is in fact a valid density matrix using the
     `is_denisty` function from `toqito` as follows
 
-    >>> from toqito.matrix.properties.is_density import is_density
+    >>> from toqito.linear_algebra.properties.is_density import is_density
     >>> is_density(complex_dm)
     True
 
@@ -58,7 +58,7 @@ def random_density_matrix(
 
     Again, verifying that this is a valid density matrix can be done as follows.
 
-    >>> from toqito.matrix.properties.is_density import is_density
+    >>> from toqito.linear_algebra.properties.is_density import is_density
     >>> is_density(real_dm)
     True
 
@@ -75,7 +75,7 @@ def random_density_matrix(
     As before, we can verify that this matrix generated is a valid density
     matrix.
 
-    >>> from toqito.matrix.properties.is_density import is_density
+    >>> from toqito.linear_algebra.properties.is_density import is_density
     >>> is_density(bures_mat)
     True
 

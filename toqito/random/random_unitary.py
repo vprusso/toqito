@@ -27,7 +27,7 @@ def random_unitary(dim: Union[List[int], int], is_real: bool = False) -> np.ndar
     We can verify that this is in fact a valid unitary matrix using the
     `is_unitary` function from `toqito` as follows
 
-    >>> from toqito.matrix.properties.is_unitary import is_unitary
+    >>> from toqito.linear_algebra.properties.is_unitary import is_unitary
     >>> is_unitary(complex_dm)
     True
 
@@ -42,7 +42,7 @@ def random_unitary(dim: Union[List[int], int], is_real: bool = False) -> np.ndar
 
     Again, verifying that this is a valid unitary matrix can be done as follows.
 
-    >>> from toqito.matrix.properties.is_unitary import is_unitary
+    >>> from toqito.linear_algebra.properties.is_unitary import is_unitary
     >>> is_unitary(real_dm)
     True
 
@@ -61,7 +61,7 @@ def random_unitary(dim: Union[List[int], int], is_real: bool = False) -> np.ndar
     As before, we can verify that this matrix generated is a valid unitary
     matrix.
 
-    >>> from toqito.matrix.properties.is_unitary import is_unitary
+    >>> from toqito.linear_algebra.properties.is_unitary import is_unitary
     >>> is_unitary(mat)
     True
 

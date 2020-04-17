@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.state.states.max_mixed import max_mixed
+from toqito.states.states.max_mixed import max_mixed
 
 
 class TestMaxMixed(unittest.TestCase):

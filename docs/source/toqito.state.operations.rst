@@ -1,29 +1,29 @@
-toqito.state.operations package
+toqito.states.operations package
 ===============================
 
 Submodules
 ----------
 
-toqito.state.operations.pure\_to\_mixed module
+toqito.states.operations.pure\_to\_mixed module
 ----------------------------------------------
 
-.. automodule:: toqito.state.operations.pure_to_mixed
+.. automodule:: toqito.states.operations.pure_to_mixed
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.state.operations.schmidt\_decomposition module
+toqito.states.operations.schmidt\_decomposition module
 -----------------------------------------------------
 
-.. automodule:: toqito.state.operations.schmidt_decomposition
+.. automodule:: toqito.states.operations.schmidt_decomposition
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.state.operations.schmidt\_rank module
+toqito.states.operations.schmidt\_rank module
 --------------------------------------------
 
-.. automodule:: toqito.state.operations.schmidt_rank
+.. automodule:: toqito.states.operations.schmidt_rank
    :members:
    :undoc-members:
    :show-inheritance:
@@ -32,7 +32,7 @@ toqito.state.operations.schmidt\_rank module
 Module contents
 ---------------
 
-.. automodule:: toqito.state.operations
+.. automodule:: toqito.states.operations
    :members:
    :undoc-members:
    :show-inheritance:

@@ -1,7 +1,7 @@
 """Tests for random_state_vector function."""
 import unittest
 
-from toqito.state.properties.is_pure import is_pure
+from toqito.states.properties.is_pure import is_pure
 from toqito.random.random_state_vector import random_state_vector
 
 

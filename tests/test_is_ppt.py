@@ -2,8 +2,8 @@
 import unittest
 import numpy as np
 
-from toqito.state.states.bell import bell
-from toqito.state.properties.is_ppt import is_ppt
+from toqito.states.states.bell import bell
+from toqito.states.properties.is_ppt import is_ppt
 
 
 class TestIsPPT(unittest.TestCase):

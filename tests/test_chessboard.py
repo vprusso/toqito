@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.state.states.chessboard import chessboard
+from toqito.states.states.chessboard import chessboard
 
 
 class TestChessboard(unittest.TestCase):

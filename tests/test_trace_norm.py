@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 from toqito.base.ket import ket
-from toqito.state.distance.trace_norm import trace_norm
+from toqito.states.distance.trace_norm import trace_norm
 
 
 class TestTraceNorm(unittest.TestCase):

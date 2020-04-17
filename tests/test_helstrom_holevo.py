@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 from toqito.base.ket import ket
-from toqito.state.distance.helstrom_holevo import helstrom_holevo
+from toqito.states.distance.helstrom_holevo import helstrom_holevo
 
 
 class TestHelstromHolevo(unittest.TestCase):

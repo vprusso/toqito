@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.matrix.matrices.gen_gell_mann import gen_gell_mann
+from toqito.linear_algebra.matrices.gen_gell_mann import gen_gell_mann
 
 
 class TestGenGellMann(unittest.TestCase):

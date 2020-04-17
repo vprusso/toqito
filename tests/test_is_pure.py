@@ -2,9 +2,9 @@
 import unittest
 import numpy as np
 
-from toqito.state.states.bell import bell
+from toqito.states.states.bell import bell
 from toqito.base.ket import ket
-from toqito.state.properties.is_pure import is_pure
+from toqito.states.properties.is_pure import is_pure
 
 
 class TestIsPure(unittest.TestCase):

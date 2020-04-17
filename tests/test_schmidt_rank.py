@@ -3,8 +3,8 @@ import unittest
 import numpy as np
 
 from toqito.base.ket import ket
-from toqito.state.states.bell import bell
-from toqito.state.operations.schmidt_rank import schmidt_rank
+from toqito.states.states.bell import bell
+from toqito.states.operations.schmidt_rank import schmidt_rank
 
 
 class TestSchmidtRank(unittest.TestCase):

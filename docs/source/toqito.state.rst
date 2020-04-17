@@ -1,4 +1,4 @@
-toqito.state package
+toqito.states package
 ====================
 
 Subpackages
@@ -7,16 +7,16 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   toqito.state.distance
-   toqito.state.operations
-   toqito.state.optimizations
-   toqito.state.properties
-   toqito.state.states
+   toqito.states.distance
+   toqito.states.operations
+   toqito.states.optimizations
+   toqito.states.properties
+   toqito.states.states
 
 Module contents
 ---------------
 
-.. automodule:: toqito.state
+.. automodule:: toqito.states
    :members:
    :undoc-members:
    :show-inheritance:

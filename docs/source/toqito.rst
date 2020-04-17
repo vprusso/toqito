@@ -10,13 +10,13 @@ Subpackages
    toqito.base
    toqito.entanglement
    toqito.helper
-   toqito.matrix
-   toqito.measure
+   toqito.linear_algebra
+   toqito.measurements
    toqito.nonlocal_games
    toqito.perms
    toqito.random
-   toqito.state
-   toqito.super_operators
+   toqito.states
+   toqito.maps
 
 Module contents
 ---------------

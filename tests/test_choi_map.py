@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.super_operators.choi_map import choi_map
+from toqito.maps.choi_map import choi_map
 
 
 class TestChoiMap(unittest.TestCase):

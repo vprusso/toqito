@@ -7,7 +7,7 @@ Submodules
 toqito.super\_operators.apply\_map module
 -----------------------------------------
 
-.. automodule:: toqito.super_operators.apply_map
+.. automodule:: toqito.maps.apply_map
    :members:
    :undoc-members:
    :show-inheritance:
@@ -15,7 +15,7 @@ toqito.super\_operators.apply\_map module
 toqito.super\_operators.choi\_map module
 ----------------------------------------
 
-.. automodule:: toqito.super_operators.choi_map
+.. automodule:: toqito.maps.choi_map
    :members:
    :undoc-members:
    :show-inheritance:
@@ -23,7 +23,7 @@ toqito.super\_operators.choi\_map module
 toqito.super\_operators.dephasing\_channel module
 -------------------------------------------------
 
-.. automodule:: toqito.super_operators.dephasing_channel
+.. automodule:: toqito.maps.dephasing
    :members:
    :undoc-members:
    :show-inheritance:
@@ -31,7 +31,7 @@ toqito.super\_operators.dephasing\_channel module
 toqito.super\_operators.depolarizing\_channel module
 ----------------------------------------------------
 
-.. automodule:: toqito.super_operators.depolarizing_channel
+.. automodule:: toqito.maps.depolarizing
    :members:
    :undoc-members:
    :show-inheritance:
@@ -39,7 +39,7 @@ toqito.super\_operators.depolarizing\_channel module
 toqito.super\_operators.partial\_trace module
 ---------------------------------------------
 
-.. automodule:: toqito.super_operators.partial_trace
+.. automodule:: toqito.maps.partial_trace
    :members:
    :undoc-members:
    :show-inheritance:
@@ -47,7 +47,7 @@ toqito.super\_operators.partial\_trace module
 toqito.super\_operators.partial\_transpose module
 -------------------------------------------------
 
-.. automodule:: toqito.super_operators.partial_transpose
+.. automodule:: toqito.maps.partial_transpose
    :members:
    :undoc-members:
    :show-inheritance:
@@ -55,7 +55,7 @@ toqito.super\_operators.partial\_transpose module
 toqito.super\_operators.realignment module
 ------------------------------------------
 
-.. automodule:: toqito.super_operators.realignment
+.. automodule:: toqito.maps.realignment
    :members:
    :undoc-members:
    :show-inheritance:
@@ -63,7 +63,7 @@ toqito.super\_operators.realignment module
 toqito.super\_operators.reduction\_map module
 ---------------------------------------------
 
-.. automodule:: toqito.super_operators.reduction_map
+.. automodule:: toqito.maps.reduction_map
    :members:
    :undoc-members:
    :show-inheritance:
@@ -72,7 +72,7 @@ toqito.super\_operators.reduction\_map module
 Module contents
 ---------------
 
-.. automodule:: toqito.super_operators
+.. automodule:: toqito.maps
    :members:
    :undoc-members:
    :show-inheritance:

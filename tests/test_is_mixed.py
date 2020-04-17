@@ -2,7 +2,7 @@
 import unittest
 
 from toqito.base.ket import ket
-from toqito.state.properties.is_mixed import is_mixed
+from toqito.states.properties.is_mixed import is_mixed
 
 
 class TestIsMixed(unittest.TestCase):

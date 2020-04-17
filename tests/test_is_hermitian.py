@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.matrix.properties.is_hermitian import is_hermitian
+from toqito.linear_algebra.properties.is_hermitian import is_hermitian
 
 
 class TestIsHermitian(unittest.TestCase):

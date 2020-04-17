@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.matrix.properties.is_projection import is_projection
+from toqito.linear_algebra.properties.is_projection import is_projection
 
 
 class TestIsProjection(unittest.TestCase):

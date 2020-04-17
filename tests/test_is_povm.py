@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.measure.is_povm import is_povm
+from toqito.measurements.is_povm import is_povm
 from toqito.random.random_povm import random_povm
 
 

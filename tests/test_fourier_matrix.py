@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.matrix.matrices.fourier import fourier
+from toqito.linear_algebra.matrices.fourier import fourier
 
 
 class TestFourierMatrix(unittest.TestCase):

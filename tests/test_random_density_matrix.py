@@ -2,7 +2,7 @@
 import unittest
 
 from toqito.random.random_density_matrix import random_density_matrix
-from toqito.matrix.properties.is_density import is_density
+from toqito.linear_algebra.properties.is_density import is_density
 
 
 class TestRandomDensity(unittest.TestCase):

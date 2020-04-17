@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.matrix.properties.is_density import is_density
+from toqito.linear_algebra.properties.is_density import is_density
 from toqito.random.random_density_matrix import random_density_matrix
 
 

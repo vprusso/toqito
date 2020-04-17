@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.super_operators.realignment import realignment
+from toqito.maps.realignment import realignment
 
 
 class TestRealignment(unittest.TestCase):

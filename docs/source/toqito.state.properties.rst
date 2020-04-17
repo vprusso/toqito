@@ -1,53 +1,53 @@
-toqito.state.properties package
+toqito.states.properties package
 ===============================
 
 Submodules
 ----------
 
-toqito.state.properties.is\_mixed module
+toqito.states.properties.is\_mixed module
 ----------------------------------------
 
-.. automodule:: toqito.state.properties.is_mixed
+.. automodule:: toqito.states.properties.is_mixed
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.state.properties.is\_mub module
+toqito.states.properties.is\_mub module
 --------------------------------------
 
-.. automodule:: toqito.state.properties.is_mub
+.. automodule:: toqito.states.properties.is_mub
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.state.properties.is\_ppt module
+toqito.states.properties.is\_ppt module
 --------------------------------------
 
-.. automodule:: toqito.state.properties.is_ppt
+.. automodule:: toqito.states.properties.is_ppt
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.state.properties.is\_product\_vector module
+toqito.states.properties.is\_product\_vector module
 --------------------------------------------------
 
-.. automodule:: toqito.state.properties.is_product_vector
+.. automodule:: toqito.states.properties.is_product_vector
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.state.properties.is\_pure module
+toqito.states.properties.is\_pure module
 ---------------------------------------
 
-.. automodule:: toqito.state.properties.is_pure
+.. automodule:: toqito.states.properties.is_pure
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.state.properties.is\_quantum\_latin\_square module
+toqito.states.properties.is\_quantum\_latin\_square module
 ---------------------------------------------------------
 
-.. automodule:: toqito.state.properties.is_quantum_latin_square
+.. automodule:: toqito.states.properties.is_quantum_latin_square
    :members:
    :undoc-members:
    :show-inheritance:
@@ -56,7 +56,7 @@ toqito.state.properties.is\_quantum\_latin\_square module
 Module contents
 ---------------
 
-.. automodule:: toqito.state.properties
+.. automodule:: toqito.states.properties
    :members:
    :undoc-members:
    :show-inheritance:

@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from toqito.base.ket import ket
-from toqito.state.states.domino import domino
+from toqito.states.states.domino import domino
 
 
 class TestDomino(unittest.TestCase):

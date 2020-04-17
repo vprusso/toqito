@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.matrix.properties.is_normal import is_normal
+from toqito.linear_algebra.properties.is_normal import is_normal
 
 
 class TestIsNormal(unittest.TestCase):

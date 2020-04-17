@@ -1,6 +1,6 @@
 """Computes the concurrence for a bipartite system."""
 import numpy as np
-from toqito.matrix.matrices.pauli import pauli
+from toqito.linear_algebra.matrices.pauli import pauli
 
 
 def concurrence(rho: np.ndarray) -> float:

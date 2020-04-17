@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.super_operators.partial_trace import partial_trace
+from toqito.maps.partial_trace import partial_trace
 
 
 class TestPartialTrace(unittest.TestCase):

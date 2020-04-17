@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from toqito.base.ket import ket
-from toqito.matrix.operations.tensor import tensor, tensor_n, tensor_list
+from toqito.linear_algebra.operations.tensor import tensor, tensor_n, tensor_list
 
 
 class TestTensor(unittest.TestCase):

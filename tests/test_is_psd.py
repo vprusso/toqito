@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.matrix.properties.is_psd import is_psd
+from toqito.linear_algebra.properties.is_psd import is_psd
 
 
 class TestIsPSD(unittest.TestCase):

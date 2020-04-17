@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.matrix.matrices.gen_pauli import gen_pauli
+from toqito.linear_algebra.matrices.gen_pauli import gen_pauli
 
 
 class TestGenPauli(unittest.TestCase):

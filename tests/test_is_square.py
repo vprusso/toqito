@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.matrix.properties.is_square import is_square
+from toqito.linear_algebra.properties.is_square import is_square
 
 
 class TestIsSquare(unittest.TestCase):

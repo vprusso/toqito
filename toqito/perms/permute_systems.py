@@ -5,7 +5,7 @@ import operator
 import numpy as np
 
 from scipy import sparse
-from toqito.matrix.operations.vec import vec
+from toqito.linear_algebra.operations.vec import vec
 
 
 def permute_systems(

@@ -1,61 +1,61 @@
-toqito.state.distance package
+toqito.states.distance package
 =============================
 
 Submodules
 ----------
 
-toqito.state.distance.entropy module
+toqito.states.distance.entropy module
 ------------------------------------
 
-.. automodule:: toqito.state.distance.entropy
+.. automodule:: toqito.states.distance.entropy
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.state.distance.fidelity module
+toqito.states.distance.fidelity module
 -------------------------------------
 
-.. automodule:: toqito.state.distance.fidelity
+.. automodule:: toqito.states.distance.fidelity
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.state.distance.helstrom\_holevo module
+toqito.states.distance.helstrom\_holevo module
 ---------------------------------------------
 
-.. automodule:: toqito.state.distance.helstrom_holevo
+.. automodule:: toqito.states.distance.helstrom_holevo
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.state.distance.purity module
+toqito.states.distance.purity module
 -----------------------------------
 
-.. automodule:: toqito.state.distance.purity
+.. automodule:: toqito.states.distance.purity
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.state.distance.super\_fidelity module
+toqito.states.distance.super\_fidelity module
 --------------------------------------------
 
-.. automodule:: toqito.state.distance.super_fidelity
+.. automodule:: toqito.states.distance.super_fidelity
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.state.distance.trace\_distance module
+toqito.states.distance.trace\_distance module
 --------------------------------------------
 
-.. automodule:: toqito.state.distance.trace_distance
+.. automodule:: toqito.states.distance.trace_distance
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.state.distance.trace\_norm module
+toqito.states.distance.trace\_norm module
 ----------------------------------------
 
-.. automodule:: toqito.state.distance.trace_norm
+.. automodule:: toqito.states.distance.trace_norm
    :members:
    :undoc-members:
    :show-inheritance:
@@ -64,7 +64,7 @@ toqito.state.distance.trace\_norm module
 Module contents
 ---------------
 
-.. automodule:: toqito.state.distance
+.. automodule:: toqito.states.distance
    :members:
    :undoc-members:
    :show-inheritance:

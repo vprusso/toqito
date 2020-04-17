@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from toqito.base.ket import ket
-from toqito.state.properties.is_mub import is_mub
+from toqito.states.properties.is_mub import is_mub
 
 
 class TestIsMUB(unittest.TestCase):

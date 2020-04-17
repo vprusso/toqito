@@ -3,8 +3,8 @@ import unittest
 import numpy as np
 
 from toqito.base.ket import ket
-from toqito.state.states.bell import bell
-from toqito.state.optimizations.state_distinguishability import state_distinguishability
+from toqito.states.states.bell import bell
+from toqito.states.optimizations.state_distinguishability import state_distinguishability
 
 
 class TestStateDistinguishability(unittest.TestCase):

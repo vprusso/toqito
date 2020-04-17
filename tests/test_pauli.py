@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 import scipy
 
-from toqito.matrix.matrices.pauli import pauli
+from toqito.linear_algebra.matrices.pauli import pauli
 
 
 class TestPauli(unittest.TestCase):

@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from toqito.base.ket import ket
-from toqito.state.states.bell import bell
+from toqito.states.states.bell import bell
 
 
 class TestBell(unittest.TestCase):

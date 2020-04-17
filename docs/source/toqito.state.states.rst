@@ -1,101 +1,101 @@
-toqito.state.states package
+toqito.states.states package
 ===========================
 
 Submodules
 ----------
 
-toqito.state.states.bell module
+toqito.states.states.bell module
 -------------------------------
 
-.. automodule:: toqito.state.states.bell
+.. automodule:: toqito.states.states.bell
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.state.states.chessboard module
+toqito.states.states.chessboard module
 -------------------------------------
 
-.. automodule:: toqito.state.states.chessboard
+.. automodule:: toqito.states.states.chessboard
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.state.states.domino module
+toqito.states.states.domino module
 ---------------------------------
 
-.. automodule:: toqito.state.states.domino
+.. automodule:: toqito.states.states.domino
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.state.states.gen\_bell module
+toqito.states.states.gen\_bell module
 ------------------------------------
 
-.. automodule:: toqito.state.states.gen_bell
+.. automodule:: toqito.states.states.gen_bell
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.state.states.ghz module
+toqito.states.states.ghz module
 ------------------------------
 
-.. automodule:: toqito.state.states.ghz
+.. automodule:: toqito.states.states.ghz
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.state.states.gisin module
+toqito.states.states.gisin module
 --------------------------------
 
-.. automodule:: toqito.state.states.gisin
+.. automodule:: toqito.states.states.gisin
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.state.states.horodecki module
+toqito.states.states.horodecki module
 ------------------------------------
 
-.. automodule:: toqito.state.states.horodecki
+.. automodule:: toqito.states.states.horodecki
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.state.states.isotropic module
+toqito.states.states.isotropic module
 ------------------------------------
 
-.. automodule:: toqito.state.states.isotropic
+.. automodule:: toqito.states.states.isotropic
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.state.states.max\_entangled module
+toqito.states.states.max\_entangled module
 -----------------------------------------
 
-.. automodule:: toqito.state.states.max_entangled
+.. automodule:: toqito.states.states.max_entangled
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.state.states.max\_mixed module
+toqito.states.states.max\_mixed module
 -------------------------------------
 
-.. automodule:: toqito.state.states.max_mixed
+.. automodule:: toqito.states.states.max_mixed
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.state.states.w\_state module
+toqito.states.states.w\_state module
 -----------------------------------
 
-.. automodule:: toqito.state.states.w_state
+.. automodule:: toqito.states.states.w_state
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.state.states.werner module
+toqito.states.states.werner module
 ---------------------------------
 
-.. automodule:: toqito.state.states.werner
+.. automodule:: toqito.states.states.werner
    :members:
    :undoc-members:
    :show-inheritance:
@@ -104,7 +104,7 @@ toqito.state.states.werner module
 Module contents
 ---------------
 
-.. automodule:: toqito.state.states
+.. automodule:: toqito.states.states
    :members:
    :undoc-members:
    :show-inheritance:

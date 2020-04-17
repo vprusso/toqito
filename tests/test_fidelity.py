@@ -3,7 +3,7 @@ import unittest
 import cvxpy
 import numpy as np
 
-from toqito.state.distance.fidelity import fidelity
+from toqito.states.distance.fidelity import fidelity
 
 
 class TestFidelity(unittest.TestCase):

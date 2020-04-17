@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from scipy.sparse import csr_matrix
-from toqito.matrix.matrices.gell_mann import gell_mann
+from toqito.linear_algebra.matrices.gell_mann import gell_mann
 
 
 class TestGellMann(unittest.TestCase):

@@ -2,8 +2,8 @@
 import unittest
 import numpy as np
 
-from toqito.state.states.bell import bell
-from toqito.state.optimizations.ppt_distinguishability import ppt_distinguishability
+from toqito.states.states.bell import bell
+from toqito.states.optimizations.ppt_distinguishability import ppt_distinguishability
 
 
 class TestPPTDistinguishability(unittest.TestCase):

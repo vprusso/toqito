@@ -2,8 +2,8 @@
 import unittest
 import numpy as np
 
-from toqito.state.states.bell import bell
-from toqito.super_operators.partial_transpose import partial_transpose
+from toqito.states.states.bell import bell
+from toqito.maps.partial_transpose import partial_transpose
 
 
 class TestPartialTranspose(unittest.TestCase):

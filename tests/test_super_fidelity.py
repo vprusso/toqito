@@ -2,8 +2,8 @@
 import unittest
 import numpy as np
 
-from toqito.state.states.bell import bell
-from toqito.state.distance.super_fidelity import super_fidelity
+from toqito.states.states.bell import bell
+from toqito.states.distance.super_fidelity import super_fidelity
 
 
 class TestSuperFidelity(unittest.TestCase):

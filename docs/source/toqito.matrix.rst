@@ -1,4 +1,4 @@
-toqito.matrix package
+toqito.linear_algebra package
 =====================
 
 Subpackages
@@ -7,14 +7,14 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   toqito.matrix.matrices
-   toqito.matrix.operations
-   toqito.matrix.properties
+   toqito.linear_algebra.matrices
+   toqito.linear_algebra.operations
+   toqito.linear_algebra.properties
 
 Module contents
 ---------------
 
-.. automodule:: toqito.matrix
+.. automodule:: toqito.linear_algebra
    :members:
    :undoc-members:
    :show-inheritance:

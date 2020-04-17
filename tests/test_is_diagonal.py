@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.matrix.properties.is_diagonal import is_diagonal
+from toqito.linear_algebra.properties.is_diagonal import is_diagonal
 
 
 class TestIsDiagonal(unittest.TestCase):

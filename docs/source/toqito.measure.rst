@@ -1,13 +1,13 @@
-toqito.measure package
+toqito.measurements package
 ======================
 
 Submodules
 ----------
 
-toqito.measure.is\_povm module
+toqito.measurements.is\_povm module
 ------------------------------
 
-.. automodule:: toqito.measure.is_povm
+.. automodule:: toqito.measurements.is_povm
    :members:
    :undoc-members:
    :show-inheritance:
@@ -16,7 +16,7 @@ toqito.measure.is\_povm module
 Module contents
 ---------------
 
-.. automodule:: toqito.measure
+.. automodule:: toqito.measurements
    :members:
    :undoc-members:
    :show-inheritance:

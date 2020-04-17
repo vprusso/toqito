@@ -3,8 +3,8 @@ import unittest
 import numpy as np
 
 from toqito.base.ket import ket
-from toqito.state.states.ghz import ghz
-from toqito.matrix.operations.tensor import tensor_list
+from toqito.states.states.ghz import ghz
+from toqito.linear_algebra.operations.tensor import tensor_list
 
 
 class TestGHZ(unittest.TestCase):

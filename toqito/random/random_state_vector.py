@@ -2,7 +2,7 @@
 from typing import List, Union
 import numpy as np
 
-from toqito.state.states.max_entangled import max_entangled
+from toqito.states.states.max_entangled import max_entangled
 from toqito.perms.swap import swap
 
 
@@ -28,7 +28,7 @@ def random_state_vector(
     corresponding density matrix of the vector and checking if the density
     matrix is pure.
 
-    >>> from toqito.state.properties.is_pure import is_pure
+    >>> from toqito.states.properties.is_pure import is_pure
     >>> dm = vec.conj().T * vec
     >>> is_pure(dm)
     True
