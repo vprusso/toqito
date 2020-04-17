@@ -1,4 +1,4 @@
-"""Applies a map to a subsystem of an operator."""
+"""Apply map to a subsystem of an operator."""
 from typing import List, Union
 import numpy as np
 from toqito.perms.permute_systems import permute_systems
@@ -12,7 +12,7 @@ def partial_map(
     sys: int = 2,
     dim: Union[List[int], np.ndarray] = None,
 ) -> np.ndarray:
-    r"""Applies a map to a subsystem of an operator.
+    r"""Apply map to a subsystem of an operator.
 
     Applies the operator
 
