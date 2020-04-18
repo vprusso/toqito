@@ -21,7 +21,7 @@ def partial_map(
 
     In other words, it is the result of applying the channel :math:`\Phi` to the
     second subsystem of :math:`rho`, which is assumed to act on two
-    subsystems of equal dimension. 
+    subsystems of equal dimension.
 
     The input `phi_map` should be provided as a Choi matrix.
 
