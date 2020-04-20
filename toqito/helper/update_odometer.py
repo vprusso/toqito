@@ -72,3 +72,4 @@ def update_odometer(
         else:
             # Always return if the odometer doesn't turn over.
             return new_ind
+    return new_ind

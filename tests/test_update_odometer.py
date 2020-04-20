@@ -68,7 +68,8 @@ class TestUpdateOdometer(unittest.TestCase):
         upper_lim = np.array([])
         res = update_odometer(vec, upper_lim)
 
-        self.assertEqual(res, None)
+        bool_mat = np.isclose([], res)
+        self.assertEqual(np.all(bool_mat), True)
 
 
 if __name__ == "__main__":
