@@ -19,6 +19,8 @@ def xor_game_value(
     The quantum value of an XOR game can be solved via the semidefinite program
     from [2]_.
 
+    This function is adapted from the QETLAB package.
+
     Examples
     ==========
 
@@ -117,7 +119,7 @@ def xor_game_value(
     .. [2] Richard Cleve, Peter Hoyer, Ben Toner, John Watrous
         "Consequences and limits of nonlocal strategies."
         Proceedings. 19th IEEE Annual Conference on Computational Complexity,
-        2004.. IEEE, 2004.
+        IEEE, 2004.
         https://arxiv.org/abs/quant-ph/0404076
 
     :param prob_mat: A matrix whose (q_0, q_1)-entry gives the probability that
