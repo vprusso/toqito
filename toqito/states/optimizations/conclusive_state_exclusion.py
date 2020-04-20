@@ -8,7 +8,7 @@ def conclusive_state_exclusion(
     states: List[np.ndarray], probs: List[float] = None
 ) -> float:
     r"""
-    Compute probability of conclusive single state exclusion [1]_, [2]_.
+    Compute probability of conclusive single state exclusion.
 
     The "quantum state exclusion" problem involves a collection of :math:`n`
     quantum states
@@ -42,6 +42,10 @@ def conclusive_state_exclusion(
                                              & M_0, \ldots, M_n >= 0
                 \end{aligned}
             \end{equation}
+
+    The conclusive state exclusion SDP is written explicitly in [BJOP14]_. The
+    problem of conclusive state exclusion was also thought about under a
+    different guise in [PBR12]_.
 
     Examples
     ==========
@@ -82,13 +86,14 @@ def conclusive_state_exclusion(
 
     References
     ==========
-    .. [1] "On the reality of the quantum state"
+    .. [PBR12] "On the reality of the quantum state"
         Pusey, Matthew F., Jonathan Barrett, and Terry Rudolph.
         Nature Physics 8.6 (2012): 475-478.
         arXiv:1111.3328
 
-    .. [2] "Conclusive exclusion of quantum states"
-        Bandyopadhyay, Somshubhro, et al.
+    .. [BJOP14] "Conclusive exclusion of quantum states"
+        Somshubhro Bandyopadhyay, Rahul Jain, Jonathan Oppenheim,
+        Christopher Perry
         Physical Review A 89.2 (2014): 022336.
         arXiv:1306.4683
 

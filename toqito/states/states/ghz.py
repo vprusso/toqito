@@ -7,7 +7,7 @@ import numpy as np
 
 def ghz(dim: int, num_qubits: int, coeff: List[int] = None) -> sparse:
     r"""
-    Generate a (generalized) GHZ state [6]_.
+    Generate a (generalized) GHZ state [WIKGHZ]_.
 
     Returns a `num_qubits`-partite GHZ state acting on `dim` local dimensions,
     described in [1]. For example, `ghz(2, 3)` returns the standard
@@ -64,7 +64,7 @@ def ghz(dim: int, num_qubits: int, coeff: List[int] = None) -> sparse:
 
     References
     ==========
-    .. [6] Going beyond Bell's theorem.
+    .. [WIKGHZ] Going beyond Bell's theorem.
         D. Greenberger and M. Horne and A. Zeilinger.
         E-print: [quant-ph] arXiv:0712.0921. 2007.
 

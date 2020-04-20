@@ -6,7 +6,7 @@ import numpy as np
 
 def is_pure(state: Union[List[np.ndarray], np.ndarray]) -> bool:
     r"""
-    Determine if a given state is pure or list of states are pure [5]_.
+    Determine if a given state is pure or list of states are pure [WIKPUR]_.
 
     A state is said to be pure if it is a density matrix with rank equal to
     1. Equivalently, the state :math: `\rho` is pure if there exists a unit
@@ -62,7 +62,7 @@ def is_pure(state: Union[List[np.ndarray], np.ndarray]) -> bool:
 
     References
     ==========
-    .. [5] Wikipedia: Quantum state - Pure states
+    .. [WIKPUR] Wikipedia: Quantum state - Pure states
         https://en.wikipedia.org/wiki/Quantum_state#Pure_states
 
     :param state: The density matrix representing the quantum state or a list

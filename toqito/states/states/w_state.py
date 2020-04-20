@@ -6,9 +6,9 @@ from scipy.sparse import csr_matrix
 
 def w_state(num_qubits: int, coeff: List[int] = None) -> np.ndarray:
     r"""
-    Produce a W-state [13]_.
+    Produce a W-state [DVC00]_.
 
-    Returns the W-state described in [13]_. The W-state on `num_qubits` qubits
+    Returns the W-state described in [DVC00]. The W-state on `num_qubits` qubits
     is defined by:
 
     .. math::
@@ -70,7 +70,7 @@ def w_state(num_qubits: int, coeff: List[int] = None) -> np.ndarray:
 
     References
     ==========
-    .. [13] Three qubits can be entangled in two inequivalent ways.
+    .. [DVC00] Three qubits can be entangled in two inequivalent ways.
         W. Dur, G. Vidal, and J. I. Cirac.
         E-print: arXiv:quant-ph/0005115, 2000.
 

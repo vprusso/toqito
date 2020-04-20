@@ -5,7 +5,7 @@ from toqito.core.ket import ket
 
 def bell(idx: int) -> np.ndarray:
     r"""
-    Produce a Bell state [1]_.
+    Produce a Bell state [WIKBELL]_.
 
     Returns one of the following four Bell states depending on the value
     of `idx`:
@@ -43,7 +43,7 @@ def bell(idx: int) -> np.ndarray:
 
     References
     ==========
-    .. [1] Wikipedia: Bell state
+    .. [WIKBELL] Wikipedia: Bell state
         https://en.wikipedia.org/wiki/Bell_state
 
     :param idx: A parameter in [0, 1, 2, 3]

@@ -4,9 +4,9 @@ import numpy as np
 
 def gisin(lambda_var: float, theta: float) -> np.ndarray:
     r"""
-    Produce a Gisin state [7]_.
+    Produce a Gisin state [GIS96]_.
 
-    Returns the Gisin state described in [7]_.
+    Returns the Gisin state described in [GIS96]_.
 
     Specifically, the Gisin state can be defined as:
 
@@ -45,7 +45,7 @@ def gisin(lambda_var: float, theta: float) -> np.ndarray:
 
     References
     ==========
-    .. [7] N. Gisin.
+    .. [GIS96] N. Gisin.
         Hidden quantum nonlocality revealed by local filters.
         (http://dx.doi.org/10.1016/S0375-9601(96)80001-6). 1996.
 

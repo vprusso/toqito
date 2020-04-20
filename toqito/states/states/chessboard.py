@@ -7,9 +7,9 @@ def chessboard(
     mat_params: List[float], s_param: float = None, t_param: float = None
 ) -> np.ndarray:
     r"""
-    Produce a chessboard state [2]_.
+    Produce a chessboard state [BP00]_.
 
-    Generates the chessboard state defined in [2]_. Note that, for certain
+    Generates the chessboard state defined in [BP00]_. Note that, for certain
     choices of S and T, this state will not have positive partial transpose,
     and thus may not be bound entangled.
 
@@ -41,7 +41,7 @@ def chessboard(
 
     References
     ==========
-    .. [2] Three qubits can be entangled in two inequivalent ways.
+    .. [BP00] Three qubits can be entangled in two inequivalent ways.
         D. Bruss and A. Peres
         Phys. Rev. A, 61:30301(R), 2000
         arXiv: 991.1056

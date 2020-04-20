@@ -5,7 +5,7 @@ from scipy import sparse
 
 def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, sparse.dia.dia_matrix]:
     r"""
-    Produce the maximally mixed state [12]_.
+    Produce the maximally mixed state [AAR6]_.
 
     Produces the maximally mixed state on of `dim` dimensions. The maximally
     mixed state is defined as
@@ -50,7 +50,7 @@ def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, sparse.dia.dia_
 
     References
     ==========
-    .. [12] Scott Aaronson: Lecture 6, Thurs Feb 2: Mixed States
+    .. [AAR6] Scott Aaronson: Lecture 6, Thurs Feb 2: Mixed States
         https://www.scottaaronson.com/qclec/6.pdf
 
     :param dim: Dimension of the entangled state.

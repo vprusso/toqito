@@ -10,7 +10,7 @@ from toqito.perms.swap_operator import swap_operator
 
 def werner(dim: int, alpha: Union[float, List[float]]) -> np.ndarray:
     r"""
-    Produce a Werner state [14]_.
+    Produce a Werner state [WER]_.
 
     A Werner state is a state of the following form
 
@@ -87,7 +87,7 @@ def werner(dim: int, alpha: Union[float, List[float]]) -> np.ndarray:
 
     References
     ==========
-    .. [14] R. F. Werner.
+    .. [WER] R. F. Werner.
         Quantum states with Einstein-Podolsky-Rosen correlations admitting a
         hidden-variable model. Phys. Rev. A, 40(8):4277–4281
 

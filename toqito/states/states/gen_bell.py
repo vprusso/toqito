@@ -6,7 +6,7 @@ from toqito.linear_algebra.operations.vec import vec
 
 def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
     r"""
-    Produce a generalized Bell state [5]_.
+    Produce a generalized Bell state [DL09]_.
 
     Produces a generalized Bell state. Note that the standard Bell states
     can be recovered as:
@@ -88,7 +88,7 @@ def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
 
     References
     ==========
-    .. [5] Sych, Denis, and Gerd Leuchs.
+    .. [DL09] Sych, Denis, and Gerd Leuchs.
         "A complete basis of generalized Bell states."
         New Journal of Physics 11.1 (2009): 013006.
 

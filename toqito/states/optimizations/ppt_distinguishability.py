@@ -10,13 +10,13 @@ def ppt_distinguishability(
     states: List[np.ndarray], probs: List[float] = None
 ) -> float:
     r"""
-    Compute probability of distinguishing a state via PPT measurements [5]_.
+    Compute probability of distinguishing a state via PPT measurements [COS13]_.
 
     Implements the semidefinite program (SDP) whose optimal value is equal to
     the maximum probability of perfectly distinguishing orthogonal maximally
     entangled states using any PPT measurement; a measurement whose operators
     are positive under partial transpose. This SDP was explicitly provided in
-    [5]_.
+    [COS13]_.
 
     Specifically, the function implements the dual problem (as this is
     computationally more efficient) and is defined as:
@@ -46,7 +46,7 @@ def ppt_distinguishability(
             |\psi_3 \rangle = \frac{|00\rangle - |11\rangle}{\sqrt{2}}. \quad
         \end{equation}
 
-    It was illustrated in [6]_ that for the following set of states:
+    It was illustrated in [YDY12]_ that for the following set of states:
 
     The PPT distinguishability of the following states
 
@@ -56,7 +56,7 @@ def ppt_distinguishability(
             \rho_2^{(2)} = \psi_1 \otimes \psi_1, \quad
         \end{equation}
 
-    should yield :math:`7/8 ~ 0.875` as was proved in [6]_.
+    should yield :math:`7/8 ~ 0.875` as was proved in [YDY12]_.
 
     >>> from toqito.states.states.bell import bell
     >>> from toqito.states.optimizations.ppt_distinguishability import ppt_distinguishability
@@ -85,13 +85,13 @@ def ppt_distinguishability(
 
     References
     ==========
-    .. [5] Cosentino, Alessandro.
+    .. [COS13] Cosentino, Alessandro.
         "Positive-partial-transpose-indistinguishable states via semidefinite
         programming."
         Physical Review A 87.1 (2013): 012321.
         https://arxiv.org/abs/1205.1031
 
-    .. [6] Yu, Nengkun, Runyao Duan, and Mingsheng Ying.
+    .. [YDY12] Yu, Nengkun, Runyao Duan, and Mingsheng Ying.
         "Four locally indistinguishable ququad-ququad orthogonal
         maximally entangled states."
         Physical review letters 109.2 (2012): 020506.

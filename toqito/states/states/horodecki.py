@@ -5,7 +5,7 @@ import numpy as np
 
 def horodecki(a_param: float, dim: List[int] = None) -> np.ndarray:
     r"""
-    Produce a Horodecki state [8]_, [9]_.
+    Produce a Horodecki state [HOR]_, [CHR]_.
 
     Returns the Horodecki state in either :math:`(3 \otimes 3)`-dimensional
     space or :math:`(2 \otimes 4)`-dimensional space, depending on the
@@ -56,10 +56,10 @@ def horodecki(a_param: float, dim: List[int] = None) -> np.ndarray:
             \end{pmatrix}
         \end{equation}
 
-    Note: Refer to [2] (specifically equations (1) and (2)) for more information
-    on this state and its properties. The 3x3 Horodecki state is defined
-    explicitly in Section 4.1 of [1] and the 2x4 Horodecki state is defined
-    explicitly in Section 4.2 of [1].
+    Note: Refer to [CHR]_ (specifically equations (1) and (2)) for more
+    information on this state and its properties. The 3x3 Horodecki state is
+    defined explicitly in Section 4.1 of [HOR]_ and the 2x4 Horodecki state is
+    defined explicitly in Section 4.2 of [HOR]_.
 
     Examples
     ==========
@@ -112,12 +112,12 @@ def horodecki(a_param: float, dim: List[int] = None) -> np.ndarray:
 
     References
     ==========
-    .. [8] P. Horodecki.
+    .. [HOR] P. Horodecki.
         Separability criterion and inseparable mixed states with positive
         partial transpose.
         arXiv: 970.3004.
 
-    .. [9] K. Chruscinski.
+    .. [CHR] K. Chruscinski.
         On the symmetry of the seminal Horodecki state.
         arXiv: 1009.4385.
     """

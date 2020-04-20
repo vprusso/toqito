@@ -5,7 +5,7 @@ from toqito.core.ket import ket
 
 def domino(idx: int) -> np.ndarray:
     r"""
-    Produce a domino state [3]_, [4]_.
+    Produce a domino state [CBDOM99]_, [UPB99]_.
 
     The orthonormal product basis of domino states is given as
 
@@ -85,12 +85,12 @@ def domino(idx: int) -> np.ndarray:
 
     References
     ==========
-    .. [3] Bennett, Charles H., et al.
+    .. [CBDOM99] Bennett, Charles H., et al.
         Quantum nonlocality without entanglement.
         Phys. Rev. A, 59:1070–1091, Feb 1999.
         https://arxiv.org/abs/quant-ph/9804053
 
-    .. [4] Bennett, Charles H., et al.
+    .. [UPB99] Bennett, Charles H., et al.
         "Unextendible product bases and bound entanglement."
         Physical Review Letters 82.26 (1999): 5385.
 

@@ -10,7 +10,7 @@ def is_ppt(
     mat: np.ndarray, sys: int = 2, dim: Union[int, List[int]] = None, tol: float = None
 ) -> bool:
     r"""
-    Determine whether or not a matrix has positive partial transpose [3]_.
+    Determine whether or not a matrix has positive partial transpose [WIKPPT]_.
 
     Yields either `True` or `False`, indicating that `mat` does or does not
     have positive partial transpose (within numerical error). The variable
@@ -66,7 +66,7 @@ def is_ppt(
 
     References
     ==========
-    .. [3] Quantiki: Positive partial transpose
+    .. [WIKPPT] Quantiki: Positive partial transpose
         https://www.quantiki.org/wiki/positive-partial-transpose
 
     :param mat: A square matrix.

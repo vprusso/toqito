@@ -8,7 +8,7 @@ def max_entangled(
     dim: int, is_sparse: bool = False, is_normalized: bool = True
 ) -> [np.ndarray, sparse.dia.dia_matrix]:
     r"""
-    Produce a maximally entangled bipartite pure state [11]_.
+    Produce a maximally entangled bipartite pure state [WIKENT]_.
 
     Produces a maximally entangled pure state as above that is sparse
     if `is_sparse = True` and is full if `is_sparse = False`. The pure state
@@ -51,7 +51,7 @@ def max_entangled(
 
     References
     ==========
-    .. [11] Wikipedia: Quantum entanglement
+    .. [WIKENT] Wikipedia: Quantum entanglement
         https://en.wikipedia.org/wiki/Quantum_entanglement
 
     :param dim: Dimension of the entangled state.

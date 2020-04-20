@@ -5,7 +5,7 @@ import numpy as np
 
 def is_mub(vec_list: List[Union[np.ndarray, List[Union[float, Any]]]]) -> bool:
     r"""
-    Check if list of vectors constitute a mutually unbiased basis.
+    Check if list of vectors constitute a mutually unbiased basis [WIKMUB]_.
 
     We say that two orthonormal bases
 
@@ -70,7 +70,7 @@ def is_mub(vec_list: List[Union[np.ndarray, List[Union[float, Any]]]]) -> bool:
 
     References
     ==========
-    .. [1] Wikipedia: Mutually unbiased bases
+    .. [WIKMUB] Wikipedia: Mutually unbiased bases
         https://en.wikipedia.org/wiki/Mutually_unbiased_bases
 
     :param vec_list: The list of vectors to check.
