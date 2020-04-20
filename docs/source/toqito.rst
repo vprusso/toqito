@@ -7,7 +7,7 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   toqito.base
+   toqito.core
    toqito.entanglement
    toqito.helper
    toqito.linear_algebra

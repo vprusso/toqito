@@ -10,7 +10,7 @@ def pauli(
     ind: Union[int, str, List[int], List[str]], is_sparse: bool = False
 ) -> Union[np.ndarray, sparse.csr_matrix]:
     r"""
-    Produce a Pauli operator [7]_.
+    Produce a Pauli operator [WIKPAU]_.
 
     Provides the 2-by-2 Pauli matrix indicated by the value of `ind`. The
     variable `ind = 1` gives the Pauli-X operator, `ind = 2` gives the Pauli-Y
@@ -76,7 +76,7 @@ def pauli(
 
     References
     ==========
-    .. [7] Wikipedia: Pauli matrices
+    .. [WIKPAU] Wikipedia: Pauli matrices
         https://en.wikipedia.org/wiki/Pauli_matrices
 
     :param ind: The index to indicate which Pauli operator to generate.

@@ -1,7 +1,7 @@
 """Tests for trace_norm function."""
 import unittest
 import numpy as np
-from toqito.base.ket import ket
+from toqito.core.ket import ket
 from toqito.states.distance.trace_norm import trace_norm
 
 

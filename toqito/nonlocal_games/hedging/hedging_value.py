@@ -8,10 +8,10 @@ from toqito.maps.partial_trace import partial_trace_cvx
 
 class HedgingValue:
     r"""
-    Calculate optimal winning probabilities for hedging scenarios [1]_, [2]_.
+    Calculate optimal winning probabilities for hedging scenarios.
 
     Calculate the maximal and minimal winning probabilities for quantum
-    hedging to occur in certain two-party scenarios.
+    hedging to occur in certain two-party scenarios [MW12]_, [AMR13]_.
 
     Examples
     ==========
@@ -32,7 +32,7 @@ class HedgingValue:
     :math:`\cos(\pi/8)^2 \approx 0.8536`
 
     >>> from numpy import kron, cos, sin, pi, sqrt, isclose
-    >>> from toqito.base.ket import ket
+    >>> from toqito.core.ket import ket
     >>> from toqito.nonlocal_games.hedging.hedging_value import HedgingValue
     >>>
     >>> e_0, e_1 = ket(2, 0), ket(2, 1)

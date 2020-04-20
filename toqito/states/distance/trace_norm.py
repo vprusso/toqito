@@ -4,7 +4,7 @@ import numpy as np
 
 def trace_norm(rho: np.ndarray) -> float:
     r"""
-    Compute the trace norm of the matrix `rho` [7]_.
+    Compute the trace norm of the matrix `rho` [WIKTN]_.
 
     The trace norm :math:`||\rho||_1` of a density matrix :math:`\rho` is the
     sum of the singular values of :math:`\rho`. The singular values are the
@@ -39,7 +39,7 @@ def trace_norm(rho: np.ndarray) -> float:
 
     References
     ==========
-    .. [7] Quantiki: Trace norm
+    .. [WIKTN] Quantiki: Trace norm
         https://www.quantiki.org/wiki/trace-norm
 
     :param rho: The input matrix.

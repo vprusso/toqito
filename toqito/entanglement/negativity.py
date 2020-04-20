@@ -9,7 +9,7 @@ from toqito.maps.partial_transpose import partial_transpose
 
 def negativity(rho: np.ndarray, dim: Union[List[int], int] = None) -> float:
     r"""
-    Compute the negativity of a bipartite quantum state [2]_.
+    Compute the negativity of a bipartite quantum state [WIKNEG]_.
 
     The negativity of a subsystem can be defined in terms of a density matrix
     :math:`\rho`:
@@ -36,7 +36,7 @@ def negativity(rho: np.ndarray, dim: Union[List[int], int] = None) -> float:
 
     References
     ==========
-    .. [2] Wikipedia page for negativity (quantum mechanics):
+    .. [WIKNEG] Wikipedia page for negativity (quantum mechanics):
         https://en.wikipedia.org/wiki/Negativity_(quantum_mechanics)
 
     :param rho: A density matrix of a pure state vector.

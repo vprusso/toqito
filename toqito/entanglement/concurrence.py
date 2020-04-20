@@ -5,7 +5,7 @@ from toqito.linear_algebra.matrices.pauli import pauli
 
 def concurrence(rho: np.ndarray) -> float:
     r"""
-    Calculate the concurrence of a bipartite state [1]_.
+    Calculate the concurrence of a bipartite state [WIKCON]_.
 
     The concurrence of a bipartite state :math:`\rho` is defined as
 
@@ -32,7 +32,7 @@ def concurrence(rho: np.ndarray) -> float:
     The following example calculates this quantity using the `toqito` package.
 
     >>> import numpy as np
-    >>> from toqito.base.ket import ket
+    >>> from toqito.core.ket import ket
     >>> from toqito.entanglement.concurrence import concurrence
     >>> e_0, e_1 = ket(2, 0), ket(2, 1)
     >>> e_00, e_11 = np.kron(e_0, e_0), np.kron(e_1, e_1)
@@ -43,7 +43,7 @@ def concurrence(rho: np.ndarray) -> float:
 
     References
     ==========
-    .. [1] Wikipedia page for concurrence (quantum computing)
+    .. [WIKCON] Wikipedia page for concurrence (quantum computing)
        https://en.wikipedia.org/wiki/Concurrence_(quantum_computing)
 
     :param rho: The bipartite system specified as a matrix.

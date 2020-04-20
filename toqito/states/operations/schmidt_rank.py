@@ -9,7 +9,7 @@ def schmidt_rank(
     vec: np.ndarray, dim: Union[int, List[int], np.ndarray] = None
 ) -> float:
     r"""
-    Compute the Schmidt rank [2]_.
+    Compute the Schmidt rank [WIKSR]_.
 
     For complex Euclidean spaces :math:`\mathcal{X}` and :math:`\mathcal{Y}`, a
     pure state :math:`u \in \mathcal{X} \otimes \mathcal{Y}` possesses an
@@ -64,7 +64,7 @@ def schmidt_rank(
     Computing the Schmidt rank of a separable state should yield a value equal
     to :math:`1`.
 
-    >>> from toqito.base.ket import ket
+    >>> from toqito.core.ket import ket
     >>> from toqito.states.operations.schmidt_rank import schmidt_rank
     >>> import numpy as np
     >>> e_0, e_1 = ket(2, 0), ket(2, 1)
@@ -80,7 +80,7 @@ def schmidt_rank(
 
     References
     ==========
-    .. [2] Wikipedia: Schmidt rank
+    .. [WIKSR] Wikipedia: Schmidt rank
         https://en.wikipedia.org/wiki/Schmidt_decomposition#Schmidt_rank_and_entanglement
 
     :param vec: A bipartite vector to have its Schmidt rank computed.

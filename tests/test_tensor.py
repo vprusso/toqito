@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.base.ket import ket
+from toqito.core.ket import ket
 from toqito.linear_algebra.operations.tensor import tensor, tensor_n, tensor_list
 
 

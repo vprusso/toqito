@@ -5,7 +5,7 @@ from scipy.sparse import csr_matrix
 
 def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray:
     r"""
-    Produce a Gell-Mann operator [3]_.
+    Produce a Gell-Mann operator [WIKGELL]_.
 
     Generates the 3-by-3 Gell-Mann matrix indicated by the value of `ind`.
     `ind = 0` gives the identity matrix, while values 1 through 8 each indicate
@@ -86,7 +86,7 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray:
 
     References
     ==========
-    .. [3] Wikipedia: Gell-Mann matrices,
+    .. [WIKGELL] Wikipedia: Gell-Mann matrices,
         https://en.wikipedia.org/wiki/Gell-Mann_matrices
 
     :param ind: An integer between 0 and 8 (inclusive).

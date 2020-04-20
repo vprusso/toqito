@@ -6,7 +6,7 @@ import numpy as np
 
 def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     r"""
-    Compute the fidelity of two density matrices [2]_.
+    Compute the fidelity of two density matrices [WIKFID]_.
 
     Calculate the fidelity between the two density matrices `rho` and `sigma`,
     defined by:
@@ -51,7 +51,7 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
 
     References
     ==========
-    .. [2] Wikipedia: Fidelity of quantum states
+    .. [WIKFID] Wikipedia: Fidelity of quantum states
         https://en.wikipedia.org/wiki/Fidelity_of_quantum_states
 
     :param rho: Density matrix.

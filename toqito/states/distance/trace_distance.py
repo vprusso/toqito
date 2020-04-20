@@ -5,7 +5,15 @@ from toqito.states.distance.trace_norm import trace_norm
 
 def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float:
     r"""
-    Compute the trace distance between density operators `rho` and `sigma` [6]_.
+    Compute the trace distance between density operators `rho` and `sigma`.
+
+    The trace distance between :math:`\rho` and :math:`\sigma` is defined as
+
+    .. math::
+        \delta(\rho, \sigma) = \frac{1}{2} \left( \text{Tr}(\left| \rho - \sigma
+         \right| \right).
+
+    More information on the trace distance can be found in [WIKTD]_.
 
     Examples
     ==========
@@ -38,7 +46,7 @@ def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float:
 
     References
     ==========
-    .. [6] Quantiki: Trace distance
+    .. [WIKTD] Quantiki: Trace distance
             https://www.quantiki.org/wiki/trace-distance
 
     :param rho: An input matrix.

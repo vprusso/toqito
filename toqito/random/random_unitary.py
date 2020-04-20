@@ -5,7 +5,7 @@ import numpy as np
 
 def random_unitary(dim: Union[List[int], int], is_real: bool = False) -> np.ndarray:
     """
-    Generate a random unitary or orthogonal matrix [2]_.
+    Generate a random unitary or orthogonal matrix [MO09]_.
 
     Calculates a random unitary matrix (if `is_real = False`) or a random real
     orthogonal matrix (if `is_real = True`), uniformly distributed according to
@@ -15,8 +15,8 @@ def random_unitary(dim: Union[List[int], int], is_real: bool = False) -> np.ndar
     ==========
 
     Using `toqito`, we may generate a random unitary matrix. Here is an example
-    of how we may be able to generate a random $2$-dimensional random unitary
-    matrix with complex entries.
+    of how we may be able to generate a random :math:`2`-dimensional random
+    unitary matrix with complex entries.
 
     >>> from toqito.random.random_unitary import random_unitary
     >>> complex_dm = random_unitary(2)
@@ -67,7 +67,7 @@ def random_unitary(dim: Union[List[int], int], is_real: bool = False) -> np.ndar
 
     References
     ==========
-    .. [2] How to generate a random unitary matrix,
+    .. [MO09] How to generate a random unitary matrix,
         Maris Ozols
         March 16, 2009,
         home.lu.lv/~sd20008/papers/essays/Random%20unitary%20%5Bpaper%5D.pdf

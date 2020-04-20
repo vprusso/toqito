@@ -5,7 +5,7 @@ import numpy as np
 
 def tensor(input_1: np.ndarray, input_2: np.ndarray) -> np.ndarray:
     r"""
-    Tensor product between two matrices [1]_.
+    Tensor product between two matrices [WIKTEN]_.
 
     Tensor two matrices or vectors together using the standard kronecker
     operation provided from numpy.
@@ -31,7 +31,7 @@ def tensor(input_1: np.ndarray, input_2: np.ndarray) -> np.ndarray:
 
     This can be accomplished in `toqito` as follows.
 
-    >>> from toqito.base.ket import ket
+    >>> from toqito.core.ket import ket
     >>> from toqito.linear_algebra.operations.tensor import tensor
     >>> e_0 = ket(2, 0)
     >>> tensor(e_0, e_0)
@@ -42,7 +42,7 @@ def tensor(input_1: np.ndarray, input_2: np.ndarray) -> np.ndarray:
 
     References
     ==========
-    .. [1] Wikipedia: Tensor product
+    .. [WIKTEN] Wikipedia: Tensor product
         https://en.wikipedia.org/wiki/Tensor_product
 
     :param input_1: The first matrix argument.
@@ -72,7 +72,7 @@ def tensor_n(input_val: np.ndarray, num_tensor: int) -> np.ndarray:
 
     in `toqito` as follows.
 
-    >>> from toqito.base.ket import ket
+    >>> from toqito.core.ket import ket
     >>> from toqito.linear_algebra.operations.tensor import tensor_n
     >>> e_0 = ket(2, 0)
     >>> tensor_n(e_0, 3)
@@ -120,7 +120,7 @@ def tensor_list(input_list: List[np.ndarray]) -> np.ndarray:
     compute :math:`|0 \rangle \otimes |1 \rangle \otimes |0 \rangle`, we can do
     so as follows.
 
-    >>> from toqito.base.ket import ket
+    >>> from toqito.core.ket import ket
     >>> from toqito.linear_algebra.operations.tensor import tensor_list
     >>> e_0, e_1 = ket(2, 0), ket(2, 1)
     >>> tensor_list([e_0, e_1, e_0])

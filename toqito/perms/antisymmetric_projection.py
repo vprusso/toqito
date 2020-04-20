@@ -10,7 +10,7 @@ def antisymmetric_projection(
     dim: int, p_param: int = 2, partial: bool = False
 ) -> sparse.lil_matrix:
     r"""
-    Produce the projection onto the antisymmetric subspace [1]_.
+    Produce the projection onto the antisymmetric subspace [WIKASYM]_.
 
     Produces the orthogonal projection onto the anti-symmetric subspace of `p`
     copies of `dim`-dimensional space. If `partial = True`, then the
@@ -69,7 +69,7 @@ def antisymmetric_projection(
 
     References
     ==========
-    .. [1] Wikipedia: Anti-symmetric operator
+    .. [WIKASYM] Wikipedia: Anti-symmetric operator
         https://en.wikipedia.org/wiki/Anti-symmetric_operator
 
     :param dim: The dimension of the local systems.

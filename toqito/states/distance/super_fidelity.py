@@ -5,7 +5,7 @@ import numpy as np
 
 def super_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     r"""
-    Compute the super fidelity of two density matrices [5]_.
+    Compute the super fidelity of two density matrices [WIKSFID]_.
 
     The super fidelity is a measure of similarity between density operators.
     It is defined as
@@ -50,7 +50,7 @@ def super_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
 
     References
     ==========
-    .. [5] J. A. Miszczak, Z. Puchała, P. Horodecki, A. Uhlmann, K. Życzkowski
+    .. [WIKSFID] J. A. Miszczak, Z. Puchała, P. Horodecki, A. Uhlmann, K. Życzkowski
         "Sub--and super--fidelity as bounds for quantum fidelity."
         arXiv preprint arXiv:0805.2037 (2008).
         https://arxiv.org/abs/0805.2037

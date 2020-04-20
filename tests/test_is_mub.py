@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.base.ket import ket
+from toqito.core.ket import ket
 from toqito.states.properties.is_mub import is_mub
 
 

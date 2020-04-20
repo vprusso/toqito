@@ -4,7 +4,7 @@ import numpy as np
 
 def is_pd(mat: np.ndarray) -> bool:
     r"""
-    Check if matrix is positive definite (PD) [6]_.
+    Check if matrix is positive definite (PD) [WIKPD]_.
 
     Examples
     ==========
@@ -48,7 +48,7 @@ def is_pd(mat: np.ndarray) -> bool:
 
     References
     ==========
-    .. [6] Wikipedia: Definiteness of a matrix.
+    .. [WIKPD] Wikipedia: Definiteness of a matrix.
         https://en.wikipedia.org/wiki/Definiteness_of_a_matrix
 
     :param mat: Matrix to check.

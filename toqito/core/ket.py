@@ -5,7 +5,7 @@ import numpy as np
 def ket(dim: int, pos: int) -> np.ndarray:
     r"""
 
-    Obtain the ket of dimension `dim` [2]_.
+    Obtain the ket of dimension `dim` [WIKKET]_.
 
     Examples
     ==========
@@ -21,21 +21,21 @@ def ket(dim: int, pos: int) -> np.ndarray:
 
     Example:  Ket vector: :math:`| 0 \rangle`.
 
-    >>> from toqito.base.ket import ket
+    >>> from toqito.core.ket import ket
     >>> ket(2, 0)
     [[1]
     [0]]
 
     Example:  Ket vector: :math:`| 1 \rangle`.
 
-    >>> from toqito.base.ket import ket
+    >>> from toqito.core.ket import ket
     >>> ket(2, 1)
     [[0]
     [1]]
 
     References
     ==========
-    .. [2] Wikipedia page for bra–ket notation:
+    .. [WIKKET] Wikipedia page for bra–ket notation:
            https://en.wikipedia.org/wiki/Bra%E2%80%93ket_notation
 
     :param dim: The dimension of the column vector.

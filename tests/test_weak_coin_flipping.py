@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.base.ket import ket
+from toqito.core.ket import ket
 from toqito.nonlocal_games.coin_flipping.weak_coin_flipping import weak_coin_flipping
 
 

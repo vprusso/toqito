@@ -4,7 +4,7 @@ import numpy as np
 
 def vec(mat: np.ndarray) -> np.ndarray:
     r"""
-    Perform the vec operation on a matrix [2]_.
+    Perform the vec operation on a matrix [WATVEC]_.
 
     Stacks the rows of the matrix on top of each other to
     obtain the "vec" representation of the matrix.
@@ -75,7 +75,7 @@ def vec(mat: np.ndarray) -> np.ndarray:
 
     References
     ==========
-    .. [2] Watrous, John.
+    .. [WATVEC] Watrous, John.
         "The theory of quantum information."
         Section: "The operator-vector correspondence".
         Cambridge University Press, 2018.

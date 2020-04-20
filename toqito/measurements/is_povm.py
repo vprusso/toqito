@@ -7,7 +7,7 @@ from toqito.linear_algebra.properties.is_psd import is_psd
 
 def is_povm(mat_list: List[np.ndarray]) -> bool:
     r"""
-    Determine if a list of matrices constitute a valid set of POVMs [1]_.
+    Determine if a list of matrices constitute a valid set of POVMs [WIKPOVM]_.
 
     A valid set of measurements are defined by a set of positive semidefinite
     operators
@@ -81,7 +81,7 @@ def is_povm(mat_list: List[np.ndarray]) -> bool:
 
     References
     ==========
-    .. [1] Wikipedia: POVM
+    .. [WIKPOVM] Wikipedia: POVM
         https://en.wikipedia.org/wiki/POVM
 
     :param mat_list: A list of matrices.

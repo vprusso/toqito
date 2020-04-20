@@ -1,7 +1,7 @@
 """Tests for helstrom_holevo function."""
 import unittest
 import numpy as np
-from toqito.base.ket import ket
+from toqito.core.ket import ket
 from toqito.states.distance.helstrom_holevo import helstrom_holevo
 
 

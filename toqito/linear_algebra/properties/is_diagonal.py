@@ -5,7 +5,7 @@ from toqito.linear_algebra.properties.is_square import is_square
 
 def is_diagonal(mat: np.ndarray) -> bool:
     r"""
-    Determine if a matrix is diagonal [2]_.
+    Determine if a matrix is diagonal [WIKDIA]_.
 
     A matrix is diagonal if the matrix is square and if the diagonal of the
     matrix is non-zero, while the off-diagonal elements are all zero.
@@ -21,7 +21,8 @@ def is_diagonal(mat: np.ndarray) -> bool:
             \end{pmatrix}
         \end{equation}
 
-    This quick implementation is given by Daniel F. from StackOverflow in [3]_.
+    This quick implementation is given by Daniel F. from StackOverflow in
+    [SODIA]_.
 
     Examples
     ==========
@@ -60,10 +61,10 @@ def is_diagonal(mat: np.ndarray) -> bool:
 
     References
     ==========
-    .. [2] Wikipedia: Diagonal matrix
+    .. [WIKDIA] Wikipedia: Diagonal matrix
         https://en.wikipedia.org/wiki/Diagonal_matrix
 
-    .. [3] StackOverflow post
+    .. [SODIA] StackOverflow post
         https://stackoverflow.com/questions/43884189/
 
     :param mat: The matrix to check.

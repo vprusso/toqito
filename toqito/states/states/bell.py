@@ -1,6 +1,6 @@
 """Produces a Bell state."""
 import numpy as np
-from toqito.base.ket import ket
+from toqito.core.ket import ket
 
 
 def bell(idx: int) -> np.ndarray:

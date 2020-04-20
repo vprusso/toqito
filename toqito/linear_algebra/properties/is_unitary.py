@@ -5,7 +5,7 @@ import numpy as np
 
 def is_unitary(mat: Union[np.ndarray, np.matrix]) -> bool:
     r"""
-    Check if matrix is unitary [11]_.
+    Check if matrix is unitary [WIKUNI]_.
 
     A matrix is unitary if its inverse is equal to its conjugate transpose.
 
@@ -65,7 +65,7 @@ def is_unitary(mat: Union[np.ndarray, np.matrix]) -> bool:
 
     References
     ==========
-    .. [11] Wikipedia: Unitary matrix.
+    .. [WIKUNI] Wikipedia: Unitary matrix.
         https://en.wikipedia.org/wiki/Unitary_matrix
 
     :param mat: Matrix to check.

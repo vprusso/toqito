@@ -5,11 +5,11 @@ from toqito.states.distance.trace_norm import trace_norm
 
 def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float:
     r"""
-    Compute the Helstrom-Holevo distance between states `rho` and `sigma` [3]_.
+    Compute the Helstrom-Holevo distance between states `rho` and `sigma`.
 
     In general, the best success probability to discriminate
     two mixed states represented by :math:`\rho_1` and :math:`\rho_2` is given
-    by 1.
+    by 1 [WIKHEHO]_.
 
     In general, the best success probability to discriminate two mixed states
     represented by :math:`\rho` and :math:`\sigma` is given by
@@ -40,7 +40,7 @@ def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float:
     Calculating the Helstrom-Holevo distance of states that are identical yield
     a value of :math:`1/2`. This can be verified in `toqito` as follows.
 
-    >>> from toqito.base.ket import ket
+    >>> from toqito.core.ket import ket
     >>> from toqito.states.distance.helstrom_holevo import helstrom_holevo
     >>> import numpy as np
     >>> e_0, e_1 = ket(2, 0), ket(2, 1)
@@ -56,7 +56,7 @@ def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float:
 
     References
     ==========
-    .. [3] Wikipedia: Holevo's theorem.
+    .. [WIKHEHO] Wikipedia: Holevo's theorem.
         https://en.wikipedia.org/wiki/Holevo%27s_theorem
 
     :param rho: An input matrix.

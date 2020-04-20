@@ -6,7 +6,7 @@ from scipy import sparse
 
 def iden(dim: int, is_sparse: bool = False) -> np.ndarray:
     r"""
-    Calculate the `dim`-by-`dim` identity matrix [6]_.
+    Calculate the `dim`-by-`dim` identity matrix [WIKID]_.
 
     Returns the `dim`-by-`dim` identity matrix. If `is_sparse = False` then
     the matrix will be full. If `is_sparse = True` then the matrix will be
@@ -54,7 +54,7 @@ def iden(dim: int, is_sparse: bool = False) -> np.ndarray:
 
     References
     ==========
-    .. [6] Wikipedia: Identity matrix
+    .. [WIKID] Wikipedia: Identity matrix
         https://en.wikipedia.org/wiki/Identity_matrix
 
     :param dim: Integer representing dimension of identity matrix.

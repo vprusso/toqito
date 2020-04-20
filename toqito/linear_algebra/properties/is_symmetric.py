@@ -4,7 +4,7 @@ import numpy as np
 
 def is_symmetric(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
     r"""
-    Determine if a matrix is symmetric [10]_.
+    Determine if a matrix is symmetric [WIKSYM]_.
 
     The following 3x3 matrix is an example of a symmetric matrix:
 
@@ -54,7 +54,7 @@ def is_symmetric(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> b
 
     References
     ==========
-    .. [10] Wikipedia: Symmetric matrix
+    .. [WIKSYM] Wikipedia: Symmetric matrix
         https://en.wikipedia.org/wiki/Symmetric_matrix
 
     :param mat: The matrix to check.

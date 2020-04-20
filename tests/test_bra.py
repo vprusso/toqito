@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.base.bra import bra
+from toqito.core.bra import bra
 
 
 class TestBra(unittest.TestCase):

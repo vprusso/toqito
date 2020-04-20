@@ -8,7 +8,7 @@ from toqito.linear_algebra.matrices.shift import shift
 
 def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
     r"""
-    Produce generalized Pauli operator [5]_.
+    Produce generalized Pauli operator [WIKGENP]_.
 
     Generates a `dim`-by-`dim` unitary operator. More specifically, it is the
     operator `X^k_1*Z^k_2`, where X and Z are the "shift" and "clock" operators
@@ -59,7 +59,7 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
 
     References
     ==========
-    .. [5] Wikipedia: Generalizations of Pauli matrices
+    .. [WIKGENP] Wikipedia: Generalizations of Pauli matrices
         https://en.wikipedia.org/wiki/Generalizations_of_Pauli_matrices
 
     :param k_1: (a non-negative integer from 0 to `dim-1` inclusive).

@@ -6,7 +6,7 @@ from scipy import linalg
 
 def perm_sign(perm: Union[np.ndarray, List[int]]) -> float:
     """
-    Compute the "sign" of a permutation [2]_.
+    Compute the "sign" of a permutation [WIKPARP]_.
 
     The sign (either -1 or 1) of the permutation `perm` is -1**`inv`, where
     `inv` is the number of inversions contained in `perm`.
@@ -40,7 +40,7 @@ def perm_sign(perm: Union[np.ndarray, List[int]]) -> float:
 
     References
     ==========
-    .. [2] Wikipedia: Parity of a permutation
+    .. [WIKPARP] Wikipedia: Parity of a permutation
         https://en.wikipedia.org/wiki/Parity_of_a_permutation
 
     :param perm: The permutation vector to be checked.

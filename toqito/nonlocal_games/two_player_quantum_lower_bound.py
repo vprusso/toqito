@@ -14,7 +14,7 @@ def two_player_quantum_lower_bound(
     tol: float = 10e-6,
 ):
     r"""
-    Compute a lower bound on the quantum value of a nonlocal game [1]_.
+    Compute a lower bound on the quantum value of a nonlocal game [LD07]_.
 
     Calculates a lower bound on the maximum value that the specified nonlocal
     game can take on in quantum mechanical settings where Alice and Bob each
@@ -31,7 +31,7 @@ def two_player_quantum_lower_bound(
     times and keep the highest value obtained.
 
     The algorithm is based on the alternating projections algorithm as it can
-    be applied to Bell inequalities as shown in [1]_.
+    be applied to Bell inequalities as shown in [LD07]_.
 
     The alternating projection algorithm has also been referred to as the
     "see-saw" algorithm as it goes back and forth between the following two
@@ -134,7 +134,7 @@ def two_player_quantum_lower_bound(
 
     References
     ==========
-    .. [1] Liang, Yeong-Cherng, and Andrew C. Doherty.
+    .. [LD07] Liang, Yeong-Cherng, and Andrew C. Doherty.
         "Bounds on quantum correlations in Bell-inequality experiments."
         Physical Review A 75.4 (2007): 042103.
         https://arxiv.org/abs/quant-ph/0608128

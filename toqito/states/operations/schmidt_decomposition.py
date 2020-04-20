@@ -9,7 +9,7 @@ def schmidt_decomposition(
     vec: np.ndarray, dim: Union[int, List[int], np.ndarray] = None, k_param: int = 0
 ) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
     r"""
-    Compute the Schmidt decomposition of a bipartite vector [1]_.
+    Compute the Schmidt decomposition of a bipartite vector [WIKSCD]_.
 
     Examples
     ==========
@@ -56,7 +56,7 @@ def schmidt_decomposition(
 
     References
     ==========
-    .. [1] Wikipedia: Schmidt decomposition
+    .. [WIKSCD] Wikipedia: Schmidt decomposition
         https://en.wikipedia.org/wiki/Schmidt_decomposition
 
     :param vec:

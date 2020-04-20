@@ -46,7 +46,7 @@ def state_distinguishability(
 
     State distinguishability for two state density matrices.
 
-    >>> from toqito.base.ket import ket
+    >>> from toqito.core.ket import ket
     >>> from toqito.states.states.bell import bell
     >>> from toqito.states.optimizations.state_distinguishability import state_distinguishability
     >>> e_0, e_1 = ket(2, 0), ket(2, 1)

@@ -1,6 +1,6 @@
 """Produces a Domino state."""
 import numpy as np
-from toqito.base.ket import ket
+from toqito.core.ket import ket
 
 
 def domino(idx: int) -> np.ndarray:

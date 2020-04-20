@@ -5,9 +5,9 @@ import numpy as np
 
 def clock(dim: int) -> np.ndarray:
     r"""
-    Produce clock matrix [1]_.
+    Produce clock matrix [WIKCK]_.
 
-    Returns the clock matrix of dimension `dim` described in [1]. The clock
+    Returns the clock matrix of dimension `dim` described in [WIKCK]_. The clock
     matrix generates the following `dim`-by-`dim` matrix
 
     .. math::
@@ -44,7 +44,7 @@ def clock(dim: int) -> np.ndarray:
 
     References
     ==========
-    .. [1] Wikipedia: Generalizations of Pauli matrices,
+    .. [WIKCK] Wikipedia: Generalizations of Pauli matrices,
         https://en.wikipedia.org/wiki/Generalizations_of_Pauli_matrices
 
     :param dim: Dimension of the matrix.

@@ -45,7 +45,7 @@ def is_mub(vec_list: List[Union[np.ndarray, List[Union[float, Any]]]]) -> bool:
         \end{equation}
 
     >>> import numpy as np
-    >>> from toqito.base.ket import ket
+    >>> from toqito.core.ket import ket
     >>> from toqito.states.properties.is_mub import is_mub
     >>> e_0, e_1 = ket(2, 0), ket(2, 1)
     >>> mub_1 = [e_0, e_1]
@@ -58,7 +58,7 @@ def is_mub(vec_list: List[Union[np.ndarray, List[Union[float, Any]]]]) -> bool:
     Non non-MUB of dimension 2.
 
     >>> import numpy as np
-    >>> from toqito.base.ket import ket
+    >>> from toqito.core.ket import ket
     >>> from toqito.states.properties.is_mub import is_mub
     >>> e_0, e_1 = ket(2, 0), ket(2, 1)
     >>> mub_1 = [e_0, e_1]

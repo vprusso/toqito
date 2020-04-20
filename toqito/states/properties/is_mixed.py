@@ -23,7 +23,7 @@ def is_mixed(state: np.ndarray) -> bool:
     Calculating the rank of $\rho$ yields that the $\rho$ is a mixed state. This
     can be confirmed in `toqito` as follows:
 
-    >>> from toqito.base.ket import ket
+    >>> from toqito.core.ket import ket
     >>> from toqito.states.properties.is_mixed import is_mixed
     >>> e_0, e_1 = ket(2, 0), ket(2, 1)
     >>> rho = 3 / 4 * e_0 * e_0.conj().T + 1 / 4 * e_1 * e_1.conj().T

@@ -4,7 +4,7 @@ import numpy as np
 
 def fourier(dim: int) -> np.ndarray:
     r"""
-    Generate the Fourier transform matrix [2]_.
+    Generate the Fourier transform matrix [WIKDFT]_.
 
     Generates the `dim`-by-`dim` unitary matrix that implements the quantum
     Fourier transform.
@@ -45,7 +45,7 @@ def fourier(dim: int) -> np.ndarray:
 
     References
     ==========
-    .. [2] Wikipedia: DFT matrix,
+    .. [WIKDFT] Wikipedia: DFT matrix,
         https://en.wikipedia.org/wiki/DFT_matrix
 
     :param dim: The size of the Fourier matrix.

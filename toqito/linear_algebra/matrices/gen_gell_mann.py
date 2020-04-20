@@ -8,7 +8,7 @@ def gen_gell_mann(
     ind_1: int, ind_2: int, dim: int, is_sparse: bool = False
 ) -> Union[np.ndarray, sparse.lil_matrix]:
     r"""
-    Produce a generalized Gell-Mann operator [4]_.
+    Produce a generalized Gell-Mann operator [WIKGELL2]_.
 
     Construct a `dim`-by-`dim` Hermitian operator. These matrices span the
     entire space of `dim`-by-`dim` matrices as `ind_1` and `ind_2` range from 0
@@ -56,7 +56,7 @@ def gen_gell_mann(
 
     References
     ==========
-    .. [4] Wikipedia: Gell-Mann matrices,
+    .. [WIKGELL2] Wikipedia: Gell-Mann matrices,
         https://en.wikipedia.org/wiki/Gell-Mann_matrices
 
     :param ind_1: A non-negative integer from 0 to `dim-1` (inclusive).

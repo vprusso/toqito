@@ -1,7 +1,7 @@
 """Tests for is_mixed function."""
 import unittest
 
-from toqito.base.ket import ket
+from toqito.core.ket import ket
 from toqito.states.properties.is_mixed import is_mixed
 
 

@@ -8,7 +8,7 @@ from toqito.maps.partial_transpose import partial_transpose
 
 def realignment(input_mat: np.ndarray, dim=None) -> np.ndarray:
     r"""
-    Compute the realignment of a bipartite operator [5]_.
+    Compute the realignment of a bipartite operator [REALIGN]_.
 
     Gives the realignment of the matrix `input_mat`, where it is assumed that
     the number of rows and columns of `input_mat` are both perfect squares and
@@ -43,7 +43,7 @@ def realignment(input_mat: np.ndarray, dim=None) -> np.ndarray:
 
     References
     ==========
-    .. [5] Lupo, Cosmo, Paolo Aniello, and Antonello Scardicchio.
+    .. [REALIGN] Lupo, Cosmo, Paolo Aniello, and Antonello Scardicchio.
         "Bipartite quantum systems: on the realignment criterion and beyond."
         Journal of Physics A: Mathematical and Theoretical
         41.41 (2008): 415301.

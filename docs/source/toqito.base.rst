@@ -1,21 +1,21 @@
-toqito.base package
+toqito.core package
 ===================
 
 Submodules
 ----------
 
-toqito.base.bra module
+toqito.core.bra module
 ----------------------
 
-.. automodule:: toqito.base.bra
+.. automodule:: toqito.core.bra
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.base.ket module
+toqito.core.ket module
 ----------------------
 
-.. automodule:: toqito.base.ket
+.. automodule:: toqito.core.ket
    :members:
    :undoc-members:
    :show-inheritance:
@@ -24,7 +24,7 @@ toqito.base.ket module
 Module contents
 ---------------
 
-.. automodule:: toqito.base
+.. automodule:: toqito.core
    :members:
    :undoc-members:
    :show-inheritance:

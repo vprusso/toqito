@@ -9,7 +9,7 @@ def partial_transpose(
     sys: Union[List[int], np.ndarray, int] = 2,
     dim: Union[List[int], np.ndarray] = None,
 ) -> np.ndarray:
-    r"""Compute the partial transpose of a matrix [4]_.
+    r"""Compute the partial transpose of a matrix [WIKPTRN]_.
 
     By default, the returned matrix is the partial transpose of the matrix
     `rho`, where it is assumed that the number of rows and columns of `rho` are
@@ -86,7 +86,7 @@ def partial_transpose(
 
     References
     ==========
-    .. [4] Wikipedia: Partial transpose
+    .. [WIKPTRN] Wikipedia: Partial transpose
         https://en.wikipedia.org/w/index.php?title=Partial_transpose&redirect=no
 
     :param rho: A matrix.

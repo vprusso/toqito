@@ -4,7 +4,7 @@ import numpy as np
 
 def is_normal(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
     r"""
-    Determine if a matrix is normal [5]_.
+    Determine if a matrix is normal [WIKNRM]_.
 
     A matrix is normal if it commutes with its adjoint
 
@@ -60,7 +60,7 @@ def is_normal(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool
 
     References
     ==========
-    .. [5] Wikipedia: Normal matrix.
+    .. [WIKNRM] Wikipedia: Normal matrix.
         https://en.wikipedia.org/wiki/Normal_matrix
 
     :param mat: The matrix to check.

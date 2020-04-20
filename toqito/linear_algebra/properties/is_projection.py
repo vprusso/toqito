@@ -5,7 +5,7 @@ from toqito.linear_algebra.properties.is_psd import is_psd
 
 def is_projection(mat: np.ndarray) -> bool:
     r"""
-    Check if matrix is a projection matrix [7]_.
+    Check if matrix is a projection matrix [WIKPRJ]_.
 
     A matrix is a projection matrix if it is positive semidefinite (PSD) and if
 
@@ -53,7 +53,7 @@ def is_projection(mat: np.ndarray) -> bool:
 
     References
     ==========
-    .. [7] Wikipedia: Projection matrix.
+    .. [WIKPRJ] Wikipedia: Projection matrix.
         https://en.wikipedia.org/wiki/Projection_matrix
 
     :param mat: Matrix to check.

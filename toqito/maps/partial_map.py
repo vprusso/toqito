@@ -12,7 +12,7 @@ def partial_map(
     sys: int = 2,
     dim: Union[List[int], np.ndarray] = None,
 ) -> np.ndarray:
-    r"""Apply map to a subsystem of an operator.
+    r"""Apply map to a subsystem of an operator [PARMAP]_.
 
     Applies the operator
 
@@ -26,7 +26,7 @@ def partial_map(
     The input `phi_map` should be provided as a Choi matrix.
 
     Examples
-    =====
+    ==========
 
     >>> from toqito.maps.partial_map import partial_map
     >>> from toqito.channels.depolarizing import depolarizing
@@ -54,7 +54,7 @@ def partial_map(
 
     References
     ==========
-    .. [6] Watrous, John.
+    .. [PARMAP] Watrous, John.
         The theory of quantum information.
         Cambridge University Press, 2018.
 

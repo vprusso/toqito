@@ -5,7 +5,7 @@ from toqito.states.states.max_entangled import max_entangled
 
 def choi_map(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
     r"""
-    Produce the Choi map or one of its generalizations [1]_.
+    Produce the Choi map or one of its generalizations [CHOI]_.
 
     The Choi map is a positive map on 3-by-3 matrices that is capable
     of detecting some entanglement that the transpose map is not.
@@ -85,7 +85,7 @@ def choi_map(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
 
     References
     ==========
-    .. [1] S. J. Cho, S.-H. Kye, and S. G. Lee,
+    .. [CHOI] S. J. Cho, S.-H. Kye, and S. G. Lee,
         Linear Alebr. Appl. 171, 213
         (1992).
 

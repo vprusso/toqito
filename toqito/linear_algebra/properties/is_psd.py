@@ -5,7 +5,7 @@ from toqito.linear_algebra.properties.is_square import is_square
 
 def is_psd(mat: np.ndarray, tol: float = 1e-8) -> bool:
     r"""
-    Check if matrix is positive semidefinite (PSD) [8]_.
+    Check if matrix is positive semidefinite (PSD) [WIKPSD]_.
 
     Examples
     ==========
@@ -44,7 +44,7 @@ def is_psd(mat: np.ndarray, tol: float = 1e-8) -> bool:
 
     References
     ==========
-    .. [8] Wikipedia: Definiteness of a matrix.
+    .. [WIKPSD] Wikipedia: Definiteness of a matrix.
         https://en.wikipedia.org/wiki/Definiteness_of_a_matrix
 
     :param mat: Matrix to check.

@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from toqito.states.states.bell import bell
-from toqito.base.ket import ket
+from toqito.core.ket import ket
 from toqito.states.properties.is_pure import is_pure
 
 

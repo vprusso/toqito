@@ -17,7 +17,7 @@ def xor_game_value(
     communicate during the game itself.
 
     The quantum value of an XOR game can be solved via the semidefinite program
-    from [2]_.
+    from [CHTW04]_.
 
     This function is adapted from the QETLAB package.
 
@@ -27,7 +27,7 @@ def xor_game_value(
     The CHSH game
 
     The CHSH game is a two-player nonlocal game with the following probability
-    distribution and question and answer sets [1]_.
+    distribution and question and answer sets [CSUU08]_.
 
     .. math::
         \begin{equation}
@@ -78,8 +78,8 @@ def xor_game_value(
 
     The odd cycle game
 
-    The odd cycle game is another XOR game [2]_. For this game, we can specify
-    the probability and predicate matrices as follows.
+    The odd cycle game is another XOR game [CHTW04]_. For this game, we can
+    specify the probability and predicate matrices as follows.
 
     >>> prob_mat = np.array(
     >>> [
@@ -112,11 +112,12 @@ def xor_game_value(
 
     References
     ==========
-    .. [1] Richard Cleve, William Slofstra, Falk Unger, Sarvagya Upadhyay
+    .. [CSUU08] Richard Cleve, William Slofstra, Falk Unger, Sarvagya Upadhyay
         "Strong parallel repetition theorem for quantum XOR proof systems",
+        2008,
         https://arxiv.org/abs/quant-ph/0608146
 
-    .. [2] Richard Cleve, Peter Hoyer, Ben Toner, John Watrous
+    .. [CHTW04] Richard Cleve, Peter Hoyer, Ben Toner, John Watrous
         "Consequences and limits of nonlocal strategies."
         Proceedings. 19th IEEE Annual Conference on Computational Complexity,
         IEEE, 2004.

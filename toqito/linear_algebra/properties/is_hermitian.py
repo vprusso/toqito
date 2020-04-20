@@ -4,7 +4,7 @@ import numpy as np
 
 def is_hermitian(mat: np.ndarray) -> bool:
     r"""
-    Check if matrix is Hermitian [4]_.
+    Check if matrix is Hermitian [WIKHRM]_.
 
     A Hermitian matrix is a complex square matrix that is equal to its own
     conjugate transpose.
@@ -51,7 +51,7 @@ def is_hermitian(mat: np.ndarray) -> bool:
 
     References
     ==========
-    .. [4] Wikipedia: Hermitian matrix.
+    .. [WIKHRM] Wikipedia: Hermitian matrix.
         https://en.wikipedia.org/wiki/Hermitian_matrix
 
     :param mat: Matrix to check.
