@@ -12,6 +12,14 @@ toqito.helper.cvxpy\_helper module
    :undoc-members:
    :show-inheritance:
 
+toqito.helper.update\_odometer module
+-------------------------------------
+
+.. automodule:: toqito.helper.update_odometer
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 
 Module contents
 ---------------

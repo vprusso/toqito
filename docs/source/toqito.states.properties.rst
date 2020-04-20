@@ -1,11 +1,11 @@
 toqito.states.properties package
-===============================
+================================
 
 Submodules
 ----------
 
 toqito.states.properties.is\_mixed module
-----------------------------------------
+-----------------------------------------
 
 .. automodule:: toqito.states.properties.is_mixed
    :members:
@@ -13,7 +13,7 @@ toqito.states.properties.is\_mixed module
    :show-inheritance:
 
 toqito.states.properties.is\_mub module
---------------------------------------
+---------------------------------------
 
 .. automodule:: toqito.states.properties.is_mub
    :members:
@@ -21,7 +21,7 @@ toqito.states.properties.is\_mub module
    :show-inheritance:
 
 toqito.states.properties.is\_ppt module
---------------------------------------
+---------------------------------------
 
 .. automodule:: toqito.states.properties.is_ppt
    :members:
@@ -29,7 +29,7 @@ toqito.states.properties.is\_ppt module
    :show-inheritance:
 
 toqito.states.properties.is\_product\_vector module
---------------------------------------------------
+---------------------------------------------------
 
 .. automodule:: toqito.states.properties.is_product_vector
    :members:
@@ -37,7 +37,7 @@ toqito.states.properties.is\_product\_vector module
    :show-inheritance:
 
 toqito.states.properties.is\_pure module
----------------------------------------
+----------------------------------------
 
 .. automodule:: toqito.states.properties.is_pure
    :members:
@@ -45,7 +45,7 @@ toqito.states.properties.is\_pure module
    :show-inheritance:
 
 toqito.states.properties.is\_quantum\_latin\_square module
----------------------------------------------------------
+----------------------------------------------------------
 
 .. automodule:: toqito.states.properties.is_quantum_latin_square
    :members:

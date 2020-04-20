@@ -1,5 +1,5 @@
-toqito.linear_algebra package
-=====================
+toqito.linear\_algebra package
+==============================
 
 Subpackages
 -----------

@@ -12,6 +12,14 @@ toqito.random.random\_density\_matrix module
    :undoc-members:
    :show-inheritance:
 
+toqito.random.random\_ginibre module
+------------------------------------
+
+.. automodule:: toqito.random.random_ginibre
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 toqito.random.random\_povm module
 ---------------------------------
 

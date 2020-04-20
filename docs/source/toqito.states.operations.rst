@@ -1,11 +1,11 @@
 toqito.states.operations package
-===============================
+================================
 
 Submodules
 ----------
 
 toqito.states.operations.pure\_to\_mixed module
-----------------------------------------------
+-----------------------------------------------
 
 .. automodule:: toqito.states.operations.pure_to_mixed
    :members:
@@ -13,7 +13,7 @@ toqito.states.operations.pure\_to\_mixed module
    :show-inheritance:
 
 toqito.states.operations.schmidt\_decomposition module
------------------------------------------------------
+------------------------------------------------------
 
 .. automodule:: toqito.states.operations.schmidt_decomposition
    :members:
@@ -21,7 +21,7 @@ toqito.states.operations.schmidt\_decomposition module
    :show-inheritance:
 
 toqito.states.operations.schmidt\_rank module
---------------------------------------------
+---------------------------------------------
 
 .. automodule:: toqito.states.operations.schmidt_rank
    :members:

@@ -1,19 +1,19 @@
-toqito.linear_algebra.operations package
-================================
+toqito.linear\_algebra.operations package
+=========================================
 
 Submodules
 ----------
 
-toqito.linear_algebra.operations.tensor module
---------------------------------------
+toqito.linear\_algebra.operations.tensor module
+-----------------------------------------------
 
 .. automodule:: toqito.linear_algebra.operations.tensor
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.linear_algebra.operations.vec module
------------------------------------
+toqito.linear\_algebra.operations.vec module
+--------------------------------------------
 
 .. automodule:: toqito.linear_algebra.operations.vec
    :members:

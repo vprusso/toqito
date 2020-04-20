@@ -1,5 +1,5 @@
 toqito.states package
-====================
+=====================
 
 Subpackages
 -----------

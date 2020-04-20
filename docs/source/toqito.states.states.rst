@@ -1,11 +1,11 @@
 toqito.states.states package
-===========================
+============================
 
 Submodules
 ----------
 
 toqito.states.states.bell module
--------------------------------
+--------------------------------
 
 .. automodule:: toqito.states.states.bell
    :members:
@@ -13,7 +13,7 @@ toqito.states.states.bell module
    :show-inheritance:
 
 toqito.states.states.chessboard module
--------------------------------------
+--------------------------------------
 
 .. automodule:: toqito.states.states.chessboard
    :members:
@@ -21,7 +21,7 @@ toqito.states.states.chessboard module
    :show-inheritance:
 
 toqito.states.states.domino module
----------------------------------
+----------------------------------
 
 .. automodule:: toqito.states.states.domino
    :members:
@@ -29,7 +29,7 @@ toqito.states.states.domino module
    :show-inheritance:
 
 toqito.states.states.gen\_bell module
-------------------------------------
+-------------------------------------
 
 .. automodule:: toqito.states.states.gen_bell
    :members:
@@ -37,7 +37,7 @@ toqito.states.states.gen\_bell module
    :show-inheritance:
 
 toqito.states.states.ghz module
-------------------------------
+-------------------------------
 
 .. automodule:: toqito.states.states.ghz
    :members:
@@ -45,7 +45,7 @@ toqito.states.states.ghz module
    :show-inheritance:
 
 toqito.states.states.gisin module
---------------------------------
+---------------------------------
 
 .. automodule:: toqito.states.states.gisin
    :members:
@@ -53,7 +53,7 @@ toqito.states.states.gisin module
    :show-inheritance:
 
 toqito.states.states.horodecki module
-------------------------------------
+-------------------------------------
 
 .. automodule:: toqito.states.states.horodecki
    :members:
@@ -61,7 +61,7 @@ toqito.states.states.horodecki module
    :show-inheritance:
 
 toqito.states.states.isotropic module
-------------------------------------
+-------------------------------------
 
 .. automodule:: toqito.states.states.isotropic
    :members:
@@ -69,7 +69,7 @@ toqito.states.states.isotropic module
    :show-inheritance:
 
 toqito.states.states.max\_entangled module
------------------------------------------
+------------------------------------------
 
 .. automodule:: toqito.states.states.max_entangled
    :members:
@@ -77,7 +77,7 @@ toqito.states.states.max\_entangled module
    :show-inheritance:
 
 toqito.states.states.max\_mixed module
--------------------------------------
+--------------------------------------
 
 .. automodule:: toqito.states.states.max_mixed
    :members:
@@ -85,7 +85,7 @@ toqito.states.states.max\_mixed module
    :show-inheritance:
 
 toqito.states.states.w\_state module
------------------------------------
+------------------------------------
 
 .. automodule:: toqito.states.states.w_state
    :members:
@@ -93,7 +93,7 @@ toqito.states.states.w\_state module
    :show-inheritance:
 
 toqito.states.states.werner module
----------------------------------
+----------------------------------
 
 .. automodule:: toqito.states.states.werner
    :members:

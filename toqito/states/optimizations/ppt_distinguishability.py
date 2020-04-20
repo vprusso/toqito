@@ -66,7 +66,7 @@ def ppt_distinguishability(
     >>> psi_2 = bell(3)
     >>> psi_3 = bell(1)
     >>>
-    >>> # YYD vectors from [6]_.
+    >>> # YYD vectors from [YDY12]_.
     >>> x_1 = np.kron(psi_0, psi_0)
     >>> x_2 = np.kron(psi_1, psi_3)
     >>> x_3 = np.kron(psi_2, psi_3)

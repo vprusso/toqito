@@ -1,11 +1,11 @@
 toqito.states.optimizations package
-==================================
+===================================
 
 Submodules
 ----------
 
 toqito.states.optimizations.conclusive\_state\_exclusion module
---------------------------------------------------------------
+---------------------------------------------------------------
 
 .. automodule:: toqito.states.optimizations.conclusive_state_exclusion
    :members:
@@ -13,7 +13,7 @@ toqito.states.optimizations.conclusive\_state\_exclusion module
    :show-inheritance:
 
 toqito.states.optimizations.ppt\_distinguishability module
----------------------------------------------------------
+----------------------------------------------------------
 
 .. automodule:: toqito.states.optimizations.ppt_distinguishability
    :members:
@@ -21,7 +21,7 @@ toqito.states.optimizations.ppt\_distinguishability module
    :show-inheritance:
 
 toqito.states.optimizations.state\_cloning module
-------------------------------------------------
+-------------------------------------------------
 
 .. automodule:: toqito.states.optimizations.state_cloning
    :members:
@@ -29,7 +29,7 @@ toqito.states.optimizations.state\_cloning module
    :show-inheritance:
 
 toqito.states.optimizations.state\_distinguishability module
------------------------------------------------------------
+------------------------------------------------------------
 
 .. automodule:: toqito.states.optimizations.state_distinguishability
    :members:
@@ -37,7 +37,7 @@ toqito.states.optimizations.state\_distinguishability module
    :show-inheritance:
 
 toqito.states.optimizations.unambiguous\_state\_exclusion module
----------------------------------------------------------------
+----------------------------------------------------------------
 
 .. automodule:: toqito.states.optimizations.unambiguous_state_exclusion
    :members:

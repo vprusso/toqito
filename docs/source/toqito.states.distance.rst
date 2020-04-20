@@ -1,11 +1,11 @@
 toqito.states.distance package
-=============================
+==============================
 
 Submodules
 ----------
 
 toqito.states.distance.entropy module
-------------------------------------
+-------------------------------------
 
 .. automodule:: toqito.states.distance.entropy
    :members:
@@ -13,7 +13,7 @@ toqito.states.distance.entropy module
    :show-inheritance:
 
 toqito.states.distance.fidelity module
--------------------------------------
+--------------------------------------
 
 .. automodule:: toqito.states.distance.fidelity
    :members:
@@ -21,7 +21,7 @@ toqito.states.distance.fidelity module
    :show-inheritance:
 
 toqito.states.distance.helstrom\_holevo module
----------------------------------------------
+----------------------------------------------
 
 .. automodule:: toqito.states.distance.helstrom_holevo
    :members:
@@ -29,7 +29,7 @@ toqito.states.distance.helstrom\_holevo module
    :show-inheritance:
 
 toqito.states.distance.purity module
------------------------------------
+------------------------------------
 
 .. automodule:: toqito.states.distance.purity
    :members:
@@ -37,7 +37,7 @@ toqito.states.distance.purity module
    :show-inheritance:
 
 toqito.states.distance.super\_fidelity module
---------------------------------------------
+---------------------------------------------
 
 .. automodule:: toqito.states.distance.super_fidelity
    :members:
@@ -45,7 +45,7 @@ toqito.states.distance.super\_fidelity module
    :show-inheritance:
 
 toqito.states.distance.trace\_distance module
---------------------------------------------
+---------------------------------------------
 
 .. automodule:: toqito.states.distance.trace_distance
    :members:
@@ -53,7 +53,7 @@ toqito.states.distance.trace\_distance module
    :show-inheritance:
 
 toqito.states.distance.trace\_norm module
-----------------------------------------
+-----------------------------------------
 
 .. automodule:: toqito.states.distance.trace_norm
    :members:
