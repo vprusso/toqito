@@ -38,7 +38,7 @@ def is_povm(mat_list: List[np.ndarray]) -> bool:
 
     our function indicates that this set of operators constitute a POVM.
 
-    >>> from toqito.measurements.is_povm import is_povm
+    >>> from toqito.measurements.properties.is_povm import is_povm
     >>> import numpy as np
     >>> meas_1 = np.array([[1, 0], [0, 0]])
     >>> meas_2 = np.array([[0, 0], [0, 1]])
@@ -49,7 +49,7 @@ def is_povm(mat_list: List[np.ndarray]) -> bool:
     We may also use the `random_povm` function from `toqito`, and can verify
     that a randomly generated set satisfies the criteria for being a POVM set.
 
-    >>> from toqito.measurements.is_povm import is_povm
+    >>> from toqito.measurements.properties.is_povm import is_povm
     >>> from toqito.random.random_povm import random_povm
     >>> import numpy as np
     >>> dim, num_inputs, num_outputs = 2, 2, 2
@@ -71,7 +71,7 @@ def is_povm(mat_list: List[np.ndarray]) -> bool:
 
     does not constitute a POVM set.
 
-    >>> from toqito.measurements.is_povm import is_povm
+    >>> from toqito.measurements.properties.is_povm import is_povm
     >>> import numpy as np
     >>> non_meas_1 = np.array([[1, 2], [3, 4]])
     >>> non_meas_2 = np.array([[5, 6], [7, 8]])

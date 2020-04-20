@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from toqito.core.ket import ket
-from toqito.entanglement.concurrence import concurrence
+from toqito.states.entanglement.concurrence import concurrence
 
 
 class TestConcurrence(unittest.TestCase):

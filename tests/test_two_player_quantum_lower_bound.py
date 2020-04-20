@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.nonlocal_games.two_player_quantum_lower_bound import (
+from toqito.nonlocal_games.nonlocal_games.two_player_quantum_lower_bound import (
     two_player_quantum_lower_bound,
 )
 

@@ -47,7 +47,7 @@ def schmidt_rank(
     greater than one.
 
     >>> from toqito.states.states.bell import bell
-    >>> from toqito.states.operations.schmidt_rank import schmidt_rank
+    >>> from toqito.states.entanglement.schmidt_rank import schmidt_rank
     >>> rho = bell(0).conj().T * bell(0)
     >>> schmidt_rank(rho)
     2
@@ -56,7 +56,7 @@ def schmidt_rank(
     value greater than :math:`1`.
 
     >>> from toqito.states.states.bell import bell
-    >>> from toqito.states.operations.schmidt_rank import schmidt_rank
+    >>> from toqito.states.entanglement.schmidt_rank import schmidt_rank
     >>> u = bell(2).conj().T * bell(2)
     >>> schmidt_rank(u)
     2
@@ -65,7 +65,7 @@ def schmidt_rank(
     to :math:`1`.
 
     >>> from toqito.core.ket import ket
-    >>> from toqito.states.operations.schmidt_rank import schmidt_rank
+    >>> from toqito.states.entanglement.schmidt_rank import schmidt_rank
     >>> import numpy as np
     >>> e_0, e_1 = ket(2, 0), ket(2, 1)
     >>> e_00 = np.kron(e_0, e_0)

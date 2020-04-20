@@ -4,7 +4,7 @@ import numpy as np
 
 from toqito.core.ket import ket
 from toqito.states.states.bell import bell
-from toqito.states.operations.schmidt_rank import schmidt_rank
+from toqito.states.entanglement.schmidt_rank import schmidt_rank
 
 
 class TestSchmidtRank(unittest.TestCase):

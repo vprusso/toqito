@@ -45,8 +45,8 @@ def update_odometer(
     .. [QETOD] QETLAB: Update odometer function.
         http://www.qetlab.com/update_odometer
 
-    :param old_ind: The dimensionality on which the channel acts.
-    :param upper_lim: Default 0.
+    :param old_ind: The initial vector.
+    :param upper_lim: The upper limit on which to increase the odometer to.
     :return: The updated vector.
     """
     ind_len = len(old_ind)

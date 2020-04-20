@@ -3,7 +3,7 @@ import unittest
 from numpy import kron, cos, sin, pi, sqrt, isclose
 
 from toqito.core.ket import ket
-from toqito.nonlocal_games.hedging.hedging_value import HedgingValue
+from toqito.nonlocal_games.quantum_hedging.hedging_value import HedgingValue
 
 
 class TestHedgingValue(unittest.TestCase):

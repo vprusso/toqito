@@ -1,6 +1,6 @@
 """Computes the Schmidt decomposition of a bipartite vector."""
 from typing import List, Tuple, Union
-from scipy import sparse
+from scipy.sparse import issparse, linalg
 
 import numpy as np
 
@@ -84,14 +84,12 @@ def schmidt_decomposition(
 
     # Try to guess whether SVD or SVDS will be faster, and then perform the
     # appropriate singular value decomposition.
-    adj = 20 + 1000 * (not sparse.issparse(vec))
+    adj = 20 + 1000 * (not issparse(vec))
 
     # Just a few Schmidt coefficients.
     if 0 < k_param <= np.ceil(np.min(dim) / adj):
-        u_mat, singular_vals, vt_mat = sparse.linalg.svds(
-            sparse.linalg.LinearOperator(
-                np.reshape(vec, dim[::-1].astype(int)), k_param
-            )
+        u_mat, singular_vals, vt_mat = linalg.svds(
+            linalg.LinearOperator(np.reshape(vec, dim[::-1].astype(int)), k_param)
         )
     # Otherwise, use lots of Schmidt coefficients.
     else:

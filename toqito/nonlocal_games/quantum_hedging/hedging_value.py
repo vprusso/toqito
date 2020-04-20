@@ -33,7 +33,7 @@ class HedgingValue:
 
     >>> from numpy import kron, cos, sin, pi, sqrt, isclose
     >>> from toqito.core.ket import ket
-    >>> from toqito.nonlocal_games.hedging.hedging_value import HedgingValue
+    >>> from toqito.nonlocal_games.quantum_hedging.hedging_value import HedgingValue
     >>>
     >>> e_0, e_1 = ket(2, 0), ket(2, 1)
     >>> e_00, e_01 = kron(e_0, e_0), kron(e_0, e_1)
