@@ -6,10 +6,7 @@ from toqito.linear_algebra.operations.tensor import tensor_n
 from toqito.perms.permutation_operator import permutation_operator
 
 
-def counterfeit_attack(
-        q_a: np.ndarray,
-        num_reps: int = 1
-) -> float:
+def counterfeit_attack(q_a: np.ndarray, num_reps: int = 1) -> float:
     r"""
     Compute probability of counterfeiting quantum money [MVW12]_.
 
@@ -108,7 +105,6 @@ def counterfeit_attack(
     :param num_reps: The number of parallel repetitions.
     :return: The optimal probability with of counterfeiting quantum money.
     """
-
     # The system is over:
     # Y_1 ⊗ Z_1 ⊗ X_1, ... , Y_n ⊗ Z_n ⊗ X_n.
     num_spaces = 3

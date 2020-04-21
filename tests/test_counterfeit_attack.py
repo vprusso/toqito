@@ -21,7 +21,8 @@ class TestCounterfeitAttack(unittest.TestCase):
         e_ppp = tensor_list([e_p, e_p, e_p])
         e_mmm = tensor_list([e_m, e_m, e_m])
 
-        q_a = 1 / 4 * (e_000 * e_000.conj().T + e_111 * e_111.conj().T + e_ppp * e_ppp.conj().T + e_mmm * e_mmm.conj().T)
+        q_a = 1 / 4 * (e_000 * e_000.conj().T + e_111 * e_111.conj().T +
+                       e_ppp * e_ppp.conj().T + e_mmm * e_mmm.conj().T)
         res = counterfeit_attack(q_a)
         self.assertEqual(np.isclose(res, 3/4), True)
 
