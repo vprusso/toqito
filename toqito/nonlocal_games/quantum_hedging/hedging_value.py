@@ -3,7 +3,7 @@ import cvxpy
 import numpy as np
 
 from toqito.perms.permutation_operator import permutation_operator
-from toqito.maps.partial_trace import partial_trace_cvx
+from toqito.channels.channels.partial_trace import partial_trace_cvx
 
 
 class HedgingValue:

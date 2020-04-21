@@ -3,7 +3,7 @@ from typing import List, Union
 import numpy as np
 
 from toqito.linear_algebra.properties.is_psd import is_psd
-from toqito.maps.partial_transpose import partial_transpose
+from toqito.channels.channels.partial_transpose import partial_transpose
 
 
 def is_ppt(

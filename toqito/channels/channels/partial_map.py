@@ -3,7 +3,7 @@ from typing import List, Union
 import numpy as np
 from toqito.perms.permute_systems import permute_systems
 from toqito.states.states.max_entangled import max_entangled
-from toqito.maps.apply_map import apply_map
+from toqito.channels.operations.apply_map import apply_map
 
 
 def partial_map(
@@ -28,8 +28,8 @@ def partial_map(
     Examples
     ==========
 
-    >>> from toqito.maps.partial_map import partial_map
-    >>> from toqito.channels.depolarizing import depolarizing
+    >>> from toqito.channels.channels.partial_map import partial_map
+    >>> from toqito.channels.channels.depolarizing import depolarizing
     >>> rho = np.array([[0.3101, -0.0220-0.0219*1j, -0.0671-0.0030*1j, -0.0170-0.0694*1j],
     >>>                 [-0.0220+0.0219*1j, 0.1008, -0.0775+0.0492*1j, -0.0613+0.0529*1j],
     >>>                 [-0.0671+0.0030*1j, -0.0775-0.0492*1j, 0.1361, 0.0602 + 0.0062*1j],
@@ -40,8 +40,8 @@ def partial_map(
      [-0.0642 -0.02495j  0.     +0.j       0.29455+0.j       0.     +0.j     ]
      [ 0.     +0.j      -0.0642 -0.02495j  0.     +0.j       0.29455+0.j     ]]
 
-    >>> from toqito.maps.partial_map import partial_map
-    >>> from toqito.channels.depolarizing import depolarizing
+    >>> from toqito.channels.channels.partial_map import partial_map
+    >>> from toqito.channels.channels.depolarizing import depolarizing
     >>> rho = np.array([[0.3101, -0.0220-0.0219*1j, -0.0671-0.0030*1j, -0.0170-0.0694*1j],
     >>>                 [-0.0220+0.0219*1j, 0.1008, -0.0775+0.0492*1j, -0.0613+0.0529*1j],
     >>>                 [-0.0671+0.0030*1j, -0.0775-0.0492*1j, 0.1361, 0.0602 + 0.0062*1j],

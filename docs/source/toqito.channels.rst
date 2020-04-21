@@ -1,25 +1,15 @@
 toqito.channels package
 =======================
 
-Submodules
-----------
+Subpackages
+-----------
 
-toqito.channels.dephasing module
---------------------------------
+.. toctree::
+   :maxdepth: 4
 
-.. automodule:: toqito.channels.dephasing
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-toqito.channels.depolarizing module
------------------------------------
-
-.. automodule:: toqito.channels.depolarizing
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
+   toqito.channels.channels
+   toqito.channels.operations
+   toqito.channels.properties
 
 Module contents
 ---------------

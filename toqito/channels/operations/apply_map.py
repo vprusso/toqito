@@ -52,7 +52,7 @@ def apply_map(
 
     Using `toqito`, we can obtain the above matrices as follows.
 
-    >>> from toqito.maps.apply_map import apply_map
+    >>> from toqito.channels.operations.apply_map import apply_map
     >>> from toqito.perms.swap_operator import swap_operator
     >>> import numpy as np
     >>> test_input_mat = np.array([[1, 4, 7], [2, 5, 8], [3, 6, 9]])

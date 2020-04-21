@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.maps.realignment import realignment
+from toqito.channels.channels.realignment import realignment
 
 
 class TestRealignment(unittest.TestCase):

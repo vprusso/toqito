@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.maps.apply_map import apply_map
+from toqito.channels.operations.apply_map import apply_map
 from toqito.perms.swap_operator import swap_operator
 
 

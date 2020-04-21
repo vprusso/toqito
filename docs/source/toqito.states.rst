@@ -8,6 +8,7 @@ Subpackages
    :maxdepth: 4
 
    toqito.states.distance
+   toqito.states.entanglement
    toqito.states.operations
    toqito.states.optimizations
    toqito.states.properties

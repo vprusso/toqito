@@ -39,8 +39,8 @@ def dephasing(dim: int, param_p: int = 0) -> np.ndarray:
 
     This can be observed in `toqito` as follows.
 
-    >>> from toqito.maps.apply_map import apply_map
-    >>> from toqito.channels.dephasing import dephasing
+    >>> from toqito.channels.operations.apply_map import apply_map
+    >>> from toqito.channels.channels.dephasing import dephasing
     >>> import numpy as np
     >>> test_input_mat = np.array(
     >>>     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]

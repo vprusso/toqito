@@ -3,7 +3,7 @@ import functools
 import operator
 import numpy as np
 from toqito.perms.swap import swap
-from toqito.maps.partial_transpose import partial_transpose
+from toqito.channels.channels.partial_transpose import partial_transpose
 
 
 def realignment(input_mat: np.ndarray, dim=None) -> np.ndarray:
@@ -30,7 +30,7 @@ def realignment(input_mat: np.ndarray, dim=None) -> np.ndarray:
     of the original matrix and makes its vectorization the rows of the
     realignment matrix. This is illustrated by the following small example:
 
-    >>> from toqito.maps.realignment import realignment
+    >>> from toqito.channels.channels.realignment import realignment
     >>> import numpy as np
     >>> test_input_mat = np.array(
     >>>     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]

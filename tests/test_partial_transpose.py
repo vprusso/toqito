@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from toqito.states.states.bell import bell
-from toqito.maps.partial_transpose import partial_transpose
+from toqito.channels.channels.partial_transpose import partial_transpose
 
 
 class TestPartialTranspose(unittest.TestCase):

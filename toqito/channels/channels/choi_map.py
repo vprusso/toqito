@@ -34,7 +34,7 @@ def choi_map(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
 
     We can generate the Choi map in `toqito` as follows.
 
-    >>> from toqito.maps.choi_map import choi_map
+    >>> from toqito.channels.channels.choi_map import choi_map
     >>> import numpy as np
     >>> choi_map()
     array([[ 1.,  0.,  0.,  0., -1.,  0.,  0.,  0., -1.],

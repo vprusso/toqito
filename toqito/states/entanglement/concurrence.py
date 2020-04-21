@@ -33,7 +33,7 @@ def concurrence(rho: np.ndarray) -> float:
 
     >>> import numpy as np
     >>> from toqito.core.ket import ket
-    >>> from toqito.entanglement.concurrence import concurrence
+    >>> from toqito.states.entanglement.concurrence import concurrence
     >>> e_0, e_1 = ket(2, 0), ket(2, 1)
     >>> e_00, e_11 = np.kron(e_0, e_0), np.kron(e_1, e_1)
     >>> u_vec = 1 / np.sqrt(2) * (e_00 + e_11)

@@ -24,7 +24,7 @@ def reduction_map(dim: int, k: int = 1) -> np.ndarray:
     Using `toqito`, we can generate the $3$-dimensional (or standard) reduction
     map as follows.
 
-    >>> from toqito.maps.reduction_map import reduction_map
+    >>> from toqito.channels.channels.reduction_map import reduction_map
     >>> reduction_map(3).toarray()
     array([[ 0.,  0.,  0.,  0., -1.,  0.,  0.,  0., -1.],
            [ 0.,  1.,  0.,  0.,  0.,  0.,  0.,  0.,  0.],

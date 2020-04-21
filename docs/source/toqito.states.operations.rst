@@ -20,14 +20,6 @@ toqito.states.operations.schmidt\_decomposition module
    :undoc-members:
    :show-inheritance:
 
-toqito.states.operations.schmidt\_rank module
----------------------------------------------
-
-.. automodule:: toqito.states.operations.schmidt_rank
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 
 Module contents
 ---------------

@@ -1,10 +1,10 @@
 """Tests for reduction_map function."""
 import unittest
 
-from toqito.maps.reduction_map import reduction_map
+from toqito.channels.channels.reduction_map import reduction_map
 
 
-class TestReductionMap(unittest.TestCase):
+class TestReduction(unittest.TestCase):
     """Unit test for reduction_map."""
 
     def test_reduction_map(self):

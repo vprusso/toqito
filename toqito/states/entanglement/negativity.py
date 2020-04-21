@@ -4,7 +4,7 @@ from numpy import linalg as lin_alg
 import numpy as np
 
 from toqito.states.operations.pure_to_mixed import pure_to_mixed
-from toqito.maps.partial_transpose import partial_transpose
+from toqito.channels.channels.partial_transpose import partial_transpose
 
 
 def negativity(rho: np.ndarray, dim: Union[List[int], int] = None) -> float:
@@ -29,7 +29,7 @@ def negativity(rho: np.ndarray, dim: Union[List[int], int] = None) -> float:
     Example of the negativity of density matrix of Bell state.
 
     >>> from toqito.states.states.bell import bell
-    >>> from toqito.entanglement.negativity import negativity
+    >>> from toqito.states.entanglement.negativity import negativity
     >>> rho = bell(0) * bell(0).conj().T
     >>> negativity(rho)
     0.4999999999999998

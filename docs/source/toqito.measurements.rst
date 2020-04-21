@@ -1,17 +1,13 @@
 toqito.measurements package
 ===========================
 
-Submodules
-----------
+Subpackages
+-----------
 
-toqito.measurements.is\_povm module
------------------------------------
+.. toctree::
+   :maxdepth: 4
 
-.. automodule:: toqito.measurements.is_povm
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
+   toqito.measurements.properties
 
 Module contents
 ---------------

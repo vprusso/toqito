@@ -3,7 +3,7 @@ from typing import List
 import cvxpy
 import numpy as np
 
-from toqito.maps.partial_transpose import partial_transpose
+from toqito.channels.channels.partial_transpose import partial_transpose
 
 
 def ppt_distinguishability(

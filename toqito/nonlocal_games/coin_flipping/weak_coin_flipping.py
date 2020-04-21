@@ -1,7 +1,7 @@
 """Weak coin flipping protocol."""
 import cvxpy
 import numpy as np
-from toqito.maps.partial_trace import partial_trace_cvx
+from toqito.channels.channels.partial_trace import partial_trace_cvx
 
 
 def weak_coin_flipping(rho: np.ndarray) -> float:

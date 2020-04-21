@@ -2,7 +2,7 @@
 from typing import List, Union
 import numpy as np
 
-from toqito.maps.partial_trace import partial_trace
+from toqito.channels.channels.partial_trace import partial_trace
 
 
 def schmidt_rank(

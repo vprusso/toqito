@@ -9,10 +9,8 @@ Subpackages
 
    toqito.channels
    toqito.core
-   toqito.entanglement
    toqito.helper
    toqito.linear_algebra
-   toqito.maps
    toqito.measurements
    toqito.nonlocal_games
    toqito.perms
