@@ -6,7 +6,10 @@ from toqito.linear_algebra.operations.tensor import tensor_n
 from toqito.perms.permutation_operator import permutation_operator
 
 
-def counterfeit_attack(q_a: np.ndarray, num_reps: int = 1) -> float:
+def counterfeit_attack(
+        q_a: np.ndarray,
+        num_reps: int = 1
+) -> float:
     r"""
     Compute probability of counterfeiting quantum money [MVW12]_.
 
@@ -16,9 +19,8 @@ def counterfeit_attack(q_a: np.ndarray, num_reps: int = 1) -> float:
     .. math::
         \begin{equation}
             \begin{aligned}
-                \text{maximize:} \quad & \langle W_{\pi} \left(
-                                         Q^{\otimes n} \right) W_{\pi}^*, X
-                                         \rangle \\
+                \text{maximize:} \quad & \langle W_{\pi} \left(Q^{\otimes n}
+                                         \right) W_{\pi}^*, X \rangle \\
                 \text{subject to:} \quad & \text{Tr}_{\mathcal{Y}^{\otimes n}
                                            \otimes \mathcal{Z}^{\otimes n}}(X)
                                            = \mathbb{I}_{\mathcal{X}^{\otimes
@@ -133,6 +135,8 @@ def counterfeit_attack(q_a: np.ndarray, num_reps: int = 1) -> float:
 
 def dual_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
     """
+    Dual problem for counterfeit attack.
+
     :param q_a:
     :param pperm:
     :param num_reps:
