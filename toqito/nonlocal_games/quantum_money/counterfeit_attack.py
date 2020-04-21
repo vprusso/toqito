@@ -3,7 +3,6 @@ import cvxpy
 import numpy as np
 
 from toqito.linear_algebra.operations.tensor import tensor_n
-from toqito.channels.channels.partial_trace import partial_trace_cvx
 from toqito.perms.permutation_operator import permutation_operator
 
 
@@ -15,7 +14,6 @@ def counterfeit_attack(q_a: np.ndarray, num_reps: int = 1) -> float:
     follows:
 
     .. math::
-
         \begin{equation}
             \begin{aligned}
                 \text{maximize:} \quad & \langle W_{\pi} \left(
@@ -36,7 +34,6 @@ def counterfeit_attack(q_a: np.ndarray, num_reps: int = 1) -> float:
     follows:
 
     .. math::
-
             \begin{equation}
                 \begin{aligned}
                     \text{minimize:} \quad & \text{Tr}(Y) \\
@@ -135,6 +132,12 @@ def counterfeit_attack(q_a: np.ndarray, num_reps: int = 1) -> float:
 
 
 def dual_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
+    """
+    :param q_a:
+    :param pperm:
+    :param num_reps:
+    :return:
+    """
     y_var = cvxpy.Variable((2 ** num_reps, 2 ** num_reps), hermitian=True)
     objective = cvxpy.Minimize(cvxpy.trace(cvxpy.real(y_var)))
 
