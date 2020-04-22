@@ -70,7 +70,7 @@ def choi_map(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
     The reduction map is the Choi map that arises when :math:`a = 0`,
     :math:`b = c = 1`. We can obtain this matrix using `toqito` as follows.
 
-    >>> from toqito.maps.choi_map import choi_map
+    >>> from toqito.channels.channels.choi_map import choi_map
     >>> import numpy as np
     >>> choi_map(0, 1, 1)
     array([[ 0.,  0.,  0.,  0., -1.,  0.,  0.,  0., -1.],

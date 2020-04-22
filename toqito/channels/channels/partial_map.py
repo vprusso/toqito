@@ -8,7 +8,7 @@ from toqito.channels.operations.apply_map import apply_map
 
 def partial_map(
     rho: np.ndarray,
-    phi_map: np.ndarray,
+    phi_map: Union[np.ndarray, List[List[np.ndarray]]],
     sys: int = 2,
     dim: Union[List[int], np.ndarray] = None,
 ) -> np.ndarray:
@@ -71,47 +71,72 @@ def partial_map(
         dim = np.array(dim)
 
     # Force dim to be a row vector.
-    dim = dim.T.flatten()
-    dim = np.array([dim, dim])
+    if dim.ndim == 1:
+        dim = dim.T.flatten()
+        dim = np.array([dim, dim])
 
-    prod_dim_r2 = int(np.prod(dim[0, : sys - 1]))
-    prod_dim_c2 = int(np.prod(dim[1, : sys - 1]))
-    prod_dim_r1 = int(np.prod(dim[0, sys:]))
-    prod_dim_c1 = int(np.prod(dim[1, sys:]))
+    prod_dim_r1 = int(np.prod(dim[0, : sys - 1]))
+    prod_dim_c1 = int(np.prod(dim[1, : sys - 1]))
+    prod_dim_r2 = int(np.prod(dim[0, sys:]))
+    prod_dim_c2 = int(np.prod(dim[1, sys:]))
 
-    dim_phi = phi_map.shape
+    # Note: In the case where the Kraus operators refer to a CP map, this
+    # approach of appending to the list may not work.
+    if isinstance(phi_map, list):
+        # The `phi_map` variable is provided as a list of Kraus operators.
+        phi = []
+        for i, _ in enumerate(phi_map):
+            phi.append(
+                np.kron(
+                    np.kron(np.identity(prod_dim_r1), phi_map[i]),
+                    np.identity(prod_dim_r2),
+                )
+            )
+        phi_x = apply_map(rho, phi)
+        return phi_x
 
-    dim = np.array(
-        [
+    # The `phi_map` variable is provided as a Choi matrix.
+    if isinstance(phi_map, np.ndarray):
+        dim_phi = phi_map.shape
+
+        dim = np.array(
             [
-                prod_dim_r1,
-                prod_dim_r1,
-                int(dim[0, sys - 1]),
-                int(dim_phi[0] / dim[0, sys - 1]),
-                prod_dim_r2,
-                prod_dim_r2,
-            ],
-            [
-                prod_dim_c1,
-                prod_dim_c1,
-                int(dim[1, sys - 1]),
-                int(dim_phi[1] / dim[1, sys - 1]),
-                prod_dim_c2,
-                prod_dim_c2,
-            ],
-        ]
+                [
+                    prod_dim_r2,
+                    prod_dim_r2,
+                    int(dim[0, sys - 1]),
+                    int(dim_phi[0] / dim[0, sys - 1]),
+                    prod_dim_r1,
+                    prod_dim_r1,
+                ],
+                [
+                    prod_dim_c2,
+                    prod_dim_c2,
+                    int(dim[1, sys - 1]),
+                    int(dim_phi[1] / dim[1, sys - 1]),
+                    prod_dim_c1,
+                    prod_dim_c1,
+                ],
+            ]
+        )
+        psi_r1 = max_entangled(prod_dim_r2, False, False)
+        psi_c1 = max_entangled(prod_dim_c2, False, False)
+        psi_r2 = max_entangled(prod_dim_r1, False, False)
+        psi_c2 = max_entangled(prod_dim_c1, False, False)
+
+        phi_map = permute_systems(
+            np.kron(
+                np.kron(psi_r1 * psi_c1.conj().T, phi_map), psi_r2 * psi_c2.conj().T
+            ),
+            [1, 3, 5, 2, 4, 6],
+            dim,
+        )
+
+        phi_x = apply_map(rho, phi_map)
+
+        return phi_x
+
+    raise ValueError(
+        "The `phi_map` variable is assumed to be provided as "
+        "either a Choi matrix or a list of Kraus operators."
     )
-    psi_r1 = max_entangled(prod_dim_r1, False, False)
-    psi_c1 = max_entangled(prod_dim_c1, False, False)
-    psi_r2 = max_entangled(prod_dim_r2, False, False)
-    psi_c2 = max_entangled(prod_dim_c2, False, False)
-
-    phi_map = permute_systems(
-        np.kron(np.kron(psi_r1 * psi_c1.conj().T, phi_map), psi_r2 * psi_c2.conj().T),
-        [1, 3, 5, 2, 4, 6],
-        dim,
-    )
-
-    phi_x = apply_map(rho, phi_map)
-
-    return phi_x
