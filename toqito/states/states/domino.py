@@ -93,6 +93,7 @@ def domino(idx: int) -> np.ndarray:
     .. [UPB99] Bennett, Charles H., et al.
         "Unextendible product bases and bound entanglement."
         Physical Review Letters 82.26 (1999): 5385.
+        https://arxiv.org/abs/quant-ph/9808030
 
     :param idx: A parameter in [0, 1, 2, 3, 4, 5, 6, 7, 8]
     """
