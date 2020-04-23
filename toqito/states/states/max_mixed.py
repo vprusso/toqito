@@ -11,12 +11,19 @@ def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, sparse.dia.dia_
     mixed state is defined as
 
     .. math::
-        \frac{1}{d} \begin{pmatrix}
+        \omega = \frac{1}{d} \begin{pmatrix}
                         1 & 0 & \ldots & 0 \\
                         0 & 1 & \ldots & 0 \\
                         \vdots & \vdots & \ddots & \vdots \\
                         0 & 0 & \ldots & 1
-                    \end{pmatrix}
+                    \end{pmatrix},
+
+    or equivalently, it is defined as
+
+    .. math::
+        \omega = \frac{\mathbb{I}}{\text{dim}(\mathcal{X})}
+
+    for some complex Euclidean space :math:`\mathcal{X}`.
 
     The maximally mixed state is returned as a sparse matrix if
     `is_sparse = True` and is full if `is_sparse = False`.

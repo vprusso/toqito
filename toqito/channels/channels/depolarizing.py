@@ -1,24 +1,34 @@
-"""Produces a depolarizng channel."""
+"""Produces a partially depolarizng channel."""
 import numpy as np
 from scipy.sparse import identity
 from toqito.states.states.max_entangled import max_entangled
 
 
-def depolarizing(dim: int, param_p: int = 0) -> np.ndarray:
+def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
     r"""
-    Produce the depolarizng channel [WIKDC]_.
+    Produce the partially depolarizng channel [WIKDC]_, [WatDepo18]_.
 
-    The depolarizng channel is the Choi matrix of the completely depolarizng
-    channel that acts on `dim`-by-`dim` matrices.
+    The Choi matrix of the completely depolarizing channel that acts on
+    `dim`-by-`dim` matrices.
 
-    Produces the partially depolarizng channel `(1-P)*D + P*ID` where `D` is
-    the completely depolarizing channel and `ID` is the identity channel.
+    The completely depolarizing channel is defined as
+
+    .. math::
+        \Omega(X) = \text{Tr}(X) \omega
+
+    for all :math:`X \in \text{L}(\mathcal{X})`, where
+
+    .. math::
+        \omega = \frac{\mathbb{I}_{\mathcal{X}}}{\text{dim}(\mathcal{X})}
+
+    denotes the completely mixed stated defined with respect to the space
+    :math:`\mathcal{X}`.
 
     Examples
     ==========
 
-    The depolarizing channel maps every density matrix to the maximally-mixed
-    state. For example, consider the density operator
+    The completely depolarizing channel maps every density matrix to the
+    maximally-mixed state. For example, consider the density operator
 
     .. math::
         \rho = \frac{1}{2} \begin{pmatrix}
@@ -48,19 +58,37 @@ def depolarizing(dim: int, param_p: int = 0) -> np.ndarray:
     >>>     [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
     >>> )
     >>> apply_map(test_input_mat, depolarizing(4))
-    matrix([[0.125, 0.   , 0.   , 0.125],
-            [0.   , 0.   , 0.   , 0.   ],
-            [0.   , 0.   , 0.   , 0.   ],
-            [0.125, 0.   , 0.   , 0.125]])
+    [[0.125 0.    0.    0.125]
+     [0.    0.    0.    0.   ]
+     [0.    0.    0.    0.   ]
+     [0.125 0.    0.    0.125]]
+
+    >>> from toqito.channels.operations.apply_map import apply_map
+    >>> from toqito.channels.channels.depolarizing import depolarizing
+    >>> import numpy as np
+    >>> test_input_mat = np.array(
+    >>>     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
+    >>> )
+    >>> apply_map(test_input_mat, depolarizing(4, 0.5))
+    [[17.125  0.25   0.375  0.5  ]
+     [ 0.625 17.75   0.875  1.   ]
+     [ 1.125  1.25  18.375  1.5  ]
+     [ 1.625  1.75   1.875 19.   ]]
+
 
     References
     ==========
     .. [WIKDC] Wikipedia: Quantum depolarizing channel
         https://en.wikipedia.org/wiki/Quantum_depolarizing
 
+    .. [WatDepo18] Watrous, John.
+        "The theory of quantum information."
+        Section: "Replacement channels and the completely depolarizing channel".
+        Cambridge University Press, 2018.
+
     :param dim: The dimensionality on which the channel acts.
     :param param_p: Default 0.
-    :return:
+    :return: The Choi matrix of the completely depolarizing channel.
     """
     # Compute the Choi matrix of the depolarizng channel.
 

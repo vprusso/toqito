@@ -1,23 +1,30 @@
-"""Produces a dephasing channel."""
+"""Produces the partially dephasing channel."""
 import numpy as np
 from toqito.states.states.max_entangled import max_entangled
 
 
-def dephasing(dim: int, param_p: int = 0) -> np.ndarray:
+def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
     r"""
-    Produce the dephasing channel.
+    Produce the partially dephasing channel [WatDeph18]_.
 
-    The dephasing channel is the Choi matrix of the completely dephasing
-    channel that acts on `dim`-by-`dim` matrices.
+    The Choi matrix of the completely dephasing channel that acts on
+    `dim`-by-`dim` matrices.
 
-    Produces the partially dephasing channel `(1-P)*D + P*ID` where `D` is the
-    completely dephasing channel and ID is the identity channel.
+    Let :math:`\Sigma` be an alphabet and let
+    :math:`\mathcal{X} = \mathbb{C}^{\Sigma}`. The map
+    :math:`\Delta \in \text{T}(\mathcal{X})` defined as
+
+    .. math::
+        \Delta(X) = \sum_{a \in \Sigma} X(a, a) E_{a,a}
+
+    for every :math:`X \in \text{L}(\mathcal{X})` is defined as the completely
+    dephasing channel.
 
     Examples
     ==========
 
-    The dephasing channel maps kills everything off the diagonals. Consider the
-    following matrix
+    The completely dephasing channel maps kills everything off the diagonal.
+    Consider the following matrix
 
     .. math::
         \rho = \begin{pmatrix}
@@ -46,14 +53,35 @@ def dephasing(dim: int, param_p: int = 0) -> np.ndarray:
     >>>     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
     >>> )
     >>> apply_map(test_input_mat, dephasing(4))
-    array([[ 1.,  0.,  0.,  0.],
-           [ 0.,  6.,  0.,  0.],
-           [ 0.,  0., 11.,  0.],
-           [ 0.,  0.,  0., 16.]])
+    [[ 1.,  0.,  0.,  0.],
+     [ 0.,  6.,  0.,  0.],
+     [ 0.,  0., 11.,  0.],
+     [ 0.,  0.,  0., 16.]])
+
+    We may also consider setting the parameter `p = 0.5`.
+
+    >>> from toqito.channels.operations.apply_map import apply_map
+    >>> from toqito.channels.channels.dephasing import dephasing
+    >>> import numpy as np
+    >>> test_input_mat = np.array(
+    >>>     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
+    >>> )
+    >>> apply_map(test_input_mat, dephasing(4, 0.5))
+    [[17.5  0.   0.   0. ]
+     [ 0.  20.   0.   0. ]
+     [ 0.   0.  22.5  0. ]
+     [ 0.   0.   0.  25. ]]
+
+    References
+    ==========
+    .. [WatDeph18] Watrous, John.
+        "The theory of quantum information."
+        Section: "The completely dephasing channel".
+        Cambridge University Press, 2018.
 
     :param dim: The dimensionality on which the channel acts.
     :param param_p: Default is 0.
-    :return:
+    :return: The Choi matrix of the dephasing channel.
     """
     # Compute the Choi matrix of the dephasing channel.
 

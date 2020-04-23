@@ -85,9 +85,10 @@ def choi_map(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
 
     References
     ==========
-    .. [CHOI] S. J. Cho, S.-H. Kye, and S. G. Lee,
-        Linear Alebr. Appl. 171, 213
-        (1992).
+    .. [CHOI] Cho, Sung Je, Seung-Hyeok Kye, and Sa Ge Lee.
+        "Generalized Choi maps in three-dimensional matrix algebra."
+        Linear algebra and its applications 171 (1992): 213-224.
+        https://www.sciencedirect.com/science/article/pii/002437959290260H
 
     :param a_var: Default integer for standard Choi map.
     :param b_var: Default integer for standard Choi map.
