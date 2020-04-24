@@ -26,9 +26,9 @@ def is_unitary(mat: Union[np.ndarray, np.matrix]) -> bool:
 
     .. math::
         X = \begin{pmatrix}
-                                0 & 1 \\
-                                1 & 0
-                           \end{pmatrix}
+            0 & 1 \\
+            1 & 0
+            \end{pmatrix}
 
     our function indicates that this is indeed a unitary matrix.
 
@@ -51,9 +51,9 @@ def is_unitary(mat: Union[np.ndarray, np.matrix]) -> bool:
 
     .. math::
         B = \begin{pmatrix}
-                                1 & 0 \\
-                                1 & 1
-                             \end{pmatrix}
+            1 & 0 \\
+            1 & 1
+            \end{pmatrix}
 
     is not unitary.
 
