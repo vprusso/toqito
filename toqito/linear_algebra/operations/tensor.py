@@ -126,7 +126,7 @@ def tensor(*args) -> np.ndarray:
         return result
 
     # Tensor product one matrix `n` times with itself.
-    elif len(args) == 2 and isinstance(args[1], int):
+    if len(args) == 2 and isinstance(args[1], int):
         num_tensor = args[1]
         if num_tensor == 1:
             return args[0]
@@ -139,13 +139,12 @@ def tensor(*args) -> np.ndarray:
         return result
 
     # Tensor product between two or more matrices.
-    else:
-        if len(args) == 1:
-            return args[0]
-        if len(args) == 2:
-            return np.kron(args[0], args[1])
-        if len(args) >= 3:
-            result = args[0]
-            for i in range(1, len(args)):
-                result = np.kron(result, args[i])
+    if len(args) == 1:
+        return args[0]
+    if len(args) == 2:
+        return np.kron(args[0], args[1])
+    if len(args) >= 3:
+        result = args[0]
+        for i in range(1, len(args)):
+            result = np.kron(result, args[i])
     return result
