@@ -21,8 +21,9 @@ def is_completely_positive(
 
     is a positive map for every complex Euclidean space :math:`\mathcal{Z}`.
 
-    Alternatively, a channel is positive if the corresponding Choi matrix of the
-    channel is both Hermitian-preserving and positive semidefinite.
+    Alternatively, a channel is completely positive if the corresponding Choi
+    matrix of the channel is both Hermitian-preserving and positive
+    semidefinite.
 
     Examples
     ==========
@@ -73,15 +74,15 @@ def is_completely_positive(
 
     References
     ==========
-    .. [WatH18] Watrous, John.
+    .. [WatCP18] Watrous, John.
         "The theory of quantum information."
         Section: "Linear maps of square operators".
         Cambridge University Press, 2018.
 
     :param phi: The channel provided as either a Choi matrix or a list of
                 Kraus operators.
-    :param tol: The tolerance parameter to determine Hermiticity.
-    :return: True if the channel is Hermitian-preserving, and False otherwise.
+    :param tol: The tolerance parameter to determine complete positivity.
+    :return: True if the channel is completely positive, and False otherwise.
     """
     # If the variable `phi` is provided as a list, we assume this is a list
     # of Kraus operators.
