@@ -1,18 +1,35 @@
-"""Kronecker tensor product of two or more matrices."""
-from typing import List
+"""Kronecker tensor product of two or more matrices or vectors."""
 import numpy as np
 
 
-def tensor(input_1: np.ndarray, input_2: np.ndarray) -> np.ndarray:
+def tensor(*args) -> np.ndarray:
     r"""
-    Tensor product between two matrices [WIKTEN]_.
+    Compute the Kronecker tensor product [WIKTEN]_.
 
-    Tensor two matrices or vectors together using the standard kronecker
+    Tensor two matrices or vectors together using the standard Kronecker
     operation provided from numpy.
 
     Given two matrices :math:`A` and :math:`B`, computes :math:`A \otimes B`.
     The same concept also applies to two vectors :math:`v` and :math:`w` which
-    computes :math: `v \otimes w`.
+    computes :math:`v \otimes w`.
+
+    One may also compute the tensor product one matrix `n` times with itself.
+
+    For a matrix, :math:`A` and an integer :math:`n`, the result of this
+    function computes :math:`A^{\otimes n}`.
+
+    Similarly for a vector :math:`v` and an integer :math:`n`, the result of
+    of this function computes :math:`v^{\otimes n}`.
+
+    One may also erform the tensor product on a list of matrices.
+
+    Given a list of :math:`n` matrices :math:`A_1, A_2, \ldots, A_n` the result
+    of this function computes :math:`A_1 \otimes A_2 \otimes \ldots
+    \otimes A_n`.
+
+    Similarly, for a list of :math:`n` vectors :math:`v_1, v_2, \ldots, v_n`,
+    the result of this function computes :math:`v_1 \otimes v_2 \otimes \ldots
+    \otimes v_n`.
 
     Examples
     ==========
@@ -35,32 +52,10 @@ def tensor(input_1: np.ndarray, input_2: np.ndarray) -> np.ndarray:
     >>> from toqito.linear_algebra.operations.tensor import tensor
     >>> e_0 = ket(2, 0)
     >>> tensor(e_0, e_0)
-    array([[1],
-           [0],
-           [0],
-           [0]])
-
-    References
-    ==========
-    .. [WIKTEN] Wikipedia: Tensor product
-        https://en.wikipedia.org/wiki/Tensor_product
-
-    :param input_1: The first matrix argument.
-    :param input_2: The second matrix argument.
-    :return: The tensor product between `input_1` and `input_2`.
-    """
-    return np.kron(input_1, input_2)
-
-
-def tensor_n(input_val: np.ndarray, num_tensor: int) -> np.ndarray:
-    r"""
-    Tensor product one matrix `n` times with itself.
-
-    For a matrix, :math:`A` and an integer :math:`n`, the result of this
-    function computes :math:`A^{\otimes n}`.
-
-    Similarly for a vector :math:`v` and an integer :math:`n`, the result of
-    of this function computes :math:`v^{\otimes n}`.
+    [[1],
+     [0],
+     [0],
+     [0]]
 
     Tensor product one matrix :math:`n` times with itself.
 
@@ -73,45 +68,17 @@ def tensor_n(input_val: np.ndarray, num_tensor: int) -> np.ndarray:
     in `toqito` as follows.
 
     >>> from toqito.core.ket import ket
-    >>> from toqito.linear_algebra.operations.tensor import tensor_n
+    >>> from toqito.linear_algebra.operations.tensor import tensor
     >>> e_0 = ket(2, 0)
-    >>> tensor_n(e_0, 3)
-    array([[1],
-           [0],
-           [0],
-           [0],
-           [0],
-           [0],
-           [0],
-           [0]])
-
-    :param input_val: The matrix argument.
-    :param num_tensor: The number of times to tensor.
-    :return: The matrix `input_val` tensored with itself `num_tensor` times.
-    """
-    result = None
-    if num_tensor == 1:
-        return input_val
-    if num_tensor == 2:
-        return np.kron(input_val, input_val)
-    if num_tensor >= 3:
-        result = np.kron(input_val, input_val)
-        for _ in range(2, num_tensor):
-            result = np.kron(result, input_val)
-    return result
-
-
-def tensor_list(input_list: List[np.ndarray]) -> np.ndarray:
-    r"""
-    Perform the tensor product on a list of matrices.
-
-    Given a list of :math:`n` matrices :math:`A_1, A_2, \ldots, A_n` the result
-    of this function computes :math:`A_1 \otimes A_2 \otimes \ldots
-    \otimes A_n`.
-
-    Similarly, for a list of :math:`n` vectors :math:`v_1, v_2, \ldots, v_n`,
-    the result of this function computes :math:`v_1 \otimes v_2 \otimes \ldots
-    \otimes v_n`.
+    >>> tensor(e_0, 3)
+    [[1],
+     [0],
+     [0],
+     [0],
+     [0],
+     [0],
+     [0],
+     [0]]
 
     Perform the tensor product on a list of vectors or matrices.
 
@@ -121,28 +88,64 @@ def tensor_list(input_list: List[np.ndarray]) -> np.ndarray:
     so as follows.
 
     >>> from toqito.core.ket import ket
-    >>> from toqito.linear_algebra.operations.tensor import tensor_list
+    >>> from toqito.linear_algebra.operations.tensor import tensor
     >>> e_0, e_1 = ket(2, 0), ket(2, 1)
-    >>> tensor_list([e_0, e_1, e_0])
-    array([[0],
-           [0],
-           [1],
-           [0],
-           [0],
-           [0],
-           [0],
-           [0]])
+    >>> tensor([e_0, e_1, e_0])
+    [[0],
+     [0],
+     [1],
+     [0],
+     [0],
+     [0],
+     [0],
+     [0]]
 
-    :param input_list: A list of matrices.
-    :return: The tensor product of all matrices in the list.
+    References
+    ==========
+    .. [WIKTEN] Wikipedia: Tensor product
+        https://en.wikipedia.org/wiki/Tensor_product
+
+    :param args: Input to the tensor function is expected to be either:
+        - List[np.ndarray]: List of numpy matrices,
+        - np.ndarray, ... np.ndarray: An arbitrary number of numpy arrays,
+        - np.ndarray, int: A numpy array and an integer.
+    :return: The computed tensor product.
     """
     result = None
-    if len(input_list) == 1:
-        return input_list[0]
-    if len(input_list) == 2:
-        return np.kron(input_list[0], input_list[1])
-    if len(input_list) >= 3:
-        result = input_list[0]
-        for i in range(1, len(input_list)):
-            result = np.kron(result, input_list[i])
+
+    # Input is provided as a list of matrices.
+    if len(args) == 1 and isinstance(args[0], list):
+        if len(args[0]) == 1:
+            return args[0][0]
+        if len(args[0]) == 2:
+            return np.kron(args[0][0], args[0][1])
+        if len(args[0]) >= 3:
+            result = args[0][0]
+            for i in range(1, len(args[0])):
+                result = np.kron(result, args[0][i])
+        return result
+
+    # Tensor product one matrix `n` times with itself.
+    elif len(args) == 2 and isinstance(args[1], int):
+        num_tensor = args[1]
+        if num_tensor == 1:
+            return args[0]
+        if num_tensor == 2:
+            return np.kron(args[0], args[0])
+        if num_tensor >= 3:
+            result = np.kron(args[0], args[0])
+            for _ in range(2, num_tensor):
+                result = np.kron(result, args[0])
+        return result
+
+    # Tensor product between two or more matrices.
+    else:
+        if len(args) == 1:
+            return args[0]
+        if len(args) == 2:
+            return np.kron(args[0], args[1])
+        if len(args) >= 3:
+            result = args[0]
+            for i in range(1, len(args)):
+                result = np.kron(result, args[i])
     return result

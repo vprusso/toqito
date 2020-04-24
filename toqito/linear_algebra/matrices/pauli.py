@@ -3,7 +3,7 @@ from typing import List, Union
 from scipy import sparse
 import numpy as np
 
-from toqito.linear_algebra.operations.tensor import tensor_list
+from toqito.linear_algebra.operations.tensor import tensor
 
 
 def pauli(
@@ -102,4 +102,4 @@ def pauli(
     pauli_mats = []
     for i in range(num_qubits - 1, -1, -1):
         pauli_mats.append(pauli(ind[i], is_sparse))
-    return tensor_list(pauli_mats)
+    return tensor(pauli_mats)

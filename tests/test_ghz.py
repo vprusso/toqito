@@ -4,7 +4,7 @@ import numpy as np
 
 from toqito.core.ket import ket
 from toqito.states.states.ghz import ghz
-from toqito.linear_algebra.operations.tensor import tensor_list
+from toqito.linear_algebra.operations.tensor import tensor
 
 
 class TestGHZ(unittest.TestCase):
@@ -13,11 +13,7 @@ class TestGHZ(unittest.TestCase):
     def test_ghz_2_3(self):
         """Produces the 3-qubit GHZ state: `1/sqrt(2) * (|000> + |111>)`."""
         e_0, e_1 = ket(2, 0), ket(2, 1)
-        expected_res = (
-            1
-            / np.sqrt(2)
-            * (tensor_list([e_0, e_0, e_0]) + tensor_list([e_1, e_1, e_1]))
-        )
+        expected_res = 1 / np.sqrt(2) * (tensor(e_0, e_0, e_0) + tensor(e_1, e_1, e_1))
 
         res = ghz(2, 3).toarray()
 
@@ -39,10 +35,10 @@ class TestGHZ(unittest.TestCase):
             1
             / np.sqrt(30)
             * (
-                tensor_list([e0_4, e0_4, e0_4, e0_4, e0_4, e0_4, e0_4])
-                + 2 * tensor_list([e1_4, e1_4, e1_4, e1_4, e1_4, e1_4, e1_4])
-                + 3 * tensor_list([e2_4, e2_4, e2_4, e2_4, e2_4, e2_4, e2_4])
-                + 4 * tensor_list([e3_4, e3_4, e3_4, e3_4, e3_4, e3_4, e3_4])
+                tensor(e0_4, e0_4, e0_4, e0_4, e0_4, e0_4, e0_4)
+                + 2 * tensor(e1_4, e1_4, e1_4, e1_4, e1_4, e1_4, e1_4)
+                + 3 * tensor(e2_4, e2_4, e2_4, e2_4, e2_4, e2_4, e2_4)
+                + 4 * tensor(e3_4, e3_4, e3_4, e3_4, e3_4, e3_4, e3_4)
             )
         )
 

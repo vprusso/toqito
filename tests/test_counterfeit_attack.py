@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from toqito.core.ket import ket
-from toqito.linear_algebra.operations.tensor import tensor_list
+from toqito.linear_algebra.operations.tensor import tensor
 from toqito.nonlocal_games.quantum_money.counterfeit_attack import counterfeit_attack
 
 
@@ -16,10 +16,10 @@ class TestCounterfeitAttack(unittest.TestCase):
         e_p = (e_0 + e_1) / np.sqrt(2)
         e_m = (e_0 - e_1) / np.sqrt(2)
 
-        e_000 = tensor_list([e_0, e_0, e_0])
-        e_111 = tensor_list([e_1, e_1, e_1])
-        e_ppp = tensor_list([e_p, e_p, e_p])
-        e_mmm = tensor_list([e_m, e_m, e_m])
+        e_000 = tensor(e_0, e_0, e_0)
+        e_111 = tensor(e_1, e_1, e_1)
+        e_ppp = tensor(e_p, e_p, e_p)
+        e_mmm = tensor(e_m, e_m, e_m)
 
         q_a = (
             1

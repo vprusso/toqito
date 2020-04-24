@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from toqito.core.ket import ket
-from toqito.linear_algebra.operations.tensor import tensor, tensor_n, tensor_list
+from toqito.linear_algebra.operations.tensor import tensor
 
 
 class TestTensor(unittest.TestCase):
@@ -24,7 +24,7 @@ class TestTensor(unittest.TestCase):
         e_0 = ket(2, 0)
         expected_res = None
 
-        res = tensor_n(e_0, 0)
+        res = tensor(e_0, 0)
         self.assertEqual(res, expected_res)
 
     def test_tensor_n_1(self):
@@ -32,7 +32,7 @@ class TestTensor(unittest.TestCase):
         e_0 = ket(2, 0)
         expected_res = e_0
 
-        res = tensor_n(e_0, 1)
+        res = tensor(e_0, 1)
         bool_mat = np.isclose(res, expected_res)
         self.assertEqual(np.all(bool_mat), True)
 
@@ -41,7 +41,7 @@ class TestTensor(unittest.TestCase):
         e_0 = ket(2, 0)
         expected_res = np.kron(e_0, e_0)
 
-        res = tensor_n(e_0, 2)
+        res = tensor(e_0, 2)
         bool_mat = np.isclose(res, expected_res)
         self.assertEqual(np.all(bool_mat), True)
 
@@ -50,7 +50,7 @@ class TestTensor(unittest.TestCase):
         e_0 = ket(2, 0)
         expected_res = np.kron(np.kron(e_0, e_0), e_0)
 
-        res = tensor_n(e_0, 3)
+        res = tensor(e_0, 3)
         bool_mat = np.isclose(res, expected_res)
         self.assertEqual(np.all(bool_mat), True)
 
@@ -58,7 +58,7 @@ class TestTensor(unittest.TestCase):
         """Test tensor empty list."""
         expected_res = None
 
-        res = tensor_list([])
+        res = tensor([])
         self.assertEqual(res, expected_res)
 
     def test_tensor_list_1(self):
@@ -66,7 +66,7 @@ class TestTensor(unittest.TestCase):
         e_0 = ket(2, 0)
         expected_res = e_0
 
-        res = tensor_list([e_0])
+        res = tensor([e_0])
 
         bool_mat = np.isclose(res, expected_res)
         self.assertEqual(np.all(bool_mat), True)
@@ -76,7 +76,7 @@ class TestTensor(unittest.TestCase):
         e_0, e_1 = ket(2, 0), ket(2, 1)
         expected_res = np.kron(e_0, e_1)
 
-        res = tensor_list([e_0, e_1])
+        res = tensor([e_0, e_1])
 
         bool_mat = np.isclose(res, expected_res)
         self.assertEqual(np.all(bool_mat), True)
@@ -86,7 +86,7 @@ class TestTensor(unittest.TestCase):
         e_0, e_1 = ket(2, 0), ket(2, 1)
         expected_res = np.kron(np.kron(e_0, e_1), e_0)
 
-        res = tensor_list([e_0, e_1, e_0])
+        res = tensor([e_0, e_1, e_0])
 
         bool_mat = np.isclose(res, expected_res)
         self.assertEqual(np.all(bool_mat), True)

@@ -2,7 +2,7 @@
 import cvxpy
 import numpy as np
 
-from toqito.linear_algebra.operations.tensor import tensor_n
+from toqito.linear_algebra.operations.tensor import tensor
 from toqito.perms.permutation_operator import permutation_operator
 
 
@@ -117,7 +117,7 @@ def counterfeit_attack(q_a: np.ndarray, num_reps: int = 1) -> float:
     else:
         # The permutation vector `perm` contains elements of the
         # sequence from: https://oeis.org/A023123
-        q_a = tensor_n(q_a, num_reps)
+        q_a = tensor(q_a, num_reps)
         perm = []
         for i in range(1, num_spaces + 1):
             perm.append(i)

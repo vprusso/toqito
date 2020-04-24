@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from toqito.core.ket import ket
-from toqito.linear_algebra.operations.tensor import tensor_list
+from toqito.linear_algebra.operations.tensor import tensor
 from toqito.states.states.w_state import w_state
 
 
@@ -16,11 +16,7 @@ class TestWState(unittest.TestCase):
         expected_res = (
             1
             / np.sqrt(3)
-            * (
-                tensor_list([e_1, e_0, e_0])
-                + tensor_list([e_0, e_1, e_0])
-                + tensor_list([e_0, e_0, e_1])
-            )
+            * (tensor(e_1, e_0, e_0) + tensor(e_0, e_1, e_0) + tensor(e_0, e_0, e_1))
         )
 
         res = w_state(3)
@@ -35,10 +31,10 @@ class TestWState(unittest.TestCase):
             1
             / np.sqrt(30)
             * (
-                tensor_list([e_1, e_0, e_0, e_0])
-                + 2 * tensor_list([e_0, e_1, e_0, e_0])
-                + 3 * tensor_list([e_0, e_0, e_1, e_0])
-                + 4 * tensor_list([e_0, e_0, e_0, e_1])
+                tensor(e_1, e_0, e_0, e_0)
+                + 2 * tensor(e_0, e_1, e_0, e_0)
+                + 3 * tensor(e_0, e_0, e_1, e_0)
+                + 4 * tensor(e_0, e_0, e_0, e_1)
             )
         )
 
