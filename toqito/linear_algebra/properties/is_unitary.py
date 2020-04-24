@@ -71,8 +71,5 @@ def is_unitary(mat: Union[np.ndarray, np.matrix]) -> bool:
     :param mat: Matrix to check.
     :return: Return `True` if matrix is unitary, and `False` otherwise.
     """
-    if not isinstance(mat, np.matrix):
-        mat = np.matrix(mat)
-
     # If U^* * U = I U * U^*, the matrix "U" is unitary.
-    return np.allclose(np.identity(mat.shape[0]), mat * mat.conj().T)
+    return np.allclose(np.eye(len(mat)), mat.dot(mat.conj().T))

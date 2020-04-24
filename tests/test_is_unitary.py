@@ -9,9 +9,14 @@ from toqito.random.random_unitary import random_unitary
 class TestIsUnitary(unittest.TestCase):
     """Unit test for is_unitary."""
 
-    def test_is_unitary(self):
-        """Test that unitary matrix returns True."""
+    def test_is_unitary_random(self):
+        """Test that random unitary matrix returns True."""
         mat = random_unitary(2)
+        self.assertEqual(is_unitary(mat), True)
+
+    def test_is_unitary_hardcoded(self):
+        """Test that hardcoded unitary matrix returns True."""
+        mat = np.array([[0, 1], [1, 0]])
         self.assertEqual(is_unitary(mat), True)
 
     def test_is_not_unitary(self):
