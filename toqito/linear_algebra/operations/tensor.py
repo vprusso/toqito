@@ -21,7 +21,7 @@ def tensor(*args) -> np.ndarray:
     Similarly for a vector :math:`v` and an integer :math:`n`, the result of
     of this function computes :math:`v^{\otimes n}`.
 
-    One may also erform the tensor product on a list of matrices.
+    One may also perform the tensor product on a list of matrices.
 
     Given a list of :math:`n` matrices :math:`A_1, A_2, \ldots, A_n` the result
     of this function computes :math:`A_1 \otimes A_2 \otimes \ldots

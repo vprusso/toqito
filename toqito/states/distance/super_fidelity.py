@@ -5,17 +5,17 @@ import numpy as np
 
 def super_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     r"""
-    Compute the super fidelity of two density matrices [WIKSFID]_.
+    Compute the super-fidelity of two density matrices [MPHUZSup08]_.
 
-    The super fidelity is a measure of similarity between density operators.
+    The super-fidelity is a measure of similarity between density operators.
     It is defined as
 
     .. math::
         G(\rho, \sigma) = \text{Tr}(\rho \sigma) + \sqrt{1 - \text{Tr}(\rho^2)}
         \sqrt{1 - \text{Tr}(\sigma^2)},
 
-    where :math:`\sigma` and :math:`\rho` are density matrices. The super
-    fidelity serves as an upper bound for the fidelity.
+    where :math:`\sigma` and :math:`\rho` are density matrices. The
+    super-fidelity serves as an upper bound for the fidelity.
 
     Examples
     ==========
@@ -50,14 +50,14 @@ def super_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
 
     References
     ==========
-    .. [WIKSFID] J. A. Miszczak, Z. Puchała, P. Horodecki, A. Uhlmann, K. Życzkowski
+    .. [MPHUZSup08] J. A. Miszczak, Z. Puchała, P. Horodecki, A. Uhlmann, K. Życzkowski
         "Sub--and super--fidelity as bounds for quantum fidelity."
         arXiv preprint arXiv:0805.2037 (2008).
         https://arxiv.org/abs/0805.2037
 
     :param rho: Density matrix.
     :param sigma: Density matrix.
-    :return: The super fidelity between `rho` and `sigma`.
+    :return: The super-fidelity between `rho` and `sigma`.
     """
     # Perform some error checking.
     if not np.all(rho.shape == sigma.shape):
