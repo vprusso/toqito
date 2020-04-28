@@ -35,16 +35,14 @@ class TestFidelity(unittest.TestCase):
         e_0, e_1 = ket(2, 0), ket(2, 1)
         rho = 3 / 4 * e_0 * e_0.conj().T + 1 / 4 * e_1 * e_1.conj().T
         sigma = 2 / 3 * e_0 * e_0.conj().T + 1 / 3 * e_1 * e_1.conj().T
-        self.assertEqual(np.isclose(fidelity(rho, sigma), 0.996, rtol=1e-03),
-                         True)
+        self.assertEqual(np.isclose(fidelity(rho, sigma), 0.996, rtol=1e-03), True)
 
     def test_fidelity_non_identical_states_2(self):
         """Test the fidelity between two non-identical states."""
         e_0, e_1 = ket(2, 0), ket(2, 1)
         rho = 3 / 4 * e_0 * e_0.conj().T + 1 / 4 * e_1 * e_1.conj().T
         pi = 1 / 8 * e_0 * e_0.conj().T + 7 / 8 * e_1 * e_1.conj().T
-        self.assertEqual(np.isclose(fidelity(rho, pi), 0.774, rtol=1e-03),
-                         True)
+        self.assertEqual(np.isclose(fidelity(rho, pi), 0.774, rtol=1e-03), True)
 
     def test_non_square(self):
         """Tests for invalid dim."""
