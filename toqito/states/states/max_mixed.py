@@ -23,7 +23,8 @@ def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, sparse.dia.dia_
     .. math::
         \omega = \frac{\mathbb{I}}{\text{dim}(\mathcal{X})}
 
-    for some complex Euclidean space :math:`\mathcal{X}`.
+    for some complex Euclidean space :math:`\mathcal{X}`. The maximally mixed
+    state is sometimes also referred to as the tracial state.
 
     The maximally mixed state is returned as a sparse matrix if
     `is_sparse = True` and is full if `is_sparse = False`.

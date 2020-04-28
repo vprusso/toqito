@@ -32,10 +32,10 @@ class TestSubFidelity(unittest.TestCase):
         """Test sub_fidelity is lower bound on fidelity for rho and pi."""
         e_0, e_1 = ket(2, 0), ket(2, 1)
         rho = 3 / 4 * e_0 * e_0.conj().T + 1 / 4 * e_1 * e_1.conj().T
-        pi = 1 / 8 * e_0 * e_0.conj().T + 7 / 8 * e_1 * e_1.conj().T
+        sigma = 1 / 8 * e_0 * e_0.conj().T + 7 / 8 * e_1 * e_1.conj().T
 
-        res = sub_fidelity(rho, pi)
-        self.assertLessEqual(res, fidelity(rho, pi))
+        res = sub_fidelity(rho, sigma)
+        self.assertLessEqual(res, fidelity(rho, sigma))
 
     def test_non_square_sub_fidelity(self):
         """Tests for invalid dim for sub_fidelity."""
