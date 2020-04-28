@@ -73,7 +73,7 @@ def partial_transpose(
                         7 & 8 & 15 & 16
                     \end{pmatrix}
 
-    >>> from toqito.maps.partial_transpose import partial_transpose
+    >>> from toqito.channels.channels.partial_transpose import partial_transpose
     >>> import numpy as np
     >>> test_input_mat = np.array(
     >>>     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]

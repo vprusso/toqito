@@ -17,6 +17,7 @@ def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float:
 
     Examples
     ==========
+
     Consider the following Bell state
 
     .. math::
