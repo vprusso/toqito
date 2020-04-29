@@ -1,22 +1,24 @@
-Welcome to toqito's documentation!
+Welcome to toqito's documentation
 ==================================
 
+toqito is an open source library for studying various objects in quantum information, namely, quantum states, channels, and measurements. 
+
+To get started refer to
+
+* :ref:`install`
+
+Contents
+--------
+
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+	:maxdepth: 1
 
-toqito
-======
+	install
 
 .. toctree::
-   :maxdepth: 4
+	:maxdepth: 2
+	:caption: Quantum States
 
-   modules.rst
+	states
 
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
