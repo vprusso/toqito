@@ -9,7 +9,7 @@ from toqito.states.entanglement.concurrence import concurrence
 class TestConcurrence(unittest.TestCase):
     """Unit test for concurrence."""
 
-    def test_concurrence(self):
+    def test_concurrence_entangled(self):
         """The concurrence on maximally entangled Bell state."""
         e_0, e_1 = ket(2, 0), ket(2, 1)
         e_00, e_11 = np.kron(e_0, e_0), np.kron(e_1, e_1)
@@ -18,8 +18,16 @@ class TestConcurrence(unittest.TestCase):
         rho = u_vec * u_vec.conj().T
 
         res = concurrence(rho)
-
         self.assertEqual(np.isclose(res, 1), True)
+
+    def test_concurrence_separable(self):
+        """The concurrence of a product state is zero."""
+        e_0, e_1 = ket(2, 0), ket(2, 1)
+        v_vec = np.kron(e_0, e_1)
+        sigma = v_vec * v_vec.conj().T
+
+        res = concurrence(sigma)
+        self.assertEqual(np.isclose(res, 0), True)
 
     def test_invalid_dim(self):
         """Tests for invalid dimension inputs."""

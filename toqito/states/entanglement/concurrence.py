@@ -15,6 +15,8 @@ def concurrence(rho: np.ndarray) -> float:
     where :math:`\lambda_1, \ldots, \lambda_4` are the eigenvalues in
     decreasing order of the matrix.
 
+    Concurrence can serve as a measure of entanglement.
+
     Examples
     ==========
 
@@ -38,8 +40,24 @@ def concurrence(rho: np.ndarray) -> float:
     >>> e_00, e_11 = np.kron(e_0, e_0), np.kron(e_1, e_1)
     >>> u_vec = 1 / np.sqrt(2) * (e_00 + e_11)
     >>> rho = u_vec * u_vec.conj().T
-    >>> concurrence(rho)
+    >>> print(concurrence(rho))
     0.9999999999999998
+
+    Consider the concurrence of the following product state
+
+    .. math::
+        v = |0\rangle \otimes |1 \rangle.
+
+    As this state has no entanglement, the concurrence is zero
+
+    >>> import numpy as np
+    >>> from toqito.core.ket import ket
+    >>> from toqito.states.entanglement.concurrence import concurrence
+    >>> e_0, e_1 = ket(2, 0), ket(2, 1)
+    >>> v_vec = np.kron(e_0, e_1)
+    >>> sigma = v_vec * v_vec.conj().T
+    >>> print(concurrence(sigma))
+    0
 
     References
     ==========
