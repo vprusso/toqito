@@ -40,7 +40,7 @@ extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.githubpages',
               'sphinx.ext.napoleon']
 
-master_doc = "index"
+master_doc = "index.rst"
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
