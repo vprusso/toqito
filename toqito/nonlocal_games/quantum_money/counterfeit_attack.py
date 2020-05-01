@@ -2,7 +2,7 @@
 import cvxpy
 import numpy as np
 
-from toqito.linear_algebra.operations.tensor import tensor
+from toqito.states.operations.tensor import tensor
 from toqito.perms.permutation_operator import permutation_operator
 
 
@@ -70,17 +70,17 @@ def counterfeit_attack(q_a: np.ndarray, num_reps: int = 1) -> float:
 
     We can see that the optimal value we obtain in solving the SDP is 3/4.
 
-    >>> from toqito.linear_algebra.operations.tensor import tensor_list
+    >>> from toqito.states.operations.tensor import tensor
     >>> from toqito.core.ket import ket
     >>> import numpy as np
     >>> e_0, e_1 = ket(2, 0), ket(2, 1)
     >>> e_p = (e_0 + e_1) / np.sqrt(2)
     >>> e_m = (e_0 - e_1) / np.sqrt(2)
     >>>
-    >>> e_000 = tensor_list([e_0, e_0, e_0])
-    >>> e_111 = tensor_list([e_1, e_1, e_1])
-    >>> e_ppp = tensor_list([e_p, e_p, e_p])
-    >>> e_mmm = tensor_list([e_m, e_m, e_m])
+    >>> e_000 = tensor(e_0, e_0, e_0)
+    >>> e_111 = tensor(e_1, e_1, e_1)
+    >>> e_ppp = tensor(e_p, e_p, e_p)
+    >>> e_mmm = tensor(e_m, e_m, e_m)
     >>>
     >>> q_a = 1 / 4 * (e_000 * e_000.conj().T + e_111 * e_111.conj().T + \
     >>> e_ppp * e_ppp.conj().T + e_mmm * e_mmm.conj().T)

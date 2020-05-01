@@ -49,7 +49,7 @@ def tensor(*args) -> np.ndarray:
     This can be accomplished in `toqito` as follows.
 
     >>> from toqito.core.ket import ket
-    >>> from toqito.linear_algebra.operations.tensor import tensor
+    >>> from toqito.states.operations.tensor import tensor
     >>> e_0 = ket(2, 0)
     >>> tensor(e_0, e_0)
     [[1],
@@ -68,7 +68,7 @@ def tensor(*args) -> np.ndarray:
     in `toqito` as follows.
 
     >>> from toqito.core.ket import ket
-    >>> from toqito.linear_algebra.operations.tensor import tensor
+    >>> from toqito.states.operations.tensor import tensor
     >>> e_0 = ket(2, 0)
     >>> tensor(e_0, 3)
     [[1],
@@ -88,7 +88,7 @@ def tensor(*args) -> np.ndarray:
     so as follows.
 
     >>> from toqito.core.ket import ket
-    >>> from toqito.linear_algebra.operations.tensor import tensor
+    >>> from toqito.states.operations.tensor import tensor
     >>> e_0, e_1 = ket(2, 0), ket(2, 1)
     >>> tensor([e_0, e_1, e_0])
     [[0],

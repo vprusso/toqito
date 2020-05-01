@@ -28,7 +28,7 @@ class HedgingValue:
     .. math::
         v = \cos(\pi/8)|00\rangle + \sin(\pi/8)|11\rangle.
 
-    As was illustrated in [1]_, the hedging value of the above scenario is
+    As was illustrated in [MW12]_, the hedging value of the above scenario is
     :math:`\cos(\pi/8)^2 \approx 0.8536`
 
     >>> from numpy import kron, cos, sin, pi, sqrt, isclose
@@ -57,14 +57,14 @@ class HedgingValue:
 
     References
     ==========
-    .. [1] Molina, Abel, and Watrous, John.
+    .. [MW12] Molina, Abel, and Watrous, John.
         "Hedging bets with correlated quantum strategies."
         Proceedings of the Royal Society A:
         Mathematical, Physical and Engineering Sciences
         468.2145 (2012): 2614-2629.
         https://arxiv.org/abs/1104.1140
 
-    .. [2] Arunachalam, Srinivasan, Molina, Abel and Russo, Vincent.
+    .. [AMR13] Arunachalam, Srinivasan, Molina, Abel and Russo, Vincent.
         "Quantum hedging in two-round prover-verifier interactions."
         arXiv preprint arXiv:1310.7954 (2013).
         https://arxiv.org/pdf/1310.7954.pdf

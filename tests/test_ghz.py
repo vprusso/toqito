@@ -4,7 +4,7 @@ import numpy as np
 
 from toqito.core.ket import ket
 from toqito.states.states.ghz import ghz
-from toqito.linear_algebra.operations.tensor import tensor
+from toqito.states.operations.tensor import tensor
 
 
 class TestGHZ(unittest.TestCase):

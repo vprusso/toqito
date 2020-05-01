@@ -1,11 +1,3 @@
-tensor
---------------------------------------
-
-.. automodule:: toqito.linear_algebra.operations.tensor
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 vec
 --------------------------------------
 

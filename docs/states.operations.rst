@@ -13,3 +13,11 @@ schmidt\_decomposition
    :members:
    :undoc-members:
    :show-inheritance:
+
+tensor
+--------------------------------------
+
+.. automodule:: toqito.states.operations.tensor
+   :members:
+   :undoc-members:
+   :show-inheritance:

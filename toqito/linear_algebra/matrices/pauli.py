@@ -3,7 +3,7 @@ from typing import List, Union
 from scipy import sparse
 import numpy as np
 
-from toqito.linear_algebra.operations.tensor import tensor
+from toqito.states.operations.tensor import tensor
 
 
 def pauli(
