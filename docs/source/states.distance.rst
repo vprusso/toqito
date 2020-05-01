@@ -1,18 +1,4 @@
-toqito.states.distance package
-==============================
-
-Submodules
-----------
-
-toqito.states.distance.entropy module
--------------------------------------
-
-.. automodule:: toqito.states.distance.entropy
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-toqito.states.distance.fidelity module
+fidelity
 --------------------------------------
 
 .. automodule:: toqito.states.distance.fidelity
@@ -20,7 +6,7 @@ toqito.states.distance.fidelity module
    :undoc-members:
    :show-inheritance:
 
-toqito.states.distance.helstrom\_holevo module
+helstrom\_holevo
 ----------------------------------------------
 
 .. automodule:: toqito.states.distance.helstrom_holevo
@@ -28,7 +14,15 @@ toqito.states.distance.helstrom\_holevo module
    :undoc-members:
    :show-inheritance:
 
-toqito.states.distance.purity module
+hilbert\_schmidt
+----------------------------------------------
+
+.. automodule:: toqito.states.distance.hilbert_schmidt
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+purity
 ------------------------------------
 
 .. automodule:: toqito.states.distance.purity
@@ -36,15 +30,15 @@ toqito.states.distance.purity module
    :undoc-members:
    :show-inheritance:
 
-toqito.states.distance.super\_fidelity module
+sub\_fidelity
 ---------------------------------------------
 
-.. automodule:: toqito.states.distance.super_fidelity
+.. automodule:: toqito.states.distance.sub_fidelity
    :members:
    :undoc-members:
    :show-inheritance:
 
-toqito.states.distance.trace\_distance module
+trace\_distance
 ---------------------------------------------
 
 .. automodule:: toqito.states.distance.trace_distance
@@ -52,7 +46,7 @@ toqito.states.distance.trace\_distance module
    :undoc-members:
    :show-inheritance:
 
-toqito.states.distance.trace\_norm module
+trace\_norm
 -----------------------------------------
 
 .. automodule:: toqito.states.distance.trace_norm
@@ -60,11 +54,10 @@ toqito.states.distance.trace\_norm module
    :undoc-members:
    :show-inheritance:
 
+von\_neumann\_entropy
+-----------------------------------------
 
-Module contents
----------------
-
-.. automodule:: toqito.states.distance
+.. automodule:: toqito.states.distance.von_neumann_entropy
    :members:
    :undoc-members:
    :show-inheritance:

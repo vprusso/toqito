@@ -1,10 +1,4 @@
-toqito.states.entanglement package
-==================================
-
-Submodules
-----------
-
-toqito.states.entanglement.concurrence module
+concurrence
 ---------------------------------------------
 
 .. automodule:: toqito.states.entanglement.concurrence
@@ -12,7 +6,7 @@ toqito.states.entanglement.concurrence module
    :undoc-members:
    :show-inheritance:
 
-toqito.states.entanglement.negativity module
+negativity
 --------------------------------------------
 
 .. automodule:: toqito.states.entanglement.negativity
@@ -20,19 +14,10 @@ toqito.states.entanglement.negativity module
    :undoc-members:
    :show-inheritance:
 
-toqito.states.entanglement.schmidt\_rank module
+schmidt\_rank
 -----------------------------------------------
 
 .. automodule:: toqito.states.entanglement.schmidt_rank
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: toqito.states.entanglement
    :members:
    :undoc-members:
    :show-inheritance:

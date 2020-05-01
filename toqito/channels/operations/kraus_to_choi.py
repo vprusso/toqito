@@ -7,7 +7,7 @@ from toqito.states.states.max_entangled import max_entangled
 
 def kraus_to_choi(kraus_ops: List[List[np.ndarray]], sys: int = 2) -> np.ndarray:
     r"""
-    Compute the Choi matrix of a list of Kraus operators.
+    Compute the Choi matrix of a list of Kraus operators [WatKraus18]_.
 
     The Choi matrix of the list of Kraus operators, `kraus_ops`. The default
     convention is that the Choi matrix is the result of applying the map to the
@@ -48,7 +48,7 @@ def kraus_to_choi(kraus_ops: List[List[np.ndarray]], sys: int = 2) -> np.ndarray
 
     References
     ==========
-    .. [WatH18] Watrous, John.
+    .. [WatKraus18] Watrous, John.
         "The theory of quantum information."
         Section: "Kraus representations".
         Cambridge University Press, 2018.

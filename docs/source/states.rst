@@ -1,23 +1,52 @@
-Quantum States
-=====================
+.. module:: toqito.states
 
-Subpackages
------------
+Description
+
+Distance Metrics for Quantum States
+-----------------------------------
 
 .. toctree::
    :maxdepth: 4
 
-   distance
-   entanglement
-   operations
-   optimizations
-   properties
-   states
+   states.distance
 
-Module contents
----------------
+Entanglement Metrics for Quantum States
+---------------------------------------
 
-.. automodule:: toqito.states
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. toctree::
+   :maxdepth: 4
+
+   states.entanglement
+
+Operations on Quantum States
+----------------------------
+
+.. toctree::
+   :maxdepth: 4
+
+   states.operations
+
+Optimizations on Quantum States
+-------------------------------
+
+.. toctree::
+   :maxdepth: 4
+
+   states.optimizations
+
+Properties of Quantum States
+----------------------------
+
+.. toctree::
+   :maxdepth: 4
+
+   states.properties
+
+Quantum States
+--------------
+
+.. toctree::
+   :maxdepth: 4
+
+   states.states
+

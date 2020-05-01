@@ -1,10 +1,4 @@
-toqito.channels.channels package
-================================
-
-Submodules
-----------
-
-toqito.channels.channels.choi\_map module
+choi_map
 -----------------------------------------
 
 .. automodule:: toqito.channels.channels.choi_map
@@ -12,7 +6,7 @@ toqito.channels.channels.choi\_map module
    :undoc-members:
    :show-inheritance:
 
-toqito.channels.channels.dephasing module
+dephasing
 -----------------------------------------
 
 .. automodule:: toqito.channels.channels.dephasing
@@ -20,7 +14,7 @@ toqito.channels.channels.dephasing module
    :undoc-members:
    :show-inheritance:
 
-toqito.channels.channels.depolarizing module
+depolarizing
 --------------------------------------------
 
 .. automodule:: toqito.channels.channels.depolarizing
@@ -28,7 +22,7 @@ toqito.channels.channels.depolarizing module
    :undoc-members:
    :show-inheritance:
 
-toqito.channels.channels.partial\_map module
+partial\_map
 --------------------------------------------
 
 .. automodule:: toqito.channels.channels.partial_map
@@ -36,7 +30,7 @@ toqito.channels.channels.partial\_map module
    :undoc-members:
    :show-inheritance:
 
-toqito.channels.channels.partial\_trace module
+partial\_trace
 ----------------------------------------------
 
 .. automodule:: toqito.channels.channels.partial_trace
@@ -44,7 +38,7 @@ toqito.channels.channels.partial\_trace module
    :undoc-members:
    :show-inheritance:
 
-toqito.channels.channels.partial\_transpose module
+partial\_transpose
 --------------------------------------------------
 
 .. automodule:: toqito.channels.channels.partial_transpose
@@ -52,7 +46,7 @@ toqito.channels.channels.partial\_transpose module
    :undoc-members:
    :show-inheritance:
 
-toqito.channels.channels.realignment module
+realignmnet
 -------------------------------------------
 
 .. automodule:: toqito.channels.channels.realignment
@@ -60,19 +54,10 @@ toqito.channels.channels.realignment module
    :undoc-members:
    :show-inheritance:
 
-toqito.channels.channels.reduction\_map module
+reduction\_map
 ----------------------------------------------
 
 .. automodule:: toqito.channels.channels.reduction_map
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: toqito.channels.channels
    :members:
    :undoc-members:
    :show-inheritance:

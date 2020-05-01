@@ -4,7 +4,7 @@ import numpy as np
 
 def is_commuting(mat_1: np.ndarray, mat_2: np.ndarray) -> bool:
     r"""
-    Determine if two linear operators commute with each other [WIKCom]_.
+    Determine if two linear operators commute with each other [WikCom]_.
 
     For any pair of operators :math:`X, Y \in \text{L}(\mathcal{X})`, the
     Lie bracket :math:`\left[X, Y\right] \in \text{L}(\mathcal{X})` is defined

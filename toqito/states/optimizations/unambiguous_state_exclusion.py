@@ -8,7 +8,7 @@ def unambiguous_state_exclusion(
     states: List[np.ndarray], probs: List[float] = None
 ) -> float:
     r"""
-    Compute probability of unambiguous state exclusion [BJOP14]_.
+    Compute probability of unambiguous state exclusion [BJOPUS14]_.
 
     This function implements the following semidefinite program that provides
     the optimal probability with which Bob can conduct quantum state exclusion.
@@ -63,7 +63,7 @@ def unambiguous_state_exclusion(
 
     References
     ==========
-    .. [BJOP14] "Conclusive exclusion of quantum states"
+    .. [BJOPUS14] "Conclusive exclusion of quantum states"
         Somshubhro Bandyopadhyay, Rahul Jain, Jonathan Oppenheim,
         Christopher Perry
         Physical Review A 89.2 (2014): 022336.

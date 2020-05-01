@@ -4,7 +4,7 @@ import numpy as np
 
 def purity(rho: np.ndarray) -> float:
     r"""
-    Compute the purity of a quantum state [WIKPUR]_.
+    Compute the purity of a quantum state [WikPurity]_.
 
     Examples
     ==========
@@ -29,7 +29,7 @@ def purity(rho: np.ndarray) -> float:
 
     References
     ==========
-    .. [WIKPUR] Wikipedia: Purity (quantum mechanics)
+    .. [WikPurity] Wikipedia: Purity (quantum mechanics)
         https://en.wikipedia.org/wiki/Purity_(quantum_mechanics)
 
     :param rho: A density matrix.

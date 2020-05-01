@@ -5,7 +5,7 @@ from numpy import linalg as lin_alg
 
 def von_neumann_entropy(rho: np.ndarray) -> float:
     r"""
-    Compute the von Neumann entropy of a density matrix [WikVent]_.
+    Compute the von Neumann entropy of a density matrix [WikVent]_. [WatVec]_.
 
     Let :math:`P \in \text{Pos}(\mathcal{X})` be a positive semidefinite
     operator, for a complex Euclidean space :math:`\mathcal{\X}`. Then one
@@ -78,7 +78,7 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
     .. [WikVent] Wikipedia: Von Neumann entropy
         https://en.wikipedia.org/wiki/Von_Neumann_entropy
 
-    .. [WATVEC] Watrous, John.
+    .. [WatVec] Watrous, John.
         "The theory of quantum information."
         Section: "Definitions of quantum entropic functions".
         Cambridge University Press, 2018.

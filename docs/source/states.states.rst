@@ -1,10 +1,4 @@
-toqito.states.states package
-============================
-
-Submodules
-----------
-
-toqito.states.states.bell module
+bell
 --------------------------------
 
 .. automodule:: toqito.states.states.bell
@@ -12,7 +6,7 @@ toqito.states.states.bell module
    :undoc-members:
    :show-inheritance:
 
-toqito.states.states.chessboard module
+chessboard
 --------------------------------------
 
 .. automodule:: toqito.states.states.chessboard
@@ -20,7 +14,7 @@ toqito.states.states.chessboard module
    :undoc-members:
    :show-inheritance:
 
-toqito.states.states.domino module
+domino
 ----------------------------------
 
 .. automodule:: toqito.states.states.domino
@@ -28,7 +22,7 @@ toqito.states.states.domino module
    :undoc-members:
    :show-inheritance:
 
-toqito.states.states.gen\_bell module
+gen\_bell
 -------------------------------------
 
 .. automodule:: toqito.states.states.gen_bell
@@ -36,7 +30,7 @@ toqito.states.states.gen\_bell module
    :undoc-members:
    :show-inheritance:
 
-toqito.states.states.ghz module
+ghz
 -------------------------------
 
 .. automodule:: toqito.states.states.ghz
@@ -44,7 +38,7 @@ toqito.states.states.ghz module
    :undoc-members:
    :show-inheritance:
 
-toqito.states.states.gisin module
+gisin
 ---------------------------------
 
 .. automodule:: toqito.states.states.gisin
@@ -52,7 +46,7 @@ toqito.states.states.gisin module
    :undoc-members:
    :show-inheritance:
 
-toqito.states.states.horodecki module
+horodecki
 -------------------------------------
 
 .. automodule:: toqito.states.states.horodecki
@@ -60,7 +54,7 @@ toqito.states.states.horodecki module
    :undoc-members:
    :show-inheritance:
 
-toqito.states.states.isotropic module
+isotropic
 -------------------------------------
 
 .. automodule:: toqito.states.states.isotropic
@@ -68,7 +62,7 @@ toqito.states.states.isotropic module
    :undoc-members:
    :show-inheritance:
 
-toqito.states.states.max\_entangled module
+max\_entangled
 ------------------------------------------
 
 .. automodule:: toqito.states.states.max_entangled
@@ -76,7 +70,7 @@ toqito.states.states.max\_entangled module
    :undoc-members:
    :show-inheritance:
 
-toqito.states.states.max\_mixed module
+max\_mixed
 --------------------------------------
 
 .. automodule:: toqito.states.states.max_mixed
@@ -84,7 +78,7 @@ toqito.states.states.max\_mixed module
    :undoc-members:
    :show-inheritance:
 
-toqito.states.states.w\_state module
+w\_state
 ------------------------------------
 
 .. automodule:: toqito.states.states.w_state
@@ -92,19 +86,10 @@ toqito.states.states.w\_state module
    :undoc-members:
    :show-inheritance:
 
-toqito.states.states.werner module
+werner
 ----------------------------------
 
 .. automodule:: toqito.states.states.werner
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: toqito.states.states
    :members:
    :undoc-members:
    :show-inheritance:

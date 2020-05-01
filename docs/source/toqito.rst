@@ -1,26 +1,62 @@
-toqito package
-==============
+Welcome to toqito's documentation
+==================================
 
-Subpackages
------------
+toqito is an open source library for studying various objects in quantum information, namely, states, channels, and measurements. 
+
+Installation
+===================================
 
 .. toctree::
-   :maxdepth: 4
+	:maxdepth: 1
+	
+	install
 
-   toqito.channels
-   toqito.core
-   toqito.helper
-   toqito.linear_algebra
-   toqito.measurements
-   toqito.nonlocal_games
-   toqito.perms
-   toqito.random
-   toqito.states
 
-Module contents
----------------
+.. toctree::
+	:maxdepth: 1
+	:caption: Channels
 
-.. automodule:: toqito
-   :members:
-   :undoc-members:
-   :show-inheritance:
+	channels
+
+.. toctree::
+	:maxdepth: 1
+	:caption: States
+
+	states
+
+.. toctree::
+	:maxdepth: 1
+	:caption: Measurements
+
+	measurements
+
+.. toctree::
+	:maxdepth: 1
+	:caption: Nonlocal Games
+
+	nonlocal_games
+
+.. toctree::
+	:maxdepth: 2
+	:caption: Random States and Measurements
+
+	random
+
+.. toctree::
+	:maxdepth: 1
+	:caption: Linear Algebra
+
+	linear_algebra
+
+.. toctree::
+	:maxdepth: 1
+	:caption: Permutations and Combinatorics
+
+	perms	
+
+.. toctree::
+	:maxdepth: 1
+	:caption: Helper Functions
+
+	core
+	helper

@@ -1,10 +1,12 @@
-toqito.states.properties package
-================================
+is\_ensemble
+-----------------------------------------
 
-Submodules
-----------
+.. automodule:: toqito.states.properties.is_ensemble
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-toqito.states.properties.is\_mixed module
+is\_mixed
 -----------------------------------------
 
 .. automodule:: toqito.states.properties.is_mixed
@@ -12,7 +14,7 @@ toqito.states.properties.is\_mixed module
    :undoc-members:
    :show-inheritance:
 
-toqito.states.properties.is\_mub module
+is\_mub
 ---------------------------------------
 
 .. automodule:: toqito.states.properties.is_mub
@@ -20,7 +22,7 @@ toqito.states.properties.is\_mub module
    :undoc-members:
    :show-inheritance:
 
-toqito.states.properties.is\_ppt module
+is\_ppt
 ---------------------------------------
 
 .. automodule:: toqito.states.properties.is_ppt
@@ -28,7 +30,7 @@ toqito.states.properties.is\_ppt module
    :undoc-members:
    :show-inheritance:
 
-toqito.states.properties.is\_product\_vector module
+is\_product\_vector
 ---------------------------------------------------
 
 .. automodule:: toqito.states.properties.is_product_vector
@@ -36,7 +38,7 @@ toqito.states.properties.is\_product\_vector module
    :undoc-members:
    :show-inheritance:
 
-toqito.states.properties.is\_pure module
+is\_pure
 ----------------------------------------
 
 .. automodule:: toqito.states.properties.is_pure
@@ -44,19 +46,10 @@ toqito.states.properties.is\_pure module
    :undoc-members:
    :show-inheritance:
 
-toqito.states.properties.is\_quantum\_latin\_square module
+is\_quantum\_latin\_square
 ----------------------------------------------------------
 
 .. automodule:: toqito.states.properties.is_quantum_latin_square
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: toqito.states.properties
    :members:
    :undoc-members:
    :show-inheritance:

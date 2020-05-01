@@ -1,10 +1,4 @@
-toqito.states.operations package
-================================
-
-Submodules
-----------
-
-toqito.states.operations.pure\_to\_mixed module
+pure\_to\_mixed
 -----------------------------------------------
 
 .. automodule:: toqito.states.operations.pure_to_mixed
@@ -12,19 +6,10 @@ toqito.states.operations.pure\_to\_mixed module
    :undoc-members:
    :show-inheritance:
 
-toqito.states.operations.schmidt\_decomposition module
+schmidt\_decomposition
 ------------------------------------------------------
 
 .. automodule:: toqito.states.operations.schmidt_decomposition
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-
-Module contents
----------------
-
-.. automodule:: toqito.states.operations
    :members:
    :undoc-members:
    :show-inheritance:
