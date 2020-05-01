@@ -1,6 +1,6 @@
 .. module:: toqito.perms
 
-Description
+A number of permutations-related functions.
 
 .. toctree::
    :maxdepth: 4

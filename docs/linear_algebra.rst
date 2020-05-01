@@ -1,6 +1,6 @@
 .. module:: toqito.linear_algebra
 
-Description
+A number of linear algebra-related functions.
 
 Matrices
 -----------

@@ -6,12 +6,12 @@ from toqito.states.states.max_entangled import max_entangled
 
 def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
     r"""
-    Produce the partially depolarizng channel [WIKDC]_, [WatDepo18]_.
+    Produce the partially depolarizng channel [WikDepo]_, [WatDepo18]_.
 
     The Choi matrix of the completely depolarizing channel that acts on
     `dim`-by-`dim` matrices.
 
-    The completely depolarizing channel is defined as
+    The *completely depolarizing channel* is defined as
 
     .. math::
         \Omega(X) = \text{Tr}(X) \omega
@@ -78,7 +78,7 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
 
     References
     ==========
-    .. [WIKDC] Wikipedia: Quantum depolarizing channel
+    .. [WikDepo] Wikipedia: Quantum depolarizing channel
         https://en.wikipedia.org/wiki/Quantum_depolarizing
 
     .. [WatDepo18] Watrous, John.

@@ -17,8 +17,8 @@ def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
     .. math::
         \Delta(X) = \sum_{a \in \Sigma} X(a, a) E_{a,a}
 
-    for every :math:`X \in \text{L}(\mathcal{X})` is defined as the completely
-    dephasing channel.
+    for every :math:`X \in \text{L}(\mathcal{X})` is defined as the *completely
+    dephasing channel*.
 
     Examples
     ==========

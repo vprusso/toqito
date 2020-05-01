@@ -12,7 +12,7 @@ def partial_map(
     sys: int = 2,
     dim: Union[List[int], np.ndarray] = None,
 ) -> np.ndarray:
-    r"""Apply map to a subsystem of an operator [PARMAP]_.
+    r"""Apply map to a subsystem of an operator [WatPMap18]_.
 
     Applies the operator
 
@@ -20,7 +20,7 @@ def partial_map(
         \left(\mathbb{I} \otimes \Phi \right) \left(\rho \right).
 
     In other words, it is the result of applying the channel :math:`\Phi` to the
-    second subsystem of :math:`rho`, which is assumed to act on two
+    second subsystem of :math:`\rho`, which is assumed to act on two
     subsystems of equal dimension.
 
     The input `phi_map` should be provided as a Choi matrix.
@@ -54,7 +54,7 @@ def partial_map(
 
     References
     ==========
-    .. [PARMAP] Watrous, John.
+    .. [WatPMap18] Watrous, John.
         The theory of quantum information.
         Cambridge University Press, 2018.
 
@@ -63,7 +63,7 @@ def partial_map(
     :param sys: Scalar or vector specifying the size of the subsystems.
     :param dim: Dimension of the subsystems. If `None`, all dimensions
                 are assumed to be equal.
-    :returns: The partial map `phi_map` applied to matrix `rho`.
+    :return: The partial map `phi_map` applied to matrix `rho`.
     """
     if dim is None:
         dim = np.round(np.sqrt(list(rho.shape))).conj().T * np.ones(2)

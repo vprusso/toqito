@@ -1,5 +1,7 @@
 .. module:: toqito.channels
 
+A number of channel-related functions.
+
 Quantum Channels
 ----------------
 

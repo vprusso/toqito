@@ -1,6 +1,6 @@
 .. module:: toqito.nonlocal_games
 
-Description
+A number of nonlocal game-related functions.
 
 Coin-flipping Protocols
 -----------------------

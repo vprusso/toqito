@@ -1,6 +1,6 @@
 .. module:: toqito.measurements
 
-Description
+A number of properties one can determine for measurements.
 
 Properties of Measurements
 --------------------------

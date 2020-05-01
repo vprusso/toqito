@@ -1,6 +1,6 @@
 .. module:: toqito.states
 
-Description
+A number of utilities for dealing with quantum states.
 
 Distance Metrics for Quantum States
 -----------------------------------

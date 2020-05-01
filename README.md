@@ -43,7 +43,7 @@ python setup.py install
 
 The documentation for `toqito`, along with specific examples of usage are
 provided on the 
-[documentation page](https://toqito.readthedocs.io/en/latest/toqito.html).
+[documentation page](https://toqito.readthedocs.io/en/latest/index.html).
 
 ## Testing
 

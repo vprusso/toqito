@@ -9,11 +9,11 @@ def partial_trace_cvx(rho, sys=None, dim=None):
     """
     Perform the partial trace on a cvxpy variable.
 
-    Adapted from [PTCVX]_.
+    Adapted from [CVXPtrace]_.
 
     References
     ==========
-    .. [PTCVX] Partial trace for CVXPY variables
+    .. [CVXPtrace] Partial trace for CVXPY variables
         https://github.com/cvxgrp/cvxpy/issues/563
 
     :param rho: A square matrix.
@@ -34,7 +34,7 @@ def partial_trace(
     dim: Union[int, List[int]] = None,
 ):
     r"""
-    Compute the partial trace of a matrix [WIKPT]_.
+    Compute the partial trace of a matrix [WikPtrace]_.
 
     Gives the partial trace of the matrix X, where the dimensions of the
     (possibly more than 2) subsystems are given by the vector `dim` and the
@@ -131,7 +131,7 @@ def partial_trace(
 
     References
     ==========
-    .. [WIKPT] Wikipedia: Partial trace
+    .. [WikPtrace] Wikipedia: Partial trace
         https://en.wikipedia.org/wiki/Partial_trace
 
     :param input_mat: A square matrix.

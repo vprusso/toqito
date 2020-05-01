@@ -1,12 +1,6 @@
 .. module:: toqito.helper
 
-Helper
-=================
-
-Description
-
-helper
------------
+Helper functions for various toqito functions.
 
 .. toctree::
    :maxdepth: 4

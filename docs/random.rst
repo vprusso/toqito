@@ -1,6 +1,6 @@
 .. module:: toqito.random
 
-Description
+A number of functions for generating random objects
 
 .. toctree::
    :maxdepth: 4

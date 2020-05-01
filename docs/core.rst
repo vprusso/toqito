@@ -1,12 +1,6 @@
 .. module:: toqito.core
 
-Core
-=================
-
-Description
-
-core
------------
+Base-level functions for toqito.
 
 .. toctree::
    :maxdepth: 4
