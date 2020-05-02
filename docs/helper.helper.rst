@@ -1,4 +1,4 @@
-cvxpy\_helper
+CVXPY Helper
 --------------------------------------
 
 .. automodule:: toqito.helper.cvxpy_helper
@@ -6,7 +6,7 @@ cvxpy\_helper
    :undoc-members:
    :show-inheritance:
 
-update\_odometer
+Update Odometer
 --------------------------------------
 
 .. automodule:: toqito.helper.update_odometer

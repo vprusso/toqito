@@ -2,6 +2,9 @@
 
 Base-level functions for toqito.
 
+Core Functions
+--------------------------
+
 .. toctree::
    :maxdepth: 4
 

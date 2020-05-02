@@ -62,6 +62,7 @@ def xor_game_value(
     In order to specify the CHSH game, we can define the probability matrix and
     predicate matrix for the CHSH game as `numpy` arrays as follows.
 
+    >>> import numpy as np
     >>> prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
     >>> pred_mat = np.array([[0, 0], [0, 1]])
 

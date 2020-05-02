@@ -1,4 +1,4 @@
-bra
+Bra Vector
 --------------------------------------
 
 .. automodule:: toqito.core.bra
@@ -6,7 +6,7 @@ bra
    :undoc-members:
    :show-inheritance:
 
-ket
+Ket Vector
 --------------------------------------
 
 .. automodule:: toqito.core.ket
