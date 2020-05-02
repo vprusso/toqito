@@ -24,6 +24,13 @@ def hadamard(n_param: int = 1) -> np.ndarray:
     Examples
     ==========
 
+    The standard 2-qubit Hadamard matrix can be generated in `toqito` as
+
+    >>> from toqito.linear_algebra.matrices.hadamard import hadamard
+    >>> hadamard(1)
+    [[ 0.70710678  0.70710678]
+     [ 0.70710678 -0.70710678]]
+
     References
     ==========
     .. [WikHad] Wikipedia: Hadamard transform

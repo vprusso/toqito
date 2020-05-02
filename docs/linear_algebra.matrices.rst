@@ -6,6 +6,14 @@ clock
    :undoc-members:
    :show-inheritance:
 
+cnot
+--------------------------------------
+
+.. automodule:: toqito.linear_algebra.matrices.cnot
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 fourier
 --------------------------------------
 

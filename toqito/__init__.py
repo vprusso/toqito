@@ -24,10 +24,12 @@ from .core.ket import ket
 
 # Linear Algebra:
 from .linear_algebra.matrices.clock import clock
+from .linear_algebra.matrices.cnot import cnot
 from .linear_algebra.matrices.fourier import fourier
 from .linear_algebra.matrices.gell_mann import gell_mann
 from .linear_algebra.matrices.gen_gell_mann import gen_gell_mann
 from .linear_algebra.matrices.gen_pauli import gen_pauli
+from .linear_algebra.matrices.hadamard import hadamard
 from .linear_algebra.matrices.iden import iden
 from .linear_algebra.matrices.pauli import pauli
 from .linear_algebra.matrices.shift import shift
