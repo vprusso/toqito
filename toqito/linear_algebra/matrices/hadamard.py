@@ -51,5 +51,4 @@ def hadamard(n_param: int = 1) -> np.ndarray:
             mat_2 = mat
             mat = np.kron(mat_1, mat_2)
         return mat
-    else:
-        raise ValueError(f"Improper dimension {n_param} provided.")
+    raise ValueError(f"Improper dimension {n_param} provided.")
