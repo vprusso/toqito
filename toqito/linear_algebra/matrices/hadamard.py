@@ -42,11 +42,11 @@ def hadamard(n_param: int = 1) -> np.ndarray:
             / 2
             * np.array([[1, 1, 1, 1], [1, -1, 1, -1], [1, 1, -1, -1], [1, -1, -1, 1]])
         )
-    elif n_param > 1:
+    if n_param > 1:
         mat_1 = hadamard(1)
         mat_2 = hadamard(1)
         mat = np.kron(mat_1, mat_2)
-        for i in range(2, n_param):
+        for _ in range(2, n_param):
             mat_1 = mat_2
             mat_2 = mat
             mat = np.kron(mat_1, mat_2)
