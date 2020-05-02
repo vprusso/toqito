@@ -1,7 +1,7 @@
 """Tests for pauli function."""
 import unittest
 import numpy as np
-import scipy
+from scipy.sparse import issparse
 
 from toqito.linear_algebra.matrices.pauli import pauli
 
@@ -13,13 +13,13 @@ class TestPauli(unittest.TestCase):
         """Pauli-I operator with argument "I"."""
         res = pauli("I", True)
 
-        self.assertEqual(scipy.sparse.issparse(res), True)
+        self.assertEqual(issparse(res), True)
 
     def test_pauli_int_sparse(self):
         """Pauli-I operator with argument "I"."""
         res = pauli(0, True)
 
-        self.assertEqual(scipy.sparse.issparse(res), True)
+        self.assertEqual(issparse(res), True)
 
     def test_pauli_i(self):
         """Pauli-I operator with argument "I"."""

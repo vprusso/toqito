@@ -38,6 +38,14 @@ gen\_pauli
    :undoc-members:
    :show-inheritance:
 
+hadamard
+--------------------------------------
+
+.. automodule:: toqito.linear_algebra.matrices.hadamard
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 iden
 --------------------------------------
 
