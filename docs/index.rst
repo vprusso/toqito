@@ -11,9 +11,9 @@ toqito is an open source library for studying various objects in quantum informa
 
 .. toctree::
 	:maxdepth: 1
-	:caption: Examples
+	:caption: Tutorials
 
-	examples
+	tutorials
 
 .. toctree::
 	:maxdepth: 1

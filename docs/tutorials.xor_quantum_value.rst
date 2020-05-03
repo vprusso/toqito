@@ -19,7 +19,7 @@ of nonlocal games along with how one defines classical and quantum strategies
 for these games, please refer to the example:
 
 * `Lower Bounds on the Quantum Value of a Two-Player Nonlocal Game
-  <https://toqito.readthedocs.io/en/latest/examples.nonlocal_quantum_lower_bound.html>`_
+  <https://toqito.readthedocs.io/en/latest/tutorials.nonlocal_quantum_lower_bound.html>`_
 
 .. note::
     It is *not* known how to directly compute the quantum value of an arbitrary
@@ -181,11 +181,114 @@ We can verify this by making use of `toqito` to compute the classical value of t
 A quantum strategy for the CHSH game
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+What is very intriguing about the CHSH game is that it is an example of a
+nonlocal game where the players can do *strictly better* if they make use of a
+quantum strategy instead of a classical one. The quantum strategy that allows
+the players to do strictly better is composed of the following shared state and
+sets of measurements.
+
+* State: The players prepare and share the state: 
+
+    .. math::
+        \begin{equation}
+            | \psi \rangle = \frac{1}{\sqrt{2}} \left(| 00 \rangle + | 11 \rangle \right).
+        \end{equation}
+
+* Measurements: The players measure with respect to the following basis
+    
+    .. math::
+        \begin{equation}
+            \begin{aligned}
+                | \phi_0 \rangle &= \cos(\theta)|0 \rangle + \sin(\theta)|1 \rangle, \\
+                | \phi_1 \rangle &= -\sin(\theta)|0 \rangle + \cos(\theta)|1 \rangle,
+            \end{aligned}
+        \end{equation}
+
+such that
+
+* If :math:`x = 0` Alice sets :math:`\theta = 0`. Otherwise, if :math:`x = 1`, Alice sets :math:`\theta = \pi/4`.
+
+* If :math:`y = 0` Bob sets :math:`\theta = \pi/8`. Otherwise, if :math:`y = 1`, Bob sets :math:`\theta = -\pi/8`.
+
+
+We can now analyze how well this particular quantum strategy performs by
+analyzing what occurs in each of the four possible scenarios. For brevity, we
+will just analyze the first case, but analyzing the remaining cases follows a
+similar analysis.
+
+* Case: :math:`x = 0, y = 0`: 
+
+In this case, Alice and Bob win if :math:`a = b = 0` or if :math:`a = b = 1`.
+Alice receives question :math:`x` and selects her measurements constructed from
+the basis as specified in the strategy.
+
+.. math::
+    \begin{equation}
+        A_0^0 = | \phi_0 \rangle \langle \phi_0 | \quad \text{and} \quad A_1^0 = | \phi_1 \rangle \langle \phi_1 |
+    \end{equation}
+
+where 
+
+.. math::
+    \begin{equation}
+        \begin{aligned}
+            | \phi_0 \rangle &= \cos(0)| 0 \rangle + \sin(0)| 1 \rangle, \\
+            | \phi_1 \rangle &= -\sin(0)| 0 \rangle + \cos(0)| 1 \rangle.
+        \end{aligned}
+    \end{equation}
+
+In a similar way, since Bob receives question :math:`y = 0`, he selects his
+measurements from the basis
+
+.. math::
+    \begin{equation}
+        \begin{aligned}
+            | \phi_0 \rangle &= \cos(\pi/8)| 0 \rangle + \sin(\pi/8)| 1 \rangle, \\
+            | \phi_1 \rangle &= -\sin(\pi/8)| 0 \rangle + \cos(\pi/8)| 1 \rangle.
+        \end{aligned}
+    \end{equation}
+
+where the measurement operators themselves are defined as
+
+.. math::
+    \begin{equation}
+        B_0^0 = | \phi_0 \rangle \quad \text{and} \quad B_1^0 = | \phi_1 \rangle \langle \phi_1 |
+    \end{equation}.
+
+Using these measurements, we can calculate the probability that Alice and Bob
+win on the inputs :math:`x = 0` and :math:`y = 0` as
+
+.. math::
+    \begin{equation}
+        p(a, b|0, 0) = \langle \psi | A_0^0 \otimes B_0^0 | \psi \rangle + 
+                       \langle \psi | A_1^0 \otimes B_1^0 | \psi \rangle.
+    \end{equation}
+
+Calculating the above equation and normalizing by a factor of :math:`1/4`, we
+obtain the value of :math:`\cos^2(\pi/8)`. Calculating the remaining three
+cases of :math:`(x = 0, y = 1), (x = 1, y = 0)`, and :math:`(x = 1, y = 1)`
+follow a similar analysis.
+
+We can see that using this quantum strategy the players win the CHSH game with
+a probability of :math:`\cos^2(\pi/8) \approx 0.85355`, which is quite a bit
+better than the best classical strategy yielding a probability of :math:`3/4`
+to win. As it turns out, the winning probability :math:`\cos^2(\pi/8)` using a
+quantum strategy is optimal, which we can represent as
+:math:`\omega^*(G_{CHSH}) = \cos^2(\pi/8)`.
+
+We can calculate the quantum value of the CHSH game using `toqito` as follows:
+
+.. code-block:: python
+
+    import numpy as np
+    import toqito as tq
+    prob_mat = np.array([[1/4, 1/4], 
+                         [1/4, 1/4]])
+    pred_mat = np.array([[0, 0],
+                         [0, 1]])
+    tq.xor_game_value(prob_mat, pred_mat, "quantum")
+    0.8535533885683664
 
 The odd cycle game
 -------------------
-
-
-References
-----------
 
