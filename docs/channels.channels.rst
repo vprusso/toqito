@@ -46,7 +46,7 @@ partial\_transpose
    :undoc-members:
    :show-inheritance:
 
-realignmnet
+realignment
 -------------------------------------------
 
 .. automodule:: toqito.channels.channels.realignment

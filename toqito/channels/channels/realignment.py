@@ -23,7 +23,7 @@ def realignment(input_mat: np.ndarray, dim=None) -> np.ndarray:
     Examples
     ==========
 
-    The standard realignmnet map
+    The standard realignment map
 
     Using `toqito`, we can generate the standard realignment map as follows.
     When viewed as a map on block matrices, the realignment map takes each block
