@@ -1,17 +1,11 @@
 # ToQITo (Theory of Quantum Information Toolkit)
 
-The `toqito` package is a Python package for studying various aspects of
-quantum information theory. Specifically, `toqito` focuses on providing
-numerical tools to study problems pertaining to entanglement theory, nonlocal
-games, matrix analysis, and other aspects of quantum information that are often
-associated with computer science. 
+The `toqito` package is an open source library for studying various objects in 
+quantum information, namely, states, channels, and measurements.
 
-[![build status](http://img.shields.io/travis/vprusso/toqito.svg?style=plastic)](https://travis-ci.org/vprusso/toqito)
-[![doc status](https://readthedocs.org/projects/toqito/badge/?version=latest&style=plastic)](https://toqito.readthedocs.io/en/latest/)
-[![Coverage Status](https://coveralls.io/repos/github/vprusso/toqito/badge.svg?branch=master?style=plastic)](https://coveralls.io/github/vprusso/toqito?branch=master)
-[![DOI](https://zenodo.org/badge/235493396.svg?style=plastic)](https://zenodo.org/badge/latestdoi/235493396)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg?styl=plastic)](https://github.com/psf/black)
-[![Unitary Fund](https://img.shields.io/badge/Supported%20By-UNITARY%20FUND-brightgreen.svg?style=plastic)](http://unitary.fund)
+Specifically, `toqito` focuses on providing numerical tools to study problems 
+pertaining to entanglement theory, nonlocal games, matrix analysis, and other 
+aspects of quantum information that are often associated with computer science. 
 
 `toqito` aims to fill the needs of quantum information researchers who want
 numerical and computational tools for manipulating quantum states,
@@ -19,10 +13,12 @@ measurements, and channels. It can also be used as a tool to enhance the
 experience of students and instructors in classes pertaining to quantum
 information. 
 
-The inspiration for this package is heavily influenced by the
-[QETLAB](http://www.qetlab.com) package in MATLAB by Nathaniel Johnston.  Many
-of the functions found here are direct ports of those functions converted into
-Python code.
+[![build status](http://img.shields.io/travis/vprusso/toqito.svg?style=plastic)](https://travis-ci.org/vprusso/toqito)
+[![doc status](https://readthedocs.org/projects/toqito/badge/?version=latest&style=plastic)](https://toqito.readthedocs.io/en/latest/)
+[![Coverage Status](https://coveralls.io/repos/github/vprusso/toqito/badge.svg?branch=master?style=plastic)](https://coveralls.io/github/vprusso/toqito?branch=master)
+[![DOI](https://zenodo.org/badge/235493396.svg?style=plastic)](https://zenodo.org/badge/latestdoi/235493396)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg?styl=plastic)](https://github.com/psf/black)
+[![Unitary Fund](https://img.shields.io/badge/Supported%20By-UNITARY%20FUND-brightgreen.svg?style=plastic)](http://unitary.fund)
 
 ## Installing
 
@@ -41,8 +37,8 @@ python setup.py install
 
 ## Using
 
-The documentation for `toqito`, along with specific examples of usage are
-provided on the 
+The documentation for `toqito`, along with specific examples and tutorials of 
+usage are provided on the 
 [documentation page](https://toqito.readthedocs.io/en/latest/).
 
 ## Testing
