@@ -1,5 +1,5 @@
 ---
-title: 'toqito: Theory of quantum information toolkit'
+title: 'toqito -- Theory of quantum information toolkit: A Python package for studying objects in quantum information'
 tags:
   - Python
   - quantum information
@@ -13,15 +13,15 @@ authors:
 affiliations:
  - name: ISARA Corporation
    index: 1
-date: 30 March 2020
+date: 05 May 2020
 bibliography: paper.bib
 
 ---
 
 # Summary
 
-toqito is a Python package for studying various aspects of quantum information
-theory. Specifically, toqito focuses on providing numerical tools to study
+toqito is an open source library for studying various objects in quantum information, namely, states, channels, and measurements.
+Specifically, toqito focuses on providing numerical tools to study
 problems pertaining to entanglement theory, nonlocal games, matrix analysis,
 and other aspects of quantum information that are often associated with
 computer science. While there are many outstanding feature-rich Python packages
@@ -45,8 +45,7 @@ games, state discrimination, and other problems in quantum information.
 
 The toqito module is supported for Python 3.7 and makes use of many of the more
 modern features of the language including f-strings, type hinting, and others.
-toqito is released under the BSD 3-Clause License and is available from GitHub
-and PyPI.
+toqito is available on GitHub () and can be installed via pip. Further information of features and uses can be found on the documentation page (https://toqito.readthedocs.io/en/latest/)
 
 # Acknowledgements
 This research is supported by the Unitary Fund [@zeng2019unitary]

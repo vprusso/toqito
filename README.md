@@ -17,7 +17,6 @@ information.
 [![doc status](https://readthedocs.org/projects/toqito/badge/?version=latest&style=plastic)](https://toqito.readthedocs.io/en/latest/)
 [![Coverage Status](https://coveralls.io/repos/github/vprusso/toqito/badge.svg?branch=master?style=plastic)](https://coveralls.io/github/vprusso/toqito?branch=master)
 [![DOI](https://zenodo.org/badge/235493396.svg?style=plastic)](https://zenodo.org/badge/latestdoi/235493396)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg?styl=plastic)](https://github.com/psf/black)
 [![Unitary Fund](https://img.shields.io/badge/Supported%20By-UNITARY%20FUND-brightgreen.svg?style=plastic)](http://unitary.fund)
 
 ## Installing
@@ -74,6 +73,14 @@ A BibTeX entry that you can use to cite `toqito` is provided here:
    doi          = {10.5281/zenodo.3699578}
  }
 ```
+
+## Contributing
+
+All contributions, bug reports, bug fixes, documentation improvements, 
+enhancements, and ideas are welcome.
+
+A detailed overview on how to contribute can be found in the 
+[contributing guide](https://github.com/vprusso/toqito/blob/master/.github/CONTRIBUTING.md)
 
 ## License
 

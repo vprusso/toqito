@@ -31,7 +31,11 @@ run the following command in the root directory of this project:
 Contributing
 ------------
 
+All contributions, bug reports, bug fixes, documentation improvements,
+enhancements, and ideas are welcome.
 
+A detailed overview on how to contribute can be found in the
+[contributing guide](https://github.com/vprusso/toqito/blob/master/.github/CONTRIBUTING.md)
 
 Citing
 ------
