@@ -32,14 +32,14 @@ def ghz(dim: int, num_qubits: int, coeff: List[int] = None) -> sparse:
 
     >>> from toqito.states.states.ghz import ghz
     >>> ghz(2, 3).toarray()
-    array([[0.70710678],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.70710678]])
+    [[0.70710678],
+     [0.        ],
+     [0.        ],
+     [0.        ],
+     [0.        ],
+     [0.        ],
+     [0.        ],
+     [0.70710678]]
 
     As this function covers the generalized GHZ state, we can consider higher
     dimensions. For instance here is the GHZ state in
@@ -54,13 +54,13 @@ def ghz(dim: int, num_qubits: int, coeff: List[int] = None) -> sparse:
 
     >>> from toqito.states.states.ghz import ghz
     >>> ghz(4, 7, np.array([1, 2, 3, 4]) / np.sqrt(30)).toarray()
-    array([[0.18257419],
-           [0.        ],
-           [0.        ],
-           ...,
-           [0.        ],
-           [0.        ],
-           [0.73029674]])
+    [[0.18257419],
+     [0.        ],
+     [0.        ],
+     ...,
+     [0.        ],
+     [0.        ],
+     [0.73029674]])
 
     References
     ==========

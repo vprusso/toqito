@@ -38,9 +38,9 @@ def clock(dim: int) -> np.ndarray:
 
     >>> from toqito.linear_algebra.matrices.clock import clock
     >>> clock(3)
-    array([[ 1. +0.j       ,  0. +0.j       ,  0. +0.j       ],
-           [ 0. +0.j       , -0.5+0.8660254j,  0. +0.j       ],
-           [ 0. +0.j       ,  0. +0.j       , -0.5-0.8660254j]])
+    [[ 1. +0.j       ,  0. +0.j       ,  0. +0.j       ],
+     [ 0. +0.j       , -0.5+0.8660254j,  0. +0.j       ],
+     [ 0. +0.j       ,  0. +0.j       , -0.5-0.8660254j]]
 
     References
     ==========

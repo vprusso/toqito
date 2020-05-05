@@ -40,7 +40,7 @@ def is_herm_preserving(
     >>> from toqito.channels.properties.is_herm_preserving import is_herm_preserving
     >>> unitary_mat = np.array([[1, 1], [-1, 1]]) / np.sqrt(2)
     >>> kraus_ops = [[np.identity(2), np.identity(2)], [unitary_mat, -unitary_mat]]
-    >>> print(is_herm_preserving(kraus_ops))
+    >>> is_herm_preserving(kraus_ops)
     True
 
     We may also verify whether the corresponding Choi matrix of a given map is
@@ -52,7 +52,7 @@ def is_herm_preserving(
     >>> from toqito.channels.properties.is_herm_preserving import is_herm_preserving
     >>> unitary_mat = np.array([[1, 1], [-1, 1]]) / np.sqrt(2)
     >>> choi_mat = swap_operator(3)
-    >>> print(is_herm_preserving(choi_mat))
+    >>> is_herm_preserving(choi_mat)
     True
 
     References

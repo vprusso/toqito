@@ -40,9 +40,9 @@ def iden(dim: int, is_sparse: bool = False) -> np.ndarray:
 
     >>> from toqito.linear_algebra.matrices.iden import iden
     >>> iden(3)
-    array([[1., 0., 0.],
-           [0., 1., 0.],
-           [0., 0., 1.]])
+    [[1., 0., 0.],
+     [0., 1., 0.],
+     [0., 0., 1.]])
 
     It is also possible to create sparse identity matrices. The sparse identity
     matrix generated from :math:`d = 10` yields the following matrix:

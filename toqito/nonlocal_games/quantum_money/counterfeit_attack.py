@@ -84,7 +84,7 @@ def counterfeit_attack(q_a: np.ndarray, num_reps: int = 1) -> float:
     >>>
     >>> q_a = 1 / 4 * (e_000 * e_000.conj().T + e_111 * e_111.conj().T + \
     >>> e_ppp * e_ppp.conj().T + e_mmm * e_mmm.conj().T)
-    >>> print(counterfeit_attack(q_a))
+    >>> counterfeit_attack(q_a)
     0.749999999967631
 
     References

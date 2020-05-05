@@ -38,7 +38,7 @@ def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     >>> e_0, e_1 = ket(2, 0), ket(2, 1)
     >>> rho = 3 / 4 * e_0 * e_0.conj().T + 1 / 4 * e_1 * e_1.conj().T
     >>> sigma = 1/8 * e_0 * e_0.conj().T + 7/8 * e_1 * e_1.conj().T
-    >>> print(fidelity(rho, sigma))
+    >>> fidelity(rho, sigma)
     0.77389339119464
 
     As the sub-fidelity is a lower bound on the fidelity, that is
@@ -50,7 +50,7 @@ def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     >>> e_0, e_1 = ket(2, 0), ket(2, 1)
     >>> rho = 3 / 4 * e_0 * e_0.conj().T + 1 / 4 * e_1 * e_1.conj().T
     >>> sigma = 1/8 * e_0 * e_0.conj().T + 7/8 * e_1 * e_1.conj().T
-    >>> print(sub_fidelity(rho, sigma))
+    >>> sub_fidelity(rho, sigma)
     0.5989109809347399
 
     References

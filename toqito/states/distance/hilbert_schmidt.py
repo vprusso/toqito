@@ -23,7 +23,7 @@ def hilbert_schmidt(rho: np.ndarray, sigma: np.ndarray) -> float:
     >>> from toqito.states.distance.hilbert_schmidt import hilbert_schmidt
     >>> rho = bell(0) * bell(0).conj().T
     >>> sigma = bell(3) * bell(3).conj().T
-    >>> print(hilbert_schmidt(rho, sigma))
+    >>> hilbert_schmidt(rho, sigma)
     1
 
     References

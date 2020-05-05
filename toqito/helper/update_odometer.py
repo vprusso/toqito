@@ -33,7 +33,7 @@ def update_odometer(
     >>> upper_lim = np.array([3, 2])
     >>> for j in range(0, np.prod(upper_lim)-1):
     >>> vec = update_odometer(vec, upper_lim)
-    >>> print(vec)
+    >>> vec
     [0 1]
     [1 0]
     [1 1]

@@ -36,10 +36,10 @@ def bell(idx: int) -> np.ndarray:
     >>> from toqito.states.states.bell import bell
     >>> import numpy as np
     >>> bell(0)
-    array([[0.70710678],
-           [0.        ],
-           [0.        ],
-           [0.70710678]])
+    [[0.70710678],
+     [0.        ],
+     [0.        ],
+     [0.70710678]]
 
     References
     ==========

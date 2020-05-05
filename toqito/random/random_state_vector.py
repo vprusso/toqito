@@ -21,8 +21,8 @@ def random_state_vector(
     >>> from toqito.random.random_state_vector import random_state_vector
     >>> vec = random_state_vector(2)
     >>> vec
-    array([[0.50993973+0.15292408j],
-           [0.27787332+0.79960122j]])
+    [[0.50993973+0.15292408j],
+     [0.27787332+0.79960122j]]
 
     We can verify that this is in fact a valid state vector by computing the
     corresponding density matrix of the vector and checking if the density

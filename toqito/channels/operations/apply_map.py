@@ -57,9 +57,9 @@ def apply_map(
     >>> import numpy as np
     >>> test_input_mat = np.array([[1, 4, 7], [2, 5, 8], [3, 6, 9]])
     >>> apply_map(test_input_mat, swap_operator(3))
-    array([[1., 2., 3.],
-           [4., 5., 6.],
-           [7., 8., 9.]])
+    [[1., 2., 3.],
+     [4., 5., 6.],
+     [7., 8., 9.]]
 
     :param mat: A matrix.
     :param phi_op: A superoperator.

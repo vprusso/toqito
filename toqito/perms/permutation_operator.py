@@ -40,10 +40,10 @@ def permutation_operator(
 
     >>> from toqito.perms.permutation_operator import permutation_operator
     >>> permutation_operator(2, [2, 1])
-    array([[1., 0., 0., 0.],
-           [0., 0., 1., 0.],
-           [0., 1., 0., 0.],
-           [0., 0., 0., 1.]])
+    [[1., 0., 0., 0.],
+     [0., 0., 1., 0.],
+     [0., 1., 0., 0.],
+     [0., 0., 0., 1.]]
 
     :param dim: The dimensions of the subsystems to be permuted.
     :param perm: A permutation vector.

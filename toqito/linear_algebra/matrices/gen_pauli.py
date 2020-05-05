@@ -35,8 +35,8 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
     >>> k_1 = 1
     >>> k_2 = 0
     >>> gen_pauli(k_1, k_2, dim)
-    array([[0.+0.j, 1.+0.j],
-           [1.+0.j, 0.+0.j]])
+    [[0.+0.j, 1.+0.j],
+     [1.+0.j, 0.+0.j]])
 
     The generalized Pauli matrix `k_1 = 1`, `k_2 = 1`, and `dim = 2` is given as
     the standard Pauli-Y matrix
@@ -54,8 +54,8 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
     >>> k_1 = 1
     >>> k_2 = 1
     >>> gen_pauli(k_1, k_2, dim)
-    array([[ 0.+0.0000000e+00j, -1.+1.2246468e-16j],
-           [ 1.+0.0000000e+00j,  0.+0.0000000e+00j]])
+    [[ 0.+0.0000000e+00j, -1.+1.2246468e-16j],
+     [ 1.+0.0000000e+00j,  0.+0.0000000e+00j]])
 
     References
     ==========

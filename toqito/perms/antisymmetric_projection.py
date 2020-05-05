@@ -35,8 +35,8 @@ def antisymmetric_projection(
 
     >>> from toqito.perms.antisymmetric_projection import antisymmetric_projection
     >>> antisymmetric_projection(2, 1).todense()
-    matrix([[1., 0.],
-            [0., 1.]])
+    [[1., 0.],
+     [0., 1.]]
 
     When the :math:`p` value is greater than the dimension of the antisymmetric
     projection, this just gives the matrix consisting of all zero entries. For
@@ -58,14 +58,14 @@ def antisymmetric_projection(
 
     >>> from toqito.perms.antisymmetric_projection import antisymmetric_projection
     >>> antisymmetric_projection(2, 3).todense()
-    matrix([[0., 0., 0., 0., 0., 0., 0., 0.],
-            [0., 0., 0., 0., 0., 0., 0., 0.],
-            [0., 0., 0., 0., 0., 0., 0., 0.],
-            [0., 0., 0., 0., 0., 0., 0., 0.],
-            [0., 0., 0., 0., 0., 0., 0., 0.],
-            [0., 0., 0., 0., 0., 0., 0., 0.],
-            [0., 0., 0., 0., 0., 0., 0., 0.],
-            [0., 0., 0., 0., 0., 0., 0., 0.]])
+    [[0., 0., 0., 0., 0., 0., 0., 0.],
+     [0., 0., 0., 0., 0., 0., 0., 0.],
+     [0., 0., 0., 0., 0., 0., 0., 0.],
+     [0., 0., 0., 0., 0., 0., 0., 0.],
+     [0., 0., 0., 0., 0., 0., 0., 0.],
+     [0., 0., 0., 0., 0., 0., 0., 0.],
+     [0., 0., 0., 0., 0., 0., 0., 0.],
+     [0., 0., 0., 0., 0., 0., 0., 0.]]
 
     References
     ==========

@@ -37,7 +37,7 @@ def is_commuting(mat_1: np.ndarray, mat_2: np.ndarray) -> bool:
     >>> import numpy as np
     >>> mat_1 = np.array([[0, 1], [0, 0]])
     >>> mat_2 = np.array([[1, 0], [0, 0]])
-    >>> print(is_commuting(mat_1, mat_2))
+    >>> is_commuting(mat_1, mat_2)
     False
 
     Consider the following pair of matrices
@@ -61,7 +61,7 @@ def is_commuting(mat_1: np.ndarray, mat_2: np.ndarray) -> bool:
     >>> import numpy as np
     >>> mat_1 = np.array([[1, 0, 0], [0, 1, 0], [1, 0, 2]])
     >>> mat_2 = np.array([[2, 4, 0], [3, 1, 0], [-1, -4, 1]])
-    >>> print(is_commuting(mat_1, mat_2))
+    >>> is_commuting(mat_1, mat_2)
     True
 
     References

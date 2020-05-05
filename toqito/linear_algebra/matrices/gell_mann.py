@@ -80,9 +80,9 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray:
 
     >>> from toqito.linear_algebra.matrices.gell_mann import gell_mann
     >>> gell_mann(2)
-    array([[ 0.+0.j, -0.-1.j,  0.+0.j],
-           [ 0.+1.j,  0.+0.j,  0.+0.j],
-           [ 0.+0.j,  0.+0.j,  0.+0.j]])
+    [[ 0.+0.j, -0.-1.j,  0.+0.j],
+     [ 0.+1.j,  0.+0.j,  0.+0.j],
+     [ 0.+0.j,  0.+0.j,  0.+0.j]]
 
     References
     ==========

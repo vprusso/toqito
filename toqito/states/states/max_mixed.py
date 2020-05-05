@@ -46,8 +46,8 @@ def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, sparse.dia.dia_
 
     >>> from toqito.states.states.max_mixed import max_mixed
     >>> max_mixed(2, is_sparse=False)
-    array([[0.5, 0. ],
-           [0. , 0.5]])
+    [[0.5, 0. ],
+     [0. , 0.5]]
 
     One may also generate a maximally mixed state returned as a sparse matrix
 

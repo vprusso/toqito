@@ -20,7 +20,7 @@ def random_ginibre(dim_n: int, dim_m: int,) -> np.ndarray:
     Generate a random 2-by-2 Ginibre random matrix.
 
     >>> from toqito.random.random_ginibre import random_ginibre
-    >>> print(random_ginibre(2, 2))
+    >>> random_ginibre(2, 2)
     [[ 0.06037649-0.05158031j  0.46797859+0.21872729j]
      [-0.95223112-0.71959831j  0.3404352 +0.11166238j]]
 

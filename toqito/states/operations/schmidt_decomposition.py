@@ -23,15 +23,15 @@ def schmidt_decomposition(
 
     >>> from toqito.states.states.max_entangled import max_entangled
     >>> max_entangled(3)
-    array([[0.57735027],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.57735027],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.57735027]])
+    [[0.57735027],
+     [0.        ],
+     [0.        ],
+     [0.        ],
+     [0.57735027],
+     [0.        ],
+     [0.        ],
+     [0.        ],
+     [0.57735027]]
 
     Computing the Schmidt decomposition of :math:`u`, we can obtain the
     corresponding singular values of :math:`u` as
@@ -41,15 +41,15 @@ def schmidt_decomposition(
 
     >>> from toqito.states.operations.schmidt_decomposition import schmidt_decomposition
     >>> singular_vals, u_mat, vt_mat = schmidt_decomposition(max_entangled(3))
-    >>> print(singular_vals)
+    >>> singular_vals
     [[0.57735027]
      [0.57735027]
      [0.57735027]]
-    >>> print(u_mat)
+    >>> u_mat
     [[1. 0. 0.]
      [0. 1. 0.]
      [0. 0. 1.]]
-    >>> print(vt_mat)
+    >>> vt_mat
     [[1. 0. 0.]
      [0. 1. 0.]
      [0. 0. 1.]]

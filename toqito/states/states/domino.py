@@ -53,15 +53,15 @@ def domino(idx: int) -> np.ndarray:
 
     >>> from toqito.states.states.domino import domino
     >>> domino(0)
-    array([[0],
-           [0],
-           [0],
-           [0],
-           [1],
-           [0],
-           [0],
-           [0],
-           [0]])
+    [[0],
+     [0],
+     [0],
+     [0],
+     [1],
+     [0],
+     [0],
+     [0],
+     [0]]
 
     When `idx = 3`, this produces the following Domino state
 
@@ -73,15 +73,15 @@ def domino(idx: int) -> np.ndarray:
 
     >>> from toqito.states.states.domino import domino
     >>> domino(3)
-    array([[0.        ],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.70710678],
-           [0.70710678]])
+    [[0.        ],
+     [0.        ],
+     [0.        ],
+     [0.        ],
+     [0.        ],
+     [0.        ],
+     [0.        ],
+     [0.70710678],
+     [0.70710678]]
 
     References
     ==========

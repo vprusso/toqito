@@ -31,8 +31,8 @@ def gen_gell_mann(
 
     >>> from toqito.linear_algebra.matrices.gen_gell_mann import gen_gell_mann
     >>> gen_gell_mann(0, 1, 2)
-    matrix([[0., 1.],
-            [1., 0.]])
+    [[0., 1.],
+     [1., 0.]])
 
     The generalized Gell-Mann matrix `ind_1 = 2`, `ind_2 = 3`, and `dim = 4` is
     given as
@@ -49,10 +49,10 @@ def gen_gell_mann(
 
     >>> from toqito.linear_algebra.matrices.gen_gell_mann import gen_gell_mann
     >>> gen_gell_mann(2, 3, 4)
-    matrix([[0., 0., 0., 0.],
-            [0., 0., 0., 0.],
-            [0., 0., 0., 1.],
-            [0., 0., 1., 0.]])
+    [[0., 0., 0., 0.],
+     [0., 0., 0., 0.],
+     [0., 0., 0., 1.],
+     [0., 0., 1., 0.]])
 
     References
     ==========

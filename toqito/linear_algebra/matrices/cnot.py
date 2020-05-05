@@ -22,7 +22,10 @@ def cnot() -> np.ndarray:
 
     >>> from toqito.linear_algebra.matrices.cnot import cnot
     >>> cnot()
-
+    [[1 0 0 0]
+     [0 1 0 0]
+     [0 0 0 1]
+     [0 0 1 0]]
 
     References
     ==========

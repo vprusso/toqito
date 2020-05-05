@@ -34,8 +34,8 @@ def symmetric_projection(
 
     >>> from toqito.perms.symmetric_projection import symmetric_projection
     >>> symmetric_projection(2, 1).todense()
-    matrix([[1., 0.],
-            [0., 1.]])
+    [[1., 0.],
+     [0., 1.]]
 
     When :math:`d = 2` and :math:`p = 2` we have that
 
@@ -51,10 +51,10 @@ def symmetric_projection(
 
     >>> from toqito.perms.symmetric_projection import symmetric_projection
     >>> symmetric_projection(dim=2).todense()
-    matrix([[1. , 0. , 0. , 0. ],
-            [0. , 0.5, 0.5, 0. ],
-            [0. , 0.5, 0.5, 0. ],
-            [0. , 0. , 0. , 1. ]])
+    [[1. , 0. , 0. , 0. ],
+     [0. , 0.5, 0.5, 0. ],
+     [0. , 0.5, 0.5, 0. ],
+     [0. , 0. , 0. , 1. ]]
 
     :param dim: The dimension of the local systems.
     :param p_val: Default value of 2.

@@ -29,10 +29,10 @@ def max_entangled(
 
     >>> from toqito.states.states.max_entangled import max_entangled
     >>> max_entangled(2)
-    array([[0.70710678],
-           [0.        ],
-           [0.        ],
-           [0.70710678]])
+    [[0.70710678],
+     [0.        ],
+     [0.        ],
+     [0.70710678]]
 
     By default, the state returned in normalized, however we can generate the
     unnormalized state
@@ -44,10 +44,10 @@ def max_entangled(
 
     >>> from toqito.states.states.max_entangled import max_entangled
     >>> max_entangled(2, False, False)
-    array([[1.],
-           [0.],
-           [0.],
-           [1.]])
+    [[1.],
+     [0.],
+     [0.],
+     [1.]]
 
     References
     ==========

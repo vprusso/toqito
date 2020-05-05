@@ -21,8 +21,8 @@ def random_unitary(dim: Union[List[int], int], is_real: bool = False) -> np.ndar
     >>> from toqito.random.random_unitary import random_unitary
     >>> complex_dm = random_unitary(2)
     >>> complex_dm
-    array([[0.40563696+0.18092721j, 0.00066868+0.89594841j],
-           [0.4237286 +0.78941628j, 0.27157521-0.35145826j]])
+    [[0.40563696+0.18092721j, 0.00066868+0.89594841j],
+     [0.4237286 +0.78941628j, 0.27157521-0.35145826j]]
 
     We can verify that this is in fact a valid unitary matrix using the
     `is_unitary` function from `toqito` as follows
@@ -37,8 +37,8 @@ def random_unitary(dim: Union[List[int], int], is_real: bool = False) -> np.ndar
     >>> from toqito.random.random_unitary import random_unitary
     >>> real_dm = random_unitary(2, True)
     >>> real_dm
-    array([[ 0.01972681, -0.99980541],
-           [ 0.99980541,  0.01972681]])
+    [[ 0.01972681, -0.99980541],
+     [ 0.99980541,  0.01972681]]
 
     Again, verifying that this is a valid unitary matrix can be done as follows.
 
@@ -53,10 +53,10 @@ def random_unitary(dim: Union[List[int], int], is_real: bool = False) -> np.ndar
     >>> from toqito.random.random_unitary import random_unitary
     >>> mat = random_unitary([4, 4], True)
     >>> mat
-    array([[ 0.48996358, -0.20978392,  0.56678587, -0.62823576],
-           [ 0.62909119, -0.35852051, -0.68961425, -0.01181086],
-           [ 0.38311399,  0.90865415, -0.1209574 , -0.11375677],
-           [ 0.46626562, -0.04244265,  0.4342295 ,  0.76957113]])
+    [[ 0.48996358, -0.20978392,  0.56678587, -0.62823576],
+     [ 0.62909119, -0.35852051, -0.68961425, -0.01181086],
+     [ 0.38311399,  0.90865415, -0.1209574 , -0.11375677],
+     [ 0.46626562, -0.04244265,  0.4342295 ,  0.76957113]]
 
     As before, we can verify that this matrix generated is a valid unitary
     matrix.

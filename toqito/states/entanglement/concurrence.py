@@ -40,7 +40,7 @@ def concurrence(rho: np.ndarray) -> float:
     >>> e_00, e_11 = np.kron(e_0, e_0), np.kron(e_1, e_1)
     >>> u_vec = 1 / np.sqrt(2) * (e_00 + e_11)
     >>> rho = u_vec * u_vec.conj().T
-    >>> print(concurrence(rho))
+    >>> concurrence(rho)
     0.9999999999999998
 
     Consider the concurrence of the following product state
@@ -56,7 +56,7 @@ def concurrence(rho: np.ndarray) -> float:
     >>> e_0, e_1 = ket(2, 0), ket(2, 1)
     >>> v_vec = np.kron(e_0, e_1)
     >>> sigma = v_vec * v_vec.conj().T
-    >>> print(concurrence(sigma))
+    >>> concurrence(sigma)
     0
 
     References
