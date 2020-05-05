@@ -71,8 +71,8 @@ def partial_trace(
     >>>     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
     >>> )
     >>> partial_trace(test_input_mat)
-    array([[ 7, 11],
-           [23, 27]])
+    [[ 7, 11],
+     [23, 27]]
 
     By specifying the `sys = 1` argument, we can perform the partial trace over
     the first subsystem (instead of the default second subsystem as done above).
@@ -91,8 +91,8 @@ def partial_trace(
     >>>     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
     >>> )
     >>> partial_trace(test_input_mat, 1)
-    array([[12, 14],
-           [20, 22]])
+    [[12, 14],
+     [20, 22]]
 
     We can also specify both dimension and system size as `list` arguments.
     Consider the following :math:`16`-by-:math:`16` matrix.
@@ -124,10 +124,10 @@ def partial_trace(
     >>> from toqito.channels.channels.partial_trace import partial_trace
     >>> import numpy as np
     >>> partial_trace(test_input_mat, [1, 3], [2, 2, 2, 2])
-    array([[344, 348, 360, 364],
-           [408, 412, 424, 428],
-           [600, 604, 616, 620],
-           [664, 668, 680, 684]])
+    [[344, 348, 360, 364],
+     [408, 412, 424, 428],
+     [600, 604, 616, 620],
+     [664, 668, 680, 684]])
 
     References
     ==========
