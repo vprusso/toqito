@@ -2,11 +2,11 @@ Calculating the Quantum and Classical Value of a Two-Player XOR Game
 =====================================================================
 
 In this tutorial, we will cover the concept of an *XOR game*. We will also
-showcase how the `toqito` software package can be used to calculate the
+showcase how the :code:`toqito` software package can be used to calculate the
 classical and quantum value of a given XOR game.
 
 For readers who are already familiar with XOR games and who simply want to see
-how to use `toqito` to study these objects, they are welcome to consult the
+how to use :code:`toqito` to study these objects, they are welcome to consult the
 documentation page, and more specifically the function `xor\_game\_value
 <https://toqito.readthedocs.io/en/latest/nonlocal_games.xor_games.html>`_.
 
@@ -25,10 +25,10 @@ for these games, please refer to the example:
     It is *not* known how to directly compute the quantum value of an arbitrary
     nonlocal game. For the subset of XOR games, it turns out that it is
     possible to directly calculate the quantum value by solving a semidefinite
-    program. The `toqito` package obtains the quantum value of an XOR game in
-    this manner.
+    program. The :code:`toqito` package obtains the quantum value of an XOR game
+    in this manner.
 
-The rest of this tutorial is concerned with analyzying specific XOR games.
+The rest of this tutorial is concerned with analyzing specific XOR games.
 
 The CHSH game
 -------------
@@ -63,7 +63,7 @@ satisfied
 
 Recall that :math:`\oplus` refers to the XOR operation. 
 
-For each question secnario, the following table provides what the winning
+For each question scenario, the following table provides what the winning
 condition must be equal to for each question tuple to induce a winning outcome.
 
 .. table::
@@ -81,7 +81,7 @@ condition must be equal to for each question tuple to induce a winning outcome.
     | :math:`1`   | :math:`1`   | :math:`0`            |
     +-------------+-------------+----------------------+
 
-In order to specify an XOR game in `toqito`, we will define two matrices:
+In order to specify an XOR game in :code:`toqito`, we will define two matrices:
 
     * `prob_mat`: A matrix whose :math:`(x, y)^{th}` entry corresponds to
       the probablity that Alice receives question :math:`x` and Bob receives
@@ -101,20 +101,20 @@ For the CHSH game, the `prob_mat` and `pred_mat` variables are defined as follow
     pred_mat = np.array([[0, 0],
                          [0, 1]])
 
-That is, the `prob_mat` matrix encapsulates that each question pair
+That is, the :code:`prob_mat` matrix encapsulates that each question pair
 :math:`\{(0,0), (0, 1), (1, 0), (1, 1)\}` is equally likely. 
 
-The `pred_mat` matrix indicates what the winning outcome of Alice and Bob
-should be. For instance, `pred_mat[0][0] = 0` describes the scenario where
-Alice and Bob both recieve :math:`0` as input. As we want to satisfy the
+The :code:`pred_mat` matrix indicates what the winning outcome of Alice and Bob
+should be. For instance, :code:`pred_mat[0][0] = 0` describes the scenario where
+Alice and Bob both receive :math:`0` as input. As we want to satisfy the
 winning condition :math:`x \land y = a \oplus b`, we must have that :math:`a
 \oplus b = 0` to satisfy the case when both :math:`x` and :math:`y` are equal
 to zero. A similar logic can be followed to populate the remaining entries of
-the `pred_mat` variable.
+the :code:`pred_mat` variable.
 
-We will use both of the `prob_mat` and `pred_mat` variables in the coming
-subsections to make use of the `toqito` package to compute both the classical
-and quantum value of the CHSH game.
+We will use both of the :code:`prob_mat` and :code:`pred_mat` variables in the
+coming subsections to make use of the :code:`toqito` package to compute both the
+classical and quantum value of the CHSH game.
 
 A classical strategy for the CHSH game
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -164,7 +164,8 @@ is :math:`3/4`, or stated in an equivalent way
         \omega(G_{CHSH}) = 3/4 = 0.75.
     \end{equation}
 
-We can verify this by making use of `toqito` to compute the classical value of the CHSH game.
+We can verify this by making use of :code:`toqito` to compute the classical
+value of the CHSH game.
 
 
 .. code-block:: python
@@ -191,7 +192,8 @@ sets of measurements.
 
     .. math::
         \begin{equation}
-            | \psi \rangle = \frac{1}{\sqrt{2}} \left(| 00 \rangle + | 11 \rangle \right).
+            | \psi \rangle = \frac{1}{\sqrt{2}}
+            \left(| 00 \rangle + | 11 \rangle \right).
         \end{equation}
 
 * Measurements: The players measure with respect to the following basis
@@ -206,10 +208,11 @@ sets of measurements.
 
 such that
 
-* If :math:`x = 0` Alice sets :math:`\theta = 0`. Otherwise, if :math:`x = 1`, Alice sets :math:`\theta = \pi/4`.
+* If :math:`x = 0` Alice sets :math:`\theta = 0`.
+  Otherwise, if :math:`x = 1`, Alice sets :math:`\theta = \pi/4`.
 
-* If :math:`y = 0` Bob sets :math:`\theta = \pi/8`. Otherwise, if :math:`y = 1`, Bob sets :math:`\theta = -\pi/8`.
-
+* If :math:`y = 0` Bob sets :math:`\theta = \pi/8`.
+  Otherwise, if :math:`y = 1`, Bob sets :math:`\theta = -\pi/8`.
 
 We can now analyze how well this particular quantum strategy performs by
 analyzing what occurs in each of the four possible scenarios. For brevity, we
@@ -224,7 +227,9 @@ the basis as specified in the strategy.
 
 .. math::
     \begin{equation}
-        A_0^0 = | \phi_0 \rangle \langle \phi_0 | \quad \text{and} \quad A_1^0 = | \phi_1 \rangle \langle \phi_1 |
+        A_0^0 = | \phi_0 \rangle \langle \phi_0 |
+        \quad \text{and} \quad
+        A_1^0 = | \phi_1 \rangle \langle \phi_1 |
     \end{equation}
 
 where 
@@ -252,7 +257,9 @@ where the measurement operators themselves are defined as
 
 .. math::
     \begin{equation}
-        B_0^0 = | \phi_0 \rangle \quad \text{and} \quad B_1^0 = | \phi_1 \rangle \langle \phi_1 |
+        B_0^0 = | \phi_0 \rangle
+        \quad \text{and} \quad
+        B_1^0 = | \phi_1 \rangle \langle \phi_1 |
     \end{equation}.
 
 Using these measurements, we can calculate the probability that Alice and Bob
@@ -276,7 +283,8 @@ to win. As it turns out, the winning probability :math:`\cos^2(\pi/8)` using a
 quantum strategy is optimal, which we can represent as
 :math:`\omega^*(G_{CHSH}) = \cos^2(\pi/8)`.
 
-We can calculate the quantum value of the CHSH game using `toqito` as follows:
+We can calculate the quantum value of the CHSH game using :code:`toqito` as
+follows:
 
 .. code-block:: python
 

@@ -98,7 +98,7 @@ quantum state prior to the start of the game along with respective sets of
 measurements that they apply to their respective portions of the shared state
 during the game based on the questions they receive to generate their answers.
 The *quantum value* of a nonlocal game is the maximum probability achieved by
-the players over all quantum strategies. For a nonlocal game, math:`G`, we use
+the players over all quantum strategies. For a nonlocal game, :math:`G`, we use
 :math:`\omega^*(G)` to represent the quantum value of :math:`G`.
 
 .. figure:: figures/nonlocal_game_quantum_strategy.svg
@@ -153,4 +153,170 @@ provides examples of tasks that benefit from the manipulation of quantum
 information. 
 
 Calculating the quantum value
---------------------------------
+------------------------------
+
+The ability to calculate the quantum value for an arbitrary nonlocal game is a
+highly non-trivial task. Indeed, the quantum value is only known in special
+cases for certain nonlocal games.
+
+For an arbitrary nonlocal game, there exist approaches that place upper and
+lower bounds on the quantum value. The lower bound approach is calculated using
+the technique of semidefinite programming [tLD07]_. While this method is efficient
+to carry out, it does not guarantee convergence to the quantum value (although
+in certain cases, it is attained).
+
+The primary idea of this approach is to note that fixing the measurements on one
+system yields the optimal measurements of the other system via an SDP. The
+algorithm proceeds in an iterative manner between two SDPs. In the first SDP, we
+assume that Bob's measurements are fixed, and Alice's measurements are to be
+optimized over. In the second SDP, we take Alice's optimized measurements from
+the first SDP and now optimize over Bob's measurements. This method is repeated
+until the quantum value reaches a desired numerical precision.
+
+For completeness, the first SDP where we fix Bob's measurements and optimize
+over Alice's measurements is given as SDP-1.
+
+.. math::
+
+    \begin{equation}
+        \begin{aligned}
+            \textbf{SDP-1:} \quad & \\
+            \text{maximize:} \quad & \sum_{(x,y \in \Sigma)} \pi(x,y)
+                                     \sum_{(a,b) \in \Gamma}
+                                     V(a,b|x,y)
+                                     \langle B_b^y, A_a^x \rangle \\
+            \text{subject to:} \quad & \sum_{a \in \Gamma_{\mathsf{A}}} =
+                                       \tau, \qquad \qquad
+                                       \forall x \in \Sigma_{\mathsf{A}}, \\
+                               \quad & A_a^x \in \text{Pos}(\mathcal{A}),
+                                       \qquad
+                                       \forall x \in \Sigma_{\mathsf{A}}, \
+                                       \forall a \in \Gamma_{\mathsf{A}}, \\
+                                       & \tau \in \text{D}(\mathcal{A}).
+        \end{aligned}
+    \end{equation}
+
+Similarly, the second SDP where we fix Alice's measurements and optimize over
+Bob's measurements is given as SDP-2.
+
+.. math::
+
+    \begin{equation}
+        \begin{aligned}
+            \textbf{SDP-2:} \quad & \\
+            \text{maximize:} \quad & \sum_{(x,y \in \Sigma)} \pi(x,y)
+                                     \sum_{(a,b) \in \Gamma} V(a,b|x,y)
+                                     \langle B_b^y, A_a^x \rangle \\
+            \text{subject to:} \quad & \sum_{b \in \Gamma_{\mathsf{B}}} =
+                                       \mathbb{I}, \qquad \qquad
+                                       \forall y \in \Sigma_{\mathsf{B}}, \\
+                               \quad & B_b^y \in \text{Pos}(\mathcal{B}),
+                               \qquad \forall y \in \Sigma_{\mathsf{B}}, \
+                               \forall b \in \Gamma_{\mathsf{B}}.
+        \end{aligned}
+    \end{equation}
+
+
+Lower bounding the quantum value in `toqito`
+---------------------------------------------
+
+The :code:`toqito` software implements both of these optimization problems using
+the :code:`cvxpy` library. We see-saw between the two SDPs until the value we
+obtain reaches a specific precision threshold.
+
+As we are not guaranteed to obtain the true quantum value of a given nonlocal
+game as this approach can get stuck in a local minimum, the :code:`toqito`
+function allows the user to specify an :code:`iters` argument that runs the
+see-saw approach a number of times and then returns the highest of the values
+obtained.
+
+Example: Lower bounding the quantum value of the CHSH game
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Let us consider calculating the lower bound on the quantum value of the CHSH
+game.
+
+.. note::
+    As the CHSH game is a subtype of nonlocal game referred to as an XOR game,
+    we do not necessarily need to resort to this lower bound technique as there
+    exists a specific SDP formulation that one can use to directly compute the
+    quantum value of an XOR game. More information on how one defines the CHSH
+    game as well as this method to directly calculate the quantum value of an
+    XOR game is provided in `"Calculating the Quantum and Classical Value of a Two-Player XOR Game" <https://toqito.readthedocs.io/en/latest/tutorials.xor_quantum_value.html>`_
+
+We will use the CHSH game here as an illustrative example as we already know
+what the optimal quantum value should be.
+
+The first step is to use :code:`numpy` to encode a matrix that encapsulates the
+probabilities with which the questions are asked to Alice and Bob. As defined in
+the CHSH game, each of the four pairs
+:math:`\{(0, 0), (0, 1), (1, 0), (1, 1)\}` are all equally likely. We encode
+this in the matrix as follows.
+
+.. code-block:: python
+
+    # Creating the probability matrix.
+    import numpy as np
+    prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
+
+Next, we want to loop through all possible combinations of question and answer
+pairs and populate the :math:(a, b, x, y)^{th}` entry of that matrix with a
+:math:`1` in the event that the winning condition is satisfied. Otherwise, if
+the winning condition is not satisfied for that particular choice of
+:math:`a, b, x,` and :math:`y`, we place a :math:`0` at that position.
+
+The following code performs this operation and places the appropriate entries
+in this matrix into the :code:`pred_mat` variable.
+
+.. code-block:: python
+
+    # Creating the predicate matrix.
+    import numpy as np
+    dim = 2
+    num_alice_inputs, num_alice_outputs = 2, 2
+    num_bob_inputs, num_bob_outputs = 2, 2
+
+    pred_mat = np.zeros(
+        (num_alice_outputs, num_bob_outputs, num_alice_inputs, num_bob_inputs)
+    )
+
+    for a_alice in range(num_alice_outputs):
+        for b_bob in range(num_bob_outputs):
+            for x_alice in range(num_alice_inputs):
+                for y_bob in range(num_bob_inputs):
+                    if a_alice ^ b_bob == x_alice * y_bob:
+                        pred_mat[a_alice, b_bob, x_alice, y_bob] = 1
+    print(pred_mat)
+    [[[[1. 1.]
+       [1. 0.]]
+
+      [[0. 0.]
+       [0. 1.]]]
+
+
+     [[[0. 0.]
+       [0. 1.]]
+
+      [[1. 1.]
+       [1. 0.]]]]
+
+Now that we have both :code:`prob_mat` and :code:`pred_mat` defined, we can
+use :code:`toqito` to determine the lower bound on the quantum value.
+
+.. code-block:: python
+
+    import toqito as tq
+    lower_bound = tq.two_player_quantum_lower_bound(dim, prob_mat, pred_mat)
+    print(lower_bound)
+    0.8535539268303678
+
+In this case, we can see that the quantum value of the CHSH game is in fact
+attained as :math:`\cos^2(\pi/8) \approx 0.85355`.
+
+
+References
+------------------------------
+.. [tLD07] Liang, Yeong-Cherng, and Andrew C. Doherty.
+    "Bounds on quantum correlations in Bell-inequality experiments."
+    Physical Review A 75.4 (2007): 042103.
+    https://arxiv.org/abs/quant-ph/0608128
