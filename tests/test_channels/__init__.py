@@ -1,1 +1,1 @@
-"""Unit tests for toqito package."""
+"""Unit tests for channel functions."""
