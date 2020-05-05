@@ -36,9 +36,8 @@ python setup.py install
 
 ## Using
 
-The documentation for `toqito`, along with specific examples and tutorials of 
-usage are provided on the 
-[documentation page](https://toqito.readthedocs.io/en/latest/).
+Full documentation along with specific examples and tutorials are provided 
+here: [https://toqito.readthedocs.io/](https://toqito.readthedocs.io/).
 
 ## Testing
 

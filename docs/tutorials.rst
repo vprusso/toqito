@@ -8,6 +8,8 @@ Nonlocal Games
 
    tutorials.xor_quantum_value
    tutorials.nonlocal_quantum_lower_bound
+   tutorials.quantum_money
+   tutorials.quantum_hedging
 
 State Distinguishability and Exclusion
 -----------------------------------------------------
