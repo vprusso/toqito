@@ -1,4 +1,6 @@
-# ToQITo (Theory of Quantum Information Toolkit)
+# ![logo](./docs/figures/logo.svg "logo") 
+
+(Theory of Quantum Information Toolkit)
 
 The `toqito` package is an open source Python library for studying various 
 objects in quantum information, namely, states, channels, and measurements.
