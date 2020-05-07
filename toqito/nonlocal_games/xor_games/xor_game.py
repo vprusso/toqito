@@ -1,16 +1,11 @@
-"""Compute the classical or quantum value of a two-player nonlocal XOR game."""
+"""Classical or quantum properties of a two-player nonlocal XOR game."""
 import cvxpy
 import numpy as np
 
 
-def xor_game_value(
-    prob_mat: np.ndarray,
-    pred_mat: np.ndarray,
-    strategy: str = "classical",
-    tol: float = None,
-) -> float:
+class XORGame:
     r"""
-    Compute the classical or quantum value of a two-player nonlocal XOR game.
+    Create classical or quantum two-player nonlocal XOR game object.
 
     Calculates the optimal probability that Alice and Bob win the game if they
     are allowed to determine a join strategy beforehand, but not allowed to
@@ -70,11 +65,12 @@ def xor_game_value(
     CHSH game as follows.
 
     >>> import numpy as np
-    >>> from toqito.nonlocal_games.xor_games.xor_game_value import xor_game_value
-    >>> xor_game_value(prob_mat, pred_mat, "quantum")
+    >>> from toqito.nonlocal_games.xor_games.xor_game import XORGame
+    >>> chsh = XORGame(prob_mat, pred_mat)
+    >>> chsh.quantum_value()
     0.8535533885683664
     >>>
-    >>> xor_game_value(prob_mat, pred_mat, "classical")
+    >>> chsh.classical_value()
     0.75
 
     The odd cycle game
@@ -105,10 +101,11 @@ def xor_game_value(
     odd cycle game as follows.
 
     >>> import numpy as np
-    >>> from toqito.nonlocal_games.xor_games.xor_game_value import xor_game_value
-    >>> xor_game_value(prob_mat, pred_mat, "quantum")
+    >>> from toqito.nonlocal_games.xor_games.xor_game import XORGame
+    >>> odd_cycle = XORGame(prob_mat, pred_mat)
+    >>> odd_cycle.quantum_value()
     0.9755282544736033
-    >>> xor_game_value(prob_mat, pred_mat, "classical")
+    >>> odd_cycle.classical_value()
     0.9
 
     References
@@ -123,46 +120,65 @@ def xor_game_value(
         Proceedings. 19th IEEE Annual Conference on Computational Complexity,
         IEEE, 2004.
         https://arxiv.org/abs/quant-ph/0404076
+    """
 
-    :param prob_mat: A matrix whose (q_0, q_1)-entry gives the probability that
+    def __init__(
+        self, prob_mat: np.ndarray, pred_mat: np.ndarray, tol: float = None
+    ) -> None:
+        """
+        Construct XOR game object.
+
+        :param prob_mat: A matrix whose (q_0, q_1)-entry gives the probability that
                      the referee will give Alice the value `q_0` and Bob the
                      value `q_1`.
-    :param pred_mat: A binary matrix whose (q_0, q_1)-entry indicates the
+        :param pred_mat: A binary matrix whose (q_0, q_1)-entry indicates the
                      winning choice (either 0 or 1) when Alice and Bob receive
                      values `q_0` and `q_1` from the referee.
-    :param strategy: Default is "classical". Either argument "classical" or
-                     "quantum" indicating what type of value the game should be
-                     computed.
-    :param tol: The error tolerance for the value.
-    :return: The optimal value that Alice and Bob can win the XOR game using a
-             specific type of strategy.
-    """
-    q_0, q_1 = prob_mat.shape
+        :param tol: The error tolerance for the value.
+        """
+        self.prob_mat = prob_mat
+        self.pred_mat = pred_mat
 
-    if tol is None:
-        tol = np.finfo(float).eps * q_0 ** 2 * q_1 ** 2
-    if (q_0, q_1) != pred_mat.shape:
-        raise ValueError(
-            "Invalid: The matrices `prob_mat` and `pred_mat` must"
-            " be matrices of the same size."
-        )
-    if -np.min(np.min(prob_mat)) > tol:
-        raise ValueError(
-            "Invalid: The variable `prob_mat` must be a "
-            "probability matrix: its entries must be "
-            "non-negative."
-        )
-    if np.abs(np.sum(np.sum(prob_mat)) - 1) > tol:
-        raise ValueError(
-            "Invalid: The variable `prob_mat` must be a "
-            "probability matrix: its entries must sum to 1."
-        )
+        q_0, q_1 = self.prob_mat.shape
+        if tol is None:
+            self.tol = np.finfo(float).eps * q_0 ** 2 * q_1 ** 2
+        else:
+            self.tol = tol
 
-    # Compute the value of the game, depending on which type of value was
-    # requested.
-    if strategy == "quantum":
+        # Perform some basic error checking to ensure the probability and
+        # predicate matrices are well-defined.
+        if (q_0, q_1) != self.pred_mat.shape:
+            raise ValueError(
+                "Invalid: The matrices `prob_mat` and `pred_mat` must"
+                " be matrices of the same size."
+            )
+        if -np.min(np.min(self.prob_mat)) > self.tol:
+            raise ValueError(
+                "Invalid: The variable `prob_mat` must be a "
+                "probability matrix: its entries must be "
+                "non-negative."
+            )
+        if np.abs(np.sum(np.sum(self.prob_mat)) - 1) > self.tol:
+            raise ValueError(
+                "Invalid: The variable `prob_mat` must be a "
+                "probability matrix: its entries must sum to 1."
+            )
+
+        self.quantum_strategy = None
+        self.classical_strategy = None
+
+    def quantum_value(self) -> float:
+        """
+        Compute the quantum value of the XOR game.
+
+        :return: A value between [0, 1] representing the quantum value.
+        """
+        q_0, q_1 = self.prob_mat.shape
+
+        # Compute the value of the game, depending on which type of value was
+        # requested.
         # Use semidefinite programming to compute the value of the game.
-        p_var = prob_mat * (1 - 2 * pred_mat)
+        p_var = self.prob_mat * (1 - 2 * self.pred_mat)
         q_var = np.bmat(
             [[np.zeros((q_0, q_0)), p_var], [p_var.conj().T, np.zeros((q_1, q_1))]]
         )
@@ -172,9 +188,18 @@ def xor_game_value(
         constraints = [cvxpy.diag(x_var) == 1, x_var >> 0]
         problem = cvxpy.Problem(objective, constraints)
 
-        return np.real(problem.solve()) / 4 + 1 / 2
+        problem.solve()
 
-    if strategy == "classical":
+        return np.real(problem.value) / 4 + 1 / 2
+
+    def classical_value(self) -> float:
+        """
+        Compute the classical value of the XOR game.
+
+        :return: A value between [0, 1] representing the classical value.
+        """
+        q_0, q_1 = self.prob_mat.shape
+
         # At worst, out winning probability is 0. Now, try to improve.
         val = 0
 
@@ -195,18 +220,23 @@ def xor_game_value(
                 # getting that pair of questions (i.e., multiply by the
                 # probability of getting that pair of questions (i.e., multiply
                 # entry-wise by P) and then sum over the rows and columns.
-                c_mat = np.mod(
+                self.classical_strategy = np.mod(
                     np.multiply(a_vec.conj().T.reshape(-1, 1), np.ones((1, q_1)))
                     + np.multiply(np.ones((q_0, 1)), b_vec),
                     2,
                 )
-                p_win = np.sum(np.sum(np.multiply(c_mat == pred_mat, prob_mat)))
+                p_win = np.sum(
+                    np.sum(
+                        np.multiply(
+                            self.classical_strategy == self.pred_mat, self.prob_mat
+                        )
+                    )
+                )
 
                 # Is this strategy better than other ones tried so far?
                 val = max(val, p_win)
 
                 # Already optimal? Quit.
-                if val >= 1 - tol:
+                if val >= 1 - self.tol:
                     return val
         return val
-    raise ValueError(f"Strategy {strategy} is not supported.")

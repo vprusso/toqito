@@ -170,13 +170,9 @@ value of the CHSH game.
 
 .. code-block:: python
 
-    import numpy as np
     import toqito as tq
-    prob_mat = np.array([[1/4, 1/4], 
-                         [1/4, 1/4]])
-    pred_mat = np.array([[0, 0],
-                         [0, 1]])
-    tq.xor_game_value(prob_mat, pred_mat, "classical")
+    chsh = tq.XORGame(prob_mat, pred_mat)
+    chsh.classical_value()
     0.75
 
 A quantum strategy for the CHSH game
@@ -288,15 +284,21 @@ follows:
 
 .. code-block:: python
 
+    chsh.quantum_value()
+    0.8535533885683664
+
+For reference, the complete code to calculate both the classical and quantum
+values of the CHSH game is provided below.
+
+.. code-block:: python
+
     import numpy as np
     import toqito as tq
-    prob_mat = np.array([[1/4, 1/4], 
+    prob_mat = np.array([[1/4, 1/4],
                          [1/4, 1/4]])
     pred_mat = np.array([[0, 0],
                          [0, 1]])
-    tq.xor_game_value(prob_mat, pred_mat, "quantum")
-    0.8535533885683664
-
-The odd cycle game
--------------------
+    chsh = tq.XORGame(prob_mat, pred_mat)
+    chsh.classical_value()
+    chsh.quantum_value()
 

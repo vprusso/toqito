@@ -1,19 +1,20 @@
-"""Tests for xor_game_value function."""
+"""Tests for XORGame class."""
 import unittest
 import numpy as np
 
-from toqito.nonlocal_games.xor_games.xor_game_value import xor_game_value
+from toqito.nonlocal_games.xor_games.xor_game import XORGame
 
 
-class TestXORGameValue(unittest.TestCase):
-    """Unit test for xor_game_value."""
+class TestXORGame(unittest.TestCase):
+    """Unit test for XORGame."""
 
     def test_chsh_game_quantum_value(self):
         """Quantum value for the CHSH game."""
         prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
         pred_mat = np.array([[0, 0], [0, 1]])
 
-        res = xor_game_value(prob_mat, pred_mat, "quantum")
+        chsh = XORGame(prob_mat, pred_mat)
+        res = chsh.quantum_value()
         expected_res = np.cos(np.pi / 8) ** 2
         self.assertEqual(np.isclose(res, expected_res), True)
 
@@ -22,7 +23,8 @@ class TestXORGameValue(unittest.TestCase):
         prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
         pred_mat = np.array([[0, 0], [0, 1]])
 
-        res = xor_game_value(prob_mat, pred_mat, "classical")
+        chsh = XORGame(prob_mat, pred_mat)
+        res = chsh.classical_value()
         expected_res = 3 / 4
         self.assertEqual(np.isclose(res, expected_res), True)
 
@@ -31,7 +33,8 @@ class TestXORGameValue(unittest.TestCase):
         prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
         pred_mat = np.array([[0, 0], [0, 1]])
 
-        res = xor_game_value(prob_mat, pred_mat, "classical", 1)
+        chsh = XORGame(prob_mat, pred_mat, 1)
+        res = chsh.classical_value()
         expected_res = 3 / 4
         self.assertEqual(np.isclose(res, expected_res), True)
 
@@ -56,8 +59,8 @@ class TestXORGameValue(unittest.TestCase):
                 [1, 0, 0, 0, 0],
             ]
         )
-
-        res = xor_game_value(prob_mat, pred_mat, "quantum")
+        odd_cycle = XORGame(prob_mat, pred_mat)
+        res = odd_cycle.quantum_value()
         expected_res = 0.975528
         self.assertEqual(np.isclose(res, expected_res), True)
 
@@ -82,8 +85,8 @@ class TestXORGameValue(unittest.TestCase):
                 [1, 0, 0, 0, 0],
             ]
         )
-
-        res = xor_game_value(prob_mat, pred_mat, "classical")
+        odd_cycle = XORGame(prob_mat, pred_mat)
+        res = odd_cycle.classical_value()
         expected_res = 0.9
         self.assertEqual(np.isclose(res, expected_res), True)
 
@@ -93,7 +96,8 @@ class TestXORGameValue(unittest.TestCase):
             prob_mat = np.array([[1 / 4, -1 / 4], [1 / 4, 1 / 4]])
             pred_mat = np.array([[0, 0], [0, 1]])
 
-            xor_game_value(prob_mat, pred_mat, "quantum")
+            game = XORGame(prob_mat, pred_mat)
+            game.quantum_value()
 
     def test_invalid_prob_mat(self):
         """Tests for invalid probability matrix."""
@@ -101,7 +105,8 @@ class TestXORGameValue(unittest.TestCase):
             prob_mat = np.array([[1 / 4, 1], [1 / 4, 1 / 4]])
             pred_mat = np.array([[0, 0], [0, 1]])
 
-            xor_game_value(prob_mat, pred_mat, "quantum")
+            game = XORGame(prob_mat, pred_mat)
+            game.quantum_value()
 
     def test_non_square_prob_mat(self):
         """Tests for invalid non-square probability matrix."""
@@ -109,7 +114,8 @@ class TestXORGameValue(unittest.TestCase):
             prob_mat = np.array([[1 / 4, 1 / 4, 1 / 4], [1 / 4, 1 / 4, 1 / 4]])
             pred_mat = np.array([[0, 0], [0, 1]])
 
-            xor_game_value(prob_mat, pred_mat, "quantum")
+            game = XORGame(prob_mat, pred_mat)
+            game.quantum_value()
 
     def test_zero_prob_mat(self):
         """Tests for zero probability matrix."""
@@ -117,15 +123,8 @@ class TestXORGameValue(unittest.TestCase):
             prob_mat = np.array([[1 / 4, 0], [1 / 4, 0]])
             pred_mat = np.array([[0, 0], [0, 1]])
 
-            xor_game_value(prob_mat, pred_mat, "quantum")
-
-    def test_invalid_strategy(self):
-        """Tests for invalid strategy argument."""
-        with self.assertRaises(ValueError):
-            prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
-            pred_mat = np.array([[0, 0], [0, 1]])
-
-            xor_game_value(prob_mat, pred_mat, "invalid")
+            game = XORGame(prob_mat, pred_mat)
+            game.quantum_value()
 
 
 if __name__ == "__main__":

@@ -212,7 +212,7 @@ def optimize_alice(
 
     tau = cvxpy.Variable((dim, dim), PSD=True)
 
-    # ..math
+    # .. math::
     #    \sum_{(x,y) \in \Sigma} \pi(x, y) V(a,b|x,y) \ip{B_b^y}{A_a^x}
     win = 0
     is_real = True
