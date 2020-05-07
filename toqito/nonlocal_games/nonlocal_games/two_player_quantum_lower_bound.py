@@ -109,7 +109,6 @@ def two_player_quantum_lower_bound(
     The optimal quantum value of CHSH is :math:`\cos(\pi/8)^2 \approx 0.8536`
     where the optimal classical value is :math:`3/4`.
 
-    >>> import cvxpy
     >>> import numpy as np
     >>> from toqito.nonlocal_games.nonlocal_games.two_player_quantum_lower_bound import
     >>>     two_player_quantum_lower_bound

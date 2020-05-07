@@ -1,4 +1,4 @@
-Tutorials for `toqito`
+Tutorials for :code:`toqito`.
 
 Nonlocal Games
 --------------------------

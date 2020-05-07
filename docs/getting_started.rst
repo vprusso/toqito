@@ -4,13 +4,14 @@ Getting Started Guide
 Installing
 ------------------
 
-The preferred way to install the `toqito` package is via `pip`
+The preferred way to install the :code:`toqito` package is via :code:`pip`
 
 ::
 
     pip install toqito
 
-Alternatively, to install, you may also run the following command from the top-level package directory.
+Alternatively, to install, you may also run the following command from the
+top-level package directory.
 
 ::
 
@@ -20,8 +21,8 @@ Alternatively, to install, you may also run the following command from the top-l
 Testing
 -------
 
-The `nose` module is used for testing. To run the suite of tests for `toqito`,
-run the following command in the root directory of this project:
+The :code:`nose` module is used for testing. To run the suite of tests for
+:code:`toqito`, run the following command in the root directory of this project:
 
 ::
 
@@ -40,15 +41,16 @@ A detailed overview on how to contribute can be found in the
 Citing
 ------
 
-You can cite `toqito` using the following DOI: 10.5281/zenodo.3699578
+You can cite :code:`toqito` using the following DOI: 10.5281/zenodo.3699578
 
-If you are using the `toqito` software package in research work, please include
-an explicit mention of toqito in your publication. Something along the lines of:
+If you are using the :code:`toqito` software package in research work, please
+include an explicit mention of toqito in your publication. Something along the
+lines of:
 
     To solve problem "X" we used `toqito`; a package for studying certain
     aspects of quantum information.
 
-A BibTeX entry that you can use to cite toqito is provided here:
+A BibTeX entry that you can use to cite :code:`toqito` is provided here:
 
 ::
 
