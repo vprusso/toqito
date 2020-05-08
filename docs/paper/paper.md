@@ -32,14 +32,18 @@ Other excellent software offerings that are closer in scope to toqito, such as
 QETLAB[@johnston2016qetlab], are written in non-opensource languages and
 therefore require the users to have access to costly licenses.
 
-toqito can also be used as a tool to enhance the experience of students and
-instructors in classes pertaining to quantum information.
-
 toqito possesses functions for fundamental operations including the partial
-trace, partial tranpose, and others. toqito also makes heavy use of the
+trace, partial tranpose, and others. toqito also makes use of the
 CVXPY[@diamond2016cvxpy] convex optimization module to solve various
 semidefinite programs that pertain to problems arising in the study of nonlocal
 games, state discrimination, and other problems in quantum information.
+Specifically, toqito provides the ability to either directly calculate or
+estimate the classical and quantum values of nonlocal games. toqito also
+provides numerous functions for performing operations on and for determining
+properties of quantum states, channels, and measurements. toqito provides
+numerous functions for exploring measures of entanglement and properties of
+entangled states. Support for generating random quantum states and measurement
+operators is also provided. 
 
 The toqito module is supported for Python 3.7 and makes use of many of the more
 modern features of the language including f-strings, type hinting, and others.

@@ -55,10 +55,136 @@ class NonlocalGame:
         return p_win
 
     def quantum_value_lower_bound(self, iters: int = 5, tol: float = 10e-6,):
-        """
-        Compute a lower bound on the quantum value of the nonlocal game.
+        r"""
+        Compute a lower bound on the quantum value of a nonlocal game [LD07]_.
 
-        :return: A value between [0, 1] representing the quantum value.
+        Calculates a lower bound on the maximum value that the specified nonlocal
+        game can take on in quantum mechanical settings where Alice and Bob each
+        have access to `d`-dimensional quantum system.
+
+        This function works by starting with a randomly-generated POVM for Bob, and
+        then optimizing Alice's POVM and the shared entangled state. Then Alice's
+        POVM and the entangled state are fixed, and Bob's POVM is optimized. And so
+        on, back and forth between Alice and Bob until convergence is reached.
+
+        Note that the algorithm is not guaranteed to obtain the optimal local bound
+        and can get stuck in local minimum values. The alleviate this, the `iter`
+        parameter allows one to run the algorithm some pre-specified number of
+        times and keep the highest value obtained.
+
+        The algorithm is based on the alternating projections algorithm as it can
+        be applied to Bell inequalities as shown in [LD07]_.
+
+        The alternating projection algorithm has also been referred to as the
+        "see-saw" algorithm as it goes back and forth between the following two
+        semidefinite programs:
+
+        .. math::
+
+            \begin{equation}
+                \begin{aligned}
+                    \textbf{SDP-1:} \quad & \\
+                    \text{maximize:} \quad & \sum_{(x,y \in \Sigma)} \pi(x,y)
+                                             \sum_{(a,b) \in \Gamma}
+                                             V(a,b|x,y)
+                                             \langle B_b^y, A_a^x \rangle \\
+                    \text{subject to:} \quad & \sum_{a \in \Gamma_{\mathsf{A}}} =
+                                               \tau, \qquad \qquad
+                                               \forall x \in \Sigma_{\mathsf{A}}, \\
+                                       \quad & A_a^x \in \text{Pos}(\mathcal{A}),
+                                               \qquad
+                                               \forall x \in \Sigma_{\mathsf{A}}, \
+                                               \forall a \in \Gamma_{\mathsf{A}}, \\
+                                               & \tau \in \text{D}(\mathcal{A}).
+                \end{aligned}
+            \end{equation}
+
+        .. math::
+
+            \begin{equation}
+                \begin{aligned}
+                    \textbf{SDP-2:} \quad & \\
+                    \text{maximize:} \quad & \sum_{(x,y \in \Sigma)} \pi(x,y)
+                                             \sum_{(a,b) \in \Gamma} V(a,b|x,y)
+                                             \langle B_b^y, A_a^x \rangle \\
+                    \text{subject to:} \quad & \sum_{b \in \Gamma_{\mathsf{B}}} =
+                                               \mathbb{I}, \qquad \qquad
+                                               \forall y \in \Sigma_{\mathsf{B}}, \\
+                                       \quad & B_b^y \in \text{Pos}(\mathcal{B}),
+                                       \qquad \forall y \in \Sigma_{\mathsf{B}}, \
+                                       \forall b \in \Gamma_{\mathsf{B}}.
+                \end{aligned}
+            \end{equation}
+
+        Examples
+        ==========
+
+        The CHSH game
+
+        The CHSH game is a two-player nonlocal game with the following probability
+        distribution and question and answer sets.
+
+        .. math::
+            \begin{equation}
+            \begin{aligned} \pi(x,y) = \frac{1}{4}, \qquad (x,y) \in \Sigma_A \times
+             \Sigma_B, \qquad \text{and} \qquad (a, b) \in \Gamma_A \times \Gamma_B,
+            \end{aligned}
+            \end{equation}
+
+        where
+
+        .. math::
+            \begin{equation}
+            \Sigma_A = \{0, 1\}, \quad \Sigma_B = \{0, 1\}, \quad \Gamma_A =
+            \{0,1\}, \quad \text{and} \quad \Gamma_B = \{0, 1\}.
+            \end{equation}
+
+        Alice and Bob win the CHSH game if and only if the following equation is satisfied
+
+        ..math::
+            \begin{equation}
+            a \oplus b = x \land y.
+            \end{equation}
+
+        Recall that :math:`\oplus` refers to the XOR operation.
+
+        The optimal quantum value of CHSH is :math:`\cos(\pi/8)^2 \approx 0.8536`
+        where the optimal classical value is :math:`3/4`.
+
+        >>> import numpy as np
+        >>> from toqito.nonlocal_games.nonlocal_game import NonlocalGame
+        >>>
+        >>> dim = 2
+        >>> num_alice_inputs, num_alice_outputs = 2, 2
+        >>> num_bob_inputs, num_bob_outputs = 2, 2
+        >>> prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
+        >>> pred_mat = np.zeros(
+        >>>     (num_alice_outputs, num_bob_outputs, num_alice_inputs, num_bob_inputs)
+        >>> )
+        >>>
+        >>> for a_alice in range(num_alice_outputs):
+        >>>    for b_bob in range(num_bob_outputs):
+        >>>        for x_alice in range(num_alice_inputs):
+        >>>            for y_bob in range(num_bob_inputs):
+        >>>                if np.mod(a_alice + b_bob + x_alice * y_bob, dim) == 0:
+        >>>                    pred_mat[a_alice, b_bob, x_alice, y_bob] = 1
+        >>>
+        >>> chsh = NonlocalGame(dim, prob_mat, pred_mat)
+        >>> chsh.quantum_value_lower_bound()
+        0.8535533840915605
+
+        References
+        ==========
+        .. [LD07] Liang, Yeong-Cherng, and Andrew C. Doherty.
+            "Bounds on quantum correlations in Bell-inequality experiments."
+            Physical Review A 75.4 (2007): 042103.
+            https://arxiv.org/abs/quant-ph/0608128
+
+        :param iters: The number of times to run the alternating projection
+                      algorithm.
+        :param tol: The tolerance before quitting out of the alternating projection
+                    semidefinite program.
+        :return: The lower bound on the quantum value of a nonlocal game.
         """
         # Get number of inputs and outputs.
         num_inputs_bob = self.prob_mat.shape[1]
@@ -114,7 +240,7 @@ class NonlocalGame:
         # `dim`-by-`dim` cvxpy variables.
         alice_povms = defaultdict(cvxpy.Variable)
         for x_ques in range(num_inputs_alice):
-            for a_ans in range(num_outputs_bob):
+            for a_ans in range(num_outputs_alice):
                 alice_povms[x_ques, a_ans] = cvxpy.Variable(
                     (self.dim, self.dim), PSD=True
                 )
