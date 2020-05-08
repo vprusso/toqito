@@ -1,11 +1,11 @@
-"""Classical or quantum properties of a two-player nonlocal XOR game."""
+"""Two-player XOR game."""
 import cvxpy
 import numpy as np
 
 
 class XORGame:
     r"""
-    Create classical or quantum two-player nonlocal XOR game object.
+    Create classical or quantum two-player XOR game object.
 
     Calculates the optimal probability that Alice and Bob win the game if they
     are allowed to determine a join strategy beforehand, but not allowed to
@@ -49,7 +49,7 @@ class XORGame:
         a \oplus b = x \land y.
         \end{equation}
 
-    Recall that :math`\oplus` refers to the XOR operation.
+    Recall that :math:`\oplus` refers to the XOR operation.
 
     The optimal quantum value of CHSH is :math:`\cos(\pi/8)^2 \approx 0.8536`
     where the optimal classical value is :math:`3/4`.
@@ -65,7 +65,7 @@ class XORGame:
     CHSH game as follows.
 
     >>> import numpy as np
-    >>> from toqito.nonlocal_games.xor_games.xor_game import XORGame
+    >>> from toqito.nonlocal_games.xor_game import XORGame
     >>> chsh = XORGame(prob_mat, pred_mat)
     >>> chsh.quantum_value()
     0.8535533885683664
@@ -101,7 +101,7 @@ class XORGame:
     odd cycle game as follows.
 
     >>> import numpy as np
-    >>> from toqito.nonlocal_games.xor_games.xor_game import XORGame
+    >>> from toqito.nonlocal_games.xor_game import XORGame
     >>> odd_cycle = XORGame(prob_mat, pred_mat)
     >>> odd_cycle.quantum_value()
     0.9755282544736033

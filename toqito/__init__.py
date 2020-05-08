@@ -52,9 +52,10 @@ from .linear_algebra.properties.is_unitary import is_unitary
 from .nonlocal_games.nonlocal_games.two_player_quantum_lower_bound import (
     two_player_quantum_lower_bound,
 )
-from .nonlocal_games.quantum_hedging.hedging_value import HedgingValue
 from .nonlocal_games.quantum_money.counterfeit_attack import counterfeit_attack
-from .nonlocal_games.xor_games.xor_game import XORGame
+from .nonlocal_games.quantum_hedging.hedging_value import HedgingValue
+from .nonlocal_games.nonlocal_game import NonlocalGame
+from .nonlocal_games.xor_game import XORGame
 
 # Perms:
 from .perms.antisymmetric_projection import antisymmetric_projection

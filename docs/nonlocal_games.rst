@@ -2,13 +2,13 @@
 
 A number of nonlocal game-related functions.
 
-Coin-flipping Protocols
------------------------
+XOR Games
+---------------------------------------------
 
-.. toctree::
-   :maxdepth: 4
-
-   nonlocal_games.coin_flipping
+.. automodule:: toqito.nonlocal_games.xor_game
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 Nonlocal Games
 ---------------
@@ -33,11 +33,3 @@ Quantum Money Protocols
    :maxdepth: 4
 
    nonlocal_games.quantum_money
-
-XOR Nonlocal Games
--------------------
-
-.. toctree::
-   :maxdepth: 4
-
-   nonlocal_games.xor_games
