@@ -5,7 +5,7 @@ import numpy as np
 
 class XORGame:
     r"""
-    Create classical or quantum two-player XOR game object.
+    Create two-player XOR game object.
 
     Calculates the optimal probability that Alice and Bob win the game if they
     are allowed to determine a join strategy beforehand, but not allowed to
