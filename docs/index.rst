@@ -22,19 +22,19 @@ Functions
 ==================================
 
 .. toctree::
-	:maxdepth: 1
+	:maxdepth: 2
 	:caption: Channels
 
 	channels
 
 .. toctree::
-	:maxdepth: 1
+	:maxdepth: 2
 	:caption: States
 
 	states
 
 .. toctree::
-	:maxdepth: 1
+	:maxdepth: 2
 	:caption: Measurements
 
 	measurements
