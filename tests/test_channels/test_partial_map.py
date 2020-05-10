@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.channels import partial_map
+from toqito.channel_ops import partial_map
 from toqito.channels import depolarizing
 
 

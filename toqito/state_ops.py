@@ -5,7 +5,9 @@ from scipy.sparse import issparse, linalg
 import numpy as np
 
 
-__all__ = ["pure_to_mixed", "schmidt_decomposition", "tensor"]
+__all__ = ["pure_to_mixed",
+           "schmidt_decomposition",
+           "tensor"]
 
 
 def pure_to_mixed(phi: np.ndarray) -> np.ndarray:

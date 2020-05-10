@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.channels import choi_map
+from toqito.channels import choi
 
 
 class TestChoiMap(unittest.TestCase):
@@ -24,12 +24,12 @@ class TestChoiMap(unittest.TestCase):
             ]
         )
 
-        res = choi_map()
+        res = choi()
 
         bool_mat = np.isclose(res, expected_res)
         self.assertEqual(np.all(bool_mat), True)
 
-    def test_reduction_map(self):
+    def test_reduction(self):
         """
         The reduction map is the map R defined by: R(X) = Tr(X)I - X.
 
@@ -49,7 +49,7 @@ class TestChoiMap(unittest.TestCase):
             ]
         )
 
-        res = choi_map(0, 1, 1)
+        res = choi(0, 1, 1)
 
         bool_mat = np.isclose(res, expected_res)
         self.assertEqual(np.all(bool_mat), True)

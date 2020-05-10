@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.channels import apply_map
+from toqito.channel_ops import apply_map
 from toqito.channels import dephasing
 
 

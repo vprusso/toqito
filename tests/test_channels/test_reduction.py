@@ -1,15 +1,15 @@
 """Tests for reduction_map function."""
 import unittest
 
-from toqito.channels import reduction_map
+from toqito.channels import reduction
 
 
 class TestReduction(unittest.TestCase):
-    """Unit test for reduction_map."""
+    """Unit test for reduction."""
 
     def test_reduction_map(self):
         """Test for the standard reduction map."""
-        res = reduction_map(3)
+        res = reduction(3)
         self.assertEqual(res[4, 0], -1)
         self.assertEqual(res[8, 0], -1)
         self.assertEqual(res[1, 1], 1)

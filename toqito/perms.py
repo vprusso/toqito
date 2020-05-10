@@ -776,8 +776,8 @@ def unique_perms(elements: List[int]):
     :math:`4200`. This can be obtained using the `toqito` package as follows.
 
     >>> from toqito.perms import unique_perms
-    >>> vec = [1, 1, 2, 2, 1, 2, 1, 3, 3, 3]
-    >>> len(list(unique_perms(vec)))
+    >>> vec_nums = [1, 1, 2, 2, 1, 2, 1, 3, 3, 3]
+    >>> len(list(unique_perms(vec_nums)))
     4200
 
     :param elements: List of integers.

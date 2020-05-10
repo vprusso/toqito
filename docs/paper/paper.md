@@ -41,7 +41,7 @@ Specifically, toqito provides the ability to either directly calculate or
 estimate the classical and quantum values of nonlocal games. toqito also
 provides numerous functions for performing operations on and for determining
 properties of quantum states, channels, and measurements. toqito provides
-numerous functions for exploring measures of entanglement and properties of
+utilities for exploring measures of entanglement and properties of
 entangled states. Support for generating random quantum states and measurement
 operators is also provided. 
 
