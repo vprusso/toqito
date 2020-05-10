@@ -35,7 +35,7 @@ class StateDistinguish:
         if not np.isclose(sum(probs), 1):
             raise ValueError("Invalid: Probabilities must sum to 1.")
 
-        dim_x, dim_y = states[0].shape
+        _, dim_y = states[0].shape
 
         # The variable `states` is provided as a list of vectors. Transform them
         # into density matrices.
