@@ -54,14 +54,12 @@ class StateDistinguish:
         :math:`n` quantum states
 
         .. math::
-
-            `\rho = \{ \rho_0, \ldots, \rho_n \},`
+            \rho = \{ \rho_0, \ldots, \rho_n \},
 
         as well as a list of corresponding probabilities
 
         .. math::
-
-            `p = \{ p_0, \ldots, p_n \}`
+            p = \{ p_0, \ldots, p_n \}
 
         Alice chooses :math:`i` with probability :math:`p_i` and creates the state
         :math:`rho_i`
@@ -160,10 +158,12 @@ class StateDistinguish:
 
         .. math::
             \begin{equation}
-                |\psi_0 \rangle = \frac{|00\rangle + |11\rangle}{\sqrt{2}}, \quad
-                |\psi_1 \rangle = \frac{|01\rangle + |10\rangle}{\sqrt{2}}, \quad
-                |\psi_2 \rangle = \frac{|01\rangle - |10\rangle}{\sqrt{2}}, \quad
-                |\psi_3 \rangle = \frac{|00\rangle - |11\rangle}{\sqrt{2}}. \quad
+                \begin{aligned}
+                |\psi_0 \rangle = \frac{|00\rangle + |11\rangle}{\sqrt{2}}, &\quad
+                |\psi_1 \rangle = \frac{|01\rangle + |10\rangle}{\sqrt{2}}, \\
+                |\psi_2 \rangle = \frac{|01\rangle - |10\rangle}{\sqrt{2}}, &\quad
+                |\psi_3 \rangle = \frac{|00\rangle - |11\rangle}{\sqrt{2}}.
+                \end{aligned}
             \end{equation}
 
         It was illustrated in [YDY12]_ that for the following set of states:

@@ -86,7 +86,8 @@ def schmidt_decomposition(
     Consider the :math:`3`-dimensional maximally entangled state
 
     .. math::
-        u = \frac{1}{\sqrt{3}} \left( |000> + |111> + |222> \right)
+        u = \frac{1}{\sqrt{3}} \left( |000 \rangle +
+        |111 \rangle + |222 \rangle \right)
 
     We can generate this state using the `toqito` module as follows.
 

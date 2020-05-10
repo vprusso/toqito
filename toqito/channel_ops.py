@@ -1,4 +1,4 @@
-"""Operations on quantum channels."""
+"""Operations that can be performed using quantum channels."""
 from typing import List, Union
 
 import numpy as np
@@ -35,6 +35,7 @@ def apply_map(
     Applying the swap operator given as
 
     .. math::
+        \Phi =
         \begin{pmatrix}
             1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
             0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
@@ -50,13 +51,13 @@ def apply_map(
     to the matrix :math:`X`, we have the resulting matrix of
 
     .. math::
-        X_{swap} = \begin{pmatrix}
+        \Phi(X) = \begin{pmatrix}
                         1 & 2 & 3 \\
                         4 & 5 & 6 \\
                         7 & 8 & 9
                    \end{pmatrix}
 
-    Using `toqito`, we can obtain the above matrices as follows.
+    Using :code:`toqito`, we can obtain the above matrices as follows.
 
     >>> from toqito.channel_ops import apply_map
     >>> from toqito.perms import swap_operator
@@ -68,12 +69,11 @@ def apply_map(
      [7., 8., 9.]]
 
     :param mat: A matrix.
-    :param phi_op: A superoperator.
-    :return: The result of applying the superoperator `phi_op` to the operator
-             `mat`.
-
-    `phi_op` should be provided either as a Choi matrix, or as a list of numpy
-    arrays with either 1 or 2 columns whose entries are its Kraus operators.
+    :param phi_op: A superoperator. :code:`phi_op` should be provided either as
+                   a Choi matrix, or as a list of numpy arrays with either 1 or
+                   2 columns whose entries are its Kraus operators.
+    :return: The result of applying the superoperator :code:`phi_op` to the
+             operator :code:`mat`.
     """
     # Both of the following methods of applying the superoperator are much
     # faster than naively looping through the Kraus operators or constructing
@@ -128,10 +128,11 @@ def kraus_to_choi(kraus_ops: List[List[np.ndarray]], sys: int = 2) -> np.ndarray
     r"""
     Compute the Choi matrix of a list of Kraus operators [WatKraus18]_.
 
-    The Choi matrix of the list of Kraus operators, `kraus_ops`. The default
-    convention is that the Choi matrix is the result of applying the map to the
-    second subsystem of the standard maximally entangled (unnormalized) state.
-    The Kraus operators are expected to be input as a list of numpy arrays.
+    The Choi matrix of the list of Kraus operators, :code:`kraus_ops`. The
+    default convention is that the Choi matrix is the result of applying the map
+    to the second subsystem of the standard maximally entangled (unnormalized)
+    state. The Kraus operators are expected to be input as a list of numpy
+    arrays.
 
     This function was adapted from the QETLAB package.
 
@@ -206,7 +207,7 @@ def partial_map(
     second subsystem of :math:`\rho`, which is assumed to act on two
     subsystems of equal dimension.
 
-    The input `phi_map` should be provided as a Choi matrix.
+    The input :code:`phi_map` should be provided as a Choi matrix.
 
     Examples
     ==========
@@ -244,9 +245,9 @@ def partial_map(
     :param rho: A matrix.
     :param phi_map: The map to partially apply.
     :param sys: Scalar or vector specifying the size of the subsystems.
-    :param dim: Dimension of the subsystems. If `None`, all dimensions
+    :param dim: Dimension of the subsystems. If :code:`None`, all dimensions
                 are assumed to be equal.
-    :return: The partial map `phi_map` applied to matrix `rho`.
+    :return: The partial map :code:`phi_map` applied to matrix :code:`rho`.
     """
     if dim is None:
         dim = np.round(np.sqrt(list(rho.shape))).conj().T * np.ones(2)

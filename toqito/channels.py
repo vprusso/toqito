@@ -1,4 +1,4 @@
-"""Quantum channels."""
+"""A number of widely-studied quantum channels."""
 from typing import List, Union
 
 import functools
@@ -26,21 +26,22 @@ __all__ = [
 
 def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
     r"""
-    Produce the Choi map or one of its generalizations [Choi92]_.
+    Produce the Choi channel or one of its generalizations [Choi92]_.
 
-    The *Choi map* is a positive map on 3-by-3 matrices that is capable
+    The *Choi channel* is a positive map on 3-by-3 matrices that is capable
     of detecting some entanglement that the transpose map is not.
 
-    The standard Choi map defined with `a=1`, `b=1`, and `c=0` is the
-    Choi matrix of the positive map defined in [Choi92]_. Many of these
-    maps are capable of detecting PPT entanglement.
+    The standard Choi channel defined with :code:`a=1`, :code:`b=1`, and
+    :code:`c=0` is the Choi matrix of the positive map defined in [Choi92]_.
+    Many of these maps are capable of detecting PPT entanglement.
 
     Examples
     ==========
 
-    The standard Choi map is given as
+    The standard Choi channel is given as
 
     .. math::
+        \Phi_{1, 1, 0} =
         \begin{pmatrix}
             1 & 0 & 0 & 0 & -1 & 0 & 0 & 0 & -1 \\
             0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
@@ -53,7 +54,7 @@ def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
             -1 & 0 & 0 & 0 & -1 & 0 & 0 & 0 & 1
         \end{pmatrix}
 
-    We can generate the Choi map in `toqito` as follows.
+    We can generate the Choi channel in :code:`toqito` as follows.
 
     >>> from toqito.channels import choi
     >>> import numpy as np
@@ -68,7 +69,7 @@ def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
      [ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  1.,  0.],
      [-1.,  0.,  0.,  0., -1.,  0.,  0.,  0.,  1.]])
 
-    The reduction map is the map :math:`R` defined by:
+    The reduction channel is the map :math:`R` defined by:
 
     .. math::
         R(X) = \text{Tr}(X) \mathbb{I} - X.
@@ -76,6 +77,7 @@ def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
     The matrix correspond to this is given as
 
     .. math::
+        \Phi_{0, 1, 1} =
         \begin{pmatrix}
             0 & 0 & 0 & 0 & -1 & 0 & 0 & 0 & -1 \\
             0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
@@ -88,8 +90,9 @@ def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
             -1 & 0 & 0 & 0 & -1 & 0 & 0 & 0 & 0
         \end{pmatrix}
 
-    The reduction map is the Choi map that arises when :math:`a = 0` and when
-    :math:`b = c = 1`. We can obtain this matrix using `toqito` as follows.
+    The reduction channel is the Choi channel that arises when :code:`a = 0` and
+    when :code:`b = c = 1`. We can obtain this matrix using :code:`toqito` as
+    follows.
 
     >>> from toqito.channels import choi
     >>> import numpy as np
@@ -104,6 +107,10 @@ def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
      [ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  1.,  0.],
      [-1.,  0.,  0.,  0., -1.,  0.,  0.,  0.,  0.]])
 
+    See Also
+    ==========
+    reduction
+
     References
     ==========
     .. [Choi92] Cho, Sung Je, Seung-Hyeok Kye, and Sa Ge Lee.
@@ -114,7 +121,7 @@ def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
     :param a_var: Default integer for standard Choi map.
     :param b_var: Default integer for standard Choi map.
     :param c_var: Default integer for standard Choi map.
-    :return: The Choi map (or one of its  generalizations).
+    :return: The Choi channel (or one of its  generalizations).
     """
     psi = max_entangled(3, False, False)
     return (
@@ -130,7 +137,7 @@ def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
     Produce the partially dephasing channel [WatDeph18]_.
 
     The Choi matrix of the completely dephasing channel that acts on
-    `dim`-by-`dim` matrices.
+    :code:`dim`-by-:code:`dim` matrices.
 
     Let :math:`\Sigma` be an alphabet and let
     :math:`\mathcal{X} = \mathbb{C}^{\Sigma}`. The map
@@ -166,7 +173,7 @@ def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
                          0 & 0 & 0 & 16
                      \end{pmatrix}.
 
-    This can be observed in `toqito` as follows.
+    This can be observed in :code:`toqito` as follows.
 
     >>> from toqito.channel_ops import apply_map
     >>> from toqito.channels import dephasing
@@ -180,7 +187,7 @@ def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
      [ 0.,  0., 11.,  0.],
      [ 0.,  0.,  0., 16.]])
 
-    We may also consider setting the parameter `p = 0.5`.
+    We may also consider setting the parameter :code:`p = 0.5`.
 
     >>> from toqito.channel_ops import apply_map
     >>> from toqito.channels import dephasing
@@ -219,7 +226,7 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
     Produce the partially depolarizng channel [WikDepo]_, [WatDepo18]_.
 
     The Choi matrix of the completely depolarizing channel that acts on
-    `dim`-by-`dim` matrices.
+    :code:`dim`-by-:code:`dim` matrices.
 
     The *completely depolarizing channel* is defined as
 
@@ -259,7 +266,7 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
                                     \frac{1}{2} & 0 & 0 & \frac{1}{2}
                                  \end{pmatrix}.
 
-    This can be observed in `toqito` as follows.
+    This can be observed in :code:`toqito` as follows.
 
     >>> from toqito.channel_ops import apply_map
     >>> from toqito.channels import depolarizing
@@ -320,9 +327,9 @@ def partial_trace_cvx(rho, sys=None, dim=None):
 
     :param rho: A square matrix.
     :param sys: Scalar or vector specifying the size of the subsystems.
-    :param dim: Dimension of the subsystems. If `None`, all dimensions
+    :param dim: Dimension of the subsystems. If :code:`None`, all dimensions
                 are assumed to be equal.
-    :return: The partial trace of matrix `input_mat`.
+    :return: The partial trace of matrix :code:`input_mat`.
     """
     rho_np = expr_as_np_array(rho)
     traced_rho = partial_trace(rho_np, sys, dim)
@@ -339,8 +346,9 @@ def partial_trace(
     Compute the partial trace of a matrix [WikPtrace]_.
 
     Gives the partial trace of the matrix X, where the dimensions of the
-    (possibly more than 2) subsystems are given by the vector `dim` and the
-    subsystems to take the trace on are given by the scalar or vector `sys`.
+    (possibly more than 2) subsystems are given by the vector :code:`dim` and
+    the subsystems to take the trace on are given by the scalar or vector
+    :code:`sys`.
 
     Examples
     ==========
@@ -364,8 +372,8 @@ def partial_trace(
                     23 & 27
                  \end{pmatrix}
 
-    By default, the partial trace function in `toqito` takes the trace of the
-    second subsystem.
+    By default, the partial trace function in :code:`toqito` takes the trace of
+    the second subsystem.
 
     >>> from toqito.channels import partial_trace
     >>> import numpy as np
@@ -376,10 +384,10 @@ def partial_trace(
     [[ 7, 11],
      [23, 27]]
 
-    By specifying the `sys = 1` argument, we can perform the partial trace over
-    the first subsystem (instead of the default second subsystem as done above).
-    Performing the partial trace over the first subsystem yields the following
-    matrix
+    By specifying the :code:`sys = 1` argument, we can perform the partial trace
+    over the first subsystem (instead of the default second subsystem as done
+    above). Performing the partial trace over the first subsystem yields the
+    following matrix
 
     .. math::
         X_{pt, 1} = \begin{pmatrix}
@@ -396,8 +404,8 @@ def partial_trace(
     [[12, 14],
      [20, 22]]
 
-    We can also specify both dimension and system size as `list` arguments.
-    Consider the following :math:`16`-by-:math:`16` matrix.
+    We can also specify both dimension and system size as :code:`list`
+    arguments. Consider the following :math:`16`-by-:math:`16` matrix.
 
     >>> from toqito.channels import partial_trace
     >>> import numpy as np
@@ -438,9 +446,9 @@ def partial_trace(
 
     :param input_mat: A square matrix.
     :param sys: Scalar or vector specifying the size of the subsystems.
-    :param dim: Dimension of the subsystems. If `None`, all dimensions
+    :param dim: Dimension of the subsystems. If :code:`None`, all dimensions
                 are assumed to be equal.
-    :return: The partial trace of matrix `input_mat`.
+    :return: The partial trace of matrix :code:`input_mat`.
     """
     if dim is None:
         dim = np.array([np.round(np.sqrt(len(input_mat)))])
@@ -519,17 +527,17 @@ def partial_transpose(
     r"""Compute the partial transpose of a matrix [WikPtrans]_.
 
     By default, the returned matrix is the partial transpose of the matrix
-    `rho`, where it is assumed that the number of rows and columns of `rho` are
-    both perfect squares and both subsystems have equal dimension. The
-    transpose is applied to the second subsystem.
+    :code:`rho`, where it is assumed that the number of rows and columns of
+    :code:`rho` are both perfect squares and both subsystems have equal
+    dimension. The transpose is applied to the second subsystem.
 
-    In the case where `sys` amd `dim` are specified, this function gives the
-    partial transpose of the matrix `rho` where the dimensions of the (possibly
-    more than 2) subsystems are given by the vector `dim` and the subsystems to
-    take the partial transpose are given by the scalar or vector `sys`. If
-    `rho` is non-square, different row and column dimensions can be specified
-    by putting the row dimensions in the first row of `dim` and the column
-    dimensions in the second row of `dim`.
+    In the case where :code:`sys` amd :code:`dim` are specified, this function
+    gives the partial transpose of the matrix :code:`rho` where the dimensions
+    of the (possibly more than 2) subsystems are given by the vector :code:`dim`
+    and the subsystems to take the partial transpose are given by the scalar or
+    vector :code:`sys`. If :code:`rho` is non-square, different row and column
+    dimensions can be specified by putting the row dimensions in the first row
+    of :code:`dim` and the column dimensions in the second row of :code:`dim`.
 
     Examples
     ==========
@@ -555,7 +563,7 @@ def partial_transpose(
                     10 & 14 & 12 & 16
                  \end{pmatrix}.
 
-    By default, in `toqito`, the partial transpose function performs the
+    By default, in :code:`toqito`, the partial transpose function performs the
     transposition on the second subsystem as follows.
 
     >>> from toqito.channels import partial_transpose
@@ -567,10 +575,10 @@ def partial_transpose(
      [ 9 13 11 15]
      [10 14 12 16]]
 
-    By specifying the `sys = 1` argument, we can perform the partial transpose
-    over the first subsystem (instead of the default second subsystem as done
-    above). Performing the partial transpose over the first subsystem yields the
-    following matrix
+    By specifying the :code:`sys = 1` argument, we can perform the partial
+    transpose over the first subsystem (instead of the default second subsystem
+    as done above). Performing the partial transpose over the first subsystem
+    yields the following matrix
 
     .. math::
         X_{pt, 1} = \begin{pmatrix}
@@ -598,9 +606,9 @@ def partial_transpose(
 
     :param rho: A matrix.
     :param sys: Scalar or vector specifying the size of the subsystems.
-    :param dim: Dimension of the subsystems. If `None`, all dimensions
+    :param dim: Dimension of the subsystems. If :code:`None`, all dimensions
                 are assumed to be equal.
-    :returns: The partial transpose of matrix `rho`.
+    :returns: The partial transpose of matrix :code:`rho`.
     """
     sqrt_rho_dims = np.round(np.sqrt(list(rho.shape)))
 
@@ -683,25 +691,25 @@ def realignment(input_mat: np.ndarray, dim=None) -> np.ndarray:
     r"""
     Compute the realignment of a bipartite operator [REALIGN]_.
 
-    Gives the realignment of the matrix `input_mat`, where it is assumed that
-    the number of rows and columns of `input_mat` are both perfect squares and
-    both subsystems have equal dimension. The realignment is defined by mapping
-    the operator :math:`|ij \rangle \langle kl |` to :math:`|ik \rangle \langle
-    jl |` and extending linearly.
+    Gives the realignment of the matrix :code:`input_mat`, where it is assumed
+    that the number of rows and columns of :code:`input_mat` are both perfect
+    squares and both subsystems have equal dimension. The realignment is defined
+    by mapping the operator :math:`|ij \rangle \langle kl |` to
+    :math:`|ik \rangle \langle jl |` and extending linearly.
 
-    If `input_mat` is non-square, different row and column dimensions can be
-    specified by putting the row dimensions in the first row of `dim` and the
-    column dimensions in the second row of `dim`.
+    If :code:`input_mat` is non-square, different row and column dimensions can
+    be specified by putting the row dimensions in the first row of :code:`dim`
+    and the column dimensions in the second row of :code:`dim`.
 
     Examples
     ==========
 
     The standard realignment map
 
-    Using `toqito`, we can generate the standard realignment map as follows.
-    When viewed as a map on block matrices, the realignment map takes each block
-    of the original matrix and makes its vectorization the rows of the
-    realignment matrix. This is illustrated by the following small example:
+    Using :code:`toqito`, we can generate the standard realignment map as
+    follows. When viewed as a map on block matrices, the realignment map takes
+    each block of the original matrix and makes its vectorization the rows of
+    the realignment matrix. This is illustrated by the following small example:
 
     >>> from toqito.channels import realignment
     >>> import numpy as np
@@ -759,9 +767,9 @@ def reduction(dim: int, k: int = 1) -> np.ndarray:
     r"""
     Produce the reduction map or reduction channel.
 
-    If `k = 1`, this returns the Choi matrix of the reduction map which is a
-    positive map on `dim`-by-`dim` matrices. For a different value of `k`, this
-    yields the Choi matrix of the map defined by:
+    If :code:`k = 1`, this returns the Choi matrix of the reduction map which is
+    a positive map on :code:`dim`-by-:code:`dim` matrices. For a different value
+    of :code:`k`, this yields the Choi matrix of the map defined by:
 
     .. math::
         R(X) = k * \text{Tr}(X) * \mathbb{I} - X,
@@ -772,8 +780,8 @@ def reduction(dim: int, k: int = 1) -> np.ndarray:
     Examples
     ==========
 
-    Using `toqito`, we can generate the $3$-dimensional (or standard) reduction
-    map as follows.
+    Using :code:`toqito`, we can generate the $3$-dimensional (or standard)
+    reduction map as follows.
 
     >>> from toqito.channels import reduction
     >>> reduction(3)

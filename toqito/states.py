@@ -94,12 +94,12 @@ def bell(idx: int) -> np.ndarray:
     .. math::
         \begin{equation}
             \begin{aligned}
-                \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) &
+                u_0 = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) &
                 \qquad &
-                \frac{1}{\sqrt{2}} \left( |00 \rangle - |11 \rangle \right) \\
-                \frac{1}{\sqrt{2}} \left( |01 \rangle + |10 \rangle \right) &
+                u_1 = \frac{1}{\sqrt{2}} \left( |00 \rangle - |11 \rangle \right) \\
+                u_2 = \frac{1}{\sqrt{2}} \left( |01 \rangle + |10 \rangle \right) &
                 \qquad &
-                \frac{1}{\sqrt{2}} \left( |01 \rangle - |10 \rangle \right)
+                u_3 = \frac{1}{\sqrt{2}} \left( |01 \rangle - |10 \rangle \right)
             \end{aligned}
         \end{equation}
 
@@ -110,7 +110,7 @@ def bell(idx: int) -> np.ndarray:
     When `idx = 0`, this produces the following Bell state
 
     .. math::
-        \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right).
+        u_0 = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right).
 
     Using `toqito`, we can see that this yields the proper state.
 
@@ -482,7 +482,7 @@ def ghz(dim: int, num_qubits: int, coeff: List[int] = None) -> sparse:
     :math:`\mathbb{C^4}^{\otimes 7}` as
 
     .. math::
-        \frac{1}{\sqrt{30}} \left( |0000000 \rangle 2|1111111 \rangle +
+        \frac{1}{\sqrt{30}} \left(|0000000 \rangle + 2|1111111 \rangle +
         3|2222222 \rangle + 4|3333333\rangle \right)
 
     Using `toqito`, we can see this generates the appropriate generalized GHZ
@@ -978,18 +978,18 @@ def tile(idx: int) -> np.ndarray:
         \begin{equation}
             \begin{aligned}
                 |\psi_0 \rangle = \frac{1}{\sqrt{2}} |0 \rangle
-                \left(|0\rangle - |1\rangle \right) &
+                \left(|0\rangle - |1\rangle \right),
                 \qquad &
                 |\psi_1\rangle = \frac{1}{\sqrt{2}}
-                \left(|0\rangle - |1\rangle \right) |2\rangle \\
+                \left(|0\rangle - |1\rangle \right) |2\rangle, \\
                 |\psi_2\rangle = \frac{1}{\sqrt{2}} |2\rangle
-                \left(|1\rangle - |2\rangle \right) &
+                \left(|1\rangle - |2\rangle \right),
                 \qquad &
                 |\psi_3\rangle = \frac{1}{\sqrt{2}}
-                \left(|1\rangle - |2\rangle \right) |0\rangle \\
+                \left(|1\rangle - |2\rangle \right) |0\rangle, \\
                 |\psi_4\rangle = \frac{1}{3}
                 \left(|0\rangle + |1\rangle + |2\rangle)\right)
-                \left(|0\rangle + |1\rangle + |2\rangle.
+                \left(|0\rangle + |1\rangle + |2\rangle \right).
             \end{aligned}
         \end{equation}
 

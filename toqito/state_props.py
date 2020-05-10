@@ -44,12 +44,12 @@ def is_ensemble(states: List[np.ndarray]) -> bool:
     Consider the following set of matrices
 
     .. math::
-        \eta = \left{ \rho_0, \rho_1 \right}
+        \eta = \left\{ \rho_0, \rho_1 \right\}
 
     where
 
     .. math::
-        \rho_0 = \frac{1}{2} \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}, \\
+        \rho_0 = \frac{1}{2} \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}, \quad
         \rho_1 = \frac{1}{2} \begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix}.
 
     The set :math:`\eta` constitutes a valid ensemble
@@ -129,18 +129,17 @@ def is_mub(vec_list: List[Union[np.ndarray, List[Union[float, Any]]]]) -> bool:
 
     .. math::
         \begin{equation}
-            \mathcal{B}_0 = \left{u_a: a \in \Sigma \right} \subset
-            \mathbb{C}^{\Sigma}
-            \qquad \text{and} \\quad
-            \mathca{B}_1 = \left{v_a: a \in \Sigma \right} \subset
-            \mathbb{C}^{\Sigma}
+            \mathcal{B}_0 = \left\{u_a: a \in \Sigma \right\} \subset \mathbb{C}^{\Sigma}
+            \quad \text{and} \quad
+            \mathcal{B}_1 = \left\{v_a: a \in \Sigma \right\} \subset \mathbb{C}^{\Sigma}
         \end{equation}
 
-    are mutually unbiased if and only if :math:`\abs{\langle u_a, v_b \rangle} =
-    1/\sqrt{\Sigma}` for all :math:`a, b \in \Sigma`.
+    are mutually unbiased if and only if
+    :math:`\left|\langle u_a, v_b \rangle\right| = 1/\sqrt{\Sigma}`
+    for all :math:`a, b \in \Sigma`.
 
-    For :math:`n \in \mathbb{N}`, a set of orthonormal bases :math:`\left{
-    \mathcal{B}_0, \ldots, \mathcal{B}_{n-1} \right}` are mutually unbiased
+    For :math:`n \in \mathbb{N}`, a set of orthonormal bases :math:`\left\{
+    \mathcal{B}_0, \ldots, \mathcal{B}_{n-1} \right\}` are mutually unbiased
     bases if and only if every basis is mutually unbiased with every other
     basis in the set, i.e. :math:`\mathcal{B}_x` is mutually unbiased with
     :math:`\mathcal{B}_x^{\prime}` for all :math:`x \not= x^{\prime}` with
@@ -155,11 +154,11 @@ def is_mub(vec_list: List[Union[np.ndarray, List[Union[float, Any]]]]) -> bool:
 
     .. math::
         \begin{equation}
-            M_0 = \left{ |0 \rangle, |1 \rangle \right}, \\
-            M_1 = \left{ \frac{|0 \rangle + |1 \rangle}{\sqrt{2}},
-            \frac{|0 \rangle - |1 \rangle}{\sqrt{2}} \right}, \\
-            M_2 = \left{ \frac{|0 \rangle i|1 \rangle}{\sqrt{2}},
-            \frac{|0 \rangle - i|1 \rangle}{\sqrt{2}} \right}, \\
+            M_0 = \left\{ |0 \rangle, |1 \rangle \right\}, \\
+            M_1 = \left\{ \frac{|0 \rangle + |1 \rangle}{\sqrt{2}},
+            \frac{|0 \rangle - |1 \rangle}{\sqrt{2}} \right\}, \\
+            M_2 = \left\{ \frac{|0 \rangle i|1 \rangle}{\sqrt{2}},
+            \frac{|0 \rangle - i|1 \rangle}{\sqrt{2}} \right\}, \\
         \end{equation}
 
     >>> import numpy as np

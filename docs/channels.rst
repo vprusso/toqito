@@ -1,9 +1,17 @@
-A number of channel-related functions.
+A *quantum channel* can be defined as a completely positive and trace preserving
+linear map.
+
+More formally, let :math:`\mathcal{X}` and :math:`\mathcal{Y}` represent complex
+Euclidean spaces and let :math:`\text{L}(\cdot)` represent the set of linear
+operators. Then a quantum channel, :math:`\Phi` is defined as
+
+.. math::
+    \Phi : \text{L}(\mathcal{X}) \rightarrow \text{L}(\mathcal{Y})
+
+such that :math:`\Phi` is completely positive and trace preserving.
 
 Quantum Channels
 -----------------------------------------
-
-A number of well-studied quantum channels.
 
 .. automodule:: toqito.channels
    :members:
@@ -13,8 +21,6 @@ A number of well-studied quantum channels.
 Operations on Quantum Channels
 ------------------------------
 
-Operations one may perform using quantum channels.
-
 .. automodule:: toqito.channel_ops
    :members:
    :undoc-members:
@@ -22,8 +28,6 @@ Operations one may perform using quantum channels.
 
 Properties of Quantum Channels
 ------------------------------
-
-A number of utilities for dealing with properties of quantum channels.
 
 .. automodule:: toqito.channel_props
    :members:

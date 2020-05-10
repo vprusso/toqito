@@ -1,4 +1,4 @@
-"""Properties of quantum channels."""
+"""A number of properties of quantum channels."""
 from typing import List, Union
 
 import numpy as np
@@ -22,7 +22,7 @@ def is_completely_positive(
     completely positive if it holds that
 
     .. math::
-        \Phi \otimes \mathbb{I}_{\text{L}(\mathcal{Z})
+        \Phi \otimes \mathbb{I}_{\text{L}(\mathcal{Z})}
 
     is a positive map for every complex Euclidean space :math:`\mathcal{Z}`.
 
@@ -62,6 +62,7 @@ def is_completely_positive(
     depolarizing channel
 
     .. math::
+        \Omega =
         \frac{1}{2}
         \begin{pmatrix}
             1 & 0 & 0 & 0 \\

@@ -21,14 +21,16 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     r"""
     Compute the fidelity of two density matrices [WikFid]_.
 
-    Calculate the fidelity between the two density matrices `rho` and `sigma`,
-    defined by:
+    Calculate the fidelity between the two density matrices :code:`rho` and
+    :code:`sigma`, defined by:
 
-    :math: `||\sqrt(\rho) * \sqrt(\sigma)||_1`
+    .. math::
+        ||\sqrt(\rho) * \sqrt(\sigma)||_1
 
-    where :math: `|| . ||_1` denotes the trace norm. The return is a value
-    between 0 and 1, with 0 corresponding to matrices `rho` and `sigma` with
-    orthogonal support, and 1 corresponding to the case `rho = sigma`.
+    where :math:`|| . ||_1` denotes the trace norm. The return is a value
+    between 0 and 1, with 0 corresponding to matrices :code:`rho` and
+    :code:`sigma` with orthogonal support, and 1 corresponding to the case
+    :code:`rho = sigma`.
 
     Examples
     ==========
@@ -47,11 +49,11 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
                          0 & 0 & 0 & 0 \\
                          0 & 0 & 0 & 0 \\
                          1 & 0 & 0 & 1
-                       \end{pmatrix} \text{D}(\mathcal{X}).
+                       \end{pmatrix} \in \text{D}(\mathcal{X}).
 
     In the event where we calculate the fidelity between states that are
     identical, we should obtain the value of :math:`1`. This can be observed in
-    `toqito` as follows.
+    :code:`toqito` as follows.
 
     >>> from toqito.state_metrics import fidelity
     >>> import numpy as np
@@ -102,17 +104,16 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
 
 def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float:
     r"""
-    Compute the Helstrom-Holevo distance between states `rho` and `sigma`.
+    Compute the Helstrom-Holevo distance between density matrices.
 
     In general, the best success probability to discriminate
-    two mixed states represented by :math:`\rho_1` and :math:`\rho_2` is given
-    by 1 [WikHeHo]_.
+    two mixed states represented by :math:`\rho` and :math:`\sigma` is given
+    by [WikHeHo]_.
 
     In general, the best success probability to discriminate two mixed states
     represented by :math:`\rho` and :math:`\sigma` is given by
 
     .. math::
-
          \frac{1}{2}+\frac{1}{2} \left(\frac{1}{2} \left|\rho - \sigma
          \right|_1\right).
 
@@ -132,7 +133,7 @@ def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float:
                          0 & 0 & 0 & 0 \\
                          0 & 0 & 0 & 0 \\
                          1 & 0 & 0 & 1
-                       \end{pmatrix} \text{D}(\mathcal{X}).
+                       \end{pmatrix} \in \text{D}(\mathcal{X}).
 
     Calculating the Helstrom-Holevo distance of states that are identical yield
     a value of :math:`1/2`. This can be verified in `toqito` as follows.
@@ -173,7 +174,7 @@ def hilbert_schmidt(rho: np.ndarray, sigma: np.ndarray) -> float:
     :math:`\sigma` is defined as
 
     .. math::
-        D_{\text{HS})(\rho, \sigma) = \text{Tr}((\rho - \sigma)^2) =
+        D_{\text{HS}}(\rho, \sigma) = \text{Tr}((\rho - \sigma)^2) =
         \left\lVert \rho - \sigma \right\rVert_2^2.
 
     Examples
