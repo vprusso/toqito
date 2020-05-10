@@ -1,7 +1,7 @@
 """Tests for perm_sign function."""
 import unittest
 
-from toqito.perms.perm_sign import perm_sign
+from toqito.perms import perm_sign
 
 
 class TestPermSign(unittest.TestCase):

@@ -1,7 +1,7 @@
 """Tests for reduction_map function."""
 import unittest
 
-from toqito.channels.channels.reduction_map import reduction_map
+from toqito.channels import reduction_map
 
 
 class TestReduction(unittest.TestCase):

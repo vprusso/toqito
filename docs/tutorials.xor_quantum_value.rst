@@ -95,11 +95,11 @@ For the CHSH game, the `prob_mat` and `pred_mat` variables are defined as follow
 
 .. code-block:: python
 
-    import numpy as np
-    prob_mat = np.array([[1/4, 1/4], 
-                         [1/4, 1/4]])
-    pred_mat = np.array([[0, 0],
-                         [0, 1]])
+    >>> import numpy as np
+    >>> prob_mat = np.array([[1/4, 1/4],
+    >>>                      [1/4, 1/4]])
+    >>> pred_mat = np.array([[0, 0],
+    >>>                      [0, 1]])
 
 That is, the :code:`prob_mat` matrix encapsulates that each question pair
 :math:`\{(0,0), (0, 1), (1, 0), (1, 1)\}` is equally likely. 
@@ -170,9 +170,9 @@ value of the CHSH game.
 
 .. code-block:: python
 
-    import toqito as tq
-    chsh = tq.XORGame(prob_mat, pred_mat)
-    chsh.classical_value()
+    >>> from toqito.nonlocal_games.xor_game import XORGame
+    >>> chsh = XORGame(prob_mat, pred_mat)
+    >>> chsh.classical_value()
     0.75
 
 A quantum strategy for the CHSH game
@@ -284,7 +284,7 @@ follows:
 
 .. code-block:: python
 
-    chsh.quantum_value()
+    >>> chsh.quantum_value()
     0.8535533885683664
 
 For reference, the complete code to calculate both the classical and quantum
@@ -292,13 +292,14 @@ values of the CHSH game is provided below.
 
 .. code-block:: python
 
-    import numpy as np
-    import toqito as tq
-    prob_mat = np.array([[1/4, 1/4],
-                         [1/4, 1/4]])
-    pred_mat = np.array([[0, 0],
-                         [0, 1]])
-    chsh = tq.XORGame(prob_mat, pred_mat)
-    chsh.classical_value()
-    chsh.quantum_value()
-
+    >>> import numpy as np
+    >>> from toqito.nonlocal_games.xor_game import XORGame
+    >>> prob_mat = np.array([[1/4, 1/4],
+    >>>                      [1/4, 1/4]])
+    >>> pred_mat = np.array([[0, 0],
+    >>>                      [0, 1]])
+    >>> chsh = XORGame(prob_mat, pred_mat)
+    >>> chsh.classical_value()
+    0.75
+    >>> chsh.quantum_value()
+    0.8535533885683664

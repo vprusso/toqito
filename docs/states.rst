@@ -1,52 +1,42 @@
-.. module:: toqito.states
-
 A number of utilities for dealing with quantum states.
 
 Distance Metrics for Quantum States
 -----------------------------------
 
-.. toctree::
-   :maxdepth: 4
+.. automodule:: toqito.state_metrics
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
-   states.distance
+Distinguishability Scenarios for Quantum States
+-----------------------------------------------
 
-Entanglement Metrics for Quantum States
----------------------------------------
-
-.. toctree::
-   :maxdepth: 4
-
-   states.entanglement
+.. automodule:: toqito.state_distinguish
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 Operations on Quantum States
 ----------------------------
 
-.. toctree::
-   :maxdepth: 4
-
-   states.operations
-
-Optimizations on Quantum States
--------------------------------
-
-.. toctree::
-   :maxdepth: 4
-
-   states.optimizations
+.. automodule:: toqito.state_ops
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 Properties of Quantum States
 ----------------------------
 
-.. toctree::
-   :maxdepth: 4
-
-   states.properties
+.. automodule:: toqito.state_props
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 Quantum States
 --------------
 
-.. toctree::
-   :maxdepth: 4
-
-   states.states
+.. automodule:: toqito.states
+   :members:
+   :undoc-members:
+   :show-inheritance:
 

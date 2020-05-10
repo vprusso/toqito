@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.helper.update_odometer import update_odometer
+from toqito.helper import update_odometer
 
 
 class TestUpdateOdometer(unittest.TestCase):

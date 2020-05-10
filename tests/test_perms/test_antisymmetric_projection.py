@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.perms.antisymmetric_projection import antisymmetric_projection
+from toqito.perms import antisymmetric_projection
 
 
 class TestAntisymmetricProjection(unittest.TestCase):

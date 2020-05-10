@@ -2,10 +2,8 @@
 import unittest
 import numpy as np
 
-from toqito.states.states.bell import bell
-from toqito.states.optimizations.conclusive_state_exclusion import (
-    conclusive_state_exclusion,
-)
+from toqito.states import bell
+from toqito.state_distinguish import StateDistinguish
 
 
 class TestConclusiveStateExclusion(unittest.TestCase):
@@ -16,7 +14,8 @@ class TestConclusiveStateExclusion(unittest.TestCase):
         rho = bell(0) * bell(0).conj().T
         states = [rho]
 
-        res = conclusive_state_exclusion(states)
+        s_d = StateDistinguish(states)
+        res = s_d.conclusive_state_exclusion()
         self.assertEqual(np.isclose(res, 1), True)
 
     def test_conclusive_state_exclusion_one_state_vec(self):
@@ -24,7 +23,8 @@ class TestConclusiveStateExclusion(unittest.TestCase):
         rho = bell(0)
         states = [rho]
 
-        res = conclusive_state_exclusion(states)
+        s_d = StateDistinguish(states)
+        res = s_d.conclusive_state_exclusion()
         self.assertEqual(np.isclose(res, 1), True)
 
     def test_conclusive_state_exclusion_three_state(self):
@@ -35,7 +35,8 @@ class TestConclusiveStateExclusion(unittest.TestCase):
         states = [rho1, rho2, rho3]
         probs = [1 / 3, 1 / 3, 1 / 3]
 
-        res = conclusive_state_exclusion(states, probs)
+        conclusive_sd = StateDistinguish(states, probs)
+        res = conclusive_sd.conclusive_state_exclusion()
         self.assertEqual(np.isclose(res, 0), True)
 
     def test_conclusive_state_exclusion_three_state_vec(self):
@@ -46,7 +47,8 @@ class TestConclusiveStateExclusion(unittest.TestCase):
         states = [rho1, rho2, rho3]
         probs = [1 / 3, 1 / 3, 1 / 3]
 
-        res = conclusive_state_exclusion(states, probs)
+        conclusive_sd = StateDistinguish(states, probs)
+        res = conclusive_sd.conclusive_state_exclusion()
         self.assertEqual(np.isclose(res, 0), True)
 
     def test_conclusive_state_exclusion_complex_three_state_vec(self):
@@ -77,22 +79,9 @@ class TestConclusiveStateExclusion(unittest.TestCase):
         states = [mat_1, mat_2, mat_3]
         probs = [1 / 3, 1 / 3, 1 / 3]
 
-        res = conclusive_state_exclusion(states, probs)
+        conclusive_sd = StateDistinguish(states, probs)
+        res = conclusive_sd.conclusive_state_exclusion()
         self.assertGreater(res, 0)
-
-    def test_invalid_conclusive_state_exclusion_probs(self):
-        """Invalid probability vector."""
-        with self.assertRaises(ValueError):
-            rho1 = bell(0) * bell(0).conj().T
-            rho2 = bell(1) * bell(1).conj().T
-            states = [rho1, rho2]
-            conclusive_state_exclusion(states, [1, 2, 3])
-
-    def test_invalid_conclusive_state_exclusion_states(self):
-        """Invalid number of states."""
-        with self.assertRaises(ValueError):
-            states = []
-            conclusive_state_exclusion(states)
 
 
 if __name__ == "__main__":

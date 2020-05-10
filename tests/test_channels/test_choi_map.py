@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.channels.channels.choi_map import choi_map
+from toqito.channels import choi_map
 
 
 class TestChoiMap(unittest.TestCase):

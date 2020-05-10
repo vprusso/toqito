@@ -46,26 +46,19 @@ Functions
 	nonlocal_games
 
 .. toctree::
-	:maxdepth: 2
+	:maxdepth: 1
 	:caption: Random States and Measurements
 
 	random
 
 .. toctree::
 	:maxdepth: 1
-	:caption: Linear Algebra
+	:caption: Matrices
 
-	linear_algebra
+	matrices
 
 .. toctree::
 	:maxdepth: 1
 	:caption: Permutations and Combinatorics
 
 	perms	
-
-.. toctree::
-	:maxdepth: 1
-	:caption: Helper Functions
-
-	core
-	helper

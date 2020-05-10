@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.states.properties.is_ensemble import is_ensemble
+from toqito.state_props import is_ensemble
 
 
 class TestIsEnsemble(unittest.TestCase):

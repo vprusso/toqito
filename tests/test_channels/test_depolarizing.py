@@ -2,8 +2,8 @@
 import unittest
 import numpy as np
 
-from toqito.channels.operations.apply_map import apply_map
-from toqito.channels.channels.depolarizing import depolarizing
+from toqito.channels import apply_map
+from toqito.channels import depolarizing
 
 
 class TestDepolarizingChannel(unittest.TestCase):

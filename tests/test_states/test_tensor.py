@@ -2,8 +2,8 @@
 import unittest
 import numpy as np
 
-from toqito.core.ket import ket
-from toqito.states.operations.tensor import tensor
+from toqito.states import basis
+from toqito.state_ops import tensor
 
 
 class TestTensor(unittest.TestCase):
@@ -11,7 +11,7 @@ class TestTensor(unittest.TestCase):
 
     def test_tensor(self):
         """Test standard tensor on vectors."""
-        e_0 = ket(2, 0)
+        e_0 = basis(2, 0)
         expected_res = np.kron(e_0, e_0)
 
         res = tensor(e_0, e_0)
@@ -21,7 +21,7 @@ class TestTensor(unittest.TestCase):
 
     def test_tensor_n_0(self):
         """Test tensor n=0 times."""
-        e_0 = ket(2, 0)
+        e_0 = basis(2, 0)
         expected_res = None
 
         res = tensor(e_0, 0)
@@ -29,7 +29,7 @@ class TestTensor(unittest.TestCase):
 
     def test_tensor_n_1(self):
         """Test tensor n=1 times."""
-        e_0 = ket(2, 0)
+        e_0 = basis(2, 0)
         expected_res = e_0
 
         res = tensor(e_0, 1)
@@ -38,7 +38,7 @@ class TestTensor(unittest.TestCase):
 
     def test_tensor_n_2(self):
         """Test tensor n=2 times."""
-        e_0 = ket(2, 0)
+        e_0 = basis(2, 0)
         expected_res = np.kron(e_0, e_0)
 
         res = tensor(e_0, 2)
@@ -47,7 +47,7 @@ class TestTensor(unittest.TestCase):
 
     def test_tensor_n_3(self):
         """Test tensor n=3 times."""
-        e_0 = ket(2, 0)
+        e_0 = basis(2, 0)
         expected_res = np.kron(np.kron(e_0, e_0), e_0)
 
         res = tensor(e_0, 3)
@@ -63,7 +63,7 @@ class TestTensor(unittest.TestCase):
 
     def test_tensor_list_1(self):
         """Test tensor list with one item."""
-        e_0 = ket(2, 0)
+        e_0 = basis(2, 0)
         expected_res = e_0
 
         res = tensor([e_0])
@@ -73,7 +73,7 @@ class TestTensor(unittest.TestCase):
 
     def test_tensor_list_2(self):
         """Test tensor list with two items."""
-        e_0, e_1 = ket(2, 0), ket(2, 1)
+        e_0, e_1 = basis(2, 0), basis(2, 1)
         expected_res = np.kron(e_0, e_1)
 
         res = tensor([e_0, e_1])
@@ -83,7 +83,7 @@ class TestTensor(unittest.TestCase):
 
     def test_tensor_list_3(self):
         """Test tensor list with three items."""
-        e_0, e_1 = ket(2, 0), ket(2, 1)
+        e_0, e_1 = basis(2, 0), basis(2, 1)
         expected_res = np.kron(np.kron(e_0, e_1), e_0)
 
         res = tensor([e_0, e_1, e_0])

@@ -2,9 +2,8 @@
 import unittest
 import numpy as np
 
-from toqito.states.states.bell import bell
-from toqito.core.ket import ket
-from toqito.states.properties.is_pure import is_pure
+from toqito.states import basis, bell
+from toqito.state_props import is_pure
 
 
 class TestIsPure(unittest.TestCase):
@@ -17,7 +16,7 @@ class TestIsPure(unittest.TestCase):
 
     def test_is_pure_list(self):
         """Check that list of pure states returns True."""
-        e_0, e_1, e_2 = ket(3, 0), ket(3, 1), ket(3, 2)
+        e_0, e_1, e_2 = basis(3, 0), basis(3, 1), basis(3, 2)
 
         e0_dm = e_0 * e_0.conj().T
         e1_dm = e_1 * e_1.conj().T

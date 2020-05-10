@@ -1,11 +1,9 @@
-.. module:: toqito.measurements
-
 A number of properties one can determine for measurements.
 
 Properties of Measurements
 --------------------------
 
-.. toctree::
-   :maxdepth: 4
-
-   measurements.properties
+.. automodule:: toqito.measurement_props
+   :members:
+   :undoc-members:
+   :show-inheritance:

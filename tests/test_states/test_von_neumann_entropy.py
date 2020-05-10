@@ -2,9 +2,9 @@
 import unittest
 import numpy as np
 
-from toqito.states.states.bell import bell
-from toqito.states.states.max_mixed import max_mixed
-from toqito.states.distance.von_neumann_entropy import von_neumann_entropy
+from toqito.states import bell
+from toqito.states import max_mixed
+from toqito.state_metrics import von_neumann_entropy
 
 
 class TestVonNeumannEntropy(unittest.TestCase):

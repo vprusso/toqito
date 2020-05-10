@@ -2,8 +2,8 @@
 import unittest
 import numpy as np
 
-from toqito.core.ket import ket
-from toqito.states.entanglement.concurrence import concurrence
+from toqito.states import basis
+from toqito.state_props import concurrence
 
 
 class TestConcurrence(unittest.TestCase):
@@ -11,7 +11,7 @@ class TestConcurrence(unittest.TestCase):
 
     def test_concurrence_entangled(self):
         """The concurrence on maximally entangled Bell state."""
-        e_0, e_1 = ket(2, 0), ket(2, 1)
+        e_0, e_1 = basis(2, 0), basis(2, 1)
         e_00, e_11 = np.kron(e_0, e_0), np.kron(e_1, e_1)
 
         u_vec = 1 / np.sqrt(2) * (e_00 + e_11)
@@ -22,7 +22,7 @@ class TestConcurrence(unittest.TestCase):
 
     def test_concurrence_separable(self):
         """The concurrence of a product state is zero."""
-        e_0, e_1 = ket(2, 0), ket(2, 1)
+        e_0, e_1 = basis(2, 0), basis(2, 1)
         v_vec = np.kron(e_0, e_1)
         sigma = v_vec * v_vec.conj().T
 

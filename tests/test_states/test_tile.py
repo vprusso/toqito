@@ -2,8 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.core.ket import ket
-from toqito.states.states.tile import tile
+from toqito.states import basis, tile
 
 
 class TestTile(unittest.TestCase):
@@ -15,7 +14,7 @@ class TestTile(unittest.TestCase):
             |\psi_0 \rangle = \frac{1}{\sqrt{2}} |0 \rangle
             \left(|0\rangle - |1\rangle \right).
         """
-        e_0, e_1 = ket(3, 0), ket(3, 1)
+        e_0, e_1 = basis(3, 0), basis(3, 1)
         expected_res = 1 / np.sqrt(2) * e_0 * (e_0 - e_1)
         res = tile(0)
 
@@ -28,7 +27,7 @@ class TestTile(unittest.TestCase):
             |\psi_1\rangle = \frac{1}{\sqrt{2}}
             \left(|0\rangle - |1\rangle \right) |2\rangle
         """
-        e_0, e_1, e_2 = ket(3, 0), ket(3, 1), ket(3, 2)
+        e_0, e_1, e_2 = basis(3, 0), basis(3, 1), basis(3, 2)
         expected_res = 1 / np.sqrt(2) * (e_0 - e_1) * e_2
         res = tile(1)
 
@@ -41,7 +40,7 @@ class TestTile(unittest.TestCase):
             |\psi_2\rangle = \frac{1}{\sqrt{2}} |2\rangle
             \left(|1\rangle - |2\rangle \right)
         """
-        e_1, e_2 = ket(3, 1), ket(3, 2)
+        e_1, e_2 = basis(3, 1), basis(3, 2)
         expected_res = 1 / np.sqrt(2) * e_2 * (e_1 - e_2)
         res = tile(2)
 
@@ -54,7 +53,7 @@ class TestTile(unittest.TestCase):
             |\psi_3\rangle = \frac{1}{\sqrt{2}}
             \left(|1\rangle - |2\rangle \right) |0\rangle
         """
-        e_0, e_1, e_2 = ket(3, 0), ket(3, 1), ket(3, 2)
+        e_0, e_1, e_2 = basis(3, 0), basis(3, 1), basis(3, 2)
         expected_res = 1 / np.sqrt(2) * (e_1 - e_2) * e_0
         res = tile(3)
 
@@ -68,7 +67,7 @@ class TestTile(unittest.TestCase):
             \left(|0\rangle + |1\rangle + |2\rangle)\right)
             \left(|0\rangle + |1\rangle + |2\rangle.
         """
-        e_0, e_1, e_2 = ket(3, 0), ket(3, 1), ket(3, 2)
+        e_0, e_1, e_2 = basis(3, 0), basis(3, 1), basis(3, 2)
         expected_res = 1 / 3 * (e_0 + e_1 + e_2) * (e_0 + e_1 + e_2)
         res = tile(4)
 

@@ -2,9 +2,9 @@
 import unittest
 import numpy as np
 
-from toqito.core.ket import ket
-from toqito.states.states.max_entangled import max_entangled
-from toqito.states.properties.is_product_vector import is_product_vector
+from toqito.states import basis
+from toqito.states import max_entangled
+from toqito.state_props import is_product_vector
 
 
 class TestIsProductVector(unittest.TestCase):
@@ -27,7 +27,7 @@ class TestIsProductVector(unittest.TestCase):
 
     def test_is_product_separable_state(self):
         """Check that is_product_vector returns True for a separable state."""
-        e_0, e_1 = ket(2, 0), ket(2, 1)
+        e_0, e_1 = basis(2, 0), basis(2, 1)
         sep_vec = (
             1
             / 2

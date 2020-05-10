@@ -270,23 +270,23 @@ in this matrix into the :code:`pred_mat` variable.
 
 .. code-block:: python
 
-    # Creating the predicate matrix.
-    import numpy as np
-    dim = 2
-    num_alice_inputs, num_alice_outputs = 2, 2
-    num_bob_inputs, num_bob_outputs = 2, 2
-
-    pred_mat = np.zeros(
-        (num_alice_outputs, num_bob_outputs, num_alice_inputs, num_bob_inputs)
-    )
-
-    for a_alice in range(num_alice_outputs):
-        for b_bob in range(num_bob_outputs):
-            for x_alice in range(num_alice_inputs):
-                for y_bob in range(num_bob_inputs):
-                    if a_alice ^ b_bob == x_alice * y_bob:
-                        pred_mat[a_alice, b_bob, x_alice, y_bob] = 1
-    print(pred_mat)
+    >>> # Creating the predicate matrix.
+    >>> import numpy as np
+    >>> dim = 2
+    >>> num_alice_inputs, num_alice_outputs = 2, 2
+    >>> num_bob_inputs, num_bob_outputs = 2, 2
+    >>>
+    >>> pred_mat = np.zeros(
+    >>>     (num_alice_outputs, num_bob_outputs, num_alice_inputs, num_bob_inputs)
+    >>> )
+    >>>
+    >>> for a_alice in range(num_alice_outputs):
+    >>>     for b_bob in range(num_bob_outputs):
+    >>>         for x_alice in range(num_alice_inputs):
+    >>>             for y_bob in range(num_bob_inputs):
+    >>>                 if a_alice ^ b_bob == x_alice * y_bob:
+    >>>                     pred_mat[a_alice, b_bob, x_alice, y_bob] = 1
+    >>> print(pred_mat)
     [[[[1. 1.]
        [1. 0.]]
 
@@ -305,9 +305,9 @@ use :code:`toqito` to determine the lower bound on the quantum value.
 
 .. code-block:: python
 
-    import toqito as tq
-    lower_bound = tq.two_player_quantum_lower_bound(dim, prob_mat, pred_mat)
-    print(lower_bound)
+    >>> from toqito.nonlocal_games.nonlocal_game import NonlocalGame
+    >>> chsh = NonlocalGame(dim, prob_mat, pred_mat)
+    >>> chsh.quantum_lower_bound()
     0.8535539268303678
 
 In this case, we can see that the quantum value of the CHSH game is in fact

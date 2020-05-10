@@ -2,10 +2,9 @@
 import unittest
 import numpy as np
 
-from toqito.core.ket import ket
-from toqito.states.states.bell import bell
-from toqito.states.distance.fidelity import fidelity
-from toqito.states.distance.sub_fidelity import sub_fidelity
+from toqito.states import basis, bell
+from toqito.state_metrics import fidelity
+from toqito.state_metrics import sub_fidelity
 
 
 class TestSubFidelity(unittest.TestCase):
@@ -21,7 +20,7 @@ class TestSubFidelity(unittest.TestCase):
 
     def test_sub_fidelity_lower_bound_1(self):
         """Test sub_fidelity is lower bound on fidelity for rho and sigma."""
-        e_0, e_1 = ket(2, 0), ket(2, 1)
+        e_0, e_1 = basis(2, 0), basis(2, 1)
         rho = 3 / 4 * e_0 * e_0.conj().T + 1 / 4 * e_1 * e_1.conj().T
         sigma = 2 / 3 * e_0 * e_0.conj().T + 1 / 3 * e_1 * e_1.conj().T
 
@@ -30,7 +29,7 @@ class TestSubFidelity(unittest.TestCase):
 
     def test_sub_fidelity_lower_bound_2(self):
         """Test sub_fidelity is lower bound on fidelity for rho and pi."""
-        e_0, e_1 = ket(2, 0), ket(2, 1)
+        e_0, e_1 = basis(2, 0), basis(2, 1)
         rho = 3 / 4 * e_0 * e_0.conj().T + 1 / 4 * e_1 * e_1.conj().T
         sigma = 1 / 8 * e_0 * e_0.conj().T + 7 / 8 * e_1 * e_1.conj().T
 

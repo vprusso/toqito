@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.states.states.werner import werner
+from toqito.states import werner
 
 
 class TestWerner(unittest.TestCase):

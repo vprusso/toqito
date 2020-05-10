@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.states.states.horodecki import horodecki
+from toqito.states import horodecki
 
 
 class TestHorodecki(unittest.TestCase):

@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.channels.channels.partial_trace import partial_trace
+from toqito.channels import partial_trace
 
 
 class TestPartialTrace(unittest.TestCase):

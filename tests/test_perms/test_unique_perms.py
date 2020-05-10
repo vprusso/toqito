@@ -1,7 +1,7 @@
 """Tests for unique_perms function."""
 import unittest
 
-from toqito.perms.unique_perms import unique_perms
+from toqito.perms import unique_perms
 
 
 class TestWState(unittest.TestCase):

@@ -2,8 +2,8 @@
 import unittest
 import numpy as np
 
-from toqito.channels.properties.is_positive import is_positive
-from toqito.channels.channels.depolarizing import depolarizing
+from toqito.channel_props import is_positive
+from toqito.channels import depolarizing
 
 
 class TestIsPositive(unittest.TestCase):

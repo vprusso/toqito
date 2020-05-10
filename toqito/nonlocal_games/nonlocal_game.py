@@ -3,7 +3,7 @@ from typing import Dict, Tuple
 from collections import defaultdict
 import cvxpy
 import numpy as np
-from toqito.random.random_povm import random_povm
+from toqito.random import random_povm
 
 
 class NonlocalGame:
@@ -13,12 +13,7 @@ class NonlocalGame:
     Test.
     """
 
-    def __init__(
-        self,
-        dim: int,
-        prob_mat: np.ndarray,
-        pred_mat: np.ndarray,
-    ) -> None:
+    def __init__(self, dim: int, prob_mat: np.ndarray, pred_mat: np.ndarray,) -> None:
         """
         Construct nonlocal game object.
 
@@ -49,12 +44,18 @@ class NonlocalGame:
                 p_sum = 0
                 for x_alice_in in range(num_alice_inputs):
                     for y_bob_in in range(num_bob_inputs):
-                        p_sum += self.prob_mat[x_alice_in, y_bob_in] * \
-                                 self.pred_mat[a_alice_out, b_bob_out, x_alice_in, y_bob_in]
+                        p_sum += (
+                            self.prob_mat[x_alice_in, y_bob_in]
+                            * self.pred_mat[
+                                a_alice_out, b_bob_out, x_alice_in, y_bob_in
+                            ]
+                        )
                 p_win = max(p_win, p_sum)
         return p_win
 
-    def quantum_value_lower_bound(self, iters: int = 5, tol: float = 10e-6,):
+    def quantum_value_lower_bound(
+        self, iters: int = 5, tol: float = 10e-6,
+    ):
         r"""
         Compute a lower bound on the quantum value of a nonlocal game [LD07]_.
 

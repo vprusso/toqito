@@ -2,8 +2,8 @@
 import unittest
 import numpy as np
 
-from toqito.channels.operations.apply_map import apply_map
-from toqito.channels.channels.dephasing import dephasing
+from toqito.channels import apply_map
+from toqito.channels import dephasing
 
 
 class TestDephasingChannel(unittest.TestCase):

@@ -1,8 +1,8 @@
 """Tests for helstrom_holevo function."""
 import unittest
 import numpy as np
-from toqito.core.ket import ket
-from toqito.states.distance.helstrom_holevo import helstrom_holevo
+from toqito.states import basis
+from toqito.state_metrics import helstrom_holevo
 
 
 class TestHelstromHolevo(unittest.TestCase):
@@ -10,7 +10,7 @@ class TestHelstromHolevo(unittest.TestCase):
 
     def test_helstrom_holevo_same_state(self):
         r"""Test Helstrom-Holevo distance on same state."""
-        e_0, e_1 = ket(2, 0), ket(2, 1)
+        e_0, e_1 = basis(2, 0), basis(2, 1)
         e_00 = np.kron(e_0, e_0)
         e_11 = np.kron(e_1, e_1)
 

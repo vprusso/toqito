@@ -1,8 +1,8 @@
 """Tests for random_unitary function."""
 import unittest
 
-from toqito.random.random_unitary import random_unitary
-from toqito.linear_algebra.properties.is_unitary import is_unitary
+from toqito.random import random_unitary
+from toqito.matrix_props import is_unitary
 
 
 class TestRandomUnitary(unittest.TestCase):

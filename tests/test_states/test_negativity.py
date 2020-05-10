@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.states.entanglement.negativity import negativity
+from toqito.state_props import negativity
 
 
 class TestNegativity(unittest.TestCase):

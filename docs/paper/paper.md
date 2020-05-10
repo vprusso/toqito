@@ -52,7 +52,7 @@ installed via pip. Further information of features and uses can be found on the
 documentation page (https://toqito.readthedocs.io/en/latest/).
 
 # Acknowledgements
-This research is supported by the Unitary Fund [@zeng2019unitary]
+This research is supported by the Unitary Fund [@zeng2019unitary].
 
 # References
 

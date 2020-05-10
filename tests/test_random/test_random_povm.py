@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.random.random_povm import random_povm
+from toqito.random import random_povm
 
 
 class TestRandomPOVM(unittest.TestCase):

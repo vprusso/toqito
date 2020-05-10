@@ -27,9 +27,7 @@ class TestNonlocalGame(unittest.TestCase):
 
         chsh = NonlocalGame(dim, prob_mat, pred_mat)
         res = chsh.quantum_value_lower_bound()
-        self.assertEqual(
-            np.isclose(res, np.cos(np.pi / 8) ** 2, rtol=1e-02), True
-        )
+        self.assertEqual(np.isclose(res, np.cos(np.pi / 8) ** 2, rtol=1e-02), True)
 
     def test_ffl_game_classical_value(self):
         """Classical value for the FFL game."""
@@ -38,9 +36,7 @@ class TestNonlocalGame(unittest.TestCase):
         num_bob_in, num_bob_out = 2, 2
         prob_mat = np.array([[1 / 3, 1 / 3], [1 / 3, 0]])
 
-        pred_mat = np.zeros(
-            (num_alice_out, num_bob_out, num_alice_in, num_bob_in)
-        )
+        pred_mat = np.zeros((num_alice_out, num_bob_out, num_alice_in, num_bob_in))
         for a_alice in range(num_alice_out):
             for b_bob in range(num_bob_out):
                 for x_alice in range(num_alice_in):

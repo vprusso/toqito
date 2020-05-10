@@ -1,9 +1,9 @@
-.. module:: toqito.random
-
 A number of functions for generating random objects
 
-.. toctree::
-   :maxdepth: 4
+Random
+-----------------------------------
 
-   random.random
-
+.. automodule:: toqito.random
+   :members:
+   :undoc-members:
+   :show-inheritance:

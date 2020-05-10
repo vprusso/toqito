@@ -2,8 +2,8 @@
 import unittest
 import numpy as np
 
-from toqito.channels.channels.partial_map import partial_map
-from toqito.channels.channels.depolarizing import depolarizing
+from toqito.channels import partial_map
+from toqito.channels import depolarizing
 
 
 class TestPartialMap(unittest.TestCase):

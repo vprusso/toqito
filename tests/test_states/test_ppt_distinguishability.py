@@ -2,8 +2,8 @@
 import unittest
 import numpy as np
 
-from toqito.states.states.bell import bell
-from toqito.states.optimizations.ppt_distinguishability import ppt_distinguishability
+from toqito.states import bell
+from toqito.state_distinguish import StateDistinguish
 
 
 class TestPPTDistinguishability(unittest.TestCase):
@@ -40,7 +40,8 @@ class TestPPTDistinguishability(unittest.TestCase):
         states = [rho_1, rho_2, rho_3, rho_4]
         probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
 
-        res = ppt_distinguishability(states, probs)
+        ydy = StateDistinguish(states, probs)
+        res = ydy.ppt_distinguishability()
         self.assertEqual(np.isclose(res, 7 / 8), True)
 
     def test_ppt_distinguishability_yyd_vectors(self):
@@ -69,7 +70,8 @@ class TestPPTDistinguishability(unittest.TestCase):
         states = [x_1, x_2, x_3, x_4]
         probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
 
-        res = ppt_distinguishability(states, probs)
+        ydy = StateDistinguish(states, probs)
+        res = ydy.ppt_distinguishability()
         self.assertEqual(np.isclose(res, 7 / 8), True)
 
     def test_ppt_distinguishability_yyd_states_no_probs(self):
@@ -103,22 +105,9 @@ class TestPPTDistinguishability(unittest.TestCase):
 
         states = [rho_1, rho_2, rho_3, rho_4]
 
-        res = ppt_distinguishability(states)
+        ydy = StateDistinguish(states)
+        res = ydy.ppt_distinguishability()
         self.assertEqual(np.isclose(res, 7 / 8), True)
-
-    def test_invalid_ppt_distinguishability_probs(self):
-        """Invalid probability vector."""
-        with self.assertRaises(ValueError):
-            rho1 = bell(0) * bell(0).conj().T
-            rho2 = bell(1) * bell(1).conj().T
-            states = [rho1, rho2]
-            ppt_distinguishability(states, [1, 2, 3])
-
-    def test_invalid_ppt_distinguishability_states(self):
-        """Invalid number of states."""
-        with self.assertRaises(ValueError):
-            states = []
-            ppt_distinguishability(states)
 
 
 if __name__ == "__main__":

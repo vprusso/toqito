@@ -2,8 +2,8 @@
 import unittest
 import numpy as np
 
-from toqito.measurements.properties.is_povm import is_povm
-from toqito.random.random_povm import random_povm
+from toqito.measurement_props import is_povm
+from toqito.random import random_povm
 
 
 class TestIsPOVM(unittest.TestCase):

@@ -2,8 +2,8 @@
 import unittest
 import numpy as np
 
-from toqito.core.ket import ket
-from toqito.states.properties.is_mub import is_mub
+from toqito.states import basis
+from toqito.state_props import is_mub
 
 
 class TestIsMUB(unittest.TestCase):
@@ -11,7 +11,7 @@ class TestIsMUB(unittest.TestCase):
 
     def test_is_mub_dim_2(self):
         """Return True for MUB of dimension 2."""
-        e_0, e_1 = ket(2, 0), ket(2, 1)
+        e_0, e_1 = basis(2, 0), basis(2, 1)
         mub_1 = [e_0, e_1]
         mub_2 = [1 / np.sqrt(2) * (e_0 + e_1), 1 / np.sqrt(2) * (e_0 - e_1)]
         mub_3 = [1 / np.sqrt(2) * (e_0 + 1j * e_1), 1 / np.sqrt(2) * (e_0 - 1j * e_1)]
@@ -20,7 +20,7 @@ class TestIsMUB(unittest.TestCase):
 
     def test_is_not_mub_dim_2(self):
         """Return False for non-MUB of dimension 2."""
-        e_0, e_1 = ket(2, 0), ket(2, 1)
+        e_0, e_1 = basis(2, 0), basis(2, 1)
         mub_1 = [e_0, e_1]
         mub_2 = [1 / np.sqrt(2) * (e_0 + e_1), e_1]
         mub_3 = [1 / np.sqrt(2) * (e_0 + 1j * e_1), e_0]

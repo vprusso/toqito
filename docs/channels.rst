@@ -1,33 +1,31 @@
-.. module:: toqito.channels
-
 A number of channel-related functions.
 
 Quantum Channels
-----------------
+-----------------------------------------
 
 A number of well-studied quantum channels.
 
-.. toctree::
-   :maxdepth: 1
-
-   channels.channels
+.. automodule:: toqito.channels
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 Operations on Quantum Channels
 ------------------------------
 
 Operations one may perform using quantum channels.
 
-.. toctree::
-   :maxdepth: 1
-
-   channels.operations
+.. automodule:: toqito.channel_ops
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 Properties of Quantum Channels
 ------------------------------
 
 A number of utilities for dealing with properties of quantum channels.
 
-.. toctree::
-   :maxdepth: 1
-
-   channels.properties
+.. automodule:: toqito.channel_props
+   :members:
+   :undoc-members:
+   :show-inheritance:

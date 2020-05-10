@@ -2,8 +2,8 @@
 import unittest
 import numpy as np
 
-from toqito.channels.properties.is_herm_preserving import is_herm_preserving
-from toqito.perms.swap_operator import swap_operator
+from toqito.channel_props import is_herm_preserving
+from toqito.perms import swap_operator
 
 
 class TestIsHermPreserving(unittest.TestCase):

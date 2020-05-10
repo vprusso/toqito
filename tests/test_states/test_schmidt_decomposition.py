@@ -2,8 +2,8 @@
 import unittest
 import numpy as np
 
-from toqito.states.states.max_entangled import max_entangled
-from toqito.states.operations.schmidt_decomposition import schmidt_decomposition
+from toqito.states import max_entangled
+from toqito.state_ops import schmidt_decomposition
 
 
 class TestSchmidtDecomposition(unittest.TestCase):

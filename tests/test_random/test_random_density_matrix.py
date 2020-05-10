@@ -1,8 +1,8 @@
 """Tests for random_density_matrix function."""
 import unittest
 
-from toqito.random.random_density_matrix import random_density_matrix
-from toqito.linear_algebra.properties.is_density import is_density
+from toqito.random import random_density_matrix
+from toqito.matrix_props import is_density
 
 
 class TestRandomDensity(unittest.TestCase):

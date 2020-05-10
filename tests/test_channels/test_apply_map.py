@@ -2,8 +2,8 @@
 import unittest
 import numpy as np
 
-from toqito.channels.operations.apply_map import apply_map
-from toqito.perms.swap_operator import swap_operator
+from toqito.channels import apply_map
+from toqito.perms import swap_operator
 
 
 class TestApplyMap(unittest.TestCase):

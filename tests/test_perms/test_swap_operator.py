@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.perms.swap_operator import swap_operator
+from toqito.perms import swap_operator
 
 
 class TestSwapOperator(unittest.TestCase):

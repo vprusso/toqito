@@ -1,8 +1,8 @@
 """Tests for trace_norm function."""
 import unittest
 import numpy as np
-from toqito.core.ket import ket
-from toqito.states.distance.trace_norm import trace_norm
+from toqito.states import basis
+from toqito.state_metrics import trace_norm
 
 
 class TestTraceNorm(unittest.TestCase):
@@ -10,7 +10,7 @@ class TestTraceNorm(unittest.TestCase):
 
     def test_trace_norm(self):
         """Test trace norm."""
-        e_0, e_1 = ket(2, 0), ket(2, 1)
+        e_0, e_1 = basis(2, 0), basis(2, 1)
         e_00 = np.kron(e_0, e_0)
         e_11 = np.kron(e_1, e_1)
 

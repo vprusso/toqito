@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.perms.permutation_operator import permutation_operator
+from toqito.perms import permutation_operator
 
 
 class TestPermutationOperator(unittest.TestCase):

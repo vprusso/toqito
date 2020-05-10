@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.perms.symmetric_projection import symmetric_projection
+from toqito.perms import symmetric_projection
 
 
 class TestSymmetricProjection(unittest.TestCase):

@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.states.states.gisin import gisin
+from toqito.states import gisin
 
 
 class TestGisin(unittest.TestCase):

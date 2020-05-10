@@ -2,10 +2,8 @@
 import unittest
 import numpy as np
 
-from toqito.states.states.bell import bell
-from toqito.states.optimizations.unambiguous_state_exclusion import (
-    unambiguous_state_exclusion,
-)
+from toqito.states import bell
+from toqito.state_distinguish import StateDistinguish
 
 
 class TestUnambiguousStateExclusion(unittest.TestCase):
@@ -16,7 +14,8 @@ class TestUnambiguousStateExclusion(unittest.TestCase):
         mat = bell(0) * bell(0).conj().T
         states = [mat]
 
-        res = unambiguous_state_exclusion(states)
+        s_d = StateDistinguish(states)
+        res = s_d.unambiguous_state_exclusion()
         self.assertEqual(np.isclose(res, 0), True)
 
     def test_unambiguous_state_exclusion_one_state_vec(self):
@@ -24,7 +23,8 @@ class TestUnambiguousStateExclusion(unittest.TestCase):
         vec = bell(0)
         states = [vec]
 
-        res = unambiguous_state_exclusion(states)
+        s_d = StateDistinguish(states)
+        res = s_d.unambiguous_state_exclusion()
         self.assertEqual(np.isclose(res, 0), True)
 
     def test_unambiguous_state_exclusion_three_state(self):
@@ -35,7 +35,8 @@ class TestUnambiguousStateExclusion(unittest.TestCase):
         states = [mat1, mat2, mat3]
         probs = [1 / 3, 1 / 3, 1 / 3]
 
-        res = unambiguous_state_exclusion(states, probs)
+        unambiguous_sd = StateDistinguish(states, probs)
+        res = unambiguous_sd.unambiguous_state_exclusion()
         self.assertEqual(np.isclose(res, 0), True)
 
     def test_unambiguous_state_exclusion_three_state_vec(self):
@@ -46,7 +47,8 @@ class TestUnambiguousStateExclusion(unittest.TestCase):
         states = [mat1, mat2, mat3]
         probs = [1 / 3, 1 / 3, 1 / 3]
 
-        res = unambiguous_state_exclusion(states, probs)
+        unambiguous_sd = StateDistinguish(states, probs)
+        res = unambiguous_sd.unambiguous_state_exclusion()
         self.assertEqual(np.isclose(res, 0), True)
 
     def test_unambiguous_state_exclusion_complex_three_state_vec(self):
@@ -77,22 +79,9 @@ class TestUnambiguousStateExclusion(unittest.TestCase):
         states = [mat_1, mat_2, mat_3]
         probs = [1 / 3, 1 / 3, 1 / 3]
 
-        res = unambiguous_state_exclusion(states, probs)
+        unambiguous_sd = StateDistinguish(states, probs)
+        res = unambiguous_sd.unambiguous_state_exclusion()
         self.assertEqual(np.isclose(res, 0, atol=1e-06), True)
-
-    def test_invalid_unambiguous_state_exclusion_probs(self):
-        """Invalid probability vector for unambiguous state exclusion."""
-        with self.assertRaises(ValueError):
-            mat1 = bell(0) * bell(0).conj().T
-            mat2 = bell(1) * bell(1).conj().T
-            states = [mat1, mat2]
-            unambiguous_state_exclusion(states, [1, 2, 3])
-
-    def test_invalid_unambiguous_state_exclusion_states(self):
-        """Invalid number of states for unambiguous state exclusion."""
-        with self.assertRaises(ValueError):
-            states = []
-            unambiguous_state_exclusion(states)
 
 
 if __name__ == "__main__":

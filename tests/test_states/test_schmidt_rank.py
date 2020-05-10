@@ -2,9 +2,8 @@
 import unittest
 import numpy as np
 
-from toqito.core.ket import ket
-from toqito.states.states.bell import bell
-from toqito.states.entanglement.schmidt_rank import schmidt_rank
+from toqito.states import basis, bell
+from toqito.state_props import schmidt_rank
 
 
 class TestSchmidtRank(unittest.TestCase):
@@ -23,7 +22,7 @@ class TestSchmidtRank(unittest.TestCase):
         Computing the Schmidt rank of the entangled singlet state should yield
         a value greater than 1.
         """
-        e_0, e_1 = ket(2, 0), ket(2, 1)
+        e_0, e_1 = basis(2, 0), basis(2, 1)
         rho = 1 / np.sqrt(2) * (np.kron(e_0, e_1) - np.kron(e_1, e_0))
         rho = rho.conj().T * rho
         self.assertEqual(schmidt_rank(rho) > 1, True)
@@ -33,7 +32,7 @@ class TestSchmidtRank(unittest.TestCase):
         Computing the Schmidt rank of a separable state should yield a value
         equal to 1.
         """
-        e_0, e_1 = ket(2, 0), ket(2, 1)
+        e_0, e_1 = basis(2, 0), basis(2, 1)
         e_00 = np.kron(e_0, e_0)
         e_01 = np.kron(e_0, e_1)
         e_10 = np.kron(e_1, e_0)

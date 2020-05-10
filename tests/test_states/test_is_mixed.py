@@ -1,8 +1,8 @@
 """Tests for is_mixed function."""
 import unittest
 
-from toqito.core.ket import ket
-from toqito.states.properties.is_mixed import is_mixed
+from toqito.states import basis
+from toqito.state_props import is_mixed
 
 
 class TestIsMixed(unittest.TestCase):
@@ -10,7 +10,7 @@ class TestIsMixed(unittest.TestCase):
 
     def test_is_mixed(self):
         """Return True for mixed quantum state."""
-        e_0, e_1 = ket(2, 0), ket(2, 1)
+        e_0, e_1 = basis(2, 0), basis(2, 1)
         rho = 3 / 4 * e_0 * e_0.conj().T + 1 / 4 * e_1 * e_1.conj().T
         self.assertEqual(is_mixed(rho), True)
 

@@ -1,7 +1,7 @@
 """Tests for random_ginibre function."""
 import unittest
 
-from toqito.random.random_ginibre import random_ginibre
+from toqito.random import random_ginibre
 
 
 class TestRandomGinibre(unittest.TestCase):

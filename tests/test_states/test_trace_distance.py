@@ -1,8 +1,8 @@
 """Tests for trace_distance function."""
 import unittest
 import numpy as np
-from toqito.core.ket import ket
-from toqito.states.distance.trace_distance import trace_distance
+from toqito.states import basis
+from toqito.state_metrics import trace_distance
 
 
 class TestTraceDistance(unittest.TestCase):
@@ -10,7 +10,7 @@ class TestTraceDistance(unittest.TestCase):
 
     def test_trace_distance_same_state(self):
         r"""Test that: :math:`T(\rho, \sigma) = 0` iff `\rho = \sigma`."""
-        e_0, e_1 = ket(2, 0), ket(2, 1)
+        e_0, e_1 = basis(2, 0), basis(2, 1)
         e_00 = np.kron(e_0, e_0)
         e_11 = np.kron(e_1, e_1)
 

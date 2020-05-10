@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.perms.swap import swap
+from toqito.perms import swap
 
 
 class TestSwap(unittest.TestCase):

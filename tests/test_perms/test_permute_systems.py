@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.perms.permute_systems import permute_systems
+from toqito.perms import permute_systems
 
 
 class TestPermuteSystems(unittest.TestCase):

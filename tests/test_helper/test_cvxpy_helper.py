@@ -3,7 +3,7 @@ import unittest
 import cvxpy
 import numpy as np
 
-from toqito.helper.cvxpy_helper import expr_as_np_array, np_array_as_expr
+from toqito.helper import expr_as_np_array, np_array_as_expr
 
 
 class TestCVXPYHelper(unittest.TestCase):

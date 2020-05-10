@@ -1,8 +1,8 @@
 """Tests for hilbert_schmidt function."""
 import unittest
 import numpy as np
-from toqito.states.states.bell import bell
-from toqito.states.distance.hilbert_schmidt import hilbert_schmidt
+from toqito.states import bell
+from toqito.state_metrics import hilbert_schmidt
 
 
 class TestHilbertSchmidt(unittest.TestCase):

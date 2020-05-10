@@ -2,7 +2,7 @@
 import unittest
 import numpy as np
 
-from toqito.channels.operations.kraus_to_choi import kraus_to_choi
+from toqito.channel_ops import kraus_to_choi
 
 
 class TestKrausToChoi(unittest.TestCase):

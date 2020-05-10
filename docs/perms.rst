@@ -1,9 +1,9 @@
-.. module:: toqito.perms
-
 A number of permutations-related functions.
 
-.. toctree::
-   :maxdepth: 4
+Permutations
+-----------------------------------
 
-   perms.perms
-
+.. automodule:: toqito.perms
+   :members:
+   :undoc-members:
+   :show-inheritance:

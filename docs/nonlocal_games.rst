@@ -13,23 +13,23 @@ XOR Games
 Nonlocal Games
 ---------------
 
-.. toctree::
-   :maxdepth: 4
-
-   nonlocal_games.nonlocal_games
+.. automodule:: toqito.nonlocal_games.nonlocal_game
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 Quantum Hedging Protocols
 -------------------------
 
-.. toctree::
-   :maxdepth: 4
-
-   nonlocal_games.quantum_hedging
+.. automodule:: toqito.nonlocal_games.quantum_hedging
+   :members:
+   :undoc-members:
+   :show-inheritance:
 
 Quantum Money Protocols
 -----------------------
 
-.. toctree::
-   :maxdepth: 4
-
-   nonlocal_games.quantum_money
+.. automodule:: toqito.nonlocal_games.quantum_money
+   :members:
+   :undoc-members:
+   :show-inheritance:
