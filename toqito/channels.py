@@ -316,7 +316,7 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
 
 def partial_trace_cvx(rho, sys=None, dim=None):
     """
-    Perform the partial trace on a cvxpy variable.
+    Perform the partial trace on a :code:`cvxpy` variable.
 
     Adapted from [CVXPtrace]_.
 
@@ -689,7 +689,7 @@ def partial_transpose(
 
 def realignment(input_mat: np.ndarray, dim=None) -> np.ndarray:
     r"""
-    Compute the realignment of a bipartite operator [REALIGN]_.
+    Compute the realignment of a bipartite operator [LAS08]_.
 
     Gives the realignment of the matrix :code:`input_mat`, where it is assumed
     that the number of rows and columns of :code:`input_mat` are both perfect
@@ -724,7 +724,7 @@ def realignment(input_mat: np.ndarray, dim=None) -> np.ndarray:
 
     References
     ==========
-    .. [REALIGN] Lupo, Cosmo, Paolo Aniello, and Antonello Scardicchio.
+    .. [LAS08] Lupo, Cosmo, Paolo, Aniello, and Scardicchio, Antonello.
         "Bipartite quantum systems: on the realignment criterion and beyond."
         Journal of Physics A: Mathematical and Theoretical
         41.41 (2008): 415301.
