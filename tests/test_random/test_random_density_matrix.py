@@ -6,6 +6,7 @@ from toqito.matrix_props import is_density
 
 
 class TestRandomDensity(unittest.TestCase):
+
     """Unit test for random_unitary."""
 
     def test_random_density_not_real(self):

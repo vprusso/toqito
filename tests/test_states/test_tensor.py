@@ -7,7 +7,8 @@ from toqito.state_ops import tensor
 
 
 class TestTensor(unittest.TestCase):
-    """Unit test for tensor."""
+
+    """Unit tests for tensor."""
 
     def test_tensor(self):
         """Test standard tensor on vectors."""

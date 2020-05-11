@@ -6,6 +6,7 @@ from toqito.matrix_props import is_normal
 
 
 class TestIsNormal(unittest.TestCase):
+
     """Unit test for is_normal."""
 
     def test_is_normal(self):

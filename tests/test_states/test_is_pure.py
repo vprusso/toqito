@@ -7,6 +7,7 @@ from toqito.state_props import is_pure
 
 
 class TestIsPure(unittest.TestCase):
+
     """Unit test for is_pure."""
 
     def test_is_pure_state(self):

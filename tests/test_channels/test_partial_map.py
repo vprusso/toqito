@@ -7,6 +7,7 @@ from toqito.channels import depolarizing
 
 
 class TestPartialMap(unittest.TestCase):
+
     """Unit test for partial_map."""
 
     def test_partial_map_depolarizing_first_system(self):

@@ -6,10 +6,11 @@ from toqito.state_props import negativity
 
 
 class TestNegativity(unittest.TestCase):
+
     """Unit test for negativity."""
 
     def test_negativity_rho(self):
-        """Test for negativty on rho."""
+        """Test for negativity on rho."""
         test_input_mat = np.array(
             [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
         )
@@ -17,7 +18,7 @@ class TestNegativity(unittest.TestCase):
         self.assertEqual(np.isclose(negativity(test_input_mat), 1 / 2), True)
 
     def test_negativity_rho_dim_int(self):
-        """Test for negativty on rho."""
+        """Test for negativity on rho."""
         test_input_mat = np.array(
             [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
         )

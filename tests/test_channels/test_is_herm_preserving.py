@@ -7,6 +7,7 @@ from toqito.perms import swap_operator
 
 
 class TestIsHermPreserving(unittest.TestCase):
+
     """Unit test for is_herm_preserving."""
 
     def test_is_herm_preserving_kraus_true(self):

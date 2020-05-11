@@ -6,6 +6,7 @@ from toqito.nonlocal_games.xor_game import XORGame
 
 
 class TestXORGame(unittest.TestCase):
+
     """Unit test for XORGame."""
 
     def test_chsh_game_quantum_value(self):

@@ -7,6 +7,7 @@ from toqito.random import random_density_matrix
 
 
 class TestIsDensity(unittest.TestCase):
+
     """Unit test for is_density."""
 
     def test_is_density_ndarray(self):

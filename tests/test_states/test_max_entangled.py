@@ -6,6 +6,7 @@ from toqito.states import basis, max_entangled
 
 
 class TestMaxEntangled(unittest.TestCase):
+
     """Unit test for max_entangled."""
 
     def test_max_ent_2(self):

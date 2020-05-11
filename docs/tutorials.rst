@@ -11,15 +11,13 @@ Nonlocal Games
    tutorials.quantum_money
    tutorials.quantum_hedging
 
-State Distinguishability and Exclusion
+Quantum State Distinguishability and Quantum State Exclusion
 -----------------------------------------------------
 
 .. toctree::
    :maxdepth: 1
 
    tutorials.state_distinguishability
-   tutorials.ppt_distinguishability
-   tutorials.conclusive_state_exclusion
 
 Quantum Communication
 -----------------------------------------------------

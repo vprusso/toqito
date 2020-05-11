@@ -46,7 +46,9 @@ here: [https://toqito.readthedocs.io/](https://toqito.readthedocs.io/).
 The `nose` module is used for testing. To run the suite of tests for `toqito`,
 run the following command in the root directory of this project.
 
-    nosetests --with-coverage --cover-erase --cover-package toqito
+```
+nosetests --with-coverage --cover-erase --cover-package toqito
+```
 
 ## Citing
 

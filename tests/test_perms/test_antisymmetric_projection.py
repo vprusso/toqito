@@ -6,6 +6,7 @@ from toqito.perms import antisymmetric_projection
 
 
 class TestAntisymmetricProjection(unittest.TestCase):
+
     """Unit test for antisymmetric_projection."""
 
     def test_antisymmetric_projection_d_2_p_1(self):

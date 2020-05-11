@@ -6,6 +6,7 @@ from toqito.channel_ops import kraus_to_choi
 
 
 class TestKrausToChoi(unittest.TestCase):
+
     """Unit test for kraus_to_choi."""
 
     def test_max_ent_2(self):

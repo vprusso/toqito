@@ -15,8 +15,7 @@ class StateDistinguish:
     """
 
     def __init__(self, states: List[np.ndarray], probs: List[float] = None):
-        """
-        Create distinguishability scenarios.
+        """Create distinguishability scenarios.
 
         :param states: A list of density operators (matrices) corresponding to
                        quantum states.

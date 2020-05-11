@@ -6,6 +6,7 @@ from toqito.matrices import cnot
 
 
 class TestCNOT(unittest.TestCase):
+
     """Unit test for cnot."""
 
     def test_cnot(self):

@@ -8,7 +8,8 @@ from toqito.state_metrics import von_neumann_entropy
 
 
 class TestVonNeumannEntropy(unittest.TestCase):
-    """Unit test for von_neumann_entropy."""
+
+    """Unit tests for von_neumann_entropy."""
 
     def test_von_neumann_entropy_bell_state(self):
         """Entangled state von Neumann entropy should be zero."""

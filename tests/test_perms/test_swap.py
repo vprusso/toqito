@@ -6,6 +6,7 @@ from toqito.perms import swap
 
 
 class TestSwap(unittest.TestCase):
+
     """Unit test for swap."""
 
     def test_swap_matrix(self):

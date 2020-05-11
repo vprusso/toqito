@@ -6,6 +6,7 @@ from toqito.state_props import is_mixed
 
 
 class TestIsMixed(unittest.TestCase):
+
     """Unit test for is_mixed."""
 
     def test_is_mixed(self):

@@ -6,6 +6,7 @@ from toqito.matrix_props import is_diagonal
 
 
 class TestIsDiagonal(unittest.TestCase):
+
     """Unit test for is_diagonal."""
 
     def test_is_diagonal(self):

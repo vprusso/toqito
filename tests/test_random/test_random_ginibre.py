@@ -5,6 +5,7 @@ from toqito.random import random_ginibre
 
 
 class TestRandomGinibre(unittest.TestCase):
+
     """Unit test for random_ginibre."""
 
     def test_random_ginibre_dims(self):

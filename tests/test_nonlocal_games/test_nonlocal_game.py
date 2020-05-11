@@ -6,6 +6,7 @@ from toqito.nonlocal_games.nonlocal_game import NonlocalGame
 
 
 class TestNonlocalGame(unittest.TestCase):
+
     """Unit test for NonlocalGame."""
 
     def test_chsh_lower_bound(self):

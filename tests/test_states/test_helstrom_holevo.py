@@ -6,6 +6,7 @@ from toqito.state_metrics import helstrom_holevo
 
 
 class TestHelstromHolevo(unittest.TestCase):
+
     """Unit test for helstrom_holevo."""
 
     def test_helstrom_holevo_same_state(self):

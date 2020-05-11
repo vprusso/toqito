@@ -6,7 +6,8 @@ from toqito.state_metrics import trace_norm
 
 
 class TestTraceNorm(unittest.TestCase):
-    """Unit test for trace_norm."""
+
+    """Units test for trace_norm."""
 
     def test_trace_norm(self):
         """Test trace norm."""

@@ -602,7 +602,7 @@ def partial_transpose(
     References
     ==========
     .. [WikPtrans] Wikipedia: Partial transpose
-        https://en.wikipedia.org/w/index.php?title=Partial_transpose&redirect=no
+        https://en.wikipedia.org/w/index.php?title=Partial_transpose
 
     :param rho: A matrix.
     :param sys: Scalar or vector specifying the size of the subsystems.

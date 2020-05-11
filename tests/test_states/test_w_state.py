@@ -8,7 +8,8 @@ from toqito.states import w_state
 
 
 class TestWState(unittest.TestCase):
-    """Unit test for w_state."""
+
+    """Unit tests for w_state."""
 
     def test_w_state_3(self):
         """The 3-qubit W-state."""

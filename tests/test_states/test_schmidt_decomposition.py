@@ -7,6 +7,7 @@ from toqito.state_ops import schmidt_decomposition
 
 
 class TestSchmidtDecomposition(unittest.TestCase):
+
     """Unit tests for schmidt_decomposition."""
 
     def test_schmidt_decomp_max_ent(self):

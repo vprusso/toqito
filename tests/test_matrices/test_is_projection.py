@@ -6,6 +6,7 @@ from toqito.matrix_props import is_projection
 
 
 class TestIsProjection(unittest.TestCase):
+
     """Unit test for is_projection."""
 
     def test_is_projection(self):

@@ -7,6 +7,7 @@ from toqito.state_props import is_ppt
 
 
 class TestIsPPT(unittest.TestCase):
+
     """Unit test for is_ppt."""
 
     def test_is_ppt(self):

@@ -7,6 +7,7 @@ from toqito.matrices import gell_mann
 
 
 class TestGellMann(unittest.TestCase):
+
     """Unit test for gell_mann."""
 
     def test_gell_mann_idx_0(self):

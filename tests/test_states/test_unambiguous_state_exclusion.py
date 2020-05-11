@@ -7,7 +7,8 @@ from toqito.state_distinguish import StateDistinguish
 
 
 class TestUnambiguousStateExclusion(unittest.TestCase):
-    """Unit test for unambiguous_state_exclusion."""
+
+    """Unit tests for unambiguous_state_exclusion."""
 
     def test_unambiguous_state_exclusion_one_state(self):
         """Unambiguous state exclusion for single state."""

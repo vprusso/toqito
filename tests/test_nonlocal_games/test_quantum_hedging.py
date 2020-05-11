@@ -7,6 +7,7 @@ from toqito.nonlocal_games.quantum_hedging import QuantumHedging
 
 
 class TestQuantumHedging(unittest.TestCase):
+
     """Unit test for hedging_value."""
 
     e_0, e_1 = basis(2, 0), basis(2, 1)

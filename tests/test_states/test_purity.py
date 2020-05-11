@@ -5,6 +5,7 @@ from toqito.state_metrics import purity
 
 
 class TestPurity(unittest.TestCase):
+
     """Unit test for purity."""
 
     def test_purity(self):

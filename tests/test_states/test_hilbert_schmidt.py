@@ -6,6 +6,7 @@ from toqito.state_metrics import hilbert_schmidt
 
 
 class TestHilbertSchmidt(unittest.TestCase):
+
     """Unit test for hilbert_schmidt."""
 
     def test_hilbert_schmidt_bell(self):

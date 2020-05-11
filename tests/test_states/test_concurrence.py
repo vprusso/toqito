@@ -7,6 +7,7 @@ from toqito.state_props import concurrence
 
 
 class TestConcurrence(unittest.TestCase):
+
     """Unit test for concurrence."""
 
     def test_concurrence_entangled(self):

@@ -6,7 +6,8 @@ from toqito.states import werner
 
 
 class TestWerner(unittest.TestCase):
-    """Unit test for werner."""
+
+    """Unit tests for werner."""
 
     def test_qutrit_werner(self):
         """Test for qutrit Werner state."""

@@ -6,7 +6,8 @@ from toqito.state_metrics import trace_distance
 
 
 class TestTraceDistance(unittest.TestCase):
-    """Unit test for trace_distance."""
+
+    """Unit tests for trace_distance."""
 
     def test_trace_distance_same_state(self):
         r"""Test that: :math:`T(\rho, \sigma) = 0` iff `\rho = \sigma`."""

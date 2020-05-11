@@ -7,6 +7,7 @@ from toqito.state_props import schmidt_rank
 
 
 class TestSchmidtRank(unittest.TestCase):
+
     """Unit tests for schmidt_rank."""
 
     def test_schmidt_rank_bell_state(self):

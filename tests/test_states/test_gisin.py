@@ -6,6 +6,7 @@ from toqito.states import gisin
 
 
 class TestGisin(unittest.TestCase):
+
     """Unit test for gisin_state."""
 
     def test_valid_gisin(self):

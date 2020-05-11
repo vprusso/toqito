@@ -7,6 +7,7 @@ from toqito.state_distinguish import StateDistinguish
 
 
 class TestPPTDistinguishability(unittest.TestCase):
+
     """Unit test for ppt_distinguishability."""
 
     def test_ppt_distinguishability_yyd_density_matrices(self):

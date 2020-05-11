@@ -6,6 +6,7 @@ from toqito.matrices import fourier
 
 
 class TestFourier(unittest.TestCase):
+
     """Unit test for fourier."""
 
     def test_fourier_dim_2(self):

@@ -7,6 +7,7 @@ from toqito.matrices import pauli
 
 
 class TestPauli(unittest.TestCase):
+
     """Unit test for pauli."""
 
     def test_pauli_str_sparse(self):

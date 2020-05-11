@@ -6,6 +6,7 @@ from toqito.states import basis, bell
 
 
 class TestBell(unittest.TestCase):
+
     """Unit test for bell."""
 
     def test_bell_0(self):

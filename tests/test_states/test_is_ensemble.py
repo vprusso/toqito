@@ -6,6 +6,7 @@ from toqito.state_props import is_ensemble
 
 
 class TestIsEnsemble(unittest.TestCase):
+
     """Unit test for is_ensemble."""
 
     def test_is_ensemble_true(self):

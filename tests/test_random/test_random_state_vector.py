@@ -6,6 +6,7 @@ from toqito.random import random_state_vector
 
 
 class TestRandomStateVector(unittest.TestCase):
+
     """Unit test for random_state_vector."""
 
     def test_random_complex_state_purity(self):
