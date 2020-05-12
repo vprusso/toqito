@@ -5,9 +5,7 @@ from scipy.sparse import issparse, linalg
 import numpy as np
 
 
-__all__ = ["pure_to_mixed",
-           "schmidt_decomposition",
-           "tensor"]
+__all__ = ["pure_to_mixed", "schmidt_decomposition", "tensor"]
 
 
 def pure_to_mixed(phi: np.ndarray) -> np.ndarray:
@@ -139,7 +137,7 @@ def schmidt_decomposition(
 
     if dim is None:
         dim = np.round(np.sqrt(len(vec)))
-    if dim is list:
+    if isinstance(dim, list):
         dim = np.array(dim)
 
     # Allow the user to enter a single number for `dim`.
@@ -336,4 +334,5 @@ def tensor(*args) -> np.ndarray:
         result = args[0]
         for i in range(1, len(args)):
             result = np.kron(result, args[i])
-    return result
+        return result
+    raise ValueError("The `tensor` function must take either a matrix or " "vector.")

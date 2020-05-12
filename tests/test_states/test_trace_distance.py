@@ -22,6 +22,14 @@ class TestTraceDistance(unittest.TestCase):
 
         self.assertEqual(np.isclose(res, 0), True)
 
+    def test_trace_distance_non_density_matrix(self):
+        r"""Test trace distance on non-density matrix."""
+        rho = np.array([[1, 2], [3, 4]])
+        sigma = np.array([[5, 6], [7, 8]])
+
+        with self.assertRaises(ValueError):
+            trace_distance(rho, sigma)
+
 
 if __name__ == "__main__":
     unittest.main()

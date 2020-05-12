@@ -7,9 +7,7 @@ from toqito.channel_ops import kraus_to_choi
 from toqito.matrix_props import is_psd
 
 
-__all__ = ["is_completely_positive",
-           "is_herm_preserving",
-           "is_positive"]
+__all__ = ["is_completely_positive", "is_herm_preserving", "is_positive"]
 
 
 def is_completely_positive(

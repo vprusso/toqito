@@ -21,6 +21,13 @@ class TestVonNeumannEntropy(unittest.TestCase):
         res = von_neumann_entropy(max_mixed(2, is_sparse=False))
         self.assertEqual(np.isclose(res, 1), True)
 
+    def test_von_neumann_non_density_matrix(self):
+        r"""Test von Neumann entropy on non-density matrix."""
+        rho = np.array([[1, 2], [3, 4]])
+
+        with self.assertRaises(ValueError):
+            von_neumann_entropy(rho)
+
 
 if __name__ == "__main__":
     unittest.main()

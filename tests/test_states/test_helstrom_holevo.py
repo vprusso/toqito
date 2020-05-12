@@ -22,6 +22,14 @@ class TestHelstromHolevo(unittest.TestCase):
 
         self.assertEqual(np.isclose(res, 1 / 2), True)
 
+    def test_helstrom_holevo_non_density_matrix(self):
+        r"""Test Helstrom-Holevo distance on non-density matrix."""
+        rho = np.array([[1, 2], [3, 4]])
+        sigma = np.array([[5, 6], [7, 8]])
+
+        with self.assertRaises(ValueError):
+            helstrom_holevo(rho, sigma)
+
 
 if __name__ == "__main__":
     unittest.main()

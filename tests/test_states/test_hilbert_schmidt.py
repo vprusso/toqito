@@ -18,6 +18,14 @@ class TestHilbertSchmidt(unittest.TestCase):
 
         self.assertEqual(np.isclose(res, 1), True)
 
+    def test_hilbert_schmidt_non_density_matrix(self):
+        r"""Test Hilbert-Schmidt distance on non-density matrix."""
+        rho = np.array([[1, 2], [3, 4]])
+        sigma = np.array([[5, 6], [7, 8]])
+
+        with self.assertRaises(ValueError):
+            hilbert_schmidt(rho, sigma)
+
 
 if __name__ == "__main__":
     unittest.main()
