@@ -1,6 +1,38 @@
 Lower Bounds on the Quantum Value of a Two-Player Nonlocal Game
 ================================================================
 
+In this tutorial, we are going to cover the notion of a *nonlocal game*; a
+mathematical framework that abstractly models a physical system. The simplest
+instance of a nonlocal game involves two players, Alice and Bob, who are not
+allowed to communicate with each other once the game has started and who play
+cooperatively against an adversary referred to as the referee.
+
+A primary challenge that arises when studying these games is to determine the
+maximum probability with which Alice and Bob are able to achieve a winning
+outcome. 
+
+This probability is highly dependent on the type of *strategy* that Alice and
+Bob use in the game. A *classical strategy* is one in which Alice and Bob have
+access to classical resources. The best that Alice and Bob can do using a
+classical strategy is known as the *classical value* of the game. Similarly, a
+*quantum strategy* is one in which Alice and Bob have access to quantum
+resources. The best that Alice and Bob can do using a quantum strategy is known
+as the *quantum value* of the game.
+
+Calculating the classical value of a game is NP-hard as we need to perform a
+brute-force check to see which strategy yields the classical value of the game. 
+
+Using :code:`toqito`, we will be able to specify a nonlocal game and be able to
+directly calculate the classical value and also place lower bounds on the
+quantum value.
+
+Further information beyond the scope of this tutorial on nonlocal games can be
+found in [tCHTW04]_. Further information on the lower bound technique can be found in
+[tLD07]_.
+
+Two-player nonlocal games
+--------------------------
+
 A *two-player nonlocal game* consists of players that we give the names *Alice*
 and *Bob*:
 
@@ -313,9 +345,86 @@ use :code:`toqito` to determine the lower bound on the quantum value.
 In this case, we can see that the quantum value of the CHSH game is in fact
 attained as :math:`\cos^2(\pi/8) \approx 0.85355`.
 
+The FFL game
+-------------
+
+The *FFL (Fortnow, Feige, Lovasz) game* is a nonlocal game specified as
+follows.
+
+.. math::
+    \begin{equation}
+        \begin{aligned} 
+            &\pi(0, 0) = \frac{1}{3}, \quad 
+             \pi(0, 1) = \frac{1}{3}, \quad 
+             \pi(1, 0) = \frac{1}{3}, \quad
+             \pi(1, 1) = 0, \\ 
+            &(x,y) \in \Sigma_A \times \Sigma_B, \qquad \text{and} \qquad (a, b) \in \Gamma_A \times \Gamma_B,
+        \end{aligned}
+    \end{equation}
+
+where
+
+    .. math::
+        \begin{equation}
+            \Sigma_A = \{0, 1\}, \quad \Sigma_B = \{0, 1\}, \quad \Gamma_A =
+            \{0,1\}, \quad \text{and} \quad \Gamma_B = \{0, 1\}.
+        \end{equation}
+
+Alice and Bob win the FFL game if and only if the following equation is
+satisfied
+
+    .. math::
+        \begin{equation}
+        a \lor x = b \lor y.
+        \end{equation}
+
+It is well-known that both the classical and quantum value of this nonlocal
+game is :math:`2/3` [tCHTW04]_. We can verify this fact using :code:`toqito`.
+The following example encodes the FFL game. We then calculate the classical
+value and calculate lower bounds on the quantum value of the FFL game.
+
+.. code-block:: python
+    
+    >>> import numpy as np
+    >>> from toqito.nonlocal_games.nonlocal_game import NonlocalGame
+    >>>
+    >>> # Specify the dimension, number of inputs, and number of outputs.
+    >>> dim = 2
+    >>> num_alice_in, num_alice_out = 2, 2
+    >>> num_bob_in, num_bob_out = 2, 2
+    >>> 
+    >>> # Define the probability matrix of the FFL game.
+    >>> prob_mat = np.array([[1/3, 1/3], [1/3, 0]])
+    >>>
+    >>> # Define the predicate matrix of the FFL game.
+    >>> pred_mat = np.zeros((num_alice_out, num_bob_out, num_alice_in, num_bob_in))
+    >>> for a_alice in range(num_alice_out):
+    >>>     for b_bob in range(num_bob_out):
+    >>>         for x_alice in range(num_alice_in):
+    >>>             for y_bob in range(num_bob_in):
+    >>>                 # Check winning condition of a or x != b or y:
+    >>>                 if (a_alice or x_alice) != (b_bob or y_bob):
+    >>>                     pred_mat[a_alice, b_bob, x_alice, y_bob] = 1 
+    >>>
+    >>> # Define the FFL game object.
+    >>> ffl = NonlocalGame(dim, prob_mat, pred_mat)
+    >>> ffl.classical_value()
+    0.6666666666666666
+    >>> ffl.quantum_lower_bound()
+    0.6666705296004836
+
+In this case, we obtained the correct quantum value of :math:`2/3`, however,
+the lower bound technique is not guaranteed to converge to the true quantum
+value in general.
 
 References
 ------------------------------
+
+.. [tCHTW04] Cleve, Richard, Hoyer, Peter, Toner, Benjamin, and Watrous, John
+    "Consequences and limits of nonlocal strategies"
+    Computational Complexity 2004. Proceedings. 19th IEEE Annual Conference.
+    https://arxiv.org/abs/quant-ph/0404076
+
 .. [tLD07] Liang, Yeong-Cherng, and Andrew C. Doherty.
     "Bounds on quantum correlations in Bell-inequality experiments."
     Physical Review A 75.4 (2007): 042103.

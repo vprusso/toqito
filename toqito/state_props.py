@@ -221,15 +221,15 @@ def is_ppt(
     r"""
     Determine whether or not a matrix has positive partial transpose [WikPPT]_.
 
-    Yields either `True` or `False`, indicating that `mat` does or does not
-    have positive partial transpose (within numerical error). The variable
-    `mat` is assumed to act on bipartite space.
+    Yields either :code:`True` or :code:`False`, indicating that :code:`mat`
+    does or does not have positive partial transpose (within numerical error).
+    The variable :code:`mat` is assumed to act on bipartite space.
 
     For shared systems of :math:`2 \otimes 2` or :math:`2 \otimes 3`, the PPT
     criterion serves as a method to determine whether a given state is entangled
-    or separable. Therefore, for systems of this size, the return value "True"
-    would indicate that the state is separable and a value of "False" would
-    indicate the state is entangled.
+    or separable. Therefore, for systems of this size, the return value
+    :code:`True` would indicate that the state is separable and a value of
+    :code:`False` would indicate the state is entangled.
 
     Examples
     ==========
@@ -237,6 +237,7 @@ def is_ppt(
     Consider the following matrix
 
     .. math::
+        X =
         \begin{pmatrix}
             1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
             0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
@@ -250,7 +251,7 @@ def is_ppt(
         \end{pmatrix}.
 
     This matrix trivially satisfies the PPT criterion as can be seen using the
-    `toqito` package.
+    :code:`toqito` package.
 
     >>> from toqito.state_props import is_ppt
     >>> import numpy as np
@@ -265,7 +266,7 @@ def is_ppt(
 
     For the density matrix :math:`\rho = u u^*`, as this is an entangled state
     of dimension :math:`2`, it will violate the PPT criterion, which can be seen
-    using the `toqito` package.
+    using the :code:`toqito` package.
 
     >>> from toqito.states import bell
     >>> from toqito.state_props import is_ppt
@@ -282,9 +283,10 @@ def is_ppt(
     :param sys: Scalar or vector indicating which subsystems the transpose
                 should be applied on.
     :param dim: The dimension is a vector containing the dimensions of the
-                subsystems on which `mat` acts.
+                subsystems on which :code:`mat` acts.
     :param tol: Tolerance with which to check whether `mat` is PPT.
-    :return: True if `mat` is PPT and False if not.
+    :return: Returns :code:`True` if :code:`mat` is PPT and :code:`False` if
+             not.
     """
     eps = np.finfo(float).eps
 
@@ -307,7 +309,8 @@ def _is_product_vector(
 
     :param vec: The vector to check.
     :param dim: The dimension of the vector
-    :return: True if `vec` is a product vector and False otherwise.
+    :return: :code:`True` if :code:`vec` is a product vector and :code:`False`
+             otherwise.
     """
     if dim is None:
         dim = np.round(np.sqrt(len(vec)))
@@ -384,8 +387,8 @@ def is_product_vector(vec: np.ndarray, dim: Union[int, List[int]] = None) -> boo
 
     It is also possible to determine whether a set of density matrices are pure.
     For instance, we can see that the density matrices corresponding to the four
-    Bell states yield a result of `True` indicating that all states provided to
-    the function are pure.
+    Bell states yield a result of :code:`True` indicating that all states
+    provided to the function are pure.
 
     >>> from toqito.states import bell
     >>> from toqito.state_props import is_pure
@@ -415,10 +418,10 @@ def is_pure(state: Union[List[np.ndarray], np.ndarray]) -> bool:
     Determine if a given state is pure or list of states are pure [WikIsPure]_.
 
     A state is said to be pure if it is a density matrix with rank equal to
-    1. Equivalently, the state :math: `\rho` is pure if there exists a unit
-    vector :math: `u` such that:
+    1. Equivalently, the state :math:`\rho` is pure if there exists a unit
+    vector :math:`u` such that:
 
-    ..math::
+    .. math::
         \rho = u u^*
 
     Examples
@@ -441,7 +444,7 @@ def is_pure(state: Union[List[np.ndarray], np.ndarray]) -> bool:
                        \end{pmatrix} \text{D}(\mathcal{X}).
 
     Calculating the rank of :math:`\rho` yields that the :math:`\rho` is a pure
-    state. This can be confirmed in `toqito` as follows:
+    state. This can be confirmed in :code:`toqito` as follows:
 
     >>> from toqito.states import bell
     >>> from toqito.state_props import is_pure
@@ -452,8 +455,8 @@ def is_pure(state: Union[List[np.ndarray], np.ndarray]) -> bool:
 
     It is also possible to determine whether a set of density matrices are pure.
     For instance, we can see that the density matrices corresponding to the four
-    Bell states yield a result of `True` indicating that all states provided to
-    the function are pure.
+    Bell states yield a result of :code:`True` indicating that all states
+    provided to the function are pure.
 
     >>> from toqito.states import bell
     >>> from toqito.state_props import is_pure

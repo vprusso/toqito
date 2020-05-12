@@ -322,13 +322,13 @@ class StateDistinguish:
         References
         ==========
         .. [PBR12] "On the reality of the quantum state"
-            Pusey, Matthew F., Jonathan Barrett, and Terry Rudolph.
+            Pusey, Matthew F., Barrett, Jonathan, and Rudolph, Terry.
             Nature Physics 8.6 (2012): 475-478.
             arXiv:1111.3328
 
         .. [BJOP14] "Conclusive exclusion of quantum states"
-            Somshubhro Bandyopadhyay, Rahul Jain, Jonathan Oppenheim,
-            Christopher Perry
+            Bandyopadhyay, Somshubhro, Jain, Rahul, Oppenheim, Jonathan,
+            Perry, Christopher
             Physical Review A 89.2 (2014): 022336.
             arXiv:1306.4683
 

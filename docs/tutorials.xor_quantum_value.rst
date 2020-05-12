@@ -10,6 +10,10 @@ how to use :code:`toqito` to study these objects, they are welcome to consult th
 documentation page, and more specifically the function `xor\_game\_value
 <https://toqito.readthedocs.io/en/latest/nonlocal_games.xor_games.html>`_.
 
+Further information beyond the scope of this tutorial on the notion of XOR
+games along with the method of computing their quantum value may be found in
+[tCSUU08]_.
+
 Two-player XOR games
 --------------------
 
@@ -58,7 +62,7 @@ satisfied
 
     .. math::
         \begin{equation}
-        a \oplus b = x \land y.
+        a \oplus b = x y.
         \end{equation}
 
 Recall that :math:`\oplus` refers to the XOR operation. 
@@ -303,3 +307,12 @@ values of the CHSH game is provided below.
     0.75
     >>> chsh.quantum_value()
     0.8535533885683664
+
+References
+------------------------------
+
+.. [tCSUU08] Cleve, Richard, Slofstra, William, Unger, Falk, and Upadhyay, Sarvagya
+    "Perfect parallel repetition theorem for quantum XOR proof systems"
+    Computational Complexity 17.2 (2008): 282-299.
+    https://arxiv.org/abs/quant-ph/0608146
+

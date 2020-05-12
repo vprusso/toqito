@@ -209,12 +209,16 @@ def tensor(*args) -> np.ndarray:
     One may also perform the tensor product on a list of matrices.
 
     Given a list of :math:`n` matrices :math:`A_1, A_2, \ldots, A_n` the result
-    of this function computes :math:`A_1 \otimes A_2 \otimes \ldots
-    \otimes A_n`.
+    of this function computes
+
+    .. math::
+        A_1 \otimes A_2 \otimes \ldots \otimes A_n.
 
     Similarly, for a list of :math:`n` vectors :math:`v_1, v_2, \ldots, v_n`,
-    the result of this function computes :math:`v_1 \otimes v_2 \otimes \ldots
-    \otimes v_n`.
+    the result of this function computes
+
+    .. math::
+        v_1 \otimes v_2 \otimes \ldots \otimes v_n.
 
     Examples
     ==========
