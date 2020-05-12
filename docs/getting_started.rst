@@ -28,6 +28,11 @@ The :code:`nose` module is used for testing. To run the suite of tests for
 
     nosetests --with-coverage --cover-erase --cover-package toqito
 
+One may also use the :code:`pytest` module for testing as well:
+
+::
+
+    pytest tests/
 
 Contributing
 ------------

@@ -113,7 +113,7 @@ def random_density_matrix(
     if distance_metric == "bures":
         gin = np.matmul(random_unitary(dim, is_real) + np.identity(dim), gin)
 
-    rho = np.matmul(gin, np.matrix(gin).H)
+    rho = np.matmul(gin, np.array(gin).conj().T)
 
     return np.divide(rho, np.trace(rho))
 

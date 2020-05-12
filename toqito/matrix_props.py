@@ -660,7 +660,7 @@ def is_symmetric(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> b
     return np.allclose(mat, mat.T, rtol=rtol, atol=atol)
 
 
-def is_unitary(mat: Union[np.ndarray, np.matrix]) -> bool:
+def is_unitary(mat: np.ndarray) -> bool:
     r"""
     Check if matrix is unitary [WikUnitary]_.
 
