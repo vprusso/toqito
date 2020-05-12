@@ -10,6 +10,7 @@ install:
     - source $(poetry env info --path)/bin/activate
 script:
     - pytest --cov-report term-missing --cov=toqito tests/
+    - bash <(curl -s https://codecov.io/bash) -t 8a7d94ed-284d-4c22-91eb-9b66ce33fa62
     - pylint tests/
     - pylint toqito/
     - pydocstyle tests/
