@@ -1,6 +1,4 @@
 """Properties of matrices and vectors."""
-from typing import Union
-
 import numpy as np
 
 
