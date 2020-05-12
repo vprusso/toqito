@@ -21,18 +21,12 @@ top-level package directory.
 Testing
 -------
 
-The :code:`nose` module is used for testing. To run the suite of tests for
+The :code:`pytest` module is used for testing. To run the suite of tests for
 :code:`toqito`, run the following command in the root directory of this project:
 
 ::
 
-    nosetests --with-coverage --cover-erase --cover-package toqito
-
-One may also use the :code:`pytest` module for testing as well:
-
-::
-
-    pytest tests/
+    pytest --cov-report term-missing --cov=toqito tests/
 
 Contributing
 ------------

@@ -15,9 +15,10 @@ measurements, and channels. It can also be used as a tool to enhance the
 experience of students and instructors in classes pertaining to quantum
 information. 
 
+
 [![build status](http://img.shields.io/travis/vprusso/toqito.svg?style=plastic)](https://travis-ci.org/vprusso/toqito)
 [![doc status](https://readthedocs.org/projects/toqito/badge/?version=latest&style=plastic)](https://toqito.readthedocs.io/en/latest/)
-[![Coverage Status](https://coveralls.io/repos/github/vprusso/toqito/badge.svg?branch=master?style=plastic)](https://coveralls.io/github/vprusso/toqito?branch=master)
+[![codecov](https://codecov.io/gh/vprusso/toqito/branch/master/graph/badge.svg)](https://codecov.io/gh/vprusso/toqito)
 [![DOI](https://zenodo.org/badge/235493396.svg?style=plastic)](https://zenodo.org/badge/latestdoi/235493396)
 [![Unitary Fund](https://img.shields.io/badge/Supported%20By-UNITARY%20FUND-brightgreen.svg?style=plastic)](http://unitary.fund)
 
@@ -43,11 +44,11 @@ here: [https://toqito.readthedocs.io/](https://toqito.readthedocs.io/).
 
 ## Testing
 
-The `nose` module is used for testing. To run the suite of tests for `toqito`,
+The `pytest` module is used for testing. To run the suite of tests for `toqito`,
 run the following command in the root directory of this project.
 
 ```
-nosetests --with-coverage --cover-erase --cover-package toqito
+pytest --cov-report term-missing --cov=toqito tests/
 ```
 
 ## Citing

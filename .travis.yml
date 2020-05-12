@@ -9,7 +9,7 @@ install:
     - poetry config virtualenvs.in-project true
     - source $(poetry env info --path)/bin/activate
 script:
-    - nosetests --with-coverage --cover-erase --cover-package=toqito
+    - pytest --cov-report term-missing --cov=toqito tests/
     - pylint tests/
     - pylint toqito/
     - pydocstyle tests/
