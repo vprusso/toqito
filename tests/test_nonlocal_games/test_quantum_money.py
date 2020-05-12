@@ -8,7 +8,6 @@ from toqito.nonlocal_games.quantum_money import QuantumMoney
 
 
 class TestQuantumMoney(unittest.TestCase):
-
     """Unit test for counterfeit_attack."""
 
     def test_counterfeit_attack_wiesner_money(self):

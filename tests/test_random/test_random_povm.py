@@ -6,7 +6,6 @@ from toqito.random import random_povm
 
 
 class TestRandomPOVM(unittest.TestCase):
-
     """Unit test for random_povm."""
 
     def test_random_unitary_not_real(self):

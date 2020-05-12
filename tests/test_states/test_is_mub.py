@@ -7,7 +7,6 @@ from toqito.state_props import is_mub
 
 
 class TestIsMUB(unittest.TestCase):
-
     """Unit test for is_mub."""
 
     def test_is_mub_dim_2(self):

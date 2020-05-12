@@ -6,7 +6,6 @@ from toqito.states import basis, tile
 
 
 class TestTile(unittest.TestCase):
-
     """Unit tests for tile."""
 
     def test_tile_0(self):

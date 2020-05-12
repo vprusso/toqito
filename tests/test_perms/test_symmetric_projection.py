@@ -6,7 +6,6 @@ from toqito.perms import symmetric_projection
 
 
 class TestSymmetricProjection(unittest.TestCase):
-
     """Unit test for symmetric_projection."""
 
     def test_symmetric_projection_dim_2_pval_1(self):

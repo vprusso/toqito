@@ -6,7 +6,6 @@ from toqito.perms import permute_systems
 
 
 class TestPermuteSystems(unittest.TestCase):
-
     """Unit test for permute_systems."""
 
     def test_m2_m2(self):

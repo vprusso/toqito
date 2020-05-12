@@ -6,7 +6,6 @@ from toqito.matrices import hadamard
 
 
 class TestHadamard(unittest.TestCase):
-
     """Unit test for hadamard."""
 
     def test_hadamard_0(self):

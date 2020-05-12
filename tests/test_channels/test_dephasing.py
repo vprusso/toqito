@@ -7,7 +7,6 @@ from toqito.channels import dephasing
 
 
 class TestDephasingChannel(unittest.TestCase):
-
     """Unit test for dephasing."""
 
     def test_completely_dephasing(self):

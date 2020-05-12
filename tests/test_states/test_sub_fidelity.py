@@ -8,7 +8,6 @@ from toqito.state_metrics import sub_fidelity
 
 
 class TestSubFidelity(unittest.TestCase):
-
     """Unit tests for sub_fidelity."""
 
     def test_sub_fidelity_default(self):

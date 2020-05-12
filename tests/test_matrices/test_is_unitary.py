@@ -7,7 +7,6 @@ from toqito.random import random_unitary
 
 
 class TestIsUnitary(unittest.TestCase):
-
     """Unit test for is_unitary."""
 
     def test_is_unitary_random(self):

@@ -6,7 +6,6 @@ from toqito.matrix_props import is_pd
 
 
 class TestIsPD(unittest.TestCase):
-
     """Unit test for is_pd."""
 
     def test_is_pd(self):

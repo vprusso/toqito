@@ -7,7 +7,6 @@ from toqito.state_ops import tensor
 
 
 class TestGHZ(unittest.TestCase):
-
     """Unit test for ghz."""
 
     def test_ghz_2_3(self):

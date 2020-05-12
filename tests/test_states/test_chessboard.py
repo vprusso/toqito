@@ -6,7 +6,6 @@ from toqito.states import chessboard
 
 
 class TestChessboard(unittest.TestCase):
-
     """Unit test for chessboard."""
 
     def test_chessboard(self):

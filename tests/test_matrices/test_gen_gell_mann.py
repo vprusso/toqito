@@ -6,7 +6,6 @@ from toqito.matrices import gen_gell_mann
 
 
 class TestGenGellMann(unittest.TestCase):
-
     """Unit test for gen_gell_mann."""
 
     def test_gell_mann_identity(self):

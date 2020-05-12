@@ -7,7 +7,6 @@ from toqito.channels import depolarizing
 
 
 class TestIsPositive(unittest.TestCase):
-
     """Unit test for is_positive."""
 
     def test_is_positive_kraus_false(self):

@@ -1,0 +1,313 @@
+\documentclass[tikz]{standalone}
+
+%-----------------------------------------------------------------------------%
+% Fonts and symbols:
+%-----------------------------------------------------------------------------%
+
+\usepackage{mathpazo}
+\usepackage{amsfonts}
+\usepackage{amsmath,relsize}
+\usepackage{amssymb}
+\usepackage{latexsym}
+
+\usepackage{eepic}
+\usepackage{sectsty}
+\usepackage{textcomp}
+
+\usepackage{listings}
+\usepackage{cancel}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{stmaryrd}
+
+\usepackage{atbegshi}% http://ctan.org/pkg/atbegshi
+\AtBeginDocument{\AtBeginShipoutNext{\AtBeginShipoutDiscard}}
+\usepackage{pgfplots}
+\usepackage{pgf}
+\usepackage{multicol}
+\usepackage{tikz}
+\usepackage{centernot}
+\usepackage{filecontents}
+
+\usepgfplotslibrary{patchplots} % LATEX and plain TEX
+\usetikzlibrary{pgfplots.patchplots,snakes,arrows} % LATEX and plain TEX
+\usetikzlibrary{decorations.markings}
+\pgfplotsset{width=9cm,compat=1.5.1}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+
+%-----------------------------------------------------------------------------%
+% Margins and page layout:
+%-----------------------------------------------------------------------------%
+
+\usepackage[margin=1in]{geometry}
+\usepackage{hyperref}
+\hypersetup{pdfpagemode=UseNone}
+
+%-----------------------------------------------------------------------------%
+% Theorem-like environments:
+%-----------------------------------------------------------------------------%
+
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{prop}{Proposition}[section]
+\newtheorem{cor}{Corollary}[section]
+\newtheorem{claim}{Claim}[section]
+\newtheorem{question}{Question}[section]
+\newtheorem{result}{Result}[section]
+\newtheorem{conjecture}{Conjecture}[section]
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{remark}{Remark}[section]
+\newtheorem{example}{Example}[section]
+
+%-----------------------------------------------------------------------------%
+% Other packages:
+%-----------------------------------------------------------------------------%
+
+%\usepackage{xcolor}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage{gastex}
+\usepackage{listings}
+\usepackage{tikz}
+\usetikzlibrary{calc,matrix,positioning,arrows,decorations.pathreplacing,shapes.symbols,automata,chains,fit,shapes,er,petri,patterns}
+\usetikzlibrary{decorations.pathmorphing}
+
+%-----------------------------------------------------------------------------%
+% Macros:
+%-----------------------------------------------------------------------------%
+
+\newcommand{\comment}[1]{\textcolor{blue}{%
+  \begin{quote}\sf [*** #1 ***]\end{quote}}}
+
+\newcommand{\tinyspace}{\mspace{1mu}}
+\newcommand{\microspace}{\mspace{0.5mu}}
+\newcommand{\op}[1]{\operatorname{#1}}
+\newcommand{\tr}{\operatorname{Tr}}
+\newcommand{\rank}{\operatorname{rank}}
+\renewcommand{\int}{\operatorname{int}}
+\renewcommand{\det}{\operatorname{Det}}
+\renewcommand{\vec}{\operatorname{vec}}
+\newcommand{\fid}{\operatorname{F}}
+\newcommand{\im}{\operatorname{im}}
+\newcommand{\reg}[1]{\mathsf{#1}}
+
+\newcommand{\spans}{\textnormal{span}}
+\newcommand{\proj}{\textnormal{proj}}
+
+\renewcommand{\t}{{\scriptscriptstyle\mathsf{T}}}
+
+\newcommand{\sA}{{\scriptscriptstyle\mkern-1mu\textup{A}}}
+\newcommand{\sB}{{\scriptscriptstyle\mkern-0mu\textup{B}}}
+\newcommand{\ssA}{{\scriptscriptstyle\mkern-1mu\textup{\miniscule{A}}}}
+\newcommand{\ssB}{{\scriptscriptstyle\mkern-0mu\textup{\miniscule{B}}}}
+
+\newcommand{\abs}[1]{\lvert #1 \rvert}
+\newcommand{\bigabs}[1]{\bigl\lvert #1 \bigr\rvert}
+\newcommand{\Bigabs}[1]{\Bigl\lvert #1 \Bigr\rvert}
+\newcommand{\biggabs}[1]{\biggl\lvert #1 \biggr\rvert}
+\newcommand{\Biggabs}[1]{\Biggl\lvert #1 \Biggr\rvert}
+
+\newcommand{\ip}[2]{\langle #1 , #2\rangle}
+\newcommand{\bigip}[2]{\bigl\langle #1, #2 \bigr\rangle}
+\newcommand{\Bigip}[2]{\Bigl\langle #1, #2 \Bigr\rangle}
+\newcommand{\biggip}[2]{\biggl\langle #1, #2 \biggr\rangle}
+\newcommand{\Biggip}[2]{\Biggl\langle #1, #2 \Biggr\rangle}
+
+\newcommand{\ceil}[1]{\lceil #1 \rceil}
+\newcommand{\bigceil}[1]{\bigl\lceil #1 \bigr\rceil}
+\newcommand{\Bigceil}[1]{\Bigl\lceil #1 \Bigr\rceil}
+\newcommand{\biggceil}[1]{\biggl\lceil #1 \biggr\rceil}
+\newcommand{\Biggceil}[1]{\Biggl\lceil #1 \Biggr\rceil}
+
+\newcommand{\floor}[1]{\lfloor #1 \rfloor}
+\newcommand{\bigfloor}[1]{\bigl\lfloor #1 \bigr\rfloor}
+\newcommand{\Bigfloor}[1]{\Bigl\lfloor #1 \Bigr\rfloor}
+\newcommand{\biggfloor}[1]{\biggl\lfloor #1 \biggr\rfloor}
+\newcommand{\Biggfloor}[1]{\Biggl\lfloor #1 \Biggr\rfloor}
+
+\newcommand{\norm}[1]{\lVert\tinyspace #1 \tinyspace\rVert}
+\newcommand{\bignorm}[1]{\bigl\lVert\tinyspace #1 \tinyspace\bigr\rVert}
+\newcommand{\Bignorm}[1]{\Bigl\lVert\tinyspace #1 \tinyspace\Bigr\rVert}
+\newcommand{\biggnorm}[1]{\biggl\lVert\tinyspace #1 \tinyspace\biggr\rVert}
+\newcommand{\Biggnorm}[1]{\Biggl\lVert\tinyspace #1 \tinyspace\Biggr\rVert}
+
+\newcommand{\bigtriplenorm}[1]{
+  \bigl\lvert\!\microspace\bigl\lvert\!\microspace\bigl\lvert #1 
+  \bigr\rvert\!\microspace\bigr\rvert\!\microspace\bigr\rvert}
+
+\newcommand{\Bigtriplenorm}[1]{
+  \Bigl\lvert\!\microspace\Bigl\lvert\!\microspace\Bigl\lvert #1 
+  \Bigr\rvert\!\microspace\Bigr\rvert\!\microspace\Bigr\rvert}
+
+\newcommand{\biggtriplenorm}[1]{
+  \biggl\lvert\!\microspace\biggl\lvert\!\microspace\biggl\lvert #1 
+  \biggr\rvert\!\microspace\biggr\rvert\!\microspace\biggr\rvert}
+
+\newcommand{\Biggtriplenorm}[1]{
+  \Biggl\lvert\!\microspace\Biggl\lvert\!\microspace\Biggl\lvert #1 
+  \Biggr\rvert\!\microspace\Biggr\rvert\!\microspace\Biggr\rvert}
+
+\newcommand{\triplenorm}[1]{
+  \left\lvert\!\microspace\left\lvert\!\microspace\left\lvert #1 
+  \right\rvert\!\microspace\right\rvert\!\microspace\right\rvert}
+\def\iso{\cong}
+\newcommand{\defeq}{\triangleq}
+
+\newcommand{\bm}[1]{
+  \left[\microspace #1 \microspace \right]}
+
+
+\newcommand{\ket}[1]{
+  \lvert\microspace #1 \microspace \rangle}
+
+\newcommand{\bigket}[1]{
+  \bigl\lvert\microspace #1 \microspace \bigr\rangle}
+
+\newcommand{\Bigket}[1]{
+  \Bigl\lvert\microspace #1 \microspace \Bigr\rangle}
+
+\newcommand{\biggket}[1]{
+  \biggl\lvert\microspace #1 \microspace \biggr\rangle}
+
+\newcommand{\Biggket}[1]{
+  \Biggl\lvert\microspace #1 \microspace \Biggr\rangle}
+
+\newcommand{\bra}[1]{
+  \langle\microspace #1 \microspace \rvert}
+
+\newcommand{\bigbra}[1]{
+  \bigl\langle\microspace #1 \microspace \bigr\rvert}
+
+\newcommand{\Bigbra}[1]{
+  \Bigl\langle\microspace #1 \microspace \Bigr\rvert}
+
+\newcommand{\biggbra}[1]{
+  \biggl\langle\microspace #1 \microspace \biggr\rvert}
+
+\newcommand{\Biggbra}[1]{
+  \Biggl\langle\microspace #1 \microspace \Biggr\rvert}
+
+\def\I{\mathbb{1}}
+\def\G{\mathsf{G}}
+\def\BB84{\mathsf{BB84}}
+\def\MUB{\mathsf{MUB}}
+\def\NPA{\mathsf{NPA}}
+\def\NPAR{\mathsf{NPAR}}
+
+\newcommand{\mh}{\textnormal{-}}
+
+\def\MIP{\mathsf{MIP}}
+\def\EMIP{\mathsf{EMIP}}
+
+
+\newcommand{\setft}[1]{\mathrm{#1}}
+\newcommand{\Density}{\setft{D}}
+\newcommand{\Pos}{\setft{Pos}}
+\newcommand{\Proj}{\setft{Proj}}
+\newcommand{\Unitary}{\setft{U}}
+\newcommand{\Herm}{\setft{Herm}}
+\newcommand{\Lin}{\setft{L}}
+\newcommand{\Channel}{\setft{C}}
+\newcommand{\Trans}{\setft{T}}
+\newcommand{\SepD}{\setft{SepD}}
+\newcommand{\Sep}{\setft{Sep}}
+\newcommand{\PPT}{\setft{PPT}}
+\newcommand{\LOCC}{\setft{LOCC}}
+\newcommand{\BPos}{\setft{Sep^*}}
+
+% Game values
+\newcommand{\unent}{\setft{\textnormal{unent}}}
+\newcommand{\ent}{\setft{\textnormal{ent}}}
+\newcommand{\val}{\setft{\textnormal{val}}}
+\newcommand{\com}{\setft{\textnormal{com}}}
+\newcommand{\sdp}{\setft{\textnormal{sdp}}}
+\newcommand{\ns}{\setft{\textnormal{ns}}}
+
+\newcommand{\negs}{\textnormal{-}}
+
+\makeatletter
+\providecommand*{\cupdot}{%
+  \mathbin{%
+    \mathpalette\@cupdot{}%
+  }%
+}
+\newcommand*{\@cupdot}[2]{%
+  \ooalign{%
+    $\m@th#1\cup$\cr
+    \hidewidth$\m@th#1\cdot$\hidewidth
+  }%
+}
+\makeatother
+
+\def\complex{\mathbb{C}}
+\def\real{\mathbb{R}}
+\def\natural{\mathbb{N}}
+\def\integer{\mathbb{Z}}
+
+\newenvironment{mylist}[1]{\begin{list}{}{
+	\setlength{\leftmargin}{#1}
+	\setlength{\rightmargin}{0mm}
+	\setlength{\labelsep}{2mm}
+	\setlength{\labelwidth}{8mm}
+	\setlength{\itemsep}{0mm}}}
+	{\end{list}}
+
+\newenvironment{namedtheorem}[1]
+	       {\begin{trivlist}\item {\bf #1.}\em}{\end{trivlist}}
+
+\usepackage[affil-it]{authblk}
+
+\def\X{\mathcal{X}}
+\def\H{\mathcal{H}}
+\def\Y{\mathcal{Y}}
+\def\Z{\mathcal{Z}}
+\def\W{\mathcal{W}}
+\def\A{\mathcal{A}}
+\def\B{\mathcal{B}}
+\def\V{\mathcal{V}}
+\def\U{\mathcal{U}}
+\def\C{\mathcal{C}}
+\def\D{\mathcal{D}}
+\def\E{\mathcal{E}}
+\def\F{\mathcal{F}}
+\def\M{\mathcal{M}}
+\def\N{\mathcal{N}}
+\def\R{\mathcal{R}}
+\def\Q{\mathcal{Q}}
+\def\P{\mathcal{P}}
+\def\S{\mathcal{S}}
+\def\T{\mathcal{T}}
+\def\K{\mathcal{K}}
+\def\L{\mathcal{L}}
+
+\newcommand{\class}[1]{\mathsf{#1}}
+
+\newcommand{\w}{\mathsf{w}}
+
+\def\NS{\mathcal{NS}}
+
+\def\yes{\text{yes}}
+\def\no{\text{no}}
+
+\usepackage{bm}
+\usepackage[sfdefault]{FiraSans} %% option 'sfdefault' activates Fira Sans as the default text font
+\usepackage[T1]{fontenc}
+\renewcommand*\oldstylenums[1]{{\firaoldstyle #1}}
+
+%$\bm{\ket{\textbf{toqito}}}$
+\begin{document}
+
+	\begin{center}
+		\begin{tikzpicture}[text depth=1pt,bend angle=45]
+		
+			\tikzstyle{AB}=[shape=rectangle,rounded corners,dotted,draw=black!50,thick,fill=gray!15,minimum height=10mm,minimum width=10mm]
+			
+			\node (A-1) at (3,2) {\huge $\bm{\ket{\text{toqito}}}$};
+		\end{tikzpicture}
+	\end{center}	
+	
+\end{document}
+

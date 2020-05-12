@@ -5,7 +5,6 @@ from toqito.perms import unique_perms
 
 
 class TestWState(unittest.TestCase):
-
     """Unit test for w_state."""
 
     def test_unique_perms_len(self):

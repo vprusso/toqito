@@ -7,7 +7,6 @@ from toqito.state_distinguish import StateDistinguish
 
 
 class TestPPTDistinguishability(unittest.TestCase):
-
     """Unit test for ppt_distinguishability."""
 
     def test_ppt_distinguishability_yyd_density_matrices(self):
@@ -17,7 +16,7 @@ class TestPPTDistinguishability(unittest.TestCase):
         Feeding the input to the function as density matrices.
 
         References:
-        [1] Yu, Nengkun, Runyao Duan, and Mingsheng Ying.
+        [1]: Yu, Nengkun, Runyao Duan, and Mingsheng Ying.
         "Four locally indistinguishable ququad-ququad orthogonal
         maximally entangled states."
         Physical review letters 109.2 (2012): 020506.

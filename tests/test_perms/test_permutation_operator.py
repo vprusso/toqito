@@ -6,7 +6,6 @@ from toqito.perms import permutation_operator
 
 
 class TestPermutationOperator(unittest.TestCase):
-
     """Unit test for permutation_operator."""
 
     def test_standard_swap(self):

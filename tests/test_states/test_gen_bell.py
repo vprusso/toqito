@@ -7,7 +7,6 @@ from toqito.states import gen_bell
 
 
 class TestGenBell(unittest.TestCase):
-
     """Unit test for gen_bell."""
 
     def test_gen_bell_0_0_2(self):

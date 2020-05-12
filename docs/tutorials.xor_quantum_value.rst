@@ -83,12 +83,12 @@ condition must be equal to for each question tuple to induce a winning outcome.
 
 In order to specify an XOR game in :code:`toqito`, we will define two matrices:
 
-    * `prob_mat`: A matrix whose :math:`(x, y)^{th}` entry corresponds to
-      the probablity that Alice receives question :math:`x` and Bob receives
+    * :code:`prob_mat`: A matrix whose :math:`(x, y)^{th}` entry corresponds to
+      the probability that Alice receives question :math:`x` and Bob receives
       question :math:`y`.
 
-    * `pred_mat`: A matrix whose :math:`(x, y)^{th}` entry corresponds
-      to the winning choice of :math:`a` and :math:`b` when Alice receives
+    * :code:`pred_mat`: A matrix whose :math:`(x, y)^{th}` entry corresponds to
+      the winning choice of :math:`a` and :math:`b` when Alice receives
       :math:`x` and Bob receives :math:`y` from the referee.
 
 For the CHSH game, the `prob_mat` and `pred_mat` variables are defined as follows.

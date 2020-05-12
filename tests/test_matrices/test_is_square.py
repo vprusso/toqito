@@ -6,7 +6,6 @@ from toqito.matrix_props import is_square
 
 
 class TestIsSquare(unittest.TestCase):
-
     """Unit test for is_square."""
 
     def test_is_square(self):

@@ -6,7 +6,6 @@ from toqito.matrices import iden
 
 
 class TestIden(unittest.TestCase):
-
     """Unit test for iden."""
 
     def test_iden_full(self):

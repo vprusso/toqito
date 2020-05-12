@@ -6,7 +6,6 @@ from toqito.matrix_props import is_commuting
 
 
 class TestIsCommuting(unittest.TestCase):
-
     """Unit test for is_commuting."""
 
     def test_is_commuting_false(self):

@@ -8,7 +8,6 @@ from toqito.state_metrics import von_neumann_entropy
 
 
 class TestVonNeumannEntropy(unittest.TestCase):
-
     """Unit tests for von_neumann_entropy."""
 
     def test_von_neumann_entropy_bell_state(self):

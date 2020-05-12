@@ -7,7 +7,6 @@ from toqito.perms import swap_operator
 
 
 class TestApplyMap(unittest.TestCase):
-
     """Unit test for apply_map."""
 
     def test_apply_map_choi(self):

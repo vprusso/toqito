@@ -8,7 +8,6 @@ from toqito.state_props import is_product_vector
 
 
 class TestIsProductVector(unittest.TestCase):
-
     """Unit test for is_product_vector."""
 
     def test_is_product_entangled_state(self):

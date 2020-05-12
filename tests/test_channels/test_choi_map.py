@@ -6,7 +6,6 @@ from toqito.channels import choi
 
 
 class TestChoiMap(unittest.TestCase):
-
     """Unit test for choi_map."""
 
     def test_standard_choi_map(self):

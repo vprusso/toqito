@@ -7,7 +7,6 @@ from toqito.helper import expr_as_np_array, np_array_as_expr
 
 
 class TestCVXPYHelper(unittest.TestCase):
-
     """Unit test for cvx_helper."""
 
     def test_np_array_as_expr(self):

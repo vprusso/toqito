@@ -6,7 +6,6 @@ from toqito.matrices import gen_pauli
 
 
 class TestGenPauli(unittest.TestCase):
-
     """Unit test for gen_pauli."""
 
     def test_gen_pauli_1_0_2(self):

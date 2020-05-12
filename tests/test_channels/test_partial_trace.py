@@ -6,7 +6,6 @@ from toqito.channels import partial_trace
 
 
 class TestPartialTrace(unittest.TestCase):
-
     """Unit test for partial_trace."""
 
     def test_partial_trace(self):

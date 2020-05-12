@@ -185,15 +185,15 @@ class StateDistinguish:
         >>> psi_2 = bell(3)
         >>> psi_3 = bell(1)
         >>>
-        >>> # YYD vectors from [YDY12]_.
+        >>> # YDY vectors from [YDY12]_.
         >>> x_1 = np.kron(psi_0, psi_0)
         >>> x_2 = np.kron(psi_1, psi_3)
         >>> x_3 = np.kron(psi_2, psi_3)
         >>> x_4 = np.kron(psi_3, psi_3)
         >>>
-        >>> # YYD density matrices.
+        >>> # YDY density matrices.
         >>> rho_1 = x_1 * x_1.conj().T
-        >>> rho_2 = x_2 * x_2.conj().T
+        >>> rho_2 = x_2 * x_2.conj().Tk
         >>> rho_3 = x_3 * x_3.conj().T
         >>> rho_4 = x_4 * x_4.conj().T
         >>>

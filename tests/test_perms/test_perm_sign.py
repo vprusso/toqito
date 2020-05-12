@@ -5,7 +5,6 @@ from toqito.perms import perm_sign
 
 
 class TestPermSign(unittest.TestCase):
-
     """Unit test for perm_sign."""
 
     def test_small_example_even(self):

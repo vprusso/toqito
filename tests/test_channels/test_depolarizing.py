@@ -7,7 +7,6 @@ from toqito.channels import depolarizing
 
 
 class TestDepolarizingChannel(unittest.TestCase):
-
     """Unit test for depolarizing."""
 
     def test_complete_depolarizing(self):

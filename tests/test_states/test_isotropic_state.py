@@ -6,7 +6,6 @@ from toqito.states import isotropic
 
 
 class TestIsotropicState(unittest.TestCase):
-
     """Unit test for isotropic."""
 
     def test_isotropic_qutrit(self):

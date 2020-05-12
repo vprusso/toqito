@@ -6,7 +6,6 @@ from toqito.channels import realignment
 
 
 class TestRealignment(unittest.TestCase):
-
     """Unit test for realignment."""
 
     def test_realignment_two_qubit(self):

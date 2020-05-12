@@ -6,7 +6,6 @@ from toqito.matrix_ops import vec
 
 
 class TestVec(unittest.TestCase):
-
     """Unit test for vec."""
 
     def test_vec(self):

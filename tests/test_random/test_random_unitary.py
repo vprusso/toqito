@@ -6,7 +6,6 @@ from toqito.matrix_props import is_unitary
 
 
 class TestRandomUnitary(unittest.TestCase):
-
     """Unit test for random_unitary."""
 
     def test_random_unitary_not_real(self):

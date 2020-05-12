@@ -6,7 +6,6 @@ from toqito.states import max_mixed
 
 
 class TestMaxMixed(unittest.TestCase):
-
     """Unit test for max_mixed."""
 
     def test_max_mixed_dim_2_full(self):

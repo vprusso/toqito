@@ -6,7 +6,6 @@ from toqito.state_metrics import trace_distance
 
 
 class TestTraceDistance(unittest.TestCase):
-
     """Unit tests for trace_distance."""
 
     def test_trace_distance_same_state(self):

@@ -5,7 +5,6 @@ from toqito.channels import reduction
 
 
 class TestReduction(unittest.TestCase):
-
     """Unit test for reduction."""
 
     def test_reduction_map(self):

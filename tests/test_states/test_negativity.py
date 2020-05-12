@@ -6,7 +6,6 @@ from toqito.state_props import negativity
 
 
 class TestNegativity(unittest.TestCase):
-
     """Unit test for negativity."""
 
     def test_negativity_rho(self):

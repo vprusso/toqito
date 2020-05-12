@@ -7,7 +7,6 @@ from toqito.state_distinguish import StateDistinguish
 
 
 class TestStateDistinguishability(unittest.TestCase):
-
     """Unit tests for state_distinguishability."""
 
     def test_state_distinguishability_one_state(self):

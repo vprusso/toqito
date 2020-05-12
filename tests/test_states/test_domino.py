@@ -6,7 +6,6 @@ from toqito.states import basis, domino
 
 
 class TestDomino(unittest.TestCase):
-
     """Unit test for domino."""
 
     def test_domino_0(self):

@@ -6,7 +6,6 @@ from toqito.matrix_props import is_symmetric
 
 
 class TestIsSymmetric(unittest.TestCase):
-
     """Unit test for is_symmetric."""
 
     def test_is_symmetric(self):

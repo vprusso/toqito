@@ -7,7 +7,6 @@ from toqito.state_ops import pure_to_mixed
 
 
 class TestPureToMixed(unittest.TestCase):
-
     """Unit test for pure_to_mixed."""
 
     def test_pure_to_mixed_state_vector(self):

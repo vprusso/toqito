@@ -6,7 +6,6 @@ from toqito.helper import update_odometer
 
 
 class TestUpdateOdometer(unittest.TestCase):
-
     """Unit test for update_odometer."""
 
     def test_update_odometer_0_0(self):

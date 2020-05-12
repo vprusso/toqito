@@ -7,7 +7,6 @@ from toqito.channels import partial_transpose
 
 
 class TestPartialTranspose(unittest.TestCase):
-
     """Unit test for partial_transpose."""
 
     def test_partial_transpose(self):
