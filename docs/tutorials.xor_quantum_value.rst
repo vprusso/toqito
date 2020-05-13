@@ -308,6 +308,64 @@ values of the CHSH game is provided below.
     >>> chsh.quantum_value()
     0.8535533885683664
 
+The odd cycle game
+------------------
+
+The *odd cycle game* is another two-player XOR game with the following question and answer sets
+
+.. math::
+    \begin{equation}
+        \begin{aligned} 
+            \Sigma_{A} = \Sigma_B = \mathbb{Z}_n \qquad \text{and} \qquad \Gamma_A = \Gamma_B = \{0, 1\},
+        \end{aligned}
+    \end{equation}
+
+where :math:`\pi` is the uniform probability distribution over the question set.
+
+As an example, we can specify the odd cycle game for :math:`n=5` and calculate
+the classical and quantum values of this game.
+
+.. code-block:: python
+
+    >>> import numpy as np
+    >>> from toqito.nonlocal_games.xor_game import XORGame
+    >>>
+    >>> # Define the probability matrix.
+    >>> prob_mat = np.array([
+    >>>    [0.1, 0.1, 0, 0, 0],
+    >>>    [0, 0.1, 0.1, 0, 0],
+    >>>    [0, 0, 0.1, 0.1, 0],
+    >>>    [0, 0, 0, 0.1, 0.1],
+    >>>    [0.1, 0, 0, 0, 0.1]])
+    >>>
+    >>> # Define the predicate matrix.
+    >>> pred_mat = np.array([
+    >>>    [0, 1, 0, 0, 0],
+    >>>    [0, 0, 1, 0, 0],
+    >>>    [0, 0, 0, 1, 0],
+    >>>    [0, 0, 0, 0, 1],
+    >>>    [1, 0, 0, 0, 0]])
+    >>>
+    >>> # Compute the classical and quantum values.
+    >>> odd_cycle = XORGame(prob_mat, pred_mat)
+    >>> odd_cycle.classical_value()
+    0.9
+    >>> odd_cycle.quantum_value()
+    0.9755282544736033
+
+Note that the odd cycle game is another example of an XOR game where the
+players are able to win with a strictly higher probability if they adopt a
+quantum strategy. For a general XOR game, Alice and Bob may perform equally
+well whether they adopt either a quantum or classical strategy. It holds that
+the quantum value for any XOR game is a natural upper bound on the classical
+value. That is, for an XOR game, :math:`G`, it holds that
+
+.. math::
+    \omega(G) \leq \omega^*(G),
+
+for every XOR game :math:`G`.
+    
+
 References
 ------------------------------
 
