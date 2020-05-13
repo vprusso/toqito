@@ -38,6 +38,10 @@ class NonlocalGame:
             num_bob_inputs,
         ) = self.pred_mat.shape
 
+        # Calculating the classical value of a nonlocal game, in general, is
+        # NP-hard. Our approach here is to simply loop over all possible
+        # combinations of pairs of questions and answers and keep track of
+        # which combination yields the highest classical value.
         p_win = 0
         for a_alice_out in range(num_alice_outputs):
             for b_bob_out in range(num_bob_outputs):

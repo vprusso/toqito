@@ -144,8 +144,8 @@ distinguish a given state from an ensemble if he is only given access to PPT
 measurements. 
 
 It was shown in [tCosentino13]_ and extended in [tCR13]_ that the following
-ensemble of states has a probability of :math:`7/8` of being distinguished via
-PPT measurements.
+ensemble of states has a probability of :math:`7/8 \approx 0.875` of being
+distinguished via PPT measurements.
 
 .. math::
     \begin{equation}

@@ -25,24 +25,24 @@ def random_density_matrix(
     r"""
     Generate a random density matrix.
 
-    Generates a random `dim`-by-`dim` density matrix distributed according to
-    the Hilbert-Schmidt measure. The matrix is of rank <= `k_param` distributed
-    according to the distribution `distance_metric` If `is_real = True`, then
-    all of its entries will be real. The variable `distance_metric` must be one
-    of:
+    Generates a random :code:`dim`-by-:code:`dim` density matrix distributed
+    according to the Hilbert-Schmidt measure. The matrix is of rank <=
+    :code:`k_param` distributed according to the distribution
+    :code:`distance_metric` If :code:`is_real = True`, then all of its entries
+    will be real. The variable :code:`distance_metric` must be one of:
 
-        - `haar` (default):
+        - :code:`haar` (default):
             Generate a larger pure state according to the Haar measure and
             trace out the extra dimensions. Sometimes called the
-            Hilbert-Schmidt measure when `k_param = dim`.
+            Hilbert-Schmidt measure when :code:`k_param = dim`.
 
-        - `bures`:
+        - :code:`bures`:
             The Bures measure.
 
     Examples
     ==========
 
-    Using `toqito`, we may generate a random complex-valued :math:`n`-
+    Using :code:`toqito`, we may generate a random complex-valued :math:`n`-
     dimensional density matrix. For :math:`d=2`, this can be accomplished as
     follows.
 
@@ -53,7 +53,7 @@ def random_density_matrix(
      [0.4324904 -0.103298j 0.65096204+0.j      ]]
 
     We can verify that this is in fact a valid density matrix using the
-    `is_denisty` function from `toqito` as follows
+    :code:`is_denisty` function from :code:`toqito` as follows
 
     >>> from toqito.matrix_props import is_density
     >>> is_density(complex_dm)
@@ -94,12 +94,12 @@ def random_density_matrix(
     :param dim: The number of rows (and columns) of the density matrix.
     :param is_real: Boolean denoting whether the returned matrix will have all
                     real entries or not.
-    :param k_param: Default value is equal to `dim`.
+    :param k_param: Default value is equal to :code:`dim`.
     :param distance_metric: The distance metric used to randomly generate the
                             density matrix. This metric is either the Haar
                             measure or the Bures measure. Default value is to
                             use the Haar measure.
-    :return: A `dim`-by-`dim` random density matrix.
+    :return: A :code:`dim`-by-:code:`dim` random density matrix.
     """
     if k_param is None:
         k_param = dim
@@ -122,9 +122,9 @@ def random_ginibre(dim_n: int, dim_m: int,) -> np.ndarray:
     r"""
     Generate a Ginibre random matrix [WIKCIRC]_.
 
-    Generates a random `dim_n`-by-`dim_m` Ginibre matrix.
+    Generates a random :code:`dim_n`-by-:code:`dim_m` Ginibre matrix.
 
-    A Ginibre random matrix is a matrix with independent and identically
+    A *Ginibre random matrix* is a matrix with independent and identically
     distributed complex standard Gaussian entries.
 
     Ginibre random matrices are used in the construction of Wishart-random
@@ -152,7 +152,7 @@ def random_ginibre(dim_n: int, dim_m: int,) -> np.ndarray:
 
     :param dim_n: The number of rows of the Ginibre random matrix.
     :param dim_m: The number of columns of the Ginibre random matrix.
-    :return: A `dim_n`-by-`dim_m` Ginibre random density matrix.
+    :return: A :code:`dim_n`-by-:code:`dim_m` Ginibre random density matrix.
     """
     return (
         np.random.randn(dim_n, dim_m) + 1j * np.random.randn(dim_n, dim_m)
@@ -166,10 +166,10 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int) -> np.ndarray:
     Examples
     ==========
 
-    Using `toqito`, we can generate a set of POVMs consisting of a specific
-    dimension along with a given number of measurement inputs and measurement
-    outputs. As an example, we can construct a random set of POVMs of dimension
-    :math:`2` with :math:`2` inputs and :math:`2` outputs.
+    We can generate a set of POVMs consisting of a specific dimension along with
+    a given number of measurement inputs and measurement outputs. As an example,
+    we can construct a random set of POVMs of dimension :math:`2` with :math:`2`
+    inputs and :math:`2` outputs.
 
     >>> from toqito.random import random_povm
     >>> import numpy as np
@@ -201,7 +201,7 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int) -> np.ndarray:
     :param dim: The dimension of the measurements.
     :param num_inputs: The number of inputs for the measurement.
     :param num_outputs: The number of outputs for the measurement.
-    :return: A set of POVMs of dimension `dim`.
+    :return: A set of POVMs of dimension :code:`dim`.
     """
     povms = []
     gram_vectors = np.random.normal(size=(dim, dim, num_inputs, num_outputs))
@@ -241,9 +241,8 @@ def random_state_vector(
     Examples
     ==========
 
-    Using `toqito`, we may generate a random state vector. For instance, here is
-    an example where we can genereate a :math:`2`-dimensional random state
-    vector.
+    We may generate a random state vector. For instance, here is an example
+    where we can generate a :math:`2`-dimensional random state vector.
 
     >>> from toqito.random import random_state_vector
     >>> vec = random_state_vector(2)
@@ -262,9 +261,9 @@ def random_state_vector(
 
     :param dim: The number of rows (and columns) of the unitary matrix.
     :param is_real: Boolean denoting whether the returned matrix has real
-                    entries or not. Default is `False`.
+                    entries or not. Default is :code:`False`.
     :param k_param: Default 0.
-    :return: A `dim`-by-`dim` random unitary matrix.
+    :return: A :code:`dim`-by-:code:`dim` random unitary matrix.
     """
     # Schmidt rank plays a role.
     if 0 < k_param < np.min(dim):
@@ -305,16 +304,16 @@ def random_unitary(dim: Union[List[int], int], is_real: bool = False) -> np.ndar
     """
     Generate a random unitary or orthogonal matrix [MO09]_.
 
-    Calculates a random unitary matrix (if `is_real = False`) or a random real
-    orthogonal matrix (if `is_real = True`), uniformly distributed according to
-    the Haar measure.
+    Calculates a random unitary matrix (if :code:`is_real = False`) or a random
+    real orthogonal matrix (if :code:`is_real = True`), uniformly distributed
+    according to the Haar measure.
 
     Examples
     ==========
 
-    Using `toqito`, we may generate a random unitary matrix. Here is an example
-    of how we may be able to generate a random :math:`2`-dimensional random
-    unitary matrix with complex entries.
+    We may generate a random unitary matrix. Here is an example of how we may
+    be able to generate a random :math:`2`-dimensional random unitary matrix
+    with complex entries.
 
     >>> from toqito.random import random_unitary
     >>> complex_dm = random_unitary(2)
@@ -323,7 +322,7 @@ def random_unitary(dim: Union[List[int], int], is_real: bool = False) -> np.ndar
      [0.4237286 +0.78941628j, 0.27157521-0.35145826j]]
 
     We can verify that this is in fact a valid unitary matrix using the
-    `is_unitary` function from `toqito` as follows
+    :code:`is_unitary` function from :code:`toqito` as follows
 
     >>> from toqito.matrix_props import is_unitary
     >>> is_unitary(complex_dm)
@@ -345,8 +344,8 @@ def random_unitary(dim: Union[List[int], int], is_real: bool = False) -> np.ndar
     True
 
     We may also generate unitaries such that the dimension argument provided is
-    a `list` as opposed to an `int`. Here is an example of a random unitary
-    matrix of dimension :math:`4`.
+    a :code:`list` as opposed to an :code:`int`. Here is an example of a random
+    unitary matrix of dimension :math:`4`.
 
     >>> from toqito.random import random_unitary
     >>> mat = random_unitary([4, 4], True)
@@ -372,8 +371,8 @@ def random_unitary(dim: Union[List[int], int], is_real: bool = False) -> np.ndar
 
     :param dim: The number of rows (and columns) of the unitary matrix.
     :param is_real: Boolean denoting whether the returned matrix has real
-                    entries or not. Default is `False`.
-    :return: A `dim`-by-`dim` random unitary matrix.
+                    entries or not. Default is :code:`False`.
+    :return: A :code:`dim`-by-:code:`dim` random unitary matrix.
     """
     if isinstance(dim, int):
         dim = [dim, dim]

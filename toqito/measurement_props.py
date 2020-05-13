@@ -29,14 +29,16 @@ def is_povm(mat_list: List[np.ndarray]) -> bool:
     Consider the following matrices
 
     .. math::
-        M_0 = \begin{pmatrix}
-                                1 & 0 \\
-                                0 & 0
-                             \end{pmatrix}, \qquad
-        M_1 = \begin{pmatrix}
-                0 & 0 \\
-                0 & 1
-              \end{pmatrix}
+        M_0 =
+        \begin{pmatrix}
+            1 & 0 \\
+            0 & 0
+        \end{pmatrix}, \qquad
+        M_1 =
+        \begin{pmatrix}
+            0 & 0 \\
+            0 & 1
+        \end{pmatrix}
 
     our function indicates that this set of operators constitute a POVM.
 
@@ -48,8 +50,9 @@ def is_povm(mat_list: List[np.ndarray]) -> bool:
     >>> is_povm(meas)
     True
 
-    We may also use the `random_povm` function from `toqito`, and can verify
-    that a randomly generated set satisfies the criteria for being a POVM set.
+    We may also use the :code:`random_povm` function from :code:`toqito`, and
+    can verify that a randomly generated set satisfies the criteria for being a
+    POVM set.
 
     >>> from toqito.measurement_props import is_povm
     >>> from toqito.random import random_povm
@@ -62,14 +65,16 @@ def is_povm(mat_list: List[np.ndarray]) -> bool:
     Alternatively, the following matrices
 
     .. math::
-        M_0 = \begin{pmatrix}
-                                1 & 2 \\
-                                3 & 4
-                             \end{pmatrix}, \qquad
-        M_1 = \begin{pmatrix}
-                5 & 6 \\
-                7 & 8
-              \end{pmatrix}
+        M_0 =
+        \begin{pmatrix}
+            1 & 2 \\
+            3 & 4
+        \end{pmatrix}, \qquad
+        M_1 =
+        \begin{pmatrix}
+            5 & 6 \\
+            7 & 8
+        \end{pmatrix}
 
     does not constitute a POVM set.
 
@@ -87,8 +92,8 @@ def is_povm(mat_list: List[np.ndarray]) -> bool:
         https://en.wikipedia.org/wiki/POVM
 
     :param mat_list: A list of matrices.
-    :return: True if set of matrices constitutes a set of measurements, and
-             False otherwise.
+    :return: Return :code:`True` if set of matrices constitutes a set of
+             measurements, and :code:`False` otherwise.
     """
     dim = mat_list[0].shape[0]
 

@@ -57,6 +57,8 @@ This setting is depicted in the following figure.
 Optimal probability of conclusively excluding a quantum state
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+
+
 Optimal probability of unambiguously excluding a quantum state
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

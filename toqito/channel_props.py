@@ -17,7 +17,7 @@ def is_completely_positive(
     Determine whether the given channel is completely positive [WatCP18]_.
 
     A map :math:`\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)` is
-    completely positive if it holds that
+    *completely positive* if it holds that
 
     .. math::
         \Phi \otimes \mathbb{I}_{\text{L}(\mathcal{Z})}
@@ -104,7 +104,7 @@ def is_herm_preserving(
     Determine whether the given channel is Hermitian-preserving [WatH18]_.
 
     A map :math:`\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)` is
-    Hermitian-preserving if it holds that
+    *Hermitian-preserving* if it holds that
 
     .. math::
         \Phi(H) \in \text{Herm}(\mathcal{Y})
@@ -177,7 +177,7 @@ def is_positive(
     Determine whether the given channel is positive [WatPM18]_.
 
     A map :math:`\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)` is
-    positive if it holds that
+    *positive* if it holds that
 
     .. math::
         \Phi(P) \in \text{Pos}(\mathcal{Y})

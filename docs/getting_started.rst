@@ -44,8 +44,8 @@ You can cite :code:`toqito` using the following
 DOI: `10.5281/zenodo.3699578 <https://zenodo.org/record/3699578>`_
 
 If you are using the :code:`toqito` software package in research work, please
-include an explicit mention of toqito in your publication. Something along the
-lines of:
+include an explicit mention of :code:`toqito` in your publication. Something
+along the lines of:
 
     To solve problem "X" we used `toqito`; a package for studying certain
     aspects of quantum information.

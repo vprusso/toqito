@@ -345,6 +345,16 @@ def partial_trace(
     r"""
     Compute the partial trace of a matrix [WikPtrace]_.
 
+    The *partial trace* is defined as
+
+    .. math::
+        \left( \text{Tr} \otimes \mathbb{I}_{\mathcal{Y}} \right)
+        \left(X \otimes Y \right) = \text{Tr}(X)Y
+
+    where :math:`X \in \text{L}(\mathcal{X})` and
+    :math:`Y \in \text{L}(\mathcal{Y})` are linear operators over complex
+    Euclidean spaces :math:`\mathcal{X}` and :math:`\mathcal{Y}`.
+
     Gives the partial trace of the matrix X, where the dimensions of the
     (possibly more than 2) subsystems are given by the vector :code:`dim` and
     the subsystems to take the trace on are given by the scalar or vector
@@ -525,6 +535,21 @@ def partial_transpose(
     dim: Union[List[int], np.ndarray] = None,
 ) -> np.ndarray:
     r"""Compute the partial transpose of a matrix [WikPtrans]_.
+
+    The *partial transpose* is defined as
+
+    .. math::
+        \left( \text{T} \otimes \mathbb{I}_{\mathcal{Y}} \right)
+        \left(X\right)
+
+    where :math:`X \in \text{L}(\mathcal{X})` is a linear operator over the
+    complex Euclidean space :math:`\mathcal{X}` and where :math:`\text{T}` is
+    the transpose mapping :math:`\text{T} \in \text{T}(\mathcal{X})` defined as
+
+    .. math::
+        \text{T}(X) = X^{\text{T}}
+
+    for all :math:`X \in \text{L}(\mathcal{X})`.
 
     By default, the returned matrix is the partial transpose of the matrix
     :code:`rho`, where it is assumed that the number of rows and columns of
