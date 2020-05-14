@@ -27,6 +27,40 @@ class TestTensor(unittest.TestCase):
         bool_mat = np.isclose(res, input_arr)
         self.assertEqual(np.all(bool_mat), True)
 
+    def test_tensor_array_of_numpy_arrays_two(self):
+        """Performing tensor product on two numpy array of numpy arrays."""
+        input_arr = np.array([np.array([[1, 2], [3, 4]]), np.array([[5, 6], [7, 8]])])
+        res = tensor(input_arr)
+
+        expected_res = np.array(
+            [[5, 6, 10, 12], [7, 8, 14, 16], [15, 18, 20, 24], [21, 24, 28, 32]]
+        )
+
+        bool_mat = np.isclose(res, expected_res)
+        self.assertEqual(np.all(bool_mat), True)
+
+    def test_tensor_array_of_numpy_arrays_three(self):
+        """Performing tensor product on three numpy array of numpy arrays."""
+        input_arr = np.array([np.identity(2), np.identity(2), np.identity(2)])
+        res = tensor(input_arr)
+
+        expected_res = np.identity(8)
+
+        bool_mat = np.isclose(res, expected_res)
+        self.assertEqual(np.all(bool_mat), True)
+
+    def test_tensor_array_of_numpy_arrays_four(self):
+        """Performing tensor product on four numpy array of numpy arrays."""
+        input_arr = np.array(
+            [np.identity(2), np.identity(2), np.identity(2), np.identity(2)]
+        )
+        res = tensor(input_arr)
+
+        expected_res = np.identity(16)
+
+        bool_mat = np.isclose(res, expected_res)
+        self.assertEqual(np.all(bool_mat), True)
+
     def test_tensor_multiple_args(self):
         """Performing tensor product on multiple matrices."""
         input_arr_1 = np.identity(2)

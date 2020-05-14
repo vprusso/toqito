@@ -255,7 +255,7 @@ def tensor(*args) -> np.ndarray:
     in `toqito` as follows.
 
     >>> from toqito.states import basis
-    >>> from toqito.state_ops.tensor import tensor
+    >>> from toqito.state_ops import tensor
     >>> e_0 = basis(2, 0)
     >>> tensor(e_0, 3)
     [[1],
@@ -275,7 +275,7 @@ def tensor(*args) -> np.ndarray:
     so as follows.
 
     >>> from toqito.states import basis
-    >>> from toqito.state_ops.tensor import tensor
+    >>> from toqito.state_ops import tensor
     >>> e_0, e_1 = basis(2, 0), basis(2, 1)
     >>> tensor([e_0, e_1, e_0])
     [[0],
@@ -312,6 +312,19 @@ def tensor(*args) -> np.ndarray:
                 result = np.kron(result, args[0][i])
         return result
 
+    if len(args) == 1 and isinstance(args[0], np.ndarray):
+        # If the numpy array is just a single matrix, so the dimensions are
+        # provided as an (x, y)-tuple.
+        if len(args[0].shape) == 2:
+            return args[0]
+        if len(args[0]) == 2:
+            return np.kron(args[0][0], args[0][1])
+        if len(args[0]) >= 3:
+            result = args[0][0]
+            for i in range(1, len(args[0])):
+                result = np.kron(result, args[0][i])
+        return result
+
     # Tensor product one matrix `n` times with itself.
     if len(args) == 2 and isinstance(args[1], int):
         num_tensor = args[1]
@@ -335,4 +348,4 @@ def tensor(*args) -> np.ndarray:
         for i in range(1, len(args)):
             result = np.kron(result, args[i])
         return result
-    raise ValueError("The `tensor` function must take either a matrix or " "vector.")
+    raise ValueError("The `tensor` function must take either a matrix or vector.")

@@ -123,7 +123,11 @@ class XORGame:
     """
 
     def __init__(
-        self, prob_mat: np.ndarray, pred_mat: np.ndarray, tol: float = None
+        self,
+        prob_mat: np.ndarray,
+        pred_mat: np.ndarray,
+        reps: int = 1,
+        tol: float = None,
     ) -> None:
         """
         Construct XOR game object.
@@ -138,6 +142,7 @@ class XORGame:
         """
         self.prob_mat = prob_mat
         self.pred_mat = pred_mat
+        self.reps = reps
 
         q_0, q_1 = self.prob_mat.shape
         if tol is None:
@@ -164,33 +169,70 @@ class XORGame:
                 "probability matrix: its entries must sum to 1."
             )
 
-        self.quantum_strategy = None
-        self.classical_strategy = None
-
     def quantum_value(self) -> float:
-        """
+        r"""
         Compute the quantum value of the XOR game.
+
+        To obtain the quantum value of the XOR game, we calculate the following
+        simplified dual problem of the semidefinite program from the set of
+        notes: https://cs.uwaterloo.ca/~watrous/CS867.Winter2017/Notes/06.pdf
+
+        .. math::
+            \begin{equation}
+                \begin{aligned}
+                    \text{minimize:} \quad & \frac{1}{2} \sum_{x \in X} u(x) +
+                                             \frac{1}{2} \sum_{y \in Y} v(y) \\
+                    \text{subject to:} \quad &
+                            \begin{pmatrix}
+                                \text{Diag}(u) & -D \\
+                                -D^* & \text{Diag}(v)
+                            \end{pmatrix} \geq 0, \\
+                            & u \in \mathbb{R}^X, \
+                              v \in \mathbb{R}^Y.
+                \end{aligned}
+            \end{equation}
+
+        where :math:`D` is the matrix defined to be
+
+        .. math::
+            D(x,y) = \pi(x, y) (-1)^{f(x,y)}
+
+        In other words, :math:`\pi(x, y)` corresponds to :code:`prob_mat[x, y]`,
+        and :math:`f(x,y)` corresponds to :code:`pred_mat[x, y]`.
 
         :return: A value between [0, 1] representing the quantum value.
         """
-        q_0, q_1 = self.prob_mat.shape
+        alice_in, bob_in = self.prob_mat.shape
+        d_mat = np.zeros([alice_in, bob_in])
 
-        # Compute the value of the game, depending on which type of value was
-        # requested.
-        # Use semidefinite programming to compute the value of the game.
-        p_var = self.prob_mat * (1 - 2 * self.pred_mat)
-        q_var = np.bmat(
-            [[np.zeros((q_0, q_0)), p_var], [p_var.conj().T, np.zeros((q_1, q_1))]]
-        )
+        for x_alice in range(alice_in):
+            for y_bob in range(bob_in):
+                d_mat[x_alice, y_bob] = self.prob_mat[x_alice, y_bob] * \
+                                        (-1) ** (self.pred_mat[x_alice, y_bob])
 
-        x_var = cvxpy.Variable((q_0 + q_1, q_0 + q_1), symmetric=True)
-        objective = cvxpy.Maximize(cvxpy.trace(q_var @ x_var))
-        constraints = [cvxpy.diag(x_var) == 1, x_var >> 0]
+        u_vec = cvxpy.Variable(alice_in, complex=False)
+        v_vec = cvxpy.Variable(bob_in, complex=False)
+
+        objective = cvxpy.Minimize(cvxpy.sum(u_vec) + cvxpy.sum(v_vec))
+        constraints = [
+            cvxpy.bmat(
+                [[cvxpy.diag(u_vec), -d_mat],
+                 [np.negative(d_mat.conj().T), cvxpy.diag(v_vec)]]
+            )
+            >> 0
+        ]
+
         problem = cvxpy.Problem(objective, constraints)
-
         problem.solve()
 
-        return np.real(problem.value) / 4 + 1 / 2
+        if self.reps == 1:
+            return np.real(problem.value) / 4 + 1 / 2
+        # It holds from (https://arxiv.org/abs/quant-ph/0608146) that the
+        # quantum value of any XOR game obeys strong parallel repetition. That
+        # is, it holds that:
+        #   \omega^*(G^{^n}) = \omega^*(G)^n,
+        # where G^{^n} denotes playing the game G n-times.
+        return (np.real(problem.value) / 4 + 1 / 2) ** self.reps
 
     def classical_value(self) -> float:
         """
@@ -198,45 +240,51 @@ class XORGame:
 
         :return: A value between [0, 1] representing the classical value.
         """
-        q_0, q_1 = self.prob_mat.shape
+        if self.reps == 1:
+            q_0, q_1 = self.prob_mat.shape
 
-        # At worst, out winning probability is 0. Now, try to improve.
-        val = 0
+            # At worst, out winning probability is 0. Now, try to improve.
+            val = 0
 
-        # Find the maximum probability of winning (this is NP-hard, so don't
-        # expect an easy way to do it: just loop over all strategies.
+            # Find the maximum probability of winning (this is NP-hard, so don't
+            # expect an easy way to do it: just loop over all strategies.
 
-        # Loop over Alice's answers
-        for a_ans in range(2 ** q_0):
-            # Loop over Bob's answers:
-            for b_ans in range(2 ** q_1):
-                a_vec = (a_ans >> np.arange(q_0)) & 1
-                b_vec = (b_ans >> np.arange(q_1)) & 1
+            # Loop over Alice's answers
+            for a_ans in range(2 ** q_0):
+                # Loop over Bob's answers:
+                for b_ans in range(2 ** q_1):
+                    a_vec = (a_ans >> np.arange(q_0)) & 1
+                    b_vec = (b_ans >> np.arange(q_1)) & 1
 
-                # Now compute the winning probability under this strategy: XOR
-                # together Alice's responses and Bob's responses, then check
-                # where the XORed value equals the value in the given matrix F.
-                # Where the values match, multiply by the probability of
-                # getting that pair of questions (i.e., multiply by the
-                # probability of getting that pair of questions (i.e., multiply
-                # entry-wise by P) and then sum over the rows and columns.
-                self.classical_strategy = np.mod(
-                    np.multiply(a_vec.conj().T.reshape(-1, 1), np.ones((1, q_1)))
-                    + np.multiply(np.ones((q_0, 1)), b_vec),
-                    2,
-                )
-                p_win = np.sum(
-                    np.sum(
-                        np.multiply(
-                            self.classical_strategy == self.pred_mat, self.prob_mat
+                    # Now compute the winning probability under this strategy: XOR
+                    # together Alice's responses and Bob's responses, then check
+                    # where the XORed value equals the value in the given matrix F.
+                    # Where the values match, multiply by the probability of
+                    # getting that pair of questions (i.e., multiply by the
+                    # probability of getting that pair of questions (i.e., multiply
+                    # entry-wise by P) and then sum over the rows and columns.
+                    classical_strategy = np.mod(
+                        np.multiply(a_vec.conj().T.reshape(-1, 1), np.ones((1, q_1)))
+                        + np.multiply(np.ones((q_0, 1)), b_vec),
+                        2,
+                    )
+                    p_win = np.sum(
+                        np.sum(
+                            np.multiply(
+                                classical_strategy == self.pred_mat, self.prob_mat
+                            )
                         )
                     )
-                )
+                    print(p_win)
+                    # Is this strategy better than other ones tried so far?
+                    val = max(val, p_win)
 
-                # Is this strategy better than other ones tried so far?
-                val = max(val, p_win)
-
-                # Already optimal? Quit.
-                if val >= 1 - self.tol:
-                    return val
-        return val
+                    # Already optimal? Quit.
+                    if val >= 1 - self.tol:
+                        return val
+            return val
+        raise ValueError(
+            "Error: toqito currently does not support "
+            "multiple repetitions for the classical value of "
+            "a nonlocal game."
+        )

@@ -4,6 +4,8 @@ from collections import defaultdict
 import cvxpy
 import numpy as np
 from toqito.random import random_povm
+from toqito.state_ops import tensor
+from toqito.helper import update_odometer
 
 
 class NonlocalGame:
@@ -13,17 +15,48 @@ class NonlocalGame:
     Test.
     """
 
-    def __init__(self, dim: int, prob_mat: np.ndarray, pred_mat: np.ndarray) -> None:
+    def __init__(
+        self, dim: int, prob_mat: np.ndarray, pred_mat: np.ndarray, reps: int = 1
+    ) -> None:
         """
         Construct nonlocal game object.
 
         :param dim:
         :param prob_mat:
         :param pred_mat:
+        :param reps:
         """
-        self.dim = dim
-        self.prob_mat = prob_mat
-        self.pred_mat = pred_mat
+        if reps == 1:
+            self.dim = dim
+            self.prob_mat = prob_mat
+            self.pred_mat = pred_mat
+            self.reps = reps
+
+        else:
+            num_alice_out, num_bob_out, num_alice_in, num_bob_in = pred_mat.shape
+            self.prob_mat = tensor(prob_mat, reps)
+            self.dim = dim ** reps
+
+            pred_mat2 = np.zeros(
+                (
+                    num_alice_out ** reps,
+                    num_bob_out ** reps,
+                    num_alice_in ** reps,
+                    num_bob_in ** reps,
+                )
+            )
+            i_ind = np.zeros(reps, dtype=int)
+            j_ind = np.zeros(reps, dtype=int)
+            for i in range(num_alice_in ** reps):
+                for j in range(num_bob_in ** reps):
+                    to_tensor = np.empty([reps, num_alice_out, num_bob_out])
+                    for k in range(reps - 1, -1, -1):
+                        to_tensor[k] = pred_mat[:, :, i_ind[k], j_ind[k]]
+                    pred_mat2[:, :, i, j] = tensor(to_tensor)
+                    j_ind = update_odometer(j_ind, num_bob_in * np.ones(reps))
+                i_ind = update_odometer(i_ind, num_alice_in * np.ones(reps))
+            self.pred_mat = pred_mat2
+            self.reps = reps
 
     def classical_value(self) -> float:
         """
@@ -31,31 +64,36 @@ class NonlocalGame:
 
         :return: A value between [0, 1] representing the classical value.
         """
-        (
-            num_alice_outputs,
-            num_bob_outputs,
-            num_alice_inputs,
-            num_bob_inputs,
-        ) = self.pred_mat.shape
+        if self.reps == 1:
+            (
+                num_alice_outputs,
+                num_bob_outputs,
+                num_alice_inputs,
+                num_bob_inputs,
+            ) = self.pred_mat.shape
 
-        # Calculating the classical value of a nonlocal game, in general, is
-        # NP-hard. Our approach here is to simply loop over all possible
-        # combinations of pairs of questions and answers and keep track of
-        # which combination yields the highest classical value.
-        p_win = 0
-        for a_alice_out in range(num_alice_outputs):
-            for b_bob_out in range(num_bob_outputs):
-                p_sum = 0
-                for x_alice_in in range(num_alice_inputs):
-                    for y_bob_in in range(num_bob_inputs):
-                        p_sum += (
-                            self.prob_mat[x_alice_in, y_bob_in]
-                            * self.pred_mat[
-                                a_alice_out, b_bob_out, x_alice_in, y_bob_in
-                            ]
-                        )
-                p_win = max(p_win, p_sum)
-        return p_win
+            # Calculating the classical value of a nonlocal game, in general, is
+            # NP-hard. Our approach here is to simply loop over all possible
+            # combinations of pairs of questions and answers and keep track of
+            # which combination yields the highest classical value.
+            p_win = 0
+            for a_alice_out in range(num_alice_outputs):
+                for b_bob_out in range(num_bob_outputs):
+                    p_sum = 0
+                    for x_alice_in in range(num_alice_inputs):
+                        for y_bob_in in range(num_bob_inputs):
+                            p_sum += (
+                                self.prob_mat[x_alice_in, y_bob_in]
+                                * self.pred_mat[
+                                    a_alice_out, b_bob_out, x_alice_in, y_bob_in
+                                ]
+                            )
+                    p_win = max(p_win, p_sum)
+            return p_win
+        raise ValueError(
+            "Error: toqito currently does not support multiple "
+            "repetitions for the classical value of an XOR game."
+        )
 
     def quantum_value_lower_bound(
         self, iters: int = 5, tol: float = 10e-6,
