@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "toqito"
-version = "0.0.1"
-description = "General purpose Python tools for the study of quantum information."
+version = "0.0.3"
+description = "Python tools for the study of quantum information."
 authors = [
     "Vincent Russo <vincentrusso1@gmail.com>"
 ]
@@ -25,7 +25,6 @@ scikit-image = "*"
 [tool.poetry.dev-dependencies]
 flake8 = "^3.7"
 flake8-docstrings = "^1.5"
-nose = "^1.3"
 pep8 = "^1.7"
 pylint = "^2.4"
 pytest = "*"
@@ -33,6 +32,8 @@ pytest-cov = "*"
 mypy = "^0.750.0"
 coverage = "^4.5"
 coveralls = "^1.9"
+sphinx = "*"
+sphinx_rtd_theme = "*"
 
 [build-system]
 requires = ["poetry>=0.12"]
