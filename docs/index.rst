@@ -1,64 +1,79 @@
 Welcome to toqito's documentation
 ==================================
 
-toqito is an open source library for studying various objects in quantum information, namely, states, channels, and measurements. 
+.. figure:: figures/logo.svg
+   :alt: toqito logo
+   :align: center
 
-Introduction
-==================================
+toqito is an open source library for studying various objects in quantum
+information, namely, states, channels, and measurements.
 
-.. toctree::
-	:maxdepth: 1
-	:caption: Getting Started
-
-	getting_started
-
-.. toctree::
-	:maxdepth: 1
-	:caption: Tutorials
-
-	tutorials
-
-Functions
-==================================
-
-.. toctree::
-	:maxdepth: 2
-	:caption: Channels
-
-	channels
+.. image:: http://img.shields.io/travis/vprusso/toqito.svg?style=plastic
+   :alt: Build Status
+   :target: https://travis-ci.org/vprusso/toqito
+.. image:: https://readthedocs.org/projects/toqito/badge/?version=latest&style=plastic
+   :alt: Documentation
+   :target: https://codecov.io/gh/vprusso/toqito/branch/master/graph/badge.svg?style=plastic
+.. image:: http://img.shields.io/travis/vprusso/toqito.svg?style=plastic
+   :alt: Codecov
+   :target: https://codecov.io/gh/vprusso/toqito
+.. image:: https://zenodo.org/badge/235493396.svg?style=plastic
+   :alt: DOI
+   :target: https://zenodo.org/badge/latestdoi/235493396
+.. image:: https://img.shields.io/badge/Supported%20By-UNITARY%20FUND-brightgreen.svg?style=plastic
+   :alt: Unitary Fund
+   :target: http://unitary.fund
 
 .. toctree::
-	:maxdepth: 2
-	:caption: States
+    :maxdepth: 1
+    :caption: Getting Started
 
-	states
-
-.. toctree::
-	:maxdepth: 2
-	:caption: Measurements
-
-	measurements
+    getting_started
 
 .. toctree::
-	:maxdepth: 1
-	:caption: Nonlocal Games
+    :maxdepth: 1
+    :caption: Tutorials
 
-	nonlocal_games
-
-.. toctree::
-	:maxdepth: 1
-	:caption: Random States and Measurements
-
-	random
+    tutorials
 
 .. toctree::
-	:maxdepth: 1
-	:caption: Matrices
+    :maxdepth: 2
+    :caption: Channels
 
-	matrices
+    channels
 
 .. toctree::
-	:maxdepth: 1
-	:caption: Permutations and Combinatorics
+    :maxdepth: 2
+    :caption: States
 
-	perms	
+    states
+
+.. toctree::
+    :maxdepth: 2
+    :caption: Measurements
+
+    measurements
+
+.. toctree::
+    :maxdepth: 1
+    :caption: Nonlocal Games
+
+    nonlocal_games
+
+.. toctree::
+    :maxdepth: 1
+    :caption: Matrices
+
+    matrices
+
+.. toctree::
+    :maxdepth: 1
+    :caption: Random States and Measurements
+
+    random
+
+.. toctree::
+    :maxdepth: 1
+    :caption: Permutations and Combinatorics
+
+    perms

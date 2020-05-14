@@ -13,7 +13,7 @@ class NonlocalGame:
     Test.
     """
 
-    def __init__(self, dim: int, prob_mat: np.ndarray, pred_mat: np.ndarray,) -> None:
+    def __init__(self, dim: int, prob_mat: np.ndarray, pred_mat: np.ndarray) -> None:
         """
         Construct nonlocal game object.
 
