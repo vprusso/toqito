@@ -207,8 +207,9 @@ class XORGame:
 
         for x_alice in range(alice_in):
             for y_bob in range(bob_in):
-                d_mat[x_alice, y_bob] = self.prob_mat[x_alice, y_bob] * \
-                                        (-1) ** (self.pred_mat[x_alice, y_bob])
+                d_mat[x_alice, y_bob] = self.prob_mat[x_alice, y_bob] * (-1) ** (
+                    self.pred_mat[x_alice, y_bob]
+                )
 
         u_vec = cvxpy.Variable(alice_in, complex=False)
         v_vec = cvxpy.Variable(bob_in, complex=False)
@@ -216,8 +217,10 @@ class XORGame:
         objective = cvxpy.Minimize(cvxpy.sum(u_vec) + cvxpy.sum(v_vec))
         constraints = [
             cvxpy.bmat(
-                [[cvxpy.diag(u_vec), -d_mat],
-                 [np.negative(d_mat.conj().T), cvxpy.diag(v_vec)]]
+                [
+                    [cvxpy.diag(u_vec), -d_mat],
+                    [np.negative(d_mat.conj().T), cvxpy.diag(v_vec)],
+                ]
             )
             >> 0
         ]
@@ -256,13 +259,14 @@ class XORGame:
                     a_vec = (a_ans >> np.arange(q_0)) & 1
                     b_vec = (b_ans >> np.arange(q_1)) & 1
 
-                    # Now compute the winning probability under this strategy: XOR
-                    # together Alice's responses and Bob's responses, then check
-                    # where the XORed value equals the value in the given matrix F.
-                    # Where the values match, multiply by the probability of
-                    # getting that pair of questions (i.e., multiply by the
-                    # probability of getting that pair of questions (i.e., multiply
-                    # entry-wise by P) and then sum over the rows and columns.
+                    # Now compute the winning probability under this strategy:
+                    # XOR together Alice's responses and Bob's responses, then
+                    # check where the XORed value equals the value in the given
+                    # matrix. Where the values match, multiply by the
+                    # probability of getting that pair of questions (i.e.,
+                    # multiply by the probability of getting that pair of
+                    # questions (i.e., multiply entry-wise by P) and then sum
+                    # over the rows and columns.
                     classical_strategy = np.mod(
                         np.multiply(a_vec.conj().T.reshape(-1, 1), np.ones((1, q_1)))
                         + np.multiply(np.ones((q_0, 1)), b_vec),
@@ -275,7 +279,6 @@ class XORGame:
                             )
                         )
                     )
-                    print(p_win)
                     # Is this strategy better than other ones tried so far?
                     val = max(val, p_win)
 
