@@ -21,6 +21,8 @@ class ExtendedNonlocalGame:
 
     The BB84 game
 
+    Let :math:`\Sigma_A = \Sigma_B = \Gamma_A = \Gamma_B = \{0, 1\}`, define
+
     References
     ==========
     .. [JMRW16] Nathaniel Johnston, Rajat Mittal, Vincent Russo, John Watrous
@@ -44,17 +46,32 @@ class ExtendedNonlocalGame:
         self.pred_mat = pred_mat
 
     def unentangled_value(self) -> float:
-        """
+        r"""
         Calculate the unentangled value of an extended nonlocal game.
 
-        :return:
+        The *unentangled value* of an extended nonlocal game is the supremum
+        value for Alice and Bob's winning probability in the game over all
+        unentangled strategies. Due to convexity and compactness, it is possible
+        to calculate the unentangled extended nonlocal game by:
+
+        .. math::
+            \omega(G) = \max_{f, g}
+            \lVert
+            \sum_{(x,y) \in \Sigma_A \times \Sigma_B} \pi(x,y)
+            V(f(x), g(y)|x, y)
+            \rVert
+
+        where the maximum is over all functions :math:`f : \Sigma_A \rightarrow
+        \Gamma_A` and :math:`g : \Sigma_B \rightarrow \Gamma_B`.
+
+        :return: The unentangled value of the extended nonlocal game.
         """
         dim_x, dim_y, alice_out, bob_out, alice_in, bob_in = self.pred_mat.shape
 
         max_unent_val = float("-inf")
         for a_out in range(alice_out):
             for b_out in range(bob_out):
-                p_win = np.zeros([dim_x, dim_y])
+                p_win = np.zeros([dim_x, dim_y], dtype=complex)
                 for x_in in range(alice_in):
                     for y_in in range(bob_in):
                         p_win += (
@@ -74,9 +91,9 @@ class ExtendedNonlocalGame:
                 max_unent_val = max(max_unent_val, unent_val)
         return max_unent_val
 
-    def nosignaling_value(self) -> float:
+    def nonsignaling_value(self) -> float:
         """
-        Calculate the no-signaling value of an extended nonlocal game.
+        Calculate the non-signaling value of an extended nonlocal game.
 
-        :return:
+        :return: The non-signaling value of the extended nonlocal game.
         """

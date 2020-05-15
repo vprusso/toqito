@@ -18,6 +18,14 @@ Nonlocal Games
    :undoc-members:
    :show-inheritance:
 
+Extended Nonlocal Games
+---------------
+
+.. automodule:: toqito.nonlocal_games.extended_nonlocal_game
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Quantum Hedging Protocols
 -------------------------
 
