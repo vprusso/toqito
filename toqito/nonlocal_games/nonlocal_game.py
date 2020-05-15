@@ -92,7 +92,7 @@ class NonlocalGame:
             return p_win
         raise ValueError(
             "Error: toqito currently does not support multiple "
-            "repetitions for the classical value of an XOR game."
+            "repetitions for the classical value of a nonlocal game."
         )
 
     def quantum_value_lower_bound(

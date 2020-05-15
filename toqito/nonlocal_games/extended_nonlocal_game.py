@@ -1,4 +1,6 @@
 """Two-player extended nonlocal game."""
+from collections import defaultdict
+
 import cvxpy
 import numpy as np
 
@@ -18,13 +20,6 @@ class ExtendedNonlocalGame:
 
     Extended nonlocal games were initially defined in [JMRW16]_ and more
     information on these games can be found in [Russo17]_.
-
-    Examples
-    ==========
-
-    The BB84 game
-
-    Let :math:`\Sigma_A = \Sigma_B = \Gamma_A = \Gamma_B = \{0, 1\}`, define
 
     References
     ==========
@@ -136,8 +131,132 @@ class ExtendedNonlocalGame:
         return max_unent_val
 
     def nonsignaling_value(self) -> float:
-        """
+        r"""
         Calculate the non-signaling value of an extended nonlocal game.
+
+        The *non-signaling value* of an extended nonlocal game is the supremum
+        value of the winning probability of the game taken over all
+        non-signaling strategies for Alice and Bob.
+
+        A *non-signaling strategy* for an extended nonlocal game consists of a
+        function
+
+        .. math::
+            K : \Gamma_A \times \Gamma_B \times \Sigma_A \times \Sigma_B
+            \rightarrow \text{Pos}(\mathcal{R})
+
+        such that
+
+        .. math::
+            \sum_{a \in \Gamma_A} K(a,b|x,y) = \rho_b^y
+            \quad \text{and} \quad
+            \sum_{b \in \Gamma_B} K(a,b|x,y) = \sigma_a^x,
+
+        for all :math:`x \in \Sigma_A` and :math:`y \in \Sigma_B` where
+        :math:`\{\rho_b^y : y \in \Sigma_A, \ b \in \Gamma_B\}` and
+        :math:`\{\sigma_a^x : x \in \Sigma_A, \ a \in \Gamma_B\}` are
+        collections of operators satisfying
+
+        .. math::
+            \sum_{a \in \Gamma_A} \rho_b^y =
+            \tau =
+            \sum_{b \in \Gamma_B} \sigma_a^x,
+
+        for every choice of :math:`x \in \Sigma_A` and :math:`y \in \Sigma_B`
+        where :math:`\tau \in \text{D}(\mathcal{R})` is a density operator.
 
         :return: The non-signaling value of the extended nonlocal game.
         """
+        dim_x, dim_y, alice_out, bob_out, alice_in, bob_in = self.pred_mat.shape
+
+        # The cvxpy package does not support optimizing over more than
+        # 2-dimensional objects. To overcome this, we use a dictionary to index
+        # between the questions and answers, while the cvxpy variables held at
+        # this positions are `dim_x`-by-`dim_y` cvxpy Variable objects.
+
+        # Define K(a,b|x,y) variable.
+        k_var = defaultdict(cvxpy.Variable)
+        for a_out in range(alice_out):
+            for b_out in range(bob_out):
+                for x_in in range(alice_in):
+                    for y_in in range(bob_in):
+                        k_var[a_out, b_out, x_in, y_in] = cvxpy.Variable(
+                            (dim_x, dim_y), PSD=True
+                        )
+
+        # Define \sigma_a^x variable.
+        sigma = defaultdict(cvxpy.Variable)
+        for a_out in range(alice_out):
+            for x_in in range(alice_in):
+                sigma[a_out, x_in] = cvxpy.Variable((dim_x, dim_y), hermitian=True)
+
+        # Define \rho_b^y variable.
+        rho = defaultdict(cvxpy.Variable)
+        for b_out in range(bob_out):
+            for y_in in range(bob_in):
+                rho[b_out, y_in] = cvxpy.Variable((dim_x, dim_y), hermitian=True)
+
+        # Define \tau density operator variable.
+        tau = cvxpy.Variable((dim_x, dim_y), hermitian=True)
+
+        p_win = 0
+        for a_out in range(alice_out):
+            for b_out in range(bob_out):
+                for x_in in range(alice_in):
+                    for y_in in range(bob_in):
+                        p_win += self.prob_mat[x_in, y_in] * cvxpy.trace(
+                            self.pred_mat[:, :, a_out, b_out, x_in, y_in].conj().T
+                            @ k_var[a_out, b_out, x_in, y_in]
+                        )
+
+        objective = cvxpy.Maximize(cvxpy.real(p_win))
+
+        constraints = list()
+
+        # The following constraints enforce the so-called non-signaling
+        # constraints.
+
+        # Enforce that:
+        # \sum_{b \in \Gamma_B} K(a,b|x,y) = \sigma_a^x
+        for x_in in range(alice_in):
+            for y_in in range(bob_in):
+                for a_out in range(alice_out):
+                    b_sum = 0
+                    for b_out in range(bob_out):
+                        b_sum += k_var[a_out, b_out, x_in, y_in]
+                    constraints.append(b_sum == sigma[a_out, x_in])
+
+        # Enforce that:
+        # \sum_{a \in \Gamma_A} K(a,b|x,y) = \rho_b^y
+        for x_in in range(alice_in):
+            for y_in in range(bob_in):
+                for b_out in range(bob_out):
+                    a_sum = 0
+                    for a_out in range(alice_out):
+                        a_sum += k_var[a_out, b_out, x_in, y_in]
+                    constraints.append(a_sum == rho[b_out, y_in])
+
+        # Enforce that:
+        # \sum_{a \in \Gamma_A} \sigma_a^x = \tau
+        for x_in in range(alice_in):
+            sig_a_sum = 0
+            for a_out in range(alice_out):
+                sig_a_sum += sigma[a_out, x_in]
+            constraints.append(sig_a_sum == tau)
+
+        # Enforce that:
+        # \sum_{b \in \Gamma_B} \rho_b^y = \tau
+        for y_in in range(bob_in):
+            rho_b_sum = 0
+            for b_out in range(bob_out):
+                rho_b_sum += rho[b_out, y_in]
+            constraints.append(rho_b_sum == tau)
+
+        # Enforce that tau is a density operator.
+        constraints.append(cvxpy.trace(tau) == 1)
+        constraints.append(tau >> 0)
+
+        problem = cvxpy.Problem(objective, constraints)
+        ns_val = problem.solve()
+
+        return ns_val

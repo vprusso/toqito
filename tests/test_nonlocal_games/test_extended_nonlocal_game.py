@@ -126,6 +126,24 @@ class TestExtendedNonlocalGame(unittest.TestCase):
 
         self.assertEqual(np.isclose(res, expected_res), True)
 
+    def test_bb84_nonsignaling_value(self):
+        """Calculate the non-signaling value of the BB84 game."""
+        prob_mat, pred_mat = self.bb84_extended_nonlocal_game()
+        bb84 = ExtendedNonlocalGame(prob_mat, pred_mat)
+        res = bb84.nonsignaling_value()
+        expected_res = np.cos(np.pi / 8) ** 2
+
+        self.assertEqual(np.isclose(res, expected_res, rtol=1e-03), True)
+
+    def test_bb84_nonsignaling_value_rep_2(self):
+        """Calculate the non-signaling value of the BB84 game for 2 reps."""
+        prob_mat, pred_mat = self.bb84_extended_nonlocal_game()
+        bb84 = ExtendedNonlocalGame(prob_mat, pred_mat, 2)
+        res = bb84.nonsignaling_value()
+        expected_res = 0.73826
+
+        self.assertEqual(np.isclose(res, expected_res, rtol=1e-03), True)
+
     def test_chsh_unentangled_value(self):
         """Calculate the unentangled value of the CHSH game."""
         prob_mat, pred_mat = self.chsh_extended_nonlocal_game()
