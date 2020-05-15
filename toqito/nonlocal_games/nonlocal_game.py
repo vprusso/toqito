@@ -271,11 +271,12 @@ class NonlocalGame:
     def __optimize_alice(self, bob_povms) -> Tuple[Dict, float]:
         """Fix Bob's measurements and optimize over Alice's measurements."""
         # Get number of inputs and outputs.
-        num_inputs_alice, num_inputs_bob = self.prob_mat.shape
-        num_outputs_alice, num_outputs_bob = (
-            self.pred_mat.shape[0],
-            self.pred_mat.shape[1],
-        )
+        (
+            num_outputs_alice,
+            num_outputs_bob,
+            num_inputs_alice,
+            num_inputs_bob,
+        ) = self.pred_mat.shape
 
         # The cvxpy package does not support optimizing over 4-dimensional objects.
         # To overcome this, we use a dictionary to index between the questions and
@@ -345,11 +346,12 @@ class NonlocalGame:
     def __optimize_bob(self, alice_povms) -> Tuple[Dict, float]:
         """Fix Alice's measurements and optimize over Bob's measurements."""
         # Get number of inputs and outputs.
-        num_inputs_alice, num_inputs_bob = self.prob_mat.shape
-        num_outputs_alice, num_outputs_bob = (
-            self.pred_mat.shape[0],
-            self.pred_mat.shape[1],
-        )
+        (
+            num_outputs_alice,
+            num_outputs_bob,
+            num_inputs_alice,
+            num_inputs_bob,
+        ) = self.pred_mat.shape
 
         # Now, optimize over Bob's measurement operators and fix Alice's operators
         # as those are coming from the previous SDP.

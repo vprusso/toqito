@@ -9,8 +9,9 @@ from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
 class TestExtendedNonlocalGame(unittest.TestCase):
     """Unit test for ExtendedNonlocalGame."""
 
-    def test_bb84_unentangled_value(self):
-        """Calculate the unentangled value of the BB84 game."""
+    @staticmethod
+    def bb84_extended_nonlocal_game():
+        """Define the BB84 extended nonlocal game."""
         e_0, e_1 = basis(2, 0), basis(2, 1)
         e_p = (e_0 + e_1) / np.sqrt(2)
         e_m = (e_0 - e_1) / np.sqrt(2)
@@ -29,14 +30,11 @@ class TestExtendedNonlocalGame(unittest.TestCase):
 
         prob_mat = 1 / 2 * np.identity(2)
 
-        bb84 = ExtendedNonlocalGame(prob_mat, pred_mat)
-        res = bb84.unentangled_value()
-        expected_res = np.cos(np.pi / 8) ** 2
+        return prob_mat, pred_mat
 
-        self.assertEqual(np.isclose(res, expected_res), True)
-
-    def test_chsh_unentangled_value(self):
-        """Calculate the unentangled value of the CHSH game."""
+    @staticmethod
+    def chsh_extended_nonlocal_game():
+        """Define the CHSH extended nonlocal game."""
         dim_x = dim_y = 2
         num_alice_out, num_bob_out = 2, 2
         num_alice_in, num_bob_in = 2, 2
@@ -57,16 +55,11 @@ class TestExtendedNonlocalGame(unittest.TestCase):
 
         prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
 
-        chsh = ExtendedNonlocalGame(prob_mat, pred_mat)
-        res = chsh.unentangled_value()
-        expected_res = 3 / 4
+        return prob_mat, pred_mat
 
-        self.assertEqual(np.isclose(res, expected_res), True)
-
-    def test_moe_mub_in_4_out_3_unentangled_value(self):
-        """
-        Calculate the unentanlged value of a monogamy-of-entanglement game.
-        """
+    @staticmethod
+    def moe_mub_4_in_3_out_game():
+        """Define the monogamy-of-entanglement game defined by MUBs."""
         prob_mat = 1 / 4 * np.identity(4)
 
         dim = 3
@@ -113,8 +106,42 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         pred_mat[:, :, 1, 1, 3, 3] = mubs[3][1] * mubs[3][1].conj().T
         pred_mat[:, :, 2, 2, 3, 3] = mubs[3][2] * mubs[3][2].conj().T
 
-        mub = ExtendedNonlocalGame(prob_mat, pred_mat)
-        res = mub.unentangled_value()
+        return prob_mat, pred_mat
+
+    def test_bb84_unentangled_value(self):
+        """Calculate the unentangled value of the BB84 game."""
+        prob_mat, pred_mat = self.bb84_extended_nonlocal_game()
+        bb84 = ExtendedNonlocalGame(prob_mat, pred_mat)
+        res = bb84.unentangled_value()
+        expected_res = np.cos(np.pi / 8) ** 2
+
+        self.assertEqual(np.isclose(res, expected_res), True)
+
+    def test_bb84_unentangled_value_rep_2(self):
+        """Calculate the unentangled value for BB84 game for 2 repetitions."""
+        prob_mat, pred_mat = self.bb84_extended_nonlocal_game()
+        bb84_2 = ExtendedNonlocalGame(prob_mat, pred_mat, 2)
+        res = bb84_2.unentangled_value()
+        expected_res = np.cos(np.pi / 8) ** 4
+
+        self.assertEqual(np.isclose(res, expected_res), True)
+
+    def test_chsh_unentangled_value(self):
+        """Calculate the unentangled value of the CHSH game."""
+        prob_mat, pred_mat = self.chsh_extended_nonlocal_game()
+        chsh = ExtendedNonlocalGame(prob_mat, pred_mat)
+        res = chsh.unentangled_value()
+        expected_res = 3 / 4
+
+        self.assertEqual(np.isclose(res, expected_res), True)
+
+    def test_moe_mub_4_in_3_out_unentangled_value(self):
+        """
+        Calculate the unentangled value of a monogamy-of-entanglement game.
+        """
+        prob_mat, pred_mat = self.moe_mub_4_in_3_out_game()
+        moe = ExtendedNonlocalGame(prob_mat, pred_mat)
+        res = moe.unentangled_value()
         expected_res = (3 + np.sqrt(5)) / 8
 
         self.assertEqual(np.isclose(res, expected_res), True)
