@@ -19,7 +19,7 @@ Nonlocal Games
    :show-inheritance:
 
 Extended Nonlocal Games
----------------
+------------------------
 
 .. automodule:: toqito.nonlocal_games.extended_nonlocal_game
    :members:

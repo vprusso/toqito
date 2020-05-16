@@ -16,7 +16,7 @@ class NonlocalGame:
     """
 
     def __init__(
-        self, dim: int, prob_mat: np.ndarray, pred_mat: np.ndarray, reps: int = 1
+        self, prob_mat: np.ndarray, pred_mat: np.ndarray, reps: int = 1
     ) -> None:
         """
         Construct nonlocal game object.
@@ -27,7 +27,6 @@ class NonlocalGame:
         :param reps:
         """
         if reps == 1:
-            self.dim = dim
             self.prob_mat = prob_mat
             self.pred_mat = pred_mat
             self.reps = reps
@@ -35,7 +34,6 @@ class NonlocalGame:
         else:
             num_alice_out, num_bob_out, num_alice_in, num_bob_in = pred_mat.shape
             self.prob_mat = tensor(prob_mat, reps)
-            self.dim = dim ** reps
 
             pred_mat2 = np.zeros(
                 (
@@ -64,7 +62,7 @@ class NonlocalGame:
 
         :return: A value between [0, 1] representing the classical value.
         """
-        if self.reps == 1:
+        if self.reps >= 1:
             (
                 num_alice_outputs,
                 num_bob_outputs,
@@ -237,7 +235,7 @@ class NonlocalGame:
         for _ in range(iters):
             # Generate a set of random POVMs for Bob. These measurements serve as a
             # rough starting point for the alternating projection algorithm.
-            bob_tmp = random_povm(self.dim, num_inputs_bob, num_outputs_bob)
+            bob_tmp = random_povm(num_outputs_bob, num_inputs_bob, num_outputs_bob)
             bob_povms = defaultdict(int)
             for y_ques in range(num_inputs_bob):
                 for b_ans in range(num_outputs_bob):
@@ -286,10 +284,10 @@ class NonlocalGame:
         for x_ques in range(num_inputs_alice):
             for a_ans in range(num_outputs_alice):
                 alice_povms[x_ques, a_ans] = cvxpy.Variable(
-                    (self.dim, self.dim), PSD=True
+                    (num_outputs_alice, num_inputs_alice), PSD=True
                 )
 
-        tau = cvxpy.Variable((self.dim, self.dim), PSD=True)
+        tau = cvxpy.Variable((num_outputs_alice, num_outputs_bob), PSD=True)
 
         # .. math::
         #    \sum_{(x,y) \in \Sigma} \pi(x, y) V(a,b|x,y) \ip{B_b^y}{A_a^x}
@@ -359,7 +357,7 @@ class NonlocalGame:
         for y_ques in range(num_inputs_bob):
             for b_ans in range(num_outputs_bob):
                 bob_povms[y_ques, b_ans] = cvxpy.Variable(
-                    (self.dim, self.dim), PSD=True
+                    (num_outputs_bob, num_outputs_bob), PSD=True
                 )
 
         win = 0
@@ -384,9 +382,79 @@ class NonlocalGame:
             bob_sum_b = 0
             for b_ans in range(num_outputs_bob):
                 bob_sum_b += bob_povms[y_ques, b_ans]
-            constraints.append(bob_sum_b == np.identity(self.dim))
+            constraints.append(bob_sum_b == np.identity(num_outputs_bob))
 
         problem = cvxpy.Problem(objective, constraints)
 
         lower_bound = problem.solve()
         return bob_povms, lower_bound
+
+    def nonsignaling_value(self) -> float:
+        """
+        Compute the non-signaling value of the nonlocal game.
+
+        :return: A value between [0, 1] representing the non-signaling value.
+        """
+        alice_out, bob_out, alice_in, bob_in = self.pred_mat.shape
+
+        # Define C(a,b|x,y) variable.
+        c_var = defaultdict(cvxpy.Variable)
+        for a_out in range(alice_out):
+            for b_out in range(bob_out):
+                for x_in in range(alice_in):
+                    for y_in in range(bob_in):
+                        c_var[a_out, b_out, x_in, y_in] = cvxpy.Variable(
+                            (alice_out, bob_out), PSD=True
+                        )
+
+        a_sum_var = cvxpy.Variable()
+        b_sum_var = cvxpy.Variable()
+
+        p_win = cvxpy.Constant(0)
+        for a_out in range(alice_out):
+            for b_out in range(bob_out):
+                for x_in in range(alice_in):
+                    for y_in in range(bob_in):
+                        p_win += self.prob_mat[x_in, y_in] * cvxpy.trace(
+                            self.pred_mat[a_out, b_out, x_in, y_in].conj().T
+                            * c_var[a_out, b_out, x_in, y_in]
+                        )
+
+        objective = cvxpy.Maximize(p_win)
+
+        constraints = list()
+
+        # Enforce that probabilities must sum to 1.
+        # \sum_{(a,b) \in \Gamma} C(a,b|x,y) = 1
+        for x_in in range(alice_in):
+            for y_in in range(bob_in):
+                a_b_sum = 0
+                for a_out in range(alice_out):
+                    for b_out in range(bob_out):
+                        a_b_sum += c_var[a_out, b_out, x_in, y_in]
+                constraints.append(a_b_sum == 1)
+
+        # Enforce non-signaling property on marginal for Alice
+        # # \sum_{a \in \Gamma_A} C(a,b|x,y) = \sum_{a \in \Gamma_A} C(a,b|x',y)
+        for x_in in range(alice_in):
+            for y_in in range(bob_in):
+                for b_out in range(bob_out):
+                    a_sum = 0
+                    for a_out in range(alice_out):
+                        a_sum += c_var[a_out, b_out, x_in, y_in]
+                    constraints.append(a_sum == a_sum_var)
+
+        # Enforce non-signaling property on marginal for Bob.
+        # # \sum_{b \in \Gamma_B} C(a,b|x,y) = \sum_{b \in \Gamma_B} C(a,b|x,y')
+        for x_in in range(alice_in):
+            for y_in in range(bob_in):
+                for a_out in range(alice_out):
+                    b_sum = 0
+                    for b_out in range(bob_out):
+                        b_sum += c_var[a_out, b_out, x_in, y_in]
+                    constraints.append(b_sum == b_sum_var)
+
+        problem = cvxpy.Problem(objective, constraints)
+        ns_val = 1 / 2 * problem.solve()
+
+        return ns_val

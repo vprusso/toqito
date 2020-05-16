@@ -25,7 +25,8 @@ class ExtendedNonlocalGame:
     ==========
     .. [JMRW16] Nathaniel Johnston, Rajat Mittal, Vincent Russo, John Watrous
         "Extended non-local games and monogamy-of-entanglement games",
-        2016,
+        Proceedings of the Royal Society A: Mathematical, Physical and
+        Engineering Sciences 472.2189 (2016),
         https://arxiv.org/abs/1510.02083
 
     .. [Russo17] Vincent Russo
@@ -39,9 +40,11 @@ class ExtendedNonlocalGame:
         """
         Construct extended nonlocal game object.
 
-        :param prob_mat:
+        :param prob_mat: A matrix whose (q_0, q_1)-entry gives the probability
+                        that the referee will give Alice the value `q_0` and Bob
+                        the value `q_1`.
         :param pred_mat:
-        :param reps:
+        :param reps: Number of parallel repetitions to perform.
         """
         if reps == 1:
             self.prob_mat = prob_mat
@@ -226,7 +229,7 @@ class ExtendedNonlocalGame:
                         b_sum += k_var[a_out, b_out, x_in, y_in]
                     constraints.append(b_sum == sigma[a_out, x_in])
 
-        # Enforce that:
+        # Enforce non-signaling constraints on Alice marginal:
         # \sum_{a \in \Gamma_A} K(a,b|x,y) = \rho_b^y
         for x_in in range(alice_in):
             for y_in in range(bob_in):
@@ -236,7 +239,7 @@ class ExtendedNonlocalGame:
                         a_sum += k_var[a_out, b_out, x_in, y_in]
                     constraints.append(a_sum == rho[b_out, y_in])
 
-        # Enforce that:
+        # Enforce non-signaling constraints on Bob marginal:
         # \sum_{a \in \Gamma_A} \sigma_a^x = \tau
         for x_in in range(alice_in):
             sig_a_sum = 0

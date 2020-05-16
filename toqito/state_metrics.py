@@ -25,7 +25,7 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     :code:`sigma`, defined by:
 
     .. math::
-        ||\sqrt(\rho) * \sqrt(\sigma)||_1s
+        ||\sqrt(\rho) * \sqrt(\sigma)||_1,
 
     where :math:`|| \cdot ||_1` denotes the trace norm. The return is a value
     between 0 and 1, with 0 corresponding to matrices :code:`rho` and
@@ -136,7 +136,7 @@ def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float:
                        \end{pmatrix} \in \text{D}(\mathcal{X}).
 
     Calculating the Helstrom-Holevo distance of states that are identical yield
-    a value of :math:`1/2`. This can be verified in `toqito` as follows.
+    a value of :math:`1/2`. This can be verified in :code:`toqito` as follows.
 
     >>> from toqito.states import basis
     >>> from toqito.state_metrics import helstrom_holevo

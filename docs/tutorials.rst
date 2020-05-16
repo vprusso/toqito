@@ -8,7 +8,7 @@ Nonlocal Games
 
    tutorials.xor_quantum_value
    tutorials.nonlocal_quantum_lower_bound
-   tutorial.extended_nonlocal_games
+   tutorials.extended_nonlocal_games
    tutorials.quantum_money
    tutorials.quantum_hedging
 
