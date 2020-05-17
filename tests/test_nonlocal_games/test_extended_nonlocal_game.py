@@ -16,12 +16,12 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         e_p = (e_0 + e_1) / np.sqrt(2)
         e_m = (e_0 - e_1) / np.sqrt(2)
 
-        dim_x = dim_y = 2
+        dim = 2
         num_alice_out, num_bob_out = 2, 2
         num_alice_in, num_bob_in = 2, 2
 
         pred_mat = np.zeros(
-            [dim_x, dim_y, num_alice_out, num_bob_out, num_alice_in, num_bob_in]
+            [dim, dim, num_alice_out, num_bob_out, num_alice_in, num_bob_in]
         )
         pred_mat[:, :, 0, 0, 0, 0] = e_0 * e_0.conj().T
         pred_mat[:, :, 0, 0, 1, 1] = e_p * e_p.conj().T
@@ -35,12 +35,12 @@ class TestExtendedNonlocalGame(unittest.TestCase):
     @staticmethod
     def chsh_extended_nonlocal_game():
         """Define the CHSH extended nonlocal game."""
-        dim_x = dim_y = 2
+        dim = 2
         num_alice_out, num_bob_out = 2, 2
         num_alice_in, num_bob_in = 2, 2
 
         pred_mat = np.zeros(
-            [dim_x, dim_y, num_alice_out, num_bob_out, num_alice_in, num_bob_in]
+            [dim, dim, num_alice_out, num_bob_out, num_alice_in, num_bob_in]
         )
         pred_mat[:, :, 0, 0, 0, 0] = np.array([[1, 0], [0, 0]])
         pred_mat[:, :, 0, 0, 0, 1] = np.array([[1, 0], [0, 0]])
