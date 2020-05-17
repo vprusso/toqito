@@ -117,7 +117,7 @@ unentangled strategies. The unentangled value of any extended nonlocal game,
 .. math::
     \omega(G) = \max_{f, g}
     \lVert
-    \sum_{(x,y) \in \Sigma_A \times \Sigma_B} \pi(x,y)
+    \sum_{(x,y) \in \Sigma} \pi(x,y)
     V(f(x), g(y)|x, y)
     \rVert
 
@@ -174,8 +174,8 @@ For an extended nonlocal game, :math:`G`, the values have the following relation
 Example: The BB84 extended nonlocal game
 -----------------------------------------
 
-The BB84 game is defined as follows. Let :math:`\Sigma_A = \Sigma_B = \Gamma_A
-= \Gamma_B = \{0,1\}`, define
+The *BB84 extended nonlocal game* is defined as follows. Let :math:`\Sigma_A =
+\Sigma_B = \Gamma_A = \Gamma_B = \{0,1\}`, define
 
 .. math::
     \begin{equation}
@@ -249,6 +249,13 @@ arrays where :code:`prob_mat` corresponds to the probability distribution
 The unentangled value of the BB84 extended nonlocal game
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+It was shown in [tTFKW13]_ and [tJMRW16]_ that
+
+.. math::
+    \omega(G_{BB84}) = \cos^2(\pi/8).
+
+This can be verified in :code:`toqito` as follows.
+
 .. code-block:: python
 
     >>> """Calculate the unentangled value of the BB84 extended nonlocal game."""
@@ -261,6 +268,10 @@ The unentangled value of the BB84 extended nonlocal game
     >>> bb84.unentangled_value() 
     0.8535533905544173
 
+The BB84 game also exhibits strong parallel repetition. We can specify how many
+parallel repetitions for :code:`toqito` to run. The example below provides an
+example of two parallel repetitions for the BB84 game.
+
 .. code-block:: python
 
     >>> """The unentangled value of BB84 under parallel repetition."""
@@ -272,6 +283,14 @@ The unentangled value of the BB84 extended nonlocal game
     >>> # The unentangled value for two parallel repetitions is cos(pi/8)**4 \approx 0.72855
     >>> bb84_2_reps.unentangled_value() 
     0.7285533940730632
+
+It was shown in [tJMRW16]_ that the BB84 game possesses the property of strong
+parallel repetition. That is,
+
+.. math::
+    \omega(G_{BB84}^r) = \omega(G_{BB84})^r
+
+for any integer :math:`r`. 
 
 The standard quantum value of the BB84 extended nonlocal game
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -293,8 +312,8 @@ The non-signaling value of the BB84 extended nonlocal game
     0.853486975032519
 
 It turns out that strong parallel repetition does *not* hold in the
-non-signaling scenario for the BB84 game. We can observe this by the following
-snippet.
+non-signaling scenario for the BB84 game. This was shown in [tRusso17]_, and we
+can observe this by the following snippet.
 
 .. code-block:: python
 
@@ -423,7 +442,7 @@ Example: The unentangled value of the CHSH extended nonlocal game
     >>> # Define the CHSH game for two parallel repetitions.
     >>> chsh_2_reps = ExtendedNonlocalGame(chsh_prob_mat, chsh_pred_mat, 2)
     >>> 
-    >>> # The unentangled value for two parallel repetitions is (3/4)**2 \approx 05625
+    >>> # The unentangled value for two parallel repetitions is (3/4)**2 \approx 0.5625
     >>> chsh_2_reps.unentangled_value() 
     0.5625000000002018
 
@@ -445,7 +464,7 @@ Example: The non-signaling value of the CHSH extended nonlocal game
 As we know that :math:`\omega(G_{CHSH}) = \omega_{ns}(G_{CHSH}) = 3/4` and that
 
 .. math::
-    \omega(G) \leq \omega^*(G) \omega_{ns}(G)
+    \omega(G) \leq \omega^*(G) \leq \omega_{ns}(G)
 
 for any extended nonlocal game, :math:`G`, we may also conclude that
 :math:`\omega^*(G) = 3/4`.
