@@ -21,7 +21,6 @@ class NonlocalGame:
         """
         Construct nonlocal game object.
 
-        :param dim:
         :param prob_mat:
         :param pred_mat:
         :param reps:
@@ -228,8 +227,7 @@ class NonlocalGame:
         :return: The lower bound on the quantum value of a nonlocal game.
         """
         # Get number of inputs and outputs.
-        num_inputs_bob = self.prob_mat.shape[1]
-        num_outputs_bob = self.pred_mat.shape[1]
+        _, num_outputs_bob, _, num_inputs_bob = self.pred_mat.shape
 
         best_lower_bound = float("-inf")
         for _ in range(iters):

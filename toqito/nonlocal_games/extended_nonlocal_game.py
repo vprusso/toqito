@@ -1,10 +1,12 @@
 """Two-player extended nonlocal game."""
 from collections import defaultdict
+from typing import Dict, Tuple
 
 import cvxpy
 import numpy as np
 
 from toqito.state_ops import tensor
+from toqito.random import random_unitary
 from toqito.helper import update_odometer
 
 
@@ -263,3 +265,182 @@ class ExtendedNonlocalGame:
         ns_val = problem.solve()
 
         return ns_val
+
+    def quantum_value_lower_bound(self, iters: int = 5, tol: float = 10e-6) -> float:
+        r"""
+        Calculate lower bound on the quantum value of an extended nonlocal game.
+
+        Test
+
+        :return: The quantum value of the extended nonlocal game.
+        """
+        # Get number of inputs and outputs for Bob's measurements.
+        _, _, _, num_outputs_bob, _, num_inputs_bob = self.pred_mat.shape
+
+        best_lower_bound = float("-inf")
+        for _ in range(iters):
+            # Generate a set of random POVMs for Bob. These measurements serve as a
+            # rough starting point for the alternating projection algorithm.
+            bob_povms = defaultdict(int)
+            for y_ques in range(num_inputs_bob):
+                random_mat = random_unitary(num_outputs_bob)
+                for b_ans in range(num_outputs_bob):
+                    random_mat_trans = random_mat[:, b_ans].conj().T.reshape(-1, 1)
+                    bob_povms[y_ques, b_ans] = random_mat[:, b_ans] * random_mat_trans
+
+            # Run the alternating projection algorithm between the two SDPs.
+            it_diff = 1
+            prev_win = -1
+            best = float("-inf")
+            while it_diff > tol:
+                # Optimize over Alice's measurement operators while fixing Bob's.
+                # If this is the first iteration, then the previously randomly
+                # generated operators in the outer loop are Bob's. Otherwise, Bob's
+                # operators come from running the next SDP.
+                rho, lower_bound = self.__optimize_alice(bob_povms)
+                bob_povms, lower_bound = self.__optimize_bob(rho)
+
+                it_diff = lower_bound - prev_win
+                prev_win = lower_bound
+
+                # As the SDPs keep alternating, check if the winning probability
+                # becomes any higher. If so, replace with new best.
+                if best < lower_bound:
+                    best = lower_bound
+
+            if best_lower_bound < best:
+                best_lower_bound = best
+
+        return best_lower_bound
+
+    def __optimize_alice(self, bob_povms) -> Tuple[Dict, float]:
+        """Fix Bob's measurements and optimize over Alice's measurements."""
+        # Get number of inputs and outputs.
+        (
+            dim,
+            _,
+            num_outputs_alice,
+            num_outputs_bob,
+            num_inputs_alice,
+            num_inputs_bob,
+        ) = self.pred_mat.shape
+
+        # The cvxpy package does not support optimizing over 4-dimensional objects.
+        # To overcome this, we use a dictionary to index between the questions and
+        # answers, while the cvxpy variables held at this positions are
+        # `dim`-by-`dim` cvxpy variables.
+        rho = defaultdict(cvxpy.Variable)
+        for x_ques in range(num_inputs_alice):
+            for a_ans in range(num_outputs_alice):
+                rho[x_ques, a_ans] = cvxpy.Variable(
+                    (dim * num_outputs_bob, dim * num_outputs_bob), hermitian=True
+                )
+
+        tau = cvxpy.Variable(
+            (dim * num_outputs_bob, dim * num_outputs_bob), hermitian=True
+        )
+        win = 0
+        for x_ques in range(num_inputs_alice):
+            for y_ques in range(num_inputs_bob):
+                for a_ans in range(num_outputs_alice):
+                    for b_ans in range(num_outputs_bob):
+                        if isinstance(bob_povms[y_ques, b_ans], np.ndarray):
+                            win += self.prob_mat[x_ques, y_ques] * cvxpy.trace(
+                                (
+                                    np.kron(
+                                        self.pred_mat[
+                                            :, :, a_ans, b_ans, x_ques, y_ques
+                                        ],
+                                        bob_povms[y_ques, b_ans],
+                                    )
+                                )
+                                .conj()
+                                .T
+                                @ rho[x_ques, a_ans]
+                            )
+                        if isinstance(
+                            bob_povms[y_ques, b_ans],
+                            cvxpy.expressions.variable.Variable,
+                        ):
+                            win += self.prob_mat[x_ques, y_ques] * cvxpy.trace(
+                                (
+                                    np.kron(
+                                        self.pred_mat[
+                                            :, :, a_ans, b_ans, x_ques, y_ques
+                                        ],
+                                        bob_povms[y_ques, b_ans].value,
+                                    )
+                                )
+                                .conj()
+                                .T
+                                @ rho[x_ques, a_ans]
+                            )
+        objective = cvxpy.Maximize(cvxpy.real(win))
+        constraints = list()
+
+        # Sum over "a" for all "x" for Alice's measurements.
+        for x_ques in range(num_inputs_alice):
+            rho_sum_a = 0
+            for a_ans in range(num_outputs_alice):
+                rho_sum_a += rho[x_ques, a_ans]
+                constraints.append(rho[x_ques, a_ans] >> 0)
+            constraints.append(rho_sum_a == tau)
+
+        constraints.append(cvxpy.trace(tau) == 1)
+        constraints.append(tau >> 0)
+
+        problem = cvxpy.Problem(objective, constraints)
+
+        lower_bound = problem.solve()
+        return rho, lower_bound
+
+    def __optimize_bob(self, rho) -> Tuple[Dict, float]:
+        """Fix Alice's measurements and optimize over Bob's measurements."""
+        # Get number of inputs and outputs.
+        (
+            dim,
+            _,
+            num_outputs_alice,
+            num_outputs_bob,
+            num_inputs_alice,
+            num_inputs_bob,
+        ) = self.pred_mat.shape
+
+        # The cvxpy package does not support optimizing over 4-dimensional objects.
+        # To overcome this, we use a dictionary to index between the questions and
+        # answers, while the cvxpy variables held at this positions are
+        # `dim`-by-`dim` cvxpy variables.
+        bob_povms = defaultdict(cvxpy.Variable)
+        for y_ques in range(num_inputs_bob):
+            for b_ans in range(num_outputs_bob):
+                bob_povms[y_ques, b_ans] = cvxpy.Variable((dim, dim), hermitian=True)
+        win = 0
+        for x_ques in range(num_inputs_alice):
+            for y_ques in range(num_inputs_bob):
+                for a_ans in range(num_outputs_alice):
+                    for b_ans in range(num_outputs_bob):
+                        win += self.prob_mat[x_ques, y_ques] * cvxpy.trace(
+                            (
+                                cvxpy.kron(
+                                    self.pred_mat[:, :, a_ans, b_ans, x_ques, y_ques],
+                                    bob_povms[y_ques, b_ans],
+                                )
+                            )
+                            @ rho[x_ques, a_ans].value
+                        )
+        objective = cvxpy.Maximize(cvxpy.real(win))
+
+        constraints = list()
+
+        # Sum over "b" for all "y" for Bob's measurements.
+        for y_ques in range(num_inputs_bob):
+            bob_sum_b = 0
+            for b_ans in range(num_outputs_bob):
+                bob_sum_b += bob_povms[y_ques, b_ans]
+                constraints.append(bob_povms[y_ques, b_ans] >> 0)
+            constraints.append(bob_sum_b == np.identity(num_outputs_bob))
+
+        problem = cvxpy.Problem(objective, constraints)
+
+        lower_bound = problem.solve()
+        return bob_povms, lower_bound
