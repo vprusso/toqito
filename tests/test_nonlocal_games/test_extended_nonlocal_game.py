@@ -126,6 +126,15 @@ class TestExtendedNonlocalGame(unittest.TestCase):
 
         self.assertEqual(np.isclose(res, expected_res), True)
 
+    def test_bb84_quantum_lower_bound(self):
+        """Calculate the lower bound for the quantum value of theBB84 game."""
+        prob_mat, pred_mat = self.bb84_extended_nonlocal_game()
+        bb84 = ExtendedNonlocalGame(prob_mat, pred_mat)
+        res = bb84.quantum_value_lower_bound()
+        expected_res = np.cos(np.pi / 8) ** 2
+
+        self.assertLessEqual(np.isclose(res, expected_res), True)
+
     def test_bb84_nonsignaling_value(self):
         """Calculate the non-signaling value of the BB84 game."""
         prob_mat, pred_mat = self.bb84_extended_nonlocal_game()

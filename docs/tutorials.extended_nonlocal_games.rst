@@ -126,7 +126,61 @@ where the maximum is over all functions :math:`f : \Sigma_A \rightarrow
 
 Standard quantum strategies for extended nonlocal games
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-(Coming soon)
+
+A *standard quantum strategy* for an extended nonlocal game consists of
+finite-dimensional complex Euclidean spaces :math:`\mathcal{U}` for Alice and
+:math:`\mathcal{V}` for Bob, a quantum state :math:`\sigma \in
+\text{D}(\mathcal{U} \otimes \mathcal{R} \otimes \mathcal{V})`, and two
+collections of measurements.
+
+.. math::
+    \{ A_a^x : a \in \Gamma_A \} \subset \text{Pos}\mathcal{U}
+    \quad \text{and} \quad
+    \{ B_b^y : b \in \Gamma_B \} \subset \text{Pos}\mathcal{V},
+
+for each :math:`x \in \Sigma_A` and :math:`y \in \Sigma_B` respectively. As
+usual, the measurement operators satisfy the constraint that
+
+.. math::
+    \sum_{a \in \Gamma_A} A_a^x = \mathbb{I}_{\mathcal{U}} 
+    \quad \text{and} \quad
+    \sum_{b \in \Gamma_B} B_b^y = \mathbb{I}_{\mathcal{V}},
+
+for each :math:`x \in \Sigma_A` and :math:`y \in \Sigma_B`.
+
+When the game is played, Alice and Bob present the referee with a quantum
+system so that the three parties share the state :math:`\sigma \in
+\text{D}(\mathcal{U} \otimes \mathcal{R} \otimes \mathcal{V})`. The referee
+selects questions :math:`(x,y) \in \Sigma` according to the distribution
+:math:`\pi` that is known to all participants in the game.
+
+The referee then sends :math:`x` to Alice and :math:`y` to Bob. At this point,
+Alice and Bob make measurements on their respective portions of the state
+:math:`\sigma` using their measurement operators to yield an outcome to send
+back to the referee. Specifically, Alice measures her portion of the state
+:math:`\sigma` with respect to her set of measurement operators :math:`\{A_a^x
+: a \in \Gamma_A\}`, and sends the result :math:`a \in \Gamma_A` of this
+measurement to the referee. Likewise, Bob measures his portion of the state
+:math:`\sigma` with respect to his measurement operators 
+:math:`\{B_b^y : b \in \Gamma_B\}` to yield the outcome :math:`b \in \Gamma_B`,
+that is then sent back to the referee.
+
+At the end of the protocol, the referee measures its quantum system with
+respect to the measurement :math:`\{V(a,b|x,y), \mathbb{I}-V(a,b|x,y)`.
+
+The winning probability for such a strategy in this game :math:`G = (\pi,V)` is
+given by
+
+.. math::
+    \sum_{(x,y) \in \Sigma} \pi(x,y) \sum_{(a,b) \in \Gamma}
+    \left \langle A_a^x \otimes V(a,b|x,y) \otimes B_b^y,
+    \sigma
+    \right \rangle.
+
+For a given extended nonlocal game :math:`G = (\pi,V)`, we write
+:math:`\omega^*(G)` to denote the *standard quantum value* of :math:`G`, which
+is the supremum value of Alice and Bob's winning probability over all standard
+quantum strategies for :math:`G`.
 
 Non-signaling strategies for extended nonlocal games
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -294,10 +348,36 @@ for any integer :math:`r`.
 
 The standard quantum value of the BB84 extended nonlocal game
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-(Coming soon).
+
+We can calculate lower bounds on the standard quantum value of the BB84 game
+using :code:`toqito` as well.
+
+.. code-block:: python
+
+    >>> """Calculate lower bounds on the standard quantum value of the BB84 extended nonlocal game."""
+    >>> from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
+    >>> 
+    >>> # Define an ExtendedNonlocalGame object based on the BB84 game.
+    >>> bb84_lb = ExtendedNonlocalGame(bb84_prob_mat, bb84_pred_mat)
+    >>> 
+    >>> # The unentangled value is cos(pi/8)**2 \approx 0.85356
+    >>> bb84_lb.unentangled_value() 
+    0.8535533236834885
+
+From [tJMRW16]_, it is known that :math:`\omega(G_{BB84}) =
+\omega^*(G_{BB84})`, however, if we did not know this beforehand, we could
+attempt to calculate upper bounds on the standard quantum value. 
+
+There are a few methods to do this, but one easy way is to simply calculate the
+non-signaling value of the game as this provides a natural upper bound on the
+standard quantum value. Typically, this bound is not tight and usually not all
+that useful in providing tight upper bounds on the standard quantum value,
+however, in this case, it will prove to be useful.
 
 The non-signaling value of the BB84 extended nonlocal game
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Using :code:`toqito`, we can see that :math:`\omega_{ns}(G) = \cos^2(\pi/8)`.
 
 .. code-block:: python
 
@@ -310,6 +390,11 @@ The non-signaling value of the BB84 extended nonlocal game
     >>> # The non-signaling value is cos(pi/8)**2 \approx 0.85356
     >>> bb84.nonsignaling_value() 
     0.853486975032519
+
+So we have the relationship that
+
+.. math::
+    \omega(G_{BB84}) = \omega^*(G_{BB84}) = \omega_{ns}(G_{BB84}) = \cos^2(\pi/8).
 
 It turns out that strong parallel repetition does *not* hold in the
 non-signaling scenario for the BB84 game. This was shown in [tRusso17]_, and we
@@ -327,7 +412,7 @@ can observe this by the following snippet.
     >>> bb84_2_reps.nonsignaling_value() 
     0.7382545498689419
 
-Note that :math:`0.73825 \geq \cos(\pi/8)**4 \approx 0.72855` and therefore we
+Note that :math:`0.73825 \geq \cos(\pi/8)^4 \approx 0.72855` and therefore we
 have that
 
 .. math::
