@@ -42,9 +42,9 @@ class ExtendedNonlocalGame:
         """
         Construct extended nonlocal game object.
 
-        :param prob_mat: A matrix whose (q_0, q_1)-entry gives the probability
-                        that the referee will give Alice the value `q_0` and Bob
-                        the value `q_1`.
+        :param prob_mat: A matrix whose (x, y)-entry gives the probability
+                        that the referee will give Alice the value `x` and Bob
+                        the value `y`.
         :param pred_mat:
         :param reps: Number of parallel repetitions to perform.
         """

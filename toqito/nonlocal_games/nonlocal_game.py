@@ -12,7 +12,19 @@ class NonlocalGame:
     r"""
     Create two-player nonlocal game object.
 
-    Test.
+    *Nonlocal games* are a mathematical framework that abstractly models a
+    physical system. This game is played between two players, Alice and Bob, who
+    are not allowed to communicate with each other once the game has started and
+    who play cooperative against an adversary referred to as the referee.
+
+    The nonlocal game framework was originally introduced in [CHTW04]_.
+
+    References
+    ==========
+    .. [CHTW04] Cleve, Richard, Hoyer, Peter, Toner, Benjamin, and Watrous, John
+        "Consequences and limits of nonlocal strategies"
+        Computational Complexity 2004. Proceedings. 19th IEEE Annual Conference.
+        https://arxiv.org/abs/quant-ph/0404076
     """
 
     def __init__(
@@ -21,9 +33,12 @@ class NonlocalGame:
         """
         Construct nonlocal game object.
 
-        :param prob_mat:
-        :param pred_mat:
-        :param reps:
+        :param prob_mat: A matrix whose (x, y)-entry gives the probability
+                        that the referee will give Alice the value `x` and Bob
+                        the value `y`.
+        :param pred_mat: A four-dimensional matrix whose (a,b,x,y)-entry gives
+                         the
+        :param reps: Number of parallel repetitions to perform. Default is 1.
         """
         if reps == 1:
             self.prob_mat = prob_mat
@@ -98,22 +113,23 @@ class NonlocalGame:
         r"""
         Compute a lower bound on the quantum value of a nonlocal game [LD07]_.
 
-        Calculates a lower bound on the maximum value that the specified nonlocal
-        game can take on in quantum mechanical settings where Alice and Bob each
-        have access to `d`-dimensional quantum system.
+        Calculates a lower bound on the maximum value that the specified
+        nonlocal game can take on in quantum mechanical settings where Alice and
+        Bob each have access to `d`-dimensional quantum system.
 
-        This function works by starting with a randomly-generated POVM for Bob, and
-        then optimizing Alice's POVM and the shared entangled state. Then Alice's
-        POVM and the entangled state are fixed, and Bob's POVM is optimized. And so
-        on, back and forth between Alice and Bob until convergence is reached.
+        This function works by starting with a randomly-generated POVM for Bob,
+        and then optimizing Alice's POVM and the shared entangled state. Then
+        Alice's POVM and the entangled state are fixed, and Bob's POVM is
+        optimized. And so on, back and forth between Alice and Bob until
+        convergence is reached.
 
-        Note that the algorithm is not guaranteed to obtain the optimal local bound
-        and can get stuck in local minimum values. The alleviate this, the `iter`
-        parameter allows one to run the algorithm some pre-specified number of
-        times and keep the highest value obtained.
+        Note that the algorithm is not guaranteed to obtain the optimal local
+        bound and can get stuck in local minimum values. The alleviate this, the
+        `iter` parameter allows one to run the algorithm some pre-specified
+        number of times and keep the highest value obtained.
 
-        The algorithm is based on the alternating projections algorithm as it can
-        be applied to Bell inequalities as shown in [LD07]_.
+        The algorithm is based on the alternating projections algorithm as it
+        can be applied to Bell inequalities as shown in [LD07]_.
 
         The alternating projection algorithm has also been referred to as the
         "see-saw" algorithm as it goes back and forth between the following two
@@ -128,14 +144,14 @@ class NonlocalGame:
                                              \sum_{(a,b) \in \Gamma}
                                              V(a,b|x,y)
                                              \langle B_b^y, A_a^x \rangle \\
-                    \text{subject to:} \quad & \sum_{a \in \Gamma_{\mathsf{A}}} =
-                                               \tau, \qquad \qquad
-                                               \forall x \in \Sigma_{\mathsf{A}}, \\
+                    \text{subject to:} \quad & \sum_{a \in \Gamma_{\mathsf{A}}}=
+                                        \tau, \qquad \qquad
+                                        \forall x \in \Sigma_{\mathsf{A}}, \\
                                        \quad & A_a^x \in \text{Pos}(\mathcal{A}),
-                                               \qquad
-                                               \forall x \in \Sigma_{\mathsf{A}}, \
-                                               \forall a \in \Gamma_{\mathsf{A}}, \\
-                                               & \tau \in \text{D}(\mathcal{A}).
+                                        \qquad
+                                        \forall x \in \Sigma_{\mathsf{A}}, \
+                                        \forall a \in \Gamma_{\mathsf{A}}, \\
+                                        & \tau \in \text{D}(\mathcal{A}).
                 \end{aligned}
             \end{equation}
 
@@ -147,12 +163,12 @@ class NonlocalGame:
                     \text{maximize:} \quad & \sum_{(x,y \in \Sigma)} \pi(x,y)
                                              \sum_{(a,b) \in \Gamma} V(a,b|x,y)
                                              \langle B_b^y, A_a^x \rangle \\
-                    \text{subject to:} \quad & \sum_{b \in \Gamma_{\mathsf{B}}} =
-                                               \mathbb{I}, \qquad \qquad
-                                               \forall y \in \Sigma_{\mathsf{B}}, \\
-                                       \quad & B_b^y \in \text{Pos}(\mathcal{B}),
-                                       \qquad \forall y \in \Sigma_{\mathsf{B}}, \
-                                       \forall b \in \Gamma_{\mathsf{B}}.
+                    \text{subject to:} \quad & \sum_{b \in \Gamma_{\mathsf{B}}}=
+                                        \mathbb{I}, \qquad \qquad
+                                        \forall y \in \Sigma_{\mathsf{B}}, \\
+                                    \quad & B_b^y \in \text{Pos}(\mathcal{B}),
+                                    \qquad \forall y \in \Sigma_{\mathsf{B}}, \
+                                    \forall b \in \Gamma_{\mathsf{B}}.
                 \end{aligned}
             \end{equation}
 
@@ -161,13 +177,14 @@ class NonlocalGame:
 
         The CHSH game
 
-        The CHSH game is a two-player nonlocal game with the following probability
-        distribution and question and answer sets.
+        The CHSH game is a two-player nonlocal game with the following
+        probability distribution and question and answer sets.
 
         .. math::
             \begin{equation}
-            \begin{aligned} \pi(x,y) = \frac{1}{4}, \qquad (x,y) \in \Sigma_A \times
-             \Sigma_B, \qquad \text{and} \qquad (a, b) \in \Gamma_A \times \Gamma_B,
+            \begin{aligned}
+              \pi(x,y) = \frac{1}{4}, \qquad (x,y) \in \Sigma_A \times \Sigma_B,
+              \qquad \text{and} \qquad (a, b) \in \Gamma_A \times \Gamma_B,
             \end{aligned}
             \end{equation}
 
@@ -179,7 +196,8 @@ class NonlocalGame:
             \{0,1\}, \quad \text{and} \quad \Gamma_B = \{0, 1\}.
             \end{equation}
 
-        Alice and Bob win the CHSH game if and only if the following equation is satisfied
+        Alice and Bob win the CHSH game if and only if the following equation is
+        satisfied.
 
         ..math::
             \begin{equation}
@@ -188,8 +206,9 @@ class NonlocalGame:
 
         Recall that :math:`\oplus` refers to the XOR operation.
 
-        The optimal quantum value of CHSH is :math:`\cos(\pi/8)^2 \approx 0.8536`
-        where the optimal classical value is :math:`3/4`.
+        The optimal quantum value of CHSH is
+        :math:`\cos(\pi/8)^2 \approx 0.8536` where the optimal classical value
+        is :math:`3/4`.
 
         >>> import numpy as np
         >>> from toqito.nonlocal_games.nonlocal_game import NonlocalGame
@@ -222,8 +241,8 @@ class NonlocalGame:
 
         :param iters: The number of times to run the alternating projection
                       algorithm.
-        :param tol: The tolerance before quitting out of the alternating projection
-                    semidefinite program.
+        :param tol: The tolerance before quitting out of the alternating
+                    projection semidefinite program.
         :return: The lower bound on the quantum value of a nonlocal game.
         """
         # Get number of inputs and outputs.
@@ -231,8 +250,9 @@ class NonlocalGame:
 
         best_lower_bound = float("-inf")
         for _ in range(iters):
-            # Generate a set of random POVMs for Bob. These measurements serve as a
-            # rough starting point for the alternating projection algorithm.
+            # Generate a set of random POVMs for Bob. These measurements serve
+            # as a rough starting point for the alternating projection
+            # algorithm.
             bob_tmp = random_povm(num_outputs_bob, num_inputs_bob, num_outputs_bob)
             bob_povms = defaultdict(int)
             for y_ques in range(num_inputs_bob):
@@ -244,10 +264,10 @@ class NonlocalGame:
             prev_win = -1
             best = float("-inf")
             while it_diff > tol:
-                # Optimize over Alice's measurement operators while fixing Bob's.
-                # If this is the first iteration, then the previously randomly
-                # generated operators in the outer loop are Bob's. Otherwise, Bob's
-                # operators come from running the next SDP.
+                # Optimize over Alice's measurement operators while fixing
+                # Bob's. If this is the first iteration, then the previously
+                # randomly generated operators in the outer loop are Bob's.
+                # Otherwise, Bob's operators come from running the next SDP.
                 alice_povms, lower_bound = self.__optimize_alice(bob_povms)
                 bob_povms, lower_bound = self.__optimize_bob(alice_povms)
 
@@ -274,10 +294,10 @@ class NonlocalGame:
             num_inputs_bob,
         ) = self.pred_mat.shape
 
-        # The cvxpy package does not support optimizing over 4-dimensional objects.
-        # To overcome this, we use a dictionary to index between the questions and
-        # answers, while the cvxpy variables held at this positions are
-        # `dim`-by-`dim` cvxpy variables.
+        # The cvxpy package does not support optimizing over 4-dimensional
+        # objects. To overcome this, we use a dictionary to index between the
+        # questions and answers, while the cvxpy variables held at this
+        # positions are `dim`-by-`dim` cvxpy variables.
         alice_povms = defaultdict(cvxpy.Variable)
         for x_ques in range(num_inputs_alice):
             for a_ans in range(num_outputs_alice):
@@ -349,8 +369,8 @@ class NonlocalGame:
             num_inputs_bob,
         ) = self.pred_mat.shape
 
-        # Now, optimize over Bob's measurement operators and fix Alice's operators
-        # as those are coming from the previous SDP.
+        # Now, optimize over Bob's measurement operators and fix Alice's
+        # operators as those are coming from the previous SDP.
         bob_povms = defaultdict(cvxpy.Variable)
         for y_ques in range(num_inputs_bob):
             for b_ans in range(num_outputs_bob):
