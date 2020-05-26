@@ -6,7 +6,7 @@ from scipy import sparse
 
 import numpy as np
 
-from toqito.state_ops import tensor
+from toqito.matrix_ops import tensor
 
 
 __all__ = [

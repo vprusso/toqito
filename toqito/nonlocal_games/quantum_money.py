@@ -2,7 +2,7 @@
 import cvxpy
 import numpy as np
 
-from toqito.state_ops import tensor
+from toqito.matrix_ops import tensor
 from toqito.channels import partial_trace_cvx
 from toqito.perms import permutation_operator
 
@@ -88,7 +88,7 @@ class QuantumMoney:
 
         We can see that the optimal value we obtain in solving the SDP is 3/4.
 
-        >>> from toqito.state_ops import tensor
+        >>> from toqito.matrix_ops import tensor
         >>> from toqito.nonlocal_games.quantum_money import QuantumMoney
         >>> from toqito.states import basis
         >>> import numpy as np

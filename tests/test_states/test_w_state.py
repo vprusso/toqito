@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from toqito.states import basis
-from toqito.state_ops import tensor
+from toqito.matrix_ops import tensor
 from toqito.states import w_state
 
 

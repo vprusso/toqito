@@ -5,7 +5,7 @@ from typing import Dict, Tuple
 import cvxpy
 import numpy as np
 
-from toqito.state_ops import tensor
+from toqito.matrix_ops import tensor
 from toqito.random import random_unitary
 from toqito.helper import update_odometer
 

@@ -4,7 +4,7 @@ from collections import defaultdict
 import cvxpy
 import numpy as np
 from toqito.random import random_povm
-from toqito.state_ops import tensor
+from toqito.matrix_ops import tensor
 from toqito.helper import update_odometer
 
 
