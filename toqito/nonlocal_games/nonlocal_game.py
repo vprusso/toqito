@@ -17,11 +17,11 @@ class NonlocalGame:
     are not allowed to communicate with each other once the game has started and
     who play cooperative against an adversary referred to as the referee.
 
-    The nonlocal game framework was originally introduced in [CHTW04]_.
+    The nonlocal game framework was originally introduced in [CHTW04_2]_.
 
     References
     ==========
-    .. [CHTW04] Cleve, Richard, Hoyer, Peter, Toner, Benjamin, and Watrous, John
+    .. [CHTW04_2] Cleve, Richard, Hoyer, Peter, Toner, Benjamin, and Watrous, John
         "Consequences and limits of nonlocal strategies"
         Computational Complexity 2004. Proceedings. 19th IEEE Annual Conference.
         https://arxiv.org/abs/quant-ph/0404076
@@ -37,7 +37,8 @@ class NonlocalGame:
                         that the referee will give Alice the value `x` and Bob
                         the value `y`.
         :param pred_mat: A four-dimensional matrix whose (a,b,x,y)-entry gives
-                         the
+                         the outcome for answers "a" and "b" given questions
+                         "x" and "y".
         :param reps: Number of parallel repetitions to perform. Default is 1.
         """
         if reps == 1:

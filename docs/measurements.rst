@@ -17,7 +17,17 @@ with outcome :math:`a \in \Sigma`
 
 Topics covered in this section:
 
+- `Operations on Measurements`_.
 - `Properties of Measurements`_.
+
+Operations on Measurements
+--------------------------
+
+.. automodule:: toqito.measurement_ops
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 
 Properties of Measurements
 --------------------------
