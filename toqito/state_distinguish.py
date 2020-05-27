@@ -7,446 +7,472 @@ import numpy as np
 from toqito.channels import partial_transpose
 
 
-class StateDistinguish:
+def __is_states_valid(states: List[np.ndarray]) -> bool:
+    """Check if states provided are valid."""
+    # Assume that at least one state is provided.
+    if states is None or states == []:
+        raise ValueError("InvalidStates: There must be at least one state provided.")
+    return True
+
+
+def __is_probs_valid(probs: List[float]) -> bool:
+    """Check if probabilities provided are valid."""
+    # Assume uniform probability if no specific distribution is given.
+    if not np.isclose(sum(probs), 1):
+        raise ValueError("Invalid: Probabilities must sum to 1.")
+    return True
+
+
+def state_distinguishability(
+    states: List[np.ndarray], probs: List[float] = None
+) -> float:
     r"""
-    Class to distinguish ensembles of quantum states.
+    Compute probability of state distinguishability [ELD03]_.
 
-    Test.
+    The "quantum state distinguishability" problem involves a collection of
+    :math:`n` quantum states
+
+    .. math::
+        \rho = \{ \rho_0, \ldots, \rho_n \},
+
+    as well as a list of corresponding probabilities
+
+    .. math::
+        p = \{ p_0, \ldots, p_n \}
+
+    Alice chooses :math:`i` with probability :math:`p_i` and creates the state
+    :math:`rho_i`
+
+    Bob wants to guess which state he was given from the collection of states.
+
+    This function implements the following semidefinite program that provides
+    the optimal probability with which Bob can conduct quantum state
+    distinguishability.
+
+    .. math::
+
+        \begin{align*}
+            \text{maximize:} \quad & \sum_{i=0}^n p_i \langle M_i,
+            \rho_i \rangle \\
+            \text{subject to:} \quad & M_0 + \ldots + M_n = \mathbb{I},\\
+                                     & M_0, \ldots, M_n \geq 0
+        \end{align*}
+
+    Examples
+    ==========
+
+    State distinguishability for two state density matrices.
+
+    >>> from toqito.states import basis, bell
+    >>> from toqito.state_distinguish import state_distinguishability
+    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
+    >>> e_00 = e_0 * e_0.conj().T
+    >>> e_11 = e_1 * e_1.conj().T
+    >>> states = [e_00, e_11]
+    >>> probs = [1 / 2, 1 / 2]
+    >>> res = state_distinguishability(states, probs)
+    0.5000000000006083
+
+    References
+    ==========
+    .. [ELD03] Eldar, Yonina C.
+        "A semidefinite programming approach to optimal unambiguous
+        discrimination of quantum states."
+        IEEE Transactions on information theory 49.2 (2003): 446-456.
+        https://arxiv.org/abs/quant-ph/0206093
+
+
+    :return: The optimal probability with which Bob can distinguish the state.
     """
+    obj_func = []
+    measurements = []
+    constraints = []
 
-    def __init__(self, states: List[np.ndarray], probs: List[float] = None):
-        """Create distinguishability scenarios.
+    __is_states_valid(states)
+    if probs is None:
+        probs = [1 / len(states)] * len(states)
+    __is_probs_valid(probs)
 
-        :param states: A list of density operators (matrices) corresponding to
-                       quantum states.
-        :param probs: A list of probabilities where `probs[i]` corresponds to
-                      the probability that `states[i]` is selected by Alice.
-        """
-        # Assume that at least one state is provided.
-        if states is None or states == []:
-            raise ValueError(
-                "InvalidStates: There must be at least one state provided."
-            )
+    dim_x, dim_y = states[0].shape
 
-        # Assume uniform probability if no specific distribution is given.
-        if probs is None:
-            probs = [1 / len(states)] * len(states)
-        if not np.isclose(sum(probs), 1):
-            raise ValueError("Invalid: Probabilities must sum to 1.")
+    # The variable `states` is provided as a list of vectors. Transform them
+    # into density matrices.
+    if dim_y == 1:
+        for i, state_ket in enumerate(states):
+            states[i] = state_ket * state_ket.conj().T
 
-        _, dim_y = states[0].shape
+    for i, _ in enumerate(states):
+        measurements.append(cvxpy.Variable((dim_x, dim_x), PSD=True))
 
-        # The variable `states` is provided as a list of vectors. Transform them
-        # into density matrices.
-        if dim_y == 1:
-            for i, state_ket in enumerate(states):
-                states[i] = state_ket * state_ket.conj().T
+        obj_func.append(probs[i] * cvxpy.trace(states[i].conj().T @ measurements[i]))
 
-        self._states = states
-        self._probs = probs
+    constraints.append(sum(measurements) == np.identity(dim_x))
 
-    def state_distinguishability(self) -> float:
-        r"""
-        Compute probability of state distinguishability [ELD03]_.
+    objective = cvxpy.Maximize(sum(obj_func))
+    problem = cvxpy.Problem(objective, constraints)
+    sol_default = problem.solve()
 
-        The "quantum state distinguishability" problem involves a collection of
-        :math:`n` quantum states
-
-        .. math::
-            \rho = \{ \rho_0, \ldots, \rho_n \},
-
-        as well as a list of corresponding probabilities
-
-        .. math::
-            p = \{ p_0, \ldots, p_n \}
-
-        Alice chooses :math:`i` with probability :math:`p_i` and creates the state
-        :math:`rho_i`
-
-        Bob wants to guess which state he was given from the collection of states.
-
-        This function implements the following semidefinite program that provides
-        the optimal probability with which Bob can conduct quantum state
-        distinguishability.
-
-        .. math::
-
-            \begin{align*}
-                \text{maximize:} \quad & \sum_{i=0}^n p_i \langle M_i,
-                \rho_i \rangle \\
-                \text{subject to:} \quad & M_0 + \ldots + M_n = \mathbb{I},\\
-                                         & M_0, \ldots, M_n \geq 0
-            \end{align*}
-
-        Examples
-        ==========
-
-        State distinguishability for two state density matrices.
-
-        >>> from toqito.states import basis, bell
-        >>> from toqito.state_distinguish import StateDistinguish
-        >>> e_0, e_1 = basis(2, 0), basis(2, 1)
-        >>> e_00 = e_0 * e_0.conj().T
-        >>> e_11 = e_1 * e_1.conj().T
-        >>> states = [e_00, e_11]
-        >>> probs = [1 / 2, 1 / 2]
-        >>> s_d = StateDistinguish(states, probs)
-        >>> res = s_d.state_distinguishability(states, probs)
-        0.5000000000006083
-
-        References
-        ==========
-        .. [ELD03] Eldar, Yonina C.
-            "A semidefinite programming approach to optimal unambiguous
-            discrimination of quantum states."
-            IEEE Transactions on information theory 49.2 (2003): 446-456.
-            https://arxiv.org/abs/quant-ph/0206093
+    return 1 / len(states) * sol_default
 
 
-        :return: The optimal probability with which Bob can distinguish the state.
-        """
-        obj_func = []
-        measurements = []
-        constraints = []
+def ppt_distinguishability(
+    states: List[np.ndarray], probs: List[float] = None
+) -> float:
+    r"""
+    Compute probability of distinguishing a state via PPT measurements [COS13]_.
 
-        dim_x, _ = self._states[0].shape
-        for i, _ in enumerate(self._states):
-            measurements.append(cvxpy.Variable((dim_x, dim_x), PSD=True))
+    Implements the semidefinite program (SDP) whose optimal value is equal to
+    the maximum probability of perfectly distinguishing orthogonal maximally
+    entangled states using any PPT measurement; a measurement whose operators
+    are positive under partial transpose. This SDP was explicitly provided in
+    [COS13]_.
 
-            obj_func.append(
-                self._probs[i] * cvxpy.trace(self._states[i].conj().T @ measurements[i])
-            )
+    Specifically, the function implements the dual problem (as this is
+    computationally more efficient) and is defined as:
 
-        constraints.append(sum(measurements) == np.identity(dim_x))
+    .. math::
 
-        objective = cvxpy.Maximize(sum(obj_func))
-        problem = cvxpy.Problem(objective, constraints)
-        sol_default = problem.solve()
+        \begin{equation}
+            \begin{aligned}
+                \text{minimize:} \quad & \frac{1}{k} \text{Tr}(Y) \\
+                \text{subject to:} \quad & Y \geq \text{T}_{\mathcal{A}}
+                                          (\rho_j), \quad j = 1, \ldots, k, \\
+                                         & Y \in \text{Herm}(\mathcal{A} \otimes
+                                          \mathcal{B}).
+            \end{aligned}
+        \end{equation}
 
-        return 1 / len(self._states) * sol_default
+    Examples
+    ==========
 
-    def ppt_distinguishability(self) -> float:
-        r"""
-        Compute probability of distinguishing a state via PPT measurements [COS13]_.
+    Consider the following Bell states
 
-        Implements the semidefinite program (SDP) whose optimal value is equal to
-        the maximum probability of perfectly distinguishing orthogonal maximally
-        entangled states using any PPT measurement; a measurement whose operators
-        are positive under partial transpose. This SDP was explicitly provided in
-        [COS13]_.
+    .. math::
+        \begin{equation}
+            \begin{aligned}
+            |\psi_0 \rangle = \frac{|00\rangle + |11\rangle}{\sqrt{2}}, &\quad
+            |\psi_1 \rangle = \frac{|01\rangle + |10\rangle}{\sqrt{2}}, \\
+            |\psi_2 \rangle = \frac{|01\rangle - |10\rangle}{\sqrt{2}}, &\quad
+            |\psi_3 \rangle = \frac{|00\rangle - |11\rangle}{\sqrt{2}}.
+            \end{aligned}
+        \end{equation}
 
-        Specifically, the function implements the dual problem (as this is
-        computationally more efficient) and is defined as:
+    It was illustrated in [YDY12]_ that for the following set of states:
 
-        .. math::
+    The PPT distinguishability of the following states
 
-            \begin{equation}
-                \begin{aligned}
-                    \text{minimize:} \quad & \frac{1}{k} \text{Tr}(Y) \\
-                    \text{subject to:} \quad & Y \geq \text{T}_{\mathcal{A}}
-                                              (\rho_j), \quad j = 1, \ldots, k, \\
-                                             & Y \in \text{Herm}(\mathcal{A} \otimes
-                                              \mathcal{B}).
-                \end{aligned}
-            \end{equation}
+    .. math::
+        \begin{equation}
+            \rho_1^{(2)} = \psi_0 \otimes \psi_0, \quad
+            \rho_2^{(2)} = \psi_1 \otimes \psi_1, \quad
+        \end{equation}
 
-        Examples
-        ==========
+    should yield :math:`7/8 ~ 0.875` as was proved in [YDY12]_.
 
-        Consider the following Bell states
+    >>> from toqito.states import bell
+    >>> from toqito.state_distinguish import ppt_distinguishability
+    >>> # Bell vectors:
+    >>> psi_0 = bell(0)
+    >>> psi_1 = bell(2)
+    >>> psi_2 = bell(3)
+    >>> psi_3 = bell(1)
+    >>>
+    >>> # YDY vectors from [YDY12]_.
+    >>> x_1 = np.kron(psi_0, psi_0)
+    >>> x_2 = np.kron(psi_1, psi_3)
+    >>> x_3 = np.kron(psi_2, psi_3)
+    >>> x_4 = np.kron(psi_3, psi_3)
+    >>>
+    >>> # YDY density matrices.
+    >>> rho_1 = x_1 * x_1.conj().T
+    >>> rho_2 = x_2 * x_2.conj().Tk
+    >>> rho_3 = x_3 * x_3.conj().T
+    >>> rho_4 = x_4 * x_4.conj().T
+    >>>
+    >>> states = [rho_1, rho_2, rho_3, rho_4]
+    >>> probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
+    >>> ppt_distinguishability(states, probs)
+    0.875
 
-        .. math::
-            \begin{equation}
-                \begin{aligned}
-                |\psi_0 \rangle = \frac{|00\rangle + |11\rangle}{\sqrt{2}}, &\quad
-                |\psi_1 \rangle = \frac{|01\rangle + |10\rangle}{\sqrt{2}}, \\
-                |\psi_2 \rangle = \frac{|01\rangle - |10\rangle}{\sqrt{2}}, &\quad
-                |\psi_3 \rangle = \frac{|00\rangle - |11\rangle}{\sqrt{2}}.
-                \end{aligned}
-            \end{equation}
+    References
+    ==========
+    .. [COS13] Cosentino, Alessandro.
+        "Positive-partial-transpose-indistinguishable states via semidefinite
+        programming."
+        Physical Review A 87.1 (2013): 012321.
+        https://arxiv.org/abs/1205.1031
 
-        It was illustrated in [YDY12]_ that for the following set of states:
+    .. [YDY12] Yu, Nengkun, Runyao Duan, and Mingsheng Ying.
+        "Four locally indistinguishable ququad-ququad orthogonal
+        maximally entangled states."
+        Physical review letters 109.2 (2012): 020506.
+        https://arxiv.org/abs/1107.3224
 
-        The PPT distinguishability of the following states
+    :return: The optimal probability with which the states can be distinguished
+             via PPT measurements.
+    """
+    constraints = []
 
-        .. math::
-            \begin{equation}
-                \rho_1^{(2)} = \psi_0 \otimes \psi_0, \quad
-                \rho_2^{(2)} = \psi_1 \otimes \psi_1, \quad
-            \end{equation}
+    __is_states_valid(states)
+    if probs is None:
+        probs = [1 / len(states)] * len(states)
+    __is_probs_valid(probs)
 
-        should yield :math:`7/8 ~ 0.875` as was proved in [YDY12]_.
+    dim_x, dim_y = states[0].shape
 
-        >>> from toqito.states import bell
-        >>> from toqito.state_distinguish import StateDistinguish
-        >>> # Bell vectors:
-        >>> psi_0 = bell(0)
-        >>> psi_1 = bell(2)
-        >>> psi_2 = bell(3)
-        >>> psi_3 = bell(1)
-        >>>
-        >>> # YDY vectors from [YDY12]_.
-        >>> x_1 = np.kron(psi_0, psi_0)
-        >>> x_2 = np.kron(psi_1, psi_3)
-        >>> x_3 = np.kron(psi_2, psi_3)
-        >>> x_4 = np.kron(psi_3, psi_3)
-        >>>
-        >>> # YDY density matrices.
-        >>> rho_1 = x_1 * x_1.conj().T
-        >>> rho_2 = x_2 * x_2.conj().Tk
-        >>> rho_3 = x_3 * x_3.conj().T
-        >>> rho_4 = x_4 * x_4.conj().T
-        >>>
-        >>> states = [rho_1, rho_2, rho_3, rho_4]
-        >>> probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
-        >>> ydy = StateDistinguish(states, probs)
-        >>> ydy.ppt_distinguishability()
-        0.875
+    # The variable `states` is provided as a list of vectors. Transform them
+    # into density matrices.
+    if dim_y == 1:
+        for i, state_ket in enumerate(states):
+            states[i] = state_ket * state_ket.conj().T
 
-        References
-        ==========
-        .. [COS13] Cosentino, Alessandro.
-            "Positive-partial-transpose-indistinguishable states via semidefinite
-            programming."
-            Physical Review A 87.1 (2013): 012321.
-            https://arxiv.org/abs/1205.1031
+    y_var = cvxpy.Variable((dim_x, dim_x), hermitian=True)
+    objective = 1 / len(states) * cvxpy.Minimize(cvxpy.trace(cvxpy.real(y_var)))
 
-        .. [YDY12] Yu, Nengkun, Runyao Duan, and Mingsheng Ying.
-            "Four locally indistinguishable ququad-ququad orthogonal
-            maximally entangled states."
-            Physical review letters 109.2 (2012): 020506.
-            https://arxiv.org/abs/1107.3224
+    dim = int(np.log2(dim_x))
+    dim_list = [2] * int(np.log2(dim_x))
+    sys_list = list(range(1, dim, 2))
 
-        :return: The optimal probability with which the states can be distinguished
-                 via PPT measurements.
-        """
-        constraints = []
-        dim_x, _ = self._states[0].shape
-        y_var = cvxpy.Variable((dim_x, dim_x), hermitian=True)
-        objective = (
-            1 / len(self._states) * cvxpy.Minimize(cvxpy.trace(cvxpy.real(y_var)))
+    for i, _ in enumerate(states):
+        constraints.append(
+            cvxpy.real(y_var)
+            >> partial_transpose(states[i], sys=sys_list, dim=dim_list)
         )
 
-        dim = int(np.log2(dim_x))
-        dim_list = [2] * int(np.log2(dim_x))
-        sys_list = list(range(1, dim, 2))
+    problem = cvxpy.Problem(objective, constraints)
+    sol_default = problem.solve()
 
-        for i, _ in enumerate(self._states):
-            constraints.append(
-                cvxpy.real(y_var)
-                >> partial_transpose(self._states[i], sys=sys_list, dim=dim_list)
-            )
+    return sol_default
 
-        problem = cvxpy.Problem(objective, constraints)
-        sol_default = problem.solve()
 
-        return sol_default
+def conclusive_state_exclusion(
+    states: List[np.ndarray], probs: List[float] = None
+) -> float:
+    r"""
+    Compute probability of conclusive single state exclusion.
 
-    def conclusive_state_exclusion(self) -> float:
-        r"""
-        Compute probability of conclusive single state exclusion.
+    The "quantum state exclusion" problem involves a collection of :math:`n`
+    quantum states
 
-        The "quantum state exclusion" problem involves a collection of :math:`n`
-        quantum states
+    .. math::
+        \rho = \{ \rho_0, \ldots, \rho_n \},
 
-        .. math::
-            \rho = \{ \rho_0, \ldots, \rho_n \},
+    as well as a list of corresponding probabilities
 
-        as well as a list of corresponding probabilities
+    .. math::
+        p = \{ p_0, \ldots, p_n \}
 
-        .. math::
-            p = \{ p_0, \ldots, p_n \}
+    Alice chooses :math:`i` with probability :math:`p_i` and creates the state
+    :math:`\rho_i`.
 
-        Alice chooses :math:`i` with probability :math:`p_i` and creates the state
-        :math:`\rho_i`.
+    Bob wants to guess which state he was *not* given from the collection of
+    states. State exclusion implies that ability to discard (with certainty) at
+    least one out of the "n" possible quantum states by applying a measurement.
 
-        Bob wants to guess which state he was *not* given from the collection of
-        states. State exclusion implies that ability to discard (with certainty) at
-        least one out of the "n" possible quantum states by applying a measurement.
-
-        This function implements the following semidefinite program that provides
-        the optimal probability with which Bob can conduct quantum state exclusion.
-
-            .. math::
-                \begin{equation}
-                    \begin{aligned}
-                        \text{minimize:} \quad & \sum_{i=0}^n p_i \langle M_i,
-                                                    \rho_i \rangle \\
-                        \text{subject to:} \quad & M_0 + \ldots + M_n =
-                                                   \mathbb{I}, \\
-                                                 & M_0, \ldots, M_n >= 0
-                    \end{aligned}
-                \end{equation}
-
-        The conclusive state exclusion SDP is written explicitly in [BJOP14]_. The
-        problem of conclusive state exclusion was also thought about under a
-        different guise in [PBR12]_.
-
-        Examples
-        ==========
-
-        Consider the following two Bell states
+    This function implements the following semidefinite program that provides
+    the optimal probability with which Bob can conduct quantum state exclusion.
 
         .. math::
-            u_0 = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \\
-            u_1 = \frac{1}{\sqrt{2}} \left( |00 \rangle - |11 \rangle \right).
+            \begin{equation}
+                \begin{aligned}
+                    \text{minimize:} \quad & \sum_{i=0}^n p_i \langle M_i,
+                                                \rho_i \rangle \\
+                    \text{subject to:} \quad & M_0 + \ldots + M_n =
+                                               \mathbb{I}, \\
+                                             & M_0, \ldots, M_n >= 0
+                \end{aligned}
+            \end{equation}
 
-        For the corresponding density matrices :math:`\rho_0 = u_0 u_0^*` and
-        :math:`\rho_1 = u_1 u_1^*`, we may construct a set
+    The conclusive state exclusion SDP is written explicitly in [BJOP14]_. The
+    problem of conclusive state exclusion was also thought about under a
+    different guise in [PBR12]_.
 
-        .. math::
-            \rho = \{\rho_0, \rho_1 \}
+    Examples
+    ==========
 
-        such that
+    Consider the following two Bell states
 
-        .. math::
-            p = \{1/2, 1/2\}.
+    .. math::
+        u_0 = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \\
+        u_1 = \frac{1}{\sqrt{2}} \left( |00 \rangle - |11 \rangle \right).
 
-        It is not possible to conclusively exclude either of the two states. We can
-        see that the result of the function in `toqito` yields a value of :math`0`
-        as the probability for this to occur.
+    For the corresponding density matrices :math:`\rho_0 = u_0 u_0^*` and
+    :math:`\rho_1 = u_1 u_1^*`, we may construct a set
 
-        >>> from toqito.state_distinguish import StateDistinguish
-        >>> from toqito.states import bell
-        >>> import numpy as np
-        >>> rho1 = bell(0) * bell(0).conj().T
-        >>> rho2 = bell(1) * bell(1).conj().T
-        >>>
-        >>> states = [rho1, rho2]
-        >>> probs = [1/2, 1/2]
-        >>>
-        >>> s_d = StateDistinguish(states, probs)
-        >>> s_d.conclusive_state_exclusion()
-        1.6824720366950206e-09
+    .. math::
+        \rho = \{\rho_0, \rho_1 \}
 
-        References
-        ==========
-        .. [PBR12] "On the reality of the quantum state"
-            Pusey, Matthew F., Barrett, Jonathan, and Rudolph, Terry.
-            Nature Physics 8.6 (2012): 475-478.
-            arXiv:1111.3328
+    such that
 
-        .. [BJOP14] "Conclusive exclusion of quantum states"
-            Bandyopadhyay, Somshubhro, Jain, Rahul, Oppenheim, Jonathan,
-            Perry, Christopher
-            Physical Review A 89.2 (2014): 022336.
-            arXiv:1306.4683
+    .. math::
+        p = \{1/2, 1/2\}.
 
-        :return: The optimal probability with which Bob can guess the state he was
-                 not given from `states`.
-        """
-        obj_func = []
-        measurements = []
-        constraints = []
-        dim_x, _ = self._states[0].shape
+    It is not possible to conclusively exclude either of the two states. We can
+    see that the result of the function in `toqito` yields a value of :math`0`
+    as the probability for this to occur.
 
-        for i, _ in enumerate(self._states):
-            measurements.append(cvxpy.Variable((dim_x, dim_x), PSD=True))
+    >>> from toqito.state_distinguish import conclusive_state_exclusion
+    >>> from toqito.states import bell
+    >>> import numpy as np
+    >>> rho1 = bell(0) * bell(0).conj().T
+    >>> rho2 = bell(1) * bell(1).conj().T
+    >>>
+    >>> states = [rho1, rho2]
+    >>> probs = [1/2, 1/2]
+    >>>
+    >>> conclusive_state_exclusion(states, probs)
+    1.6824720366950206e-09
 
-            obj_func.append(
-                self._probs[i] * cvxpy.trace(self._states[i].conj().T @ measurements[i])
-            )
+    References
+    ==========
+    .. [PBR12] "On the reality of the quantum state"
+        Pusey, Matthew F., Barrett, Jonathan, and Rudolph, Terry.
+        Nature Physics 8.6 (2012): 475-478.
+        arXiv:1111.3328
 
-        constraints.append(sum(measurements) == np.identity(dim_x))
+    .. [BJOP14] "Conclusive exclusion of quantum states"
+        Bandyopadhyay, Somshubhro, Jain, Rahul, Oppenheim, Jonathan,
+        Perry, Christopher
+        Physical Review A 89.2 (2014): 022336.
+        arXiv:1306.4683
 
-        if np.iscomplexobj(self._states[0]):
-            objective = cvxpy.Minimize(cvxpy.real(sum(obj_func)))
-        else:
-            objective = cvxpy.Minimize(sum(obj_func))
+    :return: The optimal probability with which Bob can guess the state he was
+             not given from `states`.
+    """
+    obj_func = []
+    measurements = []
+    constraints = []
 
-        problem = cvxpy.Problem(objective, constraints)
-        sol_default = problem.solve()
+    __is_states_valid(states)
+    if probs is None:
+        probs = [1 / len(states)] * len(states)
+    __is_probs_valid(probs)
 
-        return 1 / len(self._states) * sol_default
+    dim_x, dim_y = states[0].shape
 
-    def unambiguous_state_exclusion(self) -> float:
-        r"""
-        Compute probability of unambiguous state exclusion [BJOPUS14]_.
+    # The variable `states` is provided as a list of vectors. Transform them
+    # into density matrices.
+    if dim_y == 1:
+        for i, state_ket in enumerate(states):
+            states[i] = state_ket * state_ket.conj().T
 
-        This function implements the following semidefinite program that provides
-        the optimal probability with which Bob can conduct quantum state exclusion.
+    for i, _ in enumerate(states):
+        measurements.append(cvxpy.Variable((dim_x, dim_x), PSD=True))
 
-        .. math::
+        obj_func.append(probs[i] * cvxpy.trace(states[i].conj().T @ measurements[i]))
 
-            \begin{align*}
-                \text{maximize:} \quad & \sum_{i=0}^n \sum_{j=0}^n
-                                         \langle M_i, \rho_j \rangle \\
-                \text{subject to:} \quad & \sum_{i=0}^n M_i \leq \mathbb{I},\\
-                                         & \text{Tr}(\rho_i M_i) = 0,
-                                           \quad \quad \forall 1  \leq i \leq n, \\
-                                         & M_0, \ldots, M_n \geq 0
-            \end{align*}
+    constraints.append(sum(measurements) == np.identity(dim_x))
 
-        Examples
-        ==========
+    if np.iscomplexobj(states[0]):
+        objective = cvxpy.Minimize(cvxpy.real(sum(obj_func)))
+    else:
+        objective = cvxpy.Minimize(sum(obj_func))
 
-        Consider the following two Bell states
+    problem = cvxpy.Problem(objective, constraints)
+    sol_default = problem.solve()
 
-        .. math::
-            u_0 = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \\
-            u_1 = \frac{1}{\sqrt{2}} \left( |00 \rangle - |11 \rangle \right).
+    return 1 / len(states) * sol_default
 
-        For the corresponding density matrices :math:`\rho_0 = u_0 u_0^*` and
-        :math:`\rho_1 = u_1 u_1^*`, we may construct a set
 
-        .. math::
-            \rho = \{\rho_0, \rho_1 \}
+def unambiguous_state_exclusion(
+    states: List[np.ndarray], probs: List[float] = None
+) -> float:
+    r"""
+    Compute probability of unambiguous state exclusion [BJOPUS14]_.
 
-        such that
+    This function implements the following semidefinite program that provides
+    the optimal probability with which Bob can conduct quantum state exclusion.
 
-        .. math::
-            p = \{1/2, 1/2\}.
+    .. math::
 
-        It is not possible to unambiguously exclude either of the two states. We can
-        see that the result of the function in `toqito` yields a value of :math:`0`
-        as the probability for this to occur.
+        \begin{align*}
+            \text{maximize:} \quad & \sum_{i=0}^n \sum_{j=0}^n
+                                     \langle M_i, \rho_j \rangle \\
+            \text{subject to:} \quad & \sum_{i=0}^n M_i \leq \mathbb{I},\\
+                                     & \text{Tr}(\rho_i M_i) = 0,
+                                       \quad \quad \forall 1  \leq i \leq n, \\
+                                     & M_0, \ldots, M_n \geq 0
+        \end{align*}
 
-        >>> from toqito.state_distinguish import StateDistinguish
-        >>> from toqito.states import bell
-        >>> import numpy as np
-        >>> rho1 = bell(0) * bell(0).conj().T
-        >>> rho2 = bell(1) * bell(1).conj().T
-        >>>
-        >>> states = [rho1, rho2]
-        >>> probs = [1/2, 1/2]
-        >>>
-        >>> s_d = StateDistinguish(states, probs)
-        >>> s_d.unambiguous_state_exclusion()
-        -7.250173600116328e-18
+    Examples
+    ==========
 
-        References
-        ==========
-        .. [BJOPUS14] "Conclusive exclusion of quantum states"
-            Somshubhro Bandyopadhyay, Rahul Jain, Jonathan Oppenheim,
-            Christopher Perry
-            Physical Review A 89.2 (2014): 022336.
-            arXiv:1306.4683
+    Consider the following two Bell states
 
-        :return: The optimal probability with which Bob can guess the state he was
-                 not given from `states` with certainty.
-        """
-        obj_func = []
-        measurements = []
-        constraints = []
-        dim_x, _ = self._states[0].shape
+    .. math::
+        u_0 = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \\
+        u_1 = \frac{1}{\sqrt{2}} \left( |00 \rangle - |11 \rangle \right).
 
-        for i, _ in enumerate(self._states):
-            measurements.append(cvxpy.Variable((dim_x, dim_x), PSD=True))
+    For the corresponding density matrices :math:`\rho_0 = u_0 u_0^*` and
+    :math:`\rho_1 = u_1 u_1^*`, we may construct a set
 
-            obj_func.append(
-                self._probs[i] * cvxpy.trace(self._states[i].conj().T @ measurements[i])
-            )
+    .. math::
+        \rho = \{\rho_0, \rho_1 \}
 
-            constraints.append(cvxpy.trace(self._states[i] @ measurements[i]) == 0)
+    such that
 
-        constraints.append(sum(measurements) <= np.identity(dim_x))
+    .. math::
+        p = \{1/2, 1/2\}.
 
-        if np.iscomplexobj(self._states[0]):
-            objective = cvxpy.Maximize(cvxpy.real(sum(obj_func)))
-        else:
-            objective = cvxpy.Maximize(sum(obj_func))
+    It is not possible to unambiguously exclude either of the two states. We can
+    see that the result of the function in `toqito` yields a value of :math:`0`
+    as the probability for this to occur.
 
-        problem = cvxpy.Problem(objective, constraints)
-        sol_default = problem.solve()
+    >>> from toqito.state_distinguish import unambiguous_state_exclusion
+    >>> from toqito.states import bell
+    >>> import numpy as np
+    >>> rho1 = bell(0) * bell(0).conj().T
+    >>> rho2 = bell(1) * bell(1).conj().T
+    >>>
+    >>> states = [rho1, rho2]
+    >>> probs = [1/2, 1/2]
+    >>>
+    >>> unambiguous_state_exclusion(states, probs)
+    -7.250173600116328e-18
 
-        return 1 / len(self._states) * sol_default
+    References
+    ==========
+    .. [BJOPUS14] "Conclusive exclusion of quantum states"
+        Somshubhro Bandyopadhyay, Rahul Jain, Jonathan Oppenheim,
+        Christopher Perry
+        Physical Review A 89.2 (2014): 022336.
+        arXiv:1306.4683
+
+    :return: The optimal probability with which Bob can guess the state he was
+             not given from `states` with certainty.
+    """
+    obj_func = []
+    measurements = []
+    constraints = []
+
+    __is_states_valid(states)
+    if probs is None:
+        probs = [1 / len(states)] * len(states)
+    __is_probs_valid(probs)
+
+    dim_x, dim_y = states[0].shape
+
+    # The variable `states` is provided as a list of vectors. Transform them
+    # into density matrices.
+    if dim_y == 1:
+        for i, state_ket in enumerate(states):
+            states[i] = state_ket * state_ket.conj().T
+
+    for i, _ in enumerate(states):
+        measurements.append(cvxpy.Variable((dim_x, dim_x), PSD=True))
+
+        obj_func.append(probs[i] * cvxpy.trace(states[i].conj().T @ measurements[i]))
+
+        constraints.append(cvxpy.trace(states[i] @ measurements[i]) == 0)
+
+    constraints.append(sum(measurements) <= np.identity(dim_x))
+
+    if np.iscomplexobj(states[0]):
+        objective = cvxpy.Maximize(cvxpy.real(sum(obj_func)))
+    else:
+        objective = cvxpy.Maximize(sum(obj_func))
+
+    problem = cvxpy.Problem(objective, constraints)
+    sol_default = problem.solve()
+
+    return 1 / len(states) * sol_default

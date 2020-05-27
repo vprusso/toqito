@@ -88,7 +88,7 @@ Using :code:`toqito`, we can calculate this probability directly as follows:
 .. code-block:: python
 
     >>> from toqito.states import basis
-    >>> from toqito.state_distinguish import StateDistinguish
+    >>> from toqito.state_distinguish import state_distinguishability
     >>> 
     >>> # Define the standard basis |0> and |1>
     >>> e_0, e_1 = basis(2, 0), basis(2, 1)
@@ -105,8 +105,7 @@ Using :code:`toqito`, we can calculate this probability directly as follows:
     >>>
     >>> # Calculate the probability with which Bob can 
     >>> # distinguish the state he is provided.
-    >>> dist = StateDistinguish(states, probs)
-    >>> dist.state_distinguishability()
+    >>> state_distinguishability(states, probs)
     0.5000000000006083
 
 Specifying similar state distinguishability problems can be done so using this
@@ -186,8 +185,7 @@ via PPT measurements in the following manner.
     >>>
     >>> states = [rho_1, rho_2, rho_3, rho_4]
     >>> probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
-    >>> ydy = StateDistinguish(states, probs)
-    >>> ydy.ppt_distinguishability()
+    >>> ppt_distinguishability(states, probs)
     0.875
 
 References

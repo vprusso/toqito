@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from toqito.states import bell
-from toqito.state_distinguish import StateDistinguish
+from toqito.state_distinguish import ppt_distinguishability
 
 
 class TestPPTDistinguishability(unittest.TestCase):
@@ -40,8 +40,7 @@ class TestPPTDistinguishability(unittest.TestCase):
         states = [rho_1, rho_2, rho_3, rho_4]
         probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
 
-        ydy = StateDistinguish(states, probs)
-        res = ydy.ppt_distinguishability()
+        res = ppt_distinguishability(states, probs)
         self.assertEqual(np.isclose(res, 7 / 8), True)
 
     def test_ppt_distinguishability_yyd_vectors(self):
@@ -70,8 +69,7 @@ class TestPPTDistinguishability(unittest.TestCase):
         states = [x_1, x_2, x_3, x_4]
         probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
 
-        ydy = StateDistinguish(states, probs)
-        res = ydy.ppt_distinguishability()
+        res = ppt_distinguishability(states, probs)
         self.assertEqual(np.isclose(res, 7 / 8), True)
 
     def test_ppt_distinguishability_yyd_states_no_probs(self):
@@ -105,8 +103,7 @@ class TestPPTDistinguishability(unittest.TestCase):
 
         states = [rho_1, rho_2, rho_3, rho_4]
 
-        ydy = StateDistinguish(states)
-        res = ydy.ppt_distinguishability()
+        res = ppt_distinguishability(states)
         self.assertEqual(np.isclose(res, 7 / 8), True)
 
 

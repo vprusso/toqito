@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from toqito.states import bell
-from toqito.state_distinguish import StateDistinguish
+from toqito.state_distinguish import conclusive_state_exclusion
 
 
 class TestConclusiveStateExclusion(unittest.TestCase):
@@ -14,8 +14,7 @@ class TestConclusiveStateExclusion(unittest.TestCase):
         rho = bell(0) * bell(0).conj().T
         states = [rho]
 
-        s_d = StateDistinguish(states)
-        res = s_d.conclusive_state_exclusion()
+        res = conclusive_state_exclusion(states)
         self.assertEqual(np.isclose(res, 1), True)
 
     def test_conclusive_state_exclusion_one_state_vec(self):
@@ -23,8 +22,7 @@ class TestConclusiveStateExclusion(unittest.TestCase):
         rho = bell(0)
         states = [rho]
 
-        s_d = StateDistinguish(states)
-        res = s_d.conclusive_state_exclusion()
+        res = conclusive_state_exclusion(states)
         self.assertEqual(np.isclose(res, 1), True)
 
     def test_conclusive_state_exclusion_three_state(self):
@@ -35,8 +33,7 @@ class TestConclusiveStateExclusion(unittest.TestCase):
         states = [rho1, rho2, rho3]
         probs = [1 / 3, 1 / 3, 1 / 3]
 
-        conclusive_sd = StateDistinguish(states, probs)
-        res = conclusive_sd.conclusive_state_exclusion()
+        res = conclusive_state_exclusion(states, probs)
         self.assertEqual(np.isclose(res, 0), True)
 
     def test_conclusive_state_exclusion_three_state_vec(self):
@@ -47,8 +44,7 @@ class TestConclusiveStateExclusion(unittest.TestCase):
         states = [rho1, rho2, rho3]
         probs = [1 / 3, 1 / 3, 1 / 3]
 
-        conclusive_sd = StateDistinguish(states, probs)
-        res = conclusive_sd.conclusive_state_exclusion()
+        res = conclusive_state_exclusion(states, probs)
         self.assertEqual(np.isclose(res, 0), True)
 
     def test_conclusive_state_exclusion_complex_three_state_vec(self):
@@ -79,8 +75,7 @@ class TestConclusiveStateExclusion(unittest.TestCase):
         states = [mat_1, mat_2, mat_3]
         probs = [1 / 3, 1 / 3, 1 / 3]
 
-        conclusive_sd = StateDistinguish(states, probs)
-        res = conclusive_sd.conclusive_state_exclusion()
+        res = conclusive_state_exclusion(states, probs)
         self.assertGreater(res, 0)
 
 

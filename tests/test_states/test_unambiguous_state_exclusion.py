@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 
 from toqito.states import bell
-from toqito.state_distinguish import StateDistinguish
+from toqito.state_distinguish import unambiguous_state_exclusion
 
 
 class TestUnambiguousStateExclusion(unittest.TestCase):
@@ -14,8 +14,7 @@ class TestUnambiguousStateExclusion(unittest.TestCase):
         mat = bell(0) * bell(0).conj().T
         states = [mat]
 
-        s_d = StateDistinguish(states)
-        res = s_d.unambiguous_state_exclusion()
+        res = unambiguous_state_exclusion(states)
         self.assertEqual(np.isclose(res, 0), True)
 
     def test_unambiguous_state_exclusion_one_state_vec(self):
@@ -23,8 +22,7 @@ class TestUnambiguousStateExclusion(unittest.TestCase):
         vec = bell(0)
         states = [vec]
 
-        s_d = StateDistinguish(states)
-        res = s_d.unambiguous_state_exclusion()
+        res = unambiguous_state_exclusion(states)
         self.assertEqual(np.isclose(res, 0), True)
 
     def test_unambiguous_state_exclusion_three_state(self):
@@ -35,8 +33,7 @@ class TestUnambiguousStateExclusion(unittest.TestCase):
         states = [mat1, mat2, mat3]
         probs = [1 / 3, 1 / 3, 1 / 3]
 
-        unambiguous_sd = StateDistinguish(states, probs)
-        res = unambiguous_sd.unambiguous_state_exclusion()
+        res = unambiguous_state_exclusion(states, probs)
         self.assertEqual(np.isclose(res, 0), True)
 
     def test_unambiguous_state_exclusion_three_state_vec(self):
@@ -47,8 +44,7 @@ class TestUnambiguousStateExclusion(unittest.TestCase):
         states = [mat1, mat2, mat3]
         probs = [1 / 3, 1 / 3, 1 / 3]
 
-        unambiguous_sd = StateDistinguish(states, probs)
-        res = unambiguous_sd.unambiguous_state_exclusion()
+        res = unambiguous_state_exclusion(states, probs)
         self.assertEqual(np.isclose(res, 0), True)
 
     def test_unambiguous_state_exclusion_complex_three_state_vec(self):
@@ -79,8 +75,7 @@ class TestUnambiguousStateExclusion(unittest.TestCase):
         states = [mat_1, mat_2, mat_3]
         probs = [1 / 3, 1 / 3, 1 / 3]
 
-        unambiguous_sd = StateDistinguish(states, probs)
-        res = unambiguous_sd.unambiguous_state_exclusion()
+        res = unambiguous_state_exclusion(states, probs)
         self.assertEqual(np.isclose(res, 0, atol=1e-06), True)
 
 
