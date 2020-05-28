@@ -164,7 +164,7 @@ via PPT measurements in the following manner.
 .. code-block:: python
 
     >>> from toqito.states import bell
-    >>> from toqito.state_distinguish import StateDistinguish
+    >>> from toqito.state_distinguish import ppt_distinguishability
     >>> # Bell vectors:
     >>> psi_0 = bell(0)
     >>> psi_1 = bell(2)
