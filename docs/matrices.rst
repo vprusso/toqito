@@ -1,3 +1,6 @@
+Matrices
+=====================
+
 A number of linear algebra-related functions.
 
 `contributing guide <https://github.com/vprusso/toqito/blob/master/.github/CONTRIBUTING.md>`_.

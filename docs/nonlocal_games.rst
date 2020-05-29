@@ -1,4 +1,5 @@
-.. module:: toqito.nonlocal_games
+Nonlocal Games
+=====================
 
 A number of nonlocal game-related functions.
 

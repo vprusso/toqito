@@ -1,3 +1,6 @@
+Tutorials
+=========
+
 Tutorials for :code:`toqito`.
 
 Nonlocal Games

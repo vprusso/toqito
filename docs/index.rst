@@ -1,12 +1,15 @@
-Welcome to toqito's documentation
-==================================
-
 .. figure:: figures/logo.svg
    :alt: toqito logo
    :align: center
 
+toqito
+======
+
 toqito is an open source library for studying various objects in quantum
-information, namely, states, channels, and measurements.
+information, namely, states, channels, and measurements. toqito focuses on
+providing numerical tools to study problems pertaining to entanglement theory,
+nonlocal games, and other aspects of quantum information that are often
+associated with computer science.
 
 .. image:: http://img.shields.io/travis/vprusso/toqito.svg?style=plastic
    :alt: Build Status
@@ -24,56 +27,50 @@ information, namely, states, channels, and measurements.
    :alt: Unitary Fund
    :target: http://unitary.fund
 
-.. toctree::
-    :maxdepth: 1
-    :caption: Getting Started
 
-    getting_started
-
-.. toctree::
-    :maxdepth: 1
-    :caption: Tutorials
-
-    tutorials
+User Documentation
+------------------
 
 .. toctree::
     :maxdepth: 2
-    :caption: Channels
 
-    channels
+    install
+    tutorial.ipynb
 
 .. toctree::
     :maxdepth: 2
-    :caption: States
+    :caption: Fundamental Objects
 
     states
-
-.. toctree::
-    :maxdepth: 2
-    :caption: Measurements
-
+    channels
     measurements
 
 .. toctree::
-    :maxdepth: 1
-    :caption: Nonlocal Games
-
-    nonlocal_games
-
-.. toctree::
-    :maxdepth: 1
-    :caption: Matrices
+    :maxdepth: 2
+    :caption: Mathematics
 
     matrices
+    perms
 
 .. toctree::
-    :maxdepth: 1
-    :caption: Random States and Measurements
+    :maxdepth: 2
+    :caption: Random Objects
 
     random
 
 .. toctree::
-    :maxdepth: 1
-    :caption: Permutations and Combinatorics
+    :maxdepth: 2
+    :caption: Nonlocal Games
 
-    perms
+    nonlocal_games
+
+
+.. toctree::
+    :maxdepth: 2
+    :caption: Tutorials
+
+    tutorials
+
+
+
+

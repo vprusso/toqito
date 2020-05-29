@@ -9,8 +9,9 @@ maintainers = [
     "Vincent Russo <vincentrusso1@gmail.com>"
 ]
 readme = "README.md"
+homepage = "https://vprusso.github.io/toqito/"
 repository = "https://github.com/vprusso/toqito"
-keywords = ["quantum information", "quantum computing"]
+keywords = ["quantum information", "quantum computing", "nonlocal games"]
 
 
 [tool.poetry.dependencies]
@@ -25,15 +26,19 @@ scikit-image = "*"
 [tool.poetry.dev-dependencies]
 flake8 = "^3.7"
 flake8-docstrings = "^1.5"
+ipython = "*"
 pep8 = "^1.7"
 pylint = "^2.4"
 pytest = "*"
 pytest-cov = "*"
 mypy = "^0.750.0"
+nbsphinx = "*"
 coverage = "^4.5"
 coveralls = "^1.9"
+recommonmark = "*"
 sphinx = "*"
 sphinx_rtd_theme = "*"
+
 
 [build-system]
 requires = ["poetry>=0.12"]
