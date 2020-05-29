@@ -1,3 +1,6 @@
+Permutations
+============
+
 A number of permutations-related functions.
 
 Permutations

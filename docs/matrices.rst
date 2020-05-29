@@ -1,10 +1,13 @@
-Matrices
-=====================
+Linear Algebra
+==============
 
 A number of linear algebra-related functions.
 
-`contributing guide <https://github.com/vprusso/toqito/blob/master/.github/CONTRIBUTING.md>`_.
+Topics covered in this section:
 
+- `Matrices`_.
+- `Operations on Matrices and Vectors`_.
+- `Properties of Matrices and Vectors`_.
 
 Matrices
 -----------

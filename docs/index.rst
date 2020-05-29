@@ -34,7 +34,7 @@ User Documentation
 .. toctree::
     :maxdepth: 2
 
-    install
+    getting_started
     intro_tutorial
 
 .. toctree::

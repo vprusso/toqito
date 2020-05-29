@@ -1,6 +1,6 @@
 ## Getting started
 
-### Installing toqito
+### Installing
 
 1. Ensure you have python 3.7 or greater.
 

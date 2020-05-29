@@ -51,19 +51,19 @@ distribution and question and answer sets.
 
 where
 
-    .. math::
-        \begin{equation}
-            \Sigma_A = \{0, 1\}, \quad \Sigma_B = \{0, 1\}, \quad \Gamma_A =
-            \{0,1\}, \quad \text{and} \quad \Gamma_B = \{0, 1\}.
-        \end{equation}
+.. math::
+    \begin{equation}
+        \Sigma_A = \{0, 1\}, \quad \Sigma_B = \{0, 1\}, \quad \Gamma_A =
+        \{0,1\}, \quad \text{and} \quad \Gamma_B = \{0, 1\}.
+    \end{equation}
 
 Alice and Bob win the CHSH game if and only if the following equation is
 satisfied
 
-    .. math::
-        \begin{equation}
+.. math::
+    \begin{equation}
         a \oplus b = x y.
-        \end{equation}
+    \end{equation}
 
 Recall that :math:`\oplus` refers to the XOR operation. 
 
