@@ -3,7 +3,6 @@ import unittest
 import numpy as np
 
 from toqito.states import basis
-from toqito.matrix_ops import tensor
 from toqito.nonlocal_games.quantum_money import QuantumMoney
 
 
@@ -16,24 +15,26 @@ class TestQuantumMoney(unittest.TestCase):
         e_p = (e_0 + e_1) / np.sqrt(2)
         e_m = (e_0 - e_1) / np.sqrt(2)
 
-        e_000 = tensor(e_0, e_0, e_0)
-        e_111 = tensor(e_1, e_1, e_1)
-        e_ppp = tensor(e_p, e_p, e_p)
-        e_mmm = tensor(e_m, e_m, e_m)
+        states = [e_0, e_1, e_p, e_m]
+        probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
 
-        q_a = (
-            1
-            / 4
-            * (
-                e_000 * e_000.conj().T
-                + e_111 * e_111.conj().T
-                + e_ppp * e_ppp.conj().T
-                + e_mmm * e_mmm.conj().T
-            )
-        )
-        wiesner = QuantumMoney(q_a)
+        wiesner = QuantumMoney(states, probs)
         res = wiesner.counterfeit_attack()
         self.assertEqual(np.isclose(res, 3 / 4), True)
+
+    def test_counterfeit_attack_wiesner_money_rep_2(self):
+        """Probability of counterfeit attack with 2 parallel repetitions."""
+        e_0, e_1 = basis(2, 0), basis(2, 1)
+        e_p = (e_0 + e_1) / np.sqrt(2)
+        e_m = (e_0 - e_1) / np.sqrt(2)
+
+        states = [e_0, e_1, e_p, e_m]
+        probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
+        reps = 2
+
+        wiesner = QuantumMoney(states, probs, reps)
+        res = wiesner.counterfeit_attack()
+        self.assertEqual(np.isclose(res, (3 / 4) ** reps), True)
 
 
 if __name__ == "__main__":

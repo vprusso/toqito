@@ -1,4 +1,5 @@
 """Calculates success probability of counterfeiting quantum money."""
+from typing import List
 import cvxpy
 import numpy as np
 
@@ -14,15 +15,30 @@ class QuantumMoney:
     Test.
     """
 
-    def __init__(self, q_a: np.ndarray, num_reps: int = 1) -> None:
+    def __init__(
+        self, states: List[np.ndarray], probs: List[float], num_reps: int = 1
+    ) -> None:
         """
         Construct quantum money object.
 
-        :param q_a:
-        :param num_reps:
+        :param states: The quantum states.
+        :param probs: The probabilities with which to select the states.
+        :param num_reps: The number of parallel repetitions.
         """
-        self._q_a = q_a
         self._num_reps = num_reps
+
+        dim = len(states[0]) ** 3
+
+        # Construct the following operator:
+        #                              __              __
+        # Q = ∑_{k=1}^N p_k |ψk ⊗ ψk ⊗ ψk}> <ψk ⊗ ψk ⊗ ψk|
+        self._q_a = np.zeros((dim, dim))
+        for k, state in enumerate(states):
+            self._q_a += (
+                probs[k]
+                * tensor(state, state, state.conj())
+                * tensor(state, state, state.conj()).conj().T
+            )
 
     def counterfeit_attack(self) -> float:
         r"""
@@ -96,15 +112,10 @@ class QuantumMoney:
         >>> e_p = (e_0 + e_1) / np.sqrt(2)
         >>> e_m = (e_0 - e_1) / np.sqrt(2)
         >>>
-        >>> e_000 = tensor(e_0, e_0, e_0)
-        >>> e_111 = tensor(e_1, e_1, e_1)
-        >>> e_ppp = tensor(e_p, e_p, e_p)
-        >>> e_mmm = tensor(e_m, e_m, e_m)
-        >>>
-        >>> q_a = 1 / 4 * (e_000 * e_000.conj().T + e_111 * e_111.conj().T + \
-        >>> e_ppp * e_ppp.conj().T + e_mmm * e_mmm.conj().T)
-        >>> wiesner = QuantumMoney(q_a)
-        >>> wiesner.counterfeit_attack(q_a)
+        >>> states = [e_0, e_1, e_p, e_m]
+        >>> probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
+        >>> wiesner = QuantumMoney(states, probs)
+        >>> wiesner.counterfeit_attack()
         0.749999999967631
 
         References
@@ -151,7 +162,7 @@ class QuantumMoney:
         Dual problem for counterfeit attack.
 
         :param pperm:
-        :return:
+        :return: The optimal value of performing a counterfeit attack.
         """
         y_var = cvxpy.Variable(
             (2 ** self._num_reps, 2 ** self._num_reps), hermitian=True
@@ -165,7 +176,7 @@ class QuantumMoney:
         if self._num_reps == 1:
             constraints = [cvxpy.real(kron_var) >> self._q_a]
         else:
-            constraints = [cvxpy.real(pperm @ kron_var @ pperm.conj().T) >> self._q_a]
+            constraints = [cvxpy.real(kron_var) >> pperm @ self._q_a @ pperm.conj().T]
         problem = cvxpy.Problem(objective, constraints)
 
         return problem.solve()
@@ -174,8 +185,12 @@ class QuantumMoney:
         """
         Primal problem for counterfeit attack.
 
+        As the primal problem takes longer to solve than the dual problem (as
+        the variables are of larger dimension), the primal problem is only here
+        for reference.
+
         :param pperm:
-        :return:
+        :return: The optimal value of performing a counterfeit attack.
         """
         num_spaces = 3
 
@@ -187,12 +202,15 @@ class QuantumMoney:
         dim = dim.tolist()
 
         # Primal problem.
-        x_var = cvxpy.Variable((8 ** self._num_reps, 8 ** self._num_reps), PSD=True)
+        x_var = cvxpy.Variable(
+            (8 ** self._num_reps, 8 ** self._num_reps), hermitian=True
+        )
         objective = cvxpy.Maximize(
-            cvxpy.trace(pperm * self._q_a.conj().T * pperm.conj().T @ x_var)
+            cvxpy.trace(cvxpy.real(pperm @ self._q_a.conj().T @ pperm.conj().T @ x_var))
         )
         constraints = [
-            partial_trace_cvx(x_var, sys, dim) == np.identity(2 ** self._num_reps)
+            partial_trace_cvx(x_var, sys, dim) == np.identity(2 ** self._num_reps),
+            x_var >> 0,
         ]
         problem = cvxpy.Problem(objective, constraints)
 
