@@ -35,7 +35,7 @@ User Documentation
     :maxdepth: 2
 
     install
-    tutorial.ipynb
+    intro_tutorial
 
 .. toctree::
     :maxdepth: 2
