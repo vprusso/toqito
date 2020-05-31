@@ -1,10 +1,10 @@
-"""Tests for state distinguishability scenarios."""
+"""Tests for state optimizations scenarios."""
 import numpy as np
 
-from toqito.state_distinguish import state_distinguishability
-from toqito.state_distinguish import ppt_distinguishability
-from toqito.state_distinguish import conclusive_state_exclusion
-from toqito.state_distinguish import unambiguous_state_exclusion
+from toqito.state_opt import state_distinguishability
+from toqito.state_opt import ppt_distinguishability
+from toqito.state_opt import conclusive_state_exclusion
+from toqito.state_opt import unambiguous_state_exclusion
 
 from toqito.states import basis, bell
 

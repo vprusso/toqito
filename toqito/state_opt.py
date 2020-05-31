@@ -1,4 +1,4 @@
-"""Quantum state distinguishability scenarios and protocols."""
+"""Optimizations over quantum states."""
 from typing import List
 
 import cvxpy
@@ -80,7 +80,7 @@ def conclusive_state_exclusion(
     see that the result of the function in `toqito` yields a value of :math`0`
     as the probability for this to occur.
 
-    >>> from toqito.state_distinguish import conclusive_state_exclusion
+    >>> from toqito.state_opt import conclusive_state_exclusion
     >>> from toqito.states import bell
     >>> import numpy as np
     >>> rho1 = bell(0) * bell(0).conj().T
@@ -198,7 +198,7 @@ def ppt_distinguishability(
     should yield :math:`7/8 ~ 0.875` as was proved in [YDY12]_.
 
     >>> from toqito.states import bell
-    >>> from toqito.state_distinguish import ppt_distinguishability
+    >>> from toqito.state_opt import ppt_distinguishability
     >>> # Bell vectors:
     >>> psi_0 = bell(0)
     >>> psi_1 = bell(2)
@@ -314,7 +314,7 @@ def state_distinguishability(
     State distinguishability for two state density matrices.
 
     >>> from toqito.states import basis, bell
-    >>> from toqito.state_distinguish import state_distinguishability
+    >>> from toqito.state_opt import state_distinguishability
     >>> e_0, e_1 = basis(2, 0), basis(2, 1)
     >>> e_00 = e_0 * e_0.conj().T
     >>> e_11 = e_1 * e_1.conj().T
@@ -409,7 +409,7 @@ def unambiguous_state_exclusion(
     see that the result of the function in `toqito` yields a value of :math:`0`
     as the probability for this to occur.
 
-    >>> from toqito.state_distinguish import unambiguous_state_exclusion
+    >>> from toqito.state_opt import unambiguous_state_exclusion
     >>> from toqito.states import bell
     >>> import numpy as np
     >>> rho1 = bell(0) * bell(0).conj().T

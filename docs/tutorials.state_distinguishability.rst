@@ -88,7 +88,7 @@ Using :code:`toqito`, we can calculate this probability directly as follows:
 .. code-block:: python
 
     >>> from toqito.states import basis
-    >>> from toqito.state_distinguish import state_distinguishability
+    >>> from toqito.state_opt import state_distinguishability
     >>> 
     >>> # Define the standard basis |0> and |1>
     >>> e_0, e_1 = basis(2, 0), basis(2, 1)
@@ -164,7 +164,7 @@ via PPT measurements in the following manner.
 .. code-block:: python
 
     >>> from toqito.states import bell
-    >>> from toqito.state_distinguish import ppt_distinguishability
+    >>> from toqito.state_opt import ppt_distinguishability
     >>> # Bell vectors:
     >>> psi_0 = bell(0)
     >>> psi_1 = bell(2)

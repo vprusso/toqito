@@ -8,7 +8,7 @@ where :math:`\mathcal{X}` is a complex Euclidean space and where
 Topics covered in this section:
 
 - `Distance Metrics for Quantum States`_.
-- `Distinguishability Scenarios for Quantum States`_.
+- `Optimizations over Quantum States`_.
 - `Operations on Quantum States`_.
 - `Properties of Quantum States`_.
 - `Quantum States`_.
@@ -21,7 +21,7 @@ Distance Metrics for Quantum States
    :undoc-members:
    :show-inheritance:
 
-Distinguishability Scenarios for Quantum States
+Optimizations over Quantum States
 -----------------------------------------------
 
 .. automodule:: toqito.state_distinguish
