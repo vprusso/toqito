@@ -15,10 +15,11 @@ def hadamard(n_param: int = 1) -> np.ndarray:
                                     1 & -1
                                  \end{pmatrix}
 
-    In general, the Hadamard matrix of dimension 2^{n_param} may be defined as
+    In general, the Hadamard matrix of dimension :math:2^{n_param} may be
+    defined as
 
     .. math::
-        \left( H_n \right)_{i, j} = \frac{1}{2^{\frac{n}{2}}
+        \left( H_n \right)_{i, j} = \frac{1}{2^{\frac{n}{2}}}
         \left(-1\right)^{i \dot j}
 
     Examples

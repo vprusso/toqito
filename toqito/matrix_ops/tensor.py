@@ -43,14 +43,14 @@ def tensor(*args) -> np.ndarray:
     Consider the following ket vector
 
     .. math::
-        |0 \rangle = \left[1, 0 \right]^{\text{T}}
+        e_0 = \left[1, 0 \right]^{\text{T}}
 
     Computing the following tensor product
 
     .. math:
-        |0 \rangle \otimes |0 \rangle = \left[1, 0, 0, 0 \right]^{\text{T}}
+        e_0 \otimes e_0 = \[1, 0, 0, 0 \]^{\text{T}}.
 
-    This can be accomplished in `toqito` as follows.
+    This can be accomplished in :code:`toqito` as follows.
 
     >>> from toqito.states import basis
     >>> from toqito.matrix_ops import tensor
@@ -67,7 +67,7 @@ def tensor(*args) -> np.ndarray:
     For instance we can compute
 
     .. math::
-        |0 \rangle^{\otimes 3} = \left[1, 0, 0, 0, 0, 0, 0, 0 \right]^{\text{T}}
+        e_0^{\otimes 3} = \left[1, 0, 0, 0, 0, 0, 0, 0 \right]^{\text{T}}
 
     in `toqito` as follows.
 
@@ -88,7 +88,7 @@ def tensor(*args) -> np.ndarray:
 
     If we wish to compute the tensor product against more than two matrices or
     vectors, we can feed them in as a `list`. For instance, if we wish to
-    compute :math:`|0 \rangle \otimes |1 \rangle \otimes |0 \rangle`, we can do
+    compute :math:`e_0 \otimes e_1 \otimes e_0`, we can do
     so as follows.
 
     >>> from toqito.states import basis
@@ -111,7 +111,7 @@ def tensor(*args) -> np.ndarray:
 
     :param args: Input to the tensor function is expected to be either:
         - List[np.ndarray]: List of numpy matrices,
-        - np.ndarray, ... np.ndarray: An arbitrary number of numpy arrays,
+        - np.ndarray, ... , np.ndarray: An arbitrary number of numpy arrays,
         - np.ndarray, int: A numpy array and an integer.
     :return: The computed tensor product.
     """

@@ -10,23 +10,23 @@ def basis(dim: int, pos: int) -> np.ndarray:
     Examples
     ==========
 
-    The standard basis bra vectors given as :math:`|0\rangle` and
-    :math:`|1\rangle` where
+    The standard basis bra vectors given as :math:`e_0` and
+    :math:`e_1` where
 
     .. math::
-        |0 \rangle = \left[1, 0 \right]^{\text{T}} \quad \text{and} \quad
-        |1\rangle = \left[0, 1 \right]^{\text{T}},
+        e_0 = \left[1, 0 \right]^{\text{T}} \quad \text{and} \quad
+        e_1 = \left[0, 1 \right]^{\text{T}},
 
     can be obtained in `toqito` as follows.
 
-    Example:  Ket vector: :math:`| 0 \rangle`.
+    Example:  Ket basis vector: :math:`e_0`.
 
     >>> from toqito.states import basis
     >>> basis(2, 0)
     [[1]
     [0]]
 
-    Example:  Ket vector: :math:`| 1 \rangle`.
+    Example:  Ket basis vector: :math:`e_1`.
 
     >>> from toqito.states import basis
     >>> basis(2, 1)
