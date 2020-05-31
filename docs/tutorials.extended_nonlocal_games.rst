@@ -166,7 +166,7 @@ measurement to the referee. Likewise, Bob measures his portion of the state
 that is then sent back to the referee.
 
 At the end of the protocol, the referee measures its quantum system with
-respect to the measurement :math:`\{V(a,b|x,y), \mathbb{I}-V(a,b|x,y)`.
+respect to the measurement :math:`\{V(a,b|x,y), \mathbb{I}-V(a,b|x,y)\}`.
 
 The winning probability for such a strategy in this game :math:`G = (\pi,V)` is
 given by
@@ -556,6 +556,8 @@ for any extended nonlocal game, :math:`G`, we may also conclude that
 
 Example: An extended nonlocal game with quantum advantage
 ----------------------------------------------------------
+
+(Coming soon).
 
 Example: A monogamy-of-entanglement game with mutually unbiased bases
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

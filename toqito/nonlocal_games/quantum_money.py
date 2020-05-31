@@ -40,6 +40,27 @@ class QuantumMoney:
                 * tensor(state, state, state.conj()).conj().T
             )
 
+        # The system is over:
+        # Y_1 ⊗ Z_1 ⊗ X_1, ... , Y_n ⊗ Z_n ⊗ X_n.
+        num_spaces = 3
+
+        # In the event of more than a single repetition, one needs to apply a
+        # permutation operator to the variables in the SDP to properly align
+        # the spaces.
+        if self._num_reps == 1:
+            self.pperm = np.array([1])
+        else:
+            # The permutation vector `perm` contains elements of the
+            # sequence from: https://oeis.org/A023123
+            self._q_a = tensor(self._q_a, self._num_reps)
+            perm = []
+            for i in range(1, num_spaces + 1):
+                perm.append(i)
+                var = i
+                for j in range(1, self._num_reps):
+                    perm.append(var + num_spaces * j)
+            self.pperm = permutation_operator(2, perm)
+
     def counterfeit_attack(self) -> float:
         r"""
         Compute probability of counterfeiting quantum money [MVW12]_.
@@ -134,34 +155,12 @@ class QuantumMoney:
 
         :return: The optimal probability with of counterfeiting quantum money.
         """
-        # The system is over:
-        # Y_1 ⊗ Z_1 ⊗ X_1, ... , Y_n ⊗ Z_n ⊗ X_n.
-        num_spaces = 3
+        return self.dual_problem()
 
-        # In the event of more than a single repetition, one needs to apply a
-        # permutation operator to the variables in the SDP to properly align
-        # the spaces.
-        if self._num_reps == 1:
-            pperm = np.array([1])
-        else:
-            # The permutation vector `perm` contains elements of the
-            # sequence from: https://oeis.org/A023123
-            self._q_a = tensor(self._q_a, self._num_reps)
-            perm = []
-            for i in range(1, num_spaces + 1):
-                perm.append(i)
-                var = i
-                for j in range(1, self._num_reps):
-                    perm.append(var + num_spaces * j)
-            pperm = permutation_operator(2, perm)
-
-        return self.dual_problem(pperm)
-
-    def dual_problem(self, pperm: np.ndarray) -> float:
+    def dual_problem(self) -> float:
         """
         Dual problem for counterfeit attack.
 
-        :param pperm:
         :return: The optimal value of performing a counterfeit attack.
         """
         y_var = cvxpy.Variable(
@@ -176,12 +175,14 @@ class QuantumMoney:
         if self._num_reps == 1:
             constraints = [cvxpy.real(kron_var) >> self._q_a]
         else:
-            constraints = [cvxpy.real(kron_var) >> pperm @ self._q_a @ pperm.conj().T]
+            constraints = [
+                cvxpy.real(kron_var) >> self.pperm @ self._q_a @ self.pperm.conj().T
+            ]
         problem = cvxpy.Problem(objective, constraints)
 
         return problem.solve()
 
-    def primal_problem(self, pperm: np.ndarray) -> float:
+    def primal_problem(self) -> float:
         """
         Primal problem for counterfeit attack.
 
@@ -189,7 +190,6 @@ class QuantumMoney:
         the variables are of larger dimension), the primal problem is only here
         for reference.
 
-        :param pperm:
         :return: The optimal value of performing a counterfeit attack.
         """
         num_spaces = 3
@@ -201,13 +201,21 @@ class QuantumMoney:
         dim = 2 * np.ones((1, num_spaces * self._num_reps)).astype(int).flatten()
         dim = dim.tolist()
 
-        # Primal problem.
         x_var = cvxpy.Variable(
             (8 ** self._num_reps, 8 ** self._num_reps), hermitian=True
         )
-        objective = cvxpy.Maximize(
-            cvxpy.trace(cvxpy.real(pperm @ self._q_a.conj().T @ pperm.conj().T @ x_var))
-        )
+        if self._num_reps == 1:
+            objective = cvxpy.Maximize(
+                cvxpy.trace(cvxpy.real(self._q_a.conj().T @ x_var))
+            )
+        else:
+            objective = cvxpy.Maximize(
+                cvxpy.trace(
+                    cvxpy.real(
+                        self.pperm @ self._q_a.conj().T @ self.pperm.conj().T @ x_var
+                    )
+                )
+            )
         constraints = [
             partial_trace_cvx(x_var, sys, dim) == np.identity(2 ** self._num_reps),
             x_var >> 0,
