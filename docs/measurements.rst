@@ -15,24 +15,23 @@ where :math:`\Sigma` represents a set of measurement outcomes and
 where :math:`\mu(a)` represents the measurement operator associated
 with outcome :math:`a \in \Sigma`
 
-Topics covered in this section:
-
-- `Operations on Measurements`_.
-- `Properties of Measurements`_.
-
 Operations on Measurements
 --------------------------
 
-.. automodule:: toqito.measurement_ops
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. toctree::
+
+.. autosummary::
+   :toctree: _autosummary
+
+    toqito.measurement_ops.measure
 
 
 Properties of Measurements
 --------------------------
 
-.. automodule:: toqito.measurement_props
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. toctree::
+
+.. autosummary::
+   :toctree: _autosummary
+
+    toqito.measurement_props.is_povm

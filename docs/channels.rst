@@ -13,32 +13,43 @@ operators. Then a quantum channel, :math:`\Phi` is defined as
 
 such that :math:`\Phi` is completely positive and trace preserving.
 
-Topics covered in this section:
-
-- `Quantum Channels`_.
-- `Operations on Quantum Channels`_.
-- `Properties of Quantum Channels`_.
-
 Quantum Channels
 -----------------------------------------
 
-.. automodule:: toqito.channels
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. toctree::
+
+.. autosummary::
+   :toctree: _autosummary
+
+    toqito.channels.choi
+    toqito.channels.dephasing
+    toqito.channels.depolarizing
+    toqito.channels.partial_trace
+    toqito.channels.partial_trace_cvx
+    toqito.channels.partial_transpose
+    toqito.channels.realignment
+    toqito.channels.reduction
 
 Operations on Quantum Channels
 ------------------------------
 
-.. automodule:: toqito.channel_ops
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. toctree::
+
+.. autosummary::
+   :toctree: _autosummary
+
+    toqito.channel_ops.apply_map
+    toqito.channel_ops.kraus_to_choi
+    toqito.channel_ops.partial_map
 
 Properties of Quantum Channels
 ------------------------------
 
-.. automodule:: toqito.channel_props
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. toctree::
+
+.. autosummary::
+   :toctree: _autosummary
+
+    toqito.channel_props.is_completely_positive
+    toqito.channel_props.is_herm_preserving
+    toqito.channel_props.is_positive
