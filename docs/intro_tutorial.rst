@@ -22,7 +22,13 @@ do not, please consult the
 States
 ------
 
-In Quantum Information Theory, *quantum states*  are thought of as matrices that contain information about a set of probabilities. These matrices, called *density operators* have special properties 
+From the perspective of Quantum Information Theory, **quantum states**  are  square matrices :math:`\rho` that contain information about the probabilities about the (quantum) system we are interested in. These matrices, called **density operators** have special properties:
+
+- They are formed from the product of two square matrices, :math:`\rho = Y^*Y`, where :math:`Y^*` is the *conjugate transpose* of :math:`Y^*`. This property is called *positive semi-definite*.
+- They have unit trace: :math:`\mathrm{Tr}(\rho) = 1`
+
+Quantum states act on the (complex) space associated to a **registry** which is an abstraction of a (possibly compound) device from which we can read data (e.g. a tape with a series of characters :math:`00101,abccd,\uparrow\downarrow\uparrow`). This complex space is formed from all the possible linear combinations of the register data, and the quantum state :math:`\rho` determines a fixed the probabilistic weight in this space.
+
 Channels
 --------
 
