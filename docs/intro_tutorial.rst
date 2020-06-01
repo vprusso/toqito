@@ -22,8 +22,7 @@ do not, please consult the
 States
 ------
 
-(Coming soon).
-
+In Quantum Information Theory, *quantum states*  are thought of as matrices that contain information about a set of probabilities. These matrices, called *density operators* have special properties 
 Channels
 --------
 
