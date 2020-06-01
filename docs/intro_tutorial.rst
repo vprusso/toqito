@@ -22,17 +22,19 @@ do not, please consult the
 States
 ------
 
-From the perspective of Quantum Information Theory, **quantum states**  are  square matrices :math:`\rho` that contain information about the probabilities about the (quantum) system we are interested in. These matrices, called **density operators** have special properties:
+From the perspective of Quantum Information Theory, **quantum states**  are  square matrices :math:`\rho` that contain information about the (quantum) system we are interested in. These matrices, called **density operators** have special properties:
 
 - They are formed from the product of two square matrices, :math:`\rho = Y^*Y`, where :math:`Y^*` is the *conjugate transpose* of :math:`Y^*`. This property is called *positive semi-definite*.
 - They have unit trace: :math:`\mathrm{Tr}(\rho) = 1`
 
-Quantum states act on the (complex) space associated to a **registry** which is an abstraction of a (possibly compound) device from which we can read data (e.g. a tape with a series of characters :math:`00101,abccd,\uparrow\downarrow\uparrow`). This complex space is formed from all the possible linear combinations of the register data, and the quantum state :math:`\rho` determines a fixed the probabilistic weight in this space.
+Quantum states act on the (complex) space associated to a **registry** which is an abstraction of a (possibly compound) device from which we can read data (e.g. a tape with a series of characters :math:`00101,abccd,\uparrow\downarrow\uparrow`). This complex space is formed from all the possible linear combinations of the register data, and the quantum state :math:`\rho` characterizes a particular way in which the system is *projected* to each configuration of the register.
+
+Moreover, quantum states can be added in **convex combinations**, (where the coefficients  add up to :math:`1`), and these allow to define **Ensembles** of states.
 
 Channels
 --------
 
-(Coming soon).
+Channels are representations of *discrete changes* in a register. They are linear maps :math:`\Phi` from one space of square operators to another, such that :math:`\Phi(P)` is still a positive semidefinite operator and :math:`\mathrm{Tr} (\Phi(P)) = 1` (trace is preserved):
 
 Measurements
 ------------
