@@ -13,15 +13,14 @@ def is_ppt(
     r"""
     Determine whether or not a matrix has positive partial transpose [WikPPT]_.
 
-    Yields either :code:`True` or :code:`False`, indicating that :code:`mat`
-    does or does not have positive partial transpose (within numerical error).
-    The variable :code:`mat` is assumed to act on bipartite space.
+    Yields either :code:`True` or :code:`False`, indicating that :code:`mat` does or does not have
+    positive partial transpose (within numerical error). The variable :code:`mat` is assumed to act
+    on bipartite space.
 
-    For shared systems of :math:`2 \otimes 2` or :math:`2 \otimes 3`, the PPT
-    criterion serves as a method to determine whether a given state is entangled
-    or separable. Therefore, for systems of this size, the return value
-    :code:`True` would indicate that the state is separable and a value of
-    :code:`False` would indicate the state is entangled.
+    For shared systems of :math:`2 \otimes 2` or :math:`2 \otimes 3`, the PPT criterion serves as a
+    method to determine whether a given state is entangled or separable. Therefore, for systems of
+    this size, the return value :code:`True` would indicate that the state is separable and a value
+    of :code:`False` would indicate the state is entangled.
 
     Examples
     ==========

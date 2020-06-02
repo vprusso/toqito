@@ -10,14 +10,14 @@ def chessboard(
     r"""
     Produce a chessboard state [BP00]_.
 
-    Generates the chessboard state defined in [BP00]_. Note that, for certain
-    choices of S and T, this state will not have positive partial transpose,
-    and thus may not be bound entangled.
+    Generates the chessboard state defined in [BP00]_. Note that, for certain choices of
+    :code:`s_param` and :code:`t_param`, this state will not have positive partial transpose, and
+    thus may not be bound entangled.
 
     Examples
     ==========
 
-    The standard chessboard state can be invoked using `toqito` as
+    The standard chessboard state can be invoked using :code:`toqito` as
 
     >>> from toqito.states import chessboard
     >>> chessboard([1, 2, 3, 4, 5, 6], 7, 8)
@@ -50,7 +50,7 @@ def chessboard(
     :param mat_params:
     :param s_param:
     :param t_param:
-    :return:
+    :return: A chessboard state.
     """
     if s_param is None:
         s_param = np.conj(mat_params[2]) / np.conj(mat_params[5])

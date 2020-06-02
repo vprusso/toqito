@@ -21,18 +21,17 @@ def werner(dim: int, alpha: Union[float, List[float]]) -> np.ndarray:
             \mathbb{I} - \alpha S \right) \in \mathbb{C}^d \otimes \mathbb{C}^d
         \end{equation}
 
-    Yields a Werner state with parameter `alpha` acting on `(dim * dim)`-
-    dimensional space. More specifically, `rho` is the density operator
-    defined by (I - `alpha`*S) (normalized to have trace 1), where I is the
-    density operator and S is the operator that swaps two copies of
-    `dim`-dimensional space (see swap and swap_operator for example).
+    Yields a Werner state with parameter :code:`alpha` acting on :code:`(dim * dim)`- dimensional
+    space. More specifically, :math:`\rho` is the density operator defined by
+    :math:`(\mathbb{I} - `alpha` S)` (normalized to have trace 1), where :math:`\mathbb{I}` is the
+    density operator and :math:`S` is the operator that swaps two copies of :code:`dim`-dimensional
+    space (see swap and swap_operator for example).
 
-    If `alpha` is a vector with p!-1 entries, for some integer p > 1, then a
-    multipartite Werner state is returned. This multipartite Werner state is
-    the normalization of I - `alpha(1)*P(2)` - ... - `alpha(p!-1)*P(p!)`, where
-    P(i) is the operator that permutes p subsystems according to the i-th
-    permutation when they are written in lexicographical order (for example,
-    the lexicographical ordering when p = 3 is:
+    If :code:`alpha` is a vector with :math:`p!-1` entries, for some integer :math:`p > 1`, then a
+    multipartite Werner state is returned. This multipartite Werner state is the normalization of
+    I - `alpha(1)*P(2)` - ... - `alpha(p!-1)*P(p!)`, where P(i) is the operator that permutes p
+    subsystems according to the i-th permutation when they are written in lexicographical order
+    (for example, the lexicographical ordering when p = 3 is:
     `[1, 2, 3], [1, 3, 2], [2, 1,3], [2, 3, 1], [3, 1, 2], [3, 2, 1],`
 
     so P(4) in this case equals permutation_operator(dim, [2, 3, 1]).
@@ -40,8 +39,7 @@ def werner(dim: int, alpha: Union[float, List[float]]) -> np.ndarray:
     Examples
     ==========
 
-    Computing the qutrit Werner state with :math:`\alpha = 1/2` can be done in
-    `toqito` as
+    Computing the qutrit Werner state with :math:`\alpha = 1/2` can be done in :code:`toqito` as
 
     >>> from toqito.states import werner
     >>> werner(3, 1 / 2)
@@ -64,7 +62,7 @@ def werner(dim: int, alpha: Union[float, List[float]]) -> np.ndarray:
      [ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
        0.        ,  0.        ,  0.        ,  0.06666667]]
 
-    We may also compute multipartite Werner states in `toqito` as well.
+    We may also compute multipartite Werner states in :code:`toqito` as well.
 
     >>> from toqito.states import werner
     >>> werner(2, [0.01, 0.02, 0.03, 0.04, 0.05])
@@ -93,7 +91,7 @@ def werner(dim: int, alpha: Union[float, List[float]]) -> np.ndarray:
 
     :param dim: The dimension of the Werner state.
     :param alpha: Parameter to specify Werner state.
-    :return: A Werner state of dimension `dim`.
+    :return: A Werner state of dimension :code:`dim`.
     """
     # The total number of permutation operators.
     if isinstance(alpha, float):

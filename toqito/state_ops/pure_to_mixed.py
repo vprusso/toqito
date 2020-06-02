@@ -9,8 +9,8 @@ def pure_to_mixed(phi: np.ndarray) -> np.ndarray:
     Examples
     ==========
 
-    It is possible to convert a pure state vector to a mixed state vector using
-    the `toqito` package. Consider the following Bell state
+    It is possible to convert a pure state vector to a mixed state vector using the :code:`toqito`
+    package. Consider the following Bell state
 
     .. math::
         u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right).
@@ -25,7 +25,7 @@ def pure_to_mixed(phi: np.ndarray) -> np.ndarray:
                                         1 & 0 & 0 & 1
                                    \end{pmatrix}
 
-    Using `toqito`, we can obtain this matrix as follows.
+    Using :code:`toqito`, we can obtain this matrix as follows.
 
     >>> from toqito.states import bell
     >>> from toqito.state_ops import pure_to_mixed
@@ -48,9 +48,8 @@ def pure_to_mixed(phi: np.ndarray) -> np.ndarray:
      [0.5, 0. , 0. , 0.5]])
 
     :param phi: A density matrix or a pure state vector.
-    :return: density matrix representation of `phi`, regardless of
-             whether `phi` is itself already a density matrix or if
-             if is a pure state vector.
+    :return: density matrix representation of :code:`phi`, regardless of whether :code:`phi` is
+             itself already a density matrix or if if is a pure state vector.
     """
     # Compute the size of `phi`. If it's already a mixed state, leave it alone.
     # If it's a vector (pure state), make it into a density matrix.

@@ -8,11 +8,10 @@ def tile(idx: int) -> np.ndarray:
     r"""
     Produce a Tile state [UPBTile99]_.
 
-    The Tile states constitute five states on 3-by-3 dimensional space that form
-    a UPB (unextendible product basis).
+    The Tile states constitute five states on 3-by-3 dimensional space that form a UPB
+    (unextendible product basis).
 
-    Returns one of the following five Tile states depending on the value
-    of `idx`:
+    Returns one of the following five tile states depending on the value of :code:`idx`:
 
     .. math::
         \begin{equation}
@@ -33,16 +32,15 @@ def tile(idx: int) -> np.ndarray:
             \end{aligned}
         \end{equation}
 
-
     Examples
     ==========
 
-    When `idx = 0`, this produces the following Tile state
+    When :code:`idx = 0`, this produces the following tile state
 
     .. math::
         \frac{1}{\sqrt{2}} |0\rangle \left( |0\rangle - |1\rangle \right).
 
-    Using `toqito`, we can see that this yields the proper state.
+    Using :code:`toqito`, we can see that this yields the proper state.
 
     >>> from toqito.states import tile
     >>> import numpy as np

@@ -10,30 +10,33 @@ def isotropic(dim: int, alpha: float) -> np.ndarray:
     r"""
     Produce a isotropic state [HH99]_.
 
-    Returns the isotropic state with parameter `alpha` acting on
-    (`dim`-by-`dim`)-dimensional space. More specifically, the state is the
-    density operator defined by `(1-alpha)*I(dim)/dim**2 + alpha*E`, where I is
-    the identity operator and E is the projection onto the standard
-    maximally-entangled pure state on two copies of `dim`-dimensional space.
+    Returns the isotropic state with parameter :code:`alpha` acting on
+    (:code:`dim`-by-:code:`dim`)-dimensional space. More specifically, the state is the
+    density operator defined by
+
+    .. math::
+        (1-\alpha)\mathbb{I}(d)/d^2 + \alpha E,
+
+    where :math:`\mathbb{I}` is the identity operator and :math:`E` is the projection onto the
+    standard maximally-entangled pure state on two copies of :code:`dim`-dimensional space.
 
     The isotropic state has the following form
 
     .. math::
-
         \begin{equation}
             \rho_{\alpha} = \frac{1 - \alpha}{d^2} \mathbb{I} \otimes
             \mathbb{I} + \alpha |\psi_+ \rangle \langle \psi_+ | \in
             \mathbb{C}^d \otimes \mathbb{C}^2
         \end{equation}
 
-    where :math:`|\psi_+ \rangle = \frac{1}{\sqrt{d}} \sum_j |j \rangle \otimes
-    |j \rangle` is the maximally entangled state.
+    where :math:`|\psi_+ \rangle = \frac{1}{\sqrt{d}} \sum_j |j \rangle \otimes |j \rangle` is the
+    maximally entangled state.
 
     Examples
     ==========
 
-    To generate the isotropic state with parameter :math:`\alpha=1/2`, we can
-    make the following call to `toqito` as
+    To generate the isotropic state with parameter :math:`\alpha=1/2`, we can make the following
+    call to :code:`toqito` as
 
     >>> from toqito.states import isotropic
     >>> isotropic(3, 1 / 2)

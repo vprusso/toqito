@@ -8,16 +8,14 @@ def random_unitary(dim: Union[List[int], int], is_real: bool = False) -> np.ndar
     """
     Generate a random unitary or orthogonal matrix [MO09]_.
 
-    Calculates a random unitary matrix (if :code:`is_real = False`) or a random
-    real orthogonal matrix (if :code:`is_real = True`), uniformly distributed
-    according to the Haar measure.
+    Calculates a random unitary matrix (if :code:`is_real = False`) or a random real orthogonal
+    matrix (if :code:`is_real = True`), uniformly distributed according to the Haar measure.
 
     Examples
     ==========
 
-    We may generate a random unitary matrix. Here is an example of how we may
-    be able to generate a random :math:`2`-dimensional random unitary matrix
-    with complex entries.
+    We may generate a random unitary matrix. Here is an example of how we may be able to generate a
+    random :math:`2`-dimensional random unitary matrix with complex entries.
 
     >>> from toqito.random import random_unitary
     >>> complex_dm = random_unitary(2)
@@ -25,15 +23,14 @@ def random_unitary(dim: Union[List[int], int], is_real: bool = False) -> np.ndar
     [[0.40563696+0.18092721j, 0.00066868+0.89594841j],
      [0.4237286 +0.78941628j, 0.27157521-0.35145826j]]
 
-    We can verify that this is in fact a valid unitary matrix using the
-    :code:`is_unitary` function from :code:`toqito` as follows
+    We can verify that this is in fact a valid unitary matrix using the :code:`is_unitary` function
+    from :code:`toqito` as follows
 
     >>> from toqito.matrix_props import is_unitary
     >>> is_unitary(complex_dm)
     True
 
-    We can also generate random unitary matrices that are real-valued as
-    follows.
+    We can also generate random unitary matrices that are real-valued as follows.
 
     >>> from toqito.random import random_unitary
     >>> real_dm = random_unitary(2, True)
@@ -47,9 +44,8 @@ def random_unitary(dim: Union[List[int], int], is_real: bool = False) -> np.ndar
     >>> is_unitary(real_dm)
     True
 
-    We may also generate unitaries such that the dimension argument provided is
-    a :code:`list` as opposed to an :code:`int`. Here is an example of a random
-    unitary matrix of dimension :math:`4`.
+    We may also generate unitaries such that the dimension argument provided is a :code:`list` as
+    opposed to an :code:`int`. Here is an example of a random unitary matrix of dimension :math:`4`.
 
     >>> from toqito.random import random_unitary
     >>> mat = random_unitary([4, 4], True)
@@ -59,8 +55,7 @@ def random_unitary(dim: Union[List[int], int], is_real: bool = False) -> np.ndar
      [ 0.38311399,  0.90865415, -0.1209574 , -0.11375677],
      [ 0.46626562, -0.04244265,  0.4342295 ,  0.76957113]]
 
-    As before, we can verify that this matrix generated is a valid unitary
-    matrix.
+    As before, we can verify that this matrix generated is a valid unitary matrix.
 
     >>> from toqito.matrix_props import is_unitary
     >>> is_unitary(mat)

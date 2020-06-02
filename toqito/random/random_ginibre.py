@@ -8,16 +8,15 @@ def random_ginibre(dim_n: int, dim_m: int,) -> np.ndarray:
 
     Generates a random :code:`dim_n`-by-:code:`dim_m` Ginibre matrix.
 
-    A *Ginibre random matrix* is a matrix with independent and identically
-    distributed complex standard Gaussian entries.
+    A *Ginibre random matrix* is a matrix with independent and identically distributed complex
+    standard Gaussian entries.
 
-    Ginibre random matrices are used in the construction of Wishart-random
-    POVMs [HMN20]_.
+    Ginibre random matrices are used in the construction of Wishart-random POVMs [HMN20]_.
 
     Examples
     ==========
 
-    Generate a random 2-by-2 Ginibre random matrix.
+    Generate a random :math:`2`-by-:math:`2` Ginibre random matrix.
 
     >>> from toqito.random import random_ginibre
     >>> random_ginibre(2, 2)

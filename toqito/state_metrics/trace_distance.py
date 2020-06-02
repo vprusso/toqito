@@ -23,8 +23,7 @@ def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float:
     Consider the following Bell state
 
     .. math::
-        u = \frac{1}{\sqrt{2}} \left( e_0 \otimes e_0 + e_1 \otimes e_1 \right)
-        \in \mathcal{X}.
+        u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \in \mathcal{X}.
 
     The corresponding density matrix of :math:`u` may be calculated by:
 
@@ -36,9 +35,8 @@ def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float:
                          1 & 0 & 0 & 1
                        \end{pmatrix} \text{D}(\mathcal{X}).
 
-    The trace distance between :math:`\rho` and another state :math:`\sigma` is
-    equal to :math:`0` if any only if :math:`\rho = \sigma`. We can check this
-    using the `toqito` package.
+    The trace distance between :math:`\rho` and another state :math:`\sigma` is equal to :math:`0`
+    if any only if :math:`\rho = \sigma`. We can check this using the :code:`toqito` package.
 
     >>> from toqito.states import bell
     >>> from toqito.state_metrics import trace_norm

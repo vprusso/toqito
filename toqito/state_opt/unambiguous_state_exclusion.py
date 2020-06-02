@@ -13,11 +13,10 @@ def unambiguous_state_exclusion(
     r"""
     Compute probability of unambiguous state exclusion [BJOPUS14]_.
 
-    This function implements the following semidefinite program that provides
-    the optimal probability with which Bob can conduct quantum state exclusion.
+    This function implements the following semidefinite program that provides the optimal
+    probability with which Bob can conduct quantum state exclusion.
 
     .. math::
-
         \begin{align*}
             \text{maximize:} \quad & \sum_{i=0}^n \sum_{j=0}^n
                                      \langle M_i, \rho_j \rangle \\
@@ -47,9 +46,9 @@ def unambiguous_state_exclusion(
     .. math::
         p = \{1/2, 1/2\}.
 
-    It is not possible to unambiguously exclude either of the two states. We can
-    see that the result of the function in `toqito` yields a value of :math:`0`
-    as the probability for this to occur.
+    It is not possible to unambiguously exclude either of the two states. We can see that the result
+    of the function in :code:`toqito` yields a value of :math:`0` as the probability for this to
+    occur.
 
     >>> from toqito.state_opt import unambiguous_state_exclusion
     >>> from toqito.states import bell

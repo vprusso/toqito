@@ -6,12 +6,9 @@ def gisin(lambda_var: float, theta: float) -> np.ndarray:
     r"""
     Produce a Gisin state [GIS96]_.
 
-    Returns the Gisin state described in [GIS96]_.
-
-    Specifically, the Gisin state can be defined as:
+    Returns the Gisin state described in [GIS96]_. Specifically, the Gisin state can be defined as:
 
     .. math::
-
         \begin{equation}
             \rho_{\lambda, \theta} = \lambda
                                     \begin{pmatrix}

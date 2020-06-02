@@ -15,8 +15,8 @@ def random_state_vector(
     Examples
     ==========
 
-    We may generate a random state vector. For instance, here is an example
-    where we can generate a :math:`2`-dimensional random state vector.
+    We may generate a random state vector. For instance, here is an example where we can generate a
+    :math:`2`-dimensional random state vector.
 
     >>> from toqito.random import random_state_vector
     >>> vec = random_state_vector(2)
@@ -24,9 +24,8 @@ def random_state_vector(
     [[0.50993973+0.15292408j],
      [0.27787332+0.79960122j]]
 
-    We can verify that this is in fact a valid state vector by computing the
-    corresponding density matrix of the vector and checking if the density
-    matrix is pure.
+    We can verify that this is in fact a valid state vector by computing the corresponding density
+    matrix of the vector and checking if the density matrix is pure.
 
     >>> from toqito.state_props import is_pure
     >>> dm = vec.conj().T * vec

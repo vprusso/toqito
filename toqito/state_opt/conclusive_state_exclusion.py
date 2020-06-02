@@ -13,8 +13,7 @@ def conclusive_state_exclusion(
     r"""
     Compute probability of conclusive single state exclusion.
 
-    The "quantum state exclusion" problem involves a collection of :math:`n`
-    quantum states
+    The *quantum state exclusion* problem involves a collection of :math:`n` quantum states
 
     .. math::
         \rho = \{ \rho_0, \ldots, \rho_n \},
@@ -24,15 +23,14 @@ def conclusive_state_exclusion(
     .. math::
         p = \{ p_0, \ldots, p_n \}
 
-    Alice chooses :math:`i` with probability :math:`p_i` and creates the state
-    :math:`\rho_i`.
+    Alice chooses :math:`i` with probability :math:`p_i` and creates the state :math:`\rho_i`.
 
-    Bob wants to guess which state he was *not* given from the collection of
-    states. State exclusion implies that ability to discard (with certainty) at
-    least one out of the "n" possible quantum states by applying a measurement.
+    Bob wants to guess which state he was *not* given from the collection of states. State exclusion
+    implies that ability to discard (with certainty) at least one out of the "n" possible quantum
+    states by applying a measurement.
 
-    This function implements the following semidefinite program that provides
-    the optimal probability with which Bob can conduct quantum state exclusion.
+    This function implements the following semidefinite program that provides the optimal
+    probability with which Bob can conduct quantum state exclusion.
 
         .. math::
             \begin{equation}
@@ -41,13 +39,12 @@ def conclusive_state_exclusion(
                                                 \rho_i \rangle \\
                     \text{subject to:} \quad & M_0 + \ldots + M_n =
                                                \mathbb{I}, \\
-                                             & M_0, \ldots, M_n >= 0
+                                             & M_0, \ldots, M_n >= 0.
                 \end{aligned}
             \end{equation}
 
-    The conclusive state exclusion SDP is written explicitly in [BJOP14]_. The
-    problem of conclusive state exclusion was also thought about under a
-    different guise in [PBR12]_.
+    The conclusive state exclusion SDP is written explicitly in [BJOP14]_. The problem of conclusive
+    state exclusion was also thought about under a different guise in [PBR12]_.
 
     Examples
     ==========
@@ -55,8 +52,12 @@ def conclusive_state_exclusion(
     Consider the following two Bell states
 
     .. math::
-        u_0 = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \\
-        u_1 = \frac{1}{\sqrt{2}} \left( |00 \rangle - |11 \rangle \right).
+        \begin{equation}
+            \begin{aligned}
+                u_0 &= \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right), \\
+                u_1 &= \frac{1}{\sqrt{2}} \left( |00 \rangle - |11 \rangle \right).
+            \end{aligned}
+        \end{equation}
 
     For the corresponding density matrices :math:`\rho_0 = u_0 u_0^*` and
     :math:`\rho_1 = u_1 u_1^*`, we may construct a set
@@ -69,9 +70,9 @@ def conclusive_state_exclusion(
     .. math::
         p = \{1/2, 1/2\}.
 
-    It is not possible to conclusively exclude either of the two states. We can
-    see that the result of the function in `toqito` yields a value of :math`0`
-    as the probability for this to occur.
+    It is not possible to conclusively exclude either of the two states. We can see that the result
+    of the function in :code:`toqito` yields a value of :math:`0` as the probability for this to
+    occur.
 
     >>> from toqito.state_opt import conclusive_state_exclusion
     >>> from toqito.states import bell

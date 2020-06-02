@@ -18,10 +18,10 @@ def is_mixed(state: np.ndarray) -> bool:
         \rho =  \begin{pmatrix}
                     \frac{3}{4} & 0 \\
                     0 & \frac{1}{4}
-                \end{pmatrix} \text{D}(\mathcal{X}).
+                \end{pmatrix} \in \text{D}(\mathcal{X}).
 
-    Calculating the rank of $\rho$ yields that the $\rho$ is a mixed state. This
-    can be confirmed in `toqito` as follows:
+    Calculating the rank of :math:`\rho` yields that the :math:`\rho` is a mixed state. This can be
+    confirmed in :code:`toqito` as follows:
 
     >>> from toqito.states import basis
     >>> from toqito.state_props import is_mixed

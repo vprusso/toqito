@@ -11,17 +11,15 @@ def negativity(rho: np.ndarray, dim: Union[List[int], int] = None) -> float:
     r"""
     Compute the negativity of a bipartite quantum state [WikNeg]_.
 
-    The negativity of a subsystem can be defined in terms of a density matrix
-    :math:`\rho`:
+    The negativity of a subsystem can be defined in terms of a density matrix :math:`\rho`:
 
     .. math::
         \mathcal{N}(\rho) \equiv \frac{||\rho^{\Gamma_A}||_1-1}{2}
 
-    Calculate the negativity of the quantum state `rho`, assuming that the two
-    subsystems on which `rho` acts are of equal dimension (if the local
-    dimensions are unequal, specify them in the optional `dim` argument). The
-    negativity of `rho` is the sum of the absolute value of the negative
-    eigenvalues of the partial transpose of `rho`.
+    Calculate the negativity of the quantum state :math:`rho`, assuming that the two subsystems on
+    which :math:`rho` acts are of equal dimension (if the local dimensions are unequal, specify them
+    in the optional :code:`dim` argument). The negativity of :math:`rho` is the sum of the absolute
+    value of the negative eigenvalues of the partial transpose of :math:`rho`.
 
     Examples
     ==========

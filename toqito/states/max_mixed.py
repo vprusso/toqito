@@ -8,8 +8,8 @@ def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, sparse.dia.dia_
     r"""
     Produce the maximally mixed state [AAR6]_.
 
-    Produces the maximally mixed state on of `dim` dimensions. The maximally
-    mixed state is defined as
+    Produces the maximally mixed state on of :code:`dim` dimensions. The maximally mixed state is
+    defined as
 
     .. math::
         \omega = \frac{1}{d} \begin{pmatrix}
@@ -24,20 +24,19 @@ def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, sparse.dia.dia_
     .. math::
         \omega = \frac{\mathbb{I}}{\text{dim}(\mathcal{X})}
 
-    for some complex Euclidean space :math:`\mathcal{X}`. The maximally mixed
-    state is sometimes also referred to as the tracial state.
+    for some complex Euclidean space :math:`\mathcal{X}`. The maximally mixed state is sometimes
+    also referred to as the tracial state.
 
-    The maximally mixed state is returned as a sparse matrix if
-    `is_sparse = True` and is full if `is_sparse = False`.
+    The maximally mixed state is returned as a sparse matrix if :code:`is_sparse = True` and is full
+    if :code:`is_sparse = False`.
 
     Examples
     ==========
 
-    Using `toqito`, we can generate the :math:`2`-dimensional maximally mixed
-    state
+    Using :code:`toqito`, we can generate the :math:`2`-dimensional maximally mixed state
 
     .. math::
-        \frac{1}{2}
+        \omega_2 = \frac{1}{2}
         \begin{pmatrix}
             1 & 0 \\
             0 & 1

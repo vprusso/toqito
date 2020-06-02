@@ -17,10 +17,9 @@ def schmidt_decomposition(
     Consider the :math:`3`-dimensional maximally entangled state
 
     .. math::
-        u = \frac{1}{\sqrt{3}} \left( |000 \rangle +
-        |111 \rangle + |222 \rangle \right)
+        u = \frac{1}{\sqrt{3}} \left( |000 \rangle + |111 \rangle + |222 \rangle \right)
 
-    We can generate this state using the `toqito` module as follows.
+    We can generate this state using the :code:`toqito` module as follows.
 
     >>> from toqito.states import max_entangled
     >>> max_entangled(3)
@@ -34,8 +33,8 @@ def schmidt_decomposition(
      [0.        ],
      [0.57735027]]
 
-    Computing the Schmidt decomposition of :math:`u`, we can obtain the
-    corresponding singular values of :math:`u` as
+    Computing the Schmidt decomposition of :math:`u`, we can obtain the corresponding singular
+    values of :math:`u` as
 
     .. math::
         \frac{1}{\sqrt{3}} \left[1, 1, 1 \right]^{\text{T}}
@@ -61,10 +60,11 @@ def schmidt_decomposition(
     .. [WikSD] Wikipedia: Schmidt decomposition
         https://en.wikipedia.org/wiki/Schmidt_decomposition
 
-    :param vec:
-    :param dim:
-    :param k_param:
-    :return: The Schmidt decomposition of the `vec` input.
+    :param vec: A bipartite quantum state to compute the Schmidt decomposition of.
+    :param dim: An array consisting of the dimensions of the subsystems (default gives subsystems
+                equal dimensions).
+    :param k_param: How many terms of the Schmidt decomposition should be computed (default is 0).
+    :return: The Schmidt decomposition of the :code:`vec` input.
     """
     eps = np.finfo(float).eps
 

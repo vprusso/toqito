@@ -8,22 +8,21 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
     r"""
     Compute the von Neumann entropy of a density matrix [WikVent]_. [WatVec]_.
 
-    Let :math:`P \in \text{Pos}(\mathcal{X})` be a positive semidefinite
-    operator, for a complex Euclidean space :math:`\mathcal{\X}`. Then one
-    defines the *von Neumann entropy* as
+    Let :math:`P \in \text{Pos}(\mathcal{X})` be a positive semidefinite operator, for a complex
+    Euclidean space :math:`\mathcal{X}`. Then one defines the *von Neumann entropy* as
 
     .. math::
         H(P) = H(\lambda(P)),
 
-    where :math:`\lambda(P)` is the vector of eigenvalues of :math:`P` and where
-    the function `H(\dot)` is the Shannon entropy function defined as
+    where :math:`\lambda(P)` is the vector of eigenvalues of :math:`P` and where the function
+    :math:`H(\dot)` is the Shannon entropy function defined as
 
     .. math::
-        H(u) = - \sum_{\substack{a \in \Sigma \\ u(a) > 0}} u(a) \text{log}(u(a)).
+        H(u) = -\sum_{\substack{a \in \Sigma \\ u(a) > 0}} u(a) \text{log}(u(a)).
 
-    where the :math:`\text{log}` function is assumed to be the base-2 logarithm,
-    and where :math:`\Sigma` is an alphabet where :math:`u \in [0, \infty`)^{\Sigma}
-    is a vector of nonnegative real numbers indexed by :math:`\Sigma`.
+    where the :math:`\text{log}` function is assumed to be the base-2 logarithm, and where
+    :math:`\Sigma` is an alphabet where :math:`u \in [0, \infty)^{\Sigma}` is a vector of
+    nonnegative real numbers indexed by :math:`\Sigma`.
 
     Examples
     ==========
@@ -31,10 +30,9 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
     Consider the following Bell state
 
     .. math::
-        u = \frac{1}{\sqrt{2}} \left(e_0 \otimes e_0 + e_1 \otimes e_1 \right)
-        \in \mathcal{X}.
+        u = \frac{1}{\sqrt{2}} \left(|00 \rangle + |11 \rangle \right) \in \mathcal{X}.
 
-    The corresponding density matrix of $u$ may be calculated by:
+    The corresponding density matrix of :math:`u` may be calculated by:
 
     .. math::
         \rho = u u^* = \frac{1}{2} \begin{pmatrix}
@@ -44,8 +42,7 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
                          1 & 0 & 0 & 1
                        \end{pmatrix} \text{D}(\mathcal{X}).
 
-    Calculating the von Neumann entropy of :math:`\rho` in `toqito` can be done
-    as follows.
+    Calculating the von Neumann entropy of :math:`\rho` in :code:`toqito` can be done as follows.
 
     >>> from toqito.state_metrics import von_neumann_entropy
     >>> import numpy as np
@@ -56,8 +53,7 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
     >>> von_neumann_entropy(test_input_mat)
     5.88418203051333e-15
 
-    Consider the density operator corresponding to the maximally mixed state of
-    dimension two
+    Consider the density operator corresponding to the maximally mixed state of dimension two
 
     .. math::
         \rho = \frac{1}{2}
@@ -67,7 +63,7 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
         \end{pmatrix}.
 
     As this state is maximally mixed, the von Neumann entropy of :math:`\rho` is
-    equal to one. We can see this in `toqito` as follows.
+    equal to one. We can see this in :code:`toqito` as follows.
 
     >>> from toqito.state_metrics import von_neumann_entropy
     >>> import numpy as np
@@ -86,7 +82,7 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
         Cambridge University Press, 2018.
 
     :param rho: Density operator.
-    :return: The von Neumann entropy of `rho`.
+    :return: The von Neumann entropy of :code:`rho`.
     """
     if not is_density(rho):
         raise ValueError(

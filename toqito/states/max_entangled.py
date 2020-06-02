@@ -12,22 +12,20 @@ def max_entangled(
     r"""
     Produce a maximally entangled bipartite pure state [WikEnt]_.
 
-    Produces a maximally entangled pure state as above that is sparse
-    if `is_sparse = True` and is full if `is_sparse = False`. The pure state
-    is normalized to have Euclidean norm 1 if `is_normalized = True`, and it
-    is unnormalized (i.e. each entry in the vector is 0 or 1 and the
-    Euclidean norm of the vector is `sqrt(dim)` if `is_normalized = False`.
+    Produces a maximally entangled pure state as above that is sparse if :code:`is_sparse = True`
+    and is full if :code:`is_sparse = False`. The pure state is normalized to have Euclidean norm 1
+    if :code:`is_normalized = True`, and it is unnormalized (i.e. each entry in the vector is 0 or 1
+    and the Euclidean norm of the vector is :code:`sqrt(dim)` if :code:`is_normalized = False`.
 
     Examples
     ==========
 
-    We can generate the canonical :math:`2`-dimensional maximally entangled
-    state
+    We can generate the canonical :math:`2`-dimensional maximally entangled state
 
     .. math::
-        \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right)
+        u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right)
 
-    using `toqito` as follows.
+    using :code:`toqito` as follows.
 
     >>> from toqito.states import max_entangled
     >>> max_entangled(2)
@@ -36,13 +34,12 @@ def max_entangled(
      [0.        ],
      [0.70710678]]
 
-    By default, the state returned in normalized, however we can generate the
-    unnormalized state
+    By default, the state returned in normalized, however we can generate the unnormalized state
 
     .. math::
-        |00\rangle + |11 \rangle
+        v = |00\rangle + |11 \rangle
 
-    using `toqito` as follows.
+    using :code:`toqito` as follows.
 
     >>> from toqito.states import max_entangled
     >>> max_entangled(2, False, False)
@@ -59,7 +56,7 @@ def max_entangled(
     :param dim: Dimension of the entangled state.
     :param is_sparse: `True` if vector is spare and `False` otherwise.
     :param is_normalized: `True` if vector is normalized and `False` otherwise.
-    :return: The maximally entangled state of dimension `dim`.
+    :return: The maximally entangled state of dimension :code:`dim`.
     """
     psi = np.reshape(iden(dim, is_sparse), (dim ** 2, 1))
     if is_normalized:

@@ -17,9 +17,8 @@ def is_mub(vec_list: List[Union[np.ndarray, List[Union[float, Any]]]]) -> bool:
             \mathcal{B}_1 = \left\{v_a: a \in \Sigma \right\} \subset \mathbb{C}^{\Sigma}
         \end{equation}
 
-    are mutually unbiased if and only if
-    :math:`\left|\langle u_a, v_b \rangle\right| = 1/\sqrt{\Sigma}`
-    for all :math:`a, b \in \Sigma`.
+    are *mutually unbiased* if and only if
+    :math:`\left|\langle u_a, v_b \rangle\right| = 1/\sqrt{\Sigma}` for all :math:`a, b \in \Sigma`.
 
     For :math:`n \in \mathbb{N}`, a set of orthonormal bases :math:`\left\{
     \mathcal{B}_0, \ldots, \mathcal{B}_{n-1} \right\}` are mutually unbiased
@@ -74,8 +73,7 @@ def is_mub(vec_list: List[Union[np.ndarray, List[Union[float, Any]]]]) -> bool:
         https://en.wikipedia.org/wiki/Mutually_unbiased_bases
 
     :param vec_list: The list of vectors to check.
-    :return: True if `vec_list` constitutes a mutually unbiased basis, and
-             False otherwise.
+    :return: True if :code:`vec_list` constitutes a mutually unbiased basis, and False otherwise.
     """
     if len(vec_list) <= 1:
         raise ValueError("There must be at least two bases provided as input.")

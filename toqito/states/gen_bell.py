@@ -9,22 +9,20 @@ def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
     r"""
     Produce a generalized Bell state [DL09]_.
 
-    Produces a generalized Bell state. Note that the standard Bell states
-    can be recovered as:
+    Produces a generalized Bell state. Note that the standard Bell states can be recovered as:
 
-    bell(0) -> gen_bell(0, 0, 2)
-    bell(1) -> gen_bell(0, 1, 2)
-    bell(2) -> gen_bell(1, 0, 2)
-    bell(3) -> gen_bell(1, 1, 2)
+    - `bell(0)` : `gen_bell(0, 0, 2)`
+    - `bell(1)` : `gen_bell(0, 1, 2)`
+    - `bell(2)` : `gen_bell(1, 0, 2)`
+    - `bell(3)` : `gen_bell(1, 1, 2)`
 
     Examples
     ==========
 
-    For :math:`d = 2` and :math:`k_1 = k_2 = 0`, this generates the following
-    matrix
+    For :math:`d = 2` and :math:`k_1 = k_2 = 0`, this generates the following matrix
 
     .. math::
-        \frac{1}{2} \begin{pmatrix}
+        G = \frac{1}{2} \begin{pmatrix}
                         1 & 0 & 0 & 1 \\
                         0 & 0 & 0 & 0 \\
                         0 & 0 & 0 & 0 \\
@@ -34,11 +32,9 @@ def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
     which is equivalent to :math:`|\phi_0 \rangle \langle \phi_0 |` where
 
     .. math::
-        |\phi_0\rangle = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle
-        \right)
+        |\phi_0\rangle = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right)
 
-    is one of the four standard Bell states. This can be computed via `toqito`
-    as follows.
+    is one of the four standard Bell states. This can be computed via :code:`toqito` as follows.
 
     >>> from toqito.states import gen_bell
     >>> dim = 2
@@ -50,9 +46,8 @@ def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
      [0. +0.j, 0. +0.j, 0. +0.j, 0. +0.j],
      [0.5+0.j, 0. +0.j, 0. +0.j, 0.5+0.j]]
 
-    It is possible for us to consider higher dimensional Bell states. For
-    instance, we can consider the :math:`3`-dimensional Bell state for
-    :math:`k_1 = k_2 = 0` as follows.
+    It is possible for us to consider higher dimensional Bell states. For instance, we can consider
+    the :math:`3`-dimensional Bell state for :math:`k_1 = k_2 = 0` as follows.
 
     >>> from toqito.states import gen_bell
     >>> dim = 3

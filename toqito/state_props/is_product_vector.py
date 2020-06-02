@@ -8,7 +8,7 @@ from toqito.state_ops import schmidt_decomposition
 
 def is_product_vector(vec: np.ndarray, dim: Union[int, List[int]] = None) -> bool:
     r"""
-    Determine if a given vector is a product vector [4]_.
+    Determine if a given vector is a product vector [WikProdState]_.
 
     Examples
     ==========
@@ -16,8 +16,7 @@ def is_product_vector(vec: np.ndarray, dim: Union[int, List[int]] = None) -> boo
     Consider the following Bell state
 
     .. math::
-        u = \frac{1}{\sqrt{2}} \left( e_0 \otimes e_0 + e_1 \otimes e_1 \right)
-        \in \mathcal{X}.
+        u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \in \mathcal{X}.
 
     The corresponding density matrix of :math:`u` may be calculated by:
 
@@ -27,10 +26,10 @@ def is_product_vector(vec: np.ndarray, dim: Union[int, List[int]] = None) -> boo
                          0 & 0 & 0 & 0 \\
                          0 & 0 & 0 & 0 \\
                          1 & 0 & 0 & 1
-                       \end{pmatrix} \text{D}(\mathcal{X}).
+                       \end{pmatrix} \in \text{D}(\mathcal{X}).
 
-    Calculating the rank of :math:`\rho` yields that the :math:`\rho` is a pure
-    state. This can be confirmed in `toqito` as follows:
+    Calculating the rank of :math:`\rho` yields that the :math:`\rho` is a pure state. This can be
+    confirmed in :code:`toqito` as follows:
 
     >>> from toqito.states import bell
     >>> from toqito.state_props import is_pure
@@ -39,10 +38,9 @@ def is_product_vector(vec: np.ndarray, dim: Union[int, List[int]] = None) -> boo
     >>> is_pure(rho)
     True
 
-    It is also possible to determine whether a set of density matrices are pure.
-    For instance, we can see that the density matrices corresponding to the four
-    Bell states yield a result of :code:`True` indicating that all states
-    provided to the function are pure.
+    It is also possible to determine whether a set of density matrices are pure. For instance, we
+    can see that the density matrices corresponding to the four Bell states yield a result of
+    :code:`True` indicating that all states provided to the function are pure.
 
     >>> from toqito.states import bell
     >>> from toqito.state_props import is_pure
@@ -57,7 +55,7 @@ def is_product_vector(vec: np.ndarray, dim: Union[int, List[int]] = None) -> boo
 
     References
     ==========
-    .. [4] Wikipedia: Quantum state - Pure states
+    .. [WikProdState] Wikipedia: Quantum state - Pure states
         https://en.wikipedia.org/wiki/Quantum_state#Pure_states
 
     :param vec: The vector to check.

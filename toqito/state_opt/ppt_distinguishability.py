@@ -14,17 +14,15 @@ def ppt_distinguishability(
     r"""
     Compute probability of distinguishing a state via PPT measurements [COS13]_.
 
-    Implements the semidefinite program (SDP) whose optimal value is equal to
-    the maximum probability of perfectly distinguishing orthogonal maximally
-    entangled states using any PPT measurement; a measurement whose operators
-    are positive under partial transpose. This SDP was explicitly provided in
-    [COS13]_.
+    Implements the semidefinite program (SDP) whose optimal value is equal to the maximum
+    probability of perfectly distinguishing orthogonal maximally entangled states using any PPT
+    measurement; a measurement whose operators are positive under partial transpose. This SDP was
+    explicitly provided in [COS13]_.
 
-    Specifically, the function implements the dual problem (as this is
-    computationally more efficient) and is defined as:
+    Specifically, the function implements the dual problem (as this is computationally more
+    efficient) and is defined as:
 
     .. math::
-
         \begin{equation}
             \begin{aligned}
                 \text{minimize:} \quad & \frac{1}{k} \text{Tr}(Y) \\
@@ -50,17 +48,20 @@ def ppt_distinguishability(
             \end{aligned}
         \end{equation}
 
-    It was illustrated in [YDY12]_ that for the following set of states:
-
-    The PPT distinguishability of the following states
+    It was illustrated in [YDY12]_ that for the following set of states
 
     .. math::
         \begin{equation}
-            \rho_1^{(2)} = \psi_0 \otimes \psi_0, \quad
-            \rho_2^{(2)} = \psi_1 \otimes \psi_1, \quad
+            \begin{aligned}
+            \rho_1^{(2)} &= |\psi_0 \rangle | \psi_0 \rangle \langle \psi_0 | \langle \psi_0 |, \\
+            \rho_2^{(2)} &= |\psi_1 \rangle | \psi_3 \rangle \langle \psi_1 | \langle \psi_3 |, \\
+            \rho_3^{(2)} &= |\psi_2 \rangle | \psi_3 \rangle \langle \psi_2 | \langle \psi_3 |, \\
+            \rho_4^{(2)} &= |\psi_3 \rangle | \psi_3 \rangle \langle \psi_3 | \langle \psi_3 |, \\
+            \end{aligned}
         \end{equation}
 
-    should yield :math:`7/8 ~ 0.875` as was proved in [YDY12]_.
+    that the optimal probability of distinguishing via a PPT measurement should yield
+    :math:`7/8 \approx 0.875` as was proved in [YDY12]_.
 
     >>> from toqito.states import bell
     >>> from toqito.state_opt import ppt_distinguishability
@@ -78,7 +79,7 @@ def ppt_distinguishability(
     >>>
     >>> # YDY density matrices.
     >>> rho_1 = x_1 * x_1.conj().T
-    >>> rho_2 = x_2 * x_2.conj().Tk
+    >>> rho_2 = x_2 * x_2.conj().T
     >>> rho_3 = x_3 * x_3.conj().T
     >>> rho_4 = x_4 * x_4.conj().T
     >>>

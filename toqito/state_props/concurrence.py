@@ -13,8 +13,8 @@ def concurrence(rho: np.ndarray) -> float:
     .. math::
         \max(0, \lambda_1 - \lambda_2 - \lambda_3 - \lambda_4),
 
-    where :math:`\lambda_1, \ldots, \lambda_4` are the eigenvalues in
-    decreasing order of the matrix.
+    where :math:`\lambda_1, \ldots, \lambda_4` are the eigenvalues in decreasing order of the
+    matrix.
 
     Concurrence can serve as a measure of entanglement.
 
@@ -26,13 +26,13 @@ def concurrence(rho: np.ndarray) -> float:
     .. math::
         u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right).
 
-    The concurrence of the density matrix :math:`\rho = u u^*` defined by the
-    vector :math:`u` is given as
+    The concurrence of the density matrix :math:`\rho = u u^*` defined by the vector :math:`u` is
+    given as
 
     .. math::
         \mathcal{C}(\rho) \approx 1.
 
-    The following example calculates this quantity using the `toqito` package.
+    The following example calculates this quantity using the :code:`toqito` package.
 
     >>> import numpy as np
     >>> from toqito.states import basis

@@ -17,14 +17,13 @@ def optimal_clone(
     r"""
     Compute probability of counterfeiting quantum money [MVW12]_.
 
-    The primal problem for the :math:`n`-fold parallel repetition is given as
-    follows:
+    The primal problem for the :math:`n`-fold parallel repetition is given as follows:
 
     .. math::
         \begin{equation}
             \begin{aligned}
-                \text{maximize:} \quad & \langle W_{\pi} \left(Q^{\otimes n}
-                                         \right) W_{\pi}^*, X \rangle \\
+                \text{maximize:} \quad &
+                \langle W_{\pi} \left(Q^{\otimes n} \right) W_{\pi}^*, X \rangle \\
                 \text{subject to:} \quad & \text{Tr}_{\mathcal{Y}^{\otimes n}
                                            \otimes \mathcal{Z}^{\otimes n}}(X)
                                            = \mathbb{I}_{\mathcal{X}^{\otimes
@@ -36,44 +35,43 @@ def optimal_clone(
             \end{aligned}
         \end{equation}
 
-    The dual problem for the :math:`n`-fold parallel repetition is given as
-    follows:
+    The dual problem for the :math:`n`-fold parallel repetition is given as follows:
 
     .. math::
-            \begin{equation}
-                \begin{aligned}
+        \begin{equation}
+            \begin{aligned}
                 \text{minimize:} \quad & \text{Tr}(Y) \\
                 \text{subject to:} \quad & \mathbb{I}_{\mathcal{Y}^{\otimes n}
                 \otimes \mathcal{Z}^{\otimes n}} \otimes Y \geq W_{\pi}
                 \left( Q^{\otimes n} \right) W_{\pi}^*, \\
                 & Y \in \text{Herm} \left(\mathcal{X}^{\otimes n} \right)
-                \end{aligned}
-            \end{equation}
+            \end{aligned}
+        \end{equation}
 
     Examples
     ==========
 
-    Wiesner's original quantum money scheme [Wies83]_ was shown in [MVW12]_ to
-    have an optimal probability of 3/4 for succeeding a counterfeiting attack.
+    Wiesner's original quantum money scheme [Wies83]_ was shown in [MVW12]_ to have an optimal
+    probability of 3/4 for succeeding a counterfeiting attack.
 
-    Specifically, in the single-qubit case, Wiesner's quantum money scheme
-    corresponds to the following ensemble:
+    Specifically, in the single-qubit case, Wiesner's quantum money scheme corresponds to the
+    following ensemble:
 
     .. math::
-        \left{
+        \left\{
             \left( \frac{1}{4}, |0\rangle \right),
             \left( \frac{1}{4}, |1\rangle \right),
             \left( \frac{1}{4}, |+\rangle \right),
             \left( \frac{1}{4}, |-\rangle \right)
-        \right},
+        \right\},
 
     which yields the operator
 
     .. math::
-        Q = \frac{1}{4} \left(
-            |000\rangle + \langle 000| + |111\rangle \langle 111| +
-            |+++\rangle + \langle +++| + |---\rangle \langle ---|
-        \right)
+        \begin{equation}
+            Q = \frac{1}{4} \left(|000 \rangle \langle 000| + |111 \rangle \langle 111| +
+                                  |+++ \rangle + \langle +++| + |--- \rangle \langle ---| \right)
+        \end{equation}
 
     We can see that the optimal value we obtain in solving the SDP is 3/4.
 

@@ -10,12 +10,12 @@ def ghz(dim: int, num_qubits: int, coeff: List[int] = None) -> sparse:
     r"""
     Generate a (generalized) GHZ state [GHZ07]_.
 
-    Returns a `num_qubits`-partite GHZ state acting on `dim` local dimensions,
-    described in [GHZ07]_. For example, `ghz(2, 3)` returns the standard
-    3-qubit GHZ state on qubits. The output of this function is sparse.
+    Returns a :code:`num_qubits`-partite GHZ state acting on :code:`dim` local dimensions, described
+    in [GHZ07]_. For example, :code:`ghz(2, 3)` returns the standard 3-qubit GHZ state on qubits.
+    The output of this function is sparse.
 
-    For a system of `num_qubits` qubits (i.e., `dim = 2`), the GHZ state can be
-    written as
+    For a system of :code:`num_qubits` qubits (i.e., :code:`dim = 2`), the GHZ state can be written
+    as
 
     .. math::
         |GHZ \rangle = \frac{1}{\sqrt{n}} \left(|0\rangle^{\otimes n} +
@@ -24,12 +24,12 @@ def ghz(dim: int, num_qubits: int, coeff: List[int] = None) -> sparse:
     Examples
     ==========
 
-    When `dim = 2`, and `num_qubits = 3` this produces the standard GHZ state
+    When :code:`dim = 2`, and :code:`num_qubits = 3` this produces the standard GHZ state
 
     .. math::
         \frac{1}{\sqrt{2}} \left( |000 \rangle + |111 \rangle \right).
 
-    Using `toqito`, we can see that this yields the proper state.
+    Using :code:`toqito`, we can see that this yields the proper state.
 
     >>> from toqito.states import ghz
     >>> ghz(2, 3).toarray()
@@ -42,16 +42,14 @@ def ghz(dim: int, num_qubits: int, coeff: List[int] = None) -> sparse:
      [0.        ],
      [0.70710678]]
 
-    As this function covers the generalized GHZ state, we can consider higher
-    dimensions. For instance here is the GHZ state in
-    :math:`\mathbb{C^4}^{\otimes 7}` as
+    As this function covers the generalized GHZ state, we can consider higher dimensions. For
+    instance here is the GHZ state in :math:`\mathbb{C^4}^{\otimes 7}` as
 
     .. math::
         \frac{1}{\sqrt{30}} \left(|0000000 \rangle + 2|1111111 \rangle +
         3|2222222 \rangle + 4|3333333\rangle \right)
 
-    Using `toqito`, we can see this generates the appropriate generalized GHZ
-    state.
+    Using :code:`toqito`, we can see this generates the appropriate generalized GHZ state.
 
     >>> from toqito.states import ghz
     >>> ghz(4, 7, np.array([1, 2, 3, 4]) / np.sqrt(30)).toarray()

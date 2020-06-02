@@ -12,8 +12,7 @@ def state_distinguishability(
     r"""
     Compute probability of state distinguishability [ELD03]_.
 
-    The "quantum state distinguishability" problem involves a collection of
-    :math:`n` quantum states
+    The "quantum state distinguishability" problem involves a collection of :math:`n` quantum states
 
     .. math::
         \rho = \{ \rho_0, \ldots, \rho_n \},
@@ -23,17 +22,13 @@ def state_distinguishability(
     .. math::
         p = \{ p_0, \ldots, p_n \}
 
-    Alice chooses :math:`i` with probability :math:`p_i` and creates the state
-    :math:`rho_i`
+    Alice chooses :math:`i` with probability :math:`p_i` and creates the state :math:`\rho_i` Bob
+    wants to guess which state he was given from the collection of states.
 
-    Bob wants to guess which state he was given from the collection of states.
-
-    This function implements the following semidefinite program that provides
-    the optimal probability with which Bob can conduct quantum state
-    distinguishability.
+    This function implements the following semidefinite program that provides the optimal
+    probability with which Bob can conduct quantum state distinguishability.
 
     .. math::
-
         \begin{align*}
             \text{maximize:} \quad & \sum_{i=0}^n p_i \langle M_i,
             \rho_i \rangle \\

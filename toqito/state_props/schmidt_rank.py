@@ -12,40 +12,35 @@ def schmidt_rank(
     r"""
     Compute the Schmidt rank [WikSR]_.
 
-    For complex Euclidean spaces :math:`\mathcal{X}` and :math:`\mathcal{Y}`, a
-    pure state :math:`u \in \mathcal{X} \otimes \mathcal{Y}` possesses an
-    expansion of the form:
+    For complex Euclidean spaces :math:`\mathcal{X}` and :math:`\mathcal{Y}`, a pure state
+    :math:`u \in \mathcal{X} \otimes \mathcal{Y}` possesses an expansion of the form:
 
     .. math::
         u = \sum_{i} \lambda_i v_i w_i
 
-    where :math:`v_i \in \mathcal{X}` and :math:`w_i \in \mathcal{Y}` are
-    orthonormal states.
+    where :math:`v_i \in \mathcal{X}` and :math:`w_i \in \mathcal{Y}` are orthonormal states.
 
     The Schmidt coefficients are calculated from
 
     .. math::
         A = \text{Tr}_{\mathcal{B}}(u^* u).
 
-    The Schmidt rank is the number of non-zero eigenvalues of A. The Schmidt
-    rank allows us to determine if a given state is entangled or separable.
-    For instance:
+    The Schmidt rank is the number of non-zero eigenvalues of :math:`A`. The Schmidt rank allows us
+    to determine if a given state is entangled or separable. For instance:
 
         - If the Schmidt rank is 1: The state is separable
         - If the Schmidt rank > 1: The state is entangled.
 
-    Compute the Schmidt rank of the vector `vec`, assumed to live in bipartite
-    space, where both subsystems have dimension equal to `sqrt(len(vec))`.
+    Compute the Schmidt rank of the vector :code:`vec`, assumed to live in bipartite space, where
+    both subsystems have dimension equal to :code:`sqrt(len(vec))`.
 
-    The dimension may be specified by the 1-by-2 vector `dim` and the rank in
-    that case is determined as the number of Schmidt coefficients larger than
-    `tol`.
+    The dimension may be specified by the 1-by-2 vector :code:`dim` and the rank in that case is
+    determined as the number of Schmidt coefficients larger than :code:`tol`.
 
     Examples
     ==========
 
-    Computing the Schmidt rank of the entangled Bell state should yield a value
-    greater than one.
+    Computing the Schmidt rank of the entangled Bell state should yield a value greater than one.
 
     >>> from toqito.states import bell
     >>> from toqito.state_props import schmidt_rank
@@ -53,8 +48,8 @@ def schmidt_rank(
     >>> schmidt_rank(rho)
     2
 
-    Computing the Schmidt rank of the entangled singlet state should yield a
-    value greater than :math:`1`.
+    Computing the Schmidt rank of the entangled singlet state should yield a value greater than
+    :math:`1`.
 
     >>> from toqito.states import bell
     >>> from toqito.state_props import schmidt_rank
@@ -62,8 +57,7 @@ def schmidt_rank(
     >>> schmidt_rank(u)
     2
 
-    Computing the Schmidt rank of a separable state should yield a value equal
-    to :math:`1`.
+    Computing the Schmidt rank of a separable state should yield a value equal to :math:`1`.
 
     >>> from toqito.states import basis
     >>> from toqito.state_props import schmidt_rank
@@ -86,7 +80,7 @@ def schmidt_rank(
 
     :param vec: A bipartite vector to have its Schmidt rank computed.
     :param dim: A 1-by-2 vector.
-    :return: The Schmidt rank of vector `vec`.
+    :return: The Schmidt rank of vector :code:`vec`.
     """
     eps = np.finfo(float).eps
     slv = int(np.round(np.sqrt(len(vec))))
