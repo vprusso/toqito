@@ -88,7 +88,7 @@ def partial_transpose(
                         5 & 6 & 13 & 14 \\
                         3 & 4 & 11 & 12 \\
                         7 & 8 & 15 & 16
-                    \end{pmatrix}
+                    \end{pmatrix}.
 
     >>> from toqito.channels import partial_transpose
     >>> import numpy as np

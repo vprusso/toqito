@@ -1,7 +1,11 @@
 States
 =====================
 
-A *quantum state* is a density operator :math:`\rho \in \text{D}(\mathcal{X})`
+A *quantum state* is a density operator
+
+.. math::
+    \rho \in \text{D}(\mathcal{X})
+
 where :math:`\mathcal{X}` is a complex Euclidean space and where
 :math:`\text{D}(\cdot)` represents the set of density matrices.
 
@@ -31,6 +35,7 @@ Optimizations over Quantum States
    :toctree: _autosummary
 
     toqito.state_opt.conclusive_state_exclusion
+    toqito.state_opt.optimal_clone
     toqito.state_opt.ppt_distinguishability
     toqito.state_opt.state_distinguishability
     toqito.state_opt.state_helper

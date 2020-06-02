@@ -18,7 +18,7 @@ def is_herm_preserving(
     .. math::
         \Phi(H) \in \text{Herm}(\mathcal{Y})
 
-    for every Hermitian operator :math:`H \in \text{Herm}(\mathcal{X}`.
+    for every Hermitian operator :math:`H \in \text{Herm}(\mathcal{X})`.
 
     Examples
     ==========

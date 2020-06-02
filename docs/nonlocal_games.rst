@@ -34,11 +34,3 @@ Quantum Hedging Protocols
    :members:
    :undoc-members:
    :show-inheritance:
-
-Quantum Money Protocols
------------------------
-
-.. automodule:: toqito.nonlocal_games.quantum_money
-   :members:
-   :undoc-members:
-   :show-inheritance:

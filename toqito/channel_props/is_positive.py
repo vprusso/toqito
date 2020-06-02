@@ -19,8 +19,7 @@ def is_positive(
     .. math::
         \Phi(P) \in \text{Pos}(\mathcal{Y})
 
-    for every positive semidefinite operator
-    :math:`P \in \text{Pos(\mathcal{X})`.
+    for every positive semidefinite operator :math:`P \in \text{Pos}(\mathcal{X})`.
 
     Alternatively, a channel is positive if the corresponding Choi matrix of the
     channel is both Hermitian-preserving and positive semidefinite.
