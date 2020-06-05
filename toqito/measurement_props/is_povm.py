@@ -9,14 +9,12 @@ def is_povm(mat_list: List[np.ndarray]) -> bool:
     r"""
     Determine if a list of matrices constitute a valid set of POVMs [WikPOVM]_.
 
-    A valid set of measurements are defined by a set of positive semidefinite
-    operators
+    A valid set of measurements are defined by a set of positive semidefinite operators
 
     .. math::
-         \{P_a : a \in \Gamma\} \subset \text{Pos}(\mathcal{X})
+         \{P_a : a \in \Gamma\} \subset \text{Pos}(\mathcal{X}),
 
-    indexed by the alphabet :math:`\Gamma` of measurement outcomes satisfying
-    the constraint that
+    indexed by the alphabet :math:`\Gamma` of measurement outcomes satisfying the constraint that
 
     .. math::
         \sum_{a \in \Gamma} P_a = I_{\mathcal{X}}.
@@ -48,9 +46,8 @@ def is_povm(mat_list: List[np.ndarray]) -> bool:
     >>> is_povm(meas)
     True
 
-    We may also use the :code:`random_povm` function from :code:`toqito`, and
-    can verify that a randomly generated set satisfies the criteria for being a
-    POVM set.
+    We may also use the :code:`random_povm` function from :code:`toqito`, and can verify that a
+    randomly generated set satisfies the criteria for being a POVM set.
 
     >>> from toqito.measurement_props import is_povm
     >>> from toqito.random import random_povm

@@ -1,4 +1,4 @@
-Extended Nonlocal Games
+Extended nonlocal games
 ==========================
 
 In this tutorial, we will define the concept of an *extended nonlocal game*.

@@ -16,21 +16,21 @@ def permutation_operator(
     r"""
     Produce a unitary operator that permutes subsystems.
 
-    Generates a unitary operator that permutes the order of subsystems
-    according to the permutation vector `perm`, where the ith subsystem has
-    dimension `dim[i]`.
+    Generates a unitary operator that permutes the order of subsystems according to the permutation
+    vector :code:`perm`, where the :math:`i^{th}` subsystem has dimension :code:`dim[i]`.
 
-    If `inv_perm` = True, it implements the inverse permutation of `perm`. The
-    permutation operator return is full is `is_sparse` is False and sparse if
-    `is_sparse` is True.
+    If :code:`inv_perm` = True, it implements the inverse permutation of :code:`perm`. The
+    permutation operator return is full is :code:`is_sparse` is :code:`False` and sparse if
+    :code:`is_sparse` is :code:`True`.
 
     Examples
     ==========
 
-    The permutation operator obtained with dimension :math:`d = 2` is equivalent
-    to the standard swap operator on two qubits
+    The permutation operator obtained with dimension :math:`d = 2` is equivalent to the standard
+    swap operator on two qubits
 
     .. math::
+        P_{2, [2, 1]} =
         \begin{pmatrix}
             1 & 0 & 0 & 0 \\
             0 & 0 & 1 & 0 \\
@@ -38,7 +38,7 @@ def permutation_operator(
             0 & 0 & 0 & 1
         \end{pmatrix}
 
-    Using `toqito`, this can be achieved in the following manner.
+    Using :code:`toqito`, this can be achieved in the following manner.
 
     >>> from toqito.perms import permutation_operator
     >>> permutation_operator(2, [2, 1])
@@ -51,7 +51,7 @@ def permutation_operator(
     :param perm: A permutation vector.
     :param inv_perm: Boolean dictating if `perm` is inverse or not.
     :param is_sparse: Boolean indicating if return is sparse or not.
-    :return: Permutation operator of dimension `dim`.
+    :return: Permutation operator of dimension :code:`dim`.
     """
     # Allow the user to enter a single number for `dim`.
     if isinstance(dim, int):

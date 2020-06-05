@@ -11,8 +11,8 @@ def measure(measurement: np.ndarray, state: np.ndarray) -> float:
     .. math::
         \mu : \Sigma \rightarrow \text{Pos}(\mathcal{X}),
 
-    for some choice of alphabet :math:`\Sigma` and a complex Euclidean space
-    :math:`\mathcal{X}` that satisfies
+    for some choice of alphabet :math:`\Sigma` and a complex Euclidean space :math:`\mathcal{X}`
+    that satisfies
 
     .. math::
         \sum_{a \in \Sigma} \mu(a) = \mathbb{I}_{\mathcal{X}}.

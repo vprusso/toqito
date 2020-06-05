@@ -1,4 +1,4 @@
-Calculating the Quantum and Classical Value of a Two-Player XOR Game
+Calculating the quantum and classical value of a two-player XOR game
 =====================================================================
 
 In this tutorial, we will cover the concept of an *XOR game*. We will also

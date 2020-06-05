@@ -20,29 +20,27 @@ def permute_systems(
     r"""
     Permute subsystems within a state or operator.
 
-    Permutes the order of the subsystems of the vector or matrix `input_mat`
-    according to the permutation vector `perm`, where the dimensions of the
-    subsystems are given by the vector `dim`. If `input_mat` is non-square and
-    not a vector, different row and column dimensions can be specified by
-    putting the row dimensions in the first row of `dim` and the columns
-    dimensions in the second row of `dim`.
+    Permutes the order of the subsystems of the vector or matrix :code:`input_mat` according to the
+    permutation vector :code:`perm`, where the dimensions of the subsystems are given by the vector
+    :code:`dim`. If :code:`input_mat` is non-square and not a vector, different row and column
+    dimensions can be specified by putting the row dimensions in the first row of :code:`dim` and
+    the columns dimensions in the second row of :code:`dim`.
 
-    If `row_only = True`, then only the rows of `input_mat` are permuted, but
-    not the columns -- this is equivalent to multiplying `input_mat` on the
-    left by the corresponding permutation operator, but not on the right.
+    If :code:`row_only = True`, then only the rows of :code:`input_mat` are permuted, but not the
+    columns -- this is equivalent to multiplying :code:`input_mat` on the left by the corresponding
+    permutation operator, but not on the right.
 
-    If `row_only = False`, then `dim` only needs to contain the row dimensions
-    of the subsystems, even if `input_mat` is not square. If `inv_perm = True`,
-    then the inverse permutation of `perm` is applied instead of `perm` itself.
+    If :code:`row_only = False`, then :code:`dim` only needs to contain the row dimensions of the
+    subsystems, even if :code:`input_mat` is not square. If :code:`inv_perm = True`, then the
+    inverse permutation of :code:`perm` is applied instead of :code:`perm` itself.
 
     Examples
     ==========
 
     For spaces :math:`\mathcal{A}` and :math:`\mathcal{B}` where
-    :math:`\text{dim}(\mathcal{A}) = \text{dim}(\mathcal{B}) = 2` we may
-    consider an operator :math:`X \in \mathcal{A} \otimes \mathcal{B}`. Applying
-    the `permute_systems` function with vector :math:`[2,1]` on :math:`X`, we
-    may reorient the spaces such that
+    :math:`\text{dim}(\mathcal{A}) = \text{dim}(\mathcal{B}) = 2` we may consider an operator
+    :math:`X \in \mathcal{A} \otimes \mathcal{B}`. Applying the `permute_systems` function with
+    vector :math:`[2,1]` on :math:`X`, we may reorient the spaces such that
     :math:`X \in \mathcal{B} \otimes \mathcal{A}`.
 
     For example, if we define :math:`X \in \mathcal{A} \otimes \mathcal{B}` as
@@ -53,7 +51,7 @@ def permute_systems(
             5 & 6 & 7 & 8 \\
             9 & 10 & 11 & 12 \\
             13 & 14 & 15 & 16
-        \end{pmatrix}
+        \end{pmatrix},
 
     then applying the `permute_systems` function on :math:`X` to obtain
     :math:`X \in \mathcal{B} \otimes \mathcal{A}` yield the following matrix
@@ -64,7 +62,7 @@ def permute_systems(
             9 & 11 & 10 & 12 \\
             5 & 7 & 6 & 8 \\
             13 & 15 & 14 & 16
-        \end{pmatrix}
+        \end{pmatrix}.
 
     >>> from toqito.perms import permute_systems
     >>> import numpy as np
@@ -77,16 +75,13 @@ def permute_systems(
      [ 5  7  6  8]
      [13 15 14 16]]
 
-    For spaces :math:`\mathcal{A}, \mathcal{B}`, and :math:`\mathcal{C}`
-    where :math:`\text{dim}(\mathcal{A}) = \text{dim}(\mathcal{B}) =
-    \text{dim}(\mathcal{C}) = 2` we may consider an operator
-    :math:`X \in \mathcal{A} \otimes \mathcal{B} \otimes \mathcal{C}`. Applying
-    the `permute_systems` function with vector :math:`[2,3,1]` on :math:`X`, we
-    may reorient the spaces such that
-    :math:`X \in \mathcal{B} \otimes \mathcal{C} \otimes \mathcal{A}`.
+    For spaces :math:`\mathcal{A}, \mathcal{B}`, and :math:`\mathcal{C}` where
+    :math:`\text{dim}(\mathcal{A}) = \text{dim}(\mathcal{B}) = \text{dim}(\mathcal{C}) = 2` we may
+    consider an operator :math:`X \in \mathcal{A} \otimes \mathcal{B} \otimes \mathcal{C}`. Applying
+    the :code:`permute_systems` function with vector :math:`[2,3,1]` on :math:`X`, we may reorient
+    the spaces such that :math:`X \in \mathcal{B} \otimes \mathcal{C} \otimes \mathcal{A}`.
 
-    For example, if we define
-    :math:`X \in \mathcal{A} \otimes \mathcal{B} \otimes \mathcal{C}` as
+    For example, if we define :math:`X \in \mathcal{A} \otimes \mathcal{B} \otimes \mathcal{C}` as
 
     .. math::
         X =
@@ -99,11 +94,10 @@ def permute_systems(
             41 & 42 & 43 & 44 & 45 & 46 & 47 & 48 \\
             49 & 50 & 51 & 52 & 53 & 54 & 55 & 56 \\
             57 & 58 & 59 & 60 & 61 & 62 & 63 & 64
-        \end{pmatrix}
+        \end{pmatrix},
 
     then applying the `permute_systems` function on :math:`X` to obtain
-    :math:`X \in \mathcal{B} \otimes \mathcal{C} \otimes \mathcal{C}` yield the
-    following matrix
+    :math:`X \in \mathcal{B} \otimes \mathcal{C} \otimes \mathcal{C}` yield the following matrix
 
     .. math::
         X_{[2, 3, 1]} =
@@ -116,7 +110,7 @@ def permute_systems(
             49 & 53 & 50 & 54 & 51 & 55 & 52 & 56 \\
             25 & 29 & 26 & 30 & 27 & 31 & 28 & 32 \\
             57 & 61 & 58 & 62 & 59 & 63 & 60 & 64
-        \end{pmatrix}
+        \end{pmatrix}.
 
     >>> from toqito.perms import permute_systems
     >>> import numpy as np
@@ -145,8 +139,8 @@ def permute_systems(
     :param input_mat: The vector or matrix.
     :param perm: A permutation vector.
     :param dim: The default has all subsystems of equal dimension.
-    :param row_only: Default: `False`
-    :param inv_perm: Default :`True`
+    :param row_only: Default: :code:`False`
+    :param inv_perm: Default: :code:`True`
     :return: The matrix or vector that has been permuted.
     """
     if len(input_mat.shape) == 1:

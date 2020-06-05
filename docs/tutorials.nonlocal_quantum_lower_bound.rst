@@ -1,4 +1,4 @@
-Lower Bounds on the Quantum Value of a Two-Player Nonlocal Game
+Lower bounds on the quantum value of a two-player nonlocal game
 ================================================================
 
 In this tutorial, we are going to cover the notion of a *nonlocal game*; a

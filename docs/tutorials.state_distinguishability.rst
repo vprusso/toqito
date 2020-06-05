@@ -1,5 +1,5 @@
-Quantum State Distinguishability
-==================================
+Quantum state distinguishability
+=================================
 
 In this tutorial we are going to cover the problem of *quantum state
 distinguishability* (sometimes analogously referred to as quantum state
@@ -140,21 +140,34 @@ also be framed as an SDP and was initially presented in this manner in
 
 Using :code:`toqito`, we can determine the optimal probability for Bob to
 distinguish a given state from an ensemble if he is only given access to PPT
-measurements. 
+measurements.
 
-It was shown in [tCosentino13]_ and extended in [tCR13]_ that the following
-ensemble of states has a probability of :math:`7/8 \approx 0.875` of being
-distinguished via PPT measurements.
+Consider the following Bell states
 
 .. math::
     \begin{equation}
         \begin{aligned}
-        | \psi_0 \rangle = \frac{| 00\rangle + | 11\rangle}{\sqrt{2}}, &\quad
-        | \psi_1 \rangle = \frac{| 01\rangle + | 10\rangle}{\sqrt{2}}, \\
-        | \psi_2 \rangle = \frac{| 01\rangle - | 10\rangle}{\sqrt{2}}, &\quad
-        | \psi_3 \rangle = \frac{| 00\rangle - | 11\rangle}{\sqrt{2}}.
+            | \psi_0 \rangle = \frac{|00\rangle + |11\rangle}{\sqrt{2}}, &\quad
+            | \psi_1 \rangle = \frac{|01\rangle + |10\rangle}{\sqrt{2}}, \\
+            | \psi_2 \rangle = \frac{|01\rangle - |10\rangle}{\sqrt{2}}, &\quad
+            | \psi_3 \rangle = \frac{|00\rangle - |11\rangle}{\sqrt{2}}.
         \end{aligned}
     \end{equation}
+
+It was shown in [tCosentino13]_ and later extended in [tCR13]_ that for the following set of states
+
+.. math::
+    \begin{equation}
+        \begin{aligned}
+            \rho_1^{(2)} &= |\psi_0 \rangle | \psi_0 \rangle \langle \psi_0 | \langle \psi_0 |, \\
+            \rho_2^{(2)} &= |\psi_1 \rangle | \psi_3 \rangle \langle \psi_1 | \langle \psi_3 |, \\
+            \rho_3^{(2)} &= |\psi_2 \rangle | \psi_3 \rangle \langle \psi_2 | \langle \psi_3 |, \\
+            \rho_4^{(2)} &= |\psi_3 \rangle | \psi_3 \rangle \langle \psi_3 | \langle \psi_3 |, \\
+        \end{aligned}
+    \end{equation}
+
+that the optimal probability of distinguishing via a PPT measurement should yield
+:math:`7/8 \approx 0.875`.
 
 This ensemble of states and some of its properties with respect to
 distinguishability were initially considered in [tYDY12]_. In :code:`toqito`,

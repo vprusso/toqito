@@ -7,27 +7,46 @@ Nonlocal Games
 --------------------------
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 5
 
-   tutorials.xor_quantum_value
    tutorials.nonlocal_quantum_lower_bound
-   tutorials.extended_nonlocal_games
-   tutorials.quantum_money
-   tutorials.quantum_hedging
 
-Optimizations over Quantum States
-----------------------------------
+XOR Games
+--------------------------
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 5
+
+   tutorials.xor_quantum_value
+
+Extended Nonlocal Games
+--------------------------
+
+.. toctree::
+   :maxdepth: 5
+
+   tutorials.extended_nonlocal_games
+
+Quantum State Distinguishability
+--------------------------------
+
+.. toctree::
+   :maxdepth: 5
 
    tutorials.state_distinguishability
+
+Quantum State Exclusion
+-----------------------
+
+.. toctree::
+   :maxdepth: 5
+
    tutorials.state_exclusion
 
 Quantum Communication
 -----------------------------------------------------
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 5
 
    tutorials.superdense_coding
