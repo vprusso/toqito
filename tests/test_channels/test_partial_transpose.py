@@ -1,8 +1,10 @@
 """Test partial_transpose."""
+import cvxpy
 import numpy as np
 
-from toqito.channels import partial_transpose
+from cvxpy.atoms.affine.vstack import Vstack
 
+from toqito.channels import partial_transpose
 from toqito.states import bell
 
 
@@ -126,6 +128,12 @@ def test_partial_transpose_non_square_matrix_2():
     with np.testing.assert_raises(ValueError):
         rho = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
         partial_transpose(rho, 2, [2])
+
+
+def test_partial_transpose_cvxpy():
+    x_var = cvxpy.Variable((4, 4), hermitian=True)
+    x_pt = partial_transpose(x_var)
+    np.testing.assert_equal(isinstance(x_pt, Vstack), True)
 
 
 if __name__ == "__main__":

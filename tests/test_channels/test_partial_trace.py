@@ -1,6 +1,8 @@
 """Test partial_trace."""
+import cvxpy
 import numpy as np
 
+from cvxpy.atoms.affine.vstack import Vstack
 from toqito.channels import partial_trace
 
 
@@ -130,6 +132,12 @@ def test_partial_trace_non_square_matrix_dim_2():
     with np.testing.assert_raises(ValueError):
         rho = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
         partial_trace(rho, 2, [2])
+
+
+def test_partial_trace_cvxpy():
+    x_var = cvxpy.Variable((4, 4), hermitian=True)
+    x_pt = partial_trace(x_var)
+    np.testing.assert_equal(isinstance(x_pt, Vstack), True)
 
 
 if __name__ == "__main__":

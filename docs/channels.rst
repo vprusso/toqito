@@ -25,7 +25,6 @@ Quantum Channels
     toqito.channels.dephasing
     toqito.channels.depolarizing
     toqito.channels.partial_trace
-    toqito.channels.partial_trace_cvx
     toqito.channels.partial_transpose
     toqito.channels.realignment
     toqito.channels.reduction

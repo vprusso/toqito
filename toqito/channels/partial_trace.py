@@ -3,14 +3,17 @@ from typing import List, Union
 
 import numpy as np
 
+from cvxpy.expressions.expression import Expression
+from cvxpy.expressions.variable import Variable
 from toqito.perms import permute_systems
+from toqito.helper import expr_as_np_array, np_array_as_expr
 
 
 def partial_trace(
-    input_mat: np.ndarray,
+    input_mat: Union[np.ndarray, Variable],
     sys: Union[int, List[int]] = 2,
     dim: Union[int, List[int]] = None,
-):
+) -> Union[np.ndarray, Expression]:
     r"""
     Compute the partial trace of a matrix [WikPtrace]_.
 
@@ -129,6 +132,15 @@ def partial_trace(
                 are assumed to be equal.
     :return: The partial trace of matrix :code:`input_mat`.
     """
+    # If the input matrix is a CVX variable for an SDP, we convert it to a
+    # numpy array, perform the partial trace, and convert it back to a CVX
+    # variable.
+    if isinstance(input_mat, Variable):
+        rho_np = expr_as_np_array(input_mat)
+        traced_rho = partial_trace(rho_np, sys, dim)
+        traced_rho = np_array_as_expr(traced_rho)
+        return traced_rho
+
     if dim is None:
         dim = np.array([np.round(np.sqrt(len(input_mat)))])
     if isinstance(dim, int):

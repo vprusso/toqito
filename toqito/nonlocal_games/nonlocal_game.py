@@ -229,7 +229,7 @@ class NonlocalGame:
         >>>                if np.mod(a_alice + b_bob + x_alice * y_bob, dim) == 0:
         >>>                    pred_mat[a_alice, b_bob, x_alice, y_bob] = 1
         >>>
-        >>> chsh = NonlocalGame(dim, prob_mat, pred_mat)
+        >>> chsh = NonlocalGame(prob_mat, pred_mat)
         >>> chsh.quantum_value_lower_bound()
         0.8535533840915605
 

@@ -3,14 +3,17 @@ from typing import List, Union
 
 import numpy as np
 
+from cvxpy.expressions.expression import Expression
+from cvxpy.expressions.variable import Variable
 from toqito.perms import permute_systems
+from toqito.helper import expr_as_np_array, np_array_as_expr
 
 
 def partial_transpose(
-    rho: np.ndarray,
+    rho: Union[np.ndarray, Variable],
     sys: Union[List[int], np.ndarray, int] = 2,
     dim: Union[List[int], np.ndarray] = None,
-) -> np.ndarray:
+) -> Union[np.ndarray, Expression]:
     r"""Compute the partial transpose of a matrix [WikPtrans]_.
 
     The *partial transpose* is defined as
@@ -112,6 +115,15 @@ def partial_transpose(
                 are assumed to be equal.
     :returns: The partial transpose of matrix :code:`rho`.
     """
+    # If the input matrix is a CVX variable for an SDP, we convert it to a
+    # numpy array, perform the partial transpose, and convert it back to a CVX
+    # variable.
+    if isinstance(rho, Variable):
+        rho_np = expr_as_np_array(rho)
+        transposed_rho = partial_transpose(rho_np, sys, dim)
+        transposed_rho = np_array_as_expr(transposed_rho)
+        return transposed_rho
+
     sqrt_rho_dims = np.round(np.sqrt(list(rho.shape)))
 
     if dim is None:

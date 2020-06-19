@@ -4,7 +4,7 @@ import cvxpy
 import numpy as np
 
 from toqito.matrix_ops import tensor
-from toqito.channels import partial_trace_cvx
+from toqito.channels import partial_trace
 from toqito.perms import permutation_operator
 
 
@@ -75,7 +75,6 @@ def optimal_clone(
 
     We can see that the optimal value we obtain in solving the SDP is 3/4.
 
-    >>> from toqito.matrix_ops import tensor
     >>> from toqito.state_opt import optimal_clone
     >>> from toqito.states import basis
     >>> import numpy as np
@@ -170,7 +169,7 @@ def primal_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
             cvxpy.trace(cvxpy.real(pperm @ q_a.conj().T @ pperm.conj().T @ x_var))
         )
     constraints = [
-        partial_trace_cvx(x_var, sys, dim) == np.identity(2 ** num_reps),
+        partial_trace(x_var, sys, dim) == np.identity(2 ** num_reps),
         x_var >> 0,
     ]
     problem = cvxpy.Problem(objective, constraints)
