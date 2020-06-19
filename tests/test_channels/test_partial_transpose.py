@@ -131,6 +131,7 @@ def test_partial_transpose_non_square_matrix_2():
 
 
 def test_partial_transpose_cvxpy():
+    """Test partial transpose on cvxpy objects."""
     x_var = cvxpy.Variable((4, 4), hermitian=True)
     x_pt = partial_transpose(x_var)
     np.testing.assert_equal(isinstance(x_pt, Vstack), True)
