@@ -1,6 +1,7 @@
 """Test ppt_distinguishability."""
 import numpy as np
 
+from toqito.perms import swap_operator
 from toqito.state_opt import ppt_distinguishability
 from toqito.states import bell
 
@@ -103,6 +104,42 @@ def test_ppt_distinguishability_yyd_states_no_probs():
 
     res = ppt_distinguishability(states)
     np.testing.assert_equal(np.isclose(res, 7 / 8), True)
+
+
+def test_ppt_distinguishability_werner_hiding_pairs():
+    r"""
+    One quantum data hiding scheme involves the Werner hiding pair.
+
+    A Werner hiding pair is defined by
+
+    .. math::
+    \begin{equation}
+        \sigma_0^{(n)} = \frac{\mathbb{I} \otimes \mathbb{I} + W_n}{n(n+1)}
+        \quad \text{and} \quad
+        \sigma_1^{(n)} = \frac{\mathbb{I} \otimes \mathbb{I} - W_n}{n(n-1)}
+    \end{equation}
+
+    The optimal probability to distinguish the Werner hiding pair is known
+    to be upper bounded by the following equation
+
+    .. math::
+    \begin{equation}
+        \frac{1}{2} + \frac{1}{n+1}
+    \end{equation}
+    """
+    dim = 2
+    sigma_0 = (np.kron(np.identity(dim), np.identity(dim)) + swap_operator(dim)) / (
+        dim * (dim + 1)
+    )
+    sigma_1 = (np.kron(np.identity(dim), np.identity(dim)) - swap_operator(dim)) / (
+        dim * (dim - 1)
+    )
+
+    states = [sigma_0, sigma_1]
+
+    expected_val = 1 / 2 + 1 / (dim + 1)
+    res = ppt_distinguishability(states)
+    np.testing.assert_equal(np.isclose(res, expected_val), True)
 
 
 if __name__ == "__main__":
