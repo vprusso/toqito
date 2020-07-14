@@ -173,8 +173,8 @@ def partial_trace(
             prod_dim_sys = np.prod(dim[0])
         else:
             prod_dim_sys = 1
-            for s in sys:
-                prod_dim_sys *= dim[s-1]
+            for idx in sys:
+                prod_dim_sys *= dim[idx-1]
     elif isinstance(sys, int):
         prod_dim_sys = np.prod(dim[sys - 1])
     else:
@@ -193,7 +193,6 @@ def partial_trace(
     perm = set_diff
     perm.extend(sys)
 
-    print(input_mat)
     a_mat = permute_systems(input_mat, perm, dim)
 
     ret_mat = np.reshape(
