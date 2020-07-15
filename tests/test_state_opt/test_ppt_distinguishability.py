@@ -202,7 +202,7 @@ def test_ppt_distinguishability_four_bell_states():
     probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
 
     res = ppt_distinguishability(states, probs)
-    exp_res = 1/2 * (1 + np.sqrt(1 - eps**2))
+    exp_res = 1 / 2 * (1 + np.sqrt(1 - eps ** 2))
     np.testing.assert_equal(np.isclose(res, exp_res), True)
 
 

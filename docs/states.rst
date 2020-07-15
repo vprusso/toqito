@@ -39,6 +39,7 @@ Optimizations over Quantum States
     toqito.state_opt.ppt_distinguishability
     toqito.state_opt.state_distinguishability
     toqito.state_opt.state_helper
+    toqito.state_opt.symmetric_extension_hierarchy
     toqito.state_opt.unambiguous_state_exclusion
 
 Operations on Quantum States
