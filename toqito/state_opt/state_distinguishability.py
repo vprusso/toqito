@@ -90,4 +90,4 @@ def state_distinguishability(
     problem = cvxpy.Problem(objective, constraints)
     sol_default = problem.solve()
 
-    return 1 / len(states) * sol_default
+    return sol_default
