@@ -128,7 +128,10 @@ def ppt_distinguishability(
 
     dim = int(np.log2(dim_x))
     dim_list = [2] * int(np.log2(dim_x))
+
     sys_list = list(range(1, dim, 2))
+    if not sys_list:
+        sys_list = [2]
 
     for i, _ in enumerate(states):
         meas.append(cvxpy.Variable((dim_x, dim_x), PSD=True))
