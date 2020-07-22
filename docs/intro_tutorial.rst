@@ -22,9 +22,11 @@ do not, please consult the
 States
 ------
 
-Let us picture a black box that outputs a tape with a series of characters: :math:`00101,abccd,\uparrow\downarrow\uparrow,\ldots`. This is an example of a **registry** and we will be concerned with a *quantum* theory about the processing of its information.
+Let us picture a black box that outputs a tape with a series of characters, each one coming from a specific alphabet. For example :math:`00101,abccd,\uparrow\downarrow\uparrow,\ldots` would come from alphabets :math:`\{0,1\}, \{a,b,c\},\{\uparrow,\downarrow\}`, etc. This is an example of a **register** and we will be concerned with a *quantum* theory about how to process its information.
 
-Consider a tuple of complex numbers :math:`(z_1,z_2,\ldots, z_n)`, one for every item that we read on the tape. The set of all these tuples  forms a complex Euclidean space on which we can define **quantum states**: square matrices :math:`\rho` that contain information about the (quantum) system. These matrices are **density operators**; they are defined by two special properties:
+Call :math:`\Sigma` the composite formed by all the sub-alphabets that produced by our tape. For each item on the composite alphabet :math:`i \in \Sigma`, assign a complex number :math:`z_i`. The tuple  :math:`(z_0,z_1, z_a, z_b, z_c, z_\uparrow, z_\downarrow,\ldots)` (together with the usual Euclidean norm) is an element of a complex Euclidean space associated to :math:`\Sigma`. In mathematical notation, we write this space as :math:`\mathbb C ^\Sigma`.
+
+This complex Euclidean space is where we can define **quantum states**: a type of square matrices :math:`\rho` that contain information about the (quantum) system. More precisely, the matrices are **density operators** which are defined by two special properties:
 
 - They are formed from the product of two square matrices, :math:`\rho = Y^*Y`, where :math:`Y^*` is the *conjugate transpose* of :math:`Y^*`. This property is called **positive semidefinite**.
 - They have unit trace: :math:`\mathrm{Tr}(\rho) = 1`
@@ -38,13 +40,11 @@ Consider a tuple of complex numbers :math:`(z_1,z_2,\ldots, z_n)`, one for every
   from toqito import matrix_ops
 
   my_state = np.random.randint(-3,5,(4,4)) # Create some random array
-  print(f'Is my state a quantum state? {tq}')
+  print(f"Is my state a quantum state? {tqt.matrix_props.is_density(my_state)}")
 
-Quantum states :math:`\rho` characterize a particular way in which the system *entangles* the possible configurations of the register. One of the main reasons for defining quantum states like this is to have a straightforward way of expressing **mixtures** of pure states.
+Quantum states :math:`\rho` characterize a particular way in which the system *entangles* the possible configurations of the register. They also express in an straightforward way **mixtures** of pure states.
 
-A pure state, in terms of density matrices, is a quantum state that is built from the outer product of the unit vector with itself: :math:`\rho_{\text{pure}} = u* u \quad,` for :math:`u`  a unit vector. Mixed states generalize quantum states to conditions where we have only probabilistic knowledge of the member states. Moreover, a set of positive semi
-
-In general, mixed states will be **convex combinations** of pure quantum states. For larger systems, one may want to quickly check one has a mixture, so let's use :code:`toqito` , which verifies if the states are pure and construct their mixture:
+A **pure state** is a quantum state built from the outer product of the unit vector with itself: :math:`\rho_{\text{pure}} = u* u \quad,` for :math:`u`  a unit vector. **Mixed states** generalize quantum states to conditions where we have only probabilistic knowledge of the member states. In general, mixed states will be **convex combinations** of pure quantum states. For larger systems, one may want to quickly check if one has a mixture, so let's use :code:`toqito` , which verifies if the states are pure and construct their mixture:
 
 .. code-block:: python
 
@@ -59,7 +59,7 @@ In general, mixed states will be **convex combinations** of pure quantum states.
   prob = np.random.rand(N)
   prob = prob/np.sum(prob)
 
-  print(f' Ensemble has probabilities {list(prob)} \n')
+  print(f" Ensemble has probabilities {list(prob)} \n")
 
   # Define randomly some pure states:
   np.random.seed(1)
@@ -70,18 +70,18 @@ In general, mixed states will be **convex combinations** of pure quantum states.
       states[j] = tqt.state_ops.pure_to_mixed(vector)
 
   # Tests:
-  print(f'Boolean check of density matrix: \n {[tqt.matrix_props.is_density(states[j]) for j in range(N)]} \n')
-  print(f'Our states are: \n {states} \n')
-  print('Boolean check of purity: \n {[tqt.state_props.is_pure(states[j]) for j in range(N)]} \n')
-  print(f'Do we have an ensemble? {tqt.state_props.is_ensemble([prob[i]*states[i] for i in range(N)])}\n')
+  print(f"Boolean check of density matrix: \n {[tqt.matrix_props.is_density(states[j]) for j in range(N)]} \n")
+  print(f"Our states are: \n {states} \n")
+  print("Boolean check of purity: \n {[tqt.state_props.is_pure(states[j]) for j in range(N)]} \n")
+  print(f"Do we have an ensemble? {tqt.state_props.is_ensemble([prob[i]*states[i] for i in range(N)])}\n")
 
   # Produce convex sum:
   convex_sum = np.zeros((L,L), dtype=np.complex128)
   for i in range(N):
       convex_sum += prob[i]*states[i]
 
-  print(f'The mixture of the states is: \n {convex_sum} \n')
-  print(f'Is the final state mixed? {tqt.state_props.is_mixed(convex_sum)}')
+  print(f"The mixture of the states is: \n {convex_sum} \n")
+  print(f"Is the final state mixed? {tqt.state_props.is_mixed(convex_sum)}")
 
 
 Some common states are built quickly from :code:`toqito` . For example, the four Bell states for two qubits are obtained with :code:`toqito.states.bell(k)`, where k runs from 0 to 3.
