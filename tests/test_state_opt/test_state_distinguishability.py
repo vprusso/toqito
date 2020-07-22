@@ -32,7 +32,7 @@ def test_state_distinguishability_two_states():
     probs = [1 / 2, 1 / 2]
 
     res = state_distinguishability(states, probs)
-    np.testing.assert_equal(np.isclose(res, 1 / 2), True)
+    np.testing.assert_equal(np.isclose(res, 1), True)
 
 
 def test_state_distinguishability_three_state_vec():
@@ -42,7 +42,26 @@ def test_state_distinguishability_three_state_vec():
     probs = [1 / 2, 1 / 2]
 
     res = state_distinguishability(states, probs)
-    np.testing.assert_equal(np.isclose(res, 1 / 2), True)
+    np.testing.assert_equal(np.isclose(res, 1), True)
+
+
+def test_state_distinguishability_yyd_density_matrices():
+    """Global distinguishability of the YYD states should yield 1."""
+    psi0 = bell(0) * bell(0).conj().T
+    psi1 = bell(1) * bell(1).conj().T
+    psi2 = bell(2) * bell(2).conj().T
+    psi3 = bell(3) * bell(3).conj().T
+
+    states = [
+        np.kron(psi0, psi0),
+        np.kron(psi2, psi1),
+        np.kron(psi3, psi1),
+        np.kron(psi1, psi1),
+    ]
+    probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
+
+    res = state_distinguishability(states, probs)
+    np.testing.assert_equal(np.isclose(res, 1, atol=0.001), True)
 
 
 def test_invalid_state_distinguishability_probs():

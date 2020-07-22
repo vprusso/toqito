@@ -26,10 +26,12 @@ def ppt_distinguishability(
         \begin{equation}
             \begin{aligned}
                 \text{minimize:} \quad & \frac{1}{k} \text{Tr}(Y) \\
-                \text{subject to:} \quad & Y \geq \text{T}_{\mathcal{A}}
-                                          (\rho_j), \quad j = 1, \ldots, k, \\
+                \text{subject to:} \quad & Y - \rho_j \geq \text{T}_{\mathcal{A}} (Q_j),
+                                           \quad j = 1, \ldots, k, \\
                                          & Y \in \text{Herm}(\mathcal{A} \otimes
-                                          \mathcal{B}).
+                                          \mathcal{B}), \\
+                                        & Q_1, \ldots, Q_k \in
+                                          \text{Pos}(\mathcal{A} \otimes \mathcal{B}).
             \end{aligned}
         \end{equation}
 
@@ -106,6 +108,7 @@ def ppt_distinguishability(
              via PPT measurements.
     """
     constraints = []
+    meas = []
 
     __is_states_valid(states)
     if probs is None:
@@ -121,16 +124,20 @@ def ppt_distinguishability(
             states[i] = state_ket * state_ket.conj().T
 
     y_var = cvxpy.Variable((dim_x, dim_x), hermitian=True)
-    objective = 1 / len(states) * cvxpy.Minimize(cvxpy.trace(cvxpy.real(y_var)))
+    objective = cvxpy.Minimize(cvxpy.trace(cvxpy.real(y_var)))
 
     dim = int(np.log2(dim_x))
     dim_list = [2] * int(np.log2(dim_x))
+
     sys_list = list(range(1, dim, 2))
+    if not sys_list:
+        sys_list = [2]
 
     for i, _ in enumerate(states):
+        meas.append(cvxpy.Variable((dim_x, dim_x), PSD=True))
         constraints.append(
-            cvxpy.real(y_var)
-            >> partial_transpose(states[i], sys=sys_list, dim=dim_list)
+            cvxpy.real(y_var - probs[i] * states[i])
+            >> partial_transpose(meas[i], sys=sys_list, dim=dim_list)
         )
 
     problem = cvxpy.Problem(objective, constraints)

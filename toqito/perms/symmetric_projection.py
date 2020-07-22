@@ -13,6 +13,14 @@ def symmetric_projection(
     r"""
     Produce the projection onto the symmetric subspace.
 
+    For a complex Euclidean space :math:`\mathcal{X}` and a positive integer :math:`n`, the
+    projection onto the symmetric subspace is given by
+
+    .. math::
+        \frac{1}{n!} \sum_{\pi \in S_n} W_{\pi}
+
+    where :math:`W_{\pi}` is the swap operator and where :math:`` is the .
+
     Produces the orthogonal projection onto the symmetric subspace of `p`
     copies of `dim`-dimensional space. If `partial = True`, then the symmetric
     projection (PS) isn't the orthogonal projection itself, but rather a matrix

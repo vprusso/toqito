@@ -13,9 +13,7 @@ def test_partial_trace():
     By default, the partial_trace function takes the trace over the second
     subsystem.
     """
-    test_input_mat = np.array(
-        [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
-    )
+    test_input_mat = np.arange(1, 17).reshape(4, 4)
 
     expected_res = np.array([[7, 11], [23, 27]])
 
@@ -32,9 +30,7 @@ def test_partial_trace_sys():
     By specifying the `sys` argument, you can perform the partial trace
     the first subsystem instead:
     """
-    test_input_mat = np.array(
-        [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
-    )
+    test_input_mat = np.arange(1, 17).reshape(4, 4)
 
     expected_res = np.array([[12, 14], [20, 22]])
 
@@ -51,9 +47,7 @@ def test_partial_trace_sys_int_dim_int():
     By default, the partial_transpose function takes the trace over
     the second subsystem.
     """
-    test_input_mat = np.array(
-        [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
-    )
+    test_input_mat = np.arange(1, 17).reshape(4, 4)
 
     expected_res = np.array([[7, 11], [23, 27]])
 
@@ -70,13 +64,48 @@ def test_partial_trace_sys_int_dim_int_2():
     By default, the partial_transpose function takes the trace over
     the second subsystem.
     """
-    test_input_mat = np.array(
-        [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
-    )
+    test_input_mat = np.arange(1, 17).reshape(4, 4)
 
     expected_res = 34
 
     res = partial_trace(test_input_mat, 2, 1)
+
+    bool_mat = np.isclose(expected_res, res)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+
+def test_partial_trace_8_by_8():
+    """Test for 8-by-8 matrix."""
+    test_input_mat = np.arange(1, 65).reshape(8, 8)
+    res = partial_trace(test_input_mat, [1, 2], [2, 2, 2])
+
+    expected_res = np.array([[112, 116], [144, 148]])
+
+    bool_mat = np.isclose(expected_res, res)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+
+def test_partial_trace_8_by_8_2():
+    """Test for 8-by-8 matrix."""
+    test_input_mat = np.arange(1, 65).reshape(8, 8)
+    res = partial_trace(test_input_mat, [1], [2, 2, 2])
+
+    expected_res = np.array(
+        [[38, 40, 42, 44], [54, 56, 58, 60], [70, 72, 74, 76], [86, 88, 90, 92]]
+    )
+
+    bool_mat = np.isclose(expected_res, res)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+
+def test_partial_trace_8_by_8_3():
+    """Test for 8-by-8 matrix."""
+    test_input_mat = np.arange(1, 65).reshape(8, 8)
+    res = partial_trace(test_input_mat, 3, [2, 2, 2])
+
+    expected_res = np.array(
+        [[11, 15, 19, 23], [43, 47, 51, 55], [75, 79, 83, 87], [107, 111, 115, 119]]
+    )
 
     bool_mat = np.isclose(expected_res, res)
     np.testing.assert_equal(np.all(bool_mat), True)
@@ -111,6 +140,35 @@ def test_partial_trace_16_by_16_2():
             [476, 480, 484, 488],
             [540, 544, 548, 552],
             [604, 608, 612, 616],
+        ]
+    )
+
+    bool_mat = np.isclose(expected_res, res)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+
+def test_partial_trace_64_by_64():
+    """Test for 64-by-64 matrix."""
+    test_input_mat = np.arange(1, 4097).reshape(64, 64)
+    res = partial_trace(test_input_mat, [1, 2, 3], [4, 4, 4])
+
+    expected_res = np.array([[131104]])
+
+    bool_mat = np.isclose(expected_res, res)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+
+def test_partial_trace_64_by_64_2():
+    """Test for 64-by-64 matrix."""
+    test_input_mat = np.arange(1, 4097).reshape(64, 64)
+    res = partial_trace(test_input_mat, [1, 2], [4, 4, 4])
+
+    expected_res = np.array(
+        [
+            [31216, 31232, 31248, 31264],
+            [32240, 32256, 32272, 32288],
+            [33264, 33280, 33296, 33312],
+            [34288, 34304, 34320, 34336],
         ]
     )
 

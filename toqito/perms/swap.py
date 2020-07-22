@@ -157,5 +157,5 @@ def swap(
 
     # Swap the indicated subsystems.
     perm = list(range(1, num_sys + 1))
-    perm = perm[::-1]
+    perm[sys[0] - 1 :] = perm[sys[0] - 1 :][::-1]
     return permute_systems(rho, perm, dim, row_only)

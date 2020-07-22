@@ -169,7 +169,12 @@ def partial_trace(
 
     prod_dim = np.prod(dim)
     if isinstance(sys, list):
-        prod_dim_sys = np.prod(dim[sys])
+        if len(sys) == 1:
+            prod_dim_sys = np.prod(dim[0])
+        else:
+            prod_dim_sys = 1
+            for idx in sys:
+                prod_dim_sys *= dim[idx - 1]
     elif isinstance(sys, int):
         prod_dim_sys = np.prod(dim[sys - 1])
     else:
@@ -196,6 +201,7 @@ def partial_trace(
         order="F",
     )
     permuted_mat = ret_mat.transpose((1, 3, 0, 2))
+
     permuted_reshaped_mat = np.reshape(
         permuted_mat,
         [int(sub_prod), int(sub_prod), int(sub_sys_vec[0] ** 2)],

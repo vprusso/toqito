@@ -2,6 +2,7 @@
 *.lock
 *.idea
 *.pdf
+*pip-wheel-metadata/
 main.py
 
 # Byte-compiled / optimized / DLL files
