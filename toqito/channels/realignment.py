@@ -1,6 +1,4 @@
 """The realignment channel."""
-import functools
-import operator
 import numpy as np
 
 from toqito.perms import swap
@@ -63,21 +61,25 @@ def realignment(input_mat: np.ndarray, dim=None) -> np.ndarray:
         dim = np.array(dim)
 
     if isinstance(dim, int):
-        dim = np.array([[dim], [dim_mat[0] / dim]])
+        dim = np.array([int(dim), int(dim_mat[0] / dim)])
         if np.abs(dim[1] - np.round(dim[1])) >= 2 * dim_mat[0] * eps:
             raise ValueError("InvalidDim:")
         dim[1] = np.round(dim[1])
-        dim = np.array([[1], [4]])
 
-    if min(dim.shape) == 1:
+    # Dimension if row vector.
+    if len(dim.shape) == 1:
         dim = dim[:].T
-        dim = functools.reduce(operator.iconcat, dim, [])
         dim = np.array([dim, dim])
-        # dim = functools.reduce(operator.iconcat, dim, [])
+
+    # Dimension is column vector.
+    if min(dim.shape) == 1:
+        dim = dim[:].T[0]
+        dim = np.array([dim, dim])
 
     dim_x = np.array([[dim[0][1], dim[0][0]], [dim[1][0], dim[1][1]]])
     dim_y = np.array([[dim[1][0], dim[0][0]], [dim[0][1], dim[1][1]]])
 
     x_tmp = swap(input_mat, [1, 2], dim, True)
     y_tmp = partial_transpose(x_tmp, sys=1, dim=dim_x)
+
     return swap(y_tmp, [1, 2], dim_y, True)

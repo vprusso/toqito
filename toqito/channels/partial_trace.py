@@ -148,8 +148,8 @@ def partial_trace(
     if isinstance(dim, list):
         dim = np.array(dim)
 
-    if sys is None:
-        sys = 2
+    # if sys is None:
+    #     sys = 2
 
     num_sys = len(dim)
 
