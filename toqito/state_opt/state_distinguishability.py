@@ -7,7 +7,7 @@ from .state_helper import __is_states_valid, __is_probs_valid
 
 
 def state_distinguishability(
-    states: List[np.ndarray], probs: List[float] = None
+    states: List[np.ndarray], probs: List[float] = None, dist_method: str = "min-error"
 ) -> float:
     r"""
     Compute probability of state distinguishability [ELD03]_.
@@ -79,9 +79,25 @@ def state_distinguishability(
         for i, state_ket in enumerate(states):
             states[i] = state_ket * state_ket.conj().T
 
-    for i, _ in enumerate(states):
-        measurements.append(cvxpy.Variable((dim_x, dim_x), PSD=True))
+    # Unambiguous state discrimination has an additional constraint on the states and measurements.
+    if dist_method == "unambiguous":
 
+        # Note we have one additional measurement operator in the unambiguous case.
+        for i in range(len(states) + 1):
+            measurements.append(cvxpy.Variable((dim_x, dim_x), PSD=True))
+
+        # This is an extra condition required for the unambiguous case.
+        for i, _ in enumerate(states):
+            for j, _ in enumerate(states):
+                if i != j:
+                    constraints.append(cvxpy.trace(states[i].conj().T @ measurements[i]) == 0)
+
+    if dist_method == "min-error":
+        for i, _ in enumerate(states):
+            measurements.append(cvxpy.Variable((dim_x, dim_x), PSD=True))
+
+    # Objective function is the inner product between the states and measurements.
+    for i, _ in enumerate(states):
         obj_func.append(probs[i] * cvxpy.trace(states[i].conj().T @ measurements[i]))
 
     constraints.append(sum(measurements) == np.identity(dim_x))
