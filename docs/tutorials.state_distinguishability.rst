@@ -43,6 +43,33 @@ This setting is depicted in the following figure.
 
    The quantum state distinguishability setting.
 
+Depending on the sets of measurements that Alice and Bob are allowed to use,
+the optimal probability of distinguishing a given set of states is characterized
+by the following image.
+
+.. figure:: figures/measurement_inclusions.svg
+   :width: 200
+   :alt: measurement hierarchy
+   :align: center
+
+   Measurement hierarchy.
+
+That is,the probability that Alice and Bob are able to distinguish using PPT
+measurements is a natural upper bound on the optimal probability of
+distinguishing via separable measurements.
+
+In general:
+
+* LOCC: These are difficult objects to handle mathematically; difficult to
+  design protocols for and difficult to provide bounds on their power.
+
+* Separable: Separable measurements have a nicer structure than LOCC.
+  Unfortunately, optimizing over separable measurements in NP-hard.
+
+* PPT: PPT measurements offer a nice structure and there exists efficient
+  techniques that allow one to optimize over the set of PPT measurements via
+  semidefinite programming.
+
 Optimal probability of distinguishing a quantum state
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -79,9 +106,9 @@ such that
              \end{pmatrix}
 
 
-These states are completely orthogonal to each other, so the best that Bob can
-do to optimally distinguish the state he is given is no better than probability
-:math:`1/2`.
+These states are completely orthogonal to each other, and it is known that Bob
+can optimally distinguish the state he is given perfectly, i.e. with probability
+:math:`1`.
 
 Using :code:`toqito`, we can calculate this probability directly as follows:
 
@@ -106,7 +133,7 @@ Using :code:`toqito`, we can calculate this probability directly as follows:
     >>> # Calculate the probability with which Bob can 
     >>> # distinguish the state he is provided.
     >>> state_distinguishability(states, probs)
-    0.5000000000006083
+    1.000
 
 Specifying similar state distinguishability problems can be done so using this
 general pattern.
@@ -201,12 +228,26 @@ via PPT measurements in the following manner.
     >>> ppt_distinguishability(states, probs)
     0.875
 
+Probability of distinguishing a state via separable measurements
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+As previously mentioned, optimizing over the set of separable measurements is
+NP-hard. However, there does exist a hierarchy of semidefinite programs which
+eventually does converge to the separable value. This hierarchy is based off
+the notion of symmetric extensions. More information about this hierarchy of
+SDPs can be found here [tNav08]_.
+
 References
 ------------------------------
 .. [tWatrousQI] Watrous, John
     "The theory of quantum information"
     Section: "A semidefinite program for optimal measurements"
     Cambridge University Press, 2018
+
+.. [tNav08] Navascués, Miguel.
+    "Pure state estimation and the characterization of entanglement."
+    Physical review letters 100.7 (2008): 070503.
+    https://arxiv.org/abs/0707.4398
 
 .. [tSikoraSDP] Sikora, Jamie
     "Semidefinite programming in quantum theory (lecture series)"

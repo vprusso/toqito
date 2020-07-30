@@ -20,7 +20,6 @@ Distance Metrics for Quantum States
     toqito.state_metrics.fidelity
     toqito.state_metrics.helstrom_holevo
     toqito.state_metrics.hilbert_schmidt
-    toqito.state_metrics.purity
     toqito.state_metrics.sub_fidelity
     toqito.state_metrics.trace_distance
     toqito.state_metrics.trace_norm
@@ -69,6 +68,7 @@ Properties of Quantum States
     toqito.state_props.is_product_vector
     toqito.state_props.is_pure
     toqito.state_props.negativity
+    toqito.state_props.purity
     toqito.state_props.schmidt_rank
 
 Quantum States

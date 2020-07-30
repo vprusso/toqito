@@ -190,12 +190,20 @@ def partial_transpose(
         order="F",
     )
     y_tmp = np.transpose(x_tmp, [0, 3, 2, 1])
-    z_tmp = np.reshape(y_tmp, [int(prod_dim_r), int(prod_dim_c)], order="F")
+    z_tmp = np.reshape(
+        y_tmp,
+        [
+            int(sub_sys_vec_r[0]) * int(sub_prod_c),
+            int(sub_sys_vec_c[0]) * int(sub_prod_r),
+        ],
+        order="F",
+    )
 
-    # # Return the subsystems back to their original positions.
-    # if len(sys) > 1:
-    #     dim[:, sys-1] = dim[[1, 0], sys-1]
+    # If z_tmp is a just a 1-D matrix, extract just the row.
+    if z_tmp.shape[0] == 1:
+        z_tmp = z_tmp[0]
 
-    dim = dim[:, np.array(perm) - 1]
+    # Return the subsystems back to their original positions.
+    dim[[0, 1], sys - 1] = dim[[1, 0], sys - 1]
 
     return permute_systems(z_tmp, perm, dim, False, True)

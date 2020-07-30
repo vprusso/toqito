@@ -35,6 +35,18 @@ def test_state_distinguishability_two_states():
     np.testing.assert_equal(np.isclose(res, 1), True)
 
 
+def test_unambiguous_state_distinguishability_two_states():
+    """Unambiguous state distinguishability for two state density matrices."""
+    e_0, e_1 = basis(2, 0), basis(2, 1)
+    e_00 = e_0 * e_0.conj().T
+    e_11 = e_1 * e_1.conj().T
+    states = [e_00, e_11]
+    probs = [1 / 2, 1 / 2]
+
+    res = state_distinguishability(states, probs, dist_method="unambiguous")
+    np.testing.assert_equal(np.isclose(res, 0), True)
+
+
 def test_state_distinguishability_three_state_vec():
     """State distinguishability for two state vectors."""
     e_0, e_1 = basis(2, 0), basis(2, 1)
