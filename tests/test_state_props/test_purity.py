@@ -1,7 +1,8 @@
 """Tests for purity."""
 import numpy as np
 
-from toqito.state_metrics import purity
+from toqito.states import werner
+from toqito.state_props import purity
 
 
 def test_purity():
@@ -17,6 +18,12 @@ def test_purity_non_density_matrix():
 
     with np.testing.assert_raises(ValueError):
         purity(rho)
+
+
+def test_purity_werner_state():
+    """Test purity of mixed Werner state."""
+    res = purity(werner(2, 1 / 4))
+    np.testing.assert_equal(np.isclose(res, 0.2653, atol=4), True)
 
 
 if __name__ == "__main__":

@@ -10,3 +10,4 @@ from toqito.matrix_props.is_pd import is_pd
 from toqito.matrix_props.is_projection import is_projection
 from toqito.matrix_props.is_symmetric import is_symmetric
 from toqito.matrix_props.is_unitary import is_unitary
+from toqito.matrix_props.majorizes import majorizes
