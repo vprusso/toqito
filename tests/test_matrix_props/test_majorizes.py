@@ -19,10 +19,10 @@ def test_majorizes_max_entangled():
 
 
 def test_majorizes_max_entangled_flip():
-    """Test that max entangled partial trace returns False (flipped args)."""
+    """Test that max entangled partial trace returns True (flipped args)."""
     v_vec = max_entangled(3)
     rho = v_vec * v_vec.conj().T
-    np.testing.assert_equal(majorizes(rho, partial_trace(rho)), False)
+    np.testing.assert_equal(majorizes(rho, partial_trace(rho)), True)
 
 
 if __name__ == "__main__":
