@@ -21,5 +21,24 @@ def test_reduction_map():
     np.testing.assert_equal(res[4, 8], -1)
 
 
+def test_reduction_map_dim_3_k_2():
+    """Test for the reduction map with dimension 3 and parameter k = 2."""
+    res = reduction(3, 2)
+    expected_res = np.array(
+        [[1, 0, 0, 0, -1, 0, 0, 0, -1],
+         [0, 2, 0, 0, 0, 0, 0, 0, 0],
+         [0, 0, 2, 0, 0, 0, 0, 0, 0],
+         [0, 0, 0, 2, 0, 0, 0, 0, 0],
+         [-1, 0, 0, 0, 1, 0, 0, 0, -1],
+         [0, 0, 0, 0, 0, 2, 0, 0, 0],
+         [0, 0, 0, 0, 0, 0, 2, 0, 0],
+         [0, 0, 0, 0, 0, 0, 0, 2, 0],
+         [-1, 0, 0, 0, -1, 0, 0, 0, 1]]
+    )
+
+    bool_mat = np.isclose(expected_res, res)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+
 if __name__ == "__main__":
     np.testing.run_module_suite()

@@ -13,3 +13,4 @@ from toqito.states.isotropic import isotropic
 from toqito.states.tile import tile
 from toqito.states.w_state import w_state
 from toqito.states.werner import werner
+from toqito.states.breuer import breuer
