@@ -12,6 +12,7 @@ Permutations
    :toctree: _autosummary
 
     toqito.perms.antisymmetric_projection
+    toqito.perms.perfect_matchings
     toqito.perms.perm_sign
     toqito.perms.permutation_operator
     toqito.perms.permute_systems

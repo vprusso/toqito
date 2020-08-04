@@ -34,6 +34,10 @@
   state can be converted to another via LOCC. Added `test_majorizes.py` for unit
   testing.
 
+- Feature: Added `perfect_matchings.py`; a function that calculates all the 
+  perfect matchings of a given list of objects. Added 
+  `test_perfect_matchings.py` for unit testing.
+
 - Feature: Added `breuer.py` under `states/`; a specific bound-entangled state of 
   interest. Added in `test_breuer.py` for unit testing.
 

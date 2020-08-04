@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "toqito"
-version = "0.0.3"
+version = "0.0.4"
 description = "Python tools for the study of quantum information."
 authors = [
     "Vincent Russo <vincentrusso1@gmail.com>"
