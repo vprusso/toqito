@@ -18,6 +18,10 @@
  
 - Fix: Bug in `purity.py`. Squaring matrix was using `**2` instead of 
   `np.linalg.matrix_power` 
+  
+- Fix: Bug in `random_state_vector.py`. Added tests to cover.
+
+- Fix: Bug in `schmidt_rank.py`. Added tests to cover.
 
 - Feature: Added in `symmetric_extension_hierarchy.py`. The function is a
   hierarchy of semidefinite programs that eventually converge to the separable
