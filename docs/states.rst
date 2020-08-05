@@ -81,6 +81,7 @@ Quantum States
 
     toqito.states.basis
     toqito.states.bell
+    toqito.states.brauer
     toqito.states.breuer
     toqito.states.chessboard
     toqito.states.domino

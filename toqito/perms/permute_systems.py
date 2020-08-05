@@ -156,6 +156,9 @@ def permute_systems(
         y_tmp = input_mat_dims[1] ** (1 / num_sys) * np.ones(num_sys)
         dim = np.array([x_tmp, y_tmp])
 
+    if isinstance(dim, list):
+        dim = np.array(dim)
+
     if is_vec:
         # 1 if column vector
         if len(input_mat.shape) > 1:

@@ -30,7 +30,7 @@ def perfect_matchings(num: Union[List[int], int, np.ndarray]) -> np.ndarray:
     :return: An array containing all valid perfect matchings of size `num`.
     """
     if isinstance(num, int):
-        num = np.arange(1, num+1)
+        num = np.arange(1, num + 1)
     if isinstance(num, list):
         num = np.array(num)
 

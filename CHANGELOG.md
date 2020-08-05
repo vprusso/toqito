@@ -41,6 +41,9 @@
 - Feature: Added `breuer.py` under `states/`; a specific bound-entangled state of 
   interest. Added in `test_breuer.py` for unit testing.
 
+- Feature: Added `brauer.py` under `states/`. Added in `test_brauer.py` for unit 
+  testing.
+
 - Enhancement: Adding further tests for `symmetric_projection.py`.
 
 - Enhancement: Adding further tests for `ppt_distinguishability.py`.
