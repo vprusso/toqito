@@ -77,7 +77,7 @@ def majorizes(a_var: Union[np.ndarray, List[int]], b_var: Union[np.ndarray, List
         b_var = np.pad(b_var, (0, la_var - lb_var), "constant")
 
     cta = 0
-    ctb = -np.linalg.norm(a_var) * np.finfo(float).eps**(3/4)
+    ctb = -np.linalg.norm(a_var) * np.finfo(float).eps ** (3 / 4)
 
     # Check for majorization.
     for k, _ in enumerate(a_var):

@@ -18,6 +18,10 @@
  
 - Fix: Bug in `purity.py`. Squaring matrix was using `**2` instead of 
   `np.linalg.matrix_power` 
+  
+- Fix: Bug in `random_state_vector.py`. Added tests to cover.
+
+- Fix: Bug in `schmidt_rank.py`. Added tests to cover.
 
 - Feature: Added in `symmetric_extension_hierarchy.py`. The function is a
   hierarchy of semidefinite programs that eventually converge to the separable
@@ -34,8 +38,15 @@
   state can be converted to another via LOCC. Added `test_majorizes.py` for unit
   testing.
 
+- Feature: Added `perfect_matchings.py`; a function that calculates all the 
+  perfect matchings of a given list of objects. Added 
+  `test_perfect_matchings.py` for unit testing.
+
 - Feature: Added `breuer.py` under `states/`; a specific bound-entangled state of 
   interest. Added in `test_breuer.py` for unit testing.
+
+- Feature: Added `brauer.py` under `states/`. Added in `test_brauer.py` for unit 
+  testing.
 
 - Enhancement: Adding further tests for `symmetric_projection.py`.
 

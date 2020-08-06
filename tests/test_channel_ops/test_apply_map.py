@@ -46,5 +46,11 @@ def test_apply_map_kraus():
     np.testing.assert_equal(np.all(bool_mat), True)
 
 
+def test_apply_map_invalid_input():
+    """Invalid input for apply map."""
+    with np.testing.assert_raises(ValueError):
+        apply_map(np.array([[1, 2], [3, 4]]), 2)
+
+
 if __name__ == "__main__":
     np.testing.run_module_suite()

@@ -3,8 +3,6 @@ from typing import List, Union
 
 import numpy as np
 
-from toqito.channels import partial_trace
-
 
 def schmidt_rank(
     vec: np.ndarray, dim: Union[int, List[int], np.ndarray] = None
@@ -84,12 +82,10 @@ def schmidt_rank(
     """
     eps = np.finfo(float).eps
     slv = int(np.round(np.sqrt(len(vec))))
-
     if dim is None:
         dim = slv
-
     if isinstance(dim, int):
-        dim = np.array([dim, len(vec) / dim])
+        dim = np.array([dim, len(vec) / dim], dtype=int)
         if np.abs(dim[1] - np.round(dim[1])) >= 2 * len(vec) * eps:
             raise ValueError(
                 "Invalid: The value of `dim` must evenly divide "
@@ -98,9 +94,4 @@ def schmidt_rank(
             )
         dim[1] = np.round(dim[1])
 
-    rho = vec.conj().T * vec
-    rho_a = partial_trace(rho, 2)
-
-    # Return the number of non-zero eigenvalues of the
-    # matrix that traced out the second party's portion.
-    return len(np.nonzero(np.linalg.eigvalsh(rho_a))[0])
+    return np.linalg.matrix_rank(np.reshape(vec, dim[::-1]))

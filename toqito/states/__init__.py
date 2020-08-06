@@ -14,3 +14,4 @@ from toqito.states.tile import tile
 from toqito.states.w_state import w_state
 from toqito.states.werner import werner
 from toqito.states.breuer import breuer
+from toqito.states.brauer import brauer
