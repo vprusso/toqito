@@ -51,6 +51,9 @@
 - Feature: Added `entanglement_of_formation.py` under `state_props/`. Added in 
   `test_entanglement_of_formation.py` for unit testing.
 
+- Feature: Added `l1_norm_coherence.py` under `state_props/`. Added 
+  `test_l1_norm_coherence.py` for unit testing.
+
 - Enhancement: Adding further tests for `symmetric_projection.py`.
 
 - Enhancement: Adding further tests for `ppt_distinguishability.py`.
