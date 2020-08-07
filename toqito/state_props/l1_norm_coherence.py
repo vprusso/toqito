@@ -16,9 +16,9 @@ def l1_norm_coherence(rho: np.ndarray) -> float:
     where :math:`\rho_{i,j}` is the :math:`(i,j)^{th}`-entry of :math:`\rho`
     in the standard basis.
 
-    The l1-norm of coherence is the sum of the absolute values of the sum of
-    the absolute values of the off-diagonal entries of the density matrix
-    :code:`rho` in the standard basis.
+    The :math:`\ell_1`-norm of coherence is the sum of the absolute values of
+    the sum of the absolute values of the off-diagonal entries of the density
+    matrix :code:`rho` in the standard basis.
 
     This function was adapted from QETLAB.
 
