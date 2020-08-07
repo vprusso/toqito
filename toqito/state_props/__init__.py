@@ -11,3 +11,4 @@ from toqito.state_props.purity import purity
 from toqito.state_props.schmidt_rank import schmidt_rank
 from toqito.state_props.von_neumann_entropy import von_neumann_entropy
 from toqito.state_props.entanglement_of_formation import entanglement_of_formation
+from toqito.state_props.l1_norm_coherence import l1_norm_coherence

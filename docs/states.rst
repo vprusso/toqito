@@ -32,13 +32,12 @@ Optimizations over Quantum States
 .. autosummary::
    :toctree: _autosummary
 
-    toqito.state_opt.conclusive_state_exclusion
     toqito.state_opt.optimal_clone
     toqito.state_opt.ppt_distinguishability
     toqito.state_opt.state_distinguishability
+    toqito.state_opt.state_exclusion
     toqito.state_opt.state_helper
     toqito.state_opt.symmetric_extension_hierarchy
-    toqito.state_opt.unambiguous_state_exclusion
 
 Operations on Quantum States
 ----------------------------
@@ -66,10 +65,11 @@ Properties of Quantum States
     toqito.state_props.is_ppt
     toqito.state_props.is_product_vector
     toqito.state_props.is_pure
+    toqito.state_props.l1_norm_coherence
     toqito.state_props.negativity
     toqito.state_props.purity
     toqito.state_props.schmidt_rank
-    toqito.state_metrics.von_neumann_entropy
+    toqito.state_props.von_neumann_entropy
 
 Quantum States
 --------------
