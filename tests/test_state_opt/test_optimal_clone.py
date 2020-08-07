@@ -33,6 +33,13 @@ def test_counterfeit_attack_wiesner_money_primal_problem():
     np.testing.assert_equal(np.isclose(res, 3 / 4), True)
 
 
+def test_counterfeit_attack_wiesner_money_primal_problem_rep_1():
+    """Counterfeit attack with 1 parallel repetitions (primal problem)."""
+    reps = 1
+    res = optimal_clone(states, probs, reps, True)
+    np.testing.assert_equal(np.isclose(res, (3 / 4)), True)
+
+
 @pytest.mark.skip(
     reason="This test takes too much time."
 )  # pylint: disable=not-callable
