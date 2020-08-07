@@ -48,8 +48,16 @@
 - Feature: Added `brauer.py` under `states/`. Added in `test_brauer.py` for unit 
   testing.
 
+- Feature: Added `entanglement_of_formation.py` under `state_props/`. Added in 
+  `test_entanglement_of_formation.py` for unit testing.
+
 - Enhancement: Adding further tests for `symmetric_projection.py`.
 
 - Enhancement: Adding further tests for `ppt_distinguishability.py`.
 
 - Enhancement: Adding further tests for `reduction.py`
+
+- Enhancement: Consolidating `conclusive_state_exclusion.py` and 
+  `unambiguous_state_exclusion.py` to just `state_exclusion.py`. Adding in
+  optional parameter to specify method of exclusion. Consolidated tests in
+  `test_state_exclusion.py`.
