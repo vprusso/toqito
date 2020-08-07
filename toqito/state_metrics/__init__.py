@@ -5,4 +5,3 @@ from toqito.state_metrics.helstrom_holevo import helstrom_holevo
 from toqito.state_metrics.fidelity import fidelity
 from toqito.state_metrics.sub_fidelity import sub_fidelity
 from toqito.state_metrics.trace_distance import trace_distance
-from toqito.state_metrics.von_neumann_entropy import von_neumann_entropy

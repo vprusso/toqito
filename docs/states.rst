@@ -23,7 +23,6 @@ Distance Metrics for Quantum States
     toqito.state_metrics.sub_fidelity
     toqito.state_metrics.trace_distance
     toqito.state_metrics.trace_norm
-    toqito.state_metrics.von_neumann_entropy
 
 Optimizations over Quantum States
 -----------------------------------------------
@@ -70,6 +69,7 @@ Properties of Quantum States
     toqito.state_props.negativity
     toqito.state_props.purity
     toqito.state_props.schmidt_rank
+    toqito.state_metrics.von_neumann_entropy
 
 Quantum States
 --------------

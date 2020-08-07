@@ -15,6 +15,9 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
     the entire space of `dim`-by-`dim` matrices as `k_1` and `k_2` range from 0
     to `dim-1`, inclusive.
 
+    Note that the generalized Pauli operators are also known by the name of
+    "discrete Weyl operators". [WatrousLec6]_
+
     Examples
     ==========
 
@@ -60,6 +63,9 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
     ==========
     .. [WikGenPaul] Wikipedia: Generalizations of Pauli matrices
         https://en.wikipedia.org/wiki/Generalizations_of_Pauli_matrices
+
+    .. [WatrousLec6] Lecture 6: Further remarks on measurements and channels
+        https://cs.uwaterloo.ca/~watrous/LectureNotes/CS766.Fall2011/06.pdf
 
     :param k_1: (a non-negative integer from 0 to `dim-1` inclusive).
     :param k_2: (a non-negative integer from 0 to `dim-1` inclusive).

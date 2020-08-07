@@ -3,6 +3,7 @@
 *.idea
 *.pdf
 *pip-wheel-metadata/
+*linter.sh
 main.py
 
 # Byte-compiled / optimized / DLL files

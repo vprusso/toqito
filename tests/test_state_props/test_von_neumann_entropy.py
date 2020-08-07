@@ -1,7 +1,7 @@
 """Tests for von_neumann_entropy."""
 import numpy as np
 
-from toqito.state_metrics import von_neumann_entropy
+from toqito.state_props import von_neumann_entropy
 from toqito.states import bell
 from toqito.states import max_mixed
 
