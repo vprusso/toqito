@@ -42,6 +42,9 @@ python setup.py install
 Full documentation along with specific examples and tutorials are provided 
 here: [https://toqito.readthedocs.io/](https://toqito.readthedocs.io/).
 
+More information can also be found on the following 
+[toqito homepage](https://vprusso.github.io/toqito/).
+
 ## Testing
 
 The `pytest` module is used for testing. To run the suite of tests for `toqito`,
@@ -70,9 +73,9 @@ A BibTeX entry that you can use to cite `toqito` is provided here:
 ```
  @misc{toqito,
    author       = {Vincent Russo},
-   title        = {toqito: A {P}ython toolkit for quantum information, version 0.0.2},
+   title        = {toqito: A {P}ython toolkit for quantum information, version 0.0.5},
    howpublished = {\url{https://github.com/vprusso/toqito}},
-   month        = Mar,
+   month        = Aug,
    year         = 2020,
    doi          = {10.5281/zenodo.3699578}
  }
