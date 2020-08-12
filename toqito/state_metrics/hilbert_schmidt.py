@@ -12,8 +12,8 @@ def hilbert_schmidt(rho: np.ndarray, sigma: np.ndarray) -> float:
     defined as
 
     .. math::
-        D_{\text{HS}}(\rho, \sigma) = \text{Tr}((\rho - \sigma)^2) =
-        \left\lVert \rho - \sigma \right\rVert_2^2.
+        D_{\text{HS}}(\rho, \sigma) = \text{Tr}((\rho - \sigma)^2) = \left\lVert \rho - \sigma
+        \right\rVert_2^2.
 
     Examples
     ==========

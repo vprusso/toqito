@@ -49,7 +49,7 @@ def permutation_operator(
 
     :param dim: The dimensions of the subsystems to be permuted.
     :param perm: A permutation vector.
-    :param inv_perm: Boolean dictating if `perm` is inverse or not.
+    :param inv_perm: Boolean dictating if :code:`perm` is inverse or not.
     :param is_sparse: Boolean indicating if return is sparse or not.
     :return: Permutation operator of dimension :code:`dim`.
     """

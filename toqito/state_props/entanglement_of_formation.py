@@ -35,7 +35,8 @@ def entanglement_of_formation(
                                     0 & 0 & 0 & 0 \\
                                     0 & 0 & 0 & 0 \\
                                     1 & 0 & 0 & 1
-                                 \end{pmatrix}
+                                 \end{pmatrix}.
+
     The entanglement-of-formation of :math:`\rho` is equal to 1.
 
     >>> from toqito.state_props import entanglement_of_formation
@@ -54,7 +55,7 @@ def entanglement_of_formation(
     :param rho: A matrix or vector.
     :param dim: The default has both subsystems of equal dimension.
     :return: A value between 0 and 1 that corresponds to the
-             entanglement-of-formation of :math:`\rho`.
+             entanglement-of-formation of :code:`\rho`.
     """
     dim_x, dim_y = rho.shape
     round_dim = int(np.round(np.sqrt(max(dim_x, dim_y))))

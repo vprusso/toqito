@@ -1,7 +1,7 @@
 Random Objects
 ==============
 
-A number of functions for generating random objects
+A number of functions for generating random objects.
 
 Random
 -------

@@ -12,12 +12,12 @@ def is_pure(state: Union[List[np.ndarray], np.ndarray]) -> bool:
     state :math:`\rho` is pure if there exists a unit vector :math:`u` such that:
 
     .. math::
-        \rho = u u^*
+        \rho = u u^*.
 
     Examples
     ==========
 
-    Consider the following Bell state
+    Consider the following Bell state:
 
     .. math::
         u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \in \mathcal{X}.

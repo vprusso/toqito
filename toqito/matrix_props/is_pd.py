@@ -52,7 +52,7 @@ def is_pd(mat: np.ndarray) -> bool:
         https://en.wikipedia.org/wiki/Definiteness_of_a_matrix
 
     :param mat: Matrix to check.
-    :return: Return True if matrix is PD, and False otherwise.
+    :return: Return :code:`True` if matrix is PD, and :code:`False` otherwise.
     """
     if np.array_equal(mat, mat.T):
         try:

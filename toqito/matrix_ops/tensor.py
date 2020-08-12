@@ -43,7 +43,7 @@ def tensor(*args) -> np.ndarray:
     Consider the following ket vector
 
     .. math::
-        e_0 = \left[1, 0 \right]^{\text{T}}
+        e_0 = \left[1, 0 \right]^{\text{T}}.
 
     Computing the following tensor product
 

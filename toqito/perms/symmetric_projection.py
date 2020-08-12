@@ -19,14 +19,14 @@ def symmetric_projection(
     .. math::
         \frac{1}{n!} \sum_{\pi \in S_n} W_{\pi}
 
-    where :math:`W_{\pi}` is the swap operator and where :math:`` is the .
+    where :math:`W_{\pi}` is the swap operator and where :math:`S_n` is the symmetric group on
+    :math:`n` symbols.
 
-    Produces the orthogonal projection onto the symmetric subspace of `p`
-    copies of `dim`-dimensional space. If `partial = True`, then the symmetric
-    projection (PS) isn't the orthogonal projection itself, but rather a matrix
-    whose columns form an orthonormal basis for the symmetric subspace (and
-    hence the PS * PS' is the orthogonal projection onto the symmetric
-    subspace.)
+    Produces the orthogonal projection onto the symmetric subspace of :code:`p_val` copies of
+    `dim`-dimensional space. If `partial = True`, then the symmetric projection (PS) isn't the
+    orthogonal projection itself, but rather a matrix whose columns form an orthonormal basis for
+    the symmetric subspace (and hence the PS * PS' is the orthogonal projection onto the symmetric
+    subspace).
 
     Examples
     ==========
@@ -40,7 +40,7 @@ def symmetric_projection(
             0 & 1
         \end{pmatrix}.
 
-    Using `toqito`, we can see this gives the proper result.
+    Using :code:`toqito`, we can see this gives the proper result.
 
     >>> from toqito.perms import symmetric_projection
     >>> symmetric_projection(2, 1).todense()
@@ -57,7 +57,7 @@ def symmetric_projection(
             0 & 0 & 0 & 1
         \end{pmatrix}.
 
-    Using `toqito` we can see this gives the proper result.
+    Using :code:`toqito` we can see this gives the proper result.
 
     >>> from toqito.perms import symmetric_projection
     >>> symmetric_projection(dim=2).todense()

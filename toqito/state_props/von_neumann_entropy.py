@@ -15,10 +15,10 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
         H(P) = H(\lambda(P)),
 
     where :math:`\lambda(P)` is the vector of eigenvalues of :math:`P` and where the function
-    :math:`H(\dot)` is the Shannon entropy function defined as
+    :math:`H(\cdot)` is the Shannon entropy function defined as
 
     .. math::
-        H(u) = -\sum_{\substack{a \in \Sigma \\ u(a) > 0}} u(a) \text{log}(u(a)).
+        H(u) = -\sum_{\substack{a \in \Sigma \\ u(a) > 0}} u(a) \text{log}(u(a)),
 
     where the :math:`\text{log}` function is assumed to be the base-2 logarithm, and where
     :math:`\Sigma` is an alphabet where :math:`u \in [0, \infty)^{\Sigma}` is a vector of
@@ -27,7 +27,7 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
     Examples
     ==========
 
-    Consider the following Bell state
+    Consider the following Bell state:
 
     .. math::
         u = \frac{1}{\sqrt{2}} \left(|00 \rangle + |11 \rangle \right) \in \mathcal{X}.
@@ -44,7 +44,7 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
 
     Calculating the von Neumann entropy of :math:`\rho` in :code:`toqito` can be done as follows.
 
-    >>> from toqito.state_metrics import von_neumann_entropy
+    >>> from toqito.state_props import von_neumann_entropy
     >>> import numpy as np
     >>> test_input_mat = np.array(
     >>>     [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0],
@@ -65,7 +65,7 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
     As this state is maximally mixed, the von Neumann entropy of :math:`\rho` is
     equal to one. We can see this in :code:`toqito` as follows.
 
-    >>> from toqito.state_metrics import von_neumann_entropy
+    >>> from toqito.state_props import von_neumann_entropy
     >>> import numpy as np
     >>> rho = 1/2 * np.identity(2)
     >>> von_neumann_entropy(rho)

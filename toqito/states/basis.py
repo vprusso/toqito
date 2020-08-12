@@ -5,7 +5,7 @@ import numpy as np
 def basis(dim: int, pos: int) -> np.ndarray:
     r"""
 
-    Obtain the ket of dimension `dim` [WikKet]_.
+    Obtain the ket of dimension :code:`dim` [WikKet]_.
 
     Examples
     ==========
@@ -25,7 +25,7 @@ def basis(dim: int, pos: int) -> np.ndarray:
     [[1]
     [0]]
 
-    Example:  Ket basis vector: :math:`|1\rangle`.
+    Example: Ket basis vector: :math:`|1\rangle`.
 
     >>> from toqito.states import basis
     >>> basis(2, 1)

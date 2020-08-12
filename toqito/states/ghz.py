@@ -19,7 +19,7 @@ def ghz(dim: int, num_qubits: int, coeff: List[int] = None) -> sparse:
 
     .. math::
         |GHZ \rangle = \frac{1}{\sqrt{n}} \left(|0\rangle^{\otimes n} +
-        |1 \rangle^{\otimes n} \right))
+        |1 \rangle^{\otimes n} \right)).
 
     Examples
     ==========
@@ -47,7 +47,7 @@ def ghz(dim: int, num_qubits: int, coeff: List[int] = None) -> sparse:
 
     .. math::
         \frac{1}{\sqrt{30}} \left(|0000000 \rangle + 2|1111111 \rangle +
-        3|2222222 \rangle + 4|3333333\rangle \right)
+        3|2222222 \rangle + 4|3333333\rangle \right).
 
     Using :code:`toqito`, we can see this generates the appropriate generalized GHZ state.
 

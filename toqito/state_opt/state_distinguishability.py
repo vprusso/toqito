@@ -20,7 +20,7 @@ def state_distinguishability(
     as well as a list of corresponding probabilities
 
     .. math::
-        p = \{ p_0, \ldots, p_n \}
+        p = \{ p_0, \ldots, p_n \}.
 
     Alice chooses :math:`i` with probability :math:`p_i` and creates the state :math:`\rho_i` Bob
     wants to guess which state he was given from the collection of states.

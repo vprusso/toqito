@@ -6,13 +6,12 @@ def is_hermitian(mat: np.ndarray) -> bool:
     r"""
     Check if matrix is Hermitian [WikHerm]_.
 
-    A Hermitian matrix is a complex square matrix that is equal to its own
-    conjugate transpose.
+    A Hermitian matrix is a complex square matrix that is equal to its own conjugate transpose.
 
     Examples
     ==========
 
-    Consider the following matrix
+    Consider the following matrix:
 
     .. math::
         A = \begin{pmatrix}

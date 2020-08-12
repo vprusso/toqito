@@ -1,4 +1,4 @@
-"""Helper functions for checking validity of states and probs."""
+"""Helper functions for checking validity of states and probability vectors."""
 from typing import List
 
 import numpy as np
@@ -14,7 +14,6 @@ def __is_states_valid(states: List[np.ndarray]) -> bool:
 
 def __is_probs_valid(probs: List[float]) -> bool:
     """Check if probabilities provided are valid."""
-    # Assume uniform probability if no specific distribution is given.
     if not np.isclose(sum(probs), 1):
-        raise ValueError("Invalid: Probabilities must sum to 1.")
+        raise ValueError("InvalidProbabilities: Probabilities must sum to 1.")
     return True

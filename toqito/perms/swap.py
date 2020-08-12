@@ -102,7 +102,7 @@ def swap(
 
     :param rho: A vector or matrix to have its subsystems swapped.
     :param sys: Default: [1, 2]
-    :param dim: Default: [sqrt(len(X), sqrt(len(X)))]
+    :param dim: Default: :code:`[sqrt(len(X), sqrt(len(X)))]`
     :param row_only: Default: :code:False
     :return: The swapped matrix.
     """

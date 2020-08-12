@@ -50,7 +50,7 @@ def is_psd(mat: np.ndarray, tol: float = 1e-8) -> bool:
 
     :param mat: Matrix to check.
     :param tol: Tolerance for numerical accuracy.
-    :return: Return True if matrix is PSD, and False otherwise.
+    :return: Return :code:`True` if matrix is PSD, and :code:`False` otherwise.
     """
     if not is_square(mat):
         return False

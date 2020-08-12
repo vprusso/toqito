@@ -13,7 +13,7 @@ satisfying
 
 where :math:`\Sigma` represents a set of measurement outcomes and
 where :math:`\mu(a)` represents the measurement operator associated
-with outcome :math:`a \in \Sigma`
+with outcome :math:`a \in \Sigma`.
 
 Operations on Measurements
 --------------------------

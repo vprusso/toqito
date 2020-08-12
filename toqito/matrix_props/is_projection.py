@@ -57,7 +57,7 @@ def is_projection(mat: np.ndarray) -> bool:
         https://en.wikipedia.org/wiki/Projection_matrix
 
     :param mat: Matrix to check.
-    :return: Return True if matrix is a projection matrix, and False otherwise.
+    :return: Return :code:`True` if matrix is a projection matrix, and :code:`False` otherwise.
     """
     if not is_psd(mat):
         return False

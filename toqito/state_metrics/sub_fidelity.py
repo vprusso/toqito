@@ -20,7 +20,7 @@ def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     Examples
     ==========
 
-    Consider the following pair of states
+    Consider the following pair of states:
 
     .. math::
         \rho = \frac{3}{4}|0\rangle \langle 0| +

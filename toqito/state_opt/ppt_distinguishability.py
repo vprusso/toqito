@@ -38,7 +38,7 @@ def ppt_distinguishability(
     Examples
     ==========
 
-    Consider the following Bell states
+    Consider the following Bell states:
 
     .. math::
         \begin{equation}

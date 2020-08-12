@@ -62,7 +62,7 @@ def symmetric_extension_hierarchy(
     :math:`|\tau_{\epsilon}\rangle` via separable measurements has the following closed form
 
     .. math::
-        \frac{1}{3} \left(2 + \sqrt{1 - \epsilon^2 \right)
+        \frac{1}{3} \left(2 + \sqrt{1 - \epsilon^2} \right)
 
     where the resource state is defined as
 

@@ -17,8 +17,8 @@ def is_normal(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool
 
     .. math::
         \begin{equation}
-            X^* X = X X^*.
-        \end{equation}
+            X^* X = X X^*
+        \end{equation}.
 
     Examples
     ==========
@@ -66,7 +66,7 @@ def is_normal(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool
     :param mat: The matrix to check.
     :param rtol: The relative tolerance parameter (default 1e-05).
     :param atol: The absolute tolerance parameter (default 1e-08).
-    :return: Returns True if the matrix is normal and False otherwise.
+    :return: Returns :code:`True` if the matrix is normal and :code:`False` otherwise.
     """
     return np.allclose(
         np.matmul(mat, mat.conj().T), np.matmul(mat.conj().T, mat), rtol=rtol, atol=atol

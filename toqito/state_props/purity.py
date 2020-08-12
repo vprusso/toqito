@@ -32,7 +32,7 @@ def purity(rho: np.ndarray) -> float:
     Calculating the purity of :math:`\rho` yields :math:`\frac{1}{4}`. This can be observed using
     :code:`toqito` as follows.
 
-    >>> from toqito.state_metrics import purity
+    >>> from toqito.state_props import purity
     >>> import numpy as np
     >>> purity(np.identity(4) / 4)
     0.25

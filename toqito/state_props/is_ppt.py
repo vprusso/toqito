@@ -53,7 +53,7 @@ def is_ppt(
     Consider the following Bell state:
 
     .. math::
-        u = \frac{1}{\sqrt{2}}\left( |01 \rangle + |10 \rangle \right)
+        u = \frac{1}{\sqrt{2}}\left( |01 \rangle + |10 \rangle \right).
 
     For the density matrix :math:`\rho = u u^*`, as this is an entangled state
     of dimension :math:`2`, it will violate the PPT criterion, which can be seen
