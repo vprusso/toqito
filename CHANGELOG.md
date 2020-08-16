@@ -66,3 +66,6 @@
   `test_state_exclusion.py`.
 
 # 0.0.6
+
+- Fix: Bug in `symmetric_extension_hierarchy.py` for `level=1` case. Added test
+  to cover this bug.

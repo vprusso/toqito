@@ -171,7 +171,8 @@ def symmetric_extension_hierarchy(
             == x_var[k]
         )
         constraints.append(partial_transpose(x_var[k], 1, dim_list) >> 0)
-        constraints.append(partial_transpose(x_var[k], 3, dim_list) >> 0)
+        for sys in range(level-1):
+            constraints.append(partial_transpose(x_var[k], sys + 3, dim_list) >> 0)
 
         obj_func.append(probs[k] * cvxpy.trace(states[k].conj().T @ meas[k]))
 
