@@ -37,7 +37,7 @@ def schmidt_decomposition(
     values of :math:`u` as
 
     .. math::
-        \frac{1}{\sqrt{3}} \left[1, 1, 1 \right]^{\text{T}}
+        \frac{1}{\sqrt{3}} \left[1, 1, 1 \right]^{\text{T}}.
 
     >>> from toqito.states import max_entangled
     >>> from toqito.state_ops import schmidt_decomposition

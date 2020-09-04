@@ -26,7 +26,7 @@ def trace_norm(rho: np.ndarray) -> float:
                          0 & 0 & 0 & 0 \\
                          0 & 0 & 0 & 0 \\
                          1 & 0 & 0 & 1
-                       \end{pmatrix} \text{D}(\mathcal{X}).
+                       \end{pmatrix} \in \text{D}(\mathcal{X}).
 
     It can be observed using :code:`toqito` that :math:`||\rho||_1 = 1` as follows.
 

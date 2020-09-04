@@ -21,26 +21,27 @@ def is_mub(vec_list: List[Union[np.ndarray, List[Union[float, Any]]]]) -> bool:
     :math:`\left|\langle u_a, v_b \rangle\right| = 1/\sqrt{\Sigma}` for all :math:`a, b \in \Sigma`.
 
     For :math:`n \in \mathbb{N}`, a set of orthonormal bases :math:`\left\{
-    \mathcal{B}_0, \ldots, \mathcal{B}_{n-1} \right\}` are mutually unbiased
-    bases if and only if every basis is mutually unbiased with every other
-    basis in the set, i.e. :math:`\mathcal{B}_x` is mutually unbiased with
-    :math:`\mathcal{B}_x^{\prime}` for all :math:`x \not= x^{\prime}` with
+    \mathcal{B}_0, \ldots, \mathcal{B}_{n-1} \right\}` are mutually unbiased bases if and only if
+    every basis is mutually unbiased with every other basis in the set, i.e. :math:`\mathcal{B}_x`
+    is mutually unbiased with :math:`\mathcal{B}_x^{\prime}` for all :math:`x \not= x^{\prime}` with
     :math:`x, x^{\prime} \in \Sigma`.
 
     Examples
     ==========
 
-    MUB of dimension 2.
+    MUB of dimension :math:`2`.
 
     For :math:`d=2`, the following constitutes a mutually unbiased basis:
 
     .. math::
         \begin{equation}
-            M_0 = \left\{ |0 \rangle, |1 \rangle \right\}, \\
-            M_1 = \left\{ \frac{|0 \rangle + |1 \rangle}{\sqrt{2}},
-            \frac{|0 \rangle - |1 \rangle}{\sqrt{2}} \right\}, \\
-            M_2 = \left\{ \frac{|0 \rangle i|1 \rangle}{\sqrt{2}},
-            \frac{|0 \rangle - i|1 \rangle}{\sqrt{2}} \right\}, \\
+            \begin{aligned}
+                M_0 &= \left\{ |0 \rangle, |1 \rangle \right\}, \\
+                M_1 &= \left\{ \frac{|0 \rangle + |1 \rangle}{\sqrt{2}},
+                \frac{|0 \rangle - |1 \rangle}{\sqrt{2}} \right\}, \\
+                M_2 &= \left\{ \frac{|0 \rangle i|1 \rangle}{\sqrt{2}},
+                \frac{|0 \rangle - i|1 \rangle}{\sqrt{2}} \right\}. \\
+            \end{aligned}
         \end{equation}
 
     >>> import numpy as np
@@ -54,7 +55,7 @@ def is_mub(vec_list: List[Union[np.ndarray, List[Union[float, Any]]]]) -> bool:
     >>> is_mub(mubs)
     True
 
-    Non non-MUB of dimension 2.
+    Non non-MUB of dimension :math:`2`.
 
     >>> import numpy as np
     >>> from toqito.states import basis

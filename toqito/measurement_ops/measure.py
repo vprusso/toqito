@@ -22,7 +22,7 @@ def measure(measurement: np.ndarray, state: np.ndarray) -> float:
     Examples
     ==========
 
-    Consider the following state
+    Consider the following state:
 
     .. math::
         u = \frac{1}{\sqrt{3}} e_0 + \sqrt{\frac{2}{3}} e_1

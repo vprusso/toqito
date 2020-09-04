@@ -31,7 +31,7 @@ def optimal_clone(
                                            & X \in \text{Pos}(
                                            \mathcal{Y}^{\otimes n}
                                            \otimes \mathcal{Z}^{\otimes n}
-                                           \otimes \mathcal{X}^{\otimes n})
+                                           \otimes \mathcal{X}^{\otimes n}).
             \end{aligned}
         \end{equation}
 
@@ -44,7 +44,7 @@ def optimal_clone(
                 \text{subject to:} \quad & \mathbb{I}_{\mathcal{Y}^{\otimes n}
                 \otimes \mathcal{Z}^{\otimes n}} \otimes Y \geq W_{\pi}
                 \left( Q^{\otimes n} \right) W_{\pi}^*, \\
-                & Y \in \text{Herm} \left(\mathcal{X}^{\otimes n} \right)
+                & Y \in \text{Herm} \left(\mathcal{X}^{\otimes n} \right).
             \end{aligned}
         \end{equation}
 
@@ -70,7 +70,7 @@ def optimal_clone(
     .. math::
         \begin{equation}
             Q = \frac{1}{4} \left(|000 \rangle \langle 000| + |111 \rangle \langle 111| +
-                                  |+++ \rangle + \langle +++| + |--- \rangle \langle ---| \right)
+                                  |+++ \rangle + \langle +++| + |--- \rangle \langle ---| \right).
         \end{equation}
 
     We can see that the optimal value we obtain in solving the SDP is 3/4.

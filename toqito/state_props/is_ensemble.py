@@ -34,7 +34,7 @@ def is_ensemble(states: List[np.ndarray]) -> bool:
         \rho_0 = \frac{1}{2} \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}, \quad
         \rho_1 = \frac{1}{2} \begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix}.
 
-    The set :math:`\eta` constitutes a valid ensemble
+    The set :math:`\eta` constitutes a valid ensemble.
 
     >>> from toqito.state_props import is_ensemble
     >>> import numpy as np

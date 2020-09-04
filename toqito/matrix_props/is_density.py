@@ -13,7 +13,7 @@ def is_density(mat: np.ndarray) -> bool:
     Examples
     ==========
 
-    Consider the Bell state
+    Consider the Bell state:
 
     .. math::
        u = \frac{1}{\sqrt{2}} |00 \rangle + \frac{1}{\sqrt{2}} |11 \rangle.
@@ -49,7 +49,7 @@ def is_density(mat: np.ndarray) -> bool:
 
     does satisfy :math:`\text{Tr}(\sigma) = 1`, however fails to be positive
     semidefinite, and is therefore not a density operator. This can be
-    illustrated using `toqito` as follows.
+    illustrated using :code:`toqito` as follows.
 
     >>> from toqito.matrix_props import is_density
     >>> from toqito.states import bell

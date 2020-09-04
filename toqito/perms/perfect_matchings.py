@@ -6,7 +6,7 @@ import numpy as np
 
 def perfect_matchings(num: Union[List[int], int, np.ndarray]) -> np.ndarray:
     r"""
-    Give all perfect matchings of `num` objects.
+    Give all perfect matchings of :code:`num` objects.
 
     Returns all perfect matchings of a given list of objects. That is, it returns all ways of
     grouping an even number of objects into pairs.
@@ -27,7 +27,7 @@ def perfect_matchings(num: Union[List[int], int, np.ndarray]) -> np.ndarray:
     :param num: Either an even integer, indicating that you would like all perfect matchings of the
                 integers 1,2, ... N, or a `list` or `np.array` containing an even number of distinct
                 entries, indicating that you would like all perfect matchings of those entries.
-    :return: An array containing all valid perfect matchings of size `num`.
+    :return: An array containing all valid perfect matchings of size :code:`num`.
     """
     if isinstance(num, int):
         num = np.arange(1, num + 1)

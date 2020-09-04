@@ -62,7 +62,7 @@ def symmetric_extension_hierarchy(
     :math:`|\tau_{\epsilon}\rangle` via separable measurements has the following closed form
 
     .. math::
-        \frac{1}{3} \left(2 + \sqrt{1 - \epsilon^2 \right)
+        \frac{1}{3} \left(2 + \sqrt{1 - \epsilon^2} \right)
 
     where the resource state is defined as
 
@@ -171,7 +171,8 @@ def symmetric_extension_hierarchy(
             == x_var[k]
         )
         constraints.append(partial_transpose(x_var[k], 1, dim_list) >> 0)
-        constraints.append(partial_transpose(x_var[k], 3, dim_list) >> 0)
+        for sys in range(level-1):
+            constraints.append(partial_transpose(x_var[k], sys + 3, dim_list) >> 0)
 
         obj_func.append(probs[k] * cvxpy.trace(states[k].conj().T @ meas[k]))
 

@@ -25,7 +25,7 @@ def bell(idx: int) -> np.ndarray:
     Examples
     ==========
 
-    When :code:`idx = 0`, this produces the following Bell state
+    When :code:`idx = 0`, this produces the following Bell state:
 
     .. math::
         u_0 = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right).

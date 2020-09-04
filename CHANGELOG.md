@@ -1,4 +1,4 @@
-# 0.5
+# 0.0.5
 
 - Fix: Bug in `swap.py`. Added test to cover bug found.
 
@@ -64,3 +64,8 @@
   `unambiguous_state_exclusion.py` to just `state_exclusion.py`. Adding in
   optional parameter to specify method of exclusion. Consolidated tests in
   `test_state_exclusion.py`.
+
+# 0.0.6
+
+- Fix: Bug in `symmetric_extension_hierarchy.py` for `level=1` case. Added test
+  to cover this bug.

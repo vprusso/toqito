@@ -49,7 +49,7 @@ def concurrence(rho: np.ndarray) -> float:
     .. math::
         v = |0\rangle \otimes |1 \rangle.
 
-    As this state has no entanglement, the concurrence is zero
+    As this state has no entanglement, the concurrence is zero.
 
     >>> import numpy as np
     >>> from toqito.states import basis

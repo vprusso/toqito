@@ -11,16 +11,7 @@ def isotropic(dim: int, alpha: float) -> np.ndarray:
     Produce a isotropic state [HH99]_.
 
     Returns the isotropic state with parameter :code:`alpha` acting on
-    (:code:`dim`-by-:code:`dim`)-dimensional space. More specifically, the state is the
-    density operator defined by
-
-    .. math::
-        (1-\alpha)\mathbb{I}(d)/d^2 + \alpha E,
-
-    where :math:`\mathbb{I}` is the identity operator and :math:`E` is the projection onto the
-    standard maximally-entangled pure state on two copies of :code:`dim`-dimensional space.
-
-    The isotropic state has the following form
+    (:code:`dim`-by-:code:`dim`)-dimensional space. The isotropic state has the following form
 
     .. math::
         \begin{equation}
@@ -67,7 +58,7 @@ def isotropic(dim: int, alpha: float) -> np.ndarray:
 
     :param dim: The local dimension.
     :param alpha: The parameter of the isotropic state.
-    :return: Isotropic state.
+    :return: Isotropic state of dimension :code:`dim`.
     """
     # Compute the isotropic state.
     psi = max_entangled(dim, True, False)

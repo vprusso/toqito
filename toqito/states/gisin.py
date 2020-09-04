@@ -25,7 +25,7 @@ def gisin(lambda_var: float, theta: float) -> np.ndarray:
                                         0 & 0 & 0 & 0 \\
                                         0 & 0 & 0 & 0 \\
                                         0 & 0 & 0 & 1
-                                    \end{pmatrix}
+                                    \end{pmatrix}.
         \end{equation}
 
     Examples

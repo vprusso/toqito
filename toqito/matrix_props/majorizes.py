@@ -46,7 +46,8 @@ def majorizes(a_var: Union[np.ndarray, List[int]], b_var: Union[np.ndarray, List
 
     :param a_var: Matrix or vector provided as list or np.array.
     :param b_var: Matrix or vector provided as list or np.array.
-    :return: Return `True` if a_var majorizes b_var and `False` otherwise.
+    :return: Return :code:`True` if :code:`a_var` majorizes :code:`b_var` and :code:`False`
+             otherwise.
     """
     # If input if provided as list, convert to np.array.
     if isinstance(a_var, list):

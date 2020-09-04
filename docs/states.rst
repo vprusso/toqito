@@ -59,6 +59,7 @@ Properties of Quantum States
    :toctree: _autosummary
 
     toqito.state_props.concurrence
+    toqito.state_props.entanglement_of_formation
     toqito.state_props.is_ensemble
     toqito.state_props.is_mixed
     toqito.state_props.is_mub

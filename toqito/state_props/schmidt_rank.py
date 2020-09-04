@@ -14,7 +14,7 @@ def schmidt_rank(
     :math:`u \in \mathcal{X} \otimes \mathcal{Y}` possesses an expansion of the form:
 
     .. math::
-        u = \sum_{i} \lambda_i v_i w_i
+        u = \sum_{i} \lambda_i v_i w_i,
 
     where :math:`v_i \in \mathcal{X}` and :math:`w_i \in \mathcal{Y}` are orthonormal states.
 
@@ -26,7 +26,7 @@ def schmidt_rank(
     The Schmidt rank is the number of non-zero eigenvalues of :math:`A`. The Schmidt rank allows us
     to determine if a given state is entangled or separable. For instance:
 
-        - If the Schmidt rank is 1: The state is separable
+        - If the Schmidt rank is 1: The state is separable,
         - If the Schmidt rank > 1: The state is entangled.
 
     Compute the Schmidt rank of the vector :code:`vec`, assumed to live in bipartite space, where

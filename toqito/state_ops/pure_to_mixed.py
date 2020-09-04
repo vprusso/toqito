@@ -36,7 +36,7 @@ def pure_to_mixed(phi: np.ndarray) -> np.ndarray:
      [0. , 0. , 0. , 0. ],
      [0.5, 0. , 0. , 0.5]]
 
-    We can also give matrix inputs to the function in `toqito`.
+    We can also give matrix inputs to the function in :code:`toqito`.
 
     >>> from toqito.states import bell
     >>> from toqito.state_ops import pure_to_mixed

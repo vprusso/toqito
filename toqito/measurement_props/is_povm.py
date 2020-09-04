@@ -22,7 +22,7 @@ def is_povm(mat_list: List[np.ndarray]) -> bool:
     Examples
     ==========
 
-    Consider the following matrices
+    Consider the following matrices:
 
     .. math::
         M_0 =
@@ -36,7 +36,7 @@ def is_povm(mat_list: List[np.ndarray]) -> bool:
             0 & 1
         \end{pmatrix}
 
-    our function indicates that this set of operators constitute a POVM.
+    our function indicates that this set of operators constitute a set of POVMs.
 
     >>> from toqito.measurement_props import is_povm
     >>> import numpy as np

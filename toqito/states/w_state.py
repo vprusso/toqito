@@ -44,7 +44,7 @@ def w_state(num_qubits: int, coeff: List[int] = None) -> np.ndarray:
 
     .. math::
         \frac{1}{\sqrt{30}} \left( |1000 \rangle + 2|0100 \rangle + 3|0010
-        \rangle + 4 |0001 \rangle \right)
+        \rangle + 4 |0001 \rangle \right).
 
     We can generate this state in :code:`toqito` as
 

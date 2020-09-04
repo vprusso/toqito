@@ -12,7 +12,7 @@ def is_mixed(state: np.ndarray) -> bool:
     Examples
     ==========
 
-    Consider the following density matrix
+    Consider the following density matrix:
 
     .. math::
         \rho =  \begin{pmatrix}

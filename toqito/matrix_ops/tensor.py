@@ -43,7 +43,7 @@ def tensor(*args) -> np.ndarray:
     Consider the following ket vector
 
     .. math::
-        e_0 = \left[1, 0 \right]^{\text{T}}
+        e_0 = \left[1, 0 \right]^{\text{T}}.
 
     Computing the following tensor product
 
@@ -117,7 +117,7 @@ def tensor(*args) -> np.ndarray:
     """
     result = None
 
-    # Input is provided as a list of matrices.
+    # Input is provided as a list of numpy matrices.
     if len(args) == 1 and isinstance(args[0], list):
         if len(args[0]) == 1:
             return args[0][0]
@@ -156,8 +156,6 @@ def tensor(*args) -> np.ndarray:
         return result
 
     # Tensor product between two or more matrices.
-    if len(args) == 1:
-        return args[0]
     if len(args) == 2:
         return np.kron(args[0], args[1])
     if len(args) >= 3:

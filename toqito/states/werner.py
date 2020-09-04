@@ -18,7 +18,7 @@ def werner(dim: int, alpha: Union[float, List[float]]) -> np.ndarray:
 
         \begin{equation}
             \rho_{\alpha} = \frac{1}{d^2 - d\alpha} \left(\mathbb{I} \otimes
-            \mathbb{I} - \alpha S \right) \in \mathbb{C}^d \otimes \mathbb{C}^d
+            \mathbb{I} - \alpha S \right) \in \mathbb{C}^d \otimes \mathbb{C}^d.
         \end{equation}
 
     Yields a Werner state with parameter :code:`alpha` acting on :code:`(dim * dim)`- dimensional

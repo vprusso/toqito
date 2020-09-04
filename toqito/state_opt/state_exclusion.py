@@ -22,7 +22,7 @@ def state_exclusion(
     as well as a list of corresponding probabilities
 
     .. math::
-        p = \{ p_0, \ldots, p_n \}
+        p = \{ p_0, \ldots, p_n \}.
 
     Alice chooses :math:`i` with probability :math:`p_i` and creates the state
     :math:`\rho_i`.
@@ -105,8 +105,12 @@ def state_exclusion(
     Consider the following two Bell states
 
     .. math::
-        u_0 = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \\
-        u_1 = \frac{1}{\sqrt{2}} \left( |00 \rangle - |11 \rangle \right).
+        \begin{equation}
+            \begin{aligned}
+                u_0 &= \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \\
+                u_1 &= \frac{1}{\sqrt{2}} \left( |00 \rangle - |11 \rangle \right).
+            \end{aligned}
+        \end{equation}
 
     For the corresponding density matrices :math:`\rho_0 = u_0 u_0^*` and
     :math:`\rho_1 = u_1 u_1^*`, we may construct a set
