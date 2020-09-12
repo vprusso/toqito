@@ -59,7 +59,9 @@ def state_distinguishability(
         IEEE Transactions on information theory 49.2 (2003): 446-456.
         https://arxiv.org/abs/quant-ph/0206093
 
-
+    :param states: A list of states provided as either matrices or vectors.
+    :param probs: Respective list of probabilities each state is selected.
+    :param dist_method: Method of distinguishing to use.
     :return: The optimal probability with which Bob can distinguish the state.
     """
     obj_func = []

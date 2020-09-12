@@ -64,11 +64,23 @@ def in_separable_ball(mat: np.ndarray) -> bool:
     mat_dims = mat.shape
     max_dim = max(mat_dims)
 
+    # If the matrix is a vector, turn it into a matrix. We could instead turn every matrix into a
+    # vector of eigenvalues, but that would make the computation take O(n^3) time instead of the
+    # current method which is O(n^2).
+
+    # Case: Vector of eigenvalues.
     if len(mat_dims) == 1 or min(mat_dims) == 1:
         mat = np.diag(mat)
 
+    # If the matrix has trace equal to 0 or less, it cannot be in the separable ball.
     if np.trace(mat) < max_dim * np.finfo(float).eps:
         return False
 
     mat = mat / np.trace(mat)
-    return np.linalg.norm(mat / np.linalg.norm(mat, "fro")**2 - np.eye(max_dim), "fro") <= 1
+
+    # The following check relies on the fact that we scaled the matrix so that trace(mat) = 1.
+    # The following condition is then exactly the condition mentioned in [GB02]_.
+    return (
+        np.linalg.norm(mat / np.linalg.norm(mat, "fro") ** 2 - np.eye(max_dim), "fro")
+        <= 1
+    )

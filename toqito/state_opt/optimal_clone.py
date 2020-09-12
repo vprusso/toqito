@@ -101,6 +101,10 @@ def optimal_clone(
         ACM Sigact News 15.1 (1983): 78-88.
         https://dl.acm.org/doi/pdf/10.1145/1008908.1008920
 
+    :param states: A list of states provided as either matrices or vectors.
+    :param probs: Respective list of probabilities each state is selected.
+    :param num_reps: Number of parallel repetitions to perform.
+    :param strategy: Boolean that denotes whether to return strategy.
     :return: The optimal probability with of counterfeiting quantum money.
     """
     dim = len(states[0]) ** 3

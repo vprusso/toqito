@@ -16,7 +16,7 @@ def test_in_separable_ball_matrix_true():
 def test_in_separable_ball_matrix_false():
     """Test matrix not in separable ball returns False."""
     u_mat = random_unitary(4)
-    lam = np.array([1.01, 1, 0.99, 0])/3
+    lam = np.array([1.01, 1, 0.99, 0]) / 3
     rho = u_mat @ np.diag(lam) @ u_mat.conj().T
     np.testing.assert_equal(in_separable_ball(rho), False)
 
@@ -30,7 +30,7 @@ def test_in_separable_ball_trace_lt_dim():
 def test_in_separable_ball_eigs_false():
     """Test eigenvalues of matrix not in separable ball returns False."""
     u_mat = random_unitary(4)
-    lam = np.array([1.01, 1, 0.99, 0])/3
+    lam = np.array([1.01, 1, 0.99, 0]) / 3
     rho = u_mat @ np.diag(lam) @ u_mat.conj().T
 
     eig_vals = np.linalg.eigvalsh(rho)

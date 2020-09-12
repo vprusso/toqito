@@ -133,7 +133,11 @@ def symmetric_extension_hierarchy(
         The University of Waterloo, Ph.D. Dissertation, 2015.
         https://uwspace.uwaterloo.ca/handle/10012/9572
 
-    :return: The optimal probability of the symmetric extension hierarchy SDP for level `level`.
+    :param states: A list of states provided as either matrices or vectors.
+    :param probs: Respective list of probabilities each state is selected.
+    :param level: Level of the hierarchy to compute.
+    :return: The optimal probability of the symmetric extension hierarchy SDP for level
+            :code:`level`.
     """
     obj_func = []
     meas = []
@@ -171,7 +175,7 @@ def symmetric_extension_hierarchy(
             == x_var[k]
         )
         constraints.append(partial_transpose(x_var[k], 1, dim_list) >> 0)
-        for sys in range(level-1):
+        for sys in range(level - 1):
             constraints.append(partial_transpose(x_var[k], sys + 3, dim_list) >> 0)
 
         obj_func.append(probs[k] * cvxpy.trace(states[k].conj().T @ meas[k]))
