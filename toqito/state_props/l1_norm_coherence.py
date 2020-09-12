@@ -11,7 +11,7 @@ def l1_norm_coherence(rho: np.ndarray) -> float:
     defined as
 
     .. math::
-        C_{\ell_1}(\rho) = \sum_{i \not= j} \abs{\rho_{i,j}},
+        C_{\ell_1}(\rho) = \sum_{i \not= j} \left|\rho_{i,j}\right|,
 
     where :math:`\rho_{i,j}` is the :math:`(i,j)^{th}`-entry of :math:`\rho`
     in the standard basis.
@@ -32,6 +32,7 @@ def l1_norm_coherence(rho: np.ndarray) -> float:
 
     >>> from toqito.state_props import l1_norm_coherence
     >>> import numpy as np
+    >>>
     >>> # Maximally coherent state.
     >>> v = np.ones((3,1))/np.sqrt(3)
     >>> l1_norm_coherence(v)

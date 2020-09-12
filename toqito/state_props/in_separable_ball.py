@@ -36,8 +36,8 @@ def in_separable_ball(mat: np.ndarray) -> bool:
     True
 
     The following is an example of generating a random density matrix with eigenvalues
-    :code:`[1.01, 1, 0.99, 0]/3`. This example yields a matrix that is not contained within the separable
-    ball.
+    :code:`[1.01, 1, 0.99, 0]/3`. This example yields a matrix that is not contained within the
+    separable ball.
 
     >>> from toqito.random import random_unitary
     >>> from toqito.state_props import in_separable_ball
