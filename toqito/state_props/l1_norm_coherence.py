@@ -23,7 +23,7 @@ def l1_norm_coherence(rho: np.ndarray) -> float:
     This function was adapted from QETLAB.
 
     Examples
-    ==========
+    ========
 
     The largest possible value of the :math:`\ell_1`-norm of coherence on
     :math:`d`-dimensional states is :math:`d-1`, and is attained exactly by
@@ -32,7 +32,6 @@ def l1_norm_coherence(rho: np.ndarray) -> float:
 
     >>> from toqito.state_props import l1_norm_coherence
     >>> import numpy as np
-    >>>
     >>> # Maximally coherent state.
     >>> v = np.ones((3,1))/np.sqrt(3)
     >>> l1_norm_coherence(v)
@@ -40,7 +39,7 @@ def l1_norm_coherence(rho: np.ndarray) -> float:
 
     References
     ==========
-    .. [RPWL17] "Logarithmic coherence: Operational interpretation of `1-norm coherence"
+    .. [RPWL17] "Logarithmic coherence: Operational interpretation of 1-norm coherence"
         Rana, Swapan, Parashar, Preeti, Winter, Andreas, Lewenstein, Maciej
         Physical Review A 96.5 (2017): 052336.
         https://arxiv.org/pdf/1612.09234.pdf

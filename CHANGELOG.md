@@ -69,3 +69,12 @@
 
 - Fix: Bug in `symmetric_extension_hierarchy.py` for `level=1` case. Added test
   to cover this bug.
+  
+ - Feature: Added `in_separable_ball.py` under `state_props/`. Knowing whether a
+ density matrix (quantum state) is contained in the separable ball centered at
+ the maximally-mixed state is useful for separability testing. Added 
+ `test_in_separable_ball.py` for unit testing.
+ 
+ - Doc-Fix: Trailing `\`` removed in `li_norm_coherence.py`.
+ 
+ -
