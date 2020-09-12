@@ -11,7 +11,7 @@ def l1_norm_coherence(rho: np.ndarray) -> float:
     defined as
 
     .. math::
-        C_{\ell_1}(\rho) = \sum_{i \not= j} \abs{\rho_{i,j}},
+        C_{\ell_1}(\rho) = \sum_{i \not= j} \left|\rho_{i,j}\right|,
 
     where :math:`\rho_{i,j}` is the :math:`(i,j)^{th}`-entry of :math:`\rho`
     in the standard basis.
@@ -23,7 +23,7 @@ def l1_norm_coherence(rho: np.ndarray) -> float:
     This function was adapted from QETLAB.
 
     Examples
-    ==========
+    ========
 
     The largest possible value of the :math:`\ell_1`-norm of coherence on
     :math:`d`-dimensional states is :math:`d-1`, and is attained exactly by
@@ -40,7 +40,7 @@ def l1_norm_coherence(rho: np.ndarray) -> float:
 
     References
     ==========
-    .. [RPWL17] "Logarithmic coherence: Operational interpretation of `1-norm coherence"
+    .. [RPWL17] "Logarithmic coherence: Operational interpretation of 1-norm coherence"
         Rana, Swapan, Parashar, Preeti, Winter, Andreas, Lewenstein, Maciej
         Physical Review A 96.5 (2017): 052336.
         https://arxiv.org/pdf/1612.09234.pdf

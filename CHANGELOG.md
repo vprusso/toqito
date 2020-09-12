@@ -69,3 +69,20 @@
 
 - Fix: Bug in `symmetric_extension_hierarchy.py` for `level=1` case. Added test
   to cover this bug.
+  
+ - Feature: Added `in_separable_ball.py` under `state_props/`. Knowing whether a
+ density matrix (quantum state) is contained in the separable ball centered at
+ the maximally-mixed state is useful for separability testing. Added 
+ `test_in_separable_ball.py` for unit testing.
+
+- Feature: Added in ability to perform both minimum-error and unambiguous state
+  discrimination in `ppt_distinguishability.py`. Adding additional tests to
+  `ppt_state_distinguishability.py` to cover this extra feature.
+  
+- Feature: Added in ability to compute both primal and dual optimization 
+  problems in `ppt_distinguishability.py`. This gives the user the capability
+  to obtain the measurement operators and also to use the computationally
+  efficiency of the dual problem to make quicker numeric calculations.
+ 
+ - Doc-Fix: Trailing `\`` removed in `li_norm_coherence.py`.
+ 
