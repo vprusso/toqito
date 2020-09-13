@@ -1,4 +1,6 @@
-# 0.0.5
+# Changelog
+
+## 0.0.5
 
 - Fix: Bug in `swap.py`. Added test to cover bug found.
 
@@ -65,7 +67,7 @@
   optional parameter to specify method of exclusion. Consolidated tests in
   `test_state_exclusion.py`.
 
-# 0.0.6
+## 0.0.6
 
 - Fix: Bug in `symmetric_extension_hierarchy.py` for `level=1` case. Added test
   to cover this bug.
@@ -87,6 +89,11 @@
 - Feature: Added `unvec.py` under `matrix_ops/`. This feature is the inverse of
   pre-existing "vec" operation found in `vec.py`. That is, it allows one to take
   a vector and transform it to a (possibly square) matrix.
+  
+- Feature: Added `choi_to_kraus.py` under `channel_ops/`. This feature allows
+  the user to convert a Choi matrix to a list of Kraus operators. This is the 
+  inverse of the existing `kraus_to_choi.py` functionality that `toqito` 
+  currently offers.
 
  - Doc-Fix: Trailing `\`` removed in `li_norm_coherence.py`.
  

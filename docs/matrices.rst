@@ -31,8 +31,8 @@ Operations on Matrices and Vectors
    :toctree: _autosummary
 
     toqito.matrix_ops.tensor
-    toqito.matrix_ops.vec
     toqito.matrix_ops.unvec
+    toqito.matrix_ops.vec
 
 Properties of Matrices and Vectors
 ----------------------------------

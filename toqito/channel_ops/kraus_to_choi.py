@@ -21,7 +21,7 @@ def kraus_to_choi(kraus_ops: List[List[np.ndarray]], sys: int = 2) -> np.ndarray
     Examples
     ==========
 
-    The transpose map
+    The transpose map:
 
     The Choi matrix of the transpose map is the swap operator.
 
@@ -47,6 +47,10 @@ def kraus_to_choi(kraus_ops: List[List[np.ndarray]], sys: int = 2) -> np.ndarray
      [0. 0. 1. 0.]
      [0. 1. 0. 0.]
      [0. 0. 0. 1.]]
+
+    See Also
+    ========
+    choi_to_kraus
 
     References
     ==========

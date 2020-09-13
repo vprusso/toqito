@@ -75,6 +75,10 @@ def vec(mat: np.ndarray) -> np.ndarray:
      [2],
      [4]]
 
+    See Also
+    ========
+    unvec
+
     References
     ==========
     .. [WATVEC] Watrous, John.

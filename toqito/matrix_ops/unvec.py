@@ -48,9 +48,7 @@ def unvec(vector: np.ndarray, shape: Optional[List[int]] = None) -> np.ndarray:
 
     for all :math:`a` and :math:`b`.
 
-    See Also
-    ========
-    vec
+    This function has been adapted from [Rigetti20]_.
 
     Examples
     ==========
@@ -71,6 +69,10 @@ def unvec(vector: np.ndarray, shape: Optional[List[int]] = None) -> np.ndarray:
     >>> unvec(u)
     [[1 2]
      [3 4]]
+
+    See Also
+    ========
+    vec
 
     References
     ==========

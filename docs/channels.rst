@@ -38,6 +38,7 @@ Operations on Quantum Channels
    :toctree: _autosummary
 
     toqito.channel_ops.apply_map
+    toqito.channel_ops.choi_to_kraus
     toqito.channel_ops.kraus_to_choi
     toqito.channel_ops.partial_map
 
