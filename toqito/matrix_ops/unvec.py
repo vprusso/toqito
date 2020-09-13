@@ -1,6 +1,7 @@
 """Unvec operation."""
-import numpy as np
 from typing import List, Optional
+
+import numpy as np
 
 
 def unvec(vector: np.ndarray, shape: Optional[List[int]] = None) -> np.ndarray:
