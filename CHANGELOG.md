@@ -84,5 +84,9 @@
   to obtain the measurement operators and also to use the computationally
   efficiency of the dual problem to make quicker numeric calculations.
  
+- Feature: Added `unvec.py` under `matrix_ops/`. This feature is the inverse of
+  pre-existing "vec" operation found in `vec.py`. That is, it allows one to take
+  a vector and transform it to a (possibly square) matrix.
+
  - Doc-Fix: Trailing `\`` removed in `li_norm_coherence.py`.
  

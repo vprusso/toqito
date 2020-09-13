@@ -25,14 +25,35 @@ def state_distinguishability(
     Alice chooses :math:`i` with probability :math:`p_i` and creates the state :math:`\rho_i` Bob
     wants to guess which state he was given from the collection of states.
 
-    This function implements the following semidefinite program that provides the optimal
-    probability with which Bob can conduct quantum state distinguishability.
+    One can specify the distinguishability method using the :code:`dist_method` argument.
+
+    For :code:`dist_method = "min-error"`, this is the default method that yields the probability of
+    distinguishing quantum states that minimize the probability of error.
+
+    For :code:`dist_method = "unambiguous"`, Alice and Bob never provide an incorrect answer,
+    although it is possible that their answer is inconclusive.
+
+    When :code:`dist_method = "min-error"`, this function implements the following semidefinite
+    program that provides the optimal probability with which Bob can conduct quantum state
+    distinguishability.
 
     .. math::
         \begin{align*}
-            \text{maximize:} \quad & \sum_{i=0}^n p_i \langle M_i,
-            \rho_i \rangle \\
+            \text{maximize:} \quad & \sum_{i=0}^n p_i \langle M_i, \rho_i \rangle \\
             \text{subject to:} \quad & M_0 + \ldots + M_n = \mathbb{I},\\
+                                     & M_0, \ldots, M_n \geq 0
+        \end{align*}
+
+    When :code:`dist_method = "unambiguous"`, this function implements the following semidefinite
+    program that provides the optimal probability with which Bob can conduct unambiguous quantum
+    state distinguishability.
+
+    .. math::
+        \begin{align*}
+            \text{maximize:} \quad & \sum_{i=0}^n p_i \langle M_i, \rho_i \rangle \\
+            \text{subject to:} \quad & M_0 + \ldots + M_{n+1} = \mathbb{I},\\
+                                     & \langle M_i, \rho_j \rangle = 0,
+                                       \quad 1 \leq i, j \leq n, \quad i \not= j.
                                      & M_0, \ldots, M_n \geq 0
         \end{align*}
 

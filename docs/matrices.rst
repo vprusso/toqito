@@ -32,6 +32,7 @@ Operations on Matrices and Vectors
 
     toqito.matrix_ops.tensor
     toqito.matrix_ops.vec
+    toqito.matrix_ops.unvec
 
 Properties of Matrices and Vectors
 ----------------------------------

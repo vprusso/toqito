@@ -61,7 +61,7 @@ def vec(mat: np.ndarray) -> np.ndarray:
                 3 & 4
             \end{pmatrix}
 
-    Performing the `math`:\text{vec}: operation on :math`A` yields
+    Performing the :math:`\text{vec}` operation on :math:`A` yields
 
     .. math::
         \text{vec}(A) = \left[1, 2, 3, 4 \right]^{T}.

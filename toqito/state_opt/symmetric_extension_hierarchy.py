@@ -105,16 +105,16 @@ def symmetric_extension_hierarchy(
     >>>
     >>> # Calculate the first level of the symmetric extension hierarchy. This
     >>> # is simply the value of optimally distinguishing via PPT measurements.
-    >>> print(symmetric_extension_hierarchy(states=states, probs=None, level=1))
+    >>> symmetric_extension_hierarchy(states=states, probs=None, level=1)
     0.9915817434994775
     >>>
     >>> # Calculating the second value gets closer to the separable value.
-    >>> print(symmetric_extension_hierarchy(states=states, probs=None, level=2))
+    >>> symmetric_extension_hierarchy(states=states, probs=None, level=2)
     0.958305796189204
     >>>
     >>> # As proven in [Cos15]_, the true separable value of distinguishing the
     >>> # three Bell states is:
-    >>> print(1/3 * (2 + np.sqrt(1 - eps**2)))
+    >>> 1/3 * (2 + np.sqrt(1 - eps**2))
     0.9553418012614794
     >>>
     >>> # Computing further levels of the hierarchy would eventually converge to
