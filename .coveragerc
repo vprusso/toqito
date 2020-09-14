@@ -2,6 +2,7 @@
 
 # .coveragerc to control coverage.py
 [run]
+source = toqito
 branch = True
 
 [report]
