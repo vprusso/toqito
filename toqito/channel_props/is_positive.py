@@ -4,7 +4,7 @@ from typing import List, Union
 import numpy as np
 
 from toqito.channel_ops import kraus_to_choi
-from toqito.matrix_props import is_psd
+from toqito.matrix_props import is_positive_semidefinite
 
 
 def is_positive(
@@ -76,4 +76,4 @@ def is_positive(
     # of Kraus operators.
     if isinstance(phi, list):
         phi = kraus_to_choi(phi)
-    return is_psd(phi, tol)
+    return is_positive_semidefinite(phi, tol)

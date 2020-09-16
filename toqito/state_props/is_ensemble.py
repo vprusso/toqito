@@ -3,7 +3,7 @@ from typing import List
 
 import numpy as np
 
-from toqito.matrix_props import is_psd
+from toqito.matrix_props import is_positive_semidefinite
 
 
 def is_ensemble(states: List[np.ndarray]) -> bool:
@@ -58,7 +58,7 @@ def is_ensemble(states: List[np.ndarray]) -> bool:
     for state in states:
         trace_sum += np.trace(state)
         # Constraint: All states in ensemble must be positive semidefinite.
-        if not is_psd(state):
+        if not is_positive_semidefinite(state):
             return False
     # Constraint: The sum of the traces of all states within the ensemble must
     # be equal to 1.

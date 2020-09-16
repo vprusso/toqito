@@ -52,4 +52,6 @@ def is_square(mat: np.ndarray) -> bool:
     :param mat: The matrix to check.
     :return: Returns :code:`True` if the matrix is square and :code:`False` otherwise.
     """
+    if len(mat.shape) != 2:
+        raise ValueError("The variable is not a matrix.")
     return mat.shape[0] == mat.shape[1]

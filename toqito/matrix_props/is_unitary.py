@@ -1,8 +1,10 @@
 """Is matrix a unitary matrix."""
 import numpy as np
 
+from toqito.matrix_props import is_square
 
-def is_unitary(mat: np.ndarray) -> bool:
+
+def is_unitary(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
     r"""
     Check if matrix is unitary [WikUnitary]_.
 
@@ -68,7 +70,18 @@ def is_unitary(mat: np.ndarray) -> bool:
         https://en.wikipedia.org/wiki/Unitary_matrix
 
     :param mat: Matrix to check.
+    :param rtol: The relative tolerance parameter (default 1e-05).
+    :param atol: The absolute tolerance parameter (default 1e-08).
     :return: Return :code:`True` if matrix is unitary, and :code:`False` otherwise.
     """
+    if not is_square(mat):
+        return False
+
+    uc_u_mat = mat.conj().T @ mat
+    u_uc_mat = mat @ mat.conj().T
+    id_mat = np.eye(len(mat))
+
     # If U^* * U = I U * U^*, the matrix "U" is unitary.
-    return np.allclose(np.eye(len(mat)), mat.dot(mat.conj().T))
+    return np.allclose(uc_u_mat, id_mat, rtol=rtol, atol=atol) and np.allclose(
+        u_uc_mat, id_mat, rtol=rtol, atol=atol
+    )

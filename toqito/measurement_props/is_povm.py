@@ -2,7 +2,7 @@
 from typing import List
 import numpy as np
 
-from toqito.matrix_props import is_psd
+from toqito.matrix_props import is_positive_semidefinite
 
 
 def is_povm(mat_list: List[np.ndarray]) -> bool:
@@ -95,7 +95,7 @@ def is_povm(mat_list: List[np.ndarray]) -> bool:
     mat_sum = np.zeros((dim, dim), dtype=complex)
     for mat in mat_list:
         # Each measurement in the set must be positive semidefinite.
-        if not is_psd(mat):
+        if not is_positive_semidefinite(mat):
             return False
         mat_sum += mat
     # Summing all the measurements from the set must be equal to the identity.

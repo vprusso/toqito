@@ -5,11 +5,13 @@ import numpy as np
 
 from toqito.channel_ops import kraus_to_choi
 from toqito.channel_props import is_herm_preserving
-from toqito.matrix_props import is_psd
+from toqito.matrix_props import is_positive_semidefinite
 
 
 def is_completely_positive(
-    phi: Union[np.ndarray, List[List[np.ndarray]]], tol: float = 1e-05
+    phi: Union[np.ndarray, List[List[np.ndarray]]],
+    rtol: float = 1e-05,
+    atol: float = 1e-08,
 ) -> bool:
     r"""
     Determine whether the given channel is completely positive [WatCP18]_.
@@ -83,7 +85,8 @@ def is_completely_positive(
 
     :param phi: The channel provided as either a Choi matrix or a list of
                 Kraus operators.
-    :param tol: The tolerance parameter to determine complete positivity.
+    :param rtol: The relative tolerance parameter (default 1e-05).
+    :param atol: The absolute tolerance parameter (default 1e-08).
     :return: True if the channel is completely positive, and False otherwise.
     """
     # If the variable `phi` is provided as a list, we assume this is a list
@@ -92,4 +95,4 @@ def is_completely_positive(
         phi = kraus_to_choi(phi)
 
     # Use Choi's theorem to determine whether `phi` is completely positive.
-    return is_herm_preserving(phi, tol) and is_psd(phi, tol)
+    return is_herm_preserving(phi, rtol) and is_positive_semidefinite(phi, rtol, atol)

@@ -1,6 +1,6 @@
 """Is matrix a density matrix."""
 import numpy as np
-from toqito.matrix_props import is_psd
+from toqito.matrix_props import is_positive_semidefinite
 
 
 def is_density(mat: np.ndarray) -> bool:
@@ -67,4 +67,4 @@ def is_density(mat: np.ndarray) -> bool:
     :return: Return `True` if matrix is a density matrix, and `False`
              otherwise.
     """
-    return is_psd(mat) and np.isclose(np.trace(mat), 1)
+    return is_positive_semidefinite(mat) and np.isclose(np.trace(mat), 1)

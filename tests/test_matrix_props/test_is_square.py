@@ -16,5 +16,11 @@ def test_is_not_square():
     np.testing.assert_equal(is_square(mat), False)
 
 
+def test_is_square_invalid():
+    """Input must be a matrix."""
+    with np.testing.assert_raises(ValueError):
+        is_square(np.array([-1, 1]))
+
+
 if __name__ == "__main__":
     np.testing.run_module_suite()

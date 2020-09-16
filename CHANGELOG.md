@@ -97,3 +97,8 @@
 
  - Doc-Fix: Trailing `\`` removed in `li_norm_coherence.py`.
  
+- Enhancement: Previously ignore tests for `channel_props/` are now being run as
+  part of the testing suite.
+  
+- Enhancement: More robust error checking and adding tolerance arguments for
+  various matrix properties found in `matrix_props/`.

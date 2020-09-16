@@ -11,7 +11,7 @@ def symmetric_projection(
     dim: int, p_val: int = 2, partial: bool = False
 ) -> [np.ndarray, sparse.lil_matrix]:
     r"""
-    Produce the projection onto the symmetric subspace.
+    Produce the projection onto the symmetric subspace [CJKLZ14]_.
 
     For a complex Euclidean space :math:`\mathcal{X}` and a positive integer :math:`n`, the
     projection onto the symmetric subspace is given by
@@ -27,6 +27,8 @@ def symmetric_projection(
     orthogonal projection itself, but rather a matrix whose columns form an orthonormal basis for
     the symmetric subspace (and hence the PS * PS' is the orthogonal projection onto the symmetric
     subspace).
+
+    This function was adapted from the QETLAB package.
 
     Examples
     ==========
@@ -65,6 +67,14 @@ def symmetric_projection(
      [0. , 0.5, 0.5, 0. ],
      [0. , 0.5, 0.5, 0. ],
      [0. , 0. , 0. , 1. ]]
+
+    References
+    ==========
+     .. [CJKLZ14] J. Chen, Z. Ji, D. Kribs, N. Lütkenhaus, and B. Zeng.
+        "Symmetric extension of two-qubit states".
+        Physical Review A 90.3 (2014): 032318.
+        https://arxiv.org/abs/1310.3530
+        E-print: arXiv:1310.3530 [quant-ph]
 
     :param dim: The dimension of the local systems.
     :param p_val: Default value of 2.

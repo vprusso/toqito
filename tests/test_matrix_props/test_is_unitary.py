@@ -29,5 +29,11 @@ def test_is_not_unitary_matrix():
     np.testing.assert_equal(is_unitary(mat), False)
 
 
+def test_is_unitary_not_square():
+    """Input must be a square matrix."""
+    mat = np.array([[-1, 1, 1], [1, 2, 3]])
+    np.testing.assert_equal(is_unitary(mat), False)
+
+
 if __name__ == "__main__":
     np.testing.run_module_suite()

@@ -47,9 +47,9 @@ Properties of Matrices and Vectors
     toqito.matrix_props.is_diagonal
     toqito.matrix_props.is_hermitian
     toqito.matrix_props.is_normal
-    toqito.matrix_props.is_pd
+    toqito.matrix_props.is_positive_definite
     toqito.matrix_props.is_projection
-    toqito.matrix_props.is_psd
+    toqito.matrix_props.is_positive_semidefinite
     toqito.matrix_props.is_square
     toqito.matrix_props.is_symmetric
     toqito.matrix_props.is_unitary

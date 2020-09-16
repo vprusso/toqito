@@ -12,6 +12,8 @@ def apply_map(
     r"""
     Apply a superoperator to an operator.
 
+    This function is adapted from the QETLAB package.
+
     Examples
     ==========
 

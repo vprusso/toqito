@@ -26,6 +26,8 @@ def partial_map(
 
     The input :code:`phi_map` should be provided as a Choi matrix.
 
+    This function is adapted from the QETLAB package.
+
     Examples
     ==========
 

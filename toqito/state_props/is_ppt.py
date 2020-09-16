@@ -3,7 +3,7 @@ from typing import List, Union
 
 import numpy as np
 
-from toqito.matrix_props import is_psd
+from toqito.matrix_props import is_positive_semidefinite
 from toqito.channels import partial_transpose
 
 
@@ -89,4 +89,4 @@ def is_ppt(
         )
     if tol is None:
         tol = np.sqrt(eps)
-    return is_psd(partial_transpose(mat, sys, dim), tol)
+    return is_positive_semidefinite(partial_transpose(mat, sys, dim), tol)

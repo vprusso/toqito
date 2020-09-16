@@ -1,8 +1,10 @@
 """Is matrix a Hermitian matrix."""
 import numpy as np
 
+from toqito.matrix_props import is_square
 
-def is_hermitian(mat: np.ndarray) -> bool:
+
+def is_hermitian(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
     r"""
     Check if matrix is Hermitian [WikHerm]_.
 
@@ -54,6 +56,10 @@ def is_hermitian(mat: np.ndarray) -> bool:
         https://en.wikipedia.org/wiki/Hermitian_matrix
 
     :param mat: Matrix to check.
+    :param rtol: The relative tolerance parameter (default 1e-05).
+    :param atol: The absolute tolerance parameter (default 1e-08).
     :return: Return True if matrix is Hermitian, and False otherwise.
     """
-    return np.allclose(mat, mat.conj().T)
+    if not is_square(mat):
+        return False
+    return np.allclose(mat, mat.conj().T, rtol=rtol, atol=atol)

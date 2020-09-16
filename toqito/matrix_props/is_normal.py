@@ -1,6 +1,8 @@
 """Is matrix a normal matrix."""
 import numpy as np
 
+from toqito.matrix_props import is_square
+
 
 def is_normal(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
     r"""
@@ -68,6 +70,6 @@ def is_normal(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool
     :param atol: The absolute tolerance parameter (default 1e-08).
     :return: Returns :code:`True` if the matrix is normal and :code:`False` otherwise.
     """
-    return np.allclose(
-        np.matmul(mat, mat.conj().T), np.matmul(mat.conj().T, mat), rtol=rtol, atol=atol
-    )
+    if not is_square(mat):
+        return False
+    return np.allclose(mat @ mat.conj().T, mat.conj().T @ mat, rtol=rtol, atol=atol)

@@ -15,6 +15,8 @@ def majorizes(a_var: Union[np.ndarray, List[int]], b_var: Union[np.ndarray, List
 
     for all :math:`k \in \{1, \ldots, d\}`.
 
+    This function was adapted from the QETLAB package.
+
     Examples
     ==========
 
