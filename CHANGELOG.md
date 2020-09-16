@@ -94,6 +94,10 @@
   the user to convert a Choi matrix to a list of Kraus operators. This is the 
   inverse of the existing `kraus_to_choi.py` functionality that `toqito` 
   currently offers.
+  
+- Feature: Add `is_mutually_orthogonal.py` under `state_props/`. This feature
+  allows the user to determine whether a given set of states (vectors) are
+  mutually orthogonal with each other.
 
  - Doc-Fix: Trailing `\`` removed in `li_norm_coherence.py`.
  

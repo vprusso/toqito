@@ -63,7 +63,8 @@ Properties of Quantum States
     toqito.state_props.in_separable_ball
     toqito.state_props.is_ensemble
     toqito.state_props.is_mixed
-    toqito.state_props.is_mub
+    toqito.state_props.is_mutually_orthogonal
+    toqito.state_props.is_mutually_unbiased_basis
     toqito.state_props.is_ppt
     toqito.state_props.is_product_vector
     toqito.state_props.is_pure

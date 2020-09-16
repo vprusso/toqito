@@ -1,10 +1,12 @@
-"""Check if state of states form mutually unbiased basis."""
+"""Check if states form mutually unbiased basis."""
 from typing import Any, List, Union
 
 import numpy as np
 
 
-def is_mub(vec_list: List[Union[np.ndarray, List[Union[float, Any]]]]) -> bool:
+def is_mutually_unbiased_basis(
+    vec_list: List[Union[np.ndarray, List[Union[float, Any]]]]
+) -> bool:
     r"""
     Check if list of vectors constitute a mutually unbiased basis [WikMUB]_.
 
@@ -46,26 +48,26 @@ def is_mub(vec_list: List[Union[np.ndarray, List[Union[float, Any]]]]) -> bool:
 
     >>> import numpy as np
     >>> from toqito.states import basis
-    >>> from toqito.state_props import is_mub
+    >>> from toqito.state_props import is_mutually_unbiased_basis
     >>> e_0, e_1 = basis(2, 0), basis(2, 1)
     >>> mub_1 = [e_0, e_1]
     >>> mub_2 = [1 / np.sqrt(2) * (e_0 + e_1), 1 / np.sqrt(2) * (e_0 - e_1)]
     >>> mub_3 = [1 / np.sqrt(2) * (e_0 + 1j * e_1), 1 / np.sqrt(2) * (e_0 - 1j * e_1)]
     >>> mubs = [mub_1, mub_2, mub_3]
-    >>> is_mub(mubs)
+    >>> is_mutually_unbiased_basis(mubs)
     True
 
     Non non-MUB of dimension :math:`2`.
 
     >>> import numpy as np
     >>> from toqito.states import basis
-    >>> from toqito.state_props import is_mub
+    >>> from toqito.state_props import is_mutually_unbiased_basis
     >>> e_0, e_1 = basis(2, 0), basis(2, 1)
     >>> mub_1 = [e_0, e_1]
     >>> mub_2 = [1 / np.sqrt(2) * (e_0 + e_1), e_1]
     >>> mub_3 = [1 / np.sqrt(2) * (e_0 + 1j * e_1), e_0]
     >>> mubs = [mub_1, mub_2, mub_3]
-    >>> is_mub(mubs)
+    >>> is_mutually_unbiased_basis(mubs)
     False
 
     References
