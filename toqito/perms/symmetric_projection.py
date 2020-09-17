@@ -84,11 +84,11 @@ def symmetric_projection(
     dimp = dim ** p_val
 
     if p_val == 1:
-        return sparse.eye(dim)
+        return np.eye(dim)
 
     p_list = np.array(list(permutations(np.arange(1, p_val + 1))))
     p_fac = np.math.factorial(p_val)
-    sym_proj = sparse.lil_matrix((dimp, dimp))
+    sym_proj = np.zeros((dimp, dimp))
 
     for j in range(p_fac):
         sym_proj += permutation_operator(
@@ -97,6 +97,5 @@ def symmetric_projection(
     sym_proj = sym_proj / p_fac
 
     if partial:
-        sym_proj = sym_proj.todense()
-        sym_proj = sparse.lil_matrix(linalg.orth(sym_proj))
+        sym_proj = linalg.orth(sym_proj)
     return sym_proj

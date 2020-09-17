@@ -162,7 +162,7 @@ def symmetric_extension_hierarchy(
     # The `sys_list` variable contains the numbering pertaining to the symmetrically extended
     # spaces.
     sys_list = list(range(3, 3 + level - 1))
-    sym = symmetric_projection(dim, level).todense()
+    sym = symmetric_projection(dim, level)
 
     dim_xy = dim_x
     dim_xyy = np.prod(dim_list)

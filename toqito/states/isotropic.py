@@ -1,8 +1,6 @@
 """Isotropic state."""
 import numpy as np
 
-from scipy import sparse
-
 from toqito.states import max_entangled
 
 
@@ -60,8 +58,7 @@ def isotropic(dim: int, alpha: float) -> np.ndarray:
     :param alpha: The parameter of the isotropic state.
     :return: Isotropic state of dimension :code:`dim`.
     """
-    # Compute the isotropic state.
-    psi = max_entangled(dim, True, False)
-    return (1 - alpha) * sparse.identity(
+    psi = max_entangled(dim, False, False)
+    return (1 - alpha) * np.identity(
         dim ** 2
     ) / dim ** 2 + alpha * psi * psi.conj().T / dim

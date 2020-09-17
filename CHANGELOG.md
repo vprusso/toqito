@@ -109,3 +109,10 @@
 
 - Fix: Bug in `states/tile.py` produced 3-dimensional vectors when they should
   have in fact been 9-dimensional vectors.
+  
+- Fix: Warning in testing suite for `test_symmetric_projection.py` for 
+  previously using the deprecated `numpy.matrix` class has since been fixed and
+  the warning hence resolved.
+  
+- Fix: The `states/isotropic.py` file no longer requires the use of the 
+  deprecated `numpy.matrix` class.
