@@ -68,9 +68,6 @@
   `test_state_exclusion.py`.
 
 ## 0.0.6
-
-- Fix: Bug in `symmetric_extension_hierarchy.py` for `level=1` case. Added test
-  to cover this bug.
   
  - Feature: Added `in_separable_ball.py` under `state_props/`. Knowing whether a
  density matrix (quantum state) is contained in the separable ball centered at
@@ -98,11 +95,17 @@
 - Feature: Add `is_mutually_orthogonal.py` under `state_props/`. This feature
   allows the user to determine whether a given set of states (vectors) are
   mutually orthogonal with each other.
-
- - Doc-Fix: Trailing `\`` removed in `li_norm_coherence.py`.
  
 - Enhancement: Previously ignore tests for `channel_props/` are now being run as
   part of the testing suite.
   
 - Enhancement: More robust error checking and adding tolerance arguments for
   various matrix properties found in `matrix_props/`.
+  
+- Doc-Fix: Trailing `\`` removed in `li_norm_coherence.py`.
+ 
+- Fix: Bug in `symmetric_extension_hierarchy.py` for `level=1` case. Added test
+  to cover this bug.
+
+- Fix: Bug in `states/tile.py` produced 3-dimensional vectors when they should
+  have in fact been 9-dimensional vectors.

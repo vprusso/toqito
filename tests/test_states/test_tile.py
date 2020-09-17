@@ -12,7 +12,7 @@ def test_tile_0():
         \left(|0\rangle - |1\rangle \right).
     """
     e_0, e_1 = basis(3, 0), basis(3, 1)
-    expected_res = 1 / np.sqrt(2) * e_0 * (e_0 - e_1)
+    expected_res = 1 / np.sqrt(2) * np.kron(e_0, (e_0 - e_1))
     res = tile(0)
 
     bool_mat = np.isclose(res, expected_res)
@@ -26,7 +26,7 @@ def test_tile_1():
         \left(|0\rangle - |1\rangle \right) |2\rangle
     """
     e_0, e_1, e_2 = basis(3, 0), basis(3, 1), basis(3, 2)
-    expected_res = 1 / np.sqrt(2) * (e_0 - e_1) * e_2
+    expected_res = 1 / np.sqrt(2) * np.kron((e_0 - e_1), e_2)
     res = tile(1)
 
     bool_mat = np.isclose(res, expected_res)
@@ -40,7 +40,7 @@ def test_tile_2():
         \left(|1\rangle - |2\rangle \right)
     """
     e_1, e_2 = basis(3, 1), basis(3, 2)
-    expected_res = 1 / np.sqrt(2) * e_2 * (e_1 - e_2)
+    expected_res = 1 / np.sqrt(2) * np.kron(e_2, (e_1 - e_2))
     res = tile(2)
 
     bool_mat = np.isclose(res, expected_res)
@@ -54,7 +54,7 @@ def test_tile_3():
         \left(|1\rangle - |2\rangle \right) |0\rangle
     """
     e_0, e_1, e_2 = basis(3, 0), basis(3, 1), basis(3, 2)
-    expected_res = 1 / np.sqrt(2) * (e_1 - e_2) * e_0
+    expected_res = 1 / np.sqrt(2) * np.kron((e_1 - e_2), e_0)
     res = tile(3)
 
     bool_mat = np.isclose(res, expected_res)
@@ -69,7 +69,7 @@ def test_tile_4():
         \left(|0\rangle + |1\rangle + |2\rangle.
     """
     e_0, e_1, e_2 = basis(3, 0), basis(3, 1), basis(3, 2)
-    expected_res = 1 / 3 * (e_0 + e_1 + e_2) * (e_0 + e_1 + e_2)
+    expected_res = 1 / 3 * np.kron((e_0 + e_1 + e_2), (e_0 + e_1 + e_2))
     res = tile(4)
 
     bool_mat = np.isclose(res, expected_res)

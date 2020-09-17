@@ -62,13 +62,13 @@ def tile(idx: int) -> np.ndarray:
     """
     e_0, e_1, e_2 = basis(3, 0), basis(3, 1), basis(3, 2)
     if idx == 0:
-        return 1 / np.sqrt(2) * e_0 * (e_0 - e_1)
+        return 1 / np.sqrt(2) * np.kron(e_0, (e_0 - e_1))
     if idx == 1:
-        return 1 / np.sqrt(2) * (e_0 - e_1) * e_2
+        return 1 / np.sqrt(2) * np.kron((e_0 - e_1), e_2)
     if idx == 2:
-        return 1 / np.sqrt(2) * e_2 * (e_1 - e_2)
+        return 1 / np.sqrt(2) * np.kron(e_2, (e_1 - e_2))
     if idx == 3:
-        return 1 / np.sqrt(2) * (e_1 - e_2) * e_0
+        return 1 / np.sqrt(2) * np.kron((e_1 - e_2), e_0)
     if idx == 4:
-        return 1 / 3 * (e_0 + e_1 + e_2) * (e_0 + e_1 + e_2)
+        return 1 / 3 * np.kron((e_0 + e_1 + e_2), (e_0 + e_1 + e_2))
     raise ValueError("Invalid integer value for Tile state.")
