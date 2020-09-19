@@ -60,6 +60,7 @@ Properties of Quantum States
 
     toqito.state_props.concurrence
     toqito.state_props.entanglement_of_formation
+    toqito.state_props.has_symmetric_extension
     toqito.state_props.in_separable_ball
     toqito.state_props.is_ensemble
     toqito.state_props.is_mixed

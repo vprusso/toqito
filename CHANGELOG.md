@@ -95,6 +95,10 @@
 - Feature: Add `is_mutually_orthogonal.py` under `state_props/`. This feature
   allows the user to determine whether a given set of states (vectors) are
   mutually orthogonal with each other.
+  
+- Feature: Add `has_symmetric_extension.py` under `state_props/`. This feature 
+  is very useful for determining whether a given state is entangled by checking
+  whether there exists a symmetric extension for that state.
  
 - Enhancement: Previously ignore tests for `channel_props/` are now being run as
   part of the testing suite.
