@@ -99,6 +99,10 @@
 - Feature: Add `has_symmetric_extension.py` under `state_props/`. This feature 
   is very useful for determining whether a given state is entangled by checking
   whether there exists a symmetric extension for that state.
+  
+- Feature: Add `cvx_kron.py` under `helper/`. This feature allows one to compute
+  the Kronecker product between two entities, where either two may be of type
+  `np.ndarray` or a `cvxpy` expression.
  
 - Enhancement: Previously ignore tests for `channel_props/` are now being run as
   part of the testing suite.

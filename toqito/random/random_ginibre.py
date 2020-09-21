@@ -2,10 +2,7 @@
 import numpy as np
 
 
-def random_ginibre(
-    dim_n: int,
-    dim_m: int,
-) -> np.ndarray:
+def random_ginibre(dim_n: int, dim_m: int,) -> np.ndarray:
     r"""
     Generate a Ginibre random matrix [WIKCIRC]_.
 

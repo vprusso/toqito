@@ -70,7 +70,7 @@ aspects of quantum information.
 
 A BibTeX entry that you can use to cite `toqito` is provided here:
 
-```
+```bibtex
  @misc{toqito,
    author       = {Vincent Russo},
    title        = {toqito: A {P}ython toolkit for quantum information, version 0.0.5},

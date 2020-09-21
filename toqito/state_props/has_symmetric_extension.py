@@ -7,7 +7,7 @@ from toqito.state_opt import symmetric_extension_hierarchy
 from toqito.state_props import is_ppt
 
 
-def has_symmetric_extension(rho, level=2, dim=None, ppt=True, tol=1e-4):
+def has_symmetric_extension(rho, level=2, dim=None, ppt=True, tol=1e-4) -> bool:
     r"""
     Determine whether there exists a symmetric extension for a given quantum state. [DPS02]_.
 
