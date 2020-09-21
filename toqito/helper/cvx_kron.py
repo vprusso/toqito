@@ -1,8 +1,8 @@
 """Kronecker product for CVXPY objects."""
-import cvxpy
-import numpy as np
-
 from typing import Union
+
+import numpy as np
+import cvxpy
 from cvxpy.expressions.expression import Expression
 
 
