@@ -18,6 +18,9 @@ def cvx_kron(
 
     At most one of :code:`expr_1` and :code:`b` may be CVXPY Variable objects.
 
+    Kudos to Riley J. Murray for this function:
+    https://github.com/cvxgrp/cvxpy/issues/457
+
     :param expr_1: 2D numpy ndarray, or a CVXPY Variable with expr_1.ndim == 2
     :param expr_2: 2D numpy ndarray, or a CVXPY Variable with expr_2.ndim == 2
     """
