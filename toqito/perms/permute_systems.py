@@ -12,7 +12,7 @@ from toqito.matrix_ops import vec
 
 def permute_systems(
     input_mat: np.ndarray,
-    perm: List[int],
+    perm: Union[np.ndarray, List[int]],
     dim: Union[np.ndarray, List[int]] = None,
     row_only: bool = False,
     inv_perm: bool = False,

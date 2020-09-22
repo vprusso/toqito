@@ -19,8 +19,7 @@ def has_symmetric_extension(rho, level=2, dim=None, ppt=True, tol=1e-4) -> bool:
     Examples
     ==========
 
-    2-qubit symmetric extension
-    ---------------------------
+    2-qubit symmetric extension:
 
     In [CJKLZB14]_, it was shown that a 2-qubit state :math:`\rho_{AB}` has a
     symmetric extension if and only if
@@ -43,8 +42,7 @@ def has_symmetric_extension(rho, level=2, dim=None, ppt=True, tol=1e-4) -> bool:
     >>> has_symmetric_extension(rho)
     True
 
-    Higher qubit systems
-    --------------------
+    Higher qubit systems:
 
     Consider a density operator corresponding to one of the Bell states.
 

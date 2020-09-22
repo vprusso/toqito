@@ -5,7 +5,7 @@ from toqito.perms import permute_systems
 
 
 def test_permute_systems_vec():
-    """Permute system for dim = [2,1] and vector [1, 2, 3, 4]."""
+    """Permute system for perm = [2,1] and vector [1, 2, 3, 4]."""
     test_input_mat = np.array([1, 2, 3, 4])
     expected_res = np.array([1, 3, 2, 4])
 
@@ -16,7 +16,7 @@ def test_permute_systems_vec():
 
 
 def test_permute_systems_m2_m2():
-    """Permute system for dim = [2,1]."""
+    """Permute system for perm = [2,1] and dim = [2, 2]."""
     test_input_mat = np.array(
         [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
     )
@@ -25,14 +25,14 @@ def test_permute_systems_m2_m2():
         [[1, 3, 2, 4], [9, 11, 10, 12], [5, 7, 6, 8], [13, 15, 14, 16]]
     )
 
-    res = permute_systems(test_input_mat, [2, 1])
+    res = permute_systems(test_input_mat, [2, 1], [2, 2])
 
     bool_mat = np.isclose(res, expected_res)
     np.testing.assert_equal(np.all(bool_mat), True)
 
 
 def test_permute_systems_m2_m2_np_array():
-    """Permute system for dim = np.array([2,1])."""
+    """Permute system for perm = np.array([2,1])."""
     test_input_mat = np.array(
         [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
     )
@@ -48,7 +48,7 @@ def test_permute_systems_m2_m2_np_array():
 
 
 def permute_systems_test_2_3_1():
-    """Test permute systems for dim = [2,3,1]."""
+    """Test permute systems for perm = [2,3,1]."""
     test_input_mat = np.array(
         [
             [1, 2, 3, 4, 5, 6, 7, 8],
@@ -82,7 +82,7 @@ def permute_systems_test_2_3_1():
 
 
 def test_permute_systems_invalid_perm_vector():
-    """Invalid input for apply map."""
+    """Invalid input for permute systems."""
     with np.testing.assert_raises(ValueError):
         test_input_mat = np.array(
             [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]

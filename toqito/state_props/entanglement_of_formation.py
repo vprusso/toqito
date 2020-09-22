@@ -101,7 +101,11 @@ def entanglement_of_formation(
 
             rho_c1 = (1 + np.sqrt(1 - rho_c ** 2)) / 2
             rho_c2 = (1 - np.sqrt(1 - rho_c ** 2)) / 2
-            return -rho_c1 * np.log2(rho_c1) - rho_c2 * np.log2(rho_c2)
+
+            rho_c1_log2 = 0 if rho_c1 == 0 else np.log2(rho_c1)
+            rho_c2_log2 = 0 if rho_c2 == 0 else np.log2(rho_c2)
+
+            return -rho_c1 * rho_c1_log2 - rho_c2 * rho_c2_log2
         raise ValueError(
             "Invalid dimension: It is presently only known how to compute "
             "the entanglement-of-formation for two-qubit states and pure "

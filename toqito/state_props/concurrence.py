@@ -76,8 +76,8 @@ def concurrence(rho: np.ndarray) -> float:
     sigma_y = pauli("Y", False)
     sigma_y_y = np.kron(sigma_y, sigma_y)
 
-    rho_hat = np.matmul(np.matmul(sigma_y_y, rho.conj().T), sigma_y_y)
+    rho_hat = sigma_y_y @ rho.conj().T @ sigma_y_y
 
-    eig_vals = np.linalg.eigvalsh(np.matmul(rho, rho_hat))
-    eig_vals = np.sort(np.sqrt(eig_vals))[::-1]
+    eig_vals = np.linalg.eigvals(rho @ rho_hat)
+    eig_vals = np.sort(np.abs(np.sqrt(eig_vals)))[::-1]
     return max(0, eig_vals[0] - eig_vals[1] - eig_vals[2] - eig_vals[3])

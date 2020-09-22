@@ -2,7 +2,7 @@
 import numpy as np
 
 from toqito.state_props import entanglement_of_formation
-from toqito.states import basis, bell
+from toqito.states import basis, bell, max_mixed
 
 
 def test_entanglement_of_formation_bell_state():
@@ -12,6 +12,15 @@ def test_entanglement_of_formation_bell_state():
 
     res = entanglement_of_formation(rho)
     np.testing.assert_equal(np.isclose(res, 1), True)
+
+
+def test_entanglement_of_formation_maximally_mixed_state():
+    """The entanglement-of-formation on a maximally mixed."""
+    u_vec = max_mixed(4, False)
+    rho = u_vec * u_vec.conj().T
+
+    res = entanglement_of_formation(rho)
+    np.testing.assert_equal(np.isclose(res, 0), True)
 
 
 def test_entanglement_of_formation_invalid_local_dim():
