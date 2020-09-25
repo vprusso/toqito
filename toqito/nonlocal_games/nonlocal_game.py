@@ -109,7 +109,9 @@ class NonlocalGame:
         )
 
     def quantum_value_lower_bound(
-        self, iters: int = 5, tol: float = 10e-6,
+        self,
+        iters: int = 5,
+        tol: float = 10e-6,
     ):
         r"""
         Compute a lower bound on the quantum value of a nonlocal game [LD07]_.

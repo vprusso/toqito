@@ -104,6 +104,9 @@
   the Kronecker product between two entities, where either two may be of type
   `np.ndarray` or a `cvxpy` expression.
  
+- Feature: Add `is_identity.py` to `state_props/`. This feature allows one to check
+  if a given matrix is equal to the identity matrix. 
+ 
 - Enhancement: Previously ignore tests for `channel_props/` are now being run as
   part of the testing suite.
   

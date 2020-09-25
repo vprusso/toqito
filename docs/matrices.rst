@@ -46,6 +46,7 @@ Properties of Matrices and Vectors
     toqito.matrix_props.is_density
     toqito.matrix_props.is_diagonal
     toqito.matrix_props.is_hermitian
+    toqito.matrix_props.is_identity
     toqito.matrix_props.is_normal
     toqito.matrix_props.is_positive_definite
     toqito.matrix_props.is_projection
