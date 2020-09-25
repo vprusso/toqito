@@ -19,9 +19,47 @@ def is_identity(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> boo
             0 & 0 & 0 & \ldots & 1
         \end{pmatrix}.
 
+    Examples
+    ==========
+
+    Consider the following matrix:
+
+    .. math::
+        A = \begin{pmatrix}
+                1 & 0 & 0 \\
+                0 & 1 & 0 \\
+                0 & 0 & 1
+            \end{pmatrix}
+
+    our function indicates that this is indeed the identity matrix of dimension
+    3.
+
+    >>> from toqito.matrix_props import is_identity
+    >>> import numpy as np
+    >>> mat = np.eye(3)
+    >>> is_identity(mat)
+    True
+
+    Alternatively, the following example matrix :math:`B` defined as
+
+    .. math::
+        B = \begin{pmatrix}
+                1 & 2 & 3 \\
+                4 & 5 & 6 \\
+                7 & 8 & 9
+            \end{pmatrix}
+
+    is not an identity matrix.
+
+    >>> from toqito.matrix_props import is_identity
+    >>> import numpy as np
+    >>> mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+    >>> is_identity(mat)
+    False
+
     References
     ==========
-    .. [WikDensity] Wikipedia: Density matrix
+    .. [WikIdentity] Wikipedia: Identity matrix
         https://en.wikipedia.org/wiki/Identity_matrix
 
     :param mat: Matrix to check.
