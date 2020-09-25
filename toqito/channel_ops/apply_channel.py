@@ -6,7 +6,9 @@ from toqito.matrix_ops import vec
 from toqito.perms import swap
 
 
-def apply_channel(mat: np.ndarray, phi_op: Union[np.ndarray, List[List[np.ndarray]]]) -> np.ndarray:
+def apply_channel(
+    mat: np.ndarray, phi_op: Union[np.ndarray, List[List[np.ndarray]]]
+) -> np.ndarray:
     r"""
     Apply a quantum channel to an operator [WatAChan18]_.
 

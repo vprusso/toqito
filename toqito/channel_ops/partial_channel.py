@@ -1,4 +1,4 @@
-"""Apply map a subsystem of an operator."""
+"""Apply channel a subsystem of an operator."""
 from typing import List, Union
 import numpy as np
 
@@ -13,7 +13,7 @@ def partial_channel(
     sys: int = 2,
     dim: Union[List[int], np.ndarray] = None,
 ) -> np.ndarray:
-    r"""Apply map to a subsystem of an operator [WatPMap18]_.
+    r"""Apply channel to a subsystem of an operator [WatPMap18]_.
 
     Applies the operator
 

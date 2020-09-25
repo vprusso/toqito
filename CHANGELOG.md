@@ -127,3 +127,11 @@
   
 - Fix: The `states/isotropic.py` file no longer requires the use of the 
   deprecated `numpy.matrix` class.
+  
+## 0.0.7
+
+- Feature: Added `is_unital.py` under `channel_props/`. This feature allows
+  the user to determine whether a given channel (specified by either its Choi
+  matrix or by its Kraus operators) is unital.
+  
+-

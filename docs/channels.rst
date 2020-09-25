@@ -53,3 +53,4 @@ Properties of Quantum Channels
     toqito.channel_props.is_completely_positive
     toqito.channel_props.is_herm_preserving
     toqito.channel_props.is_positive
+    toqito.channel_props.is_unital

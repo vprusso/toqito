@@ -7,7 +7,7 @@ requirements = ["cvx", "cvxpy", "numpy", "picos", "scipy", "scikit-image"]
 
 setuptools.setup(
     name="toqito",
-    version="0.0.5",
+    version="0.0.6",
     author="Vincent Russo",
     author_email="vincentrusso1@gmail.com",
     description="Python toolkit for quantum information theory",
