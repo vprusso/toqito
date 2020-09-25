@@ -91,4 +91,4 @@ def random_unitary(dim: Union[List[int], int], is_real: bool = False) -> np.ndar
     # Protect against potentially zero diagonal entries.
     r_mat[r_mat == 0] = 1
 
-    return np.matmul(q_mat, np.diag(r_mat))
+    return q_mat @ np.diag(r_mat)

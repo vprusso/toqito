@@ -2,7 +2,7 @@
 import numpy as np
 
 from toqito.channels import depolarizing
-from toqito.channel_ops import apply_map
+from toqito.channel_ops import apply_channel
 
 
 def test_depolarizing_complete_depolarizing():
@@ -19,7 +19,7 @@ def test_depolarizing_complete_depolarizing():
         )
     )
 
-    res = apply_map(test_input_mat, depolarizing(4))
+    res = apply_channel(test_input_mat, depolarizing(4))
 
     bool_mat = np.isclose(expected_res, res)
     np.testing.assert_equal(np.all(bool_mat), True)
@@ -40,7 +40,7 @@ def test_depolarizing_partially_depolarizing():
         ]
     )
 
-    res = apply_map(test_input_mat, depolarizing(4, 0.5))
+    res = apply_channel(test_input_mat, depolarizing(4, 0.5))
 
     bool_mat = np.isclose(expected_res, res)
     np.testing.assert_equal(np.all(bool_mat), True)

@@ -1,11 +1,11 @@
-"""Tests for partial_map."""
+"""Tests for partial_channel."""
 import numpy as np
 
-from toqito.channel_ops import partial_map
+from toqito.channel_ops import partial_channel
 from toqito.channels import depolarizing
 
 
-def test_partial_map_depolarizing_first_system():
+def test_partial_channel_depolarizing_first_system():
     """
     Perform the partial map using the depolarizing channel as the Choi
     matrix on first system.
@@ -38,7 +38,7 @@ def test_partial_map_depolarizing_first_system():
             ],
         ]
     )
-    res = partial_map(rho, depolarizing(2))
+    res = partial_channel(rho, depolarizing(2))
 
     expected_res = np.array(
         [
@@ -53,7 +53,7 @@ def test_partial_map_depolarizing_first_system():
     np.testing.assert_equal(np.all(bool_mat), True)
 
 
-def test_partial_map_depolarizing_second_system():
+def test_partial_channel_depolarizing_second_system():
     """
     Perform the partial map using the depolarizing channel as the Choi
     matrix on second system.
@@ -86,7 +86,7 @@ def test_partial_map_depolarizing_second_system():
             ],
         ]
     )
-    res = partial_map(rho, depolarizing(2), 1)
+    res = partial_channel(rho, depolarizing(2), 1)
 
     expected_res = np.array(
         [
@@ -101,13 +101,13 @@ def test_partial_map_depolarizing_second_system():
     np.testing.assert_equal(np.all(bool_mat), True)
 
 
-def test_partial_map_dim_list():
+def test_partial_channel_dim_list():
     """
     Perform the partial map using the depolarizing channel as the Choi
     matrix on first system when the dimension is specified as list.
     """
     rho = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
-    res = partial_map(rho, depolarizing(2), 2, [2, 2])
+    res = partial_channel(rho, depolarizing(2), 2, [2, 2])
 
     expected_res = np.array(
         [
@@ -122,32 +122,32 @@ def test_partial_map_dim_list():
     np.testing.assert_equal(np.all(bool_mat), True)
 
 
-def test_partial_map_non_square_matrix():
+def test_partial_channel_non_square_matrix():
     """Matrix must be square."""
     with np.testing.assert_raises(ValueError):
         rho = np.array([[1, 1, 1, 1], [5, 6, 7, 8], [3, 3, 3, 3]])
-        partial_map(rho, depolarizing(3))
+        partial_channel(rho, depolarizing(3))
 
 
-def test_partial_map_non_square_matrix_2():
+def test_partial_channel_non_square_matrix_2():
     """Matrix must be square with sys arg."""
     with np.testing.assert_raises(ValueError):
         rho = np.array([[1, 2, 3, 4], [2, 2, 2, 2], [12, 11, 10, 9]])
-        partial_map(rho, depolarizing(3), 2)
+        partial_channel(rho, depolarizing(3), 2)
 
 
-def test_partial_map_invalid_dim():
+def test_partial_channel_invalid_dim():
     """Invalid dimension for partial map."""
     with np.testing.assert_raises(ValueError):
         rho = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [12, 11, 10, 9]])
-        partial_map(rho, depolarizing(3), 1, [2, 2])
+        partial_channel(rho, depolarizing(3), 1, [2, 2])
 
 
-def test_partial_map_invalid_map():
+def test_partial_channel_invalid_map():
     """Invalid map argument for partial map."""
     with np.testing.assert_raises(ValueError):
         rho = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [12, 11, 10, 9]])
-        partial_map(rho, 5)
+        partial_channel(rho, 5)
 
 
 if __name__ == "__main__":

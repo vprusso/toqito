@@ -2,12 +2,12 @@
 from typing import List, Union
 import numpy as np
 
-from toqito.channel_ops import apply_map
+from toqito.channel_ops import apply_channel
 from toqito.states import max_entangled
 from toqito.perms import permute_systems
 
 
-def partial_map(
+def partial_channel(
     rho: np.ndarray,
     phi_map: Union[np.ndarray, List[List[np.ndarray]]],
     sys: int = 2,
@@ -31,25 +31,25 @@ def partial_map(
     Examples
     ==========
 
-    >>> from toqito.channel_ops import partial_map
+    >>> from toqito.channel_ops import partial_channel
     >>> from toqito.channels import depolarizing
     >>> rho = np.array([[0.3101, -0.0220-0.0219*1j, -0.0671-0.0030*1j, -0.0170-0.0694*1j],
     >>>                 [-0.0220+0.0219*1j, 0.1008, -0.0775+0.0492*1j, -0.0613+0.0529*1j],
     >>>                 [-0.0671+0.0030*1j, -0.0775-0.0492*1j, 0.1361, 0.0602 + 0.0062*1j],
     >>>                 [-0.0170+0.0694*1j, -0.0613-0.0529*1j, 0.0602-0.0062*1j, 0.4530]])
-    >>> phi_x = partial_map(rho, depolarizing(2))
+    >>> phi_x = partial_channel(rho, depolarizing(2))
     [[ 0.20545+0.j       0.     +0.j      -0.0642 +0.02495j  0.     +0.j     ]
      [ 0.     +0.j       0.20545+0.j       0.     +0.j      -0.0642 +0.02495j]
      [-0.0642 -0.02495j  0.     +0.j       0.29455+0.j       0.     +0.j     ]
      [ 0.     +0.j      -0.0642 -0.02495j  0.     +0.j       0.29455+0.j     ]]
 
-    >>> from toqito.channel_ops import partial_map
+    >>> from toqito.channel_ops import partial_channel
     >>> from toqito.channels import depolarizing
     >>> rho = np.array([[0.3101, -0.0220-0.0219*1j, -0.0671-0.0030*1j, -0.0170-0.0694*1j],
     >>>                 [-0.0220+0.0219*1j, 0.1008, -0.0775+0.0492*1j, -0.0613+0.0529*1j],
     >>>                 [-0.0671+0.0030*1j, -0.0775-0.0492*1j, 0.1361, 0.0602 + 0.0062*1j],
     >>>                 [-0.0170+0.0694*1j, -0.0613-0.0529*1j, 0.0602-0.0062*1j, 0.4530]])
-    >>> phi_x = partial_map(rho, depolarizing(2), 1)
+    >>> phi_x = partial_channel(rho, depolarizing(2), 1)
     [[0.2231+0.j      0.0191-0.00785j 0.    +0.j      0.    +0.j     ]
      [0.0191+0.00785j 0.2769+0.j      0.    +0.j      0.    +0.j     ]
      [0.    +0.j      0.    +0.j      0.2231+0.j      0.0191-0.00785j]
@@ -95,7 +95,7 @@ def partial_map(
                     np.identity(prod_dim_r2),
                 )
             )
-        phi_x = apply_map(rho, phi)
+        phi_x = apply_channel(rho, phi)
         return phi_x
 
     # The `phi_map` variable is provided as a Choi matrix.
@@ -135,7 +135,7 @@ def partial_map(
             dim,
         )
 
-        phi_x = apply_map(rho, phi_map)
+        phi_x = apply_channel(rho, phi_map)
 
         return phi_x
 

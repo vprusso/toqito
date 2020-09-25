@@ -87,5 +87,5 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     # If `rho` or `sigma` are *not* cvxpy variables, compute fidelity normally,
     # since this is much faster.
     sq_rho = scipy.linalg.sqrtm(rho)
-    sq_fid = scipy.linalg.sqrtm(np.matmul(np.matmul(sq_rho, sigma), sq_rho))
+    sq_fid = scipy.linalg.sqrtm(sq_rho @ sigma @ sq_rho)
     return np.real(np.trace(sq_fid))

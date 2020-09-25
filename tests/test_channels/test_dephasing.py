@@ -2,7 +2,7 @@
 import numpy as np
 
 from toqito.channels import dephasing
-from toqito.channel_ops import apply_map
+from toqito.channel_ops import apply_channel
 
 
 def test_dephasing_completely_dephasing():
@@ -13,7 +13,7 @@ def test_dephasing_completely_dephasing():
 
     expected_res = np.array([[1, 0, 0, 0], [0, 6, 0, 0], [0, 0, 11, 0], [0, 0, 0, 16]])
 
-    res = apply_map(test_input_mat, dephasing(4))
+    res = apply_channel(test_input_mat, dephasing(4))
 
     bool_mat = np.isclose(expected_res, res)
     np.testing.assert_equal(np.all(bool_mat), True)
@@ -29,7 +29,7 @@ def test_dephasing_partially_dephasing():
         [[17.5, 0, 0, 0], [0, 20, 0, 0], [0, 0, 22.5, 0], [0, 0, 0, 25]]
     )
 
-    res = apply_map(test_input_mat, dephasing(4, 0.5))
+    res = apply_channel(test_input_mat, dephasing(4, 0.5))
 
     bool_mat = np.isclose(expected_res, res)
     np.testing.assert_equal(np.all(bool_mat), True)

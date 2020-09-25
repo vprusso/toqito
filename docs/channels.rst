@@ -14,7 +14,7 @@ operators. Then a quantum channel, :math:`\Phi` is defined as
 such that :math:`\Phi` is completely positive and trace preserving.
 
 Quantum Channels
------------------------------------------
+----------------
 
 .. toctree::
 
@@ -37,10 +37,10 @@ Operations on Quantum Channels
 .. autosummary::
    :toctree: _autosummary
 
-    toqito.channel_ops.apply_map
+    toqito.channel_ops.apply_channel
     toqito.channel_ops.choi_to_kraus
     toqito.channel_ops.kraus_to_choi
-    toqito.channel_ops.partial_map
+    toqito.channel_ops.partial_channel
 
 Properties of Quantum Channels
 ------------------------------

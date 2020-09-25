@@ -61,11 +61,7 @@ def test_gell_mann_dim_3_2():
 def test_gell_mann_dim_3_3():
     """Generalized Gell-Mann operator 3-dimensional."""
     expected_res = np.array(
-        [
-            [1 / np.sqrt(3), 0, 0],
-            [0, 1 / np.sqrt(3), 0],
-            [0, 0, -2 * 1 / np.sqrt(3)],
-        ]
+        [[1 / np.sqrt(3), 0, 0], [0, 1 / np.sqrt(3), 0], [0, 0, -2 * 1 / np.sqrt(3)],]
     )
     res = gen_gell_mann(2, 2, 3)
 

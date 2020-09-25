@@ -1,11 +1,11 @@
-"""Tests for apply_map."""
+"""Tests for apply_channel."""
 import numpy as np
 
-from toqito.channel_ops import apply_map
+from toqito.channel_ops import apply_channel
 from toqito.perms import swap_operator
 
 
-def test_apply_map_choi():
+def test_apply_channel_choi():
     """
     The swap operator is the Choi matrix of the transpose map.
 
@@ -16,13 +16,13 @@ def test_apply_map_choi():
 
     expected_res = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
 
-    res = apply_map(test_input_mat, swap_operator(3))
+    res = apply_channel(test_input_mat, swap_operator(3))
 
     bool_mat = np.isclose(res, expected_res)
     np.testing.assert_equal(np.all(bool_mat), True)
 
 
-def test_apply_map_kraus():
+def test_apply_channel_kraus():
     """
     Apply Kraus map.
 
@@ -40,16 +40,16 @@ def test_apply_map_kraus():
 
     expected_res = np.array([[22, 95, 174], [2, 8, 14], [8, 29, 64]])
 
-    res = apply_map(test_input_mat, [[kraus_1, kraus_2], [kraus_3, kraus_4]])
+    res = apply_channel(test_input_mat, [[kraus_1, kraus_2], [kraus_3, kraus_4]])
 
     bool_mat = np.isclose(res, expected_res)
     np.testing.assert_equal(np.all(bool_mat), True)
 
 
-def test_apply_map_invalid_input():
+def test_apply_channel_invalid_input():
     """Invalid input for apply map."""
     with np.testing.assert_raises(ValueError):
-        apply_map(np.array([[1, 2], [3, 4]]), 2)
+        apply_channel(np.array([[1, 2], [3, 4]]), 2)
 
 
 if __name__ == "__main__":

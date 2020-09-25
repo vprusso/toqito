@@ -50,7 +50,7 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int) -> np.ndarray:
     for input_block in gram_vectors:
         normalizer = sum(
             [
-                np.matmul(np.array(output_block).T.conj(), output_block)
+                np.array(output_block).T.conj() @ output_block
                 for output_block in input_block
             ]
         )
@@ -65,7 +65,7 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int) -> np.ndarray:
                 .dot(np.diag(d_mat ** (-1 / 2.0)))
             )
             internal = partial.dot(np.diag(np.ones(dim)) ** (1 / 2.0))
-            output_povms.append(np.matmul(internal.T.conj(), internal))
+            output_povms.append(internal.T.conj() @ internal)
         povms.append(output_povms)
 
     # This allows us to index the POVMs as [d, d, num_inputs, num_outputs].

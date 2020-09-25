@@ -78,4 +78,4 @@ def is_commuting(mat_1: np.ndarray, mat_2: np.ndarray) -> bool:
     :param mat_2: Second matrix to check.
     :return: Return `True` if :code:`mat_1` commutes with :code:`mat_2` and False otherwise.
     """
-    return np.allclose(np.matmul(mat_1, mat_2) - np.matmul(mat_2, mat_1), 0)
+    return np.allclose(mat_1 @ mat_2 - mat_2 @ mat_1, 0)

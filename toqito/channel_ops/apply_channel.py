@@ -1,4 +1,4 @@
-"""Apply map a superoperator to an operator."""
+"""Apply channel to an operator."""
 from typing import List, Union
 import numpy as np
 
@@ -6,11 +6,27 @@ from toqito.matrix_ops import vec
 from toqito.perms import swap
 
 
-def apply_map(
-    mat: np.ndarray, phi_op: Union[np.ndarray, List[List[np.ndarray]]]
-) -> np.ndarray:
+def apply_channel(mat: np.ndarray, phi_op: Union[np.ndarray, List[List[np.ndarray]]]) -> np.ndarray:
     r"""
-    Apply a superoperator to an operator.
+    Apply a quantum channel to an operator [WatAChan18]_.
+
+    Specifically, an application of the channel is defined as
+
+    .. math::
+        \Phi(X) = \tr_{\mathcal{X}} \left(J(\Phi)
+        \left(\mathbb{I}_{\mathcal{Y}} \otimes X^{T}\right)\right),
+
+    where
+
+    .. math::
+        J(\Phi): \text{T}(\mathcal{X}, \mathcal{Y}) \rightarrow
+        \text{L}(\mathcal{Y} \otimes \mathcal{X})
+
+    is the Choi representation of :math:`\Phi`.
+
+    We assume the quantum channel given as :code:`phi_op` is provided as either
+    the Choi matrix of the channel or a set of Kraus operators that define the
+    quantum channel.
 
     This function is adapted from the QETLAB package.
 
@@ -56,14 +72,21 @@ def apply_map(
 
     Using :code:`toqito`, we can obtain the above matrices as follows.
 
-    >>> from toqito.channel_ops import apply_map
+    >>> from toqito.channel_ops import apply_channel
     >>> from toqito.perms import swap_operator
     >>> import numpy as np
     >>> test_input_mat = np.array([[1, 4, 7], [2, 5, 8], [3, 6, 9]])
-    >>> apply_map(test_input_mat, swap_operator(3))
+    >>> apply_channel(test_input_mat, swap_operator(3))
     [[1., 2., 3.],
      [4., 5., 6.],
      [7., 8., 9.]]
+
+    References
+    ==========
+    .. [WatAChan18] Watrous, John.
+        The theory of quantum information.
+        Section: Representations and characterizations of channels.
+        Cambridge University Press, 2018.
 
     :param mat: A matrix.
     :param phi_op: A superoperator. :code:`phi_op` should be provided either as
@@ -97,7 +120,7 @@ def apply_map(
         k_2 = np.concatenate(phi_1_list, axis=0)
 
         a_mat = np.kron(np.identity(len(phi_op)), mat)
-        return np.matmul(np.matmul(k_1, a_mat), k_2)
+        return k_1 @ a_mat @ k_2
 
     # The superoperator was given as a Choi matrix:
     if isinstance(phi_op, np.ndarray):
@@ -114,7 +137,7 @@ def apply_map(
             ).T,
             (int(phi_size[0] * np.prod(mat_size)), int(phi_size[1])),
         )
-        return np.matmul(a_mat, b_mat)
+        return a_mat @ b_mat
     raise ValueError(
         "Invalid: The variable `phi_op` must either be a list of "
         "Kraus operators or as a Choi matrix."
