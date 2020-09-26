@@ -19,7 +19,7 @@ def is_unital(
     *unital* if it holds that
 
     .. math::
-        \Phi(\mathbb{I}_{\mathcal{X}}})) = \mathbb{I}_{\mathcal{Y}}.
+        \Phi(\mathbb{I}_{\mathcal{X}}) = \mathbb{I}_{\mathcal{Y}}.
 
     Examples
     ==========

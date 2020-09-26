@@ -15,7 +15,7 @@ def apply_channel(
     Specifically, an application of the channel is defined as
 
     .. math::
-        \Phi(X) = \tr_{\mathcal{X}} \left(J(\Phi)
+        \Phi(X) = \text{Tr}_{\mathcal{X}} \left(J(\Phi)
         \left(\mathbb{I}_{\mathcal{Y}} \otimes X^{T}\right)\right),
 
     where

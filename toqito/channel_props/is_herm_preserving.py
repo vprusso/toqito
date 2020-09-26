@@ -4,10 +4,13 @@ from typing import List, Union
 import numpy as np
 
 from toqito.channel_ops import kraus_to_choi
+from toqito.matrix_props import is_hermitian
 
 
 def is_herm_preserving(
-    phi: Union[np.ndarray, List[List[np.ndarray]]], tol: float = 1e-05
+    phi: Union[np.ndarray, List[List[np.ndarray]]],
+    rtol: float = 1e-05,
+    atol: float = 1e-08,
 ) -> bool:
     r"""
     Determine whether the given channel is Hermitian-preserving [WatH18]_.
@@ -65,7 +68,8 @@ def is_herm_preserving(
 
     :param phi: The channel provided as either a Choi matrix or a list of
                 Kraus operators.
-    :param tol: The tolerance parameter to determine Hermiticity.
+    :param rtol: The relative tolerance parameter (default 1e-05).
+    :param atol: The absolute tolerance parameter (default 1e-08).
     :return: True if the channel is Hermitian-preserving, and False otherwise.
     """
     # If the variable `phi` is provided as a list, we assume this is a list
@@ -73,7 +77,7 @@ def is_herm_preserving(
     if isinstance(phi, list):
         phi = kraus_to_choi(phi)
 
-    # Phi is Hermiticity-preserving iff its Choi matrix is Hermitian.
+    # Phi is Hermiticity-preserving if and only if its Choi matrix is Hermitian.
     if phi.shape[0] != phi.shape[1]:
         return False
-    return np.max(np.max(np.abs(phi - phi.conj().T))) <= tol
+    return is_hermitian(phi, rtol=rtol, atol=atol)

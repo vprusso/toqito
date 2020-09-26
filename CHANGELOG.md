@@ -134,4 +134,5 @@
   the user to determine whether a given channel (specified by either its Choi
   matrix or by its Kraus operators) is unital.
   
--
+- Enhancement: Adding `rtol` and `atol` tolerance parameters for 
+  `is_herm_preserving.py`.
