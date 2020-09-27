@@ -75,43 +75,61 @@ class NonlocalGame:
         """
         Compute the classical value of the nonlocal game.
 
+        This function has been adapted from the QETLAB package.
+
         :return: A value between [0, 1] representing the classical value.
         """
-        if self.reps >= 1:
+        (
+            num_alice_outputs,
+            num_bob_outputs,
+            num_alice_inputs,
+            num_bob_inputs,
+        ) = self.pred_mat.shape
+
+        for x_alice_in in range(num_alice_inputs):
+            for y_bob_in in range(num_bob_inputs):
+                self.pred_mat[:, :, x_alice_in, y_bob_in] = (
+                    self.prob_mat[x_alice_in, y_bob_in]
+                    * self.pred_mat[:, :, x_alice_in, y_bob_in]
+                )
+        p_win = float("-inf")
+        if num_alice_outputs ** num_alice_inputs < num_bob_outputs ** num_bob_inputs:
+            self.pred_mat = np.transpose(self.pred_mat, (1, 0, 3, 2))
             (
                 num_alice_outputs,
                 num_bob_outputs,
                 num_alice_inputs,
                 num_bob_inputs,
             ) = self.pred_mat.shape
+        self.pred_mat = np.transpose(self.pred_mat, (0, 2, 1, 3))
 
-            # Calculating the classical value of a nonlocal game, in general, is
-            # NP-hard. Our approach here is to simply loop over all possible
-            # combinations of pairs of questions and answers and keep track of
-            # which combination yields the highest classical value.
-            p_win = 0
-            for a_alice_out in range(num_alice_outputs):
-                for b_bob_out in range(num_bob_outputs):
-                    p_sum = 0
-                    for x_alice_in in range(num_alice_inputs):
-                        for y_bob_in in range(num_bob_inputs):
-                            p_sum += (
-                                self.prob_mat[x_alice_in, y_bob_in]
-                                * self.pred_mat[
-                                    a_alice_out, b_bob_out, x_alice_in, y_bob_in
-                                ]
-                            )
-                    p_win = max(p_win, p_sum)
-            return p_win
-        raise ValueError(
-            "Error: toqito currently does not support multiple "
-            "repetitions for the classical value of a nonlocal game."
-        )
+        # Paralleize for loop.
+        # if num_bob_outputs ** num_bob_inputs <= 10 ** 6:
+        #     parallel_threads = 1
+        # else:
+        #     parallel_threads = 5
+
+        for i in range(num_alice_outputs ** num_bob_inputs):
+            # Convert :code:`number` to the base :code:`base` with digits :code:`digits`.
+            number = i
+            base = num_bob_outputs
+            digits = num_bob_inputs
+            b_ind = np.zeros(digits)
+            for j in range(digits):
+                b_ind[digits - j - 1] = np.mod(number, base)
+                number = np.floor(number / base)
+            pred_alice = np.zeros((num_alice_outputs, num_alice_inputs))
+
+            for y_bob_in in range(num_bob_inputs):
+                pred_alice = (
+                    pred_alice + self.pred_mat[:, :, int(b_ind[y_bob_in]), y_bob_in]
+                )
+            tgval = np.sum(np.amax(pred_alice, axis=0))
+            p_win = max(p_win, tgval)
+        return p_win
 
     def quantum_value_lower_bound(
-        self,
-        iters: int = 5,
-        tol: float = 10e-6,
+        self, iters: int = 5, tol: float = 10e-6,
     ):
         r"""
         Compute a lower bound on the quantum value of a nonlocal game [LD07]_.

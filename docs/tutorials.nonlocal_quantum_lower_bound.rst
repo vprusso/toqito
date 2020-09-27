@@ -1,4 +1,4 @@
-Lower bounds on the quantum value of a two-player nonlocal game
+Nonlocal games
 ================================================================
 
 In this tutorial, we are going to cover the notion of a *nonlocal game*; a
@@ -183,6 +183,10 @@ higher if they use a quantum strategy as opposed to a classical one. This
 striking separation is one primary motivation to study nonlocal games, as it
 provides examples of tasks that benefit from the manipulation of quantum
 information. 
+
+Calculating the classical value
+-------------------------------
+(Coming soon)
 
 Calculating the quantum value
 ------------------------------
@@ -416,6 +420,10 @@ value and calculate lower bounds on the quantum value of the FFL game.
 In this case, we obtained the correct quantum value of :math:`2/3`, however,
 the lower bound technique is not guaranteed to converge to the true quantum
 value in general.
+
+Parallel repetitions of nonlocal games
+--------------------------------------
+(Coming soon).
 
 References
 ------------------------------

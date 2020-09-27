@@ -54,11 +54,45 @@ class TestNonlocalGame(unittest.TestCase):
         # the true quantum value.
         self.assertLessEqual(np.isclose(res, np.cos(np.pi / 8) ** 2, rtol=1e-02), True)
 
+    def test_chsh_game_classical_value(self):
+        """Classical value for the CHSH game."""
+        prob_mat, pred_mat = self.chsh_nonlocal_game()
+
+        chsh = NonlocalGame(prob_mat, pred_mat)
+        res = chsh.classical_value()
+        expected_res = 3 / 4
+        self.assertEqual(np.isclose(res, expected_res), True)
+
+    def test_chsh_game_classical_value_rep_2(self):
+        r"""
+        Classical value for the CHSH game for 2 reps.
+
+        Note that for classical strategies, it is known that parallel repetition
+        does *not* hold for the CHSH game, that is:
+
+        w_c(CHSH \land CHSH) = 10/16 > 9/16 = w_c(CHSH) w_c(CHSH).
+        """
+        prob_mat, pred_mat = self.chsh_nonlocal_game()
+
+        chsh = NonlocalGame(prob_mat, pred_mat, 2)
+        res = chsh.classical_value()
+        expected_res = 10 / 16
+        self.assertEqual(np.isclose(res, expected_res), True)
+
     def test_ffl_game_classical_value(self):
         """Classical value for the FFL game."""
         prob_mat, pred_mat = self.ffl_nonlocal_game()
 
         ffl = NonlocalGame(prob_mat, pred_mat)
+        res = ffl.classical_value()
+        expected_res = 2 / 3
+        self.assertEqual(np.isclose(res, expected_res), True)
+
+    def test_ffl_game_classical_value_rep_2(self):
+        """Classical value for the FFL game for 2 reps."""
+        prob_mat, pred_mat = self.ffl_nonlocal_game()
+
+        ffl = NonlocalGame(prob_mat, pred_mat, 2)
         res = ffl.classical_value()
         expected_res = 2 / 3
         self.assertEqual(np.isclose(res, expected_res), True)

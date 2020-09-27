@@ -94,5 +94,7 @@ def is_completely_positive(
     if isinstance(phi, list):
         phi = kraus_to_choi(phi)
 
-    # Use Choi's theorem to determine whether `phi` is completely positive.
-    return is_herm_preserving(phi, rtol) and is_positive_semidefinite(phi, rtol, atol)
+    # Use Choi's theorem to determine whether :code:`phi` is completely positive.
+    return is_herm_preserving(phi, rtol, atol) and is_positive_semidefinite(
+        phi, rtol, atol
+    )

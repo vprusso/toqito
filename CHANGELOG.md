@@ -136,3 +136,10 @@
   
 - Enhancement: Adding `rtol` and `atol` tolerance parameters for 
   `is_herm_preserving.py`.
+  
+- Enhancement: Improving speed of calculating the classical value of nonlocal
+  game. This enhancement is taken from QETLAB which was inspired by pre-print
+  arxiv:2005.13418.
+  
+- Enhancement: Parallel repetitions for the classical value of a nonlocal game
+  is now supported.

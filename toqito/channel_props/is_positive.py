@@ -8,7 +8,9 @@ from toqito.matrix_props import is_positive_semidefinite
 
 
 def is_positive(
-    phi: Union[np.ndarray, List[List[np.ndarray]]], tol: float = 1e-05
+    phi: Union[np.ndarray, List[List[np.ndarray]]],
+    rtol: float = 1e-05,
+    atol: float = 1e-08,
 ) -> bool:
     r"""
     Determine whether the given channel is positive [WatPM18]_.
@@ -69,11 +71,12 @@ def is_positive(
 
     :param phi: The channel provided as either a Choi matrix or a list of
                 Kraus operators.
-    :param tol: The tolerance parameter to determine positivity.
+    :param rtol: The relative tolerance parameter (default 1e-05).
+    :param atol: The absolute tolerance parameter (default 1e-08).
     :return: True if the channel is positive, and False otherwise.
     """
     # If the variable `phi` is provided as a list, we assume this is a list
     # of Kraus operators.
     if isinstance(phi, list):
         phi = kraus_to_choi(phi)
-    return is_positive_semidefinite(phi, tol)
+    return is_positive_semidefinite(phi, rtol, atol)
