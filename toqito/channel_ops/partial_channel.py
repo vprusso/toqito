@@ -83,19 +83,41 @@ def partial_channel(
     prod_dim_r2 = int(np.prod(dim[0, sys:]))
     prod_dim_c2 = int(np.prod(dim[1, sys:]))
 
-    # Note: In the case where the Kraus operators refer to a CP map, this
-    # approach of appending to the list may not work.
     if isinstance(phi_map, list):
-        # The `phi_map` variable is provided as a list of Kraus operators.
-        phi = []
-        for i, _ in enumerate(phi_map):
-            phi.append(
-                np.kron(
-                    np.kron(np.identity(prod_dim_r1), phi_map[i]),
-                    np.identity(prod_dim_r2),
+        # Compute the Kraus operators on the full system.
+        s_phi_1, s_phi_2 = len(phi_map), len(phi_map[0])
+
+        # Map is completely positive.
+        if s_phi_2 == 1 or s_phi_1 == 1 and s_phi_2 > 2:
+            phi = []
+            for i, _ in enumerate(phi_map):
+                phi.append(
+                    np.kron(
+                        np.kron(np.identity(prod_dim_r1), phi_map[i]),
+                        np.identity(prod_dim_r2),
+                    )
                 )
-            )
-        phi_x = apply_channel(rho, phi)
+            phi_x = apply_channel(rho, phi)
+        else:
+            phi_1 = []
+            for i, _ in enumerate(phi_map):
+                phi_1.append(
+                    np.kron(
+                        np.kron(np.identity(prod_dim_r1), phi_map[i][0]),
+                        np.identity(prod_dim_r2),
+                    )
+                )
+            phi_2 = []
+            for i, _ in enumerate(phi_map):
+                phi_2.append(
+                    np.kron(
+                        np.kron(np.identity(prod_dim_c1), phi_map[i][1]),
+                        np.identity(prod_dim_c2),
+                    )
+                )
+
+            phi_x = [list(l) for l in zip(phi_1, phi_2)]
+            phi_x = apply_channel(rho, phi_x)
         return phi_x
 
     # The `phi_map` variable is provided as a Choi matrix.

@@ -65,6 +65,7 @@ def kraus_to_choi(kraus_ops: List[List[np.ndarray]], sys: int = 2) -> np.ndarray
     """
     dim_op_1 = kraus_ops[0][0].shape[0]
     dim_op_2 = kraus_ops[0][0].shape[1]
+
     choi_mat = partial_channel(
         max_entangled(dim_op_1, False, False)
         * max_entangled(dim_op_2, False, False).conj().T,

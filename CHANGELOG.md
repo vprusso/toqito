@@ -143,3 +143,6 @@
   
 - Enhancement: Parallel repetitions for the classical value of a nonlocal game
   is now supported.
+  
+- Fix: The `partial_channel.py` function has been enhanced to deal with 
+  completely positive maps specified by Kraus operators as input.wc
