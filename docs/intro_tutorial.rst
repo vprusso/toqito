@@ -1,184 +1,296 @@
 Introductory Tutorial
 ======================
 
-This tutorial will illustrate the basics of how to use :code:`toqito`. This will
-cover how to instantiate and use the fundamental objects that :code:`toqito`
-provides; namely quantum states, channels, and measurements.
+This tutorial will illustrate the basics of how to use :code:`toqito`. This
+will cover how to instantiate and use the fundamental objects that
+:code:`toqito` provides; namely quantum states, channels, and measurements.
 
 This is a user guide for :code:`toqito` and is not meant to serve as an
 introduction to quantum information. For introductory material on quantum
 information, please consult "Quantum Information and Quantum Computation" by
-Nielsen and Chuang or the freely available lecture notes
-`"Introduction to Quantum Computing" <https://cs.uwaterloo.ca/~watrous/LectureNotes/CPSC519.Winter2006/all.pdf)>`_
+Nielsen and Chuang or the freely available lecture notes `"Introduction to
+Quantum Computing"
+<https://cs.uwaterloo.ca/~watrous/LectureNotes/CPSC519.Winter2006/all.pdf)>`_
 by John Watrous.
 
-More advanced tutorials can be found on the
-`tutorials page <https://toqito.readthedocs.io/en/latest/tutorials.html>`_.
+More advanced tutorials can be found on the `tutorials page
+<https://toqito.readthedocs.io/en/latest/tutorials.html>`_.
 
 This tutorial assumes you have :code:`toqito` installed on your machine. If you
-do not, please consult the
-`installation instructions <https://toqito.readthedocs.io/en/latest/install.html>`_.
+do not, please consult the `installation instructions
+<https://toqito.readthedocs.io/en/latest/install.html>`_.
 
 States
 ------
 
-Let us picture a black box that outputs a tape with a series of characters, each one coming from a specific alphabet. For example :math:`00101,abccd,\uparrow\downarrow\uparrow,\ldots` would come from alphabets :math:`\{0,1\}, \{a,b,c\},\{\uparrow,\downarrow\}`, etc. This is an example of a **register** and we will be concerned with a *quantum* theory about how to process its information.
+A *quantum state* is a density operator
 
-Call :math:`\Sigma` the composite formed by all the sub-alphabets that produced by our tape. For each item on the composite alphabet :math:`i \in \Sigma`, assign a complex number :math:`z_i`. The tuple  :math:`(z_0,z_1, z_a, z_b, z_c, z_\uparrow, z_\downarrow,\ldots)` (together with the usual Euclidean norm) is an element of a complex Euclidean space associated to :math:`\Sigma`. In mathematical notation, we write this space as :math:`\mathbb C ^\Sigma`.
+.. math::
+    \rho \in \text{D}(\mathcal{X})
 
-This complex Euclidean space is where we can define **quantum states**: a type of square matrices :math:`\rho` that contain information about the (quantum) system. More precisely, the matrices are **density operators** which are defined by two special properties:
+where :math:`\mathcal{X}` is a complex Euclidean space and where
+:math:`\text{D}(\cdot)` represents the set of density matrices, that is, the
+set of matrices that are positive semidefinite with trace equal to :math:`1`.
 
-- They are formed from the product of two square matrices, :math:`\rho = Y^*Y`, where :math:`Y^*` is the *conjugate transpose* of :math:`Y^*`. This property is called **positive semidefinite**.
-- They have unit trace: :math:`\mathrm{Tr}(\rho) = 1`
+Quantum States
+^^^^^^^^^^^^^^
 
-:code:`toqito` can quickly check if an array is a density matrix with the function :code:`toqito.matrix_props.is_density`. There are plenty of checks one can make for arrays, they are listed in the documentation of :code:`matrix_props`. For example
+A complete overview of the scope of quantum states can be found
+`here <https://toqito.readthedocs.io/en/latest/states.html#quantum-states>`_
 
-.. code-block:: python
+The standard basis bra vectors given as :math:`|0\rangle` and :math:`|1\rangle` where
 
-  import numpy as np
-  import toqito as tqt
-  from toqito import matrix_ops
+.. math::
+    | 0 \rangle = [1, 0]^{\text{T}} \quad \text{and} \quad | 1 \rangle = [0, 1]^{\text{T}}
 
-  my_state = np.random.randint(-3,5,(4,4)) # Create some random array
-  print(f"Is my state a quantum state? {tqt.matrix_props.is_density(my_state)}")
-
-Quantum states :math:`\rho` characterize a particular way in which the system *entangles* the possible configurations of the register. They also express in an straightforward way **mixtures** of pure states.
-
-A **pure state** is a quantum state built from the outer product of the unit vector with itself: :math:`\rho_{\text{pure}} = u* u \quad,` for :math:`u`  a unit vector. **Mixed states** generalize quantum states to conditions where we have only probabilistic knowledge of the member states. In general, mixed states will be **convex combinations** of pure quantum states. For larger systems, one may want to quickly check if one has a mixture, so let's use :code:`toqito` , which verifies if the states are pure and construct their mixture:
+can be defined in :code:`toqito` as such
 
 .. code-block:: python
 
-  from toqito import (states, state_ops, matrix_ops, state_props, matrix_props, matrices)
+    >>> from toqito.states import basis
+    >>> # |0>
+    >>> basis(2, 0)
+    [[1]
+    [0]]
+    >>> # |1>
+    >>> basis(2, 1)
+    [[0]
+    [1]]
 
-  #set up
+One may define one of the four Bell states written as
 
-  L = 3 #System size
-  N = 6 #Ensemble size
+.. math::
+    u_0 = \frac{1}{\sqrt{2}} \left(| 00 \rangle + | 11 \rangle \right)
 
-  # Produce some probabilities that add up to one.
-  prob = np.random.rand(N)
-  prob = prob/np.sum(prob)
+using :code:`toqito` as
 
-  print(f" Ensemble has probabilities {list(prob)} \n")
+.. code-block:: python
 
-  # Define randomly some pure states:
-  np.random.seed(1)
-  states = np.zeros((N,L,L), dtype=np.complex128)
-  for j in range (N):
-      # Build unit vector and calculate corresponding density matrix
-      vector = tqt.random.random_state_vector(L)
-      states[j] = tqt.state_ops.pure_to_mixed(vector)
+    >>> import numpy as np
+    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
+    >>> u_0 = 1/np.sqrt(2) * (np.kron(e_0, e_0) + np.kron(e_1, e_1))
+    [[0.70710678],
+     [0.        ],
+     [0.        ],
+     [0.70710678]]
 
-  # Tests:
-  print(f"Boolean check of density matrix: \n {[tqt.matrix_props.is_density(states[j]) for j in range(N)]} \n")
-  print(f"Our states are: \n {states} \n")
-  print("Boolean check of purity: \n {[tqt.state_props.is_pure(states[j]) for j in range(N)]} \n")
-  print(f"Do we have an ensemble? {tqt.state_props.is_ensemble([prob[i]*states[i] for i in range(N)])}\n")
+The corresponding density operator of :math:`u_0` can be obtained from
 
-  # Produce convex sum:
-  convex_sum = np.zeros((L,L), dtype=np.complex128)
-  for i in range(N):
-      convex_sum += prob[i]*states[i]
+.. math::
+    \rho_0 = u_0 u_0^* = \frac{1}{2} 
+    \begin{pmatrix} 
+        1 & 0 & 0 & 1 \\
+        0 & 0 & 0 & 0 \\
+        0 & 0 & 0 & 0 \\
+        1 & 0 & 0 & 1
+    \end{pmatrix} \in \text{D}(\mathcal{X}).
 
-  print(f"The mixture of the states is: \n {convex_sum} \n")
-  print(f"Is the final state mixed? {tqt.state_props.is_mixed(convex_sum)}")
+In :code:`toqito`, that can be obtained as 
+
+.. code-block:: python
+    
+    >>> rho_0 = u_0 * u_0.conj().T
+     [0.  0.  0.  0. ]
+     [0.  0.  0.  0. ]
+     [0.5 0.  0.  0.5]]
+
+Alternatively, we may leverage the :code:`bell` function in :code:`toqito` to
+generate all four Bell states defined as
+
+.. math::
+    \begin{equation}
+        \begin{aligned}
+            u_0 = \frac{1}{\sqrt{2}} \left(| 00 \rangle + | 11 \rangle \right), &\quad 
+            u_1 = \frac{1}{\sqrt{2}} \left(| 00 \rangle - | 11 \rangle \right), \\
+            u_2 = \frac{1}{\sqrt{2}} \left(| 01 \rangle + | 10 \rangle \right), &\quad
+            u_3 = \frac{1}{\sqrt{2}} \left(| 01 \rangle - | 10 \rangle \right),
+        \end{aligned}
+    \end{equation}
+
+in a more concise manner as 
+
+.. code-block:: python
+
+    >>> from toqito.states import bell
+    >>> import numpy as np
+    >>> bell(0)
+    [[0.70710678],
+     [0.        ],
+     [0.        ],
+     [0.70710678]]
+
+The Bell states constitute one such well-known class of quantum states. There
+are many other classes of states that are widely used in the field of quantum
+information. For instance, the GHZ state 
+
+.. math::
+    | GHZ \rangle = \frac{1}{\sqrt{2}} \left( | 000 \rangle + | 111 \rangle \right)
+
+is a well-known 3-qubit quantum state. We can invoke this using :code:`toqito` as
+
+.. code-block:: python
+
+    >>> from toqito.states import ghz
+    >>> ghz(2, 3).toarray()
+    [[0.70710678],
+     [0.        ],
+     [0.        ],
+     [0.        ],
+     [0.        ],
+     [0.        ],
+     [0.        ],
+     [0.70710678]]
+
+While the 3-qubit form of the GHZ state is arguably the most notable, it is
+possible to define a generalized GHZ state
+
+.. math::
+    | GHZ_n \rangle = \frac{1}{\sqrt{n}} \left( | 0 \rangle^{\otimes n} + | 1
+    \rangle^{\otimes n} \right).
+
+This generalized state may be obtained in :code:`toqito` as well. For instance,
+here is the GHZ state :math:`\mathbb{C}^{4^{\otimes 7}}` as 
+
+.. math::
+    \frac{1}{\sqrt{30}} \left(| 0000000 \rangle + 2| 1111111 \rangle + 3|
+    2222222 \rangle + 4| 3333333\rangle \right).
+
+Using :code:`toqito`, we can see this generates the appropriate generalized GHZ
+state.
+
+.. code-block:: python
+
+    >>> from toqito.states import ghz
+    >>> ghz(4, 7, np.array([1, 2, 3, 4]) / np.sqrt(30)).toarray()
+    [[0.18257419],
+     [0.        ],
+     [0.        ],
+     ...,
+     [0.        ],
+     [0.        ],
+     [0.73029674]])
+
+Properties of Quantum States
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Given a quantum state, it is often useful to be able to determine certain
+*properties* of the state.
+
+For instance, we can check if a quantum state is pure, that is, if the density
+matrix that describes the state has rank 1.
+
+Any one of the Bell states serve as an example of a pure state
+
+.. code-block:: python
+
+    >>> from toqito.states import bell
+    >>> from toqito.state_props import is_pure
+    >>> rho = bell(0) * bell(0).conj().T
+    >>> is_pure(rho)
+    True
+
+Another property that is useful is whether a given state is PPT (positive
+partial transpose), that is, whether the state remains positive after taking
+the partial transpose of the state.
+
+For quantum states consisting of shared systems of either dimension :math:`2
+\otimes 2` or :math:`2 \otimes 3`, the notion of whether a state is PPT serves
+as a method to determine whether a given quantum state is entangled or
+separable.
+
+As an example, any one of the Bell states constitute a canonical maximally
+entangled state over :math:`2 \otimes 2` and therefore should not satisfy the
+PPT criterion.
+
+.. code-block:: python
+
+    >>> from toqito.states import bell
+    >>> from toqito.state_props import is_ppt
+    >>> rho = bell(2) * bell(2).conj().T
+    >>> is_ppt(rho)
+    False
+
+As we can see, the PPT criterion is :code:`False` for an entangled state in
+:math:`2 \otimes 2`.
+
+Operations on Quantum States
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Distance Metrics for Quantum States
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Given two quantum states, it is often useful to have some way in which to
+quantify how similar or different one state is from another.
+
+One well known metric is the *fidelity* function defined for two quantum
+states. For two states :math:`\rho` and :math:`\sigma`, one defines the
+fidelity between :math:`\rho` and :math:`\sigma` as 
+
+.. math::
+    || \sqrt{\rho} \sqrt{\sigma} ||_1,
+
+where :math:`|| \cdot ||_1` denotes the trace norm. 
+
+The fidelity fucntion yields a value between :math:`0` and :math:`1`, with
+:math:`0` representing the scenarion where :math:`\rho` and :math:`\sigma` are
+as different as can be and where a value of :math:`1` indicates a scenario
+where :math:`\rho` and :math:`\sigma` are identical.
+
+Let us consider an example in :code:`toqito` where we wish to calculate the
+fidelity function between quantum states that happen to be identitcal.
+
+.. code-block:: python
+
+    >>>
 
 
-Some common states are built quickly from :code:`toqito` . For example, the four Bell states for two qubits are obtained with :code:`toqito.states.bell(k)`, where k runs from 0 to 3.
 
+Optimizations over Quantum States
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Channels
 --------
 
-Channels are representations of *discrete changes* in a register. They are linear maps :math:`\Phi` from one space of square operators to another, such that :math:`\Phi(P)` is still a positive semidefinite operator and :math:`\mathrm{Tr} (\Phi(P)) = 1` (trace is preserved):
+A *quantum channel* can be defined as a completely positive and trace
+preserving linear map.
 
+More formally, let :math:`\mathcal{X}` and :math:`\mathcal{Y}` represent
+complex Euclidean spaces and let :math:`\text{L}(\cdot)` represent the set of
+linear operators. Then a quantum channel, :math:`\Phi` is defined as
 
-Let's try the following application: Consider the GHZ state and the W state for three qubits. These are two particular states which have tripartite entanglement such that there are no local quantum operations that can transform one into the other. Indeed, if one of the three qubits is lost, the state of the remaining 2-qubit system is still entangled in the case of the W and fully separable in the case of the GHZ.
+.. math::
+    \Phi: \text{L}(\mathcal{X}) \rightarrow \text{L}(\mathcal{Y})
 
-A more detailed reference is https://arxiv.org/abs/quant-ph/0005115
+such that :math:`\Phi` is completely positive and trace preserving.
 
-Let us check this property with the use of :code:`toqito`. In order to represent this loss of information we will use the **partial trace** on the density operators. This is implemented in :code:`toqito` with :code:`toqito.channels.partial_trace`:
+Quantum Channels
+^^^^^^^^^^^^^^^^
 
-.. code-block:: python
+Properties of Quantum Channels
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-  GHZ = tqt.states.ghz(2,3).toarray()
-  W = tqt.states.w_state(3)
-
-  rho_GHZ=tqt.state_ops.pure_to_mixed(GHZ)
-  reduced_GHZ = tqt.channels.partial_trace(rho_GHZ,sys=2,dim=[2,2,2])  # choosing sys = 1,2 or 3, will give the same result
-  concurrence_GHZ = tqt.state_props.concurrence(reduced_GHZ)
-
-  rho_W=tqt.state_ops.pure_to_mixed(W)
-  reduced_W = tqt.channels.partial_trace(rho_W,sys=k,dim=[2,2,2]) # choosing sys = 1,2 or 3, will give the same result
-  concurrence_W = tqt.state_props.concurrence(reduced_W)
-
-  print(concurrence_GHZ**2, concurrence_W**2) # square of concurrence ('tangle') is a measure of entanglement
-
-We see that while GHZ has zero concurrence (in fact it will be completely unentangled if we lose any qubit), state W will have some entanglement remaining. This is a fundamental difference between the two types of states and in fact separates them into two classes.
-
+Operations on Quantum Channels
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Measurements
 ------------
 
-When we extract (classical) information from a quantum system, outcomes are generally generated at random, and they depend the quantum state of the system at the moment of extracting information and on the measurement itself.
-
-More precisely, a **measurement** is a map :math:`\mu` from the different outcomes of our register (called an **alphabet** :math:`\Sigma`) to positive semidefinite matrices, such that the different measurement operators add up to the identity matrix:
+A *measurement* can be defined as a function
 
 .. math::
-  \sum_{a\in \Sigma} \mu(a) = \mathbb{I}
+    \mu: \Sigma \rightarrow \text{Pos}(\mathcal{X})
 
-Supose the system is in the quantum state :math:`\rho`. When a measurement is made, an outcome :math:`a` of the alphabet :math:`\Sigma` is chosen at random with probability:
-
-.. math::
-  p(a) = \mathrm{Tr} (\mu(a)^* \rho )
-
-Based on this relationship, measurements give a precise motivation to the description of quantum states via density matrices. Since positive semidefinite matrices can be written as :math:`Y^* Y` (which by the way makes them Hermitian), we can rewrite the probability of outcome :math:`a` as
+satisfying
 
 .. math::
-  p(a) = \mathrm{Tr} \left( Y_a ^* Y_a \rho \right) =\mathrm{Tr} \left(  Y_a \rho Y_a ^* \right)
+    \sum_{a \in \Sigma} \mu(a) = \mathbb{I}_{\mathcal{X}}
 
-where we have used the cyclicity of the trace. As we see these are not projections as is usual in closed quantum mechanical systems, but they are *positive operator valued maps* (or just POVMs). The state post-measurement is now :math:`Y_a \rho Y_a^*`
+where :math:`\Sigma` represents a set of measurement outcomes and where
+:math:`\mu(a)` represents the measurement operator associated with outcome
+:math:`a \in \Sigma`.
 
-As an application, consider the problem of Alice sending information to Bob. The information consists of a state :math:`|\psi\rangle` which can be either :math:`|0\rangle` or :math:`|+\rangle`.
+Properties of Measurements
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Since these are not orthonormal states, Bob cannot distinguish them reliably, but he can perform a measurement that at least gives no false positives. Consider the following set of measurements:
-
-.. math::
-  \mu_1 = \frac{\sqrt{2}}{1+\sqrt{2}} |1\rangle \langle 1| \\
-  \mu_2 = \frac{\sqrt{2}}{1+\sqrt{2}} |-\rangle \langle -| \\
-  \mu_3 = \mathbb{I} - \mu_1 - \mu_2
-
-Then we can calculate that a nonzero measurement for :math:`\mu_2` corresponds to the state being :math:`|\psi\rangle = |0\rangle`. Likewise, if :math:`\mu_1` is nonzero, then the state must have been :math:`|\psi\rangle = |+\rangle`. If the measurement gives :math:`\mu_3`, then no conclusion is possible.
-
-We can verify that the set :math:`\mu_1,\mu_2,\mu_3` verifies this analysis by using :code:`toqito`:
-
-.. code:: python
-
-  # Our possible states:
-  zero = tqt.states.basis(2,0)
-  one = tqt.states.basis(2,1)
-  plus =(1/np.sqrt(2))* (zero + one)
-  minus =(1/np.sqrt(2))* (zero - one)
-
-  # Our Measurements:
-  mu1 = (np.sqrt(2)/(1+np.sqrt(2))) * tqt.state_ops.pure_to_mixed(one)
-  mu2 = (np.sqrt(2)/(1+np.sqrt(2))) * tqt.state_ops.pure_to_mixed(minus)
-  mu3 = np.eye(2) - mu1 - mu2
-
-  # Check we have a  POVM:
-  from toqito import measurement_ops,measurement_props
-  tqt.measurement_props.is_povm([mu1,mu2,mu3])
-
-  # Check that measurements are nonzero at the expected states:
-  rho_plus = plus*plus.conj().T
-  rho_zero = zero*zero.conj().T
-
-  tqt.measurement_ops.measure(mu1,rho_plus)
-  tqt.measurement_ops.measure(mu1,rho_zero)
-
-  tqt.measurement_ops.measure(mu2,rho_plus)
-  tqt.measurement_ops.measure(mu2,rho_zero)
-
-  # Notice one may also get the complementary measurement
-  tqt.measurement_ops.measure(mu3,rho_plus)
-  tqt.measurement_ops.measure(mu3,rho_zero)
+Operations on Measurements
+^^^^^^^^^^^^^^^^^^^^^^^^^^

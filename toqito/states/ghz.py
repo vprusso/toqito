@@ -43,7 +43,7 @@ def ghz(dim: int, num_qubits: int, coeff: List[int] = None) -> sparse:
      [0.70710678]]
 
     As this function covers the generalized GHZ state, we can consider higher dimensions. For
-    instance here is the GHZ state in :math:`\mathbb{C^4}^{\otimes 7}` as
+    instance here is the GHZ state in :math:`\mathbb{C}^{4^{\otimes 7}}` as
 
     .. math::
         \frac{1}{\sqrt{30}} \left(|0000000 \rangle + 2|1111111 \rangle +
