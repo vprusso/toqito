@@ -435,19 +435,32 @@ class NonlocalGame:
         :return: A value between [0, 1] representing the non-signaling value.
         """
         alice_out, bob_out, alice_in, bob_in = self.pred_mat.shape
+        dim_x, dim_y = 2, 2
 
-        # Define C(a,b|x,y) variable.
-        c_var = defaultdict(cvxpy.Variable)
+        # Define K(a,b|x,y) variable.
+        k_var = defaultdict(cvxpy.Variable)
         for a_out in range(alice_out):
             for b_out in range(bob_out):
                 for x_in in range(alice_in):
                     for y_in in range(bob_in):
-                        c_var[a_out, b_out, x_in, y_in] = cvxpy.Variable(
-                            (alice_out, bob_out), PSD=True
+                        k_var[a_out, b_out, x_in, y_in] = cvxpy.Variable(
+                            (dim_x, dim_y), PSD=True
                         )
 
-        a_sum_var = cvxpy.Variable()
-        b_sum_var = cvxpy.Variable()
+        # Define \sigma_a^x variable.
+        sigma = defaultdict(cvxpy.Variable)
+        for a_out in range(alice_out):
+            for x_in in range(alice_in):
+                sigma[a_out, x_in] = cvxpy.Variable((dim_x, dim_y), PSD=True)
+
+        # Define \rho_b^y variable.
+        rho = defaultdict(cvxpy.Variable)
+        for b_out in range(bob_out):
+            for y_in in range(bob_in):
+                rho[b_out, y_in] = cvxpy.Variable((dim_x, dim_y), PSD=True)
+
+        # Define \tau density operator variable.
+        tau = cvxpy.Variable((dim_x, dim_y), PSD=True)
 
         p_win = cvxpy.Constant(0)
         for a_out in range(alice_out):
@@ -456,44 +469,57 @@ class NonlocalGame:
                     for y_in in range(bob_in):
                         p_win += self.prob_mat[x_in, y_in] * cvxpy.trace(
                             self.pred_mat[a_out, b_out, x_in, y_in].conj().T
-                            * c_var[a_out, b_out, x_in, y_in]
+                            * k_var[a_out, b_out, x_in, y_in]
                         )
 
         objective = cvxpy.Maximize(p_win)
 
         constraints = list()
 
-        # Enforce that probabilities must sum to 1.
-        # \sum_{(a,b) \in \Gamma} C(a,b|x,y) = 1
-        for x_in in range(alice_in):
-            for y_in in range(bob_in):
-                a_b_sum = 0
-                for a_out in range(alice_out):
-                    for b_out in range(bob_out):
-                        a_b_sum += c_var[a_out, b_out, x_in, y_in]
-                constraints.append(a_b_sum == 1)
+        # The following constraints enforce the so-called non-signaling
+        # constraints.
 
-        # Enforce non-signaling property on marginal for Alice
-        # # \sum_{a \in \Gamma_A} C(a,b|x,y) = \sum_{a \in \Gamma_A} C(a,b|x',y)
-        for x_in in range(alice_in):
-            for y_in in range(bob_in):
-                for b_out in range(bob_out):
-                    a_sum = 0
-                    for a_out in range(alice_out):
-                        a_sum += c_var[a_out, b_out, x_in, y_in]
-                    constraints.append(a_sum == a_sum_var)
-
-        # Enforce non-signaling property on marginal for Bob.
-        # # \sum_{b \in \Gamma_B} C(a,b|x,y) = \sum_{b \in \Gamma_B} C(a,b|x,y')
+        # Enforce that:
+        # \sum_{b \in \Gamma_B} K(a,b|x,y) = \sigma_a^x
         for x_in in range(alice_in):
             for y_in in range(bob_in):
                 for a_out in range(alice_out):
                     b_sum = 0
                     for b_out in range(bob_out):
-                        b_sum += c_var[a_out, b_out, x_in, y_in]
-                    constraints.append(b_sum == b_sum_var)
+                        b_sum += k_var[a_out, b_out, x_in, y_in]
+                    constraints.append(b_sum == sigma[a_out, x_in])
+
+        # Enforce non-signaling constraints on Alice marginal:
+        # \sum_{a \in \Gamma_A} K(a,b|x,y) = \rho_b^y
+        for x_in in range(alice_in):
+            for y_in in range(bob_in):
+                for b_out in range(bob_out):
+                    a_sum = 0
+                    for a_out in range(alice_out):
+                        a_sum += k_var[a_out, b_out, x_in, y_in]
+                    constraints.append(a_sum == rho[b_out, y_in])
+
+        # Enforce non-signaling constraints on Bob marginal:
+        # \sum_{a \in \Gamma_A} \sigma_a^x = \tau
+        for x_in in range(alice_in):
+            sig_a_sum = 0
+            for a_out in range(alice_out):
+                sig_a_sum += sigma[a_out, x_in]
+            constraints.append(sig_a_sum == tau)
+
+        # Enforce that:
+        # \sum_{b \in \Gamma_B} \rho_b^y = \tau
+        for y_in in range(bob_in):
+            rho_b_sum = 0
+            for b_out in range(bob_out):
+                rho_b_sum += rho[b_out, y_in]
+            constraints.append(rho_b_sum == tau)
+
+        # Enforce that tau is a density operator.
+        constraints.append(cvxpy.trace(tau) == 1)
+        constraints.append(tau >> 0)
 
         problem = cvxpy.Problem(objective, constraints)
-        ns_val = 1 / 2 * problem.solve()
+        ns_val = problem.solve()
 
         return ns_val

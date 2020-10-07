@@ -19,9 +19,7 @@ python = "^3.7"
 cvx = "*"
 cvxpy = "^1.1.0a3"
 numpy = "*"
-picos = "*"
 scipy = "*"
-scikit-image = "*"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.7"
