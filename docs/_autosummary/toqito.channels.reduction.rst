@@ -1,4 +1,4 @@
-toqito.channels.reduction
+﻿toqito.channels.reduction
 =========================
 
 .. currentmodule:: toqito.channels

@@ -1,4 +1,4 @@
-toqito.matrix\_props.is\_normal
+﻿toqito.matrix\_props.is\_normal
 ===============================
 
 .. currentmodule:: toqito.matrix_props

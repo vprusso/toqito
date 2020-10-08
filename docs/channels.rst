@@ -1,5 +1,5 @@
 Channels
-=====================
+=========
 
 A *quantum channel* can be defined as a completely positive and trace preserving
 linear map.
@@ -12,6 +12,16 @@ operators. Then a quantum channel, :math:`\Phi` is defined as
     \Phi : \text{L}(\mathcal{X}) \rightarrow \text{L}(\mathcal{Y})
 
 such that :math:`\Phi` is completely positive and trace preserving.
+
+Distance Metrics for Quantum Channels
+-------------------------------------
+
+.. toctree::
+
+.. autosummary::
+   :toctree: _autosummary
+
+    toqito.channel_metrics.sqrt_channel_fidelity
 
 Quantum Channels
 ----------------

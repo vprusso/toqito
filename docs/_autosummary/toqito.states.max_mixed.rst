@@ -1,4 +1,4 @@
-toqito.states.max\_mixed
+﻿toqito.states.max\_mixed
 ========================
 
 .. currentmodule:: toqito.states

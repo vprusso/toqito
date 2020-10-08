@@ -1,4 +1,4 @@
-toqito.matrix\_props.is\_unitary
+﻿toqito.matrix\_props.is\_unitary
 ================================
 
 .. currentmodule:: toqito.matrix_props

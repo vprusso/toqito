@@ -1,4 +1,4 @@
-toqito.matrix\_ops.tensor
+﻿toqito.matrix\_ops.tensor
 =========================
 
 .. currentmodule:: toqito.matrix_ops

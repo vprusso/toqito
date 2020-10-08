@@ -1,4 +1,4 @@
-toqito.perms.permutation\_operator
+﻿toqito.perms.permutation\_operator
 ==================================
 
 .. currentmodule:: toqito.perms
