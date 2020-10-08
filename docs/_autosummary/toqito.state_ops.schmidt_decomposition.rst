@@ -1,4 +1,4 @@
-toqito.state\_ops.schmidt\_decomposition
+﻿toqito.state\_ops.schmidt\_decomposition
 ========================================
 
 .. currentmodule:: toqito.state_ops

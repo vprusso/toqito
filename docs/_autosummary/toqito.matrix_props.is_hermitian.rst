@@ -1,4 +1,4 @@
-toqito.matrix\_props.is\_hermitian
+﻿toqito.matrix\_props.is\_hermitian
 ==================================
 
 .. currentmodule:: toqito.matrix_props

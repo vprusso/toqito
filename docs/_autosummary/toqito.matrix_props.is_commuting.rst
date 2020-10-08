@@ -1,4 +1,4 @@
-toqito.matrix\_props.is\_commuting
+﻿toqito.matrix\_props.is\_commuting
 ==================================
 
 .. currentmodule:: toqito.matrix_props

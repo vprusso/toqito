@@ -1,4 +1,4 @@
-toqito.matrices.pauli
+﻿toqito.matrices.pauli
 =====================
 
 .. currentmodule:: toqito.matrices

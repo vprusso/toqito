@@ -1,4 +1,4 @@
-toqito.matrix\_props.is\_projection
+﻿toqito.matrix\_props.is\_projection
 ===================================
 
 .. currentmodule:: toqito.matrix_props

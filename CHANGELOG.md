@@ -134,6 +134,10 @@
   the user to determine whether a given channel (specified by either its Choi
   matrix or by its Kraus operators) is unital.
   
+- Feautre: Added `sqrt_channel_fidelity.py` under `channel_metrics/`. This 
+  feature allows the user to calculate the root channel fidelity between the
+  Choi representations of two quantum channels.
+  
 - Enhancement: Adding `rtol` and `atol` tolerance parameters for 
   `is_herm_preserving.py`.
   
@@ -145,4 +149,4 @@
   is now supported.
   
 - Fix: The `partial_channel.py` function has been enhanced to deal with 
-  completely positive maps specified by Kraus operators as input.wc
+  completely positive maps specified by Kraus operators as input.
