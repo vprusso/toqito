@@ -16,14 +16,14 @@ def sqrt_channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     .. math::
         \sqrt{F}(\Phi, \Psi) := \text{inf}_{\rho} \sqrt{F}(\Phi(\rho), \Psi(\rho))
 
-    where :math:`\rho \in \text{D}(\Z \otimes \X)` can be calculated by means of the following
-    semidefinite program (Proposition 50) in [VW20]_,
+    where :math:`\rho \in \text{D}(\mathcal{Z} \otimes \mathcal{X})` can be calculated by means of
+    the following semidefinite program (Proposition 50) in [VW20]_,
 
     .. math::
         \begin{align*}
             \text{maximize:} \quad & \lambda \\
             \text{subject to:} \quad & \lambda \mathbb{I}_{\mathcal{Z}} \leq
-                \text{Re}\left( \tr_{\mathcal{Y}} \left( Q \right) \right),\\
+                \text{Re}\left( \text{tr}_{\mathcal{Y}} \left( Q \right) \right),\\
                 \begin{pmatrix}
                     J(\Phi) & Q^* \\
                     Q & J(\Psi)
