@@ -37,7 +37,8 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
                              1 & 0 & 0 & 1
                            \end{pmatrix}
 
-    corresponding to one of the Bell states. Applying the depolarizing channel to :math:`\rho` we have that
+    corresponding to one of the Bell states. Applying the depolarizing channel to :math:`\rho` we
+    have that
 
     .. math::
         \Phi(\rho) = \frac{1}{4} \begin{pmatrix}

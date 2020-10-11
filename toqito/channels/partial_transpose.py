@@ -23,7 +23,8 @@ def partial_transpose(
         \left(X\right)
 
     where :math:`X \in \text{L}(\mathcal{X})` is a linear operator over the complex Euclidean
-    space :math:`\mathcal{X}` and where :math:`\text{T}` is the transpose mapping :math:`\text{T} \in \text{T}(\mathcal{X})` defined as
+    space :math:`\mathcal{X}` and where :math:`\text{T}` is the transpose mapping
+    :math:`\text{T} \in \text{T}(\mathcal{X})` defined as
 
     .. math::
         \text{T}(X) = X^{\text{T}}
