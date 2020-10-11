@@ -48,8 +48,8 @@ def is_herm_preserving(
     True
 
     We may also verify whether the corresponding Choi matrix of a given map is
-    Hermitian-preserving. The swap operator is the Choi matrix of the transpose
-    map, which is Hermitian-preserving as can be seen as follows:
+    Hermitian-preserving. The swap operator is the Choi matrix of the transpose map, which is
+    Hermitian-preserving as can be seen as follows:
 
     >>> import numpy as np
     >>> from toqito.perms import swap_operator
@@ -66,8 +66,7 @@ def is_herm_preserving(
         Section: "Linear maps of square operators".
         Cambridge University Press, 2018.
 
-    :param phi: The channel provided as either a Choi matrix or a list of
-                Kraus operators.
+    :param phi: The channel provided as either a Choi matrix or a list of Kraus operators.
     :param rtol: The relative tolerance parameter (default 1e-05).
     :param atol: The absolute tolerance parameter (default 1e-08).
     :return: True if the channel is Hermitian-preserving, and False otherwise.

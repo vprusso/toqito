@@ -30,9 +30,7 @@ def test_tensor_array_of_numpy_arrays_two():
     input_arr = np.array([np.array([[1, 2], [3, 4]]), np.array([[5, 6], [7, 8]])])
     res = tensor(input_arr)
 
-    expected_res = np.array(
-        [[5, 6, 10, 12], [7, 8, 14, 16], [15, 18, 20, 24], [21, 24, 28, 32]]
-    )
+    expected_res = np.array([[5, 6, 10, 12], [7, 8, 14, 16], [15, 18, 20, 24], [21, 24, 28, 32]])
 
     bool_mat = np.isclose(res, expected_res)
     np.testing.assert_equal(np.all(bool_mat), True)
@@ -51,9 +49,7 @@ def test_tensor_array_of_numpy_arrays_three():
 
 def test_tensor_array_of_numpy_arrays_four():
     """Performing tensor product on four numpy array of numpy arrays."""
-    input_arr = np.array(
-        [np.identity(2), np.identity(2), np.identity(2), np.identity(2)]
-    )
+    input_arr = np.array([np.identity(2), np.identity(2), np.identity(2), np.identity(2)])
     res = tensor(input_arr)
 
     expected_res = np.identity(16)

@@ -24,9 +24,7 @@ def test_kraus_to_choi_swap_operator():
     ]
 
     choi_res = kraus_to_choi(kraus_ops)
-    expected_choi_res = np.array(
-        [[1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 1]]
-    )
+    expected_choi_res = np.array([[1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 1]])
 
     bool_mat = np.isclose(choi_res, expected_choi_res)
     np.testing.assert_equal(np.all(bool_mat), True)
@@ -51,9 +49,7 @@ def test_kraus_to_choi_swap_operator_non_unique():
     ]
 
     choi_res = kraus_to_choi(kraus_ops)
-    expected_choi_res = np.array(
-        [[1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 1]]
-    )
+    expected_choi_res = np.array([[1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 1]])
 
     bool_mat = np.isclose(choi_res, expected_choi_res)
     np.testing.assert_equal(np.all(bool_mat), True)

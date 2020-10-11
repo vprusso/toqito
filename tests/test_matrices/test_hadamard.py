@@ -23,9 +23,7 @@ def test_hadamard_1():
 def test_hadamard_2():
     """Test for Hadamard function when n = 2."""
     res = hadamard(2)
-    expected_res = (
-        1 / 2 * np.array([[1, 1, 1, 1], [1, -1, 1, -1], [1, 1, -1, -1], [1, -1, -1, 1]])
-    )
+    expected_res = 1 / 2 * np.array([[1, 1, 1, 1], [1, -1, 1, -1], [1, 1, -1, -1], [1, -1, -1, 1]])
     bool_mat = np.isclose(res, expected_res)
     np.testing.assert_equal(np.all(bool_mat), True)
 

@@ -21,14 +21,13 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
     .. math::
         \omega = \frac{\mathbb{I}_{\mathcal{X}}}{\text{dim}(\mathcal{X})}
 
-    denotes the completely mixed stated defined with respect to the space
-    :math:`\mathcal{X}`.
+    denotes the completely mixed stated defined with respect to the space :math:`\mathcal{X}`.
 
     Examples
     ==========
 
-    The completely depolarizing channel maps every density matrix to the
-    maximally-mixed state. For example, consider the density operator
+    The completely depolarizing channel maps every density matrix to the maximally-mixed state.
+    For example, consider the density operator
 
     .. math::
         \rho = \frac{1}{2} \begin{pmatrix}
@@ -38,8 +37,7 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
                              1 & 0 & 0 & 1
                            \end{pmatrix}
 
-    corresponding to one of the Bell states. Applying the depolarizing channel
-    to :math:`\rho` we have that
+    corresponding to one of the Bell states. Applying the depolarizing channel to :math:`\rho` we have that
 
     .. math::
         \Phi(\rho) = \frac{1}{4} \begin{pmatrix}

@@ -125,8 +125,7 @@ def swap(
     if isinstance(dim, int):
         dim = np.array([[dim, rho_dims[0] / dim], [dim, rho_dims[1] / dim]])
         if (
-            np.abs(dim[0, 1] - np.round(dim[0, 1]))
-            + np.abs(dim[1, 1] - np.round(dim[1, 1]))
+            np.abs(dim[0, 1] - np.round(dim[0, 1])) + np.abs(dim[1, 1] - np.round(dim[1, 1]))
             >= 2 * np.prod(rho_dims) * eps
         ):
             val_error = """

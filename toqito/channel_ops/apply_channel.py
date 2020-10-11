@@ -6,9 +6,7 @@ from toqito.matrix_ops import vec
 from toqito.perms import swap
 
 
-def apply_channel(
-    mat: np.ndarray, phi_op: Union[np.ndarray, List[List[np.ndarray]]]
-) -> np.ndarray:
+def apply_channel(mat: np.ndarray, phi_op: Union[np.ndarray, List[List[np.ndarray]]]) -> np.ndarray:
     r"""
     Apply a quantum channel to an operator [WatAChan18]_.
 
@@ -26,17 +24,16 @@ def apply_channel(
 
     is the Choi representation of :math:`\Phi`.
 
-    We assume the quantum channel given as :code:`phi_op` is provided as either
-    the Choi matrix of the channel or a set of Kraus operators that define the
-    quantum channel.
+    We assume the quantum channel given as :code:`phi_op` is provided as either the Choi matrix
+    of the channel or a set of Kraus operators that define the quantum channel.
 
     This function is adapted from the QETLAB package.
 
     Examples
     ==========
 
-    The swap operator is the Choi matrix of the transpose map. The following is
-    a (non-ideal, but illustrative) way of computing the transpose of a matrix.
+    The swap operator is the Choi matrix of the transpose map. The following is a (non-ideal,
+    but illustrative) way of computing the transpose of a matrix.
 
     Consider the following matrix
 
@@ -91,15 +88,13 @@ def apply_channel(
         Cambridge University Press, 2018.
 
     :param mat: A matrix.
-    :param phi_op: A superoperator. :code:`phi_op` should be provided either as
-                   a Choi matrix, or as a list of numpy arrays with either 1 or
-                   2 columns whose entries are its Kraus operators.
-    :return: The result of applying the superoperator :code:`phi_op` to the
-             operator :code:`mat`.
+    :param phi_op: A superoperator. :code:`phi_op` should be provided either as a Choi matrix,
+                   or as a list of numpy arrays with either 1 or 2 columns whose entries are its
+                   Kraus operators.
+    :return: The result of applying the superoperator :code:`phi_op` to the operator :code:`mat`.
     """
-    # Both of the following methods of applying the superoperator are much
-    # faster than naively looping through the Kraus operators or constructing
-    # eigenvectors of a Choi matrix.
+    # Both of the following methods of applying the superoperator are much faster than naively
+    # looping through the Kraus operators or constructing eigenvectors of a Choi matrix.
 
     # The superoperator was given as a list of Kraus operators:
     if isinstance(phi_op, list):

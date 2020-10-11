@@ -273,11 +273,7 @@ class XORGame:
                         2,
                     )
                     p_win = np.sum(
-                        np.sum(
-                            np.multiply(
-                                classical_strategy == self.pred_mat, self.prob_mat
-                            )
-                        )
+                        np.sum(np.multiply(classical_strategy == self.pred_mat, self.prob_mat))
                     )
                     # Is this strategy better than other ones tried so far?
                     val = max(val, p_win)

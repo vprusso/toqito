@@ -113,9 +113,7 @@ def state_distinguishability(
         for i, _ in enumerate(states):
             for j, _ in enumerate(states):
                 if i != j:
-                    constraints.append(
-                        cvxpy.trace(states[i].conj().T @ measurements[i]) == 0
-                    )
+                    constraints.append(cvxpy.trace(states[i].conj().T @ measurements[i]) == 0)
 
     if dist_method == "min-error":
         for i, _ in enumerate(states):

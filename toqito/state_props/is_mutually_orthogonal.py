@@ -4,9 +4,7 @@ from typing import Any, List, Union
 import numpy as np
 
 
-def is_mutually_orthogonal(
-    vec_list: List[Union[np.ndarray, List[Union[float, Any]]]]
-) -> bool:
+def is_mutually_orthogonal(vec_list: List[Union[np.ndarray, List[Union[float, Any]]]]) -> bool:
     r"""
     Check if list of vectors are mutually orthogonal [WikOrthog]_.
 

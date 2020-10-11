@@ -9,9 +9,7 @@ def test_sqrt_channel_fidelity_same_channel():
     """The root fidelity of identical channels should yield 1."""
     choi_1 = dephasing(4)
     choi_2 = dephasing(4)
-    np.testing.assert_equal(
-        np.isclose(sqrt_channel_fidelity(choi_1, choi_2), 1, atol=1e-3), True
-    )
+    np.testing.assert_equal(np.isclose(sqrt_channel_fidelity(choi_1, choi_2), 1, atol=1e-3), True)
 
 
 def test_sqrt_channel_fidelity_different_channel():

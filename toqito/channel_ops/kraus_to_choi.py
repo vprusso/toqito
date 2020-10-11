@@ -10,11 +10,10 @@ def kraus_to_choi(kraus_ops: List[List[np.ndarray]], sys: int = 2) -> np.ndarray
     r"""
     Compute the Choi matrix of a list of Kraus operators [WatKraus18]_.
 
-    The Choi matrix of the list of Kraus operators, :code:`kraus_ops`. The
-    default convention is that the Choi matrix is the result of applying the map
-    to the second subsystem of the standard maximally entangled (unnormalized)
-    state. The Kraus operators are expected to be input as a list of numpy
-    arrays.
+    The Choi matrix of the list of Kraus operators, :code:`kraus_ops`. The default convention is
+    that the Choi matrix is the result of applying the map to the second subsystem of the
+    standard maximally entangled (unnormalized) state. The Kraus operators are expected to be
+    input as a list of numpy arrays.
 
     This function was adapted from the QETLAB package.
 
@@ -67,8 +66,7 @@ def kraus_to_choi(kraus_ops: List[List[np.ndarray]], sys: int = 2) -> np.ndarray
     dim_op_2 = kraus_ops[0][0].shape[1]
 
     choi_mat = partial_channel(
-        max_entangled(dim_op_1, False, False)
-        * max_entangled(dim_op_2, False, False).conj().T,
+        max_entangled(dim_op_1, False, False) * max_entangled(dim_op_2, False, False).conj().T,
         kraus_ops,
         sys,
         np.array([[dim_op_1, dim_op_1], [dim_op_2, dim_op_2]]),

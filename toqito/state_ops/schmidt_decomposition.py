@@ -95,9 +95,7 @@ def schmidt_decomposition(
         )
     # Otherwise, use lots of Schmidt coefficients.
     else:
-        u_mat, singular_vals, vt_mat = np.linalg.svd(
-            np.reshape(vec, dim[::-1].astype(int))
-        )
+        u_mat, singular_vals, vt_mat = np.linalg.svd(np.reshape(vec, dim[::-1].astype(int)))
 
     if k_param > 0:
         u_mat = u_mat[:, :k_param]

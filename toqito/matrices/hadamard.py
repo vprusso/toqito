@@ -45,11 +45,7 @@ def hadamard(n_param: int = 1) -> np.ndarray:
     if n_param == 1:
         return 1 / np.sqrt(2) * np.array([[1, 1], [1, -1]])
     if n_param == 2:
-        return (
-            1
-            / 2
-            * np.array([[1, 1, 1, 1], [1, -1, 1, -1], [1, 1, -1, -1], [1, -1, -1, 1]])
-        )
+        return 1 / 2 * np.array([[1, 1, 1, 1], [1, -1, 1, -1], [1, 1, -1, -1], [1, -1, -1, 1]])
     if n_param > 1:
         mat_1 = hadamard(1)
         mat_2 = hadamard(1)

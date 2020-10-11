@@ -9,25 +9,24 @@ def realignment(input_mat: np.ndarray, dim=None) -> np.ndarray:
     r"""
     Compute the realignment of a bipartite operator [LAS08]_.
 
-    Gives the realignment of the matrix :code:`input_mat`, where it is assumed
-    that the number of rows and columns of :code:`input_mat` are both perfect
-    squares and both subsystems have equal dimension. The realignment is defined
-    by mapping the operator :math:`|ij \rangle \langle kl |` to
-    :math:`|ik \rangle \langle jl |` and extending linearly.
+    Gives the realignment of the matrix :code:`input_mat`, where it is assumed that the number
+    of rows and columns of :code:`input_mat` are both perfect squares and both subsystems have
+    equal dimension. The realignment is defined by mapping the operator :math:`|ij \rangle
+    \langle kl |` to :math:`|ik \rangle \langle jl |` and extending linearly.
 
-    If :code:`input_mat` is non-square, different row and column dimensions can
-    be specified by putting the row dimensions in the first row of :code:`dim`
-    and the column dimensions in the second row of :code:`dim`.
+    If :code:`input_mat` is non-square, different row and column dimensions can be specified by
+    putting the row dimensions in the first row of :code:`dim` and the column dimensions in the
+    second row of :code:`dim`.
 
     Examples
     ==========
 
     The standard realignment map
 
-    Using :code:`toqito`, we can generate the standard realignment map as
-    follows. When viewed as a map on block matrices, the realignment map takes
-    each block of the original matrix and makes its vectorization the rows of
-    the realignment matrix. This is illustrated by the following small example:
+    Using :code:`toqito`, we can generate the standard realignment map as follows. When viewed as a
+    map on block matrices, the realignment map takes each block of the original matrix and makes
+    its vectorization the rows of the realignment matrix. This is illustrated by the following
+    small example:
 
     >>> from toqito.channels import realignment
     >>> import numpy as np

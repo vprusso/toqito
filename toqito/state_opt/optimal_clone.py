@@ -190,9 +190,7 @@ def dual_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
     y_var = cvxpy.Variable((2 ** num_reps, 2 ** num_reps), hermitian=True)
     objective = cvxpy.Minimize(cvxpy.trace(cvxpy.real(y_var)))
 
-    kron_var = cvxpy.kron(
-        cvxpy.kron(np.eye(2 ** num_reps), np.eye(2 ** num_reps)), y_var
-    )
+    kron_var = cvxpy.kron(cvxpy.kron(np.eye(2 ** num_reps), np.eye(2 ** num_reps)), y_var)
 
     if num_reps == 1:
         constraints = [cvxpy.real(kron_var) >> q_a]

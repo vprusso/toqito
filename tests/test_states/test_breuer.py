@@ -6,9 +6,7 @@ from toqito.states import breuer
 
 def test_breuer_dim_4_ent():
     """Generate Breuer state of dimension 4 with weight 0.1."""
-    expected_res = np.array(
-        [[0.3, 0, 0, 0], [0, 0.2, 0.1, 0], [0, 0.1, 0.2, 0], [0, 0, 0, 0.3]]
-    )
+    expected_res = np.array([[0.3, 0, 0, 0], [0, 0.2, 0.1, 0], [0, 0.1, 0.2, 0], [0, 0, 0, 0.3]])
 
     res = breuer(2, 0.1)
 

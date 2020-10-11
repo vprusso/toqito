@@ -4,9 +4,7 @@ from typing import Any, List, Union
 import numpy as np
 
 
-def is_mutually_unbiased_basis(
-    vec_list: List[Union[np.ndarray, List[Union[float, Any]]]]
-) -> bool:
+def is_mutually_unbiased_basis(vec_list: List[Union[np.ndarray, List[Union[float, Any]]]]) -> bool:
     r"""
     Check if list of vectors constitute a mutually unbiased basis [WikMUB]_.
 
@@ -87,11 +85,7 @@ def is_mutually_unbiased_basis(
             for k in range(dim):
                 if i != j:
                     if not np.isclose(
-                        np.abs(
-                            np.inner(
-                                vec_list[i][k].conj().T[0], vec_list[j][k].conj().T[0]
-                            )
-                        )
+                        np.abs(np.inner(vec_list[i][k].conj().T[0], vec_list[j][k].conj().T[0]))
                         ** 2,
                         1 / dim,
                     ):

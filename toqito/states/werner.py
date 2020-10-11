@@ -126,6 +126,4 @@ def werner(dim: int, alpha: Union[float, List[float]]) -> np.ndarray:
         rho = rho / np.trace(rho)
         return rho
     # Bipartite Werner state.
-    return (np.identity(dim ** 2) - alpha * swap_operator(dim, True)) / (
-        dim * (dim - alpha)
-    )
+    return (np.identity(dim ** 2) - alpha * swap_operator(dim, True)) / (dim * (dim - alpha))

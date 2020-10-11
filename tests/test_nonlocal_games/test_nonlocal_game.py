@@ -30,9 +30,7 @@ class TestNonlocalGame(unittest.TestCase):
         num_alice_inputs, num_alice_outputs = 2, 2
         num_bob_inputs, num_bob_outputs = 2, 2
         prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
-        pred_mat = np.zeros(
-            (num_alice_outputs, num_bob_outputs, num_alice_inputs, num_bob_inputs)
-        )
+        pred_mat = np.zeros((num_alice_outputs, num_bob_outputs, num_alice_inputs, num_bob_inputs))
 
         for a_alice in range(num_alice_outputs):
             for b_bob in range(num_bob_outputs):

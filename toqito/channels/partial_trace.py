@@ -23,14 +23,12 @@ def partial_trace(
         \left( \text{Tr} \otimes \mathbb{I}_{\mathcal{Y}} \right)
         \left(X \otimes Y \right) = \text{Tr}(X)Y
 
-    where :math:`X \in \text{L}(\mathcal{X})` and
-    :math:`Y \in \text{L}(\mathcal{Y})` are linear operators over complex
-    Euclidean spaces :math:`\mathcal{X}` and :math:`\mathcal{Y}`.
+    where :math:`X \in \text{L}(\mathcal{X})` and :math:`Y \in \text{L}(\mathcal{Y})` are linear
+    operators over complex Euclidean spaces :math:`\mathcal{X}` and :math:`\mathcal{Y}`.
 
-    Gives the partial trace of the matrix X, where the dimensions of the
-    (possibly more than 2) subsystems are given by the vector :code:`dim` and
-    the subsystems to take the trace on are given by the scalar or vector
-    :code:`sys`.
+    Gives the partial trace of the matrix X, where the dimensions of the (possibly more than 2)
+    subsystems are given by the vector :code:`dim` and the subsystems to take the trace on are
+    given by the scalar or vector :code:`sys`.
 
     Examples
     ==========
@@ -45,8 +43,7 @@ def partial_trace(
                 13 & 14 & 15 & 16
             \end{pmatrix}.
 
-    Taking the partial trace over the second subsystem of :math:`X` yields the
-    following matrix
+    Taking the partial trace over the second subsystem of :math:`X` yields the following matrix
 
     .. math::
         X_{pt, 2} = \begin{pmatrix}
@@ -54,8 +51,8 @@ def partial_trace(
                     23 & 27
                  \end{pmatrix}
 
-    By default, the partial trace function in :code:`toqito` takes the trace of
-    the second subsystem.
+    By default, the partial trace function in :code:`toqito` takes the trace of the second
+    subsystem.
 
     >>> from toqito.channels import partial_trace
     >>> import numpy as np
@@ -66,10 +63,9 @@ def partial_trace(
     [[ 7, 11],
      [23, 27]]
 
-    By specifying the :code:`sys = 1` argument, we can perform the partial trace
-    over the first subsystem (instead of the default second subsystem as done
-    above). Performing the partial trace over the first subsystem yields the
-    following matrix
+    By specifying the :code:`sys = 1` argument, we can perform the partial trace over the first
+    subsystem (instead of the default second subsystem as done above). Performing the partial
+    trace over the first subsystem yields the following matrix
 
     .. math::
         X_{pt, 1} = \begin{pmatrix}
@@ -86,8 +82,8 @@ def partial_trace(
     [[12, 14],
      [20, 22]]
 
-    We can also specify both dimension and system size as :code:`list`
-    arguments. Consider the following :math:`16`-by-:math:`16` matrix.
+    We can also specify both dimension and system size as :code:`list` arguments. Consider the
+    following :math:`16`-by-:math:`16` matrix.
 
     >>> from toqito.channels import partial_trace
     >>> import numpy as np
@@ -110,8 +106,8 @@ def partial_trace(
      [225 226 227 228 229 230 231 232 233 234 235 236 237 238 239 240]
      [241 242 243 244 245 246 247 248 249 250 251 252 253 254 255 256]]
 
-    We can take the partial trace on the first and third subsystems and assume
-    that the size of each of the 4 systems is of dimension 2.
+    We can take the partial trace on the first and third subsystems and assume that the size of
+    each of the 4 systems is of dimension 2.
 
     >>> from toqito.channels import partial_trace
     >>> import numpy as np
@@ -128,13 +124,12 @@ def partial_trace(
 
     :param input_mat: A square matrix.
     :param sys: Scalar or vector specifying the size of the subsystems.
-    :param dim: Dimension of the subsystems. If :code:`None`, all dimensions
-                are assumed to be equal.
+    :param dim: Dimension of the subsystems. If :code:`None`, all dimensions are assumed to be
+                equal.
     :return: The partial trace of matrix :code:`input_mat`.
     """
-    # If the input matrix is a CVX variable for an SDP, we convert it to a
-    # numpy array, perform the partial trace, and convert it back to a CVX
-    # variable.
+    # If the input matrix is a CVX variable for an SDP, we convert it to a numpy array,
+    # perform the partial trace, and convert it back to a CVX variable.
     if isinstance(input_mat, Variable):
         rho_np = expr_as_np_array(input_mat)
         traced_rho = partial_trace(rho_np, sys, dim)
@@ -148,21 +143,14 @@ def partial_trace(
     if isinstance(dim, list):
         dim = np.array(dim)
 
-    # if sys is None:
-    #     sys = 2
-
     num_sys = len(dim)
 
     # Allow the user to enter a single number for dim.
     if num_sys == 1:
         dim = np.array([dim[0], len(input_mat) / dim[0]])
-        if (
-            np.abs(dim[1] - np.round(dim[1]))
-            >= 2 * len(input_mat) * np.finfo(float).eps
-        ):
+        if np.abs(dim[1] - np.round(dim[1])) >= 2 * len(input_mat) * np.finfo(float).eps:
             raise ValueError(
-                "Invalid: If `dim` is a scalar, `dim` must evenly "
-                "divide `len(input_mat)`."
+                "Invalid: If `dim` is a scalar, `dim` must evenly " "divide `len(input_mat)`."
             )
         dim[1] = np.round(dim[1])
         num_sys = 2
@@ -179,8 +167,7 @@ def partial_trace(
         prod_dim_sys = np.prod(dim[sys - 1])
     else:
         raise ValueError(
-            "Invalid: The variable `sys` must either be of type "
-            "int or of a list of ints."
+            "Invalid: The variable `sys` must either be of type " "int or of a list of ints."
         )
 
     sub_prod = prod_dim / prod_dim_sys

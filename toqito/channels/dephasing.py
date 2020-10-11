@@ -8,24 +8,22 @@ def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
     r"""
     Produce the partially dephasing channel [WatDeph18]_.
 
-    The Choi matrix of the completely dephasing channel that acts on
-    :code:`dim`-by-:code:`dim` matrices.
+    The Choi matrix of the completely dephasing channel that acts on :code:`dim`-by-:code:`dim`
+    matrices.
 
-    Let :math:`\Sigma` be an alphabet and let
-    :math:`\mathcal{X} = \mathbb{C}^{\Sigma}`. The map
+    Let :math:`\Sigma` be an alphabet and let :math:`\mathcal{X} = \mathbb{C}^{\Sigma}`. The map
     :math:`\Delta \in \text{T}(\mathcal{X})` defined as
 
     .. math::
         \Delta(X) = \sum_{a \in \Sigma} X(a, a) E_{a,a}
 
-    for every :math:`X \in \text{L}(\mathcal{X})` is defined as the *completely
-    dephasing channel*.
+    for every :math:`X \in \text{L}(\mathcal{X})` is defined as the *completely dephasing channel*.
 
     Examples
     ==========
 
-    The completely dephasing channel maps kills everything off the diagonal.
-    Consider the following matrix
+    The completely dephasing channel maps kills everything off the diagonal. Consider the
+    following matrix
 
     .. math::
         \rho = \begin{pmatrix}
@@ -88,6 +86,4 @@ def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
 
     # Gives a sparse non-normalized state.
     psi = max_entangled(dim=dim, is_sparse=False, is_normalized=False)
-    return (1 - param_p) * np.diag(np.diag(psi * psi.conj().T)) + param_p * (
-        psi * psi.conj().T
-    )
+    return (1 - param_p) * np.diag(np.diag(psi * psi.conj().T)) + param_p * (psi * psi.conj().T)

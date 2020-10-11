@@ -112,9 +112,7 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray:
     elif ind == 8:
         gm_op = np.array([[1, 0, 0], [0, 1, 0], [0, 0, -2]]) / np.sqrt(3)
     else:
-        raise ValueError(
-            "Gell-Mann index values can only be values from 0 to " "8 (inclusive)."
-        )
+        raise ValueError("Gell-Mann index values can only be values from 0 to " "8 (inclusive).")
 
     if is_sparse:
         gm_op = csr_matrix(gm_op)

@@ -14,9 +14,7 @@ def test_has_symmetric_extension_two_qubit():
 def test_has_symmetric_extension_not_ppt_level_1():
     """Check whether state has level-1 symmetric extension."""
     rho = np.identity(4)
-    np.testing.assert_equal(
-        has_symmetric_extension(rho, level=1, dim=None, ppt=False), True
-    )
+    np.testing.assert_equal(has_symmetric_extension(rho, level=1, dim=None, ppt=False), True)
 
 
 def test_has_symmetric_extension_entangled_false():
@@ -40,9 +38,7 @@ def test_has_symmetric_extension_dim_list():
 def test_has_symmetric_extension_level_2_entangled_false_non_ppt():
     """Entangled state should not have non-PPT-symmetric extension for some level (level-2)."""
     rho = bell(0) * bell(0).conj().T
-    np.testing.assert_equal(
-        has_symmetric_extension(rho, level=2, dim=2, ppt=False), False
-    )
+    np.testing.assert_equal(has_symmetric_extension(rho, level=2, dim=2, ppt=False), False)
 
 
 def test_has_symmetric_extension_level_2_entangled_false_ppt():

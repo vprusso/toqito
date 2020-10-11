@@ -36,17 +36,13 @@ def unique_perms(elements: List[int]):
     :return: The number of possible permutations possible.
     """
     elem_set = set(elements)
-    list_unique = [
-        UniqueElement(value=i, occurrences=elements.count(i)) for i in elem_set
-    ]
+    list_unique = [UniqueElement(value=i, occurrences=elements.count(i)) for i in elem_set]
     len_elems = len(elements)
 
     return perm_unique_helper(list_unique, [0] * len_elems, len_elems - 1)
 
 
-def perm_unique_helper(
-    list_unique: List[UniqueElement], result_list: List[int], elem_d: int
-):
+def perm_unique_helper(list_unique: List[UniqueElement], result_list: List[int], elem_d: int):
     """
     Provide helper function for unique_perms.
 

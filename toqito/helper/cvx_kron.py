@@ -12,9 +12,8 @@ def cvx_kron(
     """
     Compute Kronecker product between CVXPY objects.
 
-    By default, CVXPY does not support taking the Kronecker product when the
-    argument on the left is equal to a CVXPY object and the object on the right
-    is equal to a numpy object.
+    By default, CVXPY does not support taking the Kronecker product when the argument on the left is
+    equal to a CVXPY object and the object on the right is equal to a numpy object.
 
     At most one of :code:`expr_1` and :code:`b` may be CVXPY Variable objects.
 
@@ -23,6 +22,7 @@ def cvx_kron(
 
     :param expr_1: 2D numpy ndarray, or a CVXPY Variable with expr_1.ndim == 2
     :param expr_2: 2D numpy ndarray, or a CVXPY Variable with expr_2.ndim == 2
+    :return: The tensor product of two CVXPY expressions.
     """
     expr = np.kron(expr_1, expr_2)
     num_rows = expr.shape[0]

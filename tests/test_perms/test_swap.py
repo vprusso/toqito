@@ -8,9 +8,7 @@ def test_swap_matrix():
     """Tests swap operation on matrix."""
     test_mat = np.array([[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]])
 
-    expected_res = np.array(
-        [[1, 9, 5, 13], [3, 11, 7, 15], [2, 10, 6, 14], [4, 12, 8, 16]]
-    )
+    expected_res = np.array([[1, 9, 5, 13], [3, 11, 7, 15], [2, 10, 6, 14], [4, 12, 8, 16]])
 
     res = swap(test_mat)
 
@@ -34,9 +32,7 @@ def test_swap_int_dim():
     """Test swap operation when int is provided."""
     test_mat = np.array([[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]])
 
-    expected_res = np.array(
-        [[1, 9, 5, 13], [3, 11, 7, 15], [2, 10, 6, 14], [4, 12, 8, 16]]
-    )
+    expected_res = np.array([[1, 9, 5, 13], [3, 11, 7, 15], [2, 10, 6, 14], [4, 12, 8, 16]])
 
     res = swap(test_mat, [1, 2], 2)
 

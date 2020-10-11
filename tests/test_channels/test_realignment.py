@@ -13,13 +13,9 @@ def test_realignment_two_qubit():
     the realignment matrix. This is illustrated by the following small
     example:
     """
-    test_input_mat = np.array(
-        [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
-    )
+    test_input_mat = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
 
-    expected_res = np.array(
-        [[1, 2, 5, 6], [3, 4, 7, 8], [9, 10, 13, 14], [11, 12, 15, 16]]
-    )
+    expected_res = np.array([[1, 2, 5, 6], [3, 4, 7, 8], [9, 10, 13, 14], [11, 12, 15, 16]])
 
     res = realignment(test_input_mat)
 

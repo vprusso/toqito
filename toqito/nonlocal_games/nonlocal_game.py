@@ -27,9 +27,7 @@ class NonlocalGame:
         https://arxiv.org/abs/quant-ph/0404076
     """
 
-    def __init__(
-        self, prob_mat: np.ndarray, pred_mat: np.ndarray, reps: int = 1
-    ) -> None:
+    def __init__(self, prob_mat: np.ndarray, pred_mat: np.ndarray, reps: int = 1) -> None:
         """
         Construct nonlocal game object.
 
@@ -89,8 +87,7 @@ class NonlocalGame:
         for x_alice_in in range(num_alice_inputs):
             for y_bob_in in range(num_bob_inputs):
                 self.pred_mat[:, :, x_alice_in, y_bob_in] = (
-                    self.prob_mat[x_alice_in, y_bob_in]
-                    * self.pred_mat[:, :, x_alice_in, y_bob_in]
+                    self.prob_mat[x_alice_in, y_bob_in] * self.pred_mat[:, :, x_alice_in, y_bob_in]
                 )
         p_win = float("-inf")
         if num_alice_outputs ** num_alice_inputs < num_bob_outputs ** num_bob_inputs:
@@ -121,15 +118,15 @@ class NonlocalGame:
             pred_alice = np.zeros((num_alice_outputs, num_alice_inputs))
 
             for y_bob_in in range(num_bob_inputs):
-                pred_alice = (
-                    pred_alice + self.pred_mat[:, :, int(b_ind[y_bob_in]), y_bob_in]
-                )
+                pred_alice = pred_alice + self.pred_mat[:, :, int(b_ind[y_bob_in]), y_bob_in]
             tgval = np.sum(np.amax(pred_alice, axis=0))
             p_win = max(p_win, tgval)
         return p_win
 
     def quantum_value_lower_bound(
-        self, iters: int = 5, tol: float = 10e-6,
+        self,
+        iters: int = 5,
+        tol: float = 10e-6,
     ):
         r"""
         Compute a lower bound on the quantum value of a nonlocal game [LD07]_.
@@ -341,8 +338,7 @@ class NonlocalGame:
                                 self.prob_mat[x_ques, y_ques]
                                 * self.pred_mat[a_ans, b_ans, x_ques, y_ques]
                                 * cvxpy.trace(
-                                    bob_povms[y_ques, b_ans].conj().T
-                                    @ alice_povms[x_ques, a_ans]
+                                    bob_povms[y_ques, b_ans].conj().T @ alice_povms[x_ques, a_ans]
                                 )
                             )
                         if isinstance(
@@ -408,8 +404,7 @@ class NonlocalGame:
                             self.prob_mat[x_ques, y_ques]
                             * self.pred_mat[a_ans, b_ans, x_ques, y_ques]
                             * cvxpy.trace(
-                                bob_povms[y_ques, b_ans].H
-                                @ alice_povms[x_ques, a_ans].value
+                                bob_povms[y_ques, b_ans].H @ alice_povms[x_ques, a_ans].value
                             )
                         )
 
@@ -443,9 +438,7 @@ class NonlocalGame:
             for b_out in range(bob_out):
                 for x_in in range(alice_in):
                     for y_in in range(bob_in):
-                        k_var[a_out, b_out, x_in, y_in] = cvxpy.Variable(
-                            (dim_x, dim_y), PSD=True
-                        )
+                        k_var[a_out, b_out, x_in, y_in] = cvxpy.Variable((dim_x, dim_y), PSD=True)
 
         # Define \sigma_a^x variable.
         sigma = defaultdict(cvxpy.Variable)

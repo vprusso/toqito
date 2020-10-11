@@ -20,9 +20,7 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         num_alice_out, num_bob_out = 2, 2
         num_alice_in, num_bob_in = 2, 2
 
-        pred_mat = np.zeros(
-            [dim, dim, num_alice_out, num_bob_out, num_alice_in, num_bob_in]
-        )
+        pred_mat = np.zeros([dim, dim, num_alice_out, num_bob_out, num_alice_in, num_bob_in])
         pred_mat[:, :, 0, 0, 0, 0] = e_0 * e_0.conj().T
         pred_mat[:, :, 0, 0, 1, 1] = e_p * e_p.conj().T
         pred_mat[:, :, 1, 1, 0, 0] = e_1 * e_1.conj().T
@@ -39,9 +37,7 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         num_alice_out, num_bob_out = 2, 2
         num_alice_in, num_bob_in = 2, 2
 
-        pred_mat = np.zeros(
-            [dim, dim, num_alice_out, num_bob_out, num_alice_in, num_bob_in]
-        )
+        pred_mat = np.zeros([dim, dim, num_alice_out, num_bob_out, num_alice_in, num_bob_in])
         pred_mat[:, :, 0, 0, 0, 0] = np.array([[1, 0], [0, 0]])
         pred_mat[:, :, 0, 0, 0, 1] = np.array([[1, 0], [0, 0]])
         pred_mat[:, :, 0, 0, 1, 0] = np.array([[1, 0], [0, 0]])

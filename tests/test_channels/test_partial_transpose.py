@@ -17,9 +17,7 @@ def test_partial_transpose():
     """
     test_input_mat = np.arange(1, 17).reshape(4, 4)
 
-    expected_res = np.array(
-        [[1, 5, 3, 7], [2, 6, 4, 8], [9, 13, 11, 15], [10, 14, 12, 16]]
-    )
+    expected_res = np.array([[1, 5, 3, 7], [2, 6, 4, 8], [9, 13, 11, 15], [10, 14, 12, 16]])
 
     res = partial_transpose(test_input_mat)
 
@@ -36,9 +34,7 @@ def test_partial_transpose_sys():
     """
     test_input_mat = np.arange(1, 17).reshape(4, 4)
 
-    expected_res = np.array(
-        [[1, 2, 9, 10], [5, 6, 13, 14], [3, 4, 11, 12], [7, 8, 15, 16]]
-    )
+    expected_res = np.array([[1, 2, 9, 10], [5, 6, 13, 14], [3, 4, 11, 12], [7, 8, 15, 16]])
 
     res = partial_transpose(test_input_mat, 1)
 
@@ -50,9 +46,7 @@ def test_partial_transpose_sys_vec():
     """Partial transpose on matrix with `sys` defined as vector."""
     test_input_mat = np.arange(1, 17).reshape(4, 4)
 
-    expected_res = np.array(
-        [[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]]
-    )
+    expected_res = np.array([[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]])
 
     res = partial_transpose(test_input_mat, [1, 2])
 
@@ -64,9 +58,7 @@ def test_partial_transpose_sys_vec_dim_vec():
     """Variables `sys` and `dim` defined as vector."""
     test_input_mat = np.arange(1, 17).reshape(4, 4)
 
-    expected_res = np.array(
-        [[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]]
-    )
+    expected_res = np.array([[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]])
 
     res = partial_transpose(test_input_mat, [1, 2], [2, 2])
 
@@ -82,9 +74,7 @@ def test_partial_transpose_norm_diff():
     in the standard transpose of the matrix.
     """
     test_input_mat = np.arange(1, 17).reshape(4, 4)
-    res = np.linalg.norm(
-        partial_transpose(test_input_mat, [1, 2]) - test_input_mat.conj().T
-    )
+    res = np.linalg.norm(partial_transpose(test_input_mat, [1, 2]) - test_input_mat.conj().T)
     expected_res = 0
 
     np.testing.assert_equal(np.isclose(res, expected_res), True)
@@ -98,9 +88,7 @@ def test_partial_transpose_16_by_16():
         [1, 2, 33, 34, 5, 6, 37, 38, 129, 130, 161, 162, 133, 134, 165, 166]
     )
 
-    first_expected_col = np.array(
-        [1, 17, 3, 19, 65, 81, 67, 83, 9, 25, 11, 27, 73, 89, 75, 91]
-    )
+    first_expected_col = np.array([1, 17, 3, 19, 65, 81, 67, 83, 9, 25, 11, 27, 73, 89, 75, 91])
 
     np.testing.assert_equal(np.allclose(res[0, :], first_expected_row), True)
     np.testing.assert_equal(np.allclose(res[:, 0], first_expected_col), True)

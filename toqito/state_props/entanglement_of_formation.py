@@ -8,9 +8,7 @@ from toqito.channels import partial_trace
 from toqito.state_props import concurrence, von_neumann_entropy
 
 
-def entanglement_of_formation(
-    rho: np.ndarray, dim: Union[List[int], int] = None
-) -> float:
+def entanglement_of_formation(rho: np.ndarray, dim: Union[List[int], int] = None) -> float:
     r"""
     Compute entanglement-of-formation of a bipartite quantum state [WikEOF]_.
 
@@ -76,8 +74,7 @@ def entanglement_of_formation(
 
     if np.prod(dim) != max(dim_x, dim_y):
         raise ValueError(
-            "Invalid dimension: Please provide local dimensions "
-            "that match the size of `rho`."
+            "Invalid dimension: Please provide local dimensions " "that match the size of `rho`."
         )
 
     # If :code:`rho` is a rank-1 density matrix, turn it into a vector instead
@@ -111,6 +108,4 @@ def entanglement_of_formation(
             "the entanglement-of-formation for two-qubit states and pure "
             "states."
         )
-    raise ValueError(
-        "Invalid dimension: `rho` must be either a vector or " "square matrix."
-    )
+    raise ValueError("Invalid dimension: `rho` must be either a vector or " "square matrix.")

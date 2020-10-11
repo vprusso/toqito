@@ -9,9 +9,7 @@ from toqito.states import basis
 
 def test_fidelity_default():
     """Test fidelity default arguments."""
-    rho = np.array(
-        [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
-    )
+    rho = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
     sigma = rho
 
     res = fidelity(rho, sigma)
@@ -20,9 +18,7 @@ def test_fidelity_default():
 
 def test_fidelity_cvx():
     """Test fidelity for cvx objects."""
-    rho = cvxpy.bmat(
-        [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
-    )
+    rho = cvxpy.bmat([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
     sigma = rho
 
     res = fidelity(rho, sigma)
@@ -55,9 +51,7 @@ def test_fidelity_non_square():
 
 def test_fidelity_invalid_dim():
     """Tests for invalid dim."""
-    rho = np.array(
-        [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
-    )
+    rho = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
     sigma = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
     with np.testing.assert_raises(ValueError):
         fidelity(rho, sigma)

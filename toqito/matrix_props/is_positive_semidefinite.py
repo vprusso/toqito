@@ -4,9 +4,7 @@ import numpy as np
 from toqito.matrix_props import is_hermitian
 
 
-def is_positive_semidefinite(
-    mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08
-) -> bool:
+def is_positive_semidefinite(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
     r"""
     Check if matrix is positive semidefinite (PSD) [WikPSD]_.
 

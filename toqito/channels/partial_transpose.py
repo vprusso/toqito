@@ -22,27 +22,24 @@ def partial_transpose(
         \left( \text{T} \otimes \mathbb{I}_{\mathcal{Y}} \right)
         \left(X\right)
 
-    where :math:`X \in \text{L}(\mathcal{X})` is a linear operator over the
-    complex Euclidean space :math:`\mathcal{X}` and where :math:`\text{T}` is
-    the transpose mapping :math:`\text{T} \in \text{T}(\mathcal{X})` defined as
+    where :math:`X \in \text{L}(\mathcal{X})` is a linear operator over the complex Euclidean
+    space :math:`\mathcal{X}` and where :math:`\text{T}` is the transpose mapping :math:`\text{T} \in \text{T}(\mathcal{X})` defined as
 
     .. math::
         \text{T}(X) = X^{\text{T}}
 
     for all :math:`X \in \text{L}(\mathcal{X})`.
 
-    By default, the returned matrix is the partial transpose of the matrix
-    :code:`rho`, where it is assumed that the number of rows and columns of
-    :code:`rho` are both perfect squares and both subsystems have equal
-    dimension. The transpose is applied to the second subsystem.
+    By default, the returned matrix is the partial transpose of the matrix :code:`rho`, where it
+    is assumed that the number of rows and columns of :code:`rho` are both perfect squares and
+    both subsystems have equal dimension. The transpose is applied to the second subsystem.
 
-    In the case where :code:`sys` amd :code:`dim` are specified, this function
-    gives the partial transpose of the matrix :code:`rho` where the dimensions
-    of the (possibly more than 2) subsystems are given by the vector :code:`dim`
-    and the subsystems to take the partial transpose are given by the scalar or
-    vector :code:`sys`. If :code:`rho` is non-square, different row and column
-    dimensions can be specified by putting the row dimensions in the first row
-    of :code:`dim` and the column dimensions in the second row of :code:`dim`.
+    In the case where :code:`sys` amd :code:`dim` are specified, this function gives the partial
+    transpose of the matrix :code:`rho` where the dimensions of the (possibly more than 2)
+    subsystems are given by the vector :code:`dim` and the subsystems to take the partial
+    transpose are given by the scalar or vector :code:`sys`. If :code:`rho` is non-square,
+    different row and column dimensions can be specified by putting the row dimensions in the
+    first row of :code:`dim` and the column dimensions in the second row of :code:`dim`.
 
     Examples
     ==========
@@ -68,8 +65,8 @@ def partial_transpose(
                     10 & 14 & 12 & 16
                  \end{pmatrix}.
 
-    By default, in :code:`toqito`, the partial transpose function performs the
-    transposition on the second subsystem as follows.
+    By default, in :code:`toqito`, the partial transpose function performs the transposition on
+    the second subsystem as follows.
 
     >>> from toqito.channels import partial_transpose
     >>> import numpy as np
@@ -80,10 +77,9 @@ def partial_transpose(
      [ 9 13 11 15]
      [10 14 12 16]]
 
-    By specifying the :code:`sys = 1` argument, we can perform the partial
-    transpose over the first subsystem (instead of the default second subsystem
-    as done above). Performing the partial transpose over the first subsystem
-    yields the following matrix
+    By specifying the :code:`sys = 1` argument, we can perform the partial transpose over the
+    first subsystem (instead of the default second subsystem as done above). Performing the
+    partial transpose over the first subsystem yields the following matrix
 
     .. math::
         X_{pt, 1} = \begin{pmatrix}
@@ -127,9 +123,7 @@ def partial_transpose(
     sqrt_rho_dims = np.round(np.sqrt(list(rho.shape)))
 
     if dim is None:
-        dim = np.array(
-            [[sqrt_rho_dims[0], sqrt_rho_dims[0]], [sqrt_rho_dims[1], sqrt_rho_dims[1]]]
-        )
+        dim = np.array([[sqrt_rho_dims[0], sqrt_rho_dims[0]], [sqrt_rho_dims[1], sqrt_rho_dims[1]]])
     if isinstance(dim, float):
         dim = np.array([dim])
     if isinstance(dim, list):
@@ -143,10 +137,7 @@ def partial_transpose(
     # Allow the user to enter a single number for dim.
     if num_sys == 1:
         dim = np.array([dim, list(rho.shape)[0] / dim])
-        if (
-            np.abs(dim[1] - np.round(dim[1]))[0]
-            >= 2 * list(rho.shape)[0] * np.finfo(float).eps
-        ):
+        if np.abs(dim[1] - np.round(dim[1]))[0] >= 2 * list(rho.shape)[0] * np.finfo(float).eps:
             raise ValueError(
                 "InvalidDim: If `dim` is a scalar, `rho` must be "
                 "square and `dim` must evenly divide `len(rho)`; "

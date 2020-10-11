@@ -49,10 +49,7 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int) -> np.ndarray:
     gram_vectors = np.random.normal(size=(dim, dim, num_inputs, num_outputs))
     for input_block in gram_vectors:
         normalizer = sum(
-            [
-                np.array(output_block).T.conj() @ output_block
-                for output_block in input_block
-            ]
+            [np.array(output_block).T.conj() @ output_block for output_block in input_block]
         )
 
         u_mat, d_mat, _ = np.linalg.svd(normalizer)
@@ -60,9 +57,7 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int) -> np.ndarray:
         output_povms = []
         for output_block in input_block:
             partial = (
-                np.array(output_block, dtype=complex)
-                .dot(u_mat)
-                .dot(np.diag(d_mat ** (-1 / 2.0)))
+                np.array(output_block, dtype=complex).dot(u_mat).dot(np.diag(d_mat ** (-1 / 2.0)))
             )
             internal = partial.dot(np.diag(np.ones(dim)) ** (1 / 2.0))
             output_povms.append(internal.T.conj() @ internal)

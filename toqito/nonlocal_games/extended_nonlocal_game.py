@@ -36,9 +36,7 @@ class ExtendedNonlocalGame:
         https://arxiv.org/abs/1704.07375
     """
 
-    def __init__(
-        self, prob_mat: np.ndarray, pred_mat: np.ndarray, reps: int = 1
-    ) -> None:
+    def __init__(self, prob_mat: np.ndarray, pred_mat: np.ndarray, reps: int = 1) -> None:
         """
         Construct extended nonlocal game object.
 
@@ -78,9 +76,7 @@ class ExtendedNonlocalGame:
             j_ind = np.zeros(reps, dtype=int)
             for i in range(num_alice_in ** reps):
                 for j in range(num_bob_in ** reps):
-                    to_tensor = np.empty(
-                        [reps, dim_x, dim_y, num_alice_out, num_bob_out]
-                    )
+                    to_tensor = np.empty([reps, dim_x, dim_y, num_alice_out, num_bob_out])
                     for k in range(reps - 1, -1, -1):
                         to_tensor[k] = pred_mat[:, :, :, :, i_ind[k], j_ind[k]]
                     pred_mat2[:, :, :, :, i, j] = tensor(to_tensor)
@@ -125,9 +121,7 @@ class ExtendedNonlocalGame:
 
                 rho = cvxpy.Variable((dim_x, dim_y), hermitian=True)
 
-                objective = cvxpy.Maximize(
-                    cvxpy.real(cvxpy.trace(p_win.conj().T @ rho))
-                )
+                objective = cvxpy.Maximize(cvxpy.real(cvxpy.trace(p_win.conj().T @ rho)))
 
                 constraints = [cvxpy.trace(rho) == 1, rho >> 0]
                 problem = cvxpy.Problem(objective, constraints)
@@ -185,9 +179,7 @@ class ExtendedNonlocalGame:
             for b_out in range(bob_out):
                 for x_in in range(alice_in):
                     for y_in in range(bob_in):
-                        k_var[a_out, b_out, x_in, y_in] = cvxpy.Variable(
-                            (dim_x, dim_y), PSD=True
-                        )
+                        k_var[a_out, b_out, x_in, y_in] = cvxpy.Variable((dim_x, dim_y), PSD=True)
 
         # Define \sigma_a^x variable.
         sigma = defaultdict(cvxpy.Variable)
@@ -336,9 +328,7 @@ class ExtendedNonlocalGame:
                     (dim * num_outputs_bob, dim * num_outputs_bob), hermitian=True
                 )
 
-        tau = cvxpy.Variable(
-            (dim * num_outputs_bob, dim * num_outputs_bob), hermitian=True
-        )
+        tau = cvxpy.Variable((dim * num_outputs_bob, dim * num_outputs_bob), hermitian=True)
         win = 0
         for x_ques in range(num_inputs_alice):
             for y_ques in range(num_inputs_bob):
@@ -348,9 +338,7 @@ class ExtendedNonlocalGame:
                             win += self.prob_mat[x_ques, y_ques] * cvxpy.trace(
                                 (
                                     np.kron(
-                                        self.pred_mat[
-                                            :, :, a_ans, b_ans, x_ques, y_ques
-                                        ],
+                                        self.pred_mat[:, :, a_ans, b_ans, x_ques, y_ques],
                                         bob_povms[y_ques, b_ans],
                                     )
                                 )
@@ -365,9 +353,7 @@ class ExtendedNonlocalGame:
                             win += self.prob_mat[x_ques, y_ques] * cvxpy.trace(
                                 (
                                     np.kron(
-                                        self.pred_mat[
-                                            :, :, a_ans, b_ans, x_ques, y_ques
-                                        ],
+                                        self.pred_mat[:, :, a_ans, b_ans, x_ques, y_ques],
                                         bob_povms[y_ques, b_ans].value,
                                     )
                                 )

@@ -80,7 +80,4 @@ def in_separable_ball(mat: np.ndarray) -> bool:
 
     # The following check relies on the fact that we scaled the matrix so that trace(mat) = 1.
     # The following condition is then exactly the condition mentioned in [GB02]_.
-    return (
-        np.linalg.norm(mat / np.linalg.norm(mat, "fro") ** 2 - np.eye(max_dim), "fro")
-        <= 1
-    )
+    return np.linalg.norm(mat / np.linalg.norm(mat, "fro") ** 2 - np.eye(max_dim), "fro") <= 1

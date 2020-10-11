@@ -20,9 +20,8 @@ def partial_channel(
     .. math::
         \left(\mathbb{I} \otimes \Phi \right) \left(\rho \right).
 
-    In other words, it is the result of applying the channel :math:`\Phi` to the
-    second subsystem of :math:`\rho`, which is assumed to act on two
-    subsystems of equal dimension.
+    In other words, it is the result of applying the channel :math:`\Phi` to the second subsystem
+    of :math:`\rho`, which is assumed to act on two subsystems of equal dimension.
 
     The input :code:`phi_map` should be provided as a Choi matrix.
 
@@ -150,9 +149,7 @@ def partial_channel(
         psi_c2 = max_entangled(prod_dim_c1, False, False)
 
         phi_map = permute_systems(
-            np.kron(
-                np.kron(psi_r1 * psi_c1.conj().T, phi_map), psi_r2 * psi_c2.conj().T
-            ),
+            np.kron(np.kron(psi_r1 * psi_c1.conj().T, phi_map), psi_r2 * psi_c2.conj().T),
             [1, 3, 5, 2, 4, 6],
             dim,
         )

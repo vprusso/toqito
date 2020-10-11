@@ -25,9 +25,7 @@ def test_antisymmetric_projection_p_larger_than_d():
 def test_antisymmetric_projection_2():
     """The dimension is 2."""
     res = antisymmetric_projection(2).todense()
-    expected_res = np.array(
-        [[0, 0, 0, 0], [0, 0.5, -0.5, 0], [0, -0.5, 0.5, 0], [0, 0, 0, 0]]
-    )
+    expected_res = np.array([[0, 0, 0, 0], [0, 0.5, -0.5, 0], [0, -0.5, 0.5, 0], [0, 0, 0, 0]])
 
     bool_mat = np.isclose(res, expected_res)
     np.testing.assert_equal(np.all(bool_mat), True)

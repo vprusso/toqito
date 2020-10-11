@@ -64,15 +64,11 @@ def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     """
     # Perform some error checking.
     if not np.all(rho.shape == sigma.shape):
-        raise ValueError(
-            "InvalidDim: `rho` and `sigma` must be matrices of the same size."
-        )
+        raise ValueError("InvalidDim: `rho` and `sigma` must be matrices of the same size.")
     if not is_density(rho) or not is_density(sigma):
         raise ValueError("Sub-fidelity is only defined for density operators.")
 
     return np.real(
         np.trace(rho * sigma)
-        + np.sqrt(
-            2 * (np.trace(rho * sigma) ** 2 - np.trace(rho * sigma * rho * sigma))
-        )
+        + np.sqrt(2 * (np.trace(rho * sigma) ** 2 - np.trace(rho * sigma * rho * sigma)))
     )

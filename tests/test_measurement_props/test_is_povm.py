@@ -10,9 +10,7 @@ def test_is_povm_true():
     dim, num_inputs, num_outputs = 2, 2, 2
     measurements = random_povm(dim, num_inputs, num_outputs)
 
-    np.testing.assert_equal(
-        is_povm([measurements[:, :, 0, 0], measurements[:, :, 0, 1]]), True
-    )
+    np.testing.assert_equal(is_povm([measurements[:, :, 0, 0], measurements[:, :, 0, 1]]), True)
 
 
 def test_is_povm_false():

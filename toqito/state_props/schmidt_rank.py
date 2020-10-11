@@ -4,9 +4,7 @@ from typing import List, Union
 import numpy as np
 
 
-def schmidt_rank(
-    vec: np.ndarray, dim: Union[int, List[int], np.ndarray] = None
-) -> float:
+def schmidt_rank(vec: np.ndarray, dim: Union[int, List[int], np.ndarray] = None) -> float:
     r"""
     Compute the Schmidt rank [WikSR]_.
 

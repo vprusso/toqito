@@ -213,6 +213,10 @@ PPT criterion.
 As we can see, the PPT criterion is :code:`False` for an entangled state in
 :math:`2 \otimes 2`.
 
+Further properties that one can check via :code:`toqito` may be found `here
+<https://toqito.readthedocs.io/en/latest/states.html#properties-of-quantum-states>`_.
+
+
 Operations on Quantum States
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -241,8 +245,21 @@ fidelity function between quantum states that happen to be identitcal.
 
 .. code-block:: python
 
+    >>> from toqito.states import bell
+    >>> from toqito.state_metrics import fidelity
     >>>
+    >>> # Define two identical density operators.
+    >>> rho = bell(0)*bell(0).conj().T
+    >>> sigma = bell(0)*bell(0).conj().T
+    >>> 
+    >>> # Calculate the fidelity between `rho` and `sigma`
+    >>> fidelity(rho, sigma)
+    1
 
+There are a number of other metrics one can compute on two density matrices
+including the trace norm, trace distance. These and others are also available
+in :code:`toqito`. For a full list of distance metrics one can compute on
+quatum states, consult the docs.
 
 
 Optimizations over Quantum States

@@ -9,7 +9,7 @@ Nonlocal Games
 .. toctree::
    :maxdepth: 5
 
-   tutorials.nonlocal_quantum_lower_bound
+   tutorials.nonlocal_games
 
 XOR Games
 --------------------------

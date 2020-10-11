@@ -189,30 +189,19 @@ def permute_systems(
         raise ValueError("InvalidPerm: `len(perm)` must be equal to " "`len(dim)`.")
     if sorted(perm) != list(range(1, num_sys + 1)):
         raise ValueError("InvalidPerm: `perm` must be a permutation vector.")
-    if input_mat_dims[0] != prod_dim_r or (
-        not row_only and input_mat_dims[1] != prod_dim_c
-    ):
+    if input_mat_dims[0] != prod_dim_r or (not row_only and input_mat_dims[1] != prod_dim_c):
         raise ValueError(
-            "InvalidDim: The dimensions specified in DIM do not "
-            "agree with the size of X."
+            "InvalidDim: The dimensions specified in DIM do not " "agree with the size of X."
         )
     if is_vec:
         if inv_perm:
-            permuted_mat_1 = input_mat.reshape(
-                dim[vec_orien, ::-1].astype(int), order="F"
-            )
-            permuted_mat = vec(
-                np.transpose(permuted_mat_1, num_sys - np.array(perm[::-1]))
-            ).T
+            permuted_mat_1 = input_mat.reshape(dim[vec_orien, ::-1].astype(int), order="F")
+            permuted_mat = vec(np.transpose(permuted_mat_1, num_sys - np.array(perm[::-1]))).T
             # We need to flatten out the array.
             permuted_mat = functools.reduce(operator.iconcat, permuted_mat, [])
         else:
-            permuted_mat_1 = input_mat.reshape(
-                dim[vec_orien, ::-1].astype(int), order="F"
-            )
-            permuted_mat = vec(
-                np.transpose(permuted_mat_1, num_sys - np.array(perm[::-1]))
-            ).T
+            permuted_mat_1 = input_mat.reshape(dim[vec_orien, ::-1].astype(int), order="F")
+            permuted_mat = vec(np.transpose(permuted_mat_1, num_sys - np.array(perm[::-1]))).T
             # We need to flatten out the array.
             permuted_mat = functools.reduce(operator.iconcat, permuted_mat, [])
         return np.array(permuted_mat)

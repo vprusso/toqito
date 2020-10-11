@@ -6,9 +6,7 @@ from toqito.matrices import fourier
 
 def test_fourier_dim_2():
     """Fourier matrix of dimension 2."""
-    expected_res = np.array(
-        [[1 / np.sqrt(2), 1 / np.sqrt(2)], [1 / np.sqrt(2), -1 / np.sqrt(2)]]
-    )
+    expected_res = np.array([[1 / np.sqrt(2), 1 / np.sqrt(2)], [1 / np.sqrt(2), -1 / np.sqrt(2)]])
 
     res = fourier(2)
 

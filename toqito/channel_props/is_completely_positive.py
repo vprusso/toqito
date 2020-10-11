@@ -16,23 +16,21 @@ def is_completely_positive(
     r"""
     Determine whether the given channel is completely positive [WatCP18]_.
 
-    A map :math:`\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)` is
-    *completely positive* if it holds that
+    A map :math:`\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)` is *completely
+    positive* if it holds that
 
     .. math::
         \Phi \otimes \mathbb{I}_{\text{L}(\mathcal{Z})}
 
     is a positive map for every complex Euclidean space :math:`\mathcal{Z}`.
 
-    Alternatively, a channel is completely positive if the corresponding Choi
-    matrix of the channel is both Hermitian-preserving and positive
-    semidefinite.
+    Alternatively, a channel is completely positive if the corresponding Choi matrix of the
+    channel is both Hermitian-preserving and positive semidefinite.
 
     Examples
     ==========
 
-    We can specify the input as a list of Kraus operators. Consider the map
-    :math:`\Phi` defined as
+    We can specify the input as a list of Kraus operators. Consider the map :math:`\Phi` defined as
 
     .. math::
         \Phi(X) = X - U X U^*
@@ -55,9 +53,8 @@ def is_completely_positive(
     >>> is_completely_positive(kraus_ops)
     False
 
-    We can also specify the input as a Choi matrix. For instance, consider the
-    Choi matrix corresponding to the :math:`2`-dimensional completely
-    depolarizing channel
+    We can also specify the input as a Choi matrix. For instance, consider the Choi matrix
+    corresponding to the :math:`2`-dimensional completely depolarizing channel
 
     .. math::
         \Omega =
@@ -83,8 +80,7 @@ def is_completely_positive(
         Section: "Linear maps of square operators".
         Cambridge University Press, 2018.
 
-    :param phi: The channel provided as either a Choi matrix or a list of
-                Kraus operators.
+    :param phi: The channel provided as either a Choi matrix or a list of Kraus operators.
     :param rtol: The relative tolerance parameter (default 1e-05).
     :param atol: The absolute tolerance parameter (default 1e-08).
     :return: True if the channel is completely positive, and False otherwise.
@@ -95,6 +91,4 @@ def is_completely_positive(
         phi = kraus_to_choi(phi)
 
     # Use Choi's theorem to determine whether :code:`phi` is completely positive.
-    return is_herm_preserving(phi, rtol, atol) and is_positive_semidefinite(
-        phi, rtol, atol
-    )
+    return is_herm_preserving(phi, rtol, atol) and is_positive_semidefinite(phi, rtol, atol)

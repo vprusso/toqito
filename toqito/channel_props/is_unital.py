@@ -15,8 +15,8 @@ def is_unital(
     r"""
     Determine whether the given channel is unital [WatUnital18]_.
 
-    A map :math:`\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)` is
-    *unital* if it holds that
+    A map :math:`\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)` is *unital* if it
+    holds that
 
     .. math::
         \Phi(\mathbb{I}_{\mathcal{X}}) = \mathbb{I}_{\mathcal{Y}}.
@@ -24,8 +24,8 @@ def is_unital(
     Examples
     ==========
 
-    Consider the channel whose Choi matrix is the swap operator. This channel is
-    an example of a unital channel.
+    Consider the channel whose Choi matrix is the swap operator. This channel is an example of a
+    unital channel.
 
     >>> from toqito.perms import swap_operator
     >>> from toqito.channel_props import is_unital
@@ -34,8 +34,8 @@ def is_unital(
     >>> is_unital(choi)
     True
 
-    Alternatively, the channel whose Choi matrix is the depolarizing channel is
-    an example of a non-unital channel.
+    Alternatively, the channel whose Choi matrix is the depolarizing channel is an example of a
+    non-unital channel.
 
     >>> from toqito.channels import depolarizing
     >>> from toqito.channel_props import is_unital
@@ -51,15 +51,12 @@ def is_unital(
         Chapter: Unital channels and majorization
         Cambridge University Press, 2018.
 
-    :param phi: The channel provided as either a Choi matrix or a list of
-                Kraus operators.
+    :param phi: The channel provided as either a Choi matrix or a list of Kraus operators.
     :param rtol: The relative tolerance parameter (default 1e-05).
     :param atol: The absolute tolerance parameter (default 1e-08).
-    :return: :code:`True` if the channel is unital, and :code:`False`
-             otherwise.
+    :return: :code:`True` if the channel is unital, and :code:`False` otherwise.
     """
-    # If the variable `phi` is provided as a list, we assume this is a list
-    # of Kraus operators.
+    # If the variable `phi` is provided as a list, we assume this is a list of Kraus operators.
     if isinstance(phi, list):
         phi = kraus_to_choi(phi)
 

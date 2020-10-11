@@ -12,11 +12,7 @@ def test_depolarizing_complete_depolarizing():
     )
 
     expected_res = (
-        1
-        / 4
-        * np.array(
-            [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
-        )
+        1 / 4 * np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
     )
 
     res = apply_channel(test_input_mat, depolarizing(4))
@@ -27,9 +23,7 @@ def test_depolarizing_complete_depolarizing():
 
 def test_depolarizing_partially_depolarizing():
     """The partially depolarizing channel for `p = 0.5`."""
-    test_input_mat = np.array(
-        [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
-    )
+    test_input_mat = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
 
     expected_res = np.array(
         [

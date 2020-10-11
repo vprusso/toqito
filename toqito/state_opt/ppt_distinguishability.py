@@ -183,9 +183,7 @@ def primal_problem(
         for i, _ in enumerate(states):
             for j, _ in enumerate(states):
                 if i != j:
-                    constraints.append(
-                        probs[j] * cvxpy.trace(states[j].conj().T @ meas[i]) == 0
-                    )
+                    constraints.append(probs[j] * cvxpy.trace(states[j].conj().T @ meas[i]) == 0)
 
     # Minimize error of distinguishing via PPT measurements.
     elif dist_method == "min-error":

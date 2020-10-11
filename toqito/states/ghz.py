@@ -83,8 +83,7 @@ def ghz(dim: int, num_qubits: int, coeff: List[int] = None) -> sparse:
         raise ValueError("InvalidNumQubits: `num_qubits` must be at least 2.")
     if len(coeff) != dim:
         raise ValueError(
-            "InvalidCoeff: The variable `coeff` must be a vector"
-            " of length equal to `dim`."
+            "InvalidCoeff: The variable `coeff` must be a vector" " of length equal to `dim`."
         )
 
     # Construct the state (and do it in a way that is less memory-intensive

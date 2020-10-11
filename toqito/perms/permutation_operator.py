@@ -60,6 +60,4 @@ def permutation_operator(
         dim = np.array(dim)
 
     # Swap the rows of the identity matrix appropriately.
-    return permute_systems(
-        iden(int(np.prod(dim)), is_sparse), perm, dim, True, inv_perm
-    )
+    return permute_systems(iden(int(np.prod(dim)), is_sparse), perm, dim, True, inv_perm)

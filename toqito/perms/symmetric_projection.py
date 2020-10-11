@@ -91,9 +91,7 @@ def symmetric_projection(
     sym_proj = np.zeros((dimp, dimp))
 
     for j in range(p_fac):
-        sym_proj += permutation_operator(
-            dim * np.ones(p_val), p_list[j, :], False, True
-        )
+        sym_proj += permutation_operator(dim * np.ones(p_val), p_list[j, :], False, True)
     sym_proj = sym_proj / p_fac
 
     if partial:

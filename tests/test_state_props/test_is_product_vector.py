@@ -28,14 +28,7 @@ def test_is_product_separable_state():
     """Check that is_product_vector returns True for a separable state."""
     e_0, e_1 = basis(2, 0), basis(2, 1)
     sep_vec = (
-        1
-        / 2
-        * (
-            np.kron(e_0, e_0)
-            - np.kron(e_0, e_1)
-            - np.kron(e_1, e_0)
-            + np.kron(e_1, e_1)
-        )
+        1 / 2 * (np.kron(e_0, e_0) - np.kron(e_0, e_1) - np.kron(e_1, e_0) + np.kron(e_1, e_1))
     )
     np.testing.assert_equal(is_product_vector(sep_vec), True)
 
