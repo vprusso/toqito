@@ -24,7 +24,7 @@ def sqrt_channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
             \text{maximize:} \quad & \lambda \\
             \text{subject to:} \quad & \lambda \mathbb{I}_{\mathcal{Z}} \leq
                 \text{Re}\left( \text{tr}_{\mathcal{Y}} \left( Q \right) \right),\\
-                \begin{pmatrix}
+                & \begin{pmatrix}
                     J(\Phi) & Q^* \\
                     Q & J(\Psi)
                 \end{pmatrix} \geq 0
