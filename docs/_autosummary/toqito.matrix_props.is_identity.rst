@@ -1,4 +1,4 @@
-﻿toqito.matrix\_props.is\_identity
+toqito.matrix\_props.is\_identity
 =================================
 
 .. currentmodule:: toqito.matrix_props

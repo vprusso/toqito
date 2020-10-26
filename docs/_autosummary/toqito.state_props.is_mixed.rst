@@ -1,4 +1,4 @@
-﻿toqito.state\_props.is\_mixed
+toqito.state\_props.is\_mixed
 =============================
 
 .. currentmodule:: toqito.state_props

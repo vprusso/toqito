@@ -1,4 +1,4 @@
-﻿toqito.channels.dephasing
+toqito.channels.dephasing
 =========================
 
 .. currentmodule:: toqito.channels

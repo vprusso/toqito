@@ -1,4 +1,4 @@
-﻿toqito.states.domino
+toqito.states.domino
 ====================
 
 .. currentmodule:: toqito.states

@@ -1,4 +1,4 @@
-﻿toqito.state\_props.is\_ppt
+toqito.state\_props.is\_ppt
 ===========================
 
 .. currentmodule:: toqito.state_props

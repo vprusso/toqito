@@ -1,4 +1,4 @@
-﻿toqito.state\_props.schmidt\_rank
+toqito.state\_props.schmidt\_rank
 =================================
 
 .. currentmodule:: toqito.state_props

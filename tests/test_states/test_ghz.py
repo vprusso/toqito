@@ -48,13 +48,13 @@ def test_ghz_4_7():
 def test_ghz_invalid_dim():
     """Tests for invalid dimensions."""
     with np.testing.assert_raises(ValueError):
-        ghz(1, 2)
+        ghz(0, 2)
 
 
 def test_ghz_invalid_qubits():
     """Tests for invalid number of qubits."""
     with np.testing.assert_raises(ValueError):
-        ghz(2, 1)
+        ghz(2, 0)
 
 
 def test_ghz_invalid_coeff():

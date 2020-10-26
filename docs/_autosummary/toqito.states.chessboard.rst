@@ -1,4 +1,4 @@
-﻿toqito.states.chessboard
+toqito.states.chessboard
 ========================
 
 .. currentmodule:: toqito.states

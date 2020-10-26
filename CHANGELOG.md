@@ -150,3 +150,6 @@
   
 - Fix: The `partial_channel.py` function has been enhanced to deal with 
   completely positive maps specified by Kraus operators as input.
+  
+- Fix: The GHZ state now supports either dimension or parameter `1` instead 
+  of it previously being `2`

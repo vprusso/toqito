@@ -1,4 +1,4 @@
-﻿toqito.channels.choi
+toqito.channels.choi
 ====================
 
 .. currentmodule:: toqito.channels

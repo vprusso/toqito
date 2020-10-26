@@ -213,7 +213,7 @@ PPT criterion.
 As we can see, the PPT criterion is :code:`False` for an entangled state in
 :math:`2 \otimes 2`.
 
-Further properties that one can check via :code:`toqito` may be found `here
+Further properties that one can check via :code:`toqito` may be found `on this page
 <https://toqito.readthedocs.io/en/latest/states.html#properties-of-quantum-states>`_.
 
 

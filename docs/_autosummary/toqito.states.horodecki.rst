@@ -1,4 +1,4 @@
-﻿toqito.states.horodecki
+toqito.states.horodecki
 =======================
 
 .. currentmodule:: toqito.states

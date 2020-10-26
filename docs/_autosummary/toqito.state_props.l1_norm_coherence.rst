@@ -1,4 +1,4 @@
-﻿toqito.state\_props.l1\_norm\_coherence
+toqito.state\_props.l1\_norm\_coherence
 =======================================
 
 .. currentmodule:: toqito.state_props

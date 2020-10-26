@@ -1,4 +1,4 @@
-﻿toqito.state\_props.in\_separable\_ball
+toqito.state\_props.in\_separable\_ball
 =======================================
 
 .. currentmodule:: toqito.state_props

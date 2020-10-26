@@ -77,10 +77,10 @@ def ghz(dim: int, num_qubits: int, coeff: List[int] = None) -> sparse:
         coeff = np.ones(dim) / np.sqrt(dim)
 
     # Error checking:
-    if dim < 2:
-        raise ValueError("InvalidDim: `dim` must be at least 2.")
-    if num_qubits < 2:
-        raise ValueError("InvalidNumQubits: `num_qubits` must be at least 2.")
+    if dim < 1:
+        raise ValueError("InvalidDim: `dim` must be at least 1.")
+    if num_qubits < 1:
+        raise ValueError("InvalidNumQubits: `num_qubits` must be at least 1.")
     if len(coeff) != dim:
         raise ValueError(
             "InvalidCoeff: The variable `coeff` must be a vector" " of length equal to `dim`."

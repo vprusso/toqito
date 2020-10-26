@@ -1,4 +1,4 @@
-﻿toqito.state\_props.is\_mutually\_orthogonal
+toqito.state\_props.is\_mutually\_orthogonal
 ============================================
 
 .. currentmodule:: toqito.state_props

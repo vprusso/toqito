@@ -1,4 +1,4 @@
-﻿toqito.random.random\_povm
+toqito.random.random\_povm
 ==========================
 
 .. currentmodule:: toqito.random

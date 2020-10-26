@@ -1,4 +1,4 @@
-﻿toqito.perms.symmetric\_projection
+toqito.perms.symmetric\_projection
 ==================================
 
 .. currentmodule:: toqito.perms

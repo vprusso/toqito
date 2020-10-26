@@ -1,4 +1,4 @@
-﻿toqito.channel\_ops.kraus\_to\_choi
+toqito.channel\_ops.kraus\_to\_choi
 ===================================
 
 .. currentmodule:: toqito.channel_ops

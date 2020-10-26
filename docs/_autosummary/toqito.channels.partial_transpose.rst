@@ -1,4 +1,4 @@
-﻿toqito.channels.partial\_transpose
+toqito.channels.partial\_transpose
 ==================================
 
 .. currentmodule:: toqito.channels

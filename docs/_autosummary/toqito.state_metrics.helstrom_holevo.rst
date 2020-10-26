@@ -1,4 +1,4 @@
-﻿toqito.state\_metrics.helstrom\_holevo
+toqito.state\_metrics.helstrom\_holevo
 ======================================
 
 .. currentmodule:: toqito.state_metrics

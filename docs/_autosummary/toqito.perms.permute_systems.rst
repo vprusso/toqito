@@ -1,4 +1,4 @@
-﻿toqito.perms.permute\_systems
+toqito.perms.permute\_systems
 =============================
 
 .. currentmodule:: toqito.perms

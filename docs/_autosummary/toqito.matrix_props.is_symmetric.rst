@@ -1,4 +1,4 @@
-﻿toqito.matrix\_props.is\_symmetric
+toqito.matrix\_props.is\_symmetric
 ==================================
 
 .. currentmodule:: toqito.matrix_props

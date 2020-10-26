@@ -1,4 +1,4 @@
-﻿toqito.matrices.hadamard
+toqito.matrices.hadamard
 ========================
 
 .. currentmodule:: toqito.matrices

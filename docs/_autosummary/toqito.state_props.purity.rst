@@ -1,4 +1,4 @@
-﻿toqito.state\_props.purity
+toqito.state\_props.purity
 ==========================
 
 .. currentmodule:: toqito.state_props

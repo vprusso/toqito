@@ -1,4 +1,4 @@
-﻿toqito.state\_metrics.trace\_norm
+toqito.state\_metrics.trace\_norm
 =================================
 
 .. currentmodule:: toqito.state_metrics
