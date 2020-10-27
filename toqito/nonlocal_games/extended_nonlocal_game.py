@@ -167,6 +167,7 @@ class ExtendedNonlocalGame:
         :return: The non-signaling value of the extended nonlocal game.
         """
         dim_x, dim_y, alice_out, bob_out, alice_in, bob_in = self.pred_mat.shape
+        constraints = list()
 
         # The cvxpy package does not support optimizing over more than
         # 2-dimensional objects. To overcome this, we use a dictionary to index
@@ -179,7 +180,10 @@ class ExtendedNonlocalGame:
             for b_out in range(bob_out):
                 for x_in in range(alice_in):
                     for y_in in range(bob_in):
-                        k_var[a_out, b_out, x_in, y_in] = cvxpy.Variable((dim_x, dim_y), PSD=True)
+                        k_var[a_out, b_out, x_in, y_in] = cvxpy.Variable(
+                            (dim_x, dim_y), hermitian=True
+                        )
+                        constraints.append(k_var[a_out, b_out, x_in, y_in] >> 0)
 
         # Define \sigma_a^x variable.
         sigma = defaultdict(cvxpy.Variable)
@@ -207,8 +211,6 @@ class ExtendedNonlocalGame:
                         )
 
         objective = cvxpy.Maximize(cvxpy.real(p_win))
-
-        constraints = list()
 
         # The following constraints enforce the so-called non-signaling
         # constraints.

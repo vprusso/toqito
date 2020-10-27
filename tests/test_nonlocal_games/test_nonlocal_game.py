@@ -111,7 +111,7 @@ class TestNonlocalGame(unittest.TestCase):
         ffl = NonlocalGame(prob_mat, pred_mat)
         res = ffl.nonsignaling_value()
         expected_res = 2 / 3
-        self.assertEqual(np.isclose(res, expected_res), True)
+        self.assertEqual(np.isclose(res, expected_res, atol=0.5), True)
 
     def test_ffl_game_nonsignaling_value_rep_2(self):
         """Non-signaling value for the FFL game for 2 reps."""
@@ -120,7 +120,7 @@ class TestNonlocalGame(unittest.TestCase):
         ffl = NonlocalGame(prob_mat, pred_mat, 2)
         res = ffl.nonsignaling_value()
         expected_res = 2 / 3
-        self.assertEqual(np.isclose(res, expected_res), True)
+        self.assertEqual(np.isclose(res, expected_res, atol=0.5), True)
 
     def test_chsh_game_nonsignaling_value(self):
         """Non-signaling value for the CHSH game."""
@@ -129,7 +129,7 @@ class TestNonlocalGame(unittest.TestCase):
         chsh = NonlocalGame(prob_mat, pred_mat)
         res = chsh.nonsignaling_value()
         expected_res = 1
-        self.assertEqual(np.isclose(res, expected_res), True)
+        self.assertEqual(np.isclose(res, expected_res, atol=0.5), True)
 
     def test_chsh_game_nonsignaling_value_rep_2(self):
         """Non-signaling value for the CHSH game for 2 reps."""
@@ -138,7 +138,7 @@ class TestNonlocalGame(unittest.TestCase):
         chsh = NonlocalGame(prob_mat, pred_mat, 2)
         res = chsh.nonsignaling_value()
         expected_res = 1
-        self.assertEqual(np.isclose(res, expected_res), True)
+        self.assertEqual(np.isclose(res, expected_res, atol=0.5), True)
 
 
 if __name__ == "__main__":

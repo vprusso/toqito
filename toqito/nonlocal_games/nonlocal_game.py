@@ -432,13 +432,18 @@ class NonlocalGame:
         alice_out, bob_out, alice_in, bob_in = self.pred_mat.shape
         dim_x, dim_y = 2, 2
 
+        constraints = list()
+
         # Define K(a,b|x,y) variable.
         k_var = defaultdict(cvxpy.Variable)
         for a_out in range(alice_out):
             for b_out in range(bob_out):
                 for x_in in range(alice_in):
                     for y_in in range(bob_in):
-                        k_var[a_out, b_out, x_in, y_in] = cvxpy.Variable((dim_x, dim_y), PSD=True)
+                        k_var[a_out, b_out, x_in, y_in] = cvxpy.Variable(
+                            (dim_x, dim_y), hermitian=True
+                        )
+                        constraints.append(k_var[a_out, b_out, x_in, y_in] >> 0)
 
         # Define \sigma_a^x variable.
         sigma = defaultdict(cvxpy.Variable)
@@ -465,9 +470,7 @@ class NonlocalGame:
                             * k_var[a_out, b_out, x_in, y_in]
                         )
 
-        objective = cvxpy.Maximize(p_win)
-
-        constraints = list()
+        objective = cvxpy.Maximize(cvxpy.real(p_win))
 
         # The following constraints enforce the so-called non-signaling
         # constraints.
