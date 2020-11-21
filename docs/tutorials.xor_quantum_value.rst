@@ -78,11 +78,11 @@ condition must be equal to for each question tuple to induce a winning outcome.
     +=============+=============+======================+
     | :math:`0`   | :math:`0`   | :math:`0`            |
     +-------------+-------------+----------------------+
-    | :math:`0`   | :math:`1`   | :math:`1`            |
+    | :math:`0`   | :math:`1`   | :math:`0`            |
     +-------------+-------------+----------------------+
-    | :math:`1`   | :math:`0`   | :math:`1`            |
+    | :math:`1`   | :math:`0`   | :math:`0`            |
     +-------------+-------------+----------------------+
-    | :math:`1`   | :math:`1`   | :math:`0`            |
+    | :math:`1`   | :math:`1`   | :math:`1`            |
     +-------------+-------------+----------------------+
 
 In order to specify an XOR game in :code:`toqito`, we will define two matrices:

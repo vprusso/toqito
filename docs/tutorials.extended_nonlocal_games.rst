@@ -40,7 +40,7 @@ Bob.
 
    An extended nonlocal game.
 
-Specifically, Alice and Bob's winning probability is determined by a
+Specifically, Alice and Bob's winning probability is determined by
 collections of measurements, :math:`V(a,b|x,y) \in \text{Pos}(\mathcal{R})`,
 where :math:`\mathcal{R} = \mathbb{C}^m` is a complex Euclidean space with
 :math:`m` denoting the dimension of the referee's quantum system--so if Alice
@@ -95,35 +95,6 @@ game as
 .. math::
     \sum_{(x,y) \in \Sigma} \pi(x,y) \sum_{(a,b) \in \Gamma} \left\langle V(a,b|x,y), K(a,b|x,y) \right\rangle.
 
-
-Unentangled strategies for extended nonlocal games
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-An *unentangled strategy* for an extended nonlocal game is simply a standard
-quantum strategy for which the state :math:`\sigma \in \text{D}(\mathcal{U}
-\otimes \mathcal{R} \otimes \mathcal{V})` initially prepared by Alice and Bob
-is fully separable. 
-
-Any unentangled strategy is equivalent to a strategy where Alice and Bob store
-only classical information after the referee's quantum system has been provided
-to it.
-
-For a given extended nonlocal game :math:`G = (\pi, V)` we write
-:math:`\omega(G)` to denote the *unentangled value* of :math:`G`, which is the
-supremum value for Alice and Bob's winning probability in :math:`G` over all
-unentangled strategies. The unentangled value of any extended nonlocal game,
-:math:`G`, may be written as
-
-.. math::
-    \omega(G) = \max_{f, g}
-    \lVert
-    \sum_{(x,y) \in \Sigma} \pi(x,y)
-    V(f(x), g(y)|x, y)
-    \rVert
-
-where the maximum is over all functions :math:`f : \Sigma_A \rightarrow
-\Gamma_A` and :math:`g : \Sigma_B \rightarrow \Gamma_B`.
-
 Standard quantum strategies for extended nonlocal games
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -131,12 +102,12 @@ A *standard quantum strategy* for an extended nonlocal game consists of
 finite-dimensional complex Euclidean spaces :math:`\mathcal{U}` for Alice and
 :math:`\mathcal{V}` for Bob, a quantum state :math:`\sigma \in
 \text{D}(\mathcal{U} \otimes \mathcal{R} \otimes \mathcal{V})`, and two
-collections of measurements.
+collections of measurements
 
 .. math::
-    \{ A_a^x : a \in \Gamma_A \} \subset \text{Pos}\mathcal{U}
+    \{ A_a^x : a \in \Gamma_A \} \subset \text{Pos}(\mathcal{U})
     \quad \text{and} \quad
-    \{ B_b^y : b \in \Gamma_B \} \subset \text{Pos}\mathcal{V},
+    \{ B_b^y : b \in \Gamma_B \} \subset \text{Pos}(\mathcal{V}),
 
 for each :math:`x \in \Sigma_A` and :math:`y \in \Sigma_B` respectively. As
 usual, the measurement operators satisfy the constraint that
@@ -181,6 +152,34 @@ For a given extended nonlocal game :math:`G = (\pi,V)`, we write
 :math:`\omega^*(G)` to denote the *standard quantum value* of :math:`G`, which
 is the supremum value of Alice and Bob's winning probability over all standard
 quantum strategies for :math:`G`.
+
+Unentangled strategies for extended nonlocal games
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+An *unentangled strategy* for an extended nonlocal game is simply a standard
+quantum strategy for which the state :math:`\sigma \in \text{D}(\mathcal{U}
+\otimes \mathcal{R} \otimes \mathcal{V})` initially prepared by Alice and Bob
+is fully separable.
+
+Any unentangled strategy is equivalent to a strategy where Alice and Bob store
+only classical information after the referee's quantum system has been provided
+to it.
+
+For a given extended nonlocal game :math:`G = (\pi, V)` we write
+:math:`\omega(G)` to denote the *unentangled value* of :math:`G`, which is the
+supremum value for Alice and Bob's winning probability in :math:`G` over all
+unentangled strategies. The unentangled value of any extended nonlocal game,
+:math:`G`, may be written as
+
+.. math::
+    \omega(G) = \max_{f, g}
+    \lVert
+    \sum_{(x,y) \in \Sigma} \pi(x,y)
+    V(f(x), g(y)|x, y)
+    \rVert
+
+where the maximum is over all functions :math:`f : \Sigma_A \rightarrow
+\Gamma_A` and :math:`g : \Sigma_B \rightarrow \Gamma_B`.
 
 Non-signaling strategies for extended nonlocal games
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -360,8 +359,8 @@ using :code:`toqito` as well.
     >>> # Define an ExtendedNonlocalGame object based on the BB84 game.
     >>> bb84_lb = ExtendedNonlocalGame(bb84_prob_mat, bb84_pred_mat)
     >>> 
-    >>> # The unentangled value is cos(pi/8)**2 \approx 0.85356
-    >>> bb84_lb.unentangled_value() 
+    >>> # The standard quantum value is cos(pi/8)**2 \approx 0.85356
+    >>> bb84_lb.quantum_value_lower_bound()
     0.8535533236834885
 
 From [tJMRW16]_, it is known that :math:`\omega(G_{BB84}) =
@@ -676,27 +675,27 @@ That is, we have that
 
 .. math::
 
-    \omega(G_{MUB}) = \frac{(3 + \sqrt{5})}{8} \approx 0.65409
+    \omega(G_{MUB}) = \frac{3 + \sqrt{5}}{8} \approx 0.65409.
 
 However, if we attempt to run a lower bound on the standard quantum value, we
 obtain.
 
 .. code-block:: python
 
-    >>> q_val = g_mub.unentangled_value()
+    >>> q_val = g_mub.quantum_value()
     >>> q_val
     0.660931321341278
 
 Note that as we are calculating a lower bound, it is possible that a value this
 high will not be obtained, or in other words, the algorithm can get stuck in a
-local maximum that prevents it from finding the global maximu.
+local maximum that prevents it from finding the global maximum.
 
 It is uncertain what the optimal standard quantum strategy is for this game,
-but the value of such a strategy is bounded as follows.
+but the value of such a strategy is bounded as follows
 
 .. math::
 
-    2/3 \geq \omega^*(G) \geq 0.6609
+    2/3 \geq \omega^*(G) \geq 0.6609.
 
 For further information on the :math:`G_{MUB}` game, consult [tRusso17]_.
 

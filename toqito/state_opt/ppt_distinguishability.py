@@ -259,6 +259,7 @@ def dual_problem(
     dim = int(np.log2(dim_x))
     dim_list = [2] * int(np.log2(dim_x))
     sys_list = list(range(1, dim, 2))
+    # dim_list = [3, 3]
 
     if dist_method == "min-error":
         for i, _ in enumerate(states):
@@ -287,5 +288,7 @@ def dual_problem(
 
     problem = cvxpy.Problem(objective, constraints)
     sol_default = problem.solve()
+
+    # print(np.around(y_var.value, decimals=3))
 
     return sol_default
