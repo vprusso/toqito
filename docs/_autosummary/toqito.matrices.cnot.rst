@@ -1,4 +1,4 @@
-toqito.matrices.cnot
+﻿toqito.matrices.cnot
 ====================
 
 .. currentmodule:: toqito.matrices

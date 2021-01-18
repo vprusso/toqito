@@ -1,4 +1,4 @@
-toqito.matrix\_props.majorizes
+﻿toqito.matrix\_props.majorizes
 ==============================
 
 .. currentmodule:: toqito.matrix_props

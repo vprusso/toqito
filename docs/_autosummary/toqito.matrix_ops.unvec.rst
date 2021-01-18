@@ -1,4 +1,4 @@
-toqito.matrix\_ops.unvec
+﻿toqito.matrix\_ops.unvec
 ========================
 
 .. currentmodule:: toqito.matrix_ops

@@ -1,4 +1,4 @@
-toqito.state\_opt.optimal\_clone
+﻿toqito.state\_opt.optimal\_clone
 ================================
 
 .. currentmodule:: toqito.state_opt

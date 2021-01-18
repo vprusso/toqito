@@ -1,4 +1,4 @@
-toqito.matrix\_props.is\_square
+﻿toqito.matrix\_props.is\_square
 ===============================
 
 .. currentmodule:: toqito.matrix_props

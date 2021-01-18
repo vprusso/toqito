@@ -1,4 +1,4 @@
-toqito.matrices.gell\_mann
+﻿toqito.matrices.gell\_mann
 ==========================
 
 .. currentmodule:: toqito.matrices

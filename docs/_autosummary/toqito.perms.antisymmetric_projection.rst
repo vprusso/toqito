@@ -1,4 +1,4 @@
-toqito.perms.antisymmetric\_projection
+﻿toqito.perms.antisymmetric\_projection
 ======================================
 
 .. currentmodule:: toqito.perms

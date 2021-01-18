@@ -203,6 +203,7 @@ via PPT measurements in the following manner.
 
 .. code-block:: python
 
+    >>> import numpy as np
     >>> from toqito.states import bell
     >>> from toqito.state_opt import ppt_distinguishability
     >>> # Bell vectors:
@@ -211,15 +212,15 @@ via PPT measurements in the following manner.
     >>> psi_2 = bell(3)
     >>> psi_3 = bell(1)
     >>>
-    >>> # YDY vectors from [tYDY12]_.
+    >>> # YDY vectors from [tYDY12]_:
     >>> x_1 = np.kron(psi_0, psi_0)
     >>> x_2 = np.kron(psi_1, psi_3)
     >>> x_3 = np.kron(psi_2, psi_3)
     >>> x_4 = np.kron(psi_3, psi_3)
     >>>
-    >>> # YDY density matrices.
+    >>> # YDY density matrices:
     >>> rho_1 = x_1 * x_1.conj().T
-    >>> rho_2 = x_2 * x_2.conj().Tk
+    >>> rho_2 = x_2 * x_2.conj().T
     >>> rho_3 = x_3 * x_3.conj().T
     >>> rho_4 = x_4 * x_4.conj().T
     >>>

@@ -21,7 +21,7 @@ Distance Metrics for Quantum Channels
 .. autosummary::
    :toctree: _autosummary
 
-    toqito.channel_metrics.sqrt_channel_fidelity
+    toqito.channel_metrics.channel_fidelity
 
 Quantum Channels
 ----------------

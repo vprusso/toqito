@@ -1,4 +1,4 @@
-toqito.matrices.fourier
+﻿toqito.matrices.fourier
 =======================
 
 .. currentmodule:: toqito.matrices

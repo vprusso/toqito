@@ -1,13 +1,13 @@
-"""Compute the square root channel fidelity between two quantum channels."""
+"""Compute the channel fidelity between two quantum channels."""
 import cvxpy
 import numpy as np
 
 from toqito.channels import partial_trace
 
 
-def sqrt_channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
+def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     r"""
-    Compute the root channel fidelity between two quantum channels [VW20]_.
+    Compute the channel fidelity between two quantum channels [VW20]_.
 
     Let :math:`\Phi : \text{L}(\mathcal{Y}) \rightarrow \text{L}(\mathcal{X})` and
     :math:`\Psi: \text{L}(\mathcal{Y}) \rightarrow \text{L}(\mathcal{X})` be quantum channels. Then
@@ -39,24 +39,24 @@ def sqrt_channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     :math:`1`.
 
     >>> from toqito.channels import dephasing
-    >>> from toqito.channel_metrics import sqrt_channel_fidelity
+    >>> from toqito.channel_metrics import channel_fidelity
     >>>
     >>> # The Choi matrices of dimension-4 for the dephasing channel
     >>> choi_1 = dephasing(4)
     >>> choi_2 = dephasing(4)
-    >>> sqrt_channel_fidelity(choi_1, choi_2)
+    >>> channel_fidelity(choi_1, choi_2)
     0.9999790499568767
 
     We can also compute the channel fidelity between two different channels. For example, we can
     compute the channel fidelity between the dephasing and depolarizing channels.
 
     >>> from toqito.channels import dephasing, depolarizing
-    >>> from toqito.channel_metrics import sqrt_channel_fidelity
+    >>> from toqito.channel_metrics import channel_fidelity
     >>>
     >>> # The Choi matrices of dimension-4 for the dephasing and depolarizing channels
     >>> choi_1 = dephasing(4)
     >>> choi_2 = depolarizing(4)
-    >>> sqrt_channel_fidelity(choi_1, choi_2)
+    >>> channel_fidelity(choi_1, choi_2)
     0.5001368672503087
 
     References
@@ -67,7 +67,7 @@ def sqrt_channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
 
     :param choi_1: The Choi matrix of the first quantum channel.
     :param choi_2: The Choi matrix of the second quantum channel.
-    :return: The root channel fidelity between the channels specified by the quantum channels
+    :return: The channel fidelity between the channels specified by the quantum channels
              corresponding to the Choi matrices :code:`choi_1` and :code:`choi_2`.
     """
     if choi_1.shape != choi_2.shape:

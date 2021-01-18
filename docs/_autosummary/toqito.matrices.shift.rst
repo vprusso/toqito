@@ -1,4 +1,4 @@
-toqito.matrices.shift
+﻿toqito.matrices.shift
 =====================
 
 .. currentmodule:: toqito.matrices
