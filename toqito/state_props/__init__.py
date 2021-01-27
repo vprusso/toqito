@@ -8,6 +8,7 @@ from toqito.state_props.is_ppt import is_ppt
 from toqito.state_props.is_product_vector import is_product_vector
 from toqito.state_props.concurrence import concurrence
 from toqito.state_props.negativity import negativity
+from toqito.state_props.log_negativity import log_negativity
 from toqito.state_props.purity import purity
 from toqito.state_props.schmidt_rank import schmidt_rank
 from toqito.state_props.von_neumann_entropy import von_neumann_entropy
