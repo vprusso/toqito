@@ -16,9 +16,9 @@ def log_negativity(rho: np.ndarray, dim: Union[List[int], int] = None) -> float:
     .. math::
         E_\mathcal{N}(\rho) \equiv \text{log}_2\left( ||\rho^{\Gamma_A}||_1 \right).
 
-    Calculate the log-negativity of the quantum state :math:`\rho`, assuming that the two subsystems on
-    which :math:`\rho` acts are of equal dimension (if the local dimensions are unequal, specify
-    them in the optional :code:`dim` argument). 
+    Calculate the log-negativity of the quantum state :math:`\rho`, assuming that the two subsystems
+    on which :math:`\rho` acts are of equal dimension (if the local dimensions are unequal, specify
+    them in the optional :code:`dim` argument).
 
     Examples
     ==========
