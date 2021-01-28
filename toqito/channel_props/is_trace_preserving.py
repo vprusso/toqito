@@ -1,4 +1,4 @@
-"""Is channel Hermiticity-preserving."""
+"""Is channel Trace-preserving."""
 from typing import List, Union
 
 import numpy as np
