@@ -6,7 +6,7 @@ from toqito.channel_props import choi_rank
 
 
 def test_choi_rank_list_kraus():
-    """Verify unital channel as Kraus ops as True."""
+    """Verify that a list of Kraus operators gives correct Choi rank"""
     kraus_1 = np.array([[1, 0], [0, 0]])
     kraus_2 = np.array([[1, 0], [0, 0]]).conj().T
     kraus_3 = np.array([[0, 1], [0, 0]])
@@ -26,13 +26,15 @@ def test_choi_rank_list_kraus():
 
 
 def test_choi_rank_choi_matrix():
-    """Verify Choi matrix of the swap operator map is unital."""
+    """Verify Choi matrix of the swap operator map gives correct Choi rank."""
     choi_matrix = np.array([[1, 0, 0, 0], [0, 0, 1, 0],
                             [0, 1, 0, 0], [0, 0, 0, 1]])
     np.testing.assert_equal(choi_rank(choi_matrix), 4)
 
 
 def test_choi_bad_input():
+    """Verify that a bad input (such as a string which still passes
+    with `numpy.linalg.matrix_rank`) raises an error"""
     with pytest.raises(ValueError, match="Not a valid"):
         bad_input = 'string'
         choi_rank(bad_input)
