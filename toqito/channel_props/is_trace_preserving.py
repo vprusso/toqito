@@ -1,4 +1,4 @@
-"""Is channel Trace-preserving."""
+"""Is channel trace-preserving."""
 from typing import List, Union
 
 import numpy as np
@@ -11,13 +11,14 @@ def is_trace_preserving(
     phi: Union[np.ndarray, List[List[np.ndarray]]],
     rtol: float = 1e-05,
     atol: float = 1e-08,
+    sys: Union[int, List[int]] = 2,
     dim: Union[List[int], np.ndarray] = None,
 ) -> bool:
     r"""
-    Determine whether the given channel is Trace-preserving [WatH18]_.
+    Determine whether the given channel is trace-preserving [WatH18]_.
 
     A map :math:`\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)` is
-    *Trace-preserving* if it holds that
+    *trace-preserving* if it holds that
 
     .. math::
         \text{Tr} \left( \Phi(X) \right) = \text{Tr}\left( X \right)
@@ -28,6 +29,10 @@ def is_trace_preserving(
 
     .. math::
         \text{Tr}_{\mathcal{Y}} \left( J(\Phi) \right) = \mathbb{I}_{\mathcal{X}}
+
+    In case :code:`sys` is not specified, the default convention is that the Choi matrix
+    is the result of applying the map to the second subsystem of the standard maximally
+    entangled (unnormalized) state.
 
     The dimensions of the subsystems are given by the vector :code:`dim`. By default,
     both subsystems have equal dimension.
@@ -45,7 +50,7 @@ def is_trace_preserving(
     .. math::
         \Phi(X) = X - U X U^*
 
-    is not Trace-preserving, where
+    is not trace-preserving, where
 
     .. math::
         U = \frac{1}{\sqrt{2}}
@@ -61,7 +66,7 @@ def is_trace_preserving(
     >>> is_trace_preserving(kraus_ops)
     False
 
-    As another example, the depolarizing channel is Trace-preserving.
+    As another example, the depolarizing channel is trace-preserving.
 
     >>> from toqito.channels import depolarizing
     >>> from toqito.channel_props import is_trace_preserving
@@ -79,9 +84,10 @@ def is_trace_preserving(
     :param phi: The channel provided as either a Choi matrix or a list of Kraus operators.
     :param rtol: The relative tolerance parameter (default 1e-05).
     :param atol: The absolute tolerance parameter (default 1e-08).
+    :param sys: Scalar or vector specifying the size of the subsystems.
     :param dim: Dimension of the subsystems. If :code:`None`, all dimensions are assumed to be
                 equal.
-    :return: True if the channel is Trace-preserving, and False otherwise.
+    :return: True if the channel is trace-preserving, and False otherwise.
     """
     # If the variable `phi` is provided as a list, we assume this is a list
     # of Kraus operators.
@@ -94,5 +100,5 @@ def is_trace_preserving(
 
         mat = k_l.conj().T @ k_r
     else:
-        mat = partial_trace(input_mat=phi, sys=2, dim=dim)
+        mat = partial_trace(input_mat=phi, sys=sys, dim=dim)
     return is_identity(mat, rtol=rtol, atol=atol)
