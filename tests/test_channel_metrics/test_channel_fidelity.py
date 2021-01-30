@@ -16,9 +16,7 @@ def test_channel_fidelity_different_channel():
     """Calculate the channel fidelity of different channels."""
     choi_1 = dephasing(4)
     choi_2 = depolarizing(4)
-    np.testing.assert_equal(
-        np.isclose(channel_fidelity(choi_1, choi_2), 1 / 2, atol=1e-3), True
-    )
+    np.testing.assert_equal(np.isclose(channel_fidelity(choi_1, choi_2), 1 / 2, atol=1e-3), True)
 
 
 def test_channel_fidelity_inconsistent_dims():

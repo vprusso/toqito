@@ -7,7 +7,7 @@ from toqito.channel_ops import kraus_to_choi
 
 def choi_rank(phi: Union[np.ndarray, List[List[np.ndarray]]]) -> int:
     r"""
-    Calculate the rank of the Choi representation of a quantum channel.
+    Calculate the rank of the Choi representation of a quantum channel [WatChoiRank18]_.
 
     Examples
     ==========
@@ -73,8 +73,8 @@ def choi_rank(phi: Union[np.ndarray, List[List[np.ndarray]]]) -> int:
     References
     ==========
 
-    .. [WatDepo18] Watrous, John.
-        "The theory of quantum information."
+    .. [WatChoiRank18] Watrous, John.
+        "The Theory of Quantum Information."
         Section: "2.2 Quantum Channels".
         Cambridge University Press, 2018.
 

@@ -133,10 +133,17 @@
 - Feature: Added `is_unital.py` under `channel_props/`. This feature allows
   the user to determine whether a given channel (specified by either its Choi
   matrix or by its Kraus operators) is unital.
+ 
+- Feature: Added `is_trace_preserving.py` under `channel_props/`. This feature
+  allows the user to determine whether a given channel (specified by either its
+  Choi matrix or by its Kraus operators) is trace-preserving.
   
-- Feautre: Added `sqrt_channel_fidelity.py` under `channel_metrics/`. This 
-  feature allows the user to calculate the root channel fidelity between the
-  Choi representations of two quantum channels.
+- Feature: Added `log_negativity.py` under `state_props`. This feature
+  allows the user to calculate the log negativty of a quantum state.
+  
+- Feautre: Added `channel_fidelity.py` under `channel_metrics/`. This 
+  feature allows the user to calculate the channel fidelity between the Choi 
+  representations of two quantum channels.
   
 - Enhancement: Adding `rtol` and `atol` tolerance parameters for 
   `is_herm_preserving.py`.

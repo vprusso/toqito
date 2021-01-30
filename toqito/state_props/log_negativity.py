@@ -1,4 +1,4 @@
-"""Negativity property."""
+"""Logarithmic negativity property."""
 from typing import List, Union
 
 import numpy as np
@@ -31,6 +31,10 @@ def log_negativity(rho: np.ndarray, dim: Union[List[int], int] = None) -> float:
     >>> log_negativity(rho)
     0.9999999999999997
 
+    See Also
+    ==========
+    negativity
+
     References
     ==========
     .. [WikNeg] Wikipedia page for negativity (quantum mechanics):
@@ -38,8 +42,7 @@ def log_negativity(rho: np.ndarray, dim: Union[List[int], int] = None) -> float:
 
     :param rho: A density matrix of a pure state vector.
     :param dim: The default has both subsystems of equal dimension.
-    :return: A positive value that corresponds to the logarithmic negativity of
-            :math:`\rho`.
+    :return: A positive value that corresponds to the logarithmic negativity of :math:`\rho`.
     """
     # Allow the user to input either a pure state vector or a density matrix.
     rho = pure_to_mixed(rho)

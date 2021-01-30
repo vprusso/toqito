@@ -32,6 +32,10 @@ def negativity(rho: np.ndarray, dim: Union[List[int], int] = None) -> float:
     >>> negativity(rho)
     0.4999999999999998
 
+    See Also
+    ==========
+    log_negativity
+
     References
     ==========
     .. [WikNeg] Wikipedia page for negativity (quantum mechanics):
@@ -39,8 +43,7 @@ def negativity(rho: np.ndarray, dim: Union[List[int], int] = None) -> float:
 
     :param rho: A density matrix of a pure state vector.
     :param dim: The default has both subsystems of equal dimension.
-    :return: A value between 0 and 1 that corresponds to the negativity of
-            :math:`\rho`.
+    :return: A value between 0 and 1 that corresponds to the negativity of :math:`\rho`.
     """
     # Allow the user to input either a pure state vector or a density matrix.
     rho = pure_to_mixed(rho)

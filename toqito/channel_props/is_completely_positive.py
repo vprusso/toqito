@@ -76,7 +76,7 @@ def is_completely_positive(
     References
     ==========
     .. [WatCP18] Watrous, John.
-        "The theory of quantum information."
+        "The Theory of Quantum Information."
         Section: "Linear maps of square operators".
         Cambridge University Press, 2018.
 
