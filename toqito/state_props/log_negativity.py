@@ -9,7 +9,7 @@ from toqito.channels import partial_transpose
 
 def log_negativity(rho: np.ndarray, dim: Union[List[int], int] = None) -> float:
     r"""
-    Compute the log-negativity of a bipartite quantum state [WikNeg]_.
+    Compute the log-negativity of a bipartite quantum state [WikLogNeg]_.
 
     The log-negativity of a subsystem can be defined in terms of a density matrix :math:`\rho`:
 
@@ -37,7 +37,7 @@ def log_negativity(rho: np.ndarray, dim: Union[List[int], int] = None) -> float:
 
     References
     ==========
-    .. [WikNeg] Wikipedia page for negativity (quantum mechanics):
+    .. [WikLogNeg] Wikipedia page for negativity (quantum mechanics):
         https://en.wikipedia.org/wiki/Negativity_(quantum_mechanics)
 
     :param rho: A density matrix of a pure state vector.

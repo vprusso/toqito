@@ -15,7 +15,7 @@ def is_trace_preserving(
     dim: Union[List[int], np.ndarray] = None,
 ) -> bool:
     r"""
-    Determine whether the given channel is trace-preserving [WatH18]_.
+    Determine whether the given channel is trace-preserving [WatTP18]_.
 
     A map :math:`\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)` is
     *trace-preserving* if it holds that
@@ -76,7 +76,7 @@ def is_trace_preserving(
 
     References
     ==========
-    .. [WatH18] Watrous, John.
+    .. [WatTP18] Watrous, John.
         "The theory of quantum information."
         Section: "Linear maps of square operators".
         Cambridge University Press, 2018.

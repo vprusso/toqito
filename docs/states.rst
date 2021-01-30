@@ -70,6 +70,7 @@ Properties of Quantum States
     toqito.state_props.is_product_vector
     toqito.state_props.is_pure
     toqito.state_props.l1_norm_coherence
+    toqito.state_props.log_negativity
     toqito.state_props.negativity
     toqito.state_props.purity
     toqito.state_props.schmidt_rank
