@@ -39,7 +39,7 @@ keywords = ["quantum information", "quantum computing", "nonlocal games"]
 python = "^3.7"
 cvx = "*"
 cvxpy = "*"
-numpy = "*"
+numpy = "1.15"
 scipy = "*"
 
 [tool.poetry.dev-dependencies]
