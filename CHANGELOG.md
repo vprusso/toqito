@@ -145,6 +145,9 @@
   feature allows the user to calculate the channel fidelity between the Choi 
   representations of two quantum channels.
   
+- Feature: Added `is_idempotent.py` under `matrix_props/`. This feature
+  allows the user to determine whether a given matrix is idempotent.
+  
 - Enhancement: Adding `rtol` and `atol` tolerance parameters for 
   `is_herm_preserving.py`.
   
@@ -160,3 +163,4 @@
   
 - Fix: The GHZ state now supports either dimension or parameter `1` instead 
   of it previously being `2`
+ 
