@@ -220,6 +220,8 @@ Further properties that one can check via :code:`toqito` may be found `on this p
 Operations on Quantum States
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+(Coming soon).
+
 Distance Metrics for Quantum States
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -261,10 +263,6 @@ including the trace norm, trace distance. These and others are also available
 in :code:`toqito`. For a full list of distance metrics one can compute on
 quatum states, consult the docs.
 
-
-Optimizations over Quantum States
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
 Channels
 --------
 
@@ -282,12 +280,15 @@ such that :math:`\Phi` is completely positive and trace preserving.
 
 Quantum Channels
 ^^^^^^^^^^^^^^^^
+(Coming soon).
 
 Properties of Quantum Channels
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(Coming soon).
 
 Operations on Quantum Channels
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+(Coming soon).
 
 Measurements
 ------------
@@ -305,9 +306,3 @@ satisfying
 where :math:`\Sigma` represents a set of measurement outcomes and where
 :math:`\mu(a)` represents the measurement operator associated with outcome
 :math:`a \in \Sigma`.
-
-Properties of Measurements
-^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Operations on Measurements
-^^^^^^^^^^^^^^^^^^^^^^^^^^

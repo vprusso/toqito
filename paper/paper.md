@@ -13,7 +13,7 @@ authors:
 affiliations:
  - name: ISARA Corporation
    index: 1
-date: 12 Feb 2021
+date: 20 Mar 2021
 bibliography: paper.bib
 
 ---
@@ -30,14 +30,14 @@ are often associated with computer science.
 
 While there are many outstanding feature-rich Python packages to study quantum
 information, they are often focused on applications pertaining to
-physics[@johansson2013qutip] [@killoran2019strawberry], [@steiger2018projectq].
+physics [@johansson2013qutip] [@killoran2019strawberry], [@steiger2018projectq].
 Other excellent software offerings that are closer in scope to `toqito`, such
-as `QETLAB`[@johnston2016qetlab], are written in non-opensource languages and
+as `QETLAB` [@johnston2016qetlab], are written in non-opensource languages and
 therefore require the users to have access to costly licenses.
 
 `toqito` possesses functions for fundamental operations including the partial
 trace, partial tranpose, and others. `toqito` also makes use of the
-`cvxpy`[@diamond2016cvxpy] convex optimization module to solve various
+`cvxpy` [@diamond2016cvxpy] convex optimization module to solve various
 semidefinite programs that pertain to problems arising in the study of nonlocal
 games, state discrimination, and other problems in quantum information.
 `toqito` provides the ability to either directly calculate or estimate the

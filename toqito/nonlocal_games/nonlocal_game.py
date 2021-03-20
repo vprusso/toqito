@@ -217,7 +217,7 @@ class NonlocalGame:
         Alice and Bob win the CHSH game if and only if the following equation is
         satisfied.
 
-        ..math::
+        .. math::
             \begin{equation}
             a \oplus b = x \land y.
             \end{equation}
