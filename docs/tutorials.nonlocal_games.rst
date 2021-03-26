@@ -308,7 +308,6 @@ in this matrix into the :code:`pred_mat` variable.
 
     >>> # Creating the predicate matrix.
     >>> import numpy as np
-    >>> dim = 2
     >>> num_alice_inputs, num_alice_outputs = 2, 2
     >>> num_bob_inputs, num_bob_outputs = 2, 2
     >>>
@@ -342,7 +341,7 @@ use :code:`toqito` to determine the lower bound on the quantum value.
 .. code-block:: python
 
     >>> from toqito.nonlocal_games.nonlocal_game import NonlocalGame
-    >>> chsh = NonlocalGame(dim, prob_mat, pred_mat)
+    >>> chsh = NonlocalGame(prob_mat, pred_mat)
     >>> chsh.quantum_lower_bound()
     0.8535539268303678
 
@@ -392,8 +391,7 @@ value and calculate lower bounds on the quantum value of the FFL game.
     >>> import numpy as np
     >>> from toqito.nonlocal_games.nonlocal_game import NonlocalGame
     >>>
-    >>> # Specify the dimension, number of inputs, and number of outputs.
-    >>> dim = 2
+    >>> # Specify the number of inputs, and number of outputs.
     >>> num_alice_in, num_alice_out = 2, 2
     >>> num_bob_in, num_bob_out = 2, 2
     >>> 
@@ -411,7 +409,7 @@ value and calculate lower bounds on the quantum value of the FFL game.
     >>>                     pred_mat[a_alice, b_bob, x_alice, y_bob] = 1 
     >>>
     >>> # Define the FFL game object.
-    >>> ffl = NonlocalGame(dim, prob_mat, pred_mat)
+    >>> ffl = NonlocalGame(prob_mat, pred_mat)
     >>> ffl.classical_value()
     0.6666666666666666
     >>> ffl.quantum_lower_bound()

@@ -163,4 +163,6 @@
   
 - Fix: The GHZ state now supports either dimension or parameter `1` instead 
   of it previously being `2`
+
+## 1.0.0
  

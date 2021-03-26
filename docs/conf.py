@@ -21,7 +21,7 @@ copyright = "2020, Vincent Russo"
 author = "Vincent Russo"
 
 # The full version, including alpha/beta/rc tags
-release = "0.0.6"
+release = "1.0.0"
 
 
 # -- General configuration ---------------------------------------------------

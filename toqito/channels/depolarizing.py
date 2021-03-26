@@ -6,7 +6,7 @@ from toqito.states import max_entangled
 
 def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
     r"""
-    Produce the partially depolarizng channel [WikDepo]_, [WatDepo18]_.
+    Produce the partially depolarizing channel [WikDepo]_, [WatDepo18]_.
 
     The Choi matrix of the completely depolarizing channel that acts on
     :code:`dim`-by-:code:`dim` matrices.
@@ -89,7 +89,7 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
     :param param_p: Default 0.
     :return: The Choi matrix of the completely depolarizing channel.
     """
-    # Compute the Choi matrix of the depolarizng channel.
+    # Compute the Choi matrix of the depolarizing channel.
 
     # Gives a sparse non-normalized state.
     psi = max_entangled(dim=dim, is_sparse=False, is_normalized=False)
