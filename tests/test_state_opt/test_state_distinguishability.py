@@ -44,7 +44,7 @@ def test_unambiguous_state_distinguishability_two_states():
     probs = [1 / 2, 1 / 2]
 
     res = state_distinguishability(states, probs, dist_method="unambiguous")
-    np.testing.assert_equal(np.isclose(res, 0), True)
+    np.testing.assert_equal(np.isclose(res, 1), True)
 
 
 def test_state_distinguishability_three_state_vec():
