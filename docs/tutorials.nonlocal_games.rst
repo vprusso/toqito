@@ -342,7 +342,7 @@ use :code:`toqito` to determine the lower bound on the quantum value.
 
     >>> from toqito.nonlocal_games.nonlocal_game import NonlocalGame
     >>> chsh = NonlocalGame(prob_mat, pred_mat)
-    >>> chsh.quantum_lower_bound()
+    >>> chsh.quantum_value_lower_bound()
     0.8535539268303678
 
 In this case, we can see that the quantum value of the CHSH game is in fact
@@ -411,7 +411,7 @@ value and calculate lower bounds on the quantum value of the FFL game.
     >>> ffl = NonlocalGame(prob_mat, pred_mat)
     >>> ffl.classical_value()
     0.6666666666666666
-    >>> ffl.quantum_lower_bound()
+    >>> ffl.quantum_value_lower_bound()
     0.6666857549041076
 
 In this case, we obtained the correct quantum value of :math:`2/3`, however,
