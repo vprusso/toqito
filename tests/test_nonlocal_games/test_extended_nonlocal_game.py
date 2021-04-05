@@ -122,7 +122,7 @@ class TestExtendedNonlocalGame(unittest.TestCase):
 
         self.assertEqual(np.isclose(res, expected_res), True)
 
-    def test_bb84_quantum_lower_bound(self):
+    def test_bb84_quantum_value_lower_bound(self):
         """Calculate the lower bound for the quantum value of theBB84 game."""
         prob_mat, pred_mat = self.bb84_extended_nonlocal_game()
         bb84 = ExtendedNonlocalGame(prob_mat, pred_mat)

@@ -32,7 +32,7 @@ describes how to merge code changes into this `toqito`.
      box on the PR page to let the `toqito` devs know that the changes are complete.
      The code will not be merged until this box is checked, the continuous
      integration returns check marks,
-     and the primary developer will approve the reviews.
+     and the primary developer approves the reviews.
 
 # Additional Resources
 

@@ -165,4 +165,8 @@
   of it previously being `2`
 
 ## 1.0.0
+
+- Fix: Various documentation fixes and updates.
+
+- Fix: Index error for unambiguous quantum state distinguishability.
  

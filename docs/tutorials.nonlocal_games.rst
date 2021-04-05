@@ -342,7 +342,7 @@ use :code:`toqito` to determine the lower bound on the quantum value.
 
     >>> from toqito.nonlocal_games.nonlocal_game import NonlocalGame
     >>> chsh = NonlocalGame(prob_mat, pred_mat)
-    >>> chsh.quantum_lower_bound()
+    >>> chsh.quantum_value_lower_bound()
     0.8535539268303678
 
 In this case, we can see that the quantum value of the CHSH game is in fact
@@ -387,7 +387,7 @@ The following example encodes the FFL game. We then calculate the classical
 value and calculate lower bounds on the quantum value of the FFL game.
 
 .. code-block:: python
-    
+
     >>> import numpy as np
     >>> from toqito.nonlocal_games.nonlocal_game import NonlocalGame
     >>>
@@ -398,22 +398,21 @@ value and calculate lower bounds on the quantum value of the FFL game.
     >>> # Define the probability matrix of the FFL game.
     >>> prob_mat = np.array([[1/3, 1/3], [1/3, 0]])
     >>>
+    >>>
     >>> # Define the predicate matrix of the FFL game.
     >>> pred_mat = np.zeros((num_alice_out, num_bob_out, num_alice_in, num_bob_in))
     >>> for a_alice in range(num_alice_out):
     >>>     for b_bob in range(num_bob_out):
     >>>         for x_alice in range(num_alice_in):
     >>>             for y_bob in range(num_bob_in):
-    >>>                 # Check winning condition of a or x != b or y:
     >>>                 if (a_alice or x_alice) != (b_bob or y_bob):
-    >>>                     pred_mat[a_alice, b_bob, x_alice, y_bob] = 1 
-    >>>
+    >>>                     pred_mat[a_alice, b_bob, x_alice, y_bob] = 1
     >>> # Define the FFL game object.
     >>> ffl = NonlocalGame(prob_mat, pred_mat)
     >>> ffl.classical_value()
     0.6666666666666666
-    >>> ffl.quantum_lower_bound()
-    0.6666705296004836
+    >>> ffl.quantum_value_lower_bound()
+    0.6666857549041076
 
 In this case, we obtained the correct quantum value of :math:`2/3`, however,
 the lower bound technique is not guaranteed to converge to the true quantum
