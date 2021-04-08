@@ -17,9 +17,10 @@ def in_separable_ball(mat: np.ndarray) -> bool:
     Examples
     ==========
 
-    The only states acting on :math:`\complex^m \otimes \complex^n` in the separable ball that do
-    not have full rank are those with exactly 1 zero eigenvalue, and the :math:`mn - 1` non-zero
-    eigenvalues equal to each other.
+    The only states acting on :math:`\mathbb{C}^m \otimes \mathbb{C}^n` in the
+    separable ball that do not have full rank are those with exactly 1 zero
+    eigenvalue, and the :math:`mn - 1` non-zero eigenvalues equal to each
+    other.
 
     The following is an example of generating a random density matrix with eigenvalues
     :code:`[1, 1, 1, 0]/3`. This example yields a matrix that is contained within the separable

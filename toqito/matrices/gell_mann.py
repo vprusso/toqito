@@ -8,9 +8,9 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray:
     r"""
     Produce a Gell-Mann operator [WikGM]_.
 
-    Generates the 3-by-3 Gell-Mann matrix indicated by the value of `ind`.
-    `ind = 0` gives the identity matrix, while values 1 through 8 each indicate
-    one of the other 8 Gell-Mann matrices.
+    Generates the 3-by-3 Gell-Mann matrix indicated by the value of
+    :code:`ind`.  When :code:`ind = 0` gives the identity matrix, while values
+    1 through 8 each indicate one of the other 8 Gell-Mann matrices.
 
     The 9 Gell-Mann matrices are defined as follows:
 
@@ -68,7 +68,7 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray:
     Examples
     ==========
 
-    The Gell-Mann matrix generated from :math:`idx = 2` yields the following
+    The Gell-Mann matrix generated from :code:`idx = 2` yields the following
     matrix:
 
     .. math::

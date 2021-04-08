@@ -13,8 +13,8 @@ def is_commuting(mat_1: np.ndarray, mat_2: np.ndarray) -> bool:
     .. math::
         \left[X, Y\right] = XY - YX.
 
-    It holds that :math:`` if and only if :math:`X` and :math:`Y` commute
-    [WatCom18]_.
+    It holds that :math:`\left[X,Y\right]=0` if and only if :math:`X` and
+    :math:`Y` commute [WatCom18]_.
 
     Examples
     ==========
@@ -47,14 +47,14 @@ def is_commuting(mat_1: np.ndarray, mat_2: np.ndarray) -> bool:
             1 & 0 & 0 \\
             0 & 1 & 0 \\
             1 & 0 & 2
-            \end{pmatrix}, \quad \text{and} \quad
+            \end{pmatrix} \quad \text{and} \quad
         B = \begin{pmatrix}
             2 & 4 & 0 \\
             3 & 1 & 0 \\
             -1 & -4 & 1
             \end{pmatrix}.
 
-    It may be verified that :math:`AB = BA = 0`, and therefore :math`A` and
+    It may be verified that :math:`AB = BA = 0`, and therefore :math:`A` and
     :math:`B` commute.
 
     >>> from toqito.matrix_props import is_commuting

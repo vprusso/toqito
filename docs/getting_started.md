@@ -2,10 +2,7 @@
 
 ### Installing
 
-1. Ensure you have python 3.7 or greater.
-
-    See [Installing Python 3 on Linux](https://docs.python-guide.org/starting/install3/linux/) 
-    for a guide on how to install python.
+1. Ensure you have Python 3.7 or greater installed on your machine.
 
 2. Consider using a [virtual environment](https://packaging.python.org/guides/installing-using-pip-and-virtualenv/).
 
@@ -25,14 +22,16 @@ python setup.py install
 
 ### Testing
 
-The `pytest` module is used for testing. In order to run and `pytest`, you will need to ensure it is installed on your 
-machine. Consult the [pytest](https://docs.pytest.org/en/latest/) website for more information. To run the suite of 
-tests for `toqito`, run the following command in the root directory of this project:
+The `pytest` module is used for testing. In order to run and `pytest`, you will
+need to ensure it is installed on your machine. Consult the
+[pytest](https://docs.pytest.org/en/latest/) website for more information. To
+run the suite of tests for `toqito`, run the following command in the root
+directory of this project:
 
 ```
 pytest --cov-report term-missing --cov=toqito tests/
 ```
-    
+
 ### Contributing
 
 All contributions, bug reports, bug fixes, documentation improvements,
@@ -52,7 +51,7 @@ along the lines of:
     To solve problem "X" we used `toqito`; a package for studying certain
     aspects of quantum information.
 
-A BibTeX entry that you can use to cite :code:`toqito` is provided here:
+A BibTeX entry that you can use to cite `toqito` is provided here:
 
 
     @misc{toqito,

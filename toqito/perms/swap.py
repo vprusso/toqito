@@ -71,7 +71,7 @@ def swap(
     :code:`sys = [1 ,2]` and :code:`dim = 2` we have that
 
     .. math::
-        Swap(X)_{2, [1, 2]} =
+        \text{Swap}(X)_{2, [1, 2]} =
         \begin{pmatrix}
             1 & 9 & 5 & 13 \\
             3 & 11 & 7 & 15 \\

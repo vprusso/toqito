@@ -20,7 +20,7 @@ def unvec(vector: np.ndarray, shape: Optional[List[int]] = None) -> np.ndarray:
 
     .. math::
         \text{unvec}(u) =
-        begin{pmatrix}
+        \begin{pmatrix}
             1 & 2 \\
             3 & 4
         \end{pmatrix}

@@ -8,8 +8,8 @@ def clock(dim: int) -> np.ndarray:
     r"""
     Produce clock matrix [WikClock]_.
 
-    Returns the clock matrix of dimension `dim` described in [WikClock]_. The
-    clock matrix generates the following `dim`-by-`dim` matrix
+    Returns the clock matrix of dimension :code:`dim` described in [WikClock]_.
+    The clock matrix generates the following :code:`dim`-by-:code:`dim` matrix
 
     .. math::
         \Sigma_{1, d} = \begin{pmatrix}
@@ -49,7 +49,7 @@ def clock(dim: int) -> np.ndarray:
         https://en.wikipedia.org/wiki/Generalizations_of_Pauli_matrices
 
     :param dim: Dimension of the matrix.
-    :return: `dim`-by-`dim` clock matrix.
+    :return: :code:`dim`-by-:code:`dim` clock matrix.
     """
     c_var = 2j * pi / dim
     omega = (exp(k * c_var) for k in range(dim))

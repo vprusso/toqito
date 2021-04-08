@@ -9,8 +9,9 @@ def perm_sign(perm: Union[np.ndarray, List[int]]) -> float:
     """
     Compute the "sign" of a permutation [WikParPerm]_.
 
-    The sign (either -1 or 1) of the permutation :code:`perm` is -1**`inv`, where `inv` is the
-    number of inversions contained in :code:`perm`.
+    The sign (either -1 or 1) of the permutation :code:`perm` is
+    :code:`-1**`inv`, where :code:`inv` is the number of inversions contained
+    in :code:`perm`.
 
     Examples
     ==========

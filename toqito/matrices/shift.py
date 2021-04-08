@@ -4,10 +4,10 @@ import numpy as np
 
 def shift(dim: int) -> np.ndarray:
     r"""
-    Produce a `dim`-by-`dim` shift matrix [WikShift]_.
+    Produce a :code:`dim`-by-:code:`dim` shift matrix [WikShift]_.
 
-    Returns the shift matrix of dimension `dim` described in [WikShift]_. The
-    shift matrix generates the following `dim`-by-`dim` matrix:
+    Returns the shift matrix of dimension :code:`dim` described in [WikShift]_.
+    The shift matrix generates the following :code:`dim`-by-:code:`dim` matrix:
 
     .. math::
         \Sigma_{1, d} = \begin{pmatrix}
@@ -47,7 +47,7 @@ def shift(dim: int) -> np.ndarray:
         (https://en.wikipedia.org/wiki/Generalizations_of_Pauli_matrices.
 
     :param dim: Dimension of the matrix.
-    :return: `dim`-by-`dim` shift matrix.
+    :return: :code:`dim`-by-:code:`dim` shift matrix.
     """
     shift_mat = np.identity(dim)
     shift_mat = np.roll(shift_mat, -1)
