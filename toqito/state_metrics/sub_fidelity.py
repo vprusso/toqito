@@ -25,6 +25,7 @@ def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     .. math::
         \rho = \frac{3}{4}|0\rangle \langle 0| +
                \frac{1}{4}|1 \rangle \langle 1|
+                \quad \text{and} \quad
         \sigma = \frac{1}{8}|0 \rangle \langle 0| +
                  \frac{7}{8}|1 \rangle \langle 1|.
 

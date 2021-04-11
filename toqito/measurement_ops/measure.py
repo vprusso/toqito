@@ -53,7 +53,7 @@ def measure(measurement: np.ndarray, state: np.ndarray) -> float:
     >>> measure(proj_0, rho)
     0.3333333333333334
 
-    Similarly, the probability of obtaining outcome math:`1` is given by
+    Similarly, the probability of obtaining outcome :math:`1` is given by
 
     .. math::
         \langle P_1, \rho \rangle = \frac{2}{3}.

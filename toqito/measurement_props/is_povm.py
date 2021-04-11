@@ -29,14 +29,16 @@ def is_povm(mat_list: List[np.ndarray]) -> bool:
         \begin{pmatrix}
             1 & 0 \\
             0 & 0
-        \end{pmatrix}, \qquad
+        \end{pmatrix}
+        \quad \text{and} \quad
         M_1 =
         \begin{pmatrix}
             0 & 0 \\
             0 & 1
-        \end{pmatrix}
+        \end{pmatrix}.
 
-    our function indicates that this set of operators constitute a set of POVMs.
+    Our function indicates that this set of operators constitute a set of
+    POVMs.
 
     >>> from toqito.measurement_props import is_povm
     >>> import numpy as np
@@ -64,14 +66,15 @@ def is_povm(mat_list: List[np.ndarray]) -> bool:
         \begin{pmatrix}
             1 & 2 \\
             3 & 4
-        \end{pmatrix}, \qquad
+        \end{pmatrix}
+        \quad \text{and} \quad
         M_1 =
         \begin{pmatrix}
             5 & 6 \\
             7 & 8
-        \end{pmatrix}
+        \end{pmatrix},
 
-    does not constitute a POVM set.
+    do not constitute a POVM set.
 
     >>> from toqito.measurement_props import is_povm
     >>> import numpy as np

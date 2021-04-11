@@ -13,11 +13,12 @@ def pauli(
     r"""
     Produce a Pauli operator [WikPauli]_.
 
-    Provides the 2-by-2 Pauli matrix indicated by the value of `ind`. The
-    variable `ind = 1` gives the Pauli-X operator, `ind = 2` gives the Pauli-Y
-    operator, `ind =3` gives the Pauli-Z operator, and `ind = 0`gives the
-    identity operator. Alternatively, `ind` can be set to "I", "X", "Y", or "Z"
-    (case insensitive) to indicate the Pauli identity, X, Y, or Z operator.
+    Provides the 2-by-2 Pauli matrix indicated by the value of :code:`ind`. The
+    variable :code:`ind = 1` gives the Pauli-X operator, :code:`ind = 2` gives
+    the Pauli-Y operator, :code:`ind = 3` gives the Pauli-Z operator, and
+    :code:`ind = 0` gives the identity operator. Alternatively, :code:`ind` can
+    be set to "I", "X", "Y", or "Z" (case insensitive) to indicate the Pauli
+    identity, X, Y, or Z operator.
 
     The 2-by-2 Pauli matrices are defined as the following matrices:
 

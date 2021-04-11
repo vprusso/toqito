@@ -53,8 +53,8 @@ def state_distinguishability(
             \text{maximize:} \quad & \sum_{i=0}^n p_i \langle M_i, \rho_i \rangle \\
             \text{subject to:} \quad & M_0 + \ldots + M_{n+1} = \mathbb{I},\\
                                      & \langle M_i, \rho_j \rangle = 0,
-                                       \quad 1 \leq i, j \leq n, \quad i \not= j.
-                                     & M_0, \ldots, M_n \geq 0
+                                       \quad 1 \leq i, j \leq n, \quad i \not= j, \\
+                                     & M_0, \ldots, M_n \geq 0.
         \end{align*}
 
     Examples
