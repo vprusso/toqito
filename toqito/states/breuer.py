@@ -10,7 +10,7 @@ def breuer(dim: int, lam: float) -> np.ndarray:
     Produce a Breuer state [HPBreuer]_.
 
     Gives a Breuer bound entangled state for two qudits of local dimension :code:`dim`, with the
-    :code:`lam` parameter describing the weight of the singlet component as described in [HPBreuer].
+    :code:`lam` parameter describing the weight of the singlet component as described in [HPBreuer]_.
 
     This function was adapted from the QETLAB package.
 
