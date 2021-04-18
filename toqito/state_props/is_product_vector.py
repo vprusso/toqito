@@ -60,7 +60,8 @@ def is_product_vector(vec: np.ndarray, dim: Union[int, List[int]] = None) -> boo
 
     :param vec: The vector to check.
     :param dim: The dimension of the vector
-    :return: True if :code:`vec` is a product vector and False otherwise.
+    :return: :code:`True` if :code:`vec` is a product vector and
+             :code:`False` otherwise.
     """
     return _is_product_vector(vec, dim)[0][0]
 

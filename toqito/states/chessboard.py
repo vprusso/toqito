@@ -45,9 +45,9 @@ def chessboard(mat_params: List[float], s_param: float = None, t_param: float = 
         Phys. Rev. A, 61:30301(R), 2000
         arXiv: 991.1056
 
-    :param mat_params:
-    :param s_param:
-    :param t_param:
+    :param mat_params: Parameters of the chessboard state as defined in [BP00]_.
+    :param s_param: Default is :code:`np.conj(mat_params[2]) / np.conj(mat_params[5])`.
+    :param t_param: Default is :code:`t_param = mat_params[0] * mat_params[3] / mat_params[4]`.
     :return: A chessboard state.
     """
     if s_param is None:

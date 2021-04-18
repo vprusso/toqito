@@ -291,9 +291,9 @@ this in the matrix as follows.
 
 .. code-block:: python
 
-    # Creating the probability matrix.
-    import numpy as np
-    prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
+    >>> # Creating the probability matrix.
+    >>> import numpy as np
+    >>> prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
 
 Next, we want to loop through all possible combinations of question and answer
 pairs and populate the :math:(a, b, x, y)^{th}` entry of that matrix with a

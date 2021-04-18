@@ -74,7 +74,8 @@ def is_mutually_unbiased_basis(vec_list: List[Union[np.ndarray, List[Union[float
         https://en.wikipedia.org/wiki/Mutually_unbiased_bases
 
     :param vec_list: The list of vectors to check.
-    :return: True if :code:`vec_list` constitutes a mutually unbiased basis, and False otherwise.
+    :return: :code:`True` if :code:`vec_list` constitutes a mutually unbiased basis, and
+             :code:`False` otherwise.
     """
     if len(vec_list) <= 1:
         raise ValueError("There must be at least two bases provided as input.")

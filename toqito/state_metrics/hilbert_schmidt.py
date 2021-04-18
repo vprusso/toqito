@@ -35,7 +35,7 @@ def hilbert_schmidt(rho: np.ndarray, sigma: np.ndarray) -> float:
 
     :param rho: An input matrix.
     :param sigma: An input matrix.
-    :return: The Hilbert-Schmidt distance between `rho` and `sigma`.
+    :return: The Hilbert-Schmidt distance between :code:`rho` and :code:`sigma`.
     """
     if not is_density(rho) or not is_density(sigma):
         raise ValueError("Hilbert-Schmidt is only defined for density " "operators.")

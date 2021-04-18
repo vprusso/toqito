@@ -18,16 +18,32 @@ pip install toqito
 Alternatively, to install, you may also run the following command from the
 top-level package directory.
 
-
 ```
 python setup.py install
 ```
 
+#### Installing BLAS/LAPACK
+
+The `toqito` module makes heavy use of the `cvxpy` module for solving various
+convex optimization problems that naturally arise for certain problems in
+quantum information. The installation instructions for `cvxpy` may be found on
+the project's [installation page](https://www.cvxpy.org/install/index.html).
+
+As a dependency for many of the solvers, you will need to ensure you have the
+BLAS and LAPACK mathematical libraries installed on your machine. If you have
+`numpy` working on your machine, it is likely that you already have these
+libraries on your machine. The `cvxpy` module provides many different solvers
+to select from for solving SDPs. We tend to use the
+[SCS](https://github.com/cvxgrp/scs) solver. Ensure that you have the `scs`
+Python module installed and built for your machine.
+
 ### Testing
 
-The `pytest` module is used for testing. In order to run and `pytest`, you will need to ensure it is installed on your 
-machine. Consult the [pytest](https://docs.pytest.org/en/latest/) website for more information. To run the suite of 
-tests for `toqito`, run the following command in the root directory of this project:
+The `pytest` module is used for testing. In order to run and `pytest`, you will
+need to ensure it is installed on your machine. Consult the
+[pytest](https://docs.pytest.org/en/latest/) website for more information. To
+run the suite of tests for `toqito`, run the following command in the root
+directory of this project:
 
 ```
 pytest --cov-report term-missing --cov=toqito tests/
@@ -40,6 +56,11 @@ enhancements, and ideas are welcome.
 
 A detailed overview on how to contribute can be found in the
 [contributing guide](https://github.com/vprusso/toqito/blob/master/.github/CONTRIBUTING.md).
+
+### Reporting Issues
+
+Please report any issues you encounter via the 
+[issue template](https://github.com/vprusso/toqito/blob/master/.github/ISSUE_TEMPLATE.md)
 
 ### Citing
 

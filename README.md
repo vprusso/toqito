@@ -68,18 +68,16 @@ To solve problem "X" we used `toqito`; a package for studying certain
 aspects of quantum information.
 ```
 
-A BibTeX entry that you can use to cite `toqito` is provided here:
+A BibTeX entry that you can use to cite :code:`toqito` is provided here:
 
-```bibtex
- @misc{toqito,
-   author       = {Vincent Russo},
-   title        = {toqito: A {P}ython toolkit for quantum information, version 0.0.7},
-   howpublished = {\url{https://github.com/vprusso/toqito}},
-   month        = Aug,
-   year         = 2020,
-   doi          = {10.5281/zenodo.3699578}
- }
-```
+    @misc{toqito,
+       author       = {Vincent Russo},
+       title        = {toqito: A {P}ython toolkit for quantum information, version 1.0.0},
+       howpublished = {\url{https://github.com/vprusso/toqito}},
+       month        = Mar,
+       year         = 2020,
+       doi          = {10.5281/zenodo.3699578}
+     }
 
 ## Contributing
 

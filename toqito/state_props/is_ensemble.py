@@ -52,7 +52,7 @@ def is_ensemble(states: List[np.ndarray]) -> bool:
         Cambridge University Press, 2018.
 
     :param states: The list of states to check.
-    :return: True if states form an ensemble and False otherwise.
+    :return: :code:`True` if states form an ensemble and :code:`False` otherwise.
     """
     trace_sum = 0
     for state in states:

@@ -11,8 +11,8 @@ authors:
   - name: Vincent Russo
     institute: [isara, mod]
 institute:
-  - mod: Modellicity Inc.
   - isara: ISARA Corporation
+  - mod: Modellicity Inc.
 date: 21 Mar 2021
 bibliography: paper.bib
 
@@ -36,7 +36,7 @@ as `QETLAB` [@johnston2016qetlab], are written in non-opensource languages and
 therefore require the users to have access to costly licenses.
 
 `toqito` possesses functions for fundamental operations including the partial
-trace, partial tranpose, and others. `toqito` also makes use of the
+trace, partial transpose, and others. `toqito` also makes use of the
 `cvxpy` [@diamond2016cvxpy] convex optimization module to solve various
 semidefinite programs that pertain to problems arising in the study of nonlocal
 games, state discrimination, and other problems in quantum information.

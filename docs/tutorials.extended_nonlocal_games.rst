@@ -566,6 +566,15 @@ As we know that :math:`\omega(G_{CHSH}) = \omega_{ns}(G_{CHSH}) = 3/4` and that
 for any extended nonlocal game, :math:`G`, we may also conclude that
 :math:`\omega^*(G) = 3/4`.
 
+Note the SCS convex optimization solver will generate a large number of warnings of the form
+
+```
+WARN: A->p (column pointers) not strictly increasing
+```
+
+This is a known issue, and while it does not appear to impact the correctness
+of the results, it is an outstanding issue for the :code:`toqito` project.
+
 Example: An extended nonlocal game with quantum advantage
 ----------------------------------------------------------
 
