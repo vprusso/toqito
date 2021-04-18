@@ -67,7 +67,8 @@ def is_diagonal(mat: np.ndarray) -> bool:
         https://stackoverflow.com/questions/43884189/
 
     :param mat: The matrix to check.
-    :return: Returns True if the matrix is diagonal and False otherwise.
+    :return: Returns :code:`True` if the matrix is diagonal
+             and :code:`False` otherwise.
     """
     if not is_square(mat):
         return False

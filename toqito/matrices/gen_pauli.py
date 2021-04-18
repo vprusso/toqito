@@ -9,11 +9,12 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
     r"""
     Produce generalized Pauli operator [WikGenPaul]_.
 
-    Generates a `dim`-by-`dim` unitary operator. More specifically, it is the
-    operator `X^k_1*Z^k_2`, where X and Z are the "shift" and "clock" operators
-    that naturally generalize the Pauli X and Z operators. These matrices span
-    the entire space of `dim`-by-`dim` matrices as `k_1` and `k_2` range from 0
-    to `dim-1`, inclusive.
+    Generates a :code:`dim`-by-:code:`dim` unitary operator. More specifically,
+    it is the operator :math:`X^k_1*Z^k_2`, where :math:`X` and :math:`Z` are
+    the "shift" and "clock" operators that naturally generalize the Pauli X and
+    Z operators. These matrices span the entire space of
+    :code:`dim`-by-:code:`dim` matrices as :code:`k_1` and :code:`k_2` range
+    from 0 to :code:`dim-1`, inclusive.
 
     Note that the generalized Pauli operators are also known by the name of
     "discrete Weyl operators". [WatrousLec6]_
@@ -21,8 +22,8 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
     Examples
     ==========
 
-    The generalized Pauli operator for `k_1 = 1`, `k_2 = 0` and `dim = 2` is
-    given as the standard Pauli-X matrix
+    The generalized Pauli operator for :code:`k_1 = 1`, :code:`k_2 = 0` and
+    :code:`dim = 2` is given as the standard Pauli-X matrix
 
     .. math::
         G_{1, 0, 2} = \begin{pmatrix}
@@ -30,7 +31,7 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
                          1 & 0
                       \end{pmatrix}.
 
-    This can be obtained in `toqito` as follows.
+    This can be obtained in :code:`toqito` as follows.
 
     >>> from toqito.matrices import gen_pauli
     >>> dim = 2
@@ -40,8 +41,8 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
     [[0.+0.j, 1.+0.j],
      [1.+0.j, 0.+0.j]])
 
-    The generalized Pauli matrix `k_1 = 1`, `k_2 = 1`, and `dim = 2` is given as
-    the standard Pauli-Y matrix
+    The generalized Pauli matrix :code:`k_1 = 1`, :code:`k_2 = 1`, and
+    :code:`dim = 2` is given as the standard Pauli-Y matrix
 
     .. math::
         G_{1, 1, 2} = \begin{pmatrix}
@@ -49,7 +50,7 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
                         1 & 0
                       \end{pmatrix}.
 
-    This can be obtained in `toqito` as follows.`
+    This can be obtained in :code:`toqito` as follows.`
 
     >>> from toqito.matrices import gen_pauli
     >>> dim = 2
@@ -67,8 +68,8 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
     .. [WatrousLec6] Lecture 6: Further remarks on measurements and channels
         https://cs.uwaterloo.ca/~watrous/LectureNotes/CS766.Fall2011/06.pdf
 
-    :param k_1: (a non-negative integer from 0 to `dim-1` inclusive).
-    :param k_2: (a non-negative integer from 0 to `dim-1` inclusive).
+    :param k_1: (a non-negative integer from 0 to :code:`dim-1` inclusive).
+    :param k_2: (a non-negative integer from 0 to :code:`dim-1` inclusive).
     :param dim: (a positive integer indicating the dimension).
     :return: A generalized Pauli operator.
     """

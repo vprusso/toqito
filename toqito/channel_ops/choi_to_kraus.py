@@ -22,6 +22,10 @@ def choi_to_kraus(choi_mat: np.ndarray, tol: float = 1e-9) -> List[List[np.ndarr
 
     .. math::
         \begin{pmatrix}
+            1 & 0 & 0 & 0 \\
+            0 & 0 & 1 & 0 \\
+            0 & 1 & 0 & 0 \\
+            0 & 0 & 0 & 1
         \end{pmatrix}
 
     The corresponding Kraus operators of the swap operator are given as follows,

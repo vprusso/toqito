@@ -6,11 +6,11 @@ import numpy as np
 
 def iden(dim: int, is_sparse: bool = False) -> np.ndarray:
     r"""
-    Calculate the `dim`-by-`dim` identity matrix [WIKID]_.
+    Calculate the :code:`dim`-by-:code:`dim` identity matrix [WIKID]_.
 
-    Returns the `dim`-by-`dim` identity matrix. If `is_sparse = False` then
-    the matrix will be full. If `is_sparse = True` then the matrix will be
-    sparse.
+    Returns the :code:`dim`-by-:code:`dim` identity matrix. If :code:`is_sparse
+    = False` then the matrix will be full. If :code:`is_sparse = True` then the
+    matrix will be sparse.
 
     .. math::
         \mathbb{I} = \begin{pmatrix}
@@ -59,7 +59,7 @@ def iden(dim: int, is_sparse: bool = False) -> np.ndarray:
 
     :param dim: Integer representing dimension of identity matrix.
     :param is_sparse: Whether or not the matrix is sparse.
-    :return: Sparse identity matrix of dimension `dim`.
+    :return: Sparse identity matrix of dimension :code:`dim`.
     """
     if is_sparse:
         id_mat = sparse.eye(dim)

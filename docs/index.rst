@@ -5,11 +5,11 @@
 toqito
 ======
 
-toqito is an open source library for studying various objects in quantum
-information, namely, states, channels, and measurements. toqito focuses on
-providing numerical tools to study problems pertaining to entanglement theory,
-nonlocal games, and other aspects of quantum information that are often
-associated with computer science.
+The :code:`toqito` package is an open source library for studying various
+objects in quantum information, namely, states, channels, and measurements.
+toqito focuses on providing numerical tools to study problems pertaining to
+entanglement theory, nonlocal games, and other aspects of quantum information
+that are often associated with computer science.
 
 .. image:: http://img.shields.io/travis/vprusso/toqito.svg?style=plastic
    :alt: Build Status
