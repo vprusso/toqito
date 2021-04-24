@@ -141,7 +141,7 @@
 - Feature: Added `log_negativity.py` under `state_props`. This feature
   allows the user to calculate the log negativty of a quantum state.
   
-- Feautre: Added `channel_fidelity.py` under `channel_metrics/`. This 
+- Feature: Added `channel_fidelity.py` under `channel_metrics/`. This 
   feature allows the user to calculate the channel fidelity between the Choi 
   representations of two quantum channels.
   
@@ -170,3 +170,15 @@
 
 - Fix: Index error for unambiguous quantum state distinguishability.
  
+## 1.0.1
+
+- Fix: Permute systems had a bug where if the `inv_perm` option in 
+  `permute_systems.py` was selected, the standard permutation was calculated 
+  (not the inverse permutation).
+  
+- Fix: The `partial_transpose.py` function did not accurately calculate the 
+  partial transpose on matrices of certain dimension. The fix for 
+  `permute_systems.py` fixes the issue with `partial_transpose.py`.
+  
+- Enhancement: Add further unit tests and increasing test coverage for 
+  `partial_transpose.py` and `permute_systems.py`.

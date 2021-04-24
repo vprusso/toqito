@@ -191,11 +191,9 @@ def partial_transpose(
         order="F",
     )
 
-    # If z_tmp is a just a 1-D matrix, extract just the row.
-    if z_tmp.shape[0] == 1:
-        z_tmp = z_tmp[0]
-
     # Return the subsystems back to their original positions.
     dim[[0, 1], sys - 1] = dim[[1, 0], sys - 1]
+
+    dim = dim[:, (np.array(perm) - 1).tolist()]
 
     return permute_systems(z_tmp, perm, dim, False, True)

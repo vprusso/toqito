@@ -164,14 +164,8 @@ def permute_systems(
         if len(input_mat.shape) > 1:
             vec_orien = 0
         # 2 if row vector
-        elif len(input_mat.shape) == 1:
-            vec_orien = 1
         else:
-            raise ValueError(
-                "InvalidMat: Length of tuple of dimensions "
-                "specifying the input matrix can only be of "
-                "length 1 or length 2."
-            )
+            vec_orien = 1
 
     if len(dim.shape) == 1:
         # Force dim to be a row vector.
@@ -184,9 +178,6 @@ def permute_systems(
 
     prod_dim_r = int(np.prod(dim[0, :]))
     prod_dim_c = int(np.prod(dim[1, :]))
-
-    if len(perm) != num_sys:
-        raise ValueError("InvalidPerm: `len(perm)` must be equal to " "`len(dim)`.")
     if sorted(perm) != list(range(1, num_sys + 1)):
         raise ValueError("InvalidPerm: `perm` must be a permutation vector.")
     if input_mat_dims[0] != prod_dim_r or (not row_only and input_mat_dims[1] != prod_dim_c):
@@ -194,16 +185,20 @@ def permute_systems(
             "InvalidDim: The dimensions specified in DIM do not " "agree with the size of X."
         )
     if is_vec:
+        # If `input_mat` is a 1-by-X row vector, ensure we "flatten it" appropriately:
+        if input_mat.shape[0] == 1:
+            input_mat = input_mat[0]
+            vec_orien = 1
+        permuted_mat_1 = input_mat.reshape(dim[vec_orien, ::-1].astype(int), order="F")
         if inv_perm:
-            permuted_mat_1 = input_mat.reshape(dim[vec_orien, ::-1].astype(int), order="F")
-            permuted_mat = vec(np.transpose(permuted_mat_1, num_sys - np.array(perm[::-1]))).T
-            # We need to flatten out the array.
-            permuted_mat = functools.reduce(operator.iconcat, permuted_mat, [])
+            permuted_mat = vec(
+                np.transpose(permuted_mat_1, np.argsort(num_sys - np.array(perm[::-1])))
+            ).T
         else:
-            permuted_mat_1 = input_mat.reshape(dim[vec_orien, ::-1].astype(int), order="F")
             permuted_mat = vec(np.transpose(permuted_mat_1, num_sys - np.array(perm[::-1]))).T
-            # We need to flatten out the array.
-            permuted_mat = functools.reduce(operator.iconcat, permuted_mat, [])
+
+        # We need to flatten out the array.
+        permuted_mat = functools.reduce(operator.iconcat, permuted_mat, [])
         return np.array(permuted_mat)
 
     vec_arg = np.array(list(range(0, input_mat_dims[0])))
