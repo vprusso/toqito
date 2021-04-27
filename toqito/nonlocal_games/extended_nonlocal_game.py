@@ -299,11 +299,9 @@ class ExtendedNonlocalGame:
 
                 # As the SDPs keep alternating, check if the winning probability
                 # becomes any higher. If so, replace with new best.
-                if best < lower_bound:
-                    best = lower_bound
+                best = max(best, lower_bound)
 
-            if best_lower_bound < best:
-                best_lower_bound = best
+            best_lower_bound = max(best, best_lower_bound)
 
         return best_lower_bound
 
