@@ -103,7 +103,7 @@ def swap(
     :param rho: A vector or matrix to have its subsystems swapped.
     :param sys: Default: [1, 2]
     :param dim: Default: :code:`[sqrt(len(X), sqrt(len(X)))]`
-    :param row_only: Default: :code:False
+    :param row_only: Default: :code:`False`
     :return: The swapped matrix.
     """
     eps = np.finfo(float).eps
@@ -155,6 +155,9 @@ def swap(
         raise ValueError(val_error)
 
     # Swap the indicated subsystems.
-    perm = list(range(1, num_sys + 1))
-    perm[sys[0] - 1 :] = perm[sys[0] - 1 :][::-1]
+    perm = np.array(range(1, num_sys + 1))
+    sys = np.array(sys) - 1
+
+    perm[sys] = perm[sys[::-1]]
+
     return permute_systems(rho, perm, dim, row_only)

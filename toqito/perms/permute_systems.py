@@ -178,6 +178,7 @@ def permute_systems(
 
     prod_dim_r = int(np.prod(dim[0, :]))
     prod_dim_c = int(np.prod(dim[1, :]))
+
     if sorted(perm) != list(range(1, num_sys + 1)):
         raise ValueError("InvalidPerm: `perm` must be a permutation vector.")
     if input_mat_dims[0] != prod_dim_r or (not row_only and input_mat_dims[1] != prod_dim_c):

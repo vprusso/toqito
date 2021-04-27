@@ -174,11 +174,14 @@
 
 - Fix: Permute systems had a bug where if the `inv_perm` option in 
   `permute_systems.py` was selected, the standard permutation was calculated 
-  (not the inverse permutation).
+  (not the inverse permutation). Further unit tests are included to catch
+  similar failures.
   
 - Fix: The `partial_transpose.py` function did not accurately calculate the 
   partial transpose on matrices of certain dimension. The fix for 
-  `permute_systems.py` fixes the issue with `partial_transpose.py`.
+  `permute_systems.py` fixes the issue with `partial_transpose.py`. Further unit
+  tests are included to catch similar failures.
+
+- Fix: The `swap.py` function was not accurately swapping on all sub-systems.
+  Further unit tests are included to catch similar failures.
   
-- Enhancement: Add further unit tests and increasing test coverage for 
-  `partial_transpose.py` and `permute_systems.py`.
