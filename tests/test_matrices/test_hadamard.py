@@ -51,10 +51,11 @@ def test_hadamard_3():
     np.testing.assert_equal(np.all(bool_mat), True)
 
 
-def test_hadamard_negative():
-    """Input must be non-negative."""
-    with np.testing.assert_raises(ValueError):
-        hadamard(-1)
+def test_hadamard_4():
+    """Test for Hadamard function when n = 4."""
+    res = hadamard(4)
+    bool_mat = np.isclose(res.shape, (16, 16))
+    np.testing.assert_equal(np.all(bool_mat), True)
 
 
 if __name__ == "__main__":

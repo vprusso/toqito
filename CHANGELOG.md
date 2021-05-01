@@ -184,4 +184,9 @@
 
 - Fix: The `swap.py` function was not accurately swapping on all sub-systems.
   Further unit tests are included to catch similar failures.
-  
+
+- Fix: The `hadamard.py` function was not yielding Hadamard matrices of proper
+  size and value. Fixed and added tests to cover this case.
+
+- Enhancement: Simplified code for `nonlocal_game.py` and 
+  `extended_nonlocal_game.py`

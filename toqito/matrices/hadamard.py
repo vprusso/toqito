@@ -40,19 +40,25 @@ def hadamard(n_param: int = 1) -> np.ndarray:
     :param n_param: A non-negative integer (default = 1).
     :return: The Hadamard matrix of dimension :code:`2^{n_param}`.
     """
-    if n_param == 0:
-        return np.array([1])
-    if n_param == 1:
-        return 1 / np.sqrt(2) * np.array([[1, 1], [1, -1]])
-    if n_param == 2:
-        return 1 / 2 * np.array([[1, 1, 1, 1], [1, -1, 1, -1], [1, 1, -1, -1], [1, -1, -1, 1]])
-    if n_param > 1:
-        mat_1 = hadamard(1)
-        mat_2 = hadamard(1)
-        mat = np.kron(mat_1, mat_2)
-        for _ in range(2, n_param):
-            mat_1 = mat_2
-            mat_2 = mat
-            mat = np.kron(mat_1, mat_2)
-        return mat
-    raise ValueError(f"Improper dimension {n_param} provided.")
+    return 2 ** (-n_param / 2) * np.array(
+        [
+            [(-1) ** _hamming_distance(i & j) for i in range(2 ** n_param)]
+            for j in range(2 ** n_param)
+        ]
+    )
+
+
+def _hamming_distance(x_param: int) -> int:
+    """
+    Calculate the bit-wise Hamming distance of :code:`x_param` from 0.
+
+    The Hamming distance is the number 1s in the integer :code:`x_param`.
+
+    :param x_param: A non-negative integer.
+    :return: The hamming distance of :code:`x_param` from 0.
+    """
+    tot = 0
+    while x_param:
+        tot += 1
+        x_param &= x_param - 1
+    return tot
