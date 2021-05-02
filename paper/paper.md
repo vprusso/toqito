@@ -7,10 +7,11 @@ tags:
   - entanglement
   - nonlocal games
   - matrix analysis
-authors:
-  - name: Vincent Russo
-    affiliation: [isara, mod]
-affiliation:
+author:
+  - Vincent Russo
+    email: vincentrusso1@gmail.com
+    institute: [isara, mod]
+institute:
   - isara: ISARA Corporation
   - mod: Modellicity Inc.
 date: 21 Mar 2021
