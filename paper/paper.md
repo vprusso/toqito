@@ -9,8 +9,8 @@ tags:
   - matrix analysis
 authors:
   - name: Vincent Russo
-    institute: [isara, mod]
-institute:
+    affiliation: [isara, mod]
+affiliation:
   - isara: ISARA Corporation
   - mod: Modellicity Inc.
 date: 21 Mar 2021
