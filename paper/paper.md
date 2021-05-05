@@ -23,16 +23,16 @@ bibliography: paper.bib
 # Summary
 
 `toqito` is an open source library for studying various objects in quantum
-information, namely, states, channels, and measurements. `toqito` focuses on
-providing numerical tools to study problems pertaining to entanglement theory,
+information, namely: states, channels, and measurements. `toqito` focuses on
+providing numerical tools to study problems pertaining to: entanglement theory,
 nonlocal games, matrix analysis, and other aspects of quantum information that
 are often associated with computer science. 
 
 # Statement of Need
 
 While there are many outstanding feature-rich Python packages to study quantum
-information, they are often focused on applications pertaining to
-physics [@johansson2013qutip] [@killoran2019strawberry], [@steiger2018projectq].
+information, they are often focused on physics applications 
+[@johansson2013qutip] [@killoran2019strawberry], [@steiger2018projectq].
 Other excellent software offerings that are closer in scope to `toqito`, such
 as `QETLAB` [@johnston2016qetlab], are written in non-opensource languages and
 therefore require the users to have access to costly licenses.
