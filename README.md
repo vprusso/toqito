@@ -19,7 +19,7 @@ information.
 [![build status](http://img.shields.io/travis/vprusso/toqito.svg?style=plastic)](https://travis-ci.org/vprusso/toqito)
 [![doc status](https://readthedocs.org/projects/toqito/badge/?version=latest&style=plastic)](https://toqito.readthedocs.io/en/latest/)
 [![codecov](https://codecov.io/gh/vprusso/toqito/branch/master/graph/badge.svg?style=plastic)](https://codecov.io/gh/vprusso/toqito)
-[![DOI](https://zenodo.org/badge/235493396.svg?style=plastic)](https://zenodo.org/badge/latestdoi/235493396)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4743211.svg)](https://doi.org/10.5281/zenodo.4743211)
 [![Unitary Fund](https://img.shields.io/badge/Supported%20By-UNITARY%20FUND-brightgreen.svg?style=plastic)](http://unitary.fund)
 
 ## Installing
@@ -57,7 +57,8 @@ pytest --cov-report term-missing --cov=toqito tests/
 ## Citing
 
 You can cite `toqito` using the following DOI: 
-10.5281/zenodo.3699578
+10.5281/zenodo.4743211
+
 
 If you are using the `toqito` software package in research work, please include
 an explicit mention of `toqito` in your publication. Something along the lines
@@ -76,7 +77,7 @@ A BibTeX entry that you can use to cite :code:`toqito` is provided here:
        howpublished = {\url{https://github.com/vprusso/toqito}},
        month        = Mar,
        year         = 2020,
-       doi          = {10.5281/zenodo.3699578}
+       doi          = {10.5281/zenodo.4743211}
      }
 
 ## Contributing

@@ -67,7 +67,7 @@ Please report any issues you encounter via the
 Citing
 ^^^^^^
 
-You can cite :code:`toqito` using the following DOI: `10.5281/zenodo.3699578 <https://zenodo.org/record/3699578>`_.
+You can cite :code:`toqito` using the following DOI: `10.5281/zenodo.4743211 <https://zenodo.org/record/4743211>`_.
 
 If you are using the :code:`toqito` software package in research work, please
 include an explicit mention of :code:`toqito` in your publication. Something
@@ -86,5 +86,5 @@ A BibTeX entry that you can use to cite :code:`toqito` is provided here:
        howpublished = {\url{https://github.com/vprusso/toqito}},
        month        = Mar,
        year         = 2021,
-       doi          = {10.5281/zenodo.3699578}
+       doi          = {10.5281/zenodo.4743211}
      }

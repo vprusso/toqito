@@ -32,7 +32,7 @@ are often associated with computer science.
 
 While there are many outstanding feature-rich Python packages to study quantum
 information, they are often focused on physics applications 
-[@johansson2013qutip] [@killoran2019strawberry], [@steiger2018projectq].
+[@johansson2013qutip; @killoran2019strawberry; @steiger2018projectq].
 Other excellent software offerings that are closer in scope to `toqito`, such
 as `QETLAB` [@johnston2016qetlab], are written in non-opensource languages and
 therefore require the users to have access to costly licenses.
