@@ -12,9 +12,9 @@ authors:
     affiliation: "1, 2"
 affiliations:
   - name: ISARA Corporation
-  - index: 1    
+    index: 1    
   - name: Modellicity Inc.
-  - index: 2
+    index: 2
 date: 21 Mar 2021
 bibliography: paper.bib
 
