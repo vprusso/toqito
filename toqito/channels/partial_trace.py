@@ -158,7 +158,7 @@ def partial_trace(
     prod_dim = np.prod(dim)
     if isinstance(sys, list):
         if len(sys) == 1:
-            prod_dim_sys = np.prod(dim[0])
+            prod_dim_sys = np.prod(dim[sys[0] - 1])
         else:
             prod_dim_sys = 1
             for idx in sys:

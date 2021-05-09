@@ -182,6 +182,11 @@
   `permute_systems.py` fixes the issue with `partial_transpose.py`. Further unit
   tests are included to catch similar failures.
 
+- Fix: The `partial_trace.py` function was not accurately calculating the 
+  partial trace when the argument was specified as a list of dimensions for 
+  certain cases. This has been fixed and further test cases have been included 
+  to prevent this from occurring.
+
 - Fix: The `swap.py` function was not accurately swapping on all sub-systems.
   Further unit tests are included to catch similar failures.
 
@@ -190,3 +195,4 @@
 
 - Enhancement: Simplified code for `nonlocal_game.py` and 
   `extended_nonlocal_game.py`
+  
