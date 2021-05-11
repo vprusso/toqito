@@ -33,5 +33,11 @@ def test_is_product_separable_state():
     np.testing.assert_equal(is_product_vector(sep_vec), True)
 
 
+# def test_is_product_pure_state_2_2_2():
+#     """Check to ensure that pure state living in C^2 x C^2 x C^2 is product."""
+#     pure_vec = 1 / np.sqrt(2) * np.array([1, 0, 0, 0, 1, 0, 0, 0])
+#     np.testing.assert_equal(is_product_vector(pure_vec, [2, 2, 2]), True)
+
+
 if __name__ == "__main__":
     np.testing.run_module_suite()

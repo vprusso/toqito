@@ -4,6 +4,8 @@ from scipy.sparse import issparse, linalg
 
 import numpy as np
 
+from toqito.matrix_ops import unvec
+
 
 def schmidt_decomposition(
     vec: np.ndarray, dim: Union[int, List[int], np.ndarray] = None, k_param: int = 0
@@ -90,12 +92,18 @@ def schmidt_decomposition(
 
     # Just a few Schmidt coefficients.
     if 0 < k_param <= np.ceil(np.min(dim) / adj):
-        u_mat, singular_vals, vt_mat = linalg.svds(
-            linalg.LinearOperator(np.reshape(vec, dim[::-1].astype(int)), k_param)
-        )
+        u_mat, singular_vals, vt_mat = linalg.svds(linalg.LinearOperator(unvec(vec), k_param))
+        vt_mat = vt_mat.conj().T
+
     # Otherwise, use lots of Schmidt coefficients.
     else:
-        u_mat, singular_vals, vt_mat = np.linalg.svd(np.reshape(vec, dim[::-1].astype(int)))
+        # print("VEC\n", vec)
+        # print("REV\n", np.reshape(vec, dim[::-1].astype(int)))
+        # print("UNVEC\n", unvec(vec))
+        u_mat, singular_vals, vt_mat = np.linalg.svd(unvec(vec))
+        print(type(vec))
+        # u_mat, singular_vals, vt_mat = np.linalg.svd(np.reshape(vec, dim[::-1].astype(int)))
+        vt_mat = vt_mat.conj().T
 
     if k_param > 0:
         u_mat = u_mat[:, :k_param]
@@ -112,5 +120,5 @@ def schmidt_decomposition(
         u_mat = u_mat[:, :r_param]
         vt_mat = vt_mat[:, :r_param]
 
-    u_mat = u_mat.conj().T
-    return singular_vals, u_mat, vt_mat
+    # u_mat = u_mat.conj().T
+    return singular_vals, vt_mat, u_mat

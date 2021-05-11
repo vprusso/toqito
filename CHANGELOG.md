@@ -192,6 +192,9 @@
 
 - Fix: The `hadamard.py` function was not yielding Hadamard matrices of proper
   size and value. Fixed and added tests to cover this case.
+  
+- Fix: The `schmidt_decomposition.py` function was taking an incorrect argument 
+  into the SVD function. Fixed and added further tests cases to cover.
 
 - Enhancement: Simplified code for `nonlocal_game.py` and 
   `extended_nonlocal_game.py`

@@ -322,6 +322,106 @@ def test_partial_transpose_8_by_8_subsystems_4_2():
     np.testing.assert_equal(np.all(bool_mat), True)
 
 
+def test_partial_transpose_6_by_6_subsystems_2_3():
+    """Partial transpose on a 6-by-6 matrix on 2 x 3 subsystems."""
+    test_input_mat = np.arange(1, 37).reshape(6, 6)
+
+    # Partial transpose on first subsystem:
+    pt_1 = partial_transpose(test_input_mat, [1], [2, 3])
+    expected_pt_1 = np.array(
+        [
+            [1, 2, 3, 19, 20, 21],
+            [7, 8, 9, 25, 26, 27],
+            [13, 14, 15, 31, 32, 33],
+            [4, 5, 6, 22, 23, 24],
+            [10, 11, 12, 28, 29, 30],
+            [16, 17, 18, 34, 35, 36],
+        ]
+    )
+    bool_mat = np.isclose(expected_pt_1, pt_1)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+    # Partial transpose on second subsystem:
+    pt_2 = partial_transpose(test_input_mat, [2], [2, 3])
+    expected_pt_2 = np.array(
+        [
+            [1, 7, 13, 4, 10, 16],
+            [2, 8, 14, 5, 11, 17],
+            [3, 9, 15, 6, 12, 18],
+            [19, 25, 31, 22, 28, 34],
+            [20, 26, 32, 23, 29, 35],
+            [21, 27, 33, 24, 30, 36],
+        ]
+    )
+    bool_mat = np.isclose(expected_pt_2, pt_2)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+    # Partial transpose on first and second subsystems:
+    pt_1_2 = partial_transpose(test_input_mat, [1, 2], [2, 3])
+    expected_pt_1_2 = np.array(
+        [
+            [1, 7, 13, 19, 25, 31],
+            [2, 8, 14, 20, 26, 32],
+            [3, 9, 15, 21, 27, 33],
+            [4, 10, 16, 22, 28, 34],
+            [5, 11, 17, 23, 29, 35],
+            [6, 12, 18, 24, 30, 36],
+        ]
+    )
+    bool_mat = np.isclose(expected_pt_1_2, pt_1_2)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+
+def test_partial_transpose_6_by_6_subsystems_3_2():
+    """Partial transpose on a 6-by-6 matrix on 3 x 2 subsystems."""
+    test_input_mat = np.arange(1, 37).reshape(6, 6)
+
+    # Partial transpose on first subsystem:
+    pt_1 = partial_transpose(test_input_mat, [1], [3, 2])
+    expected_pt_1 = np.array(
+        [
+            [1, 2, 13, 14, 25, 26],
+            [7, 8, 19, 20, 31, 32],
+            [3, 4, 15, 16, 27, 28],
+            [9, 10, 21, 22, 33, 34],
+            [5, 6, 17, 18, 29, 30],
+            [11, 12, 23, 24, 35, 36],
+        ]
+    )
+    bool_mat = np.isclose(expected_pt_1, pt_1)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+    # Partial transpose on second subsystem:
+    pt_2 = partial_transpose(test_input_mat, [2], [3, 2])
+    expected_pt_2 = np.array(
+        [
+            [1, 7, 3, 9, 5, 11],
+            [2, 8, 4, 10, 6, 12],
+            [13, 19, 15, 21, 17, 23],
+            [14, 20, 16, 22, 18, 24],
+            [25, 31, 27, 33, 29, 35],
+            [26, 32, 28, 34, 30, 36],
+        ]
+    )
+    bool_mat = np.isclose(expected_pt_2, pt_2)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+    # Partial transpose on first and second subsystems:
+    pt_1_2 = partial_transpose(test_input_mat, [1, 2], [3, 2])
+    expected_pt_1_2 = np.array(
+        [
+            [1, 7, 13, 19, 25, 31],
+            [2, 8, 14, 20, 26, 32],
+            [3, 9, 15, 21, 27, 33],
+            [4, 10, 16, 22, 28, 34],
+            [5, 11, 17, 23, 29, 35],
+            [6, 12, 18, 24, 30, 36],
+        ]
+    )
+    bool_mat = np.isclose(expected_pt_1_2, pt_1_2)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+
 def test_partial_transpose_16_by_16_subsystems_2_2_2_2():
     """Partial transpose on a 16-by-16 matrix on 2 x 2 x 2 x 2 subsystems."""
     rho = np.arange(256).reshape(16, 16)

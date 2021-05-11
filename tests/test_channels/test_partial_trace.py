@@ -137,6 +137,75 @@ def test_partial_trace_8_by_8():
     np.testing.assert_equal(np.all(bool_mat), True)
 
 
+def test_partial_trace_6_by_6_subsystems_2_3():
+    """Test for 6-by-6 matrix for subsystems 2 x 3"""
+    test_input_mat = np.arange(1, 37).reshape(6, 6)
+
+    # Trace out first subsystem:
+    pt_1 = partial_trace(test_input_mat, [1], [2, 3])
+    expected_pt_1 = np.array([[23, 25, 27], [35, 37, 39], [47, 49, 51]])
+    bool_mat = np.isclose(expected_pt_1, pt_1)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+    # Trace out second subsystem:
+    pt_2 = partial_trace(test_input_mat, [2], [2, 3])
+    expected_pt_2 = np.array([[24, 33], [78, 87]])
+    bool_mat = np.isclose(expected_pt_2, pt_2)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+    # Trace out first and second subsystem:
+    pt_1_2 = partial_trace(test_input_mat, [1, 2], [2, 3])
+    expected_pt_1_2 = np.array([[111]])
+    bool_mat = np.isclose(expected_pt_1_2, pt_1_2)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+
+def test_partial_trace_6_by_6_subsystems_3_2():
+    """Test for 6-by-6 matrix for subsystems 3 x 2"""
+    test_input_mat = np.arange(1, 37).reshape(6, 6)
+
+    # Trace out first subsystem:
+    pt_1 = partial_trace(test_input_mat, [1], [3, 2])
+    expected_pt_1 = np.array([[45, 48], [63, 66]])
+    bool_mat = np.isclose(expected_pt_1, pt_1)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+    # Trace out second subsystem:
+    pt_2 = partial_trace(test_input_mat, [2], [3, 2])
+    expected_pt_2 = np.array([[9, 13, 17], [33, 37, 41], [57, 61, 65]])
+    bool_mat = np.isclose(expected_pt_2, pt_2)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+    # Trace out first and second subsystem:
+    pt_1_2 = partial_trace(test_input_mat, [1, 2], [3, 2])
+    expected_pt_1_2 = np.array([[111]])
+    bool_mat = np.isclose(expected_pt_1_2, pt_1_2)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+
+def test_partial_trace_9_by_9_subsystems_3_3():
+    """Test for 9-by-9 matrix for subsystems 3 x 3"""
+    test_input_mat = np.arange(1, 82).reshape(9, 9)
+
+    # Partial trace on first subsystem:
+    pt_1 = partial_trace(test_input_mat, [1], [3, 3])
+    expected_pt_1 = np.array([[93, 96, 99], [120, 123, 126], [147, 150, 153]])
+    bool_mat = np.isclose(expected_pt_1, pt_1)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+    # Partial trace on second subsystem:
+    pt_2 = partial_trace(test_input_mat, [2], [3, 3])
+    expected_pt_2 = np.array([[33, 42, 51], [114, 123, 132], [195, 204, 213]])
+    bool_mat = np.isclose(expected_pt_2, pt_2)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+    # Partial trace on first and second subsystems:
+    pt_1_2 = partial_trace(test_input_mat, [1, 2], [3, 3])
+    expected_pt_1_2 = np.array([[369]])
+    bool_mat = np.isclose(expected_pt_1_2, pt_1_2)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+
 def test_partial_trace_16_by_16_subsystems_2_2_2_2():
     """Test for 16-by-16 matrix for subsystems (2 x 2) x (2 x 2)."""
     test_input_mat = np.arange(1, 257).reshape(16, 16)
