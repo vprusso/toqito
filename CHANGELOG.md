@@ -195,6 +195,10 @@
   
 - Fix: The `schmidt_decomposition.py` function was taking an incorrect argument 
   into the SVD function. Fixed and added further tests cases to cover.
+  
+- Fix: The `is_product_vector.py` was making use of the 
+  `schmidt_decomposition.py` function incorrectly. Fixed and added further 
+  test cases.
 
 - Enhancement: Simplified code for `nonlocal_game.py` and 
   `extended_nonlocal_game.py`
