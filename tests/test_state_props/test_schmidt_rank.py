@@ -52,5 +52,34 @@ def test_schmidt_rank_separable_state():
     np.testing.assert_equal(schmidt_rank(rho) == 1, True)
 
 
+def test_schmidt_rank_entangled_state():
+    """Computing Schmidt rank of entangled state should be > 1."""
+    e_0, e_1 = basis(2, 0), basis(2, 1)
+    phi = (
+        (1 + np.sqrt(6)) / (2 * np.sqrt(6)) * np.kron(e_0, e_0)
+        + (1 - np.sqrt(6)) / (2 * np.sqrt(6)) * np.kron(e_0, e_1)
+        + (np.sqrt(2) - np.sqrt(3)) / (2 * np.sqrt(6)) * np.kron(e_1, e_0)
+        + (np.sqrt(2) + np.sqrt(3)) / (2 * np.sqrt(6)) * np.kron(e_1, e_1)
+    )
+    np.testing.assert_equal(schmidt_rank(phi) == 2, True)
+
+
+def test_schmidt_rank_separable_density_matrix():
+    """Computing Schmidt rank of separable density matrix should be 1."""
+    np.testing.assert_equal(schmidt_rank(np.identity(4)) == 1, True)
+    np.testing.assert_equal(schmidt_rank(np.identity(16)) == 1, True)
+
+
+def test_schmidt_rank_bell_density_matrices():
+    """Computing Schmidt rank of Bell density matrices should be 4."""
+    np.testing.assert_equal(schmidt_rank(bell(0) * bell(0).conj().T) == 4, True)
+    np.testing.assert_equal(schmidt_rank(bell(1) * bell(1).conj().T) == 4, True)
+    np.testing.assert_equal(schmidt_rank(bell(2) * bell(2).conj().T) == 4, True)
+    np.testing.assert_equal(schmidt_rank(bell(3) * bell(3).conj().T) == 4, True)
+
+    np.testing.assert_equal(schmidt_rank(bell(0) * bell(0).conj().T, [2, 2]) == 4, True)
+    np.testing.assert_equal(schmidt_rank(bell(0) * bell(0).conj().T, 2) == 4, True)
+
+
 if __name__ == "__main__":
     np.testing.run_module_suite()

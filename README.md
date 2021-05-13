@@ -75,8 +75,8 @@ A BibTeX entry that you can use to cite :code:`toqito` is provided here:
        author       = {Vincent Russo},
        title        = {toqito: A {P}ython toolkit for quantum information, version 1.0.0},
        howpublished = {\url{https://github.com/vprusso/toqito}},
-       month        = Mar,
-       year         = 2020,
+       month        = May,
+       year         = 2021,
        doi          = {10.5281/zenodo.4743211}
      }
 

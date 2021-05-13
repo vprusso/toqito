@@ -200,6 +200,9 @@
   `schmidt_decomposition.py` function incorrectly. Fixed and added further 
   test cases.
 
+- Enhancement: Adding ability for `schmidt_rank.py` function to process not 
+  just vectors, but also matrices. Adding in unit tests to cover this case.
+
 - Enhancement: Simplified code for `nonlocal_game.py` and 
   `extended_nonlocal_game.py`
   

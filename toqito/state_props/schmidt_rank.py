@@ -3,8 +3,10 @@ from typing import List, Union
 
 import numpy as np
 
+from toqito.perms import swap
 
-def schmidt_rank(vec: np.ndarray, dim: Union[int, List[int], np.ndarray] = None) -> float:
+
+def schmidt_rank(rho: np.ndarray, dim: Union[int, List[int], np.ndarray] = None) -> float:
     r"""
     Compute the Schmidt rank [WikSR]_.
 
@@ -27,8 +29,9 @@ def schmidt_rank(vec: np.ndarray, dim: Union[int, List[int], np.ndarray] = None)
         - If the Schmidt rank is 1: The state is separable,
         - If the Schmidt rank > 1: The state is entangled.
 
-    Compute the Schmidt rank of the vector :code:`vec`, assumed to live in bipartite space, where
-    both subsystems have dimension equal to :code:`sqrt(len(vec))`.
+    Compute the Schmidt rank of the input :code:`rho`, provided as either a vector or a matrix that
+    is assumed to live in bipartite space, where both subsystems have dimension equal to
+    :code:`sqrt(len(vec))`.
 
     The dimension may be specified by the 1-by-2 vector :code:`dim` and the rank in that case is
     determined as the number of Schmidt coefficients larger than :code:`tol`.
@@ -74,22 +77,51 @@ def schmidt_rank(vec: np.ndarray, dim: Union[int, List[int], np.ndarray] = None)
     .. [WikSR] Wikipedia: Schmidt rank
         https://en.wikipedia.org/wiki/Schmidt_decomposition#Schmidt_rank_and_entanglement
 
-    :param vec: A bipartite vector to have its Schmidt rank computed.
-    :param dim: A 1-by-2 vector.
-    :return: The Schmidt rank of vector :code:`vec`.
+    :param rho: A bipartite vector or matrix to have its Schmidt rank computed.
+    :param dim: A 1-by-2 vector or matrix.
+    :return: The Schmidt rank of :code:`rho`.
     """
-    eps = np.finfo(float).eps
-    slv = int(np.round(np.sqrt(len(vec))))
+    # If the input is provided as a matrix, compute the operator Schmidt rank.
+    if len(rho.shape) == 2:
+        if rho.shape[0] != 1 and rho.shape[1] != 1:
+            return _operator_schmidt_rank(rho, dim)
+
+    # Otherwise, compute the Schmidt rank for the vector.
+    slv = int(np.round(np.sqrt(len(rho))))
+
     if dim is None:
         dim = slv
     if isinstance(dim, int):
-        dim = np.array([dim, len(vec) / dim], dtype=int)
-        if np.abs(dim[1] - np.round(dim[1])) >= 2 * len(vec) * eps:
-            raise ValueError(
-                "Invalid: The value of `dim` must evenly divide "
-                "`len(vec)`; please provide a `dim` array "
-                "containing the dimensions of the subsystems"
-            )
+        dim = np.array([dim, len(rho) / dim], dtype=int)
         dim[1] = np.round(dim[1])
 
-    return np.linalg.matrix_rank(np.reshape(vec, dim[::-1]))
+    return np.linalg.matrix_rank(np.reshape(rho, dim[::-1]))
+
+
+def _operator_schmidt_rank(rho: np.ndarray, dim: Union[int, List[int], np.ndarray] = None) -> float:
+    """
+    Operator Schmidt rank of variable.
+
+    If the input is provided as a density operator instead of a vector, compute the Schmidt rank.
+    """
+    if dim is None:
+        dim_x = rho.shape
+        sqrt_dim = np.round(np.sqrt(dim_x))
+
+        dim = np.array([[sqrt_dim[0], sqrt_dim[0]], [sqrt_dim[1], sqrt_dim[1]]])
+
+    if isinstance(dim, list):
+        dim = np.array(dim)
+
+    if isinstance(dim, int):
+        dim = np.array([dim, len(rho) / dim], dtype=int)
+        dim[1] = np.round(dim[1])
+
+    if min(dim.shape) == 1 or len(dim.shape) == 1:
+        dim = np.array([dim, dim])
+
+    op_1 = rho.reshape(int(np.prod(np.prod(dim))), 1)
+    swap_dim = np.concatenate((dim[1, :].astype(int), dim[0, :].astype(int)))
+    op_2 = swap(op_1, [2, 3], swap_dim).reshape(-1, 1)
+
+    return schmidt_rank(op_2, np.prod(dim, axis=0).astype(int))
