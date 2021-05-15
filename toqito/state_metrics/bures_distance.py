@@ -4,14 +4,17 @@ from toqito.state_metrics import fidelity
 
 def bures_distance(rho_1: np.ndarray, rho_2: np.ndarray ) -> float:
     r"""
-    Calculate the bures distance between the two density matrices : rho_1 and rho_2, defined
-    by:
+    Compute the bures distance of two density matrices [WikFid]_.
+    
+    Calculate the bures distance between the two density matrices: 
+    rho_1 and rho_2, defined by:
+    
+    .. math::
+    \sqrt{2 (1 - F(\rho_1, \rho_2)}
 
-     D = sqrt(2 * (1 - fidelity(rho_1, rho_2) ) )
-
-    where:`fidelity` denotes the fidelity between `rho_1` and `rho_2` . The return is a value between :math:`0` and
-    :math:`sqrt(2)`, with :math:`0` corresponding to matrices : code:`rho_1 = rho_2` and :math:`sqrt(2)` corresponding to the case : code:`rho_1` and :code:`rho_2` with
-    orthogonal support,.
+    where:`fidelity` denotes the fidelity between `rho_1` and `rho_2` . The return is a value
+    between :math:`0` and :math:`\sqrt(2)`, with :math:`0` corresponding to matrices: code:`rho_1 = rho_2` 
+    and :math:`\sqrt(2)` corresponding to the  case : code:`rho_1` and :code:`rho_2` with orthogonal support.
 
     Examples
     ==========
@@ -61,10 +64,4 @@ def bures_distance(rho_1: np.ndarray, rho_2: np.ndarray ) -> float:
         raise ValueError("InvalidDim: `rho_1` and `rho_2` must be matrices of the same size.")
 
     # Round fidelity to only 10 decimals to avoid error when rho_1 = rho_2
-    round_fidelity =  round(fidelity(rho_1, rho_2),10)
-
-    if round_fidelity > 1 :
-        raise ValueError("Numeric Error: fidelity(rho_1, rho_2) greater than 1")
-
-    distance =  np.sqrt(2.0 * (1.0 - round_fidelity))
-    return distance
+    return np.sqrt(2.0 * (1.0 - round(fidelity(rho_1, rho_2), 10) ))
