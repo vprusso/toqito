@@ -6,12 +6,10 @@ from toqito.state_metrics import fidelity
 def bures_distance(rho_1: np.ndarray, rho_2: np.ndarray ) -> float:
     r"""
     Compute the bures distance of two density matrices [WikFid]_.
-    
     Calculate the bures distance between the two density matrices: 
     rho_1 and rho_2, defined by:
-    
     .. math::
-    \sqrt{2 (1 - F(\rho_1, \rho_2)}
+        \sqrt{2 (1 - F(\rho_1, \rho_2)},
 
     where:`fidelity` denotes the fidelity between `rho_1` and `rho_2` . The return is a value
     between :math:`0` and :math:`\sqrt(2)`, with :math:`0` corresponding to matrices: 
@@ -63,6 +61,5 @@ def bures_distance(rho_1: np.ndarray, rho_2: np.ndarray ) -> float:
     # Perform some error checking.
     if not np.all(rho_1.shape == (rho_2.shape)):
         raise ValueError("InvalidDim: `rho_1` and `rho_2` must be matrices of the same size.")
-
     # Round fidelity to only 10 decimals to avoid error when rho_1 = rho_2
     return np.sqrt(2.0 * (1.0 - round(fidelity(rho_1, rho_2), 10) ))
