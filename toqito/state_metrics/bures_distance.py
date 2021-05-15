@@ -1,3 +1,4 @@
+"""Bures distance metric."""
 import numpy as np
 
 from toqito.state_metrics import fidelity
@@ -13,8 +14,9 @@ def bures_distance(rho_1: np.ndarray, rho_2: np.ndarray ) -> float:
     \sqrt{2 (1 - F(\rho_1, \rho_2)}
 
     where:`fidelity` denotes the fidelity between `rho_1` and `rho_2` . The return is a value
-    between :math:`0` and :math:`\sqrt(2)`, with :math:`0` corresponding to matrices: code:`rho_1 = rho_2` 
-    and :math:`\sqrt(2)` corresponding to the  case : code:`rho_1` and :code:`rho_2` with orthogonal support.
+    between :math:`0` and :math:`\sqrt(2)`, with :math:`0` corresponding to matrices: 
+    code:`rho_1 = rho_2` and :math:`\sqrt(2)` corresponding to the  case : code:`rho_1`
+    and :code:`rho_2` with orthogonal support.
 
     Examples
     ==========
@@ -58,7 +60,6 @@ def bures_distance(rho_1: np.ndarray, rho_2: np.ndarray ) -> float:
     :param rho_2: Density operator.
     :return: The Bures distance between :code:`rho_1` and :code:`sigma_2`.
     """
-
     # Perform some error checking.
     if not np.all(rho_1.shape == (rho_2.shape)):
         raise ValueError("InvalidDim: `rho_1` and `rho_2` must be matrices of the same size.")
