@@ -7,15 +7,16 @@ def bures_distance(rho_1: np.ndarray, rho_2: np.ndarray ) -> float:
     r"""
     Compute the bures distance of two density matrices [WikFid]_.
 
-    Calculate the bures distance between the two density matrices: rho_1 and 
-    rho_2, defined by:
+    Calculate the bures distance between the two density matrices:`rho_1` and 
+    `rho_2`, defined by:
     .. math::
         \sqrt{2 (1 - F(\rho_1, \rho_2)},
 
-    where:`fidelity` denotes the fidelity between `rho_1` and `rho_2` . The return is a value between 
-    :math:`0` and :math:`\sqrt(2)`, with :math:`0` corresponding to matrices: code:`rho_1 = rho_2`
-    and :math:`\sqrt(2)` corresponding to the  case : code:`rho_1`and :code:`rho_2`
-    with orthogonal support.
+    where:`fidelity` denotes the fidelity between `rho_1` and `rho_2`. 
+    The return is a value between :math:`0` and :math:`\sqrt(2)`, with 
+    :math:`0` corresponding to matrices: code:`rho_1 = rho_2`and 
+    :math:`\sqrt(2)` corresponding to the case: code:`rho_1`and 
+    :code:`rho_2` with orthogonal support.
 
     Examples
     ==========
