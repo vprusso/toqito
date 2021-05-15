@@ -1,4 +1,4 @@
-"""Tests for bures distance."""
+"""Tests for bures_distance."""
 import cvxpy
 import numpy as np
 
@@ -8,7 +8,7 @@ from toqito.states import basis
 
 
 def test_bures_distance_default():
-    """Test bures distance default arguments."""
+    """Test bures_distance default arguments."""
     rho = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
     sigma = rho
 
@@ -17,7 +17,7 @@ def test_bures_distance_default():
 
 
 def test_bures_distance_cvx():
-    """Test bures distance for cvx objects."""
+    """Test bures_distance for cvx objects."""
     rho = cvxpy.bmat([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
     sigma = rho
 
@@ -26,7 +26,7 @@ def test_bures_distance_cvx():
 
 
 def test_bures_distance_non_identical_states_1():
-    """Test the bures distance between two non-identical states."""
+    """Test the bures_distance between two non-identical states."""
     e_0, e_1 = basis(2, 0), basis(2, 1)
     rho = 3 / 4 * e_0 * e_0.conj().T + 1 / 4 * e_1 * e_1.conj().T
     sigma = 2 / 3 * e_0 * e_0.conj().T + 1 / 3 * e_1 * e_1.conj().T
@@ -34,7 +34,7 @@ def test_bures_distance_non_identical_states_1():
 
 
 def test_bures_distance_non_identical_states_2():
-    """Test the bures distance between two non-identical states."""
+    """Test the bures_distance between two non-identical states."""
     e_0, e_1 = basis(2, 0), basis(2, 1)
     rho = 3 / 4 * e_0 * e_0.conj().T + 1 / 4 * e_1 * e_1.conj().T
     sigma = 1 / 8 * e_0 * e_0.conj().T + 7 / 8 * e_1 * e_1.conj().T
