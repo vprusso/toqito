@@ -4,7 +4,7 @@ import numpy as np
 from toqito.state_metrics import fidelity
 
 def bures_distance(rho_1: np.ndarray, rho_2: np.ndarray ) -> float:
-	r""" 
+	r"""
 	Compute the bures distance of two density matrices [WikFid]_.
 
 	Calculate the bures distance between the two density matrices:
