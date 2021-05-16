@@ -40,6 +40,14 @@ def test_bures_distance_non_identical_states_2():
     sigma = 1 / 8 * e_0 * e_0.conj().T + 7 / 8 * e_1 * e_1.conj().T
     np.testing.assert_equal(np.isclose(bures_distance(rho, sigma), 0.6724, rtol=1e-03), True)
 
+def test_bures_distance_pure_states():
+    """Test the bures_distance between two pure states."""
+    e_0, e_1 = basis(2, 0), basis(2, 1)
+    e_plus = (e_0 + e_1)/np.sqrt(2)
+    rho =  e_plus * e_plus.conj().T
+    sigma = e_0 * e_0.conj().T
+    np.testing.assert_equal(np.isclose(bures_distance(rho, sigma), 0.765, rtol=1e-03), True)
+
 
 def test_bures_distance_non_square():
     """Tests for invalid dim."""
