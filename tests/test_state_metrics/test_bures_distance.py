@@ -16,15 +16,6 @@ def test_bures_distance_default():
     np.testing.assert_equal(np.isclose(res, 0), True)
 
 
-def test_bures_distance_cvx():
-    """Test bures_distance for cvx objects."""
-    rho = cvxpy.bmat([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
-    sigma = rho
-
-    res = bures_distance(rho, sigma)
-    np.testing.assert_equal(np.isclose(res, 0), True)
-
-
 def test_bures_distance_non_identical_states_1():
     """Test the bures_distance between two non-identical states."""
     e_0, e_1 = basis(2, 0), basis(2, 1)
