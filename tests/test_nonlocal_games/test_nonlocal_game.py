@@ -140,6 +140,24 @@ class TestNonlocalGame(unittest.TestCase):
         expected_res = 1
         self.assertEqual(np.isclose(res, expected_res, atol=0.5), True)
 
+    def test_chsh_game_commuting_measurement_value(self):
+        """Commuting measurement value for the CHSH game."""
+        prob_mat, pred_mat = self.chsh_nonlocal_game()
+
+        chsh = NonlocalGame(prob_mat, pred_mat)
+        res = chsh.commuting_measurement_value_upper_bound(k=1)
+        expected_res = 0.8535
+        self.assertEqual(np.isclose(res, expected_res, atol=0.5), True)
+
+    def test_ffl_game_commuting_measurement_value(self):
+        """Commuting measurement value for the FFL game."""
+        prob_mat, pred_mat = self.ffl_nonlocal_game()
+
+        ffl = NonlocalGame(prob_mat, pred_mat)
+        res = ffl.commuting_measurement_value_upper_bound(k=1)
+        expected_res = 0.666
+        self.assertEqual(np.isclose(res, expected_res, atol=0.5), True)
+
 
 if __name__ == "__main__":
     unittest.main()
