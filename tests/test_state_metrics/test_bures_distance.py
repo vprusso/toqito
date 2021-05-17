@@ -1,5 +1,4 @@
 """Tests for bures_distance."""
-import cvxpy
 import numpy as np
 
 
