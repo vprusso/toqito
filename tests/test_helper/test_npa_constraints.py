@@ -6,10 +6,8 @@ import cvxpy
 from toqito.helper import npa_constraints
 
 
-# see Table 1. from NPA paper [arXiv:0803.4290].
-def test_cglmp_inequality():
-    """Test Collins-Gisin-Linden-Massar-Popescu inequality."""
-    dim = 3
+def cglmp_inequality(dim):
+    """Collins-Gisin-Linden-Massar-Popescu inequality."""
     (a_in, b_in) = (2, 2)
     (a_out, b_out) = (dim, dim)
 
@@ -46,12 +44,34 @@ def test_cglmp_inequality():
 
         i_b += (1 - 2 * k / (dim - 1)) * tmp
 
-    k = 2
-    npa = npa_constraints(mat, k)
+    return mat, i_b
+
+
+# see Table 1. from NPA paper [arXiv:0803.4290].
+def test_cglmp_inequality():
+    """Test Collins-Gisin-Linden-Massar-Popescu inequality."""
+    dim = 3
+    mat, i_b = cglmp_inequality(dim)
+    npa = npa_constraints(mat, k=2)
     objective = cvxpy.Maximize(i_b)
     problem = cvxpy.Problem(objective, npa)
     val = problem.solve()
     np.testing.assert_equal(np.allclose(val, 2.914, atol=1e-3), True)
+
+
+# see Table 1. from NPA paper [arXiv:0803.4290].
+def test_cglmp_dimension():
+    """Test Collins-Gisin-Linden-Massar-Popescu inequality."""
+    dim = 3
+    mat, i_b = cglmp_inequality(dim)
+    npa = npa_constraints(mat, k='1+ab')
+    objective = cvxpy.Maximize(i_b)
+    problem = cvxpy.Problem(objective, npa)
+    r_size = 0
+    for vars in problem.variables():
+        if vars.name() == 'R':
+            r_size = vars.shape[0]
+    np.testing.assert_equal(np.allclose(r_size, 25), True)
 
 
 if __name__ == "__main__":
