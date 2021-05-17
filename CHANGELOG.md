@@ -172,6 +172,9 @@
  
 ## 1.0.1
 
+- Feature: Added `bures_distance.py` under `state_metrics/`. This feature
+  allows the user to determine whether a given matrix is idempotent.
+  
 - Fix: Permute systems had a bug where if the `inv_perm` option in 
   `permute_systems.py` was selected, the standard permutation was calculated 
   (not the inverse permutation). Further unit tests are included to catch
@@ -203,6 +206,9 @@
 - Enhancement: Adding ability for `schmidt_rank.py` function to process not 
   just vectors, but also matrices. Adding in unit tests to cover this case.
 
+- Enhancement: Adding the ability for `is_product.py` function to process not
+  just vectors, but also matrices. Adding in unit tests to cover this case.
+  
 - Enhancement: Simplified code for `nonlocal_game.py` and 
   `extended_nonlocal_game.py`
   

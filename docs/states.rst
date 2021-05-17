@@ -68,7 +68,7 @@ Properties of Quantum States
     toqito.state_props.is_mutually_orthogonal
     toqito.state_props.is_mutually_unbiased_basis
     toqito.state_props.is_ppt
-    toqito.state_props.is_product_vector
+    toqito.state_props.is_product
     toqito.state_props.is_pure
     toqito.state_props.l1_norm_coherence
     toqito.state_props.log_negativity
