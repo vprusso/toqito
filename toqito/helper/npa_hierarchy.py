@@ -13,7 +13,7 @@ Symbol = namedtuple("Symbol",
 
 # This function simplifies the input word by applying
 # the commutation and projector rules.
-def _reduce(word: List[Symbol]) -> List[Symbol]:
+def _reduce(word: Tuple[Symbol]) -> Tuple[Symbol]:
     # commute: bring Alice in front.
     w_a, w_b = (), ()
     for symbol in word:
@@ -96,11 +96,11 @@ def _gen_words(
     return words
 
 
-def _is_zero(word: List[Symbol]) -> bool:
+def _is_zero(word: Tuple[Symbol]) -> bool:
     return len(word) == 0
 
 
-def _is_meas(word: List[Symbol]) -> bool:
+def _is_meas(word: Tuple[Symbol]) -> bool:
     if len(word) == 2:
         s_a, s_b = word
         return s_a.player == "Alice" \
@@ -109,7 +109,7 @@ def _is_meas(word: List[Symbol]) -> bool:
     return False
 
 
-def _is_meas_on_one_player(word: List[Symbol]) -> bool:
+def _is_meas_on_one_player(word: Tuple[Symbol]) -> bool:
     if len(word) == 1 and word[0].player in ["Alice", "Bob"]:
         return True
 
