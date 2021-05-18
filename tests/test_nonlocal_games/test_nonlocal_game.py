@@ -40,6 +40,20 @@ class TestNonlocalGame(unittest.TestCase):
                             pred_mat[a_alice, b_bob, x_alice, y_bob] = 1
         return prob_mat, pred_mat
 
+    @staticmethod
+    def chsh_bcs_game():
+        """Define the CHSH BCS game"""
+        constraints = np.zeros((2, 2, 2))
+
+        for v1 in range(2):
+            for v2 in range(2):
+                if v1 ^ v2 == 0:
+                    constraints[0, v1, v2] = 1
+                else:
+                    constraints[1, v1, v2] = 1
+
+        return constraints
+
     def test_chsh_lower_bound(self):
         """Calculate the lower bound on the quantum value for the CHSH game."""
         prob_mat, pred_mat = self.chsh_nonlocal_game()
@@ -162,6 +176,42 @@ class TestNonlocalGame(unittest.TestCase):
         expected_res = 0.666
         self.assertEqual(np.isclose(res, expected_res, atol=0.5), True)
 
+    def test_chsh_bcs_game_to_nonlocal_game(self):
+        """Conversion of BCS game to nonlocal game"""
+        bcs_game = self.chsh_bcs_game()
+        chsh = NonlocalGame.from_bcs_game(bcs_game)
+
+        # Compute expected prob_mat
+        prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
+        np.testing.assert_array_equal(chsh.prob_mat, prob_mat)
+
+        # Compute expected pred_mat
+        pred_mat = np.zeros((4, 2, 2, 2))
+        # Compute first constraint: v1 ^ v2 = 0
+        constraint1 = np.array([
+            [1, 0],
+            [0, 0],
+            [0, 0],
+            [0, 1]])
+        pred_mat[:, :, 0, 0] = constraint1
+        pred_mat[:, :, 0, 1] = constraint1
+        # Compute second constraint: v1 ^ v2 = 1
+        pred_mat[:, :, 1, 0] = np.array([
+            [0, 0],
+            [1, 0],
+            [0, 1],
+            [0, 0]])
+        pred_mat[:, :, 1, 1] = np.array([
+            [0, 0],
+            [0, 1],
+            [1, 0],
+            [0, 0]])
+        np.testing.assert_array_equal(chsh.pred_mat, pred_mat)
+
+        # Check classical value of converted nonlocal game
+        res = chsh.classical_value()
+        expected_res = 3 / 4
+        np.testing.assert_almost_equal(res, expected_res)
 
 if __name__ == "__main__":
     unittest.main()
