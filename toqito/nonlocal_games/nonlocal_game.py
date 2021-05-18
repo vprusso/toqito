@@ -548,7 +548,7 @@ class NonlocalGame:
         for x_in in range(alice_in):
             for y_in in range(bob_in):
                 mat[x_in, y_in] = cvxpy.Variable((alice_out, bob_out),
-                                            name='M(a, b | {}, {})'.format(x_in, y_in))
+                                                name="M(a, b | {}, {})".format(x_in, y_in))
 
         p_win = cvxpy.Constant(0)
         for a_out in range(alice_out):

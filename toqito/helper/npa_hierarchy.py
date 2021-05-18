@@ -1,25 +1,25 @@
 """NPA constraints."""
 from itertools import product
 from collections import namedtuple
-from typing import Union, List, Dict, Tuple
+from typing import Dict, List, Set, Tuple, Union
 
 import cvxpy
 
 
-Symbol = namedtuple('Symbol',
-                    ['player', 'question', 'answer'],
-                    defaults=['', None, None])
+Symbol = namedtuple("Symbol",
+                    ["player", "question", "answer"],
+                    defaults=["", None, None])
 
 
-# This function simplifies the input word by appling
+# This function simplifies the input word by applying
 # the commutation and projector rules.
-def _reduce(word):
+def _reduce(word: List[Symbol]) -> List[Symbol]:
     # commute: bring Alice in front.
     w_a, w_b = (), ()
     for symbol in word:
-        if symbol.player == 'Alice':
+        if symbol.player == "Alice":
             w_a += (symbol,)
-        if symbol.player == 'Bob':
+        if symbol.player == "Bob":
             w_b += (symbol,)
 
     word = w_a + w_b
@@ -39,9 +39,8 @@ def _reduce(word):
     return word
 
 
-
-def _parse(k):
-    k = k.split('+')
+def _parse(k: str) -> Tuple[int, Set[Tuple[int, int]]]:
+    k = k.split("+")
     base_k = int(k[0])
 
     conf = set()
@@ -51,9 +50,9 @@ def _parse(k):
         if len(val) > base_k:
             cnt_a, cnt_b = 0, 0
             for bit in val:
-                if bit == 'a':
+                if bit == "a":
                     cnt_a += 1
-                if bit == 'b':
+                if bit == "b":
                     cnt_b += 1
 
             conf.add((cnt_a, cnt_b))
@@ -62,13 +61,15 @@ def _parse(k):
 
 
 # This function generates all non - equivalent words of length up to k.
-def _gen_words(k, a_out, a_in, b_out, b_in):
+def _gen_words(
+    k: Union[int, str], a_out: int, a_in: int, b_out: int, b_in: int
+) -> List[Tuple[Symbol]]:
     # remove one outcome to avoid redundancy
     # since all projectors sum to identity.
-    b_symbols = [Symbol('Bob', y, b)   for y in range(b_in) for b in range(b_out - 1)]
-    a_symbols = [Symbol('Alice', x, a) for x in range(a_in) for a in range(a_out - 1)]
+    b_symbols = [Symbol("Bob", y, b) for y in range(b_in) for b in range(b_out - 1)]
+    a_symbols = [Symbol("Alice", x, a) for x in range(a_in) for a in range(a_out - 1)]
 
-    words = [(Symbol(''),)]
+    words = [(Symbol(""),)]
 
     conf = []
     if isinstance(k, str):
@@ -95,28 +96,27 @@ def _gen_words(k, a_out, a_in, b_out, b_in):
     return words
 
 
-def _is_zero(word):
+def _is_zero(word: List[Symbol]) -> bool:
     return len(word) == 0
 
 
-def _is_meas(word):
+def _is_meas(word: List[Symbol]) -> bool:
     if len(word) == 2:
         s_a, s_b = word
-        return s_a.player == 'Alice' \
-            and s_b.player == 'Bob'
+        return s_a.player == "Alice" \
+            and s_b.player == "Bob"
 
     return False
 
 
-def _is_meas_on_one_player(word):
-    if len(word) == 1 \
-      and word[0].player in ['Alice', 'Bob']:
+def _is_meas_on_one_player(word: List[Symbol]) -> bool:
+    if len(word) == 1 and word[0].player in ["Alice", "Bob"]:
         return True
 
     return False
 
 
-def _get_shape(prob):
+def _get_shape(prob: Dict[Tuple[int, int], cvxpy.Variable]) -> Tuple[int, int, int, int]:
     a_in, a_out = (0, 0)
     b_in, b_out = (0, 0)
     for (x_in, y_in), _var in prob.items():
@@ -135,7 +135,7 @@ def npa_constraints(
     Generate the constraints specified by the NPA hierarchy up to a finite level.
 
     You can determine the level of the hierarchy by a positive integer or a string
-    of a form like '1+ab+aab', which indicates that an intermediate level of the hierarchy
+    of a form like "1+ab+aab", which indicates that an intermediate level of the hierarchy
     should be used, where this example uses all products of 1 measurement, all products of
     one Alice and one Bob measurement, and all products of two Alice and one Bob measurement.
 
@@ -153,7 +153,7 @@ def npa_constraints(
     dim = len(words)
 
     r_var = cvxpy.Variable((dim, dim), PSD=True,
-                           name='R')
+                           name="R")
     constraints = [r_var[0, 0] == 1]
 
     seen = {}
@@ -175,14 +175,14 @@ def npa_constraints(
 
             elif _is_meas_on_one_player(word):
                 symbol = word[0]
-                if symbol.player == 'Alice':
+                if symbol.player == "Alice":
                     _sum = 0
                     for b_ans in range(b_out):
                         _sum += prob[symbol.question, 0][symbol.answer, b_ans]
 
                     constraints += [r_var[i, j] == _sum]
 
-                if symbol.player == 'Bob':
+                if symbol.player == "Bob":
                     _sum = 0
                     for a_ans in range(a_out):
                         _sum += prob[0, symbol.question][a_ans, symbol.answer]
@@ -195,7 +195,6 @@ def npa_constraints(
 
             else:
                 seen[word] = (i, j)
-
 
     # now we impose constraints to the probability vector
     for x_alice_in in range(a_in):
@@ -218,6 +217,5 @@ def npa_constraints(
             for y_bob_in in range(1, b_in):
                 cur_sum = cvxpy.sum(prob[x_alice_in, y_bob_in][a_ans, :])
                 constraints += [_sum == cur_sum]
-
 
     return constraints
