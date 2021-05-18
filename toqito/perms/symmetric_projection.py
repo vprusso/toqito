@@ -1,15 +1,15 @@
 """Symmetric projection operator."""
 from itertools import permutations
-from scipy import linalg, sparse
 
 import numpy as np
+import scipy
 
 from toqito.perms import permutation_operator
 
 
 def symmetric_projection(
     dim: int, p_val: int = 2, partial: bool = False
-) -> [np.ndarray, sparse.lil_matrix]:
+) -> [np.ndarray, scipy.sparse.lil_matrix]:
     r"""
     Produce the projection onto the symmetric subspace [CJKLZ14]_.
 
@@ -95,5 +95,5 @@ def symmetric_projection(
     sym_proj = sym_proj / p_fac
 
     if partial:
-        sym_proj = linalg.orth(sym_proj)
+        sym_proj = scipy.linalg.orth(sym_proj)
     return sym_proj
