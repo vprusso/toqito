@@ -113,21 +113,21 @@ class NonlocalGame:
         #   a: Alice's truth assignment to all variables in `c_x`
         #   b: Bob's truth assignment for `v_y` in `c_x`
         pred_mat = np.zeros((2 ** num_variables, 2, num_constraints, num_variables))
-        for x_alice in range(num_constraints):
-            for a_alice in range(pred_mat.shape[0]):
+        for x_ques in range(num_constraints):
+            for a_ans in range(pred_mat.shape[0]):
                 # Convert to binary representation
-                bin_a = [int(x) for x in np.binary_repr(a_alice)]
+                bin_a = [int(x) for x in np.binary_repr(a_ans)]
                 truth_assignment = np.zeros(num_variables, dtype=np.int8)
                 truth_assignment[-len(bin_a):] = bin_a
                 truth_assignment = tuple(truth_assignment)
 
-                for y_bob in range(num_variables):
+                for y_ques in range(num_variables):
                     # The verifier can only accept the answer if Bob's truth assignment
                     # is consistent with Alice's
-                    b_bob = truth_assignment[y_bob]
+                    b_ans = truth_assignment[y_ques]
 
-                    pred_mat[a_alice, b_bob, x_alice, y_bob] = \
-                        constraints[x_alice][truth_assignment]
+                    pred_mat[a_ans, b_ans, x_ques, y_ques] = \
+                        constraints[x_ques][truth_assignment]
 
         return cls(prob_mat, pred_mat, reps)
 
