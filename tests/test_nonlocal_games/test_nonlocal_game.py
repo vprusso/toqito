@@ -45,12 +45,12 @@ class TestNonlocalGame(unittest.TestCase):
         """Define the CHSH BCS game"""
         constraints = np.zeros((2, 2, 2))
 
-        for v1 in range(2):
-            for v2 in range(2):
-                if v1 ^ v2 == 0:
-                    constraints[0, v1, v2] = 1
+        for v_1 in range(2):
+            for v_2 in range(2):
+                if v_1 ^ v_2 == 0:
+                    constraints[0, v_1, v_2] = 1
                 else:
-                    constraints[1, v1, v2] = 1
+                    constraints[1, v_1, v_2] = 1
 
         return constraints
 

@@ -103,29 +103,31 @@ class NonlocalGame:
         #   x: uniformly randomly-selected constraint `c_x`
         #   y: uniformly randomly-selected variable `v_y` in `c_x`
         prob_mat = np.zeros((num_constraints, num_variables))
-        for x in range(num_constraints):
-            px = 1. / num_constraints
-            num_dependent_vars = dependent_variables[x].sum()
-            py = dependent_variables[x] / num_dependent_vars
-            prob_mat[x] = px * py
+        for j in range(num_constraints):
+            p_x = 1. / num_constraints
+            num_dependent_vars = dependent_variables[j].sum()
+            p_y = dependent_variables[j] / num_dependent_vars
+            prob_mat[j] = p_x * p_y
 
         # Compute prediction matrix of outcomes given questions and answer pairs:
         #   a: Alice's truth assignment to all variables in `c_x`
         #   b: Bob's truth assignment for `v_y` in `c_x`
         pred_mat = np.zeros((2 ** num_variables, 2, num_constraints, num_variables))
-        for x in range(num_constraints):
-            for a in range(pred_mat.shape[0]):
+        for x_alice in range(num_constraints):
+            for a_alice in range(pred_mat.shape[0]):
                 # Convert to binary representation
-                bin_a = [int(x) for x in np.binary_repr(a)]
+                bin_a = [int(x) for x in np.binary_repr(a_alice)]
                 truth_assignment = np.zeros(num_variables, dtype=np.int8)
                 truth_assignment[-len(bin_a):] = bin_a
                 truth_assignment = tuple(truth_assignment)
 
-                for y in range(num_variables):
+                for y_bob in range(num_variables):
                     # The verifier can only accept the answer if Bob's truth assignment
                     # is consistent with Alice's
-                    b = truth_assignment[y]
-                    pred_mat[a, b, x, y] = constraints[x][truth_assignment]
+                    b_bob = truth_assignment[y_bob]
+
+                    pred_mat[a_alice, b_bob, x_alice, y_bob] = \
+                        constraints[x_alice][truth_assignment]
 
         return cls(prob_mat, pred_mat, reps)
 
