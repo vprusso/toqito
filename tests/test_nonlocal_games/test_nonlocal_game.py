@@ -43,16 +43,17 @@ class TestNonlocalGame(unittest.TestCase):
     @staticmethod
     def chsh_bcs_game():
         """Define the CHSH BCS game"""
-        constraints = np.zeros((2, 2, 2))
+        c_1 = np.zeros((2, 2))
+        c_2 = np.zeros((2, 2))
 
         for v_1 in range(2):
             for v_2 in range(2):
                 if v_1 ^ v_2 == 0:
-                    constraints[0, v_1, v_2] = 1
+                    c_1[v_1, v_2] = 1
                 else:
-                    constraints[1, v_1, v_2] = 1
+                    c_2[v_1, v_2] = 1
 
-        return constraints
+        return [c_1, c_2]
 
     def test_chsh_lower_bound(self):
         """Calculate the lower bound on the quantum value for the CHSH game."""
@@ -212,6 +213,10 @@ class TestNonlocalGame(unittest.TestCase):
         res = chsh.classical_value()
         expected_res = 3 / 4
         np.testing.assert_almost_equal(res, expected_res)
+
+    def test_bcs_game_without_constraint(self):
+        """Empty list of constraints raises exception"""
+        self.assertRaises(ValueError, NonlocalGame.from_bcs_game, [])
 
 if __name__ == "__main__":
     unittest.main()
