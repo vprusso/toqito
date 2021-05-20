@@ -1,5 +1,5 @@
 """Two-player nonlocal game."""
-from typing import Dict, Tuple, Union
+from typing import Dict, List, Tuple, Union
 from collections import defaultdict
 import cvxpy
 import numpy as np
@@ -68,6 +68,68 @@ class NonlocalGame:
                 i_ind = update_odometer(i_ind, num_alice_in * np.ones(reps))
             self.pred_mat = pred_mat2
             self.reps = reps
+
+    @classmethod
+    def from_bcs_game(cls, constraints: List[np.ndarray], reps: int = 1) -> 'NonlocalGame':
+        """
+        Construct nonlocal game object from a binary constraint system game.
+
+        :param constraints: A list of m matrices corresponding to the `m`
+                            constraints in the BCS game. Each constraint matrix is
+                            an `n`-dimensional matrix of shape `2 x 2 x ... x 2`.
+                            The `(i, j, k, ...)`-th entry is 1 if and only if the
+                            contraint is satisfied given the values v_1 = i, v_2 = j,
+                            v_3 = k, ..., and otherwise 0.
+        :param reps: Number of parallel repetitions to perform. Default is 1.
+
+        :return: An instance of a nonlocal game object.
+        """
+        num_constraints = len(constraints)
+        if num_constraints == 0:
+            raise ValueError('At least 1 constraint is required')
+        num_variables = constraints[0].ndim
+
+        # Retrieve dependent variables for each constraint
+        dependent_variables = np.zeros((num_constraints, num_variables))
+
+        # `v_i` is _not_ a dependent variable of `c_j` if all entries in
+        # the `i`-th dimension of `constraints[j]` are equal, i.e.:
+        #   c_j[:, ..., :, 0, : ..., :] == c_j[:, ..., :, 1, : ..., :]
+        for j in range(num_constraints):
+            for i in range(num_variables):
+                dependent_variables[j, i] = np.diff(constraints[j], axis=i).any()
+
+        # Calculate probability matrix P(x, y) where:
+        #   x: uniformly randomly-selected constraint `c_x`
+        #   y: uniformly randomly-selected variable `v_y` in `c_x`
+        prob_mat = np.zeros((num_constraints, num_variables))
+        for j in range(num_constraints):
+            p_x = 1. / num_constraints
+            num_dependent_vars = dependent_variables[j].sum()
+            p_y = dependent_variables[j] / num_dependent_vars
+            prob_mat[j] = p_x * p_y
+
+        # Compute prediction matrix of outcomes given questions and answer pairs:
+        #   a: Alice's truth assignment to all variables in `c_x`
+        #   b: Bob's truth assignment for `v_y` in `c_x`
+        pred_mat = np.zeros((2 ** num_variables, 2, num_constraints, num_variables))
+        for x_ques in range(num_constraints):
+            for a_ans in range(pred_mat.shape[0]):
+                # Convert to binary representation
+                bin_a = [int(x) for x in np.binary_repr(a_ans)]
+                truth_assignment = np.zeros(num_variables, dtype=np.int8)
+                truth_assignment[-len(bin_a):] = bin_a
+                truth_assignment = tuple(truth_assignment)
+
+                for y_ques in range(num_variables):
+                    # The verifier can only accept the answer if Bob's truth assignment
+                    # is consistent with Alice's
+                    b_ans = truth_assignment[y_ques]
+
+                    pred_mat[a_ans, b_ans, x_ques, y_ques] = \
+                        constraints[x_ques][truth_assignment]
+
+        return cls(prob_mat, pred_mat, reps)
 
     def classical_value(self) -> float:
         """
