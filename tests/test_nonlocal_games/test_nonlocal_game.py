@@ -52,6 +52,10 @@ class TestNonlocalGame(unittest.TestCase):
         # the true quantum value.
         self.assertLessEqual(np.isclose(res, np.cos(np.pi / 8) ** 2, rtol=1e-02), True)
 
+        # Even with 2 qubits each, the lower bound remains the same
+        res = chsh.quantum_value_lower_bound(4)
+        self.assertLessEqual(np.isclose(res, np.cos(np.pi / 8) ** 2, rtol=1e-02), True)
+
     def test_chsh_game_classical_value(self):
         """Classical value for the CHSH game."""
         prob_mat, pred_mat = self.chsh_nonlocal_game()

@@ -125,6 +125,7 @@ class NonlocalGame:
 
     def quantum_value_lower_bound(
         self,
+        dim: int = 2,
         iters: int = 5,
         tol: float = 10e-6,
     ):
@@ -133,7 +134,7 @@ class NonlocalGame:
 
         Calculates a lower bound on the maximum value that the specified
         nonlocal game can take on in quantum mechanical settings where Alice and
-        Bob each have access to `d`-dimensional quantum system.
+        Bob each have access to `dim`-dimensional quantum system.
 
         This function works by starting with a randomly-generated POVM for Bob,
         and then optimizing Alice's POVM and the shared entangled state. Then
@@ -257,6 +258,8 @@ class NonlocalGame:
             Physical Review A 75.4 (2007): 042103.
             https://arxiv.org/abs/quant-ph/0608128
 
+        :param dim: The dimension of the quantum system that Alice and Bob have
+                    access to (default = 2).
         :param iters: The number of times to run the alternating projection
                       algorithm.
         :param tol: The tolerance before quitting out of the alternating
@@ -271,7 +274,7 @@ class NonlocalGame:
             # Generate a set of random POVMs for Bob. These measurements serve
             # as a rough starting point for the alternating projection
             # algorithm.
-            bob_tmp = random_povm(num_outputs_bob, num_inputs_bob, num_outputs_bob)
+            bob_tmp = random_povm(dim, num_inputs_bob, num_outputs_bob)
             bob_povms = defaultdict(int)
             for y_ques in range(num_inputs_bob):
                 for b_ans in range(num_outputs_bob):
@@ -286,8 +289,8 @@ class NonlocalGame:
                 # Bob's. If this is the first iteration, then the previously
                 # randomly generated operators in the outer loop are Bob's.
                 # Otherwise, Bob's operators come from running the next SDP.
-                alice_povms, lower_bound = self.__optimize_alice(bob_povms)
-                bob_povms, lower_bound = self.__optimize_bob(alice_povms)
+                alice_povms, lower_bound = self.__optimize_alice(dim, bob_povms)
+                bob_povms, lower_bound = self.__optimize_bob(dim, alice_povms)
 
                 it_diff = lower_bound - prev_win
                 prev_win = lower_bound
@@ -300,7 +303,7 @@ class NonlocalGame:
 
         return best_lower_bound
 
-    def __optimize_alice(self, bob_povms) -> Tuple[Dict, float]:
+    def __optimize_alice(self, dim, bob_povms) -> Tuple[Dict, float]:
         """Fix Bob's measurements and optimize over Alice's measurements."""
         # Get number of inputs and outputs.
         (
@@ -317,11 +320,9 @@ class NonlocalGame:
         alice_povms = defaultdict(cvxpy.Variable)
         for x_ques in range(num_inputs_alice):
             for a_ans in range(num_outputs_alice):
-                alice_povms[x_ques, a_ans] = cvxpy.Variable(
-                    (num_outputs_alice, num_inputs_alice), PSD=True
-                )
+                alice_povms[x_ques, a_ans] = cvxpy.Variable((dim, dim), PSD=True)
 
-        tau = cvxpy.Variable((num_outputs_alice, num_outputs_bob), PSD=True)
+        tau = cvxpy.Variable((dim, dim), PSD=True)
 
         # .. math::
         #    \sum_{(x,y) \in \Sigma} \pi(x, y) V(a,b|x,y) \ip{B_b^y}{A_a^x}
@@ -374,7 +375,7 @@ class NonlocalGame:
         lower_bound = problem.solve()
         return alice_povms, lower_bound
 
-    def __optimize_bob(self, alice_povms) -> Tuple[Dict, float]:
+    def __optimize_bob(self, dim, alice_povms) -> Tuple[Dict, float]:
         """Fix Alice's measurements and optimize over Bob's measurements."""
         # Get number of inputs and outputs.
         (
@@ -389,9 +390,7 @@ class NonlocalGame:
         bob_povms = defaultdict(cvxpy.Variable)
         for y_ques in range(num_inputs_bob):
             for b_ans in range(num_outputs_bob):
-                bob_povms[y_ques, b_ans] = cvxpy.Variable(
-                    (num_outputs_bob, num_outputs_bob), PSD=True
-                )
+                bob_povms[y_ques, b_ans] = cvxpy.Variable((dim, dim), PSD=True)
 
         win = 0
         for x_ques in range(num_inputs_alice):
@@ -414,7 +413,7 @@ class NonlocalGame:
             bob_sum_b = 0
             for b_ans in range(num_outputs_bob):
                 bob_sum_b += bob_povms[y_ques, b_ans]
-            constraints.append(bob_sum_b == np.identity(num_outputs_bob))
+            constraints.append(bob_sum_b == np.identity(dim))
 
         problem = cvxpy.Problem(objective, constraints)
 
