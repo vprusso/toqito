@@ -8,7 +8,7 @@ from toqito.states import singlet
 def test_gen_bell_dim_2():
     """Generalized Singlet state for dim = 2."""
     dim = 2
-    
+
     expected_res = bell(3) * bell(3).conj().T
 
     res = singlet(dim)
@@ -19,4 +19,3 @@ def test_gen_bell_dim_2():
 
 if __name__ == "__main__":
     np.testing.run_module_suite()
-    
