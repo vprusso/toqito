@@ -101,3 +101,4 @@ Quantum States
     toqito.states.tile
     toqito.states.w_state
     toqito.states.werner
+    toqito.states.singlet
