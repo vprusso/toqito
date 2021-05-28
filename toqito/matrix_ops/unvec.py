@@ -8,7 +8,7 @@ def unvec(vector: np.ndarray, shape: Optional[List[int]] = None) -> np.ndarray:
     r"""
     Perform the unvec operation on a vector to obtain a matrix [Rigetti2020]_.
 
-    Takes a column vector and transforms it into a :code:`shape[0]`-by-:code`shape[1]` matrix.
+    Takes a column vector and transforms it into a :code:`shape[0]`-by-:code:`shape[1]` matrix.
     This operation is the inverse of :code:`vec` operation in :code:`toqito`.
 
     For instance, for the following column vector
