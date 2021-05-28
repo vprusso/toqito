@@ -1,12 +1,11 @@
-"""Generalized Singlet state."""
+"""Generalized singlet state."""
 import numpy as np
 
 from toqito.perms import swap_operator
-from toqito.matrices import iden
 
 def singlet(dim: int) -> np.ndarray:
     r"""
-    Produce a generalized Singlet state acting on two n-dimensional systems [Gsinglet]_.
+    Produce a generalized singlet state acting on two n-dimensional systems [Gsinglet]_.
 
     Examples
     ==========
@@ -36,7 +35,7 @@ def singlet(dim: int) -> np.ndarray:
          [ 0. , -0.5,  0.5,  0. ],
          [ 0. ,  0. ,  0. ,  0. ]]
 
-    It is possible for us to consider higher dimensional Singlet states. For instance, we
+    It is possible for us to consider higher dimensional singlet states. For instance, we
     can consider the :math:`3`-dimensional Singlet state as follows:
 
     >>> from toqito.states import singlet
@@ -64,10 +63,11 @@ def singlet(dim: int) -> np.ndarray:
     References
     ==========
     .. [Gsinglet] Adan Cabello.
-      "N-particleN-level Singlet States:  Some Properties and Applications."
+      "N-particle N-level Singlet States: Some Properties and Applications".
        Phys. Rev. Lett., 89, (2002): 100402.
 
-    :param dim: The dimension of the generalized Singlet state.
+    :param dim: The dimension of the generalized singlet state.
+    :return: The singlet state of dimension `dim`.
     """
-    return (iden(dim**2) - swap_operator([dim, dim]))/((dim**2)-dim)
+    return (np.identity(dim**2) - swap_operator([dim,dim]))/((dim**2)-dim)
     
