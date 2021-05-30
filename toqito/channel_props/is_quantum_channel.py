@@ -61,11 +61,11 @@ def is_quantum_channel(
             0 & 0 & 0 & 1
         \end{pmatrix}.
 
-    We may verify that this channel is a quantum channel
+    We may verify that this channel is a quantum channel,
 
     >>> from toqito.channels import depolarizing
     >>> from toqito.channel_props import is_quantum_channel
-    >>> is_completely_positive(depolarizing(2))
+    >>> is_quantum_channel(depolarizing(2))
     True
 
     References
@@ -77,7 +77,7 @@ def is_quantum_channel(
     :param phi: The channel provided as either a Choi matrix or a list of Kraus operators.
     :param rtol: The relative tolerance parameter (default 1e-05).
     :param atol: The absolute tolerance parameter (default 1e-08).
-    :return: True if the channel is a quantum channel, and False otherwise.
+    :return: :code:`True` if the channel is a quantum channel, and :code:`False` otherwise.
     """
     # If the variable `phi` is provided as a list, we assume this is a list
     # of Kraus operators.
@@ -85,5 +85,5 @@ def is_quantum_channel(
         phi = kraus_to_choi(phi)
 
     # A valid quantum channel is a superoperator that is both completely
-    # positive and trace-preserving
+    # positive and trace-preserving.
     return is_completely_positive(phi, rtol, atol) and is_trace_preserving(phi, rtol, atol)
