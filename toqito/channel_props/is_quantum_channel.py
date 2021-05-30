@@ -1,4 +1,4 @@
-"""Is quantum channel"""
+"""Is quantum channel."""
 from typing import List, Union
 
 import numpy as np
@@ -15,6 +15,7 @@ def is_quantum_channel(
 ) -> bool:
     r"""
     Determine whether the given input is a quantum channel [WatQC18]_.
+    
     A map :math:`\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)` is a *quantum
     channel* for some choice of complex Euclidean spaces :math:`\mathcal{X}`
     and :math:`\mathcal{Y}`, if it holds that:
