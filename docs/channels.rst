@@ -66,3 +66,4 @@ Properties of Quantum Channels
     toqito.channel_props.is_trace_preserving
     toqito.channel_props.is_unital
     toqito.channel_props.choi_rank
+    toqito.channel_props.is_quantum_channel
