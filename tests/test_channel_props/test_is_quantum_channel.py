@@ -20,4 +20,3 @@ def test_is_completely_positive_choi_true():
 
 if __name__ == "__main__":
     np.testing.run_module_suite()
-
