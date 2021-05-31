@@ -3,6 +3,7 @@ import numpy as np
 
 from toqito.perms import swap_operator
 
+
 def singlet(dim: int) -> np.ndarray:
     r"""
     Produce a generalized singlet state acting on two n-dimensional systems [Gsinglet]_.
@@ -62,12 +63,11 @@ def singlet(dim: int) -> np.ndarray:
 
     References
     ==========
-    .. [Gsinglet] Adan Cabello.
-      "N-particle N-level Singlet States: Some Properties and Applications".
-       Phys. Rev. Lett., 89, (2002): 100402.
+    .. [Gsinglet] Cabello, Adan,
+        "N-particle N-level singlet states: Some properties and applications".
+        Phys. Rev. Lett., 89 (2002): 100402.
 
     :param dim: The dimension of the generalized singlet state.
     :return: The singlet state of dimension `dim`.
     """
-    return (np.identity(dim**2) - swap_operator([dim,dim]))/((dim**2)-dim)
-    
+    return (np.identity(dim ** 2) - swap_operator([dim, dim])) / ((dim ** 2) - dim)

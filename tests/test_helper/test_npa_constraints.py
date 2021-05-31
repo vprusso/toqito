@@ -16,8 +16,9 @@ def cglmp_inequality(dim: int) -> Tuple[Dict[Tuple[int, int], cvxpy.Variable], c
     mat = defaultdict(cvxpy.Variable)
     for x_in in range(a_in):
         for y_in in range(b_in):
-            mat[x_in, y_in] = cvxpy.Variable((a_out, b_out),
-                                    name="M(a, b | {}, {})".format(x_in, y_in))
+            mat[x_in, y_in] = cvxpy.Variable(
+                (a_out, b_out), name="M(a, b | {}, {})".format(x_in, y_in)
+            )
 
     i_b = cvxpy.Constant(0)
     for k in range(dim // 2):

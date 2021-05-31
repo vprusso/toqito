@@ -39,41 +39,13 @@ def is_quantum_channel(
             -1 & 1
         \end{pmatrix}.
 
-    This map is not a quantum channel, as we can verify as follows.
-
-    >>> from toqito.channel_props import is_quantum_channel
-    >>> import numpy as np
-    >>> unitary_mat = np.array([[1, 1], [-1, 1]]) / np.sqrt(2)
-    >>> kraus_ops = [[np.identity(2), np.identity(2)], [unitary_mat, -unitary_mat]]
-    >>> is_quantum_channel(kraus_ops)
-    False
-
-    We can also specify the input as a Choi matrix. For instance, consider the Choi matrix
-    corresponding to the :math:`2`-dimensional completely depolarizing channel
-
-    .. math::
-        \Omega =
-        \frac{1}{2}
-        \begin{pmatrix}
-            1 & 0 & 0 & 0 \\
-            0 & 1 & 0 & 0 \\
-            0 & 0 & 1 & 0 \\
-            0 & 0 & 0 & 1
-        \end{pmatrix}.
-
-    We may verify that this channel is a quantum channel,
-
-    >>> from toqito.channels import depolarizing
-    >>> from toqito.channel_props import is_quantum_channel
-    >>> is_quantum_channel(depolarizing(2))
-    True
-
     References
     ==========
     .. [WatQC18] Watrous, John.
         "The Theory of Quantum Information."
         Section: "2.2.1  Definitions and basic notions concerning channels".
         Cambridge University Press, 2018.
+
     :param phi: The channel provided as either a Choi matrix or a list of Kraus operators.
     :param rtol: The relative tolerance parameter (default 1e-05).
     :param atol: The absolute tolerance parameter (default 1e-08).
