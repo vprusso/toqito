@@ -44,7 +44,7 @@ def is_permutation(mat: np.ndarray) -> bool:
 
     References
     ==========
-    .. [WikSquare] Wikipedia: Pemutation matrix.
+    .. [WikSquare] Wikipedia: Permutation matrix.
         https://en.wikipedia.org/wiki/Permutation_matrix
 
     :param mat: The matrix to check.
