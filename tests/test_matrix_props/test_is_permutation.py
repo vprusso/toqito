@@ -2,7 +2,6 @@
 import numpy as np
 
 from toqito.matrix_props import is_permutation
-from toqito.matrix_props import is_square
 
 def test_is_permutation():
     """Test if matrix is a real permuattion matrix."""
