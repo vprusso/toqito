@@ -8,7 +8,6 @@ def test_is_permutation():
     mat = np.array([[1, 0, 0], [0, 0, 1], [0, 1, 0]])
     np.testing.assert_equal(is_permutation(mat), True)
 
-
 def test_is_not_permutation():
     """Test non-permutation matrix."""
     mat = np.array([[0, 0, 0, 9], [1, 0, 0, 0], [0, 1, 0, 0], [0,0,1,0]])
@@ -18,7 +17,6 @@ def test_is_not_permutation():
     """Test non-permutation matrix."""
     mat = np.array([[0, 0, 1,0], [1, 0, 0, 0], [0, 1, 0, 0], [0,0,1,0]])
     np.testing.assert_equal(is_permutation(mat), False)
-
 
 def test_is_weird_permutation():
     """Test on a weird non-permutation matrix that still adds up to 1."""
@@ -33,3 +31,4 @@ def test_is_weirder_permutation():
 
 if __name__ == "__main__":
     np.testing.run_module_suite()
+
