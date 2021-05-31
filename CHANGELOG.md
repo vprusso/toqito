@@ -178,6 +178,10 @@
 - Feature: Added `singlet.py` under `states/`. This feature allows one to yield
   a singlet state of dimension `dim`.
 
+- Feature: Added `is_quantum_channel` under `channel_props`. This feature
+  allows one to check whether a given input provided as either a list of Kraus
+  operators or a Choi matrix constitutes a valid quantum channel.
+
 - Fix: Permute systems had a bug where if the `inv_perm` option in 
   `permute_systems.py` was selected, the standard permutation was calculated 
   (not the inverse permutation). Further unit tests are included to catch
