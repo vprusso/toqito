@@ -1,9 +1,10 @@
 """Is matrix a permutation matrix."""
 import numpy as np
+from toqito.matrix_props import is_square
 
 def is_permutation(mat: np.ndarray) -> bool:
     r"""
-    Determine if a matrix is a permutation matrix [WikSquare]_.
+    Determine if a matrix is a permutation matrix [WikiPermutation]_.
 
     A matrix is a permutation matrix if each row and column has a single element of 1 and all others 0.
 
@@ -19,11 +20,11 @@ def is_permutation(mat: np.ndarray) -> bool:
                 7 & 8 & 9
             \end{pmatrix}
 
-    our function indicates that this is indeed a square matrix.
+    our function indicates that this is indeed a permutation matrix.
 
     >>> from toqito.matrix_props import is_permutation
     >>> import numpy as np
-    >>> A = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+    >>> A = np.array([[1, 0, 0], [0, 0, 1], [0, 1, 0]])
     >>> is_permutation(A)
     True
 
@@ -44,15 +45,12 @@ def is_permutation(mat: np.ndarray) -> bool:
 
     References
     ==========
-    .. [WikSquare] Wikipedia: Permutation matrix.
+    .. [WikiPermutation] Wikipedia: Permutation matrix.
         https://en.wikipedia.org/wiki/Permutation_matrix
 
     :param mat: The matrix to check.
-    :return: Returns :code:`True` if the matrix is permutation and :code:`False` otherwise.
+    :return: Returns :code:`True` if the matrix is a permutation matrix and :code:`False` otherwise.
     """
-    if len(mat.shape) != 2:
-        raise ValueError("The variable is not a 2-D matrix.")
-
     if not is_square(mat):
         return False
 
