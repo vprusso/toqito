@@ -70,7 +70,7 @@ class NonlocalGame:
             self.reps = reps
 
     @classmethod
-    def from_bcs_game(cls, constraints: List[np.ndarray], reps: int = 1) -> 'NonlocalGame':
+    def from_bcs_game(cls, constraints: List[np.ndarray], reps: int = 1) -> "NonlocalGame":
         """
         Construct nonlocal game object from a binary constraint system game.
 
@@ -86,7 +86,7 @@ class NonlocalGame:
         """
         num_constraints = len(constraints)
         if num_constraints == 0:
-            raise ValueError('At least 1 constraint is required')
+            raise ValueError("At least 1 constraint is required")
         num_variables = constraints[0].ndim
 
         # Retrieve dependent variables for each constraint
@@ -104,7 +104,7 @@ class NonlocalGame:
         #   y: uniformly randomly-selected variable `v_y` in `c_x`
         prob_mat = np.zeros((num_constraints, num_variables))
         for j in range(num_constraints):
-            p_x = 1. / num_constraints
+            p_x = 1.0 / num_constraints
             num_dependent_vars = dependent_variables[j].sum()
             p_y = dependent_variables[j] / num_dependent_vars
             prob_mat[j] = p_x * p_y
@@ -118,7 +118,7 @@ class NonlocalGame:
                 # Convert to binary representation
                 bin_a = [int(x) for x in np.binary_repr(a_ans)]
                 truth_assignment = np.zeros(num_variables, dtype=np.int8)
-                truth_assignment[-len(bin_a):] = bin_a
+                truth_assignment[-len(bin_a) :] = bin_a
                 truth_assignment = tuple(truth_assignment)
 
                 for y_ques in range(num_variables):
@@ -126,8 +126,7 @@ class NonlocalGame:
                     # is consistent with Alice's
                     b_ans = truth_assignment[y_ques]
 
-                    pred_mat[a_ans, b_ans, x_ques, y_ques] = \
-                        constraints[x_ques][truth_assignment]
+                    pred_mat[a_ans, b_ans, x_ques, y_ques] = constraints[x_ques][truth_assignment]
 
         return cls(prob_mat, pred_mat, reps)
 
@@ -584,20 +583,20 @@ class NonlocalGame:
         Compute an upper bound on the commuting measurement value of the nonlocal game.
 
         This function calculates an upper bound on the commuting measurement value by
-        using k - levels of the NPA hierarchy [NPA]_. The NPA hierarchy is a uniform family
+        using k-levels of the NPA hierarchy [NPA]_. The NPA hierarchy is a uniform family
         of semidefinite programs that converges to the commuting measurement value of
         any nonlocal game.
 
         You can determine the level of the hierarchy by a positive integer or a string
         of a form like '1+ab+aab', which indicates that an intermediate level of the hierarchy
-        should be used, where this example uses all products of 1 measurement, all products of
-        one Alice and one Bob measurement, and all products of two Alice and one Bob measurement.
+        should be used, where this example uses all products of one measurement, all products of
+        one Alice and one Bob measurement, and all products of two Alice and one Bob measurements.
 
         References
         ==========
-        .. [NPA] Miguel Navascues, Stefano Pironio, Antonio Acin.
-            "A convergent hierarchy of semidefinite programs characterizing
-             the set of quantum correlations."
+        .. [NPA] Miguel Navascues, Stefano Pironio, Antonio Acin,
+            "A convergent hierarchy of semidefinite programs characterizing the
+            set of quantum correlations."
             https://arxiv.org/abs/0803.4290
 
         :param k: The level of the NPA hierarchy to use (default=1).
@@ -608,17 +607,20 @@ class NonlocalGame:
         mat = defaultdict(cvxpy.Variable)
         for x_in in range(alice_in):
             for y_in in range(bob_in):
-                mat[x_in, y_in] = cvxpy.Variable((alice_out, bob_out),
-                                                name="M(a, b | {}, {})".format(x_in, y_in))
+                mat[x_in, y_in] = cvxpy.Variable(
+                    (alice_out, bob_out), name="M(a, b | {}, {})".format(x_in, y_in)
+                )
 
         p_win = cvxpy.Constant(0)
         for a_out in range(alice_out):
             for b_out in range(bob_out):
                 for x_in in range(alice_in):
                     for y_in in range(bob_in):
-                        p_win += self.prob_mat[x_in, y_in] * \
-                            self.pred_mat[a_out, b_out, x_in, y_in] * \
-                            mat[x_in, y_in][a_out, b_out]
+                        p_win += (
+                            self.prob_mat[x_in, y_in]
+                            * self.pred_mat[a_out, b_out, x_in, y_in]
+                            * mat[x_in, y_in][a_out, b_out]
+                        )
 
         npa = npa_constraints(mat, k)
         objective = cvxpy.Maximize(p_win)
