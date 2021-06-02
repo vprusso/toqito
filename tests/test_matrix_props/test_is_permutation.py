@@ -1,7 +1,7 @@
 """Test is_permutation."""
 import numpy as np
 
-from toqito.matrix_props import is_permutation
+from toqito.matrix_props.is_permutation import is_permutation
 
 def test_is_simple_permutation():
     """Test if matrix is a simple permutation matrix."""
