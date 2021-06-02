@@ -53,17 +53,18 @@ def is_permutation(mat: np.ndarray) -> bool:
     """
     if not is_square(mat):
         return False
-
+    
     for i in mat:
-      for j in i:
-        if (j!=0)&(j!=1):
-           return False
-
+        for j in i:
+            if (j!=0)&(j!=1):
+                return False
+    
     for rowTotal in np.sum(mat,axis=1) :
         if rowTotal != 1 :
             return False
+    
     for colTotal in np.sum(mat,axis=0) :
         if colTotal != 1 :
             return False
+    
     return True
-
