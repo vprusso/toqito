@@ -67,24 +67,12 @@ class TestNonlocalGame(unittest.TestCase):
         # Compute expected pred_mat
         pred_mat = np.zeros((4, 2, 2, 2))
         # Compute first constraint: v1 ^ v2 = 0
-        constraint1 = np.array([
-            [1, 0],
-            [0, 0],
-            [0, 0],
-            [0, 1]])
+        constraint1 = np.array([[1, 0], [0, 0], [0, 0], [0, 1]])
         pred_mat[:, :, 0, 0] = constraint1
         pred_mat[:, :, 0, 1] = constraint1
         # Compute second constraint: v1 ^ v2 = 1
-        pred_mat[:, :, 1, 0] = np.array([
-            [0, 0],
-            [1, 0],
-            [0, 1],
-            [0, 0]])
-        pred_mat[:, :, 1, 1] = np.array([
-            [0, 0],
-            [0, 1],
-            [1, 0],
-            [0, 0]])
+        pred_mat[:, :, 1, 0] = np.array([[0, 0], [1, 0], [0, 1], [0, 0]])
+        pred_mat[:, :, 1, 1] = np.array([[0, 0], [0, 1], [1, 0], [0, 0]])
         np.testing.assert_array_equal(chsh.pred_mat, pred_mat)
 
     def test_bcs_game_without_constraint(self):
@@ -242,6 +230,7 @@ class TestNonlocalGame(unittest.TestCase):
         res = ffl.commuting_measurement_value_upper_bound(k=1)
         expected_res = 0.666
         self.assertEqual(np.isclose(res, expected_res, atol=0.5), True)
+
 
 if __name__ == "__main__":
     unittest.main()

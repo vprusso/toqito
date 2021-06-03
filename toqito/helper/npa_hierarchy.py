@@ -6,9 +6,7 @@ from typing import Dict, List, Set, Tuple, Union
 import cvxpy
 
 
-Symbol = namedtuple("Symbol",
-                    ["player", "question", "answer"],
-                    defaults=["", None, None])
+Symbol = namedtuple("Symbol", ["player", "question", "answer"], defaults=["", None, None])
 
 
 # This function simplifies the input word by applying
@@ -28,12 +26,14 @@ def _reduce(word: Tuple[Symbol]) -> Tuple[Symbol]:
 
         # projector: merge them.
         if symbol_x == symbol_y:
-            return _reduce(word[:i] + word[i + 1:])
+            return _reduce(word[:i] + word[i + 1 :])
 
         # orthogonal: evaluates to zero.
-        if symbol_x.player == symbol_y.player \
-          and symbol_x.question == symbol_y.question \
-          and symbol_x.answer != symbol_y.answer:
+        if (
+            symbol_x.player == symbol_y.player
+            and symbol_x.question == symbol_y.question
+            and symbol_x.answer != symbol_y.answer
+        ):
             return ()
 
     return word
@@ -75,7 +75,7 @@ def _gen_words(
     if isinstance(k, str):
         k, conf = _parse(k)
 
-    #pylint: disable=too-many-nested-blocks
+    # pylint: disable=too-many-nested-blocks
     for i in range(1, k + 1):
         for j in range(i + 1):
             # words of type: a^j b^(i - j)
@@ -103,8 +103,7 @@ def _is_zero(word: Tuple[Symbol]) -> bool:
 def _is_meas(word: Tuple[Symbol]) -> bool:
     if len(word) == 2:
         s_a, s_b = word
-        return s_a.player == "Alice" \
-            and s_b.player == "Bob"
+        return s_a.player == "Alice" and s_b.player == "Bob"
 
     return False
 
@@ -128,8 +127,7 @@ def _get_shape(prob: Dict[Tuple[int, int], cvxpy.Variable]) -> Tuple[int, int, i
 
 
 def npa_constraints(
-    prob: Dict[Tuple[int, int], cvxpy.Variable],
-    k: Union[int, str] = 1
+    prob: Dict[Tuple[int, int], cvxpy.Variable], k: Union[int, str] = 1
 ) -> List[cvxpy.constraints.constraint.Constraint]:
     """
     Generate the constraints specified by the NPA hierarchy up to a finite level.
@@ -152,8 +150,7 @@ def npa_constraints(
     words = _gen_words(k, a_out, a_in, b_out, b_in)
     dim = len(words)
 
-    r_var = cvxpy.Variable((dim, dim), PSD=True,
-                           name="R")
+    r_var = cvxpy.Variable((dim, dim), PSD=True, name="R")
     constraints = [r_var[0, 0] == 1]
 
     seen = {}
@@ -165,13 +162,13 @@ def npa_constraints(
 
             # if i = 0 we would consider (ε, ε) as an empty word.
             if i != 0 and _is_zero(word):
-                constraints += [
-                    r_var[i, j] == 0]
+                constraints += [r_var[i, j] == 0]
 
             elif _is_meas(word):
                 s_a, s_b = word
                 constraints += [
-                    r_var[i, j] == prob[s_a.question, s_b.question][s_a.answer, s_b.answer]]
+                    r_var[i, j] == prob[s_a.question, s_b.question][s_a.answer, s_b.answer]
+                ]
 
             elif _is_meas_on_one_player(word):
                 symbol = word[0]
@@ -199,8 +196,10 @@ def npa_constraints(
     # now we impose constraints to the probability vector
     for x_alice_in in range(a_in):
         for y_bob_in in range(b_in):
-            constraints += [prob[x_alice_in, y_bob_in] >= 0,
-                            cvxpy.sum(prob[x_alice_in, y_bob_in]) == 1]
+            constraints += [
+                prob[x_alice_in, y_bob_in] >= 0,
+                cvxpy.sum(prob[x_alice_in, y_bob_in]) == 1,
+            ]
 
     # Bob marginal consistency
     for y_bob_in in range(b_in):
