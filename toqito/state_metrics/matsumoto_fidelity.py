@@ -18,7 +18,7 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     if isinstance(rho, cvxpy.atoms.affine.vstack.Vstack) or isinstance(
         sigma, cvxpy.atoms.affine.vstack.Vstack
     ):
-        w_var = cvxpy.Variable(rho.shape, complex=True, Hermitian=True)
+        w_var = cvxpy.Variable(rho.shape, hermitian=True)
         objective = cvxpy.Maximize(cvxpy.real(cvxpy.trace(w_var)))
         constraints = [cvxpy.bmat([[rho, w_var], [w_var, sigma]]) >> 0]
         problem = cvxpy.Problem(objective, constraints)
