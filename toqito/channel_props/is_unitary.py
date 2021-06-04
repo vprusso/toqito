@@ -12,14 +12,14 @@ def is_unitary(
     Given a quantum channel, determine if it is unitary [WatUC18]_.
 
     Let :math:`\mathcal{X}` be a complex Euclidean space an let :math:`U \in U(\mathcal{X})` be a
-    unitary operator. Then a unitary channel, is defined as:
+    unitary operator. Then a unitary channel is defined as:
 
     .. math::
         \Phi(X) = U X U^*
 
     Examples
     ==========
-    The identity channel is one example of a unitray channel:
+    The identity channel is one example of a unitary channel:
 
     .. math::
         U =
