@@ -73,4 +73,3 @@ def is_unitary(
 
     # If the length of the list of krauss operarator is equal to one, the channel is unitary.
     return len(phi)==1
-
