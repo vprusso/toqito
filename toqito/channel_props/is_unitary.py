@@ -9,13 +9,13 @@ def is_unitary(
     phi: Union[np.ndarray, List[List[np.ndarray]]]
 ) -> bool:
     r"""
-    Given a quantum channel, determine if it is unitary [WatUC18]_.
+    Given a quantum channel, determine if it is unitary [WatIU18]_.
 
     Let :math:`\mathcal{X}` be a complex Euclidean space an let :math:`U \in U(\mathcal{X})` be a
     unitary operator. Then a unitary channel is defined as:
 
     .. math::
-        \Phi(X) = U X U^*
+        \Phi(X) = U X U^*.
 
     Examples
     ==========
@@ -58,7 +58,7 @@ def is_unitary(
 
     References
     ==========
-    .. [WatUC18] Watrous, John.
+    .. [WatIU18] Watrous, John.
         "The Theory of Quantum Information."
         Section: "2.2.1  Definitions and basic notions concerning channels".
         Cambridge University Press, 2018.
@@ -67,9 +67,9 @@ def is_unitary(
     :return: :code:`True` if the channel is a unitary channel, and :code:`False` otherwise.
     """
     # If the variable `phi` is provided as a ndarray, we assume this is a
-    # choi operator.
+    # Choi matrix.
     if isinstance(phi, np.ndarray):
         phi = choi_to_kraus(phi)
 
     # If the length of the list of krauss operarator is equal to one, the channel is unitary.
-    return len(phi)==1
+    return len(phi) == 1
