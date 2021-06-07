@@ -6,8 +6,9 @@ def is_permutation(mat: np.ndarray) -> bool:
     r"""
     Determine if a matrix is a permutation matrix [WikiPermutation]_.
 
-    A matrix is a permutation matrix if each row and column has a single element of 1 and all others 0.
-
+    A matrix is a permutation matrix if each row and column has a 
+    single element of 1 and all others 0.
+    
     Examples
     ==========
 
@@ -39,7 +40,7 @@ def is_permutation(mat: np.ndarray) -> bool:
 
     >>> from toqito.matrix_props import is_permutation
     >>> import numpy as np
-    >>> B = np.array([[1, 0, 0], [1, 0, 0], [1, 0, 0]] )
+    >>> B = np.array([[1, 0, 0], [1, 0, 0], [1, 0, 0]])
     >>> is_permutation(B)
     False
 
@@ -53,18 +54,18 @@ def is_permutation(mat: np.ndarray) -> bool:
     """
     if not is_square(mat):
         return False
-    
+
     for i in mat:
         for j in i:
             if (j!=0)&(j!=1):
                 return False
-    
-    for rowTotal in np.sum(mat,axis=1) :
-        if rowTotal != 1 :
+
+    for row_total in np.sum(mat,axis=1) :
+        if row_total != 1 :
             return False
-    
-    for colTotal in np.sum(mat,axis=0) :
-        if colTotal != 1 :
+
+    for col_total in np.sum(mat,axis=0) :
+        if col_total != 1 :
             return False
-    
+
     return True
