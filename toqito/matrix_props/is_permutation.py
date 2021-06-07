@@ -57,7 +57,7 @@ def is_permutation(mat: np.ndarray) -> bool:
 
     for i in mat:
         for j in i:
-            f (j not in (0, 1)):
+            if (j not in (0, 1)):
                 return False
 
     for row_total in np.sum(mat,axis=1) :
