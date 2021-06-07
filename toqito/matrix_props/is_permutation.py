@@ -6,9 +6,9 @@ def is_permutation(mat: np.ndarray) -> bool:
     r"""
     Determine if a matrix is a permutation matrix [WikiPermutation]_.
 
-    A matrix is a permutation matrix if each row and column has a 
-    single element of 1 and all others 0.
-    
+    A matrix is a permutation matrix if each row and column has a
+    single element of 1 and all others are 0.
+
     Examples
     ==========
 
@@ -57,7 +57,7 @@ def is_permutation(mat: np.ndarray) -> bool:
 
     for i in mat:
         for j in i:
-            if (j!=0)&(j!=1):
+            if ((j!=0) and (j!=1)):
                 return False
 
     for row_total in np.sum(mat,axis=1) :
