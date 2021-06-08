@@ -28,7 +28,6 @@ def test_is_insidious_not_permutation():
     mat = np.array([[2, -1], [-1, 2]])
     np.testing.assert_equal(is_permutation(mat), False)
 
-
 if __name__ == "__main__":
     np.testing.run_module_suite()
-
+    
