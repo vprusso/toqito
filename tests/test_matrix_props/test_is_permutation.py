@@ -30,4 +30,3 @@ def test_is_insidious_not_permutation():
 
 if __name__ == "__main__":
     np.testing.run_module_suite()
-    
