@@ -8,9 +8,19 @@ def test_is_simple_permutation():
     mat = np.array([[1, 0, 0], [0, 0, 1], [0, 1, 0]])
     np.testing.assert_equal(is_permutation(mat), True)
 
+def test_is_not_square():
+    """Test non-square matrix and thus will fail."""
+    mat = np.array([[1, 0, 0 ], [1, 0, 0], [0, 1, 0], [0,0,1]])
+    np.testing.assert_equal(is_permutation(mat), False)
+
 def test_is_not_permutation():
-    """Test non-permutation matrix wih one element being 9 !in set (0,1)."""
+    """Test non-permutation matrix with one element being 9 !in set (0,1)."""
     mat = np.array([[0, 0, 0, 9], [1, 0, 0, 0], [0, 1, 0, 0], [0,0,1,0]])
+    np.testing.assert_equal(is_permutation(mat), False)
+
+def test_is_not_permutation_row():
+    """Test non-permutation matrix where the row check will fail."""
+    mat = np.array([[0, 1, 1,0], [1, 0, 0, 0], [0, 0, 0, 1], [0,0,1,0]])
     np.testing.assert_equal(is_permutation(mat), False)
 
 def test_is_not_permutation_also():
