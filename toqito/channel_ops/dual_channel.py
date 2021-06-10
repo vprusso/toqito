@@ -19,17 +19,18 @@ def dual_channel(
 
     # If phi_op is a ndarray, assume it is a Choi matrix
     if isinstance(phi_op, np.ndarray):
-        if not(is_square(phi_op)):
-            raise ValueError("Invalid: `phi_op` is not a valid Choi matrix (not square).")
-        if dims is None:
-            sqr = np.sqrt(phi_op.shape[0])
-            if sqr.is_integer():
-                dims = [int(round(sqr))] * 2
-            else:
-                raise ValueError(
-                    "The dimensions `dims` of the input and output spaces should be specified."
-                    )
-        return swap(phi_op.conj(), dim=dims)
+        if len(phi_op.shape) == 2:
+            if not(is_square(phi_op)):
+                raise ValueError("Invalid: `phi_op` is not a valid Choi matrix (not square).")
+            if dims is None:
+                sqr = np.sqrt(phi_op.shape[0])
+                if sqr.is_integer():
+                    dims = [int(round(sqr))] * 2
+                else:
+                    raise ValueError(
+                        "The dimensions `dims` of the input and output should be specified."
+                        )
+            return swap(phi_op.conj(), dim=dims)
     raise ValueError(
         "Invalid: The variable `phi_op` must either be a list of "
         "Kraus operators or as a Choi matrix."
