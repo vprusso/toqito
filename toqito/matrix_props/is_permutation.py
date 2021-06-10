@@ -55,11 +55,12 @@ def is_permutation(mat: np.ndarray) -> bool:
     if not is_square(mat):
         return False
 
-    for i in mat:
-        for j in i:
-            if j not in (0, 1):
-                return False
+    """ each element in set of (0,1) check """
+    for i in np.nditer(mat):
+        if (i not in (0, 1)):
+            return False
 
+    """ check sum of each individual row and column to be 1 """
     if all(sum(row) == 1 for row in mat):
         return all(sum(col) == 1 for col in zip(*mat))
     return False
