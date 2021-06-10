@@ -18,7 +18,7 @@ def dual_channel(
         return [[a.conj().T for a in x] for x in phi_op]
 
     # If phi_op is a ndarray, assume it is a Choi matrix
-    if isnstance(phi_op, np.ndarray):
+    if isinstance(phi_op, np.ndarray):
         if not(is_square(phi_op)):
             raise ValueError("Invalid: `phi_op` is not a valid Choi matrix (not square).")
         if dims is None:
