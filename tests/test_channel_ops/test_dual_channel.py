@@ -29,7 +29,7 @@ def test_dual_channel_choi_square():
     np.testing.assert_equal(np.all(bool_mat), True)
 
 def test_dual_channel_choi_dims():
-    """Test dual_channel on a Choi matrix with differnt inpunt and output dimensions."""
+    """Test dual_channel on a Choi matrix with different input and output dimensions."""
     j = np.array(
         [
             [1, -1j, 0, 0, 0, 1],

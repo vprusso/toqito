@@ -10,7 +10,21 @@ def dual_channel(
     dims: List[int] = None
 ) -> Union[np.ndarray, List[List[np.ndarray]]]:
     r"""
-    TODO: docstring
+    Compute the dual of a map (quantum channel) [WatDChan18]_ .
+
+    References
+    ==========
+    .. [WatDChan18] Watrous, John.
+        The theory of quantum information.
+        Section: Representations and characterizations of channels.
+        Cambridge University Press, 2018.
+
+    :param phi_op: A superoperator. :code:`phi_op` should be provided either as a Choi matrix,
+                   or as a list of numpy arrays with 2 columns whose entries are its
+                   Kraus operators.
+    :param dims: Dimension of the input and output systems, for Choi matrix representation.
+                 If :code:`None`, try to infer them from :code:`phi_op.shape`.
+    :return: The map dual to :chode:`phi_op`, in the same representation.
     """
     # If phi_op is a list, assume it contains couples of Kraus operators
     # and take the Hermitian conjugate
