@@ -60,12 +60,6 @@ def is_permutation(mat: np.ndarray) -> bool:
             if j not in (0, 1):
                 return False
 
-    for row_total in np.sum(mat,axis=1) :
-        if row_total != 1 :
-            return False
-
-    for col_total in np.sum(mat,axis=0) :
-        if col_total != 1 :
-            return False
-
-    return True
+    if all(sum(row) == 1 for row in mat):
+        return all(sum(col) == 1 for col in zip(*mat))
+    return False
