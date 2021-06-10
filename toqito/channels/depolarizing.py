@@ -78,7 +78,7 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
     References
     ==========
     .. [WikDepo] Wikipedia: Quantum depolarizing channel
-        https://en.wikipedia.org/wiki/Quantum_depolarizing
+        https://en.wikipedia.org/wiki/Quantum_depolarizing_channel
 
     .. [WatDepo18] Watrous, John.
         "The theory of quantum information."
