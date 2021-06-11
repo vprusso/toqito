@@ -37,7 +37,7 @@ def is_permutation(mat: np.ndarray) -> bool:
                 1 & 0 & 0
             \end{pmatrix}
 
-    has 2 columns with all zero values and is thus not a 
+    has 2 columns with all zero values and is thus not a
     permutation matrix.
 
     >>> from toqito.matrix_props import is_permutation
