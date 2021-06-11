@@ -29,7 +29,7 @@ def test_is_matrix_with_nonunitary_row_sum():
 
 
 def test_is_matrix_with_nonunitary_column_sum():
-    """Testa  non-permutation matrix where the unitary column sum check will fail."""
+    """Test a non-permutation matrix where the unitary column sum check will fail."""
     mat = np.array([[0, 0, 1,0], [1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0]])
     np.testing.assert_equal(is_permutation(mat), False)
 
