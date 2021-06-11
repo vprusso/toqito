@@ -1,6 +1,7 @@
 """Is matrix a permutation matrix."""
 import numpy as np
 
+
 def is_permutation(mat: np.ndarray) -> bool:
     r"""
     Determine if a matrix is a permutation matrix [WikiPermutation]_.
@@ -55,7 +56,6 @@ def is_permutation(mat: np.ndarray) -> bool:
     :param mat: The matrix to check.
     :return: Returns :code:`True` if the matrix is a permutation matrix and :code:`False` otherwise.
     """
-
     if all(sum(row) == 1 for row in mat):
         return all(sum(col) == 1 for col in zip(*mat))
     return False
