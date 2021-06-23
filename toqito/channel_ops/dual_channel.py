@@ -25,7 +25,7 @@ def dual_channel(
         \Phi(X) = \sum_a A_a X B^*_a.
 
     The dual map is obtained by taking the Hermitian adjoint of each operator.
-    If :code:`phi_op` is given as a one-dimensional list, :math:`\{(A_a,B_a)\}`,
+    If :code:`phi_op` is given as a one-dimensional list, :math:`\{A_a\}`,
     it is interpreted as the completely positive map
 
     .. math::
@@ -38,11 +38,11 @@ def dual_channel(
         Section: Representations and characterizations of channels.
         Cambridge University Press, 2018.
 
-    :param phi_op: A superoperator. :code:`phi_op` should be provided either as a Choi matrix,
+    :param phi_op: A superoperator. It should be provided either as a Choi matrix,
                    or as a (1d or 2d) list of numpy arrays whose entries are its Kraus operators.
     :param dims: Dimension of the input and output systems, for Choi matrix representation.
                  If :code:`None`, try to infer them from :code:`phi_op.shape`.
-    :return: The map dual to :chode:`phi_op`, in the same representation.
+    :return: The map dual to :code:`phi_op`, in the same representation.
     """
     # If phi_op is a list, assume it contains couples of Kraus operators
     # and take the Hermitian conjugate
