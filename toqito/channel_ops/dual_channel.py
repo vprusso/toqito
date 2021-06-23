@@ -6,11 +6,30 @@ from toqito.matrix_props import is_square
 from toqito.perms import swap
 
 def dual_channel(
-    phi_op: Union[np.ndarray, List[List[np.ndarray]]],
+    phi_op: Union[np.ndarray, List[np.ndarray], List[List[np.ndarray]]],
     dims: List[int] = None
 ) -> Union[np.ndarray, List[List[np.ndarray]]]:
     r"""
     Compute the dual of a map (quantum channel) [WatDChan18]_ .
+
+    The map can be represented as a Choi matrix, with optional specification of input
+    and output dimensions. In this case the Choi matrix of the dual channel is
+    returned, obtained by swapping input and output (see :func:`toqito.perms.swap`),
+    and complex conjugating all elements.
+
+    The map can also be represented as a list of Kraus operators.
+    A list of lists, each containing two elements, corresponds to the families
+    of operators :math:`\{(A_a, B_a)\}` representing the map
+
+    .. math::
+        \Phi(X) = \sum_a A_a X B^*_a.
+
+    The dual map is obtained by taking the Hermitian adjoint of each operator.
+    If :code:`phi_op` is given as a one-dimensional list, :math:`\{(A_a,B_a)\}`,
+    it is interpreted as the completely positive map
+
+    .. math::
+        \Phi(X) = \sum_a A_a X A^*_a.
 
     References
     ==========
@@ -20,8 +39,7 @@ def dual_channel(
         Cambridge University Press, 2018.
 
     :param phi_op: A superoperator. :code:`phi_op` should be provided either as a Choi matrix,
-                   or as a list of numpy arrays with 2 columns whose entries are its
-                   Kraus operators.
+                   or as a (1d or 2d) list of numpy arrays whose entries are its Kraus operators.
     :param dims: Dimension of the input and output systems, for Choi matrix representation.
                  If :code:`None`, try to infer them from :code:`phi_op.shape`.
     :return: The map dual to :chode:`phi_op`, in the same representation.
