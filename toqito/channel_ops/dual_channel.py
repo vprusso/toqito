@@ -29,12 +29,15 @@ def dual_channel(
     # If phi_op is a list, assume it contains couples of Kraus operators
     # and take the Hermitian conjugate
     if isinstance(phi_op, list):
-        return [[a.conj().T for a in x] for x in phi_op]
+        if isinstance(phi_op[0], list):
+            return [[a.conj().T for a in x] for x in phi_op]
+        if isinstance(phi_op[0], np.ndarray):
+            return [a.conj().T for a in phi_op]
 
     # If phi_op is a ndarray, assume it is a Choi matrix
     if isinstance(phi_op, np.ndarray):
         if len(phi_op.shape) == 2:
-            if not(is_square(phi_op)):
+            if not is_square(phi_op):
                 raise ValueError("Invalid: `phi_op` is not a valid Choi matrix (not square).")
             if dims is None:
                 sqr = np.sqrt(phi_op.shape[0])
