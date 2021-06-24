@@ -51,6 +51,7 @@ Operations on Quantum Channels
     toqito.channel_ops.choi_to_kraus
     toqito.channel_ops.kraus_to_choi
     toqito.channel_ops.partial_channel
+    toqito.channel_ops.dual_channel
 
 Properties of Quantum Channels
 ------------------------------
