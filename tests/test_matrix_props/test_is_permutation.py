@@ -12,7 +12,7 @@ def test_is_simple_permutation():
 
 def test_is_not_square_matrix():
     """Test non-square matrix and thus will fail."""
-    mat = np.array([[1, 0, 0 ], [1, 0, 0], [0, 1, 0], [0, 0, 1]])
+    mat = np.array([[1, 0, 0], [1, 0, 0], [0, 1, 0], [0, 0, 1]])
     np.testing.assert_equal(is_permutation(mat), False)
 
 
@@ -24,13 +24,13 @@ def test_is_not_binary_value_matrix():
 
 def test_is_matrix_with_nonunitary_row_sum():
     """Test a non-permutation matrix where the unitary row sum check will fail."""
-    mat = np.array([[0, 1, 1,0], [1, 0, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0]])
+    mat = np.array([[0, 1, 1, 0], [1, 0, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0]])
     np.testing.assert_equal(is_permutation(mat), False)
 
 
 def test_is_matrix_with_nonunitary_column_sum():
     """Test a non-permutation matrix where the unitary column sum check will fail."""
-    mat = np.array([[0, 0, 1,0], [1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0]])
+    mat = np.array([[0, 0, 1, 0], [1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0]])
     np.testing.assert_equal(is_permutation(mat), False)
 
 

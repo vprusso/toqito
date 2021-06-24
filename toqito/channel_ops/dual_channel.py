@@ -1,16 +1,17 @@
-"""Compute the dual of a map"""
+"""Compute the dual of a map."""
 from typing import List, Union
 import numpy as np
 
 from toqito.matrix_props import is_square
 from toqito.perms import swap
 
+
 def dual_channel(
     phi_op: Union[np.ndarray, List[np.ndarray], List[List[np.ndarray]]],
     dims: List[int] = None
 ) -> Union[np.ndarray, List[List[np.ndarray]]]:
     r"""
-    Compute the dual of a map (quantum channel) [WatDChan18]_ .
+    Compute the dual of a map (quantum channel) [WatDChan18]_.
 
     The map can be represented as a Choi matrix, with optional specification of input
     and output dimensions. In this case the Choi matrix of the dual channel is
@@ -45,14 +46,14 @@ def dual_channel(
     :return: The map dual to :code:`phi_op`, in the same representation.
     """
     # If phi_op is a list, assume it contains couples of Kraus operators
-    # and take the Hermitian conjugate
+    # and take the Hermitian conjugate.
     if isinstance(phi_op, list):
         if isinstance(phi_op[0], list):
             return [[a.conj().T for a in x] for x in phi_op]
         if isinstance(phi_op[0], np.ndarray):
             return [a.conj().T for a in phi_op]
 
-    # If phi_op is a ndarray, assume it is a Choi matrix
+    # If phi_op is a `ndarray`, assume it is a Choi matrix.
     if isinstance(phi_op, np.ndarray):
         if len(phi_op.shape) == 2:
             if not is_square(phi_op):

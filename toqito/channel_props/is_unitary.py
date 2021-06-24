@@ -5,9 +5,8 @@ import numpy as np
 
 from toqito.channel_ops import choi_to_kraus
 
-def is_unitary(
-    phi: Union[np.ndarray, List[List[np.ndarray]]]
-) -> bool:
+
+def is_unitary(phi: Union[np.ndarray, List[List[np.ndarray]]]) -> bool:
     r"""
     Given a quantum channel, determine if it is unitary [WatIU18]_.
 

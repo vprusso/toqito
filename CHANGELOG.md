@@ -180,7 +180,7 @@
 
 - Feature: Added `is_quantum_channel` under `channel_props`. This feature
   allows one to check whether a given input provided as either a list of Kraus
-  operators or a Choi matrix constitutes a valid quantum channel.
+  operators, or, a Choi matrix constitutes a valid quantum channel.
 
 - Fix: Permute systems had a bug where if the `inv_perm` option in 
   `permute_systems.py` was selected, the standard permutation was calculated 
@@ -220,3 +220,10 @@
   `extended_nonlocal_game.py`
 
 - Enhancement: Some general documentation clean-up. 
+
+## 1.0.2
+
+- Feature: Added `dual_channel` under `channel_ops`. This feature
+  allows one to calculate the dual channel of a given input provided as either a 
+  list of Kraus operators, or, a Choi matrix that represents a valid quantum 
+  channel.
