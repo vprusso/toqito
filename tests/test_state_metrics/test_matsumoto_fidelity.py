@@ -1,5 +1,4 @@
 """Tests for matsumoto_fidelity."""
-import cvxpy
 import numpy as np
 
 
@@ -10,15 +9,6 @@ from toqito.states import basis
 def test_matsumoto_fidelity_default():
     """Test Matsumoto fidelity default arguments."""
     rho = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
-    sigma = rho
-
-    res = matsumoto_fidelity(rho, sigma)
-    np.testing.assert_equal(np.isclose(res, 1), True)
-
-
-def test_matsumoto_fidelity_cvx():
-    """Test Matsumoto fidelity for cvx objects."""
-    rho = cvxpy.bmat([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
     sigma = rho
 
     res = matsumoto_fidelity(rho, sigma)

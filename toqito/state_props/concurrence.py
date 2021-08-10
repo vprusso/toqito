@@ -13,8 +13,11 @@ def concurrence(rho: np.ndarray) -> float:
     .. math::
         \max(0, \lambda_1 - \lambda_2 - \lambda_3 - \lambda_4),
 
-    where :math:`\lambda_1, \ldots, \lambda_4` are the eigenvalues in decreasing order of the
-    matrix.
+    where :math:`\lambda_1, \ldots, \lambda_4` are the square roots of the
+    eigenvalues in decreasing order of the matrix
+
+    .. math::
+        \rho\tilde{\rho} = \rho \sigma_y \otimes \sigma_y \rho^* \sigma_y \otimes \sigma_y.
 
     Concurrence can serve as a measure of entanglement.
 
@@ -74,8 +77,8 @@ def concurrence(rho: np.ndarray) -> float:
     sigma_y = pauli("Y", False)
     sigma_y_y = np.kron(sigma_y, sigma_y)
 
-    rho_hat = sigma_y_y @ rho.conj().T @ sigma_y_y
+    rho_tilde = sigma_y_y @ rho.conj() @ sigma_y_y
 
-    eig_vals = np.linalg.eigvals(rho @ rho_hat)
+    eig_vals = np.linalg.eigvals(rho @ rho_tilde)
     eig_vals = np.sort(np.abs(np.sqrt(eig_vals)))[::-1]
     return max(0, eig_vals[0] - eig_vals[1] - eig_vals[2] - eig_vals[3])

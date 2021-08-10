@@ -227,3 +227,6 @@
   allows one to calculate the dual channel of a given input provided as either a 
   list of Kraus operators, or, a Choi matrix that represents a valid quantum 
   channel.
+  
+- Fix: Thanks to Jake Xuereb for a fix in the `concurrence` fucntion that was 
+  incorrectly not taking the transpose.
