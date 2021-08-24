@@ -490,7 +490,7 @@ class NonlocalGame:
         alice_out, bob_out, alice_in, bob_in = self.pred_mat.shape
         dim_x, dim_y = 2, 2
 
-        constraints = list()
+        constraints = []
 
         # Define K(a,b|x,y) variable.
         k_var = defaultdict(cvxpy.Variable)
