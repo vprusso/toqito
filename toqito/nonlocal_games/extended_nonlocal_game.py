@@ -167,7 +167,7 @@ class ExtendedNonlocalGame:
         :return: The non-signaling value of the extended nonlocal game.
         """
         dim_x, dim_y, alice_out, bob_out, alice_in, bob_in = self.pred_mat.shape
-        constraints = list()
+        constraints = []
 
         # The cvxpy package does not support optimizing over more than
         # 2-dimensional objects. To overcome this, we use a dictionary to index
@@ -362,7 +362,7 @@ class ExtendedNonlocalGame:
                                 @ rho[x_ques, a_ans]
                             )
         objective = cvxpy.Maximize(cvxpy.real(win))
-        constraints = list()
+        constraints = []
 
         # Sum over "a" for all "x" for Alice's measurements.
         for x_ques in range(num_inputs_alice):
@@ -416,7 +416,7 @@ class ExtendedNonlocalGame:
                         )
         objective = cvxpy.Maximize(cvxpy.real(win))
 
-        constraints = list()
+        constraints = []
 
         # Sum over "b" for all "y" for Bob's measurements.
         for y_ques in range(num_inputs_bob):
