@@ -1,5 +1,5 @@
 """Logarithmic negativity property."""
-from typing import List, Union
+from typing import Union
 
 import numpy as np
 
@@ -7,7 +7,7 @@ from toqito.state_ops import pure_to_mixed
 from toqito.channels import partial_transpose
 
 
-def log_negativity(rho: np.ndarray, dim: Union[List[int], int] = None) -> float:
+def log_negativity(rho: np.ndarray, dim: Union[list[int], int] = None) -> float:
     r"""
     Compute the log-negativity of a bipartite quantum state [WikLogNeg]_.
 

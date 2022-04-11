@@ -1,11 +1,10 @@
 """Compute a list of Kraus operators from the Choi matrix."""
-from typing import List
 import numpy as np
 
 from toqito.matrix_ops import unvec
 
 
-def choi_to_kraus(choi_mat: np.ndarray, tol: float = 1e-9) -> List[List[np.ndarray]]:
+def choi_to_kraus(choi_mat: np.ndarray, tol: float = 1e-9) -> list[list[np.ndarray]]:
     r"""
     Compute a list of Kraus operators from the Choi matrix [Rigetti20]_.
 

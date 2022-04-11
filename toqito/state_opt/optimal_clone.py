@@ -1,5 +1,5 @@
 """Calculates success probability of approximately cloning a quantum state."""
-from typing import List, Union
+from typing import Union
 import cvxpy
 import numpy as np
 
@@ -9,8 +9,8 @@ from toqito.perms import permutation_operator
 
 
 def optimal_clone(
-    states: List[np.ndarray],
-    probs: List[float],
+    states: list[np.ndarray],
+    probs: list[float],
     num_reps: int = 1,
     strategy: bool = False,
 ) -> Union[float, np.ndarray]:
@@ -165,7 +165,7 @@ def primal_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
     dim = 2 * np.ones((1, num_spaces * num_reps)).astype(int).flatten()
     dim = dim.tolist()
 
-    x_var = cvxpy.Variable((8 ** num_reps, 8 ** num_reps), hermitian=True)
+    x_var = cvxpy.Variable((8**num_reps, 8**num_reps), hermitian=True)
     if num_reps == 1:
         objective = cvxpy.Maximize(cvxpy.trace(cvxpy.real(q_a.conj().T @ x_var)))
     else:
@@ -173,7 +173,7 @@ def primal_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
             cvxpy.trace(cvxpy.real(pperm @ q_a.conj().T @ pperm.conj().T @ x_var))
         )
     constraints = [
-        partial_trace(x_var, sys, dim) == np.identity(2 ** num_reps),
+        partial_trace(x_var, sys, dim) == np.identity(2**num_reps),
         x_var >> 0,
     ]
     problem = cvxpy.Problem(objective, constraints)
@@ -187,10 +187,10 @@ def dual_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
 
     :return: The optimal value of performing a counterfeit attack.
     """
-    y_var = cvxpy.Variable((2 ** num_reps, 2 ** num_reps), hermitian=True)
+    y_var = cvxpy.Variable((2**num_reps, 2**num_reps), hermitian=True)
     objective = cvxpy.Minimize(cvxpy.trace(cvxpy.real(y_var)))
 
-    kron_var = cvxpy.kron(cvxpy.kron(np.eye(2 ** num_reps), np.eye(2 ** num_reps)), y_var)
+    kron_var = cvxpy.kron(cvxpy.kron(np.eye(2**num_reps), np.eye(2**num_reps)), y_var)
 
     if num_reps == 1:
         constraints = [cvxpy.real(kron_var) >> q_a]

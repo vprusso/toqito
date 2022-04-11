@@ -1,6 +1,4 @@
 """Calculate unique permutations."""
-from typing import List
-
 from dataclasses import dataclass
 
 
@@ -12,7 +10,7 @@ class UniqueElement:
     occurrences: int
 
 
-def unique_perms(elements: List[int]):
+def unique_perms(elements: list[int]):
     r"""
     Determine the number of unique permutations of a list.
 
@@ -42,7 +40,7 @@ def unique_perms(elements: List[int]):
     return perm_unique_helper(list_unique, [0] * len_elems, len_elems - 1)
 
 
-def perm_unique_helper(list_unique: List[UniqueElement], result_list: List[int], elem_d: int):
+def perm_unique_helper(list_unique: list[UniqueElement], result_list: list[int], elem_d: int):
     """
     Provide helper function for unique_perms.
 

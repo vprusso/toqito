@@ -1,5 +1,5 @@
 """Apply channel a subsystem of an operator."""
-from typing import List, Union
+from typing import Union
 import numpy as np
 
 from toqito.channel_ops import apply_channel
@@ -9,9 +9,9 @@ from toqito.perms import permute_systems
 
 def partial_channel(
     rho: np.ndarray,
-    phi_map: Union[np.ndarray, List[List[np.ndarray]]],
+    phi_map: Union[np.ndarray, list[list[np.ndarray]]],
     sys: int = 2,
-    dim: Union[List[int], np.ndarray] = None,
+    dim: Union[list[int], np.ndarray] = None,
 ) -> np.ndarray:
     r"""Apply channel to a subsystem of an operator [WatPMap18]_.
 

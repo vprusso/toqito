@@ -65,17 +65,17 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         mub_0 = [e_0, e_1, e_2]
         mub_1 = [
             (e_0 + e_1 + e_2) / np.sqrt(3),
-            (e_0 + eta ** 2 * e_1 + eta * e_2) / np.sqrt(3),
-            (e_0 + eta * e_1 + eta ** 2 * e_2) / np.sqrt(3),
+            (e_0 + eta**2 * e_1 + eta * e_2) / np.sqrt(3),
+            (e_0 + eta * e_1 + eta**2 * e_2) / np.sqrt(3),
         ]
         mub_2 = [
             (e_0 + e_1 + eta * e_2) / np.sqrt(3),
-            (e_0 + eta ** 2 * e_1 + eta ** 2 * e_2) / np.sqrt(3),
+            (e_0 + eta**2 * e_1 + eta**2 * e_2) / np.sqrt(3),
             (e_0 + eta * e_1 + e_2) / np.sqrt(3),
         ]
         mub_3 = [
-            (e_0 + e_1 + eta ** 2 * e_2) / np.sqrt(3),
-            (e_0 + eta ** 2 * e_1 + e_2) / np.sqrt(3),
+            (e_0 + e_1 + eta**2 * e_2) / np.sqrt(3),
+            (e_0 + eta**2 * e_1 + e_2) / np.sqrt(3),
             (e_0 + eta * e_1 + eta * e_2) / np.sqrt(3),
         ]
 
@@ -120,7 +120,7 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         res = bb84_2.unentangled_value()
         expected_res = np.cos(np.pi / 8) ** 4
 
-        self.assertEqual(np.isclose(res, expected_res), True)
+        self.assertEqual(np.isclose(res, expected_res, atol=1e-3), True)
 
     def test_bb84_quantum_value_lower_bound(self):
         """Calculate the lower bound for the quantum value of theBB84 game."""

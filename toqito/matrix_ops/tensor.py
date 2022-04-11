@@ -110,7 +110,7 @@ def tensor(*args) -> np.ndarray:
         https://en.wikipedia.org/wiki/Tensor_product
 
     :param args: Input to the tensor function is expected to be either:
-        - List[np.ndarray]: List of numpy matrices,
+        - list[np.ndarray]: List of numpy matrices,
         - np.ndarray, ... , np.ndarray: An arbitrary number of numpy arrays,
         - np.ndarray, int: A numpy array and an integer.
     :return: The computed tensor product.

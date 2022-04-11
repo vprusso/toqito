@@ -1,5 +1,5 @@
 """Swap."""
-from typing import List, Union
+from typing import Union
 
 import numpy as np
 
@@ -8,8 +8,8 @@ from toqito.perms import permute_systems
 
 def swap(
     rho: np.ndarray,
-    sys: List[int] = None,
-    dim: Union[List[int], List[List[int]], int, np.ndarray] = None,
+    sys: list[int] = None,
+    dim: Union[list[int], list[list[int]], int, np.ndarray] = None,
     row_only: bool = False,
 ) -> np.ndarray:
     r"""

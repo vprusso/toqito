@@ -1,6 +1,4 @@
 """PPT symmetric extension hierarchy."""
-from typing import List
-
 import cvxpy
 import numpy as np
 from toqito.channels import partial_trace, partial_transpose
@@ -9,7 +7,7 @@ from .state_helper import __is_states_valid, __is_probs_valid
 
 
 def symmetric_extension_hierarchy(
-    states: List[np.ndarray], probs: List[float] = None, level: int = 2
+    states: list[np.ndarray], probs: list[float] = None, level: int = 2
 ) -> float:
     r"""
     Compute optimal value of the symmetric extension hierarchy SDP [Nav08]_.

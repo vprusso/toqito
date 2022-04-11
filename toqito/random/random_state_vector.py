@@ -1,5 +1,5 @@
 """Generate random state vector."""
-from typing import List, Union
+from typing import Union
 
 import numpy as np
 
@@ -8,7 +8,7 @@ from toqito.perms import swap
 
 
 def random_state_vector(
-    dim: Union[List[int], int], is_real: bool = False, k_param: int = 0
+    dim: Union[list[int], int], is_real: bool = False, k_param: int = 0
 ) -> np.ndarray:
     r"""Generate a random pure state vector.
 

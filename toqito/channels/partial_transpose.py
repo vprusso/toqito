@@ -1,5 +1,5 @@
 """The partial transpose."""
-from typing import List, Union
+from typing import Union
 
 import numpy as np
 
@@ -11,8 +11,8 @@ from toqito.helper import expr_as_np_array, np_array_as_expr
 
 def partial_transpose(
     rho: Union[np.ndarray, Variable],
-    sys: Union[List[int], np.ndarray, int] = 2,
-    dim: Union[List[int], np.ndarray] = None,
+    sys: Union[list[int], np.ndarray, int] = 2,
+    dim: Union[list[int], np.ndarray] = None,
 ) -> Union[np.ndarray, Expression]:
     r"""Compute the partial transpose of a matrix [WikPtrans]_.
 

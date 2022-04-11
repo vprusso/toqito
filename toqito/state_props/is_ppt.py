@@ -1,5 +1,5 @@
 """Check if violates the PPT criterion."""
-from typing import List, Union
+from typing import Union
 
 import numpy as np
 
@@ -8,7 +8,7 @@ from toqito.channels import partial_transpose
 
 
 def is_ppt(
-    mat: np.ndarray, sys: int = 2, dim: Union[int, List[int]] = None, tol: float = None
+    mat: np.ndarray, sys: int = 2, dim: Union[int, list[int]] = None, tol: float = None
 ) -> bool:
     r"""
     Determine whether or not a matrix has positive partial transpose [WikPPT]_.

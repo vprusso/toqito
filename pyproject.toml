@@ -36,11 +36,13 @@ keywords = ["quantum information", "quantum computing", "nonlocal games"]
 
 
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.9"
 cvx = "*"
 cvxpy = "*"
 numpy = "*"
 scipy = "*"
+black = "^22.3.0"
+pydocstyle = "^6.1.1"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.7"

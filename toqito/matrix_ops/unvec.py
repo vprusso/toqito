@@ -1,10 +1,10 @@
 """Unvec operation."""
-from typing import List, Optional
+from typing import Optional
 
 import numpy as np
 
 
-def unvec(vector: np.ndarray, shape: Optional[List[int]] = None) -> np.ndarray:
+def unvec(vector: np.ndarray, shape: Optional[list[int]] = None) -> np.ndarray:
     r"""
     Perform the unvec operation on a vector to obtain a matrix [Rigetti2020]_.
 

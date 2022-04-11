@@ -1,5 +1,5 @@
 """The partial trace."""
-from typing import List, Union
+from typing import Union
 
 import numpy as np
 
@@ -11,8 +11,8 @@ from toqito.helper import expr_as_np_array, np_array_as_expr
 
 def partial_trace(
     input_mat: Union[np.ndarray, Variable],
-    sys: Union[int, List[int]] = 2,
-    dim: Union[int, List[int]] = None,
+    sys: Union[int, list[int]] = 2,
+    dim: Union[int, list[int]] = None,
 ) -> Union[np.ndarray, Expression]:
     r"""
     Compute the partial trace of a matrix [WikPtrace]_.

@@ -4,7 +4,7 @@ Getting started
 Installing
 ^^^^^^^^^^
 
-1. Ensure you have Python 3.7 or greater installed on your machine.
+1. Ensure you have Python 3.9 or greater installed on your machine.
 
 2. Consider using a `virtual environment <https://packaging.python.org/guides/installing-using-pip-and-virtualenv/>`_.
 

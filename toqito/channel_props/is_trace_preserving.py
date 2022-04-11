@@ -1,5 +1,5 @@
 """Is channel trace-preserving."""
-from typing import List, Union
+from typing import Union
 
 import numpy as np
 
@@ -8,11 +8,11 @@ from toqito.channels import partial_trace
 
 
 def is_trace_preserving(
-    phi: Union[np.ndarray, List[List[np.ndarray]]],
+    phi: Union[np.ndarray, list[list[np.ndarray]]],
     rtol: float = 1e-05,
     atol: float = 1e-08,
-    sys: Union[int, List[int]] = 2,
-    dim: Union[List[int], np.ndarray] = None,
+    sys: Union[int, list[int]] = 2,
+    dim: Union[list[int], np.ndarray] = None,
 ) -> bool:
     r"""
     Determine whether the given channel is trace-preserving [WatTP18]_.

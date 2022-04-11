@@ -2,7 +2,7 @@
 import functools
 import operator
 
-from typing import List, Union
+from typing import Union
 from scipy import sparse
 
 import numpy as np
@@ -12,8 +12,8 @@ from toqito.matrix_ops import vec
 
 def permute_systems(
     input_mat: np.ndarray,
-    perm: Union[np.ndarray, List[int]],
-    dim: Union[np.ndarray, List[int]] = None,
+    perm: Union[np.ndarray, list[int]],
+    dim: Union[np.ndarray, list[int]] = None,
     row_only: bool = False,
     inv_perm: bool = False,
 ) -> np.ndarray:

@@ -1,5 +1,5 @@
 """Two-player nonlocal game."""
-from typing import Dict, List, Tuple, Union
+from typing import Union
 from collections import defaultdict
 import cvxpy
 import numpy as np
@@ -50,16 +50,16 @@ class NonlocalGame:
 
             pred_mat2 = np.zeros(
                 (
-                    num_alice_out ** reps,
-                    num_bob_out ** reps,
-                    num_alice_in ** reps,
-                    num_bob_in ** reps,
+                    num_alice_out**reps,
+                    num_bob_out**reps,
+                    num_alice_in**reps,
+                    num_bob_in**reps,
                 )
             )
             i_ind = np.zeros(reps, dtype=int)
             j_ind = np.zeros(reps, dtype=int)
-            for i in range(num_alice_in ** reps):
-                for j in range(num_bob_in ** reps):
+            for i in range(num_alice_in**reps):
+                for j in range(num_bob_in**reps):
                     to_tensor = np.empty([reps, num_alice_out, num_bob_out])
                     for k in range(reps - 1, -1, -1):
                         to_tensor[k] = pred_mat[:, :, i_ind[k], j_ind[k]]
@@ -70,7 +70,7 @@ class NonlocalGame:
             self.reps = reps
 
     @classmethod
-    def from_bcs_game(cls, constraints: List[np.ndarray], reps: int = 1) -> "NonlocalGame":
+    def from_bcs_game(cls, constraints: list[np.ndarray], reps: int = 1) -> "NonlocalGame":
         """
         Construct nonlocal game object from a binary constraint system game.
 
@@ -112,7 +112,7 @@ class NonlocalGame:
         # Compute prediction matrix of outcomes given questions and answer pairs:
         #   a: Alice's truth assignment to all variables in `c_x`
         #   b: Bob's truth assignment for `v_y` in `c_x`
-        pred_mat = np.zeros((2 ** num_variables, 2, num_constraints, num_variables))
+        pred_mat = np.zeros((2**num_variables, 2, num_constraints, num_variables))
         for x_ques in range(num_constraints):
             for a_ans in range(pred_mat.shape[0]):
                 # Convert to binary representation
@@ -151,7 +151,7 @@ class NonlocalGame:
                     self.prob_mat[x_alice_in, y_bob_in] * self.pred_mat[:, :, x_alice_in, y_bob_in]
                 )
         p_win = float("-inf")
-        if num_alice_outputs ** num_alice_inputs < num_bob_outputs ** num_bob_inputs:
+        if num_alice_outputs**num_alice_inputs < num_bob_outputs**num_bob_inputs:
             self.pred_mat = np.transpose(self.pred_mat, (1, 0, 3, 2))
             (
                 num_alice_outputs,
@@ -167,7 +167,7 @@ class NonlocalGame:
         # else:
         #     parallel_threads = 5
 
-        for i in range(num_alice_outputs ** num_bob_inputs):
+        for i in range(num_alice_outputs**num_bob_inputs):
             # Convert :code:`number` to the base :code:`base` with digits :code:`digits`.
             number = i
             base = num_bob_outputs
@@ -364,7 +364,7 @@ class NonlocalGame:
 
         return best_lower_bound
 
-    def __optimize_alice(self, dim, bob_povms) -> Tuple[Dict, float]:
+    def __optimize_alice(self, dim, bob_povms) -> tuple[dict, float]:
         """Fix Bob's measurements and optimize over Alice's measurements."""
         # Get number of inputs and outputs.
         (
@@ -436,7 +436,7 @@ class NonlocalGame:
         lower_bound = problem.solve()
         return alice_povms, lower_bound
 
-    def __optimize_bob(self, dim, alice_povms) -> Tuple[Dict, float]:
+    def __optimize_bob(self, dim, alice_povms) -> tuple[dict, float]:
         """Fix Alice's measurements and optimize over Bob's measurements."""
         # Get number of inputs and outputs.
         (
@@ -608,7 +608,7 @@ class NonlocalGame:
         for x_in in range(alice_in):
             for y_in in range(bob_in):
                 mat[x_in, y_in] = cvxpy.Variable(
-                    (alice_out, bob_out), name="M(a, b | {}, {})".format(x_in, y_in)
+                    (alice_out, bob_out), name=f"M(a, b | {x_in}, {y_in})"
                 )
 
         p_win = cvxpy.Constant(0)

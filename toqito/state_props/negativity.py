@@ -1,5 +1,5 @@
 """Negativity property."""
-from typing import List, Union
+from typing import Union
 
 import numpy as np
 
@@ -7,7 +7,7 @@ from toqito.state_ops import pure_to_mixed
 from toqito.channels import partial_transpose
 
 
-def negativity(rho: np.ndarray, dim: Union[List[int], int] = None) -> float:
+def negativity(rho: np.ndarray, dim: Union[list[int], int] = None) -> float:
     r"""
     Compute the negativity of a bipartite quantum state [WikNeg]_.
 

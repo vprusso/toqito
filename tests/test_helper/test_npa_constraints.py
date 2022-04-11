@@ -1,6 +1,5 @@
 """Test npa_constraints."""
 from collections import defaultdict
-from typing import Dict, Tuple
 import numpy as np
 import cvxpy
 import pytest
@@ -8,7 +7,7 @@ import pytest
 from toqito.helper import npa_constraints
 
 
-def cglmp_inequality(dim: int) -> Tuple[Dict[Tuple[int, int], cvxpy.Variable], cvxpy.Expression]:
+def cglmp_inequality(dim: int) -> tuple[dict[tuple[int, int], cvxpy.Variable], cvxpy.Expression]:
     """Collins-Gisin-Linden-Massar-Popescu inequality."""
     (a_in, b_in) = (2, 2)
     (a_out, b_out) = (dim, dim)
@@ -16,9 +15,7 @@ def cglmp_inequality(dim: int) -> Tuple[Dict[Tuple[int, int], cvxpy.Variable], c
     mat = defaultdict(cvxpy.Variable)
     for x_in in range(a_in):
         for y_in in range(b_in):
-            mat[x_in, y_in] = cvxpy.Variable(
-                (a_out, b_out), name="M(a, b | {}, {})".format(x_in, y_in)
-            )
+            mat[x_in, y_in] = cvxpy.Variable((a_out, b_out), name=f"M(a, b | {x_in}, {y_in})")
 
     i_b = cvxpy.Constant(0)
     for k in range(dim // 2):

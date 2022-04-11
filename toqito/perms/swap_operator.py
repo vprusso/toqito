@@ -1,5 +1,5 @@
 """Swap operator."""
-from typing import List, Union
+from typing import Union
 
 import numpy as np
 
@@ -7,7 +7,7 @@ from toqito.matrices import iden
 from toqito.perms import swap
 
 
-def swap_operator(dim: Union[List[int], int], is_sparse: bool = False) -> np.ndarray:
+def swap_operator(dim: Union[list[int], int], is_sparse: bool = False) -> np.ndarray:
     r"""
     Produce a unitary operator that swaps two subsystems.
 
