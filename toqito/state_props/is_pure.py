@@ -1,10 +1,10 @@
 """Check if state is pure."""
-from typing import List, Union
+from typing import Union
 
 import numpy as np
 
 
-def is_pure(state: Union[List[np.ndarray], np.ndarray]) -> bool:
+def is_pure(state: Union[list[np.ndarray], np.ndarray]) -> bool:
     r"""
     Determine if a given state is pure or list of states are pure [WikIsPure]_.
 

@@ -1,10 +1,8 @@
 """Horodecki state."""
-from typing import List
-
 import numpy as np
 
 
-def horodecki(a_param: float, dim: List[int] = None) -> np.ndarray:
+def horodecki(a_param: float, dim: list[int] = None) -> np.ndarray:
     r"""
     Produce a Horodecki state [HOR]_, [CHR]_.
 
@@ -127,7 +125,7 @@ def horodecki(a_param: float, dim: List[int] = None) -> np.ndarray:
     if np.array_equal(dim, np.array([3, 3])):
         n_a_param = 1 / (8 * a_param + 1)
         b_param = (1 + a_param) / 2
-        c_param = np.sqrt(1 - a_param ** 2) / 2
+        c_param = np.sqrt(1 - a_param**2) / 2
 
         horo_state = n_a_param * np.array(
             [
@@ -147,7 +145,7 @@ def horodecki(a_param: float, dim: List[int] = None) -> np.ndarray:
     if np.array_equal(dim, np.array([2, 4])):
         n_a_param = 1 / (7 * a_param + 1)
         b_param = (1 + a_param) / 2
-        c_param = np.sqrt(1 - a_param ** 2) / 2
+        c_param = np.sqrt(1 - a_param**2) / 2
 
         horo_state = n_a_param * np.array(
             [

@@ -1,11 +1,11 @@
 """Calculate the Choi rank of a channel."""
-from typing import List, Union
+from typing import Union
 
 import numpy as np
 from toqito.channel_ops import kraus_to_choi
 
 
-def choi_rank(phi: Union[np.ndarray, List[List[np.ndarray]]]) -> int:
+def choi_rank(phi: Union[np.ndarray, list[list[np.ndarray]]]) -> int:
     r"""
     Calculate the rank of the Choi representation of a quantum channel [WatChoiRank18]_.
 

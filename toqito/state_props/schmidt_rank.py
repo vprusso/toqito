@@ -1,12 +1,12 @@
 """Schmidt rank of state."""
-from typing import List, Union
+from typing import Union
 
 import numpy as np
 
 from toqito.perms import swap
 
 
-def schmidt_rank(rho: np.ndarray, dim: Union[int, List[int], np.ndarray] = None) -> float:
+def schmidt_rank(rho: np.ndarray, dim: Union[int, list[int], np.ndarray] = None) -> float:
     r"""
     Compute the Schmidt rank [WikSR]_.
 
@@ -98,7 +98,7 @@ def schmidt_rank(rho: np.ndarray, dim: Union[int, List[int], np.ndarray] = None)
     return np.linalg.matrix_rank(np.reshape(rho, dim[::-1]))
 
 
-def _operator_schmidt_rank(rho: np.ndarray, dim: Union[int, List[int], np.ndarray] = None) -> float:
+def _operator_schmidt_rank(rho: np.ndarray, dim: Union[int, list[int], np.ndarray] = None) -> float:
     """
     Operator Schmidt rank of variable.
 

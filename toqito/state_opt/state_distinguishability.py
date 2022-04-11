@@ -1,13 +1,11 @@
 """State distinguishability."""
-from typing import List
-
 import cvxpy
 import numpy as np
 from .state_helper import __is_states_valid, __is_probs_valid
 
 
 def state_distinguishability(
-    states: List[np.ndarray], probs: List[float] = None, dist_method: str = "min-error"
+    states: list[np.ndarray], probs: list[float] = None, dist_method: str = "min-error"
 ) -> float:
     r"""
     Compute probability of state distinguishability [ELD03]_.

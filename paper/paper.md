@@ -50,7 +50,7 @@ exploring measures of entanglement and properties of entangled states. Support
 for generating random quantum states and measurement operators is also
 provided. 
 
-The `toqito` module is supported for Python 3.7 and makes use of many of the more
+The `toqito` module is supported for Python 3.9 and makes use of many of the more
 modern features of the language including f-strings, type hinting, and others.
 `toqito` is available on GitHub (https://github.com/vprusso/toqito) and can be
 installed via pip (https://pypi.org/project/toqito/). Further information of

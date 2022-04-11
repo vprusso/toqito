@@ -1,10 +1,10 @@
 """Check if states form mutually unbiased basis."""
-from typing import Any, List, Union
+from typing import Any, Union
 
 import numpy as np
 
 
-def is_mutually_unbiased_basis(vec_list: List[Union[np.ndarray, List[Union[float, Any]]]]) -> bool:
+def is_mutually_unbiased_basis(vec_list: list[Union[np.ndarray, list[Union[float, Any]]]]) -> bool:
     r"""
     Check if list of vectors constitute a mutually unbiased basis [WikMUB]_.
 

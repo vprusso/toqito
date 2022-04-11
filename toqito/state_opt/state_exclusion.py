@@ -1,6 +1,4 @@
 """State exclusion."""
-from typing import List
-
 import cvxpy
 import numpy as np
 
@@ -8,7 +6,7 @@ from .state_helper import __is_states_valid, __is_probs_valid
 
 
 def state_exclusion(
-    states: List[np.ndarray], probs: List[float] = None, method: str = "conclusive"
+    states: list[np.ndarray], probs: list[float] = None, method: str = "conclusive"
 ) -> float:
     r"""
     Compute probability of single state exclusion.

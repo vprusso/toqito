@@ -1,7 +1,7 @@
 """NPA constraints."""
 from itertools import product
 from collections import namedtuple
-from typing import Dict, List, Set, Tuple, Union
+from typing import Union
 
 import cvxpy
 
@@ -11,7 +11,7 @@ Symbol = namedtuple("Symbol", ["player", "question", "answer"], defaults=["", No
 
 # This function simplifies the input word by applying
 # the commutation and projector rules.
-def _reduce(word: Tuple[Symbol]) -> Tuple[Symbol]:
+def _reduce(word: tuple[Symbol]) -> tuple[Symbol]:
     # commute: bring Alice in front.
     w_a, w_b = (), ()
     for symbol in word:
@@ -39,7 +39,7 @@ def _reduce(word: Tuple[Symbol]) -> Tuple[Symbol]:
     return word
 
 
-def _parse(k: str) -> Tuple[int, Set[Tuple[int, int]]]:
+def _parse(k: str) -> tuple[int, set[tuple[int, int]]]:
     k = k.split("+")
     base_k = int(k[0])
 
@@ -63,7 +63,7 @@ def _parse(k: str) -> Tuple[int, Set[Tuple[int, int]]]:
 # This function generates all non - equivalent words of length up to k.
 def _gen_words(
     k: Union[int, str], a_out: int, a_in: int, b_out: int, b_in: int
-) -> List[Tuple[Symbol]]:
+) -> list[tuple[Symbol]]:
     # remove one outcome to avoid redundancy
     # since all projectors sum to identity.
     b_symbols = [Symbol("Bob", y, b) for y in range(b_in) for b in range(b_out - 1)]
@@ -96,11 +96,11 @@ def _gen_words(
     return words
 
 
-def _is_zero(word: Tuple[Symbol]) -> bool:
+def _is_zero(word: tuple[Symbol]) -> bool:
     return len(word) == 0
 
 
-def _is_meas(word: Tuple[Symbol]) -> bool:
+def _is_meas(word: tuple[Symbol]) -> bool:
     if len(word) == 2:
         s_a, s_b = word
         return s_a.player == "Alice" and s_b.player == "Bob"
@@ -108,14 +108,14 @@ def _is_meas(word: Tuple[Symbol]) -> bool:
     return False
 
 
-def _is_meas_on_one_player(word: Tuple[Symbol]) -> bool:
+def _is_meas_on_one_player(word: tuple[Symbol]) -> bool:
     if len(word) == 1 and word[0].player in ["Alice", "Bob"]:
         return True
 
     return False
 
 
-def _get_shape(prob: Dict[Tuple[int, int], cvxpy.Variable]) -> Tuple[int, int, int, int]:
+def _get_shape(prob: dict[tuple[int, int], cvxpy.Variable]) -> tuple[int, int, int, int]:
     a_in, a_out = (0, 0)
     b_in, b_out = (0, 0)
     for (x_in, y_in), _var in prob.items():
@@ -127,8 +127,8 @@ def _get_shape(prob: Dict[Tuple[int, int], cvxpy.Variable]) -> Tuple[int, int, i
 
 
 def npa_constraints(
-    prob: Dict[Tuple[int, int], cvxpy.Variable], k: Union[int, str] = 1
-) -> List[cvxpy.constraints.constraint.Constraint]:
+    prob: dict[tuple[int, int], cvxpy.Variable], k: Union[int, str] = 1
+) -> list[cvxpy.constraints.constraint.Constraint]:
     """
     Generate the constraints specified by the NPA hierarchy up to a finite level.
 

@@ -146,7 +146,7 @@ class XORGame:
 
         q_0, q_1 = self.prob_mat.shape
         if tol is None:
-            self.tol = np.finfo(float).eps * q_0 ** 2 * q_1 ** 2
+            self.tol = np.finfo(float).eps * q_0**2 * q_1**2
         else:
             self.tol = tol
 
@@ -253,9 +253,9 @@ class XORGame:
             # expect an easy way to do it: just loop over all strategies.
 
             # Loop over Alice's answers
-            for a_ans in range(2 ** q_0):
+            for a_ans in range(2**q_0):
                 # Loop over Bob's answers:
-                for b_ans in range(2 ** q_1):
+                for b_ans in range(2**q_1):
                     a_vec = (a_ans >> np.arange(q_0)) & 1
                     b_vec = (b_ans >> np.arange(q_1)) & 1
 

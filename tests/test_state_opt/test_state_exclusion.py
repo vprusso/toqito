@@ -85,7 +85,7 @@ def test_unambiguous_state_exclusion_one_state():
     states = [mat]
 
     res = state_exclusion(states, probs=None, method="unambiguous")
-    np.testing.assert_equal(np.isclose(res, 0), True)
+    np.testing.assert_equal(np.isclose(res, 0, atol=1e-3), True)
 
 
 def test_unambiguous_state_exclusion_one_state_vec():
@@ -94,7 +94,7 @@ def test_unambiguous_state_exclusion_one_state_vec():
     states = [vec]
 
     res = state_exclusion(states, probs=None, method="unambiguous")
-    np.testing.assert_equal(np.isclose(res, 0), True)
+    np.testing.assert_equal(np.isclose(res, 0, atol=1e-3), True)
 
 
 def test_unambiguous_state_exclusion_three_state():

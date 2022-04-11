@@ -1,12 +1,10 @@
 """Check if set of states form an ensemble."""
-from typing import List
-
 import numpy as np
 
 from toqito.matrix_props import is_positive_semidefinite
 
 
-def is_ensemble(states: List[np.ndarray]) -> bool:
+def is_ensemble(states: list[np.ndarray]) -> bool:
     r"""
     Determine if a set of states constitute an ensemble [WatEns18]_.
 

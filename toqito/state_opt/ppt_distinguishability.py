@@ -1,6 +1,4 @@
 """PPT distinguishability."""
-from typing import List
-
 import cvxpy
 import numpy as np
 
@@ -9,8 +7,8 @@ from .state_helper import __is_states_valid, __is_probs_valid
 
 
 def ppt_distinguishability(
-    states: List[np.ndarray],
-    probs: List[float] = None,
+    states: list[np.ndarray],
+    probs: list[float] = None,
     dist_method="min-error",
     strategy=False,
 ) -> float:
@@ -125,7 +123,7 @@ def ppt_distinguishability(
 
 
 def primal_problem(
-    states: List[np.ndarray], probs: List[float] = None, dist_method="min-error"
+    states: list[np.ndarray], probs: list[float] = None, dist_method="min-error"
 ) -> float:
     r"""
     Calculate primal problem for PPT distinguishability.
@@ -204,7 +202,7 @@ def primal_problem(
 
 
 def dual_problem(
-    states: List[np.ndarray], probs: List[float] = None, dist_method="min-error"
+    states: list[np.ndarray], probs: list[float] = None, dist_method="min-error"
 ) -> float:
     r"""
     Calculate dual problem for PPT distinguishability.

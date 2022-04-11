@@ -1,5 +1,5 @@
 """Computes the entanglement of formation of a bipartite quantum state."""
-from typing import List, Union
+from typing import Union
 
 import numpy as np
 import scipy
@@ -8,7 +8,7 @@ from toqito.channels import partial_trace
 from toqito.state_props import concurrence, von_neumann_entropy
 
 
-def entanglement_of_formation(rho: np.ndarray, dim: Union[List[int], int] = None) -> float:
+def entanglement_of_formation(rho: np.ndarray, dim: Union[list[int], int] = None) -> float:
     r"""
     Compute entanglement-of-formation of a bipartite quantum state [WikEOF]_.
 
@@ -96,8 +96,8 @@ def entanglement_of_formation(rho: np.ndarray, dim: Union[List[int], int] = None
         if dim_x == 4:
             rho_c = concurrence(rho)
 
-            rho_c1 = (1 + np.sqrt(1 - rho_c ** 2)) / 2
-            rho_c2 = (1 - np.sqrt(1 - rho_c ** 2)) / 2
+            rho_c1 = (1 + np.sqrt(1 - rho_c**2)) / 2
+            rho_c2 = (1 - np.sqrt(1 - rho_c**2)) / 2
 
             rho_c1_log2 = 0 if rho_c1 == 0 else np.log2(rho_c1)
             rho_c2_log2 = 0 if rho_c2 == 0 else np.log2(rho_c2)

@@ -1,12 +1,12 @@
 """Schmidt decomposition operation."""
-from typing import List, Tuple, Union
+from typing import Union
 
 import numpy as np
 
 
 def schmidt_decomposition(
-    vec: np.ndarray, dim: Union[int, List[int], np.ndarray] = None, k_param: int = 0
-) -> Tuple[np.ndarray, np.ndarray, np.ndarray]:
+    vec: np.ndarray, dim: Union[int, list[int], np.ndarray] = None, k_param: int = 0
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     r"""
     Compute the Schmidt decomposition of a bipartite vector [WikSD]_.
 

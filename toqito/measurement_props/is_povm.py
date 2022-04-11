@@ -1,11 +1,10 @@
 """Determine if a list of matrices are POVM elements."""
-from typing import List
 import numpy as np
 
 from toqito.matrix_props import is_positive_semidefinite
 
 
-def is_povm(mat_list: List[np.ndarray]) -> bool:
+def is_povm(mat_list: list[np.ndarray]) -> bool:
     r"""
     Determine if a list of matrices constitute a valid set of POVMs [WikPOVM]_.
 

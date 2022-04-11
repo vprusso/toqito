@@ -1,5 +1,5 @@
 """Is channel completely positive."""
-from typing import List, Union
+from typing import Union
 
 import numpy as np
 
@@ -9,7 +9,7 @@ from toqito.matrix_props import is_positive_semidefinite
 
 
 def is_completely_positive(
-    phi: Union[np.ndarray, List[List[np.ndarray]]],
+    phi: Union[np.ndarray, list[list[np.ndarray]]],
     rtol: float = 1e-05,
     atol: float = 1e-08,
 ) -> bool:

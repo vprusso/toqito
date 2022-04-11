@@ -1,5 +1,5 @@
 """Compute the dual of a map."""
-from typing import List, Union
+from typing import Union
 import numpy as np
 
 from toqito.matrix_props import is_square
@@ -7,9 +7,8 @@ from toqito.perms import swap
 
 
 def dual_channel(
-    phi_op: Union[np.ndarray, List[np.ndarray], List[List[np.ndarray]]],
-    dims: List[int] = None
-) -> Union[np.ndarray, List[List[np.ndarray]]]:
+    phi_op: Union[np.ndarray, list[np.ndarray], list[list[np.ndarray]]], dims: list[int] = None
+) -> Union[np.ndarray, list[list[np.ndarray]]]:
     r"""
     Compute the dual of a map (quantum channel) [WatDChan18]_.
 
@@ -65,7 +64,7 @@ def dual_channel(
                 else:
                     raise ValueError(
                         "The dimensions `dims` of the input and output should be specified."
-                        )
+                    )
             return swap(phi_op.conj(), dim=dims)
     raise ValueError(
         "Invalid: The variable `phi_op` must either be a list of "

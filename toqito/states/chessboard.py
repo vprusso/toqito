@@ -1,10 +1,8 @@
 """Chessboard state."""
-from typing import List
-
 import numpy as np
 
 
-def chessboard(mat_params: List[float], s_param: float = None, t_param: float = None) -> np.ndarray:
+def chessboard(mat_params: list[float], s_param: float = None, t_param: float = None) -> np.ndarray:
     r"""
     Produce a chessboard state [BP00]_.
 

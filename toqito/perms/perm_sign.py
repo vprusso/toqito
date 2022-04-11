@@ -1,11 +1,11 @@
 """Calculate permutation sign."""
-from typing import List, Union
+from typing import Union
 from scipy import linalg
 
 import numpy as np
 
 
-def perm_sign(perm: Union[np.ndarray, List[int]]) -> float:
+def perm_sign(perm: Union[np.ndarray, list[int]]) -> float:
     """
     Compute the "sign" of a permutation [WikParPerm]_.
 
