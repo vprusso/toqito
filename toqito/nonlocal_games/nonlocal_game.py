@@ -54,13 +54,14 @@ class NonlocalGame:
                     num_bob_out**reps,
                     num_alice_in**reps,
                     num_bob_in**reps,
-                )
+                ),
+                dtype=complex
             )
             i_ind = np.zeros(reps, dtype=int)
             j_ind = np.zeros(reps, dtype=int)
             for i in range(num_alice_in**reps):
                 for j in range(num_bob_in**reps):
-                    to_tensor = np.empty([reps, num_alice_out, num_bob_out])
+                    to_tensor = np.empty([reps, num_alice_out, num_bob_out], dtype=complex)
                     for k in range(reps - 1, -1, -1):
                         to_tensor[k] = pred_mat[:, :, i_ind[k], j_ind[k]]
                     pred_mat2[:, :, i, j] = tensor(to_tensor)
