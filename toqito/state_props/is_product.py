@@ -4,7 +4,7 @@ from typing import Optional, Union
 import numpy as np
 
 from toqito.perms import permute_systems, swap
-from toqito.state_ops import schmidt_decomposition
+from toqito.state_props import schmidt_decomposition
 
 
 def is_product(
