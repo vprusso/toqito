@@ -102,12 +102,11 @@ def _operator_schmidt_rank(rho: np.ndarray, dim: Union[int, list[int], np.ndarra
     """
     Operator Schmidt rank of variable.
 
-    If the input is provided as a density operator instead of a vector, compute the Schmidt rank.
+    If the input is provided as a density operator instead of a vector, compute the operator Schmidt rank.
     """
     if dim is None:
         dim_x = rho.shape
         sqrt_dim = np.round(np.sqrt(dim_x))
-
         dim = np.array([[sqrt_dim[0], sqrt_dim[0]], [sqrt_dim[1], sqrt_dim[1]]])
 
     if isinstance(dim, list):
