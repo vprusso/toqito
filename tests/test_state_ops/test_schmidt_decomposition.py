@@ -1,6 +1,9 @@
 """Test schmidt_decomposition."""
 import numpy as np
 
+from toqito.matrix_ops import tensor
+from toqito.random import random_state_vector
+from toqito.random import random_density_matrix
 from toqito.state_ops import schmidt_decomposition
 from toqito.states import basis, max_entangled
 
@@ -245,6 +248,36 @@ def test_schmidt_decomp_example():
 
     expected_u_mat = 1 / np.sqrt(2) * np.array([[-1, 1], [1, 1]])
     bool_mat = np.isclose(expected_u_mat, u_mat)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+
+def test_schmidt_decomp_random_state():
+    """Test for random state."""
+    rho = random_state_vector(8)
+    singular_vals, u_mat, vt_mat = schmidt_decomposition(rho, [2, 4])
+    reconstructed = np.sum(
+        [
+            singular_vals[i, 0] * tensor(u_mat[:, [i]], vt_mat[:, [i]])
+            for i in range(len(singular_vals))
+        ],
+        axis=0,
+    )
+    bool_mat = np.isclose(rho, reconstructed)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+
+def test_schmidt_decomp_random_operator():
+    """Test for random operator."""
+    rho = random_density_matrix(8)
+    singular_vals, u_mat, vt_mat = schmidt_decomposition(rho, [2, 4])
+    reconstructed = np.sum(
+        [
+            singular_vals[i, 0] * tensor(u_mat[:, :, i], vt_mat[:, :, i])
+            for i in range(len(singular_vals))
+        ],
+        axis=0,
+    )
+    bool_mat = np.isclose(rho, reconstructed)
     np.testing.assert_equal(np.all(bool_mat), True)
 
 

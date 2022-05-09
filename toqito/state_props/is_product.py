@@ -4,7 +4,7 @@ from typing import Optional, Union
 import numpy as np
 
 from toqito.perms import permute_systems, swap
-from toqito.state_props import schmidt_decomposition
+from toqito.state_ops import schmidt_decomposition
 
 
 def is_product(
@@ -13,13 +13,12 @@ def is_product(
     r"""
     Determine if a given vector is a product state [WikProdState]_.
 
-    If the input is deemed to be product, then the product decomposition is also returned.
+    If the input is deemed to be product, then the product decomposition is also
+    returned.
 
     Examples
     ==========
-
     Consider the following Bell state
-
     .. math::
         u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \in \mathcal{X}.
 
@@ -35,7 +34,6 @@ def is_product(
 
     We can provide the input as either the vector :math:`u` or the denisty matrix :math:`\rho`.
     In either case, this represents an entangled state (and hence a non-product state).
-
     >>> from toqito.state_props import is_product
     >>> from toqito.states import bell
     >>> rho = bell(0) * bell(0).conj().T
@@ -50,7 +48,6 @@ def is_product(
     ==========
     .. [WikProdState] Wikipedia: Product state
         https://en.wikipedia.org/wiki/Product_state
-
     :param rho: The vector or matrix to check.
     :param dim: The dimension of the input.
     :return: :code:`True` if :code:`rho` is a product vector and :code:`False` otherwise.
@@ -111,10 +108,11 @@ def _is_product(rho: np.ndarray, dim: Union[int, list[int]] = None) -> list[int,
 
 
 def _operator_is_product(rho: np.ndarray, dim: Union[int, list[int]] = None) -> list[int, bool]:
-    """
+    r"""
     Determine if a given matrix is a product operator.
 
-    Given an input `rho` provided as a matrix, determine if it is a product state.
+    Given an input `rho` provided as a matrix, determine if it is a product
+    state.
     :param rho: The matrix to check.
     :param dim: The dimension of the matrix
     :return: :code:`True` if :code:`rho` is product and :code:`False` otherwise.
