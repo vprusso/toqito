@@ -9,11 +9,13 @@ def schmidt_decomposition(
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     r"""
     Compute the Schmidt decomposition of a bipartite vector [WikSD]_.
+
     Examples
     ==========
     Consider the :math:`3`-dimensional maximally entangled state
     .. math::
         u = \frac{1}{\sqrt{3}} \left( |000 \rangle + |111 \rangle + |222 \rangle \right)
+
     We can generate this state using the :code:`toqito` module as follows.
     >>> from toqito.states import max_entangled
     >>> max_entangled(3)
@@ -26,6 +28,7 @@ def schmidt_decomposition(
      [0.        ],
      [0.        ],
      [0.57735027]]
+
     Computing the Schmidt decomposition of :math:`u`, we can obtain the corresponding singular
     values of :math:`u` as
     .. math::
@@ -111,7 +114,7 @@ def schmidt_decomposition(
 def _operator_schmidt_decomposition(
     rho: np.ndarray, dim: Union[int, list[int], np.ndarray] = None, k_param: int = 0
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    """
+    r"""
     Calculate the Schmidt decomposition of an operator (matrix).
 
     Given an input `rho` provided as a matrix, determine its corresponding

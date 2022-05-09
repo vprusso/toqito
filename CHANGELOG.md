@@ -223,13 +223,17 @@
 
 ## 1.0.2
 
-- Feature: Added `dual_channel` under `channel_ops`. This feature
+- Feature: Added `dual_channel.py` under `channel_ops`. This feature
   allows one to calculate the dual channel of a given input provided as either a 
   list of Kraus operators, or, a Choi matrix that represents a valid quantum 
   channel.
   
-- Fix: Thanks to Jake Xuereb for a fix in the `concurrence` function that was 
+- Fix: Thanks to Jake Xuereb for a fix in the `concurrence.py` function that was
   incorrectly not taking the transpose.
 
 - Feature: Thanks to Joseph Li for the ability to calculate the Schmidt
   decomposition.  
+
+- Feature: Added `diamond_norm.py` under `channel_metrics/`. This 
+  feature allows the user to calculate the diamond norm between the Choi 
+  representations of two quantum channels.
