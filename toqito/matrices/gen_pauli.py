@@ -10,7 +10,7 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
     Produce generalized Pauli operator [WikGenPaul]_.
 
     Generates a :code:`dim`-by-:code:`dim` unitary operator. More specifically,
-    it is the operator :math:`X^k_1*Z^k_2`, where :math:`X` and :math:`Z` are
+    it is the operator :math:`X^k_1 Z^k_2`, where :math:`X` and :math:`Z` are
     the "shift" and "clock" operators that naturally generalize the Pauli X and
     Z operators. These matrices span the entire space of
     :code:`dim`-by-:code:`dim` matrices as :code:`k_1` and :code:`k_2` range
@@ -22,7 +22,7 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
     Examples
     ==========
 
-    The generalized Pauli operator for :code:`k_1 = 1`, :code:`k_2 = 0` and
+    The generalized Pauli operator for :code:`k_1 = 1`, :code:`k_2 = 0`, and
     :code:`dim = 2` is given as the standard Pauli-X matrix
 
     .. math::
@@ -50,7 +50,7 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
                         1 & 0
                       \end{pmatrix}.
 
-    This can be obtained in :code:`toqito` as follows.`
+    This can be obtained in :code:`toqito` as follows.
 
     >>> from toqito.matrices import gen_pauli
     >>> dim = 2

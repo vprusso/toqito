@@ -14,7 +14,7 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     by:
 
     .. math::
-        ||\sqrt(\rho) * \sqrt(\sigma)||_1,
+        ||\sqrt(\rho) \sqrt(\sigma)||_1,
 
     where :math:`|| \cdot ||_1` denotes the trace norm. The return is a value between :math:`0` and
     :math:`1`, with :math:`0` corresponding to matrices :code:`rho` and :code:`sigma` with

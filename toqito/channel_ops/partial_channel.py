@@ -30,6 +30,9 @@ def partial_channel(
     Examples
     ==========
 
+    The following applies the completely depolarizing channel to the second
+    subsystem of a random density matrix.
+
     >>> from toqito.channel_ops import partial_channel
     >>> from toqito.channels import depolarizing
     >>> rho = np.array([[0.3101, -0.0220-0.0219*1j, -0.0671-0.0030*1j, -0.0170-0.0694*1j],
@@ -41,6 +44,9 @@ def partial_channel(
      [ 0.     +0.j       0.20545+0.j       0.     +0.j      -0.0642 +0.02495j]
      [-0.0642 -0.02495j  0.     +0.j       0.29455+0.j       0.     +0.j     ]
      [ 0.     +0.j      -0.0642 -0.02495j  0.     +0.j       0.29455+0.j     ]]
+
+    The following applies the completely depolarizing channel to the first
+    subsystem.
 
     >>> from toqito.channel_ops import partial_channel
     >>> from toqito.channels import depolarizing

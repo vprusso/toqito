@@ -33,7 +33,7 @@ def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float:
                          0 & 0 & 0 & 0 \\
                          0 & 0 & 0 & 0 \\
                          1 & 0 & 0 & 1
-                       \end{pmatrix} \text{D}(\mathcal{X}).
+                       \end{pmatrix} \in \text{D}(\mathcal{X}).
 
     The trace distance between :math:`\rho` and another state :math:`\sigma` is equal to :math:`0`
     if any only if :math:`\rho = \sigma`. We can check this using the :code:`toqito` package.
