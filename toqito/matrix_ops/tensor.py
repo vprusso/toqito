@@ -27,13 +27,13 @@ def tensor(*args) -> np.ndarray:
     of this function computes
 
     .. math::
-        A_1 \otimes A_2 \otimes \ldots \otimes A_n.
+        A_1 \otimes A_2 \otimes \cdots \otimes A_n.
 
     Similarly, for a list of :math:`n` vectors :math:`v_1, v_2, \ldots, v_n`,
     the result of this function computes
 
     .. math::
-        v_1 \otimes v_2 \otimes \ldots \otimes v_n.
+        v_1 \otimes v_2 \otimes \cdots \otimes v_n.
 
     Examples
     ==========
@@ -69,7 +69,7 @@ def tensor(*args) -> np.ndarray:
     .. math::
         e_0^{\otimes 3} = \left[1, 0, 0, 0, 0, 0, 0, 0 \right]^{\text{T}}
 
-    in `toqito` as follows.
+    in :code:`toqito` as follows.
 
     >>> from toqito.states import basis
     >>> from toqito.matrix_ops import tensor

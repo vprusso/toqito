@@ -106,7 +106,6 @@ def schmidt_decomposition(
             )
         dim[1] = np.round(dim[1])
 
-    print(dim)
     # Otherwise, use lots of Schmidt coefficients.
     u_mat, singular_vals, vt_mat = np.linalg.svd(rho.reshape(dim.astype(int)))
     # After taking the transpose, the columns of `vt_mat` are actually the (conjugate) singular vectors.

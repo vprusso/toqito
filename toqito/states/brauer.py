@@ -20,6 +20,7 @@ def brauer(dim: int, p_val: int) -> np.ndarray:
 
     ```
     import numpy as np
+
     np.factorial(2 * p_val) / (np.factorial(p_val) * 2**p_val)
     ```
 

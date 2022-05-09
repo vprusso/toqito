@@ -24,7 +24,7 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     For singular states it is defined by the limit
 
     .. math::
-        \rho\#\sigma = \lim_{\eps\to0}(\rho+\eps\mathbb{I})\#(+\eps\mathbb{I}).
+        \rho\#\sigma = \lim_{\epsilon\to0}(\rho+\epsilon\mathbb{I})\#(+\epsilon\mathbb{I}).
 
     The return is a value between :math:`0` and :math:`1`, with :math:`0` corresponding to matrices
     :code:`rho` and :code:`sigma` with orthogonal support, and :math:`1` corresponding to the case

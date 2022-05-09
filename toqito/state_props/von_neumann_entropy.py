@@ -40,7 +40,7 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
                          0 & 0 & 0 & 0 \\
                          0 & 0 & 0 & 0 \\
                          1 & 0 & 0 & 1
-                       \end{pmatrix} \text{D}(\mathcal{X}).
+                       \end{pmatrix} \in \text{D}(\mathcal{X}).
 
     Calculating the von Neumann entropy of :math:`\rho` in :code:`toqito` can be done as follows.
 

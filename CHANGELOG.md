@@ -228,5 +228,8 @@
   list of Kraus operators, or, a Choi matrix that represents a valid quantum 
   channel.
   
-- Fix: Thanks to Jake Xuereb for a fix in the `concurrence` fucntion that was 
+- Fix: Thanks to Jake Xuereb for a fix in the `concurrence` function that was 
   incorrectly not taking the transpose.
+
+- Feature: Thanks to Joseph Li for the ability to calculate the Schmidt
+  decomposition.  
