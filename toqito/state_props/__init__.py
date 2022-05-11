@@ -5,6 +5,7 @@ from toqito.state_props.is_mixed import is_mixed
 from toqito.state_props.is_mutually_orthogonal import is_mutually_orthogonal
 from toqito.state_props.is_mutually_unbiased_basis import is_mutually_unbiased_basis
 from toqito.state_props.is_ppt import is_ppt
+from toqito.state_props.is_npt import is_npt
 from toqito.state_props.is_product import is_product
 from toqito.state_props.concurrence import concurrence
 from toqito.state_props.negativity import negativity
