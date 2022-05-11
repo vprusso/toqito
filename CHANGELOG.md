@@ -237,3 +237,7 @@
 - Feature: Added `diamond_norm.py` under `channel_metrics/`. This 
   feature allows the user to calculate the diamond norm between the Choi 
   representations of two quantum channels.
+
+- Feature: Added `is_npt.py` under `state_props/`. This 
+  feature allows the user to determine whether a given state is has negative
+  partial transpose (is NPT).
