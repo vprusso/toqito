@@ -58,9 +58,10 @@ def state_distinguishability(
     Examples
     ==========
 
-    State distinguishability for two state density matrices.
+    State distinguishability for two state density matrices. In this example, the states :math:`|0\rangle` and :math:`|1\rangle`
+    are orthogonal and therefore perfectly distinguishable.
 
-    >>> from toqito.states import basis, bell
+    >>> from toqito.states import basis
     >>> from toqito.state_opt import state_distinguishability
     >>> e_0, e_1 = basis(2, 0), basis(2, 1)
     >>> e_00 = e_0 * e_0.conj().T
@@ -68,7 +69,7 @@ def state_distinguishability(
     >>> states = [e_00, e_11]
     >>> probs = [1 / 2, 1 / 2]
     >>> res = state_distinguishability(states, probs)
-    0.5000000000006083
+    1.000
 
     References
     ==========
