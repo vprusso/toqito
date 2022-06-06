@@ -4,7 +4,7 @@ import pytest
 
 from toqito.perms import swap
 from toqito.state_opt import symmetric_extension_hierarchy
-from toqito.states import basis, bell
+from toqito.states import basis, bell, werner
 
 
 def test_symmetric_extension_hierarchy_four_bell_density_matrices():
@@ -130,6 +130,20 @@ def test_invalid_symmetric_extension_hierarchy_states():
     with np.testing.assert_raises(ValueError):
         states = []
         symmetric_extension_hierarchy(states)
+
+
+def test_symmetric_extension_hierarchy_extremal_werner_states():
+    """Symmetric extension hierarchy for two extremal Werner states."""
+    n = 5
+    states = [werner(n, -1.0), werner(n, 1.0)]
+
+    # See: [Cos15] Cosentino, Alessandro.
+    #     "Quantum State Local Distinguishability via Convex Optimization"
+    # Section 4.3 An example: Werner hiding pair
+    upper_bound = 0.5 + 1 / (n + 1)
+    res = symmetric_extension_hierarchy(states=states, probs=None, level=1)
+    atol = 1e-6
+    np.testing.assert_equal(res <= upper_bound + atol, True)
 
 
 if __name__ == "__main__":
