@@ -78,6 +78,7 @@ Properties of Quantum States
     toqito.state_props.purity
     toqito.state_props.schmidt_rank
     toqito.state_props.von_neumann_entropy
+    toqito.state_props.sk_vector_norm
 
 Quantum States
 --------------
