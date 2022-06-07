@@ -1,4 +1,6 @@
 """PPT symmetric extension hierarchy."""
+from typing import Union
+
 import cvxpy
 import numpy as np
 from toqito.channels import partial_trace, partial_transpose
@@ -7,7 +9,10 @@ from .state_helper import __is_states_valid, __is_probs_valid
 
 
 def symmetric_extension_hierarchy(
-    states: list[np.ndarray], probs: list[float] = None, level: int = 2
+    states: list[np.ndarray],
+    probs: list[float] = None,
+    level: int = 2,
+    dim: Union[int, list[int]] = None,
 ) -> float:
     r"""
     Compute optimal value of the symmetric extension hierarchy SDP [Nav08]_.
@@ -134,6 +139,7 @@ def symmetric_extension_hierarchy(
     :param states: A list of states provided as either matrices or vectors.
     :param probs: Respective list of probabilities each state is selected.
     :param level: Level of the hierarchy to compute.
+    :param dim: The default has both subsystems of equal dimension.
     :return: The optimal probability of the symmetric extension hierarchy SDP for level
             :code:`level`.
     """
@@ -147,29 +153,41 @@ def symmetric_extension_hierarchy(
         probs = [1 / len(states)] * len(states)
     __is_probs_valid(probs)
 
-    dim_x, dim_y = states[0].shape
+    dim_xy, n_cols = states[0].shape
 
     # The variable `states` is provided as a list of vectors. Transform them
     # into density matrices.
-    if dim_y == 1:
+    if n_cols == 1:
         for i, state_ket in enumerate(states):
             states[i] = state_ket * state_ket.conj().T
 
-    dim = int(np.log2(dim_x))
-    dim_list = [dim] * (level + 1)
+    # Set default dimension if none was provided.
+    if dim is None:
+        dim = int(np.round(np.sqrt(dim_xy)))
+
+    # Allow the user to enter in a single integer for dimension.
+    if isinstance(dim, int):
+        dim = np.array([dim, dim_xy / dim])
+        if np.abs(dim[1] - np.round(dim[1])) >= 2 * dim_xy * np.finfo(float).eps:
+            raise ValueError("If `dim` is a scalar, it must evenly divide the length of the state.")
+        dim[1] = int(np.round(dim[1]))
+
+    dim_x, dim_y = int(dim[0]), int(dim[1])
+
+    dim_list = [dim_x] + [dim_y] * level
     # The `sys_list` variable contains the numbering pertaining to the symmetrically extended
     # spaces.
     sys_list = list(range(3, 3 + level - 1))
-    sym = symmetric_projection(dim, level)
+    sym = symmetric_projection(dim_y, level)
 
-    dim_xy = dim_x
     dim_xyy = np.prod(dim_list)
     for k, _ in enumerate(states):
         meas.append(cvxpy.Variable((dim_xy, dim_xy), PSD=True))
         x_var.append(cvxpy.Variable((dim_xyy, dim_xyy), PSD=True))
         constraints.append(partial_trace(x_var[k], sys_list, dim_list) == meas[k])
         constraints.append(
-            np.kron(np.identity(dim), sym) @ x_var[k] @ np.kron(np.identity(dim), sym) == x_var[k]
+            np.kron(np.identity(dim_x), sym) @ x_var[k] @ np.kron(np.identity(dim_x), sym)
+            == x_var[k]
         )
         constraints.append(partial_transpose(x_var[k], 1, dim_list) >> 0)
         for sys in range(level - 1):
