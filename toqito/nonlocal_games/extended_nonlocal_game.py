@@ -1,12 +1,13 @@
 """Two-player extended nonlocal game."""
 from collections import defaultdict
+from typing import Union
 
 import cvxpy
 import numpy as np
 
 from toqito.matrix_ops import tensor
 from toqito.random import random_unitary
-from toqito.helper import update_odometer
+from toqito.helper import update_odometer, npa_constraints
 
 
 class ExtendedNonlocalGame:
@@ -429,3 +430,57 @@ class ExtendedNonlocalGame:
 
         lower_bound = problem.solve()
         return bob_povms, lower_bound
+
+    def commuting_measurement_value_upper_bound(self, k: Union[int, str] = 1) -> float:
+        """
+        Compute an upper bound on the commuting measurement value of an extended nonlocal game.
+
+        This function calculates an upper bound on the commuting measurement value by
+        using k-levels of the NPA hierarchy [NPA]_. The NPA hierarchy is a uniform family
+        of semidefinite programs that converges to the commuting measurement value of
+        any extended nonlocal game.
+
+        You can determine the level of the hierarchy by a positive integer or a string
+        of a form like '1+ab+aab', which indicates that an intermediate level of the hierarchy
+        should be used, where this example uses all products of one measurement, all products of
+        one Alice and one Bob measurement, and all products of two Alice and one Bob measurements.
+
+        References
+        ==========
+        .. [NPA] Miguel Navascues, Stefano Pironio, Antonio Acin,
+            "A convergent hierarchy of semidefinite programs characterizing the
+            set of quantum correlations."
+            https://arxiv.org/abs/0803.4290
+
+        :param k: The level of the NPA hierarchy to use (default=1).
+        :return: The upper bound on the commuting strategy value of an extended nonlocal game.
+        """
+        referee_dim, _, alice_out, bob_out, alice_in, bob_in = self.pred_mat.shape
+
+        mat = defaultdict(cvxpy.Variable)
+        for x_in in range(alice_in):
+            for y_in in range(bob_in):
+                mat[x_in, y_in] = cvxpy.Variable(
+                    (alice_out * referee_dim, bob_out * referee_dim),
+                    name=f"K(a, b | {x_in}, {y_in})",
+                )
+
+        p_win = cvxpy.Constant(0)
+        for a_out in range(alice_out):
+            for b_out in range(bob_out):
+                for x_in in range(alice_in):
+                    for y_in in range(bob_in):
+                        p_win += self.prob_mat[x_in, y_in] * cvxpy.trace(
+                            self.pred_mat[:, :, a_out, b_out, x_in, y_in].conj().T
+                            @ mat[x_in, y_in][
+                                a_out * referee_dim : (a_out + 1) * referee_dim,
+                                b_out * referee_dim : (b_out + 1) * referee_dim,
+                            ]
+                        )
+
+        npa = npa_constraints(mat, k, referee_dim)
+        objective = cvxpy.Maximize(p_win)
+        problem = cvxpy.Problem(objective, npa)
+        cs_val = problem.solve()
+
+        return cs_val
