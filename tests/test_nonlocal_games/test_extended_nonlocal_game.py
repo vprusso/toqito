@@ -168,3 +168,21 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         expected_res = (3 + np.sqrt(5)) / 8
 
         self.assertEqual(np.isclose(res, expected_res), True)
+
+    def test_bb84_commuting_value_upper_bound(self):
+        """Calculate an upper bound on the commuting measurement value of the BB84 game."""
+        prob_mat, pred_mat = self.bb84_extended_nonlocal_game()
+        bb84 = ExtendedNonlocalGame(prob_mat, pred_mat)
+        res = bb84.commuting_measurement_value_upper_bound()
+        expected_res = np.cos(np.pi / 8) ** 2
+
+        self.assertEqual(np.isclose(res, expected_res), True)
+
+    def test_chsh_commuting_value_upper_bound(self):
+        """Calculate an upper bound on the commuting measurement value of the CHSH game."""
+        prob_mat, pred_mat = self.chsh_extended_nonlocal_game()
+        chsh = ExtendedNonlocalGame(prob_mat, pred_mat)
+        res = chsh.commuting_measurement_value_upper_bound(k=2)
+        expected_res = 3 / 4
+
+        self.assertEqual(np.isclose(res, expected_res), True)
