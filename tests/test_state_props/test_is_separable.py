@@ -66,7 +66,6 @@ def test_ppt_low_rank():
 
 def test_entangled_realignment_criterion():
     """Determined to be entangled via the realignment criterion."""
-
     # Construct bound entangled state:
     # :math:`\rho = \frac{1}{4} \mathbb{I}_3 \otimes \mathbb{I}_3 - \sum_{i=0}^4 | \psi_i \rangle \langle \psi_i |`
     rho = np.identity(9)
@@ -77,9 +76,17 @@ def test_entangled_realignment_criterion():
 
 
 def test_entangled_cross_norm_realignment_criterion():
-    """Determined to be entangled by using Theorem 1 of reference."""
-    # TODO
-    pass
+    """Determined to be entangled by using Theorem 1 and Remark 1 of Quantum Inf. Comput., 3:193-202, 2003."""
+    create_rho = lambda p,a,b: np.array(
+        [
+            [p * a ** 2, 0, 0, p * a * b],
+            [0, (1 - p) * a ** 2, (1 - p) * a * b, 0],
+            [0, (1 - p) * a * b, (1 - p) * a ** 2, 0],
+            [p * a * b, 0, 0, p * a ** 2],
+        ]
+            )
+    rho = create_rho(0.4, 0.8, 0.64)
+    np.testing.assert_equal(is_separable(rho), False)
 
 
 if __name__ == "__main__":
