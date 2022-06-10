@@ -1,15 +1,18 @@
 """Compute the S(k)-norm of a matrix."""
+import warnings
 from typing import Union
 
 import numpy as np
 import cvxpy
-
-from scipy.special import roots_jacobi
+import scipy
 
 from toqito.channels import partial_trace, partial_transpose, realignment
 from toqito.matrix_props import is_hermitian
-from toqito.perms import symmetric_projection
-from toqito.state_props import sk_vector_norm
+from toqito.perms import symmetric_projection, swap
+from toqito.states import max_entangled
+from toqito.state_ops.schmidt_decomposition import schmidt_decomposition
+from toqito.state_props.sk_vec_norm import sk_vector_norm
+from toqito.state_props.schmidt_rank import schmidt_rank
 from toqito.helper import kp_norm
 
 
@@ -92,7 +95,7 @@ def sk_operator_norm(
 
     # some useful, repeatedly-used, values
     prod_dim = np.prod(dim)
-    op_norm = np.linalg.norm(mat, 2)
+    op_norm = np.linalg.norm(mat, ord=2)
     rank = np.linalg.matrix_rank(mat)
     # rescale X to have unit norm
     mat = mat / op_norm
@@ -199,39 +202,27 @@ def sk_operator_norm(
         if __target_is_proved(lower_bound, upper_bound, op_norm, tol, target):
             return op_norm * lower_bound, op_norm * upper_bound
 
-        # TODO: Use a randomized iterative method to try to improve the lower bound.
-        # if is_positive:
-        #    for _ in range(5**effort):
-        #        # randomized scheme.
-        #        # [tlb,twit] = sk_iterate(X,k,dim,max(tol^2,eps^(3/4)))
-        #
-        #        # break out of the function if the target value has already been met
-        #        if __target_is_proved(lb, ub, op_norm, tol, target):
-        #            return op_norm * lb, op_norm * ub
+        # Use a randomized iterative method to try to improve the lower bound.
+        if is_positive:
+            for _ in range(5**effort):
+                lower_bound = max(
+                    lower_bound,
+                    __lower_bound_sk_norm_randomized(mat, k, dim, max(tol**2, eps ** (3 / 4))),
+                )
+
+                # break out of the function if the target value has already been met
+                if __target_is_proved(lower_bound, upper_bound, op_norm, tol, target):
+                    return op_norm * lower_bound, op_norm * upper_bound
 
     # Start the semidefinite programming approach for getting upper bounds.
     if effort >= 1 and (
         (lower_bound + tol < upper_bound and is_positive)
         or (is_positive and is_trans_exact and k == 1)
     ):
-        rho = cvxpy.Variable((prod_dim, prod_dim), PSD=True, name="rho")
+        rho = cvxpy.Variable((prod_dim, prod_dim), hermitian=True, name="rho")
+        objective = cvxpy.Maximize(cvxpy.real(cvxpy.trace(mat @ rho)))
 
-        # This is a "hack" since:
-        #    cvxpy.Maximize(cvxpy.trace(mat @ rho))
-        # does not work for complex `mat`.
-        # It throws an error: objective is not real.
-        objective = cvxpy.Maximize(
-            sum(
-                eig_val[i]
-                * (
-                    eig_vec[:, i].real.T @ rho @ eig_vec[:, i].real
-                    + eig_vec[:, i].imag.T @ rho @ eig_vec[:, i].imag
-                )
-                for i in range(prod_dim)
-            )
-        )
-
-        constraints = [cvxpy.trace(rho) <= 1]
+        constraints = [rho >> 0, cvxpy.real(cvxpy.trace(rho)) <= 1]
         if k == 1:
             constraints.append(partial_transpose(rho, 2, dim) >> 0)
         else:
@@ -250,7 +241,7 @@ def sk_operator_norm(
         elif k == 1:
             # we can also get decent lower bounds from the SDP results when k=1
             # See Theorem 5.2.8 of [2]
-            roots, _ = roots_jacobi(1, dim[1] - 2, 1)
+            roots, _ = scipy.special.roots_jacobi(1, dim[1] - 2, 1)
             gs = min(1 - roots)
             xmineig = min(eig_val)
             lower_bound = max(
@@ -270,26 +261,18 @@ def sk_operator_norm(
                 prod_sym_dim = dim[0] * (dim[1] ** j)
                 sym_proj = np.kron(np.eye(dim[0]), symmetric_projection(dim[1], j))
 
-                rho = cvxpy.Variable((prod_sym_dim, prod_sym_dim), PSD=True, name="rho")
-
-                partial_rho = partial_trace(rho, list(range(3, j + 1)), sym_dim)
+                rho = cvxpy.Variable((prod_sym_dim, prod_sym_dim), hermitian=True, name="rho")
                 objective = cvxpy.Maximize(
-                    sum(
-                        eig_val[i]
-                        * (
-                            eig_vec[:, i].real.T @ partial_rho @ eig_vec[:, i].real
-                            + eig_vec[:, i].imag.T @ partial_rho @ eig_vec[:, i].imag
-                        )
-                        for i in range(prod_dim)
+                    cvxpy.real(
+                        cvxpy.trace(mat @ partial_trace(rho, list(range(3, j + 1)), sym_dim))
                     )
                 )
 
                 constraints = [
-                    cvxpy.trace(rho) <= 1,
+                    rho >> 0,
+                    cvxpy.real(cvxpy.trace(rho)) <= 1,
                     sym_proj @ rho @ sym_proj == rho,
-                    constraints.append(
-                        partial_transpose(rho, list(range(1, np.ceil(j / 2) + 1)), sym_dim) >> 0
-                    ),
+                    partial_transpose(rho, list(range(1, np.ceil(j / 2) + 1)), sym_dim) >> 0,
                 ]
 
                 problem = cvxpy.Problem(objective, constraints)
@@ -299,7 +282,7 @@ def sk_operator_norm(
 
                 upper_bound = min(upper_bound, np.real(cvx_optval))
 
-                roots, _ = roots_jacobi(np.floor(j / 2) + 1, dim[1] - 2, j % 2)
+                roots, _ = scipy.special.roots_jacobi(np.floor(j / 2) + 1, dim[1] - 2, j % 2)
                 gs = min(1 - roots)
                 lower_bound = max(
                     lower_bound,
@@ -323,3 +306,99 @@ def __target_is_proved(
         target is not None
         and (op_norm * (lower_bound - tol) >= target or op_norm * (upper_bound + tol) <= target)
     )
+
+
+# This function computes a lower bound of the S(k)-norm of the input matrix
+# via a randomized method that searches for local maxima.
+#
+# In more detail, starting from a random vector of Schmidt-rank less than k,
+# we alternately fix the Schmidt vectors of one sub-system and optimize the
+# Schmidt vectors of the other sub-system. This optimization is equivalent to
+# a generalized eigenvalue problem. The algorithm terminates when an iteration
+# cannot improve the lower bound by more than tol.
+def __lower_bound_sk_norm_randomized(
+    mat: np.ndarray,
+    k: int = 1,
+    dim: Union[int, list[int]] = None,
+    tol: float = 1e-5,
+    start_vec: np.ndarray = None,
+) -> float:
+    dim_a, dim_b = dim
+
+    psi = max_entangled(k, is_normalized=False)
+    left_swap_entagled_kron_id = swap(
+        np.kron(psi, np.eye(dim_a * dim_b)), [2, 3], [k, k, dim_a, dim_b], row_only=True
+    )
+
+    swap_entagled_kron_id = left_swap_entagled_kron_id @ left_swap_entagled_kron_id.conj().T
+    swap_entagled_kron_mat = swap(
+        np.kron(psi @ psi.conj().T, mat), [2, 3], [k, k, dim_a, dim_b], row_only=False
+    )
+
+    opt_vec = None
+    if start_vec is not None:
+        singular_vals, vt_mat, u_mat = schmidt_decomposition(start_vec, dim)
+        s_rank = len(singular_vals)
+        if s_rank > k:
+            warnings.warn(
+                f"The Schmidt rank of the initial vector is {s_rank}, which is larger than k={k}. \
+                Using a randomly-generated intial vector instead."
+            )
+        else:
+            opt_vec = start_vec
+            opt_schmidt = np.zeros((max(dim) * k, max(dim) * k))
+            opt_schmidt[: k * dim_a, 0] = np.ravel(vt_mat @ np.diag(singular_vals), order="F")
+            opt_schmidt[: k * dim_b, 1] = np.ravel(u_mat, order="F")
+
+    if opt_vec is None:
+        opt_schmidt = np.random.randn(max(dim) * k, 2) + 1j * np.random.randn(max(dim) * k, 2)
+        opt_schmidt[k * dim_a :, 0] = 0
+        opt_schmidt[k * dim_b :, 1] = 0
+        opt_vec = left_swap_entagled_kron_id.conj().T @ np.kron(
+            opt_schmidt[: k * dim_a, 0], opt_schmidt[: k * dim_b, 1]
+        )
+        opt_vec /= np.linalg.norm(opt_vec, ord=2)
+
+    opt_schmidt /= np.linalg.norm(opt_schmidt, ord=2, axis=0)
+
+    sk_lower_bound = np.real(opt_vec.conj().T @ mat @ opt_vec)
+    it_lower_bound_improved = True
+
+    while it_lower_bound_improved:
+        it_lower_bound_improved = False
+
+        # Loop through the 2 parties.
+        for p in range(2):
+            # If Schmidt rank is not full, we will have numerical problems; go to
+            # lower Schmidt rank iteration.
+            s_rank = schmidt_rank(opt_vec, dim)
+            if s_rank < k:
+                return __lower_bound_sk_norm_randomized(mat, s_rank, dim, tol, opt_vec)
+
+            # Fix one of the parties and optimize over the other party.
+            if p == 0:
+                v0_mat = np.kron(opt_schmidt[: dim_a * k, 0].reshape((-1, 1)), np.eye(dim_b * k))
+            else:
+                v0_mat = np.kron(np.eye(dim_a * k), opt_schmidt[: dim_b * k, 1].reshape((-1, 1)))
+
+            a_mat = v0_mat.conj().T @ swap_entagled_kron_mat @ v0_mat
+            b_mat = v0_mat.conj().T @ swap_entagled_kron_id @ v0_mat
+
+            largest_eigval, largest_eigvec = scipy.linalg.eigh(
+                a_mat, b=b_mat, subset_by_index=[a_mat.shape[0] - 1, a_mat.shape[0] - 1]
+            )
+            new_sk_lower_bound = np.real(largest_eigval[0])
+
+            if new_sk_lower_bound >= sk_lower_bound + tol:
+                it_lower_bound_improved = True
+                sk_lower_bound = new_sk_lower_bound
+
+                opt_schmidt[: v0_mat.shape[1], (p + 1) % 2] = largest_eigvec.ravel()
+                opt_vec = left_swap_entagled_kron_id.conj().T @ np.kron(
+                    opt_schmidt[: k * dim_a, 0], opt_schmidt[: k * dim_b, 1]
+                )
+
+                opt_schmidt[:, (p + 1) % 2] /= np.linalg.norm(opt_schmidt[:, (p + 1) % 2], ord=2)
+                opt_vec /= np.linalg.norm(opt_vec, ord=2)
+
+    return sk_lower_bound
