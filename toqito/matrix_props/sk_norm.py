@@ -29,14 +29,19 @@ def sk_operator_norm(
     The :math:`S(k)`-norm of of a matrix :math:`X` is defined as:
 
     .. math::
-        \big|\big| X \big|\big|_{S(k)} := sup_{|v\rangle} \Big\{
-            \langle v | X |v \rangle : \text{Schmidt - rank}(|v\rangle) \leq k
+        \big|\big| X \big|\big|_{S(k)} := sup_{|v\rangle, |w\rangle}
+        \Big\{
+            |\langle w | X |v \rangle| :
+            \text{Schmidt - rank}(|v\rangle) \leq k,
+            \text{Schmidt - rank}(|w\rangle) \leq k
         \Big\}
 
     Since computing the exact value of S(k)-norm is in the general case
     an intractable problem, this function tries to find some good lower and
     upper bounds. You can control the amount of computation you want to
-    devote to computing the bounds by `effort` input argument.
+    devote to computing the bounds by `effort` input argument. Note that if
+    the input matrix is not positive semidefinite the output bounds might be
+    quite pooor.
 
     This function was adapted from QETLAB.
 
@@ -96,6 +101,9 @@ def sk_operator_norm(
     # some useful, repeatedly-used, values
     prod_dim = np.prod(dim)
     op_norm = np.linalg.norm(mat, ord=2)
+    if np.allclose(op_norm, 0.0):
+        return 0.0, 0.0
+
     rank = np.linalg.matrix_rank(mat)
     # rescale X to have unit norm
     mat = mat / op_norm
@@ -138,6 +146,7 @@ def sk_operator_norm(
 
     atol = 1e-8
     is_positive = all(x >= -abs(atol) for x in eig_val)
+    is_projection = False
     if is_positive:
         is_projection = np.allclose(np.linalg.matrix_power(mat, 2), mat)
 
@@ -147,8 +156,8 @@ def sk_operator_norm(
     if not (is_positive and is_trans_exact and k == 1 and effort >= 1):
 
         # use the lower bound of Proposition 4.14 of [1]
-        for r in range(k, min(dim)):
-            t_ind = np.prod(dim) - np.prod(dim - r)
+        for r in range(k, min(dim) + 1):
+            t_ind = np.prod(dim) - np.prod(dim - r) - 1
             lower_bound = max(lower_bound, (k / r) * eig_val[t_ind])
 
         # use the lower bound of Theorem 4.2.15 of [3]
@@ -207,7 +216,7 @@ def sk_operator_norm(
             for _ in range(5**effort):
                 lower_bound = max(
                     lower_bound,
-                    __lower_bound_sk_norm_randomized(mat, k, dim, max(tol**2, eps ** (3 / 4))),
+                    __lower_bound_sk_norm_randomized(mat, k, dim, tol**2),
                 )
 
                 # break out of the function if the target value has already been met
