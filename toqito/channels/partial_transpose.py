@@ -134,7 +134,7 @@ def partial_transpose(
     if isinstance(sys, int):
         sys = np.array([sys])
 
-    num_sys = len(dim)
+    num_sys = max(dim.shape)
     # Allow the user to enter a single number for dim.
     if num_sys == 1:
         dim = np.array([dim, list(rho.shape)[0] / dim])
@@ -192,7 +192,7 @@ def partial_transpose(
     )
 
     # Return the subsystems back to their original positions.
-    dim[[0, 1], sys - 1] = dim[[1, 0], sys - 1]
+    dim[:, sys - 1] = np.flipud(dim[:, sys - 1])
 
     dim = dim[:, (np.array(perm) - 1).tolist()]
 

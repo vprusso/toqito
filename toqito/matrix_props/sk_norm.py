@@ -77,6 +77,8 @@ def sk_operator_norm(
     :param dim: The dimension of the two sub-systems. By default it's
                 assumed to be equal.
     :param target: A target value that you wish to prove that the norm is above or below.
+    :param effort: An integer value indicating the amount of computation you want to
+                   devote to computing the bounds.
     :return: A lower and an upper bound on S(k)-norm of :code:`mat`.
     """
     eps = np.finfo(float).eps
@@ -261,7 +263,7 @@ def sk_operator_norm(
 
             # Done the effort = 1 SDP, now get better upper bounds via symmetric
             # extensions if effort >= 2.
-            for j in range(2, effort):
+            for j in range(2, effort + 1):
                 # break out of the function if the target value has already been met
                 if __target_is_proved(lower_bound, upper_bound, op_norm, tol, target):
                     return op_norm * lower_bound, op_norm * upper_bound
@@ -273,7 +275,7 @@ def sk_operator_norm(
                 rho = cvxpy.Variable((prod_sym_dim, prod_sym_dim), hermitian=True, name="rho")
                 objective = cvxpy.Maximize(
                     cvxpy.real(
-                        cvxpy.trace(mat @ partial_trace(rho, list(range(3, j + 1)), sym_dim))
+                        cvxpy.trace(mat @ partial_trace(rho, list(range(3, j + 2)), sym_dim))
                     )
                 )
 
@@ -281,7 +283,7 @@ def sk_operator_norm(
                     rho >> 0,
                     cvxpy.real(cvxpy.trace(rho)) <= 1,
                     sym_proj @ rho @ sym_proj == rho,
-                    partial_transpose(rho, list(range(1, np.ceil(j / 2) + 1)), sym_dim) >> 0,
+                    partial_transpose(rho, list(range(1, int(np.ceil(j / 2)) + 2)), sym_dim) >> 0,
                 ]
 
                 problem = cvxpy.Problem(objective, constraints)

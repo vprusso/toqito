@@ -708,5 +708,30 @@ def test_partial_transpose_cvxpy():
     np.testing.assert_equal(isinstance(x_pt, Vstack), True)
 
 
+def test_partial_transpose_non_square():
+    """Test partial transpose on non square matrices ."""
+    rho = np.kron(np.eye(2, 3), np.ones((2, 3)))
+    rho = np.kron(rho, np.eye(2, 3))
+
+    dim = np.array([[2, 2, 2], [3, 3, 3]])
+
+    res = partial_transpose(rho, sys=2, dim=dim)
+
+    expected = np.kron(np.eye(2, 3), np.ones((3, 2)))
+    expected = np.kron(expected, np.eye(2, 3))
+    np.testing.assert_equal(np.allclose(res, expected), True)
+
+
+def test_partial_transpose_three_subsystems():
+    """Test partial transpose on 3 - subsystems ."""
+    mat = np.arange(64).reshape((8, 8))
+    input_mat = np.kron(np.eye(2, 2), mat)
+
+    res = partial_transpose(input_mat, sys=[2, 3, 4], dim=[2, 2, 2, 2])
+
+    expected = np.kron(np.eye(2, 2), mat.T)
+    np.testing.assert_equal(np.allclose(res, expected), True)
+
+
 if __name__ == "__main__":
     np.testing.run_module_suite()
