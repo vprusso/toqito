@@ -7,12 +7,13 @@ import scipy
 from toqito.channels import partial_trace, realignment
 from toqito.matrix_props import is_positive_semidefinite
 from toqito.state_props import is_ppt, in_separable_ball
+from toqito.state_props.has_symmetric_extension import has_symmetric_extension
 from toqito.state_metrics import trace_norm
 from toqito.perms import swap
 
 
 def is_separable(
-        state: np.ndarray, dim: Union[None, int, List[int]] = None, tol: float = 1e-8) -> bool:
+        state: np.ndarray, dim: Union[None, int, List[int]] = None, str: int = 2, tol: float = 1e-8) -> bool:
     r"""
     Determine if a given state (given as a density matrix) is a separable state [WikSepState]_.
 
@@ -55,6 +56,7 @@ def is_separable(
         https://en.wikipedia.org/wiki/Separable_state
     :param state: The matrix to check.
     :param dim: The dimension of the input.
+    :param str: The level up to which to search for the symmetric extensions.
     :param tol: Numerical tolerance used.
     :return: :code:`True` if :code:`rho` is separabale and :code:`False` otherwise.
     """
@@ -107,11 +109,12 @@ def is_separable(
 
     if state_rank + np.linalg.matrix_rank(pt_state_alice) <= 2 * state.shape[0] * state.shape[1] - state.shape[0] - state.shape[1] + 2 or \
         state_rank + np.linalg.matrix_rank(pt_state_bob) <= 2 * state.shape[0] * state.shape[1] - state.shape[0] - state.shape[1] + 2:
-        # Determined to be separable via sufficiency of the PPT criterion for low-rank operators.
+        # Determined to be separable via operational criterion of the PPT criterion for low-rank operators.
         # P. Horodecki, M. Lewenstein, G. Vidal, and I. Cirac.
         # Operational criterion and constructive checks for the separability of low-rank density matrices.
         # Phys. Rev. A, 62:032310, 2000.
-        return is_ppt(state, 2, dim, tol)
+        # TODO
+        pass
 
     # Realignment (a.k.a computable cross-norm) criterion.
     if trace_norm(realignment(state, dim)) > 1 + tol:
@@ -149,12 +152,6 @@ def is_separable(
     else:
         Xt = state
 
-    # There are conditions that are both necessary and sufficient when both dimensions are 3 and the rank is 4.
-    if state_rank == 4 and min_dim == 3 and max_dim == 3:
-        # This method computes more determinants than are actually necessary, but the speed loss isn't too great.
-        basis = scipy.linalg.orth(state)
-        # TODO
-
     # Check the proximity of X with the maximally mixed state.
     if in_separable_ball(state):
         # Determined to be separable by closeness to the maximally mixed state.
@@ -169,3 +166,8 @@ def is_separable(
         # G. Vidal and R. Tarrach. Robustness of entanglement.
         # Phys. Rev. A, 59:141-155, 1999.
         return True
+
+    # The search for symmetric extensions.
+    for k in range(2, str):
+        if has_symmetric_extension(state, str):
+            return True
