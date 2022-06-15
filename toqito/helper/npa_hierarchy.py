@@ -122,9 +122,9 @@ def _get_nonlocal_game_params(
     a_in = a_in + 1
     b_in = b_in + 1
 
-    op = next(iter(assemblage.values()))
-    a_out = int(op.shape[0] / referee_dim)
-    b_out = int(op.shape[1] / referee_dim)
+    operator = next(iter(assemblage.values()))
+    a_out = int(operator.shape[0] / referee_dim)
+    b_out = int(operator.shape[1] / referee_dim)
 
     return a_out, a_in, b_out, b_in
 
@@ -146,7 +146,8 @@ def npa_constraints(
 
     .. math::
         K_{xy}\Big(i + a \cdot dim_R, j + b \cdot dim_R \Big) =
-        \langle i| \text{Tr}_{\mathcal{H}} \Big( \big( I_R \otimes A_a^x B_b^y \big) \sigma \Big) |j \rangle
+        \langle i| \text{Tr}_{\mathcal{H}} \Big( \big(
+            I_R \otimes A_a^x B_b^y \big) \sigma \Big) |j \rangle
 
     :param assemblage: The commuting measurement assemblage operator.
     :param k: The level of the NPA hierarchy to use (default=1).

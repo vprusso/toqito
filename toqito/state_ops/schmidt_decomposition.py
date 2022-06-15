@@ -124,7 +124,6 @@ def _operator_schmidt_decomposition(
     :param dim: The dimension of the matrix
     :return: The Schmidt decomposition of the :code:`rho` input.
     """
-
     eps = np.finfo(float).eps
 
     if dim is None:

@@ -223,6 +223,8 @@
 
 ## 1.0.2
 
+- Update to Python 3.9 from 3.7.
+
 - Feature: Added `dual_channel.py` under `channel_ops`. This feature
   allows one to calculate the dual channel of a given input provided as either a 
   list of Kraus operators, or, a Choi matrix that represents a valid quantum 
@@ -231,7 +233,7 @@
 - Fix: Thanks to Jake Xuereb for a fix in the `concurrence.py` function that was
   incorrectly not taking the transpose.
 
-- Feature: Thanks to Joseph Li for the ability to calculate the Schmidt
+- Feature: Thanks to Joseph Li (@jli0108) for the ability to calculate the Schmidt
   decomposition.  
 
 - Feature: Added `diamond_norm.py` under `channel_metrics/`. This 
@@ -241,3 +243,19 @@
 - Feature: Added `is_npt.py` under `state_props/`. This 
   feature allows the user to determine whether a given state is has negative
   partial transpose (is NPT).
+
+- Fix: Thanks to @iftachyakar for the state distinguishability docs update
+
+- Fix: Thanks to @georgios-ts for the fix to `symmetric_extension_hierarchy`.
+
+- Feature: Thanks to @georgios-ts for the feature of the `sk_vector_norm`.
+
+- Feature: Thanks to @georgios-ts for the extended nonlocal game version of the
+  NPA hierarchy in `extended_nonlocal_games`.
+
+- Fix: Thanks to @georgios-ts for a fix in the `partial_transpose.py` function.
+
+- Feature: Thanks to @georgios-ts for the `block_positive.py` feature that
+  allows the user to detect if a matrix is block positive.
+
+  
