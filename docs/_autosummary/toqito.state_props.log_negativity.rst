@@ -1,4 +1,4 @@
-﻿toqito.state\_props.log\_negativity
+toqito.state\_props.log\_negativity
 ===================================
 
 .. currentmodule:: toqito.state_props

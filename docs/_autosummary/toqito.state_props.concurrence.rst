@@ -1,4 +1,4 @@
-﻿toqito.state\_props.concurrence
+toqito.state\_props.concurrence
 ===============================
 
 .. currentmodule:: toqito.state_props

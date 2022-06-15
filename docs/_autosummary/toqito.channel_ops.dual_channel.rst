@@ -1,4 +1,4 @@
-﻿toqito.channel\_ops.dual\_channel
+toqito.channel\_ops.dual\_channel
 =================================
 
 .. currentmodule:: toqito.channel_ops

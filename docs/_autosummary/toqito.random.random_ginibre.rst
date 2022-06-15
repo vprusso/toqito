@@ -1,4 +1,4 @@
-﻿toqito.random.random\_ginibre
+toqito.random.random\_ginibre
 =============================
 
 .. currentmodule:: toqito.random

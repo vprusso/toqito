@@ -1,4 +1,4 @@
-﻿toqito.matrices.clock
+toqito.matrices.clock
 =====================
 
 .. currentmodule:: toqito.matrices

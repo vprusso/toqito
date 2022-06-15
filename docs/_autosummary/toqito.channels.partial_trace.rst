@@ -1,4 +1,4 @@
-﻿toqito.channels.partial\_trace
+toqito.channels.partial\_trace
 ==============================
 
 .. currentmodule:: toqito.channels

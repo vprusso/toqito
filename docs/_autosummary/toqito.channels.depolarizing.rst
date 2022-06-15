@@ -1,4 +1,4 @@
-﻿toqito.channels.depolarizing
+toqito.channels.depolarizing
 ============================
 
 .. currentmodule:: toqito.channels

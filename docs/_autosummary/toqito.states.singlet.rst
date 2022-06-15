@@ -1,4 +1,4 @@
-﻿toqito.states.singlet
+toqito.states.singlet
 =====================
 
 .. currentmodule:: toqito.states

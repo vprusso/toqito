@@ -1,4 +1,4 @@
-﻿toqito.matrix\_props.is\_diagonal
+toqito.matrix\_props.is\_diagonal
 =================================
 
 .. currentmodule:: toqito.matrix_props

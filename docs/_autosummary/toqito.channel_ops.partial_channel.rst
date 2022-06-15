@@ -1,4 +1,4 @@
-﻿toqito.channel\_ops.partial\_channel
+toqito.channel\_ops.partial\_channel
 ====================================
 
 .. currentmodule:: toqito.channel_ops

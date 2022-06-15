@@ -1,4 +1,4 @@
-﻿toqito.channel\_props.is\_herm\_preserving
+toqito.channel\_props.is\_herm\_preserving
 ==========================================
 
 .. currentmodule:: toqito.channel_props

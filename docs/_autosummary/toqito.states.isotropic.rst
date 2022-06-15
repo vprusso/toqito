@@ -1,4 +1,4 @@
-﻿toqito.states.isotropic
+toqito.states.isotropic
 =======================
 
 .. currentmodule:: toqito.states

@@ -1,4 +1,4 @@
-﻿toqito.state\_props.entanglement\_of\_formation
+toqito.state\_props.entanglement\_of\_formation
 ===============================================
 
 .. currentmodule:: toqito.state_props

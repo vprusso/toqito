@@ -1,4 +1,4 @@
-﻿toqito.state\_metrics.trace\_distance
+toqito.state\_metrics.trace\_distance
 =====================================
 
 .. currentmodule:: toqito.state_metrics

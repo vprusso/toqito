@@ -1,4 +1,4 @@
-﻿toqito.matrices.gen\_pauli
+toqito.matrices.gen\_pauli
 ==========================
 
 .. currentmodule:: toqito.matrices

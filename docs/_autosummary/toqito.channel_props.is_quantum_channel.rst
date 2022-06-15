@@ -1,4 +1,4 @@
-﻿toqito.channel\_props.is\_quantum\_channel
+toqito.channel\_props.is\_quantum\_channel
 ==========================================
 
 .. currentmodule:: toqito.channel_props

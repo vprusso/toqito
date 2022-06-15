@@ -1,4 +1,4 @@
-﻿toqito.random.random\_density\_matrix
+toqito.random.random\_density\_matrix
 =====================================
 
 .. currentmodule:: toqito.random

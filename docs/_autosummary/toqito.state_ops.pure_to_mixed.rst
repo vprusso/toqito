@@ -1,4 +1,4 @@
-﻿toqito.state\_ops.pure\_to\_mixed
+toqito.state\_ops.pure\_to\_mixed
 =================================
 
 .. currentmodule:: toqito.state_ops

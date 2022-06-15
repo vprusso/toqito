@@ -1,4 +1,4 @@
-﻿toqito.matrix\_props.is\_permutation
+toqito.matrix\_props.is\_permutation
 ====================================
 
 .. currentmodule:: toqito.matrix_props
