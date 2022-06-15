@@ -77,6 +77,7 @@ Properties of Quantum States
     toqito.state_props.negativity
     toqito.state_props.purity
     toqito.state_props.schmidt_rank
+    toqito.state_props.is_separable
     toqito.state_props.von_neumann_entropy
 
 Quantum States
