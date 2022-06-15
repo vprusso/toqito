@@ -58,7 +58,7 @@ mypy = "^0.750.0"
 coverage = "^4.5"
 coveralls = "^1.9"
 recommonmark = "*"
-setuptools = "<58.0"
+setuptools = "<=57.5.0"
 sphinx = "3.1.2"
 sphinx_rtd_theme = "*"
 
