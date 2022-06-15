@@ -63,6 +63,5 @@ sphinx_rtd_theme = "*"
 
 
 [build-system]
-requires = ["poetry>=0.12"]
-requires = ["setuptools<58.0.0"]
+requires = ["poetry>=0.12", "setuptools<58.0"]
 build-backend = "poetry.masonry.api"
