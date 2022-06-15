@@ -40,7 +40,7 @@ extensions = ["sphinx.ext.autodoc",
               "sphinx.ext.viewcode",
               "sphinx.ext.githubpages",
               "sphinx.ext.napoleon",
-              "recommonmark"]
+              "myst_parser"]
 
 master_doc = "index"
 autosummary_generate = True
