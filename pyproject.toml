@@ -44,6 +44,7 @@ scs = "^2.1.2"
 
 [tool.poetry.dev-dependencies]
 black = "^20.8b1"
+distlib = "^0.3.4"
 flake8 = "^3.7"
 flake8-docstrings = "^1.5"
 ipython = "*"
