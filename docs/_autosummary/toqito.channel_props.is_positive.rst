@@ -1,4 +1,4 @@
-﻿toqito.channel\_props.is\_positive
+toqito.channel\_props.is\_positive
 ==================================
 
 .. currentmodule:: toqito.channel_props

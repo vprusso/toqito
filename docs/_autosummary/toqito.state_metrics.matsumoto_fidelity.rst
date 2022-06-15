@@ -1,4 +1,4 @@
-﻿toqito.state\_metrics.matsumoto\_fidelity
+toqito.state\_metrics.matsumoto\_fidelity
 =========================================
 
 .. currentmodule:: toqito.state_metrics

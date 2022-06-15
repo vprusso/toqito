@@ -1,4 +1,4 @@
-﻿toqito.state\_props.is\_mutually\_unbiased\_basis
+toqito.state\_props.is\_mutually\_unbiased\_basis
 =================================================
 
 .. currentmodule:: toqito.state_props

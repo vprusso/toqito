@@ -1,4 +1,4 @@
-﻿toqito.perms.perfect\_matchings
+toqito.perms.perfect\_matchings
 ===============================
 
 .. currentmodule:: toqito.perms

@@ -1,4 +1,4 @@
-﻿toqito.states.breuer
+toqito.states.breuer
 ====================
 
 .. currentmodule:: toqito.states

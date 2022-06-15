@@ -1,4 +1,4 @@
-﻿toqito.channels.realignment
+toqito.channels.realignment
 ===========================
 
 .. currentmodule:: toqito.channels

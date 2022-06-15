@@ -1,4 +1,4 @@
-﻿toqito.perms.unique\_perms
+toqito.perms.unique\_perms
 ==========================
 
 .. currentmodule:: toqito.perms

@@ -1,4 +1,4 @@
-﻿toqito.state\_metrics.hilbert\_schmidt
+toqito.state\_metrics.hilbert\_schmidt
 ======================================
 
 .. currentmodule:: toqito.state_metrics

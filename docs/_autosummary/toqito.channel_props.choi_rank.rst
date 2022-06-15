@@ -1,4 +1,4 @@
-﻿toqito.channel\_props.choi\_rank
+toqito.channel\_props.choi\_rank
 ================================
 
 .. currentmodule:: toqito.channel_props

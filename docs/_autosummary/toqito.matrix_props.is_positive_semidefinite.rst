@@ -1,4 +1,4 @@
-﻿toqito.matrix\_props.is\_positive\_semidefinite
+toqito.matrix\_props.is\_positive\_semidefinite
 ===============================================
 
 .. currentmodule:: toqito.matrix_props
