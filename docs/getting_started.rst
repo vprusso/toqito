@@ -8,7 +8,6 @@ Installing
 
 2. Consider using a `virtual environment <https://packaging.python.org/guides/installing-using-pip-and-virtualenv/>`_.
 
-
 3. The preferred way to install the :code:`toqito` package is via :code:`pip`.
 
 .. code-block:: bash
