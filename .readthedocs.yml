@@ -6,6 +6,7 @@
 version: 2
 
 build:
+  image: testing
   apt_packages:
     - libblas-dev
     - liblapack-dev
