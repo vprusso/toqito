@@ -58,10 +58,11 @@ mypy = "^0.750.0"
 coverage = "^4.5"
 coveralls = "^1.9"
 recommonmark = "*"
+setuptools = "<58.0"
 sphinx = "3.1.2"
 sphinx_rtd_theme = "*"
 
 
 [build-system]
-requires = ["poetry>=0.12", "setuptools<58.0"]
+requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
