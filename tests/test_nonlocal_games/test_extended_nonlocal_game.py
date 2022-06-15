@@ -185,4 +185,4 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         res = chsh.commuting_measurement_value_upper_bound(k=2)
         expected_res = 3 / 4
 
-        self.assertEqual(np.isclose(res, expected_res), True)
+        self.assertEqual(np.isclose(res, expected_res, atol=0.001), True)

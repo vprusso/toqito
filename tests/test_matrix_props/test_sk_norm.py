@@ -28,8 +28,8 @@ def test_s1_norm_example():
     expected = 1 / 8 * (3 + 2 * np.sqrt(2))
 
     lower_bound, upper_bound = sk_operator_norm(mat)
-    np.testing.assert_equal(np.allclose(lower_bound, expected), True)
-    np.testing.assert_equal(np.allclose(upper_bound, expected), True)
+    np.testing.assert_equal(np.allclose(lower_bound, expected, atol=0.001), True)
+    np.testing.assert_equal(np.allclose(upper_bound, expected, atol=0.001), True)
 
 
 def test_sk_norm_rank_1():

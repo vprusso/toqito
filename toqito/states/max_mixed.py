@@ -4,7 +4,7 @@ import numpy as np
 from scipy import sparse
 
 
-def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, sparse.dia.dia_matrix]:
+def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, sparse.dia_matrix]:
     r"""
     Produce the maximally mixed state [AAR6]_.
 

@@ -8,7 +8,7 @@ from toqito.matrices import iden
 
 def max_entangled(
     dim: int, is_sparse: bool = False, is_normalized: bool = True
-) -> [np.ndarray, sparse.dia.dia_matrix]:
+) -> [np.ndarray, sparse.dia_matrix]:
     r"""
     Produce a maximally entangled bipartite pure state [WikEnt]_.
 
