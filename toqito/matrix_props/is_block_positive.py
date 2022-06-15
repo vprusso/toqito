@@ -52,9 +52,9 @@ def is_block_positive(
     :param effort: An integer value indicating the amount of computation you want to devote to
                    determine block positivity before giving up.
     :param rtol: The relative tolerance parameter (default 1e-05).
-    :return: Return :code:`True` if matrix is k-block positive definite, :code:`False` if not, or
-             raise a runtime error if we are unable to determine whether or not the operator is block
-             positive.
+    :return: Return :code:`True` if matrix is k-block positive definite,
+             :code:`False` if not, or raise a runtime error if we are unable to determine
+             whether or not the operator is block positive.
     """
     if not is_hermitian(mat):
         return False
@@ -101,7 +101,7 @@ def is_block_positive(
     if upper_bound <= op_norm * (1 + rtol):
         return True
     # not block positive
-    elif lower_bound >= op_norm * (1 - rtol):
+    if lower_bound >= op_norm * (1 - rtol):
         return False
 
     return RuntimeError(
