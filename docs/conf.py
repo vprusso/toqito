@@ -39,8 +39,7 @@ extensions = ["sphinx.ext.autodoc",
               "sphinx.ext.ifconfig",
               "sphinx.ext.viewcode",
               "sphinx.ext.githubpages",
-              "sphinx.ext.napoleon",
-              "myst_parser"]
+              "sphinx.ext.napoleon"]
 
 master_doc = "index"
 autosummary_generate = True
