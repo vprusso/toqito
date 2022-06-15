@@ -462,7 +462,7 @@ class ExtendedNonlocalGame:
             for y_in in range(bob_in):
                 mat[x_in, y_in] = cvxpy.Variable(
                     (alice_out * referee_dim, bob_out * referee_dim),
-                    name=f"K(a, b | {x_in}, {y_in})",
+                    name=f"K(a, b | {x_in}, {y_in})", hermitian=True,
                 )
 
         p_win = cvxpy.Constant(0)
@@ -479,7 +479,7 @@ class ExtendedNonlocalGame:
                         )
 
         npa = npa_constraints(mat, k, referee_dim)
-        objective = cvxpy.Maximize(p_win)
+        objective = cvxpy.Maximize(cvxpy.real(p_win))
         problem = cvxpy.Problem(objective, npa)
         cs_val = problem.solve()
 

@@ -19,8 +19,8 @@ def test_swap_operator_is_block_positive(dim):
 def test_choi_is_block_positive():
     """Test Choi map is 1-block positive but not 2-block positive."""
     mat = choi()
-    np.testing.assert_equal(is_block_positive(mat), True)
-    np.testing.assert_equal(is_block_positive(mat, k=2), False)
+    np.testing.assert_equal(is_block_positive(mat, rtol=0.001), True)
+    np.testing.assert_equal(is_block_positive(mat, k=2, rtol=0.001), False)
 
 
 def test_is_block_positive():
