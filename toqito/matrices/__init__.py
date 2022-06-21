@@ -9,3 +9,4 @@ from toqito.matrices.gen_pauli import gen_pauli
 from toqito.matrices.hadamard import hadamard
 from toqito.matrices.iden import iden
 from toqito.matrices.pauli import pauli
+from toqito.matrices.standard_basis import standard_basis
