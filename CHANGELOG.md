@@ -264,3 +264,6 @@
   
 - Feature: Added `standard_basis.py` under `matrices/` that allows one to 
   construct the standard basis of dimension "d".
+
+- Feature: Added `is_orthonormal.py` under `matrix_props/` that allows one to 
+  determine if a collection of vectors or matrices are orthonormal.
