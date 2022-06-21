@@ -258,4 +258,9 @@
 - Feature: Thanks to @georgios-ts for the `block_positive.py` feature that
   allows the user to detect if a matrix is block positive.
 
+- Feature: Thanks to @meandmytram for the `is_separable.py` feature that allows
+  the user to test whether a quantum state represented as a density operator is
+  entangled or separable.
   
+- Feature: Added `standard_basis.py` under `matrices/` that allows one to 
+  construct the standard basis of dimension "d".

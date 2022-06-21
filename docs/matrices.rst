@@ -21,6 +21,7 @@ Matrices
     toqito.matrices.iden
     toqito.matrices.pauli
     toqito.matrices.shift
+    toqito.matrices.standard_basis
 
 Operations on Matrices and Vectors
 ----------------------------------
@@ -42,6 +43,7 @@ Properties of Matrices and Vectors
 .. autosummary::
    :toctree: _autosummary
 
+    toqito.matrix_props.is_block_positive
     toqito.matrix_props.is_commuting
     toqito.matrix_props.is_density
     toqito.matrix_props.is_diagonal
@@ -58,4 +60,3 @@ Properties of Matrices and Vectors
     toqito.matrix_props.is_unitary
     toqito.matrix_props.majorizes
     toqito.matrix_props.sk_operator_norm
-    toqito.matrix_props.is_block_positive
