@@ -51,6 +51,7 @@ Properties of Matrices and Vectors
     toqito.matrix_props.is_identity
     toqito.matrix_props.is_idempotent
     toqito.matrix_props.is_normal
+    toqito.matrix_props.is_orthonormal
     toqito.matrix_props.is_permutation
     toqito.matrix_props.is_positive_definite
     toqito.matrix_props.is_projection
