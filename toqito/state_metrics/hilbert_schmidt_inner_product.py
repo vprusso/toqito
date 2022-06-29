@@ -38,5 +38,4 @@ def hilbert_schmidt_inner_product(A: np.ndarray, B: np.ndarray) -> complex:
     :param B: An input matrix B.
     :return: The Hilbert-Schmidt inner product between :code:`A` and :code:`B`.
     """
-    hs_ip = np.trace(np.matmul(np.transpose(np.conj(A)), B))
-    return hs_ip
+    return np.trace(A.conj().T @ B)
