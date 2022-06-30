@@ -1,8 +1,7 @@
 """Check if state is separable."""
-from typing import List, Union
+from __future__ import annotations
 
 import numpy as np
-import scipy
 
 from toqito.channels import partial_trace, realignment
 from toqito.matrix_props import is_positive_semidefinite
@@ -13,7 +12,7 @@ from toqito.perms import swap
 
 
 def is_separable(
-        state: np.ndarray, dim: Union[None, int, List[int]] = None, str: int = 2, tol: float = 1e-8) -> bool:
+        state: np.ndarray, dim: None | int | list[int] = None, level: int = 2, tol: float = 1e-8) -> bool:
     r"""
     Determine if a given state (given as a density matrix) is a separable state [WikSepState]_.
 
@@ -54,13 +53,14 @@ def is_separable(
     ==========
     .. [WikSepState] Wikipedia: Separable state
         https://en.wikipedia.org/wiki/Separable_state
+
+    :raises ValueError: If dimension is not specified.
     :param state: The matrix to check.
     :param dim: The dimension of the input.
-    :param str: The level up to which to search for the symmetric extensions.
+    :param level: The level up to which to search for the symmetric extensions.
     :param tol: Numerical tolerance used.
     :return: :code:`True` if :code:`rho` is separabale and :code:`False` otherwise.
     """
-
     if not is_positive_semidefinite(state):
         raise ValueError("Checking separability of non-positive semidefinite matrix is invalid.")
 
@@ -168,6 +168,6 @@ def is_separable(
         return True
 
     # The search for symmetric extensions.
-    for k in range(2, str):
-        if has_symmetric_extension(state, str):
+    for _ in range(2, level):
+        if has_symmetric_extension(state, level):
             return True

@@ -50,10 +50,11 @@ def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float:
     .. [WIKTD] Quantiki: Trace distance
             https://www.quantiki.org/wiki/trace-distance
 
+    :raises ValueError: If matrices are not of density operators.
     :param rho: An input matrix.
     :param sigma: An input matrix.
     :return: The trace distance between :code:`rho` and :code:`sigma`.
     """
     if not is_density(rho) or not is_density(sigma):
-        raise ValueError("Trace distance is only defined for density " "operators.")
+        raise ValueError("Trace distance only defined for density matrices.")
     return trace_norm(np.abs(rho - sigma)) / 2

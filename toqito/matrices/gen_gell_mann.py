@@ -1,5 +1,5 @@
 """Generalized Gell-Mann matrices."""
-from typing import Union
+from __future__ import annotations
 from scipy import sparse
 
 import numpy as np
@@ -7,7 +7,7 @@ import numpy as np
 
 def gen_gell_mann(
     ind_1: int, ind_2: int, dim: int, is_sparse: bool = False
-) -> Union[np.ndarray, sparse.lil_matrix]:
+) -> np.ndarray | sparse.lil_matrix:
     r"""
     Produce a generalized Gell-Mann operator [WikGM2]_.
 

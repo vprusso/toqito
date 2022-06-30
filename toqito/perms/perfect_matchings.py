@@ -1,10 +1,10 @@
 """Perfect matchings."""
-from typing import Union
+from __future__ import annotations
 
 import numpy as np
 
 
-def perfect_matchings(num: Union[list[int], int, np.ndarray]) -> np.ndarray:
+def perfect_matchings(num: list[int] | int | np.ndarray) -> np.ndarray:
     r"""
     Give all perfect matchings of :code:`num` objects.
 

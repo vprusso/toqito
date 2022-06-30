@@ -1,5 +1,5 @@
 """Determine whether channel is unital."""
-from typing import Union
+from __future__ import annotations
 
 import numpy as np
 
@@ -8,7 +8,7 @@ from toqito.matrix_props import is_identity
 
 
 def is_unital(
-    phi: Union[np.ndarray, list[list[np.ndarray]]],
+    phi: np.ndarray | list[list[np.ndarray]],
     rtol: float = 1e-05,
     atol: float = 1e-08,
 ) -> bool:

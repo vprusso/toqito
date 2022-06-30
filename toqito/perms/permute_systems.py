@@ -1,8 +1,8 @@
 """Permute systems."""
+from __future__ import annotations
 import functools
 import operator
 
-from typing import Union
 from scipy import sparse
 
 import numpy as np
@@ -12,8 +12,8 @@ from toqito.matrix_ops import vec
 
 def permute_systems(
     input_mat: np.ndarray,
-    perm: Union[np.ndarray, list[int]],
-    dim: Union[np.ndarray, list[int]] = None,
+    perm: np.ndarray | list[int],
+    dim: np.ndarray |list[int] = None,
     row_only: bool = False,
     inv_perm: bool = False,
 ) -> np.ndarray:
@@ -136,6 +136,7 @@ def permute_systems(
      [25 29 26 30 27 31 28 32]
      [57 61 58 62 59 63 60 64]]
 
+    :raises ValueError: If dimension does not match the number of subsystems.
     :param input_mat: The vector or matrix.
     :param perm: A permutation vector.
     :param dim: The default has all subsystems of equal dimension.
@@ -183,7 +184,7 @@ def permute_systems(
         raise ValueError("InvalidPerm: `perm` must be a permutation vector.")
     if input_mat_dims[0] != prod_dim_r or (not row_only and input_mat_dims[1] != prod_dim_c):
         raise ValueError(
-            "InvalidDim: The dimensions specified in DIM do not " "agree with the size of X."
+            "InvalidDim: The dimensions specified in DIM do not agree with the size of X."
         )
     if is_vec:
         # If `input_mat` is a 1-by-X row vector, ensure we "flatten it" appropriately:

@@ -45,6 +45,7 @@ def bell(idx: int) -> np.ndarray:
     .. [WikBell] Wikipedia: Bell state
         https://en.wikipedia.org/wiki/Bell_state
 
+    :raises ValueError: If :code:`idx` is not an integer.
     :param idx: A parameter in [0, 1, 2, 3]
     :return: Bell state with index :code:`idx`.
     """

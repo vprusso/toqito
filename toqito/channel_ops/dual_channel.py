@@ -1,5 +1,5 @@
 """Compute the dual of a map."""
-from typing import Union
+from __future__ import annotations
 import numpy as np
 
 from toqito.matrix_props import is_square
@@ -7,8 +7,8 @@ from toqito.perms import swap
 
 
 def dual_channel(
-    phi_op: Union[np.ndarray, list[np.ndarray], list[list[np.ndarray]]], dims: list[int] = None
-) -> Union[np.ndarray, list[list[np.ndarray]]]:
+    phi_op: np.ndarray | list[np.ndarray] | list[list[np.ndarray]], dims: list[int] = None
+) -> np.ndarray | list[list[np.ndarray]]:
     r"""
     Compute the dual of a map (quantum channel) [WatDChan18]_.
 
@@ -38,6 +38,7 @@ def dual_channel(
         Section: Representations and characterizations of channels.
         Cambridge University Press, 2018.
 
+    :raises ValueError: If matrices are not Choi matrix.
     :param phi_op: A superoperator. It should be provided either as a Choi matrix,
                    or as a (1d or 2d) list of numpy arrays whose entries are its Kraus operators.
     :param dims: Dimension of the input and output systems, for Choi matrix representation.

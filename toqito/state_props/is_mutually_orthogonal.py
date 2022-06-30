@@ -1,10 +1,11 @@
 """Check if states are mutually orthogonal."""
-from typing import Any, Union
+from __future__ import annotations
+from typing import Any
 
 import numpy as np
 
 
-def is_mutually_orthogonal(vec_list: list[Union[np.ndarray, list[Union[float, Any]]]]) -> bool:
+def is_mutually_orthogonal(vec_list: list[np.ndarray | list[float | Any]]) -> bool:
     r"""
     Check if list of vectors are mutually orthogonal [WikOrthog]_.
 
@@ -51,6 +52,7 @@ def is_mutually_orthogonal(vec_list: list[Union[np.ndarray, list[Union[float, An
     .. [WikOrthog] Wikipedia: Orthogonality
         https://en.wikipedia.org/wiki/Orthogonality
 
+    :raises ValueError: If at least two vectors are not provided.
     :param vec_list: The list of vectors to check.
     :return: :code:`True` if :code:`vec_list` are mutually orthogonal, and
              :code:`False` otherwise.

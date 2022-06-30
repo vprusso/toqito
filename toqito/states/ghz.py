@@ -65,6 +65,7 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] = None) -> sparse:
         D. Greenberger and M. Horne and A. Zeilinger.
         E-print: [quant-ph] arXiv:0712.0921. 2007.
 
+    :raises ValueError: Number of qubits is not a positive integer.
     :param dim: The local dimension.
     :param num_qubits: The number of parties (qubits/qudits)
     :param coeff: (default `[1, 1, ..., 1])/sqrt(dim)`:
@@ -81,7 +82,7 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] = None) -> sparse:
         raise ValueError("InvalidNumQubits: `num_qubits` must be at least 1.")
     if len(coeff) != dim:
         raise ValueError(
-            "InvalidCoeff: The variable `coeff` must be a vector" " of length equal to `dim`."
+            "InvalidCoeff: The variable `coeff` must be a vector of length equal to `dim`."
         )
 
     # Construct the state (and do it in a way that is less memory-intensive

@@ -1,11 +1,12 @@
 """The realignment channel."""
+from __future__ import annotations
 import numpy as np
 
 from toqito.perms import swap
 from toqito.channels import partial_transpose
 
 
-def realignment(input_mat: np.ndarray, dim=None) -> np.ndarray:
+def realignment(input_mat: np.ndarray, dim: int | list[int] = None) -> np.ndarray:
     r"""
     Compute the realignment of a bipartite operator [LAS08]_.
 
@@ -49,6 +50,7 @@ def realignment(input_mat: np.ndarray, dim=None) -> np.ndarray:
 
     :param input_mat: The input matrix.
     :param dim: Default has all equal dimensions.
+    :raises ValueError: If dimension of matrix is invalid.
     :return: The realignment map matrix.
     """
     eps = np.finfo(float).eps

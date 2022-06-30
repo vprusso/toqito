@@ -57,6 +57,7 @@ def bures_distance(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> 
     .. [WikBures] Wikipedia: Bures metric
         https://en.wikipedia.org/wiki/Bures_metric
 
+    :raises ValueError: If matrices are not of equal dimension.
     :param rho_1: Density operator.
     :param rho_2: Density operator.
     :param decimals: Number of decimal places to round to (default 10).

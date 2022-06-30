@@ -109,6 +109,7 @@ def tensor(*args) -> np.ndarray:
     .. [WikTensor] Wikipedia: Tensor product
         https://en.wikipedia.org/wiki/Tensor_product
 
+    :raises ValueError: Input must be a vector or matrix.
     :param args: Input to the tensor function is expected to be either:
         - list[np.ndarray]: List of numpy matrices,
         - np.ndarray, ... , np.ndarray: An arbitrary number of numpy arrays,

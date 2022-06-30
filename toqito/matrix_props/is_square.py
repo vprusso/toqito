@@ -49,6 +49,7 @@ def is_square(mat: np.ndarray) -> bool:
     .. [WikSquare] Wikipedia: Square matrix.
         https://en.wikipedia.org/wiki/Square_matrix
 
+    :raises ValueError: If variable is not a matrix.
     :param mat: The matrix to check.
     :return: Returns :code:`True` if the matrix is square and :code:`False` otherwise.
     """

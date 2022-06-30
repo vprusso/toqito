@@ -36,11 +36,11 @@ def test_entangled_ppt_criterion():
 
 def test_ppt_small_dimensions():
     """Determined to be separable via sufficiency of the PPT criterion in small dimensions."""
-    e0, e1, e2 = basis(3, 0), basis(3, 1), basis(3, 2)
-    psi = 1/np.sqrt(3) * e0 + 1/np.sqrt(3) * e1 + 1/np.sqrt(3) * e2
+    e_0, e_1, e_2 = basis(3, 0), basis(3, 1), basis(3, 2)
+    psi = 1/np.sqrt(3) * e_0 + 1/np.sqrt(3) * e_1 + 1/np.sqrt(3) * e_2
 
-    e0, e1 = basis(2, 0), basis(2, 1)
-    phi = np.kron((1/np.sqrt(2) * e0 + 1/np.sqrt(2) * e1), psi)
+    e_0, e_1 = basis(2, 0), basis(2, 1)
+    phi = np.kron((1/np.sqrt(2) * e_0 + 1/np.sqrt(2) * e_1), psi)
     sigma = phi * phi.conj().T
     np.testing.assert_equal(is_separable(sigma), True)
 

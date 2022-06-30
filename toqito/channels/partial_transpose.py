@@ -1,5 +1,5 @@
 """The partial transpose."""
-from typing import Union
+from __future__ import annotations
 
 import numpy as np
 
@@ -10,10 +10,10 @@ from toqito.helper import expr_as_np_array, np_array_as_expr
 
 
 def partial_transpose(
-    rho: Union[np.ndarray, Variable],
-    sys: Union[list[int], np.ndarray, int] = 2,
-    dim: Union[list[int], np.ndarray] = None,
-) -> Union[np.ndarray, Expression]:
+    rho: np.ndarray | Variable,
+    sys: list[int] | np.ndarray | int = 2,
+    dim: list[int] | np.ndarray = None,
+) -> np.ndarray | Expression:
     r"""Compute the partial transpose of a matrix [WikPtrans]_.
 
     The *partial transpose* is defined as
@@ -105,11 +105,11 @@ def partial_transpose(
     ==========
     .. [WikPtrans] Wikipedia: Partial transpose
         https://en.wikipedia.org/w/index.php?title=Partial_transpose
-
     :param rho: A matrix.
     :param sys: Scalar or vector specifying the size of the subsystems.
     :param dim: Dimension of the subsystems. If :code:`None`, all dimensions
                 are assumed to be equal.
+    :raises ValueError: If matrix dimensions are not square.
     :returns: The partial transpose of matrix :code:`rho`.
     """
     # If the input matrix is a CVX variable for an SDP, we convert it to a

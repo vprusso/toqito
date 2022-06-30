@@ -1,5 +1,5 @@
 """Apply channel a subsystem of an operator."""
-from typing import Union
+from __future__ import annotations
 import numpy as np
 
 from toqito.channel_ops import apply_channel
@@ -9,9 +9,9 @@ from toqito.perms import permute_systems
 
 def partial_channel(
     rho: np.ndarray,
-    phi_map: Union[np.ndarray, list[list[np.ndarray]]],
+    phi_map: np.ndarray | list[list[np.ndarray]],
     sys: int = 2,
-    dim: Union[list[int], np.ndarray] = None,
+    dim: list[int] | np.ndarray = None,
 ) -> np.ndarray:
     r"""Apply channel to a subsystem of an operator [WatPMap18]_.
 
@@ -66,6 +66,8 @@ def partial_channel(
         The theory of quantum information.
         Cambridge University Press, 2018.
 
+    :raises ValueError: If Phi map is not provided as a Choi matrix or Kraus
+                        operators.
     :param rho: A matrix.
     :param phi_map: The map to partially apply.
     :param sys: Scalar or vector specifying the size of the subsystems.
@@ -95,28 +97,28 @@ def partial_channel(
         # Map is completely positive.
         if s_phi_2 == 1 or s_phi_1 == 1 and s_phi_2 > 2:
             phi = []
-            for i, _ in enumerate(phi_map):
+            for m in phi_map:
                 phi.append(
                     np.kron(
-                        np.kron(np.identity(prod_dim_r1), phi_map[i]),
+                        np.kron(np.identity(prod_dim_r1), m),
                         np.identity(prod_dim_r2),
                     )
                 )
             phi_x = apply_channel(rho, phi)
         else:
             phi_1 = []
-            for i, _ in enumerate(phi_map):
+            for m in phi_map:
                 phi_1.append(
                     np.kron(
-                        np.kron(np.identity(prod_dim_r1), phi_map[i][0]),
+                        np.kron(np.identity(prod_dim_r1), m[0]),
                         np.identity(prod_dim_r2),
                     )
                 )
             phi_2 = []
-            for i, _ in enumerate(phi_map):
+            for m in phi_map:
                 phi_2.append(
                     np.kron(
-                        np.kron(np.identity(prod_dim_c1), phi_map[i][1]),
+                        np.kron(np.identity(prod_dim_c1), m[1]),
                         np.identity(prod_dim_c2),
                     )
                 )

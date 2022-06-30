@@ -57,6 +57,7 @@ def tile(idx: int) -> np.ndarray:
         Physical Review Letters 82.26 (1999): 5385.
         https://arxiv.org/abs/quant-ph/9808030
 
+    :raises ValueError: Invalid value for :code:`idx`.
     :param idx: A parameter in [0, 1, 2, 3, 4]
     :return: Tile state.
     """

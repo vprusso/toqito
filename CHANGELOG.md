@@ -223,7 +223,7 @@
 
 ## 1.0.2
 
-- Update to Python 3.9 from 3.7.
+- Enhancement: Update to Python 3.9 from 3.7.
 
 - Feature: Added `dual_channel.py` under `channel_ops`. This feature
   allows one to calculate the dual channel of a given input provided as either a 
@@ -267,3 +267,12 @@
 
 - Feature: Added `is_orthonormal.py` under `matrix_props/` that allows one to 
   determine if a collection of vectors or matrices are orthonormal.
+
+- Feature: Thanks to @AdithyaSireesh for `hilbert_schmidt_inner_product.py`
+  under `state_metrics/` that allows one to calculate the Hilbert-Schmidt inner
+  product between two linear operators.
+
+- Enhancement: Updating `Union` syntax using the `|` operator instead of `Union`
+  from `typing`.
+
+- Enhancement: Linting and stylistic improvements.

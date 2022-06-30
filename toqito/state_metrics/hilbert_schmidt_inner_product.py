@@ -1,25 +1,27 @@
 """Hilbert-Schmidt Inner Product."""
 import numpy as np
 
-def hilbert_schmidt_inner_product(A: np.ndarray, B: np.ndarray) -> complex:
+def hilbert_schmidt_inner_product(a_mat: np.ndarray, b_mat: np.ndarray) -> complex:
     r"""
     Compute the Hilbert-Schmidt inner product between two matrices [WikHSO].
 
-    The Hilbert-Schmidt inner product between :math:`A` and :math:`B` is
+    The Hilbert-Schmidt inner product between :math:`a_mat` and :math:`b_mat` is
     defined as
 
     .. math::
-    
+
         HS = (A|B) = Tr[A^\dagger B]
-    
-    where :math:`|B) = vec(B)` and :math:`(A|` is the dual vector to :math:`|A)`.
-    
+
+    where :math:`|B> = vec(B)` and :math:`<A|` is the dual vector to
+    :math:`|A>`.
+
     Note: This function has been adapted from [Rigetti21]_.
 
     Examples
     ==========
 
-    One may consider taking the Hilbert-Schmidt distance between the Hadamard matrix and itself matrix
+    One may consider taking the Hilbert-Schmidt distance between the Hadamard
+    matrix and itself matrix.
 
     >>> from toqito.matrices import hadamard
     >>> from toqito.matrices import pauli
@@ -34,8 +36,9 @@ def hilbert_schmidt_inner_product(A: np.ndarray, B: np.ndarray) -> complex:
     .. [Rigetti21] Forest Benchmarking (Rigetti).
         https://github.com/rigetti/forest-benchmarking
 
-    :param A: An input matrix A.
-    :param B: An input matrix B.
-    :return: The Hilbert-Schmidt inner product between :code:`A` and :code:`B`.
+    :param a_mat: An input matrix provided as a numpy array.
+    :param b_mat: An input matrix provided as a numpy array.
+    :return: The Hilbert-Schmidt inner product between :code:`a_mat` and
+             :code:`b_mat`.
     """
-    return np.trace(A.conj().T @ B)
+    return np.trace(a_mat.conj().T @ b_mat)

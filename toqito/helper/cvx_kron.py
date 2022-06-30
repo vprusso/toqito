@@ -1,5 +1,5 @@
 """Kronecker product for CVXPY objects."""
-from typing import Union
+from __future__ import annotations
 
 import numpy as np
 import cvxpy
@@ -7,7 +7,7 @@ from cvxpy.expressions.expression import Expression
 
 
 def cvx_kron(
-    expr_1: Union[np.ndarray, Expression], expr_2: Union[np.ndarray, Expression]
+    expr_1: np.ndarray | Expression, expr_2: np.ndarray | Expression
 ) -> Expression:
     """
     Compute Kronecker product between CVXPY objects.

@@ -1,12 +1,12 @@
 """Is channel unitary."""
-from typing import Union
+from __future__ import annotations
 
 import numpy as np
 
 from toqito.channel_ops import choi_to_kraus
 
 
-def is_unitary(phi: Union[np.ndarray, list[list[np.ndarray]]]) -> bool:
+def is_unitary(phi: np.ndarray | list[list[np.ndarray]]) -> bool:
     r"""
     Given a quantum channel, determine if it is unitary [WatIU18]_.
 

@@ -1,5 +1,5 @@
 """Check if state is product."""
-from typing import Optional, Union
+from __future__ import annotations
 
 import numpy as np
 
@@ -8,8 +8,8 @@ from toqito.state_ops import schmidt_decomposition
 
 
 def is_product(
-    rho: np.ndarray, dim: Union[int, list[int], np.ndarray] = None
-) -> Union[bool, Optional[np.ndarray]]:
+    rho: np.ndarray, dim: int | list[int] | np.ndarray = None
+) -> bool | np.ndarray:
     r"""
     Determine if a given vector is a product state [WikProdState]_.
 
@@ -55,7 +55,7 @@ def is_product(
     return _is_product(rho, dim)
 
 
-def _is_product(rho: np.ndarray, dim: Union[int, list[int]] = None) -> list[int, bool]:
+def _is_product(rho: np.ndarray, dim: int | list[int] = None) -> list[int, bool]:
     """
     Determine if input is a product state recursive helper.
 
@@ -107,7 +107,7 @@ def _is_product(rho: np.ndarray, dim: Union[int, list[int]] = None) -> list[int,
     return ipv, dec
 
 
-def _operator_is_product(rho: np.ndarray, dim: Union[int, list[int]] = None) -> list[int, bool]:
+def _operator_is_product(rho: np.ndarray, dim: int | list[int] = None) -> list[int, bool]:
     r"""
     Determine if a given matrix is a product operator.
 

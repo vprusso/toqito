@@ -1,12 +1,12 @@
 """Apply channel to an operator."""
-from typing import Union
+from __future__ import annotations
 import numpy as np
 
 from toqito.matrix_ops import vec
 from toqito.perms import swap
 
 
-def apply_channel(mat: np.ndarray, phi_op: Union[np.ndarray, list[list[np.ndarray]]]) -> np.ndarray:
+def apply_channel(mat: np.ndarray, phi_op: np.ndarray | list[list[np.ndarray]]) -> np.ndarray:
     r"""
     Apply a quantum channel to an operator [WatAChan18]_.
 
@@ -87,6 +87,7 @@ def apply_channel(mat: np.ndarray, phi_op: Union[np.ndarray, list[list[np.ndarra
         Section: Representations and characterizations of channels.
         Cambridge University Press, 2018.
 
+    :raises ValueError: If matrix is not Choi matrix.
     :param mat: A matrix.
     :param phi_op: A superoperator. :code:`phi_op` should be provided either as a Choi matrix,
                    or as a list of numpy arrays with either 1 or 2 columns whose entries are its

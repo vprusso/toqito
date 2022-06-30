@@ -46,6 +46,7 @@ def gisin(lambda_var: float, theta: float) -> np.ndarray:
         Hidden quantum nonlocality revealed by local filters.
         (http://dx.doi.org/10.1016/S0375-9601(96)80001-6). 1996.
 
+    :raises ValueError: If :code:`lambda_var` is not a real number.
     :param lambda_var: A real parameter in [0, 1].
     :param theta: A real parameter.
     :return: Gisin state.

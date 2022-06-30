@@ -58,6 +58,7 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     .. [WikFid] Wikipedia: Fidelity of quantum states
         https://en.wikipedia.org/wiki/Fidelity_of_quantum_states
 
+    :raises ValueError: If matrices are not density operators.
     :param rho: Density operator.
     :param sigma: Density operator.
     :return: The fidelity between :code:`rho` and :code:`sigma`.

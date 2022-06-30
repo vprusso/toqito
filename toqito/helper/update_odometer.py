@@ -1,10 +1,10 @@
 """Update odometer."""
-from typing import Union
+from __future__ import annotations
 import numpy as np
 
 
 def update_odometer(
-    old_ind: Union[list[int], np.ndarray], upper_lim: Union[list[int], np.ndarray]
+    old_ind: list[int] | np.ndarray, upper_lim: list[int] | np.ndarray
 ) -> list[int]:
     r"""
     Increase a vector as odometer.

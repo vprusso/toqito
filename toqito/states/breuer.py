@@ -34,6 +34,7 @@ def breuer(dim: int, lam: float) -> np.ndarray:
     .. [HPBreuer] H-P. Breuer. Optimal entanglement criterion for mixed quantum states.
        E-print: arXiv:quant-ph/0605036, 2006.
 
+    :raises ValueError: Dimension must be greater than or equal to 1.
     :param dim: Dimension of the Breuer state.
     :param lam: The weight of the singlet component.
     :return: Breuer state of dimension :code:`dim` with weight :code:`lam`.

@@ -54,6 +54,7 @@ def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float:
     .. [WikHeHo] Wikipedia: Holevo's theorem.
         https://en.wikipedia.org/wiki/Holevo%27s_theorem
 
+    :raises ValueError: If matrices are not density operators.
     :param rho: Density operator.
     :param sigma: Density operator.
     :return: The Helstrom-Holevo distance between :code:`rho` and :code:`sigma`.

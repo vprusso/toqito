@@ -1,5 +1,5 @@
 """Check if state has NPT (negative partial transpose) criterion."""
-from typing import Union
+from __future__ import annotations
 
 import numpy as np
 
@@ -7,7 +7,7 @@ from toqito.state_props import is_ppt
 
 
 def is_npt(
-    mat: np.ndarray, sys: int = 2, dim: Union[int, list[int]] = None, tol: float = None
+    mat: np.ndarray, sys: int = 2, dim: int | list[int] = None, tol: float = None
 ) -> bool:
     r"""
     Determine whether or not a matrix has negative partial transpose [WikPPT]_.

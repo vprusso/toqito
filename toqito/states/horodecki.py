@@ -117,7 +117,7 @@ def horodecki(a_param: float, dim: list[int] = None) -> np.ndarray:
         arXiv: 1009.4385.
     """
     if a_param < 0 or a_param > 1:
-        raise ValueError("Invalid: Argument A_PARAM must be in the interval " "[0, 1].")
+        raise ValueError("Invalid: Argument A_PARAM must be in the interval [0, 1].")
 
     if dim is None:
         dim = np.array([3, 3])

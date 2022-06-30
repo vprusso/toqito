@@ -1,9 +1,9 @@
 """Determine if one vector or matrix majorizes another."""
-from typing import Union
+from __future__ import annotations
 import numpy as np
 
 
-def majorizes(a_var: Union[np.ndarray, list[int]], b_var: Union[np.ndarray, list[int]]):
+def majorizes(a_var: np.ndarray | list[int], b_var: np.ndarray | list[int]) -> bool:
     r"""
     Determine if one vector or matrix majorizes another. [WikMajorization]_.
 

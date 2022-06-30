@@ -1,5 +1,5 @@
 """Negativity property."""
-from typing import Union
+from __future__ import annotations
 
 import numpy as np
 
@@ -7,7 +7,7 @@ from toqito.state_ops import pure_to_mixed
 from toqito.channels import partial_transpose
 
 
-def negativity(rho: np.ndarray, dim: Union[list[int], int] = None) -> float:
+def negativity(rho: np.ndarray, dim: list[int] | int = None) -> float:
     r"""
     Compute the negativity of a bipartite quantum state [WikNeg]_.
 
@@ -41,6 +41,7 @@ def negativity(rho: np.ndarray, dim: Union[list[int], int] = None) -> float:
     .. [WikNeg] Wikipedia page for negativity (quantum mechanics):
         https://en.wikipedia.org/wiki/Negativity_(quantum_mechanics)
 
+    :raises ValueError: If dimension of matrix is invalid.
     :param rho: A density matrix of a pure state vector.
     :param dim: The default has both subsystems of equal dimension.
     :return: A value between 0 and 1 that corresponds to the negativity of :math:`\rho`.

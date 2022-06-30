@@ -68,6 +68,7 @@ def concurrence(rho: np.ndarray) -> float:
     .. [WikCon] Wikipedia page for concurrence (quantum computing)
        https://en.wikipedia.org/wiki/Concurrence_(quantum_computing)
 
+    :raises ValueError: If system is not bipartite.
     :param rho: The bipartite system specified as a matrix.
     :return: The concurrence of the bipartite state :math:`\rho`.
     """

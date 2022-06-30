@@ -1,7 +1,7 @@
 """NPA constraints."""
+from __future__ import annotations
 from itertools import product
 from collections import namedtuple
-from typing import Union
 
 import cvxpy
 
@@ -62,7 +62,7 @@ def _parse(k: str) -> tuple[int, set[tuple[int, int]]]:
 
 # This function generates all non - equivalent words of length up to k.
 def _gen_words(
-    k: Union[int, str], a_out: int, a_in: int, b_out: int, b_in: int
+    k: int | str, a_out: int, a_in: int, b_out: int, b_in: int
 ) -> list[tuple[Symbol]]:
     # remove one outcome to avoid redundancy
     # since all projectors sum to identity.
@@ -109,10 +109,7 @@ def _is_meas(word: tuple[Symbol]) -> bool:
 
 
 def _is_meas_on_one_player(word: tuple[Symbol]) -> bool:
-    if len(word) == 1 and word[0].player in ["Alice", "Bob"]:
-        return True
-
-    return False
+    return len(word) == 1 and word[0].player in {"Alice", "Bob"}
 
 
 def _get_nonlocal_game_params(
@@ -130,7 +127,7 @@ def _get_nonlocal_game_params(
 
 
 def npa_constraints(
-    assemblage: dict[tuple[int, int], cvxpy.Variable], k: Union[int, str] = 1, referee_dim: int = 1
+    assemblage: dict[tuple[int, int], cvxpy.Variable], k: int | str = 1, referee_dim: int = 1
 ) -> list[cvxpy.constraints.constraint.Constraint]:
     r"""
     Generate the constraints specified by the NPA hierarchy up to a finite level.

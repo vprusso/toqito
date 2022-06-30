@@ -59,6 +59,7 @@ def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
         arXiv preprint arXiv:0805.2037 (2008).
         https://arxiv.org/abs/0805.2037
 
+    :raises ValueError: If matrices are not of equal dimension.
     :param rho: Density operator.
     :param sigma: Density operator.
     :return: The sub-fidelity between :code:`rho` and :code:`sigma`.

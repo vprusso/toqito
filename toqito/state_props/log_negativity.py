@@ -1,5 +1,5 @@
 """Logarithmic negativity property."""
-from typing import Union
+from __future__ import annotations
 
 import numpy as np
 
@@ -7,7 +7,7 @@ from toqito.state_ops import pure_to_mixed
 from toqito.channels import partial_transpose
 
 
-def log_negativity(rho: np.ndarray, dim: Union[list[int], int] = None) -> float:
+def log_negativity(rho: np.ndarray, dim: list[int] | int = None) -> float:
     r"""
     Compute the log-negativity of a bipartite quantum state [WikLogNeg]_.
 
@@ -40,6 +40,7 @@ def log_negativity(rho: np.ndarray, dim: Union[list[int], int] = None) -> float:
     .. [WikLogNeg] Wikipedia page for negativity (quantum mechanics):
         https://en.wikipedia.org/wiki/Negativity_(quantum_mechanics)
 
+    :raises ValueError: If the input matrix is not a density matrix.
     :param rho: A density matrix of a pure state vector.
     :param dim: The default has both subsystems of equal dimension.
     :return: A positive value that corresponds to the logarithmic negativity of :math:`\rho`.

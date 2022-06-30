@@ -1,10 +1,10 @@
 """Generate random unitary."""
-from typing import Union
+from __future__ import annotations
 
 import numpy as np
 
 
-def random_unitary(dim: Union[list[int], int], is_real: bool = False) -> np.ndarray:
+def random_unitary(dim: list[int] | int, is_real: bool = False) -> np.ndarray:
     """
     Generate a random unitary or orthogonal matrix [MO09]_.
 

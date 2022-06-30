@@ -1,10 +1,11 @@
 """Check if states form mutually unbiased basis."""
-from typing import Any, Union
+from __future__ import annotations
+from typing import Any
 
 import numpy as np
 
 
-def is_mutually_unbiased_basis(vec_list: list[Union[np.ndarray, list[Union[float, Any]]]]) -> bool:
+def is_mutually_unbiased_basis(vec_list: list[np.ndarray | list[float | Any]]) -> bool:
     r"""
     Check if list of vectors constitute a mutually unbiased basis [WikMUB]_.
 
@@ -73,6 +74,7 @@ def is_mutually_unbiased_basis(vec_list: list[Union[np.ndarray, list[Union[float
     .. [WikMUB] Wikipedia: Mutually unbiased bases
         https://en.wikipedia.org/wiki/Mutually_unbiased_bases
 
+    :raises ValueError: If at least two vectors are not provided.
     :param vec_list: The list of vectors to check.
     :return: :code:`True` if :code:`vec_list` constitutes a mutually unbiased basis, and
              :code:`False` otherwise.

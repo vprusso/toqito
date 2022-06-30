@@ -73,6 +73,7 @@ def w_state(num_qubits: int, coeff: list[int] = None) -> np.ndarray:
         W. Dur, G. Vidal, and J. I. Cirac.
         E-print: arXiv:quant-ph/0005115, 2000.
 
+    :raises ValueError: The number of qubits must be greater than or equal to 1.
     :param num_qubits: An integer representing the number of qubits.
     :param coeff: default is `[1, 1, ..., 1]/sqrt(num_qubits)`: a
                   1-by-`num_qubts` vector of coefficients.

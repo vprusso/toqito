@@ -49,6 +49,7 @@ def purity(rho: np.ndarray) -> float:
     .. [WikPurity] Wikipedia page for purity (quantum mechanics):
         https://en.wikipedia.org/wiki/Purity_(quantum_mechanics)
 
+    :raises ValueError: If matrix is not density operator.
     :param rho: A density matrix of a pure state vector.
     :return: A value between 0 and 1 that corresponds to the purity of
             :math:`\rho`.

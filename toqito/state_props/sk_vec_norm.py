@@ -1,11 +1,11 @@
 """Compute the S(k)-norm of a vector."""
-from typing import Union
+from __future__ import annotations
 
 import numpy as np
 from toqito.state_ops import schmidt_decomposition
 
 
-def sk_vector_norm(rho: np.ndarray, k: int = 1, dim: Union[int, list[int]] = None) -> float:
+def sk_vector_norm(rho: np.ndarray, k: int = 1, dim: int | list[int] = None) -> float:
     r"""
     Compute the S(k)-norm of a vector [NJDK09]_.
 

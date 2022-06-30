@@ -1,4 +1,5 @@
 """Determine whether there exists a symmetric extension for a given quantum state."""
+from __future__ import annotations
 import numpy as np
 
 from toqito.channels import partial_trace
@@ -7,7 +8,7 @@ from toqito.state_opt import symmetric_extension_hierarchy
 from toqito.state_props import is_ppt
 
 
-def has_symmetric_extension(rho, level=2, dim=None, ppt=True, tol=1e-4) -> bool:
+def has_symmetric_extension(rho: np.ndarray, level: int = 2, dim: np.ndarray | int = None, ppt: bool = True, tol: float = 1e-4) -> bool:
     r"""
     Determine whether there exists a symmetric extension for a given quantum state. [DPS02]_.
 
@@ -83,6 +84,7 @@ def has_symmetric_extension(rho, level=2, dim=None, ppt=True, tol=1e-4) -> bool:
         Physical Review A 90.3 (2014): 032318.
         https://arxiv.org/abs/1310.3530
 
+    :raises ValueError: If dimension does not evenly divide matrix length.
     :param rho: A matrix or vector.
     :param level: Level of the hierarchy to compute.
     :param dim: The default has both subsystems of equal dimension.

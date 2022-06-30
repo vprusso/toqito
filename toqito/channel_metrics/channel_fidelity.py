@@ -65,6 +65,8 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
         "Geometric distinguishability measures limit quantum channel estimation and discrimination."
         https://arxiv.org/abs/2004.10708
 
+    :raises ValueError: If matrices are not of equal dimension.
+    :raises ValueError: If matrices are not square.
     :param choi_1: The Choi matrix of the first quantum channel.
     :param choi_2: The Choi matrix of the second quantum channel.
     :return: The channel fidelity between the channels specified by the quantum channels

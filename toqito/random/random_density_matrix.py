@@ -1,6 +1,5 @@
 """Generate random density matrix."""
-from typing import Union
-
+from __future__ import annotations
 import numpy as np
 
 from toqito.random import random_unitary
@@ -9,7 +8,7 @@ from toqito.random import random_unitary
 def random_density_matrix(
     dim: int,
     is_real: bool = False,
-    k_param: Union[list[int], int] = None,
+    k_param: list[int] | int = None,
     distance_metric: str = "haar",
 ) -> np.ndarray:
     r"""

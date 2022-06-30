@@ -1,5 +1,5 @@
 """Is matrix block positive."""
-from typing import Union
+from __future__ import annotations
 
 import numpy as np
 from toqito.matrix_props.is_hermitian import is_hermitian
@@ -10,7 +10,7 @@ from toqito.matrix_props.sk_norm import sk_operator_norm
 def is_block_positive(
     mat: np.ndarray,
     k: int = 1,
-    dim: Union[int, list[int]] = None,
+    dim: int | list[int] = None,
     effort: int = 2,
     rtol: float = 1e-5,
 ) -> bool:
@@ -44,6 +44,7 @@ def is_block_positive(
     .. [1] "N. Johnston. Norms and Cones in the Theory of Quantum Entanglement. PhD thesis"
         arXiv:1207.1479
 
+    :raises ValueError: Unable to determine block positive property.
     :param mat: A bipartite Hermitian operator.
     :param k: A positive integer indicating that the function should determine whether or not
               the input operator is k-block positive, i.e., whether or not it remains nonnegative

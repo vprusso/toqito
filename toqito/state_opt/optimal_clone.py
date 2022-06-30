@@ -1,5 +1,5 @@
 """Calculates success probability of approximately cloning a quantum state."""
-from typing import Union
+from __future__ import annotations
 import cvxpy
 import numpy as np
 
@@ -13,7 +13,7 @@ def optimal_clone(
     probs: list[float],
     num_reps: int = 1,
     strategy: bool = False,
-) -> Union[float, np.ndarray]:
+) -> float | np.ndarray:
     r"""
     Compute probability of counterfeiting quantum money [MVW12]_.
 

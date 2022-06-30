@@ -1,5 +1,5 @@
 """The partial trace."""
-from typing import Union
+from __future__ import annotations
 
 import numpy as np
 
@@ -10,10 +10,10 @@ from toqito.helper import expr_as_np_array, np_array_as_expr
 
 
 def partial_trace(
-    input_mat: Union[np.ndarray, Variable],
-    sys: Union[int, list[int]] = 2,
-    dim: Union[int, list[int]] = None,
-) -> Union[np.ndarray, Expression]:
+    input_mat: np.ndarray | Variable,
+    sys: int | list[int] = 2,
+    dim: int | list[int] = None,
+) -> np.ndarray | Expression:
     r"""
     Compute the partial trace of a matrix [WikPtrace]_.
 
@@ -122,6 +122,7 @@ def partial_trace(
     .. [WikPtrace] Wikipedia: Partial trace
         https://en.wikipedia.org/wiki/Partial_trace
 
+    :raises ValueError: If matrix dimension is not equal to the number of subsystems.
     :param input_mat: A square matrix.
     :param sys: Scalar or vector specifying the size of the subsystems.
     :param dim: Dimension of the subsystems. If :code:`None`, all dimensions are assumed to be
@@ -150,7 +151,7 @@ def partial_trace(
         dim = np.array([dim[0], len(input_mat) / dim[0]])
         if np.abs(dim[1] - np.round(dim[1])) >= 2 * len(input_mat) * np.finfo(float).eps:
             raise ValueError(
-                "Invalid: If `dim` is a scalar, `dim` must evenly " "divide `len(input_mat)`."
+                "Invalid: If `dim` is a scalar, `dim` must evenly divide `len(input_mat)`."
             )
         dim[1] = np.round(dim[1])
         num_sys = 2
@@ -167,7 +168,7 @@ def partial_trace(
         prod_dim_sys = np.prod(dim[sys - 1])
     else:
         raise ValueError(
-            "Invalid: The variable `sys` must either be of type " "int or of a list of ints."
+            "Invalid: The variable `sys` must either be of type int or of a list of ints."
         )
 
     sub_prod = prod_dim / prod_dim_sys

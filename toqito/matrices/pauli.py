@@ -1,5 +1,5 @@
 """Pauli matrices."""
-from typing import Union
+from __future__ import annotations
 from scipy import sparse
 
 import numpy as np
@@ -8,8 +8,8 @@ from toqito.matrix_ops import tensor
 
 
 def pauli(
-    ind: Union[int, str, list[int], list[str]], is_sparse: bool = False
-) -> Union[np.ndarray, sparse.csr_matrix]:
+    ind: int | str | list[int] | list[str], is_sparse: bool = False
+) -> np.ndarray | sparse.csr.csr_matrix:
     r"""
     Produce a Pauli operator [WikPauli]_.
 
@@ -86,11 +86,11 @@ def pauli(
                       matrix if set to False.
     """
     if isinstance(ind, (int, str)):
-        if ind in ("x", "X", 1):
+        if ind in {"x", "X", 1}:
             pauli_mat = np.array([[0, 1], [1, 0]])
-        elif ind in ("y", "Y", 2):
+        elif ind in {"y", "Y", 2}:
             pauli_mat = np.array([[0, -1j], [1j, 0]])
-        elif ind in ("z", "Z", 3):
+        elif ind in {"z", "Z", 3}:
             pauli_mat = np.array([[1, 0], [0, -1]])
         else:
             pauli_mat = np.identity(2)

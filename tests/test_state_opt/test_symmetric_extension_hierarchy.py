@@ -58,7 +58,7 @@ def test_symmetric_extension_hierarchy_four_bell_with_resource_state_lvl_1():
     np.testing.assert_equal(np.isclose(res, exp_res), True)
 
 
-@pytest.mark.skip(reason="This test takes too much time.")  # pylint: disable=not-callable
+@pytest.mark.skip(reason="This test takes too much time.")
 def test_symmetric_extension_hierarchy_four_bell_with_resource_state():
     """Symmetric extension hierarchy for four Bell states and resource state."""
     e_0, e_1 = basis(2, 0), basis(2, 1)
@@ -89,7 +89,7 @@ def test_symmetric_extension_hierarchy_four_bell_with_resource_state():
     np.testing.assert_equal(np.isclose(res, exp_res), True)
 
 
-@pytest.mark.skip(reason="This test takes too much time.")  # pylint: disable=not-callable
+@pytest.mark.skip(reason="This test takes too much time.")
 def test_symmetric_extension_hierarchy_three_bell_with_resource_state():
     """Symmetric extension hierarchy for three Bell and resource state."""
     e_0, e_1 = basis(2, 0), basis(2, 1)

@@ -1,6 +1,5 @@
 """Swap."""
-from typing import Union
-
+from __future__ import annotations
 import numpy as np
 
 from toqito.perms import permute_systems
@@ -9,7 +8,7 @@ from toqito.perms import permute_systems
 def swap(
     rho: np.ndarray,
     sys: list[int] = None,
-    dim: Union[list[int], list[list[int]], int, np.ndarray] = None,
+    dim: list[int] | list[list[int], int, np.ndarray] = None,
     row_only: bool = False,
 ) -> np.ndarray:
     r"""
@@ -100,6 +99,7 @@ def swap(
     >>> swap(test_vec)
     [1 3 2 4]
 
+    :raises ValueError: If dimension does not match the number of subsystems.
     :param rho: A vector or matrix to have its subsystems swapped.
     :param sys: Default: [1, 2]
     :param dim: Default: :code:`[sqrt(len(X), sqrt(len(X)))]`

@@ -69,6 +69,7 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
         "Reverse test and quantum analogue of classical fidelity and generalized fidelity"
         https://arxiv.org/abs/1006.0302
 
+    :raises ValueError: If matrices are not of equal dimension.
     :param rho: Density operator.
     :param sigma: Density operator.
     :return: The Matsumoto fidelity between :code:`rho` and :code:`sigma`.

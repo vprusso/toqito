@@ -1,5 +1,5 @@
 """Werner state."""
-from typing import Union
+from __future__ import annotations
 
 import itertools
 import numpy as np
@@ -8,7 +8,7 @@ from toqito.perms import permutation_operator
 from toqito.perms import swap_operator
 
 
-def werner(dim: int, alpha: Union[float, list[float]]) -> np.ndarray:
+def werner(dim: int, alpha: float | list[float]) -> np.ndarray:
     r"""
     Produce a Werner state [Wer89]_.
 
@@ -89,6 +89,7 @@ def werner(dim: int, alpha: Union[float, list[float]]) -> np.ndarray:
         Quantum states with Einstein-Podolsky-Rosen correlations admitting a
         hidden-variable model. Phys. Rev. A, 40(8):4277–4281. 1989
 
+    :raises ValueError: Alpha vector does not have the correct length.
     :param dim: The dimension of the Werner state.
     :param alpha: Parameter to specify Werner state.
     :return: A Werner state of dimension :code:`dim`.

@@ -1,5 +1,5 @@
 """Permutation operator."""
-from typing import Union
+from __future__ import annotations
 
 import numpy as np
 
@@ -8,7 +8,7 @@ from toqito.perms import permute_systems
 
 
 def permutation_operator(
-    dim: Union[list[int], int],
+    dim: list[int] | int,
     perm: list[int],
     inv_perm: bool = False,
     is_sparse: bool = False,

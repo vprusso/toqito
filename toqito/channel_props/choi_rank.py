@@ -1,11 +1,10 @@
 """Calculate the Choi rank of a channel."""
-from typing import Union
-
+from __future__ import annotations
 import numpy as np
 from toqito.channel_ops import kraus_to_choi
 
 
-def choi_rank(phi: Union[np.ndarray, list[list[np.ndarray]]]) -> int:
+def choi_rank(phi: np.ndarray | list[list[np.ndarray]]) -> int:
     r"""
     Calculate the rank of the Choi representation of a quantum channel [WatChoiRank18]_.
 
@@ -78,6 +77,7 @@ def choi_rank(phi: Union[np.ndarray, list[list[np.ndarray]]]) -> int:
         Section: "2.2 Quantum Channels".
         Cambridge University Press, 2018.
 
+    :raises ValueError: If matrix is not Choi.
     :param phi: Either a Choi matrix or a list of Kraus operators
     :return: The Choi rank of the provided channel representation.
     """

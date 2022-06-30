@@ -33,10 +33,11 @@ def hilbert_schmidt(rho: np.ndarray, sigma: np.ndarray) -> float:
     .. [WikHS] Wikipedia: Hilbert-Schmidt operator.
         https://en.wikipedia.org/wiki/Hilbert%E2%80%93Schmidt_operator
 
+    :raises ValueError: If matrices are not density operators.
     :param rho: An input matrix.
     :param sigma: An input matrix.
     :return: The Hilbert-Schmidt distance between :code:`rho` and :code:`sigma`.
     """
     if not is_density(rho) or not is_density(sigma):
-        raise ValueError("Hilbert-Schmidt is only defined for density " "operators.")
+        raise ValueError("Hilbert-Schmidt is only defined for density operators.")
     return np.linalg.norm(rho - sigma, ord=2) ** 2

@@ -1,6 +1,6 @@
 """Compute the S(k)-norm of a matrix."""
+from __future__ import annotations
 import warnings
-from typing import Union
 
 import numpy as np
 import cvxpy
@@ -19,7 +19,7 @@ from toqito.helper import kp_norm
 def sk_operator_norm(
     mat: np.ndarray,
     k: int = 1,
-    dim: Union[int, list[int]] = None,
+    dim: int | list[int] = None,
     target: float = None,
     effort: int = 2,
 ) -> float:
@@ -70,6 +70,7 @@ def sk_operator_norm(
     .. [2] "N. Johnston. Norms and Cones in the Theory of Quantum Entanglement. PhD thesis"
         arXiv:1207.1479
 
+    :raises ValueError: If dimension of the input matrix is not specified.
     :param mat: A matrix.
     :param k: The "index" of the norm -- that is, it is the Schmidt rank of the
               vectors that are multiplying X on the left and right in the definition
@@ -330,7 +331,7 @@ def __target_is_proved(
 def __lower_bound_sk_norm_randomized(
     mat: np.ndarray,
     k: int = 1,
-    dim: Union[int, list[int]] = None,
+    dim: int | list[int] = None,
     tol: float = 1e-5,
     start_vec: np.ndarray = None,
 ) -> float:

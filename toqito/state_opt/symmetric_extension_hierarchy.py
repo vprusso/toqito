@@ -1,5 +1,5 @@
 """PPT symmetric extension hierarchy."""
-from typing import Union
+from __future__ import annotations
 
 import cvxpy
 import numpy as np
@@ -12,7 +12,7 @@ def symmetric_extension_hierarchy(
     states: list[np.ndarray],
     probs: list[float] = None,
     level: int = 2,
-    dim: Union[int, list[int]] = None,
+    dim: int | list[int] = None,
 ) -> float:
     r"""
     Compute optimal value of the symmetric extension hierarchy SDP [Nav08]_.

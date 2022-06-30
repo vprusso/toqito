@@ -1,6 +1,5 @@
 """Is channel Hermiticity-preserving."""
-from typing import Union
-
+from __future__ import annotations
 import numpy as np
 
 from toqito.channel_ops import kraus_to_choi
@@ -8,7 +7,7 @@ from toqito.matrix_props import is_hermitian
 
 
 def is_herm_preserving(
-    phi: Union[np.ndarray, list[list[np.ndarray]]],
+    phi: np.ndarray | list[list[np.ndarray]],
     rtol: float = 1e-05,
     atol: float = 1e-08,
 ) -> bool:

@@ -1,6 +1,6 @@
 """Two-player extended nonlocal game."""
+from __future__ import annotations
 from collections import defaultdict
-from typing import Union
 
 import cvxpy
 import numpy as np
@@ -431,7 +431,7 @@ class ExtendedNonlocalGame:
         lower_bound = problem.solve()
         return bob_povms, lower_bound
 
-    def commuting_measurement_value_upper_bound(self, k: Union[int, str] = 1) -> float:
+    def commuting_measurement_value_upper_bound(self, k: int | str = 1) -> float:
         """
         Compute an upper bound on the commuting measurement value of an extended nonlocal game.
 
