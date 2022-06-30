@@ -21,7 +21,7 @@ exclude = '''
 
 [tool.poetry]
 name = "toqito"
-version = "1.0.1"
+version = "1.0.2"
 description = "Python tools for the study of quantum information."
 authors = [
     "Vincent Russo <vincentrusso1@gmail.com>"

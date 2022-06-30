@@ -9,8 +9,8 @@ from .state_helper import __is_states_valid, __is_probs_valid
 def ppt_distinguishability(
     states: list[np.ndarray],
     probs: list[float] = None,
-    dist_method="min-error",
-    strategy=False,
+    dist_method: str = "min-error",
+    strategy: bool = False,
 ) -> float:
     r"""
     Compute probability of optimally distinguishing a state via PPT measurements [COS13]_.
@@ -98,6 +98,7 @@ def ppt_distinguishability(
         https://arxiv.org/abs/1107.3224
 
     :param states: A list of states provided as either matrices or vectors.
+    :param dist_method: The method of distinguishing states.
     :param probs: Respective list of probabilities each state is selected.
     :param dist_method: Method of distinguishing to use.
     :param strategy: Returns strategy if :code:`True` and does not otherwise.

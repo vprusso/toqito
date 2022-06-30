@@ -74,6 +74,7 @@ class NonlocalGame:
         """
         Construct nonlocal game object from a binary constraint system game.
 
+        :raises ValueError: At least one constraint needs to be supplied.
         :param constraints: A list of m matrices corresponding to the `m`
                             constraints in the BCS game. Each constraint matrix is
                             an `n`-dimensional matrix of shape `2 x 2 x ... x 2`.

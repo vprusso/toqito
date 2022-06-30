@@ -276,3 +276,7 @@
   from `typing`.
 
 - Enhancement: Linting and stylistic improvements.
+
+## 1.0.3
+
+-

@@ -108,4 +108,4 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
             "the entanglement-of-formation for two-qubit states and pure "
             "states."
         )
-    raise ValueError("Invalid dimension: `rho` must be either a vector or " "square matrix.")
+    raise ValueError("Invalid dimension: `rho` must be either a vector or square matrix.")

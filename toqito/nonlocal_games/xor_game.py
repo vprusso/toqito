@@ -132,6 +132,8 @@ class XORGame:
         """
         Construct XOR game object.
 
+        :raises ValueError: If dimension of probability matrix is not equal to
+                            dimension of predicate matrix.
         :param prob_mat: A matrix whose (q_0, q_1)-entry gives the probability that
                      the referee will give Alice the value `q_0` and Bob the
                      value `q_1`.
@@ -241,6 +243,7 @@ class XORGame:
         """
         Compute the classical value of the XOR game.
 
+        :raises ValueError: Does not support parallel repetitions.
         :return: A value between [0, 1] representing the classical value.
         """
         if self.reps == 1:

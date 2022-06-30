@@ -47,6 +47,7 @@ def pure_to_mixed(phi: np.ndarray) -> np.ndarray:
      [0. , 0. , 0. , 0. ],
      [0.5, 0. , 0. , 0.5]])
 
+    :raises ValueError: If matrix is not square.
     :param phi: A density matrix or a pure state vector.
     :return: density matrix representation of :code:`phi`, regardless of whether :code:`phi` is
              itself already a density matrix or if if is a pure state vector.
@@ -62,4 +63,4 @@ def pure_to_mixed(phi: np.ndarray) -> np.ndarray:
     if row_dim == col_dim:
         return phi
     # It's neither.
-    raise ValueError("InvalidDim: `phi` must be either a vector or square " "matrix.")
+    raise ValueError("InvalidDim: `phi` must be either a vector or square matrix.")

@@ -52,6 +52,8 @@ def schmidt_decomposition(
     ==========
     .. [WikSD] Wikipedia: Schmidt decomposition
         https://en.wikipedia.org/wiki/Schmidt_decomposition
+
+    :raises ValueError: If matrices are not of equal dimension.
     :param rho: A bipartite quantum state to compute the Schmidt decomposition of.
     :param dim: An array consisting of the dimensions of the subsystems (default gives subsystems
                 equal dimensions).
@@ -120,8 +122,10 @@ def _operator_schmidt_decomposition(
     Given an input `rho` provided as a matrix, determine its corresponding
     Schmidt decomposition.
 
+    :raises ValueError: If matrices are not of equal dimension..
     :param rho: The matrix.
     :param dim: The dimension of the matrix
+    :param k_param: The number of Schmidt coefficients to compute.
     :return: The Schmidt decomposition of the :code:`rho` input.
     """
     eps = np.finfo(float).eps
