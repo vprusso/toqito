@@ -213,14 +213,28 @@ PPT criterion.
 As we can see, the PPT criterion is :code:`False` for an entangled state in
 :math:`2 \otimes 2`.
 
+Determining whether a quantum state is separable or entangled is often useful
+but is, unfortunately, NP-hard. For a given density matrix represented by a
+quantum state, we can use :code:`toqito` to run a number of separability tests
+from the literature to determine if it is separable or entangled. 
+
+For instance, the following bound-entangled tile state is found to be entangled
+(i.e. not separable).
+
+.. code-block:: python
+
+    >>> import numpy as np
+    >>> from toqtio.state_props import is_separable
+    >>> from toqito.states import tile
+    >>> rho = np.identity(9)
+    >>> for i in range(5):
+    >>>    rho = rho - tile(i) * tile(i).conj().T
+    >>> rho = rho / 4
+    >>> is_separable(rho)
+    False
+
 Further properties that one can check via :code:`toqito` may be found `on this page
 <https://toqito.readthedocs.io/en/latest/states.html#properties-of-quantum-states>`_.
-
-
-Operations on Quantum States
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-(Coming soon).
 
 Distance Metrics for Quantum States
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -280,15 +294,146 @@ such that :math:`\Phi` is completely positive and trace preserving.
 
 Quantum Channels
 ^^^^^^^^^^^^^^^^
-(Coming soon).
 
-Properties of Quantum Channels
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-(Coming soon).
+The partial trace operation is an often used in various applications of quantum
+information. The partial trace is defined as
 
-Operations on Quantum Channels
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-(Coming soon).
+    .. math::
+        \left( \text{Tr} \otimes \mathbb{I}_{\mathcal{Y}} \right)
+        \left(X \otimes Y \right) = \text{Tr}(X)Y
+
+where :math:`X \in \text{L}(\mathcal{X})` and :math:`Y \in
+\text{L}(\mathcal{Y})` are linear operators over complex Euclidean spaces
+:math:`\mathcal{X}` and :math:`\mathcal{Y}`.
+
+Consider the following matrix
+
+.. math::
+    X = \begin{pmatrix}
+            1 & 2 & 3 & 4 \\
+            5 & 6 & 7 & 8 \\
+            9 & 10 & 11 & 12 \\
+            13 & 14 & 15 & 16
+        \end{pmatrix}.
+
+Taking the partial trace over the second subsystem of :math:`X` yields the following matrix
+
+.. math::
+    X_{pt, 2} = \begin{pmatrix}
+                7 & 11 \\
+                23 & 27
+                \end{pmatrix}
+
+By default, the partial trace function in :code:`toqito` takes the trace of the second
+subsystem.
+
+.. code-block:: python
+
+    >>> from toqito.channels import partial_trace
+    >>> import numpy as np
+    >>> test_input_mat = np.array(
+    >>>     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
+    >>> )
+    >>> partial_trace(test_input_mat)
+    [[ 7, 11],
+     [23, 27]]
+
+By specifying the :code:`sys = 1` argument, we can perform the partial trace over the first
+subsystem (instead of the default second subsystem as done above). Performing the partial
+trace over the first subsystem yields the following matrix
+
+.. math::
+    X_{pt, 1} = \begin{pmatrix}
+                    12 & 14 \\
+                    20 & 22
+                \end{pmatrix}
+
+.. code-block:: python
+
+    >>> from toqito.channels import partial_trace
+    >>> import numpy as np
+    >>> test_input_mat = np.array(
+    >>>     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
+    >>> )
+    >>> partial_trace(test_input_mat, 1)
+    [[12, 14],
+     [20, 22]]
+
+Another often useful channel is the *partial transpose*. The *partial transpose*
+is defined as
+
+    .. math::
+        \left( \text{T} \otimes \mathbb{I}_{\mathcal{Y}} \right)
+        \left(X\right)
+
+where :math:`X \in \text{L}(\mathcal{X})` is a linear operator over the complex
+Euclidean space :math:`\mathcal{X}` and where :math:`\text{T}` is the transpose
+mapping :math:`\text{T} \in \text{T}(\mathcal{X})` defined as
+
+.. math::
+    \text{T}(X) = X^{\text{T}}
+
+for all :math:`X \in \text{L}(\mathcal{X})`.
+
+Consider the following matrix
+
+.. math::
+    X = \begin{pmatrix}
+            1 & 2 & 3 & 4 \\
+            5 & 6 & 7 & 8 \\
+            9 & 10 & 11 & 12 \\
+            13 & 14 & 15 & 16
+        \end{pmatrix}.
+
+Performing the partial transpose on the matrix :math:`X` over the second
+subsystem yields the following matrix
+
+.. math::
+    X_{pt, 2} = \begin{pmatrix}
+                1 & 5 & 3 & 7 \\
+                2 & 6 & 4 & 8 \\
+                9 & 13 & 11 & 15 \\
+                10 & 14 & 12 & 16
+                \end{pmatrix}.
+
+By default, in :code:`toqito`, the partial transpose function performs the transposition on
+the second subsystem as follows.
+
+.. code-block:: python
+
+    >>> from toqito.channels import partial_transpose
+    >>> import numpy as np
+    >>> test_input_mat = np.arange(1, 17).reshape(4, 4)
+    >>> partial_transpose(test_input_mat)
+    [[ 1  5  3  7]
+     [ 2  6  4  8]
+     [ 9 13 11 15]
+     [10 14 12 16]]
+
+By specifying the :code:`sys = 1` argument, we can perform the partial transpose over the
+first subsystem (instead of the default second subsystem as done above). Performing the
+partial transpose over the first subsystem yields the following matrix
+
+.. math::
+    X_{pt, 1} = \begin{pmatrix}
+                    1 & 2 & 9 & 10 \\
+                    5 & 6 & 13 & 14 \\
+                    3 & 4 & 11 & 12 \\
+                    7 & 8 & 15 & 16
+                \end{pmatrix}.
+  
+.. code-block:: python
+
+    >>> from toqito.channels import partial_transpose
+    >>> import numpy as np
+    >>> test_input_mat = np.array(
+    >>>     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
+    >>> )
+    >>> partial_transpose(test_input_mat, 1)
+    [[ 1  2  9 10]
+     [ 5  6 13 14]
+     [ 3  4 11 12]
+     [ 7  8 15 16]]
 
 Measurements
 ------------

@@ -21,7 +21,7 @@ exclude = '''
 
 [tool.poetry]
 name = "toqito"
-version = "1.0.2"
+version = "1.0.4"
 description = "Python tools for the study of quantum information."
 authors = [
     "Vincent Russo <vincentrusso1@gmail.com>"
@@ -36,14 +36,16 @@ keywords = ["quantum information", "quantum computing", "nonlocal games"]
 
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = ">=3.9,<3.11"
 cvxpy = "^1.2.1"
-numpy = "*"
-scipy = "*"
-scs = "^2.1.2"
+cvxopt = "^1.2.5"
+numpy = "^1.19.4"
+scipy = "^1.8.0"
+#scs = "^2.1.2"
+picos = "^2.0.30"
 
 [tool.poetry.dev-dependencies]
-black = "^20.8b1"
+black = "^21.10b0"
 distlib = "^0.3.4"
 flake8 = "^3.7"
 flake8-docstrings = "^1.5"

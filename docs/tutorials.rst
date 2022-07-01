@@ -3,6 +3,14 @@ Tutorials
 
 Tutorials for :code:`toqito`.
 
+Introductory Tutorial
+--------------------------
+
+.. toctree::
+   :maxdepth: 5
+
+   tutorials.intro_tutorial
+
 Nonlocal Games
 --------------------------
 
@@ -42,11 +50,3 @@ Quantum State Exclusion
    :maxdepth: 5
 
    tutorials.state_exclusion
-
-Quantum Communication
------------------------------------------------------
-
-.. toctree::
-   :maxdepth: 5
-
-   tutorials.superdense_coding

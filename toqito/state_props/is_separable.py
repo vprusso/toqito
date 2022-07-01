@@ -171,3 +171,4 @@ def is_separable(
     for _ in range(2, level):
         if has_symmetric_extension(state, level):
             return True
+    return False

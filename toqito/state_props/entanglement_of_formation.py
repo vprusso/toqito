@@ -50,6 +50,7 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
     .. [WikEOF] Quantiki: Entanglement-of-formation
         https://www.quantiki.org/wiki/entanglement-formation
 
+    :raises ValueError: If matrices have improper dimension.
     :param rho: A matrix or vector.
     :param dim: The default has both subsystems of equal dimension.
     :return: A value between 0 and 1 that corresponds to the

@@ -279,4 +279,7 @@
 
 ## 1.0.3
 
--
+- Version bump to fix Python package versioning issue.
+## 1.0.4
+
+- Version bump to fix Python package versioning issue.
