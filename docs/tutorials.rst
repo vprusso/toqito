@@ -9,7 +9,7 @@ Introductory Tutorial
 .. toctree::
    :maxdepth: 5
 
-   tutorials.intro_tutorial
+   intro_tutorial
 
 Nonlocal Games
 --------------------------

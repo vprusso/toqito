@@ -57,7 +57,14 @@ def is_positive_definite(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-
     :param atol: The absolute tolerance parameter (default 1e-08).
     :return: Return :code:`True` if matrix is positive definite, and :code:`False` otherwise.
     """
-    if not is_hermitian(mat, rtol=rtol, atol=atol):
+    if np.array_equal(mat, mat.conj().T):
+        try:
+            # Cholesky decomp requires that the matrix in question is
+            # positive-definite. It will throw an error if this is not the case
+            # that we catch here.
+            np.linalg.cholesky(mat)
+            return True
+        except np.linalg.LinAlgError:
+            return False
+    else:
         return False
-    evals, _ = np.linalg.eigh(mat)
-    return all(x > -abs(atol) for x in evals)
