@@ -3,105 +3,28 @@ import numpy as np
 
 def inner_product(v1: np.ndarray, v2: np.ndarray) -> float:
     r"""
-    Compute the inner product of two vectors [WikInner]_.
+    Compute the inner product :math:`\langle v_1,v_2\rangle`, often also written as :math:`\langle v_1|v_2\rangle` of two vectors [WikTensor]_.
 
-    Tensor two matrices or vectors together using the standard Kronecker
-    operation provided from numpy.
-
-    Given two matrices :math:`A` and :math:`B`, computes :math:`A \otimes B`.
-    The same concept also applies to two vectors :math:`v` and :math:`w` which
-    computes :math:`v \otimes w`.
-
-    One may also compute the tensor product one matrix `n` times with itself.
-
-    For a matrix, :math:`A` and an integer :math:`n`, the result of this
-    function computes :math:`A^{\otimes n}`.
-
-    Similarly for a vector :math:`v` and an integer :math:`n`, the result of
-    of this function computes :math:`v^{\otimes n}`.
-
-    One may also perform the tensor product on a list of matrices.
-
-    Given a list of :math:`n` matrices :math:`A_1, A_2, \ldots, A_n` the result
-    of this function computes
+    The inner product is calculated as follows:
 
     .. math::
-        A_1 \otimes A_2 \otimes \cdots \otimes A_n.
+        \left\langle \begin{pmatrix}a_1 \\ \vdots \\ a_n\end{pmatrix},\begin{pmatrix}b_1 \\ \vdots \\ b_n\end{pmatrix}\right\rangle = \begin{pmatrix} a_1,\cdots, a_n\end{pmatrix}\begin{pmatrix}b_1 \\ \vdots \\ b_n\end{pmatrix} = a_1 b_1 + \cdots + a_n b_n
 
-    Similarly, for a list of :math:`n` vectors :math:`v_1, v_2, \ldots, v_n`,
-    the result of this function computes
-
-    .. math::
-        v_1 \otimes v_2 \otimes \cdots \otimes v_n.
-
-    Examples
+    Example
     ==========
 
-    Tensor product two matrices or vectors
-
-    Consider the following ket vector
+    The inner product of the vectors :math:`v1 = \begin{pmatrix}1 \\ 2 \\ 3 \end{pmatrix}` and :math:`v2 = \begin{pmatrix}4 \\ 5 \\ 6 \ \end{pmatrix}` looks as follows:
 
     .. math::
-        e_0 = \left[1, 0 \right]^{\text{T}}.
+        \left\langle \begin{pmatrix}1 \\ 2 \\ 3\end{pmatrix},\begin{pmatrix}4 \\ 5 \\ 6\end{pmatrix}\right\rangle = \begin{pmatrix} 1,2, 3\end{pmatrix}\begin{pmatrix}4 \\ 5 \\ 6\end{pmatrix} = 1\times 4 + 2\times 5 + 3\times 6 = 32
 
-    Computing the following tensor product
+    In :code:`toqito`, this looks like this:
 
-    .. math:
-        e_0 \otimes e_0 = \[1, 0, 0, 0 \]^{\text{T}}.
-
-    This can be accomplished in :code:`toqito` as follows.
-
-    >>> from toqito.states import basis
+    >>> import numpy as np
     >>> from toqito.matrix_ops import tensor
-    >>> e_0 = basis(2, 0)
-    >>> tensor(e_0, e_0)
-    [[1],
-     [0],
-     [0],
-     [0]]
-
-    Tensor product one matrix :math:`n` times with itself.
-
-    We may also tensor some element with itself some integer number of times.
-    For instance we can compute
-
-    .. math::
-        e_0^{\otimes 3} = \left[1, 0, 0, 0, 0, 0, 0, 0 \right]^{\text{T}}
-
-    in :code:`toqito` as follows.
-
-    >>> from toqito.states import basis
-    >>> from toqito.matrix_ops import tensor
-    >>> e_0 = basis(2, 0)
-    >>> tensor(e_0, 3)
-    [[1],
-     [0],
-     [0],
-     [0],
-     [0],
-     [0],
-     [0],
-     [0]]
-
-    Perform the tensor product on a list of vectors or matrices.
-
-    If we wish to compute the tensor product against more than two matrices or
-    vectors, we can feed them in as a `list`. For instance, if we wish to
-    compute :math:`e_0 \otimes e_1 \otimes e_0`, we can do
-    so as follows.
-
-    >>> from toqito.states import basis
-    >>> from toqito.matrix_ops import tensor
-    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
-    >>> tensor([e_0, e_1, e_0])
-    [[0],
-     [0],
-     [1],
-     [0],
-     [0],
-     [0],
-     [0],
-     [0]]
+    >>> v1, v2 = np.array([1,2,3]), np.array([4,5,6])
+    >>> inner_product(v1,v2)
+    32
 
     References
     ==========
@@ -114,11 +37,11 @@ def inner_product(v1: np.ndarray, v2: np.ndarray) -> float:
     """
 
     # Check for dimensional validity
-    if not (v1.shape[0] == v2.shape[0] and v1.shape[0] > 1 and v1.shape[1] == v2.shape[1] == 1):
+    if not (v1.shape[0] == v2.shape[0] and v1.shape[0] > 1 and len(v1.shape) == 1):
         raise ValueError("Dimension mismatch")
     
     res = 0
     for i in range(v1.shape[0]):
-        res += v1[i,0] * v2[i,0]
+        res += v1[i] * v2[i]
     
     return res
