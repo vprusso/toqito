@@ -1,6 +1,8 @@
 """Outer product operation"""
 import numpy as np
-r"""
+
+def outer_product(v1: np.ndarray, v2: np.ndarray) -> np.ndarray:
+    r"""
     Compute the outer product :math:`|v_1\rangle\langle v_2|` of two vectors.
 
     The outer product is calculated as follows:
@@ -34,8 +36,6 @@ r"""
     :param args: v1 and v2, both vectors of dimensions :math:`(n,1)` where :math:`n>1`.
     :return: The computed outer product.
 """
-def outer_product(v1: np.ndarray, v2: np.ndarray) -> np.ndarray:
-    
     # Check for dimensional validity
     if not (v1.shape[0] == v2.shape[0] and v1.shape[0] > 1 and len(v1.shape) == 1):
         raise ValueError("Dimension mismatch")
