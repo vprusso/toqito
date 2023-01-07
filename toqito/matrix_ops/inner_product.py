@@ -3,7 +3,7 @@ import numpy as np
 
 def inner_product(v1: np.ndarray, v2: np.ndarray) -> float:
     r"""
-    Compute the inner product :math:`\langle v_1,v_2\rangle`, often also written as :math:`\langle v_1|v_2\rangle` of two vectors [WikTensor]_.
+    Compute the inner product :math:`\langle v_1|v_2\rangle` of two vectors [WikInner]_.
 
     The inner product is calculated as follows:
 
@@ -21,7 +21,7 @@ def inner_product(v1: np.ndarray, v2: np.ndarray) -> float:
     In :code:`toqito`, this looks like this:
 
     >>> import numpy as np
-    >>> from toqito.matrix_ops import tensor
+    >>> from toqito.matrix_ops import inner_product
     >>> v1, v2 = np.array([1,2,3]), np.array([4,5,6])
     >>> inner_product(v1,v2)
     32
@@ -31,8 +31,8 @@ def inner_product(v1: np.ndarray, v2: np.ndarray) -> float:
     .. [WikInner] Wikipedia: Inner product space
         https://en.wikipedia.org/wiki/Inner_product_space
 
-    :raises ValueError: Vector dimenstions are mismatched.
-    :param args: v1 and v2, both vectors of dimenstions :math:`(n,1)` where n>1.
+    :raises ValueError: Vector dimensions are mismatched.
+    :param args: v1 and v2, both vectors of dimenstions :math:`(n,1)` where :math:`n>1`.
     :return: The computed inner product.
     """
 
