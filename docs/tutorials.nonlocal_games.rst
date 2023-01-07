@@ -420,7 +420,18 @@ value in general.
 
 Parallel repetitions of nonlocal games
 --------------------------------------
-(Coming soon).
+
+
+
+For classical strategies, it is known that parallel repetition does *not* hold
+for the CHSH game, that is:
+
+.. math::
+    \begin{equation}
+        w_c(CHSH \land CHSH) = 10/16 > 9/16 = w_c(CHSH) w_c(CHSH).
+    \end{equation}
+
+
 
 References
 ------------------------------
