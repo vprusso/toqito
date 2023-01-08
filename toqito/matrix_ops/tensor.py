@@ -13,7 +13,7 @@ def tensor(*args) -> np.ndarray:
     The same concept also applies to two vectors :math:`v` and :math:`w` which
     computes :math:`v \otimes w`.
 
-    One may also compute the tensor product one matrix `n` times with itself.
+    One may also compute the tensor product one matrix :math:`n` times with itself.
 
     For a matrix, :math:`A` and an integer :math:`n`, the result of this
     function computes :math:`A^{\otimes n}`.
