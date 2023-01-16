@@ -16,7 +16,7 @@ def test_outer_product_negative():
     """Test with two vectors, with negative input/output values."""
 
     v1, v2 = np.array([-1,2,3]), np.array([4,5,6])
-    expected_res = np.array([[-4,5,6],[-8,10,12],[-12,15,18]])
+    expected_res = np.array([[-4,-5,-6],[8,10,12],[12,15,18]])
     np.testing.assert_equal(outer_product(v1, v2), expected_res)
 
 
