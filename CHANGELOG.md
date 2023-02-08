@@ -283,3 +283,9 @@
 ## 1.0.4
 
 - Version bump to fix Python package versioning issue.
+
+- Adding `outer_product` and `inner_product` functions in `matrix_ops` (thanks
+  to @juliusw352)
+
+- Fixing random number generation in `random_density_matrix` function to be
+  obtained from Haar measure (thanks to @BCasale)

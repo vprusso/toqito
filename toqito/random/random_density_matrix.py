@@ -92,7 +92,7 @@ def random_density_matrix(
     gin = np.random.rand(dim, k_param)
 
     if not is_real:
-        gin = gin + 1j * np.random.rand(dim, k_param)
+        gin = gin + 1j * np.random.randn(dim, k_param)
 
     if distance_metric == "bures":
         gin = random_unitary(dim, is_real) + np.identity(dim) @ gin
