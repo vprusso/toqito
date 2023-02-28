@@ -294,7 +294,7 @@ class XORGame:
         """
         Given an XOR game, this function returns a predicate matrix representing the more generic :code:`nonlocal_game` equivalent.
 
-        :return: A four-dimensional predicate matrix compatible with the :code:`nonlocal_game` class.
+        :return: A four-dimensional predicate matrix compatible with the :code:`NonlocalGame` class.
         """
         q_0, q_1 = self.prob_mat.shape
         pred_mat = self.pred_mat
