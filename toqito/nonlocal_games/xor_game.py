@@ -290,3 +290,15 @@ class XORGame:
             "multiple repetitions for the classical value of "
             "a nonlocal game."
         )
+    def to_nonlocal_game(self) -> np.ndarray:
+        q_0, q_1 = self.prob_mat.shape
+        pred_mat = self.pred_mat
+        result = np.ndarray((2,2,q_0,q_1))
+
+        for a in range(2):
+            for b in range(2):
+                for x in range(q_0):
+                    for y in range(q_1):
+                        result[a,b,x,y] = pred_mat[x,y] == a ^ b
+
+        return result
