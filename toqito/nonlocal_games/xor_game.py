@@ -297,9 +297,9 @@ class XORGame:
                 pred_mat = self.pred_mat
                 xor_pred_mat = np.ndarray((2, 2, q_0, q_1))
         
-        Given an XOR game, this function returns a predicate matrix representing the more generic :code:`nonlocal_game` equivalent.
+        Given an XOR game, this function computes a predicate matrix representing the more generic :code:`NonlocalGame` equivalent.
 
-        :return: A four-dimensional predicate matrix compatible with the :code:`NonlocalGame` class.
+        :return: A :code:`NonlocalGame` object equivalent to the XOR game.
         """
         q_0, q_1 = self.prob_mat.shape
         xor_pred_mat = self.pred_mat
