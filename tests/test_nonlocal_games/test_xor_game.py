@@ -3,6 +3,7 @@ import unittest
 import numpy as np
 
 from toqito.nonlocal_games.xor_game import XORGame
+from toqito.nonlocal_games.nonlocal_game import NonlocalGame
 
 
 class TestXORGame(unittest.TestCase):
@@ -167,6 +168,16 @@ class TestXORGame(unittest.TestCase):
 
             game = XORGame(prob_mat, pred_mat)
             game.quantum_value()
+
+    def test_to_nonlocal_game(self):
+        prob = 1/4 * np.ones((2,2))
+        pred = np.array([[0,0],[0,1]])
+
+        xor_chsh = XORGame(pred, prob, reps=1)
+        nlg_chsh = xor_chsh.to_nonlocal_game()
+
+
+        np.testing.assert_equal(xor_chsh.classical_value(), nlg_chsh.classical_value())
 
 
 if __name__ == "__main__":
