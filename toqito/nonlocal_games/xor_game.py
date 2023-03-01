@@ -2,6 +2,8 @@
 import cvxpy
 import numpy as np
 
+from toqito.nonlocal_games.nonlocal_game import NonlocalGame
+
 
 class XORGame:
     r"""
@@ -292,18 +294,21 @@ class XORGame:
         )
     def to_nonlocal_game(self) -> np.ndarray:
         """
+                pred_mat = self.pred_mat
+                xor_pred_mat = np.ndarray((2, 2, q_0, q_1))
+        
         Given an XOR game, this function returns a predicate matrix representing the more generic :code:`nonlocal_game` equivalent.
 
         :return: A four-dimensional predicate matrix compatible with the :code:`NonlocalGame` class.
         """
         q_0, q_1 = self.prob_mat.shape
-        pred_mat = self.pred_mat
-        result = np.ndarray((2,2,q_0,q_1))
+        xor_pred_mat = self.pred_mat
+        nlg_pred_mat = np.ndarray((2,2,q_0,q_1))
 
         for a in range(2):
             for b in range(2):
                 for x in range(q_0):
                     for y in range(q_1):
-                        result[a,b,x,y] = pred_mat[x,y] == a ^ b
+                        nlg_pred_mat[a,b,x,y] = xor_pred_mat[x,y] == a ^ b
 
-        return result
+        return NonlocalGame(self.prob_mat, nlg_pred_mat, reps=self.reps)

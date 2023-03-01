@@ -170,16 +170,14 @@ class TestXORGame(unittest.TestCase):
             game.quantum_value()
 
     def test_to_nonlocal_game(self):
-        prob = np.array([[0.25,0.25],[0.25,0.25]])
+        prob = 1/4 * np.ones((2,2))
         pred = np.array([[0,0],[0,1]])
 
-        specific_game = XORGame(pred, prob, 1)
-
-        generic_pred = specific_game.to_nonlocal_game()
-        generic_game = NonlocalGame(prob, generic_pred, 1)
+        xor_chsh = XORGame(pred, prob, reps=1)
+        nlg_chsh = xor_chsh.to_nonlocal_game()
 
 
-        np.testing.assert_equal(specific_game.classical_value(), generic_game.classical_value())
+        np.testing.assert_equal(xor_chsh.classical_value(), nlg_chsh.classical_value())
 
 
 if __name__ == "__main__":
