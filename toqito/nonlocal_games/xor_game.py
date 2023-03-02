@@ -302,7 +302,7 @@ class XORGame:
 		nlg = self.to_nonlocal_game()
 		return nlg.nonsignaling_value()
 	
-	def to_nonlocal_game(self) -> np.ndarray:
+	def to_nonlocal_game(self) -> NonlocalGame:
 		"""
 		Given an XOR game, compute a predicate matrix representing the more generic :code:`NonlocalGame` equivalent.
 
