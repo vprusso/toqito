@@ -304,7 +304,7 @@ class XORGame:
 	
 	def to_nonlocal_game(self) -> np.ndarray:
 		"""
-		Given an XOR game, this function computes a predicate matrix representing the more generic :code:`NonlocalGame` equivalent.
+		Given an XOR game, compute a predicate matrix representing the more generic :code:`NonlocalGame` equivalent.
 
 		:return: A :code:`NonlocalGame` object equivalent to the XOR game.
 		"""
