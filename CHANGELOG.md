@@ -280,6 +280,7 @@
 ## 1.0.3
 
 - Version bump to fix Python package versioning issue.
+
 ## 1.0.4
 
 - Version bump to fix Python package versioning issue.
@@ -289,3 +290,9 @@
 
 - Fixing random number generation in `random_density_matrix` function to be
   obtained from Haar measure (thanks to @BCasale)
+
+- Adding `to_nonlocal_game` function in `XORGame` that converts an XOR game
+  definition to a `NonlocalGame` object (thanks to @juliusw352)
+
+- Adding `nonsignaling` function in `XORGame` that calculates the nonsignaling
+  value of an `XORGame` object (thanks to @juliusw352)

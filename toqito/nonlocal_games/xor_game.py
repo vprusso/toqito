@@ -295,12 +295,11 @@ class XORGame:
 	
 	def nonsignaling_value(self) -> float:
 		"""
-		Compute the nonsignaling value of an XOR game by first creating a more generic :code:`NonlocalGame` object and calling its :code:`nonsignaling_value` function.
+		Compute the nonsignaling value of an XOR game by calling the exising function in the :code:`NonlocalGame` class.
 		
 		:return: A value between [0, 1] representing the nonsignaling value.
 		"""
-		nlg = self.to_nonlocal_game()
-		return nlg.nonsignaling_value()
+		return self.to_nonlocal_game().nonsignaling_value()
 	
 	def to_nonlocal_game(self) -> NonlocalGame:
 		"""
@@ -310,12 +309,12 @@ class XORGame:
 		"""
 		q_0, q_1 = self.prob_mat.shape
 		xor_pred_mat = self.pred_mat
-		nlg_pred_mat = np.ndarray((2,2,q_0,q_1))
+		nlg_pred_mat = np.ndarray((2, 2, q_0, q_1))
 
 		for a in range(2):
 			for b in range(2):
 				for x in range(q_0):
 					for y in range(q_1):
-						nlg_pred_mat[a,b,x,y] = xor_pred_mat[x,y] == a ^ b
+						nlg_pred_mat[a, b, x, y] = xor_pred_mat[x, y] == a ^ b
 
 		return NonlocalGame(self.prob_mat, nlg_pred_mat, reps=self.reps)

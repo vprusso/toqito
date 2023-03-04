@@ -171,34 +171,29 @@ class TestXORGame(unittest.TestCase):
 
 	def test_chsh_game_nonsignaling_value(self):
 		"""Non-signaling value for the CHSH game."""
-		prob_mat = 1/4 * np.ones((2,2))
-		pred_mat = np.array([[0,0],[0,1]])
+		prob_mat = 1/4 * np.ones((2, 2))
+		pred_mat = np.array([[0, 0], [0, 1]])
 
 		chsh = XORGame(prob_mat, pred_mat)
-		res = chsh.nonsignaling_value()
-		expected_res = 1
-		self.assertEqual(np.isclose(res, expected_res, atol=0.5), True)
+		self.assertEqual(np.isclose(chsh.nonsignaling_value(), 1), True)
 
 	def test_chsh_game_nonsignaling_value_rep_2(self):
 		"""Non-signaling value for the CHSH game for 2 reps."""
-		prob_mat = 1/4 * np.ones((2,2))
-		pred_mat = np.array([[0,0],[0,1]])
+		prob_mat = 1/4 * np.ones((2, 2))
+		pred_mat = np.array([[0, 0], [0, 1]])
 
-		chsh = XORGame(prob_mat, pred_mat, 2)
-		res = chsh.nonsignaling_value()
-		expected_res = 1
-		self.assertEqual(np.isclose(res, expected_res, atol=0.5), True)
+		chsh_2_rep = XORGame(prob_mat, pred_mat, reps=2)
+		self.assertEqual(np.isclose(chsh_2_rep.nonsignaling_value(), 1), True)
 
 	def test_to_nonlocal_game(self):
 		"""XOR game to nonlocal game conversion."""
-		prob = 1/4 * np.ones((2,2))
-		pred = np.array([[0,0],[0,1]])
+		prob = 1/4 * np.ones((2, 2))
+		pred = np.array([[0, 0], [0, 1]])
 
 		xor_chsh = XORGame(pred, prob, reps=1)
 		nlg_chsh = xor_chsh.to_nonlocal_game()
 
-
-		np.testing.assert_equal(xor_chsh.classical_value(), nlg_chsh.classical_value())
+		self.assertEqual(xor_chsh.classical_value(), nlg_chsh.classical_value())
 
 
 if __name__ == "__main__":
