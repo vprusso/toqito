@@ -296,3 +296,5 @@
 
 - Adding `nonsignaling` function in `XORGame` that calculates the nonsignaling
   value of an `XORGame` object (thanks to @juliusw352)
+
+## 1.0.5
