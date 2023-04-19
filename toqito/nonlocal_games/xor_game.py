@@ -245,53 +245,10 @@ class XORGame:
 		"""
 		Compute the classical value of the XOR game.
 
-		:raises ValueError: Does not support parallel repetitions.
 		:return: A value between [0, 1] representing the classical value.
 		"""
-		if self.reps == 1:
-			q_0, q_1 = self.prob_mat.shape
 
-			# At worst, out winning probability is 0. Now, try to improve.
-			val = 0
-
-			# Find the maximum probability of winning (this is NP-hard, so don't
-			# expect an easy way to do it: just loop over all strategies.
-
-			# Loop over Alice's answers
-			for a_ans in range(2**q_0):
-				# Loop over Bob's answers:
-				for b_ans in range(2**q_1):
-					a_vec = (a_ans >> np.arange(q_0)) & 1
-					b_vec = (b_ans >> np.arange(q_1)) & 1
-
-					# Now compute the winning probability under this strategy:
-					# XOR together Alice's responses and Bob's responses, then
-					# check where the XORed value equals the value in the given
-					# matrix. Where the values match, multiply by the
-					# probability of getting that pair of questions (i.e.,
-					# multiply by the probability of getting that pair of
-					# questions (i.e., multiply entry-wise by P) and then sum
-					# over the rows and columns.
-					classical_strategy = np.mod(
-						np.multiply(a_vec.conj().T.reshape(-1, 1), np.ones((1, q_1)))
-						+ np.multiply(np.ones((q_0, 1)), b_vec),
-						2,
-					)
-					p_win = np.sum(
-						np.sum(np.multiply(classical_strategy == self.pred_mat, self.prob_mat))
-					)
-					# Is this strategy better than other ones tried so far?
-					val = max(val, p_win)
-
-					# Already optimal? Quit.
-					if val >= 1 - self.tol:
-						return val
-			return val
-		raise ValueError(
-			"Error: toqito currently does not support "
-			"multiple repetitions for the classical value of "
-			"a nonlocal game."
-		)
+		return self.to_nonlocal_game().classical_value()
 	
 	def nonsignaling_value(self) -> float:
 		"""

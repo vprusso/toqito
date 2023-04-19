@@ -126,12 +126,12 @@ class TestXORGame(unittest.TestCase):
 
 	def test_classical_parallel_rep(self):
 		"""Tests for classical value parallel reps."""
-		with self.assertRaises(ValueError):
-			prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
-			pred_mat = np.array([[0, 0], [0, 1]])
+		prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
+		pred_mat = np.array([[0, 0], [0, 1]])
 
-			game = XORGame(prob_mat, pred_mat, 2)
-			game.classical_value()
+		game = XORGame(prob_mat, pred_mat, 2)
+		res = game.classical_value()
+		self.assertEqual(res, 0.625)
 
 	def test_negative_prob_mat(self):
 		"""Tests for invalid negative probability matrix."""
