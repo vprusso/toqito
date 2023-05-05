@@ -1,0 +1,31 @@
+name: CI
+
+on: [push, pull_request]
+  
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [ "3.7", "3.8", "3.9", "3.10", "3.11" ]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Poetry
+        run: pip install poetry
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+          cache: 'poetry'
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Run pytest with code coverage
+        run: PYTHONPATH=tests/ poetry run python -m pytest -v --cov=toqito
+        continue-on-error: true
+
+      - name: Lint with flake8
+        run: poetry run flake8
+        continue-on-error: true
