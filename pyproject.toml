@@ -34,7 +34,6 @@ homepage = "https://vprusso.github.io/toqito/"
 repository = "https://github.com/vprusso/toqito"
 keywords = ["quantum information", "quantum computing", "nonlocal games"]
 
-
 [tool.poetry.dependencies]
 python = "^3.9"
 cvxpy = "^1.2.1"
@@ -69,3 +68,4 @@ sphinx_rtd_theme = "*"
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
+
