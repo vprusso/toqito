@@ -4,9 +4,11 @@ Getting started
 Installing
 ^^^^^^^^^^
 
-1. Ensure you have Python 3.9 or greater installed on your machine.
+1. Ensure you have Python 3.9 or greater installed on your machine or in 
+a virtual environment (`pyenv <https://github.com/pyenv/pyenv>`_, `pyenv tutorial <https://realpython.com/intro-to-pyenv/>`_). 
 
 2. Consider using a `virtual environment <https://packaging.python.org/guides/installing-using-pip-and-virtualenv/>`_.
+You can also use :code:`pyenv` with :code:`virtualenv` `to manage different Python versions <https://github.com/pyenv/pyenv-virtualenv>`_. 
 
 3. The preferred way to install the :code:`toqito` package is via :code:`pip`.
 
@@ -40,9 +42,12 @@ Python module installed and built for your machine.
 Testing
 ^^^^^^^
 
-The :code:`pytest` module is used for testing. In order to run and :code:`pytest`, you will need to ensure it is
-installed on your machine. Consult the `pytest <https://docs.pytest.org/en/latest/>`_ website for more information. To
-run the suite of tests for :code:`toqito`, run the following command in the root directory of this project:
+The :code:`pytest` module is used for testing and :code:`pytest-cov` is used to generate
+coverage reports. In order to run and :code:`pytest`, you will need to ensure it is
+installed on your machine along with :code:`pytest-cov`. Consult the `pytest <https://docs.pytest.org/en/latest/>`_ 
+and `pytest-cov <https://pytest-cov.readthedocs.io/en/latest/>`_ websites for more
+information. To run the suite of tests for :code:`toqito`, run the following command
+in the root directory of this project:
 
 .. code-block:: bash
 
