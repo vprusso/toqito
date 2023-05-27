@@ -10,6 +10,8 @@ describes how to merge code changes into this `toqito`.
 *    On your local machine,
      [clone](https://help.github.com/articles/cloning-a-repository/) your fork of
      the repository.
+*    To install an editable version on your local machine, run `pip install -e .` in
+     the top-level directory of the cloned repository.
 
 ## Making Changes
 
@@ -26,7 +28,10 @@ describes how to merge code changes into this `toqito`.
      automatically.  Each commit added to the PR will be validated for
      mergability, compilation and test suite compliance; the results of these tests
      will be visible on the PR page.
-*    If you're providing a new feature, you must add test cases and documentation.
+*    If you're providing a new feature, you must add test cases and documentation. We use `sphinx`
+     to build the documentation. To build the documentation locally via `make html` in the
+     `toqito/docs` directory, make sure `sphinx` and `sphinx-rtd-theme` are installed.
+     For more information, visit [sphinx documentation](https://docs.readthedocs.io/en/stable/intro/getting-started-with-sphinx.html) & [sphinx-rtd-theme documentation](https://sphinx-rtd-theme.readthedocs.io/en/stable/installing.html)
 *    When the code is ready to go, make sure you run the test suite using pytest.
 *    When you're ready to be considered for merging, check the "Ready to go"
      box on the PR page to let the `toqito` devs know that the changes are complete.
