@@ -22,6 +22,9 @@ Distance Metrics for Quantum Channels
    :toctree: _autosummary
 
     toqito.channel_metrics.channel_fidelity
+    toqito.channel_metrics.diamond_norm_distance
+    toqito.channel_metrics.completely_bounded_trace_norm
+    toqito.channel_metrics.completely_bounded_spectral_norm
 
 Quantum Channels
 ----------------

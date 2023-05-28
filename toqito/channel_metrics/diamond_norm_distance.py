@@ -3,7 +3,7 @@ import cvxpy
 import numpy as np
 
 
-def diamond_norm(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
+def diamond_norm_distance(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     r"""
     Return the diamond norm distance between two quantum channels.
 
