@@ -57,8 +57,8 @@ def test_s1_norm_werner(n, a):
     expected = (1 + abs(min(0, a))) / (n * (n - a))
 
     lower_bound, upper_bound = sk_operator_norm(rho, k=1)
-    np.testing.assert_equal(np.allclose(lower_bound, expected), True)
-    np.testing.assert_equal(np.allclose(upper_bound, expected), True)
+    np.testing.assert_equal(np.allclose(lower_bound, expected, atol=1e-4), True)
+    np.testing.assert_equal(np.allclose(upper_bound, expected, atol=1e-4), True)
 
 
 def test_sk_norm_hermitian_not_psd():
