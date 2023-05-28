@@ -1,8 +1,10 @@
 """Tests for apply_channel."""
 import numpy as np
+import pytest
 
 from toqito.channel_ops import apply_channel
 from toqito.perms import swap_operator
+from toqito.matrices import pauli
 
 
 def test_apply_channel_choi():
@@ -21,6 +23,21 @@ def test_apply_channel_choi():
     bool_mat = np.isclose(res, expected_res)
     np.testing.assert_equal(np.all(bool_mat), True)
 
+def test_apply_channel_choi_non_square():
+    """
+    The swap operator is the Choi matrix of the transpose map.
+
+    The following test is a (non-ideal, but illustrative) way of computing
+    the transpose of a non square matrix.
+    """
+    test_input_mat = np.array([[0, 1], [2, 3], [4, 5]])
+
+    expected_res = np.array([[0, 2, 4], [1, 3, 5]])
+
+    res = apply_channel(test_input_mat, swap_operator([2, 3]))
+
+    bool_mat = np.isclose(res, expected_res)
+    np.testing.assert_equal(np.all(bool_mat), True)
 
 def test_apply_channel_kraus():
     """
@@ -45,6 +62,25 @@ def test_apply_channel_kraus():
     bool_mat = np.isclose(res, expected_res)
     np.testing.assert_equal(np.all(bool_mat), True)
 
+@pytest.mark.parametrize("nested", [1, 2, 3])
+def test_apply_channel_cpt_kraus(nested):
+    """
+    Apply Kraus map of single qubit depolarizing channel.
+    """
+    test_input_mat = np.array([[1, 0], [0, 0]])
+
+    expected_res = np.array([[0.5, 0], [0, 0.5]])
+
+    kraus = [0.5 * pauli(ind) for ind in range(4)]
+    if nested == 2:
+        kraus = [kraus]
+    elif nested == 3:
+        kraus = [[mat] for mat in kraus]
+
+    res = apply_channel(test_input_mat, kraus)
+
+    bool_mat = np.isclose(res, expected_res)
+    np.testing.assert_equal(np.all(bool_mat), True)
 
 def test_apply_channel_invalid_input():
     """Invalid input for apply map."""
