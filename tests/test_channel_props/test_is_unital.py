@@ -31,9 +31,9 @@ def test_is_unital_swap_operator_choi_true():
     np.testing.assert_equal(is_unital(swap_operator(3)), True)
 
 
-def test_is_unital_depolarizing_choi_false():
-    """Verify Choi matrix of the depolarizing map is not unital."""
-    np.testing.assert_equal(is_unital(depolarizing(4)), False)
+def test_is_unital_depolarizing_choi_true():
+    """Verify Choi matrix of the depolarizing map is unital."""
+    np.testing.assert_equal(is_unital(depolarizing(4)), True)
 
 
 if __name__ == "__main__":

@@ -1,6 +1,7 @@
 """Apply channel a subsystem of an operator."""
 from __future__ import annotations
 import numpy as np
+import itertools
 
 from toqito.channel_ops import apply_channel
 from toqito.states import max_entangled
@@ -93,11 +94,19 @@ def partial_channel(
     if isinstance(phi_map, list):
         # Compute the Kraus operators on the full system.
         s_phi_1, s_phi_2 = len(phi_map), len(phi_map[0])
+        phi_list = []
+        # Map is completely positive if input is given as:
+        # 1. [K1, K2, .. Kr]
+        # 2. [[K1], [K2], .. [Kr]]
+        # 3. [[K1, K2, .. Kr]] and r > 2
+        if isinstance(phi_map[0], np.ndarray):
+            phi_list = phi_map
+        elif s_phi_2 == 1 or s_phi_1 == 1 and s_phi_2 > 2:
+            phi_list = list(itertools.chain(*phi_map))
 
-        # Map is completely positive.
-        if s_phi_2 == 1 or s_phi_1 == 1 and s_phi_2 > 2:
+        if phi_list:
             phi = []
-            for m in phi_map:
+            for m in phi_list:
                 phi.append(
                     np.kron(
                         np.kron(np.identity(prod_dim_r1), m),
@@ -134,27 +143,27 @@ def partial_channel(
         dim = np.array(
             [
                 [
-                    prod_dim_r2,
-                    prod_dim_r2,
+                    prod_dim_r1,
+                    prod_dim_r1,
                     int(dim[0, sys - 1]),
                     int(dim_phi[0] / dim[0, sys - 1]),
-                    prod_dim_r1,
-                    prod_dim_r1,
+                    prod_dim_r2,
+                    prod_dim_r2,
                 ],
                 [
-                    prod_dim_c2,
-                    prod_dim_c2,
+                    prod_dim_c1,
+                    prod_dim_c1,
                     int(dim[1, sys - 1]),
                     int(dim_phi[1] / dim[1, sys - 1]),
-                    prod_dim_c1,
-                    prod_dim_c1,
+                    prod_dim_c2,
+                    prod_dim_c2,
                 ],
             ]
         )
-        psi_r1 = max_entangled(prod_dim_r2, False, False)
-        psi_c1 = max_entangled(prod_dim_c2, False, False)
-        psi_r2 = max_entangled(prod_dim_r1, False, False)
-        psi_c2 = max_entangled(prod_dim_c1, False, False)
+        psi_r1 = max_entangled(prod_dim_r1, False, False)
+        psi_c1 = max_entangled(prod_dim_c1, False, False)
+        psi_r2 = max_entangled(prod_dim_r2, False, False)
+        psi_c2 = max_entangled(prod_dim_c2, False, False)
 
         phi_map = permute_systems(
             np.kron(np.kron(psi_r1 * psi_c1.conj().T, phi_map), psi_r2 * psi_c2.conj().T),
