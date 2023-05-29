@@ -32,6 +32,9 @@ def completely_bounded_trace_norm(phi: np.ndarray) -> float:
     """
     dim_Lx, dim_Ly = phi.shape
 
+    if dim_Lx != dim_Ly:
+        raise ValueError("The input and output spaces of the superoperator phi must both be square.")
+
     if is_quantum_channel(phi):
         return 1
 
@@ -48,8 +51,6 @@ def completely_bounded_trace_norm(phi: np.ndarray) -> float:
 
 
     else:
-        if dim_Lx != dim_Ly:
-            raise ValueError("The input and output spaces of the superoperator phi must both be square.")
         dim = int(np.sqrt(dim_Lx))
         # SDP
         y0 = cp.Variable([dim_Lx, dim_Lx], complex=True)

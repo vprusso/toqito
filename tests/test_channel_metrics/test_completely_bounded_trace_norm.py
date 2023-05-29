@@ -1,3 +1,4 @@
+"""Tests for completely_bounded_trace_norm"""
 import numpy as np
 from toqito.channels.dephasing import dephasing
 from toqito.channel_metrics.completely_bounded_trace_norm import completely_bounded_trace_norm
@@ -5,7 +6,7 @@ from toqito.channel_metrics.completely_bounded_trace_norm import completely_boun
 
 def test_cb_trace_norm_quantum_channel():
     """The diamond norm of a quantum channel is 1"""
-    phi = dephasing(1)
+    phi = dephasing(2)
     np.testing.assert_equal(completely_bounded_trace_norm(phi), 1)
 
 
@@ -20,7 +21,7 @@ def test_cb_trace_norm_unitary():
 
 
 def test_cb_trace_norm_non_square():
-    """Non-square inputs for diamond norm."""
+    """Non-square inputs for cb trace norm."""
     with np.testing.assert_raises(ValueError):
         phi = np.array([[1, 2, 3], [4, 5, 6]])
         completely_bounded_trace_norm(phi)
