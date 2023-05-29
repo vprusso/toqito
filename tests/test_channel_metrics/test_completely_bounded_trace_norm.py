@@ -1,6 +1,6 @@
 import numpy as np
 from toqito.channels import dephasing
-def test_diamond_norm_unitary():
+def test_diamond_norm_quantum_channel():
     """The diamond norm of a quantum channel is 1"""
     phi = dephasing(1)
     np.testing.assert_equal(np.isclose(diamond_norm(phi), 1, atol=1e-3), True)
