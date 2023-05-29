@@ -30,10 +30,10 @@ def diamond_norm(phi: np.ndarray)-> float:
     :return: The completely bounded trace norm of the channel
     """
 
-    if is_quantum_channel(phi):
+    elif is_quantum_channel(phi):
         return 1
 
-    if is_unitary(phi):
+    elif is_unitary(phi):
         u = choi_to_kraus(phi)[0]
         lam, eigv  = np.linalg.eig(u)
         dist = np.abs(lam[:, None] - lam[None, :])
@@ -41,7 +41,7 @@ def diamond_norm(phi: np.ndarray)-> float:
 
     dim_Lx, dim_Ly = phi.shape
 
-    if is_completely_positive(phi):
+    elif is_completely_positive(phi):
         v = apply_channel(np.eye(dim_Ly), dual_channel(phi))
         return trace_norm(v)
 
