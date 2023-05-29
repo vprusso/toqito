@@ -9,8 +9,8 @@ def test_diamond_norm_unitary():
     U = 1 / np.sqrt(2) * np.array([[1, 1], [-1, 1]]) # Hadamard gate
     phi = np.array([[np.eye(2), np.eye(2)], [U, -U]])
     phi = phi.reshape((4, 4))
-    lam = np.linalg.eig(U)
-    diameter = np.abs(lam[0][0] - lam[0][1])
+    lam, eigv = np.linalg.eig(U)
+    diameter = np.abs(lam[0] - lam[1])
     np.testing.assert_equal(np.isclose(diamond_norm(phi), diameter, atol=1e-3), True)
 def test_diamond_norm_non_square():
     """Non-square inputs for diamond norm."""
