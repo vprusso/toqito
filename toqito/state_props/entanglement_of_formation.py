@@ -77,7 +77,7 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
         raise ValueError(
             "Invalid dimension: Please provide local dimensions that match the size of `rho`."
         )
-
+    dim = np.int_(dim)
     # If :code:`rho` is a rank-1 density matrix, turn it into a vector instead
     # so we can compute the entanglement-of-formation easily.
     tmp_rho = scipy.linalg.orth(rho)
@@ -88,7 +88,7 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
     # Start computing entanglement-of-formation.
     if min(dim_x, dim_y) == 1:
         rho = rho[:]
-        return von_neumann_entropy(partial_trace(rho * rho.conj().T, 2, dim))
+        return von_neumann_entropy(partial_trace(rho * rho.conj().T, [1], dim))
 
     # Case: :code:`rho` is a density matrix.
     if dim_x == dim_y:

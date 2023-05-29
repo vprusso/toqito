@@ -2,7 +2,7 @@
 import cvxpy
 import numpy as np
 
-from toqito.channels import partial_trace
+from picos import partial_trace
 
 
 def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
@@ -90,7 +90,7 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
 
     constraints.append(cvxpy.bmat([[choi_1, q_var.H], [q_var, choi_2]]) >> 0)
 
-    constraints.append(lam * np.identity(dim) <= cvxpy.real(partial_trace(q_var, [2], [dim, dim])))
+    constraints.append(lam * np.identity(dim) <= cvxpy.real(partial_trace(q_var, [1], [dim, dim])))
 
     problem = cvxpy.Problem(objective, constraints)
 

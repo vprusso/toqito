@@ -4,7 +4,7 @@ from __future__ import annotations
 import numpy as np
 
 from toqito.state_ops import pure_to_mixed
-from toqito.channels import partial_transpose
+from picos import partial_transpose
 
 
 def log_negativity(rho: np.ndarray, dim: list[int] | int = None) -> float:
@@ -73,6 +73,8 @@ def log_negativity(rho: np.ndarray, dim: list[int] | int = None) -> float:
             "InvalidDim: Please provide local dimensions in the "
             "argument `dim` that match the size of `rho`."
         )
+    
+    dim = [int(x) for x in dim]
 
     # Compute the log-negativity.
-    return np.log2(np.linalg.norm(partial_transpose(rho, 2, dim), ord="nuc"))
+    return np.log2(np.linalg.norm(partial_transpose(rho, [1], dim), ord="nuc"))

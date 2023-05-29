@@ -3,9 +3,10 @@ import numpy as np
 import pytest
 
 from toqito.states import bell
-from toqito.channels import choi, partial_transpose
+from toqito.channels import choi
 from toqito.perms import swap, swap_operator
 from toqito.matrix_props import is_block_positive
+from picos import partial_transpose
 
 
 @pytest.mark.parametrize("dim", [2, 3, 4])
@@ -36,7 +37,7 @@ def test_is_block_positive():
     v_0 = np.kron(b_0, b_0)
     y_mat = (
         np.kron(np.eye(4), b_0 @ b_0.T) / 2
-        + np.kron(b_3 @ b_3.T, partial_transpose(b_3 @ b_3.T, 1))
+        + np.kron(b_3 @ b_3.T, partial_transpose(b_3 @ b_3.T, [0]))
     ) / 3 - v_0 @ v_0.T / 4
     mat = swap(y_mat, [2, 3], [2, 2, 2, 2])
     np.testing.assert_equal(is_block_positive(mat), True)
