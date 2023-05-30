@@ -1,0 +1,44 @@
+name: build-test-actions
+
+on: [push]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # Add versions here to expand support matrix
+        python-version: ["3.9", "3.10", "3.11"]
+    env:
+      PYTHON: ${{ matrix.python-version }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          sudo apt-get install -y libblas-dev liblapack-dev
+          python -m pip install --upgrade pip
+          pip install poetry
+          poetry install --no-interaction
+      - name: Run tests
+        run: poetry run pytest -v --cov-report term-missing --cov-report xml:coverage.xml --cov=toqito tests/
+      - name: Run pylint
+        run: poetry run pylint --exit-zero tests/ toqito/
+      - name: Run pydocstyle
+        run: poetry run pydocstyle tests/ toqito/ || true
+        # Remove "|| true" after style issues are fixed
+        # to make this fail the pipeline when new issues
+        # are introduced.
+      - name: Upload coverage information
+        uses: codecov/codecov-action@v3
+        with:
+          token: 8a7d94ed-284d-4c22-91eb-9b66ce33fa62
+          name: codecov-umbrella
+          files: ./coverage.xml
+          fail_ci_if_error: true
+          verbose: true
+      - name: Build artifacts
+        run: poetry build
