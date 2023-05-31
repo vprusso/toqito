@@ -41,10 +41,10 @@ def completely_bounded_trace_norm(phi: np.ndarray) -> float:
         return 1
 
     #elif is_unitary(phi):
-    #    u = choi_to_kraus(phi) #not the unitary i wish to obtain for the test example
-    #    lam, eigv  = np.linalg.eig(u) #ok
+    #   u = choi_to_kraus(phi) #not the unitary I wish to obtain for the test example
+    #   lam, eigv  = np.linalg.eig(u) #ok
     #   dist = np.abs(lam[:, None] - lam[None, :]) #ok
-    #    return np.max(dist)
+    #   return np.max(dist)
 
     elif is_completely_positive(phi):
         v = apply_channel(np.eye(dim_Ly), dual_channel(phi))
@@ -69,6 +69,6 @@ def completely_bounded_trace_norm(phi: np.ndarray) -> float:
         problem = cp.Problem(objective, constraints)
         problem.solve(eps=1e-10)
 
-        return problem.value / 2
+        return problem.value / 4
 
 
