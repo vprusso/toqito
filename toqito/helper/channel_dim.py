@@ -8,6 +8,7 @@ def channel_dim(
     phi: np.ndarray | list[np.ndarray] | list[list[np.ndarray]],
     allow_rect: bool = True,
     dim: int | list[int] | np.ndarray = None,
+    compute_env_dim: bool = True,
 ) -> tuple[np.ndarray | int]:
     """
     Compute the input, output, and environment dimensions of a channel.
@@ -25,12 +26,14 @@ def channel_dim(
     spaces, an error will be produced. If PHI maps M_{r,c} to M_{x,y} then DIM should be the
     2-by-2 matrix [[r,x], [c,y]]. If PHI maps M_m to M_n, then DIM can simply be the vector
     [m,n]. If ALLOW_RECT is false then returned input and output dimensions will be scalars
-    instead of vectors.
+    instead of vectors. If COMPUTE_ENV_DIM is false and the PHI is a Choi matrix we avoid
+    computing the rank of the Choi matrix.
 
     :param phi: A superoperator. It should be provided either as a Choi matrix,
                 or as a (1d or 2d) list of numpy arrays whose entries are its Kraus operators.
     :param allow_rect: A flag indicating that the input and output spaces of PHI can be non-square (default True).
     :param dim: A scalar, vector or matrix containing the input and output dimensions of PHI.
+    :param compute_env_dim: A flag indicating whether we compute the enviroment dimension.
     :return: The input, output, and environment dimensions of a channel.
     """
     dim_in = np.zeros(2, dtype=int)
@@ -107,7 +110,9 @@ def channel_dim(
             raise ValueError("The input and output spaces of PHI must be square.")
 
         # environment dimension is the rank of the Choi matrix
-        dim_e = np.linalg.matrix_rank(phi)
+        dim_e = None
+        if compute_env_dim:
+            dim_e = np.linalg.matrix_rank(phi)
 
     # Finally, put `dim` back into `dim_in` and `dim_out`.
     if allow_rect:
@@ -133,6 +138,6 @@ def _expand_dim(dim):
     dim = dim.ravel()
     # user entered a 2-dimensional vector for DIM
     if dim.shape == (2,):
-        return np.vstack([dim, dim]).T
+        return np.vstack([dim, dim])
 
     raise ValueError("The dimensions must be provided in a matrix no larger than 2-by-2.")

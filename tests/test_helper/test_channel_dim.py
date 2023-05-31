@@ -101,5 +101,12 @@ def test_channel_dim_with_invalid_dim_input():
         channel_dim(swap_operator(3), dim=np.eye(3))
 
 
+def test_channel_dim_with_vector_dim_input():
+    """Test channel dim with vector dim."""
+    v_mat = np.array([[1, 0, 0], [0, 1, 0]])
+    din, dout, de = channel_dim([v_mat], dim=[3, 2])
+    np.testing.assert_equal((din, dout, de), (3, 2, 1))
+
+
 if __name__ == "__main__":
     np.testing.run_module_suite()
