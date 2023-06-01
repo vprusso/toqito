@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import numpy as np
+import picos as pc
 
 from cvxpy.expressions.expression import Expression
 from cvxpy.expressions.variable import Variable
@@ -11,8 +12,8 @@ from toqito.helper import expr_as_np_array, np_array_as_expr
 
 def partial_trace(
     input_mat: np.ndarray | Variable,
-    sys: int | list[int] = 2,
-    dim: int | list[int] = None,
+    sys: list[int] = [1],
+    dim: list[int] = [2, 2],
 ) -> np.ndarray | Expression:
     r"""
     Compute the partial trace of a matrix [WikPtrace]_.
@@ -78,7 +79,7 @@ def partial_trace(
     >>> test_input_mat = np.array(
     >>>     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
     >>> )
-    >>> partial_trace(test_input_mat, 1)
+    >>> partial_trace(test_input_mat, [0])
     [[12, 14],
      [20, 22]]
 
@@ -111,11 +112,11 @@ def partial_trace(
 
     >>> from toqito.channels import partial_trace
     >>> import numpy as np
-    >>> partial_trace(test_input_mat, [1, 3], [2, 2, 2, 2])
-    [[344, 348, 360, 364],
-     [408, 412, 424, 428],
-     [600, 604, 616, 620],
-     [664, 668, 680, 684]])
+    >>> partial_trace(test_input_mat, [0, 2], [2, 2, 2, 2])
+    [ 3.44e+02  3.48e+02  3.60e+02  3.64e+02]
+    [ 4.08e+02  4.12e+02  4.24e+02  4.28e+02]
+    [ 6.00e+02  6.04e+02  6.16e+02  6.20e+02]
+    [ 6.64e+02  6.68e+02  6.80e+02  6.84e+02]
 
     References
     ==========
@@ -124,7 +125,7 @@ def partial_trace(
 
     :raises ValueError: If matrix dimension is not equal to the number of subsystems.
     :param input_mat: A square matrix.
-    :param sys: Scalar or vector specifying the size of the subsystems.
+    :param sys: Vector specifying the size of the subsystems.
     :param dim: Dimension of the subsystems. If :code:`None`, all dimensions are assumed to be
                 equal.
     :return: The partial trace of matrix :code:`input_mat`.
@@ -132,10 +133,26 @@ def partial_trace(
     # If the input matrix is a CVX variable for an SDP, we convert it to a numpy array,
     # perform the partial trace, and convert it back to a CVX variable.
     if isinstance(input_mat, Variable):
-        rho_np = expr_as_np_array(input_mat)
-        traced_rho = partial_trace(rho_np, sys, dim)
-        traced_rho = np_array_as_expr(traced_rho)
-        return traced_rho
+        if isinstance(sys, (list, np.ndarray)):
+            if len(sys) == 1:
+                pt_mat = partial_trace_for_cvxpy_variable(input_mat, sys[0]+1, dim)
+                return pt_mat
+            else:
+                pt_mat = partial_trace_for_cvxpy_variable(input_mat, np.array(sys)+1, dim)
+                return pt_mat
+        else:
+            pt_mat = partial_trace_for_cvxpy_variable(input_mat, sys+1, dim)
+    
+    pt_mat = pc.partial_trace(input_mat, sys, dim)
+    return pt_mat
+    
+def partial_trace_for_cvxpy_variable(
+    input_mat: np.ndarray | Variable,
+    sys: int | list[int] = 2,
+    dim: int | list[int] = None,
+) -> np.ndarray | Expression:
+    
+    input_mat = expr_as_np_array(input_mat)
 
     if dim is None:
         dim = np.array([np.round(np.sqrt(len(input_mat)))])
@@ -157,7 +174,7 @@ def partial_trace(
         num_sys = 2
 
     prod_dim = np.prod(dim)
-    if isinstance(sys, list):
+    if isinstance(sys, (list, np.ndarray)):
         if len(sys) == 1:
             prod_dim_sys = np.prod(dim[sys[0] - 1])
         else:
@@ -200,5 +217,6 @@ def partial_trace(
         :, :, list(range(0, int(sub_sys_vec[0] ** 2), int(sub_sys_vec[0] + 1)))
     ]
     pt_mat = np.sum(pt_mat, axis=2)
+    traced_rho = np_array_as_expr(pt_mat)
 
-    return pt_mat
+    return traced_rho
