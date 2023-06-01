@@ -3,14 +3,16 @@ from __future__ import annotations
 
 import numpy as np
 
-from toqito.channel_ops import apply_channel, kraus_to_choi
+from toqito.channel_ops import apply_channel
 from toqito.matrix_props import is_identity
+from toqito.helper import channel_dim
 
 
 def is_unital(
     phi: np.ndarray | list[list[np.ndarray]],
     rtol: float = 1e-05,
     atol: float = 1e-08,
+    dim: int | list[int] | np.ndarray = None,
 ) -> bool:
     r"""
     Determine whether the given channel is unital [WatUnital18]_.
@@ -20,6 +22,10 @@ def is_unital(
 
     .. math::
         \Phi(\mathbb{I}_{\mathcal{X}}) = \mathbb{I}_{\mathcal{Y}}.
+
+    If the input channel maps :math:`M_{r,c}` to :math:`M_{x,y}` then :code:`dim` should be the
+    list :code:`[[r,x], [c,y]]`. If it maps :math:`M_m` to :math:`M_n`, then :code:`dim` can simply
+    be the vector :code:`[m,n]`.
 
     Examples
     ==========
@@ -34,15 +40,15 @@ def is_unital(
     >>> is_unital(choi)
     True
 
-    Alternatively, the channel whose Choi matrix is the depolarizing channel is an example of a
-    non-unital channel.
+    Additionally, the channel whose Choi matrix is the depolarizing channel is another example of
+    a unital channel.
 
     >>> from toqito.channels import depolarizing
     >>> from toqito.channel_props import is_unital
     >>>
     >>> choi = depolarizing(4)
     >>> is_unital(choi)
-    False
+    True
 
     References
     ==========
@@ -54,14 +60,11 @@ def is_unital(
     :param phi: The channel provided as either a Choi matrix or a list of Kraus operators.
     :param rtol: The relative tolerance parameter (default 1e-05).
     :param atol: The absolute tolerance parameter (default 1e-08).
+    :param dim: A scalar, vector or matrix containing the input and output dimensions of PHI.
     :return: :code:`True` if the channel is unital, and :code:`False` otherwise.
     """
-    # If the variable `phi` is provided as a list, we assume this is a list of Kraus operators.
-    if isinstance(phi, list):
-        phi = kraus_to_choi(phi)
-
-    dim = int(np.sqrt(phi.shape[0]))
+    dim_in, _, _ = channel_dim(phi, dim=dim, allow_rect=False, compute_env_dim=False)
 
     # Channel is unital if :code:`mat` is the identity matrix.
-    mat = apply_channel(np.identity(dim), phi)
+    mat = apply_channel(np.identity(dim_in), phi)
     return is_identity(mat, rtol=rtol, atol=atol)
