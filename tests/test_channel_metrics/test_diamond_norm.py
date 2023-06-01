@@ -1,5 +1,6 @@
 """Tests for diamond_norm."""
 import numpy as np
+
 from toqito.channels import dephasing, depolarizing
 from toqito.channel_metrics import diamond_norm
 

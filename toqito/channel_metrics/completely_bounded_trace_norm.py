@@ -2,9 +2,8 @@
 import numpy as np
 import cvxpy as cp
 
-from toqito.channel_ops import apply_channel, dual_channel, choi_to_kraus
-from toqito.channel_props import is_quantum_channel, is_completely_positive  #no clue why is_unitary from channel_props gives false for the test example, changed to matrix props
-from toqito.matrix_props import is_unitary
+from toqito.channel_ops import apply_channel, dual_channel
+from toqito.channel_props import is_quantum_channel, is_completely_positive
 from toqito.state_metrics import trace_norm
 
 
@@ -39,12 +38,6 @@ def completely_bounded_trace_norm(phi: np.ndarray) -> float:
 
     if is_quantum_channel(phi):
         return 1
-
-    #elif is_unitary(phi):
-    #   u = choi_to_kraus(phi) #not the unitary I wish to obtain for the test example
-    #   lam, eigv  = np.linalg.eig(u) #ok
-    #   dist = np.abs(lam[:, None] - lam[None, :]) #ok
-    #   return np.max(dist)
 
     elif is_completely_positive(phi):
         v = apply_channel(np.eye(dim_Ly), dual_channel(phi))
