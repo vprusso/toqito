@@ -2,6 +2,7 @@
 from __future__ import annotations
 import numpy as np
 
+from toqito.helper import channel_dim
 from toqito.matrix_props import is_square
 from toqito.perms import swap
 
@@ -13,9 +14,11 @@ def dual_channel(
     Compute the dual of a map (quantum channel) [WatDChan18]_.
 
     The map can be represented as a Choi matrix, with optional specification of input
-    and output dimensions. In this case the Choi matrix of the dual channel is
-    returned, obtained by swapping input and output (see :func:`toqito.perms.swap`),
-    and complex conjugating all elements.
+    and output dimensions. If the input channel maps :math:`M_{r,c}` to :math:`M_{x,y}`
+    then :code:`dim` should be the list :code:`[[r,x], [c,y]]`. If it maps :math:`M_m`
+    to :math:`M_n`, then :code:`dim` can simply be the vector :code:`[m,n]`. In this
+    case the Choi matrix of the dual channel is returned, obtained by swapping input and
+    output (see :func:`toqito.perms.swap`), and complex conjugating all elements.
 
     The map can also be represented as a list of Kraus operators.
     A list of lists, each containing two elements, corresponds to the families
@@ -56,17 +59,8 @@ def dual_channel(
     # If phi_op is a `ndarray`, assume it is a Choi matrix.
     if isinstance(phi_op, np.ndarray):
         if len(phi_op.shape) == 2:
-            if not is_square(phi_op):
-                raise ValueError("Invalid: `phi_op` is not a valid Choi matrix (not square).")
-            if dims is None:
-                sqr = np.sqrt(phi_op.shape[0])
-                if sqr.is_integer():
-                    dims = [int(round(sqr))] * 2
-                else:
-                    raise ValueError(
-                        "The dimensions `dims` of the input and output should be specified."
-                    )
-            return swap(phi_op.conj(), dim=dims)
+            d_in, d_out, _ = channel_dim(phi_op, dim=dims, compute_env_dim=False)
+            return swap(phi_op.conj(), dim=[[d_in[0], d_out[0]], [d_in[1], d_out[1]]])
     raise ValueError(
         "Invalid: The variable `phi_op` must either be a list of "
         "Kraus operators or as a Choi matrix."
