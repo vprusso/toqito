@@ -85,5 +85,5 @@ def unvec(vector: np.ndarray, shape: list[int] = None) -> np.ndarray:
     if shape is None:
         dim = int(np.sqrt(vector.size))
         shape = dim, dim
-    mat = vector.reshape(*shape).T
+    mat = vector.reshape(*shape, order="F")
     return mat
