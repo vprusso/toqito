@@ -4,6 +4,7 @@ from __future__ import annotations
 import numpy as np
 
 from toqito.channel_ops import choi_to_kraus
+from toqito.matrix_props import is_unitary as is_unitary_matrix
 
 
 def is_unitary(phi: np.ndarray | list[list[np.ndarray]]) -> bool:
@@ -68,7 +69,22 @@ def is_unitary(phi: np.ndarray | list[list[np.ndarray]]) -> bool:
     # If the variable `phi` is provided as a ndarray, we assume this is a
     # Choi matrix.
     if isinstance(phi, np.ndarray):
-        phi = choi_to_kraus(phi)
+        try:
+            phi = choi_to_kraus(phi)
+        except ValueError:
+            # if we fail to obtain a Kraus representation then input/ouput spaces might be
+            # non squares or their dimensions are not equal. Hence the channel is not unitary.
+            return False
 
-    # If the length of the list of krauss operarator is equal to one, the channel is unitary.
-    return len(phi) == 1
+    # If there is a unique Kraus operator and it's a unitary matrix then the channel is unitary.
+    if len(phi) != 1:
+        return False
+
+    u_mat = phi[0]
+    if isinstance(phi[0], list):
+        # we enter here if phi is specified as: [[U, U]] or [[U]]
+        u_mat = phi[0][0]
+        if len(phi[0]) > 2 or (len(phi[0]) == 2 and not np.allclose(phi[0][0], phi[0][1])):
+            return False
+
+    return is_unitary_matrix(u_mat)
