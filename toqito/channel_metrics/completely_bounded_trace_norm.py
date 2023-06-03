@@ -55,11 +55,11 @@ def completely_bounded_trace_norm(phi: np.ndarray) -> float:
 
         A = cp.bmat([[y0, -phi], [-phi.conj().T, y1]])
         constraints += [A >> 0]
-        objective = cp.Minimize( cp.norm(cp.partial_trace(y0, dims=(dim,dim), axis = 1))
-                                 + cp.norm(cp.partial_trace(y1, dims=(dim,dim), axis = 1)) )
+        objective = cp.Minimize(  cp.norm(cp.partial_trace(y0, dims=(dim,dim), axis = 1))
+                                 +  cp.norm(cp.partial_trace(y1, dims=(dim,dim), axis = 1)) )
         problem = cp.Problem(objective, constraints)
         problem.solve(eps=1e-10)
 
-        return problem.value/4
+        return problem.value/2
 
 
