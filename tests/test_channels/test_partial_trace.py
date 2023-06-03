@@ -40,6 +40,17 @@ def test_partial_trace_sys():
     np.testing.assert_equal(np.all(bool_mat), True)
 
 
+def test_partial_trace_sys_int():
+    """Supply `sys` argument as int."""
+    test_input_mat = np.arange(1, 17).reshape(4, 4)
+
+    expected_res = np.array([[12, 14], [20, 22]])
+
+    res = partial_trace(test_input_mat, 0)
+
+    bool_mat = np.isclose(expected_res, res)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
 def test_partial_trace_sys_int_dim_int():
     """
     Default second subsystem.
