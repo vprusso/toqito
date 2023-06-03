@@ -1180,14 +1180,14 @@ def test_partial_trace_64_by_64_subsystems_4_4_4():
 
 def test_partial_trace_invalid_sys_arg():
     """The `sys` argument must be either a list or int."""
-    with np.testing.assert_raises(IndexError):
+    with np.testing.assert_raises(ValueError):
         rho = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
         partial_trace(rho, "invalid_input")
 
 
 def test_partial_trace_non_square_matrix_dim_2():
     """Matrix must be square for partial trace."""
-    with np.testing.assert_raises(TypeError):
+    with np.testing.assert_raises(ValueError):
         rho = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]])
         partial_trace(rho, [1], [2])
 

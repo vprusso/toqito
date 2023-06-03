@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import numpy as np
-import picos as pc
 
 from cvxpy.expressions.expression import Expression
 from cvxpy.expressions.variable import Variable
@@ -12,8 +11,8 @@ from toqito.helper import expr_as_np_array, np_array_as_expr
 
 def partial_trace(
     input_mat: np.ndarray | Variable,
-    sys: list[int] = [1],
-    dim: list[int] = [2, 2],
+    sys: int | list[int] = [1],
+    dim: int | list[int] = None,
 ) -> np.ndarray | Expression:
     r"""
     Compute the partial trace of a matrix [WikPtrace]_.
@@ -64,7 +63,7 @@ def partial_trace(
     [[ 7, 11],
      [23, 27]]
 
-    By specifying the :code:`sys = 1` argument, we can perform the partial trace over the first
+    By specifying the :code:`sys = [0]` argument, we can perform the partial trace over the first
     subsystem (instead of the default second subsystem as done above). Performing the partial
     trace over the first subsystem yields the following matrix
 
@@ -113,10 +112,10 @@ def partial_trace(
     >>> from toqito.channels import partial_trace
     >>> import numpy as np
     >>> partial_trace(test_input_mat, [0, 2], [2, 2, 2, 2])
-    [ 3.44e+02  3.48e+02  3.60e+02  3.64e+02]
-    [ 4.08e+02  4.12e+02  4.24e+02  4.28e+02]
-    [ 6.00e+02  6.04e+02  6.16e+02  6.20e+02]
-    [ 6.64e+02  6.68e+02  6.80e+02  6.84e+02]
+    [[344, 348, 360, 364],
+     [408, 412, 424, 428],
+     [600, 604, 616, 620],
+     [664, 668, 680, 684]])
 
     References
     ==========
@@ -125,7 +124,7 @@ def partial_trace(
 
     :raises ValueError: If matrix dimension is not equal to the number of subsystems.
     :param input_mat: A square matrix.
-    :param sys: Vector specifying the size of the subsystems.
+    :param sys: Scalar or vector specifying the size of the subsystems.
     :param dim: Dimension of the subsystems. If :code:`None`, all dimensions are assumed to be
                 equal.
     :return: The partial trace of matrix :code:`input_mat`.
@@ -133,26 +132,10 @@ def partial_trace(
     # If the input matrix is a CVX variable for an SDP, we convert it to a numpy array,
     # perform the partial trace, and convert it back to a CVX variable.
     if isinstance(input_mat, Variable):
-        if isinstance(sys, (list, np.ndarray)):
-            if len(sys) == 1:
-                pt_mat = partial_trace_for_cvxpy_variable(input_mat, sys[0]+1, dim)
-                return pt_mat
-            else:
-                pt_mat = partial_trace_for_cvxpy_variable(input_mat, np.array(sys)+1, dim)
-                return pt_mat
-        else:
-            pt_mat = partial_trace_for_cvxpy_variable(input_mat, sys+1, dim)
-    
-    pt_mat = pc.partial_trace(input_mat, sys, dim)
-    return pt_mat
-    
-def partial_trace_for_cvxpy_variable(
-    input_mat: np.ndarray | Variable,
-    sys: int | list[int] = 2,
-    dim: int | list[int] = None,
-) -> np.ndarray | Expression:
-    
-    input_mat = expr_as_np_array(input_mat)
+        rho_np = expr_as_np_array(input_mat)
+        traced_rho = partial_trace(rho_np, sys, dim)
+        traced_rho = np_array_as_expr(traced_rho)
+        return traced_rho
 
     if dim is None:
         dim = np.array([np.round(np.sqrt(len(input_mat)))])
@@ -174,15 +157,15 @@ def partial_trace_for_cvxpy_variable(
         num_sys = 2
 
     prod_dim = np.prod(dim)
-    if isinstance(sys, (list, np.ndarray)):
+    if isinstance(sys, list):
         if len(sys) == 1:
-            prod_dim_sys = np.prod(dim[sys[0] - 1])
+            prod_dim_sys = np.prod(dim[sys[0]])
         else:
             prod_dim_sys = 1
             for idx in sys:
-                prod_dim_sys *= dim[idx - 1]
+                prod_dim_sys *= dim[idx]
     elif isinstance(sys, int):
-        prod_dim_sys = np.prod(dim[sys - 1])
+        prod_dim_sys = np.prod(dim[sys])
     else:
         raise ValueError(
             "Invalid: The variable `sys` must either be of type int or of a list of ints."
@@ -191,12 +174,14 @@ def partial_trace_for_cvxpy_variable(
     sub_prod = prod_dim / prod_dim_sys
     sub_sys_vec = prod_dim * np.ones(int(sub_prod)) / sub_prod
 
+    if isinstance(sys, list):
+        sys = np.array(sys)
     if isinstance(sys, int):
-        sys = [sys]
-    set_diff = list(set(list(range(1, num_sys + 1))) - set(sys))
+        sys = np.array([sys])
+    set_diff = list(set(list(range(1, num_sys + 1))) - set(sys+1))
 
     perm = set_diff
-    perm.extend(sys)
+    perm.extend(sys+1)
 
     a_mat = permute_systems(input_mat, perm, dim)
 
@@ -217,6 +202,5 @@ def partial_trace_for_cvxpy_variable(
         :, :, list(range(0, int(sub_sys_vec[0] ** 2), int(sub_sys_vec[0] + 1)))
     ]
     pt_mat = np.sum(pt_mat, axis=2)
-    traced_rho = np_array_as_expr(pt_mat)
 
-    return traced_rho
+    return pt_mat

@@ -107,6 +107,8 @@ def has_symmetric_extension(rho: np.ndarray, level: int = 2, dim: np.ndarray | i
             )
         dim[1] = int(np.round(dim[1]))
 
+    dim = np.int_(dim)
+
     dim_x, dim_y = int(dim[0]), int(dim[1])
     # In certain situations, we don't need semidefinite programming.
     if level == 1 or len_mat <= 6 and ppt:

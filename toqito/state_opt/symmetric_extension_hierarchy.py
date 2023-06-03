@@ -175,6 +175,7 @@ def symmetric_extension_hierarchy(
     dim_x, dim_y = int(dim[0]), int(dim[1])
 
     dim_list = [dim_x] + [dim_y] * level
+    dim_list = np.int_(dim_list)
     # The `sys_list` variable contains the numbering pertaining to the symmetrically extended
     # spaces.
     sys_list = list(range(2, 2 + level - 1))
@@ -189,9 +190,9 @@ def symmetric_extension_hierarchy(
             np.kron(np.identity(dim_x), sym) @ x_var[k] @ np.kron(np.identity(dim_x), sym)
             == x_var[k]
         )
-        constraints.append(partial_transpose(x_var[k], 1, dim_list) >> 0)
+        constraints.append(partial_transpose(x_var[k], [0], dim_list) >> 0)
         for sys in range(level - 1):
-            constraints.append(partial_transpose(x_var[k], sys + 3, dim_list) >> 0)
+            constraints.append(partial_transpose(x_var[k], [sys + 2], dim_list) >> 0)
 
         obj_func.append(probs[k] * cvxpy.trace(states[k].conj().T @ meas[k]))
 
