@@ -11,12 +11,13 @@ def test_cb_trace_norm_quantum_channel():
     np.testing.assert_equal(completely_bounded_trace_norm(phi), 1)
 
 
-def test_cb_trace_norm_unitary():
+def test_cb_trace_norm_unitaries_channel():
     """The diamond norm of phi = id- U id U* is the diameter of the smallest circle that contains the eigenvalues of U"""
     U = 1/np.sqrt(2) * np.array([[1, 1], [-1, 1]]) # Hadamard gate
     phi = np.block([[np.eye(2), np.eye(2)],[U, -U]])
     lam, eigv = np.linalg.eig(U)
-    diameter = np.abs(lam[0] - lam[1])
+    dist = np.abs(lam[:, None] - lam[None, :]) # all to all distance
+    diameter =  np.max(dist)
     np.testing.assert_equal(np.isclose(completely_bounded_trace_norm(phi), diameter, atol=1e-3), True)
 
 
