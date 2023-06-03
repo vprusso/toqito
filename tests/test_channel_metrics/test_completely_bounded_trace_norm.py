@@ -14,7 +14,7 @@ def test_cb_trace_norm_quantum_channel():
 def test_cb_trace_norm_unitaries_channel():
     """The diamond norm of phi = id- U id U* is the diameter of the smallest circle that contains the eigenvalues of U"""
     U = 1/np.sqrt(2) * np.array([[1, 1], [-1, 1]]) # Hadamard gate
-    phi = np.block([[np.eye(2), np.eye(2)],[U, -U]])
+    phi = kraus_to_choi([[np.eye(2), np.eye(2)],[U, -U]])
     lam, eigv = np.linalg.eig(U)
     dist = np.abs(lam[:, None] - lam[None, :]) # all to all distance
     diameter =  np.max(dist)
