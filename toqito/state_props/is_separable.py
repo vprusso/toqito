@@ -7,7 +7,7 @@ from toqito.channels import realignment
 from toqito.matrix_props import is_positive_semidefinite
 from toqito.state_props import is_ppt, in_separable_ball
 from toqito.state_props.has_symmetric_extension import has_symmetric_extension
-from toqito.state_metrics import trace_norm
+from toqito.matrix_props.trace_norm import trace_norm
 from toqito.perms import swap
 
 from picos import partial_trace
