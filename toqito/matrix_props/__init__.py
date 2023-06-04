@@ -2,6 +2,7 @@
 from toqito.matrix_props.is_square import is_square
 from toqito.matrix_props.is_diagonal import is_diagonal
 from toqito.matrix_props.is_normal import is_normal
+from toqito.matrix_props.is_orthonormal import is_orthonormal
 from toqito.matrix_props.is_symmetric import is_symmetric
 from toqito.matrix_props.is_hermitian import is_hermitian
 from toqito.matrix_props.is_identity import is_identity
