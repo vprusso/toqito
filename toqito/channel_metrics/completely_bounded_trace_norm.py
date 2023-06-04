@@ -1,4 +1,4 @@
-"""Compute the completely bounded trace norm of a quantum channel"""
+"""Compute the completely bounded trace norm of a quantum channel."""
 import numpy as np
 import cvxpy as cp
 
@@ -42,25 +42,25 @@ def completely_bounded_trace_norm(phi: np.ndarray) -> float:
         v = apply_channel(np.eye(dim_Ly), dual_channel(phi))
         return trace_norm(v)
 
-    else:
-        dim = int(np.sqrt(dim_Lx))
-        # SDP
-        y0 = cp.Variable([dim_Lx, dim_Lx], complex=True)
-        constraints = [y0 == y0.H]
-        constraints += [y0 >> 0]
 
-        y1 = cp.Variable([dim_Lx, dim_Lx], complex=True)
-        constraints += [y1 == y1.H]
-        constraints += [y1 >> 0]
+    dim = int(np.sqrt(dim_Lx))
+    # SDP
+    y0 = cp.Variable([dim_Lx, dim_Lx], complex=True)
+    constraints = [y0 == y0.H]
+    constraints += [y0 >> 0]
 
-        A = cp.bmat([[y0, -phi], [-phi.conj().T, y1]])
-        constraints += [A >> 0]
-        objective = cp.Minimize(cp.norm(cp.partial_trace(y0, dims=(dim,dim), axis=1))
-                                 +  cp.norm(cp.partial_trace(y1, dims=(dim,dim), axis=1)) )
-                                 +  cp.norm(cp.partial_trace(y1, dims=(dim,dim), axis = 1)) )
-        problem = cp.Problem(objective, constraints)
-        problem.solve(eps=1e-10)
+    y1 = cp.Variable([dim_Lx, dim_Lx], complex=True)
+    constraints += [y1 == y1.H]
+    constraints += [y1 >> 0]
 
-        return problem.value/2
+    A = cp.bmat([[y0, -phi], [-phi.conj().T, y1]])
+    constraints += [A >> 0]
+    objective = cp.Minimize(cp.norm(cp.partial_trace(y0, dims=(dim,dim), axis=1))
+                             + cp.norm(cp.partial_trace(y1, dims=(dim,dim), axis=1)))
+
+    problem = cp.Problem(objective, constraints)
+    problem.solve()
+
+    return problem.value/2
 
 

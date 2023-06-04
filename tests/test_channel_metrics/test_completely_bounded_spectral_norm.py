@@ -1,4 +1,4 @@
-"""Tests for completely_bounded_spectral_norm"""
+"""Tests for completely_bounded_spectral_norm."""
 import numpy as np
 
 from toqito.channel_metrics.completely_bounded_spectral_norm import completely_bounded_spectral_norm

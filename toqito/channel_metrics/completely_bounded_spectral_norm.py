@@ -1,4 +1,4 @@
-"""Compute the completely bounded spectral norm of a quantum channel"""
+"""Compute the completely bounded spectral norm of a quantum channel."""
 import numpy as np
 
 from toqito.channel_ops import dual_channel
