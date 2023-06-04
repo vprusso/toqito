@@ -35,7 +35,7 @@ purification_state = tensor(
 
 
 def test_errors_state_SDP():
-    """Tests for riased errors in state SDP function."""
+    """Tests for raised errors in state SDP function."""
     with pytest.raises(
             ValueError,
             match="Provided input state is not a density matrix."):

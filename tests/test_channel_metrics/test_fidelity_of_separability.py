@@ -27,7 +27,7 @@ bad_rho = 0.75*tensor(
 mixed_rho = max_mixed(8, is_sparse=False)
 
 def test_errors_channel_SDP():
-    """Tests for riased errors in state SDP function."""
+    """Tests for raised errors in channel SDP function."""
     with pytest.raises(
             ValueError,
             match="Provided input state is not a density matrix."):

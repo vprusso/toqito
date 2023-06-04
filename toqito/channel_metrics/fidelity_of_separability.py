@@ -1,5 +1,7 @@
-"""Add functions for channel fidelity of Separability as defined in.
-Need to cite paper here.
+"""Add functions for channel fidelity of Separability as defined in [Phil23]_.
+
+The constrainsts for this function are positive partial transpose(PPT)
+& k-extendible channels.
 """
 
 from toqito.state_props import is_pure
