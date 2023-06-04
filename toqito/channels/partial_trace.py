@@ -11,7 +11,7 @@ from toqito.helper import expr_as_np_array, np_array_as_expr
 
 def partial_trace(
     input_mat: np.ndarray | Variable,
-    sys: int | list[int] = 2,
+    sys: int | list[int] = [1],
     dim: int | list[int] = None,
 ) -> np.ndarray | Expression:
     r"""
@@ -63,7 +63,7 @@ def partial_trace(
     [[ 7, 11],
      [23, 27]]
 
-    By specifying the :code:`sys = 1` argument, we can perform the partial trace over the first
+    By specifying the :code:`sys = [0]` argument, we can perform the partial trace over the first
     subsystem (instead of the default second subsystem as done above). Performing the partial
     trace over the first subsystem yields the following matrix
 
@@ -78,7 +78,7 @@ def partial_trace(
     >>> test_input_mat = np.array(
     >>>     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
     >>> )
-    >>> partial_trace(test_input_mat, 1)
+    >>> partial_trace(test_input_mat, [0])
     [[12, 14],
      [20, 22]]
 
@@ -111,7 +111,7 @@ def partial_trace(
 
     >>> from toqito.channels import partial_trace
     >>> import numpy as np
-    >>> partial_trace(test_input_mat, [1, 3], [2, 2, 2, 2])
+    >>> partial_trace(test_input_mat, [0, 2], [2, 2, 2, 2])
     [[344, 348, 360, 364],
      [408, 412, 424, 428],
      [600, 604, 616, 620],
@@ -159,13 +159,13 @@ def partial_trace(
     prod_dim = np.prod(dim)
     if isinstance(sys, list):
         if len(sys) == 1:
-            prod_dim_sys = np.prod(dim[sys[0] - 1])
+            prod_dim_sys = np.prod(dim[sys[0]])
         else:
             prod_dim_sys = 1
             for idx in sys:
-                prod_dim_sys *= dim[idx - 1]
+                prod_dim_sys *= dim[idx]
     elif isinstance(sys, int):
-        prod_dim_sys = np.prod(dim[sys - 1])
+        prod_dim_sys = np.prod(dim[sys])
     else:
         raise ValueError(
             "Invalid: The variable `sys` must either be of type int or of a list of ints."
@@ -174,12 +174,14 @@ def partial_trace(
     sub_prod = prod_dim / prod_dim_sys
     sub_sys_vec = prod_dim * np.ones(int(sub_prod)) / sub_prod
 
+    if isinstance(sys, list):
+        sys = np.array(sys)
     if isinstance(sys, int):
-        sys = [sys]
-    set_diff = list(set(list(range(1, num_sys + 1))) - set(sys))
+        sys = np.array([sys])
+    set_diff = list(set(list(range(1, num_sys + 1))) - set(sys+1))
 
     perm = set_diff
-    perm.extend(sys)
+    perm.extend(sys+1)
 
     a_mat = permute_systems(input_mat, perm, dim)
 

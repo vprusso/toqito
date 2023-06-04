@@ -8,10 +8,9 @@ from cvxpy.expressions.variable import Variable
 from toqito.perms import permute_systems
 from toqito.helper import expr_as_np_array, np_array_as_expr
 
-
 def partial_transpose(
     rho: np.ndarray | Variable,
-    sys: list[int] | np.ndarray | int = 2,
+    sys: list[int] | np.ndarray | int = [1],
     dim: list[int] | np.ndarray = None,
 ) -> np.ndarray | Expression:
     r"""Compute the partial transpose of a matrix [WikPtrans]_.
@@ -157,14 +156,14 @@ def partial_transpose(
     prod_dim_r = int(np.prod(dim[0, :]))
     prod_dim_c = int(np.prod(dim[1, :]))
 
-    sub_prod_r = np.prod(dim[0, sys - 1])
-    sub_prod_c = np.prod(dim[1, sys - 1])
+    sub_prod_r = np.prod(dim[0, sys])
+    sub_prod_c = np.prod(dim[1, sys])
 
     sub_sys_vec_r = prod_dim_r * np.ones(int(sub_prod_r)) / sub_prod_r
     sub_sys_vec_c = prod_dim_c * np.ones(int(sub_prod_c)) / sub_prod_c
 
-    set_diff = list(set(list(range(1, num_sys + 1))) - set(sys))
-    perm = sys.tolist()[:]
+    set_diff = list(set(list(range(1, num_sys + 1))) - set(sys+1))
+    perm = (sys+1).tolist()[:]
     perm.extend(set_diff)
 
     # Permute the subsystems so that we just have to do the partial transpose
@@ -192,7 +191,7 @@ def partial_transpose(
     )
 
     # Return the subsystems back to their original positions.
-    dim[:, sys - 1] = np.flipud(dim[:, sys - 1])
+    dim[:, sys] = np.flipud(dim[:, sys])
 
     dim = dim[:, (np.array(perm) - 1).tolist()]
 
