@@ -53,10 +53,10 @@ def test_ppt_low_rank():
     u, s, v_h = np.linalg.svd(rho)
     rho_cut = u[:, :m-1] @ np.diag(s[:m-1]) @ v_h[:m-1]
     rho_cut = rho_cut / np.trace(rho_cut)
-    pt_state_alice = partial_trace(rho_cut, 2, dim=[3, 2])
+    pt_state_alice = partial_trace(rho_cut, [1], [3, 2])
 
     np.testing.assert_equal(is_density(rho_cut), True)
-    np.testing.assert_equal(is_density(pt_state_alice), True)
+    np.testing.assert_equal(is_density(np.array(pt_state_alice)), True)
     np.testing.assert_equal(
         np.linalg.matrix_rank(rho_cut) + np.linalg.matrix_rank(pt_state_alice) <= 2 * m * n - m - n + 2,
         True

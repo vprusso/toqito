@@ -34,11 +34,11 @@ def majorizes(a_var: np.ndarray | list[int], b_var: np.ndarray | list[int]) -> b
 
     >>> from toqito.matrix_props import majorizes
     >>> from toqito.states import max_entangled
-    >>> from toqito.channels import partial_trace
+    >>> from picos import partial_trace
     >>>
     >>> v_vec = max_entangled(3)
     >>> rho = v_vec * v_vec.conj().T
-    >>> majorizes(partial_trace(rho), rho)
+    >>> majorizes(partial_trace(rho, [1]), rho)
     False
 
     References

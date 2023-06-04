@@ -4,7 +4,7 @@ from __future__ import annotations
 import numpy as np
 
 from toqito.matrix_props import is_identity
-from toqito.channels import partial_trace
+from picos import partial_trace
 
 
 def is_trace_preserving(
@@ -100,5 +100,8 @@ def is_trace_preserving(
 
         mat = k_l.conj().T @ k_r
     else:
-        mat = partial_trace(input_mat=phi, sys=sys, dim=dim)
-    return is_identity(mat, rtol=rtol, atol=atol)
+        if dim == None:
+            mat = partial_trace(phi, [sys-1])
+        else:
+            mat = partial_trace(phi, [sys-1], dim)
+    return is_identity(np.array(mat), rtol=rtol, atol=atol)

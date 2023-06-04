@@ -2,7 +2,7 @@
 from __future__ import annotations
 import numpy as np
 
-from toqito.channels import partial_trace
+from picos import partial_trace
 from toqito.matrix_props import is_positive_semidefinite
 from toqito.state_opt import symmetric_extension_hierarchy
 from toqito.state_props import is_ppt
@@ -107,6 +107,8 @@ def has_symmetric_extension(rho: np.ndarray, level: int = 2, dim: np.ndarray | i
             )
         dim[1] = int(np.round(dim[1]))
 
+    dim = np.int_(dim)
+
     dim_x, dim_y = int(dim[0]), int(dim[1])
     # In certain situations, we don't need semidefinite programming.
     if level == 1 or len_mat <= 6 and ppt:
@@ -122,7 +124,7 @@ def has_symmetric_extension(rho: np.ndarray, level: int = 2, dim: np.ndarray | i
     # (2-copy, non-PPT) symmetric extension that is much faster to use than semidefinite
     # programming [CJKLZB14]_.
     if level == 2 and not ppt and dim_x == 2 and dim_y == 2:
-        return np.trace(np.linalg.matrix_power(partial_trace(rho, 1), 2)) >= np.trace(
+        return np.trace(np.linalg.matrix_power(partial_trace(rho, [0]), 2)) >= np.trace(
             np.linalg.matrix_power(rho, 2)
         ) - 4 * np.sqrt(np.linalg.det(rho))
 

@@ -82,9 +82,10 @@ def is_ppt(
     eps = np.finfo(float).eps
 
     sqrt_rho_dims = np.round(np.sqrt(list(mat.shape)))
+    sqrt_rho_dims = np.int_(sqrt_rho_dims)
 
     if dim is None:
-        dim = np.array([[sqrt_rho_dims[0], sqrt_rho_dims[0]], [sqrt_rho_dims[1], sqrt_rho_dims[1]]])
+        dim = [[sqrt_rho_dims[0], sqrt_rho_dims[0]], [sqrt_rho_dims[1], sqrt_rho_dims[1]]]
     if tol is None:
         tol = np.sqrt(eps)
-    return is_positive_semidefinite(partial_transpose(mat, sys, dim), tol)
+    return is_positive_semidefinite(partial_transpose(mat, [sys-1], dim), tol)

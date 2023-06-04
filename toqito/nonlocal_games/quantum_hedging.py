@@ -80,9 +80,7 @@ class QuantumHedging:
         self._q_a = q_a
         self._num_reps = num_reps
 
-        self._sys = list(range(1, 2 * self._num_reps, 2))
-        if len(self._sys) == 1:
-            self._sys = self._sys[0]
+        self._sys = list(range(0, 2 * self._num_reps-1, 2))
 
         self._dim = 2 * np.ones((1, 2 * self._num_reps)).astype(int).flatten()
         self._dim = self._dim.tolist()

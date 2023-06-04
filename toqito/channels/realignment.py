@@ -78,9 +78,10 @@ def realignment(input_mat: np.ndarray, dim: int | list[int] = None) -> np.ndarra
         dim = np.array([dim, dim])
 
     dim_x = np.array([[dim[0][1], dim[0][0]], [dim[1][0], dim[1][1]]])
+    dim_x = np.int_(dim_x)
     dim_y = np.array([[dim[1][0], dim[0][0]], [dim[0][1], dim[1][1]]])
 
     x_tmp = swap(input_mat, [1, 2], dim, True)
-    y_tmp = partial_transpose(x_tmp, sys=1, dim=dim_x)
+    y_tmp = partial_transpose(x_tmp, [0], dim_x)
 
     return swap(y_tmp, [1, 2], dim_y, True)
