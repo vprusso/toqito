@@ -298,3 +298,24 @@
   value of an `XORGame` object (thanks to @juliusw352)
 
 ## 1.0.5
+
+- Adding ability to perform parallel repetition for `XORGame` objects (thanks to
+  @juliusw352) https://github.com/vprusso/toqito/pull/143
+
+- Thanks to @puva-thakre for updating the installation and contribution guidelines. https://github.com/vprusso/toqito/pull/153
+
+- Thanks to @ryanprior for providing a CI/CD testing and linting pipeline https://github.com/vprusso/toqito/pull/154
+
+- Thanks to @georgios-ts for fixing a bug in `apply_channel` https://github.com/vprusso/toqito/pull/155
+
+- Thanks to @georgios-ts for fixing a bug in `sk_norm`. https://github.com/vprusso/toqito/pull/156
+
+- Thanks to @georgios-ts for fixing a bug in `is_unitary` for channels. https://github.com/vprusso/toqito/pull/164
+
+- Thanks to @georgios-ts for fixing an issue in `choi_to_kraus` for non-CP maps. https://github.com/vprusso/toqito/pull/162
+
+- Thanks for @georgios-ts for adding the `channel_dim` feature to allow one to extract the dimensions of a quantum channel. https://github.com/vprusso/toqito/pull/161
+
+- Thanks to @AmanieOxana for integrating the completely bounded trace and spectral norms. https://github.com/vprusso/toqito/pull/157
+
+- Thanks to @ErikQQY for refactoring and simplifying the partial trace and partial transpose functions.
