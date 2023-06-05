@@ -1,8 +1,7 @@
 """Helstrom-Holevo metric."""
 import numpy as np
 
-from toqito.matrix_props import is_density
-from toqito.matrix_props import trace_norm
+from toqito.matrix_props import is_density, trace_norm
 
 
 def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float:
