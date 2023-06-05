@@ -30,31 +30,31 @@ def completely_bounded_trace_norm(phi: np.ndarray) -> float:
     :param phi: superoperator as choi matrix
     :return: The completely bounded trace norm of the channel
     """
-    dim_Lx, dim_Ly = phi.shape
+    dim_lx, dim_ly = phi.shape
 
-    if dim_Lx != dim_Ly:
+    if dim_lx != dim_ly:
         raise ValueError("The input and output spaces of the superoperator phi must both be square.")
 
     if is_quantum_channel(phi):
         return 1
 
     elif is_completely_positive(phi):
-        v = apply_channel(np.eye(dim_Ly), dual_channel(phi))
+        v = apply_channel(np.eye(dim_ly), dual_channel(phi))
         return trace_norm(v)
 
 
-    dim = int(np.sqrt(dim_Lx))
+    dim = int(np.sqrt(dim_lx))
     # SDP
-    y0 = cp.Variable([dim_Lx, dim_Lx], complex=True)
+    y0 = cp.Variable([dim_lx, dim_lx], complex=True)
     constraints = [y0 == y0.H]
     constraints += [y0 >> 0]
 
-    y1 = cp.Variable([dim_Lx, dim_Lx], complex=True)
+    y1 = cp.Variable([dim_lx, dim_lx], complex=True)
     constraints += [y1 == y1.H]
     constraints += [y1 >> 0]
 
-    A = cp.bmat([[y0, -phi], [-phi.conj().T, y1]])
-    constraints += [A >> 0]
+    a_var = cp.bmat([[y0, -phi], [-phi.conj().T, y1]])
+    constraints += [a_var >> 0]
     objective = cp.Minimize(cp.norm(cp.partial_trace(y0, dims=(dim,dim), axis=1))
                              + cp.norm(cp.partial_trace(y1, dims=(dim,dim), axis=1)))
 
