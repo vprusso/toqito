@@ -2,7 +2,7 @@
 import numpy as np
 
 from toqito.matrix_props import is_density
-from toqito.matrix_props.trace_norm import trace_norm
+from toqito.matrix_props import trace_norm
 
 
 def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float:
