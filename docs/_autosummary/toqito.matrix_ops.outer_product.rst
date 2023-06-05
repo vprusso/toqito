@@ -1,5 +1,5 @@
-﻿toqito.matrix\_ops.outer\_product
-=================================
+﻿toqito.matrix\_ops.outer_product
+=========================
 
 .. currentmodule:: toqito.matrix_ops
 
