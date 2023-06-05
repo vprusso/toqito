@@ -2,6 +2,7 @@
 
 import numpy as np
 import pytest
+
 from toqito.states import bell
 from toqito.state_metrics import fidelity_of_separability
 from toqito.matrix_ops import tensor
@@ -59,6 +60,3 @@ def test_sdp_output():
     expected_value = 1
     state_output_value = fidelity_of_separability(sep_rho, [2, 2], 2)
     assert np.isclose(expected_value, state_output_value)
-
-
-

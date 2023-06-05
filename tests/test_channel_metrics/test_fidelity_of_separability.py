@@ -2,7 +2,8 @@
 
 import numpy as np
 import pytest
-from toqito.states import bell, max_mixed
+
+from toqito.states import max_mixed
 from toqito.channel_metrics import fidelity_of_separability
 from toqito.matrix_ops import tensor
 
@@ -26,6 +27,7 @@ bad_rho = 0.75*tensor(
 
 mixed_rho = max_mixed(8, is_sparse=False)
 
+
 def test_errors_channel_SDP():
     """Tests for raised errors in channel SDP function."""
     with pytest.raises(
@@ -40,6 +42,7 @@ def test_errors_channel_SDP():
             ValueError,
             match="This function only works for pure states."):
         fidelity_of_separability(mixed_rho, [2, 2, 2])
+
 
 def test_sdp_output():
     """Test expected output of the SDP function."""

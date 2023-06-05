@@ -1,14 +1,15 @@
 """Add function for fidelity of separability as defined in [Phil23]_.
 
-The constrainsts for this function are positive partial transpose(PPT)
+The constrainsts for this function are positive partial transpose (PPT)
 & k-extendible states.
 """
 
-from toqito.state_props import is_pure, has_symmetric_extension
-from toqito.matrix_props import is_density
 import picos
 import numpy as np
+
 from toqito.perms import symmetric_projection
+from toqito.state_props import is_pure, has_symmetric_extension
+from toqito.matrix_props import is_density
 
 
 def fidelity_of_separability(
@@ -26,12 +27,12 @@ def fidelity_of_separability(
     of the state is quantified.
 
     Due to the limitations of currently available quantum computers, two
-    optimization semi-definite programs (SDP) benchmarks were introduced to
+    optimization semidefinite programs (SDP) benchmarks were introduced to
     maximize the fidelity of separability subject to some state constraints
-    (Positive Partial Transpose (PPT), symmetrix extensions (k-extendibility
+    (Positive Partial Transpose (PPT), symmetric extensions (k-extendibility
     ) [Hay12]_ ) This function approximites the fidelity of separability by
     maximizing over PPT states & k-extendible states i.e. an optimization
-    problem over states [TBWat18]_.
+    problem over states [TBWat18]_ .
 
     The following expression (Equation (H2) from [Phil23]_ ) defines the
     constraints for approxiamting
@@ -50,7 +51,7 @@ def fidelity_of_separability(
                 \end{bmatrix}
                 \geq0,\\
                 \operatorname{Tr}[\sigma_{AB^{k}}]=1,\\
-                \sigma_{AB^{k}}=\mathcal{P}_{B^{k}}(\sigma_{AB^{k}}),\\ 
+                \sigma_{AB^{k}}=\mathcal{P}_{B^{k}}(\sigma_{AB^{k}}),\\
                 T_{B_{1\cdots j}}(\sigma_{AB_{1\cdots j}})\geq 0 \quad \forall j\leq k
             \end{array}\right\}
         \end{multline}
@@ -156,7 +157,7 @@ def fidelity_of_separability(
 
     # A list of the symmetrically extended subsystems based on the level `k`.
     sub_sys_ext = list(range(2, 2 + k - 1))
-    # #unitary permutation operator in B1,B2,...Bk
+    # unitary permutation operator in B1,B2,...,Bk
     permutation_op = symmetric_projection(dim_B, k)
 
     # defining the problem objective: Re[Tr[X_AB]]
@@ -169,7 +170,7 @@ def fidelity_of_separability(
         linear_op_AB + linear_op_AB.H))
 
     # constraints
-    # >>0 is enforcing positive semi-definite condition
+    # >>0 is enforcing positive semidefinite condition
     problem.add_constraint(picos.block([
         [input_state_rho, linear_op_AB],
         [linear_op_AB.H, picos.partial_trace(
@@ -186,9 +187,9 @@ def fidelity_of_separability(
     # PPT:
     sys = []
     for i in range(1, k):
-        sys = sys+[i]
+        sys = sys + [i]
         problem.add_constraint(
             picos.partial_transpose(sigma_AB_k, sys, dim_direct_sum_AB_k) >> 0)
 
     solution = problem.solve(solver="cvxopt")
-    return (solution.value)**2
+    return solution.value**2

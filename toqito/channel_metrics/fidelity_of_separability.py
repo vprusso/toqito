@@ -1,21 +1,24 @@
 """Add functions for channel fidelity of Separability as defined in [Phil23]_.
 
-The constrainsts for this function are positive partial transpose(PPT)
+The constrainsts for this function are positive partial transpose (PPT)
 & k-extendible channels.
 """
 
-from toqito.state_props import is_pure
-from toqito.matrix_props import is_density
 import picos
 import numpy as np
-from toqito.perms import symmetric_projection
-from toqito.perms import permute_systems
+
+from toqito.perms import (
+    symmetric_projection,
+    permute_systems
+    )
+from toqito.state_props import is_pure
+from toqito.matrix_props import is_density
 
 
-
-def fidelity_of_separability(psi: np.ndarray, psi_dims: list[int], k: int = 1) -> float:
+def fidelity_of_separability(
+        psi: np.ndarray, psi_dims: list[int], k: int = 1) -> float:
     r"""
-    Define the first benchmark introduced in Appendix I of [Phil23]_.
+    Define the first benchmark introduced in Appendix I of [Phil23]_ .
 
     If you would like to instead use the benchmark introduced in Appendix H,
     go to :obj:`toqito.state_metrics.fidelity_of_separability`.
@@ -26,14 +29,14 @@ def fidelity_of_separability(psi: np.ndarray, psi_dims: list[int], k: int = 1) -
     of the state is quantified.
 
     Due to the limitations of currently available quantum computers, two
-    optimization semi-definite programs (SDP) benchmarks were introduced to
+    optimization semidefinite programs (SDP) benchmarks were introduced to
     maximize the fidelity of separability subject to some state constraints
-    (Positive Partial Transpose (PPT), symmetrix extensions (k-extendibility
+    (Positive Partial Transpose (PPT), symmetric extensions (k-extendibility
     ) [Hay12]_ ). Entangled states do not have k-symmetric extensions. If an
     extension exists, it cannot be assumed directly that the state is
     separable. This function approximites the fidelity of separability by
     maximizing over PPT channels & k-extendible entanglement breaking channels
-    i.e. an optimization problem over channels [TBWat18]_.
+    i.e. an optimization problem over channels [TBWat18]_ .
 
     The following expression (Equation (I4) from [Phil23]_ ) defines the
     constraints for approximating
@@ -47,7 +50,7 @@ def fidelity_of_separability(psi: np.ndarray, psi_dims: list[int], k: int = 1) -
                 [c]{c}%
                 \operatorname{Tr}[\Pi_{A^{\prime}A}^{\operatorname{sym}} \operatorname{Tr}_{R}[T_R(\psi_{RAB})\Gamma^{\mathcal{E}^{k}}_{RA^{\prime}_1}]]:\\%
                 \operatorname{Tr}_{A^{\prime k}}[\Gamma^{\mathcal{E}^{k}}_{RA^{\prime k}}]=I_R,\\
-                \Gamma^{\mathcal{E}^{k}}_{RA^{\prime k}}=\mathcal{P}_{A^{\prime k}}(\Gamma^{\mathcal{E}^{k}}_{RA^{\prime k}}),\\ 
+                \Gamma^{\mathcal{E}^{k}}_{RA^{\prime k}}=\mathcal{P}_{A^{\prime k}}(\Gamma^{\mathcal{E}^{k}}_{RA^{\prime k}}),\\
                 T_{A^{\prime}_{1\cdots j}}(\Gamma^{\mathcal{E}^{k}_{RA^{\prime k}}}) \geq 0 \quad \forall j\leq k
         \end{array}\right\}
         \end{multline}
@@ -72,7 +75,7 @@ def fidelity_of_separability(psi: np.ndarray, psi_dims: list[int], k: int = 1) -
     ==========
     Let's consider a density matrix of a state that we know is pure &
     separable. :math:`|000 \rangle = |0 \rangle \otimes |0 \rangle \otimes |0 \rangle`.
-    
+
     The expected approximation of fidelity of separability is the maximum
     value possible i.e. very close to 1.
 
@@ -113,14 +116,14 @@ def fidelity_of_separability(psi: np.ndarray, psi_dims: list[int], k: int = 1) -
 
     Args:
         psi: the density matrix for the tripartite state of interest psi_{BAR}
-        psi_dims: the dimensions of System A, B & R in
+        psi_dims: the dimensions of System A, B, & R in
             the input state density matrix. It is assumed that the first
             quantity in this list is the dimension of System B.
-        k: value for k-extendibility
+        k: value for k-extendibility.
     Raises:
         AssertionError:
-            * If the provided dimensions are not for a tripartite density \n
-            matrix
+            * If the provided dimensions are not for a tripartite density
+            matrix.
         TypeError:
             * If the matrix is not a density matrix (square matrix that is \n
             PSD with trace 1).
@@ -162,37 +165,40 @@ def fidelity_of_separability(psi: np.ndarray, psi_dims: list[int], k: int = 1) -
 
     problem.set_objective(
         "max",
-        np.real(picos.trace(
-            pi_sym *
-            picos.partial_trace(
-                (picos.partial_transpose(
-                    psi, [0], psi_dims) @ picos.I(dim_a)) *
-                permute_systems(
-                    choi_partial @ picos.I(dim_b*dim_a), [
-                        1, 4, 3, 2], dim_list),
-                [0, 2], dim_list
+        np.real(
+            picos.trace(
+                pi_sym
+                * picos.partial_trace(
+                    (picos.partial_transpose(
+                        psi, [0], psi_dims) @ picos.I(dim_a))
+                    * permute_systems(
+                        choi_partial @ picos.I(
+                            dim_b * dim_a), [1, 4, 3, 2], dim_list
+                    ),
+                    [0, 2],
+                    dim_list,
+                )
             )
-        ))
+        ),
     )
 
     problem.add_constraint(
-        picos.partial_trace(choi, list(range(
-            1, k+1)), choi_dims) == picos.I(dim_r)
+        picos.partial_trace(
+            choi, list(range(1, k + 1)), choi_dims) == picos.I(dim_r)
     )
     problem.add_constraint(choi >> 0)
 
     # k-extendablility of Choi state
-    problem.add_constraint(
-        (picos.I(dim_r) @ sym_choi) * choi * (picos.I(dim_r)@sym_choi) == choi
-    )
+    problem.add_constraint((
+        picos.I(dim_r) @ sym_choi) * choi * (
+            picos.I(dim_r) @ sym_choi) == choi)
 
     # PPT condition on Choi state
     sys = []
-    for i in range(1, 1+k):
+    for i in range(1, 1 + k):
         sys = sys + [i]
         problem.add_constraint(
             picos.partial_transpose(choi, sys, choi_dims) >> 0)
 
     solution = problem.solve(solver="cvxopt")
     return 2 * solution.value - 1
-
