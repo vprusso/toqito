@@ -9,8 +9,8 @@ from toqito.matrix_ops import tensor
 
 
 # test mixed rho
-mixed_rho = 1/2 * bell(0) * bell(0).conj().T + 1 / 2 * bell(
-    3) * bell(3).conj().T
+mixed_rho = 1/2 * bell(0) @ bell(0).conj().T + 1 / 2 * bell(
+    3) @ bell(3).conj().T
 
 # test pure entangled rho
 u = bell(0)

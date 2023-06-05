@@ -8,7 +8,7 @@ import picos
 import numpy as np
 
 from toqito.perms import symmetric_projection
-from toqito.state_props import is_pure, has_symmetric_extension
+from toqito.state_props import is_pure, is_separable
 from toqito.matrix_props import is_density
 
 
@@ -142,7 +142,7 @@ def fidelity_of_separability(
         raise AssertionError("For State SDP: require bipartite state dims.")
     if not is_pure(input_state_rho):
         raise ValueError("This function only works for pure states.")
-    if not has_symmetric_extension(input_state_rho):
+    if not is_separable(input_state_rho):
         raise ValueError("Provided input state is entangled.")
 
     # Infer the dimension of Alice and Bob's system.
