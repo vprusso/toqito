@@ -25,7 +25,6 @@ Distance Metrics for Quantum States
     toqito.state_metrics.hilbert_schmidt_inner_product
     toqito.state_metrics.sub_fidelity
     toqito.state_metrics.trace_distance
-    toqito.state_metrics.trace_norm
     toqito.state_metrics.bures_distance
     toqito.state_metrics.matsumoto_fidelity
 

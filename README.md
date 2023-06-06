@@ -82,6 +82,12 @@ A BibTeX entry that you can use to cite `toqito` is provided here:
  }
 ```
 
+The `toqito` project has been used in the following works:
+ 
+- Philip, Aby, Soorya Rethinasamy, Vincent Russo, and Mark M. Wilde. "Quantum Steering Algorithm for Estimating Fidelity of Separability." arXiv preprint [arXiv:2303.07911](https://arxiv.org/abs/2303.07911) (2023).
+
+- Miszczak, Jarosław Adam. "Symbolic quantum programming for supporting applications of quantum computing technologies." arXiv preprint [arXiv:2302.09401](https://arxiv.org/abs/2302.09401) (2023).
+
 ## Contributing
 
 All contributions, bug reports, bug fixes, documentation improvements,

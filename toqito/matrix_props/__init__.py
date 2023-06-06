@@ -18,3 +18,4 @@ from toqito.matrix_props.majorizes import majorizes
 from toqito.matrix_props.sk_norm import sk_operator_norm
 from toqito.matrix_props.is_block_positive import is_block_positive
 from toqito.matrix_props.is_orthonormal import is_orthonormal
+from toqito.matrix_props.trace_norm import trace_norm

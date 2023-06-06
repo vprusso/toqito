@@ -1,8 +1,7 @@
 """Trace distance metric."""
 import numpy as np
 
-from toqito.matrix_props import is_density
-from toqito.state_metrics import trace_norm
+from toqito.matrix_props import is_density, trace_norm
 
 
 def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float:
