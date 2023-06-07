@@ -8,13 +8,17 @@ import picos
 import numpy as np
 
 from toqito.perms import symmetric_projection
-from toqito.state_props import is_pure, is_separable
+from toqito.state_props import is_pure
+from toqito.state_props.is_separable import is_separable
 from toqito.matrix_props import is_density
 
 
 def fidelity_of_separability(
         input_state_rho: np.ndarray,
-        input_state_rho_dims: list[int], k: int = 1) -> float:
+        input_state_rho_dims: list[int],
+        k: int = 1,
+        verbosity_option=2,
+        solver_option="cvxopt") -> float:
     r"""
     Define the first benchmark introduced in Appendix H of [Phil23]_.
 
@@ -123,6 +127,11 @@ def fidelity_of_separability(
             the input state density matrix. It is assumed that the first
             quantity in this list is the dimension of System A.
         k: value for k-extendibility
+        verbosity_option: Parameter option for `picos`. Default value is `verbosity = 2`.
+            For more info, visit https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-verbosity
+        solver_option: Optimization option for `picos` solver. Default option is `solver_option="cvxopt"`
+            For more info,
+            visit https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-solver
     Raises:
         AssertionError:
             * If the provided dimensions are not for a bipartite density matrix
@@ -161,7 +170,7 @@ def fidelity_of_separability(
     permutation_op = symmetric_projection(dim_B, k)
 
     # defining the problem objective: Re[Tr[X_AB]]
-    problem = picos.Problem(verbosity=2)
+    problem = picos.Problem(verbosity=verbosity_option)
     linear_op_AB = picos.ComplexVariable("x_AB", input_state_rho.shape)
     sigma_AB_k = picos.HermitianVariable(
         "s_AB_k", (dim_op_sigma_AB_k, dim_op_sigma_AB_k))
@@ -191,5 +200,5 @@ def fidelity_of_separability(
         problem.add_constraint(
             picos.partial_transpose(sigma_AB_k, sys, dim_direct_sum_AB_k) >> 0)
 
-    solution = problem.solve(solver="cvxopt")
+    solution = problem.solve(solver=solver_option)
     return solution.value**2

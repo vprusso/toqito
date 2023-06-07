@@ -16,7 +16,10 @@ from toqito.matrix_props import is_density
 
 
 def fidelity_of_separability(
-        psi: np.ndarray, psi_dims: list[int], k: int = 1) -> float:
+        psi: np.ndarray, psi_dims: list[int],
+        k: int = 1,
+        verbosity_option=2,
+        solver_option="cvxopt") -> float:
     r"""
     Define the first benchmark introduced in Appendix I of [Phil23]_ .
 
@@ -120,6 +123,11 @@ def fidelity_of_separability(
             the input state density matrix. It is assumed that the first
             quantity in this list is the dimension of System B.
         k: value for k-extendibility.
+        verbosity_option: Parameter option for `picos`. Default value is `verbosity = 2`.
+            For more info, visit https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-verbosity
+        solver_option: Optimization option for `picos` solver. Default option is `solver_option="cvxopt"`
+            For more info,
+            visit https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-solver
     Raises:
         AssertionError:
             * If the provided dimensions are not for a tripartite density
@@ -161,7 +169,7 @@ def fidelity_of_separability(
     choi = picos.HermitianVariable("S", (dim_choi, dim_choi))
     choi_partial = picos.partial_trace(choi, sys_ext, choi_dims)
     sym_choi = symmetric_projection(dim_a, k)
-    problem = picos.Problem(verbosity=2)
+    problem = picos.Problem(verbosity=verbosity_option)
 
     problem.set_objective(
         "max",
@@ -200,5 +208,5 @@ def fidelity_of_separability(
         problem.add_constraint(
             picos.partial_transpose(choi, sys, choi_dims) >> 0)
 
-    solution = problem.solve(solver="cvxopt")
+    solution = problem.solve(solver=solver_option)
     return 2 * solution.value - 1
