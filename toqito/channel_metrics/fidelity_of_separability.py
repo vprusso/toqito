@@ -126,8 +126,7 @@ def fidelity_of_separability(
         verbosity_option: Parameter option for `picos`. Default value is `verbosity = 2`.
             For more info, visit https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-verbosity
         solver_option: Optimization option for `picos` solver. Default option is `solver_option="cvxopt"`
-            For more info,
-            visit https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-solver
+            For more info, visit https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-solver
     Raises:
         AssertionError:
             * If the provided dimensions are not for a tripartite density
