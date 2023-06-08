@@ -46,8 +46,7 @@ def test_errors_channel_SDP():
 
 def test_sdp_output():
     """Test expected output of the SDP function."""
-    expected_value = 1
     channel_output_value = fidelity_of_separability(
         purification_state, [2, 2, 2], 2)
-    assert np.isclose(expected_value, channel_output_value)
+    assert np.isclose(1, channel_output_value)
 

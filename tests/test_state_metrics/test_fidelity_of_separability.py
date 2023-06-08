@@ -14,7 +14,7 @@ mixed_rho = 1/2 * bell(0) @ bell(0).conj().T + 1 / 2 * bell(
 
 # test pure entangled rho
 u = bell(0)
-entangled_rho = u * u.conj().T
+entangled_rho = u @ u.conj().T
 
 # test bad density matrix
 bad_rho = 1 / 2 * np.array([[1, 2], [3, 1]])
@@ -56,7 +56,6 @@ def test_errors_state_SDP():
 
 
 def test_sdp_output():
-    """Test expected output of both the SDP functions."""
-    expected_value = 1
+    """Test expected output of the state SDP function."""
     state_output_value = fidelity_of_separability(sep_rho, [2, 2], 2)
-    assert np.isclose(expected_value, state_output_value)
+    assert np.isclose(1, state_output_value)
