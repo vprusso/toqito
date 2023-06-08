@@ -67,7 +67,7 @@ def is_separable(
 
     state_len = state.shape[1]
     state_rank = np.linalg.matrix_rank(state)
-    state /= np.trace(state)
+    state = state/np.trace(state)
     eps = np.finfo(float).eps
 
     if dim is None:

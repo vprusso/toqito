@@ -19,6 +19,7 @@ Distance Metrics for Quantum States
    :toctree: _autosummary
 
     toqito.state_metrics.fidelity
+    toqito.state_metrics.fidelity_of_separability
     toqito.state_metrics.helstrom_holevo
     toqito.state_metrics.hilbert_schmidt
     toqito.state_metrics.hilbert_schmidt_inner_product
