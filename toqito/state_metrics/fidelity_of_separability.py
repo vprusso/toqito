@@ -9,7 +9,8 @@ import numpy as np
 
 from toqito.perms import symmetric_projection
 from toqito.state_props import is_pure
-from toqito.state_props.is_separable import is_separable
+from toqito.state_props import is_separable
+
 from toqito.matrix_props import is_density
 
 
