@@ -41,7 +41,7 @@ def is_diagonally_dominant(mat: np.ndarray, is_strict=True) -> bool:
 
        is not diagonally dominant.
 
-       >>> from toqito.matrix_props import is_positive_definite
+       >>> from toqito.matrix_props import is_diagonally_dominant
        >>> import numpy as np
        >>> B = np.array([[-1, 2], [-1, -1]])
        >>> is_diagonally_dominant(B)
