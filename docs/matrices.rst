@@ -63,3 +63,4 @@ Properties of Matrices and Vectors
     toqito.matrix_props.is_unitary
     toqito.matrix_props.majorizes
     toqito.matrix_props.sk_operator_norm
+    toqito.matrix_props.is_diagonally_dominant
