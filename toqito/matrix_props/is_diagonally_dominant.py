@@ -5,12 +5,16 @@ from toqito.matrix_props import is_square
 
 def is_diagonally_dominant(mat: np.ndarray, is_strict=True) -> bool:
     r"""
-       Check if matrix is diagnal dominant (DD) [WikPD]_.
+       Check if matrix is diagnal dominant (DD) [WikDD]_.
+
+        A matrix is diagonally dominant if the matrix is square
+        and  if for every row of the matrix, the magnitude of the diagonal entry in a row is larger
+        than or equal to the sum of the magnitudes of all the other (non-diagonal) entries in that row.
 
        Examples
        ==========
 
-       Consider the following matrix
+        The following is an example of a 3-by-3 diagonal matrix:
 
        .. math::
            A = \begin{pmatrix}
@@ -35,7 +39,7 @@ def is_diagonally_dominant(mat: np.ndarray, is_strict=True) -> bool:
                    -1 & -1
                \end{pmatrix}
 
-       is not positive definite.
+       is not diagonally dominant.
 
        >>> from toqito.matrix_props import is_positive_definite
        >>> import numpy as np
@@ -45,7 +49,7 @@ def is_diagonally_dominant(mat: np.ndarray, is_strict=True) -> bool:
 
        References
        ==========
-       .. [WikPD] Wikipedia: Definiteness of a matrix.
+       .. [WikDD] Wikipedia: Definiteness of a matrix.
            https://en.wikipedia.org/wiki/Diagonally_dominant_matrix
 
        :param mat: Matrix to check.
