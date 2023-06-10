@@ -49,7 +49,7 @@ def is_diagonally_dominant(mat: np.ndarray, is_strict: bool = True) -> bool:
 
        References
        ==========
-       .. [WikDD] Wikipedia: Definiteness of a matrix.
+       .. [WikDD] Wikipedia: Diagonally dominant matrix.
            https://en.wikipedia.org/wiki/Diagonally_dominant_matrix
 
        :param mat: Matrix to check.
