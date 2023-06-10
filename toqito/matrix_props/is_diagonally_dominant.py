@@ -3,7 +3,7 @@ import numpy as np
 from toqito.matrix_props import is_square
 
 
-def is_diagonally_dominant(mat: np.ndarray, is_strict=True) -> bool:
+def is_diagonally_dominant(mat: np.ndarray, is_strict: bool = True) -> bool:
     r"""
        Check if matrix is diagnal dominant (DD) [WikDD]_.
 
