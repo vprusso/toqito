@@ -1,4 +1,4 @@
-toqito.matrix\_ops.inner_product
+﻿toqito.matrix\_ops.inner_product
 =========================
 
 .. currentmodule:: toqito.matrix_ops
