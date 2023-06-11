@@ -19,3 +19,4 @@ from toqito.state_props.in_separable_ball import in_separable_ball
 from toqito.state_props.is_separable import is_separable
 from toqito.state_props.has_symmetric_extension import has_symmetric_extension
 from toqito.state_props.sk_vec_norm import sk_vector_norm
+from toqito.state_props.is_unextendible_product_basis import is_unextendible_product_basis

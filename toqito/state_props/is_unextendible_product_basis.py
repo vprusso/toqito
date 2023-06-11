@@ -1,3 +1,4 @@
+"""Check if a set of states form an unextendible product basis."""
 import numpy as np
 from scipy.linalg import null_space
 
@@ -8,7 +9,7 @@ from toqito.state_props import is_product
 from toqito.matrix_ops import tensor
 
 
-def is_unextendible_product_basis(vecs: np.ndarray, dims: np.ndarray, return_witness: bool = False) -> tuple[bool, np.ndarray | None]:
+def is_unextendible_product_basis(vecs: list | np.ndarray, dims: list | np.ndarray) -> tuple[bool, np.ndarray | None]:
     r"""
     Check if a set of vectors form an unextendible product basis (UPB) [UPB99]_.
 
@@ -42,7 +43,7 @@ def is_unextendible_product_basis(vecs: np.ndarray, dims: np.ndarray, return_wit
     >>> from toqito.state_props import is_unextendible_product_basis
     >>> non_upb_tiles = np.array([tile(i) for i in range(4)])
     >>> dims = np.array([3, 3])
-    >>> is_unextendible_product_basis(non_upb_tiles, dims, return_witness=True)
+    >>> is_unextendible_product_basis(non_upb_tiles, dims)
     (False, array([-0.00000000e+00,  0.00000000e+00,  0.00000000e+00, -0.00000000e+00,
         0.00000000e+00,  0.00000000e+00, -1.11022302e-16,  7.07106781e-01,
         7.07106781e-01]))
@@ -59,12 +60,21 @@ def is_unextendible_product_basis(vecs: np.ndarray, dims: np.ndarray, return_wit
         Physical Review Letters 82.26 (1999): 5385.
         https://arxiv.org/abs/quant-ph/9808030
 
-    :param vecs: The list of basis vectors.
+    :raises ValueError: If product of dimensions does not match the size of a vector.
+    :raises ValueError: If at least one vector is not a product state.
+    :param vecs: The list of states.
     :param dims: The list of dimensions.
-    :param return_witness: Return a witness if :code:`True` and input is not a UPB.
-                           Return :code:`None` otherwise. 
+    :return: Returns a tuple. The first element is :code:`True` if input is a UPB and
+            :code:`False` otherwise. The second element is a witness (a product state
+            orthogonal to all the input vectors) if the input is a PB and :code:`None`
+            otherwise.
     """
     # Some error handling:
+    if isinstance(vecs, list):
+        vecs = np.array(vecs)
+    if isinstance(dims, list):
+        dims = np.array(dims)
+
     if np.prod(dims) != vecs.shape[1]:
         raise ValueError("Product of dimensions does not equal the size of each vector")
 
@@ -108,10 +118,8 @@ def is_unextendible_product_basis(vecs: np.ndarray, dims: np.ndarray, return_wit
                 wit.append(null_basis[:, 0])
             # If witness was found, then it is not a UPB, return tensor product of witness vectors
             if witness_found:
-                if return_witness:
-                    return (False, tensor(wit))
-                else:
-                    return (False, None)
+                # If wit is empty, tensor returns None
+                return (False, tensor(wit))
     
     # If no witness was found, it is a UPB
     return (True, None)
