@@ -4,7 +4,7 @@ import cvxpy as cp
 
 from toqito.channel_ops import apply_channel, dual_channel
 from toqito.channel_props import is_quantum_channel, is_completely_positive
-from toqito.state_metrics import trace_norm
+from toqito.matrix_props import trace_norm
 
 def completely_bounded_trace_norm(phi: np.ndarray) -> float:
     r"""

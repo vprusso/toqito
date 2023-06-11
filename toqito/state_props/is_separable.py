@@ -4,10 +4,9 @@ from __future__ import annotations
 import numpy as np
 
 from toqito.channels import realignment
-from toqito.matrix_props import is_positive_semidefinite
+from toqito.matrix_props import is_positive_semidefinite, trace_norm
 from toqito.state_props import is_ppt, in_separable_ball
 from toqito.state_props.has_symmetric_extension import has_symmetric_extension
-from toqito.state_metrics import trace_norm
 from toqito.perms import swap
 
 from picos import partial_trace
@@ -68,7 +67,7 @@ def is_separable(
 
     state_len = state.shape[1]
     state_rank = np.linalg.matrix_rank(state)
-    state /= np.trace(state)
+    state = state/np.trace(state)
     eps = np.finfo(float).eps
 
     if dim is None:
