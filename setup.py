@@ -3,7 +3,7 @@ import setuptools
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-requirements = ["cvx", "cvxpy", "numpy", "picos", "scipy", "scikit-image"]
+requirements = ["cvx", "cvxpy", "more-itertools", "numpy", "picos", "scipy", "scikit-image"]
 
 setuptools.setup(
     name="toqito",

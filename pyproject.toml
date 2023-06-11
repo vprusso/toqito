@@ -39,6 +39,7 @@ keywords = ["quantum information", "quantum computing", "nonlocal games"]
 python = "^3.9"
 cvxpy = "^1.2.1"
 cvxopt = "^1.2.5"
+more-itertools = "^9.1.0"
 numpy = "^1.19.4"
 scipy = "^1.8.0"
 #scs = "^2.1.2"
