@@ -8,7 +8,7 @@ def is_diagonally_dominant(mat: np.ndarray, is_strict: bool = True) -> bool:
        Check if matrix is diagnal dominant (DD) [WikDD]_.
 
         A matrix is diagonally dominant if the matrix is square
-        and  if for every row of the matrix, the magnitude of the diagonal entry in a row is larger
+        and if for every row of the matrix, the magnitude of the diagonal entry in a row is greater
         than or equal to the sum of the magnitudes of all the other (non-diagonal) entries in that row.
 
        Examples
@@ -53,7 +53,7 @@ def is_diagonally_dominant(mat: np.ndarray, is_strict: bool = True) -> bool:
            https://en.wikipedia.org/wiki/Diagonally_dominant_matrix
 
        :param mat: Matrix to check.
-       :param is_strict: Wether the inequlity is strict.
+       :param is_strict: Whether the inequality is strict.
        :return: Return :code:`True` if matrix is diagnally dominant, and :code:`False` otherwise.
        """
     if not is_square(mat):
