@@ -12,7 +12,11 @@ def is_unextendible_product_basis(vecs: np.ndarray, dims: np.ndarray, return_wit
     r"""
     Check if a set of vectors form an unextendible product basis (UPB) [UPB99]_.
 
-    
+    Consider a multipartite quantum system :math:`\mathfrak{H} = \bigotimes_{i=1}^{m} \mathfrak{H}_{i}
+    with :math:`m` parties with respective dimensions :math:`d_i, i=1,2,..,m`. An (incomplete orthogonal)
+    product basis (PB) is a set :math:`S` of pure orthogonal product states spanning a proper subspace
+    :math:`H_S` of :math:`H`. An unextendible product basis (UPB) is a PB whose complementary subspace
+    :math:`H_S-H` contains no product state.
 
     This function is inspired from :code:`IsUPB` in QETLAB.
 
