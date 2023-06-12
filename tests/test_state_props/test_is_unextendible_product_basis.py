@@ -3,14 +3,13 @@
 import numpy as np
 import pytest
 
-from toqito.state_props.is_unextendible_product_basis import (
-    is_unextendible_product_basis,
-)
+from toqito.state_props.is_unextendible_product_basis import is_unextendible_product_basis
+from toqito.state_props.is_unextendible_product_basis import item_partitions
 from toqito.matrix_ops import tensor
 from toqito.matrix_ops import inner_product
 
 
-def Tiles():
+def tiles_local_state_list():
     """Constructs Tiles UPB."""
     tiles_A = np.zeros([3, 5])
     tiles_A[:, 0] = [1, 0, 0]
@@ -29,7 +28,7 @@ def Tiles():
     return [tiles_A, tiles_B]
 
 
-def GenShifts(parties: int):
+def genshifts_local_state_list(parties: int):
     """Constructs GenShifts UPB for odd number of parties."""
     if (parties % 2 == 0) or parties == 1:
         raise ValueError("Input must be an odd int greater than 1.")
@@ -91,21 +90,24 @@ def test_is_unextendible_product_basis_input_arrays_not_same_num_columns():
 
 def test_is_unextendable_product_basis_tiles():
     """Verify if Tiles UPB is a UPB"""
-    res = is_unextendible_product_basis(Tiles())
+    tiles = tiles_local_state_list()
+    res = is_unextendible_product_basis(tiles)
     expected_res = [True, None]
     np.testing.assert_array_equal(res, expected_res)
+
 
 # Test parameter ranges over number of states removed out of 5 original Tiles UPB states.
 @pytest.mark.parametrize("num_states", [1, 2, 3, 4])
 def test_is_unextendable_product_basis_tiles_remove_states_false(num_states):
     """Check if Tiles UPB fails to be a UPB when 1, 2, 3, and 4 states are removed."""
-    tiles = Tiles()
+    tiles = tiles_local_state_list()
     # Remove some number of states from the Tiles UPB.
-    tiles_with_states_removed  = [tiles[0][0:, 0:num_states], tiles[1][:, 0:num_states]]
+    tiles_with_states_removed = [tiles[0][0:, 0:num_states], tiles[1][:, 0:num_states]]
     res = is_unextendible_product_basis(tiles_with_states_removed)
     # We expect these to not be a valid UPB.
     expected_res = False
     np.testing.assert_equal(res[0], expected_res)
+
 
 # Test parameter ranges over number of states removed out of 5 original Tiles UPB states.
 @pytest.mark.parametrize("num_states", [1, 2, 3, 4])
@@ -113,9 +115,9 @@ def test_is_unextendable_product_basis_tiles_remove_states_orthogonal_witness(
     num_states,
 ):
     """Check if witness is orthogonal to Tiles UPB when 1, 2, 3, and 4 states are removed."""
-    tiles = Tiles()
+    tiles = tiles_local_state_list()
     # Remove some number of states from the Tiles UPB.
-    tiles_with_states_removed  = [tiles[0][0:, 0:num_states], tiles[1][:, 0:num_states]]
+    tiles_with_states_removed = [tiles[0][0:, 0:num_states], tiles[1][:, 0:num_states]]
     # Get the returned witness state.
     witness = is_unextendible_product_basis(tiles_with_states_removed)[1]
     # Construct the global tensor product of the witness state.
@@ -139,13 +141,124 @@ def test_is_unextendable_product_basis_tiles_remove_states_orthogonal_witness(
     expected_res = [0] * num_states
     np.testing.assert_array_almost_equal(res, expected_res)
 
+
 # Test parameter ranges over number of parties of the UPB, which must be odd integer greatar than 1.
 @pytest.mark.parametrize("num_parties", [3, 5, 7])
 def test_is_unextendable_product_basis_tiles_GenShifts(num_parties):
     """Verify if GenShifts UPB is a UPB for 3, 5, and, 7 parties"""
-    res = is_unextendible_product_basis(GenShifts(num_parties))
+    genshifts = genshifts_local_state_list(num_parties)
+    res = is_unextendible_product_basis(genshifts)
     expected_res = [True, None]
     np.testing.assert_array_equal(res, expected_res)
+
+
+def test_item_partitions_num_parts_is_not_int():
+    """Number of parts is not of type `int`."""
+    with np.testing.assert_raises(ValueError):
+        items = [1, 2, 3]
+        num_parts = 1.1
+        if not isinstance(num_parts, int):
+            item_partitions(items, num_parts)
+
+
+def test_item_partitions_num_parts_is_not_positive_int():
+    """Number of parts is not positive integer."""
+    with np.testing.assert_raises(ValueError):
+        items = [1, 2, 3]
+        num_parts = 0
+        item_partitions(items, num_parts)
+
+
+def test_item_partitions_sizes_is_empty_list():
+    """List of sizes is empty list."""
+    with np.testing.assert_raises(ValueError):
+        items = [1, 2, 3]
+        num_parts = 2
+        sizes = []
+        item_partitions(items, num_parts, sizes)
+
+
+def test_item_partitions_sizes_has_non_int_elements():
+    """List of sizes has elements not of type `int`."""
+    with np.testing.assert_raises(ValueError):
+        items = [1, 2, 3]
+        num_parts = 2
+        sizes = [1, 1.1]
+        item_partitions(items, num_parts, sizes)
+
+
+def test_item_partitions_sizes_has_non_positive_int_elements():
+    """List of sizes has non positive integer elements."""
+    with np.testing.assert_raises(ValueError):
+        items = [1, 2, 3]
+        num_parts = 2
+        sizes = [1, 0]
+        item_partitions(items, num_parts, sizes)
+
+
+# Test parameter ranges over number of parts specified in the partitions.
+@pytest.mark.parametrize("num_parts", [1, 2, 3])
+def test_item_partitions_all_have_same_num_parts(num_parts):
+    """Checks if each partition has the same number of parts."""
+    items = [1, 2, 3]
+    partitions = item_partitions(items, num_parts)
+    num_partitions = len(partitions)
+    partition_length_list = []
+    for partition in partitions:
+        partition_length = len(partition)
+        partition_length_list.append(partition_length)
+    res = partition_length_list
+    expected_res = [num_parts] * num_partitions
+    np.testing.assert_array_equal(res, expected_res)
+
+
+# Test parameter ranges over various sizes giving the minimum number of elements in a part of the partitions.
+@pytest.mark.parametrize("sizes", [[1, 1], [1, 2], [2, 1]])
+def test_item_partitions_parts_have_minimum_size(sizes):
+    """Checks if each part of each partition has the required minimum number of elements."""
+    items = [1, 2, 3]
+    num_parts = 2
+    partitions = item_partitions(items, num_parts, sizes)
+    satisfied = True
+    for partition in partitions:
+        for i, part in enumerate(partition):
+            if len(part) < sizes[i]:
+                satisfied = False
+                break
+        if not satisfied:
+            break
+    res = satisfied
+    expected_res = True
+    np.testing.assert_equal(res, expected_res)
+
+
+# Test parameter ranges over number of parts of the partition.
+@pytest.mark.parametrize("num_parts", [1, 2, 3])
+def test_item_partitions_has_valid_partitions(num_parts):
+    """Checks if each returned list element is a valid permutation."""
+    items = [1, 2, 3]
+    partitions = item_partitions(items, num_parts)
+    # Boolean flag for valid partition.
+    satisfied = True
+    for partition in partitions:
+        partitioned_set = set()
+        # Boolean flag for disjointness of parts.
+        is_disjoint = True
+        # Boolean flag for union of parts.
+        is_complete = False
+        for part in partition:
+            is_disjoint = partitioned_set.isdisjoint(part)
+            if not is_disjoint:
+                satisfied = False
+                break
+            partitioned_set.update(part)
+        is_complete = partitioned_set == set(items)
+        if not is_complete:
+            satisfied = False
+            break
+    res = satisfied
+    expected_res = True
+    np.testing.assert_equal(res, expected_res)
 
 
 if __name__ == "__main__":
