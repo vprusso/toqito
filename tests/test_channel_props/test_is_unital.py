@@ -1,6 +1,7 @@
 """Tests for is_unital."""
 import numpy as np
 
+from toqito.channel_ops import kraus_to_choi
 from toqito.channel_props import is_unital
 from toqito.channels import depolarizing
 from toqito.perms import swap_operator
@@ -31,9 +32,30 @@ def test_is_unital_swap_operator_choi_true():
     np.testing.assert_equal(is_unital(swap_operator(3)), True)
 
 
-def test_is_unital_depolarizing_choi_false():
-    """Verify Choi matrix of the depolarizing map is not unital."""
-    np.testing.assert_equal(is_unital(depolarizing(4)), False)
+def test_is_unital_depolarizing_choi_true():
+    """Verify Choi matrix of the depolarizing map is unital."""
+    np.testing.assert_equal(is_unital(depolarizing(4)), True)
+
+
+def test_is_unital_isometry_true():
+    """Verify isometry channel is unital."""
+    v_mat = np.array([[1, 0, 0], [0, 1, 0]])
+    np.testing.assert_equal(is_unital([v_mat], dim=[3, 2]), True)
+
+
+def test_is_unital_choi_isometry_true():
+    """Verify isometry channel with Choi matrix is unital."""
+    v_mat = np.array([[1, 0, 0], [0, 1, 0]])
+    choi = kraus_to_choi([v_mat])
+    np.testing.assert_equal(is_unital(choi, dim=[3, 2]), True)
+
+
+def test_is_unital_isometry_true_unspecified_dim():
+    """Verify isometry channel with Choi matrix raises if dim is unspecified."""
+    v_mat = np.array([[1, 0, 0], [0, 1, 0]])
+    choi = kraus_to_choi([v_mat])
+    with np.testing.assert_raises(ValueError):
+        is_unital(choi)
 
 
 if __name__ == "__main__":

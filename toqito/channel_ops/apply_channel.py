@@ -1,6 +1,7 @@
 """Apply channel to an operator."""
 from __future__ import annotations
 import numpy as np
+import itertools
 
 from toqito.matrix_ops import vec
 from toqito.perms import swap
@@ -101,23 +102,29 @@ def apply_channel(mat: np.ndarray, phi_op: np.ndarray | list[list[np.ndarray]]) 
     if isinstance(phi_op, list):
         s_phi_op = [len(phi_op), len(phi_op[0])]
 
-        # Map is completely positive.
-        if s_phi_op[1] == 1 or (s_phi_op[0] == 1 and s_phi_op[1] > 2):
-            for i in range(s_phi_op[0]):
-                phi_op[i][1] = phi_op[i][0].conj().T
-        else:
-            for i in range(s_phi_op[0]):
-                phi_op[i][1] = phi_op[i][1].conj().T
         phi_0_list = []
         phi_1_list = []
-        for i in range(s_phi_op[0]):
-            phi_0_list.append(phi_op[i][0])
-            phi_1_list.append(phi_op[i][1])
+
+        # Map is completely positive if input is given as:
+        # 1. [K1, K2, .. Kr]
+        # 2. [[K1], [K2], .. [Kr]]
+        # 3. [[K1, K2, .. Kr]] and r > 2
+        if isinstance(phi_op[0], np.ndarray):
+            phi_0_list = phi_op
+        elif s_phi_op[1] == 1 or (s_phi_op[0] == 1 and s_phi_op[1] > 2):
+            phi_0_list = list(itertools.chain(*phi_op))
+        else:
+            # Input is given as: [[A1, B1], [A2, B2], .. [Ar, Br]]
+            phi_0_list = [k_mat[0] for k_mat in phi_op]
+            phi_1_list = [k_mat[1].conj().T for k_mat in phi_op]
+
+        if not phi_1_list:
+            phi_1_list = [k_mat.conj().T for k_mat in phi_0_list]
 
         k_1 = np.concatenate(phi_0_list, axis=1)
         k_2 = np.concatenate(phi_1_list, axis=0)
 
-        a_mat = np.kron(np.identity(len(phi_op)), mat)
+        a_mat = np.kron(np.identity(len(phi_0_list)), mat)
         return k_1 @ a_mat @ k_2
 
     # The superoperator was given as a Choi matrix:
@@ -134,6 +141,7 @@ def apply_channel(mat: np.ndarray, phi_op: np.ndarray | list[list[np.ndarray]]) 
                 True,
             ).T,
             (int(phi_size[0] * np.prod(mat_size)), int(phi_size[1])),
+            order="F"
         )
         return a_mat @ b_mat
     raise ValueError(

@@ -3,12 +3,13 @@ from __future__ import annotations
 
 import numpy as np
 
-from toqito.channels import partial_trace, realignment
-from toqito.matrix_props import is_positive_semidefinite
+from toqito.channels import realignment
+from toqito.matrix_props import is_positive_semidefinite, trace_norm
 from toqito.state_props import is_ppt, in_separable_ball
 from toqito.state_props.has_symmetric_extension import has_symmetric_extension
-from toqito.state_metrics import trace_norm
 from toqito.perms import swap
+
+from picos import partial_trace
 
 
 def is_separable(
@@ -66,7 +67,7 @@ def is_separable(
 
     state_len = state.shape[1]
     state_rank = np.linalg.matrix_rank(state)
-    state /= np.trace(state)
+    state = state/np.trace(state)
     eps = np.finfo(float).eps
 
     if dim is None:
@@ -86,9 +87,11 @@ def is_separable(
     if min_dim == 1:
         # Every positive semidefinite matrix is separable when one of the local dimensions is 1.
         return True
+    
+    dim = [int(x) for x in dim]
 
-    pt_state_alice = partial_trace(state, 2, dim)
-    pt_state_bob = partial_trace(state, 1, dim)
+    pt_state_alice = partial_trace(state, [1], dim)
+    pt_state_bob = partial_trace(state, [0], dim)
 
     # Check the PPT criterion.
     if not is_ppt(state, 2, dim, tol):

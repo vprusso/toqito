@@ -236,9 +236,9 @@ def sk_operator_norm(
 
         constraints = [rho >> 0, cvxpy.real(cvxpy.trace(rho)) <= 1]
         if k == 1:
-            constraints.append(partial_transpose(rho, 2, dim) >> 0)
+            constraints.append(partial_transpose(rho, [1], dim) >> 0)
         else:
-            constraints.append(k * cvxpy.kron(partial_trace(rho, 2, dim), np.eye(dim[1])) >> rho)
+            constraints.append(k * cvxpy.kron(partial_trace(rho, [1], dim), np.eye(dim[1])) >> rho)
 
         problem = cvxpy.Problem(objective, constraints)
         cvx_optval = problem.solve()
@@ -276,7 +276,7 @@ def sk_operator_norm(
                 rho = cvxpy.Variable((prod_sym_dim, prod_sym_dim), hermitian=True, name="rho")
                 objective = cvxpy.Maximize(
                     cvxpy.real(
-                        cvxpy.trace(mat @ partial_trace(rho, list(range(3, j + 2)), sym_dim))
+                        cvxpy.trace(mat @ partial_trace(rho, list(range(2, j + 1)), sym_dim))
                     )
                 )
 
@@ -284,7 +284,7 @@ def sk_operator_norm(
                     rho >> 0,
                     cvxpy.real(cvxpy.trace(rho)) <= 1,
                     sym_proj @ rho @ sym_proj == rho,
-                    partial_transpose(rho, list(range(1, int(np.ceil(j / 2)) + 2)), sym_dim) >> 0,
+                    partial_transpose(rho, list(range(0, int(np.ceil(j / 2)) + 1)), sym_dim) >> 0,
                 ]
 
                 problem = cvxpy.Problem(objective, constraints)

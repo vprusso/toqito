@@ -1,7 +1,7 @@
 """Tests for trace_norm."""
 import numpy as np
 
-from toqito.state_metrics import trace_norm
+from toqito.matrix_props import trace_norm
 from toqito.states import basis
 
 

@@ -42,10 +42,10 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
 
     .. math::
         \Phi(\rho) = \frac{1}{4} \begin{pmatrix}
-                                    \frac{1}{2} & 0 & 0 & \frac{1}{2} \\
-                                    0 & 0 & 0 & 0 \\
-                                    0 & 0 & 0 & 0 \\
-                                    \frac{1}{2} & 0 & 0 & \frac{1}{2}
+                                    1 & 0 & 0 & 0 \\
+                                    0 & 1 & 0 & 0 \\
+                                    0 & 0 & 1 & 0 \\
+                                    0 & 0 & 0 & 1
                                  \end{pmatrix}.
 
     This can be observed in :code:`toqito` as follows.
@@ -57,10 +57,10 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
     >>>     [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
     >>> )
     >>> apply_channel(test_input_mat, depolarizing(4))
-    [[0.125 0.    0.    0.125]
-     [0.    0.    0.    0.   ]
-     [0.    0.    0.    0.   ]
-     [0.125 0.    0.    0.125]]
+    [[0.25 0.   0.   0.  ]
+     [0.   0.25 0.   0.  ]
+     [0.   0.   0.25 0.  ]
+     [0.   0.   0.   0.25]]
 
     >>> from toqito.channel_ops import apply_channel
     >>> from toqito.channels import depolarizing
@@ -69,10 +69,10 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
     >>>     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
     >>> )
     >>> apply_channel(test_input_mat, depolarizing(4, 0.5))
-    [[17.125  0.25   0.375  0.5  ]
-     [ 0.625 17.75   0.875  1.   ]
-     [ 1.125  1.25  18.375  1.5  ]
-     [ 1.625  1.75   1.875 19.   ]]
+    [[ 4.75  1.    1.5   2.  ]
+     [ 2.5   7.25  3.5   4.  ]
+     [ 4.5   5.    9.75  6.  ]
+     [ 6.5   7.    7.5  12.25]]
 
 
     References

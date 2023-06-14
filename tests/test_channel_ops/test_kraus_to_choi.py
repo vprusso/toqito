@@ -96,5 +96,53 @@ def test_kraus_to_choi_depolarizing_channel():
     np.testing.assert_equal(np.all(bool_mat), True)
 
 
+def test_kraus_to_choi_isometry():
+    """Kraus operators for an isometry."""
+    v_mat = np.array([[1, 0, 0], [0, 1, 0]])
+
+    choi_res = kraus_to_choi([v_mat])
+    expected_choi_res = np.array(
+        [
+            [1, 0, 0, 1, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [1, 0, 0, 1, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+        ]
+    )
+
+    bool_mat = np.isclose(choi_res, expected_choi_res)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+
+def test_kraus_to_choi_non_square():
+    """Kraus operators for non square inputs and outputs."""
+    kraus_1 = np.array([[1, 0, 0], [0, 1, 0]])
+
+    kraus_2 = np.array(
+        [
+            [0, 0, 1, 0],
+            [0, 1, 0, 0],
+            [1, 0, 0, 1],
+        ]
+    )
+
+    choi_res = kraus_to_choi([[kraus_1, kraus_2]])
+    expected_choi_res = np.array(
+        [
+            [0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 1],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        ]
+    )
+
+    bool_mat = np.isclose(choi_res, expected_choi_res)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+
 if __name__ == "__main__":
     np.testing.run_module_suite()

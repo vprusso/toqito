@@ -3,6 +3,7 @@ import numpy as np
 
 from toqito.channel_ops import dual_channel
 from toqito.channels import choi
+from toqito.perms import swap_operator
 
 
 def test_dual_channel_kraus1():
@@ -73,10 +74,22 @@ def test_dual_channel_choi_dims():
 
 
 def test_dual_channel_nonsquare_matrix():
-    """If the channel is represented as a Choi matrix, it must be square."""
-    with np.testing.assert_raises(ValueError):
-        j = np.array([[1, 2, 3, 4], [4, 3, 2, 1]])
-        dual_channel(j)
+    """Dual of a channel that transposes 3x2 matrices."""
+    choi = swap_operator([2, 3])
+    choi_dual = dual_channel(choi, dims=[[3, 2], [2, 3]])
+    expected_choi_dual = np.array(
+        [
+            [1, 0, 0, 0, 0, 0],
+            [0, 0, 1, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0],
+            [0, 1, 0, 0, 0, 0],
+            [0, 0, 0, 1, 0, 0],
+            [0, 0, 0, 0, 0, 1],
+        ]
+    )
+
+    bool_mat = np.isclose(choi_dual, expected_choi_dual)
+    np.testing.assert_equal(np.all(bool_mat), True)
 
 
 def test_dual_channel_not_matrix():

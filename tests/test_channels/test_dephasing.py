@@ -20,10 +20,10 @@ def test_dephasing_completely_dephasing():
 def test_dephasing_partially_dephasing():
     """The partially dephasing channel for `p = 0.5`."""
     test_input_mat = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
+    param_p = 0.5
 
-    expected_res = np.array([[17.5, 0, 0, 0], [0, 20, 0, 0], [0, 0, 22.5, 0], [0, 0, 0, 25]])
-
-    res = apply_channel(test_input_mat, dephasing(4, 0.5))
+    res = apply_channel(test_input_mat, dephasing(4, param_p))
+    expected_res = (1 - param_p) * np.diag(np.diag(test_input_mat)) + param_p * test_input_mat
 
     bool_mat = np.isclose(expected_res, res)
     np.testing.assert_equal(np.all(bool_mat), True)

@@ -2,6 +2,7 @@
 from toqito.matrix_props.is_square import is_square
 from toqito.matrix_props.is_diagonal import is_diagonal
 from toqito.matrix_props.is_normal import is_normal
+from toqito.matrix_props.is_orthonormal import is_orthonormal
 from toqito.matrix_props.is_symmetric import is_symmetric
 from toqito.matrix_props.is_hermitian import is_hermitian
 from toqito.matrix_props.is_identity import is_identity
@@ -17,3 +18,5 @@ from toqito.matrix_props.majorizes import majorizes
 from toqito.matrix_props.sk_norm import sk_operator_norm
 from toqito.matrix_props.is_block_positive import is_block_positive
 from toqito.matrix_props.is_orthonormal import is_orthonormal
+from toqito.matrix_props.trace_norm import trace_norm
+from toqito.matrix_props.is_diagonally_dominant import is_diagonally_dominant

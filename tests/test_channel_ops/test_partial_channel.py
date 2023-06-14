@@ -1,8 +1,10 @@
 """Tests for partial_channel."""
 import numpy as np
+import pytest
 
 from toqito.channel_ops import partial_channel
 from toqito.channels import depolarizing
+from toqito.matrices import pauli
 
 
 def test_partial_channel_depolarizing_first_system():
@@ -108,6 +110,34 @@ def test_partial_channel_dim_list():
     """
     rho = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
     res = partial_channel(rho, depolarizing(2), 2, [2, 2])
+
+    expected_res = np.array(
+        [
+            [3.5, 0.0, 5.5, 0.0],
+            [0.0, 3.5, 0.0, 5.5],
+            [11.5, 0.0, 13.5, 0.0],
+            [0.0, 11.5, 0.0, 13.5],
+        ]
+    )
+
+    bool_mat = np.isclose(expected_res, res)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+
+@pytest.mark.parametrize("nested", [1, 2, 3])
+def test_partial_channel_cpt_kraus(nested):
+    """
+    Perform the partial map using the Kraus representation of 
+    the depolarizing channel.
+    """
+    rho = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
+    kraus = [0.5 * pauli(ind) for ind in range(4)]
+    if nested == 2:
+        kraus = [kraus]
+    elif nested == 3:
+        kraus = [[mat] for mat in kraus]
+
+    res = partial_channel(rho, kraus)
 
     expected_res = np.array(
         [
