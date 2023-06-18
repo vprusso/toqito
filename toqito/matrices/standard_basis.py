@@ -26,6 +26,4 @@ def standard_basis(dim: int, flatten: bool = False) -> list[np.ndarray]:
 
     # The standard_basis is obtained by cyclic permutations of the first basis
     # vector
-    return [
-        np.array([first_basis_vector[i - j] for i in range(dim)]) for j in range(dim)
-    ]
+    return [np.array([first_basis_vector[i - j] for i in range(dim)]) for j in range(dim)]

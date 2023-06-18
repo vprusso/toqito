@@ -1,4 +1,4 @@
-toqito.channel\_props.is\_unitary
+﻿toqito.channel\_props.is\_unitary
 =================================
 
 .. currentmodule:: toqito.channel_props

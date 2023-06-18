@@ -15,11 +15,12 @@ from toqito.matrix_props import is_density
 
 
 def fidelity_of_separability(
-        input_state_rho: np.ndarray,
-        input_state_rho_dims: list[int],
-        k: int = 1,
-        verbosity_option=2,
-        solver_option="cvxopt") -> float:
+    input_state_rho: np.ndarray,
+    input_state_rho_dims: list[int],
+    k: int = 1,
+    verbosity_option=2,
+    solver_option="cvxopt",
+) -> float:
     r"""
     Define the first benchmark introduced in Appendix H of [Phil23]_.
 
@@ -172,33 +173,35 @@ def fidelity_of_separability(
     # defining the problem objective: Re[Tr[X_AB]]
     problem = picos.Problem(verbosity=verbosity_option)
     linear_op_AB = picos.ComplexVariable("x_AB", input_state_rho.shape)
-    sigma_AB_k = picos.HermitianVariable(
-        "s_AB_k", (dim_op_sigma_AB_k, dim_op_sigma_AB_k))
+    sigma_AB_k = picos.HermitianVariable("s_AB_k", (dim_op_sigma_AB_k, dim_op_sigma_AB_k))
 
-    problem.set_objective("max", 0.5*picos.trace(
-        linear_op_AB + linear_op_AB.H))
+    problem.set_objective("max", 0.5 * picos.trace(linear_op_AB + linear_op_AB.H))
 
     # constraints
     # >>0 is enforcing positive semidefinite condition
-    problem.add_constraint(picos.block([
-        [input_state_rho, linear_op_AB],
-        [linear_op_AB.H, picos.partial_trace(
-            sigma_AB_k, sub_sys_ext, dim_direct_sum_AB_k)]
-    ]) >> 0)
+    problem.add_constraint(
+        picos.block(
+            [
+                [input_state_rho, linear_op_AB],
+                [linear_op_AB.H, picos.partial_trace(sigma_AB_k, sub_sys_ext, dim_direct_sum_AB_k)],
+            ]
+        )
+        >> 0
+    )
     problem.add_constraint(sigma_AB_k >> 0)
     problem.add_constraint(picos.trace(sigma_AB_k) == 1)
 
     # k-extendible:
-    problem.add_constraint((
-        picos.I(dim_A) @ permutation_op) * sigma_AB_k * (picos.I(
-            dim_A) @ permutation_op) == sigma_AB_k)
+    problem.add_constraint(
+        (picos.I(dim_A) @ permutation_op) * sigma_AB_k * (picos.I(dim_A) @ permutation_op)
+        == sigma_AB_k
+    )
 
     # PPT:
     sys = []
     for i in range(1, k):
         sys = sys + [i]
-        problem.add_constraint(
-            picos.partial_transpose(sigma_AB_k, sys, dim_direct_sum_AB_k) >> 0)
+        problem.add_constraint(picos.partial_transpose(sigma_AB_k, sys, dim_direct_sum_AB_k) >> 0)
 
     solution = problem.solve(solver=solver_option)
     return solution.value**2

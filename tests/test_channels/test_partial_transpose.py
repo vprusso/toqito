@@ -30,6 +30,7 @@ def test_partial_transpose_bipartite():
     bool_mat = np.isclose(expected_res, res)
     np.testing.assert_equal(np.all(bool_mat), True)
 
+
 def test_partial_transpose_sys_int():
     """Partial transpose `sys` argument is provided as `int`."""
     test_input_mat = np.arange(1, 17).reshape(4, 4)
@@ -40,6 +41,7 @@ def test_partial_transpose_sys_int():
 
     bool_mat = np.isclose(res, expected_res)
     np.testing.assert_equal(np.all(bool_mat), True)
+
 
 def test_partial_transpose():
     """
@@ -703,6 +705,7 @@ def test_partial_transpose_non_square_matrix():
         test_input_mat = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [13, 14, 15, 16]])
         partial_transpose(test_input_mat)
 
+
 def test_partial_transpose_non_square():
     """Test partial transpose on non square matrices ."""
     rho = np.kron(np.eye(2, 3), np.ones((2, 3)))
@@ -715,6 +718,7 @@ def test_partial_transpose_non_square():
     expected = np.kron(np.eye(2, 3), np.ones((3, 2)))
     expected = np.kron(expected, np.eye(2, 3))
     np.testing.assert_equal(np.allclose(res, expected), True)
+
 
 def test_partial_transpose_non_square_matrix_2():
     """Matrix must be square."""

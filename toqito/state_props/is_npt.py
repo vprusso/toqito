@@ -6,9 +6,7 @@ import numpy as np
 from toqito.state_props import is_ppt
 
 
-def is_npt(
-    mat: np.ndarray, sys: int = 2, dim: int | list[int] = None, tol: float = None
-) -> bool:
+def is_npt(mat: np.ndarray, sys: int = 2, dim: int | list[int] = None, tol: float = None) -> bool:
     r"""
     Determine whether or not a matrix has negative partial transpose [WikPPT]_.
 

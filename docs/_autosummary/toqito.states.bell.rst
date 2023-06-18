@@ -1,4 +1,4 @@
-toqito.states.bell
+﻿toqito.states.bell
 ==================
 
 .. currentmodule:: toqito.states

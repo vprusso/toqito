@@ -7,9 +7,7 @@ from toqito.matrix_props import is_positive_semidefinite
 from toqito.channels import partial_transpose
 
 
-def is_ppt(
-    mat: np.ndarray, sys: int = 2, dim: int | list[int] = None, tol: float = None
-) -> bool:
+def is_ppt(mat: np.ndarray, sys: int = 2, dim: int | list[int] = None, tol: float = None) -> bool:
     r"""
     Determine whether or not a matrix has positive partial transpose [WikPPT]_.
 
@@ -88,4 +86,4 @@ def is_ppt(
         dim = [[sqrt_rho_dims[0], sqrt_rho_dims[0]], [sqrt_rho_dims[1], sqrt_rho_dims[1]]]
     if tol is None:
         tol = np.sqrt(eps)
-    return is_positive_semidefinite(partial_transpose(mat, [sys-1], dim), tol)
+    return is_positive_semidefinite(partial_transpose(mat, [sys - 1], dim), tol)

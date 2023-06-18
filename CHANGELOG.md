@@ -319,3 +319,5 @@
 - Thanks to @AmanieOxana for integrating the completely bounded trace and spectral norms. https://github.com/vprusso/toqito/pull/157
 
 - Thanks to @ErikQQY for refactoring and simplifying the partial trace and partial transpose functions.
+
+- Thanks to @elads888 for adding the `is_diagonally_dominant` feature to allow one to determine if a matrix is diagonally dominant.

@@ -1,4 +1,4 @@
-toqito.state\_props.is\_product
+﻿toqito.state\_props.is\_product
 ===============================
 
 .. currentmodule:: toqito.state_props

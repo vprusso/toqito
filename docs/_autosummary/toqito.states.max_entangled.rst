@@ -1,4 +1,4 @@
-toqito.states.max\_entangled
+﻿toqito.states.max\_entangled
 ============================
 
 .. currentmodule:: toqito.states

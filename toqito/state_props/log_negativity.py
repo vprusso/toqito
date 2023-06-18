@@ -73,7 +73,7 @@ def log_negativity(rho: np.ndarray, dim: list[int] | int = None) -> float:
             "InvalidDim: Please provide local dimensions in the "
             "argument `dim` that match the size of `rho`."
         )
-    
+
     dim = [int(x) for x in dim]
 
     # Compute the log-negativity.

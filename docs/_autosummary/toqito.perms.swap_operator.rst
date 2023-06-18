@@ -1,4 +1,4 @@
-toqito.perms.swap\_operator
+﻿toqito.perms.swap\_operator
 ===========================
 
 .. currentmodule:: toqito.perms

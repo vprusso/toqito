@@ -1,4 +1,4 @@
-toqito.channel\_ops.apply\_channel
+﻿toqito.channel\_ops.apply\_channel
 ==================================
 
 .. currentmodule:: toqito.channel_ops

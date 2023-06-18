@@ -1,4 +1,4 @@
-toqito.measurement\_ops.measure
+﻿toqito.measurement\_ops.measure
 ===============================
 
 .. currentmodule:: toqito.measurement_ops

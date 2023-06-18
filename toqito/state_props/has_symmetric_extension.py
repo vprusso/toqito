@@ -8,7 +8,13 @@ from toqito.state_opt import symmetric_extension_hierarchy
 from toqito.state_props import is_ppt
 
 
-def has_symmetric_extension(rho: np.ndarray, level: int = 2, dim: np.ndarray | int = None, ppt: bool = True, tol: float = 1e-4) -> bool:
+def has_symmetric_extension(
+    rho: np.ndarray,
+    level: int = 2,
+    dim: np.ndarray | int = None,
+    ppt: bool = True,
+    tol: float = 1e-4,
+) -> bool:
     r"""
     Determine whether there exists a symmetric extension for a given quantum state. [DPS02]_.
 

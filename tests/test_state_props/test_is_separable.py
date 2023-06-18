@@ -37,10 +37,10 @@ def test_entangled_ppt_criterion():
 def test_ppt_small_dimensions():
     """Determined to be separable via sufficiency of the PPT criterion in small dimensions."""
     e_0, e_1, e_2 = basis(3, 0), basis(3, 1), basis(3, 2)
-    psi = 1/np.sqrt(3) * e_0 + 1/np.sqrt(3) * e_1 + 1/np.sqrt(3) * e_2
+    psi = 1 / np.sqrt(3) * e_0 + 1 / np.sqrt(3) * e_1 + 1 / np.sqrt(3) * e_2
 
     e_0, e_1 = basis(2, 0), basis(2, 1)
-    phi = np.kron((1/np.sqrt(2) * e_0 + 1/np.sqrt(2) * e_1), psi)
+    phi = np.kron((1 / np.sqrt(2) * e_0 + 1 / np.sqrt(2) * e_1), psi)
     sigma = phi * phi.conj().T
     np.testing.assert_equal(is_separable(sigma), True)
 
@@ -51,18 +51,19 @@ def test_ppt_low_rank():
     n = m
     rho = random_density_matrix(m)
     u, s, v_h = np.linalg.svd(rho)
-    rho_cut = u[:, :m-1] @ np.diag(s[:m-1]) @ v_h[:m-1]
+    rho_cut = u[:, : m - 1] @ np.diag(s[: m - 1]) @ v_h[: m - 1]
     rho_cut = rho_cut / np.trace(rho_cut)
     pt_state_alice = partial_trace(rho_cut, [1], [3, 2])
 
     np.testing.assert_equal(is_density(rho_cut), True)
     np.testing.assert_equal(is_density(np.array(pt_state_alice)), True)
     np.testing.assert_equal(
-        np.linalg.matrix_rank(rho_cut) + np.linalg.matrix_rank(pt_state_alice) <= 2 * m * n - m - n + 2,
-        True
+        np.linalg.matrix_rank(rho_cut) + np.linalg.matrix_rank(pt_state_alice)
+        <= 2 * m * n - m - n + 2,
+        True,
     )
     # TODO
-    #np.testing.assert_equal(is_separable(rho), True)
+    # np.testing.assert_equal(is_separable(rho), True)
 
 
 def test_entangled_realignment_criterion():
@@ -82,10 +83,10 @@ def test_entangled_cross_norm_realignment_criterion():
     p_var, a_var, b_var = 0.4, 0.8, 0.64
     rho = np.array(
         [
-            [p_var * a_var ** 2, 0, 0, p_var * a_var * b_var],
-            [0, (1 - p_var) * a_var ** 2, (1 - p_var) * a_var * b_var, 0],
-            [0, (1 - p_var) * a_var * b_var, (1 - p_var) * a_var ** 2, 0],
-            [p_var * a_var * b_var, 0, 0, p_var * a_var ** 2],
+            [p_var * a_var**2, 0, 0, p_var * a_var * b_var],
+            [0, (1 - p_var) * a_var**2, (1 - p_var) * a_var * b_var, 0],
+            [0, (1 - p_var) * a_var * b_var, (1 - p_var) * a_var**2, 0],
+            [p_var * a_var * b_var, 0, 0, p_var * a_var**2],
         ]
     )
     np.testing.assert_equal(is_separable(rho), False)

@@ -1,4 +1,4 @@
-toqito.perms.perm\_sign
+﻿toqito.perms.perm\_sign
 =======================
 
 .. currentmodule:: toqito.perms

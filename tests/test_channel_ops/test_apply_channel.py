@@ -23,6 +23,7 @@ def test_apply_channel_choi():
     bool_mat = np.isclose(res, expected_res)
     np.testing.assert_equal(np.all(bool_mat), True)
 
+
 def test_apply_channel_choi_non_square():
     """
     The swap operator is the Choi matrix of the transpose map.
@@ -38,6 +39,7 @@ def test_apply_channel_choi_non_square():
 
     bool_mat = np.isclose(res, expected_res)
     np.testing.assert_equal(np.all(bool_mat), True)
+
 
 def test_apply_channel_kraus():
     """
@@ -62,6 +64,7 @@ def test_apply_channel_kraus():
     bool_mat = np.isclose(res, expected_res)
     np.testing.assert_equal(np.all(bool_mat), True)
 
+
 @pytest.mark.parametrize("nested", [1, 2, 3])
 def test_apply_channel_cpt_kraus(nested):
     """
@@ -81,6 +84,7 @@ def test_apply_channel_cpt_kraus(nested):
 
     bool_mat = np.isclose(res, expected_res)
     np.testing.assert_equal(np.all(bool_mat), True)
+
 
 def test_apply_channel_invalid_input():
     """Invalid input for apply map."""
