@@ -7,19 +7,14 @@ The constrainsts for this function are positive partial transpose (PPT)
 import picos
 import numpy as np
 
-from toqito.perms import (
-    symmetric_projection,
-    permute_systems
-    )
+from toqito.perms import symmetric_projection, permute_systems
 from toqito.state_props import is_pure
 from toqito.matrix_props import is_density
 
 
 def fidelity_of_separability(
-        psi: np.ndarray, psi_dims: list[int],
-        k: int = 1,
-        verbosity_option=2,
-        solver_option="cvxopt") -> float:
+    psi: np.ndarray, psi_dims: list[int], k: int = 1, verbosity_option=2, solver_option="cvxopt"
+) -> float:
     r"""
     Define the first benchmark introduced in Appendix I of [Phil23]_ .
 
@@ -176,11 +171,9 @@ def fidelity_of_separability(
             picos.trace(
                 pi_sym
                 * picos.partial_trace(
-                    (picos.partial_transpose(
-                        psi, [0], psi_dims) @ picos.I(dim_a))
+                    (picos.partial_transpose(psi, [0], psi_dims) @ picos.I(dim_a))
                     * permute_systems(
-                        choi_partial @ picos.I(
-                            dim_b * dim_a), [1, 4, 3, 2], dim_list
+                        choi_partial @ picos.I(dim_b * dim_a), [1, 4, 3, 2], dim_list
                     ),
                     [0, 2],
                     dim_list,
@@ -190,22 +183,18 @@ def fidelity_of_separability(
     )
 
     problem.add_constraint(
-        picos.partial_trace(
-            choi, list(range(1, k + 1)), choi_dims) == picos.I(dim_r)
+        picos.partial_trace(choi, list(range(1, k + 1)), choi_dims) == picos.I(dim_r)
     )
     problem.add_constraint(choi >> 0)
 
     # k-extendablility of Choi state
-    problem.add_constraint((
-        picos.I(dim_r) @ sym_choi) * choi * (
-            picos.I(dim_r) @ sym_choi) == choi)
+    problem.add_constraint((picos.I(dim_r) @ sym_choi) * choi * (picos.I(dim_r) @ sym_choi) == choi)
 
     # PPT condition on Choi state
     sys = []
     for i in range(1, 1 + k):
         sys = sys + [i]
-        problem.add_constraint(
-            picos.partial_transpose(choi, sys, choi_dims) >> 0)
+        problem.add_constraint(picos.partial_transpose(choi, sys, choi_dims) >> 0)
 
     solution = problem.solve(solver=solver_option)
     return 2 * solution.value - 1

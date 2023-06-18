@@ -6,6 +6,7 @@ from toqito.channel_ops import apply_channel, dual_channel
 from toqito.channel_props import is_quantum_channel, is_completely_positive
 from toqito.matrix_props import trace_norm
 
+
 def completely_bounded_trace_norm(phi: np.ndarray) -> float:
     r"""
     Compute the completely bounded trace norm / diamond norm of a quantum channel [WatCBNorm18].
@@ -33,7 +34,9 @@ def completely_bounded_trace_norm(phi: np.ndarray) -> float:
     dim_lx, dim_ly = phi.shape
 
     if dim_lx != dim_ly:
-        raise ValueError("The input and output spaces of the superoperator phi must both be square.")
+        raise ValueError(
+            "The input and output spaces of the superoperator phi must both be square."
+        )
 
     if is_quantum_channel(phi):
         return 1
@@ -41,7 +44,6 @@ def completely_bounded_trace_norm(phi: np.ndarray) -> float:
     elif is_completely_positive(phi):
         v = apply_channel(np.eye(dim_ly), dual_channel(phi))
         return trace_norm(v)
-
 
     dim = int(np.sqrt(dim_lx))
     # SDP
@@ -55,12 +57,12 @@ def completely_bounded_trace_norm(phi: np.ndarray) -> float:
 
     a_var = cp.bmat([[y0, -phi], [-phi.conj().T, y1]])
     constraints += [a_var >> 0]
-    objective = cp.Minimize(cp.norm(cp.partial_trace(y0, dims=(dim,dim), axis=1))
-                             + cp.norm(cp.partial_trace(y1, dims=(dim,dim), axis=1)))
+    objective = cp.Minimize(
+        cp.norm(cp.partial_trace(y0, dims=(dim, dim), axis=1))
+        + cp.norm(cp.partial_trace(y1, dims=(dim, dim), axis=1))
+    )
 
     problem = cp.Problem(objective, constraints)
     problem.solve()
 
-    return problem.value/2
-
-
+    return problem.value / 2

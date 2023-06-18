@@ -8,6 +8,7 @@ from cvxpy.expressions.variable import Variable
 from toqito.perms import permute_systems
 from toqito.helper import expr_as_np_array, np_array_as_expr
 
+
 def partial_transpose(
     rho: np.ndarray | Variable,
     sys: list[int] | np.ndarray | int = [1],
@@ -162,8 +163,8 @@ def partial_transpose(
     sub_sys_vec_r = prod_dim_r * np.ones(int(sub_prod_r)) / sub_prod_r
     sub_sys_vec_c = prod_dim_c * np.ones(int(sub_prod_c)) / sub_prod_c
 
-    set_diff = list(set(list(range(1, num_sys + 1))) - set(sys+1))
-    perm = (sys+1).tolist()[:]
+    set_diff = list(set(list(range(1, num_sys + 1))) - set(sys + 1))
+    perm = (sys + 1).tolist()[:]
     perm.extend(set_diff)
 
     # Permute the subsystems so that we just have to do the partial transpose

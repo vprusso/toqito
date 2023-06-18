@@ -1,4 +1,4 @@
-toqito.measurement\_props.is\_povm
+﻿toqito.measurement\_props.is\_povm
 ==================================
 
 .. currentmodule:: toqito.measurement_props

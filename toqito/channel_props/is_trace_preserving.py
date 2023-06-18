@@ -101,7 +101,7 @@ def is_trace_preserving(
         mat = k_l.conj().T @ k_r
     else:
         if dim == None:
-            mat = partial_trace(phi, [sys-1])
+            mat = partial_trace(phi, [sys - 1])
         else:
-            mat = partial_trace(phi, [sys-1], dim)
+            mat = partial_trace(phi, [sys - 1], dim)
     return is_identity(np.array(mat), rtol=rtol, atol=atol)

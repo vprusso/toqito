@@ -13,7 +13,8 @@ from picos import partial_trace
 
 
 def is_separable(
-        state: np.ndarray, dim: None | int | list[int] = None, level: int = 2, tol: float = 1e-8) -> bool:
+    state: np.ndarray, dim: None | int | list[int] = None, level: int = 2, tol: float = 1e-8
+) -> bool:
     r"""
     Determine if a given state (given as a density matrix) is a separable state [WikSepState]_.
 
@@ -67,7 +68,7 @@ def is_separable(
 
     state_len = state.shape[1]
     state_rank = np.linalg.matrix_rank(state)
-    state = state/np.trace(state)
+    state = state / np.trace(state)
     eps = np.finfo(float).eps
 
     if dim is None:
@@ -87,7 +88,7 @@ def is_separable(
     if min_dim == 1:
         # Every positive semidefinite matrix is separable when one of the local dimensions is 1.
         return True
-    
+
     dim = [int(x) for x in dim]
 
     pt_state_alice = partial_trace(state, [1], dim)
@@ -110,8 +111,12 @@ def is_separable(
         # Also, see Horodecki Theorem in https://arxiv.org/pdf/0811.2803.pdf.
         return is_ppt(state, 2, dim, tol)
 
-    if state_rank + np.linalg.matrix_rank(pt_state_alice) <= 2 * state.shape[0] * state.shape[1] - state.shape[0] - state.shape[1] + 2 or \
-        state_rank + np.linalg.matrix_rank(pt_state_bob) <= 2 * state.shape[0] * state.shape[1] - state.shape[0] - state.shape[1] + 2:
+    if (
+        state_rank + np.linalg.matrix_rank(pt_state_alice)
+        <= 2 * state.shape[0] * state.shape[1] - state.shape[0] - state.shape[1] + 2
+        or state_rank + np.linalg.matrix_rank(pt_state_bob)
+        <= 2 * state.shape[0] * state.shape[1] - state.shape[0] - state.shape[1] + 2
+    ):
         # Determined to be separable via operational criterion of the PPT criterion for low-rank operators.
         # P. Horodecki, M. Lewenstein, G. Vidal, and I. Cirac.
         # Operational criterion and constructive checks for the separability of low-rank density matrices.
@@ -128,8 +133,9 @@ def is_separable(
         return False
 
     # Another test that is strictly stronger than the realignment criterion.
-    if trace_norm(realignment(state - np.kron(pt_state_alice, pt_state_bob), dim)) > \
-            np.sqrt(1 - np.trace(pt_state_alice**2 @ pt_state_bob**2)):
+    if trace_norm(realignment(state - np.kron(pt_state_alice, pt_state_bob), dim)) > np.sqrt(
+        1 - np.trace(pt_state_alice**2 @ pt_state_bob**2)
+    ):
         # Determined to be entangled by using Theorem 1 of reference.
         # C.-J. Zhang, Y.-S. Zhang, S. Zhang, and G.-C. Guo.
         # Entanglement detection beyond the cross-norm or realignment criterion.
@@ -143,9 +149,13 @@ def is_separable(
     # There are some separability tests that work specifically in the qubit-qudit (i.e., 2 \otimes n) case. Check these tests.
     if min_dim == 2:
         # Check if X is separable from spectrum.
-        if (lam[0] - lam[2 * max_dim-1])**2 <= 4 * lam[2 * max_dim-2] * lam[2*max_dim] + tol**2:
+        if (lam[0] - lam[2 * max_dim - 1]) ** 2 <= 4 * lam[2 * max_dim - 2] * lam[
+            2 * max_dim
+        ] + tol**2:
             print("Determined to be separable by inspecting its eigenvalues.")
-            print("N. Johnston. Separability from spectrum for qubit-qudit states. Phys. Rev. A, 88:062330, 2013.")
+            print(
+                "N. Johnston. Separability from spectrum for qubit-qudit states. Phys. Rev. A, 88:062330, 2013."
+            )
             return True
 
     # For the rest of the block-matrix tests, we need the 2-dimensional subsystem to be the
@@ -164,7 +174,7 @@ def is_separable(
 
     # Check if X is a rank-1 perturbation of the identity, which is
     # necessarily separable if it's PPT, which we have already checked.
-    if lam[1] - lam[prod_dim-1] < tol**2:
+    if lam[1] - lam[prod_dim - 1] < tol**2:
         # Determined to be separable by being a small rank-1 perturbation of the maximally-mixed state.
         # G. Vidal and R. Tarrach. Robustness of entanglement.
         # Phys. Rev. A, 59:141-155, 1999.

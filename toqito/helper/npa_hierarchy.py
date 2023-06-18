@@ -61,9 +61,7 @@ def _parse(k: str) -> tuple[int, set[tuple[int, int]]]:
 
 
 # This function generates all non - equivalent words of length up to k.
-def _gen_words(
-    k: int | str, a_out: int, a_in: int, b_out: int, b_in: int
-) -> list[tuple[Symbol]]:
+def _gen_words(k: int | str, a_out: int, a_in: int, b_out: int, b_in: int) -> list[tuple[Symbol]]:
     # remove one outcome to avoid redundancy
     # since all projectors sum to identity.
     b_symbols = [Symbol("Bob", y, b) for y in range(b_in) for b in range(b_out - 1)]

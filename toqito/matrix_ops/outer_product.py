@@ -1,6 +1,7 @@
 """Outer product operation"""
 import numpy as np
 
+
 def outer_product(v1: np.ndarray, v2: np.ndarray) -> np.ndarray:
     r"""
     Compute the outer product :math:`|v_1\rangle\langle v_2|` of two vectors.
@@ -17,7 +18,7 @@ def outer_product(v1: np.ndarray, v2: np.ndarray) -> np.ndarray:
 
     .. math::
         \left|\begin{pmatrix}1\\2\\3\end{pmatrix}\right\rangle\left\langle\begin{pmatrix}4\\5\\6\end{pmatrix}\right|=\begin{pmatrix}1\\2\\3\end{pmatrix}\begin{pmatrix}4&5&6\end{pmatrix}=\begin{pmatrix}1\times4&1\times5&1\times6\\2\times4&2\times5&2\times6\\3\times4&3\times5&3\times6\end{pmatrix}=\begin{pmatrix}4&5&6\\8&10&12\\12&15&18\end{pmatrix}
-    
+
     In :code:`toqito`, this looks like this:
 
     >>> import numpy as np
@@ -34,8 +35,7 @@ def outer_product(v1: np.ndarray, v2: np.ndarray) -> np.ndarray:
         https://en.wikipedia.org/wiki/Outer_product
     :raises ValueError: Vector dimensions are mismatched.
     :param args: v1 and v2, both vectors of dimensions :math:`(n,1)` where :math:`n>1`.
-    :return: The computed outer product.
-"""
+    :return: The computed outer product."""
     # Check for dimensional validity
     if not (v1.shape[0] == v2.shape[0] and v1.shape[0] > 1 and len(v1.shape) == 1):
         raise ValueError("Dimension mismatch")
@@ -43,5 +43,5 @@ def outer_product(v1: np.ndarray, v2: np.ndarray) -> np.ndarray:
     res = np.ndarray((v1.shape[0], v1.shape[0]))
     for i in range(v1.shape[0]):
         for j in range(v1.shape[0]):
-            res[i,j] = v1[i] * v2[j]
+            res[i, j] = v1[i] * v2[j]
     return res

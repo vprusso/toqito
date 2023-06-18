@@ -7,9 +7,7 @@ from toqito.perms import permute_systems, swap
 from toqito.state_ops import schmidt_decomposition
 
 
-def is_product(
-    rho: np.ndarray, dim: int | list[int] | np.ndarray = None
-) -> bool | np.ndarray:
+def is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray = None) -> bool | np.ndarray:
     r"""
     Determine if a given vector is a product state [WikProdState]_.
 

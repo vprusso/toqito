@@ -1,4 +1,4 @@
-toqito.state\_opt.ppt\_distinguishability
+﻿toqito.state\_opt.ppt\_distinguishability
 =========================================
 
 .. currentmodule:: toqito.state_opt

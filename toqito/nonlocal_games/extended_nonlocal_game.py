@@ -462,7 +462,8 @@ class ExtendedNonlocalGame:
             for y_in in range(bob_in):
                 mat[x_in, y_in] = cvxpy.Variable(
                     (alice_out * referee_dim, bob_out * referee_dim),
-                    name=f"K(a, b | {x_in}, {y_in})", hermitian=True,
+                    name=f"K(a, b | {x_in}, {y_in})",
+                    hermitian=True,
                 )
 
         p_win = cvxpy.Constant(0)

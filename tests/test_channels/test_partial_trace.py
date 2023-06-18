@@ -51,6 +51,7 @@ def test_partial_trace_sys_int():
     bool_mat = np.isclose(expected_res, res)
     np.testing.assert_equal(np.all(bool_mat), True)
 
+
 def test_partial_trace_sys_int_dim_int():
     """
     Default second subsystem.

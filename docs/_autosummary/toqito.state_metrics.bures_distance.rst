@@ -1,4 +1,4 @@
-toqito.state\_metrics.bures\_distance
+﻿toqito.state\_metrics.bures\_distance
 =====================================
 
 .. currentmodule:: toqito.state_metrics

@@ -6,9 +6,7 @@ import cvxpy
 from cvxpy.expressions.expression import Expression
 
 
-def cvx_kron(
-    expr_1: np.ndarray | Expression, expr_2: np.ndarray | Expression
-) -> Expression:
+def cvx_kron(expr_1: np.ndarray | Expression, expr_2: np.ndarray | Expression) -> Expression:
     """
     Compute Kronecker product between CVXPY objects.
 

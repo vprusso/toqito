@@ -160,7 +160,7 @@ def primal_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
 
     sys = list(range(1, num_spaces * num_reps))
     sys = [elem for elem in sys if elem % num_spaces != 0]
-    sys = [elem-1 for elem in sys]
+    sys = [elem - 1 for elem in sys]
 
     # The dimension of each subsystem is assumed to be of dimension 2.
     dim = 2 * np.ones((1, num_spaces * num_reps)).astype(int).flatten()

@@ -127,7 +127,7 @@ def test_partial_channel_dim_list():
 @pytest.mark.parametrize("nested", [1, 2, 3])
 def test_partial_channel_cpt_kraus(nested):
     """
-    Perform the partial map using the Kraus representation of 
+    Perform the partial map using the Kraus representation of
     the depolarizing channel.
     """
     rho = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])

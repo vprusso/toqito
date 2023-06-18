@@ -1,6 +1,7 @@
 """Hilbert-Schmidt Inner Product."""
 import numpy as np
 
+
 def hilbert_schmidt_inner_product(a_mat: np.ndarray, b_mat: np.ndarray) -> complex:
     r"""
     Compute the Hilbert-Schmidt inner product between two matrices [WikHSO].

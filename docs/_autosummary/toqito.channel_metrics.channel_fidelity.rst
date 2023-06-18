@@ -1,4 +1,4 @@
-toqito.channel\_metrics.channel\_fidelity
+﻿toqito.channel\_metrics.channel\_fidelity
 =========================================
 
 .. currentmodule:: toqito.channel_metrics

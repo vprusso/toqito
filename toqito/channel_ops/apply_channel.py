@@ -141,7 +141,7 @@ def apply_channel(mat: np.ndarray, phi_op: np.ndarray | list[list[np.ndarray]]) 
                 True,
             ).T,
             (int(phi_size[0] * np.prod(mat_size)), int(phi_size[1])),
-            order="F"
+            order="F",
         )
         return a_mat @ b_mat
     raise ValueError(
