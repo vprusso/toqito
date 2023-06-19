@@ -51,6 +51,15 @@ def tiles_local_state_list():
         \end{align*}
 
     Here, these local collections :math:`\mathcal{C}_i1 of states are represented as two dimensional arrays of type `numpy.ndarray`, where the :math:`j1-th column of each array defines the local state :math:`|\varphi_{i,j}\rangle1 of the respective party. In this way, each array has the same number of columns corresponding to the number of product states :math:`n`.
+    
+    References
+    ==========
+    ..  [Ben99] Bennett, Charles H., et al.
+        "Unextendible product bases and bound entanglement."
+        Physical Review Letters 82.26 (1999): 5385.
+        https://arxiv.org/abs/quant-ph/9808030
+
+    :return: A list of arrays representing the local states of each party.
     """
     tiles_A = np.zeros([3, 5])
     tiles_A[:, 0] = [1, 0, 0]
@@ -71,7 +80,7 @@ def tiles_local_state_list():
 
 def genshifts_local_state_list(parties: int):
     """
-    Returns a list of arrays representing the local states of the GenShifts UPB (unextendible product basis) for an odd number of parties. DiV00.
+    Returns a list of arrays representing the local states of the GenShifts UPB (unextendible product basis) for an odd number of parties. [Div00].
 
     The GenShifts UPBs are a family of UPBs defined for an odd number :math:`m\geq 3` of parties each holding a qubit:
     
@@ -94,7 +103,7 @@ def genshifts_local_state_list(parties: int):
     With the exception of the first state :math:`|\Psi_0\rangle = |0, 0, \dots, 0\rangle`, the rest of the states are given by right-shifted cyclic permutations of :math:`|\Psi_1\rangle`.
 
 
-    In 'toqito', the particular choices made for the local states :math:`|\psi_j\rangle` and :math:`\psi_j^\perp\rangle` matches the implementation given in `QETLAB` (citeQETLAB). To be precise, consider the qubit states parameterized by an angle value
+    In :code:'toqito', the particular choices made for the local states :math:`|\psi_j\rangle` and :math:`\psi_j^\perp\rangle` matches the implementation given in QETLAB [Joh16]. To be precise, consider the qubit states parameterized by an angle value
 
     .. math::
         |\theta(j)\rangle = \cos(j\frac{\pi}{2k})|0\rangle + \sin(j\frac{\pi}{2k})|1\rangle.
@@ -120,6 +129,20 @@ def genshifts_local_state_list(parties: int):
         \end{align*}
 
     where :math:`|+\rangle = \frac{1}{\sqrt{2}}(|0\rangle + |1\rangle)` and :math:`|-\rangle = \frac{1}{\sqrt{2}}(|0\rangle - |1\rangle)`.
+    
+    References
+    ==========
+    ..  [Div00] DiVincenzo, David P., et al.
+        "Unextendible Product Bases, Uncompletable Product Bases and Bound Entanglement."
+        Communications in Mathematical Physics volume 238, (2003)
+        https://arxiv.org/abs/quant-ph/9908070v3
+    .. [Joh16] Nathaniel Johnston.
+        "QETLAB: A MATLAB toolbox for quantum entanglement"
+        http://www.qetlab.com
+        
+    :raises ValueError: If input is not an odd integer greater than 1.
+    :param num_parties: The number of parties of the UPB.
+    :return: A list of arrays representing the local states of each party.
     """
     if (parties % 2 == 0) or parties == 1:
         raise ValueError("Input must be an odd int greater than 1.")
