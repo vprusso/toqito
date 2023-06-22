@@ -20,6 +20,7 @@ information.
 [![doc status](https://readthedocs.org/projects/toqito/badge/?version=latest&style=plastic)](https://toqito.readthedocs.io/en/latest/)
 [![codecov](https://codecov.io/gh/vprusso/toqito/branch/master/graph/badge.svg?style=plastic)](https://codecov.io/gh/vprusso/toqito)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4743211.svg)](https://doi.org/10.5281/zenodo.4743211)
+[![Downloads](https://static.pepy.tech/personalized-badge/toqito?style=platic&period=total&units=none&left_color=black&right_color=brightgreen&left_text=Downloads)](https://pepy.tech/project/toqito)
 [![Unitary Fund](https://img.shields.io/badge/Supported%20By-UNITARY%20FUND-brightgreen.svg?style=plastic)](http://unitary.fund)
 
 ## Installing
@@ -87,6 +88,8 @@ The `toqito` project has been used in the following works:
 - Philip, Aby, Soorya Rethinasamy, Vincent Russo, and Mark M. Wilde. "Quantum Steering Algorithm for Estimating Fidelity of Separability." arXiv preprint [arXiv:2303.07911](https://arxiv.org/abs/2303.07911) (2023).
 
 - Miszczak, Jarosław Adam. "Symbolic quantum programming for supporting applications of quantum computing technologies." arXiv preprint [arXiv:2302.09401](https://arxiv.org/abs/2302.09401) (2023).
+
+- Casalé, Balthazar, Giuseppe Di Molfetta, Sandrine Anthoine, and Hachem Kadri. "Large-Scale Quantum Separability Through a Reproducible Machine Learning Lens." arXiv preprint [arXiv:2306.09444](https://arxiv.org/abs/2306.09444) (2023).
 
 ## Contributing
 
