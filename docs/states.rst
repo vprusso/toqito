@@ -26,6 +26,7 @@ Distance Metrics for Quantum States
     toqito.state_metrics.sub_fidelity
     toqito.state_metrics.trace_distance
     toqito.state_metrics.bures_distance
+    toqito.state_metrics.bures_angle
     toqito.state_metrics.matsumoto_fidelity
 
 Optimizations over Quantum States
