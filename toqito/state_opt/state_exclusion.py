@@ -1,13 +1,14 @@
 """State exclusion."""
-import cvxpy
+import picos
 import numpy as np
-
-from .state_helper import __is_states_valid, __is_probs_valid
+from toqito.state_ops import pure_to_mixed
 
 
 def state_exclusion(
-    states: list[np.ndarray], probs: list[float] = None, method: str = "conclusive"
-) -> float:
+      vectors: list[np.ndarray],
+      probs: list[float] = None,
+      solver: str = "cvxopt",
+      primal_dual = "dual") -> tuple[float, list[picos.HermitianVariable]]:
     r"""
     Compute probability of single state exclusion.
 
@@ -46,20 +47,6 @@ def state_exclusion(
     The conclusive state exclusion SDP is written explicitly in [BJOP14]_. The problem of conclusive
     state exclusion was also thought about under a different guise in [PBR12]_.
 
-
-    For the unambiguous case, the following semidefinite program that provides
-    the optimal probability with which Bob can conduct quantum state exclusion.
-
-    .. math::
-        \begin{align*}
-            \text{maximize:} \quad & \sum_{i=0}^n \sum_{j=0}^n
-                                     \langle M_i, \rho_j \rangle \\
-            \text{subject to:} \quad & \sum_{i=0}^n M_i \leq \mathbb{I},\\
-                                     & \text{Tr}(\rho_i M_i) = 0,
-                                       \quad \quad \forall 1  \leq i \leq n, \\
-                                     & M_0, \ldots, M_n \geq 0
-        \end{align*}
-
     Examples
     ==========
 
@@ -73,17 +60,6 @@ def state_exclusion(
             \end{aligned}
         \end{equation}
 
-    For the corresponding density matrices :math:`\rho_0 = u_0 u_0^*` and
-    :math:`\rho_1 = u_1 u_1^*`, we may construct a set
-
-    .. math::
-        \rho = \{\rho_0, \rho_1 \}
-
-    such that
-
-    .. math::
-        p = \{1/2, 1/2\}.
-
     It is not possible to conclusively exclude either of the two states. We can see that the result
     of the function in :code:`toqito` yields a value of :math:`0` as the probability for this to
     occur.
@@ -91,51 +67,12 @@ def state_exclusion(
     >>> from toqito.state_opt import state_exclusion
     >>> from toqito.states import bell
     >>> import numpy as np
-    >>> rho1 = bell(0) * bell(0).conj().T
-    >>> rho2 = bell(1) * bell(1).conj().T
     >>>
-    >>> states = [rho1, rho2]
+    >>> vectors = [bell(0), bell(1)]
     >>> probs = [1/2, 1/2]
     >>>
-    >>> state_exclusion(states, probs, "conclusive")
+    >>> state_exclusion(vectors, probs)
     1.6824720366950206e-09
-
-    Consider the following two Bell states
-
-    .. math::
-        \begin{equation}
-            \begin{aligned}
-                u_0 &= \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \\
-                u_1 &= \frac{1}{\sqrt{2}} \left( |00 \rangle - |11 \rangle \right).
-            \end{aligned}
-        \end{equation}
-
-    For the corresponding density matrices :math:`\rho_0 = u_0 u_0^*` and
-    :math:`\rho_1 = u_1 u_1^*`, we may construct a set
-
-    .. math::
-        \rho = \{\rho_0, \rho_1 \}
-
-    such that
-
-    .. math::
-        p = \{1/2, 1/2\}.
-
-    It is not possible to unambiguously exclude either of the two states. We can see that the result
-    of the function in :code:`toqito` yields a value of :math:`0` as the probability for this to
-    occur.
-
-    >>> from toqito.state_opt import state_exclusion
-    >>> from toqito.states import bell
-    >>> import numpy as np
-    >>> rho1 = bell(0) * bell(0).conj().T
-    >>> rho2 = bell(1) * bell(1).conj().T
-    >>>
-    >>> states = [rho1, rho2]
-    >>> probs = [1/2, 1/2]
-    >>>
-    >>> state_exclusion(states, probs, "unambiguous")
-    -7.250173600116328e-18
 
     References
     ==========
@@ -150,61 +87,57 @@ def state_exclusion(
         Physical Review A 89.2 (2014): 022336.
         arXiv:1306.4683
 
-    :param states: A list of states provided as either matrices or vectors.
-    :param probs: Respective list of probabilities each state is selected.
-    :param method: Exclusion method (either `conclusive` or `unambiguous`.
+    :param states: A list of states provided as vectors.
+    :param probs: Respective list of probabilities each state is selected. If no
+                  probabilities are provided, a uniform probability distribution is assumed.
     :return: The optimal probability with which Bob can guess the state he was
-             not given from `states`.
+             not given from `states` along with the optimal set of measurements.
     """
-    obj_func = []
-    measurements = []
-    constraints = []
+    if primal_dual == "primal":
+        return _min_error_primal(vectors, probs, solver)
+    else:
+       return _min_error_dual(vectors, probs, solver)
 
-    __is_states_valid(states)
-    if probs is None:
-        probs = [1 / len(states)] * len(states)
-    __is_probs_valid(probs)
 
-    supported_methods = ["conclusive", "unambiguous"]
-    if method not in supported_methods:
-        raise ValueError(
-            f"Exclusion method {method} not supported. Please "
-            f"select one from {supported_methods}."
-        )
+def _min_error_primal(vectors: list[np.ndarray], probs: list[float] = None, solver: str = "cvxopt"):
+   """The primal problem for minimum-error quantum state exclusion SDP."""
+   n, dim = len(vectors), vectors[0].shape[0]
+   if probs is None:
+      probs = [1/len(vectors)] * len(vectors)
 
-    dim_x, dim_y = states[0].shape
+   problem = picos.Problem()
+   measurements = [picos.HermitianVariable(f"M[{i}]", (dim, dim)) for i in range(n)]
+   
+   problem.add_list_of_constraints([meas >> 0 for meas in measurements])
+   problem.add_constraint(picos.sum(measurements) == picos.I(dim))
 
-    # The variable `states` is provided as a list of vectors. Transform them
-    # into density matrices.
-    if dim_y == 1:
-        for i, state_ket in enumerate(states):
-            states[i] = state_ket * state_ket.conj().T
+   problem.set_objective(
+       "min", 
+       picos.sum([(probs[i] * pure_to_mixed(vectors[i].reshape(-1, 1)) | measurements[i]) for i in range(n)])
+   )
+   solution = problem.solve(solver=solver)
+   return solution.value, measurements
 
-    for i, _ in enumerate(states):
-        measurements.append(cvxpy.Variable((dim_x, dim_x), PSD=True))
 
-        obj_func.append(probs[i] * cvxpy.trace(states[i].conj().T @ measurements[i]))
+def _min_error_dual(vectors: list[np.ndarray], probs: list[float] = None, solver: str = "cvxopt") -> float:
+   """The dual problem for minimum-error quantum state exclusion SDP."""
+   dim = vectors[0].shape[0]
+   if probs is None:
+      probs = [1/len(vectors)] * len(vectors)
 
-        if method == "unambiguous":
-            constraints.append(cvxpy.trace(states[i] @ measurements[i]) == 0)
+   problem = picos.Problem()
+    
+   # Set up variables and constraints for SDP:
+   y_var = picos.HermitianVariable("Y", (dim, dim))
+   problem.add_list_of_constraints([
+      y_var << probs[i] * pure_to_mixed(vector.reshape(-1, 1))
+      for i, vector in enumerate(vectors)
+   ])
+    
+   # Objective function:
+   problem.set_objective("max", picos.trace(y_var))
+   solution = problem.solve(solver=solver)
+   
+   measurements = [problem.get_constraint(k).dual for k in range(len(vectors))]
 
-    if method == "conclusive":
-        constraints.append(sum(measurements) == np.identity(dim_x))
-    elif method == "unambiguous":
-        constraints.append(sum(measurements) <= np.identity(dim_x))
-
-    if method == "conclusive":
-        if np.iscomplexobj(states[0]):
-            objective = cvxpy.Minimize(cvxpy.real(sum(obj_func)))
-        else:
-            objective = cvxpy.Minimize(sum(obj_func))
-    elif method == "unambiguous":
-        if np.iscomplexobj(states[0]):
-            objective = cvxpy.Maximize(cvxpy.real(sum(obj_func)))
-        else:
-            objective = cvxpy.Maximize(sum(obj_func))
-
-    problem = cvxpy.Problem(objective, constraints)
-    sol_default = problem.solve()
-
-    return 1 / len(states) * sol_default
+   return solution.value, measurements

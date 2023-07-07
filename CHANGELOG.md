@@ -300,24 +300,48 @@
 ## 1.0.5
 
 - Adding ability to perform parallel repetition for `XORGame` objects (thanks to
-  @juliusw352) https://github.com/vprusso/toqito/pull/143
+  @juliusw352) [PR-143](https://github.com/vprusso/toqito/pull/143)
 
-- Thanks to @puva-thakre for updating the installation and contribution guidelines. https://github.com/vprusso/toqito/pull/153
+- Thanks to @puva-thakre for updating the installation and contribution
+  guidelines. [PR-153](https://github.com/vprusso/toqito/pull/153)
 
-- Thanks to @ryanprior for providing a CI/CD testing and linting pipeline https://github.com/vprusso/toqito/pull/154
+- Thanks to @ryanprior for providing a CI/CD testing and linting pipeline
+  [PR-154](https://github.com/vprusso/toqito/pull/154)
 
-- Thanks to @georgios-ts for fixing a bug in `apply_channel` https://github.com/vprusso/toqito/pull/155
+- Thanks to @georgios-ts for fixing a bug in `apply_channel`
+  [PR-155](https://github.com/vprusso/toqito/pull/155)
 
-- Thanks to @georgios-ts for fixing a bug in `sk_norm`. https://github.com/vprusso/toqito/pull/156
+- Thanks to @georgios-ts for fixing a bug in `sk_norm`.
+  [PR-156](https://github.com/vprusso/toqito/pull/156)
 
-- Thanks to @georgios-ts for fixing a bug in `is_unitary` for channels. https://github.com/vprusso/toqito/pull/164
+- Thanks to @georgios-ts for fixing a bug in `is_unitary` for channels.
+  [PR-164](https://github.com/vprusso/toqito/pull/164)
 
-- Thanks to @georgios-ts for fixing an issue in `choi_to_kraus` for non-CP maps. https://github.com/vprusso/toqito/pull/162
+- Thanks to @georgios-ts for fixing an issue in `choi_to_kraus` for non-CP maps.
+  [PR-162](https://github.com/vprusso/toqito/pull/162)
 
-- Thanks for @georgios-ts for adding the `channel_dim` feature to allow one to extract the dimensions of a quantum channel. https://github.com/vprusso/toqito/pull/161
+- Thanks for @georgios-ts for adding the `channel_dim` feature to allow one to
+  extract the dimensions of a quantum channel.
+  [PR-161](https://github.com/vprusso/toqito/pull/161)
 
-- Thanks to @AmanieOxana for integrating the completely bounded trace and spectral norms. https://github.com/vprusso/toqito/pull/157
+- Thanks to @AmanieOxana for integrating the completely bounded trace and
+  spectral norms. [PR-157](https://github.com/vprusso/toqito/pull/157)
 
-- Thanks to @ErikQQY for refactoring and simplifying the partial trace and partial transpose functions.
+- Thanks to @ErikQQY for refactoring and simplifying the partial trace and
+  partial transpose functions.
+  [PR-158](https://github.com/vprusso/toqito/pull/158)
 
-- Thanks to @elads888 for adding the `is_diagonally_dominant` feature to allow one to determine if a matrix is diagonally dominant.
+- Thanks to @purva-thakre for adding SDPs for calculating the fidelity of
+  separability in `fidelity_of_separability`
+  [PR-165](https://github.com/vprusso/toqito/pull/165)
+
+- Thanks to @elads888 for adding the `is_diagonally_dominant` feature to allow
+  one to determine if a matrix is diagonally dominant.
+  [PR-176](https://github.com/vprusso/toqito/pull/176)
+
+- Thanks to @epelaaez for adding the `bures_angle` feature.
+  [PR-181](https://github.com/vprusso/toqito/pull/181)
+
+- Refactor of `state_exclusion` to take advantage of the `picos` SDP solver with
+  to return both the optimal value and optimal measurements.
+  [PR-182](https://github.com/vprusso/toqito/pull/182)
