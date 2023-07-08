@@ -16,7 +16,7 @@ Permutations
     toqito.perms.perm_sign
     toqito.perms.permutation_operator
     toqito.perms.permute_systems
-    toqito.perms.swap
     toqito.perms.swap_operator
+    toqito.perms.swap
     toqito.perms.symmetric_projection
     toqito.perms.unique_perms

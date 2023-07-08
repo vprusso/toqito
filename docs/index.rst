@@ -70,7 +70,3 @@ User Documentation
     :caption: Tutorials
 
     tutorials
-
-
-
-

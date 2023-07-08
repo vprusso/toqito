@@ -18,16 +18,16 @@ Distance Metrics for Quantum States
 .. autosummary::
    :toctree: _autosummary
 
-    toqito.state_metrics.fidelity
+    toqito.state_metrics.bures_angle
+    toqito.state_metrics.bures_distance
     toqito.state_metrics.fidelity_of_separability
+    toqito.state_metrics.fidelity
     toqito.state_metrics.helstrom_holevo
-    toqito.state_metrics.hilbert_schmidt
     toqito.state_metrics.hilbert_schmidt_inner_product
+    toqito.state_metrics.hilbert_schmidt
+    toqito.state_metrics.matsumoto_fidelity
     toqito.state_metrics.sub_fidelity
     toqito.state_metrics.trace_distance
-    toqito.state_metrics.bures_distance
-    toqito.state_metrics.bures_angle
-    toqito.state_metrics.matsumoto_fidelity
 
 Optimizations over Quantum States
 -----------------------------------------------
@@ -71,17 +71,18 @@ Properties of Quantum States
     toqito.state_props.is_mixed
     toqito.state_props.is_mutually_orthogonal
     toqito.state_props.is_mutually_unbiased_basis
+    toqito.state_props.is_npt
     toqito.state_props.is_ppt
     toqito.state_props.is_product
     toqito.state_props.is_pure
+    toqito.state_props.is_separable
     toqito.state_props.l1_norm_coherence
     toqito.state_props.log_negativity
     toqito.state_props.negativity
     toqito.state_props.purity
     toqito.state_props.schmidt_rank
-    toqito.state_props.is_separable
-    toqito.state_props.von_neumann_entropy
     toqito.state_props.sk_vector_norm
+    toqito.state_props.von_neumann_entropy
 
 Quantum States
 --------------
@@ -104,7 +105,7 @@ Quantum States
     toqito.states.isotropic
     toqito.states.max_entangled
     toqito.states.max_mixed
+    toqito.states.singlet
     toqito.states.tile
     toqito.states.w_state
     toqito.states.werner
-    toqito.states.singlet
