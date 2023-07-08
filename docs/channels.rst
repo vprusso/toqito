@@ -22,10 +22,10 @@ Distance Metrics for Quantum Channels
    :toctree: _autosummary
 
     toqito.channel_metrics.channel_fidelity
+    toqito.channel_metrics.completely_bounded_spectral_norm
+    toqito.channel_metrics.completely_bounded_trace_norm
     toqito.channel_metrics.diamond_norm
     toqito.channel_metrics.fidelity_of_separability
-    toqito.channel_metrics.completely_bounded_trace_norm
-    toqito.channel_metrics.completely_bounded_spectral_norm
 
 Quantum Channels
 ----------------
@@ -53,9 +53,9 @@ Operations on Quantum Channels
 
     toqito.channel_ops.apply_channel
     toqito.channel_ops.choi_to_kraus
+    toqito.channel_ops.dual_channel
     toqito.channel_ops.kraus_to_choi
     toqito.channel_ops.partial_channel
-    toqito.channel_ops.dual_channel
 
 Properties of Quantum Channels
 ------------------------------
@@ -65,11 +65,11 @@ Properties of Quantum Channels
 .. autosummary::
    :toctree: _autosummary
 
+    toqito.channel_props.choi_rank
     toqito.channel_props.is_completely_positive
     toqito.channel_props.is_herm_preserving
     toqito.channel_props.is_positive
+    toqito.channel_props.is_quantum_channel
     toqito.channel_props.is_trace_preserving
     toqito.channel_props.is_unital
-    toqito.channel_props.choi_rank
-    toqito.channel_props.is_quantum_channel
     toqito.channel_props.is_unitary
