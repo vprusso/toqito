@@ -1,5 +1,6 @@
 """Properties of matrices and vectors."""
 from toqito.matrix_props.is_square import is_square
+from toqito.matrix_props.is_circulant import is_circulant
 from toqito.matrix_props.is_diagonal import is_diagonal
 from toqito.matrix_props.is_normal import is_normal
 from toqito.matrix_props.is_orthonormal import is_orthonormal
