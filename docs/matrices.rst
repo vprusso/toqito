@@ -48,6 +48,7 @@ Properties of Matrices and Vectors
    :toctree: _autosummary
 
     toqito.matrix_props.is_block_positive
+    toqito.matrix_props.is_circulant
     toqito.matrix_props.is_commuting
     toqito.matrix_props.is_density
     toqito.matrix_props.is_diagonal
