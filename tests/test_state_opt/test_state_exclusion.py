@@ -6,7 +6,7 @@ from toqito.state_opt import state_exclusion
 from toqito.matrices import standard_basis
 
 
-@pytest.mark.xfail
+@pytest.mark.skip(reason="The MOSEK solver handles this gracefully, but CVXOPT does not.")
 def test_conclusive_state_exclusion_one_state_vec():
     """Conclusive state exclusion for single vector state."""
     e_0, e_1 = standard_basis(2)
