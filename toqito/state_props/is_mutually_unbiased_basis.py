@@ -56,7 +56,7 @@ def is_mutually_unbiased_basis(vec_list: list[np.ndarray | list[float | Any]]) -
     >>> is_mutually_unbiased_basis(mubs)
     True
 
-    Non non-MUB of dimension :math:`2`.
+    Non-MUB of dimension :math:`2`.
 
     >>> import numpy as np
     >>> from toqito.states import basis

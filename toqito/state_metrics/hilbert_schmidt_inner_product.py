@@ -6,23 +6,23 @@ def hilbert_schmidt_inner_product(a_mat: np.ndarray, b_mat: np.ndarray) -> compl
     r"""
     Compute the Hilbert-Schmidt inner product between two matrices [WikHSO].
 
-    The Hilbert-Schmidt inner product between :math:`a_mat` and :math:`b_mat` is
+    The Hilbert-Schmidt inner product between :code:`a_mat` and :code:`b_mat` is
     defined as
 
     .. math::
 
         HS = (A|B) = Tr[A^\dagger B]
 
-    where :math:`|B> = vec(B)` and :math:`<A|` is the dual vector to
-    :math:`|A>`.
+    where :math:`|B\rangle = \text{vec}(B)` and :math:`\langle A|` is the dual
+    vector to :math:`|A \rangle`.
 
     Note: This function has been adapted from [Rigetti21]_.
 
     Examples
     ==========
 
-    One may consider taking the Hilbert-Schmidt distance between the Hadamard
-    matrix and itself matrix.
+    One may consider taking the Hilbert-Schmidt distance between two Hadamard
+    matrices.
 
     >>> from toqito.matrices import hadamard
     >>> from toqito.matrices import pauli

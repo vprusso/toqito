@@ -18,11 +18,8 @@ def brauer(dim: int, p_val: int) -> np.ndarray:
 
     The exact number of such states is:
 
-    ```
-    import numpy as np
-
-    np.factorial(2 * p_val) / (np.factorial(p_val) * 2**p_val)
-    ```
+    >>> import numpy as np
+    >>> np.factorial(2 * p_val) / (np.factorial(p_val) * 2**p_val)
 
     which is the number of columns of the returned matrix.
 

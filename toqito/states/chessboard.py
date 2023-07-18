@@ -36,6 +36,10 @@ def chessboard(mat_params: list[float], s_param: float = None, t_param: float = 
      [ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
        0.        ,  0.        ,  0.        ,  0.        ]]
 
+    See Also
+    ========
+    chessboard
+
     References
     ==========
     .. [BP00] Three qubits can be entangled in two inequivalent ways.

@@ -345,3 +345,6 @@
 - Refactor of `state_exclusion` to take advantage of the `picos` SDP solver with
   to return both the optimal value and optimal measurements.
   [PR-182](https://github.com/vprusso/toqito/pull/182)
+
+- Adding feature to determine if a given matrix is circulant with
+  `is_circulant`. [PR-184](https://github.com/vprusso/toqito/pull/184)

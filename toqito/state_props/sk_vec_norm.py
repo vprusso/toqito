@@ -13,8 +13,8 @@ def sk_vector_norm(rho: np.ndarray, k: int = 1, dim: int | list[int] = None) -> 
     defined as:
 
     .. math::
-        \big|\big| |v\rangle \big|\big|_{s(k)} := sup_{|w\rangle} \Big\{
-            |\langle w | v \rangle| : \text{Schmidt - rank}(|w\rangle) \leq k
+        \big|\big| |v\rangle \big|\big|_{s(k)} := \text{sup}_{|w\rangle} \Big\{
+            |\langle w | v \rangle| : \text{Schmidt-rank}(|w\rangle) \leq k
         \Big\}
 
     It's also equal to the Euclidean norm of the vector of :math:`|v\rangle`'s
@@ -26,7 +26,7 @@ def sk_vector_norm(rho: np.ndarray, k: int = 1, dim: int | list[int] = None) -> 
     ========
 
     The smallest possible value of the :math:`S(k)`-norm of a pure state is
-    :math:`\sqrt{\frac{k}{n}}`, and is attained exactly by the "maximally entagled
+    :math:`\sqrt{\frac{k}{n}}`, and is attained exactly by the "maximally entangled
     states".
 
     >>> from toqito.states import max_entangled

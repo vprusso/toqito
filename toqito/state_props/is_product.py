@@ -17,6 +17,7 @@ def is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray = None) -> boo
     Examples
     ==========
     Consider the following Bell state
+
     .. math::
         u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \in \mathcal{X}.
 
@@ -32,6 +33,7 @@ def is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray = None) -> boo
 
     We can provide the input as either the vector :math:`u` or the denisty matrix :math:`\rho`.
     In either case, this represents an entangled state (and hence a non-product state).
+
     >>> from toqito.state_props import is_product
     >>> from toqito.states import bell
     >>> rho = bell(0) * bell(0).conj().T

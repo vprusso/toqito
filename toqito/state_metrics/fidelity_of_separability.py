@@ -75,15 +75,15 @@ def fidelity_of_separability(
     :math:`\sigma_{AB^{k}}` is a k-extension of :math:`\rho_{AB}`.
 
     :math:`\mathcal{P}_{B^{k}}` is the permutation operator among systems
-    :math:`B_1, B_2,  \cdots , B_{k}` which has no effect on the k-extended
+    :math:`B_1, B_2,  \ldots , B_{k}` which has no effect on the k-extended
     state :math:`\sigma_{AB^{k}}`.
 
     The other constraints are due to the PPT condition [Per96]_.
 
     Examples
     ==========
-    Let's consider a density matrix of a state that we know is pure &
-    separable. :math:`|00 \rangle = |0 \rangle \otimes |0 \rangle`.
+    Let's consider a density matrix of a state that we know is pure and
+    separable; :math:`|00 \rangle = |0 \rangle \otimes |0 \rangle`.
 
     The expected approximation of fidelity of separability is the maximum
     value possible i.e. very close to 1.
@@ -98,10 +98,11 @@ def fidelity_of_separability(
         from toqito.states import basis
 
         state = tensor(basis(2, 0), basis(2, 0))
-        rho = state*state.conj().T
-        expected_value = fidelity_of_separability(rho, [2,2])
+        rho = state @ state.conj().T
+        expected_value = fidelity_of_separability(rho, [2, 2])
+        expected_value
 
-    >>> expected_value = 0.9999999998278968
+    >>> 0.9999999998278968
 
 
     References
@@ -124,26 +125,26 @@ def fidelity_of_separability(
         Cambridge University Press, 2018
 
     Args:
-        input_state_rho: the density matrix for the bipartite state of interest
+        input_state_rho: the density matrix for the bipartite state of interest.
         input_state_rho_dims: the dimensions of System A & B respectively in
             the input state density matrix. It is assumed that the first
             quantity in this list is the dimension of System A.
-        k: value for k-extendibility
+        k: value for k-extendibility.
         verbosity_option: Parameter option for `picos`. Default value is `verbosity = 2`.
-            For more info, visit https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-verbosity
+            For more info, visit https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-verbosity.
         solver_option: Optimization option for `picos` solver. Default option is `solver_option="cvxopt"`
-            For more info, visit https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-solver
+            For more info, visit https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-solver.
     Raises:
         AssertionError:
-            * If the provided dimensions are not for a bipartite density matrix
+            * If the provided dimensions are not for a bipartite density matrix.
         TypeError:
             * If the matrix is not a density matrix (square matrix that is \n
             PSD with trace 1).
         TypeError:
             * If the input state is entangled or a mixed state.
     Returns:
-        Optimized value of the SDP when maximized over a set of linear
-        operators subject to some constraints.
+        Optimized value of the SDP when maximized over a set of linear operators
+        subject to some constraints.
     """
     # rho is relabelled as rho_{AB} where A >= B.
     if not is_density(input_state_rho):
@@ -177,8 +178,6 @@ def fidelity_of_separability(
 
     problem.set_objective("max", 0.5 * picos.trace(linear_op_AB + linear_op_AB.H))
 
-    # constraints
-    # >>0 is enforcing positive semidefinite condition
     problem.add_constraint(
         picos.block(
             [
@@ -191,13 +190,13 @@ def fidelity_of_separability(
     problem.add_constraint(sigma_AB_k >> 0)
     problem.add_constraint(picos.trace(sigma_AB_k) == 1)
 
-    # k-extendible:
+    # k-extendible constraint:
     problem.add_constraint(
         (picos.I(dim_A) @ permutation_op) * sigma_AB_k * (picos.I(dim_A) @ permutation_op)
         == sigma_AB_k
     )
 
-    # PPT:
+    # PPT constraint:
     sys = []
     for i in range(1, k):
         sys = sys + [i]

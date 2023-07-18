@@ -14,10 +14,11 @@ def bures_angle(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> flo
     .. math::
         \arccos{\sqrt{F (\rho_1, \rho_2)}}
 
-    where :math:`F(\cdot)` denotes the fidelity between :math:`\rho_1` and :math:`\rho_2`. The
-    return is a value between :math:`0` and :math:`\pi / 2`, with :math:`0` corresponding to
-    matrices :code:`rho_1 = rho_2` and :math:`\pi / 2` corresponding to the case :code: `rho_1`
-    and :code:`rho_2` with orthogonal support.
+    where :math:`F(\cdot)` denotes the fidelity between :math:`\rho_1` and
+    :math:`\rho_2`. The return is a value between :math:`0` and :math:`\pi / 2`,
+    with :math:`0` corresponding to matrices :code:`rho_1 = rho_2` and
+    :math:`\pi / 2` corresponding to the case :code:`rho_1` and :code:`rho_2`
+    with orthogonal support.
 
     Examples
     ==========
