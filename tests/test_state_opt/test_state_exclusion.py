@@ -1,13 +1,11 @@
 """Test state_exclusion."""
-import pytest
 import numpy as np
 
 from toqito.matrices import standard_basis
-from toqito.states import bell
 from toqito.state_opt import state_exclusion
 
 
-def test_conclusive_state_exclusion_one_state_vec():
+def test_conclusive_state_exclusion():
     """Conclusive state exclusion for single vector state."""
     e_0, e_1 = standard_basis(2)
     states = [
