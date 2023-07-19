@@ -11,7 +11,7 @@ def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
 
     Produces a generalized Bell state. Note that the standard Bell states can be recovered as:
 
-    ```
+    ```py
     bell(0) : gen_bell(0, 0, 2)
 
     bell(1) : gen_bell(0, 1, 2)

@@ -12,11 +12,13 @@ def schmidt_decomposition(
 
     Examples
     ==========
-    Consider the :math:`3`-dimensional maximally entangled state
+    Consider the :math:`3`-dimensional maximally entangled state:
+
     .. math::
-        u = \frac{1}{\sqrt{3}} \left( |000 \rangle + |111 \rangle + |222 \rangle \right)
+        u = \frac{1}{\sqrt{3}} \left( |000 \rangle + |111 \rangle + |222 \rangle \right).
 
     We can generate this state using the :code:`toqito` module as follows.
+
     >>> from toqito.states import max_entangled
     >>> max_entangled(3)
     [[0.57735027],
@@ -31,8 +33,10 @@ def schmidt_decomposition(
 
     Computing the Schmidt decomposition of :math:`u`, we can obtain the corresponding singular
     values of :math:`u` as
+
     .. math::
         \frac{1}{\sqrt{3}} \left[1, 1, 1 \right]^{\text{T}}.
+
     >>> from toqito.states import max_entangled
     >>> from toqito.state_ops import schmidt_decomposition
     >>> singular_vals, u_mat, vt_mat = schmidt_decomposition(max_entangled(3))
@@ -48,6 +52,7 @@ def schmidt_decomposition(
     [[1. 0. 0.]
      [0. 1. 0.]
      [0. 0. 1.]]
+
     References
     ==========
     .. [WikSD] Wikipedia: Schmidt decomposition
