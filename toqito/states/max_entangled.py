@@ -58,7 +58,7 @@ def max_entangled(
     :param is_normalized: `True` if vector is normalized and `False` otherwise.
     :return: The maximally entangled state of dimension :code:`dim`.
     """
-    psi = np.reshape(iden(dim, is_sparse), (dim**2, 1))
+    psi = np.reshape(iden(dim, is_sparse), (dim ** 2, 1))
     if is_normalized:
         psi = psi / np.sqrt(dim)
     return psi

@@ -121,10 +121,10 @@ def werner(dim: int, alpha: float | list[float]) -> np.ndarray:
         sorted_perms = np.argsort(perms, axis=1) + 1
 
         for i in range(2, n_fac):
-            rho = np.identity(dim**n_var) - alpha[i - 1] * permutation_operator(
+            rho = np.identity(dim ** n_var) - alpha[i - 1] * permutation_operator(
                 dim, sorted_perms[i, :], False, True
             )
         rho = rho / np.trace(rho)
         return rho
     # Bipartite Werner state.
-    return (np.identity(dim**2) - alpha * swap_operator(dim, True)) / (dim * (dim - alpha))
+    return (np.identity(dim ** 2) - alpha * swap_operator(dim, True)) / (dim * (dim - alpha))

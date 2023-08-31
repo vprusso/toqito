@@ -5,10 +5,8 @@ from toqito.state_ops import pure_to_mixed
 
 
 def state_exclusion(
-      vectors: list[np.ndarray],
-      probs: list[float] = None,
-      solver: str = "cvxopt",
-      primal_dual = "dual") -> tuple[float, list[picos.HermitianVariable]]:
+    vectors: list[np.ndarray], probs: list[float] = None, solver: str = "cvxopt", primal_dual="dual"
+) -> tuple[float, list[picos.HermitianVariable]]:
     r"""
     Compute probability of single state exclusion.
 
@@ -96,48 +94,57 @@ def state_exclusion(
     if primal_dual == "primal":
         return _min_error_primal(vectors, probs, solver)
     else:
-       return _min_error_dual(vectors, probs, solver)
+        return _min_error_dual(vectors, probs, solver)
 
 
 def _min_error_primal(vectors: list[np.ndarray], probs: list[float] = None, solver: str = "cvxopt"):
-   """The primal problem for minimum-error quantum state exclusion SDP."""
-   n, dim = len(vectors), vectors[0].shape[0]
-   if probs is None:
-      probs = [1/len(vectors)] * len(vectors)
+    """The primal problem for minimum-error quantum state exclusion SDP."""
+    n, dim = len(vectors), vectors[0].shape[0]
+    if probs is None:
+        probs = [1 / len(vectors)] * len(vectors)
 
-   problem = picos.Problem()
-   measurements = [picos.HermitianVariable(f"M[{i}]", (dim, dim)) for i in range(n)]
-   
-   problem.add_list_of_constraints([meas >> 0 for meas in measurements])
-   problem.add_constraint(picos.sum(measurements) == picos.I(dim))
+    problem = picos.Problem()
+    measurements = [picos.HermitianVariable(f"M[{i}]", (dim, dim)) for i in range(n)]
 
-   problem.set_objective(
-       "min", 
-       picos.sum([(probs[i] * pure_to_mixed(vectors[i].reshape(-1, 1)) | measurements[i]) for i in range(n)])
-   )
-   solution = problem.solve(solver=solver)
-   return solution.value, measurements
+    problem.add_list_of_constraints([meas >> 0 for meas in measurements])
+    problem.add_constraint(picos.sum(measurements) == picos.I(dim))
+
+    problem.set_objective(
+        "min",
+        picos.sum(
+            [
+                (probs[i] * pure_to_mixed(vectors[i].reshape(-1, 1)) | measurements[i])
+                for i in range(n)
+            ]
+        ),
+    )
+    solution = problem.solve(solver=solver)
+    return solution.value, measurements
 
 
-def _min_error_dual(vectors: list[np.ndarray], probs: list[float] = None, solver: str = "cvxopt") -> float:
-   """The dual problem for minimum-error quantum state exclusion SDP."""
-   dim = vectors[0].shape[0]
-   if probs is None:
-      probs = [1/len(vectors)] * len(vectors)
+def _min_error_dual(
+    vectors: list[np.ndarray], probs: list[float] = None, solver: str = "cvxopt"
+) -> float:
+    """The dual problem for minimum-error quantum state exclusion SDP."""
+    dim = vectors[0].shape[0]
+    if probs is None:
+        probs = [1 / len(vectors)] * len(vectors)
 
-   problem = picos.Problem()
-    
-   # Set up variables and constraints for SDP:
-   y_var = picos.HermitianVariable("Y", (dim, dim))
-   problem.add_list_of_constraints([
-      y_var << probs[i] * pure_to_mixed(vector.reshape(-1, 1))
-      for i, vector in enumerate(vectors)
-   ])
-    
-   # Objective function:
-   problem.set_objective("max", picos.trace(y_var))
-   solution = problem.solve(solver=solver)
-   
-   measurements = [problem.get_constraint(k).dual for k in range(len(vectors))]
+    problem = picos.Problem()
 
-   return solution.value, measurements
+    # Set up variables and constraints for SDP:
+    y_var = picos.HermitianVariable("Y", (dim, dim))
+    problem.add_list_of_constraints(
+        [
+            y_var << probs[i] * pure_to_mixed(vector.reshape(-1, 1))
+            for i, vector in enumerate(vectors)
+        ]
+    )
+
+    # Objective function:
+    problem.set_objective("max", picos.trace(y_var))
+    solution = problem.solve(solver=solver)
+
+    measurements = [problem.get_constraint(k).dual for k in range(len(vectors))]
+
+    return solution.value, measurements

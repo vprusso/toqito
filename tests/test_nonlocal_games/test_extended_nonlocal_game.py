@@ -65,17 +65,17 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         mub_0 = [e_0, e_1, e_2]
         mub_1 = [
             (e_0 + e_1 + e_2) / np.sqrt(3),
-            (e_0 + eta**2 * e_1 + eta * e_2) / np.sqrt(3),
-            (e_0 + eta * e_1 + eta**2 * e_2) / np.sqrt(3),
+            (e_0 + eta ** 2 * e_1 + eta * e_2) / np.sqrt(3),
+            (e_0 + eta * e_1 + eta ** 2 * e_2) / np.sqrt(3),
         ]
         mub_2 = [
             (e_0 + e_1 + eta * e_2) / np.sqrt(3),
-            (e_0 + eta**2 * e_1 + eta**2 * e_2) / np.sqrt(3),
+            (e_0 + eta ** 2 * e_1 + eta ** 2 * e_2) / np.sqrt(3),
             (e_0 + eta * e_1 + e_2) / np.sqrt(3),
         ]
         mub_3 = [
-            (e_0 + e_1 + eta**2 * e_2) / np.sqrt(3),
-            (e_0 + eta**2 * e_1 + e_2) / np.sqrt(3),
+            (e_0 + e_1 + eta ** 2 * e_2) / np.sqrt(3),
+            (e_0 + eta ** 2 * e_1 + e_2) / np.sqrt(3),
             (e_0 + eta * e_1 + eta * e_2) / np.sqrt(3),
         ]
 
