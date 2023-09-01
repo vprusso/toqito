@@ -44,8 +44,8 @@ def is_circulant(mat: np.ndarray) -> bool:
     if n != m:
         return False
 
-    for i in range(n-1):
-        row = mat[i+1]
+    for i in range(n - 1):
+        row = mat[i + 1]
         shifted = np.roll(mat[i], 1)
         if not np.allclose(row, shifted):
             return False

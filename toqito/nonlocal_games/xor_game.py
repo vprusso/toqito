@@ -150,7 +150,7 @@ class XORGame:
 
         q_0, q_1 = self.prob_mat.shape
         if tol is None:
-            self.tol = np.finfo(float).eps * q_0**2 * q_1**2
+            self.tol = np.finfo(float).eps * q_0 ** 2 * q_1 ** 2
         else:
             self.tol = tol
 

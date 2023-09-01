@@ -10,15 +10,11 @@ def test_vectors_to_gram_matrix():
     e_0, e_1 = standard_basis(2)
     trine = [
         e_0,
-        1/2 * (-e_0 + np.sqrt(3) * e_1),
-        -1/2 * (e_0 + np.sqrt(3) * e_1),
+        1 / 2 * (-e_0 + np.sqrt(3) * e_1),
+        -1 / 2 * (e_0 + np.sqrt(3) * e_1),
     ]
     gram = vectors_to_gram_matrix(trine)
-    expected_gram = np.array([
-        [1, -1/2, -1/2],
-        [-1/2, 1, -1/2],
-        [-1/2, -1/2, 1]
-    ])
+    expected_gram = np.array([[1, -1 / 2, -1 / 2], [-1 / 2, 1, -1 / 2], [-1 / 2, -1 / 2, 1]])
     assert np.allclose(gram, expected_gram)
 
 

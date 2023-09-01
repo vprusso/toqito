@@ -187,7 +187,7 @@ def sk_operator_norm(
             )
 
             # Use the upper bound of Proposition 4.2.11 of [3].
-            upper_bound = min(upper_bound, kp_norm(realignment(mat, dim), k**2, 2))
+            upper_bound = min(upper_bound, kp_norm(realignment(mat, dim), k ** 2, 2))
 
         # Use the lower bound of Theorem 4.2.17 of [3].
         if is_projection:
@@ -205,7 +205,7 @@ def sk_operator_norm(
             lower_bound = max(
                 lower_bound,
                 (min(dim) - k)
-                * (rank + np.sqrt((prod_dim * rank - rank**2) / (prod_dim - 1)))
+                * (rank + np.sqrt((prod_dim * rank - rank ** 2) / (prod_dim - 1)))
                 / (prod_dim * (min(dim) - 1))
                 + (k - 1) / (min(dim) - 1),
             )
@@ -216,10 +216,10 @@ def sk_operator_norm(
 
         # Use a randomized iterative method to try to improve the lower bound.
         if is_positive:
-            for _ in range(5**effort):
+            for _ in range(5 ** effort):
                 lower_bound = max(
                     lower_bound,
-                    __lower_bound_sk_norm_randomized(mat, k, dim, tol**2),
+                    __lower_bound_sk_norm_randomized(mat, k, dim, tol ** 2),
                 )
 
                 # break out of the function if the target value has already been met

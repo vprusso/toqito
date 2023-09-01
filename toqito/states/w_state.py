@@ -89,9 +89,9 @@ def w_state(num_qubits: int, coeff: list[int] = None) -> np.ndarray:
             "of length equal to `num_qubits`."
         )
 
-    ret_w_state = sparse.csr_matrix((2**num_qubits, 1)).toarray()
+    ret_w_state = sparse.csr_matrix((2 ** num_qubits, 1)).toarray()
 
     for i in range(num_qubits):
-        ret_w_state[2**i] = coeff[num_qubits - i - 1]
+        ret_w_state[2 ** i] = coeff[num_qubits - i - 1]
 
     return np.around(ret_w_state, 4)
