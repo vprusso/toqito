@@ -84,12 +84,22 @@ A BibTeX entry that you can use to cite `toqito` is provided here:
 ```
 
 The `toqito` project has been used in the following works:
+
+Pelofske, Elijah, B¨artschi, Andreas, Eidenbenz, Stephan, Garcia, Bryan and Kiefer, Boris
+"Probing Quantum Telecloning on Superconducting Quantum Processors",
+arXiv preprint [arXiv:2308.15579](https://arxiv.org/abs/2308.15579) (2023).
  
-- Philip, Aby, Soorya Rethinasamy, Vincent Russo, and Mark M. Wilde. "Quantum Steering Algorithm for Estimating Fidelity of Separability." arXiv preprint [arXiv:2303.07911](https://arxiv.org/abs/2303.07911) (2023).
+- Philip, Aby, Soorya Rethinasamy, Vincent Russo, and Mark M. Wilde. 
+"Quantum Steering Algorithm for Estimating Fidelity of Separability." 
+arXiv preprint [arXiv:2303.07911](https://arxiv.org/abs/2303.07911) (2023).
 
-- Miszczak, Jarosław Adam. "Symbolic quantum programming for supporting applications of quantum computing technologies." arXiv preprint [arXiv:2302.09401](https://arxiv.org/abs/2302.09401) (2023).
+- Miszczak, Jarosław Adam. 
+"Symbolic quantum programming for supporting applications of quantum computing technologies." 
+arXiv preprint [arXiv:2302.09401](https://arxiv.org/abs/2302.09401) (2023).
 
-- Casalé, Balthazar, Giuseppe Di Molfetta, Sandrine Anthoine, and Hachem Kadri. "Large-Scale Quantum Separability Through a Reproducible Machine Learning Lens." arXiv preprint [arXiv:2306.09444](https://arxiv.org/abs/2306.09444) (2023).
+- Casalé, Balthazar, Giuseppe Di Molfetta, Sandrine Anthoine, and Hachem Kadri. 
+"Large-Scale Quantum Separability Through a Reproducible Machine Learning Lens." 
+arXiv preprint [arXiv:2306.09444](https://arxiv.org/abs/2306.09444) (2023).
 
 ## Contributing
 
