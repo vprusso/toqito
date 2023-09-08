@@ -85,7 +85,7 @@ A BibTeX entry that you can use to cite `toqito` is provided here:
 
 The `toqito` project has been used in the following works:
 
-Pelofske, Elijah, B¨artschi, Andreas, Eidenbenz, Stephan, Garcia, Bryan and Kiefer, Boris
+- Pelofske, Elijah, B¨artschi, Andreas, Eidenbenz, Stephan, Garcia, Bryan and Kiefer, Boris
 "Probing Quantum Telecloning on Superconducting Quantum Processors",
 arXiv preprint [arXiv:2308.15579](https://arxiv.org/abs/2308.15579) (2023).
  
