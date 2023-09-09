@@ -9,8 +9,9 @@ from toqito.matrix_props import trace_norm
 
 def completely_bounded_trace_norm(phi: np.ndarray) -> float:
     r"""
-    Compute the completely bounded trace norm / diamond norm of a quantum channel [WatCBNorm18].
-    The algorithm in p.11 of [WatSDP12] with implementation in QETLAB [JohQET] is used.
+    Compute the completely bounded trace norm / diamond norm of a quantum
+    channel [WatCNorm18]_. The algorithm in p.11 of [WatSDP09] with
+    implementation in QETLAB [JohQET] is used.
 
     References
     ==========

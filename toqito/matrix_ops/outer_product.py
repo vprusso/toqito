@@ -5,6 +5,7 @@ import numpy as np
 def outer_product(v1: np.ndarray, v2: np.ndarray) -> np.ndarray:
     r"""
     Compute the outer product :math:`|v_1\rangle\langle v_2|` of two vectors.
+    [WikOuter]_
 
     The outer product is calculated as follows:
 
