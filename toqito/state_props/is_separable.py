@@ -21,6 +21,7 @@ def is_separable(
     Examples
     ==========
     Consider the following separable (by construction) state:
+
     .. math::
         \rho = \rho_1 \otimes \rho_2.
         \rho_1 = \frac{1}{2} \left( |0 \rangle \langle 0| + |0 \rangle \langle 1| + |1 \rangle \langle 0| + |1 \rangle \langle 1| \right)

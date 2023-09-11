@@ -16,17 +16,17 @@ def completely_bounded_trace_norm(phi: np.ndarray) -> float:
     References
     ==========
     .. [WatCNorm18] : Watrous, John.
-    “The theory of quantum information.” Section 3.3.2: “The completely bounded trace norm”.
-    Cambridge University Press, 2018.
+        “The theory of quantum information.” Section 3.3.2: “The completely bounded trace norm”.
+        Cambridge University Press, 2018.
 
     .. [WatSDP09]:   Watrous, John.
-    "Simpler semidefinite programs for completely bounded norms"
-    https://arxiv.org/pdf/1207.5726.pdf
+        "Simpler semidefinite programs for completely bounded norms"
+        https://arxiv.org/pdf/1207.5726.pdf
 
     .. [JohQET]: Nathaniel Johnston. QETLAB:
-    A MATLAB toolbox for quantum entanglement, version 0.9.
-    https://github.com/nathanieljohnston/QETLAB/blob/master/DiamondNorm.m
-    http://www.qetlab.com, January 12, 2016. doi:10.5281/zenodo.44637
+        A MATLAB toolbox for quantum entanglement, version 0.9.
+        https://github.com/nathanieljohnston/QETLAB/blob/master/DiamondNorm.m
+        http://www.qetlab.com, January 12, 2016. doi:10.5281/zenodo.44637
 
     :raises ValueError: If matrix is not square.
     :param phi: superoperator as choi matrix

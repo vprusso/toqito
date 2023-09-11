@@ -36,7 +36,7 @@ def sk_operator_norm(
             \text{Schmidt - rank}(|w\rangle) \leq k
         \Big\}
 
-    Since computing the exact value of S(k)-norm is in the general case
+    Since computing the exact value of S(k)-norm [2]_ is in the general case
     an intractable problem, this function tries to find some good lower and
     upper bounds. You can control the amount of computation you want to
     devote to computing the bounds by `effort` input argument. Note that if
