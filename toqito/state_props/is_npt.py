@@ -12,7 +12,7 @@ def is_npt(mat: np.ndarray, sys: int = 2, dim: int | list[int] = None, tol: floa
 
     Yields either :code:`True` or :code:`False`, indicating that :code:`mat` does or does not have
     negative partial transpose (within numerical error). The variable :code:`mat` is assumed to act
-    on bipartite space.
+    on bipartite space. [NPT]_
 
     A state has negative partial transpose if it does not have positive partial transpose.
 

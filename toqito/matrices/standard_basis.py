@@ -3,16 +3,19 @@ import numpy as np
 
 
 def standard_basis(dim: int, flatten: bool = False) -> list[np.ndarray]:
-    """Create standard basis of dimension `dim`.
+    """Create standard basis of dimension :code:`dim`.
 
     Create a list containing the elements of the standard basis for the
     given dimension:
-    |1> = (1, 0, 0, ..., 0)^T
-    |2> = (0, 1, 0, ..., 0)^T
-    .
-    .
-    .
-    |n> = (0, 0, 0, ..., 1)^T
+
+    .. math::
+
+        |1> = (1, 0, 0, ..., 0)^T
+        |2> = (0, 1, 0, ..., 0)^T
+        .
+        .
+        .
+        |n> = (0, 0, 0, ..., 1)^T
 
     This function was inspired by:
     https://github.com/akshayseshadri/minimax-fidelity-estimation

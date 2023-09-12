@@ -16,12 +16,12 @@ def fidelity_of_separability(
     psi: np.ndarray, psi_dims: list[int], k: int = 1, verbosity_option=2, solver_option="cvxopt"
 ) -> float:
     r"""
-    Define the first benchmark introduced in Appendix I of [Phil23]_ .
+    Define the first benchmark introduced in Appendix I of [Phil23.1]_ .
 
     If you would like to instead use the benchmark introduced in Appendix H,
     go to :obj:`toqito.state_metrics.fidelity_of_separability`.
 
-    In [Phil23]_ a variational quantum algorithm (VQA) is introduced to test
+    In [Phil23.1]_ a variational quantum algorithm (VQA) is introduced to test
     the separability of a general bipartite state. The algorithm utilizes
     quantum steering between two separated systems such that the separability
     of the state is quantified.
@@ -30,13 +30,13 @@ def fidelity_of_separability(
     optimization semidefinite programs (SDP) benchmarks were introduced to
     maximize the fidelity of separability subject to some state constraints
     (Positive Partial Transpose (PPT), symmetric extensions (k-extendibility
-    ) [Hay12]_ ). Entangled states do not have k-symmetric extensions. If an
+    ) [Hay12.1]_ ). Entangled states do not have k-symmetric extensions. If an
     extension exists, it cannot be assumed directly that the state is
     separable. This function approximites the fidelity of separability by
     maximizing over PPT channels & k-extendible entanglement breaking channels
-    i.e. an optimization problem over channels [TBWat18]_ .
+    i.e. an optimization problem over channels [TBWat18.1]_ .
 
-    The following expression (Equation (I4) from [Phil23]_ ) defines the
+    The following expression (Equation (I4) from [Phil23.1]_ ) defines the
     constraints for approximating
     :math:`\frac{1}{2}(1+\widetilde{F}_s^2(\rho_{AB})) {:}=`
 
@@ -67,7 +67,7 @@ def fidelity_of_separability(
     :math:`\mathcal{P}_{A^{\prime k}}` is the permutation operator over
     k-extensions :math:`A^{\prime k}`.
 
-    The other constraints are due to the PPT condition [Per96]_.
+    The other constraints are due to the PPT condition [Per96.1]_.
 
     Examples
     ==========
@@ -95,20 +95,20 @@ def fidelity_of_separability(
 
     References
     ==========
-    .. [Hay12] Hayden, Patrick et.al.
+    .. [Hay12.1] Hayden, Patrick et.al.
         "Two-message quantum interactive proofs and the quantum separability problem."
         Proceedings of the 28th IEEE Conference on Computational Complexity, pages 156-167.
         https://arxiv.org/abs/1211.6120
 
-    .. [Per96] Peres, Asher.
+    .. [Per96.1] Peres, Asher.
         "Separability Criterion for Density Matrices"
         https://arxiv.org/abs/quant-ph/9604005
 
-    .. [Phil23] Philip, Aby et.al.
+    .. [Phil23.1] Philip, Aby et.al.
         "Quantum Steering Algorithm for Estimating Fidelity of Separability"
         https://arxiv.org/abs/2303.07911
 
-    .. [TBWat18] Watrous, John.
+    .. [TBWat18.1] Watrous, John.
         “The Theory of Quantum Information”
         Cambridge University Press, 2018
 

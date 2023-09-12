@@ -50,3 +50,11 @@ Quantum State Exclusion
    :maxdepth: 5
 
    tutorials.state_exclusion
+
+Superdense Coding
+-----------------------
+
+.. toctree::
+   :maxdepth: 5
+
+   tutorials.superdense_coding
