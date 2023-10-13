@@ -1,7 +1,7 @@
 """Is channel completely positive."""
 from __future__ import annotations
-import numpy as np
 
+import numpy as np
 from toqito.channel_ops import kraus_to_choi
 from toqito.channel_props import is_herm_preserving
 from toqito.matrix_props import is_positive_semidefinite

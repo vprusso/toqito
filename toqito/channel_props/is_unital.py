@@ -2,10 +2,9 @@
 from __future__ import annotations
 
 import numpy as np
-
 from toqito.channel_ops import apply_channel
-from toqito.matrix_props import is_identity
 from toqito.helper import channel_dim
+from toqito.matrix_props import is_identity
 
 
 def is_unital(
