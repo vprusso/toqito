@@ -1,3 +1,4 @@
+# isort: skip_file
 """Quantum states."""
 from toqito.states.basis import basis
 from toqito.states.bell import bell

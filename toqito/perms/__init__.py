@@ -1,3 +1,4 @@
+# isort: skip_file
 """Permutation and combinatorial functions."""
 from toqito.perms.unique_perms import unique_perms
 from toqito.perms.perfect_matchings import perfect_matchings

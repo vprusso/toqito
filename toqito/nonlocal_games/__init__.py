@@ -1,3 +1,4 @@
+# isort: skip_file
 """A number of nonlocal game-related functions for toqito."""
 from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
 from toqito.nonlocal_games.nonlocal_game import NonlocalGame

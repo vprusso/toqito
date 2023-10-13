@@ -1,3 +1,4 @@
+# isort: skip_file
 """A number of widely-studied quantum channels."""
 
 from toqito.channels.choi import choi
