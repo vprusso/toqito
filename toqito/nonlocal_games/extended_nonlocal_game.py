@@ -1,13 +1,14 @@
 """Two-player extended nonlocal game."""
 from __future__ import annotations
+
 from collections import defaultdict
 
 import cvxpy
 import numpy as np
 
+from toqito.helper import npa_constraints, update_odometer
 from toqito.matrix_ops import tensor
 from toqito.random import random_unitary
-from toqito.helper import update_odometer, npa_constraints
 
 
 class ExtendedNonlocalGame:

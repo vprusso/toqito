@@ -1,5 +1,6 @@
 """Is matrix a positive definite matrix."""
 import numpy as np
+
 from toqito.matrix_props import is_hermitian
 
 

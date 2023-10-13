@@ -9,6 +9,7 @@ import picos
 
 from toqito.perms import permute_systems, symmetric_projection
 from toqito.state_props import is_pure
+
 from toqito.matrix_props import is_density # isort: skip
 
 

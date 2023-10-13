@@ -1,5 +1,6 @@
 """Check if state is mixed."""
 import numpy as np
+
 from toqito.state_props import is_pure
 
 

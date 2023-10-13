@@ -1,11 +1,11 @@
 """Test is_separable."""
 import numpy as np
 
-from toqito.state_props.is_separable import is_separable
 from toqito.channels import partial_trace
 from toqito.matrix_props import is_density
-from toqito.states import basis, bell, isotropic, tile
 from toqito.random import random_density_matrix
+from toqito.state_props.is_separable import is_separable
+from toqito.states import basis, bell, isotropic, tile
 
 
 def test_non_positive_semidefinite_matrix():

@@ -2,8 +2,7 @@
 import numpy as np
 
 from toqito.matrix_ops import tensor
-from toqito.random import random_state_vector
-from toqito.random import random_density_matrix
+from toqito.random import random_density_matrix, random_state_vector
 from toqito.state_ops import schmidt_decomposition
 from toqito.states import basis, max_entangled
 

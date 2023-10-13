@@ -1,6 +1,5 @@
 """The reduction channel."""
 import numpy as np
-
 from scipy.sparse import identity
 
 from toqito.states import max_entangled

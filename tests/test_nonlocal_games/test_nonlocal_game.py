@@ -1,5 +1,6 @@
 """Tests for NonlocalGame class."""
 import unittest
+
 import numpy as np
 
 from toqito.nonlocal_games.nonlocal_game import NonlocalGame

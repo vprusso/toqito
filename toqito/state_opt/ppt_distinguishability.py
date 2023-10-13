@@ -3,7 +3,8 @@ import cvxpy
 import numpy as np
 
 from toqito.channels import partial_transpose
-from .state_helper import __is_states_valid, __is_probs_valid
+
+from .state_helper import __is_probs_valid, __is_states_valid
 
 
 def ppt_distinguishability(

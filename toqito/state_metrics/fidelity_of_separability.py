@@ -4,14 +4,12 @@ The constrainsts for this function are positive partial transpose (PPT)
 & k-extendible states.
 """
 
-import picos
 import numpy as np
-
-from toqito.perms import symmetric_projection
-from toqito.state_props import is_pure
-from toqito.state_props import is_separable
+import picos
 
 from toqito.matrix_props import is_density
+from toqito.perms import symmetric_projection
+from toqito.state_props import is_pure, is_separable
 
 
 def fidelity_of_separability(

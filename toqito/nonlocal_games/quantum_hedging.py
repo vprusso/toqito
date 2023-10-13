@@ -2,8 +2,8 @@
 import cvxpy
 import numpy as np
 
-from toqito.perms import permutation_operator
 from toqito.channels import partial_trace
+from toqito.perms import permutation_operator
 
 
 class QuantumHedging:

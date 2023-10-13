@@ -1,11 +1,10 @@
 """Antisymmetric projection operator."""
 from itertools import permutations
-from scipy import linalg, sparse
 
 import numpy as np
+from scipy import linalg, sparse
 
-from toqito.perms import permutation_operator
-from toqito.perms import perm_sign
+from toqito.perms import perm_sign, permutation_operator
 
 
 def antisymmetric_projection(

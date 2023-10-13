@@ -1,9 +1,10 @@
 """Tests for ExtendedNonlocalGame class."""
 import unittest
+
 import numpy as np
 
-from toqito.states import basis
 from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
+from toqito.states import basis
 
 
 class TestExtendedNonlocalGame(unittest.TestCase):

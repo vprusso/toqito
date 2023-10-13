@@ -2,14 +2,13 @@
 from __future__ import annotations
 
 import numpy as np
+from picos import partial_trace
 
 from toqito.channels import realignment
 from toqito.matrix_props import is_positive_semidefinite, trace_norm
-from toqito.state_props import is_ppt, in_separable_ball
-from toqito.state_props.has_symmetric_extension import has_symmetric_extension
 from toqito.perms import swap
-
-from picos import partial_trace
+from toqito.state_props import in_separable_ball, is_ppt
+from toqito.state_props.has_symmetric_extension import has_symmetric_extension
 
 
 def is_separable(

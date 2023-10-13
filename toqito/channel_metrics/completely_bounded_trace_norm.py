@@ -1,6 +1,7 @@
 """Compute the completely bounded trace norm of a quantum channel."""
 import cvxpy as cp
 import numpy as np
+
 from toqito.channel_ops import apply_channel, dual_channel
 from toqito.channel_props import is_completely_positive, is_quantum_channel
 from toqito.matrix_props import trace_norm

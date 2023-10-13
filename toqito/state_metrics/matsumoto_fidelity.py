@@ -1,7 +1,7 @@
 """Matsumoto fidelity metric."""
 import cvxpy
-import scipy
 import numpy as np
+import scipy
 
 from toqito.matrix_props import is_density
 

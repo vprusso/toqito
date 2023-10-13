@@ -2,11 +2,11 @@
 from __future__ import annotations
 
 import numpy as np
-
 from cvxpy.expressions.expression import Expression
 from cvxpy.expressions.variable import Variable
-from toqito.perms import permute_systems
+
 from toqito.helper import expr_as_np_array, np_array_as_expr
+from toqito.perms import permute_systems
 
 
 def partial_transpose(

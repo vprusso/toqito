@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import numpy as np
+
 from toqito.channel_ops import choi_to_kraus
 from toqito.matrix_props import is_unitary as is_unitary_matrix
 

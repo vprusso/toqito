@@ -1,5 +1,6 @@
 """Generate random density matrix."""
 from __future__ import annotations
+
 import numpy as np
 
 from toqito.random import random_unitary

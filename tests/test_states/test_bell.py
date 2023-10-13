@@ -1,8 +1,7 @@
 """Test bell."""
 import numpy as np
 
-from toqito.states import basis
-from toqito.states import bell
+from toqito.states import basis, bell
 
 
 def test_bell_0():

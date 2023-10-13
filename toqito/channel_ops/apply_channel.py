@@ -4,6 +4,7 @@ from __future__ import annotations
 import itertools
 
 import numpy as np
+
 from toqito.matrix_ops import vec
 from toqito.perms import swap
 

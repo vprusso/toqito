@@ -1,8 +1,7 @@
 """Test max_entangled."""
 import numpy as np
 
-from toqito.states import basis
-from toqito.states import max_entangled
+from toqito.states import basis, max_entangled
 
 
 def test_max_ent_2():

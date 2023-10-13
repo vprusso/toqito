@@ -1,5 +1,6 @@
 """Tests for is_orthonormal."""
 import numpy as np
+
 from toqito.state_props.is_mutually_orthogonal import is_mutually_orthogonal
 
 

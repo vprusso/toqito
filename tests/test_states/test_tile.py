@@ -1,8 +1,7 @@
 """Test tile."""
 import numpy as np
 
-from toqito.states import basis
-from toqito.states import tile
+from toqito.states import basis, tile
 
 
 def test_tile_0():

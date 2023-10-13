@@ -1,8 +1,8 @@
 """Tests for kraus_to_choi."""
 import numpy as np
 
-from toqito.channels import dephasing, depolarizing
 from toqito.channel_ops import kraus_to_choi
+from toqito.channels import dephasing, depolarizing
 
 
 def test_kraus_to_choi_swap_operator():

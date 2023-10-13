@@ -1,11 +1,8 @@
 """Tests for sub_fidelity."""
 import numpy as np
 
-
-from toqito.state_metrics import fidelity
-from toqito.state_metrics import sub_fidelity
-from toqito.states import basis
-from toqito.states import bell
+from toqito.state_metrics import fidelity, sub_fidelity
+from toqito.states import basis, bell
 
 
 def test_sub_fidelity_default():

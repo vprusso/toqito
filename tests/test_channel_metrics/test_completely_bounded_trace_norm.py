@@ -1,9 +1,9 @@
 """Tests for completely_bounded_trace_norm."""
 import numpy as np
 
-from toqito.channels.dephasing import dephasing
 from toqito.channel_metrics import completely_bounded_trace_norm
 from toqito.channel_ops import kraus_to_choi
+from toqito.channels.dephasing import dephasing
 
 
 def test_cb_trace_norm_quantum_channel():

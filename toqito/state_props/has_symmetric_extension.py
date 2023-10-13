@@ -1,8 +1,9 @@
 """Determine whether there exists a symmetric extension for a given quantum state."""
 from __future__ import annotations
-import numpy as np
 
+import numpy as np
 from picos import partial_trace
+
 from toqito.matrix_props import is_positive_semidefinite
 from toqito.state_opt import symmetric_extension_hierarchy
 from toqito.state_props import is_ppt

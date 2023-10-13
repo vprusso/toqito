@@ -2,10 +2,10 @@
 from __future__ import annotations
 
 import itertools
+
 import numpy as np
 
-from toqito.perms import permutation_operator
-from toqito.perms import swap_operator
+from toqito.perms import permutation_operator, swap_operator
 
 
 def werner(dim: int, alpha: float | list[float]) -> np.ndarray:

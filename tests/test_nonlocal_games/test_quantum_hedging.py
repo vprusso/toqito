@@ -1,9 +1,10 @@
 """Tests for hedging_value function."""
 import unittest
-from numpy import kron, cos, sin, pi, sqrt, isclose
 
-from toqito.states import basis
+from numpy import cos, isclose, kron, pi, sin, sqrt
+
 from toqito.nonlocal_games.quantum_hedging import QuantumHedging
+from toqito.states import basis
 
 
 class TestQuantumHedging(unittest.TestCase):

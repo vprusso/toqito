@@ -1,9 +1,10 @@
 """Tests for XORGame class."""
 import unittest
+
 import numpy as np
 
-from toqito.nonlocal_games.xor_game import XORGame
 from toqito.nonlocal_games.nonlocal_game import NonlocalGame
+from toqito.nonlocal_games.xor_game import XORGame
 
 
 class TestXORGame(unittest.TestCase):

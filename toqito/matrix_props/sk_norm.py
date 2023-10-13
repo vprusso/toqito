@@ -1,19 +1,20 @@
 """Compute the S(k)-norm of a matrix."""
 from __future__ import annotations
+
 import warnings
 
-import numpy as np
 import cvxpy
+import numpy as np
 import scipy
 
 from toqito.channels import partial_trace, partial_transpose, realignment
-from toqito.matrix_props import is_hermitian
-from toqito.perms import symmetric_projection, swap
-from toqito.states import max_entangled
-from toqito.state_ops.schmidt_decomposition import schmidt_decomposition
-from toqito.state_props.sk_vec_norm import sk_vector_norm
-from toqito.state_props.schmidt_rank import schmidt_rank
 from toqito.helper import kp_norm
+from toqito.matrix_props import is_hermitian
+from toqito.perms import swap, symmetric_projection
+from toqito.state_ops.schmidt_decomposition import schmidt_decomposition
+from toqito.state_props.schmidt_rank import schmidt_rank
+from toqito.state_props.sk_vec_norm import sk_vector_norm
+from toqito.states import max_entangled
 
 
 def sk_operator_norm(

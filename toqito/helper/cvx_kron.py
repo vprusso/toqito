@@ -1,8 +1,8 @@
 """Kronecker product for CVXPY objects."""
 from __future__ import annotations
 
-import numpy as np
 import cvxpy
+import numpy as np
 from cvxpy.expressions.expression import Expression
 
 

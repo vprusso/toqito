@@ -1,5 +1,6 @@
 """The Choi channel."""
 import numpy as np
+
 from toqito.states import max_entangled
 
 

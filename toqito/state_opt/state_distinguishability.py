@@ -1,7 +1,8 @@
 """State distinguishability."""
 import cvxpy
 import numpy as np
-from .state_helper import __is_states_valid, __is_probs_valid
+
+from .state_helper import __is_probs_valid, __is_states_valid
 
 
 def state_distinguishability(

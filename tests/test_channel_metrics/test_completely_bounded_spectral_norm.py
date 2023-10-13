@@ -1,12 +1,10 @@
 """Tests for completely_bounded_spectral_norm."""
 import numpy as np
 
-from toqito.channel_metrics import (
-    completely_bounded_spectral_norm,
-    completely_bounded_trace_norm,
-)
-from toqito.channels import dephasing
+from toqito.channel_metrics import (completely_bounded_spectral_norm,
+                                    completely_bounded_trace_norm)
 from toqito.channel_ops import dual_channel
+from toqito.channels import dephasing
 
 
 def test_dual_is_cb_trace_norm():

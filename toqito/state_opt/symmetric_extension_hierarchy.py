@@ -3,9 +3,11 @@ from __future__ import annotations
 
 import cvxpy
 import numpy as np
+
 from toqito.channels import partial_trace, partial_transpose
 from toqito.perms import symmetric_projection
-from .state_helper import __is_states_valid, __is_probs_valid
+
+from .state_helper import __is_probs_valid, __is_states_valid
 
 
 def symmetric_extension_hierarchy(

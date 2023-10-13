@@ -1,6 +1,5 @@
 """Maximally entangled state."""
 import numpy as np
-
 from scipy import sparse
 
 from toqito.matrices import iden

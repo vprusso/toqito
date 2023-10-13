@@ -3,8 +3,8 @@ from __future__ import annotations
 
 import numpy as np
 
-from toqito.states import max_entangled
 from toqito.perms import swap
+from toqito.states import max_entangled
 
 
 def random_state_vector(

@@ -3,8 +3,8 @@ import numpy as np
 import pytest
 
 from toqito.channel_ops import apply_channel
-from toqito.perms import swap_operator
 from toqito.matrices import pauli
+from toqito.perms import swap_operator
 
 
 def test_apply_channel_choi():
