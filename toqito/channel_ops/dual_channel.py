@@ -1,7 +1,7 @@
 """Compute the dual of a map."""
 from __future__ import annotations
-import numpy as np
 
+import numpy as np
 from toqito.helper import channel_dim
 from toqito.matrix_props import is_square
 from toqito.perms import swap

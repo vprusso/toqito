@@ -1,3 +1,4 @@
+# isort: skip_file
 """A number of operations on quantum channels."""
 from toqito.channel_ops.apply_channel import apply_channel
 from toqito.channel_ops.partial_channel import partial_channel

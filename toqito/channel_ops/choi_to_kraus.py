@@ -1,7 +1,7 @@
 """Compute a list of Kraus operators from the Choi matrix."""
 from __future__ import annotations
-import numpy as np
 
+import numpy as np
 from toqito.helper import channel_dim
 from toqito.matrix_ops import unvec
 from toqito.matrix_props import is_hermitian, is_positive_semidefinite

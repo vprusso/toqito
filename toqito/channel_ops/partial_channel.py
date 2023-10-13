@@ -1,11 +1,12 @@
 """Apply channel a subsystem of an operator."""
 from __future__ import annotations
-import numpy as np
+
 import itertools
 
+import numpy as np
 from toqito.channel_ops import apply_channel
-from toqito.states import max_entangled
 from toqito.perms import permute_systems
+from toqito.states import max_entangled
 
 
 def partial_channel(

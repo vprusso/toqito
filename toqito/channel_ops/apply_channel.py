@@ -1,8 +1,9 @@
 """Apply channel to an operator."""
 from __future__ import annotations
-import numpy as np
+
 import itertools
 
+import numpy as np
 from toqito.matrix_ops import vec
 from toqito.perms import swap
 
