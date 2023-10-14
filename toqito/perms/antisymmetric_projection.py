@@ -2,6 +2,7 @@
 from itertools import permutations
 
 import numpy as np
+
 from scipy import linalg, sparse
 
 from toqito.perms import perm_sign, permutation_operator

@@ -5,6 +5,7 @@ import functools
 import operator
 
 import numpy as np
+
 from scipy import sparse
 
 from toqito.matrix_ops import vec

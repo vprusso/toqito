@@ -1,5 +1,6 @@
 """Test pauli."""
 import numpy as np
+
 from scipy.sparse import issparse
 
 from toqito.matrices import pauli

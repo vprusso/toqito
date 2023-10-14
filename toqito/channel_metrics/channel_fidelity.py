@@ -1,6 +1,7 @@
 """Compute the channel fidelity between two quantum channels."""
 import cvxpy
 import numpy as np
+
 from picos import partial_trace
 
 

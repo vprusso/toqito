@@ -4,8 +4,7 @@ from __future__ import annotations
 import numpy as np
 
 from toqito.matrix_props.is_hermitian import is_hermitian
-from toqito.matrix_props.is_positive_semidefinite import \
-    is_positive_semidefinite
+from toqito.matrix_props.is_positive_semidefinite import is_positive_semidefinite
 from toqito.matrix_props.sk_norm import sk_operator_norm
 
 

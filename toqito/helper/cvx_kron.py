@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import cvxpy
 import numpy as np
+
 from cvxpy.expressions.expression import Expression
 
 
