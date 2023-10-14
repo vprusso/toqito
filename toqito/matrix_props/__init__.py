@@ -1,4 +1,3 @@
-# isort: skip_file
 """Properties of matrices and vectors."""
 from toqito.matrix_props.is_square import is_square
 from toqito.matrix_props.is_circulant import is_circulant

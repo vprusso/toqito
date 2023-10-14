@@ -1,4 +1,3 @@
-# isort: skip_file
 """Distance metrics for quantum states."""
 from toqito.state_metrics.hilbert_schmidt import hilbert_schmidt
 from toqito.state_metrics.hilbert_schmidt_inner_product import hilbert_schmidt_inner_product
