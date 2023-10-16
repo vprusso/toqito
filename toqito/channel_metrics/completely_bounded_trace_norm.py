@@ -12,7 +12,7 @@ def completely_bounded_trace_norm(phi: np.ndarray) -> float:
     Find the completely bounded trace norm of a quantum channel.
 
     Also known as the completely bounded diamond norm of a quantum
-    channel[WatCNorm18]_. The algorithm in p.11 of [WatSDP09] with
+    channel [WatCNorm18]_. The algorithm in p.11 of [WatSDP09] with
     implementation in QETLAB [JohQET] is used.
 
     References
