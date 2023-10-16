@@ -105,7 +105,6 @@ def state_distinguishability(
 
     # Unambiguous state discrimination has an additional constraint on the states and measurements.
     if dist_method == "unambiguous":
-
         # Note we have one additional measurement operator in the unambiguous case.
         for i in range(len(states) + 1):
             measurements.append(cvxpy.Variable((dim_x, dim_x), PSD=True))

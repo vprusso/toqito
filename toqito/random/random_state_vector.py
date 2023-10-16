@@ -40,7 +40,6 @@ def random_state_vector(
     """
     # Schmidt rank plays a role.
     if 0 < k_param < np.min(dim):
-
         # Allow the user to enter a single number for dim.
         if isinstance(dim, int):
             dim = [dim, dim]
