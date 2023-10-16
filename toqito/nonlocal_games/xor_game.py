@@ -150,7 +150,7 @@ class XORGame:
 
         q_0, q_1 = self.prob_mat.shape
         if tol is None:
-            self.tol = np.finfo(float).eps * q_0 ** 2 * q_1 ** 2
+            self.tol = np.finfo(float).eps * q_0**2 * q_1**2
         else:
             self.tol = tol
 
@@ -175,45 +175,44 @@ class XORGame:
 
     def quantum_value(self) -> float:
         r"""
-		Compute the quantum value of the XOR game.
+        Compute the quantum value of the XOR game.
 
-		To obtain the quantum value of the XOR game, we calculate the following
-		simplified dual problem of the semidefinite program from the set of
-		notes: https://cs.uwaterloo.ca/~watrous/CS867.Winter2017/Notes/06.pdf
+        To obtain the quantum value of the XOR game, we calculate the following
+        simplified dual problem of the semidefinite program from the set of
+        notes: https://cs.uwaterloo.ca/~watrous/CS867.Winter2017/Notes/06.pdf
 
-		.. math::
-			\begin{equation}
-				\begin{aligned}
-					\text{minimize:} \quad & \frac{1}{2} \sum_{x \in X} u(x) +
-											 \frac{1}{2} \sum_{y \in Y} v(y) \\
-					\text{subject to:} \quad &
-							\begin{pmatrix}
-								\text{Diag}(u) & -D \\
-								-D^* & \text{Diag}(v)
-							\end{pmatrix} \geq 0, \\
-							& u \in \mathbb{R}^X, \
-							  v \in \mathbb{R}^Y.
-				\end{aligned}
-			\end{equation}
+                .. math::
+                        \begin{equation}
+                                \begin{aligned}
+                                        \text{minimize:} \quad & \frac{1}{2} \sum_{x \in X} u(x) +
+                                                                                         \frac{1}{2} \sum_{y \in Y} v(y) \\
+                                        \text{subject to:} \quad &
+                                                        \begin{pmatrix}
+                                                                \text{Diag}(u) & -D \\
+                                                                -D^* & \text{Diag}(v)
+                                                        \end{pmatrix} \geq 0, \\
+                                                        & u \in \mathbb{R}^X, \
+                                                          v \in \mathbb{R}^Y.
+                                \end{aligned}
+                        \end{equation}
 
-		where :math:`D` is the matrix defined to be
+                where :math:`D` is the matrix defined to be
 
-		.. math::
-			D(x,y) = \pi(x, y) (-1)^{f(x,y)}
+                .. math::
+                        D(x,y) = \pi(x, y) (-1)^{f(x,y)}
 
-		In other words, :math:`\pi(x, y)` corresponds to :code:`prob_mat[x, y]`,
-		and :math:`f(x,y)` corresponds to :code:`pred_mat[x, y]`.
+                In other words, :math:`\pi(x, y)` corresponds to :code:`prob_mat[x, y]`,
+                and :math:`f(x,y)` corresponds to :code:`pred_mat[x, y]`.
 
-		:return: A value between [0, 1] representing the quantum value.
-		"""
+                :return: A value between [0, 1] representing the quantum value.
+        """
         alice_in, bob_in = self.prob_mat.shape
         d_mat = np.zeros([alice_in, bob_in])
 
         for x_alice in range(alice_in):
             for y_bob in range(bob_in):
-                d_mat[x_alice, y_bob] = self.prob_mat[x_alice, y_bob] * (-1) ** (
-                    self.pred_mat[x_alice, y_bob]
-                )
+                d_mat[x_alice, y_bob] = self.prob_mat[x_alice, y_bob] * \
+                    (-1) ** (self.pred_mat[x_alice, y_bob])
 
         u_vec = cvxpy.Variable(alice_in, complex=False)
         v_vec = cvxpy.Variable(bob_in, complex=False)
@@ -247,7 +246,6 @@ class XORGame:
 
         :return: A value between [0, 1] representing the classical value.
         """
-
         return self.to_nonlocal_game().classical_value()
 
     def nonsignaling_value(self) -> float:
