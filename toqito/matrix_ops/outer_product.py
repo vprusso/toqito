@@ -1,13 +1,12 @@
-"""Outer product operation"""
+"""Outer product operation."""
 import numpy as np
 
 
 def outer_product(v1: np.ndarray, v2: np.ndarray) -> np.ndarray:
     r"""
     Compute the outer product :math:`|v_1\rangle\langle v_2|` of two vectors.
-    [WikOuter]_
 
-    The outer product is calculated as follows:
+    The outer product is calculated as follows [WikOuter]_:
 
     .. math::
         \left|\begin{pmatrix}a_1\\\vdots\\a_n\end{pmatrix}\right\rangle\left\langle\begin{pmatrix}b_1\\\vdots\\b_n\end{pmatrix}\right|=\begin{pmatrix}a_1\\\vdots\\a_n\end{pmatrix}\begin{pmatrix}b_1&\cdots&b_n\end{pmatrix}=\begin{pmatrix}a_1b_1&\cdots&a_1b_n\\\vdots&\ddots&\vdots\\a_1b_n&\cdots&a_nb_n\end{pmatrix}
@@ -34,10 +33,11 @@ def outer_product(v1: np.ndarray, v2: np.ndarray) -> np.ndarray:
     ==========
     .. [WikOuter] Wikipedia: Outer Product
         https://en.wikipedia.org/wiki/Outer_product
-    
+
     :raises ValueError: Vector dimensions are mismatched.
     :param args: v1 and v2, both vectors of dimensions :math:`(n,1)` where :math:`n>1`.
-    :return: The computed outer product."""
+    :return: The computed outer product.
+    """
     # Check for dimensional validity
     if not (v1.shape[0] == v2.shape[0] and v1.shape[0] > 1 and len(v1.shape) == 1):
         raise ValueError("Dimension mismatch")

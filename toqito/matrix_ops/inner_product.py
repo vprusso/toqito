@@ -1,4 +1,4 @@
-"""Inner product operation"""
+"""Inner product operation."""
 import numpy as np
 
 
@@ -36,7 +36,6 @@ def inner_product(v1: np.ndarray, v2: np.ndarray) -> float:
     :param args: v1 and v2, both vectors of dimenstions :math:`(n,1)` where :math:`n>1`.
     :return: The computed inner product.
     """
-
     # Check for dimensional validity
     if not (v1.shape[0] == v2.shape[0] and v1.shape[0] > 1 and len(v1.shape) == 1):
         raise ValueError("Dimension mismatch")
