@@ -98,7 +98,7 @@ def state_exclusion(
 
 
 def _min_error_primal(vectors: list[np.ndarray], probs: list[float] = None, solver: str = "cvxopt"):
-    """The primal problem for minimum-error quantum state exclusion SDP."""
+    """Find the primal problem for minimum-error quantum state exclusion SDP."""
     n, dim = len(vectors), vectors[0].shape[0]
     if probs is None:
         probs = [1 / len(vectors)] * len(vectors)
@@ -125,7 +125,7 @@ def _min_error_primal(vectors: list[np.ndarray], probs: list[float] = None, solv
 def _min_error_dual(
     vectors: list[np.ndarray], probs: list[float] = None, solver: str = "cvxopt"
 ) -> float:
-    """The dual problem for minimum-error quantum state exclusion SDP."""
+    """Find the dual problem for minimum-error quantum state exclusion SDP."""
     dim = vectors[0].shape[0]
     if probs is None:
         probs = [1 / len(vectors)] * len(vectors)
