@@ -1,5 +1,5 @@
 """Compute the S(k)-norm of a vector."""
-from __future__ import annotations
+
 
 import numpy as np
 

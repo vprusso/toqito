@@ -1,5 +1,5 @@
 """Compute the S(k)-norm of a matrix."""
-from __future__ import annotations
+
 
 import warnings
 

@@ -1,5 +1,5 @@
 """Generate random state vector."""
-from __future__ import annotations
+
 
 import numpy as np
 

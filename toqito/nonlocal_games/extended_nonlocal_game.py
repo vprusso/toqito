@@ -1,5 +1,5 @@
 """Two-player extended nonlocal game."""
-from __future__ import annotations
+
 
 from collections import defaultdict
 

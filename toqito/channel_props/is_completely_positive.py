@@ -1,5 +1,5 @@
 """Is channel completely positive."""
-from __future__ import annotations
+
 
 import numpy as np
 

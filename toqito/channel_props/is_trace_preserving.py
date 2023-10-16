@@ -1,5 +1,5 @@
 """Is channel trace-preserving."""
-from __future__ import annotations
+
 
 import numpy as np
 

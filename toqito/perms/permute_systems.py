@@ -1,5 +1,5 @@
 """Permute systems."""
-from __future__ import annotations
+
 
 import functools
 import operator

@@ -1,5 +1,5 @@
 """Calculate the Choi rank of a channel."""
-from __future__ import annotations
+
 
 import numpy as np
 

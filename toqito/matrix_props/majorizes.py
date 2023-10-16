@@ -1,5 +1,5 @@
 """Determine if one vector or matrix majorizes another."""
-from __future__ import annotations
+
 
 import numpy as np
 

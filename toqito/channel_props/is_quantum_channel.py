@@ -1,5 +1,5 @@
 """Is quantum channel."""
-from __future__ import annotations
+
 
 import numpy as np
 

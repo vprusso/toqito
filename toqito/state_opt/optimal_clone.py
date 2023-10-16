@@ -1,5 +1,5 @@
 """Calculates success probability of approximately cloning a quantum state."""
-from __future__ import annotations
+
 
 import cvxpy
 import numpy as np
