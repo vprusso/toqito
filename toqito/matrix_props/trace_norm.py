@@ -4,8 +4,9 @@ import numpy as np
 
 def trace_norm(rho: np.ndarray) -> float:
     r"""
-    Compute the trace norm of the state [WikTn]_
-    as well as the operator 1-norm when inputting an operator.
+    Compute the trace norm of the state [WikTn]_.
+
+    Also computes the operator 1-norm when inputting an operator.
 
     The trace norm :math:`||\rho||_1` of a density matrix :math:`\rho` is the sum of the singular
     values of :math:`\rho`. The singular values are the roots of the eigenvalues of
