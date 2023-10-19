@@ -1,9 +1,9 @@
 """Tests for optimal_clone."""
-import pytest
 import numpy as np
+import pytest
 
-from toqito.states import basis
 from toqito.state_opt import optimal_clone
+from toqito.states import basis
 
 e_0, e_1 = basis(2, 0), basis(2, 1)
 e_p = (e_0 + e_1) / np.sqrt(2)

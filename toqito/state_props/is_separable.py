@@ -1,15 +1,15 @@
 """Check if state is separable."""
-from __future__ import annotations
+
 
 import numpy as np
 
+from picos import partial_trace
+
 from toqito.channels import realignment
 from toqito.matrix_props import is_positive_semidefinite, trace_norm
-from toqito.state_props import is_ppt, in_separable_ball
-from toqito.state_props.has_symmetric_extension import has_symmetric_extension
 from toqito.perms import swap
-
-from picos import partial_trace
+from toqito.state_props import in_separable_ball, is_ppt
+from toqito.state_props.has_symmetric_extension import has_symmetric_extension
 
 
 def is_separable(
@@ -135,7 +135,7 @@ def is_separable(
 
     # Another test that is strictly stronger than the realignment criterion.
     if trace_norm(realignment(state - np.kron(pt_state_alice, pt_state_bob), dim)) > np.sqrt(
-        1 - np.trace(pt_state_alice ** 2 @ pt_state_bob ** 2)
+        1 - np.trace(pt_state_alice**2 @ pt_state_bob**2)
     ):
         # Determined to be entangled by using Theorem 1 of reference.
         # C.-J. Zhang, Y.-S. Zhang, S. Zhang, and G.-C. Guo.
@@ -152,7 +152,7 @@ def is_separable(
         # Check if X is separable from spectrum.
         if (lam[0] - lam[2 * max_dim - 1]) ** 2 <= 4 * lam[2 * max_dim - 2] * lam[
             2 * max_dim
-        ] + tol ** 2:
+        ] + tol**2:
             print("Determined to be separable by inspecting its eigenvalues.")
             print(
                 "N. Johnston. Separability from spectrum for qubit-qudit states. Phys. Rev. A, 88:062330, 2013."
@@ -175,7 +175,7 @@ def is_separable(
 
     # Check if X is a rank-1 perturbation of the identity, which is
     # necessarily separable if it's PPT, which we have already checked.
-    if lam[1] - lam[prod_dim - 1] < tol ** 2:
+    if lam[1] - lam[prod_dim - 1] < tol**2:
         # Determined to be separable by being a small rank-1 perturbation of the maximally-mixed state.
         # G. Vidal and R. Tarrach. Robustness of entanglement.
         # Phys. Rev. A, 59:141-155, 1999.

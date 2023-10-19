@@ -2,7 +2,7 @@
 import numpy as np
 
 from toqito.matrix_ops import tensor
-from toqito.perms import permute_systems, perfect_matchings
+from toqito.perms import perfect_matchings, permute_systems
 from toqito.states import max_entangled
 
 

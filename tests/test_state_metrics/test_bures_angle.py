@@ -1,7 +1,6 @@
 """Tests for bures_angle."""
 import numpy as np
 
-
 from toqito.state_metrics import bures_angle
 from toqito.states import basis
 

@@ -1,10 +1,11 @@
 """Negativity property."""
-from __future__ import annotations
+
 
 import numpy as np
 
-from toqito.state_ops import pure_to_mixed
 from picos import partial_transpose
+
+from toqito.state_ops import pure_to_mixed
 
 
 def negativity(rho: np.ndarray, dim: list[int] | int = None) -> float:

@@ -1,8 +1,8 @@
 """Test dephasing."""
 import numpy as np
 
-from toqito.channels import dephasing
 from toqito.channel_ops import apply_channel
+from toqito.channels import dephasing
 
 
 def test_dephasing_completely_dephasing():

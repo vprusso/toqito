@@ -1,9 +1,9 @@
 """Compute the Choi matrix of a list of Kraus operators."""
 import numpy as np
 
-from toqito.states import max_entangled
 from toqito.channel_ops import partial_channel
 from toqito.helper import channel_dim
+from toqito.states import max_entangled
 
 
 def kraus_to_choi(kraus_ops: list[list[np.ndarray]], sys: int = 2) -> np.ndarray:

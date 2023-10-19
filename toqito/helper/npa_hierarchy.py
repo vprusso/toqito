@@ -1,10 +1,10 @@
 """NPA constraints."""
-from __future__ import annotations
-from itertools import product
+
+
 from collections import namedtuple
+from itertools import product
 
 import cvxpy
-
 
 Symbol = namedtuple("Symbol", ["player", "question", "answer"], defaults=["", None, None])
 

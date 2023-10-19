@@ -3,9 +3,9 @@
 import numpy as np
 import pytest
 
-from toqito.states import max_mixed
 from toqito.channel_metrics import fidelity_of_separability
 from toqito.matrix_ops import tensor
+from toqito.states import max_mixed
 
 purification_state = tensor(
     # System B:

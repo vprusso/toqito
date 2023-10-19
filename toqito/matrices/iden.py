@@ -1,7 +1,7 @@
 """Identity matrix."""
-from scipy import sparse
-
 import numpy as np
+
+from scipy import sparse
 
 
 def iden(dim: int, is_sparse: bool = False) -> np.ndarray:

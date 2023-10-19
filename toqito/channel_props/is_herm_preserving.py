@@ -1,5 +1,6 @@
 """Is channel Hermiticity-preserving."""
-from __future__ import annotations
+
+
 import numpy as np
 
 from toqito.channel_ops import kraus_to_choi

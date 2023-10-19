@@ -1,6 +1,7 @@
 """State exclusion."""
-import picos
 import numpy as np
+import picos
+
 from toqito.state_ops import pure_to_mixed
 
 

@@ -1,11 +1,11 @@
 """Antisymmetric projection operator."""
 from itertools import permutations
-from scipy import linalg, sparse
 
 import numpy as np
 
-from toqito.perms import permutation_operator
-from toqito.perms import perm_sign
+from scipy import linalg, sparse
+
+from toqito.perms import perm_sign, permutation_operator
 
 
 def antisymmetric_projection(
@@ -80,7 +80,7 @@ def antisymmetric_projection(
     :param partial: Default value of 0.
     :return: Projection onto the antisymmetric subspace.
     """
-    dimp = dim ** p_param
+    dimp = dim**p_param
 
     if p_param == 1:
         return sparse.eye(dim)

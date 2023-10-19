@@ -1,5 +1,6 @@
 """Is matrix a projection matrix."""
 import numpy as np
+
 from toqito.matrix_props import is_positive_semidefinite, is_square
 
 

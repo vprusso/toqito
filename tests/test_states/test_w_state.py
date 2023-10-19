@@ -1,9 +1,8 @@
 """Test w_state."""
 import numpy as np
 
-from toqito.states import basis
-from toqito.states import w_state
 from toqito.matrix_ops import tensor
+from toqito.states import basis, w_state
 
 
 def test_w_state_3():

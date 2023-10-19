@@ -3,10 +3,9 @@
 import numpy as np
 import pytest
 
-from toqito.states import bell
-from toqito.state_metrics import fidelity_of_separability
 from toqito.matrix_ops import tensor
-
+from toqito.state_metrics import fidelity_of_separability
+from toqito.states import bell
 
 # test mixed rho
 mixed_rho = 1 / 2 * bell(0) @ bell(0).conj().T + 1 / 2 * bell(3) @ bell(3).conj().T

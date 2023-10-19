@@ -1,8 +1,8 @@
 """Test random_density_matrix."""
 import numpy as np
 
-from toqito.random import random_density_matrix
 from toqito.matrix_props import is_density
+from toqito.random import random_density_matrix
 
 
 def test_random_density_not_real():

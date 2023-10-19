@@ -2,8 +2,7 @@
 import numpy as np
 
 from toqito.state_props import von_neumann_entropy
-from toqito.states import bell
-from toqito.states import max_mixed
+from toqito.states import bell, max_mixed
 
 
 def test_von_neumann_entropy_bell_state():

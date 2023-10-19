@@ -3,7 +3,7 @@ import numpy as np
 import pytest
 
 from toqito.matrix_props import sk_operator_norm
-from toqito.states import basis, werner, max_entangled
+from toqito.states import basis, max_entangled, werner
 
 
 def test_s1_norm_example():

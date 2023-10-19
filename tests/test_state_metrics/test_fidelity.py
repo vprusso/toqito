@@ -2,7 +2,6 @@
 import cvxpy
 import numpy as np
 
-
 from toqito.state_metrics import fidelity
 from toqito.states import basis
 

@@ -1,11 +1,12 @@
 """Permute systems."""
-from __future__ import annotations
+
+
 import functools
 import operator
 
-from scipy import sparse
-
 import numpy as np
+
+from scipy import sparse
 
 from toqito.matrix_ops import vec
 

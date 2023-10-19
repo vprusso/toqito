@@ -2,8 +2,7 @@
 import numpy as np
 
 from toqito.state_props import is_pure
-from toqito.states import basis
-from toqito.states import bell
+from toqito.states import basis, bell
 
 
 def test_is_pure_state():

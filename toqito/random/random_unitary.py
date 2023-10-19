@@ -1,5 +1,5 @@
 """Generate random unitary."""
-from __future__ import annotations
+
 
 import numpy as np
 

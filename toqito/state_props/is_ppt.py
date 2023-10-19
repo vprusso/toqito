@@ -1,10 +1,10 @@
 """Check if violates the PPT criterion."""
-from __future__ import annotations
+
 
 import numpy as np
 
-from toqito.matrix_props import is_positive_semidefinite
 from toqito.channels import partial_transpose
+from toqito.matrix_props import is_positive_semidefinite
 
 
 def is_ppt(mat: np.ndarray, sys: int = 2, dim: int | list[int] = None, tol: float = None) -> bool:

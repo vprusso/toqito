@@ -1,11 +1,11 @@
 """Test is_separable."""
 import numpy as np
 
-from toqito.state_props.is_separable import is_separable
 from toqito.channels import partial_trace
 from toqito.matrix_props import is_density
-from toqito.states import basis, bell, isotropic, tile
 from toqito.random import random_density_matrix
+from toqito.state_props.is_separable import is_separable
+from toqito.states import basis, bell, isotropic, tile
 
 
 def test_non_positive_semidefinite_matrix():
@@ -83,10 +83,10 @@ def test_entangled_cross_norm_realignment_criterion():
     p_var, a_var, b_var = 0.4, 0.8, 0.64
     rho = np.array(
         [
-            [p_var * a_var ** 2, 0, 0, p_var * a_var * b_var],
-            [0, (1 - p_var) * a_var ** 2, (1 - p_var) * a_var * b_var, 0],
-            [0, (1 - p_var) * a_var * b_var, (1 - p_var) * a_var ** 2, 0],
-            [p_var * a_var * b_var, 0, 0, p_var * a_var ** 2],
+            [p_var * a_var**2, 0, 0, p_var * a_var * b_var],
+            [0, (1 - p_var) * a_var**2, (1 - p_var) * a_var * b_var, 0],
+            [0, (1 - p_var) * a_var * b_var, (1 - p_var) * a_var**2, 0],
+            [p_var * a_var * b_var, 0, 0, p_var * a_var**2],
         ]
     )
     np.testing.assert_equal(is_separable(rho), False)

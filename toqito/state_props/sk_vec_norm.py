@@ -1,7 +1,8 @@
 """Compute the S(k)-norm of a vector."""
-from __future__ import annotations
+
 
 import numpy as np
+
 from toqito.state_ops import schmidt_decomposition
 
 

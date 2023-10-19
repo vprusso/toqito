@@ -1,10 +1,11 @@
 """Is channel trace-preserving."""
-from __future__ import annotations
+
 
 import numpy as np
 
-from toqito.matrix_props import is_identity
 from picos import partial_trace
+
+from toqito.matrix_props import is_identity
 
 
 def is_trace_preserving(

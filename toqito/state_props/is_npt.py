@@ -1,5 +1,5 @@
 """Check if state has NPT (negative partial transpose) criterion."""
-from __future__ import annotations
+
 
 import numpy as np
 

@@ -1,5 +1,6 @@
 """Compute a list of Kraus operators from the Choi matrix."""
-from __future__ import annotations
+
+
 import numpy as np
 
 from toqito.helper import channel_dim

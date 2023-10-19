@@ -4,12 +4,13 @@ The constrainsts for this function are positive partial transpose (PPT)
 & k-extendible channels.
 """
 
-import picos
 import numpy as np
+import picos
 
-from toqito.perms import symmetric_projection, permute_systems
+from toqito.perms import permute_systems, symmetric_projection
 from toqito.state_props import is_pure
-from toqito.matrix_props import is_density
+
+from toqito.matrix_props import is_density  # isort: skip
 
 
 def fidelity_of_separability(
@@ -155,7 +156,7 @@ def fidelity_of_separability(
 
     # List of extenstion systems and dimension of the Choi matrix.
     sys_ext = list(range(2, 2 + k - 1))
-    dim_choi = dim_r * (dim_a ** k)
+    dim_choi = dim_r * (dim_a**k)
 
     # Projection onto symmetric subspace on AA'.
     pi_sym = symmetric_projection(dim_a, 2)

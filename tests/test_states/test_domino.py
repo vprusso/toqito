@@ -1,8 +1,7 @@
 """Test domino."""
 import numpy as np
 
-from toqito.states import basis
-from toqito.states import domino
+from toqito.states import basis, domino
 
 
 def test_domino_0():

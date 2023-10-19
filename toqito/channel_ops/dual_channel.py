@@ -1,5 +1,6 @@
 """Compute the dual of a map."""
-from __future__ import annotations
+
+
 import numpy as np
 
 from toqito.helper import channel_dim

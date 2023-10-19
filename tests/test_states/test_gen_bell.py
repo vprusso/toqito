@@ -1,8 +1,7 @@
 """Test gen_bell."""
 import numpy as np
 
-from toqito.states import bell
-from toqito.states import gen_bell
+from toqito.states import bell, gen_bell
 
 
 def test_gen_bell_0_0_2():

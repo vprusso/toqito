@@ -2,8 +2,7 @@
 import numpy as np
 
 from toqito.state_props import schmidt_rank
-from toqito.states import basis
-from toqito.states import bell
+from toqito.states import basis, bell
 
 
 def test_schmidt_rank_bell_state():

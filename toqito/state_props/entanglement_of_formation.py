@@ -1,5 +1,5 @@
 """Computes the entanglement of formation of a bipartite quantum state."""
-from __future__ import annotations
+
 
 import numpy as np
 import scipy
@@ -97,8 +97,8 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
         if dim_x == 4:
             rho_c = concurrence(rho)
 
-            rho_c1 = (1 + np.sqrt(1 - rho_c ** 2)) / 2
-            rho_c2 = (1 - np.sqrt(1 - rho_c ** 2)) / 2
+            rho_c1 = (1 + np.sqrt(1 - rho_c**2)) / 2
+            rho_c2 = (1 - np.sqrt(1 - rho_c**2)) / 2
 
             rho_c1_log2 = 0 if rho_c1 == 0 else np.log2(rho_c1)
             rho_c2_log2 = 0 if rho_c2 == 0 else np.log2(rho_c2)

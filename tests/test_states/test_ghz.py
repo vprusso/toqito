@@ -1,9 +1,8 @@
 """Test ghz."""
 import numpy as np
 
-from toqito.states import basis
-from toqito.states import ghz
 from toqito.matrix_ops import tensor
+from toqito.states import basis, ghz
 
 
 def test_ghz_2_3():

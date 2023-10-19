@@ -4,14 +4,12 @@ The constrainsts for this function are positive partial transpose (PPT)
 & k-extendible states.
 """
 
-import picos
 import numpy as np
-
-from toqito.perms import symmetric_projection
-from toqito.state_props import is_pure
-from toqito.state_props import is_separable
+import picos
 
 from toqito.matrix_props import is_density
+from toqito.perms import symmetric_projection
+from toqito.state_props import is_pure, is_separable
 
 
 def fidelity_of_separability(
@@ -164,7 +162,7 @@ def fidelity_of_separability(
     # new dims for AB with k-extendibility in subsystem B
     dim_direct_sum_AB_k = [dim_A] + [dim_B] * (k)
     # new dims for a linear op acting on the space of sigma_AB_k
-    dim_op_sigma_AB_k = dim_A * dim_B ** k
+    dim_op_sigma_AB_k = dim_A * dim_B**k
 
     # A list of the symmetrically extended subsystems based on the level `k`.
     sub_sys_ext = list(range(2, 2 + k - 1))
@@ -203,4 +201,4 @@ def fidelity_of_separability(
         problem.add_constraint(picos.partial_transpose(sigma_AB_k, sys, dim_direct_sum_AB_k) >> 0)
 
     solution = problem.solve(solver=solver_option)
-    return solution.value ** 2
+    return solution.value**2

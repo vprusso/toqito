@@ -1,8 +1,7 @@
 """Generalized Pauli matrices."""
 import numpy as np
 
-from toqito.matrices import shift
-from toqito.matrices import clock
+from toqito.matrices import clock, shift
 
 
 def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:

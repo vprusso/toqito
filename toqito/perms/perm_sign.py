@@ -1,8 +1,9 @@
 """Calculate permutation sign."""
-from __future__ import annotations
-from scipy import linalg
+
 
 import numpy as np
+
+from scipy import linalg
 
 
 def perm_sign(perm: np.ndarray | list[int]) -> float:

@@ -1,7 +1,8 @@
 """Test npa_constraints."""
 from collections import defaultdict
-import numpy as np
+
 import cvxpy
+import numpy as np
 import pytest
 
 from toqito.helper import npa_constraints

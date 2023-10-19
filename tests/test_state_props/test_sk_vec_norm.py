@@ -2,8 +2,8 @@
 import numpy as np
 import pytest
 
-from toqito.states import max_entangled
 from toqito.state_props import sk_vector_norm
+from toqito.states import max_entangled
 
 
 @pytest.mark.parametrize("n, k", [(4, 1), (4, 2), (5, 2)])

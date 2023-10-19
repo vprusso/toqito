@@ -1,8 +1,8 @@
 """Test is_mutually_orthogonal."""
 import numpy as np
 
-from toqito.states import bell
 from toqito.state_props import is_mutually_orthogonal
+from toqito.states import bell
 
 
 def test_is_mutually_orthogonal_bell_states():

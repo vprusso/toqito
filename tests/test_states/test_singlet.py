@@ -1,8 +1,7 @@
 """Test singlet."""
 import numpy as np
 
-from toqito.states import bell
-from toqito.states import singlet
+from toqito.states import bell, singlet
 
 
 def test_gen_bell_dim_2():

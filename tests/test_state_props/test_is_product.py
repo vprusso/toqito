@@ -2,8 +2,7 @@
 import numpy as np
 
 from toqito.state_props import is_product
-from toqito.states import basis, bell
-from toqito.states import max_entangled
+from toqito.states import basis, bell, max_entangled
 
 
 def test_is_product_entangled_state():

@@ -1,10 +1,10 @@
 """Generate random state vector."""
-from __future__ import annotations
+
 
 import numpy as np
 
-from toqito.states import max_entangled
 from toqito.perms import swap
+from toqito.states import max_entangled
 
 
 def random_state_vector(
@@ -40,7 +40,6 @@ def random_state_vector(
     """
     # Schmidt rank plays a role.
     if 0 < k_param < np.min(dim):
-
         # Allow the user to enter a single number for dim.
         if isinstance(dim, int):
             dim = [dim, dim]

@@ -1,11 +1,14 @@
 """Two-player nonlocal game."""
-from __future__ import annotations
+
+
 from collections import defaultdict
+
 import cvxpy
 import numpy as np
-from toqito.random import random_povm
+
+from toqito.helper import npa_constraints, update_odometer
 from toqito.matrix_ops import tensor
-from toqito.helper import update_odometer, npa_constraints
+from toqito.random import random_povm
 
 
 class NonlocalGame:
@@ -50,16 +53,16 @@ class NonlocalGame:
 
             pred_mat2 = np.zeros(
                 (
-                    num_alice_out ** reps,
-                    num_bob_out ** reps,
-                    num_alice_in ** reps,
-                    num_bob_in ** reps,
+                    num_alice_out**reps,
+                    num_bob_out**reps,
+                    num_alice_in**reps,
+                    num_bob_in**reps,
                 )
             )
             i_ind = np.zeros(reps, dtype=int)
             j_ind = np.zeros(reps, dtype=int)
-            for i in range(num_alice_in ** reps):
-                for j in range(num_bob_in ** reps):
+            for i in range(num_alice_in**reps):
+                for j in range(num_bob_in**reps):
                     to_tensor = np.empty([reps, num_alice_out, num_bob_out])
                     for k in range(reps - 1, -1, -1):
                         to_tensor[k] = pred_mat[:, :, i_ind[k], j_ind[k]]
@@ -113,7 +116,7 @@ class NonlocalGame:
         # Compute prediction matrix of outcomes given questions and answer pairs:
         #   a: Alice's truth assignment to all variables in `c_x`
         #   b: Bob's truth assignment for `v_y` in `c_x`
-        pred_mat = np.zeros((2 ** num_variables, 2, num_constraints, num_variables))
+        pred_mat = np.zeros((2**num_variables, 2, num_constraints, num_variables))
         for x_ques in range(num_constraints):
             for a_ans in range(pred_mat.shape[0]):
                 # Convert to binary representation
@@ -152,7 +155,7 @@ class NonlocalGame:
                     self.prob_mat[x_alice_in, y_bob_in] * self.pred_mat[:, :, x_alice_in, y_bob_in]
                 )
         p_win = float("-inf")
-        if num_alice_outputs ** num_alice_inputs < num_bob_outputs ** num_bob_inputs:
+        if num_alice_outputs**num_alice_inputs < num_bob_outputs**num_bob_inputs:
             self.pred_mat = np.transpose(self.pred_mat, (1, 0, 3, 2))
             (
                 num_alice_outputs,
@@ -168,7 +171,7 @@ class NonlocalGame:
         # else:
         #     parallel_threads = 5
 
-        for i in range(num_alice_outputs ** num_bob_inputs):
+        for i in range(num_alice_outputs**num_bob_inputs):
             # Convert :code:`number` to the base :code:`base` with digits :code:`digits`.
             number = i
             base = num_bob_outputs

@@ -1,9 +1,10 @@
 """The realignment channel."""
-from __future__ import annotations
+
+
 import numpy as np
 
-from toqito.perms import swap
 from toqito.channels import partial_transpose
+from toqito.perms import swap
 
 
 def realignment(input_mat: np.ndarray, dim: int | list[int] = None) -> np.ndarray:

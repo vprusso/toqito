@@ -1,9 +1,8 @@
 """Tests for channel_fidelity."""
 import numpy as np
 
-from toqito.channels import dephasing, depolarizing
 from toqito.channel_metrics import channel_fidelity
-
+from toqito.channels import dephasing, depolarizing
 
 # def test_channel_fidelity_same_channel():
 #     """The fidelity of identical channels should yield 1."""

@@ -2,11 +2,12 @@
 import numpy as np
 import pytest
 
-from toqito.states import bell
-from toqito.channels import choi
-from toqito.perms import swap, swap_operator
-from toqito.matrix_props import is_block_positive
 from picos import partial_transpose
+
+from toqito.channels import choi
+from toqito.matrix_props import is_block_positive
+from toqito.perms import swap, swap_operator
+from toqito.states import bell
 
 
 @pytest.mark.parametrize("dim", [2, 3, 4])

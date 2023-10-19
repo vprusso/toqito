@@ -1,8 +1,8 @@
 """Tests for purity."""
 import numpy as np
 
-from toqito.states import werner
 from toqito.state_props import purity
+from toqito.states import werner
 
 
 def test_purity():

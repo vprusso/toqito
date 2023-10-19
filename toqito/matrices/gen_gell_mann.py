@@ -1,8 +1,9 @@
 """Generalized Gell-Mann matrices."""
-from __future__ import annotations
-from scipy import sparse
+
 
 import numpy as np
+
+from scipy import sparse
 
 
 def gen_gell_mann(
