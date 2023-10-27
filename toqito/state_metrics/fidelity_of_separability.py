@@ -12,7 +12,7 @@ from toqito.perms import symmetric_projection
 from toqito.state_props import is_pure, is_separable
 
 
-def fidelity_of_separability(# pylint: disable-msg=too-many-locals
+def fidelity_of_separability(# pylint: disable = missing-type-doc
     input_state_rho: np.ndarray,
     input_state_rho_dims: list[int],
     k: int = 1,
@@ -124,21 +124,22 @@ def fidelity_of_separability(# pylint: disable-msg=too-many-locals
 
     :param input_state_rho: the density matrix for the bipartite state of interest.
     :param input_state_rho_dims: the dimensions of System A & B respectively in
-            the input state density matrix. It is assumed that the first
-            quantity in this list is the dimension of System A.
+        the input state density matrix. It is assumed that the first
+        quantity in this list is the dimension of System A.
     :param k: value for k-extendibility.
     :param verbosity_option: Parameter option for `picos`. Default value is 
-    `verbosity = 2`. For more info, visit
-    https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-verbosity.
+        `verbosity = 2`. For more info, visit
+        https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-verbosity.
     :param solver_option: Optimization option for `picos` solver. Default option is 
-    `solver_option="cvxopt"`. For more info, visit 
-    https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-solver.
+        `solver_option="cvxopt"`. For more info, visit 
+        https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-solver.
     :raises AssertionError: If the provided dimensions are not for a bipartite density matrix.
-    :raises TypeError: If the matrix is not a density matrix (square matrix that
-    is PSD with trace 1).
-    :raises TypeError: the input state is entangled or a mixed state.
+    :raises ValueError: If the matrix is not a density matrix (square matrix that
+        is PSD with trace 1).
+    :raises ValueError: the input state is entangled.
+    :raises ValueError: the input state is a mixed state.
     :return: Optimized value of the SDP when maximized over a set of linear operators subject
-    to some constraints.  
+        to some constraints.  
     """
     # rho is relabelled as rho_{AB} where A >= B.
     if not is_density(input_state_rho):
