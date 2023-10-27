@@ -122,27 +122,19 @@ def fidelity_of_separability(
         “The Theory of Quantum Information”
         Cambridge University Press, 2018
 
-    Args:
-        input_state_rho: the density matrix for the bipartite state of interest.
-        input_state_rho_dims: the dimensions of System A & B respectively in
+    :param input_state_rho: the density matrix for the bipartite state of interest.
+    :param input_state_rho_dims: the dimensions of System A & B respectively in
             the input state density matrix. It is assumed that the first
             quantity in this list is the dimension of System A.
-        k: value for k-extendibility.
-        verbosity_option: Parameter option for `picos`. Default value is `verbosity = 2`.
+    :param k: value for k-extendibility.
+    :param verbosity_option: Parameter option for `picos`. Default value is `verbosity = 2`.
             For more info, visit https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-verbosity.
-        solver_option: Optimization option for `picos` solver. Default option is `solver_option="cvxopt"`
+    :param solver_option: Optimization option for `picos` solver. Default option is `solver_option="cvxopt"`
             For more info, visit https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-solver.
-    Raises:
-        AssertionError:
-            * If the provided dimensions are not for a bipartite density matrix.
-        TypeError:
-            * If the matrix is not a density matrix (square matrix that is \n
-            PSD with trace 1).
-        TypeError:
-            * If the input state is entangled or a mixed state.
-    Returns:
-        Optimized value of the SDP when maximized over a set of linear operators
-        subject to some constraints.
+    :raises AssertionError: If the provided dimensions are not for a bipartite density matrix.
+    :raises TypeError: If the matrix is not a density matrix (square matrix that is PSD with trace 1).
+    :raises TypeError: the input state is entangled or a mixed state.
+    :return: Optimized value of the SDP when maximized over a set of linear operators subject to some constraints.  
     """
     # rho is relabelled as rho_{AB} where A >= B.
     if not is_density(input_state_rho):
