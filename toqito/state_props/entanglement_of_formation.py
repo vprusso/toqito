@@ -1,7 +1,5 @@
 """Computes the entanglement of formation of a bipartite quantum state."""
 
-from __future__ import annotations
-
 import numpy as np
 import scipy
 
@@ -66,7 +64,7 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
 
     # User can specify dimension as integer.
     if isinstance(dim, int):
-        dim = np.array([dim, max(dim_x, dim_y) / dim], dtype=int) # pylint: disable=redefined-variable-type
+        dim = np.array([dim, max(dim_x, dim_y) / dim], dtype=int)
         if abs(dim[1] - np.round(dim[1])) >= 2 * max(dim_x, dim_y) * eps:
             raise ValueError(
                 "Invalid dimension: If `dim` is provided as a "
