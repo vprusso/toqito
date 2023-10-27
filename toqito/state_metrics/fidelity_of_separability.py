@@ -12,7 +12,7 @@ from toqito.perms import symmetric_projection
 from toqito.state_props import is_pure, is_separable
 
 
-def fidelity_of_separability(
+def fidelity_of_separability(# pylint: disable-msg=too-many-locals
     input_state_rho: np.ndarray,
     input_state_rho_dims: list[int],
     k: int = 1,
@@ -127,14 +127,18 @@ def fidelity_of_separability(
             the input state density matrix. It is assumed that the first
             quantity in this list is the dimension of System A.
     :param k: value for k-extendibility.
-    :param verbosity_option: Parameter option for `picos`. Default value is `verbosity = 2`.
-            For more info, visit https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-verbosity.
-    :param solver_option: Optimization option for `picos` solver. Default option is `solver_option="cvxopt"`
-            For more info, visit https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-solver.
+    :param verbosity_option: Parameter option for `picos`. Default value is 
+    `verbosity = 2`. For more info, visit
+    https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-verbosity.
+    :param solver_option: Optimization option for `picos` solver. Default option is 
+    `solver_option="cvxopt"`. For more info, visit 
+    https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-solver.
     :raises AssertionError: If the provided dimensions are not for a bipartite density matrix.
-    :raises TypeError: If the matrix is not a density matrix (square matrix that is PSD with trace 1).
+    :raises TypeError: If the matrix is not a density matrix (square matrix that
+    is PSD with trace 1).
     :raises TypeError: the input state is entangled or a mixed state.
-    :return: Optimized value of the SDP when maximized over a set of linear operators subject to some constraints.  
+    :return: Optimized value of the SDP when maximized over a set of linear operators subject
+    to some constraints.  
     """
     # rho is relabelled as rho_{AB} where A >= B.
     if not is_density(input_state_rho):
@@ -148,13 +152,13 @@ def fidelity_of_separability(
 
     # Infer the dimension of Alice and Bob's system.
     # subsystem-dimensions in rho_AB
-    dim_A, dim_B = input_state_rho_dims
+    dim_A, dim_B = input_state_rho_dims # pylint: disable-msg=invalid-name
 
     # Extend the number of dimensions based on the level `k`.
     # new dims for AB with k-extendibility in subsystem B
-    dim_direct_sum_AB_k = [dim_A] + [dim_B] * (k)
+    dim_direct_sum_AB_k = [dim_A] + [dim_B] * (k) # pylint: disable-msg=invalid-name
     # new dims for a linear op acting on the space of sigma_AB_k
-    dim_op_sigma_AB_k = dim_A * dim_B**k
+    dim_op_sigma_AB_k = dim_A * dim_B**k # pylint: disable-msg=invalid-name
 
     # A list of the symmetrically extended subsystems based on the level `k`.
     sub_sys_ext = list(range(2, 2 + k - 1))
@@ -163,8 +167,11 @@ def fidelity_of_separability(
 
     # defining the problem objective: Re[Tr[X_AB]]
     problem = picos.Problem(verbosity=verbosity_option)
-    linear_op_AB = picos.ComplexVariable("x_AB", input_state_rho.shape)
-    sigma_AB_k = picos.HermitianVariable("s_AB_k", (dim_op_sigma_AB_k, dim_op_sigma_AB_k))
+    linear_op_AB = picos.ComplexVariable(  # pylint: disable-msg=invalid-name
+        "x_AB", input_state_rho.shape)
+    sigma_AB_k = picos.HermitianVariable( # pylint: disable-msg=invalid-name
+        "s_AB_k", (
+            dim_op_sigma_AB_k, dim_op_sigma_AB_k))
 
     problem.set_objective("max", 0.5 * picos.trace(linear_op_AB + linear_op_AB.H))
 
