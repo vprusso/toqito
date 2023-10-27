@@ -88,8 +88,7 @@ class NonlocalGame:
 
         :return: An instance of a nonlocal game object.
         """
-        num_constraints = len(constraints)
-        if num_constraints == 0:
+        if (num_constraints := len(constraints)) == 0:
             raise ValueError("At least 1 constraint is required")
         num_variables = constraints[0].ndim
 
