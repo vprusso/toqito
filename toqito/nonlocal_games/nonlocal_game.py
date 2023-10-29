@@ -122,7 +122,7 @@ class NonlocalGame:
                 bin_a = [int(x) for x in np.binary_repr(a_ans)]
                 truth_assignment = np.zeros(num_variables, dtype=np.int8)
                 truth_assignment[-len(bin_a) :] = bin_a
-                truth_assignment = tuple(truth_assignment)
+                truth_assignment = tuple(truth_assignment)# pylint: disable=redefined-variable-type
 
                 for y_ques in range(num_variables):
                     # The verifier can only accept the answer if Bob's truth assignment

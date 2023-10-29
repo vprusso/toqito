@@ -169,7 +169,7 @@ def partial_trace(
             for idx in sys:
                 prod_dim_sys *= dim[idx]
     elif isinstance(sys, int):
-        prod_dim_sys = np.prod(dim[sys])
+        prod_dim_sys = np.prod(dim[sys])# pylint: disable=redefined-variable-type
     else:
         raise ValueError(
             "Invalid: The variable `sys` must either be of type int or of a list of ints."
@@ -179,7 +179,7 @@ def partial_trace(
     sub_sys_vec = prod_dim * np.ones(int(sub_prod)) / sub_prod
 
     if isinstance(sys, list):
-        sys = np.array(sys)
+        sys = np.array(sys)# pylint: disable=redefined-variable-type
     if isinstance(sys, int):
         sys = np.array([sys])
     set_diff = list(set(list(range(1, num_sys + 1))) - set(sys + 1))

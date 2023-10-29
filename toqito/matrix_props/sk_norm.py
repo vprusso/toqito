@@ -93,7 +93,7 @@ def sk_operator_norm( # pylint: disable=too-many-locals
 
     # Allow the user to enter in a single integer for dimension.
     if isinstance(dim, int):
-        dim = np.array([dim, dim_xy / dim])
+        dim = np.array([dim, dim_xy / dim])# pylint: disable=redefined-variable-type
         if np.abs(dim[1] - np.round(dim[1])) >= 2 * dim_xy * np.finfo(float).eps:
             raise ValueError(
                 "If `dim` is a scalar, it must evenly divide the length of the matrix."
@@ -132,7 +132,7 @@ def sk_operator_norm( # pylint: disable=too-many-locals
     # comes from Theorem 4.13 in [1]
     lower_bound = k / min(dim)
     # our most basic upper bound
-    upper_bound = 1
+    upper_bound = 1# pylint: disable=redefined-variable-type
 
     # break out of the function if the target value has already been met
     if __target_is_proved(lower_bound, upper_bound, op_norm, tol, target):

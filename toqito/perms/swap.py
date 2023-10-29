@@ -157,7 +157,7 @@ def swap(
 
     # Swap the indicated subsystems.
     perm = np.array(range(1, num_sys + 1))
-    sys = np.array(sys) - 1
+    sys = np.array(sys) - 1# pylint: disable=redefined-variable-type
 
     perm[sys] = perm[sys[::-1]]
 
