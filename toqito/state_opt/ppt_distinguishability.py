@@ -191,8 +191,8 @@ def primal_problem(
             meas.append(cvxpy.Variable((dim_x, dim_x), PSD=True))
             constraints.append(partial_transpose(meas[i], sys_list, dim_list) >> 0)
 
-    for i, _ in enumerate(states):
-        obj_func.append(probs[i] * cvxpy.trace(states[i].conj().T @ meas[i]))
+    for i, item in enumerate(states):
+        obj_func.append(probs[i] * cvxpy.trace(item.conj().T @ meas[i]))
 
     constraints.append(sum(meas) == np.identity(dim_x))
 
@@ -262,10 +262,10 @@ def dual_problem(
     # dim_list = [3, 3]
 
     if dist_method == "min-error":
-        for i, _ in enumerate(states):
+        for i, item in enumerate(states):
             meas.append(cvxpy.Variable((dim_x, dim_x), PSD=True))
             constraints.append(
-                cvxpy.real(y_var - probs[i] * states[i])
+                cvxpy.real(y_var - probs[i] * item)
                 >> partial_transpose(meas[i], sys=sys_list, dim=dim_list)
             )
 

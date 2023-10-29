@@ -184,7 +184,7 @@ def symmetric_extension_hierarchy(
     sym = symmetric_projection(dim_y, level)
 
     dim_xyy = np.prod(dim_list)
-    for k, _ in enumerate(states):
+    for k, item in enumerate(states):
         meas.append(cvxpy.Variable((dim_xy, dim_xy), PSD=True))
         x_var.append(cvxpy.Variable((dim_xyy, dim_xyy), PSD=True))
         constraints.append(partial_trace(x_var[k], sys_list, dim_list) == meas[k])
@@ -196,7 +196,7 @@ def symmetric_extension_hierarchy(
         for sys in range(level - 1):
             constraints.append(partial_transpose(x_var[k], [sys + 2], dim_list) >> 0)
 
-        obj_func.append(probs[k] * cvxpy.trace(states[k].conj().T @ meas[k]))
+        obj_func.append(probs[k] * cvxpy.trace(item.conj().T @ meas[k]))
 
     constraints.append(sum(meas) == np.identity(dim_xy))
 

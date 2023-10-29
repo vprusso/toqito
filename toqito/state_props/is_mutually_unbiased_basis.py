@@ -84,12 +84,12 @@ def is_mutually_unbiased_basis(vec_list: list[np.ndarray | list[float | Any]]) -
         raise ValueError("There must be at least two bases provided as input.")
 
     dim = vec_list[0][0].shape[0]
-    for i, _ in enumerate(vec_list):
-        for j, _ in enumerate(vec_list):
+    for i, item in enumerate(vec_list):
+        for j, item2 in enumerate(vec_list):
             for k in range(dim):
                 if i != j:
                     if not np.isclose(
-                        np.abs(np.inner(vec_list[i][k].conj().T[0], vec_list[j][k].conj().T[0]))
+                        np.abs(np.inner(item[k].conj().T[0], item2[k].conj().T[0]))
                         ** 2,
                         1 / dim,
                     ):
