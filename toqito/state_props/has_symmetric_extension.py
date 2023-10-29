@@ -117,7 +117,7 @@ def has_symmetric_extension(
 
     dim = np.int_(dim)
 
-    dim_x, dim_y = int(dim[0]), int(dim[1])
+    dim_x, dim_y = int(dim[0]), int(dim[1])# pylint: disable=unsubscriptable-object
     # In certain situations, we don't need semidefinite programming.
     if level == 1 or len_mat <= 6 and ppt:
         if not ppt:
