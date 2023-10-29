@@ -17,7 +17,7 @@ from toqito.state_props.sk_vec_norm import sk_vector_norm
 from toqito.states import max_entangled
 
 
-def sk_operator_norm(
+def sk_operator_norm( # pylint: disable=too-many-locals
     mat: np.ndarray,
     k: int = 1,
     dim: int | list[int] = None,
@@ -227,7 +227,7 @@ def sk_operator_norm(
                     return op_norm * lower_bound, op_norm * upper_bound
 
     # Start the semidefinite programming approach for getting upper bounds.
-    if effort >= 1 and (
+    if effort >= 1 and (# pylint: disable=too-many-boolean-expressions
         (lower_bound + tol < upper_bound and is_positive)
         or (is_positive and is_trans_exact and k == 1)
     ):
@@ -328,7 +328,7 @@ def __target_is_proved(
 # Schmidt vectors of the other sub-system. This optimization is equivalent to
 # a generalized eigenvalue problem. The algorithm terminates when an iteration
 # cannot improve the lower bound by more than tol.
-def __lower_bound_sk_norm_randomized(
+def __lower_bound_sk_norm_randomized(# pylint: disable=too-many-locals
     mat: np.ndarray,
     k: int = 1,
     dim: int | list[int] = None,
@@ -350,8 +350,7 @@ def __lower_bound_sk_norm_randomized(
     opt_vec = None
     if start_vec is not None:
         singular_vals, vt_mat, u_mat = schmidt_decomposition(start_vec, dim)
-        s_rank = len(singular_vals)
-        if s_rank > k:
+        if (s_rank := len(singular_vals)) > k:
             warnings.warn(
                 f"The Schmidt rank of the initial vector is {s_rank}, which is larger than k={k}. \
                 Using a randomly-generated intial vector instead."
@@ -383,8 +382,7 @@ def __lower_bound_sk_norm_randomized(
         for p in range(2):
             # If Schmidt rank is not full, we will have numerical problems; go to
             # lower Schmidt rank iteration.
-            s_rank = schmidt_rank(opt_vec, dim)
-            if s_rank < k:
+            if (s_rank := schmidt_rank(opt_vec, dim)) < k:
                 return __lower_bound_sk_norm_randomized(mat, s_rank, dim, tol, opt_vec)
 
             # Fix one of the parties and optimize over the other party.
@@ -399,9 +397,8 @@ def __lower_bound_sk_norm_randomized(
             largest_eigval, largest_eigvec = scipy.linalg.eigh(
                 a_mat, b=b_mat, subset_by_index=[a_mat.shape[0] - 1, a_mat.shape[0] - 1]
             )
-            new_sk_lower_bound = np.real(largest_eigval[0])
 
-            if new_sk_lower_bound >= sk_lower_bound + tol:
+            if (new_sk_lower_bound := np.real(largest_eigval[0])) >= sk_lower_bound + tol:
                 it_lower_bound_improved = True
                 sk_lower_bound = new_sk_lower_bound
 

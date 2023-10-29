@@ -12,7 +12,7 @@ from toqito.perms import permute_systems
 
 def partial_trace(
     input_mat: np.ndarray | Variable,
-    sys: int | list[int] = [1],
+    sys: int | list[int] = None,
     dim: int | list[int] = None,
 ) -> np.ndarray | Expression:
     r"""
@@ -130,6 +130,9 @@ def partial_trace(
                 equal.
     :return: The partial trace of matrix :code:`input_mat`.
     """
+    if not isinstance(sys, int):
+        if sys is None:
+            sys = [1]
     # If the input matrix is a CVX variable for an SDP, we convert it to a numpy array,
     # perform the partial trace, and convert it back to a CVX variable.
     if isinstance(input_mat, Variable):
@@ -145,10 +148,10 @@ def partial_trace(
     if isinstance(dim, list):
         dim = np.array(dim)
 
-    num_sys = len(dim)
+    
 
     # Allow the user to enter a single number for dim.
-    if num_sys == 1:
+    if (num_sys := len(dim)) == 1:
         dim = np.array([dim[0], len(input_mat) / dim[0]])
         if np.abs(dim[1] - np.round(dim[1])) >= 2 * len(input_mat) * np.finfo(float).eps:
             raise ValueError(

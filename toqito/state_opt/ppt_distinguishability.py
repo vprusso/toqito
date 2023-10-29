@@ -125,7 +125,7 @@ def ppt_distinguishability(
 
 
 def primal_problem(
-    states: list[np.ndarray], probs: list[float] = None, dist_method="min-error"
+    states: list[np.ndarray], probs: list[float] = None, dist_method: str="min-error"
 ) -> float:
     r"""
     Calculate primal problem for PPT distinguishability.
@@ -204,7 +204,7 @@ def primal_problem(
 
 
 def dual_problem(
-    states: list[np.ndarray], probs: list[float] = None, dist_method="min-error"
+    states: list[np.ndarray], probs: list[float] = None, dist_method: str="min-error"
 ) -> float:
     r"""
     Calculate dual problem for PPT distinguishability.

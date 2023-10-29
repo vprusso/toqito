@@ -6,7 +6,7 @@ from toqito.state_ops import pure_to_mixed
 
 
 def state_exclusion(
-    vectors: list[np.ndarray], probs: list[float] = None, solver: str = "cvxopt", primal_dual="dual"
+    vectors: list[np.ndarray], probs: list[float] = None, solver: str = "cvxopt", primal_dual: str ="dual"
 ) -> tuple[float, list[picos.HermitianVariable]]:
     r"""
     Compute probability of single state exclusion.
@@ -86,16 +86,19 @@ def state_exclusion(
         Physical Review A 89.2 (2014): 022336.
         arXiv:1306.4683
 
-    :param states: A list of states provided as vectors.
+    :param vectors: A list of states provided as vectors.
     :param probs: Respective list of probabilities each state is selected. If no
                   probabilities are provided, a uniform probability distribution is assumed.
+    :param solver: Optimization option for `picos` solver. Default option is 
+        `solver_option="cvxopt"`.
+    :param primal_dual: Option for the optimization problem
     :return: The optimal probability with which Bob can guess the state he was
              not given from `states` along with the optimal set of measurements.
     """
     if primal_dual == "primal":
         return _min_error_primal(vectors, probs, solver)
-    else:
-        return _min_error_dual(vectors, probs, solver)
+    
+    return _min_error_dual(vectors, probs, solver)
 
 
 def _min_error_primal(vectors: list[np.ndarray], probs: list[float] = None, solver: str = "cvxopt"):

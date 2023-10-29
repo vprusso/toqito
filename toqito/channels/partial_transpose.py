@@ -12,7 +12,7 @@ from toqito.perms import permute_systems
 
 def partial_transpose(
     rho: np.ndarray | Variable,
-    sys: list[int] | np.ndarray | int = [1],
+    sys: list[int] | np.ndarray | int = 1,
     dim: list[int] | np.ndarray = None,
 ) -> np.ndarray | Expression:
     r"""Compute the partial transpose of a matrix [WikPtrans]_.
@@ -135,9 +135,9 @@ def partial_transpose(
     if isinstance(sys, int):
         sys = np.array([sys])
 
-    num_sys = max(dim.shape)
+    
     # Allow the user to enter a single number for dim.
-    if num_sys == 1:
+    if (num_sys := max(dim.shape)) == 1:
         dim = np.array([dim, list(rho.shape)[0] / dim])
         if np.abs(dim[1] - np.round(dim[1]))[0] >= 2 * list(rho.shape)[0] * np.finfo(float).eps:
             raise ValueError(

@@ -12,12 +12,12 @@ from toqito.perms import symmetric_projection
 from toqito.state_props import is_pure, is_separable
 
 
-def fidelity_of_separability(# pylint: disable = missing-type-doc
+def fidelity_of_separability(
     input_state_rho: np.ndarray,
     input_state_rho_dims: list[int],
     k: int = 1,
-    verbosity_option=2,
-    solver_option="cvxopt",
+    verbosity_option: int=2,
+    solver_option: str ="cvxopt",
 ) -> float:
     r"""
     Define the first benchmark introduced in Appendix H of [Phil23]_.

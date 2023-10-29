@@ -124,7 +124,7 @@ def _get_nonlocal_game_params(
     return a_out, a_in, b_out, b_in
 
 
-def npa_constraints(
+def npa_constraints(# pylint: disable=too-many-locals
     assemblage: dict[tuple[int, int], cvxpy.Variable], k: int | str = 1, referee_dim: int = 1
 ) -> list[cvxpy.constraints.constraint.Constraint]:
     r"""
