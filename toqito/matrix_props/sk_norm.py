@@ -253,7 +253,7 @@ def sk_operator_norm( # pylint: disable=too-many-locals
         elif k == 1:
             # we can also get decent lower bounds from the SDP results when k=1
             # See Theorem 5.2.8 of [2]
-            roots, _ = scipy.special.roots_jacobi(1, dim[1] - 2, 1)
+            roots, _ = scipy.special.roots_jacobi(1, dim[1] - 2, 1)# pylint: disable=unbalanced-tuple-unpacking
             gs = min(1 - roots)
             xmineig = min(eig_val)
             lower_bound = max(
@@ -294,7 +294,7 @@ def sk_operator_norm( # pylint: disable=too-many-locals
 
                 upper_bound = min(upper_bound, np.real(cvx_optval))
 
-                roots, _ = scipy.special.roots_jacobi(np.floor(j / 2) + 1, dim[1] - 2, j % 2)
+                roots, _ = scipy.special.roots_jacobi(np.floor(j / 2) + 1, dim[1] - 2, j % 2)# pylint: disable=unbalanced-tuple-unpacking
                 gs = min(1 - roots)
                 lower_bound = max(
                     lower_bound,
