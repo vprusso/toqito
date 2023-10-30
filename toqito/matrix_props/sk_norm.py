@@ -227,10 +227,11 @@ def sk_operator_norm(  # pylint: disable=too-many-locals
                     return op_norm * lower_bound, op_norm * upper_bound
 
     # Start the semidefinite programming approach for getting upper bounds.
-    if effort >= 1 and (  # pylint: disable=too-many-boolean-expressions
-        (lower_bound + tol < upper_bound and is_positive)
-        or (is_positive and is_trans_exact and k == 1)
-    ):
+    bool_cond = [
+        (effort >= 1 and lower_bound + tol < upper_bound and is_positive),
+        (effort >= 1 and is_positive and is_trans_exact and k == 1),
+    ]
+    if any(bool_cond):
         rho = cvxpy.Variable((prod_dim, prod_dim), hermitian=True, name="rho")
         objective = cvxpy.Maximize(cvxpy.real(cvxpy.trace(mat @ rho)))
 

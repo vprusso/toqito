@@ -157,9 +157,9 @@ def fidelity_of_separability(
 
     # Extend the number of dimensions based on the level `k`.
     # new dims for AB with k-extendibility in subsystem B
-    dim_direct_sum_ab_k = [dim_a] + [dim_b] * (k)  
+    dim_direct_sum_ab_k = [dim_a] + [dim_b] * (k)
     # new dims for a linear op acting on the space of sigma_ab_k
-    dim_op_sigma_ab_k = dim_a * dim_b**k  
+    dim_op_sigma_ab_k = dim_a * dim_b**k
 
     # A list of the symmetrically extended subsystems based on the level `k`.
     sub_sys_ext = list(range(2, 2 + k - 1))
@@ -168,12 +168,8 @@ def fidelity_of_separability(
 
     # defining the problem objective: Re[Tr[X_AB]]
     problem = picos.Problem(verbosity=verbosity_option)
-    linear_op_ab = picos.ComplexVariable(  
-        "x_ab", input_state_rho.shape
-    )
-    sigma_ab_k = picos.HermitianVariable(  
-        "s_ab_k", (dim_op_sigma_ab_k, dim_op_sigma_ab_k)
-    )
+    linear_op_ab = picos.ComplexVariable("x_ab", input_state_rho.shape)
+    sigma_ab_k = picos.HermitianVariable("s_ab_k", (dim_op_sigma_ab_k, dim_op_sigma_ab_k))
 
     problem.set_objective("max", 0.5 * picos.trace(linear_op_ab + linear_op_ab.H))
 
