@@ -12,7 +12,7 @@ from toqito.perms import permute_systems
 
 def partial_transpose(
     rho: np.ndarray | Variable,
-    sys: list[int] | np.ndarray | int = 1,
+    sys: list[int] | np.ndarray | int = None,
     dim: list[int] | np.ndarray = None,
 ) -> np.ndarray | Expression:
     r"""Compute the partial transpose of a matrix [WikPtrans]_.
@@ -113,6 +113,9 @@ def partial_transpose(
     :raises ValueError: If matrix dimensions are not square.
     :returns: The partial transpose of matrix :code:`rho`.
     """
+    if not isinstance(sys, int):
+        if sys is None:
+            sys = [1]
     # If the input matrix is a CVX variable for an SDP, we convert it to a
     # numpy array, perform the partial transpose, and convert it back to a CVX
     # variable.
@@ -131,7 +134,7 @@ def partial_transpose(
     if isinstance(dim, list):
         dim = np.array(dim)
     if isinstance(sys, list):
-        sys = np.array(sys)
+        sys = np.array(sys)  # pylint: disable=redefined-variable-type
     if isinstance(sys, int):
         sys = np.array([sys])
 
