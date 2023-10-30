@@ -153,53 +153,53 @@ def fidelity_of_separability(
 
     # Infer the dimension of Alice and Bob's system.
     # subsystem-dimensions in rho_AB
-    dim_A, dim_B = input_state_rho_dims  # pylint: disable-msg=invalid-name
+    dim_a, dim_b = input_state_rho_dims
 
     # Extend the number of dimensions based on the level `k`.
     # new dims for AB with k-extendibility in subsystem B
-    dim_direct_sum_AB_k = [dim_A] + [dim_B] * (k)  # pylint: disable-msg=invalid-name
-    # new dims for a linear op acting on the space of sigma_AB_k
-    dim_op_sigma_AB_k = dim_A * dim_B**k  # pylint: disable-msg=invalid-name
+    dim_direct_sum_ab_k = [dim_a] + [dim_b] * (k)  
+    # new dims for a linear op acting on the space of sigma_ab_k
+    dim_op_sigma_ab_k = dim_a * dim_b**k  
 
     # A list of the symmetrically extended subsystems based on the level `k`.
     sub_sys_ext = list(range(2, 2 + k - 1))
     # unitary permutation operator in B1,B2,...,Bk
-    permutation_op = symmetric_projection(dim_B, k)
+    permutation_op = symmetric_projection(dim_b, k)
 
     # defining the problem objective: Re[Tr[X_AB]]
     problem = picos.Problem(verbosity=verbosity_option)
-    linear_op_AB = picos.ComplexVariable(  # pylint: disable-msg=invalid-name
-        "x_AB", input_state_rho.shape
+    linear_op_ab = picos.ComplexVariable(  
+        "x_ab", input_state_rho.shape
     )
-    sigma_AB_k = picos.HermitianVariable(  # pylint: disable-msg=invalid-name
-        "s_AB_k", (dim_op_sigma_AB_k, dim_op_sigma_AB_k)
+    sigma_ab_k = picos.HermitianVariable(  
+        "s_ab_k", (dim_op_sigma_ab_k, dim_op_sigma_ab_k)
     )
 
-    problem.set_objective("max", 0.5 * picos.trace(linear_op_AB + linear_op_AB.H))
+    problem.set_objective("max", 0.5 * picos.trace(linear_op_ab + linear_op_ab.H))
 
     problem.add_constraint(
         picos.block(
             [
-                [input_state_rho, linear_op_AB],
-                [linear_op_AB.H, picos.partial_trace(sigma_AB_k, sub_sys_ext, dim_direct_sum_AB_k)],
+                [input_state_rho, linear_op_ab],
+                [linear_op_ab.H, picos.partial_trace(sigma_ab_k, sub_sys_ext, dim_direct_sum_ab_k)],
             ]
         )
         >> 0
     )
-    problem.add_constraint(sigma_AB_k >> 0)
-    problem.add_constraint(picos.trace(sigma_AB_k) == 1)
+    problem.add_constraint(sigma_ab_k >> 0)
+    problem.add_constraint(picos.trace(sigma_ab_k) == 1)
 
     # k-extendible constraint:
     problem.add_constraint(
-        (picos.I(dim_A) @ permutation_op) * sigma_AB_k * (picos.I(dim_A) @ permutation_op)
-        == sigma_AB_k
+        (picos.I(dim_a) @ permutation_op) * sigma_ab_k * (picos.I(dim_a) @ permutation_op)
+        == sigma_ab_k
     )
 
     # PPT constraint:
     sys = []
     for i in range(1, k):
         sys = sys + [i]
-        problem.add_constraint(picos.partial_transpose(sigma_AB_k, sys, dim_direct_sum_AB_k) >> 0)
+        problem.add_constraint(picos.partial_transpose(sigma_ab_k, sys, dim_direct_sum_ab_k) >> 0)
 
     solution = problem.solve(solver=solver_option)
     return solution.value**2
