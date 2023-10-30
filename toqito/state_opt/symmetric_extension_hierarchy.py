@@ -169,7 +169,7 @@ def symmetric_extension_hierarchy(
 
     # Allow the user to enter in a single integer for dimension.
     if isinstance(dim, int):
-        dim = np.array([dim, dim_xy / dim])# pylint: disable=redefined-variable-type
+        dim = np.array([dim, dim_xy / dim])  # pylint: disable=redefined-variable-type
         if np.abs(dim[1] - np.round(dim[1])) >= 2 * dim_xy * np.finfo(float).eps:
             raise ValueError("If `dim` is a scalar, it must evenly divide the length of the state.")
         dim[1] = int(np.round(dim[1]))
@@ -177,7 +177,7 @@ def symmetric_extension_hierarchy(
     dim_x, dim_y = int(dim[0]), int(dim[1])
 
     dim_list = [dim_x] + [dim_y] * level
-    dim_list = np.int_(dim_list)# pylint: disable=redefined-variable-type
+    dim_list = np.int_(dim_list)  # pylint: disable=redefined-variable-type
     # The `sys_list` variable contains the numbering pertaining to the symmetrically extended
     # spaces.
     sys_list = list(range(2, 2 + level - 1))

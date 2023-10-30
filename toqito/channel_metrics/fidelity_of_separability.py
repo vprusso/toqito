@@ -14,7 +14,11 @@ from toqito.matrix_props import is_density  # isort: skip
 
 
 def fidelity_of_separability(
-    psi: np.ndarray, psi_dims: list[int], k: int = 1, verbosity_option: int=2, solver_option: str="cvxopt"
+    psi: np.ndarray,
+    psi_dims: list[int],
+    k: int = 1,
+    verbosity_option: int = 2,
+    solver_option: str = "cvxopt",
 ) -> float:
     r"""
     Define the first benchmark introduced in Appendix I of [Phil23.1]_ .

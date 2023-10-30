@@ -1,7 +1,7 @@
 """Is matrix a positive definite matrix."""
 import numpy as np
 
-from toqito.matrix_props import is_hermitian # pylint: disable=unused-import
+from toqito.matrix_props import is_hermitian  # pylint: disable=unused-import
 
 
 def is_positive_definite(mat: np.ndarray) -> bool:

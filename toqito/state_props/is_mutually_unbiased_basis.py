@@ -89,8 +89,7 @@ def is_mutually_unbiased_basis(vec_list: list[np.ndarray | list[float | Any]]) -
             for k in range(dim):
                 if i != j:
                     if not np.isclose(
-                        np.abs(np.inner(item[k].conj().T[0], item2[k].conj().T[0]))
-                        ** 2,
+                        np.abs(np.inner(item[k].conj().T[0], item2[k].conj().T[0])) ** 2,
                         1 / dim,
                     ):
                         return False

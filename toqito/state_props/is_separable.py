@@ -76,7 +76,7 @@ def is_separable(
         dim = int(np.round(np.sqrt(state_len)))
 
     if isinstance(dim, int):
-        dim = np.array([dim, state_len / dim])# pylint: disable=redefined-variable-type
+        dim = np.array([dim, state_len / dim])  # pylint: disable=redefined-variable-type
         if np.abs(dim[1] - np.round(dim[1])) >= 2 * state_len * eps:
             raise ValueError("The parameter `dim` must evenly divide the length of the state.")
         dim[1] = np.round(dim[1])
@@ -161,9 +161,9 @@ def is_separable(
 
     # For the rest of the block-matrix tests, we need the 2-dimensional subsystem to be the
     # first subsystem, so swap accordingly.
-    #if dim[0] > 2:
+    # if dim[0] > 2:
     #    Xt = swap(state, [1, 2], dim)
-    #else:
+    # else:
     #    Xt = state
     # commented out because pylint flagged this as an unused variable
 

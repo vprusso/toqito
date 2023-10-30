@@ -68,7 +68,7 @@ def is_block_positive(
 
     # Allow the user to enter in a single integer for dimension.
     if isinstance(dim, int):
-        dim = np.array([dim, dim_xy / dim])# pylint: disable=redefined-variable-type
+        dim = np.array([dim, dim_xy / dim])  # pylint: disable=redefined-variable-type
         if np.abs(dim[1] - np.round(dim[1])) >= 2 * dim_xy * np.finfo(float).eps:
             raise ValueError(
                 "If `dim` is a scalar, it must evenly divide the length of the matrix."

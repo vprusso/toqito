@@ -91,7 +91,7 @@ def _is_product(rho: np.ndarray, dim: int | list[int] = None) -> list[int, bool]
 
         # Provide this even if not requested, since it is needed if this
         # function was called as part of its recursive algorithm (see below)
-        if (ipv := singular_vals[1] <= np.prod(dim) * np.spacing(singular_vals[0])):
+        if ipv := singular_vals[1] <= np.prod(dim) * np.spacing(singular_vals[0]):
             u_mat = u_mat * np.sqrt(singular_vals[0])
             vt_mat = vt_mat * np.sqrt(singular_vals[0])
             dec = [u_mat[:, 0], vt_mat[:, 0]]

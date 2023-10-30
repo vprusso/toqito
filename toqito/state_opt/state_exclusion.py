@@ -6,7 +6,10 @@ from toqito.state_ops import pure_to_mixed
 
 
 def state_exclusion(
-    vectors: list[np.ndarray], probs: list[float] = None, solver: str = "cvxopt", primal_dual: str ="dual"
+    vectors: list[np.ndarray],
+    probs: list[float] = None,
+    solver: str = "cvxopt",
+    primal_dual: str = "dual",
 ) -> tuple[float, list[picos.HermitianVariable]]:
     r"""
     Compute probability of single state exclusion.
@@ -97,7 +100,7 @@ def state_exclusion(
     """
     if primal_dual == "primal":
         return _min_error_primal(vectors, probs, solver)
-    
+
     return _min_error_dual(vectors, probs, solver)
 
 

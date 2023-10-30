@@ -16,8 +16,8 @@ def fidelity_of_separability(
     input_state_rho: np.ndarray,
     input_state_rho_dims: list[int],
     k: int = 1,
-    verbosity_option: int=2,
-    solver_option: str ="cvxopt",
+    verbosity_option: int = 2,
+    solver_option: str = "cvxopt",
 ) -> float:
     r"""
     Define the first benchmark introduced in Appendix H of [Phil23]_.
@@ -153,13 +153,13 @@ def fidelity_of_separability(
 
     # Infer the dimension of Alice and Bob's system.
     # subsystem-dimensions in rho_AB
-    dim_A, dim_B = input_state_rho_dims # pylint: disable-msg=invalid-name
+    dim_A, dim_B = input_state_rho_dims  # pylint: disable-msg=invalid-name
 
     # Extend the number of dimensions based on the level `k`.
     # new dims for AB with k-extendibility in subsystem B
-    dim_direct_sum_AB_k = [dim_A] + [dim_B] * (k) # pylint: disable-msg=invalid-name
+    dim_direct_sum_AB_k = [dim_A] + [dim_B] * (k)  # pylint: disable-msg=invalid-name
     # new dims for a linear op acting on the space of sigma_AB_k
-    dim_op_sigma_AB_k = dim_A * dim_B**k # pylint: disable-msg=invalid-name
+    dim_op_sigma_AB_k = dim_A * dim_B**k  # pylint: disable-msg=invalid-name
 
     # A list of the symmetrically extended subsystems based on the level `k`.
     sub_sys_ext = list(range(2, 2 + k - 1))
@@ -169,10 +169,11 @@ def fidelity_of_separability(
     # defining the problem objective: Re[Tr[X_AB]]
     problem = picos.Problem(verbosity=verbosity_option)
     linear_op_AB = picos.ComplexVariable(  # pylint: disable-msg=invalid-name
-        "x_AB", input_state_rho.shape)
-    sigma_AB_k = picos.HermitianVariable( # pylint: disable-msg=invalid-name
-        "s_AB_k", (
-            dim_op_sigma_AB_k, dim_op_sigma_AB_k))
+        "x_AB", input_state_rho.shape
+    )
+    sigma_AB_k = picos.HermitianVariable(  # pylint: disable-msg=invalid-name
+        "s_AB_k", (dim_op_sigma_AB_k, dim_op_sigma_AB_k)
+    )
 
     problem.set_objective("max", 0.5 * picos.trace(linear_op_AB + linear_op_AB.H))
 

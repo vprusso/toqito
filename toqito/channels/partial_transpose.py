@@ -135,7 +135,6 @@ def partial_transpose(
     if isinstance(sys, int):
         sys = np.array([sys])
 
-    
     # Allow the user to enter a single number for dim.
     if (num_sys := max(dim.shape)) == 1:
         dim = np.array([dim, list(rho.shape)[0] / dim])

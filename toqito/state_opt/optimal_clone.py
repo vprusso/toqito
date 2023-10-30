@@ -133,7 +133,7 @@ def optimal_clone(
     else:
         # The permutation vector `perm` contains elements of the
         # sequence from: https://oeis.org/A023123
-        q_a = tensor(q_a, num_reps)# pylint: disable=redefined-variable-type
+        q_a = tensor(q_a, num_reps)  # pylint: disable=redefined-variable-type
         perm = []
         for i in range(1, num_spaces + 1):
             perm.append(i)
