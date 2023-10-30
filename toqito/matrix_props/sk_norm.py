@@ -17,7 +17,7 @@ from toqito.state_props.sk_vec_norm import sk_vector_norm
 from toqito.states import max_entangled
 
 
-def sk_operator_norm( # pylint: disable=too-many-locals
+def sk_operator_norm(  # pylint: disable=too-many-locals
     mat: np.ndarray,
     k: int = 1,
     dim: int | list[int] = None,
@@ -93,7 +93,7 @@ def sk_operator_norm( # pylint: disable=too-many-locals
 
     # Allow the user to enter in a single integer for dimension.
     if isinstance(dim, int):
-        dim = np.array([dim, dim_xy / dim])# pylint: disable=redefined-variable-type
+        dim = np.array([dim, dim_xy / dim])  # pylint: disable=redefined-variable-type
         if np.abs(dim[1] - np.round(dim[1])) >= 2 * dim_xy * np.finfo(float).eps:
             raise ValueError(
                 "If `dim` is a scalar, it must evenly divide the length of the matrix."
@@ -132,7 +132,7 @@ def sk_operator_norm( # pylint: disable=too-many-locals
     # comes from Theorem 4.13 in [1]
     lower_bound = k / min(dim)
     # our most basic upper bound
-    upper_bound = 1# pylint: disable=redefined-variable-type
+    upper_bound = 1  # pylint: disable=redefined-variable-type
 
     # break out of the function if the target value has already been met
     if __target_is_proved(lower_bound, upper_bound, op_norm, tol, target):
@@ -227,7 +227,7 @@ def sk_operator_norm( # pylint: disable=too-many-locals
                     return op_norm * lower_bound, op_norm * upper_bound
 
     # Start the semidefinite programming approach for getting upper bounds.
-    if effort >= 1 and (# pylint: disable=too-many-boolean-expressions
+    if effort >= 1 and (  # pylint: disable=too-many-boolean-expressions
         (lower_bound + tol < upper_bound and is_positive)
         or (is_positive and is_trans_exact and k == 1)
     ):
@@ -253,7 +253,9 @@ def sk_operator_norm( # pylint: disable=too-many-locals
         elif k == 1:
             # we can also get decent lower bounds from the SDP results when k=1
             # See Theorem 5.2.8 of [2]
-            roots, _ = scipy.special.roots_jacobi(1, dim[1] - 2, 1)# pylint: disable=unbalanced-tuple-unpacking
+            roots, _ = scipy.special.roots_jacobi(  # pylint: disable=unbalanced-tuple-unpacking
+                1, dim[1] - 2, 1
+            )
             gs = min(1 - roots)
             xmineig = min(eig_val)
             lower_bound = max(
@@ -294,7 +296,9 @@ def sk_operator_norm( # pylint: disable=too-many-locals
 
                 upper_bound = min(upper_bound, np.real(cvx_optval))
 
-                roots, _ = scipy.special.roots_jacobi(np.floor(j / 2) + 1, dim[1] - 2, j % 2)# pylint: disable=unbalanced-tuple-unpacking
+                roots, _ = scipy.special.roots_jacobi(  # pylint: disable=unbalanced-tuple-unpacking
+                    np.floor(j / 2) + 1, dim[1] - 2, j % 2
+                )
                 gs = min(1 - roots)
                 lower_bound = max(
                     lower_bound,
@@ -328,7 +332,7 @@ def __target_is_proved(
 # Schmidt vectors of the other sub-system. This optimization is equivalent to
 # a generalized eigenvalue problem. The algorithm terminates when an iteration
 # cannot improve the lower bound by more than tol.
-def __lower_bound_sk_norm_randomized(# pylint: disable=too-many-locals
+def __lower_bound_sk_norm_randomized(  # pylint: disable=too-many-locals
     mat: np.ndarray,
     k: int = 1,
     dim: int | list[int] = None,
