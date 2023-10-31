@@ -97,7 +97,7 @@ def pauli(
             pauli_mat = np.identity(2)
 
         if is_sparse:
-            pauli_mat = sparse.csr_matrix(pauli_mat)
+            pauli_mat = sparse.csr_matrix(pauli_mat)  # pylint: disable=redefined-variable-type
 
         return pauli_mat
 

@@ -88,8 +88,7 @@ class NonlocalGame:
 
         :return: An instance of a nonlocal game object.
         """
-        num_constraints = len(constraints)
-        if num_constraints == 0:
+        if (num_constraints := len(constraints)) == 0:
             raise ValueError("At least 1 constraint is required")
         num_variables = constraints[0].ndim
 
@@ -123,7 +122,9 @@ class NonlocalGame:
                 bin_a = [int(x) for x in np.binary_repr(a_ans)]
                 truth_assignment = np.zeros(num_variables, dtype=np.int8)
                 truth_assignment[-len(bin_a) :] = bin_a
-                truth_assignment = tuple(truth_assignment)
+                truth_assignment = tuple(  # pylint: disable=redefined-variable-type
+                    truth_assignment
+                )
 
                 for y_ques in range(num_variables):
                     # The verifier can only accept the answer if Bob's truth assignment

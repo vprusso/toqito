@@ -7,7 +7,7 @@ from picos import partial_trace
 
 from toqito.channels import realignment
 from toqito.matrix_props import is_positive_semidefinite, trace_norm
-from toqito.perms import swap
+
 from toqito.state_props import in_separable_ball, is_ppt
 from toqito.state_props.has_symmetric_extension import has_symmetric_extension
 
@@ -76,7 +76,7 @@ def is_separable(
         dim = int(np.round(np.sqrt(state_len)))
 
     if isinstance(dim, int):
-        dim = np.array([dim, state_len / dim])
+        dim = np.array([dim, state_len / dim])  # pylint: disable=redefined-variable-type
         if np.abs(dim[1] - np.round(dim[1])) >= 2 * state_len * eps:
             raise ValueError("The parameter `dim` must evenly divide the length of the state.")
         dim[1] = np.round(dim[1])
@@ -161,10 +161,11 @@ def is_separable(
 
     # For the rest of the block-matrix tests, we need the 2-dimensional subsystem to be the
     # first subsystem, so swap accordingly.
-    if dim[0] > 2:
-        Xt = swap(state, [1, 2], dim)
-    else:
-        Xt = state
+    # if dim[0] > 2:
+    #    Xt = swap(state, [1, 2], dim)
+    # else:
+    #    Xt = state
+    # commented out because pylint flagged this as an unused variable
 
     # Check the proximity of X with the maximally mixed state.
     if in_separable_ball(state):
@@ -182,7 +183,6 @@ def is_separable(
         return True
 
     # The search for symmetric extensions.
-    for _ in range(2, level):
-        if has_symmetric_extension(state, level):
-            return True
+    if any(has_symmetric_extension(state, level) for _ in range(2, level)):
+        return True
     return False

@@ -16,8 +16,8 @@ def fidelity_of_separability(
     input_state_rho: np.ndarray,
     input_state_rho_dims: list[int],
     k: int = 1,
-    verbosity_option=2,
-    solver_option="cvxopt",
+    verbosity_option: int = 2,
+    solver_option: str = "cvxopt",
 ) -> float:
     r"""
     Define the first benchmark introduced in Appendix H of [Phil23]_.
@@ -122,27 +122,24 @@ def fidelity_of_separability(
         “The Theory of Quantum Information”
         Cambridge University Press, 2018
 
-    Args:
-        input_state_rho: the density matrix for the bipartite state of interest.
-        input_state_rho_dims: the dimensions of System A & B respectively in
-            the input state density matrix. It is assumed that the first
-            quantity in this list is the dimension of System A.
-        k: value for k-extendibility.
-        verbosity_option: Parameter option for `picos`. Default value is `verbosity = 2`.
-            For more info, visit https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-verbosity.
-        solver_option: Optimization option for `picos` solver. Default option is `solver_option="cvxopt"`
-            For more info, visit https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-solver.
-    Raises:
-        AssertionError:
-            * If the provided dimensions are not for a bipartite density matrix.
-        TypeError:
-            * If the matrix is not a density matrix (square matrix that is \n
-            PSD with trace 1).
-        TypeError:
-            * If the input state is entangled or a mixed state.
-    Returns:
-        Optimized value of the SDP when maximized over a set of linear operators
-        subject to some constraints.
+    :param input_state_rho: the density matrix for the bipartite state of interest.
+    :param input_state_rho_dims: the dimensions of System A & B respectively in
+        the input state density matrix. It is assumed that the first
+        quantity in this list is the dimension of System A.
+    :param k: value for k-extendibility.
+    :param verbosity_option: Parameter option for `picos`. Default value is 
+        `verbosity = 2`. For more info, visit
+        https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-verbosity.
+    :param solver_option: Optimization option for `picos` solver. Default option is 
+        `solver_option="cvxopt"`. For more info, visit 
+        https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-solver.
+    :raises AssertionError: If the provided dimensions are not for a bipartite density matrix.
+    :raises ValueError: If the matrix is not a density matrix (square matrix that
+        is PSD with trace 1).
+    :raises ValueError: the input state is entangled.
+    :raises ValueError: the input state is a mixed state.
+    :return: Optimized value of the SDP when maximized over a set of linear operators subject
+        to some constraints.  
     """
     # rho is relabelled as rho_{AB} where A >= B.
     if not is_density(input_state_rho):
@@ -156,49 +153,49 @@ def fidelity_of_separability(
 
     # Infer the dimension of Alice and Bob's system.
     # subsystem-dimensions in rho_AB
-    dim_A, dim_B = input_state_rho_dims
+    dim_a, dim_b = input_state_rho_dims
 
     # Extend the number of dimensions based on the level `k`.
     # new dims for AB with k-extendibility in subsystem B
-    dim_direct_sum_AB_k = [dim_A] + [dim_B] * (k)
-    # new dims for a linear op acting on the space of sigma_AB_k
-    dim_op_sigma_AB_k = dim_A * dim_B**k
+    dim_direct_sum_ab_k = [dim_a] + [dim_b] * (k)
+    # new dims for a linear op acting on the space of sigma_ab_k
+    dim_op_sigma_ab_k = dim_a * dim_b**k
 
     # A list of the symmetrically extended subsystems based on the level `k`.
     sub_sys_ext = list(range(2, 2 + k - 1))
     # unitary permutation operator in B1,B2,...,Bk
-    permutation_op = symmetric_projection(dim_B, k)
+    permutation_op = symmetric_projection(dim_b, k)
 
     # defining the problem objective: Re[Tr[X_AB]]
     problem = picos.Problem(verbosity=verbosity_option)
-    linear_op_AB = picos.ComplexVariable("x_AB", input_state_rho.shape)
-    sigma_AB_k = picos.HermitianVariable("s_AB_k", (dim_op_sigma_AB_k, dim_op_sigma_AB_k))
+    linear_op_ab = picos.ComplexVariable("x_ab", input_state_rho.shape)
+    sigma_ab_k = picos.HermitianVariable("s_ab_k", (dim_op_sigma_ab_k, dim_op_sigma_ab_k))
 
-    problem.set_objective("max", 0.5 * picos.trace(linear_op_AB + linear_op_AB.H))
+    problem.set_objective("max", 0.5 * picos.trace(linear_op_ab + linear_op_ab.H))
 
     problem.add_constraint(
         picos.block(
             [
-                [input_state_rho, linear_op_AB],
-                [linear_op_AB.H, picos.partial_trace(sigma_AB_k, sub_sys_ext, dim_direct_sum_AB_k)],
+                [input_state_rho, linear_op_ab],
+                [linear_op_ab.H, picos.partial_trace(sigma_ab_k, sub_sys_ext, dim_direct_sum_ab_k)],
             ]
         )
         >> 0
     )
-    problem.add_constraint(sigma_AB_k >> 0)
-    problem.add_constraint(picos.trace(sigma_AB_k) == 1)
+    problem.add_constraint(sigma_ab_k >> 0)
+    problem.add_constraint(picos.trace(sigma_ab_k) == 1)
 
     # k-extendible constraint:
     problem.add_constraint(
-        (picos.I(dim_A) @ permutation_op) * sigma_AB_k * (picos.I(dim_A) @ permutation_op)
-        == sigma_AB_k
+        (picos.I(dim_a) @ permutation_op) * sigma_ab_k * (picos.I(dim_a) @ permutation_op)
+        == sigma_ab_k
     )
 
     # PPT constraint:
     sys = []
     for i in range(1, k):
         sys = sys + [i]
-        problem.add_constraint(picos.partial_transpose(sigma_AB_k, sys, dim_direct_sum_AB_k) >> 0)
+        problem.add_constraint(picos.partial_transpose(sigma_ab_k, sys, dim_direct_sum_ab_k) >> 0)
 
     solution = problem.solve(solver=solver_option)
     return solution.value**2

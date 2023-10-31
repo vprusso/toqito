@@ -14,7 +14,11 @@ from toqito.matrix_props import is_density  # isort: skip
 
 
 def fidelity_of_separability(
-    psi: np.ndarray, psi_dims: list[int], k: int = 1, verbosity_option=2, solver_option="cvxopt"
+    psi: np.ndarray,
+    psi_dims: list[int],
+    k: int = 1,
+    verbosity_option: int = 2,
+    solver_option: str = "cvxopt",
 ) -> float:
     r"""
     Define the first benchmark introduced in Appendix I of [Phil23.1]_ .
@@ -113,28 +117,25 @@ def fidelity_of_separability(
         “The Theory of Quantum Information”
         Cambridge University Press, 2018
 
-    Args:
-        psi: the density matrix for the tripartite state of interest psi_{BAR}
-        psi_dims: the dimensions of System A, B, & R in
+    
+    :param psi: the density matrix for the tripartite state of interest psi_{BAR}
+    :param psi_dims: the dimensions of System A, B, & R in
             the input state density matrix. It is assumed that the first
             quantity in this list is the dimension of System B.
-        k: value for k-extendibility.
-        verbosity_option: Parameter option for `picos`. Default value is `verbosity = 2`.
-            For more info, visit https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-verbosity
-        solver_option: Optimization option for `picos` solver. Default option is `solver_option="cvxopt"`
-            For more info, visit https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-solver
-    Raises:
-        AssertionError:
-            * If the provided dimensions are not for a tripartite density
-            matrix.
-        TypeError:
-            * If the matrix is not a density matrix (square matrix that is \n
-            PSD with trace 1).
-        TypeError:
-            * If the input state is a mixed state.
-    Returns:
-        Optimized value of the SDP when maximized over a set of linear
-        operators subject to some constraints.
+    :param k: value for k-extendibility.
+    :param verbosity_option: Parameter option for `picos`. Default value is 
+        `verbosity = 2`. For more info, visit
+        https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-verbosity.
+    :param solver_option: Optimization option for `picos` solver. Default option is 
+        `solver_option="cvxopt"`. For more info, visit 
+        https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-solver.
+    :raises AssertionError: If the provided dimensions are not for a tripartite density matrix.
+    :raises ValueError: If the matrix is not a density matrix (square matrix that
+        is PSD with trace 1).
+    :raises ValueError: the input state is entangled.
+    :raises ValueError: the input state is a mixed state.
+    :return: Optimized value of the SDP when maximized over a set of linear
+        operators subject to some constraints.  
     """
     if not is_density(psi):
         raise ValueError("Provided input state is not a density matrix.")

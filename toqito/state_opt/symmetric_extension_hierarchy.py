@@ -169,7 +169,7 @@ def symmetric_extension_hierarchy(
 
     # Allow the user to enter in a single integer for dimension.
     if isinstance(dim, int):
-        dim = np.array([dim, dim_xy / dim])
+        dim = np.array([dim, dim_xy / dim])  # pylint: disable=redefined-variable-type
         if np.abs(dim[1] - np.round(dim[1])) >= 2 * dim_xy * np.finfo(float).eps:
             raise ValueError("If `dim` is a scalar, it must evenly divide the length of the state.")
         dim[1] = int(np.round(dim[1]))
@@ -177,14 +177,14 @@ def symmetric_extension_hierarchy(
     dim_x, dim_y = int(dim[0]), int(dim[1])
 
     dim_list = [dim_x] + [dim_y] * level
-    dim_list = np.int_(dim_list)
+    dim_list = np.int_(dim_list)  # pylint: disable=redefined-variable-type
     # The `sys_list` variable contains the numbering pertaining to the symmetrically extended
     # spaces.
     sys_list = list(range(2, 2 + level - 1))
     sym = symmetric_projection(dim_y, level)
 
     dim_xyy = np.prod(dim_list)
-    for k, _ in enumerate(states):
+    for k, item in enumerate(states):
         meas.append(cvxpy.Variable((dim_xy, dim_xy), PSD=True))
         x_var.append(cvxpy.Variable((dim_xyy, dim_xyy), PSD=True))
         constraints.append(partial_trace(x_var[k], sys_list, dim_list) == meas[k])
@@ -196,7 +196,7 @@ def symmetric_extension_hierarchy(
         for sys in range(level - 1):
             constraints.append(partial_transpose(x_var[k], [sys + 2], dim_list) >> 0)
 
-        obj_func.append(probs[k] * cvxpy.trace(states[k].conj().T @ meas[k]))
+        obj_func.append(probs[k] * cvxpy.trace(item.conj().T @ meas[k]))
 
     constraints.append(sum(meas) == np.identity(dim_xy))
 

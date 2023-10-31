@@ -120,8 +120,8 @@ def state_distinguishability(
             measurements.append(cvxpy.Variable((dim_x, dim_x), PSD=True))
 
     # Objective function is the inner product between the states and measurements.
-    for i, _ in enumerate(states):
-        obj_func.append(probs[i] * cvxpy.trace(states[i].conj().T @ measurements[i]))
+    for i, item in enumerate(states):
+        obj_func.append(probs[i] * cvxpy.trace(item.conj().T @ measurements[i]))
 
     constraints.append(sum(measurements) == np.identity(dim_x))
 
