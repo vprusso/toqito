@@ -44,7 +44,7 @@ def completely_bounded_trace_norm(phi: np.ndarray) -> float:
     if is_quantum_channel(phi):
         return 1
 
-    elif is_completely_positive(phi):
+    if is_completely_positive(phi):
         v = apply_channel(np.eye(dim_ly), dual_channel(phi))
         return trace_norm(v)
 

@@ -33,7 +33,8 @@ def inner_product(v1: np.ndarray, v2: np.ndarray) -> float:
         https://en.wikipedia.org/wiki/Inner_product_space
 
     :raises ValueError: Vector dimensions are mismatched.
-    :param args: v1 and v2, both vectors of dimenstions :math:`(n,1)` where :math:`n>1`.
+    :param v1: v1 and v2, both vectors of dimenstions :math:`(n,1)` where :math:`n>1`.
+    :param v2: v1 and v2, both vectors of dimenstions :math:`(n,1)` where :math:`n>1`.
     :return: The computed inner product.
     """
     # Check for dimensional validity

@@ -88,11 +88,10 @@ def _is_product(rho: np.ndarray, dim: int | list[int] = None) -> list[int, bool]
     # If there are only two subsystems, just use the Schmidt decomposition.
     if num_sys == 2:
         singular_vals, u_mat, vt_mat = schmidt_decomposition(rho, dim, 2)
-        ipv = singular_vals[1] <= np.prod(dim) * np.spacing(singular_vals[0])
 
         # Provide this even if not requested, since it is needed if this
         # function was called as part of its recursive algorithm (see below)
-        if ipv:
+        if ipv := singular_vals[1] <= np.prod(dim) * np.spacing(singular_vals[0]):
             u_mat = u_mat * np.sqrt(singular_vals[0])
             vt_mat = vt_mat * np.sqrt(singular_vals[0])
             dec = [u_mat[:, 0], vt_mat[:, 0]]

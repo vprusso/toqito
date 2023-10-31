@@ -48,7 +48,7 @@ def basis(dim: int, pos: int) -> np.ndarray:
             "Invalid: The `pos` variable needs to be less than `dim` for ket function."
         )
 
-    ret = np.array(list(map(int, list(f"{0:0{dim}}"))))
+    ret = np.array(list(int(x) for x in list(f"{0:0{dim}}")))
     ret[pos] = 1
     ret = ret.conj().T.reshape(-1, 1)
     return ret

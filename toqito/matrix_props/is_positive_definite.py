@@ -1,10 +1,10 @@
 """Is matrix a positive definite matrix."""
 import numpy as np
 
-from toqito.matrix_props import is_hermitian
+from toqito.matrix_props import is_hermitian  # pylint: disable=unused-import
 
 
-def is_positive_definite(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
+def is_positive_definite(mat: np.ndarray) -> bool:
     r"""
     Check if matrix is positive definite (PD) [WikPD]_.
 
@@ -54,8 +54,6 @@ def is_positive_definite(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-
         https://en.wikipedia.org/wiki/Definiteness_of_a_matrix
 
     :param mat: Matrix to check.
-    :param rtol: The relative tolerance parameter (default 1e-05).
-    :param atol: The absolute tolerance parameter (default 1e-08).
     :return: Return :code:`True` if matrix is positive definite, and :code:`False` otherwise.
     """
     if np.array_equal(mat, mat.conj().T):

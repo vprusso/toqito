@@ -75,8 +75,8 @@ def test_dual_channel_choi_dims():
 
 def test_dual_channel_nonsquare_matrix():
     """Dual of a channel that transposes 3x2 matrices."""
-    choi = swap_operator([2, 3])
-    choi_dual = dual_channel(choi, dims=[[3, 2], [2, 3]])
+    choi1 = swap_operator([2, 3])
+    choi_dual = dual_channel(choi1, dims=[[3, 2], [2, 3]])
     expected_choi_dual = np.array(
         [
             [1, 0, 0, 0, 0, 0],

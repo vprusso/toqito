@@ -211,8 +211,9 @@ class XORGame:
 
         for x_alice in range(alice_in):
             for y_bob in range(bob_in):
-                d_mat[x_alice, y_bob] = self.prob_mat[x_alice, y_bob] * \
-                    (-1) ** (self.pred_mat[x_alice, y_bob])
+                d_mat[x_alice, y_bob] = self.prob_mat[x_alice, y_bob] * (-1) ** (
+                    self.pred_mat[x_alice, y_bob]
+                )
 
         u_vec = cvxpy.Variable(alice_in, complex=False)
         v_vec = cvxpy.Variable(bob_in, complex=False)

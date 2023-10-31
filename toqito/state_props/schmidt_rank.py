@@ -92,7 +92,7 @@ def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray = None) -> f
     if dim is None:
         dim = slv
     if isinstance(dim, int):
-        dim = np.array([dim, len(rho) / dim], dtype=int)
+        dim = np.array([dim, len(rho) / dim], dtype=int)  # pylint: disable=redefined-variable-type
         dim[1] = np.round(dim[1])
 
     return np.linalg.matrix_rank(np.reshape(rho, dim[::-1]))
