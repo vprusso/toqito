@@ -5,7 +5,7 @@ import numpy as np
 import scipy
 
 
-def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | scipy.sparse.csr.csr_matrix:
+def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | scipy.sparse.csr_matrix:
     r"""
     Produce a Gell-Mann operator [WikGM]_.
 
