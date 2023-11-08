@@ -75,7 +75,7 @@ def log_negativity(rho: np.ndarray, dim: list[int] | int = None) -> float:
             "argument `dim` that match the size of `rho`."
         )
 
-    dim = [int(x) for x in dim]
+    dim = [int(x.item()) for x in dim]
 
     # Compute the log-negativity.
     return np.log2(np.linalg.norm(partial_transpose(rho, [1], dim), ord="nuc"))
