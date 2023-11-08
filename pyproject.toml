@@ -70,4 +70,5 @@ requires = ["setuptools","poetry>=0.12"]
 build-backend = "poetry.masonry.api"
 
 [tool.pytest.ini_options]
-filterwarnings = ["ignore:::cvxpy"]
+filterwarnings = ["ignore:::cvxpy",
+"ignore:::.*pytest_cov.plugin.py:233"]
