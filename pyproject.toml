@@ -36,11 +36,11 @@ keywords = ["quantum information", "quantum computing", "nonlocal games"]
 
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = ">=3.10,<3.12"
 cvxpy = "^1.2.1"
 cvxopt = "^1.2.5"
 numpy = "^1.19.4"
-scipy = "^1.8.0"
+scipy = "^1.10.0"
 #scs = "^2.1.2"
 picos = "^2.0.30"
 
@@ -56,8 +56,8 @@ pep8 = "^1.7"
 pydocstyle = "^6.1.1"
 pylint = "^2.4"
 pytest = "*"
-pytest-cov = "4.1.0"
-coverage = "5.5"
+pytest-cov = "^4.1.0"
+coverage = "^5.5"
 mypy = "^1.3.0"
 coveralls = "^1.9"
 setuptools = ">65.5.1"
