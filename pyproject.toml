@@ -70,4 +70,4 @@ requires = ["setuptools","poetry>=0.12"]
 build-backend = "poetry.masonry.api"
 
 [tool.pytest.ini_options]
-filterwarnings = ["ignore::UserWarning:cvxpy", "ignore::DeprecationWarning:cvxpy"]
+filterwarnings = ["ignore:::cvxpy"]
