@@ -7,6 +7,7 @@ from toqito.state_opt import symmetric_extension_hierarchy
 from toqito.states import basis, bell, werner
 
 
+@pytest.mark.filterwarnings("ignore::DeprecationWarning")
 def test_symmetric_extension_hierarchy_four_bell_density_matrices():
     """Symmetric extension hierarchy for four Bell density matrices."""
     states = [
@@ -26,6 +27,7 @@ def test_symmetric_extension_hierarchy_four_bell_states():
     np.testing.assert_equal(np.isclose(res, 1 / 2), True)
 
 
+@pytest.mark.filterwarnings("ignore::DeprecationWarning")
 def test_symmetric_extension_hierarchy_four_bell_with_resource_state_lvl_1():
     """Level 1 of hierarchy for four Bell states and resource state."""
     e_0, e_1 = basis(2, 0), basis(2, 1)
@@ -132,6 +134,7 @@ def test_invalid_symmetric_extension_hierarchy_states():
         symmetric_extension_hierarchy(states)
 
 
+@pytest.mark.filterwarnings("ignore::DeprecationWarning")
 def test_symmetric_extension_hierarchy_extremal_werner_states():
     """Symmetric extension hierarchy for two extremal Werner states."""
     dim = 5

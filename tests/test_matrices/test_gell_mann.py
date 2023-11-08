@@ -1,5 +1,6 @@
 """Test gell_mann."""
 import numpy as np
+import pytest
 
 from scipy.sparse import csr_matrix
 
@@ -97,6 +98,7 @@ def test_gell_mann_invalid_idx():
         gell_mann(9)
 
 
+@pytest.mark.filterwarnings("ignore::DeprecationWarning")
 def test_gell_mann_sparse():
     """Test sparse Gell-Mann matrix."""
     res = gell_mann(3, is_sparse=True)

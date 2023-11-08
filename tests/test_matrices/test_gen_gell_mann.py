@@ -1,5 +1,6 @@
 """Test gen_gell_mann."""
 import numpy as np
+import pytest
 
 from toqito.matrices import gen_gell_mann
 
@@ -13,6 +14,7 @@ def test_gell_mann_identity():
     np.testing.assert_equal(np.all(bool_mat), True)
 
 
+@pytest.mark.filterwarnings("ignore::DeprecationWarning")
 def test_gell_mann_pauli_x():
     """Generalized Gell-Mann operator Pauli-X."""
     expected_res = np.array([[0, 1], [1, 0]])
@@ -22,6 +24,7 @@ def test_gell_mann_pauli_x():
     np.testing.assert_equal(np.all(bool_mat), True)
 
 
+@pytest.mark.filterwarnings("ignore::DeprecationWarning")
 def test_gell_mann_pauli_y():
     """Generalized Gell-Mann operator Pauli-Y."""
     expected_res = np.array([[0, -1j], [1j, 0]])

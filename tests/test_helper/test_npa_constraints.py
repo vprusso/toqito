@@ -49,6 +49,7 @@ def cglmp_inequality(dim: int) -> tuple[dict[tuple[int, int], cvxpy.Variable], c
 
 
 # see Table 1. from NPA paper [arXiv:0803.4290].
+@pytest.mark.filterwarnings("ignore::DeprecationWarning")
 @pytest.mark.parametrize("k", [2, "1+ab+aab+baa"])
 def test_cglmp_inequality(k):
     """Test Collins-Gisin-Linden-Massar-Popescu inequality."""

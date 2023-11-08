@@ -2,6 +2,7 @@
 import unittest
 
 import numpy as np
+import pytest
 
 from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
 from toqito.states import basis
@@ -123,6 +124,7 @@ class TestExtendedNonlocalGame(unittest.TestCase):
 
         self.assertEqual(np.isclose(res, expected_res, atol=1e-3), True)
 
+    @pytest.mark.filterwarnings("ignore::DeprecationWarning")
     def test_bb84_quantum_value_lower_bound(self):
         """Calculate the lower bound for the quantum value of theBB84 game."""
         prob_mat, pred_mat = self.bb84_extended_nonlocal_game()
@@ -132,6 +134,7 @@ class TestExtendedNonlocalGame(unittest.TestCase):
 
         self.assertLessEqual(np.isclose(res, expected_res), True)
 
+    @pytest.mark.filterwarnings("ignore::DeprecationWarning")
     def test_bb84_nonsignaling_value(self):
         """Calculate the non-signaling value of the BB84 game."""
         prob_mat, pred_mat = self.bb84_extended_nonlocal_game()
@@ -141,6 +144,7 @@ class TestExtendedNonlocalGame(unittest.TestCase):
 
         self.assertEqual(np.isclose(res, expected_res, rtol=1e-03), True)
 
+    @pytest.mark.filterwarnings("ignore::DeprecationWarning")
     def test_bb84_nonsignaling_value_rep_2(self):
         """Calculate the non-signaling value of the BB84 game for 2 reps."""
         prob_mat, pred_mat = self.bb84_extended_nonlocal_game()
@@ -170,6 +174,7 @@ class TestExtendedNonlocalGame(unittest.TestCase):
 
         self.assertEqual(np.isclose(res, expected_res), True)
 
+    @pytest.mark.filterwarnings("ignore::DeprecationWarning")
     def test_bb84_commuting_value_upper_bound(self):
         """Calculate an upper bound on the commuting measurement value of the BB84 game."""
         prob_mat, pred_mat = self.bb84_extended_nonlocal_game()
@@ -179,6 +184,7 @@ class TestExtendedNonlocalGame(unittest.TestCase):
 
         self.assertEqual(np.isclose(res, expected_res), True)
 
+    @pytest.mark.filterwarnings("ignore::DeprecationWarning")
     def test_chsh_commuting_value_upper_bound(self):
         """Calculate an upper bound on the commuting measurement value of the CHSH game."""
         prob_mat, pred_mat = self.chsh_extended_nonlocal_game()
