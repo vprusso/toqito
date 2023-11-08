@@ -69,7 +69,5 @@ sphinx_rtd_theme = "*"
 requires = ["setuptools","poetry>=0.12"]
 build-backend = "poetry.masonry.api"
 
-[tool.pytest.ini_options]
-filterwarnings = ["ignore:::cvxpy"]
 
 
