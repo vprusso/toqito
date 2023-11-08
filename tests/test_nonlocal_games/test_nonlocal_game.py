@@ -2,12 +2,10 @@
 import unittest
 
 import numpy as np
-import pytest
 
 from toqito.nonlocal_games.nonlocal_game import NonlocalGame
 
 
-@pytest.mark.filterwarnings("ignore::DeprecationWarning")
 class TestNonlocalGame(unittest.TestCase):
     """Unit test for NonlocalGame."""
 

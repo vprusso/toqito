@@ -1,6 +1,5 @@
 """Test has_symmetric_extension."""
 import numpy as np
-import pytest
 
 from toqito.state_props import has_symmetric_extension
 from toqito.states import bell
@@ -42,7 +41,6 @@ def test_has_symmetric_extension_level_2_entangled_false_non_ppt():
     np.testing.assert_equal(has_symmetric_extension(rho, level=2, dim=2, ppt=False), False)
 
 
-@pytest.mark.filterwarnings("ignore::DeprecationWarning")
 def test_has_symmetric_extension_level_2_entangled_false_ppt():
     """Entangled state should not have PPT-symmetric extension for some level (level-2)."""
     rho = bell(0) * bell(0).conj().T

@@ -1,6 +1,5 @@
 """Tests for completely_bounded_trace_norm."""
 import numpy as np
-import pytest
 
 from toqito.channel_metrics import completely_bounded_trace_norm
 from toqito.channel_ops import kraus_to_choi
@@ -13,7 +12,6 @@ def test_cb_trace_norm_quantum_channel():
     np.testing.assert_equal(completely_bounded_trace_norm(phi), 1)
 
 
-@pytest.mark.filterwarnings("ignore::DeprecationWarning")
 def test_cb_trace_norm_unitaries_channel():
     """The diamond norm of phi = id- U id U* is the diameter of the smallest circle that contains the eigenvalues of U."""
     U = 1 / np.sqrt(2) * np.array([[1, 1], [-1, 1]])  # Hadamard gate

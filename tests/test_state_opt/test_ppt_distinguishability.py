@@ -1,13 +1,11 @@
 """Test ppt_distinguishability."""
 import numpy as np
-import pytest
 
 from toqito.perms import swap_operator
 from toqito.state_opt import ppt_distinguishability
 from toqito.states import basis, bell
 
 
-@pytest.mark.filterwarnings("ignore::DeprecationWarning")
 def test_ppt_distinguishability_yyd_density_matrices():
     """
     PPT distinguishing the YYD states from [1] should yield `7/8 ~ 0.875`
@@ -146,7 +144,6 @@ def test_ppt_distinguishability_yyd_states_no_probs():
     np.testing.assert_equal(np.isclose(dual_res, 3 / 4, atol=0.001), True)
 
 
-@pytest.mark.filterwarnings("ignore::DeprecationWarning")
 def test_ppt_distinguishability_werner_hiding_pairs():
     r"""
     One quantum data hiding scheme involves the Werner hiding pair.

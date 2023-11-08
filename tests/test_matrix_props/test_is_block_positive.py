@@ -10,7 +10,6 @@ from toqito.perms import swap, swap_operator
 from toqito.states import bell
 
 
-@pytest.mark.filterwarnings("ignore::DeprecationWarning")
 @pytest.mark.parametrize("dim", [2, 3, 4])
 def test_swap_operator_is_block_positive(dim):
     """Test Swap is 1-block positive but not 2-block positive."""
@@ -19,7 +18,6 @@ def test_swap_operator_is_block_positive(dim):
     np.testing.assert_equal(is_block_positive(mat, k=2), False)
 
 
-@pytest.mark.filterwarnings("ignore::DeprecationWarning")
 def test_choi_is_block_positive():
     """Test Choi map is 1-block positive but not 2-block positive."""
     mat = choi()
