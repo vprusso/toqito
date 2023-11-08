@@ -71,4 +71,4 @@ build-backend = "poetry.masonry.api"
 
 [tool.pytest.ini_options]
 filterwarnings = ["ignore:::cvxpy",
-"ignore:::.*pytest_cov.plugin.py:233"]
+"ignore:::.home.runner..cache.pypoetry.virtualenvs.toqito-QfgmswsN-py3.10.lib.python3.10.site-packages.pytest_cov.plugin.py:233"]
