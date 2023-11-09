@@ -5,7 +5,7 @@ import numpy as np
 import scipy
 
 
-def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | scipy.sparse.csr.csr_matrix:
+def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | scipy.sparse.csr_matrix:
     r"""
     Produce a Gell-Mann operator [WikGM]_.
 
@@ -117,6 +117,7 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | scipy.sparse.cs
         raise ValueError("Gell-Mann index values can only be values from 0 to 8 (inclusive).")
 
     if is_sparse:
-        gm_op = scipy.sparse.csr_matrix(gm_op)
-
+        gm_op_out = scipy.sparse.csr_matrix(gm_op)
+        return gm_op_out
+    
     return gm_op

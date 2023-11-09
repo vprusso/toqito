@@ -24,7 +24,7 @@ jobs:
           pip install poetry
           poetry install --no-interaction
       - name: Run tests
-        run: poetry run pytest -v --cov-report term-missing --cov-report xml:coverage.xml --cov=toqito tests/
+        run: poetry run pytest -v --cov-config=.coveragerc --cov-report term-missing --cov-report xml:coverage.xml --cov=toqito tests/
       - name: Run pylint
         run: poetry run pylint --exit-zero tests/ toqito/
       - name: Run pydocstyle

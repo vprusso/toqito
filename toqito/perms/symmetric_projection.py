@@ -1,6 +1,7 @@
 """Symmetric projection operator."""
 from itertools import permutations
 
+import math
 import numpy as np
 import scipy
 
@@ -87,7 +88,7 @@ def symmetric_projection(
         return np.eye(dim)
 
     p_list = np.array(list(permutations(np.arange(1, p_val + 1))))
-    p_fac = np.math.factorial(p_val)
+    p_fac = math.factorial(p_val)
     sym_proj = np.zeros((dimp, dimp))
 
     for j in range(p_fac):

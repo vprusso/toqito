@@ -8,5 +8,5 @@ def vectors_to_gram_matrix(vectors: list[np.ndarray]) -> np.ndarray:
     gram = np.zeros((n, n), dtype=complex)
     for i in range(n):
         for j in range(n):
-            gram[i, j] = vectors[i].conj().T @ vectors[j].reshape(-1, 1)
+            gram[i, j] = (vectors[i].conj().T @ vectors[j].reshape(-1, 1)).item()
     return gram

@@ -10,7 +10,7 @@ from toqito.matrix_ops import tensor
 
 def pauli(
     ind: int | str | list[int] | list[str], is_sparse: bool = False
-) -> np.ndarray | sparse.csr.csr_matrix:
+) -> np.ndarray | sparse.csr_matrix:
     r"""
     Produce a Pauli operator [WikPauli]_.
 
