@@ -103,7 +103,8 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
         sq_rho = scipy.linalg.sqrtm(rho)
         sqinv_rho = scipy.linalg.inv(sq_rho)
     except np.linalg.LinAlgError:
-        sq_rho = scipy.linalg.sqrtm(rho + 1e-8)  # if rho is not invertible, add epsilon=1e-8 to it
+        sq_rho = scipy.linalg.sqrtm(rho + 1e-7)  # if rho is not invertible, add epsilon=1e-7 to it
+        # note if epsilon=1e-8 or smaller, it leads to test failures.
         sqinv_rho = scipy.linalg.inv(sq_rho)
 
     sq_mfid = sq_rho @ scipy.linalg.sqrtm(sqinv_rho @ sigma @ sqinv_rho) @ sq_rho
