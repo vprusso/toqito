@@ -49,7 +49,3 @@ def test_w_state_invalid_coeff_list():
     """Length of coeff list needs to be equal to number of qubits."""
     with np.testing.assert_raises(ValueError):
         w_state(4, [1, 2, 3])
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

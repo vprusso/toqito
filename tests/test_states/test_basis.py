@@ -1,33 +1,20 @@
 """Test basis."""
 import numpy as np
+import pytest
 
 from toqito.states import basis
 
 
-def test_basis_ket_0():
-    """Test for `|0>`."""
-    expected_res = np.array([[1], [0]])
-    res = basis(2, 0)
-
-    bool_mat = np.isclose(res, expected_res)
-    np.testing.assert_equal(np.all(bool_mat), True)
-
-
-def test_basis_ket_1():
-    """Test for `|1>`."""
-    expected_res = np.array([[0], [1]])
-    res = basis(2, 1)
-
-    bool_mat = np.isclose(res, expected_res)
-    np.testing.assert_equal(np.all(bool_mat), True)
-
-
-def test_basis_ket_0000():
-    """Test for `|0000>`."""
-    expected_res = np.array([[1], [0], [0], [0]])
-    res = basis(4, 0)
-
-    bool_mat = np.isclose(res, expected_res)
+@pytest.mark.parametrize("dim, pos, expected_result", [
+    # Test for `|0>`.
+    (2, 0, np.array([[1], [0]])),
+    # Test for `|1>`.
+    (2, 1, np.array([[0], [1]])),
+    # Test for `|0000>`.
+    (4, 0, np.array([[1], [0], [0], [0]])),
+])
+def test_basis(dim, pos, expected_result):
+    bool_mat = np.isclose(basis(dim, pos), expected_result)
     np.testing.assert_equal(np.all(bool_mat), True)
 
 
@@ -35,7 +22,3 @@ def test_basis_invalid_dim():
     """Tests for invalid dimension inputs."""
     with np.testing.assert_raises(ValueError):
         basis(4, 4)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

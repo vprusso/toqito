@@ -20,7 +20,3 @@ def test_max_mixed_dim_2_sparse():
 
     bool_mat = np.isclose(res.toarray(), expected_res)
     np.testing.assert_equal(np.all(bool_mat), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

@@ -1,5 +1,6 @@
 """Test horodecki."""
 import numpy as np
+import pytest
 
 from toqito.states import horodecki
 
@@ -66,19 +67,15 @@ def test_horodecki_state_2_4():
     np.testing.assert_equal(np.all(bool_mat), True)
 
 
-def test_horodecki_invalid_a_param():
-    """Tests for invalid a_param inputs."""
+@pytest.mark.parametrize("a_param, dim", [
+    # Invalid a_param (negative)."""
+    (-5, None),
+    # Invalid a_param."""
+    (5, None),
+    # Tests for invalid dimension inputs.
+    (0.5, [3, 4]),
+])
+def test_horodecki_invalid(a_param, dim):
+    """Tests for invalid a_param and dimension inputs."""
     with np.testing.assert_raises(ValueError):
-        horodecki(-5)
-    with np.testing.assert_raises(ValueError):
-        horodecki(5)
-
-
-def test_horodecki_invalid_dim():
-    """Tests for invalid dimension inputs."""
-    with np.testing.assert_raises(ValueError):
-        horodecki(0.5, [3, 4])
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()
+        horodecki(a_param, dim)

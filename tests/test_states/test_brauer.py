@@ -1,37 +1,35 @@
 """Test brauer."""
 import numpy as np
+import pytest
 
 from toqito.states import brauer
 
+brauer_2_2 = np.array(
+    [
+        [1, 1, 1],
+        [0, 0, 0],
+        [0, 0, 0],
+        [1, 0, 0],
+        [0, 0, 0],
+        [0, 1, 0],
+        [0, 0, 1],
+        [0, 0, 0],
+        [0, 0, 0],
+        [0, 0, 1],
+        [0, 1, 0],
+        [0, 0, 0],
+        [1, 0, 0],
+        [0, 0, 0],
+        [0, 0, 0],
+        [1, 1, 1],
+    ]
+)
 
-def test_brauer_2_dim_2_pval():
-    """Generate Brauer states on 4 qubits."""
-    expected_res = np.array(
-        [
-            [1, 1, 1],
-            [0, 0, 0],
-            [0, 0, 0],
-            [1, 0, 0],
-            [0, 0, 0],
-            [0, 1, 0],
-            [0, 0, 1],
-            [0, 0, 0],
-            [0, 0, 0],
-            [0, 0, 1],
-            [0, 1, 0],
-            [0, 0, 0],
-            [1, 0, 0],
-            [0, 0, 0],
-            [0, 0, 0],
-            [1, 1, 1],
-        ]
-    )
 
-    res = brauer(2, 2)
-
-    bool_mat = np.isclose(res, expected_res)
+@pytest.mark.parametrize("dim, p_val, expected_result", [
+    # Generate Brauer states on 4 qubits.
+    (2, 2, brauer_2_2),
+])
+def test_brauer(dim, p_val, expected_result):
+    bool_mat = np.isclose(brauer(dim, p_val), expected_result)
     np.testing.assert_equal(np.all(bool_mat), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

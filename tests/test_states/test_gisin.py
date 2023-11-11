@@ -25,7 +25,3 @@ def test_gisin_invalid():
     """Invalid Gisin state parameters."""
     with np.testing.assert_raises(ValueError):
         gisin(5, 1)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

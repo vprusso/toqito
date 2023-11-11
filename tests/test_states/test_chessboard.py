@@ -20,7 +20,3 @@ def test_chessboard_default_s_t():
     """The chessboard_state with default `s_param` and `t_param`."""
     res = chessboard([1, 2, 3, 4, 5, 6])
     np.testing.assert_equal(np.isclose(res[0][0], 0.3863449236810438), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

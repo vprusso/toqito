@@ -1,16 +1,21 @@
 """Test ghz."""
 import numpy as np
+import pytest
 
 from toqito.matrix_ops import tensor
-from toqito.states import basis, ghz
+from toqito.states import ghz
 
 
-def test_ghz_2_3():
-    """Produces the 3-qubit GHZ state: `1/sqrt(2) * (|000> + |111>)`."""
-    e_0, e_1 = basis(2, 0), basis(2, 1)
-    expected_res = 1 / np.sqrt(2) * (tensor(e_0, e_0, e_0) + tensor(e_1, e_1, e_1))
+e_0, e_1 = np.array([[1], [0]]), np.array([[0], [1]])
+ghz_2_3 = 1 / np.sqrt(2) * (tensor(e_0, e_0, e_0) + tensor(e_1, e_1, e_1))
 
-    res = ghz(2, 3).toarray()
+
+@pytest.mark.parametrize("dim, num_qubits, coeff, expected_res", [
+     # Produces the 3-qubit GHZ state: `1/sqrt(2) * (|000> + |111>)`.
+    (2, 3, None, ghz_2_3),
+])
+def test_ghz(dim, num_qubits, coeff, expected_res):
+    res = ghz(dim, num_qubits, coeff).toarray()
 
     bool_mat = np.isclose(res, expected_res)
     np.testing.assert_equal(np.all(bool_mat), True)
@@ -44,23 +49,15 @@ def test_ghz_4_7():
     np.testing.assert_equal(np.all(bool_mat), True)
 
 
-def test_ghz_invalid_dim():
+@pytest.mark.parametrize("dim, num_qubits, coeff", [
+    # Invalid dimensions.
+    (0, 2, None),
+    # Invalid qubits.
+    (2, 0, None),
+    # Invalid coefficients.
+    (2, 3, [1, 2, 3, 4, 5]),
+])
+def test_ghz_invalid_input(dim, num_qubits, coeff):
     """Tests for invalid dimensions."""
     with np.testing.assert_raises(ValueError):
-        ghz(0, 2)
-
-
-def test_ghz_invalid_qubits():
-    """Tests for invalid number of qubits."""
-    with np.testing.assert_raises(ValueError):
-        ghz(2, 0)
-
-
-def test_ghz_invalid_coeff():
-    """Tests for invalid coefficients."""
-    with np.testing.assert_raises(ValueError):
-        ghz(2, 3, [1, 2, 3, 4, 5])
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()
+        ghz(dim, num_qubits, coeff)
