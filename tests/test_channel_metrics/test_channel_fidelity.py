@@ -1,5 +1,6 @@
 """Tests for channel_fidelity."""
 import numpy as np
+import pytest
 
 from toqito.channel_metrics import channel_fidelity
 from toqito.channels import dephasing, depolarizing
@@ -20,7 +21,7 @@ from toqito.channels import dephasing, depolarizing
 
 def test_channel_fidelity_inconsistent_dims():
     """Inconsistent dimensions between Choi matrices."""
-    with np.testing.assert_raises(ValueError):
+    with pytest.raises(ValueError, match='The Choi matrices provided should be of equal dimension.'):
         choi_1 = depolarizing(4)
         choi_2 = dephasing(2)
         channel_fidelity(choi_1, choi_2)
@@ -28,11 +29,7 @@ def test_channel_fidelity_inconsistent_dims():
 
 def test_channel_fidelity_non_square():
     """Non-square inputs for channel fidelity."""
-    with np.testing.assert_raises(ValueError):
+    with pytest.raises(ValueError, match='The Choi matrix provided must be square.'):
         choi_1 = np.array([[1, 2, 3], [4, 5, 6]])
         choi_2 = np.array([[1, 2, 3], [4, 5, 6]])
         channel_fidelity(choi_1, choi_2)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()
