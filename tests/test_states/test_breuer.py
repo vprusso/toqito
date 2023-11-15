@@ -10,7 +10,7 @@ from toqito.states import breuer
     (2, 0.1, np.array([[0.3, 0, 0, 0], [0, 0.2, 0.1, 0], [0, 0.1, 0.2, 0], [0, 0, 0, 0.3]])),
 ])
 def test_breuer(dim, lam, expected_result):
-    np.testing.assert_array_equal(breuer(dim, lam), expected_result)
+    np.testing.assert_allclose(breuer(dim, lam), expected_result)
 
 
 @pytest.mark.parametrize("dim, lam", [
