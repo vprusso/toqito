@@ -17,5 +17,4 @@ from toqito.states import bell, gen_bell
 
 ])
 def test_gen_bell(k_1, k_2, dim, expected_result):
-    bool_mat = np.isclose(gen_bell(k_1, k_2, dim), expected_result)
-    np.testing.assert_equal(np.all(bool_mat), True)
+    np.testing.assert_allclose(gen_bell(k_1, k_2, dim), expected_result)

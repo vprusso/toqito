@@ -16,5 +16,4 @@ e_0, e_1 = np.array([[1], [0]]), np.array([[0], [1]])
 ])
 def test_max_entangled(dim, is_sparse, is_normalized, expected_res):
     res = max_entangled(dim=dim, is_sparse=is_sparse, is_normalized=is_normalized)
-    bool_mat = np.isclose(res, expected_res)
-    np.testing.assert_equal(np.all(bool_mat), True)
+    np.testing.assert_allclose(res, expected_res)

@@ -16,9 +16,7 @@ def test_gisin_valid():
     )
 
     res = gisin(0.5, 1)
-
-    bool_mat = np.isclose(res, expected_res)
-    np.testing.assert_equal(np.all(bool_mat), True)
+    np.testing.assert_allclose(res, expected_res)
 
 
 def test_gisin_invalid():

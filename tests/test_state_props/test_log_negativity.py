@@ -1,42 +1,26 @@
 """Test log_negativity."""
 import numpy as np
+import pytest
 
 from toqito.state_props import log_negativity
 
 
-def test_log_negativity_rho():
-    """Test for log_negativity on rho."""
-    test_input_mat = np.array(
-        [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
-    )
-    np.testing.assert_equal(np.isclose(log_negativity(test_input_mat), 1), True)
+@pytest.mark.parametrize("rho, dim, expected_result", [
+    # Test for log_negativity on rho.
+    (np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]), None, 1),
+    # Test for log_negativity on rho (with dimension).
+    (np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]), 2, 1),
+])
+def test_log_negativity(rho, dim, expected_result):
+    np.testing.assert_allclose(log_negativity(rho, dim), expected_result)
 
 
-def test_log_negativity_rho_dim_int():
-    """Test for log_negativity on rho."""
-    test_input_mat = np.array(
-        [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
-    )
-    np.testing.assert_equal(np.isclose(log_negativity(test_input_mat, 2), 1), True)
-
-
-def test_log_negativity_invalid_rho_dim_int():
-    """Invalid dim parameters."""
+@pytest.mark.parametrize("rho, dim", [
+    # Invalid dim parameters.
+    (np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]), 5),
+    # Invalid dim parameters as list.
+    (np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]), [2, 5]),
+])
+def test_log_negativity_invalid_input(rho, dim):
     with np.testing.assert_raises(ValueError):
-        test_input_mat = np.array(
-            [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
-        )
-        log_negativity(test_input_mat, 5)
-
-
-def test_log_negativity_invalid_rho_dim_vec():
-    """Invalid dim parameters."""
-    with np.testing.assert_raises(ValueError):
-        test_input_mat = np.array(
-            [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
-        )
-        log_negativity(test_input_mat, [2, 5])
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()
+        log_negativity(rho, dim)

@@ -22,8 +22,7 @@ def test_horodecki_state_3_3_default():
     )
 
     res = horodecki(0.5)
-    bool_mat = np.isclose(expected_res, res, atol=0.0001)
-    np.testing.assert_equal(np.all(bool_mat), True)
+    np.testing.assert_allclose(res, expected_res, atol=0.0001)
 
 
 def test_horodecki_state_3_3():
@@ -43,8 +42,7 @@ def test_horodecki_state_3_3():
     )
 
     res = horodecki(0.5, [3, 3])
-    bool_mat = np.isclose(expected_res, res, atol=0.0001)
-    np.testing.assert_equal(np.all(bool_mat), True)
+    np.testing.assert_allclose(res, expected_res, atol=0.0001)
 
 
 def test_horodecki_state_2_4():
@@ -63,8 +61,7 @@ def test_horodecki_state_2_4():
     )
 
     res = horodecki(0.5, [2, 4])
-    bool_mat = np.isclose(expected_res, res, atol=0.2)
-    np.testing.assert_equal(np.all(bool_mat), True)
+    np.testing.assert_allclose(res, expected_res, atol=0.2)
 
 
 @pytest.mark.parametrize("a_param, dim", [

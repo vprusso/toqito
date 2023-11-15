@@ -11,6 +11,4 @@ def test_gen_bell_dim_2():
     expected_res = bell(3) * bell(3).conj().T
 
     res = singlet(dim)
-
-    bool_mat = np.isclose(res, expected_res)
-    np.testing.assert_equal(np.all(bool_mat), True)
+    np.testing.assert_allclose(res, expected_res)

@@ -90,7 +90,3 @@ def test_entangled_cross_norm_realignment_criterion():
         ]
     )
     np.testing.assert_equal(is_separable(rho), False)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

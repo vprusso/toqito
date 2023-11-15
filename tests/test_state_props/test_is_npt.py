@@ -6,7 +6,6 @@ from toqito.state_props import is_npt
 from toqito.states import bell, horodecki
 
 
-# def is_npt(mat: np.ndarray, sys: int = 2, dim: int | list[int] = None, tol: float = None) -> bool:
 @pytest.mark.parametrize("mat, sys, dim, tol, expected_result", [
     # Check that non-NPT matrix returns False with sys specified.
     (np.identity(9), 2, None, None, False),

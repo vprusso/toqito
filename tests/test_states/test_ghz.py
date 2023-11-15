@@ -16,9 +16,7 @@ ghz_2_3 = 1 / np.sqrt(2) * (tensor(e_0, e_0, e_0) + tensor(e_1, e_1, e_1))
 ])
 def test_ghz(dim, num_qubits, coeff, expected_res):
     res = ghz(dim, num_qubits, coeff).toarray()
-
-    bool_mat = np.isclose(res, expected_res)
-    np.testing.assert_equal(np.all(bool_mat), True)
+    np.testing.assert_allclose(res, expected_res)
 
 
 def test_ghz_4_7():
@@ -44,9 +42,7 @@ def test_ghz_4_7():
     )
 
     res = ghz(4, 7, np.array([1, 2, 3, 4]) / np.sqrt(30)).toarray()
-
-    bool_mat = np.isclose(res, expected_res)
-    np.testing.assert_equal(np.all(bool_mat), True)
+    np.testing.assert_allclose(res, expected_res)
 
 
 @pytest.mark.parametrize("dim, num_qubits, coeff", [
