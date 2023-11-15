@@ -8,8 +8,7 @@ import numpy as np
 import scipy
 
 from toqito.channels import partial_trace, partial_transpose, realignment
-from toqito.helper import kp_norm
-from toqito.matrix_props import is_hermitian
+from toqito.matrix_props import is_hermitian, kp_norm
 from toqito.perms import swap, symmetric_projection
 from toqito.state_ops.schmidt_decomposition import schmidt_decomposition
 from toqito.state_props.schmidt_rank import schmidt_rank
