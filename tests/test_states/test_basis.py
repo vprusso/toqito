@@ -14,8 +14,7 @@ from toqito.states import basis
     (4, 0, np.array([[1], [0], [0], [0]])),
 ])
 def test_basis(dim, pos, expected_result):
-    bool_mat = np.isclose(basis(dim, pos), expected_result)
-    np.testing.assert_equal(np.all(bool_mat), True)
+    np.testing.assert_array_equal(basis(dim, pos), expected_result)
 
 
 def test_basis_invalid_dim():
