@@ -31,5 +31,4 @@ brauer_2_2 = np.array(
     (2, 2, brauer_2_2),
 ])
 def test_brauer(dim, p_val, expected_result):
-    bool_mat = np.isclose(brauer(dim, p_val), expected_result)
-    np.testing.assert_equal(np.all(bool_mat), True)
+    np.testing.assert_array_equal(brauer(dim, p_val), expected_result)
