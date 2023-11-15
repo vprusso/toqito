@@ -28,8 +28,7 @@ e_0, e_1, e_2 = np.array([[1], [0], [0]]), np.array([[0], [1], [0]]), np.array([
     (8, np.kron(1 / np.sqrt(2) * (e_0 - e_1), e_2)),
 ])
 def test_domino(idx, expected_result):
-    bool_mat = np.isclose(domino(idx), expected_result)
-    np.testing.assert_equal(np.all(bool_mat), True)
+    np.testing.assert_array_equal(domino(idx), expected_result)
 
 
 def test_domino_invalid_index():
