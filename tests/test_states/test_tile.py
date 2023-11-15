@@ -22,8 +22,7 @@ e_0, e_1, e_2 = np.array([[1], [0], [0]]), np.array([[0], [1], [0]]), np.array([
     (4, 1 / 3 * np.kron((e_0 + e_1 + e_2), (e_0 + e_1 + e_2))),
 ])
 def test_tile(tile_idx, expected_result):
-    bool_mat = np.isclose(tile(tile_idx), expected_result)
-    np.testing.assert_equal(np.all(bool_mat), True)
+    np.testing.assert_array_equal(tile(tile_idx), expected_result)
 
 
 @pytest.mark.parametrize("tile_idx", [
