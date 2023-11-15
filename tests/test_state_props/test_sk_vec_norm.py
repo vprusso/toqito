@@ -13,7 +13,3 @@ def test_sk_norm_maximally_entagled_state(n, k):
     res = sk_vector_norm(v_vec, k=k)
 
     np.testing.assert_equal(np.isclose(res, np.sqrt(k / n)), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

@@ -1,5 +1,6 @@
 """Test w_state."""
 import numpy as np
+import pytest
 
 from toqito.matrix_ops import tensor
 from toqito.states import basis, w_state
@@ -13,9 +14,7 @@ def test_w_state_3():
     )
 
     res = w_state(3)
-
-    bool_mat = np.isclose(res, expected_res, atol=0.2)
-    np.testing.assert_equal(np.all(bool_mat), True)
+    np.testing.assert_allclose(res, expected_res, atol=0.2)
 
 
 def test_w_state_generalized():
@@ -34,22 +33,15 @@ def test_w_state_generalized():
 
     coeffs = np.array([1, 2, 3, 4]) / np.sqrt(30)
     res = w_state(4, coeffs)
-
-    bool_mat = np.isclose(res, expected_res, atol=0.2)
-    np.testing.assert_equal(np.all(bool_mat), True)
+    np.testing.assert_allclose(res, expected_res, atol=0.2)
 
 
-def test_w_state_invalid_num_qubits():
-    """Number of qubits needs to be greater than 2."""
+@pytest.mark.parametrize("idx, coeff", [
+    # Number of qubits needs to be greater than 2.
+    (1, None),
+    # Length of coefficient list needs to be equal to number of qubits.
+    (4, [1, 2, 3]),
+])
+def test_w_state_invalid(idx, coeff):
     with np.testing.assert_raises(ValueError):
-        w_state(1)
-
-
-def test_w_state_invalid_coeff_list():
-    """Length of coeff list needs to be equal to number of qubits."""
-    with np.testing.assert_raises(ValueError):
-        w_state(4, [1, 2, 3])
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()
+        w_state(idx, coeff)

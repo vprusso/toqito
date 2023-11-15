@@ -21,7 +21,3 @@ def test_werner_invalid_alpha():
     """Test for invalid `alpha` parameter."""
     with np.testing.assert_raises(ValueError):
         werner(3, [1, 2])
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

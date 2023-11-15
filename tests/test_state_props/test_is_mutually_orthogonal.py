@@ -1,28 +1,25 @@
 """Test is_mutually_orthogonal."""
 import numpy as np
+import pytest
 
 from toqito.state_props import is_mutually_orthogonal
 from toqito.states import bell
 
 
-def test_is_mutually_orthogonal_bell_states():
-    """Return True for orthogonal Bell vectors."""
-    states = [bell(0), bell(1), bell(2), bell(3)]
-    np.testing.assert_equal(is_mutually_orthogonal(states), True)
+@pytest.mark.parametrize("states, expected_result", [
+    # Return True for orthogonal Bell vectors.
+    ([bell(0), bell(1), bell(2), bell(3)], True),
+    # Return False for non-orthogonal vectors.
+    ([np.array([1, 0]), np.array([1, 1])], False),
+])
+def test_is_mutually_orthogonal(states, expected_result):
+    np.testing.assert_equal(is_mutually_orthogonal(states), expected_result)
 
 
-def test_is_not_mutually_orthogonal():
-    """Return False for non-orthogonal vectors."""
-    states = [np.array([1, 0]), np.array([1, 1])]
-    np.testing.assert_equal(is_mutually_orthogonal(states), False)
-
-
-def test_is_mutually_orthogonal_basis_invalid_input_len():
-    """Tests for invalid input len."""
+@pytest.mark.parametrize("states", [
+    # Tests for invalid input len.
+    ([np.array([1, 0])]),
+])
+def test_is_mutually_orthogonal_basis_invalid_input(states):
     with np.testing.assert_raises(ValueError):
-        vec_list = [np.array([1, 0])]
-        is_mutually_orthogonal(vec_list)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()
+        is_mutually_orthogonal(states)

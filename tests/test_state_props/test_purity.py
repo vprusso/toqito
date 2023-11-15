@@ -1,30 +1,25 @@
 """Tests for purity."""
 import numpy as np
+import pytest
 
 from toqito.state_props import purity
 from toqito.states import werner
 
 
-def test_purity():
-    """Test for identity matrix."""
-    expected_res = 1 / 4
-    res = purity(np.identity(4) / 4)
-    np.testing.assert_equal(res, expected_res)
+@pytest.mark.parametrize("rho, expected_result", [
+    # Test for identity matrix.
+    (np.identity(4) / 4, 1 / 4),
+    # Test purity of mixed Werner state.
+    (werner(2, 1 / 4), 0.2653),
+])
+def test_purity(rho, expected_result):
+    np.testing.assert_allclose(purity(rho), expected_result, atol=4)
 
 
-def test_purity_non_density_matrix():
-    r"""Test purity on non-density matrix."""
-    rho = np.array([[1, 2], [3, 4]])
-
+@pytest.mark.parametrize("rho", [
+    # Test purity on non-density matrix.
+    (np.array([[1, 2], [3, 4]])),
+])
+def test_purity_invalid(rho):
     with np.testing.assert_raises(ValueError):
         purity(rho)
-
-
-def test_purity_werner_state():
-    """Test purity of mixed Werner state."""
-    res = purity(werner(2, 1 / 4))
-    np.testing.assert_equal(np.isclose(res, 0.2653, atol=4), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

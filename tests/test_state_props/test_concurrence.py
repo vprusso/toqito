@@ -1,38 +1,29 @@
 """Test concurrence."""
 import numpy as np
+import pytest
 
 from toqito.state_props import concurrence
-from toqito.states import basis
+from toqito.states import bell
 
 
-def test_concurrence_entangled():
-    """The concurrence on maximally entangled Bell state."""
-    e_0, e_1 = basis(2, 0), basis(2, 1)
-    e_00, e_11 = np.kron(e_0, e_0), np.kron(e_1, e_1)
+e_0, e_1 = np.array([[1], [0]]), np.array([[0], [1]])
 
-    u_vec = 1 / np.sqrt(2) * (e_00 + e_11)
-    rho = u_vec * u_vec.conj().T
 
+@pytest.mark.parametrize("rho, expected_result", [
+    # Concurrence of maximally entangled Bell state.
+    (bell(0) @ bell(0).conj().T, 1),
+    # Concurrence of a product state is zero.
+    (np.kron(e_0, e_1) @ np.kron(e_0, e_1).conj().T, 0),
+])
+def test_concurrence(rho, expected_result):
     res = concurrence(rho)
-    np.testing.assert_equal(np.isclose(res, 1), True)
+    np.testing.assert_equal(np.isclose(res, expected_result), True)
 
 
-def test_concurrence_separable():
-    """The concurrence of a product state is zero."""
-    e_0, e_1 = basis(2, 0), basis(2, 1)
-    v_vec = np.kron(e_0, e_1)
-    sigma = v_vec * v_vec.conj().T
-
-    res = concurrence(sigma)
-    np.testing.assert_equal(np.isclose(res, 0), True)
-
-
-def test_concurrence_invalid_dim():
-    """Tests for invalid dimension inputs."""
+@pytest.mark.parametrize("rho", [
+    # Tests for invalid dimension inputs.
+    (np.identity(5)),
+])
+def test_concurrence_invalid_input(rho):
     with np.testing.assert_raises(ValueError):
-        rho = np.identity(5)
         concurrence(rho)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()
