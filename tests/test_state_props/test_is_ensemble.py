@@ -1,24 +1,15 @@
 """Test is_ensemble."""
 import numpy as np
+import pytest
 
 from toqito.state_props import is_ensemble
 
 
-def test_is_ensemble_true():
-    """Test if valid ensemble returns True."""
-    rho_0 = np.array([[0.5, 0], [0, 0]])
-    rho_1 = np.array([[0, 0], [0, 0.5]])
-    states = [rho_0, rho_1]
-    np.testing.assert_equal(is_ensemble(states), True)
-
-
-def test_is_non_ensemble_non_psd():
-    """Test if non-valid ensemble returns False."""
-    rho_0 = np.array([[0.5, 0], [0, 0]])
-    rho_1 = np.array([[-1, -1], [-1, -1]])
-    states = [rho_0, rho_1]
-    np.testing.assert_equal(is_ensemble(states), False)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()
+@pytest.mark.parametrize("states, expected_result", [
+    # Test if valid ensemble returns True.
+    ([np.array([[0.5, 0], [0, 0]]), np.array([[0, 0], [0, 0.5]])], True),
+    # Test if non-valid (non-PSD) ensemble returns False.
+    ([np.array([[0.5, 0], [0, 0]]), np.array([[-1, -1], [-1, -1]])], False),
+])
+def test_is_ensemble(states, expected_result):
+    np.testing.assert_equal(is_ensemble(states), expected_result)
