@@ -18,8 +18,7 @@ e_0, e_1 = np.array([[1], [0]]), np.array([[0], [1]])
     (3, 1 / np.sqrt(2) * (np.kron(e_0, e_1) - np.kron(e_1, e_0))),
 ])
 def test_bell(bell_idx, expected_result):
-    bool_mat = np.isclose(bell(bell_idx), expected_result)
-    np.testing.assert_equal(np.all(bool_mat), True)
+    np.testing.assert_array_equal(bell(bell_idx), expected_result)
 
 
 @pytest.mark.parametrize("bell_idx", [
