@@ -1,9 +1,10 @@
 """Tests for the S(k)-norm of a matrix."""
 # Tests in this file, follow the discussion of the characteristics of kp_norm at https://qetlab.com/kpNorm
 
+import re
+
 import numpy as np
 import pytest
-import re
 
 from toqito.matrix_props import kp_norm, trace_norm
 from toqito.states import bell
@@ -32,4 +33,4 @@ def test_no_default_kp_values():
     with pytest.raises(
         TypeError, match=re.escape("kp_norm() missing 2 required positional arguments: 'k' and 'p'")
     ):
-        kp_norm(bell(0))
+        kp_norm(bell(0))  # pylint: disable=no-value-for-parameter
