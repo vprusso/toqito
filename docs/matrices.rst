@@ -65,6 +65,7 @@ Properties of Matrices and Vectors
     toqito.matrix_props.is_square
     toqito.matrix_props.is_symmetric
     toqito.matrix_props.is_unitary
+    toqito.matrix_props.kp_norm
     toqito.matrix_props.majorizes
     toqito.matrix_props.sk_operator_norm
     toqito.matrix_props.trace_norm
