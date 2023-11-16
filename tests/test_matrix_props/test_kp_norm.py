@@ -30,7 +30,6 @@ def test_frobenius_norm():
 def test_no_default_kp_values():
     """kp_norm does not have any default values for k or p."""
     with pytest.raises(
-        TypeError,
-        match= re.escape("kp_norm() missing 2 required positional arguments: 'k' and 'p'")):
-            kp_norm(bell(0))
-
+        TypeError, match=re.escape("kp_norm() missing 2 required positional arguments: 'k' and 'p'")
+    ):
+        kp_norm(bell(0))
