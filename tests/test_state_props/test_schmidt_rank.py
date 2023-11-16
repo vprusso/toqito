@@ -6,7 +6,7 @@ from toqito.state_props import schmidt_rank
 from toqito.states import basis, bell
 
 
-bas_0, bas_1 = np.array([[1], [0]]), np.array([[0], [1]])
+e_0, e_1 = np.array([[1], [0]]), np.array([[0], [1]])
 
 
 @pytest.mark.parametrize("rho, dim, expected_result", [
@@ -17,7 +17,7 @@ bas_0, bas_1 = np.array([[1], [0]]), np.array([[0], [1]])
     # Computing the Schmidt rank of Bell state with list as argument for dims.
     (bell(0), [2, 2], 2),
     # Computing the Schmidt rank of a separable state should yield a value equal to 1.
-    (1 / 2 * (np.kron(bas_0, bas_0) - np.kron(bas_0, bas_1) - np.kron(bas_1, bas_0) + np.kron(bas_1, bas_1)), None, 1),
+    (1 / 2 * (np.kron(e_0, e_0) - np.kron(e_0, e_1) - np.kron(e_1, e_0) + np.kron(e_1, e_1)), None, 1),
     # Computing Schmidt rank of separable density matrix should be 1.
     (np.identity(4), None, 1),
     # Computing Schmidt rank of separable density matrix should be 1.
