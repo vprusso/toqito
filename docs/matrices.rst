@@ -18,7 +18,6 @@ Matrices
     toqito.matrices.gen_gell_mann
     toqito.matrices.gen_pauli
     toqito.matrices.hadamard
-    toqito.matrices.iden
     toqito.matrices.pauli
     toqito.matrices.shift
     toqito.matrices.standard_basis
