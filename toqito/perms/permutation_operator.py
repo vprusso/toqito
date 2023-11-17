@@ -2,8 +2,8 @@
 
 
 import numpy as np
+import scipy as sp
 
-from toqito.matrices import iden
 from toqito.perms import permute_systems
 
 
@@ -59,5 +59,6 @@ def permutation_operator(
     if isinstance(dim, list):
         dim = np.array(dim)
 
+    mat = sp.sparse.identity(int(np.prod(dim))) if is_sparse else np.identity(int(np.prod(dim)))
     # Swap the rows of the identity matrix appropriately.
-    return permute_systems(iden(int(np.prod(dim)), is_sparse), perm, dim, True, inv_perm)
+    return permute_systems(mat, perm, dim, True, inv_perm)

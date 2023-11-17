@@ -2,8 +2,8 @@
 
 
 import numpy as np
+import scipy as sp
 
-from toqito.matrices import iden
 from toqito.perms import swap
 
 
@@ -60,5 +60,6 @@ def swap_operator(dim: list[int] | int, is_sparse: bool = False) -> np.ndarray:
     if isinstance(dim, int):
         dim = np.array([dim, dim])
 
+    mat = sp.sparse.identity(int(np.prod(dim))) if is_sparse else np.identity(int(np.prod(dim)))
     # Swap the rows of the identity appropriately.
-    return swap(iden(int(np.prod(dim)), is_sparse), [1, 2], dim, True)
+    return swap(mat, [1, 2], dim, True)
