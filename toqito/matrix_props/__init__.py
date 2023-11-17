@@ -1,5 +1,6 @@
 """Properties of matrices and vectors."""
 from toqito.matrix_props.is_square import is_square
+from toqito.matrix_props.kp_norm import kp_norm
 from toqito.matrix_props.is_hermitian import is_hermitian
 from toqito.matrix_props.is_positive_semidefinite import is_positive_semidefinite
 from toqito.matrix_props.is_density import is_density
@@ -20,3 +21,4 @@ from toqito.matrix_props.sk_norm import sk_operator_norm
 from toqito.matrix_props.is_block_positive import is_block_positive
 from toqito.matrix_props.trace_norm import trace_norm
 from toqito.matrix_props.is_diagonally_dominant import is_diagonally_dominant
+

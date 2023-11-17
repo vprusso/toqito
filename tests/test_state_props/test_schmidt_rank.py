@@ -3,7 +3,7 @@ import numpy as np
 import pytest
 
 from toqito.state_props import schmidt_rank
-from toqito.states import basis, bell
+from toqito.states import bell
 
 
 e_0, e_1 = np.array([[1], [0]]), np.array([[0], [1]])
@@ -41,7 +41,6 @@ def test_schmidt_rank_bell_state(rho, dim, expected_result):
 
 def test_schmidt_rank_entangled_state():
     """Computing Schmidt rank of entangled state should be > 1."""
-    e_0, e_1 = basis(2, 0), basis(2, 1)
     phi = (
         (1 + np.sqrt(6)) / (2 * np.sqrt(6)) * np.kron(e_0, e_0)
         + (1 - np.sqrt(6)) / (2 * np.sqrt(6)) * np.kron(e_0, e_1)
@@ -55,6 +54,5 @@ def test_schmidt_rank_singlet_state():
     Computing the Schmidt rank of the entangled singlet state should yield
     a value greater than 1.
     """
-    e_0, e_1 = basis(2, 0), basis(2, 1)
     rho = 1 / np.sqrt(2) * (np.kron(e_0, e_1) - np.kron(e_1, e_0))
     np.testing.assert_equal(schmidt_rank(rho) > 1, True)
