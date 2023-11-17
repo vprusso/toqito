@@ -46,7 +46,7 @@ extensions = [
 
 bibtex_bibfiles = ["books.bib", "articles.bib"]
 bibtex_default_style = "unsrt"
-
+suppress_warnings = ["bibtex.duplicate_label", "bibtex.duplicate_citation", "bibtex.duplicate_id"]
 master_doc = "index"
 autosummary_generate = True
 autodoc_typehints = "none"

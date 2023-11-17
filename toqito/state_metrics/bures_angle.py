@@ -56,6 +56,7 @@ def bures_angle(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> flo
     References
     ==========
     .. bibliography::
+        :filter: docname in docnames
 
     :raises ValueError: If matrices are not of equal dimension.
     :param rho_1: Density operator.
