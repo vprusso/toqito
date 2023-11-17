@@ -41,7 +41,11 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinx.ext.githubpages",
     "sphinx.ext.napoleon",
+    "sphinxcontrib.bibtex",
 ]
+
+bibtex_bibfiles = ["books.bib", "articles.bib"]
+bibtex_default_style = "unsrt"
 
 master_doc = "index"
 autosummary_generate = True

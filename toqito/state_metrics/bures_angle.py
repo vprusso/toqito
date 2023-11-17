@@ -6,7 +6,7 @@ from toqito.state_metrics import fidelity
 
 def bures_angle(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> float:
     r"""
-    Compute the Bures angle of two density matrices [WikBures]_.
+    Compute the Bures angle of two density matrices :cite:`WikiBures`.
 
     Calculate the Bures angle between two density matrices :code:`rho_1` and :code:`rho_2`
     defined by:
@@ -55,8 +55,7 @@ def bures_angle(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> flo
 
     References
     ==========
-    .. [WikBures] Wikipedia: Bures distance
-        https://en.wikipedia.org/wiki/Bures_metric#Bures_distance
+    .. bibliography::
 
     :raises ValueError: If matrices are not of equal dimension.
     :param rho_1: Density operator.
