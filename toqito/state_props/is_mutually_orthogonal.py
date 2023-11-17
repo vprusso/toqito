@@ -61,9 +61,15 @@ def is_mutually_orthogonal(vec_list: list[np.ndarray | list[float | Any]]) -> bo
     if len(vec_list) <= 1:
         raise ValueError("There must be at least two vectors provided as input.")
 
-    for i, vec_1 in enumerate(vec_list):
-        for j, vec_2 in enumerate(vec_list):
-            if i != j:
-                if not np.isclose(np.inner(vec_1.conj().T, vec_2.conj().T), 0):
-                    return False
-    return True
+    # Convert list of vectors to a 2D array (each vector is a column)
+    mat = np.column_stack(vec_list)
+
+    # Compute the matrix of inner products
+    inner_product_matrix = np.dot(mat.T.conj(), mat)
+
+    # The diagonal elements will be non-zero (norm of each vector)
+    # Set the diagonal elements to zero for the comparison
+    np.fill_diagonal(inner_product_matrix, 0)
+
+    # Check if all off-diagonal elements are close to zero
+    return np.allclose(inner_product_matrix, 0)
