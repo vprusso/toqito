@@ -46,7 +46,7 @@ Full documentation along with specific examples and tutorials are provided here:
 More information can also be found on the following
 [toqito homepage](https://vprusso.github.io/toqito/).
 
-Chat with us on [Discord](http://discord.unitary.fund/).
+Chat with us in our `Toqito` channel on [Discord](http://discord.unitary.fund/). 
 
 ## Testing
 
