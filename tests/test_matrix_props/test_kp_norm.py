@@ -6,26 +6,23 @@ import re
 import numpy as np
 import pytest
 
-from toqito.matrix_props import kp_norm, trace_norm
+from toqito.matrix_props import kp_norm
+from toqito.random import random_unitary
 from toqito.states import bell
 
 
-def test_operator_norm():
-    """When (k=1, p= Inf)the kp_norm(vector) is the same as the trace norm."""
-    calculated_kp_norm = kp_norm(bell(0), 1, np.inf)
-    expected_kp_norm = trace_norm(bell(0))
-    assert calculated_kp_norm == expected_kp_norm
-
-
-def test_frobenius_norm():
-    """When p=2 and k is greater than or equal to one of the input matrice's
-    dimensions, the value calculated is the frobenius norm."""
-    input_mat = np.random.rand(5, 4)
-    k = min(input_mat.shape)
-    p = 2
-    calculated_value = kp_norm(input_mat, k, p)
-    expected_value = np.linalg.norm(input_mat, ord="fro")
-    assert calculated_value == expected_value
+@pytest.mark.parametrize(
+    "vector, k, p, norm_to_compare",
+    [
+        # When (k=1, p= Inf)the kp_norm(vector) is the same as the trace norm (the 1-norm).
+        (bell(0), 1, np.inf, 1),
+        # When p=2 and k is greater than or equal to one of the input matrix dimensions, the value calculated is the frobenius norm.
+        (random_unitary(5), 5, 2, np.linalg.norm(random_unitary(5), "fro")),
+    ],
+)
+def test_kp_norm(vector, k, p, norm_to_compare):
+    calculated_kp_norm = kp_norm(vector, k, p)
+    assert calculated_kp_norm == pytest.approx(norm_to_compare)
 
 
 def test_no_default_kp_values():
