@@ -31,7 +31,3 @@ def test_conclusive_state_exclusion():
         vectors=states, probs=[1 / 4, 1 / 4, 1 / 4, 1 / 4], primal_dual="dual"
     )
     np.testing.assert_equal(np.isclose(dual_value, 0), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

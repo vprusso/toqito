@@ -33,7 +33,3 @@ def test_diamond_norm_non_square():
         choi_1 = np.array([[1, 2, 3], [4, 5, 6]])
         choi_2 = np.array([[1, 2, 3], [4, 5, 6]])
         diamond_norm(choi_1, choi_2)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

@@ -29,7 +29,3 @@ def test_is_povm_false_not_sum_identity():
     non_meas = [non_meas_1, non_meas_2]
 
     np.testing.assert_equal(is_povm(non_meas), False)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

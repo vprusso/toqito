@@ -142,7 +142,3 @@ def test_kraus_to_choi_non_square():
 
     bool_mat = np.isclose(choi_res, expected_choi_res)
     np.testing.assert_equal(np.all(bool_mat), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

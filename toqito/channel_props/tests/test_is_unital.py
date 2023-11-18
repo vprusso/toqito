@@ -56,7 +56,3 @@ def test_is_unital_isometry_true_unspecified_dim():
     choi = kraus_to_choi([v_mat])
     with np.testing.assert_raises(ValueError):
         is_unital(choi)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

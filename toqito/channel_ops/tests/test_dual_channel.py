@@ -111,7 +111,3 @@ def test_dual_channel_invalid_input():
     """Invalid input"""
     with np.testing.assert_raises(ValueError):
         dual_channel([0])
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

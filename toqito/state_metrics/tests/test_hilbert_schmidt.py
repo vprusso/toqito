@@ -23,7 +23,3 @@ def test_hilbert_schmidt_non_density_matrix():
 
     with np.testing.assert_raises(ValueError):
         hilbert_schmidt(rho, sigma)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

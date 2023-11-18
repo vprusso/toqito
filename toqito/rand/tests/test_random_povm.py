@@ -30,7 +30,3 @@ class TestRandomPOVM(unittest.TestCase):
         for i in range(num_inputs):
             povm_sum = np.sum(povms[:, :, i, :], axis=-1)
             np.testing.assert_allclose(povm_sum, np.identity(dim), atol=1e-7)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

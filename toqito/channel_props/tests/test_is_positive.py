@@ -16,7 +16,3 @@ def test_is_positive_kraus_false():
 def test_is_positive_choi_true():
     """Verify that the Choi matrix of the depolarizing map is positive."""
     np.testing.assert_equal(is_positive(depolarizing(4)), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

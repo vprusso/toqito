@@ -88,7 +88,3 @@ def test_gell_mann_sparse_2():
 
     assert res[34, 205] == -1j
     assert res[205, 34] == 1j
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

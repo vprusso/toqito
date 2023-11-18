@@ -23,7 +23,3 @@ def test_expr_as_np_array_vector():
     """Ensure return type is numpy object for vector expression."""
     cvx_var = cvxpy.Parameter(5)
     np.testing.assert_equal(isinstance(expr_as_np_array(cvx_var), np.ndarray), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

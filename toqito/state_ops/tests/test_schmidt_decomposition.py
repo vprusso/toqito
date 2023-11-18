@@ -278,7 +278,3 @@ def test_schmidt_decomp_random_operator():
     )
     bool_mat = np.isclose(rho, reconstructed)
     np.testing.assert_equal(np.all(bool_mat), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

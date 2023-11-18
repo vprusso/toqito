@@ -107,7 +107,3 @@ class TestQuantumHedging(unittest.TestCase):
         q_11 = kron(TestQuantumHedging.q_1, TestQuantumHedging.q_1)
         hedging_value = QuantumHedging(q_11, 2)
         self.assertEqual(isclose(hedging_value.min_prob_outcome_a_dual(), 0, atol=0.01), True)
-
-
-if __name__ == "__main__":
-    unittest.main()

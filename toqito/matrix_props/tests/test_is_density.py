@@ -15,7 +15,3 @@ def test_is_density_complex_entries():
     """Test if density matrix with complex entries is density matrix."""
     mat = random_density_matrix(4)
     np.testing.assert_equal(is_density(mat), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

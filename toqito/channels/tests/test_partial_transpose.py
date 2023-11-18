@@ -743,7 +743,3 @@ def test_partial_transpose_three_subsystems():
 
     expected = np.kron(np.eye(2, 2), mat.T)
     np.testing.assert_equal(np.allclose(res, expected), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

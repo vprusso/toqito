@@ -101,7 +101,3 @@ def test_gell_mann_sparse():
     """Test sparse Gell-Mann matrix."""
     res = gell_mann(3, is_sparse=True)
     np.testing.assert_equal(isinstance(res, csr_matrix), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

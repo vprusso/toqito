@@ -39,7 +39,3 @@ def test_is_unitary_false():
 def test_is_unitary_transpose_map_false():
     """Verify that the channel that transposes 3x2 matrices is not unitary."""
     np.testing.assert_equal(is_unitary(swap_operator([2, 3])), False)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

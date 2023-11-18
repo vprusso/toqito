@@ -16,7 +16,3 @@ def test_is_completely_positive_kraus_false():
 def test_is_completely_positive_choi_true():
     """Verify Choi matrix of the depolarizing map as a quantum channel."""
     np.testing.assert_equal(is_quantum_channel(depolarizing(2)), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

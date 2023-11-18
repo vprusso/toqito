@@ -19,7 +19,3 @@ def test_trace_norm():
     expected_res = float(np.sum(singular_vals))
 
     np.testing.assert_equal(np.isclose(res, expected_res), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

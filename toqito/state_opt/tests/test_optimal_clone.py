@@ -46,7 +46,3 @@ def test_counterfeit_attack_wiesner_money_primal_problem_rep_2():
     reps = 2
     res = optimal_clone(states, probs, reps, True)
     np.testing.assert_equal(np.isclose(res, (3 / 4) ** reps), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

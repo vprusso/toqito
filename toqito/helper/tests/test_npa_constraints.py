@@ -77,7 +77,3 @@ def test_cglmp_dimension(k, expected_size):
         if variable.name() == "R":
             r_size = variable.shape[0]
     np.testing.assert_equal(np.allclose(r_size, expected_size), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

@@ -10,7 +10,3 @@ def test_cvx_kron():
     rho = cvxpy.Variable((4, 4))
     res_mat = cvx_kron(rho, np.identity(4))
     np.testing.assert_equal(isinstance(res_mat, cvxpy.atoms.affine.vstack.Vstack), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

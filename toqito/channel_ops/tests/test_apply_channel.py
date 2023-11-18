@@ -90,7 +90,3 @@ def test_apply_channel_invalid_input():
     """Invalid input for apply map."""
     with np.testing.assert_raises(ValueError):
         apply_channel(np.array([[1, 2], [3, 4]]), 2)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

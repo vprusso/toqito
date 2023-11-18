@@ -194,7 +194,3 @@ class TestXORGame(unittest.TestCase):
         nlg_chsh = xor_chsh.to_nonlocal_game()
 
         self.assertEqual(xor_chsh.classical_value(), nlg_chsh.classical_value())
-
-
-if __name__ == "__main__":
-    unittest.main()

@@ -24,7 +24,3 @@ def test_is_orthonormal():
     vectors = np.array([vec_1, vec_2, vec_3])
 
     assert is_orthonormal(vectors)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

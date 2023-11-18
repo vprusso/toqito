@@ -42,7 +42,3 @@ def test_is_block_positive():
     ) / 3 - v_0 @ v_0.T / 4
     mat = swap(y_mat, [2, 3], [2, 2, 2, 2])
     np.testing.assert_equal(is_block_positive(mat), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

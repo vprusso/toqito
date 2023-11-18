@@ -35,7 +35,3 @@ def test_antisymmetric_projection_3_3_true():
     """The `dim` is 3, the `p` is 3, and `partial` is True."""
     res = antisymmetric_projection(3, 3, True).todense()
     np.testing.assert_equal(np.isclose(res[5].item(), -0.40824829), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

@@ -1210,7 +1210,3 @@ def test_partial_trace_cvxpy():
     x_var = cvxpy.Variable((4, 4), hermitian=True)
     x_pt = partial_trace(x_var)
     np.testing.assert_equal(isinstance(x_pt, Vstack), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

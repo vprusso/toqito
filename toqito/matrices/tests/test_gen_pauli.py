@@ -44,7 +44,3 @@ def test_gen_pauli_1_1_2():
 
     bool_mat = np.isclose(res, expected_res)
     np.testing.assert_equal(np.all(bool_mat), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

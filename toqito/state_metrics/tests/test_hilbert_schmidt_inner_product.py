@@ -43,7 +43,3 @@ def test_hilbert_schmidt_inner_product_linearity():
         random_hermitian_operator, beta_1 * b_mat_1 + beta_2 * b_mat_2
     )
     np.testing.assert_equal(np.isclose(lhs, rhs), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

@@ -15,7 +15,3 @@ def test_measure_state():
     proj_1 = e_1 * e_1.conj().T
     np.testing.assert_equal(np.isclose(measure(proj_0, rho), 1 / 3), True)
     np.testing.assert_equal(np.isclose(measure(proj_1, rho), 2 / 3), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

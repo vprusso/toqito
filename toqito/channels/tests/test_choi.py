@@ -50,7 +50,3 @@ def test_choi_reduction():
 
     bool_mat = np.isclose(res, expected_res)
     np.testing.assert_equal(np.all(bool_mat), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

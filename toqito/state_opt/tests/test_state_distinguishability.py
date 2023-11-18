@@ -90,7 +90,3 @@ def test_invalid_state_distinguishability_states():
     with np.testing.assert_raises(ValueError):
         states = []
         state_distinguishability(states)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

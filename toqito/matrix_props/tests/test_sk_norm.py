@@ -80,7 +80,3 @@ def test_sk_norm_of_zero_matrix():
     lower_bound, upper_bound = sk_operator_norm(mat)
     np.testing.assert_equal(np.allclose(lower_bound, 0.0), True)
     np.testing.assert_equal(np.allclose(upper_bound, 0.0), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

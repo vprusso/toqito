@@ -31,7 +31,3 @@ def test_depolarizing_partially_depolarizing():
 
     bool_mat = np.isclose(expected_res, res)
     np.testing.assert_equal(np.all(bool_mat), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

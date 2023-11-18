@@ -37,7 +37,3 @@ def test_choi_bad_input():
     with pytest.raises(ValueError, match="Not a valid"):
         bad_input = "string"
         choi_rank(bad_input)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

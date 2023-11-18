@@ -38,7 +38,3 @@ def test_strict_diagonally_dominant():
     """Check that strict diagonally dominant matrix returns False."""
     mat = np.array([[-1, 1], [-1, -1]])
     np.testing.assert_equal(is_diagonally_dominant(mat), False)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

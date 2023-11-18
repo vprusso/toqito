@@ -20,7 +20,3 @@ def test_is_diagonal_non_square():
     """Test on a non-square matrix."""
     mat = np.array([[1, 0, 0], [0, 1, 0]])
     np.testing.assert_equal(is_diagonal(mat), False)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

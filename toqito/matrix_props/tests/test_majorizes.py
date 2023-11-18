@@ -23,7 +23,3 @@ def test_majorizes_max_entangled_flip():
     v_vec = max_entangled(3)
     rho = v_vec * v_vec.conj().T
     np.testing.assert_equal(majorizes(rho, partial_trace(rho, [1], [3, 3])), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

@@ -36,7 +36,3 @@ def test_invalid_pure_to_mixed_input():
     with np.testing.assert_raises(ValueError):
         non_valid_input = np.array([[1 / 2, 0, 0, 1 / 2], [1 / 2, 0, 0, 1 / 2]])
         pure_to_mixed(non_valid_input)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

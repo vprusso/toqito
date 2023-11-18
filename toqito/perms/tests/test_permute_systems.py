@@ -166,7 +166,3 @@ def test_permute_systems_invalid_dim_mismatch_perm():
     with np.testing.assert_raises(ValueError):
         test_input_mat = np.array([1, 2, 3, 4])
         permute_systems(test_input_mat, [2, 1, 3, 4])
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

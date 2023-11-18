@@ -44,7 +44,3 @@ def test_matsumoto_fidelity_invalid_dim():
     sigma = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
     with np.testing.assert_raises(ValueError):
         matsumoto_fidelity(rho, sigma)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

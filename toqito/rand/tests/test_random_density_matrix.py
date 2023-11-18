@@ -33,7 +33,3 @@ def test_random_density_not_real_all_params():
     """Generate random non-real density matrix all params."""
     mat = random_density_matrix(2, True, 2, "haar")
     np.testing.assert_equal(is_density(mat), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

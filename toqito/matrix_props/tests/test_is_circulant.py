@@ -20,7 +20,3 @@ def test_is_circulant_true():
     """Test circulant matrices return True."""
     mat = np.array([[4, 1, 2, 3], [3, 4, 1, 2], [2, 3, 4, 1], [1, 2, 3, 4]])
     np.testing.assert_equal(is_circulant(mat), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

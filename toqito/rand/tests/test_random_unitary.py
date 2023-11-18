@@ -21,7 +21,3 @@ def test_random_unitary_vec_dim():
     """Generate random non-real unitary matrix."""
     mat = random_unitary([4, 4], True)
     np.testing.assert_equal(is_unitary(mat), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

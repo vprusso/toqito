@@ -42,7 +42,3 @@ def test_inner_product_different_dimensions_2():
     v1, v2 = np.array([1, 2, 3]), np.array([[4, 5, 6], [7, 8, 9]])
     with np.testing.assert_raises(ValueError):
         inner_product(v1, v2)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

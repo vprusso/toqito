@@ -9,7 +9,3 @@ def test_random_ginibre_dims():
     gin_mat = random_ginibre(2, 2)
     np.testing.assert_equal(gin_mat.shape[0], 2)
     np.testing.assert_equal(gin_mat.shape[1], 2)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

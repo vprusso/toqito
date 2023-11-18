@@ -231,7 +231,3 @@ class TestNonlocalGame(unittest.TestCase):
         res = ffl.commuting_measurement_value_upper_bound(k=1)
         expected_res = 0.666
         self.assertEqual(np.isclose(res, expected_res, atol=0.5), True)
-
-
-if __name__ == "__main__":
-    unittest.main()

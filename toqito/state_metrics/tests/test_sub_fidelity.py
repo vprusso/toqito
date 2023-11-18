@@ -48,7 +48,3 @@ def test_sub_fidelity_invalid_dim_sub_fidelity():
     sigma = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
     with np.testing.assert_raises(ValueError):
         sub_fidelity(rho, sigma)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

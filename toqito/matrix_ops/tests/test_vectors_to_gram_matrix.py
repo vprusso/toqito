@@ -16,7 +16,3 @@ def test_vectors_to_gram_matrix():
     gram = vectors_to_gram_matrix(trine)
     expected_gram = np.array([[1, -1 / 2, -1 / 2], [-1 / 2, 1, -1 / 2], [-1 / 2, -1 / 2, 1]])
     assert np.allclose(gram, expected_gram)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

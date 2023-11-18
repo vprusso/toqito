@@ -112,7 +112,3 @@ def test_channel_dim_with_compute_env_dim_disabled():
     """Test channel dim without computing the enviroment dimension."""
     din, dout, de = channel_dim(swap_operator(2), compute_env_dim=False)
     np.testing.assert_equal((din, dout, de), (2, 2, None))
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

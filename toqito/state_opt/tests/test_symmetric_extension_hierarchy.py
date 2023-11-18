@@ -144,7 +144,3 @@ def test_symmetric_extension_hierarchy_extremal_werner_states():
     res = symmetric_extension_hierarchy(states=states, probs=None, level=1)
     atol = 1e-6
     np.testing.assert_equal(res <= upper_bound + atol, True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

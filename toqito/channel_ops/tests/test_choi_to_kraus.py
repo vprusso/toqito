@@ -141,7 +141,3 @@ def test_choi_to_kraus_reduced_rank():
         ),
         True,
     )
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

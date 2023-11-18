@@ -257,7 +257,3 @@ def test_ppt_distinguishability_four_bell_states():
 
     np.testing.assert_equal(np.isclose(primal_res, exp_res, atol=0.001), True)
     np.testing.assert_equal(np.isclose(dual_res, exp_res, atol=0.001), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

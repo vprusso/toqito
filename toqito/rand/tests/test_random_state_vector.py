@@ -38,7 +38,3 @@ def test_random_state_vector_real_state_purity():
     vec = random_state_vector(2, True).reshape(-1, 1)
     mat = vec * vec.conj().T
     np.testing.assert_equal(np.isclose(purity(mat), 1), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

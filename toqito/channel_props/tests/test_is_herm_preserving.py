@@ -31,7 +31,3 @@ def test_is_herm_preserving_non_square():
     """Verify non-square Choi matrix returns False."""
     non_square_mat = np.array([[1, 2, 3], [4, 5, 6]])
     np.testing.assert_equal(is_herm_preserving(non_square_mat), False)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

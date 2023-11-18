@@ -27,7 +27,3 @@ def test_helstrom_holevo_non_density_matrix():
 
     with np.testing.assert_raises(ValueError):
         helstrom_holevo(rho, sigma)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

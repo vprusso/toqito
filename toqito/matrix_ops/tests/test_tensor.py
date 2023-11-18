@@ -154,7 +154,3 @@ def test_tensor_empty_args():
     r"""Test tensor with no arguments."""
     with np.testing.assert_raises(ValueError):
         tensor()
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

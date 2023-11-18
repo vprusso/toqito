@@ -56,7 +56,3 @@ def test_hadamard_4():
     res = hadamard(4)
     bool_mat = np.isclose(res.shape, (16, 16))
     np.testing.assert_equal(np.all(bool_mat), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

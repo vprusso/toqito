@@ -44,7 +44,3 @@ def test_is_matrix_with_negative_values_and_unitary_sums():
     """Test a non-permutation matrix with some negative values that passes the unitary sum check."""
     mat = np.array([[2, -1], [-1, 2]])
     np.testing.assert_equal(is_permutation(mat), False)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

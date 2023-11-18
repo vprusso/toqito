@@ -325,7 +325,3 @@ def test_swap_invalid_sys_len():
     test_mat = np.array([[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]])
     with np.testing.assert_raises(ValueError):
         swap(test_mat, [1], 2)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

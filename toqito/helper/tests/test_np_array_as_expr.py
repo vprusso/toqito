@@ -11,7 +11,3 @@ def test_np_array_as_expr():
 
     res_mat = np_array_as_expr(test_input_mat)
     np.testing.assert_equal(isinstance(res_mat, cvxpy.atoms.affine.vstack.Vstack), True)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

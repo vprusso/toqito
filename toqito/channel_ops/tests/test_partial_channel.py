@@ -178,7 +178,3 @@ def test_partial_channel_invalid_map():
     with np.testing.assert_raises(ValueError):
         rho = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [12, 11, 10, 9]])
         partial_channel(rho, 5)
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()

@@ -20,7 +20,3 @@ def test_is_square_invalid():
     """Input must be a matrix."""
     with np.testing.assert_raises(ValueError):
         is_square(np.array([-1, 1]))
-
-
-if __name__ == "__main__":
-    np.testing.run_module_suite()
