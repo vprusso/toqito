@@ -1,6 +1,6 @@
-﻿toqito.random.random\_density\_matrix
+﻿toqito.rand.random\_density\_matrix
 =====================================
 
-.. currentmodule:: toqito.random
+.. currentmodule:: toqito.rand
 
 .. autofunction:: random_density_matrix

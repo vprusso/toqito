@@ -40,7 +40,7 @@ def is_separable(
     We provide the input as a denisty matrix :math:`\rho`.
 
     On the other hand, a random density matrix will be an entangled state (a separable state).
-    >>> from toqito.random import random_density_matrix
+    >>> from toqito.rand import random_density_matrix
     >>> from toqito.state_props import is_separable
     >>> rho_separable = np.array([[1, 0, 1, 0],
     >>>                           [0, 1, 0, 1],
