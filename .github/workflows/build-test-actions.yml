@@ -24,11 +24,11 @@ jobs:
           pip install poetry
           poetry install --no-interaction
       - name: Run tests
-        run: poetry run pytest -v --cov-config=.coveragerc --cov-report term-missing --cov-report xml:coverage.xml --cov=toqito tests/
+        run: poetry run pytest -v --cov-config=.coveragerc --cov-report term-missing --cov-report xml:coverage.xml --cov=toqito
       - name: Run pylint
-        run: poetry run pylint --exit-zero tests/ toqito/
+        run: poetry run pylint --exit-zero toqito/
       - name: Run pydocstyle
-        run: poetry run pydocstyle tests/ toqito/ || true
+        run: poetry run pydocstyle toqito/ || true
         # Remove "|| true" after style issues are fixed
         # to make this fail the pipeline when new issues
         # are introduced.
