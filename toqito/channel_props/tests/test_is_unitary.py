@@ -2,8 +2,8 @@
 import numpy as np
 
 from toqito.channel_props import is_unitary
-from toqito.channels import depolarizing
-from toqito.perms import swap_operator
+#from toqito.channels import depolarizing
+#from toqito.perms import swap_operator
 
 
 def test_is_unitary_identity_channel_true():
