@@ -3,7 +3,7 @@
 
 import numpy as np
 
-from toqito.channel_ops import kraus_to_choi
+from toqito.channel_ops.kraus_to_choi import kraus_to_choi
 from toqito.matrix_props import is_hermitian
 
 
