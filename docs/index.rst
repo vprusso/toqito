@@ -11,9 +11,11 @@ toqito focuses on providing numerical tools to study problems pertaining to
 entanglement theory, nonlocal games, and other aspects of quantum information
 that are often associated with computer science.
 
-.. image:: http://img.shields.io/travis/vprusso/toqito.svg?style=plastic
+[![build status](
+
+.. image:: https://github.com/vprusso/toqito/actions/workflows/build-test-actions.yml/badge.svg?style=plastic
    :alt: Build Status
-   :target: https://travis-ci.org/vprusso/toqito
+   :target: https://github.com/vprusso/toqito/actions/workflows/build-test-actions.yml
 .. image:: https://readthedocs.org/projects/toqito/badge/?version=latest&style=plastic
    :alt: Documentation
    :target: https://toqito.readthedocs.io/en/latest/
