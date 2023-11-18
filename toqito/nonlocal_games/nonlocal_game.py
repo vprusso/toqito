@@ -8,7 +8,7 @@ import numpy as np
 
 from toqito.helper import npa_constraints, update_odometer
 from toqito.matrix_ops import tensor
-from toqito.random import random_povm
+from toqito.rand import random_povm
 
 
 class NonlocalGame:

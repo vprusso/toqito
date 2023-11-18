@@ -1,6 +1,6 @@
-﻿toqito.random.random\_povm
+﻿toqito.rand.random\_povm
 ==========================
 
-.. currentmodule:: toqito.random
+.. currentmodule:: toqito.rand
 
 .. autofunction:: random_povm

@@ -1,6 +1,6 @@
-﻿toqito.random.random\_unitary
+﻿toqito.rand.random\_unitary
 =============================
 
-.. currentmodule:: toqito.random
+.. currentmodule:: toqito.rand
 
 .. autofunction:: random_unitary
