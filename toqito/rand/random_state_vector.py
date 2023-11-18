@@ -18,7 +18,7 @@ def random_state_vector(
     We may generate a random state vector. For instance, here is an example where we can generate a
     :math:`2`-dimensional random state vector.
 
-    >>> from toqito.random import random_state_vector
+    >>> from toqito.rand import random_state_vector
     >>> vec = random_state_vector(2)
     >>> vec
     [[0.50993973+0.15292408j],

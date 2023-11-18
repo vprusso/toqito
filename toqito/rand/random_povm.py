@@ -14,7 +14,7 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int) -> np.ndarray:
     construct a random set of :math:`2`-by-:math:`2` POVMs of dimension with :math:`2` inputs
     and :math:`2` outputs.
 
-    >>> from toqito.random import random_povm
+    >>> from toqito.rand import random_povm
     >>> import numpy as np
     >>>
     >>> dim, num_inputs, num_outputs = 2, 2, 2

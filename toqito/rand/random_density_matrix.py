@@ -3,7 +3,7 @@
 
 import numpy as np
 
-from toqito.random import random_unitary
+from toqito.rand import random_unitary
 
 
 def random_density_matrix(
@@ -34,7 +34,7 @@ def random_density_matrix(
     Using :code:`toqito`, we may generate a random complex-valued :math:`n`- dimensional density
     matrix. For :math:`d=2`, this can be accomplished as follows.
 
-    >>> from toqito.random import random_density_matrix
+    >>> from toqito.rand import random_density_matrix
     >>> complex_dm = random_density_matrix(2)
     >>> complex_dm
     [[0.34903796+0.j       0.4324904 +0.103298j]
@@ -49,7 +49,7 @@ def random_density_matrix(
 
     We can also generate random density matrices that are real-valued as follows.
 
-    >>> from toqito.random import random_density_matrix
+    >>> from toqito.rand import random_density_matrix
     >>> real_dm = random_density_matrix(2, is_real=True)
     >>> real_dm
     [[0.37330805 0.46466224]
@@ -64,7 +64,7 @@ def random_density_matrix(
     By default, the random density operators are constructed using the Haar measure. We can select
     to generate the random density matrix according to the Bures metric instead as follows.
 
-    >>> from toqito.random import random_density_matrix
+    >>> from toqito.rand import random_density_matrix
     >>> bures_mat = random_density_matrix(2, distance_metric="bures")
     >>> bures_mat
     [[0.59937164+0.j         0.45355087-0.18473365j]

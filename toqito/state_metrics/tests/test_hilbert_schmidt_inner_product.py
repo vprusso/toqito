@@ -4,7 +4,7 @@ import numpy as np
 
 from toqito.matrices.hadamard import hadamard
 from toqito.matrices.pauli import pauli
-from toqito.random.random_unitary import random_unitary
+from toqito.rand.random_unitary import random_unitary
 from toqito.state_metrics import hilbert_schmidt_inner_product
 
 

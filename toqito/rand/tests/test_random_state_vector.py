@@ -1,7 +1,7 @@
 """Test random_state_vector."""
 import numpy as np
 
-from toqito.random import random_state_vector
+from toqito.rand import random_state_vector
 from toqito.state_props import is_pure, purity
 
 

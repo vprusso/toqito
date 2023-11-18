@@ -1,6 +1,6 @@
-﻿toqito.random.random\_state\_vector
+﻿toqito.rand.random\_state\_vector
 ===================================
 
-.. currentmodule:: toqito.random
+.. currentmodule:: toqito.rand
 
 .. autofunction:: random_state_vector

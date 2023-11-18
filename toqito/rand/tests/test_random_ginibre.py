@@ -1,7 +1,7 @@
 """Test random_ginibre."""
 import numpy as np
 
-from toqito.random import random_ginibre
+from toqito.rand import random_ginibre
 
 
 def test_random_ginibre_dims():

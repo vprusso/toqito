@@ -17,7 +17,7 @@ def random_unitary(dim: list[int] | int, is_real: bool = False) -> np.ndarray:
     We may generate a random unitary matrix. Here is an example of how we may be able to generate a
     random :math:`2`-dimensional random unitary matrix with complex entries.
 
-    >>> from toqito.random import random_unitary
+    >>> from toqito.rand import random_unitary
     >>> complex_dm = random_unitary(2)
     >>> complex_dm
     [[0.40563696+0.18092721j, 0.00066868+0.89594841j],
@@ -32,7 +32,7 @@ def random_unitary(dim: list[int] | int, is_real: bool = False) -> np.ndarray:
 
     We can also generate random unitary matrices that are real-valued as follows.
 
-    >>> from toqito.random import random_unitary
+    >>> from toqito.rand import random_unitary
     >>> real_dm = random_unitary(2, True)
     >>> real_dm
     [[ 0.01972681, -0.99980541],
@@ -47,7 +47,7 @@ def random_unitary(dim: list[int] | int, is_real: bool = False) -> np.ndarray:
     We may also generate unitaries such that the dimension argument provided is a :code:`list` as
     opposed to an :code:`int`. Here is an example of a random unitary matrix of dimension :math:`4`.
 
-    >>> from toqito.random import random_unitary
+    >>> from toqito.rand import random_unitary
     >>> mat = random_unitary([4, 4], True)
     >>> mat
     [[ 0.48996358, -0.20978392,  0.56678587, -0.62823576],

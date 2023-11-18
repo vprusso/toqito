@@ -3,7 +3,7 @@ import unittest
 
 import numpy as np
 
-from toqito.random import random_povm
+from toqito.rand import random_povm
 
 
 class TestRandomPOVM(unittest.TestCase):

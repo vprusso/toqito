@@ -2,7 +2,7 @@
 import numpy as np
 
 from toqito.matrix_props import is_unitary
-from toqito.random import random_unitary
+from toqito.rand import random_unitary
 
 
 def test_random_unitary_not_real():

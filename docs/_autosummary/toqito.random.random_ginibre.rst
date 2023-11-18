@@ -1,6 +1,6 @@
-﻿toqito.random.random\_ginibre
+﻿toqito.rand.random\_ginibre
 =============================
 
-.. currentmodule:: toqito.random
+.. currentmodule:: toqito.rand
 
 .. autofunction:: random_ginibre

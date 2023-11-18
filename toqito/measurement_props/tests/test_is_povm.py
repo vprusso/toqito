@@ -2,7 +2,7 @@
 import numpy as np
 
 from toqito.measurement_props import is_povm
-from toqito.random import random_povm
+from toqito.rand import random_povm
 
 
 def test_is_povm_true():

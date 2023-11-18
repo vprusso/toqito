@@ -2,7 +2,7 @@
 import numpy as np
 
 from toqito.matrix_props import is_density
-from toqito.random import random_density_matrix
+from toqito.rand import random_density_matrix
 
 
 def test_is_density_real_entries():

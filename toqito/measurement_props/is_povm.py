@@ -51,7 +51,7 @@ def is_povm(mat_list: list[np.ndarray]) -> bool:
     randomly generated set satisfies the criteria for being a POVM set.
 
     >>> from toqito.measurement_props import is_povm
-    >>> from toqito.random import random_povm
+    >>> from toqito.rand import random_povm
     >>> import numpy as np
     >>> dim, num_inputs, num_outputs = 2, 2, 2
     >>> measurements = random_povm(dim, num_inputs, num_outputs)

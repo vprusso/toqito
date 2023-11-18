@@ -7,7 +7,7 @@ import numpy as np
 import pytest
 
 from toqito.matrix_props import kp_norm
-from toqito.random import random_unitary
+from toqito.rand import random_unitary
 from toqito.states import bell
 
 

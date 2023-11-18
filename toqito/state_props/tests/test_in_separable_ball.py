@@ -2,7 +2,7 @@
 import numpy as np
 import pytest
 
-from toqito.random import random_unitary
+from toqito.rand import random_unitary
 from toqito.state_props import in_separable_ball
 
 random_u_mat = random_unitary(4)
