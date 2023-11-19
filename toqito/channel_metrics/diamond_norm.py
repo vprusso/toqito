@@ -7,19 +7,16 @@ def diamond_norm(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     r"""
     Return the diamond norm distance between two quantum channels.
 
-    The calculation uses the simplified semidefinite program of Watrous in
-    [CBN]_.
+    The calculation uses the simplified semidefinite program of Watrous in [CBN]_.
 
-    This function has been adapted from:
-    https://github.com/rigetti/forest-benchmarking
+    This function has been adapted from: https://github.com/rigetti/forest-benchmarking
 
     .. note::
         This calculation becomes very slow for 4 or more qubits.
 
     Examples
     ========
-
-   Consider the depolarizing and identity channels in a 2-dimensional space. The depolarizing channel parameter is set to 0.2:
+    Consider the depolarizing and identity channels in a 2-dimensional space. The depolarizing channel parameter is set to 0.2:
 
     >>> from toqito.channels import depolarizing
     >>> choi_depolarizing = depolarizing(dim=2, param=0.2)
@@ -45,7 +42,6 @@ def diamond_norm(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
           Theory of Computing 5, 11, pp. 217-238 (2009).
           http://theoryofcomputing.org/articles/v005a011
           http://arxiv.org/abs/0901.4709
-
 
     :raises ValueError: If matrices are not of equal dimension.
     :raises ValueError: If matrices are not square.
