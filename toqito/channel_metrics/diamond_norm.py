@@ -7,14 +7,35 @@ def diamond_norm(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     r"""
     Return the diamond norm distance between two quantum channels.
 
-    The calculation uses the simplified semidefinite program of Watrous in
-    [CBN]_.
+    The calculation uses the simplified semidefinite program of Watrous in [CBN]_.
 
-    This function has been adapted from:
-    https://github.com/rigetti/forest-benchmarking
+    This function has been adapted from: https://github.com/rigetti/forest-benchmarking
 
     .. note::
         This calculation becomes very slow for 4 or more qubits.
+
+    Examples
+    ========
+    Consider the depolarizing and identity channels in a 2-dimensional space. The depolarizing channel parameter is set to 0.2:
+
+    >>> from toqito.channels import depolarizing
+    >>> choi_depolarizing = depolarizing(dim=2, param=0.2)
+    >>> choi_identity = np.identity(2**2)
+    >>> dn = diamond_norm(choi_depolarizing, choi_identity)
+    >>> print("Diamond norm between depolarizing and identity channels: ", dn)
+    Diamond norm between depolarizing and identity channels:  -2.1680424534747078e-07
+    
+    Similarly, we can compute the diamond norm between the dephasing channel (with parameter 0.3) and the identity channel:
+
+    >>> from toqito.channels import dephasing
+    >>> choi_dephasing = dephasing(dim=2, param=0.3)
+    >>> choi_identity = np.identity(2**2)
+    >>> dn = diamond_norm(choi_dephasing, choi_identity)
+    >>> print("Diamond norm between dephasing and identity channels: ", dn) 
+    Diamond norm between depolarizing and identity channels:  0.3000024376929641
+
+    References
+    ==========
 
     .. [CBN] Semidefinite programs for completely bounded norms.
           J. Watrous.
