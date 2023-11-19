@@ -20,9 +20,7 @@ def test_werner_multipartite():
 
 
 def test_werner_multipartite_valid():
-    """
-    Test multipartite Werner states with valid alpha lengths.
-    """
+    """Test multipartite Werner states with valid alpha lengths."""
     # Valid alpha length for p=3 (2!-1 = 1)
     alpha = [0.5]
     dim = 2
@@ -30,29 +28,16 @@ def test_werner_multipartite_valid():
     np.testing.assert_equal(is_density(state), True)
 
 
-def test_werner_multipartite_invalid():
-    """Test multipartite Werner states with invalid alpha lengths."""
+@pytest.mark.parametrize("dim, alpha", [
     # Invalid alpha length (not matching p!-1 for any integer p > 1)
-    alpha = [0.5, 0.6, 0.7]
-    dim = 2
-    with pytest.raises(ValueError):
-        werner(dim, alpha)
-
-
-def test_werner_invalid_alpha_type():
-    """
-    Test Werner state with invalid types for alpha parameter.
-    """
-    dim = 2  # Example dimension, can be any valid integer
-    
+    (2, [0.5, 0.6, 0.7]),
     # Test with an integer (which is not a valid type for alpha)
-    with pytest.raises(ValueError):
-        werner(dim, 5)
-
+    (2, 5),
     # Test with a string (which is not a valid type for alpha)
-    with pytest.raises(ValueError):
-        werner(dim, "invalid")
-
+    (2, "invalid"),
     # Test with a dictionary (which is not a valid type for alpha)
-    with pytest.raises(ValueError):
-        werner(dim, {"key": "value"})
+    (2, {"key": "value"}),
+])
+def test_werner_state_invalid(dim, alpha):
+    with np.testing.assert_raises(ValueError):
+        werner(dim, alpha)

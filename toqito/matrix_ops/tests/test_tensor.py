@@ -1,129 +1,177 @@
 """Test tensor."""
 import numpy as np
-import pytest
 
 from toqito.matrix_ops import tensor
+from toqito.states import basis
 
 
-@pytest.mark.parametrize("input_args, expected_output", [
-    # Test with two matrices.
-    ((np.array([[1, 2], [3, 4]]), np.array([[5, 6], [7, 8]])), 
-     np.array([[ 5,  6, 10, 12],
-               [ 7,  8, 14, 16],
-               [15, 18, 20, 24],
-               [21, 24, 28, 32]])),
+def test_tensor():
+    """Test standard tensor on vectors."""
+    e_0 = basis(2, 0)
+    expected_res = np.kron(e_0, e_0)
 
-    # Test with three matrices.
-    ((np.array([[1, 2], [3, 4]]), np.array([[5, 6], [7, 8]]), np.array([[9, 10], [11, 12]])), 
-        np.array([[45, 50, 54, 60, 90, 100, 108, 120],
-               [55, 60, 66, 72, 110, 120, 132, 144],
-               [63, 70, 72, 80, 126, 140, 144, 160],
-               [77, 84, 88, 96, 154, 168, 176, 192],
-               [135, 150, 162, 180, 180, 200, 216, 240],
-               [165, 180, 198, 216, 220, 240, 264, 288],
-               [189, 210, 216, 240, 252, 280, 288, 320],
-               [231, 252, 264, 288, 308, 336, 352, 384]])),
+    res = tensor(e_0, e_0)
 
-    # Test with multiple matrices.
-    ((np.identity(2), np.identity(2), np.identity(2), np.identity(2)), np.identity(16)),
+    bool_mat = np.isclose(res, expected_res)
+    np.testing.assert_equal(np.all(bool_mat), True)
 
-    # Test with a matrix repeated 0 times should return None.
-    ((np.array([[1, 2], [3, 4]]), 0), None),
 
-    # Test with a matrix repeated 1 times.
-    ((np.array([[1, 2], [3, 4]]), 1), 
-     np.array([[1, 2],
-               [3, 4]])),
+def test_tensor_single_arg():
+    """Performing tensor product on one item should return item back."""
+    input_arr = np.array([[1, 2], [3, 4]])
+    res = tensor(input_arr)
 
-    # Test with a matrix repeated 2 times.
-    ((np.array([[1, 2], [3, 4]]), 2), 
-     np.array([[ 1,  2,  2,  4],
-               [ 3,  4,  6,  8],
-               [ 3,  6,  4,  8],
-               [ 9, 12, 12, 16]])),
+    bool_mat = np.isclose(res, input_arr)
+    np.testing.assert_equal(np.all(bool_mat), True)
 
-    # Test with a matrix repeated 3 times.
-    ((np.array([[1, 2], [3, 4]]), 3), 
-     np.array([[1, 2, 2, 4, 2, 4, 4, 8],
-               [3, 4, 6, 8, 6, 8, 12, 16],
-               [3, 6, 4, 8, 6, 12, 8, 16],
-               [9, 12, 12, 16, 18, 24, 24, 32],
-               [3, 6, 6, 12, 4, 8, 8, 16],
-               [9, 12, 18, 24, 12, 16, 24, 32],
-               [9, 18, 12, 24, 12, 24, 16, 32],
-               [27, 36, 36, 48, 36, 48, 48, 64]])),
 
-    # Test with standard basis: |0> \otimes |0>:
-    ((np.array([[1], [0]]), np.array([[1], [0]])), np.array([[1], [0], [0], [0]])),
+def test_tensor_array_of_numpy_arrays_two():
+    """Performing tensor product on two numpy array of numpy arrays."""
+    input_arr = np.array([np.array([[1, 2], [3, 4]]), np.array([[5, 6], [7, 8]])])
+    res = tensor(input_arr)
 
-    # Performing tensor product on one item should return item back.
-    ((np.array([[1, 2], [3, 4]]),), np.array([[1, 2], [3, 4]])),
+    expected_res = np.array([[5, 6, 10, 12], [7, 8, 14, 16], [15, 18, 20, 24], [21, 24, 28, 32]])
 
-    # Test with numpy array list of one element.
-    (np.array([np.array([[1, 2], [3, 4]])]), 
-     np.array([[1, 2],
-               [3, 4]])),
+    bool_mat = np.isclose(res, expected_res)
+    np.testing.assert_equal(np.all(bool_mat), True)
 
-    # Test with a list containing a single matrix
-    (([np.array([[1, 2], [3, 4]])],), np.array([[1, 2], [3, 4]])),
 
-    # Test with a list containing exactly two matrices
-    (([np.array([[1, 2]]), np.array([[3, 4]])],), np.array([[3, 4, 6, 8]])),
+def test_tensor_array_of_numpy_arrays_three():
+    """Performing tensor product on three numpy array of numpy arrays."""
+    input_arr = np.array([np.identity(2), np.identity(2), np.identity(2)])
+    res = tensor(input_arr)
 
-    # Test with a list containing three matrices
-    (([np.array([[1, 2]]), np.array([[3, 4]]), np.array([[5, 6]])],),
-     np.array([[15, 18, 20, 24, 30, 36, 40, 48]])),
+    expected_res = np.identity(8)
 
-    # Test with numpy array list of two elements.
-    ([np.array([[1, 2], [3, 4]]), np.array([[5, 6], [7, 8]])], 
-     np.array([[ 5,  6, 10, 12],
-               [ 7,  8, 14, 16],
-               [15, 18, 20, 24],
-               [21, 24, 28, 32]])),
+    bool_mat = np.isclose(res, expected_res)
+    np.testing.assert_equal(np.all(bool_mat), True)
 
-    # Test with numpy array list of three elements.
-    ([np.array([[1, 2], [3, 4]]), np.array([[5, 6], [7, 8]]), np.array([[9, 10], [11, 12]])], 
-        np.array([[45, 50, 54, 60, 90, 100, 108, 120],
-               [55, 60, 66, 72, 110, 120, 132, 144],
-               [63, 70, 72, 80, 126, 140, 144, 160],
-               [77, 84, 88, 96, 154, 168, 176, 192],
-               [135, 150, 162, 180, 180, 200, 216, 240],
-               [165, 180, 198, 216, 220, 240, 264, 288],
-               [189, 210, 216, 240, 252, 280, 288, 320],
-               [231, 252, 264, 288, 308, 336, 352, 384]])),
 
-    # Test with list of multiple elements.
-    ([np.identity(2), np.identity(2), np.identity(2), np.identity(2)], np.identity(16)),
+def test_tensor_array_of_numpy_arrays_four():
+    """Performing tensor product on four numpy array of numpy arrays."""
+    input_arr = np.array([np.identity(2), np.identity(2), np.identity(2), np.identity(2)])
+    res = tensor(input_arr)
 
-    # Test with an empty list should return None.
-    (([], ), None),
+    expected_res = np.identity(16)
 
-    # Test tensor list with one item.
-    ([np.identity(2)], np.identity(2)),
+    bool_mat = np.isclose(res, expected_res)
+    np.testing.assert_equal(np.all(bool_mat), True)
 
-    # Test tensor list with two items.
-    ([np.identity(2), np.identity(2)], np.identity(4)),
 
-    # Test tensor list with three items.
-    ([np.identity(2), np.identity(2), np.identity(2)], np.identity(8)),
+def test_tensor_multiple_args():
+    """Performing tensor product on multiple matrices."""
+    input_arr_1 = np.identity(2)
+    input_arr_2 = np.identity(2)
+    input_arr_3 = np.identity(2)
+    input_arr_4 = np.identity(2)
+    res = tensor(input_arr_1, input_arr_2, input_arr_3, input_arr_4)
 
-    # Test with a single 2D numpy array (matrix)
-    ((np.array([[1, 2], [3, 4]]),), np.array([[1, 2], [3, 4]])),
+    bool_mat = np.isclose(res, np.identity(16))
+    np.testing.assert_equal(np.all(bool_mat), True)
 
-    # Test with a numpy array containing two matrices (or vectors)
-    ((np.array([np.array([1, 2]), np.array([3, 4])])), 
-     np.array([3, 4, 6, 8])),
 
-    # Test with a numpy array containing three matrices (or vectors)
-    ((np.array([np.array([1, 2]), np.array([3, 4]), np.array([5, 6])])), 
-    np.array([15, 18, 20, 24, 30, 36, 40, 48])),
-])
-def test_tensor(input_args, expected_output):
-    result = tensor(*input_args)
+def test_tensor_n_0():
+    """Test tensor n=0 times."""
+    e_0 = basis(2, 0)
+    expected_res = None
+
+    res = tensor(e_0, 0)
+    np.testing.assert_equal(res, expected_res)
+
+
+def test_tensor_n_1():
+    """Test tensor n=1 times."""
+    e_0 = basis(2, 0)
+    expected_res = e_0
+
+    res = tensor(e_0, 1)
+    bool_mat = np.isclose(res, expected_res)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+
+def test_tensor_n_2():
+    """Test tensor n=2 times."""
+    e_0 = basis(2, 0)
+    expected_res = np.kron(e_0, e_0)
+
+    res = tensor(e_0, 2)
+    bool_mat = np.isclose(res, expected_res)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+
+def test_tensor_n_3():
+    """Test tensor n=3 times."""
+    e_0 = basis(2, 0)
+    expected_res = np.kron(np.kron(e_0, e_0), e_0)
+
+    res = tensor(e_0, 3)
+    bool_mat = np.isclose(res, expected_res)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+
+def test_tensor_list_0():
+    """Test tensor empty list."""
+    expected_res = None
+
+    res = tensor([])
+    np.testing.assert_equal(res, expected_res)
+
+
+def test_tensor_list_1():
+    """Test tensor list with one item."""
+    e_0 = basis(2, 0)
+    expected_res = e_0
+
+    res = tensor([e_0])
+
+    bool_mat = np.isclose(res, expected_res)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+
+def test_tensor_list_2():
+    """Test tensor list with two items."""
+    e_0, e_1 = basis(2, 0), basis(2, 1)
+    expected_res = np.kron(e_0, e_1)
+
+    res = tensor([e_0, e_1])
+
+    bool_mat = np.isclose(res, expected_res)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+
+def test_tensor_list_3():
+    """Test tensor list with three items."""
+    e_0, e_1 = basis(2, 0), basis(2, 1)
+    expected_res = np.kron(np.kron(e_0, e_1), e_0)
+
+    res = tensor([e_0, e_1, e_0])
+
+    bool_mat = np.isclose(res, expected_res)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+
+def test_tensor_with_three_or_more_matrices():
+    """Test tensor product with a numpy array containing three or more matrices."""
+    # Three matrices to be Kronecker multiplied
+    matrix1 = np.array([[1, 2]])
+    matrix2 = np.array([[3], [4]])
+    matrix3 = np.array([[5, 6]])
+    matrix4 = np.array([[7, 8]])
+
+    # The numpy array containing the matrices
+    matrices = np.array([matrix1, matrix2, matrix3, matrix4], dtype=object)
+
+    # Expected output: Kronecker product of matrix1, matrix2, and matrix3
+    expected_output = np.kron(np.kron(matrix1, np.kron(matrix2, matrix3)), matrix4)
+
+    # Call the tensor function
+    result = tensor(matrices)
+
+    # Assert that the result is as expected
     np.testing.assert_array_equal(result, expected_output)
 
 
 def test_tensor_empty_args():
-    """Test tensor with no arguments."""
+    r"""Test tensor with no arguments."""
     with np.testing.assert_raises(ValueError):
         tensor()
