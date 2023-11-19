@@ -58,7 +58,7 @@ User Documentation
     :maxdepth: 2
     :caption: Random Objects
 
-    random
+    rand
 
 .. toctree::
     :maxdepth: 2
