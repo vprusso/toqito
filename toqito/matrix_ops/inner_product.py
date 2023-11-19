@@ -17,7 +17,7 @@ def inner_product(v1: np.ndarray, v2: np.ndarray) -> float:
             b_1 \\ \vdots \\ b_n
         \end{pmatrix} \right\rangle = 
         \begin{pmatrix} 
-            a_1,\cdots, a_n
+            a_1, \cdots, a_n
         \end{pmatrix}
         \begin{pmatrix} 
             b_1 \\ \vdots \\ b_n

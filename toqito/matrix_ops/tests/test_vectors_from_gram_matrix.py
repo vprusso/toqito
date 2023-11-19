@@ -5,15 +5,22 @@ import pytest
 from toqito.matrix_ops import vectors_from_gram_matrix
 
 
-def test_vectors_from_gram_matrix():
+@pytest.mark.parametrize("gram, expected_result", [
+    # Gram matrix is identity matrix.
+    (
+        np.identity(4), 
+        [
+            np.array([1, 0, 0, 0]),
+            np.array([0, 1, 0, 0]),
+            np.array([0, 0, 1, 0]),
+            np.array([0, 0, 0, 1])
+         ]
+     ),
+])
+def test_vectors_from_gram_matrix(gram, expected_result):
     """Test able to extract vectors from Gram matrix."""
-    gram = np.identity(4)
     vectors = vectors_from_gram_matrix(gram)
-
-    assert np.allclose(vectors[0], np.array([1, 0, 0, 0]))
-    assert np.allclose(vectors[1], np.array([0, 1, 0, 0]))
-    assert np.allclose(vectors[2], np.array([0, 0, 1, 0]))
-    assert np.allclose(vectors[3], np.array([0, 0, 0, 1]))
+    np.testing.assert_allclose(vectors, expected_result)
 
 
 def test_vectors_from_gram_matrix_not_psd():
