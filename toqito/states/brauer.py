@@ -10,11 +10,10 @@ def brauer(dim: int, p_val: int) -> np.ndarray:
     r"""
     Produce all Brauer states [WikBrauer]_.
 
-    Produce a matrix whose columns are all of the (unnormalized) "Brauer" states: states that are
-    the :code:`p_val`-fold tensor product of the standard maximally-entangled pure state on
-    :code:`dim` local dimensions. There are many such states, since there are many different ways to
-    group the :code:`2 * p_val` parties into :code:`p_val` pairs (with each pair corresponding to
-    one maximally-entangled state).
+    Produce a matrix whose columns are all of the (unnormalized) "Brauer" states: states that are the :code:`p_val`-fold
+    tensor product of the standard maximally-entangled pure state on :code:`dim` local dimensions. There are many such
+    states, since there are many different ways to group the :code:`2 * p_val` parties into :code:`p_val` pairs (with
+    each pair corresponding to one maximally-entangled state).
 
     The exact number of such states is:
 

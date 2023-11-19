@@ -151,6 +151,6 @@ def test_tensor_list_3():
 
 
 def test_tensor_empty_args():
-    r"""Test tensor with no arguments."""
+    """Test tensor with no arguments."""
     with np.testing.assert_raises(ValueError):
         tensor()

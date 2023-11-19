@@ -13,11 +13,33 @@ def outer_product(v1: np.ndarray, v2: np.ndarray) -> np.ndarray:
 
     Example
     ==========
-
-    The outer product of the vectors :math:`v1 = \begin{pmatrix}1 \\ 2 \\ 3 \end{pmatrix}` and :math:`v2 = \begin{pmatrix}4 \\ 5 \\ 6 \ \end{pmatrix}` looks as follows:
+    The outer product of the vectors :math:`v1 = \begin{pmatrix}1 \\ 2 \\ 3 \end{pmatrix}` and :math:`v2 =
+    \begin{pmatrix}4 \\ 5 \\ 6 \ \end{pmatrix}` looks as follows:
 
     .. math::
-        \left|\begin{pmatrix}1\\2\\3\end{pmatrix}\right\rangle\left\langle\begin{pmatrix}4\\5\\6\end{pmatrix}\right|=\begin{pmatrix}1\\2\\3\end{pmatrix}\begin{pmatrix}4&5&6\end{pmatrix}=\begin{pmatrix}1\times4&1\times5&1\times6\\2\times4&2\times5&2\times6\\3\times4&3\times5&3\times6\end{pmatrix}=\begin{pmatrix}4&5&6\\8&10&12\\12&15&18\end{pmatrix}
+        \left|\begin{pmatrix}
+            1 \\ 2 \\ 3
+        \end{pmatrix}\right\rangle
+        \left\langle
+        \begin{pmatrix}
+            4 \\ 5 \\ 6
+        \end{pmatrix}\right|=
+        \begin{pmatrix}
+            1 \\ 2 \\ 3
+        \end{pmatrix}
+        \begin{pmatrix}
+            4 & 5 & 6
+        \end{pmatrix}=
+        \begin{pmatrix}
+            1 \times 4 & 1 \times 5 & 1 \times 6 \\ 
+            2 \times 4 & 2 \times 5 & 2 \times 6 \\ 
+            3 \times 4 & 3 \times 5 & 3 \times 6
+        \end{pmatrix}=
+        \begin{pmatrix}
+            4 & 5 & 6 \\ 
+            8 & 10 & 12 \\ 
+            12 & 15 & 18
+        \end{pmatrix}
 
     In :code:`toqito`, this looks like this:
 
@@ -39,12 +61,9 @@ def outer_product(v1: np.ndarray, v2: np.ndarray) -> np.ndarray:
     :param v2: v1 and v2, both vectors of dimenstions :math:`(n,1)` where :math:`n>1`.
     :return: The computed outer product.
     """
-    # Check for dimensional validity
-    if not (v1.shape[0] == v2.shape[0] and v1.shape[0] > 1 and len(v1.shape) == 1):
-        raise ValueError("Dimension mismatch")
+    if v1.ndim != 1 or v2.ndim != 1:
+        raise ValueError("Both v1 and v2 must be 1D vectors.")
+    if v1.shape[0] != v2.shape[0]:
+        raise ValueError("Dimension mismatch between v1 and v2.")
 
-    res = np.ndarray((v1.shape[0], v1.shape[0]))
-    for i in range(v1.shape[0]):
-        for j in range(v1.shape[0]):
-            res[i, j] = v1[i] * v2[j]
-    return res
+    return np.outer(v1, np.conj(v2))

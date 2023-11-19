@@ -8,8 +8,7 @@ def tile(idx: int) -> np.ndarray:
     r"""
     Produce a Tile state [UPBTile99]_.
 
-    The Tile states constitute five states on 3-by-3 dimensional space that form a UPB
-    (unextendible product basis).
+    The Tile states constitute five states on 3-by-3 dimensional space that form a UPB (unextendible product basis).
 
     Returns one of the following five tile states depending on the value of :code:`idx`:
 
@@ -62,14 +61,15 @@ def tile(idx: int) -> np.ndarray:
     :return: Tile state.
     """
     e_0, e_1, e_2 = basis(3, 0), basis(3, 1), basis(3, 2)
-    if idx == 0:
-        return 1 / np.sqrt(2) * np.kron(e_0, (e_0 - e_1))
-    if idx == 1:
-        return 1 / np.sqrt(2) * np.kron((e_0 - e_1), e_2)
-    if idx == 2:
-        return 1 / np.sqrt(2) * np.kron(e_2, (e_1 - e_2))
-    if idx == 3:
-        return 1 / np.sqrt(2) * np.kron((e_1 - e_2), e_0)
-    if idx == 4:
-        return 1 / 3 * np.kron((e_0 + e_1 + e_2), (e_0 + e_1 + e_2))
+    match idx:
+        case 0:
+            return 1 / np.sqrt(2) * np.kron(e_0, (e_0 - e_1))
+        case 1:
+            return 1 / np.sqrt(2) * np.kron((e_0 - e_1), e_2)
+        case 2:
+            return 1 / np.sqrt(2) * np.kron(e_2, (e_1 - e_2))
+        case 3:
+            return 1 / np.sqrt(2) * np.kron((e_1 - e_2), e_0)
+        case 4:
+            return 1 / 3 * np.kron((e_0 + e_1 + e_2), (e_0 + e_1 + e_2))
     raise ValueError("Invalid integer value for Tile state.")

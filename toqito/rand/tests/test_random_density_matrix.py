@@ -1,35 +1,18 @@
 """Test random_density_matrix."""
 import numpy as np
+import pytest
 
 from toqito.matrix_props import is_density
 from toqito.rand import random_density_matrix
 
 
-def test_random_density_not_real():
-    """Generate random non-real density matrix."""
-    mat = random_density_matrix(2)
-    np.testing.assert_equal(is_density(mat), True)
-
-
-def test_random_density_real():
-    """Generate random real density matrix."""
-    mat = random_density_matrix(2, True)
-    np.testing.assert_equal(is_density(mat), True)
-
-
-def test_random_density_not_real_bures():
-    """Random non-real density matrix according to Bures metric."""
-    mat = random_density_matrix(2, distance_metric="bures")
-    np.testing.assert_equal(is_density(mat), True)
-
-
-def test_random_density_not_real_k_param():
-    """Generate random non-real density matrix wih k_param."""
-    mat = random_density_matrix(2, distance_metric="bures")
-    np.testing.assert_equal(is_density(mat), True)
-
-
-def test_random_density_not_real_all_params():
-    """Generate random non-real density matrix all params."""
-    mat = random_density_matrix(2, True, 2, "haar")
-    np.testing.assert_equal(is_density(mat), True)
+@pytest.mark.parametrize("dim", range(2, 8))
+@pytest.mark.parametrize("is_real", [True, False])
+@pytest.mark.parametrize("k_param", range(2, 4))
+@pytest.mark.parametrize("distance_metric", ["bures", "haar"])
+def test_random_density(dim, is_real, k_param, distance_metric):
+    if k_param == dim:
+        mat = random_density_matrix(
+            dim=dim, is_real=is_real, k_param=k_param, distance_metric=distance_metric
+        )
+        np.testing.assert_equal(is_density(mat), True)

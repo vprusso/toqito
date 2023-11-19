@@ -1,37 +1,32 @@
 """Test antisymmetric_projection."""
 import numpy as np
+import pytest
 
 from toqito.perms import antisymmetric_projection
 
 
-def test_antisymmetric_projection_d_2_p_1():
-    """Dimension is 2 and p is equal to 1."""
-    res = antisymmetric_projection(2, 1).todense()
-    expected_res = np.array([[1, 0], [0, 1]])
+# Create a zero vector of length 27
+anti_proj_3_3_partial = np.zeros((27, 1))
 
-    bool_mat = np.isclose(res, expected_res)
-    np.testing.assert_equal(np.all(bool_mat), True)
-
-
-def test_antisymmetric_projection_p_larger_than_d():
-    """The `p` value is greater than the dimension `d`."""
-    res = antisymmetric_projection(2, 3).todense()
-    expected_res = np.zeros((8, 8))
-
-    bool_mat = np.isclose(res, expected_res)
-    np.testing.assert_equal(np.all(bool_mat), True)
+# Set specific indices to -0.40824829 and 0.40824829
+anti_proj_3_3_partial[5] = -0.40824829
+anti_proj_3_3_partial[7] = 0.40824829
+anti_proj_3_3_partial[11] = 0.40824829
+anti_proj_3_3_partial[15] = -0.40824829
+anti_proj_3_3_partial[19] = -0.40824829
+anti_proj_3_3_partial[21] = 0.40824829
 
 
-def test_antisymmetric_projection_2():
-    """The dimension is 2."""
-    res = antisymmetric_projection(2).todense()
-    expected_res = np.array([[0, 0, 0, 0], [0, 0.5, -0.5, 0], [0, -0.5, 0.5, 0], [0, 0, 0, 0]])
-
-    bool_mat = np.isclose(res, expected_res)
-    np.testing.assert_equal(np.all(bool_mat), True)
-
-
-def test_antisymmetric_projection_3_3_true():
-    """The `dim` is 3, the `p` is 3, and `partial` is True."""
-    res = antisymmetric_projection(3, 3, True).todense()
-    np.testing.assert_equal(np.isclose(res[5].item(), -0.40824829), True)
+@pytest.mark.parametrize("dim, p_param, partial, expected_result", [
+    # Dimension is 2 and p is equal to 1.
+    (2, 1, False, np.array([[1, 0], [0, 1]])),
+    # The `p` value is greater than the dimension `d`.
+    (2, 3, False, np.zeros((8, 8))),
+    # The dimension is 2.
+    (2, 2, False, np.array([[0, 0, 0, 0], [0, 0.5, -0.5, 0], [0, -0.5, 0.5, 0], [0, 0, 0, 0]])),
+    # The `dim` is 3, the `p` is 3, and `partial` is True.
+    (3, 3, True, anti_proj_3_3_partial)
+])
+def test_antisymmetric_projection(dim, p_param, partial, expected_result):
+    proj = antisymmetric_projection(dim=dim, p_param=p_param, partial=partial).todense()
+    np.testing.assert_allclose(proj, expected_result)

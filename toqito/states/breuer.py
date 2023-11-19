@@ -9,18 +9,16 @@ def breuer(dim: int, lam: float) -> np.ndarray:
     r"""
     Produce a Breuer state [HPBreuer]_.
 
-    Gives a Breuer bound entangled state for two qudits of local dimension :code:`dim`, with the
-    :code:`lam` parameter describing the weight of the singlet component as described in
-    [HPBreuer]_.
+    Gives a Breuer bound entangled state for two qudits of local dimension :code:`dim`, with the :code:`lam` parameter
+    describing the weight of the singlet component as described in [HPBreuer]_.
 
     This function was adapted from the QETLAB package.
 
     Examples
     ==========
 
-    We can generate a Breuer state of dimension :math:`4` with weight :math:`0.1`. For any weight
-    above :math:`0`, the state will be bound entangled, that is, it will satisfy the PPT criterion,
-    but it will be entangled.
+    We can generate a Breuer state of dimension :math:`4` with weight :math:`0.1`. For any weight above :math:`0`, the
+    state will be bound entangled, that is, it will satisfy the PPT criterion, but it will be entangled.
 
     >>> from toqito.states import breuer
     >>> breuer(2, 0.1)
@@ -46,6 +44,4 @@ def breuer(dim: int, lam: float) -> np.ndarray:
     max_entangled(dim)
     psi = np.dot(np.kron(np.identity(dim), v_mat), max_entangled(dim))
 
-    return lam * (psi * psi.conj().T) + (1 - lam) * 2 * symmetric_projection(dim) / (
-        dim * (dim + 1)
-    )
+    return lam * (psi * psi.conj().T) + (1 - lam) * 2 * symmetric_projection(dim) / (dim * (dim + 1))
