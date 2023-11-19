@@ -87,14 +87,9 @@ def werner(dim: int, alpha: float | list[float]) -> np.ndarray:
     :param alpha: Parameter to specify Werner state.
     :return: A Werner state of dimension :code:`dim`.
     """
-    # The total number of permutation operators.
-    if isinstance(alpha, float):
-        n_fac = 2
-    else:
-        n_fac = len(alpha) + 1
-
     # Multipartite Werner state.
-    if n_fac > 2:
+    if isinstance(alpha, list):
+        n_fac = len(alpha) + 1
         # Compute the number of parties from `len(alpha)`.
         n_var = n_fac
         # We won't actually go all the way to `n_fac`.
@@ -104,18 +99,25 @@ def werner(dim: int, alpha: float | list[float]) -> np.ndarray:
                 break
             if n_var < i:
                 raise ValueError(
-                    "InvalidAlpha: The `alpha` vector must contain" " p!-1 entries for some integer p > 1."
+                    "InvalidAlpha: The `alpha` vector must contain p!-1 entries for some integer p > 1."
                 )
 
-        # Done error checking and computing the number of parties -- now compute the Werner state.
-        perms = list(itertools.permutations(np.arange(n_var)))
+        # Done error checking and computing the number of parties
+        # -- now compute the Werner state.
+        perms = list(itertools.permutations(range(n_var)))
         sorted_perms = np.argsort(perms, axis=1) + 1
 
+        rho = np.identity(dim**n_var)
         for i in range(2, n_fac):
-            rho = np.identity(dim**n_var) - alpha[i - 1] * permutation_operator(
-                dim, sorted_perms[i, :], False, True
+            rho -= alpha[i - 1] * permutation_operator(
+                dim, sorted_perms[i - 1, :], False, True
             )
         rho = rho / np.trace(rho)
         return rho
-    # Bipartite Werner state.
-    return (np.identity(dim**2) - alpha * swap_operator(dim, True)) / (dim * (dim - alpha))
+    
+    # Bipartite Werner state (executed only if alpha is a float).
+    elif isinstance(alpha, float):
+        n_fac = 2
+        return (np.identity(dim**2) - alpha * swap_operator(dim, True)) / (dim * (dim - alpha))
+
+    raise ValueError("Alpha must be either a float or a list of floats.")
