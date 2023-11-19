@@ -59,6 +59,21 @@ from toqito.matrix_ops import tensor
     # Performing tensor product on one item should return item back.
     ((np.array([[1, 2], [3, 4]]),), np.array([[1, 2], [3, 4]])),
 
+    # Test with numpy array list of one element.
+    (np.array([np.array([[1, 2], [3, 4]])]), 
+     np.array([[1, 2],
+               [3, 4]])),
+
+    # Test with a list containing a single matrix
+    (([np.array([[1, 2], [3, 4]])],), np.array([[1, 2], [3, 4]])),
+
+    # Test with a list containing exactly two matrices
+    (([np.array([[1, 2]]), np.array([[3, 4]])],), np.array([[3, 4, 6, 8]])),
+
+    # Test with a list containing three matrices
+    (([np.array([[1, 2]]), np.array([[3, 4]]), np.array([[5, 6]])],),
+     np.array([[15, 18, 20, 24, 30, 36, 40, 48]])),
+
     # Test with numpy array list of two elements.
     ([np.array([[1, 2], [3, 4]]), np.array([[5, 6], [7, 8]])], 
      np.array([[ 5,  6, 10, 12],
@@ -92,6 +107,16 @@ from toqito.matrix_ops import tensor
     # Test tensor list with three items.
     ([np.identity(2), np.identity(2), np.identity(2)], np.identity(8)),
 
+    # Test with a single 2D numpy array (matrix)
+    ((np.array([[1, 2], [3, 4]]),), np.array([[1, 2], [3, 4]])),
+
+    # Test with a numpy array containing two matrices (or vectors)
+    ((np.array([np.array([1, 2]), np.array([3, 4])])), 
+     np.array([3, 4, 6, 8])),
+
+    # Test with a numpy array containing three matrices (or vectors)
+    ((np.array([np.array([1, 2]), np.array([3, 4]), np.array([5, 6])])), 
+    np.array([15, 18, 20, 24, 30, 36, 40, 48])),
 ])
 def test_tensor(input_args, expected_output):
     result = tensor(*input_args)
