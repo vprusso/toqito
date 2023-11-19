@@ -8,7 +8,7 @@ def diamond_norm(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     Return the diamond norm distance between two quantum channels.
 
     The calculation uses the simplified semidefinite program of Watrous in
-    [CBN]_.
+    :cite:`Watrous_2009_semidefinite`.
 
     This function has been adapted from:
     https://github.com/rigetti/forest-benchmarking
@@ -16,11 +16,11 @@ def diamond_norm(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     .. note::
         This calculation becomes very slow for 4 or more qubits.
 
-    .. [CBN] Semidefinite programs for completely bounded norms.
-          J. Watrous.
-          Theory of Computing 5, 11, pp. 217-238 (2009).
-          http://theoryofcomputing.org/articles/v005a011
-          http://arxiv.org/abs/0901.4709
+    References
+    ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
 
     :raises ValueError: If matrices are not of equal dimension.
     :raises ValueError: If matrices are not square.
