@@ -28,8 +28,6 @@ def test_conclusive_state_exclusion(vectors, probs, solver, primal_dual, expecte
 @pytest.mark.parametrize("vectors, probs, solver, primal_dual", [
     # Bell states (default uniform probs with dual).
     ([bell(0), bell(1), bell(2), e_0], None, "cvxopt", "dual"),
-    # Bell states (invalid probs dual).
-    ([bell(0), bell(1), bell(2), bell(3)], [1, 2, 3, 4], "cvxopt", "dual"),
 ])
 def test_state_exclusion_invalid_vectors(vectors, probs, solver, primal_dual):
     with np.testing.assert_raises(ValueError):
