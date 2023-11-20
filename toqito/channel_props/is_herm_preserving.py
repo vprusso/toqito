@@ -13,7 +13,8 @@ def is_herm_preserving(
     atol: float = 1e-08,
 ) -> bool:
     r"""
-    Determine whether the given channel is Hermitian-preserving [WatH18]_.
+    Determine whether the given channel is Hermitian-preserving (Section: Linear Maps Of Square Operators from
+    :cite:`watrous_2018`)..
 
     A map :math:`\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)` is
     *Hermitian-preserving* if it holds that
@@ -64,10 +65,6 @@ def is_herm_preserving(
     .. bibliography::
         :filter: docname in docnames
     
-    .. [WatH18] Watrous, John.
-        "The theory of quantum information."
-        Section: "Linear maps of square operators".
-        Cambridge University Press, 2018.
 
     :param phi: The channel provided as either a Choi matrix or a list of Kraus operators.
     :param rtol: The relative tolerance parameter (default 1e-05).

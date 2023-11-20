@@ -9,7 +9,8 @@ from toqito.matrix_props import is_unitary as is_unitary_matrix
 
 def is_unitary(phi: np.ndarray | list[list[np.ndarray]]) -> bool:
     r"""
-    Given a quantum channel, determine if it is unitary [WatIU18]_.
+    Given a quantum channel, determine if it is unitary (Section 2.2.1:
+    Definitions and Basic Notions Concerning Channels from :cite:`watrous_2018`).
 
     Let :math:`\mathcal{X}` be a complex Euclidean space an let :math:`U \in U(\mathcal{X})` be a
     unitary operator. Then a unitary channel is defined as:
@@ -61,10 +62,6 @@ def is_unitary(phi: np.ndarray | list[list[np.ndarray]]) -> bool:
     .. bibliography::
         :filter: docname in docnames
     
-    .. [WatIU18] Watrous, John.
-        "The Theory of Quantum Information."
-        Section: "2.2.1  Definitions and basic notions concerning channels".
-        Cambridge University Press, 2018.
 
     :param phi: The channel provided as either a Choi matrix or a list of Kraus operators.
     :return: :code:`True` if the channel is a unitary channel, and :code:`False` otherwise.

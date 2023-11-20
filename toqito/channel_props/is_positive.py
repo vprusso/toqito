@@ -13,7 +13,8 @@ def is_positive(
     atol: float = 1e-08,
 ) -> bool:
     r"""
-    Determine whether the given channel is positive [WatPM18]_.
+    Determine whether the given channel is positive (Section: Linear Maps Of Square Operators from
+    :cite:`watrous_2018`).
 
     A map :math:`\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)` is *positive* if it
     holds that
@@ -66,10 +67,6 @@ def is_positive(
     .. bibliography::
         :filter: docname in docnames
     
-    .. [WatPM18] Watrous, John.
-        "The theory of quantum information."
-        Section: "Linear maps of square operators".
-        Cambridge University Press, 2018.
 
     :param phi: The channel provided as either a Choi matrix or a list of Kraus operators.
     :param rtol: The relative tolerance parameter (default 1e-05).
