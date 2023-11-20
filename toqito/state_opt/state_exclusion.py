@@ -100,6 +100,16 @@ def state_exclusion(
     :return: The optimal probability with which Bob can guess the state he was
              not given from `states` along with the optimal set of measurements.
     """
+    if not all(vector.shape == vectors[0].shape for vector in vectors):
+        raise ValueError("Vectors for state exclusion must all have the same dimension.")
+
+    n = vectors[0].shape[0]
+
+    # Assumes a uniform probabilities distribution among the states if one is not explicitly provided.
+    probs = [1 / n] * n if probs is None else probs
+    if not np.isclose(sum(probs), 1):
+        raise ValueError("InvalidProbabilities: Probabilities must sum to 1.")
+
     if primal_dual == "primal":
         return _min_error_primal(vectors=vectors, probs=probs, solver=solver)
     return _min_error_dual(vectors=vectors, probs=probs, solver=solver)
@@ -111,13 +121,7 @@ def _min_error_primal(
         solver: str = "cvxopt",
 ) -> tuple[float, list[picos.HermitianVariable]]:
     """Find the primal problem for minimum-error quantum state exclusion SDP."""
-    if not all(vector.shape == vectors[0].shape for vector in vectors):
-        raise ValueError("Vectors for state exclusion must all have the same dimension.")
     n, dim = len(vectors), vectors[0].shape[0]
-
-    # Assumes a uniform probabilities distribution among the states if one is not explicitly provided.
-    if probs is None:
-        probs = [1 / len(vectors)] * len(vectors)
 
     problem = picos.Problem()
     measurements = [picos.HermitianVariable(f"M[{i}]", (dim, dim)) for i in range(n)]
@@ -144,14 +148,7 @@ def _min_error_dual(
         solver: str = "cvxopt"
 ) -> tuple[float, list[picos.HermitianVariable]]:
     """Find the dual problem for minimum-error quantum state exclusion SDP."""
-    if not all(vector.shape == vectors[0].shape for vector in vectors):
-        raise ValueError("Vectors for state exclusion must all have the same dimension.")
-
-    dim = vectors[0].shape[0]
-    # Assumes a uniform probabilities distribution among the states if one is not explicitly provided.
-    if probs is None:
-        probs = [1 / len(vectors)] * len(vectors)
-
+    n, dim = len(vectors), vectors[0].shape[0]
     problem = picos.Problem()
 
     # Set up variables and constraints for SDP:
@@ -167,6 +164,6 @@ def _min_error_dual(
     problem.set_objective("max", picos.trace(y_var))
     solution = problem.solve(solver=solver)
 
-    measurements = [problem.get_constraint(k).dual for k in range(len(vectors))]
+    measurements = [problem.get_constraint(k).dual for k in range(n)]
 
     return solution.value, measurements
