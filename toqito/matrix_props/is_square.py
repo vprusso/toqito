@@ -46,6 +46,9 @@ def is_square(mat: np.ndarray) -> bool:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikSquare] Wikipedia: Square matrix.
         https://en.wikipedia.org/wiki/Square_matrix
 

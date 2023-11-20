@@ -61,6 +61,9 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] = None) -> sparse:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [GHZ07] Going beyond Bell's theorem.
         D. Greenberger and M. Horne and A. Zeilinger.
         E-print: [quant-ph] arXiv:0712.0921. 2007.

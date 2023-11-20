@@ -37,6 +37,12 @@ def reduction(dim: int, k: int = 1) -> np.ndarray:
      [ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  1.,  0.],
      [-1.,  0.,  0.,  0., -1.,  0.,  0.,  0.,  0.]])
 
+    
+    References
+    ==========
+    .. bibliography::
+        :filter: docname in docnames
+
     :param dim: A positive integer (the dimension of the reduction map).
     :param k: If this positive integer is provided, the script will instead return the Choi
               matrix of the following linear map: Phi(X) := K * Tr(X)I - X.

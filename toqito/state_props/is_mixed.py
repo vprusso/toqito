@@ -33,6 +33,9 @@ def is_mixed(state: np.ndarray) -> bool:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikMix] Wikipedia: Quantum state - Mixed states
         https://en.wikipedia.org/wiki/Quantum_state#Mixed_states
 

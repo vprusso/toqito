@@ -73,6 +73,9 @@ def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WatDeph18] Watrous, John.
         "The theory of quantum information."
         Section: "The completely dephasing channel".

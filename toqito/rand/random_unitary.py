@@ -63,6 +63,9 @@ def random_unitary(dim: list[int] | int, is_real: bool = False) -> np.ndarray:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [MO09] How to generate a random unitary matrix,
         Maris Ozols
         March 16, 2009,

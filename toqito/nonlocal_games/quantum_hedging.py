@@ -57,6 +57,9 @@ class QuantumHedging:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [MW12] Molina, Abel, and Watrous, John.
         "Hedging bets with correlated quantum strategies."
         Proceedings of the Royal Society A:

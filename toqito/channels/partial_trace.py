@@ -120,6 +120,9 @@ def partial_trace(
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikPtrace] Wikipedia: Partial trace
         https://en.wikipedia.org/wiki/Partial_trace
 

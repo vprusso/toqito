@@ -43,6 +43,9 @@ def shift(dim: int) -> np.ndarray:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikShift] Wikipedia: Generalizations of Pauli matrices
         (https://en.wikipedia.org/wiki/Generalizations_of_Pauli_matrices.
 

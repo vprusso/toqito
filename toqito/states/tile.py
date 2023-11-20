@@ -52,6 +52,9 @@ def tile(idx: int) -> np.ndarray:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [UPBTile99] Bennett, Charles H., et al.
         "Unextendible product bases and bound entanglement."
         Physical Review Letters 82.26 (1999): 5385.

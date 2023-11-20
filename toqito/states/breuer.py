@@ -31,6 +31,9 @@ def breuer(dim: int, lam: float) -> np.ndarray:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [HPBreuer] H-P. Breuer. Optimal entanglement criterion for mixed quantum states.
        E-print: arXiv:quant-ph/0605036, 2006.
 

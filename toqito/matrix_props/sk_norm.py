@@ -64,6 +64,9 @@ def sk_operator_norm(  # pylint: disable=too-many-locals
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [1] "A Family of Norms With Applications In Quantum Information Theory"
         Nathaniel Johnston, David W. Kribs
         arXiv:0909.3907

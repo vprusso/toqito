@@ -52,6 +52,9 @@ def is_hermitian(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> b
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikHerm] Wikipedia: Hermitian matrix.
         https://en.wikipedia.org/wiki/Hermitian_matrix
 

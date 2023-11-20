@@ -85,6 +85,9 @@ def is_povm(mat_list: list[np.ndarray]) -> bool:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikPOVM] Wikipedia: POVM
         https://en.wikipedia.org/wiki/POVM
 

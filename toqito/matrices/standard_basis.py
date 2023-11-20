@@ -20,6 +20,11 @@ def standard_basis(dim: int, flatten: bool = False) -> list[np.ndarray]:
     This function was inspired by:
     https://github.com/akshayseshadri/minimax-fidelity-estimation
 
+    References
+    ==========
+    .. bibliography::
+        :filter: docname in docnames
+
     :param dim: The dimension of the basis.
     :param flatten: If True, the basis is returned as a flattened list.
     :return: A list of numpy.ndarray of shape (n, 1).

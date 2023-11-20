@@ -50,6 +50,9 @@ def is_diagonally_dominant(mat: np.ndarray, is_strict: bool = True) -> bool:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikDD] Wikipedia: Diagonally dominant matrix.
        https://en.wikipedia.org/wiki/Diagonally_dominant_matrix
 

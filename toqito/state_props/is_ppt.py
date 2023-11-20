@@ -65,6 +65,9 @@ def is_ppt(mat: np.ndarray, sys: int = 2, dim: int | list[int] = None, tol: floa
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikPPT] Quantiki: Positive partial transpose
         https://www.quantiki.org/wiki/positive-partial-transpose
 

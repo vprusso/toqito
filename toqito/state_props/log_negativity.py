@@ -38,6 +38,9 @@ def log_negativity(rho: np.ndarray, dim: list[int] | int = None) -> float:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikLogNeg] Wikipedia page for negativity (quantum mechanics):
         https://en.wikipedia.org/wiki/Negativity_(quantum_mechanics)
 

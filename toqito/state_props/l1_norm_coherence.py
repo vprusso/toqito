@@ -41,6 +41,9 @@ def l1_norm_coherence(rho: np.ndarray) -> float:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [RPWL17] "Logarithmic coherence: Operational interpretation of 1-norm coherence"
         Rana, Swapan, Parashar, Preeti, Winter, Andreas, Lewenstein, Maciej
         Physical Review A 96.5 (2017): 052336.

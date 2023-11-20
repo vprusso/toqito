@@ -72,6 +72,9 @@ def antisymmetric_projection(
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikAsym] Wikipedia: Anti-symmetric operator
         https://en.wikipedia.org/wiki/Anti-symmetric_operator
 

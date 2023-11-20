@@ -43,6 +43,9 @@ def perm_sign(perm: np.ndarray | list[int]) -> float:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikParPerm] Wikipedia: Parity of a permutation
         https://en.wikipedia.org/wiki/Parity_of_a_permutation
 

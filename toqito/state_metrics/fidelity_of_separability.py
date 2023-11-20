@@ -105,6 +105,9 @@ def fidelity_of_separability(
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [Hay12] Hayden, Patrick et.al.
         "Two-message quantum interactive proofs and the quantum separability problem."
         Proceedings of the 28th IEEE Conference on Computational Complexity, pages 156-167.

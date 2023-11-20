@@ -77,6 +77,9 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikDepo] Wikipedia: Quantum depolarizing channel
         https://en.wikipedia.org/wiki/Quantum_depolarizing_channel
 

@@ -26,6 +26,9 @@ class ExtendedNonlocalGame:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [JMRW16] Nathaniel Johnston, Rajat Mittal, Vincent Russo, John Watrous
         "Extended non-local games and monogamy-of-entanglement games",
         Proceedings of the Royal Society A: Mathematical, Physical and

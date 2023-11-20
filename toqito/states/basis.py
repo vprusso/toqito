@@ -34,6 +34,9 @@ def basis(dim: int, pos: int) -> np.ndarray:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikKet] Wikipedia page for bra–ket notation:
            https://en.wikipedia.org/wiki/Bra%E2%80%93ket_notation
 

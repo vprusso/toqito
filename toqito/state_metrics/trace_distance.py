@@ -46,6 +46,9 @@ def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WIKTD] Quantiki: Trace distance
             https://www.quantiki.org/wiki/trace-distance
 

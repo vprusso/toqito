@@ -55,6 +55,9 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikFid] Wikipedia: Fidelity of quantum states
         https://en.wikipedia.org/wiki/Fidelity_of_quantum_states
 

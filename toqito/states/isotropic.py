@@ -50,6 +50,9 @@ def isotropic(dim: int, alpha: float) -> np.ndarray:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [HH99] Horodecki, Michał, and Paweł Horodecki.
         "Reduction criterion of separability and limits for a class of
         distillation protocols." Physical Review A 59.6 (1999): 4206.

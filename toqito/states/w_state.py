@@ -69,6 +69,9 @@ def w_state(num_qubits: int, coeff: list[int] = None) -> np.ndarray:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [DVC00] Three qubits can be entangled in two inequivalent ways.
         W. Dur, G. Vidal, and J. I. Cirac.
         E-print: arXiv:quant-ph/0005115, 2000.

@@ -50,6 +50,9 @@ def is_positive_definite(mat: np.ndarray) -> bool:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikPD] Wikipedia: Definiteness of a matrix.
         https://en.wikipedia.org/wiki/Definiteness_of_a_matrix
 

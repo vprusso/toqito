@@ -27,6 +27,11 @@ def perfect_matchings(num: list[int] | int | np.ndarray) -> np.ndarray:
      [1 3 2 4]
      [1 4 3 2]]
 
+    References
+    ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     :param num: Either an even integer, indicating that you would like all perfect matchings of the
                 integers 1,2, ... N, or a `list` or `np.array` containing an even number of distinct
                 entries, indicating that you would like all perfect matchings of those entries.

@@ -78,6 +78,9 @@ def state_exclusion(
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [PBR12] "On the reality of the quantum state"
         Pusey, Matthew F., Barrett, Jonathan, and Rudolph, Terry.
         Nature Physics 8.6 (2012): 475-478.

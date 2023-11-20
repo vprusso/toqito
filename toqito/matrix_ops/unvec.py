@@ -72,8 +72,11 @@ def unvec(vector: np.ndarray, shape: list[int] = None) -> np.ndarray:
     ========
     vec
 
-    References
+   References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [Rigetti2020] Forest Benchmarking (Rigetti).
         https://github.com/rigetti/forest-benchmarking
 

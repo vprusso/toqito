@@ -46,6 +46,9 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikEOF] Quantiki: Entanglement-of-formation
         https://www.quantiki.org/wiki/entanglement-formation
 

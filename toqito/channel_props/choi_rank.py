@@ -73,6 +73,8 @@ def choi_rank(phi: np.ndarray | list[list[np.ndarray]]) -> int:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
 
     .. [WatChoiRank18] Watrous, John.
         "The Theory of Quantum Information."

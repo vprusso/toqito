@@ -46,6 +46,9 @@ def purity(rho: np.ndarray) -> float:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikPurity] Wikipedia page for purity (quantum mechanics):
         https://en.wikipedia.org/wiki/Purity_(quantum_mechanics)
 

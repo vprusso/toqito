@@ -29,6 +29,9 @@ def inner_product(v1: np.ndarray, v2: np.ndarray) -> float:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikInner] Wikipedia: Inner product space
         https://en.wikipedia.org/wiki/Inner_product_space
 

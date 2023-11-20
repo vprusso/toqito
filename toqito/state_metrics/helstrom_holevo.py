@@ -50,6 +50,9 @@ def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikHeHo] Wikipedia: Holevo's theorem.
         https://en.wikipedia.org/wiki/Holevo%27s_theorem
 

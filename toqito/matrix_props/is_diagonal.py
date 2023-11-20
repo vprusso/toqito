@@ -61,6 +61,9 @@ def is_diagonal(mat: np.ndarray) -> bool:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikDiag] Wikipedia: Diagonal matrix
         https://en.wikipedia.org/wiki/Diagonal_matrix
 

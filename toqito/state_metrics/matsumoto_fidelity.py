@@ -65,6 +65,9 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [Mat10] Keiji Matsumoto.
         "Reverse test and quantum analogue of classical fidelity and generalized fidelity"
         https://arxiv.org/abs/1006.0302

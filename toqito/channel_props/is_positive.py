@@ -63,6 +63,9 @@ def is_positive(
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WatPM18] Watrous, John.
         "The theory of quantum information."
         Section: "Linear maps of square operators".

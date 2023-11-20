@@ -79,6 +79,9 @@ def pauli(
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikPauli] Wikipedia: Pauli matrices
         https://en.wikipedia.org/wiki/Pauli_matrices
 

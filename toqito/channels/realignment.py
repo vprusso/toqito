@@ -43,6 +43,9 @@ def realignment(input_mat: np.ndarray, dim: int | list[int] = None) -> np.ndarra
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [LAS08] Lupo, Cosmo, Paolo, Aniello, and Scardicchio, Antonello.
         "Bipartite quantum systems: on the realignment criterion and beyond."
         Journal of Physics A: Mathematical and Theoretical

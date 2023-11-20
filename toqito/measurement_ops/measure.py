@@ -63,6 +63,9 @@ def measure(measurement: np.ndarray, state: np.ndarray) -> float:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikMeas] Wikipedia: Measurement in quantum mechanics
         https://en.wikipedia.org/wiki/Measurement_in_quantum_mechanics
 

@@ -44,6 +44,9 @@ def majorizes(a_var: np.ndarray | list[int], b_var: np.ndarray | list[int]) -> b
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikMajorization] Wikipedia: Majorization
        https://en.wikipedia.org/wiki/Majorization
 

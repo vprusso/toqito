@@ -41,6 +41,9 @@ def sk_vector_norm(rho: np.ndarray, k: int = 1, dim: int | list[int] = None) -> 
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [NJDK09] "A Family of Norms With Applications In Quantum Information Theory"
         Nathaniel Johnston, David W. Kribs
         https://arxiv.org/abs/0909.3907

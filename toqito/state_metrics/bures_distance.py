@@ -54,6 +54,9 @@ def bures_distance(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> 
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikBures] Wikipedia: Bures metric
         https://en.wikipedia.org/wiki/Bures_metric
 

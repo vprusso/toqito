@@ -19,6 +19,11 @@ def cvx_kron(expr_1: np.ndarray | Expression, expr_2: np.ndarray | Expression) -
     Kudos to Riley J. Murray for this function:
     https://github.com/cvxgrp/cvxpy/issues/457
 
+    References
+    ==========
+    .. bibliography::
+        :filter: docname in docnames
+
     :param expr_1: 2D numpy ndarray, or a CVXPY Variable with expr_1.ndim == 2
     :param expr_2: 2D numpy ndarray, or a CVXPY Variable with expr_2.ndim == 2
     :return: The tensor product of two CVXPY expressions.

@@ -42,6 +42,9 @@ def bell(idx: int) -> np.ndarray:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikBell] Wikipedia: Bell state
         https://en.wikipedia.org/wiki/Bell_state
 

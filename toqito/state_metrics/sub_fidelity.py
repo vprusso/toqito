@@ -54,6 +54,9 @@ def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [MPHUZSub08] J. A. Miszczak, Z. Puchała, P. Horodecki, A. Uhlmann, K. Życzkowski
         "Sub--and super--fidelity as bounds for quantum fidelity."
         arXiv preprint arXiv:0805.2037 (2008).

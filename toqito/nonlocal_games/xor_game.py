@@ -112,6 +112,9 @@ class XORGame:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [CSUU08] Richard Cleve, William Slofstra, Falk Unger, Sarvagya Upadhyay
             "Strong parallel repetition theorem for quantum XOR proof systems",
             2008,

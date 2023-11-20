@@ -104,6 +104,9 @@ def partial_transpose(
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikPtrans] Wikipedia: Partial transpose
         https://en.wikipedia.org/w/index.php?title=Partial_transpose
     :param rho: A matrix.

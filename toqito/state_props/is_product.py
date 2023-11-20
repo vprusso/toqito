@@ -46,6 +46,9 @@ def is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray = None) -> boo
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikProdState] Wikipedia: Product state
         https://en.wikipedia.org/wiki/Product_state
     :param rho: The vector or matrix to check.

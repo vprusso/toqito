@@ -81,6 +81,9 @@ def vec(mat: np.ndarray) -> np.ndarray:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WATVEC] Watrous, John.
         "The theory of quantum information."
         Section: "The operator-vector correspondence".

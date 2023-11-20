@@ -75,6 +75,9 @@ def state_distinguishability(
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [ELD03] Eldar, Yonina C.
         "A semidefinite programming approach to optimal unambiguous
         discrimination of quantum states."

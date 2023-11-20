@@ -19,6 +19,9 @@ def is_npt(mat: np.ndarray, sys: int = 2, dim: int | list[int] = None, tol: floa
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [NPT] "Evidence for bound entangled states with negative partial transpose."
              Physical Review A 61.6 (2000): 062312.
 

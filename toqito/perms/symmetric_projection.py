@@ -71,6 +71,9 @@ def symmetric_projection(
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
      .. [CJKLZ14] J. Chen, Z. Ji, D. Kribs, N. Lütkenhaus, and B. Zeng.
         "Symmetric extension of two-qubit states".
         Physical Review A 90.3 (2014): 032318.

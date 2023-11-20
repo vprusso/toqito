@@ -106,6 +106,9 @@ def tensor(*args) -> np.ndarray:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikTensor] Wikipedia: Tensor product
         https://en.wikipedia.org/wiki/Tensor_product
 

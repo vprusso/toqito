@@ -34,6 +34,9 @@ def hadamard(n_param: int = 1) -> np.ndarray:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikHad] Wikipedia: Hadamard transform
         https://en.wikipedia.org/wiki/Hadamard_transform
 

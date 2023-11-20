@@ -46,6 +46,9 @@ def is_idempotent(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> b
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikIdempotent] Wikipedia: Idempotent matrix
         https://en.wikipedia.org/wiki/Idempotent_matrix
 

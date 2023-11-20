@@ -51,6 +51,9 @@ def brauer(dim: int, p_val: int) -> np.ndarray:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikBrauer] Wikipedia: Brauer algebra
         https://en.wikipedia.org/wiki/Brauer_algebra
 

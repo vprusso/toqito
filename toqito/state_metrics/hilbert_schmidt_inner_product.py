@@ -32,6 +32,9 @@ def hilbert_schmidt_inner_product(a_mat: np.ndarray, b_mat: np.ndarray) -> compl
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikHSO] Wikipedia: Hilbert-Schmidt operator.
         https://en.wikipedia.org/wiki/Hilbert%E2%80%93Schmidt_operator
     .. [Rigetti21] Forest Benchmarking (Rigetti).

@@ -45,6 +45,9 @@ def fourier(dim: int) -> np.ndarray:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikDFT] Wikipedia: DFT matrix,
         https://en.wikipedia.org/wiki/DFT_matrix
 

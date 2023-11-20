@@ -100,6 +100,11 @@ def swap(
     >>> swap(test_vec)
     [1 3 2 4]
 
+    References
+    ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     :raises ValueError: If dimension does not match the number of subsystems.
     :param rho: A vector or matrix to have its subsystems swapped.
     :param sys: Default: [1, 2]

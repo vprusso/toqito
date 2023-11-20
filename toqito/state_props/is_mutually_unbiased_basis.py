@@ -72,6 +72,9 @@ def is_mutually_unbiased_basis(vec_list: list[np.ndarray | list[float | Any]]) -
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikMUB] Wikipedia: Mutually unbiased bases
         https://en.wikipedia.org/wiki/Mutually_unbiased_bases
 

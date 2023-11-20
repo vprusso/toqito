@@ -128,6 +128,9 @@ def symmetric_extension_hierarchy(
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [Nav08] Navascués, Miguel.
         "Pure state estimation and the characterization of entanglement."
         Physical review letters 100.7 (2008): 070503.

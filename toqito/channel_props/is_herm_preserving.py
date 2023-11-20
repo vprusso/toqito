@@ -61,6 +61,9 @@ def is_herm_preserving(
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WatH18] Watrous, John.
         "The theory of quantum information."
         Section: "Linear maps of square operators".

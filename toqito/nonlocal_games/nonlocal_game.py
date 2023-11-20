@@ -24,6 +24,9 @@ class NonlocalGame:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [CHTW04_2] Cleve, Richard, Hoyer, Peter, Toner, Benjamin, and Watrous, John
         "Consequences and limits of nonlocal strategies"
         Computational Complexity 2004. Proceedings. 19th IEEE Annual Conference.

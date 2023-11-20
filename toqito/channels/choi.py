@@ -92,6 +92,9 @@ def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [Choi92] Cho, Sung Je, Seung-Hyeok Kye, and Sa Ge Lee.
         "Generalized Choi maps in three-dimensional matrix algebra."
         Linear algebra and its applications 171 (1992): 213-224.

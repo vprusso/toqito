@@ -33,6 +33,11 @@ def channel_dim(
 
     This functions was adapted from QETLAB.
 
+    References
+    ==========
+    .. bibliography::
+        :filter: docname in docnames
+
     :param phi: A superoperator. It should be provided either as a Choi matrix,
                 or as a (1d or 2d) list of numpy arrays whose entries are its Kraus operators.
     :param allow_rect: A flag indicating that the input and output spaces of PHI can be non-square (default True).

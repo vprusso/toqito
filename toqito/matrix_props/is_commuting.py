@@ -66,6 +66,9 @@ def is_commuting(mat_1: np.ndarray, mat_2: np.ndarray) -> bool:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikCom] Wikipedia: Commuting matrices
         https://en.wikipedia.org/wiki/Commuting_matrices
 

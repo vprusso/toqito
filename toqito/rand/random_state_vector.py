@@ -32,6 +32,11 @@ def random_state_vector(
     >>> is_pure(dm)
     True
 
+    References
+    ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     :param dim: The number of rows (and columns) of the unitary matrix.
     :param is_real: Boolean denoting whether the returned matrix has real
                     entries or not. Default is :code:`False`.

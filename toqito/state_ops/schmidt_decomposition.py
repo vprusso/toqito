@@ -55,6 +55,9 @@ def schmidt_decomposition(
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikSD] Wikipedia: Schmidt decomposition
         https://en.wikipedia.org/wiki/Schmidt_decomposition
 

@@ -42,6 +42,9 @@ def gisin(lambda_var: float, theta: float) -> np.ndarray:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [GIS96] N. Gisin.
         Hidden quantum nonlocality revealed by local filters.
         (http://dx.doi.org/10.1016/S0375-9601(96)80001-6). 1996.

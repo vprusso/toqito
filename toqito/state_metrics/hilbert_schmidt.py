@@ -30,6 +30,9 @@ def hilbert_schmidt(rho: np.ndarray, sigma: np.ndarray) -> float:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikHS] Wikipedia: Hilbert-Schmidt operator.
         https://en.wikipedia.org/wiki/Hilbert%E2%80%93Schmidt_operator
 

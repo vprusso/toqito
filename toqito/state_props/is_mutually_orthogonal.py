@@ -50,6 +50,9 @@ def is_mutually_orthogonal(vec_list: list[np.ndarray | list[float | Any]]) -> bo
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikOrthog] Wikipedia: Orthogonality
         https://en.wikipedia.org/wiki/Orthogonality
 

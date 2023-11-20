@@ -41,8 +41,12 @@ def update_odometer(
     [2 0]
     [2 1]
 
+    
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [QETOD] QETLAB: Update odometer function.
         http://www.qetlab.com/update_odometer
 

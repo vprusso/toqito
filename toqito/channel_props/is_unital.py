@@ -52,6 +52,9 @@ def is_unital(
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WatUnital18] Watrous, John.
         "The theory of quantum information."
         Chapter: Unital channels and majorization

@@ -58,6 +58,9 @@ def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, sparse.dia_matr
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [AAR6] Scott Aaronson: Lecture 6, Thurs Feb 2: Mixed States
         https://www.scottaaronson.com/qclec/6.pdf
 

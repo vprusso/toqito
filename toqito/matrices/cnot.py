@@ -29,6 +29,9 @@ def cnot() -> np.ndarray:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikCNOT] Wikipedia: Controlled NOT gate
         https://en.wikipedia.org/wiki/Controlled_NOT_gate
 

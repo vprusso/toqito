@@ -42,6 +42,9 @@ def is_block_positive(
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [1] "N. Johnston. Norms and Cones in the Theory of Quantum Entanglement. PhD thesis"
         arXiv:1207.1479
 

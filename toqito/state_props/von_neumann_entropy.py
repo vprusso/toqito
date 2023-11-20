@@ -73,6 +73,9 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikVent] Wikipedia: Von Neumann entropy
         https://en.wikipedia.org/wiki/Von_Neumann_entropy
 

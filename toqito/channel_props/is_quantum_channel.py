@@ -40,6 +40,9 @@ def is_quantum_channel(
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WatQC18] Watrous, John.
         "The Theory of Quantum Information."
         Section: "2.2.1  Definitions and basic notions concerning channels".

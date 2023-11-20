@@ -50,6 +50,9 @@ def is_permutation(mat: np.ndarray) -> bool:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikiPermutation] Wikipedia: Permutation matrix.
         https://en.wikipedia.org/wiki/Permutation_matrix
 

@@ -77,6 +77,9 @@ def is_trace_preserving(
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WatTP18] Watrous, John.
         "The theory of quantum information."
         Section: "Linear maps of square operators".

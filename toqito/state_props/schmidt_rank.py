@@ -74,6 +74,9 @@ def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray = None) -> f
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikSR] Wikipedia: Schmidt rank
         https://en.wikipedia.org/wiki/Schmidt_decomposition#Schmidt_rank_and_entanglement
 

@@ -65,6 +65,9 @@ def concurrence(rho: np.ndarray) -> float:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikCon] Wikipedia page for concurrence (quantum computing)
        https://en.wikipedia.org/wiki/Concurrence_(quantum_computing)
 

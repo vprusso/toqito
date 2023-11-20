@@ -88,6 +88,9 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | scipy.sparse.cs
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikGM] Wikipedia: Gell-Mann matrices,
         https://en.wikipedia.org/wiki/Gell-Mann_matrices
 

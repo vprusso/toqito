@@ -47,6 +47,9 @@ def max_entangled(
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikEnt] Wikipedia: Quantum entanglement
         https://en.wikipedia.org/wiki/Quantum_entanglement
 

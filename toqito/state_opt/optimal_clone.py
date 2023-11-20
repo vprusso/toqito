@@ -90,6 +90,9 @@ def optimal_clone(
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [MVW12] Abel Molina, Thomas Vidick, and John Watrous.
         "Optimal counterfeiting attacks and generalizations for Wiesner’s
         quantum money."

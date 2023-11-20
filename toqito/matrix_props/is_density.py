@@ -61,6 +61,9 @@ def is_density(mat: np.ndarray) -> bool:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikDensity] Wikipedia: Density matrix
         https://en.wikipedia.org/wiki/Density_matrix
 

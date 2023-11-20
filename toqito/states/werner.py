@@ -85,6 +85,9 @@ def werner(dim: int, alpha: float | list[float]) -> np.ndarray:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+      
     .. [Wer89] R. F. Werner.
         Quantum states with Einstein-Podolsky-Rosen correlations admitting a
         hidden-variable model. Phys. Rev. A, 40(8):4277–4281. 1989

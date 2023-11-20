@@ -73,6 +73,9 @@ def domino(idx: int) -> np.ndarray:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [CBDOM99] Bennett, Charles H., et al.
         Quantum nonlocality without entanglement.
         Phys. Rev. A, 59:1070–1091, Feb 1999.

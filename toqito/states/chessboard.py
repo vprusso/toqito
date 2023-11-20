@@ -42,6 +42,9 @@ def chessboard(mat_params: list[float], s_param: float = None, t_param: float = 
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+      
     .. [BP00] Three qubits can be entangled in two inequivalent ways.
         D. Bruss and A. Peres
         Phys. Rev. A, 61:30301(R), 2000

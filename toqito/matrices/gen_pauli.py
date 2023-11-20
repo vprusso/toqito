@@ -61,6 +61,9 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikGenPaul] Wikipedia: Generalizations of Pauli matrices
         https://en.wikipedia.org/wiki/Generalizations_of_Pauli_matrices
 

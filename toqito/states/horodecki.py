@@ -107,6 +107,9 @@ def horodecki(a_param: float, dim: list[int] = None) -> np.ndarray:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [HOR] P. Horodecki.
         Separability criterion and inseparable mixed states with positive
         partial transpose.

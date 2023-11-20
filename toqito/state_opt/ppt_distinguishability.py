@@ -86,6 +86,9 @@ def ppt_distinguishability(
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [COS13] Cosentino, Alessandro.
         "Positive-partial-transpose-indistinguishable states via semidefinite
         programming."

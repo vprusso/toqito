@@ -58,6 +58,9 @@ def is_unitary(phi: np.ndarray | list[list[np.ndarray]]) -> bool:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WatIU18] Watrous, John.
         "The Theory of Quantum Information."
         Section: "2.2.1  Definitions and basic notions concerning channels".

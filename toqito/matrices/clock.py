@@ -45,6 +45,9 @@ def clock(dim: int) -> np.ndarray:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikClock] Wikipedia: Generalizations of Pauli matrices,
         https://en.wikipedia.org/wiki/Generalizations_of_Pauli_matrices
 

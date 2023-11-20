@@ -31,6 +31,9 @@ def outer_product(v1: np.ndarray, v2: np.ndarray) -> np.ndarray:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikOuter] Wikipedia: Outer Product
         https://en.wikipedia.org/wiki/Outer_product
 

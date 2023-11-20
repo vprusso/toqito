@@ -44,6 +44,9 @@ def is_ensemble(states: list[np.ndarray]) -> bool:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WatEns18] Watrous, John.
         "The theory of quantum information."
         Section: "Ensemble of quantum states".

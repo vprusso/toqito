@@ -54,6 +54,9 @@ def is_separable(
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikSepState] Wikipedia: Separable state
         https://en.wikipedia.org/wiki/Separable_state
 

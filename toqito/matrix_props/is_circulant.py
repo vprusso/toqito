@@ -34,6 +34,9 @@ def is_circulant(mat: np.ndarray) -> bool:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikCirc] Wikipedia: Circulant matrices
         https://en.wikipedia.org/wiki/Circulant_matrix
 

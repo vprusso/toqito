@@ -28,6 +28,9 @@ def random_ginibre(
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
 
     .. [WIKCIRC] Wikipedia: Circular law
         https://en.wikipedia.org/wiki/Circular_law

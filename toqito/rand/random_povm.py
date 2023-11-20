@@ -38,6 +38,9 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int) -> np.ndarray:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WIKPOVM] Wikipedia: POVM
         https://en.wikipedia.org/wiki/POVM
 

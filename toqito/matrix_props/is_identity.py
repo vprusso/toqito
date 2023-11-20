@@ -60,6 +60,9 @@ def is_identity(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> boo
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikIdentity] Wikipedia: Identity matrix
         https://en.wikipedia.org/wiki/Identity_matrix
 

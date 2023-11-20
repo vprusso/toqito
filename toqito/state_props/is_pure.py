@@ -59,6 +59,9 @@ def is_pure(state: list[np.ndarray] | np.ndarray) -> bool:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikIsPure] Wikipedia: Quantum state - Pure states
         https://en.wikipedia.org/wiki/Quantum_state#Pure_states
 

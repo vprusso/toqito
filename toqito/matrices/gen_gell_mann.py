@@ -59,6 +59,9 @@ def gen_gell_mann(
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikGM2] Wikipedia: Gell-Mann matrices,
         https://en.wikipedia.org/wiki/Gell-Mann_matrices
 

@@ -40,6 +40,9 @@ def trace_norm(rho: np.ndarray) -> float:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [WikTn] Quantiki: Trace norm
         https://www.quantiki.org/wiki/trace-norm
 

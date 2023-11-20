@@ -76,6 +76,11 @@ def random_density_matrix(
     >>> is_density(bures_mat)
     True
 
+    References
+    ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     :param dim: The number of rows (and columns) of the density matrix.
     :param is_real: Boolean denoting whether the returned matrix will have all
                     real entries or not.

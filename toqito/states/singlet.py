@@ -63,6 +63,9 @@ def singlet(dim: int) -> np.ndarray:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+      
     .. [Gsinglet] Cabello, Adan,
         "N-particle N-level singlet states: Some properties and applications".
         Phys. Rev. Lett., 89 (2002): 100402.

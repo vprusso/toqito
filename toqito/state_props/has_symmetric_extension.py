@@ -82,6 +82,9 @@ def has_symmetric_extension(
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [DPS02] Doherty, Andrew C., Pablo A. Parrilo, and Federico M. Spedalieri.
         "Distinguishing separable and entangled states."
         Physical Review Letters 88.18 (2002): 187904.

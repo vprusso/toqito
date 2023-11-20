@@ -52,6 +52,9 @@ def in_separable_ball(mat: np.ndarray) -> bool:
 
     References
     ==========
+    .. bibliography::
+        :filter: docname in docnames
+    
     .. [GB02] Gurvits, Leonid, and Barnum, Howard.
         "Largest separable balls around the maximally mixed bipartite quantum state."
         Physical Review A 66.6 (2002): 062311.
