@@ -12,7 +12,7 @@ def choi_to_kraus(
     choi_mat: np.ndarray, tol: float = 1e-9, dim: int | list[int] | np.ndarray = None
 ) -> list[np.ndarray] | list[list[np.ndarray]]:
     r"""
-    Compute a list of Kraus operators from the Choi matrix [Rigetti20]_.
+    Compute a list of Kraus operators from the Choi matrix from `Rigetti <https://github.com/rigetti/forest-benchmarking>`__.
 
     Note that unlike the Choi or natural representation of operators, the Kraus representation is
     *not* unique.
@@ -24,7 +24,8 @@ def choi_to_kraus(
     For completely positive maps the output is a single flat list of numpy arrays since the left and
     right Kraus maps are the same.
 
-    This function has been adapted from [Rigetti20]_ and QETLAB package.
+    This function has been adapted from `Rigetti <https://github.com/rigetti/forest-benchmarking>`__ 
+    and QETLAB :cite:`QETLAB_Kraus_Operators`.
 
     Examples
     ========
@@ -88,8 +89,10 @@ def choi_to_kraus(
 
     References
     ==========
-    .. [Rigetti20] Forest Benchmarking (Rigetti).
-        https://github.com/rigetti/forest-benchmarking
+    .. bibliography::
+        :filter: docname in docnames
+ 
+        
 
     :param choi_mat: A Choi matrix
     :param tol: optional threshold parameter for eigenvalues/kraus ops to be discarded

@@ -11,7 +11,8 @@ def dual_channel(
     phi_op: np.ndarray | list[np.ndarray] | list[list[np.ndarray]], dims: list[int] = None
 ) -> np.ndarray | list[list[np.ndarray]]:
     r"""
-    Compute the dual of a map (quantum channel) [WatDChan18]_.
+    Compute the dual of a map (quantum channel) (Section: Representations and Characterizations of Channels
+    of :cite:`watrous_2018`).
 
     The map can be represented as a Choi matrix, with optional specification of input
     and output dimensions. If the input channel maps :math:`M_{r,c}` to :math:`M_{x,y}`
@@ -36,10 +37,9 @@ def dual_channel(
 
     References
     ==========
-    .. [WatDChan18] Watrous, John.
-        The theory of quantum information.
-        Section: Representations and characterizations of channels.
-        Cambridge University Press, 2018.
+    .. bibliography::
+        :filter: docname in docnames
+    
 
     :raises ValueError: If matrices are not Choi matrix.
     :param phi_op: A superoperator. It should be provided either as a Choi matrix,
