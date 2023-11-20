@@ -103,12 +103,9 @@ def state_exclusion(
     if not all(vector.shape == vectors[0].shape for vector in vectors):
         raise ValueError("Vectors for state exclusion must all have the same dimension.")
 
-    n = vectors[0].shape[0]
-
     # Assumes a uniform probabilities distribution among the states if one is not explicitly provided.
+    n = vectors[0].shape[0]
     probs = [1 / n] * n if probs is None else probs
-    if not np.isclose(sum(probs), 1):
-        raise ValueError("InvalidProbabilities: Probabilities must sum to 1.")
 
     if primal_dual == "primal":
         return _min_error_primal(vectors=vectors, probs=probs, solver=solver)
