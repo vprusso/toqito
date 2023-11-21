@@ -52,10 +52,6 @@ def swap_operator(dim: list[int] | int, is_sparse: bool = False) -> np.ndarray:
      [0., 0., 0., 0., 0., 1., 0., 0., 0.],
      [0., 0., 0., 0., 0., 0., 0., 0., 1.]]
 
-    References
-    ==========
-    .. bibliography::
-        :filter: docname in docnames
     
     :param dim: The dimensions of the subsystems.
     :param is_sparse: Sparse if :code:`True` and non-sparse if :code:`False`.

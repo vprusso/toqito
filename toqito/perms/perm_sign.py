@@ -8,7 +8,7 @@ from scipy import linalg
 
 def perm_sign(perm: np.ndarray | list[int]) -> float:
     """
-    Compute the "sign" of a permutation [WikParPerm]_.
+    Compute the "sign" of a permutation :cite:`WikiParPerm`.
 
     The sign (either -1 or 1) of the permutation :code:`perm` is
     :code:`-1**`inv`, where :code:`inv` is the number of inversions contained
@@ -46,8 +46,6 @@ def perm_sign(perm: np.ndarray | list[int]) -> float:
     .. bibliography::
         :filter: docname in docnames
     
-    .. [WikParPerm] Wikipedia: Parity of a permutation
-        https://en.wikipedia.org/wiki/Parity_of_a_permutation
 
     :param perm: The permutation vector to be checked.
     :return: The value 1 if the permutation is of even length and the value of

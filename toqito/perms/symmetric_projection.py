@@ -12,7 +12,7 @@ def symmetric_projection(
     dim: int, p_val: int = 2, partial: bool = False
 ) -> [np.ndarray, scipy.sparse.lil_matrix]:
     r"""
-    Produce the projection onto the symmetric subspace [CJKLZ14]_.
+    Produce the projection onto the symmetric subspace :cite:`Chen_2014`.
 
     For a complex Euclidean space :math:`\mathcal{X}` and a positive integer :math:`n`, the
     projection onto the symmetric subspace is given by
@@ -74,11 +74,6 @@ def symmetric_projection(
     .. bibliography::
         :filter: docname in docnames
     
-     .. [CJKLZ14] J. Chen, Z. Ji, D. Kribs, N. Lütkenhaus, and B. Zeng.
-        "Symmetric extension of two-qubit states".
-        Physical Review A 90.3 (2014): 032318.
-        https://arxiv.org/abs/1310.3530
-        E-print: arXiv:1310.3530 [quant-ph]
 
     :param dim: The dimension of the local systems.
     :param p_val: Default value of 2.
