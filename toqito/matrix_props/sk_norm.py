@@ -24,7 +24,7 @@ def sk_operator_norm(  # pylint: disable=too-many-locals
     effort: int = 2,
 ) -> float:
     r"""
-    Compute the S(k)-norm of a matrix [1]_.
+    Compute the S(k)-norm of a matrix :cite:`Johnston_2010`.
 
     The :math:`S(k)`-norm of of a matrix :math:`X` is defined as:
 
@@ -36,7 +36,7 @@ def sk_operator_norm(  # pylint: disable=too-many-locals
             \text{Schmidt - rank}(|w\rangle) \leq k
         \Big\}
 
-    Since computing the exact value of S(k)-norm [2]_ is in the general case
+    Since computing the exact value of S(k)-norm :cite:`johnston2012norms` is in the general case
     an intractable problem, this function tries to find some good lower and
     upper bounds. You can control the amount of computation you want to
     devote to computing the bounds by `effort` input argument. Note that if
@@ -67,11 +67,6 @@ def sk_operator_norm(  # pylint: disable=too-many-locals
     .. bibliography::
         :filter: docname in docnames
     
-    .. [1] "A Family of Norms With Applications In Quantum Information Theory"
-        Nathaniel Johnston, David W. Kribs
-        arXiv:0909.3907
-    .. [2] "N. Johnston. Norms and Cones in the Theory of Quantum Entanglement. PhD thesis"
-        arXiv:1207.1479
 
     :raises ValueError: If dimension of the input matrix is not specified.
     :param mat: A matrix.

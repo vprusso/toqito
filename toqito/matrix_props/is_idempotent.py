@@ -6,7 +6,7 @@ from toqito.matrix_props import is_square
 
 def is_idempotent(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> bool:
     r"""
-    Check if matrix is the idempotent matrix [WikIdempotent]_.
+    Check if matrix is the idempotent matrix :cite:`WikiIdemPot`.
 
     An *idempotent matrix* is a square matrix, which, when multiplied by itself, yields itself.
     That is, the matrix :math:`A` is idempotent if and only if :math:`A^2 = A`.
@@ -49,8 +49,6 @@ def is_idempotent(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> b
     .. bibliography::
         :filter: docname in docnames
     
-    .. [WikIdempotent] Wikipedia: Idempotent matrix
-        https://en.wikipedia.org/wiki/Idempotent_matrix
 
     :param mat: Matrix to check.
     :param rtol: The relative tolerance parameter (default 1e-05).

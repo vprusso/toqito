@@ -6,10 +6,6 @@ def kp_norm(mat: np.ndarray, k: int, p: int) -> float:
     """
     Compute the p-norm of the vector or the k-largest singular values of a matrix.
 
-    References
-    ==========
-    .. bibliography::
-        :filter: docname in docnames
     
     :param mat: 2D numpy ndarray
     :param k: The number of singular values to take.

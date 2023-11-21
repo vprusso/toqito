@@ -4,7 +4,7 @@ import numpy as np
 
 def trace_norm(rho: np.ndarray) -> float:
     r"""
-    Compute the trace norm of the state [WikTn]_.
+    Compute the trace norm of the state :cite:`QuantikiTrNorm`.
 
     Also computes the operator 1-norm when inputting an operator.
 
@@ -43,8 +43,6 @@ def trace_norm(rho: np.ndarray) -> float:
     .. bibliography::
         :filter: docname in docnames
     
-    .. [WikTn] Quantiki: Trace norm
-        https://www.quantiki.org/wiki/trace-norm
 
     :param rho: Density operator.
     :return: The trace norm of :code:`rho`.
