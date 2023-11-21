@@ -5,10 +5,8 @@ import numpy as np
 def vectors_to_gram_matrix(vectors: list[np.ndarray]) -> np.ndarray:
     """Given a list of vectors, return the Gram matrix.
     
-    References
-    ==========
-    .. bibliography::
-        :filter: docname in docnames"""
+    :param vectors: Input list of vectors.
+    :return: Gram matrix"""
     n = len(vectors)
     gram = np.zeros((n, n), dtype=complex)
     for i in range(n):

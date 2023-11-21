@@ -4,7 +4,7 @@ import numpy as np
 
 def unvec(vector: np.ndarray, shape: list[int] = None) -> np.ndarray:
     r"""
-    Perform the unvec operation on a vector to obtain a matrix [Rigetti2020]_.
+    Perform the unvec operation on a vector to obtain a matrix :cite:`Rigetti_docs`.
 
     Takes a column vector and transforms it into a :code:`shape[0]`-by-:code:`shape[1]` matrix.
     This operation is the inverse of :code:`vec` operation in :code:`toqito`.
@@ -77,8 +77,6 @@ def unvec(vector: np.ndarray, shape: list[int] = None) -> np.ndarray:
     .. bibliography::
         :filter: docname in docnames
     
-    .. [Rigetti2020] Forest Benchmarking (Rigetti).
-        https://github.com/rigetti/forest-benchmarking
 
     :param vector: A (:code:`shape[0] * shape[1]`)-by-1 numpy array.
     :param shape: The shape of the output matrix; by default, the matrix is assumed to be square.
