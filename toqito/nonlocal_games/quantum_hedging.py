@@ -11,7 +11,7 @@ class QuantumHedging:
     Calculate optimal winning probabilities for hedging scenarios.
 
     Calculate the maximal and minimal winning probabilities for quantum
-    hedging to occur in certain two-party scenarios [MW12]_, [AMR13]_.
+    hedging to occur in certain two-party scenarios :cite:`arunachalam2017quantum, Molina_2012`.
 
     Examples
     ==========
@@ -60,17 +60,7 @@ class QuantumHedging:
     .. bibliography::
         :filter: docname in docnames
     
-    .. [MW12] Molina, Abel, and Watrous, John.
-        "Hedging bets with correlated quantum strategies."
-        Proceedings of the Royal Society A:
-        Mathematical, Physical and Engineering Sciences
-        468.2145 (2012): 2614-2629.
-        https://arxiv.org/abs/1104.1140
-
-    .. [AMR13] Arunachalam, Srinivasan, Molina, Abel and Russo, Vincent.
-        "Quantum hedging in two-round prover-verifier interactions."
-        arXiv preprint arXiv:1310.7954 (2013).
-        https://arxiv.org/pdf/1310.7954.pdf
+    
     """
 
     def __init__(self, q_a: np.ndarray, num_reps: int) -> None:

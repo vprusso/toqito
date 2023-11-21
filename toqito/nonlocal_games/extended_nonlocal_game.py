@@ -21,23 +21,14 @@ class ExtendedNonlocalGame:
     made by the referee, on its part of the shared quantum state, in addition
     to Alice and Bob's answers to the questions sent by the referee.
 
-    Extended nonlocal games were initially defined in [JMRW16]_ and more
-    information on these games can be found in [Russo17]_.
+    Extended nonlocal games were initially defined in :cite:`Johnston_2016` and more
+    information on these games can be found in :cite:`russo2017extended`.
 
     References
     ==========
     .. bibliography::
         :filter: docname in docnames
     
-    .. [JMRW16] Nathaniel Johnston, Rajat Mittal, Vincent Russo, John Watrous
-        "Extended non-local games and monogamy-of-entanglement games",
-        Proceedings of the Royal Society A: Mathematical, Physical and
-        Engineering Sciences 472.2189 (2016),
-        https://arxiv.org/abs/1510.02083
-
-    .. [Russo17] Vincent Russo
-        "Extended nonlocal games"
-        https://arxiv.org/abs/1704.07375
     """
 
     def __init__(self, prob_mat: np.ndarray, pred_mat: np.ndarray, reps: int = 1) -> None:
@@ -440,7 +431,7 @@ class ExtendedNonlocalGame:
         Compute an upper bound on the commuting measurement value of an extended nonlocal game.
 
         This function calculates an upper bound on the commuting measurement value by
-        using k-levels of the NPA hierarchy [NPA]_. The NPA hierarchy is a uniform family
+        using k-levels of the NPA hierarchy :cite:`Navascu_s_2008`. The NPA hierarchy is a uniform family
         of semidefinite programs that converges to the commuting measurement value of
         any extended nonlocal game.
 
@@ -451,10 +442,8 @@ class ExtendedNonlocalGame:
 
         References
         ==========
-        .. [NPA] Miguel Navascues, Stefano Pironio, Antonio Acin,
-            "A convergent hierarchy of semidefinite programs characterizing the
-            set of quantum correlations."
-            https://arxiv.org/abs/0803.4290
+        .. bibliography::
+            :filter: docname in docnames
 
         :param k: The level of the NPA hierarchy to use (default=1).
         :return: The upper bound on the commuting strategy value of an extended nonlocal game.

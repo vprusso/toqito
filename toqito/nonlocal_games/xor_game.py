@@ -14,7 +14,7 @@ class XORGame:
     communicate during the game itself.
 
     The quantum value of an XOR game can be solved via the semidefinite program
-    from [CHTW04]_.
+    from :cite:`cleve2010consequences`.
 
     This function is adapted from the QETLAB package.
 
@@ -24,7 +24,7 @@ class XORGame:
     The CHSH game
 
     The CHSH game is a two-player nonlocal game with the following probability
-    distribution and question and answer sets [CSUU08]_.
+    distribution and question and answer sets :cite:`cleve2008strong`.
 
     .. math::
             \begin{equation}
@@ -77,7 +77,7 @@ class XORGame:
 
     The odd cycle game
 
-    The odd cycle game is another XOR game [CHTW04]_. For this game, we can
+    The odd cycle game is another XOR game :cite:`cleve2010consequences`. For this game, we can
     specify the probability and predicate matrices as follows.
 
     >>> prob_mat = np.array(
@@ -115,16 +115,7 @@ class XORGame:
     .. bibliography::
         :filter: docname in docnames
     
-    .. [CSUU08] Richard Cleve, William Slofstra, Falk Unger, Sarvagya Upadhyay
-            "Strong parallel repetition theorem for quantum XOR proof systems",
-            2008,
-            https://arxiv.org/abs/quant-ph/0608146
-
-    .. [CHTW04] Richard Cleve, Peter Hoyer, Ben Toner, John Watrous
-            "Consequences and limits of nonlocal strategies."
-            Proceedings. 19th IEEE Annual Conference on Computational Complexity,
-            IEEE, 2004.
-            https://arxiv.org/abs/quant-ph/0404076
+    
     """
 
     def __init__(
@@ -182,7 +173,7 @@ class XORGame:
 
         To obtain the quantum value of the XOR game, we calculate the following
         simplified dual problem of the semidefinite program from the set of
-        notes: https://cs.uwaterloo.ca/~watrous/CS867.Winter2017/Notes/06.pdf
+        notes: Lecture 6 of :cite:`Watrous_2011_lecture_notes`
 
                 .. math::
                         \begin{equation}
