@@ -128,7 +128,7 @@ def npa_constraints(  # pylint: disable=too-many-locals
     assemblage: dict[tuple[int, int], cvxpy.Variable], k: int | str = 1, referee_dim: int = 1
 ) -> list[cvxpy.constraints.constraint.Constraint]:
     r"""
-    Generate the constraints specified by the NPA hierarchy up to a finite level.
+    Generate the constraints specified by the NPA hierarchy up to a finite level :cite:`Navascu_s_2008`.
 
     You can determine the level of the hierarchy by a positive integer or a string
     of a form like "1+ab+aab", which indicates that an intermediate level of the hierarchy

@@ -31,7 +31,7 @@ def channel_dim(
     instead of vectors. If COMPUTE_ENV_DIM is false and the PHI is a Choi matrix we avoid
     computing the rank of the Choi matrix.
 
-    This functions was adapted from QETLAB.
+    This functions was adapted from QETLAB :cite:`QETLAB_Superoperator_Dim`.
 
     References
     ==========
