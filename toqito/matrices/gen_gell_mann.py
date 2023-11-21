@@ -10,7 +10,7 @@ def gen_gell_mann(
     ind_1: int, ind_2: int, dim: int, is_sparse: bool = False
 ) -> np.ndarray | sparse.lil_matrix:
     r"""
-    Produce a generalized Gell-Mann operator [WikGM2]_.
+    Produce a generalized Gell-Mann operator :cite:`WikiGellMann`.
 
     Construct a :code:`dim`-by-:code:`dim` Hermitian operator. These matrices
     span the entire space of :code:`dim`-by-:code:`dim` matrices as
@@ -62,8 +62,6 @@ def gen_gell_mann(
     .. bibliography::
         :filter: docname in docnames
     
-    .. [WikGM2] Wikipedia: Gell-Mann matrices,
-        https://en.wikipedia.org/wiki/Gell-Mann_matrices
 
     :param ind_1: A non-negative integer from 0 to :code:`dim-1` (inclusive).
     :param ind_2: A non-negative integer from 0 to :code:`dim-1` (inclusive).

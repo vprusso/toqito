@@ -6,9 +6,9 @@ import numpy as np
 
 def clock(dim: int) -> np.ndarray:
     r"""
-    Produce clock matrix [WikClock]_.
+    Produce clock matrix :cite:`WikiClock`.
 
-    Returns the clock matrix of dimension :code:`dim` described in [WikClock]_.
+    Returns the clock matrix of dimension :code:`dim` described in :cite:`WikiClock`.
     The clock matrix generates the following :code:`dim`-by-:code:`dim` matrix
 
     .. math::
@@ -48,8 +48,6 @@ def clock(dim: int) -> np.ndarray:
     .. bibliography::
         :filter: docname in docnames
     
-    .. [WikClock] Wikipedia: Generalizations of Pauli matrices,
-        https://en.wikipedia.org/wiki/Generalizations_of_Pauli_matrices
 
     :param dim: Dimension of the matrix.
     :return: :code:`dim`-by-:code:`dim` clock matrix.

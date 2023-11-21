@@ -4,9 +4,9 @@ import numpy as np
 
 def shift(dim: int) -> np.ndarray:
     r"""
-    Produce a :code:`dim`-by-:code:`dim` shift matrix [WikShift]_.
+    Produce a :code:`dim`-by-:code:`dim` shift matrix :cite:`WikiPauliGen`.
 
-    Returns the shift matrix of dimension :code:`dim` described in [WikShift]_.
+    Returns the shift matrix of dimension :code:`dim` described in :cite:`WikiPauliGen`.
     The shift matrix generates the following :code:`dim`-by-:code:`dim` matrix:
 
     .. math::
@@ -46,8 +46,6 @@ def shift(dim: int) -> np.ndarray:
     .. bibliography::
         :filter: docname in docnames
     
-    .. [WikShift] Wikipedia: Generalizations of Pauli matrices
-        (https://en.wikipedia.org/wiki/Generalizations_of_Pauli_matrices.
 
     :param dim: Dimension of the matrix.
     :return: :code:`dim`-by-:code:`dim` shift matrix.

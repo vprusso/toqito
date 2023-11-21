@@ -7,7 +7,7 @@ import scipy
 
 def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | scipy.sparse.csr_matrix:
     r"""
-    Produce a Gell-Mann operator [WikGM]_.
+    Produce a Gell-Mann operator :cite:`WikiGellMann`.
 
     Generates the 3-by-3 Gell-Mann matrix indicated by the value of
     :code:`ind`.  When :code:`ind = 0` gives the identity matrix, while values
@@ -91,8 +91,7 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | scipy.sparse.cs
     .. bibliography::
         :filter: docname in docnames
     
-    .. [WikGM] Wikipedia: Gell-Mann matrices,
-        https://en.wikipedia.org/wiki/Gell-Mann_matrices
+    
 
     :raises ValueError: Indices must be integers between 0 and 8.
     :param ind: An integer between 0 and 8 (inclusive).
