@@ -6,7 +6,7 @@ from typing import Any
 import numpy as np
 
 
-def is_mutually_unbiased_basis(vec_list: list[np.ndarray | list[float | Any]]) -> bool:
+def is_mutually_unbiased_basis(vectors: list[np.ndarray | list[float | Any]]) -> bool:
     r"""
     Check if list of vectors constitute a mutually unbiased basis [WikMUB]_.
 
@@ -80,17 +80,25 @@ def is_mutually_unbiased_basis(vec_list: list[np.ndarray | list[float | Any]]) -
     :return: :code:`True` if :code:`vec_list` constitutes a mutually unbiased basis, and
              :code:`False` otherwise.
     """
-    if len(vec_list) <= 1:
+    if len(vectors) <= 1:
         raise ValueError("There must be at least two bases provided as input.")
 
-    dim = vec_list[0][0].shape[0]
-    for i, item in enumerate(vec_list):
-        for j, item2 in enumerate(vec_list):
+    num_vectors = len(vectors)
+    dim = vectors[0].shape[0]
+
+    # We expect the number of vectors to be a multiple of the dimension.
+    if num_vectors % dim != 0:
+        return False
+
+    num_bases = num_vectors // dim
+
+    # Check the inner product between vectors from different bases.
+    for i in range(num_bases):
+        for j in range(i + 1, num_bases):
             for k in range(dim):
-                if i != j:
-                    if not np.isclose(
-                        np.abs(np.inner(item[k].conj().T[0], item2[k].conj().T[0])) ** 2,
-                        1 / dim,
-                    ):
+                for l in range(dim):
+                    # Compute inner product between vectors from different bases.
+                    inner_product = np.abs(np.vdot(vectors[i * dim + k], vectors[j * dim + l])) ** 2
+                    if not np.isclose(inner_product, 1 / dim):
                         return False
     return True
