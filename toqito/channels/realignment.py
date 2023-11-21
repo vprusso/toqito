@@ -9,7 +9,7 @@ from toqito.perms import swap
 
 def realignment(input_mat: np.ndarray, dim: int | list[int] = None) -> np.ndarray:
     r"""
-    Compute the realignment of a bipartite operator [LAS08]_.
+    Compute the realignment of a bipartite operator :cite:`Lupo_2008`.
 
     Gives the realignment of the matrix :code:`input_mat`, where it is assumed that the number
     of rows and columns of :code:`input_mat` are both perfect squares and both subsystems have
@@ -46,11 +46,6 @@ def realignment(input_mat: np.ndarray, dim: int | list[int] = None) -> np.ndarra
     .. bibliography::
         :filter: docname in docnames
     
-    .. [LAS08] Lupo, Cosmo, Paolo, Aniello, and Scardicchio, Antonello.
-        "Bipartite quantum systems: on the realignment criterion and beyond."
-        Journal of Physics A: Mathematical and Theoretical
-        41.41 (2008): 415301.
-        https://arxiv.org/abs/0802.2019
 
     :param input_mat: The input matrix.
     :param dim: Default has all equal dimensions.

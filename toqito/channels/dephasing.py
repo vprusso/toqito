@@ -6,7 +6,8 @@ from toqito.states import max_entangled
 
 def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
     r"""
-    Produce the partially dephasing channel [WatDeph18]_.
+    Produce the partially dephasing channel (Section: The completely dephasing channel from 
+    :cite:`watrous_2018`).
 
     The Choi matrix of the completely dephasing channel that acts on :code:`dim`-by-:code:`dim`
     matrices.
@@ -76,10 +77,6 @@ def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
     .. bibliography::
         :filter: docname in docnames
     
-    .. [WatDeph18] Watrous, John.
-        "The theory of quantum information."
-        Section: "The completely dephasing channel".
-        Cambridge University Press, 2018.
 
     :param dim: The dimensionality on which the channel acts.
     :param param_p: Default is 0.

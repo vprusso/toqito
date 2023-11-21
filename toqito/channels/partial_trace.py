@@ -16,7 +16,7 @@ def partial_trace(
     dim: int | list[int] = None,
 ) -> np.ndarray | Expression:
     r"""
-    Compute the partial trace of a matrix [WikPtrace]_.
+    Compute the partial trace of a matrix :cite:`WikiPartialTr`.
 
     The *partial trace* is defined as
 
@@ -123,8 +123,6 @@ def partial_trace(
     .. bibliography::
         :filter: docname in docnames
     
-    .. [WikPtrace] Wikipedia: Partial trace
-        https://en.wikipedia.org/wiki/Partial_trace
 
     :raises ValueError: If matrix dimension is not equal to the number of subsystems.
     :param input_mat: A square matrix.

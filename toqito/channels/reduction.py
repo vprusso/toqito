@@ -8,7 +8,7 @@ from toqito.states import max_entangled
 
 def reduction(dim: int, k: int = 1) -> np.ndarray:
     r"""
-    Produce the reduction map or reduction channel.
+    Produce the reduction map or reduction channel :cite:`WikiReductionCrit`.
 
     If :code:`k = 1`, this returns the Choi matrix of the reduction map which is a positive map
     on :code:`dim`-by-:code:`dim` matrices. For a different value of :code:`k`, this yields the

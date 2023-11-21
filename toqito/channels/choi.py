@@ -6,13 +6,13 @@ from toqito.states import max_entangled
 
 def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
     r"""
-    Produce the Choi channel or one of its generalizations [Choi92]_.
+    Produce the Choi channel or one of its generalizations :cite:`Choi_1992`.
 
     The *Choi channel* is a positive map on 3-by-3 matrices that is capable of detecting some
     entanglement that the transpose map is not.
 
     The standard Choi channel defined with :code:`a=1`, :code:`b=1`, and :code:`c=0` is the Choi
-    matrix of the positive map defined in [Choi92]_. Many of these maps are capable of detecting
+    matrix of the positive map defined in :cite:`Choi_1992`. Many of these maps are capable of detecting
     PPT entanglement.
 
     Examples
@@ -95,10 +95,6 @@ def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
     .. bibliography::
         :filter: docname in docnames
     
-    .. [Choi92] Cho, Sung Je, Seung-Hyeok Kye, and Sa Ge Lee.
-        "Generalized Choi maps in three-dimensional matrix algebra."
-        Linear algebra and its applications 171 (1992): 213-224.
-        https://www.sciencedirect.com/science/article/pii/002437959290260H
 
     :param a_var: Default integer for standard Choi map.
     :param b_var: Default integer for standard Choi map.
