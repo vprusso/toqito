@@ -4,7 +4,7 @@ import numpy as np
 
 def hilbert_schmidt_inner_product(a_mat: np.ndarray, b_mat: np.ndarray) -> complex:
     r"""
-    Compute the Hilbert-Schmidt inner product between two matrices [WikHSO]_.
+    Compute the Hilbert-Schmidt inner product between two matrices :cite:`WikiHilbSchOp`.
 
     The Hilbert-Schmidt inner product between :code:`a_mat` and :code:`b_mat` is
     defined as
@@ -16,7 +16,7 @@ def hilbert_schmidt_inner_product(a_mat: np.ndarray, b_mat: np.ndarray) -> compl
     where :math:`|B\rangle = \text{vec}(B)` and :math:`\langle A|` is the dual
     vector to :math:`|A \rangle`.
 
-    Note: This function has been adapted from [Rigetti21]_.
+    Note: This function has been adapted from :cite:`Rigetti_docs`.
 
     Examples
     ==========
@@ -35,11 +35,7 @@ def hilbert_schmidt_inner_product(a_mat: np.ndarray, b_mat: np.ndarray) -> compl
     .. bibliography::
         :filter: docname in docnames
     
-    .. [WikHSO] Wikipedia: Hilbert-Schmidt operator.
-        https://en.wikipedia.org/wiki/Hilbert%E2%80%93Schmidt_operator
-    .. [Rigetti21] Forest Benchmarking (Rigetti).
-        https://github.com/rigetti/forest-benchmarking
-
+    
     :param a_mat: An input matrix provided as a numpy array.
     :param b_mat: An input matrix provided as a numpy array.
     :return: The Hilbert-Schmidt inner product between :code:`a_mat` and

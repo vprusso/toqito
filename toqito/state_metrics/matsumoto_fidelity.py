@@ -8,7 +8,7 @@ from toqito.matrix_props import is_density
 
 def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     r"""
-    Compute the Matsumoto fidelity of two density matrices [Mat10]_.
+    Compute the Matsumoto fidelity of two density matrices :cite:`matsumoto2010reverse`.
 
     Calculate the Matsumoto fidelity between the two density matrices :code:`rho`
     and :code:`sigma`, defined by:
@@ -68,9 +68,6 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     .. bibliography::
         :filter: docname in docnames
     
-    .. [Mat10] Keiji Matsumoto.
-        "Reverse test and quantum analogue of classical fidelity and generalized fidelity"
-        https://arxiv.org/abs/1006.0302
 
     :raises ValueError: If matrices are not of equal dimension.
     :param rho: Density operator.
