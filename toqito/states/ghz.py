@@ -6,10 +6,10 @@ from scipy import sparse
 
 def ghz(dim: int, num_qubits: int, coeff: list[int] = None) -> sparse:
     r"""
-    Generate a (generalized) GHZ state [GHZ07]_.
+    Generate a (generalized) GHZ state :cite:`greenberger2007going`.
 
     Returns a :code:`num_qubits`-partite GHZ state acting on :code:`dim` local dimensions, described
-    in [GHZ07]_. For example, :code:`ghz(2, 3)` returns the standard 3-qubit GHZ state on qubits.
+    in :cite:`greenberger2007going`. For example, :code:`ghz(2, 3)` returns the standard 3-qubit GHZ state on qubits.
     The output of this function is sparse.
 
     For a system of :code:`num_qubits` qubits (i.e., :code:`dim = 2`), the GHZ state can be written
@@ -64,9 +64,6 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] = None) -> sparse:
     .. bibliography::
         :filter: docname in docnames
     
-    .. [GHZ07] Going beyond Bell's theorem.
-        D. Greenberger and M. Horne and A. Zeilinger.
-        E-print: [quant-ph] arXiv:0712.0921. 2007.
 
     :raises ValueError: Number of qubits is not a positive integer.
     :param dim: The local dimension.

@@ -5,7 +5,7 @@ import numpy as np
 def basis(dim: int, pos: int) -> np.ndarray:
     r"""
 
-    Obtain the ket of dimension :code:`dim` [WikKet]_.
+    Obtain the ket of dimension :code:`dim` :cite:`WikiBraKet`.
 
     Examples
     ==========
@@ -37,8 +37,6 @@ def basis(dim: int, pos: int) -> np.ndarray:
     .. bibliography::
         :filter: docname in docnames
     
-    .. [WikKet] Wikipedia page for bra–ket notation:
-           https://en.wikipedia.org/wiki/Bra%E2%80%93ket_notation
 
     :raises ValueError: If the input position is not in the range [0, dim - 1].
     :param dim: The dimension of the column vector.

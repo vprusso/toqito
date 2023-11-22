@@ -4,9 +4,9 @@ import numpy as np
 
 def gisin(lambda_var: float, theta: float) -> np.ndarray:
     r"""
-    Produce a Gisin state [GIS96]_.
+    Produce a Gisin state :cite:`GISIN1996151`.
 
-    Returns the Gisin state described in [GIS96]_. Specifically, the Gisin state can be defined as:
+    Returns the Gisin state described in :cite:`GISIN1996151`. Specifically, the Gisin state can be defined as:
 
     .. math::
         \begin{equation}
@@ -45,9 +45,6 @@ def gisin(lambda_var: float, theta: float) -> np.ndarray:
     .. bibliography::
         :filter: docname in docnames
     
-    .. [GIS96] N. Gisin.
-        Hidden quantum nonlocality revealed by local filters.
-        (http://dx.doi.org/10.1016/S0375-9601(96)80001-6). 1996.
 
     :raises ValueError: If :code:`lambda_var` is not a real number.
     :param lambda_var: A real parameter in [0, 1].

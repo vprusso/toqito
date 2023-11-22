@@ -7,11 +7,11 @@ from toqito.states import max_entangled
 
 def breuer(dim: int, lam: float) -> np.ndarray:
     r"""
-    Produce a Breuer state [HPBreuer]_.
+    Produce a Breuer state :cite:`Breuer_2006`.
 
     Gives a Breuer bound entangled state for two qudits of local dimension :code:`dim`, with the
     :code:`lam` parameter describing the weight of the singlet component as described in
-    [HPBreuer]_.
+    :cite:`Breuer_2006`.
 
     This function was adapted from the QETLAB package.
 
@@ -34,8 +34,6 @@ def breuer(dim: int, lam: float) -> np.ndarray:
     .. bibliography::
         :filter: docname in docnames
     
-    .. [HPBreuer] H-P. Breuer. Optimal entanglement criterion for mixed quantum states.
-       E-print: arXiv:quant-ph/0605036, 2006.
 
     :raises ValueError: Dimension must be greater than or equal to 1.
     :param dim: Dimension of the Breuer state.

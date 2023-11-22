@@ -4,7 +4,7 @@ import numpy as np
 
 def horodecki(a_param: float, dim: list[int] = None) -> np.ndarray:
     r"""
-    Produce a Horodecki state [HOR]_, [CHR]_.
+    Produce a Horodecki state :cite:`Horodecki_1997, Chru_ci_ski_2011`.
 
     Returns the Horodecki state in either :math:`(3 \otimes 3)`-dimensional space or
     :math:`(2 \otimes 4)`-dimensional space, depending on the dimensions in the 1-by-2 vector
@@ -53,9 +53,9 @@ def horodecki(a_param: float, dim: list[int] = None) -> np.ndarray:
         \end{equation}
 
     .. note::
-        Refer to [CHR]_ (specifically equations (1) and (2)) for more information on this state
-        and its properties. The 3x3 Horodecki state is defined explicitly in Section 4.1 of [HOR]_
-        and the 2x4 Horodecki state is defined explicitly in Section 4.2 of [HOR]_.
+        Refer to :cite:`Chru_ci_ski_2011` (specifically equations (1) and (2)) for more information on this state
+        and its properties. The 3x3 Horodecki state is defined explicitly in Section 4.1 of :cite:`Horodecki_1997`
+        and the 2x4 Horodecki state is defined explicitly in Section 4.2 of :cite:`Horodecki_1997`.
 
     Examples
     ==========
@@ -110,14 +110,7 @@ def horodecki(a_param: float, dim: list[int] = None) -> np.ndarray:
     .. bibliography::
         :filter: docname in docnames
     
-    .. [HOR] P. Horodecki.
-        Separability criterion and inseparable mixed states with positive
-        partial transpose.
-        arXiv: 970.3004.
 
-    .. [CHR] K. Chruscinski.
-        On the symmetry of the seminal Horodecki state.
-        arXiv: 1009.4385.
     """
     if a_param < 0 or a_param > 1:
         raise ValueError("Invalid: Argument A_PARAM must be in the interval [0, 1].")

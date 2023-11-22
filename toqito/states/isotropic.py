@@ -6,7 +6,7 @@ from toqito.states import max_entangled
 
 def isotropic(dim: int, alpha: float) -> np.ndarray:
     r"""
-    Produce a isotropic state [HH99]_.
+    Produce a isotropic state :cite:`horodecki1998reduction`.
 
     Returns the isotropic state with parameter :code:`alpha` acting on
     (:code:`dim`-by-:code:`dim`)-dimensional space. The isotropic state has the following form
@@ -53,9 +53,6 @@ def isotropic(dim: int, alpha: float) -> np.ndarray:
     .. bibliography::
         :filter: docname in docnames
     
-    .. [HH99] Horodecki, Michał, and Paweł Horodecki.
-        "Reduction criterion of separability and limits for a class of
-        distillation protocols." Physical Review A 59.6 (1999): 4206.
 
     :param dim: The local dimension.
     :param alpha: The parameter of the isotropic state.

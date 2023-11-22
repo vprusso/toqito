@@ -6,9 +6,9 @@ from scipy import sparse
 
 def w_state(num_qubits: int, coeff: list[int] = None) -> np.ndarray:
     r"""
-    Produce a W-state [DVC00]_.
+    Produce a W-state :cite:`D_r_2000`.
 
-    Returns the W-state described in [DVC00]. The W-state on `num_qubits` qubits is defined by:
+    Returns the W-state described in :cite:`D_r_2000`. The W-state on `num_qubits` qubits is defined by:
 
     .. math::
         |W \rangle = \frac{1}{\sqrt{num\_qubits}}
@@ -72,9 +72,6 @@ def w_state(num_qubits: int, coeff: list[int] = None) -> np.ndarray:
     .. bibliography::
         :filter: docname in docnames
     
-    .. [DVC00] Three qubits can be entangled in two inequivalent ways.
-        W. Dur, G. Vidal, and J. I. Cirac.
-        E-print: arXiv:quant-ph/0005115, 2000.
 
     :raises ValueError: The number of qubits must be greater than or equal to 1.
     :param num_qubits: An integer representing the number of qubits.
