@@ -41,9 +41,9 @@ def mutually_unbiased_basis(dim: int) -> list[np.ndarray]:
             _, eigen_vec = np.linalg.eig(pauli_x @ pauli_z**(j))
             mats.append(eigen_vec)
     elif _is_prime_power(dim) and not isprime(dim):
-        raise(f"Dimension {dim} is a prime power but not prime (more complicated no support atm).")
+        raise ValueError(f"Dimension {dim} is a prime power but not prime (more complicated no support atm).")
     else:
-        raise(f"No general construction of MUBs is known for dimension: {dim}.")
+        raise ValueError(f"No general construction of MUBs is known for dimension: {dim}.")
 
     mubs: list[np.ndarray] = []
     for i in range(len(mats)):
