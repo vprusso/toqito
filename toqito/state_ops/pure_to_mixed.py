@@ -47,10 +47,7 @@ def pure_to_mixed(phi: np.ndarray) -> np.ndarray:
      [0. , 0. , 0. , 0. ],
      [0.5, 0. , 0. , 0.5]])
 
-    References
-    ==========
-    .. bibliography::
-        :filter: docname in docnames
+    
     
     :raises ValueError: If matrix is not square.
     :param phi: A density matrix or a pure state vector.
