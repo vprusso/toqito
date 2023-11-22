@@ -6,7 +6,7 @@ from toqito.matrix_props import is_density
 
 def purity(rho: np.ndarray) -> float:
     r"""
-    Compute the purity of a quantum state [WikPurity]_.
+    Compute the purity of a quantum state :cite:`WikiPurity`.
 
     The negativity of a subsystem can be defined in terms of a density matrix :math:`\rho`: The
     purity of a quantum state :math:`\rho` is defined as
@@ -49,8 +49,6 @@ def purity(rho: np.ndarray) -> float:
     .. bibliography::
         :filter: docname in docnames
     
-    .. [WikPurity] Wikipedia page for purity (quantum mechanics):
-        https://en.wikipedia.org/wiki/Purity_(quantum_mechanics)
 
     :raises ValueError: If matrix is not density operator.
     :param rho: A density matrix of a pure state vector.

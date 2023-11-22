@@ -8,7 +8,7 @@ import numpy as np
 
 def is_mutually_unbiased_basis(vec_list: list[np.ndarray | list[float | Any]]) -> bool:
     r"""
-    Check if list of vectors constitute a mutually unbiased basis [WikMUB]_.
+    Check if list of vectors constitute a mutually unbiased basis :cite:`WikiMUB`.
 
     We say that two orthonormal bases
 
@@ -75,8 +75,7 @@ def is_mutually_unbiased_basis(vec_list: list[np.ndarray | list[float | Any]]) -
     .. bibliography::
         :filter: docname in docnames
     
-    .. [WikMUB] Wikipedia: Mutually unbiased bases
-        https://en.wikipedia.org/wiki/Mutually_unbiased_bases
+    
 
     :raises ValueError: If at least two vectors are not provided.
     :param vec_list: The list of vectors to check.

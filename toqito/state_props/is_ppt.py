@@ -9,7 +9,7 @@ from toqito.matrix_props import is_positive_semidefinite
 
 def is_ppt(mat: np.ndarray, sys: int = 2, dim: int | list[int] = None, tol: float = None) -> bool:
     r"""
-    Determine whether or not a matrix has positive partial transpose [WikPPT]_.
+    Determine whether or not a matrix has positive partial transpose :cite:`WikiPeresHorodecki`.
 
     Yields either :code:`True` or :code:`False`, indicating that :code:`mat` does or does not have
     positive partial transpose (within numerical error). The variable :code:`mat` is assumed to act
@@ -68,8 +68,6 @@ def is_ppt(mat: np.ndarray, sys: int = 2, dim: int | list[int] = None, tol: floa
     .. bibliography::
         :filter: docname in docnames
     
-    .. [WikPPT] Quantiki: Positive partial transpose
-        https://www.quantiki.org/wiki/positive-partial-transpose
 
     :param mat: A square matrix.
     :param sys: Scalar or vector indicating which subsystems the transpose

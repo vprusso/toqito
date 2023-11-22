@@ -8,7 +8,7 @@ from toqito.state_ops import schmidt_decomposition
 
 def sk_vector_norm(rho: np.ndarray, k: int = 1, dim: int | list[int] = None) -> float:
     r"""
-    Compute the S(k)-norm of a vector [NJDK09]_.
+    Compute the S(k)-norm of a vector :cite:`Johnston_2010`.
 
     The :math:`S(k)`-norm of of a vector :math:`|v \rangle` is
     defined as:
@@ -44,9 +44,6 @@ def sk_vector_norm(rho: np.ndarray, k: int = 1, dim: int | list[int] = None) -> 
     .. bibliography::
         :filter: docname in docnames
     
-    .. [NJDK09] "A Family of Norms With Applications In Quantum Information Theory"
-        Nathaniel Johnston, David W. Kribs
-        https://arxiv.org/abs/0909.3907
 
     :param rho: A vector.
     :param k: An int.

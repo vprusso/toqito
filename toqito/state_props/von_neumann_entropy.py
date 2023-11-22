@@ -6,7 +6,7 @@ from toqito.matrix_props import is_density
 
 def von_neumann_entropy(rho: np.ndarray) -> float:
     r"""
-    Compute the von Neumann entropy of a density matrix [WikVent]_. [WatVec]_.
+    Compute the von Neumann entropy of a density matrix :cite:`WikiUVonNeumann`, Section: "Definitions of quantum entropic functions" from :cite:`watrous_2018`).
 
     Let :math:`P \in \text{Pos}(\mathcal{X})` be a positive semidefinite operator, for a complex
     Euclidean space :math:`\mathcal{X}`. Then one defines the *von Neumann entropy* as
@@ -76,13 +76,6 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
     .. bibliography::
         :filter: docname in docnames
     
-    .. [WikVent] Wikipedia: Von Neumann entropy
-        https://en.wikipedia.org/wiki/Von_Neumann_entropy
-
-    .. [WatVec] Watrous, John.
-        "The theory of quantum information."
-        Section: "Definitions of quantum entropic functions".
-        Cambridge University Press, 2018.
 
     :param rho: Density operator.
     :return: The von Neumann entropy of :code:`rho`.

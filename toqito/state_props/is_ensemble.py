@@ -6,7 +6,7 @@ from toqito.matrix_props import is_positive_semidefinite
 
 def is_ensemble(states: list[np.ndarray]) -> bool:
     r"""
-    Determine if a set of states constitute an ensemble [WatEns18]_.
+    Determine if a set of states constitute an ensemble (Section: Ensemble Of Quantum States from cite:`watrous_2018`).
 
     An ensemble of quantum states is defined by a function
 
@@ -47,10 +47,6 @@ def is_ensemble(states: list[np.ndarray]) -> bool:
     .. bibliography::
         :filter: docname in docnames
     
-    .. [WatEns18] Watrous, John.
-        "The theory of quantum information."
-        Section: "Ensemble of quantum states".
-        Cambridge University Press, 2018.
 
     :param states: The list of states to check.
     :return: :code:`True` if states form an ensemble and :code:`False` otherwise.

@@ -6,7 +6,7 @@ from toqito.matrices import pauli
 
 def concurrence(rho: np.ndarray) -> float:
     r"""
-    Calculate the concurrence of a bipartite state [WikCon]_.
+    Calculate the concurrence of a bipartite state :cite:`WikiConcurrence`.
 
     The concurrence of a bipartite state :math:`\rho` is defined as
 
@@ -68,9 +68,6 @@ def concurrence(rho: np.ndarray) -> float:
     .. bibliography::
         :filter: docname in docnames
     
-    .. [WikCon] Wikipedia page for concurrence (quantum computing)
-       https://en.wikipedia.org/wiki/Concurrence_(quantum_computing)
-
     :raises ValueError: If system is not bipartite.
     :param rho: The bipartite system specified as a matrix.
     :return: The concurrence of the bipartite state :math:`\rho`.

@@ -4,11 +4,11 @@ import numpy as np
 
 def in_separable_ball(mat: np.ndarray) -> bool:
     r"""
-    Check whether an operator is contained in ball of separability [GB02]_.
+    Check whether an operator is contained in ball of separability :cite:`Gurvits_2002`.
 
     Determines whether :code:`mat` is contained within the ball of separable operators centered
     at the identity matrix (i.e. the maximally-mixed state). The size of this ball was derived in
-    [GB02]_.
+    :cite:`Gurvits_2002`.
 
     This function can be used as a method for separability testing of states in certain scenarios.
 
@@ -55,10 +55,6 @@ def in_separable_ball(mat: np.ndarray) -> bool:
     .. bibliography::
         :filter: docname in docnames
     
-    .. [GB02] Gurvits, Leonid, and Barnum, Howard.
-        "Largest separable balls around the maximally mixed bipartite quantum state."
-        Physical Review A 66.6 (2002): 062311.
-        https://arxiv.org/pdf/quant-ph/0204159.pdf
 
     :param mat: A positive semidefinite matrix or a vector of the eigenvalues of a positive
                 semidefinite matrix.
@@ -83,5 +79,5 @@ def in_separable_ball(mat: np.ndarray) -> bool:
     mat = mat / np.trace(mat)
 
     # The following check relies on the fact that we scaled the matrix so that trace(mat) = 1.
-    # The following condition is then exactly the condition mentioned in [GB02]_.
+    # The following condition is then exactly the condition mentioned in :cite:`Gurvits_2002`.
     return np.linalg.norm(mat / np.linalg.norm(mat, "fro") ** 2 - np.eye(max_dim), "fro") <= 1

@@ -9,7 +9,7 @@ from toqito.state_ops import schmidt_decomposition
 
 def is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray = None) -> bool | np.ndarray:
     r"""
-    Determine if a given vector is a product state [WikProdState]_.
+    Determine if a given vector is a product state :cite:`WikiSepSt`.
 
     If the input is deemed to be product, then the product decomposition is also
     returned.
@@ -49,8 +49,7 @@ def is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray = None) -> boo
     .. bibliography::
         :filter: docname in docnames
     
-    .. [WikProdState] Wikipedia: Product state
-        https://en.wikipedia.org/wiki/Product_state
+    
     :param rho: The vector or matrix to check.
     :param dim: The dimension of the input.
     :return: :code:`True` if :code:`rho` is a product vector and :code:`False` otherwise.

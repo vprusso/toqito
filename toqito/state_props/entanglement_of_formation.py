@@ -9,7 +9,7 @@ from toqito.state_props import concurrence, von_neumann_entropy
 
 def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> float:
     r"""
-    Compute entanglement-of-formation of a bipartite quantum state [WikEOF]_.
+    Compute entanglement-of-formation of a bipartite quantum state :cite:`QuantikiEOF`.
 
     Entanglement-of-formation is the entropy of formation of the bipartite
     quantum state :code:`rho`. Note that this function currently only supports
@@ -49,8 +49,6 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
     .. bibliography::
         :filter: docname in docnames
     
-    .. [WikEOF] Quantiki: Entanglement-of-formation
-        https://www.quantiki.org/wiki/entanglement-formation
 
     :raises ValueError: If matrices have improper dimension.
     :param rho: A matrix or vector.

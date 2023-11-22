@@ -6,7 +6,7 @@ from toqito.state_props import is_pure
 
 def is_mixed(state: np.ndarray) -> bool:
     r"""
-    Determine if a given quantum state is mixed [WikMix]_.
+    Determine if a given quantum state is mixed :cite:`WikiMixedSt`.
 
     A mixed state by definition is a state that is not pure.
 
@@ -36,8 +36,6 @@ def is_mixed(state: np.ndarray) -> bool:
     .. bibliography::
         :filter: docname in docnames
     
-    .. [WikMix] Wikipedia: Quantum state - Mixed states
-        https://en.wikipedia.org/wiki/Quantum_state#Mixed_states
 
     :param state: The density matrix representing the quantum state.
     :return: :code:`True` if state is mixed and :code:`False` otherwise.

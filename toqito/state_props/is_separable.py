@@ -16,7 +16,7 @@ def is_separable(
     state: np.ndarray, dim: None | int | list[int] = None, level: int = 2, tol: float = 1e-8
 ) -> bool:
     r"""
-    Determine if a given state (given as a density matrix) is a separable state [WikSepState]_.
+    Determine if a given state (given as a density matrix) is a separable state :cite:`WikiSepSt`.
 
     Examples
     ==========
@@ -57,8 +57,6 @@ def is_separable(
     .. bibliography::
         :filter: docname in docnames
     
-    .. [WikSepState] Wikipedia: Separable state
-        https://en.wikipedia.org/wiki/Separable_state
 
     :raises ValueError: If dimension is not specified.
     :param state: The matrix to check.
