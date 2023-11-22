@@ -9,7 +9,7 @@ def state_distinguishability(
     states: list[np.ndarray], probs: list[float] = None, dist_method: str = "min-error"
 ) -> float:
     r"""
-    Compute probability of state distinguishability [ELD03]_.
+    Compute probability of state distinguishability :cite:`Eldar_2003`.
 
     The "quantum state distinguishability" problem involves a collection of :math:`n` quantum states
 
@@ -78,11 +78,6 @@ def state_distinguishability(
     .. bibliography::
         :filter: docname in docnames
     
-    .. [ELD03] Eldar, Yonina C.
-        "A semidefinite programming approach to optimal unambiguous
-        discrimination of quantum states."
-        IEEE Transactions on information theory 49.2 (2003): 446-456.
-        https://arxiv.org/abs/quant-ph/0206093
 
     :param states: A list of states provided as either matrices or vectors.
     :param probs: Respective list of probabilities each state is selected.

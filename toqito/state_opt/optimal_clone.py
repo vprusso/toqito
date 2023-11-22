@@ -16,7 +16,7 @@ def optimal_clone(
     strategy: bool = False,
 ) -> float | np.ndarray:
     r"""
-    Compute probability of counterfeiting quantum money [MVW12]_.
+    Compute probability of counterfeiting quantum money :cite:`molina2012optimal`.
 
     The primal problem for the :math:`n`-fold parallel repetition is given as follows:
 
@@ -52,7 +52,7 @@ def optimal_clone(
     Examples
     ==========
 
-    Wiesner's original quantum money scheme [Wies83]_ was shown in [MVW12]_ to have an optimal
+    Wiesner's original quantum money scheme :cite:`Wiesner_1983` was shown in :cite:`molina2012optimal` to have an optimal
     probability of 3/4 for succeeding a counterfeiting attack.
 
     Specifically, in the single-qubit case, Wiesner's quantum money scheme corresponds to the
@@ -93,17 +93,6 @@ def optimal_clone(
     .. bibliography::
         :filter: docname in docnames
     
-    .. [MVW12] Abel Molina, Thomas Vidick, and John Watrous.
-        "Optimal counterfeiting attacks and generalizations for Wiesner’s
-        quantum money."
-        Conference on Quantum Computation, Communication, and Cryptography.
-        Springer, Berlin, Heidelberg, 2012.
-        https://arxiv.org/abs/1202.4010
-
-    .. [Wies83] Stephen Wiesner
-        "Conjugate coding."
-        ACM Sigact News 15.1 (1983): 78-88.
-        https://dl.acm.org/doi/pdf/10.1145/1008908.1008920
 
     :param states: A list of states provided as either matrices or vectors.
     :param probs: Respective list of probabilities each state is selected.

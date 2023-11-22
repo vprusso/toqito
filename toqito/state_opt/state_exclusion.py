@@ -46,8 +46,8 @@ def state_exclusion(
                 \end{aligned}
             \end{equation}
 
-    The conclusive state exclusion SDP is written explicitly in [BJOP14]_. The problem of conclusive
-    state exclusion was also thought about under a different guise in [PBR12]_.
+    The conclusive state exclusion SDP is written explicitly in :cite:`Bandyopadhyay_2014`. The problem of conclusive
+    state exclusion was also thought about under a different guise in :cite:`Pusey_2012`.
 
     Examples
     ==========
@@ -81,16 +81,7 @@ def state_exclusion(
     .. bibliography::
         :filter: docname in docnames
     
-    .. [PBR12] "On the reality of the quantum state"
-        Pusey, Matthew F., Barrett, Jonathan, and Rudolph, Terry.
-        Nature Physics 8.6 (2012): 475-478.
-        arXiv:1111.3328
-
-    .. [BJOP14] "Conclusive exclusion of quantum states"
-        Bandyopadhyay, Somshubhro, Jain, Rahul, Oppenheim, Jonathan,
-        Perry, Christopher
-        Physical Review A 89.2 (2014): 022336.
-        arXiv:1306.4683
+    
 
     :param vectors: A list of states provided as vectors.
     :param probs: Respective list of probabilities each state is selected. If no

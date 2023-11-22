@@ -14,12 +14,12 @@ def ppt_distinguishability(
     strategy: bool = False,
 ) -> float:
     r"""
-    Compute probability of optimally distinguishing a state via PPT measurements [COS13]_.
+    Compute probability of optimally distinguishing a state via PPT measurements :cite:`Cosentino_2013`.
 
     Implements the semidefinite program (SDP) whose optimal value is equal to the maximum
     probability of perfectly distinguishing orthogonal maximally entangled states using any PPT
     measurement; a measurement whose operators are positive under partial transpose. This SDP was
-    explicitly provided in [COS13]_.
+    explicitly provided in :cite:`Cosentino_2013`.
 
     One can specify the distinguishability method using the :code:`dist_method` argument.
 
@@ -44,7 +44,7 @@ def ppt_distinguishability(
             \end{aligned}
         \end{equation}
 
-    It was illustrated in [YDY12]_ that for the following set of states
+    It was illustrated in :cite:`Yu_2012` that for the following set of states
 
     .. math::
         \begin{equation}
@@ -57,7 +57,7 @@ def ppt_distinguishability(
         \end{equation}
 
     that the optimal probability of distinguishing via a PPT measurement should yield
-    :math:`7/8 \approx 0.875` as was proved in [YDY12]_.
+    :math:`7/8 \approx 0.875` as was proved in :cite:`Yu_2012`.
 
     >>> from toqito.states import bell
     >>> from toqito.state_opt import ppt_distinguishability
@@ -67,7 +67,7 @@ def ppt_distinguishability(
     >>> psi_2 = bell(3)
     >>> psi_3 = bell(1)
     >>>
-    >>> # YDY vectors from [YDY12]_.
+    >>> # YDY vectors from :cite:`Yu_2012`.
     >>> x_1 = np.kron(psi_0, psi_0)
     >>> x_2 = np.kron(psi_1, psi_3)
     >>> x_3 = np.kron(psi_2, psi_3)
@@ -89,17 +89,6 @@ def ppt_distinguishability(
     .. bibliography::
         :filter: docname in docnames
     
-    .. [COS13] Cosentino, Alessandro.
-        "Positive-partial-transpose-indistinguishable states via semidefinite
-        programming."
-        Physical Review A 87.1 (2013): 012321.
-        https://arxiv.org/abs/1205.1031
-
-    .. [YDY12] Yu, Nengkun, Runyao Duan, and Mingsheng Ying.
-        "Four locally indistinguishable ququad-ququad orthogonal
-        maximally entangled states."
-        Physical review letters 109.2 (2012): 020506.
-        https://arxiv.org/abs/1107.3224
 
     :param states: A list of states provided as either matrices or vectors.
     :param dist_method: The method of distinguishing states.
