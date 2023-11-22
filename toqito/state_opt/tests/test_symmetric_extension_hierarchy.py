@@ -53,7 +53,7 @@ def test_symmetric_extension_hierarchy_four_bell_with_resource_state_lvl_1():
     # Level 1 of the hierarchy should be identical to the known PPT value
     # for this case.
     res = symmetric_extension_hierarchy(states=states, probs=None, level=1)
-    exp_res = 1 / 2 * (1 + np.sqrt(1 - eps**2))
+    exp_res = 1 / 2 * (1 + np.sqrt(1 - eps ** 2))
 
     np.testing.assert_equal(np.isclose(res, exp_res), True)
 
@@ -84,7 +84,7 @@ def test_symmetric_extension_hierarchy_four_bell_with_resource_state():
     ]
 
     res = symmetric_extension_hierarchy(states=states, probs=None, level=2)
-    exp_res = 1 / 2 * (1 + np.sqrt(1 - eps**2))
+    exp_res = 1 / 2 * (1 + np.sqrt(1 - eps ** 2))
 
     np.testing.assert_equal(np.isclose(res, exp_res), True)
 

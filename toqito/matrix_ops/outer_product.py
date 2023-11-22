@@ -33,7 +33,7 @@ def outer_product(v1: np.ndarray, v2: np.ndarray) -> np.ndarray:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :raises ValueError: Vector dimensions are mismatched.
     :param v1: v1 and v2, both vectors of dimenstions :math:`(n,1)` where :math:`n>1`.

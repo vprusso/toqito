@@ -121,5 +121,5 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | scipy.sparse.cs
     if is_sparse:
         gm_op_out = scipy.sparse.csr_matrix(gm_op)
         return gm_op_out
-    
+
     return gm_op

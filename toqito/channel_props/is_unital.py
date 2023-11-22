@@ -54,7 +54,7 @@ def is_unital(
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param phi: The channel provided as either a Choi matrix or a list of Kraus operators.
     :param rtol: The relative tolerance parameter (default 1e-05).

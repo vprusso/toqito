@@ -20,7 +20,7 @@ def diamond_norm(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :raises ValueError: If matrices are not of equal dimension.
     :raises ValueError: If matrices are not square.

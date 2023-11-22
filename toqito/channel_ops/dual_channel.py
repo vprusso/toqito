@@ -39,7 +39,7 @@ def dual_channel(
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :raises ValueError: If matrices are not Choi matrix.
     :param phi_op: A superoperator. It should be provided either as a Choi matrix,

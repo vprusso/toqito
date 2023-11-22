@@ -40,7 +40,7 @@ def log_negativity(rho: np.ndarray, dim: list[int] | int = None) -> float:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :raises ValueError: If the input matrix is not a density matrix.
     :param rho: A density matrix of a pure state vector.

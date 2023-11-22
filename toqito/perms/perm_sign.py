@@ -45,7 +45,7 @@ def perm_sign(perm: np.ndarray | list[int]) -> float:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param perm: The permutation vector to be checked.
     :return: The value 1 if the permutation is of even length and the value of

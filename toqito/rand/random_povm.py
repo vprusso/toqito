@@ -40,8 +40,8 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int) -> np.ndarray:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
-    
+
+
 
     :param dim: The dimensions of the measurements.
     :param num_inputs: The number of inputs for the measurement.

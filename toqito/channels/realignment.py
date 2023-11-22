@@ -45,7 +45,7 @@ def realignment(input_mat: np.ndarray, dim: int | list[int] = None) -> np.ndarra
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param input_mat: The input matrix.
     :param dim: Default has all equal dimensions.

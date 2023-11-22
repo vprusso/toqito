@@ -34,8 +34,8 @@ def hilbert_schmidt_inner_product(a_mat: np.ndarray, b_mat: np.ndarray) -> compl
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
-    
+
+
     :param a_mat: An input matrix provided as a numpy array.
     :param b_mat: An input matrix provided as a numpy array.
     :return: The Hilbert-Schmidt inner product between :code:`a_mat` and

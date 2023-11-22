@@ -44,7 +44,7 @@ def is_block_positive(
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :raises ValueError: Unable to determine block positive property.
     :param mat: A bipartite Hermitian operator.

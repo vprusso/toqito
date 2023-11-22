@@ -37,7 +37,7 @@ def reduction(dim: int, k: int = 1) -> np.ndarray:
      [ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  1.,  0.],
      [-1.,  0.,  0.,  0., -1.,  0.,  0.,  0.,  0.]])
 
-    
+
     References
     ==========
     .. bibliography::
@@ -49,4 +49,4 @@ def reduction(dim: int, k: int = 1) -> np.ndarray:
     :return: The reduction map.
     """
     psi = max_entangled(dim, False, False)
-    return k * identity(dim**2) - psi * psi.conj().T
+    return k * identity(dim ** 2) - psi * psi.conj().T

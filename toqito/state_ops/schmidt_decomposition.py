@@ -57,7 +57,7 @@ def schmidt_decomposition(
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :raises ValueError: If matrices are not of equal dimension.
     :param rho: A bipartite quantum state to compute the Schmidt decomposition of.

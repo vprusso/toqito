@@ -41,12 +41,12 @@ def update_odometer(
     [2 0]
     [2 1]
 
-    
+
     References
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param old_ind: The initial vector.
     :param upper_lim: The upper limit on which to increase the odometer to.

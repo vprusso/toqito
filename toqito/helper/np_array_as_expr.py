@@ -9,7 +9,7 @@ def np_array_as_expr(np_arr: [np.ndarray]) -> Expression:
     """
     Convert numpy array into a cvxpy expression.
 
-    
+
     :param np_arr: The numpy array to be converted.
     :return: The cvxpy expression of the numpy array.
     """

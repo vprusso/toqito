@@ -30,7 +30,7 @@ def random_ginibre(
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param dim_n: The number of rows of the Ginibre random matrix.
     :param dim_m: The number of columns of the Ginibre random matrix.

@@ -65,7 +65,7 @@ def random_unitary(dim: list[int] | int, is_real: bool = False) -> np.ndarray:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param dim: The number of rows (and columns) of the unitary matrix.
     :param is_real: Boolean denoting whether the returned matrix has real

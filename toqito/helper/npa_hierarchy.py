@@ -143,7 +143,7 @@ def npa_constraints(  # pylint: disable=too-many-locals
         K_{xy}\Big(i + a \cdot dim_R, j + b \cdot dim_R \Big) =
         \langle i| \text{Tr}_{\mathcal{H}} \Big( \big(
             I_R \otimes A_a^x B_b^y \big) \sigma \Big) |j \rangle
-    
+
     References
     ==========
     .. bibliography::

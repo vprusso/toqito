@@ -67,7 +67,7 @@ def partial_channel(
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :raises ValueError: If Phi map is not provided as a Choi matrix or Kraus
                         operators.

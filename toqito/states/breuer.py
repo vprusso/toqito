@@ -33,7 +33,7 @@ def breuer(dim: int, lam: float) -> np.ndarray:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :raises ValueError: Dimension must be greater than or equal to 1.
     :param dim: Dimension of the Breuer state.

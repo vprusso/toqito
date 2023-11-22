@@ -43,7 +43,7 @@ def l1_norm_coherence(rho: np.ndarray) -> float:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param rho: A matrix or vector.
     :return: The l1-norm coherence of :code:`rho`.

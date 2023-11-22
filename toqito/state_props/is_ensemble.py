@@ -46,7 +46,7 @@ def is_ensemble(states: list[np.ndarray]) -> bool:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param states: The list of states to check.
     :return: :code:`True` if states form an ensemble and :code:`False` otherwise.

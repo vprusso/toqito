@@ -52,7 +52,7 @@ def is_mutually_orthogonal(vec_list: list[np.ndarray | list[float | Any]]) -> bo
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :raises ValueError: If at least two vectors are not provided.
     :param vec_list: The list of vectors to check.

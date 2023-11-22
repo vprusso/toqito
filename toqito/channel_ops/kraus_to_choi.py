@@ -56,7 +56,7 @@ def kraus_to_choi(kraus_ops: list[list[np.ndarray]], sys: int = 2) -> np.ndarray
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param kraus_ops: A list of Kraus operators.
     :param sys: The dimension of the system (default is 2).

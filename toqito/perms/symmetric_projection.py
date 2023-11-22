@@ -80,7 +80,7 @@ def symmetric_projection(
     :param partial: Default value of 0.
     :return: Projection onto the symmetric subspace.
     """
-    dimp = dim**p_val
+    dimp = dim ** p_val
 
     if p_val == 1:
         return np.eye(dim)

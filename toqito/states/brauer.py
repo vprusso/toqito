@@ -53,7 +53,7 @@ def brauer(dim: int, p_val: int) -> np.ndarray:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param dim: Dimension of each local subsystem
     :param p_val: Half of the number of parties (i.e., the state that this function computes will

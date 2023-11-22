@@ -65,7 +65,7 @@ def measure(measurement: np.ndarray, state: np.ndarray) -> float:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param measurement: The measurement to apply.
     :param state: The state to apply the measurement to.

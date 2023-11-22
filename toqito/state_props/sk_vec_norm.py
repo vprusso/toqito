@@ -43,7 +43,7 @@ def sk_vector_norm(rho: np.ndarray, k: int = 1, dim: int | list[int] = None) -> 
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param rho: A vector.
     :param k: An int.

@@ -67,7 +67,7 @@ def concurrence(rho: np.ndarray) -> float:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
     :raises ValueError: If system is not bipartite.
     :param rho: The bipartite system specified as a matrix.
     :return: The concurrence of the bipartite state :math:`\rho`.

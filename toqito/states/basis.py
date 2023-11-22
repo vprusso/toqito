@@ -36,7 +36,7 @@ def basis(dim: int, pos: int) -> np.ndarray:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :raises ValueError: If the input position is not in the range [0, dim - 1].
     :param dim: The dimension of the column vector.

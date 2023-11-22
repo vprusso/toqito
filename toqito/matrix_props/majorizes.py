@@ -46,7 +46,7 @@ def majorizes(a_var: np.ndarray | list[int], b_var: np.ndarray | list[int]) -> b
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param a_var: Matrix or vector provided as list or np.array.
     :param b_var: Matrix or vector provided as list or np.array.

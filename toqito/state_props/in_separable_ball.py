@@ -54,7 +54,7 @@ def in_separable_ball(mat: np.ndarray) -> bool:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param mat: A positive semidefinite matrix or a vector of the eigenvalues of a positive
                 semidefinite matrix.

@@ -108,7 +108,7 @@ def tensor(*args) -> np.ndarray:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :raises ValueError: Input must be a vector or matrix.
     :param args: Input to the tensor function is expected to be either:

@@ -76,7 +76,7 @@ def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray = None) -> f
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param rho: A bipartite vector or matrix to have its Schmidt rank computed.
     :param dim: A 1-by-2 vector or matrix.

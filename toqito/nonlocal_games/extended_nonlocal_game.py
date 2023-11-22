@@ -28,7 +28,7 @@ class ExtendedNonlocalGame:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
     """
 
     def __init__(self, prob_mat: np.ndarray, pred_mat: np.ndarray, reps: int = 1) -> None:
@@ -59,18 +59,18 @@ class ExtendedNonlocalGame:
 
             pred_mat2 = np.zeros(
                 (
-                    dim_x**reps,
-                    dim_y**reps,
-                    num_alice_out**reps,
-                    num_bob_out**reps,
-                    num_alice_in**reps,
-                    num_bob_in**reps,
+                    dim_x ** reps,
+                    dim_y ** reps,
+                    num_alice_out ** reps,
+                    num_bob_out ** reps,
+                    num_alice_in ** reps,
+                    num_bob_in ** reps,
                 )
             )
             i_ind = np.zeros(reps, dtype=int)
             j_ind = np.zeros(reps, dtype=int)
-            for i in range(num_alice_in**reps):
-                for j in range(num_bob_in**reps):
+            for i in range(num_alice_in ** reps):
+                for j in range(num_bob_in ** reps):
                     to_tensor = np.empty([reps, dim_x, dim_y, num_alice_out, num_bob_out])
                     for k in range(reps - 1, -1, -1):
                         to_tensor[k] = pred_mat[:, :, :, :, i_ind[k], j_ind[k]]
