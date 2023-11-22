@@ -46,7 +46,7 @@ def unvec(vector: np.ndarray, shape: list[int] = None) -> np.ndarray:
 
     for all :math:`a` and :math:`b`.
 
-    This function has been adapted from [Rigetti20]_.
+    This function has been adapted from :cite:`Rigetti_docs`.
 
     Examples
     ==========
@@ -72,7 +72,7 @@ def unvec(vector: np.ndarray, shape: list[int] = None) -> np.ndarray:
     ========
     vec
 
-   References
+    References
     ==========
     .. bibliography::
         :filter: docname in docnames
