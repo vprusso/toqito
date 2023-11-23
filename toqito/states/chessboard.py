@@ -46,7 +46,7 @@ def chessboard(mat_params: list[float], s_param: float = None, t_param: float = 
       :filter: docname in docnames
 
 
-    :param mat_params: Parameters of the chessboard state as defined in [BP00]_.
+    :param mat_params: Parameters of the chessboard state as defined in :cite:`D_r_2000`.
     :param s_param: Default is :code:`np.conj(mat_params[2]) / np.conj(mat_params[5])`.
     :param t_param: Default is :code:`t_param = mat_params[0] * mat_params[3] / mat_params[4]`.
     :return: A chessboard state.

@@ -28,7 +28,7 @@ class QuantumHedging:
     .. math::
         v = \cos(\pi/8)|00\rangle + \sin(\pi/8)|11\rangle.
 
-    As was illustrated in [MW12]_, the hedging value of the above scenario is
+    As was illustrated in :cite:`Molina_2012`, the hedging value of the above scenario is
     :math:`\cos(\pi/8)^2 \approx 0.8536`
 
     >>> from numpy import kron, cos, sin, pi, sqrt, isclose
