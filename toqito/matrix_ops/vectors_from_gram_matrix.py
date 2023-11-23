@@ -5,7 +5,6 @@ import numpy as np
 def vectors_from_gram_matrix(gram: np.ndarray) -> list[np.ndarray]:
     """Obtain the corresponding ensemble of states from the Gram matrix.
 
-
     :param gram: Input Gram matrix.
     :return: list of ensemble states
     """

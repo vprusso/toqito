@@ -5,9 +5,10 @@ from toqito.states import max_entangled
 
 
 def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
-    r"""
-    Produce the partially depolarizing channel (Section: Replacement Channels and the Completely
-    Depolarizing Channel from :cite:`watrous_2018`).
+    r"""Produce the partially depolarizing channel.
+    
+    (Section: Replacement Channels and the Completely Depolarizing Channel from
+    :cite:`watrous_2018`).
 
     The Choi matrix of the completely depolarizing channel :cite:`WikiDepo` that acts on
     :code:`dim`-by-:code:`dim` matrices.

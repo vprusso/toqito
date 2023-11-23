@@ -10,9 +10,9 @@ from toqito.perms import swap
 def dual_channel(
     phi_op: np.ndarray | list[np.ndarray] | list[list[np.ndarray]], dims: list[int] = None
 ) -> np.ndarray | list[list[np.ndarray]]:
-    r"""
-    Compute the dual of a map (quantum channel) (Section: Representations and Characterizations of Channels
-    of :cite:`watrous_2018`).
+    r"""Compute the dual of a map (quantum channel).
+    
+    (Section: Representations and Characterizations of Channels of :cite:`watrous_2018`).
 
     The map can be represented as a Choi matrix, with optional specification of input
     and output dimensions. If the input channel maps :math:`M_{r,c}` to :math:`M_{x,y}`
