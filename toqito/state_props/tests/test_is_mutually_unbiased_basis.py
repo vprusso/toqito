@@ -63,20 +63,13 @@ e_0, e_1 = basis(2, 0), basis(2, 1)
         ],
         False
     ),
-
+    # Return False for any vectors such that the number of vectors % dim != 0:
+    (
+        [
+            np.array([1, 0]),
+        ],
+        False
+    ),
 ])
 def test_is_mutually_unbiased(states, expected_result):
     np.testing.assert_equal(is_mutually_unbiased_basis(states), expected_result)
-
-
-@pytest.mark.parametrize("states", [
-    # Invalid input length.
-    (
-        [
-            np.array([1, 0])
-        ]
-    ),
-])
-def test_is_mutually_unbiased_basis_invalid_input(states):
-    with np.testing.assert_raises(ValueError):
-        is_mutually_unbiased_basis(states)

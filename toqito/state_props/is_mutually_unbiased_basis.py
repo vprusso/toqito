@@ -78,9 +78,6 @@ def is_mutually_unbiased_basis(vectors: list[np.ndarray | list[float | Any]]) ->
     :return: :code:`True` if :code:`vec_list` constitutes a mutually unbiased basis, and
              :code:`False` otherwise.
     """
-    if len(vectors) <= 1:
-        raise ValueError("There must be at least two bases provided as input.")
-
     num_vectors = len(vectors)
     dim = vectors[0].shape[0]
 

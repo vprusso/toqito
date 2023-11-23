@@ -63,7 +63,7 @@ coveralls = "^1.9"
 setuptools = ">65.5.1"
 sphinx = "6.2.1"
 sphinx_rtd_theme = "*"
-sympy = "^1.12"
+sympy = "==1.12"
 
 
 [build-system]
