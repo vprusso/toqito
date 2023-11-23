@@ -26,8 +26,15 @@ from toqito.matrix_props import is_totally_positive
     (np.array([[1, 2, 3]]), 1e-6, None, True),
     # Test the identity matrix, which should be totally positive.
     (np.identity(3), 1e-6, None, True),
-    # Empty matrix is considered to be totally positive.
-    (np.array([]), 1e-6, None, True),
 ])
 def test_is_totally_positive(mat, tol, sub_sizes, expected_result):
     np.testing.assert_equal(is_totally_positive(mat, tol, sub_sizes), expected_result)
+
+
+@pytest.mark.parametrize("mat, tol, sub_sizes", [
+    # Empty matrix is an invalid input
+    (np.array([]), 1e-6, None),
+])
+def test_is_totally_positive_invalid(mat, tol, sub_sizes):
+    with np.testing.assert_raises(ValueError):
+        is_totally_positive(mat, tol, sub_sizes)

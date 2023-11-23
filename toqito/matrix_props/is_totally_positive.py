@@ -49,6 +49,9 @@ def is_totally_positive(mat, tol=1e-6, sub_sizes=None):
     :param sub_sizes: List of sizes of submatrices to consider. Default is all sizes up to :code:`min(mat.shape)`.
     :return: Return :code:`True` if matrix is totally positive, and :code:`False` otherwise.
     """
+    if mat.size == 0:
+        raise ValueError("Empty matrix to be neither totally positive nor not totally positive.")
+
     dims = mat.shape
 
     if sub_sizes is None:
