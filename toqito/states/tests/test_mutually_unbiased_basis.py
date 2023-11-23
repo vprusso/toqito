@@ -17,7 +17,7 @@ def test_mutually_unbiased_basis(dim):
 def test_mutually_unbiased_basis_prime_power_not_prime(dim):
     """Dimension is a prime power but not prime (this is not presently supported)."""
     with pytest.raises(
-        ValueError, match=re.escape(f"Dimension {dim} is a prime power but not prime (more complicated no support atm).")
+        ValueError, match=re.escape(f"Dimension {dim} is a prime power but not prime (more complicated no support at the moment).")
     ):
         mutually_unbiased_basis(dim)
 
