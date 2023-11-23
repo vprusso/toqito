@@ -46,7 +46,9 @@ extensions = [
 
 bibtex_bibfiles = ["books.bib", "articles.bib"]
 bibtex_default_style = "unsrt"
-suppress_warnings = ["bibtex.duplicate_label", "bibtex.duplicate_citation", "bibtex.duplicate_id"]
+suppress_warnings = ["bibtex.duplicate_label", "bibtex.duplicate_citation"]
+# we need to skip these warnigns because all the references appear twice, in a function docstring
+# and on the references page. 
 master_doc = "index"
 autosummary_generate = True
 autodoc_typehints = "none"

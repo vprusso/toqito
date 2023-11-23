@@ -36,10 +36,10 @@ def diamond_norm(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     >>> print("Diamond norm between dephasing and identity channels: ", dn) 
     Diamond norm between depolarizing and identity channels:  0.3000024376929641
     
-     References
-     ==========
-      .. bibliography::
-        :filter: docname in docnames
+    References
+    ==========
+        .. bibliography::
+            :filter: docname in docnames
 
 
     :raises ValueError: If matrices are not of equal dimension.
