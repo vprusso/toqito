@@ -12,7 +12,6 @@ entanglement theory, nonlocal games, and other aspects of quantum information
 that are often associated with computer science.
 
 
-
 .. image:: https://github.com/vprusso/toqito/actions/workflows/build-test-actions.yml/badge.svg?style=plastic
    :alt: Build Status
    :target: https://github.com/vprusso/toqito/actions/workflows/build-test-actions.yml
