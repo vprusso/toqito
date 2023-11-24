@@ -127,11 +127,11 @@ def fidelity_of_separability(
         the input state density matrix. It is assumed that the first
         quantity in this list is the dimension of System A.
     :param k: value for k-extendibility.
-    :param verbosity_option: Parameter option for `picos`. Default value is 
+    :param verbosity_option: Parameter option for `picos`. Default value is
         `verbosity = 2`. For more info, visit
         https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-verbosity.
-    :param solver_option: Optimization option for `picos` solver. Default option is 
-        `solver_option="cvxopt"`. For more info, visit 
+    :param solver_option: Optimization option for `picos` solver. Default option is
+        `solver_option="cvxopt"`. For more info, visit
         https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-solver.
     :raises AssertionError: If the provided dimensions are not for a bipartite density matrix.
     :raises ValueError: If the matrix is not a density matrix (square matrix that
@@ -139,7 +139,7 @@ def fidelity_of_separability(
     :raises ValueError: the input state is entangled.
     :raises ValueError: the input state is a mixed state.
     :return: Optimized value of the SDP when maximized over a set of linear operators subject
-        to some constraints.  
+        to some constraints.
     """
     # rho is relabelled as rho_{AB} where A >= B.
     if not is_density(input_state_rho):

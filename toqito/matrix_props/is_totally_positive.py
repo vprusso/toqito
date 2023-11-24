@@ -19,7 +19,7 @@ def is_totally_positive(mat, tol=1e-6, sub_sizes=None):
         \begin{pmatrix}
             1 & 2 \\
             3 & 4
-        \end{pmatrix}
+        \\end{pmatrix}
     To determine if this matrix is totally positive, we need to check the positivity of all of its minors. The 1x1
     minors are simply the individual entries of the matrix. For :math:`X`, these are
 
@@ -30,8 +30,8 @@ def is_totally_positive(mat, tol=1e-6, sub_sizes=None):
                 X_{1,2} &= 2 \\
                 X_{2,1} &= 3 \\
                 X_{2,2} &= 4 \\
-            \end{aligned}
-        \end{equation}
+            \\end{aligned}
+        \\end{equation}
 
     Each of these entries is positive. There is only one 2x2 minor in this case, which is the determinant of the entire
     matrix :math:`X`. The determinant of :math:`X` is calculated as:

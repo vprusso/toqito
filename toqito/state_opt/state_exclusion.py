@@ -92,7 +92,7 @@ def state_exclusion(
     :param vectors: A list of states provided as vectors.
     :param probs: Respective list of probabilities each state is selected. If no
                   probabilities are provided, a uniform probability distribution is assumed.
-    :param solver: Optimization option for `picos` solver. Default option is 
+    :param solver: Optimization option for `picos` solver. Default option is
         `solver_option="cvxopt"`.
     :param primal_dual: Option for the optimization problem
     :return: The optimal probability with which Bob can guess the state he was

@@ -145,7 +145,7 @@ def swap(
     # Verify that the input sys makes sense.
     if any(sys) < 1 or any(sys) > num_sys:
         val_error = """
-            InvalidSys: The subsystems in `sys` must be between 1 and 
+            InvalidSys: The subsystems in `sys` must be between 1 and
             `len(dim).` inclusive.
         """
         raise ValueError(val_error)
