@@ -24,7 +24,7 @@ def choi_to_kraus(
     For completely positive maps the output is a single flat list of numpy arrays since the left and
     right Kraus maps are the same.
 
-    This function has been adapted from :cite:`Rigetti2022forest` and QETLAB :cite:`QETLAB_Kraus_Operators`.
+    This function has been adapted from :cite:`Rigetti2022forest` and QETLAB :cite:`QETLAB_link`.
 
     Examples
     ========
