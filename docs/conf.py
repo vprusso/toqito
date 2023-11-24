@@ -17,8 +17,8 @@
 # -- Project information -----------------------------------------------------
 
 project = "toqito"
-copyright = "2020, Vincent Russo"
-author = "Vincent Russo"
+copyright = "2020 - 2023, Toqito Developers"
+author = "Contributors to Toqito"
 
 # The full version, including alpha/beta/rc tags
 release = "1.0.5"
