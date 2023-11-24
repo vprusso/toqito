@@ -205,7 +205,7 @@ class XORGame:
                 and :math:`f(x,y)` corresponds to :code:`pred_mat[x, y]`.
 
                 :return: A value between [0, 1] representing the quantum value.
-        """
+        """  # noqa: E501
         alice_in, bob_in = self.prob_mat.shape
         d_mat = np.zeros([alice_in, bob_in])
 

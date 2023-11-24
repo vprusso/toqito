@@ -136,7 +136,7 @@ def fidelity_of_separability(
     :raises ValueError: the input state is a mixed state.
     :return: Optimized value of the SDP when maximized over a set of linear
         operators subject to some constraints.
-    """
+    """  # noqa: E501
     if not is_density(psi):
         raise ValueError("Provided input state is not a density matrix.")
     if not len(psi_dims) == 3:

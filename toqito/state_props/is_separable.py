@@ -63,7 +63,7 @@ def is_separable(
     :param level: The level up to which to search for the symmetric extensions.
     :param tol: Numerical tolerance used.
     :return: :code:`True` if :code:`rho` is separabale and :code:`False` otherwise.
-    """
+    """  # noqa: E501
     if not is_positive_semidefinite(state):
         raise ValueError("Checking separability of non-positive semidefinite matrix is invalid.")
 
