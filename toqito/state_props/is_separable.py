@@ -147,7 +147,8 @@ def is_separable(
     eig_vals, _ = np.linalg.eig(state)
     lam = eig_vals[np.argsort(-eig_vals)]
 
-    # There are some separability tests that work specifically in the qubit-qudit (i.e., 2 \otimes n) case. Check these tests.
+    # There are some separability tests that work specifically in the qubit-qudit (i.e., 2 \otimes n)
+    # case. Check these tests.
     if min_dim == 2:
         # Check if X is separable from spectrum.
         if (lam[0] - lam[2 * max_dim - 1]) ** 2 <= 4 * lam[2 * max_dim - 2] * lam[

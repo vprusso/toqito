@@ -27,7 +27,7 @@ jobs:
         run: poetry run pytest -v --cov-config=.coveragerc --cov-report term-missing --cov-report xml:coverage.xml --cov=toqito
       - name: Run pylint
         run: poetry run pylint --exit-zero toqito/
-      - name: Run pydocstyle
+      - name: Run ruff check
         run: poetry run ruff check toqito/
         
       - name: Upload coverage information
