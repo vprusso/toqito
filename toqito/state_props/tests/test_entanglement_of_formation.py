@@ -28,7 +28,7 @@ def test_entanglement_of_formation(rho, dim, expected_result):
         # Invalid local dimension for entanglement_of_formation.
         (np.identity(4), 3),
         # Not presently known how to calculate for mixed states.
-        (3 / 4 * e_0 * e_0.conj().T + 1 / 4 * e_1 * e_1.conj().T, None),
+(3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T, None),
         # Invalid non-square matrix for entanglement_of_formation.
         (np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]]), None),
     ],
