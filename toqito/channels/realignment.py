@@ -64,8 +64,6 @@ def realignment(input_mat: np.ndarray, dim: int | list[int] = None) -> np.ndarra
 
     if isinstance(dim, int):
         dim = np.array([int(dim), int(dim_mat[0] / dim)])
-        if np.abs(dim[1] - np.round(dim[1])) >= 2 * dim_mat[0] * eps:
-            raise ValueError("InvalidDim:")
         dim[1] = np.round(dim[1])
 
     # Dimension if row vector.
