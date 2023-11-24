@@ -76,6 +76,7 @@ line-length = 120
 target-version = "py311"
 
 [tool.ruff.lint]
-select = ["E", "W"]
+select = ["E", "W", "I"]
 # ruff configuration
 # E, W -- pycodestyle
+# I -- isort

@@ -4,7 +4,6 @@ import pytest
 
 from toqito.state_props import is_mixed
 
-
 e_0, e_1 = np.array([[1], [0]]), np.array([[0], [1]])
 
 

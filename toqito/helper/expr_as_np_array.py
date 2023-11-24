@@ -1,6 +1,5 @@
 """cvxpy expression as np.array."""
 import numpy as np
-
 from cvxpy.expressions.expression import Expression
 
 

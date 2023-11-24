@@ -1,11 +1,12 @@
 """Test mutually_unbiased_basis."""
-import numpy as np
-import pytest
 import re
 
-from toqito.states.mutually_unbiased_basis import _is_prime_power
-from toqito.states import mutually_unbiased_basis
+import numpy as np
+import pytest
+
 from toqito.state_props import is_mutually_unbiased_basis
+from toqito.states import mutually_unbiased_basis
+from toqito.states.mutually_unbiased_basis import _is_prime_power
 
 
 @pytest.mark.parametrize("dim", [2, 3, 5, 7])

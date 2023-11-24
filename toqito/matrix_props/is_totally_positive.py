@@ -1,6 +1,7 @@
 """Is matrix totally positive."""
-import numpy as np
 from itertools import combinations
+
+import numpy as np
 
 
 def is_totally_positive(mat, tol=1e-6, sub_sizes=None):

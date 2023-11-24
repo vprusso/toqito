@@ -1,7 +1,7 @@
 """Symmetric projection operator."""
+import math
 from itertools import permutations
 
-import math
 import numpy as np
 import scipy
 

@@ -1,7 +1,6 @@
 """Test is_block_positive."""
 import numpy as np
 import pytest
-
 from picos import partial_transpose
 
 from toqito.channels import choi

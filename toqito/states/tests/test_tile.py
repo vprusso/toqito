@@ -4,7 +4,6 @@ import pytest
 
 from toqito.states import tile
 
-
 e_0, e_1, e_2 = np.array([[1], [0], [0]]), np.array([[0], [1], [0]]), np.array([[0], [0], [1]])
 
 

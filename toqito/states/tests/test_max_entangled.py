@@ -4,7 +4,6 @@ import pytest
 
 from toqito.states import max_entangled
 
-
 e_0, e_1 = np.array([[1], [0]]), np.array([[0], [1]])
 
 
