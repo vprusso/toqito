@@ -134,7 +134,7 @@ def partial_channel(
                     )
                 )
 
-            phi_x = [list(l) for l in zip(phi_1, phi_2)]
+            phi_x = [list(litem) for litem in zip(phi_1, phi_2)]
             phi_x = apply_channel(rho, phi_x)
         return phi_x
 

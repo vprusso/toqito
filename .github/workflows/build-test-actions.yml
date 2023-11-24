@@ -28,10 +28,8 @@ jobs:
       - name: Run pylint
         run: poetry run pylint --exit-zero toqito/
       - name: Run pydocstyle
-        run: poetry run pydocstyle toqito/ || true
-        # Remove "|| true" after style issues are fixed
-        # to make this fail the pipeline when new issues
-        # are introduced.
+        run: poetry run ruff check toqito/
+        
       - name: Upload coverage information
         uses: codecov/codecov-action@v3
         with:
