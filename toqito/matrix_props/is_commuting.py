@@ -14,7 +14,7 @@ def is_commuting(mat_1: np.ndarray, mat_2: np.ndarray) -> bool:
         \left[X, Y\right] = XY - YX.
 
     It holds that :math:`\left[X,Y\right]=0` if and only if :math:`X` and
-    :math:`Y` commute (Section: Lie Brackets and Commutants from :cite:`watrous_2018`).
+    :math:`Y` commute (Section: Lie Brackets And Commutants from :cite:`watrous_2018`).
 
     Examples
     ==========
