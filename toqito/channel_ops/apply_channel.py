@@ -12,7 +12,7 @@ from toqito.perms import swap
 def apply_channel(mat: np.ndarray, phi_op: np.ndarray | list[list[np.ndarray]]) -> np.ndarray:
     r"""Apply a quantum channel to an operator.
     
-    (Section: Representations and Characterizations of Channels of :cite:`watrous_2018`).
+    (Section: Representations and Characterizations of Channels of :cite:`Watrous_2018_TQI`).
 
     Specifically, an application of the channel is defined as
 

@@ -39,7 +39,7 @@ def fidelity_of_separability(
     extension exists, it cannot be assumed directly that the state is
     separable. This function approximites the fidelity of separability by
     maximizing over PPT channels & k-extendible entanglement breaking channels
-    i.e. an optimization problem over channels :cite:`watrous_2018` .
+    i.e. an optimization problem over channels :cite:`Watrous_2018_TQI` .
 
     The following expression (Equation (I4) from :cite:`Philip2023schrodinger` ) defines the
     constraints for approximating

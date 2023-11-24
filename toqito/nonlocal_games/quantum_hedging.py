@@ -11,7 +11,7 @@ class QuantumHedging:
     Calculate optimal winning probabilities for hedging scenarios.
 
     Calculate the maximal and minimal winning probabilities for quantum
-    hedging to occur in certain two-party scenarios :cite:`arunachalam2017quantum, Molina_2012`.
+    hedging to occur in certain two-party scenarios :cite:`Arunachalam_2017_QuantumHedging, Molina_2012`.
 
     Examples
     ==========

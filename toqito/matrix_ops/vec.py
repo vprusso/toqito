@@ -4,7 +4,7 @@ import numpy as np
 
 def vec(mat: np.ndarray) -> np.ndarray:
     r"""
-    Perform the vec operation on a matrix ( Section: The Operator-Vector Correspondence from :cite:`watrous_2018`).
+    Perform the vec operation on a matrix ( Section: The Operator-Vector Correspondence from :cite:`Watrous_2018_TQI`).
 
     Stacks the rows of the matrix on top of each other to
     obtain the "vec" representation of the matrix.

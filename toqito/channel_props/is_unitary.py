@@ -11,7 +11,7 @@ def is_unitary(phi: np.ndarray | list[list[np.ndarray]]) -> bool:
     r"""Given a quantum channel, determine if it is unitary.
     
     (Section 2.2.1: Definitions and Basic Notions Concerning Channels from
-    :cite:`watrous_2018`).
+    :cite:`Watrous_2018_TQI`).
 
     Let :math:`\mathcal{X}` be a complex Euclidean space an let :math:`U \in U(\mathcal{X})` be a
     unitary operator. Then a unitary channel is defined as:

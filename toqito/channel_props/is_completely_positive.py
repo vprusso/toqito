@@ -15,7 +15,7 @@ def is_completely_positive(
 ) -> bool:
     r"""Determine whether the given channel is completely positive.
     
-    (Section: Linear Maps Of Square Operators from :cite:`watrous_2018`).
+    (Section: Linear Maps Of Square Operators from :cite:`Watrous_2018_TQI`).
 
     A map :math:`\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)` is *completely
     positive* if it holds that

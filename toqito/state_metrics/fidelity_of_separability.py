@@ -36,7 +36,7 @@ def fidelity_of_separability(
     (Positive Partial Transpose (PPT), symmetric extensions (k-extendibility
     ) :cite:`Hayden_2013` ) This function approximites the fidelity of separability by
     maximizing over PPT states & k-extendible states i.e. an optimization
-    problem over states :cite:`watrous_2018`.
+    problem over states :cite:`Watrous_2018_TQI`.
 
     The following expression (Equation (H2) from :cite:`Philip2023schrodinger` ) defines the
     constraints for approxiamting
