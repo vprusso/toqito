@@ -2,7 +2,7 @@
 import numpy as np
 import pytest
 
-from toqito.matrix_props import is_density
+from toqito.matrix_props import is_density, is_positive_semidefinite
 from toqito.rand import random_density_matrix
 
 

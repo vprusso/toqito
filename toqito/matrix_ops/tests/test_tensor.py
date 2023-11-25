@@ -1,5 +1,6 @@
 """Test tensor."""
 import numpy as np
+import pytest
 
 from toqito.matrix_ops import tensor
 from toqito.states import basis

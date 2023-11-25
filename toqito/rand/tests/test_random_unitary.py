@@ -12,7 +12,7 @@ def test_random_unitary_int_dim(dim, is_real):
     mat = random_unitary(
         dim=dim, is_real=is_real
     )
-  assert is_unitary(mat)
+    assert is_unitary(mat)
 
 
 @pytest.mark.parametrize("dim_n", range(2, 8))
