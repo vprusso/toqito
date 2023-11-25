@@ -6,7 +6,7 @@ from toqito.states import basis
 
 def trine() -> list[np.ndarray]:
     r"""
-    Produce the set of trine states [YardQIP]_.
+    Produce the set of trine states (Slide 6 of :cite:`Yard_2017_Lecture11`).
 
     The trine states are formally defined as:
 
@@ -30,10 +30,8 @@ def trine() -> list[np.ndarray]:
     
     References
     ==========
-    .. [YardQIP] Yard, Jon
-        Introduction to Quantum Information Processing""
-        (Slide 6)
-        https://www.math.uwaterloo.ca/~jyard/qic710/F17/Qic710Lec11-2017.pdf
+    .. bibliography::
+        :filter: docname in docnames
 
     :return: Vector of trine states.
     """

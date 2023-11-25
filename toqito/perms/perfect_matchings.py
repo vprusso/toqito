@@ -12,7 +12,7 @@ def perfect_matchings(num: list[int] | int | np.ndarray) -> np.ndarray:
     Returns all perfect matchings of a given list of objects. That is, it returns all ways of grouping an even number of
     objects into pairs.
 
-    This function is adapted from QETLAB.
+    This function is adapted from QETLAB. :cite:`QETLAB_link`.
 
     Examples
     ==========
@@ -25,7 +25,10 @@ def perfect_matchings(num: list[int] | int | np.ndarray) -> np.ndarray:
      [1 3 2 4]
      [1 4 3 2]]
 
-
+    References
+    ==========
+    .. bibliography::
+        :filter: docname in docnames
 
     :param num: Either an even integer, indicating that you would like all perfect matchings of the
                 integers 1,2, ... N, or a `list` or `np.array` containing an even number of distinct

@@ -16,7 +16,8 @@ def is_trace_preserving(
     dim: list[int] | np.ndarray = None,
 ) -> bool:
     r"""
-    Determine whether the given channel is trace-preserving (Section: Linear Maps Of Square Operators from :cite:`Watrous_2018_TQI`).
+    Determine whether the given channel is trace-preserving (Section: Linear Maps Of Square Operators from
+    :cite:`Watrous_2018_TQI`).
 
     A map :math:`\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)` is
     *trace-preserving* if it holds that

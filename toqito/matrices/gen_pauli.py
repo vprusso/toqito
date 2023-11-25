@@ -16,7 +16,8 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
     from 0 to :code:`dim-1`, inclusive.
 
     Note that the generalized Pauli operators are also known by the name of
-    "discrete Weyl operators". (Lecture 6: Further Remarks On Measurements And Channels from :cite:`Watrous_2011_Lecture_Notes`)
+    "discrete Weyl operators". (Lecture 6: Further Remarks On Measurements And Channels from
+    :cite:`Watrous_2011_Lecture_Notes`)
 
     Examples
     ==========
