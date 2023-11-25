@@ -8,8 +8,8 @@ def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float:
     r"""
     Compute the Helstrom-Holevo distance between density matrices [WikHeHo]_.
 
-    In general, the best success probability to discriminate two mixed states represented by
-    :math:`\rho` and :math:`\sigma` is given by [WikHeHo]_.
+    In general, the best success probability to discriminate two mixed states represented by :math:`\rho` and
+    :math:`\sigma` is given by [WikHeHo]_.
 
     .. math::
          \frac{1}{2}+\frac{1}{2} \left(\frac{1}{2} \left|\rho - \sigma \right|_1\right).

@@ -36,8 +36,8 @@ def singlet(dim: int) -> np.ndarray:
          [ 0. , -0.5,  0.5,  0. ],
          [ 0. ,  0. ,  0. ,  0. ]]
 
-    It is possible for us to consider higher dimensional singlet states. For instance, we
-    can consider the :math:`3`-dimensional Singlet state as follows:
+    It is possible for us to consider higher dimensional singlet states. For instance, we can consider the
+    :math:`3`-dimensional Singlet state as follows:
 
     >>> from toqito.states import singlet
     >>> dim = 3

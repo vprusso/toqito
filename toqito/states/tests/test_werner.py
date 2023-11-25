@@ -1,7 +1,9 @@
 """Test werner."""
 import numpy as np
+import pytest
 
 from toqito.states import werner
+from toqito.matrix_props import is_density
 
 
 def test_werner_qutrit():
@@ -17,7 +19,25 @@ def test_werner_multipartite():
     np.testing.assert_equal(np.isclose(res[0][0], 0.1127, atol=1e-02), True)
 
 
-def test_werner_invalid_alpha():
-    """Test for invalid `alpha` parameter."""
-    with np.testing.assert_raises(ValueError):
-        werner(3, [1, 2])
+def test_werner_multipartite_valid():
+    """Test multipartite Werner states with valid alpha lengths."""
+    # Valid alpha length for p=3 (2!-1 = 1)
+    alpha = [0.5]
+    dim = 2
+    state = werner(dim, alpha)
+    np.testing.assert_equal(is_density(state), True)
+
+
+@pytest.mark.parametrize("dim, alpha", [
+    # Invalid alpha length (not matching p!-1 for any integer p > 1)
+    (2, [0.5, 0.6, 0.7]),
+    # Test with an integer (which is not a valid type for alpha)
+    (2, 5),
+    # Test with a string (which is not a valid type for alpha)
+    (2, "invalid"),
+    # Test with a dictionary (which is not a valid type for alpha)
+    (2, {"key": "value"}),
+])
+def test_werner_state_invalid(dim, alpha):
+    with pytest.raises(ValueError):
+        werner(dim, alpha)

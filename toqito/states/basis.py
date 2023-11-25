@@ -50,5 +50,4 @@ def basis(dim: int, pos: int) -> np.ndarray:
 
     ret = np.array(list(int(x) for x in list(f"{0:0{dim}}")))
     ret[pos] = 1
-    ret = ret.conj().T.reshape(-1, 1)
-    return ret
+    return ret.conj().T.reshape(-1, 1)

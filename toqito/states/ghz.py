@@ -8,9 +8,8 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] = None) -> sparse:
     r"""
     Generate a (generalized) GHZ state [GHZ07]_.
 
-    Returns a :code:`num_qubits`-partite GHZ state acting on :code:`dim` local dimensions, described
-    in [GHZ07]_. For example, :code:`ghz(2, 3)` returns the standard 3-qubit GHZ state on qubits.
-    The output of this function is sparse.
+    Returns a :code:`num_qubits`-partite GHZ state acting on :code:`dim` local dimensions, described in [GHZ07]_. For
+    example, :code:`ghz(2, 3)` returns the standard 3-qubit GHZ state on qubits.  The output of this function is sparse.
 
     For a system of :code:`num_qubits` qubits (i.e., :code:`dim = 2`), the GHZ state can be written
     as
@@ -40,8 +39,8 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] = None) -> sparse:
      [0.        ],
      [0.70710678]]
 
-    As this function covers the generalized GHZ state, we can consider higher dimensions. For
-    instance here is the GHZ state in :math:`\mathbb{C}^{4^{\otimes 7}}` as
+    As this function covers the generalized GHZ state, we can consider higher dimensions. For instance here is the GHZ
+    state in :math:`\mathbb{C}^{4^{\otimes 7}}` as
 
     .. math::
         \frac{1}{\sqrt{30}} \left(|0000000 \rangle + 2|1111111 \rangle +

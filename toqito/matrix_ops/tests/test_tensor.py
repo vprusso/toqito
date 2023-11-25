@@ -1,5 +1,6 @@
 """Test tensor."""
 import numpy as np
+import pytest
 
 from toqito.matrix_ops import tensor
 from toqito.states import basis
@@ -150,7 +151,28 @@ def test_tensor_list_3():
     np.testing.assert_equal(np.all(bool_mat), True)
 
 
+def test_tensor_with_three_or_more_matrices():
+    """Test tensor product with a numpy array containing three or more matrices."""
+    # Three matrices to be Kronecker multiplied
+    matrix1 = np.array([[1, 2]])
+    matrix2 = np.array([[3], [4]])
+    matrix3 = np.array([[5, 6]])
+    matrix4 = np.array([[7, 8]])
+
+    # The numpy array containing the matrices
+    matrices = np.array([matrix1, matrix2, matrix3, matrix4], dtype=object)
+
+    # Expected output: Kronecker product of matrix1, matrix2, and matrix3
+    expected_output = np.kron(np.kron(matrix1, np.kron(matrix2, matrix3)), matrix4)
+
+    # Call the tensor function
+    result = tensor(matrices)
+
+    # Assert that the result is as expected
+    np.testing.assert_array_equal(result, expected_output)
+
+
 def test_tensor_empty_args():
     r"""Test tensor with no arguments."""
-    with np.testing.assert_raises(ValueError):
+    with pytest.raises(ValueError):
         tensor()

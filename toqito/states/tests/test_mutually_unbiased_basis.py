@@ -1,7 +1,7 @@
 """Test mutually_unbiased_basis."""
+import re
 import numpy as np
 import pytest
-import re
 
 from toqito.states.mutually_unbiased_basis import _is_prime_power
 from toqito.states import mutually_unbiased_basis

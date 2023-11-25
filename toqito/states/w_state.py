@@ -37,8 +37,7 @@ def w_state(num_qubits: int, coeff: list[int] = None) -> np.ndarray:
      [0.    ],
      [0.    ]]
 
-    We may also generate a generalized :math:`W`-state. For instance, here is a
-    :math:`4`-dimensional :math:`W`-state
+    We may also generate a generalized :math:`W`-state. For instance, here is a :math:`4`-dimensional :math:`W`-state
 
     .. math::
         \frac{1}{\sqrt{30}} \left( |1000 \rangle + 2|0100 \rangle + 3|0010
