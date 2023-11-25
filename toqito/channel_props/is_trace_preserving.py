@@ -16,9 +16,8 @@ def is_trace_preserving(
     dim: list[int] | np.ndarray = None,
 ) -> bool:
     r"""
-    Determine whether the given channel is trace-preserving (Section: Linear Maps Of Square Operators from
-    :cite:`Watrous_2018_TQI`).
-
+    Determine whether the given channel is trace-preserving.
+     
     A map :math:`\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)` is
     *trace-preserving* if it holds that
 
@@ -76,12 +75,14 @@ def is_trace_preserving(
     >>> is_trace_preserving(choi_mat)
     True
 
+    Further information for determining the trace preserving properties of channels consult (Section: Linear Maps Of
+    Square Operators from :cite:`Watrous_2018_TQI`).
+
     References
     ==========
     .. bibliography::
         :filter: docname in docnames
     
-
     :param phi: The channel provided as either a Choi matrix or a list of Kraus operators.
     :param rtol: The relative tolerance parameter (default 1e-05).
     :param atol: The absolute tolerance parameter (default 1e-08).

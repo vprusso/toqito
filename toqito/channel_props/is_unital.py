@@ -1,6 +1,4 @@
 """Determine whether channel is unital."""
-
-
 import numpy as np
 
 from toqito.channel_ops import apply_channel
@@ -15,11 +13,9 @@ def is_unital(
     dim: int | list[int] | np.ndarray = None,
 ) -> bool:
     r"""
-    Determine whether the given channel is unital (Chapter: Unital Channels And Majorization from
-    :cite:`Watrous_2018_TQI`).
+    Determine whether the given channel is unital.
 
-    A map :math:`\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)` is *unital* if it
-    holds that
+    A map :math:`\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)` is *unital* if it holds that:
 
     .. math::
         \Phi(\mathbb{I}_{\mathcal{X}}) = \mathbb{I}_{\mathcal{Y}}.
@@ -27,6 +23,8 @@ def is_unital(
     If the input channel maps :math:`M_{r,c}` to :math:`M_{x,y}` then :code:`dim` should be the
     list :code:`[[r,x], [c,y]]`. If it maps :math:`M_m` to :math:`M_n`, then :code:`dim` can simply
     be the vector :code:`[m,n]`.
+
+    More information can be found in Chapter: Unital Channels And Majorization from :cite:`Watrous_2018_TQI`).
 
     Examples
     ==========

@@ -6,8 +6,7 @@ from toqito.matrix_props import is_density
 
 def von_neumann_entropy(rho: np.ndarray) -> float:
     r"""
-    Compute the von Neumann entropy of a density matrix :cite:`WikiUVonNeumann`, 
-    Section: "Definitions Of Quantum Entropic Functions" from :cite:`Watrous_2018_TQI`).
+    Compute the von Neumann entropy of a density matrix :cite:`WikiUVonNeumann`.
 
     Let :math:`P \in \text{Pos}(\mathcal{X})` be a positive semidefinite operator, for a complex
     Euclidean space :math:`\mathcal{X}`. Then one defines the *von Neumann entropy* as
@@ -24,6 +23,9 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
     where the :math:`\text{log}` function is assumed to be the base-2 logarithm, and where
     :math:`\Sigma` is an alphabet where :math:`u \in [0, \infty)^{\Sigma}` is a vector of
     nonnegative real numbers indexed by :math:`\Sigma`.
+
+    Further information for computing the von Neumann entropy of a density matrix can be found in Section: "Definitions
+    Of Quantum Entropic Functions" from :cite:`Watrous_2018_TQI`).
 
     Examples
     ==========
