@@ -4,7 +4,7 @@ import numpy as np
 
 def random_povm(dim: int, num_inputs: int, num_outputs: int) -> np.ndarray:
     """
-    Generate random positive operator valued measurements (POVMs) [WIKPOVM]_.
+    Generate random positive operator valued measurements (POVMs) :cite:`WikiPOVM`.
 
     Examples
     ==========
@@ -37,8 +37,10 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int) -> np.ndarray:
 
     References
     ==========
-    .. [WIKPOVM] Wikipedia: POVM
-        https://en.wikipedia.org/wiki/POVM
+    .. bibliography::
+        :filter: docname in docnames
+
+
 
     :param dim: The dimensions of the measurements.
     :param num_inputs: The number of inputs for the measurement.

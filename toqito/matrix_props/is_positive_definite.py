@@ -6,7 +6,7 @@ from toqito.matrix_props import is_hermitian  # pylint: disable=unused-import
 
 def is_positive_definite(mat: np.ndarray) -> bool:
     r"""
-    Check if matrix is positive definite (PD) [WikPD]_.
+    Check if matrix is positive definite (PD) :cite:`WikiPosDef`.
 
     Examples
     ==========
@@ -50,9 +50,10 @@ def is_positive_definite(mat: np.ndarray) -> bool:
 
     References
     ==========
-    .. [WikPD] Wikipedia: Definiteness of a matrix.
-        https://en.wikipedia.org/wiki/Definiteness_of_a_matrix
-
+    .. bibliography::
+        :filter: docname in docnames
+    
+    
     :param mat: Matrix to check.
     :return: Return :code:`True` if matrix is positive definite, and :code:`False` otherwise.
     """

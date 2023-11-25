@@ -15,7 +15,7 @@ def partial_transpose(
     sys: list[int] | np.ndarray | int = None,
     dim: list[int] | np.ndarray = None,
 ) -> np.ndarray | Expression:
-    r"""Compute the partial transpose of a matrix [WikPtrans]_.
+    r"""Compute the partial transpose of a matrix :cite:`WikiPeresHorodecki`.
 
     The *partial transpose* is defined as
 
@@ -104,8 +104,10 @@ def partial_transpose(
 
     References
     ==========
-    .. [WikPtrans] Wikipedia: Partial transpose
-        https://en.wikipedia.org/w/index.php?title=Partial_transpose
+    .. bibliography::
+        :filter: docname in docnames
+    
+    
     :param rho: A matrix.
     :param sys: Scalar or vector specifying the size of the subsystems.
     :param dim: Dimension of the subsystems. If :code:`None`, all dimensions

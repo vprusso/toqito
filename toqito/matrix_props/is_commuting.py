@@ -4,7 +4,7 @@ import numpy as np
 
 def is_commuting(mat_1: np.ndarray, mat_2: np.ndarray) -> bool:
     r"""
-    Determine if two linear operators commute with each other [WikCom]_.
+    Determine if two linear operators commute with each other :cite:`WikiComm`.
 
     For any pair of operators :math:`X, Y \in \text{L}(\mathcal{X})`, the
     Lie bracket :math:`\left[X, Y\right] \in \text{L}(\mathcal{X})` is defined
@@ -14,7 +14,7 @@ def is_commuting(mat_1: np.ndarray, mat_2: np.ndarray) -> bool:
         \left[X, Y\right] = XY - YX.
 
     It holds that :math:`\left[X,Y\right]=0` if and only if :math:`X` and
-    :math:`Y` commute [WatCom18]_.
+    :math:`Y` commute (Section: Lie Brackets And Commutants from :cite:`Watrous_2018_TQI`).
 
     Examples
     ==========
@@ -66,13 +66,10 @@ def is_commuting(mat_1: np.ndarray, mat_2: np.ndarray) -> bool:
 
     References
     ==========
-    .. [WikCom] Wikipedia: Commuting matrices
-        https://en.wikipedia.org/wiki/Commuting_matrices
+    .. bibliography::
+        :filter: docname in docnames
+    
 
-    .. [WatCom18] Watrous, John.
-        "The theory of quantum information."
-        Section: "Lie brackets and commutants".
-        Cambridge University Press, 2018.
 
     :param mat_1: First matrix to check.
     :param mat_2: Second matrix to check.

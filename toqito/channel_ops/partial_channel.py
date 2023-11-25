@@ -16,7 +16,7 @@ def partial_channel(
     sys: int = 2,
     dim: list[int] | np.ndarray = None,
 ) -> np.ndarray:
-    r"""Apply channel to a subsystem of an operator [WatPMap18]_.
+    r"""Apply channel to a subsystem of an operator :cite:`Watrous_2018_TQI`.
 
     Applies the operator
 
@@ -65,9 +65,9 @@ def partial_channel(
 
     References
     ==========
-    .. [WatPMap18] Watrous, John.
-        The theory of quantum information.
-        Cambridge University Press, 2018.
+    .. bibliography::
+        :filter: docname in docnames
+
 
     :raises ValueError: If Phi map is not provided as a Choi matrix or Kraus
                         operators.

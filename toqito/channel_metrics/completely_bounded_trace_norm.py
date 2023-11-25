@@ -12,23 +12,15 @@ def completely_bounded_trace_norm(phi: np.ndarray) -> float:
     Find the completely bounded trace norm of a quantum channel.
 
     Also known as the completely bounded diamond norm of a quantum
-    channel [WatCNorm18]_. The algorithm in p.11 of [WatSDP09] with
-    implementation in QETLAB [JohQET] is used.
+    channel (Section 3.3.2 of :cite:`Watrous_2018_TQI`). The algorithm in p.11 of :cite:`Watrous_2012_Simpler` with
+    implementation in QETLAB :cite:`QETLAB_link` is used.
+
 
     References
     ==========
-    .. [WatCNorm18] : Watrous, John.
-        “The theory of quantum information.” Section 3.3.2: “The completely bounded trace norm”.
-        Cambridge University Press, 2018.
+    .. bibliography::
+        :filter: docname in docnames
 
-    .. [WatSDP09]:   Watrous, John.
-        "Simpler semidefinite programs for completely bounded norms"
-        https://arxiv.org/pdf/1207.5726.pdf
-
-    .. [JohQET]: Nathaniel Johnston. QETLAB:
-        A MATLAB toolbox for quantum entanglement, version 0.9.
-        https://github.com/nathanieljohnston/QETLAB/blob/master/DiamondNorm.m
-        http://www.qetlab.com, January 12, 2016. doi:10.5281/zenodo.44637
 
     :raises ValueError: If matrix is not square.
     :param phi: superoperator as choi matrix

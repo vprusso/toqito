@@ -6,10 +6,11 @@ from scipy import sparse
 
 def ghz(dim: int, num_qubits: int, coeff: list[int] = None) -> sparse:
     r"""
-    Generate a (generalized) GHZ state [GHZ07]_.
+    Generate a (generalized) GHZ state :cite:`Greenberger_2007_Going`.
 
-    Returns a :code:`num_qubits`-partite GHZ state acting on :code:`dim` local dimensions, described in [GHZ07]_. For
-    example, :code:`ghz(2, 3)` returns the standard 3-qubit GHZ state on qubits.  The output of this function is sparse.
+    Returns a :code:`num_qubits`-partite GHZ state acting on :code:`dim` local dimensions, described
+    in :cite:`Greenberger_2007_Going`. For example, :code:`ghz(2, 3)` returns the standard 3-qubit GHZ state on qubits.
+    The output of this function is sparse.
 
     For a system of :code:`num_qubits` qubits (i.e., :code:`dim = 2`), the GHZ state can be written
     as
@@ -60,9 +61,9 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] = None) -> sparse:
 
     References
     ==========
-    .. [GHZ07] Going beyond Bell's theorem.
-        D. Greenberger and M. Horne and A. Zeilinger.
-        E-print: [quant-ph] arXiv:0712.0921. 2007.
+    .. bibliography::
+        :filter: docname in docnames
+
 
     :raises ValueError: Number of qubits is not a positive integer.
     :param dim: The local dimension.
@@ -88,9 +89,9 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] = None) -> sparse:
     # than naively tensoring things together.
     dim_sum = 1
     for i in range(1, num_qubits):
-        dim_sum += dim**i
+        dim_sum += dim ** i
 
-    ret_ghz_state = sparse.lil_matrix((dim**num_qubits, 1))
+    ret_ghz_state = sparse.lil_matrix((dim ** num_qubits, 1))
     for i in range(1, dim + 1):
         ret_ghz_state[(i - 1) * dim_sum] = coeff[i - 1]
     return ret_ghz_state

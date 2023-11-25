@@ -23,7 +23,7 @@ def update_odometer(
     from 1 to 3, you could loop over a single variable going from 1 to 3^2 and
     set [i, j] = update_odometer([i, j], [3, 3]) at each step within the loop.
 
-    This function is adapted from QETLAB [QETOD]_.
+    This function is adapted from QETLAB :cite:`QETLAB_link`.
 
     Examples
     ==========
@@ -41,10 +41,12 @@ def update_odometer(
     [2 0]
     [2 1]
 
+
     References
     ==========
-    .. [QETOD] QETLAB: Update odometer function.
-        http://www.qetlab.com/update_odometer
+    .. bibliography::
+        :filter: docname in docnames
+
 
     :param old_ind: The initial vector.
     :param upper_lim: The upper limit on which to increase the odometer to.

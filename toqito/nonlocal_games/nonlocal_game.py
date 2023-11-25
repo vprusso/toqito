@@ -20,14 +20,13 @@ class NonlocalGame:
     are not allowed to communicate with each other once the game has started and
     who play cooperative against an adversary referred to as the referee.
 
-    The nonlocal game framework was originally introduced in [CHTW04_2]_.
+    The nonlocal game framework was originally introduced in :cite:`Cleve_2010_Consequences`.
 
     References
     ==========
-    .. [CHTW04_2] Cleve, Richard, Hoyer, Peter, Toner, Benjamin, and Watrous, John
-        "Consequences and limits of nonlocal strategies"
-        Computational Complexity 2004. Proceedings. 19th IEEE Annual Conference.
-        https://arxiv.org/abs/quant-ph/0404076
+    .. bibliography::
+        :filter: docname in docnames
+
     """
 
     def __init__(self, prob_mat: np.ndarray, pred_mat: np.ndarray, reps: int = 1) -> None:
@@ -53,16 +52,16 @@ class NonlocalGame:
 
             pred_mat2 = np.zeros(
                 (
-                    num_alice_out**reps,
-                    num_bob_out**reps,
-                    num_alice_in**reps,
-                    num_bob_in**reps,
+                    num_alice_out ** reps,
+                    num_bob_out ** reps,
+                    num_alice_in ** reps,
+                    num_bob_in ** reps,
                 )
             )
             i_ind = np.zeros(reps, dtype=int)
             j_ind = np.zeros(reps, dtype=int)
-            for i in range(num_alice_in**reps):
-                for j in range(num_bob_in**reps):
+            for i in range(num_alice_in ** reps):
+                for j in range(num_bob_in ** reps):
                     to_tensor = np.empty([reps, num_alice_out, num_bob_out])
                     for k in range(reps - 1, -1, -1):
                         to_tensor[k] = pred_mat[:, :, i_ind[k], j_ind[k]]
@@ -115,7 +114,7 @@ class NonlocalGame:
         # Compute prediction matrix of outcomes given questions and answer pairs:
         #   a: Alice's truth assignment to all variables in `c_x`
         #   b: Bob's truth assignment for `v_y` in `c_x`
-        pred_mat = np.zeros((2**num_variables, 2, num_constraints, num_variables))
+        pred_mat = np.zeros((2 ** num_variables, 2, num_constraints, num_variables))
         for x_ques in range(num_constraints):
             for a_ans in range(pred_mat.shape[0]):
                 # Convert to binary representation
@@ -156,7 +155,7 @@ class NonlocalGame:
                     self.prob_mat[x_alice_in, y_bob_in] * self.pred_mat[:, :, x_alice_in, y_bob_in]
                 )
         p_win = float("-inf")
-        if num_alice_outputs**num_alice_inputs < num_bob_outputs**num_bob_inputs:
+        if num_alice_outputs ** num_alice_inputs < num_bob_outputs ** num_bob_inputs:
             self.pred_mat = np.transpose(self.pred_mat, (1, 0, 3, 2))
             (
                 num_alice_outputs,
@@ -172,7 +171,7 @@ class NonlocalGame:
         # else:
         #     parallel_threads = 5
 
-        for i in range(num_alice_outputs**num_bob_inputs):
+        for i in range(num_alice_outputs ** num_bob_inputs):
             # Convert :code:`number` to the base :code:`base` with digits :code:`digits`.
             number = i
             base = num_bob_outputs
@@ -196,7 +195,7 @@ class NonlocalGame:
         tol: float = 10e-6,
     ):
         r"""
-        Compute a lower bound on the quantum value of a nonlocal game [LD07]_.
+        Compute a lower bound on the quantum value of a nonlocal game :cite:`Liang_2007_Bounds`.
 
         Calculates a lower bound on the maximum value that the specified
         nonlocal game can take on in quantum mechanical settings where Alice and
@@ -214,7 +213,7 @@ class NonlocalGame:
         number of times and keep the highest value obtained.
 
         The algorithm is based on the alternating projections algorithm as it
-        can be applied to Bell inequalities as shown in [LD07]_.
+        can be applied to Bell inequalities as shown in :cite:`Liang_2007_Bounds`.
 
         The alternating projection algorithm has also been referred to as the
         "see-saw" algorithm as it goes back and forth between the following two
@@ -319,10 +318,9 @@ class NonlocalGame:
 
         References
         ==========
-        .. [LD07] Liang, Yeong-Cherng, and Andrew C. Doherty.
-            "Bounds on quantum correlations in Bell-inequality experiments."
-            Physical Review A 75.4 (2007): 042103.
-            https://arxiv.org/abs/quant-ph/0608128
+        .. bibliography::
+            :filter: docname in docnames
+        
 
         :param dim: The dimension of the quantum system that Alice and Bob have
                     access to (default = 2).
@@ -588,7 +586,7 @@ class NonlocalGame:
         Compute an upper bound on the commuting measurement value of the nonlocal game.
 
         This function calculates an upper bound on the commuting measurement value by
-        using k-levels of the NPA hierarchy [NPA]_. The NPA hierarchy is a uniform family
+        using k-levels of the NPA hierarchy :cite:`Navascues_2008_AConvergent`. The NPA hierarchy is a uniform family
         of semidefinite programs that converges to the commuting measurement value of
         any nonlocal game.
 
@@ -599,10 +597,8 @@ class NonlocalGame:
 
         References
         ==========
-        .. [NPA] Miguel Navascues, Stefano Pironio, Antonio Acin,
-            "A convergent hierarchy of semidefinite programs characterizing the
-            set of quantum correlations."
-            https://arxiv.org/abs/0803.4290
+        .. bibliography::
+            :filter: docname in docnames
 
         :param k: The level of the NPA hierarchy to use (default=1).
         :return: The upper bound on the commuting strategy value of a nonlocal game.

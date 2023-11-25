@@ -6,7 +6,7 @@ from toqito.states import basis
 
 def domino(idx: int) -> np.ndarray:
     r"""
-    Produce a domino state [CBDOM99]_, [UPB99]_.
+    Produce a domino state :cite:`Bennett_1999_QuantumNonlocality, Bennett_1999_UPB`.
 
     The orthonormal product basis of domino states is given as
 
@@ -73,15 +73,9 @@ def domino(idx: int) -> np.ndarray:
 
     References
     ==========
-    .. [CBDOM99] Bennett, Charles H., et al.
-        Quantum nonlocality without entanglement.
-        Phys. Rev. A, 59:1070–1091, Feb 1999.
-        https://arxiv.org/abs/quant-ph/9804053
-
-    .. [UPB99] Bennett, Charles H., et al.
-        "Unextendible product bases and bound entanglement."
-        Physical Review Letters 82.26 (1999): 5385.
-        https://arxiv.org/abs/quant-ph/9808030
+    .. bibliography::
+        :filter: docname in docnames
+    
 
     :raises ValueError: Invalid value for :code:`idx`.
     :param idx: A parameter in [0, 1, 2, 3, 4, 5, 6, 7, 8]

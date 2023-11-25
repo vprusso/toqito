@@ -5,7 +5,7 @@ import scipy as sp
 
 def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True) -> [np.ndarray, sp.sparse.dia_matrix]:
     r"""
-    Produce a maximally entangled bipartite pure state [WikEnt]_.
+    Produce a maximally entangled bipartite pure state :cite:`WikiMaxEnt`.
 
     Produces a maximally entangled pure state as above that is sparse if :code:`is_sparse = True` and is full if
     :code:`is_sparse = False`. The pure state is normalized to have Euclidean norm 1 if :code:`is_normalized = True`,
@@ -45,8 +45,9 @@ def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True)
 
     References
     ==========
-    .. [WikEnt] Wikipedia: Quantum entanglement
-        https://en.wikipedia.org/wiki/Quantum_entanglement
+    .. bibliography::
+        :filter: docname in docnames
+
 
     :param dim: Dimension of the entangled state.
     :param is_sparse: `True` if vector is spare and `False` otherwise.
@@ -54,7 +55,7 @@ def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True)
     :return: The maximally entangled state of dimension :code:`dim`.
     """
     mat = sp.sparse.identity(dim) if is_sparse else np.identity(dim)
-    psi = np.reshape(mat, (dim**2, 1))
+    psi = np.reshape(mat, (dim ** 2, 1))
     if is_normalized:
         psi = psi / np.sqrt(dim)
     return psi

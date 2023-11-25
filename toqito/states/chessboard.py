@@ -4,11 +4,12 @@ import numpy as np
 
 def chessboard(mat_params: list[float], s_param: float = None, t_param: float = None) -> np.ndarray:
     r"""
-    Produce a chessboard state [BP00]_.
+    Produce a chessboard state :cite:`Dur_2000_ThreeQubits`.
 
-    Generates the chessboard state defined in [BP00]_. Note that, for certain choices of :code:`s_param` and
-    :code:`t_param`, this state will not have positive partial transpose, and thus may not be bound entangled.
-    
+    Generates the chessboard state defined in :cite:`Dur_2000_ThreeQubits`. Note that, for certain choices of
+    :code:`s_param` and :code:`t_param`, this state will not have positive partial transpose, and
+    thus may not be bound entangled.
+
     Examples
     ==========
 
@@ -37,12 +38,11 @@ def chessboard(mat_params: list[float], s_param: float = None, t_param: float = 
 
     References
     ==========
-    .. [BP00] Three qubits can be entangled in two inequivalent ways.
-        D. Bruss and A. Peres
-        Phys. Rev. A, 61:30301(R), 2000
-        arXiv: 991.1056
+    .. bibliography::
+      :filter: docname in docnames
 
-    :param mat_params: Parameters of the chessboard state as defined in [BP00]_.
+
+    :param mat_params: Parameters of the chessboard state as defined in :cite:`Dur_2000_ThreeQubits`.
     :param s_param: Default is :code:`np.conj(mat_params[2]) / np.conj(mat_params[5])`.
     :param t_param: Default is :code:`t_param = mat_params[0] * mat_params[3] / mat_params[4]`.
     :return: A chessboard state.

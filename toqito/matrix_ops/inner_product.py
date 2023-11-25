@@ -4,7 +4,7 @@ import numpy as np
 
 def inner_product(v1: np.ndarray, v2: np.ndarray) -> float:
     r"""
-    Compute the inner product :math:`\langle v_1|v_2\rangle` of two vectors [WikInner]_.
+    Compute the inner product :math:`\langle v_1|v_2\rangle` of two vectors :cite:`WikiInnerProd`.
 
     The inner product is calculated as follows:
 
@@ -55,8 +55,9 @@ def inner_product(v1: np.ndarray, v2: np.ndarray) -> float:
 
     References
     ==========
-    .. [WikInner] Wikipedia: Inner product space
-        https://en.wikipedia.org/wiki/Inner_product_space
+    .. bibliography::
+        :filter: docname in docnames
+
 
     :raises ValueError: Vector dimensions are mismatched.
     :param v1: v1 and v2, both vectors of dimensions :math:`(n,1)` where :math:`n>1`.

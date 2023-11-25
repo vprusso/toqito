@@ -6,7 +6,7 @@ from toqito.states import basis
 
 def tile(idx: int) -> np.ndarray:
     r"""
-    Produce a Tile state [UPBTile99]_.
+    Produce a Tile state :cite:`Bennett_1999_UPB`.
 
     The Tile states constitute five states on 3-by-3 dimensional space that form a UPB (unextendible product basis).
 
@@ -51,10 +51,9 @@ def tile(idx: int) -> np.ndarray:
 
     References
     ==========
-    .. [UPBTile99] Bennett, Charles H., et al.
-        "Unextendible product bases and bound entanglement."
-        Physical Review Letters 82.26 (1999): 5385.
-        https://arxiv.org/abs/quant-ph/9808030
+    .. bibliography::
+        :filter: docname in docnames
+    
 
     :raises ValueError: Invalid value for :code:`idx`.
     :param idx: A parameter in [0, 1, 2, 3, 4]

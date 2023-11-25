@@ -8,7 +8,7 @@ from toqito.perms import perm_sign, permutation_operator
 
 def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) -> sparse.lil_matrix:
     r"""
-    Produce the projection onto the antisymmetric subspace [WikAsym]_.
+    Produce the projection onto the antisymmetric subspace :cite:`WikiAsymmOp`.
 
     Produces the orthogonal projection onto the anti-symmetric subspace of :code:`p_param` copies of
     :code:`dim`-dimensional space. If :code:`partial = True`, then the antisymmetric projection (PA) isn't the
@@ -66,15 +66,16 @@ def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) 
 
     References
     ==========
-    .. [WikAsym] Wikipedia: Anti-symmetric operator
-        https://en.wikipedia.org/wiki/Anti-symmetric_operator
+    .. bibliography::
+        :filter: docname in docnames
+    
 
     :param dim: The dimension of the local systems.
     :param p_param: Default value of 2.
     :param partial: Default value of 0.
     :return: Projection onto the antisymmetric subspace.
     """
-    dimp = dim**p_param
+    dimp = dim ** p_param
 
     if p_param == 1:
         return sparse.eye(dim)

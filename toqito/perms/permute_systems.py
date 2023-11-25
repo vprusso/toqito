@@ -129,6 +129,7 @@ def permute_systems(
      [49 53 50 54 51 55 52 56]
      [25 29 26 30 27 31 28 32]
      [57 61 58 62 59 63 60 64]]
+    
 
     :raises ValueError: If dimension does not match the number of subsystems.
     :param input_mat: The vector or matrix.

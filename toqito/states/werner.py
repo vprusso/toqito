@@ -7,7 +7,7 @@ from toqito.perms import permutation_operator, swap_operator
 
 def werner(dim: int, alpha: float | list[float]) -> np.ndarray:
     r"""
-    Produce a Werner state [Wer89]_.
+    Produce a Werner state :cite:`Werner_1989_QuantumStates`.
 
     A Werner state is a state of the following form
 
@@ -78,9 +78,8 @@ def werner(dim: int, alpha: float | list[float]) -> np.ndarray:
 
     References
     ==========
-    .. [Wer89] R. F. Werner.
-        Quantum states with Einstein-Podolsky-Rosen correlations admitting a
-        hidden-variable model. Phys. Rev. A, 40(8):4277–4281. 1989
+    .. bibliography::
+        :filter: docname in docnames
 
     :raises ValueError: Alpha vector does not have the correct length.
     :param dim: The dimension of the Werner state.

@@ -7,19 +7,21 @@ from toqito.matrix_ops import vec
 
 def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
     r"""
-    Produce a generalized Bell state [DL09]_.
+    Produce a generalized Bell state :cite:`Sych_2009_AComplete`.
 
     Produces a generalized Bell state. Note that the standard Bell states can be recovered as:
 
-    ```py
-    bell(0) : gen_bell(0, 0, 2)
+    .. code-block:: python
+        :linenos:
+        
+        bell(0) : gen_bell(0, 0, 2)
 
-    bell(1) : gen_bell(0, 1, 2)
+        bell(1) : gen_bell(0, 1, 2)
 
-    bell(2) : gen_bell(1, 0, 2)
+        bell(2) : gen_bell(1, 0, 2)
 
-    bell(3) : gen_bell(1, 1, 2)
-    ```
+        bell(3) : gen_bell(1, 1, 2)
+    
 
     Examples
     ==========
@@ -89,9 +91,9 @@ def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
 
     References
     ==========
-    .. [DL09] Sych, Denis, and Gerd Leuchs.
-        "A complete basis of generalized Bell states."
-        New Journal of Physics 11.1 (2009): 013006.
+    .. bibliography::
+        :filter: docname in docnames
+    
 
     :param k_1: An integer 0 <= k_1 <= n.
     :param k_2: An integer 0 <= k_2 <= n.

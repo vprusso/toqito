@@ -9,7 +9,7 @@ from toqito.state_props import concurrence, von_neumann_entropy
 
 def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> float:
     r"""
-    Compute entanglement-of-formation of a bipartite quantum state [WikEOF]_.
+    Compute entanglement-of-formation of a bipartite quantum state :cite:`Quantiki_EOF`.
 
     Entanglement-of-formation is the entropy of formation of the bipartite
     quantum state :code:`rho`. Note that this function currently only supports
@@ -46,8 +46,9 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
 
     References
     ==========
-    .. [WikEOF] Quantiki: Entanglement-of-formation
-        https://www.quantiki.org/wiki/entanglement-formation
+    .. bibliography::
+        :filter: docname in docnames
+    
 
     :raises ValueError: If matrices have improper dimension.
     :param rho: A matrix or vector.
@@ -98,8 +99,8 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
         if dim_x == 4:
             rho_c = concurrence(rho)
 
-            rho_c1 = (1 + np.sqrt(1 - rho_c**2)) / 2
-            rho_c2 = (1 - np.sqrt(1 - rho_c**2)) / 2
+            rho_c1 = (1 + np.sqrt(1 - rho_c ** 2)) / 2
+            rho_c2 = (1 - np.sqrt(1 - rho_c ** 2)) / 2
 
             rho_c1_log2 = 0 if rho_c1 == 0 else np.log2(rho_c1)
             rho_c2_log2 = 0 if rho_c2 == 0 else np.log2(rho_c2)

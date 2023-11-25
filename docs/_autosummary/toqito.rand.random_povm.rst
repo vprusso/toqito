@@ -1,5 +1,5 @@
 ﻿toqito.rand.random\_povm
-==========================
+========================
 
 .. currentmodule:: toqito.rand
 

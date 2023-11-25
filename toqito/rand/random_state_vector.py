@@ -28,6 +28,8 @@ def random_state_vector(dim: list[int] | int, is_real: bool = False, k_param: in
     >>> is_pure(dm)
     True
 
+
+
     :param dim: The number of rows (and columns) of the unitary matrix.
     :param is_real: Boolean denoting whether the returned matrix has real
                     entries or not. Default is :code:`False`.
