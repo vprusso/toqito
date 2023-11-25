@@ -12,7 +12,7 @@ from toqito.matrix_ops import outer_product
     (np.array([-1, 2, 3]), np.array([4, 5, 6]), np.array([[-4, -5, -6], [8, 10, 12], [12, 15, 18]])),
 ])
 def test_outer_product(v1, v2, expected_result):
-    np.testing.assert_equal(outer_product(v1, v2), expected_result)
+    np.testing.assert_array_equal(outer_product(v1, v2), expected_result)
 
 
 @pytest.mark.parametrize("v1, v2", [
