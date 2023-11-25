@@ -116,7 +116,7 @@ def werner(dim: int, alpha: float | list[float]) -> np.ndarray:
         return rho
     
     # Bipartite Werner state (executed only if alpha is a float).
-    elif isinstance(alpha, float):
+    if isinstance(alpha, float):
         n_fac = 2
         return (np.identity(dim**2) - alpha * swap_operator(dim, True)) / (dim * (dim - alpha))
 
