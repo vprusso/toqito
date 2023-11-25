@@ -1,5 +1,4 @@
 """Test state_exclusion."""
-import numpy as np
 import pytest
 
 from toqito.states import bell

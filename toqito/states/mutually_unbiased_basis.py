@@ -1,3 +1,4 @@
+"""Construct a set of mutually unbiased bases."""
 import numpy as np
 from sympy import primerange, isprime
 
@@ -6,7 +7,7 @@ from toqito.matrices import gen_pauli
 
 def mutually_unbiased_basis(dim: int) -> list[np.ndarray]:
     r"""
-    Function to generate list of MUBs for a given dimension :cite:`WikiMUB`.
+    Generate list of MUBs for a given dimension :cite:`WikiMUB`.
     
     Note that this function only works if the dimension provided is prime or a power of a prime. Otherwise, we don't
     know how to generate general MUBs.
@@ -29,7 +30,6 @@ def mutually_unbiased_basis(dim: int) -> list[np.ndarray]:
     :param dim: The dimension of the mutually unbiased bases to produce.
     :return: The set of mutually unbiased bases of dimension :code:`dim` (if known).
     """
-    
     # The first basis will always be the standard basis:
     mats = [np.eye(dim)]
 
