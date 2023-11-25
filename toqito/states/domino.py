@@ -82,22 +82,23 @@ def domino(idx: int) -> np.ndarray:
     :return: Domino state of index :code:`idx`.
     """
     e_0, e_1, e_2 = basis(3, 0), basis(3, 1), basis(3, 2)
-    if idx == 0:
-        return np.kron(e_1, e_1)
-    if idx == 1:
-        return np.kron(e_0, 1 / np.sqrt(2) * (e_0 + e_1))
-    if idx == 2:
-        return np.kron(e_0, 1 / np.sqrt(2) * (e_0 - e_1))
-    if idx == 3:
-        return np.kron(e_2, 1 / np.sqrt(2) * (e_1 + e_2))
-    if idx == 4:
-        return np.kron(e_2, 1 / np.sqrt(2) * (e_1 - e_2))
-    if idx == 5:
-        return np.kron(1 / np.sqrt(2) * (e_1 + e_2), e_0)
-    if idx == 6:
-        return np.kron(1 / np.sqrt(2) * (e_1 - e_2), e_0)
-    if idx == 7:
-        return np.kron(1 / np.sqrt(2) * (e_0 + e_1), e_2)
-    if idx == 8:
-        return np.kron(1 / np.sqrt(2) * (e_0 - e_1), e_2)
+    match idx:
+        case 0:
+            return np.kron(e_1, e_1)
+        case 1:
+            return np.kron(e_0, 1 / np.sqrt(2) * (e_0 + e_1))
+        case 2:
+            return np.kron(e_0, 1 / np.sqrt(2) * (e_0 - e_1))
+        case 3:
+            return np.kron(e_2, 1 / np.sqrt(2) * (e_1 + e_2))
+        case 4:
+            return np.kron(e_2, 1 / np.sqrt(2) * (e_1 - e_2))
+        case 5:
+            return np.kron(1 / np.sqrt(2) * (e_1 + e_2), e_0)
+        case 6:
+            return np.kron(1 / np.sqrt(2) * (e_1 - e_2), e_0)
+        case 7:
+            return np.kron(1 / np.sqrt(2) * (e_0 + e_1), e_2)
+        case 8:
+            return np.kron(1 / np.sqrt(2) * (e_0 - e_1), e_2)
     raise ValueError("Invalid integer value for Domino state.")

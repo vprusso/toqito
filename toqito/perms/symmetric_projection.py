@@ -8,34 +8,29 @@ import scipy
 from toqito.perms import permutation_operator
 
 
-def symmetric_projection(
-    dim: int, p_val: int = 2, partial: bool = False
-) -> [np.ndarray, scipy.sparse.lil_matrix]:
+def symmetric_projection( dim: int, p_val: int = 2, partial: bool = False ) -> [np.ndarray, scipy.sparse.lil_matrix]:
     r"""
     Produce the projection onto the symmetric subspace :cite:`Chen_2014_Symmetric`.
 
-    For a complex Euclidean space :math:`\mathcal{X}` and a positive integer :math:`n`, the
-    projection onto the symmetric subspace is given by
-
+    For a complex Euclidean space :math:`\mathcal{X}` and a positive integer :math:`n`, the projection onto the
+    symmetric subspace is given by
+    
     .. math::
         \frac{1}{n!} \sum_{\pi \in S_n} W_{\pi}
 
-    where :math:`W_{\pi}` is the swap operator and where :math:`S_n` is the symmetric group on
-    :math:`n` symbols.
+    where :math:`W_{\pi}` is the swap operator and where :math:`S_n` is the symmetric group on :math:`n` symbols.
 
-    Produces the orthogonal projection onto the symmetric subspace of :code:`p_val` copies of
-    `dim`-dimensional space. If `partial = True`, then the symmetric projection (PS) isn't the
-    orthogonal projection itself, but rather a matrix whose columns form an orthonormal basis for
-    the symmetric subspace (and hence the PS * PS' is the orthogonal projection onto the symmetric
-    subspace).
+    Produces the orthogonal projection onto the symmetric subspace of :code:`p_val` copies of `dim`-dimensional space.
+    If `partial = True`, then the symmetric projection (PS) isn't the orthogonal projection itself, but rather a matrix
+    whose columns form an orthonormal basis for the symmetric subspace (and hence the PS * PS' is the orthogonal
+    projection onto the symmetric subspace).
 
     This function was adapted from the QETLAB package.
 
     Examples
     ==========
 
-    The :math:`2`-dimensional symmetric projection with :math:`p=1` is given as
-    :math:`2`-by-:math:`2` identity matrix
+    The :math:`2`-dimensional symmetric projection with :math:`p=1` is given as :math:`2`-by-:math:`2` identity matrix
 
     .. math::
         \begin{pmatrix}

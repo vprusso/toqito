@@ -8,8 +8,7 @@ def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, sparse.dia_matr
     r"""
     Produce the maximally mixed state :cite:`Aaronson_2018_MaxMixed`.
 
-    Produces the maximally mixed state on of :code:`dim` dimensions. The maximally mixed state is
-    defined as
+    Produces the maximally mixed state on of :code:`dim` dimensions. The maximally mixed state is defined as
 
     .. math::
         \omega = \frac{1}{d} \begin{pmatrix}
@@ -24,11 +23,11 @@ def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, sparse.dia_matr
     .. math::
         \omega = \frac{\mathbb{I}}{\text{dim}(\mathcal{X})}
 
-    for some complex Euclidean space :math:`\mathcal{X}`. The maximally mixed state is sometimes
-    also referred to as the tracial state.
+    for some complex Euclidean space :math:`\mathcal{X}`. The maximally mixed state is sometimes also referred to as the
+    tracial state.
 
-    The maximally mixed state is returned as a sparse matrix if :code:`is_sparse = True` and is full
-    if :code:`is_sparse = False`.
+    The maximally mixed state is returned as a sparse matrix if :code:`is_sparse = True` and is full if :code:`is_sparse
+    = False`.
 
     Examples
     ==========

@@ -8,8 +8,7 @@ def hilbert_schmidt(rho: np.ndarray, sigma: np.ndarray) -> float:
     r"""
     Compute the Hilbert-Schmidt distance between two states :cite:`WikiHilbSchOp`.
 
-    The Hilbert-Schmidt distance between density operators :math:`\rho` and :math:`\sigma` is
-    defined as
+    The Hilbert-Schmidt distance between density operators :math:`\rho` and :math:`\sigma` is defined as
 
     .. math::
         D_{\text{HS}}(\rho, \sigma) = \text{Tr}((\rho - \sigma)^2) = \left\lVert \rho - \sigma
@@ -18,8 +17,8 @@ def hilbert_schmidt(rho: np.ndarray, sigma: np.ndarray) -> float:
     Examples
     ==========
 
-    One may consider taking the Hilbert-Schmidt distance between two Bell states. In :code:`toqito`,
-    one may accomplish this as
+    One may consider taking the Hilbert-Schmidt distance between two Bell states. In :code:`toqito`, one may accomplish
+    this as
 
     >>> from toqito.states import bell
     >>> from toqito.state_metrics import hilbert_schmidt

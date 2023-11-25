@@ -1,24 +1,19 @@
 """Antisymmetric projection operator."""
 from itertools import permutations
-
 import numpy as np
-
 from scipy import linalg, sparse
 
 from toqito.perms import perm_sign, permutation_operator
 
 
-def antisymmetric_projection(
-    dim: int, p_param: int = 2, partial: bool = False
-) -> sparse.lil_matrix:
+def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) -> sparse.lil_matrix:
     r"""
     Produce the projection onto the antisymmetric subspace :cite:`WikiAsymmOp`.
 
     Produces the orthogonal projection onto the anti-symmetric subspace of :code:`p_param` copies of
-    :code:`dim`-dimensional space. If :code:`partial = True`, then the antisymmetric projection (PA)
-    isn't the orthogonal projection itself, but rather a matrix whose columns form an orthonormal
-    basis for the symmetric subspace (and hence the PA * PA' is the orthogonal projection onto the
-    symmetric subspace.)
+    :code:`dim`-dimensional space. If :code:`partial = True`, then the antisymmetric projection (PA) isn't the
+    orthogonal projection itself, but rather a matrix whose columns form an orthonormal basis for the symmetric subspace
+    (and hence the PA * PA' is the orthogonal projection onto the symmetric subspace.)
 
     Examples
     ==========
@@ -40,9 +35,8 @@ def antisymmetric_projection(
     [[1., 0.],
      [0., 1.]]
 
-    When the :math:`p` value is greater than the dimension of the antisymmetric projection, this
-    just gives the matrix consisting of all zero entries. For instance, when :math:`d = 2` and
-    :math:`p = 3` we have that
+    When the :math:`p` value is greater than the dimension of the antisymmetric projection, this just gives the matrix
+    consisting of all zero entries. For instance, when :math:`d = 2` and :math:`p = 3` we have that
 
     .. math::
         A_{2, 3} =

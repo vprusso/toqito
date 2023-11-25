@@ -14,8 +14,8 @@ def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
         E(\rho, \sigma) = \text{Tr}(\rho \sigma) +
         \sqrt{2 \left[ \text{Tr}(\rho \sigma)^2 - \text{Tr}(\rho \sigma \rho \sigma) \right]},
 
-    where :math:`\sigma` and :math:`\rho` are density matrices. The sub-fidelity serves as an lower
-    bound for the fidelity.
+    where :math:`\sigma` and :math:`\rho` are density matrices. The sub-fidelity serves as an lower bound for the
+    fidelity.
 
     Examples
     ==========
@@ -29,8 +29,8 @@ def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
         \sigma = \frac{1}{8}|0 \rangle \langle 0| +
                  \frac{7}{8}|1 \rangle \langle 1|.
 
-    Calculating the fidelity between the states :math:`\rho` and :math:`\sigma` as
-    :math:`F(\rho, \sigma) \approx 0.774`. This can be observed in :code:`toqito` as
+    Calculating the fidelity between the states :math:`\rho` and :math:`\sigma` as :math:`F(\rho, \sigma) \approx
+    0.774`. This can be observed in :code:`toqito` as
 
     >>> from toqito.states import basis
     >>> from toqito.state_metrics import fidelity
@@ -40,9 +40,8 @@ def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     >>> fidelity(rho, sigma)
     0.77389339119464
 
-    As the sub-fidelity is a lower bound on the fidelity, that is
-    :math:`E(\rho, \sigma) \leq F(\rho, \sigma)`, we can use :code:`toqito` to observe that
-    :math:`E(\rho, \sigma) \approx 0.599\leq F(\rho, \sigma \approx 0.774`.
+    As the sub-fidelity is a lower bound on the fidelity, that is :math:`E(\rho, \sigma) \leq F(\rho, \sigma)`, we can
+    use :code:`toqito` to observe that :math:`E(\rho, \sigma) \approx 0.599\leq F(\rho, \sigma \approx 0.774`.
 
     >>> from toqito.states import basis
     >>> from toqito.state_metrics import sub_fidelity

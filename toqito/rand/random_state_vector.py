@@ -1,15 +1,11 @@
 """Generate random state vector."""
-
-
 import numpy as np
 
 from toqito.perms import swap
 from toqito.states import max_entangled
 
 
-def random_state_vector(
-    dim: list[int] | int, is_real: bool = False, k_param: int = 0
-) -> np.ndarray:
+def random_state_vector(dim: list[int] | int, is_real: bool = False, k_param: int = 0) -> np.ndarray:
     r"""Generate a random pure state vector.
 
     Examples
@@ -24,8 +20,8 @@ def random_state_vector(
     [[0.50993973+0.15292408j],
      [0.27787332+0.79960122j]]
 
-    We can verify that this is in fact a valid state vector by computing the corresponding density
-    matrix of the vector and checking if the density matrix is pure.
+    We can verify that this is in fact a valid state vector by computing the corresponding density matrix of the vector
+    and checking if the density matrix is pure.
 
     >>> from toqito.state_props import is_pure
     >>> dm = vec.conj().T * vec

@@ -18,9 +18,8 @@ def breuer(dim: int, lam: float) -> np.ndarray:
     Examples
     ==========
 
-    We can generate a Breuer state of dimension :math:`4` with weight :math:`0.1`. For any weight
-    above :math:`0`, the state will be bound entangled, that is, it will satisfy the PPT criterion,
-    but it will be entangled.
+    We can generate a Breuer state of dimension :math:`4` with weight :math:`0.1`. For any weight above :math:`0`, the
+    state will be bound entangled, that is, it will satisfy the PPT criterion, but it will be entangled.
 
     >>> from toqito.states import breuer
     >>> breuer(2, 0.1)
@@ -47,6 +46,4 @@ def breuer(dim: int, lam: float) -> np.ndarray:
     max_entangled(dim)
     psi = np.dot(np.kron(np.identity(dim), v_mat), max_entangled(dim))
 
-    return lam * (psi * psi.conj().T) + (1 - lam) * 2 * symmetric_projection(dim) / (
-        dim * (dim + 1)
-    )
+    return lam * (psi * psi.conj().T) + (1 - lam) * 2 * symmetric_projection(dim) / (dim * (dim + 1))
