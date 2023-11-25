@@ -1,5 +1,4 @@
 """Test random_state_vector."""
-import numpy as np
 import pytest
 
 from toqito.rand import random_state_vector

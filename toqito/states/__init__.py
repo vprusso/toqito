@@ -16,4 +16,5 @@ from toqito.states.werner import werner
 from toqito.states.breuer import breuer
 from toqito.states.brauer import brauer
 from toqito.states.singlet import singlet
+from toqito.states.trine import trine
 from toqito.states.mutually_unbiased_basis import mutually_unbiased_basis

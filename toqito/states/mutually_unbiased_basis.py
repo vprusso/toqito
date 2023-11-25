@@ -46,12 +46,12 @@ def mutually_unbiased_basis(dim: int) -> list[np.ndarray]:
         raise ValueError(f"No general construction of MUBs is known for dimension: {dim}.")
 
     mubs: list[np.ndarray] = []
-    for i in range(len(mats)):
-        nrows, ncols = mats[i].shape[0], mats[i].shape[1]
+    for mat in mats:
+        nrows, ncols = mat.shape[0], mat.shape[1]
         for row in range(nrows):
             mub: list[np.ndarray] = []
             for col in range(ncols):
-                mub.append(mats[i][col][row])
+                mub.append(mat[col][row])
             mubs.append(np.array(mub))
     return mubs
 

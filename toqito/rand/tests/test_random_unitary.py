@@ -1,5 +1,4 @@
 """Test random_unitary."""
-import numpy as np
 import pytest
 
 from toqito.matrix_props import is_unitary

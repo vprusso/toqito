@@ -209,8 +209,8 @@ def permute_systems(
     # This condition is only necessary if the `input_mat` variable is sparse.
     if isinstance(input_mat, (sparse.csr_matrix, sparse.dia_matrix)):
         input_mat = input_mat.toarray()
-        permuted_mat = input_mat[row_perm, :]
-        permuted_mat = np.array(permuted_mat)
+        permuted_mat = input_mat[row_perm, :]  
+        permuted_mat = np.array(permuted_mat)  # pylint: disable=redefined-variable-type
     else:
         permuted_mat = input_mat[row_perm, :]
 

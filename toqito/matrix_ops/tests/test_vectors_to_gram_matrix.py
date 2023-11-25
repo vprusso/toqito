@@ -2,25 +2,20 @@
 import numpy as np
 import pytest
 
+from toqito.states import trine
 from toqito.matrix_ops import vectors_to_gram_matrix
 
 
 e_0, e_1 = np.array([[1], [0]]), np.array([[0], [1]])
-trine = [
-    e_0,
-    1 / 2 * (-e_0 + np.sqrt(3) * e_1),
-    -1 / 2 * (e_0 + np.sqrt(3) * e_1),
-]
 
 
 @pytest.mark.parametrize("vectors, expected_result", [
     # Trine states.
-    (trine, np.array([[1, -1 / 2, -1 / 2], [-1 / 2, 1, -1 / 2], [-1 / 2, -1 / 2, 1]])),
+    (trine(), np.array([[1, -1 / 2, -1 / 2], [-1 / 2, 1, -1 / 2], [-1 / 2, -1 / 2, 1]])),
 ])
 def test_vectors_to_gram_matrix(vectors, expected_result):
     """Test able to construct Gram matrix from vectors."""
-    vectors = vectors_to_gram_matrix(trine)
-    np.testing.assert_allclose(vectors, expected_result)
+    np.testing.assert_allclose(vectors_to_gram_matrix(vectors), expected_result)
 
 
 @pytest.mark.parametrize("vectors", [

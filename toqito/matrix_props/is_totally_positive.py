@@ -1,10 +1,10 @@
 """Is matrix totally positive."""
-import numpy as np
 from itertools import combinations
+import numpy as np
 
 
-def is_totally_positive(mat, tol=1e-6, sub_sizes=None):
-    """
+def is_totally_positive(mat: np.ndarray, tol: float = 1e-6, sub_sizes: list | None = None):
+    r"""
     Determines whether a matrix is totally positive.
 
     A totally positive matrix is a square matrix where all the minors are positive. Equivalently, the determinant of
@@ -45,7 +45,7 @@ def is_totally_positive(mat, tol=1e-6, sub_sizes=None):
         https://en.wikipedia.org/wiki/Totally_positive_matrix
 
     :param mat: Matrix to check.
-    :param atol: The absolute tolerance parameter (default 1e-06).
+    :param tol: The absolute tolerance parameter (default 1e-06).
     :param sub_sizes: List of sizes of submatrices to consider. Default is all sizes up to :code:`min(mat.shape)`.
     :return: Return :code:`True` if matrix is totally positive, and :code:`False` otherwise.
     """
