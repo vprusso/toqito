@@ -39,5 +39,5 @@ def test_werner_multipartite_valid():
     (2, {"key": "value"}),
 ])
 def test_werner_state_invalid(dim, alpha):
-    with np.testing.assert_raises(ValueError):
+    with pytest.raises(ValueError):
         werner(dim, alpha)
