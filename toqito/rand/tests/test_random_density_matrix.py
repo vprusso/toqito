@@ -24,11 +24,6 @@ def test_random_density(dim, is_real, k_param, distance_metric):
         np.testing.assert_equal(is_density(mat), True)
 
 
-def is_positive_semidefinite(matrix):
-    """Check if a matrix is positive semidefinite."""
-    return np.all(np.linalg.eigvals(matrix) >= 0)
-
-
 @pytest.mark.parametrize("dim, is_real, distance_metric", [
     (2, False, "haar"),
     (2, True, "haar"),
