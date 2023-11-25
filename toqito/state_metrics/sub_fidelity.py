@@ -6,7 +6,7 @@ from toqito.matrix_props import is_density
 
 def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     r"""
-    Compute the sub fidelity of two density matrices :cite:`miszczak2008sub`.
+    Compute the sub fidelity of two density matrices :cite:`Miszczak_2008_Sub`.
 
     The sub-fidelity is a measure of similarity between density operators. It is defined as
 

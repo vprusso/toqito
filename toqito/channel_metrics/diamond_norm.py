@@ -8,9 +8,9 @@ def diamond_norm(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     Return the diamond norm distance between two quantum channels.
 
     The calculation uses the simplified semidefinite program of Watrous in
-    :cite:`Watrous_2009_semidefinite`.
+    :cite:`Watrous_2009_Semidefinite`.
 
-    This function has been adapted from :cite:`Rigetti2022forest`
+    This function has been adapted from :cite:`Rigetti_2022_Forest`
 
     .. note::
         This calculation becomes very slow for 4 or more qubits.

@@ -4,7 +4,7 @@ import numpy as np
 
 def trace_norm(rho: np.ndarray) -> float:
     r"""
-    Compute the trace norm of the state :cite:`QuantikiTrNorm`.
+    Compute the trace norm of the state :cite:`Quantiki_TrNorm`.
 
     Also computes the operator 1-norm when inputting an operator.
 

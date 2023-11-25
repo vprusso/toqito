@@ -47,7 +47,7 @@ def state_exclusion(
             \end{equation}
 
     The conclusive state exclusion SDP is written explicitly in :cite:`Bandyopadhyay_2014_Conclusive`. The problem of conclusive
-    state exclusion was also thought about under a different guise in :cite:`Pusey_2012`.
+    state exclusion was also thought about under a different guise in :cite:`Pusey_2012_On`.
 
     Examples
     ==========

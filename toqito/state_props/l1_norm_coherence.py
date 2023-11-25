@@ -6,7 +6,7 @@ from toqito.state_ops import pure_to_mixed
 
 def l1_norm_coherence(rho: np.ndarray) -> float:
     r"""
-    Compute the l1-norm of coherence of a quantum state :cite:`PhysRevA.96.052336`.
+    Compute the l1-norm of coherence of a quantum state :cite:`Rana_2017_Log`.
 
     The :math:`\ell_1`-norm of coherence of a quantum state :math:`\rho` is
     defined as

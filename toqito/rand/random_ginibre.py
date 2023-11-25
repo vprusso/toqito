@@ -14,7 +14,7 @@ def random_ginibre(
     A *Ginibre random matrix* is a matrix with independent and identically distributed complex
     standard Gaussian entries.
 
-    Ginibre random matrices are used in the construction of Wishart-random POVMs :cite:`Heinosaari_2020`.
+    Ginibre random matrices are used in the construction of Wishart-random POVMs :cite:`Heinosaari_2020_Random`.
 
     Examples
     ==========

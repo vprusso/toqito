@@ -10,7 +10,7 @@ from toqito.perms import permutation_operator, swap_operator
 
 def werner(dim: int, alpha: float | list[float]) -> np.ndarray:
     r"""
-    Produce a Werner state :cite:`PhysRevA.40.4277`.
+    Produce a Werner state :cite:`Werner_1989_QuantumStates`.
 
     A Werner state is a state of the following form
 

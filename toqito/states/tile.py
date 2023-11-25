@@ -6,7 +6,7 @@ from toqito.states import basis
 
 def tile(idx: int) -> np.ndarray:
     r"""
-    Produce a Tile state :cite:`Bennett_1999upb`.
+    Produce a Tile state :cite:`Bennett_1999_UPB`.
 
     The Tile states constitute five states on 3-by-3 dimensional space that form a UPB
     (unextendible product basis).

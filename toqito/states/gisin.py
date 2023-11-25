@@ -4,9 +4,9 @@ import numpy as np
 
 def gisin(lambda_var: float, theta: float) -> np.ndarray:
     r"""
-    Produce a Gisin state :cite:`GISIN1996151`.
+    Produce a Gisin state :cite:`Gisin_1996_Hidden`.
 
-    Returns the Gisin state described in :cite:`GISIN1996151`. Specifically, the Gisin state can be defined as:
+    Returns the Gisin state described in :cite:`Gisin_1996_Hidden`. Specifically, the Gisin state can be defined as:
 
     .. math::
         \begin{equation}

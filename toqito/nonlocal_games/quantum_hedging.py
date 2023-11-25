@@ -11,7 +11,7 @@ class QuantumHedging:
     Calculate optimal winning probabilities for hedging scenarios.
 
     Calculate the maximal and minimal winning probabilities for quantum
-    hedging to occur in certain two-party scenarios :cite:`Arunachalam_2017_QuantumHedging, Molina_2012`.
+    hedging to occur in certain two-party scenarios :cite:`Arunachalam_2017_QuantumHedging, Molina_2012_Hedging`.
 
     Examples
     ==========
@@ -28,7 +28,7 @@ class QuantumHedging:
     .. math::
         v = \cos(\pi/8)|00\rangle + \sin(\pi/8)|11\rangle.
 
-    As was illustrated in :cite:`Molina_2012`, the hedging value of the above scenario is
+    As was illustrated in :cite:`Molina_2012_Hedging`, the hedging value of the above scenario is
     :math:`\cos(\pi/8)^2 \approx 0.8536`
 
     >>> from numpy import kron, cos, sin, pi, sqrt, isclose

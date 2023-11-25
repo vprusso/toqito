@@ -6,7 +6,7 @@ from toqito.perms import swap_operator
 
 def singlet(dim: int) -> np.ndarray:
     r"""
-    Produce a generalized singlet state acting on two n-dimensional systems :cite:`PhysRevLett.89.100402`.
+    Produce a generalized singlet state acting on two n-dimensional systems :cite:`Cabello_2002_NParticle`.
 
     Examples
     ==========

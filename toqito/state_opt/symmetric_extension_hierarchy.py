@@ -17,7 +17,7 @@ def symmetric_extension_hierarchy(
     dim: int | list[int] = None,
 ) -> float:
     r"""
-    Compute optimal value of the symmetric extension hierarchy SDP :cite:`Navascu_s_2008p`.
+    Compute optimal value of the symmetric extension hierarchy SDP :cite:`Navascues_2008_Pure`.
 
     The probability of distinguishing a given set of states via PPT measurements serves as a natural
     upper bound to the value of obtaining via separable measurements. Due to the nature of separable
@@ -25,10 +25,10 @@ def symmetric_extension_hierarchy(
     programming techniques.
 
     We can, however, construct a hierarchy of semidefinite programs that attains closer and closer
-    approximations at the separable value via the techniques described in :cite:`Navascu_s_2008p`.
+    approximations at the separable value via the techniques described in :cite:`Navascues_2008_Pure`.
 
     The mathematical form of this hierarchy implemented here is explicitly given from equation 4.55
-    in :cite:`cosentino_2015`.
+    in :cite:`Cosentino_2015_QuantumState`.
 
     .. math::
 
@@ -63,7 +63,7 @@ def symmetric_extension_hierarchy(
     Examples
     ==========
 
-    It is known from :cite:`cosentino_2015` that distinguishing three Bell states along with a resource state
+    It is known from :cite:`Cosentino_2015_QuantumState` that distinguishing three Bell states along with a resource state
     :math:`|\tau_{\epsilon}\rangle` via separable measurements has the following closed form
 
     .. math::
@@ -117,7 +117,7 @@ def symmetric_extension_hierarchy(
     >>> symmetric_extension_hierarchy(states=states, probs=None, level=2)
     0.958305796189204
     >>>
-    >>> # As proven in :cite:`cosentino_2015`, the true separable value of distinguishing the
+    >>> # As proven in :cite:`Cosentino_2015_QuantumState`, the true separable value of distinguishing the
     >>> # three Bell states is:
     >>> 1/3 * (2 + np.sqrt(1 - eps**2))
     0.9553418012614794

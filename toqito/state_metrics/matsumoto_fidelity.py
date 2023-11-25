@@ -8,7 +8,7 @@ from toqito.matrix_props import is_density
 
 def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     r"""
-    Compute the Matsumoto fidelity of two density matrices :cite:`matsumoto2010reverse`.
+    Compute the Matsumoto fidelity of two density matrices :cite:`Matsumoto_2010_Reverse`.
 
     Calculate the Matsumoto fidelity between the two density matrices :code:`rho`
     and :code:`sigma`, defined by:

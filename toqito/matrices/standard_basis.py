@@ -17,7 +17,7 @@ def standard_basis(dim: int, flatten: bool = False) -> list[np.ndarray]:
         .
         |n> = (0, 0, 0, ..., 1)^T
 
-    This function was inspired by :cite:`seshadri2021git, seshadri2021theory, seshadri2021versatile`
+    This function was inspired by :cite:`Seshadri_2021_Git, Seshadri_2021_Theory, Seshadri_2021_Versatile`
 
     References
     ==========

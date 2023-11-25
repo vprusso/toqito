@@ -24,7 +24,7 @@ def sk_operator_norm(  # pylint: disable=too-many-locals
     effort: int = 2,
 ) -> float:
     r"""
-    Compute the S(k)-norm of a matrix :cite:`Johnston_2010`.
+    Compute the S(k)-norm of a matrix :cite:`Johnston_2010_AFamily`.
 
     The :math:`S(k)`-norm of of a matrix :math:`X` is defined as:
 
@@ -36,7 +36,7 @@ def sk_operator_norm(  # pylint: disable=too-many-locals
             \text{Schmidt - rank}(|w\rangle) \leq k
         \Big\}
 
-    Since computing the exact value of S(k)-norm :cite:`johnston2012norms` is in the general case
+    Since computing the exact value of S(k)-norm :cite:`Johnston_2012_Norms` is in the general case
     an intractable problem, this function tries to find some good lower and
     upper bounds. You can control the amount of computation you want to
     devote to computing the bounds by `effort` input argument. Note that if

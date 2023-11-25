@@ -4,7 +4,7 @@ import numpy as np
 
 def horodecki(a_param: float, dim: list[int] = None) -> np.ndarray:
     r"""
-    Produce a Horodecki state :cite:`Horodecki_1997, Chru_ci_ski_2011`.
+    Produce a Horodecki state :cite:`Horodecki_1997_Separability, Chruscinski_2011_OnTheSymmetry`.
 
     Returns the Horodecki state in either :math:`(3 \otimes 3)`-dimensional space or
     :math:`(2 \otimes 4)`-dimensional space, depending on the dimensions in the 1-by-2 vector
@@ -53,9 +53,9 @@ def horodecki(a_param: float, dim: list[int] = None) -> np.ndarray:
         \end{equation}
 
     .. note::
-        Refer to :cite:`Chru_ci_ski_2011` (specifically equations (1) and (2)) for more information on this state
-        and its properties. The 3x3 Horodecki state is defined explicitly in Section 4.1 of :cite:`Horodecki_1997`
-        and the 2x4 Horodecki state is defined explicitly in Section 4.2 of :cite:`Horodecki_1997`.
+        Refer to :cite:`Chruscinski_2011_OnTheSymmetry` (specifically equations (1) and (2)) for more information on this state
+        and its properties. The 3x3 Horodecki state is defined explicitly in Section 4.1 of :cite:`Horodecki_1997_Separability`
+        and the 2x4 Horodecki state is defined explicitly in Section 4.2 of :cite:`Horodecki_1997_Separability`.
 
     Examples
     ==========

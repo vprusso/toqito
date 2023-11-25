@@ -16,7 +16,7 @@ def hilbert_schmidt_inner_product(a_mat: np.ndarray, b_mat: np.ndarray) -> compl
     where :math:`|B\rangle = \text{vec}(B)` and :math:`\langle A|` is the dual
     vector to :math:`|A \rangle`.
 
-    Note: This function has been adapted from :cite:`Rigetti2022forest`.
+    Note: This function has been adapted from :cite:`Rigetti_2022_Forest`.
 
     Examples
     ==========

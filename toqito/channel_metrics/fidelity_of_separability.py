@@ -21,12 +21,12 @@ def fidelity_of_separability(
     solver_option: str = "cvxopt",
 ) -> float:
     r"""
-    Define the first benchmark introduced in Appendix I of :cite:`Philip2023schrodinger` .
+    Define the first benchmark introduced in Appendix I of :cite:`Philip_2023_Schrodinger` .
 
     If you would like to instead use the benchmark introduced in Appendix H,
     go to :obj:`toqito.state_metrics.fidelity_of_separability`.
 
-    In :cite:`Philip2023schrodinger` a variational quantum algorithm (VQA) is introduced to test
+    In :cite:`Philip_2023_Schrodinger` a variational quantum algorithm (VQA) is introduced to test
     the separability of a general bipartite state. The algorithm utilizes
     quantum steering between two separated systems such that the separability
     of the state is quantified.
@@ -35,13 +35,13 @@ def fidelity_of_separability(
     optimization semidefinite programs (SDP) benchmarks were introduced to
     maximize the fidelity of separability subject to some state constraints
     (Positive Partial Transpose (PPT), symmetric extensions (k-extendibility
-    ) :cite:`Hayden_2013` ). Entangled states do not have k-symmetric extensions. If an
+    ) :cite:`Hayden_2013_TwoMessage` ). Entangled states do not have k-symmetric extensions. If an
     extension exists, it cannot be assumed directly that the state is
     separable. This function approximites the fidelity of separability by
     maximizing over PPT channels & k-extendible entanglement breaking channels
     i.e. an optimization problem over channels :cite:`Watrous_2018_TQI` .
 
-    The following expression (Equation (I4) from :cite:`Philip2023schrodinger` ) defines the
+    The following expression (Equation (I4) from :cite:`Philip_2023_Schrodinger` ) defines the
     constraints for approximating
     :math:`\frac{1}{2}(1+\widetilde{F}_s^2(\rho_{AB})) {:}=`
 
@@ -72,7 +72,7 @@ def fidelity_of_separability(
     :math:`\mathcal{P}_{A^{\prime k}}` is the permutation operator over
     k-extensions :math:`A^{\prime k}`.
 
-    The other constraints are due to the PPT condition :cite:`Peres_1996`.
+    The other constraints are due to the PPT condition :cite:`Peres_1996_Separability`.
 
     Examples
     ==========

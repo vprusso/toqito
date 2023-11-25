@@ -20,7 +20,7 @@ class NonlocalGame:
     are not allowed to communicate with each other once the game has started and
     who play cooperative against an adversary referred to as the referee.
 
-    The nonlocal game framework was originally introduced in :cite:`cleve2010consequences`.
+    The nonlocal game framework was originally introduced in :cite:`Cleve_2010_Consequences`.
 
     References
     ==========
@@ -195,7 +195,7 @@ class NonlocalGame:
         tol: float = 10e-6,
     ):
         r"""
-        Compute a lower bound on the quantum value of a nonlocal game :cite:`Liang_2007`.
+        Compute a lower bound on the quantum value of a nonlocal game :cite:`Liang_2007_Bounds`.
 
         Calculates a lower bound on the maximum value that the specified
         nonlocal game can take on in quantum mechanical settings where Alice and
@@ -213,7 +213,7 @@ class NonlocalGame:
         number of times and keep the highest value obtained.
 
         The algorithm is based on the alternating projections algorithm as it
-        can be applied to Bell inequalities as shown in :cite:`Liang_2007`.
+        can be applied to Bell inequalities as shown in :cite:`Liang_2007_Bounds`.
 
         The alternating projection algorithm has also been referred to as the
         "see-saw" algorithm as it goes back and forth between the following two
@@ -586,7 +586,7 @@ class NonlocalGame:
         Compute an upper bound on the commuting measurement value of the nonlocal game.
 
         This function calculates an upper bound on the commuting measurement value by
-        using k-levels of the NPA hierarchy :cite:`Navascu_s_2008`. The NPA hierarchy is a uniform family
+        using k-levels of the NPA hierarchy :cite:`Navascues_2008_AConvergent`. The NPA hierarchy is a uniform family
         of semidefinite programs that converges to the commuting measurement value of
         any nonlocal game.
 

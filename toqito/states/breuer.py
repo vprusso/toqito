@@ -7,11 +7,11 @@ from toqito.states import max_entangled
 
 def breuer(dim: int, lam: float) -> np.ndarray:
     r"""
-    Produce a Breuer state :cite:`Breuer_2006`.
+    Produce a Breuer state :cite:`Breuer_2006_Optimal`.
 
     Gives a Breuer bound entangled state for two qudits of local dimension :code:`dim`, with the
     :code:`lam` parameter describing the weight of the singlet component as described in
-    :cite:`Breuer_2006`.
+    :cite:`Breuer_2006_Optimal`.
 
     This function was adapted from the QETLAB package.
 

@@ -12,7 +12,7 @@ def choi_to_kraus(
     choi_mat: np.ndarray, tol: float = 1e-9, dim: int | list[int] | np.ndarray = None
 ) -> list[np.ndarray] | list[list[np.ndarray]]:
     r"""
-    Compute a list of Kraus operators from the Choi matrix from :cite:`Rigetti2022forest`.
+    Compute a list of Kraus operators from the Choi matrix from :cite:`Rigetti_2022_Forest`.
 
     Note that unlike the Choi or natural representation of operators, the Kraus representation is
     *not* unique.
@@ -24,7 +24,7 @@ def choi_to_kraus(
     For completely positive maps the output is a single flat list of numpy arrays since the left and
     right Kraus maps are the same.
 
-    This function has been adapted from :cite:`Rigetti2022forest` and QETLAB :cite:`QETLAB_link`.
+    This function has been adapted from :cite:`Rigetti_2022_Forest` and QETLAB :cite:`QETLAB_link`.
 
     Examples
     ========

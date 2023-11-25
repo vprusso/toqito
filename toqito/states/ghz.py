@@ -6,10 +6,10 @@ from scipy import sparse
 
 def ghz(dim: int, num_qubits: int, coeff: list[int] = None) -> sparse:
     r"""
-    Generate a (generalized) GHZ state :cite:`greenberger2007going`.
+    Generate a (generalized) GHZ state :cite:`Greenberger_2007_Going`.
 
     Returns a :code:`num_qubits`-partite GHZ state acting on :code:`dim` local dimensions, described
-    in :cite:`greenberger2007going`. For example, :code:`ghz(2, 3)` returns the standard 3-qubit GHZ state on qubits.
+    in :cite:`Greenberger_2007_Going`. For example, :code:`ghz(2, 3)` returns the standard 3-qubit GHZ state on qubits.
     The output of this function is sparse.
 
     For a system of :code:`num_qubits` qubits (i.e., :code:`dim = 2`), the GHZ state can be written
