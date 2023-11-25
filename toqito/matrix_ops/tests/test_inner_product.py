@@ -14,7 +14,7 @@ from toqito.matrix_ops import inner_product
     (np.array([1, 2, -3]), np.array([4, 5, 6]), -4),
 ])
 def test_inner_product(v1, v2, expected_result):
-    np.testing.assert_equal(inner_product(v1, v2), expected_result)
+   assert inner_product(v1, v2) == expected_result
 
 
 @pytest.mark.parametrize("v1, v2", [
