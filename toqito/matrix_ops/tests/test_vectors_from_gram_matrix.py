@@ -41,5 +41,5 @@ def test_vectors_from_gram_matrix_not_psd():
     (np.array([[1, 2], [3, 4]])),
 ])
 def test_vectors_from_gram_matrix_invalid_input(gram):
-    with np.testing.assert_raises(np.linalg.LinAlgError):
+    with pytest.raises(np.linalg.LinAlgError):
         vectors_from_gram_matrix(gram)
