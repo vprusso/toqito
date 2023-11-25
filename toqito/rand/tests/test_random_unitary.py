@@ -23,7 +23,7 @@ def test_random_unitary_list_dims(dim_n, dim_m, is_real):
         mat = random_unitary(
             dim=[dim_n, dim_m], is_real=is_real
         )
-        np.testing.assert_equal(is_unitary(mat), True)
+        assert is_unitary(mat)
 
 
 @pytest.mark.parametrize("dim_n", range(2, 8))
