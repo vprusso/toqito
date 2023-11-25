@@ -173,5 +173,5 @@ def test_tensor_with_three_or_more_matrices():
 
 def test_tensor_empty_args():
     r"""Test tensor with no arguments."""
-    with np.testing.assert_raises(ValueError):
+    with pytest.raises(ValueError):
         tensor()
