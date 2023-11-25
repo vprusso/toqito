@@ -21,4 +21,4 @@ def test_random_state_vector(dim, is_real, k_param):
     # We expect the density matrix of any random state vector to be pure.
     vec = random_state_vector(dim=dim, is_real=is_real, k_param=k_param).reshape(-1, 1)
     mat = vec @ vec.conj().T
-    np.testing.assert_equal(is_pure(mat), True)
+    assert is_pure(mat)
