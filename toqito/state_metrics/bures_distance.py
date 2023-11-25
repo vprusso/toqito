@@ -6,18 +6,16 @@ from toqito.state_metrics import fidelity
 
 def bures_distance(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> float:
     r"""
-    Compute the Bures distance of two density matrices [WikBures]_.
+    Compute the Bures distance of two density matrices :cite:`WikiBures`.
 
-    Calculate the Bures distance between two density matrices :code:`rho_1` and :code:`rho_2`
-    defined by:
+    Calculate the Bures distance between two density matrices :code:`rho_1` and :code:`rho_2` defined by:
 
     .. math::
         \sqrt{2 (1 - F(\rho_1, \rho_2))},
 
-    where :math:`F(\cdot)` denotes the fidelity between :math:`\rho_1` and :math:`\rho_2`. The
-    return is a value between :math:`0` and :math:`\sqrt{2}`,with :math:`0` corresponding to
-    matrices: :code:`rho_1 = rho_2` and :math:`\sqrt{2}` corresponding to the case: :code:`rho_1`
-    and :code:`rho_2` with orthogonal support.
+    where :math:`F(\cdot)` denotes the fidelity between :math:`\rho_1` and :math:`\rho_2`. The return is a value between
+    :math:`0` and :math:`\sqrt{2}`,with :math:`0` corresponding to matrices: :code:`rho_1 = rho_2` and :math:`\sqrt{2}`
+    corresponding to the case: :code:`rho_1` and :code:`rho_2` with orthogonal support.
 
     Examples
     ==========
@@ -37,8 +35,8 @@ def bures_distance(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> 
                          1 & 0 & 0 & 1
                        \end{pmatrix} \in \text{D}(\mathcal{X}).
 
-    In the event where we calculate the Bures distance between states that are identical, we
-    should obtain the value of :math:`0`. This can be observed in :code:`toqito` as follows.
+    In the event where we calculate the Bures distance between states that are identical, we should obtain the value of
+    :math:`0`. This can be observed in :code:`toqito` as follows.
 
     >>> from toqito.state_metrics import bures_distance
     >>> import numpy as np
@@ -54,8 +52,9 @@ def bures_distance(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> 
 
     References
     ==========
-    .. [WikBures] Wikipedia: Bures metric
-        https://en.wikipedia.org/wiki/Bures_metric
+    .. bibliography::
+        :filter: docname in docnames
+    
 
     :raises ValueError: If matrices are not of equal dimension.
     :param rho_1: Density operator.

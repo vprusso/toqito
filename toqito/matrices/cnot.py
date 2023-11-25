@@ -4,7 +4,7 @@ import numpy as np
 
 def cnot() -> np.ndarray:
     r"""
-    Produce the CNOT matrix [WikCNOT]_.
+    Produce the CNOT matrix :cite:`WikiCNOT`.
 
     The CNOT matrix is defined as
 
@@ -29,8 +29,9 @@ def cnot() -> np.ndarray:
 
     References
     ==========
-    .. [WikCNOT] Wikipedia: Controlled NOT gate
-        https://en.wikipedia.org/wiki/Controlled_NOT_gate
+    .. bibliography::
+        :filter: docname in docnames
+    
 
     :return: The CNOT matrix.
     """

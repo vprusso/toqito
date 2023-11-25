@@ -1,6 +1,4 @@
 """Swap operator."""
-
-
 import numpy as np
 import scipy as sp
 
@@ -11,9 +9,8 @@ def swap_operator(dim: list[int] | int, is_sparse: bool = False) -> np.ndarray:
     r"""
     Produce a unitary operator that swaps two subsystems.
 
-    Provides the unitary operator that swaps two copies of :code:`dim`-dimensional space. If the two
-    subsystems are not of the same dimension, :code:`dim` should be a 1-by-2 vector containing the
-    dimension of the subsystems.
+    Provides the unitary operator that swaps two copies of :code:`dim`-dimensional space. If the two subsystems are not
+    of the same dimension, :code:`dim` should be a 1-by-2 vector containing the dimension of the subsystems.
 
     Examples
     ==========
@@ -52,6 +49,7 @@ def swap_operator(dim: list[int] | int, is_sparse: bool = False) -> np.ndarray:
      [0., 0., 0., 0., 0., 1., 0., 0., 0.],
      [0., 0., 0., 0., 0., 0., 0., 0., 1.]]
 
+    
     :param dim: The dimensions of the subsystems.
     :param is_sparse: Sparse if :code:`True` and non-sparse if :code:`False`.
     :return: The swap operator of dimension :code:`dim`.

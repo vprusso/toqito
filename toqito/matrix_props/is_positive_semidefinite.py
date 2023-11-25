@@ -6,7 +6,7 @@ from toqito.matrix_props import is_hermitian
 
 def is_positive_semidefinite(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
     r"""
-    Check if matrix is positive semidefinite (PSD) [WikPSD]_.
+    Check if matrix is positive semidefinite (PSD) :cite:`WikiPosDef`.
 
     Examples
     ==========
@@ -45,8 +45,9 @@ def is_positive_semidefinite(mat: np.ndarray, rtol: float = 1e-05, atol: float =
 
     References
     ==========
-    .. [WikPSD] Wikipedia: Definiteness of a matrix.
-        https://en.wikipedia.org/wiki/Definiteness_of_a_matrix
+    .. bibliography::
+        :filter: docname in docnames
+    
 
     :param mat: Matrix to check.
     :param rtol: The relative tolerance parameter (default 1e-05).

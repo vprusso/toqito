@@ -1,29 +1,6 @@
 ﻿toqito.state\_props.is\_separable
 =================================
 
-.. automodule:: toqito.state_props.is_separable
+.. currentmodule:: toqito.state_props
 
-   
-   
-   
-
-   
-   
-   .. rubric:: Functions
-
-   .. autosummary::
-   
-      is_separable
-   
-   
-
-   
-   
-   
-
-   
-   
-   
-
-
-
+.. autofunction:: is_separable

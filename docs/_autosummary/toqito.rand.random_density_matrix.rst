@@ -1,5 +1,5 @@
 ﻿toqito.rand.random\_density\_matrix
-=====================================
+===================================
 
 .. currentmodule:: toqito.rand
 

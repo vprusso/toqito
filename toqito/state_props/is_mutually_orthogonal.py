@@ -8,7 +8,7 @@ import numpy as np
 
 def is_mutually_orthogonal(vec_list: list[np.ndarray | list[float | Any]]) -> bool:
     r"""
-    Check if list of vectors are mutually orthogonal [WikOrthog]_.
+    Check if list of vectors are mutually orthogonal :cite:`WikiOrthog`.
 
     We say that two bases
 
@@ -50,8 +50,9 @@ def is_mutually_orthogonal(vec_list: list[np.ndarray | list[float | Any]]) -> bo
 
     References
     ==========
-    .. [WikOrthog] Wikipedia: Orthogonality
-        https://en.wikipedia.org/wiki/Orthogonality
+    .. bibliography::
+        :filter: docname in docnames
+
 
     :raises ValueError: If at least two vectors are not provided.
     :param vec_list: The list of vectors to check.

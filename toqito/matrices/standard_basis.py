@@ -17,8 +17,12 @@ def standard_basis(dim: int, flatten: bool = False) -> list[np.ndarray]:
         .
         |n> = (0, 0, 0, ..., 1)^T
 
-    This function was inspired by:
-    https://github.com/akshayseshadri/minimax-fidelity-estimation
+    This function was inspired by :cite:`Seshadri_2021_Git, Seshadri_2021_Theory, Seshadri_2021_Versatile`
+
+    References
+    ==========
+    .. bibliography::
+        :filter: docname in docnames
 
     :param dim: The dimension of the basis.
     :param flatten: If True, the basis is returned as a flattened list.

@@ -24,7 +24,7 @@ def sk_operator_norm(  # pylint: disable=too-many-locals
     effort: int = 2,
 ) -> float:
     r"""
-    Compute the S(k)-norm of a matrix [1]_.
+    Compute the S(k)-norm of a matrix :cite:`Johnston_2010_AFamily`.
 
     The :math:`S(k)`-norm of of a matrix :math:`X` is defined as:
 
@@ -36,7 +36,7 @@ def sk_operator_norm(  # pylint: disable=too-many-locals
             \text{Schmidt - rank}(|w\rangle) \leq k
         \Big\}
 
-    Since computing the exact value of S(k)-norm [2]_ is in the general case
+    Since computing the exact value of S(k)-norm :cite:`Johnston_2012_Norms` is in the general case
     an intractable problem, this function tries to find some good lower and
     upper bounds. You can control the amount of computation you want to
     devote to computing the bounds by `effort` input argument. Note that if
@@ -64,11 +64,9 @@ def sk_operator_norm(  # pylint: disable=too-many-locals
 
     References
     ==========
-    .. [1] "A Family of Norms With Applications In Quantum Information Theory"
-        Nathaniel Johnston, David W. Kribs
-        arXiv:0909.3907
-    .. [2] "N. Johnston. Norms and Cones in the Theory of Quantum Entanglement. PhD thesis"
-        arXiv:1207.1479
+    .. bibliography::
+        :filter: docname in docnames
+
 
     :raises ValueError: If dimension of the input matrix is not specified.
     :param mat: A matrix.
@@ -186,7 +184,7 @@ def sk_operator_norm(  # pylint: disable=too-many-locals
             )
 
             # Use the upper bound of Proposition 4.2.11 of [3].
-            upper_bound = min(upper_bound, kp_norm(realignment(mat, dim), k**2, 2))
+            upper_bound = min(upper_bound, kp_norm(realignment(mat, dim), k ** 2, 2))
 
         # Use the lower bound of Theorem 4.2.17 of [3].
         if is_projection:
@@ -204,7 +202,7 @@ def sk_operator_norm(  # pylint: disable=too-many-locals
             lower_bound = max(
                 lower_bound,
                 (min(dim) - k)
-                * (rank + np.sqrt((prod_dim * rank - rank**2) / (prod_dim - 1)))
+                * (rank + np.sqrt((prod_dim * rank - rank ** 2) / (prod_dim - 1)))
                 / (prod_dim * (min(dim) - 1))
                 + (k - 1) / (min(dim) - 1),
             )
@@ -215,10 +213,10 @@ def sk_operator_norm(  # pylint: disable=too-many-locals
 
         # Use a randomized iterative method to try to improve the lower bound.
         if is_positive:
-            for _ in range(5**effort):
+            for _ in range(5 ** effort):
                 lower_bound = max(
                     lower_bound,
-                    __lower_bound_sk_norm_randomized(mat, k, dim, tol**2),
+                    __lower_bound_sk_norm_randomized(mat, k, dim, tol ** 2),
                 )
 
                 # break out of the function if the target value has already been met

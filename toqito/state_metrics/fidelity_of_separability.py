@@ -1,9 +1,7 @@
 """Add function for fidelity of separability as defined in [Phil23]_.
 
-The constrainsts for this function are positive partial transpose (PPT)
-& k-extendible states.
+The constraints for this function are positive partial transpose (PPT) & k-extendible states.
 """
-
 import numpy as np
 import picos
 
@@ -20,12 +18,12 @@ def fidelity_of_separability(
     solver_option: str = "cvxopt",
 ) -> float:
     r"""
-    Define the first benchmark introduced in Appendix H of [Phil23]_.
+    Define the first benchmark introduced in Appendix H of :cite:`Philip_2023_Schrodinger`.
 
-    If you would like to instead use the benchmark introduced in Appendix I,
-    go to :obj:`toqito.channel_metrics.fidelity_of_separability`.
+    If you would like to instead use the benchmark introduced in Appendix I, go to
+    :obj:`toqito.channel_metrics.fidelity_of_separability`.
 
-    In [Phil23]_ a variational quantum algorithm (VQA) is introduced to test
+    In :cite:`Philip_2023_Schrodinger` a variational quantum algorithm (VQA) is introduced to test
     the separability of a general bipartite state. The algorithm utilizes
     quantum steering between two separated systems such that the separability
     of the state is quantified.
@@ -34,12 +32,13 @@ def fidelity_of_separability(
     optimization semidefinite programs (SDP) benchmarks were introduced to
     maximize the fidelity of separability subject to some state constraints
     (Positive Partial Transpose (PPT), symmetric extensions (k-extendibility
-    ) [Hay12]_ ) This function approximites the fidelity of separability by
+    ) :cite:`Hayden_2013_TwoMessage` ) This function approximites the fidelity of separability by
     maximizing over PPT states & k-extendible states i.e. an optimization
-    problem over states [TBWat18]_ .
+    problem over states :cite:`Watrous_2018_TQI`.
 
-    The following expression (Equation (H2) from [Phil23]_ ) defines the
+    The following expression (Equation (H2) from :cite:`Philip_2023_Schrodinger` ) defines the
     constraints for approxiamting
+
     :math:`\sqrt{\widetilde{F}_s^1}(\rho_{AB}) {:}=`
 
     .. math::
@@ -64,11 +63,10 @@ def fidelity_of_separability(
     approximated but this function returns
     :math:`\widetilde{F}_s^1(\rho_{AB})`.
 
-    :math:`\operatorname{Re}[\operatorname{Tr}[X_{AB}]]` is the maximization
-    problem subject to PPT & k-extendibile state constraints.
+    :math:`\operatorname{Re}[\operatorname{Tr}[X_{AB}]]` is the maximization problem subject to PPT & k-extendibile
+    state constraints.
 
-    Here, :math:`\mathcal{L}(\mathcal{H}_{AB})` is the space of linear
-    operators over space :math:`\mathcal{H}_{AB}`.
+    Here, :math:`\mathcal{L}(\mathcal{H}_{AB})` is the space of linear operators over space :math:`\mathcal{H}_{AB}`.
 
     :math:`\sigma_{AB^{k}}` is a k-extension of :math:`\rho_{AB}`.
 
@@ -76,15 +74,14 @@ def fidelity_of_separability(
     :math:`B_1, B_2,  \ldots , B_{k}` which has no effect on the k-extended
     state :math:`\sigma_{AB^{k}}`.
 
-    The other constraints are due to the PPT condition [Per96]_.
+    The other constraints are due to the PPT condition :cite:`Peres_1996_Separability`.
 
     Examples
     ==========
-    Let's consider a density matrix of a state that we know is pure and
-    separable; :math:`|00 \rangle = |0 \rangle \otimes |0 \rangle`.
+    Let's consider a density matrix of a state that we know is pure and separable; :math:`|00 \rangle = |0 \rangle
+    \otimes |0 \rangle`.
 
-    The expected approximation of fidelity of separability is the maximum
-    value possible i.e. very close to 1.
+    The expected approximation of fidelity of separability is the maximum value possible i.e. very close to 1.
 
     .. math::
         \rho_{AB} = |00 \rangle \langle 00|
@@ -102,25 +99,11 @@ def fidelity_of_separability(
 
     >>> 0.9999999998278968
 
-
     References
     ==========
-    .. [Hay12] Hayden, Patrick et.al.
-        "Two-message quantum interactive proofs and the quantum separability problem."
-        Proceedings of the 28th IEEE Conference on Computational Complexity, pages 156-167.
-        https://arxiv.org/abs/1211.6120
-
-    .. [Per96] Peres, Asher.
-        "Separability Criterion for Density Matrices"
-        https://arxiv.org/abs/quant-ph/9604005
-
-    .. [Phil23] Philip, Aby et.al.
-        "Quantum Steering Algorithm for Estimating Fidelity of Separability"
-        https://arxiv.org/abs/2303.07911
-
-    .. [TBWat18] Watrous, John.
-        “The Theory of Quantum Information”
-        Cambridge University Press, 2018
+    .. bibliography::
+        :filter: docname in docnames
+    
 
     :param input_state_rho: the density matrix for the bipartite state of interest.
     :param input_state_rho_dims: the dimensions of System A & B respectively in
@@ -151,18 +134,17 @@ def fidelity_of_separability(
     if not is_separable(input_state_rho):
         raise ValueError("Provided input state is entangled.")
 
-    # Infer the dimension of Alice and Bob's system.
-    # subsystem-dimensions in rho_AB
+    # Infer the dimension of Alice and Bob's system. subsystem-dimensions in rho_AB
     dim_a, dim_b = input_state_rho_dims
 
-    # Extend the number of dimensions based on the level `k`.
-    # new dims for AB with k-extendibility in subsystem B
+    # Extend the number of dimensions based on the level `k`. new dims for AB with k-extendibility in subsystem B
     dim_direct_sum_ab_k = [dim_a] + [dim_b] * (k)
     # new dims for a linear op acting on the space of sigma_ab_k
-    dim_op_sigma_ab_k = dim_a * dim_b**k
+    dim_op_sigma_ab_k = dim_a * dim_b ** k
 
     # A list of the symmetrically extended subsystems based on the level `k`.
     sub_sys_ext = list(range(2, 2 + k - 1))
+
     # unitary permutation operator in B1,B2,...,Bk
     permutation_op = symmetric_projection(dim_b, k)
 
@@ -187,8 +169,7 @@ def fidelity_of_separability(
 
     # k-extendible constraint:
     problem.add_constraint(
-        (picos.I(dim_a) @ permutation_op) * sigma_ab_k * (picos.I(dim_a) @ permutation_op)
-        == sigma_ab_k
+        (picos.I(dim_a) @ permutation_op) * sigma_ab_k * (picos.I(dim_a) @ permutation_op) == sigma_ab_k
     )
 
     # PPT constraint:
@@ -198,4 +179,4 @@ def fidelity_of_separability(
         problem.add_constraint(picos.partial_transpose(sigma_ab_k, sys, dim_direct_sum_ab_k) >> 0)
 
     solution = problem.solve(solver=solver_option)
-    return solution.value**2
+    return solution.value ** 2

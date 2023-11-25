@@ -1,18 +1,27 @@
 """Test vectors_to_gram_matrix."""
 import numpy as np
+import pytest
 
-from toqito.matrices import standard_basis
+from toqito.states import trine
 from toqito.matrix_ops import vectors_to_gram_matrix
 
 
-def test_vectors_to_gram_matrix():
+e_0, e_1 = np.array([[1], [0]]), np.array([[0], [1]])
+
+
+@pytest.mark.parametrize("vectors, expected_result", [
+    # Trine states.
+    (trine(), np.array([[1, -1 / 2, -1 / 2], [-1 / 2, 1, -1 / 2], [-1 / 2, -1 / 2, 1]])),
+])
+def test_vectors_to_gram_matrix(vectors, expected_result):
     """Test able to construct Gram matrix from vectors."""
-    e_0, e_1 = standard_basis(2)
-    trine = [
-        e_0,
-        1 / 2 * (-e_0 + np.sqrt(3) * e_1),
-        -1 / 2 * (e_0 + np.sqrt(3) * e_1),
-    ]
-    gram = vectors_to_gram_matrix(trine)
-    expected_gram = np.array([[1, -1 / 2, -1 / 2], [-1 / 2, 1, -1 / 2], [-1 / 2, -1 / 2, 1]])
-    assert np.allclose(gram, expected_gram)
+    np.testing.assert_allclose(vectors_to_gram_matrix(vectors), expected_result)
+
+
+@pytest.mark.parametrize("vectors", [
+    # Vectors of different sizes. 
+    ([np.array([1, 2, 3]), np.array([1, 2])]),
+])
+def test_vectors_to_gram_matrix_invalid_input(vectors):
+    with np.testing.assert_raises(ValueError):
+        vectors_to_gram_matrix(vectors)

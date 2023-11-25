@@ -5,10 +5,12 @@ from toqito.states import max_entangled
 
 
 def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
-    r"""
-    Produce the partially depolarizing channel [WikDepo]_, [WatDepo18]_.
+    r"""Produce the partially depolarizing channel.
+    
+    (Section: Replacement Channels and the Completely Depolarizing Channel from
+    :cite:`Watrous_2018_TQI`).
 
-    The Choi matrix of the completely depolarizing channel that acts on
+    The Choi matrix of the completely depolarizing channel :cite:`WikiDepo` that acts on
     :code:`dim`-by-:code:`dim` matrices.
 
     The *completely depolarizing channel* is defined as
@@ -77,14 +79,11 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
 
     References
     ==========
-    .. [WikDepo] Wikipedia: Quantum depolarizing channel
-        https://en.wikipedia.org/wiki/Quantum_depolarizing_channel
+    .. bibliography::
+        :filter: docname in docnames
+    
 
-    .. [WatDepo18] Watrous, John.
-        "The theory of quantum information."
-        Section: "Replacement channels and the completely depolarizing channel".
-        Cambridge University Press, 2018.
-
+    
     :param dim: The dimensionality on which the channel acts.
     :param param_p: Default 0.
     :return: The Choi matrix of the completely depolarizing channel.
@@ -93,4 +92,4 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
 
     # Gives a sparse non-normalized state.
     psi = max_entangled(dim=dim, is_sparse=False, is_normalized=False)
-    return (1 - param_p) * np.identity(dim**2) / dim + param_p * (psi * psi.conj().T)
+    return (1 - param_p) * np.identity(dim ** 2) / dim + param_p * (psi * psi.conj().T)

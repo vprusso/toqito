@@ -6,10 +6,10 @@ from toqito.matrix_props import is_density, trace_norm
 
 def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float:
     r"""
-    Compute the Helstrom-Holevo distance between density matrices [WikHeHo]_.
+    Compute the Helstrom-Holevo distance between density matrices :cite:`WikiHolevo`.
 
     In general, the best success probability to discriminate two mixed states represented by
-    :math:`\rho` and :math:`\sigma` is given by [WikHeHo]_.
+    :math:`\rho` and :math:`\sigma` is given by :cite:`WikiHolevo`.
 
     .. math::
          \frac{1}{2}+\frac{1}{2} \left(\frac{1}{2} \left|\rho - \sigma \right|_1\right).
@@ -50,8 +50,9 @@ def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float:
 
     References
     ==========
-    .. [WikHeHo] Wikipedia: Holevo's theorem.
-        https://en.wikipedia.org/wiki/Holevo%27s_theorem
+    .. bibliography::
+        :filter: docname in docnames
+    
 
     :raises ValueError: If matrices are not density operators.
     :param rho: Density operator.

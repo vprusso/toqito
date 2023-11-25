@@ -48,7 +48,6 @@ def cglmp_inequality(dim: int) -> tuple[dict[tuple[int, int], cvxpy.Variable], c
     return mat, i_b
 
 
-
 @pytest.mark.parametrize("k", [2, "1+ab+aab+baa"])
 def test_cglmp_inequality(k):
     """Test Collins-Gisin-Linden-Massar-Popescu inequality.
@@ -60,7 +59,6 @@ def test_cglmp_inequality(k):
     problem = cvxpy.Problem(objective, npa)
     val = problem.solve()
     np.testing.assert_equal(np.allclose(val, 2.914, atol=1e-3), True)
-
 
 
 @pytest.mark.parametrize("k, expected_size", [("1+a", 9), ("1+ab", 25)])

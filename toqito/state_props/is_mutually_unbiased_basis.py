@@ -70,11 +70,13 @@ def is_mutually_unbiased_basis(vectors: list[np.ndarray | list[float | Any]]) ->
 
     References
     ==========
-    .. [WikMUB] Wikipedia: Mutually unbiased bases
-        https://en.wikipedia.org/wiki/Mutually_unbiased_bases
+    .. bibliography::
+        :filter: docname in docnames
+    
+    
 
     :raises ValueError: If at least two vectors are not provided.
-    :param vec_list: The list of vectors to check.
+    :param vectors: The list of vectors to check.
     :return: :code:`True` if :code:`vec_list` constitutes a mutually unbiased basis, and
              :code:`False` otherwise.
     """

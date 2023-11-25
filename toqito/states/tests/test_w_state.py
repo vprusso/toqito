@@ -36,12 +36,15 @@ def test_w_state_generalized():
     np.testing.assert_allclose(res, expected_res, atol=0.2)
 
 
-@pytest.mark.parametrize("idx, coeff", [
-    # Number of qubits needs to be greater than 2.
-    (1, None),
-    # Length of coefficient list needs to be equal to number of qubits.
-    (4, [1, 2, 3]),
-])
+@pytest.mark.parametrize(
+    "idx, coeff",
+    [
+        # Number of qubits needs to be greater than 2.
+        (1, None),
+        # Length of coefficient list needs to be equal to number of qubits.
+        (4, [1, 2, 3]),
+    ],
+)
 def test_w_state_invalid(idx, coeff):
     with np.testing.assert_raises(ValueError):
         w_state(idx, coeff)

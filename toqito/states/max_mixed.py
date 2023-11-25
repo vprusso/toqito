@@ -5,10 +5,9 @@ from scipy import sparse
 
 def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, sparse.dia_matrix]:
     r"""
-    Produce the maximally mixed state [AAR6]_.
+    Produce the maximally mixed state :cite:`Aaronson_2018_MaxMixed`.
 
-    Produces the maximally mixed state on of :code:`dim` dimensions. The maximally mixed state is
-    defined as
+    Produces the maximally mixed state on of :code:`dim` dimensions. The maximally mixed state is defined as
 
     .. math::
         \omega = \frac{1}{d} \begin{pmatrix}
@@ -23,11 +22,11 @@ def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, sparse.dia_matr
     .. math::
         \omega = \frac{\mathbb{I}}{\text{dim}(\mathcal{X})}
 
-    for some complex Euclidean space :math:`\mathcal{X}`. The maximally mixed state is sometimes
-    also referred to as the tracial state.
+    for some complex Euclidean space :math:`\mathcal{X}`. The maximally mixed state is sometimes also referred to as the
+    tracial state.
 
-    The maximally mixed state is returned as a sparse matrix if :code:`is_sparse = True` and is full
-    if :code:`is_sparse = False`.
+    The maximally mixed state is returned as a sparse matrix if :code:`is_sparse = True` and is full if :code:`is_sparse
+    = False`.
 
     Examples
     ==========
@@ -57,8 +56,9 @@ def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, sparse.dia_matr
 
     References
     ==========
-    .. [AAR6] Scott Aaronson: Lecture 6, Thurs Feb 2: Mixed States
-        https://www.scottaaronson.com/qclec/6.pdf
+    .. bibliography::
+        :filter: docname in docnames
+    
 
     :param dim: Dimension of the entangled state.
     :param is_sparse: `True` if vector is spare and `False` otherwise.

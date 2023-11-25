@@ -8,19 +8,20 @@ from toqito.state_props import is_ppt
 
 def is_npt(mat: np.ndarray, sys: int = 2, dim: int | list[int] = None, tol: float = None) -> bool:
     r"""
-    Determine whether or not a matrix has negative partial transpose [WikPPT]_.
+    Determine whether or not a matrix has negative partial transpose :cite:`WikiPeresHorodecki`.
 
     Yields either :code:`True` or :code:`False`, indicating that :code:`mat` does or does not have
     negative partial transpose (within numerical error). The variable :code:`mat` is assumed to act
-    on bipartite space. [NPT]_
+    on bipartite space. :cite:`DiVincenzo_2000_Evidence`
 
     A state has negative partial transpose if it does not have positive partial transpose.
 
 
     References
     ==========
-    .. [NPT] "Evidence for bound entangled states with negative partial transpose."
-             Physical Review A 61.6 (2000): 062312.
+    .. bibliography::
+        :filter: docname in docnames
+
 
     :param mat: A square matrix.
     :param sys: Scalar or vector indicating which subsystems the transpose

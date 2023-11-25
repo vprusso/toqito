@@ -1,12 +1,10 @@
 """Generate random unitary."""
-
-
 import numpy as np
 
 
 def random_unitary(dim: list[int] | int, is_real: bool = False) -> np.ndarray:
     """
-    Generate a random unitary or orthogonal matrix [MO09]_.
+    Generate a random unitary or orthogonal matrix :cite:`Ozols_2009_RandU`.
 
     Calculates a random unitary matrix (if :code:`is_real = False`) or a random real orthogonal
     matrix (if :code:`is_real = True`), uniformly distributed according to the Haar measure.
@@ -63,10 +61,9 @@ def random_unitary(dim: list[int] | int, is_real: bool = False) -> np.ndarray:
 
     References
     ==========
-    .. [MO09] How to generate a random unitary matrix,
-        Maris Ozols
-        March 16, 2009,
-        home.lu.lv/~sd20008/papers/essays/Random%20unitary%20%5Bpaper%5D.pdf
+    .. bibliography::
+        :filter: docname in docnames
+
 
     :param dim: The number of rows (and columns) of the unitary matrix.
     :param is_real: Boolean denoting whether the returned matrix has real
@@ -75,6 +72,9 @@ def random_unitary(dim: list[int] | int, is_real: bool = False) -> np.ndarray:
     """
     if isinstance(dim, int):
         dim = [dim, dim]
+    
+    if dim[0] != dim[1]:
+        raise ValueError("Unitary matrix must be square.")
 
     # Construct the Ginibre ensemble.
     gin = np.random.rand(dim[0], dim[1])

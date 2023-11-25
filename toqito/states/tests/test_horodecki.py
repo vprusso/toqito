@@ -64,14 +64,17 @@ def test_horodecki_state_2_4():
     np.testing.assert_allclose(res, expected_res, atol=0.2)
 
 
-@pytest.mark.parametrize("a_param, dim", [
-    # Invalid a_param (negative)."""
-    (-5, None),
-    # Invalid a_param."""
-    (5, None),
-    # Tests for invalid dimension inputs.
-    (0.5, [3, 4]),
-])
+@pytest.mark.parametrize(
+    "a_param, dim",
+    [
+        # Invalid a_param (negative)."""
+        (-5, None),
+        # Invalid a_param."""
+        (5, None),
+        # Tests for invalid dimension inputs.
+        (0.5, [3, 4]),
+    ],
+)
 def test_horodecki_invalid(a_param, dim):
     """Tests for invalid a_param and dimension inputs."""
     with np.testing.assert_raises(ValueError):

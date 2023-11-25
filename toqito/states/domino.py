@@ -6,7 +6,7 @@ from toqito.states import basis
 
 def domino(idx: int) -> np.ndarray:
     r"""
-    Produce a domino state [CBDOM99]_, [UPB99]_.
+    Produce a domino state :cite:`Bennett_1999_QuantumNonlocality, Bennett_1999_UPB`.
 
     The orthonormal product basis of domino states is given as
 
@@ -73,37 +73,32 @@ def domino(idx: int) -> np.ndarray:
 
     References
     ==========
-    .. [CBDOM99] Bennett, Charles H., et al.
-        Quantum nonlocality without entanglement.
-        Phys. Rev. A, 59:1070–1091, Feb 1999.
-        https://arxiv.org/abs/quant-ph/9804053
-
-    .. [UPB99] Bennett, Charles H., et al.
-        "Unextendible product bases and bound entanglement."
-        Physical Review Letters 82.26 (1999): 5385.
-        https://arxiv.org/abs/quant-ph/9808030
+    .. bibliography::
+        :filter: docname in docnames
+    
 
     :raises ValueError: Invalid value for :code:`idx`.
     :param idx: A parameter in [0, 1, 2, 3, 4, 5, 6, 7, 8]
     :return: Domino state of index :code:`idx`.
     """
     e_0, e_1, e_2 = basis(3, 0), basis(3, 1), basis(3, 2)
-    if idx == 0:
-        return np.kron(e_1, e_1)
-    if idx == 1:
-        return np.kron(e_0, 1 / np.sqrt(2) * (e_0 + e_1))
-    if idx == 2:
-        return np.kron(e_0, 1 / np.sqrt(2) * (e_0 - e_1))
-    if idx == 3:
-        return np.kron(e_2, 1 / np.sqrt(2) * (e_1 + e_2))
-    if idx == 4:
-        return np.kron(e_2, 1 / np.sqrt(2) * (e_1 - e_2))
-    if idx == 5:
-        return np.kron(1 / np.sqrt(2) * (e_1 + e_2), e_0)
-    if idx == 6:
-        return np.kron(1 / np.sqrt(2) * (e_1 - e_2), e_0)
-    if idx == 7:
-        return np.kron(1 / np.sqrt(2) * (e_0 + e_1), e_2)
-    if idx == 8:
-        return np.kron(1 / np.sqrt(2) * (e_0 - e_1), e_2)
+    match idx:
+        case 0:
+            return np.kron(e_1, e_1)
+        case 1:
+            return np.kron(e_0, 1 / np.sqrt(2) * (e_0 + e_1))
+        case 2:
+            return np.kron(e_0, 1 / np.sqrt(2) * (e_0 - e_1))
+        case 3:
+            return np.kron(e_2, 1 / np.sqrt(2) * (e_1 + e_2))
+        case 4:
+            return np.kron(e_2, 1 / np.sqrt(2) * (e_1 - e_2))
+        case 5:
+            return np.kron(1 / np.sqrt(2) * (e_1 + e_2), e_0)
+        case 6:
+            return np.kron(1 / np.sqrt(2) * (e_1 - e_2), e_0)
+        case 7:
+            return np.kron(1 / np.sqrt(2) * (e_0 + e_1), e_2)
+        case 8:
+            return np.kron(1 / np.sqrt(2) * (e_0 - e_1), e_2)
     raise ValueError("Invalid integer value for Domino state.")

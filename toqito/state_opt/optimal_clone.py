@@ -16,7 +16,7 @@ def optimal_clone(
     strategy: bool = False,
 ) -> float | np.ndarray:
     r"""
-    Compute probability of counterfeiting quantum money [MVW12]_.
+    Compute probability of counterfeiting quantum money :cite:`Molina_2012_Optimal`.
 
     The primal problem for the :math:`n`-fold parallel repetition is given as follows:
 
@@ -52,7 +52,7 @@ def optimal_clone(
     Examples
     ==========
 
-    Wiesner's original quantum money scheme [Wies83]_ was shown in [MVW12]_ to have an optimal
+    Wiesner's original quantum money scheme :cite:`Wiesner_1983_Conjugate` was shown in :cite:`Molina_2012_Optimal` to have an optimal
     probability of 3/4 for succeeding a counterfeiting attack.
 
     Specifically, in the single-qubit case, Wiesner's quantum money scheme corresponds to the
@@ -90,17 +90,9 @@ def optimal_clone(
 
     References
     ==========
-    .. [MVW12] Abel Molina, Thomas Vidick, and John Watrous.
-        "Optimal counterfeiting attacks and generalizations for Wiesner’s
-        quantum money."
-        Conference on Quantum Computation, Communication, and Cryptography.
-        Springer, Berlin, Heidelberg, 2012.
-        https://arxiv.org/abs/1202.4010
-
-    .. [Wies83] Stephen Wiesner
-        "Conjugate coding."
-        ACM Sigact News 15.1 (1983): 78-88.
-        https://dl.acm.org/doi/pdf/10.1145/1008908.1008920
+    .. bibliography::
+        :filter: docname in docnames
+    
 
     :param states: A list of states provided as either matrices or vectors.
     :param probs: Respective list of probabilities each state is selected.
@@ -167,7 +159,7 @@ def primal_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
     dim = 2 * np.ones((1, num_spaces * num_reps)).astype(int).flatten()
     dim = dim.tolist()
 
-    x_var = cvxpy.Variable((8**num_reps, 8**num_reps), hermitian=True)
+    x_var = cvxpy.Variable((8 ** num_reps, 8 ** num_reps), hermitian=True)
     if num_reps == 1:
         objective = cvxpy.Maximize(cvxpy.trace(cvxpy.real(q_a.conj().T @ x_var)))
     else:
@@ -175,7 +167,7 @@ def primal_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
             cvxpy.trace(cvxpy.real(pperm @ q_a.conj().T @ pperm.conj().T @ x_var))
         )
     constraints = [
-        partial_trace(x_var, sys, dim) == np.identity(2**num_reps),
+        partial_trace(x_var, sys, dim) == np.identity(2 ** num_reps),
         x_var >> 0,
     ]
     problem = cvxpy.Problem(objective, constraints)
@@ -189,10 +181,10 @@ def dual_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
 
     :return: The optimal value of performing a counterfeit attack.
     """
-    y_var = cvxpy.Variable((2**num_reps, 2**num_reps), hermitian=True)
+    y_var = cvxpy.Variable((2 ** num_reps, 2 ** num_reps), hermitian=True)
     objective = cvxpy.Minimize(cvxpy.trace(cvxpy.real(y_var)))
 
-    kron_var = cvxpy.kron(cvxpy.kron(np.eye(2**num_reps), np.eye(2**num_reps)), y_var)
+    kron_var = cvxpy.kron(cvxpy.kron(np.eye(2 ** num_reps), np.eye(2 ** num_reps)), y_var)
 
     if num_reps == 1:
         constraints = [cvxpy.real(kron_var) >> q_a]

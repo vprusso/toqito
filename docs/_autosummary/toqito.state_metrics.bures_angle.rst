@@ -1,5 +1,5 @@
-toqito.state\_metrics.bures\_angle
-=====================================
+﻿toqito.state\_metrics.bures\_angle
+==================================
 
 .. currentmodule:: toqito.state_metrics
 

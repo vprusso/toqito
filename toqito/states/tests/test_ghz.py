@@ -9,10 +9,13 @@ e_0, e_1 = np.array([[1], [0]]), np.array([[0], [1]])
 ghz_2_3 = 1 / np.sqrt(2) * (tensor(e_0, e_0, e_0) + tensor(e_1, e_1, e_1))
 
 
-@pytest.mark.parametrize("dim, num_qubits, coeff, expected_res", [
-     # Produces the 3-qubit GHZ state: `1/sqrt(2) * (|000> + |111>)`.
-    (2, 3, None, ghz_2_3),
-])
+@pytest.mark.parametrize(
+    "dim, num_qubits, coeff, expected_res",
+    [
+        # Produces the 3-qubit GHZ state: `1/sqrt(2) * (|000> + |111>)`.
+        (2, 3, None, ghz_2_3),
+    ],
+)
 def test_ghz(dim, num_qubits, coeff, expected_res):
     res = ghz(dim, num_qubits, coeff).toarray()
     np.testing.assert_allclose(res, expected_res)
@@ -44,14 +47,17 @@ def test_ghz_4_7():
     np.testing.assert_allclose(res, expected_res)
 
 
-@pytest.mark.parametrize("dim, num_qubits, coeff", [
-    # Invalid dimensions.
-    (0, 2, None),
-    # Invalid qubits.
-    (2, 0, None),
-    # Invalid coefficients.
-    (2, 3, [1, 2, 3, 4, 5]),
-])
+@pytest.mark.parametrize(
+    "dim, num_qubits, coeff",
+    [
+        # Invalid dimensions.
+        (0, 2, None),
+        # Invalid qubits.
+        (2, 0, None),
+        # Invalid coefficients.
+        (2, 3, [1, 2, 3, 4, 5]),
+    ],
+)
 def test_ghz_invalid_input(dim, num_qubits, coeff):
     """Tests for invalid dimensions."""
     with np.testing.assert_raises(ValueError):

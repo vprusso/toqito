@@ -30,6 +30,8 @@ def unique_perms(elements: list[int]):
     >>> len(list(unique_perms(vec_nums)))
     4200
 
+
+
     :param elements: List of integers.
     :return: The number of possible permutations possible.
     """

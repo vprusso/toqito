@@ -17,13 +17,13 @@ class TestQuantumHedging(unittest.TestCase):
     alpha = 1 / sqrt(2)
     theta = pi / 8
 
-    w_var = alpha * cos(theta) * e_00 + sqrt(1 - alpha**2) * sin(theta) * e_11
+    w_var = alpha * cos(theta) * e_00 + sqrt(1 - alpha ** 2) * sin(theta) * e_11
 
-    l_1 = -alpha * sin(theta) * e_00 + sqrt(1 - alpha**2) * cos(theta) * e_11
+    l_1 = -alpha * sin(theta) * e_00 + sqrt(1 - alpha ** 2) * cos(theta) * e_11
 
     l_2 = alpha * sin(theta) * e_10
 
-    l_3 = sqrt(1 - alpha**2) * cos(theta) * e_01
+    l_3 = sqrt(1 - alpha ** 2) * cos(theta) * e_01
 
     q_1 = w_var * w_var.conj().T
     q_0 = l_1 * l_1.conj().T + l_2 * l_2.conj().T + l_3 * l_3.conj().T

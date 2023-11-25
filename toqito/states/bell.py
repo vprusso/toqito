@@ -6,7 +6,7 @@ from toqito.states import basis
 
 def bell(idx: int) -> np.ndarray:
     r"""
-    Produce a Bell state [WikBell]_.
+    Produce a Bell state :cite:`WikiBellSt`.
 
     Returns one of the following four Bell states depending on the value of :code:`idx`:
 
@@ -42,20 +42,23 @@ def bell(idx: int) -> np.ndarray:
 
     References
     ==========
-    .. [WikBell] Wikipedia: Bell state
-        https://en.wikipedia.org/wiki/Bell_state
+    .. bibliography::
+        :filter: docname in docnames
+    
+    
 
     :raises ValueError: If :code:`idx` is not an integer.
     :param idx: A parameter in [0, 1, 2, 3]
     :return: Bell state with index :code:`idx`.
     """
     e_0, e_1 = basis(2, 0), basis(2, 1)
-    if idx == 0:
-        return 1 / np.sqrt(2) * (np.kron(e_0, e_0) + np.kron(e_1, e_1))
-    if idx == 1:
-        return 1 / np.sqrt(2) * (np.kron(e_0, e_0) - np.kron(e_1, e_1))
-    if idx == 2:
-        return 1 / np.sqrt(2) * (np.kron(e_0, e_1) + np.kron(e_1, e_0))
-    if idx == 3:
-        return 1 / np.sqrt(2) * (np.kron(e_0, e_1) - np.kron(e_1, e_0))
+    match idx:
+        case 0:
+            return 1 / np.sqrt(2) * (np.kron(e_0, e_0) + np.kron(e_1, e_1))
+        case 1:
+            return 1 / np.sqrt(2) * (np.kron(e_0, e_0) - np.kron(e_1, e_1))
+        case 2:
+            return 1 / np.sqrt(2) * (np.kron(e_0, e_1) + np.kron(e_1, e_0))
+        case 3:
+            return 1 / np.sqrt(2) * (np.kron(e_0, e_1) - np.kron(e_1, e_0))
     raise ValueError("Invalid integer value for Bell state.")

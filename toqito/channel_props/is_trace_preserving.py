@@ -15,7 +15,8 @@ def is_trace_preserving(
     dim: list[int] | np.ndarray = None,
 ) -> bool:
     r"""
-    Determine whether the given channel is trace-preserving [WatTP18]_.
+    Determine whether the given channel is trace-preserving (Section: Linear Maps Of Square Operators from
+    :cite:`Watrous_2018_TQI`).
 
     A map :math:`\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)` is
     *trace-preserving* if it holds that
@@ -76,10 +77,9 @@ def is_trace_preserving(
 
     References
     ==========
-    .. [WatTP18] Watrous, John.
-        "The theory of quantum information."
-        Section: "Linear maps of square operators".
-        Cambridge University Press, 2018.
+    .. bibliography::
+        :filter: docname in docnames
+    
 
     :param phi: The channel provided as either a Choi matrix or a list of Kraus operators.
     :param rtol: The relative tolerance parameter (default 1e-05).

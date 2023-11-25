@@ -1,6 +1,4 @@
 """Perfect matchings."""
-
-
 import numpy as np
 
 
@@ -8,13 +6,13 @@ def perfect_matchings(num: list[int] | int | np.ndarray) -> np.ndarray:
     r"""
     Give all perfect matchings of :code:`num` objects.
 
-    The input can be either an even natural number (the number of objects to be matched) or a
-    `numpy` array containing an even number of distinct objects to be matched.
+    The input can be either an even natural number (the number of objects to be matched) or a `numpy` array containing
+    an even number of distinct objects to be matched.
 
-    Returns all perfect matchings of a given list of objects. That is, it returns all ways of
-    grouping an even number of objects into pairs.
+    Returns all perfect matchings of a given list of objects. That is, it returns all ways of grouping an even number of
+    objects into pairs.
 
-    This function is adapted from QETLAB.
+    This function is adapted from QETLAB. :cite:`QETLAB_link`.
 
     Examples
     ==========
@@ -26,6 +24,11 @@ def perfect_matchings(num: list[int] | int | np.ndarray) -> np.ndarray:
     [[1 2 3 4]
      [1 3 2 4]
      [1 4 3 2]]
+
+    References
+    ==========
+    .. bibliography::
+        :filter: docname in docnames
 
     :param num: Either an even integer, indicating that you would like all perfect matchings of the
                 integers 1,2, ... N, or a `list` or `np.array` containing an even number of distinct

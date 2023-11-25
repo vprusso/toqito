@@ -6,7 +6,7 @@ from toqito.matrix_props import is_square
 
 def is_identity(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> bool:
     r"""
-    Check if matrix is the identity matrix [WikIdentity]_.
+    Check if matrix is the identity matrix :cite:`WikiIden`.
 
     For dimension :math:`n`, the :math:`n \times n` identity matrix is defined as
 
@@ -60,8 +60,9 @@ def is_identity(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> boo
 
     References
     ==========
-    .. [WikIdentity] Wikipedia: Identity matrix
-        https://en.wikipedia.org/wiki/Identity_matrix
+    .. bibliography::
+        :filter: docname in docnames
+    
 
     :param mat: Matrix to check.
     :param rtol: The relative tolerance parameter (default 1e-05).

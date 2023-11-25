@@ -8,7 +8,7 @@ def schmidt_decomposition(
     rho: np.ndarray, dim: int | list[int] | np.ndarray = None, k_param: int = 0
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     r"""
-    Compute the Schmidt decomposition of a bipartite vector [WikSD]_.
+    Compute the Schmidt decomposition of a bipartite vector :cite:`WikiScmidtDecomp`.
 
     Examples
     ==========
@@ -55,8 +55,9 @@ def schmidt_decomposition(
 
     References
     ==========
-    .. [WikSD] Wikipedia: Schmidt decomposition
-        https://en.wikipedia.org/wiki/Schmidt_decomposition
+    .. bibliography::
+        :filter: docname in docnames
+
 
     :raises ValueError: If matrices are not of equal dimension.
     :param rho: A bipartite quantum state to compute the Schmidt decomposition of.

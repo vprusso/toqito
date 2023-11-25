@@ -57,7 +57,7 @@ User Documentation
     :maxdepth: 2
     :caption: Random Objects
 
-    random
+    rand
 
 .. toctree::
     :maxdepth: 2
@@ -71,3 +71,12 @@ User Documentation
     :caption: Tutorials
 
     tutorials
+
+
+References
+------------------
+
+.. toctree::
+    :maxdepth: 2
+
+    references

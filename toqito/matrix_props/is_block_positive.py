@@ -16,7 +16,7 @@ def is_block_positive(
     rtol: float = 1e-5,
 ) -> bool:
     r"""
-    Check if matrix is block positive [1]_.
+    Check if matrix is block positive :cite:`Johnston_2012_Norms`.
 
     Examples
     ==========
@@ -42,8 +42,9 @@ def is_block_positive(
 
     References
     ==========
-    .. [1] "N. Johnston. Norms and Cones in the Theory of Quantum Entanglement. PhD thesis"
-        arXiv:1207.1479
+    .. bibliography::
+        :filter: docname in docnames
+
 
     :raises ValueError: Unable to determine block positive property.
     :param mat: A bipartite Hermitian operator.
@@ -85,7 +86,7 @@ def is_block_positive(
     # We compute the S(k)-norm of this operator since
     # X k-block positive iff:
     #   c >= S(k)-norm of(c*I - X)
-    # See Corollary 4.2.9. of [1].
+    # See Corollary 4.2.9. of `:cite:`Johnston_2012_Norms`.
     c_mat = op_norm * np.eye(dim_xy) - mat
     lower_bound, upper_bound = sk_operator_norm(c_mat, k, dim, op_norm, effort)
 

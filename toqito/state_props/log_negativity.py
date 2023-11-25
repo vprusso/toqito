@@ -9,7 +9,7 @@ from toqito.state_ops import pure_to_mixed
 
 def log_negativity(rho: np.ndarray, dim: list[int] | int = None) -> float:
     r"""
-    Compute the log-negativity of a bipartite quantum state [WikLogNeg]_.
+    Compute the log-negativity of a bipartite quantum state :cite:`WikiNeg`.
 
     The log-negativity of a subsystem can be defined in terms of a density matrix :math:`\rho`:
 
@@ -37,8 +37,9 @@ def log_negativity(rho: np.ndarray, dim: list[int] | int = None) -> float:
 
     References
     ==========
-    .. [WikLogNeg] Wikipedia page for negativity (quantum mechanics):
-        https://en.wikipedia.org/wiki/Negativity_(quantum_mechanics)
+    .. bibliography::
+        :filter: docname in docnames
+
 
     :raises ValueError: If the input matrix is not a density matrix.
     :param rho: A density matrix of a pure state vector.

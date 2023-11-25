@@ -1,6 +1,4 @@
 """Permutation operator."""
-
-
 import numpy as np
 import scipy as sp
 
@@ -16,18 +14,17 @@ def permutation_operator(
     r"""
     Produce a unitary operator that permutes subsystems.
 
-    Generates a unitary operator that permutes the order of subsystems according to the permutation
-    vector :code:`perm`, where the :math:`i^{th}` subsystem has dimension :code:`dim[i]`.
+    Generates a unitary operator that permutes the order of subsystems according to the permutation vector :code:`perm`,
+    where the :math:`i^{th}` subsystem has dimension :code:`dim[i]`.
 
-    If :code:`inv_perm` = True, it implements the inverse permutation of :code:`perm`. The
-    permutation operator return is full is :code:`is_sparse` is :code:`False` and sparse if
-    :code:`is_sparse` is :code:`True`.
+    If :code:`inv_perm` = True, it implements the inverse permutation of :code:`perm`. The permutation operator return
+    is full is :code:`is_sparse` is :code:`False` and sparse if :code:`is_sparse` is :code:`True`.
 
     Examples
     ==========
 
-    The permutation operator obtained with dimension :math:`d = 2` is equivalent to the standard
-    swap operator on two qubits
+    The permutation operator obtained with dimension :math:`d = 2` is equivalent to the standard swap operator on two
+    qubits
 
     .. math::
         P_{2, [2, 1]} =
@@ -46,6 +43,7 @@ def permutation_operator(
      [0., 0., 1., 0.],
      [0., 1., 0., 0.],
      [0., 0., 0., 1.]]
+    
 
     :param dim: The dimensions of the subsystems to be permuted.
     :param perm: A permutation vector.

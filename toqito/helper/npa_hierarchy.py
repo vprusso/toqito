@@ -128,7 +128,7 @@ def npa_constraints(  # pylint: disable=too-many-locals
     assemblage: dict[tuple[int, int], cvxpy.Variable], k: int | str = 1, referee_dim: int = 1
 ) -> list[cvxpy.constraints.constraint.Constraint]:
     r"""
-    Generate the constraints specified by the NPA hierarchy up to a finite level.
+    Generate the constraints specified by the NPA hierarchy up to a finite level :cite:`Navascues_2008_AConvergent`.
 
     You can determine the level of the hierarchy by a positive integer or a string
     of a form like "1+ab+aab", which indicates that an intermediate level of the hierarchy
@@ -143,6 +143,11 @@ def npa_constraints(  # pylint: disable=too-many-locals
         K_{xy}\Big(i + a \cdot dim_R, j + b \cdot dim_R \Big) =
         \langle i| \text{Tr}_{\mathcal{H}} \Big( \big(
             I_R \otimes A_a^x B_b^y \big) \sigma \Big) |j \rangle
+
+    References
+    ==========
+    .. bibliography::
+        :filter: docname in docnames
 
     :param assemblage: The commuting measurement assemblage operator.
     :param k: The level of the NPA hierarchy to use (default=1).

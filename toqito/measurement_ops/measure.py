@@ -17,7 +17,7 @@ def measure(measurement: np.ndarray, state: np.ndarray) -> float:
     .. math::
         \sum_{a \in \Sigma} \mu(a) = \mathbb{I}_{\mathcal{X}}.
 
-    Further information can be found here [WikMeas]_.
+    Further information can be found here :cite:`WikiQuantMeas`.
 
     Examples
     ==========
@@ -63,8 +63,9 @@ def measure(measurement: np.ndarray, state: np.ndarray) -> float:
 
     References
     ==========
-    .. [WikMeas] Wikipedia: Measurement in quantum mechanics
-        https://en.wikipedia.org/wiki/Measurement_in_quantum_mechanics
+    .. bibliography::
+        :filter: docname in docnames
+
 
     :param measurement: The measurement to apply.
     :param state: The state to apply the measurement to.

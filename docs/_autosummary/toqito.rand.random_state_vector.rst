@@ -1,5 +1,5 @@
 ﻿toqito.rand.random\_state\_vector
-===================================
+=================================
 
 .. currentmodule:: toqito.rand
 

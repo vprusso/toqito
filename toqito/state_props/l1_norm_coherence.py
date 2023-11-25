@@ -6,7 +6,7 @@ from toqito.state_ops import pure_to_mixed
 
 def l1_norm_coherence(rho: np.ndarray) -> float:
     r"""
-    Compute the l1-norm of coherence of a quantum state [RPWL17]_.
+    Compute the l1-norm of coherence of a quantum state :cite:`Rana_2017_Log`.
 
     The :math:`\ell_1`-norm of coherence of a quantum state :math:`\rho` is
     defined as
@@ -41,10 +41,9 @@ def l1_norm_coherence(rho: np.ndarray) -> float:
 
     References
     ==========
-    .. [RPWL17] "Logarithmic coherence: Operational interpretation of 1-norm coherence"
-        Rana, Swapan, Parashar, Preeti, Winter, Andreas, Lewenstein, Maciej
-        Physical Review A 96.5 (2017): 052336.
-        https://arxiv.org/pdf/1612.09234.pdf
+    .. bibliography::
+        :filter: docname in docnames
+
 
     :param rho: A matrix or vector.
     :return: The l1-norm coherence of :code:`rho`.
