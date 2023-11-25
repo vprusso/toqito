@@ -22,7 +22,7 @@ e_0, e_1 = standard_basis(2)
 ])
 def test_conclusive_state_exclusion(vectors, probs, solver, primal_dual, expected_result):
     val, _ = state_exclusion(vectors=vectors, probs=probs, solver=solver, primal_dual=primal_dual)
-    np.testing.assert_allclose(val, expected_result, atol=1e-8)
+    assert abs(val- expected_result) <=1e-8
 
 
 @pytest.mark.parametrize("vectors, probs, solver, primal_dual", [
