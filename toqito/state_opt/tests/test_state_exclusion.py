@@ -30,5 +30,5 @@ def test_conclusive_state_exclusion(vectors, probs, solver, primal_dual, expecte
     ([bell(0), bell(1), bell(2), e_0], None, "cvxopt", "dual"),
 ])
 def test_state_exclusion_invalid_vectors(vectors, probs, solver, primal_dual):
-    with np.testing.assert_raises(ValueError):
+    with pytest.raises(ValueError):
         state_exclusion(vectors=vectors, probs=probs, solver=solver, primal_dual=primal_dual)
