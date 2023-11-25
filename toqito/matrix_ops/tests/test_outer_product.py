@@ -22,5 +22,5 @@ def test_outer_product(v1, v2, expected_result):
     (np.array([1, 2, 3]), np.array([[4, 5, 6], [7, 8, 9]])),
 ])
 def test_outer_product_invalid_input(v1, v2):
-    with np.testing.assert_raises(ValueError):
+    with pytest.raises(ValueError):
         outer_product(v1, v2)
