@@ -1,5 +1,5 @@
 [tool.black]
-line-length = 100
+line-length = 120
 target-version = ['py36', 'py37', 'py38']
 include = '\.pyi?$'
 exclude = '''
@@ -53,7 +53,7 @@ ipython = "*"
 isort = "^5.9.3"
 myst-parser = "*"
 pep8 = "^1.7"
-pydocstyle = "^6.1.1"
+ruff = "0.1.6"
 pylint = "^2.4"
 pytest = "*"
 pytest-cov = "^4.1.0"
@@ -72,5 +72,17 @@ sympy = "==1.12"
 requires = ["setuptools","poetry>=0.12"]
 build-backend = "poetry.masonry.api"
 
+[tool.ruff]
+# exclude = ["__init__.py"]
+line-length = 120
+target-version = "py311"
 
+[tool.ruff.lint]
+select = ["I"]
+# ruff configuration
+# E, W -- pycodestyle
+# I -- isort
 
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["I001"]
+# I001 - skip checking Import block is un-sorted or un-formatted
