@@ -1,5 +1,6 @@
 """Werner state."""
 import itertools
+
 import numpy as np
 
 from toqito.perms import permutation_operator, swap_operator

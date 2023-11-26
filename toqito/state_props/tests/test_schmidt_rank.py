@@ -5,7 +5,6 @@ import pytest
 from toqito.state_props import schmidt_rank
 from toqito.states import bell
 
-
 e_0, e_1 = np.array([[1], [0]]), np.array([[0], [1]])
 
 

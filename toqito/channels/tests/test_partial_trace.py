@@ -1,7 +1,6 @@
 """Test partial_trace."""
 import cvxpy
 import numpy as np
-
 from cvxpy.atoms.affine.vstack import Vstack
 
 from toqito.channels import partial_trace

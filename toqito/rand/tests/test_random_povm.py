@@ -4,6 +4,7 @@ import pytest
 
 from toqito.rand import random_povm
 
+
 @pytest.mark.parametrize("dim", range(2, 8))
 @pytest.mark.parametrize("num_inputs", range(2, 8))
 @pytest.mark.parametrize("num_outputs", range(2, 8))

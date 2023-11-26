@@ -4,7 +4,6 @@ import pytest
 
 from toqito.perms import antisymmetric_projection
 
-
 # Create a zero vector of length 27
 anti_proj_3_3_partial = np.zeros((27, 1))
 

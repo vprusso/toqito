@@ -1,8 +1,8 @@
 """Test is_antidistinguishable."""
 import pytest
 
-from toqito.states import bell, trine
 from toqito.state_props import is_antidistinguishable
+from toqito.states import bell, trine
 
 
 @pytest.mark.parametrize("states", [
