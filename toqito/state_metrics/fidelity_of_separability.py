@@ -17,8 +17,7 @@ def fidelity_of_separability(
     verbosity_option: int = 2,
     solver_option: str = "cvxopt",
 ) -> float:
-    r"""
-    Define the first benchmark introduced in Appendix H of :cite:`Philip_2023_Schrodinger`.
+    r"""Define the first benchmark introduced in Appendix H of :cite:`Philip_2023_Schrodinger`.
 
     If you would like to instead use the benchmark introduced in Appendix I, go to
     :obj:`toqito.channel_metrics.fidelity_of_separability`.

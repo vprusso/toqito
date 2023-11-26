@@ -8,8 +8,7 @@ from toqito.state_ops import pure_to_mixed
 
 
 def negativity(rho: np.ndarray, dim: list[int] | int = None) -> float:
-    r"""
-    Compute the negativity of a bipartite quantum state :cite:`WikiNeg`.
+    r"""Compute the negativity of a bipartite quantum state :cite:`WikiNeg`.
 
     The negativity of a subsystem can be defined in terms of a density matrix :math:`\rho`:
 

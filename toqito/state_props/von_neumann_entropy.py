@@ -5,8 +5,7 @@ from toqito.matrix_props import is_density
 
 
 def von_neumann_entropy(rho: np.ndarray) -> float:
-    r"""
-    Compute the von Neumann entropy of a density matrix :cite:`WikiUVonNeumann`.
+    r"""Compute the von Neumann entropy of a density matrix :cite:`WikiUVonNeumann`.
 
     Let :math:`P \in \text{Pos}(\mathcal{X})` be a positive semidefinite operator, for a complex
     Euclidean space :math:`\mathcal{X}`. Then one defines the *von Neumann entropy* as

@@ -23,8 +23,7 @@ def sk_operator_norm(  # pylint: disable=too-many-locals
     target: float = None,
     effort: int = 2,
 ) -> float:
-    r"""
-    Compute the S(k)-norm of a matrix :cite:`Johnston_2010_AFamily`.
+    r"""Compute the S(k)-norm of a matrix :cite:`Johnston_2010_AFamily`.
 
     The :math:`S(k)`-norm of of a matrix :math:`X` is defined as:
 

@@ -3,8 +3,7 @@ import numpy as np
 
 
 def perfect_matchings(num: list[int] | int | np.ndarray) -> np.ndarray:
-    r"""
-    Give all perfect matchings of :code:`num` objects.
+    r"""Give all perfect matchings of :code:`num` objects.
 
     The input can be either an even natural number (the number of objects to be matched) or a `numpy` array containing
     an even number of distinct objects to be matched.

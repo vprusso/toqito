@@ -5,8 +5,7 @@ from toqito.matrices import clock, shift
 
 
 def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
-    r"""
-    Produce generalized Pauli operator :cite:`WikiPauliGen`.
+    r"""Produce generalized Pauli operator :cite:`WikiPauliGen`.
 
     Generates a :code:`dim`-by-:code:`dim` unitary operator. More specifically,
     it is the operator :math:`X^k_1 Z^k_2`, where :math:`X` and :math:`Z` are

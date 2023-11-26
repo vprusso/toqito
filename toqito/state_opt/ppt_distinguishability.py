@@ -13,8 +13,7 @@ def ppt_distinguishability(
     dist_method: str = "min-error",
     strategy: bool = False,
 ) -> float:
-    r"""
-    Compute probability of optimally distinguishing a state via PPT measurements :cite:`Cosentino_2013_PPT`.
+    r"""Compute probability of optimally distinguishing a state via PPT measurements :cite:`Cosentino_2013_PPT`.
 
     Implements the semidefinite program (SDP) whose optimal value is equal to the maximum
     probability of perfectly distinguishing orthogonal maximally entangled states using any PPT
@@ -119,8 +118,7 @@ def ppt_distinguishability(
 def primal_problem(
     states: list[np.ndarray], probs: list[float] = None, dist_method: str = "min-error"
 ) -> float:
-    r"""
-    Calculate primal problem for PPT distinguishability.
+    r"""Calculate primal problem for PPT distinguishability.
 
     The minimum-error semidefinite program implemented is defined as:
 
@@ -198,8 +196,7 @@ def primal_problem(
 def dual_problem(
     states: list[np.ndarray], probs: list[float] = None, dist_method: str = "min-error"
 ) -> float:
-    r"""
-    Calculate dual problem for PPT distinguishability.
+    r"""Calculate dual problem for PPT distinguishability.
 
     The minimum-error semidefinite program implemented is defined as:
 

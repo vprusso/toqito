@@ -10,8 +10,7 @@ from toqito.matrix_ops import tensor
 def pauli(
     ind: int | str | list[int] | list[str], is_sparse: bool = False
 ) -> np.ndarray | sparse.csr_matrix:
-    r"""
-    Produce a Pauli operator :cite:`WikiPauli`.
+    r"""Produce a Pauli operator :cite:`WikiPauli`.
 
     Provides the 2-by-2 Pauli matrix indicated by the value of :code:`ind`. The
     variable :code:`ind = 1` gives the Pauli-X operator, :code:`ind = 2` gives

@@ -8,8 +8,7 @@ from toqito.matrix_props import trace_norm
 
 
 def completely_bounded_trace_norm(phi: np.ndarray) -> float:
-    r"""
-    Find the completely bounded trace norm of a quantum channel.
+    r"""Find the completely bounded trace norm of a quantum channel.
 
     Also known as the completely bounded diamond norm of a quantum
     channel (Section 3.3.2 of :cite:`Watrous_2018_TQI`). The algorithm in p.11 of :cite:`Watrous_2012_Simpler` with

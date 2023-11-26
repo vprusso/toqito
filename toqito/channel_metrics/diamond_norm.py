@@ -4,8 +4,7 @@ import numpy as np
 
 
 def diamond_norm(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
-    r"""
-    Return the diamond norm distance between two quantum channels.
+    r"""Return the diamond norm distance between two quantum channels.
 
     The calculation uses the simplified semidefinite program of Watrous in
     :cite:`Watrous_2009_Semidefinite`.

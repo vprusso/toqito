@@ -8,8 +8,7 @@ from scipy import sparse
 def gen_gell_mann(
     ind_1: int, ind_2: int, dim: int, is_sparse: bool = False
 ) -> np.ndarray | sparse.lil_matrix:
-    r"""
-    Produce a generalized Gell-Mann operator :cite:`WikiGellMann`.
+    r"""Produce a generalized Gell-Mann operator :cite:`WikiGellMann`.
 
     Construct a :code:`dim`-by-:code:`dim` Hermitian operator. These matrices
     span the entire space of :code:`dim`-by-:code:`dim` matrices as

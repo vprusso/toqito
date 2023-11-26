@@ -29,8 +29,7 @@ class TestQuantumHedging(unittest.TestCase):
     q_0 = l_1 * l_1.conj().T + l_2 * l_2.conj().T + l_3 * l_3.conj().T
 
     def test_max_prob_outcome_a_primal_1_dim(self):
-        """
-        Maximal probability of outcome "a" when dim == 1.
+        """Maximal probability of outcome "a" when dim == 1.
 
         The primal problem of the hedging semidefinite program.
         """
@@ -39,8 +38,7 @@ class TestQuantumHedging(unittest.TestCase):
         self.assertEqual(isclose(hedging_value.max_prob_outcome_a_primal(), cos(pi / 8) ** 2), True)
 
     def test_max_prob_outcome_a_primal_2_dim(self):
-        """
-        Test maximal probability of outcome "a" when dim == 2.
+        """Test maximal probability of outcome "a" when dim == 2.
 
         The primal problem of the hedging semidefinite program.
         """
@@ -49,8 +47,7 @@ class TestQuantumHedging(unittest.TestCase):
         self.assertEqual(isclose(hedging_value.max_prob_outcome_a_primal(), cos(pi / 8) ** 4), True)
 
     def test_max_prob_outcome_a_dual_1_dim(self):
-        """
-        Test maximal probability of outcome "a" when dim == 1.
+        """Test maximal probability of outcome "a" when dim == 1.
 
         The dual problem of the hedging semidefinite program.
         """
@@ -59,8 +56,7 @@ class TestQuantumHedging(unittest.TestCase):
         self.assertEqual(isclose(hedging_value.max_prob_outcome_a_dual(), cos(pi / 8) ** 2), True)
 
     def test_max_prob_outcome_a_dual_2_dim(self):
-        """
-        Test maximal probability of outcome "a" when dim == 2.
+        """Test maximal probability of outcome "a" when dim == 2.
 
         The dual problem of the hedging semidefinite program.
         """
@@ -69,8 +65,7 @@ class TestQuantumHedging(unittest.TestCase):
         self.assertEqual(isclose(hedging_value.max_prob_outcome_a_dual(), cos(pi / 8) ** 4), True)
 
     def test_min_prob_outcome_a_primal_1_dim(self):
-        """
-        Test minimal probability of outcome "a" when dim == 1.
+        """Test minimal probability of outcome "a" when dim == 1.
 
         The primal problem of the hedging semidefinite program.
         """
@@ -79,8 +74,7 @@ class TestQuantumHedging(unittest.TestCase):
         self.assertEqual(isclose(hedging_value.min_prob_outcome_a_primal(), 0, atol=0.01), True)
 
     def test_min_prob_outcome_a_primal_2_dim(self):
-        """
-        Test minimal probability of outcome "a" when dim == 2.
+        """Test minimal probability of outcome "a" when dim == 2.
 
         The primal problem of the hedging semidefinite program.
         """
@@ -89,8 +83,7 @@ class TestQuantumHedging(unittest.TestCase):
         self.assertEqual(isclose(hedging_value.min_prob_outcome_a_primal(), 0, atol=0.01), True)
 
     def test_min_prob_outcome_a_dual_1_dim(self):
-        """
-        Test minimal probability of outcome "a" when dim == 1.
+        """Test minimal probability of outcome "a" when dim == 1.
 
         The dual problem of the hedging semidefinite program.
         """
@@ -99,8 +92,7 @@ class TestQuantumHedging(unittest.TestCase):
         self.assertEqual(isclose(hedging_value.min_prob_outcome_a_dual(), 0, atol=0.01), True)
 
     def test_min_prob_outcome_a_dual_2_dim(self):
-        """
-        Test minimal probability of outcome "a" when dim == 2.
+        """Test minimal probability of outcome "a" when dim == 2.
 
         The dual problem of the hedging semidefinite program.
         """

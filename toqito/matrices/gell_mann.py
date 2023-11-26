@@ -6,8 +6,7 @@ import scipy
 
 
 def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | scipy.sparse.csr_matrix:
-    r"""
-    Produce a Gell-Mann operator :cite:`WikiGellMann`.
+    r"""Produce a Gell-Mann operator :cite:`WikiGellMann`.
 
     Generates the 3-by-3 Gell-Mann matrix indicated by the value of
     :code:`ind`.  When :code:`ind = 0` gives the identity matrix, while values

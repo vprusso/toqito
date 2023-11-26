@@ -13,8 +13,7 @@ from toqito.state_props.has_symmetric_extension import has_symmetric_extension
 def is_separable(
     state: np.ndarray, dim: None | int | list[int] = None, level: int = 2, tol: float = 1e-8
 ) -> bool:
-    r"""
-    Determine if a given state (given as a density matrix) is a separable state :cite:`WikiSepSt`.
+    r"""Determine if a given state (given as a density matrix) is a separable state :cite:`WikiSepSt`.
 
     Examples
     ==========

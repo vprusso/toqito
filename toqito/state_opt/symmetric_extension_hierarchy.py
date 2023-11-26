@@ -16,8 +16,7 @@ def symmetric_extension_hierarchy(
     level: int = 2,
     dim: int | list[int] = None,
 ) -> float:
-    r"""
-    Compute optimal value of the symmetric extension hierarchy SDP :cite:`Navascues_2008_Pure`.
+    r"""Compute optimal value of the symmetric extension hierarchy SDP :cite:`Navascues_2008_Pure`.
 
     The probability of distinguishing a given set of states via PPT measurements serves as a natural
     upper bound to the value of obtaining via separable measurements. Due to the nature of separable

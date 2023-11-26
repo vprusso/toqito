@@ -10,6 +10,7 @@ from toqito.channels import dephasing
 
 
 def test_dual_is_cb_trace_norm():
+    """Test CB trace norm is equal to CB Spectral norm."""
     phi = dephasing(2)
     np.testing.assert_equal(
         completely_bounded_spectral_norm(phi), completely_bounded_trace_norm(dual_channel(phi))

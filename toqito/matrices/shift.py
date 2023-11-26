@@ -3,8 +3,7 @@ import numpy as np
 
 
 def shift(dim: int) -> np.ndarray:
-    r"""
-    Produce a :code:`dim`-by-:code:`dim` shift matrix :cite:`WikiPauliGen`.
+    r"""Produce a :code:`dim`-by-:code:`dim` shift matrix :cite:`WikiPauliGen`.
 
     Returns the shift matrix of dimension :code:`dim` described in :cite:`WikiPauliGen`.
     The shift matrix generates the following :code:`dim`-by-:code:`dim` matrix:

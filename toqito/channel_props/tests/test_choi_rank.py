@@ -33,7 +33,8 @@ def test_choi_rank_choi_matrix():
 
 def test_choi_bad_input():
     """Verify that a bad input (such as a string which still passes
-    with `numpy.linalg.matrix_rank`) raises an error"""
+    with `numpy.linalg.matrix_rank`) raises an error
+    """
     with pytest.raises(ValueError, match="Not a valid"):
         bad_input = "string"
         choi_rank(bad_input)

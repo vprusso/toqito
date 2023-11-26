@@ -7,8 +7,7 @@ from toqito.channels import partial_trace
 
 
 def test_partial_trace():
-    """
-    Standard call to partial_trace.
+    """Standard call to partial_trace.
 
     By default, the partial_trace function takes the trace over the second
     subsystem.
@@ -24,8 +23,7 @@ def test_partial_trace():
 
 
 def test_partial_trace_sys():
-    """
-    Specify the `sys` argument.
+    """Specify the `sys` argument.
 
     By specifying the `sys` argument, you can perform the partial trace
     the first subsystem instead:
@@ -53,8 +51,7 @@ def test_partial_trace_sys_int():
 
 
 def test_partial_trace_sys_int_dim_int():
-    """
-    Default second subsystem.
+    """Default second subsystem.
 
     By default, the partial_transpose function takes the trace over
     the second subsystem.
@@ -70,8 +67,7 @@ def test_partial_trace_sys_int_dim_int():
 
 
 def test_partial_trace_sys_int_dim_int_2():
-    """
-    Default second subsystem.
+    """Default second subsystem.
 
     By default, the partial_transpose function takes the trace over
     the second subsystem.

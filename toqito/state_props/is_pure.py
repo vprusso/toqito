@@ -5,8 +5,7 @@ import numpy as np
 
 
 def is_pure(state: list[np.ndarray] | np.ndarray) -> bool:
-    r"""
-    Determine if a given state is pure or list of states are pure :cite:`WikiPureSt`.
+    r"""Determine if a given state is pure or list of states are pure :cite:`WikiPureSt`.
 
     A state is said to be pure if it is a density matrix with rank equal to 1. Equivalently, the
     state :math:`\rho` is pure if there exists a unit vector :math:`u` such that:

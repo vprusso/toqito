@@ -3,8 +3,7 @@ import numpy as np
 
 
 def cnot() -> np.ndarray:
-    r"""
-    Produce the CNOT matrix :cite:`WikiCNOT`.
+    r"""Produce the CNOT matrix :cite:`WikiCNOT`.
 
     The CNOT matrix is defined as
 

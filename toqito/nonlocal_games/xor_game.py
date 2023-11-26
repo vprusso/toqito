@@ -6,8 +6,7 @@ from toqito.nonlocal_games.nonlocal_game import NonlocalGame
 
 
 class XORGame:
-    r"""
-    Create two-player XOR game object.
+    r"""Create two-player XOR game object.
 
     Calculates the optimal probability that Alice and Bob win the game if they
     are allowed to determine a join strategy beforehand, but not allowed to
@@ -125,8 +124,7 @@ class XORGame:
         reps: int = 1,
         tol: float = None,
     ) -> None:
-        """
-        Construct XOR game object.
+        """Construct XOR game object.
 
         :raises ValueError: If dimension of probability matrix is not equal to
                                                 dimension of predicate matrix.
@@ -168,8 +166,7 @@ class XORGame:
             )
 
     def quantum_value(self) -> float:
-        r"""
-        Compute the quantum value of the XOR game.
+        r"""Compute the quantum value of the XOR game.
 
         To obtain the quantum value of the XOR game, we calculate the following
         simplified dual problem of the semidefinite program from the set of
@@ -236,24 +233,21 @@ class XORGame:
         return (np.real(problem.value) / 4 + 1 / 2) ** self.reps
 
     def classical_value(self) -> float:
-        """
-        Compute the classical value of the XOR game.
+        """Compute the classical value of the XOR game.
 
         :return: A value between [0, 1] representing the classical value.
         """
         return self.to_nonlocal_game().classical_value()
 
     def nonsignaling_value(self) -> float:
-        """
-        Compute the nonsignaling value of an XOR game by calling the exising function in the :code:`NonlocalGame` class.
+        """Compute the nonsignaling value of an XOR game by calling the exising function in the :code:`NonlocalGame` class.
 
         :return: A value between [0, 1] representing the nonsignaling value.
         """
         return self.to_nonlocal_game().nonsignaling_value()
 
     def to_nonlocal_game(self) -> NonlocalGame:
-        """
-        Given an XOR game, compute a predicate matrix representing the more generic :code:`NonlocalGame` equivalent.
+        """Given an XOR game, compute a predicate matrix representing the more generic :code:`NonlocalGame` equivalent.
 
         :return: A :code:`NonlocalGame` object equivalent to the XOR game.
         """

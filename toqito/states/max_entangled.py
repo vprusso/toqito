@@ -4,8 +4,7 @@ import scipy as sp
 
 
 def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True) -> [np.ndarray, sp.sparse.dia_matrix]:
-    r"""
-    Produce a maximally entangled bipartite pure state :cite:`WikiMaxEnt`.
+    r"""Produce a maximally entangled bipartite pure state :cite:`WikiMaxEnt`.
 
     Produces a maximally entangled pure state as above that is sparse if :code:`is_sparse = True` and is full if
     :code:`is_sparse = False`. The pure state is normalized to have Euclidean norm 1 if :code:`is_normalized = True`,

@@ -12,8 +12,7 @@ def is_unital(
     atol: float = 1e-08,
     dim: int | list[int] | np.ndarray = None,
 ) -> bool:
-    r"""
-    Determine whether the given channel is unital.
+    r"""Determine whether the given channel is unital.
 
     A map :math:`\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)` is *unital* if it holds that:
 

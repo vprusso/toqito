@@ -3,8 +3,7 @@ import numpy as np
 
 
 def is_permutation(mat: np.ndarray) -> bool:
-    r"""
-    Determine if a matrix is a permutation matrix :cite:`WikiPerm`.
+    r"""Determine if a matrix is a permutation matrix :cite:`WikiPerm`.
 
     A matrix is a permutation matrix if each row and column has a
     single element of 1 and all others are 0.

@@ -8,8 +8,7 @@ from toqito.state_ops import schmidt_decomposition
 
 
 def is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray = None) -> bool | np.ndarray:
-    r"""
-    Determine if a given vector is a product state :cite:`WikiSepSt`.
+    r"""Determine if a given vector is a product state :cite:`WikiSepSt`.
 
     If the input is deemed to be product, then the product decomposition is also
     returned.
@@ -58,8 +57,7 @@ def is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray = None) -> boo
 
 
 def _is_product(rho: np.ndarray, dim: int | list[int] = None) -> list[int, bool]:
-    """
-    Determine if input is a product state recursive helper.
+    """Determine if input is a product state recursive helper.
 
     :param rho: The vector or matrix to check.
     :param dim: The dimension of the input.
@@ -109,8 +107,7 @@ def _is_product(rho: np.ndarray, dim: int | list[int] = None) -> list[int, bool]
 
 
 def _operator_is_product(rho: np.ndarray, dim: int | list[int] = None) -> list[int, bool]:
-    r"""
-    Determine if a given matrix is a product operator.
+    r"""Determine if a given matrix is a product operator.
 
     Given an input `rho` provided as a matrix, determine if it is a product
     state.

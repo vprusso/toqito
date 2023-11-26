@@ -14,8 +14,7 @@ def partial_trace(
     sys: int | list[int] = None,
     dim: int | list[int] = None,
 ) -> np.ndarray | Expression:
-    r"""
-    Compute the partial trace of a matrix :cite:`WikiPartialTr`.
+    r"""Compute the partial trace of a matrix :cite:`WikiPartialTr`.
 
     The *partial trace* is defined as
 

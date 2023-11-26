@@ -4,8 +4,7 @@ from scipy import sparse
 
 
 def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, sparse.dia_matrix]:
-    r"""
-    Produce the maximally mixed state :cite:`Aaronson_2018_MaxMixed`.
+    r"""Produce the maximally mixed state :cite:`Aaronson_2018_MaxMixed`.
 
     Produces the maximally mixed state on of :code:`dim` dimensions. The maximally mixed state is defined as
 

@@ -5,8 +5,7 @@ from toqito.matrices import pauli
 
 
 def concurrence(rho: np.ndarray) -> float:
-    r"""
-    Calculate the concurrence of a bipartite state :cite:`WikiConcurrence`.
+    r"""Calculate the concurrence of a bipartite state :cite:`WikiConcurrence`.
 
     The concurrence of a bipartite state :math:`\rho` is defined as
 

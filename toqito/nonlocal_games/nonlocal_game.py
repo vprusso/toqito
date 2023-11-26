@@ -12,8 +12,7 @@ from toqito.rand import random_povm
 
 
 class NonlocalGame:
-    r"""
-    Create two-player nonlocal game object.
+    r"""Create two-player nonlocal game object.
 
     *Nonlocal games* are a mathematical framework that abstractly models a
     physical system. This game is played between two players, Alice and Bob, who
@@ -30,8 +29,7 @@ class NonlocalGame:
     """
 
     def __init__(self, prob_mat: np.ndarray, pred_mat: np.ndarray, reps: int = 1) -> None:
-        """
-        Construct nonlocal game object.
+        """Construct nonlocal game object.
 
         :param prob_mat: A matrix whose (x, y)-entry gives the probability
                         that the referee will give Alice the value `x` and Bob
@@ -73,8 +71,7 @@ class NonlocalGame:
 
     @classmethod
     def from_bcs_game(cls, constraints: list[np.ndarray], reps: int = 1) -> "NonlocalGame":
-        """
-        Construct nonlocal game object from a binary constraint system game.
+        """Construct nonlocal game object from a binary constraint system game.
 
         :raises ValueError: At least one constraint needs to be supplied.
         :param constraints: A list of m matrices corresponding to the `m`
@@ -135,8 +132,7 @@ class NonlocalGame:
         return cls(prob_mat, pred_mat, reps)
 
     def classical_value(self) -> float:
-        """
-        Compute the classical value of the nonlocal game.
+        """Compute the classical value of the nonlocal game.
 
         This function has been adapted from the QETLAB package.
 
@@ -194,8 +190,7 @@ class NonlocalGame:
         iters: int = 5,
         tol: float = 10e-6,
     ):
-        r"""
-        Compute a lower bound on the quantum value of a nonlocal game :cite:`Liang_2007_Bounds`.
+        r"""Compute a lower bound on the quantum value of a nonlocal game :cite:`Liang_2007_Bounds`.
 
         Calculates a lower bound on the maximum value that the specified
         nonlocal game can take on in quantum mechanical settings where Alice and
@@ -485,8 +480,7 @@ class NonlocalGame:
         return bob_povms, lower_bound
 
     def nonsignaling_value(self) -> float:
-        """
-        Compute the non-signaling value of the nonlocal game.
+        """Compute the non-signaling value of the nonlocal game.
 
         :return: A value between [0, 1] representing the non-signaling value.
         """
@@ -582,8 +576,7 @@ class NonlocalGame:
         return ns_val
 
     def commuting_measurement_value_upper_bound(self, k: int | str = 1) -> float:
-        """
-        Compute an upper bound on the commuting measurement value of the nonlocal game.
+        """Compute an upper bound on the commuting measurement value of the nonlocal game.
 
         This function calculates an upper bound on the commuting measurement value by
         using k-levels of the NPA hierarchy :cite:`Navascues_2008_AConvergent`. The NPA hierarchy is a uniform family

@@ -16,8 +16,7 @@ def has_symmetric_extension(
     ppt: bool = True,
     tol: float = 1e-4,
 ) -> bool:
-    r"""
-    Determine whether there exists a symmetric extension for a given quantum state :cite:`Doherty_2002_Distinguishing`.
+    r"""Determine whether there exists a symmetric extension for a given quantum state :cite:`Doherty_2002_Distinguishing`.
 
     Determining whether an operator possesses a symmetric extension at some level :code:`level`
     can be used as a check to determine if the operator is entangled or not.

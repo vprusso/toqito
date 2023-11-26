@@ -7,7 +7,6 @@ from toqito.states import bell
 
 def test_hilbert_schmidt_bell():
     r"""Test Hilbert-Schmidt distance on two Bell states."""
-
     rho = bell(0) * bell(0).conj().T
     sigma = bell(3) * bell(3).conj().T
 

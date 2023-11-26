@@ -5,8 +5,7 @@ from toqito.states import basis
 
 
 def domino(idx: int) -> np.ndarray:
-    r"""
-    Produce a domino state :cite:`Bennett_1999_QuantumNonlocality, Bennett_1999_UPB`.
+    r"""Produce a domino state :cite:`Bennett_1999_QuantumNonlocality, Bennett_1999_UPB`.
 
     The orthonormal product basis of domino states is given as
 

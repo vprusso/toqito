@@ -57,8 +57,7 @@ def test_schmidt_rank_entangled_state():
 
 
 def test_schmidt_rank_singlet_state():
-    """
-    Computing the Schmidt rank of the entangled singlet state should yield
+    """Computing the Schmidt rank of the entangled singlet state should yield
     a value greater than 1.
     """
     rho = 1 / np.sqrt(2) * (np.kron(e_0, e_1) - np.kron(e_1, e_0))

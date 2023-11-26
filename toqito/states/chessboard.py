@@ -3,8 +3,7 @@ import numpy as np
 
 
 def chessboard(mat_params: list[float], s_param: float = None, t_param: float = None) -> np.ndarray:
-    r"""
-    Produce a chessboard state :cite:`Dur_2000_ThreeQubits`.
+    r"""Produce a chessboard state :cite:`Dur_2000_ThreeQubits`.
 
     Generates the chessboard state defined in :cite:`Dur_2000_ThreeQubits`. Note that, for certain choices of
     :code:`s_param` and :code:`t_param`, this state will not have positive partial transpose, and

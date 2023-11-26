@@ -3,9 +3,7 @@ import numpy as np
 
 
 def basis(dim: int, pos: int) -> np.ndarray:
-    r"""
-
-    Obtain the ket of dimension :code:`dim` :cite:`WikiBraKet`.
+    r"""Obtain the ket of dimension :code:`dim` :cite:`WikiBraKet`.
 
     Examples
     ==========

@@ -15,8 +15,7 @@ def is_block_positive(
     effort: int = 2,
     rtol: float = 1e-5,
 ) -> bool:
-    r"""
-    Check if matrix is block positive :cite:`Johnston_2012_Norms`.
+    r"""Check if matrix is block positive :cite:`Johnston_2012_Norms`.
 
     Examples
     ==========
