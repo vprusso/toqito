@@ -7,7 +7,7 @@ from toqito.states import basis, bell
 
 
 def test_ppt_distinguishability_yyd_density_matrices():
-    """PPT distinguishing the YYD states from [1] should yield `7/8 ~ 0.875`
+    """PPT distinguishing the YYD states from [1] should yield `7/8 ~ 0.875`.
 
     Feeding the input to the function as density matrices.
 
@@ -55,7 +55,7 @@ def test_ppt_distinguishability_yyd_density_matrices():
 
 
 def test_ppt_distinguishability_yyd_vectors():
-    """PPT distinguishing the YYD states from [1] should yield `7/8 ~ 0.875`
+    """PPT distinguishing the YYD states from [1] should yield `7/8 ~ 0.875`.
 
     Feeding the input to the function as state vectors.
 
@@ -97,7 +97,7 @@ def test_ppt_distinguishability_yyd_vectors():
 
 
 def test_ppt_distinguishability_yyd_states_no_probs():
-    """PPT distinguishing the YYD states from [1] should yield 7/8 ~ 0.875
+    """PPT distinguishing the YYD states from [1] should yield `7/8 ~ 0.875`.
 
     If no probability vector is explicitly given, assume uniform
     probabilities are given.

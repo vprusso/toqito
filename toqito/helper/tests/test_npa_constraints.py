@@ -51,7 +51,8 @@ def cglmp_inequality(dim: int) -> tuple[dict[tuple[int, int], cvxpy.Variable], c
 @pytest.mark.parametrize("k", [2, "1+ab+aab+baa"])
 def test_cglmp_inequality(k):
     """Test Collins-Gisin-Linden-Massar-Popescu inequality.
-    see Table 1. from NPA paper [arXiv:0803.4290].
+
+    See Table 1. from NPA paper [arXiv:0803.4290].
     """
     dim = 3
     mat, i_b = cglmp_inequality(dim)
@@ -65,7 +66,8 @@ def test_cglmp_inequality(k):
 @pytest.mark.parametrize("k, expected_size", [("1+a", 9), ("1+ab", 25)])
 def test_cglmp_dimension(k, expected_size):
     """Test matrix size in Collins-Gisin-Linden-Massar-Popescu inequality.
-    see Table 1. from NPA paper [arXiv:0803.4290].
+
+    See Table 1. from NPA paper [arXiv:0803.4290].
     """
     dim = 3
     mat, i_b = cglmp_inequality(dim)

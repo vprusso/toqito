@@ -25,7 +25,8 @@ def test_choi_is_block_positive():
 
 
 def test_is_block_positive():
-    r"""Test that the positive linear map introduced in lemma 3 of:
+    r"""Test that the positive linear map introduced in lemma 3 of below.
+
         S. Bandyopadhyay, A. Cosentino, N. Johnston, V. Russo, J. Watrous, and N. Yu.
         Limitations on separable measurements by convex optimization.
         E-print: arXiv:1408.6981 [quant-ph], 2014.

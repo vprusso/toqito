@@ -8,9 +8,7 @@ from toqito.matrices import pauli
 
 
 def test_partial_channel_depolarizing_first_system():
-    """Perform the partial map using the depolarizing channel as the Choi
-    matrix on first system.
-    """
+    """Perform the partial map using the depolarizing channel as the Choi matrix on first system."""
     rho = np.array(
         [
             [
@@ -55,9 +53,7 @@ def test_partial_channel_depolarizing_first_system():
 
 
 def test_partial_channel_depolarizing_second_system():
-    """Perform the partial map using the depolarizing channel as the Choi
-    matrix on second system.
-    """
+    """Perform the partial map using the depolarizing channel as the Choi matrix on second system."""
     rho = np.array(
         [
             [
@@ -102,8 +98,9 @@ def test_partial_channel_depolarizing_second_system():
 
 
 def test_partial_channel_dim_list():
-    """Perform the partial map using the depolarizing channel as the Choi
-    matrix on first system when the dimension is specified as list.
+    """Perform the partial map using the depolarizing channel as the Choi matrix on first system.
+
+    The dimension is specified as list.
     """
     rho = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
     res = partial_channel(rho, depolarizing(2), 2, [2, 2])
@@ -123,9 +120,7 @@ def test_partial_channel_dim_list():
 
 @pytest.mark.parametrize("nested", [1, 2, 3])
 def test_partial_channel_cpt_kraus(nested):
-    """Perform the partial map using the Kraus representation of
-    the depolarizing channel.
-    """
+    """Perform the partial map using the Kraus representation of the depolarizing channel."""
     rho = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
     kraus = [0.5 * pauli(ind) for ind in range(4)]
     if nested == 2:

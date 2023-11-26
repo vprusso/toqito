@@ -16,8 +16,9 @@ def test_realignment_two_qubit():
 
 
 def test_realignment_non_square():
-    """The realignment map sends |i⟩⟨j|⊗|k⟩⟨ℓ| to |i⟩⟨k|⊗|j⟩⟨ℓ|. Thus it
-    changes the dimensions of matrices if the subsystems aren't square
+    """The realignment map sends |i⟩⟨j|⊗|k⟩⟨ℓ| to |i⟩⟨k|⊗|j⟩⟨ℓ|.
+
+    Thus, it changes the dimensions of matrices if the subsystems aren't square
     and of the same size. The following code computes the realignment of
     an operator X∈M5,2⊗M3,7:
     """
