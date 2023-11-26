@@ -1,3 +1,4 @@
 sphinx-rtd-theme == 2.0.0rc4 # this version is temporary due to docutils version incompatibility with
 # sphinx, sphinx_rtd_theme and sphinxcontrib-bibtex
 sphinxcontrib-bibtex == 2.6.1
+sympy == 1.12
