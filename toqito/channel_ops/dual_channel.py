@@ -58,7 +58,8 @@ def dual_channel(
 
     # If phi_op is a `ndarray`, assume it is a Choi matrix.
     if isinstance(phi_op, np.ndarray):
-        if len(phi_op.shape) == 2:
+        dim_choi = 2
+        if len(phi_op.shape) == dim_choi:
             d_in, d_out, _ = channel_dim(phi_op, dim=dims, compute_env_dim=False)
             return swap(phi_op.conj(), dim=[[d_in[0], d_out[0]], [d_in[1], d_out[1]]])
     raise ValueError(

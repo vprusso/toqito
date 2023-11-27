@@ -68,7 +68,8 @@ def schmidt_decomposition(
     eps = np.finfo(float).eps
 
     # If the input is provided as a matrix, compute the operator Schmidt decomposition.
-    if len(rho.shape) == 2:
+    dim2 = 2
+    if len(rho.shape) == dim2:
         if rho.shape[0] != 1 and rho.shape[1] != 1:
             return _operator_schmidt_decomposition(rho, dim, k_param)
 

@@ -123,9 +123,11 @@ def test_partial_channel_cpt_kraus(nested):
     """Perform the partial map using the Kraus representation of the depolarizing channel."""
     rho = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
     kraus = [0.5 * pauli(ind) for ind in range(4)]
-    if nested == 2:
+    dim2 = 2
+    dim3 = 3
+    if nested == dim2:
         kraus = [kraus]
-    elif nested == 3:
+    elif nested == dim3:
         kraus = [[mat] for mat in kraus]
 
     res = partial_channel(rho, kraus)

@@ -111,9 +111,11 @@ def apply_channel(mat: np.ndarray, phi_op: np.ndarray | list[list[np.ndarray]]) 
         # 1. [K1, K2, .. Kr]
         # 2. [[K1], [K2], .. [Kr]]
         # 3. [[K1, K2, .. Kr]] and r > 2
+        row_dim = 1
+        arr_in_arr_dim = 2
         if isinstance(phi_op[0], np.ndarray):
             phi_0_list = phi_op
-        elif s_phi_op[1] == 1 or (s_phi_op[0] == 1 and s_phi_op[1] > 2):
+        elif s_phi_op[1] == row_dim or (s_phi_op[0] == row_dim and s_phi_op[1] > arr_in_arr_dim):
             phi_0_list = list(itertools.chain(*phi_op))
         else:
             # Input is given as: [[A1, B1], [A2, B2], .. [Ar, Br]]

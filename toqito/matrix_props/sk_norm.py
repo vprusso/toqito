@@ -150,7 +150,9 @@ def sk_operator_norm(  # pylint: disable=too-many-locals
     if is_positive:
         is_projection = np.allclose(np.linalg.matrix_power(mat, 2), mat)
 
-    is_trans_exact = min(dim) == 2 and max(dim) <= 3
+    dim2 = 2
+    dim3 = 3
+    is_trans_exact = min(dim) == dim2 and max(dim) <= dim3
 
     # if the exact answer won't be found by SDP, compute bounds via other methods first
     if not (is_positive and is_trans_exact and k == 1 and effort >= 1):

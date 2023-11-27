@@ -119,12 +119,14 @@ def tensor(*args) -> np.ndarray:
     result = None
 
     # Input is provided as a list of numpy matrices.
+    dim2 = 2
+    dim3 = 3
     if len(args) == 1 and isinstance(args[0], list):
         if len(args[0]) == 1:
             return args[0][0]
-        if len(args[0]) == 2:
+        if len(args[0]) == dim2:
             return np.kron(args[0][0], args[0][1])
-        if len(args[0]) >= 3:
+        if len(args[0]) >= dim3:
             result = args[0][0]
             for i in range(1, len(args[0])):
                 result = np.kron(result, args[0][i])
@@ -133,33 +135,33 @@ def tensor(*args) -> np.ndarray:
     if len(args) == 1 and isinstance(args[0], np.ndarray):
         # If the numpy array is just a single matrix, so the dimensions are
         # provided as an (x, y)-tuple.
-        if len(args[0].shape) == 2:
+        if len(args[0].shape) == dim2:
             return args[0]
-        if len(args[0]) == 2:
+        if len(args[0]) == dim2:
             return np.kron(args[0][0], args[0][1])
-        if len(args[0]) >= 3:
+        if len(args[0]) >= dim3:
             result = args[0][0]
             for i in range(1, len(args[0])):
                 result = np.kron(result, args[0][i])
         return result
 
     # Tensor product one matrix `n` times with itself.
-    if len(args) == 2 and isinstance(args[1], int):
+    if len(args) == dim2 and isinstance(args[1], int):
         num_tensor = args[1]
         if num_tensor == 1:
             return args[0]
-        if num_tensor == 2:
+        if num_tensor == dim2:
             return np.kron(args[0], args[0])
-        if num_tensor >= 3:
+        if num_tensor >= dim3:
             result = np.kron(args[0], args[0])
             for _ in range(2, num_tensor):
                 result = np.kron(result, args[0])
         return result
 
     # Tensor product between two or more matrices.
-    if len(args) == 2:
+    if len(args) == dim2:
         return np.kron(args[0], args[1])
-    if len(args) >= 3:
+    if len(args) >= dim3:
         result = args[0]
         for i in range(1, len(args)):
             result = np.kron(result, args[i])

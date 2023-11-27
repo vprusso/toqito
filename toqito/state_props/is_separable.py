@@ -103,7 +103,8 @@ def is_separable(
         return False
 
     # Sometimes the PPT criterion is also sufficient for separability.
-    if prod_dim <= 6 or min(dim) <= 1:
+    dim6 = 6
+    if prod_dim <= dim6 or min(dim) <= 1:
         # Determined to be separable via sufficiency of the PPT criterion in small dimensions
         # M. Horodecki, P. Horodecki, and R. Horodecki.
         # Separability of mixed states: Necessary and sufficient conditions.
@@ -147,7 +148,8 @@ def is_separable(
 
     # There are some separability tests that work specifically in the qubit-qudit (i.e., 2 \otimes n) case.
     # Check these tests.
-    if min_dim == 2:
+    dim2 = 2
+    if min_dim == dim2:
         # Check if X is separable from spectrum.
         if (lam[0] - lam[2 * max_dim - 1]) ** 2 <= 4 * lam[2 * max_dim - 2] * lam[
             2 * max_dim

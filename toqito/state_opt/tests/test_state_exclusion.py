@@ -21,7 +21,8 @@ e_0, e_1 = standard_basis(2)
 def test_conclusive_state_exclusion(vectors, probs, solver, primal_dual, expected_result):
     """Test function works as expected for a valid input."""
     val, _ = state_exclusion(vectors=vectors, probs=probs, solver=solver, primal_dual=primal_dual)
-    assert abs(val- expected_result) <=1e-8
+    tol_val = 1e-8
+    assert abs(val - expected_result) <= tol_val
 
 
 @pytest.mark.parametrize("vectors, probs, solver, primal_dual", [

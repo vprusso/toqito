@@ -26,9 +26,11 @@ def test_channel_dim_kraus():
 def test_channel_dim_cpt_kraus(nested):
     """Test channel dim of a single qubit depolarizing channel."""
     kraus = [0.5 * pauli(ind) for ind in range(4)]
-    if nested == 2:
+    dim2 = 2
+    dim3 = 3
+    if nested == dim2:
         kraus = [kraus]
-    elif nested == 3:
+    elif nested == dim3:
         kraus = [[mat] for mat in kraus]
 
     din, dout, de = channel_dim(kraus, allow_rect=False)

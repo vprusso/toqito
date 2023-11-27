@@ -85,7 +85,8 @@ def is_unitary(phi: np.ndarray | list[list[np.ndarray]]) -> bool:
     if isinstance(phi[0], list):
         # we enter here if phi is specified as: [[U, U]] or [[U]]
         u_mat = phi[0][0]
-        if len(phi[0]) > 2 or (len(phi[0]) == 2 and not np.allclose(phi[0][0], phi[0][1])):
+        dim_arr_in_arr = 2
+        if len(phi[0]) > dim_arr_in_arr or (len(phi[0]) == dim_arr_in_arr and not np.allclose(phi[0][0], phi[0][1])):
             return False
 
     return is_unitary_matrix(u_mat)

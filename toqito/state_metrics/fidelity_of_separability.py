@@ -124,9 +124,10 @@ def fidelity_of_separability(
         to some constraints.
     """
     # rho is relabelled as rho_{AB} where A >= B.
+    dim2 = 2
     if not is_density(input_state_rho):
         raise ValueError("Provided input state is not a density matrix.")
-    if not len(input_state_rho_dims) == 2:
+    if not len(input_state_rho_dims) == dim2:
         raise AssertionError("For State SDP: require bipartite state dims.")
     if not is_pure(input_state_rho):
         raise ValueError("This function only works for pure states.")

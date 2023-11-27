@@ -18,7 +18,8 @@ def kp_norm(mat: np.ndarray, k: int, p: int) -> float:
     # If the requested norm is the Frobenius norm, compute it using numpy's
     # built-in Frobenius norm calculation, which is significantly faster than
     # computing singular values.
-    if k >= dim and p == 2:
+    dim2 = 2
+    if k >= dim and p == dim2:
         return np.linalg.norm(mat, ord="fro")
 
     s_vals = np.linalg.svd(mat, compute_uv=False)

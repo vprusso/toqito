@@ -70,9 +70,11 @@ def test_apply_channel_cpt_kraus(nested):
     expected_res = np.array([[0.5, 0], [0, 0.5]])
 
     kraus = [0.5 * pauli(ind) for ind in range(4)]
-    if nested == 2:
+    dim2 = 2
+    dim3 = 3
+    if nested == dim2:
         kraus = [kraus]
-    elif nested == 3:
+    elif nested == dim3:
         kraus = [[mat] for mat in kraus]
 
     res = apply_channel(test_input_mat, kraus)

@@ -54,7 +54,8 @@ def test_schmidt_rank_entangled_state():
         + (np.sqrt(2) - np.sqrt(3)) / (2 * np.sqrt(6)) * np.kron(e_1, e_0)
         + (np.sqrt(2) + np.sqrt(3)) / (2 * np.sqrt(6)) * np.kron(e_1, e_1)
     )
-    np.testing.assert_equal(schmidt_rank(phi) == 2, True)
+    dim2 = 2
+    np.testing.assert_equal(schmidt_rank(phi) == dim2, True)
 
 
 def test_schmidt_rank_singlet_state():

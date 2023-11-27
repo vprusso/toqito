@@ -99,7 +99,8 @@ def _is_zero(word: tuple[Symbol]) -> bool:
 
 
 def _is_meas(word: tuple[Symbol]) -> bool:
-    if len(word) == 2:
+    len2 = 2
+    if len(word) == len2:
         s_a, s_b = word
         return s_a.player == "Alice" and s_b.player == "Bob"
 

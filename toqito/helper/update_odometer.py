@@ -66,7 +66,8 @@ def update_odometer(
         # entry.
         if new_ind[j - 1] >= upper_lim[j - 1]:
             new_ind[j - 1] = 0
-            if j >= 2:
+            dim2 = 2
+            if j >= dim2:
                 new_ind[j - 2] = new_ind[j - 2] + 1
             else:
                 # We are at the left end of the vector, so just stop.

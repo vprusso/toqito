@@ -64,7 +64,8 @@ def _is_product(rho: np.ndarray, dim: int | list[int] = None) -> list[int, bool]
     :return: :code:`True` if :code:`rho` is a product vector and :code:`False` otherwise.
     """
     # If the input is provided as a matrix, compute the operator Schmidt rank.
-    if len(rho.shape) == 2:
+    dim2 = 2
+    if len(rho.shape) == dim2:
         if rho.shape[0] != 1 and rho.shape[1] != 1:
             return _operator_is_product(rho, dim)
 
@@ -86,7 +87,7 @@ def _is_product(rho: np.ndarray, dim: int | list[int] = None) -> list[int, bool]
 
     dec = None
     # If there are only two subsystems, just use the Schmidt decomposition.
-    if num_sys == 2:
+    if num_sys == dim2:
         singular_vals, u_mat, vt_mat = schmidt_decomposition(rho, dim, 2)
 
         # Provide this even if not requested, since it is needed if this

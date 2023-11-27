@@ -96,23 +96,24 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | scipy.sparse.cs
     :param ind: An integer between 0 and 8 (inclusive).
     :param is_sparse: Boolean to determine whether matrix is sparse.
     """
-    if ind == 0:
+    ind_list = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+    if ind == ind_list[0]:
         gm_op = np.identity(3)
-    elif ind == 1:
+    elif ind == ind_list[1]:
         gm_op = np.array([[0, 1, 0], [1, 0, 0], [0, 0, 0]])
-    elif ind == 2:
+    elif ind == ind_list[2]:
         gm_op = np.array([[0, -1j, 0], [1j, 0, 0], [0, 0, 0]])
-    elif ind == 3:
+    elif ind == ind_list[3]:
         gm_op = np.array([[1, 0, 0], [0, -1, 0], [0, 0, 0]])
-    elif ind == 4:
+    elif ind == ind_list[4]:
         gm_op = np.array([[0, 0, 1], [0, 0, 0], [1, 0, 0]])
-    elif ind == 5:
+    elif ind == ind_list[5]:
         gm_op = np.array([[0, 0, -1j], [0, 0, 0], [1j, 0, 0]])
-    elif ind == 6:
+    elif ind == ind_list[6]:
         gm_op = np.array([[0, 0, 0], [0, 0, 1], [0, 1, 0]])
-    elif ind == 7:
+    elif ind == ind_list[7]:
         gm_op = np.array([[0, 0, 0], [0, 0, -1j], [0, 1j, 0]])
-    elif ind == 8:
+    elif ind == ind_list[8]:
         gm_op = np.array([[1, 0, 0], [0, 1, 0], [0, 0, -2]]) / np.sqrt(3)
     else:
         raise ValueError("Gell-Mann index values can only be values from 0 to 8 (inclusive).")

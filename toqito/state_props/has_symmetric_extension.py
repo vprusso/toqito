@@ -113,7 +113,8 @@ def has_symmetric_extension(
 
     dim_x, dim_y = int(dim[0]), int(dim[1])  # pylint: disable=unsubscriptable-object
     # In certain situations, we don't need semidefinite programming.
-    if level == 1 or len_mat <= 6 and ppt:
+    dim6 = 6
+    if level == 1 or len_mat <= dim6 and ppt:
         if not ppt:
             # In some cases, the problem is *really* trivial.
             return is_positive_semidefinite(rho)
@@ -125,7 +126,8 @@ def has_symmetric_extension(
     # In the 2-qubit case, an analytic formula is known for whether or not a state has a
     # (2-copy, non-PPT) symmetric extension that is much faster to use than semidefinite
     # programming [CJKLZB14]_.
-    if level == 2 and not ppt and dim_x == 2 and dim_y == 2:
+    dim2 = 2
+    if level == dim2 and not ppt and dim_x == dim2 and dim_y == dim2:
         return np.trace(np.linalg.matrix_power(partial_trace(rho, [0]), 2)) >= np.trace(
             np.linalg.matrix_power(rho, 2)
         ) - 4 * np.sqrt(np.linalg.det(rho))

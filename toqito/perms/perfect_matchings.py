@@ -40,7 +40,8 @@ def perfect_matchings(num: list[int] | int | np.ndarray) -> np.ndarray:
         num = np.array(num)
 
     # Base case, `num = 2`: only one perfect matching.
-    if (len_num := len(num)) == 2:
+    dim2 = 2
+    if (len_num := len(num)) == dim2:
         return num
 
     # There are no perfect matchings of an odd number of objects.

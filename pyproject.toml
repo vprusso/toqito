@@ -68,7 +68,7 @@ select = ["I", "D", "E", "W", "PL"]
 # Rules considered over other incompatible ones
 exclude = ["docs/conf.py", "setup.py"]
 
-ignore = ["D407", "D203", "D213", "D416"]
+ignore = ["D407", "D203", "D213", "D416", "PLR0912", "PLR0911", "PLR0915"]
 # Rules Ignored
 
 # D407 - Ignored because ==== under a section heading is considered as a missing underline.
@@ -80,6 +80,10 @@ ignore = ["D407", "D203", "D213", "D416"]
 
 # D416 was adding a semicolon after some section headings when ruff's automated --fix was was used
 # As this was not added evenly after all section headings, we ignore this. 
+
+# PLR0912 -- Checks for functions or methods with too many branches. The default number is 12. 
+# PLR0911 -- Checks for functions or methods with too many return statements. The default number is 6.
+# PLR0915 -- Checks for functions or methods with too many statements. The default number is 50. 
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["I001"]

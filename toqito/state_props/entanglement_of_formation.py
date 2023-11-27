@@ -95,7 +95,8 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
     if dim_x == dim_y:
         # In the two-qubit case, we know how to compute the
         # entanglement-of-formation exactly.
-        if dim_x == 4:
+        dim4 = 4
+        if dim_x == dim4:
             rho_c = concurrence(rho)
 
             rho_c1 = (1 + np.sqrt(1 - rho_c ** 2)) / 2

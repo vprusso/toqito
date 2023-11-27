@@ -101,9 +101,11 @@ def partial_channel(
         # 1. [K1, K2, .. Kr]
         # 2. [[K1], [K2], .. [Kr]]
         # 3. [[K1, K2, .. Kr]] and r > 2
+        dim1 = 1
+        dim2 = 2
         if isinstance(phi_map[0], np.ndarray):
             phi_list = phi_map
-        elif s_phi_2 == 1 or s_phi_1 == 1 and s_phi_2 > 2:
+        elif s_phi_2 == dim1 or s_phi_1 == dim1 and s_phi_2 > dim2:
             phi_list = list(itertools.chain(*phi_map))
 
         if phi_list:

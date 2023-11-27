@@ -55,8 +55,10 @@ def channel_dim(
         # 2. [[K1], [K2], .. [Kr]]
         # 3. [[K1, K2, .. Kr]] and r > 2
         is_cpt = False
+        row_dim = 1
+        arr_in_arr_dim = 2
         if isinstance(phi[0], list) and (
-            sz_phi_op[1] == 1 or (sz_phi_op[0] == 1 and sz_phi_op[1] > 2)
+            sz_phi_op[1] == row_dim or (sz_phi_op[0] == row_dim and sz_phi_op[1] > arr_in_arr_dim)
         ):
             # get a flat list of Kraus operators.
             phi = list(itertools.chain(*phi))

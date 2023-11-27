@@ -16,7 +16,8 @@ def test_cb_trace_norm_quantum_channel():
 def test_cb_trace_norm_CP():
     """Test for the diamond norm of a CP map."""
     non_normalized_depolarizing_array = np.eye(4)
-    assert completely_bounded_trace_norm(non_normalized_depolarizing_array) == 4.0
+    expected_val = 4.0
+    assert completely_bounded_trace_norm(non_normalized_depolarizing_array) == expected_val
 
 
 def test_cb_trace_norm_unitaries_channel():

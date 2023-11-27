@@ -82,7 +82,8 @@ def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray = None) -> f
     :return: The Schmidt rank of :code:`rho`.
     """
     # If the input is provided as a matrix, compute the operator Schmidt rank.
-    if len(rho.shape) == 2:
+    dim2 = 2
+    if len(rho.shape) == dim2:
         if rho.shape[0] != 1 and rho.shape[1] != 1:
             return _operator_schmidt_rank(rho, dim)
 
