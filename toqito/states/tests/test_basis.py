@@ -17,6 +17,7 @@ from toqito.states import basis
     ],
 )
 def test_basis(dim, pos, expected_result):
+    """Test function works as expected for a valid input."""
     np.testing.assert_array_equal(basis(dim, pos), expected_result)
 
 

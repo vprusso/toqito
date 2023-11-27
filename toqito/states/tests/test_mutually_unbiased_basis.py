@@ -11,6 +11,7 @@ from toqito.states.mutually_unbiased_basis import _is_prime_power
 
 @pytest.mark.parametrize("dim", [2, 3, 5, 7])
 def test_mutually_unbiased_basis(dim):
+    """Test function works as expected for a valid input with dim as input."""
     np.testing.assert_equal(is_mutually_unbiased_basis(mutually_unbiased_basis(dim)), True)
 
 
@@ -48,4 +49,5 @@ def test_mutually_unbiased_basis_unknown_for_dim(dim):
     (5, True),
 ])
 def test_is_prime_power(n, expected_result):
+    """Test function works as expected for a valid input of prime and non-prime powers."""
     np.testing.assert_array_equal(_is_prime_power(n), expected_result)

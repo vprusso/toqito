@@ -21,6 +21,7 @@ e_0, e_1 = np.array([[1], [0]]), np.array([[0], [1]])
     ],
 )
 def test_bell(bell_idx, expected_result):
+    """Test function works as expected for a valid input."""
     np.testing.assert_array_equal(bell(bell_idx), expected_result)
 
 
