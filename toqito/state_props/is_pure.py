@@ -60,7 +60,7 @@ def is_pure(state: list[np.ndarray] | np.ndarray) -> bool:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param state: The density matrix representing the quantum state or a list
                   of density matrices representing quantum states.

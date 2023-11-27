@@ -47,8 +47,8 @@ def is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray = None) -> boo
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
-    
+
+
     :param rho: The vector or matrix to check.
     :param dim: The dimension of the input.
     :return: :code:`True` if :code:`rho` is a product vector and :code:`False` otherwise.

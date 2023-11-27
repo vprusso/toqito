@@ -51,7 +51,7 @@ def is_permutation(mat: np.ndarray) -> bool:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param mat: The matrix to check.
     :return: Returns :code:`True` if the matrix is a permutation matrix and :code:`False` otherwise.

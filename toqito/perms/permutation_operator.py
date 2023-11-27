@@ -42,7 +42,7 @@ def permutation_operator(
      [0., 0., 1., 0.],
      [0., 1., 0., 0.],
      [0., 0., 0., 1.]]
-    
+
 
     :param dim: The dimensions of the subsystems to be permuted.
     :param perm: A permutation vector.

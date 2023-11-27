@@ -129,7 +129,7 @@ def symmetric_extension_hierarchy(
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param states: A list of states provided as either matrices or vectors.
     :param probs: Respective list of probabilities each state is selected.

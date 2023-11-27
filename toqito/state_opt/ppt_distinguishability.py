@@ -87,7 +87,7 @@ def ppt_distinguishability(
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param states: A list of states provided as either matrices or vectors.
     :param dist_method: The method of distinguishing states.

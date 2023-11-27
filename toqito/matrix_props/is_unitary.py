@@ -67,7 +67,7 @@ def is_unitary(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> boo
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param mat: Matrix to check.
     :param rtol: The relative tolerance parameter (default 1e-05).

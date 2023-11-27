@@ -23,14 +23,14 @@ def is_antidistinguishable(states: list[np.ndarray]) -> bool:
         u_4 = \frac{1}{\sqrt{2}} \left(|01\rangle - |10\rangle\right).
 
     It can be checked in :code`toqito` that the Bell states are antidistinguishable:
-    
+
     >>> from toqito.states import bell
     >>> from toqito.state_props import is_antidistinguishable
     >>>
     >>> bell_states = [bell(0), bell(1), bell(2), bell(3)]
     >>> is_antidistinguishable(bell_states)
     True
-    
+
     Consider the following measurement operators
 
     .. math::

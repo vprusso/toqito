@@ -45,7 +45,7 @@ def choi_to_kraus(
         \begin{equation}
         \big[
             \frac{1}{\sqrt{2}} \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix},
-            \frac{1}{\sqrt{2}} \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix} 
+            \frac{1}{\sqrt{2}} \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}
         \big],
         \big[
             \frac{1}{\sqrt{2}} \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix},
@@ -89,8 +89,8 @@ def choi_to_kraus(
     ==========
     .. bibliography::
         :filter: docname in docnames
- 
-        
+
+
 
     :param choi_mat: A Choi matrix
     :param tol: optional threshold parameter for eigenvalues/kraus ops to be discarded

@@ -63,7 +63,7 @@ def is_normal(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param mat: The matrix to check.
     :param rtol: The relative tolerance parameter (default 1e-05).

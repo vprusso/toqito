@@ -53,7 +53,7 @@ def is_separable(
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :raises ValueError: If dimension is not specified.
     :param state: The matrix to check.

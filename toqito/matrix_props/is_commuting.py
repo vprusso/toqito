@@ -67,7 +67,7 @@ def is_commuting(mat_1: np.ndarray, mat_2: np.ndarray) -> bool:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
 
     :param mat_1: First matrix to check.

@@ -62,8 +62,8 @@ def is_diagonal(mat: np.ndarray) -> bool:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
-    
+
+
 
     :param mat: The matrix to check.
     :return: Returns :code:`True` if the matrix is diagonal

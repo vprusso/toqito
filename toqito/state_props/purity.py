@@ -47,7 +47,7 @@ def purity(rho: np.ndarray) -> float:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :raises ValueError: If matrix is not density operator.
     :param rho: A density matrix of a pure state vector.

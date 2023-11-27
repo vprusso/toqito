@@ -71,8 +71,8 @@ def is_mutually_unbiased_basis(vectors: list[np.ndarray | list[float | Any]]) ->
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
-    
+
+
 
     :raises ValueError: If at least two vectors are not provided.
     :param vectors: The list of vectors to check.

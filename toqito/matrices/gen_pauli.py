@@ -63,7 +63,7 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param k_1: (a non-negative integer from 0 to :code:`dim-1` inclusive).
     :param k_2: (a non-negative integer from 0 to :code:`dim-1` inclusive).

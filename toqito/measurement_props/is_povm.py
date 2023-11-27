@@ -86,7 +86,7 @@ def is_povm(mat_list: list[np.ndarray]) -> bool:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param mat_list: A list of matrices.
     :return: Return :code:`True` if set of matrices constitutes a set of

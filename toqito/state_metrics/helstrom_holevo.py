@@ -51,7 +51,7 @@ def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :raises ValueError: If matrices are not density operators.
     :param rho: Density operator.

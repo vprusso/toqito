@@ -120,7 +120,7 @@ def partial_trace(
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :raises ValueError: If matrix dimension is not equal to the number of subsystems.
     :param input_mat: A square matrix.

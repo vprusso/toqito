@@ -30,7 +30,7 @@ def cnot() -> np.ndarray:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :return: The CNOT matrix.
     """

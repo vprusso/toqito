@@ -86,7 +86,7 @@ def state_exclusion(
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param vectors: A list of states provided as vectors.
     :param probs: Respective list of probabilities each state is selected. If no

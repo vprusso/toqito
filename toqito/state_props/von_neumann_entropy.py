@@ -77,7 +77,7 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param rho: Density operator.
     :return: The von Neumann entropy of :code:`rho`.

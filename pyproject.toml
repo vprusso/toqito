@@ -78,7 +78,7 @@ line-length = 120
 target-version = "py311"
 
 [tool.ruff.lint]
-select = ["I", "D"]
+select = ["I", "D", "E", "W"]
 # ruff configuration
 # E, W -- pycodestyle
 # D -- pydocstyle

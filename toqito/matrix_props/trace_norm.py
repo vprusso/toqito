@@ -41,7 +41,7 @@ def trace_norm(rho: np.ndarray) -> float:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param rho: Density operator.
     :return: The trace norm of :code:`rho`.

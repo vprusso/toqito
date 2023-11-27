@@ -46,7 +46,7 @@ def is_positive_semidefinite(mat: np.ndarray, rtol: float = 1e-05, atol: float =
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param mat: Matrix to check.
     :param rtol: The relative tolerance parameter (default 1e-05).

@@ -71,7 +71,7 @@ def random_unitary(dim: list[int] | int, is_real: bool = False) -> np.ndarray:
     """
     if isinstance(dim, int):
         dim = [dim, dim]
-    
+
     if dim[0] != dim[1]:
         raise ValueError("Unitary matrix must be square.")
 

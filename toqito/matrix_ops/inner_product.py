@@ -8,17 +8,17 @@ def inner_product(v1: np.ndarray, v2: np.ndarray) -> float:
     The inner product is calculated as follows:
 
     .. math::
-        \left\langle 
-        \begin{pmatrix} 
+        \left\langle
+        \begin{pmatrix}
             a_1 \\ \vdots \\ a_n
         \end{pmatrix},
-        \begin{pmatrix} 
+        \begin{pmatrix}
             b_1 \\ \vdots \\ b_n
-        \end{pmatrix} \right\rangle = 
-        \begin{pmatrix} 
+        \end{pmatrix} \right\rangle =
+        \begin{pmatrix}
             a_1, \cdots, a_n
         \end{pmatrix}
-        \begin{pmatrix} 
+        \begin{pmatrix}
             b_1 \\ \vdots \\ b_n
         \end{pmatrix} = a_1 b_1 + \cdots + a_n b_n
 
@@ -29,14 +29,14 @@ def inner_product(v1: np.ndarray, v2: np.ndarray) -> float:
     \begin{pmatrix}4 \\ 5 \\ 6 \ \end{pmatrix}` looks as follows:
 
     .. math::
-        \left\langle 
-        \begin{pmatrix} 
+        \left\langle
+        \begin{pmatrix}
             1 \\ 2 \\ 3
         \end{pmatrix},
         \begin{pmatrix}
             4 \\ 5 \\ 6
         \end{pmatrix}\right\rangle =
-        \begin{pmatrix} 
+        \begin{pmatrix}
             1, 2, 3
         \end{pmatrix}
         \begin{pmatrix}
