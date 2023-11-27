@@ -10,7 +10,7 @@ def outer_product(v1: np.ndarray, v2: np.ndarray) -> np.ndarray:
     .. math::
         \left|\begin{pmatrix}a_1\\\vdots\\a_n\end{pmatrix}\right\rangle\left\langle\begin{pmatrix}b_1\\\vdots\\b_n\end{pmatrix}\right|=\begin{pmatrix}a_1\\\vdots\\a_n\end{pmatrix}\begin{pmatrix}b_1&\cdots&b_n\end{pmatrix}=\begin{pmatrix}a_1b_1&\cdots&a_1b_n\\\vdots&\ddots&\vdots\\a_1b_n&\cdots&a_nb_n\end{pmatrix}
 
-    Example:
+    Example
     ==========
     The outer product of the vectors :math:`v1 = \begin{pmatrix}1 \\ 2 \\ 3 \end{pmatrix}` and :math:`v2 =
     \begin{pmatrix}4 \\ 5 \\ 6 \ \end{pmatrix}` looks as follows:
@@ -50,7 +50,7 @@ def outer_product(v1: np.ndarray, v2: np.ndarray) -> np.ndarray:
      [8, 10, 12],
      [12, 15, 18]]
 
-    References:
+    References
     ==========
     .. bibliography::
         :filter: docname in docnames
