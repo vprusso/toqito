@@ -39,5 +39,6 @@ def test_vectors_from_gram_matrix_not_psd():
     (np.array([[1, 2], [4, 5], [7, 8]])),
 ])
 def test_vectors_from_gram_matrix_invalid_input(gram):
+    """Test error is raised with a bad input."""
     with pytest.raises(np.linalg.LinAlgError):
         vectors_from_gram_matrix(gram)

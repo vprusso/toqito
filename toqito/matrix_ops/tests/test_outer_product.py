@@ -12,6 +12,7 @@ from toqito.matrix_ops import outer_product
     (np.array([-1, 2, 3]), np.array([4, 5, 6]), np.array([[-4, -5, -6], [8, 10, 12], [12, 15, 18]])),
 ])
 def test_outer_product(v1, v2, expected_result):
+    """Test output when inputs are with/without complications."""
     np.testing.assert_array_equal(outer_product(v1, v2), expected_result)
 
 
@@ -22,5 +23,6 @@ def test_outer_product(v1, v2, expected_result):
     (np.array([1, 2, 3]), np.array([[4, 5, 6], [7, 8, 9]])),
 ])
 def test_outer_product_invalid_input(v1, v2):
+    """Test error is raised with a bad input."""
     with pytest.raises(ValueError):
         outer_product(v1, v2)
