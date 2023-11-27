@@ -12,4 +12,5 @@ from toqito.states import bell, trine
     ([trine()[0], trine()[1], trine()[2]]),
 ])
 def test_is_antidistinguishable(states):
-   assert is_antidistinguishable(states)
+    """Test function works as expected for a valid input."""
+    assert is_antidistinguishable(states)

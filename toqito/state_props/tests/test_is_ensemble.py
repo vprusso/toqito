@@ -15,4 +15,5 @@ from toqito.state_props import is_ensemble
     ],
 )
 def test_is_ensemble(states, expected_result):
+    """Test function works as expected for a valid input."""
     np.testing.assert_equal(is_ensemble(states), expected_result)

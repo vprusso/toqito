@@ -42,6 +42,7 @@ e_0, e_1 = np.array([[1], [0]]), np.array([[0], [1]])
     ],
 )
 def test_schmidt_rank_bell_state(rho, dim, expected_result):
+    """Test function works as expected for a valid input."""
     np.testing.assert_allclose(schmidt_rank(rho, dim), expected_result)
 
 
