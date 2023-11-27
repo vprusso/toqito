@@ -58,11 +58,12 @@ line-length = 120
 target-version = "py311"
 
 [tool.ruff.lint]
-select = ["I", "D", "E", "W"]
+select = ["I", "D", "E", "W", "PL"]
 # ruff configuration
 # E, W -- pycodestyle
 # D -- pydocstyle
 # I -- isort
+# PL -- pylint
 
 # Rules considered over other incompatible ones
 exclude = ["docs/conf.py", "setup.py"]

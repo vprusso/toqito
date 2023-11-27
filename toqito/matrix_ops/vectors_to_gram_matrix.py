@@ -20,7 +20,7 @@ def vectors_to_gram_matrix(vectors: list[np.ndarray]) -> np.ndarray:
            [11., 25.]])
 
     # Example with complex vectors
-    
+
     >>> vectors = [np.array([1+1j, 2+2j]), np.array([3+3j, 4+4j])]
     >>> gram_matrix = vectors_to_gram_matrix(vectors)
     >>> gram_matrix
