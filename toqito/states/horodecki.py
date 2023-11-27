@@ -50,9 +50,10 @@ def horodecki(a_param: float, dim: list[int] = None) -> np.ndarray:
         \end{equation}
 
     .. note::
-        Refer to :cite:`Chruscinski_2011_OnTheSymmetry` (specifically equations (1) and (2)) for more information on this state
-        and its properties. The 3x3 Horodecki state is defined explicitly in Section 4.1 of :cite:`Horodecki_1997_Separability`
-        and the 2x4 Horodecki state is defined explicitly in Section 4.2 of :cite:`Horodecki_1997_Separability`.
+        Refer to :cite:`Chruscinski_2011_OnTheSymmetry` (specifically equations (1) and (2))
+        for more information on this state and its properties. The 3x3 Horodecki state is defined explicitly
+        in Section 4.1 of :cite:`Horodecki_1997_Separability` and the 2x4 Horodecki state is defined explicitly
+        in Section 4.2 of :cite:`Horodecki_1997_Separability`.
 
     Examples
     ==========

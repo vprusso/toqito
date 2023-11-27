@@ -196,7 +196,7 @@ class XORGame:
                 and :math:`f(x,y)` corresponds to :code:`pred_mat[x, y]`.
 
                 :return: A value between [0, 1] representing the quantum value.
-        """
+        """  # noqa: E501
         alice_in, bob_in = self.prob_mat.shape
         d_mat = np.zeros([alice_in, bob_in])
 
@@ -240,7 +240,9 @@ class XORGame:
         return self.to_nonlocal_game().classical_value()
 
     def nonsignaling_value(self) -> float:
-        """Compute the nonsignaling value of an XOR game by calling the exising function in the :code:`NonlocalGame` class.
+        """Compute the nonsignaling value of an XOR game.
+
+        Here the exising function in the :code:`NonlocalGame` class is called.
 
         :return: A value between [0, 1] representing the nonsignaling value.
         """

@@ -16,7 +16,8 @@ from toqito.states import bell
     [
         # When (k=1, p= Inf)the kp_norm(vector) is the same as the trace norm (the 1-norm).
         (bell(0), 1, np.inf, 1),
-        # When p=2 and k is greater than or equal to one of the input matrix dimensions, the value calculated is the frobenius norm.
+        # When p=2 and k is greater than or equal to one of the input matrix dimensions,
+        # the value calculated is the frobenius norm.
         (random_unitary(5), 5, 2, np.linalg.norm(random_unitary(5), "fro")),
     ],
 )
