@@ -17,6 +17,7 @@ from toqito.rand import random_density_matrix
     (2, True, 2, "haar"),
 ])
 def test_random_density(dim, is_real, k_param, distance_metric):
+    """Test random density matrix is generated as expected."""
     if k_param == dim:
         mat = random_density_matrix(
             dim=dim, is_real=is_real, k_param=k_param, distance_metric=distance_metric
@@ -31,6 +32,7 @@ def test_random_density(dim, is_real, k_param, distance_metric):
     (3, True, "bures")
 ])
 def test_random_density_matrix(dim, is_real, distance_metric):
+    """Test generated matrix is real or complex."""
     dm = random_density_matrix(dim, is_real, distance_metric=distance_metric)
 
     # Check if the matrix is a valid density matrix
