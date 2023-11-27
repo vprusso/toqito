@@ -25,12 +25,9 @@ def test_choi_is_block_positive():
 
 
 def test_is_block_positive():
-    r"""Test that the positive linear map introduced in lemma 3 of below.
+    r"""Test that the positive linear map introduced in the paper referenced below is block positive.
 
-        S. Bandyopadhyay, A. Cosentino, N. Johnston, V. Russo, J. Watrous, and N. Yu.
-        Limitations on separable measurements by convex optimization.
-        E-print: arXiv:1408.6981 [quant-ph], 2014.
-    is block positive.
+    For more info, see lemma 3 of :cite:`Bandyopadhyay_2015_Limitations`.
     """
     b_0 = bell(0)
     b_3 = bell(3)

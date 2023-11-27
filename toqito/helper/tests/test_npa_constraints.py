@@ -52,7 +52,7 @@ def cglmp_inequality(dim: int) -> tuple[dict[tuple[int, int], cvxpy.Variable], c
 def test_cglmp_inequality(k):
     """Test Collins-Gisin-Linden-Massar-Popescu inequality.
 
-    See Table 1. from NPA paper [arXiv:0803.4290].
+    See Table 1. from :cite:`Navascues_2008_AConvergent`.
     """
     dim = 3
     mat, i_b = cglmp_inequality(dim)
@@ -67,7 +67,7 @@ def test_cglmp_inequality(k):
 def test_cglmp_dimension(k, expected_size):
     """Test matrix size in Collins-Gisin-Linden-Massar-Popescu inequality.
 
-    See Table 1. from NPA paper [arXiv:0803.4290].
+    See Table 1. from :cite:`Navascues_2008_AConvergent`.
     """
     dim = 3
     mat, i_b = cglmp_inequality(dim)
