@@ -22,12 +22,13 @@ from toqito.states import bell
     ],
 )
 def test_kp_norm(vector, k, p, norm_to_compare):
+    """Test output is as expected with a good input."""
     calculated_kp_norm = kp_norm(vector, k, p)
     assert calculated_kp_norm == pytest.approx(norm_to_compare)
 
 
 def test_no_default_kp_values():
-    """kp_norm does not have any default values for k or p."""
+    """Test kp_norm does not have any default values for k or p."""
     with pytest.raises(
         TypeError, match=re.escape("kp_norm() missing 2 required positional arguments: 'k' and 'p'")
     ):
