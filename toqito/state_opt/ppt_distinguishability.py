@@ -279,8 +279,8 @@ def dual_problem(
         )
 
     problem = cvxpy.Problem(objective, constraints)
-    sol_default = problem.solve(solver=cvxpy.MOSEK)
+    sol_default = problem.solve()
 
-    print(np.around(y_var.value, decimals=4))
+    # print(np.around(y_var.value, decimals=3))
 
     return sol_default
