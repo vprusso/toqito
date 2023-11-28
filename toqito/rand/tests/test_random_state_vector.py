@@ -4,6 +4,7 @@ import pytest
 from toqito.rand import random_state_vector
 from toqito.state_props import is_pure
 
+
 @pytest.mark.parametrize("dim, is_real, k_param", [
     # Check that complex state vector from random state vector is pure.
     (2, False, 0),

@@ -1,15 +1,16 @@
 """Check if set of states are antidistinguishable."""
 import numpy as np
+
 from toqito.state_opt import state_exclusion
 
 
 def is_antidistinguishable(states: list[np.ndarray]) -> bool:
-    r"""
-    Check whether a collection of vectors are antidistinguishable or not :cite: `Heinosaari_2018_Antidistinguishability`.
+    r"""Check whether a collection of vectors are antidistinguishable or not
+    :cite: `Heinosaari_2018_Antidistinguishability`.
 
     The ability to determine whether a set of quantum states are antidistinguishable can be obtained via the state
-    exclusion SDP :cite:`Bandyopadhyay_2014_Conclusive` such that we ignore the associated probabilities with which the states are chosen from the set of
-    vectors.
+    exclusion SDP :cite:`Bandyopadhyay_2014_Conclusive` such that we ignore the associated probabilities with which
+    the states are chosen from the set of vectors.
 
     Examples
     ========
@@ -23,14 +24,14 @@ def is_antidistinguishable(states: list[np.ndarray]) -> bool:
         u_4 = \frac{1}{\sqrt{2}} \left(|01\rangle - |10\rangle\right).
 
     It can be checked in :code`toqito` that the Bell states are antidistinguishable:
-    
+
     >>> from toqito.states import bell
     >>> from toqito.state_props import is_antidistinguishable
     >>>
     >>> bell_states = [bell(0), bell(1), bell(2), bell(3)]
     >>> is_antidistinguishable(bell_states)
     True
-    
+
     Consider the following measurement operators
 
     .. math::

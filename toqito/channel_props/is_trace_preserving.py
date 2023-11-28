@@ -2,7 +2,6 @@
 
 
 import numpy as np
-
 from picos import partial_trace
 
 from toqito.matrix_props import is_identity
@@ -17,7 +16,7 @@ def is_trace_preserving(
 ) -> bool:
     r"""
     Determine whether the given channel is trace-preserving.
-     
+
     A map :math:`\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)` is
     *trace-preserving* if it holds that
 
@@ -82,7 +81,7 @@ def is_trace_preserving(
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
     :param phi: The channel provided as either a Choi matrix or a list of Kraus operators.
     :param rtol: The relative tolerance parameter (default 1e-05).
     :param atol: The absolute tolerance parameter (default 1e-08).

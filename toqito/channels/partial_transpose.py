@@ -2,7 +2,6 @@
 
 
 import numpy as np
-
 from cvxpy.expressions.expression import Expression
 from cvxpy.expressions.variable import Variable
 
@@ -106,8 +105,8 @@ def partial_transpose(
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
-    
+
+
     :param rho: A matrix.
     :param sys: Scalar or vector specifying the size of the subsystems.
     :param dim: Dimension of the subsystems. If :code:`None`, all dimensions

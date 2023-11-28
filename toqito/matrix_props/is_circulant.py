@@ -36,7 +36,7 @@ def is_circulant(mat: np.ndarray) -> bool:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param mat: Matrix to check the circulancy of.
     :return: Return `True` if :code:`mat` is circulant; `False` otherwise.

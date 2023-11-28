@@ -72,8 +72,8 @@ def is_mutually_unbiased_basis(vectors: list[np.ndarray | list[float | Any]]) ->
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
-    
+
+
 
     :raises ValueError: If at least two vectors are not provided.
     :param vectors: The list of vectors to check.
@@ -93,9 +93,9 @@ def is_mutually_unbiased_basis(vectors: list[np.ndarray | list[float | Any]]) ->
     for i in range(num_bases):
         for j in range(i + 1, num_bases):
             for k in range(dim):
-                for l in range(dim):
+                for litem in range(dim):
                     # Compute inner product between vectors from different bases.
-                    inner_product = np.abs(np.vdot(vectors[i * dim + k], vectors[j * dim + l])) ** 2
+                    inner_product = np.abs(np.vdot(vectors[i * dim + k], vectors[j * dim + litem])) ** 2
                     if not np.isclose(inner_product, 1 / dim):
                         return False
     return True

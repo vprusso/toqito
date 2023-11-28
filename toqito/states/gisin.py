@@ -44,7 +44,7 @@ def gisin(lambda_var: float, theta: float) -> np.ndarray:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :raises ValueError: If :code:`lambda_var` is not a real number.
     :param lambda_var: A real parameter in [0, 1].

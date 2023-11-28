@@ -13,7 +13,7 @@ def is_herm_preserving(
     atol: float = 1e-08,
 ) -> bool:
     r"""Determine whether the given channel is Hermitian-preserving.
-    
+
     (Section: Linear Maps Of Square Operators from :cite:`Watrous_2018_TQI`).
 
     A map :math:`\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)` is
@@ -64,7 +64,7 @@ def is_herm_preserving(
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param phi: The channel provided as either a Choi matrix or a list of Kraus operators.
     :param rtol: The relative tolerance parameter (default 1e-05).

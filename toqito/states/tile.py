@@ -53,7 +53,7 @@ def tile(idx: int) -> np.ndarray:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :raises ValueError: Invalid value for :code:`idx`.
     :param idx: A parameter in [0, 1, 2, 3, 4]

@@ -1,7 +1,7 @@
 """Symmetric projection operator."""
+import math
 from itertools import permutations
 
-import math
 import numpy as np
 import scipy
 
@@ -14,7 +14,7 @@ def symmetric_projection( dim: int, p_val: int = 2, partial: bool = False ) -> [
 
     For a complex Euclidean space :math:`\mathcal{X}` and a positive integer :math:`n`, the projection onto the
     symmetric subspace is given by
-    
+
     .. math::
         \frac{1}{n!} \sum_{\pi \in S_n} W_{\pi}
 
@@ -68,7 +68,7 @@ def symmetric_projection( dim: int, p_val: int = 2, partial: bool = False ) -> [
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param dim: The dimension of the local systems.
     :param p_val: Default value of 2.

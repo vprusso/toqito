@@ -5,7 +5,6 @@ import pytest
 from toqito.matrix_ops import tensor
 from toqito.states import ghz
 
-
 e_0, e_1 = np.array([[1], [0]]), np.array([[0], [1]])
 ghz_2_3 = 1 / np.sqrt(2) * (tensor(e_0, e_0, e_0) + tensor(e_1, e_1, e_1))
 

@@ -8,7 +8,7 @@ from toqito.matrix_ops import vectors_from_gram_matrix
 @pytest.mark.parametrize("gram, expected_result", [
     # Gram matrix is identity matrix.
     (
-        np.identity(4), 
+        np.identity(4),
         [
             np.array([1, 0, 0, 0]),
             np.array([0, 1, 0, 0]),

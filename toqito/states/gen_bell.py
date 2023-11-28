@@ -13,7 +13,7 @@ def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
 
     .. code-block:: python
         :linenos:
-        
+
         bell(0) : gen_bell(0, 0, 2)
 
         bell(1) : gen_bell(0, 1, 2)
@@ -21,7 +21,7 @@ def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
         bell(2) : gen_bell(1, 0, 2)
 
         bell(3) : gen_bell(1, 1, 2)
-    
+
 
     Examples
     ==========
@@ -93,7 +93,7 @@ def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param k_1: An integer 0 <= k_1 <= n.
     :param k_2: An integer 0 <= k_2 <= n.

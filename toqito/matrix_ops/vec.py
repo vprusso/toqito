@@ -83,7 +83,7 @@ def vec(mat: np.ndarray) -> np.ndarray:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param mat: The input matrix.
     :return: The vec representation of the matrix.

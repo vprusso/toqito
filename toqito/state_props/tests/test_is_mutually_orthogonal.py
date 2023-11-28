@@ -23,7 +23,8 @@ from toqito.states import bell
         ([np.array([[0], [0]]), np.array([[1], [0]])], True),
         # Colinear vectors.
         ([np.array([[1], [2]]), np.array([2, 4])], False),
-        # Vectors that are theoretically orthogonal but due to numerical precision issues might not be exactly orthogonal.
+        # Vectors that are theoretically orthogonal but due to numerical precision issues might not
+        # be exactly orthogonal.
         ([np.array([[1], [np.sqrt(2)]]), np.array([[-np.sqrt(2)], [1]])], True),
     ],
 )

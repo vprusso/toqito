@@ -179,7 +179,8 @@ class XORGame:
                         \begin{equation}
                                 \begin{aligned}
                                         \text{minimize:} \quad & \frac{1}{2} \sum_{x \in X} u(x) +
-                                                                                         \frac{1}{2} \sum_{y \in Y} v(y) \\
+                                                                                         \frac{1}{2} \sum_{
+                                                                                            y \in Y} v(y) \\
                                         \text{subject to:} \quad &
                                                         \begin{pmatrix}
                                                                 \text{Diag}(u) & -D \\

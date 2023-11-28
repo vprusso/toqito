@@ -63,8 +63,8 @@ def symmetric_extension_hierarchy(
     Examples
     ==========
 
-    It is known from :cite:`Cosentino_2015_QuantumState` that distinguishing three Bell states along with a resource state
-    :math:`|\tau_{\epsilon}\rangle` via separable measurements has the following closed form
+    It is known from :cite:`Cosentino_2015_QuantumState` that distinguishing three Bell states along with a resource
+    state :math:`|\tau_{\epsilon}\rangle` via separable measurements has the following closed form
 
     .. math::
         \frac{1}{3} \left(2 + \sqrt{1 - \epsilon^2} \right)
@@ -130,7 +130,7 @@ def symmetric_extension_hierarchy(
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param states: A list of states provided as either matrices or vectors.
     :param probs: Respective list of probabilities each state is selected.

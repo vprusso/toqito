@@ -1,6 +1,5 @@
 """Maximally mixed state."""
 import numpy as np
-
 from scipy import sparse
 
 
@@ -59,7 +58,7 @@ def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, sparse.dia_matr
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param dim: Dimension of the entangled state.
     :param is_sparse: `True` if vector is spare and `False` otherwise.

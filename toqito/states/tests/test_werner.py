@@ -2,8 +2,8 @@
 import numpy as np
 import pytest
 
-from toqito.states import werner
 from toqito.matrix_props import is_density
+from toqito.states import werner
 
 
 def test_werner_qutrit():

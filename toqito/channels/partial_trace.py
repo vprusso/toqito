@@ -2,7 +2,6 @@
 
 
 import numpy as np
-
 from cvxpy.expressions.expression import Expression
 from cvxpy.expressions.variable import Variable
 
@@ -122,7 +121,7 @@ def partial_trace(
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :raises ValueError: If matrix dimension is not equal to the number of subsystems.
     :param input_mat: A square matrix.

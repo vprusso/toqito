@@ -2,7 +2,6 @@
 
 
 import numpy as np
-
 from picos import partial_trace
 
 from toqito.matrix_props import is_positive_semidefinite
@@ -84,7 +83,7 @@ def has_symmetric_extension(
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :raises ValueError: If dimension does not evenly divide matrix length.
     :param rho: A matrix or vector.

@@ -2,7 +2,6 @@
 
 
 import numpy as np
-
 from scipy import sparse
 
 from toqito.matrix_ops import tensor
@@ -81,7 +80,7 @@ def pauli(
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
     :param ind: The index to indicate which Pauli operator to generate.
     :param is_sparse: Returns a sparse matrix if set to True and a non-sparse
                       matrix if set to False.

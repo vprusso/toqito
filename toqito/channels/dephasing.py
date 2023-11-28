@@ -6,7 +6,7 @@ from toqito.states import max_entangled
 
 def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
     r"""Produce the partially dephasing channel.
-    
+
     (Section: The Completely Dephasing Channel from :cite:`Watrous_2018_TQI`).
 
     The Choi matrix of the completely dephasing channel that acts on :code:`dim`-by-:code:`dim`
@@ -76,7 +76,7 @@ def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param dim: The dimensionality on which the channel acts.
     :param param_p: Default is 0.

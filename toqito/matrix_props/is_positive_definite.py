@@ -52,8 +52,8 @@ def is_positive_definite(mat: np.ndarray) -> bool:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
-    
+
+
     :param mat: Matrix to check.
     :return: Return :code:`True` if matrix is positive definite, and :code:`False` otherwise.
     """

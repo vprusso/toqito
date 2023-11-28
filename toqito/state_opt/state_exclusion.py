@@ -54,8 +54,8 @@ def state_exclusion(
             \end{equation}
 
 
-    The conclusive state exclusion SDP is written explicitly in :cite:`Bandyopadhyay_2014_Conclusive`. The problem of conclusive
-    state exclusion was also thought about under a different guise in :cite:`Pusey_2012_On`.
+    The conclusive state exclusion SDP is written explicitly in :cite:`Bandyopadhyay_2014_Conclusive`. The problem
+    of conclusive state exclusion was also thought about under a different guise in :cite:`Pusey_2012_On`.
 
     Examples
     ==========
@@ -87,7 +87,7 @@ def state_exclusion(
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param vectors: A list of states provided as vectors.
     :param probs: Respective list of probabilities each state is selected. If no

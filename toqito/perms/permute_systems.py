@@ -1,6 +1,7 @@
 """Permute systems."""
 import functools
 import operator
+
 import numpy as np
 from scipy import sparse
 
@@ -129,7 +130,7 @@ def permute_systems(
      [49 53 50 54 51 55 52 56]
      [25 29 26 30 27 31 28 32]
      [57 61 58 62 59 63 60 64]]
-    
+
 
     :raises ValueError: If dimension does not match the number of subsystems.
     :param input_mat: The vector or matrix.
@@ -210,8 +211,8 @@ def permute_systems(
     # This condition is only necessary if the `input_mat` variable is sparse.
     if isinstance(input_mat, (sparse.csr_matrix, sparse.dia_matrix)):
         input_mat = input_mat.toarray()
-        permuted_mat = input_mat[row_perm, :]  
-        permuted_mat = np.array(permuted_mat)  # pylint: disable=redefined-variable-type
+        permuted_mat = input_mat[row_perm, :]
+        permuted_mat = np.array(permuted_mat)
     else:
         permuted_mat = input_mat[row_perm, :]
 

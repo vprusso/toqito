@@ -1,11 +1,12 @@
 """Test mutually_unbiased_basis."""
 import re
+
 import numpy as np
 import pytest
 
-from toqito.states.mutually_unbiased_basis import _is_prime_power
-from toqito.states import mutually_unbiased_basis
 from toqito.state_props import is_mutually_unbiased_basis
+from toqito.states import mutually_unbiased_basis
+from toqito.states.mutually_unbiased_basis import _is_prime_power
 
 
 @pytest.mark.parametrize("dim", [2, 3, 5, 7])
@@ -17,7 +18,8 @@ def test_mutually_unbiased_basis(dim):
 def test_mutually_unbiased_basis_prime_power_not_prime(dim):
     """Dimension is a prime power but not prime (this is not presently supported)."""
     with pytest.raises(
-        ValueError, match=re.escape(f"Dimension {dim} is a prime power but not prime (more complicated no support at the moment).")
+        ValueError,
+        match=re.escape(f"Dimension {dim} is a prime power but not prime (more complicated no support at the moment).")
     ):
         mutually_unbiased_basis(dim)
 

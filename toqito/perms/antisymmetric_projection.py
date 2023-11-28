@@ -1,5 +1,6 @@
 """Antisymmetric projection operator."""
 from itertools import permutations
+
 import numpy as np
 from scipy import linalg, sparse
 
@@ -68,7 +69,7 @@ def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) 
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param dim: The dimension of the local systems.
     :param p_param: Default value of 2.

@@ -52,8 +52,8 @@ def optimal_clone(
     Examples
     ==========
 
-    Wiesner's original quantum money scheme :cite:`Wiesner_1983_Conjugate` was shown in :cite:`Molina_2012_Optimal` to have an optimal
-    probability of 3/4 for succeeding a counterfeiting attack.
+    Wiesner's original quantum money scheme :cite:`Wiesner_1983_Conjugate` was shown in :cite:`Molina_2012_Optimal`
+    to have an optimal probability of 3/4 for succeeding a counterfeiting attack.
 
     Specifically, in the single-qubit case, Wiesner's quantum money scheme corresponds to the
     following ensemble:
@@ -92,7 +92,7 @@ def optimal_clone(
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param states: A list of states provided as either matrices or vectors.
     :param probs: Respective list of probabilities each state is selected.

@@ -2,12 +2,10 @@
 
 
 import numpy as np
-
 from picos import partial_trace
 
 from toqito.channels import realignment
 from toqito.matrix_props import is_positive_semidefinite, trace_norm
-
 from toqito.state_props import in_separable_ball, is_ppt
 from toqito.state_props.has_symmetric_extension import has_symmetric_extension
 
@@ -24,7 +22,8 @@ def is_separable(
 
     .. math::
         \rho = \rho_1 \otimes \rho_2.
-        \rho_1 = \frac{1}{2} \left( |0 \rangle \langle 0| + |0 \rangle \langle 1| + |1 \rangle \langle 0| + |1 \rangle \langle 1| \right)
+        \rho_1 = \frac{1}{2} \left(
+            |0 \rangle \langle 0| + |0 \rangle \langle 1| + |1 \rangle \langle 0| + |1 \rangle \langle 1| \right)
         \rho_2 = \frac{1}{2} \left( |0 \rangle \langle 0| + |1 \rangle \langle 1| \right)
 
     The resulting density matrix will be:
@@ -56,7 +55,7 @@ def is_separable(
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :raises ValueError: If dimension is not specified.
     :param state: The matrix to check.
@@ -148,7 +147,8 @@ def is_separable(
     eig_vals, _ = np.linalg.eig(state)
     lam = eig_vals[np.argsort(-eig_vals)]
 
-    # There are some separability tests that work specifically in the qubit-qudit (i.e., 2 \otimes n) case. Check these tests.
+    # There are some separability tests that work specifically in the qubit-qudit (i.e., 2 \otimes n) case.
+    # Check these tests.
     if min_dim == 2:
         # Check if X is separable from spectrum.
         if (lam[0] - lam[2 * max_dim - 1]) ** 2 <= 4 * lam[2 * max_dim - 2] * lam[

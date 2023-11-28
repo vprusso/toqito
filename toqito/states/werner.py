@@ -1,5 +1,6 @@
 """Werner state."""
 import itertools
+
 import numpy as np
 
 from toqito.perms import permutation_operator, swap_operator
@@ -113,7 +114,7 @@ def werner(dim: int, alpha: float | list[float]) -> np.ndarray:
             )
         rho = rho / np.trace(rho)
         return rho
-    
+
     # Bipartite Werner state (executed only if alpha is a float).
     if isinstance(alpha, float):
         n_fac = 2

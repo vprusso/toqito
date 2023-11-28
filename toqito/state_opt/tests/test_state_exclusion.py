@@ -1,10 +1,9 @@
 """Test state_exclusion."""
 import pytest
 
-from toqito.states import bell
 from toqito.matrices import standard_basis
 from toqito.state_opt import state_exclusion
-
+from toqito.states import bell
 
 e_0, e_1 = standard_basis(2)
 
