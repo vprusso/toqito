@@ -2,6 +2,8 @@
 import numpy as np
 import picos
 
+from toqito.state_ops import pure_to_mixed
+
 
 def state_exclusion(
     vectors: list[np.ndarray],
@@ -125,7 +127,7 @@ def _min_error_primal(
         "min",
         picos.sum(
             [
-                (probs[i] * vectors[i] @ vectors[i].conj().T | measurements[i])
+                (probs[i] * pure_to_mixed(vectors[i].reshape(-1, 1)) | measurements[i])
                 for i in range(n)
             ]
         ),
@@ -147,7 +149,7 @@ def _min_error_dual(
     y_var = picos.HermitianVariable("Y", (dim, dim))
     problem.add_list_of_constraints(
         [
-            y_var << probs[i] * vector @ vector.conj().T
+            y_var << probs[i] * pure_to_mixed(vector.reshape(-1, 1))
             for i, vector in enumerate(vectors)
         ]
     )

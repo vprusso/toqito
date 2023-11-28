@@ -33,16 +33,13 @@ def vectors_from_gram_matrix(gram: np.ndarray) -> list[np.ndarray]:
     .. bibliography::
         :filter: docname in docnames
 
-    :raises LinAlgError: If the Gram matrix is not symmetric.
-    :raises LinAlgError: If the Gram matrix is not square..
+    :raises LinAlgError: If the Gram matrix is not square.
     :param gram: A square, symmetric matrix representing the Gram matrix.
     :return: A list of vectors (np.ndarray) corresponding to the ensemble of states.
     """
     dim = gram.shape[0]
     if gram.shape[0] != gram.shape[1]:
         raise np.linalg.LinAlgError("The Gram matrix must be square.")
-    if not np.allclose(gram, gram.T):
-        raise np.linalg.LinAlgError("The Gram matrix must be symmetric.")
 
     # If matrix is PD, can do Cholesky decomposition:
     try:

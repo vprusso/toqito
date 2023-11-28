@@ -37,8 +37,6 @@ def test_vectors_from_gram_matrix_not_psd():
 @pytest.mark.parametrize("gram", [
     # Non-square matrix.
     (np.array([[1, 2], [4, 5], [7, 8]])),
-    # Non-symmetric matrix.
-    (np.array([[1, 2], [3, 4]])),
 ])
 def test_vectors_from_gram_matrix_invalid_input(gram):
     with pytest.raises(np.linalg.LinAlgError):
