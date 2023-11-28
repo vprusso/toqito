@@ -3,8 +3,7 @@ import numpy as np
 
 
 def is_square(mat: np.ndarray) -> bool:
-    r"""
-    Determine if a matrix is square :cite:`WikiSqMat`.
+    r"""Determine if a matrix is square :cite:`WikiSqMat`.
 
     A matrix is square if the dimensions of the rows and columns are equivalent.
 

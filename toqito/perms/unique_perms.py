@@ -11,8 +11,7 @@ class UniqueElement:
 
 
 def unique_perms(elements: list[int]):
-    r"""
-    Determine the number of unique permutations of a list.
+    r"""Determine the number of unique permutations of a list.
 
     Examples
     ==========
@@ -43,8 +42,7 @@ def unique_perms(elements: list[int]):
 
 
 def perm_unique_helper(list_unique: list[UniqueElement], result_list: list[int], elem_d: int):
-    """
-    Provide helper function for unique_perms.
+    """Provide helper function for unique_perms.
 
     :param list_unique:
     :param result_list:

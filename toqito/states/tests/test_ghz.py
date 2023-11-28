@@ -22,8 +22,7 @@ def test_ghz(dim, num_qubits, coeff, expected_res):
 
 
 def test_ghz_4_7():
-    r"""
-    The following generates the following GHZ state in `(C^4)^{\otimes 7}`.
+    r"""The following generates the following GHZ state in `(C^4)^{\otimes 7}`.
 
     `1/sqrt(30) * (|0000000> + 2|1111111> + 3|2222222> + 4|3333333>)`.
     """

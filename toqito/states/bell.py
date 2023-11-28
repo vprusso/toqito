@@ -5,8 +5,7 @@ from toqito.states import basis
 
 
 def bell(idx: int) -> np.ndarray:
-    r"""
-    Produce a Bell state :cite:`WikiBellSt`.
+    r"""Produce a Bell state :cite:`WikiBellSt`.
 
     Returns one of the following four Bell states depending on the value of :code:`idx`:
 

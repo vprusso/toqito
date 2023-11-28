@@ -12,8 +12,7 @@ from toqito.rand import random_unitary
 
 
 class ExtendedNonlocalGame:
-    r"""
-    Create two-player extended nonlocal game object.
+    r"""Create two-player extended nonlocal game object.
 
     *Extended nonlocal games* are a superset of nonlocal games in which the
     players share a tripartite state with the referee. In such games, the
@@ -32,8 +31,7 @@ class ExtendedNonlocalGame:
     """
 
     def __init__(self, prob_mat: np.ndarray, pred_mat: np.ndarray, reps: int = 1) -> None:
-        """
-        Construct extended nonlocal game object.
+        """Construct extended nonlocal game object.
 
         :param prob_mat: A matrix whose (x, y)-entry gives the probability
                         that the referee will give Alice the value `x` and Bob
@@ -81,8 +79,7 @@ class ExtendedNonlocalGame:
             self.reps = reps
 
     def unentangled_value(self) -> float:
-        r"""
-        Calculate the unentangled value of an extended nonlocal game.
+        r"""Calculate the unentangled value of an extended nonlocal game.
 
         The *unentangled value* of an extended nonlocal game is the supremum
         value for Alice and Bob's winning probability in the game over all
@@ -125,8 +122,7 @@ class ExtendedNonlocalGame:
         return max_unent_val
 
     def nonsignaling_value(self) -> float:
-        r"""
-        Calculate the non-signaling value of an extended nonlocal game.
+        r"""Calculate the non-signaling value of an extended nonlocal game.
 
         The *non-signaling value* of an extended nonlocal game is the supremum
         value of the winning probability of the game taken over all
@@ -256,8 +252,7 @@ class ExtendedNonlocalGame:
         return ns_val
 
     def quantum_value_lower_bound(self, iters: int = 5, tol: float = 10e-6) -> float:
-        r"""
-        Calculate lower bound on the quantum value of an extended nonlocal game.
+        r"""Calculate lower bound on the quantum value of an extended nonlocal game.
 
         Test
 
@@ -427,8 +422,7 @@ class ExtendedNonlocalGame:
         return bob_povms, lower_bound
 
     def commuting_measurement_value_upper_bound(self, k: int | str = 1) -> float:
-        """
-        Compute an upper bound on the commuting measurement value of an extended nonlocal game.
+        """Compute an upper bound on the commuting measurement value of an extended nonlocal game.
 
         This function calculates an upper bound on the commuting measurement value by
         using k-levels of the NPA hierarchy :cite:`Navascues_2008_AConvergent`. The NPA hierarchy is a uniform family

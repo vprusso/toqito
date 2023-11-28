@@ -10,8 +10,7 @@ def swap(
     dim: list[int] | list[list[int], int, np.ndarray] = None,
     row_only: bool = False,
 ) -> np.ndarray:
-    r"""
-    Swap two subsystems within a state or operator.
+    r"""Swap two subsystems within a state or operator.
 
     Swaps the two subsystems of the vector or matrix :code:`rho`, where the dimensions of the (possibly more than 2)
     subsystems are given by :code:`dim` and the indices of the two subsystems to be swapped are specified in the 1-by-2

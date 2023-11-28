@@ -7,8 +7,7 @@ import numpy as np
 def schmidt_decomposition(
     rho: np.ndarray, dim: int | list[int] | np.ndarray = None, k_param: int = 0
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    r"""
-    Compute the Schmidt decomposition of a bipartite vector :cite:`WikiScmidtDecomp`.
+    r"""Compute the Schmidt decomposition of a bipartite vector :cite:`WikiScmidtDecomp`.
 
     Examples
     ==========
@@ -122,8 +121,7 @@ def schmidt_decomposition(
 def _operator_schmidt_decomposition(
     rho: np.ndarray, dim: int | list[int] | np.ndarray = None, k_param: int = 0
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    r"""
-    Calculate the Schmidt decomposition of an operator (matrix).
+    r"""Calculate the Schmidt decomposition of an operator (matrix).
 
     Given an input `rho` provided as a matrix, determine its corresponding
     Schmidt decomposition.

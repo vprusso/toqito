@@ -3,8 +3,7 @@ import numpy as np
 
 
 def is_circulant(mat: np.ndarray) -> bool:
-    r"""
-    Determine if matrix is circulant :cite:`WikiCirc`.
+    r"""Determine if matrix is circulant :cite:`WikiCirc`.
 
     A circulant matrix is a square matrix in which all row vectors are composed
     of the same elements and each row vector is rotated one element to the right

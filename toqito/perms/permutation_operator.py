@@ -11,8 +11,7 @@ def permutation_operator(
     inv_perm: bool = False,
     is_sparse: bool = False,
 ) -> np.ndarray:
-    r"""
-    Produce a unitary operator that permutes subsystems.
+    r"""Produce a unitary operator that permutes subsystems.
 
     Generates a unitary operator that permutes the order of subsystems according to the permutation vector :code:`perm`,
     where the :math:`i^{th}` subsystem has dimension :code:`dim[i]`.

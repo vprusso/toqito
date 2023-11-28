@@ -3,8 +3,7 @@ import numpy as np
 
 
 def measure(measurement: np.ndarray, state: np.ndarray) -> float:
-    r"""
-    Determine probability of obtaining a measurement outcome applied to state.
+    r"""Determine probability of obtaining a measurement outcome applied to state.
 
     A *measurement* is defined by a function
 

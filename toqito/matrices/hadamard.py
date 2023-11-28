@@ -3,8 +3,7 @@ import numpy as np
 
 
 def hadamard(n_param: int = 1) -> np.ndarray:
-    r"""
-    Produce a :code:`2^{n_param}` dimensional Hadamard matrix :cite:`WikiHadamard`.
+    r"""Produce a :code:`2^{n_param}` dimensional Hadamard matrix :cite:`WikiHadamard`.
 
     The standard Hadamard matrix that is often used in quantum information as a
     two-qubit quantum gate is defined as
@@ -51,8 +50,7 @@ def hadamard(n_param: int = 1) -> np.ndarray:
 
 
 def _hamming_distance(x_param: int) -> int:
-    """
-    Calculate the bit-wise Hamming distance of :code:`x_param` from 0.
+    """Calculate the bit-wise Hamming distance of :code:`x_param` from 0.
 
     The Hamming distance is the number 1s in the integer :code:`x_param`.
 

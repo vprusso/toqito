@@ -6,8 +6,7 @@ from toqito.matrices import gen_pauli
 
 
 def mutually_unbiased_basis(dim: int) -> list[np.ndarray]:
-    r"""
-    Generate list of MUBs for a given dimension :cite:`WikiMUB`.
+    r"""Generate list of MUBs for a given dimension :cite:`WikiMUB`.
 
     Note that this function only works if the dimension provided is prime or a power of a prime. Otherwise, we don't
     know how to generate general MUBs.
@@ -57,8 +56,7 @@ def mutually_unbiased_basis(dim: int) -> list[np.ndarray]:
 
 
 def _is_prime_power(n: int) -> bool:
-    """
-    Determine if a number is a prime power.
+    """Determine if a number is a prime power.
 
     A number is a prime power if it can be written as p^k, where p is a prime number and k is an integer greater than 0.
 

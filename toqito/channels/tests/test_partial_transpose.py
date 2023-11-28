@@ -43,8 +43,7 @@ def test_partial_transpose_sys_int():
 
 
 def test_partial_transpose():
-    """
-    Default partial_transpose.
+    """Default partial_transpose.
 
     By default, the partial_transpose function performs the transposition
     on the second subsystem.
@@ -60,8 +59,7 @@ def test_partial_transpose():
 
 
 def test_partial_transpose_sys():
-    """
-    Default partial transpose `sys` argument.
+    """Default partial transpose `sys` argument.
 
     By specifying the `sys` argument, you can perform the transposition on
     the first subsystem instead:
@@ -101,8 +99,7 @@ def test_partial_transpose_sys_vec_dim_vec():
 
 
 def test_partial_transpose_norm_diff():
-    """
-    Apply partial transpose to first and second subsystem.
+    """Apply partial transpose to first and second subsystem.
 
     Applying the transpose to both the first and second subsystems results
     in the standard transpose of the matrix.

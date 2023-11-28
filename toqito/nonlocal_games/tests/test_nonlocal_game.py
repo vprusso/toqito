@@ -106,8 +106,7 @@ class TestNonlocalGame(unittest.TestCase):
         self.assertEqual(np.isclose(res, expected_res), True)
 
     def test_chsh_game_classical_value_rep_2(self):
-        r"""
-        Classical value for the CHSH game for 2 reps.
+        r"""Classical value for the CHSH game for 2 reps.
 
         Note that for classical strategies, it is known that parallel repetition
         does *not* hold for the CHSH game, that is:
@@ -137,8 +136,7 @@ class TestNonlocalGame(unittest.TestCase):
         self.assertEqual(np.isclose(res, expected_res), True)
 
     def test_bcs_chsh_game_classical_value_rep_2(self):
-        r"""
-        Classical value for the CHSH game for 2 reps.
+        r"""Classical value for the CHSH game for 2 reps.
 
         Note that for classical strategies, it is known that parallel repetition
         does *not* hold for the CHSH game, that is:

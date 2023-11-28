@@ -4,8 +4,7 @@ from scipy import sparse
 
 
 def w_state(num_qubits: int, coeff: list[int] = None) -> np.ndarray:
-    r"""
-    Produce a W-state :cite:`Dur_2000_ThreeQubits`.
+    r"""Produce a W-state :cite:`Dur_2000_ThreeQubits`.
 
     Returns the W-state described in :cite:`Dur_2000_ThreeQubits`. The W-state on `num_qubits` qubits is defined by:
 

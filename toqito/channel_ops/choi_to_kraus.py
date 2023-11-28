@@ -11,8 +11,7 @@ from toqito.matrix_props import is_hermitian, is_positive_semidefinite
 def choi_to_kraus(
     choi_mat: np.ndarray, tol: float = 1e-9, dim: int | list[int] | np.ndarray = None
 ) -> list[np.ndarray] | list[list[np.ndarray]]:
-    r"""
-    Compute a list of Kraus operators from the Choi matrix from :cite:`Rigetti_2022_Forest`.
+    r"""Compute a list of Kraus operators from the Choi matrix from :cite:`Rigetti_2022_Forest`.
 
     Note that unlike the Choi or natural representation of operators, the Kraus representation is
     *not* unique.

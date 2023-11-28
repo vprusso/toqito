@@ -7,12 +7,11 @@ from toqito.states import basis, bell
 
 
 def test_ppt_distinguishability_yyd_density_matrices():
-    """
-    PPT distinguishing the YYD states from [1] should yield `7/8 ~ 0.875`
+    """PPT distinguishing the YYD states from [1] should yield `7/8 ~ 0.875`
 
     Feeding the input to the function as density matrices.
 
-    References:
+    References
     [1]: Yu, Nengkun, Runyao Duan, and Mingsheng Ying.
     "Four locally indistinguishable ququad-ququad orthogonal
     maximally entangled states."
@@ -56,12 +55,11 @@ def test_ppt_distinguishability_yyd_density_matrices():
 
 
 def test_ppt_distinguishability_yyd_vectors():
-    """
-    PPT distinguishing the YYD states from [1] should yield `7/8 ~ 0.875`
+    """PPT distinguishing the YYD states from [1] should yield `7/8 ~ 0.875`
 
     Feeding the input to the function as state vectors.
 
-    References:
+    References
     [1]: Yu, Nengkun, Runyao Duan, and Mingsheng Ying.
     "Four locally indistinguishable ququad-ququad orthogonal
     maximally entangled states."
@@ -99,13 +97,12 @@ def test_ppt_distinguishability_yyd_vectors():
 
 
 def test_ppt_distinguishability_yyd_states_no_probs():
-    """
-    PPT distinguishing the YYD states from [1] should yield 7/8 ~ 0.875
+    """PPT distinguishing the YYD states from [1] should yield 7/8 ~ 0.875
 
     If no probability vector is explicitly given, assume uniform
     probabilities are given.
 
-    References:
+    References
     [1]: Yu, Nengkun, Runyao Duan, and Mingsheng Ying.
     "Four locally indistinguishable ququad-ququad orthogonal
     maximally entangled states."
@@ -145,8 +142,7 @@ def test_ppt_distinguishability_yyd_states_no_probs():
 
 
 def test_ppt_distinguishability_werner_hiding_pairs():
-    r"""
-    One quantum data hiding scheme involves the Werner hiding pair.
+    r"""One quantum data hiding scheme involves the Werner hiding pair.
 
     A Werner hiding pair is defined by
 
@@ -165,7 +161,7 @@ def test_ppt_distinguishability_werner_hiding_pairs():
         \frac{1}{2} + \frac{1}{n+1}
     \end{equation}
 
-    References:
+    References
     [1]: Terhal, Barbara M., David P. DiVincenzo, and Debbie W. Leung.
     "Hiding bits in Bell states."
     Physical review letters 86.25 (2001): 5807.
@@ -200,8 +196,7 @@ def test_ppt_distinguishability_werner_hiding_pairs():
 
 
 def test_ppt_distinguishability_four_bell_states():
-    r"""
-    PPT distinguishing the four Bell states.
+    r"""PPT distinguishing the four Bell states.
 
     There exists a closed form formula for the probability with which one
     is able to distinguish one of the four Bell states given with equal
@@ -223,7 +218,7 @@ def test_ppt_distinguishability_four_bell_states():
     This formula happens to be equal to LOCC and SEP as well for this case.
     Refer to Theorem 5 in [1] for more details.
 
-    References:
+    References
     [1]: Bandyopadhyay, Somshubhro, et al.
     "Limitations on separable measurements by convex optimization."
     IEEE Transactions on Information Theory 61.6 (2015): 3593-3604.

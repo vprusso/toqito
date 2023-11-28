@@ -3,8 +3,7 @@ import numpy as np
 
 
 def random_ginibre(dim_n: int, dim_m: int) -> np.ndarray:
-    r"""
-    Generate a Ginibre random matrix :cite:`WikiCircLaw`.
+    r"""Generate a Ginibre random matrix :cite:`WikiCircLaw`.
 
     Generates a random :code:`dim_n`-by-:code:`dim_m` Ginibre matrix.
 

@@ -5,8 +5,7 @@ from toqito.states import basis
 
 
 def trine() -> list[np.ndarray]:
-    r"""
-    Produce the set of trine states (Slide 6 of :cite:`Yard_2017_Lecture11`).
+    r"""Produce the set of trine states (Slide 6 of :cite:`Yard_2017_Lecture11`).
 
     The trine states are formally defined as:
 

@@ -6,8 +6,7 @@ from toqito.channels import partial_trace
 
 
 def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
-    r"""
-    Compute the channel fidelity between two quantum channels :cite:`Katariya_2021_Geometric`.
+    r"""Compute the channel fidelity between two quantum channels :cite:`Katariya_2021_Geometric`.
 
     Let :math:`\Phi : \text{L}(\mathcal{Y}) \rightarrow \text{L}(\mathcal{X})` and
     :math:`\Psi: \text{L}(\mathcal{Y}) \rightarrow \text{L}(\mathcal{X})` be quantum channels. Then

@@ -7,8 +7,7 @@ from toqito.perms import permutation_operator
 
 
 class QuantumHedging:
-    r"""
-    Calculate optimal winning probabilities for hedging scenarios.
+    r"""Calculate optimal winning probabilities for hedging scenarios.
 
     Calculate the maximal and minimal winning probabilities for quantum
     hedging to occur in certain two-party scenarios :cite:`Arunachalam_2017_QuantumHedging, Molina_2012_Hedging`.
@@ -64,8 +63,7 @@ class QuantumHedging:
     """
 
     def __init__(self, q_a: np.ndarray, num_reps: int) -> None:
-        """
-        Initialize the variables for semidefinite program.
+        """Initialize the variables for semidefinite program.
 
         :param q_a: The fixed SDP variable.
         :param num_reps: The number of parallel repetitions.
@@ -92,8 +90,7 @@ class QuantumHedging:
             self._pperm = permutation_operator(2, perm)
 
     def max_prob_outcome_a_primal(self) -> float:
-        r"""
-        Compute the maximal probability for calculating outcome "a".
+        r"""Compute the maximal probability for calculating outcome "a".
 
         The primal problem for the maximal probability of "a" is given as:
 
@@ -126,8 +123,7 @@ class QuantumHedging:
         return problem.solve()
 
     def max_prob_outcome_a_dual(self) -> float:
-        r"""
-        Compute the maximal probability for calculating outcome "a".
+        r"""Compute the maximal probability for calculating outcome "a".
 
         The dual problem for the maximal probability of "a" is given as:
 
@@ -160,8 +156,7 @@ class QuantumHedging:
         return problem.solve()
 
     def min_prob_outcome_a_primal(self) -> float:
-        r"""
-        Compute the minimal probability for calculating outcome "a".
+        r"""Compute the minimal probability for calculating outcome "a".
 
         The primal problem for the minimal probability of "a" is given as:
 
@@ -194,8 +189,7 @@ class QuantumHedging:
         return problem.solve()
 
     def min_prob_outcome_a_dual(self) -> float:
-        r"""
-        Compute the minimal probability for calculating outcome "a".
+        r"""Compute the minimal probability for calculating outcome "a".
 
         The dual problem for the minimal probability of "a" is given as:
 

@@ -3,8 +3,7 @@ import numpy as np
 
 
 def in_separable_ball(mat: np.ndarray) -> bool:
-    r"""
-    Check whether an operator is contained in ball of separability :cite:`Gurvits_2002_Largest`.
+    r"""Check whether an operator is contained in ball of separability :cite:`Gurvits_2002_Largest`.
 
     Determines whether :code:`mat` is contained within the ball of separable operators centered
     at the identity matrix (i.e. the maximally-mixed state). The size of this ball was derived in

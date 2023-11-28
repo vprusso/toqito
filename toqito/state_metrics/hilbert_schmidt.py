@@ -5,8 +5,7 @@ from toqito.matrix_props import is_density
 
 
 def hilbert_schmidt(rho: np.ndarray, sigma: np.ndarray) -> float:
-    r"""
-    Compute the Hilbert-Schmidt distance between two states :cite:`WikiHilbSchOp`.
+    r"""Compute the Hilbert-Schmidt distance between two states :cite:`WikiHilbSchOp`.
 
     The Hilbert-Schmidt distance between density operators :math:`\rho` and :math:`\sigma` is defined as
 
