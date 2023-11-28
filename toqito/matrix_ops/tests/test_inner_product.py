@@ -26,3 +26,4 @@ def test_inner_product(v1, v2, expected_result):
 def test_inner_product_invalid_input(v1, v2):
     with pytest.raises(ValueError):
         inner_product(v1, v2)
+
