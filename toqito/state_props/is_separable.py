@@ -21,7 +21,8 @@ def is_separable(
 
     .. math::
         \rho = \rho_1 \otimes \rho_2.
-        \rho_1 = \frac{1}{2} \left( |0 \rangle \langle 0| + |0 \rangle \langle 1| + |1 \rangle \langle 0| + |1 \rangle \langle 1| \right)
+        \rho_1 = \frac{1}{2} \left(
+             |0 \rangle \langle 0| + |0 \rangle \langle 1| + |1 \rangle \langle 0| + |1 \rangle \langle 1| \right)
         \rho_2 = \frac{1}{2} \left( |0 \rangle \langle 0| + |1 \rangle \langle 1| \right)
 
     The resulting density matrix will be:
@@ -61,7 +62,7 @@ def is_separable(
     :param level: The level up to which to search for the symmetric extensions.
     :param tol: Numerical tolerance used.
     :return: :code:`True` if :code:`rho` is separabale and :code:`False` otherwise.
-    """  # noqa: E501
+    """
     if not is_positive_semidefinite(state):
         raise ValueError("Checking separability of non-positive semidefinite matrix is invalid.")
 

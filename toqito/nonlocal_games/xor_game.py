@@ -176,7 +176,8 @@ class XORGame:
                         \begin{equation}
                                 \begin{aligned}
                                         \text{minimize:} \quad & \frac{1}{2} \sum_{x \in X} u(x) +
-                                                                                         \frac{1}{2} \sum_{y \in Y} v(y) \\
+                                                                                         \frac{1}{2} \sum_{
+                                                                                            y \in Y} v(y) \\
                                         \text{subject to:} \quad &
                                                         \begin{pmatrix}
                                                                 \text{Diag}(u) & -D \\
@@ -196,7 +197,7 @@ class XORGame:
                 and :math:`f(x,y)` corresponds to :code:`pred_mat[x, y]`.
 
                 :return: A value between [0, 1] representing the quantum value.
-        """  # noqa: E501
+        """
         alice_in, bob_in = self.prob_mat.shape
         d_mat = np.zeros([alice_in, bob_in])
 
