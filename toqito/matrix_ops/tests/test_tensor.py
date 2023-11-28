@@ -169,7 +169,7 @@ def test_tensor_with_three_or_more_matrices():
     result = tensor(matrices)
 
     # Assert that the result is as expected
-    np.testing.assert_array_equal(result, expected_output)
+    assert result == expected_output
 
 
 def test_tensor_empty_args():
