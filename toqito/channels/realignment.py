@@ -52,7 +52,6 @@ def realignment(input_mat: np.ndarray, dim: int | list[int] = None) -> np.ndarra
     :raises ValueError: If dimension of matrix is invalid.
     :return: The realignment map matrix.
     """
-    eps = np.finfo(float).eps
     dim_mat = input_mat.shape
     round_dim = np.round(np.sqrt(dim_mat))
     if dim is None:
