@@ -2,8 +2,8 @@
 import numpy as np
 import pytest
 
-from toqito.states import basis
 from toqito.state_props import is_mutually_unbiased_basis
+from toqito.states import basis
 
 MUB_2 = [
     np.array([[1], [0]]),

@@ -1,6 +1,6 @@
 """Construct a set of mutually unbiased bases."""
 import numpy as np
-from sympy import primerange, isprime
+from sympy import isprime, primerange
 
 from toqito.matrices import gen_pauli
 

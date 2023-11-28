@@ -1,6 +1,5 @@
 """Maximally mixed state."""
 import numpy as np
-
 from scipy import sparse
 
 

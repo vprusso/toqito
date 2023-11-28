@@ -1,5 +1,6 @@
 """Check if set of states are antidistinguishable."""
 import numpy as np
+
 from toqito.state_opt import state_exclusion
 
 

@@ -1,5 +1,6 @@
 """Antisymmetric projection operator."""
 from itertools import permutations
+
 import numpy as np
 from scipy import linalg, sparse
 
