@@ -27,7 +27,7 @@ def trine() -> list[np.ndarray]:
        [0]]), array([[-0.5      ],
        [-0.8660254]]), array([[-0.5      ],
        [ 0.8660254]])]
-    
+
     References
     ==========
     .. bibliography::

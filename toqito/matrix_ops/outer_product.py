@@ -31,13 +31,13 @@ def outer_product(v1: np.ndarray, v2: np.ndarray) -> np.ndarray:
             4 & 5 & 6
         \end{pmatrix}=
         \begin{pmatrix}
-            1 \times 4 & 1 \times 5 & 1 \times 6 \\ 
-            2 \times 4 & 2 \times 5 & 2 \times 6 \\ 
+            1 \times 4 & 1 \times 5 & 1 \times 6 \\
+            2 \times 4 & 2 \times 5 & 2 \times 6 \\
             3 \times 4 & 3 \times 5 & 3 \times 6
         \end{pmatrix}=
         \begin{pmatrix}
-            4 & 5 & 6 \\ 
-            8 & 10 & 12 \\ 
+            4 & 5 & 6 \\
+            8 & 10 & 12 \\
             12 & 15 & 18
         \end{pmatrix}
 

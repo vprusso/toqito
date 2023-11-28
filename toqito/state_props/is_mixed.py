@@ -35,7 +35,7 @@ def is_mixed(state: np.ndarray) -> bool:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param state: The density matrix representing the quantum state.
     :return: :code:`True` if state is mixed and :code:`False` otherwise.

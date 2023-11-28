@@ -13,7 +13,7 @@ def is_quantum_channel(
     atol: float = 1e-08,
 ) -> bool:
     r"""Determine whether the given input is a quantum channel.
-    
+
     (Section 2.2.1: Definitions and Basic Notions Concerning Channels from
     :cite:`Watrous_2018_TQI`).
 

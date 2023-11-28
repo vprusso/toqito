@@ -106,7 +106,7 @@ def horodecki(a_param: float, dim: list[int] = None) -> np.ndarray:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     """
     if a_param < 0 or a_param > 1:

@@ -65,7 +65,7 @@ def singlet(dim: int) -> np.ndarray:
     ==========
     .. bibliography::
         :filter: docname in docnames
-      
+
     :param dim: The dimension of the generalized singlet state.
     :return: The singlet state of dimension `dim`.
     """

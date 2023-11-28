@@ -52,7 +52,7 @@ def is_diagonally_dominant(mat: np.ndarray, is_strict: bool = True) -> bool:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param mat: Matrix to check.
     :param is_strict: Whether the inequality is strict.

@@ -18,7 +18,7 @@ def test_vectors_to_gram_matrix(vectors, expected_result):
 
 
 @pytest.mark.parametrize("vectors", [
-    # Vectors of different sizes. 
+    # Vectors of different sizes.
     ([np.array([1, 2, 3]), np.array([1, 2])]),
 ])
 def test_vectors_to_gram_matrix_invalid_input(vectors):

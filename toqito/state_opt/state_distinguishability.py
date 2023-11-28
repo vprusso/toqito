@@ -59,7 +59,7 @@ def state_distinguishability(
     Examples
     ==========
 
-    State distinguishability for two state density matrices. 
+    State distinguishability for two state density matrices.
     In this example, the states :math:`|0\rangle` and :math:`|1\rangle`
     are orthogonal and therefore perfectly distinguishable.
 
@@ -77,7 +77,7 @@ def state_distinguishability(
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param states: A list of states provided as either matrices or vectors.
     :param probs: Respective list of probabilities each state is selected.

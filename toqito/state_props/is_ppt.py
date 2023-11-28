@@ -67,7 +67,7 @@ def is_ppt(mat: np.ndarray, sys: int = 2, dim: int | list[int] = None, tol: floa
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param mat: A square matrix.
     :param sys: Scalar or vector indicating which subsystems the transpose

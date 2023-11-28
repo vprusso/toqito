@@ -63,7 +63,7 @@ def is_density(mat: np.ndarray) -> bool:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
     :param mat: Matrix to check.
     :return: Return :code:`True` if matrix is a density matrix,
              and :code:`False` otherwise.

@@ -45,7 +45,7 @@ def shift(dim: int) -> np.ndarray:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param dim: Dimension of the matrix.
     :return: :code:`dim`-by-:code:`dim` shift matrix.

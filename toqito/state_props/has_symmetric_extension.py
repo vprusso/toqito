@@ -83,7 +83,7 @@ def has_symmetric_extension(
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :raises ValueError: If dimension does not evenly divide matrix length.
     :param rho: A matrix or vector.

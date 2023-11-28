@@ -48,7 +48,7 @@ def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
     :raises ValueError: If matrices are not of density operators.
     :param rho: An input matrix.
     :param sigma: An input matrix.

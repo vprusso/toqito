@@ -48,7 +48,7 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :raises ValueError: If matrices have improper dimension.
     :param rho: A matrix or vector.

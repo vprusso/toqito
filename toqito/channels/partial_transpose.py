@@ -105,8 +105,8 @@ def partial_transpose(
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
-    
+
+
     :param rho: A matrix.
     :param sys: Scalar or vector specifying the size of the subsystems.
     :param dim: Dimension of the subsystems. If :code:`None`, all dimensions

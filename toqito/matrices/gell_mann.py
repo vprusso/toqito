@@ -90,8 +90,8 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | scipy.sparse.cs
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
-    
+
+
 
     :raises ValueError: Indices must be integers between 0 and 8.
     :param ind: An integer between 0 and 8 (inclusive).

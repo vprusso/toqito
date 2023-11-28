@@ -320,7 +320,7 @@ class NonlocalGame:
         ==========
         .. bibliography::
             :filter: docname in docnames
-        
+
 
         :param dim: The dimension of the quantum system that Alice and Bob have
                     access to (default = 2).

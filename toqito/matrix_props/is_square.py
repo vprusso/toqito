@@ -48,7 +48,7 @@ def is_square(mat: np.ndarray) -> bool:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :raises ValueError: If variable is not a matrix.
     :param mat: The matrix to check.

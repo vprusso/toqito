@@ -8,13 +8,13 @@ from toqito.matrices import gen_pauli
 def mutually_unbiased_basis(dim: int) -> list[np.ndarray]:
     r"""
     Generate list of MUBs for a given dimension :cite:`WikiMUB`.
-    
+
     Note that this function only works if the dimension provided is prime or a power of a prime. Otherwise, we don't
     know how to generate general MUBs.
 
     Examples
     ========
-    
+
     For the case of dimension 2, the three mutually unbiased bases are provided by:
 
     .. math::
@@ -26,7 +26,7 @@ def mutually_unbiased_basis(dim: int) -> list[np.ndarray]:
     ==========
     .. [WikiMUB] Wikipedia: Mutually unbiased bases
         https://en.wikipedia.org/wiki/Mutually_unbiased_bases
-    
+
     :param dim: The dimension of the mutually unbiased bases to produce.
     :return: The set of mutually unbiased bases of dimension :code:`dim` (if known).
     """

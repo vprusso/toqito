@@ -35,7 +35,7 @@ def test_random_density_matrix(dim, is_real, distance_metric):
 
     # Check if the matrix is a valid density matrix
     assert is_density(dm), "Matrix should be a valid density matrix"
-    
+
     # Check if the matrix is positive semidefinite
     assert is_positive_semidefinite(dm), "Matrix should be positive semidefinite"
 

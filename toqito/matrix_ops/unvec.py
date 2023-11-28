@@ -76,7 +76,7 @@ def unvec(vector: np.ndarray, shape: list[int] = None) -> np.ndarray:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param vector: A (:code:`shape[0] * shape[1]`)-by-1 numpy array.
     :param shape: The shape of the output matrix; by default, the matrix is assumed to be square.

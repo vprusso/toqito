@@ -44,7 +44,7 @@ def is_totally_positive(mat: np.ndarray, tol: float = 1e-6, sub_sizes: list | No
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param mat: Matrix to check.
     :param tol: The absolute tolerance parameter (default 1e-06).

@@ -60,7 +60,7 @@ def gen_gell_mann(
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
 
     :param ind_1: A non-negative integer from 0 to :code:`dim-1` (inclusive).
     :param ind_2: A non-negative integer from 0 to :code:`dim-1` (inclusive).

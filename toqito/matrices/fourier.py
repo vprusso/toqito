@@ -47,8 +47,8 @@ def fourier(dim: int) -> np.ndarray:
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
-    
+
+
     :param dim: The size of the Fourier matrix.
     :return: The Fourier matrix of dimension :code:`dim`.
     """
