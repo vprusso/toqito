@@ -23,6 +23,7 @@ from toqito.state_props import negativity
     ],
 )
 def test_negativity(rho, dim, expected_result):
+    """Test function works as expected for a valid input."""
     np.testing.assert_allclose(negativity(rho, dim), expected_result)
 
 
@@ -39,5 +40,6 @@ def test_negativity(rho, dim, expected_result):
     ],
 )
 def test_negativity_invalid_input(rho, dim):
+    """Test function works as expected for an invalid input."""
     with np.testing.assert_raises(ValueError):
         negativity(rho, dim)

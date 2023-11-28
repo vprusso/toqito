@@ -20,8 +20,9 @@ def test_cb_trace_norm_CP():
 
 
 def test_cb_trace_norm_unitaries_channel():
-    """The diamond norm of phi = id- U id U* is the diameter of the smallest circle that contains the
-    eigenvalues of U.
+    """Test the CB trace norm of phi.
+
+    The diamond norm of phi = id- U id U* is the diameter of the smallest circle that contains the eigenvalues of U.
     """
     U = 1 / np.sqrt(2) * np.array([[1, 1], [-1, 1]])  # Hadamard gate
     phi = kraus_to_choi([[np.eye(2), np.eye(2)], [U, -U]])

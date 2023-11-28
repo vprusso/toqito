@@ -100,8 +100,10 @@ def test_dual_channel_not_matrix():
 
 
 def test_dual_channel_unspecified_dims():
-    """If the size of the Choi matrix is not a perfect square,
-    the dimensions of the input and output spaces must be specified.
+    """Test output of function when the dimensions must be specified.
+
+    If the size of the Choi matrix is not a perfect square, the dimensions of the input and output spaces must be
+    specified.
     """
     with np.testing.assert_raises(ValueError):
         j = np.arange(36).reshape(6, 6)
@@ -109,6 +111,6 @@ def test_dual_channel_unspecified_dims():
 
 
 def test_dual_channel_invalid_input():
-    """Invalid input"""
+    """Test error is raised for an invalid input."""
     with np.testing.assert_raises(ValueError):
         dual_channel([0])

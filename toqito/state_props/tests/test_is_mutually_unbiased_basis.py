@@ -72,5 +72,6 @@ e_0, e_1 = basis(2, 0), basis(2, 1)
     ),
 ])
 def test_is_mutually_unbiased(states, expected_result):
+    """Test function works as expected for a valid input."""
     np.testing.assert_equal(is_mutually_unbiased_basis(states), expected_result)
 

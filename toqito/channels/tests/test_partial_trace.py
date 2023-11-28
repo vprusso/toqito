@@ -146,7 +146,7 @@ def test_partial_trace_8_by_8():
 
 
 def test_partial_trace_6_by_6_subsystems_2_3():
-    """Test for 6-by-6 matrix for subsystems 2 x 3"""
+    """Test for 6-by-6 matrix for subsystems 2 x 3."""
     test_input_mat = np.arange(1, 37).reshape(6, 6)
 
     # Trace out first subsystem:
@@ -169,7 +169,7 @@ def test_partial_trace_6_by_6_subsystems_2_3():
 
 
 def test_partial_trace_6_by_6_subsystems_3_2():
-    """Test for 6-by-6 matrix for subsystems 3 x 2"""
+    """Test for 6-by-6 matrix for subsystems 3 x 2."""
     test_input_mat = np.arange(1, 37).reshape(6, 6)
 
     # Trace out first subsystem:
@@ -192,7 +192,7 @@ def test_partial_trace_6_by_6_subsystems_3_2():
 
 
 def test_partial_trace_9_by_9_subsystems_3_3():
-    """Test for 9-by-9 matrix for subsystems 3 x 3"""
+    """Test for 9-by-9 matrix for subsystems 3 x 3."""
     test_input_mat = np.arange(1, 82).reshape(9, 9)
 
     # Partial trace on first subsystem:

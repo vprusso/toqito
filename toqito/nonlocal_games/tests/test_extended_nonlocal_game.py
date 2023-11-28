@@ -160,8 +160,7 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         self.assertEqual(np.isclose(res, expected_res), True)
 
     def test_moe_mub_4_in_3_out_unentangled_value(self):
-        """Calculate the unentangled value of a monogamy-of-entanglement game.
-        """
+        """Calculate the unentangled value of a monogamy-of-entanglement game."""
         prob_mat, pred_mat = self.moe_mub_4_in_3_out_game()
         moe = ExtendedNonlocalGame(prob_mat, pred_mat)
         res = moe.unentangled_value()

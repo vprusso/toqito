@@ -18,6 +18,7 @@ e_0, e_1 = np.array([[1], [0]]), np.array([[0], [1]])
     ],
 )
 def test_entanglement_of_formation(rho, dim, expected_result):
+    """Test function works as expected for a valid input."""
     np.testing.assert_equal(np.isclose(entanglement_of_formation(rho, dim), expected_result), True)
 
 

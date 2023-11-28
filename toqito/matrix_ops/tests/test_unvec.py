@@ -12,4 +12,5 @@ from toqito.matrix_ops import unvec
     (np.array([1, 3, 2, 4]), [4, 1], np.array([[1], [3], [2], [4]])),
 ])
 def test_unvec(vector, shape, expected_result):
+    """Test function works as expected for a valid input."""
     np.testing.assert_array_equal(unvec(vector, shape), expected_result)

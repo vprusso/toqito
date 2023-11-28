@@ -5,6 +5,7 @@ from toqito.states import trine
 
 
 def test_trine():
+    """Test function works as expected for a valid input."""
     states = trine()
 
     # Trine[0]

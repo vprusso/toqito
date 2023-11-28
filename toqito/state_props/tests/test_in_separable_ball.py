@@ -27,4 +27,5 @@ random_u_mat = random_unitary(4)
     ],
 )
 def test_in_separable_ball(rho, expected_result):
+    """Test function works as expected for a valid input."""
     np.testing.assert_equal(in_separable_ball(rho), expected_result)

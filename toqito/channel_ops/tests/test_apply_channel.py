@@ -64,8 +64,7 @@ def test_apply_channel_kraus():
 
 @pytest.mark.parametrize("nested", [1, 2, 3])
 def test_apply_channel_cpt_kraus(nested):
-    """Apply Kraus map of single qubit depolarizing channel.
-    """
+    """Apply Kraus map of single qubit depolarizing channel."""
     test_input_mat = np.array([[1, 0], [0, 0]])
 
     expected_res = np.array([[0.5, 0], [0, 0.5]])

@@ -18,6 +18,7 @@ e_0, e_1 = np.array([[1], [0]]), np.array([[0], [1]])
     ],
 )
 def test_concurrence(rho, expected_result):
+    """Test function works as expected for a valid input."""
     res = concurrence(rho)
     np.testing.assert_equal(np.isclose(res, expected_result), True)
 
@@ -30,5 +31,6 @@ def test_concurrence(rho, expected_result):
     ],
 )
 def test_concurrence_invalid_input(rho):
+    """Test function works as expected for an invalid input."""
     with np.testing.assert_raises(ValueError):
         concurrence(rho)

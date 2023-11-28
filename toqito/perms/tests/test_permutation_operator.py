@@ -75,7 +75,7 @@ def test_permutation_operator_dim_2_perm_1_3_2():
 
 
 def test_permutation_operator_dim_2_2_perm_1_2():
-    """Test permutation operator when dim is [2, 2] and perm is [1, 2]"""
+    """Test permutation operator when dim is [2, 2] and perm is [1, 2]."""
     res = permutation_operator([2, 2], [1, 2])
     expected_res = np.identity(4)
     bool_mat = np.isclose(res, expected_res)
@@ -83,7 +83,7 @@ def test_permutation_operator_dim_2_2_perm_1_2():
 
 
 def test_permutation_operator_dim_2_2_perm_2_1():
-    """Test permutation operator when dim is [2, 2] and perm is [2, 1]"""
+    """Test permutation operator when dim is [2, 2] and perm is [2, 1]."""
     res = permutation_operator([2, 2], [2, 1])
     expected_res = np.array([[1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 1]])
     bool_mat = np.isclose(res, expected_res)

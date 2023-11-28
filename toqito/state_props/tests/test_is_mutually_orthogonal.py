@@ -29,6 +29,7 @@ from toqito.states import bell
     ],
 )
 def test_is_mutually_orthogonal(states, expected_result):
+    """Test function works as expected for a valid input."""
     np.testing.assert_equal(is_mutually_orthogonal(states), expected_result)
 
 
@@ -46,5 +47,6 @@ def test_is_mutually_orthogonal(states, expected_result):
     ],
 )
 def test_is_mutually_orthogonal_basis_invalid_input(states):
+    """Test function works as expected for an invalid input."""
     with np.testing.assert_raises(ValueError):
         is_mutually_orthogonal(states)
