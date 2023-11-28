@@ -144,7 +144,6 @@ def _min_error_dual(
     """Find the dual problem for minimum-error quantum state exclusion SDP."""
     n, dim = len(vectors), vectors[0].shape[0]
     problem = picos.Problem()
-    from toqito.state_ops import pure_to_mixed
 
     # Set up variables and constraints for SDP:
     y_var = picos.HermitianVariable("Y", (dim, dim))
