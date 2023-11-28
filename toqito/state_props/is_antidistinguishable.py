@@ -5,12 +5,12 @@ from toqito.state_opt import state_exclusion
 
 
 def is_antidistinguishable(states: list[np.ndarray]) -> bool:
-    r"""
-    Check whether a collection of vectors are antidistinguishable or not :cite: `Heinosaari_2018_Antidistinguishability`.
+    r"""Check whether a collection of vectors are antidistinguishable or not
+    :cite: `Heinosaari_2018_Antidistinguishability`.
 
     The ability to determine whether a set of quantum states are antidistinguishable can be obtained via the state
-    exclusion SDP :cite:`Bandyopadhyay_2014_Conclusive` such that we ignore the associated probabilities with which the states are chosen from the set of
-    vectors.
+    exclusion SDP :cite:`Bandyopadhyay_2014_Conclusive` such that we ignore the associated probabilities with which
+    the states are chosen from the set of vectors.
 
     Examples
     ========

@@ -22,7 +22,8 @@ def is_separable(
 
     .. math::
         \rho = \rho_1 \otimes \rho_2.
-        \rho_1 = \frac{1}{2} \left( |0 \rangle \langle 0| + |0 \rangle \langle 1| + |1 \rangle \langle 0| + |1 \rangle \langle 1| \right)
+        \rho_1 = \frac{1}{2} \left(
+            |0 \rangle \langle 0| + |0 \rangle \langle 1| + |1 \rangle \langle 0| + |1 \rangle \langle 1| \right)
         \rho_2 = \frac{1}{2} \left( |0 \rangle \langle 0| + |1 \rangle \langle 1| \right)
 
     The resulting density matrix will be:
@@ -146,7 +147,8 @@ def is_separable(
     eig_vals, _ = np.linalg.eig(state)
     lam = eig_vals[np.argsort(-eig_vals)]
 
-    # There are some separability tests that work specifically in the qubit-qudit (i.e., 2 \otimes n) case. Check these tests.
+    # There are some separability tests that work specifically in the qubit-qudit (i.e., 2 \otimes n) case.
+    # Check these tests.
     if min_dim == 2:
         # Check if X is separable from spectrum.
         if (lam[0] - lam[2 * max_dim - 1]) ** 2 <= 4 * lam[2 * max_dim - 2] * lam[
