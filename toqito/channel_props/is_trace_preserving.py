@@ -14,8 +14,7 @@ def is_trace_preserving(
     sys: int | list[int] = 2,
     dim: list[int] | np.ndarray = None,
 ) -> bool:
-    r"""
-    Determine whether the given channel is trace-preserving.
+    r"""Determine whether the given channel is trace-preserving.
 
     A map :math:`\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)` is
     *trace-preserving* if it holds that

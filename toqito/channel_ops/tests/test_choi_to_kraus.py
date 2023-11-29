@@ -7,7 +7,6 @@ from toqito.perms import swap_operator
 
 def test_choi_to_kraus():
     """Choi matrix of the swap operator."""
-
     choi_mat = np.array([[1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 1]])
     kraus_ops = [
         [
@@ -58,7 +57,6 @@ def test_choi_to_kraus_cpt():
 
 def test_choi_to_kraus_non_square():
     """Choi matrix of the swap operator for non square input/output."""
-
     choi_mat = swap_operator([2, 3])
     kraus_ops = [
         [

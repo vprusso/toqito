@@ -43,7 +43,7 @@ class TestNonlocalGame(unittest.TestCase):
 
     @staticmethod
     def chsh_bcs_game():
-        """Define the CHSH BCS game"""
+        """Define the CHSH BCS game."""
         c_1 = np.zeros((2, 2))
         c_2 = np.zeros((2, 2))
 
@@ -57,7 +57,7 @@ class TestNonlocalGame(unittest.TestCase):
         return [c_1, c_2]
 
     def test_chsh_bcs_game_to_nonlocal_game(self):
-        """Conversion of BCS game to nonlocal game"""
+        """Conversion of BCS game to nonlocal game."""
         bcs_game = self.chsh_bcs_game()
         chsh = NonlocalGame.from_bcs_game(bcs_game)
 
@@ -77,7 +77,7 @@ class TestNonlocalGame(unittest.TestCase):
         np.testing.assert_array_equal(chsh.pred_mat, pred_mat)
 
     def test_bcs_game_without_constraint(self):
-        """Empty list of constraints raises exception"""
+        """Empty list of constraints raises exception."""
         self.assertRaises(ValueError, NonlocalGame.from_bcs_game, [])
 
     def test_chsh_lower_bound(self):
@@ -106,8 +106,7 @@ class TestNonlocalGame(unittest.TestCase):
         self.assertEqual(np.isclose(res, expected_res), True)
 
     def test_chsh_game_classical_value_rep_2(self):
-        r"""
-        Classical value for the CHSH game for 2 reps.
+        r"""Classical value for the CHSH game for 2 reps.
 
         Note that for classical strategies, it is known that parallel repetition
         does *not* hold for the CHSH game, that is:
@@ -137,8 +136,7 @@ class TestNonlocalGame(unittest.TestCase):
         self.assertEqual(np.isclose(res, expected_res), True)
 
     def test_bcs_chsh_game_classical_value_rep_2(self):
-        r"""
-        Classical value for the CHSH game for 2 reps.
+        r"""Classical value for the CHSH game for 2 reps.
 
         Note that for classical strategies, it is known that parallel repetition
         does *not* hold for the CHSH game, that is:

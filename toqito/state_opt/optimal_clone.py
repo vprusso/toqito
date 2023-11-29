@@ -15,8 +15,7 @@ def optimal_clone(
     num_reps: int = 1,
     strategy: bool = False,
 ) -> float | np.ndarray:
-    r"""
-    Compute probability of counterfeiting quantum money :cite:`Molina_2012_Optimal`.
+    r"""Compute probability of counterfeiting quantum money :cite:`Molina_2012_Optimal`.
 
     The primal problem for the :math:`n`-fold parallel repetition is given as follows:
 
@@ -140,8 +139,7 @@ def optimal_clone(
 
 
 def primal_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
-    """
-    Primal problem for counterfeit attack.
+    """Primal problem for counterfeit attack.
 
     As the primal problem takes longer to solve than the dual problem (as
     the variables are of larger dimension), the primal problem is only here
@@ -176,8 +174,7 @@ def primal_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
 
 
 def dual_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
-    """
-    Dual problem for counterfeit attack.
+    """Dual problem for counterfeit attack.
 
     :return: The optimal value of performing a counterfeit attack.
     """

@@ -8,8 +8,7 @@ from toqito.perms import swap_operator
 
 
 def test_channel_dim_kraus():
-    """
-    Test channel dim of the superoperator PHI defined by:
+    """Test channel dim of the superoperator PHI defined below.
 
     Phi(X) = [[1,5],[1,0],[0,2]] X [[0,1][2,3][4,5]].conj().T -
     [[1,0],[0,0],[0,1]] X [[0,0][1,1],[0,0]].conj().T

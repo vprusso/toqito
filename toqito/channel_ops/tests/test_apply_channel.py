@@ -8,8 +8,7 @@ from toqito.perms import swap_operator
 
 
 def test_apply_channel_choi():
-    """
-    The swap operator is the Choi matrix of the transpose map.
+    """The swap operator is the Choi matrix of the transpose map.
 
     The following test is a (non-ideal, but illustrative) way of computing
     the transpose of a matrix.
@@ -25,8 +24,7 @@ def test_apply_channel_choi():
 
 
 def test_apply_channel_choi_non_square():
-    """
-    The swap operator is the Choi matrix of the transpose map.
+    """The swap operator is the Choi matrix of the transpose map.
 
     The following test is a (non-ideal, but illustrative) way of computing
     the transpose of a non square matrix.
@@ -42,8 +40,7 @@ def test_apply_channel_choi_non_square():
 
 
 def test_apply_channel_kraus():
-    """
-    Apply Kraus map.
+    """Apply Kraus map.
 
     The following test computes PHI(X) where X = [[1, 2], [3, 4]] and
     where PHI is the superoperator defined by:
@@ -67,9 +64,7 @@ def test_apply_channel_kraus():
 
 @pytest.mark.parametrize("nested", [1, 2, 3])
 def test_apply_channel_cpt_kraus(nested):
-    """
-    Apply Kraus map of single qubit depolarizing channel.
-    """
+    """Apply Kraus map of single qubit depolarizing channel."""
     test_input_mat = np.array([[1, 0], [0, 0]])
 
     expected_res = np.array([[0.5, 0], [0, 0.5]])

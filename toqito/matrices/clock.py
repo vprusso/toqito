@@ -5,8 +5,7 @@ import numpy as np
 
 
 def clock(dim: int) -> np.ndarray:
-    r"""
-    Produce clock matrix :cite:`WikiClock`.
+    r"""Produce clock matrix :cite:`WikiClock`.
 
     Returns the clock matrix of dimension :code:`dim` described in :cite:`WikiClock`.
     The clock matrix generates the following :code:`dim`-by-:code:`dim` matrix

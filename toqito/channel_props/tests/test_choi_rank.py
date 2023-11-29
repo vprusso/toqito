@@ -6,7 +6,7 @@ from toqito.channel_props import choi_rank
 
 
 def test_choi_rank_list_kraus():
-    """Verify that a list of Kraus operators gives correct Choi rank"""
+    """Verify that a list of Kraus operators gives correct Choi rank."""
     kraus_1 = np.array([[1, 0], [0, 0]])
     kraus_2 = np.array([[1, 0], [0, 0]]).conj().T
     kraus_3 = np.array([[0, 1], [0, 0]])
@@ -32,8 +32,10 @@ def test_choi_rank_choi_matrix():
 
 
 def test_choi_bad_input():
-    """Verify that a bad input (such as a string which still passes
-    with `numpy.linalg.matrix_rank`) raises an error"""
+    """Verify that a bad input raises an error.
+
+    The bad input is a string which still passes with `numpy.linalg.matrix_rank`.
+    """
     with pytest.raises(ValueError, match="Not a valid"):
         bad_input = "string"
         choi_rank(bad_input)

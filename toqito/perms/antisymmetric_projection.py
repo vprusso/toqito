@@ -8,8 +8,7 @@ from toqito.perms import perm_sign, permutation_operator
 
 
 def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) -> sparse.lil_matrix:
-    r"""
-    Produce the projection onto the antisymmetric subspace :cite:`WikiAsymmOp`.
+    r"""Produce the projection onto the antisymmetric subspace :cite:`WikiAsymmOp`.
 
     Produces the orthogonal projection onto the anti-symmetric subspace of :code:`p_param` copies of
     :code:`dim`-dimensional space. If :code:`partial = True`, then the antisymmetric projection (PA) isn't the

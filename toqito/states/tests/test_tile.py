@@ -24,6 +24,7 @@ e_0, e_1, e_2 = np.array([[1], [0], [0]]), np.array([[0], [1], [0]]), np.array([
     ],
 )
 def test_tile(tile_idx, expected_result):
+    """Test function works as expected for a valid input."""
     np.testing.assert_array_equal(tile(tile_idx), expected_result)
 
 

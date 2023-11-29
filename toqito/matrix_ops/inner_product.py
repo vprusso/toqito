@@ -3,8 +3,7 @@ import numpy as np
 
 
 def inner_product(v1: np.ndarray, v2: np.ndarray) -> float:
-    r"""
-    Compute the inner product :math:`\langle v_1|v_2\rangle` of two vectors :cite:`WikiInnerProd`.
+    r"""Compute the inner product :math:`\langle v_1|v_2\rangle` of two vectors :cite:`WikiInnerProd`.
 
     The inner product is calculated as follows:
 

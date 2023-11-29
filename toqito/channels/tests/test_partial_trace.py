@@ -7,8 +7,7 @@ from toqito.channels import partial_trace
 
 
 def test_partial_trace():
-    """
-    Standard call to partial_trace.
+    """Standard call to partial_trace.
 
     By default, the partial_trace function takes the trace over the second
     subsystem.
@@ -24,8 +23,7 @@ def test_partial_trace():
 
 
 def test_partial_trace_sys():
-    """
-    Specify the `sys` argument.
+    """Specify the `sys` argument.
 
     By specifying the `sys` argument, you can perform the partial trace
     the first subsystem instead:
@@ -53,8 +51,7 @@ def test_partial_trace_sys_int():
 
 
 def test_partial_trace_sys_int_dim_int():
-    """
-    Default second subsystem.
+    """Default second subsystem.
 
     By default, the partial_transpose function takes the trace over
     the second subsystem.
@@ -70,8 +67,7 @@ def test_partial_trace_sys_int_dim_int():
 
 
 def test_partial_trace_sys_int_dim_int_2():
-    """
-    Default second subsystem.
+    """Default second subsystem.
 
     By default, the partial_transpose function takes the trace over
     the second subsystem.
@@ -150,7 +146,7 @@ def test_partial_trace_8_by_8():
 
 
 def test_partial_trace_6_by_6_subsystems_2_3():
-    """Test for 6-by-6 matrix for subsystems 2 x 3"""
+    """Test for 6-by-6 matrix for subsystems 2 x 3."""
     test_input_mat = np.arange(1, 37).reshape(6, 6)
 
     # Trace out first subsystem:
@@ -173,7 +169,7 @@ def test_partial_trace_6_by_6_subsystems_2_3():
 
 
 def test_partial_trace_6_by_6_subsystems_3_2():
-    """Test for 6-by-6 matrix for subsystems 3 x 2"""
+    """Test for 6-by-6 matrix for subsystems 3 x 2."""
     test_input_mat = np.arange(1, 37).reshape(6, 6)
 
     # Trace out first subsystem:
@@ -196,7 +192,7 @@ def test_partial_trace_6_by_6_subsystems_3_2():
 
 
 def test_partial_trace_9_by_9_subsystems_3_3():
-    """Test for 9-by-9 matrix for subsystems 3 x 3"""
+    """Test for 9-by-9 matrix for subsystems 3 x 3."""
     test_input_mat = np.arange(1, 82).reshape(9, 9)
 
     # Partial trace on first subsystem:

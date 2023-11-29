@@ -11,8 +11,7 @@ def state_exclusion(
     solver: str = "cvxopt",
     primal_dual: str = "dual",
 ) -> tuple[float, list[picos.HermitianVariable]]:
-    r"""
-    Compute probability of single state conclusive state exclusion.
+    r"""Compute probability of single state conclusive state exclusion.
 
     The *quantum state exclusion* problem involves a collection of :math:`n` quantum states
 

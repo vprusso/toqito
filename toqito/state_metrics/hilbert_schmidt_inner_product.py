@@ -3,8 +3,7 @@ import numpy as np
 
 
 def hilbert_schmidt_inner_product(a_mat: np.ndarray, b_mat: np.ndarray) -> complex:
-    r"""
-    Compute the Hilbert-Schmidt inner product between two matrices :cite:`WikiHilbSchOp`.
+    r"""Compute the Hilbert-Schmidt inner product between two matrices :cite:`WikiHilbSchOp`.
 
     The Hilbert-Schmidt inner product between :code:`a_mat` and :code:`b_mat` is defined as
 

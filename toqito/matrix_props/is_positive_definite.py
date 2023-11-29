@@ -5,8 +5,7 @@ from toqito.matrix_props import is_hermitian  # pylint: disable=unused-import
 
 
 def is_positive_definite(mat: np.ndarray) -> bool:
-    r"""
-    Check if matrix is positive definite (PD) :cite:`WikiPosDef`.
+    r"""Check if matrix is positive definite (PD) :cite:`WikiPosDef`.
 
     Examples
     ==========

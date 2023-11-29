@@ -42,6 +42,7 @@ e_0, e_1 = np.array([[1], [0]]), np.array([[0], [1]])
     ],
 )
 def test_schmidt_rank_bell_state(rho, dim, expected_result):
+    """Test function works as expected for a valid input."""
     np.testing.assert_allclose(schmidt_rank(rho, dim), expected_result)
 
 
@@ -57,9 +58,6 @@ def test_schmidt_rank_entangled_state():
 
 
 def test_schmidt_rank_singlet_state():
-    """
-    Computing the Schmidt rank of the entangled singlet state should yield
-    a value greater than 1.
-    """
+    """Computing the Schmidt rank of the entangled singlet state should yield a value greater than 1."""
     rho = 1 / np.sqrt(2) * (np.kron(e_0, e_1) - np.kron(e_1, e_0))
     np.testing.assert_equal(schmidt_rank(rho) > 1, True)

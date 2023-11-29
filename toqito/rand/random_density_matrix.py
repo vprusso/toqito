@@ -10,8 +10,7 @@ def random_density_matrix(
     k_param: list[int] | int = None,
     distance_metric: str = "haar",
 ) -> np.ndarray:
-    r"""
-    Generate a random density matrix.
+    r"""Generate a random density matrix.
 
     Generates a random :code:`dim`-by-:code:`dim` density matrix distributed according to the Hilbert-Schmidt measure.
     The matrix is of rank <= :code:`k_param` distributed according to the distribution :code:`distance_metric` If

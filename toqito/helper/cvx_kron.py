@@ -7,8 +7,7 @@ from cvxpy.expressions.expression import Expression
 
 
 def cvx_kron(expr_1: np.ndarray | Expression, expr_2: np.ndarray | Expression) -> Expression:
-    """
-    Compute Kronecker product between CVXPY objects.
+    """Compute Kronecker product between CVXPY objects.
 
     By default, CVXPY does not support taking the Kronecker product when the argument on the left is
     equal to a CVXPY object and the object on the right is equal to a numpy object.

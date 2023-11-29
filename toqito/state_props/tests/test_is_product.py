@@ -34,5 +34,6 @@ e_0, e_1 = np.array([[1], [0]]), np.array([[0], [1]])
     ],
 )
 def test_is_product(rho, dim, expected_result):
+    """Test function works as expected for a valid input."""
     ipv, _ = is_product(rho=rho, dim=dim)
     np.testing.assert_equal(ipv, expected_result)

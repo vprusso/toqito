@@ -3,8 +3,7 @@ import numpy as np
 
 
 def horodecki(a_param: float, dim: list[int] = None) -> np.ndarray:
-    r"""
-    Produce a Horodecki state :cite:`Horodecki_1997_Separability, Chruscinski_2011_OnTheSymmetry`.
+    r"""Produce a Horodecki state :cite:`Horodecki_1997_Separability, Chruscinski_2011_OnTheSymmetry`.
 
     Returns the Horodecki state in either :math:`(3 \otimes 3)`-dimensional space or :math:`(2 \otimes 4)`-dimensional
     space, depending on the dimensions in the 1-by-2 vector :code:`dim`.

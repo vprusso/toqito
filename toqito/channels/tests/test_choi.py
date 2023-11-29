@@ -27,8 +27,7 @@ def test_choi_standard():
 
 
 def test_choi_reduction():
-    """
-    The reduction map is the map R defined by: R(X) = Tr(X)I - X.
+    """The reduction map is the map R defined by: R(X) = Tr(X)I - X.
 
     The reduction map is the Choi map that arises when a = 0, b = c = 1.
     """

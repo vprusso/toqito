@@ -17,13 +17,13 @@ ghz_2_3 = 1 / np.sqrt(2) * (tensor(e_0, e_0, e_0) + tensor(e_1, e_1, e_1))
     ],
 )
 def test_ghz(dim, num_qubits, coeff, expected_res):
+    """Test function works as expected for a valid input."""
     res = ghz(dim, num_qubits, coeff).toarray()
     np.testing.assert_allclose(res, expected_res)
 
 
 def test_ghz_4_7():
-    r"""
-    The following generates the following GHZ state in `(C^4)^{\otimes 7}`.
+    r"""The following generates the following GHZ state in `(C^4)^{\otimes 7}`.
 
     `1/sqrt(30) * (|0000000> + 2|1111111> + 3|2222222> + 4|3333333>)`.
     """

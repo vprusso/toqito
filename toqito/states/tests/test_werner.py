@@ -39,5 +39,6 @@ def test_werner_multipartite_valid():
     (2, {"key": "value"}),
 ])
 def test_werner_state_invalid(dim, alpha):
+    """Test function works as expected for an invalid input."""
     with pytest.raises(ValueError):
         werner(dim, alpha)

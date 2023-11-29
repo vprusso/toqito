@@ -26,8 +26,7 @@ def test_schmidt_decomp_max_ent():
 
 
 def test_schmidt_decomp_two_qubit_1():
-    """
-    Schmidt decomposition of two-qubit state.
+    """Schmidt decomposition of two-qubit state.
 
     The Schmidt decomposition of | phi > = 1/2(|00> + |01> + |10> + |11>) is
     the state |+>|+> where |+> = 1/sqrt(2) * (|0> + |1>).
@@ -51,8 +50,7 @@ def test_schmidt_decomp_two_qubit_1():
 
 
 def test_schmidt_decomp_two_qubit_2():
-    """
-    Schmidt decomposition of two-qubit state.
+    """Schmidt decomposition of two-qubit state.
 
     The Schmidt decomposition of | phi > = 1/2(|00> + |01> + |10> - |11>) is
     the state 1/sqrt(2) * (|0>|+> + |1>|->).
@@ -83,8 +81,7 @@ def test_schmidt_decomp_two_qubit_2():
 
 
 def test_schmidt_decomp_two_qubit_3():
-    """
-    Schmidt decomposition of two-qubit state.
+    """Schmidt decomposition of two-qubit state.
 
     The Schmidt decomposition of 1/2* (|00> + |11>) has Schmidt coefficients
     equal to 1/2[1, 1]
@@ -115,8 +112,7 @@ def test_schmidt_decomp_two_qubit_3():
 
 
 def test_schmidt_decomp_two_qubit_4():
-    """
-    Schmidt decomposition of two-qubit state.
+    """Schmidt decomposition of two-qubit state.
 
     The Schmidt decomposition of 1/2 * (|00> - |01> + |10> + |11>) has Schmidt coefficients
     equal to [1, 1]

@@ -7,8 +7,7 @@ import numpy as np
 def update_odometer(
     old_ind: list[int] | np.ndarray, upper_lim: list[int] | np.ndarray
 ) -> list[int]:
-    r"""
-    Increase a vector as odometer.
+    r"""Increase a vector as odometer.
 
     Increases the last entry of the vector `old_ind` by 1, unless that would
     make it larger than the last entry of the vector `upper_lim`. In this case,

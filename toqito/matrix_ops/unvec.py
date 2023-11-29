@@ -3,8 +3,7 @@ import numpy as np
 
 
 def unvec(vector: np.ndarray, shape: list[int] = None) -> np.ndarray:
-    r"""
-    Perform the unvec operation on a vector to obtain a matrix :cite:`Rigetti_2022_Forest`.
+    r"""Perform the unvec operation on a vector to obtain a matrix :cite:`Rigetti_2022_Forest`.
 
     Takes a column vector and transforms it into a :code:`shape[0]`-by-:code:`shape[1]` matrix.
     This operation is the inverse of :code:`vec` operation in :code:`toqito`.

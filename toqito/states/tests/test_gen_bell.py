@@ -19,4 +19,5 @@ from toqito.states import bell, gen_bell
     ],
 )
 def test_gen_bell(k_1, k_2, dim, expected_result):
+    """Test function works as expected for a valid input."""
     np.testing.assert_allclose(gen_bell(k_1, k_2, dim), expected_result)

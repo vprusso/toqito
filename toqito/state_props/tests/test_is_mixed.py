@@ -15,4 +15,5 @@ e_0, e_1 = np.array([[1], [0]]), np.array([[0], [1]])
     ],
 )
 def test_is_mixed(states, expected_result):
+    """Test function works as expected for a valid input."""
     np.testing.assert_equal(is_mixed(states), expected_result)

@@ -34,4 +34,5 @@ brauer_2_2 = np.array(
     ],
 )
 def test_brauer(dim, p_val, expected_result):
+    """Test function works as expected for a valid input."""
     np.testing.assert_array_equal(brauer(dim, p_val), expected_result)

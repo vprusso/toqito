@@ -79,7 +79,7 @@ def test_entangled_realignment_criterion():
 
 
 def test_entangled_cross_norm_realignment_criterion():
-    """Determined to be entangled by using Theorem 1 and Remark 1 of Quantum Inf. Comput., 3:193-202, 2003."""
+    """Determined to be entangled by using Theorem 1 and Remark 1 of :cite:`Chen_2003_Matrix`."""
     p_var, a_var, b_var = 0.4, 0.8, 0.64
     rho = np.array(
         [

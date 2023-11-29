@@ -15,8 +15,7 @@ def permute_systems(
     row_only: bool = False,
     inv_perm: bool = False,
 ) -> np.ndarray:
-    r"""
-    Permute subsystems within a state or operator.
+    r"""Permute subsystems within a state or operator.
 
     Permutes the order of the subsystems of the vector or matrix :code:`input_mat` according to the permutation vector
     :code:`perm`, where the dimensions of the subsystems are given by the vector :code:`dim`. If :code:`input_mat` is

@@ -46,5 +46,6 @@ def test_w_state_generalized():
     ],
 )
 def test_w_state_invalid(idx, coeff):
+    """Test function works as expected for an invalid input."""
     with np.testing.assert_raises(ValueError):
         w_state(idx, coeff)

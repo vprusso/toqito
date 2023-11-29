@@ -8,8 +8,7 @@ from .state_helper import __is_probs_valid, __is_states_valid
 def state_distinguishability(
     states: list[np.ndarray], probs: list[float] = None, dist_method: str = "min-error"
 ) -> float:
-    r"""
-    Compute probability of state distinguishability :cite:`Eldar_2003_SDPApproach`.
+    r"""Compute probability of state distinguishability :cite:`Eldar_2003_SDPApproach`.
 
     The "quantum state distinguishability" problem involves a collection of :math:`n` quantum states
 

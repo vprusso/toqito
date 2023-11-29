@@ -3,8 +3,7 @@ import numpy as np
 
 
 def pure_to_mixed(phi: np.ndarray) -> np.ndarray:
-    r"""
-    Convert a state vector or density matrix to a density matrix.
+    r"""Convert a state vector or density matrix to a density matrix.
 
     Examples
     ==========

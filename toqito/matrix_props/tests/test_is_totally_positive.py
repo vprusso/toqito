@@ -28,6 +28,7 @@ from toqito.matrix_props import is_totally_positive
     (np.identity(3), 1e-6, None, True),
 ])
 def test_is_totally_positive(mat, tol, sub_sizes, expected_result):
+    """Test function works as expected for a valid input."""
     np.testing.assert_equal(is_totally_positive(mat, tol, sub_sizes), expected_result)
 
 
@@ -36,5 +37,6 @@ def test_is_totally_positive(mat, tol, sub_sizes, expected_result):
     (np.array([]), 1e-6, None),
 ])
 def test_is_totally_positive_invalid(mat, tol, sub_sizes):
+    """Test function works as expected for an invalid input."""
     with np.testing.assert_raises(ValueError):
         is_totally_positive(mat, tol, sub_sizes)
