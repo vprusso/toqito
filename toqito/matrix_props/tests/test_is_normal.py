@@ -7,8 +7,7 @@ from toqito.matrix_props import is_normal
 def test_is_normal():
     """Check that normal and non-unitary and non-Hermitian matrix yields True.
 
-    Normal matrix obtained from:
-    https://en.wikipedia.org/wiki/Normal_matrix
+    Normal matrix obtained from :cite:`WikiNorm`.
     """
     mat = np.array([[1, 1, 0], [0, 1, 1], [1, 0, 1]])
     np.testing.assert_equal(is_normal(mat), True)

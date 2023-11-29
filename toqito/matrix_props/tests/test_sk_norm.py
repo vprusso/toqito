@@ -20,11 +20,7 @@ def test_s1_norm_example():
         / 8
     )
 
-    # See:
-    # N. Johnston.
-    # Norms and Cones in the Theory of Quantum Entanglement.
-    # PhD thesis (arXiv:1207.1479)
-    # Example 5.2.11
+    # See Example 5.2.11 of :cite:`Johnston_2012_Norms`
     expected = 1 / 8 * (3 + 2 * np.sqrt(2))
 
     lower_bound, upper_bound = sk_operator_norm(mat)

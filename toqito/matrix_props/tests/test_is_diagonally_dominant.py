@@ -13,7 +13,7 @@ def test_is_not_square():
 def test_diagonally_dominant():
     """Check that strict diagonally dominance.
 
-    Matrix examples from: https://en.wikipedia.org/wiki/Diagonally_dominant_matrix
+    Matrix examples from :cite:`WikiDiagDom`.
     """
     # Diagonally dominant (but not strict)
     mat = np.array([[3, -2, 1], [1, 3, 2], [-1, 2, 4]])
