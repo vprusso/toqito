@@ -1,7 +1,7 @@
 Linear Algebra
 ==============
 
-A number of linear algebra-related functions.
+A number of linear algebra-related functions. Test addition.
 
 Matrices
 -----------
