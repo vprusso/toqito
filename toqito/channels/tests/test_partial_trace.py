@@ -24,7 +24,7 @@ def test_partial_trace_cvxpy():
     """Test partial trace on cvxpy objects."""
     x_var = cvxpy.Variable((4, 4), hermitian=True)
     x_pt = partial_trace(x_var)
-    np.testing.assert_equal(isinstance(x_pt, Vstack), True)
+    assert isinstance(x_pt, Vstack)
 
 
 test_input_mat = np.arange(1, 17).reshape(4, 4)
