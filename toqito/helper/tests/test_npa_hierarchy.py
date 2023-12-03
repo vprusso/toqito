@@ -60,7 +60,7 @@ def test_cglmp_inequality(k):
     objective = cvxpy.Maximize(i_b)
     problem = cvxpy.Problem(objective, npa)
     val = problem.solve()
-    np.testing.assert_equal(np.allclose(val, 2.914, atol=1e-3), True)
+    assert abs(val - 2.914) <= 1e-3
 
 
 @pytest.mark.parametrize("k, expected_size", [("1+a", 9), ("1+ab", 25)])
@@ -78,4 +78,4 @@ def test_cglmp_dimension(k, expected_size):
     for variable in problem.variables():
         if variable.name() == "R":
             r_size = variable.shape[0]
-    np.testing.assert_equal(np.allclose(r_size, expected_size), True)
+    assert r_size == expected_size
