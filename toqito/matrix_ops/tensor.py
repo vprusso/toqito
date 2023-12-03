@@ -141,7 +141,7 @@ def tensor(*args) -> np.ndarray:
             result = args[0][0]
             for i in range(1, len(args[0])):
                 result = np.kron(result, args[0][i])
-        return result
+            return result
 
     # Tensor product one matrix `n` times with itself.
     if len(args) == 2 and isinstance(args[1], int):

@@ -44,9 +44,8 @@ matrix4 = np.array([[7, 8]])
     # tensor product with a numpy array containing three or more matrices
     (np.array([matrix1, matrix2, matrix3, matrix4], dtype=object), 1, np.kron(
         np.kron(matrix1, np.kron(matrix2, matrix3)), matrix4)),
-    # tensor product of 4 matrices as input arg
-    ((matrix1, matrix2, matrix3, matrix4), 4, np.kron(
-        np.kron(matrix1, np.kron(matrix2, matrix3)), matrix4))])
+    # tesnor product of numpy array > len(3) inside a list
+    ([np.array([matrix1, matrix3, matrix4], dtype=object)], 1, np.array([[[1, 2]], [[5, 6]], [[7, 8]]]))])
 def test_tensor_multiple_input(test_input, len_input, expected):
     """Test function works as expected."""
     if len_input == 2:
@@ -58,6 +57,7 @@ def test_tensor_multiple_input(test_input, len_input, expected):
     elif len_input == 4:
         calculated = tensor(test_input[0], test_input[1], test_input[2], test_input[3])
         assert (calculated == expected).all()
+
 
 
 
