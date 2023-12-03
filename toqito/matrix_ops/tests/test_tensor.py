@@ -15,7 +15,7 @@ matrix4 = np.array([[7, 8]])
     # standard tensor product on vectors
     ((e_0, e_0), 2, np.kron(e_0, e_0)),
     # tensor product of 1 item to should return the item
-    (np.array([[1, 2], [3, 4]]), 1, np.array([[1, 2], [3, 4]])),
+    ([np.array([[1, 2], [3, 4]])], 1, np.array([[1, 2], [3, 4]])),
     # tensor product of multiple args as input
     ((np.identity(2), np.identity(2), np.identity(2), np.identity(2)), 4, np.identity(16)),
     # tensor product of array of 2 arrays
@@ -44,8 +44,8 @@ matrix4 = np.array([[7, 8]])
     # tensor product with a numpy array containing three or more matrices
     (np.array([matrix1, matrix2, matrix3, matrix4], dtype=object), 1, np.kron(
         np.kron(matrix1, np.kron(matrix2, matrix3)), matrix4)),
-    # tesnor product of numpy array > len(3) inside a list
-    ([np.array([matrix1, matrix3, matrix4], dtype=object)], 1, np.array([[[1, 2]], [[5, 6]], [[7, 8]]]))])
+    # tensor product of 1 matrix inside a list
+    ([np.array([np.identity(4)])], 1, np.identity(4))])
 def test_tensor_multiple_input(test_input, len_input, expected):
     """Test function works as expected."""
     if len_input == 2:

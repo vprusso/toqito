@@ -133,7 +133,7 @@ def tensor(*args) -> np.ndarray:
     if len(args) == 1 and isinstance(args[0], np.ndarray):
         # If the numpy array is just a single matrix, so the dimensions are
         # provided as an (x, y)-tuple.
-        if len(args[0].shape) == 2:
+        if len(args[0]) == 1:
             return args[0]
         if len(args[0]) == 2:
             return np.kron(args[0][0], args[0][1])
