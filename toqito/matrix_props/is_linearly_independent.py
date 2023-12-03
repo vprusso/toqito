@@ -11,7 +11,7 @@ def is_linearly_independent(vectors: list[np.ndarray]) -> bool:
     The following vectors are an example of a linearly independent set of vectors in :math:`\mathbb{R}^3`.
 
     .. math::
-        \begin{pmatrix} 
+        \begin{pmatrix}
             1 \\ 0 \\ 1
         \end{pmatrix}, \quad
         \begin{pmatrix}
@@ -25,7 +25,7 @@ def is_linearly_independent(vectors: list[np.ndarray]) -> bool:
 
     >>> import numpy as np
     >>> from toqito.matrix_props import is_linearly_independent
-    >>> 
+    >>>
     >>> v_1 = np.array([[1], [0], [1]])
     >>> v_2 = np.array([[1], [1], [0]])
     >>> v_3 = np.array([[0], [0], [1]])
