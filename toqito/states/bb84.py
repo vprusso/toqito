@@ -1,5 +1,6 @@
 """BB84 basis states."""
 import numpy as np
+
 from toqito.matrices import standard_basis
 
 
