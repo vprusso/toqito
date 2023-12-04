@@ -1,12 +1,12 @@
 """Check if a set of states form an unextendible product basis."""
-import numpy as np
 from itertools import permutations
+
+import numpy as np
 from more_itertools import set_partitions
 from scipy.linalg import null_space
 
-
-from toqito.state_props import is_product
 from toqito.matrix_ops import tensor
+from toqito.state_props import is_product
 
 
 def is_unextendible_product_basis(vecs: list | np.ndarray, dims: list | np.ndarray) -> tuple[bool, np.ndarray | None]:
