@@ -31,6 +31,10 @@ pylint = "^2.4"
 mypy = "^0.750.0"
 coverage = "^4.5"
 coveralls = "^1.9"
+sphinx = "7.2.6"
+sphinx_rtd_theme = "2.0.0rc4" # this version is temporary due to docutils version incompatibility with
+# sphinx, sphinx_rtd_theme and sphinxcontrib-bibtex
+sphinxcontrib-bibtex = "2.6.1"
 
 [build-system]
 requires = ["poetry>=0.12"]
