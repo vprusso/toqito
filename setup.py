@@ -7,6 +7,7 @@ requirements = [
     "cvx",
     "cvxpy",
     "cvxopt",
+    "more-itertools",
     "numpy",
     "picos",
     "scipy",
