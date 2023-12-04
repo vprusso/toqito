@@ -1,8 +1,9 @@
 """Check if a set of states form an unextendible product basis."""
 import numpy as np
-from scipy.linalg import null_space
 from itertools import permutations
 from more_itertools import set_partitions
+from scipy.linalg import null_space
+
 
 from toqito.state_props import is_product
 from toqito.matrix_ops import tensor
@@ -16,7 +17,7 @@ def is_unextendible_product_basis(vecs: list | np.ndarray, dims: list | np.ndarr
     :math:`S` of pure orthogonal product states spanning a proper subspace :math:`\mathcal{H}_S` of :math:`\mathcal{H}`.
     An unextendible product basis (UPB) is a PB whose complementary subspace :math:`\mathcal{H}_S-\mathcal{H}` contains
     no product state.  This function is inspired from `IsUPB <https://qetlab.com/IsUPB>`_ in QETLAB.
-    
+
     Examples
     ==========
     See :func:`toqito.states.tile`. All the states together form a UPB:
@@ -57,7 +58,7 @@ def is_unextendible_product_basis(vecs: list | np.ndarray, dims: list | np.ndarr
     :param vecs: The list of states.
     :param dims: The list of dimensions.
     :return: Returns a tuple. The first element is :code:`True` if input is a UPB and :code:`False` otherwise. The
-             second element is a witness (a product state orthogonal to all the input vectors) if the input is a 
+             second element is a witness (a product state orthogonal to all the input vectors) if the input is a
              PB and :code:`None` otherwise.
     """
     # Some error handling:

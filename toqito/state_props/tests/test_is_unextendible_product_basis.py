@@ -1,9 +1,10 @@
 """Test is_unextendible_product_basis."""
 import numpy as np
 
-from toqito.state_props import is_unextendible_product_basis
-from toqito.states import bell, basis, tile
+
 from toqito.matrix_ops import tensor
+from toqito.states import bell, basis, tile
+from toqito.state_props import is_unextendible_product_basis
 
 
 def test_is_unextensible_product_state_non_product_state():
