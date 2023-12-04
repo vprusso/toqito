@@ -1,5 +1,6 @@
 """Quantum states."""
 from toqito.states.basis import basis
+from toqito.states.bb84 import bb84
 from toqito.states.bell import bell
 from toqito.states.chessboard import chessboard
 from toqito.states.domino import domino
