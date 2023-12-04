@@ -1,4 +1,4 @@
-"""BB84 basis states"""
+"""BB84 basis states."""
 import numpy as np
 from toqito.matrices import standard_basis
 
@@ -22,10 +22,10 @@ def bb84() -> np.ndarray:
     >>> states = bb84()
     >>> print(f"|0> = {x[0][0].T}, \n |1> = {x[0][1].T}")
     >>> print(f"|+> = {x[1][0].T}, \n |-> = {x[1][1].T}")
-    |0> = [[1. 0.]], 
+    |0> = [[1. 0.]],
     |1> = [[0. 1.]]
-    |+> = [[0.70710678 0.70710678]], 
-    |-> = [[ 0.70710678 -0.70710678]]    
+    |+> = [[0.70710678 0.70710678]],
+    |-> = [[ 0.70710678 -0.70710678]]
 
     References
     ==========
@@ -40,4 +40,3 @@ def bb84() -> np.ndarray:
     # Plus/minus basis |+>, |->
     e_p, e_m = (e_0 + e_1) / np.sqrt(2), (e_0 - e_1) / np.sqrt(2)
     return [[e_0, e_1], [e_p, e_m]]
-    
