@@ -1,46 +1,48 @@
 """Tests for matsumoto_fidelity."""
+import cvxpy
 import numpy as np
+import pytest
 
 from toqito.state_metrics import matsumoto_fidelity
 from toqito.states import basis
 
+rho = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
 
-def test_matsumoto_fidelity_default():
-    """Test Matsumoto fidelity default arguments."""
-    rho = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
-    sigma = rho
+e_0, e_1 = basis(2, 0), basis(2, 1)
+rho1 = 3 / 4 * e_0 * e_0.conj().T + 1 / 4 * e_1 * e_1.conj().T
+sigma1 = 2 / 3 * e_0 * e_0.conj().T + 1 / 3 * e_1 * e_1.conj().T
 
-    res = matsumoto_fidelity(rho, sigma)
-    np.testing.assert_equal(np.isclose(res, 1), True)
+rho2 = 3 / 4 * e_0 * e_0.conj().T + 1 / 4 * e_1 * e_1.conj().T
+sigma2 = 1 / 8 * e_0 * e_0.conj().T + 7 / 8 * e_1 * e_1.conj().T
 
+rho5 = cvxpy.bmat([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
 
-def test_matsumoto_fidelity_non_identical_states_1():
-    """Test the Matsumoto fidelity between two non-identical states."""
-    e_0, e_1 = basis(2, 0), basis(2, 1)
-    rho = 3 / 4 * e_0 * e_0.conj().T + 1 / 4 * e_1 * e_1.conj().T
-    sigma = 2 / 3 * e_0 * e_0.conj().T + 1 / 3 * e_1 * e_1.conj().T
-    np.testing.assert_equal(np.isclose(matsumoto_fidelity(rho, sigma), 0.996, rtol=1e-03), True)
-
-
-def test_matsumoto_fidelity_non_identical_states_2():
-    """Test the Matsumoto fidelity between two non-identical states."""
-    e_0, e_1 = basis(2, 0), basis(2, 1)
-    rho = 3 / 4 * e_0 * e_0.conj().T + 1 / 4 * e_1 * e_1.conj().T
-    sigma = 1 / 8 * e_0 * e_0.conj().T + 7 / 8 * e_1 * e_1.conj().T
-    np.testing.assert_equal(np.isclose(matsumoto_fidelity(rho, sigma), 0.774, rtol=1e-03), True)
-
-
-def test_matsumoto_fidelity_non_square():
-    """Tests for invalid dim."""
-    rho = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
-    sigma = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
-    with np.testing.assert_raises(ValueError):
-        matsumoto_fidelity(rho, sigma)
+@pytest.mark.parametrize("input1, input2, expected", [
+    # when inputs are the same
+    (rho, rho, 1),
+    # inputs are non-identical
+    (rho1, sigma1, 0.996),
+    (rho2, sigma2, 0.774),
+    # when inputs are the same for cvxpy variable
+    (rho5, rho5, 1),])
+def test_matsumoto_fidelity(input1, input2, expected):
+    """Test functions works as expected for valid inputs."""
+    calculated_result = matsumoto_fidelity(input1, input2)
+    assert abs(calculated_result-expected) <= 1e-03
 
 
-def test_matsumoto_fidelity_invalid_dim():
-    """Tests for invalid dim."""
-    rho = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
-    sigma = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
-    with np.testing.assert_raises(ValueError):
-        matsumoto_fidelity(rho, sigma)
+rho3 = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
+sigma3 = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
+
+rho4 = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
+sigma4 = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+
+@pytest.mark.parametrize("input1, input2, expected_msg", [
+    # non square dims
+    (rho3, sigma3, "Matsumoto fidelity is only defined for density operators."),
+    # invalid dims
+    (rho4, sigma4, "InvalidDim: `rho` and `sigma` must be matrices of the same size."),])
+def test_matsumoto_fidelity_invalid_input(input1, input2, expected_msg):
+    """Test function raises an error for invalid inputs."""
+    with pytest.raises(ValueError, match=expected_msg):
+        matsumoto_fidelity(input1, input2)
