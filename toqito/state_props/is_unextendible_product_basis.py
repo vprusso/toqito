@@ -9,14 +9,15 @@ from toqito.matrix_ops import tensor
 from toqito.state_props import is_product
 
 
-def is_unextendible_product_basis(vecs: list | np.ndarray, dims: list | np.ndarray) -> tuple[bool, np.ndarray | None]:
+def is_unextendible_product_basis(vecs: list[np.ndarray], dims: list[int]) -> tuple[bool, np.ndarray]:
     r"""Check if a set of vectors form an unextendible product basis (UPB) :cite:`Bennett_1999_UPB`.
 
     Consider a multipartite quantum system :math:`\mathcal{H} = \bigotimes_{i=1}^{m} \mathcal{H}_{i}` with :math:`m`
-    parties with respective dimensions :math:`d_i, i=1,2,..,m`. An (incomplete orthogonal) product basis (PB) is a set
-    :math:`S` of pure orthogonal product states spanning a proper subspace :math:`\mathcal{H}_S` of :math:`\mathcal{H}`.
-    An unextendible product basis (UPB) is a PB whose complementary subspace :math:`\mathcal{H}_S-\mathcal{H}` contains
-    no product state.  This function is inspired from `IsUPB <https://qetlab.com/IsUPB>`_ in QETLAB.
+    parties with respective dimensions :math:`d_i, i = 1, 2, ..., m`. An (incomplete orthogonal) product basis (PB) is a
+    set :math:`S` of pure orthogonal product states spanning a proper subspace :math:`\mathcal{H}_S` of
+    :math:`\mathcal{H}`.  An unextendible product basis (UPB) is a PB whose complementary subspace
+    :math:`\mathcal{H}_S-\mathcal{H}` contains no product state.  This function is inspired from `IsUPB` in
+    :cite:`QETLAB_link`.
 
     Examples
     ==========
@@ -61,11 +62,8 @@ def is_unextendible_product_basis(vecs: list | np.ndarray, dims: list | np.ndarr
              second element is a witness (a product state orthogonal to all the input vectors) if the input is a
              PB and :code:`None` otherwise.
     """
-    # Some error handling:
-    if isinstance(vecs, list):
-        vecs = np.array(vecs)
-    if isinstance(dims, list):
-        dims = np.array(dims)
+    vecs = np.array(vecs)
+    dims = np.array(dims)
 
     if np.prod(dims) != vecs.shape[1]:
         raise ValueError("Product of dimensions does not equal the size of each vector")
@@ -79,10 +77,9 @@ def is_unextendible_product_basis(vecs: list | np.ndarray, dims: list | np.ndarr
     # Number of vectors (n).
     num_vecs = vecs.shape[0]
 
-    # If n<m vectors are provided, then we cannot generate set partitions,
-    # so it is not a UPB. We will extend the set with m-n null vectors and
-    # run the same algorithm.
-    if num_vecs < num_parties:
+    # If n < m vectors are provided, then we cannot generate set partitions, so it is not a UPB. We will extend the set
+    # with m-n null vectors and run the same algorithm.
+    if (num_vecs := vecs.shape[0]) < num_parties:
         vecs = np.append(vecs, np.zeros(shape=(num_parties - num_vecs, *vecs.shape[1:])), axis=0)
         num_vecs = vecs.shape[0]
 

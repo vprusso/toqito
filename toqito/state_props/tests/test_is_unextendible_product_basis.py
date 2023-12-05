@@ -1,68 +1,54 @@
 """Test is_unextendible_product_basis."""
 import numpy as np
+import pytest
 
 from toqito.matrix_ops import tensor
 from toqito.state_props import is_unextendible_product_basis
 from toqito.states import basis, bell, tile
 
 
-def test_is_unextensible_product_state_non_product_state():
-    """Check if exception raised if non-product state is passed."""
-    bell_states = [bell(i) for i in range(4)]
-    dims = [2, 2]
-    np.testing.assert_raises(ValueError, is_unextendible_product_basis, bell_states, dims)
+e_0, e_1 = basis(2, 0), basis(2, 1)
+e_p, e_m = (e_0 + e_1) / np.sqrt(2), (e_0 - e_1) / np.sqrt(2)
 
 
-def test_is_unextensible_product_state_wrong_size():
-    """Check if exception raised if size of a vector does not match product of dims."""
-    bell_states = [bell(i) for i in range(4)]
-    dims = [2, 3]
-    np.testing.assert_raises(ValueError, is_unextendible_product_basis, bell_states, dims)
+@pytest.mark.parametrize(
+    "states, dims",
+    [
+        # Check if exception raised if non-product state is passed.
+        ([bell(0), bell(1), bell(2), bell(3)], [2, 2]),
+        # Check if exception raised if size of a vector does not match product of dims.
+        ([bell(0), bell(1), bell(2), bell(3)], [2, 3]),
+    ],
+)
+def test_unextendible_product_basis_invalid(states, dims):
+    """Test that invalid input for unextendible product basis is handled."""
+    with np.testing.assert_raises(ValueError):
+        is_unextendible_product_basis(states, dims)
 
 
-def test_is_unextensible_product_state_small_set():
-    """Check if correct answer returned when there are too few vectors."""
-    ket_0 = basis(2,0)
-    ket_1 = basis(2,1)
-    ket_plus = (ket_0 + ket_1) / np.sqrt(2)
-    ket_minus = (ket_0 - ket_1) / np.sqrt(2)
-    # {|0, 1, +>, |1, +, 0>, |+, 0, 1>, |−, −, −>}
-    vec_1 = tensor([ket_0, ket_1, ket_plus])
-    vec_4 = tensor([ket_minus, ket_minus, ket_minus])
-    vecs = [vec_1, vec_4]
-    dims = [2, 2, 2]
-    res = is_unextendible_product_basis(vecs, dims)
-    np.testing.assert_equal(res[0], False)
-
-
-def test_is_unextensible_product_state_tiles_5():
-    """Check if Tiles[0, 1, 2, 3, 4] is correctly identified as UPB."""
-    upb_tiles = [tile(i) for i in range(5)]
-    dims = [3, 3]
-    res = is_unextendible_product_basis(upb_tiles, dims)
-    np.testing.assert_equal(res[0], True)
-
-
-def test_is_unextensible_product_state_tiles_4():
-    """Check if Tiles[0, 1, 2, 3] is correctly identified as non-UPB."""
-    non_upb_tiles = [tile(i) for i in range(4)]
-    dims = [3, 3]
-    res = is_unextendible_product_basis(non_upb_tiles, dims)
-    np.testing.assert_equal(res[0], False)
-
-
-def test_is_unextensible_product_state_shifts():
-    """Check if Shifts is correctly identified as UPB."""
-    ket_0 = basis(2, 0)
-    ket_1 = basis(2, 1)
-    ket_plus = (ket_0 + ket_1) / np.sqrt(2)
-    ket_minus = (ket_0 - ket_1) / np.sqrt(2)
-    # {|0, 1, +>, |1, +, 0>, |+, 0, 1>, |−, −, −>}
-    vec_1 = tensor([ket_0, ket_1, ket_plus])
-    vec_2 = tensor([ket_1, ket_plus, ket_0])
-    vec_3 = tensor([ket_plus, ket_0, ket_1])
-    vec_4 = tensor([ket_minus, ket_minus, ket_minus])
-    vecs = [vec_1, vec_2, vec_3, vec_4]
-    dims = [2, 2, 2]
-    res = is_unextendible_product_basis(vecs, dims)
-    np.testing.assert_equal(res[0], True)
+@pytest.mark.parametrize(
+    "states, dims, expected_result",
+    [
+        # Check if correct answer returned when there are too few vectors.
+        ([tensor([e_0, e_1, e_p]), tensor([e_m, e_m, e_m])], [2, 2, 2], False),
+        # Check if Tiles[0, 1, 2, 3, 4] is correctly identified as UPB.
+        ([tile(0), tile(1), tile(2), tile(3), tile(4)], [3, 3], True),
+        # Check if Tiles[0, 1, 2, 3] is correctly identified as non-UPB.
+        ([tile(0), tile(1), tile(2), tile(3)], [3, 3], False),
+        # Check if Shifts is correctly identified as UPB.
+        (
+            [
+                tensor([e_0, e_1, e_p]), 
+                tensor([e_1, e_p, e_0]),
+                tensor([e_p, e_0, e_1]),
+                tensor([e_m, e_m, e_m])
+            ],
+            [2, 2, 2],
+            True
+        ),
+    ],
+)
+def test_unextendible_product_basis(states, dims, expected_result):
+    """Test UPB works as expected for a valid input."""
+    res = is_unextendible_product_basis(states, dims)
+    np.testing.assert_equal(res[0], expected_result)
