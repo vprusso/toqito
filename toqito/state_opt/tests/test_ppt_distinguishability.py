@@ -171,7 +171,7 @@ def test_ppt_distinguishability_four_bell_states():
 
     The resource state is defined by
 
-    ..math::
+    .. math::
         |\tau_{\epsilon} \rangle = \sqrt{\frac{1+\epsilon}{2}} +
         |0\rangle | 0\rangle +
         \sqrt{\frac{1-\epsilon}{2}} |1 \rangle |1 \rangle

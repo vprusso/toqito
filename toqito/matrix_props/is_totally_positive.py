@@ -12,7 +12,6 @@ def is_totally_positive(mat: np.ndarray, tol: float = 1e-6, sub_sizes: list | No
 
     Examples
     ========
-
     Consider the matrix
 
     .. math::
@@ -20,6 +19,7 @@ def is_totally_positive(mat: np.ndarray, tol: float = 1e-6, sub_sizes: list | No
             1 & 2 \\
             3 & 4
         \end{pmatrix}
+
     To determine if this matrix is totally positive, we need to check the positivity of all of its minors. The 1x1
     minors are simply the individual entries of the matrix. For :math:`X`, these are
 
