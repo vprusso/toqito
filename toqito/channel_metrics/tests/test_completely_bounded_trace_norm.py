@@ -33,5 +33,5 @@ def test_cb_trace_norm_invalid_input():
         ValueError,
         match="The input and output spaces of the superoperator phi must both be square.",
     ):
-        phi = np.array([[1, 2, 3], [4, 5, 6]])
-        completely_bounded_trace_norm(phi)
+        phi1 = np.array([[1, 2, 3], [4, 5, 6]])
+        completely_bounded_trace_norm(phi1)
