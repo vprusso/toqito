@@ -60,7 +60,7 @@ def test_cglmp_inequality(k):
     objective = cvxpy.Maximize(i_b)
     problem = cvxpy.Problem(objective, npa)
     val = problem.solve()
-    assert abs(val - 2.914) <= 1e-3
+    assert pytest.approx(val, 1e-3) == 2.914
 
 
 @pytest.mark.parametrize("k, expected_size", [("1+a", 9), ("1+ab", 25)])
