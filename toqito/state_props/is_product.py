@@ -102,7 +102,7 @@ def _is_product(rho: np.ndarray, dim: int | list[int] = None) -> list[int, bool]
         if ipv:
             ipv, tdec = _is_product(dec[0], [dim[0], dim[1]])
             if ipv:
-                dec = [tdec, dec[1:]]
+                dec = [*tdec, *dec[1:]]
     return ipv, dec
 
 

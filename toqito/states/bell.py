@@ -44,8 +44,6 @@ def bell(idx: int) -> np.ndarray:
     .. bibliography::
         :filter: docname in docnames
 
-
-
     :raises ValueError: If :code:`idx` is not an integer.
     :param idx: A parameter in [0, 1, 2, 3]
     :return: Bell state with index :code:`idx`.

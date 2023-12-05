@@ -77,6 +77,7 @@ Properties of Quantum States
     toqito.state_props.is_product
     toqito.state_props.is_pure
     toqito.state_props.is_separable
+    toqito.state_props.is_unextendible_product_basis
     toqito.state_props.l1_norm_coherence
     toqito.state_props.log_negativity
     toqito.state_props.negativity
