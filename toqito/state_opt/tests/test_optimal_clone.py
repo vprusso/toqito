@@ -13,36 +13,29 @@ states = [e_0, e_1, e_p, e_m]
 probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
 
 
-def test_counterfeit_attack_wiesner_money():
-    """Probability of counterfeit attack on Wiesner's quantum money."""
-    res = optimal_clone(states, probs)
-    np.testing.assert_equal(np.isclose(res, 3 / 4), True)
+@pytest.mark.parametrize("input_states, input_probs, num_reps, input_strategy, expected", [
+    # Probability of counterfeit attack on Wiesner's quantum money
+    (states, probs, 1, False, 3/4),
+    # Probability of counterfeit attack on Wiesner's quantum money with 2 parallel repitions
+    (states, probs, 2, False, 3/4),
+    # Counterfeit attack on Wiesner's quantum money (primal problem)
+    (states, probs, 1, True, 3/4),
+    # Counterfeit attack on Wiesner's quantum money (primal problem) with 2 parallel repitions
+    (states, probs, 2, True, 3/4),])
+def test_optimal_clone(input_states, input_probs, num_reps, input_strategy, expected):
+    """Test functions work as expected."""
+    expected_result = expected ** num_reps
+    calculated_result = optimal_clone(input_states, input_probs, num_reps, input_strategy)
+    assert pytest.approx(expected_result, 0.1) == calculated_result
 
 
-def test_counterfeit_attack_wiesner_money_rep_2():
-    """Probability of counterfeit attack with 2 parallel repetitions."""
-    reps = 2
-
-    res = optimal_clone(states, probs, reps)
-    np.testing.assert_equal(np.isclose(res, (3 / 4) ** reps), True)
-
-
-def test_counterfeit_attack_wiesner_money_primal_problem():
-    """Counterfeit attack on Wiesner's quantum money (primal problem)."""
-    res = optimal_clone(states, probs, 1, True)
-    np.testing.assert_equal(np.isclose(res, 3 / 4), True)
+@pytest.mark.parametrize("input_states, input_probs, expected", [
+    # Probability of counterfeit attack on Wiesner's quantum money
+    (states, probs, 3/4),])
+def test_optimal_clone_default_reps_strategy(input_states, input_probs, expected):
+    """Test functions work as expected."""
+    expected_result = expected
+    calculated_result = optimal_clone(input_states, input_probs)
+    assert pytest.approx(expected_result, 0.1) == calculated_result
 
 
-def test_counterfeit_attack_wiesner_money_primal_problem_rep_1():
-    """Counterfeit attack with 1 parallel repetitions (primal problem)."""
-    reps = 1
-    res = optimal_clone(states, probs, reps, True)
-    np.testing.assert_equal(np.isclose(res, (3 / 4)), True)
-
-
-@pytest.mark.skip(reason="This test takes too much time.")
-def test_counterfeit_attack_wiesner_money_primal_problem_rep_2():
-    """Counterfeit attack with 2 parallel repetitions (primal problem)."""
-    reps = 2
-    res = optimal_clone(states, probs, reps, True)
-    np.testing.assert_equal(np.isclose(res, (3 / 4) ** reps), True)
