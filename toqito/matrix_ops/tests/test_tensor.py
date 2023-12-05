@@ -49,11 +49,11 @@ matrix4 = np.array([[7, 8]])
     ([np.array([np.identity(4)])], 1, np.identity(4))])
 def test_tensor_multiple_input(test_input, len_input, expected):
     """Test function works as expected."""
-    if len_input == 2:
-        calculated = tensor(test_input[0], test_input[1])
-        assert calculated is expected or (calculated == expected).all()
-    elif len_input == 1:
+    if len_input == 1:
         calculated = tensor(test_input)
+        assert calculated is expected or (calculated == expected).all()
+    elif len_input == 2:
+        calculated = tensor(test_input[0], test_input[1])
         assert calculated is expected or (calculated == expected).all()
     elif len_input == 4:
         calculated = tensor(test_input[0], test_input[1], test_input[2], test_input[3])
