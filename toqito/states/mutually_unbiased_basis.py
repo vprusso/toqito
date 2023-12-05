@@ -23,8 +23,8 @@ def mutually_unbiased_basis(dim: int) -> list[np.ndarray]:
 
     References
     ==========
-    .. [WikiMUB] Wikipedia: Mutually unbiased bases
-        https://en.wikipedia.org/wiki/Mutually_unbiased_bases
+    .. bibliography::
+        :filter: docname in docnames
 
     :param dim: The dimension of the mutually unbiased bases to produce.
     :return: The set of mutually unbiased bases of dimension :code:`dim` (if known).

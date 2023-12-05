@@ -67,6 +67,7 @@ Properties of Quantum States
     toqito.state_props.entanglement_of_formation
     toqito.state_props.has_symmetric_extension
     toqito.state_props.in_separable_ball
+    toqito.state_props.is_antidistinguishable
     toqito.state_props.is_ensemble
     toqito.state_props.is_mixed
     toqito.state_props.is_mutually_orthogonal
@@ -93,6 +94,7 @@ Quantum States
    :toctree: _autosummary
 
     toqito.states.basis
+    toqito.states.bb84
     toqito.states.bell
     toqito.states.brauer
     toqito.states.breuer
@@ -105,7 +107,9 @@ Quantum States
     toqito.states.isotropic
     toqito.states.max_entangled
     toqito.states.max_mixed
+    toqito.states.mutually_unbiased_basis
     toqito.states.singlet
     toqito.states.tile
+    toqito.states.trine
     toqito.states.w_state
     toqito.states.werner

@@ -55,6 +55,7 @@ Properties of Matrices and Vectors
     toqito.matrix_props.is_hermitian
     toqito.matrix_props.is_idempotent
     toqito.matrix_props.is_identity
+    toqito.matrix_props.is_linearly_independent
     toqito.matrix_props.is_normal
     toqito.matrix_props.is_orthonormal
     toqito.matrix_props.is_permutation
@@ -63,6 +64,7 @@ Properties of Matrices and Vectors
     toqito.matrix_props.is_projection
     toqito.matrix_props.is_square
     toqito.matrix_props.is_symmetric
+    toqito.matrix_props.is_totally_positive
     toqito.matrix_props.is_unitary
     toqito.matrix_props.kp_norm
     toqito.matrix_props.majorizes
