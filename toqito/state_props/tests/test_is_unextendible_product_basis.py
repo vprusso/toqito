@@ -6,7 +6,6 @@ from toqito.matrix_ops import tensor
 from toqito.state_props import is_unextendible_product_basis
 from toqito.states import basis, bell, tile
 
-
 e_0, e_1 = basis(2, 0), basis(2, 1)
 e_p, e_m = (e_0 + e_1) / np.sqrt(2), (e_0 - e_1) / np.sqrt(2)
 
@@ -38,7 +37,7 @@ def test_unextendible_product_basis_invalid(states, dims):
         # Check if Shifts is correctly identified as UPB.
         (
             [
-                tensor([e_0, e_1, e_p]), 
+                tensor([e_0, e_1, e_p]),
                 tensor([e_1, e_p, e_0]),
                 tensor([e_p, e_0, e_1]),
                 tensor([e_m, e_m, e_m])
