@@ -1,5 +1,5 @@
 """Tests for completely_bounded_spectral_norm."""
-import numpy as np
+
 
 from toqito.channel_metrics import (
     completely_bounded_spectral_norm,
@@ -12,6 +12,4 @@ from toqito.channels import dephasing
 def test_dual_is_cb_trace_norm():
     """Test CB Spectral norm of a dephasing channel is the same as the CB Trace norm of a dephasing channel."""
     phi = dephasing(2)
-    np.testing.assert_equal(
-        completely_bounded_spectral_norm(phi), completely_bounded_trace_norm(dual_channel(phi))
-    )
+    assert completely_bounded_spectral_norm(phi) == completely_bounded_trace_norm(dual_channel(phi))

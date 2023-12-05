@@ -1,35 +1,29 @@
 """Tests for diamond_norm."""
 import numpy as np
+import pytest
 
 from toqito.channel_metrics import diamond_norm
 from toqito.channels import dephasing, depolarizing
 
 
-def test_diamond_norm_same_channel():
-    """The diamond norm of identical channels should yield 0."""
-    choi_1 = dephasing(2)
-    choi_2 = dephasing(2)
-    np.testing.assert_equal(np.isclose(diamond_norm(choi_1, choi_2), 0, atol=1e-3), True)
+@pytest.mark.parametrize("test_input1, test_input_2, expected", [
+    # The diamond norm of identical channels should yield 0
+    (dephasing(2), dephasing(2), 0),
+    # the diamond norm of different channels
+    (dephasing(2), depolarizing(2), 1)])
+def test_diamond_norm_valid_inputs(test_input1, test_input_2, expected):
+    """Test function works as expected for valid inputs."""
+    calculated_value = diamond_norm(test_input1, test_input_2)
+    assert pytest.approx(expected, 1e-3) == calculated_value
 
 
-def test_diamond_norm_different_channel():
-    """Calculate the diamond norm of different channels."""
-    choi_1 = dephasing(2)
-    choi_2 = depolarizing(2)
-    np.testing.assert_equal(np.isclose(diamond_norm(choi_1, choi_2), 1, atol=1e-3), True)
+@pytest.mark.parametrize("test_input1, test_input_2, expected_msg", [
+    # Inconsistent dimensions between Choi matrices
+    (depolarizing(4), dephasing(2), "The Choi matrices provided should be of equal dimension."),
+    # Non-square inputs for diamond norm
+    (np.array([[1, 2, 3], [4, 5, 6]]), np.array([[1, 2, 3], [4, 5, 6]]), "The Choi matrix provided must be square.")])
+def test_diamond_norm_invalid_inputs(test_input1, test_input_2, expected_msg):
+    """Test function raises error as expected for invalid inputs."""
+    with pytest.raises(ValueError, match = expected_msg):
+        diamond_norm(test_input1, test_input_2)
 
-
-def test_diamond_norm_inconsistent_dims():
-    """Inconsistent dimensions between Choi matrices."""
-    with np.testing.assert_raises(ValueError):
-        choi_1 = depolarizing(4)
-        choi_2 = dephasing(2)
-        diamond_norm(choi_1, choi_2)
-
-
-def test_diamond_norm_non_square():
-    """Non-square inputs for diamond norm."""
-    with np.testing.assert_raises(ValueError):
-        choi_1 = np.array([[1, 2, 3], [4, 5, 6]])
-        choi_2 = np.array([[1, 2, 3], [4, 5, 6]])
-        diamond_norm(choi_1, choi_2)

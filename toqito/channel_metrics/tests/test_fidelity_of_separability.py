@@ -27,15 +27,14 @@ bad_rho = 0.75 * tensor(
 
 mixed_rho = max_mixed(8, is_sparse=False)
 
-
-def test_errors_channel_SDP():
+@pytest.mark.parametrize("test_input, input_dim, expected_msg, expected_error", [
+    (bad_rho, [2, 2, 2], "Provided input state is not a density matrix.", ValueError),
+    (purification_state, [2, 2], "For Channel SDP: require tripartite state dims.", AssertionError),
+    (mixed_rho, [2, 2, 2], "This function only works for pure states.", ValueError)])
+def test_errors_channel_SDP(test_input, input_dim, expected_msg, expected_error):
     """Tests for raised errors in channel SDP function."""
-    with pytest.raises(ValueError, match="Provided input state is not a density matrix."):
-        fidelity_of_separability(bad_rho, [2, 2, 2])
-    with pytest.raises(AssertionError, match="For Channel SDP: require tripartite state dims."):
-        fidelity_of_separability(purification_state, [2, 2])
-    with pytest.raises(ValueError, match="This function only works for pure states."):
-        fidelity_of_separability(mixed_rho, [2, 2, 2])
+    with pytest.raises(expected_error, match = expected_msg):
+        fidelity_of_separability(test_input, input_dim)
 
 
 def test_sdp_output():
