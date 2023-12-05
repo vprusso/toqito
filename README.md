@@ -87,11 +87,15 @@ A BibTeX entry that you can use to cite `toqito` is provided here:
 
 The `toqito` project has been used in the following works:
 
-- Pelofske, Elijah, Bartschi, Andreas, Eidenbenz, Stephan, Garcia, Bryan and Kiefer, Boris
+- Johnston, Nathaniel and Russo, Vincent and Sikora, Jamie
+"Tight bounds for antidistinguishability and circulant sets of pure quantum states",
+arXiv preprint [arXiv:2311.17047](https://arxiv.org/abs/2311.17047) (2023).
+
+- Pelofske, Elijah and Bartschi, Andreas and Eidenbenz, Stephan and Garcia, Bryan and Kiefer, Boris
 "Probing Quantum Telecloning on Superconducting Quantum Processors",
 arXiv preprint [arXiv:2308.15579](https://arxiv.org/abs/2308.15579) (2023).
  
-- Philip, Aby, Soorya Rethinasamy, Vincent Russo, and Mark M. Wilde. 
+- Philip, Aby and Rethinasamy, Soorya and Russo, Vincent and Wilde, Mark. 
 "Quantum Steering Algorithm for Estimating Fidelity of Separability." 
 arXiv preprint [arXiv:2303.07911](https://arxiv.org/abs/2303.07911) (2023).
 
@@ -99,7 +103,7 @@ arXiv preprint [arXiv:2303.07911](https://arxiv.org/abs/2303.07911) (2023).
 "Symbolic quantum programming for supporting applications of quantum computing technologies." 
 arXiv preprint [arXiv:2302.09401](https://arxiv.org/abs/2302.09401) (2023).
 
-- Casalé, Balthazar, Giuseppe Di Molfetta, Sandrine Anthoine, and Hachem Kadri. 
+- Casalé, Balthazar and Di Molfetta, Giuseppe and Anthoine, Sandrine and Kadri, Hachem. 
 "Large-Scale Quantum Separability Through a Reproducible Machine Learning Lens." 
 arXiv preprint [arXiv:2306.09444](https://arxiv.org/abs/2306.09444) (2023).
 
