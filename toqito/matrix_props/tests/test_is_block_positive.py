@@ -25,11 +25,22 @@ mat = swap(y_mat, [2, 3], [2, 2, 2, 2])
     # Test Choi map is 1-block positive but not 2-block positive.
     (choi(), True, False),
     # Test that the positive linear map introduced in :cite:`Bandyopadhyay_2015_Limitations` is block positive
-    (mat, True, None)])
+    (mat, True, None),
+    # non-hermitian input is not is_block_positive
+    (np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]), False, None)])
 def test_is_block_positive(input_mat, expected_bool_1_block, expected_bool_2_block):
     """Test function works as expected for valid inputs."""
     if expected_bool_2_block is not None:
-        assert is_block_positive(input_mat, rtol=0.001)
-        assert not is_block_positive(input_mat, k=2, rtol=0.001)
+        if expected_bool_1_block is True:
+            assert is_block_positive(input_mat, rtol=0.001)
+        else:
+            assert not is_block_positive(input_mat, rtol=0.001)
+        if expected_bool_2_block is True:
+            assert is_block_positive(input_mat, k=2, rtol=0.001)
+        else:
+            assert not is_block_positive(input_mat, k=2, rtol=0.001)
     else:
-        assert is_block_positive(input_mat, rtol=0.001)
+        if expected_bool_1_block is True:
+            assert is_block_positive(input_mat, rtol=0.001)
+        else:
+            assert not is_block_positive(input_mat, rtol=0.001)

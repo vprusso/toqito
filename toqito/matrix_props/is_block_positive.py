@@ -46,6 +46,8 @@ def is_block_positive(
 
 
     :raises ValueError: Unable to determine block positive property.
+    :raises RuntimeError: Unable to determine k-block positivity. Please consider increasing the relative tolerance or
+                            the effort level.
     :param mat: A bipartite Hermitian operator.
     :param k: A positive integer indicating that the function should determine whether or not
               the input operator is k-block positive, i.e., whether or not it remains nonnegative
