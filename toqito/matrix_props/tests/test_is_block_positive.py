@@ -57,12 +57,10 @@ def test_dim_None(input_mat, expected_bool):
     if expected_bool is True:
         assert is_block_positive(input_mat, 1, None)
 
-@pytest.mark.parametrize("input_mat, input_dim, expected_bool", [
+@pytest.mark.parametrize("input_mat, input_dim", [
     # Test Swap is 1-block positive but not 2-block positive
-    (swap_operator(2), 2, True),
-    (swap_operator(3), 3, True),
-    (swap_operator(4), 4, True),])
-def test_dim_int(input_mat, input_dim, expected_bool):
-    """Check input dimensions are set correctly when the input dim is an int."""
-    if expected_bool is True:
-        assert is_block_positive(input_mat, 1, input_dim)
+    (swap_operator(2), 2),
+    ((swap_operator(2), [2, 2]))])
+def test_dim_input(input_mat, input_dim):
+    """Check input dimensions are set correctly when the input dim is an int or list."""
+    assert is_block_positive(input_mat, 1, input_dim)
