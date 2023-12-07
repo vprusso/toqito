@@ -24,14 +24,11 @@ jobs:
           pip install poetry
           poetry install --no-interaction
       - name: Run tests
-        run: poetry run pytest -v --cov-config=.coveragerc --cov-report term-missing --cov-report xml:coverage.xml --cov=toqito
+        run: poetry run pytest -v --cov-config=.coveragerc --cov-report=xml --cov=toqito
       - name: Run pylint
         run: poetry run pylint --exit-zero toqito/
       - name: Run ruff
         run: poetry run ruff toqito/
-        # Remove "|| true" after style issues are fixed
-        # to make this fail the pipeline when new issues
-        # are introduced.
       - name: Upload coverage information
         uses: codecov/codecov-action@v3
         with:
