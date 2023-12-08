@@ -1,51 +1,22 @@
 """Tests for dual_channel."""
 import numpy as np
+import pytest
 
 from toqito.channel_ops import dual_channel
 from toqito.channels import choi
 from toqito.perms import swap_operator
 
+kraus_1 = np.array([[1, 0, 1j, 0]])
+kraus_2 = np.array([[0, 1, 0, 1j]])
 
-def test_dual_channel_kraus1():
-    """Test dual_channel on a channel represented as Kraus operators (1d list, CP map)."""
-    kraus_1 = np.array([[1, 0, 1j, 0]])
-    kraus_2 = np.array([[0, 1, 0, 1j]])
+expected_res_cp = [np.array([[1, 0, -1j, 0]]).T, np.array([[0, 1, 0, -1j]]).T]
 
-    expected_res = [np.array([[1, 0, -1j, 0]]).T, np.array([[0, 1, 0, -1j]]).T]
-
-    res = dual_channel([kraus_1, kraus_2])
-
-    bool_mat = np.isclose(res, expected_res)
-    np.testing.assert_equal(np.all(bool_mat), True)
-
-
-def test_dual_channel_kraus2():
-    """Test dual_channel on a channel represented as Kraus operators (2d list)."""
-    kraus_1 = np.array([[1, 0, 1j, 0]])
-    kraus_2 = np.array([[0, 1, 0, 1j]])
-
-    expected_res = [
+expected_res_2d = [
         [np.array([[1, 0, -1j, 0]]).T, np.array([[1, 0, -1j, 0]]).T],
         [np.array([[0, 1, 0, -1j]]).T, np.array([[0, 1, 0, -1j]]).T],
     ]
 
-    res = dual_channel([[kraus_1, kraus_1], [kraus_2, kraus_2]])
-
-    bool_mat = np.isclose(res, expected_res)
-    np.testing.assert_equal(np.all(bool_mat), True)
-
-
-def test_dual_channel_choi_square():
-    """Test dual_channel on a 9x9 Choi matrix, inferring dims=[3,3]."""
-    res = dual_channel(choi(1, 1, 0))
-
-    bool_mat = np.isclose(res, choi(1, 0, 1))
-    np.testing.assert_equal(np.all(bool_mat), True)
-
-
-def test_dual_channel_choi_dims():
-    """Test dual_channel on a Choi matrix with different input and output dimensions."""
-    j = np.array(
+input_diff_dims = np.array(
         [
             [1, -1j, 0, 0, 0, 1],
             [1j, -1, 0, 0, 0, -1j],
@@ -56,7 +27,7 @@ def test_dual_channel_choi_dims():
         ]
     )
 
-    expected_res = np.array(
+expected_res_diff_dims = np.array(
         [
             [1, 0, 0, 1j, 0, 1],
             [0, 0, 0, 0, 0, 0],
@@ -67,17 +38,7 @@ def test_dual_channel_choi_dims():
         ]
     )
 
-    res = dual_channel(j, [3, 2])
-
-    bool_mat = np.isclose(res, expected_res)
-    np.testing.assert_equal(np.all(bool_mat), True)
-
-
-def test_dual_channel_nonsquare_matrix():
-    """Dual of a channel that transposes 3x2 matrices."""
-    choi1 = swap_operator([2, 3])
-    choi_dual = dual_channel(choi1, dims=[[3, 2], [2, 3]])
-    expected_choi_dual = np.array(
+expected_swap = np.array(
         [
             [1, 0, 0, 0, 0, 0],
             [0, 0, 1, 0, 0, 0],
@@ -87,30 +48,36 @@ def test_dual_channel_nonsquare_matrix():
             [0, 0, 0, 0, 0, 1],
         ]
     )
+@pytest.mark.parametrize("test_input, expected, input_dim", [
+    # Test dual_channel on a channel represented as Kraus operators (1d list, CP map)
+    ([kraus_1, kraus_2], expected_res_cp, None),
+    # Test dual_channel on a channel represented as Kraus operators (2d list).
+    ([[kraus_1, kraus_1], [kraus_2, kraus_2]], expected_res_2d, None),
+    # Test dual_channel on a 9x9 Choi matrix, inferring dims=[3,3]
+    (choi(1, 1, 0), choi(1, 0, 1), None),
+    # Test dual_channel on a Choi matrix with different input and output dimensions.
+    (input_diff_dims, expected_res_diff_dims, [3, 2]),
+    # Dual of a channel that transposes 3x2 matrices
+    (swap_operator([2, 3]), expected_swap, [[3, 2], [2, 3]])])
+def test_dual_channel(test_input, expected, input_dim):
+    """Test function works as expected for valid inputs."""
+    if input_dim is None:
+        calculated = dual_channel(test_input)
+        assert np.isclose(calculated, expected).all()
 
-    bool_mat = np.isclose(choi_dual, expected_choi_dual)
-    np.testing.assert_equal(np.all(bool_mat), True)
+    calculated = dual_channel(test_input, dims = input_dim)
+    assert np.isclose(calculated, expected).all()
 
+@pytest.mark.parametrize("test_input", [
+    # If the channel is represented as an array, it must be two-dimensional (a matrix).
+    (np.array([1, 2, 3, 4])),
+    # Test output of function when the dimensions must be specified. If the size of the Choi matrix is not a perfect
+    # square, the dimensions of the input and output spaces must be specified.
+    (np.arange(36).reshape(6, 6)),
+    # error for an invalid input
+    ([0])])
+def test_dual_channel_error(test_input):
+    """Test function raises error as expected for invalid inputs."""
+    with pytest.raises(ValueError):
+        dual_channel(test_input)
 
-def test_dual_channel_not_matrix():
-    """If the channel is represented as an array, it must be two-dimensional (a matrix)."""
-    with np.testing.assert_raises(ValueError):
-        j = np.array([1, 2, 3, 4])
-        dual_channel(j)
-
-
-def test_dual_channel_unspecified_dims():
-    """Test output of function when the dimensions must be specified.
-
-    If the size of the Choi matrix is not a perfect square, the dimensions of the input and output spaces must be
-    specified.
-    """
-    with np.testing.assert_raises(ValueError):
-        j = np.arange(36).reshape(6, 6)
-        dual_channel(j)
-
-
-def test_dual_channel_invalid_input():
-    """Test error is raised for an invalid input."""
-    with np.testing.assert_raises(ValueError):
-        dual_channel([0])
