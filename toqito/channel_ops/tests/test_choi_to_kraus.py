@@ -39,12 +39,12 @@ def test_choi_to_kraus(test_input,expected, input_dim):
     if input_dim is None:
         calculated = choi_to_kraus(test_input)
 
-        for i in range(len(calculated)):
-            assert np.isclose(expected[i], calculated[i]).all()
+        for i, cal_value in enumerate(calculated):
+            assert np.isclose(expected[i], cal_value).all()
 
     calculated = choi_to_kraus(test_input, dim = input_dim)
-    for i in range(len(calculated)):
-        assert np.isclose(expected[i], calculated[i]).all()
+    for i, cal_value in enumerate(calculated):
+        assert np.isclose(expected[i], cal_value).all()
 
 
 choi_mat_non_square = swap_operator([2, 3])
