@@ -6,10 +6,7 @@ from toqito.channel_ops import partial_channel
 from toqito.channels import depolarizing
 from toqito.matrices import pauli
 
-
-def test_partial_channel_depolarizing_first_system():
-    """Perform the partial map using the depolarizing channel as the Choi matrix on first system."""
-    rho = np.array(
+rho_first_system = np.array(
         [
             [
                 0.3500,
@@ -37,9 +34,8 @@ def test_partial_channel_depolarizing_first_system():
             ],
         ]
     )
-    res = partial_channel(rho, depolarizing(2))
 
-    expected_res = np.array(
+expected_res_first_system = np.array(
         [
             [0.2364 + 0.0j, 0.0 + 0.0j, -0.2142 + 0.02495j, 0.0 + 0.0j],
             [0.0 + 0.0j, 0.2364 + 0.0j, 0.0 + 0.0j, -0.2142 + 0.02495j],
@@ -48,13 +44,8 @@ def test_partial_channel_depolarizing_first_system():
         ]
     )
 
-    bool_mat = np.isclose(expected_res, res)
-    np.testing.assert_equal(np.all(bool_mat), True)
 
-
-def test_partial_channel_depolarizing_second_system():
-    """Perform the partial map using the depolarizing channel as the Choi matrix on second system."""
-    rho = np.array(
+rho_second_system = np.array(
         [
             [
                 0.3101,
@@ -82,9 +73,8 @@ def test_partial_channel_depolarizing_second_system():
             ],
         ]
     )
-    res = partial_channel(rho, depolarizing(2), 1)
 
-    expected_res = np.array(
+expected_res_second_system = np.array(
         [
             [0.2231 + 0.0j, 0.0191 - 0.00785j, 0.0 + 0.0j, 0.0 + 0.0j],
             [0.0191 + 0.00785j, 0.2769 + 0.0j, 0.0 + 0.0j, 0.0 + 0.0j],
@@ -93,19 +83,9 @@ def test_partial_channel_depolarizing_second_system():
         ]
     )
 
-    bool_mat = np.isclose(expected_res, res)
-    np.testing.assert_equal(np.all(bool_mat), True)
+rho_dim_list = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
 
-
-def test_partial_channel_dim_list():
-    """Perform the partial map.
-
-    Test uses the depolarizing channel as the Choi matrix on first system when the dimension is specified as list.
-    """
-    rho = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
-    res = partial_channel(rho, depolarizing(2), 2, [2, 2])
-
-    expected_res = np.array(
+expected_res_dim_list = np.array(
         [
             [3.5, 0.0, 5.5, 0.0],
             [0.0, 3.5, 0.0, 5.5],
@@ -114,8 +94,24 @@ def test_partial_channel_dim_list():
         ]
     )
 
-    bool_mat = np.isclose(expected_res, res)
-    np.testing.assert_equal(np.all(bool_mat), True)
+@pytest.mark.parametrize("test_input, expected, sys_arg, dim_arg", [
+    # Perform the partial map using the depolarizing channel as the Choi matrix on first system
+    (rho_first_system, expected_res_first_system, None, None),
+    # Perform the partial map using the depolarizing channel as the Choi matrix on second system
+    (rho_second_system, expected_res_second_system, 1, None),
+    # Test uses the depolarizing channel as the Choi matrix on first system when the dimension is specified as list.
+    (rho_dim_list, expected_res_dim_list, 2, [2, 2])])
+def test_partial_channel(test_input, expected, sys_arg, dim_arg):
+    """Test function works as expected for valid inputs."""
+    if sys_arg is None and dim_arg is None:
+        calculated = partial_channel(test_input, depolarizing(2))
+    elif sys_arg is not None and dim_arg is None:
+        calculated = partial_channel(test_input, depolarizing(2), sys_arg)
+    elif sys_arg is not None and dim_arg is not None:
+        calculated = partial_channel(test_input, depolarizing(2), sys_arg, dim_arg)
+
+    assert np.isclose(calculated, expected).all()
+
 
 
 @pytest.mark.parametrize("nested", [1, 2, 3])
@@ -139,33 +135,24 @@ def test_partial_channel_cpt_kraus(nested):
         ]
     )
 
-    bool_mat = np.isclose(expected_res, res)
-    np.testing.assert_equal(np.all(bool_mat), True)
+    assert np.isclose(expected_res, res).all()
 
 
-def test_partial_channel_non_square_matrix():
-    """Matrix must be square."""
-    with np.testing.assert_raises(ValueError):
-        rho = np.array([[1, 1, 1, 1], [5, 6, 7, 8], [3, 3, 3, 3]])
-        partial_channel(rho, depolarizing(3))
 
+@pytest.mark.parametrize("test_input, map_arg, sys_arg, dim_arg", [
+    # Matrix must be square
+    (np.array([[1, 1, 1, 1], [5, 6, 7, 8], [3, 3, 3, 3]]), depolarizing(3), None, None),
+    # Matrix must be square with sys arg
+    (np.array([[1, 2, 3, 4], [2, 2, 2, 2], [12, 11, 10, 9]]), depolarizing(3), 2, None),
+    # Invalid dimension for partial map
+    (np.array([[1, 2, 3, 4], [5, 6, 7, 8], [12, 11, 10, 9]]), depolarizing(3), 1, [2, 2]),
+    # Invalid map argument for partial map
+    (np.array([[1, 2, 3, 4], [5, 6, 7, 8], [12, 11, 10, 9]]), 5, 2, [2,2])])
+def test_partial_channel_error(test_input, map_arg, sys_arg, dim_arg):
+    """Test function raises error as expected for invalid inputs."""
+    if sys_arg is not None:
+        with pytest.raises(ValueError):
+            partial_channel(test_input, map_arg, sys_arg, dim_arg)
 
-def test_partial_channel_non_square_matrix_2():
-    """Matrix must be square with sys arg."""
-    with np.testing.assert_raises(ValueError):
-        rho = np.array([[1, 2, 3, 4], [2, 2, 2, 2], [12, 11, 10, 9]])
-        partial_channel(rho, depolarizing(3), 2)
-
-
-def test_partial_channel_invalid_dim():
-    """Invalid dimension for partial map."""
-    with np.testing.assert_raises(ValueError):
-        rho = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [12, 11, 10, 9]])
-        partial_channel(rho, depolarizing(3), 1, [2, 2])
-
-
-def test_partial_channel_invalid_map():
-    """Invalid map argument for partial map."""
-    with np.testing.assert_raises(ValueError):
-        rho = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [12, 11, 10, 9]])
-        partial_channel(rho, 5)
+    with pytest.raises(ValueError):
+            partial_channel(test_input, map_arg)
