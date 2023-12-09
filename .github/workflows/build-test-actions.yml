@@ -5,7 +5,7 @@ on:
   # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request
     types: [opened, reopened, converted_to_draft, ready_for_review]
     branches:
-        - master
+      - master
   push:
     branches:
     # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#running-your-workflow-only-when-a-push-to-specific-branches-occurs
@@ -13,10 +13,10 @@ on:
 
 jobs:
   check-code-style:
-  runs-on: ubuntu-latest
+    runs-on: [ubuntu-latest, windows-latest, macos-latest]
     strategy:
       matrix:
-        # Add versions here to expand support matrix
+          # Add versions here to expand support matrix
         python-version: ["3.10", "3.11"]
     env:
       PYTHON: ${{ matrix.python-version }}
@@ -38,11 +38,11 @@ jobs:
           poetry run ruff toqito/
 
   test-toqito-different-os:
+    runs-on: [ubuntu-latest, windows-latest, macos-latest]
     strategy:
       matrix:
         # Add versions here to expand support matrix
         python-version: ["3.10", "3.11"]
-        os: [ubuntu-latest, windows-latest, macos-latest]
         # https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs#using-a-matrix-strategy
     env:
       PYTHON: ${{ matrix.python-version }}
