@@ -3,7 +3,7 @@ name: test-build
 on:
   pull_request:
   # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request
-    types: [opened, reopened, converted_to_draft, ready_for_review]
+    types: [opened, reopened, converted_to_draft, ready_for_review, synchronize]
     branches:
       - master
   push:
