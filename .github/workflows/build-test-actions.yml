@@ -13,11 +13,12 @@ on:
 
 jobs:
   check-code-style:
-    runs-on: [ubuntu-latest, windows-latest, macos-latest]
     strategy:
       matrix:
           # Add versions here to expand support matrix
         python-version: ["3.10", "3.11"]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
     env:
       PYTHON: ${{ matrix.python-version }}
     steps:
@@ -38,11 +39,12 @@ jobs:
           poetry run ruff toqito/
 
   test-toqito-different-os:
-    runs-on: [ubuntu-latest, windows-latest, macos-latest]
     strategy:
       matrix:
         # Add versions here to expand support matrix
         python-version: ["3.10", "3.11"]
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
         # https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs#using-a-matrix-strategy
     env:
       PYTHON: ${{ matrix.python-version }}
