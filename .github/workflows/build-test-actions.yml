@@ -36,9 +36,8 @@ jobs:
       - name: Code Analyzer Checks
         run: |
           poetry run pylint --fail-under=10.0 toqito/
-          poetry run ruff toqito/
 
-  test-toqito-different-os:
+  toqito-build:
     strategy:
       matrix:
         # Add versions here to expand support matrix
@@ -50,6 +49,8 @@ jobs:
       PYTHON: ${{ matrix.python-version }}
     steps:
       - uses: actions/checkout@v3
+      - uses: chartboost/ruff-action@v1
+      # https://github.com/chartboost/ruff-action
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
