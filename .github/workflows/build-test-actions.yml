@@ -69,7 +69,6 @@ jobs:
           token: 8a7d94ed-284d-4c22-91eb-9b66ce33fa62
           name: codecov-umbrella
           files: ./coverage.xml
-          fail_ci_if_error: true
           verbose: true
       - name: Build artifacts
         run: poetry build
@@ -131,7 +130,6 @@ jobs:
           token: 8a7d94ed-284d-4c22-91eb-9b66ce33fa62
           name: codecov-umbrella
           files: ./coverage.xml
-          fail_ci_if_error: true
           verbose: true
       - name: Build artifacts
         run: poetry build
