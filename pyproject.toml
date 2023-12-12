@@ -27,7 +27,7 @@ picos = "2.4.17"
 
 [tool.poetry.dev-dependencies]
 distlib = "0.3.7"
-flake8 = "3.9.2"
+flake8 = "6.1.0"
 flake8-docstrings = "1.7.0"
 ipython = "8.18.0"
 isort = "5.12.0"
