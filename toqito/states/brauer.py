@@ -1,6 +1,4 @@
 """Brauer states."""
-import math
-
 import numpy as np
 
 from toqito.matrix_ops import tensor
@@ -18,6 +16,7 @@ def brauer(dim: int, p_val: int) -> np.ndarray:
 
     The exact number of such states is:
 
+    >>> import math
     >>> import numpy as np
     >>> p_val = 2
     >>> math.factorial(2 * p_val) / (math.factorial(p_val) * 2**p_val)
