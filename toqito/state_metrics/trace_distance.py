@@ -37,7 +37,7 @@ def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float:
     :math:`\rho = \sigma`. We can check this using the :code:`toqito` package.
 
     >>> from toqito.states import bell
-    >>> from toqito.state_metrics import trace_norm
+    >>> from toqito.matrix_props import trace_norm
     >>> rho = bell(0) * bell(0).conj().T
     >>> sigma = rho
     >>> trace_distance(rho, sigma)

@@ -42,11 +42,11 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     >>> from toqito.state_metrics import fidelity
     >>> import numpy as np
     >>> rho = 1 / 2 * np.array(
-    >>>     [[1, 0, 0, 1],
-    >>>      [0, 0, 0, 0],
-    >>>      [0, 0, 0, 0],
-    >>>      [1, 0, 0, 1]]
-    >>> )
+    ...     [[1, 0, 0, 1],
+    ...      [0, 0, 0, 0],
+    ...      [0, 0, 0, 0],
+    ...      [1, 0, 0, 1]]
+    ... )
     >>> sigma = rho
     >>> fidelity(rho, sigma)
     1.0000000000000002

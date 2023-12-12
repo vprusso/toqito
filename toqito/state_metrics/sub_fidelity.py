@@ -33,7 +33,7 @@ def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
 
     >>> from toqito.states import basis
     >>> from toqito.state_metrics import fidelity
-    >>> e_0, e_1 = ket(2, 0), ket(2, 1)
+    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
     >>> rho = 3 / 4 * e_0 * e_0.conj().T + 1 / 4 * e_1 * e_1.conj().T
     >>> sigma = 1/8 * e_0 * e_0.conj().T + 7/8 * e_1 * e_1.conj().T
     >>> fidelity(rho, sigma)

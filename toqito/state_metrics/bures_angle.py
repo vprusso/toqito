@@ -40,11 +40,11 @@ def bures_angle(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> flo
     >>> from toqito.state_metrics import bures_angle
     >>> import numpy as np
     >>> rho = 1 / 2 * np.array(
-    >>>     [[1, 0, 0, 1],
-    >>>      [0, 0, 0, 0],
-    >>>      [0, 0, 0, 0],
-    >>>      [1, 0, 0, 1]]
-    >>> )
+    ...     [[1, 0, 0, 1],
+    ...      [0, 0, 0, 0],
+    ...      [0, 0, 0, 0],
+    ...      [1, 0, 0, 1]]
+    ... )
     >>> sigma = rho
     >>> bures_angle(rho, sigma)
     0
