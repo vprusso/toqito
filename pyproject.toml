@@ -4,10 +4,10 @@ name = "toqito"
 version = "1.0.5"
 description = "Python tools for the study of quantum information."
 authors = [
-    "Vincent Russo <vincentrusso1@gmail.com>"
+    "Toqito Contributors <https://github.com/vprusso/toqito/graphs/contributors>"
 ]
 maintainers = [
-    "Vincent Russo <vincentrusso1@gmail.com>"
+    "Toqito Contributors <https://github.com/vprusso/toqito/graphs/contributors>"
 ]
 readme = "README.md"
 homepage = "https://vprusso.github.io/toqito/"
