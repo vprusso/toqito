@@ -38,7 +38,11 @@ def partial_channel(
 
     >>> from toqito.channel_ops import partial_channel
     >>> from toqito.channels import depolarizing
-    >>> rho = np.array([[0.3101, -0.0220-0.0219*1j, -0.0671-0.0030*1j, -0.0170-0.0694*1j], [-0.0220+0.0219*1j, 0.1008, -0.0775+0.0492*1j, -0.0613+0.0529*1j], [-0.0671+0.0030*1j, -0.0775-0.0492*1j, 0.1361, 0.0602 + 0.0062*1j], [-0.0170+0.0694*1j, -0.0613-0.0529*1j, 0.0602-0.0062*1j, 0.4530]])
+    >>> rho = np.array([
+    ...    [0.3101, -0.0220-0.0219*1j, -0.0671-0.0030*1j, -0.0170-0.0694*1j], 
+    ...    [-0.0220+0.0219*1j, 0.1008, -0.0775+0.0492*1j, -0.0613+0.0529*1j],
+    ...    [-0.0671+0.0030*1j, -0.0775-0.0492*1j, 0.1361, 0.0602 + 0.0062*1j],
+    ...    [-0.0170+0.0694*1j, -0.0613-0.0529*1j, 0.0602-0.0062*1j, 0.4530]])
     >>> phi_x = partial_channel(rho, depolarizing(2))
     [[ 0.20545+0.j       0.     +0.j      -0.0642 +0.02495j  0.     +0.j     ]
      [ 0.     +0.j       0.20545+0.j       0.     +0.j      -0.0642 +0.02495j]
@@ -74,7 +78,7 @@ def partial_channel(
     :param dim: Dimension of the subsystems. If :code:`None`, all dimensions
                 are assumed to be equal.
     :return: The partial map :code:`phi_map` applied to matrix :code:`rho`.
-    """  # noqa
+    """
     if dim is None:
         dim = np.round(np.sqrt(list(rho.shape))).conj().T * np.ones(2)
     if isinstance(dim, list):
