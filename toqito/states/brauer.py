@@ -1,5 +1,6 @@
 """Brauer states."""
 import math
+
 import numpy as np
 
 from toqito.matrix_ops import tensor
