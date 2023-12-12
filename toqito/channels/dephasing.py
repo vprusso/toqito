@@ -49,9 +49,7 @@ def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
     >>> from toqito.channel_ops import apply_channel
     >>> from toqito.channels import dephasing
     >>> import numpy as np
-    >>> test_input_mat = np.array(
-    >>>     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
-    >>> )
+    >>> test_input_mat = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
     >>> apply_channel(test_input_mat, dephasing(4))
     [[ 1.,  0.,  0.,  0.],
      [ 0.,  6.,  0.,  0.],

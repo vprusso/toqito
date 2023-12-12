@@ -31,9 +31,7 @@ def realignment(input_mat: np.ndarray, dim: int | list[int] = None) -> np.ndarra
 
     >>> from toqito.channels import realignment
     >>> import numpy as np
-    >>> test_input_mat = np.array(
-    >>>     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
-    >>> )
+    >>> test_input_mat = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
     >>> realignment(test_input_mat)
     [[ 1  2  5  6]
      [ 3  4  7  8]
