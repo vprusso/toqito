@@ -45,7 +45,6 @@ def is_block_positive(
         :filter: docname in docnames
 
 
-    :raises ValueError: If `dim` is a scalar, it must evenly divide the length of the matrix.
     :raises RuntimeError: Unable to determine k-block positivity. Please consider increasing the relative tolerance or
                             the effort level.
     :param mat: A bipartite Hermitian operator.
