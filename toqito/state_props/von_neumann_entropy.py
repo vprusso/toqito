@@ -49,9 +49,9 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
     >>> from toqito.state_props import von_neumann_entropy
     >>> import numpy as np
     >>> test_input_mat = np.array(
-    >>>     [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0],
-    >>>      [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
-    >>> )
+    ...     [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0],
+    ...      [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
+    ... )
     >>> von_neumann_entropy(test_input_mat)
     5.88418203051333e-15
 

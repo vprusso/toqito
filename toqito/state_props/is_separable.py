@@ -41,9 +41,9 @@ def is_separable(
     >>> from toqito.rand import random_density_matrix
     >>> from toqito.state_props import is_separable
     >>> rho_separable = np.array([[1, 0, 1, 0],
-    >>>                           [0, 1, 0, 1],
-    >>>                           [1, 0, 1, 0],
-    >>>                           [0, 1, 0, 1]])
+    ...                           [0, 1, 0, 1],
+    ...                           [1, 0, 1, 0],
+    ...                           [0, 1, 0, 1]])
     >>> rho_random = random_density_matrix(4)
     >>> is_separable(rho_separable)
     True
