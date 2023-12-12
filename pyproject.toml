@@ -41,8 +41,7 @@ coverage = "7.3.2"
 mypy = "1.7.1"
 setuptools = ">65.5.1"
 sphinx = "7.2.6"
-sphinx_rtd_theme = "2.0.0rc4" # this version is temporary due to docutils version incompatibility with
-# sphinx, sphinx_rtd_theme and sphinxcontrib-bibtex
+sphinx_rtd_theme = "2.0.0"
 sphinxcontrib-bibtex = "2.6.1"
 sympy = "1.12"
 
