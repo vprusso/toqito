@@ -94,18 +94,18 @@ def symmetric_extension_hierarchy(
     >>>
     >>> # Define the ensemble of states to be distinguished.
     >>> states = [
-    >>>     np.kron(bell(0) * bell(0).conj().T, eps_dm),
-    >>>     np.kron(bell(1) * bell(1).conj().T, eps_dm),
-    >>>     np.kron(bell(2) * bell(2).conj().T, eps_dm),
-    >>>     np.kron(bell(3) * bell(3).conj().T, eps_dm),
-    >>> ]
+    ...     np.kron(bell(0) * bell(0).conj().T, eps_dm),
+    ...     np.kron(bell(1) * bell(1).conj().T, eps_dm),
+    ...     np.kron(bell(2) * bell(2).conj().T, eps_dm),
+    ...     np.kron(bell(3) * bell(3).conj().T, eps_dm),
+    ... ]
     >>>
     >>> # Ensure the distinguishability is conducted on the proper spaces.
     >>> states = [
-    >>>     swap(states[0], [2, 3], [2, 2, 2, 2])
-    >>>     swap(states[1], [2, 3], [2, 2, 2, 2])
-    >>>     swap(states[2], [2, 3], [2, 2, 2, 2])
-    >>> ]
+    ...     swap(states[0], [2, 3], [2, 2, 2, 2]),
+    ...     swap(states[1], [2, 3], [2, 2, 2, 2]),
+    ...     swap(states[2], [2, 3], [2, 2, 2, 2]),
+    ... ]
     >>>
     >>> # Calculate the first level of the symmetric extension hierarchy. This
     >>> # is simply the value of optimally distinguishing via PPT measurements.
