@@ -51,9 +51,7 @@ def swap(
 
     >>> from toqito.perms import swap
     >>> import numpy as np
-    >>> test_mat = np.array(
-    >>>     [[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]]
-    >>> )
+    >>> test_mat = np.array([[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]])
     >>> swap(test_mat)
     [[ 1  9  5 13]
      [ 3 11  7 15]

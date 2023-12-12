@@ -61,9 +61,7 @@ def permute_systems(
 
     >>> from toqito.perms import permute_systems
     >>> import numpy as np
-    >>> test_input_mat = np.array(
-    >>>    [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
-    >>> )
+    >>> test_input_mat = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
     >>> permute_systems(test_input_mat, [2, 1])
     [[ 1  3  2  4]
      [ 9 11 10 12]
