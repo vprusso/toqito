@@ -21,7 +21,7 @@ def diamond_norm(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     set to 0.2:
 
     >>> from toqito.channels import depolarizing
-    >>> choi_depolarizing = depolarizing(dim=2, param=0.2)
+    >>> choi_depolarizing = depolarizing(dim=2, param_p=0.2)
     >>> choi_identity = np.identity(2**2)
     >>> dn = diamond_norm(choi_depolarizing, choi_identity)
     >>> print("Diamond norm between depolarizing and identity channels: ", dn)
