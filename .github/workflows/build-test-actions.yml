@@ -1,4 +1,4 @@
-name: test-build
+name: check-build
 
 on:
   pull_request:
@@ -12,7 +12,7 @@ on:
         - master
 
 jobs:
-  check-code-style-linux:
+  code-style:
     strategy:
       matrix:
           # Add versions here to expand support matrix
@@ -39,7 +39,7 @@ jobs:
         run: |
           poetry run pylint --fail-under=10.0 toqito/
 
-  toqito-build-linux:
+  toqito-pytest:
     strategy:
       matrix:
         # Add versions here to expand support matrix
