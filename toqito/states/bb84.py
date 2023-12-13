@@ -20,7 +20,7 @@ def bb84() -> np.ndarray:
     The BB84 basis states can be obtained in :code:`toqito` as follows.
 
     >>> from toqito.states import bb84
-    >>> states = bb84()
+    >>> x = bb84()
     >>> print(f"|0> = {x[0][0].T}, \n |1> = {x[0][1].T}")
     >>> print(f"|+> = {x[1][0].T}, \n |-> = {x[1][1].T}")
     |0> = [[1. 0.]],

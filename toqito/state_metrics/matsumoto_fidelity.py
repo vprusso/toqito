@@ -52,11 +52,11 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     >>> from toqito.state_metrics import matsumoto_fidelity
     >>> import numpy as np
     >>> rho = 1 / 2 * np.array(
-    >>>     [[1, 0, 0, 1],
-    >>>      [0, 0, 0, 0],
-    >>>      [0, 0, 0, 0],
-    >>>      [1, 0, 0, 1]]
-    >>> )
+    ...     [[1, 0, 0, 1],
+    ...      [0, 0, 0, 0],
+    ...      [0, 0, 0, 0],
+    ...      [1, 0, 0, 1]]
+    ... )
     >>> sigma = rho
     >>> matsumoto_fidelity(rho, sigma)
     0.9999998585981018

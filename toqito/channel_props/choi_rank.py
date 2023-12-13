@@ -52,12 +52,7 @@ def choi_rank(phi: np.ndarray | list[list[np.ndarray]]) -> int:
     >>> kraus_6 = np.array([[0, 0], [1, 0]]).conj().T
     >>> kraus_7 = np.array([[0, 0], [0, 1]])
     >>> kraus_8 = np.array([[0, 0], [0, 1]]).conj().T
-    >>> kraus_ops = [
-    >>>     [kraus_1, kraus_2],
-    >>>     [kraus_3, kraus_4],
-    >>>     [kraus_5, kraus_6],
-    >>>     [kraus_7, kraus_8],
-    >>> ]
+    >>> kraus_ops = [[kraus_1, kraus_2], [kraus_3, kraus_4],[kraus_5, kraus_6],[kraus_7, kraus_8]]
 
     To calculate its Choi rank, we proceed in the following way:
 
