@@ -45,7 +45,8 @@ def is_block_positive(
         :filter: docname in docnames
 
 
-    :raises ValueError: Unable to determine block positive property.
+    :raises RuntimeError: Unable to determine k-block positivity. Please consider increasing the relative tolerance or
+                            the effort level.
     :param mat: A bipartite Hermitian operator.
     :param k: A positive integer indicating that the function should determine whether or not
               the input operator is k-block positive, i.e., whether or not it remains nonnegative
@@ -69,10 +70,6 @@ def is_block_positive(
     # Allow the user to enter in a single integer for dimension.
     if isinstance(dim, int):
         dim = np.array([dim, dim_xy / dim])  # pylint: disable=redefined-variable-type
-        if np.abs(dim[1] - np.round(dim[1])) >= 2 * dim_xy * np.finfo(float).eps:
-            raise ValueError(
-                "If `dim` is a scalar, it must evenly divide the length of the matrix."
-            )
         dim[1] = int(np.round(dim[1]))
 
     dim = np.array(dim, dtype=int)
