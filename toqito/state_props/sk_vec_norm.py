@@ -59,8 +59,6 @@ def sk_vector_norm(rho: np.ndarray, k: int = 1, dim: int | list[int] = None) -> 
     # Allow the user to enter in a single integer for dimension.
     if isinstance(dim, int):
         dim = np.array([dim, dim_xy / dim])  # pylint: disable=redefined-variable-type
-        if np.abs(dim[1] - np.round(dim[1])) >= 2 * dim_xy * np.finfo(float).eps:
-            raise ValueError("If `dim` is a scalar, it must evenly divide the length of the state.")
         dim[1] = int(np.round(dim[1]))
 
     # It's faster to just compute the norm of `rho` directly if that will give
