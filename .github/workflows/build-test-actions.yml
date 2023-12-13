@@ -1,18 +1,30 @@
-name: build-test-actions
+name: check-build
 
-on: [push]
+on:
+  pull_request:
+  # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request
+    types: [opened, reopened, converted_to_draft, ready_for_review, synchronize]
+    branches:
+      - master
+  push:
+    branches:
+    # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#running-your-workflow-only-when-a-push-to-specific-branches-occurs
+        - master
 
 jobs:
-  build-test:
-    runs-on: ubuntu-latest
+  code-style:
     strategy:
       matrix:
-        # Add versions here to expand support matrix
+          # Add versions here to expand support matrix
         python-version: ["3.10", "3.11"]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
     env:
       PYTHON: ${{ matrix.python-version }}
     steps:
       - uses: actions/checkout@v4
+      - uses: chartboost/ruff-action@v1
+      # https://github.com/chartboost/ruff-action
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
@@ -23,19 +35,41 @@ jobs:
           python -m pip install --upgrade pip
           pip install poetry
           poetry install --no-interaction
+      - name: Code Analyzer Checks
+        run: |
+          poetry run pylint --fail-under=10.0 toqito/
+
+  toqito-pytest:
+    strategy:
+      matrix:
+        # Add versions here to expand support matrix
+        python-version: ["3.10", "3.11"]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+        # https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs#using-a-matrix-strategy
+    env:
+      PYTHON: ${{ matrix.python-version }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          sudo apt-get install -y libblas-dev liblapack-dev
+          python -m pip install --upgrade pip
+          pip install poetry
+          poetry install --no-interaction
       - name: Run tests
         run: poetry run pytest -v --cov-config=.coveragerc --cov-report=xml --cov-report term-missing:skip-covered --cov=toqito
-      - name: Run pylint
-        run: poetry run pylint --fail-under=10.0 toqito/
-      - name: Run ruff
-        run: poetry run ruff toqito/
       - name: Upload coverage information
         uses: codecov/codecov-action@v3
         with:
           token: 8a7d94ed-284d-4c22-91eb-9b66ce33fa62
           name: codecov-umbrella
-          files: ./coverage.xml
           fail_ci_if_error: true
+          files: ./coverage.xml
           verbose: true
       - name: Build artifacts
         run: poetry build

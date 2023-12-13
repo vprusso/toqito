@@ -17,7 +17,7 @@
 # -- Project information -----------------------------------------------------
 
 project = "toqito"
-copyright = "2020 - 2023, Toqito Developers"
+copyright = "2020 - 2023, Toqito Contributors"
 author = "Contributors to Toqito"
 
 # The full version, including alpha/beta/rc tags
