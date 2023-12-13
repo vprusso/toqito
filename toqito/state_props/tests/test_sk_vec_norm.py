@@ -15,7 +15,7 @@ def test_sk_norm_maximally_entagled_state(n, k):
 
 
 @pytest.mark.parametrize("n, k, dim", [(4, 2, 1), (4, 2, [1]), (5, 2, 1), (5, 2, [1])])
-def test_sk_norm_maximally_entagled_state(n, k, dim):
+def test_sk_norm_maximally_entagled_state_with_dim(n, k, dim):
     """The S(k)-norm of the maximally entagled state where k> input_dim."""
     v_vec = max_entangled(n)
     res = sk_vector_norm(v_vec, k=k, dim=dim)
