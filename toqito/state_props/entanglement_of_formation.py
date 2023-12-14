@@ -67,11 +67,6 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
         dim = np.array(  # pylint: disable=redefined-variable-type
             [dim, max(dim_x, dim_y) / dim], dtype=int
         )
-        if abs(dim[1] - np.round(dim[1])) >= 2 * max(dim_x, dim_y) * eps:
-            raise ValueError(
-                "Invalid dimension: If `dim` is provided as a "
-                "scalar, `dim` must evenly divide `len(rho)`."
-            )
         dim[1] = np.round(dim[1])
 
     if np.prod(dim) != max(dim_x, dim_y):
