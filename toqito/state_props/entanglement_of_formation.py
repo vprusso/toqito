@@ -57,7 +57,7 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
     """
     dim_x, dim_y = rho.shape
     round_dim = int(np.round(np.sqrt(max(dim_x, dim_y))))
-    eps = np.finfo(float).eps
+
 
     if dim is None:
         dim = round_dim
