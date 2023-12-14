@@ -19,6 +19,10 @@ e_0, e_1 = np.array([[1], [0]]), np.array([[0], [1]])
         (bell(0) @ bell(0).conj().T, 2, 1),
         # The entanglement-of-formation on a maximally mixed with int dim
         (max_mixed(4, False) @ max_mixed(4, False).conj().T, 1, 0),
+        # The entanglement-of-formation on a Bell state with list dim
+        (bell(0) @ bell(0).conj().T, [2, 2], 1),
+        # The entanglement-of-formation on a maximally mixed with list dim
+        (max_mixed(4, False) @ max_mixed(4, False).conj().T, [2, 2], 0),
     ],
 )
 def test_entanglement_of_formation(rho, dim, expected_result):
@@ -40,6 +44,9 @@ def test_entanglement_of_formation(rho, dim, expected_result):
         (
             np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]]), None,
             "Invalid dimension: `rho` must be either a vector or square matrix."),
+        # The entanglement-of-formation on a maximally mixed with list dim
+        (max_mixed(4, False) @ max_mixed(4, False).conj().T, [1, 1],
+        "Invalid dimension: Please provide local dimensions that match the size of `rho`.")
     ],
 )
 def test_entanglement_of_formation_invalid(rho, dim, error_msg):
