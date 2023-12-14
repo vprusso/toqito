@@ -101,7 +101,7 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
 
             return -rho_c1 * rho_c1_log2 - rho_c2 * rho_c2_log2
         raise ValueError(
-            "Invalid dimension: It is presently only known how to compute "
+            "Invalid input: It is presently only known how to compute "
             "the entanglement-of-formation for two-qubit states and pure "
             "states."
         )
