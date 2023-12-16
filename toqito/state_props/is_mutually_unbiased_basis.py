@@ -50,7 +50,7 @@ def is_mutually_unbiased_basis(vectors: list[np.ndarray | list[float | Any]]) ->
     >>> mub_1 = [e_0, e_1]
     >>> mub_2 = [1 / np.sqrt(2) * (e_0 + e_1), 1 / np.sqrt(2) * (e_0 - e_1)]
     >>> mub_3 = [1 / np.sqrt(2) * (e_0 + 1j * e_1), 1 / np.sqrt(2) * (e_0 - 1j * e_1)]
-    >>> mubs = [mub_1, mub_2, mub_3]
+    >>> mubs = np.array([mub_1, mub_2, mub_3])
     >>> is_mutually_unbiased_basis(mubs)
     True
 

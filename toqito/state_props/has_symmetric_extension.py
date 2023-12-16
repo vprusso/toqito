@@ -45,7 +45,7 @@ def has_symmetric_extension(
     ...                 [0, 1/2, 1, 0],
     ...                 [-1, 0, 0, 1]])
     >>> # Show the closed-form equation holds
-    >>> np.trace(partial_trace(rho, 1)**2) >= np.trace(rho**2) - 4 * np.sqrt(np.linalg.det(rho))
+    >>> np.trace(np.linalg.matrix_power(partial_trace(rho, 1), 2)) >= np.trace(rho**2) - 4 * np.sqrt(np.linalg.det(rho))
     True
     >>> # Now show that the `has_symmetric_extension` function recognizes this case.
     >>> has_symmetric_extension(rho)
