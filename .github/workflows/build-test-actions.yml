@@ -34,7 +34,7 @@ jobs:
           sudo apt-get install -y libblas-dev liblapack-dev
           python -m pip install --upgrade pip
           pip install poetry
-          poetry install --no-interaction
+          poetry install --only style
       - name: Code Analyzer Checks
         run: |
           poetry run pylint --fail-under=10.0 toqito/
