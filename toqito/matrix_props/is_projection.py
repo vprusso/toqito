@@ -1,7 +1,7 @@
 """Is matrix a projection matrix."""
 import numpy as np
 
-from toqito.matrix_props import is_positive_semidefinite, is_square
+from toqito.matrix_props import is_square
 
 
 def is_projection(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
