@@ -29,12 +29,16 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
+      - name: Install blas, lapack for Linux
+        if: runner.os == 'Linux'
         run: |
-          if [ "$RUNNER_OS" == "Linux" ]; then
-            sudo apt-get install -y libblas-dev liblapack-dev
-          elif [ "$RUNNER_OS" == "macOS" ]; then
-            brew install openblas lapack
+          sudo apt-get install -y libblas-dev liblapack-dev
+      - name: Install blas, lapack for macOS
+        if: runner.os == 'macOS'
+        run: |
+          brew install openblas lapack
+      - name: Install all dependencies
+        run: |
           python -m pip install --upgrade pip
           pip install poetry
           poetry install --no-interaction
@@ -58,12 +62,16 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
+      - name: Install blas, lapack for Linux
+        if: runner.os == 'Linux'
         run: |
-          if [ "$RUNNER_OS" == "Linux" ]; then
-            sudo apt-get install -y libblas-dev liblapack-dev
-          elif [ "$RUNNER_OS" == "macOS" ]; then
-            brew install openblas lapack
+          sudo apt-get install -y libblas-dev liblapack-dev
+      - name: Install blas, lapack for macOS
+        if: runner.os == 'macOS'
+        run: |
+          brew install openblas lapack
+      - name: Install all dependencies
+        run: |
           python -m pip install --upgrade pip
           pip install poetry
           poetry install --no-interaction
