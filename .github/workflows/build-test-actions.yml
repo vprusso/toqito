@@ -73,3 +73,64 @@ jobs:
           verbose: true
       - name: Build artifacts
         run: poetry build
+
+  check-code-style-macos:
+    strategy:
+      matrix:
+          # Add versions here to expand support matrix
+        python-version: ["3.10", "3.11"]
+        os: [macos-latest]
+    runs-on: ${{ matrix.os }}
+    env:
+      PYTHON: ${{ matrix.python-version }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: chartboost/ruff-action@v1
+      # https://github.com/chartboost/ruff-action
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          brew install openblas lapack
+          python -m pip install --upgrade pip
+          pip install poetry
+          poetry install --no-interaction
+      - name: Code Analyzer Checks
+        run: |
+          poetry run pylint --fail-under=10.0 toqito/
+
+  toqito-build-macos:
+    strategy:
+      matrix:
+        # Add versions here to expand support matrix
+        python-version: ["3.10", "3.11"]
+        os: [macos-latest]
+    runs-on: ${{ matrix.os }}
+        # https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs#using-a-matrix-strategy
+    env:
+      PYTHON: ${{ matrix.python-version }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          brew install openblas lapack
+          python -m pip install --upgrade pip
+          pip install poetry
+          poetry install --no-interaction
+      - name: Run tests
+        run: poetry run pytest -v --cov-config=.coveragerc --cov-report=xml --cov-report term-missing:skip-covered --cov=toqito
+      - name: Upload coverage information
+        uses: codecov/codecov-action@v3
+        with:
+          token: 8a7d94ed-284d-4c22-91eb-9b66ce33fa62
+          name: codecov-umbrella
+          files: ./coverage.xml
+          verbose: true
+      - name: Build artifacts
+        run: poetry build
