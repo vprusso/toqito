@@ -1,5 +1,6 @@
 """Vectors associated to Gram matrix."""
 import numpy as np
+import scipy
 
 
 def vectors_from_gram_matrix(gram: np.ndarray) -> list[np.ndarray]:
@@ -49,4 +50,4 @@ def vectors_from_gram_matrix(gram: np.ndarray) -> list[np.ndarray]:
     except np.linalg.LinAlgError:
         print("Matrix is not positive semidefinite. Using eigendecomposition as alternative.")
         d, v = np.linalg.eig(gram)
-        return [np.sqrt(np.diag(d)) @ v[i].conj().T for i in range(dim)]
+        return [scipy.linalg.sqrtm(np.diag(d)) @ v[i].conj().T for i in range(dim)]
