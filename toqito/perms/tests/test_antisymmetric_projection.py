@@ -1,4 +1,6 @@
 """Test antisymmetric_projection."""
+import platform
+
 import numpy as np
 import pytest
 
