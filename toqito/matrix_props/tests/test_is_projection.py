@@ -5,9 +5,9 @@ from toqito.matrix_props import is_projection
 
 
 def test_is_projection():
-    """Check that non-Hermitian projection matrix returns False."""
+    """Check that non-symmetric projection matrix returns True."""
     mat = np.array([[0, 1], [0, 1]])
-    np.testing.assert_equal(is_projection(mat), False)
+    np.testing.assert_equal(is_projection(mat), True)
 
 
 def test_is_projection_2():

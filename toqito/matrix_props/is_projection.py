@@ -64,7 +64,4 @@ def is_projection(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> 
     """
     if not is_square(mat):
         return False
-
-    if not is_positive_semidefinite(mat):
-        return False
     return np.allclose(np.linalg.matrix_power(mat, 2), mat, rtol=rtol, atol=atol)
