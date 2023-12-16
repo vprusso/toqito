@@ -40,7 +40,7 @@ def symmetric_projection( dim: int, p_val: int = 2, partial: bool = False ) -> [
     Using :code:`toqito`, we can see this gives the proper result.
 
     >>> from toqito.perms import symmetric_projection
-    >>> symmetric_projection(2, 1).todense()
+    >>> symmetric_projection(2, 1)
     [[1., 0.],
      [0., 1.]]
 
@@ -57,7 +57,7 @@ def symmetric_projection( dim: int, p_val: int = 2, partial: bool = False ) -> [
     Using :code:`toqito` we can see this gives the proper result.
 
     >>> from toqito.perms import symmetric_projection
-    >>> symmetric_projection(dim=2).todense()
+    >>> symmetric_projection(dim=2)
     [[1. , 0. , 0. , 0. ],
      [0. , 0.5, 0.5, 0. ],
      [0. , 0.5, 0.5, 0. ],
