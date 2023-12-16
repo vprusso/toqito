@@ -45,23 +45,6 @@ sphinx_rtd_theme = "2.0.0"
 sphinxcontrib-bibtex = "2.6.1"
 sympy = "1.12"
 
-[tool.poetry.group.style.dependencies]
-python = ">=3.10,<3.12"
-cvxpy = "1.4.1"
-cvxopt = "1.3.2"
-more-itertools = "10.1.0"
-numpy = "1.26.2"
-scipy = "1.11.4"
-#scs = "3.2.4.post1"
-picos = "2.4.17"
-flake8 = "6.1.0"
-flake8-docstrings = "1.7.0"
-ipython = "8.18.1"
-isort = "5.13.2"
-pep8 = "1.7.1"
-ruff = "0.1.8"
-pylint = "3.0.3"
-
 
 [build-system]
 requires = ["setuptools","poetry>=0.12"]
