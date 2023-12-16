@@ -44,7 +44,7 @@ def in_separable_ball(mat: np.ndarray) -> bool:
     >>> import numpy as np
     >>>
     >>> U = random_unitary(4)
-    >>> lam = np.array([1.01, 1, 0,.99, 0]) / 3
+    >>> lam = np.array([1.01, 1, 0.99, 0]) / 3
     >>> rho = U @ np.diag(lam) @ U.conj().T
     >>> in_separable_ball(rho)
     False
