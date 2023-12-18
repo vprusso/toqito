@@ -80,12 +80,6 @@ def schmidt_decomposition(
     # Allow the user to enter a single number for `dim`.
     if isinstance(dim, float):
         dim = np.array([dim, len(rho) / dim])
-        if np.abs(dim[1] - np.round(dim[1])) >= 2 * len(rho) * eps:
-            raise ValueError(
-                "InvalidDim: The value of `dim` must evenly divide"
-                " `len(vec)`; please provide a `dim` array "
-                "containing the dimensions of the subsystems."
-            )
         dim[1] = np.round(dim[1])
 
     # Otherwise, use lots of Schmidt coefficients.
