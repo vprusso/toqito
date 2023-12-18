@@ -65,8 +65,6 @@ def schmidt_decomposition(
     :param k_param: How many terms of the Schmidt decomposition should be computed (default is 0).
     :return: The Schmidt decomposition of the :code:`rho` input.
     """
-    eps = np.finfo(float).eps
-
     # If the input is provided as a matrix, compute the operator Schmidt decomposition.
     if len(rho.shape) == 2:
         if rho.shape[0] != 1 and rho.shape[1] != 1:
