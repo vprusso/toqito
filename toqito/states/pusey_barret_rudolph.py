@@ -1,14 +1,14 @@
 """Construct a set of mutually unbiased bases."""
-import numpy as np
 import itertools
 
-from toqito.matrix_ops import tensor
+import numpy as np
+
 from toqito.matrices import standard_basis
+from toqito.matrix_ops import tensor
 
 
 def pusey_barret_rudolph(n: int, theta: float) -> list[np.ndarray]:
     r"""Produce set of Pusey-Barret-Rudolph (PBR) states :cite:`Pusey_2012_On`.
-
 
     Let :math:`\theta \in [0, \pi/2]` be an angle. Define the states
 
@@ -22,10 +22,10 @@ def pusey_barret_rudolph(n: int, theta: float) -> list[np.ndarray]:
     For some :math:`n \geq 1`, define a basis of :math:`2^n` states where
 
     .. math::
-        |\Psi_i\rangle = |\psi_{x_i}\rangle \otimes \cdots \otimes |\psi_{x_n}\rangle. 
+        |\Psi_i\rangle = |\psi_{x_i}\rangle \otimes \cdots \otimes |\psi_{x_n}\rangle.
 
     These PBR states are defined in Equation (A6) from :cite:`Pusey_2012_On`.
-    
+
     Examples
     ========
 
