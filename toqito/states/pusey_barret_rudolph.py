@@ -36,8 +36,8 @@ def pusey_barret_rudolph(n: int, theta: float) -> list[np.ndarray]:
     >>>
     >>> pusey_barret_rudolph(n=1, theta=0.5)
     [array([[0.96891242],
-        [0.24740396]]), array([[ 0.96891242],
-        [-0.24740396]])]
+    ...    [0.24740396]]), array([[ 0.96891242],
+    ...    [-0.24740396]])]
 
     References
     ==========
