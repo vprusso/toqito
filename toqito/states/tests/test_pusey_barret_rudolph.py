@@ -10,19 +10,19 @@ from toqito.states import pusey_barret_rudolph
     (1, 0, [np.array([1, 0]).reshape(-1, 1), np.array([1, 0]).reshape(-1, 1)]),
     # When `theta = 0`, this should simply be the [1, 0 ..., 0] vectors.
     (
-        2, 0, 
+        2, 0,
         [
-            np.array([1, 0, 0, 0]).reshape(-1, 1), 
             np.array([1, 0, 0, 0]).reshape(-1, 1),
-            np.array([1, 0, 0, 0]).reshape(-1, 1), 
+            np.array([1, 0, 0, 0]).reshape(-1, 1),
+            np.array([1, 0, 0, 0]).reshape(-1, 1),
             np.array([1, 0, 0, 0]).reshape(-1, 1),
         ]
     ),
     # n=1 and theta=0.5
     (
-        1, 0.5, 
+        1, 0.5,
         [
-            np.array([np.cos(1/4), np.sin(1/4)]).reshape(-1, 1), 
+            np.array([np.cos(1/4), np.sin(1/4)]).reshape(-1, 1),
             np.array([np.cos(1/4), -np.sin(1/4)]).reshape(-1, 1)
         ]
     ),
