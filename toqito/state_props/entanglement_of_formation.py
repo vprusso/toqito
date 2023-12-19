@@ -57,7 +57,7 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
     """
     dim_x, dim_y = rho.shape
     round_dim = int(np.round(np.sqrt(max(dim_x, dim_y))))
-    eps = np.finfo(float).eps
+
 
     if dim is None:
         dim = round_dim
@@ -67,11 +67,6 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
         dim = np.array(  # pylint: disable=redefined-variable-type
             [dim, max(dim_x, dim_y) / dim], dtype=int
         )
-        if abs(dim[1] - np.round(dim[1])) >= 2 * max(dim_x, dim_y) * eps:
-            raise ValueError(
-                "Invalid dimension: If `dim` is provided as a "
-                "scalar, `dim` must evenly divide `len(rho)`."
-            )
         dim[1] = np.round(dim[1])
 
     if np.prod(dim) != max(dim_x, dim_y):
@@ -106,7 +101,7 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
 
             return -rho_c1 * rho_c1_log2 - rho_c2 * rho_c2_log2
         raise ValueError(
-            "Invalid dimension: It is presently only known how to compute "
+            "Invalid input: It is presently only known how to compute "
             "the entanglement-of-formation for two-qubit states and pure "
             "states."
         )
