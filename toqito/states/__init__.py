@@ -19,3 +19,4 @@ from toqito.states.brauer import brauer
 from toqito.states.singlet import singlet
 from toqito.states.trine import trine
 from toqito.states.mutually_unbiased_basis import mutually_unbiased_basis
+from toqito.states.pusey_barret_rudolph import pusey_barret_rudolph
