@@ -1,9 +1,9 @@
 """Test random_states."""
-import pytest
 import numpy as np
+import pytest
 
 from toqito.rand import random_states
-from toqito.state_props import is_pure_state
+from toqito.state_props import is_pure
 
 
 @pytest.mark.parametrize(
@@ -33,4 +33,4 @@ def test_random_states(num_states, dim):
         # Convert state vector to density matrix.
         dm = np.outer(state, np.conj(state))
         # Verify each state is pure.
-        assert is_pure_state(dm)
+        assert is_pure(dm)
