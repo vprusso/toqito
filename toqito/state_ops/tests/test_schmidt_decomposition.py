@@ -20,37 +20,44 @@ phi5 = (
         + (np.sqrt(2) + np.sqrt(3)) / (2 * np.sqrt(6)) * np.kron(e_1, e_1)
     )
 
-@pytest.mark.parametrize("test_input, expected_u_mat, expected_vt_mat, expected_singular_vals", [
+@pytest.mark.parametrize("test_input, expected_u_mat, expected_vt_mat, expected_singular_vals, reconstruct", [
     # Schmidt decomposition of the 3-D maximally entangled state
-    (max_entangled(3), np.identity(3), np.identity(3), 1 / np.sqrt(3) * np.array([[1], [1], [1]])),
+    (max_entangled(3), np.identity(3), np.identity(3), 1 / np.sqrt(3) * np.array([[1], [1], [1]]), False),
     # Schmidt decomposition of two-qubit state. The Schmidt decomposition of | phi > = 1/2(|00> + |01> + |10> + |11>) is
     # the state |+>|+> where |+> = 1/sqrt(2) * (|0> + |1>).
-    (phi1, 1 / np.sqrt(2) * np.array([[-1], [-1]]), 1 / np.sqrt(2) * np.array([[-1], [-1]]), np.array([[1]])),
+    (phi1, 1 / np.sqrt(2) * np.array([[-1], [-1]]), 1 / np.sqrt(2) * np.array([[-1], [-1]]), np.array([[1]]), False),
     # Schmidt decomposition of two-qubit state. The Schmidt decomposition of | phi > = 1/2(|00> + |01> + |10> - |11>) is
     # the state 1/sqrt(2) * (|0>|+> + |1>|->).
     (phi2, np.array([[-1, -1], [-1, 1]]), 1 / np.sqrt(2) * np.array([[-1, -1], [-1, 1]]),
-    1 / np.sqrt(2) * np.array([[1], [1]])),
+    1 / np.sqrt(2) * np.array([[1], [1]]), True),
     # Schmidt decomposition of two-qubit state. The Schmidt decomposition of 1/2* (|00> + |11>) has Schmidt coefficients
     # equal to 1/2[1, 1]
-    (phi3, np.array([[1, 0], [0, 1]]), np.array([[1, 0], [0, 1]]), 1 / 2 * np.array([[1], [1]])),
+    (phi3, np.array([[1, 0], [0, 1]]), np.array([[1, 0], [0, 1]]), 1 / 2 * np.array([[1], [1]]), True),
     # Schmidt decomposition of two-qubit state. The Schmidt decomposition of 1/2 * (|00> - |01> + |10> + |11>) has
     # Schmidt coefficients equal to [1, 1]
     (phi4, np.array([[-1, 0], [0, 1]]), 1 / np.sqrt(2) * np.array([[-1, 1], [1, 1]]),
-    1 / np.sqrt(2) * np.array([[1], [1]])),
+    1 / np.sqrt(2) * np.array([[1], [1]]), False),
     # Schmidt decomposition of a pure state with a dimension list
-    (pure_vec, 1 / np.sqrt(2) * np.array([[-1], [-1]]), np.array([[1], [0]]), np.array([[1]])),
+    (pure_vec, 1 / np.sqrt(2) * np.array([[-1], [-1]]), np.array([[1], [0]]), np.array([[1]]), False),
     # Test on standard basis vectors
-    (np.kron(e_1, e_1), np.array([[0], [1]]), np.array([[0], [1]]), np.array([[1]])),
+    (np.kron(e_1, e_1), np.array([[0], [1]]), np.array([[0], [1]]), np.array([[1]]), False),
     # following test fails due to an AssertionError
     #(phi5, np.array([[-0.81649658, 0.57735027], [0.57735027, 0.81649658]]), 1 / np.sqrt(2) * np.array(
     # [[-1, 1], [1, 1]]), np.array([[np.sqrt(3 / 4)], [np.sqrt(1 / 4)]]))
     ])
-def test_schmidt_decomposition_no_input_dim(test_input, expected_u_mat, expected_vt_mat, expected_singular_vals):
+def test_schmidt_decomposition_no_input_dim(
+    test_input, expected_u_mat, expected_vt_mat, expected_singular_vals, reconstruct):
     """Test function works as expected for valid inputs."""
     calculated_singular_vals, calculated_u_mat, calculated_vt_mat = schmidt_decomposition(test_input)
     assert (calculated_singular_vals - expected_singular_vals).all() <= 0.1
     assert (calculated_u_mat - expected_u_mat).all() <= 0.1
     assert (calculated_vt_mat - expected_vt_mat).all() <= 0.1
+
+    if reconstruct is True:
+        s_decomp = (
+        calculated_singular_vals[0] * np.atleast_2d(np.kron(calculated_u_mat[:, 0], calculated_vt_mat[:, 0])).T
+        + calculated_singular_vals[1] * np.atleast_2d(np.kron(calculated_u_mat[:, 1], calculated_vt_mat[:, 1])).T)
+        assert np.linalg.norm(test_input - s_decomp) <= 0.001
 
 
 @pytest.mark.parametrize(
@@ -74,6 +81,7 @@ def test_schmidt_decomposition_input_dim(
     assert (calculated_singular_vals - expected_singular_vals).all() <= 0.1
     assert (calculated_u_mat - expected_u_mat).all() <= 0.1
     assert (calculated_vt_mat - expected_vt_mat).all() <= 0.1
+
 
 
 def test_schmidt_decomp_random_state():
