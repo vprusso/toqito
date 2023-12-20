@@ -5,16 +5,20 @@ import numpy as np
 from toqito.rand import random_states
 from toqito.state_props import is_pure_state
 
-@pytest.mark.parametrize("num_states, dim", [
-    # Test with a single quantum state of dimension 2.
-    (1, 2),
-    # Test with multiple quantum states of the same dimension.
-    (3, 2),
-    # Test with a single quantum state of higher dimension.
-    (1, 4),
-    # Test with multiple quantum states of higher dimension.
-    (2, 4),
-])
+
+@pytest.mark.parametrize(
+    "num_states, dim",
+    [
+        # Test with a single quantum state of dimension 2.
+        (1, 2),
+        # Test with multiple quantum states of the same dimension.
+        (3, 2),
+        # Test with a single quantum state of higher dimension.
+        (1, 4),
+        # Test with multiple quantum states of higher dimension.
+        (2, 4),
+    ],
+)
 def test_random_states(num_states, dim):
     """Test for random_states function."""
     # Generate a list of random quantum states.
