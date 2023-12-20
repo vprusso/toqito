@@ -1,8 +1,8 @@
-"""Test pusey_barret_rudolph."""
+"""Test pusey_barrett_rudolph."""
 import numpy as np
 import pytest
 
-from toqito.states import pusey_barret_rudolph
+from toqito.states import pusey_barrett_rudolph
 
 
 @pytest.mark.parametrize("n, theta, expected_value", [
@@ -27,7 +27,7 @@ from toqito.states import pusey_barret_rudolph
         ]
     ),
 ])
-def test_pusey_barret_rudolph(n, theta, expected_value):
+def test_pusey_barrett_rudolph(n, theta, expected_value):
     """Test functions works as expected for valid inputs."""
-    states = pusey_barret_rudolph(n, theta)
+    states = pusey_barrett_rudolph(n, theta)
     np.testing.assert_equal(states, expected_value)

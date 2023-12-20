@@ -7,8 +7,8 @@ from toqito.matrices import standard_basis
 from toqito.matrix_ops import tensor
 
 
-def pusey_barret_rudolph(n: int, theta: float) -> list[np.ndarray]:
-    r"""Produce set of Pusey-Barret-Rudolph (PBR) states :cite:`Pusey_2012_On`.
+def pusey_barrett_rudolph(n: int, theta: float) -> list[np.ndarray]:
+    r"""Produce set of Pusey-Barrett-Rudolph (PBR) states :cite:`Pusey_2012_On`.
 
     Let :math:`\theta \in [0, \pi/2]` be an angle. Define the states
 
@@ -34,7 +34,7 @@ def pusey_barret_rudolph(n: int, theta: float) -> list[np.ndarray]:
 
     >>> from toqito.states import pusey_barret_rudolph
     >>>
-    >>> pusey_barret_rudolph(n=1, theta=0.5)
+    >>> pusey_barrett_rudolph(n=1, theta=0.5)
     [array([[0.96891242],
     ...    [0.24740396]]), array([[ 0.96891242],
     ...    [-0.24740396]])]

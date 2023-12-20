@@ -109,7 +109,7 @@ Quantum States
     toqito.states.max_entangled
     toqito.states.max_mixed
     toqito.states.mutually_unbiased_basis
-    toqito.states.pusey_barret_rudolph
+    toqito.states.pusey_barrett_rudolph
     toqito.states.singlet
     toqito.states.tile
     toqito.states.trine
