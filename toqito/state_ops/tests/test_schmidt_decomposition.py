@@ -41,9 +41,9 @@ phi5 = (
     (pure_vec, 1 / np.sqrt(2) * np.array([[-1], [-1]]), np.array([[1], [0]]), np.array([[1]]), False),
     # Test on standard basis vectors
     (np.kron(e_1, e_1), np.array([[0], [1]]), np.array([[0], [1]]), np.array([[1]]), False),
-    # following test fails due to an AssertionError
-    #(phi5, np.array([[-0.81649658, 0.57735027], [0.57735027, 0.81649658]]), 1 / np.sqrt(2) * np.array(
-    # [[-1, 1], [1, 1]]), np.array([[np.sqrt(3 / 4)], [np.sqrt(1 / 4)]]))
+    # Following fails with AssertionError
+    # (phi5, np.array([[-0.81649658,  0.57735027], [ 0.57735027,  0.81649658]]),
+    # 1 / np.sqrt(2) * np.array([[-1, 1], [1, 1]]), np.array([[0.8660254], [0.5]]) ,False)
     ])
 def test_schmidt_decomposition_no_input_dim(
     test_input, expected_u_mat, expected_vt_mat, expected_singular_vals, reconstruct):
@@ -67,8 +67,9 @@ def test_schmidt_decomposition_no_input_dim(
     # Schmidt decomposition of a pure state with a dimension list when input_dim is list and k_param is 1
     (pure_vec, [2, 2], 1, 1 / np.sqrt(2) * np.array([[-1], [-1]]), np.array([[1], [0]]), np.array([[1]])),
     # Schmidt decomposition of a pure state with a dimension list when input_dim is list and k_param is 2
-    (pure_vec, [2, 2], 2, 1 / np.sqrt(2) * np.array([[-1, -1], [-1, 1]]), np.identity(2),np.array([[1], [0]]))
-    ])
+    (pure_vec, [2, 2], 2, 1 / np.sqrt(2) * np.array([[-1, -1], [-1, 1]]), np.identity(2),np.array([[1], [0]])),
+    # Input dim is None - Schmidt decomposition of the 3-D maximally entangled state
+    (max_entangled(3), None, None, np.identity(3), np.identity(3), 1 / np.sqrt(3) * np.array([[1], [1], [1]])),])
 def test_schmidt_decomposition_input_dim(
     test_input, input_dim, input_param, expected_u_mat,expected_vt_mat, expected_singular_vals):
     """Test function works as expected for valid inputs."""

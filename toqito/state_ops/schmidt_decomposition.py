@@ -124,8 +124,6 @@ def _operator_schmidt_decomposition(
     :param k_param: The number of Schmidt coefficients to compute.
     :return: The Schmidt decomposition of the :code:`rho` input.
     """
-    eps = np.finfo(float).eps
-
     if dim is None:
         dim_x = rho.shape
         sqrt_dim = np.round(np.sqrt(dim_x))
@@ -137,13 +135,6 @@ def _operator_schmidt_decomposition(
     # Allow the user to enter a single number for `dim` if `rho` is square.
     if isinstance(dim, int):
         dim = np.array([dim, len(rho) / dim])
-        if np.abs(dim[1] - np.round(dim[1])) >= 2 * len(rho) * eps:
-            raise ValueError(
-                "InvalidDim: If `dim` is an integer, `rho` must be square"
-                " and `dim` must evenly divide `len(rho)`;"
-                " please provide a `dim` array containing"
-                " the dimensions of the subsystems."
-            )
         dim[1] = np.round(dim[1])
 
     if min(dim.shape) == 1 or len(dim.shape) == 1:
