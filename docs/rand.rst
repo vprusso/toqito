@@ -15,4 +15,5 @@ Random
     toqito.rand.random_ginibre
     toqito.rand.random_povm
     toqito.rand.random_state_vector
+    toqito.rand.random_states
     toqito.rand.random_unitary
