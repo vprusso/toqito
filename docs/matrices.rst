@@ -21,6 +21,7 @@ Matrices
     toqito.matrices.pauli
     toqito.matrices.shift
     toqito.matrices.standard_basis
+    toqito.matrices.cyclic_permutation
 
 Operations on Matrices and Vectors
 ----------------------------------
