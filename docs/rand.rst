@@ -17,3 +17,4 @@ Random
     toqito.rand.random_state_vector
     toqito.rand.random_states
     toqito.rand.random_unitary
+    toqito.rand.random_circulant_gram
