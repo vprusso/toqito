@@ -5,6 +5,13 @@ import numpy as np
 def random_circulant_gram(dim: int) -> np.ndarray:
     r"""Generate a random circulant Gram matrix of specified dimension.
 
+    A circulant matrix is a square matrix where each row is a shifted version of the one above,
+    with properties allowing for efficient computations using eigenvalues and eigenvectors derived
+    through the Discrete Fourier Transform (DFT) (see https://en.wikipedia.org/wiki/Circulant_matrix for more details).
+    This function leverages the normalized DFT, which is a variation of the DFT where basis vectors are normalized,
+    changing the computational requirements and offering a different perspective on signal transformations
+    (detailed at https://ccrma.stanford.edu/~jos/st/Normalized_DFT.html).
+
     This function creates a circulant matrix based on a random diagonal matrix and the normalized Discrete
     Fourier Transform (DFT) matrix. The function first generates a diagonal matrix with random non-negative entries.
     It then constructs the normalized DFT matrix. Finally, it computes the circulant matrix, which,
