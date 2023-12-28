@@ -1,0 +1,40 @@
+# https://github.com/FantasticFiasco/action-update-license-year
+# https://github.com/FantasticFiasco/action-update-license-year?tab=readme-ov-file#i-want-to-update-my-license-and-a-custom-source-in-the-same-pr
+
+name: Update copyright year(s) in license file
+
+on:
+  schedule:
+    - cron: '0 3 1 1 *' # 03:00 AM on January 1
+
+jobs:
+  update-license-year:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: FantasticFiasco/action-update-license-year@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: |
+            LICENSE
+          branchName: license/{{currentYear}}
+          commitTitle: update license
+          commitBody: Let's keep legal happy.
+          prTitle: Update my license
+          prBody: It's that time of the year, let's update the license.
+          labels: documentation
+  
+  source:
+    needs: license
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: FantasticFiasco/action-update-license-year@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: 'docs/conf.py'
+          transform: (?<=my own copyright )(?<from>\d{4})?-?(\d{4})?
