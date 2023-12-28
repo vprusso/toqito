@@ -2,17 +2,17 @@
 
 (Theory of Quantum Information Toolkit)
 
-The `toqito` package is an open source Python library for studying various
+The `toqito` package is an open-source Python library for studying various
 objects in quantum information, namely, states, channels, and measurements.
 
 Specifically, `toqito` focuses on providing numerical tools to study problems
-pertaining to entanglement theory, nonlocal games, matrix analysis, and other
+about entanglement theory, nonlocal games, matrix analysis, and other
 aspects of quantum information that are often associated with computer science.
 
 `toqito` aims to fill the needs of quantum information researchers who want
 numerical and computational tools for manipulating quantum states,
 measurements, and channels. It can also be used as a tool to enhance the
-experience of students and instructors in classes pertaining to quantum
+experience of students and instructors in classes about quantum
 information.
 
 
@@ -85,7 +85,11 @@ A BibTeX entry that you can use to cite `toqito` is provided here:
  }
 ```
 
-The `toqito` project has been used in the following works:
+The `toqito` project has been used or referenced in the following works:
+
+- Tavakoli, Armin and Pozas-Kerstjens, Alejandro and Brown, Peter and Araújo, Mateus
+"Semidefinite programming relaxations for quantum correlations"
+arXiv preprint [arxiv:2307.02551](https://arxiv.org/abs/2307.02551) (2023).
 
 - Johnston, Nathaniel and Russo, Vincent and Sikora, Jamie
 "Tight bounds for antidistinguishability and circulant sets of pure quantum states",
@@ -112,7 +116,7 @@ arXiv preprint [arXiv:2306.09444](https://arxiv.org/abs/2306.09444) (2023).
 All contributions, bug reports, bug fixes, documentation improvements,
 enhancements, and ideas are welcome.
 
-A detailed overview on how to contribute can be found in the
+A detailed overview of how to contribute can be found in the
 [contributing guide](https://github.com/vprusso/toqito/blob/master/.github/CONTRIBUTING.md).
 
 ## License
