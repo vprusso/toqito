@@ -44,6 +44,10 @@ jobs:
       id-token: write  # IMPORTANT: mandatory for trusted publishing
 
     steps:
+    - name: Release Changelog Builder
+      uses: mikepenz/release-changelog-builder-action@v4.1.0
+      # https://github.com/marketplace/actions/release-changelog-builder
+            
     - name: Download all the dists
       uses: actions/download-artifact@v3
       with:
@@ -118,3 +122,5 @@ jobs:
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         repository-url: https://test.pypi.org/legacy/
+  
+  
