@@ -16,11 +16,10 @@ def test_cyclic_permutation_checks():
     for n in (2, 4, 6, 8, 10):
         res = cyclic_permutation_matrix(n)
         # Check the size of the matrix
-        assert res.shape == (n , n)
-        # Check Cyclic Property: P^n = I
-        bool_mat_cyclic = np.allclose(np.linalg.matrix_power(res, n), np.eye(n))
-        np.testing.assert_equal(bool_mat_cyclic, True)
-        # Check orthogonality: P^T = P^1{-1}
-        bool_mat_orthogonal = np.allclose(np.transpose(res), np.linalg.inv(res))
-        np.testing.assert_equal(bool_mat_orthogonal, True)
+        np.testing.assert_equal(res.shape, (n, n))
+        # Check that the matrix is equal to the calculated matirx
+        expected_matrix = np.zeros((n, n), dtype=int)
+        np.fill_diagonal(expected_matrix[1:], 1)
+        expected_matrix[0, -1] = 1
 
+        np.testing.assert_array_equal(res, expected_matrix)
