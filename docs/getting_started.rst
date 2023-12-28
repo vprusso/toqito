@@ -7,7 +7,7 @@ Installing
 1. Ensure you have Python 3.9 or greater installed on your machine or in 
 a virtual environment (`pyenv <https://github.com/pyenv/pyenv>`_, `pyenv tutorial <https://realpython.com/intro-to-pyenv/>`_). 
 
-2. Consider using a `virtual environment <https://packaging.python.org/guides/installing-using-pip-and-virtualenv/>`_.
+2. Consider using a `virtual environment <https://docs.python.org/3/tutorial/venv.html>`_.
 You can also use :code:`pyenv` with :code:`virtualenv` `to manage different Python versions <https://github.com/pyenv/pyenv-virtualenv>`_. 
 
 3. The preferred way to install the :code:`toqito` package is via :code:`pip`.
@@ -59,7 +59,7 @@ Contributing
 All contributions, bug reports, bug fixes, documentation improvements,
 enhancements, and ideas are welcome.
 
-A detailed overview on how to contribute can be found in the linked contributing guide:  :ref:`contrib_guide_reference-label`.
+A detailed overview on how to contribute can be found in the  :ref:`contrib_guide_reference-label`.
 
 Reporting Issues
 ^^^^^^^^^^^^^^^^

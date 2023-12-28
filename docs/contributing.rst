@@ -1,7 +1,7 @@
 .. _contrib_guide_reference-label:
 
 """""""""""""""""
-How to contribute
+Contributing Guide
 """""""""""""""""
 
 We welcome contributions from external contributors, and this document
