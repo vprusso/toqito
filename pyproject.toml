@@ -51,6 +51,11 @@ sympy = "1.12"
 requires = ["setuptools","poetry>=0.12"]
 build-backend = "poetry.masonry.api"
 
+[tool.black]
+line-length = 120
+target-version = ["py310"]
+
+
 [tool.ruff]
 # exclude = ["__init__.py"]
 line-length = 120
