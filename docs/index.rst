@@ -37,6 +37,7 @@ User Documentation
 
     getting_started
     intro_tutorial
+    contributing
 
 .. toctree::
     :maxdepth: 2

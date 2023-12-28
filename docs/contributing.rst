@@ -1,13 +1,13 @@
+.. _contrib_guide_reference-label:
+
 """""""""""""""""
 How to contribute
 """""""""""""""""
 
-.. contents:: How to contribute
-   :depth: 2
-
 We welcome contributions from external contributors, and this document
 describes how to merge code changes into this `toqito`. 
 
+================
 Getting Started
 ================
 
@@ -19,6 +19,7 @@ Getting Started
 -    To install an editable version on your local machine, run `pip install -e .` in
      the top-level directory of the cloned repository.
 
+==============
 Making Changes
 ==============
 
@@ -46,17 +47,20 @@ Making Changes
      integration returns check marks,
      and the primary developer approves the reviews.
 
+---------------------
 Additional Resources
-----------------------
+---------------------
 
 -    [General GitHub documentation](https://help.github.com/)
 -    [PR best practices](http://codeinthehole.com/writing/pull-requests-and-other-good-practices-for-teams-using-github/)
 -    [A guide to contributing to software packages](http://www.contribution-guide.org)
 -    [Thinkful PR example](http://www.thinkful.com/learn/github-pull-request-tutorial/#Time-to-Submit-Your-First-PR)
 
+================
 Code of Conduct
 ================
 
+-----------
 Our Pledge
 -----------
 
@@ -67,6 +71,7 @@ size, disability, ethnicity, gender identity and expression, level of
 experience, nationality, personal appearance, race, religion, or sexual identity
 and orientation.
 
+-------------
 Our Standards
 -------------
 
@@ -90,6 +95,7 @@ Examples of unacceptable behavior by participants include:
 -    Other conduct which could reasonably be considered inappropriate in a
      professional setting
 
+--------------------
 Our Responsibilities
 --------------------
 
@@ -103,6 +109,7 @@ that are not aligned to this Code of Conduct, or to ban temporarily or
 permanently any contributor for other behaviors that they deem inappropriate,
 threatening, offensive, or harmful.
 
+------
 Scope
 ------
 
@@ -113,6 +120,7 @@ address, posting via an official social media account, or acting as an appointed
 representative at an online or offline event. Representation of a project may be
 further defined and clarified by project maintainers.
 
+------------
 Enforcement
 ------------
 
@@ -127,6 +135,7 @@ Project maintainers who do not follow or enforce the Code of Conduct in good
 faith may face temporary or permanent repercussions as determined by other
 members of the project's leadership.
 
+-----------
 Attribution
 -----------
 
