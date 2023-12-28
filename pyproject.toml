@@ -27,6 +27,7 @@ picos = "2.4.17"
 qiskit = "0.45.1"
 
 [tool.poetry.dev-dependencies]
+black = "23.12.1"
 distlib = "0.3.8"
 flake8 = "6.1.0"
 flake8-docstrings = "1.7.0"
@@ -53,7 +54,8 @@ build-backend = "poetry.masonry.api"
 
 [tool.black]
 line-length = 120
-target-version = ["py310"]
+# black has a known deviation for end of line comments where line length can be greater than 120
+# https://docs.astral.sh/ruff/formatter/black/#trailing-end-of-line-comments
 
 
 [tool.ruff]

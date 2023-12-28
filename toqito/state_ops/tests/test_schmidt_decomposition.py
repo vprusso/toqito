@@ -20,8 +20,8 @@ pure_vec = -1 / np.sqrt(2) * np.array([[1], [0], [1], [0]])
     [
         # Schmidt decomposition of the 3-D maximally entangled state
         (max_entangled(3), np.identity(3), np.identity(3), 1 / np.sqrt(3) * np.array([[1], [1], [1]]), False),
-        # Schmidt decomposition of two-qubit state. The Schmidt decomposition of | phi > = 1/2(|00> + |01> + |10> + |11>) is
-        # the state |+>|+> where |+> = 1/sqrt(2) * (|0> + |1>).
+        # Schmidt decomposition of two-qubit state. The Schmidt decomposition of | phi > = 1/2(|00> + |01> + |10>
+        # + |11>) is the state |+>|+> where |+> = 1/sqrt(2) * (|0> + |1>).
         (
             phi1,
             1 / np.sqrt(2) * np.array([[-1], [-1]]),
@@ -29,8 +29,8 @@ pure_vec = -1 / np.sqrt(2) * np.array([[1], [0], [1], [0]])
             np.array([[1]]),
             False,
         ),
-        # Schmidt decomposition of two-qubit state. The Schmidt decomposition of | phi > = 1/2(|00> + |01> + |10> - |11>) is
-        # the state 1/sqrt(2) * (|0>|+> + |1>|->).
+        # Schmidt decomposition of two-qubit state. The Schmidt decomposition of | phi > = 1/2(|00> + |01> + |10> -
+        # |11>) is the state 1/sqrt(2) * (|0>|+> + |1>|->).
         (
             phi2,
             np.array([[-1, -1], [-1, 1]]),
@@ -38,11 +38,11 @@ pure_vec = -1 / np.sqrt(2) * np.array([[1], [0], [1], [0]])
             1 / np.sqrt(2) * np.array([[1], [1]]),
             True,
         ),
-        # Schmidt decomposition of two-qubit state. The Schmidt decomposition of 1/2* (|00> + |11>) has Schmidt coefficients
-        # equal to 1/2[1, 1]
+        # Schmidt decomposition of two-qubit state. The Schmidt decomposition of 1/2* (|00> + |11>) has Schmidt
+        # coefficients equal to 1/2[1, 1]
         (phi3, np.array([[1, 0], [0, 1]]), np.array([[1, 0], [0, 1]]), 1 / 2 * np.array([[1], [1]]), True),
-        # Schmidt decomposition of two-qubit state. The Schmidt decomposition of 1/2 * (|00> - |01> + |10> + |11>) has
-        # Schmidt coefficients equal to [1, 1]
+        # Schmidt decomposition of two-qubit state. The Schmidt decomposition of 1/2 * (|00> - |01> + |10> + |11>)
+        # has Schmidt coefficients equal to [1, 1]
         (
             phi4,
             np.array([[-1, 0], [0, 1]]),
