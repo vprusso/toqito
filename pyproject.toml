@@ -54,6 +54,7 @@ build-backend = "poetry.masonry.api"
 
 [tool.black]
 line-length = 120
+target-version = ["py311"]
 # black has a known deviation for end of line comments where line length can be greater than 120
 # https://docs.astral.sh/ruff/formatter/black/#trailing-end-of-line-comments
 
