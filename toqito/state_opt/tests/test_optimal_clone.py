@@ -28,7 +28,7 @@ probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
 )
 def test_optimal_clone(input_states, input_probs, num_reps, input_strategy, expected):
     """Test functions work as expected."""
-    expected_result = expected ** num_reps
+    expected_result = expected**num_reps
     calculated_result = optimal_clone(input_states, input_probs, num_reps, input_strategy)
     assert pytest.approx(expected_result, 0.1) == calculated_result
 

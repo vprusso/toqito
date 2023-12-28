@@ -68,7 +68,7 @@ def _is_prime_power(n: int) -> bool:
         return False
 
     # Iterate over primes using a generator
-    for p in primerange(2, int(n ** 0.5) + 1):
+    for p in primerange(2, int(n**0.5) + 1):
         # If p is a divisor of n
         if n % p == 0:
             # Keep dividing n by p as long as possible

@@ -58,4 +58,4 @@ def isotropic(dim: int, alpha: float) -> np.ndarray:
     :return: Isotropic state of dimension :code:`dim`.
     """
     psi = max_entangled(dim, False, False)
-    return (1 - alpha) * np.identity(dim ** 2) / dim ** 2 + alpha * psi @ psi.conj().T / dim
+    return (1 - alpha) * np.identity(dim**2) / dim**2 + alpha * psi @ psi.conj().T / dim

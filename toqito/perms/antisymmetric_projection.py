@@ -75,7 +75,7 @@ def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) 
     :param partial: Default value of 0.
     :return: Projection onto the antisymmetric subspace.
     """
-    dimp = dim ** p_param
+    dimp = dim**p_param
 
     if p_param == 1:
         return sparse.eye(dim)

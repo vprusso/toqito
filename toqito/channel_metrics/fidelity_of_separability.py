@@ -140,7 +140,7 @@ def fidelity_of_separability(
 
     # List of extenstion systems and dimension of the Choi matrix.
     sys_ext = list(range(2, 2 + k - 1))
-    dim_choi = dim_r * (dim_a ** k)
+    dim_choi = dim_r * (dim_a**k)
 
     # Projection onto symmetric subspace on AA'.
     pi_sym = symmetric_projection(dim_a, 2)

@@ -82,7 +82,7 @@ class QuantumHedging:
         #   π(y1 ⊗ y2 ⊗ x1 ⊗ x2) = y1 ⊗ x1 ⊗ y2 ⊗ x2
         # for all y1 ∈ Y1, y2 ∈ Y2, x1 ∈ X1, x2 ∈ X2.).
         l_1 = list(range(1, self._num_reps + 1))
-        l_2 = list(range(self._num_reps + 1, self._num_reps ** 2 + 1))
+        l_2 = list(range(self._num_reps + 1, self._num_reps**2 + 1))
         if self._num_reps == 1:
             self._pperm = np.array([1])
         else:
@@ -113,9 +113,9 @@ class QuantumHedging:
 
         :return: The optimal maximal probability for obtaining outcome "a".
         """
-        x_var = cvxpy.Variable((4 ** self._num_reps, 4 ** self._num_reps), PSD=True)
+        x_var = cvxpy.Variable((4**self._num_reps, 4**self._num_reps), PSD=True)
         objective = cvxpy.Maximize(cvxpy.trace(self._q_a.conj().T @ x_var))
-        constraints = [partial_trace(x_var, self._sys, self._dim) == np.identity(2 ** self._num_reps)]
+        constraints = [partial_trace(x_var, self._sys, self._dim) == np.identity(2**self._num_reps)]
         problem = cvxpy.Problem(objective, constraints)
 
         return problem.solve()
@@ -140,10 +140,10 @@ class QuantumHedging:
 
         :return: The optimal maximal probability for obtaining outcome "a".
         """
-        y_var = cvxpy.Variable((2 ** self._num_reps, 2 ** self._num_reps), hermitian=True)
+        y_var = cvxpy.Variable((2**self._num_reps, 2**self._num_reps), hermitian=True)
         objective = cvxpy.Minimize(cvxpy.trace(cvxpy.real(y_var)))
 
-        kron_var = cvxpy.kron(np.eye(2 ** self._num_reps), y_var)
+        kron_var = cvxpy.kron(np.eye(2**self._num_reps), y_var)
         if self._num_reps == 1:
             u_var = cvxpy.multiply(cvxpy.multiply(self._pperm, kron_var), self._pperm.conj().T)
             constraints = [cvxpy.real(u_var) >> self._q_a]
@@ -177,9 +177,9 @@ class QuantumHedging:
 
         :return: The optimal minimal probability for obtaining outcome "a".
         """
-        x_var = cvxpy.Variable((4 ** self._num_reps, 4 ** self._num_reps), PSD=True)
+        x_var = cvxpy.Variable((4**self._num_reps, 4**self._num_reps), PSD=True)
         objective = cvxpy.Minimize(cvxpy.trace(self._q_a.conj().T @ x_var))
-        constraints = [partial_trace(x_var, self._sys, self._dim) == np.identity(2 ** self._num_reps)]
+        constraints = [partial_trace(x_var, self._sys, self._dim) == np.identity(2**self._num_reps)]
         problem = cvxpy.Problem(objective, constraints)
 
         return problem.solve()
@@ -204,10 +204,10 @@ class QuantumHedging:
 
         :return: The optimal minimal probability for obtaining outcome "a".
         """
-        y_var = cvxpy.Variable((2 ** self._num_reps, 2 ** self._num_reps), hermitian=True)
+        y_var = cvxpy.Variable((2**self._num_reps, 2**self._num_reps), hermitian=True)
         objective = cvxpy.Maximize(cvxpy.trace(cvxpy.real(y_var)))
 
-        kron_var = cvxpy.kron(np.eye(2 ** self._num_reps), y_var)
+        kron_var = cvxpy.kron(np.eye(2**self._num_reps), y_var)
 
         if self._num_reps == 1:
             u_var = cvxpy.multiply(cvxpy.multiply(self._pperm, kron_var), self._pperm.conj().T)
