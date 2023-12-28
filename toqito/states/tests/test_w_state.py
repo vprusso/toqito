@@ -9,9 +9,7 @@ from toqito.states import basis, w_state
 def test_w_state_3():
     """The 3-qubit W-state."""
     e_0, e_1 = basis(2, 0), basis(2, 1)
-    expected_res = (
-        1 / np.sqrt(3) * (tensor(e_1, e_0, e_0) + tensor(e_0, e_1, e_0) + tensor(e_0, e_0, e_1))
-    )
+    expected_res = 1 / np.sqrt(3) * (tensor(e_1, e_0, e_0) + tensor(e_0, e_1, e_0) + tensor(e_0, e_0, e_1))
 
     res = w_state(3)
     np.testing.assert_allclose(res, expected_res, atol=0.2)

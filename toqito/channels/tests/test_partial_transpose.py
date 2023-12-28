@@ -688,9 +688,7 @@ def test_partial_transpose_16_by_16_subsystems_2_2_2_2():
 def test_partial_transpose_bell_state():
     """Test partial transpose on a Bell state."""
     rho = bell(2) * bell(2).conj().T
-    expected_res = np.array(
-        [[0, 0, 0, 1 / 2], [0, 1 / 2, 0, 0], [0, 0, 1 / 2, 0], [1 / 2, 0, 0, 0]]
-    )
+    expected_res = np.array([[0, 0, 0, 1 / 2], [0, 1 / 2, 0, 0], [0, 0, 1 / 2, 0], [1 / 2, 0, 0, 0]])
     res = partial_transpose(rho)
     np.testing.assert_equal(np.allclose(res, expected_res), True)
 

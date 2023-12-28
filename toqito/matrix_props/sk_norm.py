@@ -91,9 +91,7 @@ def sk_operator_norm(  # pylint: disable=too-many-locals
     if isinstance(dim, int):
         dim = np.array([dim, dim_xy / dim])  # pylint: disable=redefined-variable-type
         if np.abs(dim[1] - np.round(dim[1])) >= 2 * dim_xy * np.finfo(float).eps:
-            raise ValueError(
-                "If `dim` is a scalar, it must evenly divide the length of the matrix."
-            )
+            raise ValueError("If `dim` is a scalar, it must evenly divide the length of the matrix.")
         dim[1] = int(np.round(dim[1]))
 
     dim = np.array(dim, dtype=int)
@@ -117,9 +115,7 @@ def sk_operator_norm(  # pylint: disable=too-many-locals
     # If X is rank 1 then the S(k)-norm is easy to compute via Proposition 10 of [1].
     if rank == 1:
         u_mat, _, v_mat = np.linalg.svd(mat, full_matrices=False)
-        lower_bound = (
-            op_norm * sk_vector_norm(u_mat[:, 0], k, dim) * sk_vector_norm(v_mat[0, :], k, dim)
-        )
+        lower_bound = op_norm * sk_vector_norm(u_mat[:, 0], k, dim) * sk_vector_norm(v_mat[0, :], k, dim)
         upper_bound = lower_bound
         return lower_bound, upper_bound
 
@@ -163,12 +159,7 @@ def sk_operator_norm(  # pylint: disable=too-many-locals
         if k == 1:
             lower_bound = max(
                 lower_bound,
-                (
-                    np.trace(mat)
-                    + np.sqrt(
-                        (prod_dim * np.trace(mat @ mat) - np.trace(mat) ** 2) / (prod_dim - 1)
-                    )
-                )
+                (np.trace(mat) + np.sqrt((prod_dim * np.trace(mat @ mat) - np.trace(mat) ** 2) / (prod_dim - 1)))
                 / prod_dim,
             )
 
@@ -176,10 +167,7 @@ def sk_operator_norm(  # pylint: disable=too-many-locals
             # Use the upper bound of Proposition 15 of [1].
             upper_bound = min(
                 upper_bound,
-                sum(
-                    abs(eig_val[i]) * sk_vector_norm(eig_vec[:, i], k, dim) ** 2
-                    for i in range(prod_dim)
-                ),
+                sum(abs(eig_val[i]) * sk_vector_norm(eig_vec[:, i], k, dim) ** 2 for i in range(prod_dim)),
             )
 
             # Use the upper bound of Proposition 4.2.11 of [3].
@@ -191,10 +179,7 @@ def sk_operator_norm(  # pylint: disable=too-many-locals
                 lower_bound,
                 min(
                     1,
-                    k
-                    / np.ceil(
-                        (dim[0] + dim[1] - np.sqrt((dim[0] - dim[1]) ** 2 + 4 * rank - 4)) / 2
-                    ),
+                    k / np.ceil((dim[0] + dim[1] - np.sqrt((dim[0] - dim[1]) ** 2 + 4 * rank - 4)) / 2),
                 ),
             )
 
@@ -250,15 +235,12 @@ def sk_operator_norm(  # pylint: disable=too-many-locals
         elif k == 1:
             # we can also get decent lower bounds from the SDP results when k=1
             # See Theorem 5.2.8 of [2]
-            roots, _ = scipy.special.roots_jacobi(  # pylint: disable=unbalanced-tuple-unpacking
-                1, dim[1] - 2, 1
-            )
+            roots, _ = scipy.special.roots_jacobi(1, dim[1] - 2, 1)  # pylint: disable=unbalanced-tuple-unpacking
             gs = min(1 - roots)
             xmineig = min(eig_val)
             lower_bound = max(
                 lower_bound,
-                np.real(cvx_optval) * (1 - dim[1] * gs / (2 * dim[1] - 1))
-                + xmineig * gs / (2 * dim[1] - 2),
+                np.real(cvx_optval) * (1 - dim[1] * gs / (2 * dim[1] - 1)) + xmineig * gs / (2 * dim[1] - 2),
             )
 
             # Done the effort = 1 SDP, now get better upper bounds via symmetric
@@ -274,9 +256,7 @@ def sk_operator_norm(  # pylint: disable=too-many-locals
 
                 rho = cvxpy.Variable((prod_sym_dim, prod_sym_dim), hermitian=True, name="rho")
                 objective = cvxpy.Maximize(
-                    cvxpy.real(
-                        cvxpy.trace(mat @ partial_trace(rho, list(range(2, j + 1)), sym_dim))
-                    )
+                    cvxpy.real(cvxpy.trace(mat @ partial_trace(rho, list(range(2, j + 1)), sym_dim)))
                 )
 
                 constraints = [
@@ -299,8 +279,7 @@ def sk_operator_norm(  # pylint: disable=too-many-locals
                 gs = min(1 - roots)
                 lower_bound = max(
                     lower_bound,
-                    np.real(cvx_optval) * (1 - dim[1] * gs / (2 * dim[1] - 1))
-                    + xmineig * gs / (2 * dim[1] - 2),
+                    np.real(cvx_optval) * (1 - dim[1] * gs / (2 * dim[1] - 1)) + xmineig * gs / (2 * dim[1] - 2),
                 )
 
     lower_bound = op_norm * lower_bound
@@ -312,12 +291,9 @@ def sk_operator_norm(  # pylint: disable=too-many-locals
 # This function checks whether or not the lower bound or upper bound
 # already computed meets the desired target value (within numerical error)
 # and thus we can abort early.
-def __target_is_proved(
-    lower_bound: float, upper_bound: float, op_norm: float, tol: float, target: float
-) -> bool:
+def __target_is_proved(lower_bound: float, upper_bound: float, op_norm: float, tol: float, target: float) -> bool:
     return op_norm * (lower_bound + tol) >= op_norm * upper_bound or (
-        target is not None
-        and (op_norm * (lower_bound - tol) >= target or op_norm * (upper_bound + tol) <= target)
+        target is not None and (op_norm * (lower_bound - tol) >= target or op_norm * (upper_bound + tol) <= target)
     )
 
 
@@ -339,14 +315,10 @@ def __lower_bound_sk_norm_randomized(  # pylint: disable=too-many-locals
     dim_a, dim_b = dim
 
     psi = max_entangled(k, is_normalized=False)
-    left_swap_entagled_kron_id = swap(
-        np.kron(psi, np.eye(dim_a * dim_b)), [2, 3], [k, k, dim_a, dim_b], row_only=True
-    )
+    left_swap_entagled_kron_id = swap(np.kron(psi, np.eye(dim_a * dim_b)), [2, 3], [k, k, dim_a, dim_b], row_only=True)
 
     swap_entagled_kron_id = left_swap_entagled_kron_id @ left_swap_entagled_kron_id.conj().T
-    swap_entagled_kron_mat = swap(
-        np.kron(psi @ psi.conj().T, mat), [2, 3], [k, k, dim_a, dim_b], row_only=False
-    )
+    swap_entagled_kron_mat = swap(np.kron(psi @ psi.conj().T, mat), [2, 3], [k, k, dim_a, dim_b], row_only=False)
 
     opt_vec = None
     if start_vec is not None:

@@ -68,6 +68,5 @@ def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
         raise ValueError("Sub-fidelity is only defined for density operators.")
 
     return np.real(
-        np.trace(rho * sigma)
-        + np.sqrt(2 * (np.trace(rho * sigma) ** 2 - np.trace(rho * sigma * rho * sigma)))
+        np.trace(rho * sigma) + np.sqrt(2 * (np.trace(rho * sigma) ** 2 - np.trace(rho * sigma * rho * sigma)))
     )

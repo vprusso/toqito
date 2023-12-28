@@ -36,14 +36,9 @@ def test_unextendible_product_basis_invalid(states, dims):
         ([tile(0), tile(1), tile(2), tile(3)], [3, 3], False),
         # Check if Shifts is correctly identified as UPB.
         (
-            [
-                tensor([e_0, e_1, e_p]),
-                tensor([e_1, e_p, e_0]),
-                tensor([e_p, e_0, e_1]),
-                tensor([e_m, e_m, e_m])
-            ],
+            [tensor([e_0, e_1, e_p]), tensor([e_1, e_p, e_0]), tensor([e_p, e_0, e_1]), tensor([e_m, e_m, e_m])],
             [2, 2, 2],
-            True
+            True,
         ),
     ],
 )

@@ -106,11 +106,7 @@ def optimal_clone(
     # Q = ∑_{k=1}^N p_k |ψ_k ⊗ ψ_k ⊗ ψ_k> <ψ_k ⊗ ψ_k ⊗ ψ_k|
     q_a = np.zeros((dim, dim))
     for k, state in enumerate(states):
-        q_a += (
-            probs[k]
-            * tensor(state, state, state.conj())
-            * tensor(state, state, state.conj()).conj().T
-        )
+        q_a += probs[k] * tensor(state, state, state.conj()) * tensor(state, state, state.conj()).conj().T
 
     # The system is over:
     # Y_1 ⊗ Z_1 ⊗ X_1, ... , Y_n ⊗ Z_n ⊗ X_n.
@@ -161,9 +157,7 @@ def primal_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
     if num_reps == 1:
         objective = cvxpy.Maximize(cvxpy.trace(cvxpy.real(q_a.conj().T @ x_var)))
     else:
-        objective = cvxpy.Maximize(
-            cvxpy.trace(cvxpy.real(pperm @ q_a.conj().T @ pperm.conj().T @ x_var))
-        )
+        objective = cvxpy.Maximize(cvxpy.trace(cvxpy.real(pperm @ q_a.conj().T @ pperm.conj().T @ x_var)))
     constraints = [
         partial_trace(x_var, sys, dim) == np.identity(2 ** num_reps),
         x_var >> 0,

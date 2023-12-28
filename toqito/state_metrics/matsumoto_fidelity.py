@@ -78,9 +78,7 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     # If `rho` or `sigma` is a cvxpy variable then compute Matsumoto fidelity via
     # semidefinite programming, so that this function can be used in the
     # objective function or constraints of other cvxpy optimization problems.
-    if isinstance(rho, cvxpy.atoms.affine.vstack.Vstack) or isinstance(
-        sigma, cvxpy.atoms.affine.vstack.Vstack
-    ):
+    if isinstance(rho, cvxpy.atoms.affine.vstack.Vstack) or isinstance(sigma, cvxpy.atoms.affine.vstack.Vstack):
         w_var = cvxpy.Variable(rho.shape, hermitian=True)
         objective = cvxpy.Maximize(cvxpy.real(cvxpy.trace(w_var)))
         constraints = [cvxpy.bmat([[rho, w_var], [w_var, sigma]]) >> 0]

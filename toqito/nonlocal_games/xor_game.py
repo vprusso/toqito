@@ -149,20 +149,14 @@ class XORGame:
         # Perform some basic error checking to ensure the probability and
         # predicate matrices are well-defined.
         if (q_0, q_1) != self.pred_mat.shape:
-            raise ValueError(
-                "Invalid: The matrices `prob_mat` and `pred_mat` must"
-                " be matrices of the same size."
-            )
+            raise ValueError("Invalid: The matrices `prob_mat` and `pred_mat` must" " be matrices of the same size.")
         if -np.min(np.min(self.prob_mat)) > self.tol:
             raise ValueError(
-                "Invalid: The variable `prob_mat` must be a "
-                "probability matrix: its entries must be "
-                "non-negative."
+                "Invalid: The variable `prob_mat` must be a " "probability matrix: its entries must be " "non-negative."
             )
         if np.abs(np.sum(np.sum(self.prob_mat)) - 1) > self.tol:
             raise ValueError(
-                "Invalid: The variable `prob_mat` must be a "
-                "probability matrix: its entries must sum to 1."
+                "Invalid: The variable `prob_mat` must be a " "probability matrix: its entries must sum to 1."
             )
 
     def quantum_value(self) -> float:
@@ -203,9 +197,7 @@ class XORGame:
 
         for x_alice in range(alice_in):
             for y_bob in range(bob_in):
-                d_mat[x_alice, y_bob] = self.prob_mat[x_alice, y_bob] * (-1) ** (
-                    self.pred_mat[x_alice, y_bob]
-                )
+                d_mat[x_alice, y_bob] = self.prob_mat[x_alice, y_bob] * (-1) ** (self.pred_mat[x_alice, y_bob])
 
         u_vec = cvxpy.Variable(alice_in, complex=False)
         v_vec = cvxpy.Variable(bob_in, complex=False)

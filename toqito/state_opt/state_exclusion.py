@@ -109,9 +109,9 @@ def state_exclusion(
 
 
 def _min_error_primal(
-        vectors: list[np.ndarray],
-        probs: list[float] = None,
-        solver: str = "cvxopt",
+    vectors: list[np.ndarray],
+    probs: list[float] = None,
+    solver: str = "cvxopt",
 ) -> tuple[float, list[picos.HermitianVariable]]:
     """Find the primal problem for minimum-error quantum state exclusion SDP."""
     n, dim = len(vectors), vectors[0].shape[0]
@@ -124,21 +124,14 @@ def _min_error_primal(
 
     problem.set_objective(
         "min",
-        picos.sum(
-            [
-                (probs[i] * pure_to_mixed(vectors[i].reshape(-1, 1)) | measurements[i])
-                for i in range(n)
-            ]
-        ),
+        picos.sum([(probs[i] * pure_to_mixed(vectors[i].reshape(-1, 1)) | measurements[i]) for i in range(n)]),
     )
     solution = problem.solve(solver=solver)
     return solution.value, measurements
 
 
 def _min_error_dual(
-        vectors: list[np.ndarray],
-        probs: list[float] = None,
-        solver: str = "cvxopt"
+    vectors: list[np.ndarray], probs: list[float] = None, solver: str = "cvxopt"
 ) -> tuple[float, list[picos.HermitianVariable]]:
     """Find the dual problem for minimum-error quantum state exclusion SDP."""
     n, dim = len(vectors), vectors[0].shape[0]
@@ -147,10 +140,7 @@ def _min_error_dual(
     # Set up variables and constraints for SDP:
     y_var = picos.HermitianVariable("Y", (dim, dim))
     problem.add_list_of_constraints(
-        [
-            y_var << probs[i] * pure_to_mixed(vector.reshape(-1, 1))
-            for i, vector in enumerate(vectors)
-        ]
+        [y_var << probs[i] * pure_to_mixed(vector.reshape(-1, 1)) for i, vector in enumerate(vectors)]
     )
 
     # Objective function:

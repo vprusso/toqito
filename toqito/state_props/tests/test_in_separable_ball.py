@@ -19,9 +19,7 @@ random_u_mat = random_unitary(4)
         (np.zeros((4, 4)), False),
         # Test eigenvalues of matrix not in separable ball returns False.
         (
-            np.linalg.eigvalsh(
-                random_u_mat @ np.diag(np.array([1.01, 1, 0.99, 0])) / 3 @ random_u_mat.conj().T
-            ),
+            np.linalg.eigvalsh(random_u_mat @ np.diag(np.array([1.01, 1, 0.99, 0])) / 3 @ random_u_mat.conj().T),
             False,
         ),
     ],

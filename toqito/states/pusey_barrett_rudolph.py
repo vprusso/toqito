@@ -50,8 +50,8 @@ def pusey_barrett_rudolph(n: int, theta: float) -> list[np.ndarray]:
     """
     e_0, e_1 = standard_basis(2)
 
-    psi_0 = np.cos(theta/2) * e_0 + np.sin(theta/2) * e_1
-    psi_1 = np.cos(theta/2) * e_0 - np.sin(theta/2) * e_1
+    psi_0 = np.cos(theta / 2) * e_0 + np.sin(theta / 2) * e_1
+    psi_1 = np.cos(theta / 2) * e_0 - np.sin(theta / 2) * e_1
     psi = [psi_0, psi_1]
 
     binary_strings = list(itertools.product([0, 1], repeat=n))

@@ -106,10 +106,7 @@ class ExtendedNonlocalGame:
                 p_win = np.zeros([dim_x, dim_y], dtype=complex)
                 for x_in in range(alice_in):
                     for y_in in range(bob_in):
-                        p_win += (
-                            self.prob_mat[x_in, y_in]
-                            * self.pred_mat[:, :, a_out, b_out, x_in, y_in]
-                        )
+                        p_win += self.prob_mat[x_in, y_in] * self.pred_mat[:, :, a_out, b_out, x_in, y_in]
 
                 rho = cvxpy.Variable((dim_x, dim_y), hermitian=True)
 
@@ -171,9 +168,7 @@ class ExtendedNonlocalGame:
             for b_out in range(bob_out):
                 for x_in in range(alice_in):
                     for y_in in range(bob_in):
-                        k_var[a_out, b_out, x_in, y_in] = cvxpy.Variable(
-                            (dim_x, dim_y), hermitian=True
-                        )
+                        k_var[a_out, b_out, x_in, y_in] = cvxpy.Variable((dim_x, dim_y), hermitian=True)
                         constraints.append(k_var[a_out, b_out, x_in, y_in] >> 0)
 
         # Define \sigma_a^x variable.
@@ -197,8 +192,7 @@ class ExtendedNonlocalGame:
                 for x_in in range(alice_in):
                     for y_in in range(bob_in):
                         p_win += self.prob_mat[x_in, y_in] * cvxpy.trace(
-                            self.pred_mat[:, :, a_out, b_out, x_in, y_in].conj().T
-                            @ k_var[a_out, b_out, x_in, y_in]
+                            self.pred_mat[:, :, a_out, b_out, x_in, y_in].conj().T @ k_var[a_out, b_out, x_in, y_in]
                         )
 
         objective = cvxpy.Maximize(cvxpy.real(p_win))
@@ -314,9 +308,7 @@ class ExtendedNonlocalGame:
         rho = defaultdict(cvxpy.Variable)
         for x_ques in range(num_inputs_alice):
             for a_ans in range(num_outputs_alice):
-                rho[x_ques, a_ans] = cvxpy.Variable(
-                    (dim * num_outputs_bob, dim * num_outputs_bob), hermitian=True
-                )
+                rho[x_ques, a_ans] = cvxpy.Variable((dim * num_outputs_bob, dim * num_outputs_bob), hermitian=True)
 
         tau = cvxpy.Variable((dim * num_outputs_bob, dim * num_outputs_bob), hermitian=True)
         win = 0

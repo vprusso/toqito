@@ -118,9 +118,7 @@ class NonlocalGame:
                 bin_a = [int(x) for x in np.binary_repr(a_ans)]
                 truth_assignment = np.zeros(num_variables, dtype=np.int8)
                 truth_assignment[-len(bin_a) :] = bin_a
-                truth_assignment = tuple(  # pylint: disable=redefined-variable-type
-                    truth_assignment
-                )
+                truth_assignment = tuple(truth_assignment)  # pylint: disable=redefined-variable-type
 
                 for y_ques in range(num_variables):
                     # The verifier can only accept the answer if Bob's truth assignment
@@ -393,9 +391,7 @@ class NonlocalGame:
                             win += (
                                 self.prob_mat[x_ques, y_ques]
                                 * self.pred_mat[a_ans, b_ans, x_ques, y_ques]
-                                * cvxpy.trace(
-                                    bob_povms[y_ques, b_ans].conj().T @ alice_povms[x_ques, a_ans]
-                                )
+                                * cvxpy.trace(bob_povms[y_ques, b_ans].conj().T @ alice_povms[x_ques, a_ans])
                             )
                         if isinstance(
                             bob_povms[y_ques, b_ans],
@@ -405,10 +401,7 @@ class NonlocalGame:
                             win += (
                                 self.prob_mat[x_ques, y_ques]
                                 * self.pred_mat[a_ans, b_ans, x_ques, y_ques]
-                                * cvxpy.trace(
-                                    bob_povms[y_ques, b_ans].value.conj().T
-                                    @ alice_povms[x_ques, a_ans]
-                                )
+                                * cvxpy.trace(bob_povms[y_ques, b_ans].value.conj().T @ alice_povms[x_ques, a_ans])
                             )
 
         if is_real:
@@ -457,9 +450,7 @@ class NonlocalGame:
                         win += (
                             self.prob_mat[x_ques, y_ques]
                             * self.pred_mat[a_ans, b_ans, x_ques, y_ques]
-                            * cvxpy.trace(
-                                bob_povms[y_ques, b_ans].H @ alice_povms[x_ques, a_ans].value
-                            )
+                            * cvxpy.trace(bob_povms[y_ques, b_ans].H @ alice_povms[x_ques, a_ans].value)
                         )
 
         objective = cvxpy.Maximize(win)
@@ -493,9 +484,7 @@ class NonlocalGame:
             for b_out in range(bob_out):
                 for x_in in range(alice_in):
                     for y_in in range(bob_in):
-                        k_var[a_out, b_out, x_in, y_in] = cvxpy.Variable(
-                            (dim_x, dim_y), hermitian=True
-                        )
+                        k_var[a_out, b_out, x_in, y_in] = cvxpy.Variable((dim_x, dim_y), hermitian=True)
                         constraints.append(k_var[a_out, b_out, x_in, y_in] >> 0)
 
         # Define \sigma_a^x variable.
@@ -519,8 +508,7 @@ class NonlocalGame:
                 for x_in in range(alice_in):
                     for y_in in range(bob_in):
                         p_win += self.prob_mat[x_in, y_in] * cvxpy.trace(
-                            self.pred_mat[a_out, b_out, x_in, y_in].conj().T
-                            * k_var[a_out, b_out, x_in, y_in]
+                            self.pred_mat[a_out, b_out, x_in, y_in].conj().T * k_var[a_out, b_out, x_in, y_in]
                         )
 
         objective = cvxpy.Maximize(cvxpy.real(p_win))
@@ -599,9 +587,7 @@ class NonlocalGame:
         mat = defaultdict(cvxpy.Variable)
         for x_in in range(alice_in):
             for y_in in range(bob_in):
-                mat[x_in, y_in] = cvxpy.Variable(
-                    (alice_out, bob_out), name=f"M(a, b | {x_in}, {y_in})"
-                )
+                mat[x_in, y_in] = cvxpy.Variable((alice_out, bob_out), name=f"M(a, b | {x_in}, {y_in})")
 
         p_win = cvxpy.Constant(0)
         for a_out in range(alice_out):

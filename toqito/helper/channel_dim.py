@@ -55,9 +55,7 @@ def channel_dim(
         # 2. [[K1], [K2], .. [Kr]]
         # 3. [[K1, K2, .. Kr]] and r > 2
         is_cpt = False
-        if isinstance(phi[0], list) and (
-            sz_phi_op[1] == 1 or (sz_phi_op[0] == 1 and sz_phi_op[1] > 2)
-        ):
+        if isinstance(phi[0], list) and (sz_phi_op[1] == 1 or (sz_phi_op[0] == 1 and sz_phi_op[1] > 2)):
             # get a flat list of Kraus operators.
             phi = list(itertools.chain(*phi))
             is_cpt = True
@@ -82,15 +80,12 @@ def channel_dim(
             raise ValueError("The input and output spaces of PHI must be square.")
 
         if np.any(dim != np.vstack([dim_in, dim_out]).T):
-            raise ValueError(
-                "The dimensions of PHI do not match those provided in the DIM argument."
-            )
+            raise ValueError("The dimensions of PHI do not match those provided in the DIM argument.")
 
         if (is_cpt and any(k_mat.shape != (dim[0, 1], dim[0, 0]) for k_mat in phi)) or (
             not is_cpt
             and any(
-                k_mat[0].shape != (dim[0, 1], dim[0, 0]) or k_mat[1].shape != (dim[1, 1], dim[1, 0])
-                for k_mat in phi
+                k_mat[0].shape != (dim[0, 1], dim[0, 0]) or k_mat[1].shape != (dim[1, 1], dim[1, 0]) for k_mat in phi
             )
         ):
             raise ValueError("The Kraus operators of PHI do not all have the same size.")

@@ -115,9 +115,7 @@ class QuantumHedging:
         """
         x_var = cvxpy.Variable((4 ** self._num_reps, 4 ** self._num_reps), PSD=True)
         objective = cvxpy.Maximize(cvxpy.trace(self._q_a.conj().T @ x_var))
-        constraints = [
-            partial_trace(x_var, self._sys, self._dim) == np.identity(2 ** self._num_reps)
-        ]
+        constraints = [partial_trace(x_var, self._sys, self._dim) == np.identity(2 ** self._num_reps)]
         problem = cvxpy.Problem(objective, constraints)
 
         return problem.solve()
@@ -181,9 +179,7 @@ class QuantumHedging:
         """
         x_var = cvxpy.Variable((4 ** self._num_reps, 4 ** self._num_reps), PSD=True)
         objective = cvxpy.Minimize(cvxpy.trace(self._q_a.conj().T @ x_var))
-        constraints = [
-            partial_trace(x_var, self._sys, self._dim) == np.identity(2 ** self._num_reps)
-        ]
+        constraints = [partial_trace(x_var, self._sys, self._dim) == np.identity(2 ** self._num_reps)]
         problem = cvxpy.Problem(objective, constraints)
 
         return problem.solve()

@@ -73,8 +73,6 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
     gen_pauli_x = shift(dim)
     gen_pauli_z = clock(dim)
 
-    gen_pauli_w = np.linalg.matrix_power(gen_pauli_x, k_1) @ np.linalg.matrix_power(
-        gen_pauli_z, k_2
-    )
+    gen_pauli_w = np.linalg.matrix_power(gen_pauli_x, k_1) @ np.linalg.matrix_power(gen_pauli_z, k_2)
 
     return gen_pauli_w

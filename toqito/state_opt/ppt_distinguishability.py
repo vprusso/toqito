@@ -115,9 +115,7 @@ def ppt_distinguishability(
     return dual_problem(states, probs, dist_method)
 
 
-def primal_problem(
-    states: list[np.ndarray], probs: list[float] = None, dist_method: str = "min-error"
-) -> float:
+def primal_problem(states: list[np.ndarray], probs: list[float] = None, dist_method: str = "min-error") -> float:
     r"""Calculate primal problem for PPT distinguishability.
 
     The minimum-error semidefinite program implemented is defined as:
@@ -193,9 +191,7 @@ def primal_problem(
     return sol_default
 
 
-def dual_problem(
-    states: list[np.ndarray], probs: list[float] = None, dist_method: str = "min-error"
-) -> float:
+def dual_problem(states: list[np.ndarray], probs: list[float] = None, dist_method: str = "min-error") -> float:
     r"""Calculate dual problem for PPT distinguishability.
 
     The minimum-error semidefinite program implemented is defined as:
@@ -254,8 +250,7 @@ def dual_problem(
         for i, item in enumerate(states):
             meas.append(cvxpy.Variable((dim_x, dim_x), PSD=True))
             constraints.append(
-                cvxpy.real(y_var - probs[i] * item)
-                >> partial_transpose(meas[i], sys=sys_list, dim=dim_list)
+                cvxpy.real(y_var - probs[i] * item) >> partial_transpose(meas[i], sys=sys_list, dim=dim_list)
             )
 
     if dist_method == "unambiguous":
@@ -271,9 +266,7 @@ def dual_problem(
             )
 
         meas.append(cvxpy.Variable((dim_x, dim_x), PSD=True))
-        constraints.append(
-            cvxpy.real(y_var) >> partial_transpose(meas[-1], sys=sys_list, dim=dim_list)
-        )
+        constraints.append(cvxpy.real(y_var) >> partial_transpose(meas[-1], sys=sys_list, dim=dim_list))
 
     problem = cvxpy.Problem(objective, constraints)
     sol_default = problem.solve()

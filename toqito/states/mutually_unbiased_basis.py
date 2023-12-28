@@ -37,7 +37,7 @@ def mutually_unbiased_basis(dim: int) -> list[np.ndarray]:
         pauli_z = gen_pauli(0, 1, dim)
 
         for j in range(dim, 0, -1):
-            _, eigen_vec = np.linalg.eig(pauli_x @ pauli_z**(j))
+            _, eigen_vec = np.linalg.eig(pauli_x @ pauli_z ** (j))
             mats.append(eigen_vec)
     elif _is_prime_power(dim) and not isprime(dim):
         raise ValueError(f"Dimension {dim} is a prime power but not prime (more complicated no support at the moment).")
@@ -68,7 +68,7 @@ def _is_prime_power(n: int) -> bool:
         return False
 
     # Iterate over primes using a generator
-    for p in primerange(2, int(n**0.5) + 1):
+    for p in primerange(2, int(n ** 0.5) + 1):
         # If p is a divisor of n
         if n % p == 0:
             # Keep dividing n by p as long as possible

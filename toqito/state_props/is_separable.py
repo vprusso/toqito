@@ -10,9 +10,7 @@ from toqito.state_props import in_separable_ball, is_ppt
 from toqito.state_props.has_symmetric_extension import has_symmetric_extension
 
 
-def is_separable(
-    state: np.ndarray, dim: None | int | list[int] = None, level: int = 2, tol: float = 1e-8
-) -> bool:
+def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: int = 2, tol: float = 1e-8) -> bool:
     r"""Determine if a given state (given as a density matrix) is a separable state :cite:`WikiSepSt`.
 
     Examples
@@ -150,13 +148,9 @@ def is_separable(
     # Check these tests.
     if min_dim == 2:
         # Check if X is separable from spectrum.
-        if (lam[0] - lam[2 * max_dim - 1]) ** 2 <= 4 * lam[2 * max_dim - 2] * lam[
-            2 * max_dim
-        ] + tol ** 2:
+        if (lam[0] - lam[2 * max_dim - 1]) ** 2 <= 4 * lam[2 * max_dim - 2] * lam[2 * max_dim] + tol ** 2:
             print("Determined to be separable by inspecting its eigenvalues.")
-            print(
-                "N. Johnston. Separability from spectrum for qubit-qudit states. Phys. Rev. A, 88:062330, 2013."
-            )
+            print("N. Johnston. Separability from spectrum for qubit-qudit states. Phys. Rev. A, 88:062330, 2013.")
             return True
 
     # For the rest of the block-matrix tests, we need the 2-dimensional subsystem to be the
