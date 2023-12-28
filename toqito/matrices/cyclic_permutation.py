@@ -42,6 +42,11 @@ def cyclic_permutation_matrix(n: int) -> np.ndarray:
     [0, 0, 1, 0]])
     ...
 
+    References
+    ==========
+    .. bibliography::
+        :filter: docname in docnames
+
     :param n: int
         The number of rows and columns in the cyclic permutation matrix.
 
