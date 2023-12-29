@@ -38,6 +38,7 @@ User Documentation
     getting_started
     intro_tutorial
     contributing
+    code_of_conduct
 
 .. toctree::
     :maxdepth: 2
