@@ -76,6 +76,8 @@ If you are using the :code:`toqito` software package in research work, please
 include an explicit mention of :code:`toqito` in your publication. Something
 along the lines of:
 
+.. code-block:: bash
+
     To solve problem "X" we used `toqito`; a package for studying certain
     aspects of quantum information.
 
