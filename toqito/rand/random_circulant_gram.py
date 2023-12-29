@@ -10,9 +10,7 @@ def random_circulant_gram(dim: int) -> np.ndarray:
  For more information on circulant matrices, see :cite:`WikiCirculantMat`.
 
     This function utilizes the normalized DFT, a variation of DFT with normalized basis vectors. This
-    variation alters computational requirements and offers a different view on signal transformations.
-
-    :cite:`StanfordNormDFT`.
+    variation alters computational requirements and offers a different view on signal transformations. For additional information, see :cite:`StanfordNormDFT`.
 
     The function creates a circulant matrix from a random diagonal matrix and the normalized DFT matrix.
     First, it generates a diagonal matrix with random non-negative entries. Next, it constructs the
