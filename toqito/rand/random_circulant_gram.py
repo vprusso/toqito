@@ -32,6 +32,10 @@ def random_circulant_gram(dim: int) -> np.ndarray:
     (4, 4)
     >>> np.allclose(circulant_matrix, circulant_matrix.T)
     True
+References
+    ==========
+    .. bibliography::
+        :filter: docname in docnames
 
     :param dim: int
         The dimension of the circulant matrix to generate.
