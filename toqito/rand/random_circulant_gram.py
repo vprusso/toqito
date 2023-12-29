@@ -32,7 +32,8 @@ def random_circulant_gram(dim: int) -> np.ndarray:
     (4, 4)
     >>> np.allclose(circulant_matrix, circulant_matrix.T)
     True
-References
+
+    References
     ==========
     .. bibliography::
         :filter: docname in docnames
