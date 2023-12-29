@@ -2,16 +2,16 @@
 Getting started
 ===============
 
-----------
-Installing
-----------
-
 .. warning::
     We recommend :code:`toqito` be installed only on a Linux machine. There is a 
     `known issue <https://github.com/vprusso/toqito/issues/399#issue-2060205963>`_ with a module in :code:`toqito` not
     working as intended on macOS.
 
     Efficacy of :code:`toqito` has not been verified on Windows. 
+
+----------
+Installing
+----------
 
 1. Ensure you have Python 3.10 or greater installed on your machine or in 
 a virtual environment (`pyenv <https://github.com/pyenv/pyenv>`_, `pyenv tutorial <https://realpython.com/intro-to-pyenv/>`_). 
@@ -34,7 +34,7 @@ Above command will also install other additional dependencies for :code:`toqito`
 
 The :code:`toqito` module makes heavy use of the :code:`cvxpy` module for solving various convex optimization problems
 that naturally arise for certain problems in quantum information. The installation instructions for :code:`cvxpy` may be found on
-the project's `installation page <https://www.cvxpy.org/install/index.html>`_. But these installation instructions
+the project's `installation page <https://www.cvxpy.org/install/index.html>`_. However these installation instructions
 can be ignored as :code:`pip install toqito` will also install :code:`cvxpy` as a dependency.
 
 As a dependency for many of the solvers, you will need to ensure you have the :code:`BLAS` and :code:`LAPACK`
@@ -49,7 +49,7 @@ mathematical libraries installed on your machine. If you have :code:`numpy` work
 
 The :code:`cvxpy` module provides many different solvers to select from for solving SDPs. We tend to use the
 `SCS <https://github.com/cvxgrp/scs>`_ solver. Ensure that you have the :code:`scs` Python module installed and built
-for your machine. But this discussion can be ignored as :code:`pip install toqito` will also install :code:`SCS` as a
+for your machine. Again, this discussion can be ignored as :code:`pip install toqito` will also install :code:`SCS` as a
 dependency.
 
 ------------
@@ -78,8 +78,7 @@ along the lines of:
 
 .. code-block:: bash
 
-    To solve problem "X" we used `toqito`; a package for studying certain
-    aspects of quantum information.
+    To solve problem "X" we used `toqito`; a package for studying certain aspects of quantum information.
 
 A BibTeX entry that you can use to cite :code:`toqito` is provided here:
 
