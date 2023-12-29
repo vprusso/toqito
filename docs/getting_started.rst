@@ -7,7 +7,7 @@ Installing
 ----------
 
 .. warning::
-    We reccomend :code:`toqito` be installed only on a Linux machine. There is a 
+    We recommend :code:`toqito` be installed only on a Linux machine. There is a 
     `known issue <https://github.com/vprusso/toqito/issues/399#issue-2060205963>`_ with a module in :code:`toqito` not
     working as intended on macOS.
 
