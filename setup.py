@@ -14,6 +14,8 @@ requirements = [
     "scikit-image",
     "pytest",
     "pytest-cov",
+    "qiskit",
+    "scs"
 ]
 
 setuptools.setup(
