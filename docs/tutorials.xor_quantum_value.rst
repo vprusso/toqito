@@ -8,7 +8,7 @@ classical and quantum value of a given XOR game.
 For readers who are already familiar with XOR games and who simply want to see
 how to use :code:`toqito` to study these objects, they are welcome to consult the
 documentation page, and more specifically the function `xor\_game\_value
-<https://toqito.readthedocs.io/en/latest/nonlocal_games.xor_games.html>`_.
+<https://toqito.readthedocs.io/en/latest/nonlocal_games.html#module-toqito.nonlocal_games.xor_game>`_.
 
 Further information beyond the scope of this tutorial on the notion of XOR
 games along with the method of computing their quantum value may be found in
@@ -23,7 +23,7 @@ of nonlocal games along with how one defines classical and quantum strategies
 for these games, please refer to the example:
 
 * `Lower Bounds on the Quantum Value of a Two-Player Nonlocal Game
-  <https://toqito.readthedocs.io/en/latest/tutorials.nonlocal_quantum_lower_bound.html>`_
+  <https://toqito.readthedocs.io/en/latest/tutorials.nonlocal_games.html#lower-bounding-the-quantum-value-in-toqito>`_
 
 .. note::
     It is *not* known how to directly compute the quantum value of an arbitrary
