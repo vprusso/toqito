@@ -4,71 +4,200 @@
 Contributing Guide
 """"""""""""""""""
 
-We welcome contributions from external contributors, and this document
-describes how to merge code changes into this `toqito`. 
+We welcome contributions from external contributors, and this document describes how to merge code changes into
+:code:`toqito`. 
 
 ================
 Getting Started
 ================
 
--    Make sure you have a [GitHub account](https://github.com/signup/free).
--    [Fork](https://help.github.com/articles/fork-a-repo/) this repository on GitHub.
--    On your local machine,
-     [clone](https://help.github.com/articles/cloning-a-repository/) your fork of
-     the repository.
--    To install an editable version on your local machine, run `pip install -e .` in
-     the top-level directory of the cloned repository.
+1. Make sure you have a `GitHub account <https://github.com/signup/free>`_.
+2. `Fork <https://help.github.com/articles/fork-a-repo/>`_ this repository on GitHub.
+3. On your local machine, `clone <https://help.github.com/articles/cloning-a-repository/>`_ your fork of the repository. You will
+   have to install an editable version on your local machine. Instructions are provided below.
+
+
+.. warning::
+     It would be better to avoid an editable installation via :code:`pip` due to a slew
+     of `known issues <https://github.com/vprusso/toqito/issues/207#issue-1962435853>`_. 
+
+4. As stated in :ref:`getting_started_reference-label`, ensure you have Python 3.10 or greater installed on your machine or in 
+   a virtual environment (`pyenv <https://github.com/pyenv/pyenv>`_, `pyenv tutorial <https://realpython.com/intro-to-pyenv/>`_).
+   Consider using a `virtual environment <https://docs.python.org/3/tutorial/venv.html>`_.
+   You can also use :code:`pyenv` with :code:`virtualenv` `to manage different Python
+   versions <https://github.com/pyenv/pyenv-virtualenv>`_.
+
+5. Install :code:`poetry` using the following command. :code:`poetry` is a better dependency resolver than :code:`pip`.
+
+.. code-block:: bash
+
+    (local_venv) pip install poetry --upgrade pip
+
+6. Now, navigate to your local clone of the :code:`toqito` repository as shown below.
+
+.. code-block:: bash
+
+    (local_venv) cd toqito
+
+7. Use :code:`poetry` as shown below in the :code:`toqito` folder. This should install an editable version of :code:`toqito`
+   alongside other development dependencies.
+
+.. code-block:: bash
+
+    (local_venv)~/toqito$ poetry install
+
+You are now free to make the desired changes in your fork of :code:`toqito`. 
+
+--------------
+Making Changes
+--------------
+
+1.   Add some really awesome code to your local fork.  It's usually a 
+     `good idea <http://blog.jasonmeridth.com/posts/do-not-issue-pull-requests-from-your-master-branch/>`_
+     to make changes on a 
+     `branch <https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/>`_
+     with the branch name relating to the feature you are going to add.
+
+2.   When you are ready for others to examine and comment on your new feature,
+     navigate to your fork of :code:`toqito` on GitHub and open a 
+     `pull request(PR) <https://help.github.com/articles/using-pull-requests/>`_ . Note that
+     after you launch a PR from one of your fork's branches, all subsequent commits to that branch will be added to the
+     open pull request automatically.  Each commit added to the PR will be validated for mergability, compilation and
+     test suite compliance; the results of these tests will be visible on the PR page.
+
+3.   If you're adding a new feature, you must add test cases and documentation. See `Adding a new feature`_
+     for a detailed checklist. 
+
+4.   When the code is ready to go, make sure you run the test suite using pytest.
+
+5.   When you're ready to be considered for merging, check the "Ready to go"
+     box on the PR page to let the :code:`toqito` devs know that the changes are complete. The code will not be merged
+     until this box is checked, the continuous integration returns check marks, and the primary developer approves the
+     reviews.
 
 -------
 Testing
 -------
 
-The :code:`pytest` module is used for testing and :code:`pytest-cov` is used to generate
-coverage reports. In order to run and :code:`pytest`, you will need to ensure it is
-installed on your machine along with :code:`pytest-cov`. Consult the `pytest <https://docs.pytest.org/en/latest/>`_ 
-and `pytest-cov <https://pytest-cov.readthedocs.io/en/latest/>`_ websites for more
-information. To run the suite of tests for :code:`toqito`, run the following command
-in the root directory of this project:
+A convenient way to verify if the installation procedure worked correctly, use `pytest` in the :code:`toqito` folder as
+shown below.
 
 .. code-block:: bash
 
-    pytest --cov-report term-missing --cov=toqito tests/
+    (local_venv)~/toqito$ pytest toqito/
+
+The :code:`pytest` module is used for testing and :code:`pytest-cov` can be used to generate
+coverage reports locally. In order to run and :code:`pytest`, you will need to ensure it is installed on your machine
+along with :code:`pytest-cov`. If the editable installation process worked without any issues, both :code:`pytest` and
+:code:`pytest-cov` should be installed in your local environment. 
+
+If not, consult the `pytest <https://docs.pytest.org/en/latest/>`_  and
+`pytest-cov <https://pytest-cov.readthedocs.io/en/latest/>`_ websites for additional options on code coverage reports.
+For example, if your addition is not properly covered by tests, code coverage can be checked by using
+:code:`--cov-report term-missing` options in :code:`pytest-cov`.
+
+If you are making changes to :code:`toqito.some_module`, the corresponding tests should be in
+:code:`toqito/some_module/tests`.
 
 
-==============
-Making Changes
-==============
+----------
+Code Style
+----------
 
--    Add some really awesome code to your local fork.  It's usually a 
-     [good idea](http://blog.jasonmeridth.com/posts/do-not-issue-pull-requests-from-your-master-branch/)
-     to make changes on a 
-     [branch](https://help.github.com/articles/creating-and-deleting-branches-within-your-repository/)
-     with the branch name relating to the feature you are going to add.
--    When you are ready for others to examine and comment on your new feature,
-     navigate to your fork of `toqito` on GitHub and open a 
-     [pull request](https://help.github.com/articles/using-pull-requests/) (PR). Note that
-     after you launch a PR from one of your fork's branches, all
-     subsequent commits to that branch will be added to the open pull request
-     automatically.  Each commit added to the PR will be validated for
-     mergability, compilation and test suite compliance; the results of these tests
-     will be visible on the PR page.
--    If you're providing a new feature, you must add test cases and documentation. We use `sphinx`
-     to build the documentation. To build the documentation locally via `make html` in the
-     `toqito/docs` directory, make sure `sphinx` and `sphinx-rtd-theme` are installed.
-     For more information, visit [sphinx documentation](https://docs.readthedocs.io/en/stable/intro/getting-started-with-sphinx.html) & [sphinx-rtd-theme documentation](https://sphinx-rtd-theme.readthedocs.io/en/stable/installing.html)
--    When the code is ready to go, make sure you run the test suite using pytest.
--    When you're ready to be considered for merging, check the "Ready to go"
-     box on the PR page to let the `toqito` devs know that the changes are complete.
-     The code will not be merged until this box is checked, the continuous
-     integration returns check marks,
-     and the primary developer approves the reviews.
+
+We use :code:`ruff` and :code:`pylint` to check for formatting issues. Consult the documentation for
+`ruff <https://docs.astral.sh/ruff/tutorial/#getting-started>`_ and
+`pylint <https://pylint.pycqa.org/en/latest/user_guide/usage/run.html>`_ for additional information.
+
+Do not use an autoformatter like :code:`black` as the configuration settings for :code:`ruff` as specified in
+`pyproject.toml <https://github.com/vprusso/toqito/blob/8606650b98608330c8b89414f7fb641992517ee4/pyproject.toml>`_
+might be incompatible with the changes made by :code:`black`. This is discussed in detail at
+`this link <https://docs.astral.sh/ruff/formatter/black/>`_.
+
+------------------------
+References in Docstrings
+------------------------
+
+
+If you are adding a new function, make sure the docstring of your function follows the formatting specifications
+in `Code Style`_. A standard format for :code:`toqito` docstring is provided below: ::
+    
+    def my_new_function(some_parameter: parameter_type) -> return_type:
+        r"""One liner description of the new function.
+
+          Detailed description of the function.
+
+          Examples
+          ==========
+          Demonstrate how the function works with expected output.
+
+          References
+          ==========
+          .. bibliography::
+               :filter: docname in docnames
+
+          some_parameter: parameter_type
+               Details about the input and output parameters and parameter types.
+        """
+
+Use :code:`.. math::` mode for equations and use use :code:`:cite:some_ref` for some reference in the docstring. 
+
+To add an attribution to a paper or a book, add your reference with :code:`some_ref` as the citation key to 
+`articles.bib <https://github.com/vprusso/toqito/blob/8606650b98608330c8b89414f7fb641992517ee4/docs/articles.bib>`_
+or `books.bib <https://github.com/vprusso/toqito/blob/8606650b98608330c8b89414f7fb641992517ee4/docs/books.bib>`_.
+
+Following is used in a docstring for the references to show up in the documentation build. ::
+
+    References
+    ==========
+    .. bibliography::
+        :filter: docname in docnames
+
+
+--------------
+Documentation
+--------------
+
+
+We use :code:`sphinx` to build the documentation. To build the documentation locally, make sure :code:`sphinx` and
+:code:`sphinx-rtd-theme` are installed when poetry was used to install :code:`toqito`.
+
+.. code-block:: bash
+
+    (local_venv)~/toqito/docs$ make clean html
+
+If you would prefer to decrease the amount of time taken by :code:`sphinx` to build the documentation locally, use :code:`make html`
+instead.
+
+A standard document has to follow the :code:`.rst` format.  For more information on :code:`sphinx` and
+:code:`sphinx-rtd-theme`, visit
+`sphinx documentation <https://docs.readthedocs.io/en/stable/intro/getting-started-with-sphinx.html>`_ &
+`sphinx-rtd-theme documentation <https://sphinx-rtd-theme.readthedocs.io/en/stable/installing.html>`_ .
+
+--------------------
+Adding a new feature
+--------------------
+
+
+If you add a new feature to :code:`toqito`, make sure
+
+- The function docstring follows the style guidelines as specified in `References in Docstrings`_.
+- Added lines should show up as covered in the :code:`pytest` code coverage report. See `Testing`_.
+- Code and tests for the new feature should follow the style guidelines as discussed in
+  `Code Style`_.
+- When Sphinx is run locally, :code:`autodocsummary` will create a page for the new feature. This should be included in
+  your PR.
+- Finally, the new feature has to be listed in one of the :code:`.rst` files in :code:`docs`. This depends on why the
+  new feature is being added. For example, if you are adding a function for a certain matrix, this has to be listed in
+  :code:`Matrices` section of :code:`matrices.rst`. 
+
 
 ---------------------
 Additional Resources
 ---------------------
 
--    [General GitHub documentation](https://help.github.com/)
--    [PR best practices](http://codeinthehole.com/writing/pull-requests-and-other-good-practices-for-teams-using-github/)
--    [A guide to contributing to software packages](http://www.contribution-guide.org)
--    [Thoughtful PR example](http://www.thinkful.com/learn/github-pull-request-tutorial/#Time-to-Submit-Your-First-PR)
+-    `General GitHub documentation <https://help.github.com/>`_
+-    `PR best practices <http://codeinthehole.com/writing/pull-requests-and-other-good-practices-for-teams-using-github/>`_
+-    `A guide to contributing to software packages <http://www.contribution-guide.org>`_
+-    `Thoughtful PR example <http://www.thinkful.com/learn/github-pull-request-tutorial/#Time-to-Submit-Your-First-PR>`_
 
