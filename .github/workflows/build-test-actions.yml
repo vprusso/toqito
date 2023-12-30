@@ -24,6 +24,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: chartboost/ruff-action@v1
+      - uses: ammaraskar/sphinx-action@master
       # https://github.com/chartboost/ruff-action
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
@@ -46,11 +47,38 @@ jobs:
         run: |
           poetry run pylint --fail-under=10.0 toqito/
       - name: Check for broken links
-        working-directory: docs
+        with:
+          docs-folder: "docs/"
+        run: make linkcheck
+  
+  linkcheck:
+    strategy:
+      matrix:
+          # Add versions here to expand support matrix
+        python-version: ["3.10"]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    env:
+      PYTHON: ${{ matrix.python-version }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
         run: |
-          make docs
-          make linkcheck
-
+          sudo apt-get install -y libblas-dev liblapack-dev
+          python -m pip install --upgrade pip
+          pip install poetry
+          poetry install --no-interaction
+      - name: Build Docs
+        uses: ammaraskar/sphinx-action@master
+        # https://github.com/marketplace/actions/sphinx-build
+        with:
+          docs-folder: "docs/"
+          build-command: "make linkcheck"
+        
   toqito-pytest:
     strategy:
       matrix:
