@@ -46,7 +46,7 @@ jobs:
         run: |
           poetry run pylint --fail-under=10.0 toqito/
       - name: Check for broken links
-        working-directory: ./docs
+        working-directory: docs
         run: |
           make docs
           make linkcheck
