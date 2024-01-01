@@ -11,7 +11,7 @@ jobs:
   update-license-year:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - uses: FantasticFiasco/action-update-license-year@v3
@@ -28,7 +28,7 @@ jobs:
     needs: license
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - uses: FantasticFiasco/action-update-license-year@v3
