@@ -23,3 +23,15 @@ jobs:
           prTitle: Update my license
           prBody: It's that time of the year, let's update the license.
           labels: documentation
+  
+  source:
+    # needs: update-license-year
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: FantasticFiasco/action-update-license-year@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: 'docs/conf.py'
