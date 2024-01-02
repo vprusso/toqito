@@ -7,9 +7,6 @@ Contributing Guide
 We welcome contributions from external contributors, and this document describes how to merge code changes into
 :code:`toqito`. 
 
-================
-Getting Started
-================
 
 1. Make sure you have a `GitHub account <https://github.com/signup/free>`_.
 2. `Fork <https://help.github.com/articles/fork-a-repo/>`_ this repository on GitHub.
