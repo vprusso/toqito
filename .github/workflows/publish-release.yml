@@ -49,10 +49,6 @@ jobs:
       id-token: write  # IMPORTANT: mandatory for trusted publishing
 
     steps:
-    - name: Release Changelog Builder
-      uses: mikepenz/release-changelog-builder-action@v4.1.0
-      # https://github.com/marketplace/actions/release-changelog-builder
-            
     - name: Download all the dists
       # Publishing the distribution to PyPI
       # stored distribution is downloaded by the download-artifact action then uploaded to PyPi via dist/
