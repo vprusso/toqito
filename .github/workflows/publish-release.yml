@@ -44,7 +44,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: pypi
-      url: https://pypi.org/p/toqito  # Replace <package-name> with your PyPI project name
+      url: https://pypi.org/project/toqito  # Replace <package-name> with your PyPI project name
     permissions:
       id-token: write  # IMPORTANT: mandatory for trusted publishing
 
@@ -111,7 +111,7 @@ jobs:
 
     environment:
       name: testpypi
-      url: https://test.pypi.org/p/<package-name>
+      url: https://test.pypi.org/project/toqito
 
     permissions:
       id-token: write  # IMPORTANT: mandatory for trusted publishing
