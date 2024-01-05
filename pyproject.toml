@@ -28,7 +28,7 @@ qiskit = "0.45.1"
 
 [tool.poetry.dev-dependencies]
 distlib = "0.3.8"
-flake8 = "6.1.0"
+flake8 = "7.0.0"
 flake8-docstrings = "1.7.0"
 ipython = "8.19.0"
 isort = "5.13.2"
