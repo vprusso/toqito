@@ -11,14 +11,13 @@ on:
 
 jobs:
   deploy:
-    if: startsWith(github.ref, 'refs/tags/')  # only publish to PyPI on tag pushes
     if: github.repository_owner == 'vprusso'
     runs-on: ubuntu-latest
     steps:
       - name: Check out toqito
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref }}
+          ref: ${{ github.ref }} # only publish to PyPI on tag pushes
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
