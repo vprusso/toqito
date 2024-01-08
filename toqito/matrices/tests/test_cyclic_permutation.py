@@ -4,12 +4,19 @@ import numpy as np
 from toqito.matrices import cyclic_permutation_matrix
 
 
-def test_cyclic_permutation():
+def test_cyclic_permutation_fixed():
     """Test cyclic permuation matrix."""
     n = 10
     res = cyclic_permutation_matrix(n)
-    bool_mat = np.allclose(np.linalg.matrix_power(res, n), np.eye(n))
-    np.testing.assert_equal(np.all(bool_mat), True)
+    assert np.allclose(np.linalg.matrix_power(res, n), np.eye(n))
+
+def test_cyclic_permutation_successive():
+    """Test a successive cyclic permuation matrix."""
+    n = 4
+    # Test for k from 1 to n - 1
+    for k in range(1, n):
+        res = cyclic_permutation_matrix(n, k)
+        assert np.allclose(np.linalg.matrix_power(res, n), np.eye(n))
 
 def test_cyclic_permutation_checks():
     """Run checks to confrim a proper cyclic permutation."""
