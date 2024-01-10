@@ -9,25 +9,6 @@ def cyclic_permutation_matrix(n: int, k: int = 1) -> np.ndarray:
     This function creates a cyclic permutation matrix of 0's and 1's which is a special type of square matrix
     that represents a cyclic permutation of its rows. The function allows fixed points and successive applications.
 
-    The permutation can be written in cycle notation and two-line notation as:
-
-    .. math::
-        \begin{align*}
-        \begin{aligned}
-        &\begin{matrix}
-        (1 & 4 & 6 & 8 & 3 & 7)(2)(5)
-        \end{matrix}\\
-        &= \begin{pmatrix}
-        1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 \\
-        4 & 2 & 7 & 6 & 5 & 8 & 1 & 3
-        \end{pmatrix}\\
-        &= \begin{pmatrix}
-        1 & 4 & 6 & 8 & 3 & 7 & 2 & 5 \\
-        4 & 6 & 8 & 3 & 7 & 1 & 2 & 5
-        \end{pmatrix}
-        \end{aligned}
-        \end{align*}
-
     Examples
     ==========
     Generate fixed point.
