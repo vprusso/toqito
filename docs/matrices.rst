@@ -10,9 +10,10 @@ Matrices
 
 .. autosummary::
    :toctree: _autosummary
-
+   
     toqito.matrices.clock
     toqito.matrices.cnot
+    toqito.matrices.cyclic_permutation_matrix
     toqito.matrices.fourier
     toqito.matrices.gell_mann
     toqito.matrices.gen_gell_mann
