@@ -1,12 +1,15 @@
 """State distinguishability."""
-import cvxpy
 import numpy as np
+import picos
 
-from .state_helper import __is_probs_valid, __is_states_valid
+from toqito.state_ops import pure_to_mixed
 
 
 def state_distinguishability(
-    states: list[np.ndarray], probs: list[float] = None, dist_method: str = "min-error"
+    vectors: list[np.ndarray],
+    probs: list[float] = None,
+    solver: str = "cvxopt",
+    primal_dual: str = "dual",
 ) -> float:
     r"""Compute probability of state distinguishability :cite:`Eldar_2003_SDPApproach`.
 
@@ -69,7 +72,7 @@ def state_distinguishability(
     >>> e_11 = e_1 * e_1.conj().T
     >>> states = [e_00, e_11]
     >>> probs = [1 / 2, 1 / 2]
-    >>> res = state_distinguishability(states, probs)
+    >>> res, _ = state_distinguishability(states, probs)
     1.000
 
     References
@@ -77,53 +80,75 @@ def state_distinguishability(
     .. bibliography::
         :filter: docname in docnames
 
-
-    :param states: A list of states provided as either matrices or vectors.
-    :param probs: Respective list of probabilities each state is selected.
-    :param dist_method: Method of distinguishing to use.
-    :return: The optimal probability with which Bob can distinguish the state.
+    :param vectors: A list of states provided as vectors.
+    :param probs: Respective list of probabilities each state is selected. If no
+                  probabilities are provided, a uniform probability distribution is assumed.
+    :param solver: Optimization option for `picos` solver. Default option is `solver_option="cvxopt"`.
+    :param primal_dual: Option for the optimization problem.
+    :return: The optimal probability with which Bob can guess the state he was
+             not given from `states` along with the optimal set of measurements.
     """
-    obj_func = []
-    measurements = []
-    constraints = []
+    if not all(vector.shape == vectors[0].shape for vector in vectors):
+        raise ValueError("Vectors for state distinguishability must all have the same dimension.")
 
-    __is_states_valid(states)
-    if probs is None:
-        probs = [1 / len(states)] * len(states)
-    __is_probs_valid(probs)
+    # Assumes a uniform probabilities distribution among the states if one is not explicitly provided.
+    n = vectors[0].shape[0]
+    probs = [1 / n] * n if probs is None else probs
 
-    dim_x, dim_y = states[0].shape
+    if primal_dual == "primal":
+        return _min_error_primal(vectors=vectors, probs=probs, solver=solver)
+    return _min_error_dual(vectors=vectors, probs=probs, solver=solver)
 
-    # The variable `states` is provided as a list of vectors. Transform them
-    # into density matrices.
-    if dim_y == 1:
-        for i, state_ket in enumerate(states):
-            states[i] = state_ket * state_ket.conj().T
 
-    # Unambiguous state discrimination has an additional constraint on the states and measurements.
-    if dist_method == "unambiguous":
-        # Note we have one additional measurement operator in the unambiguous case.
-        for i in range(len(states) + 1):
-            measurements.append(cvxpy.Variable((dim_x, dim_x), PSD=True))
+def _min_error_primal(
+        vectors: list[np.ndarray],
+        probs: list[float] = None,
+        solver: str = "cvxopt",
+) -> tuple[float, list[picos.HermitianVariable]]:
+    """Find the primal problem for minimum-error quantum state distinguishability SDP."""
+    n, dim = len(vectors), vectors[0].shape[0]
 
-        # This is an extra condition required for the unambiguous case.
-        for i, _ in enumerate(states):
-            for j, _ in enumerate(states):
-                if i != j:
-                    constraints.append(cvxpy.trace(states[j].conj().T @ measurements[i]) == 0)
+    problem = picos.Problem()
+    measurements = [picos.HermitianVariable(f"M[{i}]", (dim, dim)) for i in range(n)]
 
-    if dist_method == "min-error":
-        for i, _ in enumerate(states):
-            measurements.append(cvxpy.Variable((dim_x, dim_x), PSD=True))
+    problem.add_list_of_constraints([meas >> 0 for meas in measurements])
+    problem.add_constraint(picos.sum(measurements) == picos.I(dim))
 
-    # Objective function is the inner product between the states and measurements.
-    for i, item in enumerate(states):
-        obj_func.append(probs[i] * cvxpy.trace(item.conj().T @ measurements[i]))
+    problem.set_objective(
+        "max",
+        picos.sum(
+            [
+                (probs[i] * pure_to_mixed(vectors[i].reshape(-1, 1)) | measurements[i])
+                for i in range(n)
+            ]
+        ),
+    )
+    solution = problem.solve(solver=solver)
+    return solution.value, measurements
 
-    constraints.append(sum(measurements) == np.identity(dim_x))
 
-    objective = cvxpy.Maximize(sum(obj_func))
-    problem = cvxpy.Problem(objective, constraints)
-    sol_default = problem.solve()
+def _min_error_dual(
+        vectors: list[np.ndarray],
+        probs: list[float] = None,
+        solver: str = "cvxopt"
+) -> tuple[float, list[picos.HermitianVariable]]:
+    """Find the dual problem for minimum-error quantum state distinguishability SDP."""
+    n, dim = len(vectors), vectors[0].shape[0]
+    problem = picos.Problem()
 
-    return sol_default
+    # Set up variables and constraints for SDP:
+    y_var = picos.HermitianVariable("Y", (dim, dim))
+    problem.add_list_of_constraints(
+        [
+            y_var >> probs[i] * pure_to_mixed(vector.reshape(-1, 1))
+            for i, vector in enumerate(vectors)
+        ]
+    )
+
+    # Objective function:
+    problem.set_objective("min", picos.trace(y_var))
+    solution = problem.solve(solver=solver, primals=None)
+
+    measurements = [problem.get_constraint(k).dual for k in range(n)]
+
+    return solution.value, measurements
