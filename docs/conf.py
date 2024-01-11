@@ -92,7 +92,8 @@ exclude_patterns = ["_build", "_templates", "Thumbs.db", ".DS_Store"]
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = "sphinx_rtd_theme"
+#html_theme = "sphinx_rtd_theme"
+html_theme = "pydata_sphinx_theme"
 html_logo = "figures/logo.svg"
 html_favicon = "figures/favicon.ico"
 
