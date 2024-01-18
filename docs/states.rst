@@ -68,6 +68,7 @@ Properties of Quantum States
     toqito.state_props.has_symmetric_extension
     toqito.state_props.in_separable_ball
     toqito.state_props.is_antidistinguishable
+    toqito.state_props.is_distinguishable
     toqito.state_props.is_ensemble
     toqito.state_props.is_mixed
     toqito.state_props.is_mutually_orthogonal

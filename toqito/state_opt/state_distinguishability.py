@@ -26,17 +26,8 @@ def state_distinguishability(
     Alice chooses :math:`i` with probability :math:`p_i` and creates the state :math:`\rho_i` Bob
     wants to guess which state he was given from the collection of states.
 
-    One can specify the distinguishability method using the :code:`dist_method` argument.
-
-    For :code:`dist_method = "min-error"`, this is the default method that yields the probability of
-    distinguishing quantum states that minimize the probability of error.
-
-    For :code:`dist_method = "unambiguous"`, Alice and Bob never provide an incorrect answer,
-    although it is possible that their answer is inconclusive.
-
-    When :code:`dist_method = "min-error"`, this function implements the following semidefinite
-    program that provides the optimal probability with which Bob can conduct quantum state
-    distinguishability.
+    This function implements the following semidefinite program that provides the optimal probability with which Bob can
+    conduct quantum state distinguishability.
 
     .. math::
         \begin{align*}
@@ -45,35 +36,32 @@ def state_distinguishability(
                                      & M_0, \ldots, M_n \geq 0
         \end{align*}
 
-    When :code:`dist_method = "unambiguous"`, this function implements the following semidefinite
-    program that provides the optimal probability with which Bob can conduct unambiguous quantum
-    state distinguishability.
-
-    .. math::
-        \begin{align*}
-            \text{maximize:} \quad & \sum_{i=0}^n p_i \langle M_i, \rho_i \rangle \\
-            \text{subject to:} \quad & M_0 + \ldots + M_{n+1} = \mathbb{I},\\
-                                     & \langle M_i, \rho_j \rangle = 0,
-                                       \quad 1 \leq i, j \leq n, \quad i \not= j, \\
-                                     & M_0, \ldots, M_n \geq 0.
-        \end{align*}
-
     Examples
     ==========
 
-    State distinguishability for two state density matrices.
-    In this example, the states :math:`|0\rangle` and :math:`|1\rangle`
-    are orthogonal and therefore perfectly distinguishable.
+    State distinguishability for the Bell states (which are perfectly distinguishable).
 
-    >>> from toqito.states import basis
+    >>> from toqito.states import bell
     >>> from toqito.state_opt import state_distinguishability
-    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
-    >>> e_00 = e_0 * e_0.conj().T
-    >>> e_11 = e_1 * e_1.conj().T
-    >>> states = [e_00, e_11]
-    >>> probs = [1 / 2, 1 / 2]
-    >>> res, _ = state_distinguishability(states, probs)
-    1.000
+    >>> states = [bell(0), bell(1), bell(2), bell(3)]
+    >>> probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
+    >>> res, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="dual")
+    0.9999999994695794
+
+    Note that if we are just interested in obtaining the optimal value, it is computationally less intensive to compute
+    the dual problem over the primal problem. However, the primal problem does allow us to extract the explicit
+    measurement operators which may be of interest to us.
+
+    >>> from toqito.states import bell
+    >>> from toqito.state_opt import state_distinguishability
+    >>> states = [bell(0), bell(1), bell(2), bell(3)]
+    >>> probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
+    >>> res, measurements = state_distinguishability(vectors=states, probs=probs, primal_dual="primal")
+    >>> np.around(measurements[0], decimals=5)
+    [[ 0.5+0.j -0. +0.j  0. +0.j  0.5-0.j]
+     [-0. -0.j  0. +0.j -0. -0.j -0. -0.j]
+     [ 0. -0.j -0. +0.j  0. +0.j  0. -0.j]
+     [ 0.5+0.j -0. +0.j  0. +0.j  0.5+0.j]]
 
     References
     ==========
