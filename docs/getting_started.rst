@@ -5,10 +5,6 @@ Getting started
 ===============
 
 .. warning::
-    We recommend :code:`toqito` be installed only on a Linux machine. There is a 
-    `known issue <https://github.com/vprusso/toqito/issues/399#issue-2060205963>`_ with a module in :code:`toqito` not
-    working as intended on macOS.
-
     Efficacy of :code:`toqito` has not been verified on Windows. 
 
 ----------
@@ -39,15 +35,17 @@ that naturally arise for certain problems in quantum information. The installati
 the project's `installation page <https://www.cvxpy.org/install/index.html>`_. However these installation instructions
 can be ignored as :code:`pip install toqito` will also install :code:`cvxpy` as a dependency.
 
+.. note::
+    macOS already ships with BLAS and LAPACK installed by default under the `Accelerate framework <https://developer.apple.com/documentation/accelerate/blas/>`_.
+
 As a dependency for many of the solvers, you will need to ensure you have the :code:`BLAS` and :code:`LAPACK`
 mathematical libraries installed on your machine. If you have :code:`numpy` working on your machine
-(installed as a :code:`toqito` dependency), it is likely that you already have these libraries on your machine. If you don't,
+(installed as a :code:`toqito` dependency), you already have these libraries on your machine. See NumPy `docs <https://numpy.org/install/#numpy-packages--accelerated-linear-algebra-libraries>`_. If you don't,
 :code:`BLAS` and :code:`LAPACK` can be installed using the following command:
 
 .. code-block:: bash
 
     (For Linux) sudo apt-get install -y libblas-dev liblapack-dev
-    (For Mac OS) brew install openblas lapack
 
 The :code:`cvxpy` module provides many different solvers to select from for solving SDPs. We tend to use the
 `SCS <https://github.com/cvxgrp/scs>`_ solver. Ensure that you have the :code:`scs` Python module installed and built
