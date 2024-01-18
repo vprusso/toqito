@@ -30,5 +30,5 @@ def test_state_distinguishability(vectors, probs, solver, primal_dual, expected_
 ])
 def test_state_distinguishability_invalid_vectors(vectors, probs, solver, primal_dual):
     """Test function works as expected for an invalid input."""
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match = "Vectors for state distinguishability must all have the same dimension."):
         state_distinguishability(vectors=vectors, probs=probs, solver=solver, primal_dual=primal_dual)
