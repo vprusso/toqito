@@ -84,7 +84,7 @@ def state_distinguishability(
     :param probs: Respective list of probabilities each state is selected. If no
                   probabilities are provided, a uniform probability distribution is assumed.
     :param solver: Optimization option for `picos` solver. Default option is `solver_option="cvxopt"`.
-    :param primal_dual: Option for the optimization problem.
+    :param primal_dual: Option for the optimization problem. Default option is `"dual"`.
     :return: The optimal probability with which Bob can guess the state he was
              not given from `states` along with the optimal set of measurements.
     """
