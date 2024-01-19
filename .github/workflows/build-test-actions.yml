@@ -101,7 +101,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          docs-folder: "docs/"
+          path: '/docs/*'
       - name: Check for broken links
         run: |
             make html
