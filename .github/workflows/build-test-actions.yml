@@ -101,7 +101,7 @@ jobs:
     steps:
       - uses: ammaraskar/sphinx-action@master
         with:
-          path: '/docs/*'
+          docs-folder: "docs/"
       - name: Check for broken links
         run: |
             make html
