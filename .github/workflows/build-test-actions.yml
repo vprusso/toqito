@@ -45,6 +45,7 @@ jobs:
       - name: Code Analyzer Checks
         run: |
           poetry run pylint --fail-under=10.0 toqito/
+      
 
   toqito-pytest:
     strategy:
@@ -87,3 +88,20 @@ jobs:
           verbose: true
       - name: Build artifacts
         run: poetry build
+
+  docs:
+    strategy:
+      matrix:
+          # Add versions here to expand support matrix
+        python-version: ["3.12"]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    env:
+      PYTHON: ${{ matrix.python-version }}
+    steps:
+      - uses: ammaraskar/sphinx-action@master
+      - name: Check for broken links
+        run: |
+            cd docs
+            make html
+            make linkcheck
