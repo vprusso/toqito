@@ -99,6 +99,7 @@ jobs:
     env:
       PYTHON: ${{ matrix.python-version }}
     steps:
+      - uses: actions/checkout@v4
       - uses: ammaraskar/sphinx-action@master
         with:
           docs-folder: "docs/"
