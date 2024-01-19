@@ -99,10 +99,8 @@ jobs:
     env:
       PYTHON: ${{ matrix.python-version }}
     steps:
-      - uses: actions/checkout@v4
-        with:
-          path: '/docs/*'
       - name: Check for broken links
+        working-directory: .docs/
         run: |
             make html
             make linkcheck
