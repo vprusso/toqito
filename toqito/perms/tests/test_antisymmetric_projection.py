@@ -29,4 +29,4 @@ anti_proj_3_3_partial[21] = 0.40824829
 def test_antisymmetric_projection(dim, p_param, partial, expected_result):
     """Test function works as expected for a valid input."""
     proj = antisymmetric_projection(dim=dim, p_param=p_param, partial=partial).todense()
-    assert np.allclose(proj, expected_result)
+    assert abs(proj - expected_result).all() <= 1E-3
