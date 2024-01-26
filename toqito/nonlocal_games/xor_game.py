@@ -17,7 +17,7 @@ class XORGame:
 
     This function is adapted from the QETLAB package.
 
-    A tutorial is available in the documentation. Go to :ref:`_xor-quantum-value-tutorial`.
+    A tutorial is available in the documentation. Go to :ref:`ref-label-xor-quantum-value-tutorial`.
 
     Examples
     ==========

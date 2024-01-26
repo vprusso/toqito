@@ -24,7 +24,7 @@ class ExtendedNonlocalGame:
     information on these games can be found in :cite:`Russo_2017_Extended`.
 
     An example demonstration is available as a tutorial in the
-    documentation. Go to :ref:`bb84_extended_nl_example`.
+    documentation. Go to :ref:`ref-label-bb84_extended_nl_example`.
 
     References
     ==========
