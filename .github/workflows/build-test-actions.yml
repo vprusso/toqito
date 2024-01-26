@@ -104,5 +104,5 @@ jobs:
           poetry install --no-interaction
       - name: Check for broken links
         run: |
-            make -C docs html
+            make docs html
             make linkcheck
