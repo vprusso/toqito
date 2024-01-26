@@ -21,6 +21,8 @@ class NonlocalGame:
 
     The nonlocal game framework was originally introduced in :cite:`Cleve_2010_Consequences`.
 
+    A tutorial is available in the documentation. For more info, see :ref:`_ref-label-nl-games-tutorial`.
+
     References
     ==========
     .. bibliography::
