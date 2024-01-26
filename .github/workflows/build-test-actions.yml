@@ -85,3 +85,18 @@ jobs:
           verbose: true
       - name: Build artifacts
         run: poetry build
+  
+  docs:
+    strategy:
+      matrix:
+          # Add versions here to expand support matrix
+        python-version: ["3.12"]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    env:
+      PYTHON: ${{ matrix.python-version }}
+    steps:
+      - name: Check for broken links
+        run: |
+            make -C docs html
+            make linkcheck
