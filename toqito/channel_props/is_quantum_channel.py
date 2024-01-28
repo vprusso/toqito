@@ -29,7 +29,7 @@ def is_quantum_channel(
     We can specify the input as a list of Kraus operators. Consider the map :math:`\Phi` defined as
 
     .. math::
-        \Phi(X) = X + U X U^*
+        \Phi(X) = X - U X U^*
 
     where
 
@@ -46,7 +46,7 @@ def is_quantum_channel(
     >>> from toqito.channel_props import is_quantum_channel
     >>> u = (1/np.sqrt(2))*np.array([[1, 1],[-1, 1]])
     >>> x = pauli("X")
-    >>> phi = x + np.matmul(u, np.matmul(x, np.conjugate(u)))
+    >>> phi = x - np.matmul(u, np.matmul(x, np.conjugate(u)))
     >>> is_quantum_channel(phi)
     False
 
