@@ -224,6 +224,9 @@ For an extended nonlocal game, :math:`G`, the values have the following relation
     .. math::
         0 \leq \omega(G) \leq \omega^*(G) \leq \omega_{ns}(G) \leq 1.
 
+
+.. _ref-label-bb84_extended_nl_example:
+
 Example: The BB84 extended nonlocal game
 -----------------------------------------
 

@@ -15,6 +15,16 @@ def is_npt(mat: np.ndarray, sys: int = 2, dim: int | list[int] = None, tol: floa
 
     A state has negative partial transpose if it does not have positive partial transpose.
 
+    Examples
+    ========
+    To check if a matrix has negative partial transpose
+
+    >>> import numpy as np
+    >>> from toqito.state_props import is_npt
+    >>> from toqito.states import bell
+    >>> is_npt(bell(2) @ bell(2).conj().T, 2)
+    True
+
 
     References
     ==========
@@ -24,7 +34,7 @@ def is_npt(mat: np.ndarray, sys: int = 2, dim: int | list[int] = None, tol: floa
 
     :param mat: A square matrix.
     :param sys: Scalar or vector indicating which subsystems the transpose
-                should be applied on.
+                should be applied on. Default value is `2`.
     :param dim: The dimension is a vector containing the dimensions of the
                 subsystems on which :code:`mat` acts.
     :param tol: Tolerance with which to check whether `mat` is PPT.

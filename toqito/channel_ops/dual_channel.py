@@ -35,6 +35,40 @@ def dual_channel(
     .. math::
         \Phi(X) = \sum_a A_a X A^*_a.
 
+    Examples
+    ========
+    When a channel is represented by a 1-D list of of Kraus operators, the CPTP dual channel can be determined
+    as shown below.
+
+    >>> import numpy as np
+    >>> from toqito.channel_ops import dual_channel
+    >>> kraus_1 = np.array([[1, 0, 1j, 0]])
+    >>> kraus_2 = np.array([[0, 1, 0, 1j]])
+    >>> kraus_list = [kraus_1, kraus_2]
+    >>> dual_channel(kraus_list)
+    [array([[1.-0.j],
+        [0.-0.j],
+        [0.-1.j],
+        [0.-0.j]]),
+    array([[0.-0.j],
+            [1.-0.j],
+            [0.-0.j],
+            [0.-1.j]])]
+
+    If the input channel's dimensions are different from the output dual channel's dimensions,
+
+    >>> import numpy as np
+    >>> from toqito.channel_ops import dual_channel
+    >>> from toqito.perms import swap_operator
+    >>> input_op = swap_operator([2, 3])
+    >>> dual_channel(input_op, [[3, 2], [2, 3]])
+    array([[1., 0., 0., 0., 0., 0.],
+       [0., 0., 1., 0., 0., 0.],
+       [0., 0., 0., 0., 1., 0.],
+       [0., 1., 0., 0., 0., 0.],
+       [0., 0., 0., 1., 0., 0.],
+       [0., 0., 0., 0., 0., 1.]])
+
     References
     ==========
     .. bibliography::

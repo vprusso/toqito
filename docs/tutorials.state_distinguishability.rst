@@ -138,6 +138,8 @@ Using :code:`toqito`, we can calculate this probability directly as follows:
 Specifying similar state distinguishability problems can be done so using this
 general pattern.
 
+.. _ref-label-state-dist-ppt:
+
 Optimal probability of distinguishing a state via PPT measurements
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
