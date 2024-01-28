@@ -33,10 +33,6 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get install -y libblas-dev liblapack-dev
-      - name: Install blas, lapack for macOS
-        if: runner.os == 'macOS'
-        run: |
-          brew install openblas lapack
       - name: Install Toqito + dependencies
         run: |
           python -m pip install --upgrade pip
