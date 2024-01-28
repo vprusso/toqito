@@ -2,8 +2,8 @@
 
 
 import numpy as np
-from picos import partial_trace
 
+from toqito.channels import partial_trace
 from toqito.matrix_props import is_identity
 
 
