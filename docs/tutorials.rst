@@ -1,5 +1,5 @@
-Tutorials
-=========
+Additional Tutorials
+====================
 
 Tutorials for :code:`toqito`.
 
