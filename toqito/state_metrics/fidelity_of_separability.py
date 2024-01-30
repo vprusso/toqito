@@ -1,4 +1,4 @@
-"""Add function for fidelity of separability as defined in [Phil23]_.
+"""Add function for fidelity of separability as defined in :cite:`Philip_2023_Schrodinger`.
 
 The constraints for this function are positive partial transpose (PPT) & k-extendible states.
 """

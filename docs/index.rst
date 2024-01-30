@@ -40,37 +40,9 @@ User Documentation
     contributing
     code_of_conduct
 
-.. toctree::
-    :maxdepth: 2
-    :caption: Fundamental Objects
-
-    states
-    channels
-    measurements
 
 .. toctree::
     :maxdepth: 2
-    :caption: Mathematics
-
-    matrices
-    perms
-
-.. toctree::
-    :maxdepth: 2
-    :caption: Random Objects
-
-    rand
-
-.. toctree::
-    :maxdepth: 2
-    :caption: Nonlocal Games
-
-    nonlocal_games
-
-
-.. toctree::
-    :maxdepth: 2
-    :caption: Tutorials
 
     tutorials
 

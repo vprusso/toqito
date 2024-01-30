@@ -30,8 +30,7 @@ release = "1.0.5"
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    "sphinx.ext.autodoc",
-    "sphinx.ext.autosummary",
+    "autoapi.extension",
     "sphinx.ext.doctest",
     "sphinx.ext.intersphinx",
     "sphinx.ext.todo",
@@ -49,9 +48,31 @@ bibtex_default_style = "unsrt"
 suppress_warnings = ["bibtex.duplicate_label", "bibtex.duplicate_citation"]
 # we need to skip these warnigns because all the references appear twice, in a function docstring
 # and on the references page. 
-master_doc = "index"
-autosummary_generate = True
-autodoc_typehints = "none"
+# master_doc = "index"
+# autosummary_generate = True
+# autodoc_typehints = "none"
+autoapi_dirs = ['../toqito']
+autoapi_type = 'python'
+autoapi_ignore = [
+    "*/channel_metrics/tests/*",
+    "*/rand/tests/*",
+    "*/perms/tests/*",
+    "*/state_props/tests/*",
+    "*/nonlocal_games/tests/*",
+    "*/state_metrics/tests/*",
+    "*/channel_ops/tests/*",
+    "*/helper/tests/*",
+    "*/matrix_props/tests/*",
+    "*/state_ops/tests/*",
+    "*/state_opt/tests/*",
+    "*/channels/tests/*",
+    "*/matrices/tests/*",
+    "*/matrix_ops/tests/*",
+    "*/states/tests/*",
+    "*/channel_props/tests/*",
+    "*/measurement_ops/tests/*",
+    "*/measurement_props/tests/*"]
+autoapi_member_order = 'alphabetical'
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
