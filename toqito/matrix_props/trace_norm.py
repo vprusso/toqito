@@ -45,5 +45,6 @@ def trace_norm(rho: np.ndarray) -> float:
 
     :param rho: Density operator.
     :return: The trace norm of :code:`rho`.
+
     """
     return np.linalg.norm(rho, ord="nuc")

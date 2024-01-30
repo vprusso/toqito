@@ -70,6 +70,7 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     :param choi_2: The Choi matrix of the second quantum channel.
     :return: The channel fidelity between the channels specified by the quantum channels
              corresponding to the Choi matrices :code:`choi_1` and :code:`choi_2`.
+
     """
     if choi_1.shape != choi_2.shape:
         raise ValueError("The Choi matrices provided should be of equal dimension.")

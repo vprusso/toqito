@@ -81,6 +81,7 @@ def dual_channel(
     :param dims: Dimension of the input and output systems, for Choi matrix representation.
                  If :code:`None`, try to infer them from :code:`phi_op.shape`.
     :return: The map dual to :code:`phi_op`, in the same representation.
+
     """
     # If phi_op is a list, assume it contains couples of Kraus operators
     # and take the Hermitian conjugate.

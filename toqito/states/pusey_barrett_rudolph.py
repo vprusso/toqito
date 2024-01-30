@@ -47,6 +47,7 @@ def pusey_barrett_rudolph(n: int, theta: float) -> list[np.ndarray]:
     :param n: The number of states in the set.
     :param theta: Angle parameter that defines the states.
     :return: Vector of trine states.
+
     """
     e_0, e_1 = standard_basis(2)
 

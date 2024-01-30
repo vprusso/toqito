@@ -48,6 +48,7 @@ def realignment(input_mat: np.ndarray, dim: int | list[int] = None) -> np.ndarra
     :param dim: Default has all equal dimensions.
     :raises ValueError: If dimension of matrix is invalid.
     :return: The realignment map matrix.
+
     """
     dim_mat = input_mat.shape
     round_dim = np.round(np.sqrt(dim_mat))

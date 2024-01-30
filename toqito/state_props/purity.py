@@ -53,6 +53,7 @@ def purity(rho: np.ndarray) -> float:
     :param rho: A density matrix of a pure state vector.
     :return: A value between 0 and 1 that corresponds to the purity of
             :math:`\rho`.
+
     """
     if not is_density(rho):
         raise ValueError("Purity is only defined for density operators.")

@@ -67,6 +67,7 @@ def is_quantum_channel(
     :param rtol: The relative tolerance parameter (default 1e-05).
     :param atol: The absolute tolerance parameter (default 1e-08).
     :return: :code:`True` if the channel is a quantum channel, and :code:`False` otherwise.
+
     """
     # If the variable `phi` is provided as a list, we assume this is a list
     # of Kraus operators.

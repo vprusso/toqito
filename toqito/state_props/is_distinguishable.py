@@ -39,6 +39,7 @@ def is_distinguishable(states: list[np.ndarray], probs: list[float] = None) -> b
     :param probs: Respective list of probabilities each state is selected. If no
                 probabilities are provided, a uniform probability distribution is assumed.
     :return: :code:`True` if the vectors are distinguishable; :code:`False` otherwise.
+
     """
     probs = [1 / len(states)] * len(states) if probs is None else probs
 

@@ -137,6 +137,7 @@ def symmetric_extension_hierarchy(
     :param dim: The default has both subsystems of equal dimension.
     :return: The optimal probability of the symmetric extension hierarchy SDP for level
             :code:`level`.
+
     """
     obj_func = []
     meas = []

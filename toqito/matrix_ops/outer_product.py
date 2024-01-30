@@ -60,6 +60,7 @@ def outer_product(v1: np.ndarray, v2: np.ndarray) -> np.ndarray:
     :param v1: v1 and v2, both vectors of dimensions :math:`(n,1)` where :math:`n>1`.
     :param v2: v1 and v2, both vectors of dimensions :math:`(n,1)` where :math:`n>1`.
     :return: The computed outer product.
+
     """
     if v1.ndim != 1 or v2.ndim != 1:
         raise ValueError("Both v1 and v2 must be 1D vectors.")

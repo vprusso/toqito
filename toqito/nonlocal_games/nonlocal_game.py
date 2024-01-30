@@ -324,6 +324,7 @@ class NonlocalGame:
         :param tol: The tolerance before quitting out of the alternating
                     projection semidefinite program.
         :return: The lower bound on the quantum value of a nonlocal game.
+
         """
         # Get number of inputs and outputs.
         _, num_outputs_bob, _, num_inputs_bob = self.pred_mat.shape
@@ -595,6 +596,7 @@ class NonlocalGame:
 
         :param k: The level of the NPA hierarchy to use (default=1).
         :return: The upper bound on the commuting strategy value of a nonlocal game.
+
         """
         alice_out, bob_out, alice_in, bob_in = self.pred_mat.shape
 

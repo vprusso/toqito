@@ -45,6 +45,7 @@ def reduction(dim: int, k: int = 1) -> np.ndarray:
     :param k: If this positive integer is provided, the script will instead return the Choi
               matrix of the following linear map: Phi(X) := K * Tr(X)I - X.
     :return: The reduction map.
+
     """
     psi = max_entangled(dim, False, False)
     return k * identity(dim ** 2) - psi @ psi.conj().T

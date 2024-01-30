@@ -49,6 +49,7 @@ def permutation_operator(
     :param inv_perm: Boolean dictating if :code:`perm` is inverse or not.
     :param is_sparse: Boolean indicating if return is sparse or not.
     :return: Permutation operator of dimension :code:`dim`.
+
     """
     # Allow the user to enter a single number for `dim`.
     if isinstance(dim, int):

@@ -51,6 +51,7 @@ def majorizes(a_var: np.ndarray | list[int], b_var: np.ndarray | list[int]) -> b
     :param b_var: Matrix or vector provided as list or np.array.
     :return: Return :code:`True` if :code:`a_var` majorizes :code:`b_var` and :code:`False`
              otherwise.
+
     """
     # If input if provided as list, convert to np.array.
     if isinstance(a_var, list):

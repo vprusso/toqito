@@ -28,6 +28,7 @@ def mutually_unbiased_basis(dim: int) -> list[np.ndarray]:
 
     :param dim: The dimension of the mutually unbiased bases to produce.
     :return: The set of mutually unbiased bases of dimension :code:`dim` (if known).
+
     """
     # The first basis will always be the standard basis:
     mats = [np.eye(dim)]

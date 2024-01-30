@@ -37,6 +37,7 @@ def vectors_from_gram_matrix(gram: np.ndarray) -> list[np.ndarray]:
     :raises LinAlgError: If the Gram matrix is not square.
     :param gram: A square, symmetric matrix representing the Gram matrix.
     :return: A list of vectors (np.ndarray) corresponding to the ensemble of states.
+
     """
     dim = gram.shape[0]
     if gram.shape[0] != gram.shape[1]:

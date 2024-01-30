@@ -115,6 +115,7 @@ def tensor(*args) -> np.ndarray:
         - np.ndarray, ... , np.ndarray: An arbitrary number of numpy arrays,
         - np.ndarray, int: A numpy array and an integer.
     :return: The computed tensor product.
+
     """
     result = None
 

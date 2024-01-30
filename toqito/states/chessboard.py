@@ -45,6 +45,7 @@ def chessboard(mat_params: list[float], s_param: float = None, t_param: float = 
     :param s_param: Default is :code:`np.conj(mat_params[2]) / np.conj(mat_params[5])`.
     :param t_param: Default is :code:`t_param = mat_params[0] * mat_params[3] / mat_params[4]`.
     :return: A chessboard state.
+
     """
     if s_param is None:
         s_param = np.conj(mat_params[2]) / np.conj(mat_params[5])

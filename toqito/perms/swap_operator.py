@@ -52,6 +52,7 @@ def swap_operator(dim: list[int] | int, is_sparse: bool = False) -> np.ndarray:
     :param dim: The dimensions of the subsystems.
     :param is_sparse: Sparse if :code:`True` and non-sparse if :code:`False`.
     :return: The swap operator of dimension :code:`dim`.
+
     """
     # Allow the user to enter a single number for dimension.
     if isinstance(dim, int):

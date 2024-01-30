@@ -85,6 +85,7 @@ def werner(dim: int, alpha: float | list[float]) -> np.ndarray:
     :param dim: The dimension of the Werner state.
     :param alpha: Parameter to specify Werner state.
     :return: A Werner state of dimension :code:`dim`.
+
     """
     # Multipartite Werner state.
     if isinstance(alpha, list):

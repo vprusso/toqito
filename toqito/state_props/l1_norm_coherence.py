@@ -46,6 +46,7 @@ def l1_norm_coherence(rho: np.ndarray) -> float:
 
     :param rho: A matrix or vector.
     :return: The l1-norm coherence of :code:`rho`.
+
     """
     rho = pure_to_mixed(rho)
     return np.sum(np.sum(np.abs(rho))) - np.trace(rho)

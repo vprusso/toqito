@@ -122,6 +122,7 @@ def fidelity_of_separability(
     :raises ValueError: the input state is a mixed state.
     :return: Optimized value of the SDP when maximized over a set of linear operators subject
         to some constraints.
+
     """
     # rho is relabelled as rho_{AB} where A >= B.
     if not is_density(input_state_rho):

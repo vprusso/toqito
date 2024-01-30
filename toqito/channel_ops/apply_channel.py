@@ -96,6 +96,7 @@ def apply_channel(mat: np.ndarray, phi_op: np.ndarray | list[list[np.ndarray]]) 
                    or as a list of numpy arrays with either 1 or 2 columns whose entries are its
                    Kraus operators.
     :return: The result of applying the superoperator :code:`phi_op` to the operator :code:`mat`.
+
     """
     # Both of the following methods of applying the superoperator are much faster than naively
     # looping through the Kraus operators or constructing eigenvectors of a Choi matrix.

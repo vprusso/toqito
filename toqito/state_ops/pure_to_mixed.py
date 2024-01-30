@@ -52,6 +52,7 @@ def pure_to_mixed(phi: np.ndarray) -> np.ndarray:
     :param phi: A density matrix or a pure state vector.
     :return: density matrix representation of :code:`phi`, regardless of whether :code:`phi` is
              itself already a density matrix or if if is a pure state vector.
+
     """
     # Compute the size of `phi`. If it's already a mixed state, leave it alone.
     # If it's a vector (pure state), make it into a density matrix.

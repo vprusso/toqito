@@ -51,6 +51,7 @@ def is_ensemble(states: list[np.ndarray]) -> bool:
 
     :param states: The list of states to check.
     :return: :code:`True` if states form an ensemble and :code:`False` otherwise.
+
     """
     trace_sum = 0
     for state in states:

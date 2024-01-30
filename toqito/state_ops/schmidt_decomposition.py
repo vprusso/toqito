@@ -64,6 +64,7 @@ def schmidt_decomposition(
                 equal dimensions).
     :param k_param: How many terms of the Schmidt decomposition should be computed (default is 0).
     :return: The Schmidt decomposition of the :code:`rho` input.
+
     """
     # If the input is provided as a matrix, compute the operator Schmidt decomposition.
     if len(rho.shape) == 2:

@@ -66,5 +66,6 @@ def is_density(mat: np.ndarray) -> bool:
     :param mat: Matrix to check.
     :return: Return :code:`True` if matrix is a density matrix,
              and :code:`False` otherwise.
+
     """
     return is_positive_semidefinite(mat) and np.isclose(np.trace(mat), 1)

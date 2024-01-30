@@ -78,6 +78,7 @@ def partial_channel(
     :param dim: Dimension of the subsystems. If :code:`None`, all dimensions
                 are assumed to be equal.
     :return: The partial map :code:`phi_map` applied to matrix :code:`rho`.
+
     """
     if dim is None:
         dim = np.round(np.sqrt(list(rho.shape))).conj().T * np.ones(2)

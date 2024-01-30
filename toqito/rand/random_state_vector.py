@@ -35,6 +35,7 @@ def random_state_vector(dim: list[int] | int, is_real: bool = False, k_param: in
                     entries or not. Default is :code:`False`.
     :param k_param: Default 0.
     :return: A :code:`dim`-by-:code:`dim` random unitary matrix.
+
     """
     # Schmidt rank plays a role.
     if 0 < k_param < np.min(dim):

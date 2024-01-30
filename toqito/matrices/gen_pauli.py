@@ -69,6 +69,7 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
     :param k_2: (a non-negative integer from 0 to :code:`dim-1` inclusive).
     :param dim: (a positive integer indicating the dimension).
     :return: A generalized Pauli operator.
+
     """
     gen_pauli_x = shift(dim)
     gen_pauli_z = clock(dim)

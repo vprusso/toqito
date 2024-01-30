@@ -59,6 +59,7 @@ def bures_angle(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> flo
     :param rho_2: Density operator.
     :param decimals: Number of decimal places to round to (default 10).
     :return: The Bures angle between :code:`rho_1` and :code:`rho_2`.
+
     """
     # Perform error checking.
     if not np.all(rho_1.shape == rho_2.shape):

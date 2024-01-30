@@ -88,5 +88,6 @@ def vec(mat: np.ndarray) -> np.ndarray:
 
     :param mat: The input matrix.
     :return: The vec representation of the matrix.
+
     """
     return mat.reshape((-1, 1), order="F")

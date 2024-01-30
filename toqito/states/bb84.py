@@ -35,6 +35,7 @@ def bb84() -> np.ndarray:
 
 
     :return: The four BB84 basis states.
+
     """
     # Computational basis states |0>, |1>:
     e_0, e_1 = standard_basis(2)

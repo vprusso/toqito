@@ -33,6 +33,7 @@ def unique_perms(elements: list[int]):
 
     :param elements: List of integers.
     :return: The number of possible permutations possible.
+
     """
     elem_set = set(elements)
     list_unique = [UniqueElement(value=i, occurrences=elements.count(i)) for i in elem_set]

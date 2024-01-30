@@ -98,6 +98,7 @@ def ppt_distinguishability(
     :param strategy: Returns strategy if :code:`True` and does not otherwise.
     :return: The optimal probability with which the states can be distinguished
              via PPT measurements.
+
     """
     __is_states_valid(states)
     if probs is None:

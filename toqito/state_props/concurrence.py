@@ -70,6 +70,7 @@ def concurrence(rho: np.ndarray) -> float:
     :raises ValueError: If system is not bipartite.
     :param rho: The bipartite system specified as a matrix.
     :return: The concurrence of the bipartite state :math:`\rho`.
+
     """
     if rho.shape != (4, 4):
         raise ValueError("InvalidDim: Concurrence is only defined for bipartite systems.")

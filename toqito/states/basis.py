@@ -41,6 +41,7 @@ def basis(dim: int, pos: int) -> np.ndarray:
     :param pos: The position in which to place a 1.
     :return: The column vector of dimension :code:`dim` with all entries set to `0` except the entry
              at position `1`.
+
     """
     if pos >= dim:
         raise ValueError(

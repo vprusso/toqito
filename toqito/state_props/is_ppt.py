@@ -76,6 +76,7 @@ def is_ppt(mat: np.ndarray, sys: int = 2, dim: int | list[int] = None, tol: floa
     :param tol: Tolerance with which to check whether `mat` is PPT.
     :return: Returns :code:`True` if :code:`mat` is PPT and :code:`False` if
              not.
+
     """
     eps = np.finfo(float).eps
 

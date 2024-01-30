@@ -81,6 +81,7 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
 
     :param rho: Density operator.
     :return: The von Neumann entropy of :code:`rho`.
+
     """
     if not is_density(rho):
         raise ValueError("Von Neumann entropy is only defined for density operators.")

@@ -47,6 +47,7 @@ def bell(idx: int) -> np.ndarray:
     :raises ValueError: If :code:`idx` is not an integer.
     :param idx: A parameter in [0, 1, 2, 3]
     :return: Bell state with index :code:`idx`.
+
     """
     e_0, e_1 = basis(2, 0), basis(2, 1)
     match idx:

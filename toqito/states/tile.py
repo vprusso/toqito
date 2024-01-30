@@ -57,6 +57,7 @@ def tile(idx: int) -> np.ndarray:
     :raises ValueError: Invalid value for :code:`idx`.
     :param idx: A parameter in [0, 1, 2, 3, 4]
     :return: Tile state.
+
     """
     e_0, e_1, e_2 = basis(3, 0), basis(3, 1), basis(3, 2)
     match idx:

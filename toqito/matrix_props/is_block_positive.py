@@ -58,6 +58,7 @@ def is_block_positive(
     :return: Return :code:`True` if matrix is k-block positive definite,
              :code:`False` if not, or raise a runtime error if we are unable to determine
              whether or not the operator is block positive.
+
     """
     if not is_hermitian(mat):
         return False

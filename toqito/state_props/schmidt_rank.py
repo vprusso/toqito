@@ -80,6 +80,7 @@ def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray = None) -> f
     :param rho: A bipartite vector or matrix to have its Schmidt rank computed.
     :param dim: A 1-by-2 vector or matrix.
     :return: The Schmidt rank of :code:`rho`.
+
     """
     # If the input is provided as a matrix, compute the operator Schmidt rank.
     if len(rho.shape) == 2:

@@ -68,6 +68,7 @@ def random_unitary(dim: list[int] | int, is_real: bool = False) -> np.ndarray:
     :param is_real: Boolean denoting whether the returned matrix has real
                     entries or not. Default is :code:`False`.
     :return: A :code:`dim`-by-:code:`dim` random unitary matrix.
+
     """
     if isinstance(dim, int):
         dim = [dim, dim]

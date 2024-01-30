@@ -78,6 +78,7 @@ def sk_operator_norm(  # pylint: disable=too-many-locals
     :param effort: An integer value indicating the amount of computation you want to
                    devote to computing the bounds.
     :return: A lower and an upper bound on S(k)-norm of :code:`mat`.
+
     """
     eps = np.finfo(float).eps
     tol = eps ** (3 / 8)

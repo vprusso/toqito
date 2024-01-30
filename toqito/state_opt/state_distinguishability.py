@@ -75,6 +75,7 @@ def state_distinguishability(
     :param primal_dual: Option for the optimization problem. Default option is `"dual"`.
     :return: The optimal probability with which Bob can guess the state he was
              not given from `states` along with the optimal set of measurements.
+
     """
     if not all(vector.shape == vectors[0].shape for vector in vectors):
         raise ValueError("Vectors for state distinguishability must all have the same dimension.")

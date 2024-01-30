@@ -54,6 +54,7 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
     :param dim: The default has both subsystems of equal dimension.
     :return: A value between 0 and 1 that corresponds to the
              entanglement-of-formation of :code:`rho`.
+
     """
     dim_x, dim_y = rho.shape
     round_dim = int(np.round(np.sqrt(max(dim_x, dim_y))))

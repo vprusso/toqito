@@ -24,6 +24,7 @@ def cvx_kron(expr_1: np.ndarray | Expression, expr_2: np.ndarray | Expression) -
     :param expr_1: 2D numpy ndarray, or a CVXPY Variable with expr_1.ndim == 2
     :param expr_2: 2D numpy ndarray, or a CVXPY Variable with expr_2.ndim == 2
     :return: The tensor product of two CVXPY expressions.
+
     """
     expr = np.kron(expr_1, expr_2)
     num_rows = expr.shape[0]

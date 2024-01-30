@@ -43,6 +43,7 @@ def channel_dim(
     :param dim: A scalar, vector or matrix containing the input and output dimensions of PHI.
     :param compute_env_dim: A flag indicating whether we compute the enviroment dimension.
     :return: The input, output, and environment dimensions of a channel.
+
     """
     dim_in = np.zeros(2, dtype=int)
     dim_out = np.zeros(2, dtype=int)

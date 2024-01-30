@@ -49,6 +49,7 @@ def sk_vector_norm(rho: np.ndarray, k: int = 1, dim: int | list[int] = None) -> 
     :param dim: The dimension of the two sub-systems. By default it's
                 assumed to be equal.
     :return: The S(k)-norm of :code:`rho`.
+
     """
     dim_xy = rho.shape[0]
 

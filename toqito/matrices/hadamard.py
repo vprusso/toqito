@@ -40,6 +40,7 @@ def hadamard(n_param: int = 1) -> np.ndarray:
 
     :param n_param: A non-negative integer (default = 1).
     :return: The Hadamard matrix of dimension :code:`2^{n_param}`.
+
     """
     return 2 ** (-n_param / 2) * np.array(
         [

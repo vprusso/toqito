@@ -70,5 +70,6 @@ def measure(measurement: np.ndarray, state: np.ndarray) -> float:
     :param state: The state to apply the measurement to.
     :return: Returns the probability of obtaining a given outcome after applying
              the variable :code:`measurement` to the variable :code:`state`.
+
     """
     return float(np.trace(measurement.conj().T * state))

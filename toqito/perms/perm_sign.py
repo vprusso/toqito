@@ -45,5 +45,6 @@ def perm_sign(perm: np.ndarray | list[int]) -> float:
     :param perm: The permutation vector to be checked.
     :return: The value 1 if the permutation is of even length and the value of
              -1 if the permutation is of odd length.
+
     """
     return linalg.det(np.eye(len(perm))[:, np.array(perm) - 1])

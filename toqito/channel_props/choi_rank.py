@@ -75,6 +75,7 @@ def choi_rank(phi: np.ndarray | list[list[np.ndarray]]) -> int:
     :raises ValueError: If matrix is not Choi.
     :param phi: Either a Choi matrix or a list of Kraus operators
     :return: The Choi rank of the provided channel representation.
+
     """
     if isinstance(phi, list):
         phi = kraus_to_choi(phi)
