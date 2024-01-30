@@ -1,4 +1,4 @@
-"""Add functions for channel fidelity of Separability as defined in [Phil23]_.
+"""Add functions for channel fidelity of Separability as defined in :cite:`Philip_2023_Schrodinger`.
 
 The constrainsts for this function are positive partial transpose (PPT)
 & k-extendible channels.
