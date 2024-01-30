@@ -67,5 +67,6 @@ def singlet(dim: int) -> np.ndarray:
 
     :param dim: The dimension of the generalized singlet state.
     :return: The singlet state of dimension `dim`.
+
     """
     return (np.identity(dim ** 2) - swap_operator([dim, dim])) / ((dim ** 2) - dim)

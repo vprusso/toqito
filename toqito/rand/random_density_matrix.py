@@ -81,6 +81,7 @@ def random_density_matrix(
                             measure or the Bures measure. Default value is to
                             use the Haar measure.
     :return: A :code:`dim`-by-:code:`dim` random density matrix.
+
     """
     if k_param is None:
         k_param = dim

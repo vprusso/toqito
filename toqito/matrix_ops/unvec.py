@@ -80,6 +80,7 @@ def unvec(vector: np.ndarray, shape: list[int] = None) -> np.ndarray:
     :param vector: A (:code:`shape[0] * shape[1]`)-by-1 numpy array.
     :param shape: The shape of the output matrix; by default, the matrix is assumed to be square.
     :return: Returns a :code:`shape[0]`-by-:code:`shape[1]` matrix.
+
     """
     vector = np.asarray(vector)
     if shape is None:

@@ -100,6 +100,7 @@ def swap(
     :param dim: Default: :code:`[sqrt(len(X), sqrt(len(X)))]`
     :param row_only: Default: :code:`False`
     :return: The swapped matrix.
+
     """
     eps = np.finfo(float).eps
     if len(rho.shape) == 1:

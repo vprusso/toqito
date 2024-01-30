@@ -62,6 +62,7 @@ def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, sparse.dia_matr
     :param dim: Dimension of the entangled state.
     :param is_sparse: `True` if vector is spare and `False` otherwise.
     :return: The maximally mixed state of dimension `dim`.
+
     """
     if is_sparse:
         return 1 / dim * sparse.eye(dim)

@@ -59,6 +59,7 @@ def brauer(dim: int, p_val: int) -> np.ndarray:
     :param p_val: Half of the number of parties (i.e., the state that this function computes will
                   live in :math:`(\mathbb{C}^D)^{\otimes 2 P})`
     :return: Matrix whose columns are all of the unnormalized Brauer states.
+
     """
     # The Brauer states are computed from perfect matchings of the complete graph. So compute all
     # perfect matchings first.

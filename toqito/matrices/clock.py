@@ -50,6 +50,7 @@ def clock(dim: int) -> np.ndarray:
 
     :param dim: Dimension of the matrix.
     :return: :code:`dim`-by-:code:`dim` clock matrix.
+
     """
     c_var = 2j * pi / dim
     omega = (exp(k * c_var) for k in range(dim))

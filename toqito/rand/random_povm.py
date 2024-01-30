@@ -45,6 +45,7 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int) -> np.ndarray:
     :param num_inputs: The number of inputs for the measurement.
     :param num_outputs: The number of outputs for the measurement.
     :return: A set of `dim`-by-`dim` POVMs of shape `(dim, dim, num_inputs, num_outputs)`.
+
     """
     povms = []
     gram_vectors = np.random.normal(size=(num_inputs, num_outputs, dim, dim))

@@ -33,6 +33,7 @@ def trine() -> list[np.ndarray]:
         :filter: docname in docnames
 
     :return: Vector of trine states.
+
     """
     e_0, e_1 = basis(2, 0), basis(2, 1)
     return [

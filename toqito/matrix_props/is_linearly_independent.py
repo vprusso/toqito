@@ -39,6 +39,7 @@ def is_linearly_independent(vectors: list[np.ndarray]) -> bool:
 
     :param vectors: Vectors to check the linear independence of.
     :return: Return :code:`True` if vectors are linearly independent :code:`False` otherwise.
+
     """
     # Check if the rank of the matrix equals the number of vectors.
     return np.linalg.matrix_rank(np.column_stack(vectors)) == len(vectors)

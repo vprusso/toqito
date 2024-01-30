@@ -96,6 +96,7 @@ def choi_to_kraus(
     :param tol: optional threshold parameter for eigenvalues/kraus ops to be discarded
     :param dim: A scalar, vector or matrix containing the input and output dimensions of Choi matrix.
     :return: List of Kraus operators
+
     """
     d_in, d_out, _ = channel_dim(choi_mat, dim=dim, compute_env_dim=False)
     if is_hermitian(choi_mat):

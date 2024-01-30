@@ -48,6 +48,7 @@ def shift(dim: int) -> np.ndarray:
 
     :param dim: Dimension of the matrix.
     :return: :code:`dim`-by-:code:`dim` shift matrix.
+
     """
     shift_mat = np.identity(dim)
     shift_mat = np.roll(shift_mat, -1)

@@ -83,6 +83,7 @@ def pauli(
     :param ind: The index to indicate which Pauli operator to generate.
     :param is_sparse: Returns a sparse matrix if set to True and a non-sparse
                       matrix if set to False.
+
     """
     if isinstance(ind, (int, str)):
         if ind in {"x", "X", 1}:

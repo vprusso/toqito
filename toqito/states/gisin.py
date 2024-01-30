@@ -49,6 +49,7 @@ def gisin(lambda_var: float, theta: float) -> np.ndarray:
     :param lambda_var: A real parameter in [0, 1].
     :param theta: A real parameter.
     :return: Gisin state.
+
     """
     if lambda_var < 0 or lambda_var > 1:
         raise ValueError("InvalidLambda: Variable lambda must be between 0 and 1.")

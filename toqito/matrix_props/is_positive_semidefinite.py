@@ -52,6 +52,7 @@ def is_positive_semidefinite(mat: np.ndarray, rtol: float = 1e-05, atol: float =
     :param rtol: The relative tolerance parameter (default 1e-05).
     :param atol: The absolute tolerance parameter (default 1e-08).
     :return: Return :code:`True` if matrix is PSD, and :code:`False` otherwise.
+
     """
     if not is_hermitian(mat, rtol, atol):
         return False

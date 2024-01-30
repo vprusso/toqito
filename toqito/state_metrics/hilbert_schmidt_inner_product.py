@@ -36,5 +36,6 @@ def hilbert_schmidt_inner_product(a_mat: np.ndarray, b_mat: np.ndarray) -> compl
     :param b_mat: An input matrix provided as a numpy array.
     :return: The Hilbert-Schmidt inner product between :code:`a_mat` and
              :code:`b_mat`.
+
     """
     return np.trace(a_mat.conj().T @ b_mat)

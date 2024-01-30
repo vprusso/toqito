@@ -28,6 +28,7 @@ def kp_norm(mat: np.ndarray, k: int, p: int) -> float:
     :param k: The number of singular values to take.
     :param p: The order of the norm.
     :return: The kp-norm of a matrix.
+
     """
     dim = min(mat.shape)
 

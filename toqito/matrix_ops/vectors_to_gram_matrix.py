@@ -32,6 +32,7 @@ def vectors_to_gram_matrix(vectors: list[np.ndarray]) -> np.ndarray:
     :raises ValueError: If the vectors are not all of the same length.
     :param vectors: A list of vectors (1D numpy arrays). All vectors must be of the same length.
     :return: A list of vectors corresponding to the ensemble of states.
+
     """
     # Check that all vectors are of the same length
     if not all(v.shape == vectors[0].shape for v in vectors):

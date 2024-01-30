@@ -79,6 +79,7 @@ def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
     :param dim: The dimensionality on which the channel acts.
     :param param_p: Default is 0.
     :return: The Choi matrix of the dephasing channel.
+
     """
     # Compute the Choi matrix of the dephasing channel.
 

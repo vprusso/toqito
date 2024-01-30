@@ -55,6 +55,7 @@ def is_antidistinguishable(states: list[np.ndarray]) -> bool:
 
     :param states: A set of vectors consisting of quantum states to determine the antidistinguishability of.
     :return: :code:`True` if the vectors are antidistinguishable; :code:`False` otherwise.
+
     """
     probs = [1] * len(states)
 

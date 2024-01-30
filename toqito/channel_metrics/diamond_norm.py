@@ -51,6 +51,7 @@ def diamond_norm(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     :raises ValueError: If matrices are not square.
     :param choi_1: A 4**N by 4**N matrix (where N is the number of qubits).
     :param choi_2: A 4**N by 4**N matrix (where N is the number of qubits).
+
     """
     if choi_1.shape != choi_2.shape:
         raise ValueError("The Choi matrices provided should be of equal dimension.")

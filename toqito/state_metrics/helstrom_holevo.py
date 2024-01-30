@@ -57,6 +57,7 @@ def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float:
     :param rho: Density operator.
     :param sigma: Density operator.
     :return: The Helstrom-Holevo distance between :code:`rho` and :code:`sigma`.
+
     """
     if not is_density(rho) or not is_density(sigma):
         raise ValueError("Helstrom-Holevo is only defined for density operators.")

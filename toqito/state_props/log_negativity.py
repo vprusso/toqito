@@ -44,6 +44,7 @@ def log_negativity(rho: np.ndarray, dim: list[int] | int = None) -> float:
     :param rho: A density matrix of a pure state vector.
     :param dim: The default has both subsystems of equal dimension.
     :return: A positive value that corresponds to the logarithmic negativity of :math:`\rho`.
+
     """
     # Allow the user to input either a pure state vector or a density matrix.
     rho = pure_to_mixed(rho)

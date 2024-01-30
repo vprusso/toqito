@@ -91,6 +91,7 @@ def is_povm(mat_list: list[np.ndarray]) -> bool:
     :param mat_list: A list of matrices.
     :return: Return :code:`True` if set of matrices constitutes a set of
              measurements, and :code:`False` otherwise.
+
     """
     dim = mat_list[0].shape[0]
 

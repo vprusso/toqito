@@ -61,6 +61,7 @@ def is_projection(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> 
     :param rtol: The relative tolerance parameter (default 1e-05).
     :param atol: The absolute tolerance parameter (default 1e-08).
     :return: Return :code:`True` if matrix is a projection matrix, and :code:`False` otherwise.
+
     """
     if not is_square(mat):
         return False

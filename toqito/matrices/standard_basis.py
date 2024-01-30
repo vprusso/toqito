@@ -37,6 +37,7 @@ def standard_basis(dim: int, flatten: bool = False) -> list[np.ndarray]:
     :param dim: The dimension of the basis.
     :param flatten: If True, the basis is returned as a flattened list.
     :return: A list of numpy.ndarray of shape (n, 1).
+
     """
     first_basis_vector = np.zeros(dim) if flatten else np.zeros((dim, 1))
     first_basis_vector[0] = 1.0

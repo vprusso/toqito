@@ -136,6 +136,7 @@ def permute_systems(
     :param row_only: Default: :code:`False`
     :param inv_perm: Default: :code:`True`
     :return: The matrix or vector that has been permuted.
+
     """
     if len(input_mat.shape) == 1:
         input_mat_dims = (1, input_mat.shape[0])

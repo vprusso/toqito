@@ -152,6 +152,7 @@ def npa_constraints(  # pylint: disable=too-many-locals
     :param k: The level of the NPA hierarchy to use (default=1).
     :param referee_dim: The dimension of the referee's quantum system (default=1).
     :return: A list of cvxpy constraints.
+
     """
     a_out, a_in, b_out, b_in = _get_nonlocal_game_params(assemblage, referee_dim)
 

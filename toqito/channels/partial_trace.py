@@ -126,6 +126,7 @@ def partial_trace(
     :param dim: Dimension of the subsystems. If :code:`None`, all dimensions are assumed to be
                 equal.
     :return: The partial trace of matrix :code:`input_mat`.
+
     """
     if not isinstance(sys, int):
         if sys is None:

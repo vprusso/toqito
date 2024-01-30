@@ -73,6 +73,7 @@ def symmetric_projection( dim: int, p_val: int = 2, partial: bool = False ) -> [
     :param p_val: Default value of 2.
     :param partial: Default value of 0.
     :return: Projection onto the symmetric subspace.
+
     """
     dimp = dim ** p_val
 

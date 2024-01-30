@@ -57,6 +57,7 @@ def is_mutually_orthogonal(vec_list: list[np.ndarray | list[float | Any]]) -> bo
     :param vec_list: The list of vectors to check.
     :return: :code:`True` if :code:`vec_list` are mutually orthogonal, and
              :code:`False` otherwise.
+
     """
     if len(vec_list) <= 1:
         raise ValueError("There must be at least two vectors provided as input.")

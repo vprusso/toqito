@@ -72,6 +72,7 @@ def is_positive(
     :param rtol: The relative tolerance parameter (default 1e-05).
     :param atol: The absolute tolerance parameter (default 1e-08).
     :return: True if the channel is positive, and False otherwise.
+
     """
     # If the variable `phi` is provided as a list, we assume this is a list
     # of Kraus operators.

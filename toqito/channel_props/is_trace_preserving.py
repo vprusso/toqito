@@ -88,6 +88,7 @@ def is_trace_preserving(
     :param dim: Dimension of the subsystems. If :code:`None`, all dimensions are assumed to be
                 equal.
     :return: True if the channel is trace-preserving, and False otherwise.
+
     """
     # If the variable `phi` is provided as a list, we assume this is a list
     # of Kraus operators.

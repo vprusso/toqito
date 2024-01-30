@@ -444,6 +444,7 @@ class ExtendedNonlocalGame:
 
         :param k: The level of the NPA hierarchy to use (default=1).
         :return: The upper bound on the commuting strategy value of an extended nonlocal game.
+
         """
         referee_dim, _, alice_out, bob_out, alice_in, bob_in = self.pred_mat.shape
 

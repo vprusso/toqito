@@ -65,6 +65,7 @@ def is_pure(state: list[np.ndarray] | np.ndarray) -> bool:
     :param state: The density matrix representing the quantum state or a list
                   of density matrices representing quantum states.
     :return: :code:`True` if state is pure and :code:`False` otherwise.
+
     """
     # Allow the user to enter a list of states to check.
     if isinstance(state, list):

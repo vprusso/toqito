@@ -61,6 +61,7 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     :param rho: Density operator.
     :param sigma: Density operator.
     :return: The fidelity between :code:`rho` and :code:`sigma`.
+
     """
     # Perform some error checking.
     if not np.all(rho.shape == sigma.shape):

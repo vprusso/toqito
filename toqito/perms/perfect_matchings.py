@@ -33,6 +33,7 @@ def perfect_matchings(num: list[int] | int | np.ndarray) -> np.ndarray:
                 integers 1,2, ... N, or a `list` or `np.array` containing an even number of distinct
                 entries, indicating that you would like all perfect matchings of those entries.
     :return: An array containing all valid perfect matchings of size :code:`num`.
+
     """
     if isinstance(num, int):
         num = np.arange(1, num + 1)

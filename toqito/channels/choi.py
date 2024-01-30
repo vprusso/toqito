@@ -99,6 +99,7 @@ def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
     :param b_var: Default integer for standard Choi map.
     :param c_var: Default integer for standard Choi map.
     :return: The Choi channel (or one of its  generalizations).
+
     """
     psi = max_entangled(3, False, False)
     return (

@@ -93,6 +93,7 @@ def has_symmetric_extension(
     :param ppt: If :code:`True`, this enforces that the symmetric extension must be PPT.
     :param tol: Tolerance when determining whether a symmetric extension exists.
     :return: :code:`True` if :code:`mat` has a symmetric extension; :code:`False` otherwise.
+
     """
     len_mat = rho.shape[1]
 

@@ -38,5 +38,6 @@ def is_mixed(state: np.ndarray) -> bool:
 
     :param state: The density matrix representing the quantum state.
     :return: :code:`True` if state is mixed and :code:`False` otherwise.
+
     """
     return not is_pure(state)

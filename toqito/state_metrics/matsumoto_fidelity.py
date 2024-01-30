@@ -71,6 +71,7 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     :param rho: Density operator.
     :param sigma: Density operator.
     :return: The Matsumoto fidelity between :code:`rho` and :code:`sigma`.
+
     """
     if not np.all(rho.shape == sigma.shape):
         raise ValueError("InvalidDim: `rho` and `sigma` must be matrices of the same size.")

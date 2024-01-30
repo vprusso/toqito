@@ -69,6 +69,7 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] = None) -> sparse:
     :param coeff: (default `[1, 1, ..., 1])/sqrt(dim)`:
                   a 1-by-`dim` vector of coefficients.
     :returns: Numpy vector array as GHZ state.
+
     """
     if coeff is None:
         coeff = np.ones(dim) / np.sqrt(dim)

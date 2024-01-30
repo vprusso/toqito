@@ -33,5 +33,6 @@ def cnot() -> np.ndarray:
 
 
     :return: The CNOT matrix.
+
     """
     return np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0]])

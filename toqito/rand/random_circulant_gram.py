@@ -41,6 +41,7 @@ def random_circulant_gram(dim: int) -> np.ndarray:
 
     :return: numpy.ndarray
         A `dim` x `dim` real, symmetric, circulant matrix.
+
     """
     # Step 1: Generate a random diagonal matrix with non-negative entries
     diag_mat = np.diag(np.random.rand(dim))

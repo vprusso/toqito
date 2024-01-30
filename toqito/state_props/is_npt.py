@@ -40,5 +40,6 @@ def is_npt(mat: np.ndarray, sys: int = 2, dim: int | list[int] = None, tol: floa
     :param tol: Tolerance with which to check whether `mat` is PPT.
     :return: Returns :code:`True` if :code:`mat` is NPT and :code:`False` if
              not.
+
     """
     return not is_ppt(mat, sys, dim, tol)

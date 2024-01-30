@@ -55,6 +55,7 @@ def is_positive_definite(mat: np.ndarray) -> bool:
 
     :param mat: Matrix to check.
     :return: Return :code:`True` if matrix is positive definite, and :code:`False` otherwise.
+
     """
     if np.array_equal(mat, mat.conj().T):
         try:

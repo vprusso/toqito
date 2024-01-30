@@ -31,5 +31,6 @@ def random_states(n: int, d: int) -> list[np.ndarray]:
     :return: list[numpy.ndarray]
         A list of `n` numpy arrays, each representing a d-dimensional quantum state as a
         column vector.
+
     """
     return [random_statevector(d).data.reshape(-1, 1) for _ in range(n)]

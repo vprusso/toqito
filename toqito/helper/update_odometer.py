@@ -50,6 +50,7 @@ def update_odometer(
     :param old_ind: The initial vector.
     :param upper_lim: The upper limit on which to increase the odometer to.
     :return: The updated vector.
+
     """
     ind_len = len(old_ind)
     new_ind = old_ind[:]

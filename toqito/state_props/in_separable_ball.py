@@ -59,6 +59,7 @@ def in_separable_ball(mat: np.ndarray) -> bool:
                 semidefinite matrix.
     :return: :code:`True` if the matrix :code:`mat` is contained within the separable ball, and
             :code:`False` otherwise.
+
     """
     mat_dims = mat.shape
     max_dim = max(mat_dims)

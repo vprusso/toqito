@@ -56,6 +56,7 @@ def is_diagonally_dominant(mat: np.ndarray, is_strict: bool = True) -> bool:
     :param mat: Matrix to check.
     :param is_strict: Whether the inequality is strict.
     :return: Return :code:`True` if matrix is diagnally dominant, and :code:`False` otherwise.
+
     """
     if not is_square(mat):
         return False

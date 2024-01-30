@@ -98,6 +98,7 @@ def optimal_clone(
     :param num_reps: Number of parallel repetitions to perform.
     :param strategy: Boolean that denotes whether to return strategy.
     :return: The optimal probability with of counterfeiting quantum money.
+
     """
     dim = len(states[0]) ** 3
 

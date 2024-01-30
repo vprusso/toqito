@@ -97,6 +97,7 @@ def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
     :param k_1: An integer 0 <= k_1 <= n.
     :param k_2: An integer 0 <= k_2 <= n.
     :param dim: The dimension of the generalized Bell state.
+
     """
     gen_pauli_w = gen_pauli(k_1, k_2, dim)
     return 1 / dim * vec(gen_pauli_w) @ vec(gen_pauli_w).conj().T

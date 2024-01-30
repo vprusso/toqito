@@ -74,6 +74,7 @@ def w_state(num_qubits: int, coeff: list[int] = None) -> np.ndarray:
     :param num_qubits: An integer representing the number of qubits.
     :param coeff: default is `[1, 1, ..., 1]/sqrt(num_qubits)`: a
                   1-by-`num_qubts` vector of coefficients.
+
     """
     if coeff is None:
         coeff = np.ones(num_qubits) / np.sqrt(num_qubits)

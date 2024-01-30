@@ -52,6 +52,7 @@ def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float:
     :param rho: An input matrix.
     :param sigma: An input matrix.
     :return: The trace distance between :code:`rho` and :code:`sigma`.
+
     """
     if not is_density(rho) or not is_density(sigma):
         raise ValueError("Trace distance only defined for density matrices.")

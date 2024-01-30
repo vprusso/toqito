@@ -39,6 +39,7 @@ def is_circulant(mat: np.ndarray) -> bool:
 
     :param mat: Matrix to check the circulancy of.
     :return: Return `True` if :code:`mat` is circulant; `False` otherwise.
+
     """
     n, m = mat.shape
     if n != m:

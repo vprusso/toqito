@@ -36,6 +36,7 @@ def completely_bounded_trace_norm(phi: np.ndarray) -> float:
     :raises ValueError: If matrix is not square.
     :param phi: superoperator as choi matrix
     :return: The completely bounded trace norm of the channel
+
     """
     dim_lx, dim_ly = phi.shape
 

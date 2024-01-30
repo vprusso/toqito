@@ -74,6 +74,7 @@ def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) 
     :param p_param: Default value of 2.
     :param partial: Default value of 0.
     :return: Projection onto the antisymmetric subspace.
+
     """
     dimp = dim ** p_param
 

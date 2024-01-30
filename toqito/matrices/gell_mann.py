@@ -95,6 +95,7 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | scipy.sparse.cs
     :raises ValueError: Indices must be integers between 0 and 8.
     :param ind: An integer between 0 and 8 (inclusive).
     :param is_sparse: Boolean to determine whether matrix is sparse.
+
     """
     if ind == 0:
         gm_op = np.identity(3)

@@ -60,6 +60,7 @@ def is_hermitian(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> b
     :param rtol: The relative tolerance parameter (default 1e-05).
     :param atol: The absolute tolerance parameter (default 1e-08).
     :return: Return True if matrix is Hermitian, and False otherwise.
+
     """
     if not is_square(mat):
         return False

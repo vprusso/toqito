@@ -31,5 +31,6 @@ def random_ginibre(dim_n: int, dim_m: int) -> np.ndarray:
     :param dim_n: The number of rows of the Ginibre random matrix.
     :param dim_m: The number of columns of the Ginibre random matrix.
     :return: A :code:`dim_n`-by-:code:`dim_m` Ginibre random density matrix.
+
     """
     return (np.random.randn(dim_n, dim_m) + 1j * np.random.randn(dim_n, dim_m)) / np.sqrt(2)

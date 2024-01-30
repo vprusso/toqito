@@ -69,6 +69,7 @@ def gen_gell_mann(
                       :code:`False`, the returned Gell-Mann operator is a
                       dense :code:`numpy` array.
     :return: The generalized Gell-Mann operator.
+
     """
     if ind_1 == ind_2:
         if ind_1 == 0:

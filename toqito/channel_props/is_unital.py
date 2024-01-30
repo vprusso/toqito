@@ -59,6 +59,7 @@ def is_unital(
     :param atol: The absolute tolerance parameter (default 1e-08).
     :param dim: A scalar, vector or matrix containing the input and output dimensions of PHI.
     :return: :code:`True` if the channel is unital, and :code:`False` otherwise.
+
     """
     dim_in, _, _ = channel_dim(phi, dim=dim, allow_rect=False, compute_env_dim=False)
 

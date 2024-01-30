@@ -113,6 +113,7 @@ def partial_transpose(
                 are assumed to be equal.
     :raises ValueError: If matrix dimensions are not square.
     :returns: The partial transpose of matrix :code:`rho`.
+
     """
     if not isinstance(sys, int):
         if sys is None:

@@ -55,6 +55,7 @@ def is_permutation(mat: np.ndarray) -> bool:
 
     :param mat: The matrix to check.
     :return: Returns :code:`True` if the matrix is a permutation matrix and :code:`False` otherwise.
+
     """
     for i in np.nditer(mat):
         if i not in (0, 1):

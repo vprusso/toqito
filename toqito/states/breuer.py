@@ -37,6 +37,7 @@ def breuer(dim: int, lam: float) -> np.ndarray:
     :param dim: Dimension of the Breuer state.
     :param lam: The weight of the singlet component.
     :return: Breuer state of dimension :code:`dim` with weight :code:`lam`.
+
     """
     if dim % 2 == 1 or dim <= 0:
         raise ValueError(f"The value {dim} must be an even positive integer.")
