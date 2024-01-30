@@ -72,6 +72,7 @@ autoapi_ignore = [
     "*/channel_props/tests/*",
     "*/measurement_ops/tests/*",
     "*/measurement_props/tests/*"]
+autoapi_member_order = 'groupwise'
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
