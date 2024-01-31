@@ -48,9 +48,16 @@ User Documentation
 
 
 References
-------------------
+------------
 
 .. toctree::
     :maxdepth: 2
 
     references
+
+API Reference
+-------------
+
+.. toctree::
+
+   autoapi_members

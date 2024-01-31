@@ -75,6 +75,8 @@ autoapi_ignore = [
     "*/measurement_props/tests/*"]
 autoapi_member_order = 'alphabetical'
 autodoc_typehints = 'description'
+autoapi_add_toctree_entry = False
+
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
