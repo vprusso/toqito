@@ -2,7 +2,8 @@ API Reference
 =============
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 2
+   :titlesonly:
    
    autoapi/channel_metrics/index
    autoapi/channel_ops/index
