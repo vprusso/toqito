@@ -126,6 +126,7 @@ def primal_problem(
     The minimum-error semidefinite program implemented is defined as:
 
         .. math::
+
             \begin{aligned}
                 \text{maximize:} \quad & \sum_{j=1}^k \langle P_j, \rho_j \rangle \\
                 \text{subject to:} \quad & P_1 + \cdots + P_k = \mathbb{I}_{\mathcal{A}}
@@ -135,18 +136,17 @@ def primal_problem(
 
     The unambiguous semidefinite program implemented is defined as:
 
-        .. math:
-            \begin{aligned}
-                \text{maximize:} \quad & \sum_{j=1}^k \langle P_j, \rho_j \rangle \\
-                \text{subject to:} \quad & P_1 + \cdots + P_k = \mathbb{I}_{\mathcal{A}}
-                                            \otimes \mathbb{I}_{\mathcal{B}}, \\
-                                        & P_1, \ldots, P_k
-                                        \in \text{PPT}(\mathcal{A} : \mathcal{B}), \\
-                                        & \langle P_i, \rho_j \rangle = 0,
-                                        \quad 1 \leq i, j \leq k, \quad i \not= j.
-            \end{aligned}
+    .. math::
 
-
+        \begin{aligned}
+            \text{maximize:} \quad & \sum_{j=1}^k \langle P_j, \rho_j \rangle \\
+            \text{subject to:} \quad & P_1 + \cdots + P_k = \mathbb{I}_{\mathcal{A}}
+                                        \otimes \mathbb{I}_{\mathcal{B}}, \\
+                                     & P_1, \ldots, P_k
+                                      \in \text{PPT}(\mathcal{A} : \mathcal{B}), \\
+                                     & \langle P_i, \rho_j \rangle = 0,
+                                       \quad 1 \leq i, j \leq k, \quad i \not= j.
+        \end{aligned}
 
     :param states: A list of states provided as either matrices or vectors.
     :param probs: Respective list of probabilities each state is selected.
