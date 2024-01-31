@@ -30,6 +30,7 @@ release = "1.0.5"
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    "sphinx.ext.autodoc",
     "autoapi.extension",
     "sphinx.ext.doctest",
     "sphinx.ext.intersphinx",
@@ -48,7 +49,7 @@ bibtex_default_style = "unsrt"
 suppress_warnings = ["bibtex.duplicate_label", "bibtex.duplicate_citation"]
 # we need to skip these warnigns because all the references appear twice, in a function docstring
 # and on the references page. 
-# master_doc = "index"
+master_doc = "index"
 # autosummary_generate = True
 # autodoc_typehints = "none"
 autoapi_dirs = ['../toqito']
@@ -73,6 +74,9 @@ autoapi_ignore = [
     "*/measurement_ops/tests/*",
     "*/measurement_props/tests/*"]
 autoapi_member_order = 'alphabetical'
+autodoc_typehints = 'description'
+autoapi_add_toctree_entry = False
+
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
