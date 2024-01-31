@@ -124,31 +124,27 @@ def primal_problem(
     r"""Calculate primal problem for PPT distinguishability.
 
     The minimum-error semidefinite program implemented is defined as:
-
-    .. math::
-    \begin{equation}
-        \begin{aligned}
-            \text{maximize:} \quad & \sum_{j=1}^k \langle P_j, \rho_j \rangle \\
-            \text{subject to:} \quad & P_1 + \cdots + P_k = \mathbb{I}_{\mathcal{A}}
-                                        \otimes \mathbb{I}_{\mathcal{B}}, \\
-                                     & P_1, \ldots, P_k \in \text{PPT}(\mathcal{A} : \mathcal{B}).
-        \end{aligned}
-    \end{equation}
+        .. math::
+            \begin{aligned}
+                \text{maximize:} \quad & \sum_{j=1}^k \langle P_j, \rho_j \rangle \\
+                \text{subject to:} \quad & P_1 + \cdots + P_k = \mathbb{I}_{\mathcal{A}}
+                                            \otimes \mathbb{I}_{\mathcal{B}}, \\
+                                        & P_1, \ldots, P_k \in \text{PPT}(\mathcal{A} : \mathcal{B}).
+            \end{aligned}
 
     The unambiguous semidefinite program implemented is defined as:
+        .. math:
+            \begin{aligned}
+                \text{maximize:} \quad & \sum_{j=1}^k \langle P_j, \rho_j \rangle \\
+                \text{subject to:} \quad & P_1 + \cdots + P_k = \mathbb{I}_{\mathcal{A}}
+                                            \otimes \mathbb{I}_{\mathcal{B}}, \\
+                                        & P_1, \ldots, P_k
+                                        \in \text{PPT}(\mathcal{A} : \mathcal{B}), \\
+                                        & \langle P_i, \rho_j \rangle = 0,
+                                        \quad 1 \leq i, j \leq k, \quad i \not= j.
+            \end{aligned}
 
-    .. math::
-    \begin{equation}
-        \begin{aligned}
-            \text{maximize:} \quad & \sum_{j=1}^k \langle P_j, \rho_j \rangle \\
-            \text{subject to:} \quad & P_1 + \cdots + P_k = \mathbb{I}_{\mathcal{A}}
-                                        \otimes \mathbb{I}_{\mathcal{B}}, \\
-                                     & P_1, \ldots, P_k
-                                      \in \text{PPT}(\mathcal{A} : \mathcal{B}), \\
-                                     & \langle P_i, \rho_j \rangle = 0,
-                                       \quad 1 \leq i, j \leq k, \quad i \not= j.
-        \end{aligned}
-    \end{equation}
+
 
     :param states: A list of states provided as either matrices or vectors.
     :param probs: Respective list of probabilities each state is selected.
@@ -204,7 +200,6 @@ def dual_problem(
     The minimum-error semidefinite program implemented is defined as:
 
     .. math::
-    \begin{equation}
         \begin{aligned}
             \text{minimize:} \quad & \frac{1}{k} \text{Tr}(Y) \\
             \text{subject to:} \quad & Y - \rho_j \geq \text{T}_{\mathcal{A}} (Q_j),
@@ -214,12 +209,10 @@ def dual_problem(
                                      & Q_1, \ldots, Q_k \in
                                         \text{Pos}(\mathcal{A} \otimes \mathcal{B}).
         \end{aligned}
-    \end{equation}
 
     The unambiguous semidefinite program implemented is defined as:
 
     .. math::
-    \begin{equation}
         \begin{aligned}
             \text{minimize:} \quad & \frac{1}{k} \text{Tr}(Y) \\
             \text{subject to:} \quad & Y - \rho_j + \sum_{\substack{i \leq i \leq k \\ i \not= j}}
@@ -233,7 +226,6 @@ def dual_problem(
                                      & y_{i,j} \in \mathcal{R}. \quad 1 \leq i, j \leq k,
                                         \quad i \not= j.
         \end{aligned}
-    \end{equation}
 
     :param states: A list of states provided as either matrices or vectors.
     :param probs: Respective list of probabilities each state is selected.
