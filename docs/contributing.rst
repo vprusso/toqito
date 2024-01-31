@@ -182,11 +182,9 @@ If you add a new feature to :code:`toqito`, make sure
 - Added lines should show up as covered in the :code:`pytest` code coverage report. See `Testing`_.
 - Code and tests for the new feature should follow the style guidelines as discussed in
   `Code Style`_.
-- When Sphinx is run locally, :code:`autodocsummary` will create a page for the new feature. This should be included in
-  your PR.
-- Finally, the new feature has to be listed in one of the :code:`.rst` files in :code:`docs`. This depends on why the
-  new feature is being added. For example, if you are adding a function for a certain matrix, this has to be listed in
-  :code:`Matrices` section of :code:`matrices.rst`. 
+- Finally, if the new feature is a new module, it has to be listed alphabetically as :code:`autoapi/new_module/index` in
+  :code:`autoapi_members.rst` available in the :code:`docs` folder. When Sphinx is run locally, the new module should
+  then appear to be listed in the :code:`API Reference` page.
 
 
 ---------------------
