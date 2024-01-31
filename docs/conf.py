@@ -30,6 +30,7 @@ release = "1.0.5"
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
+    "sphinx.ext.autodoc",
     "autoapi.extension",
     "sphinx.ext.doctest",
     "sphinx.ext.intersphinx",
@@ -73,6 +74,7 @@ autoapi_ignore = [
     "*/measurement_ops/tests/*",
     "*/measurement_props/tests/*"]
 autoapi_member_order = 'alphabetical'
+autodoc_typehints = 'description'
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
