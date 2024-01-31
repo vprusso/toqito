@@ -124,6 +124,7 @@ def primal_problem(
     r"""Calculate primal problem for PPT distinguishability.
 
     The minimum-error semidefinite program implemented is defined as:
+
         .. math::
             \begin{aligned}
                 \text{maximize:} \quad & \sum_{j=1}^k \langle P_j, \rho_j \rangle \\
@@ -133,6 +134,7 @@ def primal_problem(
             \end{aligned}
 
     The unambiguous semidefinite program implemented is defined as:
+
         .. math:
             \begin{aligned}
                 \text{maximize:} \quad & \sum_{j=1}^k \langle P_j, \rho_j \rangle \\
