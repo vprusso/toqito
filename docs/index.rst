@@ -37,15 +37,23 @@ User Documentation
 
     getting_started
     intro_tutorial
-    contributing
-    code_of_conduct
+    tutorials
+    
 
 
 .. toctree::
     :maxdepth: 2
+    
+    contributing
+    code_of_conduct
 
-    tutorials
 
+API Reference
+-------------
+
+.. toctree::
+
+   autoapi_members
 
 References
 ------------
@@ -55,9 +63,3 @@ References
 
     references
 
-API Reference
--------------
-
-.. toctree::
-
-   autoapi_members
