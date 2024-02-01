@@ -106,6 +106,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install poetry
           poetry install --no-interaction
+          python -m pip install --upgrade --no-cache-dir pip setuptools
+          python -m pip install --upgrade --no-cache-dir sphinx readthedocs-sphinx-ext
           python -m pip install -r docs/requirements.txt
       - name: Check for broken links
         run: |
