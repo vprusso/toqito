@@ -112,5 +112,4 @@ jobs:
       - name: Check for broken links
         run: |
             cd docs
-            make html
             make linkcheck
