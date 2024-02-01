@@ -12,7 +12,7 @@ on:
         - master
 
 jobs:
-  docs:
+  broken-links:
     strategy:
       matrix:
           # Add versions here to expand support matrix
