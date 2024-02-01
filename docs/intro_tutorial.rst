@@ -33,7 +33,7 @@ Quantum States
 ^^^^^^^^^^^^^^
 
 A complete overview of the scope of quantum states can be found
-`here <https://toqito.readthedocs.io/en/latest/states.html#quantum-states>`_
+`here <https://toqito.readthedocs.io/en/latest/autoapi/states/index.html>`_
 
 The standard basis bra vectors given as :math:`|0\rangle` and :math:`|1\rangle` where
 
@@ -231,7 +231,7 @@ For instance, the following bound-entangled tile state is found to be entangled
     False
 
 Further properties that one can check via :code:`toqito` may be found `on this page
-<https://toqito.readthedocs.io/en/latest/states.html#properties-of-quantum-states>`_.
+<https://toqito.readthedocs.io/en/latest/autoapi/state_props/index.html>`_.
 
 Distance Metrics for Quantum States
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

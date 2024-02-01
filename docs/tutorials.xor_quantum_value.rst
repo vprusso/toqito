@@ -10,7 +10,7 @@ classical and quantum value of a given XOR game.
 For readers who are already familiar with XOR games and who simply want to see
 how to use :code:`toqito` to study these objects, they are welcome to consult the
 documentation page, and more specifically the function `xor\_game\_value
-<https://toqito.readthedocs.io/en/latest/nonlocal_games.html#module-toqito.nonlocal_games.xor_game>`_.
+<https://toqito.readthedocs.io/en/latest/autoapi/nonlocal_games/xor_game/index.html#nonlocal_games.xor_game.XORGame>`_.
 
 Further information beyond the scope of this tutorial on the notion of XOR
 games along with the method of computing their quantum value may be found in
