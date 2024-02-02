@@ -78,6 +78,7 @@ autoapi_ignore = [
 autoapi_member_order = 'alphabetical'
 autodoc_typehints = 'description'
 autoapi_add_toctree_entry = False
+autoapi_keep_files = False
 
 
 # Add any paths that contain templates here, relative to this directory.
