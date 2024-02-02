@@ -1,0 +1,41 @@
+name: docs
+
+on:
+  pull_request:
+  # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request
+    types: [opened, reopened, converted_to_draft, ready_for_review, synchronize]
+    branches:
+      - master
+  push:
+    branches:
+    # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#running-your-workflow-only-when-a-push-to-specific-branches-occurs
+        - master
+
+jobs:
+  broken-links:
+    strategy:
+      matrix:
+          # Add versions here to expand support matrix
+        python-version: ["3.12"]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    env:
+      PYTHON: ${{ matrix.python-version }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install toqito + dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+          poetry install --no-interaction
+          python -m pip install --upgrade --no-cache-dir pip setuptools
+          python -m pip install --upgrade --no-cache-dir sphinx readthedocs-sphinx-ext
+          python -m pip install -r docs/requirements.txt
+      - name: Check for broken links
+        run: |
+            cd docs
+            make linkcheck

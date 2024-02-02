@@ -34,7 +34,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get install -y libblas-dev liblapack-dev
-      - name: Install Toqito + dependencies
+      - name: Install toqito + dependencies
         run: |
           python -m pip install --upgrade pip
           pip install poetry
@@ -68,7 +68,7 @@ jobs:
         if: runner.os == 'macOS'
         run: |
           brew install openblas lapack
-      - name: Install Toqito + dependencies
+      - name: Install toqito + dependencies
         run: |
           python -m pip install --upgrade pip
           pip install poetry
@@ -85,3 +85,4 @@ jobs:
           verbose: true
       - name: Build artifacts
         run: poetry build
+
