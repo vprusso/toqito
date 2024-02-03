@@ -63,6 +63,6 @@ jobs:
           python -m pip install --upgrade --no-cache-dir pip setuptools
           python -m pip install --upgrade --no-cache-dir sphinx readthedocs-sphinx-ext
           python -m pip install -r docs/requirements.txt
-      - name: Check for broken links
+      - name: Check docstring examples
         run: |
             python -m doctest toqito/channel_metrics/channel_fidelity.py
