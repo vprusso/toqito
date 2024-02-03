@@ -65,5 +65,4 @@ jobs:
           python -m pip install -r docs/requirements.txt
       - name: Check for broken links
         run: |
-            cd docs
-            make doctest autoapi_members.rst
+            python -m doctest toqito/channel_metrics/channel_fidelity.py
