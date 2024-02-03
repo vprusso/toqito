@@ -1,9 +1,4551 @@
-Results of doctest builder run on 2024-02-02 16:41:39
+Results of doctest builder run on 2024-02-03 08:41:29
 =====================================================
+
+Document: autoapi/matrix_ops/unvec/index
+----------------------------------------
+**********************************************************************
+File "autoapi/matrix_ops/unvec/index.rst", line 91, in default
+Failed example:
+    unvec(u)
+Expected:
+    [[1 2]
+     [3 4]]
+Got:
+    array([[1, 3],
+           [2, 4]])
+**********************************************************************
+1 items had failures:
+   1 of   4 in default
+4 tests in 1 items.
+3 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/state_ops/pure_to_mixed/index
+-----------------------------------------------
+**********************************************************************
+File "autoapi/state_ops/pure_to_mixed/index.rst", line 59, in default
+Failed example:
+    pure_to_mixed(phi)
+Expected:
+    [[0.5, 0. , 0. , 0.5],
+     [0. , 0. , 0. , 0. ],
+     [0. , 0. , 0. , 0. ],
+     [0.5, 0. , 0. , 0.5]]
+Got:
+    array([[0.5, 0. , 0. , 0.5],
+           [0. , 0. , 0. , 0. ],
+           [0. , 0. , 0. , 0. ],
+           [0.5, 0. , 0. , 0.5]])
+**********************************************************************
+File "autoapi/state_ops/pure_to_mixed/index.rst", line 70, in default
+Failed example:
+    pure_to_mixed(phi)
+Expected:
+    [[0.5, 0. , 0. , 0.5],
+     [0. , 0. , 0. , 0. ],
+     [0. , 0. , 0. , 0. ],
+     [0.5, 0. , 0. , 0.5]])
+Got:
+    array([[0.5, 0. , 0. , 0.5],
+           [0. , 0. , 0. , 0. ],
+           [0. , 0. , 0. , 0. ],
+           [0.5, 0. , 0. , 0.5]])
+**********************************************************************
+1 items had failures:
+   2 of   8 in default
+8 tests in 1 items.
+6 passed and 2 failed.
+***Test Failed*** 2 failures.
+
+Document: autoapi/states/trine/index
+------------------------------------
+**********************************************************************
+File "autoapi/states/trine/index.rst", line 48, in default
+Failed example:
+    trine()
+Expected:
+    [array([[1],
+       [0]]), array([[-0.5      ],
+       [-0.8660254]]), array([[-0.5      ],
+       [ 0.8660254]])]
+Got:
+    [array([[1],
+           [0]]), array([[-0.5      ],
+           [-0.8660254]]), array([[-0.5      ],
+           [ 0.8660254]])]
+**********************************************************************
+1 items had failures:
+   1 of   2 in default
+2 tests in 1 items.
+1 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/matrix_props/is_idempotent/index
+--------------------------------------------------
+**********************************************************************
+File "autoapi/matrix_props/is_idempotent/index.rst", line 48, in default
+Failed example:
+    is_idempotent(mat)
+Expected nothing
+Got:
+    True
+**********************************************************************
+1 items had failures:
+   1 of   8 in default
+8 tests in 1 items.
+7 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/matrix_props/is_density/index
+-----------------------------------------------
+1 items passed all tests:
+  10 tests in default
+10 tests in 1 items.
+10 passed and 0 failed.
+Test passed.
+
+Document: autoapi/matrix_props/is_linearly_independent/index
+------------------------------------------------------------
+1 items passed all tests:
+   6 tests in default
+6 tests in 1 items.
+6 passed and 0 failed.
+Test passed.
+
+Document: autoapi/matrix_props/is_projection/index
+--------------------------------------------------
+1 items passed all tests:
+   8 tests in default
+8 tests in 1 items.
+8 passed and 0 failed.
+Test passed.
+
+Document: autoapi/channel_metrics/diamond_norm/index
+----------------------------------------------------
+**********************************************************************
+File "autoapi/channel_metrics/diamond_norm/index.rst", line 56, in default
+Failed example:
+    print("Diamond norm between depolarizing and identity channels: ", dn)
+Expected:
+    Diamond norm between depolarizing and identity channels:  -2.1680424534747078e-07
+Got:
+    Diamond norm between depolarizing and identity channels:  -2.16804238236924e-07
+**********************************************************************
+File "autoapi/channel_metrics/diamond_norm/index.rst", line 68, in default
+Failed example:
+    print("Diamond norm between dephasing and identity channels: ", dn)
+Expected:
+    Diamond norm between depolarizing and identity channels:  -3.5989938811978797e-09
+Got:
+    Diamond norm between dephasing and identity channels:  -3.5989938811978797e-09
+**********************************************************************
+1 items had failures:
+   2 of  14 in default
+14 tests in 1 items.
+12 passed and 2 failed.
+***Test Failed*** 2 failures.
+
+Document: autoapi/states/w_state/index
+--------------------------------------
+**********************************************************************
+File "autoapi/states/w_state/index.rst", line 56, in default
+Failed example:
+    w_state(3)
+Expected:
+    [[0.    ],
+     [0.5774],
+     [0.5774],
+     [0.    ],
+     [0.5774],
+     [0.    ],
+     [0.    ],
+     [0.    ]]
+Got:
+    array([[0.    ],
+           [0.5774],
+           [0.5774],
+           [0.    ],
+           [0.5774],
+           [0.    ],
+           [0.    ],
+           [0.    ]])
+**********************************************************************
+File "autoapi/states/w_state/index.rst", line 87, in default
+Failed example:
+    w_state(4, coeffs)
+Expected:
+    [[0.    ],
+     [0.7303],
+     [0.5477],
+     [0.    ],
+     [0.3651],
+     [0.    ],
+     [0.    ],
+     [0.    ],
+     [0.1826],
+     [0.    ],
+     [0.    ],
+     [0.    ],
+     [0.    ],
+     [0.    ],
+     [0.    ],
+     [0.    ]]
+Got:
+    array([[0.    ],
+           [0.7303],
+           [0.5477],
+           [0.    ],
+           [0.3651],
+           [0.    ],
+           [0.    ],
+           [0.    ],
+           [0.1826],
+           [0.    ],
+           [0.    ],
+           [0.    ],
+           [0.    ],
+           [0.    ],
+           [0.    ],
+           [0.    ]])
+**********************************************************************
+1 items had failures:
+   2 of   6 in default
+6 tests in 1 items.
+4 passed and 2 failed.
+***Test Failed*** 2 failures.
+
+Document: autoapi/channel_props/is_herm_preserving/index
+--------------------------------------------------------
+1 items passed all tests:
+  11 tests in default
+11 tests in 1 items.
+11 passed and 0 failed.
+Test passed.
+
+Document: autoapi/perms/perm_sign/index
+---------------------------------------
+**********************************************************************
+File "autoapi/perms/perm_sign/index.rst", line 45, in default
+Failed example:
+    perm_sign([1, 2, 3, 4])
+Expected:
+    1
+Got:
+    1.0
+**********************************************************************
+File "autoapi/perms/perm_sign/index.rst", line 57, in default
+Failed example:
+    perm_sign([1, 2, 4, 3, 5])
+Expected:
+    -1
+Got:
+    -1.0
+**********************************************************************
+1 items had failures:
+   2 of   4 in default
+4 tests in 1 items.
+2 passed and 2 failed.
+***Test Failed*** 2 failures.
+
+Document: autoapi/rand/random_unitary/index
+-------------------------------------------
+**********************************************************************
+File "autoapi/rand/random_unitary/index.rst", line 43, in default
+Failed example:
+    complex_dm
+Expected:
+    [[0.40563696+0.18092721j, 0.00066868+0.89594841j],
+     [0.4237286 +0.78941628j, 0.27157521-0.35145826j]]
+Got:
+    array([[ 0.29172706+0.86610697j, -0.37424085-0.15715541j],
+           [ 0.2887073 +0.28531059j,  0.91175229-0.0628787j ]])
+**********************************************************************
+File "autoapi/rand/random_unitary/index.rst", line 58, in default
+Failed example:
+    real_dm
+Expected:
+    [[ 0.01972681, -0.99980541],
+     [ 0.99980541,  0.01972681]]
+Got:
+    array([[ 0.31913833,  0.94770814],
+           [ 0.94770814, -0.31913833]])
+**********************************************************************
+File "autoapi/rand/random_unitary/index.rst", line 75, in default
+Failed example:
+    mat
+Expected:
+    [[ 0.48996358, -0.20978392,  0.56678587, -0.62823576],
+     [ 0.62909119, -0.35852051, -0.68961425, -0.01181086],
+     [ 0.38311399,  0.90865415, -0.1209574 , -0.11375677],
+     [ 0.46626562, -0.04244265,  0.4342295 ,  0.76957113]]
+Got:
+    array([[ 0.64149238, -0.32191094,  0.69198968, -0.07753169],
+           [ 0.05408361,  0.8465291 ,  0.38447131,  0.36420496],
+           [ 0.1817696 ,  0.4076542 , -0.07873892, -0.89139107],
+           [ 0.74331844,  0.11653272, -0.60591441,  0.25839029]])
+**********************************************************************
+1 items had failures:
+   3 of  15 in default
+15 tests in 1 items.
+12 passed and 3 failed.
+***Test Failed*** 3 failures.
+
+Document: autoapi/state_metrics/bures_distance/index
+----------------------------------------------------
+**********************************************************************
+File "autoapi/state_metrics/bures_distance/index.rst", line 77, in default
+Failed example:
+    bures_distance(rho, sigma)
+Expected:
+    0
+Got:
+    0.0
+**********************************************************************
+1 items had failures:
+   1 of   5 in default
+5 tests in 1 items.
+4 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/matrix_ops/tensor/index
+-----------------------------------------
+**********************************************************************
+File "autoapi/matrix_ops/tensor/index.rst", line 84, in default
+Failed example:
+    tensor(e_0, e_0)
+Expected:
+    [[1],
+     [0],
+     [0],
+     [0]]
+Got:
+    array([[1],
+           [0],
+           [0],
+           [0]])
+**********************************************************************
+File "autoapi/matrix_ops/tensor/index.rst", line 107, in default
+Failed example:
+    tensor(e_0, 3)
+Expected:
+    [[1],
+     [0],
+     [0],
+     [0],
+     [0],
+     [0],
+     [0],
+     [0]]
+Got:
+    array([[1],
+           [0],
+           [0],
+           [0],
+           [0],
+           [0],
+           [0],
+           [0]])
+**********************************************************************
+File "autoapi/matrix_ops/tensor/index.rst", line 127, in default
+Failed example:
+    tensor([e_0, e_1, e_0])
+Expected:
+    [[0],
+     [0],
+     [1],
+     [0],
+     [0],
+     [0],
+     [0],
+     [0]]
+Got:
+    array([[0],
+           [0],
+           [1],
+           [0],
+           [0],
+           [0],
+           [0],
+           [0]])
+**********************************************************************
+1 items had failures:
+   3 of  12 in default
+12 tests in 1 items.
+9 passed and 3 failed.
+***Test Failed*** 3 failures.
+
+Document: autoapi/state_props/is_ppt/index
+------------------------------------------
+1 items passed all tests:
+   8 tests in default
+8 tests in 1 items.
+8 passed and 0 failed.
+Test passed.
+
+Document: autoapi/perms/perfect_matchings/index
+-----------------------------------------------
+**********************************************************************
+File "autoapi/perms/perfect_matchings/index.rst", line 46, in default
+Failed example:
+    perfect_matchings(4)
+Expected:
+    [[1 2 3 4]
+     [1 3 2 4]
+     [1 4 3 2]]
+Got:
+    array([[1, 2, 3, 4],
+           [1, 3, 2, 4],
+           [1, 4, 3, 2]])
+**********************************************************************
+1 items had failures:
+   1 of   2 in default
+2 tests in 1 items.
+1 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/states/pusey_barrett_rudolph/index
+----------------------------------------------------
+**********************************************************************
+File "autoapi/states/pusey_barrett_rudolph/index.rst", line 55, in default
+Failed example:
+    from toqito.states import pusey_barret_rudolph
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[0]>", line 1, in <module>
+        from toqito.states import pusey_barret_rudolph
+    ImportError: cannot import name 'pusey_barret_rudolph' from 'toqito.states' (/home/reservoir-corp/toqito/toqito/states/__init__.py)
+**********************************************************************
+File "autoapi/states/pusey_barrett_rudolph/index.rst", line 57, in default
+Failed example:
+    pusey_barrett_rudolph(n=1, theta=0.5)
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[1]>", line 1, in <module>
+        pusey_barrett_rudolph(n=1, theta=0.5)
+        ^^^^^^^^^^^^^^^^^^^^^
+    NameError: name 'pusey_barrett_rudolph' is not defined
+**********************************************************************
+1 items had failures:
+   2 of   2 in default
+2 tests in 1 items.
+0 passed and 2 failed.
+***Test Failed*** 2 failures.
+
+Document: autoapi/rand/random_povm/index
+----------------------------------------
+**********************************************************************
+File "autoapi/rand/random_povm/index.rst", line 53, in default
+Failed example:
+    povms
+Expected:
+    [[[[ 0.40313832+0.j,  0.59686168+0.j],
+       [ 0.91134633+0.j,  0.08865367+0.j]],
+     [[-0.27285707+0.j,  0.27285707+0.j],
+      [-0.12086852+0.j,  0.12086852+0.j]]],
+     [[[-0.27285707+0.j,  0.27285707+0.j],
+      [-0.12086852+0.j,  0.12086852+0.j]],
+     [[ 0.452533  +0.j,  0.547467  +0.j],
+      [ 0.34692158+0.j,  0.65307842+0.j]]]]
+Got:
+    array([[[[ 0.06779521+0.j,  0.93220479+0.j],
+             [ 0.93233901+0.j,  0.06766099+0.j]],
+    <BLANKLINE>
+            [[-0.13848454+0.j,  0.13848454+0.j],
+             [-0.21118152+0.j,  0.21118152+0.j]]],
+    <BLANKLINE>
+    <BLANKLINE>
+           [[[-0.13848454+0.j,  0.13848454+0.j],
+             [-0.21118152+0.j,  0.21118152+0.j]],
+    <BLANKLINE>
+            [[ 0.35187045+0.j,  0.64812955+0.j],
+             [ 0.04859111+0.j,  0.95140889+0.j]]]])
+**********************************************************************
+File "autoapi/rand/random_povm/index.rst", line 55, in default
+Failed example:
+    np.round(povms[:, :, 0, 0] + povms[:, :, 0, 1])
+Expected:
+    [[1.+0.j, 0.+0.j],
+     [0.+0.j, 1.+0.j]]
+Got:
+    array([[1.+0.j, 0.+0.j],
+           [0.+0.j, 1.+0.j]])
+**********************************************************************
+1 items had failures:
+   2 of   6 in default
+6 tests in 1 items.
+4 passed and 2 failed.
+***Test Failed*** 2 failures.
+
+Document: autoapi/state_props/sk_vec_norm/index
+-----------------------------------------------
+1 items passed all tests:
+   5 tests in default
+5 tests in 1 items.
+5 passed and 0 failed.
+Test passed.
+
+Document: autoapi/matrices/standard_basis/index
+-----------------------------------------------
+**********************************************************************
+File "autoapi/matrices/standard_basis/index.rst", line 51, in default
+Failed example:
+    standard_basis(2)
+Expected:
+    [array([[1.],
+            [0.]]),
+    array([[0.],
+            [1.]])]
+Got:
+    [array([[1.],
+           [0.]]), array([[0.],
+           [1.]])]
+**********************************************************************
+1 items had failures:
+   1 of   2 in default
+2 tests in 1 items.
+1 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/channel_metrics/completely_bounded_spectral_norm/index
+------------------------------------------------------------------------
+1 items passed all tests:
+   4 tests in default
+4 tests in 1 items.
+4 passed and 0 failed.
+Test passed.
+
+Document: autoapi/states/breuer/index
+-------------------------------------
+**********************************************************************
+File "autoapi/states/breuer/index.rst", line 46, in default
+Failed example:
+    breuer(2, 0.1)
+Expected:
+    [[ 0.3  0.  -0.   0. ]
+     [ 0.   0.2  0.1  0. ]
+     [-0.   0.1  0.2 -0. ]
+     [ 0.   0.  -0.   0.3]]
+Got:
+    array([[0.3, 0. , 0. , 0. ],
+           [0. , 0.2, 0.1, 0. ],
+           [0. , 0.1, 0.2, 0. ],
+           [0. , 0. , 0. , 0.3]])
+**********************************************************************
+1 items had failures:
+   1 of   2 in default
+2 tests in 1 items.
+1 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/matrices/hadamard/index
+-----------------------------------------
+**********************************************************************
+File "autoapi/matrices/hadamard/index.rst", line 64, in default
+Failed example:
+    hadamard(1)
+Expected:
+    [[ 0.70710678  0.70710678]
+     [ 0.70710678 -0.70710678]]
+Got:
+    array([[ 0.70710678,  0.70710678],
+           [ 0.70710678, -0.70710678]])
+**********************************************************************
+1 items had failures:
+   1 of   2 in default
+2 tests in 1 items.
+1 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/matrices/cnot/index
+-------------------------------------
+**********************************************************************
+File "autoapi/matrices/cnot/index.rst", line 48, in default
+Failed example:
+    cnot()
+Expected:
+    [[1 0 0 0]
+     [0 1 0 0]
+     [0 0 0 1]
+     [0 0 1 0]]
+Got:
+    array([[1, 0, 0, 0],
+           [0, 1, 0, 0],
+           [0, 0, 0, 1],
+           [0, 0, 1, 0]])
+**********************************************************************
+1 items had failures:
+   1 of   2 in default
+2 tests in 1 items.
+1 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/matrix_props/is_square/index
+----------------------------------------------
+1 items passed all tests:
+   8 tests in default
+8 tests in 1 items.
+8 passed and 0 failed.
+Test passed.
+
+Document: autoapi/state_props/is_pure/index
+-------------------------------------------
+1 items passed all tests:
+  13 tests in default
+13 tests in 1 items.
+13 passed and 0 failed.
+Test passed.
+
+Document: autoapi/state_props/log_negativity/index
+--------------------------------------------------
+1 items passed all tests:
+   4 tests in default
+4 tests in 1 items.
+4 passed and 0 failed.
+Test passed.
+
+Document: autoapi/states/ghz/index
+----------------------------------
+**********************************************************************
+File "autoapi/states/ghz/index.rst", line 59, in default
+Failed example:
+    ghz(2, 3).toarray()
+Expected:
+    [[0.70710678],
+     [0.        ],
+     [0.        ],
+     [0.        ],
+     [0.        ],
+     [0.        ],
+     [0.        ],
+     [0.70710678]]
+Got:
+    array([[0.70710678],
+           [0.        ],
+           [0.        ],
+           [0.        ],
+           [0.        ],
+           [0.        ],
+           [0.        ],
+           [0.70710678]])
+**********************************************************************
+File "autoapi/states/ghz/index.rst", line 78, in default
+Failed example:
+    ghz(4, 7, np.array([1, 2, 3, 4]) / np.sqrt(30)).toarray()
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[1]>", line 1, in <module>
+        ghz(4, 7, np.array([1, 2, 3, 4]) / np.sqrt(30)).toarray()
+                  ^^
+    NameError: name 'np' is not defined
+**********************************************************************
+1 items had failures:
+   2 of   4 in default
+4 tests in 1 items.
+2 passed and 2 failed.
+***Test Failed*** 2 failures.
+
+Document: autoapi/perms/unique_perms/index
+------------------------------------------
+1 items passed all tests:
+   3 tests in default
+3 tests in 1 items.
+3 passed and 0 failed.
+Test passed.
+
+Document: autoapi/perms/antisymmetric_projection/index
+------------------------------------------------------
+**********************************************************************
+File "autoapi/perms/antisymmetric_projection/index.rst", line 52, in default
+Failed example:
+    antisymmetric_projection(2, 1).todense()
+Expected:
+    [[1., 0.],
+     [0., 1.]]
+Got:
+    matrix([[1., 0.],
+            [0., 1.]])
+**********************************************************************
+File "autoapi/perms/antisymmetric_projection/index.rst", line 81, in default
+Failed example:
+    antisymmetric_projection(2, 3).todense()
+Expected:
+    [[0., 0., 0., 0., 0., 0., 0., 0.],
+     [0., 0., 0., 0., 0., 0., 0., 0.],
+     [0., 0., 0., 0., 0., 0., 0., 0.],
+     [0., 0., 0., 0., 0., 0., 0., 0.],
+     [0., 0., 0., 0., 0., 0., 0., 0.],
+     [0., 0., 0., 0., 0., 0., 0., 0.],
+     [0., 0., 0., 0., 0., 0., 0., 0.],
+     [0., 0., 0., 0., 0., 0., 0., 0.]]
+Got:
+    matrix([[0., 0., 0., 0., 0., 0., 0., 0.],
+            [0., 0., 0., 0., 0., 0., 0., 0.],
+            [0., 0., 0., 0., 0., 0., 0., 0.],
+            [0., 0., 0., 0., 0., 0., 0., 0.],
+            [0., 0., 0., 0., 0., 0., 0., 0.],
+            [0., 0., 0., 0., 0., 0., 0., 0.],
+            [0., 0., 0., 0., 0., 0., 0., 0.],
+            [0., 0., 0., 0., 0., 0., 0., 0.]])
+**********************************************************************
+1 items had failures:
+   2 of   4 in default
+4 tests in 1 items.
+2 passed and 2 failed.
+***Test Failed*** 2 failures.
+
+Document: autoapi/matrix_props/is_positive_semidefinite/index
+-------------------------------------------------------------
+1 items passed all tests:
+   8 tests in default
+8 tests in 1 items.
+8 passed and 0 failed.
+Test passed.
+
+Document: autoapi/matrix_props/is_symmetric/index
+-------------------------------------------------
+1 items passed all tests:
+   8 tests in default
+8 tests in 1 items.
+8 passed and 0 failed.
+Test passed.
+
+Document: autoapi/channels/partial_trace/index
+----------------------------------------------
+**********************************************************************
+File "autoapi/channels/partial_trace/index.rst", line 73, in default
+Failed example:
+    partial_trace(test_input_mat)
+Expected:
+    [[ 7, 11],
+     [23, 27]]
+Got:
+    array([[ 7, 11],
+           [23, 27]])
+**********************************************************************
+File "autoapi/channels/partial_trace/index.rst", line 91, in default
+Failed example:
+    test_input_mat = np.array(
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[2]>", line 1
+        test_input_mat = np.array(
+                                 ^
+    SyntaxError: '(' was never closed
+**********************************************************************
+File "autoapi/channels/partial_trace/index.rst", line 92, in default
+Failed example:
+        [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[3]>", line 1
+        [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
+    IndentationError: unexpected indent
+**********************************************************************
+File "autoapi/channels/partial_trace/index.rst", line 93, in default
+Failed example:
+    )
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[4]>", line 1
+        )
+        ^
+    SyntaxError: unmatched ')'
+**********************************************************************
+File "autoapi/channels/partial_trace/index.rst", line 94, in default
+Failed example:
+    partial_trace(test_input_mat, [0])
+Expected:
+    [[12, 14],
+     [20, 22]]
+Got:
+    array([[12, 14],
+           [20, 22]])
+**********************************************************************
+File "autoapi/channels/partial_trace/index.rst", line 116, in default
+Failed example:
+    test_input_mat
+Expected:
+    [[  1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16]
+     [ 17  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32]
+     [ 33  34  35  36  37  38  39  40  41  42  43  44  45  46  47  48]
+     [ 49  50  51  52  53  54  55  56  57  58  59  60  61  62  63  64]
+     [ 65  66  67  68  69  70  71  72  73  74  75  76  77  78  79  80]
+     [ 81  82  83  84  85  86  87  88  89  90  91  92  93  94  95  96]
+     [ 97  98  99 100 101 102 103 104 105 106 107 108 109 110 111 112]
+     [113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128]
+     [129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144]
+     [145 146 147 148 149 150 151 152 153 154 155 156 157 158 159 160]
+     [161 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176]
+     [177 178 179 180 181 182 183 184 185 186 187 188 189 190 191 192]
+     [193 194 195 196 197 198 199 200 201 202 203 204 205 206 207 208]
+     [209 210 211 212 213 214 215 216 217 218 219 220 221 222 223 224]
+     [225 226 227 228 229 230 231 232 233 234 235 236 237 238 239 240]
+     [241 242 243 244 245 246 247 248 249 250 251 252 253 254 255 256]]
+Got:
+    array([[  1,   2,   3,   4,   5,   6,   7,   8,   9,  10,  11,  12,  13,
+             14,  15,  16],
+           [ 17,  18,  19,  20,  21,  22,  23,  24,  25,  26,  27,  28,  29,
+             30,  31,  32],
+           [ 33,  34,  35,  36,  37,  38,  39,  40,  41,  42,  43,  44,  45,
+             46,  47,  48],
+           [ 49,  50,  51,  52,  53,  54,  55,  56,  57,  58,  59,  60,  61,
+             62,  63,  64],
+           [ 65,  66,  67,  68,  69,  70,  71,  72,  73,  74,  75,  76,  77,
+             78,  79,  80],
+           [ 81,  82,  83,  84,  85,  86,  87,  88,  89,  90,  91,  92,  93,
+             94,  95,  96],
+           [ 97,  98,  99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109,
+            110, 111, 112],
+           [113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 124, 125,
+            126, 127, 128],
+           [129, 130, 131, 132, 133, 134, 135, 136, 137, 138, 139, 140, 141,
+            142, 143, 144],
+           [145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157,
+            158, 159, 160],
+           [161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173,
+            174, 175, 176],
+           [177, 178, 179, 180, 181, 182, 183, 184, 185, 186, 187, 188, 189,
+            190, 191, 192],
+           [193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205,
+            206, 207, 208],
+           [209, 210, 211, 212, 213, 214, 215, 216, 217, 218, 219, 220, 221,
+            222, 223, 224],
+           [225, 226, 227, 228, 229, 230, 231, 232, 233, 234, 235, 236, 237,
+            238, 239, 240],
+           [241, 242, 243, 244, 245, 246, 247, 248, 249, 250, 251, 252, 253,
+            254, 255, 256]])
+**********************************************************************
+File "autoapi/channels/partial_trace/index.rst", line 126, in default
+Failed example:
+    partial_trace(test_input_mat, [0, 2], [2, 2, 2, 2])
+Expected:
+    [[344, 348, 360, 364],
+     [408, 412, 424, 428],
+     [600, 604, 616, 620],
+     [664, 668, 680, 684]])
+Got:
+    array([[344, 348, 360, 364],
+           [408, 412, 424, 428],
+           [600, 604, 616, 620],
+           [664, 668, 680, 684]])
+**********************************************************************
+1 items had failures:
+   7 of  17 in default
+17 tests in 1 items.
+10 passed and 7 failed.
+***Test Failed*** 7 failures.
+
+Document: autoapi/nonlocal_games/nonlocal_game/index
+----------------------------------------------------
+**********************************************************************
+File "autoapi/nonlocal_games/nonlocal_game/index.rst", line 245, in default
+Failed example:
+    chsh.quantum_value_lower_bound()
+Expected:
+    0.8535533840915605
+Got:
+    0.8535527319337101
+**********************************************************************
+1 items had failures:
+   1 of  10 in default
+10 tests in 1 items.
+9 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/state_props/is_mixed/index
+--------------------------------------------
+1 items passed all tests:
+   5 tests in default
+5 tests in 1 items.
+5 passed and 0 failed.
+Test passed.
+
+Document: autoapi/rand/random_state_vector/index
+------------------------------------------------
+**********************************************************************
+File "autoapi/rand/random_state_vector/index.rst", line 40, in default
+Failed example:
+    vec
+Expected:
+    [[0.50993973+0.15292408j],
+     [0.27787332+0.79960122j]]
+Got:
+    array([[0.11593087+0.62574469j],
+           [0.74077776+0.21506261j]])
+**********************************************************************
+1 items had failures:
+   1 of   6 in default
+6 tests in 1 items.
+5 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/state_metrics/bures_angle/index
+-------------------------------------------------
+**********************************************************************
+File "autoapi/state_metrics/bures_angle/index.rst", line 77, in default
+Failed example:
+    bures_angle(rho, sigma)
+Expected:
+    0
+Got:
+    0.0
+**********************************************************************
+1 items had failures:
+   1 of   5 in default
+5 tests in 1 items.
+4 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/perms/swap/index
+----------------------------------
+**********************************************************************
+File "autoapi/perms/swap/index.rst", line 75, in default
+Failed example:
+    swap(test_mat)
+Expected:
+    [[ 1  9  5 13]
+     [ 3 11  7 15]
+     [ 2 10  6 14]
+     [ 4 12  8 16]]
+Got:
+    array([[ 1,  9,  5, 13],
+           [ 3, 11,  7, 15],
+           [ 2, 10,  6, 14],
+           [ 4, 12,  8, 16]])
+**********************************************************************
+File "autoapi/perms/swap/index.rst", line 100, in default
+Failed example:
+    test_mat = np.array(
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[2]>", line 1
+        test_mat = np.array(
+                           ^
+    SyntaxError: '(' was never closed
+**********************************************************************
+File "autoapi/perms/swap/index.rst", line 101, in default
+Failed example:
+        [[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]]
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[3]>", line 1
+        [[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]]
+    IndentationError: unexpected indent
+**********************************************************************
+File "autoapi/perms/swap/index.rst", line 102, in default
+Failed example:
+    )
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[4]>", line 1
+        )
+        ^
+    SyntaxError: unmatched ')'
+**********************************************************************
+File "autoapi/perms/swap/index.rst", line 103, in default
+Failed example:
+    swap(test_mat, [1, 2], 2)
+Expected:
+    [[ 1  9  5 13]
+     [ 3 11  7 15]
+     [ 2 10  6 14]
+     [ 4 12  8 16]]
+Got:
+    array([[ 1,  9,  5, 13],
+           [ 3, 11,  7, 15],
+           [ 2, 10,  6, 14],
+           [ 4, 12,  8, 16]])
+**********************************************************************
+File "autoapi/perms/swap/index.rst", line 109, in default
+Failed example:
+    swap(test_vec)
+Expected:
+    [1 3 2 4]
+Got:
+    array([1, 3, 2, 4])
+**********************************************************************
+1 items had failures:
+   6 of  14 in default
+14 tests in 1 items.
+8 passed and 6 failed.
+***Test Failed*** 6 failures.
+
+Document: autoapi/state_props/l1_norm_coherence/index
+-----------------------------------------------------
+**********************************************************************
+File "autoapi/state_props/l1_norm_coherence/index.rst", line 62, in default
+Failed example:
+    l1_norm_coherence(v)
+Expected:
+    2
+Got:
+    2.000000000000001
+**********************************************************************
+1 items had failures:
+   1 of   4 in default
+4 tests in 1 items.
+3 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/matrix_ops/vectors_to_gram_matrix/index
+---------------------------------------------------------
+**********************************************************************
+File "autoapi/matrix_ops/vectors_to_gram_matrix/index.rst", line 40, in default
+Failed example:
+    vectors = [np.array([1, 2]), np.array([3, 4])]
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[0]>", line 1, in <module>
+        vectors = [np.array([1, 2]), np.array([3, 4])]
+                   ^^
+    NameError: name 'np' is not defined
+**********************************************************************
+File "autoapi/matrix_ops/vectors_to_gram_matrix/index.rst", line 41, in default
+Failed example:
+    gram_matrix = vectors_to_gram_matrix(vectors)
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[1]>", line 1, in <module>
+        gram_matrix = vectors_to_gram_matrix(vectors)
+                      ^^^^^^^^^^^^^^^^^^^^^^
+    NameError: name 'vectors_to_gram_matrix' is not defined
+**********************************************************************
+File "autoapi/matrix_ops/vectors_to_gram_matrix/index.rst", line 42, in default
+Failed example:
+    gram_matrix
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[2]>", line 1, in <module>
+        gram_matrix
+    NameError: name 'gram_matrix' is not defined
+**********************************************************************
+File "autoapi/matrix_ops/vectors_to_gram_matrix/index.rst", line 47, in default
+Failed example:
+    vectors = [np.array([1+1j, 2+2j]), np.array([3+3j, 4+4j])]
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[0]>", line 1, in <module>
+        vectors = [np.array([1+1j, 2+2j]), np.array([3+3j, 4+4j])]
+                   ^^
+    NameError: name 'np' is not defined
+**********************************************************************
+File "autoapi/matrix_ops/vectors_to_gram_matrix/index.rst", line 48, in default
+Failed example:
+    gram_matrix = vectors_to_gram_matrix(vectors)
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[1]>", line 1, in <module>
+        gram_matrix = vectors_to_gram_matrix(vectors)
+                      ^^^^^^^^^^^^^^^^^^^^^^
+    NameError: name 'vectors_to_gram_matrix' is not defined
+**********************************************************************
+File "autoapi/matrix_ops/vectors_to_gram_matrix/index.rst", line 49, in default
+Failed example:
+    gram_matrix
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[2]>", line 1, in <module>
+        gram_matrix
+    NameError: name 'gram_matrix' is not defined
+**********************************************************************
+1 items had failures:
+   6 of   6 in default
+6 tests in 1 items.
+0 passed and 6 failed.
+***Test Failed*** 6 failures.
+
+Document: autoapi/matrix_ops/vec/index
+--------------------------------------
+**********************************************************************
+File "autoapi/matrix_ops/vec/index.rst", line 100, in default
+Failed example:
+    vec(X)
+Expected:
+    [[1],
+     [3],
+     [2],
+     [4]]
+Got:
+    array([[1],
+           [3],
+           [2],
+           [4]])
+**********************************************************************
+1 items had failures:
+   1 of   4 in default
+4 tests in 1 items.
+3 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/state_opt/optimal_clone/index
+-----------------------------------------------
+**********************************************************************
+File "autoapi/state_opt/optimal_clone/index.rst", line 114, in default
+Failed example:
+    wiesner = optimal_clone(states, probs)
+Expected:
+    0.749999999967631
+Got nothing
+**********************************************************************
+1 items had failures:
+   1 of   9 in default
+9 tests in 1 items.
+8 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/channel_ops/choi_to_kraus/index
+-------------------------------------------------
+**********************************************************************
+File "autoapi/channel_ops/choi_to_kraus/index.rst", line 98, in default
+Failed example:
+    kraus_ops
+Expected:
+    [
+        [
+            array([[0.,  0.70710678], [-0.70710678, 0.]]),
+            array([[0., -0.70710678], [ 0.70710678, 0.]])
+        ],
+        [
+            array([[0., 0.70710678], [0.70710678, 0.]]),
+            array([[0., 0.70710678], [0.70710678, 0.]])
+        ],
+        [array([[1., 0.], [0., 0.]]), array([[1., 0.], [0., 0.]])],
+        [array([[0., 0.], [0., 1.]]), array([[0., 0.], [0., 1.]])]
+    ]
+Got:
+    [[array([[ 0.        ,  0.70710678],
+           [-0.70710678,  0.        ]]), array([[-0.        , -0.70710678],
+           [ 0.70710678, -0.        ]])], [array([[0.        , 0.70710678],
+           [0.70710678, 0.        ]]), array([[0.        , 0.70710678],
+           [0.70710678, 0.        ]])], [array([[1., 0.],
+           [0., 0.]]), array([[1., 0.],
+           [0., 0.]])], [array([[0., 0.],
+           [0., 1.]]), array([[0., 0.],
+           [0., 1.]])]]
+**********************************************************************
+1 items had failures:
+   1 of   5 in default
+5 tests in 1 items.
+4 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/state_metrics/hilbert_schmidt_inner_product/index
+-------------------------------------------------------------------
+**********************************************************************
+File "autoapi/state_metrics/hilbert_schmidt_inner_product/index.rst", line 50, in default
+Failed example:
+    hilbert_schmidt_inner_product(h, h)
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[3]>", line 1, in <module>
+        hilbert_schmidt_inner_product(h, h)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    NameError: name 'hilbert_schmidt_inner_product' is not defined
+**********************************************************************
+1 items had failures:
+   1 of   4 in default
+4 tests in 1 items.
+3 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/state_props/has_symmetric_extension/index
+-----------------------------------------------------------
+**********************************************************************
+File "autoapi/state_props/has_symmetric_extension/index.rst", line 66, in default
+Failed example:
+    np.trace(np.linalg.matrix_power(partial_trace(rho, 1), 2)) >= np.trace(rho**2) - 4 * np.sqrt(np.linalg.det(rho))
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[3]>", line 1, in <module>
+        np.trace(np.linalg.matrix_power(partial_trace(rho, 1), 2)) >= np.trace(rho**2) - 4 * np.sqrt(np.linalg.det(rho))
+                                        ^^^^^^^^^^^^^
+    NameError: name 'partial_trace' is not defined
+**********************************************************************
+1 items had failures:
+   1 of  11 in default
+11 tests in 1 items.
+10 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/channel_metrics/channel_fidelity/index
+--------------------------------------------------------
+**********************************************************************
+File "autoapi/channel_metrics/channel_fidelity/index.rst", line 70, in default
+Failed example:
+    channel_fidelity(choi_1, choi_2)
+Expected:
+    0.9999790499568767
+Got:
+    0.9999999857725628
+**********************************************************************
+File "autoapi/channel_metrics/channel_fidelity/index.rst", line 82, in default
+Failed example:
+    channel_fidelity(choi_1, choi_2)
+Expected:
+    0.5001368672503087
+Got:
+    0.5000006542342338
+**********************************************************************
+1 items had failures:
+   2 of  10 in default
+10 tests in 1 items.
+8 passed and 2 failed.
+***Test Failed*** 2 failures.
+
+Document: autoapi/states/domino/index
+-------------------------------------
+**********************************************************************
+File "autoapi/states/domino/index.rst", line 70, in default
+Failed example:
+    domino(0)
+Expected:
+    [[0],
+     [0],
+     [0],
+     [0],
+     [1],
+     [0],
+     [0],
+     [0],
+     [0]]
+Got:
+    array([[0],
+           [0],
+           [0],
+           [0],
+           [1],
+           [0],
+           [0],
+           [0],
+           [0]])
+**********************************************************************
+File "autoapi/states/domino/index.rst", line 90, in default
+Failed example:
+    domino(3)
+Expected:
+    [[0.        ],
+     [0.        ],
+     [0.        ],
+     [0.        ],
+     [0.        ],
+     [0.        ],
+     [0.        ],
+     [0.70710678],
+     [0.70710678]]
+Got:
+    array([[0.        ],
+           [0.        ],
+           [0.        ],
+           [0.        ],
+           [0.        ],
+           [0.        ],
+           [0.        ],
+           [0.70710678],
+           [0.70710678]])
+**********************************************************************
+1 items had failures:
+   2 of   4 in default
+4 tests in 1 items.
+2 passed and 2 failed.
+***Test Failed*** 2 failures.
+
+Document: autoapi/matrix_props/is_identity/index
+------------------------------------------------
+1 items passed all tests:
+   8 tests in default
+8 tests in 1 items.
+8 passed and 0 failed.
+Test passed.
+
+Document: autoapi/states/tile/index
+-----------------------------------
+**********************************************************************
+File "autoapi/states/tile/index.rst", line 69, in default
+Failed example:
+    tile(0)
+Expected:
+    [[ 0.70710678]
+     [-0.        ]
+     [ 0.        ]]
+Got:
+    array([[ 0.70710678],
+           [-0.70710678],
+           [ 0.        ],
+           [ 0.        ],
+           [ 0.        ],
+           [ 0.        ],
+           [ 0.        ],
+           [ 0.        ],
+           [ 0.        ]])
+**********************************************************************
+1 items had failures:
+   1 of   3 in default
+3 tests in 1 items.
+2 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/channels/reduction/index
+------------------------------------------
+**********************************************************************
+File "autoapi/channels/reduction/index.rst", line 54, in default
+Failed example:
+    reduction(3)
+Expected:
+    [[ 0.,  0.,  0.,  0., -1.,  0.,  0.,  0., -1.],
+     [ 0.,  1.,  0.,  0.,  0.,  0.,  0.,  0.,  0.],
+     [ 0.,  0.,  1.,  0.,  0.,  0.,  0.,  0.,  0.],
+     [ 0.,  0.,  0.,  1.,  0.,  0.,  0.,  0.,  0.],
+     [-1.,  0.,  0.,  0.,  0.,  0.,  0.,  0., -1.],
+     [ 0.,  0.,  0.,  0.,  0.,  1.,  0.,  0.,  0.],
+     [ 0.,  0.,  0.,  0.,  0.,  0.,  1.,  0.,  0.],
+     [ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  1.,  0.],
+     [-1.,  0.,  0.,  0., -1.,  0.,  0.,  0.,  0.]])
+Got:
+    matrix([[ 0.,  0.,  0.,  0., -1.,  0.,  0.,  0., -1.],
+            [ 0.,  1.,  0.,  0.,  0.,  0.,  0.,  0.,  0.],
+            [ 0.,  0.,  1.,  0.,  0.,  0.,  0.,  0.,  0.],
+            [ 0.,  0.,  0.,  1.,  0.,  0.,  0.,  0.,  0.],
+            [-1.,  0.,  0.,  0.,  0.,  0.,  0.,  0., -1.],
+            [ 0.,  0.,  0.,  0.,  0.,  1.,  0.,  0.,  0.],
+            [ 0.,  0.,  0.,  0.,  0.,  0.,  1.,  0.,  0.],
+            [ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  1.,  0.],
+            [-1.,  0.,  0.,  0., -1.,  0.,  0.,  0.,  0.]])
+**********************************************************************
+1 items had failures:
+   1 of   2 in default
+2 tests in 1 items.
+1 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/matrix_props/majorizes/index
+----------------------------------------------
+**********************************************************************
+File "autoapi/matrix_props/majorizes/index.rst", line 66, in default
+Failed example:
+    majorizes(partial_trace(rho, [1]), rho)
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[5]>", line 1, in <module>
+        majorizes(partial_trace(rho, [1]), rho)
+                  ^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/picos/expressions/algebra.py", line 547, in wrapper
+        result = func(*args, **kwargs)
+                 ^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/picos/expressions/data.py", line 994, in wrapper
+        return func(**newargs)
+               ^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/picos/expressions/algebra.py", line 633, in partial_trace
+        return x.partial_trace(subsystems, dimensions)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/picos/expressions/exp_biaffine.py", line 2005, in partial_trace
+        dimensions = self._square_equal_subsystem_dims(dimensions)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/picos/expressions/exp_biaffine.py", line 1540, in _square_equal_subsystem_dims
+        raise TypeError("The expression has shape {} so it cannot be "
+    TypeError: The expression has shape 9×9 so it cannot be decomposed into subsystems of shape 2×2.
+**********************************************************************
+1 items had failures:
+   1 of   8 in default
+8 tests in 1 items.
+7 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/channel_props/is_positive/index
+-------------------------------------------------
+1 items passed all tests:
+   8 tests in default
+8 tests in 1 items.
+8 passed and 0 failed.
+Test passed.
+
+Document: autoapi/channels/choi/index
+-------------------------------------
+**********************************************************************
+File "autoapi/channels/choi/index.rst", line 69, in default
+Failed example:
+    choi()
+Expected:
+    [[ 1.,  0.,  0.,  0., -1.,  0.,  0.,  0., -1.],
+     [ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.],
+     [ 0.,  0.,  1.,  0.,  0.,  0.,  0.,  0.,  0.],
+     [ 0.,  0.,  0.,  1.,  0.,  0.,  0.,  0.,  0.],
+     [-1.,  0.,  0.,  0.,  1.,  0.,  0.,  0., -1.],
+     [ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.],
+     [ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.],
+     [ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  1.,  0.],
+     [-1.,  0.,  0.,  0., -1.,  0.,  0.,  0.,  1.]])
+Got:
+    array([[ 1.,  0.,  0.,  0., -1.,  0.,  0.,  0., -1.],
+           [ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.],
+           [ 0.,  0.,  1.,  0.,  0.,  0.,  0.,  0.,  0.],
+           [ 0.,  0.,  0.,  1.,  0.,  0.,  0.,  0.,  0.],
+           [-1.,  0.,  0.,  0.,  1.,  0.,  0.,  0., -1.],
+           [ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.],
+           [ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.],
+           [ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  1.,  0.],
+           [-1.,  0.,  0.,  0., -1.,  0.,  0.,  0.,  1.]])
+**********************************************************************
+File "autoapi/channels/choi/index.rst", line 106, in default
+Failed example:
+    choi(0, 1, 1)
+Expected:
+    [[ 0.,  0.,  0.,  0., -1.,  0.,  0.,  0., -1.],
+     [ 0.,  1.,  0.,  0.,  0.,  0.,  0.,  0.,  0.],
+     [ 0.,  0.,  1.,  0.,  0.,  0.,  0.,  0.,  0.],
+     [ 0.,  0.,  0.,  1.,  0.,  0.,  0.,  0.,  0.],
+     [-1.,  0.,  0.,  0.,  0.,  0.,  0.,  0., -1.],
+     [ 0.,  0.,  0.,  0.,  0.,  1.,  0.,  0.,  0.],
+     [ 0.,  0.,  0.,  0.,  0.,  0.,  1.,  0.,  0.],
+     [ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  1.,  0.],
+     [-1.,  0.,  0.,  0., -1.,  0.,  0.,  0.,  0.]])
+Got:
+    array([[ 0.,  0.,  0.,  0., -1.,  0.,  0.,  0., -1.],
+           [ 0.,  1.,  0.,  0.,  0.,  0.,  0.,  0.,  0.],
+           [ 0.,  0.,  1.,  0.,  0.,  0.,  0.,  0.,  0.],
+           [ 0.,  0.,  0.,  1.,  0.,  0.,  0.,  0.,  0.],
+           [-1.,  0.,  0.,  0.,  0.,  0.,  0.,  0., -1.],
+           [ 0.,  0.,  0.,  0.,  0.,  1.,  0.,  0.,  0.],
+           [ 0.,  0.,  0.,  0.,  0.,  0.,  1.,  0.,  0.],
+           [ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  1.,  0.],
+           [-1.,  0.,  0.,  0., -1.,  0.,  0.,  0.,  0.]])
+**********************************************************************
+1 items had failures:
+   2 of   6 in default
+6 tests in 1 items.
+4 passed and 2 failed.
+***Test Failed*** 2 failures.
+
+Document: autoapi/measurement_ops/measure/index
+-----------------------------------------------
+1 items passed all tests:
+  10 tests in default
+10 tests in 1 items.
+10 passed and 0 failed.
+Test passed.
+
+Document: autoapi/state_props/von_neumann_entropy/index
+-------------------------------------------------------
+1 items passed all tests:
+   8 tests in default
+8 tests in 1 items.
+8 passed and 0 failed.
+Test passed.
+
+Document: autoapi/state_props/is_mutually_unbiased_basis/index
+--------------------------------------------------------------
+**********************************************************************
+File "autoapi/state_props/is_mutually_unbiased_basis/index.rst", line 81, in default
+Failed example:
+    is_mutually_unbiased_basis(mubs)
+Expected:
+    True
+Got:
+    False
+**********************************************************************
+File "autoapi/state_props/is_mutually_unbiased_basis/index.rst", line 94, in default
+Failed example:
+    is_mutually_unbiased_basis(mubs)
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[8]>", line 1, in <module>
+        is_mutually_unbiased_basis(mubs)
+      File "/home/reservoir-corp/toqito/toqito/state_props/is_mutually_unbiased_basis.py", line 84, in is_mutually_unbiased_basis
+        dim = vectors[0].shape[0]
+              ^^^^^^^^^^^^^^^^
+    AttributeError: 'list' object has no attribute 'shape'
+**********************************************************************
+1 items had failures:
+   2 of  18 in default
+18 tests in 1 items.
+16 passed and 2 failed.
+***Test Failed*** 2 failures.
+
+Document: autoapi/states/max_mixed/index
+----------------------------------------
+**********************************************************************
+File "autoapi/states/max_mixed/index.rst", line 67, in default
+Failed example:
+    max_mixed(2, is_sparse=False)
+Expected:
+    [[0.5, 0. ],
+     [0. , 0.5]]
+Got:
+    array([[0.5, 0. ],
+           [0. , 0.5]])
+**********************************************************************
+File "autoapi/states/max_mixed/index.rst", line 74, in default
+Failed example:
+    max_mixed(2, is_sparse=True)
+Expected:
+        <2x2 sparse matrix of type '<class 'numpy.float64'>'
+        with 2 stored elements (1 diagonals) in DIAgonal format>
+Got:
+    <2x2 sparse matrix of type '<class 'numpy.float64'>'
+    	with 2 stored elements (1 diagonals) in DIAgonal format>
+**********************************************************************
+1 items had failures:
+   2 of   4 in default
+4 tests in 1 items.
+2 passed and 2 failed.
+***Test Failed*** 2 failures.
+
+Document: autoapi/state_metrics/hilbert_schmidt/index
+-----------------------------------------------------
+**********************************************************************
+File "autoapi/state_metrics/hilbert_schmidt/index.rst", line 49, in default
+Failed example:
+    hilbert_schmidt(rho, sigma)
+Expected:
+    1
+Got:
+    0.9999999999999996
+**********************************************************************
+1 items had failures:
+   1 of   5 in default
+5 tests in 1 items.
+4 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/matrix_props/is_diagonally_dominant/index
+-----------------------------------------------------------
+1 items passed all tests:
+   8 tests in default
+8 tests in 1 items.
+8 passed and 0 failed.
+Test passed.
+
+Document: autoapi/states/gen_bell/index
+---------------------------------------
+**********************************************************************
+File "autoapi/states/gen_bell/index.rst", line 74, in default
+Failed example:
+    gen_bell(k_1, k_2, dim)
+Expected:
+    [[0.5+0.j, 0. +0.j, 0. +0.j, 0.5+0.j],
+     [0. +0.j, 0. +0.j, 0. +0.j, 0. +0.j],
+     [0. +0.j, 0. +0.j, 0. +0.j, 0. +0.j],
+     [0.5+0.j, 0. +0.j, 0. +0.j, 0.5+0.j]]
+Got:
+    array([[0.5+0.j, 0. +0.j, 0. +0.j, 0.5+0.j],
+           [0. +0.j, 0. +0.j, 0. +0.j, 0. +0.j],
+           [0. +0.j, 0. +0.j, 0. +0.j, 0. +0.j],
+           [0.5+0.j, 0. +0.j, 0. +0.j, 0.5+0.j]])
+**********************************************************************
+File "autoapi/states/gen_bell/index.rst", line 110, in default
+Failed example:
+    gen_bell(k_1, k_2, dim)
+Expected:
+    [[0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+      0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+      0.33333333+0.j],
+     [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+      0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+      0.        +0.j],
+     [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+      0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+      0.        +0.j],
+     [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+      0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+      0.        +0.j],
+     [0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+      0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+      0.33333333+0.j],
+     [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+      0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+      0.        +0.j],
+     [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+      0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+      0.        +0.j],
+     [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+      0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+      0.        +0.j],
+     [0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+      0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+      0.33333333+0.j]]
+Got:
+    array([[0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.33333333+0.j],
+           [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.        +0.j],
+           [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.        +0.j],
+           [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.        +0.j],
+           [0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.33333333+0.j],
+           [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.        +0.j],
+           [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.        +0.j],
+           [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.        +0.j],
+           [0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+            0.33333333+0.j]])
+**********************************************************************
+1 items had failures:
+   2 of  10 in default
+10 tests in 1 items.
+8 passed and 2 failed.
+***Test Failed*** 2 failures.
+
+Document: autoapi/helper/update_odometer/index
+----------------------------------------------
+**********************************************************************
+File "autoapi/helper/update_odometer/index.rst", line 61, in default
+Failed example:
+    for j in range(0, np.prod(upper_lim)-1):
+        vec = update_odometer(vec, upper_lim)
+        vec
+Expected:
+    [0 1]
+    [1 0]
+    [1 1]
+    [2 0]
+    [2 1]
+Got:
+    array([0, 1])
+    array([1, 0])
+    array([1, 1])
+    array([2, 0])
+    array([2, 1])
+**********************************************************************
+1 items had failures:
+   1 of   5 in default
+5 tests in 1 items.
+4 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/channel_props/is_completely_positive/index
+------------------------------------------------------------
+1 items passed all tests:
+   8 tests in default
+8 tests in 1 items.
+8 passed and 0 failed.
+Test passed.
+
+Document: autoapi/state_props/purity/index
+------------------------------------------
+**********************************************************************
+File "autoapi/state_props/purity/index.rst", line 64, in default
+Failed example:
+    purity(rho)
+Expected:
+    0.2653
+Got:
+    0.26530612244897955
+**********************************************************************
+1 items had failures:
+   1 of   6 in default
+6 tests in 1 items.
+5 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/state_props/is_unextendible_product_basis/index
+-----------------------------------------------------------------
+**********************************************************************
+File "autoapi/state_props/is_unextendible_product_basis/index.rst", line 65, in default
+Failed example:
+    is_unextendible_product_basis(non_upb_tiles, dims)
+Expected:
+    (False, array([-0.00000000e+00,  0.00000000e+00,  0.00000000e+00, -0.00000000e+00,
+        0.00000000e+00,  0.00000000e+00, -1.11022302e-16,  7.07106781e-01,
+        7.07106781e-01]))
+Got:
+    (False, array([-0.00000000e+00,  0.00000000e+00,  0.00000000e+00, -0.00000000e+00,
+            0.00000000e+00,  0.00000000e+00, -1.11022302e-16,  7.07106781e-01,
+            7.07106781e-01]))
+**********************************************************************
+1 items had failures:
+   1 of   6 in default
+6 tests in 1 items.
+5 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/matrix_props/is_normal/index
+----------------------------------------------
+1 items passed all tests:
+   8 tests in default
+8 tests in 1 items.
+8 passed and 0 failed.
+Test passed.
+
+Document: autoapi/channels/partial_transpose/index
+--------------------------------------------------
+**********************************************************************
+File "autoapi/channels/partial_transpose/index.rst", line 91, in default
+Failed example:
+    partial_transpose(test_input_mat)
+Expected:
+    [[ 1  5  3  7]
+     [ 2  6  4  8]
+     [ 9 13 11 15]
+     [10 14 12 16]]
+Got:
+    array([[ 1,  5,  3,  7],
+           [ 2,  6,  4,  8],
+           [ 9, 13, 11, 15],
+           [10, 14, 12, 16]])
+**********************************************************************
+File "autoapi/channels/partial_transpose/index.rst", line 113, in default
+Failed example:
+    test_input_mat = np.array(
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[2]>", line 1
+        test_input_mat = np.array(
+                                 ^
+    SyntaxError: '(' was never closed
+**********************************************************************
+File "autoapi/channels/partial_transpose/index.rst", line 114, in default
+Failed example:
+        [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[3]>", line 1
+        [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
+    IndentationError: unexpected indent
+**********************************************************************
+File "autoapi/channels/partial_transpose/index.rst", line 115, in default
+Failed example:
+    )
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[4]>", line 1
+        )
+        ^
+    SyntaxError: unmatched ')'
+**********************************************************************
+File "autoapi/channels/partial_transpose/index.rst", line 116, in default
+Failed example:
+    partial_transpose(test_input_mat, 1)
+Expected:
+    [[ 1  2  9 10]
+     [ 5  6 13 14]
+     [ 3  4 11 12]
+     [ 7  8 15 16]]
+Got:
+    array([[ 1,  5,  3,  7],
+           [ 2,  6,  4,  8],
+           [ 9, 13, 11, 15],
+           [10, 14, 12, 16]])
+**********************************************************************
+1 items had failures:
+   5 of  10 in default
+10 tests in 1 items.
+5 passed and 5 failed.
+***Test Failed*** 5 failures.
+
+Document: autoapi/channel_ops/partial_channel/index
+---------------------------------------------------
+**********************************************************************
+File "autoapi/channel_ops/partial_channel/index.rst", line 59, in default
+Failed example:
+    rho = np.array([
+       [0.3101, -0.0220-0.0219*1j, -0.0671-0.0030*1j, -0.0170-0.0694*1j],
+       [-0.0220+0.0219*1j, 0.1008, -0.0775+0.0492*1j, -0.0613+0.0529*1j],
+       [-0.0671+0.0030*1j, -0.0775-0.0492*1j, 0.1361, 0.0602 + 0.0062*1j],
+       [-0.0170+0.0694*1j, -0.0613-0.0529*1j, 0.0602-0.0062*1j, 0.4530]])
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[2]>", line 1, in <module>
+        rho = np.array([
+              ^^
+    NameError: name 'np' is not defined
+**********************************************************************
+File "autoapi/channel_ops/partial_channel/index.rst", line 64, in default
+Failed example:
+    phi_x = partial_channel(rho, depolarizing(2))
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[3]>", line 1, in <module>
+        phi_x = partial_channel(rho, depolarizing(2))
+                                ^^^
+    NameError: name 'rho' is not defined
+**********************************************************************
+File "autoapi/channel_ops/partial_channel/index.rst", line 74, in default
+Failed example:
+    rho = np.array([[0.3101, -0.0220-0.0219*1j, -0.0671-0.0030*1j, -0.0170-0.0694*1j],
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[2]>", line 1
+        rho = np.array([[0.3101, -0.0220-0.0219*1j, -0.0671-0.0030*1j, -0.0170-0.0694*1j],
+                       ^
+    SyntaxError: '[' was never closed
+**********************************************************************
+File "autoapi/channel_ops/partial_channel/index.rst", line 75, in default
+Failed example:
+                    [-0.0220+0.0219*1j, 0.1008, -0.0775+0.0492*1j, -0.0613+0.0529*1j],
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[3]>", line 1
+        [-0.0220+0.0219*1j, 0.1008, -0.0775+0.0492*1j, -0.0613+0.0529*1j],
+    IndentationError: unexpected indent
+**********************************************************************
+File "autoapi/channel_ops/partial_channel/index.rst", line 76, in default
+Failed example:
+                    [-0.0671+0.0030*1j, -0.0775-0.0492*1j, 0.1361, 0.0602 + 0.0062*1j],
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[4]>", line 1
+        [-0.0671+0.0030*1j, -0.0775-0.0492*1j, 0.1361, 0.0602 + 0.0062*1j],
+    IndentationError: unexpected indent
+**********************************************************************
+File "autoapi/channel_ops/partial_channel/index.rst", line 77, in default
+Failed example:
+                    [-0.0170+0.0694*1j, -0.0613-0.0529*1j, 0.0602-0.0062*1j, 0.4530]])
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[5]>", line 1
+        [-0.0170+0.0694*1j, -0.0613-0.0529*1j, 0.0602-0.0062*1j, 0.4530]])
+    IndentationError: unexpected indent
+**********************************************************************
+File "autoapi/channel_ops/partial_channel/index.rst", line 78, in default
+Failed example:
+    phi_x = partial_channel(rho, depolarizing(2), 1)
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[6]>", line 1, in <module>
+        phi_x = partial_channel(rho, depolarizing(2), 1)
+                                ^^^
+    NameError: name 'rho' is not defined
+**********************************************************************
+1 items had failures:
+   7 of  11 in default
+11 tests in 1 items.
+4 passed and 7 failed.
+***Test Failed*** 7 failures.
+
+Document: autoapi/channel_props/is_trace_preserving/index
+---------------------------------------------------------
+1 items passed all tests:
+   9 tests in default
+9 tests in 1 items.
+9 passed and 0 failed.
+Test passed.
+
+Document: autoapi/rand/random_states/index
+------------------------------------------
+**********************************************************************
+File "autoapi/rand/random_states/index.rst", line 42, in default
+Failed example:
+    from this_module import random_states
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[0]>", line 1, in <module>
+        from this_module import random_states
+    ModuleNotFoundError: No module named 'this_module'
+**********************************************************************
+File "autoapi/rand/random_states/index.rst", line 43, in default
+Failed example:
+    states = random_states(3, 4)
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[1]>", line 1, in <module>
+        states = random_states(3, 4)
+                 ^^^^^^^^^^^^^
+    NameError: name 'random_states' is not defined
+**********************************************************************
+File "autoapi/rand/random_states/index.rst", line 44, in default
+Failed example:
+    len(states)
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[2]>", line 1, in <module>
+        len(states)
+            ^^^^^^
+    NameError: name 'states' is not defined
+**********************************************************************
+File "autoapi/rand/random_states/index.rst", line 46, in default
+Failed example:
+    states[0].shape
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[3]>", line 1, in <module>
+        states[0].shape
+        ^^^^^^
+    NameError: name 'states' is not defined
+**********************************************************************
+1 items had failures:
+   4 of   4 in default
+4 tests in 1 items.
+0 passed and 4 failed.
+***Test Failed*** 4 failures.
+
+Document: autoapi/state_props/concurrence/index
+-----------------------------------------------
+**********************************************************************
+File "autoapi/state_props/concurrence/index.rst", line 72, in default
+Failed example:
+    concurrence(rho)
+Expected:
+    0.9999999999999998
+Got:
+    0.9999999999999993
+**********************************************************************
+1 items had failures:
+   1 of  15 in default
+15 tests in 1 items.
+14 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/channels/realignment/index
+--------------------------------------------
+**********************************************************************
+File "autoapi/channels/realignment/index.rst", line 57, in default
+Failed example:
+    realignment(test_input_mat)
+Expected:
+    [[ 1  2  5  6]
+     [ 3  4  7  8]
+     [ 9 10 13 14]
+     [11 12 15 16]]
+Got:
+    array([[ 1,  2,  5,  6],
+           [ 3,  4,  7,  8],
+           [ 9, 10, 13, 14],
+           [11, 12, 15, 16]])
+**********************************************************************
+1 items had failures:
+   1 of   4 in default
+4 tests in 1 items.
+3 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/matrices/gen_gell_mann/index
+----------------------------------------------
+**********************************************************************
+File "autoapi/matrices/gen_gell_mann/index.rst", line 52, in default
+Failed example:
+    gen_gell_mann(0, 1, 2)
+Expected:
+    [[0., 1.],
+     [1., 0.]])
+Got:
+    matrix([[0., 1.],
+            [1., 0.]])
+**********************************************************************
+File "autoapi/matrices/gen_gell_mann/index.rst", line 72, in default
+Failed example:
+    gen_gell_mann(2, 3, 4)
+Expected:
+    [[0., 0., 0., 0.],
+     [0., 0., 0., 0.],
+     [0., 0., 0., 1.],
+     [0., 0., 1., 0.]])
+Got:
+    matrix([[0., 0., 0., 0.],
+            [0., 0., 0., 0.],
+            [0., 0., 0., 1.],
+            [0., 0., 1., 0.]])
+**********************************************************************
+1 items had failures:
+   2 of   4 in default
+4 tests in 1 items.
+2 passed and 2 failed.
+***Test Failed*** 2 failures.
+
+Document: autoapi/state_opt/state_distinguishability/index
+----------------------------------------------------------
+**********************************************************************
+File "autoapi/state_opt/state_distinguishability/index.rst", line 77, in default
+Failed example:
+    res, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="dual")
+Expected:
+    0.9999999994695794
+Got nothing
+**********************************************************************
+File "autoapi/state_opt/state_distinguishability/index.rst", line 93, in default
+Failed example:
+    np.around(measurements[0], decimals=5)
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[5]>", line 1, in <module>
+        np.around(measurements[0], decimals=5)
+        ^^
+    NameError: name 'np' is not defined
+**********************************************************************
+1 items had failures:
+   2 of  11 in default
+11 tests in 1 items.
+9 passed and 2 failed.
+***Test Failed*** 2 failures.
+
+Document: autoapi/measurement_props/is_povm/index
+-------------------------------------------------
+1 items passed all tests:
+  18 tests in default
+18 tests in 1 items.
+18 passed and 0 failed.
+Test passed.
+
+Document: autoapi/rand/random_circulant_gram/index
+--------------------------------------------------
+**********************************************************************
+File "autoapi/rand/random_circulant_gram/index.rst", line 53, in default
+Failed example:
+    from this_module import random_circulant_gram
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[0]>", line 1, in <module>
+        from this_module import random_circulant_gram
+    ModuleNotFoundError: No module named 'this_module'
+**********************************************************************
+File "autoapi/rand/random_circulant_gram/index.rst", line 54, in default
+Failed example:
+    circulant_matrix = random_circulant_gram(4)
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[1]>", line 1, in <module>
+        circulant_matrix = random_circulant_gram(4)
+                           ^^^^^^^^^^^^^^^^^^^^^
+    NameError: name 'random_circulant_gram' is not defined
+**********************************************************************
+File "autoapi/rand/random_circulant_gram/index.rst", line 55, in default
+Failed example:
+    circulant_matrix.shape
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[2]>", line 1, in <module>
+        circulant_matrix.shape
+        ^^^^^^^^^^^^^^^^
+    NameError: name 'circulant_matrix' is not defined
+**********************************************************************
+File "autoapi/rand/random_circulant_gram/index.rst", line 57, in default
+Failed example:
+    np.allclose(circulant_matrix, circulant_matrix.T)
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[3]>", line 1, in <module>
+        np.allclose(circulant_matrix, circulant_matrix.T)
+        ^^
+    NameError: name 'np' is not defined
+**********************************************************************
+1 items had failures:
+   4 of   4 in default
+4 tests in 1 items.
+0 passed and 4 failed.
+***Test Failed*** 4 failures.
+
+Document: autoapi/state_metrics/trace_distance/index
+----------------------------------------------------
+**********************************************************************
+File "autoapi/state_metrics/trace_distance/index.rst", line 66, in default
+Failed example:
+    trace_distance(rho, sigma)
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[4]>", line 1, in <module>
+        trace_distance(rho, sigma)
+        ^^^^^^^^^^^^^^
+    NameError: name 'trace_distance' is not defined
+**********************************************************************
+1 items had failures:
+   1 of   5 in default
+5 tests in 1 items.
+4 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/state_metrics/matsumoto_fidelity/index
+--------------------------------------------------------
+**********************************************************************
+File "autoapi/state_metrics/matsumoto_fidelity/index.rst", line 87, in default
+Failed example:
+    matsumoto_fidelity(rho, sigma)
+Expected:
+    0.9999998585981018
+Got:
+    1.0000000178778238964
+**********************************************************************
+1 items had failures:
+   1 of   5 in default
+5 tests in 1 items.
+4 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/states/max_entangled/index
+--------------------------------------------
+**********************************************************************
+File "autoapi/states/max_entangled/index.rst", line 49, in default
+Failed example:
+    max_entangled(2)
+Expected:
+    [[0.70710678],
+     [0.        ],
+     [0.        ],
+     [0.70710678]]
+Got:
+    array([[0.70710678],
+           [0.        ],
+           [0.        ],
+           [0.70710678]])
+**********************************************************************
+File "autoapi/states/max_entangled/index.rst", line 63, in default
+Failed example:
+    max_entangled(2, False, False)
+Expected:
+    [[1.],
+     [0.],
+     [0.],
+     [1.]]
+Got:
+    array([[1.],
+           [0.],
+           [0.],
+           [1.]])
+**********************************************************************
+1 items had failures:
+   2 of   4 in default
+4 tests in 1 items.
+2 passed and 2 failed.
+***Test Failed*** 2 failures.
+
+Document: autoapi/matrix_props/is_circulant/index
+-------------------------------------------------
+1 items passed all tests:
+   4 tests in default
+4 tests in 1 items.
+4 passed and 0 failed.
+Test passed.
+
+Document: autoapi/matrices/pauli/index
+--------------------------------------
+**********************************************************************
+File "autoapi/matrices/pauli/index.rst", line 69, in default
+Failed example:
+    pauli("I")
+Expected:
+    [[1., 0.],
+     [0., 1.]])
+Got:
+    array([[1., 0.],
+           [0., 1.]])
+**********************************************************************
+File "autoapi/matrices/pauli/index.rst", line 76, in default
+Failed example:
+    pauli("X")
+Expected:
+    [[0, 1],
+     [1, 0]])
+Got:
+    array([[0, 1],
+           [1, 0]])
+**********************************************************************
+File "autoapi/matrices/pauli/index.rst", line 83, in default
+Failed example:
+    pauli("Y")
+Expected:
+    [[ 0.+0.j, -0.-1.j],
+     [ 0.+1.j,  0.+0.j]])
+Got:
+    array([[ 0.+0.j, -0.-1.j],
+           [ 0.+1.j,  0.+0.j]])
+**********************************************************************
+File "autoapi/matrices/pauli/index.rst", line 90, in default
+Failed example:
+    pauli("Z")
+Expected:
+    [[ 1,  0],
+     [ 0, -1]])
+Got:
+    array([[ 1,  0],
+           [ 0, -1]])
+**********************************************************************
+1 items had failures:
+   4 of   8 in default
+8 tests in 1 items.
+4 passed and 4 failed.
+***Test Failed*** 4 failures.
+
+Document: autoapi/matrix_props/is_permutation/index
+---------------------------------------------------
+1 items passed all tests:
+   8 tests in default
+8 tests in 1 items.
+8 passed and 0 failed.
+Test passed.
+
+Document: autoapi/channel_props/is_unitary/index
+------------------------------------------------
+1 items passed all tests:
+   7 tests in default
+7 tests in 1 items.
+7 passed and 0 failed.
+Test passed.
+
+Document: autoapi/state_opt/state_exclusion/index
+-------------------------------------------------
+**********************************************************************
+File "autoapi/state_opt/state_exclusion/index.rst", line 114, in default
+Failed example:
+    state_exclusion(vectors, probs)
+Expected:
+    1.6824720366950206e-09
+Got:
+    (2.859539803341664e-12, [<4x4 matrix, tc='z'>, <4x4 matrix, tc='z'>])
+**********************************************************************
+1 items had failures:
+   1 of   6 in default
+6 tests in 1 items.
+5 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/matrix_ops/inner_product/index
+------------------------------------------------
+1 items passed all tests:
+   4 tests in default
+4 tests in 1 items.
+4 passed and 0 failed.
+Test passed.
+
+Document: autoapi/channel_ops/dual_channel/index
+------------------------------------------------
+**********************************************************************
+File "autoapi/channel_ops/dual_channel/index.rst", line 75, in default
+Failed example:
+    dual_channel(kraus_list)
+Expected:
+    [array([[1.-0.j],
+        [0.-0.j],
+        [0.-1.j],
+        [0.-0.j]]),
+    array([[0.-0.j],
+            [1.-0.j],
+            [0.-0.j],
+            [0.-1.j]])]
+Got:
+    [array([[1.-0.j],
+           [0.-0.j],
+           [0.-1.j],
+           [0.-0.j]]), array([[0.-0.j],
+           [1.-0.j],
+           [0.-0.j],
+           [0.-1.j]])]
+**********************************************************************
+File "autoapi/channel_ops/dual_channel/index.rst", line 88, in default
+Failed example:
+    dual_channel(input_op, [[3, 2], [2, 3]])
+Expected:
+    array([[1., 0., 0., 0., 0., 0.],
+       [0., 0., 1., 0., 0., 0.],
+       [0., 0., 0., 0., 1., 0.],
+       [0., 1., 0., 0., 0., 0.],
+       [0., 0., 0., 1., 0., 0.],
+       [0., 0., 0., 0., 0., 1.]])
+Got:
+    array([[1., 0., 0., 0., 0., 0.],
+           [0., 0., 1., 0., 0., 0.],
+           [0., 0., 0., 0., 1., 0.],
+           [0., 1., 0., 0., 0., 0.],
+           [0., 0., 0., 1., 0., 0.],
+           [0., 0., 0., 0., 0., 1.]])
+**********************************************************************
+1 items had failures:
+   2 of  11 in default
+11 tests in 1 items.
+9 passed and 2 failed.
+***Test Failed*** 2 failures.
+
+Document: autoapi/matrix_props/sk_norm/index
+--------------------------------------------
+1 items passed all tests:
+   5 tests in default
+5 tests in 1 items.
+5 passed and 0 failed.
+Test passed.
+
+Document: autoapi/matrices/clock/index
+--------------------------------------
+**********************************************************************
+File "autoapi/matrices/clock/index.rst", line 62, in default
+Failed example:
+    clock(3)
+Expected:
+    [[ 1. +0.j       ,  0. +0.j       ,  0. +0.j       ],
+     [ 0. +0.j       , -0.5+0.8660254j,  0. +0.j       ],
+     [ 0. +0.j       ,  0. +0.j       , -0.5-0.8660254j]]
+Got:
+    array([[ 1. +0.j       ,  0. +0.j       ,  0. +0.j       ],
+           [ 0. +0.j       , -0.5+0.8660254j,  0. +0.j       ],
+           [ 0. +0.j       ,  0. +0.j       , -0.5-0.8660254j]])
+**********************************************************************
+1 items had failures:
+   1 of   2 in default
+2 tests in 1 items.
+1 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/state_opt/symmetric_extension_hierarchy/index
+---------------------------------------------------------------
+**********************************************************************
+File "autoapi/state_opt/symmetric_extension_hierarchy/index.rst", line 162, in default
+Failed example:
+    symmetric_extension_hierarchy(states=states, probs=None, level=1)
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[10]>", line 1, in <module>
+        symmetric_extension_hierarchy(states=states, probs=None, level=1)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    NameError: name 'symmetric_extension_hierarchy' is not defined
+**********************************************************************
+File "autoapi/state_opt/symmetric_extension_hierarchy/index.rst", line 166, in default
+Failed example:
+    symmetric_extension_hierarchy(states=states, probs=None, level=2)
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[11]>", line 1, in <module>
+        symmetric_extension_hierarchy(states=states, probs=None, level=2)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    NameError: name 'symmetric_extension_hierarchy' is not defined
+**********************************************************************
+1 items had failures:
+   2 of  13 in default
+13 tests in 1 items.
+11 passed and 2 failed.
+***Test Failed*** 2 failures.
+
+Document: autoapi/matrices/gen_pauli/index
+------------------------------------------
+**********************************************************************
+File "autoapi/matrices/gen_pauli/index.rst", line 63, in default
+Failed example:
+    gen_pauli(k_1, k_2, dim)
+Expected:
+    [[0.+0.j, 1.+0.j],
+     [1.+0.j, 0.+0.j]])
+Got:
+    array([[0.+0.j, 1.+0.j],
+           [1.+0.j, 0.+0.j]])
+**********************************************************************
+File "autoapi/matrices/gen_pauli/index.rst", line 82, in default
+Failed example:
+    gen_pauli(k_1, k_2, dim)
+Expected:
+    [[ 0.+0.0000000e+00j, -1.+1.2246468e-16j],
+     [ 1.+0.0000000e+00j,  0.+0.0000000e+00j]])
+Got:
+    array([[ 0.+0.0000000e+00j, -1.+1.2246468e-16j],
+           [ 1.+0.0000000e+00j,  0.+0.0000000e+00j]])
+**********************************************************************
+1 items had failures:
+   2 of  10 in default
+10 tests in 1 items.
+8 passed and 2 failed.
+***Test Failed*** 2 failures.
+
+Document: autoapi/matrix_props/is_positive_definite/index
+---------------------------------------------------------
+1 items passed all tests:
+   8 tests in default
+8 tests in 1 items.
+8 passed and 0 failed.
+Test passed.
+
+Document: autoapi/states/singlet/index
+--------------------------------------
+**********************************************************************
+File "autoapi/states/singlet/index.rst", line 56, in default
+Failed example:
+    singlet(dim)
+Expected:
+        [[ 0. ,  0. ,  0. ,  0. ],
+         [ 0. ,  0.5, -0.5,  0. ],
+         [ 0. , -0.5,  0.5,  0. ],
+         [ 0. ,  0. ,  0. ,  0. ]]
+Got:
+    array([[ 0. ,  0. ,  0. ,  0. ],
+           [ 0. ,  0.5, -0.5,  0. ],
+           [ 0. , -0.5,  0.5,  0. ],
+           [ 0. ,  0. ,  0. ,  0. ]])
+**********************************************************************
+File "autoapi/states/singlet/index.rst", line 81, in default
+Failed example:
+    singlet(dim)
+Expected:
+        [[ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
+           0.        ,  0.        ,  0.        ,  0.        ],
+        [  0.        ,  0.16666667,  0.        , -0.16666667,  0.        ,
+           0.        ,  0.        ,  0.        ,  0.        ],
+        [  0.        ,  0.        ,  0.16666667,  0.        ,  0.        ,
+           0.        , -0.16666667,  0.        ,  0.        ],
+        [  0.        , -0.16666667,  0.        ,  0.16666667,  0.        ,
+           0.        ,  0.        ,  0.        ,  0.        ],
+        [  0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
+           0.        ,  0.        ,  0.        ,  0.        ],
+        [  0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
+           0.16666667,  0.        , -0.16666667,  0.        ],
+        [  0.        ,  0.        , -0.16666667,  0.        ,  0.        ,
+           0.        ,  0.16666667,  0.        ,  0.        ],
+        [  0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
+           -0.16666667,  0.        ,  0.16666667,  0.        ],
+        [  0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
+           0.        ,  0.        ,  0.        ,  0.        ]]
+Got:
+    array([[ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
+             0.        ,  0.        ,  0.        ,  0.        ],
+           [ 0.        ,  0.16666667,  0.        , -0.16666667,  0.        ,
+             0.        ,  0.        ,  0.        ,  0.        ],
+           [ 0.        ,  0.        ,  0.16666667,  0.        ,  0.        ,
+             0.        , -0.16666667,  0.        ,  0.        ],
+           [ 0.        , -0.16666667,  0.        ,  0.16666667,  0.        ,
+             0.        ,  0.        ,  0.        ,  0.        ],
+           [ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
+             0.        ,  0.        ,  0.        ,  0.        ],
+           [ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
+             0.16666667,  0.        , -0.16666667,  0.        ],
+           [ 0.        ,  0.        , -0.16666667,  0.        ,  0.        ,
+             0.        ,  0.16666667,  0.        ,  0.        ],
+           [ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
+            -0.16666667,  0.        ,  0.16666667,  0.        ],
+           [ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
+             0.        ,  0.        ,  0.        ,  0.        ]])
+**********************************************************************
+1 items had failures:
+   2 of   6 in default
+6 tests in 1 items.
+4 passed and 2 failed.
+***Test Failed*** 2 failures.
+
+Document: autoapi/rand/random_density_matrix/index
+--------------------------------------------------
+**********************************************************************
+File "autoapi/rand/random_density_matrix/index.rst", line 51, in default
+Failed example:
+    complex_dm
+Expected:
+    [[0.34903796+0.j       0.4324904 +0.103298j]
+     [0.4324904 -0.103298j 0.65096204+0.j      ]]
+Got:
+    array([[0.09935584+0.j        , 0.09035049-0.09289812j],
+           [0.09035049+0.09289812j, 0.90064416+0.j        ]])
+**********************************************************************
+File "autoapi/rand/random_density_matrix/index.rst", line 66, in default
+Failed example:
+    real_dm
+Expected:
+    [[0.37330805 0.46466224]
+     [0.46466224 0.62669195]]
+Got:
+    array([[0.57066147, 0.48818488],
+           [0.48818488, 0.42933853]])
+**********************************************************************
+File "autoapi/rand/random_density_matrix/index.rst", line 81, in default
+Failed example:
+    bures_mat
+Expected:
+    [[0.59937164+0.j         0.45355087-0.18473365j]
+     [0.45355087+0.18473365j 0.40062836+0.j        ]]
+Got:
+    array([[0.65825064+0.j        , 0.22661793+0.20930845j],
+           [0.22661793-0.20930845j, 0.34174936+0.j        ]])
+**********************************************************************
+1 items had failures:
+   3 of  15 in default
+15 tests in 1 items.
+12 passed and 3 failed.
+***Test Failed*** 3 failures.
+
+Document: autoapi/perms/symmetric_projection/index
+--------------------------------------------------
+**********************************************************************
+File "autoapi/perms/symmetric_projection/index.rst", line 60, in default
+Failed example:
+    symmetric_projection(2, 1)
+Expected:
+    [[1., 0.],
+     [0., 1.]]
+Got:
+    array([[1., 0.],
+           [0., 1.]])
+**********************************************************************
+File "autoapi/perms/symmetric_projection/index.rst", line 79, in default
+Failed example:
+    symmetric_projection(dim=2)
+Expected:
+    [[1. , 0. , 0. , 0. ],
+     [0. , 0.5, 0.5, 0. ],
+     [0. , 0.5, 0.5, 0. ],
+     [0. , 0. , 0. , 1. ]]
+Got:
+    array([[1. , 0. , 0. , 0. ],
+           [0. , 0.5, 0.5, 0. ],
+           [0. , 0.5, 0.5, 0. ],
+           [0. , 0. , 0. , 1. ]])
+**********************************************************************
+1 items had failures:
+   2 of   4 in default
+4 tests in 1 items.
+2 passed and 2 failed.
+***Test Failed*** 2 failures.
+
+Document: autoapi/state_metrics/fidelity/index
+----------------------------------------------
+1 items passed all tests:
+   5 tests in default
+5 tests in 1 items.
+5 passed and 0 failed.
+Test passed.
+
+Document: autoapi/state_props/is_npt/index
+------------------------------------------
+1 items passed all tests:
+   4 tests in default
+4 tests in 1 items.
+4 passed and 0 failed.
+Test passed.
+
+Document: autoapi/nonlocal_games/quantum_hedging/index
+------------------------------------------------------
+**********************************************************************
+File "autoapi/nonlocal_games/quantum_hedging/index.rst", line 93, in default
+Failed example:
+    molina_watrous.max_prob_outcome_a_primal()
+Expected:
+    0.853553390038077
+Got:
+    0.8535545026638739
+**********************************************************************
+1 items had failures:
+   1 of  16 in default
+16 tests in 1 items.
+15 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/states/chessboard/index
+-----------------------------------------
+**********************************************************************
+File "autoapi/states/chessboard/index.rst", line 57, in default
+Failed example:
+    chessboard([1, 2, 3, 4, 5, 6], 7, 8)
+Expected:
+    [[ 0.22592593,  0.        ,  0.12962963,  0.        ,  0.        ,
+       0.        ,  0.17777778,  0.        ,  0.        ],
+     [ 0.        ,  0.01851852,  0.        ,  0.        ,  0.        ,
+       0.01111111,  0.        ,  0.02962963,  0.        ],
+     [ 0.12962963,  0.        ,  0.18148148,  0.        ,  0.15555556,
+       0.        ,  0.        ,  0.        ,  0.        ],
+     [ 0.        ,  0.        ,  0.        ,  0.01851852,  0.        ,
+       0.02222222,  0.        , -0.01481481,  0.        ],
+     [ 0.        ,  0.        ,  0.15555556,  0.        ,  0.22592593,
+       0.        , -0.14814815,  0.        ,  0.        ],
+     [ 0.        ,  0.01111111,  0.        ,  0.02222222,  0.        ,
+       0.03333333,  0.        ,  0.        ,  0.        ],
+     [ 0.17777778,  0.        ,  0.        ,  0.        , -0.14814815,
+       0.        ,  0.23703704,  0.        ,  0.        ],
+     [ 0.        ,  0.02962963,  0.        , -0.01481481,  0.        ,
+       0.        ,  0.        ,  0.05925926,  0.        ],
+     [ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
+       0.        ,  0.        ,  0.        ,  0.        ]]
+Got:
+    array([[ 0.22592593,  0.        ,  0.12962963,  0.        ,  0.        ,
+             0.        ,  0.17777778,  0.        ,  0.        ],
+           [ 0.        ,  0.01851852,  0.        ,  0.        ,  0.        ,
+             0.01111111,  0.        ,  0.02962963,  0.        ],
+           [ 0.12962963,  0.        ,  0.18148148,  0.        ,  0.15555556,
+             0.        ,  0.        ,  0.        ,  0.        ],
+           [ 0.        ,  0.        ,  0.        ,  0.01851852,  0.        ,
+             0.02222222,  0.        , -0.01481481,  0.        ],
+           [ 0.        ,  0.        ,  0.15555556,  0.        ,  0.22592593,
+             0.        , -0.14814815,  0.        ,  0.        ],
+           [ 0.        ,  0.01111111,  0.        ,  0.02222222,  0.        ,
+             0.03333333,  0.        ,  0.        ,  0.        ],
+           [ 0.17777778,  0.        ,  0.        ,  0.        , -0.14814815,
+             0.        ,  0.23703704,  0.        ,  0.        ],
+           [ 0.        ,  0.02962963,  0.        , -0.01481481,  0.        ,
+             0.        ,  0.        ,  0.05925926,  0.        ],
+           [ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
+             0.        ,  0.        ,  0.        ,  0.        ]])
+**********************************************************************
+1 items had failures:
+   1 of   2 in default
+2 tests in 1 items.
+1 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/states/brauer/index
+-------------------------------------
+**********************************************************************
+File "autoapi/states/brauer/index.rst", line 42, in default
+Failed example:
+    math.factorial(2 * p_val) / (math.factorial(p_val) * 2**p_val)
+Expected nothing
+Got:
+    3.0
+**********************************************************************
+File "autoapi/states/brauer/index.rst", line 67, in default
+Failed example:
+    brauer(2, 2)
+Expected:
+    [[1. 1. 1.]
+     [0. 0. 0.]
+     [0. 0. 0.]
+     [1. 0. 0.]
+     [0. 0. 0.]
+     [0. 1. 0.]
+     [0. 0. 1.]
+     [0. 0. 0.]
+     [0. 0. 0.]
+     [0. 0. 1.]
+     [0. 1. 0.]
+     [0. 0. 0.]
+     [1. 0. 0.]
+     [0. 0. 0.]
+     [0. 0. 0.]
+     [1. 1. 1.]]
+Got:
+    array([[1., 1., 1.],
+           [0., 0., 0.],
+           [0., 0., 0.],
+           [1., 0., 0.],
+           [0., 0., 0.],
+           [0., 1., 0.],
+           [0., 0., 1.],
+           [0., 0., 0.],
+           [0., 0., 0.],
+           [0., 0., 1.],
+           [0., 1., 0.],
+           [0., 0., 0.],
+           [1., 0., 0.],
+           [0., 0., 0.],
+           [0., 0., 0.],
+           [1., 1., 1.]])
+**********************************************************************
+1 items had failures:
+   2 of   6 in default
+6 tests in 1 items.
+4 passed and 2 failed.
+***Test Failed*** 2 failures.
+
+Document: autoapi/states/basis/index
+------------------------------------
+**********************************************************************
+File "autoapi/states/basis/index.rst", line 45, in default
+Failed example:
+    basis(2, 0)
+Expected:
+    [[1]
+    [0]]
+Got:
+    array([[1],
+           [0]])
+**********************************************************************
+File "autoapi/states/basis/index.rst", line 52, in default
+Failed example:
+    basis(2, 1)
+Expected:
+    [[0]
+    [1]]
+Got:
+    array([[0],
+           [1]])
+**********************************************************************
+1 items had failures:
+   2 of   4 in default
+4 tests in 1 items.
+2 passed and 2 failed.
+***Test Failed*** 2 failures.
+
+Document: autoapi/channel_ops/kraus_to_choi/index
+-------------------------------------------------
+**********************************************************************
+File "autoapi/channel_ops/kraus_to_choi/index.rst", line 72, in default
+Failed example:
+    kraus_to_choi(kraus_ops)
+Expected:
+    [[1. 0. 0. 0.]
+     [0. 0. 1. 0.]
+     [0. 1. 0. 0.]
+     [0. 0. 0. 1.]]
+Got:
+    array([[1., 0., 0., 0.],
+           [0., 0., 1., 0.],
+           [0., 1., 0., 0.],
+           [0., 0., 0., 1.]])
+**********************************************************************
+1 items had failures:
+   1 of  12 in default
+12 tests in 1 items.
+11 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/state_props/is_distinguishable/index
+------------------------------------------------------
+1 items passed all tests:
+   4 tests in default
+4 tests in 1 items.
+4 passed and 0 failed.
+Test passed.
+
+Document: autoapi/state_metrics/helstrom_holevo/index
+-----------------------------------------------------
+1 items passed all tests:
+  10 tests in default
+10 tests in 1 items.
+10 passed and 0 failed.
+Test passed.
+
+Document: autoapi/state_props/in_separable_ball/index
+-----------------------------------------------------
+1 items passed all tests:
+  14 tests in default
+14 tests in 1 items.
+14 passed and 0 failed.
+Test passed.
+
+Document: autoapi/matrix_props/trace_norm/index
+-----------------------------------------------
+1 items passed all tests:
+   4 tests in default
+4 tests in 1 items.
+4 passed and 0 failed.
+Test passed.
+
+Document: autoapi/channel_metrics/completely_bounded_trace_norm/index
+---------------------------------------------------------------------
+1 items passed all tests:
+   4 tests in default
+4 tests in 1 items.
+4 passed and 0 failed.
+Test passed.
+
+Document: autoapi/channels/dephasing/index
+------------------------------------------
+**********************************************************************
+File "autoapi/channels/dephasing/index.rst", line 79, in default
+Failed example:
+    apply_channel(test_input_mat, dephasing(4))
+Expected:
+    [[ 1.,  0.,  0.,  0.],
+     [ 0.,  6.,  0.,  0.],
+     [ 0.,  0., 11.,  0.],
+     [ 0.,  0.,  0., 16.]])
+Got:
+    array([[ 1.,  0.,  0.,  0.],
+           [ 0.,  6.,  0.,  0.],
+           [ 0.,  0., 11.,  0.],
+           [ 0.,  0.,  0., 16.]])
+**********************************************************************
+File "autoapi/channels/dephasing/index.rst", line 92, in default
+Failed example:
+    test_input_mat = np.array(
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[3]>", line 1
+        test_input_mat = np.array(
+                                 ^
+    SyntaxError: '(' was never closed
+**********************************************************************
+File "autoapi/channels/dephasing/index.rst", line 93, in default
+Failed example:
+        [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[4]>", line 1
+        [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
+    IndentationError: unexpected indent
+**********************************************************************
+File "autoapi/channels/dephasing/index.rst", line 94, in default
+Failed example:
+    )
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[5]>", line 1
+        )
+        ^
+    SyntaxError: unmatched ')'
+**********************************************************************
+File "autoapi/channels/dephasing/index.rst", line 95, in default
+Failed example:
+    apply_channel(test_input_mat, dephasing(4, 0.5))
+Expected:
+    [[ 1.   1.   1.5  2. ]
+     [ 2.5  6.   3.5  4. ]
+     [ 4.5  5.  11.   6. ]
+     [ 6.5  7.   7.5 16. ]]
+Got:
+    array([[ 1. ,  1. ,  1.5,  2. ],
+           [ 2.5,  6. ,  3.5,  4. ],
+           [ 4.5,  5. , 11. ,  6. ],
+           [ 6.5,  7. ,  7.5, 16. ]])
+**********************************************************************
+1 items had failures:
+   5 of  12 in default
+12 tests in 1 items.
+7 passed and 5 failed.
+***Test Failed*** 5 failures.
+
+Document: autoapi/state_metrics/sub_fidelity/index
+--------------------------------------------------
+1 items passed all tests:
+  12 tests in default
+12 tests in 1 items.
+12 passed and 0 failed.
+Test passed.
+
+Document: autoapi/channel_ops/apply_channel/index
+-------------------------------------------------
+**********************************************************************
+File "autoapi/channel_ops/apply_channel/index.rst", line 102, in default
+Failed example:
+    apply_channel(test_input_mat, swap_operator(3))
+Expected:
+    [[1., 2., 3.],
+     [4., 5., 6.],
+     [7., 8., 9.]]
+Got:
+    array([[1., 2., 3.],
+           [4., 5., 6.],
+           [7., 8., 9.]])
+**********************************************************************
+1 items had failures:
+   1 of   5 in default
+5 tests in 1 items.
+4 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/state_props/is_ensemble/index
+-----------------------------------------------
+1 items passed all tests:
+   6 tests in default
+6 tests in 1 items.
+6 passed and 0 failed.
+Test passed.
+
+Document: autoapi/states/isotropic/index
+----------------------------------------
+**********************************************************************
+File "autoapi/states/isotropic/index.rst", line 67, in default
+Failed example:
+    isotropic(3, 1 / 2)
+Expected:
+    [[0.22222222, 0.        , 0.        , 0.        , 0.16666667,
+      0.        , 0.        , 0.        , 0.16666667],
+     [0.        , 0.05555556, 0.        , 0.        , 0.        ,
+      0.        , 0.        , 0.        , 0.        ],
+     [0.        , 0.        , 0.05555556, 0.        , 0.        ,
+      0.        , 0.        , 0.        , 0.        ],
+     [0.        , 0.        , 0.        , 0.05555556, 0.        ,
+      0.        , 0.        , 0.        , 0.        ],
+     [0.16666667, 0.        , 0.        , 0.        , 0.22222222,
+      0.        , 0.        , 0.        , 0.16666667],
+     [0.        , 0.        , 0.        , 0.        , 0.        ,
+      0.05555556, 0.        , 0.        , 0.        ],
+     [0.        , 0.        , 0.        , 0.        , 0.        ,
+      0.        , 0.05555556, 0.        , 0.        ],
+     [0.        , 0.        , 0.        , 0.        , 0.        ,
+      0.        , 0.        , 0.05555556, 0.        ],
+     [0.16666667, 0.        , 0.        , 0.        , 0.16666667,
+      0.        , 0.        , 0.        , 0.22222222]]
+Got:
+    array([[0.22222222, 0.        , 0.        , 0.        , 0.16666667,
+            0.        , 0.        , 0.        , 0.16666667],
+           [0.        , 0.05555556, 0.        , 0.        , 0.        ,
+            0.        , 0.        , 0.        , 0.        ],
+           [0.        , 0.        , 0.05555556, 0.        , 0.        ,
+            0.        , 0.        , 0.        , 0.        ],
+           [0.        , 0.        , 0.        , 0.05555556, 0.        ,
+            0.        , 0.        , 0.        , 0.        ],
+           [0.16666667, 0.        , 0.        , 0.        , 0.22222222,
+            0.        , 0.        , 0.        , 0.16666667],
+           [0.        , 0.        , 0.        , 0.        , 0.        ,
+            0.05555556, 0.        , 0.        , 0.        ],
+           [0.        , 0.        , 0.        , 0.        , 0.        ,
+            0.        , 0.05555556, 0.        , 0.        ],
+           [0.        , 0.        , 0.        , 0.        , 0.        ,
+            0.        , 0.        , 0.05555556, 0.        ],
+           [0.16666667, 0.        , 0.        , 0.        , 0.16666667,
+            0.        , 0.        , 0.        , 0.22222222]])
+**********************************************************************
+1 items had failures:
+   1 of   2 in default
+2 tests in 1 items.
+1 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/state_opt/ppt_distinguishability/index
+--------------------------------------------------------
+**********************************************************************
+File "autoapi/state_opt/ppt_distinguishability/index.rst", line 147, in default
+Failed example:
+    x_1 = np.kron(psi_0, psi_0)
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[6]>", line 1, in <module>
+        x_1 = np.kron(psi_0, psi_0)
+              ^^
+    NameError: name 'np' is not defined
+**********************************************************************
+File "autoapi/state_opt/ppt_distinguishability/index.rst", line 148, in default
+Failed example:
+    x_2 = np.kron(psi_1, psi_3)
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[7]>", line 1, in <module>
+        x_2 = np.kron(psi_1, psi_3)
+              ^^
+    NameError: name 'np' is not defined
+**********************************************************************
+File "autoapi/state_opt/ppt_distinguishability/index.rst", line 149, in default
+Failed example:
+    x_3 = np.kron(psi_2, psi_3)
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[8]>", line 1, in <module>
+        x_3 = np.kron(psi_2, psi_3)
+              ^^
+    NameError: name 'np' is not defined
+**********************************************************************
+File "autoapi/state_opt/ppt_distinguishability/index.rst", line 150, in default
+Failed example:
+    x_4 = np.kron(psi_3, psi_3)
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[9]>", line 1, in <module>
+        x_4 = np.kron(psi_3, psi_3)
+              ^^
+    NameError: name 'np' is not defined
+**********************************************************************
+File "autoapi/state_opt/ppt_distinguishability/index.rst", line 153, in default
+Failed example:
+    rho_1 = x_1 * x_1.conj().T
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[10]>", line 1, in <module>
+        rho_1 = x_1 * x_1.conj().T
+                ^^^
+    NameError: name 'x_1' is not defined
+**********************************************************************
+File "autoapi/state_opt/ppt_distinguishability/index.rst", line 154, in default
+Failed example:
+    rho_2 = x_2 * x_2.conj().T
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[11]>", line 1, in <module>
+        rho_2 = x_2 * x_2.conj().T
+                ^^^
+    NameError: name 'x_2' is not defined
+**********************************************************************
+File "autoapi/state_opt/ppt_distinguishability/index.rst", line 155, in default
+Failed example:
+    rho_3 = x_3 * x_3.conj().T
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[12]>", line 1, in <module>
+        rho_3 = x_3 * x_3.conj().T
+                ^^^
+    NameError: name 'x_3' is not defined
+**********************************************************************
+File "autoapi/state_opt/ppt_distinguishability/index.rst", line 156, in default
+Failed example:
+    rho_4 = x_4 * x_4.conj().T
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[13]>", line 1, in <module>
+        rho_4 = x_4 * x_4.conj().T
+                ^^^
+    NameError: name 'x_4' is not defined
+**********************************************************************
+File "autoapi/state_opt/ppt_distinguishability/index.rst", line 158, in default
+Failed example:
+    states = [rho_1, rho_2, rho_3, rho_4]
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[14]>", line 1, in <module>
+        states = [rho_1, rho_2, rho_3, rho_4]
+                  ^^^^^
+    NameError: name 'rho_1' is not defined
+**********************************************************************
+File "autoapi/state_opt/ppt_distinguishability/index.rst", line 160, in default
+Failed example:
+    ppt_distinguishability(states, probs)
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[16]>", line 1, in <module>
+        ppt_distinguishability(states, probs)
+                               ^^^^^^
+    NameError: name 'states' is not defined
+**********************************************************************
+1 items had failures:
+  10 of  17 in default
+17 tests in 1 items.
+7 passed and 10 failed.
+***Test Failed*** 10 failures.
+
+Document: autoapi/matrix_props/is_unitary/index
+-----------------------------------------------
+1 items passed all tests:
+  12 tests in default
+12 tests in 1 items.
+12 passed and 0 failed.
+Test passed.
+
+Document: autoapi/state_props/schmidt_rank/index
+------------------------------------------------
+1 items passed all tests:
+  19 tests in default
+19 tests in 1 items.
+19 passed and 0 failed.
+Test passed.
+
+Document: autoapi/state_props/is_product/index
+----------------------------------------------
+1 items passed all tests:
+   6 tests in default
+6 tests in 1 items.
+6 passed and 0 failed.
+Test passed.
+
+Document: autoapi/state_props/is_antidistinguishable/index
+----------------------------------------------------------
+1 items passed all tests:
+   4 tests in default
+4 tests in 1 items.
+4 passed and 0 failed.
+Test passed.
+
+Document: autoapi/channel_metrics/fidelity_of_separability/index
+----------------------------------------------------------------
+1 items passed all tests:
+   1 tests in default
+1 tests in 1 items.
+1 passed and 0 failed.
+Test passed.
+
+Document: autoapi/matrices/cyclic_permutation/index
+---------------------------------------------------
+**********************************************************************
+File "autoapi/matrices/cyclic_permutation/index.rst", line 43, in default
+Failed example:
+    from this_module import cyclic_permutation_matrix
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[0]>", line 1, in <module>
+        from this_module import cyclic_permutation_matrix
+    ModuleNotFoundError: No module named 'this_module'
+**********************************************************************
+File "autoapi/matrices/cyclic_permutation/index.rst", line 45, in default
+Failed example:
+    cyclic_permutation_matrix = cyclic_permutation_matrix(n)
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[2]>", line 1, in <module>
+        cyclic_permutation_matrix = cyclic_permutation_matrix(n)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+    NameError: name 'cyclic_permutation_matrix' is not defined
+**********************************************************************
+File "autoapi/matrices/cyclic_permutation/index.rst", line 46, in default
+Failed example:
+    print(cyclic_permutation_matrix)
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[3]>", line 1, in <module>
+        print(cyclic_permutation_matrix)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+    NameError: name 'cyclic_permutation_matrix' is not defined
+**********************************************************************
+File "autoapi/matrices/cyclic_permutation/index.rst", line 55, in default
+Failed example:
+    from this_module import cyclic_permutation_matrix
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[0]>", line 1, in <module>
+        from this_module import cyclic_permutation_matrix
+    ModuleNotFoundError: No module named 'this_module'
+**********************************************************************
+File "autoapi/matrices/cyclic_permutation/index.rst", line 58, in default
+Failed example:
+    cyclic_permutation_matrix = cyclic_permutation_matrix(n, k)
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[3]>", line 1, in <module>
+        cyclic_permutation_matrix = cyclic_permutation_matrix(n, k)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^
+    NameError: name 'cyclic_permutation_matrix' is not defined
+**********************************************************************
+File "autoapi/matrices/cyclic_permutation/index.rst", line 59, in default
+Failed example:
+    print(cyclic_permutation_matrix)
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[4]>", line 1, in <module>
+        print(cyclic_permutation_matrix)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^
+    NameError: name 'cyclic_permutation_matrix' is not defined
+**********************************************************************
+1 items had failures:
+   6 of   9 in default
+9 tests in 1 items.
+3 passed and 6 failed.
+***Test Failed*** 6 failures.
+
+Document: autoapi/state_props/is_mutually_orthogonal/index
+----------------------------------------------------------
+1 items passed all tests:
+   9 tests in default
+9 tests in 1 items.
+9 passed and 0 failed.
+Test passed.
+
+Document: autoapi/matrices/gell_mann/index
+------------------------------------------
+**********************************************************************
+File "autoapi/matrices/gell_mann/index.rst", line 104, in default
+Failed example:
+    gell_mann(2)
+Expected:
+    [[ 0.+0.j, -0.-1.j,  0.+0.j],
+     [ 0.+1.j,  0.+0.j,  0.+0.j],
+     [ 0.+0.j,  0.+0.j,  0.+0.j]]
+Got:
+    array([[ 0.+0.j, -0.-1.j,  0.+0.j],
+           [ 0.+1.j,  0.+0.j,  0.+0.j],
+           [ 0.+0.j,  0.+0.j,  0.+0.j]])
+**********************************************************************
+1 items had failures:
+   1 of   2 in default
+2 tests in 1 items.
+1 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/matrices/shift/index
+--------------------------------------
+**********************************************************************
+File "autoapi/matrices/shift/index.rst", line 62, in default
+Failed example:
+    shift(3)
+Expected:
+    [[0., 0., 1.],
+     [1., 0., 0.],
+     [0., 1., 0.]]
+Got:
+    array([[0., 0., 1.],
+           [1., 0., 0.],
+           [0., 1., 0.]])
+**********************************************************************
+1 items had failures:
+   1 of   2 in default
+2 tests in 1 items.
+1 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/states/bb84/index
+-----------------------------------
+**********************************************************************
+File "autoapi/states/bb84/index.rst", line 50, in default
+Failed example:
+    print(f"|0> = {x[0][0].T}, \n |1> = {x[0][1].T}")
+Expected nothing
+Got:
+    |0> = [[1. 0.]], 
+     |1> = [[0. 1.]]
+**********************************************************************
+File "autoapi/states/bb84/index.rst", line 51, in default
+Failed example:
+    print(f"|+> = {x[1][0].T}, \n |-> = {x[1][1].T}")
+Expected:
+    |0> = [[1. 0.]],
+    |1> = [[0. 1.]]
+    |+> = [[0.70710678 0.70710678]],
+    |-> = [[ 0.70710678 -0.70710678]]
+Got:
+    |+> = [[0.70710678 0.70710678]], 
+     |-> = [[ 0.70710678 -0.70710678]]
+**********************************************************************
+1 items had failures:
+   2 of   4 in default
+4 tests in 1 items.
+2 passed and 2 failed.
+***Test Failed*** 2 failures.
+
+Document: autoapi/states/horodecki/index
+----------------------------------------
+**********************************************************************
+File "autoapi/states/horodecki/index.rst", line 103, in default
+Failed example:
+    horodecki(0.5, [3, 3])
+Expected:
+    [[0.1       , 0.        , 0.        , 0.        , 0.1       ,
+      0.        , 0.        , 0.        , 0.1       ],
+     [0.        , 0.1       , 0.        , 0.        , 0.        ,
+      0.        , 0.        , 0.        , 0.        ],
+     [0.        , 0.        , 0.1       , 0.        , 0.        ,
+      0.        , 0.        , 0.        , 0.        ],
+     [0.        , 0.        , 0.        , 0.1       , 0.        ,
+      0.        , 0.        , 0.        , 0.        ],
+     [0.1       , 0.        , 0.        , 0.        , 0.1       ,
+      0.        , 0.        , 0.        , 0.1       ],
+     [0.        , 0.        , 0.        , 0.        , 0.        ,
+      0.1       , 0.        , 0.        , 0.        ],
+     [0.        , 0.        , 0.        , 0.        , 0.        ,
+      0.        , 0.15      , 0.        , 0.08660254],
+     [0.        , 0.        , 0.        , 0.        , 0.        ,
+      0.        , 0.        , 0.1       , 0.        ],
+     [0.1       , 0.        , 0.        , 0.        , 0.1       ,
+      0.        , 0.08660254, 0.        , 0.15      ]]
+Got:
+    array([[0.1       , 0.        , 0.        , 0.        , 0.1       ,
+            0.        , 0.        , 0.        , 0.1       ],
+           [0.        , 0.1       , 0.        , 0.        , 0.        ,
+            0.        , 0.        , 0.        , 0.        ],
+           [0.        , 0.        , 0.1       , 0.        , 0.        ,
+            0.        , 0.        , 0.        , 0.        ],
+           [0.        , 0.        , 0.        , 0.1       , 0.        ,
+            0.        , 0.        , 0.        , 0.        ],
+           [0.1       , 0.        , 0.        , 0.        , 0.1       ,
+            0.        , 0.        , 0.        , 0.1       ],
+           [0.        , 0.        , 0.        , 0.        , 0.        ,
+            0.1       , 0.        , 0.        , 0.        ],
+           [0.        , 0.        , 0.        , 0.        , 0.        ,
+            0.        , 0.15      , 0.        , 0.08660254],
+           [0.        , 0.        , 0.        , 0.        , 0.        ,
+            0.        , 0.        , 0.1       , 0.        ],
+           [0.1       , 0.        , 0.        , 0.        , 0.1       ,
+            0.        , 0.08660254, 0.        , 0.15      ]])
+**********************************************************************
+File "autoapi/states/horodecki/index.rst", line 124, in default
+Failed example:
+    horodecki(0.5, [2, 4])
+Expected:
+    [[0.11111111, 0.        , 0.        , 0.        , 0.        ,
+      0.11111111, 0.        , 0.        ],
+     [0.        , 0.11111111, 0.        , 0.        , 0.        ,
+      0.        , 0.11111111, 0.        ],
+     [0.        , 0.        , 0.11111111, 0.        , 0.        ,
+      0.        , 0.        , 0.11111111],
+     [0.        , 0.        , 0.        , 0.11111111, 0.        ,
+      0.        , 0.        , 0.        ],
+     [0.        , 0.        , 0.        , 0.        , 0.16666667,
+      0.        , 0.        , 0.09622504],
+     [0.11111111, 0.        , 0.        , 0.        , 0.        ,
+      0.11111111, 0.        , 0.        ],
+     [0.        , 0.11111111, 0.        , 0.        , 0.        ,
+      0.        , 0.11111111, 0.        ],
+     [0.        , 0.        , 0.11111111, 0.        , 0.09622504,
+      0.        , 0.        , 0.16666667]]
+Got:
+    array([[0.11111111, 0.        , 0.        , 0.        , 0.        ,
+            0.11111111, 0.        , 0.        ],
+           [0.        , 0.11111111, 0.        , 0.        , 0.        ,
+            0.        , 0.11111111, 0.        ],
+           [0.        , 0.        , 0.11111111, 0.        , 0.        ,
+            0.        , 0.        , 0.11111111],
+           [0.        , 0.        , 0.        , 0.11111111, 0.        ,
+            0.        , 0.        , 0.        ],
+           [0.        , 0.        , 0.        , 0.        , 0.16666667,
+            0.        , 0.        , 0.09622504],
+           [0.11111111, 0.        , 0.        , 0.        , 0.        ,
+            0.11111111, 0.        , 0.        ],
+           [0.        , 0.11111111, 0.        , 0.        , 0.        ,
+            0.        , 0.11111111, 0.        ],
+           [0.        , 0.        , 0.11111111, 0.        , 0.09622504,
+            0.        , 0.        , 0.16666667]])
+**********************************************************************
+1 items had failures:
+   2 of   4 in default
+4 tests in 1 items.
+2 passed and 2 failed.
+***Test Failed*** 2 failures.
+
+Document: autoapi/perms/permutation_operator/index
+--------------------------------------------------
+**********************************************************************
+File "autoapi/perms/permutation_operator/index.rst", line 57, in default
+Failed example:
+    permutation_operator(2, [2, 1])
+Expected:
+    [[1., 0., 0., 0.],
+     [0., 0., 1., 0.],
+     [0., 1., 0., 0.],
+     [0., 0., 0., 1.]]
+Got:
+    array([[1., 0., 0., 0.],
+           [0., 0., 1., 0.],
+           [0., 1., 0., 0.],
+           [0., 0., 0., 1.]])
+**********************************************************************
+1 items had failures:
+   1 of   2 in default
+2 tests in 1 items.
+1 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/states/gisin/index
+------------------------------------
+**********************************************************************
+File "autoapi/states/gisin/index.rst", line 61, in default
+Failed example:
+    gisin(0.5, 1)
+Expected:
+    [[ 0.25      ,  0.        ,  0.        ,  0.        ],
+     [ 0.        ,  0.35403671, -0.22732436,  0.        ],
+     [ 0.        , -0.22732436,  0.14596329,  0.        ],
+     [ 0.        ,  0.        ,  0.        ,  0.25      ]]
+Got:
+    array([[ 0.25      ,  0.        ,  0.        ,  0.        ],
+           [ 0.        ,  0.35403671, -0.22732436,  0.        ],
+           [ 0.        , -0.22732436,  0.14596329,  0.        ],
+           [ 0.        ,  0.        ,  0.        ,  0.25      ]])
+**********************************************************************
+1 items had failures:
+   1 of   2 in default
+2 tests in 1 items.
+1 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/rand/random_ginibre/index
+-------------------------------------------
+**********************************************************************
+File "autoapi/rand/random_ginibre/index.rst", line 44, in default
+Failed example:
+    random_ginibre(2, 2)
+Expected:
+    [[ 0.06037649-0.05158031j  0.46797859+0.21872729j]
+     [-0.95223112-0.71959831j  0.3404352 +0.11166238j]]
+Got:
+    array([[-0.78702005+0.74355993j,  0.06020195-0.62014j   ],
+           [ 0.29450326-0.47578567j, -0.16945436-0.27845803j]])
+**********************************************************************
+1 items had failures:
+   1 of   2 in default
+2 tests in 1 items.
+1 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/state_props/entanglement_of_formation/index
+-------------------------------------------------------------
+**********************************************************************
+File "autoapi/state_props/entanglement_of_formation/index.rst", line 64, in default
+Failed example:
+    entanglement_of_formation(rho)
+Expected:
+    1
+Got:
+    0.9999999999999998
+**********************************************************************
+1 items had failures:
+   1 of   5 in default
+5 tests in 1 items.
+4 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/channel_props/choi_rank/index
+-----------------------------------------------
+1 items passed all tests:
+  14 tests in default
+14 tests in 1 items.
+14 passed and 0 failed.
+Test passed.
+
+Document: autoapi/matrix_ops/outer_product/index
+------------------------------------------------
+**********************************************************************
+File "autoapi/matrix_ops/outer_product/index.rst", line 75, in default
+Failed example:
+    outer_product(v1,v2)
+Expected:
+    [[4, 5, 6],
+     [8, 10, 12],
+     [12, 15, 18]]
+Got:
+    array([[ 4,  5,  6],
+           [ 8, 10, 12],
+           [12, 15, 18]])
+**********************************************************************
+1 items had failures:
+   1 of   4 in default
+4 tests in 1 items.
+3 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/state_ops/schmidt_decomposition/index
+-------------------------------------------------------
+**********************************************************************
+File "autoapi/state_ops/schmidt_decomposition/index.rst", line 64, in default
+Failed example:
+    max_entangled(3)
+Expected:
+    [[0.57735027],
+     [0.        ],
+     [0.        ],
+     [0.        ],
+     [0.57735027],
+     [0.        ],
+     [0.        ],
+     [0.        ],
+     [0.57735027]]
+Got:
+    array([[0.57735027],
+           [0.        ],
+           [0.        ],
+           [0.        ],
+           [0.57735027],
+           [0.        ],
+           [0.        ],
+           [0.        ],
+           [0.57735027]])
+**********************************************************************
+File "autoapi/state_ops/schmidt_decomposition/index.rst", line 88, in default
+Failed example:
+    singular_vals
+Expected:
+    [[0.57735027]
+     [0.57735027]
+     [0.57735027]]
+Got:
+    array([[0.57735027],
+           [0.57735027],
+           [0.57735027]])
+**********************************************************************
+File "autoapi/state_ops/schmidt_decomposition/index.rst", line 92, in default
+Failed example:
+    u_mat
+Expected:
+    [[1. 0. 0.]
+     [0. 1. 0.]
+     [0. 0. 1.]]
+Got:
+    array([[1., 0., 0.],
+           [0., 1., 0.],
+           [0., 0., 1.]])
+**********************************************************************
+File "autoapi/state_ops/schmidt_decomposition/index.rst", line 96, in default
+Failed example:
+    vt_mat
+Expected:
+    [[1. 0. 0.]
+     [0. 1. 0.]
+     [0. 0. 1.]]
+Got:
+    array([[1., 0., 0.],
+           [0., 1., 0.],
+           [0., 0., 1.]])
+**********************************************************************
+1 items had failures:
+   4 of   8 in default
+8 tests in 1 items.
+4 passed and 4 failed.
+***Test Failed*** 4 failures.
+
+Document: autoapi/matrix_props/is_diagonal/index
+------------------------------------------------
+1 items passed all tests:
+   8 tests in default
+8 tests in 1 items.
+8 passed and 0 failed.
+Test passed.
+
+Document: autoapi/matrix_props/is_hermitian/index
+-------------------------------------------------
+1 items passed all tests:
+   8 tests in default
+8 tests in 1 items.
+8 passed and 0 failed.
+Test passed.
+
+Document: autoapi/state_metrics/fidelity_of_separability/index
+--------------------------------------------------------------
+**********************************************************************
+File "autoapi/state_metrics/fidelity_of_separability/index.rst", line 108, in default
+Failed example:
+    0.9999999998278968
+Expected nothing
+Got:
+    0.9999999998278968
+**********************************************************************
+1 items had failures:
+   1 of   1 in default
+1 tests in 1 items.
+0 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/matrix_ops/vectors_from_gram_matrix/index
+-----------------------------------------------------------
+**********************************************************************
+File "autoapi/matrix_ops/vectors_from_gram_matrix/index.rst", line 40, in default
+Failed example:
+    gram_matrix = np.array([[2, -1], [-1, 2]])
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[0]>", line 1, in <module>
+        gram_matrix = np.array([[2, -1], [-1, 2]])
+                      ^^
+    NameError: name 'np' is not defined
+**********************************************************************
+File "autoapi/matrix_ops/vectors_from_gram_matrix/index.rst", line 41, in default
+Failed example:
+    vectors = vectors_from_gram_matrix(gram_matrix)
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[1]>", line 1, in <module>
+        vectors = vectors_from_gram_matrix(gram_matrix)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+    NameError: name 'vectors_from_gram_matrix' is not defined
+**********************************************************************
+File "autoapi/matrix_ops/vectors_from_gram_matrix/index.rst", line 42, in default
+Failed example:
+    vectors
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[2]>", line 1, in <module>
+        vectors
+    NameError: name 'vectors' is not defined
+**********************************************************************
+File "autoapi/matrix_ops/vectors_from_gram_matrix/index.rst", line 45, in default
+Failed example:
+    gram_matrix = np.array([[0, 1], [1, 0]])
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[0]>", line 1, in <module>
+        gram_matrix = np.array([[0, 1], [1, 0]])
+                      ^^
+    NameError: name 'np' is not defined
+**********************************************************************
+File "autoapi/matrix_ops/vectors_from_gram_matrix/index.rst", line 46, in default
+Failed example:
+    vectors = vectors_from_gram_matrix(gram_matrix)
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[1]>", line 1, in <module>
+        vectors = vectors_from_gram_matrix(gram_matrix)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^
+    NameError: name 'vectors_from_gram_matrix' is not defined
+**********************************************************************
+1 items had failures:
+   5 of   5 in default
+5 tests in 1 items.
+0 passed and 5 failed.
+***Test Failed*** 5 failures.
+
+Document: autoapi/perms/permute_systems/index
+---------------------------------------------
+**********************************************************************
+File "autoapi/perms/permute_systems/index.rst", line 80, in default
+Failed example:
+    permute_systems(test_input_mat, [2, 1])
+Expected:
+    [[ 1  3  2  4]
+     [ 9 11 10 12]
+     [ 5  7  6  8]
+     [13 15 14 16]]
+Got:
+    array([[ 1,  3,  2,  4],
+           [ 9, 11, 10, 12],
+           [ 5,  7,  6,  8],
+           [13, 15, 14, 16]])
+**********************************************************************
+File "autoapi/perms/permute_systems/index.rst", line 139, in default
+Failed example:
+    test_input_mat = np.array(
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[2]>", line 1
+        test_input_mat = np.array(
+                                 ^
+    SyntaxError: '(' was never closed
+**********************************************************************
+File "autoapi/perms/permute_systems/index.rst", line 140, in default
+Failed example:
+       [
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[3]>", line 1
+        [
+    IndentationError: unexpected indent
+**********************************************************************
+File "autoapi/perms/permute_systems/index.rst", line 141, in default
+Failed example:
+           [1, 2, 3, 4, 5, 6, 7, 8],
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[4]>", line 1
+        [1, 2, 3, 4, 5, 6, 7, 8],
+    IndentationError: unexpected indent
+**********************************************************************
+File "autoapi/perms/permute_systems/index.rst", line 142, in default
+Failed example:
+           [9, 10, 11, 12, 13, 14, 15, 16],
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[5]>", line 1
+        [9, 10, 11, 12, 13, 14, 15, 16],
+    IndentationError: unexpected indent
+**********************************************************************
+File "autoapi/perms/permute_systems/index.rst", line 143, in default
+Failed example:
+           [17, 18, 19, 20, 21, 22, 23, 24],
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[6]>", line 1
+        [17, 18, 19, 20, 21, 22, 23, 24],
+    IndentationError: unexpected indent
+**********************************************************************
+File "autoapi/perms/permute_systems/index.rst", line 144, in default
+Failed example:
+           [25, 26, 27, 28, 29, 30, 31, 32],
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[7]>", line 1
+        [25, 26, 27, 28, 29, 30, 31, 32],
+    IndentationError: unexpected indent
+**********************************************************************
+File "autoapi/perms/permute_systems/index.rst", line 145, in default
+Failed example:
+           [33, 34, 35, 36, 37, 38, 39, 40],
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[8]>", line 1
+        [33, 34, 35, 36, 37, 38, 39, 40],
+    IndentationError: unexpected indent
+**********************************************************************
+File "autoapi/perms/permute_systems/index.rst", line 146, in default
+Failed example:
+           [41, 42, 43, 44, 45, 46, 47, 48],
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[9]>", line 1
+        [41, 42, 43, 44, 45, 46, 47, 48],
+    IndentationError: unexpected indent
+**********************************************************************
+File "autoapi/perms/permute_systems/index.rst", line 147, in default
+Failed example:
+           [49, 50, 51, 52, 53, 54, 55, 56],
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[10]>", line 1
+        [49, 50, 51, 52, 53, 54, 55, 56],
+    IndentationError: unexpected indent
+**********************************************************************
+File "autoapi/perms/permute_systems/index.rst", line 148, in default
+Failed example:
+           [57, 58, 59, 60, 61, 62, 63, 64],
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[11]>", line 1
+        [57, 58, 59, 60, 61, 62, 63, 64],
+    IndentationError: unexpected indent
+**********************************************************************
+File "autoapi/perms/permute_systems/index.rst", line 149, in default
+Failed example:
+       ]
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[12]>", line 1
+        ]
+    IndentationError: unexpected indent
+**********************************************************************
+File "autoapi/perms/permute_systems/index.rst", line 150, in default
+Failed example:
+    )
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[13]>", line 1
+        )
+        ^
+    SyntaxError: unmatched ')'
+**********************************************************************
+File "autoapi/perms/permute_systems/index.rst", line 151, in default
+Failed example:
+    permute_systems(test_input_mat, [2, 3, 1])
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+      File "<doctest default[14]>", line 1, in <module>
+        permute_systems(test_input_mat, [2, 3, 1])
+      File "/home/reservoir-corp/toqito/toqito/perms/permute_systems.py", line 180, in permute_systems
+        raise ValueError(
+    ValueError: InvalidDim: The dimensions specified in DIM do not agree with the size of X.
+**********************************************************************
+1 items had failures:
+  14 of  19 in default
+19 tests in 1 items.
+5 passed and 14 failed.
+***Test Failed*** 14 failures.
+
+Document: autoapi/states/werner/index
+-------------------------------------
+**********************************************************************
+File "autoapi/states/werner/index.rst", line 73, in default
+Failed example:
+    werner(3, 1 / 2)
+Expected:
+    [[ 0.06666667,  0.        ,  0.        ,  0.        ,  0.        ,
+       0.        ,  0.        ,  0.        ,  0.        ],
+     [ 0.        ,  0.13333333,  0.        , -0.06666667,  0.        ,
+       0.        ,  0.        ,  0.        ,  0.        ],
+     [ 0.        ,  0.        ,  0.13333333,  0.        ,  0.        ,
+       0.        , -0.06666667,  0.        ,  0.        ],
+     [ 0.        , -0.06666667,  0.        ,  0.13333333,  0.        ,
+       0.        ,  0.        ,  0.        ,  0.        ],
+     [ 0.        ,  0.        ,  0.        ,  0.        ,  0.06666667,
+       0.        ,  0.        ,  0.        ,  0.        ],
+     [ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
+       0.13333333,  0.        , -0.06666667,  0.        ],
+     [ 0.        ,  0.        , -0.06666667,  0.        ,  0.        ,
+       0.        ,  0.13333333,  0.        ,  0.        ],
+     [ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
+       -0.06666667,  0.        ,  0.13333333,  0.        ],
+     [ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
+       0.        ,  0.        ,  0.        ,  0.06666667]]
+Got:
+    array([[ 0.06666667,  0.        ,  0.        ,  0.        ,  0.        ,
+             0.        ,  0.        ,  0.        ,  0.        ],
+           [ 0.        ,  0.13333333,  0.        , -0.06666667,  0.        ,
+             0.        ,  0.        ,  0.        ,  0.        ],
+           [ 0.        ,  0.        ,  0.13333333,  0.        ,  0.        ,
+             0.        , -0.06666667,  0.        ,  0.        ],
+           [ 0.        , -0.06666667,  0.        ,  0.13333333,  0.        ,
+             0.        ,  0.        ,  0.        ,  0.        ],
+           [ 0.        ,  0.        ,  0.        ,  0.        ,  0.06666667,
+             0.        ,  0.        ,  0.        ,  0.        ],
+           [ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
+             0.13333333,  0.        , -0.06666667,  0.        ],
+           [ 0.        ,  0.        , -0.06666667,  0.        ,  0.        ,
+             0.        ,  0.13333333,  0.        ,  0.        ],
+           [ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
+            -0.06666667,  0.        ,  0.13333333,  0.        ],
+           [ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
+             0.        ,  0.        ,  0.        ,  0.06666667]])
+**********************************************************************
+File "autoapi/states/werner/index.rst", line 94, in default
+Failed example:
+    werner(2, [0.01, 0.02, 0.03, 0.04, 0.05])
+Expected:
+    [[ 0.12179487,  0.        ,  0.        ,  0.        ,  0.        ,
+       0.        ,  0.        ,  0.        ],
+     [ 0.        ,  0.12820513,  0.        ,  0.        , -0.00641026,
+       0.        ,  0.        ,  0.        ],
+     [ 0.        ,  0.        ,  0.12179487,  0.        ,  0.        ,
+       0.        ,  0.        ,  0.        ],
+     [ 0.        ,  0.        ,  0.        ,  0.12820513,  0.        ,
+       0.        , -0.00641026,  0.        ],
+     [ 0.        , -0.00641026,  0.        ,  0.        ,  0.12820513,
+       0.        ,  0.        ,  0.        ],
+     [ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
+       0.12179487,  0.        ,  0.        ],
+     [ 0.        ,  0.        ,  0.        , -0.00641026,  0.        ,
+       0.        ,  0.12820513,  0.        ],
+     [ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
+       0.        ,  0.        ,  0.12179487]]
+Got:
+    array([[ 0.11286089,  0.        ,  0.        ,  0.        ,  0.        ,
+             0.        ,  0.        ,  0.        ],
+           [ 0.        ,  0.12729659, -0.00787402,  0.        , -0.00656168,
+             0.        ,  0.        ,  0.        ],
+           [ 0.        , -0.00918635,  0.1312336 ,  0.        , -0.00918635,
+             0.        ,  0.        ,  0.        ],
+           [ 0.        ,  0.        ,  0.        ,  0.12860892,  0.        ,
+            -0.01049869, -0.00524934,  0.        ],
+           [ 0.        , -0.00524934, -0.01049869,  0.        ,  0.12860892,
+             0.        ,  0.        ,  0.        ],
+           [ 0.        ,  0.        ,  0.        , -0.00918635,  0.        ,
+             0.1312336 , -0.00918635,  0.        ],
+           [ 0.        ,  0.        ,  0.        , -0.00656168,  0.        ,
+            -0.00787402,  0.12729659,  0.        ],
+           [ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
+             0.        ,  0.        ,  0.11286089]])
+**********************************************************************
+1 items had failures:
+   2 of   4 in default
+4 tests in 1 items.
+2 passed and 2 failed.
+***Test Failed*** 2 failures.
+
+Document: autoapi/matrix_props/is_commuting/index
+-------------------------------------------------
+1 items passed all tests:
+  10 tests in default
+10 tests in 1 items.
+10 passed and 0 failed.
+Test passed.
+
+Document: autoapi/nonlocal_games/xor_game/index
+-----------------------------------------------
+**********************************************************************
+File "autoapi/nonlocal_games/xor_game/index.rst", line 98, in default
+Failed example:
+    chsh.quantum_value()
+Expected:
+    0.8535533885683664
+Got:
+    0.8535533908447812
+**********************************************************************
+File "autoapi/nonlocal_games/xor_game/index.rst", line 119, in default
+Failed example:
+    prob_mat = np.array(
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[0]>", line 1
+        prob_mat = np.array(
+                           ^
+    SyntaxError: '(' was never closed
+**********************************************************************
+File "autoapi/nonlocal_games/xor_game/index.rst", line 120, in default
+Failed example:
+    [
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[1]>", line 1
+        [
+        ^
+    SyntaxError: '[' was never closed
+**********************************************************************
+File "autoapi/nonlocal_games/xor_game/index.rst", line 121, in default
+Failed example:
+        [0.1, 0.1, 0, 0, 0],
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[2]>", line 1
+        [0.1, 0.1, 0, 0, 0],
+    IndentationError: unexpected indent
+**********************************************************************
+File "autoapi/nonlocal_games/xor_game/index.rst", line 122, in default
+Failed example:
+        [0, 0.1, 0.1, 0, 0],
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[3]>", line 1
+        [0, 0.1, 0.1, 0, 0],
+    IndentationError: unexpected indent
+**********************************************************************
+File "autoapi/nonlocal_games/xor_game/index.rst", line 123, in default
+Failed example:
+        [0, 0, 0.1, 0.1, 0],
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[4]>", line 1
+        [0, 0, 0.1, 0.1, 0],
+    IndentationError: unexpected indent
+**********************************************************************
+File "autoapi/nonlocal_games/xor_game/index.rst", line 124, in default
+Failed example:
+        [0, 0, 0, 0.1, 0.1],
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[5]>", line 1
+        [0, 0, 0, 0.1, 0.1],
+    IndentationError: unexpected indent
+**********************************************************************
+File "autoapi/nonlocal_games/xor_game/index.rst", line 125, in default
+Failed example:
+        [0.1, 0, 0, 0, 0.1],
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[6]>", line 1
+        [0.1, 0, 0, 0, 0.1],
+    IndentationError: unexpected indent
+**********************************************************************
+File "autoapi/nonlocal_games/xor_game/index.rst", line 126, in default
+Failed example:
+    ]
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[7]>", line 1
+        ]
+        ^
+    SyntaxError: unmatched ']'
+**********************************************************************
+File "autoapi/nonlocal_games/xor_game/index.rst", line 127, in default
+Failed example:
+    )
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[8]>", line 1
+        )
+        ^
+    SyntaxError: unmatched ')'
+**********************************************************************
+File "autoapi/nonlocal_games/xor_game/index.rst", line 128, in default
+Failed example:
+    pred_mat = np.array(
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[9]>", line 1
+        pred_mat = np.array(
+                           ^
+    SyntaxError: '(' was never closed
+**********************************************************************
+File "autoapi/nonlocal_games/xor_game/index.rst", line 129, in default
+Failed example:
+    [
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[10]>", line 1
+        [
+        ^
+    SyntaxError: '[' was never closed
+**********************************************************************
+File "autoapi/nonlocal_games/xor_game/index.rst", line 130, in default
+Failed example:
+        [0, 1, 0, 0, 0],
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[11]>", line 1
+        [0, 1, 0, 0, 0],
+    IndentationError: unexpected indent
+**********************************************************************
+File "autoapi/nonlocal_games/xor_game/index.rst", line 131, in default
+Failed example:
+        [0, 0, 1, 0, 0],
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[12]>", line 1
+        [0, 0, 1, 0, 0],
+    IndentationError: unexpected indent
+**********************************************************************
+File "autoapi/nonlocal_games/xor_game/index.rst", line 132, in default
+Failed example:
+        [0, 0, 0, 1, 0],
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[13]>", line 1
+        [0, 0, 0, 1, 0],
+    IndentationError: unexpected indent
+**********************************************************************
+File "autoapi/nonlocal_games/xor_game/index.rst", line 133, in default
+Failed example:
+        [0, 0, 0, 0, 1],
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[14]>", line 1
+        [0, 0, 0, 0, 1],
+    IndentationError: unexpected indent
+**********************************************************************
+File "autoapi/nonlocal_games/xor_game/index.rst", line 134, in default
+Failed example:
+        [1, 0, 0, 0, 0],
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[15]>", line 1
+        [1, 0, 0, 0, 0],
+    IndentationError: unexpected indent
+**********************************************************************
+File "autoapi/nonlocal_games/xor_game/index.rst", line 135, in default
+Failed example:
+    ]
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[16]>", line 1
+        ]
+        ^
+    SyntaxError: unmatched ']'
+**********************************************************************
+File "autoapi/nonlocal_games/xor_game/index.rst", line 136, in default
+Failed example:
+    )
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[17]>", line 1
+        )
+        ^
+    SyntaxError: unmatched ')'
+**********************************************************************
+File "autoapi/nonlocal_games/xor_game/index.rst", line 133, in default
+Failed example:
+    odd_cycle.quantum_value()
+Expected:
+    0.9755282544736033
+Got:
+    0.8535533908447812
+**********************************************************************
+File "autoapi/nonlocal_games/xor_game/index.rst", line 135, in default
+Failed example:
+    odd_cycle.classical_value()
+Expected:
+    0.9
+Got:
+    0.75
+**********************************************************************
+1 items had failures:
+  21 of  31 in default
+31 tests in 1 items.
+10 passed and 21 failed.
+***Test Failed*** 21 failures.
+
+Document: autoapi/matrix_props/is_block_positive/index
+------------------------------------------------------
+1 items passed all tests:
+   8 tests in default
+8 tests in 1 items.
+8 passed and 0 failed.
+Test passed.
+
+Document: autoapi/state_props/negativity/index
+----------------------------------------------
+1 items passed all tests:
+   4 tests in default
+4 tests in 1 items.
+4 passed and 0 failed.
+Test passed.
+
+Document: autoapi/perms/swap_operator/index
+-------------------------------------------
+**********************************************************************
+File "autoapi/perms/swap_operator/index.rst", line 53, in default
+Failed example:
+    swap_operator(2)
+Expected:
+    [[1., 0., 0., 0.],
+     [0., 0., 1., 0.],
+     [0., 1., 0., 0.],
+     [0., 0., 0., 1.]]
+Got:
+    array([[1., 0., 0., 0.],
+           [0., 0., 1., 0.],
+           [0., 1., 0., 0.],
+           [0., 0., 0., 1.]])
+**********************************************************************
+File "autoapi/perms/swap_operator/index.rst", line 67, in default
+Failed example:
+    swap_operator(3)
+Expected:
+    [[1., 0., 0., 0., 0., 0., 0., 0., 0.],
+     [0., 0., 0., 1., 0., 0., 0., 0., 0.],
+     [0., 0., 0., 0., 0., 0., 1., 0., 0.],
+     [0., 1., 0., 0., 0., 0., 0., 0., 0.],
+     [0., 0., 0., 0., 1., 0., 0., 0., 0.],
+     [0., 0., 0., 0., 0., 0., 0., 1., 0.],
+     [0., 0., 1., 0., 0., 0., 0., 0., 0.],
+     [0., 0., 0., 0., 0., 1., 0., 0., 0.],
+     [0., 0., 0., 0., 0., 0., 0., 0., 1.]]
+Got:
+    array([[1., 0., 0., 0., 0., 0., 0., 0., 0.],
+           [0., 0., 0., 1., 0., 0., 0., 0., 0.],
+           [0., 0., 0., 0., 0., 0., 1., 0., 0.],
+           [0., 1., 0., 0., 0., 0., 0., 0., 0.],
+           [0., 0., 0., 0., 1., 0., 0., 0., 0.],
+           [0., 0., 0., 0., 0., 0., 0., 1., 0.],
+           [0., 0., 1., 0., 0., 0., 0., 0., 0.],
+           [0., 0., 0., 0., 0., 1., 0., 0., 0.],
+           [0., 0., 0., 0., 0., 0., 0., 0., 1.]])
+**********************************************************************
+1 items had failures:
+   2 of   4 in default
+4 tests in 1 items.
+2 passed and 2 failed.
+***Test Failed*** 2 failures.
+
+Document: autoapi/channels/depolarizing/index
+---------------------------------------------
+**********************************************************************
+File "autoapi/channels/depolarizing/index.rst", line 85, in default
+Failed example:
+    apply_channel(test_input_mat, depolarizing(4))
+Expected:
+    [[0.25 0.   0.   0.  ]
+     [0.   0.25 0.   0.  ]
+     [0.   0.   0.25 0.  ]
+     [0.   0.   0.   0.25]]
+Got:
+    array([[0.25, 0.  , 0.  , 0.  ],
+           [0.  , 0.25, 0.  , 0.  ],
+           [0.  , 0.  , 0.25, 0.  ],
+           [0.  , 0.  , 0.  , 0.25]])
+**********************************************************************
+File "autoapi/channels/depolarizing/index.rst", line 96, in default
+Failed example:
+    test_input_mat = np.array(
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[3]>", line 1
+        test_input_mat = np.array(
+                                 ^
+    SyntaxError: '(' was never closed
+**********************************************************************
+File "autoapi/channels/depolarizing/index.rst", line 97, in default
+Failed example:
+        [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[4]>", line 1
+        [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
+    IndentationError: unexpected indent
+**********************************************************************
+File "autoapi/channels/depolarizing/index.rst", line 98, in default
+Failed example:
+    )
+Exception raised:
+    Traceback (most recent call last):
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/doctest.py", line 1351, in __run
+        exec(compile(example.source, filename, "single",
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/home/reservoir-corp/anaconda3/envs/toqito_env/lib/python3.11/site-packages/sphinx/ext/doctest.py", line 484, in compile
+        return compile(code, name, self.type, flags, dont_inherit)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "<doctest default[5]>", line 1
+        )
+        ^
+    SyntaxError: unmatched ')'
+**********************************************************************
+File "autoapi/channels/depolarizing/index.rst", line 99, in default
+Failed example:
+    apply_channel(test_input_mat, depolarizing(4, 0.5))
+Expected:
+    [[ 4.75  1.    1.5   2.  ]
+     [ 2.5   7.25  3.5   4.  ]
+     [ 4.5   5.    9.75  6.  ]
+     [ 6.5   7.    7.5  12.25]]
+Got:
+    array([[0.375, 0.   , 0.   , 0.25 ],
+           [0.   , 0.125, 0.   , 0.   ],
+           [0.   , 0.   , 0.125, 0.   ],
+           [0.25 , 0.   , 0.   , 0.375]])
+**********************************************************************
+1 items had failures:
+   5 of  12 in default
+12 tests in 1 items.
+7 passed and 5 failed.
+***Test Failed*** 5 failures.
+
+Document: autoapi/states/bell/index
+-----------------------------------
+**********************************************************************
+File "autoapi/states/bell/index.rst", line 60, in default
+Failed example:
+    bell(0)
+Expected:
+    [[0.70710678],
+     [0.        ],
+     [0.        ],
+     [0.70710678]]
+Got:
+    array([[0.70710678],
+           [0.        ],
+           [0.        ],
+           [0.70710678]])
+**********************************************************************
+1 items had failures:
+   1 of   3 in default
+3 tests in 1 items.
+2 passed and 1 failed.
+***Test Failed*** 1 failures.
+
+Document: autoapi/channel_props/is_unital/index
+-----------------------------------------------
+1 items passed all tests:
+   8 tests in default
+8 tests in 1 items.
+8 passed and 0 failed.
+Test passed.
+
+Document: autoapi/matrices/fourier/index
+----------------------------------------
+**********************************************************************
+File "autoapi/matrices/fourier/index.rst", line 64, in default
+Failed example:
+    fourier(3)
+Expected:
+    [[ 0.57735027+0.j ,  0.57735027+0.j ,  0.57735027+0.j ],
+     [ 0.57735027+0.j , -0.28867513+0.5j, -0.28867513-0.5j],
+     [ 0.57735027+0.j , -0.28867513-0.5j, -0.28867513+0.5j]]
+Got:
+    array([[ 0.57735027+0.j ,  0.57735027+0.j ,  0.57735027+0.j ],
+           [ 0.57735027+0.j , -0.28867513+0.5j, -0.28867513-0.5j],
+           [ 0.57735027+0.j , -0.28867513-0.5j, -0.28867513+0.5j]])
+**********************************************************************
+1 items had failures:
+   1 of   2 in default
+2 tests in 1 items.
+1 passed and 1 failed.
+***Test Failed*** 1 failures.
 
 Doctest summary
 ===============
-    0 tests
-    0 failures in tests
+ 1035 tests
+  224 failures in tests
     0 failures in setup code
     0 failures in cleanup code

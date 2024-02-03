@@ -71,8 +71,9 @@ instance/
 
 # Sphinx documentation
 docs/_build/
-docs/_build/doctest/
-docs/_build/doctrees/
+docs/_build/doctest
+docs/_build/doctrees
+docs/_build/linkcheck
 
 # PyBuilder
 target/
@@ -109,3 +110,8 @@ ENV/
 
 # mypy
 .mypy_cache/
+docs/docs/_build/doctrees/environment.pickle
+docs/docs/_build/linkcheck/output.json
+docs/docs/_build/linkcheck/output.txt
+docs/docs/_build/doctest/output.txt
+docs/docs/_build/doctrees/environment.pickle
