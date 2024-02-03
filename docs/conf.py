@@ -75,7 +75,6 @@ autoapi_ignore = [
     "*/channel_props/tests/*",
     "*/measurement_ops/tests/*",
     "*/measurement_props/tests/*"]
-autoapi_member_order = 'alphabetical'
 autodoc_typehints = 'description'
 autoapi_add_toctree_entry = False
 autoapi_keep_files = False
