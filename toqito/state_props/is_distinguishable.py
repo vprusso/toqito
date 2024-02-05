@@ -41,8 +41,6 @@ def is_distinguishable(states: list[np.ndarray], probs: list[float] = None) -> b
     :return: :code:`True` if the vectors are distinguishable; :code:`False` otherwise.
 
     """
-    probs = [1 / len(states)] * len(states) if probs is None else probs
-
     # The dual problem is less computationally intensive to compute in comparison to primal.
     opt_val, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="dual")
     return np.isclose(opt_val, 1)
