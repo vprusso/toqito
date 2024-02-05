@@ -2,7 +2,7 @@
 import numpy as np
 
 
-def calculate_vector_matrix_dimension(item) -> int:
+def calculate_vector_matrix_dimension(item: np.ndarray) -> int:
     """Calculate the dimension of a vector or a square matrix, including 2D representations of vectors.
 
     This function determines the dimension of the provided item, treating 1D arrays as vectors,
@@ -25,10 +25,10 @@ def calculate_vector_matrix_dimension(item) -> int:
 
     if item.ndim == 1:
         return item.size
-    elif item.ndim == 2:
+    if item.ndim == 2:
         if item.shape[0] == 1 or item.shape[1] == 1:
             return max(item.shape)
-        elif item.shape[0] == item.shape[1]:
+        if item.shape[0] == item.shape[1]:
             return item.shape[0] ** 2
         else:
             raise ValueError("Input must be either a vector or a square matrix.")
