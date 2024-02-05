@@ -42,6 +42,7 @@ extensions = [
     "sphinx.ext.githubpages",
     "sphinx.ext.napoleon",
     "sphinxcontrib.bibtex",
+    "sphinx_wagtail_theme"
 ]
 
 bibtex_bibfiles = ["books.bib", "articles.bib"]
@@ -91,8 +92,7 @@ exclude_patterns = ["_build", "_templates", "Thumbs.db", ".DS_Store"]
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-#
-extensions.append("sphinx_wagtail_theme")
+
 html_theme = 'sphinx_wagtail_theme'
 html_logo = "figures/logo.svg"
 html_favicon = "figures/favicon.ico"
