@@ -37,15 +37,15 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     For two identical channels, we should expect that the channel fidelity should yield a value of
     :math:`1`.
 
-    .. doctest::
-        >>> from toqito.channels import dephasing
-        >>> from toqito.channel_metrics import channel_fidelity
-        >>>
-        >>> # The Choi matrices of dimension-4 for the dephasing channel
-        >>> choi_1 = dephasing(4)
-        >>> choi_2 = dephasing(4)
-        >>> channel_fidelity(choi_1, choi_2)
-        0.9999790499568767
+
+    >>> from toqito.channels import dephasing
+    >>> from toqito.channel_metrics import channel_fidelity
+    >>>
+    >>> # The Choi matrices of dimension-4 for the dephasing channel
+    >>> choi_1 = dephasing(4)
+    >>> choi_2 = dephasing(4)
+    >>> channel_fidelity(choi_1, choi_2)
+    0.9999790499568767
 
     We can also compute the channel fidelity between two different channels. For example, we can
     compute the channel fidelity between the dephasing and depolarizing channels.
