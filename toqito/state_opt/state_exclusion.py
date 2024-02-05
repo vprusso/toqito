@@ -97,8 +97,8 @@ def state_exclusion(
     :param primal_dual: Option for the optimization problem.
     :return: The optimal probability with which Bob can guess the state he was
              not given from `states` along with the optimal set of measurements.
-    """
 
+    """
     if not has_same_dimension(vectors):
         raise ValueError("Vectors for state distinguishability must all have the same dimension.")
 
