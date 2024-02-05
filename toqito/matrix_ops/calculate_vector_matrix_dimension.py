@@ -9,6 +9,7 @@ def calculate_vector_matrix_dimension(item) -> int:
     2D arrays with one dimension being 1 as vector representations, and square 2D arrays as density matrices.
     The dimension is the length for vectors and the square of the side length for density matrices.
 
+
     :param item: The item whose dimension is being calculated. Can be a 1D array (vector), a 2D array representing
                  a vector with one dimension being 1, or a square 2D array (density matrix).
     :return: int

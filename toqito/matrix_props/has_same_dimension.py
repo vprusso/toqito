@@ -29,6 +29,7 @@ def has_same_dimension(items: list[np.ndarray]) -> bool:
     >>> has_same_dimension(mixed)
     False
 
+
     :param items: A list containing vectors or matrices. Vectors are represented as 1D numpy arrays, and matrices are
                   represented as 2D numpy arrays.
     :return: Returns :code:`True` if all items in the list have the same dimension, :code:`False` otherwise.
