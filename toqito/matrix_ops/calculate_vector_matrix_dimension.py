@@ -30,7 +30,5 @@ def calculate_vector_matrix_dimension(item: np.ndarray) -> int:
             return max(item.shape)
         if item.shape[0] == item.shape[1]:
             return item.shape[0] ** 2
-        else:
-            raise ValueError("Input must be either a vector or a square matrix.")
-    else:
         raise ValueError("Input must be either a vector or a square matrix.")
+    raise ValueError("Input must be either a vector or a square matrix.")
