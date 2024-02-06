@@ -1,4 +1,4 @@
-.. figure:: figures/logo.svg
+.. figure:: figures/logo.png
    :alt: toqito logo
    :align: center
 

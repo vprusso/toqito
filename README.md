@@ -1,4 +1,4 @@
-# ![logo](./docs/figures/logo.svg "logo")
+# ![logo](./docs/figures/logo.png "logo")
 
 (Theory of Quantum Information Toolkit)
 
