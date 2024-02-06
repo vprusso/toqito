@@ -35,14 +35,13 @@ def is_distinguishable(states: list[np.ndarray], probs: list[float] = None) -> b
     .. bibliography::
         :filter: docname in docnames
 
+
     :param states: A set of vectors consisting of quantum states to determine the distinguishability of.
     :param probs: Respective list of probabilities each state is selected. If no
                 probabilities are provided, a uniform probability distribution is assumed.
     :return: :code:`True` if the vectors are distinguishable; :code:`False` otherwise.
 
     """
-    probs = [1 / len(states)] * len(states) if probs is None else probs
-
     # The dual problem is less computationally intensive to compute in comparison to primal.
     opt_val, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="dual")
     return np.isclose(opt_val, 1)

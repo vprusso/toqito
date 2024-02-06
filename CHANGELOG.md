@@ -348,3 +348,41 @@
 
 - Adding feature to determine if a given matrix is circulant with
   `is_circulant`. [PR-184](https://github.com/vprusso/toqito/pull/184)
+
+  ## 1.0.7
+
+- Numerous improvements to linting and overall improvement in project structure
+  ([PR-190](https://github.com/vprusso/toqito/pull/190), [PR-192](https://github.com/vprusso/toqito/pull/192),
+  [PR-193](https://github.com/vprusso/toqito/pull/193), [PR-195](https://github.com/vprusso/toqito/pull/195),
+  [PR-200](https://github.com/vprusso/toqito/pull/200), [PR-205](https://github.com/vprusso/toqito/pull/205),
+  [PR-206](https://github.com/vprusso/toqito/pull/206) [PR-212](https://github.com/vprusso/toqito/pull/212),
+  [PR-223](https://github.com/vprusso/toqito/pull/223), and others). Thanks to @purva-thakre for a bunch of work here!
+
+- Improved test coverage in channel fidelity([PR-232](https://github.com/vprusso/toqito/pull/232)), CB norm ([PR-234](https://github.com/vprusso/toqito/pull/234)), and KP-norm ([PR-246](https://github.com/vprusso/toqito/pull/246)), and more. Thanks to @purva-thakre!
+
+- Fixed RTD failing builds. [PR-253](https://github.com/vprusso/toqito/pull/253).
+
+- Optimizations to checking if set of vectors are mutually orthogonal. Improvement from O(n^2) to O(n). [PR-250](https://github.com/vprusso/toqito/pull/250).
+
+- Feature to generate a set of mutually unbiased bases for a given prime dimension. [PR-272](https://github.com/vprusso/toqito/pull/272).
+
+- Feature to check whether a given collection of quantum states described as vectors are antidistinguishable. [PR-271](https://github.com/vprusso/toqito/pull/271).
+
+- Feature to check whether a set of quantum states constitute an unextendible product basis or not. (thanks to
+  @Newtech66 and @smtsjhr).
+
+- Feature to check if matrix is totally positive [PR-274](https://github.com/vprusso/toqito/pull/274)
+
+- Fix: Bug in state exclusion code [PR-292](https://github.com/vprusso/toqito/pull/292)
+
+- Feature: Determine whether a collection of vectors are linearly independent or not [PR-324](https://github.com/vprusso/toqito/pull/324)
+
+- Feature: Adding the BB84 states [PR-327](https://github.com/vprusso/toqito/pull/327)
+
+- Feature: Integrating the functionality to determine whether a collection of states comprise an unextendible product basis [PR-328](https://github.com/vprusso/toqito/pull/328)
+
+- Feature: Adding the PBR states [PR-382](https://github.com/vprusso/toqito/pull/384)
+
+- Feature: Adding cyclic permutation (thanks to @Bchass) [PR-390](https://github.com/vprusso/toqito/pull/390)
+
+- Feature: Adding support for density matrix and vector input for state distinguishability and exclusion [PR-462](https://github.com/vprusso/toqito/pull/462)

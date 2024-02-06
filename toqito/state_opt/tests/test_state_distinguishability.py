@@ -2,6 +2,7 @@
 import pytest
 
 from toqito.matrices import standard_basis
+from toqito.state_ops import pure_to_mixed
 from toqito.state_opt import state_distinguishability
 from toqito.states import bell
 
@@ -17,6 +18,22 @@ e_0, e_1 = standard_basis(2)
     ([bell(0), bell(1), bell(2), bell(3)], [1/4, 1/4, 1/4, 1/4], "cvxopt", "primal", 1),
     # Bell states uniform probs with dual.
     ([bell(0), bell(1), bell(2), bell(3)], [1/4, 1/4, 1/4, 1/4], "cvxopt", "dual", 1),
+    # Density matrix Bell states (default uniform probs with primal).
+    (
+        [pure_to_mixed(bell(0)), pure_to_mixed(bell(1))],
+         None,
+         "cvxopt",
+         "primal",
+         1
+    ),
+    # Density matrix Bell states (default uniform probs with dual).
+    (
+        [pure_to_mixed(bell(0)), pure_to_mixed(bell(1))],
+        None,
+        "cvxopt",
+        "dual",
+        1
+    ),
 ])
 def test_state_distinguishability(vectors, probs, solver, primal_dual, expected_result):
     """Test function works as expected for a valid input."""

@@ -2,6 +2,8 @@
 import numpy as np
 import picos
 
+from toqito.matrix_ops import calculate_vector_matrix_dimension
+from toqito.matrix_props import has_same_dimension
 from toqito.state_ops import pure_to_mixed
 
 
@@ -97,25 +99,27 @@ def state_exclusion(
              not given from `states` along with the optimal set of measurements.
 
     """
-    if not all(vector.shape == vectors[0].shape for vector in vectors):
-        raise ValueError("Vectors for state exclusion must all have the same dimension.")
+    if not has_same_dimension(vectors):
+        raise ValueError("Vectors for state distinguishability must all have the same dimension.")
 
     # Assumes a uniform probabilities distribution among the states if one is not explicitly provided.
-    n = vectors[0].shape[0]
+    n = len(vectors)
     probs = [1 / n] * n if probs is None else probs
+    dim = calculate_vector_matrix_dimension(vectors[0])
 
     if primal_dual == "primal":
-        return _min_error_primal(vectors=vectors, probs=probs, solver=solver)
-    return _min_error_dual(vectors=vectors, probs=probs, solver=solver)
+        return _min_error_primal(vectors=vectors, dim=dim, probs=probs, solver=solver)
+    return _min_error_dual(vectors=vectors, dim=dim, probs=probs, solver=solver)
 
 
 def _min_error_primal(
         vectors: list[np.ndarray],
+        dim: int,
         probs: list[float] = None,
         solver: str = "cvxopt",
 ) -> tuple[float, list[picos.HermitianVariable]]:
     """Find the primal problem for minimum-error quantum state exclusion SDP."""
-    n, dim = len(vectors), vectors[0].shape[0]
+    n = len(vectors)
 
     problem = picos.Problem()
     measurements = [picos.HermitianVariable(f"M[{i}]", (dim, dim)) for i in range(n)]
@@ -138,11 +142,12 @@ def _min_error_primal(
 
 def _min_error_dual(
         vectors: list[np.ndarray],
+        dim: int,
         probs: list[float] = None,
         solver: str = "cvxopt"
 ) -> tuple[float, list[picos.HermitianVariable]]:
     """Find the dual problem for minimum-error quantum state exclusion SDP."""
-    n, dim = len(vectors), vectors[0].shape[0]
+    n = len(vectors)
     problem = picos.Problem()
 
     # Set up variables and constraints for SDP:
