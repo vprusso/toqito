@@ -1,4 +1,4 @@
-# ![logo](./docs/figures/logo.png "logo")
+# ![logo](https://github.com/vprusso/toqito/raw/cfb62c4a5ce04b782f64229e7acd2b1c97f09801/docs/figures/logo.svg)
 
 (Theory of Quantum Information Toolkit)
 
