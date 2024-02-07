@@ -65,4 +65,5 @@ jobs:
           python -m pip install -r docs/requirements.txt
       - name: Check docstring examples
         run: |
-            python3 toqito/channel_metrics/channel_fidelity.py
+            cd docs
+            make doctest
