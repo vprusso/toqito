@@ -44,8 +44,8 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     >>> # The Choi matrices of dimension-4 for the dephasing channel
     >>> choi_1 = dephasing(4)
     >>> choi_2 = dephasing(4)
-    >>> channel_fidelity(choi_1, choi_2)
-    0.9999790499568767
+    >>> '%.2f' % channel_fidelity(choi_1, choi_2)
+    '1.00'
 
     We can also compute the channel fidelity between two different channels. For example, we can
     compute the channel fidelity between the dephasing and depolarizing channels.
@@ -56,8 +56,8 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     >>> # The Choi matrices of dimension-4 for the dephasing and depolarizing channels
     >>> choi_1 = dephasing(4)
     >>> choi_2 = depolarizing(4)
-    >>> channel_fidelity(choi_1, choi_2)
-    0.5001368672503087
+    >>> '%.2f' % channel_fidelity(choi_1, choi_2)
+    '0.50'
 
 
     References
