@@ -16,7 +16,7 @@ def random_unitary(dim: list[int] | int, is_real: bool = False) -> np.ndarray:
 
     >>> from toqito.rand import random_unitary
     >>> complex_dm = random_unitary(2)
-    >>> complex_dm
+    >>> complex_dm # doctest: +SKIP
     [[0.40563696+0.18092721j, 0.00066868+0.89594841j],
      [0.4237286 +0.78941628j, 0.27157521-0.35145826j]]
 
@@ -31,7 +31,7 @@ def random_unitary(dim: list[int] | int, is_real: bool = False) -> np.ndarray:
 
     >>> from toqito.rand import random_unitary
     >>> real_dm = random_unitary(2, True)
-    >>> real_dm
+    >>> real_dm # doctest: +SKIP
     [[ 0.01972681, -0.99980541],
      [ 0.99980541,  0.01972681]]
 
@@ -46,7 +46,7 @@ def random_unitary(dim: list[int] | int, is_real: bool = False) -> np.ndarray:
 
     >>> from toqito.rand import random_unitary
     >>> mat = random_unitary([4, 4], True)
-    >>> mat
+    >>> mat # doctest: +SKIP
     [[ 0.48996358, -0.20978392,  0.56678587, -0.62823576],
      [ 0.62909119, -0.35852051, -0.68961425, -0.01181086],
      [ 0.38311399,  0.90865415, -0.1209574 , -0.11375677],

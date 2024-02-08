@@ -31,7 +31,7 @@ def random_density_matrix(
 
     >>> from toqito.rand import random_density_matrix
     >>> complex_dm = random_density_matrix(2)
-    >>> complex_dm
+    >>> complex_dm # doctest: +SKIP
     [[0.34903796+0.j       0.4324904 +0.103298j]
      [0.4324904 -0.103298j 0.65096204+0.j      ]]
 
@@ -46,7 +46,7 @@ def random_density_matrix(
 
     >>> from toqito.rand import random_density_matrix
     >>> real_dm = random_density_matrix(2, is_real=True)
-    >>> real_dm
+    >>> real_dm # doctest: +SKIP
     [[0.37330805 0.46466224]
      [0.46466224 0.62669195]]
 
@@ -61,7 +61,7 @@ def random_density_matrix(
 
     >>> from toqito.rand import random_density_matrix
     >>> bures_mat = random_density_matrix(2, distance_metric="bures")
-    >>> bures_mat
+    >>> bures_mat # doctest: +SKIP
     [[0.59937164+0.j         0.45355087-0.18473365j]
      [0.45355087+0.18473365j 0.40062836+0.j        ]]
 

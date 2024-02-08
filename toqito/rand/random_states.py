@@ -15,7 +15,7 @@ def random_states(n: int, d: int) -> list[np.ndarray]:
     ==========
     Generating three quantum states each of dimension 4.
 
-    >>> from this_module import random_states
+    >>> from toqito.rand import random_states
     >>> states = random_states(3, 4)
     >>> len(states)
     3
