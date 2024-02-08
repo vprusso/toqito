@@ -43,8 +43,8 @@ def concurrence(rho: np.ndarray) -> float:
     >>> e_00, e_11 = np.kron(e_0, e_0), np.kron(e_1, e_1)
     >>> u_vec = 1 / np.sqrt(2) * (e_00 + e_11)
     >>> rho = u_vec * u_vec.conj().T
-    >>> concurrence(rho)
-    0.9999999999999998
+    >>> '%.2f' % concurrence(rho)
+    '1.00'
 
     Consider the concurrence of the following product state
 
