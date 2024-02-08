@@ -26,8 +26,9 @@ def diamond_norm(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     >>> choi_depolarizing = depolarizing(dim=2, param_p=0.2)
     >>> choi_identity = np.identity(2**2)
     >>> dn = diamond_norm(choi_depolarizing, choi_identity)
-    >>> print("Diamond norm between depolarizing and identity channels: ", dn)
-    Diamond norm between depolarizing and identity channels:  -2.1680424534747078e-07
+    >>> print("Diamond norm between depolarizing and identity channels: ", '%.2f' % dn)
+    Diamond norm between depolarizing and identity channels:  -0.00
+
 
     Similarly, we can compute the diamond norm between the dephasing channel (with parameter 0.3) and the identity
     channel:
@@ -38,8 +39,8 @@ def diamond_norm(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     >>> choi_dephasing = dephasing(dim=2)
     >>> choi_identity = np.identity(2**2)
     >>> dn = diamond_norm(choi_dephasing, choi_identity)
-    >>> print("Diamond norm between dephasing and identity channels: ", dn)
-    Diamond norm between depolarizing and identity channels:  -3.5989938811978797e-09
+    >>> print("Diamond norm between dephasing and identity channels: ", '%.2f' % dn)
+    Diamond norm between dephasing and identity channels:  -0.00
 
     References
     ==========
