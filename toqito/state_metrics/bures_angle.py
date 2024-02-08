@@ -47,7 +47,7 @@ def bures_angle(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> flo
     ... )
     >>> sigma = rho
     >>> bures_angle(rho, sigma)
-    0
+    0.0
 
     References
     ==========
