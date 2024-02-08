@@ -50,7 +50,8 @@ def is_mutually_unbiased_basis(vectors: list[np.ndarray | list[float | Any]]) ->
     >>> mub_1 = [e_0, e_1]
     >>> mub_2 = [1 / np.sqrt(2) * (e_0 + e_1), 1 / np.sqrt(2) * (e_0 - e_1)]
     >>> mub_3 = [1 / np.sqrt(2) * (e_0 + 1j * e_1), 1 / np.sqrt(2) * (e_0 - 1j * e_1)]
-    >>> mubs = np.array([mub_1, mub_2, mub_3])
+    >>> nested_mubs = [mub_1, mub_2, mub_3]
+    >>> mubs = sum(nested_mubs, [])
     >>> is_mutually_unbiased_basis(mubs)
     True
 
@@ -81,7 +82,8 @@ def is_mutually_unbiased_basis(vectors: list[np.ndarray | list[float | Any]]) ->
 
     """
     num_vectors = len(vectors)
-    dim = vectors[0].shape[0]
+    dim_full = np.shape(vectors[0])
+    dim = dim_full[0]
 
     # We expect the number of vectors to be a multiple of the dimension.
     if num_vectors % dim != 0:
