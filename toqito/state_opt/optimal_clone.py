@@ -84,8 +84,8 @@ def optimal_clone(
     >>>
     >>> states = [e_0, e_1, e_p, e_m]
     >>> probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
-    >>> wiesner = optimal_clone(states, probs)
-    0.749999999967631
+    >>> '%.2f' % optimal_clone(states, probs)
+    '0.75'
 
     References
     ==========
