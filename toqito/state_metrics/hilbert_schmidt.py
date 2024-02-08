@@ -23,8 +23,8 @@ def hilbert_schmidt(rho: np.ndarray, sigma: np.ndarray) -> float:
     >>> from toqito.state_metrics import hilbert_schmidt
     >>> rho = bell(0) * bell(0).conj().T
     >>> sigma = bell(3) * bell(3).conj().T
-    >>> hilbert_schmidt(rho, sigma)
-    1
+    >>> '%.2f' % hilbert_schmidt(rho, sigma)
+    '1.00'
 
     References
     ==========
