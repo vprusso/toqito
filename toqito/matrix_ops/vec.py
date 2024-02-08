@@ -71,10 +71,10 @@ def vec(mat: np.ndarray) -> np.ndarray:
     >>> import numpy as np
     >>> X = np.array([[1, 2], [3, 4]])
     >>> vec(X)
-    [[1],
-     [3],
-     [2],
-     [4]]
+    array([[1],
+           [3],
+           [2],
+           [4]])
 
     See Also
     ========

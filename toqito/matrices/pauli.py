@@ -51,29 +51,29 @@ def pauli(
 
     >>> from toqito.matrices import pauli
     >>> pauli("I")
-    [[1., 0.],
-     [0., 1.]])
+    array([[1., 0.],
+           [0., 1.]])
 
     Example for Pauli-X matrix.
 
     >>> from toqito.matrices import pauli
     >>> pauli("X")
-    [[0, 1],
-     [1, 0]])
+    array([[0, 1],
+           [1, 0]])
 
     Example for Pauli-Y matrix.
 
     >>> from toqito.matrices import pauli
     >>> pauli("Y")
-    [[ 0.+0.j, -0.-1.j],
-     [ 0.+1.j,  0.+0.j]])
+    array([[ 0.+0.j, -0.-1.j],
+           [ 0.+1.j,  0.+0.j]])
 
     Example for Pauli-Z matrix.
 
     >>> from toqito.matrices import pauli
     >>> pauli("Z")
-    [[ 1,  0],
-     [ 0, -1]])
+    array([[ 1,  0],
+           [ 0, -1]])
 
     References
     ==========

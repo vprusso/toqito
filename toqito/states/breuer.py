@@ -22,10 +22,10 @@ def breuer(dim: int, lam: float) -> np.ndarray:
 
     >>> from toqito.states import breuer
     >>> breuer(2, 0.1)
-    [[ 0.3  0.  -0.   0. ]
-     [ 0.   0.2  0.1  0. ]
-     [-0.   0.1  0.2 -0. ]
-     [ 0.   0.  -0.   0.3]]
+    array([[0.3, 0. , 0. , 0. ],
+           [0. , 0.2, 0.1, 0. ],
+           [0. , 0.1, 0.2, 0. ],
+           [0. , 0. , 0. , 0.3]])
 
     References
     ==========
