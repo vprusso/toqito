@@ -24,7 +24,8 @@ def random_circulant_gram(dim: int) -> np.ndarray:
     =========
     Generate a random circulant Gram matrix of dimension 4.
 
-    >>> from this_module import random_circulant_gram
+    >>> import numpy as np
+    >>> from toqito.rand import random_circulant_gram
     >>> circulant_matrix = random_circulant_gram(4)
     >>> circulant_matrix.shape
     (4, 4)
