@@ -60,6 +60,7 @@ def ppt_distinguishability(
     that the optimal probability of distinguishing via a PPT measurement should yield
     :math:`7/8 \approx 0.875` as was proved in :cite:`Yu_2012_Four`.
 
+    >>> import numpy as np
     >>> from toqito.states import bell
     >>> from toqito.state_opt import ppt_distinguishability
     >>> # Bell vectors:
@@ -82,8 +83,8 @@ def ppt_distinguishability(
     >>>
     >>> states = [rho_1, rho_2, rho_3, rho_4]
     >>> probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
-    >>> ppt_distinguishability(states, probs)
-    0.875
+    >>> '%.3f' % ppt_distinguishability(states, probs)
+    '0.875'
 
     References
     ==========
