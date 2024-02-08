@@ -58,8 +58,8 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     ...      [1, 0, 0, 1]]
     ... )
     >>> sigma = rho
-    >>> matsumoto_fidelity(rho, sigma)
-    0.9999998585981018
+    >>> '%.2f' % matsumoto_fidelity(rho, sigma)
+    '1.00'
 
     References
     ==========
