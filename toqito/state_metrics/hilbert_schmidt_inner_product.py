@@ -21,10 +21,10 @@ def hilbert_schmidt_inner_product(a_mat: np.ndarray, b_mat: np.ndarray) -> compl
     One may consider taking the Hilbert-Schmidt distance between two Hadamard matrices.
 
     >>> from toqito.matrices import hadamard
-    >>> from toqito.matrices import pauli
+    >>> from toqito.state_metrics import hilbert_schmidt_inner_product
     >>> h = hadamard(1)
-    >>> hilbert_schmidt_inner_product(h, h)
-    2
+    >>> '%.2f' % hilbert_schmidt_inner_product(h, h)
+    '2.00'
 
     References
     ==========
