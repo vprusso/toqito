@@ -40,8 +40,8 @@ def purity(rho: np.ndarray) -> float:
 
     >>> from toqito.states import werner
     >>> rho = werner(2, 1 / 4)
-    >>> purity(rho)
-    0.2653
+    >>> '%.4f' % purity(rho)
+    '0.2653'
 
     References
     ==========
