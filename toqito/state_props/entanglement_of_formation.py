@@ -40,8 +40,8 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
     >>>
     >>> u_vec = bell(0)
     >>> rho = u_vec * u_vec.conj().T
-    >>> entanglement_of_formation(rho)
-    1
+    >>> '%.2f' % entanglement_of_formation(rho)
+    '1.00'
 
     References
     ==========
