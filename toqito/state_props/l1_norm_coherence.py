@@ -35,8 +35,8 @@ def l1_norm_coherence(rho: np.ndarray) -> float:
     >>>
     >>> # Maximally coherent state.
     >>> v = np.ones((3,1))/np.sqrt(3)
-    >>> l1_norm_coherence(v)
-    2
+    >>> '%.1f' % l1_norm_coherence(v)
+    '2.0'
 
     References
     ==========
