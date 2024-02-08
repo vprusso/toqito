@@ -21,10 +21,11 @@ def cnot() -> np.ndarray:
 
     >>> from toqito.matrices import cnot
     >>> cnot()
-    [[1 0 0 0]
-     [0 1 0 0]
-     [0 0 0 1]
-     [0 0 1 0]]
+    array([[1, 0, 0, 0],
+           [0, 1, 0, 0],
+           [0, 0, 0, 1],
+           [0, 0, 1, 0]])
+
 
     References
     ==========
