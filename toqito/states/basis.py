@@ -20,15 +20,15 @@ def basis(dim: int, pos: int) -> np.ndarray:
 
     >>> from toqito.states import basis
     >>> basis(2, 0)
-    [[1]
-    [0]]
+    array([[1],
+           [0]])
 
     Example: Ket basis vector: :math:`|1\rangle`.
 
     >>> from toqito.states import basis
     >>> basis(2, 1)
-    [[0]
-    [1]]
+    array([[0],
+           [1]])
 
     References
     ==========
