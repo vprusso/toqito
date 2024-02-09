@@ -81,8 +81,8 @@ def state_exclusion(
     >>> vectors = [bell(0), bell(1)]
     >>> probs = [1/2, 1/2]
     >>>
-    >>> state_exclusion(vectors, probs)
-    1.6824720366950206e-09
+    >>> '%.2f' % state_exclusion(vectors, probs)[0]
+    '0.00'
 
     References
     ==========
