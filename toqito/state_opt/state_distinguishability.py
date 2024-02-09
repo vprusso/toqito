@@ -61,7 +61,7 @@ def state_distinguishability(
     >>> states = [bell(0), bell(1), bell(2), bell(3)]
     >>> probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
     >>> res, measurements = state_distinguishability(vectors=states, probs=probs, primal_dual="primal")
-    >>> np.around(measurements[0], decimals=5)
+    >>> np.around(measurements[0], decimals=5)  # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
     array([[ 0.5+0.j,  0. +0.j, -0. -0.j,  0.5-0.j],
            [ 0. -0.j,  0. +0.j, -0. +0.j,  0. -0.j],
            [-0. +0.j, -0. -0.j,  0. +0.j, -0. +0.j],
