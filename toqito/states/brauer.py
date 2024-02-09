@@ -20,6 +20,7 @@ def brauer(dim: int, p_val: int) -> np.ndarray:
     >>> import numpy as np
     >>> p_val = 2
     >>> math.factorial(2 * p_val) / (math.factorial(p_val) * 2**p_val)
+    3.0
 
     which is the number of columns of the returned matrix.
 
