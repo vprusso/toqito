@@ -39,7 +39,7 @@ def is_unextendible_product_basis(vecs: list[np.ndarray], dims: list[int]) -> tu
     >>>
     >>> non_upb_tiles = np.array([tile(i) for i in range(4)])
     >>> dims = np.array([3, 3])
-    >>> is_unextendible_product_basis(non_upb_tiles, dims)
+    >>> is_unextendible_product_basis(non_upb_tiles, dims)  # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
     (False, array([-0.00000000e+00,  0.00000000e+00,  0.00000000e+00, -0.00000000e+00,
         0.00000000e+00,  0.00000000e+00, -1.11022302e-16,  7.07106781e-01,
         7.07106781e-01]))
