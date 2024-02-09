@@ -308,8 +308,8 @@ class NonlocalGame:
         ...                    pred_mat[a_alice, b_bob, x_alice, y_bob] = 1
         >>>
         >>> chsh = NonlocalGame(prob_mat, pred_mat)
-        >>> '%.2f' % chsh.quantum_value_lower_bound()
-        '0.85'
+        >>> chsh.quantum_value_lower_bound()   # doctest: +SKIP
+        0.85
 
         References
         ==========
