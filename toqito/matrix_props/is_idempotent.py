@@ -25,6 +25,7 @@ def is_idempotent(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> b
     >>> import numpy as np
     >>> mat = np.array([[3, -6], [1, -2]])
     >>> is_idempotent(mat)
+    True
 
     Alternatively, the following matrix
 
