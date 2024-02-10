@@ -3,12 +3,6 @@ a.logo.navbar-brand {
     display: none;
 }
 
-/* Hide 'Source' and 'Edit on GitHub' for now */
-/* TODO: Figure out how to hide just 'view source' */
-a.btn.btn-sm.btn-light.text-decoration-none {
-    display: none;
-}
-
 /* Hide default options in footer */
 ul.nav.justify-content-center.mb-2 {
     display: none;
