@@ -187,18 +187,18 @@ def _min_error_dual(
     d = vectors[0].shape[0]
 
     if strategy != "min_error":
-        raise ValueError(f"Minimum-error PPT distinguishability only supported at this time.")
+        raise ValueError("Minimum-error PPT distinguishability only supported at this time.")
 
     problem = picos.Problem()
     q_vars = [picos.HermitianVariable(f"Q[{i}]", (d, d)) for i in range(len(vectors))]
 
     y_var = picos.HermitianVariable("Y", (d, d))
     problem.add_list_of_constraints([
-        y_var - probs[i] * vector_to_density_matrix(vector) >> picos.partial_transpose(
-            q_vars[i],
+        y_var - probs[i] * vector_to_density_matrix(vectors[i]) >> picos.partial_transpose(
+            q_var,
             subsystems=subsystems,
             dimensions=dimensions,
-        ) for i, vector in enumerate(q_vars)
+        ) for i, q_var in enumerate(q_vars)
     ])
     problem.add_list_of_constraints([q_var >> 0 for q_var in q_vars])
 
