@@ -1,7 +1,6 @@
 """Test ppt_distinguishability."""
 import numpy as np
 
-from toqito.perms import swap_operator
 from toqito.state_opt import ppt_distinguishability
 from toqito.states import basis, bell
 
