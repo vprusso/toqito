@@ -1,8 +1,11 @@
 """Test ppt_distinguishability."""
 import numpy as np
+import pytest
 
 from toqito.state_opt import ppt_distinguishability
-from toqito.states import basis, bell
+from toqito.states import basis, bell, standard_basis
+
+e_0, e_1 = standard_basis(2)
 
 
 def test_ppt_distinguishability_yyd_density_matrices():
@@ -215,3 +218,43 @@ def test_ppt_distinguishability_four_bell_states():
     )
     np.testing.assert_equal(np.isclose(primal_res, exp_res, atol=0.001), True)
     np.testing.assert_equal(np.isclose(dual_res, exp_res, atol=0.001), True)
+
+
+@pytest.mark.parametrize("vectors, probs, solver, subsystems, dimensions, strategy, primal_dual", [
+    # Bell states (default uniform probs with dual).
+    ([bell(0), bell(1), bell(2), e_0], None, "cvxopt", [0], [2, 2], "min_error", "dual"),
+])
+def test_ppt_state_distinguishability_invalid_vectors(
+    vectors, probs, solver, subsystems, dimensions, strategy, primal_dual
+):
+    """Test function works as expected for an invalid input."""
+    with pytest.raises(ValueError, match = "Vectors for state distinguishability must all have the same dimension."):
+        ppt_distinguishability(
+            vectors=vectors,
+            probs=probs,
+            subsystems=subsystems,
+            dimensions=dimensions,
+            strategy=strategy,
+            solver=solver,
+            primal_dual=primal_dual
+        )
+
+
+@pytest.mark.parametrize("vectors, probs, solver, subsystems, dimensions, strategy, primal_dual", [
+    # Bell states (default uniform probs with dual).
+    ([bell(0), bell(1), bell(2), bell(3)], None, "cvxopt", [0], [2, 2], "unambig", "dual"),
+])
+def test_ppr_state_distinguishability_invalid_strategy(
+    vectors, probs, solver, subsystems, dimensions, strategy, primal_dual
+):
+    """Test function works as expected for an invalid input."""
+    with pytest.raises(ValueError, match = "Minimum-error PPT distinguishability only supported at this time."):
+        ppt_distinguishability(
+            vectors=vectors,
+            probs=probs,
+            subsystems=subsystems,
+            dimensions=dimensions,
+            strategy=strategy,
+            solver=solver,
+            primal_dual=primal_dual
+        )
