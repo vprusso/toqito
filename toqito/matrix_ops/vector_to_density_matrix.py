@@ -22,9 +22,9 @@ def vector_to_density_matrix(input_array: np.ndarray) -> np.ndarray:
     [0.  0.  0.  0. ]
     [0.5 0.  0.  0.5]]
 
+
     :raises ValueError: If the input is not a vector or a square matrix.
     :param input_array: Input array which could be a vector or a density matrix.
-    :param dim: The default has both subsystems of equal dimension.
     :return: The computed or provided density matrix.
 
     """

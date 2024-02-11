@@ -18,6 +18,8 @@ def calculate_vector_matrix_dimension(item: np.ndarray) -> int:
     :raises ValueError:
         If the input is not a numpy array, not a 1D array (vector), a 2D array representing a vector, or a square 2D
         array (density matrix).
+    :return: The dimension of the vector or matrix.
+
     """
     # Check if the input is a numpy array
     if not isinstance(item, np.ndarray):

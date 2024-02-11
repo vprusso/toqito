@@ -96,8 +96,10 @@ def ppt_distinguishability(
 
     :param vectors: A list of states provided as either matrices or vectors.
     :param probs: Respective list of probabilities each state is selected.
-    :param sys_dims: A list of integers that correspond to the complex Euclidean space dimensions.
+    :param subsystems: A list of integers that correspond to the complex Euclidean space dimensions.
+    :param dimensions: A list of integers that correspond to the dimensions of the subsystems.
     :param strategy: The method of distinguishing states.
+    :param solver: The SDP solver to use.
     :param primal_dual: Option for the optimization problem.
     :return: The optimal probability with which the states can be distinguished
              via PPT measurements.
@@ -165,7 +167,7 @@ def _min_error_primal(
     problem.set_objective(
         "max",
         np.real(picos.sum([
-            probs[i] * (vector_to_density_matrix(vectors[i]) | measurements[i]) for i, _ in enumerate(vectors)
+            probs[i] * (vector_to_density_matrix(vector) | measurements[i]) for i, vector in enumerate(vectors)
         ]))
     )
     solution = problem.solve(solver=solver)
@@ -188,15 +190,15 @@ def _min_error_dual(
         raise ValueError(f"Minimum-error PPT distinguishability only supported at this time.")
 
     problem = picos.Problem()
-    q_vars = [picos.HermitianVariable(f"Q[{i}]", (d, d)) for i, _ in enumerate(vectors)]
+    q_vars = [picos.HermitianVariable(f"Q[{i}]", (d, d)) for i in range(len(vectors))]
 
     y_var = picos.HermitianVariable("Y", (d, d))
     problem.add_list_of_constraints([
-        y_var - probs[i] * vector_to_density_matrix(vectors[i]) >> picos.partial_transpose(
+        y_var - probs[i] * vector_to_density_matrix(vector) >> picos.partial_transpose(
             q_vars[i],
             subsystems=subsystems,
             dimensions=dimensions,
-        ) for i, _ in enumerate(q_vars)
+        ) for i, vector in enumerate(q_vars)
     ])
     problem.add_list_of_constraints([q_var >> 0 for q_var in q_vars])
 
