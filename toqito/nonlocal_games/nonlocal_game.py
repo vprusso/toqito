@@ -311,6 +311,12 @@ class NonlocalGame:
         >>> chsh.quantum_value_lower_bound()   # doctest: +SKIP
         0.85
 
+        .. note::
+
+            We use `#doctest: +SKIP` here to stop `doctest` from comparing the expected output
+            to the calculated output. Depending on the accuracy of the solvers, the expected value
+            might not be exactly `0.85`.
+
         References
         ==========
         .. bibliography::

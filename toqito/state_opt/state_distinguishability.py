@@ -51,6 +51,14 @@ def state_distinguishability(
     >>> '%.2f' % res
     '1.00'
 
+    .. note::
+        You do not need to use `'%.2f' %` when you use this function.
+
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
+
     Note that if we are just interested in obtaining the optimal value, it is computationally less intensive to compute
     the dual problem over the primal problem. However, the primal problem does allow us to extract the explicit
     measurement operators which may be of interest to us.

@@ -76,6 +76,14 @@ class XORGame:
     >>> chsh.classical_value()
     0.75
 
+    .. note::
+        You do not need to use `'%.2f' %` when you use this function.
+
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
+
     The odd cycle game
 
     The odd cycle game is another XOR game :cite:`Cleve_2010_Consequences`. For this game, we can
@@ -110,6 +118,14 @@ class XORGame:
     '0.98'
     >>> '%.1f' % odd_cycle.classical_value()
     '0.9'
+
+    .. note::
+        You do not need to use `'%.2f' %` or `'%.1f' %` when you use this function.
+
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
 
     References
     ==========

@@ -125,6 +125,14 @@ def symmetric_extension_hierarchy(
     >>> # this value, however, the higher the level, the more computationally
     >>> # demanding the SDP becomes.
 
+    .. note::
+        You do not need to use `'%.2f' %` when you use this function.
+
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
+
     References
     ==========
     .. bibliography::
