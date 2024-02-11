@@ -75,6 +75,11 @@ def state_distinguishability(
            [-0. +0.j, -0. -0.j,  0. +0.j, -0. +0.j],
            [ 0.5+0.j,  0. +0.j, -0. -0.j,  0.5+0.j]])
 
+    .. note::
+        We use `#doctest: +SKIP` here to stop `doctest` from comparing the expected output
+        to the calculated output. Depending on the accuracy of the solvers, the expected value
+        might not be exactly as what's shown here.
+
     References
     ==========
     .. bibliography::
