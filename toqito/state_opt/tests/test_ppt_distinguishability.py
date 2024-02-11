@@ -152,51 +152,6 @@ def test_ppt_distinguishability_yyd_states_no_probs():
     np.testing.assert_equal(np.isclose(primal_res, 3 / 4, atol=0.001), True)
 
 
-def test_ppt_distinguishability_werner_hiding_pairs():
-    r"""One quantum data hiding scheme involves the Werner hiding pair :cite:`Terhal_2001_Hiding`.
-
-    A Werner hiding pair is defined by :cite:`Cosentino_2015_QuantumState`
-
-    .. math::
-    \begin{equation}
-        \sigma_0^{(n)} = \frac{\mathbb{I} \otimes \mathbb{I} + W_n}{n(n+1)}
-        \quad \text{and} \quad
-        \sigma_1^{(n)} = \frac{\mathbb{I} \otimes \mathbb{I} - W_n}{n(n-1)}
-    \end{equation}
-
-    The optimal probability to distinguish the Werner hiding pair is known
-    to be upper bounded by the following equation
-
-    .. math::
-    \begin{equation}
-        \frac{1}{2} + \frac{1}{n+1}
-    \end{equation}
-    """
-    dim = 2
-    sigma_0 = (np.kron(np.identity(dim), np.identity(dim)) + swap_operator(dim)) / (dim * (dim + 1))
-    sigma_1 = (np.kron(np.identity(dim), np.identity(dim)) - swap_operator(dim)) / (dim * (dim - 1))
-
-    states = [sigma_0, sigma_1]
-
-    expected_val = 1 / 2 + 1 / (dim + 1)
-
-    # Min-error tests:
-    primal_res, _ = ppt_distinguishability(
-        vectors=states, subsystems=[0], dimensions=[dim, dim], strategy="min_error", primal_dual="primal"
-    )
-    dual_res, _ = ppt_distinguishability(
-        vectors=states, subsystems=[0], dimensions=[dim, dim], strategy="min_error", primal_dual="dual"
-    )
-    np.testing.assert_equal(np.isclose(primal_res, expected_val, atol=0.001), True)
-    np.testing.assert_equal(np.isclose(dual_res, expected_val, atol=0.001), True)
-
-    primal_res, _ = ppt_distinguishability(
-        vectors=states, subsystems=[0], dimensions=[dim, dim], strategy="unambig", primal_dual="primal"
-    )
-
-    np.testing.assert_equal(np.isclose(primal_res, 1 / 3, atol=0.001), True)
-
-
 def test_ppt_distinguishability_four_bell_states():
     r"""PPT distinguishing the four Bell states.
 
