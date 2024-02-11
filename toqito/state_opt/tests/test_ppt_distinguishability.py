@@ -3,9 +3,7 @@ import numpy as np
 import pytest
 
 from toqito.state_opt import ppt_distinguishability
-from toqito.states import basis, bell, standard_basis
-
-e_0, e_1 = standard_basis(2)
+from toqito.states import basis, bell
 
 
 def test_ppt_distinguishability_yyd_density_matrices():
@@ -222,7 +220,7 @@ def test_ppt_distinguishability_four_bell_states():
 
 @pytest.mark.parametrize("vectors, probs, solver, subsystems, dimensions, strategy, primal_dual", [
     # Bell states (default uniform probs with dual).
-    ([bell(0), bell(1), bell(2), e_0], None, "cvxopt", [0], [2, 2], "min_error", "dual"),
+    ([bell(0), bell(1), bell(2), np.array([[1], [0]])], None, "cvxopt", [0], [2, 2], "min_error", "dual"),
 ])
 def test_ppt_state_distinguishability_invalid_vectors(
     vectors, probs, solver, subsystems, dimensions, strategy, primal_dual
