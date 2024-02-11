@@ -54,6 +54,12 @@ def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, sparse.dia_matr
     <2x2 sparse matrix of type '<class 'numpy.float64'>'
         with 2 stored elements (1 diagonals) in DIAgonal format>
 
+    .. note::
+        We use `#doctest` to verify our examples work as expected.
+
+        `# doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE` is used here to make sure doctest matches the
+        calculated output to be close to the expected output instead of making sure both match exactly.
+
     References
     ==========
     .. bibliography::

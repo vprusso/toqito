@@ -44,6 +44,12 @@ def is_unextendible_product_basis(vecs: list[np.ndarray], dims: list[int]) -> tu
         0.00000000e+00,  0.00000000e+00, -1.11022302e-16,  7.07106781e-01,
         7.07106781e-01]))
 
+    .. note::
+        We use `#doctest` to verify our examples work as expected.
+
+        `# doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE` is used here to make sure doctest matches the
+        calculated output to be close to the expected output instead of making sure both match exactly.
+
     The orthogonal state is given by
 
     .. math::
