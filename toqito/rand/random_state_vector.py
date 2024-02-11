@@ -20,6 +20,11 @@ def random_state_vector(dim: list[int] | int, is_real: bool = False, k_param: in
     [[0.50993973+0.15292408j],
      [0.27787332+0.79960122j]]
 
+    .. note::
+        We use `doctest` to check if our examples are working as expected. ` # doctest: +SKIP` is used here
+        to skip comparing the expected output to the calculated output because this function is supposed to
+        generate a random matrix.
+
     We can verify that this is in fact a valid state vector by computing the corresponding density matrix of the vector
     and checking if the density matrix is pure.
 

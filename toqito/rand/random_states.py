@@ -21,6 +21,23 @@ def random_states(n: int, d: int) -> list[np.ndarray]:
     3
     >>> states[0].shape
     (4, 1)
+    >>> states  # doctest: +SKIP
+    [array([[-0.2150583 +3.12920500e-01j],
+           [-0.45427289-2.42799455e-01j],
+           [ 0.34457387-3.20987030e-05j],
+           [ 0.47739088-4.93844159e-01j]]), array([[ 0.05596192-0.40459234j],
+           [-0.8497132 +0.06357884j],
+           [-0.22808131-0.16261183j],
+           [-0.16047978+0.05386145j]]), array([[ 0.12592373+0.00508266j],
+           [-0.71527467+0.41425908j],
+           [-0.27852449+0.39980357j],
+           [ 0.17033502+0.18562365j]])]
+
+
+    .. note::
+        We use `doctest` to check if our examples are working as expected. ` # doctest: +SKIP` is used here
+        to skip comparing the expected output to the calculated output because this function is supposed to
+        generate a random matrix.
 
 
     :param n: int

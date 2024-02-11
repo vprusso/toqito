@@ -65,6 +65,11 @@ def random_density_matrix(
     [[0.59937164+0.j         0.45355087-0.18473365j]
      [0.45355087+0.18473365j 0.40062836+0.j        ]]
 
+    .. note::
+        We use `doctest` to check if our examples are working as expected. ` # doctest: +SKIP` is used here
+        to skip comparing the expected output to the calculated output because this function is supposed to
+        generate a random matrix.
+
     As before, we can verify that this matrix generated is a valid density matrix.
 
     >>> from toqito.matrix_props import is_density
