@@ -21,11 +21,11 @@ def trine() -> list[np.ndarray]:
 
     >>> from toqito.states import trine
     >>>
-    >>> trine()  # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
+    >>> trine()
     [array([[1],
-            [0]]), array([[-0.5      ],
-            [-0.8660254]]), array([[-0.5      ],
-            [ 0.8660254]])]
+           [0]]), array([[-0.5      ],
+           [-0.8660254]]), array([[-0.5      ],
+           [ 0.8660254]])]
 
 
     References
