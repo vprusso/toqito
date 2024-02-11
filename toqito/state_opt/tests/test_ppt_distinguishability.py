@@ -196,6 +196,7 @@ def test_ppt_distinguishability_werner_hiding_pairs():
 
     np.testing.assert_equal(np.isclose(primal_res, 1 / 3, atol=0.001), True)
 
+
 def test_ppt_distinguishability_four_bell_states():
     r"""PPT distinguishing the four Bell states.
 
@@ -219,10 +220,10 @@ def test_ppt_distinguishability_four_bell_states():
     This formula happens to be equal to LOCC and SEP as well for this case.
     Refer to Theorem 5 in  :cite:`Bandyopadhyay_2015_Limitations` for more details.
     """
-    rho_1 = bell(0) * bell(0).conj().T
-    rho_2 = bell(1) * bell(1).conj().T
-    rho_3 = bell(2) * bell(2).conj().T
-    rho_4 = bell(3) * bell(3).conj().T
+    rho_1 = bell(0)
+    rho_2 = bell(1)
+    rho_3 = bell(2)
+    rho_4 = bell(3)
 
     e_0, e_1 = basis(2, 0), basis(2, 1)
     e_00 = np.kron(e_0, e_0)
@@ -230,7 +231,6 @@ def test_ppt_distinguishability_four_bell_states():
 
     eps = 0.5
     resource_state = np.sqrt((1 + eps) / 2) * e_00 + np.sqrt((1 - eps) / 2) * e_11
-    resource_state = resource_state * resource_state.conj().T
 
     states = [
         np.kron(rho_1, resource_state),
