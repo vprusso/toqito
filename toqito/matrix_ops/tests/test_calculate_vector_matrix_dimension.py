@@ -23,7 +23,7 @@ def test_2d_row_vector_dimension():
 def test_square_matrix_dimension():
     """Verify dimension calculation for square matrices."""
     matrix = np.array([[1, 0], [0, 1]])
-    assert calculate_vector_matrix_dimension(matrix) == 4
+    assert calculate_vector_matrix_dimension(matrix) == 2
 
 def test_non_square_matrix_error():
     """Verify error handling for non-square matrices."""

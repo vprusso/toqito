@@ -1,17 +1,19 @@
-"""PPT distinguishability."""
-import cvxpy
+"""PPT state distinguishability."""
 import numpy as np
+import picos
 
-from toqito.channels import partial_transpose
-
-from .state_helper import __is_probs_valid, __is_states_valid
+from toqito.matrix_ops import calculate_vector_matrix_dimension, vector_to_density_matrix
+from toqito.matrix_props import has_same_dimension
 
 
 def ppt_distinguishability(
-    states: list[np.ndarray],
+    vectors: list[np.ndarray],
+    subsystems: list[int],
+    dimensions: list[int],
     probs: list[float] = None,
-    dist_method: str = "min-error",
-    strategy: bool = False,
+    strategy: str = "min_error",
+    solver: str = "cvxopt",
+    primal_dual: str = "dual",
 ) -> float:
     r"""Compute probability of optimally distinguishing a state via PPT measurements :cite:`Cosentino_2013_PPT`.
 
@@ -82,7 +84,8 @@ def ppt_distinguishability(
     >>>
     >>> states = [rho_1, rho_2, rho_3, rho_4]
     >>> probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
-    >>> ppt_distinguishability(states, probs)
+    >>> opt_val, _ = ppt_distinguishability(vectors=states, probs=probs, subsystems=[0, 2], dimensions=[2, 2, 2, 2])
+    >>> opt_val
     0.875
 
     References
@@ -91,188 +94,114 @@ def ppt_distinguishability(
         :filter: docname in docnames
 
 
-    :param states: A list of states provided as either matrices or vectors.
-    :param dist_method: The method of distinguishing states.
+    :param vectors: A list of states provided as either matrices or vectors.
     :param probs: Respective list of probabilities each state is selected.
-    :param dist_method: Method of distinguishing to use.
-    :param strategy: Returns strategy if :code:`True` and does not otherwise.
+    :param sys_dims: A list of integers that correspond to the complex Euclidean space dimensions.
+    :param strategy: The method of distinguishing states.
+    :param primal_dual: Option for the optimization problem.
     :return: The optimal probability with which the states can be distinguished
              via PPT measurements.
 
     """
-    __is_states_valid(states)
-    if probs is None:
-        probs = [1 / len(states)] * len(states)
-    __is_probs_valid(probs)
+    if not has_same_dimension(vectors):
+        raise ValueError("Vectors for state distinguishability must all have the same dimension.")
 
-    _, dim_y = states[0].shape
+    # Assumes a uniform probabilities distribution among the states if one is not explicitly provided.
+    n = len(vectors)
+    probs = [1 / n] * n if probs is None else probs
 
-    # The variable `states` is provided as a list of vectors. Transform them
-    # into density matrices.
-    if dim_y == 1:
-        for i, state_ket in enumerate(states):
-            states[i] = state_ket * state_ket.conj().T
-
-    if strategy:
-        return primal_problem(states, probs, dist_method)
-    return dual_problem(states, probs, dist_method)
-
-
-def primal_problem(
-    states: list[np.ndarray], probs: list[float] = None, dist_method: str = "min-error"
-) -> float:
-    r"""Calculate primal problem for PPT distinguishability.
-
-    The minimum-error semidefinite program implemented is defined as:
-        .. math::
-            \begin{aligned}
-                \text{maximize:} \quad & \sum_{j=1}^k \langle P_j, \rho_j \rangle \\
-                \text{subject to:} \quad & P_1 + \cdots + P_k = \mathbb{I}_{\mathcal{A}}
-                                            \otimes \mathbb{I}_{\mathcal{B}}, \\
-                                        & P_1, \ldots, P_k \in \text{PPT}(\mathcal{A} : \mathcal{B}).
-            \end{aligned}
-
-    The unambiguous semidefinite program implemented is defined as:
-        .. math:
-            \begin{aligned}
-                \text{maximize:} \quad & \sum_{j=1}^k \langle P_j, \rho_j \rangle \\
-                \text{subject to:} \quad & P_1 + \cdots + P_k = \mathbb{I}_{\mathcal{A}}
-                                            \otimes \mathbb{I}_{\mathcal{B}}, \\
-                                        & P_1, \ldots, P_k
-                                        \in \text{PPT}(\mathcal{A} : \mathcal{B}), \\
-                                        & \langle P_i, \rho_j \rangle = 0,
-                                        \quad 1 \leq i, j \leq k, \quad i \not= j.
-            \end{aligned}
-
-
-
-    :param states: A list of states provided as either matrices or vectors.
-    :param probs: Respective list of probabilities each state is selected.
-    :param dist_method: Method of distinguishing to use.
-    :return: The optimal value of the PPT primal problem SDP.
-    """
-    dim_x, _ = states[0].shape
-
-    obj_func = []
-    meas = []
-    constraints = []
-
-    dim = int(np.log2(dim_x))
-    dim_list = [2] * int(np.log2(dim_x))
-
-    sys_list = list(range(1, dim, 2))
-
-    # Unambiguous consists of k + 1 operators, where the outcome of the k+1^st corresponds to the
-    # inconclusive answer.
-    if dist_method == "unambiguous":
-        for i in range(len(states) + 1):
-            meas.append(cvxpy.Variable((dim_x, dim_x), PSD=True))
-            constraints.append(partial_transpose(meas[i], sys_list, dim_list) >> 0)
-
-        for i, _ in enumerate(states):
-            for j, _ in enumerate(states):
-                if i != j:
-                    constraints.append(probs[j] * cvxpy.trace(states[j].conj().T @ meas[i]) == 0)
-
-    # Minimize error of distinguishing via PPT measurements.
-    elif dist_method == "min-error":
-        for i, _ in enumerate(states):
-            meas.append(cvxpy.Variable((dim_x, dim_x), PSD=True))
-            constraints.append(partial_transpose(meas[i], sys_list, dim_list) >> 0)
-
-    for i, item in enumerate(states):
-        obj_func.append(probs[i] * cvxpy.trace(item.conj().T @ meas[i]))
-
-    constraints.append(sum(meas) == np.identity(dim_x))
-
-    objective = cvxpy.Maximize(sum(obj_func))
-    problem = cvxpy.Problem(objective, constraints)
-    sol_default = problem.solve()
-
-    return sol_default
-
-
-def dual_problem(
-    states: list[np.ndarray], probs: list[float] = None, dist_method: str = "min-error"
-) -> float:
-    r"""Calculate dual problem for PPT distinguishability.
-
-    The minimum-error semidefinite program implemented is defined as:
-
-    .. math::
-        \begin{aligned}
-            \text{minimize:} \quad & \frac{1}{k} \text{Tr}(Y) \\
-            \text{subject to:} \quad & Y - \rho_j \geq \text{T}_{\mathcal{A}} (Q_j),
-                                        \quad j = 1, \ldots, k, \\
-                                     & Y \in \text{Herm}(\mathcal{A} \otimes
-                                        \mathcal{B}), \\
-                                     & Q_1, \ldots, Q_k \in
-                                        \text{Pos}(\mathcal{A} \otimes \mathcal{B}).
-        \end{aligned}
-
-    The unambiguous semidefinite program implemented is defined as:
-
-    .. math::
-        \begin{aligned}
-            \text{minimize:} \quad & \frac{1}{k} \text{Tr}(Y) \\
-            \text{subject to:} \quad & Y - \rho_j + \sum_{\substack{i \leq i \leq k \\ i \not= j}}
-                                        y_{i,j} \rho_i \geq T_{\mathcal{A}}(Q_j),
-                                        \quad j = 1, \ldots, k, \\
-                                     & Y \geq T_{\mathcal{A}}(Q_{k+1}), \\
-                                     & Y \in \text{Herm}(\mathcal{A} \otimes
-                                        \mathcal{B}), \\
-                                     & Q_1, \ldots, Q_k \in
-                                        \text{Pos}(\mathcal{A} \otimes \mathcal{B}), \\
-                                     & y_{i,j} \in \mathcal{R}. \quad 1 \leq i, j \leq k,
-                                        \quad i \not= j.
-        \end{aligned}
-
-    :param states: A list of states provided as either matrices or vectors.
-    :param probs: Respective list of probabilities each state is selected.
-    :param dist_method: Method of distinguishing to use.
-    :return: The optimal value of the PPT dual problem SDP.
-    """
-    constraints = []
-    meas = []
-
-    dim_x, _ = states[0].shape
-
-    y_var = cvxpy.Variable((dim_x, dim_x), hermitian=True)
-    objective = cvxpy.Minimize(cvxpy.trace(cvxpy.real(y_var)))
-
-    dim = int(np.log2(dim_x))
-    dim_list = [2] * int(np.log2(dim_x))
-    sys_list = list(range(1, dim, 2))
-    # dim_list = [3, 3]
-
-    if dist_method == "min-error":
-        for i, item in enumerate(states):
-            meas.append(cvxpy.Variable((dim_x, dim_x), PSD=True))
-            constraints.append(
-                cvxpy.real(y_var - probs[i] * item)
-                >> partial_transpose(meas[i], sys=sys_list, dim=dim_list)
-            )
-
-    if dist_method == "unambiguous":
-        for j, _ in enumerate(states):
-            sum_val = 0
-            for i, _ in enumerate(states):
-                if i != j:
-                    sum_val += cvxpy.real(cvxpy.Variable()) * probs[i] * states[i]
-            meas.append(cvxpy.Variable((dim_x, dim_x), PSD=True))
-            constraints.append(
-                cvxpy.real(y_var - probs[j] * states[j] + sum_val)
-                >> partial_transpose(meas[j], sys=sys_list, dim=dim_list)
-            )
-
-        meas.append(cvxpy.Variable((dim_x, dim_x), PSD=True))
-        constraints.append(
-            cvxpy.real(y_var) >> partial_transpose(meas[-1], sys=sys_list, dim=dim_list)
+    if primal_dual == "primal":
+        return _min_error_primal(
+            vectors=vectors,
+            subsystems=subsystems,
+            dimensions=dimensions,
+            probs=probs,
+            solver=solver,
+            strategy=strategy
         )
+    return _min_error_dual(
+        vectors=vectors,
+        subsystems=subsystems,
+        dimensions=dimensions,
+        probs=probs,
+        solver=solver,
+        strategy=strategy
+    )
 
-    problem = cvxpy.Problem(objective, constraints)
-    sol_default = problem.solve()
 
-    # print(np.around(y_var.value, decimals=3))
+def _min_error_primal(
+    vectors: list[np.ndarray],
+    subsystems: list[int],
+    dimensions: list[int],
+    probs: list[float],
+    solver: str = "cvxopt",
+    strategy: str = "min_error"
+):
+    """Primal problem for the SDP with PPT constraints."""
+    d = calculate_vector_matrix_dimension(vectors[0])
 
-    return sol_default
+    problem = picos.Problem()
+    num_measurements = len(vectors) if strategy == "min_error" else len(vectors) + 1
+    measurements = [picos.HermitianVariable(f"M[{i}]", (d, d)) for i in range(num_measurements)]
+
+    problem.add_list_of_constraints([meas >> 0 for meas in measurements])
+    problem.add_constraint(picos.sum(measurements) == picos.I(d))
+
+    # Add PPT constraint.
+    problem.add_list_of_constraints([
+        picos.partial_transpose(
+            meas,
+            subsystems=subsystems,
+            dimensions=dimensions,
+        ) >> 0 for meas in measurements
+    ])
+
+    if strategy == "unambig":
+        for i, _ in enumerate(vectors):
+            for j, _ in enumerate(vectors):
+                if i != j:
+                    problem.add_constraint(probs[j] * vector_to_density_matrix(vectors[j]) | measurements[i] == 0)
+
+    problem.set_objective(
+        "max",
+        np.real(picos.sum([
+            probs[i] * (vector_to_density_matrix(vectors[i]) | measurements[i]) for i, _ in enumerate(vectors)
+        ]))
+    )
+    solution = problem.solve(solver=solver)
+
+    return solution.value, measurements
+
+
+def _min_error_dual(
+    vectors: list[np.ndarray],
+    subsystems: list[int],
+    dimensions: list[int],
+    probs: list[float],
+    solver: str = "cvxopt",
+    strategy: str = "min_error"
+):
+    """Semidefinite program with PPT constraints (dual problem)."""
+    d = vectors[0].shape[0]
+
+    if strategy != "min_error":
+        raise ValueError(f"Minimum-error PPT distinguishability only supported at this time.")
+
+    problem = picos.Problem()
+    q_vars = [picos.HermitianVariable(f"Q[{i}]", (d, d)) for i, _ in enumerate(vectors)]
+
+    y_var = picos.HermitianVariable("Y", (d, d))
+    problem.add_list_of_constraints([
+        y_var - probs[i] * vector_to_density_matrix(vectors[i]) >> picos.partial_transpose(
+            q_vars[i],
+            subsystems=subsystems,
+            dimensions=dimensions,
+        ) for i, _ in enumerate(q_vars)
+    ])
+    problem.add_list_of_constraints([q_var >> 0 for q_var in q_vars])
+
+    problem.set_objective("min", picos.trace(y_var))
+    solution = problem.solve(solver=solver)
+
+    measurements = [problem.get_constraint(k).dual for k in range(len(vectors))]
+    return solution.value, measurements

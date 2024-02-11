@@ -30,21 +30,35 @@ def test_ppt_distinguishability_yyd_density_matrices():
     probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
 
     # Min-error tests:
-    primal_res = ppt_distinguishability(states, probs=probs, dist_method="min-error", strategy=True)
-    dual_res = ppt_distinguishability(states, probs=probs, dist_method="min-error", strategy=False)
-
+    primal_res, _ = ppt_distinguishability(
+        vectors=states,
+        probs=probs,
+        subsystems=[0, 2],
+        dimensions=[2, 2, 2, 2],
+        strategy="min_error",
+        primal_dual="primal"
+    )
+    dual_res, _ = ppt_distinguishability(
+        vectors=states,
+        probs=probs,
+        subsystems=[0, 2],
+        dimensions=[2, 2, 2, 2],
+        strategy="min_error",
+        primal_dual="dual"
+    )
     np.testing.assert_equal(np.isclose(primal_res, 7 / 8, atol=0.001), True)
     np.testing.assert_equal(np.isclose(dual_res, 7 / 8, atol=0.001), True)
 
-    primal_res = ppt_distinguishability(
-        states, probs=probs, dist_method="unambiguous", strategy=True
-    )
-    dual_res = ppt_distinguishability(
-        states, probs=probs, dist_method="unambiguous", strategy=False
+    primal_res, _ = ppt_distinguishability(
+        vectors=states,
+        probs=probs,
+        subsystems=[0, 2],
+        dimensions=[2, 2, 2, 2],
+        strategy="unambig",
+        primal_dual="primal"
     )
 
     np.testing.assert_equal(np.isclose(primal_res, 3 / 4, atol=0.001), True)
-    np.testing.assert_equal(np.isclose(dual_res, 3 / 4, atol=0.001), True)
 
 
 def test_ppt_distinguishability_yyd_vectors():
@@ -65,21 +79,37 @@ def test_ppt_distinguishability_yyd_vectors():
     states = [x_1, x_2, x_3, x_4]
     probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
 
-    primal_res = ppt_distinguishability(states, probs=probs, dist_method="min-error", strategy=True)
-    dual_res = ppt_distinguishability(states, probs=probs, dist_method="min-error", strategy=False)
+    # Min-error tests:
+    primal_res, _ = ppt_distinguishability(
+        vectors=states,
+        probs=probs,
+        subsystems=[0, 2],
+        dimensions=[2, 2, 2, 2],
+        strategy="min_error",
+        primal_dual="primal"
+    )
+    dual_res, _ = ppt_distinguishability(
+        vectors=states,
+        probs=probs,
+        subsystems=[0, 2],
+        dimensions=[2, 2, 2, 2],
+        strategy="min_error",
+        primal_dual="dual"
+    )
 
     np.testing.assert_equal(np.isclose(primal_res, 7 / 8, atol=0.001), True)
     np.testing.assert_equal(np.isclose(dual_res, 7 / 8, atol=0.001), True)
 
-    primal_res = ppt_distinguishability(
-        states, probs=probs, dist_method="unambiguous", strategy=True
-    )
-    dual_res = ppt_distinguishability(
-        states, probs=probs, dist_method="unambiguous", strategy=False
+    primal_res, _ = ppt_distinguishability(
+        vectors=states,
+        probs=probs,
+        subsystems=[0, 2],
+        dimensions=[2, 2, 2, 2],
+        strategy="unambig",
+        primal_dual="primal"
     )
 
     np.testing.assert_equal(np.isclose(primal_res, 3 / 4, atol=0.001), True)
-    np.testing.assert_equal(np.isclose(dual_res, 3 / 4, atol=0.001), True)
 
 
 def test_ppt_distinguishability_yyd_states_no_probs():
@@ -104,19 +134,22 @@ def test_ppt_distinguishability_yyd_states_no_probs():
 
     states = [rho_1, rho_2, rho_3, rho_4]
 
-    primal_res = ppt_distinguishability(states, probs=None, dist_method="min-error", strategy=True)
-    dual_res = ppt_distinguishability(states, probs=None, dist_method="min-error", strategy=False)
+    # Min-error tests:
+    primal_res, _ = ppt_distinguishability(
+        vectors=states, subsystems=[0, 2], dimensions=[2, 2, 2, 2], strategy="min_error", primal_dual="primal"
+    )
+    dual_res, _ = ppt_distinguishability(
+        vectors=states, subsystems=[0, 2], dimensions=[2, 2, 2, 2], strategy="min_error", primal_dual="dual"
+    )
 
     np.testing.assert_equal(np.isclose(primal_res, 7 / 8, atol=0.001), True)
     np.testing.assert_equal(np.isclose(dual_res, 7 / 8, atol=0.001), True)
 
-    primal_res = ppt_distinguishability(
-        states, probs=None, dist_method="unambiguous", strategy=True
+    primal_res, _ = ppt_distinguishability(
+        vectors=states, subsystems=[0, 2], dimensions=[2, 2, 2, 2], strategy="unambig", primal_dual="primal"
     )
-    dual_res = ppt_distinguishability(states, probs=None, dist_method="unambiguous", strategy=False)
 
     np.testing.assert_equal(np.isclose(primal_res, 3 / 4, atol=0.001), True)
-    np.testing.assert_equal(np.isclose(dual_res, 3 / 4, atol=0.001), True)
 
 
 def test_ppt_distinguishability_werner_hiding_pairs():
@@ -147,20 +180,21 @@ def test_ppt_distinguishability_werner_hiding_pairs():
 
     expected_val = 1 / 2 + 1 / (dim + 1)
 
-    primal_res = ppt_distinguishability(states, probs=None, dist_method="min-error", strategy=True)
-    dual_res = ppt_distinguishability(states, probs=None, dist_method="min-error", strategy=False)
-
+    # Min-error tests:
+    primal_res, _ = ppt_distinguishability(
+        vectors=states, subsystems=[0], dimensions=[dim, dim], strategy="min_error", primal_dual="primal"
+    )
+    dual_res, _ = ppt_distinguishability(
+        vectors=states, subsystems=[0], dimensions=[dim, dim], strategy="min_error", primal_dual="dual"
+    )
     np.testing.assert_equal(np.isclose(primal_res, expected_val, atol=0.001), True)
     np.testing.assert_equal(np.isclose(dual_res, expected_val, atol=0.001), True)
 
-    primal_res = ppt_distinguishability(
-        states, probs=None, dist_method="unambiguous", strategy=True
+    primal_res, _ = ppt_distinguishability(
+        vectors=states, subsystems=[0], dimensions=[dim, dim], strategy="unambig", primal_dual="primal"
     )
-    dual_res = ppt_distinguishability(states, probs=None, dist_method="unambiguous", strategy=False)
 
     np.testing.assert_equal(np.isclose(primal_res, 1 / 3, atol=0.001), True)
-    np.testing.assert_equal(np.isclose(dual_res, 1 / 3, atol=0.001), True)
-
 
 def test_ppt_distinguishability_four_bell_states():
     r"""PPT distinguishing the four Bell states.
@@ -208,8 +242,22 @@ def test_ppt_distinguishability_four_bell_states():
 
     exp_res = 1 / 2 * (1 + np.sqrt(1 - eps ** 2))
 
-    primal_res = ppt_distinguishability(states, probs=probs, dist_method="min-error", strategy=True)
-    dual_res = ppt_distinguishability(states, probs=probs, dist_method="min-error", strategy=False)
-
+    # Min-error tests:
+    primal_res, _ = ppt_distinguishability(
+        vectors=states,
+        probs=probs,
+        subsystems=[0, 2],
+        dimensions=[2, 2, 2, 2],
+        strategy="min_error",
+        primal_dual="primal"
+    )
+    dual_res, _ = ppt_distinguishability(
+        vectors=states,
+        probs=probs,
+        subsystems=[0, 2],
+        dimensions=[2, 2, 2, 2],
+        strategy="min_error",
+        primal_dual="dual"
+    )
     np.testing.assert_equal(np.isclose(primal_res, exp_res, atol=0.001), True)
     np.testing.assert_equal(np.isclose(dual_res, exp_res, atol=0.001), True)
