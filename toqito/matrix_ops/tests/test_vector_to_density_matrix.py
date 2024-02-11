@@ -20,6 +20,7 @@ from toqito.matrix_ops import vector_to_density_matrix
     (np.array([[[1, 0], [0, 1]]]), None, ValueError),
 ])
 def test_vector_to_density_matrix(input_vector, expected_output, exception):
+    """Test vector to density matrix functionality."""
     if exception:
         with pytest.raises(exception):
             vector_to_density_matrix(input_vector)
