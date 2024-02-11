@@ -17,10 +17,10 @@ def vector_to_density_matrix(input_array: np.ndarray) -> np.ndarray:
     >>> from toqito.matrix_ops import vector_to_density_matrix
     >>>
     >>> vector_to_density_matrix(bell(0))
-    [[0.5 0.  0.  0.5]
-    [0.  0.  0.  0. ]
-    [0.  0.  0.  0. ]
-    [0.5 0.  0.  0.5]]
+    array([[0.5 0.  0.  0.5]
+    ...[0.  0.  0.  0. ]
+    ...[0.  0.  0.  0. ]
+    ...[0.5 0.  0.  0.5]])
 
 
     :raises ValueError: If the input is not a vector or a square matrix.

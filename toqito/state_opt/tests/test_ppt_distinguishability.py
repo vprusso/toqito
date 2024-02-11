@@ -46,8 +46,8 @@ def test_ppt_distinguishability_yyd_density_matrices():
         strategy="min_error",
         primal_dual="dual"
     )
-    np.testing.assert_equal(np.isclose(primal_res, 7 / 8, atol=0.001), True)
-    np.testing.assert_equal(np.isclose(dual_res, 7 / 8, atol=0.001), True)
+    assert np.isclose(primal_res, 7 / 8, atol=0.001)
+    assert np.isclose(dual_res, 7 / 8, atol=0.001)
 
     primal_res, _ = ppt_distinguishability(
         vectors=states,
@@ -58,7 +58,7 @@ def test_ppt_distinguishability_yyd_density_matrices():
         primal_dual="primal"
     )
 
-    np.testing.assert_equal(np.isclose(primal_res, 3 / 4, atol=0.001), True)
+    assert np.isclose(primal_res, 3 / 4, atol=0.001)
 
 
 def test_ppt_distinguishability_yyd_vectors():
@@ -97,8 +97,8 @@ def test_ppt_distinguishability_yyd_vectors():
         primal_dual="dual"
     )
 
-    np.testing.assert_equal(np.isclose(primal_res, 7 / 8, atol=0.001), True)
-    np.testing.assert_equal(np.isclose(dual_res, 7 / 8, atol=0.001), True)
+    assert np.isclose(primal_res, 7 / 8, atol=0.001)
+    assert np.isclose(dual_res, 7 / 8, atol=0.001)
 
     primal_res, _ = ppt_distinguishability(
         vectors=states,
@@ -109,7 +109,7 @@ def test_ppt_distinguishability_yyd_vectors():
         primal_dual="primal"
     )
 
-    np.testing.assert_equal(np.isclose(primal_res, 3 / 4, atol=0.001), True)
+    assert np.isclose(primal_res, 3 / 4, atol=0.001)
 
 
 def test_ppt_distinguishability_yyd_states_no_probs():
@@ -142,14 +142,14 @@ def test_ppt_distinguishability_yyd_states_no_probs():
         vectors=states, subsystems=[0, 2], dimensions=[2, 2, 2, 2], strategy="min_error", primal_dual="dual"
     )
 
-    np.testing.assert_equal(np.isclose(primal_res, 7 / 8, atol=0.001), True)
-    np.testing.assert_equal(np.isclose(dual_res, 7 / 8, atol=0.001), True)
+    assert np.isclose(primal_res, 7 / 8, atol=0.001)
+    assert np.isclose(dual_res, 7 / 8, atol=0.001)
 
     primal_res, _ = ppt_distinguishability(
         vectors=states, subsystems=[0, 2], dimensions=[2, 2, 2, 2], strategy="unambig", primal_dual="primal"
     )
 
-    np.testing.assert_equal(np.isclose(primal_res, 3 / 4, atol=0.001), True)
+    assert np.isclose(primal_res, 3 / 4, atol=0.001)
 
 
 def test_ppt_distinguishability_four_bell_states():
@@ -214,8 +214,8 @@ def test_ppt_distinguishability_four_bell_states():
         strategy="min_error",
         primal_dual="dual"
     )
-    np.testing.assert_equal(np.isclose(primal_res, exp_res, atol=0.001), True)
-    np.testing.assert_equal(np.isclose(dual_res, exp_res, atol=0.001), True)
+    assert np.isclose(primal_res, exp_res, atol=0.001)
+    assert np.isclose(dual_res, exp_res, atol=0.001)
 
 
 @pytest.mark.parametrize("vectors, probs, solver, subsystems, dimensions, strategy, primal_dual", [
