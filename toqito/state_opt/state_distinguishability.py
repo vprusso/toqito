@@ -75,7 +75,6 @@ def state_distinguishability(
                   probabilities are provided, a uniform probability distribution is assumed.
     :param solver: Optimization option for `picos` solver. Default option is `solver_option="cvxopt"`.
     :param primal_dual: Option for the optimization problem. Default option is `"dual"`.
-    :param strategy: The method of distinguishing states.
     :return: The optimal probability with which Bob can guess the state he was
              not given from `states` along with the optimal set of measurements.
 
