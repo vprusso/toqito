@@ -17,7 +17,7 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int) -> np.ndarray:
     >>>
     >>> dim, num_inputs, num_outputs = 2, 2, 2
     >>> povms = random_povm(dim, num_inputs, num_outputs)
-    >>> povms
+    >>> povms # doctest: +SKIP
     [[[[ 0.40313832+0.j,  0.59686168+0.j],
        [ 0.91134633+0.j,  0.08865367+0.j]],
      [[-0.27285707+0.j,  0.27285707+0.j],
@@ -27,12 +27,22 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int) -> np.ndarray:
      [[ 0.452533  +0.j,  0.547467  +0.j],
       [ 0.34692158+0.j,  0.65307842+0.j]]]]
 
+    .. note::
+        We use `doctest` to check if our examples are working as expected. ` # doctest: +SKIP` is used here
+        to skip comparing the expected output to the calculated output because this function is supposed to
+        generate a random matrix.
+
     We can verify that this constitutes a valid set of POVM elements as checking that these operators all sum to the
     identity operator.
 
-    >>> np.round(povms[:, :, 0, 0] + povms[:, :, 0, 1])
+    >>> np.round(povms[:, :, 0, 0] + povms[:, :, 0, 1]) # doctest: +SKIP
     [[1.+0.j, 0.+0.j],
      [0.+0.j, 1.+0.j]]
+
+    .. note::
+        We use `doctest` to check if our examples are working as expected. ` # doctest: +SKIP` is used here
+        to skip comparing the expected output to the calculated output because this function is supposed to
+        generate a random matrix.
 
     References
     ==========

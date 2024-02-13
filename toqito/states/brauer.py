@@ -20,6 +20,7 @@ def brauer(dim: int, p_val: int) -> np.ndarray:
     >>> import numpy as np
     >>> p_val = 2
     >>> math.factorial(2 * p_val) / (math.factorial(p_val) * 2**p_val)
+    3.0
 
     which is the number of columns of the returned matrix.
 
@@ -32,22 +33,22 @@ def brauer(dim: int, p_val: int) -> np.ndarray:
 
     >>> from toqito.states import brauer
     >>> brauer(2, 2)
-    [[1. 1. 1.]
-     [0. 0. 0.]
-     [0. 0. 0.]
-     [1. 0. 0.]
-     [0. 0. 0.]
-     [0. 1. 0.]
-     [0. 0. 1.]
-     [0. 0. 0.]
-     [0. 0. 0.]
-     [0. 0. 1.]
-     [0. 1. 0.]
-     [0. 0. 0.]
-     [1. 0. 0.]
-     [0. 0. 0.]
-     [0. 0. 0.]
-     [1. 1. 1.]]
+    array([[1., 1., 1.],
+           [0., 0., 0.],
+           [0., 0., 0.],
+           [1., 0., 0.],
+           [0., 0., 0.],
+           [0., 1., 0.],
+           [0., 0., 1.],
+           [0., 0., 0.],
+           [0., 0., 0.],
+           [0., 0., 1.],
+           [0., 1., 0.],
+           [0., 0., 0.],
+           [1., 0., 0.],
+           [0., 0., 0.],
+           [0., 0., 0.],
+           [1., 1., 1.]])
 
     References
     ==========

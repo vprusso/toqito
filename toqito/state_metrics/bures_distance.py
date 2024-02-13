@@ -47,7 +47,7 @@ def bures_distance(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> 
     ... )
     >>> sigma = rho
     >>> bures_distance(rho, sigma)
-    0
+    0.0
 
     References
     ==========

@@ -47,13 +47,12 @@ def dual_channel(
     >>> kraus_list = [kraus_1, kraus_2]
     >>> dual_channel(kraus_list)
     [array([[1.-0.j],
-        [0.-0.j],
-        [0.-1.j],
-        [0.-0.j]]),
-    array([[0.-0.j],
-            [1.-0.j],
-            [0.-0.j],
-            [0.-1.j]])]
+           [0.-0.j],
+           [0.-1.j],
+           [0.-0.j]]), array([[0.-0.j],
+           [1.-0.j],
+           [0.-0.j],
+           [0.-1.j]])]
 
     If the input channel's dimensions are different from the output dual channel's dimensions,
 
@@ -63,11 +62,11 @@ def dual_channel(
     >>> input_op = swap_operator([2, 3])
     >>> dual_channel(input_op, [[3, 2], [2, 3]])
     array([[1., 0., 0., 0., 0., 0.],
-       [0., 0., 1., 0., 0., 0.],
-       [0., 0., 0., 0., 1., 0.],
-       [0., 1., 0., 0., 0., 0.],
-       [0., 0., 0., 1., 0., 0.],
-       [0., 0., 0., 0., 0., 1.]])
+           [0., 0., 1., 0., 0., 0.],
+           [0., 0., 0., 0., 1., 0.],
+           [0., 1., 0., 0., 0., 0.],
+           [0., 0., 0., 1., 0., 0.],
+           [0., 0., 0., 0., 0., 1.]])
 
     References
     ==========

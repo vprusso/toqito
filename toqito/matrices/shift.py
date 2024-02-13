@@ -36,9 +36,9 @@ def shift(dim: int) -> np.ndarray:
 
     >>> from toqito.matrices import shift
     >>> shift(3)
-    [[0., 0., 1.],
-     [1., 0., 0.],
-     [0., 1., 0.]]
+    array([[0., 0., 1.],
+           [1., 0., 0.],
+           [0., 1., 0.]])
 
     References
     ==========

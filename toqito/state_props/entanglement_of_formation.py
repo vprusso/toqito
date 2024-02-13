@@ -40,8 +40,16 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
     >>>
     >>> u_vec = bell(0)
     >>> rho = u_vec * u_vec.conj().T
-    >>> entanglement_of_formation(rho)
-    1
+    >>> '%.2f' % entanglement_of_formation(rho)
+    '1.00'
+
+    .. note::
+        You do not need to use `'%.2f' %` when you use this function.
+
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
 
     References
     ==========

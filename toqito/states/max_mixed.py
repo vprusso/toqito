@@ -43,15 +43,22 @@ def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, sparse.dia_matr
 
     >>> from toqito.states import max_mixed
     >>> max_mixed(2, is_sparse=False)
-    [[0.5, 0. ],
-     [0. , 0.5]]
+    array([[0.5, 0. ],
+           [0. , 0.5]])
+
 
     One may also generate a maximally mixed state returned as a sparse matrix
 
     >>> from toqito.states import max_mixed
-    >>> max_mixed(2, is_sparse=True)
-        <2x2 sparse matrix of type '<class 'numpy.float64'>'
+    >>> max_mixed(2, is_sparse=True) # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
+    <2x2 sparse matrix of type '<class 'numpy.float64'>'
         with 2 stored elements (1 diagonals) in DIAgonal format>
+
+    .. note::
+        We use `#doctest` to verify our examples work as expected.
+
+        `# doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE` is used here to make sure doctest matches the
+        calculated output to be close to the expected output instead of making sure both match exactly.
 
     References
     ==========

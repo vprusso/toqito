@@ -24,9 +24,8 @@ def standard_basis(dim: int, flatten: bool = False) -> list[np.ndarray]:
     >>> from toqito.matrices import standard_basis
     >>> standard_basis(2)
     [array([[1.],
-            [0.]]),
-    array([[0.],
-            [1.]])]
+           [0.]]), array([[0.],
+           [1.]])]
 
 
     References

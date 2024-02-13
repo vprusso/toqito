@@ -43,8 +43,16 @@ def concurrence(rho: np.ndarray) -> float:
     >>> e_00, e_11 = np.kron(e_0, e_0), np.kron(e_1, e_1)
     >>> u_vec = 1 / np.sqrt(2) * (e_00 + e_11)
     >>> rho = u_vec * u_vec.conj().T
-    >>> concurrence(rho)
-    0.9999999999999998
+    >>> '%.2f' % concurrence(rho)
+    '1.00'
+
+    .. note::
+        You do not need to use `'%.2f' %` when you use this function.
+
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
 
     Consider the concurrence of the following product state
 

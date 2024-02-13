@@ -48,22 +48,37 @@ def state_distinguishability(
     >>> states = [bell(0), bell(1), bell(2), bell(3)]
     >>> probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
     >>> res, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="dual")
-    0.9999999994695794
+    >>> '%.2f' % res
+    '1.00'
+
+    .. note::
+        You do not need to use `'%.2f' %` when you use this function.
+
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
 
     Note that if we are just interested in obtaining the optimal value, it is computationally less intensive to compute
     the dual problem over the primal problem. However, the primal problem does allow us to extract the explicit
     measurement operators which may be of interest to us.
 
+    >>> import numpy as np
     >>> from toqito.states import bell
     >>> from toqito.state_opt import state_distinguishability
     >>> states = [bell(0), bell(1), bell(2), bell(3)]
     >>> probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
     >>> res, measurements = state_distinguishability(vectors=states, probs=probs, primal_dual="primal")
-    >>> np.around(measurements[0], decimals=5)
-    [[ 0.5+0.j -0. +0.j  0. +0.j  0.5-0.j]
-     [-0. -0.j  0. +0.j -0. -0.j -0. -0.j]
-     [ 0. -0.j -0. +0.j  0. +0.j  0. -0.j]
-     [ 0.5+0.j -0. +0.j  0. +0.j  0.5+0.j]]
+    >>> np.around(measurements[0], decimals=5)  # doctest: +SKIP
+    array([[ 0.5+0.j,  0. +0.j, -0. -0.j,  0.5-0.j],
+           [ 0. -0.j,  0. +0.j, -0. +0.j,  0. -0.j],
+           [-0. +0.j, -0. -0.j,  0. +0.j, -0. +0.j],
+           [ 0.5+0.j,  0. +0.j, -0. -0.j,  0.5+0.j]])
+
+    .. note::
+        We use `#doctest: +SKIP` here to stop `doctest` from comparing the expected output
+        to the calculated output. Depending on the accuracy of the solvers, the expected value
+        might not be exactly as what's shown here.
 
     References
     ==========

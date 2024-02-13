@@ -37,14 +37,23 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     For two identical channels, we should expect that the channel fidelity should yield a value of
     :math:`1`.
 
+
     >>> from toqito.channels import dephasing
     >>> from toqito.channel_metrics import channel_fidelity
     >>>
     >>> # The Choi matrices of dimension-4 for the dephasing channel
     >>> choi_1 = dephasing(4)
     >>> choi_2 = dephasing(4)
-    >>> channel_fidelity(choi_1, choi_2)
-    0.9999790499568767
+    >>> '%.2f' % channel_fidelity(choi_1, choi_2)
+    '1.00'
+
+    .. note::
+        You do not need to use `'%.2f' %` when you use this function.
+
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
 
     We can also compute the channel fidelity between two different channels. For example, we can
     compute the channel fidelity between the dephasing and depolarizing channels.
@@ -55,8 +64,16 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     >>> # The Choi matrices of dimension-4 for the dephasing and depolarizing channels
     >>> choi_1 = dephasing(4)
     >>> choi_2 = depolarizing(4)
-    >>> channel_fidelity(choi_1, choi_2)
-    0.5001368672503087
+    >>> '%.2f' % channel_fidelity(choi_1, choi_2)
+    '0.50'
+
+    .. note::
+        You do not need to use `'%.2f' %` when you use this function.
+
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
 
 
     References

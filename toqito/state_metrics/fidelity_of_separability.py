@@ -14,7 +14,7 @@ def fidelity_of_separability(
     input_state_rho: np.ndarray,
     input_state_rho_dims: list[int],
     k: int = 1,
-    verbosity_option: int = 2,
+    verbosity_option: int = 0,
     solver_option: str = "cvxopt",
 ) -> float:
     r"""Define the first benchmark introduced in Appendix H of :cite:`Philip_2023_Schrodinger`.
@@ -85,18 +85,23 @@ def fidelity_of_separability(
     .. math::
         \rho_{AB} = |00 \rangle \langle 00|
 
-    .. code-block:: python
 
-        from toqito.state_metrics import fidelity_of_separability
-        from toqito.matrix_ops import tensor
-        from toqito.states import basis
+    >>> from toqito.state_metrics import fidelity_of_separability
+    >>> from toqito.matrix_ops import tensor
+    >>> from toqito.states import basis
+    >>> state = tensor(basis(2, 0), basis(2, 0))
+    >>> rho = state @ state.conj().T
+    >>> expected_value = fidelity_of_separability(rho, [2, 2])
+    >>> '%.2f' % expected_value
+    '1.00'
 
-        state = tensor(basis(2, 0), basis(2, 0))
-        rho = state @ state.conj().T
-        expected_value = fidelity_of_separability(rho, [2, 2])
-        expected_value
+    .. note::
+        You do not need to use `'%.2f' %` when you use this function.
 
-    >>> 0.9999999998278968
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
 
     References
     ==========
@@ -110,7 +115,7 @@ def fidelity_of_separability(
         quantity in this list is the dimension of System A.
     :param k: value for k-extendibility.
     :param verbosity_option: Parameter option for `picos`. Default value is
-        `verbosity = 2`. For more info, visit
+        `verbosity = 0`. For more info, visit
         https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-verbosity.
     :param solver_option: Optimization option for `picos` solver. Default option is
         `solver_option="cvxopt"`. For more info, visit
@@ -147,6 +152,7 @@ def fidelity_of_separability(
 
     # unitary permutation operator in B1,B2,...,Bk
     permutation_op = symmetric_projection(dim_b, k)
+
 
     # defining the problem objective: Re[Tr[X_AB]]
     problem = picos.Problem(verbosity=verbosity_option)
