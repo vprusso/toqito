@@ -126,14 +126,10 @@ def _min_error_primal(
     problem.add_list_of_constraints([meas >> 0 for meas in measurements])
     problem.add_constraint(picos.sum(measurements) == picos.I(dim))
 
+    dms = [vector_to_density_matrix(vector) for vector in vectors]
     problem.set_objective(
         "min",
-        picos.sum(
-            [
-                (probs[i] * vector_to_density_matrix(vectors[i]) | measurements[i])
-                for i in range(n)
-            ]
-        ),
+        np.real(picos.sum([(probs[i] * dms[i] | measurements[i]) for i in range(n)]))
     )
     solution = problem.solve(solver=solver)
     return solution.value, measurements

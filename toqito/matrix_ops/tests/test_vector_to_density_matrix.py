@@ -26,4 +26,4 @@ def test_vector_to_density_matrix(input_vector, expected_output, exception):
             vector_to_density_matrix(input_vector)
     else:
         computed_density_matrix = vector_to_density_matrix(input_vector)
-        assert abs(computed_density_matrix, expected_output).all() <= 1E-3
+        assert abs(computed_density_matrix - expected_output).all() <= 1e-3

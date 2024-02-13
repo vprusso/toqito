@@ -140,10 +140,11 @@ def _min_error_primal(
     strategy: str = "min_error"
 ):
     """Primal problem for the SDP with PPT constraints."""
+    n = len(vectors)
     d = calculate_vector_matrix_dimension(vectors[0])
 
     problem = picos.Problem()
-    num_measurements = len(vectors) if strategy == "min_error" else len(vectors) + 1
+    num_measurements = n if strategy == "min_error" else n + 1
     measurements = [picos.HermitianVariable(f"M[{i}]", (d, d)) for i in range(num_measurements)]
 
     problem.add_list_of_constraints([meas >> 0 for meas in measurements])
@@ -158,18 +159,14 @@ def _min_error_primal(
         ) >> 0 for meas in measurements
     ])
 
+    dms = [vector_to_density_matrix(vector) for vector in vectors]
     if strategy == "unambig":
-        for i, _ in enumerate(vectors):
-            for j, _ in enumerate(vectors):
+        for i in range(n):
+            for j in range(n):
                 if i != j:
-                    problem.add_constraint(probs[j] * vector_to_density_matrix(vectors[j]) | measurements[i] == 0)
+                    problem.add_constraint(probs[j] * dms[j] | measurements[i] == 0)
 
-    problem.set_objective(
-        "max",
-        np.real(picos.sum([
-            probs[i] * (vector_to_density_matrix(vector) | measurements[i]) for i, vector in enumerate(vectors)
-        ]))
-    )
+    problem.set_objective("max", np.real(picos.sum([probs[i] * (dms[i] | measurements[i]) for i in range(n)])))
     solution = problem.solve(solver=solver)
 
     return solution.value, measurements
