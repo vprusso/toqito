@@ -18,9 +18,9 @@ def vector_to_density_matrix(input_array: np.ndarray) -> np.ndarray:
     >>>
     >>> vector_to_density_matrix(bell(0))
     array([[0.5 0.  0.  0.5]
-    ...[0.  0.  0.  0. ]
-    ...[0.  0.  0.  0. ]
-    ...[0.5 0.  0.  0.5]])
+               [0.  0.  0.  0. ]
+               [0.  0.  0.  0. ]
+               [0.5 0.  0.  0.5]])
 
 
     :raises ValueError: If the input is not a vector or a square matrix.
