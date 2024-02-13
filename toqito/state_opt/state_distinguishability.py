@@ -10,7 +10,6 @@ def state_distinguishability(
     vectors: list[np.ndarray],
     probs: list[float] = None,
     solver: str = "cvxopt",
-    strategy: str = "min_error",
     primal_dual: str = "dual",
 ) -> float:
     r"""Compute probability of state distinguishability :cite:`Eldar_2003_SDPApproach`.
@@ -90,7 +89,7 @@ def state_distinguishability(
     dim = calculate_vector_matrix_dimension(vectors[0])
 
     if primal_dual == "primal":
-        return _min_error_primal(vectors=vectors, dim=dim, probs=probs, solver=solver, strategy=strategy)
+        return _min_error_primal(vectors=vectors, dim=dim, probs=probs, solver=solver)
     return _min_error_dual(vectors=vectors, dim=dim, probs=probs, solver=solver)
 
 
@@ -99,25 +98,18 @@ def _min_error_primal(
         dim: int,
         probs: list[float] = None,
         solver: str = "cvxopt",
-        strategy: str = "min_error",
 ) -> tuple[float, list[picos.HermitianVariable]]:
     """Find the primal problem for minimum-error quantum state distinguishability SDP."""
     n = len(vectors)
 
     problem = picos.Problem()
-    num_measurements = len(vectors) if strategy == "min_error" else len(vectors) + 1
+    num_measurements = len(vectors)
     measurements = [picos.HermitianVariable(f"M[{i}]", (dim, dim)) for i in range(num_measurements)]
 
     problem.add_list_of_constraints([meas >> 0 for meas in measurements])
     problem.add_constraint(picos.sum(measurements) == picos.I(dim))
 
     dms = [vector_to_density_matrix(vector) for vector in vectors]
-
-    if strategy == "unambig":
-        for i in range(n):
-            for j in range(n):
-                if i != j:
-                    problem.add_constraint(probs[j] * dms[j] | measurements[i] == 0)
 
     problem.set_objective(
         "max",
