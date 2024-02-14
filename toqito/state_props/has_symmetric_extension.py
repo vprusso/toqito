@@ -40,6 +40,7 @@ def has_symmetric_extension(
 
     >>> import numpy as np
     >>> from toqito.state_props import has_symmetric_extension
+    >>> from toqito.channels import partial_trace
     >>> rho = np.array([[1, 0, 0, -1],
     ...                 [0, 1, 1/2, 0],
     ...                 [0, 1/2, 1, 0],

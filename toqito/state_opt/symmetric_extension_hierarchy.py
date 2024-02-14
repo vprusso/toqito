@@ -83,7 +83,7 @@ def symmetric_extension_hierarchy(
     >>> from toqito.states import basis, bell
     >>> from toqito.perms import swap
     >>> import numpy as np
-    >>>
+    >>> from toqito.state_opt import symmetric_extension_hierarchy
     >>> e_0, e_1 = basis(2, 0), basis(2, 1)
     >>> e_00, e_11 = np.kron(e_0, e_0), np.kron(e_1, e_1)
     >>>
@@ -109,21 +109,29 @@ def symmetric_extension_hierarchy(
     >>>
     >>> # Calculate the first level of the symmetric extension hierarchy. This
     >>> # is simply the value of optimally distinguishing via PPT measurements.
-    >>> symmetric_extension_hierarchy(states=states, probs=None, level=1)
-    0.9915817434994775
+    >>> '%.2f' % symmetric_extension_hierarchy(states=states, probs=None, level=1)
+    '0.99'
     >>>
     >>> # Calculating the second value gets closer to the separable value.
-    >>> symmetric_extension_hierarchy(states=states, probs=None, level=2)
-    0.958305796189204
+    >>> '%.2f' % symmetric_extension_hierarchy(states=states, probs=None, level=2)
+    '0.96'
     >>>
     >>> # As proven in :cite:`Cosentino_2015_QuantumState`, the true separable value of distinguishing the
     >>> # three Bell states is:
-    >>> 1/3 * (2 + np.sqrt(1 - eps**2))
-    0.9553418012614794
+    >>> '%.2f' % (1/3 * (2 + np.sqrt(1 - eps**2)))
+    '0.96'
     >>>
     >>> # Computing further levels of the hierarchy would eventually converge to
     >>> # this value, however, the higher the level, the more computationally
     >>> # demanding the SDP becomes.
+
+    .. note::
+        You do not need to use `'%.2f' %` when you use this function.
+
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
 
     References
     ==========

@@ -30,10 +30,10 @@ def pure_to_mixed(phi: np.ndarray) -> np.ndarray:
     >>> from toqito.state_ops import pure_to_mixed
     >>> phi = bell(0)
     >>> pure_to_mixed(phi)
-    [[0.5, 0. , 0. , 0.5],
-     [0. , 0. , 0. , 0. ],
-     [0. , 0. , 0. , 0. ],
-     [0.5, 0. , 0. , 0.5]]
+    array([[0.5, 0. , 0. , 0.5],
+           [0. , 0. , 0. , 0. ],
+           [0. , 0. , 0. , 0. ],
+           [0.5, 0. , 0. , 0.5]])
 
     We can also give matrix inputs to the function in :code:`toqito`.
 
@@ -41,10 +41,10 @@ def pure_to_mixed(phi: np.ndarray) -> np.ndarray:
     >>> from toqito.state_ops import pure_to_mixed
     >>> phi = bell(0) * bell(0).conj().T
     >>> pure_to_mixed(phi)
-    [[0.5, 0. , 0. , 0.5],
-     [0. , 0. , 0. , 0. ],
-     [0. , 0. , 0. , 0. ],
-     [0.5, 0. , 0. , 0.5]])
+    array([[0.5, 0. , 0. , 0.5],
+           [0. , 0. , 0. , 0. ],
+           [0. , 0. , 0. , 0. ],
+           [0.5, 0. , 0. , 0.5]])
 
 
 

@@ -53,10 +53,10 @@ def swap(
     >>> import numpy as np
     >>> test_mat = np.array([[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]])
     >>> swap(test_mat)
-    [[ 1  9  5 13]
-     [ 3 11  7 15]
-     [ 2 10  6 14]
-     [ 4 12  8 16]]
+    array([[ 1,  9,  5, 13],
+           [ 3, 11,  7, 15],
+           [ 2, 10,  6, 14],
+           [ 4, 12,  8, 16]])
 
     It is also possible to use the :code:`sys` and :code:`dim` arguments, it is possible to specify the system and
     dimension on which to apply the swap operator. For instance for :code:`sys = [1 ,2]` and :code:`dim = 2` we have
@@ -76,13 +76,13 @@ def swap(
     >>> from toqito.perms import swap
     >>> import numpy as np
     >>> test_mat = np.array(
-    >>>     [[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]]
-    >>> )
+    ...     [[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]]
+    ... )
     >>> swap(test_mat, [1, 2], 2)
-    [[ 1  9  5 13]
-     [ 3 11  7 15]
-     [ 2 10  6 14]
-     [ 4 12  8 16]]
+    array([[ 1,  9,  5, 13],
+           [ 3, 11,  7, 15],
+           [ 2, 10,  6, 14],
+           [ 4, 12,  8, 16]])
 
     It is also possible to perform the :code:`swap` function on vectors in addition to matrices.
 
@@ -90,7 +90,7 @@ def swap(
     >>> import numpy as np
     >>> test_vec = np.array([1, 2, 3, 4])
     >>> swap(test_vec)
-    [1 3 2 4]
+    array([1, 3, 2, 4])
 
 
 

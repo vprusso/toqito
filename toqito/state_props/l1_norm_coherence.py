@@ -35,8 +35,16 @@ def l1_norm_coherence(rho: np.ndarray) -> float:
     >>>
     >>> # Maximally coherent state.
     >>> v = np.ones((3,1))/np.sqrt(3)
-    >>> l1_norm_coherence(v)
-    2
+    >>> '%.1f' % l1_norm_coherence(v)
+    '2.0'
+
+    .. note::
+        You do not need to use `'%.1f' %` when you use this function.
+
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
 
     References
     ==========

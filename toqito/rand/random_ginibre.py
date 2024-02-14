@@ -18,9 +18,14 @@ def random_ginibre(dim_n: int, dim_m: int) -> np.ndarray:
     Generate a random :math:`2`-by-:math:`2` Ginibre random matrix.
 
     >>> from toqito.rand import random_ginibre
-    >>> random_ginibre(2, 2)
+    >>> random_ginibre(2, 2) # doctest: +SKIP
     [[ 0.06037649-0.05158031j  0.46797859+0.21872729j]
      [-0.95223112-0.71959831j  0.3404352 +0.11166238j]]
+
+    .. note::
+        We use `doctest` to check if our examples are working as expected. ` # doctest: +SKIP` is used here
+        to skip comparing the expected output to the calculated output because this function is supposed to
+        generate a random matrix.
 
     References
     ==========

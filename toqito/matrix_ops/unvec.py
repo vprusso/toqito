@@ -64,8 +64,8 @@ def unvec(vector: np.ndarray, shape: list[int] = None) -> np.ndarray:
     >>> import numpy as np
     >>> u = np.array([1, 2, 3, 4])
     >>> unvec(u)
-    [[1 2]
-     [3 4]]
+    array([[1, 3],
+           [2, 4]])
 
     See Also
     ========

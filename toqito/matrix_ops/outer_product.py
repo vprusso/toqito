@@ -46,9 +46,9 @@ def outer_product(v1: np.ndarray, v2: np.ndarray) -> np.ndarray:
     >>> from toqito.matrix_ops import outer_product
     >>> v1, v2 = np.array([1,2,3]), np.array([4,5,6])
     >>> outer_product(v1,v2)
-    [[4, 5, 6],
-     [8, 10, 12],
-     [12, 15, 18]]
+    array([[ 4,  5,  6],
+           [ 8, 10, 12],
+           [12, 15, 18]])
 
     References
     ==========

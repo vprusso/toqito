@@ -81,9 +81,9 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | scipy.sparse.cs
 
     >>> from toqito.matrices import gell_mann
     >>> gell_mann(2)
-    [[ 0.+0.j, -0.-1.j,  0.+0.j],
-     [ 0.+1.j,  0.+0.j,  0.+0.j],
-     [ 0.+0.j,  0.+0.j,  0.+0.j]]
+    array([[ 0.+0.j, -0.-1.j,  0.+0.j],
+           [ 0.+1.j,  0.+0.j,  0.+0.j],
+           [ 0.+0.j,  0.+0.j,  0.+0.j]])
 
     References
     ==========

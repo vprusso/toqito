@@ -28,8 +28,8 @@ def hadamard(n_param: int = 1) -> np.ndarray:
 
     >>> from toqito.matrices import hadamard
     >>> hadamard(1)
-    [[ 0.70710678  0.70710678]
-     [ 0.70710678 -0.70710678]]
+    array([[ 0.70710678,  0.70710678],
+           [ 0.70710678, -0.70710678]])
 
     References
     ==========
