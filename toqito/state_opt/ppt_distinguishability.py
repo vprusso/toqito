@@ -85,7 +85,9 @@ def ppt_distinguishability(
     >>>
     >>> states = [rho_1, rho_2, rho_3, rho_4]
     >>> probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
-    >>> '%.3f' % ppt_distinguishability(vectors=states, probs=probs, dimensions=[2, 2, 2, 2], subsystems=[0, 2])
+    >>> 
+    >>> opt_val, _ = ppt_distinguishability(vectors=states, probs=probs, dimensions=[2, 2, 2, 2], subsystems=[0, 2])
+    >>> '%.3f' % opt_val
     '0.875'
 
     .. note::
