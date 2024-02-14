@@ -2,9 +2,8 @@
 import numpy as np
 import picos
 
-from toqito.matrix_ops import calculate_vector_matrix_dimension
+from toqito.matrix_ops import calculate_vector_matrix_dimension, vector_to_density_matrix
 from toqito.matrix_props import has_same_dimension
-from toqito.state_ops import pure_to_mixed
 
 
 def state_exclusion(
@@ -135,14 +134,10 @@ def _min_error_primal(
     problem.add_list_of_constraints([meas >> 0 for meas in measurements])
     problem.add_constraint(picos.sum(measurements) == picos.I(dim))
 
+    dms = [vector_to_density_matrix(vector) for vector in vectors]
     problem.set_objective(
         "min",
-        picos.sum(
-            [
-                (probs[i] * pure_to_mixed(vectors[i].reshape(-1, 1)) | measurements[i])
-                for i in range(n)
-            ]
-        ),
+        np.real(picos.sum([(probs[i] * dms[i] | measurements[i]) for i in range(n)]))
     )
     solution = problem.solve(solver=solver)
     return solution.value, measurements
@@ -162,7 +157,7 @@ def _min_error_dual(
     y_var = picos.HermitianVariable("Y", (dim, dim))
     problem.add_list_of_constraints(
         [
-            y_var << probs[i] * pure_to_mixed(vector.reshape(-1, 1))
+            y_var << probs[i] * vector_to_density_matrix(vector)
             for i, vector in enumerate(vectors)
         ]
     )

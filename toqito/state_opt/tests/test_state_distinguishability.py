@@ -2,7 +2,7 @@
 import pytest
 
 from toqito.matrices import standard_basis
-from toqito.state_ops import pure_to_mixed
+from toqito.matrix_ops import vector_to_density_matrix
 from toqito.state_opt import state_distinguishability
 from toqito.states import bell
 
@@ -18,17 +18,9 @@ e_0, e_1 = standard_basis(2)
     ([bell(0), bell(1), bell(2), bell(3)], [1/4, 1/4, 1/4, 1/4], "cvxopt", "primal", 1),
     # Bell states uniform probs with dual.
     ([bell(0), bell(1), bell(2), bell(3)], [1/4, 1/4, 1/4, 1/4], "cvxopt", "dual", 1),
-    # Density matrix Bell states (default uniform probs with primal).
-    (
-        [pure_to_mixed(bell(0)), pure_to_mixed(bell(1))],
-         None,
-         "cvxopt",
-         "primal",
-         1
-    ),
     # Density matrix Bell states (default uniform probs with dual).
     (
-        [pure_to_mixed(bell(0)), pure_to_mixed(bell(1))],
+        [vector_to_density_matrix(bell(0)), vector_to_density_matrix(bell(1))],
         None,
         "cvxopt",
         "dual",

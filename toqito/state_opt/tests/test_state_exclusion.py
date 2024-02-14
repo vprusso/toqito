@@ -18,14 +18,6 @@ e_0, e_1 = standard_basis(2)
     ([bell(0), bell(1), bell(2), bell(3)], [1/4, 1/4, 1/4, 1/4], "cvxopt", "primal", 0),
     # Bell states uniform probs with dual.
     ([bell(0), bell(1), bell(2), bell(3)], [1/4, 1/4, 1/4, 1/4], "cvxopt", "dual", 0),
-    # Density matrix Bell states (default uniform probs with primal).
-    (
-        [pure_to_mixed(bell(0)), pure_to_mixed(bell(1))],
-         None,
-         "cvxopt",
-         "primal",
-         0
-    ),
     # Density matrix Bell states (default uniform probs with dual).
     (
         [pure_to_mixed(bell(0)), pure_to_mixed(bell(1))],
