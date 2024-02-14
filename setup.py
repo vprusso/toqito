@@ -27,7 +27,8 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/vprusso/toqito",
-    packages=setuptools.find_packages(),
+    packages=setuptools.find_packages(where="toqito"),
+    package_dir={"": "toqito"},
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Science/Research",
