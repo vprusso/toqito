@@ -24,7 +24,7 @@ numpy = "1.26.4"
 scipy = "1.12.0"
 scs = "3.2.4.post1"
 picos = "2.4.17"
-qiskit = "0.46.0"
+qiskit = "1.0.0"
 
 [tool.poetry.dev-dependencies]
 distlib = "0.3.8"
