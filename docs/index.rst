@@ -52,6 +52,7 @@ API Reference
 -------------
 
 .. toctree::
+   :titlesonly:
 
    autoapi_members
 
