@@ -1,7 +1,7 @@
 """Generalized Pauli matrices."""
 import numpy as np
 
-from toqito.matrices import gen_pauli_z, gen_pauli_x
+from toqito.matrices import gen_pauli_x, gen_pauli_z
 
 
 def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
@@ -71,11 +71,9 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
     :return: A generalized Pauli operator.
 
     """
-    gen_pauli_x = gen_pauli_x(dim)
-    gen_pauli_z = gen_pauli_z(dim)
+    gpx_val = gen_pauli_x(dim)
+    gpz_val = gen_pauli_z(dim)
 
-    gen_pauli_w = np.linalg.matrix_power(gen_pauli_x, k_1) @ np.linalg.matrix_power(
-        gen_pauli_z, k_2
-    )
+    gen_pauli_w = np.linalg.matrix_power(gpx_val, k_1) @ np.linalg.matrix_power(gpz_val, k_2)
 
     return gen_pauli_w

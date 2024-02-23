@@ -1,6 +1,6 @@
 """Matrices."""
-from toqito.matrices.gen_pauli_z import gen_pauli_z
 from toqito.matrices.gen_pauli_x import gen_pauli_x
+from toqito.matrices.gen_pauli_z import gen_pauli_z
 from toqito.matrices.cnot import cnot
 from toqito.matrices.fourier import fourier
 from toqito.matrices.gell_mann import gell_mann
