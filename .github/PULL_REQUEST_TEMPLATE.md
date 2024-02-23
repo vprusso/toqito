@@ -15,6 +15,6 @@ Additional information is available in the [documentation](https://toqito.readth
 
   -  [ ] Use `ruff` and `pylint` for errors related to code style and formatting.
   -  [ ] Verify all previous and newly added unit tests pass in `pytest`.
-  -  [ ] Check the documentation build does not lead to any failures: `Sphinx` is used to build the documentation. This build can be checked locally for any     
-         failures related to your PR, `linkcheck` is used to check for broken links in the documentation, `doctest` runs the examples in the function 
-         `docstrings`.
+  -  [ ] Check the documentation build does not lead to any failures. `Sphinx` build can be checked locally for any failures related to your PR
+  -  [ ] Use `linkcheck` to check for broken links in the documentation
+  -  [ ] Use `doctest` to verify the examples in the function docstrings work as expected.
