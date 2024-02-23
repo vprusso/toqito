@@ -1,7 +1,7 @@
 """Generalized Pauli matrices."""
 import numpy as np
 
-from toqito.matrices import clock, shift
+from toqito.matrices import gen_pauli_z, gen_pauli_x
 
 
 def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
@@ -9,7 +9,7 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
 
     Generates a :code:`dim`-by-:code:`dim` unitary operator. More specifically,
     it is the operator :math:`X^k_1 Z^k_2`, where :math:`X` and :math:`Z` are
-    the "shift" and "clock" operators that naturally generalize the Pauli X and
+    the "gen_pauli_x" and "gen_pauli_z" operators that naturally generalize the Pauli X and
     Z operators. These matrices span the entire space of
     :code:`dim`-by-:code:`dim` matrices as :code:`k_1` and :code:`k_2` range
     from 0 to :code:`dim-1`, inclusive.
@@ -71,8 +71,8 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
     :return: A generalized Pauli operator.
 
     """
-    gen_pauli_x = shift(dim)
-    gen_pauli_z = clock(dim)
+    gen_pauli_x = gen_pauli_x(dim)
+    gen_pauli_z = gen_pauli_z(dim)
 
     gen_pauli_w = np.linalg.matrix_power(gen_pauli_x, k_1) @ np.linalg.matrix_power(
         gen_pauli_z, k_2
