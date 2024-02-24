@@ -6,33 +6,20 @@ labels: ''
 assignees: ''
 
 ---
+## Before reporting this bug:
+- [ ] Verify there is not an existing issue for it already
+- [ ] You are using the latest version of `toqito` with a python version `>=3.10`
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+## Describe the bug
+*A clear and concise description of what the bug is.*
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. Scroll down to '....'
-4. See error
+## To Reproduce
+*Describe the steps to reproduce the bug. Use [markdown syntax](https://www.markdownguide.org/basic-syntax/#code) with inline code and/or code blocks to make your code readable.* 
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+## Expected behavior
+*A clear and concise description of what you expected to happen. Use [markdown syntax](https://www.markdownguide.org/basic-syntax/#code) with inline code and/or code blocks to make your code readable.* 
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+## Screenshots
+*If applicable, add screenshots to help explain your problem.*
 
-**Desktop (please complete the following information):**
- - OS: [e.g. iOS]
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
-
-**Smartphone (please complete the following information):**
- - Device: [e.g. iPhone6]
- - OS: [e.g. iOS8.1]
- - Browser [e.g. stock browser, safari]
- - Version [e.g. 22]
-
-**Additional context**
-Add any other context about the problem here.
+## System Information where `toqito` is installed
