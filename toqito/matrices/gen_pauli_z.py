@@ -1,14 +1,14 @@
-"""Clock matrix."""
+"""Generalized Pauli-Z matrix."""
 from cmath import exp, pi
 
 import numpy as np
 
 
-def clock(dim: int) -> np.ndarray:
-    r"""Produce clock matrix :cite:`WikiClock`.
+def gen_pauli_z(dim: int) -> np.ndarray:
+    r"""Produce gen_pauli_z matrix :cite:`WikiClock`.
 
-    Returns the clock matrix of dimension :code:`dim` described in :cite:`WikiClock`.
-    The clock matrix generates the following :code:`dim`-by-:code:`dim` matrix
+    Returns the gen_pauli_z matrix of dimension :code:`dim` described in :cite:`WikiClock`.
+    The gen_pauli_z matrix generates the following :code:`dim`-by-:code:`dim` matrix
 
     .. math::
         \Sigma_{1, d} = \begin{pmatrix}
@@ -21,13 +21,13 @@ def clock(dim: int) -> np.ndarray:
 
     where :math:`\omega` is the n-th primitive root of unity.
 
-    The clock matrix is primarily used in the construction of the generalized
+    The gen_pauli_z matrix is primarily used in the construction of the generalized
     Pauli operators.
 
     Examples
     ==========
 
-    The clock matrix generated from :math:`d = 3` yields the following matrix:
+    The gen_pauli_z matrix generated from :math:`d = 3` yields the following matrix:
 
     .. math::
         \Sigma_{1, 3} = \begin{pmatrix}
@@ -36,8 +36,8 @@ def clock(dim: int) -> np.ndarray:
             0 & 0 & \omega^2
         \end{pmatrix}
 
-    >>> from toqito.matrices import clock
-    >>> clock(3)
+    >>> from toqito.matrices import gen_pauli_z
+    >>> gen_pauli_z(3)
     array([[ 1. +0.j       ,  0. +0.j       ,  0. +0.j       ],
            [ 0. +0.j       , -0.5+0.8660254j,  0. +0.j       ],
            [ 0. +0.j       ,  0. +0.j       , -0.5-0.8660254j]])
@@ -49,7 +49,7 @@ def clock(dim: int) -> np.ndarray:
 
 
     :param dim: Dimension of the matrix.
-    :return: :code:`dim`-by-:code:`dim` clock matrix.
+    :return: :code:`dim`-by-:code:`dim` gen_pauli_z matrix.
 
     """
     c_var = 2j * pi / dim
