@@ -17,9 +17,9 @@ def cyclic_permutation_matrix(n: int, k: int = 1) -> np.ndarray:
     >>> n = 4
     >>> cyclic_permutation_matrix(n)
     array([[0, 0, 0, 1],
-            [1, 0, 0, 0],
-            [0, 1, 0, 0],
-            [0, 0, 1, 0]])
+           [1, 0, 0, 0],
+           [0, 1, 0, 0],
+           [0, 0, 1, 0]])
 
     Generate successive application.
 
@@ -28,9 +28,9 @@ def cyclic_permutation_matrix(n: int, k: int = 1) -> np.ndarray:
     >>> k = 3
     >>> cyclic_permutation_matrix(n, k)
     array([[0, 1, 0, 0],
-            [0, 0, 1, 0],
-            [0, 0, 0, 1],
-            [1, 0, 0, 0]])
+           [0, 0, 1, 0],
+           [0, 0, 0, 1],
+           [1, 0, 0, 0]])
 
     References
     ==========
@@ -56,4 +56,5 @@ def cyclic_permutation_matrix(n: int, k: int = 1) -> np.ndarray:
     p_mat[0, -1] = 1
 
     result_mat = np.linalg.matrix_power(p_mat, k)
+    np.set_printoptions(edgeitems=n*n, linewidth=40)
     return result_mat
