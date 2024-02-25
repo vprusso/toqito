@@ -2,9 +2,8 @@
 import numpy as np
 import picos
 
-from toqito.matrix_ops import calculate_vector_matrix_dimension
+from toqito.matrix_ops import calculate_vector_matrix_dimension, vector_to_density_matrix
 from toqito.matrix_props import has_same_dimension
-from toqito.state_ops import pure_to_mixed
 
 
 def state_distinguishability(
@@ -48,22 +47,37 @@ def state_distinguishability(
     >>> states = [bell(0), bell(1), bell(2), bell(3)]
     >>> probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
     >>> res, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="dual")
-    0.9999999994695794
+    >>> '%.2f' % res
+    '1.00'
+
+    .. note::
+        You do not need to use `'%.2f' %` when you use this function.
+
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
 
     Note that if we are just interested in obtaining the optimal value, it is computationally less intensive to compute
     the dual problem over the primal problem. However, the primal problem does allow us to extract the explicit
     measurement operators which may be of interest to us.
 
+    >>> import numpy as np
     >>> from toqito.states import bell
     >>> from toqito.state_opt import state_distinguishability
     >>> states = [bell(0), bell(1), bell(2), bell(3)]
     >>> probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
     >>> res, measurements = state_distinguishability(vectors=states, probs=probs, primal_dual="primal")
-    >>> np.around(measurements[0], decimals=5)
-    [[ 0.5+0.j -0. +0.j  0. +0.j  0.5-0.j]
-     [-0. -0.j  0. +0.j -0. -0.j -0. -0.j]
-     [ 0. -0.j -0. +0.j  0. +0.j  0. -0.j]
-     [ 0.5+0.j -0. +0.j  0. +0.j  0.5+0.j]]
+    >>> np.around(measurements[0], decimals=5)  # doctest: +SKIP
+    array([[ 0.5+0.j,  0. +0.j, -0. -0.j,  0.5-0.j],
+           [ 0. -0.j,  0. +0.j, -0. +0.j,  0. -0.j],
+           [-0. +0.j, -0. -0.j,  0. +0.j, -0. +0.j],
+           [ 0.5+0.j,  0. +0.j, -0. -0.j,  0.5+0.j]])
+
+    .. note::
+        We use `#doctest: +SKIP` here to stop `doctest` from comparing the expected output
+        to the calculated output. Depending on the accuracy of the solvers, the expected value
+        might not be exactly as what's shown here.
 
     References
     ==========
@@ -103,19 +117,17 @@ def _min_error_primal(
     n = len(vectors)
 
     problem = picos.Problem()
-    measurements = [picos.HermitianVariable(f"M[{i}]", (dim, dim)) for i in range(n)]
+    num_measurements = len(vectors)
+    measurements = [picos.HermitianVariable(f"M[{i}]", (dim, dim)) for i in range(num_measurements)]
 
     problem.add_list_of_constraints([meas >> 0 for meas in measurements])
     problem.add_constraint(picos.sum(measurements) == picos.I(dim))
 
+    dms = [vector_to_density_matrix(vector) for vector in vectors]
+
     problem.set_objective(
         "max",
-        picos.sum(
-            [
-                (probs[i] * pure_to_mixed(vectors[i].reshape(-1, 1)) | measurements[i])
-                for i in range(n)
-            ]
-        ),
+        np.real(picos.sum([(probs[i] * dms[i] | measurements[i]) for i in range(n)]))
     )
     solution = problem.solve(solver=solver)
     return solution.value, measurements
@@ -125,7 +137,7 @@ def _min_error_dual(
         vectors: list[np.ndarray],
         dim: int,
         probs: list[float] = None,
-        solver: str = "cvxopt"
+        solver: str = "cvxopt",
 ) -> tuple[float, list[picos.HermitianVariable]]:
     """Find the dual problem for minimum-error quantum state distinguishability SDP."""
     n = len(vectors)
@@ -135,7 +147,7 @@ def _min_error_dual(
     y_var = picos.HermitianVariable("Y", (dim, dim))
     problem.add_list_of_constraints(
         [
-            y_var >> probs[i] * pure_to_mixed(vector.reshape(-1, 1))
+            y_var >> probs[i] * vector_to_density_matrix(vector)
             for i, vector in enumerate(vectors)
         ]
     )

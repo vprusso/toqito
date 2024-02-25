@@ -1,7 +1,7 @@
 
 [tool.poetry]
 name = "toqito"
-version = "1.0.7"
+version = "1.0.8"
 description = "Python tools for the study of quantum information."
 authors = [
     "Toqito Contributors <https://github.com/vprusso/toqito/graphs/contributors>"
@@ -24,28 +24,29 @@ numpy = "1.26.4"
 scipy = "1.12.0"
 scs = "3.2.4.post1"
 picos = "2.4.17"
-qiskit = "0.46.0"
+qiskit = "1.0.1"
 
 [tool.poetry.dev-dependencies]
 distlib = "0.3.8"
 flake8 = "7.0.0"
 flake8-docstrings = "1.7.0"
-ipython = "8.21.0"
+ipython = "8.22.1"
 isort = "5.13.2"
 myst-parser = "2.0.0"
 pep8 = "1.7.1"
-ruff = "0.2.1"
+ruff = "0.2.2"
 pylint = "3.0.3"
-pytest = "8.0.0"
+pytest = "8.0.1"
 pytest-cov = "4.1.0"
-coverage = "7.4.1"
+coverage = "7.4.2"
 mypy = "1.8.0"
 setuptools = ">65.5.1"
 sphinx = "7.2.6"
-sphinx_rtd_theme = "2.0.0"
+sphinx-wagtail-theme = "6.2.0"
 sphinxcontrib-bibtex = "2.6.2"
 sphinx-autoapi = "3.0.0"
 sympy = "1.12"
+readthedocs-sphinx-ext = "*"
 
 
 [build-system]

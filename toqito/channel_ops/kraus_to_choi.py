@@ -38,10 +38,10 @@ def kraus_to_choi(kraus_ops: list[list[np.ndarray]], sys: int = 2) -> np.ndarray
     >>>
     >>> kraus_ops = [[kraus_1, kraus_2], [kraus_3, kraus_4], [kraus_5, kraus_6], [kraus_7, kraus_8]]
     >>> kraus_to_choi(kraus_ops)
-    [[1. 0. 0. 0.]
-     [0. 0. 1. 0.]
-     [0. 1. 0. 0.]
-     [0. 0. 0. 1.]]
+    array([[1., 0., 0., 0.],
+           [0., 0., 1., 0.],
+           [0., 1., 0., 0.],
+           [0., 0., 0., 1.]])
 
     See Also
     ========

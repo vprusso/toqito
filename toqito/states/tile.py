@@ -44,9 +44,15 @@ def tile(idx: int) -> np.ndarray:
     >>> from toqito.states import tile
     >>> import numpy as np
     >>> tile(0)
-    [[ 0.70710678]
-     [-0.        ]
-     [ 0.        ]]
+    array([[ 0.70710678],
+           [-0.70710678],
+           [ 0.        ],
+           [ 0.        ],
+           [ 0.        ],
+           [ 0.        ],
+           [ 0.        ],
+           [ 0.        ],
+           [ 0.        ]])
 
     References
     ==========

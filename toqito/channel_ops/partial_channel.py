@@ -36,6 +36,7 @@ def partial_channel(
     The following applies the completely depolarizing channel to the second
     subsystem of a random density matrix.
 
+    >>> import numpy as np
     >>> from toqito.channel_ops import partial_channel
     >>> from toqito.channels import depolarizing
     >>> rho = np.array([
@@ -43,26 +44,37 @@ def partial_channel(
     ...    [-0.0220+0.0219*1j, 0.1008, -0.0775+0.0492*1j, -0.0613+0.0529*1j],
     ...    [-0.0671+0.0030*1j, -0.0775-0.0492*1j, 0.1361, 0.0602 + 0.0062*1j],
     ...    [-0.0170+0.0694*1j, -0.0613-0.0529*1j, 0.0602-0.0062*1j, 0.4530]])
-    >>> phi_x = partial_channel(rho, depolarizing(2))
-    [[ 0.20545+0.j       0.     +0.j      -0.0642 +0.02495j  0.     +0.j     ]
-     [ 0.     +0.j       0.20545+0.j       0.     +0.j      -0.0642 +0.02495j]
-     [-0.0642 -0.02495j  0.     +0.j       0.29455+0.j       0.     +0.j     ]
-     [ 0.     +0.j      -0.0642 -0.02495j  0.     +0.j       0.29455+0.j     ]]
+    >>> partial_channel(rho, depolarizing(2))
+    array([[ 0.20545+0.j     ,  0.     +0.j     , -0.0642 +0.02495j,
+             0.     +0.j     ],
+           [ 0.     +0.j     ,  0.20545+0.j     ,  0.     +0.j     ,
+            -0.0642 +0.02495j],
+           [-0.0642 -0.02495j,  0.     +0.j     ,  0.29455+0.j     ,
+             0.     +0.j     ],
+           [ 0.     +0.j     , -0.0642 -0.02495j,  0.     +0.j     ,
+             0.29455+0.j     ]])
+
 
     The following applies the completely depolarizing channel to the first
     subsystem.
 
+    >>> import numpy as np
     >>> from toqito.channel_ops import partial_channel
     >>> from toqito.channels import depolarizing
     >>> rho = np.array([[0.3101, -0.0220-0.0219*1j, -0.0671-0.0030*1j, -0.0170-0.0694*1j],
-    >>>                 [-0.0220+0.0219*1j, 0.1008, -0.0775+0.0492*1j, -0.0613+0.0529*1j],
-    >>>                 [-0.0671+0.0030*1j, -0.0775-0.0492*1j, 0.1361, 0.0602 + 0.0062*1j],
-    >>>                 [-0.0170+0.0694*1j, -0.0613-0.0529*1j, 0.0602-0.0062*1j, 0.4530]])
-    >>> phi_x = partial_channel(rho, depolarizing(2), 1)
-    [[0.2231+0.j      0.0191-0.00785j 0.    +0.j      0.    +0.j     ]
-     [0.0191+0.00785j 0.2769+0.j      0.    +0.j      0.    +0.j     ]
-     [0.    +0.j      0.    +0.j      0.2231+0.j      0.0191-0.00785j]
-     [0.    +0.j      0.    +0.j      0.0191+0.00785j 0.2769+0.j     ]]
+    ...                 [-0.0220+0.0219*1j, 0.1008, -0.0775+0.0492*1j, -0.0613+0.0529*1j],
+    ...                 [-0.0671+0.0030*1j, -0.0775-0.0492*1j, 0.1361, 0.0602 + 0.0062*1j],
+    ...                 [-0.0170+0.0694*1j, -0.0613-0.0529*1j, 0.0602-0.0062*1j, 0.4530]])
+    >>> partial_channel(rho, depolarizing(2), 1)
+    array([[0.2231+0.j     , 0.0191-0.00785j, 0.    +0.j     ,
+            0.    +0.j     ],
+           [0.0191+0.00785j, 0.2769+0.j     , 0.    +0.j     ,
+            0.    +0.j     ],
+           [0.    +0.j     , 0.    +0.j     , 0.2231+0.j     ,
+            0.0191-0.00785j],
+           [0.    +0.j     , 0.    +0.j     , 0.0191+0.00785j,
+            0.2769+0.j     ]])
+
 
     References
     ==========

@@ -386,3 +386,7 @@
 - Feature: Adding cyclic permutation (thanks to @Bchass) [PR-390](https://github.com/vprusso/toqito/pull/390)
 
 - Feature: Adding support for density matrix and vector input for state distinguishability and exclusion [PR-462](https://github.com/vprusso/toqito/pull/462)
+
+## 1.0.8
+
+- Patch for 1.0.7 as prior version was not including new files.

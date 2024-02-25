@@ -9,11 +9,10 @@
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-#
-# import os
-# import sys
+import os
+import sys
 # sys.path.insert(0, os.path.abspath('.'))
-# sys.path.insert(0, os_path.abspath('..'))
+# sys.path.insert(0, os.path.abspath('..'))
 # sys.path.insert(0, os.path.abspath('../..'))
 
 # -- Project information -----------------------------------------------------
@@ -23,7 +22,7 @@ copyright = "2020-2024, Toqito Contributors"
 author = "Contributors to Toqito"
 
 # The full version, including alpha/beta/rc tags
-release = "1.0.7"
+release = "1.0.8"
 
 
 # -- General configuration ---------------------------------------------------
@@ -44,6 +43,7 @@ extensions = [
     "sphinx.ext.githubpages",
     "sphinx.ext.napoleon",
     "sphinxcontrib.bibtex",
+    "sphinx_wagtail_theme"
 ]
 
 bibtex_bibfiles = ["books.bib", "articles.bib"]
@@ -75,9 +75,9 @@ autoapi_ignore = [
     "*/channel_props/tests/*",
     "*/measurement_ops/tests/*",
     "*/measurement_props/tests/*"]
-autoapi_member_order = 'alphabetical'
 autodoc_typehints = 'description'
 autoapi_add_toctree_entry = False
+autoapi_keep_files = False
 
 
 # Add any paths that contain templates here, relative to this directory.
@@ -93,12 +93,22 @@ exclude_patterns = ["_build", "_templates", "Thumbs.db", ".DS_Store"]
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-#
-html_theme = "sphinx_rtd_theme"
+
+html_theme = 'sphinx_wagtail_theme'
 html_logo = "figures/logo.svg"
 html_favicon = "figures/favicon.ico"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = []
+html_static_path = ["_static"]
+html_css_files = ["custom.css"]
+
+# This github_url will point to the appropriate page in the default branch.
+# Ex: Getting Started -> https://github.com/vprusso/toqito/blob/master/docs/getting_started.rst
+html_theme_options = dict(
+    github_url = "https://github.com/vprusso/toqito/blob/master/docs/"
+)
+
+# Show in footer when the docs were last updated.
+html_last_updated_fmt = "%b %d, %Y"

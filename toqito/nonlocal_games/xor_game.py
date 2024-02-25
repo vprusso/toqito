@@ -70,11 +70,19 @@ class XORGame:
     >>> import numpy as np
     >>> from toqito.nonlocal_games.xor_game import XORGame
     >>> chsh = XORGame(prob_mat, pred_mat)
-    >>> chsh.quantum_value()
-    0.8535533885683664
+    >>> '%.2f' % chsh.quantum_value()
+    '0.85'
     >>>
     >>> chsh.classical_value()
     0.75
+
+    .. note::
+        You do not need to use `'%.2f' %` when you use this function.
+
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
 
     The odd cycle game
 
@@ -82,23 +90,23 @@ class XORGame:
     specify the probability and predicate matrices as follows.
 
     >>> prob_mat = np.array(
-    >>> [
-    >>>     [0.1, 0.1, 0, 0, 0],
-    >>>     [0, 0.1, 0.1, 0, 0],
-    >>>     [0, 0, 0.1, 0.1, 0],
-    >>>     [0, 0, 0, 0.1, 0.1],
-    >>>     [0.1, 0, 0, 0, 0.1],
-    >>> ]
-    >>> )
+    ... [
+    ...     [0.1, 0.1, 0, 0, 0],
+    ...     [0, 0.1, 0.1, 0, 0],
+    ...     [0, 0, 0.1, 0.1, 0],
+    ...     [0, 0, 0, 0.1, 0.1],
+    ...     [0.1, 0, 0, 0, 0.1],
+    ... ]
+    ... )
     >>> pred_mat = np.array(
-    >>> [
-    >>>     [0, 1, 0, 0, 0],
-    >>>     [0, 0, 1, 0, 0],
-    >>>     [0, 0, 0, 1, 0],
-    >>>     [0, 0, 0, 0, 1],
-    >>>     [1, 0, 0, 0, 0],
-    >>> ]
-    >>> )
+    ... [
+    ...     [0, 1, 0, 0, 0],
+    ...     [0, 0, 1, 0, 0],
+    ...     [0, 0, 0, 1, 0],
+    ...     [0, 0, 0, 0, 1],
+    ...     [1, 0, 0, 0, 0],
+    ... ]
+    ... )
 
     In :code:`toqito`, we can calculate both the quantum and classical value of
     the odd cycle game as follows.
@@ -106,10 +114,18 @@ class XORGame:
     >>> import numpy as np
     >>> from toqito.nonlocal_games.xor_game import XORGame
     >>> odd_cycle = XORGame(prob_mat, pred_mat)
-    >>> odd_cycle.quantum_value()
-    0.9755282544736033
-    >>> odd_cycle.classical_value()
-    0.9
+    >>> '%.2f' % odd_cycle.quantum_value()
+    '0.98'
+    >>> '%.1f' % odd_cycle.classical_value()
+    '0.9'
+
+    .. note::
+        You do not need to use `'%.2f' %` or `'%.1f' %` when you use this function.
+
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
 
     References
     ==========

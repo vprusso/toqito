@@ -80,9 +80,9 @@ def apply_channel(mat: np.ndarray, phi_op: np.ndarray | list[list[np.ndarray]]) 
     >>> import numpy as np
     >>> test_input_mat = np.array([[1, 4, 7], [2, 5, 8], [3, 6, 9]])
     >>> apply_channel(test_input_mat, swap_operator(3))
-    [[1., 2., 3.],
-     [4., 5., 6.],
-     [7., 8., 9.]]
+    array([[1., 2., 3.],
+           [4., 5., 6.],
+           [7., 8., 9.]])
 
     References
     ==========

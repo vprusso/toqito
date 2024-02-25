@@ -2,9 +2,8 @@
 import numpy as np
 import picos
 
-from toqito.matrix_ops import calculate_vector_matrix_dimension
+from toqito.matrix_ops import calculate_vector_matrix_dimension, vector_to_density_matrix
 from toqito.matrix_props import has_same_dimension
-from toqito.state_ops import pure_to_mixed
 
 
 def state_exclusion(
@@ -81,8 +80,16 @@ def state_exclusion(
     >>> vectors = [bell(0), bell(1)]
     >>> probs = [1/2, 1/2]
     >>>
-    >>> state_exclusion(vectors, probs)
-    1.6824720366950206e-09
+    >>> '%.2f' % state_exclusion(vectors, probs)[0]
+    '0.00'
+
+    .. note::
+        You do not need to use `'%.2f' %` when you use this function.
+
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
 
     References
     ==========
@@ -127,14 +134,10 @@ def _min_error_primal(
     problem.add_list_of_constraints([meas >> 0 for meas in measurements])
     problem.add_constraint(picos.sum(measurements) == picos.I(dim))
 
+    dms = [vector_to_density_matrix(vector) for vector in vectors]
     problem.set_objective(
         "min",
-        picos.sum(
-            [
-                (probs[i] * pure_to_mixed(vectors[i].reshape(-1, 1)) | measurements[i])
-                for i in range(n)
-            ]
-        ),
+        np.real(picos.sum([(probs[i] * dms[i] | measurements[i]) for i in range(n)]))
     )
     solution = problem.solve(solver=solver)
     return solution.value, measurements
@@ -154,7 +157,7 @@ def _min_error_dual(
     y_var = picos.HermitianVariable("Y", (dim, dim))
     problem.add_list_of_constraints(
         [
-            y_var << probs[i] * pure_to_mixed(vector.reshape(-1, 1))
+            y_var << probs[i] * vector_to_density_matrix(vector)
             for i, vector in enumerate(vectors)
         ]
     )

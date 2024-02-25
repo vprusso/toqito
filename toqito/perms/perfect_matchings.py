@@ -20,9 +20,9 @@ def perfect_matchings(num: list[int] | int | np.ndarray) -> np.ndarray:
 
     >>> from toqito.perms import perfect_matchings
     >>> perfect_matchings(4)
-    [[1 2 3 4]
-     [1 3 2 4]
-     [1 4 3 2]]
+    array([[1, 2, 3, 4],
+           [1, 3, 2, 4],
+           [1, 4, 3, 2]])
 
     References
     ==========

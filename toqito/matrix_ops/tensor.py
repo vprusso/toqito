@@ -55,10 +55,10 @@ def tensor(*args) -> np.ndarray:
     >>> from toqito.matrix_ops import tensor
     >>> e_0 = basis(2, 0)
     >>> tensor(e_0, e_0)
-    [[1],
-     [0],
-     [0],
-     [0]]
+    array([[1],
+           [0],
+           [0],
+           [0]])
 
     Tensor product one matrix :math:`n` times with itself.
 
@@ -74,14 +74,14 @@ def tensor(*args) -> np.ndarray:
     >>> from toqito.matrix_ops import tensor
     >>> e_0 = basis(2, 0)
     >>> tensor(e_0, 3)
-    [[1],
-     [0],
-     [0],
-     [0],
-     [0],
-     [0],
-     [0],
-     [0]]
+    array([[1],
+           [0],
+           [0],
+           [0],
+           [0],
+           [0],
+           [0],
+           [0]])
 
     Perform the tensor product on a list of vectors or matrices.
 
@@ -94,14 +94,14 @@ def tensor(*args) -> np.ndarray:
     >>> from toqito.matrix_ops import tensor
     >>> e_0, e_1 = basis(2, 0), basis(2, 1)
     >>> tensor([e_0, e_1, e_0])
-    [[0],
-     [0],
-     [1],
-     [0],
-     [0],
-     [0],
-     [0],
-     [0]]
+    array([[0],
+           [0],
+           [1],
+           [0],
+           [0],
+           [0],
+           [0],
+           [0]])
 
     References
     ==========

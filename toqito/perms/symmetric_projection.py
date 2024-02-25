@@ -41,8 +41,8 @@ def symmetric_projection( dim: int, p_val: int = 2, partial: bool = False ) -> [
 
     >>> from toqito.perms import symmetric_projection
     >>> symmetric_projection(2, 1)
-    [[1., 0.],
-     [0., 1.]]
+    array([[1., 0.],
+           [0., 1.]])
 
     When :math:`d = 2` and :math:`p = 2` we have that
 
@@ -58,10 +58,10 @@ def symmetric_projection( dim: int, p_val: int = 2, partial: bool = False ) -> [
 
     >>> from toqito.perms import symmetric_projection
     >>> symmetric_projection(dim=2)
-    [[1. , 0. , 0. , 0. ],
-     [0. , 0.5, 0.5, 0. ],
-     [0. , 0.5, 0.5, 0. ],
-     [0. , 0. , 0. , 1. ]]
+    array([[1. , 0. , 0. , 0. ],
+           [0. , 0.5, 0.5, 0. ],
+           [0. , 0.5, 0.5, 0. ],
+           [0. , 0. , 0. , 1. ]])
 
     References
     ==========
