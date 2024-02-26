@@ -56,5 +56,4 @@ def cyclic_permutation_matrix(n: int, k: int = 1) -> np.ndarray:
     p_mat[0, -1] = 1
 
     result_mat = np.linalg.matrix_power(p_mat, k)
-    np.set_printoptions(edgeitems=n*n, linewidth=40)
     return result_mat
