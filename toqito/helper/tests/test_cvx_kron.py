@@ -1,4 +1,5 @@
 """Test cvx_kron."""
+
 import cvxpy
 import numpy as np
 

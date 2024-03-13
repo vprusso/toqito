@@ -1,4 +1,5 @@
 """Two-player XOR game."""
+
 import cvxpy
 import numpy as np
 

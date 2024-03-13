@@ -1,4 +1,5 @@
 """Test hadamard."""
+
 import numpy as np
 
 from toqito.matrices import hadamard

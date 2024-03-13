@@ -1,4 +1,5 @@
 """Test is_totally_positive."""
+
 import numpy as np
 import pytest
 

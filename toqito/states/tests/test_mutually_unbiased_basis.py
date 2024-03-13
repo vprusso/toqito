@@ -1,4 +1,5 @@
 """Test mutually_unbiased_basis."""
+
 import re
 
 import numpy as np

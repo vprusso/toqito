@@ -1,4 +1,5 @@
 """Test state_distinguishability."""
+
 import pytest
 
 from toqito.matrices import standard_basis

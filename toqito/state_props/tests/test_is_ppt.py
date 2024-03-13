@@ -1,4 +1,5 @@
 """Test is_ppt."""
+
 import numpy as np
 import pytest
 

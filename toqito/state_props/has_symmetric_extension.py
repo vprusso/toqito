@@ -1,6 +1,5 @@
 """Determine whether there exists a symmetric extension for a given quantum state."""
 
-
 import numpy as np
 from picos import partial_trace
 

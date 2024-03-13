@@ -1,4 +1,5 @@
 """Test is_npt."""
+
 import numpy as np
 import pytest
 

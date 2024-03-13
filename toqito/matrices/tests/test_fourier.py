@@ -1,4 +1,5 @@
 """Test fourier."""
+
 import numpy as np
 
 from toqito.matrices import fourier

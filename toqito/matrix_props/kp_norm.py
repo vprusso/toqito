@@ -1,4 +1,5 @@
 """Kp-norm for matrices."""
+
 import numpy as np
 
 

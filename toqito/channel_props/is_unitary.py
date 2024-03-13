@@ -1,6 +1,5 @@
 """Is channel unitary."""
 
-
 import numpy as np
 
 from toqito.channel_ops import choi_to_kraus

@@ -1,4 +1,5 @@
 """Fidelity metric."""
+
 import cvxpy
 import numpy as np
 import scipy

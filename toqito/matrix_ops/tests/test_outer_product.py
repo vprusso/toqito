@@ -1,4 +1,5 @@
 """Test outer_product."""
+
 import numpy as np
 import pytest
 

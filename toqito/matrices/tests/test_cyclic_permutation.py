@@ -1,4 +1,5 @@
 """Test cyclic_permutation."""
+
 import numpy as np
 
 from toqito.matrices import cyclic_permutation_matrix

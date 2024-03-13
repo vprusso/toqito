@@ -1,6 +1,5 @@
 """Apply channel a subsystem of an operator."""
 
-
 import itertools
 
 import numpy as np

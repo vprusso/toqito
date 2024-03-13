@@ -1,4 +1,5 @@
 """Inner product operation."""
+
 import numpy as np
 
 

@@ -1,4 +1,5 @@
 """Is matrix totally positive."""
+
 from itertools import combinations
 
 import numpy as np

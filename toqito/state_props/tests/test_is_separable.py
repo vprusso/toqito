@@ -1,4 +1,5 @@
 """Test is_separable."""
+
 import numpy as np
 
 from toqito.channels import partial_trace

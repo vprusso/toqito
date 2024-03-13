@@ -1,4 +1,5 @@
 """Test entanglement_of_formation."""
+
 import numpy as np
 import pytest
 

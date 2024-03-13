@@ -1,4 +1,5 @@
 """Tests for is_trace_preserving."""
+
 import numpy as np
 import pytest
 

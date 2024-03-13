@@ -1,4 +1,5 @@
 """Werner state."""
+
 import itertools
 
 import numpy as np

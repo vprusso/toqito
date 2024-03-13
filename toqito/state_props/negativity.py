@@ -1,6 +1,5 @@
 """Negativity property."""
 
-
 import numpy as np
 from picos import partial_transpose
 

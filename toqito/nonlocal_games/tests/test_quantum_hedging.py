@@ -1,4 +1,5 @@
 """Tests for hedging_value function."""
+
 import unittest
 
 from numpy import cos, isclose, kron, pi, sin, sqrt

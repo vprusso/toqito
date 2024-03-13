@@ -1,4 +1,5 @@
 """Antisymmetric projection operator."""
+
 from itertools import permutations
 
 import numpy as np

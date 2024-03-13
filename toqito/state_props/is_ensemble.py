@@ -1,4 +1,5 @@
 """Check if set of states form an ensemble."""
+
 import numpy as np
 
 from toqito.matrix_props import is_positive_semidefinite

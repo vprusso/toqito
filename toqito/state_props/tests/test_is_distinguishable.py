@@ -1,4 +1,5 @@
 """Test is_distinguishable."""
+
 import pytest
 
 from toqito.state_props import is_distinguishable

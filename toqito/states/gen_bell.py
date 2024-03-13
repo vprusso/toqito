@@ -1,4 +1,5 @@
 """Generalized Bell state."""
+
 import numpy as np
 
 from toqito.matrices import gen_pauli

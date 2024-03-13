@@ -1,4 +1,5 @@
 """Permute systems."""
+
 import functools
 import operator
 

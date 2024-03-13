@@ -1,4 +1,5 @@
 """Tests for optimal_clone."""
+
 import numpy as np
 import pytest
 

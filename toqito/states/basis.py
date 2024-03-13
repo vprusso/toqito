@@ -1,4 +1,5 @@
 """Basis state."""
+
 import numpy as np
 
 

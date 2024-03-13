@@ -1,4 +1,5 @@
 """Tests for matsumoto_fidelity."""
+
 import cvxpy
 import numpy as np
 import pytest

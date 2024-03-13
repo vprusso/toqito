@@ -1,4 +1,5 @@
 """Test is_pure."""
+
 import numpy as np
 import pytest
 

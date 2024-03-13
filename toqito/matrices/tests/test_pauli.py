@@ -1,4 +1,5 @@
 """Test pauli."""
+
 import numpy as np
 from scipy.sparse import issparse
 

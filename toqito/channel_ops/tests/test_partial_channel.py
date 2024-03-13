@@ -1,4 +1,5 @@
 """Tests for partial_channel."""
+
 import numpy as np
 import pytest
 

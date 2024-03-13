@@ -1,6 +1,5 @@
 """Two-player nonlocal game."""
 
-
 from collections import defaultdict
 
 import cvxpy

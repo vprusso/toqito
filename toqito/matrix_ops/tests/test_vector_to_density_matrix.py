@@ -1,4 +1,5 @@
 """Test vector_to_density_matrix."""
+
 import numpy as np
 import pytest
 

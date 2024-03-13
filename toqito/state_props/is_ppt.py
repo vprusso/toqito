@@ -1,6 +1,5 @@
 """Check if violates the PPT criterion."""
 
-
 import numpy as np
 
 from toqito.channels import partial_transpose

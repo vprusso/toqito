@@ -1,4 +1,5 @@
 """Tests for diamond_norm."""
+
 import numpy as np
 import pytest
 

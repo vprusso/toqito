@@ -1,4 +1,5 @@
 """Test is_antidistinguishable."""
+
 import pytest
 
 from toqito.state_props import is_antidistinguishable

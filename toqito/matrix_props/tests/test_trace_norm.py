@@ -1,4 +1,5 @@
 """Tests for trace_norm."""
+
 import numpy as np
 
 from toqito.matrix_props import trace_norm

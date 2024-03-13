@@ -1,4 +1,5 @@
 """State distinguishability."""
+
 import numpy as np
 import picos
 

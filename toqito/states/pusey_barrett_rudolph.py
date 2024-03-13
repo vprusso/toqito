@@ -1,4 +1,5 @@
 """Construct a set of mutually unbiased bases."""
+
 import itertools
 
 import numpy as np

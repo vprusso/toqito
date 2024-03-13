@@ -1,4 +1,5 @@
 """Test w_state."""
+
 import numpy as np
 import pytest
 

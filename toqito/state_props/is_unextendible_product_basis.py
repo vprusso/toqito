@@ -1,4 +1,5 @@
 """Check if a set of states form an unextendible product basis."""
+
 from itertools import permutations
 
 import numpy as np

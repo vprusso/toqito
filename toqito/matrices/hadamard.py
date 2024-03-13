@@ -1,4 +1,5 @@
 """Hadamard matrix."""
+
 import numpy as np
 
 

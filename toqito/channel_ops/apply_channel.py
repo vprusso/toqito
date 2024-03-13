@@ -1,6 +1,5 @@
 """Apply channel to an operator."""
 
-
 import itertools
 
 import numpy as np

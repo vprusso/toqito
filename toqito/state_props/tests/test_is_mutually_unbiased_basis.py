@@ -1,4 +1,5 @@
 """Test is_mutually_unbiased_basis."""
+
 import numpy as np
 import pytest
 

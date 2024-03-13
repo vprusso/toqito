@@ -1,4 +1,5 @@
 """Test is_mutually_orthogonal."""
+
 import numpy as np
 import pytest
 

@@ -1,4 +1,5 @@
 """Permutation and combinatorial functions."""
+
 from toqito.perms.unique_perms import unique_perms
 from toqito.perms.perfect_matchings import perfect_matchings
 from toqito.perms.perm_sign import perm_sign

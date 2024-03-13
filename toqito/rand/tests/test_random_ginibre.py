@@ -1,4 +1,5 @@
 """Test random_ginibre."""
+
 import numpy as np
 import pytest
 

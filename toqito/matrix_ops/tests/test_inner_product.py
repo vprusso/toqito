@@ -1,4 +1,5 @@
 """Test inner_product."""
+
 import numpy as np
 import pytest
 

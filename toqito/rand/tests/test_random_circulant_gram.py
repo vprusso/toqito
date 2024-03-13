@@ -1,4 +1,5 @@
 """Test random_circulant_gram."""
+
 import numpy as np
 import pytest
 from numpy.testing import assert_array_almost_equal, assert_equal

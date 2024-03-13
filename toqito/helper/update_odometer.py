@@ -1,6 +1,5 @@
 """Update odometer."""
 
-
 import numpy as np
 
 

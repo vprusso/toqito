@@ -1,6 +1,5 @@
 """Is matrix block positive."""
 
-
 import numpy as np
 
 from toqito.matrix_props.is_hermitian import is_hermitian

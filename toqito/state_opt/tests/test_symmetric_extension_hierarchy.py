@@ -1,4 +1,5 @@
 """Test symmetric_extension_hierarchy."""
+
 import numpy as np
 import pytest
 

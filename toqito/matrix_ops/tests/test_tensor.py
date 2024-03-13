@@ -1,4 +1,5 @@
 """Test tensor."""
+
 import numpy as np
 import pytest
 

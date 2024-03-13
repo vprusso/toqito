@@ -1,4 +1,5 @@
 """Is matrix a square matrix."""
+
 import numpy as np
 
 

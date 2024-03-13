@@ -1,6 +1,5 @@
 """Check if state is product."""
 
-
 import numpy as np
 
 from toqito.perms import permute_systems, swap

@@ -1,4 +1,5 @@
 """Tests for channel_fidelity."""
+
 import numpy as np
 import pytest
 

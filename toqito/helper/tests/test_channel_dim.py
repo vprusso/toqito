@@ -1,4 +1,5 @@
 """Test channel dimensions."""
+
 import numpy as np
 import pytest
 

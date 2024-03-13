@@ -1,4 +1,5 @@
 """Trine states."""
+
 import numpy as np
 
 from toqito.states import basis

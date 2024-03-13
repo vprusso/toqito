@@ -1,4 +1,5 @@
 """Semidefinite programs for obtaining values of quantum hedging scenarios."""
+
 import cvxpy
 import numpy as np
 

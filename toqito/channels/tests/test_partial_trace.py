@@ -1,4 +1,5 @@
 """Test partial_trace."""
+
 import re
 
 import cvxpy

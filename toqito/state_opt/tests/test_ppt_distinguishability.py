@@ -1,4 +1,5 @@
 """Test ppt_distinguishability."""
+
 import numpy as np
 import pytest
 

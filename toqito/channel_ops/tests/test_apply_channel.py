@@ -1,4 +1,5 @@
 """Tests for apply_channel."""
+
 import numpy as np
 import pytest
 

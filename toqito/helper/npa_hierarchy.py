@@ -1,6 +1,5 @@
 """NPA constraints."""
 
-
 from collections import namedtuple
 from itertools import product
 

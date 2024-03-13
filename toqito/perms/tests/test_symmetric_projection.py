@@ -1,4 +1,5 @@
 """Test symmetric_projection."""
+
 import numpy as np
 
 from toqito.perms import symmetric_projection

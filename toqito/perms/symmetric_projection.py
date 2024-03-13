@@ -1,4 +1,5 @@
 """Symmetric projection operator."""
+
 import math
 from itertools import permutations
 

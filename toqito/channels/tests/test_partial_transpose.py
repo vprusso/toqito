@@ -1,4 +1,5 @@
 """Test partial_transpose."""
+
 import cvxpy
 import numpy as np
 from cvxpy.atoms.affine.vstack import Vstack

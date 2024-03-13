@@ -1,4 +1,5 @@
 """Test calculate_vector_matrix_dimension."""
+
 import numpy as np
 import pytest
 

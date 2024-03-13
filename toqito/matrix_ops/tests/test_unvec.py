@@ -1,4 +1,5 @@
 """Test unvec."""
+
 import numpy as np
 import pytest
 

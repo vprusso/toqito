@@ -1,4 +1,5 @@
 """Test is_positive_definite."""
+
 import numpy as np
 
 from toqito.matrix_props import is_positive_definite

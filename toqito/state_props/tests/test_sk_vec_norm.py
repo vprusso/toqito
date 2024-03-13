@@ -1,4 +1,5 @@
 """Test sk_vector_norm."""
+
 import numpy as np
 import pytest
 

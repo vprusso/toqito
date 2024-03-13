@@ -1,4 +1,5 @@
 """Test state_exclusion."""
+
 import pytest
 
 from toqito.matrices import standard_basis

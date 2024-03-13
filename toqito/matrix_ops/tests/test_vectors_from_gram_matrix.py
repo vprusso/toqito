@@ -1,4 +1,5 @@
 """Test vectors_from_gram_matrix."""
+
 import numpy as np
 import pytest
 

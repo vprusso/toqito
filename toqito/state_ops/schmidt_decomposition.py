@@ -1,6 +1,5 @@
 """Schmidt decomposition operation."""
 
-
 import numpy as np
 
 

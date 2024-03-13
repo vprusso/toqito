@@ -1,4 +1,5 @@
 """Tests for dual_channel."""
+
 import numpy as np
 import pytest
 

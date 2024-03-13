@@ -1,4 +1,5 @@
 """Construct standard basis."""
+
 import numpy as np
 
 

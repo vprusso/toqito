@@ -1,4 +1,5 @@
 """Test is_linearly_independent."""
+
 import numpy as np
 import pytest
 

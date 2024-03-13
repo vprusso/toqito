@@ -1,6 +1,5 @@
 """Determine if one vector or matrix majorizes another."""
 
-
 import numpy as np
 
 

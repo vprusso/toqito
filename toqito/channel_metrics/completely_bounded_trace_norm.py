@@ -1,4 +1,5 @@
 """Compute the completely bounded trace norm of a quantum channel."""
+
 import cvxpy as cp
 import numpy as np
 

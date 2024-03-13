@@ -1,6 +1,5 @@
 """Check if state is pure."""
 
-
 import numpy as np
 
 

@@ -1,6 +1,5 @@
 """Generalized Gell-Mann matrices."""
 
-
 import numpy as np
 from scipy import sparse
 

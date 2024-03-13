@@ -1,4 +1,5 @@
 """Is matrix a density matrix."""
+
 import numpy as np
 
 from toqito.matrix_props import is_positive_semidefinite

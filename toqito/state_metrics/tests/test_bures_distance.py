@@ -1,4 +1,5 @@
 """Tests for bures_distance."""
+
 import numpy as np
 
 from toqito.state_metrics import bures_distance

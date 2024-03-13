@@ -1,4 +1,5 @@
 """Breuer state."""
+
 import numpy as np
 
 from toqito.perms import symmetric_projection

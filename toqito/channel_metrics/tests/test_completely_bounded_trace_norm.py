@@ -1,4 +1,5 @@
 """Tests for completely_bounded_trace_norm."""
+
 import numpy as np
 import pytest
 

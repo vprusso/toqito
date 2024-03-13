@@ -1,6 +1,5 @@
 """Check if state is separable."""
 
-
 import numpy as np
 from picos import partial_trace
 

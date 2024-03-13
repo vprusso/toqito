@@ -1,4 +1,5 @@
 """State exclusion."""
+
 import numpy as np
 import picos
 

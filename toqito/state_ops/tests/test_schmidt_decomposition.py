@@ -1,4 +1,5 @@
 """Test schmidt_decomposition."""
+
 import numpy as np
 import pytest
 

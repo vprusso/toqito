@@ -1,4 +1,5 @@
 """Test brauer."""
+
 import numpy as np
 import pytest
 

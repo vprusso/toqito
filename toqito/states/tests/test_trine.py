@@ -1,4 +1,5 @@
 """Test trine."""
+
 import numpy as np
 
 from toqito.states import trine

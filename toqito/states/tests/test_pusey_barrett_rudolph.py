@@ -1,4 +1,5 @@
 """Test pusey_barrett_rudolph."""
+
 import numpy as np
 import pytest
 

@@ -1,6 +1,5 @@
 """Channel dimensions."""
 
-
 import itertools
 
 import numpy as np

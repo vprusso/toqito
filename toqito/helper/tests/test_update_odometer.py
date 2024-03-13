@@ -1,4 +1,5 @@
 """Test update_odometer."""
+
 import numpy as np
 
 from toqito.helper import update_odometer

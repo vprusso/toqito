@@ -1,4 +1,5 @@
 """Test npa_constraints."""
+
 from collections import defaultdict
 
 import cvxpy

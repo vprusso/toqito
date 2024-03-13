@@ -1,4 +1,5 @@
 """Construct a set of mutually unbiased bases."""
+
 import numpy as np
 from sympy import isprime, primerange
 

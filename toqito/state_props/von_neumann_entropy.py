@@ -1,4 +1,5 @@
 """Von neumann entropy metric."""
+
 import numpy as np
 
 from toqito.matrix_props import is_density

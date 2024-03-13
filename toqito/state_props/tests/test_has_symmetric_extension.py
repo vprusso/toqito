@@ -1,4 +1,5 @@
 """Test has_symmetric_extension."""
+
 import numpy as np
 import pytest
 

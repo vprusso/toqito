@@ -1,4 +1,5 @@
 """The dephasing channel."""
+
 import numpy as np
 
 from toqito.states import max_entangled

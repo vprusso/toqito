@@ -1,4 +1,5 @@
 """Tests for ExtendedNonlocalGame class."""
+
 import unittest
 
 import numpy as np

@@ -1,4 +1,5 @@
 """Test perfect_matchings."""
+
 import numpy as np
 
 from toqito.perms import perfect_matchings

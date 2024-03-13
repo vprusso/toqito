@@ -1,4 +1,5 @@
 """Test pure_to_mixed."""
+
 import numpy as np
 
 from toqito.state_ops import pure_to_mixed

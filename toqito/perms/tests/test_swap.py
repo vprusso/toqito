@@ -1,4 +1,5 @@
 """Test swap."""
+
 import numpy as np
 import pytest
 

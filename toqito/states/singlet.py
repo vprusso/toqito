@@ -1,4 +1,5 @@
 """Generalized singlet state."""
+
 import numpy as np
 
 from toqito.perms import swap_operator

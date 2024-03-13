@@ -1,4 +1,5 @@
 """Test depolarizing."""
+
 import numpy as np
 
 from toqito.channel_ops import apply_channel

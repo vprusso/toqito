@@ -1,6 +1,5 @@
 """PPT symmetric extension hierarchy."""
 
-
 import cvxpy
 import numpy as np
 

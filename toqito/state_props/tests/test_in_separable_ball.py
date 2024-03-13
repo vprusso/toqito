@@ -1,4 +1,5 @@
 """Test in_separable_ball."""
+
 import numpy as np
 import pytest
 

@@ -1,4 +1,5 @@
 """Fourier matrix."""
+
 import numpy as np
 
 

@@ -1,4 +1,5 @@
 """Test is_unextendible_product_basis."""
+
 import numpy as np
 import pytest
 
