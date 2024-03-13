@@ -69,7 +69,7 @@ select = ["I", "E", "W", "D", "PL"]
 # Rules considered over other incompatible ones
 exclude = ["docs/conf.py", "setup.py"]
 
-ignore = ["D407", "D203", "D213", "D416", "PLR0912", "PLR0911", "PLR0915", "PLR2004", "PLR0913"]
+ignore = ["D407", "D203", "D213", "D416", "PLR0912", "PLR0911", "PLR0915", "PLR2004", "PLR0913", "W1404"]
 # Rules Ignored
 
 # D407 - Ignored because ==== under a section heading is considered as a missing underline.
@@ -87,7 +87,7 @@ ignore = ["D407", "D203", "D213", "D416", "PLR0912", "PLR0911", "PLR0915", "PLR2
 # PLR0915 -- Checks for functions or methods with too many statements. The default number is 50. 
 # PLR2004 -- Checks if an equality or an inequality is compared to a variable or a num (prefers variable pre)
 # PLR0913 Too many arguments in function definition
-
+# W1404 -- String literals are implicitly concatenated in a literal iterable definition : maybe a comma is missing ?
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["I001"]
 # I001 - skip checking Import block is un-sorted or un-formatted
