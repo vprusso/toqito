@@ -103,7 +103,7 @@ def is_unextendible_product_basis(vecs: list[np.ndarray], dims: list[int]) -> tu
             witness_found = True
             for i in range(num_parties):
                 # For the i-th party, acquire the matrix.
-                mat = np.stack([vecs_split[col , i, :] for col in part_ordered[i]])
+                mat = np.stack([vecs_split[col, i, :] for col in part_ordered[i]])
                 # Find the basis of the null space.
                 null_basis = null_space(mat)
                 # If null space is empty then break.

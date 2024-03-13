@@ -76,7 +76,7 @@ def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) 
     :return: Projection onto the antisymmetric subspace.
 
     """
-    dimp = dim ** p_param
+    dimp = dim**p_param
 
     if p_param == 1:
         return sparse.eye(dim)
@@ -89,9 +89,7 @@ def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) 
 
     anti_proj = sparse.lil_matrix((dimp, dimp))
     for j in range(p_fac):
-        anti_proj += perm_sign(p_list[j, :]) * permutation_operator(
-            dim * np.ones(p_param), p_list[j, :], False, True
-        )
+        anti_proj += perm_sign(p_list[j, :]) * permutation_operator(dim * np.ones(p_param), p_list[j, :], False, True)
     anti_proj = anti_proj / p_fac
 
     if partial:

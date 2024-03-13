@@ -10,6 +10,7 @@ def test_cyclic_permutation_fixed():
     res = cyclic_permutation_matrix(n)
     assert np.allclose(np.linalg.matrix_power(res, n), np.eye(n))
 
+
 def test_cyclic_permutation_successive():
     """Test a successive cyclic permuation matrix."""
     n = 4
@@ -17,6 +18,7 @@ def test_cyclic_permutation_successive():
     for k in range(1, n):
         res = cyclic_permutation_matrix(n, k)
         assert np.allclose(np.linalg.matrix_power(res, n), np.eye(n))
+
 
 def test_cyclic_permutation_checks():
     """Run checks to confrim a proper cyclic permutation."""

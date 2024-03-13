@@ -15,7 +15,7 @@ requirements = [
     "pytest",
     "pytest-cov",
     "qiskit",
-    "scs"
+    "scs",
 ]
 
 setuptools.setup(

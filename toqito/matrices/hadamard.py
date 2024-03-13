@@ -43,10 +43,7 @@ def hadamard(n_param: int = 1) -> np.ndarray:
 
     """
     return 2 ** (-n_param / 2) * np.array(
-        [
-            [(-1) ** _hamming_distance(i & j) for i in range(2 ** n_param)]
-            for j in range(2 ** n_param)
-        ]
+        [[(-1) ** _hamming_distance(i & j) for i in range(2**n_param)] for j in range(2**n_param)]
     )
 
 

@@ -225,9 +225,7 @@ def npa_constraints(  # pylint: disable=too-many-locals
             for a_ans in range(a_out):
                 for b_ans in range(b_out):
                     sum_all_meas_and_trace += sum(
-                        assemblage[x_alice_in, y_bob_in][
-                            i + a_ans * referee_dim, i + b_ans * referee_dim
-                        ]
+                        assemblage[x_alice_in, y_bob_in][i + a_ans * referee_dim, i + b_ans * referee_dim]
                         for i in range(referee_dim)
                     )
 

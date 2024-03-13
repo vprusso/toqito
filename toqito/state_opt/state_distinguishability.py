@@ -108,10 +108,10 @@ def state_distinguishability(
 
 
 def _min_error_primal(
-        vectors: list[np.ndarray],
-        dim: int,
-        probs: list[float] = None,
-        solver: str = "cvxopt",
+    vectors: list[np.ndarray],
+    dim: int,
+    probs: list[float] = None,
+    solver: str = "cvxopt",
 ) -> tuple[float, list[picos.HermitianVariable]]:
     """Find the primal problem for minimum-error quantum state distinguishability SDP."""
     n = len(vectors)
@@ -125,19 +125,16 @@ def _min_error_primal(
 
     dms = [vector_to_density_matrix(vector) for vector in vectors]
 
-    problem.set_objective(
-        "max",
-        np.real(picos.sum([(probs[i] * dms[i] | measurements[i]) for i in range(n)]))
-    )
+    problem.set_objective("max", np.real(picos.sum([(probs[i] * dms[i] | measurements[i]) for i in range(n)])))
     solution = problem.solve(solver=solver)
     return solution.value, measurements
 
 
 def _min_error_dual(
-        vectors: list[np.ndarray],
-        dim: int,
-        probs: list[float] = None,
-        solver: str = "cvxopt",
+    vectors: list[np.ndarray],
+    dim: int,
+    probs: list[float] = None,
+    solver: str = "cvxopt",
 ) -> tuple[float, list[picos.HermitianVariable]]:
     """Find the dual problem for minimum-error quantum state distinguishability SDP."""
     n = len(vectors)
@@ -146,10 +143,7 @@ def _min_error_dual(
     # Set up variables and constraints for SDP:
     y_var = picos.HermitianVariable("Y", (dim, dim))
     problem.add_list_of_constraints(
-        [
-            y_var >> probs[i] * vector_to_density_matrix(vector)
-            for i, vector in enumerate(vectors)
-        ]
+        [y_var >> probs[i] * vector_to_density_matrix(vector) for i, vector in enumerate(vectors)]
     )
 
     # Objective function:

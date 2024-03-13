@@ -19,8 +19,6 @@ from toqito.rand.random_circulant_gram import random_circulant_gram
         10,
     ],
 )
-
-
 def test_random_circulant_gram(dim):
     """Test for random_circulant_gram function."""
     # Generate a random circulant Gram matrix.

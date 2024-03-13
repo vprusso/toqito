@@ -100,9 +100,7 @@ def werner(dim: int, alpha: float | list[float]) -> np.ndarray:
             if n_var == i + 1:
                 break
             if n_var < i:
-                raise ValueError(
-                    "InvalidAlpha: The `alpha` vector must contain p!-1 entries for some integer p > 1."
-                )
+                raise ValueError("InvalidAlpha: The `alpha` vector must contain p!-1 entries for some integer p > 1.")
 
         # Done error checking and computing the number of parties
         # -- now compute the Werner state.
@@ -111,9 +109,7 @@ def werner(dim: int, alpha: float | list[float]) -> np.ndarray:
 
         rho = np.identity(dim**n_var)
         for i in range(2, n_fac):
-            rho -= alpha[i - 1] * permutation_operator(
-                dim, sorted_perms[i - 1, :], False, True
-            )
+            rho -= alpha[i - 1] * permutation_operator(dim, sorted_perms[i - 1, :], False, True)
         rho = rho / np.trace(rho)
         return rho
 

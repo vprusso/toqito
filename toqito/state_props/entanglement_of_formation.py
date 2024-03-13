@@ -67,7 +67,6 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
     dim_x, dim_y = rho.shape
     round_dim = int(np.round(np.sqrt(max(dim_x, dim_y))))
 
-
     if dim is None:
         dim = round_dim
 
@@ -79,9 +78,7 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
         dim[1] = np.round(dim[1])
 
     if np.prod(dim) != max(dim_x, dim_y):
-        raise ValueError(
-            "Invalid dimension: Please provide local dimensions that match the size of `rho`."
-        )
+        raise ValueError("Invalid dimension: Please provide local dimensions that match the size of `rho`.")
     # If :code:`rho` is a rank-1 density matrix, turn it into a vector instead
     # so we can compute the entanglement-of-formation easily.
     tmp_rho = scipy.linalg.orth(rho)
@@ -102,8 +99,8 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
         if dim_x == 4:
             rho_c = concurrence(rho)
 
-            rho_c1 = (1 + np.sqrt(1 - rho_c ** 2)) / 2
-            rho_c2 = (1 - np.sqrt(1 - rho_c ** 2)) / 2
+            rho_c1 = (1 + np.sqrt(1 - rho_c**2)) / 2
+            rho_c2 = (1 - np.sqrt(1 - rho_c**2)) / 2
 
             rho_c1_log2 = 0 if rho_c1 == 0 else np.log2(rho_c1)
             rho_c2_log2 = 0 if rho_c2 == 0 else np.log2(rho_c2)

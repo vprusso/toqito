@@ -47,5 +47,5 @@ def reduction(dim: int, k: int = 1) -> np.ndarray:
 
     """
     psi = max_entangled(dim, False, False)
-    identity_matrix = identity(dim ** 2)
+    identity_matrix = identity(dim**2)
     return k * identity_matrix.toarray() - psi @ psi.conj().T

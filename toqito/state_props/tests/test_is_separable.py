@@ -58,8 +58,7 @@ def test_ppt_low_rank():
     np.testing.assert_equal(is_density(rho_cut), True)
     np.testing.assert_equal(is_density(np.array(pt_state_alice)), True)
     np.testing.assert_equal(
-        np.linalg.matrix_rank(rho_cut) + np.linalg.matrix_rank(pt_state_alice)
-        <= 2 * m * n - m - n + 2,
+        np.linalg.matrix_rank(rho_cut) + np.linalg.matrix_rank(pt_state_alice) <= 2 * m * n - m - n + 2,
         True,
     )
     # TODO
@@ -83,10 +82,10 @@ def test_entangled_cross_norm_realignment_criterion():
     p_var, a_var, b_var = 0.4, 0.8, 0.64
     rho = np.array(
         [
-            [p_var * a_var ** 2, 0, 0, p_var * a_var * b_var],
-            [0, (1 - p_var) * a_var ** 2, (1 - p_var) * a_var * b_var, 0],
-            [0, (1 - p_var) * a_var * b_var, (1 - p_var) * a_var ** 2, 0],
-            [p_var * a_var * b_var, 0, 0, p_var * a_var ** 2],
+            [p_var * a_var**2, 0, 0, p_var * a_var * b_var],
+            [0, (1 - p_var) * a_var**2, (1 - p_var) * a_var * b_var, 0],
+            [0, (1 - p_var) * a_var * b_var, (1 - p_var) * a_var**2, 0],
+            [p_var * a_var * b_var, 0, 0, p_var * a_var**2],
         ]
     )
     np.testing.assert_equal(is_separable(rho), False)

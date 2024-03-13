@@ -190,10 +190,7 @@ def symmetric_extension_hierarchy(
         meas.append(cvxpy.Variable((dim_xy, dim_xy), PSD=True))
         x_var.append(cvxpy.Variable((dim_xyy, dim_xyy), PSD=True))
         constraints.append(partial_trace(x_var[k], sys_list, dim_list) == meas[k])
-        constraints.append(
-            np.kron(np.identity(dim_x), sym) @ x_var[k] @ np.kron(np.identity(dim_x), sym)
-            == x_var[k]
-        )
+        constraints.append(np.kron(np.identity(dim_x), sym) @ x_var[k] @ np.kron(np.identity(dim_x), sym) == x_var[k])
         constraints.append(partial_transpose(x_var[k], [0], dim_list) >> 0)
         for sys in range(level - 1):
             constraints.append(partial_transpose(x_var[k], [sys + 2], dim_list) >> 0)

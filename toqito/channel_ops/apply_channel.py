@@ -147,7 +147,4 @@ def apply_channel(mat: np.ndarray, phi_op: np.ndarray | list[list[np.ndarray]]) 
             order="F",
         )
         return a_mat @ b_mat
-    raise ValueError(
-        "Invalid: The variable `phi_op` must either be a list of "
-        "Kraus operators or as a Choi matrix."
-    )
+    raise ValueError("Invalid: The variable `phi_op` must either be a list of " "Kraus operators or as a Choi matrix.")

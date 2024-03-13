@@ -166,9 +166,7 @@ def partial_trace(
     if (num_sys := len(dim)) == 1:
         dim = np.array([dim[0], len(input_mat) / dim[0]])
         if np.abs(dim[1] - np.round(dim[1])) >= 2 * len(input_mat) * np.finfo(float).eps:
-            raise ValueError(
-                "Invalid: If `dim` is a scalar, `dim` must evenly divide `len(input_mat)`."
-            )
+            raise ValueError("Invalid: If `dim` is a scalar, `dim` must evenly divide `len(input_mat)`.")
         dim[1] = np.round(dim[1])
         num_sys = 2
 
@@ -183,9 +181,7 @@ def partial_trace(
     elif isinstance(sys, int):
         prod_dim_sys = np.prod(dim[sys])  # pylint: disable=redefined-variable-type
     else:
-        raise ValueError(
-            "Invalid: The variable `sys` must either be of type int or of a list of ints."
-        )
+        raise ValueError("Invalid: The variable `sys` must either be of type int or of a list of ints.")
 
     sub_prod = prod_dim / prod_dim_sys
     sub_sys_vec = prod_dim * np.ones(int(sub_prod)) / sub_prod
@@ -214,9 +210,7 @@ def partial_trace(
         order="F",
     )
 
-    pt_mat = permuted_reshaped_mat[
-        :, :, list(range(0, int(sub_sys_vec[0] ** 2), int(sub_sys_vec[0] + 1)))
-    ]
+    pt_mat = permuted_reshaped_mat[:, :, list(range(0, int(sub_sys_vec[0] ** 2), int(sub_sys_vec[0] + 1)))]
     pt_mat = np.sum(pt_mat, axis=2)
 
     return pt_mat

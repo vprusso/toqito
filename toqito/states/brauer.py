@@ -71,7 +71,5 @@ def brauer(dim: int, p_val: int) -> np.ndarray:
 
     # Turn these perfect matchings into the corresponding states.
     for i in range(num_matchings):
-        state[:, i] = permute_systems(
-            phi, matchings[i, :], dim * np.ones((1, 2 * p_val), dtype=int)[0]
-        )
+        state[:, i] = permute_systems(phi, matchings[i, :], dim * np.ones((1, 2 * p_val), dtype=int)[0])
     return state

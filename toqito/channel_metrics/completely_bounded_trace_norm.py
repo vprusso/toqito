@@ -41,9 +41,7 @@ def completely_bounded_trace_norm(phi: np.ndarray) -> float:
     dim_lx, dim_ly = phi.shape
 
     if dim_lx != dim_ly:
-        raise ValueError(
-            "The input and output spaces of the superoperator phi must both be square."
-        )
+        raise ValueError("The input and output spaces of the superoperator phi must both be square.")
 
     if is_quantum_channel(phi):
         return 1
@@ -65,8 +63,7 @@ def completely_bounded_trace_norm(phi: np.ndarray) -> float:
     a_var = cp.bmat([[y0, -phi], [-phi.conj().T, y1]])
     constraints += [a_var >> 0]
     objective = cp.Minimize(
-        cp.norm(cp.partial_trace(y0, dims=(dim, dim), axis=1))
-        + cp.norm(cp.partial_trace(y1, dims=(dim, dim), axis=1))
+        cp.norm(cp.partial_trace(y0, dims=(dim, dim), axis=1)) + cp.norm(cp.partial_trace(y1, dims=(dim, dim), axis=1))
     )
 
     problem = cp.Problem(objective, constraints)
