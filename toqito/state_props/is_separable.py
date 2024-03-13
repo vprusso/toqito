@@ -67,15 +67,12 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     state_len = state.shape[1]
     state_rank = np.linalg.matrix_rank(state)
     state = state / np.trace(state)
-    eps = np.finfo(float).eps
 
     if dim is None:
         dim = int(np.round(np.sqrt(state_len)))
 
     if isinstance(dim, int):
         dim = np.array([dim, state_len / dim])  # pylint: disable=redefined-variable-type
-        if np.abs(dim[1] - np.round(dim[1])) >= 2 * state_len * eps:
-            raise ValueError("The parameter `dim` must evenly divide the length of the state.")
         dim[1] = np.round(dim[1])
 
     # nD, xD, pD
