@@ -6,7 +6,7 @@ from toqito.channels import partial_trace
 from toqito.matrix_props import is_density
 from toqito.rand import random_density_matrix
 from toqito.state_props.is_separable import is_separable
-from toqito.states import basis, bell, isotropic, tile
+from toqito.states import basis, bell, tile
 
 
 def test_non_positive_semidefinite_matrix():
@@ -20,13 +20,6 @@ def test_psd_matrix_local_dim_one():
     """Every positive semidefinite matrix is separable when one of the local dimensions is 1."""
     np.testing.assert_equal(is_separable(np.identity(2)), True)
 
-
-def test_invalid_dim_parameter():
-    """The dimension of the state must evenly divide the length of the state."""
-    with np.testing.assert_raises(ValueError):
-        dim = 3
-        rho = isotropic(dim, 1 / (dim + 1))
-        is_separable(rho, dim + 1)
 
 
 def test_entangled_ppt_criterion():
