@@ -57,6 +57,5 @@ def perm_unique_helper(list_unique: list[UniqueElement], result_list: list[int],
             if i.occurrences > 0:
                 result_list[elem_d] = i.value
                 i.occurrences -= 1
-                for g_perm in perm_unique_helper(list_unique, result_list, elem_d - 1):
-                    yield g_perm
+                yield from perm_unique_helper(list_unique, result_list, elem_d - 1)
                 i.occurrences += 1
