@@ -29,7 +29,5 @@ def test_kp_norm(vector, k, p, norm_to_compare):
 
 def test_no_default_kp_values():
     """Test kp_norm does not have any default values for k or p."""
-    with pytest.raises(
-        TypeError, match=re.escape("kp_norm() missing 2 required positional arguments: 'k' and 'p'")
-    ):
+    with pytest.raises(TypeError, match=re.escape("kp_norm() missing 2 required positional arguments: 'k' and 'p'")):
         kp_norm(bell(0))  # pylint: disable=no-value-for-parameter

@@ -1,4 +1,5 @@
 """Test schmidt_rank."""
+
 import numpy as np
 import pytest
 

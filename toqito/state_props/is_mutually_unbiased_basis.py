@@ -1,4 +1,5 @@
 """Check if states form mutually unbiased basis."""
+
 from typing import Any
 
 import numpy as np

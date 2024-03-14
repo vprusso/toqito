@@ -1,4 +1,5 @@
 """Test is_product_vector."""
+
 import numpy as np
 import pytest
 

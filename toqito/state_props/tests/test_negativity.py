@@ -1,4 +1,5 @@
 """Test negativity."""
+
 import numpy as np
 import pytest
 

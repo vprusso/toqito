@@ -1,4 +1,5 @@
 """Is matrix diagonally dominant."""
+
 import numpy as np
 
 from toqito.matrix_props import is_square

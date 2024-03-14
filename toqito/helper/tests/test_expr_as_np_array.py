@@ -1,4 +1,5 @@
 """Test expr_as_np_array."""
+
 import cvxpy
 import numpy as np
 

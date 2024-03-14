@@ -1,4 +1,5 @@
 """Symmetric projection operator."""
+
 import math
 from itertools import permutations
 
@@ -8,7 +9,7 @@ import scipy
 from toqito.perms import permutation_operator
 
 
-def symmetric_projection( dim: int, p_val: int = 2, partial: bool = False ) -> [np.ndarray, scipy.sparse.lil_matrix]:
+def symmetric_projection(dim: int, p_val: int = 2, partial: bool = False) -> [np.ndarray, scipy.sparse.lil_matrix]:
     r"""Produce the projection onto the symmetric subspace :cite:`Chen_2014_Symmetric`.
 
     For a complex Euclidean space :math:`\mathcal{X}` and a positive integer :math:`n`, the projection onto the
@@ -75,7 +76,7 @@ def symmetric_projection( dim: int, p_val: int = 2, partial: bool = False ) -> [
     :return: Projection onto the symmetric subspace.
 
     """
-    dimp = dim ** p_val
+    dimp = dim**p_val
 
     if p_val == 1:
         return np.eye(dim)

@@ -1,4 +1,5 @@
 """Permute systems."""
+
 import functools
 import operator
 
@@ -178,9 +179,7 @@ def permute_systems(
     if sorted(perm) != list(range(1, num_sys + 1)):
         raise ValueError("InvalidPerm: `perm` must be a permutation vector.")
     if input_mat_dims[0] != prod_dim_r or (not row_only and input_mat_dims[1] != prod_dim_c):
-        raise ValueError(
-            "InvalidDim: The dimensions specified in DIM do not agree with the size of X."
-        )
+        raise ValueError("InvalidDim: The dimensions specified in DIM do not agree with the size of X.")
     if is_vec:
         # If `input_mat` is a 1-by-X row vector, ensure we "flatten it" appropriately:
         if input_mat.shape[0] == 1:
@@ -188,9 +187,7 @@ def permute_systems(
             vec_orien = 1
         permuted_mat_1 = input_mat.reshape(dim[vec_orien, ::-1].astype(int), order="F")
         if inv_perm:
-            permuted_mat = vec(
-                np.transpose(permuted_mat_1, np.argsort(num_sys - np.array(perm[::-1])))
-            ).T
+            permuted_mat = vec(np.transpose(permuted_mat_1, np.argsort(num_sys - np.array(perm[::-1])))).T
         else:
             permuted_mat = vec(np.transpose(permuted_mat_1, num_sys - np.array(perm[::-1]))).T
 
@@ -211,7 +208,7 @@ def permute_systems(
     if isinstance(input_mat, (sparse.csr_matrix, sparse.dia_matrix)):
         input_mat = input_mat.toarray()
         permuted_mat = input_mat[row_perm, :]
-        permuted_mat = np.array(permuted_mat) # pylint: disable=redefined-variable-type
+        permuted_mat = np.array(permuted_mat)  # pylint: disable=redefined-variable-type
     else:
         permuted_mat = input_mat[row_perm, :]
 

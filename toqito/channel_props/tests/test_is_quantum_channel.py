@@ -1,4 +1,5 @@
 """Tests for is_quantum_channel."""
+
 import numpy as np
 
 from toqito.channel_props import is_quantum_channel

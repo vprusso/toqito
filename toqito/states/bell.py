@@ -1,4 +1,5 @@
 """Bell state."""
+
 import numpy as np
 
 from toqito.states import basis

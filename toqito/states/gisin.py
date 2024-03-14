@@ -1,4 +1,5 @@
 """Gisin state."""
+
 import numpy as np
 
 

@@ -1,4 +1,5 @@
 """Test log_negativity."""
+
 import numpy as np
 import pytest
 

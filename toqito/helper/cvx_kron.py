@@ -1,6 +1,5 @@
 """Kronecker product for CVXPY objects."""
 
-
 import cvxpy
 import numpy as np
 from cvxpy.expressions.expression import Expression

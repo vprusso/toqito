@@ -1,6 +1,5 @@
 """Schmidt rank of state."""
 
-
 import numpy as np
 
 from toqito.perms import swap

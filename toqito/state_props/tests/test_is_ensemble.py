@@ -1,4 +1,5 @@
 """Test is_ensemble."""
+
 import numpy as np
 import pytest
 

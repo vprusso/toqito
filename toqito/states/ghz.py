@@ -1,4 +1,5 @@
 """GHZ state."""
+
 import numpy as np
 from scipy import sparse
 
@@ -82,17 +83,15 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] = None) -> sparse:
     if num_qubits < 1:
         raise ValueError("InvalidNumQubits: `num_qubits` must be at least 1.")
     if len(coeff) != dim:
-        raise ValueError(
-            "InvalidCoeff: The variable `coeff` must be a vector of length equal to `dim`."
-        )
+        raise ValueError("InvalidCoeff: The variable `coeff` must be a vector of length equal to `dim`.")
 
     # Construct the state (and do it in a way that is less memory-intensive
     # than naively tensoring things together.
     dim_sum = 1
     for i in range(1, num_qubits):
-        dim_sum += dim ** i
+        dim_sum += dim**i
 
-    ret_ghz_state = sparse.lil_matrix((dim ** num_qubits, 1))
+    ret_ghz_state = sparse.lil_matrix((dim**num_qubits, 1))
     for i in range(1, dim + 1):
         ret_ghz_state[(i - 1) * dim_sum] = coeff[i - 1]
     return ret_ghz_state

@@ -1,4 +1,5 @@
 """Test standard_basis."""
+
 import numpy as np
 
 from toqito.matrices import standard_basis

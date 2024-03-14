@@ -1,6 +1,5 @@
 """Gell-Mann matrices."""
 
-
 import numpy as np
 import scipy
 

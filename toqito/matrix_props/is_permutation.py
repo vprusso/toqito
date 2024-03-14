@@ -1,4 +1,5 @@
 """Is matrix a permutation matrix."""
+
 import numpy as np
 
 

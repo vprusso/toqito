@@ -1,6 +1,5 @@
 """Tests for completely_bounded_spectral_norm."""
 
-
 from toqito.channel_metrics import (
     completely_bounded_spectral_norm,
     completely_bounded_trace_norm,

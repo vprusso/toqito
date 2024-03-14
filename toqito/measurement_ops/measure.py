@@ -1,4 +1,5 @@
 """Determine probability of obtaining measurement outcome."""
+
 import numpy as np
 
 

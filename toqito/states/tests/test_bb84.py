@@ -1,4 +1,5 @@
 """Test BB84."""
+
 import numpy as np
 
 from toqito.states import bb84

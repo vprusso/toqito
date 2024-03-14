@@ -1,4 +1,5 @@
 """Test random_circulant_gram."""
+
 import numpy as np
 import pytest
 from numpy.testing import assert_array_almost_equal, assert_equal
@@ -19,8 +20,6 @@ from toqito.rand.random_circulant_gram import random_circulant_gram
         10,
     ],
 )
-
-
 def test_random_circulant_gram(dim):
     """Test for random_circulant_gram function."""
     # Generate a random circulant Gram matrix.

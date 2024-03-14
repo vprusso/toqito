@@ -1,4 +1,5 @@
 """Generate random circulant Gram matrix."""
+
 import numpy as np
 
 

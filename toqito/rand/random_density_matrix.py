@@ -1,4 +1,5 @@
 """Generate random density matrix."""
+
 import numpy as np
 
 from toqito.rand import random_unitary

@@ -1,4 +1,5 @@
 """Gram matrix from list of vectors."""
+
 import numpy as np
 
 

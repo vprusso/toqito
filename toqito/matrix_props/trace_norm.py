@@ -1,4 +1,5 @@
 """Trace norm metric."""
+
 import numpy as np
 
 

@@ -1,4 +1,5 @@
 """Test pure_to_mixed."""
+
 import numpy as np
 
 from toqito.state_ops import pure_to_mixed
@@ -7,9 +8,7 @@ from toqito.states import bell
 
 def test_pure_to_mixed_state_vector():
     """Convert pure state to mixed state vector."""
-    expected_res = np.array(
-        [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
-    )
+    expected_res = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
 
     phi = bell(0)
     res = pure_to_mixed(phi)
@@ -20,9 +19,7 @@ def test_pure_to_mixed_state_vector():
 
 def test_pure_to_mixed_density_matrix():
     """Convert pure state to mixed state density matrix."""
-    expected_res = np.array(
-        [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
-    )
+    expected_res = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
 
     phi = bell(0) * bell(0).conj().T
     res = pure_to_mixed(phi)

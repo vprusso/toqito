@@ -1,4 +1,5 @@
 """Test max_entangled."""
+
 import numpy as np
 import pytest
 

@@ -1,4 +1,5 @@
 """Tests for completely_bounded_trace_norm."""
+
 import numpy as np
 import pytest
 
@@ -14,13 +15,17 @@ dist = np.abs(lam[:, None] - lam[None, :])  # all to all distance
 diameter = np.max(dist)
 
 
-@pytest.mark.parametrize("test_input, expected", [
-    # The diamond norm of a quantum channel is 1
-    (dephasing(2), 1),
-    # the diamond norm of a CP map
-    (np.eye(4), 4.0),
-    # unitaries channel, phi, diameter in terms of the eigenvalues of U
-    (phi, diameter)])
+@pytest.mark.parametrize(
+    "test_input, expected",
+    [
+        # The diamond norm of a quantum channel is 1
+        (dephasing(2), 1),
+        # the diamond norm of a CP map
+        (np.eye(4), 4.0),
+        # unitaries channel, phi, diameter in terms of the eigenvalues of U
+        (phi, diameter),
+    ],
+)
 def test_cb_trace_norm(test_input, expected):
     """Test function works as expected for valid inputs."""
     calculated_value = completely_bounded_trace_norm(test_input)

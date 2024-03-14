@@ -1,4 +1,5 @@
 """Tests for hilbert_schmidt."""
+
 import numpy as np
 
 from toqito.state_metrics import hilbert_schmidt

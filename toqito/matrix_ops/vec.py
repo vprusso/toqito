@@ -1,4 +1,5 @@
 """Vec operation."""
+
 import numpy as np
 
 

@@ -1,4 +1,5 @@
 """Chessboard state."""
+
 import numpy as np
 
 

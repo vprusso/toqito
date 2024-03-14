@@ -1,4 +1,5 @@
 """Test ppt_distinguishability."""
+
 import numpy as np
 import pytest
 
@@ -36,7 +37,7 @@ def test_ppt_distinguishability_yyd_density_matrices():
         subsystems=[0, 2],
         dimensions=[2, 2, 2, 2],
         strategy="min_error",
-        primal_dual="primal"
+        primal_dual="primal",
     )
     dual_res, _ = ppt_distinguishability(
         vectors=states,
@@ -44,7 +45,7 @@ def test_ppt_distinguishability_yyd_density_matrices():
         subsystems=[0, 2],
         dimensions=[2, 2, 2, 2],
         strategy="min_error",
-        primal_dual="dual"
+        primal_dual="dual",
     )
     assert np.isclose(primal_res, 7 / 8, atol=0.001)
     assert np.isclose(dual_res, 7 / 8, atol=0.001)
@@ -55,7 +56,7 @@ def test_ppt_distinguishability_yyd_density_matrices():
         subsystems=[0, 2],
         dimensions=[2, 2, 2, 2],
         strategy="unambig",
-        primal_dual="primal"
+        primal_dual="primal",
     )
 
     assert np.isclose(primal_res, 3 / 4, atol=0.001)
@@ -86,7 +87,7 @@ def test_ppt_distinguishability_yyd_vectors():
         subsystems=[0, 2],
         dimensions=[2, 2, 2, 2],
         strategy="min_error",
-        primal_dual="primal"
+        primal_dual="primal",
     )
     dual_res, _ = ppt_distinguishability(
         vectors=states,
@@ -94,7 +95,7 @@ def test_ppt_distinguishability_yyd_vectors():
         subsystems=[0, 2],
         dimensions=[2, 2, 2, 2],
         strategy="min_error",
-        primal_dual="dual"
+        primal_dual="dual",
     )
 
     assert np.isclose(primal_res, 7 / 8, atol=0.001)
@@ -106,7 +107,7 @@ def test_ppt_distinguishability_yyd_vectors():
         subsystems=[0, 2],
         dimensions=[2, 2, 2, 2],
         strategy="unambig",
-        primal_dual="primal"
+        primal_dual="primal",
     )
 
     assert np.isclose(primal_res, 3 / 4, atol=0.001)
@@ -195,7 +196,7 @@ def test_ppt_distinguishability_four_bell_states():
     ]
     probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
 
-    exp_res = 1 / 2 * (1 + np.sqrt(1 - eps ** 2))
+    exp_res = 1 / 2 * (1 + np.sqrt(1 - eps**2))
 
     # Min-error tests:
     primal_res, _ = ppt_distinguishability(
@@ -204,7 +205,7 @@ def test_ppt_distinguishability_four_bell_states():
         subsystems=[0, 2],
         dimensions=[2, 2, 2, 2],
         strategy="min_error",
-        primal_dual="primal"
+        primal_dual="primal",
     )
     dual_res, _ = ppt_distinguishability(
         vectors=states,
@@ -212,21 +213,24 @@ def test_ppt_distinguishability_four_bell_states():
         subsystems=[0, 2],
         dimensions=[2, 2, 2, 2],
         strategy="min_error",
-        primal_dual="dual"
+        primal_dual="dual",
     )
     assert np.isclose(primal_res, exp_res, atol=0.001)
     assert np.isclose(dual_res, exp_res, atol=0.001)
 
 
-@pytest.mark.parametrize("vectors, probs, solver, subsystems, dimensions, strategy, primal_dual", [
-    # Bell states (default uniform probs with dual).
-    ([bell(0), bell(1), bell(2), np.array([[1], [0]])], None, "cvxopt", [0], [2, 2], "min_error", "dual"),
-])
+@pytest.mark.parametrize(
+    "vectors, probs, solver, subsystems, dimensions, strategy, primal_dual",
+    [
+        # Bell states (default uniform probs with dual).
+        ([bell(0), bell(1), bell(2), np.array([[1], [0]])], None, "cvxopt", [0], [2, 2], "min_error", "dual"),
+    ],
+)
 def test_ppt_state_distinguishability_invalid_vectors(
     vectors, probs, solver, subsystems, dimensions, strategy, primal_dual
 ):
     """Test function works as expected for an invalid input."""
-    with pytest.raises(ValueError, match = "Vectors for state distinguishability must all have the same dimension."):
+    with pytest.raises(ValueError, match="Vectors for state distinguishability must all have the same dimension."):
         ppt_distinguishability(
             vectors=vectors,
             probs=probs,
@@ -234,19 +238,22 @@ def test_ppt_state_distinguishability_invalid_vectors(
             dimensions=dimensions,
             strategy=strategy,
             solver=solver,
-            primal_dual=primal_dual
+            primal_dual=primal_dual,
         )
 
 
-@pytest.mark.parametrize("vectors, probs, solver, subsystems, dimensions, strategy, primal_dual", [
-    # Bell states (default uniform probs with dual).
-    ([bell(0), bell(1), bell(2), bell(3)], None, "cvxopt", [0], [2, 2], "unambig", "dual"),
-])
+@pytest.mark.parametrize(
+    "vectors, probs, solver, subsystems, dimensions, strategy, primal_dual",
+    [
+        # Bell states (default uniform probs with dual).
+        ([bell(0), bell(1), bell(2), bell(3)], None, "cvxopt", [0], [2, 2], "unambig", "dual"),
+    ],
+)
 def test_ppr_state_distinguishability_invalid_strategy(
     vectors, probs, solver, subsystems, dimensions, strategy, primal_dual
 ):
     """Test function works as expected for an invalid input."""
-    with pytest.raises(ValueError, match = "Minimum-error PPT distinguishability only supported at this time."):
+    with pytest.raises(ValueError, match="Minimum-error PPT distinguishability only supported at this time."):
         ppt_distinguishability(
             vectors=vectors,
             probs=probs,
@@ -254,5 +261,5 @@ def test_ppr_state_distinguishability_invalid_strategy(
             dimensions=dimensions,
             strategy=strategy,
             solver=solver,
-            primal_dual=primal_dual
+            primal_dual=primal_dual,
         )

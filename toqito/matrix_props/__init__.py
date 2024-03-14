@@ -1,4 +1,5 @@
 """Properties of matrices and vectors."""
+
 from toqito.matrix_props.has_same_dimension import has_same_dimension
 from toqito.matrix_props.is_square import is_square
 from toqito.matrix_props.kp_norm import kp_norm

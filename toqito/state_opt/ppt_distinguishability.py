@@ -1,4 +1,5 @@
 """PPT state distinguishability."""
+
 import numpy as np
 import picos
 
@@ -124,20 +125,10 @@ def ppt_distinguishability(
 
     if primal_dual == "primal":
         return _min_error_primal(
-            vectors=vectors,
-            subsystems=subsystems,
-            dimensions=dimensions,
-            probs=probs,
-            solver=solver,
-            strategy=strategy
+            vectors=vectors, subsystems=subsystems, dimensions=dimensions, probs=probs, solver=solver, strategy=strategy
         )
     return _min_error_dual(
-        vectors=vectors,
-        subsystems=subsystems,
-        dimensions=dimensions,
-        probs=probs,
-        solver=solver,
-        strategy=strategy
+        vectors=vectors, subsystems=subsystems, dimensions=dimensions, probs=probs, solver=solver, strategy=strategy
     )
 
 
@@ -147,7 +138,7 @@ def _min_error_primal(
     dimensions: list[int],
     probs: list[float],
     solver: str = "cvxopt",
-    strategy: str = "min_error"
+    strategy: str = "min_error",
 ):
     """Primal problem for the SDP with PPT constraints."""
     n = len(vectors)
@@ -161,13 +152,17 @@ def _min_error_primal(
     problem.add_constraint(picos.sum(measurements) == picos.I(d))
 
     # Add PPT constraint.
-    problem.add_list_of_constraints([
-        picos.partial_transpose(
-            meas,
-            subsystems=subsystems,
-            dimensions=dimensions,
-        ) >> 0 for meas in measurements
-    ])
+    problem.add_list_of_constraints(
+        [
+            picos.partial_transpose(
+                meas,
+                subsystems=subsystems,
+                dimensions=dimensions,
+            )
+            >> 0
+            for meas in measurements
+        ]
+    )
 
     dms = [vector_to_density_matrix(vector) for vector in vectors]
     if strategy == "unambig":
@@ -188,7 +183,7 @@ def _min_error_dual(
     dimensions: list[int],
     probs: list[float],
     solver: str = "cvxopt",
-    strategy: str = "min_error"
+    strategy: str = "min_error",
 ):
     """Semidefinite program with PPT constraints (dual problem)."""
     d = vectors[0].shape[0]
@@ -200,13 +195,17 @@ def _min_error_dual(
     q_vars = [picos.HermitianVariable(f"Q[{i}]", (d, d)) for i in range(len(vectors))]
 
     y_var = picos.HermitianVariable("Y", (d, d))
-    problem.add_list_of_constraints([
-        y_var - probs[i] * vector_to_density_matrix(vectors[i]) >> picos.partial_transpose(
-            q_var,
-            subsystems=subsystems,
-            dimensions=dimensions,
-        ) for i, q_var in enumerate(q_vars)
-    ])
+    problem.add_list_of_constraints(
+        [
+            y_var - probs[i] * vector_to_density_matrix(vectors[i])
+            >> picos.partial_transpose(
+                q_var,
+                subsystems=subsystems,
+                dimensions=dimensions,
+            )
+            for i, q_var in enumerate(q_vars)
+        ]
+    )
     problem.add_list_of_constraints([q_var >> 0 for q_var in q_vars])
 
     problem.set_objective("min", picos.trace(y_var))

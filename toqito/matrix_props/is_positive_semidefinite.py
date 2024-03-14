@@ -1,4 +1,5 @@
 """Is matrix a positive semidefinite matrix."""
+
 import numpy as np
 
 from toqito.matrix_props import is_hermitian

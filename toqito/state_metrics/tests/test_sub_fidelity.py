@@ -1,4 +1,5 @@
 """Tests for sub_fidelity."""
+
 import numpy as np
 
 from toqito.state_metrics import fidelity, sub_fidelity

@@ -1,4 +1,5 @@
 """Test max_mixed."""
+
 import numpy as np
 
 from toqito.states import max_mixed

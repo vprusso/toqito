@@ -1,4 +1,5 @@
 """Helper functions for checking validity of states and probability vectors."""
+
 import numpy as np
 
 

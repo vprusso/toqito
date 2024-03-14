@@ -1,4 +1,5 @@
 """Generate Ginibre random matrix."""
+
 import numpy as np
 
 

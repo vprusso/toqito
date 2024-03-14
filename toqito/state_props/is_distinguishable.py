@@ -1,4 +1,5 @@
 """Check if set of states are distinguishable."""
+
 import numpy as np
 
 from toqito.state_opt import state_distinguishability

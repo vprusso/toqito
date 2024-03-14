@@ -1,4 +1,5 @@
 """Test horodecki."""
+
 import numpy as np
 import pytest
 

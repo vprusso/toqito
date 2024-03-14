@@ -1,4 +1,5 @@
 """Hilbert-Schmidt Inner Product."""
+
 import numpy as np
 
 

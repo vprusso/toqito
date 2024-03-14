@@ -1,4 +1,5 @@
 """Test concurrence."""
+
 import numpy as np
 import pytest
 

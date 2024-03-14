@@ -1,6 +1,5 @@
 """Check if states are mutually orthogonal."""
 
-
 from typing import Any
 
 import numpy as np

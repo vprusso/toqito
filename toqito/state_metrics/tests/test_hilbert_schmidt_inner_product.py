@@ -38,7 +38,5 @@ def test_hilbert_schmidt_inner_product_linearity():
     lhs = beta_1 * hilbert_schmidt_inner_product(
         random_hermitian_operator, b_mat_1
     ) + beta_2 * hilbert_schmidt_inner_product(random_hermitian_operator, b_mat_2)
-    rhs = hilbert_schmidt_inner_product(
-        random_hermitian_operator, beta_1 * b_mat_1 + beta_2 * b_mat_2
-    )
+    rhs = hilbert_schmidt_inner_product(random_hermitian_operator, beta_1 * b_mat_1 + beta_2 * b_mat_2)
     np.testing.assert_equal(np.isclose(lhs, rhs), True)

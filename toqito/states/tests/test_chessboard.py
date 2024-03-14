@@ -1,4 +1,5 @@
 """Test chessboard."""
+
 import numpy as np
 
 from toqito.states import chessboard

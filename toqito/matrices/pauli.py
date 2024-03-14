@@ -1,15 +1,12 @@
 """Pauli matrices."""
 
-
 import numpy as np
 from scipy import sparse
 
 from toqito.matrix_ops import tensor
 
 
-def pauli(
-    ind: int | str | list[int] | list[str], is_sparse: bool = False
-) -> np.ndarray | sparse.csr_matrix:
+def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np.ndarray | sparse.csr_matrix:
     r"""Produce a Pauli operator :cite:`WikiPauli`.
 
     Provides the 2-by-2 Pauli matrix indicated by the value of :code:`ind`. The

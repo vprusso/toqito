@@ -1,4 +1,5 @@
 """Test cnot."""
+
 import numpy as np
 
 from toqito.matrices import cnot

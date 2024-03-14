@@ -1,4 +1,5 @@
 """Is matrix commuting."""
+
 import numpy as np
 
 

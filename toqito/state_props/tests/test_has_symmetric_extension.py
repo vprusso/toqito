@@ -1,4 +1,5 @@
 """Test has_symmetric_extension."""
+
 import numpy as np
 import pytest
 
@@ -33,9 +34,7 @@ from toqito.states import bell
 )
 def test_has_symmetric_extension(rho, level, dim, ppt, expected_result):
     """Test function works as expected for a valid input."""
-    np.testing.assert_equal(
-        has_symmetric_extension(rho=rho, level=level, dim=dim, ppt=ppt), expected_result
-    )
+    np.testing.assert_equal(has_symmetric_extension(rho=rho, level=level, dim=dim, ppt=ppt), expected_result)
 
 
 @pytest.mark.parametrize(

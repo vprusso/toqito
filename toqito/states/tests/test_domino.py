@@ -1,4 +1,5 @@
 """Test domino."""
+
 import numpy as np
 import pytest
 

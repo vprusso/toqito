@@ -1,4 +1,5 @@
 """Generalized Pauli-X matrix."""
+
 import numpy as np
 
 

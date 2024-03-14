@@ -1,4 +1,5 @@
 """The depolarizing channel."""
+
 import numpy as np
 
 from toqito.states import max_entangled
@@ -91,4 +92,4 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
 
     # Gives a sparse non-normalized state.
     psi = max_entangled(dim=dim, is_sparse=False, is_normalized=False)
-    return (1 - param_p) * np.identity(dim ** 2) / dim + param_p * (psi * psi.conj().T)
+    return (1 - param_p) * np.identity(dim**2) / dim + param_p * (psi * psi.conj().T)

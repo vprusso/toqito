@@ -1,6 +1,5 @@
 """Calculate the Choi rank of a channel."""
 
-
 import numpy as np
 
 from toqito.channel_ops import kraus_to_choi

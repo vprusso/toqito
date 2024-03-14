@@ -1,4 +1,5 @@
 """Is matrix a diagonal matrix."""
+
 import numpy as np
 
 from toqito.matrix_props import is_square

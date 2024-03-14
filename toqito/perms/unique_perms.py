@@ -1,4 +1,5 @@
 """Calculate unique permutations."""
+
 from dataclasses import dataclass
 
 

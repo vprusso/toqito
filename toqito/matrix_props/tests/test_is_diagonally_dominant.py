@@ -1,4 +1,5 @@
 """Test is_diagonally_dominant."""
+
 import numpy as np
 
 from toqito.matrix_props import is_diagonally_dominant

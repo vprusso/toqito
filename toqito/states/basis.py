@@ -1,4 +1,5 @@
 """Basis state."""
+
 import numpy as np
 
 
@@ -44,9 +45,7 @@ def basis(dim: int, pos: int) -> np.ndarray:
 
     """
     if pos >= dim:
-        raise ValueError(
-            "Invalid: The `pos` variable needs to be less than `dim` for ket function."
-        )
+        raise ValueError("Invalid: The `pos` variable needs to be less than `dim` for ket function.")
 
     ret = np.array(list(int(x) for x in list(f"{0:0{dim}}")))
     ret[pos] = 1

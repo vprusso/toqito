@@ -1,4 +1,5 @@
 """Tests for purity."""
+
 import numpy as np
 import pytest
 

@@ -1,4 +1,5 @@
 """Test choi."""
+
 import numpy as np
 
 from toqito.channels import choi

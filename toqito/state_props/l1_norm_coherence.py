@@ -1,4 +1,5 @@
 """Compute the l1-norm of coherence of a quantum state."""
+
 import numpy as np
 
 from toqito.state_ops import pure_to_mixed

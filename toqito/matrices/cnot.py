@@ -1,4 +1,5 @@
 """CNOT matrix."""
+
 import numpy as np
 
 

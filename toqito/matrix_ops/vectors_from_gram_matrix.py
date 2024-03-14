@@ -1,4 +1,5 @@
 """Vectors associated to Gram matrix."""
+
 import numpy as np
 import scipy
 

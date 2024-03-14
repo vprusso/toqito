@@ -1,4 +1,5 @@
 """Test realignment."""
+
 import numpy as np
 
 from toqito.channels import realignment

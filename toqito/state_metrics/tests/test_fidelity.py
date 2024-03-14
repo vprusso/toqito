@@ -1,4 +1,5 @@
 """Tests for fidelity."""
+
 import cvxpy
 import numpy as np
 
