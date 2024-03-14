@@ -1,4 +1,5 @@
 """Perfect matchings."""
+
 import numpy as np
 
 

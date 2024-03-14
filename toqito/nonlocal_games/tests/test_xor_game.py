@@ -1,4 +1,5 @@
 """Tests for XORGame class."""
+
 import unittest
 
 import numpy as np

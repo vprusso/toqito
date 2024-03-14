@@ -1,6 +1,5 @@
 """Determine whether there exists a symmetric extension for a given quantum state."""
 
-
 import numpy as np
 from picos import partial_trace
 
@@ -106,9 +105,7 @@ def has_symmetric_extension(
     if isinstance(dim, int):
         dim = np.array([dim, len_mat / dim])  # pylint: disable=redefined-variable-type
         if np.abs(dim[1] - np.round(dim[1])) >= 2 * len_mat * np.finfo(float).eps:
-            raise ValueError(
-                "If `dim` is a scalar, it must evenly divide the length of the matrix."
-            )
+            raise ValueError("If `dim` is a scalar, it must evenly divide the length of the matrix.")
         dim[1] = int(np.round(dim[1]))
 
     dim = np.int_(dim)

@@ -1,4 +1,5 @@
 """Pure to mixed operation."""
+
 import numpy as np
 
 

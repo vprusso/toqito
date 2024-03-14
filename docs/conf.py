@@ -43,19 +43,19 @@ extensions = [
     "sphinx.ext.githubpages",
     "sphinx.ext.napoleon",
     "sphinxcontrib.bibtex",
-    "sphinx_wagtail_theme"
+    "sphinx_wagtail_theme",
 ]
 
 bibtex_bibfiles = ["books.bib", "articles.bib"]
 bibtex_default_style = "unsrt"
 suppress_warnings = ["bibtex.duplicate_label", "bibtex.duplicate_citation"]
 # we need to skip these warnigns because all the references appear twice, in a function docstring
-# and on the references page. 
+# and on the references page.
 master_doc = "index"
 # autosummary_generate = True
 # autodoc_typehints = "none"
-autoapi_dirs = ['../toqito']
-autoapi_type = 'python'
+autoapi_dirs = ["../toqito"]
+autoapi_type = "python"
 autoapi_ignore = [
     "*/channel_metrics/tests/*",
     "*/rand/tests/*",
@@ -74,8 +74,9 @@ autoapi_ignore = [
     "*/states/tests/*",
     "*/channel_props/tests/*",
     "*/measurement_ops/tests/*",
-    "*/measurement_props/tests/*"]
-autodoc_typehints = 'description'
+    "*/measurement_props/tests/*",
+]
+autodoc_typehints = "description"
 autoapi_add_toctree_entry = False
 autoapi_keep_files = False
 
@@ -94,7 +95,7 @@ exclude_patterns = ["_build", "_templates", "Thumbs.db", ".DS_Store"]
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 
-html_theme = 'sphinx_wagtail_theme'
+html_theme = "sphinx_wagtail_theme"
 html_logo = "figures/logo.svg"
 html_favicon = "figures/favicon.ico"
 
@@ -106,9 +107,7 @@ html_css_files = ["custom.css"]
 
 # This github_url will point to the appropriate page in the default branch.
 # Ex: Getting Started -> https://github.com/vprusso/toqito/blob/master/docs/getting_started.rst
-html_theme_options = dict(
-    github_url = "https://github.com/vprusso/toqito/blob/master/docs/"
-)
+html_theme_options = dict(github_url="https://github.com/vprusso/toqito/blob/master/docs/")
 
 # Show in footer when the docs were last updated.
 html_last_updated_fmt = "%b %d, %Y"

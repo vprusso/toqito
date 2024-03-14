@@ -1,4 +1,5 @@
 """Test permute_systems."""
+
 import numpy as np
 
 from toqito.perms import permute_systems

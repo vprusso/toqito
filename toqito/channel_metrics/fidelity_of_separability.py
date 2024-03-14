@@ -146,7 +146,7 @@ def fidelity_of_separability(
 
     # List of extenstion systems and dimension of the Choi matrix.
     sys_ext = list(range(2, 2 + k - 1))
-    dim_choi = dim_r * (dim_a ** k)
+    dim_choi = dim_r * (dim_a**k)
 
     # Projection onto symmetric subspace on AA'.
     pi_sym = symmetric_projection(dim_a, 2)
@@ -163,9 +163,7 @@ def fidelity_of_separability(
                 pi_sym
                 * picos.partial_trace(
                     (picos.partial_transpose(psi, [0], psi_dims) @ picos.I(dim_a))
-                    * permute_systems(
-                        choi_partial @ picos.I(dim_b * dim_a), [1, 4, 3, 2], dim_list
-                    ),
+                    * permute_systems(choi_partial @ picos.I(dim_b * dim_a), [1, 4, 3, 2], dim_list),
                     [0, 2],
                     dim_list,
                 )
@@ -173,9 +171,7 @@ def fidelity_of_separability(
         ),
     )
 
-    problem.add_constraint(
-        picos.partial_trace(choi, list(range(1, k + 1)), choi_dims) == picos.I(dim_r)
-    )
+    problem.add_constraint(picos.partial_trace(choi, list(range(1, k + 1)), choi_dims) == picos.I(dim_r))
     problem.add_constraint(choi >> 0)
 
     # k-extendablility of Choi state

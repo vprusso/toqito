@@ -1,4 +1,5 @@
 """Generate random unitary."""
+
 import numpy as np
 
 

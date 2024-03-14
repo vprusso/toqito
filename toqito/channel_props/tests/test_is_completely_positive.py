@@ -1,4 +1,5 @@
 """Tests for is_completely_positive."""
+
 import numpy as np
 
 from toqito.channel_props import is_completely_positive

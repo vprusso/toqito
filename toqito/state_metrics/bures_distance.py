@@ -1,4 +1,5 @@
 """Bures distance metric."""
+
 import numpy as np
 
 from toqito.state_metrics import fidelity

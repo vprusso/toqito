@@ -1,4 +1,5 @@
 """Test basis."""
+
 import numpy as np
 import pytest
 

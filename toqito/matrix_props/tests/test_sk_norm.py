@@ -1,4 +1,5 @@
 """Test S(k) operator norm."""
+
 import numpy as np
 import pytest
 

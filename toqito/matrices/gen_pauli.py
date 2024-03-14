@@ -1,4 +1,5 @@
 """Generalized Pauli matrices."""
+
 import numpy as np
 
 from toqito.matrices import gen_pauli_x, gen_pauli_z

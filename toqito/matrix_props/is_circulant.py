@@ -1,4 +1,5 @@
 """Is matrix circulant."""
+
 import numpy as np
 
 

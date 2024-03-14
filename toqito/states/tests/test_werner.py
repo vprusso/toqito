@@ -1,4 +1,5 @@
 """Test werner."""
+
 import numpy as np
 import pytest
 
@@ -28,16 +29,19 @@ def test_werner_multipartite_valid():
     np.testing.assert_equal(is_density(state), True)
 
 
-@pytest.mark.parametrize("dim, alpha", [
-    # Invalid alpha length (not matching p!-1 for any integer p > 1)
-    (2, [0.5, 0.6, 0.7]),
-    # Test with an integer (which is not a valid type for alpha)
-    (2, 5),
-    # Test with a string (which is not a valid type for alpha)
-    (2, "invalid"),
-    # Test with a dictionary (which is not a valid type for alpha)
-    (2, {"key": "value"}),
-])
+@pytest.mark.parametrize(
+    "dim, alpha",
+    [
+        # Invalid alpha length (not matching p!-1 for any integer p > 1)
+        (2, [0.5, 0.6, 0.7]),
+        # Test with an integer (which is not a valid type for alpha)
+        (2, 5),
+        # Test with a string (which is not a valid type for alpha)
+        (2, "invalid"),
+        # Test with a dictionary (which is not a valid type for alpha)
+        (2, {"key": "value"}),
+    ],
+)
 def test_werner_state_invalid(dim, alpha):
     """Test function works as expected for an invalid input."""
     with pytest.raises(ValueError):

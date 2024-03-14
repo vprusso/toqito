@@ -1,6 +1,5 @@
 """The realignment channel."""
 
-
 import numpy as np
 
 from toqito.channels import partial_transpose

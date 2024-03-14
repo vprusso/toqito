@@ -1,4 +1,5 @@
 """Is linearly independent."""
+
 import numpy as np
 
 

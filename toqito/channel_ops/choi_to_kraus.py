@@ -1,6 +1,5 @@
 """Compute a list of Kraus operators from the Choi matrix."""
 
-
 import numpy as np
 
 from toqito.helper import channel_dim
@@ -108,8 +107,7 @@ def choi_to_kraus(
             return kraus_0
 
         kraus_1 = [
-            np.sign(eigval) * k_mat
-            for eigval, k_mat in zip(filter(lambda eigval: abs(eigval) > tol, eigvals), kraus_0)
+            np.sign(eigval) * k_mat for eigval, k_mat in zip(filter(lambda eigval: abs(eigval) > tol, eigvals), kraus_0)
         ]
     else:
         u_mat, singular_values, vh_mat = np.linalg.svd(choi_mat, full_matrices=False)

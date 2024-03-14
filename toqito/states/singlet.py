@@ -1,4 +1,5 @@
 """Generalized singlet state."""
+
 import numpy as np
 
 from toqito.perms import swap_operator
@@ -70,4 +71,4 @@ def singlet(dim: int) -> np.ndarray:
     :return: The singlet state of dimension `dim`.
 
     """
-    return (np.identity(dim ** 2) - swap_operator([dim, dim])) / ((dim ** 2) - dim)
+    return (np.identity(dim**2) - swap_operator([dim, dim])) / ((dim**2) - dim)

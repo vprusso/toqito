@@ -1,4 +1,5 @@
 """Test gen_gell_mann."""
+
 import numpy as np
 
 from toqito.matrices import gen_gell_mann

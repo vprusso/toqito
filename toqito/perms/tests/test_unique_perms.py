@@ -1,4 +1,5 @@
 """Test unique_perms."""
+
 import numpy as np
 
 from toqito.perms import unique_perms

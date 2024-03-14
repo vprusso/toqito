@@ -1,4 +1,5 @@
 """Test isotropic."""
+
 import numpy as np
 
 from toqito.states import isotropic

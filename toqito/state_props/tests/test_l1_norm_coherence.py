@@ -1,4 +1,5 @@
 """Test l1_norm_coherence."""
+
 import numpy as np
 
 from toqito.state_props import l1_norm_coherence

@@ -1,4 +1,5 @@
 """Generalized Pauli-Z matrix."""
+
 from cmath import exp, pi
 
 import numpy as np

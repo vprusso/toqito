@@ -1,4 +1,5 @@
 """Test is_mixed."""
+
 import numpy as np
 import pytest
 

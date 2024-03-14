@@ -1,4 +1,5 @@
 """Tests for has_same_dimension."""
+
 import pytest
 
 from toqito.matrix_props import has_same_dimension

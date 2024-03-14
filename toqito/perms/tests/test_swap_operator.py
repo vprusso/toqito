@@ -1,4 +1,5 @@
 """Test swap_operator."""
+
 import numpy as np
 
 from toqito.perms import swap_operator

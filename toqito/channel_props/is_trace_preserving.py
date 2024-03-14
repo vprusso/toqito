@@ -1,6 +1,5 @@
 """Is channel trace-preserving."""
 
-
 import numpy as np
 
 from toqito.channels import partial_trace

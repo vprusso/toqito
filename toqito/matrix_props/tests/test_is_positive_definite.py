@@ -1,4 +1,5 @@
 """Test is_positive_definite."""
+
 import numpy as np
 
 from toqito.matrix_props import is_positive_definite
@@ -42,11 +43,7 @@ def test_is_not_positive_definite():
             [1],
         ]
     )
-    gram_eps = (
-        1
-        / (1 - 2 * eps)
-        * (gram + eps * (v_vec @ v_vec.conj().T + w_vec @ w_vec.conj().T - 3 * np.identity(4)))
-    )
+    gram_eps = 1 / (1 - 2 * eps) * (gram + eps * (v_vec @ v_vec.conj().T + w_vec @ w_vec.conj().T - 3 * np.identity(4)))
     np.testing.assert_equal(is_positive_definite(gram_eps), False)
 
 

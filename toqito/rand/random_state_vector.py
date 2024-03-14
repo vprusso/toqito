@@ -1,4 +1,5 @@
 """Generate random state vector."""
+
 import numpy as np
 
 from toqito.perms import swap

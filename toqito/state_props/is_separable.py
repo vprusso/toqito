@@ -1,6 +1,5 @@
 """Check if state is separable."""
 
-
 import numpy as np
 from picos import partial_trace
 
@@ -10,9 +9,7 @@ from toqito.state_props import in_separable_ball, is_ppt
 from toqito.state_props.has_symmetric_extension import has_symmetric_extension
 
 
-def is_separable(
-    state: np.ndarray, dim: None | int | list[int] = None, level: int = 2, tol: float = 1e-8
-) -> bool:
+def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: int = 2, tol: float = 1e-8) -> bool:
     r"""Determine if a given state (given as a density matrix) is a separable state :cite:`WikiSepSt`.
 
     Examples
@@ -135,7 +132,7 @@ def is_separable(
 
     # Another test that is strictly stronger than the realignment criterion.
     if trace_norm(realignment(state - np.kron(pt_state_alice, pt_state_bob), dim)) > np.sqrt(
-        1 - np.trace(pt_state_alice ** 2 @ pt_state_bob ** 2)
+        1 - np.trace(pt_state_alice**2 @ pt_state_bob**2)
     ):
         # Determined to be entangled by using Theorem 1 of reference.
         # C.-J. Zhang, Y.-S. Zhang, S. Zhang, and G.-C. Guo.
@@ -151,13 +148,9 @@ def is_separable(
     # Check these tests.
     if min_dim == 2:
         # Check if X is separable from spectrum.
-        if (lam[0] - lam[2 * max_dim - 1]) ** 2 <= 4 * lam[2 * max_dim - 2] * lam[
-            2 * max_dim
-        ] + tol ** 2:
+        if (lam[0] - lam[2 * max_dim - 1]) ** 2 <= 4 * lam[2 * max_dim - 2] * lam[2 * max_dim] + tol**2:
             print("Determined to be separable by inspecting its eigenvalues.")
-            print(
-                "N. Johnston. Separability from spectrum for qubit-qudit states. Phys. Rev. A, 88:062330, 2013."
-            )
+            print("N. Johnston. Separability from spectrum for qubit-qudit states. Phys. Rev. A, 88:062330, 2013.")
             return True
 
     # For the rest of the block-matrix tests, we need the 2-dimensional subsystem to be the
@@ -177,7 +170,7 @@ def is_separable(
 
     # Check if X is a rank-1 perturbation of the identity, which is
     # necessarily separable if it's PPT, which we have already checked.
-    if lam[1] - lam[prod_dim - 1] < tol ** 2:
+    if lam[1] - lam[prod_dim - 1] < tol**2:
         # Determined to be separable by being a small rank-1 perturbation of the maximally-mixed state.
         # G. Vidal and R. Tarrach. Robustness of entanglement.
         # Phys. Rev. A, 59:141-155, 1999.

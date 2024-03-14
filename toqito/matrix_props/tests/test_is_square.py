@@ -1,4 +1,5 @@
 """Test is_square."""
+
 import numpy as np
 
 from toqito.matrix_props import is_square

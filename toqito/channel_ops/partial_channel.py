@@ -1,6 +1,5 @@
 """Apply channel a subsystem of an operator."""
 
-
 import itertools
 
 import numpy as np
@@ -192,6 +191,5 @@ def partial_channel(
         return phi_x
 
     raise ValueError(
-        "The `phi_map` variable is assumed to be provided as "
-        "either a Choi matrix or a list of Kraus operators."
+        "The `phi_map` variable is assumed to be provided as either a Choi matrix or a list of Kraus operators."
     )

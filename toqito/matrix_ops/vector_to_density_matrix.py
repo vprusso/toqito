@@ -1,4 +1,5 @@
 """Convert row or column vector to density matrix."""
+
 import numpy as np
 
 

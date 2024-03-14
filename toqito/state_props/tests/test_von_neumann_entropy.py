@@ -1,4 +1,5 @@
 """Tests for von_neumann_entropy."""
+
 import numpy as np
 import pytest
 

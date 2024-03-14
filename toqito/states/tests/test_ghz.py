@@ -1,4 +1,5 @@
 """Test ghz."""
+
 import numpy as np
 import pytest
 

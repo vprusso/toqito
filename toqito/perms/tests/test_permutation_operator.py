@@ -1,4 +1,5 @@
 """Test permutation_operator."""
+
 import numpy as np
 
 from toqito.perms import permutation_operator

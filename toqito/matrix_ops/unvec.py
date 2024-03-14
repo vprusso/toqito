@@ -1,4 +1,5 @@
 """Unvec operation."""
+
 import numpy as np
 
 

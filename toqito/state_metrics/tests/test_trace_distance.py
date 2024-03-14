@@ -1,4 +1,5 @@
 """Tests for trace_distance."""
+
 import numpy as np
 
 from toqito.state_metrics import trace_distance

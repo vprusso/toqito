@@ -1,4 +1,5 @@
 """np.array object as cvxpy expression object."""
+
 import numpy as np
 from cvxpy import bmat
 from cvxpy.expressions.expression import Expression

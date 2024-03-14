@@ -1,4 +1,5 @@
 """Test reduction."""
+
 import numpy as np
 
 from toqito.channels import reduction

@@ -1,6 +1,5 @@
 """Logarithmic negativity property."""
 
-
 import numpy as np
 from picos import partial_transpose
 
@@ -71,8 +70,7 @@ def log_negativity(rho: np.ndarray, dim: list[int] | int = None) -> float:
 
     if np.prod(dim) != rho_dims[0]:
         raise ValueError(
-            "InvalidDim: Please provide local dimensions in the "
-            "argument `dim` that match the size of `rho`."
+            "InvalidDim: Please provide local dimensions in the argument `dim` that match the size of `rho`."
         )
 
     dim = [int(x.item()) for x in dim]

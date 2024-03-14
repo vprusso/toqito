@@ -1,4 +1,5 @@
 """Test gen_bell."""
+
 import numpy as np
 import pytest
 

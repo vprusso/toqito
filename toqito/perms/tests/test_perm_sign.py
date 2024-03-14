@@ -1,4 +1,5 @@
 """Test perm_sign."""
+
 import numpy as np
 
 from toqito.perms import perm_sign

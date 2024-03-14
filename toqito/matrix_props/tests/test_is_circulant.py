@@ -1,4 +1,5 @@
 """Test is_circulant."""
+
 import numpy as np
 
 from toqito.matrix_props import is_circulant

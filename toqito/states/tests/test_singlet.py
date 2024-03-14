@@ -1,4 +1,5 @@
 """Test singlet."""
+
 import numpy as np
 
 from toqito.states import bell, singlet

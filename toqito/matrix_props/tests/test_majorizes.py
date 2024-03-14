@@ -1,4 +1,5 @@
 """Test majorizes."""
+
 import numpy as np
 
 from toqito.channels import partial_trace

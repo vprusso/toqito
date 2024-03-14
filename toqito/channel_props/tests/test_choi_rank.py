@@ -1,4 +1,5 @@
 """Tests for choi_rank."""
+
 import numpy as np
 import pytest
 

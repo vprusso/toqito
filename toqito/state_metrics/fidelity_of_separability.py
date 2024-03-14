@@ -2,6 +2,7 @@
 
 The constraints for this function are positive partial transpose (PPT) & k-extendible states.
 """
+
 import numpy as np
 import picos
 
@@ -145,14 +146,13 @@ def fidelity_of_separability(
     # Extend the number of dimensions based on the level `k`. new dims for AB with k-extendibility in subsystem B
     dim_direct_sum_ab_k = [dim_a] + [dim_b] * (k)
     # new dims for a linear op acting on the space of sigma_ab_k
-    dim_op_sigma_ab_k = dim_a * dim_b ** k
+    dim_op_sigma_ab_k = dim_a * dim_b**k
 
     # A list of the symmetrically extended subsystems based on the level `k`.
     sub_sys_ext = list(range(2, 2 + k - 1))
 
     # unitary permutation operator in B1,B2,...,Bk
     permutation_op = symmetric_projection(dim_b, k)
-
 
     # defining the problem objective: Re[Tr[X_AB]]
     problem = picos.Problem(verbosity=verbosity_option)
@@ -185,4 +185,4 @@ def fidelity_of_separability(
         problem.add_constraint(picos.partial_transpose(sigma_ab_k, sys, dim_direct_sum_ab_k) >> 0)
 
     solution = problem.solve(solver=solver_option)
-    return solution.value ** 2
+    return solution.value**2
