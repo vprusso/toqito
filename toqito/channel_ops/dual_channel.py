@@ -94,4 +94,4 @@ def dual_channel(
         if len(phi_op.shape) == 2:
             d_in, d_out, _ = channel_dim(phi_op, dim=dims, compute_env_dim=False)
             return swap(phi_op.conj(), dim=[[d_in[0], d_out[0]], [d_in[1], d_out[1]]])
-    raise ValueError("Invalid: The variable `phi_op` must either be a list of " "Kraus operators or as a Choi matrix.")
+    raise ValueError("Invalid: The variable `phi_op` must either be a list of Kraus operators or as a Choi matrix.")

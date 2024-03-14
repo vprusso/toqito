@@ -69,7 +69,7 @@ select = ["I", "E", "W", "D", "PL"]
 # Rules considered over other incompatible ones
 exclude = ["docs/conf.py", "setup.py"]
 
-ignore = ["D407", "D203", "D213", "D416", "PLR0912", "PLR0911", "PLR0915", "PLR2004", "PLR0913", "W1404"]
+ignore = ["D407", "D203", "D213", "D416", "PLR0912", "PLR0911", "PLR0915", "PLR2004", "PLR0913"]
 # Rules Ignored
 
 # D407 - Ignored because ==== under a section heading is considered as a missing underline.
