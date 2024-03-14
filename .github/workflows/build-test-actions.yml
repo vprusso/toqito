@@ -24,6 +24,8 @@ jobs:
       PYTHON: ${{ matrix.python-version }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          version: 0.3.2
       - uses: chartboost/ruff-action@v1
       # https://github.com/chartboost/ruff-action
       - name: Set up Python ${{ matrix.python-version }}
