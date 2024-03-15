@@ -41,6 +41,7 @@ jobs:
           poetry install --no-interaction
       - name: Additional linter/formatter checks
         run: |
+          poetry ruff format --check toqito/
           poetry run pylint --fail-under=10.0 toqito/
 
   toqito-pytest:
