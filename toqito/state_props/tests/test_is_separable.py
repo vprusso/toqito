@@ -69,7 +69,7 @@ def test_is_separable(test_input):
     # without an input for the dimension
     assert is_separable(test_input)
     # wth int dim
-    assert is_separable(test_input, 2)
+    assert is_separable(test_input, dim = 2)
 
 
 def test_ppt_low_rank():
