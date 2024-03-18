@@ -66,7 +66,10 @@ phi = np.kron((1 / np.sqrt(2) * e_0 + 1 / np.sqrt(2) * e_1), psi)
 )
 def test_is_separable(test_input):
     """Check an expected seperable test input is identified correctly."""
+    # without an input for the dimension
     assert is_separable(test_input)
+    # wth int dim
+    assert is_separable(test_input, 2)
 
 
 def test_ppt_low_rank():
