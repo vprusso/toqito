@@ -24,6 +24,7 @@ def is_orthonormal(vectors: list[np.ndarray]) -> bool:
         \end{pmatrix}
 
     To check these are a known set of orthonormal vectors:
+
     >>> import numpy as np
     >>> from toqito.matrix_props import is_orthonormal
     >>> v_1 = np.array([1, 0, 0])
