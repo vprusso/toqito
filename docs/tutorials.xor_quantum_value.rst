@@ -202,10 +202,8 @@ sets of measurements.
     
     .. math::
         \begin{equation}
-            \begin{aligned}
-                | \phi_0 \rangle &= \cos(\theta)|0 \rangle + \sin(\theta)|1 \rangle, \\
-                | \phi_1 \rangle &= -\sin(\theta)|0 \rangle + \cos(\theta)|1 \rangle,
-            \end{aligned}
+            | \phi_0 \rangle &= \cos(\theta)|0 \rangle + \sin(\theta)|1 \rangle, \quad
+            | \phi_1 \rangle &= -\sin(\theta)|0 \rangle + \cos(\theta)|1 \rangle,
         \end{equation}
 
 such that

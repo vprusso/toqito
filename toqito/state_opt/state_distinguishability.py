@@ -35,7 +35,7 @@ def state_distinguishability(
         \begin{align*}
             \text{maximize:} \quad & \sum_{i=0}^n p_i \langle M_i, \rho_i \rangle \\
             \text{subject to:} \quad & M_0 + \ldots + M_n = \mathbb{I},\\
-                                     & M_0, \ldots, M_n \geq 0
+                                     & M_0, \ldots, M_n \geq 0.
         \end{align*}
 
     Examples
