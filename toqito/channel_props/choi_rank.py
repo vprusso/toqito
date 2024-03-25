@@ -19,25 +19,23 @@ def choi_rank(phi: np.ndarray | list[list[np.ndarray]]) -> int:
 
     .. math::
         \begin{equation}
-            \begin{aligned}
-                \frac{1}{\sqrt{2}}
-                \begin{pmatrix}
-                    0 & i \\ -i & 0
-                \end{pmatrix}, &\quad
-                \frac{1}{\sqrt{2}}
-                \begin{pmatrix}
-                    0 & 1 \\
-                    1 & 0
-                \end{pmatrix}, \\
-                \begin{pmatrix}
-                    1 & 0 \\
-                    0 & 0
-                \end{pmatrix}, &\quad
-                \begin{pmatrix}
-                    0 & 0 \\
-                    0 & 1
-                \end{pmatrix}.
-            \end{aligned}
+            \frac{1}{\sqrt{2}}
+            \begin{pmatrix}
+                0 & i \\ -i & 0
+            \end{pmatrix}, \quad
+            \frac{1}{\sqrt{2}}
+            \begin{pmatrix}
+                0 & 1 \\
+                1 & 0
+            \end{pmatrix}, \quad
+            \begin{pmatrix}
+                1 & 0 \\
+                0 & 0
+            \end{pmatrix}, \quad
+            \begin{pmatrix}
+                0 & 0 \\
+                0 & 1
+            \end{pmatrix}.
         \end{equation}
 
     and can be generated in :code:`toqito` with the following list:

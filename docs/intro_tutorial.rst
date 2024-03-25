@@ -319,7 +319,7 @@ Taking the partial trace over the second subsystem of :math:`X` yields the follo
     X_{pt, 2} = \begin{pmatrix}
                 7 & 11 \\
                 23 & 27
-                \end{pmatrix}
+                \end{pmatrix}.
 
 By default, the partial trace function in :code:`toqito` takes the trace of the second
 subsystem.
@@ -343,7 +343,7 @@ trace over the first subsystem yields the following matrix
     X_{pt, 1} = \begin{pmatrix}
                     12 & 14 \\
                     20 & 22
-                \end{pmatrix}
+                \end{pmatrix}.
 
 .. code-block:: python
 

@@ -40,6 +40,7 @@ def is_quantum_channel(
         \end{pmatrix}.
 
     To check if this is a valid quantum channel or not,
+
     >>> import numpy as np
     >>> from toqito.matrices import pauli
     >>> from toqito.channel_props import is_quantum_channel
@@ -50,6 +51,7 @@ def is_quantum_channel(
     False
 
     If we instead check for the validity of depolarizing channel being a valid quantum channel,
+
     >>> from toqito.channels import depolarizing
     >>> from toqito.channel_props import is_quantum_channel
     >>> choi_depolarizing = depolarizing(dim=2, param_p=0.2)
