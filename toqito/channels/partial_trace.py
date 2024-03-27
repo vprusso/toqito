@@ -47,7 +47,7 @@ def partial_trace(
         X_{pt, 2} = \begin{pmatrix}
                     7 & 11 \\
                     23 & 27
-                 \end{pmatrix}
+                 \end{pmatrix}.
 
     By default, the partial trace function in :code:`toqito` takes the trace of the second
     subsystem.

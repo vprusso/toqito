@@ -21,6 +21,7 @@ def has_same_dimension(items: list[np.ndarray]) -> bool:
     True
 
     Check a list of matrices with the same dimension:
+
     >>> import numpy as np
     >>> from toqito.matrix_props import has_same_dimension
     >>> matrices = [np.array([[1, 0], [0, 1]]), np.array([[2, 3], [4, 5]]), np.array([[6, 7], [8, 9]])]
@@ -28,6 +29,7 @@ def has_same_dimension(items: list[np.ndarray]) -> bool:
     True
 
     Check a list containing items of different dimensions:
+
     >>> import numpy as np
     >>> from toqito.matrix_props import has_same_dimension
     >>> mixed = [np.array([1, 2, 3]), np.array([[1, 0], [0, 1]])]

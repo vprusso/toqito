@@ -81,7 +81,7 @@ may be obtained by solving the following semidefinite program (SDP).
         \text{maximize:} \quad & \sum_{i=0}^n p_i \langle M_i,
         \rho_i \rangle \\
         \text{subject to:} \quad & \sum_{i=0}^n M_i = \mathbb{I}_{\mathcal{X}},\\
-                                 & M_i \in \text{Pos}(\mathcal{X})
+                                 & M_i \in \text{Pos}(\mathcal{X}).
     \end{align*}
 
 This optimization problem is solved in :code:`toqito` to obtain the optimal
@@ -103,7 +103,7 @@ such that
     \rho_1 = | 1 \rangle \langle 1 | = \begin{pmatrix}
                 0 & 0 \\
                 0 & 1
-             \end{pmatrix}
+             \end{pmatrix}.
 
 
 These states are completely orthogonal to each other, and it is known that Bob
@@ -188,9 +188,9 @@ It was shown in [tCosentino13]_ and later extended in [tCR13]_ that for the foll
 .. math::
     \begin{equation}
         \begin{aligned}
-            \rho_1^{(2)} &= |\psi_0 \rangle | \psi_0 \rangle \langle \psi_0 | \langle \psi_0 |, \\
+            \rho_1^{(2)} &= |\psi_0 \rangle | \psi_0 \rangle \langle \psi_0 | \langle \psi_0 |, \quad
             \rho_2^{(2)} &= |\psi_1 \rangle | \psi_3 \rangle \langle \psi_1 | \langle \psi_3 |, \\
-            \rho_3^{(2)} &= |\psi_2 \rangle | \psi_3 \rangle \langle \psi_2 | \langle \psi_3 |, \\
+            \rho_3^{(2)} &= |\psi_2 \rangle | \psi_3 \rangle \langle \psi_2 | \langle \psi_3 |, \quad
             \rho_4^{(2)} &= |\psi_3 \rangle | \psi_3 \rangle \langle \psi_3 | \langle \psi_3 |, \\
         \end{aligned}
     \end{equation}
