@@ -34,9 +34,9 @@ def pretty_bad_measurement(states: list[np.ndarray], probs: Optional[list[float]
     >>> pgm = pretty_bad_measurement(states, probs)
     >>> pgm
     [array([[0.16666667, 0.        ],
-        [0.        , 0.5       ]]), array([[ 0.41666667, -0.14433757],
-        [-0.14433757,  0.25      ]]), array([[0.41666667, 0.14433757],
-        [0.14433757, 0.25      ]])]
+           [0.        , 0.5       ]]), array([[ 0.41666667, -0.14433757],
+           [-0.14433757,  0.25      ]]), array([[0.41666667, 0.14433757],
+           [0.14433757, 0.25      ]])]
 
     References
     ==========
