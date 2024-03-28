@@ -1,5 +1,6 @@
 """Compute the set of pretty good measurements from an ensemble."""
 from typing import Optional
+
 import numpy as np
 import scipy
 

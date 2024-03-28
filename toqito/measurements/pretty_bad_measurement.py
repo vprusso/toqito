@@ -2,6 +2,7 @@
 from typing import Optional
 
 import numpy as np
+
 from toqito.measurements import pretty_good_measurement
 
 
