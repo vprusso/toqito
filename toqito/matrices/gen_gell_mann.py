@@ -2,11 +2,10 @@
 
 
 import numpy as np
-from scipy import sparse
 
 
 def gen_gell_mann(
-    ind_1: int, ind_2: int, dim: int, is_sparse: bool = False
+    ind_1: int, ind_2: int, dim: int,
 ) -> np.ndarray:
     r"""Produce a generalized Gell-Mann operator :cite:`WikiGellMann`.
 
