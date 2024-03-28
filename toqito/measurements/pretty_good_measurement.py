@@ -1,13 +1,11 @@
 """Compute the set of pretty good measurements from an ensemble."""
-from typing import Optional
-
 import numpy as np
 import scipy
 
 from toqito.matrix_ops import vector_to_density_matrix
 
 
-def pretty_good_measurement(states: list[np.ndarray], probs: Optional[list[float]] = None) -> list[np.ndarray]:
+def pretty_good_measurement(states: list[np.ndarray], probs: list[float] | None = None) -> list[np.ndarray]:
     r"""Return the set of pretty good measurements from a set of vectors and corresponding probabilities.
 
     This computes the "pretty good measurement" as initially defined in :cite:`Hughston_1993_Complete`.
@@ -62,7 +60,7 @@ def pretty_good_measurement(states: list[np.ndarray], probs: Optional[list[float
         raise ValueError("Probability vector should sum to 1.")
 
     states = [vector_to_density_matrix(state) for state in states]
-    p_var = sum([probs[i] * states[i] for i in range(n)])
+    p_var = sum(probs[i] * states[i] for i in range(n))
 
     p_var_sqrt = scipy.linalg.fractional_matrix_power(p_var, -1/2)
     return [p_var_sqrt @ (probs[i] * states[i]) @ p_var_sqrt for i in range(n)]

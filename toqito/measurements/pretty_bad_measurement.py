@@ -1,12 +1,10 @@
 """Compute the set of pretty bad measurements from an ensemble."""
-from typing import Optional
-
 import numpy as np
 
 from toqito.measurements import pretty_good_measurement
 
 
-def pretty_bad_measurement(states: list[np.ndarray], probs: Optional[list[float]] = None) -> list[np.ndarray]:
+def pretty_bad_measurement(states: list[np.ndarray], probs: list[float] | None = None) -> list[np.ndarray]:
     r"""Return the set of pretty bad measurements from a set of vectors and corresponding probabilities.
 
     This computes the "pretty bad measurement" is defined in :cite:`Hughston_1993_Complete` and is an analogous idea to
