@@ -1,8 +1,11 @@
 """Compute the set of pretty bad measurements from an ensemble."""
+from typing import Optional
+
 import numpy as np
+from toqito.measurements import pretty_good_measurement
 
 
-def pretty_bad_measurement(vectors: list[np.ndarray], probs: list[float]) -> list[np.ndarray]:
+def pretty_bad_measurement(states: list[np.ndarray], probs: Optional[list[float]] = None) -> list[np.ndarray]:
     r"""Return the set of pretty bad measurements from a set of vectors and corresponding probabilities.
 
     This computes the "pretty bad measurement" is defined in :cite:`Hughston_1993_Complete,` and is an analogous idea to
@@ -16,17 +19,24 @@ def pretty_bad_measurement(vectors: list[np.ndarray], probs: list[float]) -> lis
 
     Examples
     ========
-    Consider the depolarizing and identity channels in a 2-dimensional space. The depolarizing channel parameter is
-    set to 0.2:
+    Consider the collection of trine states.
 
-    >>> import numpy as np
-    >>> from toqito.channels import depolarizing
-    >>> from toqito.channel_metrics import diamond_norm
-    >>> choi_depolarizing = depolarizing(dim=2, param_p=0.2)
-    >>> choi_identity = np.identity(2**2)
-    >>> dn = diamond_norm(choi_depolarizing, choi_identity)
-    >>> print("Diamond norm between depolarizing and identity channels: ", '%.2f' % dn)
-    Diamond norm between depolarizing and identity channels:  -0.00
+    .. math::
+        u_1 = |0\rangle, \quad
+        u_1 = -\frac{1}{2}\left(|0\rangle + \sqrt{3}|1\rangle\right), \quad \text{and} \quad
+        u_2 = -\frac{1}{2}\left(|0\rangle - \sqrt{3}|1\rangle\right).
+
+    >>> from toqito.states import trine
+    >>> from toqito.measurements import pretty_good_measurement
+    >>>
+    >>> states = trine()
+    >>> probs = [1 / 3, 1 / 3, 1 / 3]
+    >>> pgm = pretty_good_measurement(states, probs)
+    >>> pgm
+    [array([[0.16666667, 0.        ],
+        [0.        , 0.5       ]]), array([[ 0.41666667, -0.14433757],
+        [-0.14433757,  0.25      ]]), array([[0.41666667, 0.14433757],
+        [0.14433757, 0.25      ]])]
 
     References
     ==========
@@ -34,10 +44,26 @@ def pretty_bad_measurement(vectors: list[np.ndarray], probs: list[float]) -> lis
             :filter: docname in docnames
 
 
-    :raises ValueError: If matrices are not of equal dimension.
-    :raises ValueError: If matrices are not square.
-    :param choi_1: A 4**N by 4**N matrix (where N is the number of qubits).
-    :param choi_2: A 4**N by 4**N matrix (where N is the number of qubits).
+    :raises ValueError: If number of vectors does not match number of probabilities.
+    :raises ValueError: If probabilities do not sum to 1.
+    :param states: A collection of either states provided as either vectors or density matrices.
+    :param probs: A set of probabilities.
 
     """
-    pass
+    n = len(states)
+
+    # If not probabilities are explicitly given, assume a uniform distribution.
+    if probs is None:
+        probs = n * [1 / n]
+
+    if len(states) != len(probs):
+        raise ValueError(f"Number of states {len(states)} must be equal to number of probabilities {len(probs)}")
+
+    if not np.isclose(sum(probs), 1):
+        raise ValueError("Probability vector should sum to 1.")
+
+    pgm = pretty_good_measurement(states, probs)
+    dim = pgm[0].shape[0]
+
+    return [1 / (n - 1) * (np.identity(dim) - pgm[i]) for i in range(n)]
+

@@ -73,6 +73,7 @@ autoapi_ignore = [
     "*/matrix_ops/tests/*",
     "*/states/tests/*",
     "*/channel_props/tests/*",
+    "*/measurements/tests/*",
     "*/measurement_ops/tests/*",
     "*/measurement_props/tests/*",
 ]
