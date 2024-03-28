@@ -27,11 +27,11 @@ def pretty_bad_measurement(states: list[np.ndarray], probs: Optional[list[float]
         u_2 = -\frac{1}{2}\left(|0\rangle - \sqrt{3}|1\rangle\right).
 
     >>> from toqito.states import trine
-    >>> from toqito.measurements import pretty_good_measurement
+    >>> from toqito.measurements import pretty_bad_measurement
     >>>
     >>> states = trine()
     >>> probs = [1 / 3, 1 / 3, 1 / 3]
-    >>> pgm = pretty_good_measurement(states, probs)
+    >>> pgm = pretty_bad_measurement(states, probs)
     >>> pgm
     [array([[0.16666667, 0.        ],
         [0.        , 0.5       ]]), array([[ 0.41666667, -0.14433757],

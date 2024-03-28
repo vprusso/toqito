@@ -32,9 +32,9 @@ def pretty_good_measurement(states: list[np.ndarray], probs: Optional[list[float
     >>> pgm = pretty_good_measurement(states, probs)
     >>> pgm
     [array([[0.66666667, 0.        ],
-        [0.        , 0.        ]]), array([[0.16666667, 0.28867513],
-        [0.28867513, 0.5       ]]), array([[ 0.16666667, -0.28867513],
-        [-0.28867513,  0.5       ]])]
+           [0.        , 0.        ]]), array([[0.16666667, 0.28867513],
+           [0.28867513, 0.5       ]]), array([[ 0.16666667, -0.28867513],
+           [-0.28867513,  0.5       ]])]
 
     References
     ==========
