@@ -3,7 +3,6 @@
 from itertools import permutations
 
 import numpy as np
-from scipy import linalg
 
 from toqito.perms import perm_sign, permutation_operator
 
