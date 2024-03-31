@@ -1,9 +1,29 @@
-# ![logo](https://github.com/vprusso/toqito/raw/cfb62c4a5ce04b782f64229e7acd2b1c97f09801/docs/figures/logo.svg)
+[![build status](https://github.com/vprusso/toqito/actions/workflows/build-test-actions.yml/badge.svg?style=plastic)](https://github.com/vprusso/toqito/actions/workflows/build-test-actions.yml)
+[![doc status](https://readthedocs.org/projects/toqito/badge/?version=latest&style=plastic)](https://toqito.readthedocs.io/en/latest/)
+[![codecov](https://codecov.io/gh/vprusso/toqito/branch/master/graph/badge.svg?style=plastic)](https://codecov.io/gh/vprusso/toqito)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4743211.svg)](https://doi.org/10.5281/zenodo.4743211)
+[![Downloads](https://static.pepy.tech/personalized-badge/toqito?style=platic&period=total&units=none&left_color=black&right_color=brightgreen&left_text=Downloads)](https://pepy.tech/project/toqito)
+[![Unitary Fund](https://img.shields.io/badge/Supported%20By-UNITARY%20FUND-brightgreen.svg?style=plastic)](http://unitary.fund)
 
-(Theory of Quantum Information Toolkit)
+
+<p align="center">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/vprusso/toqito/raw/cfb62c4a5ce04b782f64229e7acd2b1c97f09801/docs/figures/logo.svg" width="60%">
+   <img src="https://github.com/vprusso/toqito/raw/cfb62c4a5ce04b782f64229e7acd2b1c97f09801/docs/figures/logo.svg" width="60%">
+ </picture>
+ </p>
+
+
+# toqito: Theory of Quantum Information Toolkit
 
 The `toqito` package is an open-source Python library for studying various
 objects in quantum information, namely, states, channels, and measurements.
+
+<p align="center">
+  <a href="https://toqito.readthedocs.io/en/latest/">
+  <img width=30% src="https://img.shields.io/badge/documentation-blue?style=for-the-badge&logo=read%20the%20docs" alt="Documentation" />
+  </a>
+</p>
 
 Specifically, `toqito` focuses on providing numerical tools to study problems
 about entanglement theory, nonlocal games, matrix analysis, and other
@@ -16,27 +36,38 @@ experience of students and instructors in classes about quantum
 information.
 
 
-[![build status](https://github.com/vprusso/toqito/actions/workflows/build-test-actions.yml/badge.svg?style=plastic)](https://github.com/vprusso/toqito/actions/workflows/build-test-actions.yml)
-[![doc status](https://readthedocs.org/projects/toqito/badge/?version=latest&style=plastic)](https://toqito.readthedocs.io/en/latest/)
-[![codecov](https://codecov.io/gh/vprusso/toqito/branch/master/graph/badge.svg?style=plastic)](https://codecov.io/gh/vprusso/toqito)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4743211.svg)](https://doi.org/10.5281/zenodo.4743211)
-[![Downloads](https://static.pepy.tech/personalized-badge/toqito?style=platic&period=total&units=none&left_color=black&right_color=brightgreen&left_text=Downloads)](https://pepy.tech/project/toqito)
-[![Unitary Fund](https://img.shields.io/badge/Supported%20By-UNITARY%20FUND-brightgreen.svg?style=plastic)](http://unitary.fund)
+## Getting Started
 
-## Installing
+toqito is available via [PyPi](https://pypi.org/project/toqito/) for Linux, macOS, and Windows and supports Python 3.10 to 3.12.
 
-The preferred way to install the `toqito` package is via `pip`:
-
-```
-pip install toqito
+```console
+(venv) $ pip install toqito
 ```
 
-Alternatively, to install, you may also run the following command from the
-top-level package directory.
+The following code gives an example on the usage:
+
+```python
+# Calculate the classical and quantum value of the CHSH game.
+import numpy as np
+from toqito.nonlocal_games.xor_game import XORGame
+
+# The probability matrix.
+prob_mat = np.array([[1/4, 1/4], [1/4, 1/4]])
+
+# The predicate matrix.
+pred_mat = np.array([[0, 0], [0, 1]])
+
+# Define CHSH game from matrices.
+chsh = XORGame(prob_mat, pred_mat)
+
+chsh.classical_value()
+# 0.75
+chsh.quantum_value()
+# 0.8535533
 
 ```
-python setup.py install
-```
+
+**Detailed documentation on all available methods, options, and input formats is available at [ReadTheDocs](https://toqito.readthedocs.io/en/latest/).**
 
 ## Using
 
@@ -46,7 +77,7 @@ Full documentation along with specific examples and tutorials are provided here:
 More information can also be found on the following
 [toqito homepage](https://vprusso.github.io/toqito/).
 
-Chat with us in our `Toqito` channel on [Discord](http://discord.unitary.fund/). 
+Chat with us in our `toqito` channel on [Discord](http://discord.unitary.fund/). 
 
 ## Testing
 
@@ -85,31 +116,29 @@ A BibTeX entry that you can use to cite `toqito` is provided here:
  }
 ```
 
+## References
+
 The `toqito` project has been used or referenced in the following works:
 
-- Tavakoli, Armin and Pozas-Kerstjens, Alejandro and Brown, Peter and Araújo, Mateus
-"Semidefinite programming relaxations for quantum correlations"
-arXiv preprint [arxiv:2307.02551](https://arxiv.org/abs/2307.02551) (2023).
+- [![a](https://img.shields.io/static/v1?label=arXiv&message=2307.2551&color=inactive&style=flat-square)](https://arxiv.org/abs/2307.02551) Tavakoli, Armin and Pozas-Kerstjens, Alejandro and Brown, Peter and Araújo, Mateus
+"Semidefinite programming relaxations for quantum correlations", (2023).
 
-- Johnston, Nathaniel and Russo, Vincent and Sikora, Jamie
-"Tight bounds for antidistinguishability and circulant sets of pure quantum states",
-arXiv preprint [arXiv:2311.17047](https://arxiv.org/abs/2311.17047) (2023).
+- [![a](https://img.shields.io/static/v1?label=arXiv&message=2311.17047&color=inactive&style=flat-square)](https://arxiv.org/abs/2311.17047) Johnston, Nathaniel and Russo, Vincent and Sikora, Jamie
+"Tight bounds for antidistinguishability and circulant sets of pure quantum states", (2023).
 
-- Pelofske, Elijah and Bartschi, Andreas and Eidenbenz, Stephan and Garcia, Bryan and Kiefer, Boris
-"Probing Quantum Telecloning on Superconducting Quantum Processors",
-arXiv preprint [arXiv:2308.15579](https://arxiv.org/abs/2308.15579) (2023).
+- [![a](https://img.shields.io/static/v1?label=arXiv&message=2308.15579&color=inactive&style=flat-square)](https://arxiv.org/abs/2308.15579) Pelofske, Elijah and Bartschi, Andreas and Eidenbenz, Stephan and Garcia, Bryan and Kiefer, Boris
+"Probing Quantum Telecloning on Superconducting Quantum Processors", (2023).
  
-- Philip, Aby and Rethinasamy, Soorya and Russo, Vincent and Wilde, Mark. 
-"Quantum Steering Algorithm for Estimating Fidelity of Separability." 
-arXiv preprint [arXiv:2303.07911](https://arxiv.org/abs/2303.07911) (2023).
+- [![a](https://img.shields.io/static/v1?label=arXiv&message=2303.07911&color=inactive&style=flat-square)](https://arxiv.org/abs/2303.07911) Philip, Aby and Rethinasamy, Soorya and Russo, Vincent and Wilde, Mark. 
+"Quantum Steering Algorithm for Estimating Fidelity of Separability.", (2023).
 
-- Miszczak, Jarosław Adam. 
-"Symbolic quantum programming for supporting applications of quantum computing technologies." 
-arXiv preprint [arXiv:2302.09401](https://arxiv.org/abs/2302.09401) (2023).
+- [![a](https://img.shields.io/static/v1?label=arXiv&message=2302.09401&color=inactive&style=flat-square)](https://arxiv.org/abs/2302.09401) Miszczak, Jarosław Adam. 
+"Symbolic quantum programming for supporting applications of quantum computing technologies.", (2023).
 
-- Casalé, Balthazar and Di Molfetta, Giuseppe and Anthoine, Sandrine and Kadri, Hachem. 
-"Large-Scale Quantum Separability Through a Reproducible Machine Learning Lens." 
-arXiv preprint [arXiv:2306.09444](https://arxiv.org/abs/2306.09444) (2023).
+- [![a](https://img.shields.io/static/v1?label=arXiv&message=2306.09444&color=inactive&style=flat-square)](https://arxiv.org/abs/2306.09444) Casalé, Balthazar and Di Molfetta, Giuseppe and Anthoine, Sandrine and Kadri, Hachem. 
+"Large-Scale Quantum Separability Through a Reproducible Machine Learning Lens.", (2023).
+
+- [![a](https://img.shields.io/static/v1?label=arXiv&message=2206.08313&color=inactive&style=flat-square)](https://arxiv.org/abs/2206.08313) Russo, Vincent and Sikora, Jamie "Inner products of pure states and their antidistinguishability", Physical Review A, Vol. 107, No. 3, (2023).
 
 ## Contributing
 
