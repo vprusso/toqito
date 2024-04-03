@@ -44,7 +44,9 @@ def pretty_good_measurement(states: list[np.ndarray], probs: list[float] | None 
     :raises ValueError: If number of vectors does not match number of probabilities.
     :raises ValueError: If probabilities do not sum to 1.
     :param states: A collection of either states provided as either vectors or density matrices.
-    :param probs: A set of fixed probabilities for a given ensemble of quantum states. The function assumes a uniform probability distribution if the fixed probabilities for the input ensemble are not provided.
+    :param probs: A set of fixed probabilities for a given ensemble of quantum states.
+                  The function assumes a uniform probability distribution if the fixed
+                  probabilities for the input ensemble are not provided.
 
     """
     n = len(states)
