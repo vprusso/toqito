@@ -10,7 +10,7 @@ def pretty_good_measurement(states: list[np.ndarray], probs: list[float] | None 
 
     This computes the "pretty good measurement" as initially defined in :cite:`Hughston_1993_Complete`.
 
-    The pretty good measurement (PGM) (also known as the "square root measurement) is the set of POVMs :math:`(G_1,
+    The pretty good measurement (PGM) (also known as the "square root measurement") is the set of POVMs :math:`(G_1,
     \ldots, G_n)` such that
 
     .. math::
