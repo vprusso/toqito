@@ -83,9 +83,9 @@ def test_gell_mann_dim_4_1():
     np.testing.assert_equal(np.all(bool_mat), True)
 
 
-def test_gell_mann_sparse_2():
-    """Generalized Gell-Mann operator sparse."""
-    res = gen_gell_mann(205, 34, 500, True)
+def test_gell_mann_2():
+    """Generalized Gell-Mann operator."""
+    res = gen_gell_mann(205, 34, 500)
 
     assert res[34, 205] == -1j
     assert res[205, 34] == 1j
