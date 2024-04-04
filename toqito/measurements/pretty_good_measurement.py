@@ -26,7 +26,7 @@ def pretty_good_measurement(states: list[np.ndarray], probs: list[float] | None 
     Consider the collection of trine states.
 
     .. math::
-        u_1 = |0\rangle, \quad
+        u_0 = |0\rangle, \quad
         u_1 = -\frac{1}{2}\left(|0\rangle + \sqrt{3}|1\rangle\right), \quad \text{and} \quad
         u_2 = -\frac{1}{2}\left(|0\rangle - \sqrt{3}|1\rangle\right).
 
