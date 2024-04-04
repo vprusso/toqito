@@ -7,7 +7,7 @@ from toqito.measurements import pretty_good_measurement
 def pretty_bad_measurement(states: list[np.ndarray], probs: list[float] | None = None) -> list[np.ndarray]:
     r"""Return the set of pretty bad measurements from a set of vectors and corresponding probabilities.
 
-    This computes the "pretty bad measurement" is defined in :cite:`Hughston_1993_Complete` and is an analogous idea to
+    This computes the "pretty bad measurement" as defined in :cite:`Hughston_1993_Complete` and is an analogous idea to
     the "pretty good measurement" from :cite:`McIrvin_2024_Pretty`. The "pretty bad measurement" is useful in the
     context of state exclusion where the pretty good measurement is often used for minimum-error quantum state
     discrimination.
