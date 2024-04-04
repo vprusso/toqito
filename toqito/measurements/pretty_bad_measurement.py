@@ -12,7 +12,7 @@ def pretty_bad_measurement(states: list[np.ndarray], probs: list[float] | None =
     context of state exclusion where the pretty good measurement is often used for minimum-error quantum state
     discrimination.
 
-    The pretty bad measurement (PBM) is defined in terms of the pretty good measurement (PGM). Recall that the PGM is
+    The pretty bad measurement (PBM) is defined in terms of an offset of the pretty good measurement (PGM). Recall that the PGM is
     defined as a set of POVMs :math:`(G_1, \ldots, G_n)` such that
 
     .. math::
