@@ -1,7 +1,6 @@
 """Test pauli."""
 
 import numpy as np
-from scipy.sparse import issparse
 
 from toqito.matrices import pauli
 
@@ -9,13 +8,13 @@ from toqito.matrices import pauli
 def test_pauli_str_sparse():
     """Pauli-I operator with argument "I"."""
     res = pauli("I", True)
-    np.testing.assert_equal(issparse(res), True)
+    np.testing.assert_equal(isinstance(res, np.ndarray) and res.ndim == 2, True)
 
 
 def test_pauli_int_sparse():
     """Pauli-I operator with argument "I"."""
     res = pauli(0, True)
-    np.testing.assert_equal(issparse(res), True)
+    np.testing.assert_equal(isinstance(res, np.ndarray) and res.ndim == 2, True)
 
 
 def test_pauli_i():

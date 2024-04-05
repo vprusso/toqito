@@ -1,12 +1,11 @@
 """Pauli matrices."""
 
 import numpy as np
-from scipy import sparse
 
 from toqito.matrix_ops import tensor
 
 
-def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np.ndarray | sparse.csr_matrix:
+def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np.ndarray:
     r"""Produce a Pauli operator :cite:`WikiPauli`.
 
     Provides the 2-by-2 Pauli matrix indicated by the value of :code:`ind`. The
@@ -91,9 +90,6 @@ def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np
             pauli_mat = np.array([[1, 0], [0, -1]])
         else:
             pauli_mat = np.identity(2)
-
-        if is_sparse:
-            pauli_mat = sparse.csr_matrix(pauli_mat)  # pylint: disable=redefined-variable-type
 
         return pauli_mat
 
