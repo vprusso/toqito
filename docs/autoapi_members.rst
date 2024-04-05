@@ -13,6 +13,7 @@ API Reference
    autoapi/matrices/index
    autoapi/matrix_ops/index
    autoapi/matrix_props/index
+   autoapi/measurements/index
    autoapi/measurement_ops/index
    autoapi/measurement_props/index
    autoapi/nonlocal_games/index
