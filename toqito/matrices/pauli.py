@@ -1,8 +1,6 @@
 """Pauli matrices."""
 
 import numpy as np
-
-#from scipy import sparse
 from scipy.sparse import csr_array
 
 from toqito.matrix_ops import tensor
@@ -80,8 +78,9 @@ def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> cs
         :filter: docname in docnames
 
     :param ind: The index to indicate which Pauli operator to generate.
-    :param is_sparse: Returns a compressed sparse row array if set to True 
-                      and a non compressed sparse row array if set to False.
+    :param is_sparse: Returns a compressed sparse row array if set to True and a non compressed
+                      sparse row array if set to False.
+
 
     """
     if isinstance(ind, (int, str)):
