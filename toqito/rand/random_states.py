@@ -34,11 +34,6 @@ def random_states(n: int, d: int) -> list[np.ndarray]:
            [ 0.17033502+0.18562365j]])]
 
 
-    .. note::
-        We use `doctest` to check if our examples are working as expected. ` # doctest: +SKIP` is used here
-        to skip comparing the expected output to the calculated output because this function is supposed to
-        generate a random matrix.
-
 
     :param n: int
         The number of random states to generate.

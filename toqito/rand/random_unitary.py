@@ -22,11 +22,6 @@ def random_unitary(dim: list[int] | int, is_real: bool = False) -> np.ndarray:
            [ 0.45776527+0.58478132j, -0.6072508 +0.28236187j]])
 
 
-    .. note::
-        We use `doctest` to check if our examples are working as expected. ` # doctest: +SKIP` is used here
-        to skip comparing the expected output to the calculated output because this function is supposed to
-        generate a random matrix.
-
     We can verify that this is in fact a valid unitary matrix using the :code:`is_unitary` function
     from :code:`toqito` as follows
 
@@ -42,11 +37,6 @@ def random_unitary(dim: list[int] | int, is_real: bool = False) -> np.ndarray:
     array([[ 0.87766506, -0.47927449],
            [ 0.47927449,  0.87766506]])
 
-
-    .. note::
-        We use `doctest` to check if our examples are working as expected. ` # doctest: +SKIP` is used here
-        to skip comparing the expected output to the calculated output because this function is supposed to
-        generate a random matrix.
 
     Again, verifying that this is a valid unitary matrix can be done as follows.
 

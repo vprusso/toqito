@@ -39,11 +39,6 @@ def random_circulant_gram(dim: int) -> np.ndarray:
            [0.21058986, 0.04257471, 0.21058986, 0.42351891]])
 
 
-    .. note::
-        We use `doctest` to check if our examples are working as expected. ` # doctest: +SKIP` is used here
-        to skip comparing the expected output to the calculated output because this function is supposed to
-        generate a random matrix.
-
     References
     ==========
     .. bibliography::

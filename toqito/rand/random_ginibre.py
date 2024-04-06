@@ -24,10 +24,6 @@ def random_ginibre(dim_n: int, dim_m: int) -> np.ndarray:
            [0.50103695-0.25857737j, 0.8357054 +0.31404353j]])
 
 
-    .. note::
-        We use `doctest` to check if our examples are working as expected. ` # doctest: +SKIP` is used here
-        to skip comparing the expected output to the calculated output because this function is supposed to
-        generate a random matrix.
 
     References
     ==========

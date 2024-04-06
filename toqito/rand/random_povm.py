@@ -33,11 +33,6 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int) -> np.ndarray:
              [ 0.10740892+0.j,  0.89259108+0.j]]]])
 
 
-    .. note::
-        We use `doctest` to check if our examples are working as expected. ` # doctest: +SKIP` is used here
-        to skip comparing the expected output to the calculated output because this function is supposed to
-        generate a random matrix. In addition, `<BLANKLINE>` is added for `doctest` as well.
-
     We can verify that this constitutes a valid set of POVM elements as checking that these operators all sum to the
     identity operator.
 
@@ -45,10 +40,6 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int) -> np.ndarray:
     [[1.+0.j, 0.+0.j],
      [0.+0.j, 1.+0.j]]
 
-    .. note::
-        We use `doctest` to check if our examples are working as expected. ` # doctest: +SKIP` is used here
-        to skip comparing the expected output to the calculated output because this function is supposed to
-        generate a random matrix.
 
     References
     ==========
