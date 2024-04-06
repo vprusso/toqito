@@ -2,10 +2,13 @@
 
 import numpy as np
 
+#from scipy import sparse
+from scipy.sparse import csr_array
+
 from toqito.matrix_ops import tensor
 
 
-def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np.ndarray:
+def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> csr_array:
     r"""Produce a Pauli operator :cite:`WikiPauli`.
 
     Provides the 2-by-2 Pauli matrix indicated by the value of :code:`ind`. The
@@ -77,8 +80,8 @@ def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np
         :filter: docname in docnames
 
     :param ind: The index to indicate which Pauli operator to generate.
-    :param is_sparse: Returns a sparse matrix if set to True and a non-sparse
-                      matrix if set to False.
+    :param is_sparse: Returns a compressed sparse row array if set to True 
+                      and a non compressed sparse row array if set to False.
 
     """
     if isinstance(ind, (int, str)):
@@ -90,6 +93,9 @@ def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np
             pauli_mat = np.array([[1, 0], [0, -1]])
         else:
             pauli_mat = np.identity(2)
+
+        if is_sparse:
+            pauli_mat = csr_array(pauli_mat)  # pylint: disable=redefined-variable-type
 
         return pauli_mat
 
