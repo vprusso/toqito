@@ -24,8 +24,8 @@ def kp_norm(mat: np.ndarray, k: int, p: int) -> float:
     >>> import numpy as np
     >>> from toqito.matrix_props import kp_norm
     >>> from toqito.rand import random_unitary
-    >>> kp_norm(random_unitary(5), 5, 2)
-    2.23606797749979
+    >>> np.around(kp_norm(random_unitary(5), 5, 2), decimals=3)
+    2.236
 
     :param mat: 2D numpy ndarray
     :param k: The number of singular values to take.
