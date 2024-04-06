@@ -36,7 +36,7 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int) -> np.ndarray:
     .. note::
         We use `doctest` to check if our examples are working as expected. ` # doctest: +SKIP` is used here
         to skip comparing the expected output to the calculated output because this function is supposed to
-        generate a random matrix. In addition, `<BLANKLINE>` is added for `doctest` as well. 
+        generate a random matrix. In addition, `<BLANKLINE>` is added for `doctest` as well.
 
     We can verify that this constitutes a valid set of POVM elements as checking that these operators all sum to the
     identity operator.
