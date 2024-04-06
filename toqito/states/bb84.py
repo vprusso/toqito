@@ -18,16 +18,18 @@ def bb84() -> np.ndarray:
 
     Examples
     ==========
-    The BB84 basis states can be obtained in :code:`toqito` as follows.
+    The BB84 basis states can be obtained in :code:`toqito` as follows in the form of a list of
+    arrays.
 
     >>> from toqito.states import bb84
     >>> x = bb84()
-    >>> print(f"|0> = {x[0][0].T}, \n |1> = {x[0][1].T}")  # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
-    |0> = [[1. 0.]],
-     |1> = [[0. 1.]]
-    >>> print(f"|+> = {x[1][0].T}, \n |-> = {x[1][1].T}")  # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
-    |+> = [[0.70710678 0.70710678]],
-     |-> = [[ 0.70710678 -0.70710678]]
+    >>> x
+    [[array([[1.],
+           [0.]]), array([[0.],
+           [1.]])], [array([[0.70710678],
+           [0.70710678]]), array([[ 0.70710678],
+           [-0.70710678]])]]
+
 
     .. note::
         We use `#doctest` to verify our examples work as expected.
