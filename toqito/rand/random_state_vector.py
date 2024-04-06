@@ -18,8 +18,9 @@ def random_state_vector(dim: list[int] | int, is_real: bool = False, k_param: in
     >>> from toqito.rand import random_state_vector
     >>> vec = random_state_vector(2)
     >>> vec # doctest: +SKIP
-    [[0.50993973+0.15292408j],
-     [0.27787332+0.79960122j]]
+    array([[0.78645233+0.16239043j],
+           [0.56649582+0.18494478j]])
+
 
     .. note::
         We use `doctest` to check if our examples are working as expected. ` # doctest: +SKIP` is used here
