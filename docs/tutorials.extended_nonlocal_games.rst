@@ -269,7 +269,7 @@ arrays where :code:`prob_mat` corresponds to the probability distribution
 
 .. code-block:: python
     
-    >>> """Define the BB84 extended nonlocal game."""
+    >>> # Define the BB84 extended nonlocal game.
     >>> import numpy as np
     >>> from toqito.states import basis
     >>>
@@ -314,15 +314,23 @@ This can be verified in :code:`toqito` as follows.
 
 .. code-block:: python
 
-    >>> """Calculate the unentangled value of the BB84 extended nonlocal game."""
+    >>> # Calculate the unentangled value of the BB84 extended nonlocal game.
     >>> from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
     >>> 
     >>> # Define an ExtendedNonlocalGame object based on the BB84 game.
     >>> bb84 = ExtendedNonlocalGame(bb84_prob_mat, bb84_pred_mat)
     >>> 
     >>> # The unentangled value is cos(pi/8)**2 \approx 0.85356
-    >>> bb84.unentangled_value() 
-    0.8535533905544173
+    >>> '%.2f' % bb84.unentangled_value() 
+    '0.85'
+
+
+    .. note::
+        You do not need to use `'%.2f' %` when you use this function.
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
 
 The BB84 game also exhibits strong parallel repetition. We can specify how many
 parallel repetitions for :code:`toqito` to run. The example below provides an
@@ -330,15 +338,23 @@ example of two parallel repetitions for the BB84 game.
 
 .. code-block:: python
 
-    >>> """The unentangled value of BB84 under parallel repetition."""
+    >>> # The unentangled value of BB84 under parallel repetition.
     >>> from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
     >>> 
     >>> # Define the bb84 game for two parallel repetitions.
     >>> bb84_2_reps = ExtendedNonlocalGame(bb84_prob_mat, bb84_pred_mat, 2)
     >>> 
     >>> # The unentangled value for two parallel repetitions is cos(pi/8)**4 \approx 0.72855
-    >>> bb84_2_reps.unentangled_value() 
-    0.7285533940730632
+    >>> '%.2f' % bb84_2_reps.unentangled_value() 
+    '0.73'
+
+
+    .. note::
+        You do not need to use `'%.2f' %` when you use this function.
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
 
 It was shown in [tJMRW16]_ that the BB84 game possesses the property of strong
 parallel repetition. That is,
@@ -356,15 +372,23 @@ using :code:`toqito` as well.
 
 .. code-block:: python
 
-    >>> """Calculate lower bounds on the standard quantum value of the BB84 extended nonlocal game."""
+    >>> # Calculate lower bounds on the standard quantum value of the BB84 extended nonlocal game.
     >>> from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
     >>> 
     >>> # Define an ExtendedNonlocalGame object based on the BB84 game.
     >>> bb84_lb = ExtendedNonlocalGame(bb84_prob_mat, bb84_pred_mat)
     >>> 
     >>> # The standard quantum value is cos(pi/8)**2 \approx 0.85356
-    >>> bb84_lb.quantum_value_lower_bound()
-    0.8535533236834885
+    >>> '%.2f' % bb84_lb.quantum_value_lower_bound()
+    '0.85'
+
+
+    .. note::
+        You do not need to use `'%.2f' %` when you use this function.
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
 
 From [tJMRW16]_, it is known that :math:`\omega(G_{BB84}) =
 \omega^*(G_{BB84})`, however, if we did not know this beforehand, we could
@@ -383,15 +407,22 @@ Using :code:`toqito`, we can see that :math:`\omega_{ns}(G) = \cos^2(\pi/8)`.
 
 .. code-block:: python
 
-    >>> """Calculate the non-signaling value of the BB84 extended nonlocal game."""
+    >>> # Calculate the non-signaling value of the BB84 extended nonlocal game.
     >>> from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
     >>> 
     >>> # Define an ExtendedNonlocalGame object based on the BB84 game.
     >>> bb84 = ExtendedNonlocalGame(bb84_prob_mat, bb84_pred_mat)
     >>> 
     >>> # The non-signaling value is cos(pi/8)**2 \approx 0.85356
-    >>> bb84.nonsignaling_value() 
-    0.853486975032519
+    >>> '%.2f' % bb84.nonsignaling_value() 
+    '0.85'
+
+    .. note::
+        You do not need to use `'%.2f' %` when you use this function.
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
 
 So we have the relationship that
 
@@ -404,15 +435,22 @@ can observe this by the following snippet.
 
 .. code-block:: python
 
-    >>> """The non-signaling value of BB84 under parallel repetition."""
+    >>> # The non-signaling value of BB84 under parallel repetition.
     >>> from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
     >>> 
     >>> # Define the bb84 game for two parallel repetitions.
     >>> bb84_2_reps = ExtendedNonlocalGame(bb84_prob_mat, bb84_pred_mat, 2)
     >>> 
     >>> # The non-signaling value for two parallel repetitions is cos(pi/8)**4 \approx 0.73825
-    >>> bb84_2_reps.nonsignaling_value() 
-    0.7382545498689419
+    >>> '%.2f' % bb84_2_reps.nonsignaling_value() 
+    '0.74'
+
+    .. note::
+        You do not need to use `'%.2f' %` when you use this function.
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
 
 Note that :math:`0.73825 \geq \cos(\pi/8)^4 \approx 0.72855` and therefore we
 have that
@@ -473,7 +511,7 @@ we did for :math:`G_{BB84}`.
 
 .. code-block:: python
 
-    >>> """Define the CHSH extended nonlocal game."""
+    >>> # Define the CHSH extended nonlocal game.
     >>> import numpy as np
     >>>
     >>> # The dimension of referee's measurement operators:
@@ -514,29 +552,44 @@ the unentangled value of :math:`G_{CHSH}`.
 
 .. code-block:: python
 
-    >>> """Calculate the unentangled value of the CHSH extended nonlocal game."""
+    >>> # Calculate the unentangled value of the CHSH extended nonlocal game
     >>> from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
     >>> 
     >>> # Define an ExtendedNonlocalGame object based on the CHSH game.
     >>> chsh = ExtendedNonlocalGame(chsh_prob_mat, chsh_pred_mat)
     >>> 
     >>> # The unentangled value is 3/4 = 0.75
-    >>> chsh.unentangled_value() 
-    0.7499999999992315
+    >>> '%.2f' % chsh.unentangled_value() 
+    '0.75'
+
+    .. note::
+        You do not need to use `'%.2f' %` when you use this function.
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
 
 We can also run multiple repetitions of :math:`G_{CHSH}`.
 
 .. code-block:: python
 
-    >>> """The unentangled value of CHSH under parallel repetition."""
+    >>> # The unentangled value of CHSH under parallel repetition.
     >>> from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
     >>> 
     >>> # Define the CHSH game for two parallel repetitions.
     >>> chsh_2_reps = ExtendedNonlocalGame(chsh_prob_mat, chsh_pred_mat, 2)
     >>> 
     >>> # The unentangled value for two parallel repetitions is (3/4)**2 \approx 0.5625
-    >>> chsh_2_reps.unentangled_value() 
-    0.5625000000002018
+    >>> '%.2f' % chsh_2_reps.unentangled_value() 
+    '0.56'
+
+
+    .. note::
+        You do not need to use `'%.2f' %` when you use this function.
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
 
 Note that strong parallel repetition holds as
 
@@ -551,15 +604,23 @@ non-signaling value.
 
 .. code-block:: python
 
-    >>> """Calculate the non-signaling value of the CHSH extended nonlocal game."""
+    >>> # Calculate the non-signaling value of the CHSH extended nonlocal game.
     >>> from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
     >>> 
     >>> # Define an ExtendedNonlocalGame object based on the CHSH game.
     >>> chsh = ExtendedNonlocalGame(chsh_prob_mat, chsh_pred_mat)
     >>> 
     >>> # The non-signaling value is 3/4 = 0.75
-    >>> chsh.nonsignaling_value() 
-    0.7500002249607216
+    >>> '%.2f' % chsh.nonsignaling_value() 
+    '0.75'
+
+    .. note::
+        You do not need to use `'%.2f' %` when you use this function.
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
+
 
 As we know that :math:`\omega(G_{CHSH}) = \omega_{ns}(G_{CHSH}) = 3/4` and that
 
@@ -627,52 +688,52 @@ Taking the description of :math:`G_{MUB}`, we can encode this as follows.
 
 .. code-block:: python
 
-    >>> """Define the monogamy-of-entanglement game defined by MUBs."""
-    >>>  prob_mat = 1 / 4 * np.identity(4)
+    >>> # Define the monogamy-of-entanglement game defined by MUBs.
+    >>> prob_mat = 1 / 4 * np.identity(4)
     >>>
-    >>>  dim = 3
-    >>>  e_0, e_1, e_2 = basis(dim, 0), basis(dim, 1), basis(dim, 2)
+    >>> dim = 3
+    >>> e_0, e_1, e_2 = basis(dim, 0), basis(dim, 1), basis(dim, 2)
     >>>
-    >>>  eta = np.exp((2 * np.pi * 1j) / dim)
-    >>>  mub_0 = [e_0, e_1, e_2]
-    >>>  mub_1 = [
-    >>>      (e_0 + e_1 + e_2) / np.sqrt(3),
-    >>>      (e_0 + eta ** 2 * e_1 + eta * e_2) / np.sqrt(3),
-    >>>      (e_0 + eta * e_1 + eta ** 2 * e_2) / np.sqrt(3),
-    >>>  ]
-    >>>  mub_2 = [
-    >>>      (e_0 + e_1 + eta * e_2) / np.sqrt(3),
-    >>>      (e_0 + eta ** 2 * e_1 + eta ** 2 * e_2) / np.sqrt(3),
-    >>>      (e_0 + eta * e_1 + e_2) / np.sqrt(3),
-    >>>  ]
-    >>>  mub_3 = [
-    >>>      (e_0 + e_1 + eta ** 2 * e_2) / np.sqrt(3),
-    >>>      (e_0 + eta ** 2 * e_1 + e_2) / np.sqrt(3),
-    >>>      (e_0 + eta * e_1 + eta * e_2) / np.sqrt(3),
-    >>>  ]
+    >>> eta = np.exp((2 * np.pi * 1j) / dim)
+    >>> mub_0 = [e_0, e_1, e_2]
+    >>> mub_1 = [
+    ...      (e_0 + e_1 + e_2) / np.sqrt(3),
+    ...      (e_0 + eta ** 2 * e_1 + eta * e_2) / np.sqrt(3),
+    ...     (e_0 + eta * e_1 + eta ** 2 * e_2) / np.sqrt(3),
+    ... ]
+    >>> mub_2 = [
+    ...      (e_0 + e_1 + eta * e_2) / np.sqrt(3),
+    ...      (e_0 + eta ** 2 * e_1 + eta ** 2 * e_2) / np.sqrt(3),
+    ...      (e_0 + eta * e_1 + e_2) / np.sqrt(3),
+    ... ]
+    >>> mub_3 = [
+    ...      (e_0 + e_1 + eta ** 2 * e_2) / np.sqrt(3),
+    ...      (e_0 + eta ** 2 * e_1 + e_2) / np.sqrt(3),
+    ...      (e_0 + eta * e_1 + eta * e_2) / np.sqrt(3),
+    ... ]
     >>>
-    >>>  # List of measurements defined from mutually unbiased basis.
-    >>>  mubs = [mub_0, mub_1, mub_2, mub_3]
+    >>> # List of measurements defined from mutually unbiased basis.
+    >>> mubs = [mub_0, mub_1, mub_2, mub_3]
     >>> 
-    >>>  num_in = 4
-    >>>  num_out = 3
-    >>>  pred_mat = np.zeros([dim, dim, num_out, num_out, num_in, num_in], dtype=complex)
+    >>> num_in = 4
+    >>> num_out = 3
+    >>> pred_mat = np.zeros([dim, dim, num_out, num_out, num_in, num_in], dtype=complex)
     >>>
-    >>>  pred_mat[:, :, 0, 0, 0, 0] = mubs[0][0] * mubs[0][0].conj().T
-    >>>  pred_mat[:, :, 1, 1, 0, 0] = mubs[0][1] * mubs[0][1].conj().T
-    >>>  pred_mat[:, :, 2, 2, 0, 0] = mubs[0][2] * mubs[0][2].conj().T
+    >>> pred_mat[:, :, 0, 0, 0, 0] = mubs[0][0] * mubs[0][0].conj().T
+    >>> pred_mat[:, :, 1, 1, 0, 0] = mubs[0][1] * mubs[0][1].conj().T
+    >>> pred_mat[:, :, 2, 2, 0, 0] = mubs[0][2] * mubs[0][2].conj().T
     >>>
-    >>>  pred_mat[:, :, 0, 0, 1, 1] = mubs[1][0] * mubs[1][0].conj().T
-    >>>  pred_mat[:, :, 1, 1, 1, 1] = mubs[1][1] * mubs[1][1].conj().T
-    >>>  pred_mat[:, :, 2, 2, 1, 1] = mubs[1][2] * mubs[1][2].conj().T
+    >>> pred_mat[:, :, 0, 0, 1, 1] = mubs[1][0] * mubs[1][0].conj().T
+    >>> pred_mat[:, :, 1, 1, 1, 1] = mubs[1][1] * mubs[1][1].conj().T
+    >>> pred_mat[:, :, 2, 2, 1, 1] = mubs[1][2] * mubs[1][2].conj().T
     >>>
-    >>>  pred_mat[:, :, 0, 0, 2, 2] = mubs[2][0] * mubs[2][0].conj().T
-    >>>  pred_mat[:, :, 1, 1, 2, 2] = mubs[2][1] * mubs[2][1].conj().T
-    >>>  pred_mat[:, :, 2, 2, 2, 2] = mubs[2][2] * mubs[2][2].conj().T
+    >>> pred_mat[:, :, 0, 0, 2, 2] = mubs[2][0] * mubs[2][0].conj().T
+    >>> pred_mat[:, :, 1, 1, 2, 2] = mubs[2][1] * mubs[2][1].conj().T
+    >>> pred_mat[:, :, 2, 2, 2, 2] = mubs[2][2] * mubs[2][2].conj().T
     >>>
-    >>>  pred_mat[:, :, 0, 0, 3, 3] = mubs[3][0] * mubs[3][0].conj().T
-    >>>  pred_mat[:, :, 1, 1, 3, 3] = mubs[3][1] * mubs[3][1].conj().T
-    >>>  pred_mat[:, :, 2, 2, 3, 3] = mubs[3][2] * mubs[3][2].conj().T
+    >>> pred_mat[:, :, 0, 0, 3, 3] = mubs[3][0] * mubs[3][0].conj().T
+    >>> pred_mat[:, :, 1, 1, 3, 3] = mubs[3][1] * mubs[3][1].conj().T
+    >>> pred_mat[:, :, 2, 2, 3, 3] = mubs[3][2] * mubs[3][2].conj().T
 
 Now that we have encoded :math:`G_{MUB}`, we can calculate the unentangled value.
 
@@ -680,8 +741,16 @@ Now that we have encoded :math:`G_{MUB}`, we can calculate the unentangled value
 
     >>> g_mub = ExtendedNonlocalGame(prob_mat, pred_mat)
     >>> unent_val = g_mub.unentangled_value()
-    >>> unent_val
-    0.6545084973280103
+    >>> '%.2f' % unent_val
+    '0.65'
+
+
+    .. note::
+        You do not need to use `'%.2f' %` when you use this function.
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
 
 That is, we have that 
 
@@ -694,9 +763,18 @@ obtain.
 
 .. code-block:: python
 
-    >>> q_val = g_mub.quantum_value()
-    >>> q_val
-    0.660931321341278
+    >>> g_mub = ExtendedNonlocalGame(prob_mat, pred_mat)
+    >>> q_val = g_mub.quantum_value_lower_bound()
+    >>> '%.2f' % q_val
+    '0.66'
+
+
+    .. note::
+        You do not need to use `'%.2f' %` when you use this function.
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
 
 Note that as we are calculating a lower bound, it is possible that a value this
 high will not be obtained, or in other words, the algorithm can get stuck in a

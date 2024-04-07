@@ -156,8 +156,9 @@ Documentation
 --------------
 
 
-We use :code:`sphinx` to build the documentation. To build the documentation locally, make sure :code:`sphinx` and
-:code:`sphinx-rtd-theme` are installed when poetry was used to install :code:`toqito`.
+We use :code:`sphinx` to build the documentation and `doctest` to test the examples in the documentation and function docstrings. 
+To build the documentation locally, make sure :code:`sphinx` and :code:`sphinx-rtd-theme` are installed when poetry was used to
+install :code:`toqito`.
 
 .. code-block:: bash
 
@@ -170,6 +171,11 @@ A standard document has to follow the :code:`.rst` format.  For more information
 :code:`sphinx-rtd-theme`, visit
 `sphinx documentation <https://docs.readthedocs.io/en/stable/intro/getting-started-with-sphinx.html>`_ &
 `sphinx-rtd-theme documentation <https://sphinx-rtd-theme.readthedocs.io/en/stable/installing.html>`_ .
+
+To use `doctest`:
+- Use `make doctest` in `toqito/docs` for the docstring examples to be verified. 
+- Use `pytest  --doctest-glob=*.rst` to check the examples in all the `.rst` files in `toqito/docs` work as expected. If you would like to only
+  check the examples in a  specific file, use `pytest  --doctest-glob=tutorials.name_of_file.rst` instead. 
 
 --------------------
 Adding a new feature
