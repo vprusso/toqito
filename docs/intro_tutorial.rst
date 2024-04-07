@@ -356,7 +356,7 @@ subsystem.
            [23, 27]])
 
 
-By specifying the :code:`sys = 1` argument, we can perform the partial trace over the first
+By specifying the :code:`sys = [0]` argument, we can perform the partial trace over the first
 subsystem (instead of the default second subsystem as done above). Performing the partial
 trace over the first subsystem yields the following matrix
 
@@ -373,9 +373,10 @@ trace over the first subsystem yields the following matrix
     >>> test_input_mat = np.array(
     ...     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
     ... )
-    >>> partial_trace(test_input_mat, 1)
-    array([[ 7, 11],
-           [23, 27]])
+    >>> partial_trace(test_input_mat, [0])
+    array([[12, 14],
+           [20, 22]])
+
 
 
 Another often useful channel is the *partial transpose*. The *partial transpose*
@@ -430,7 +431,7 @@ the second subsystem as follows.
            [10, 14, 12, 16]])
 
 
-By specifying the :code:`sys = 1` argument, we can perform the partial transpose over the
+By specifying the :code:`sys = [0]` argument, we can perform the partial transpose over the
 first subsystem (instead of the default second subsystem as done above). Performing the
 partial transpose over the first subsystem yields the following matrix
 
@@ -449,11 +450,12 @@ partial transpose over the first subsystem yields the following matrix
     >>> test_input_mat = np.array(
     ...     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
     ... )
-    >>> partial_transpose(test_input_mat, 1)
-    array([[ 1,  5,  3,  7],
-           [ 2,  6,  4,  8],
-           [ 9, 13, 11, 15],
-           [10, 14, 12, 16]])
+    >>> partial_transpose(test_input_mat, [0])
+    array([[ 1,  2,  9, 10],
+           [ 5,  6, 13, 14],
+           [ 3,  4, 11, 12],
+           [ 7,  8, 15, 16]])
+
 
 
 Measurements
