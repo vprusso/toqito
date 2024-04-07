@@ -47,12 +47,14 @@ can be defined in :code:`toqito` as such
     >>> from toqito.states import basis
     >>> # |0>
     >>> basis(2, 0)
-    [[1]
-    [0]]
+    array([[1],
+           [0]])
+
     >>> # |1>
     >>> basis(2, 1)
-    [[0]
-    [1]]
+    array([[0],
+           [1]])
+
 
 One may define one of the four Bell states written as
 
@@ -66,10 +68,12 @@ using :code:`toqito` as
     >>> import numpy as np
     >>> e_0, e_1 = basis(2, 0), basis(2, 1)
     >>> u_0 = 1/np.sqrt(2) * (np.kron(e_0, e_0) + np.kron(e_1, e_1))
-    [[0.70710678],
-     [0.        ],
-     [0.        ],
-     [0.70710678]]
+    >>> u_0
+    array([[0.70710678],
+           [0.        ],
+           [0.        ],
+           [0.70710678]])
+
 
 The corresponding density operator of :math:`u_0` can be obtained from
 
@@ -86,10 +90,16 @@ In :code:`toqito`, that can be obtained as
 
 .. code-block:: python
     
+    >>> import numpy as np
+    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
+    >>> u_0 = 1/np.sqrt(2) * (np.kron(e_0, e_0) + np.kron(e_1, e_1))
     >>> rho_0 = u_0 * u_0.conj().T
-     [0.  0.  0.  0. ]
-     [0.  0.  0.  0. ]
-     [0.5 0.  0.  0.5]]
+    >>> rho_0
+    array([[0.5, 0. , 0. , 0.5],
+           [0. , 0. , 0. , 0. ],
+           [0. , 0. , 0. , 0. ],
+           [0.5, 0. , 0. , 0.5]])
+
 
 Alternatively, we may leverage the :code:`bell` function in :code:`toqito` to
 generate all four Bell states defined as
@@ -111,10 +121,10 @@ in a more concise manner as
     >>> from toqito.states import bell
     >>> import numpy as np
     >>> bell(0)
-    [[0.70710678],
-     [0.        ],
-     [0.        ],
-     [0.70710678]]
+    array([[0.70710678],
+           [0.        ],
+           [0.        ],
+           [0.70710678]])
 
 The Bell states constitute one such well-known class of quantum states. There
 are many other classes of states that are widely used in the field of quantum
@@ -129,14 +139,15 @@ is a well-known 3-qubit quantum state. We can invoke this using :code:`toqito` a
 
     >>> from toqito.states import ghz
     >>> ghz(2, 3).toarray()
-    [[0.70710678],
-     [0.        ],
-     [0.        ],
-     [0.        ],
-     [0.        ],
-     [0.        ],
-     [0.        ],
-     [0.70710678]]
+    array([[0.70710678],
+           [0.        ],
+           [0.        ],
+           [0.        ],
+           [0.        ],
+           [0.        ],
+           [0.        ],
+           [0.70710678]])
+
 
 While the 3-qubit form of the GHZ state is arguably the most notable, it is
 possible to define a generalized GHZ state
@@ -159,13 +170,14 @@ state.
 
     >>> from toqito.states import ghz
     >>> ghz(4, 7, np.array([1, 2, 3, 4]) / np.sqrt(30)).toarray()
-    [[0.18257419],
-     [0.        ],
-     [0.        ],
-     ...,
-     [0.        ],
-     [0.        ],
-     [0.73029674]])
+    array([[0.18257419],
+           [0.        ],
+           [0.        ],
+           ...,
+           [0.        ],
+           [0.        ],
+           [0.73029674]])
+
 
 Properties of Quantum States
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -221,11 +233,11 @@ For instance, the following bound-entangled tile state is found to be entangled
 .. code-block:: python
 
     >>> import numpy as np
-    >>> from toqtio.state_props import is_separable
+    >>> from toqito.state_props import is_separable
     >>> from toqito.states import tile
     >>> rho = np.identity(9)
     >>> for i in range(5):
-    >>>    rho = rho - tile(i) * tile(i).conj().T
+    ...    rho = rho - tile(i) * tile(i).conj().T
     >>> rho = rho / 4
     >>> is_separable(rho)
     False
@@ -248,13 +260,13 @@ fidelity between :math:`\rho` and :math:`\sigma` as
 
 where :math:`|| \cdot ||_1` denotes the trace norm. 
 
-The fidelity fucntion yields a value between :math:`0` and :math:`1`, with
-:math:`0` representing the scenarion where :math:`\rho` and :math:`\sigma` are
+The fidelity function yields a value between :math:`0` and :math:`1`, with
+:math:`0` representing the scenario where :math:`\rho` and :math:`\sigma` are
 as different as can be and where a value of :math:`1` indicates a scenario
 where :math:`\rho` and :math:`\sigma` are identical.
 
 Let us consider an example in :code:`toqito` where we wish to calculate the
-fidelity function between quantum states that happen to be identitcal.
+fidelity function between quantum states that happen to be identical.
 
 .. code-block:: python
 
@@ -266,13 +278,21 @@ fidelity function between quantum states that happen to be identitcal.
     >>> sigma = bell(0)*bell(0).conj().T
     >>> 
     >>> # Calculate the fidelity between `rho` and `sigma`
-    >>> fidelity(rho, sigma)
-    1
+    >>> '%.2f' % fidelity(rho, sigma)
+    '1.00'
+
+
+    .. note::
+        You do not need to use `'%.2f' %` when you use this function.
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
 
 There are a number of other metrics one can compute on two density matrices
 including the trace norm, trace distance. These and others are also available
 in :code:`toqito`. For a full list of distance metrics one can compute on
-quatum states, consult the docs.
+quantum states, consult the docs.
 
 Channels
 --------
@@ -329,11 +349,12 @@ subsystem.
     >>> from toqito.channels import partial_trace
     >>> import numpy as np
     >>> test_input_mat = np.array(
-    >>>     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
-    >>> )
+    ...     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
+    ... )
     >>> partial_trace(test_input_mat)
-    [[ 7, 11],
-     [23, 27]]
+    array([[ 7, 11],
+           [23, 27]])
+
 
 By specifying the :code:`sys = 1` argument, we can perform the partial trace over the first
 subsystem (instead of the default second subsystem as done above). Performing the partial
@@ -350,11 +371,12 @@ trace over the first subsystem yields the following matrix
     >>> from toqito.channels import partial_trace
     >>> import numpy as np
     >>> test_input_mat = np.array(
-    >>>     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
-    >>> )
+    ...     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
+    ... )
     >>> partial_trace(test_input_mat, 1)
-    [[12, 14],
-     [20, 22]]
+    array([[ 7, 11],
+           [23, 27]])
+
 
 Another often useful channel is the *partial transpose*. The *partial transpose*
 is defined as
@@ -402,10 +424,11 @@ the second subsystem as follows.
     >>> import numpy as np
     >>> test_input_mat = np.arange(1, 17).reshape(4, 4)
     >>> partial_transpose(test_input_mat)
-    [[ 1  5  3  7]
-     [ 2  6  4  8]
-     [ 9 13 11 15]
-     [10 14 12 16]]
+    array([[ 1,  5,  3,  7],
+           [ 2,  6,  4,  8],
+           [ 9, 13, 11, 15],
+           [10, 14, 12, 16]])
+
 
 By specifying the :code:`sys = 1` argument, we can perform the partial transpose over the
 first subsystem (instead of the default second subsystem as done above). Performing the
@@ -424,13 +447,14 @@ partial transpose over the first subsystem yields the following matrix
     >>> from toqito.channels import partial_transpose
     >>> import numpy as np
     >>> test_input_mat = np.array(
-    >>>     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
-    >>> )
+    ...     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
+    ... )
     >>> partial_transpose(test_input_mat, 1)
-    [[ 1  2  9 10]
-     [ 5  6 13 14]
-     [ 3  4 11 12]
-     [ 7  8 15 16]]
+    array([[ 1,  5,  3,  7],
+           [ 2,  6,  4,  8],
+           [ 9, 13, 11, 15],
+           [10, 14, 12, 16]])
+
 
 Measurements
 ------------
