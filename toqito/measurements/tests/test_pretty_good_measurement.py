@@ -18,7 +18,7 @@ from toqito.states import bell, trine
                 np.array([[2 / 3, 0], [0, 0]]),
                 np.array([[1 / 6, 1 / (2 * np.sqrt(3))], [1 / (2 * np.sqrt(3)), 1 / 2]]),
                 np.array([[1 / 6, -1 / (2 * np.sqrt(3))], [-1 / (2 * np.sqrt(3)), 1 / 2]]),
-            ]
+            ],
         ),
         # Trine states (without probabilities).
         (
@@ -28,7 +28,7 @@ from toqito.states import bell, trine
                 np.array([[2 / 3, 0], [0, 0]]),
                 np.array([[1 / 6, 1 / (2 * np.sqrt(3))], [1 / (2 * np.sqrt(3)), 1 / 2]]),
                 np.array([[1 / 6, -1 / (2 * np.sqrt(3))], [-1 / (2 * np.sqrt(3)), 1 / 2]]),
-            ]
+            ],
         ),
         # Bell states.
         (
@@ -39,7 +39,7 @@ from toqito.states import bell, trine
                 1 / 2 * np.array([[1, 0, 0, -1], [0, 0, 0, 0], [0, 0, 0, 0], [-1, 0, 0, 1]]),
                 1 / 2 * np.array([[0, 0, 0, 0], [0, 1, 1, 0], [0, 1, 1, 0], [0, 0, 0, 0]]),
                 1 / 2 * np.array([[0, 0, 0, 0], [0, 1, -1, 0], [0, -1, 1, 0], [0, 0, 0, 0]]),
-            ]
+            ],
         ),
     ],
 )
@@ -52,7 +52,7 @@ def test_pretty_good_measurement(states, probs, expected_result):
     "states, probs",
     [
         # Invalid vector of probabilities.
-        (trine(), [1/3, 1/2, 1/2]),
+        (trine(), [1 / 3, 1 / 2, 1 / 2]),
     ],
 )
 def test_pgm_invalid_probs(states, probs):
@@ -72,4 +72,3 @@ def test_pgm_invalid_states(states, probs):
     """Ensures that number of states and number of probabilities are equal."""
     with np.testing.assert_raises(ValueError):
         pretty_good_measurement(states, probs)
-
