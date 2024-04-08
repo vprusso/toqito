@@ -132,8 +132,15 @@ Using :code:`toqito`, we can calculate this probability directly as follows:
     >>>
     >>> # Calculate the probability with which Bob can 
     >>> # distinguish the state he is provided.
-    >>> state_distinguishability(states, probs)
-    1.000
+    >>> '%.2f' % state_distinguishability(states, probs)[0]
+    '1.00'
+
+    .. note::
+        You do not need to use `'%.2f' %` when you use this function.
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
 
 Specifying similar state distinguishability problems can be done so using this
 general pattern.
@@ -228,8 +235,15 @@ via PPT measurements in the following manner.
     >>>
     >>> states = [rho_1, rho_2, rho_3, rho_4]
     >>> probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
-    >>> ppt_distinguishability(states, probs)
-    0.875
+    >>> '%.2f' % ppt_distinguishability(vectors=states, probs=probs, dimensions=[2, 2, 2, 2], subsystems=[0, 2])[0]
+    '0.87'
+
+    .. note::
+        You do not need to use `'%.2f' %` when you use this function.
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
 
 Probability of distinguishing a state via separable measurements
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

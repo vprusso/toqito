@@ -64,3 +64,4 @@ jobs:
             cd docs
             poetry run make html
             poetry run make doctest
+            poetry run pytest  --doctest-glob=*.rst

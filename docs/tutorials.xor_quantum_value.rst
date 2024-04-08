@@ -103,9 +103,9 @@ For the CHSH game, the `prob_mat` and `pred_mat` variables are defined as follow
 
     >>> import numpy as np
     >>> prob_mat = np.array([[1/4, 1/4],
-    >>>                      [1/4, 1/4]])
+    ...                      [1/4, 1/4]])
     >>> pred_mat = np.array([[0, 0],
-    >>>                      [0, 1]])
+    ...                      [0, 1]])
 
 That is, the :code:`prob_mat` matrix encapsulates that each question pair
 :math:`\{(0,0), (0, 1), (1, 0), (1, 1)\}` is equally likely. 
@@ -288,8 +288,15 @@ follows:
 
 .. code-block:: python
 
-    >>> chsh.quantum_value()
-    0.8535533885683664
+    >>> '%.2f' % chsh.quantum_value()
+    '0.85'
+
+    .. note::
+        You do not need to use `'%.2f' %` when you use this function.
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
 
 For reference, the complete code to calculate both the classical and quantum
 values of the CHSH game is provided below.
@@ -299,14 +306,22 @@ values of the CHSH game is provided below.
     >>> import numpy as np
     >>> from toqito.nonlocal_games.xor_game import XORGame
     >>> prob_mat = np.array([[1/4, 1/4],
-    >>>                      [1/4, 1/4]])
+    ...                      [1/4, 1/4]])
     >>> pred_mat = np.array([[0, 0],
-    >>>                      [0, 1]])
+    ...                      [0, 1]])
     >>> chsh = XORGame(prob_mat, pred_mat)
     >>> chsh.classical_value()
     0.75
-    >>> chsh.quantum_value()
-    0.8535533885683664
+    >>> '%.2f' % chsh.quantum_value()
+    '0.85'
+
+
+    .. note::
+        You do not need to use `'%.2f' %` when you use this function.
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
 
 The odd cycle game
 ------------------
@@ -332,26 +347,33 @@ the classical and quantum values of this game.
     >>>
     >>> # Define the probability matrix.
     >>> prob_mat = np.array([
-    >>>    [0.1, 0.1, 0, 0, 0],
-    >>>    [0, 0.1, 0.1, 0, 0],
-    >>>    [0, 0, 0.1, 0.1, 0],
-    >>>    [0, 0, 0, 0.1, 0.1],
-    >>>    [0.1, 0, 0, 0, 0.1]])
+    ...    [0.1, 0.1, 0, 0, 0],
+    ...    [0, 0.1, 0.1, 0, 0],
+    ...    [0, 0, 0.1, 0.1, 0],
+    ...    [0, 0, 0, 0.1, 0.1],
+    ...    [0.1, 0, 0, 0, 0.1]])
     >>>
     >>> # Define the predicate matrix.
     >>> pred_mat = np.array([
-    >>>    [0, 1, 0, 0, 0],
-    >>>    [0, 0, 1, 0, 0],
-    >>>    [0, 0, 0, 1, 0],
-    >>>    [0, 0, 0, 0, 1],
-    >>>    [1, 0, 0, 0, 0]])
+    ...    [0, 1, 0, 0, 0],
+    ...    [0, 0, 1, 0, 0],
+    ...    [0, 0, 0, 1, 0],
+    ...    [0, 0, 0, 0, 1],
+    ...    [1, 0, 0, 0, 0]])
     >>>
     >>> # Compute the classical and quantum values.
     >>> odd_cycle = XORGame(prob_mat, pred_mat)
-    >>> odd_cycle.classical_value()
-    0.9
-    >>> odd_cycle.quantum_value()
-    0.9755282544736033
+    >>> '%.2f' % odd_cycle.classical_value()
+    '0.90'
+    >>> '%.2f' % odd_cycle.quantum_value()
+    '0.98'
+
+    .. note::
+        You do not need to use `'%.2f' %` when you use this function.
+        We use this to format our output such that `doctest` compares the calculated output to the
+        expected output upto two decimal points only. The accuracy of the solvers can calculate the
+        `float` output to a certain amount of precision such that the value deviates after a few digits
+        of accuracy.
 
 Note that the odd cycle game is another example of an XOR game where the
 players are able to win with a strictly higher probability if they adopt a
