@@ -22,8 +22,7 @@ def bb84() -> np.ndarray:
     arrays.
 
     >>> from toqito.states import bb84
-    >>> x = bb84()
-    >>> x
+    >>> bb84()
     [[array([[1.],
            [0.]]), array([[0.],
            [1.]])], [array([[0.70710678],
