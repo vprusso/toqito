@@ -1,4 +1,5 @@
 """Compute the set of pretty good measurements from an ensemble."""
+
 import numpy as np
 import scipy
 
@@ -71,6 +72,5 @@ def pretty_good_measurement(states: list[np.ndarray], probs: list[float] | None 
     states = [vector_to_density_matrix(state) for state in states]
     p_var = sum(probs[i] * states[i] for i in range(n))
 
-    p_var_sqrt = scipy.linalg.fractional_matrix_power(p_var, -1/2)
+    p_var_sqrt = scipy.linalg.fractional_matrix_power(p_var, -1 / 2)
     return [p_var_sqrt @ (probs[i] * states[i]) @ p_var_sqrt for i in range(n)]
-

@@ -18,13 +18,9 @@ def random_unitary(dim: list[int] | int, is_real: bool = False) -> np.ndarray:
     >>> from toqito.rand import random_unitary
     >>> complex_dm = random_unitary(2)
     >>> complex_dm # doctest: +SKIP
-    [[0.40563696+0.18092721j, 0.00066868+0.89594841j],
-     [0.4237286 +0.78941628j, 0.27157521-0.35145826j]]
+    array([[ 0.13764463+0.65538975j,  0.74246453+0.01626838j],
+           [ 0.45776527+0.58478132j, -0.6072508 +0.28236187j]])
 
-    .. note::
-        We use `doctest` to check if our examples are working as expected. ` # doctest: +SKIP` is used here
-        to skip comparing the expected output to the calculated output because this function is supposed to
-        generate a random matrix.
 
     We can verify that this is in fact a valid unitary matrix using the :code:`is_unitary` function
     from :code:`toqito` as follows
@@ -38,13 +34,9 @@ def random_unitary(dim: list[int] | int, is_real: bool = False) -> np.ndarray:
     >>> from toqito.rand import random_unitary
     >>> real_dm = random_unitary(2, True)
     >>> real_dm # doctest: +SKIP
-    [[ 0.01972681, -0.99980541],
-     [ 0.99980541,  0.01972681]]
+    array([[ 0.87766506, -0.47927449],
+           [ 0.47927449,  0.87766506]])
 
-    .. note::
-        We use `doctest` to check if our examples are working as expected. ` # doctest: +SKIP` is used here
-        to skip comparing the expected output to the calculated output because this function is supposed to
-        generate a random matrix.
 
     Again, verifying that this is a valid unitary matrix can be done as follows.
 
@@ -58,10 +50,11 @@ def random_unitary(dim: list[int] | int, is_real: bool = False) -> np.ndarray:
     >>> from toqito.rand import random_unitary
     >>> mat = random_unitary([4, 4], True)
     >>> mat # doctest: +SKIP
-    [[ 0.48996358, -0.20978392,  0.56678587, -0.62823576],
-     [ 0.62909119, -0.35852051, -0.68961425, -0.01181086],
-     [ 0.38311399,  0.90865415, -0.1209574 , -0.11375677],
-     [ 0.46626562, -0.04244265,  0.4342295 ,  0.76957113]]
+    array([[ 0.49527332,  0.08749933, -0.16968586,  0.84749922],
+           [ 0.68834418, -0.26695275,  0.62674543, -0.24921614],
+           [ 0.38614979, -0.438767  , -0.7417619 , -0.32887862],
+           [ 0.36300822,  0.85355938, -0.16788735, -0.33387909]])
+
 
     As before, we can verify that this matrix generated is a valid unitary matrix.
 

@@ -1,4 +1,5 @@
 """Compute the set of pretty bad measurements from an ensemble."""
+
 import numpy as np
 
 from toqito.measurements import pretty_good_measurement
@@ -77,4 +78,3 @@ def pretty_bad_measurement(states: list[np.ndarray], probs: list[float] | None =
     dim = pgm[0].shape[0]
 
     return [1 / (n - 1) * (np.identity(dim) - pgm[i]) for i in range(n)]
-

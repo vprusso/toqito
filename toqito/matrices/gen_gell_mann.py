@@ -1,12 +1,9 @@
 """Generalized Gell-Mann matrices."""
 
-
 import numpy as np
 
 
-def gen_gell_mann(
-    ind_1: int, ind_2: int, dim: int,
-) -> np.ndarray:
+def gen_gell_mann(ind_1: int, ind_2: int, dim: int) -> np.ndarray:
     r"""Produce a generalized Gell-Mann operator :cite:`WikiGellMann`.
 
     Construct a :code:`dim`-by-:code:`dim` Hermitian operator. These matrices
