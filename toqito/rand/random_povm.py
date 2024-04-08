@@ -18,20 +18,20 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int) -> np.ndarray:
     >>>
     >>> dim, num_inputs, num_outputs = 2, 2, 2
     >>> povms = random_povm(dim, num_inputs, num_outputs)
-    >>> povms # doctest: +SKIP
-    [[[[ 0.40313832+0.j,  0.59686168+0.j],
-       [ 0.91134633+0.j,  0.08865367+0.j]],
-     [[-0.27285707+0.j,  0.27285707+0.j],
-      [-0.12086852+0.j,  0.12086852+0.j]]],
-     [[[-0.27285707+0.j,  0.27285707+0.j],
-      [-0.12086852+0.j,  0.12086852+0.j]],
-     [[ 0.452533  +0.j,  0.547467  +0.j],
-      [ 0.34692158+0.j,  0.65307842+0.j]]]]
+    >>> povms  # doctest: +SKIP
+    array([[[[ 0.20649603+0.j,  0.79350397+0.j],
+             [ 0.77451456+0.j,  0.22548544+0.j]],
+    <BLANKLINE>
+            [[-0.25971638+0.j,  0.25971638+0.j],
+             [-0.28048509+0.j,  0.28048509+0.j]]],
+    <BLANKLINE>
+    <BLANKLINE>
+           [[[-0.25971638+0.j,  0.25971638+0.j],
+             [-0.28048509+0.j,  0.28048509+0.j]],
+    <BLANKLINE>
+            [[ 0.40448792+0.j,  0.59551208+0.j],
+             [ 0.10740892+0.j,  0.89259108+0.j]]]])
 
-    .. note::
-        We use `doctest` to check if our examples are working as expected. ` # doctest: +SKIP` is used here
-        to skip comparing the expected output to the calculated output because this function is supposed to
-        generate a random matrix.
 
     We can verify that this constitutes a valid set of POVM elements as checking that these operators all sum to the
     identity operator.
@@ -40,10 +40,6 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int) -> np.ndarray:
     [[1.+0.j, 0.+0.j],
      [0.+0.j, 1.+0.j]]
 
-    .. note::
-        We use `doctest` to check if our examples are working as expected. ` # doctest: +SKIP` is used here
-        to skip comparing the expected output to the calculated output because this function is supposed to
-        generate a random matrix.
 
     References
     ==========
