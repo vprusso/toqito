@@ -51,9 +51,4 @@ def gen_pauli_x(dim: int) -> np.ndarray:
     :return: :code:`dim`-by-:code:`dim` gen_pauli_x matrix.
 
     """
-    gen_pauli_x_mat = np.identity(dim)
-    gen_pauli_x_mat = np.roll(gen_pauli_x_mat, -1)
-    gen_pauli_x_mat[:, -1] = np.array([0] * dim)
-    gen_pauli_x_mat[0, -1] = 1
-
-    return gen_pauli_x_mat
+    return np.roll(np.identity(dim), -1, axis=1)
