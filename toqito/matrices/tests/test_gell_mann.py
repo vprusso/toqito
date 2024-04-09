@@ -1,7 +1,7 @@
 """Test gell_mann."""
 
 import numpy as np
-from scipy.sparse import csr_matrix
+from scipy.sparse import csr_array
 
 from toqito.matrices import gell_mann
 
@@ -100,4 +100,4 @@ def test_gell_mann_invalid_idx():
 def test_gell_mann_sparse():
     """Test sparse Gell-Mann matrix."""
     res = gell_mann(3, is_sparse=True)
-    np.testing.assert_equal(isinstance(res, csr_matrix), True)
+    np.testing.assert_equal(isinstance(res, csr_array), True)

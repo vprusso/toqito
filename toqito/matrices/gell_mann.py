@@ -1,10 +1,10 @@
 """Gell-Mann matrices."""
 
 import numpy as np
-import scipy
+from scipy.sparse import csr_array
 
 
-def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | scipy.sparse.csr_matrix:
+def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | csr_array:
     r"""Produce a Gell-Mann operator :cite:`WikiGellMann`.
 
     Generates the 3-by-3 Gell-Mann matrix indicated by the value of
@@ -93,7 +93,7 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | scipy.sparse.cs
 
     :raises ValueError: Indices must be integers between 0 and 8.
     :param ind: An integer between 0 and 8 (inclusive).
-    :param is_sparse: Boolean to determine whether matrix is sparse.
+    :param is_sparse: Boolean to determine whether array is sparse.
 
     """
     if ind == 0:
@@ -118,7 +118,7 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | scipy.sparse.cs
         raise ValueError("Gell-Mann index values can only be values from 0 to 8 (inclusive).")
 
     if is_sparse:
-        gm_op_out = scipy.sparse.csr_matrix(gm_op)
+        gm_op_out = csr_array(gm_op)
         return gm_op_out
 
     return gm_op
