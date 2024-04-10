@@ -1,7 +1,7 @@
 """W-state."""
 
 import numpy as np
-from scipy import sparse
+from scipy.sparse import csr_array
 
 
 def w_state(num_qubits: int, coeff: list[int] = None) -> np.ndarray:
@@ -85,7 +85,7 @@ def w_state(num_qubits: int, coeff: list[int] = None) -> np.ndarray:
     if len(coeff) != num_qubits:
         raise ValueError("InvalidCoeff: The variable `coeff` must be a vector of length equal to `num_qubits`.")
 
-    ret_w_state = sparse.csr_matrix((2**num_qubits, 1)).toarray()
+    ret_w_state = csr_array((2**num_qubits, 1)).toarray()
 
     for i in range(num_qubits):
         ret_w_state[2**i] = coeff[num_qubits - i - 1]
