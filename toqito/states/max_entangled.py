@@ -2,9 +2,10 @@
 
 import numpy as np
 import scipy as sp
+from scipy.sparse import dia_array
 
 
-def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True) -> [np.ndarray, sp.sparse.dia_matrix]:
+def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True) -> [np.ndarray, dia_array]:
     r"""Produce a maximally entangled bipartite pure state :cite:`WikiMaxEnt`.
 
     Produces a maximally entangled pure state as above that is sparse if :code:`is_sparse = True` and is full if
