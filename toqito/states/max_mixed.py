@@ -2,9 +2,10 @@
 
 import numpy as np
 from scipy import sparse
+from scipy.sparse import dia_array
 
 
-def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, sparse.dia_matrix]:
+def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, dia_array]:
     r"""Produce the maximally mixed state :cite:`Aaronson_2018_MaxMixed`.
 
     Produces the maximally mixed state on of :code:`dim` dimensions. The maximally mixed state is defined as
