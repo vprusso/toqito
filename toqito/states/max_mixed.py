@@ -1,8 +1,7 @@
 """Maximally mixed state."""
 
 import numpy as np
-from scipy import sparse
-from scipy.sparse import dia_array
+from scipy.sparse import dia_array, eye_array
 
 
 def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, dia_array]:
@@ -53,8 +52,8 @@ def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, dia_array]:
 
     >>> from toqito.states import max_mixed
     >>> max_mixed(2, is_sparse=True) # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
-    <2x2 sparse matrix of type '<class 'numpy.float64'>'
-        with 2 stored elements (1 diagonals) in DIAgonal format>
+    <2x2 sparse array of type '<class 'numpy.float64'>'
+        with 2 stored elements in Compressed Sparse Row format>
 
     References
     ==========
@@ -68,5 +67,5 @@ def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, dia_array]:
 
     """
     if is_sparse:
-        return 1 / dim * sparse.eye(dim)
+        return 1 / dim * eye_array(dim)
     return 1 / dim * np.eye(dim)

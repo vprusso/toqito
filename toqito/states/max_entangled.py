@@ -1,8 +1,7 @@
 """Maximally entangled state."""
 
 import numpy as np
-import scipy as sp
-from scipy.sparse import dia_array
+from scipy.sparse import dia_array, eye_array
 
 
 def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True) -> [np.ndarray, dia_array]:
@@ -56,7 +55,7 @@ def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True)
     :return: The maximally entangled state of dimension :code:`dim`.
 
     """
-    mat = sp.sparse.identity(dim) if is_sparse else np.identity(dim)
+    mat = eye_array(dim) if is_sparse else np.identity(dim)
     psi = np.reshape(mat, (dim**2, 1))
     if is_normalized:
         psi = psi / np.sqrt(dim)
