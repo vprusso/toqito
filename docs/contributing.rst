@@ -187,11 +187,10 @@ If you add a new feature to :code:`toqito`, make sure
 
 - The function docstring follows the style guidelines as specified in `References in Docstrings`_.
 - Added lines should show up as covered in the :code:`pytest` code coverage report. See `Testing`_.
-- Code and tests for the new feature should follow the style guidelines as discussed in
-  `Code Style`_.
+- Code and tests for the new feature should follow the style guidelines as discussed in `Code Style`_.
 - Finally, if the new feature is a new module, it has to be listed alphabetically as :code:`autoapi/new_module/index` in
-  :code:`autoapi_members.rst` available in the :code:`docs` folder. When Sphinx is run locally, the new module should
-  then appear to be listed in the :code:`API Reference` page.
+:code:`autoapi_members.rst` available in the :code:`docs` folder. When Sphinx is run locally, the new module should then
+appear to be listed in the :code:`API Reference` page.
 
 
 ---------------------
