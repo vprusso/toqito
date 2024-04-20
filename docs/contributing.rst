@@ -174,8 +174,9 @@ A standard document has to follow the :code:`.rst` format.  For more information
 
 To use `doctest`:
 - Use `make doctest` in `toqito/docs` for the docstring examples to be verified. 
-- Use `pytest  --doctest-glob=*.rst` to check the examples in all the `.rst` files in `toqito/docs` work as expected. If you would like to only
-  check the examples in a  specific file, use `pytest  --doctest-glob=tutorials.name_of_file.rst` instead. 
+- Use `pytest  --doctest-glob=*.rst` to check the examples in all the `.rst` files in `toqito/docs` work as expected. If
+you would like to only check the examples in a  specific file, use `pytest  --doctest-glob=tutorials.name_of_file.rst`
+instead. 
 
 --------------------
 Adding a new feature
