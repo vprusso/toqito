@@ -51,4 +51,5 @@ def gen_pauli_x(dim: int) -> np.ndarray:
     :return: :code:`dim`-by-:code:`dim` gen_pauli_x matrix.
 
     """
+    # First column of the identity matrix becomes the last column due to `shift = -1` and `axis=1`
     return np.roll(np.identity(dim), -1, axis=1)
