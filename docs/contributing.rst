@@ -22,7 +22,7 @@ We welcome contributions from external contributors, and this document describes
    Consider using a `virtual environment <https://docs.python.org/3/tutorial/venv.html>`_.
    You can also use :code:`pyenv` with :code:`virtualenv` `to manage different Python
    versions <https://github.com/pyenv/pyenv-virtualenv>`_ or :code:`conda` to create virtual environments with `different Python
-   versions<https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#managing-environments>`_.
+   versions <https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#managing-environments>`_.
 
 5. Install :code:`poetry` using the following command. :code:`poetry` is a better dependency resolver than :code:`pip`.
 
@@ -65,11 +65,11 @@ Making Changes
 3.   If you're adding a new feature, you must add test cases and documentation. See `Adding a new feature`_
      for a detailed checklist. 
 
-4.   When the code is ready to go, make sure you run the test suite using pytest.
+4.   When the code is ready to go, make sure you run the test suite using :code:`pytest`, :code:`ruff`, :code:`pylint` etc.
 
-5.   When you're ready to be considered for merging, check the "Ready to go"
-     box on the PR page to let the :code:`toqito` devs know that the changes are complete. The code will not be merged
-     until this box is checked, the continuous integration returns check marks, and the primary developer approves the
+5.   When you're ready to be considered for merging, comment on your PR that it is ready for a review
+     to let the :code:`toqito` devs know that the changes are complete. The code will not be reviewed
+     until you have commented so, the continuous integration workflow passes, and the primary developer approves the
      reviews.
 
 -------
@@ -173,6 +173,7 @@ A standard document has to follow the :code:`.rst` format.  For more information
 `sphinx-wagtail-theme documentation <https://github.com/wagtail/sphinx-wagtail-theme>`_ .
 
 To use `doctest`:
+
 - Use :code:`make doctest` in :code:`toqito/docs` for the docstring examples to be verified. 
 - Use :code:`pytest  --doctest-glob=*.rst` to check the examples in all the :code:`.rst` files in :code:`toqito/docs` work as expected. If
   you would like to only check the examples in a  specific file, use :code:`pytest  --doctest-glob=tutorials.name_of_file.rst`
