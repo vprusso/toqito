@@ -15,14 +15,14 @@ We welcome contributions from external contributors, and this document describes
 
 
 .. warning::
-     It would be better to avoid an editable installation via :code:`pip` due to a slew
-     of `known issues <https://github.com/vprusso/toqito/issues/207#issue-1962435853>`_. 
+     It would be better to avoid an editable installation via :code:`pip` as :code:`poetry` is a better dependency resolver. 
 
 4. As stated in :ref:`getting_started_reference-label`, ensure you have Python 3.10 or greater installed on your machine or in 
    a virtual environment (`pyenv <https://github.com/pyenv/pyenv>`_, `pyenv tutorial <https://realpython.com/intro-to-pyenv/>`_).
    Consider using a `virtual environment <https://docs.python.org/3/tutorial/venv.html>`_.
    You can also use :code:`pyenv` with :code:`virtualenv` `to manage different Python
-   versions <https://github.com/pyenv/pyenv-virtualenv>`_.
+   versions <https://github.com/pyenv/pyenv-virtualenv>`_ or :code:`conda` to create virtual environments with `different Python
+   versions <https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#managing-environments>`_.
 
 5. Install :code:`poetry` using the following command. :code:`poetry` is a better dependency resolver than :code:`pip`.
 
@@ -65,11 +65,11 @@ Making Changes
 3.   If you're adding a new feature, you must add test cases and documentation. See `Adding a new feature`_
      for a detailed checklist. 
 
-4.   When the code is ready to go, make sure you run the test suite using pytest.
+4.   When the code is ready to go, make sure you run the test suite using :code:`pytest`, :code:`ruff`, :code:`pylint` etc.
 
-5.   When you're ready to be considered for merging, check the "Ready to go"
-     box on the PR page to let the :code:`toqito` devs know that the changes are complete. The code will not be merged
-     until this box is checked, the continuous integration returns check marks, and the primary developer approves the
+5.   When you're ready to be considered for merging, comment on your PR that it is ready for a review
+     to let the :code:`toqito` devs know that the changes are complete. The code will not be reviewed
+     until you have commented so, the continuous integration workflow passes, and the primary developer approves the
      reviews.
 
 -------
@@ -156,8 +156,8 @@ Documentation
 --------------
 
 
-We use :code:`sphinx` to build the documentation and `doctest` to test the examples in the documentation and function docstrings. 
-To build the documentation locally, make sure :code:`sphinx` and :code:`sphinx-rtd-theme` are installed when poetry was used to
+We use :code:`sphinx` to build the documentation and :code:`doctest` to test the examples in the documentation and function docstrings. 
+To build the documentation locally, make sure :code:`sphinx` and :code:`sphinx-wagtail-theme` are installed when poetry was used to
 install :code:`toqito`.
 
 .. code-block:: bash
@@ -168,15 +168,16 @@ If you would prefer to decrease the amount of time taken by :code:`sphinx` to bu
 instead.
 
 A standard document has to follow the :code:`.rst` format.  For more information on :code:`sphinx` and
-:code:`sphinx-rtd-theme`, visit
+:code:`sphinx-wagtail-theme`, visit
 `sphinx documentation <https://docs.readthedocs.io/en/stable/intro/getting-started-with-sphinx.html>`_ &
-`sphinx-rtd-theme documentation <https://sphinx-rtd-theme.readthedocs.io/en/stable/installing.html>`_ .
+`sphinx-wagtail-theme documentation <https://github.com/wagtail/sphinx-wagtail-theme>`_ .
 
 To use `doctest`:
-- Use `make doctest` in `toqito/docs` for the docstring examples to be verified. 
-- Use `pytest  --doctest-glob=*.rst` to check the examples in all the `.rst` files in `toqito/docs` work as expected. If
-you would like to only check the examples in a  specific file, use `pytest  --doctest-glob=tutorials.name_of_file.rst`
-instead. 
+
+- Use :code:`make doctest` in :code:`toqito/docs` for the docstring examples to be verified. 
+- Use :code:`pytest  --doctest-glob=*.rst` to check the examples in all the :code:`.rst` files in :code:`toqito/docs` work as expected. If
+  you would like to only check the examples in a  specific file, use :code:`pytest  --doctest-glob=tutorials.name_of_file.rst`
+  instead. 
 
 --------------------
 Adding a new feature
@@ -188,9 +189,8 @@ If you add a new feature to :code:`toqito`, make sure
 - The function docstring follows the style guidelines as specified in `References in Docstrings`_.
 - Added lines should show up as covered in the :code:`pytest` code coverage report. See `Testing`_.
 - Code and tests for the new feature should follow the style guidelines as discussed in `Code Style`_.
-- Finally, if the new feature is a new module, it has to be listed alphabetically as :code:`autoapi/new_module/index` in
-:code:`autoapi_members.rst` available in the :code:`docs` folder. When Sphinx is run locally, the new module should then
-appear to be listed in the :code:`API Reference` page.
+- Finally, if the new feature is a new module, it has to be listed in :code:`docs/autoapi_members.rst` such that the new module appears
+  in the :code:`API Reference` page due to :code:`sphinx-autoapi`.
 
 
 ---------------------

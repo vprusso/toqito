@@ -18,9 +18,8 @@ a virtual environment (`pyenv <https://github.com/pyenv/pyenv>`_, `pyenv tutoria
 You can also use :code:`pyenv` with :code:`virtualenv` `to manage different Python versions <https://github.com/pyenv/pyenv-virtualenv>`_. 
 
 3. The preferred way to install the :code:`toqito` package is via :code:`poetry` as it is a better dependency resolver
-compared to :code:`pip`. Currently, it would be better to avoid :code:`pip` in installing :code:`toqito` due to a slew
-of `known issues <https://github.com/vprusso/toqito/issues/207#issue-1962435853>`_ . But this involves installing an
-editable version of :code:`toqito` as described in the  :ref:`contrib_guide_reference-label`.
+compared to :code:`pip`. An editable version of :code:`toqito` can be installed through the instructions provided
+in the :ref:`contrib_guide_reference-label`.
 
 If you prefer to not install an editable version of :code:`toqito`, use:
 
