@@ -4,6 +4,9 @@ import numpy as np
 
 from toqito.state_opt.state_distinguishability import state_distinguishability
 
+# The full import path was specified here because the doctest workflow was failing when the above function could not be
+# imported https://github.com/vprusso/toqito/issues/473
+
 
 def is_distinguishable(states: list[np.ndarray], probs: list[float] = None) -> bool:
     r"""Check whether a collection of vectors are (perfectly) distinguishable or not.
