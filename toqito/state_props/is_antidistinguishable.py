@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from toqito.state_opt import state_exclusion
+from toqito.state_opt.state_exclusion import state_exclusion
 
 
 def is_antidistinguishable(states: list[np.ndarray]) -> bool:

@@ -4,7 +4,7 @@ import numpy as np
 from picos import partial_trace
 
 from toqito.matrix_props import is_positive_semidefinite
-from toqito.state_opt import symmetric_extension_hierarchy
+from toqito.state_opt.symmetric_extension_hierarchy import symmetric_extension_hierarchy
 from toqito.state_props import is_ppt
 
 
