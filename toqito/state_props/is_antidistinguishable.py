@@ -2,7 +2,10 @@
 
 import numpy as np
 
-from toqito.state_opt import state_exclusion
+from toqito.state_opt.state_exclusion import state_exclusion
+
+# The full import path was specified here because the doctest workflow was failing when the above function could not be
+# imported https://github.com/vprusso/toqito/issues/473
 
 
 def is_antidistinguishable(states: list[np.ndarray]) -> bool:
