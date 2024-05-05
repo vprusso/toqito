@@ -9,7 +9,7 @@ import scipy
 from toqito.perms import permutation_operator
 
 
-def symmetric_projection(dim: int, p_val: int = 2, partial: bool = False) -> [np.ndarray, scipy.sparse.lil_matrix]:
+def symmetric_projection(dim: int, p_val: int = 2, partial: bool = False) -> [np.ndarray, scipy.sparse.lil_array]:
     r"""Produce the projection onto the symmetric subspace :cite:`Chen_2014_Symmetric`.
 
     For a complex Euclidean space :math:`\mathcal{X}` and a positive integer :math:`n`, the projection onto the
