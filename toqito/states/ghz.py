@@ -91,7 +91,7 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] = None) -> sparse:
     for i in range(1, num_qubits):
         dim_sum += dim**i
 
-    ret_ghz_state = sparse.lil_matrix((dim**num_qubits, 1))
+    ret_ghz_state = sparse.lil_array((dim**num_qubits, 1))
     for i in range(1, dim + 1):
         ret_ghz_state[(i - 1) * dim_sum] = coeff[i - 1]
     return ret_ghz_state
