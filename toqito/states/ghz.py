@@ -4,7 +4,7 @@ import numpy as np
 from scipy import sparse
 
 
-def ghz(dim: int, num_qubits: int, coeff: list[int] = None) -> sparse:
+def ghz(dim: int, num_qubits: int, coeff: list[int] = None) -> sparse.lil_array:
     r"""Generate a (generalized) GHZ state :cite:`Greenberger_2007_Going`.
 
     Returns a :code:`num_qubits`-partite GHZ state acting on :code:`dim` local dimensions, described

@@ -50,7 +50,7 @@ def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True)
 
 
     :param dim: Dimension of the entangled state.
-    :param is_sparse: `True` if vector is spare and `False` otherwise.
+    :param is_sparse: `True` if vector is sparse and `False` otherwise.
     :param is_normalized: `True` if vector is normalized and `False` otherwise.
     :return: The maximally entangled state of dimension :code:`dim`.
 
