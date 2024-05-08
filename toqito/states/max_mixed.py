@@ -1,10 +1,10 @@
 """Maximally mixed state."""
 
 import numpy as np
-from scipy import sparse
+from scipy.sparse import dia_array, eye_array
 
 
-def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, sparse.dia_matrix]:
+def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, dia_array]:
     r"""Produce the maximally mixed state :cite:`Aaronson_2018_MaxMixed`.
 
     Produces the maximally mixed state on of :code:`dim` dimensions. The maximally mixed state is defined as
@@ -52,8 +52,8 @@ def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, sparse.dia_matr
 
     >>> from toqito.states import max_mixed
     >>> max_mixed(2, is_sparse=True) # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
-    <2x2 sparse matrix of type '<class 'numpy.float64'>'
-        with 2 stored elements (1 diagonals) in DIAgonal format>
+    <2x2 sparse array of type '<class 'numpy.float64'>'
+        with 2 stored elements in Compressed Sparse Row format>
 
     References
     ==========
@@ -62,10 +62,10 @@ def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, sparse.dia_matr
 
 
     :param dim: Dimension of the entangled state.
-    :param is_sparse: `True` if vector is spare and `False` otherwise.
+    :param is_sparse: `True` if vector is sparse and `False` otherwise.
     :return: The maximally mixed state of dimension `dim`.
 
     """
     if is_sparse:
-        return 1 / dim * sparse.eye(dim)
+        return 1 / dim * eye_array(dim)
     return 1 / dim * np.eye(dim)

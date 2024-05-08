@@ -1,10 +1,10 @@
 """Maximally entangled state."""
 
 import numpy as np
-import scipy as sp
+from scipy.sparse import dia_array, eye_array
 
 
-def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True) -> [np.ndarray, sp.sparse.dia_matrix]:
+def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True) -> [np.ndarray, dia_array]:
     r"""Produce a maximally entangled bipartite pure state :cite:`WikiMaxEnt`.
 
     Produces a maximally entangled pure state as above that is sparse if :code:`is_sparse = True` and is full if
@@ -50,12 +50,12 @@ def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True)
 
 
     :param dim: Dimension of the entangled state.
-    :param is_sparse: `True` if vector is spare and `False` otherwise.
+    :param is_sparse: `True` if vector is sparse and `False` otherwise.
     :param is_normalized: `True` if vector is normalized and `False` otherwise.
     :return: The maximally entangled state of dimension :code:`dim`.
 
     """
-    mat = sp.sparse.identity(dim) if is_sparse else np.identity(dim)
+    mat = eye_array(dim) if is_sparse else np.identity(dim)
     psi = np.reshape(mat, (dim**2, 1))
     if is_normalized:
         psi = psi / np.sqrt(dim)
