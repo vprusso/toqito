@@ -93,7 +93,7 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | csr_array:
 
     :raises ValueError: Indices must be integers between 0 and 8.
     :param ind: An integer between 0 and 8 (inclusive).
-    :param is_sparse: Boolean to determine whether array is sparse.
+    :param is_sparse: Boolean to determine whether array is sparse. Default value is :code:`False`.
 
     """
     if ind == 0:
