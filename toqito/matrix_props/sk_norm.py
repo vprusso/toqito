@@ -235,7 +235,7 @@ def sk_operator_norm(  # pylint: disable=too-many-locals
         elif k == 1:
             # we can also get decent lower bounds from the SDP results when k=1
             # See Theorem 5.2.8 of [2]
-            roots, _ = scipy.special.roots_jacobi(# pylint: disable=unpacking-non-sequence
+            roots, _ = scipy.special.roots_jacobi(  # pylint: disable=unpacking-non-sequence
                 1, dim[1] - 2, 1
             )
             gs = min(1 - roots)
