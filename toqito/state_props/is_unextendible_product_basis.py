@@ -91,7 +91,7 @@ def is_unextendible_product_basis(vecs: list[np.ndarray], dims: list[int]) -> tu
     # Acquire generator to m-partitions of [0, n-1].
     parts_unordered = set_partitions(list(range(num_vecs)), num_parties)
 
-    for part_unordered in parts_unordered:  # pylint: disable=not-an-iterable
+    for part_unordered in parts_unordered:
         for part_ordered in permutations(part_unordered):
             # Witness vectors.
             wit = []
