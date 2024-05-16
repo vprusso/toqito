@@ -84,8 +84,8 @@ def is_ppt(mat: np.ndarray, sys: int = 2, dim: int | list[int] = None, tol: floa
 
     if dim is None:
         dim = [
-            [sqrt_rho_dims[0], sqrt_rho_dims[0]],  # pylint: disable=unsubscriptable-object
-            [sqrt_rho_dims[1], sqrt_rho_dims[1]],  # pylint: disable=unsubscriptable-object
+            [sqrt_rho_dims[0], sqrt_rho_dims[0]],
+            [sqrt_rho_dims[1], sqrt_rho_dims[1]],
         ]
     if tol is None:
         tol = np.sqrt(eps)

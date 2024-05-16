@@ -69,7 +69,7 @@ def is_block_positive(
 
     # Allow the user to enter in a single integer for dimension.
     if isinstance(dim, int):
-        dim = np.array([dim, dim_xy / dim])  # pylint: disable=redefined-variable-type
+        dim = np.array([dim, dim_xy / dim])
         dim[1] = int(np.round(dim[1]))
 
     dim = np.array(dim, dtype=int)

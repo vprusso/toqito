@@ -135,7 +135,7 @@ def partial_transpose(
     if isinstance(dim, list):
         dim = np.array(dim)
     if isinstance(sys, list):
-        sys = np.array(sys)  # pylint: disable=redefined-variable-type
+        sys = np.array(sys)
     if isinstance(sys, int):
         sys = np.array([sys])
 

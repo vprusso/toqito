@@ -116,7 +116,7 @@ def test_partial_channel(test_input, expected, sys_arg, dim_arg):
     elif sys_arg is not None and dim_arg is not None:
         calculated = partial_channel(test_input, depolarizing(2), sys_arg, dim_arg)
 
-    assert np.isclose(calculated, expected).all()  # pylint: disable=possibly-used-before-assignment
+    assert np.isclose(calculated, expected).all()
 
 
 @pytest.mark.parametrize("nested", [1, 2, 3])

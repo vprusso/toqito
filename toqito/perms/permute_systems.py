@@ -200,7 +200,7 @@ def permute_systems(
     # If the dimensions are specified, ensure they are given to the
     # recursive calls as flattened lists.
     if len(dim[0][:]) == 1:
-        dim = functools.reduce(operator.iconcat, dim, [])  # pylint: disable=redefined-variable-type
+        dim = functools.reduce(operator.iconcat, dim, [])
 
     row_perm = permute_systems(vec_arg, perm, dim[0][:], False, inv_perm)
 
@@ -208,7 +208,7 @@ def permute_systems(
     if isinstance(input_mat, (sparse.csr_matrix, sparse.dia_matrix)):
         input_mat = input_mat.toarray()
         permuted_mat = input_mat[row_perm, :]
-        permuted_mat = np.array(permuted_mat)  # pylint: disable=redefined-variable-type
+        permuted_mat = np.array(permuted_mat)
     else:
         permuted_mat = input_mat[row_perm, :]
 

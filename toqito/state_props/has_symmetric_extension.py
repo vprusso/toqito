@@ -106,14 +106,14 @@ def has_symmetric_extension(
 
     # Allow the user to enter in a single integer for dimension.
     if isinstance(dim, int):
-        dim = np.array([dim, len_mat / dim])  # pylint: disable=redefined-variable-type
+        dim = np.array([dim, len_mat / dim])
         if np.abs(dim[1] - np.round(dim[1])) >= 2 * len_mat * np.finfo(float).eps:
             raise ValueError("If `dim` is a scalar, it must evenly divide the length of the matrix.")
         dim[1] = int(np.round(dim[1]))
 
     dim = np.int_(dim)
 
-    dim_x, dim_y = int(dim[0]), int(dim[1])  # pylint: disable=unsubscriptable-object
+    dim_x, dim_y = int(dim[0]), int(dim[1])
     # In certain situations, we don't need semidefinite programming.
     if level == 1 or len_mat <= 6 and ppt:
         if not ppt:
