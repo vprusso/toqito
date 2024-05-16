@@ -58,7 +58,7 @@ jobs:
         run: |
           python -m pip install --upgrade --no-cache-dir pip
           pip install poetry
-          poetry install --with docs --without dev,lint --no-interaction
+          poetry install --with docs,dev --without lint --no-interaction
       - name: Check docstring examples
         run: |
             cd docs
