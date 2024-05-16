@@ -38,10 +38,11 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install poetry
-          poetry install --no-interaction
+          poetry install --without docs --no-interaction
       - name: Additional linter/formatter checks
         run: |
           poetry run pylint --fail-under=10.0 toqito/
+
 
   toqito-pytest:
     strategy:
@@ -72,7 +73,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install poetry
-          poetry install --no-interaction
+          poetry install --with dev --without docs,lint --no-interaction
       - name: Run tests
         run: poetry run pytest -v --cov-config=.coveragerc --cov-report=xml --cov-report term-missing:skip-covered --cov=toqito
       - name: Upload coverage information
