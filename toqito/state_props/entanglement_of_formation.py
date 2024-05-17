@@ -72,9 +72,7 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
 
     # User can specify dimension as integer.
     if isinstance(dim, int):
-        dim = np.array(  # pylint: disable=redefined-variable-type
-            [dim, max(dim_x, dim_y) / dim], dtype=int
-        )
+        dim = np.array([dim, max(dim_x, dim_y) / dim], dtype=int)
         dim[1] = np.round(dim[1])
 
     if np.prod(dim) != max(dim_x, dim_y):

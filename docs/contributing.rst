@@ -65,7 +65,7 @@ Making Changes
 3.   If you're adding a new feature, you must add test cases and documentation. See `Adding a new feature`_
      for a detailed checklist. 
 
-4.   When the code is ready to go, make sure you run the test suite using :code:`pytest`, :code:`ruff`, :code:`pylint` etc.
+4.   When the code is ready to go, make sure you run the test suite using :code:`pytest`, :code:`ruff`, etc.
 
 5.   When you're ready to be considered for merging, comment on your PR that it is ready for a review
      to let the :code:`toqito` devs know that the changes are complete. The code will not be reviewed
@@ -102,9 +102,8 @@ Code Style
 ----------
 
 
-We use :code:`ruff` and :code:`pylint` to check for formatting issues. Consult the documentation for
-`ruff <https://docs.astral.sh/ruff/tutorial/#getting-started>`_ and
-`pylint <https://pylint.pycqa.org/en/latest/user_guide/usage/run.html>`_ for additional information.
+We use :code:`ruff` to check for formatting issues. Consult the documentation for
+`ruff <https://docs.astral.sh/ruff/tutorial/#getting-started>`_ for additional information.
 
 Do not use an autoformatter like :code:`black` as the configuration settings for :code:`ruff` as specified in
 `pyproject.toml <https://github.com/vprusso/toqito/blob/8606650b98608330c8b89414f7fb641992517ee4/pyproject.toml>`_

@@ -72,7 +72,6 @@ def _gen_words(k: int | str, a_out: int, a_in: int, b_out: int, b_in: int) -> li
     if isinstance(k, str):
         k, conf = _parse(k)
 
-    # pylint: disable=too-many-nested-blocks
     for i in range(1, k + 1):
         for j in range(i + 1):
             # words of type: a^j b^(i - j)
@@ -123,7 +122,7 @@ def _get_nonlocal_game_params(
     return a_out, a_in, b_out, b_in
 
 
-def npa_constraints(  # pylint: disable=too-many-locals
+def npa_constraints(
     assemblage: dict[tuple[int, int], cvxpy.Variable], k: int | str = 1, referee_dim: int = 1
 ) -> list[cvxpy.constraints.constraint.Constraint]:
     r"""Generate the constraints specified by the NPA hierarchy up to a finite level :cite:`Navascues_2008_AConvergent`.

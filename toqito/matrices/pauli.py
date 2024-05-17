@@ -94,7 +94,7 @@ def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np
             pauli_mat = np.identity(2)
 
         if is_sparse:
-            pauli_mat = csr_array(pauli_mat)  # pylint: disable=redefined-variable-type
+            pauli_mat = csr_array(pauli_mat)
 
         return pauli_mat
 

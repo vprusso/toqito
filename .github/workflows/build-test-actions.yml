@@ -39,9 +39,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install poetry
           poetry install --without docs --no-interaction
-      - name: Additional linter/formatter checks
-        run: |
-          poetry run pylint --fail-under=10.0 toqito/
 
 
   toqito-pytest:
