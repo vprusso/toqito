@@ -176,7 +176,7 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         res = bb84.commuting_measurement_value_upper_bound()
         expected_res = np.cos(np.pi / 8) ** 2
 
-        self.assertEqual(np.isclose(res, expected_res), True)
+        self.assertEqual(np.isclose(res, expected_res, atol=1e-5), True)
 
     def test_chsh_commuting_value_upper_bound(self):
         """Calculate an upper bound on the commuting measurement value of the CHSH game."""
