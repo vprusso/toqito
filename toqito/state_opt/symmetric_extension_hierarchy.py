@@ -186,9 +186,11 @@ def symmetric_extension_hierarchy(
 
     dim_xyy = np.prod(dim_list)
     for k, item in enumerate(states):
-        meas.append(cvxpy.Variable((dim_xy, dim_xy), PSD=True))
-        x_var.append(cvxpy.Variable((dim_xyy, dim_xyy), PSD=True))
+        meas.append(cvxpy.Variable((dim_xy, dim_xy), hermitian=True))
+        x_var.append(cvxpy.Variable((dim_xyy, dim_xyy), hermitian=True))
         constraints.append(partial_trace(x_var[k], sys_list, dim_list) == meas[k])
+        constraints.append(x_var[k] >> 0)
+        constraints.append(meas[k] >> 0)
         constraints.append(np.kron(np.identity(dim_x), sym) @ x_var[k] @ np.kron(np.identity(dim_x), sym) == x_var[k])
         constraints.append(partial_transpose(x_var[k], [0], dim_list) >> 0)
         for sys in range(level - 1):
@@ -198,7 +200,7 @@ def symmetric_extension_hierarchy(
 
     constraints.append(sum(meas) == np.identity(dim_xy))
 
-    objective = cvxpy.Maximize(sum(obj_func))
+    objective = cvxpy.Maximize(cvxpy.real(sum(obj_func)))
     problem = cvxpy.Problem(objective, constraints)
     sol_default = problem.solve()
 

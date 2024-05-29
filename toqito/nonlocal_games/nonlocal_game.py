@@ -377,9 +377,9 @@ class NonlocalGame:
         alice_povms = defaultdict(cvxpy.Variable)
         for x_ques in range(num_inputs_alice):
             for a_ans in range(num_outputs_alice):
-                alice_povms[x_ques, a_ans] = cvxpy.Variable((dim, dim), PSD=True)
+                alice_povms[x_ques, a_ans] = cvxpy.Variable((dim, dim), hermitian=True)
 
-        tau = cvxpy.Variable((dim, dim), PSD=True)
+        tau = cvxpy.Variable((dim, dim), hermitian=True)
 
         # .. math::
         #    \sum_{(x,y) \in \Sigma} \pi(x, y) V(a,b|x,y) \ip{B_b^y}{A_a^x}
@@ -406,10 +406,7 @@ class NonlocalGame:
                                 * cvxpy.trace(bob_povms[y_ques, b_ans].value.conj().T @ alice_povms[x_ques, a_ans])
                             )
 
-        if is_real:
-            objective = cvxpy.Maximize(cvxpy.real(win))
-        else:
-            objective = cvxpy.Maximize(win)
+        objective = cvxpy.Maximize(cvxpy.real(win))
 
         constraints = []
 
@@ -418,9 +415,11 @@ class NonlocalGame:
             alice_sum_a = 0
             for a_ans in range(num_outputs_alice):
                 alice_sum_a += alice_povms[x_ques, a_ans]
+                constraints.append(alice_povms[x_ques, a_ans] >> 0)
             constraints.append(alice_sum_a == tau)
 
         constraints.append(cvxpy.trace(tau) == 1)
+        constraints.append(tau >> 0)
 
         problem = cvxpy.Problem(objective, constraints)
 
@@ -442,7 +441,7 @@ class NonlocalGame:
         bob_povms = defaultdict(cvxpy.Variable)
         for y_ques in range(num_inputs_bob):
             for b_ans in range(num_outputs_bob):
-                bob_povms[y_ques, b_ans] = cvxpy.Variable((dim, dim), PSD=True)
+                bob_povms[y_ques, b_ans] = cvxpy.Variable((dim, dim), hermitian=True)
 
         win = 0
         for x_ques in range(num_inputs_alice):
@@ -455,7 +454,7 @@ class NonlocalGame:
                             * cvxpy.trace(bob_povms[y_ques, b_ans].H @ alice_povms[x_ques, a_ans].value)
                         )
 
-        objective = cvxpy.Maximize(win)
+        objective = cvxpy.Maximize(cvxpy.real(win))
         constraints = []
 
         # Sum over "b" for all "y" for Bob's measurements.
@@ -463,6 +462,7 @@ class NonlocalGame:
             bob_sum_b = 0
             for b_ans in range(num_outputs_bob):
                 bob_sum_b += bob_povms[y_ques, b_ans]
+                constraints.append(bob_povms[y_ques, b_ans] >> 0)
             constraints.append(bob_sum_b == np.identity(dim))
 
         problem = cvxpy.Problem(objective, constraints)
@@ -493,16 +493,16 @@ class NonlocalGame:
         sigma = defaultdict(cvxpy.Variable)
         for a_out in range(alice_out):
             for x_in in range(alice_in):
-                sigma[a_out, x_in] = cvxpy.Variable((dim_x, dim_y), PSD=True)
+                sigma[a_out, x_in] = cvxpy.Variable((dim_x, dim_y), hermitian=True)
 
         # Define \rho_b^y variable.
         rho = defaultdict(cvxpy.Variable)
         for b_out in range(bob_out):
             for y_in in range(bob_in):
-                rho[b_out, y_in] = cvxpy.Variable((dim_x, dim_y), PSD=True)
+                rho[b_out, y_in] = cvxpy.Variable((dim_x, dim_y), hermitian=True)
 
         # Define \tau density operator variable.
-        tau = cvxpy.Variable((dim_x, dim_y), PSD=True)
+        tau = cvxpy.Variable((dim_x, dim_y), hermitian=True)
 
         p_win = cvxpy.Constant(0)
         for a_out in range(alice_out):

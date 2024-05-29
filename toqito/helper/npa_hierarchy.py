@@ -157,10 +157,10 @@ def npa_constraints(
     words = _gen_words(k, a_out, a_in, b_out, b_in)
     dim = len(words)
 
-    r_var = cvxpy.Variable((referee_dim * dim, referee_dim * dim), PSD=True, name="R")
+    r_var = cvxpy.Variable((referee_dim * dim, referee_dim * dim), hermitian=True, name="R")
     # Normalization.
     norm = sum(r_var[i * dim, i * dim] for i in range(referee_dim))
-    constraints = [norm == 1]
+    constraints = [norm == 1, r_var >> 0]
 
     seen = {}
     for i in range(dim):

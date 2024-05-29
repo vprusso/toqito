@@ -122,9 +122,10 @@ class QuantumHedging:
 
         :return: The optimal maximal probability for obtaining outcome "a".
         """
-        x_var = cvxpy.Variable((4**self._num_reps, 4**self._num_reps), PSD=True)
-        objective = cvxpy.Maximize(cvxpy.trace(self._q_a.conj().T @ x_var))
-        constraints = [partial_trace(x_var, self._sys, self._dim) == np.identity(2**self._num_reps)]
+        x_var = cvxpy.Variable((4**self._num_reps, 4**self._num_reps), hermitian=True)
+        objective = cvxpy.Maximize(cvxpy.real(cvxpy.trace(self._q_a.conj().T @ x_var)))
+        constraints = [partial_trace(x_var, self._sys, self._dim) == np.identity(2**self._num_reps),
+                       x_var >> 0]
         problem = cvxpy.Problem(objective, constraints)
 
         return problem.solve()
@@ -186,9 +187,10 @@ class QuantumHedging:
 
         :return: The optimal minimal probability for obtaining outcome "a".
         """
-        x_var = cvxpy.Variable((4**self._num_reps, 4**self._num_reps), PSD=True)
-        objective = cvxpy.Minimize(cvxpy.trace(self._q_a.conj().T @ x_var))
-        constraints = [partial_trace(x_var, self._sys, self._dim) == np.identity(2**self._num_reps)]
+        x_var = cvxpy.Variable((4**self._num_reps, 4**self._num_reps), hermitian=True)
+        objective = cvxpy.Minimize(cvxpy.real(cvxpy.trace(self._q_a.conj().T @ x_var)))
+        constraints = [partial_trace(x_var, self._sys, self._dim) == np.identity(2**self._num_reps),
+                       x_var >> 0]
         problem = cvxpy.Problem(objective, constraints)
 
         return problem.solve()
