@@ -140,7 +140,6 @@ def permute_systems(
     :return: The matrix or vector that has been permuted.
 
     """
-
     if len(input_mat.shape) == 1:
         input_mat_dims = (1, input_mat.shape[0])
     else:
@@ -186,7 +185,8 @@ def permute_systems(
         if input_mat.shape[0] == 1:
             input_mat = input_mat[0]
             vec_orien = 1
-        # Rather than using subtraction to generate new indices, it's better to use methods designed for handling permutations directly. 
+        # Rather than using subtraction to generate new indices,
+        # it's better to use methods designed for handling permutations directly.
         # This avoids the risk of negative indices and is more straightforward.
         permuted_mat_1 = input_mat.reshape(dim[vec_orien, ::-1].astype(int), order="F")
         perm_indices = np.argsort(perm) if not inv_perm else np.argsort(np.argsort(perm))
