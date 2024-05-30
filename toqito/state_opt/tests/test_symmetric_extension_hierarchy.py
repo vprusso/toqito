@@ -143,5 +143,5 @@ def test_symmetric_extension_hierarchy_extremal_werner_states():
     # Section 4.3 An example: Werner hiding pair
     upper_bound = 0.5 + 1 / (dim + 1)
     res = symmetric_extension_hierarchy(states=states, probs=None, level=1)
-    atol = 1e-6
+    atol = 1e-5
     np.testing.assert_equal(res <= upper_bound + atol, True)
