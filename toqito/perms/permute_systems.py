@@ -140,6 +140,7 @@ def permute_systems(
     :return: The matrix or vector that has been permuted.
 
     """
+
     if len(input_mat.shape) == 1:
         input_mat_dims = (1, input_mat.shape[0])
     else:
@@ -176,7 +177,7 @@ def permute_systems(
     prod_dim_r = int(np.prod(dim[0, :]))
     prod_dim_c = int(np.prod(dim[1, :]))
 
-    if sorted(perm) != list(range(1, num_sys + 1)):
+    if sorted(perm) != list(range(0, num_sys )):
         raise ValueError("InvalidPerm: `perm` must be a permutation vector.")
     if input_mat_dims[0] != prod_dim_r or (not row_only and input_mat_dims[1] != prod_dim_c):
         raise ValueError("InvalidDim: The dimensions specified in DIM do not agree with the size of X.")
@@ -185,11 +186,11 @@ def permute_systems(
         if input_mat.shape[0] == 1:
             input_mat = input_mat[0]
             vec_orien = 1
+        # Rather than using subtraction to generate new indices, it's better to use methods designed for handling permutations directly. 
+        # This avoids the risk of negative indices and is more straightforward.
         permuted_mat_1 = input_mat.reshape(dim[vec_orien, ::-1].astype(int), order="F")
-        if inv_perm:
-            permuted_mat = vec(np.transpose(permuted_mat_1, np.argsort(num_sys - np.array(perm[::-1])))).T
-        else:
-            permuted_mat = vec(np.transpose(permuted_mat_1, num_sys - np.array(perm[::-1]))).T
+        perm_indices = np.argsort(perm) if not inv_perm else np.argsort(np.argsort(perm))
+        permuted_mat = vec(np.transpose(permuted_mat_1, perm_indices)).T
 
         # We need to flatten out the array.
         permuted_mat = functools.reduce(operator.iconcat, permuted_mat, [])
