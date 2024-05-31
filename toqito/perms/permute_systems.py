@@ -144,7 +144,7 @@ def permute_systems(
         input_mat_dims = (1, input_mat.shape[0])
     else:
         input_mat_dims = input_mat.shape
-    
+
 
     is_vec = np.min(input_mat_dims) == 1
     num_sys = len(perm)
