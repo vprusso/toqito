@@ -189,13 +189,12 @@ def permute_systems(
         # Rather than using subtraction to generate new indices,
         # it's better to use methods designed for handling permutations directly.
         # This avoids the risk of negative indices and is more straightforward.
+        num_sys -= 1 # 0-indexing (Since we're using 0-indexing, we need to subtract 1 from the number of subsystems.)
         permuted_mat_1 = input_mat.reshape(dim[vec_orien, ::-1].astype(int), order="F")
         if inv_perm:
-            perm_indices = np.argsort(np.argsort(perm))
+            permuted_mat = vec(np.transpose(permuted_mat_1, np.argsort(num_sys - np.array(perm[::-1])))).T
         else:
-            perm_indices = np.argsort(num_sys - np.array(perm[::-1]))
-            # perm_indices = np.argsort(perm)
-        permuted_mat = vec(np.transpose(permuted_mat_1, perm_indices)).T
+            permuted_mat = vec(np.transpose(permuted_mat_1, num_sys - np.array(perm[::-1]))).T
 
         # We need to flatten out the array.
         permuted_mat = functools.reduce(operator.iconcat, permuted_mat, [])

@@ -132,7 +132,7 @@ def _operator_is_product(rho: np.ndarray, dim: int | list[int] = None) -> list[i
         dim = np.array([dim, dim])
 
     op_1 = rho.reshape(int(np.prod(np.prod(dim))), 1)
-    perm = swap(np.array(list(range(2 * num_sys))), [1, 2], [2, num_sys]) + 1
+    perm = swap(np.array(list(range(2 * num_sys))), [1, 2], [2, num_sys]) 
     perm_dim = np.concatenate((dim[1, :].astype(int), dim[0, :].astype(int)))
     op_3 = permute_systems(op_1, perm, perm_dim).reshape(-1, 1)
 

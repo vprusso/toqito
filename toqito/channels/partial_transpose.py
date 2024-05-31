@@ -167,8 +167,8 @@ def partial_transpose(
     sub_sys_vec_r = prod_dim_r * np.ones(int(sub_prod_r)) / sub_prod_r
     sub_sys_vec_c = prod_dim_c * np.ones(int(sub_prod_c)) / sub_prod_c
 
-    set_diff = list(set(list(range(1, num_sys + 1))) - set(sys + 1))
-    perm = (sys + 1).tolist()[:]
+    set_diff = list(set(list(range(0, num_sys ))) - set(sys ))
+    perm = (sys ).tolist()[:]
     perm.extend(set_diff)
 
     # Permute the subsystems so that we just have to do the partial transpose
@@ -199,5 +199,10 @@ def partial_transpose(
     dim[:, sys] = np.flipud(dim[:, sys])
 
     dim = dim[:, (np.array(perm) - 1).tolist()]
+    print(f"mat: {z_tmp}")
+    print(f"perm: {perm}")
+    print(f"dim: {dim}")
+    print(f"row_only: {False}")
+    print(f"inv_perm: {True}")
 
     return permute_systems(z_tmp, perm, dim, False, True)

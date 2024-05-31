@@ -189,10 +189,10 @@ def partial_trace(
         sys = np.array(sys)
     if isinstance(sys, int):
         sys = np.array([sys])
-    set_diff = list(set(list(range(1, num_sys + 1))) - set(sys + 1))
 
+    set_diff = list(set(list(range(0, num_sys))) - set(sys))
     perm = set_diff
-    perm.extend(sys + 1)
+    perm.extend(sys)
 
     a_mat = permute_systems(input_mat, perm, dim)
 
