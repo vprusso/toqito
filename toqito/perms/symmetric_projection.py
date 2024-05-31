@@ -81,7 +81,7 @@ def symmetric_projection(dim: int, p_val: int = 2, partial: bool = False) -> [np
     if p_val == 1:
         return np.eye(dim)
 
-    p_list = np.array(list(permutations(np.arange(1, p_val + 1))))
+    p_list = np.array(list(permutations(np.arange(0, p_val ))))
     p_fac = math.factorial(p_val)
     sym_proj = np.zeros((dimp, dimp))
 
