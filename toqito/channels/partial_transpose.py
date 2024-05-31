@@ -199,5 +199,5 @@ def partial_transpose(
     dim[:, sys] = np.flipud(dim[:, sys])
 
     dim = dim[:, (np.array(perm) ).tolist()]
-    
+
     return permute_systems(z_tmp, perm, dim, False, True)
