@@ -76,7 +76,7 @@ jobs:
       - name: Upload coverage information
         uses: codecov/codecov-action@v4
         with:
-          token: 8a7d94ed-284d-4c22-91eb-9b66ce33fa62
+          token: 42c62957-6808-41de-af29-3bbc4f8f0867
           name: codecov-umbrella
           fail_ci_if_error: true
           files: ./coverage.xml
