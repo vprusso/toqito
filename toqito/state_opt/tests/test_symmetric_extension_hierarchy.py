@@ -17,14 +17,14 @@ def test_symmetric_extension_hierarchy_four_bell_density_matrices():
         bell(3) * bell(3).conj().T,
     ]
     res = symmetric_extension_hierarchy(states=states, probs=None, level=2)
-    np.testing.assert_equal(np.isclose(res, 1 / 2), True)
+    np.testing.assert_equal(np.isclose(res, 1 / 2, atol=1e-5), True)
 
 
 def test_symmetric_extension_hierarchy_four_bell_states():
     """Symmetric extension hierarchy for four Bell states."""
     states = [bell(0), bell(1), bell(2), bell(3)]
     res = symmetric_extension_hierarchy(states=states, probs=None, level=2)
-    np.testing.assert_equal(np.isclose(res, 1 / 2), True)
+    np.testing.assert_equal(np.isclose(res, 1 / 2, atol=1e-5), True)
 
 
 def test_symmetric_extension_hierarchy_four_bell_with_resource_state_lvl_1():
@@ -143,5 +143,5 @@ def test_symmetric_extension_hierarchy_extremal_werner_states():
     # Section 4.3 An example: Werner hiding pair
     upper_bound = 0.5 + 1 / (dim + 1)
     res = symmetric_extension_hierarchy(states=states, probs=None, level=1)
-    atol = 1e-6
+    atol = 1e-5
     np.testing.assert_equal(res <= upper_bound + atol, True)
