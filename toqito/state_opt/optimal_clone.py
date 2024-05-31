@@ -136,7 +136,6 @@ def optimal_clone(
             for j in range(1, num_reps):
                 perm.append(var + num_spaces * j)
         pperm = permutation_operator(2, perm)
-        print(pperm)
 
     if strategy:
         return primal_problem(q_a, pperm, num_reps)

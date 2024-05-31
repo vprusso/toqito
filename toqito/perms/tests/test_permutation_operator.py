@@ -72,7 +72,6 @@ def test_permutation_operator_dim_2_perm_0_2_1():
         ]
     )
     bool_mat = np.isclose(res, expected_res)
-    # print(expected_res)
     np.testing.assert_equal(np.all(bool_mat), True)
 
 

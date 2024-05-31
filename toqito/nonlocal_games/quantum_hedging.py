@@ -96,7 +96,6 @@ class QuantumHedging:
             self._pperm = np.array([1])
         else:
             perm = [*sum(zip(l_1, l_2), ())]
-            print(perm)
             self._pperm = permutation_operator(2, perm)
 
     def max_prob_outcome_a_primal(self) -> float:

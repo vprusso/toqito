@@ -152,7 +152,6 @@ def test_partial_transpose_8_by_8_subsystems_2_2_2():
 
     # Partial transpose on third subsystem:
     pt_3 = partial_transpose(test_input_mat, [2], [2, 2, 2])
-    print(pt_3)
     expected_pt_3 = np.array(
         [
             [1, 9, 3, 11, 5, 13, 7, 15],
