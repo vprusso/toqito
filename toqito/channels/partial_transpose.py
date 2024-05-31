@@ -198,7 +198,7 @@ def partial_transpose(
     # Return the subsystems back to their original positions.
     dim[:, sys] = np.flipud(dim[:, sys])
 
-    dim = dim[:, (np.array(perm) - 1).tolist()]
+    dim = dim[:, (np.array(perm) ).tolist()]
     # print(f"mat: {z_tmp}")
     # print(f"perm: {perm}")
     # print(f"dim: {dim}")
