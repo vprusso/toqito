@@ -199,10 +199,5 @@ def partial_transpose(
     dim[:, sys] = np.flipud(dim[:, sys])
 
     dim = dim[:, (np.array(perm) ).tolist()]
-    # print(f"mat: {z_tmp}")
-    # print(f"perm: {perm}")
-    # print(f"dim: {dim}")
-    # print(f"row_only: {False}")
-    # print(f"inv_perm: {True}")
-
+    
     return permute_systems(z_tmp, perm, dim, False, True)
