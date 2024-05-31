@@ -13,7 +13,7 @@ covers quantum state distinguishability:
 * `Quantum State Distinguishability <https://toqito.readthedocs.io/en/latest/tutorials.state_distinguishability.html>`_
 
 Further information beyond the scope of this tutorial can be found in the text
-[tPBR12]_ as well as the course [tBJOP14]_.
+:cite:`Pusey_2012_On` as well as the course :cite:`Bandyopadhyay_2014_Conclusive`.
 
 
 The state exclusion problem
@@ -65,13 +65,5 @@ Optimal probability of unambiguously excluding a quantum state
 References
 ------------------------------
 
-.. [tPBR12] Pusey, Matthew, Barret, Jonathan, and Rudolph, Terry
-    "On the reality of the quantum state"
-    Nature Physics 8.6 (2012): 475-478.
-    arXiv:1111.3328
-
-.. [tBJOP14] Bandyopadhyay, Somshubhro, Jain, Rahul, Oppenheim, Jonathan, Perry, Christopher
-    "Conclusive exclusion of quantum states"
-    Physical Review A 89.2 (2014): 022336.
-    arXiv:1306.4683
-
+.. bibliography:: 
+    :filter: docname in docnames
