@@ -90,3 +90,43 @@ def test_entangled_cross_norm_realignment_criterion():
         ]
     )
     np.testing.assert_equal(is_separable(rho), False)
+
+
+def test_separable_based_on_eigenvalues():
+    # TODO: This is returning True from a line above the eigenvalues condition. Need to change rho, etc...
+    # State taken from https://arxiv.org/pdf/1309.2006
+    rho = np.array([
+        [1 / 11, 0, 0, 0],
+        [0, 3 / 11, 2 / 11, 0],
+        [0, 2 / 11, 3 / 11, 0],
+        [0, 0, 0, 4 / 11]
+    ])
+    np.testing.assert_equal(is_separable(rho), True)
+
+
+def test_separable_rank4_dim3_rho():
+    rho =  np.array(
+        [
+            [4, 1, 1, 1, 0, 0, 0, 0, 0],
+            [1, 4, 1, 1, 0, 0, 0, 0, 0],
+            [1, 1, 4, 1, 0, 0, 0, 0, 0],
+            [1, 1, 1, 4, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        ]
+    )
+    np.testing.assert_equal(is_separable(rho), True)
+
+
+def test_2n_ppt_check_array():
+    state = np.array([
+        [0.5, 0, 0, 0.5],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0.5, 0, 0, 0.5]
+    ])
+    # TODO
+
