@@ -1,6 +1,7 @@
 """Test is_separable."""
 
 import numpy as np
+import pytest
 
 from toqito.channels import partial_trace
 from toqito.matrix_props import is_density
@@ -92,41 +93,57 @@ def test_entangled_cross_norm_realignment_criterion():
     np.testing.assert_equal(is_separable(rho), False)
 
 
-def test_separable_based_on_eigenvalues():
-    # TODO: This is returning True from a line above the eigenvalues condition. Need to change rho, etc...
-    # State taken from https://arxiv.org/pdf/1309.2006
-    rho = np.array([
-        [1 / 11, 0, 0, 0],
-        [0, 3 / 11, 2 / 11, 0],
-        [0, 2 / 11, 3 / 11, 0],
-        [0, 0, 0, 4 / 11]
-    ])
-    np.testing.assert_equal(is_separable(rho), True)
-
-
-def test_separable_rank4_dim3_rho():
-    rho =  np.array(
+def test_separable_schmidt_rank():
+    rho = np.array(
         [
-            [4, 1, 1, 1, 0, 0, 0, 0, 0],
-            [1, 4, 1, 1, 0, 0, 0, 0, 0],
-            [1, 1, 4, 1, 0, 0, 0, 0, 0],
-            [1, 1, 1, 4, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0]
+            [0.25, 0.15, 0.1, 0.15, 0.09, 0.06, 0.1, 0.06, 0.04],
+            [0.15, 0.2, 0.05, 0.09, 0.12, 0.03, 0.06, 0.08, 0.02],
+            [0.1, 0.05, 0.05, 0.06, 0.03, 0.03, 0.04, 0.02, 0.02],
+            [0.15, 0.09, 0.06, 0.2, 0.12, 0.08, 0.05, 0.03, 0.02],
+            [0.09, 0.12, 0.03, 0.12, 0.16, 0.04, 0.03, 0.04, 0.01],
+            [0.06, 0.03, 0.03, 0.08, 0.04, 0.04, 0.02, 0.01, 0.01],
+            [0.1, 0.06, 0.04, 0.05, 0.03, 0.02, 0.05, 0.03, 0.02],
+            [0.06, 0.08, 0.02, 0.03, 0.04, 0.01, 0.03, 0.04, 0.01],
+            [0.04, 0.02, 0.02, 0.02, 0.01, 0.01, 0.02, 0.01, 0.01],
         ]
     )
     np.testing.assert_equal(is_separable(rho), True)
 
 
-def test_2n_ppt_check_array():
-    state = np.array([
-        [0.5, 0, 0, 0.5],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        [0.5, 0, 0, 0.5]
-    ])
-    # TODO
+# TODO: BELOW TESTS NEED CHANGES...TESTS ABOVE ARE ALREADY TESTED AND MATCHED WITH MATLAB VERSION.
+# def test_separable_chow_form():
+#     rho = np.array(
+#         [
+#             [4, 1, 1, 1, 0, 0, 0, 0, 0],
+#             [1, 4, 1, 1, 0, 0, 0, 0, 0],
+#             [1, 1, 4, 1, 0, 0, 0, 0, 0],
+#             [1, 1, 1, 4, 0, 0, 0, 0, 0],
+#             [0, 0, 0, 0, 0, 0, 0, 0, 0],
+#             [0, 0, 0, 0, 0, 0, 0, 0, 0],
+#             [0, 0, 0, 0, 0, 0, 0, 0, 0],
+#             [0, 0, 0, 0, 0, 0, 0, 0, 0],
+#             [0, 0, 0, 0, 0, 0, 0, 0, 0],
+#         ]
+#     )
+#     np.testing.assert_equal(is_separable(rho), True)
 
+
+def test_separable_based_on_eigenvalues():
+    # TODO: Although this satisfies the eigenvalues condition (from the paper), this returns True from a line above the eigenvalues condition. Need to change `rho`.
+    # State taken from https://arxiv.org/pdf/1309.2006
+    rho = np.array([[1 / 11, 0, 0, 0], [0, 3 / 11, 2 / 11, 0], [0, 2 / 11, 3 / 11, 0], [0, 0, 0, 4 / 11]])
+    np.testing.assert_equal(is_separable(rho), True)
+
+
+def test_2n_ppt_check_array():
+    state = np.array(
+        [
+            [0.5, 0, 0, 0, 0, 0.5],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0],
+            [0.5, 0, 0, 0, 0, 0.5],
+        ]
+    )
+    # TODO
