@@ -58,5 +58,6 @@ def permutation_operator(
         dim = np.array(dim)
 
     mat = sp.sparse.identity(int(np.prod(dim))) if is_sparse else np.identity(int(np.prod(dim)))
+    # Swap the rows of the identity matrix appropriately.
 
     return permute_systems(mat, perm, dim, True, inv_perm)
