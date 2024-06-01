@@ -69,7 +69,6 @@ def brauer(dim: int, p_val: int) -> np.ndarray:
     matchings = perfect_matchings(2 * p_val)
     num_matchings = matchings.shape[0]
     state = np.zeros((dim ** (2 * p_val), num_matchings))
-    matchings = matchings - 1
 
     # Turn these perfect matchings into the corresponding states.
     for i in range(num_matchings):
