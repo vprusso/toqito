@@ -135,10 +135,11 @@ def state_exclusion(
         of accuracy.
 
     .. note::
-        If you encounter a `ZeroDivisionError` when using cvxopt as a solver (which is the default), you might
-        want to try to set the `abs_ipm_opt_tol` option to a lower value (the default being `1e-8`).
+        If you encounter a `ZeroDivisionError` or an `ArithmeticError` when using cvxopt as a solver (which is the
+        default), you might want to set the `abs_ipm_opt_tol` option to a lower value (the default being `1e-8`) or
+        to set the `cvxopt_kktsolver` option to `ldl`.
 
-        https://gitlab.com/picos-api/picos/-/issues/341
+        See https://gitlab.com/picos-api/picos/-/issues/341
 
     References
     ==========

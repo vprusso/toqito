@@ -61,7 +61,7 @@ def test_state_distinguishability_min_error(vectors, probs, solver, primal_dual,
 @pytest.mark.parametrize("probs", probs_unambiguous)
 def test_state_distinguishability_unambiguous(vectors, probs, solver, primal_dual, expected_result):
     """Test function works as expected for a valid input for the unambiguous strategy."""
-    val = state_distinguishability(
+    val, _ = state_distinguishability(
         vectors=vectors,
         probs=probs,
         solver=solver,

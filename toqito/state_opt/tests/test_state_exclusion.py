@@ -12,24 +12,24 @@ e_0, e_1 = standard_basis(2)
 
 states_min_error = [
     # Bell states are perfectly distinguishable, so the probability of error should be nil
-    ([bell(0), bell(1), bell(2), bell(3)], None, 0),
-    ([bell(0), bell(1), bell(2), bell(3)], [1 / 4, 1 / 4, 1 / 4, 1 / 4], 0),
-    ([pure_to_mixed(bell(0)), pure_to_mixed(bell(1))], None, 0),
-    ([pure_to_mixed(bell(0)), pure_to_mixed(bell(1))], [1 / 2, 1 / 2], 0),
+    ([bell(0), bell(1), bell(2), bell(3)], None, 0, {}),
+    ([bell(0), bell(1), bell(2), bell(3)], [1 / 4, 1 / 4, 1 / 4, 1 / 4], 0, {}),
+    ([pure_to_mixed(bell(0)), pure_to_mixed(bell(1))], None, 0, {"cvxopt_kktsolver": "ldl"}),
+    ([pure_to_mixed(bell(0)), pure_to_mixed(bell(1))], [1 / 2, 1 / 2], 0, {"cvxopt_kktsolver": "ldl"}),
     # For |0> and |+>, this probability is 1/2 - 1/(2*sqrt(2))
-    ([np.array([[1.], [0.]]), np.array([[1.], [1.]]) / np.sqrt(2)], None, 0.14644660940672627),
-    ([np.array([[1.], [0.]]), np.array([[1.], [1.]]) / np.sqrt(2)], [1 / 2, 1 / 2], 0.14644660940672627),
+    ([np.array([[1.], [0.]]), np.array([[1.], [1.]]) / np.sqrt(2)], None, 0.14644660940672627, {"cvxopt_kktsolver": "ldl"}),
+    ([np.array([[1.], [0.]]), np.array([[1.], [1.]]) / np.sqrt(2)], [1 / 2, 1 / 2], 0.14644660940672627, {"cvxopt_kktsolver": "ldl"}),
 ]
 
 states_unambiguous = [
     # Bell states are perfectly distinguishable, so the probability of error should be nil
-    ([bell(0), bell(1), bell(2), bell(3)], None, 0),
-    ([bell(0), bell(1), bell(2), bell(3)], [1 / 4, 1 / 4, 1 / 4, 1 / 4], 0),
-    ([pure_to_mixed(bell(0)), pure_to_mixed(bell(1))], None, 0),
-    ([pure_to_mixed(bell(0)), pure_to_mixed(bell(1))], [1 / 2, 1 / 2], 0),
+    ([bell(0), bell(1), bell(2), bell(3)], None, 0, {}),
+    ([bell(0), bell(1), bell(2), bell(3)], [1 / 4, 1 / 4, 1 / 4, 1 / 4], 0, {}),
+    ([pure_to_mixed(bell(0)), pure_to_mixed(bell(1))], None, 0, {}),
+    ([pure_to_mixed(bell(0)), pure_to_mixed(bell(1))], [1 / 2, 1 / 2], 0, {}),
     # For |0> and |+>, this probability is 1/sqrt(2)
-    ([np.array([[1.], [0.]]), np.array([[1.], [1.]]) / np.sqrt(2)], None, 0.707106781186547),
-    ([np.array([[1.], [0.]]), np.array([[1.], [1.]]) / np.sqrt(2)], [1 / 2, 1 / 2], 0.707106781186547),
+    ([np.array([[1.], [0.]]), np.array([[1.], [1.]]) / np.sqrt(2)], None, 0.707106781186547, {"abs_ipm_opt_tol": 1e-6}),
+    ([np.array([[1.], [0.]]), np.array([[1.], [1.]]) / np.sqrt(2)], [1 / 2, 1 / 2], 0.707106781186547, {"abs_ipm_opt_tol": 1e-6}),
 ]
 
 solvers = [
@@ -42,26 +42,27 @@ primal_duals = [
 ]
 
 
-@pytest.mark.parametrize("vectors, probs, expected_result", states_min_error)
+@pytest.mark.parametrize("vectors, probs, expected_result, kwargs", states_min_error)
 @pytest.mark.parametrize("solver", solvers)
 @pytest.mark.parametrize("primal_dual", primal_duals)
-def test_state_exclusion_min_error(vectors, probs, solver, primal_dual, expected_result):
+def test_state_exclusion_min_error(vectors, probs, solver, primal_dual, expected_result, kwargs):
     """Test function works as expected for a valid input."""
-    val, _ = state_exclusion(vectors=vectors, probs=probs, solver=solver, primal_dual=primal_dual)
+    val, _ = state_exclusion(vectors=vectors, probs=probs, solver=solver, primal_dual=primal_dual, **kwargs)
     assert abs(val - expected_result) <= 1e-8
 
 
-@pytest.mark.parametrize("vectors, probs, expected_result", states_unambiguous)
+@pytest.mark.parametrize("vectors, probs, expected_result, kwargs", states_unambiguous)
 @pytest.mark.parametrize("solver", solvers)
 @pytest.mark.parametrize("primal_dual", primal_duals)
-def test_state_exclusion_unambiguous(vectors, probs, solver, primal_dual, expected_result):
+def test_state_exclusion_unambiguous(vectors, probs, solver, primal_dual, expected_result, kwargs):
     """Test function works as expected for a valid input."""
     val, _ = state_exclusion(
         vectors=vectors,
         probs=probs,
         solver=solver,
         primal_dual=primal_dual,
-        strategy="unambiguous"
+        strategy="unambiguous",
+        **kwargs
     )
     # Accuracy is quite low bcause of primals=None
     assert abs(val - expected_result) <= 1e-3
