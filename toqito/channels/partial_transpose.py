@@ -167,7 +167,7 @@ def partial_transpose(
     sub_sys_vec_r = prod_dim_r * np.ones(int(sub_prod_r)) / sub_prod_r
     sub_sys_vec_c = prod_dim_c * np.ones(int(sub_prod_c)) / sub_prod_c
 
-    set_diff = list(set(list(range(0, num_sys ))) - set(sys ))
+    set_diff = list(set(list(range(num_sys ))) - set(sys ))
     perm = (sys ).tolist()[:]
     perm.extend(set_diff)
 
