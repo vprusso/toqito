@@ -16,14 +16,13 @@ def perfect_matchings(num: list[int] | int | np.ndarray) -> np.ndarray:
 
     Examples
     ==========
-
-    This is an example of how to generate all perfect matchings of the numbers 1, 2, 3, 4.
+    This is an example of how to generate all perfect matchings of the numbers 0, 1, 2, 3.
 
     >>> from toqito.perms import perfect_matchings
     >>> perfect_matchings(4)
-    array([[1, 2, 3, 4],
-           [1, 3, 2, 4],
-           [1, 4, 3, 2]])
+    array([[0, 1, 2, 3],
+           [0, 2, 1, 3],
+           [0, 3, 2, 1]])
 
     References
     ==========
@@ -31,13 +30,13 @@ def perfect_matchings(num: list[int] | int | np.ndarray) -> np.ndarray:
         :filter: docname in docnames
 
     :param num: Either an even integer, indicating that you would like all perfect matchings of the
-                integers 1,2, ... N, or a `list` or `np.array` containing an even number of distinct
+                integers 0, 1, ... N-1, or a `list` or `np.array` containing an even number of distinct
                 entries, indicating that you would like all perfect matchings of those entries.
     :return: An array containing all valid perfect matchings of size :code:`num`.
 
     """
     if isinstance(num, int):
-        num = np.arange(1, num + 1)
+        num = np.arange(num)
     if isinstance(num, list):
         num = np.array(num)
 
@@ -73,3 +72,4 @@ def perfect_matchings(num: list[int] | int | np.ndarray) -> np.ndarray:
         matchings = np.vstack((matchings, s_vec))
 
     return matchings
+

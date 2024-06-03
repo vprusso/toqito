@@ -134,7 +134,7 @@ def fidelity_of_separability(
         raise ValueError("This function only works for pure states.")
 
     # We first permure psi_{BAR} to psi_{RAB} to simplify the code.
-    psi = permute_systems(psi, [3, 2, 1], psi_dims)
+    psi = permute_systems(psi, [2, 1, 0], psi_dims)
     dim_b, dim_a, dim_r = psi_dims
     psi_dims = [dim_r, dim_a, dim_b]
 
@@ -163,7 +163,7 @@ def fidelity_of_separability(
                 pi_sym
                 * picos.partial_trace(
                     (picos.partial_transpose(psi, [0], psi_dims) @ picos.I(dim_a))
-                    * permute_systems(choi_partial @ picos.I(dim_b * dim_a), [1, 4, 3, 2], dim_list),
+                    * permute_systems(choi_partial @ picos.I(dim_b * dim_a), [0, 3, 2, 1], dim_list),
                     [0, 2],
                     dim_list,
                 )

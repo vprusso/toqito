@@ -106,7 +106,7 @@ def werner(dim: int, alpha: float | list[float]) -> np.ndarray:
         # Done error checking and computing the number of parties
         # -- now compute the Werner state.
         perms = list(itertools.permutations(range(n_var)))
-        sorted_perms = np.argsort(perms, axis=1) + 1
+        sorted_perms = np.argsort(perms, axis=1)
 
         rho = np.identity(dim**n_var)
         for i in range(2, n_fac):
