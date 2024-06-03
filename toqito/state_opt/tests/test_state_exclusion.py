@@ -17,8 +17,18 @@ states_min_error = [
     ([pure_to_mixed(bell(0)), pure_to_mixed(bell(1))], None, 0, {"cvxopt_kktsolver": "ldl"}),
     ([pure_to_mixed(bell(0)), pure_to_mixed(bell(1))], [1 / 2, 1 / 2], 0, {"cvxopt_kktsolver": "ldl"}),
     # For |0> and |+>, this probability is 1/2 - 1/(2*sqrt(2))
-    ([np.array([[1.], [0.]]), np.array([[1.], [1.]]) / np.sqrt(2)], None, 0.14644660940672627, {"cvxopt_kktsolver": "ldl"}),
-    ([np.array([[1.], [0.]]), np.array([[1.], [1.]]) / np.sqrt(2)], [1 / 2, 1 / 2], 0.14644660940672627, {"cvxopt_kktsolver": "ldl"}),
+    (
+        [np.array([[1.], [0.]]), np.array([[1.], [1.]]) / np.sqrt(2)],
+        None,
+        0.14644660940672627,
+        {"cvxopt_kktsolver": "ldl"}
+    ),
+    (
+        [np.array([[1.], [0.]]), np.array([[1.], [1.]]) / np.sqrt(2)],
+        [1 / 2, 1 / 2],
+        0.14644660940672627,
+        {"cvxopt_kktsolver": "ldl"}
+    ),
 ]
 
 states_unambiguous = [
@@ -28,8 +38,18 @@ states_unambiguous = [
     ([pure_to_mixed(bell(0)), pure_to_mixed(bell(1))], None, 0, {}),
     ([pure_to_mixed(bell(0)), pure_to_mixed(bell(1))], [1 / 2, 1 / 2], 0, {}),
     # For |0> and |+>, this probability is 1/sqrt(2)
-    ([np.array([[1.], [0.]]), np.array([[1.], [1.]]) / np.sqrt(2)], None, 0.707106781186547, {"abs_ipm_opt_tol": 1e-6}),
-    ([np.array([[1.], [0.]]), np.array([[1.], [1.]]) / np.sqrt(2)], [1 / 2, 1 / 2], 0.707106781186547, {"abs_ipm_opt_tol": 1e-6}),
+    (
+        [np.array([[1.], [0.]]), np.array([[1.], [1.]]) / np.sqrt(2)],
+        None,
+        0.707106781186547,
+        {"abs_ipm_opt_tol": 1e-6}
+    ),
+    (
+        [np.array([[1.], [0.]]), np.array([[1.], [1.]]) / np.sqrt(2)],
+        [1 / 2, 1 / 2],
+        0.707106781186547,
+        {"abs_ipm_opt_tol": 1e-6}
+    ),
 ]
 
 solvers = [
