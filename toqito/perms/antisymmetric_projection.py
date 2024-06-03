@@ -84,7 +84,7 @@ def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) 
     if dim < p_param:
         return np.zeros((dimp, dimp * (1 - partial)))
 
-    p_list = np.array(list(permutations(np.arange(0, p_param ))))
+    p_list = np.array(list(permutations(np.arange(p_param ))))
     p_fac = p_list.shape[0]
 
     anti_proj = np.zeros((dimp, dimp))

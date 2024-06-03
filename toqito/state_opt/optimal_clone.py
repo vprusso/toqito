@@ -130,7 +130,7 @@ def optimal_clone(
         # sequence from: https://oeis.org/A023123
         q_a = tensor(q_a, num_reps)
         perm = []
-        for i in range(0, num_spaces ):
+        for i in range(num_spaces ):
             perm.append(i)
             var = i
             for j in range(1, num_reps):

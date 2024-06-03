@@ -145,7 +145,7 @@ def swap(
         raise ValueError("InvalidSys: `sys` must be a vector with exactly two elements.")
 
     # Swap the indicated subsystems.
-    perm = np.array(range(0, num_sys ))
+    perm = np.array(range(num_sys ))
     sys = np.array(sys) - 1
 
     perm[sys] = perm[sys[::-1]]
