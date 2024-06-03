@@ -190,7 +190,7 @@ def partial_trace(
     if isinstance(sys, int):
         sys = np.array([sys])
 
-    set_diff = list(set(list(range(0, num_sys))) - set(sys))
+    set_diff = list(set(list(range(num_sys))) - set(sys))
     perm = set_diff
     perm.extend(sys)
 
