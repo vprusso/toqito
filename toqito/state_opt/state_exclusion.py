@@ -49,12 +49,12 @@ def state_exclusion(
         .. math::
             \begin{equation}
                 \begin{aligned}
-                    \text{maximize:} \quad & \text{Tr}(Y)
+                    \text{maximize:} \quad & \text{Tr}(Y) \\
                     \text{subject to:} \quad & Y \leq M_1, \\
                                              & Y \leq M_2, \\
                                              & \vdots \\
                                              & Y \leq M_n, \\
-                                             & Y \text{Herm}(\mathcal{X}).
+                                             & Y \in\text{Herm}(\mathcal{X}).
                 \end{aligned}
             \end{equation}
 

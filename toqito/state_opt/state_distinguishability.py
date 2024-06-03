@@ -64,8 +64,8 @@ def state_distinguishability(
         \end{align*}
 
     where :math:`\mathbf{p}` is the vector whose :math:`i`-th coordinate contains the probability
-    that the state is prepared in state :\math:`\left|\psi_i\right\rangle`, :math:`\Gamma` is
-    the Gram matrix of :math:`\left|\psi_1\right,\cdots,\left|\psi_n\right\rangle` and :math:`F_i` is
+    that the state is prepared in state :math:`\left|\psi_i\right\rangle`, :math:`\Gamma` is
+    the Gram matrix of :math:`\left|\psi_1\right\rangle,\cdots,\left|\psi_n\right\rangle` and :math:`F_i` is
     :math:`-|i\rangle\langle i|`.
 
     .. warning::
@@ -130,8 +130,8 @@ def state_distinguishability(
     :param probs: Respective list of probabilities each state is selected. If no
                   probabilities are provided, a uniform probability distribution is assumed.
     :param strategy: Whether to perform unambiguous or minimal error discrimination task. Possible
-                     values are "min_error" and "unambiguous".
-    :param solver: Optimization option for `picos` solver. Default option is `solver_option="cvxopt"`.
+                     values are "min_error" and "unambiguous". Default option is `strategy="min_error"`.
+    :param solver: Optimization option for `picos` solver. Default option is `solver="cvxopt"`.
     :param primal_dual: Option for the optimization problem. Default option is `"dual"`.
     :param kwargs: Additional arguments to pass to picos' solve method.
     :return: The optimal probability with which Bob can guess the state he was
