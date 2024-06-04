@@ -130,7 +130,7 @@ def test_separable_schmidt_rank():
 
 
 def test_separable_based_on_eigenvalues():
-    """Determined to be separable by inspecting its eigenvalues. See Lemma 1 of https://arxiv.org/abs/1309.2006."""
+    """Determined to be separable by inspecting its eigenvalues. See Lemma 1 of :cite:`Johnston_2013_Spectrum`."""
     # TODO: Although this satisfies the eigenvalues condition (from the paper), this returns True from a line above
     # the eigenvalues condition. Need to change `rho`.
     # State taken from https://arxiv.org/pdf/1309.2006
