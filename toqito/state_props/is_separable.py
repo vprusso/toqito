@@ -93,7 +93,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         # Every positive semidefinite matrix is separable when one of the local dimensions is 1.
         print(
             "Determined to be separable since every positive semidefinite matrix is separable ",
-            "when one of the local dimensions is 1."
+            "when one of the local dimensions is 1.",
         )
         return True
 
@@ -123,7 +123,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         print("Determined to be separable via sufficiency of the PPT criterion in small dimensions.")
         print(
             "M. Horodecki, P. Horodecki, and R. Horodecki. Separability of mixed states: ",
-            "Necessary and sufficient conditions."
+            "Necessary and sufficient conditions.",
         )
         return is_ppt_state
 
@@ -149,7 +149,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         print("Determined to be entangled via the realignment criterion.")
         print(
             "K. Chen and L.-A. Wu. A matrix realignment method for recognizing entanglement. ",
-            "Quantum Inf. Comput., 3:193-202, 2003."
+            "Quantum Inf. Comput., 3:193-202, 2003.",
         )
         return False
 
@@ -164,7 +164,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         print("Determined to be entangled by using Theorem 1 of reference.")
         print(
             "C.-J. Zhang, Y.-S. Zhang, S. Zhang, and G.-C. Guo. Entanglement detection beyond ",
-            "the cross-norm or realignment criterion. Phys. Rev. A, 77:060301(R), 2008."
+            "the cross-norm or realignment criterion. Phys. Rev. A, 77:060301(R), 2008.",
         )
         return False
 
@@ -292,7 +292,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         print(f"Determined to be {'separable' if condition else 'entangled'} by checking the Chow form.")
         print(
             "L. Chen and D. Z. Djokovic. Separability problem for multipartite states of rank at most four. ",
-            "J. Phys. A: Math. Theor., 46:275304, 2013."
+            "J. Phys. A: Math. Theor., 46:275304, 2013.",
         )
         return condition
 
@@ -304,7 +304,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         print("Determined to be separable by closeness to the maximally mixed state.")
         print(
             "L. Gurvits and H. Barnum. Largest separable balls around the maximally mixed bipartite quantum state. ",
-            "Phys. Rev. A, 66:062311, 2002."
+            "Phys. Rev. A, 66:062311, 2002.",
         )
         return True
 
@@ -344,7 +344,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                     print(f"Determined to be entangled via the positive map Phi[a,b,c] with a = {a}, b = {b}, c = {c}")
                     print(
                         "K.-C. Ha and S.-H. Kye. Entanglement witnesses arising from exposed positive linear maps. ",
-                        "Open Systems & Information Dynamics, 18:323-337, 2011."
+                        "Open Systems & Information Dynamics, 18:323-337, 2011.",
                     )
                     return False
 
@@ -367,11 +367,11 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                 )
                 print(
                     "1. H.-P. Breuer. Optimal entanglement criterion for mixed quantum states. ",
-                    "Phys. Rev. Lett., 97:080501, 2006."
+                    "Phys. Rev. Lett., 97:080501, 2006.",
                 )
                 print(
                     "2. W. Hall. Constructions of indecomposable positive maps based on a new ",
-                    "criterion for indecomposability. E-print: arXiv:quant-ph/0607035, 2006."
+                    "criterion for indecomposability. E-print: arXiv:quant-ph/0607035, 2006.",
                 )
                 return False
 

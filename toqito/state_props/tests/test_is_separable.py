@@ -94,6 +94,7 @@ def test_entangled_cross_norm_realignment_criterion():
 
 
 def test_separable_schmidt_rank():
+    """Determined to be separable by having operator Schmidt rank at most 2."""
     rho = np.array(
         [
             [0.25, 0.15, 0.1, 0.15, 0.09, 0.06, 0.1, 0.06, 0.04],
@@ -129,13 +130,16 @@ def test_separable_schmidt_rank():
 
 
 def test_separable_based_on_eigenvalues():
-    # TODO: Although this satisfies the eigenvalues condition (from the paper), this returns True from a line above the eigenvalues condition. Need to change `rho`.
+    """Determined to be separable by inspecting its eigenvalues. See Lemma 1 of https://arxiv.org/abs/1309.2006."""
+    # TODO: Although this satisfies the eigenvalues condition (from the paper), this returns True from a line above
+    # the eigenvalues condition. Need to change `rho`.
     # State taken from https://arxiv.org/pdf/1309.2006
     rho = np.array([[1 / 11, 0, 0, 0], [0, 3 / 11, 2 / 11, 0], [0, 2 / 11, 3 / 11, 0], [0, 0, 0, 4 / 11]])
     np.testing.assert_equal(is_separable(rho), True)
 
 
 def test_2n_ppt_check_array():
+    """TODO."""
     state = np.array(
         [
             [0.5, 0, 0, 0, 0, 0.5],
