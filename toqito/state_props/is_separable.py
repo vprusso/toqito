@@ -329,15 +329,16 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     if dim[0] == 3 and dim[1] == 3:
         phi = max_entangled(3, False, False)
         for t in np.arange(0, 1.0, 0.1):
+            t_ = t  # This is to evade ruff `PLW2901` error.
             for j in range(2):
-                if t > 0:  # this is a weird way of using both t and 1/t as indices for the maps Phi we generate
-                    t = 1 / t
+                if t_ > 0:  # this is a weird way of using both t and 1/t as indices for the maps Phi we generate
+                    t_ = 1 / t_
                 elif j > 0:
                     break
 
-                a = (1 - t) ** 2 / (1 - t + t**2)
-                b = t**2 / (1 - t + t**2)
-                c = 1 / (1 - t + t**2)
+                a = (1 - t_) ** 2 / (1 - t_ + t_**2)
+                b = t_**2 / (1 - t_ + t_**2)
+                c = 1 / (1 - t_ + t_**2)
                 Phi = np.diag([a + 1, c, b, b, a + 1, c, c, b, a + 1]) - phi * phi.conj().T
 
                 if not is_positive_semidefinite(partial_channel(state, Phi, 2, dim)):
