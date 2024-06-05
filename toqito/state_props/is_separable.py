@@ -223,16 +223,16 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     if state_rank == 4 and min_dim == 3 and max_dim == 3:
         # This method computes more determinants than are actually
         # necessary, but the speed loss isn't too great
-        p = np.zeros((9, 9, 9, 9))  # initialize.
+        p = np.zeros((6, 7, 8, 9))  # initialize.
         q = orth(state)
 
+        # This loop does not access all positions in `p`, and that's expected.
         for j in range(6, 0, -1):
             for k in range(7, j, -1):
                 for n in range(8, k, -1):
                     for m in range(9, n, -1):
                         p[j - 1, k - 1, n - 1, m - 1] = np.linalg.det(q[[j - 1, k - 1, n - 1, m - 1], :])
 
-        # TODO: Ensure all indices are correct.
         F = np.linalg.det(
             np.array(
                 [
@@ -377,6 +377,16 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                 return False
 
     # The search for symmetric extensions.
-    if any(has_symmetric_extension(state, level) for _ in range(2, level)):
+    if any(has_symmetric_extension(state, level) for _ in range(1, level)):
+        print("Determined to be separable via the semidefinite program based on PPT symmetric extensions.")
+        print(
+            "M. Navascues, M. Owari, and M. B. Plenio. A complete criterion for separability detection."
+            "Phys. Rev. Lett., 103:160404, 2009."
+        )
         return True
+    print("Determined to be entangled by not having a PPT symmetric extension.")
+    print(
+        "A. C. Doherty, P. A. Parrilo, and F. M. Spedalieri. A complete family of"
+        "separability criteria. Phys. Rev. A, 69:022308, 2004."
+    )
     return False
