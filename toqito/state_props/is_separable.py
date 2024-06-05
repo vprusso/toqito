@@ -352,8 +352,6 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     # Use the Breuer-Hall positive maps (in even dimensions only) based on
     # antisymmetric unitary matrices.
     for p in range(2):
-        # See https://stackoverflow.com/questions/57085118/equivalent-matlab-function-mod-in-numpy-or-python
-        # But here not a problem. TODO: Remove this statement.
         if np.remainder(dim[p], 2) == 0:
             phi = max_entangled(dim[p], 0, 0)
             U = np.kron(

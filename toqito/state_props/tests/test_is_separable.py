@@ -168,27 +168,10 @@ def test_entangled_symmetric_extension():
     np.testing.assert_equal(is_separable(rho), False)
 
 
-# def test_separable_chow_form():
-# rho = np.array(
-#     [
-#         [4, 1, 1, 1, 0, 0, 0, 0, 0],
-#         [1, 4, 1, 1, 0, 0, 0, 0, 0],
-#         [1, 1, 4, 1, 0, 0, 0, 0, 0],
-#         [1, 1, 1, 4, 0, 0, 0, 0, 0],
-#         [0, 0, 0, 0, 0, 0, 0, 0, 0],
-#         [0, 0, 0, 0, 0, 0, 0, 0, 0],
-#         [0, 0, 0, 0, 0, 0, 0, 0, 0],
-#         [0, 0, 0, 0, 0, 0, 0, 0, 0],
-#         [0, 0, 0, 0, 0, 0, 0, 0, 0],
-#     ]
-# )
-#     np.testing.assert_equal(is_separable(rho), True)
-
-
 def test_separable_based_on_eigenvalues():
     """Determined to be separable by inspecting its eigenvalues. See Lemma 1 of :cite:`Johnston_2013_Spectrum`."""
-    # TODO: Although this satisfies the eigenvalues condition (from the paper), this returns True from a line above
-    # the eigenvalues condition.
+    # Although this matrix, taken from the above paper, satisfies the eigenvalues condition,
+    # this returns True from a line above the eigenvalues condition.
     rho = np.array(
         [
             [4 / 22, 2 / 22, -2 / 22, 2 / 22],
@@ -198,18 +181,3 @@ def test_separable_based_on_eigenvalues():
         ]
     )
     np.testing.assert_equal(is_separable(rho), True)
-
-
-def test_2n_ppt_check_array():
-    """TODO."""
-    state = np.array(
-        [
-            [0.5, 0, 0, 0, 0, 0.5],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0],
-            [0.5, 0, 0, 0, 0, 0.5],
-        ]
-    )
-    # TODO
