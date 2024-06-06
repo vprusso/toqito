@@ -32,4 +32,5 @@ def completely_bounded_spectral_norm(phi: np.ndarray) -> float:
     :return: The completely bounded spectral norm of the channel
 
     """
-    return completely_bounded_trace_norm(dual_channel(phi))
+    dual_as_array = np.asarray(dual_channel(phi))
+    return completely_bounded_trace_norm.completely_bounded_trace_norm(dual_as_array)
