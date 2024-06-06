@@ -91,10 +91,6 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
 
     if min_dim == 1:
         # Every positive semidefinite matrix is separable when one of the local dimensions is 1.
-        print(
-            "Determined to be separable since every positive semidefinite matrix is separable ",
-            "when one of the local dimensions is 1.",
-        )
         return True
 
     dim = [int(x) for x in dim]
@@ -110,8 +106,6 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         # Separability criterion for density matrices.
         # Phys. Rev. Lett., 77:1413-1415, 1996.
         # Also, see Horodecki Theorem in https://arxiv.org/pdf/0811.2803.pdf.
-        print("Determined to be entangled via the PPT criterion.")
-        print("A. Peres. Separability criterion for density matrices. Phys. Rev. Lett., 77:1413-1415, 1996.")
         return False
 
     # Sometimes the PPT criterion is also sufficient for separability.
@@ -120,11 +114,6 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         # M. Horodecki, P. Horodecki, and R. Horodecki.
         # Separability of mixed states: Necessary and sufficient conditions.
         # Also, see Horodecki Theorem in https://arxiv.org/pdf/0811.2803.pdf.
-        print("Determined to be separable via sufficiency of the PPT criterion in small dimensions.")
-        print(
-            "M. Horodecki, P. Horodecki, and R. Horodecki. Separability of mixed states: ",
-            "Necessary and sufficient conditions.",
-        )
         return is_ppt_state
 
     if (
@@ -146,11 +135,6 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         # K. Chen and L.-A. Wu.
         # A matrix realignment method for recognizing entanglement.
         # Quantum Inf. Comput., 3:193-202, 2003.
-        print("Determined to be entangled via the realignment criterion.")
-        print(
-            "K. Chen and L.-A. Wu. A matrix realignment method for recognizing entanglement. ",
-            "Quantum Inf. Comput., 3:193-202, 2003.",
-        )
         return False
 
     # Another test that is strictly stronger than the realignment criterion.
@@ -161,11 +145,6 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         # C.-J. Zhang, Y.-S. Zhang, S. Zhang, and G.-C. Guo.
         # Entanglement detection beyond the cross-norm or realignment criterion.
         # Phys. Rev. A, 77:060301(R), 2008.
-        print("Determined to be entangled by using Theorem 1 of reference.")
-        print(
-            "C.-J. Zhang, Y.-S. Zhang, S. Zhang, and G.-C. Guo. Entanglement detection beyond ",
-            "the cross-norm or realignment criterion. Phys. Rev. A, 77:060301(R), 2008.",
-        )
         return False
 
     # Obtain sorted list of eigenvalues in descending order.
@@ -177,8 +156,6 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     if min_dim == 2:
         # Check if X is separable from spectrum.
         if (lam[0] - lam[2 * max_dim - 2]) ** 2 <= 4 * lam[2 * max_dim - 3] * lam[2 * max_dim - 1] + tol**2:
-            print("Determined to be separable by inspecting its eigenvalues.")
-            print("N. Johnston. Separability from spectrum for qubit-qudit states. Phys. Rev. A, 88:062330, 2013.")
             return True
 
         # For the rest of the block matrix tests, we need the 2-dimensional
@@ -191,23 +168,13 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         C = state_t[max_dim : 2 * max_dim, max_dim : 2 * max_dim]
 
         if np.linalg.matrix_rank(B - B.conj().T) <= 1 and is_ppt_state:
-            print("Determined to be separable by being a perturbed block Hankel matrix.")
-            print(
-                "R. Hildebrand. Comparison of the PPT cone and the separable cone for 2-by-n systems. http://www-ljk.imag.fr/membres/Roland.Hildebrand/coreMPseminar2005_slides.pdf"
-            )
             return True
 
         X_2n_ppt_check = np.vstack((np.hstack(((5 / 6) * A - C / 6, B)), np.hstack((B.conj().T, (5 / 6) * C - A / 6))))
         if is_positive_semidefinite(X_2n_ppt_check) and is_ppt(X_2n_ppt_check, 2, [2, max_dim]):
-            print("Determined to be separable via the homothetic images approach.")
-            print(
-                "R. Hildebrand. Comparison of the PPT cone and the separable cone for 2-by-n systems. http://www-ljk.imag.fr/membres/Roland.Hildebrand/coreMPseminar2005_slides.pdf"
-            )
             return True
 
         if np.linalg.norm(B) ** 2 <= np.min(np.real(np.linalg.eig(A))) * np.min(np.real(np.linalg.eig(C))) + tol**2:
-            print("Determined to be separable by using Lemma 1 of")
-            print("N. Johnston. Separability from spectrum for qubit-qudit states. Phys. Rev. A, 88:062330, 2013.")
             return True
 
     # For the rest of the block-matrix tests, we need the 2-dimensional subsystem to be the
@@ -289,11 +256,6 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         )
 
         condition = abs(F) < max(tol**2, eps ** (3 / 4))
-        print(f"Determined to be {'separable' if condition else 'entangled'} by checking the Chow form.")
-        print(
-            "L. Chen and D. Z. Djokovic. Separability problem for multipartite states of rank at most four. ",
-            "J. Phys. A: Math. Theor., 46:275304, 2013.",
-        )
         return condition
 
     # Check the proximity of X with the maximally mixed state.
@@ -301,11 +263,6 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         # Determined to be separable by closeness to the maximally mixed state.
         # L. Gurvits and H. Barnum. Largest separable balls around the maximally mixed bipartite quantum state.
         # Phys. Rev. A, 66:062311, 2002.
-        print("Determined to be separable by closeness to the maximally mixed state.")
-        print(
-            "L. Gurvits and H. Barnum. Largest separable balls around the maximally mixed bipartite quantum state. ",
-            "Phys. Rev. A, 66:062311, 2002.",
-        )
         return True
 
     # Check if X is a rank-1 perturbation of the identity, which is
@@ -314,14 +271,10 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         # Determined to be separable by being a small rank-1 perturbation of the maximally-mixed state.
         # G. Vidal and R. Tarrach. Robustness of entanglement.
         # Phys. Rev. A, 59:141-155, 1999.
-        print("Determined to be separable by being a small rank-1 perturbation of the maximally-mixed state.")
-        print("G. Vidal and R. Tarrach. Robustness of entanglement. Phys. Rev. A, 59:141-155, 1999.")
         return True
 
     # Check tensor rank equalling 2
     if schmidt_rank(state, dim) <= 2:
-        print("Determined to be separable by having operator Schmidt rank at most 2.")
-        print("D. Cariello. Separability for weak irreducible matrices. E-print: arXiv:1311.7275 [quant-ph], 2013.")
         return True
 
     # There is a family of known optimal positive maps in the qutrit-qutrit
@@ -342,11 +295,6 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                 Phi = np.diag([a + 1, c, b, b, a + 1, c, c, b, a + 1]) - phi * phi.conj().T
 
                 if not is_positive_semidefinite(partial_channel(state, Phi, 2, dim)):
-                    print(f"Determined to be entangled via the positive map Phi[a,b,c] with a = {a}, b = {b}, c = {c}")
-                    print(
-                        "K.-C. Ha and S.-H. Kye. Entanglement witnesses arising from exposed positive linear maps. ",
-                        "Open Systems & Information Dynamics, 18:323-337, 2011.",
-                    )
                     return False
 
     # Use the Breuer-Hall positive maps (in even dimensions only) based on
@@ -360,31 +308,9 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
             Phi = np.diag(np.ones((dim[p] ** 2, 1))) - phi * phi.conj().T - U * swap_operator(dim[p]) * U.conj().T
 
             if not is_positive_semidefinite(partial_channel(state, Phi, p + 1, dim)):
-                print(
-                    "Determined to be entangled via the Breuer-Hall positive maps based on "
-                    "antisymmetric unitary matrices."
-                )
-                print(
-                    "1. H.-P. Breuer. Optimal entanglement criterion for mixed quantum states. ",
-                    "Phys. Rev. Lett., 97:080501, 2006.",
-                )
-                print(
-                    "2. W. Hall. Constructions of indecomposable positive maps based on a new ",
-                    "criterion for indecomposability. E-print: arXiv:quant-ph/0607035, 2006.",
-                )
                 return False
 
     # The search for symmetric extensions.
     if any(has_symmetric_extension(state, level) for _ in range(1, level)):
-        print("Determined to be separable via the semidefinite program based on PPT symmetric extensions.")
-        print(
-            "M. Navascues, M. Owari, and M. B. Plenio. A complete criterion for separability detection."
-            "Phys. Rev. Lett., 103:160404, 2009."
-        )
         return True
-    print("Determined to be entangled by not having a PPT symmetric extension.")
-    print(
-        "A. C. Doherty, P. A. Parrilo, and F. M. Spedalieri. A complete family of"
-        "separability criteria. Phys. Rev. A, 69:022308, 2004."
-    )
     return False
