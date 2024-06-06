@@ -162,7 +162,8 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         # subsystem to be the *first* subsystem, so swap accordingly.
         state_t = swap(state, [1, 2], dim) if dim[0] > 2 else state
 
-        # Check if Lemma 1 of refs{13} applies to X. Also check the Hildebrand 2xn results.
+        # Check if Lemma 1 of "N. Johnston. Separability from spectrum for qubit-qudit states. Phys. Rev. A, 88:062330, 2013"
+        # applies to X. Also check the Hildebrand 2xn results.
         A = state_t[:max_dim, :max_dim]
         B = state_t[:max_dim, max_dim : 2 * max_dim]
         C = state_t[max_dim : 2 * max_dim, max_dim : 2 * max_dim]
