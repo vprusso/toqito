@@ -99,7 +99,7 @@ def diamond_norm(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
 
     constraints += [(w_var - cvxpy.kron(np.eye(dim), rho)) << 0]
 
-    j_var = cvxpy.Parameter([dim_squared, dim_squared], complex=True)
+    j_var = cvxpy.Parameter((dim_squared, dim_squared), complex=True)
     objective = cvxpy.Maximize(cvxpy.real(cvxpy.trace(j_var.H @ w_var)))
 
     problem = cvxpy.Problem(objective, constraints)
