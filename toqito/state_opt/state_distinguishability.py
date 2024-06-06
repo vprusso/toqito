@@ -215,7 +215,7 @@ def _unambiguous_primal(
 ) -> tuple[float, tuple[picos.RealVariable]]:
     """Solve the primal problem for unambiguous quantum state distinguishability SDP.
 
-    Implemented according to Equation (5) of arXiv:2402.06365.
+    Implemented according to Equation (5) of :cite:`Gupta_2024_Unambiguous`:.
     """
     n = len(vectors)
     problem = picos.Problem()
@@ -239,7 +239,7 @@ def _unambiguous_dual(
 ) -> tuple[float, tuple[picos.HermitianVariable]]:
     """Solve the dual problem for unambiguous quantum state distinguishability SDP.
 
-    Implemented according to Equation (5) of arXiv:2402.06365.
+    Implemented according to Equation (5) of :cite:`Gupta_2024_Unambiguous`.
     """
     n = len(vectors)
     problem = picos.Problem()

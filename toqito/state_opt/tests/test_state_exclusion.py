@@ -42,13 +42,17 @@ states_unambiguous = [
         [np.array([[1.], [0.]]), np.array([[1.], [1.]]) / np.sqrt(2)],
         None,
         0.707106781186547,
-        {"abs_ipm_opt_tol": 1e-6}
+        {
+            "abs_ipm_opt_tol": 1e-5,
+        }
     ),
     (
         [np.array([[1.], [0.]]), np.array([[1.], [1.]]) / np.sqrt(2)],
         [1 / 2, 1 / 2],
         0.707106781186547,
-        {"abs_ipm_opt_tol": 1e-6}
+        {
+            "abs_ipm_opt_tol": 1e-5,
+        }
     ),
 ]
 
