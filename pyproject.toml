@@ -103,3 +103,6 @@ extend-exclude = '''
 (/*.py # exclude all py files
 )
 '''
+
+[tool.mypy]
+disable_error_code = ["import-untyped"]

@@ -11,11 +11,12 @@ from toqito.perms import permute_systems, symmetric_projection
 from toqito.state_props import is_pure
 
 from toqito.matrix_props import is_density  # isort: skip
+from typing import List
 
 
 def fidelity_of_separability(
     psi: np.ndarray,
-    psi_dims: list[int],
+    psi_dims: List[int],
     k: int = 1,
     verbosity_option: int = 0,
     solver_option: str = "cvxopt",
@@ -178,7 +179,7 @@ def fidelity_of_separability(
     problem.add_constraint((picos.I(dim_r) @ sym_choi) * choi * (picos.I(dim_r) @ sym_choi) == choi)
 
     # PPT condition on Choi state
-    sys = []
+    sys = [] # type: List[int]
     for i in range(1, 1 + k):
         sys = sys + [i]
         problem.add_constraint(picos.partial_transpose(choi, sys, choi_dims) >> 0)
