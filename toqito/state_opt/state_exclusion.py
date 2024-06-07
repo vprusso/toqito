@@ -50,10 +50,10 @@ def state_exclusion(
             \begin{equation}
                 \begin{aligned}
                     \text{maximize:} \quad & \text{Tr}(Y) \\
-                    \text{subject to:} \quad & Y \leq M_1, \\
-                                             & Y \leq M_2, \\
+                    \text{subject to:} \quad & Y \preceq p_1\rho_1, \\
+                                             & Y \preceq p_2\rho_2, \\
                                              & \vdots \\
-                                             & Y \leq M_n, \\
+                                             & Y \preceq p_n\rho_n, \\
                                              & Y \in\text{Herm}(\mathcal{X}).
                 \end{aligned}
             \end{equation}
@@ -69,16 +69,16 @@ def state_exclusion(
             \text{minimize:} \quad & \text{Tr}\left(
                 \left(\sum_{i=1}^n p_i\rho_i\right)\left(\mathbb{I}-\sum_{i=1}^nM_i\right)
                 \right) \\
-            \text{subject to:} \quad & \sum_{i=1}^nM_i \geq \mathbb{I},\\
-                                     & M_1, \ldots, M_n \geq 0, \\
+            \text{subject to:} \quad & \sum_{i=1}^nM_i \preceq \mathbb{I},\\
+                                     & M_1, \ldots, M_n \succeq 0, \\
                                      & \langle M_1, \rho_1 \rangle, \ldots, \langle M_n, \rho_n \rangle =0
         \end{align*}
 
     .. math::
         \begin{align*}
             \text{maximize:} \quad & 1 - \text{Tr}(N) \\
-            \text{subject to:} \quad & a_1p_1\rho_1, \ldots, a_np_n\rho_n \geq \sum_{i=1}^np_i\rho_i - N,\\
-                                     & N \geq 0,\\
+            \text{subject to:} \quad & a_1p_1\rho_1, \ldots, a_np_n\rho_n \succeq \sum_{i=1}^np_i\rho_i - N,\\
+                                     & N \succeq 0,\\
                                      & a_1, \ldots, a_n \in\mathbb{R}
         \end{align*}
 
