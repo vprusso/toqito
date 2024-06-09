@@ -83,10 +83,9 @@ def state_exclusion(
         \end{align*}
 
 
-    .. warning::
-        Note that it only makes sense to exclude unambiguously when the pure states are linearly
-        independent. Calling this function on a set of states that doesn't verify this property will
-        return 0.
+    .. note::
+        It is known that it is always possible to perfectly exclude pure states that are linearly dependent.
+        Thus, calling this function on a set of states with this property will return 0.
 
     The conclusive state exclusion SDP is written explicitly in :cite:`Bandyopadhyay_2014_Conclusive`. The problem
     of conclusive state exclusion was also thought about under a different guise in :cite:`Pusey_2012_On`.
