@@ -103,7 +103,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     # Check the PPT criterion.
     is_ppt_state = is_ppt(state, 2, dim, tol)
     if not is_ppt_state:
-        # Determined to be entangled via the PPT criterion. See (Peres_1996_PPT).
+        # Determined to be entangled via the PPT criterion. See (Peres_1996_Separability).
         # Also, see Horodecki Theorem in (Gühne_2009_Horodecki).
         return False
 
