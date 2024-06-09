@@ -14,6 +14,8 @@ from toqito.state_props.has_symmetric_extension import has_symmetric_extension
 from toqito.state_props.schmidt_rank import schmidt_rank
 from toqito.states.max_entangled import max_entangled
 
+from itertools import product
+
 
 def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: int = 2, tol: float = 1e-8) -> bool:
     r"""Determine if a given state (given as a density matrix) is a separable state :cite:`WikiSepSt`.
@@ -195,11 +197,9 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         q = orth(state)
 
         # This loop does not access all positions in `p`, and that's expected.
-        for j in range(6, 0, -1):
-            for k in range(7, j, -1):
-                for n in range(8, k, -1):
-                    for m in range(9, n, -1):
-                        p[j - 1, k - 1, n - 1, m - 1] = np.linalg.det(q[[j - 1, k - 1, n - 1, m - 1], :])
+        for j, k, n, m in product(range(6, 0, -1), range(7, 0, -1), range(8, 0, -1), range(9, 0, -1)):
+            if j < k < n < m:
+                p[j - 1, k - 1, n - 1, m - 1] = np.linalg.det(q[[j - 1, k - 1, n - 1, m - 1], :])
 
         F = np.linalg.det(
             np.array(
@@ -315,7 +315,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
             # Determined to be entangled via the Breuer-Hall positive maps based on antisymmetric unitary matrices.
             # H.-P. Breuer. Optimal entanglement criterion for mixed quantum states. Phys. Rev. Lett., 97:080501, 2006.
             # W. Hall. Constructions of indecomposable positive maps based on a new criterion for indecomposability.
-            # E-print: arXiv:quant-ph/0607035, 2006.            
+            # E-print: arXiv:quant-ph/0607035, 2006.
             if not is_positive_semidefinite(partial_channel(state, Phi, p + 1, dim)):
                 return False
 
