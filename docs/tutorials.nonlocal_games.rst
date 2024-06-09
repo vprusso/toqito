@@ -29,8 +29,8 @@ directly calculate the classical value and also place lower bounds on the
 quantum value.
 
 Further information beyond the scope of this tutorial on nonlocal games can be
-found in [tCHTW04]_. Further information on the lower bound technique can be found in
-[tLD07]_.
+found in :cite:`Cleve_2010_Consequences`. Further information on the lower bound technique can be found in
+:cite:`Liang_2007_Bounds`.
 
 Two-player nonlocal games
 --------------------------
@@ -199,7 +199,7 @@ cases for certain nonlocal games.
 
 For an arbitrary nonlocal game, there exist approaches that place upper and
 lower bounds on the quantum value. The lower bound approach is calculated using
-the technique of semidefinite programming [tLD07]_. While this method is efficient
+the technique of semidefinite programming :cite:`Liang_2007_Bounds`. While this method is efficient
 to carry out, it does not guarantee convergence to the quantum value (although
 in certain cases, it is attained).
 
@@ -392,7 +392,7 @@ satisfied
         \end{equation}
 
 It is well-known that both the classical and quantum value of this nonlocal
-game is :math:`2/3` [tCHTW04]_. We can verify this fact using :code:`toqito`.
+game is :math:`2/3` :cite:`Cleve_2010_Consequences`. We can verify this fact using :code:`toqito`.
 The following example encodes the FFL game. We then calculate the classical
 value and calculate lower bounds on the quantum value of the FFL game.
 
@@ -453,12 +453,5 @@ for the CHSH game, that is:
 References
 ------------------------------
 
-.. [tCHTW04] Cleve, Richard, Hoyer, Peter, Toner, Benjamin, and Watrous, John
-    "Consequences and limits of nonlocal strategies"
-    Computational Complexity 2004. Proceedings. 19th IEEE Annual Conference.
-    https://arxiv.org/abs/quant-ph/0404076
-
-.. [tLD07] Liang, Yeong-Cherng, and Andrew C. Doherty.
-    "Bounds on quantum correlations in Bell-inequality experiments."
-    Physical Review A 75.4 (2007): 042103.
-    https://arxiv.org/abs/quant-ph/0608128
+.. bibliography:: 
+    :filter: docname in docnames

@@ -27,7 +27,7 @@ def permutation_operator(
     qubits
 
     .. math::
-        P_{2, [2, 1]} =
+        P_{2, [1, 0]} =
         \begin{pmatrix}
             1 & 0 & 0 & 0 \\
             0 & 0 & 1 & 0 \\
@@ -38,12 +38,11 @@ def permutation_operator(
     Using :code:`toqito`, this can be achieved in the following manner.
 
     >>> from toqito.perms import permutation_operator
-    >>> permutation_operator(2, [2, 1])
+    >>> permutation_operator(2, [1, 0])
     array([[1., 0., 0., 0.],
            [0., 0., 1., 0.],
            [0., 1., 0., 0.],
            [0., 0., 0., 1.]])
-
 
     :param dim: The dimensions of the subsystems to be permuted.
     :param perm: A permutation vector.
@@ -54,10 +53,11 @@ def permutation_operator(
     """
     # Allow the user to enter a single number for `dim`.
     if isinstance(dim, int):
-        dim = dim * np.ones(max(perm))
+        dim = [dim] * np.ones(max(perm) + 1)
     if isinstance(dim, list):
         dim = np.array(dim)
 
     mat = sp.sparse.identity(int(np.prod(dim))) if is_sparse else np.identity(int(np.prod(dim)))
     # Swap the rows of the identity matrix appropriately.
+
     return permute_systems(mat, perm, dim, True, inv_perm)

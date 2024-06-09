@@ -10,19 +10,19 @@ def test_permute_systems_vec():
     test_input_mat = np.array([1, 2, 3, 4])
     expected_res = np.array([1, 3, 2, 4])
 
-    res = permute_systems(test_input_mat, [2, 1])
+    res = permute_systems(test_input_mat, [1, 0])
 
     bool_mat = np.isclose(res, expected_res)
     np.testing.assert_equal(np.all(bool_mat), True)
 
 
 def test_permute_systems_m2_m2():
-    """Permute system for perm = [2,1] and dim = [2, 2]."""
+    """Permute system for perm = [0,1] and matrix of dimension [2, 2]."""
     test_input_mat = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
 
     expected_res = np.array([[1, 3, 2, 4], [9, 11, 10, 12], [5, 7, 6, 8], [13, 15, 14, 16]])
 
-    res = permute_systems(test_input_mat, [2, 1], [2, 2])
+    res = permute_systems(test_input_mat, [1, 0], dim=[2, 2])
 
     bool_mat = np.isclose(res, expected_res)
     np.testing.assert_equal(np.all(bool_mat), True)
@@ -34,7 +34,7 @@ def test_permute_systems_m2_m2_np_array():
 
     expected_res = np.array([[1, 3, 2, 4], [9, 11, 10, 12], [5, 7, 6, 8], [13, 15, 14, 16]])
 
-    res = permute_systems(test_input_mat, np.array([2, 1]))
+    res = permute_systems(test_input_mat, np.array([1, 0]))
 
     bool_mat = np.isclose(res, expected_res)
     np.testing.assert_equal(np.all(bool_mat), True)
@@ -68,7 +68,7 @@ def permute_systems_test_2_3_1():
         ]
     )
 
-    res = permute_systems(test_input_mat, [2, 3, 1])
+    res = permute_systems(test_input_mat, [1, 2, 0])
 
     bool_mat = np.isclose(res, expected_res)
     np.testing.assert_equal(np.all(bool_mat), True)
@@ -96,9 +96,8 @@ def test_permute_systems_16_by_16():
             [151, 152, 183, 184, 215, 216, 247, 248, 159, 160, 191, 192, 223, 224, 255, 256],
         ]
     )
-    perm = [2, 3, 1, 4]
+    perm = [1, 2, 0, 3]
     dim = [[2, 2, 2, 2], [2, 2, 2, 2]]
-
     res = permute_systems(rho, perm, dim, True, False)
     expected_res = np.array(
         [
@@ -152,7 +151,7 @@ def test_permute_systems_invalid_perm_vector():
     """Invalid input for permute systems."""
     with np.testing.assert_raises(ValueError):
         test_input_mat = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
-        permute_systems(test_input_mat, [0, 1])
+        permute_systems(test_input_mat, [-1, 0])
 
 
 def test_permute_systems_invalid_empty_input():

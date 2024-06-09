@@ -9,7 +9,7 @@ with which this problem can be solved when given access to certain
 measurements.
 
 Further information beyond the scope of this tutorial can be found in the text
-[tWatrousQI]_ as well as the course [tSikoraSDP]_.
+:cite:`Watrous_2018_TQI` as well as the course :cite:`Sikora_2019_Semidefinite`.
 
 The state distinguishability problem
 -------------------------------------
@@ -160,7 +160,7 @@ transpose).
 
 The problem of state distinguishability with respect to PPT measurements can
 also be framed as an SDP and was initially presented in this manner in
-[tCosentino13]_
+:cite:`Cosentino_2013_PPT`
 
 .. math::
 
@@ -190,7 +190,7 @@ Consider the following Bell states
         \end{aligned}
     \end{equation}
 
-It was shown in [tCosentino13]_ and later extended in [tCR13]_ that for the following set of states
+It was shown in :cite:`Cosentino_2013_PPT` and later extended in :cite:`Cosentino_2014_Small` that for the following set of states
 
 .. math::
     \begin{equation}
@@ -206,7 +206,7 @@ that the optimal probability of distinguishing via a PPT measurement should yiel
 :math:`7/8 \approx 0.875`.
 
 This ensemble of states and some of its properties with respect to
-distinguishability were initially considered in [tYDY12]_. In :code:`toqito`,
+distinguishability were initially considered in :cite:`Yu_2012_Four`. In :code:`toqito`,
 we can calculate the probability with which Bob can distinguish these states
 via PPT measurements in the following manner.
 
@@ -221,7 +221,7 @@ via PPT measurements in the following manner.
     >>> psi_2 = bell(3)
     >>> psi_3 = bell(1)
     >>>
-    >>> # YDY vectors from [tYDY12]_:
+    >>> # YDY vectors from :cite:`Yu_2012_Four`:
     >>> x_1 = np.kron(psi_0, psi_0)
     >>> x_2 = np.kron(psi_1, psi_3)
     >>> x_3 = np.kron(psi_2, psi_3)
@@ -252,37 +252,41 @@ As previously mentioned, optimizing over the set of separable measurements is
 NP-hard. However, there does exist a hierarchy of semidefinite programs which
 eventually does converge to the separable value. This hierarchy is based off
 the notion of symmetric extensions. More information about this hierarchy of
-SDPs can be found here [tNav08]_.
+SDPs can be found here :cite:`Navascues_2008_Pure`.
 
 References
 ------------------------------
-.. [tWatrousQI] Watrous, John
-    "The theory of quantum information"
-    Section: "A semidefinite program for optimal measurements"
-    Cambridge University Press, 2018
 
-.. [tNav08] Navascués, Miguel.
-    "Pure state estimation and the characterization of entanglement."
-    Physical review letters 100.7 (2008): 070503.
-    https://arxiv.org/abs/0707.4398
+.. bibliography:: 
+    :filter: docname in docnames
 
-.. [tSikoraSDP] Sikora, Jamie
-    "Semidefinite programming in quantum theory (lecture series)"
-    Lecture 2: Semidefinite programs for nice problems and popular functions
-    Perimeter Institute for Theoretical Physics, 2019
+.. .. [tWatrousQI] Watrous, John
+..     "The theory of quantum information"
+..     Section: "A semidefinite program for optimal measurements"
+..     Cambridge University Press, 2018
 
-.. [tCosentino13] Cosentino, Alessandro,
-    "Positive-partial-transpose-indistinguishable states via semidefinite programming",
-    Physical Review A 87.1 (2013): 012321.
-    https://arxiv.org/abs/1205.1031
+.. .. [tNav08] Navascués, Miguel.
+..     "Pure state estimation and the characterization of entanglement."
+..     Physical review letters 100.7 (2008): 070503.
+..     https://arxiv.org/abs/0707.4398
 
-.. [tCR13] Cosentino, Alessandro and Russo, Vincent
-    "Small sets of locally indistinguishable orthogonal maximally entangled states",
-    Quantum Information & Computation, Volume 14, 
-    https://arxiv.org/abs/1307.3232
+.. .. [tSikoraSDP] Sikora, Jamie
+..     "Semidefinite programming in quantum theory (lecture series)"
+..     Lecture 2: Semidefinite programs for nice problems and popular functions
+..     Perimeter Institute for Theoretical Physics, 2019
 
-.. [tYDY12] Yu, Nengkun, Runyao Duan, and Mingsheng Ying.
-    "Four locally indistinguishable ququad-ququad orthogonal
-    maximally entangled states."
-    Physical review letters 109.2 (2012): 020506.
-    https://arxiv.org/abs/1107.3224
+.. .. [tCosentino13] Cosentino, Alessandro,
+..     "Positive-partial-transpose-indistinguishable states via semidefinite programming",
+..     Physical Review A 87.1 (2013): 012321.
+..     https://arxiv.org/abs/1205.1031
+
+.. .. [tCR13] Cosentino, Alessandro and Russo, Vincent
+..     "Small sets of locally indistinguishable orthogonal maximally entangled states",
+..     Quantum Information & Computation, Volume 14, 
+..     https://arxiv.org/abs/1307.3232
+
+.. .. [tYDY12] Yu, Nengkun, Runyao Duan, and Mingsheng Ying.
+..     "Four locally indistinguishable ququad-ququad orthogonal
+..     maximally entangled states."
+..     Physical review letters 109.2 (2012): 020506.
+..     https://arxiv.org/abs/1107.3224

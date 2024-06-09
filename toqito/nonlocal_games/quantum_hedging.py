@@ -90,8 +90,8 @@ class QuantumHedging:
         # action:
         #   π(y1 ⊗ y2 ⊗ x1 ⊗ x2) = y1 ⊗ x1 ⊗ y2 ⊗ x2
         # for all y1 ∈ Y1, y2 ∈ Y2, x1 ∈ X1, x2 ∈ X2.).
-        l_1 = list(range(1, self._num_reps + 1))
-        l_2 = list(range(self._num_reps + 1, self._num_reps**2 + 1))
+        l_1 = list(range(self._num_reps ))
+        l_2 = list(range(self._num_reps , self._num_reps**2 ))
         if self._num_reps == 1:
             self._pperm = np.array([1])
         else:
