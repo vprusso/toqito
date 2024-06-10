@@ -1,6 +1,7 @@
 """Test is_separable."""
 
 import numpy as np
+import pytest
 
 from toqito.channels import partial_trace
 from toqito.matrix_props import is_density
@@ -90,3 +91,96 @@ def test_entangled_cross_norm_realignment_criterion():
         ]
     )
     np.testing.assert_equal(is_separable(rho), False)
+
+
+def test_separable_closeness_to_maximally_mixed_state():
+    """Determined to be separable by closeness to the maximally mixed state."""
+    rho = np.array(
+        [
+            [4, 1, 1, 1, 0, 0, 0, 0, 0],
+            [1, 4, 1, 1, 0, 0, 0, 0, 0],
+            [1, 1, 4, 1, 0, 0, 0, 0, 0],
+            [1, 1, 1, 4, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 4, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 4, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 4, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 4, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 4],
+        ]
+    )
+    rho = rho / np.trace(rho)
+    np.testing.assert_equal(is_separable(rho), True)
+
+
+def test_separable_small_rank1_perturbation_of_maximally_mixed_state():
+    """Determined to be separable by being a small rank-1 perturbation of the maximally-mixed state."""
+    rho = np.array(
+        [
+            [4, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 4, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 4, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 4, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 4, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 4, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 4, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 4, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 4],
+        ]
+    )
+    rho = rho / np.trace(rho)
+    np.testing.assert_equal(is_separable(rho), True)
+
+
+def test_separable_schmidt_rank():
+    """Determined to be separable by having operator Schmidt rank at most 2."""
+    rho = np.array(
+        [
+            [0.25, 0.15, 0.1, 0.15, 0.09, 0.06, 0.1, 0.06, 0.04],
+            [0.15, 0.2, 0.05, 0.09, 0.12, 0.03, 0.06, 0.08, 0.02],
+            [0.1, 0.05, 0.05, 0.06, 0.03, 0.03, 0.04, 0.02, 0.02],
+            [0.15, 0.09, 0.06, 0.2, 0.12, 0.08, 0.05, 0.03, 0.02],
+            [0.09, 0.12, 0.03, 0.12, 0.16, 0.04, 0.03, 0.04, 0.01],
+            [0.06, 0.03, 0.03, 0.08, 0.04, 0.04, 0.02, 0.01, 0.01],
+            [0.1, 0.06, 0.04, 0.05, 0.03, 0.02, 0.05, 0.03, 0.02],
+            [0.06, 0.08, 0.02, 0.03, 0.04, 0.01, 0.03, 0.04, 0.01],
+            [0.04, 0.02, 0.02, 0.02, 0.01, 0.01, 0.02, 0.01, 0.01],
+        ]
+    )
+    rho = rho / np.trace(rho)
+    np.testing.assert_equal(is_separable(rho), True)
+
+
+def test_entangled_symmetric_extension():
+    """Determined to be entangled by not having a PPT symmetric extension."""
+    # This matrix is obtained by using the `rho` from `test_separable_schmidt_rank`
+    # and finding the nearest PSD matrix to it. See https://stackoverflow.com/a/18542094.
+    rho = np.array(
+        [
+            [1.0, 0.67, 0.91, 0.67, 0.45, 0.61, 0.88, 0.59, 0.79],
+            [0.67, 1.0, 0.5, 0.45, 0.67, 0.34, 0.59, 0.88, 0.44],
+            [0.91, 0.5, 1.0, 0.61, 0.34, 0.68, 0.81, 0.44, 0.88],
+            [0.67, 0.45, 0.61, 1.0, 0.67, 0.91, 0.5, 0.33, 0.45],
+            [0.45, 0.67, 0.34, 0.67, 1.0, 0.5, 0.33, 0.5, 0.25],
+            [0.61, 0.34, 0.68, 0.91, 0.5, 1.0, 0.45, 0.26, 0.5],
+            [0.88, 0.59, 0.81, 0.5, 0.33, 0.45, 1.0, 0.66, 0.91],
+            [0.59, 0.88, 0.44, 0.33, 0.5, 0.26, 0.66, 1.0, 0.48],
+            [0.79, 0.44, 0.88, 0.45, 0.25, 0.5, 0.91, 0.48, 1.0],
+        ]
+    )
+    rho = rho / np.trace(rho)
+    np.testing.assert_equal(is_separable(rho), False)
+
+
+def test_separable_based_on_eigenvalues():
+    """Determined to be separable by inspecting its eigenvalues. See Lemma 1 of :cite:`Johnston_2013_Spectrum`."""
+    # Although this matrix, taken from the above paper, satisfies the eigenvalues condition,
+    # this returns True from a line above the eigenvalues condition.
+    rho = np.array(
+        [
+            [4 / 22, 2 / 22, -2 / 22, 2 / 22],
+            [2 / 22, 7 / 22, -2 / 22, -1 / 22],
+            [-2 / 22, -2 / 22, 4 / 22, -2 / 22],
+            [2 / 22, -1 / 22, -2 / 22, 7 / 22],
+        ]
+    )
+    np.testing.assert_equal(is_separable(rho), True)
