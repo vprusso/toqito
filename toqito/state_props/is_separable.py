@@ -1,5 +1,7 @@
 """Check if state is separable."""
 
+from itertools import product
+
 import numpy as np
 from scipy.linalg import orth
 
@@ -13,8 +15,6 @@ from toqito.state_props import in_separable_ball, is_ppt
 from toqito.state_props.has_symmetric_extension import has_symmetric_extension
 from toqito.state_props.schmidt_rank import schmidt_rank
 from toqito.states.max_entangled import max_entangled
-
-from itertools import product
 
 
 def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: int = 2, tol: float = 1e-8) -> bool:
