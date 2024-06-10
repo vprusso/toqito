@@ -25,10 +25,10 @@ def ppt_distinguishability(
 
     One can specify the distinguishability method using the :code:`dist_method` argument.
 
-    For :code:`dist_method = "min-error"`, this is the default method that yields the probability of
+    For :code:`dist_method = "min_error"`, this is the default method that yields the probability of
     distinguishing quantum states via PPT measurements that minimize the probability of error.
 
-    For :code:`dist_method = "unambiguous"`, Alice and Bob never provide an incorrect answer,
+    For :code:`dist_method = "unambig"`, Alice and Bob never provide an incorrect answer,
     although it is possible that their answer is inconclusive.
 
     For more info, go to the tutorial in the documentation :ref:`ref-label-state-dist-ppt`.

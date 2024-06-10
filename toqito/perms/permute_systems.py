@@ -36,7 +36,7 @@ def permute_systems(
 
     For spaces :math:`\mathcal{A}` and :math:`\mathcal{B}` where :math:`\text{dim}(\mathcal{A}) =
     \text{dim}(\mathcal{B}) = 2` we may consider an operator :math:`X \in \mathcal{A} \otimes \mathcal{B}`. Applying the
-    `permute_systems` function with vector :math:`[2,1]` on :math:`X`, we may reorient the spaces such that :math:`X \in
+    `permute_systems` function with vector :math:`[1,0]` on :math:`X`, we may reorient the spaces such that :math:`X \in
     \mathcal{B} \otimes \mathcal{A}`.
 
     For example, if we define :math:`X \in \mathcal{A} \otimes \mathcal{B}` as
@@ -53,7 +53,7 @@ def permute_systems(
     yield the following matrix
 
     .. math::
-        X_{[2,1]} = \begin{pmatrix}
+        X_{[1,0]} = \begin{pmatrix}
             1 & 3 & 2 & 4 \\
             9 & 11 & 10 & 12 \\
             5 & 7 & 6 & 8 \\
@@ -63,7 +63,7 @@ def permute_systems(
     >>> from toqito.perms import permute_systems
     >>> import numpy as np
     >>> test_input_mat = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
-    >>> permute_systems(test_input_mat, [2, 1])
+    >>> permute_systems(test_input_mat, [1, 0])
     array([[ 1,  3,  2,  4],
            [ 9, 11, 10, 12],
            [ 5,  7,  6,  8],
@@ -71,7 +71,7 @@ def permute_systems(
 
     For spaces :math:`\mathcal{A}, \mathcal{B}`, and :math:`\mathcal{C}` where :math:`\text{dim}(\mathcal{A}) =
     \text{dim}(\mathcal{B}) = \text{dim}(\mathcal{C}) = 2` we may consider an operator :math:`X \in \mathcal{A} \otimes
-    \mathcal{B} \otimes \mathcal{C}`. Applying the :code:`permute_systems` function with vector :math:`[2,3,1]` on
+    \mathcal{B} \otimes \mathcal{C}`. Applying the :code:`permute_systems` function with vector :math:`[1,2,0]` on
     :math:`X`, we may reorient the spaces such that :math:`X \in \mathcal{B} \otimes \mathcal{C} \otimes \mathcal{A}`.
 
     For example, if we define :math:`X \in \mathcal{A} \otimes \mathcal{B} \otimes \mathcal{C}` as
@@ -93,7 +93,7 @@ def permute_systems(
     \otimes \mathcal{C}` yield the following matrix
 
     .. math::
-        X_{[2, 3, 1]} =
+        X_{[1, 2, 0]} =
         \begin{pmatrix}
             1 & 5 & 2 & 6 & 3 & 7 & 4, 8 \\
             33 & 37 & 34 & 38 & 35 & 39 & 36 & 40 \\
@@ -119,7 +119,7 @@ def permute_systems(
     ...        [57, 58, 59, 60, 61, 62, 63, 64],
     ...    ]
     ... )
-    >>> permute_systems(test_input_mat, [2, 3, 1])
+    >>> permute_systems(test_input_mat, [1, 2, 0])
     array([[ 1,  5,  2,  6,  3,  7,  4,  8],
            [33, 37, 34, 38, 35, 39, 36, 40],
            [ 9, 13, 10, 14, 11, 15, 12, 16],
@@ -144,6 +144,7 @@ def permute_systems(
         input_mat_dims = (1, input_mat.shape[0])
     else:
         input_mat_dims = input_mat.shape
+
 
     is_vec = np.min(input_mat_dims) == 1
     num_sys = len(perm)
@@ -176,7 +177,7 @@ def permute_systems(
     prod_dim_r = int(np.prod(dim[0, :]))
     prod_dim_c = int(np.prod(dim[1, :]))
 
-    if sorted(perm) != list(range(1, num_sys + 1)):
+    if sorted(perm) != list(range(num_sys )):
         raise ValueError("InvalidPerm: `perm` must be a permutation vector.")
     if input_mat_dims[0] != prod_dim_r or (not row_only and input_mat_dims[1] != prod_dim_c):
         raise ValueError("InvalidDim: The dimensions specified in DIM do not agree with the size of X.")
@@ -185,6 +186,10 @@ def permute_systems(
         if input_mat.shape[0] == 1:
             input_mat = input_mat[0]
             vec_orien = 1
+        # Rather than using subtraction to generate new indices,
+        # it's better to use methods designed for handling permutations directly.
+        # This avoids the risk of negative indices and is more straightforward.
+        num_sys -= 1 # 0-indexing (Since we're using 0-indexing, we need to subtract 1 from the number of subsystems.)
         permuted_mat_1 = input_mat.reshape(dim[vec_orien, ::-1].astype(int), order="F")
         if inv_perm:
             permuted_mat = vec(np.transpose(permuted_mat_1, np.argsort(num_sys - np.array(perm[::-1])))).T

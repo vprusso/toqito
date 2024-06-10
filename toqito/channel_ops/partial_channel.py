@@ -182,7 +182,7 @@ def partial_channel(
 
         phi_map = permute_systems(
             np.kron(np.kron(psi_r1 * psi_c1.conj().T, phi_map), psi_r2 * psi_c2.conj().T),
-            [1, 3, 5, 2, 4, 6],
+            [0, 2, 4, 1, 3, 5],
             dim,
         )
 

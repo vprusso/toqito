@@ -14,7 +14,7 @@ documentation page, and more specifically the function `xor\_game\_value
 
 Further information beyond the scope of this tutorial on the notion of XOR
 games along with the method of computing their quantum value may be found in
-[tCSUU08]_.
+:cite:`Cleve_2008_Strong`.
 
 Two-player XOR games
 --------------------
@@ -391,8 +391,6 @@ for every XOR game :math:`G`.
 References
 ------------------------------
 
-.. [tCSUU08] Cleve, Richard, Slofstra, William, Unger, Falk, and Upadhyay, Sarvagya
-    "Perfect parallel repetition theorem for quantum XOR proof systems"
-    Computational Complexity 17.2 (2008): 282-299.
-    https://arxiv.org/abs/quant-ph/0608146
+.. bibliography:: 
+    :filter: docname in docnames
 

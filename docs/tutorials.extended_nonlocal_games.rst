@@ -14,12 +14,12 @@ resources. We will be using :code:`toqito` to calculate these quantities.
 
 We will also look at existing results in the literature on these values and be
 able to replicate them using :code:`toqito`. Much of the written content in
-this tutorial will be directly taken from [tRusso17]_.
+this tutorial will be directly taken from :cite:`Russo_2017_Extended`.
 
 Extended nonlocal games have a natural physical interpretation in the setting
-of tripartite steering [tCSAN15]_ and in device-independent quantum scenarios [tTFKW13]_. For
-more information on extended nonlocal games, please refer to [tJMRW16]_ and
-[tRusso17]_.
+of tripartite steering :cite:`Cavalcanti_2015_Detection` and in device-independent quantum scenarios :cite:`Tomamichel_2013_AMonogamy`. For
+more information on extended nonlocal games, please refer to :cite:`Johnston_2016_Extended` and
+:cite:`Russo_2017_Extended`.
 
 The extended nonlocal game model
 --------------------------------
@@ -305,7 +305,7 @@ arrays where :code:`prob_mat` corresponds to the probability distribution
 The unentangled value of the BB84 extended nonlocal game
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-It was shown in [tTFKW13]_ and [tJMRW16]_ that
+It was shown in :cite:`Tomamichel_2013_AMonogamy` and :cite:`Johnston_2016_Extended` that
 
 .. math::
     \omega(G_{BB84}) = \cos^2(\pi/8).
@@ -356,7 +356,7 @@ example of two parallel repetitions for the BB84 game.
         `float` output to a certain amount of precision such that the value deviates after a few digits
         of accuracy.
 
-It was shown in [tJMRW16]_ that the BB84 game possesses the property of strong
+It was shown in :cite:`Johnston_2016_Extended` that the BB84 game possesses the property of strong
 parallel repetition. That is,
 
 .. math::
@@ -390,7 +390,7 @@ using :code:`toqito` as well.
         `float` output to a certain amount of precision such that the value deviates after a few digits
         of accuracy.
 
-From [tJMRW16]_, it is known that :math:`\omega(G_{BB84}) =
+From :cite:`Johnston_2016_Extended`, it is known that :math:`\omega(G_{BB84}) =
 \omega^*(G_{BB84})`, however, if we did not know this beforehand, we could
 attempt to calculate upper bounds on the standard quantum value. 
 
@@ -430,7 +430,7 @@ So we have the relationship that
     \omega(G_{BB84}) = \omega^*(G_{BB84}) = \omega_{ns}(G_{BB84}) = \cos^2(\pi/8).
 
 It turns out that strong parallel repetition does *not* hold in the
-non-signaling scenario for the BB84 game. This was shown in [tRusso17]_, and we
+non-signaling scenario for the BB84 game. This was shown in :cite:`Russo_2017_Extended`, and we
 can observe this by the following snippet.
 
 .. code-block:: python
@@ -787,27 +787,10 @@ but the value of such a strategy is bounded as follows
 
     2/3 \geq \omega^*(G) \geq 0.6609.
 
-For further information on the :math:`G_{MUB}` game, consult [tRusso17]_.
+For further information on the :math:`G_{MUB}` game, consult :cite:`Russo_2017_Extended`.
 
 References
 ------------------------------
 
-.. [tJMRW16] Johnston, Nathaniel, Mittal, Rajat, Russo, Vincent, Watrous, John
-    "Extended non-local games and monogamy-of-entanglement games"
-    Proceedings of the Royal Society A: Mathematical, Physical and Engineering Sciences 472.2189 (2016),
-    https://arxiv.org/abs/1510.02083
-
-.. [tCSAN15] Cavalcanti, Daniel, Skrzypczyk, Paul, Aguilar, Gregory, Nery, Ranieri
-    "Detection of entanglement in asymmetric quantum networks and multipartite quantum steering"
-    Nature Communications, 6(7941), 2015
-    https://arxiv.org/abs/1412.7730
-
-.. [tTFKW13] Tomamichel, Marco, Fehr, Serge, Kaniewski, Jkedrzej, and Wehner, Stephanie.
-    "A Monogamy-of-Entanglement Game With Applications to Device-Independent Quantum Cryptography"
-    New Journal of Physics 15.10 (2013): 103002,
-    https://arxiv.org/abs/1210.4359
-
-.. [tRusso17] Russo, Vincent
-    "Extended nonlocal games"
-    https://arxiv.org/abs/1704.07375
-
+.. bibliography:: 
+    :filter: docname in docnames
