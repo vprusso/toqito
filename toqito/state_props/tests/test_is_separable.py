@@ -108,6 +108,7 @@ def test_separable_closeness_to_maximally_mixed_state():
             [0, 0, 0, 0, 0, 0, 0, 0, 4],
         ]
     )
+    rho = rho / np.trace(rho)
     np.testing.assert_equal(is_separable(rho), True)
 
 
@@ -126,6 +127,7 @@ def test_separable_small_rank1_perturbation_of_maximally_mixed_state():
             [1, 1, 1, 1, 1, 1, 1, 1, 4],
         ]
     )
+    rho = rho / np.trace(rho)
     np.testing.assert_equal(is_separable(rho), True)
 
 
@@ -144,6 +146,7 @@ def test_separable_schmidt_rank():
             [0.04, 0.02, 0.02, 0.02, 0.01, 0.01, 0.02, 0.01, 0.01],
         ]
     )
+    rho = rho / np.trace(rho)
     np.testing.assert_equal(is_separable(rho), True)
 
 
@@ -164,7 +167,7 @@ def test_entangled_symmetric_extension():
             [0.79, 0.44, 0.88, 0.45, 0.25, 0.5, 0.91, 0.48, 1.0],
         ]
     )
-
+    rho = rho / np.trace(rho)
     np.testing.assert_equal(is_separable(rho), False)
 
 
