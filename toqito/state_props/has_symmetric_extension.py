@@ -5,10 +5,7 @@ from picos import partial_trace
 
 from toqito.matrix_props import is_positive_semidefinite
 from toqito.state_opt.symmetric_extension_hierarchy import symmetric_extension_hierarchy
-
-# The full import path was specified here because the doctest workflow was failing when the above function could not be
-# imported https://github.com/vprusso/toqito/issues/473
-from toqito.state_props import is_ppt
+from toqito.state_props.is_ppt import is_ppt
 
 
 def has_symmetric_extension(
@@ -72,7 +69,7 @@ def has_symmetric_extension(
         \sigma = \rho \otimes \rho.
 
     As the state :math:`\sigma` is entangled, there should not exist a symmetric extension at some
-    level. We see this being the case for a relatively low level of the hierachy.
+    level. We see this being the case for a relatively low level of the hierarchy.
 
     >>> import numpy as np
     >>> from toqito.states import bell
