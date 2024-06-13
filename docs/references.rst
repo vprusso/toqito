@@ -1,11 +1,6 @@
 References
 ==========
 .. rubric:: Articles
-.. bibliography:: articles.bib
-    :all:
-    :list: enumerated
-
-.. rubric:: Books
-.. bibliography:: books.bib
+.. bibliography:: refs.bib
     :all:
     :list: enumerated
