@@ -139,8 +139,7 @@ in `Code Style`_. A standard format for :code:`toqito` docstring is provided bel
 Use :code:`.. math::` mode for equations and use use :code:`:cite:some_ref` for some reference in the docstring. 
 
 To add an attribution to a paper or a book, add your reference with :code:`some_ref` as the citation key to 
-`articles.bib <https://github.com/vprusso/toqito/blob/8606650b98608330c8b89414f7fb641992517ee4/docs/articles.bib>`_
-or `books.bib <https://github.com/vprusso/toqito/blob/8606650b98608330c8b89414f7fb641992517ee4/docs/books.bib>`_.
+`refs.bib`.
 
 Following is used in a docstring for the references to show up in the documentation build. ::
 
