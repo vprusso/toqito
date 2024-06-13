@@ -13,7 +13,7 @@ def cvx_kron(expr_1: np.ndarray | Expression, expr_2: np.ndarray | Expression) -
 
     At most one of :code:`expr_1` and :code:`b` may be CVXPY Variable objects.
 
-    Kudos to Riley J. Murray for this function :cite:`Riley_2022_CVXPYKron`
+    Kudos to Riley J. Murray for this function https://github.com/cvxpy/cvxpy/issues/457#issue-309891424
 
     References
     ==========
