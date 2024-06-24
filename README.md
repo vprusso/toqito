@@ -120,6 +120,9 @@ A BibTeX entry that you can use to cite `toqito` is provided here:
 
 The `toqito` project has been used or referenced in the following works:
 
+- [![a](https://img.shields.io/static/v1?label=arXiv&message=2406.13430&color=inactive&style=flat-square)](https://arxiv.org/abs/2406.13430) Bandyopadhyay, Somshubhro and Russo, Vincent
+"Distinguishing a maximally entangled basis using LOCC and shared entanglement", (2024).
+
 - [![a](https://img.shields.io/static/v1?label=arXiv&message=2307.2551&color=inactive&style=flat-square)](https://arxiv.org/abs/2307.02551) Tavakoli, Armin and Pozas-Kerstjens, Alejandro and Brown, Peter and Araújo, Mateus
 "Semidefinite programming relaxations for quantum correlations", (2023).
 
@@ -130,7 +133,7 @@ The `toqito` project has been used or referenced in the following works:
 "Probing Quantum Telecloning on Superconducting Quantum Processors", (2023).
  
 - [![a](https://img.shields.io/static/v1?label=arXiv&message=2303.07911&color=inactive&style=flat-square)](https://arxiv.org/abs/2303.07911) Philip, Aby and Rethinasamy, Soorya and Russo, Vincent and Wilde, Mark. 
-"Quantum Steering Algorithm for Estimating Fidelity of Separability.", (2023).
+"Quantum Steering Algorithm for Estimating Fidelity of Separability.", Quantum 8, 1366, (2023).
 
 - [![a](https://img.shields.io/static/v1?label=arXiv&message=2302.09401&color=inactive&style=flat-square)](https://arxiv.org/abs/2302.09401) Miszczak, Jarosław Adam. 
 "Symbolic quantum programming for supporting applications of quantum computing technologies.", (2023).
