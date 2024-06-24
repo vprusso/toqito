@@ -1,15 +1,14 @@
 """GHZ state."""
 
 import numpy as np
-from scipy import sparse
 
 
-def ghz(dim: int, num_qubits: int, coeff: list[int] = None) -> sparse.lil_array:
+def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray:
     r"""Generate a (generalized) GHZ state :cite:`Greenberger_2007_Going`.
 
     Returns a :code:`num_qubits`-partite GHZ state acting on :code:`dim` local dimensions, described
     in :cite:`Greenberger_2007_Going`. For example, :code:`ghz(2, 3)` returns the standard 3-qubit GHZ state on qubits.
-    The output of this function is sparse.
+    The output of this function is a dense NumPy array.
 
     For a system of :code:`num_qubits` qubits (i.e., :code:`dim = 2`), the GHZ state can be written
     as
@@ -29,7 +28,7 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] = None) -> sparse.lil_array:
     Using :code:`toqito`, we can see that this yields the proper state.
 
     >>> from toqito.states import ghz
-    >>> ghz(2, 3).toarray()
+    >>> ghz(2, 3)
     array([[0.70710678],
            [0.        ],
            [0.        ],
@@ -50,7 +49,7 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] = None) -> sparse.lil_array:
 
     >>> from toqito.states import ghz
     >>> import numpy as np
-    >>> ghz(4, 7, np.array([1, 2, 3, 4]) / np.sqrt(30)).toarray()
+    >>> ghz(4, 7, np.array([1, 2, 3, 4]) / np.sqrt(30))
     array([[0.18257419],
            [0.        ],
            [0.        ],
@@ -85,13 +84,12 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] = None) -> sparse.lil_array:
     if len(coeff) != dim:
         raise ValueError("InvalidCoeff: The variable `coeff` must be a vector of length equal to `dim`.")
 
-    # Construct the state (and do it in a way that is less memory-intensive
-    # than naively tensoring things together.
-    dim_sum = 1
-    for i in range(1, num_qubits):
-        dim_sum += dim**i
+    # Initialize the GHZ state vector.
+    ret_ghz_state = np.zeros((dim**num_qubits, 1))
 
-    ret_ghz_state = sparse.lil_array((dim**num_qubits, 1))
-    for i in range(1, dim + 1):
-        ret_ghz_state[(i - 1) * dim_sum] = coeff[i - 1]
+    # Fill the GHZ state vector with the appropriate coefficients.
+    for i in range(dim):
+        index = sum(i * dim**k for k in range(num_qubits))
+        ret_ghz_state[index] = coeff[i]
+
     return ret_ghz_state

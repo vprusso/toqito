@@ -138,7 +138,7 @@ is a well-known 3-qubit quantum state. We can invoke this using :code:`toqito` a
 .. code-block:: python
 
     >>> from toqito.states import ghz
-    >>> ghz(2, 3).toarray()
+    >>> ghz(2, 3)
     array([[0.70710678],
            [0.        ],
            [0.        ],
@@ -169,7 +169,7 @@ state.
 .. code-block:: python
 
     >>> from toqito.states import ghz
-    >>> ghz(4, 7, np.array([1, 2, 3, 4]) / np.sqrt(30)).toarray()
+    >>> ghz(4, 7, np.array([1, 2, 3, 4]) / np.sqrt(30))
     array([[0.18257419],
            [0.        ],
            [0.        ],
