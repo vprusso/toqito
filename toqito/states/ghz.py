@@ -86,7 +86,7 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray
 
     # Initialize the GHZ state vector.
     ret_ghz_state = np.zeros((dim**num_qubits, 1))
-    
+
     # Fill the GHZ state vector with the appropriate coefficients.
     for i in range(dim):
         index = sum(i * dim**k for k in range(num_qubits))
