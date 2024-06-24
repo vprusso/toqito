@@ -19,7 +19,7 @@ ghz_2_3 = 1 / np.sqrt(2) * (tensor(e_0, e_0, e_0) + tensor(e_1, e_1, e_1))
 )
 def test_ghz(dim, num_qubits, coeff, expected_res):
     """Test function works as expected for a valid input."""
-    res = ghz(dim, num_qubits, coeff).toarray()
+    res = ghz(dim, num_qubits, coeff)
     np.testing.assert_allclose(res, expected_res)
 
 
@@ -44,7 +44,7 @@ def test_ghz_4_7():
         )
     )
 
-    res = ghz(4, 7, np.array([1, 2, 3, 4]) / np.sqrt(30)).toarray()
+    res = ghz(4, 7, np.array([1, 2, 3, 4]) / np.sqrt(30))
     np.testing.assert_allclose(res, expected_res)
 
 
