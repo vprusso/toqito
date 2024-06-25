@@ -117,3 +117,19 @@ def test_symmetric_projection_dim_4_pval_2_partial_true():
 
     bool_mat = np.isclose(res @ res.conj().T, expected_res)
     np.testing.assert_equal(np.all(bool_mat), True)
+
+
+def test_symmetric_projection_invalid_dim():
+    """Test for invalid dimension."""
+    try:
+        symmetric_projection(dim=0, p_val=2)
+    except ValueError as e:
+        assert str(e) == "InvalidDim: `dim` must be at least 1."
+
+
+def test_symmetric_projection_invalid_pval():
+    """Test for invalid p_val."""
+    try:
+        symmetric_projection(dim=2, p_val=0)
+    except ValueError as e:
+        assert str(e) == "InvalidPVal: `p_val` must be at least 1."

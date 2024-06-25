@@ -4,12 +4,12 @@ import math
 from itertools import permutations
 
 import numpy as np
-import scipy
+from scipy.linalg import orth
 
 from toqito.perms import permutation_operator
 
 
-def symmetric_projection(dim: int, p_val: int = 2, partial: bool = False) -> [np.ndarray, scipy.sparse.lil_array]:
+def symmetric_projection(dim: int, p_val: int = 2, partial: bool = False) -> np.ndarray:
     r"""Produce the projection onto the symmetric subspace :cite:`Chen_2014_Symmetric`.
 
     For a complex Euclidean space :math:`\mathcal{X}` and a positive integer :math:`n`, the projection onto the
@@ -76,19 +76,25 @@ def symmetric_projection(dim: int, p_val: int = 2, partial: bool = False) -> [np
     :return: Projection onto the symmetric subspace.
 
     """
-    dimp = dim**p_val
+    if dim < 1:
+        raise ValueError("InvalidDim: `dim` must be at least 1.")
+    if p_val < 1:
+        raise ValueError("InvalidPVal: `p_val` must be at least 1.")
+
+    dimp = dim ** p_val
 
     if p_val == 1:
         return np.eye(dim)
 
-    p_list = np.array(list(permutations(np.arange(p_val ))))
+    p_list = np.array(list(permutations(np.arange(p_val))))
     p_fac = math.factorial(p_val)
     sym_proj = np.zeros((dimp, dimp))
 
-    for j in range(p_fac):
-        sym_proj += permutation_operator(dim * np.ones(p_val), p_list[j, :], False, True)
-    sym_proj = sym_proj / p_fac
+    for perm in p_list:
+        sym_proj += permutation_operator(dim * np.ones(p_val), perm, False, True)
+    sym_proj /= p_fac
 
     if partial:
-        sym_proj = scipy.linalg.orth(sym_proj)
+        sym_proj = orth(sym_proj)
+
     return sym_proj
