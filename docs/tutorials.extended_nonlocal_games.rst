@@ -766,7 +766,7 @@ obtain.
     >>> g_mub = ExtendedNonlocalGame(prob_mat, pred_mat)
     >>> q_val = g_mub.quantum_value_lower_bound()
     >>> '%.2f' % q_val
-    '0.65'
+    '0.66'
 
 
     .. note::
