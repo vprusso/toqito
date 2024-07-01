@@ -20,7 +20,13 @@ pure_vec = -1 / np.sqrt(2) * np.array([[1], [0], [1], [0]])
     "test_input, expected_u_mat, expected_vt_mat, expected_singular_vals, reconstruct",
     [
         # Schmidt decomposition of the 3-D maximally entangled state
-        (max_entangled(3), np.identity(3), np.identity(3), 1 / np.sqrt(3) * np.array([[1], [1], [1]]), False),
+        (
+            max_entangled(3),
+            np.identity(3),
+            np.identity(3),
+            1 / np.sqrt(3) * np.array([[1], [1], [1]]),
+            False
+        ),
         # Schmidt decomposition of two-qubit state. The Schmidt decomposition of | phi > = 1/2(|00> + |01> + |10> +
         # |11>) is the state |+>|+> where |+> = 1/sqrt(2) * (|0> + |1>).
         (
@@ -34,7 +40,8 @@ pure_vec = -1 / np.sqrt(2) * np.array([[1], [0], [1], [0]])
         # |11>) is the state 1/sqrt(2) * (|0>|+> + |1>|->).
         (
             phi2,
-            np.array([[-1, -1], [-1, 1]]),
+            #np.array([[-1, -1], [-1, 1]]),
+            np.array([[-1, 0], [0, -1]]),
             1 / np.sqrt(2) * np.array([[-1, -1], [-1, 1]]),
             1 / np.sqrt(2) * np.array([[1], [1]]),
             True,
@@ -70,9 +77,10 @@ def test_schmidt_decomposition_no_input_dim(
 ):
     """Test function works as expected for valid inputs."""
     calculated_singular_vals, calculated_u_mat, calculated_vt_mat = schmidt_decomposition(test_input)
-    assert (calculated_singular_vals - expected_singular_vals).all() <= 0.1
-    assert (calculated_u_mat - expected_u_mat).all() <= 0.1
-    assert (calculated_vt_mat - expected_vt_mat).all() <= 0.1
+
+    assert np.allclose(calculated_singular_vals, expected_singular_vals)
+    assert np.allclose(calculated_u_mat, expected_u_mat)
+    assert np.allclose(calculated_vt_mat, expected_vt_mat)
 
     if reconstruct is True:
         s_decomp = (
