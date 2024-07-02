@@ -1,5 +1,7 @@
 """Compute the dual of a map."""
 
+from typing import List
+
 import numpy as np
 
 from toqito.helper import channel_dim
@@ -7,8 +9,8 @@ from toqito.perms import swap
 
 
 def dual_channel(
-    phi_op: np.ndarray | list[np.ndarray] | list[list[np.ndarray]], dims: list[int] = None
-) -> np.ndarray | list[list[np.ndarray]]:
+    phi_op: np.ndarray | List[np.ndarray] | List[List[np.ndarray]], dims: List[int] = None
+) -> np.ndarray | List[List[np.ndarray]]:
     r"""Compute the dual of a map (quantum channel).
 
     (Section: Representations and Characterizations of Channels of :cite:`Watrous_2018_TQI`).
