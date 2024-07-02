@@ -19,3 +19,23 @@ def test_positive_semidefinite_rank(mat, expected_psd_rank):
     """Checks the PSD rank of known cases."""
     np.testing.assert_equal(positive_semidefinite_rank(mat), expected_psd_rank)
 
+
+@pytest.mark.parametrize(
+    "mat, expected_msg",
+    [
+        # Cannot compute PSD rank of negative matrix.
+        (
+            np.array([[-1, 2, 3], [4, -5, 6], [7, 8, 9]]),
+            "Matrix must be nonnegative.",
+        ),
+        # Cannot compute PSD rank of non-square matrix.
+        (
+            np.array([[0, 1, 1], [1, 0, 1]]),
+            "Matrix must be square.",
+        ),
+    ],
+)
+def test_positive_semidefinite_rank_raises_error(mat, expected_msg):
+    """Ensure PSD rank catches non-compliant input matrices."""
+    with pytest.raises(ValueError, match=expected_msg):
+        positive_semidefinite_rank(mat)

@@ -2,9 +2,10 @@
 
 import cvxpy as cp
 import numpy as np
+from toqito.matrix_props import is_square
 
 
-def positive_semidefinite_rank(M: np.ndarray, max_rank: int = 10) -> int | None:
+def positive_semidefinite_rank(mat: np.ndarray, max_rank: int = 10) -> int | None:
     r"""Compute the positive semidefinite rank (PSD rank) of a nonnegative matrix.
 
     The definition of PSD rank is defined in :cite:`Fawzi_2015_Positive`.
@@ -42,36 +43,41 @@ def positive_semidefinite_rank(M: np.ndarray, max_rank: int = 10) -> int | None:
     :return: The PSD rank of a matrix.
 
     """
+    if not np.all(mat >= 0):
+        raise ValueError("Matrix must be nonnegative.")
+    if not is_square(mat):
+        raise ValueError("Matrix must be square.")
+
     for k in range(1, max_rank + 1):
-        if _check_psd_rank(M, k):
+        if _check_psd_rank(mat, k):
             return k
     return None
 
 
-def _check_psd_rank(M: np.ndarray, k: int) -> bool:
+def _check_psd_rank(mat: np.ndarray, k: int) -> bool:
     """Check if the given PSD rank k is feasible for matrix M.
 
     :param mat: 2D numpy ndarray
     :param max_rank: The maximum rank to check.
     :return: True if k is a feasible PSD rank, False otherwise.
     """
-    m, n = M.shape
+    m, n = mat.shape
 
     # Define variables:
-    X = cp.Variable((m, n))
+    x_var = cp.Variable((m, n))
 
     # Define constraints:
     constraints = []
     for i in range(m):
         for j in range(n):
             constraints.append(
-                cp.bmat([[X[i,j], M[i,j]],
-                         [M[i,j], X[j,i]]]) >> 0
+                cp.bmat([[x_var[i,j], mat[i,j]],
+                         [mat[i,j], x_var[j,i]]]) >> 0
             )
-    constraints.append(cp.norm(X, 'nuc') <= k)
+    constraints.append(cp.norm(x_var, "nuc") <= k)
 
     # Define objective.
-    obj = cp.sum(cp.square(X - M))
+    obj = cp.sum(cp.square(x_var - mat))
 
     # Solve problem.
     prob = cp.Problem(cp.Minimize(obj), constraints)
@@ -79,4 +85,3 @@ def _check_psd_rank(M: np.ndarray, k: int) -> bool:
 
     # Check if the problem is feasible and the objective is close to zero.
     return prob.status == cp.OPTIMAL and prob.value < 1e-6
-
