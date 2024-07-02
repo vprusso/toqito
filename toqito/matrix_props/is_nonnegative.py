@@ -16,7 +16,8 @@ def is_nonnegative(input_mat: np.ndarray) -> bool:
 
     >>> import numpy as np
     >>> from toqito.matrix_props import is_nonnegative
-    >>> id_matrix = np.identity(3)
+    >>> is_nonnegative(np.identity(3))
+    True
 
     References
     ==========
