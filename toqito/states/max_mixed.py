@@ -52,8 +52,9 @@ def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, dia_array]:
 
     >>> from toqito.states import max_mixed
     >>> max_mixed(2, is_sparse=True) # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
-    <DIAgonal sparse array of dtype 'float64'
-        with 2 stored elements (1 diagonals) and shape (2, 2)>
+    <2x2 sparse array of type '<class 'numpy.float64'>'
+        with 2 stored elements in Compressed Sparse Row format>
+
 
     References
     ==========
