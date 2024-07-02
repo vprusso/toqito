@@ -25,3 +25,5 @@ from toqito.matrix_props.trace_norm import trace_norm
 from toqito.matrix_props.is_diagonally_dominant import is_diagonally_dominant
 from toqito.matrix_props.is_totally_positive import is_totally_positive
 from toqito.matrix_props.is_linearly_independent import is_linearly_independent
+from toqito.matrix_props.positive_semidefinite_rank import positive_semidefinite_rank
+
