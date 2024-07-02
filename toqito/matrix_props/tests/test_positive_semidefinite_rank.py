@@ -7,17 +7,19 @@ from toqito.matrix_props import positive_semidefinite_rank
 
 
 @pytest.mark.parametrize(
-    "mat, expected_psd_rank",
+    "mat, max_rank, expected_psd_rank",
     [
         # The PSD rank of the identity matrix is the dimension of the matrix.
-        (np.identity(3), 3),
+        (np.identity(3), 10, 3),
+        # If the max_rank is lower than the actual rank, the function returns None.
+        (np.identity(3), 2, None),
         # The PSD rank of this matrix is known to be 2 :cite:`Heinosaari_2024_Can` (Equation 21).
-        (1/2 * np.array([[0, 1, 1], [1,0,1], [1,1,0]]), 2),
+        (1/2 * np.array([[0, 1, 1], [1,0,1], [1,1,0]]), 10, 2),
     ],
 )
-def test_positive_semidefinite_rank(mat, expected_psd_rank):
+def test_positive_semidefinite_rank(mat, max_rank, expected_psd_rank):
     """Checks the PSD rank of known cases."""
-    np.testing.assert_equal(positive_semidefinite_rank(mat), expected_psd_rank)
+    np.testing.assert_equal(positive_semidefinite_rank(mat, max_rank), expected_psd_rank)
 
 
 @pytest.mark.parametrize(
