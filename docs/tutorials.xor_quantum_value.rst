@@ -291,13 +291,6 @@ follows:
     >>> '%.2f' % chsh.quantum_value()
     '0.85'
 
-    .. note::
-        You do not need to use `'%.2f' %` when you use this function.
-        We use this to format our output such that `doctest` compares the calculated output to the
-        expected output upto two decimal points only. The accuracy of the solvers can calculate the
-        `float` output to a certain amount of precision such that the value deviates after a few digits
-        of accuracy.
-
 For reference, the complete code to calculate both the classical and quantum
 values of the CHSH game is provided below.
 
@@ -314,14 +307,6 @@ values of the CHSH game is provided below.
     0.75
     >>> '%.2f' % chsh.quantum_value()
     '0.85'
-
-
-    .. note::
-        You do not need to use `'%.2f' %` when you use this function.
-        We use this to format our output such that `doctest` compares the calculated output to the
-        expected output upto two decimal points only. The accuracy of the solvers can calculate the
-        `float` output to a certain amount of precision such that the value deviates after a few digits
-        of accuracy.
 
 The odd cycle game
 ------------------
@@ -367,13 +352,6 @@ the classical and quantum values of this game.
     '0.90'
     >>> '%.2f' % odd_cycle.quantum_value()
     '0.98'
-
-    .. note::
-        You do not need to use `'%.2f' %` when you use this function.
-        We use this to format our output such that `doctest` compares the calculated output to the
-        expected output upto two decimal points only. The accuracy of the solvers can calculate the
-        `float` output to a certain amount of precision such that the value deviates after a few digits
-        of accuracy.
 
 Note that the odd cycle game is another example of an XOR game where the
 players are able to win with a strictly higher probability if they adopt a

@@ -324,14 +324,6 @@ This can be verified in :code:`toqito` as follows.
     >>> '%.2f' % bb84.unentangled_value() 
     '0.85'
 
-
-    .. note::
-        You do not need to use `'%.2f' %` when you use this function.
-        We use this to format our output such that `doctest` compares the calculated output to the
-        expected output upto two decimal points only. The accuracy of the solvers can calculate the
-        `float` output to a certain amount of precision such that the value deviates after a few digits
-        of accuracy.
-
 The BB84 game also exhibits strong parallel repetition. We can specify how many
 parallel repetitions for :code:`toqito` to run. The example below provides an
 example of two parallel repetitions for the BB84 game.
@@ -347,14 +339,6 @@ example of two parallel repetitions for the BB84 game.
     >>> # The unentangled value for two parallel repetitions is cos(pi/8)**4 \approx 0.72855
     >>> '%.2f' % bb84_2_reps.unentangled_value() 
     '0.73'
-
-
-    .. note::
-        You do not need to use `'%.2f' %` when you use this function.
-        We use this to format our output such that `doctest` compares the calculated output to the
-        expected output upto two decimal points only. The accuracy of the solvers can calculate the
-        `float` output to a certain amount of precision such that the value deviates after a few digits
-        of accuracy.
 
 It was shown in :cite:`Johnston_2016_Extended` that the BB84 game possesses the property of strong
 parallel repetition. That is,
@@ -381,14 +365,6 @@ using :code:`toqito` as well.
     >>> # The standard quantum value is cos(pi/8)**2 \approx 0.85356
     >>> '%.2f' % bb84_lb.quantum_value_lower_bound()
     '0.85'
-
-
-    .. note::
-        You do not need to use `'%.2f' %` when you use this function.
-        We use this to format our output such that `doctest` compares the calculated output to the
-        expected output upto two decimal points only. The accuracy of the solvers can calculate the
-        `float` output to a certain amount of precision such that the value deviates after a few digits
-        of accuracy.
 
 From :cite:`Johnston_2016_Extended`, it is known that :math:`\omega(G_{BB84}) =
 \omega^*(G_{BB84})`, however, if we did not know this beforehand, we could
@@ -417,13 +393,6 @@ Using :code:`toqito`, we can see that :math:`\omega_{ns}(G) = \cos^2(\pi/8)`.
     >>> '%.2f' % bb84.nonsignaling_value() 
     '0.85'
 
-    .. note::
-        You do not need to use `'%.2f' %` when you use this function.
-        We use this to format our output such that `doctest` compares the calculated output to the
-        expected output upto two decimal points only. The accuracy of the solvers can calculate the
-        `float` output to a certain amount of precision such that the value deviates after a few digits
-        of accuracy.
-
 So we have the relationship that
 
 .. math::
@@ -444,13 +413,6 @@ can observe this by the following snippet.
     >>> # The non-signaling value for two parallel repetitions is cos(pi/8)**4 \approx 0.73825
     >>> '%.2f' % bb84_2_reps.nonsignaling_value() 
     '0.74'
-
-    .. note::
-        You do not need to use `'%.2f' %` when you use this function.
-        We use this to format our output such that `doctest` compares the calculated output to the
-        expected output upto two decimal points only. The accuracy of the solvers can calculate the
-        `float` output to a certain amount of precision such that the value deviates after a few digits
-        of accuracy.
 
 Note that :math:`0.73825 \geq \cos(\pi/8)^4 \approx 0.72855` and therefore we
 have that
@@ -562,13 +524,6 @@ the unentangled value of :math:`G_{CHSH}`.
     >>> '%.2f' % chsh.unentangled_value() 
     '0.75'
 
-    .. note::
-        You do not need to use `'%.2f' %` when you use this function.
-        We use this to format our output such that `doctest` compares the calculated output to the
-        expected output upto two decimal points only. The accuracy of the solvers can calculate the
-        `float` output to a certain amount of precision such that the value deviates after a few digits
-        of accuracy.
-
 We can also run multiple repetitions of :math:`G_{CHSH}`.
 
 .. code-block:: python
@@ -582,14 +537,6 @@ We can also run multiple repetitions of :math:`G_{CHSH}`.
     >>> # The unentangled value for two parallel repetitions is (3/4)**2 \approx 0.5625
     >>> '%.2f' % chsh_2_reps.unentangled_value() 
     '0.56'
-
-
-    .. note::
-        You do not need to use `'%.2f' %` when you use this function.
-        We use this to format our output such that `doctest` compares the calculated output to the
-        expected output upto two decimal points only. The accuracy of the solvers can calculate the
-        `float` output to a certain amount of precision such that the value deviates after a few digits
-        of accuracy.
 
 Note that strong parallel repetition holds as
 
@@ -613,14 +560,6 @@ non-signaling value.
     >>> # The non-signaling value is 3/4 = 0.75
     >>> '%.2f' % chsh.nonsignaling_value() 
     '0.75'
-
-    .. note::
-        You do not need to use `'%.2f' %` when you use this function.
-        We use this to format our output such that `doctest` compares the calculated output to the
-        expected output upto two decimal points only. The accuracy of the solvers can calculate the
-        `float` output to a certain amount of precision such that the value deviates after a few digits
-        of accuracy.
-
 
 As we know that :math:`\omega(G_{CHSH}) = \omega_{ns}(G_{CHSH}) = 3/4` and that
 
@@ -744,14 +683,6 @@ Now that we have encoded :math:`G_{MUB}`, we can calculate the unentangled value
     >>> '%.2f' % unent_val
     '0.65'
 
-
-    .. note::
-        You do not need to use `'%.2f' %` when you use this function.
-        We use this to format our output such that `doctest` compares the calculated output to the
-        expected output upto two decimal points only. The accuracy of the solvers can calculate the
-        `float` output to a certain amount of precision such that the value deviates after a few digits
-        of accuracy.
-
 That is, we have that 
 
 .. math::
@@ -767,14 +698,6 @@ obtain.
     >>> q_val = g_mub.quantum_value_lower_bound()
     >>> '%.2f' % q_val
     '0.66'
-
-
-    .. note::
-        You do not need to use `'%.2f' %` when you use this function.
-        We use this to format our output such that `doctest` compares the calculated output to the
-        expected output upto two decimal points only. The accuracy of the solvers can calculate the
-        `float` output to a certain amount of precision such that the value deviates after a few digits
-        of accuracy.
 
 Note that as we are calculating a lower bound, it is possible that a value this
 high will not be obtained, or in other words, the algorithm can get stuck in a

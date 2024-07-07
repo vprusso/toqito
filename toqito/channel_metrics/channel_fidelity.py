@@ -48,14 +48,6 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     >>> '%.2f' % channel_fidelity(choi_1, choi_2)
     '1.00'
 
-    .. note::
-        You do not need to use `'%.2f' %` when you use this function.
-
-        We use this to format our output such that `doctest` compares the calculated output to the
-        expected output upto two decimal points only. The accuracy of the solvers can calculate the
-        `float` output to a certain amount of precision such that the value deviates after a few digits
-        of accuracy.
-
     We can also compute the channel fidelity between two different channels. For example, we can
     compute the channel fidelity between the dephasing and depolarizing channels.
 
@@ -67,15 +59,6 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     >>> choi_2 = depolarizing(4)
     >>> '%.2f' % channel_fidelity(choi_1, choi_2)
     '0.50'
-
-    .. note::
-        You do not need to use `'%.2f' %` when you use this function.
-
-        We use this to format our output such that `doctest` compares the calculated output to the
-        expected output upto two decimal points only. The accuracy of the solvers can calculate the
-        `float` output to a certain amount of precision such that the value deviates after a few digits
-        of accuracy.
-
 
     References
     ==========

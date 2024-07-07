@@ -126,14 +126,6 @@ def state_exclusion(
     '0.71'
 
     .. note::
-        You do not need to use `'%.2f' %` when you use this function.
-
-        We use this to format our output such that `doctest` compares the calculated output to the
-        expected output upto two decimal points only. The accuracy of the solvers can calculate the
-        `float` output to a certain amount of precision such that the value deviates after a few digits
-        of accuracy.
-
-    .. note::
         If you encounter a `ZeroDivisionError` or an `ArithmeticError` when using cvxopt as a solver (which is the
         default), you might want to set the `abs_ipm_opt_tol` option to a lower value (the default being `1e-8`) or
         to set the `cvxopt_kktsolver` option to `ldl`.

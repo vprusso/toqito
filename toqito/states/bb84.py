@@ -29,13 +29,6 @@ def bb84() -> np.ndarray:
            [0.70710678]]), array([[ 0.70710678],
            [-0.70710678]])]]
 
-
-    .. note::
-        We use `#doctest` to verify our examples work as expected.
-
-        `# doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE` is used here to make sure doctest matches the
-        calculated output to be close to the expected output instead of making sure both match exactly.
-
     References
     ==========
     .. bibliography::

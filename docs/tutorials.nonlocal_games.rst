@@ -348,13 +348,6 @@ use :code:`toqito` to determine the lower bound on the quantum value.
     >>> '%.2f' % chsh.quantum_value_lower_bound()
     '0.85'
 
-    .. note::
-        You do not need to use `'%.2f' %` when you use this function.
-        We use this to format our output such that `doctest` compares the calculated output to the
-        expected output upto two decimal points only. The accuracy of the solvers can calculate the
-        `float` output to a certain amount of precision such that the value deviates after a few digits
-        of accuracy.
-
 In this case, we can see that the quantum value of the CHSH game is in fact
 attained as :math:`\cos^2(\pi/8) \approx 0.85355`.
 
@@ -423,13 +416,6 @@ value and calculate lower bounds on the quantum value of the FFL game.
     '0.67'
     >>> '%.2f' % ffl.quantum_value_lower_bound()
     '0.22'
-
-        .. note::
-        You do not need to use `'%.2f' %` when you use this function.
-        We use this to format our output such that `doctest` compares the calculated output to the
-        expected output upto two decimal points only. The accuracy of the solvers can calculate the
-        `float` output to a certain amount of precision such that the value deviates after a few digits
-        of accuracy.
 
 In this case, we obtained the correct quantum value of :math:`2/3`, however,
 the lower bound technique is not guaranteed to converge to the true quantum
