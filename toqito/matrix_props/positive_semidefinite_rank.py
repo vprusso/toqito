@@ -41,7 +41,7 @@ def positive_semidefinite_rank(mat: np.ndarray, max_rank: int = 10) -> int | Non
 
     :param mat: 2D numpy ndarray
     :param max_rank: The maximum rank to check.
-    :return: The PSD rank of M, or None if not found within max_rank.
+    :return: The PSD rank of the input matrix, or None if not found within `max_rank`.
 
     """
     if not is_nonnegative(mat):
