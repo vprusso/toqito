@@ -55,6 +55,7 @@ def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, dia_array]:
     <DIAgonal sparse array of dtype 'float64'
         with 2 stored elements (1 diagonals) and shape (2, 2)>
 
+
     References
     ==========
     .. bibliography::
