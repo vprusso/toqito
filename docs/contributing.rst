@@ -198,5 +198,3 @@ Additional Resources
 -    `General GitHub documentation <https://help.github.com/>`_
 -    `PR best practices <http://codeinthehole.com/writing/pull-requests-and-other-good-practices-for-teams-using-github/>`_
 -    `A guide to contributing to software packages <http://www.contribution-guide.org>`_
--    `Thoughtful PR example <https://github.com/Thinkful/guide-github-pull-request/blob/7562fa12a39afc189050b01d02e8dbf01a650b2e/index.md>`_
-
