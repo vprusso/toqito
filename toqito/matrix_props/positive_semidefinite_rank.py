@@ -3,7 +3,7 @@
 import cvxpy as cp
 import numpy as np
 
-from toqito.matrix_props import is_square
+from toqito.matrix_props import is_nonnegative, is_square
 
 
 def positive_semidefinite_rank(mat: np.ndarray, max_rank: int = 10) -> int | None:
@@ -11,7 +11,7 @@ def positive_semidefinite_rank(mat: np.ndarray, max_rank: int = 10) -> int | Non
 
     The definition of PSD rank is defined in :cite:`Fawzi_2015_Positive`.
 
-    Finds the PSD rank of matrix M by checking feasibility for increasing k.
+    Finds the PSD rank of an input matrix by checking feasibility for increasing rank.
 
     Examples
     ========
@@ -30,16 +30,16 @@ def positive_semidefinite_rank(mat: np.ndarray, max_rank: int = 10) -> int | Non
     >>> import numpy as np
     >>> from toqito.matrix_props import positive_semidefinite_rank
     >>> positive_semidefinite_rank(1/2 * np.array([[0, 1, 1], [1,0,1], [1,1,0]]))
-    '2'
+    2
 
     The PSD rank of the identity matrix is the dimension of the matrix :cite:`Fawzi_2015_Positive`.
 
     >>> import numpy as np
     >>> from toqito.matrix_props import positive_semidefinite_rank
     >>> positive_semidefinite_rank(np.identity(3))
-    '3'
+    3
 
-    :param mat: 2D numpy ndarray
+    :param mat: 2D numpy ndarray.
     :param max_rank: The maximum rank to check.
     :return: The PSD rank of the input matrix, or None if not found within `max_rank`.
 
@@ -55,12 +55,12 @@ def positive_semidefinite_rank(mat: np.ndarray, max_rank: int = 10) -> int | Non
     return None
 
 
-def _check_psd_rank(mat: np.ndarray, k: int) -> bool:
+def _check_psd_rank(mat: np.ndarray, max_rank: int) -> bool:
     """Check if the given PSD rank k is feasible for matrix M.
 
     :param mat: 2D numpy ndarray
     :param max_rank: The maximum rank to check.
-    :return: True if k is a feasible PSD rank, False otherwise.
+    :return: True if `max_rank` is a feasible PSD rank, False otherwise.
     """
     m, n = mat.shape
 
@@ -75,7 +75,7 @@ def _check_psd_rank(mat: np.ndarray, k: int) -> bool:
                 cp.bmat([[x_var[i,j], mat[i,j]],
                          [mat[i,j], x_var[j,i]]]) >> 0
             )
-    constraints.append(cp.norm(x_var, "nuc") <= k)
+    constraints.append(cp.norm(x_var, "nuc") <= max_rank)
 
     # Define objective.
     obj = cp.sum(cp.square(x_var - mat))
