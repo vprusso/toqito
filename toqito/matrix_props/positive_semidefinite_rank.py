@@ -2,6 +2,7 @@
 
 import cvxpy as cp
 import numpy as np
+
 from toqito.matrix_props import is_square
 
 
