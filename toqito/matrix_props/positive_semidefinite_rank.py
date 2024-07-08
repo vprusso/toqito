@@ -44,7 +44,7 @@ def positive_semidefinite_rank(mat: np.ndarray, max_rank: int = 10) -> int | Non
     :return: The PSD rank of M, or None if not found within max_rank.
 
     """
-    if not np.all(mat >= 0):
+    if not is_nonnegative(mat):
         raise ValueError("Matrix must be nonnegative.")
     if not is_square(mat):
         raise ValueError("Matrix must be square.")
