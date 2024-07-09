@@ -13,7 +13,7 @@ random_u_mat = random_unitary(4)
     "rho, expected_result",
     [
         # Test matrix in separable ball returns True.
-        (random_u_mat @ np.diag(np.array([1, 1, 1, 0])) / 3 @ random_u_mat.conj().T, True),
+        (np.identity(4) @ np.diag(np.array([1, 1, 1, 0])) / 3 @ np.identity(4).conj().T, True),
         # Test matrix not in separable ball returns False.
         (random_u_mat @ np.diag(np.array([1.01, 1, 0.99, 0])) / 3 @ random_u_mat.conj().T, False),
         # Test for case when trace of matrix is less than the largest dim."""
