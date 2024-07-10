@@ -35,6 +35,7 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
 
     The entanglement-of-formation of :math:`\rho` is equal to 1.
 
+    >>> import numpy as np
     >>> from toqito.state_props import entanglement_of_formation
     >>> from toqito.states import bell
     >>>
