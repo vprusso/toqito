@@ -288,15 +288,9 @@ follows:
 
 .. code-block:: python
 
-    >>> '%.2f' % chsh.quantum_value()
-    '0.85'
-
-    .. note::
-        You do not need to use `'%.2f' %` when you use this function.
-        We use this to format our output such that `doctest` compares the calculated output to the
-        expected output upto two decimal points only. The accuracy of the solvers can calculate the
-        `float` output to a certain amount of precision such that the value deviates after a few digits
-        of accuracy.
+    >>> import numpy as np
+    >>> np.around(chsh.quantum_value(), decimals=2)
+    0.85
 
 For reference, the complete code to calculate both the classical and quantum
 values of the CHSH game is provided below.
@@ -312,16 +306,8 @@ values of the CHSH game is provided below.
     >>> chsh = XORGame(prob_mat, pred_mat)
     >>> chsh.classical_value()
     0.75
-    >>> '%.2f' % chsh.quantum_value()
-    '0.85'
-
-
-    .. note::
-        You do not need to use `'%.2f' %` when you use this function.
-        We use this to format our output such that `doctest` compares the calculated output to the
-        expected output upto two decimal points only. The accuracy of the solvers can calculate the
-        `float` output to a certain amount of precision such that the value deviates after a few digits
-        of accuracy.
+    >>> np.around(chsh.quantum_value(), decimals=2)
+    0.85
 
 The odd cycle game
 ------------------
@@ -363,17 +349,10 @@ the classical and quantum values of this game.
     >>>
     >>> # Compute the classical and quantum values.
     >>> odd_cycle = XORGame(prob_mat, pred_mat)
-    >>> '%.2f' % odd_cycle.classical_value()
-    '0.90'
-    >>> '%.2f' % odd_cycle.quantum_value()
-    '0.98'
-
-    .. note::
-        You do not need to use `'%.2f' %` when you use this function.
-        We use this to format our output such that `doctest` compares the calculated output to the
-        expected output upto two decimal points only. The accuracy of the solvers can calculate the
-        `float` output to a certain amount of precision such that the value deviates after a few digits
-        of accuracy.
+    >>> np.around(odd_cycle.classical_value(), decimals=2)
+    0.9
+    >>> np.around(odd_cycle.quantum_value(), decimals=2)
+    0.98
 
 Note that the odd cycle game is another example of an XOR game where the
 players are able to win with a strictly higher probability if they adopt a

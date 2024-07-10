@@ -113,8 +113,8 @@ def state_exclusion(
     >>> vectors = [bell(0), bell(1)]
     >>> probs = [1/2, 1/2]
     >>>
-    >>> '%.2f' % state_exclusion(vectors, probs)[0]
-    '0.00'
+    >>> np.around(state_exclusion(vectors, probs)[0], decimals=2)
+    0.0
 
     Unambiguous state exclusion for unbiased states.
 
@@ -122,16 +122,8 @@ def state_exclusion(
     >>> import numpy as np
     >>> states = [np.array([[1.], [0.]]), np.array([[1.],[1.]]) / np.sqrt(2)]
     >>> res, _ = state_exclusion(states, primal_dual="primal", strategy="unambiguous", abs_ipm_opt_tol=1e-7)
-    >>> '%.2f' % res
-    '0.71'
-
-    .. note::
-        You do not need to use `'%.2f' %` when you use this function.
-
-        We use this to format our output such that `doctest` compares the calculated output to the
-        expected output upto two decimal points only. The accuracy of the solvers can calculate the
-        `float` output to a certain amount of precision such that the value deviates after a few digits
-        of accuracy.
+    >>> np.around(res, decimals=2)
+    0.71
 
     .. note::
         If you encounter a `ZeroDivisionError` or an `ArithmeticError` when using cvxopt as a solver (which is the

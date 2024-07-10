@@ -31,6 +31,7 @@ class QuantumHedging:
     As was illustrated in :cite:`Molina_2012_Hedging`, the hedging value of the above scenario is
     :math:`\cos(\pi/8)^2 \approx 0.8536`
 
+    >>> import numpy as np
     >>> from numpy import kron, cos, sin, pi, sqrt, isclose
     >>> from toqito.states import basis
     >>> from toqito.nonlocal_games.quantum_hedging import QuantumHedging
@@ -52,16 +53,8 @@ class QuantumHedging:
     >>> molina_watrous = QuantumHedging(q_0, 1)
     >>>
     >>> # cos(pi/8)**2 \approx 0.8536
-    >>> '%.2f' % molina_watrous.max_prob_outcome_a_primal()
-    '0.85'
-
-    .. note::
-        You do not need to use `'%.2f' %` when you use this function.
-
-        We use this to format our output such that `doctest` compares the calculated output to the
-        expected output upto two decimal points only. The accuracy of the solvers can calculate the
-        `float` output to a certain amount of precision such that the value deviates after a few digits
-        of accuracy.
+    >>> np.around(molina_watrous.max_prob_outcome_a_primal(), decimals=2)
+    0.85
 
     References
     ==========

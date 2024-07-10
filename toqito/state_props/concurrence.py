@@ -38,22 +38,14 @@ def concurrence(rho: np.ndarray) -> float:
     The following example calculates this quantity using the :code:`toqito` package.
 
     >>> import numpy as np
-    >>> from toqito.states import basis
+    >>> from toqito.matrices import standard_basis
     >>> from toqito.state_props import concurrence
-    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
+    >>> e_0, e_1 = standard_basis(2)
     >>> e_00, e_11 = np.kron(e_0, e_0), np.kron(e_1, e_1)
     >>> u_vec = 1 / np.sqrt(2) * (e_00 + e_11)
-    >>> rho = u_vec * u_vec.conj().T
-    >>> '%.2f' % concurrence(rho)
-    '1.00'
-
-    .. note::
-        You do not need to use `'%.2f' %` when you use this function.
-
-        We use this to format our output such that `doctest` compares the calculated output to the
-        expected output upto two decimal points only. The accuracy of the solvers can calculate the
-        `float` output to a certain amount of precision such that the value deviates after a few digits
-        of accuracy.
+    >>> rho = u_vec @ u_vec.conj().T
+    >>> np.around(concurrence(rho), decimals=3)
+    1.0
 
     Consider the concurrence of the following product state
 
@@ -67,7 +59,7 @@ def concurrence(rho: np.ndarray) -> float:
     >>> from toqito.state_props import concurrence
     >>> e_0, e_1 = basis(2, 0), basis(2, 1)
     >>> v_vec = np.kron(e_0, e_1)
-    >>> sigma = v_vec * v_vec.conj().T
+    >>> sigma = v_vec @ v_vec.conj().T
     >>> concurrence(sigma)
     0
 

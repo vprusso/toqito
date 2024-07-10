@@ -108,29 +108,21 @@ def symmetric_extension_hierarchy(
     >>>
     >>> # Calculate the first level of the symmetric extension hierarchy. This
     >>> # is simply the value of optimally distinguishing via PPT measurements.
-    >>> '%.2f' % symmetric_extension_hierarchy(states=states, probs=None, level=1)
-    '0.99'
+    >>> np.around(symmetric_extension_hierarchy(states=states, probs=None, level=1), decimals=2)
+    0.99
     >>>
     >>> # Calculating the second value gets closer to the separable value.
-    >>> '%.2f' % symmetric_extension_hierarchy(states=states, probs=None, level=2)
-    '0.96'
+    >>> np.around(symmetric_extension_hierarchy(states=states, probs=None, level=2), decimals=2)
+    0.96
     >>>
     >>> # As proven in :cite:`Cosentino_2015_QuantumState`, the true separable value of distinguishing the
     >>> # three Bell states is:
-    >>> '%.2f' % (1/3 * (2 + np.sqrt(1 - eps**2)))
-    '0.96'
+    >>> np.around(1/3 * (2 + np.sqrt(1 - eps**2)), decimals=2)
+    0.96
     >>>
     >>> # Computing further levels of the hierarchy would eventually converge to
     >>> # this value, however, the higher the level, the more computationally
     >>> # demanding the SDP becomes.
-
-    .. note::
-        You do not need to use `'%.2f' %` when you use this function.
-
-        We use this to format our output such that `doctest` compares the calculated output to the
-        expected output upto two decimal points only. The accuracy of the solvers can calculate the
-        `float` output to a certain amount of precision such that the value deviates after a few digits
-        of accuracy.
 
     References
     ==========
