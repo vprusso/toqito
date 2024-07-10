@@ -350,7 +350,7 @@ the classical and quantum values of this game.
     >>> # Compute the classical and quantum values.
     >>> odd_cycle = XORGame(prob_mat, pred_mat)
     >>> np.around(odd_cycle.classical_value(), decimals=2)
-    0.90
+    0.9
     >>> np.around(odd_cycle.quantum_value(), decimals=2)
     0.98
 
