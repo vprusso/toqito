@@ -78,13 +78,14 @@ def state_distinguishability(
 
     Minimal-error state distinguishability for the Bell states (which are perfectly distinguishable).
 
+    >>> import numpy as np
     >>> from toqito.states import bell
     >>> from toqito.state_opt import state_distinguishability
     >>> states = [bell(0), bell(1), bell(2), bell(3)]
     >>> probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
     >>> res, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="dual")
-    >>> '%.2f' % res
-    '1.00'
+    >>> np.around(res, decimals=2)
+    1.00
 
     Note that if we are just interested in obtaining the optimal value, it is computationally less intensive to compute
     the dual problem over the primal problem. However, the primal problem does allow us to extract the explicit
@@ -109,8 +110,8 @@ def state_distinguishability(
     >>> states = [np.array([[1.], [0.]]), np.array([[1.],[1.]]) / np.sqrt(2)]
     >>> probs = [1 / 2, 1 / 2]
     >>> res, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="primal", strategy="unambiguous")
-    >>> '%.2f' % res
-    '0.29'
+    >>> np.around(res, decimals=2)
+    0.29
 
     References
     ==========

@@ -113,8 +113,8 @@ def state_exclusion(
     >>> vectors = [bell(0), bell(1)]
     >>> probs = [1/2, 1/2]
     >>>
-    >>> '%.2f' % state_exclusion(vectors, probs)[0]
-    '0.00'
+    >>> np.around(state_exclusion(vectors, probs)[0], decimals=2)
+    0.00
 
     Unambiguous state exclusion for unbiased states.
 
@@ -122,8 +122,8 @@ def state_exclusion(
     >>> import numpy as np
     >>> states = [np.array([[1.], [0.]]), np.array([[1.],[1.]]) / np.sqrt(2)]
     >>> res, _ = state_exclusion(states, primal_dual="primal", strategy="unambiguous", abs_ipm_opt_tol=1e-7)
-    >>> '%.2f' % res
-    '0.71'
+    >>> np.around(res, decimals=2)
+    0.71
 
     .. note::
         If you encounter a `ZeroDivisionError` or an `ArithmeticError` when using cvxopt as a solver (which is the
