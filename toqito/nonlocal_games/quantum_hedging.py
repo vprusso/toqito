@@ -31,6 +31,7 @@ class QuantumHedging:
     As was illustrated in :cite:`Molina_2012_Hedging`, the hedging value of the above scenario is
     :math:`\cos(\pi/8)^2 \approx 0.8536`
 
+    >>> import numpy as np
     >>> from numpy import kron, cos, sin, pi, sqrt, isclose
     >>> from toqito.states import basis
     >>> from toqito.nonlocal_games.quantum_hedging import QuantumHedging

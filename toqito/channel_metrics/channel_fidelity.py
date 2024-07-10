@@ -60,7 +60,7 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     >>> choi_1 = dephasing(4)
     >>> choi_2 = depolarizing(4)
     >>> np.around(channel_fidelity(choi_1, choi_2), decimals=2)
-    0.50
+    0.5
 
     References
     ==========
