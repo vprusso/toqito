@@ -114,6 +114,7 @@ Using :code:`toqito`, we can calculate this probability directly as follows:
 
 .. code-block:: python
 
+    >>> import numpy as np
     >>> from toqito.states import basis
     >>> from toqito.state_opt import state_distinguishability
     >>> 
@@ -132,8 +133,8 @@ Using :code:`toqito`, we can calculate this probability directly as follows:
     >>>
     >>> # Calculate the probability with which Bob can 
     >>> # distinguish the state he is provided.
-    >>> '%.2f' % state_distinguishability(states, probs)[0]
-    '1.00'
+    >>> np.around(state_distinguishability(states, probs)[0], decimals=2)
+    1.0
 
 Specifying similar state distinguishability problems can be done so using this
 general pattern.
@@ -228,8 +229,8 @@ via PPT measurements in the following manner.
     >>>
     >>> states = [rho_1, rho_2, rho_3, rho_4]
     >>> probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
-    >>> '%.2f' % ppt_distinguishability(vectors=states, probs=probs, dimensions=[2, 2, 2, 2], subsystems=[0, 2])[0]
-    '0.87'
+    >>> np.around(ppt_distinguishability(vectors=states, probs=probs, dimensions=[2, 2, 2, 2], subsystems=[0, 2])[0], decimals=2)
+    0.87
 
 Probability of distinguishing a state via separable measurements
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

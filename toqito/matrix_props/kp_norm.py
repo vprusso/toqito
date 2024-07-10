@@ -16,8 +16,8 @@ def kp_norm(mat: np.ndarray, k: int, p: int) -> float:
     >>> import numpy as np
     >>> from toqito.matrix_props import kp_norm
     >>> from toqito.states import bell
-    >>> '%.2f' % kp_norm(bell(0), 1, np.inf)
-    '1.00'
+    >>> np.around(kp_norm(bell(0), 1, np.inf), decimals=2)
+    1.0
 
 
     To compute the k-largest singular values of a matrix:
@@ -25,8 +25,8 @@ def kp_norm(mat: np.ndarray, k: int, p: int) -> float:
     >>> import numpy as np
     >>> from toqito.matrix_props import kp_norm
     >>> from toqito.rand import random_unitary
-    >>> '%.2f' % kp_norm(random_unitary(5), 5, 2)
-    '2.24'
+    >>> np.around(kp_norm(random_unitary(5), 5, 2), decimals=2)
+    2.24
 
     :param mat: 2D numpy ndarray
     :param k: The number of singular values to take.

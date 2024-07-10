@@ -71,8 +71,8 @@ class XORGame:
     >>> import numpy as np
     >>> from toqito.nonlocal_games.xor_game import XORGame
     >>> chsh = XORGame(prob_mat, pred_mat)
-    >>> '%.2f' % chsh.quantum_value()
-    '0.85'
+    >>> np.around(chsh.quantum_value(), decimals=2)
+    0.85
     >>>
     >>> chsh.classical_value()
     0.75
@@ -107,10 +107,10 @@ class XORGame:
     >>> import numpy as np
     >>> from toqito.nonlocal_games.xor_game import XORGame
     >>> odd_cycle = XORGame(prob_mat, pred_mat)
-    >>> '%.2f' % odd_cycle.quantum_value()
-    '0.98'
-    >>> '%.1f' % odd_cycle.classical_value()
-    '0.9'
+    >>> np.around(odd_cycle.quantum_value(), decimals=2)
+    0.98
+    >>> np.around(odd_cycle.classical_value(), decimals=1)
+    0.9
 
     References
     ==========

@@ -272,14 +272,15 @@ fidelity function between quantum states that happen to be identical.
 
     >>> from toqito.states import bell
     >>> from toqito.state_metrics import fidelity
+    >>> import numpy as np
     >>>
     >>> # Define two identical density operators.
     >>> rho = bell(0)*bell(0).conj().T
     >>> sigma = bell(0)*bell(0).conj().T
     >>> 
     >>> # Calculate the fidelity between `rho` and `sigma`
-    >>> '%.2f' % fidelity(rho, sigma)
-    '1.00'
+    >>> np.around(fidelity(rho, sigma), decimals=2)
+    1.0
 
 There are a number of other metrics one can compute on two density matrices
 including the trace norm, trace distance. These and others are also available
