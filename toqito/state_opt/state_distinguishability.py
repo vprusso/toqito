@@ -85,7 +85,7 @@ def state_distinguishability(
     >>> probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
     >>> res, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="dual")
     >>> np.around(res, decimals=2)
-    1.00
+    1.0
 
     Note that if we are just interested in obtaining the optimal value, it is computationally less intensive to compute
     the dual problem over the primal problem. However, the primal problem does allow us to extract the explicit

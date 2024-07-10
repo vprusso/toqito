@@ -114,7 +114,7 @@ def state_exclusion(
     >>> probs = [1/2, 1/2]
     >>>
     >>> np.around(state_exclusion(vectors, probs)[0], decimals=2)
-    0.00
+    0.0
 
     Unambiguous state exclusion for unbiased states.
 

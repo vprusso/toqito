@@ -26,7 +26,7 @@ def hilbert_schmidt(rho: np.ndarray, sigma: np.ndarray) -> float:
     >>> rho = bell(0) * bell(0).conj().T
     >>> sigma = bell(3) * bell(3).conj().T
     >>> np.around(hilbert_schmidt(rho, sigma), decimals=2)
-    1.00
+    1.0
 
     References
     ==========

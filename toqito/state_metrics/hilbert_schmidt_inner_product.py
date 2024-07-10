@@ -26,7 +26,7 @@ def hilbert_schmidt_inner_product(a_mat: np.ndarray, b_mat: np.ndarray) -> compl
     >>> from toqito.state_metrics import hilbert_schmidt_inner_product
     >>> h = hadamard(1)
     >>> np.around(hilbert_schmidt_inner_product(h, h), decimals=2)
-    2.00
+    2.0
 
     References
     ==========
