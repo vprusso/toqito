@@ -1,7 +1,7 @@
 
 [tool.poetry]
 name = "toqito"
-version = "1.0.8"
+version = "1.0.9"
 description = "Python tools for the study of quantum information."
 authors = [
     "Toqito Contributors <https://github.com/vprusso/toqito/graphs/contributors>"
