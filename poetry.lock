@@ -1399,33 +1399,45 @@ files = [
 
 [[package]]
 name = "qdldl"
-version = "0.1.7.post2"
+version = "0.1.7.post4"
 description = "QDLDL, a free LDL factorization routine."
 optional = false
 python-versions = "*"
 files = [
-    {file = "qdldl-0.1.7.post2-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:2c8d39035a64fbe4dc8d73501a444374787c087b202e875f6f0cd7e7ca166e25"},
-    {file = "qdldl-0.1.7.post2-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:f93cd0b3338ef53efa512168d32991bff00b292d6eaf5e35427ca84622158132"},
-    {file = "qdldl-0.1.7.post2-cp310-cp310-win_amd64.whl", hash = "sha256:02d6b531fe669f8894f97f697da88fe3f1c3af0c7ef12f260bf1d20e8e70f0dc"},
-    {file = "qdldl-0.1.7.post2-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:25180228613c66a5af7d6a648920fb71122e1ed58daf09621ed6b939b7f9aa04"},
-    {file = "qdldl-0.1.7.post2-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:aa5cf2125dea734f8977df22859b3826fae8960b35caf75cf5b16306ff1d1dc3"},
-    {file = "qdldl-0.1.7.post2-cp311-cp311-win_amd64.whl", hash = "sha256:f14cda7c484dbe78e333bb52849031081d37e7e3bf961ed7bb77ed11489f16f6"},
-    {file = "qdldl-0.1.7.post2-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:90982ca5069077cfb8ba9ea7422c6e2a80a3af89266252d1e7a51ea5e87c8188"},
-    {file = "qdldl-0.1.7.post2-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:8e5572de51c7c86b6f30cd1b5a88dd5459d48e1c3432b1a04c2f4ad669f6e827"},
-    {file = "qdldl-0.1.7.post2-cp312-cp312-win_amd64.whl", hash = "sha256:a612a4dfd94f977c5c9a4389363d4c661f54a6df59c75d462adb93922d92b45f"},
-    {file = "qdldl-0.1.7.post2-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:97929fd925833306e3c625c92813ac0dea9a53e6b9f680e2c5da9f0c1c641b19"},
-    {file = "qdldl-0.1.7.post2-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:5b833a64ee32d1e14a3acd59c3e62ea1dae551e6bf3265e42cb4197c4353ea02"},
-    {file = "qdldl-0.1.7.post2-cp36-cp36m-win_amd64.whl", hash = "sha256:f686923c983f62fc7ccc7ebda6fd6ed5f623d299c211933896c7d396c88bb012"},
-    {file = "qdldl-0.1.7.post2-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:8206013ec1fb4c6a396aeb0ef0c68f07d85eb5c22fe7e31cb8307f05787878b9"},
-    {file = "qdldl-0.1.7.post2-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:24e01593cd46c86f5812f1362987bc8ab1080c493f4c7e436e144d2c10481b81"},
-    {file = "qdldl-0.1.7.post2-cp37-cp37m-win_amd64.whl", hash = "sha256:06c2157ea1c2f691c956d92895722777eaf8c9ebf9c2c1af4a0b947eccc8b31e"},
-    {file = "qdldl-0.1.7.post2-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:77547f9e58522b2445b846ab6f0fd09a689f9fb2c0e72d44d14f631054d7dd55"},
-    {file = "qdldl-0.1.7.post2-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:19825b998202dcd2579182a0a46350bdd95421ec65fd7579326083dc9f1c4d37"},
-    {file = "qdldl-0.1.7.post2-cp38-cp38-win_amd64.whl", hash = "sha256:4c08e68cf7c051c0ce9c3846cda60a9c10aa53eb6b240998362dd6fd9410779b"},
-    {file = "qdldl-0.1.7.post2-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:edf202648cb0377fd78dd1e59816ccd92fabdee676eb3a7b618c66b393634d10"},
-    {file = "qdldl-0.1.7.post2-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:22bc364e665ea8a2f8f661dbd22321ff365663b33b9ceaf429b94c2661cd11ac"},
-    {file = "qdldl-0.1.7.post2-cp39-cp39-win_amd64.whl", hash = "sha256:b7dec0fba6204e83aa4b5e71e84ea2e89cfebeef5b47b70443f8cf9fa12a9752"},
-    {file = "qdldl-0.1.7.post2.tar.gz", hash = "sha256:4b1539a5ec10cc757afd7156d7deb4006007cad86d774c9f0fdc3e34415557d3"},
+    {file = "qdldl-0.1.7.post4-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:ff4a9c5f7fa96e222c767aaaabea9d5df1d099e172c14b322b98d54dac03705d"},
+    {file = "qdldl-0.1.7.post4-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:b53ad4ecd90c8031e0094fbab0b0bf09520b382177db63ec9568f06b4f16c219"},
+    {file = "qdldl-0.1.7.post4-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:490b52049c4cd794cb9bb2a8b26d69e74bbb71e55b5f0cac1480de971970d79c"},
+    {file = "qdldl-0.1.7.post4-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:ebf39433b467d2b33872e96fd05ed4a74d701eb94cd14cb010d5980fbdc02954"},
+    {file = "qdldl-0.1.7.post4-cp310-cp310-win_amd64.whl", hash = "sha256:5227ace6741618aa9aa2b0162740e806040f3a69e88204911e74b5d220d5bfce"},
+    {file = "qdldl-0.1.7.post4-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:f6639d63c3bf9abbfdffafd3c99b7c603359ca748ab62117ec7fc0948a1c5e77"},
+    {file = "qdldl-0.1.7.post4-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:87f31e7f2a2708def201b6dc507a48ada7e0c37efd0afda7ef6ef94ae3487c2c"},
+    {file = "qdldl-0.1.7.post4-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:47c1b27712444d7b1030c562ed79af18320b4a910454716c9d88114e181eddec"},
+    {file = "qdldl-0.1.7.post4-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:1496a820ffb0c1a5bb18392b44052b83b5442745b15f62bbf2d22eec1f506afe"},
+    {file = "qdldl-0.1.7.post4-cp311-cp311-win_amd64.whl", hash = "sha256:b6f8d59c01fa5c9dc3b6463fc7e1de7601dcb1aa16b6e14a6d5d283169dc629f"},
+    {file = "qdldl-0.1.7.post4-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:e2b9e92bb52d3bc49cfc9fd9a761adb692f049c46e68c0535ed07df2de8292f5"},
+    {file = "qdldl-0.1.7.post4-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:f6710b0c1013292697262803ddd549a81cdfdbdbbbcfa5b56aad04ac9cebbb4a"},
+    {file = "qdldl-0.1.7.post4-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:a40429f5c0d0edb28d22c4e52c2459fd9a64892ba7d8a39ba51a1a37b3581927"},
+    {file = "qdldl-0.1.7.post4-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:b85beb51096100dcdea575acedbafb5bac2b7f44485a1d7090bb68a47c8f9928"},
+    {file = "qdldl-0.1.7.post4-cp312-cp312-win_amd64.whl", hash = "sha256:684306b37a2f06f72c18edd2d6fa45a832e99071ebd87b875d172719e09a322d"},
+    {file = "qdldl-0.1.7.post4-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:3fe0904e3ce11610ca663032fb8d6b0cfaae26699ae2659ac79aaf4049f32ae0"},
+    {file = "qdldl-0.1.7.post4-cp36-cp36m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:004e4c5c8c200f483d86b4c8a70c546b11a59501dbe24f811752998b833d679d"},
+    {file = "qdldl-0.1.7.post4-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:3cec8d76f2588e83dee94d01a371297699f3701ac0039d304760ed8e25cd4739"},
+    {file = "qdldl-0.1.7.post4-cp36-cp36m-win_amd64.whl", hash = "sha256:782d56522b134429a8e6b8c1a77477ff82665fbc0052808ce183853be7605888"},
+    {file = "qdldl-0.1.7.post4-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:8e5c88f428350bac03bca36fb05b7d062219298928b89f6072d565fc5fd43c4f"},
+    {file = "qdldl-0.1.7.post4-cp37-cp37m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:acd16e857a0b8d200dd2f9ba6b0941adc42d822b3eb5fc02a455362fbaaf7da7"},
+    {file = "qdldl-0.1.7.post4-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:0c9b6bf14689766e29fa2f7652b49e0d5a8215b646aec4a9306834418241de97"},
+    {file = "qdldl-0.1.7.post4-cp37-cp37m-win_amd64.whl", hash = "sha256:40485f33c518fcbf78d95329ab0f55f10b3ccd06bea2fe7c8faf8cb16aae2485"},
+    {file = "qdldl-0.1.7.post4-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:f63fde49b54fbf2feebf30b11ef7fd0543376a0fbc800b7d4e4c51b8ef39ff2b"},
+    {file = "qdldl-0.1.7.post4-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:2d1596bef9d38e58fb6121d8aa8662322ee92f584a4189d01770a9ff821d1a5f"},
+    {file = "qdldl-0.1.7.post4-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:e23ff54d54db837a55c56da197638d0f54f1fe25fb90f63c9d1f18779efdda27"},
+    {file = "qdldl-0.1.7.post4-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:8f1e449b8079c744166fb87c1bf01954ef6344898063bfac1afae1a295c8a04d"},
+    {file = "qdldl-0.1.7.post4-cp38-cp38-win_amd64.whl", hash = "sha256:3770f6048e65231ead488c5e8982fffee2756e0682cc5a81d02fc56a02586050"},
+    {file = "qdldl-0.1.7.post4-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:e29c33ef7dcd51ccc617d5c097f4904f8d522d44bc427a75810d1c56fe2c2ccb"},
+    {file = "qdldl-0.1.7.post4-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:656c06f965b4121dd3a8aa8b39fc4ec4650ea487812a7fd06419834464595bbf"},
+    {file = "qdldl-0.1.7.post4-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:0bd3d9ab3074be041552297c90bd0b44fc2d2b3e5b9e7a8896d3c0878b85fcea"},
+    {file = "qdldl-0.1.7.post4-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:12a658077a83a6aab9d122ca8f4ae4e96a06633109fa604414657ac2f065bd9b"},
+    {file = "qdldl-0.1.7.post4-cp39-cp39-win_amd64.whl", hash = "sha256:410a9a6a1405f475ccdb16d44e16c4a8266a90952bd396482a8840c61d9e839d"},
+    {file = "qdldl-0.1.7.post4.tar.gz", hash = "sha256:0c163b9afb92c4b69d446387b1d4295094438b041ec4e8510271b6c4ff1f86fd"},
 ]
 
 [package.dependencies]
