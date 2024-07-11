@@ -998,46 +998,51 @@ files = [
 
 [[package]]
 name = "osqp"
-version = "0.6.4"
+version = "0.6.7.post0"
 description = "OSQP: The Operator Splitting QP Solver"
 optional = false
 python-versions = "*"
 files = [
-    {file = "osqp-0.6.4-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:1c34dc340b4dc46ed86f811b1015bb2ece444d310b4bb638e509a02df88594c1"},
-    {file = "osqp-0.6.4-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:e7fb1ae278d14b7080acfe4d252c4f6df563dd8622847e73f8e5d1f2e027db41"},
-    {file = "osqp-0.6.4-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:2488dc19d48fbb46118312cf1a1292942ab41cd5588cf6c75ff1b521afb99ce3"},
-    {file = "osqp-0.6.4-cp310-cp310-win_amd64.whl", hash = "sha256:adaf59b134745aec21409e698dcd72d8997be2652e35ed1f5302aaba69654831"},
-    {file = "osqp-0.6.4-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:20aa182b23ca5d433d1b8144d46296304a493d1cc1712cf45c591e5dd7a19436"},
-    {file = "osqp-0.6.4-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:21c79624c831e6070b3b1ca1df34032c222cc87e467def5e038713d20c9ffb5c"},
-    {file = "osqp-0.6.4-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:2eeb4a3982929f5ea89fc2cc0cef238c489020b02671012f0b60a7a7c1df5093"},
-    {file = "osqp-0.6.4-cp311-cp311-win_amd64.whl", hash = "sha256:b62631f7388cdc49619e256110595fe741afab4d779fcc2b2ab55922cc93367f"},
-    {file = "osqp-0.6.4-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:a7d8dc0a5459558d3f2f975110e21e2292558c943047f09fb51ebc62d07a164c"},
-    {file = "osqp-0.6.4-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:89f1b270ed46a92384daa022ed336d58b5f06bdc49abe9684d41aaec02717895"},
-    {file = "osqp-0.6.4-cp312-cp312-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:78f7d8b91b0248beb95abda710bbf28ee98d5675dc9f77df7b5412da222e4f5c"},
-    {file = "osqp-0.6.4-cp312-cp312-win_amd64.whl", hash = "sha256:ff72fc0cec63965979e86bc99bec1658b85c3e6d8e9f95c37cc5c531fa48aabe"},
-    {file = "osqp-0.6.4-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:b7dbc83605a68703f8e509f590ab71f0f6d6992443ae534a8d99d8878bfabd73"},
-    {file = "osqp-0.6.4-cp36-cp36m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:f1603ff6d699adcbf7628dadfa54b566023412b60f04f6dda36fc81cf59a678c"},
-    {file = "osqp-0.6.4-cp36-cp36m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:866b16ea55a7ec831ed4fce3c5c812a6fcb84d8b0016a858f1ecc9bf63dcbb00"},
-    {file = "osqp-0.6.4-cp36-cp36m-win_amd64.whl", hash = "sha256:5764886a48fc670370283cb7b004cbd5b570967bde3ecf2905e7662d6223c5bc"},
-    {file = "osqp-0.6.4-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:f606cce8f8b5bd9a6a80e3c25e2ffc0180a9da9b550731c0440b1de10565b89e"},
-    {file = "osqp-0.6.4-cp37-cp37m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:0faf25c10b84cd4005b24b290e0b6d885c3e30d01fc065f930a46c8da5401f49"},
-    {file = "osqp-0.6.4-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:ac61b42c1944522bc2db6d38a55cc4b569c98c4e1e512a73d202af578d678f0f"},
-    {file = "osqp-0.6.4-cp37-cp37m-win_amd64.whl", hash = "sha256:4f2f7fd96582a69c030d883b9f701028a6df690637d4a122e9043d3062e5e776"},
-    {file = "osqp-0.6.4-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:4c80a308d12c4f065ae069060d6ff1b64624d03f832221f073ddaef0ce387cfa"},
-    {file = "osqp-0.6.4-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:baa763c67c3ba5ce1191e4ce4dfc54c6b5fc96e794ea5bae6b03793897af93cf"},
-    {file = "osqp-0.6.4-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:b57785b2ed7928b2535978fc862b5d6826a1db69d8d21151630f654d42d7c829"},
-    {file = "osqp-0.6.4-cp38-cp38-win_amd64.whl", hash = "sha256:681e8881f71a997a1506ddb8631daa3207d03f59ac929987103f4289287c8065"},
-    {file = "osqp-0.6.4-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:bdbf25b567b53192a82a6495979d7714198a1500ca5339c55d851c8d5c7cb8e7"},
-    {file = "osqp-0.6.4-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:72efd10d855c3ed5773ff7f72c76dcddff6bb2454149b27e262d611ba6fb2f28"},
-    {file = "osqp-0.6.4-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:f11bc1c5877610afae71ebff5b69325a5a4fc68b155613e454c793a66c5a11bd"},
-    {file = "osqp-0.6.4-cp39-cp39-win_amd64.whl", hash = "sha256:702a33c736603e8457acb7512d706bf1d6903f6a75ad140f6c8d14a234cd3f35"},
-    {file = "osqp-0.6.4.tar.gz", hash = "sha256:cfa33e0be422ee5d3e792e7c081bcbf6fa222fc2175b6fdde4c4a219354c5e42"},
+    {file = "osqp-0.6.7.post0-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:770e81b5b11c198958ca09fa2557c43cc8549d594f9ca5ed4ddf4fbe32f11c9e"},
+    {file = "osqp-0.6.7.post0-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:5aa54a298cf43142c49660487ac8e7658597bb596dff18e81554f811a5fbff1f"},
+    {file = "osqp-0.6.7.post0-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:c6cc34b889fd512068c3d3ce60e846850f31967b2e1db11d969ce6a4d50f9b25"},
+    {file = "osqp-0.6.7.post0-cp310-cp310-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:3b1bfbb6771f2b7d9d00c672f222f906837e0677072a284ed8454fa5d715da35"},
+    {file = "osqp-0.6.7.post0-cp310-cp310-win_amd64.whl", hash = "sha256:e73e4fb8bc6173cca1655e80fe910af84a5227c26ff9b233890038bba2f2e17b"},
+    {file = "osqp-0.6.7.post0-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:e088f018a0c2b8555a37cabb6e9195b1a77e1b4607a38e7a4111aae02d3bd66d"},
+    {file = "osqp-0.6.7.post0-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:bd7ec174d0b9b10128afd3501a2b531bab847b2fd73023e7e826cf0a5f255de1"},
+    {file = "osqp-0.6.7.post0-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:19a8e8505ef43159d79e2e02b5c67754a3a15ad7f8c443cfe030e66ef2a35db0"},
+    {file = "osqp-0.6.7.post0-cp311-cp311-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:5bb2a5726250e9b53e1f3a18ae403229f06c706079afcfcee785bb580262d1ab"},
+    {file = "osqp-0.6.7.post0-cp311-cp311-win_amd64.whl", hash = "sha256:d558420ec57ae1678037faff118564261cd7eaefe0e4955de484699513305999"},
+    {file = "osqp-0.6.7.post0-cp312-cp312-macosx_10_9_x86_64.whl", hash = "sha256:bd97280d85fcee5721db824c04a7c5a89563c5feb11b3ad1b4baf8dd486e6919"},
+    {file = "osqp-0.6.7.post0-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:5bc1da507fc81d7b48702c402a18fd3809a6006b831c0bd611e739b18261dded"},
+    {file = "osqp-0.6.7.post0-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:8e0a567c25f1747eba3e86acc4f7c8eb3101f05a864f26324e8bcb31cce43f3c"},
+    {file = "osqp-0.6.7.post0-cp312-cp312-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:996fa6a63938887d6faa9fda34088b26ca87f13b471e5718f3b86bb50135e298"},
+    {file = "osqp-0.6.7.post0-cp312-cp312-win_amd64.whl", hash = "sha256:3f75d19d4b369202f0f6630eabcdf543661f8c70a2634b49491fb2509758a646"},
+    {file = "osqp-0.6.7.post0-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:71a4af242a8d3a30a08022cae52b07dfd292be915421c9cfa04f16bd6925c40f"},
+    {file = "osqp-0.6.7.post0-cp36-cp36m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:46cf1c6fe85cd4f3be4818a11e4733d89b7846224eff263ce4426bf1992c07de"},
+    {file = "osqp-0.6.7.post0-cp36-cp36m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:e851b0d16b6bedf051c42391e1a2708cf0e2b8f92c0eea529e85e8342b259870"},
+    {file = "osqp-0.6.7.post0-cp36-cp36m-win_amd64.whl", hash = "sha256:7c11d7b737fa0b3a4352490a1d85122e5799b6b2d8c89235988ffa8dfb6ceddf"},
+    {file = "osqp-0.6.7.post0-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:39773758bb44d650fd6db1ce59e87b9307555e41262ddd426d86eea969990329"},
+    {file = "osqp-0.6.7.post0-cp37-cp37m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:834ff4b708ff85d6569319fd7595c878c0b2f6626a3fe655043608e0ae2a942a"},
+    {file = "osqp-0.6.7.post0-cp37-cp37m-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:a39e4dfe66f5d2c97a8e945d1934dada5f1f01cd770b8e0c31102fe5d0b471f9"},
+    {file = "osqp-0.6.7.post0-cp37-cp37m-win_amd64.whl", hash = "sha256:8bd78909aad46d09ded9f992666b97ea4a76486c5bbe0335a2a41979146593c9"},
+    {file = "osqp-0.6.7.post0-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:d225c728b637edac7dc99742336ff99d6544a5f8379dd2d2f483b11278228886"},
+    {file = "osqp-0.6.7.post0-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:a1d6c6fd1b8d2ef79097cb970ab75a20b216ca50dfe98e6fe16ec0087379f70c"},
+    {file = "osqp-0.6.7.post0-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:131f9d65f4c531f59474bb450ad664d65190ca147daa86a9edad71ecbf553603"},
+    {file = "osqp-0.6.7.post0-cp38-cp38-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:f7a5fc7baaa403c4940267f4fd626231c7baa76164ea111085f88f55fdddabe7"},
+    {file = "osqp-0.6.7.post0-cp38-cp38-win_amd64.whl", hash = "sha256:0f148c8da566dd5107c73087ff7e9751edd9c48207f0396ead5682513c7654ef"},
+    {file = "osqp-0.6.7.post0-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:bede6d515c2cbf901416d38ba5b19c0a5c2ab4aa5164c2aebc65c404f153fbcb"},
+    {file = "osqp-0.6.7.post0-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:6dc545753527281d3788ce1dc9014993e0b79d3886a378afb3e3be3adf1d1320"},
+    {file = "osqp-0.6.7.post0-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:e6186687b994c02adc1805b2404fe460d19274e4ba54e8aef0691d9f4904749c"},
+    {file = "osqp-0.6.7.post0-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:4a3d59041c45fda27e9029079a0bfdbae9babb3740401e0ae8a3d0d970ba8dda"},
+    {file = "osqp-0.6.7.post0-cp39-cp39-win_amd64.whl", hash = "sha256:6ac4ce51218db1ead613fdde1769af7d70a9f5b1810c15479eb37431afe4a3e6"},
+    {file = "osqp-0.6.7.post0.tar.gz", hash = "sha256:72f704653f539d3aad6875de9a7be637c3bad008e94c2dafeec2104b4cbdfa64"},
 ]
 
 [package.dependencies]
 numpy = ">=1.7"
 qdldl = "*"
-scipy = ">=0.13.2"
+scipy = ">=0.13.2,<1.12.0 || >1.12.0"
 
 [[package]]
 name = "packaging"
