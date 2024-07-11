@@ -215,19 +215,19 @@ files = [
 
 [[package]]
 name = "clarabel"
-version = "0.7.1"
+version = "0.9.0"
 description = "Clarabel Conic Interior Point Solver for Rust / Python"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "clarabel-0.7.1-cp37-abi3-macosx_10_12_x86_64.macosx_11_0_arm64.macosx_10_12_universal2.whl", hash = "sha256:32980b578842d17abe3d277df2d31a6b8bff3facf33b169c74d59b2ada10b61b"},
-    {file = "clarabel-0.7.1-cp37-abi3-macosx_10_12_x86_64.whl", hash = "sha256:b4d414b9db040effa186f9e048de2c7d3e38b6edcadaaa2432a52b6451ba9999"},
-    {file = "clarabel-0.7.1-cp37-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:ec0fde90a467e07010176b0bd159ab8cb11c59c8ff0a09580af1ac77d7861971"},
-    {file = "clarabel-0.7.1-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:754e2681eb74e7f6fc35612ae58219d76819a0bc1b67771752b6f5425f72c1f8"},
-    {file = "clarabel-0.7.1-cp37-abi3-manylinux_2_5_i686.manylinux1_i686.whl", hash = "sha256:33283d190f1e2a3b8559c928f0eb0d1fefc45aad334fd0566cdf5eaa94606a13"},
-    {file = "clarabel-0.7.1-cp37-abi3-win32.whl", hash = "sha256:519f9b1daba08f909c106da8b5fd52937cfbc4ba27086c4cbd9728d168cfbc5c"},
-    {file = "clarabel-0.7.1-cp37-abi3-win_amd64.whl", hash = "sha256:33faf5a02465eb5f7f7380d892ce3cf1d293a3efefcea18d637c618f012f5f36"},
-    {file = "clarabel-0.7.1.tar.gz", hash = "sha256:a30ab135f475c5bc78329fd7df575291155e6055bcaf02124eb610b8ad176396"},
+    {file = "clarabel-0.9.0-cp37-abi3-macosx_10_12_x86_64.macosx_11_0_arm64.macosx_10_12_universal2.whl", hash = "sha256:702cc4666c0ccf893c936f9f1f55cbb3233ae2d5fa05f67b370ac3e7ec50f222"},
+    {file = "clarabel-0.9.0-cp37-abi3-macosx_10_12_x86_64.whl", hash = "sha256:8ea616757b460153ead375b3dd3ce763d46fc3717248077bbfa7b2c844b1775f"},
+    {file = "clarabel-0.9.0-cp37-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:2b5ae16d7dd87aabf72260cf9590ba0d037c52d48555bcf3a86b1f0d9cf88dd4"},
+    {file = "clarabel-0.9.0-cp37-abi3-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:85cb560a5c4cdfb079e3437e21f0b62b69ba766ae082aeb96ced0b5763214077"},
+    {file = "clarabel-0.9.0-cp37-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:0eaeb3fbb5a90b598700d5435c7f102592a1a79ee25df5a097e0af575838786b"},
+    {file = "clarabel-0.9.0-cp37-abi3-win32.whl", hash = "sha256:759c2fa0ccc61ae1a02691c43753638a0ae793bf1de81c6f6763c346789a7e25"},
+    {file = "clarabel-0.9.0-cp37-abi3-win_amd64.whl", hash = "sha256:d24e4ed1b686eb2fe2a1b6e77935af6ad62a2c044131e70801ec1d3ef3d33280"},
+    {file = "clarabel-0.9.0.tar.gz", hash = "sha256:0d6d3fe8800be5b4b5d40a8e14bd492667b3e46cc5dbe37677ce5ed25f0719d4"},
 ]
 
 [package.dependencies]
