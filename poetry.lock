@@ -1536,23 +1536,23 @@ files = [
 
 [[package]]
 name = "rustworkx"
-version = "0.15.0"
+version = "0.15.1"
 description = "A python graph library implemented in Rust"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "rustworkx-0.15.0-cp38-abi3-macosx_10_12_x86_64.whl", hash = "sha256:d8d26d392680c4c81bd9da1fbdb531a4344f3edf01b583ee8a63ef1bf9a88e69"},
-    {file = "rustworkx-0.15.0-cp38-abi3-macosx_11_0_arm64.whl", hash = "sha256:5fd6f800692e104100548e8bcae58f09edf11e8010659e7e857a4726d8202d63"},
-    {file = "rustworkx-0.15.0-cp38-abi3-manylinux_2_12_i686.manylinux2010_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:f29ab1fdf5c98d974362cc13e1c7fdd603cd3f774844a6ec6cdf0caf55a56df6"},
-    {file = "rustworkx-0.15.0-cp38-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:032753a7b7a5f28e00aabaada0c549f1c95f36db59045078ee2401d67d03638e"},
-    {file = "rustworkx-0.15.0-cp38-abi3-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:4d79671bd49b8092260ede9c70a7c2df12054d46db297f28183e48166ee1fdbd"},
-    {file = "rustworkx-0.15.0-cp38-abi3-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:0bc774e84528ca4a125e242a9ac3a2ed88bae2de274f4ab2757b9ad5bcda62e4"},
-    {file = "rustworkx-0.15.0-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:a1adf9f7241a2dacf20d89907ea2f719d3dda71835d7a2f5c9069083609168a3"},
-    {file = "rustworkx-0.15.0-cp38-abi3-musllinux_1_1_aarch64.whl", hash = "sha256:7572451d6a973395a82a2e8c5d726f8921e31d04634b38c508e64d8a1fb60f5c"},
-    {file = "rustworkx-0.15.0-cp38-abi3-musllinux_1_1_x86_64.whl", hash = "sha256:848cf180ce27ce8c985ec81e9bcba9c46ac01b9e11355a87aa16276b78385e13"},
-    {file = "rustworkx-0.15.0-cp38-abi3-win32.whl", hash = "sha256:8eaeafc844df76bc13469d1876520049f226d108512f01b52672949912839325"},
-    {file = "rustworkx-0.15.0-cp38-abi3-win_amd64.whl", hash = "sha256:563ac93699d73fd2eb00d9bfe3c06c6c5bd1d8e588f0dff9e04708a0cc5685ac"},
-    {file = "rustworkx-0.15.0.tar.gz", hash = "sha256:41a50586c48367c80eebc26809105c0c47db47b1d12a5078efa94d8d1f3850a4"},
+    {file = "rustworkx-0.15.1-cp38-abi3-macosx_10_12_x86_64.whl", hash = "sha256:6cd4496d3298cd3205c03545e48cc37d21e0455d57752af801d3fb250452d590"},
+    {file = "rustworkx-0.15.1-cp38-abi3-macosx_11_0_arm64.whl", hash = "sha256:cb518f5649e62d753e29ca1e57290c8f58adbebcd154dc3159f4a36ebfa1e2b7"},
+    {file = "rustworkx-0.15.1-cp38-abi3-manylinux_2_12_i686.manylinux2010_i686.manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:6ac68ae2515ece22ba3ef56f3d16ad6bf707955f650d623190b2e7d706c6dc92"},
+    {file = "rustworkx-0.15.1-cp38-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:8b903edec1d803704b499959f9d6f6119cdda63b9b64194a4b4307e506b112f0"},
+    {file = "rustworkx-0.15.1-cp38-abi3-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:a2c97a56ff8a0f6c273a83e26e627c72207442b4252aa550acad0bff42caac40"},
+    {file = "rustworkx-0.15.1-cp38-abi3-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:241c502532e348ba89200823326dba30de4df4b886cb2fd5a140b359ff124bb3"},
+    {file = "rustworkx-0.15.1-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:7e5f4156f46fa03177c9b0580450eab87786063495d48b457762a5bdd20c55e2"},
+    {file = "rustworkx-0.15.1-cp38-abi3-musllinux_1_1_aarch64.whl", hash = "sha256:7834ab34748db6214ec3b3836b996b23882dc83184234e6d346d6bb85fd58ae5"},
+    {file = "rustworkx-0.15.1-cp38-abi3-musllinux_1_1_x86_64.whl", hash = "sha256:ce53f173fed16e1d51d9df9f23475a16c981b03bf1a412d991c75a70db6b1dc1"},
+    {file = "rustworkx-0.15.1-cp38-abi3-win32.whl", hash = "sha256:308bc76a01bcae9af4602d8b9ed58021df37dd0bb5a7b2e3831ae53c5e234ff0"},
+    {file = "rustworkx-0.15.1-cp38-abi3-win_amd64.whl", hash = "sha256:89077382633e918d2392772f53b9d6d30eee51eb536f8d38ee195c212b2f0427"},
+    {file = "rustworkx-0.15.1.tar.gz", hash = "sha256:0e0cc86599f979285b2ab9c357276f3272f3fcb3b2df5651a6bf9704c570d4c1"},
 ]
 
 [package.dependencies]
