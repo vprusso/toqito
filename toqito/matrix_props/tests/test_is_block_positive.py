@@ -1,5 +1,7 @@
 """Test is_block_positive."""
 
+from unittest.mock import patch
+
 import numpy as np
 import pytest
 from picos import partial_transpose
@@ -17,6 +19,15 @@ y_mat = (
     np.kron(np.eye(4), b_0 @ b_0.T) / 2 + np.kron(b_3 @ b_3.T, partial_transpose(b_3 @ b_3.T, [0]))
 ) / 3 - v_0 @ v_0.T / 4
 mat = swap(y_mat, [2, 3], [2, 2, 2, 2])
+
+
+def test_is_block_positive_not_block_positive():
+    """Small tolerance for lower bound block positive condition."""
+    # Create a matrix that is definitely not block positive
+    mat = np.array([[-1, 0], [0, 1]])
+
+    # Set a very small tolerance to ensure the lower bound condition is met
+    assert not is_block_positive(mat, rtol=1e-10)
 
 
 @pytest.mark.parametrize(

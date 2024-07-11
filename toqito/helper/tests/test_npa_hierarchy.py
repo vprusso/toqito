@@ -9,6 +9,29 @@ import pytest
 from toqito.helper import npa_constraints
 
 
+def test_gen_words_intermediate_hierarchy():
+    """Intermediate NPA hierarchy."""
+    # Create a mock assemblage with cvxpy Variables
+    referee_dim = 1
+    a_out = 2
+    b_out = 2
+    assemblage = {
+        (0, 0): cvxpy.Variable((referee_dim * a_out, referee_dim * b_out)),
+        (0, 1): cvxpy.Variable((referee_dim * a_out, referee_dim * b_out)),
+        (1, 0): cvxpy.Variable((referee_dim * a_out, referee_dim * b_out)),
+        (1, 1): cvxpy.Variable((referee_dim * a_out, referee_dim * b_out))
+    }
+
+    # Use a hierarchy level string that includes an intermediate level
+    k = "1+ab+bb"
+
+    # Call npa_constraints, which internally calls _gen_words
+    constraints = npa_constraints(assemblage, k)
+
+    # Assert that constraints were generated (exact number may vary)
+    assert len(constraints) > 0
+
+
 def cglmp_inequality(dim: int) -> tuple[dict[tuple[int, int], cvxpy.Variable], cvxpy.Expression]:
     """Collins-Gisin-Linden-Massar-Popescu inequality."""
     (a_in, b_in) = (2, 2)
