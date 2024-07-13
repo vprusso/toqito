@@ -1,13 +1,42 @@
 """Test is_separable."""
 
 import numpy as np
-import pytest
 
 from toqito.channels import partial_trace
 from toqito.matrix_props import is_density
 from toqito.rand import random_density_matrix
 from toqito.state_props.is_separable import is_separable
 from toqito.states import basis, bell, isotropic, tile
+
+
+def test_entangled_zhang_realignment_criterion():
+    """Test for entanglement using Zhang's realignment criterion."""
+    # Create a state that satisfies this criterion
+    rho = np.array([
+        [0.5, 0, 0, 0.5],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0.5, 0, 0, 0.5]
+    ])
+    np.testing.assert_equal(is_separable(rho), False)
+
+
+def test_entangled_qutrit_qutrit():
+    """Test for entanglement in the qutrit-qutrit case."""
+    # Create a 3x3 entangled state
+    psi = (1/np.sqrt(3)) * (
+        np.kron([1,0,0], [1,0,0]) + np.kron([0,1,0], [0,1,0]) + np.kron([0,0,1], [0,0,1])
+    )
+    rho = np.outer(psi, psi)
+    np.testing.assert_equal(is_separable(rho), False)
+
+
+def test_entangled_breuer_hall():
+    """Test for entanglement using Breuer-Hall positive maps."""
+    # Create a 4x4 entangled state
+    psi = (1/np.sqrt(2)) * (np.kron([1,0], [1,0]) + np.kron([0,1], [0,1]))
+    rho = np.outer(psi, psi)
+    np.testing.assert_equal(is_separable(rho), False)
 
 
 def test_non_positive_semidefinite_matrix():
