@@ -1,10 +1,10 @@
-"""Test random_circulant_gram."""
+"""Test random_circulant_gram_matrix."""
 
 import numpy as np
 import pytest
 from numpy.testing import assert_array_almost_equal, assert_equal
 
-from toqito.rand.random_circulant_gram import random_circulant_gram
+from toqito.rand.random_circulant_gram_matrix import random_circulant_gram_matrix
 
 
 @pytest.mark.parametrize(
@@ -20,10 +20,10 @@ from toqito.rand.random_circulant_gram import random_circulant_gram
         10,
     ],
 )
-def test_random_circulant_gram(dim):
-    """Test for random_circulant_gram function."""
+def test_random_circulant_gram_matrix(dim):
+    """Test for random_circulant_gram_matrix function."""
     # Generate a random circulant Gram matrix.
-    circulant_matrix = random_circulant_gram(dim)
+    circulant_matrix = random_circulant_gram_matrix(dim)
 
     # Ensure the matrix has the correct shape.
     assert_equal(circulant_matrix.shape, (dim, dim))
