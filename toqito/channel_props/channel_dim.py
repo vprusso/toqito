@@ -13,21 +13,21 @@ def channel_dim(
 ) -> tuple[np.ndarray | int]:
     """Compute the input, output, and environment dimensions of a channel.
 
-    This function returns the dimensions of the input, output, and environment spaces of
-    input channel, in that order. Input and output dimensions are both 1-by-2 vectors
-    containing the row and column dimensions of their spaces. The enviroment dimension
-    is always a scalar, and it is equal to the number of Kraus operators of PHI (if PHI is
-    provided as a Choi matrix then enviroment dimension is the *minimal* number of Kraus
-    operators of any representation of PHI).
+    This function returns the dimensions of the input, output, and environment spaces of input channel, in that order.
 
-    Input DIM should provided if and only if PHI is a Choi matrix with unequal input and
-    output dimensions (since it is impossible to determine the input and output dimensions
-    from the Choi matrix alone). If ALLOW_RECT is false and PHI acts on non-square matrix
-    spaces, an error will be produced. If PHI maps M_{r,c} to M_{x,y} then DIM should be the
-    2-by-2 matrix [[r,x], [c,y]]. If PHI maps M_m to M_n, then DIM can simply be the vector
-    [m,n]. If ALLOW_RECT is false then returned input and output dimensions will be scalars
-    instead of vectors. If COMPUTE_ENV_DIM is false and the PHI is a Choi matrix we avoid
-    computing the rank of the Choi matrix.
+    Input and output dimensions are both 1-by-2 vectors containing the row and column dimensions of their spaces. The
+    environment dimension is always a scalar, and it is equal to the number of Kraus operators of :code:`phi` (if
+    :code:`phi` is provided as a Choi matrix then environment dimension is the *minimal* number of Kraus operators of
+    any representation of :code:`phi`).
+
+    Input :code:`dim` should provided if and only if PHI is a Choi matrix with unequal input and output dimensions
+    (since it is impossible to determine the input and output dimensions from the Choi matrix alone). If
+    :code:`allow_rect` is :code:`False` and :code:`phi` acts on non-square matrix spaces, an error will be produced. If
+    :code:`phi` maps :math:`M_{r,c}` to :math:`M_{x,y}` then :code:`dim` should be the 2-by-2 matrix [[r,x], [c,y]].
+
+    If :code:`phi` maps M_m to M_n, then :code:`dim` can simply be the vector [m,n]. If :code:`allow_rect` is
+    :code:`False` then returned input and output dimensions will be scalars instead of vectors. if compute_env_dim is
+    :code:`False` and the :code:`phi` is a Choi matrix we avoid computing the rank of the Choi matrix.
 
     This functions was adapted from QETLAB :cite:`QETLAB_link`.
 
@@ -37,10 +37,10 @@ def channel_dim(
         :filter: docname in docnames
 
     :param phi: A superoperator. It should be provided either as a Choi matrix,
-                or as a (1d or 2d) list of numpy arrays whose entries are its Kraus operators.
+                or as a (1D or 2D) list of numpy arrays whose entries are its Kraus operators.
     :param allow_rect: A flag indicating that the input and output spaces of PHI can be non-square (default True).
     :param dim: A scalar, vector or matrix containing the input and output dimensions of PHI.
-    :param compute_env_dim: A flag indicating whether we compute the enviroment dimension.
+    :param compute_env_dim: A flag indicating whether we compute the environment dimension.
     :return: The input, output, and environment dimensions of a channel.
 
     """
@@ -77,10 +77,10 @@ def channel_dim(
 
         # Now do some error checking.
         if (dim_in[0] != dim_in[1] or dim_out[0] != dim_out[1]) and not allow_rect:
-            raise ValueError("The input and output spaces of PHI must be square.")
+            raise ValueError("The input and output spaces of phi must be square.")
 
         if np.any(dim != np.vstack([dim_in, dim_out]).T):
-            raise ValueError("The dimensions of PHI do not match those provided in the DIM argument.")
+            raise ValueError("The dimensions of phi do not match those provided in the dim argument.")
 
         if (is_cpt and any(k_mat.shape != (dim[0, 1], dim[0, 0]) for k_mat in phi)) or (
             not is_cpt
@@ -88,10 +88,10 @@ def channel_dim(
                 k_mat[0].shape != (dim[0, 1], dim[0, 0]) or k_mat[1].shape != (dim[1, 1], dim[1, 0]) for k_mat in phi
             )
         ):
-            raise ValueError("The Kraus operators of PHI do not all have the same size.")
+            raise ValueError("The Kraus operators of phi do not all have the same size.")
 
-    # If Phi is a Choi matrix, the dimensions are a bit more of a pain: we have
-    # to guess a bit if the input and output dimensions are different.
+    # If Phi is a Choi matrix, the dimensions are a bit more of a pain: we have to guess a bit if the input and output
+    # dimensions are different.
     else:
         # Try to guess input and output dims.
         rows, cols = phi.shape
@@ -104,13 +104,13 @@ def channel_dim(
 
         if dim[0, 0] * dim[0, 1] != rows or dim[1, 0] * dim[1, 1] != cols:
             raise ValueError(
-                "If the input and output dimensions are unequal and PHI is provided "
-                "as a Choi matrix, the optional argument DIM must be specified "
-                "(and its dimensions must agree with PHI)."
+                "If the input and output dimensions are unequal and phi is provided "
+                "as a Choi matrix, the optional argument dim must be specified "
+                "(and its dimensions must agree with phi)."
             )
 
         if (dim[0, 0] != dim[1, 0] or dim[0, 1] != dim[1, 1]) and not allow_rect:
-            raise ValueError("The input and output spaces of PHI must be square.")
+            raise ValueError("The input and output spaces of phi must be square.")
 
         # environment dimension is the rank of the Choi matrix
         dim_e = None
