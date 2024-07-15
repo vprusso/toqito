@@ -109,7 +109,7 @@ def symmetric_extension_hierarchy(
     >>> # Calculate the first level of the symmetric extension hierarchy. This
     >>> # is simply the value of optimally distinguishing via PPT measurements.
     >>> np.around(symmetric_extension_hierarchy(states=states, probs=None, level=1), decimals=2)
-    0.99
+    np.float64(0.99)
     >>>
     >>> # Calculating the second value gets closer to the separable value.
     >>> np.around(symmetric_extension_hierarchy(states=states, probs=None, level=2), decimals=2)
@@ -118,7 +118,7 @@ def symmetric_extension_hierarchy(
     >>> # As proven in :cite:`Cosentino_2015_QuantumState`, the true separable value of distinguishing the
     >>> # three Bell states is:
     >>> np.around(1/3 * (2 + np.sqrt(1 - eps**2)), decimals=2)
-    0.96
+    np.float64(0.96)
     >>>
     >>> # Computing further levels of the hierarchy would eventually converge to
     >>> # this value, however, the higher the level, the more computationally

@@ -54,7 +54,7 @@ class QuantumHedging:
     >>>
     >>> # cos(pi/8)**2 \approx 0.8536
     >>> np.around(molina_watrous.max_prob_outcome_a_primal(), decimals=2)
-    0.85
+    np.float64(0.85)
 
     References
     ==========

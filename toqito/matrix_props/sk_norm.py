@@ -58,7 +58,7 @@ def sk_operator_norm(
     >>> n = 4; a = 0
     >>> rho = werner(4, 0.)
     >>> sk_operator_norm(rho)
-    (0.0625, 0.0625)
+    (np.float64(0.0625), np.float64(0.0625))
 
     References
     ==========

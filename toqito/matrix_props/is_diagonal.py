@@ -41,7 +41,7 @@ def is_diagonal(mat: np.ndarray) -> bool:
     >>> import numpy as np
     >>> A = np.array([[1, 0], [0, 1]])
     >>> is_diagonal(A)
-    True
+    np.True_
 
     Alternatively, the following example matrix
 
@@ -57,7 +57,7 @@ def is_diagonal(mat: np.ndarray) -> bool:
     >>> import numpy as np
     >>> B = np.array([[1, 2], [3, 4]])
     >>> is_diagonal(B)
-    False
+    np.False_
 
     References
     ==========

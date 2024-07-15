@@ -84,7 +84,7 @@ def optimal_clone(
     >>> states = [e_0, e_1, e_p, e_m]
     >>> probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
     >>> np.around(optimal_clone(states, probs), decimals=2)
-    0.75
+    np.float64(0.75)
 
     References
     ==========
