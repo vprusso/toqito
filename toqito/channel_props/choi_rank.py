@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from toqito.channel_ops import kraus_to_choi
+from toqito import channel_ops
 
 
 def choi_rank(phi: np.ndarray | list[list[np.ndarray]]) -> int:
@@ -75,7 +75,7 @@ def choi_rank(phi: np.ndarray | list[list[np.ndarray]]) -> int:
 
     """
     if isinstance(phi, list):
-        phi = kraus_to_choi(phi)
+        phi = channel_ops.kraus_to_choi(phi)
     elif not isinstance(phi, np.ndarray):
         raise ValueError("Not a valid Choi matrix.")
 

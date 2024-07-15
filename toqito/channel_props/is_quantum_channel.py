@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from toqito.channel_ops import kraus_to_choi
+from toqito import channel_ops
 from toqito.channel_props import is_completely_positive, is_trace_preserving
 
 
@@ -73,7 +73,7 @@ def is_quantum_channel(
     # If the variable `phi` is provided as a list, we assume this is a list
     # of Kraus operators.
     if isinstance(phi, list):
-        phi = kraus_to_choi(phi)
+        phi = channel_ops.kraus_to_choi(phi)
 
     # A valid quantum channel is a superoperator that is both completely
     # positive and trace-preserving.

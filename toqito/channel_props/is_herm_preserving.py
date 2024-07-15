@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from toqito.channel_ops import kraus_to_choi
+from toqito import channel_ops
 from toqito.matrix_props import is_hermitian
 
 
@@ -74,7 +74,7 @@ def is_herm_preserving(
     # If the variable `phi` is provided as a list, we assume this is a list
     # of Kraus operators.
     if isinstance(phi, list):
-        phi = kraus_to_choi(phi)
+        phi = channel_ops.kraus_to_choi(phi)
 
     # Phi is Hermiticity-preserving if and only if its Choi matrix is Hermitian.
     if phi.shape[0] != phi.shape[1]:

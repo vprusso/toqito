@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from toqito.channel_ops import choi_to_kraus
+from toqito import channel_ops
 from toqito.matrix_props import is_unitary as is_unitary_matrix
 
 
@@ -71,7 +71,7 @@ def is_unitary(phi: np.ndarray | list[list[np.ndarray]]) -> bool:
     # Choi matrix.
     if isinstance(phi, np.ndarray):
         try:
-            phi = choi_to_kraus(phi)
+            phi = channel_ops.choi_to_kraus(phi)
         except ValueError:
             # if we fail to obtain a Kraus representation then input/ouput spaces might be
             # non squares or their dimensions are not equal. Hence the channel is not unitary.

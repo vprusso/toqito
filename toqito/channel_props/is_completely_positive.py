@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from toqito.channel_ops import kraus_to_choi
+from toqito import channel_ops
 from toqito.channel_props import is_herm_preserving
 from toqito.matrix_props import is_positive_semidefinite
 
@@ -88,7 +88,7 @@ def is_completely_positive(
     # If the variable `phi` is provided as a list, we assume this is a list
     # of Kraus operators.
     if isinstance(phi, list):
-        phi = kraus_to_choi(phi)
+        phi = channel_ops.kraus_to_choi(phi)
 
     # Use Choi's theorem to determine whether :code:`phi` is completely positive.
     return is_herm_preserving(phi, rtol, atol) and is_positive_semidefinite(phi, rtol, atol)

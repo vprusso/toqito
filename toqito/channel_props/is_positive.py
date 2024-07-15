@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from toqito.channel_ops import kraus_to_choi
+from toqito import channel_ops
 from toqito.matrix_props import is_positive_semidefinite
 
 
@@ -76,5 +76,5 @@ def is_positive(
     # If the variable `phi` is provided as a list, we assume this is a list
     # of Kraus operators.
     if isinstance(phi, list):
-        phi = kraus_to_choi(phi)
+        phi = channel_ops.kraus_to_choi(phi)
     return is_positive_semidefinite(phi, rtol, atol)
