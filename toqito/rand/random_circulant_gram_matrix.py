@@ -3,7 +3,7 @@
 import numpy as np
 
 
-def random_circulant_gram(dim: int) -> np.ndarray:
+def random_circulant_gram_matrix(dim: int) -> np.ndarray:
     r"""Generate a random circulant Gram matrix of specified dimension.
 
     A circulant matrix is a square matrix where the elements of each row are identical to the elements of the
@@ -26,8 +26,8 @@ def random_circulant_gram(dim: int) -> np.ndarray:
     Generate a random circulant Gram matrix of dimension 4.
 
     >>> import numpy as np
-    >>> from toqito.rand import random_circulant_gram
-    >>> circulant_matrix = random_circulant_gram(4)
+    >>> from toqito.rand import random_circulant_gram_matrix
+    >>> circulant_matrix = random_circulant_gram_matrix(4)
     >>> circulant_matrix.shape
     (4, 4)
     >>> np.allclose(circulant_matrix, circulant_matrix.T)
