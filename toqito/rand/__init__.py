@@ -6,4 +6,4 @@ from toqito.rand.random_ginibre import random_ginibre
 from toqito.rand.random_povm import random_povm
 from toqito.rand.random_state_vector import random_state_vector
 from toqito.rand.random_states import random_states
-from toqito.rand.random_circulant_gram import random_circulant_gram
+from toqito.rand.random_circulant_gram_matrix import random_circulant_gram_matrix

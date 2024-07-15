@@ -1,18 +1,18 @@
-"""Test cyclic_permutation."""
+"""Test cyclic_permutation_matrix."""
 
 import numpy as np
 
 from toqito.matrices import cyclic_permutation_matrix
 
 
-def test_cyclic_permutation_fixed():
+def test_cyclic_permutation_matrix_fixed():
     """Test cyclic permuation matrix."""
     n = 10
     res = cyclic_permutation_matrix(n)
     assert np.allclose(np.linalg.matrix_power(res, n), np.eye(n))
 
 
-def test_cyclic_permutation_successive():
+def test_cyclic_permutation_matrix_successive():
     """Test a successive cyclic permuation matrix."""
     n = 4
     # Test for k from 1 to n - 1
@@ -21,7 +21,7 @@ def test_cyclic_permutation_successive():
         assert np.allclose(np.linalg.matrix_power(res, n), np.eye(n))
 
 
-def test_cyclic_permutation_checks():
+def test_cyclic_permutation_matrix_checks():
     """Run checks to confrim a proper cyclic permutation."""
     for n in (2, 4, 6, 8, 10):
         res = cyclic_permutation_matrix(n)
