@@ -36,9 +36,10 @@ jobs:
           sudo apt-get install -y libblas-dev liblapack-dev
       - name: Install toqito + dependencies
         run: |
-          python -m pip install --upgrade pip setuptools wheel
+          python -m pip install --upgrade pip
+          pip3 install cvxopt
           pip install poetry
-          poetry install --without docs --no-interaction
+          poetry install --without docs,cvxdep --no-interaction
 
 
   toqito-pytest:
@@ -68,9 +69,10 @@ jobs:
           brew install openblas lapack
       - name: Install toqito + dependencies
         run: |
-          python -m pip install --upgrade pip setuptools wheel
+          python -m pip install --upgrade pip
+          pip3 install cvxopt
           pip install poetry
-          poetry install --with dev --without docs,lint --no-interaction
+          poetry install --with dev --without docs,lint,cvxdep --no-interaction
       - name: Run tests
         run: poetry run pytest -v --cov-config=.coveragerc --cov-report=xml --cov-report term-missing:skip-covered --cov=toqito
       - name: Upload coverage information

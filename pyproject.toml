@@ -18,13 +18,15 @@ keywords = ["quantum information", "quantum computing", "nonlocal games"]
 [tool.poetry.dependencies]
 python = ">=3.10,<4"
 cvxpy = "1.5.2"
-cvxopt = "1.3.2"
 more-itertools = "10.3.0"
 numpy = "2.0.0"
 scipy = "1.14.0"
 scs = "3.2.6"
 picos = "2.4.17"
 qiskit = "1.1.1"
+
+[tool.poetry.group.cvxdep.dependencies]
+cvxopt = "1.3.2"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "8.2.2"
