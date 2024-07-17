@@ -28,7 +28,7 @@ def negativity(rho: np.ndarray, dim: list[int] | int = None) -> float:
     >>> from toqito.state_props import negativity
     >>> rho = bell(0) * bell(0).conj().T
     >>> negativity(rho)
-    0.4999999999999998
+    np.float64(0.4999999999999998)
 
     See Also
     ==========

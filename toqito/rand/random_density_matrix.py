@@ -41,7 +41,7 @@ def random_density_matrix(
 
     >>> from toqito.matrix_props import is_density
     >>> is_density(complex_dm)
-    True
+    np.True_
 
     We can also generate random density matrices that are real-valued as follows.
 
@@ -56,7 +56,7 @@ def random_density_matrix(
 
     >>> from toqito.matrix_props import is_density
     >>> is_density(real_dm)
-    True
+    np.True_
 
     By default, the random density operators are constructed using the Haar measure. We can select to generate the
     random density matrix according to the Bures metric instead as follows.
@@ -72,7 +72,7 @@ def random_density_matrix(
 
     >>> from toqito.matrix_props import is_density
     >>> is_density(bures_mat)
-    True
+    np.True_
 
 
     :param dim: The number of rows (and columns) of the density matrix.

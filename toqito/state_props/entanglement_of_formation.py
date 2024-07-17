@@ -42,7 +42,7 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
     >>> u_vec = bell(0)
     >>> rho = u_vec @ u_vec.conj().T
     >>> np.around(entanglement_of_formation(rho), decimals=3)
-    1.0
+    np.float64(1.0)
 
     References
     ==========

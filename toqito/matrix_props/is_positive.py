@@ -22,7 +22,7 @@ def is_positive(input_mat: np.ndarray) -> bool:
     >>> from toqito.matrix_props import is_positive
     >>> input_mat = np.array([[1, 1, 1],[1, 1, 1],[1, 1, 1]])
     >>> is_positive(input_mat)
-    True
+    np.True_
 
     References
     ==========

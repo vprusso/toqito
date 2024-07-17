@@ -323,7 +323,7 @@ This can be verified in :code:`toqito` as follows.
     >>> 
     >>> # The unentangled value is cos(pi/8)**2 \approx 0.85356
     >>> np.around(bb84.unentangled_value(), decimals=2)
-    0.85
+    np.float64(0.85)
 
 The BB84 game also exhibits strong parallel repetition. We can specify how many
 parallel repetitions for :code:`toqito` to run. The example below provides an
@@ -340,7 +340,7 @@ example of two parallel repetitions for the BB84 game.
     >>> 
     >>> # The unentangled value for two parallel repetitions is cos(pi/8)**4 \approx 0.72855
     >>> np.around(bb84_2_reps.unentangled_value(), decimals=2)
-    0.73
+    np.float64(0.73)
 
 It was shown in :cite:`Johnston_2016_Extended` that the BB84 game possesses the property of strong
 parallel repetition. That is,
@@ -367,7 +367,7 @@ using :code:`toqito` as well.
     >>> 
     >>> # The standard quantum value is cos(pi/8)**2 \approx 0.85356
     >>> np.around(bb84_lb.quantum_value_lower_bound(), decimals=2)
-    0.85
+    np.float64(0.85)
 
 From :cite:`Johnston_2016_Extended`, it is known that :math:`\omega(G_{BB84}) =
 \omega^*(G_{BB84})`, however, if we did not know this beforehand, we could
@@ -395,7 +395,7 @@ Using :code:`toqito`, we can see that :math:`\omega_{ns}(G) = \cos^2(\pi/8)`.
     >>> 
     >>> # The non-signaling value is cos(pi/8)**2 \approx 0.85356
     >>> np.around(bb84.nonsignaling_value(), decimals=2)
-    0.85
+    np.float64(0.85)
 
 So we have the relationship that
 
@@ -417,7 +417,7 @@ can observe this by the following snippet.
     >>> 
     >>> # The non-signaling value for two parallel repetitions is cos(pi/8)**4 \approx 0.73825
     >>> np.around(bb84_2_reps.nonsignaling_value(), decimals=2)
-    0.74
+    np.float64(0.74)
 
 Note that :math:`0.73825 \geq \cos(\pi/8)^4 \approx 0.72855` and therefore we
 have that
@@ -528,7 +528,7 @@ the unentangled value of :math:`G_{CHSH}`.
     >>> 
     >>> # The unentangled value is 3/4 = 0.75
     >>> np.around(chsh.unentangled_value(), decimals=2)
-    0.75
+    np.float64(0.75)
 
 We can also run multiple repetitions of :math:`G_{CHSH}`.
 
@@ -543,7 +543,7 @@ We can also run multiple repetitions of :math:`G_{CHSH}`.
     >>> 
     >>> # The unentangled value for two parallel repetitions is (3/4)**2 \approx 0.5625
     >>> np.around(chsh_2_reps.unentangled_value(), decimals=2)
-    0.56
+    np.float64(0.56)
 
 Note that strong parallel repetition holds as
 
@@ -567,7 +567,7 @@ non-signaling value.
     >>> 
     >>> # The non-signaling value is 3/4 = 0.75
     >>> np.around(chsh.nonsignaling_value(), decimals=2)
-    0.75
+    np.float64(0.75)
 
 As we know that :math:`\omega(G_{CHSH}) = \omega_{ns}(G_{CHSH}) = 3/4` and that
 
@@ -690,7 +690,7 @@ Now that we have encoded :math:`G_{MUB}`, we can calculate the unentangled value
     >>> g_mub = ExtendedNonlocalGame(prob_mat, pred_mat)
     >>> unent_val = g_mub.unentangled_value()
     >>> np.around(unent_val, decimals=2)
-    0.65
+    np.float64(0.65)
 
 That is, we have that 
 
@@ -707,7 +707,7 @@ obtain.
     >>> g_mub = ExtendedNonlocalGame(prob_mat, pred_mat)
     >>> q_val = g_mub.quantum_value_lower_bound()
     >>> np.around(q_val, decimals=2)
-    0.66
+    np.float64(0.66)
 
 Note that as we are calculating a lower bound, it is possible that a value this
 high will not be obtained, or in other words, the algorithm can get stuck in a

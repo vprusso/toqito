@@ -35,7 +35,7 @@ def is_antidistinguishable(states: list[np.ndarray]) -> bool:
     >>>
     >>> bell_states = [bell(0), bell(1), bell(2), bell(3)]
     >>> is_antidistinguishable(bell_states)
-    True
+    np.True_
 
     Consider the following measurement operators
 

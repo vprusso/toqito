@@ -23,7 +23,7 @@ def perm_sign(perm: np.ndarray | list[int]) -> float:
 
     >>> from toqito.perms import perm_sign
     >>> perm_sign([1, 2, 3, 4])
-    1.0
+    np.float64(1.0)
 
     For the following vector
 
@@ -35,7 +35,7 @@ def perm_sign(perm: np.ndarray | list[int]) -> float:
 
     >>> from toqito.perms import perm_sign
     >>> perm_sign([1, 2, 4, 3, 5])
-    -1.0
+    np.float64(-1.0)
 
     References
     ==========

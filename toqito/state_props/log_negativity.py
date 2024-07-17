@@ -27,7 +27,7 @@ def log_negativity(rho: np.ndarray, dim: list[int] | int = None) -> float:
     >>> from toqito.state_props import log_negativity
     >>> rho = bell(0) * bell(0).conj().T
     >>> log_negativity(rho)
-    0.9999999999999997
+    np.float64(0.9999999999999997)
 
     See Also
     ==========

@@ -47,7 +47,7 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     >>> choi_1 = dephasing(4)
     >>> choi_2 = dephasing(4)
     >>> np.around(channel_fidelity(choi_1, choi_2), decimals=2)
-    1.0
+    np.float64(1.0)
 
     We can also compute the channel fidelity between two different channels. For example, we can
     compute the channel fidelity between the dephasing and depolarizing channels.
@@ -60,7 +60,7 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     >>> choi_1 = dephasing(4)
     >>> choi_2 = depolarizing(4)
     >>> np.around(channel_fidelity(choi_1, choi_2), decimals=2)
-    0.5
+    np.float64(0.5)
 
     References
     ==========

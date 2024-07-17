@@ -43,7 +43,7 @@ def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray = None) -> f
     >>> from toqito.state_props import schmidt_rank
     >>> rho = bell(0) @ bell(0).conj().T
     >>> schmidt_rank(rho)
-    4
+    np.int64(4)
 
     Computing the Schmidt rank of the entangled singlet state should yield a value greater than
     :math:`1`.
@@ -52,7 +52,7 @@ def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray = None) -> f
     >>> from toqito.state_props import schmidt_rank
     >>> u = bell(2) @ bell(2).conj().T
     >>> schmidt_rank(u)
-    4
+    np.int64(4)
 
     Computing the Schmidt rank of a separable state should yield a value equal to :math:`1`.
 
@@ -68,7 +68,7 @@ def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray = None) -> f
     >>> rho = 1 / 2 * (e_00 - e_01 - e_10 + e_11)
     >>> rho = rho @ rho.conj().T
     >>> schmidt_rank(rho)
-    1
+    np.int64(1)
 
     References
     ==========

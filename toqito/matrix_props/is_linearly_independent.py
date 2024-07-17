@@ -31,7 +31,7 @@ def is_linearly_independent(vectors: list[np.ndarray]) -> bool:
     >>> v_2 = np.array([[1], [1], [0]])
     >>> v_3 = np.array([[0], [0], [1]])
     >>> is_linearly_independent([v_1, v_2, v_3])
-    True
+    np.True_
 
     References
     ==========

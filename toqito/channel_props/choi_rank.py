@@ -55,14 +55,14 @@ def choi_rank(phi: np.ndarray | list[list[np.ndarray]]) -> int:
 
     >>> from toqito.channel_props import choi_rank
     >>> choi_rank(kraus_ops)
-    4
+    np.int64(4)
 
     We can the verify the associated Choi representation (the SWAP gate)
     gets the same Choi rank:
 
     >>> choi_matrix = np.array([[1,0,0,0],[0,0,1,0],[0,1,0,0],[0,0,0,1]])
     >>> choi_rank(choi_matrix)
-    4
+    np.int64(4)
 
     References
     ==========

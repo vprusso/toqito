@@ -54,7 +54,7 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
     ...      [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
     ... )
     >>> von_neumann_entropy(test_input_mat)
-    5.88418203051333e-15
+    np.float64(5.88418203051333e-15)
 
     Consider the density operator corresponding to the maximally mixed state of dimension two
 
@@ -72,7 +72,7 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
     >>> import numpy as np
     >>> rho = 1/2 * np.identity(2)
     >>> von_neumann_entropy(rho)
-    1.0
+    np.float64(1.0)
 
     References
     ==========

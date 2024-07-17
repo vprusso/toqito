@@ -51,7 +51,7 @@ def inner_product(v1: np.ndarray, v2: np.ndarray) -> float:
     >>> from toqito.matrix_ops import inner_product
     >>> v1, v2 = np.array([1,2,3]), np.array([4,5,6])
     >>> inner_product(v1,v2)
-    32
+    np.int64(32)
 
     References
     ==========

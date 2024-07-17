@@ -30,7 +30,7 @@ def is_diagonally_dominant(mat: np.ndarray, is_strict: bool = True) -> bool:
     >>> import numpy as np
     >>> A = np.array([[2, -1, 0], [0, 2, -1], [0, -1, 2]])
     >>> is_diagonally_dominant(A)
-    True
+    np.True_
 
     Alternatively, the following example matrix :math:`B` defined as
 
@@ -46,7 +46,7 @@ def is_diagonally_dominant(mat: np.ndarray, is_strict: bool = True) -> bool:
     >>> import numpy as np
     >>> B = np.array([[-1, 2], [-1, -1]])
     >>> is_diagonally_dominant(B)
-    False
+    np.False_
 
     References
     ==========

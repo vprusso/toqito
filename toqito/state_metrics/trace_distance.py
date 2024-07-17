@@ -42,7 +42,7 @@ def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float:
     >>> rho = bell(0) * bell(0).conj().T
     >>> sigma = rho
     >>> trace_distance(rho, sigma)
-    0.0
+    np.float64(0.0)
 
     References
     ==========

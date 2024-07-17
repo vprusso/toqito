@@ -94,7 +94,7 @@ def fidelity_of_separability(
     >>> state = tensor(basis(2, 0), basis(2, 0))
     >>> rho = state @ state.conj().T
     >>> np.around(fidelity_of_separability(rho, [2, 2]), decimals=2)
-    1.0
+    np.float64(1.0)
 
     References
     ==========

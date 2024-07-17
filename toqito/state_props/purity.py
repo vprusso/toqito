@@ -35,14 +35,14 @@ def purity(rho: np.ndarray) -> float:
     >>> from toqito.state_props import purity
     >>> import numpy as np
     >>> purity(np.identity(4) / 4)
-    0.25
+    np.float64(0.25)
 
     Calculate the purity of the Werner state:
 
     >>> from toqito.states import werner
     >>> rho = werner(2, 1 / 4)
-    >>> '%.4f' % purity(rho)
-    '0.2653'
+    >>> np.around(purity(rho), decimals=4)
+    np.float64(0.2653)
 
     References
     ==========
