@@ -39,6 +39,11 @@ def positive_semidefinite_rank(mat: np.ndarray, max_rank: int = 10) -> int | Non
     >>> positive_semidefinite_rank(np.identity(3))
     3
 
+    References
+    ==========
+    .. bibliography::
+        :filter: docname in docnames
+
     :param mat: 2D numpy ndarray.
     :param max_rank: The maximum rank to check.
     :return: The PSD rank of the input matrix, or None if not found within `max_rank`.
