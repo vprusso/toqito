@@ -30,7 +30,7 @@ jobs:
       - name: Install toqito + dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install poetry
+          pip install poetry==1.8.0
           poetry install --with docs --without dev,lint --no-interaction
           python -m pip install --upgrade --no-cache-dir setuptools sphinx readthedocs-sphinx-ext
           python -m pip install -r docs/requirements.txt
@@ -57,7 +57,7 @@ jobs:
       - name: Install toqito + dependencies
         run: |
           python -m pip install --upgrade --no-cache-dir pip
-          pip install poetry
+          pip install poetry==1.8.0
           poetry install --with docs,dev --without lint --no-interaction
       - name: Check docstring examples
         run: |
