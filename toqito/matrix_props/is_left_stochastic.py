@@ -12,11 +12,11 @@ def is_left_stochastic(mat: np.ndarray) -> bool:
      :cite:WikiStichasticMatrix.
 
     Examples
-     ========
-     The elements an identity matrix and a Pauli X matrix are nonnegative and the rows sum up to 1. The same cannot be
-     said about a Pauli Z matrix.
+    ========
+    The elements an identity matrix and a Pauli X matrix are nonnegative and the rows sum up to 1. The same cannot be
+    said about a Pauli Z matrix.
 
-     .. math::
+    .. math::
      Id = \begin{pmatrix}
                1 & 0 & 0 & 0 & 0\\
                0 & 1 & 0 & 0 & 0\\
@@ -59,12 +59,11 @@ def is_left_stochastic(mat: np.ndarray) -> bool:
 
 
     References
-     ==========
-     .. bibliography::
+    ==========
+    .. bibliography::
           :filter: docname in docnames
 
-      some_parameter: parameter_type
-           Details about the input and output parameters and parameter types.
+     :param rho: Matrix of interest
 
     """
     if is_square(mat) and is_nonnegative(mat) and np.all(np.sum(mat, axis=0) == 1.0):
