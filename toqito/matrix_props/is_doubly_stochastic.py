@@ -8,7 +8,7 @@ from toqito.matrix_props import is_left_stochastic, is_right_stochastic
 def is_doubly_stochastic(mat: np.ndarray) -> bool:
     r"""Verify matrix is doubly stochastic.
 
-    A matrix is doubky stochastic if it is also a right and left stochastic matrix.
+    A matrix is doubly stochastic if it is also a right and left stochastic matrix.
     :cite:`WikiStichasticMatrix, WikiDoublyStichasticMatrix`.
 
     See Also
