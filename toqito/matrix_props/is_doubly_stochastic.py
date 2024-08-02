@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from toqito.matrix_props import is_doubly_stochastic, is_right_stochastic
+from toqito.matrix_props import is_left_stochastic, is_right_stochastic
 
 
 def is_doubly_stochastic(mat: np.ndarray) -> bool:
@@ -69,7 +69,7 @@ def is_doubly_stochastic(mat: np.ndarray) -> bool:
     :param rho: Matrix of interest
 
     """
-    if is_doubly_stochastic(mat) and is_right_stochastic(mat):
-        return True
+    if is_left_stochastic(mat) and is_right_stochastic(mat):
+            return True
 
     return False
