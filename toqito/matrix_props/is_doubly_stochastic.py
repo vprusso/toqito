@@ -42,7 +42,8 @@ def is_doubly_stochastic(mat: np.ndarray) -> bool:
     .. bibliography::
         :filter: docname in docnames
 
-    :param rho: Matrix of interest
+    :param mat: Matrix of interest
+    :return: Returns :code:`True` if the matrix is right and left stochastic, :code:`False` otherwise.
 
     """
     if is_stochastic(mat, "right") and is_stochastic(mat, "left"):
