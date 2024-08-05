@@ -13,13 +13,13 @@ files = [
 
 [[package]]
 name = "astroid"
-version = "3.2.4"
+version = "3.3.0"
 description = "An abstract syntax tree for Python with inference support."
 optional = false
-python-versions = ">=3.8.0"
+python-versions = ">=3.9.0"
 files = [
-    {file = "astroid-3.2.4-py3-none-any.whl", hash = "sha256:413658a61eeca6202a59231abb473f932038fbcbf1666587f66d482083413a25"},
-    {file = "astroid-3.2.4.tar.gz", hash = "sha256:0e14202810b30da1b735827f78f5157be2bbd4a7a59b7707ca0bfc2fb4c0063a"},
+    {file = "astroid-3.3.0-py3-none-any.whl", hash = "sha256:820e9040d8971a0da6902674b90e5949701607ae7317f582370bf2026c836373"},
+    {file = "astroid-3.3.0.tar.gz", hash = "sha256:f2b42266c76f5fe8dc8082da61cd7faf3a20064ec873920067fb4abd7e7f0ba2"},
 ]
 
 [package.dependencies]
