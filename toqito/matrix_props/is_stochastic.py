@@ -6,10 +6,12 @@ from toqito.matrix_props import is_nonnegative, is_square
 
 
 def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
-   r"""Verify matrix is right or left stochastic.
+   r"""Verify matrix is doubly, right or left stochastic.
 
    When the nonnegative elements in a row of a square matrix sum up to 1, the matrix is right stochastic and if the
-   columns sum up to 1, the matrix is left stochastic. :cite:`WikiStochasticMatrix`.
+   columns sum up to 1, the matrix is left stochastic :cite:`WikiStochasticMatrix`.
+
+   When a matrix is right and left stochastic, it is a doubly stochastic matrix. :cite:`WikiDoublyStochasticMatrix`.
 
    See Also
    ========
@@ -17,8 +19,9 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
 
    Examples
    ========
-   The elements of an identity matrix and a Pauli-X matrix are nonnegative and the rows sum up to 1. The same cannot be
-   said about a Pauli-Z or a Pauli-Y matrix.
+   The elements of an identity matrix and a Pauli-X matrix are nonnegative such that the rows and columns sum up to 1.
+   We expect these matrices to be left and right stochastic. The same cannot be said about a Pauli-Z or a Pauli-Y
+   matrix.
 
    >>> import numpy as np
    >>> from toqito.matrix_props import is_stochastic
