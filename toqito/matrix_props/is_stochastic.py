@@ -26,6 +26,8 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
    True
    >>> is_stochastic(np.eye(5), "left")
    True
+   >>> is_stochastic(np.eye(5), "doubly")
+   True
 
    >>> from toqito.matrices import pauli
    >>> from toqito.matrix_props import is_stochastic
@@ -33,12 +35,17 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
    True
    >>> is_stochastic(pauli("X"), "right")
    True
+   >>> is_stochastic(pauli("X"), "doubly")
+   True
+
 
    >>> from toqito.matrices import pauli
    >>> from toqito.matrix_props import is_stochastic
    >>> is_stochastic(pauli("Z"), "right")
    False
    >>> is_stochastic(pauli("Z"), "left")
+   False
+   >>> is_stochastic(pauli("Z"), "doubly")
    False
 
 
@@ -51,21 +58,23 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
 
    :param mat: Matrix of interest
    :param mat_type: Type of stochastic matrix.
-                  :code:`"left"` for left stochastic matrix and :code:`"right"` for right stochastic matrix.
-   :return: Returns :code:`True` if the matrix is right or left stochastic, :code:`False` otherwise.
-   :raises TypeError: If something other than :code:`"left"` or :code:`"right"` is used for :code:`mat_type`
+                  :code:`"left"` for left stochastic matrix and :code:`"right"` for right stochastic matrix
+                  and :code:`"doubly"` for a doubly stochastic matrix.
+   :return: Returns :code:`True` if the matrix is doubly, right or left stochastic, :code:`False` otherwise.
+   :raises TypeError: If something other than :code:`"doubly"`, :code:`"left"` or :code:`"right"` is used for
+                     :code:`mat_type`
 
    """
    if mat_type == "left":
-      if is_square(mat) and is_nonnegative(mat) and np.all(np.sum(mat, axis=0) == 1.0):
-         return True
-      return False
-
+      axis_num = 0
    elif mat_type == "right":
-      if is_square(mat) and is_nonnegative(mat) and np.all(np.sum(mat, axis=1) == 1.0):
-         return True
-
-      return False
+      axis_num = 1
+   elif mat_type == "doubly":
+      axis_num = [0, 1]
    else:
-      raise TypeError("Invalid stochastic matrix type provided.")
+      raise TypeError("Allowed stochastic matrix types are: left, right, and doubly.")
+
+   if is_square(mat) and is_nonnegative(mat) and np.all(np.apply_over_axes(np.sum, axis_num) == 1.0):
+      return True
+   return False
 
