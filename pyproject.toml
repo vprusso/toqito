@@ -47,7 +47,7 @@ black = "*"
 
 [tool.poetry.group.docs.dependencies]
 readthedocs-sphinx-ext = "*"
-sphinx = "7.4.7"
+sphinx = "8.0.2"
 sphinx-wagtail-theme = "6.3.0"
 sphinxcontrib-bibtex = "2.6.2"
 sphinx-autoapi = "3.2.1"
