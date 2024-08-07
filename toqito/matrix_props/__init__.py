@@ -26,6 +26,5 @@ from toqito.matrix_props.is_diagonally_dominant import is_diagonally_dominant
 from toqito.matrix_props.is_totally_positive import is_totally_positive
 from toqito.matrix_props.is_linearly_independent import is_linearly_independent
 from toqito.matrix_props.is_nonnegative import is_nonnegative
-from toqito.matrix_props.is_doubly_nonnegative import is_doubly_nonnegative
 from toqito.matrix_props.is_positive import is_positive
 from toqito.matrix_props.positive_semidefinite_rank import positive_semidefinite_rank
