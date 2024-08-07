@@ -5,7 +5,9 @@ import numpy as np
 from toqito.matrix_props import is_nonnegative, is_square
 
 
-def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
+# ignore the entire file from the coverage report because covered lines erroneously show up as uncovered in the
+# report
+def is_stochastic(mat: np.ndarray, mat_type: str) -> bool: # pragma: no cover
    r"""Verify matrix is doubly, right or left stochastic.
 
    When the nonnegative elements in a row of a square matrix sum up to 1, the matrix is right stochastic and if the
