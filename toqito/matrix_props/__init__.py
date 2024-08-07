@@ -28,3 +28,5 @@ from toqito.matrix_props.is_linearly_independent import is_linearly_independent
 from toqito.matrix_props.is_nonnegative import is_nonnegative
 from toqito.matrix_props.is_positive import is_positive
 from toqito.matrix_props.positive_semidefinite_rank import positive_semidefinite_rank
+from toqito.matrix_props.is_stochastic import is_stochastic
+
