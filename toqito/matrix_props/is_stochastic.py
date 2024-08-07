@@ -69,15 +69,19 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
 
    """
    if mat_type == "left":
-      axis_num = 0
+      axis_num = [0]
    elif mat_type == "right":
-      axis_num = 1
+      axis_num = [1]
    elif mat_type == "doubly":
       axis_num = [0, 1]
    else:
       raise TypeError("Allowed stochastic matrix types are: left, right, and doubly.")
 
-   if is_square(mat) and is_nonnegative(mat) and np.all(np.apply_over_axes(np.sum, axis_num) == 1.0):
-      return True
-   return False
-
+   if is_square(mat) and is_nonnegative(mat):
+      for i in axis_num:
+            if np.all(np.sum(mat, i)==1.0):
+               return True
+            else:
+               return False
+   else:
+      return False
