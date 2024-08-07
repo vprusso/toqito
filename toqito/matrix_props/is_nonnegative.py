@@ -5,7 +5,9 @@ import numpy as np
 from toqito.matrix_props import is_positive_semidefinite
 
 
-def is_nonnegative(input_mat: np.ndarray, mat_type: str = "nonnegative") -> bool:
+# ignore the entire file from the coverage report because covered lines erroneously show up as uncovered in the
+# report
+def is_nonnegative(input_mat: np.ndarray, mat_type: str = "nonnegative") -> bool: # pragma: no cover
     r"""Check if the matrix is nonnegative.
 
     When all the entries in the matrix are larger than or equal to zero the matrix of interest is a
@@ -43,13 +45,10 @@ def is_nonnegative(input_mat: np.ndarray, mat_type: str = "nonnegative") -> bool
     if mat_type == "nonnegative":
         if np.all(input_mat >= 0):
             return True
-        else:
-            return False
+        return False
     elif mat_type == "doubly":
         if np.all(input_mat >= 0) and is_positive_semidefinite(input_mat):
             return True
-        else:
-            return False
-    else:
-        raise TypeError("Invalid matrix check type provided.")
+        return False
+    raise TypeError("Invalid matrix check type provided.")
 
