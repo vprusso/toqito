@@ -81,7 +81,5 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
       for i in axis_num:
             if np.all(np.sum(mat, i)==1.0):
                return True
-            else:
-               return False
-   else:
-      return False
+            return False
+   return False
