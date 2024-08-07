@@ -1,9 +1,9 @@
 """Check if matrix is nonnegative."""
 
 import numpy as np
+from toqito.matrix_props import is_positive_semidefinite
 
-
-def is_nonnegative(input_mat: np.ndarray) -> bool:
+def is_nonnegative(input_mat: np.ndarray, mat_type: str = "nonnegative") -> bool:
     r"""Check if the matrix is nonnegative.
 
     When all the entries in the matrix are larger than or equal to zero the matrix of interest is a
@@ -29,4 +29,16 @@ def is_nonnegative(input_mat: np.ndarray) -> bool:
         Matrix of interest.
 
     """
-    return np.all(input_mat >= 0)
+    if mat_type == "nonnegative":
+        if np.all(input_mat >= 0):
+            return True
+        else:
+            return False
+    elif mat_type == "doubly":
+        if np.all(input_mat >= 0) and is_positive_semidefinite(input_mat):
+            return True
+        else:
+            return False
+    else:
+        raise TypeError("Invalid matrix check type provided.")
+
