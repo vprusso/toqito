@@ -93,7 +93,7 @@ In :code:`toqito`, that can be obtained as
     >>> import numpy as np
     >>> e_0, e_1 = basis(2, 0), basis(2, 1)
     >>> u_0 = 1/np.sqrt(2) * (np.kron(e_0, e_0) + np.kron(e_1, e_1))
-    >>> rho_0 = u_0 * u_0.conj().T
+    >>> rho_0 = u_0 @ u_0.conj().T
     >>> rho_0
     array([[0.5, 0. , 0. , 0.5],
            [0. , 0. , 0. , 0. ],
@@ -194,7 +194,7 @@ Any one of the Bell states serve as an example of a pure state
 
     >>> from toqito.states import bell
     >>> from toqito.state_props import is_pure
-    >>> rho = bell(0) * bell(0).conj().T
+    >>> rho = bell(0) @ bell(0).conj().T
     >>> is_pure(rho)
     True
 
@@ -215,7 +215,7 @@ PPT criterion.
 
     >>> from toqito.states import bell
     >>> from toqito.state_props import is_ppt
-    >>> rho = bell(2) * bell(2).conj().T
+    >>> rho = bell(2) @ bell(2).conj().T
     >>> is_ppt(rho)
     False
 
@@ -237,7 +237,7 @@ For instance, the following bound-entangled tile state is found to be entangled
     >>> from toqito.states import tile
     >>> rho = np.identity(9)
     >>> for i in range(5):
-    ...    rho = rho - tile(i) * tile(i).conj().T
+    ...    rho = rho - tile(i) @ tile(i).conj().T
     >>> rho = rho / 4
     >>> is_separable(rho)
     False
@@ -275,8 +275,8 @@ fidelity function between quantum states that happen to be identical.
     >>> import numpy as np
     >>>
     >>> # Define two identical density operators.
-    >>> rho = bell(0)*bell(0).conj().T
-    >>> sigma = bell(0)*bell(0).conj().T
+    >>> rho = bell(0)@bell(0).conj().T
+    >>> sigma = bell(0)@bell(0).conj().T
     >>> 
     >>> # Calculate the fidelity between `rho` and `sigma`
     >>> np.around(fidelity(rho, sigma), decimals=2)
