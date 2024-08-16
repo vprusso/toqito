@@ -1476,29 +1476,29 @@ scipy = ">=0.13.2"
 
 [[package]]
 name = "qiskit"
-version = "1.1.2"
+version = "1.2.0"
 description = "An open-source SDK for working with quantum computers at the level of extended quantum circuits, operators, and primitives."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "qiskit-1.1.2-cp38-abi3-macosx_10_9_universal2.whl", hash = "sha256:5c9e06f7368928870bc20f2050f980bb020a4559a1552e3224870ecabe96f6e2"},
-    {file = "qiskit-1.1.2-cp38-abi3-macosx_10_9_x86_64.whl", hash = "sha256:631fcb092a0dd0b8adab9b5f17e943063eb3d58ae6a31acf230dbdff17f97f71"},
-    {file = "qiskit-1.1.2-cp38-abi3-macosx_11_0_arm64.whl", hash = "sha256:38b90f51154854a07723cb41aed06fdabff71e36f05ec8fec635425acb8a61de"},
-    {file = "qiskit-1.1.2-cp38-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:4d10bff56fd7df23a6afce10e31830282066fc020e2fbe4add8ba189a8f66c71"},
-    {file = "qiskit-1.1.2-cp38-abi3-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:ddd5dd235a9a11ad368c7127e457bca046b6d5611acfe93d42f5b3f8bcd419fc"},
-    {file = "qiskit-1.1.2-cp38-abi3-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:19781eb08094d3abc146402f16fc63385b38a90477c259b1df401ca1a85361d4"},
-    {file = "qiskit-1.1.2-cp38-abi3-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:bfeae0bbccd79c56f21a2ec8ff258714465eb46ac6ec641e0ac6f02634924478"},
-    {file = "qiskit-1.1.2-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:1eef93e671cd751e46f9b9f093215e929c4390faf648b37f802b3ecd48b4ed71"},
-    {file = "qiskit-1.1.2-cp38-abi3-win32.whl", hash = "sha256:7d5c9e350900a6063a5f253e3264954751008310cdd12afb1c575ddee13a7c2c"},
-    {file = "qiskit-1.1.2-cp38-abi3-win_amd64.whl", hash = "sha256:8d9ad1bae4c010f2d2b96188a7ca83bf58a24247c4e0894619abfacda0b333f2"},
-    {file = "qiskit-1.1.2.tar.gz", hash = "sha256:6e1d46756e064d9160432405f96f6116ba3ad2639f707328ab33edb286197fdf"},
+    {file = "qiskit-1.2.0-cp38-abi3-macosx_10_9_universal2.whl", hash = "sha256:b215440035a984abbd58edbb47d52b1f1dc54ea170d214173fd93ad41ce5e78d"},
+    {file = "qiskit-1.2.0-cp38-abi3-macosx_10_9_x86_64.whl", hash = "sha256:61e22e1cc8f62b3a2194efd86ea488d85576c0886e237f907311c8dcdaaacc3c"},
+    {file = "qiskit-1.2.0-cp38-abi3-macosx_11_0_arm64.whl", hash = "sha256:41f6efc94efe27d1e8357a1be5c281cd96df0e098c2ec7fd74956f6d79cf49be"},
+    {file = "qiskit-1.2.0-cp38-abi3-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:9ee32ce8507aa9ac13ecbe879a75627df29421f1376e1232a1ffea96c3156c3d"},
+    {file = "qiskit-1.2.0-cp38-abi3-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:e1506535ff910dee94a9008a11ff4807806cfea1271f29a793d4bb203a750e1d"},
+    {file = "qiskit-1.2.0-cp38-abi3-manylinux_2_17_ppc64le.manylinux2014_ppc64le.whl", hash = "sha256:6e07272e924e8bfa5d944f5ca0aefb7736ebe555caa9eb3c4adc13862fd87b57"},
+    {file = "qiskit-1.2.0-cp38-abi3-manylinux_2_17_s390x.manylinux2014_s390x.whl", hash = "sha256:de46724088851ae1f414a5a6d68a58ba1eac8374d45ee2669de1c3e90d04e912"},
+    {file = "qiskit-1.2.0-cp38-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:1ad1658bbaf147a44e555ba87f7e139ae3b2ded1284e5073ec2a32dc08b32d41"},
+    {file = "qiskit-1.2.0-cp38-abi3-win32.whl", hash = "sha256:15446250d26e7576fac56b424c4388eff3695f7c5e258c9b3437f71f65b2835f"},
+    {file = "qiskit-1.2.0-cp38-abi3-win_amd64.whl", hash = "sha256:d4e13da68adb8fccc884896c5dfbab20e3f98e4cdb8740f4ac632f4b3674de6f"},
+    {file = "qiskit-1.2.0.tar.gz", hash = "sha256:7d95413c833033425a392377f562a7f3b5b6cd8284e978dddd9b23db1093ded0"},
 ]
 
 [package.dependencies]
 dill = ">=0.3"
 numpy = ">=1.17,<3"
 python-dateutil = ">=2.8.0"
-rustworkx = ">=0.14.0"
+rustworkx = ">=0.15.0"
 scipy = ">=1.5"
 stevedore = ">=3.0.0"
 symengine = ">=0.11"
@@ -2063,4 +2063,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<4"
-content-hash = "f6bf340878f335e2bf4e8af43bfc299921541d9d7f7eacc192aad005a1cfb6f0"
+content-hash = "a29b8af5cd2444008515cdf1bed98a3fa8e64c1345b7b2f670bcfe8651ab9024"
