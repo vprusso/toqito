@@ -49,7 +49,7 @@ def has_symmetric_extension(
     np.True_
     >>> # Now show that the `has_symmetric_extension` function recognizes this case.
     >>> has_symmetric_extension(rho)
-    np.True_
+    True
 
     Higher qubit systems:
 

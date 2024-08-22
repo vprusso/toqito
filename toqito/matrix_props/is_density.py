@@ -57,7 +57,7 @@ def is_density(mat: np.ndarray) -> bool:
     >>> import numpy as np
     >>> sigma = 1/2 * np.array([[1, 2], [3, 1]])
     >>> is_density(sigma)
-    np.False_
+    False
 
     References
     ==========
