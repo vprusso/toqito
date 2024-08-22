@@ -35,7 +35,7 @@ def sk_vector_norm(rho: np.ndarray, k: int = 1, dim: int | list[int] = None) -> 
     >>> # Maximally entagled state.
     >>> v = max_entangled(4)
     >>> sk_vector_norm(v)
-    0.5
+    np.int64(0.5)
 
     References
     ==========

@@ -38,7 +38,7 @@ def is_density(mat: np.ndarray) -> bool:
     >>> import numpy as np
     >>> rho = bell(0) * bell(0).conj().T
     >>> is_density(rho)
-    True
+    np.True_
 
     Alternatively, the following example matrix :math:`\sigma` defined as
 
@@ -57,7 +57,7 @@ def is_density(mat: np.ndarray) -> bool:
     >>> import numpy as np
     >>> sigma = 1/2 * np.array([[1, 2], [3, 1]])
     >>> is_density(sigma)
-    False
+    np.False_
 
     References
     ==========

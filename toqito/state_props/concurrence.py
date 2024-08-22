@@ -45,7 +45,7 @@ def concurrence(rho: np.ndarray) -> float:
     >>> u_vec = 1 / np.sqrt(2) * (e_00 + e_11)
     >>> rho = u_vec @ u_vec.conj().T
     >>> np.around(concurrence(rho), decimals=3)
-    1.0
+    np.float64(1.0)
 
     Consider the concurrence of the following product state
 
