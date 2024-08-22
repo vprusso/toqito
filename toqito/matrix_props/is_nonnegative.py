@@ -23,11 +23,11 @@ def is_nonnegative(input_mat: np.ndarray, mat_type: str = "nonnegative") -> bool
     >>> import numpy as np
     >>> from toqito.matrix_props import is_nonnegative
     >>> is_nonnegative(np.identity(3))
-    np.True_
+    True
     >>> is_nonnegative(np.identity(3), "doubly")
-    np.True_
+    True
     >>> is_nonnegative(np.identity(3), "nonnegative")
-    np.True_
+    True
 
     References
     ==========
