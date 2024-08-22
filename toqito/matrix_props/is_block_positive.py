@@ -26,8 +26,8 @@ def is_block_positive(
     >>> from toqito.perms import swap_operator
     >>>
     >>> mat = swap_operator(3)
-    >>> # is_block_positive(mat)
-    # True
+    >>> is_block_positive(mat)
+    True
 
     However, it's not 2 - block positive.
 
@@ -35,8 +35,8 @@ def is_block_positive(
     >>> from toqito.perms import swap_operator
     >>>
     >>> mat = swap_operator(3)
-    >>> # is_block_positive(mat, k=2)
-    # False
+    >>> is_block_positive(mat, k=2)
+    False
 
     References
     ==========

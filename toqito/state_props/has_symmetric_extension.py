@@ -48,8 +48,8 @@ def has_symmetric_extension(
     >>> np.trace(np.linalg.matrix_power(partial_trace(rho, 1), 2)) >= np.trace(rho**2) - 4 * np.sqrt(np.linalg.det(rho))
     np.True_
     >>> # Now show that the `has_symmetric_extension` function recognizes this case.
-    >>> # has_symmetric_extension(rho)
-    # True
+    >>> has_symmetric_extension(rho)
+    True
 
     Higher qubit systems:
 
@@ -77,8 +77,8 @@ def has_symmetric_extension(
     >>>
     >>> rho = bell(0) * bell(0).conj().T
     >>> sigma = np.kron(rho, rho)
-    >>> # has_symmetric_extension(sigma)
-    # False
+    >>> has_symmetric_extension(sigma)
+    False
 
     References
     ==========

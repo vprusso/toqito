@@ -29,15 +29,15 @@ def positive_semidefinite_rank(mat: np.ndarray, max_rank: int = 10) -> int | Non
 
     >>> import numpy as np
     >>> from toqito.matrix_props import positive_semidefinite_rank
-    >>> # positive_semidefinite_rank(1/2 * np.array([[0, 1, 1], [1,0,1], [1,1,0]]))
-    # 2
+    >>> positive_semidefinite_rank(1/2 * np.array([[0, 1, 1], [1,0,1], [1,1,0]]))
+    2
 
     The PSD rank of the identity matrix is the dimension of the matrix :cite:`Fawzi_2015_Positive`.
 
     >>> import numpy as np
     >>> from toqito.matrix_props import positive_semidefinite_rank
-    >>> # positive_semidefinite_rank(np.identity(3))
-    # 3
+    >>> positive_semidefinite_rank(np.identity(3))
+    3
 
     References
     ==========
