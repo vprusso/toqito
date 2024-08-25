@@ -34,7 +34,7 @@ def in_separable_ball(mat: np.ndarray) -> bool:
     >>> lam = np.array([1, 1, 1, 0]) / 3
     >>> rho = U @ np.diag(lam) @ U.conj().T
     >>> in_separable_ball(rho)
-    True
+    np.True_
 
     The following is an example of generating a random density matrix with eigenvalues
     :code:`[1.01, 1, 0.99, 0]/3`. This example yields a matrix that is not contained within the
@@ -48,7 +48,7 @@ def in_separable_ball(mat: np.ndarray) -> bool:
     >>> lam = np.array([1.01, 1, 0.99, 0]) / 3
     >>> rho = U @ np.diag(lam) @ U.conj().T
     >>> in_separable_ball(rho)
-    False
+    np.False_
 
     References
     ==========

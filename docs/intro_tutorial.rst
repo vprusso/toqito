@@ -280,7 +280,7 @@ fidelity function between quantum states that happen to be identical.
     >>> 
     >>> # Calculate the fidelity between `rho` and `sigma`
     >>> np.around(fidelity(rho, sigma), decimals=2)
-    1.0
+    np.float64(1.0)
 
 There are a number of other metrics one can compute on two density matrices
 including the trace norm, trace distance. These and others are also available

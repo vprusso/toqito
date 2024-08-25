@@ -50,7 +50,7 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     ... )
     >>> sigma = rho
     >>> fidelity(rho, sigma)
-    1.0000000000000002
+    np.float64(1.0000000000000002)
 
     References
     ==========

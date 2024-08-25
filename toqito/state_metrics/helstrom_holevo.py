@@ -46,7 +46,7 @@ def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float:
     >>> sigma = rho
     >>>
     >>> helstrom_holevo(rho, sigma)
-    0.5
+    np.float64(0.5)
 
     References
     ==========

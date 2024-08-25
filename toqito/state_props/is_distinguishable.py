@@ -32,7 +32,7 @@ def is_distinguishable(states: list[np.ndarray], probs: list[float] = None) -> b
     >>>
     >>> bell_states = [bell(0), bell(1), bell(2), bell(3)]
     >>> is_distinguishable(bell_states)
-    True
+    np.True_
 
     References
     ==========
