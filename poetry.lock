@@ -1773,13 +1773,13 @@ test = ["cython (>=3.0)", "defusedxml (>=0.7.1)", "pytest (>=8.0)", "setuptools 
 
 [[package]]
 name = "sphinx-autoapi"
-version = "3.2.1"
+version = "3.3.0"
 description = "Sphinx API documentation generator"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "sphinx_autoapi-3.2.1-py2.py3-none-any.whl", hash = "sha256:72fe556abc579528a46494f4fcbeaeaaf3e0b031f6514f7b496f6c36754c5430"},
-    {file = "sphinx_autoapi-3.2.1.tar.gz", hash = "sha256:1f9d56b3a98d5653d1fad5644abeed2c042cec304a126ef72c236dae4af16b90"},
+    {file = "sphinx_autoapi-3.3.0-py2.py3-none-any.whl", hash = "sha256:963034d94b0798267f2d2388a3bbcb6845dcc3a9ff1b411c1294d2ced9a8679c"},
+    {file = "sphinx_autoapi-3.3.0.tar.gz", hash = "sha256:1596d25504e1fa1839de326b8f6816d97b08dff522aa44d3bb585e270a97c88d"},
 ]
 
 [package.dependencies]
@@ -2078,4 +2078,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<4"
-content-hash = "e0cefe0d1df94f406387d7e2bc92c68a365cfbcea0d255719e150a0e7b385c7d"
+content-hash = "d205d4b786a25c78609123e979d6a7322b8341a9decd67ba1ea09ae445e7dc20"
