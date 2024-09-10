@@ -13,12 +13,12 @@ def quantum_rel_entr(
     logarithm base e (and not base 2!).
 
     Examples
-      ==========
-      Later
+    ==========
+    Later
 
     References
-      ==========
-      .. bibliography::
+    ==========
+    .. bibliography::
          :filter: docname in docnames
 
     A: np.ndarray
