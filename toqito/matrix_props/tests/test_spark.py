@@ -36,16 +36,13 @@ def test_spark(matrix, expected_result):
 
 def test_spark_full_rank():
     """All columns are linearly independent."""
-    A = np.eye(4)
-    assert spark(A) == 5
+    assert spark(np.eye(4)) == 5
 
 
 def test_spark_zero_matrix():
     """Any column is linearly dependent."""
-    A = np.zeros((3, 3))
-    assert spark(A) == 1
+    assert spark(np.zeros((3, 3))) == 1
 
 def test_spark_single_column():
     """Single column is always linearly independent."""
-    A = np.array([[1], [2], [3]])
-    assert spark(A) == 2
+    assert spark(np.array([[1], [2], [3]])) == 2
