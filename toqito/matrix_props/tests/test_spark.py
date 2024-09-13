@@ -1,7 +1,8 @@
 """Tests for spark of matrix."""
 
-import pytest
 import numpy as np
+import pytest
+
 from toqito.matrix_props import spark
 
 
@@ -29,21 +30,22 @@ from toqito.matrix_props import spark
     )
 ])
 def test_spark(matrix, expected_result):
+    """Tests for computing spark of matrix."""
     np.testing.assert_allclose(spark(matrix), expected_result)
 
 
 def test_spark_full_rank():
+    """All columns are linearly independent."""
     A = np.eye(4)
-    # All columns are linearly independent.
     assert spark(A) == 5
 
 
 def test_spark_zero_matrix():
+    """Any column is linearly dependent."""
     A = np.zeros((3, 3))
-    # Any column is linearly dependent.
     assert spark(A) == 1
 
 def test_spark_single_column():
+    """Single column is always linearly independent."""
     A = np.array([[1], [2], [3]])
-    # Single column is always linearly independent.
     assert spark(A) == 2

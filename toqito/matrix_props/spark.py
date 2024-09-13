@@ -1,26 +1,26 @@
 """Compute spark of matrix."""
 
-import numpy as np
 from itertools import combinations
+
+import numpy as np
 
 
 def spark(A: np.ndarray) -> int:
-    """
-    Compute the spark of a matrix.
+    """Compute the spark of a matrix.
 
     The spark of a matrix A is the smallest number of columns from A that are linearly dependent [Elad_2010_Sparse].
 
-    Parameters:
+    Parameters
     ===========
     A : np.ndarray
         The input matrix as a NumPy array.
 
-    Returns:
+    Returns
     ========
     int
         The spark of the matrix.
 
-    Examples:
+    Examples
     =========
     >>> import numpy as np
     >>> from your_module import spark
@@ -30,10 +30,10 @@ def spark(A: np.ndarray) -> int:
     >>> spark(A)
     3
 
-    Notes:
+    Notes
     -----
     - If all columns are linearly independent, the function returns n_cols + 1.
-    - The time complexity of this implementation is O(2^n) in the worst case, 
+    - The time complexity of this implementation is O(2^n) in the worst case,
       where n is the number of columns.
 
     References
@@ -43,7 +43,7 @@ def spark(A: np.ndarray) -> int:
 
     """
     n_cols = A.shape[1]
-    
+
     for k in range(1, n_cols + 1):
         for cols in combinations(range(n_cols), k):
             submatrix = A[:, cols]
