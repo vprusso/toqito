@@ -326,14 +326,14 @@ in this matrix into the :code:`pred_mat` variable.
     >>> pred_mat
     array([[[[1., 1.],
              [1., 0.]],
-    <BLANKLINE>
+
             [[0., 0.],
              [0., 1.]]],
-    <BLANKLINE>
-    <BLANKLINE>
+
+
            [[[0., 0.],
              [0., 1.]],
-    <BLANKLINE>
+
             [[1., 1.],
              [1., 0.]]]])
 
