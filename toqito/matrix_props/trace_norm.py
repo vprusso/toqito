@@ -34,7 +34,7 @@ def trace_norm(rho: np.ndarray) -> float:
 
     >>> from toqito.states import bell
     >>> from toqito.matrix_props import trace_norm
-    >>> rho = bell(0) * bell(0).conj().T
+    >>> rho = bell(0) @ bell(0).conj().T
     >>> trace_norm(rho)
     np.float64(0.9999999999999999)
 

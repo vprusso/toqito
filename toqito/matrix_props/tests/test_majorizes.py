@@ -15,12 +15,12 @@ def test_majorizes_simple_example():
 def test_majorizes_max_entangled():
     """Test that max entangled partial trace returns False."""
     v_vec = max_entangled(3)
-    rho = v_vec * v_vec.conj().T
+    rho = v_vec @ v_vec.conj().T
     np.testing.assert_equal(majorizes(partial_trace(rho, [1], [3, 3]), rho), False)
 
 
 def test_majorizes_max_entangled_flip():
     """Test that max entangled partial trace returns True (flipped args)."""
     v_vec = max_entangled(3)
-    rho = v_vec * v_vec.conj().T
+    rho = v_vec @ v_vec.conj().T
     np.testing.assert_equal(majorizes(rho, partial_trace(rho, [1], [3, 3])), True)

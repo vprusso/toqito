@@ -291,13 +291,13 @@ arrays where :code:`prob_mat` corresponds to the probability distribution
     >>> bb84_pred_mat = np.zeros([dim, dim, a_out, b_out, a_in, b_in])
     >>>
     >>> # V(0,0|0,0) = |0><0|
-    >>> bb84_pred_mat[:, :, 0, 0, 0, 0] = e_0 * e_0.conj().T
+    >>> bb84_pred_mat[:, :, 0, 0, 0, 0] = e_0 @ e_0.conj().T
     >>> # V(1,1|0,0) = |1><1|
-    >>> bb84_pred_mat[:, :, 1, 1, 0, 0] = e_1 * e_1.conj().T
+    >>> bb84_pred_mat[:, :, 1, 1, 0, 0] = e_1 @ e_1.conj().T
     >>> # V(0,0|1,1) = |+><+|
-    >>> bb84_pred_mat[:, :, 0, 0, 1, 1] = e_p * e_p.conj().T
+    >>> bb84_pred_mat[:, :, 0, 0, 1, 1] = e_p @ e_p.conj().T
     >>> # V(1,1|1,1) = |-><-|
-    >>> bb84_pred_mat[:, :, 1, 1, 1, 1] = e_m * e_m.conj().T
+    >>> bb84_pred_mat[:, :, 1, 1, 1, 1] = e_m @ e_m.conj().T
     >>>
     >>> # The probability matrix encode \pi(0,0) = \pi(1,1) = 1/2
     >>> bb84_prob_mat = 1/2*np.identity(2)
@@ -502,10 +502,10 @@ we did for :math:`G_{BB84}`.
     >>> chsh_pred_mat[:, :, 1, 1, 1, 0] = np.array([[0, 0], [0, 1]])
     >>>
     >>> # V(0,1|1,1)
-    >>> chsh_pred_mat[:, :, 0, 1, 1, 1] = 1/2 * np.array([[1, 1], [1, 1]])
+    >>> chsh_pred_mat[:, :, 0, 1, 1, 1] = 1/2 @ np.array([[1, 1], [1, 1]])
     >>>
     >>> # V(1,0|1,1)
-    >>> chsh_pred_mat[:, :, 1, 0, 1, 1] = 1/2 * np.array([[1, -1], [-1, 1]])
+    >>> chsh_pred_mat[:, :, 1, 0, 1, 1] = 1/2 @ np.array([[1, -1], [-1, 1]])
     >>>
     >>> # The probability matrix encode \pi(0,0) = \pi(0,1) = \pi(1,0) = \pi(1,1) = 1/4.
     >>> chsh_prob_mat = np.array([[1/4, 1/4], [1/4, 1/4]])
@@ -666,21 +666,21 @@ Taking the description of :math:`G_{MUB}`, we can encode this as follows.
     >>> num_out = 3
     >>> pred_mat = np.zeros([dim, dim, num_out, num_out, num_in, num_in], dtype=complex)
     >>>
-    >>> pred_mat[:, :, 0, 0, 0, 0] = mubs[0][0] * mubs[0][0].conj().T
-    >>> pred_mat[:, :, 1, 1, 0, 0] = mubs[0][1] * mubs[0][1].conj().T
-    >>> pred_mat[:, :, 2, 2, 0, 0] = mubs[0][2] * mubs[0][2].conj().T
+    >>> pred_mat[:, :, 0, 0, 0, 0] = mubs[0][0] @ mubs[0][0].conj().T
+    >>> pred_mat[:, :, 1, 1, 0, 0] = mubs[0][1] @ mubs[0][1].conj().T
+    >>> pred_mat[:, :, 2, 2, 0, 0] = mubs[0][2] @ mubs[0][2].conj().T
     >>>
-    >>> pred_mat[:, :, 0, 0, 1, 1] = mubs[1][0] * mubs[1][0].conj().T
-    >>> pred_mat[:, :, 1, 1, 1, 1] = mubs[1][1] * mubs[1][1].conj().T
-    >>> pred_mat[:, :, 2, 2, 1, 1] = mubs[1][2] * mubs[1][2].conj().T
+    >>> pred_mat[:, :, 0, 0, 1, 1] = mubs[1][0] @ mubs[1][0].conj().T
+    >>> pred_mat[:, :, 1, 1, 1, 1] = mubs[1][1] @ mubs[1][1].conj().T
+    >>> pred_mat[:, :, 2, 2, 1, 1] = mubs[1][2] @ mubs[1][2].conj().T
     >>>
-    >>> pred_mat[:, :, 0, 0, 2, 2] = mubs[2][0] * mubs[2][0].conj().T
-    >>> pred_mat[:, :, 1, 1, 2, 2] = mubs[2][1] * mubs[2][1].conj().T
-    >>> pred_mat[:, :, 2, 2, 2, 2] = mubs[2][2] * mubs[2][2].conj().T
+    >>> pred_mat[:, :, 0, 0, 2, 2] = mubs[2][0] @ mubs[2][0].conj().T
+    >>> pred_mat[:, :, 1, 1, 2, 2] = mubs[2][1] @ mubs[2][1].conj().T
+    >>> pred_mat[:, :, 2, 2, 2, 2] = mubs[2][2] @ mubs[2][2].conj().T
     >>>
-    >>> pred_mat[:, :, 0, 0, 3, 3] = mubs[3][0] * mubs[3][0].conj().T
-    >>> pred_mat[:, :, 1, 1, 3, 3] = mubs[3][1] * mubs[3][1].conj().T
-    >>> pred_mat[:, :, 2, 2, 3, 3] = mubs[3][2] * mubs[3][2].conj().T
+    >>> pred_mat[:, :, 0, 0, 3, 3] = mubs[3][0] @ mubs[3][0].conj().T
+    >>> pred_mat[:, :, 1, 1, 3, 3] = mubs[3][1] @ mubs[3][1].conj().T
+    >>> pred_mat[:, :, 2, 2, 3, 3] = mubs[3][2] @ mubs[3][2].conj().T
 
 Now that we have encoded :math:`G_{MUB}`, we can calculate the unentangled value.
 

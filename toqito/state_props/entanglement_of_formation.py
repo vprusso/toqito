@@ -81,7 +81,7 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
     if min(dim_x, dim_y) == 1:
         rho = rho[:]
         dim = [int(x) for x in dim]
-        return von_neumann_entropy(partial_trace(rho * rho.conj().T, [1], dim))
+        return von_neumann_entropy(partial_trace(rho @ rho.conj().T, [1], dim))
 
     # Case: :code:`rho` is a density matrix.
     if dim_x == dim_y:
@@ -96,7 +96,7 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
             rho_c1_log2 = 0 if rho_c1 == 0 else np.log2(rho_c1)
             rho_c2_log2 = 0 if rho_c2 == 0 else np.log2(rho_c2)
 
-            return -rho_c1 * rho_c1_log2 - rho_c2 * rho_c2_log2
+            return -rho_c1 @ rho_c1_log2 - rho_c2 @ rho_c2_log2
         raise ValueError(
             "Invalid input: It is presently only known how to compute "
             "the entanglement-of-formation for two-qubit states and pure "

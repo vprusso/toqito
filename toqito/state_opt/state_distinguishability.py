@@ -243,7 +243,7 @@ def _unambiguous_dual(
     problem.add_constraint(lagrangian_variable_big_z >> 0)
     problem.add_list_of_constraints(lagrangian_variable_big_z[i, i] >= probs[i] for i in range(n))
 
-    problem.set_objective("min", picos.trace(gram * lagrangian_variable_big_z))
+    problem.set_objective("min", picos.trace(gram @ lagrangian_variable_big_z))
 
     problem.solve(solver=solver, **kwargs)
 

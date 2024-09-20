@@ -13,7 +13,7 @@ def test_helstrom_holevo_same_state():
     e_11 = np.kron(e_1, e_1)
 
     u_vec = 1 / np.sqrt(2) * (e_00 + e_11)
-    sigma_0 = u_vec * u_vec.conj().T
+    sigma_0 = u_vec @ u_vec.conj().T
     sigma_1 = sigma_0
 
     res = helstrom_holevo(sigma_0, sigma_1)

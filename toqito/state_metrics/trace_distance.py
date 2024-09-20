@@ -39,7 +39,7 @@ def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float:
 
     >>> from toqito.states import bell
     >>> from toqito.state_metrics import trace_distance
-    >>> rho = bell(0) * bell(0).conj().T
+    >>> rho = bell(0) @ bell(0).conj().T
     >>> sigma = rho
     >>> trace_distance(rho, sigma)
     np.float64(0.0)
