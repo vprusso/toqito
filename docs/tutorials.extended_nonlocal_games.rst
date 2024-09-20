@@ -502,10 +502,10 @@ we did for :math:`G_{BB84}`.
     >>> chsh_pred_mat[:, :, 1, 1, 1, 0] = np.array([[0, 0], [0, 1]])
     >>>
     >>> # V(0,1|1,1)
-    >>> chsh_pred_mat[:, :, 0, 1, 1, 1] = 1/2 @ np.array([[1, 1], [1, 1]])
+    >>> chsh_pred_mat[:, :, 0, 1, 1, 1] = 1/2 * np.array([[1, 1], [1, 1]])
     >>>
     >>> # V(1,0|1,1)
-    >>> chsh_pred_mat[:, :, 1, 0, 1, 1] = 1/2 @ np.array([[1, -1], [-1, 1]])
+    >>> chsh_pred_mat[:, :, 1, 0, 1, 1] = 1/2 * np.array([[1, -1], [-1, 1]])
     >>>
     >>> # The probability matrix encode \pi(0,0) = \pi(0,1) = \pi(1,0) = \pi(1,1) = 1/4.
     >>> chsh_prob_mat = np.array([[1/4, 1/4], [1/4, 1/4]])

@@ -321,7 +321,7 @@ in this matrix into the :code:`pred_mat` variable.
     ...     for b_bob in range(num_bob_outputs):
     ...         for x_alice in range(num_alice_inputs):
     ...             for y_bob in range(num_bob_inputs):
-    ...                 if a_alice ^ b_bob == x_alice @ y_bob:
+    ...                 if a_alice ^ b_bob == x_alice * y_bob:
     ...                     pred_mat[a_alice, b_bob, x_alice, y_bob] = 1
     >>> pred_mat
     array([[[[1., 1.],
