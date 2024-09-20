@@ -189,7 +189,7 @@ def _min_error_primal(
     # # Numerical inaccuracies can make it so the trace of the density matrices aren't unital, which messes up with
     # # cvxopt
     # dms = [state / np.trace(state) for state in dms]
-    objective = picos.sum([(picos.trace(probs[i] * dms[i] @ measurements[i])) for i in range(n)])
+    objective = picos.sum([(picos.trace(probs[i] * dms[i] * measurements[i])) for i in range(n)])
     problem.set_objective("min", objective)
     solution = problem.solve(solver=solver, **kwargs)
     return solution.value, measurements
@@ -244,7 +244,7 @@ def _unambiguous_primal(
 
     problem.add_list_of_constraints(m | rho == 0 for (m, rho) in zip(measurements, unnormalized_dms))
 
-    problem.set_objective("min", picos.trace(sums_of_unnormalized_dms @ inconclusive_measurement))
+    problem.set_objective("min", picos.trace(sums_of_unnormalized_dms * inconclusive_measurement))
     solution = problem.solve(solver=solver, **kwargs)
 
     return solution.value, measurements + [inconclusive_measurement]
@@ -273,7 +273,7 @@ def _unambiguous_dual(
     sum_of_unnormalized_dms = picos.sum(unnormalized_dms)
 
     problem.add_list_of_constraints(
-        (lagrangian_variable_big_n + lagrangian_variables_a[i] @ unnormalized_dms[i] >> sum_of_unnormalized_dms)
+        (lagrangian_variable_big_n + lagrangian_variables_a[i] * unnormalized_dms[i] >> sum_of_unnormalized_dms)
         for i in range(n)
     )
 

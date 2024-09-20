@@ -96,7 +96,7 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
             rho_c1_log2 = 0 if rho_c1 == 0 else np.log2(rho_c1)
             rho_c2_log2 = 0 if rho_c2 == 0 else np.log2(rho_c2)
 
-            return -rho_c1 @ rho_c1_log2 - rho_c2 @ rho_c2_log2
+            return -rho_c1 * rho_c1_log2 - rho_c2 * rho_c2_log2
         raise ValueError(
             "Invalid input: It is presently only known how to compute "
             "the entanglement-of-formation for two-qubit states and pure "
