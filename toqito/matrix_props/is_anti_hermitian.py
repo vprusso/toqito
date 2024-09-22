@@ -23,7 +23,7 @@ def is_anti_hermitian(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08)
                 4j & 1 & 1j
             \end{pmatrix}
 
-    our function indicates that this is indeed a Hermitian matrix as it holds that
+    our function indicates that this is indeed an anti-Hermitian matrix as it holds that
 
     .. math::
         A = -A^*.
