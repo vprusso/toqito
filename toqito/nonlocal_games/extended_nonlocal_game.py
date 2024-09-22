@@ -112,7 +112,7 @@ class ExtendedNonlocalGame:
 
                 rho = cvxpy.Variable((dim_x, dim_y), hermitian=True)
 
-                objective = cvxpy.Maximize(cvxpy.real(cvxpy.trace(p_win.conj().T @ rho)))
+                objective = cvxpy.Maximize(cvxpy.real(cvxpy.trace(p_win.conj().T * rho)))
 
                 constraints = [cvxpy.trace(rho) == 1, rho >> 0]
                 problem = cvxpy.Problem(objective, constraints)
@@ -194,7 +194,7 @@ class ExtendedNonlocalGame:
                 for x_in in range(alice_in):
                     for y_in in range(bob_in):
                         p_win += self.prob_mat[x_in, y_in] * cvxpy.trace(
-                            self.pred_mat[:, :, a_out, b_out, x_in, y_in].conj().T @ k_var[a_out, b_out, x_in, y_in]
+                            self.pred_mat[:, :, a_out, b_out, x_in, y_in].conj().T * k_var[a_out, b_out, x_in, y_in]
                         )
 
         objective = cvxpy.Maximize(cvxpy.real(p_win))
@@ -328,7 +328,7 @@ class ExtendedNonlocalGame:
                                 )
                                 .conj()
                                 .T
-                                @ rho[x_ques, a_ans]
+                                * rho[x_ques, a_ans]
                             )
                         if isinstance(
                             bob_povms[y_ques, b_ans],
@@ -343,7 +343,7 @@ class ExtendedNonlocalGame:
                                 )
                                 .conj()
                                 .T
-                                @ rho[x_ques, a_ans]
+                                * rho[x_ques, a_ans]
                             )
         objective = cvxpy.Maximize(cvxpy.real(win))
         constraints = []
@@ -396,7 +396,7 @@ class ExtendedNonlocalGame:
                                     bob_povms[y_ques, b_ans],
                                 )
                             )
-                            @ rho[x_ques, a_ans].value
+                            * rho[x_ques, a_ans].value
                         )
         objective = cvxpy.Maximize(cvxpy.real(win))
 
@@ -455,7 +455,7 @@ class ExtendedNonlocalGame:
                     for y_in in range(bob_in):
                         p_win += self.prob_mat[x_in, y_in] * cvxpy.trace(
                             self.pred_mat[:, :, a_out, b_out, x_in, y_in].conj().T
-                            @ mat[x_in, y_in][
+                            * mat[x_in, y_in][
                                 a_out * referee_dim : (a_out + 1) * referee_dim,
                                 b_out * referee_dim : (b_out + 1) * referee_dim,
                             ]
