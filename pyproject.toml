@@ -24,7 +24,7 @@ numpy = "2.1.1"
 scipy = "1.14.1"
 scs = "3.2.7"
 picos = "2.4.17"
-qiskit = "1.2.1"
+qiskit = "1.2.2"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "8.3.3"
