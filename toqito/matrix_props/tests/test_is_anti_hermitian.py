@@ -1,4 +1,4 @@
-"""Test is_hermitian."""
+"""Test is_anti_hermitian."""
 
 import numpy as np
 import pytest
