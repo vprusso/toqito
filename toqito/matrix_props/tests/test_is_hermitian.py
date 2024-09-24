@@ -1,23 +1,20 @@
 """Test is_hermitian."""
 
 import numpy as np
+import pytest
 
 from toqito.matrix_props import is_hermitian
 
+data = [
+    # Test with Hermitian matrix
+    (np.array([[2, 2 + 1j, 4], [2 - 1j, 3, 1j], [4, -1j, 1]]), True),
+    # Test with non-Hermitian matrix
+    (np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]), False),
+    # Test with non-square matrix
+    (np.array([[-1, 1, 1], [1, 2, 3]]), False),
+]
 
-def test_is_hermitian():
+@pytest.mark.parametrize("mat,expected", data)
+def test_is_hermitian(mat, expected):
     """Test if matrix is Hermitian."""
-    mat = np.array([[2, 2 + 1j, 4], [2 - 1j, 3, 1j], [4, -1j, 1]])
-    np.testing.assert_equal(is_hermitian(mat), True)
-
-
-def test_is_non_hermitian():
-    """Test non-Hermitian matrix."""
-    mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-    np.testing.assert_equal(is_hermitian(mat), False)
-
-
-def test_is_hermitian_not_square():
-    """Input must be a square matrix."""
-    mat = np.array([[-1, 1, 1], [1, 2, 3]])
-    np.testing.assert_equal(is_hermitian(mat), False)
+    np.testing.assert_equal(is_hermitian(mat), expected)
