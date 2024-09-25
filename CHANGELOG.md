@@ -390,3 +390,5 @@
 ## 1.0.8
 
 - Patch for 1.0.7 as prior version was not including new files.
+
+- Removed deprecated `cvx_kron` function.
