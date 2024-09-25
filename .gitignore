@@ -17,4 +17,3 @@ build/
 coverage.xml
 jupyter_execute/
 venv/*
-.aider*
