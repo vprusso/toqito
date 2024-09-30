@@ -235,7 +235,7 @@ class TestNonlocalGame(unittest.TestCase):
         """Test nonlocal game where Bob has more outputs than Alice."""
         num_alice_inputs, num_alice_outputs = 2, 1
         num_bob_inputs, num_bob_outputs = 2, 3
-        
+
         prob_mat = np.array([[1 / 6, 1 / 6, 1 / 6], [1 / 6, 1 / 6, 1 / 6]])
         pred_mat = np.zeros((num_alice_outputs, num_bob_outputs, num_alice_inputs, num_bob_inputs))
 
