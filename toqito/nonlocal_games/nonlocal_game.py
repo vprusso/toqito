@@ -72,6 +72,7 @@ class NonlocalGame:
 
     @classmethod
     def from_bcs_game(cls, constraints: list[np.ndarray], reps: int = 1) -> "NonlocalGame":
+        """Convert constraints that specify a binary constraint system game to a nonlocal game."""
         if (num_constraints := len(constraints)) == 0:
             raise ValueError("At least 1 constraint is required")
         num_variables = constraints[0].ndim
