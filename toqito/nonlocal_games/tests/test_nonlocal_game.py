@@ -230,3 +230,24 @@ class TestNonlocalGame(unittest.TestCase):
         res = ffl.commuting_measurement_value_upper_bound(k=1)
         expected_res = 0.666
         self.assertEqual(np.isclose(res, expected_res, atol=0.5), True)
+
+    def test_unbalanced_nonlocal_game(self):
+        """Test nonlocal game where Bob has more outputs than Alice."""
+        num_alice_inputs, num_alice_outputs = 2, 1
+        num_bob_inputs, num_bob_outputs = 2, 3
+        
+        prob_mat = np.array([[1 / 6, 1 / 6, 1 / 6], [1 / 6, 1 / 6, 1 / 6]])
+        pred_mat = np.zeros((num_alice_outputs, num_bob_outputs, num_alice_inputs, num_bob_inputs))
+
+        for a_alice in range(num_alice_outputs):
+            for b_bob in range(num_bob_outputs):
+                for x_alice in range(num_alice_inputs):
+                    for y_bob in range(num_bob_inputs):
+                        if a_alice ^ b_bob == x_alice * y_bob:
+                            pred_mat[a_alice, b_bob, x_alice, y_bob] = 1
+
+        game = NonlocalGame(prob_mat, pred_mat)
+        res = game.classical_value()
+
+        # Expected result: We do not care for the value, just triggering the block
+        self.assertIsNotNone(res)
