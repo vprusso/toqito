@@ -2,26 +2,17 @@
 
 
 import itertools
+
 import numpy as np
 import scipy.special
 
+
 def dicke(num_qubit: int, num_excited: int, return_dm: bool = False) -> np.ndarray:
-    r"""
-    Produce a Dicke state with specified excitations.
+    r"""Produce a Dicke state with specified excitations.
 
     The Dicke state is a quantum state with a fixed number of excitations (i.e., `num_excited`)
     distributed across the given number of qubits (i.e., `num_qubit`). It is symmetric and represents
     an equal superposition of all possible states with the specified number of excited qubits.
-
-    Parameters
-    ==========
-    :param num_qubit: The total number of qubits in the system.
-    :param num_excited: The number of qubits that are in the excited state.
-    :param return_dm: If True, returns the state as a density matrix (default is False).
-
-    Returns
-    ==========
-    :return: The Dicke state vector or density matrix as a NumPy array.
 
     Example
     ==========
@@ -46,6 +37,12 @@ def dicke(num_qubit: int, num_excited: int, return_dm: bool = False) -> np.ndarr
         :filter: docname in docnames
 
     :raises ValueError: If the number of excitations exceeds the number of qubits.
+    :param num_qubit: The total number of qubits in the system.
+    :param num_excited: The number of qubits that are in the excited state.
+    :param return_dm: If True, returns the state as a density matrix (default is False).
+
+    :return: The Dicke state vector or density matrix as a NumPy array.
+
     """
     if num_excited > num_qubit:
         raise ValueError("Number of excitations cannot exceed the number of qubits.")
