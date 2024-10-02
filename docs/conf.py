@@ -49,6 +49,13 @@ extensions = [
 bibtex_bibfiles = ["refs.bib"]
 bibtex_default_style = "unsrt"
 suppress_warnings = ["bibtex.duplicate_label", "bibtex.duplicate_citation"]
+# Links matching with the following regular expressions will be ignored
+linkcheck_ignore = [
+    r"https://arxiv\.org/.*",
+    r"https://doi\.org/.*",
+    r"https://link\.aps\.org/doi/.*",
+    r"http://dx\.doi\.org/.*"
+]
 # we need to skip these warnigns because all the references appear twice, in a function docstring
 # and on the references page.
 master_doc = "index"
