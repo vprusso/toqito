@@ -473,11 +473,11 @@ In :code:`toqito`, we can encode this as a BCS game as follows
     >>> 
     >>> # Loop over variables and populate constraints.
     >>> for v_1 in range(2):
-    >>>     for v_2 in range(2):
-    >>>         if v_1 ^ v_2 == 0:
-    >>>             c_1[v_1, v_2] = 1
-    >>>         else:
-    >>>             c_2[v_1, v_2] = 1
+    ...     for v_2 in range(2):
+    ...         if v_1 ^ v_2 == 0:
+    ...             c_1[v_1, v_2] = 1
+    ...         else:
+    ...             c_2[v_1, v_2] = 1
     >>>
     >>> # Define the BCS game from the variables and constraints.
     >>> chsh_bcs = NonlocalGame.from_bcs_game([c_1, c_2])
