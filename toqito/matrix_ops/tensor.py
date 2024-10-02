@@ -118,6 +118,16 @@ def tensor(*args) -> np.ndarray:
     :return: The computed tensor product.
 
     """
+    def fast_exp(matrix, q):
+        """Efficient exponentiation by squaring."""
+        if q == 1:
+            return matrix
+        tmp = fast_exp(matrix, q >> 1)
+        tmp = np.kron(tmp, tmp)
+        if q & 1:  # If q is odd
+            tmp = np.kron(matrix, tmp)
+        return tmp
+
     result = None
 
     # Input is provided as a list of numpy matrices.
@@ -136,21 +146,10 @@ def tensor(*args) -> np.ndarray:
     if len(args) == 2 and isinstance(args[1], int):
         num_tensor = args[1]
         if num_tensor == 0:
-            return None
+            return np.eye(1, dtype=args[0].dtype)
         if num_tensor == 1:
             return args[0]
-        mat = args[0]
-        tensored_twice = np.kron(mat, mat)
-
-        def fast_exp(matrix, q):
-            if q == 1:
-                return matrix
-            tmp = fast_exp(tensored_twice, q >> 1)
-            if q & 1:
-                return np.kron(mat, tmp)
-            return tmp
-
-        return fast_exp(mat, num_tensor)
+        return fast_exp(args[0], num_tensor)
 
     # Tensor product between two or more matrices.
     if len(args) == 2:
@@ -160,4 +159,5 @@ def tensor(*args) -> np.ndarray:
         for i in range(1, len(args)):
             result = np.kron(result, args[i])
         return result
+
     raise ValueError("The `tensor` function must take either a matrix or vector.")
