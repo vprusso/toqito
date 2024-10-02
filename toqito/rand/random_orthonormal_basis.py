@@ -6,14 +6,14 @@ from toqito.rand import random_unitary
 
 
 def random_orthonormal_basis(dim: int) -> list[np.ndarray]:
-    r"""Generate a real random orthonormal basis of given dimension $d$.
+    r"""Generate a real random orthonormal basis of given dimension :math:`d`.
 
     The basis is generated from the columns of a random unitary matrix of the same dimension
     as the columns of a unitary matrix typically form an orthonormal basis :cite:`SE_1688950`.
 
     Examples
     ==========
-    To generate a random orthonormal basis of dimension 4,
+    To generate a random orthonormal basis of dimension :math:`4`,
 
     >>> from toqito.rand import random_orthonormal_basis
     >>> random_orthonormal_basis(4) # doctest: +SKIP
