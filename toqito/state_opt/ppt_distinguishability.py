@@ -79,10 +79,10 @@ def ppt_distinguishability(
     >>> x_4 = np.kron(psi_3, psi_3)
     >>>
     >>> # YDY density matrices.
-    >>> rho_1 = x_1 * x_1.conj().T
-    >>> rho_2 = x_2 * x_2.conj().T
-    >>> rho_3 = x_3 * x_3.conj().T
-    >>> rho_4 = x_4 * x_4.conj().T
+    >>> rho_1 = x_1 @ x_1.conj().T
+    >>> rho_2 = x_2 @ x_2.conj().T
+    >>> rho_3 = x_3 @ x_3.conj().T
+    >>> rho_4 = x_4 @ x_4.conj().T
     >>>
     >>> states = [rho_1, rho_2, rho_3, rho_4]
     >>> probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]

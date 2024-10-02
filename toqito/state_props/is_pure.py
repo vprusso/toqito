@@ -36,7 +36,7 @@ def is_pure(state: list[np.ndarray] | np.ndarray) -> bool:
     >>> from toqito.states import bell
     >>> from toqito.state_props import is_pure
     >>> u = bell(0)
-    >>> rho = u * u.conj().T
+    >>> rho = u @ u.conj().T
     >>> is_pure(rho)
     True
 
@@ -47,10 +47,10 @@ def is_pure(state: list[np.ndarray] | np.ndarray) -> bool:
     >>> from toqito.states import bell
     >>> from toqito.state_props import is_pure
     >>> u0, u1, u2, u3 = bell(0), bell(1), bell(2), bell(3)
-    >>> rho0 = u0 * u0.conj().T
-    >>> rho1 = u1 * u1.conj().T
-    >>> rho2 = u2 * u2.conj().T
-    >>> rho3 = u3 * u3.conj().T
+    >>> rho0 = u0 @ u0.conj().T
+    >>> rho1 = u1 @ u1.conj().T
+    >>> rho2 = u2 @ u2.conj().T
+    >>> rho3 = u3 @ u3.conj().T
     >>>
     >>> is_pure([rho0, rho1, rho2, rho3])
     True

@@ -40,7 +40,7 @@ def pure_to_mixed(phi: np.ndarray) -> np.ndarray:
 
     >>> from toqito.states import bell
     >>> from toqito.state_ops import pure_to_mixed
-    >>> phi = bell(0) * bell(0).conj().T
+    >>> phi = bell(0) @ bell(0).conj().T
     >>> pure_to_mixed(phi)
     array([[0.5, 0. , 0. , 0.5],
            [0. , 0. , 0. , 0. ],
@@ -61,7 +61,7 @@ def pure_to_mixed(phi: np.ndarray) -> np.ndarray:
 
     # It's a pure state vector.
     if min(row_dim, col_dim) == 1:
-        return phi * phi.conj().T
+        return phi @ phi.conj().T
     # It's a density matrix.
     if row_dim == col_dim:
         return phi

@@ -75,7 +75,7 @@ def has_symmetric_extension(
     >>> from toqito.states import bell
     >>> from toqito.state_props import has_symmetric_extension
     >>>
-    >>> rho = bell(0) * bell(0).conj().T
+    >>> rho = bell(0) @ bell(0).conj().T
     >>> sigma = np.kron(rho, rho)
     >>> has_symmetric_extension(sigma)
     False
