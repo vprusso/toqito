@@ -416,7 +416,7 @@ value and calculate lower bounds on the quantum value of the FFL game.
     >>> np.around(ffl.classical_value(), decimals=2)
     np.float64(0.67)
     >>> np.around(ffl.quantum_value_lower_bound(), decimals=2)
-    np.float64(0.22)
+    np.float64(0.67)
 
 In this case, we obtained the correct quantum value of :math:`2/3`, however,
 the lower bound technique is not guaranteed to converge to the true quantum

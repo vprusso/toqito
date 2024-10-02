@@ -2,9 +2,7 @@
 
 import numpy as np
 import pytest
-
 from toqito.matrix_props import spark
-
 
 def test_spark_square_matrix():
     """Test spark function with a square matrix."""
