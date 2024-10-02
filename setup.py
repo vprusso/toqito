@@ -11,7 +11,6 @@ requirements = [
     "numpy",
     "picos",
     "scipy",
-    "scikit-image",
     "pytest",
     "pytest-cov",
     "qiskit",
