@@ -18,13 +18,13 @@ def dicke(num_qubit: int, num_excited: int, return_dm: bool = False) -> np.ndarr
     ==========
     Consider generating a Dicke state with 3 qubits and 1 excitation:
 
-    >>> dicke_state(3, 1)
+    >>> dicke(3, 1)
     array([0.       , 0.57735027, 0.57735027, 0.       , 0.57735027, 0.       ,
            0.       , 0.       ])
 
     If we request the density matrix for this state, the return value is:
 
-    >>> dicke_state(3, 1, return_dm=True)
+    >>> dicke(3, 1, return_dm=True)
     array([[0.        , 0.        , 0.        , ..., 0.        , 0.        , 0.        ],
            [0.        , 0.33333333, 0.33333333, ..., 0.        , 0.        , 0.        ],
            [0.        , 0.33333333, 0.33333333, ..., 0.        , 0.        , 0.        ],
