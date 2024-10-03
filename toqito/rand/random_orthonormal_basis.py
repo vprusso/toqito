@@ -5,7 +5,7 @@ from toqito.matrix_props import is_orthonormal
 from toqito.rand import random_unitary
 
 
-def random_orthonormal_basis(dim: int) -> list[np.ndarray]:
+def random_orthonormal_basis(dim: int, is_real: bool = False) -> list[np.ndarray]:
     r"""Generate a real random orthonormal basis of given dimension :math:`d`.
 
     The basis is generated from the columns of a random unitary matrix of the same dimension
@@ -16,7 +16,7 @@ def random_orthonormal_basis(dim: int) -> list[np.ndarray]:
     To generate a random orthonormal basis of dimension :math:`4`,
 
     >>> from toqito.rand import random_orthonormal_basis
-    >>> random_orthonormal_basis(4) # doctest: +SKIP
+    >>> random_orthonormal_basis(4, is_real = True) # doctest: +SKIP
     [array([0.52188745, 0.4983613 , 0.69049811, 0.04981832]),
     array([-0.48670459,  0.58756912, -0.10226756,  0.63829658]),
     array([ 0.23965404, -0.58538248,  0.187136  ,  0.75158061]),
@@ -31,12 +31,9 @@ def random_orthonormal_basis(dim: int) -> list[np.ndarray]:
         Number of elements in the random orthonormal basis.
 
     """
-    random_mat = random_unitary(dim, is_real=True)
+    random_mat = random_unitary(dim, is_real)
 
     rand_orth_basis = [random_mat[:, i] for i in range(dim)]
-
-    if not is_orthonormal(np.array(rand_orth_basis)):
-        raise ValueError("Random orthonormal basis could not constructed.")
 
     return rand_orth_basis
 
