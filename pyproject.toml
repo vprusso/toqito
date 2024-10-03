@@ -32,7 +32,7 @@ pytest-cov = "5.0.0"
 coverage = "7.6.1"
 sympy = "1.13.3"
 distlib = "0.3.8"
-ipython = "8.27.0"
+ipython = "8.28.0"
 setuptools = ">65.5.1"
 
 [tool.poetry.group.lint.dependencies]
