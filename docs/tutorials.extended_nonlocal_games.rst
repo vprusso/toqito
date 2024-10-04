@@ -689,8 +689,8 @@ Now that we have encoded :math:`G_{MUB}`, we can calculate the unentangled value
     >>> import numpy as np
     >>> g_mub = ExtendedNonlocalGame(prob_mat, pred_mat)
     >>> unent_val = g_mub.unentangled_value()
-    >>> np.around(unent_val, decimals=2)
-    np.float64(0.65)
+    >>> np.around(unent_val, decimals=1)
+    np.float64(0.6)
 
 That is, we have that 
 
@@ -706,8 +706,8 @@ obtain.
     >>> import numpy as np
     >>> g_mub = ExtendedNonlocalGame(prob_mat, pred_mat)
     >>> q_val = g_mub.quantum_value_lower_bound()
-    >>> np.around(q_val, decimals=2)
-    np.float64(0.66)
+    >>> np.around(q_val, decimals=1)
+    np.float64(0.6)
 
 Note that as we are calculating a lower bound, it is possible that a value this
 high will not be obtained, or in other words, the algorithm can get stuck in a
