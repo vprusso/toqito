@@ -363,7 +363,6 @@ class NonlocalGame:
         # .. math::
         #    \sum_{(x,y) \in \Sigma} \pi(x, y) V(a,b|x,y) \ip{B_b^y}{A_a^x}
         win = 0
-        is_real = True
         for x_ques in range(num_inputs_alice):
             for y_ques in range(num_inputs_bob):
                 for a_ans in range(num_outputs_alice):
@@ -372,17 +371,16 @@ class NonlocalGame:
                             win += (
                                 self.prob_mat[x_ques, y_ques]
                                 * self.pred_mat[a_ans, b_ans, x_ques, y_ques]
-                                * cvxpy.trace(bob_povms[y_ques, b_ans].conj().T * alice_povms[x_ques, a_ans])
+                                * cvxpy.trace(bob_povms[y_ques, b_ans].conj().T @ alice_povms[x_ques, a_ans])
                             )
                         if isinstance(
                             bob_povms[y_ques, b_ans],
                             cvxpy.expressions.variable.Variable,
                         ):
-                            is_real = False
                             win += (
                                 self.prob_mat[x_ques, y_ques]
                                 * self.pred_mat[a_ans, b_ans, x_ques, y_ques]
-                                * cvxpy.trace(bob_povms[y_ques, b_ans].value.conj().T * alice_povms[x_ques, a_ans])
+                                * cvxpy.trace(bob_povms[y_ques, b_ans].value.conj().T @ alice_povms[x_ques, a_ans])
                             )
 
         objective = cvxpy.Maximize(cvxpy.real(win))
@@ -430,7 +428,7 @@ class NonlocalGame:
                         win += (
                             self.prob_mat[x_ques, y_ques]
                             * self.pred_mat[a_ans, b_ans, x_ques, y_ques]
-                            * cvxpy.trace(bob_povms[y_ques, b_ans].H * alice_povms[x_ques, a_ans].value)
+                            * cvxpy.trace(bob_povms[y_ques, b_ans].H @ alice_povms[x_ques, a_ans].value)
                         )
 
         objective = cvxpy.Maximize(cvxpy.real(win))
