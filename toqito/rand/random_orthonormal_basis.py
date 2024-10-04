@@ -33,7 +33,8 @@ def random_orthonormal_basis(dim: int, is_real: bool = False) -> list[np.ndarray
     """
     random_mat = random_unitary(dim, is_real)
 
-    rand_orth_basis = [random_mat[:, i] for i in range(dim)]
+    random_mat = random_unitary(dim, is_real)
+    return [random_mat[:, i] for i in range(dim)]
 
     return rand_orth_basis
 
