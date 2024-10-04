@@ -1,7 +1,6 @@
 """Generate random orthonormal basis."""
 import numpy as np
 
-from toqito.matrix_props import is_orthonormal
 from toqito.rand import random_unitary
 
 
