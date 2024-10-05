@@ -35,7 +35,7 @@ Quantum States
 A complete overview of the scope of quantum states can be found
 `here <https://toqito.readthedocs.io/en/latest/autoapi/states/index.html>`_
 
-The standard basis bra vectors given as :math:`|0\rangle` and :math:`|1\rangle` where
+The standard basis ket vectors given as :math:`|0\rangle` and :math:`|1\rangle` where
 
 .. math::
     | 0 \rangle = [1, 0]^{\text{T}} \quad \text{and} \quad | 1 \rangle = [0, 1]^{\text{T}}
