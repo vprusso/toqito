@@ -47,7 +47,6 @@ def tensor_comb(states: list[np.ndarray], k: int) -> dict:
         [0, 0, 0, 0],
         [0, 0, 0, 1]])}
 
-
     References
     ==========
     .. bibliography::
