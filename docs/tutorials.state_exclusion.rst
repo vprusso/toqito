@@ -154,7 +154,7 @@ positive semidefinite and we must ensure that :math:`\sum_{i \in \{1,2,3\}} M_i 
 .. code-block:: python
 
     >>> from toqito.matrix_props import is_positive_semidefinite
-    >>> print(f"M_1 + M_2 + M_3 is identity: \n {np.allclose(M1 + M2 + M3, np.identity(2))}")
+    >>> print(f"M_1 + M_2 + M_3 is identity: {np.allclose(M1 + M2 + M3, np.identity(2))}")
     M_1 + M_2 + M_3 is identity: True
     >>> print(f"Is M_1 PSD: {is_positive_semidefinite(M1)}")
     Is M_1 PSD: True
