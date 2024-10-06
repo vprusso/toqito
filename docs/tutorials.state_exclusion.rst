@@ -125,7 +125,7 @@ An interesting property of these states is that they are antidistinguishable but
 .. code-block:: python
 
     >>> from toqito.states import trine
-    >>> from toqito.state_opt import is_distinguishable, is_antidistinguishable
+    >>> from toqito.state_props import is_distinguishable, is_antidistinguishable
     >>> print(f"Trine antidistinguishable: {is_antidistinguishable(trine())}")
     Trine antidistinguishable: True
     >>> print(f"Trine distinguishable: {is_distinguishable(trine())}")
