@@ -99,7 +99,7 @@ The so-called *trine states* are a set of three states, each of dimension two de
     >>> from toqito.states import trine
     >>> psi1, psi2, psi3 = trine()
     >>> print(f"|𝛙_1> = {psi1.reshape(1, -1)[0]}")
-    |𝛙_1> = [1. 0.]
+    |𝛙_1> = [1 0]
     >>> print(f"|𝛙_2> = {psi2.reshape(1, -1)[0]}")
     |𝛙_2> = [-0.5       -0.8660254]
     >>> print(f"|𝛙_3> = {psi3.reshape(1, -1)[0]}")
