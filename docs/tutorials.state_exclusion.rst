@@ -157,7 +157,7 @@ positive semidefinite and we must ensure that :math:`\sum_{i \in \{1,2,3\}} M_i 
     >>> print(f"M_1 + M_2 + M_3: \n {M1 + M2 + M3}")
     M_1 + M_2 + M_3: 
     [[1. 0.]
-     [0. 1.]]
+      [0. 1.]]
     >>> print(f"Is M_1 PSD: {is_positive_semidefinite(M1)}")
     Is M_1 PSD: True
     >>> print(f"Is M_2 PSD: {is_positive_semidefinite(M2)}")
