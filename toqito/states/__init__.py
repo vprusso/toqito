@@ -1,4 +1,7 @@
-"""This module refers to the `Quantum States` which acts as the parent to the below submodules. Quantum states are one of the three fundamental objects that `toqito` provides, the others being `channels` and `measurements`."""
+"""Quantum States is used to denote the module `Quantum State`. It acts as the parent to the below submodules.
+
+They are one of the three fundamental objects that `toqito` provides, the others being `channels` and `measurements`.
+"""
 
 from toqito.states.basis import basis
 from toqito.states.bb84 import bb84
