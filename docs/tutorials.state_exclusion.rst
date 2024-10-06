@@ -169,11 +169,11 @@ for all :math:`i \in \{1,2,3\}`.
 .. code-block:: python
 
     >>> print(f"<𝛙_1| M_1 |𝛙_1>: {np.around((psi1.reshape(1, -1)[0] @ M1 @ psi1)[0], decimals=5)}")
-    <𝛙_1| M_1 |𝛙_1>:  0.0
+    <𝛙_1| M_1 |𝛙_1>: 0.0
     >>> print(f"<𝛙_2| M_2 |𝛙_2>: {np.around((psi2.reshape(1, -1)[0] @ M2 @ psi2)[0], decimals=5)}")
-    <𝛙_2| M_2 |𝛙_2>:  0.0
+    <𝛙_2| M_2 |𝛙_2>: 0.0
     >>> print(f"<𝛙_3| M_3 |𝛙_3>: {np.around((psi3.reshape(1, -1)[0] @ M3 @ psi3)[0], decimals=5)}")
-    <𝛙_3| M_3 |𝛙_3>:  0.0
+    <𝛙_3| M_3 |𝛙_3>: 0.0
 
 Since we have exhibited a set of measurements :math:`\{M_i: i \in \{1,2,3\}\} \subset \text{Pos}(\mathbb{C^d})` that satisfy
 
