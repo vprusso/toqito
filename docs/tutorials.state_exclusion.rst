@@ -212,28 +212,13 @@ the antidistinguishability SDP.
 
     >>> from toqito.states import trine
     >>> from toqito.state_opt import state_exclusion
-    >>> opt_value, measurements = state_exclusion(trine(), probs=[1, 1, 1], primal_dual="primal")
-    >>> print(f"Optimal SDP value: {opt_value}")
-    Optimal SDP value: 4.334787693145857e-08
+    >>> opt_value, measurements = state_exclusion(trine(), probs=[1, 1, 1], primal_dual="dual")
+    >>> print(f"Optimal SDP value: {np.around(opt_value, decimals=2)}")
+    Optimal SDP value: 0.0
 
 The SDP not only gives us the optimal value, which is $0$ in this case, indicating that the states are
 antidistinguishable, but we also get a set of optimal measurement operators. These should look familiar to the
 measurements we explicitly constructed earlier.
-
-.. code-block:: python
-
-    >>> print(f"M1: \n {np.around(measurements[0], decimals=5)}")
-    M1: 
-     [[0.     +0.j 0.     +0.j]
-      [0.     +0.j 0.66664+0.j]]
-    >>> print(f"M2: \n {np.around(measurements[1], decimals=5)}")
-    M2: 
-     [[ 0.5    +0.j -0.28869+0.j]
-      [-0.28869+0.j  0.16668+0.j]]
-    >>> print(f"M3: \n {np.around(measurements[2], decimals=5)}")
-    M3: 
-     [[0.5    +0.j 0.28869+0.j]
-      [0.28869+0.j 0.16668+0.j]]
 
 References
 ------------------------------
