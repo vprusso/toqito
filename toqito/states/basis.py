@@ -1,4 +1,7 @@
-"""Basis state."""
+"""Basis state represent the standard basis vectors of some n-dimensional Hilbert Space.
+
+Here, n can be given as a parameter as shown below.
+"""
 
 import numpy as np
 
