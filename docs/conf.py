@@ -43,7 +43,7 @@ extensions = [
     "sphinx.ext.githubpages",
     "sphinx.ext.napoleon",
     "sphinxcontrib.bibtex",
-    "furo",
+    "sphinx.ext.furo"
 ]
 
 bibtex_bibfiles = ["refs.bib"]
