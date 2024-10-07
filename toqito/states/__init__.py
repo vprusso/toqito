@@ -1,4 +1,4 @@
-"""Quantum States is the set of modules that nuerically implement the well known quantum states listed below.
+"""Quantum States is the set of modules that numerically implements the well known quantum states listed below.
 
 They are one of the three fundamental objects that `toqito` provides, the others being `channels` and `measurements`.
 """
