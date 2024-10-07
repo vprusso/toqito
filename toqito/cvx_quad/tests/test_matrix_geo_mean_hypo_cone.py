@@ -3,6 +3,9 @@
 import numpy as np
 import pytest
 import cvxpy as cp
+from sympy import Rational
+from scipy.linalg import fractional_matrix_power as fmp
+
 
 from toqito.cvx_quad import matrix_geo_mean_hypo_cone
 from toqito.rand import random_psd
@@ -23,3 +26,25 @@ def test_matrix_geo_mean_hypo_cone():
                 else:
                     T = cp.Variable((n, n), symmetric=True)
                 objective = cp.Maximize(cp.trace(T))
+                A, B, T = matrix_geo_mean_hypo_cone.matrix_geo_mean_hypo_cone(
+                    n, t, cplx, False
+                )
+                ABt = (
+                    fmp(A, 1 / 2)
+                    @ fmp(fmp(A, -1 / 2) @ B @ fmp(A, -1 / 2), t)
+                    @ (A, 1 / 2)
+                )
+                problem = cp.Problem(cp.Maximize(np.trace(T), ABt))
+                problem.solve()
+
+                ABt = (
+                    fmp(A, 1 / 2)
+                    @ fmp(fmp(A, -1 / 2) @ B @ fmp(A, -1 / 2), t)
+                    @ (A, 1 / 2)
+                )
+                p, q = Rational(n).limit_denominator(20).as_numer_denom()
+                print(f"n={n}, t={p}/{q}, cplx={cplx}: ", end="")
+                assert (
+                    np.linalg.norm(np.subtract(ABt, t)) <= 1e-6
+                ), f"Test failed matrix_geo_mean_hypo_cone n={n}, t={p}/{q}, cplx={cplx}"
+                print("OK")

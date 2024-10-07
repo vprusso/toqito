@@ -3,7 +3,7 @@ from cvxpy import cvx
 
 
 def matrix_geo_mean_hypo_cone(
-    sz: list, t: float, iscplx: bool = False, fullhyp: bool = True
+    sz: list, t: float = 1 / 2, iscplx: bool = False, fullhyp: bool = True
 ) -> tuple:
     r"""
     Returns a CVX tuple {A, B, T} of matrices constrained to satisfy A #_{t} B >= T,
@@ -39,4 +39,8 @@ def matrix_geo_mean_hypo_cone(
         Setting fullhyp=False results in a slightly smaller SDP description.
 
     """
+    assert 0 < t < 1, "t must be between 0 and 1"
+    if len(sz) == 1:
+        sz = sz + sz
+
     raise NotImplementedError
