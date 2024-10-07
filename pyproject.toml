@@ -48,7 +48,7 @@ black = "*"
 
 [tool.poetry.group.docs.dependencies]
 readthedocs-sphinx-ext = "*"
-sphinx = ">=5,<8"
+sphinx = "8.0.2"
 furo = "2024.8.6"
 sphinxcontrib-bibtex = "2.6.3"
 sphinx-autoapi = "3.3.2"
