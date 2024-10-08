@@ -41,9 +41,9 @@ def quantum_entr(X: np.ndarray, m: int = 3, k: int = 3, apx: int = 0) -> cvx.Exp
     if isinstance(X, np.ndarray):
         return -1 * quantum_rel_entr(X, np.eye(X.shape[0]))
     elif X.is_constant():
-        pass
+        return quantum_entr(X.value, m, k)
     elif X.is_affine():
-        pass
+        n = X.shape[0]
     else:
         raise Exception("The input has to be an affine expression")
 
@@ -120,7 +120,7 @@ def quantum_rel_entr(
     elif A.is_constant():
         return -1 * quantum_entr(A, m, k) - trace_logm(B, A, m, k, -1 * apx)
     elif B.is_constant():
-        return -1 * quantum_entr(A, m, k, -1 * apx) - np.trace(A * logm(B))
+        return -1 * quantum_entr(A, m, k, -1 * apx) - np.trace(A @ logm(B))
     elif A.is_affine() and B.is_affine():
         pass
     else:
@@ -219,7 +219,7 @@ def trace_logm(
     if isinstance(X, np.ndarray):
         return -1 * quantum_rel_entr(C, X) + quantum_rel_entr(C, np.eye(C.shape[0]))
     elif X.is_constant():
-        pass
+        return trace_logm(X.value, C)
     elif X.is_affine():
         pass
     else:

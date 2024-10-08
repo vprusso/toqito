@@ -14,6 +14,8 @@ def test_op_rel_entr_epi_cone():
         for cplx in [False, True]:
             A = random_psd(n, cplx)
             B = random_psd(n, cplx)
+            print(A)
+            print(B)
             A = A / np.trace(A)
             B = B / np.trace(B)
             for mk in [1, 3]:
@@ -36,7 +38,7 @@ def test_op_rel_entr_epi_cone():
                     ]
 
                     problem = cp.Problem(objective, constraints=cons)
-                    problem.solve(verbose=False)
+                    problem.solve(verbose=True)
 
                     print("tval", T.value)
 
@@ -52,7 +54,7 @@ def test_op_rel_entr_epi_cone():
                         end="",
                     )
                     assert (
-                        np.min(np.linalg.eigvals(apx * err)) >= -1e-2
+                        np.min(np.linalg.eigvals(apx * err)) >= -1e-6
                     ), f"Test failed (bound) op_rel_entr_epi_cone n={n}, cplx={cplx}, min(eig(apx*err))={np.min(np.linalg.eigvals(apx * err)):.4e}"
                     if mk >= 3:
                         assert (
