@@ -1,4 +1,7 @@
-"""Isotropic state."""
+"""Isotropic state is a bipartite quantum state.
+
+These states are separable for α ≤ 1/(d+1), but are otherwise entangled.
+"""
 
 import numpy as np
 
