@@ -26,7 +26,7 @@ def random_state_vector(dim: list[int] | int, is_real: bool = False, k_param: in
     and checking if the density matrix is pure.
 
     >>> from toqito.state_props import is_pure
-    >>> dm = vec.conj().T * vec
+    >>> dm = vec.conj().T @ vec
     >>> is_pure(dm)
     True
 

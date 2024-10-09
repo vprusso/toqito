@@ -11,10 +11,10 @@ from toqito.states import basis, bell, werner
 def test_symmetric_extension_hierarchy_four_bell_density_matrices():
     """Symmetric extension hierarchy for four Bell density matrices."""
     states = [
-        bell(0) * bell(0).conj().T,
-        bell(1) * bell(1).conj().T,
-        bell(2) * bell(2).conj().T,
-        bell(3) * bell(3).conj().T,
+        bell(0) @ bell(0).conj().T,
+        bell(1) @ bell(1).conj().T,
+        bell(2) @ bell(2).conj().T,
+        bell(3) @ bell(3).conj().T,
     ]
     res = symmetric_extension_hierarchy(states=states, probs=None, level=2)
     np.testing.assert_equal(np.isclose(res, 1 / 2, atol=1e-5), True)
@@ -37,10 +37,10 @@ def test_symmetric_extension_hierarchy_four_bell_with_resource_state_lvl_1():
     eps_dm = eps_state * eps_state.conj().T
 
     states = [
-        np.kron(bell(0) * bell(0).conj().T, eps_dm),
-        np.kron(bell(1) * bell(1).conj().T, eps_dm),
-        np.kron(bell(2) * bell(2).conj().T, eps_dm),
-        np.kron(bell(3) * bell(3).conj().T, eps_dm),
+        np.kron(bell(0) @ bell(0).conj().T, eps_dm),
+        np.kron(bell(1) @ bell(1).conj().T, eps_dm),
+        np.kron(bell(2) @ bell(2).conj().T, eps_dm),
+        np.kron(bell(3) @ bell(3).conj().T, eps_dm),
     ]
 
     # Ensure we are checking the correct partition of the states.
@@ -70,10 +70,10 @@ def test_symmetric_extension_hierarchy_four_bell_with_resource_state():
     eps_dm = eps_state * eps_state.conj().T
 
     states = [
-        np.kron(bell(0) * bell(0).conj().T, eps_dm),
-        np.kron(bell(1) * bell(1).conj().T, eps_dm),
-        np.kron(bell(2) * bell(2).conj().T, eps_dm),
-        np.kron(bell(3) * bell(3).conj().T, eps_dm),
+        np.kron(bell(0) @ bell(0).conj().T, eps_dm),
+        np.kron(bell(1) @ bell(1).conj().T, eps_dm),
+        np.kron(bell(2) @ bell(2).conj().T, eps_dm),
+        np.kron(bell(3) @ bell(3).conj().T, eps_dm),
     ]
 
     # Ensure we are checking the correct partition of the states.
@@ -98,12 +98,12 @@ def test_symmetric_extension_hierarchy_three_bell_with_resource_state():
 
     eps = 1 / 2
     eps_state = np.sqrt((1 + eps) / 2) * e_00 + np.sqrt((1 - eps) / 2) * e_11
-    eps_dm = eps_state * eps_state.conj().T
+    eps_dm = eps_state @ eps_state.conj().T
 
     states = [
-        np.kron(bell(0) * bell(0).conj().T, eps_dm),
-        np.kron(bell(1) * bell(1).conj().T, eps_dm),
-        np.kron(bell(2) * bell(2).conj().T, eps_dm),
+        np.kron(bell(0) @ bell(0).conj().T, eps_dm),
+        np.kron(bell(1) @ bell(1).conj().T, eps_dm),
+        np.kron(bell(2) @ bell(2).conj().T, eps_dm),
     ]
 
     # Ensure we are checking the correct partition of the states.
@@ -120,8 +120,8 @@ def test_symmetric_extension_hierarchy_three_bell_with_resource_state():
 def test_invalid_symmetric_extension_hierarchy_probs():
     """Invalid probability vector for symmetric extension hierarchy."""
     with np.testing.assert_raises(ValueError):
-        rho1 = bell(0) * bell(0).conj().T
-        rho2 = bell(1) * bell(1).conj().T
+        rho1 = bell(0) @ bell(0).conj().T
+        rho2 = bell(1) @ bell(1).conj().T
         states = [rho1, rho2]
         symmetric_extension_hierarchy(states, [1, 2, 3])
 

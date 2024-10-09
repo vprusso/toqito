@@ -23,10 +23,10 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         num_alice_in, num_bob_in = 2, 2
 
         pred_mat = np.zeros([dim, dim, num_alice_out, num_bob_out, num_alice_in, num_bob_in])
-        pred_mat[:, :, 0, 0, 0, 0] = e_0 * e_0.conj().T
-        pred_mat[:, :, 0, 0, 1, 1] = e_p * e_p.conj().T
-        pred_mat[:, :, 1, 1, 0, 0] = e_1 * e_1.conj().T
-        pred_mat[:, :, 1, 1, 1, 1] = e_m * e_m.conj().T
+        pred_mat[:, :, 0, 0, 0, 0] = e_0 @ e_0.conj().T
+        pred_mat[:, :, 0, 0, 1, 1] = e_p @ e_p.conj().T
+        pred_mat[:, :, 1, 1, 0, 0] = e_1 @ e_1.conj().T
+        pred_mat[:, :, 1, 1, 1, 1] = e_m @ e_m.conj().T
 
         prob_mat = 1 / 2 * np.identity(2)
 
@@ -88,21 +88,21 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         num_out = 3
         pred_mat = np.zeros([dim, dim, num_out, num_out, num_in, num_in], dtype=complex)
 
-        pred_mat[:, :, 0, 0, 0, 0] = mubs[0][0] * mubs[0][0].conj().T
-        pred_mat[:, :, 1, 1, 0, 0] = mubs[0][1] * mubs[0][1].conj().T
-        pred_mat[:, :, 2, 2, 0, 0] = mubs[0][2] * mubs[0][2].conj().T
+        pred_mat[:, :, 0, 0, 0, 0] = mubs[0][0] @ mubs[0][0].conj().T
+        pred_mat[:, :, 1, 1, 0, 0] = mubs[0][1] @ mubs[0][1].conj().T
+        pred_mat[:, :, 2, 2, 0, 0] = mubs[0][2] @ mubs[0][2].conj().T
 
-        pred_mat[:, :, 0, 0, 1, 1] = mubs[1][0] * mubs[1][0].conj().T
-        pred_mat[:, :, 1, 1, 1, 1] = mubs[1][1] * mubs[1][1].conj().T
-        pred_mat[:, :, 2, 2, 1, 1] = mubs[1][2] * mubs[1][2].conj().T
+        pred_mat[:, :, 0, 0, 1, 1] = mubs[1][0] @ mubs[1][0].conj().T
+        pred_mat[:, :, 1, 1, 1, 1] = mubs[1][1] @ mubs[1][1].conj().T
+        pred_mat[:, :, 2, 2, 1, 1] = mubs[1][2] @ mubs[1][2].conj().T
 
-        pred_mat[:, :, 0, 0, 2, 2] = mubs[2][0] * mubs[2][0].conj().T
-        pred_mat[:, :, 1, 1, 2, 2] = mubs[2][1] * mubs[2][1].conj().T
-        pred_mat[:, :, 2, 2, 2, 2] = mubs[2][2] * mubs[2][2].conj().T
+        pred_mat[:, :, 0, 0, 2, 2] = mubs[2][0] @ mubs[2][0].conj().T
+        pred_mat[:, :, 1, 1, 2, 2] = mubs[2][1] @ mubs[2][1].conj().T
+        pred_mat[:, :, 2, 2, 2, 2] = mubs[2][2] @ mubs[2][2].conj().T
 
-        pred_mat[:, :, 0, 0, 3, 3] = mubs[3][0] * mubs[3][0].conj().T
-        pred_mat[:, :, 1, 1, 3, 3] = mubs[3][1] * mubs[3][1].conj().T
-        pred_mat[:, :, 2, 2, 3, 3] = mubs[3][2] * mubs[3][2].conj().T
+        pred_mat[:, :, 0, 0, 3, 3] = mubs[3][0] @ mubs[3][0].conj().T
+        pred_mat[:, :, 1, 1, 3, 3] = mubs[3][1] @ mubs[3][1].conj().T
+        pred_mat[:, :, 2, 2, 3, 3] = mubs[3][2] @ mubs[3][2].conj().T
 
         return prob_mat, pred_mat
 

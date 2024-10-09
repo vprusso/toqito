@@ -42,7 +42,7 @@ def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float:
     >>> e_11 = np.kron(e_1, e_1)
     >>>
     >>> u_vec = 1 / np.sqrt(2) * (e_00 + e_11)
-    >>> rho = u_vec * u_vec.conj().T
+    >>> rho = u_vec @ u_vec.conj().T
     >>> sigma = rho
     >>>
     >>> helstrom_holevo(rho, sigma)

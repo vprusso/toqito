@@ -106,7 +106,7 @@ def optimal_clone(
     # Q = ∑_{k=1}^N p_k |ψ_k ⊗ ψ_k ⊗ ψ_k> <ψ_k ⊗ ψ_k ⊗ ψ_k|
     q_a = np.zeros((dim, dim))
     for k, state in enumerate(states):
-        q_a += probs[k] * tensor(state, state, state.conj()) * tensor(state, state, state.conj()).conj().T
+        q_a += probs[k] * tensor(state, state, state.conj()) @ tensor(state, state, state.conj()).conj().T
 
     # The system is over:
     # Y_1 ⊗ Z_1 ⊗ X_1, ... , Y_n ⊗ Z_n ⊗ X_n.
