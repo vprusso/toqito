@@ -1,4 +1,4 @@
-"""Generate random density matrix."""
+"""Generates a random density matrix."""
 
 import numpy as np
 

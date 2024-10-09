@@ -1,4 +1,4 @@
-"""Generate random circulant Gram matrix."""
+"""Generates a random circulant Gram matrix."""
 
 import numpy as np
 

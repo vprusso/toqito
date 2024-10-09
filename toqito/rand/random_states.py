@@ -1,4 +1,4 @@
-"""Generate random quantum states using Qiskit."""
+"""Generates random quantum states using Qiskit."""
 
 import numpy as np
 from qiskit.quantum_info.states.random import random_statevector
