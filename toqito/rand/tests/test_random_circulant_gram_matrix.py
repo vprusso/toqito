@@ -38,3 +38,30 @@ def test_random_circulant_gram_matrix(dim):
     # all eigenvalues are non-negative.
     eigenvalues = np.linalg.eigvalsh(circulant_matrix)
     assert_array_almost_equal((eigenvalues >= 0), True)
+
+@pytest.mark.parametrize(
+    "dim,expected",
+    [
+        (
+            2,
+            np.array([
+                [0.36808644, 0.31426542],
+                [0.31426542, 0.36808644]
+            ])
+        ),
+(
+            5,
+            np.array([
+                [0.26336209, 0.08518132, 0.12431357, 0.12431357, 0.08518132],
+                [0.08518132, 0.26336209, 0.08518132, 0.12431357, 0.12431357],
+                [0.12431357, 0.08518132, 0.26336209, 0.08518132, 0.12431357],
+                [0.12431357, 0.12431357, 0.08518132, 0.26336209, 0.08518132],
+                [0.08518132, 0.12431357, 0.12431357, 0.08518132, 0.26336209]
+            ])
+        ),
+    ]
+)
+def test_random_circulant_gram_matrix_with_seed(dim, expected):
+    """Test that the random_circulant_gram_matrix produces expected inputs with a seed."""
+    mat = random_circulant_gram_matrix(dim, seed=123)
+    assert_array_almost_equal(mat, expected)

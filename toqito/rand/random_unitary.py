@@ -3,7 +3,11 @@
 import numpy as np
 
 
-def random_unitary(dim: list[int] | int, is_real: bool = False) -> np.ndarray:
+def random_unitary(
+        dim: list[int] | int,
+        is_real: bool = False,
+        seed: int | None = None
+) -> np.ndarray:
     """Generate a random unitary or orthogonal matrix :cite:`Ozols_2009_RandU`.
 
     Calculates a random unitary matrix (if :code:`is_real = False`) or a random real orthogonal
@@ -62,6 +66,20 @@ def random_unitary(dim: list[int] | int, is_real: bool = False) -> np.ndarray:
     >>> is_unitary(mat)
     True
 
+    It is also possible to pass a seed to this function for reproducibility.
+
+    >>> from toqito.matrix_props import is_unitary
+    >>> seeded = random_unitary(2, seed=42)
+    >>> seeded
+    array([[0.34074554-0.85897194j, 0.32146645+0.20668575j],
+           [0.37801036+0.05628362j, 0.30953006-0.87070745j]])
+
+    And once again, we can verify that this matrix generated is a valid unitary matrix.
+
+    >>> from toqito.matrix_props import is_unitary
+    >>> is_unitary(seeded)
+    True
+
     References
     ==========
     .. bibliography::
@@ -71,9 +89,12 @@ def random_unitary(dim: list[int] | int, is_real: bool = False) -> np.ndarray:
     :param dim: The number of rows (and columns) of the unitary matrix.
     :param is_real: Boolean denoting whether the returned matrix has real
                     entries or not. Default is :code:`False`.
+    :param seed: A seed used to instantiate numpy's random number generator.
     :return: A :code:`dim`-by-:code:`dim` random unitary matrix.
 
     """
+    gen = np.random.default_rng(seed=seed)
+
     if isinstance(dim, int):
         dim = [dim, dim]
 
@@ -81,10 +102,10 @@ def random_unitary(dim: list[int] | int, is_real: bool = False) -> np.ndarray:
         raise ValueError("Unitary matrix must be square.")
 
     # Construct the Ginibre ensemble.
-    gin = np.random.rand(dim[0], dim[1])
+    gin = gen.random((dim[0], dim[1]))
 
     if not is_real:
-        gin = gin + 1j * np.random.rand(dim[0], dim[1])
+        gin = gin + 1j * gen.standard_normal((dim[0], dim[1]))
 
     # QR decomposition of the Ginibre ensemble.
     q_mat, r_mat = np.linalg.qr(gin)
