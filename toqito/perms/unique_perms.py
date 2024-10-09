@@ -1,4 +1,4 @@
-"""Calculate unique permutations."""
+"""Unique permutations is used to calculate the unique permutations of a list/vector and their count."""
 
 from dataclasses import dataclass
 
