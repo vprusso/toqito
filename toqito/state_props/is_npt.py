@@ -1,4 +1,4 @@
-"""Check if state has NPT (negative partial transpose) criterion."""
+"""Checks if the quantum state has NPT (negative partial transpose) criterion."""
 
 import numpy as np
 

@@ -1,4 +1,4 @@
-"""Check if set of states form an ensemble."""
+"""Checks if a set of quantum states form an ensemble."""
 
 import numpy as np
 
