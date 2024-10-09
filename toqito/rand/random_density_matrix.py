@@ -75,6 +75,21 @@ def random_density_matrix(
     >>> is_density(bures_mat)
     np.True_
 
+    It is also possible to pass a seed to this function for reproducibility.
+
+    >>> from toqito.rand import random_density_matrix
+    >>> seeded = random_density_matrix(2, seed=42)
+    >>> seeded
+    array([[0.82448019+0.j        , 0.14841568-0.33318114j],
+           [0.14841568+0.33318114j, 0.17551981+0.j        ]])
+
+    We can once again verify that this is in fact a valid density matrix using the
+    :code:`is_denisty` function from :code:`toqito` as follows
+
+    >>> from toqito.matrix_props import is_density
+    >>> is_density(seeded)
+    np.True_
+
 
     :param dim: The number of rows (and columns) of the density matrix.
     :param is_real: Boolean denoting whether the returned matrix will have all
