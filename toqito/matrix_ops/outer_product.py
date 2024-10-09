@@ -1,4 +1,4 @@
-"""Outer product operation."""
+"""Outer Product opertaion calculates the outer product between two vectors."""
 
 import numpy as np
 
