@@ -54,7 +54,7 @@ def random_states(n: int, d: int, seed: int | None = None) -> list[np.ndarray]:
     :param d: int
         The dimension of each quantum state.
     :param seed: int | None
-        A seed to instantiate numpy's random number generator.
+        A seed used to instantiate numpy's random number generator.
 
     :return: list[numpy.ndarray]
         A list of `n` numpy arrays, each representing a d-dimensional quantum state as a
