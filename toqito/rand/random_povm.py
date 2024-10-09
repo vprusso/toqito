@@ -46,7 +46,7 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int, seed: int | None = 
     >>> import numpy as np
     >>>
     >>> dim, num_inputs, num_outputs = 2, 2, 2
-    >>> povms = random_povm(dim, num_inputs, num_outputs)
+    >>> povms = random_povm(dim, num_inputs, num_outputs, seed=42)
     >>> povms
     array([[[[ 0.22988028+0.j,  0.77011972+0.j],
              [ 0.45021752+0.j,  0.54978248+0.j]],
