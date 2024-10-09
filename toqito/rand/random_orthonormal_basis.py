@@ -24,11 +24,8 @@ def random_orthonormal_basis(dim: int, is_real: bool = False, seed: int | None =
     It is also possible to add a seed for reproducibility.
 
     >>> from toqito.rand import random_orthonormal_basis
-    >>> random_orthonormal_basis(4, is_real=True, seed=42)
-    [array([0.75934529, 0.09239947, 0.1256951 , 0.63171022]),
-    array([-0.31640403,  0.87253176,  0.32078181,  0.18888049]),
-    array([ 0.5654792 ,  0.32735616,  0.108487  , -0.74920077]),
-    array([-0.05930004, -0.35069731,  0.93248611, -0.06296476])]
+    >>> random_orthonormal_basis(2, is_real=True, seed=42)
+    [array([0.66954664, 0.74277002]), array([-0.74277002,  0.66954664])]
 
 
     References
