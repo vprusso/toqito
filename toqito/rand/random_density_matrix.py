@@ -10,6 +10,7 @@ def random_density_matrix(
     is_real: bool = False,
     k_param: list[int] | int = None,
     distance_metric: str = "haar",
+    seed: int | None = None,
 ) -> np.ndarray:
     r"""Generate a random density matrix.
 
@@ -83,20 +84,22 @@ def random_density_matrix(
                             density matrix. This metric is either the Haar
                             measure or the Bures measure. Default value is to
                             use the Haar measure.
+    :param seed: A seed used to instantiate numpy's random number generator.
     :return: A :code:`dim`-by-:code:`dim` random density matrix.
 
     """
+    gen = np.random.default_rng(seed=seed)
     if k_param is None:
         k_param = dim
 
     # Haar / Hilbert-Schmidt measure.
-    gin = np.random.rand(dim, k_param)
+    gin = gen.random((dim, k_param))
 
     if not is_real:
-        gin = gin + 1j * np.random.randn(dim, k_param)
+        gin = gin + 1j * gen.standard_normal((dim, k_param))
 
     if distance_metric == "bures":
-        gin = random_unitary(dim, is_real) + np.identity(dim) @ gin
+        gin = random_unitary(dim, is_real, seed=seed) + np.identity(dim) @ gin
 
     rho = gin @ np.array(gin).conj().T
 

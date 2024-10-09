@@ -2,6 +2,7 @@
 
 import numpy as np
 import pytest
+from numpy.ma.testutils import assert_array_almost_equal
 
 from toqito.matrix_props import is_density, is_positive_semidefinite
 from toqito.rand import random_density_matrix
@@ -48,3 +49,63 @@ def test_random_density_matrix(dim, is_real, distance_metric):
         assert np.all(np.isreal(dm)), "Matrix should be real"
     else:
         assert np.any(np.iscomplex(dm)), "Matrix should be complex"
+
+@pytest.mark.parametrize(
+    "dim, is_real, k_param, distance_metric, expected",
+    [
+        # Generate random non-real density matrix.
+        (
+            2,
+            False,
+            None,
+            "haar",
+            np.array([
+                [0.67842043+0.j, -0.04636114+0.29398703j],
+                [-0.04636114-0.29398703j, 0.32157957+0.j]
+            ])
+        ),
+        # Generate random real density matrix.
+        (
+            2,
+            True,
+            None,
+            "haar",
+            np.array([
+                [0.85019307, 0.29087271],
+                [0.29087271, 0.14980693]
+            ])
+        ),
+        # Random non-real density matrix according to Bures metric.
+        (
+            2,
+            False,
+            None,
+            "bures",
+            np.array([
+                [0.60005221+0.j, -0.00344727+0.16976473j],
+                [-0.00344727-0.16976473j, 0.39994779+0.j]
+            ])
+        ),
+        # Generate random non-real density matrix all params.
+        (
+            2,
+            True,
+            2,
+            "haar",
+            np.array([
+                [0.85019307, 0.29087271],
+                [0.29087271, 0.14980693]
+            ])
+        ),
+    ],
+)
+def test_seed(dim, is_real, k_param, distance_metric, expected):
+    """Test that the function produces the expected output using a seed."""
+    dm = random_density_matrix(
+        dim,
+        is_real,
+        k_param=k_param,
+        distance_metric=distance_metric,
+        seed=123
+    )
+    assert_array_almost_equal(dm, expected)
