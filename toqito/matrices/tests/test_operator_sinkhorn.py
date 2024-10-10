@@ -28,7 +28,7 @@ def test_operator_sinkhorn_tripartite_partial_trace():
     """Test operator Sinkhorn partial trace on a tripartite system."""
     # Generate a random density matrix for a 2x2x2 system (8-dimensional).
     rho = random_density_matrix(8)
-    sigma, F = operator_sinkhorn(rho, [2, 2, 2])
+    sigma, _ = operator_sinkhorn(rho, [2, 2, 2])
 
     # Expected partial trace should be proportional to identity matrix.
     expected_identity = np.eye(2) * (1 / 2)

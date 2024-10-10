@@ -18,7 +18,7 @@ def operator_sinkhorn(rho, dim=None, tol=np.sqrt(np.finfo(float).eps)):
     Verify the partial traces of a randomly generated density matrix using the Sinkhorn operator iteration.
 
     >>> from toqito.rand import random_density_matrix
-    >>> from toqito.channels import partial_trace   
+    >>> from toqito.channels import partial_trace
     >>> from toqito.matrices import operator_sinkhorn
     >>> rho = random_density_matrix(9)
     >>> sigma, F = operator_sinkhorn(rho)
@@ -30,7 +30,7 @@ def operator_sinkhorn(rho, dim=None, tol=np.sqrt(np.finfo(float).eps)):
     Perform operator Sinkhorn iteration on a density matrix acting on 3-qubit space.
 
     >>> from toqito.rand import random_density_matrix
-    >>> from toqito.channels import partial_trace   
+    >>> from toqito.channels import partial_trace
     >>> from toqito.matrices import operator_sinkhorn
     >>> rho = random_density_matrix(8)
     >>> sigma, F = operator_sinkhorn(rho, [2, 2, 2])
@@ -54,6 +54,9 @@ def operator_sinkhorn(rho, dim=None, tol=np.sqrt(np.finfo(float).eps)):
             - `F`: A list of local operators demonstrating local equivalence between `rho` and `sigma`.
 
     """
+
+    rho = rho.astype(np.complex128)
+
     dX = len(rho)
     sdX = round(np.sqrt(dX))
     tr_rho = np.trace(rho)
