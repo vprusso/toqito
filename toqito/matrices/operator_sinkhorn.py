@@ -52,7 +52,7 @@ def operator_sinkhorn(rho, dim=None, tol=np.sqrt(np.finfo(float).eps)):
         try:
             for j in range(num_sys):
                 # Compute the reduced density matrix on the j-th system.
-                Prho_tmp = channels.partial_trace(rho, list(set(range(num_sys)) - {j}), dim)
+                Prho_tmp = partial_trace(rho, list(set(range(num_sys)) - {j}), dim)
                 Prho_tmp = (Prho_tmp + Prho_tmp.T) / 2  # for numerical stability
                 it_err += np.linalg.norm(Prho[j] - Prho_tmp)
                 Prho[j] = Prho_tmp.astype(np.complex128)  # Force complex128 for Prho_tmp
