@@ -1,4 +1,8 @@
-"""Domino state."""
+"""Domino states represent the complete orthonormal set of product states.
+
+Set of product states : Ψᵢ = |αᵢ⟩⊗|βᵢ⟩.
+These states are inside the 3x3 Hilbert Space, whose bases are denoted by |0⟩, |1⟩ and |2⟩ ket vectors.
+"""
 
 import numpy as np
 

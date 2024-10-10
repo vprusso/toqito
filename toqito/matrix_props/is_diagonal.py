@@ -1,4 +1,4 @@
-"""Is matrix a diagonal matrix."""
+"""Checks if the matrix is a diagonal matrix."""
 
 import numpy as np
 

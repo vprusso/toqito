@@ -1,4 +1,4 @@
-"""Pure to mixed operation."""
+"""Pure to mixed operation converts a state vector or a density matrix to a density matrix."""
 
 import numpy as np
 

@@ -1,4 +1,4 @@
-"""Is matrix totally positive."""
+"""Checks if the matrix is totally positive."""
 
 from itertools import combinations
 

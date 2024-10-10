@@ -1,4 +1,4 @@
-"""Is matrix a projection matrix."""
+"""Checks if the matrix is a projection matrix."""
 
 import numpy as np
 

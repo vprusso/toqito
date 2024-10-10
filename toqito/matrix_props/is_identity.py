@@ -1,4 +1,4 @@
-"""Is matrix the identity matrix."""
+"""Checks if the matrix is an identity matrix."""
 
 import numpy as np
 

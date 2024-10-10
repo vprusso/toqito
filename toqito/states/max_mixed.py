@@ -1,4 +1,7 @@
-"""Maximally mixed state."""
+"""Maximally mixed states are states which are formed as a uniform mixture of states in an orthonormal basis.
+
+The density matrix of a maximally mixed state is directly proportional to the identity matrix.
+"""
 
 import numpy as np
 from scipy.sparse import dia_array, eye_array

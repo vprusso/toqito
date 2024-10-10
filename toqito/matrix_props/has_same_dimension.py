@@ -1,4 +1,4 @@
-"""Check if dimensions of list of vectors or matrices are equal."""
+"""Checks if the dimensions of list of vectors or matrices are equal."""
 
 import numpy as np
 

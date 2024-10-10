@@ -1,4 +1,4 @@
-"""Is matrix a unitary matrix."""
+"""Checks if the matrix is a unitary matrix."""
 
 import numpy as np
 

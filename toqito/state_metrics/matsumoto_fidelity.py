@@ -1,4 +1,4 @@
-"""Matsumoto fidelity metric."""
+"""Matsumoto fidelity is the maximum classical fidelity associated with a classical-to-quantum preparation procedure."""
 
 import cvxpy
 import numpy as np

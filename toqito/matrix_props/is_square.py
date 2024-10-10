@@ -1,4 +1,4 @@
-"""Is matrix a square matrix."""
+"""Checks if the matrix is a square matrix."""
 
 import numpy as np
 

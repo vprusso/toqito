@@ -1,4 +1,4 @@
-"""Generate random POVM."""
+"""Generates a random POVM."""
 
 import numpy as np
 

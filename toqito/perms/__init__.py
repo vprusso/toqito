@@ -1,4 +1,4 @@
-"""Permutation and combinatorial functions."""
+"""Permutations is a set of modules that are used to implement various permutations and combinatorial functions."""
 
 from toqito.perms.unique_perms import unique_perms
 from toqito.perms.perfect_matchings import perfect_matchings

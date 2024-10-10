@@ -1,4 +1,7 @@
-"""Breuer state."""
+"""Breuer states represent the Breuer bound entangled states.
+
+These states are based on the Breuer-Hall criterion.
+"""
 
 import numpy as np
 

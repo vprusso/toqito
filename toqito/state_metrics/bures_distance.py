@@ -1,4 +1,7 @@
-"""Bures distance metric."""
+"""Bures distance metric is a commonly used distance metric.
+
+It serves as an actual measure of distinguishability between two quantum states.
+"""
 
 import numpy as np
 

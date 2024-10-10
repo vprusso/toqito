@@ -1,4 +1,4 @@
-"""Hilbert-Schmidt metric."""
+"""Hilbert-Schmidt metric is a distance metric used to generate an entanglement measure."""
 
 import numpy as np
 

@@ -1,4 +1,4 @@
-"""Check if violates the PPT criterion."""
+"""Checks if a quantum state violates the PPT criterion."""
 
 import numpy as np
 

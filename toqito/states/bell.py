@@ -1,4 +1,7 @@
-"""Bell state."""
+"""Bell states represent teh simplest examples of quantum entanglement of two qubits.
+
+Also known as EPR pairs, Bell states comprise of four quantum states in a superposition of 0 and 1.
+"""
 
 import numpy as np
 

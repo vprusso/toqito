@@ -1,4 +1,4 @@
-"""Is linearly independent."""
+"""Checks if a set of vectors are linearly independent."""
 
 import numpy as np
 

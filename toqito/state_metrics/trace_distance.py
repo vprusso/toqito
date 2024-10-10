@@ -1,4 +1,7 @@
-"""Trace distance metric."""
+"""Trace distance metric gives a measure of distinguishability between two quantum states.
+
+The trace distance is calculated via density matrices.
+"""
 
 import numpy as np
 

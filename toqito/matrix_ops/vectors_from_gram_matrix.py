@@ -1,4 +1,4 @@
-"""Vectors associated to Gram matrix."""
+"""Calculates the vectors associated to a Gram matrix."""
 
 import numpy as np
 import scipy

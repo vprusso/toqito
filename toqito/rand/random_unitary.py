@@ -1,4 +1,4 @@
-"""Generate random unitary."""
+"""Generates a random unitary matrix."""
 
 import numpy as np
 

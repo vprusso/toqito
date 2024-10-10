@@ -1,4 +1,4 @@
-"""State exclusion."""
+"""Calculates the probability of error of single state conclusive state exclusion."""
 
 import numpy as np
 import picos

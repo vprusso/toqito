@@ -1,4 +1,8 @@
-"""W-state."""
+"""Generalized w-state is an entangled quantum state of `n` qubits.
+
+This state refers to the quantum superposition in which one of the qubits is in an excited state and others are in the
+ground state.
+"""
 
 import numpy as np
 from scipy.sparse import csr_array

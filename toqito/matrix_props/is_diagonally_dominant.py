@@ -1,4 +1,4 @@
-"""Is matrix diagonally dominant."""
+"""Checks if the matrix is diagonally dominant."""
 
 import numpy as np
 

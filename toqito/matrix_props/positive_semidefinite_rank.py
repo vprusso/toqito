@@ -1,4 +1,4 @@
-"""Positive semidefinite rank of a nonnegative matrix."""
+"""Calculates the positive semidefinite rank of a nonnegative matrix."""
 
 import cvxpy as cp
 import numpy as np

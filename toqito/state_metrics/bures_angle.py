@@ -1,4 +1,7 @@
-"""Bures angle metric."""
+"""Bures angle, also known as Bures arc, Bures length or quantum angle is a distance metric.
+
+The Bures angle metric is a measure of the statistical distance between quantum states.
+"""
 
 import numpy as np
 

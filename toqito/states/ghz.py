@@ -1,4 +1,8 @@
-"""GHZ state."""
+"""GHZ (Greenberger-Horne-Zeilinger) is used to represent a maximally entangled state.
+
+In the GHZ state, the state of qubits are completely dependent on the state of other qubits. This state is an important
+part of quantum computing as it is commonly used in algorithms, protocols, error corrections, cryptography, etc.
+"""
 
 import numpy as np
 

@@ -1,4 +1,4 @@
-"""Is matrix a positive definite matrix."""
+"""Checks if the matrix is a positive definite matrix."""
 
 import numpy as np
 

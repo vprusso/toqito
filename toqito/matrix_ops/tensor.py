@@ -1,4 +1,4 @@
-"""Tensor product operation."""
+"""Tensor product operation calculates the tensor product between vectors or matrices."""
 
 import numpy as np
 

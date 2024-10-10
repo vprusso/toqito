@@ -1,4 +1,4 @@
-"""Unvec operation."""
+"""Unvec operation is used to perform the unvec operation on a vector."""
 
 import numpy as np
 

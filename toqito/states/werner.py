@@ -1,4 +1,7 @@
-"""Werner state."""
+"""Werner states.
+
+Werner states are mixtures of projectors onto the symmetric and permutation operator that exchanges the two subsystems.
+"""
 
 import itertools
 

@@ -1,4 +1,4 @@
-"""Fidelity metric."""
+"""Fidelity is a metric that qualifies how close two quantum states are."""
 
 import cvxpy
 import numpy as np

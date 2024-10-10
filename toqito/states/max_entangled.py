@@ -1,4 +1,7 @@
-"""Maximally entangled state."""
+"""Maximally entangled states are states where the qubits are completely dependent on each other.
+
+In these states, when a measurement is taken on one of the qubits, the state of the other qubits is automatically known.
+"""
 
 import numpy as np
 from scipy.sparse import dia_array, eye_array

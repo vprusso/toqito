@@ -1,4 +1,4 @@
-"""Generate random orthonormal basis."""
+"""Generates a random orthonormal basis."""
 import numpy as np
 
 from toqito.rand import random_unitary

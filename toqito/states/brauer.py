@@ -1,4 +1,4 @@
-"""Brauer states."""
+"""Brauer states are the p_val-fold tensor product of the standard maximally-entangled pure states."""
 
 import numpy as np
 

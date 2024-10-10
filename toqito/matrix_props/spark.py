@@ -1,4 +1,4 @@
-"""Compute spark of matrix."""
+"""Computes the spark of a matrix."""
 
 from itertools import combinations
 

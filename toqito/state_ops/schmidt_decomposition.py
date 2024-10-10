@@ -1,4 +1,4 @@
-"""Schmidt decomposition operation."""
+"""Schmidt decomposition operation computes the schmidt decomposition of a quantum state or an operator."""
 
 import numpy as np
 

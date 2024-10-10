@@ -1,4 +1,4 @@
-"""Generate Ginibre random matrix."""
+"""Generates a Ginibre random matrix."""
 
 import numpy as np
 

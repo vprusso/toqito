@@ -1,4 +1,4 @@
-"""Symmetric projection operator."""
+"""Symmetric projection operator produces a projection onto a symmetric subspace."""
 
 import math
 from itertools import permutations

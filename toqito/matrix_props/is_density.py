@@ -1,4 +1,4 @@
-"""Is matrix a density matrix."""
+"""Checks if the matrix is a density matrix."""
 
 import numpy as np
 

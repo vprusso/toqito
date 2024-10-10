@@ -1,4 +1,4 @@
-"""Schmidt rank of state."""
+"""Calculate the Schmidt rank of a quantum state."""
 
 import numpy as np
 

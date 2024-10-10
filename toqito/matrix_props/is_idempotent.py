@@ -1,4 +1,4 @@
-"""Is the matrix idempotent."""
+"""Checks if the matrix is an idempotent matrix."""
 
 import numpy as np
 

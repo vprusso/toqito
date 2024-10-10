@@ -1,4 +1,4 @@
-"""PPT state distinguishability."""
+"""Calculates the probability of PPT state distinguishability when done optimally."""
 
 import numpy as np
 import picos

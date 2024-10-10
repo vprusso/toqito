@@ -1,4 +1,4 @@
-"""Compute the l1-norm of coherence of a quantum state."""
+"""Computes the l1-norm of coherence of a quantum state."""
 
 import numpy as np
 

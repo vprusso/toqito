@@ -1,4 +1,8 @@
-"""Generalized Bell state."""
+"""Generalized Bell state represents a bigger set of Bell states.
+
+This set includes the standard bell states and other higher dimensional bell states as well.
+Generalized Bell states are the basis of multidimensional bipartite states having maximum entanglement.
+"""
 
 import numpy as np
 

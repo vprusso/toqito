@@ -1,4 +1,4 @@
-"""Logarithmic negativity property."""
+"""Calculates the logarithmic negativity property of a quantum state."""
 
 import numpy as np
 from picos import partial_transpose

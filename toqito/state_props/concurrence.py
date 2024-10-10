@@ -1,4 +1,7 @@
-"""Concurrence property."""
+"""Concurrence property calculates the concurrence of a bipartite state.
+
+The concurrence property is an entanglement measure defined for the product states of two qubits.
+"""
 
 import numpy as np
 

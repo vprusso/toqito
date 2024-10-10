@@ -1,4 +1,4 @@
-"""Antisymmetric projection operator."""
+"""Antisymmetric projection operator produces an orthogonal projection onto an anti-symmetric subspace."""
 
 from itertools import permutations
 

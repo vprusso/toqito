@@ -1,4 +1,4 @@
-"""Compute the S(k)-norm of a matrix."""
+"""Computes the S(k)-norm of a matrix."""
 
 import warnings
 

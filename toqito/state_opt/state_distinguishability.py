@@ -1,4 +1,4 @@
-"""State distinguishability."""
+"""Calculates the probability of optimally distinguishing quantum states."""
 
 import numpy as np
 import picos

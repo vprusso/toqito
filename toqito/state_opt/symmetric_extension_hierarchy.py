@@ -1,4 +1,4 @@
-"""PPT symmetric extension hierarchy."""
+"""Calculates the optimal value of symmetric extension hierarchy SDP (semi definite programs)."""
 
 import cvxpy
 import numpy as np

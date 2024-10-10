@@ -1,4 +1,4 @@
-"""Kp-norm for matrices."""
+"""Computes the Kp-norm for matrices or vectors."""
 
 import numpy as np
 

@@ -1,4 +1,4 @@
-"""Is matrix commuting."""
+"""Checks if the matrix is commuting."""
 
 import numpy as np
 

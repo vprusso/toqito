@@ -1,4 +1,8 @@
-"""Chessboard state."""
+"""Chessboard state represent the state of a chessboard used in quantum chess.
+
+In a quantum chessboard, each chess piece is quantum having a superposition of channel states, giving rise to a unique
+chess piece.
+"""
 
 import numpy as np
 

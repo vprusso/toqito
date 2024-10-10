@@ -1,5 +1,6 @@
 """Add function for fidelity of separability as defined in :cite:`Philip_2023_Schrodinger`.
 
+Fidelity of separability is an entanglement measure that can be approximated with semidefinite programs.
 The constraints for this function are positive partial transpose (PPT) & k-extendible states.
 """
 

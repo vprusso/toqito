@@ -1,4 +1,4 @@
-"""Check if matrix is nonnegative or doubly nonnegative."""
+"""Checks if the matrix is nonnegative or doubly nonnegative."""
 
 import numpy as np
 
