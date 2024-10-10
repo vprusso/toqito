@@ -3,7 +3,7 @@
 import numpy as np
 
 from toqito.channels import partial_trace
-from toqito.matrices import operator_sinkhorn
+from toqito import matrices
 from toqito.rand import random_density_matrix
 
 
@@ -11,7 +11,7 @@ def test_operator_sinkhorn_bipartite_partial_trace():
     """Test operator Sinkhorn partial trace on a bipartite system."""
     # Generate a random density matrix for a 3x3 system (9-dimensional).
     rho = random_density_matrix(9)
-    sigma, F = operator_sinkhorn(rho)
+    sigma, F = matrices.operator_sinkhorn(rho)
 
     # Expected partial trace should be proportional to identity matrix.
     expected_identity = np.eye(3) * (1 / 3)
@@ -28,7 +28,7 @@ def test_operator_sinkhorn_tripartite_partial_trace():
     """Test operator Sinkhorn partial trace on a tripartite system."""
     # Generate a random density matrix for a 2x2x2 system (8-dimensional).
     rho = random_density_matrix(8)
-    sigma, _ = operator_sinkhorn(rho, [2, 2, 2])
+    sigma, _ = matrices.operator_sinkhorn(rho, [2, 2, 2])
 
     # Expected partial trace should be proportional to identity matrix.
     expected_identity = np.eye(2) * (1 / 2)
@@ -50,7 +50,7 @@ def test_operator_sinkhorn_singular_matrix():
                     [0, 0, 0, 0]])  # This matrix is singular
 
     try:
-        operator_sinkhorn(rho, dim=[2, 2])
+        matrices.operator_sinkhorn(rho, dim=[2, 2])
     except ValueError as e:
         expected_msg = (
             "The operator Sinkhorn iteration does not converge for RHO. "
@@ -65,7 +65,7 @@ def test_operator_sinkhorn_invalid_single_dim():
 
     # The dimension `4` does not divide evenly into `8`, so we expect an error
     try:
-        operator_sinkhorn(rho, dim=[4])
+        matrices.operator_sinkhorn(rho, dim=[4])
     except ValueError as e:
         expected_msg = (
             "If DIM is a scalar, X must be square and DIM must evenly divide length(X); "
@@ -79,7 +79,7 @@ def test_operator_sinkhorn_valid_single_dim():
     rho = random_density_matrix(9)  # 9-dimensional density matrix
 
     # The dimension `3` divides evenly into `9`, so no error should occur
-    sigma, F = operator_sinkhorn(rho, dim=[3])
+    sigma, F = matrices.operator_sinkhorn(rho, dim=[3])
 
     # Check that sigma is a valid density matrix with trace equal to 1
     np.testing.assert_almost_equal(np.trace(sigma), 1)
