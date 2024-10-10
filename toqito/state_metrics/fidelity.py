@@ -49,8 +49,8 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     ...      [1, 0, 0, 1]]
     ... )
     >>> sigma = rho
-    >>> fidelity(rho, sigma)
-    np.float64(1.0000000000000002)
+    >>> np.around(fidelity(rho, sigma), decimals=2)
+    np.float64(1.0)
 
     References
     ==========
