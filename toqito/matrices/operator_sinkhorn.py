@@ -54,7 +54,6 @@ def operator_sinkhorn(rho, dim=None, tol=np.sqrt(np.finfo(float).eps)):
             - `F`: A list of local operators demonstrating local equivalence between `rho` and `sigma`.
 
     """
-
     rho = rho.astype(np.complex128)
 
     dX = len(rho)
