@@ -3,7 +3,7 @@
 import numpy as np
 import scipy.linalg
 
-from toqito import channels
+from toqito.channels import partial_trace
 
 
 def operator_sinkhorn(rho, dim=None, tol=np.sqrt(np.finfo(float).eps)):
