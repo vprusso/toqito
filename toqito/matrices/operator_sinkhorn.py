@@ -3,7 +3,7 @@
 import numpy as np
 import scipy.linalg
 
-from toqito.channels import partial_trace
+from toqito import channels
 
 
 def operator_sinkhorn(rho, dim=None, tol=np.sqrt(np.finfo(float).eps)):
@@ -18,6 +18,8 @@ def operator_sinkhorn(rho, dim=None, tol=np.sqrt(np.finfo(float).eps)):
     Verify the partial traces of a randomly generated density matrix using the Sinkhorn operator iteration.
 
     >>> from toqito.rand import random_density_matrix
+    >>> from toqito.channels import partial_trace   
+    >>> from toqito.matrices import operator_sinkhorn
     >>> rho = random_density_matrix(9)
     >>> sigma, F = operator_sinkhorn(rho)
     >>> np.around(partial_trace(sigma, 0), decimals=2)
@@ -27,6 +29,9 @@ def operator_sinkhorn(rho, dim=None, tol=np.sqrt(np.finfo(float).eps)):
 
     Perform operator Sinkhorn iteration on a density matrix acting on 3-qubit space.
 
+    >>> from toqito.rand import random_density_matrix
+    >>> from toqito.channels import partial_trace   
+    >>> from toqito.matrices import operator_sinkhorn
     >>> rho = random_density_matrix(8)
     >>> sigma, F = operator_sinkhorn(rho, [2, 2, 2])
     >>> np.around(partial_trace(sigma, [1, 2], [2, 2, 2]), decimals=2)
@@ -86,7 +91,7 @@ def operator_sinkhorn(rho, dim=None, tol=np.sqrt(np.finfo(float).eps)):
         try:
             for j in range(num_sys):
                 # Compute the reduced density matrix on the j-th system.
-                Prho_tmp = partial_trace(rho, list(set(range(num_sys)) - {j}), dim)
+                Prho_tmp = channels.partial_trace(rho, list(set(range(num_sys)) - {j}), dim)
                 Prho_tmp = (Prho_tmp + Prho_tmp.T) / 2  # for numerical stability
                 it_err += np.linalg.norm(Prho[j] - Prho_tmp)
                 Prho[j] = Prho_tmp
