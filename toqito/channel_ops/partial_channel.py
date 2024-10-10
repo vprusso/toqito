@@ -36,14 +36,14 @@ def partial_channel(
     subsystem of a random density matrix.
 
     >>> import numpy as np
-    >>> from toqito.channel_ops import partial_channel
-    >>> from toqito.channels import depolarizing
+    >>> from toqito import channel_ops
+    >>> from toqito import channels
     >>> rho = np.array([
     ...    [0.3101, -0.0220-0.0219*1j, -0.0671-0.0030*1j, -0.0170-0.0694*1j],
     ...    [-0.0220+0.0219*1j, 0.1008, -0.0775+0.0492*1j, -0.0613+0.0529*1j],
     ...    [-0.0671+0.0030*1j, -0.0775-0.0492*1j, 0.1361, 0.0602 + 0.0062*1j],
     ...    [-0.0170+0.0694*1j, -0.0613-0.0529*1j, 0.0602-0.0062*1j, 0.4530]])
-    >>> partial_channel(rho, depolarizing(2))
+    >>> channel_ops.partial_channel(rho, channels.depolarizing(2))
     array([[ 0.20545+0.j     ,  0.     +0.j     , -0.0642 +0.02495j,
              0.     +0.j     ],
            [ 0.     +0.j     ,  0.20545+0.j     ,  0.     +0.j     ,
@@ -58,13 +58,13 @@ def partial_channel(
     subsystem.
 
     >>> import numpy as np
-    >>> from toqito.channel_ops import partial_channel
-    >>> from toqito.channels import depolarizing
+    >>> from toqito import channel_ops
+    >>> from toqito import channels
     >>> rho = np.array([[0.3101, -0.0220-0.0219*1j, -0.0671-0.0030*1j, -0.0170-0.0694*1j],
     ...                 [-0.0220+0.0219*1j, 0.1008, -0.0775+0.0492*1j, -0.0613+0.0529*1j],
     ...                 [-0.0671+0.0030*1j, -0.0775-0.0492*1j, 0.1361, 0.0602 + 0.0062*1j],
     ...                 [-0.0170+0.0694*1j, -0.0613-0.0529*1j, 0.0602-0.0062*1j, 0.4530]])
-    >>> partial_channel(rho, depolarizing(2), 1)
+    >>> channel_ops.partial_channel(rho, channels.depolarizing(2), 1)
     array([[0.2231+0.j     , 0.0191-0.00785j, 0.    +0.j     ,
             0.    +0.j     ],
            [0.0191+0.00785j, 0.2769+0.j     , 0.    +0.j     ,
