@@ -1,5 +1,145 @@
 # Changelog
 
+## 1.0.9
+
+
+* Update pytest requirement from 8.0.0 to 8.0.1 by @dependabot in https://github.com/vprusso/toqito/pull/475
+* Update ruff requirement from 0.2.1 to 0.2.2 by @dependabot in https://github.com/vprusso/toqito/pull/476
+* Update coverage requirement from 7.4.1 to 7.4.2 by @dependabot in https://github.com/vprusso/toqito/pull/477
+* Update qiskit requirement from 1.0.0 to 1.0.1 by @dependabot in https://github.com/vprusso/toqito/pull/480
+* Update ipython requirement from 8.21.0 to 8.22.1 by @dependabot in https://github.com/vprusso/toqito/pull/481
+* Update PR template by @purva-thakre in https://github.com/vprusso/toqito/pull/483
+* Update issue templates by @vprusso in https://github.com/vprusso/toqito/pull/484
+* Fix #478 : Rename shift and clock matrices to gen_pauli_x and gen_pauli_z by @MohitKambli in https://github.com/vprusso/toqito/pull/479
+* Update coverage requirement from 7.4.2 to 7.4.3 by @dependabot in https://github.com/vprusso/toqito/pull/491
+* Update pytest requirement from 8.0.1 to 8.0.2 by @dependabot in https://github.com/vprusso/toqito/pull/489
+* Update pylint requirement from 3.0.3 to 3.1.0 by @dependabot in https://github.com/vprusso/toqito/pull/490
+* test expected output by @Bchass in https://github.com/vprusso/toqito/pull/486
+* Parameterizing swap tests. by @vprusso in https://github.com/vprusso/toqito/pull/493
+* Update ruff requirement from 0.2.2 to 0.3.0 by @dependabot in https://github.com/vprusso/toqito/pull/496
+* Convert reduction to array by @Bchass in https://github.com/vprusso/toqito/pull/495
+* Update pytest requirement from 8.0.2 to 8.1.0 by @dependabot in https://github.com/vprusso/toqito/pull/500
+* Bump sphinx-wagtail-theme from 6.2.0 to 6.3.0 by @dependabot in https://github.com/vprusso/toqito/pull/499
+* Update ipython requirement from 8.22.1 to 8.22.2 by @dependabot in https://github.com/vprusso/toqito/pull/502
+* Bump sphinx-wagtail-theme from 6.2.0 to 6.3.0 by @dependabot in https://github.com/vprusso/toqito/pull/501
+* Update ruff requirement from 0.3.0 to 0.3.1 by @dependabot in https://github.com/vprusso/toqito/pull/503
+* Update qiskit requirement from 1.0.1 to 1.0.2 by @dependabot in https://github.com/vprusso/toqito/pull/504
+* Update mypy requirement from 1.8.0 to 1.9.0 by @dependabot in https://github.com/vprusso/toqito/pull/506
+* Update ruff requirement from 0.3.1 to 0.3.2 by @dependabot in https://github.com/vprusso/toqito/pull/507
+* Moving is distinguishable test to proper location. by @vprusso in https://github.com/vprusso/toqito/pull/505
+* Update pytest requirement from 8.1.0 to 8.1.1 by @dependabot in https://github.com/vprusso/toqito/pull/508
+* Ruff format by @purva-thakre in https://github.com/vprusso/toqito/pull/510
+* Update coverage requirement from 7.4.3 to 7.4.4 by @dependabot in https://github.com/vprusso/toqito/pull/513
+* Update ruff requirement from 0.3.2 to 0.3.3 by @dependabot in https://github.com/vprusso/toqito/pull/515
+* Update ruff requirement from 0.3.3 to 0.3.4 by @dependabot in https://github.com/vprusso/toqito/pull/516
+* Update pytest-cov requirement from 4.1.0 to 5.0.0 by @dependabot in https://github.com/vprusso/toqito/pull/520
+* Minor changes to punctuation and code rendering for documentation. by @vprusso in https://github.com/vprusso/toqito/pull/517
+* Updating and improving README. by @vprusso in https://github.com/vprusso/toqito/pull/524
+* Update ipython requirement from 8.22.2 to 8.23.0 by @dependabot in https://github.com/vprusso/toqito/pull/525
+* Update ruff requirement from 0.3.4 to 0.3.5 by @dependabot in https://github.com/vprusso/toqito/pull/526
+* Update scipy requirement from 1.12.0 to 1.13.0 by @dependabot in https://github.com/vprusso/toqito/pull/527
+* gen_gell_mann refactor by @Bchass in https://github.com/vprusso/toqito/pull/521
+* Refactor antisymmetric_projection by @Bchass in https://github.com/vprusso/toqito/pull/523
+* Pretty good pretty bad measurements by @vprusso in https://github.com/vprusso/toqito/pull/522
+* Make sure doctest job tests examples in tutorials by @purva-thakre in https://github.com/vprusso/toqito/pull/542
+* Doctest examples - output types by @purva-thakre in https://github.com/vprusso/toqito/pull/540
+* pauli refactor by @Bchass in https://github.com/vprusso/toqito/pull/539
+* Update ruff requirement from 0.3.5 to 0.3.7 by @dependabot in https://github.com/vprusso/toqito/pull/548
+* Update cvxpy requirement from 1.4.2 to 1.4.3 by @dependabot in https://github.com/vprusso/toqito/pull/549
+* Update sphinx requirement from 7.2.6 to 7.3.5 by @dependabot in https://github.com/vprusso/toqito/pull/550
+* Update sphinx requirement from 7.3.5 to 7.3.6 by @dependabot in https://github.com/vprusso/toqito/pull/551
+* Update sphinx requirement from 7.3.6 to 7.3.7 by @dependabot in https://github.com/vprusso/toqito/pull/553
+* Update ruff requirement from 0.3.7 to 0.4.0 by @dependabot in https://github.com/vprusso/toqito/pull/552
+* Update ruff requirement from 0.4.0 to 0.4.1 by @dependabot in https://github.com/vprusso/toqito/pull/564
+* Simplifying gitignore file. by @vprusso in https://github.com/vprusso/toqito/pull/555
+* Update coverage requirement from 7.4.4 to 7.5.0 by @dependabot in https://github.com/vprusso/toqito/pull/568
+* Update myst-parser requirement from 2.0.0 to 3.0.0 by @dependabot in https://github.com/vprusso/toqito/pull/569
+* Update documentation instructions by @purva-thakre in https://github.com/vprusso/toqito/pull/566
+* matrices: simplify gen_pauli_x construction by @atomgardner in https://github.com/vprusso/toqito/pull/545
+* Disable `black` by @purva-thakre in https://github.com/vprusso/toqito/pull/567
+* Update mypy requirement from 1.9.0 to 1.10.0 by @dependabot in https://github.com/vprusso/toqito/pull/570
+* Update ipython requirement from 8.23.0 to 8.24.0 by @dependabot in https://github.com/vprusso/toqito/pull/571
+* Update ruff requirement from 0.4.1 to 0.4.2 by @dependabot in https://github.com/vprusso/toqito/pull/572
+* Update pytest requirement from 8.1.1 to 8.2.0 by @dependabot in https://github.com/vprusso/toqito/pull/574
+* Update myst-parser requirement from 3.0.0 to 3.0.1 by @dependabot in https://github.com/vprusso/toqito/pull/573
+* Random doctest failures by @purva-thakre in https://github.com/vprusso/toqito/pull/575
+* Test generalized Pauli matrices by @atomgardner in https://github.com/vprusso/toqito/pull/544
+* Update ruff requirement from 0.4.2 to 0.4.3 by @dependabot in https://github.com/vprusso/toqito/pull/578
+* Update coverage requirement from 7.5.0 to 7.5.1 by @dependabot in https://github.com/vprusso/toqito/pull/579
+* Remove sparse matrix classes by @Bchass in https://github.com/vprusso/toqito/pull/543
+* Update cvxpy requirement from 1.4.3 to 1.5.0 by @dependabot in https://github.com/vprusso/toqito/pull/580
+* Update ruff requirement from 0.4.3 to 0.4.4 by @dependabot in https://github.com/vprusso/toqito/pull/581
+* Update cvxpy requirement from 1.5.0 to 1.5.1 by @dependabot in https://github.com/vprusso/toqito/pull/582
+* Update pylint requirement from 3.1.0 to 3.1.1 by @dependabot in https://github.com/vprusso/toqito/pull/583
+* Update pylint requirement from 3.1.1 to 3.2.0 by @dependabot in https://github.com/vprusso/toqito/pull/584
+* Add `toml` dependency groups by @purva-thakre in https://github.com/vprusso/toqito/pull/585
+* Update qiskit requirement from 1.0.2 to 1.1.0 by @dependabot in https://github.com/vprusso/toqito/pull/589
+* Remove pylint by @purva-thakre in https://github.com/vprusso/toqito/pull/588
+* Update pytest requirement from 8.2.0 to 8.2.1 by @dependabot in https://github.com/vprusso/toqito/pull/590
+* Bump sphinx-autoapi from 3.0.0 to 3.1.0 by @dependabot in https://github.com/vprusso/toqito/pull/591
+* Bump sphinx-autoapi from 3.0.0 to 3.1.0 by @dependabot in https://github.com/vprusso/toqito/pull/592
+* Update scipy requirement from 1.13.0 to 1.13.1 by @dependabot in https://github.com/vprusso/toqito/pull/593
+* Bump sphinx-autoapi from 3.1.0 to 3.1.1 by @dependabot in https://github.com/vprusso/toqito/pull/594
+* Update ruff requirement from 0.4.4 to 0.4.5 by @dependabot in https://github.com/vprusso/toqito/pull/595
+* Bump sphinx-autoapi from 3.1.0 to 3.1.1 by @dependabot in https://github.com/vprusso/toqito/pull/596
+* Update coverage requirement from 7.5.1 to 7.5.2 by @dependabot in https://github.com/vprusso/toqito/pull/597
+* Update ruff requirement from 0.4.5 to 0.4.6 by @dependabot in https://github.com/vprusso/toqito/pull/599
+* Update coverage requirement from 7.5.2 to 7.5.3 by @dependabot in https://github.com/vprusso/toqito/pull/598
+* Update scs requirement from 3.2.4.post1 to 3.2.4.post2 by @dependabot in https://github.com/vprusso/toqito/pull/603
+* Bump sympy from 1.12 to 1.12.1 by @dependabot in https://github.com/vprusso/toqito/pull/604
+* Update README.md by @anushkrishnav in https://github.com/vprusso/toqito/pull/605
+* Fixing misplaced & issue. by @vprusso in https://github.com/vprusso/toqito/pull/608
+* Ensure PSD operators are being optimized over proper space by @golanor in https://github.com/vprusso/toqito/pull/600
+* Bump sympy from 1.12 to 1.12.1 by @dependabot in https://github.com/vprusso/toqito/pull/609
+* Fix for Issue #401 by @Roshan-Thomas in https://github.com/vprusso/toqito/pull/606
+* Regenerated and updated codecov token. by @vprusso in https://github.com/vprusso/toqito/pull/610
+* Code block in `is_separable` by @purva-thakre in https://github.com/vprusso/toqito/pull/611
+* Update ipython requirement from 8.24.0 to 8.25.0 by @dependabot in https://github.com/vprusso/toqito/pull/615
+* Update ruff requirement from 0.4.6 to 0.4.7 by @dependabot in https://github.com/vprusso/toqito/pull/616
+* Upated Indexing from 1 -> 0 by @anushkrishnav in https://github.com/vprusso/toqito/pull/602
+* Update pytest requirement from 8.2.1 to 8.2.2 by @dependabot in https://github.com/vprusso/toqito/pull/619
+* Update ruff requirement from 0.4.7 to 0.4.8 by @dependabot in https://github.com/vprusso/toqito/pull/622
+* Add unambiguous discrimination strategy to state distinguishability and state exclusion by @tnemoz in https://github.com/vprusso/toqito/pull/614
+* Add more conditions for checking `is_separable` by @Yash-10 in https://github.com/vprusso/toqito/pull/612
+* Update more-itertools requirement from 10.2.0 to 10.3.0 by @dependabot in https://github.com/vprusso/toqito/pull/624
+* Based on the closure of 473, fixing import. by @vprusso in https://github.com/vprusso/toqito/pull/625
+* Remove `books.bib` by @purva-thakre in https://github.com/vprusso/toqito/pull/626
+* Update flake8 requirement from 7.0.0 to 7.1.0 by @dependabot in https://github.com/vprusso/toqito/pull/628
+* Update ruff requirement from 0.4.8 to 0.4.9 by @dependabot in https://github.com/vprusso/toqito/pull/627
+* Update cvxpy requirement from 1.5.1 to 1.5.2 by @dependabot in https://github.com/vprusso/toqito/pull/629
+* Update scs requirement from 3.2.4.post2 to 3.2.4.post3 by @dependabot in https://github.com/vprusso/toqito/pull/630
+* Update ruff requirement from 0.4.9 to 0.4.10 by @dependabot in https://github.com/vprusso/toqito/pull/631
+* Bump sphinx-autoapi from 3.1.1 to 3.1.2 by @dependabot in https://github.com/vprusso/toqito/pull/632
+* Update qiskit requirement from 1.1.0 to 1.1.1 by @dependabot in https://github.com/vprusso/toqito/pull/633
+* Bump sphinx-autoapi from 3.1.1 to 3.1.2 by @dependabot in https://github.com/vprusso/toqito/pull/634
+* Update coverage requirement from 7.5.3 to 7.5.4 by @dependabot in https://github.com/vprusso/toqito/pull/635
+* Removed lil sparse matrix for GHZ state. by @vprusso in https://github.com/vprusso/toqito/pull/637
+* Update mypy requirement from 1.10.0 to 1.10.1 by @dependabot in https://github.com/vprusso/toqito/pull/639
+* Update scipy requirement from 1.13.1 to 1.14.0 by @dependabot in https://github.com/vprusso/toqito/pull/640
+* Update scs requirement from 3.2.4.post3 to 3.2.5 by @dependabot in https://github.com/vprusso/toqito/pull/641
+* Update ruff requirement from 0.4.10 to 0.5.0 by @dependabot in https://github.com/vprusso/toqito/pull/643
+* Update numpy requirement from 1.26.4 to 2.0.0 by @dependabot in https://github.com/vprusso/toqito/pull/642
+* Update ipython requirement from 8.25.0 to 8.26.0 by @dependabot in https://github.com/vprusso/toqito/pull/644
+* Removing sparse matrix for symmetric projection. by @vprusso in https://github.com/vprusso/toqito/pull/638
+* Undo numpy upgrade by @purva-thakre in https://github.com/vprusso/toqito/pull/653
+* Update scs requirement from 3.2.5 to 3.2.6 by @dependabot in https://github.com/vprusso/toqito/pull/655
+* Update ruff requirement from 0.5.0 to 0.5.1 by @dependabot in https://github.com/vprusso/toqito/pull/654
+* Add checks for nonnegative, doubly nonnegative and positive matrices by @purva-thakre in https://github.com/vprusso/toqito/pull/645
+* Positive semidefinite rank of a matrix by @vprusso in https://github.com/vprusso/toqito/pull/647
+* Bump sympy from 1.12.1 to 1.13.0 by @dependabot in https://github.com/vprusso/toqito/pull/657
+* Add pytest to unit tests for `update_odometer` by @purva-thakre in https://github.com/vprusso/toqito/pull/658
+* Bump sympy from 1.12.1 to 1.13.0 by @dependabot in https://github.com/vprusso/toqito/pull/659
+* Removing redundant note for doctest. by @vprusso in https://github.com/vprusso/toqito/pull/651
+
+## New Contributors
+* @MohitKambli made their first contribution in https://github.com/vprusso/toqito/pull/479
+* @atomgardner made their first contribution in https://github.com/vprusso/toqito/pull/545
+* @anushkrishnav made their first contribution in https://github.com/vprusso/toqito/pull/605
+* @golanor made their first contribution in https://github.com/vprusso/toqito/pull/600
+* @Roshan-Thomas made their first contribution in https://github.com/vprusso/toqito/pull/606
+* @tnemoz made their first contribution in https://github.com/vprusso/toqito/pull/614
+* @Yash-10 made their first contribution in https://github.com/vprusso/toqito/pull/612
+
 
 ## 1.0.8
 
