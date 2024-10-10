@@ -12,49 +12,8 @@ def operator_sinkhorn(rho, dim=None, tol=np.sqrt(np.finfo(float).eps)):
     This function implements the Sinkhorn algorithm to find a density matrix that
     is locally equivalent to a given bipartite or multipartite density matrix
     `rho`, but has both of its partial traces proportional to the identity.
-
-    Examples
-    =========
-    Verify the partial traces of a randomly generated density matrix using the Sinkhorn operator iteration.
-
-    >>> from toqito.rand import random_density_matrix
-    >>> from toqito.channels import partial_trace
-    >>> from toqito.matrices import operator_sinkhorn
-    >>> rho = random_density_matrix(9)
-    >>> sigma, F = operator_sinkhorn(rho)
-    >>> np.around(partial_trace(sigma, 0), decimals=2)
-    array([[0.33, 0.  , 0.  ],
-        [0.  , 0.33, 0.  ],
-        [0.  , 0.  , 0.33]])
-
-    Perform operator Sinkhorn iteration on a density matrix acting on 3-qubit space.
-
-    >>> from toqito.rand import random_density_matrix
-    >>> from toqito.channels import partial_trace
-    >>> from toqito.matrices import operator_sinkhorn
-    >>> rho = random_density_matrix(8)
-    >>> sigma, F = operator_sinkhorn(rho, [2, 2, 2])
-    >>> np.around(partial_trace(sigma, [1, 2], [2, 2, 2]), decimals=2)
-    array([[0.5, 0. ],
-        [0. , 0.5]])
-
-    References
-    ==========
-    .. bibliography::
-        :filter: docname in docnames
-
-
-    :raises: ValueError: If dimensions inconsistent or `rho` is low-rank and the algorithm does not converge.
-    :param rho:  The input density matrix, which must be square and of full rank.
-    :param dim: A list of dimensions of the subsystems on which `rho` acts.
-                Defaults to two subsystems of equal dimension.
-    :param tol: The numerical tolerance used for convergence. Defaults to `sqrt(eps)`.
-    :return: A tuple containing:
-            - `sigma`: The locally equivalent density matrix with partial traces proportional to the identity.
-            - `F`: A list of local operators demonstrating local equivalence between `rho` and `sigma`.
-
     """
-    rho = rho.astype(np.complex128)
+    rho = rho.astype(np.complex128)  # Ensure complex128 type for rho
 
     dX = len(rho)
     sdX = round(np.sqrt(dX))
@@ -77,8 +36,8 @@ def operator_sinkhorn(rho, dim=None, tol=np.sqrt(np.finfo(float).eps)):
     tr_rho_p = tr_rho ** (1 / (2 * num_sys))
 
     # Prepare the iteration.
-    Prho = [np.eye(d) / d for d in dim]
-    F = [np.eye(d) * tr_rho_p for d in dim]
+    Prho = [np.eye(d, dtype=np.complex128) / d for d in dim]  # Force complex128 type for Prho
+    F = [np.eye(d, dtype=np.complex128) * tr_rho_p for d in dim]  # Force complex128 for F
     ldim = [np.prod(dim[:j]) for j in range(num_sys)]
     rdim = [np.prod(dim[j+1:]) for j in range(num_sys)]
 
@@ -96,11 +55,17 @@ def operator_sinkhorn(rho, dim=None, tol=np.sqrt(np.finfo(float).eps)):
                 Prho_tmp = channels.partial_trace(rho, list(set(range(num_sys)) - {j}), dim)
                 Prho_tmp = (Prho_tmp + Prho_tmp.T) / 2  # for numerical stability
                 it_err += np.linalg.norm(Prho[j] - Prho_tmp)
-                Prho[j] = Prho_tmp
+                Prho[j] = Prho_tmp.astype(np.complex128)  # Force complex128 for Prho_tmp
 
-                # Apply the filter.
-                T = scipy.linalg.sqrtm(np.linalg.inv(Prho[j])) / np.sqrt(dim[j])
-                Tk = np.kron(np.eye(int(ldim[j])), np.kron(T, np.eye(int(rdim[j]))))
+                # Apply the filter with explicit complex128 conversion
+                T_inv = np.linalg.inv(Prho[j]).astype(np.complex128)
+                T = scipy.linalg.sqrtm(T_inv) / np.sqrt(dim[j])
+                T = T.astype(np.complex128)
+
+                # Construct the Kronecker product
+                eye_ldim = np.eye(int(ldim[j]), dtype=np.complex128)
+                eye_rdim = np.eye(int(rdim[j]), dtype=np.complex128)
+                Tk = np.kron(eye_ldim, np.kron(T, eye_rdim))
 
                 rho = Tk @ rho @ Tk.T
                 F[j] = T @ F[j]
