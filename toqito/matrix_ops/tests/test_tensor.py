@@ -29,13 +29,15 @@ matrix4 = np.array([[7, 8]])
             np.array([[5, 6, 10, 12], [7, 8, 14, 16], [15, 18, 20, 24], [21, 24, 28, 32]]),
         ),
         # tensor product of vector with n = 0
-        ((e_0, 0), 2, None),
+        ((e_0, 0), 2, np.array([[1.]])),
         # tensor product of vector with n = 1
         ((e_0, 1), 2, e_0),
         # tensor product of vector with n = 2
         ((e_0, 2), 2, np.kron(e_0, e_0)),
         # tensor product of vector with n = 3
         ((e_0, 3), 2, np.kron(np.kron(e_0, e_0), e_0)),
+        # tensor product of vector with n = 3
+        ((e_0, 4), 2, np.kron(np.kron(np.kron(e_0, e_0), e_0), e_0)),
         # tensor product of empty list
         ([], 1, None),
         # tensor product of list with one item
