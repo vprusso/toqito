@@ -40,7 +40,7 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int, seed: int | None = 
     [[1.+0.j, 0.+0.j],
      [0.+0.j, 1.+0.j]]
 
-     It is also possible to add a seed for reproducilibity.
+     It is also possible to add a seed for reproducibility.
 
     >>> from toqito.rand import random_povm
     >>> import numpy as np
