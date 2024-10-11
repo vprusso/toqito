@@ -1,14 +1,10 @@
 
 [tool.poetry]
 name = "toqito"
-version = "1.0.9"
+version = "1.1.0"
 description = "Python tools for the study of quantum information."
-authors = [
-    "Toqito Contributors <https://github.com/vprusso/toqito/graphs/contributors>"
-]
-maintainers = [
-    "Toqito Contributors <https://github.com/vprusso/toqito/graphs/contributors>"
-]
+authors = ["Vincent Russo <vincentrusso1@gmail.com>"]
+maintainers = ["Vincent Russo <vincentrusso1@gmail.com>, Purva Thakre <purva.athakre@gmail.com>"]
 readme = "README.md"
 homepage = "https://vprusso.github.io/toqito/"
 repository = "https://github.com/vprusso/toqito"

@@ -22,7 +22,7 @@ copyright = "2020-2024, toqito Contributors"
 author = "Contributors to toqito"
 
 # The full version, including alpha/beta/rc tags
-release = "1.0.9"
+release = "1.1.0"
 
 
 # -- General configuration ---------------------------------------------------
