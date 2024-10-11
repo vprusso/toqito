@@ -7,8 +7,8 @@ milestone.
 
 ### Highlights
 
-- Tensor products now utilize fast exponentiation, @tnemoz in #809
-- Documentation employs a different theme, search inside documentation is also fixes, @vprusso and @purva-thakre in #836
+- Tensor products now utilize fast exponentiation, @tnemoz in https://github.com/vprusso/toqito/pull/809
+- Documentation employs a different theme, search inside documentation is also fixes, @vprusso and @purva-thakre in https://github.com/vprusso/toqito/pull/836
 
 ### New Features
 
