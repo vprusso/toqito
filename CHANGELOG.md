@@ -2,17 +2,41 @@
 
 ## 1.1.0
 
-Many thanks to first-time contributor @Shivansh20128 and returning contributor @tnemoz for their participation in this
-milestone. 
+Many thanks to first-time contributors @Shivansh20128 and @FabienGhd as well as returning contributor @tnemoz for their participation in this milestone. 
 
 ### Highlights
 
-- Tensor products now utilize fast exponentiation, @tnemoz in https://github.com/vprusso/toqito/pull/809
-- Documentation employs a different theme, search inside documentation is also fixes, @vprusso and @purva-thakre in https://github.com/vprusso/toqito/pull/836
+- List of new features: generate random orthonormal basis, compute matrix spark, checks to verify a matrix is anti-hermitian, doubly stochastic, stochastic
+- Tensor products now utilize fast exponentiation
+- Randomness related functions employ `seed`
+- Documentation employs a different theme
+- toqito is compatible with Numpy 2.0, dependencies for `scikit-image` and `qiskit` were removed
+- `cyclic_permutation` and `random_circulant_gram` functions were renamed
+- `pure_to_mixed` was removed in favor of `vector_to_density_matrix`
+- `vector_to_density_matrix` was renamed 
+
 
 ### New Features
 
-- 
+- `is_anti_hermitian` to check if a matrix is anti-hermitian was added in `matrix_props`, @tnemoz in https://github.com/vprusso/toqito/pull/798
+- Functions that generate randomized matrices now allow a `seed` as input, @tnemoz in https://github.com/vprusso/toqito/pull/842
+- `random_orthonormal_basis` was added in `rand` to generate a random orthonormal basis from the columns of a random unitary matrix, @purva-thakre in https://github.com/vprusso/toqito/pull/821
+- `spark` added in `matrix_props` helps compute the spark of a matrix, @vprusso in https://github.com/vprusso/toqito/pull/780
+- Checks to verify if a matrix is stochastic or doubly stochastic were added in `matrix_props`, @purva-thakre in https://github.com/vprusso/toqito/pull/723 and https://github.com/vprusso/toqito/pull/723
+
+### Other Changes
+
+- `cyclic_permutation` in `matrices` was renamed to `cyclic_permutation_matrix`, @FabienGhd in https://github.com/vprusso/toqito/pull/682
+- `random_circulant_gram` in `rand` was renamed to `random_circulant_gram`, @FabienGhd in https://github.com/vprusso/toqito/pull/682
+- `pure_to_mixed` was removed in favor of `vector_to_density_matrix`, `vector_to_density_matrix` renamed to `to_density_matrix`, @Shivansh20128 in https://github.com/vprusso/toqito/pull/853
+- Tensor products now utilize fast exponentiation, @tnemoz in https://github.com/vprusso/toqito/pull/809
+- Documentation employs a different theme, search inside documentation is also fixed, @vprusso and @purva-thakre in https://github.com/vprusso/toqito/pull/836
+- toqito is compatible with Numpy 2.0, @purva-thakre in https://github.com/vprusso/toqito/pull/754
+- Infix operator replaces instances of `*` for matrix multiplication, @vprusso in https://github.com/vprusso/toqito/pull/797
+- `scikit-image` was removed from `setup.py`, @vprusso in https://github.com/vprusso/toqito/pull/819
+- Deprecated usage of `csr_matrix` and `dia_matrix` in `perms/permute_systems` was removed, @purva-thakre in https://github.com/vprusso/toqito/pull/816
+- BCS conversion error for upper and lower bounds on the quantum value was corrected, @vprusso in https://github.com/vprusso/toqito/pull/811
+- Unused `cvx_kron` function was removed, @vprusso in https://github.com/vprusso/toqito/pull/795
 
 ### Merged Pull Requests
 
