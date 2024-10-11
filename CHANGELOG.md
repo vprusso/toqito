@@ -13,7 +13,8 @@ Many thanks to first-time contributors @Shivansh20128 and @FabienGhd as well as 
 - toqito is compatible with Numpy 2.0, dependencies for `scikit-image` and `qiskit` were removed
 - `cyclic_permutation` and `random_circulant_gram` functions were renamed
 - `pure_to_mixed` was removed in favor of `vector_to_density_matrix`
-- `vector_to_density_matrix` was renamed 
+- `vector_to_density_matrix` was renamed
+- `inner_product` and `oute_product` functions were removed
 
 
 ### New Features
@@ -37,6 +38,7 @@ Many thanks to first-time contributors @Shivansh20128 and @FabienGhd as well as 
 - Deprecated usage of `csr_matrix` and `dia_matrix` in `perms/permute_systems` was removed, @purva-thakre in https://github.com/vprusso/toqito/pull/816
 - BCS conversion error for upper and lower bounds on the quantum value was corrected, @vprusso in https://github.com/vprusso/toqito/pull/811
 - Unused `cvx_kron` function was removed, @vprusso in https://github.com/vprusso/toqito/pull/795
+- `inner_product` and `oute_product` functions were removed in favor of `np.vdot` and `np.outer`, @vprusso in https://github.com/vprusso/toqito/pull/833
 
 ### Merged Pull Requests
 
