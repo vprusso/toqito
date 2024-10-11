@@ -4,7 +4,7 @@ import numpy as np
 import pytest
 
 from toqito.matrices import standard_basis
-from toqito.matrix_ops import vector_to_density_matrix
+from toqito.matrix_ops import to_density_matrix
 from toqito.state_opt import state_distinguishability
 from toqito.states import bb84, bell
 
@@ -14,7 +14,7 @@ states_min_error = [
     # Bell states (should be perfectly distinguishable)
     ([bell(0), bell(1), bell(2), bell(3)], 1),
     # Bell states as density matrices
-    ([vector_to_density_matrix(bell(i)) for i in range(4)], 1),
+    ([to_density_matrix(bell(i)) for i in range(4)], 1),
     # BB84 states
     (bb84()[0] + bb84()[1], .5),
 ]

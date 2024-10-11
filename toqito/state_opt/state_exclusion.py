@@ -3,7 +3,7 @@
 import numpy as np
 import picos
 
-from toqito.matrix_ops import calculate_vector_matrix_dimension, vector_to_density_matrix, vectors_to_gram_matrix
+from toqito.matrix_ops import calculate_vector_matrix_dimension, to_density_matrix, vectors_to_gram_matrix
 from toqito.matrix_props import has_same_dimension
 
 
@@ -185,7 +185,7 @@ def _min_error_primal(
     problem.add_list_of_constraints([meas >> 0 for meas in measurements])
     problem.add_constraint(picos.sum(measurements) == picos.I(dim))
 
-    dms = [vector_to_density_matrix(vector) for vector in vectors]
+    dms = [to_density_matrix(vector) for vector in vectors]
     # # Numerical inaccuracies can make it so the trace of the density matrices aren't unital, which messes up with
     # # cvxopt
     # dms = [state / np.trace(state) for state in dms]
@@ -209,7 +209,7 @@ def _min_error_dual(
     # Set up variables and constraints for SDP:
     y_var = picos.HermitianVariable("Y", (dim, dim))
     problem.add_list_of_constraints(
-        [y_var << probs[i] * vector_to_density_matrix(vector) for i, vector in enumerate(vectors)]
+        [y_var << probs[i] * to_density_matrix(vector) for i, vector in enumerate(vectors)]
     )
 
     # Objective function:
@@ -239,7 +239,7 @@ def _unambiguous_primal(
     problem.add_list_of_constraints([meas >> 0 for meas in measurements])
     problem.add_constraint(inconclusive_measurement >> 0)
 
-    unnormalized_dms = [p * vector_to_density_matrix(vector) for (p, vector) in zip(probs, vectors)]
+    unnormalized_dms = [p * to_density_matrix(vector) for (p, vector) in zip(probs, vectors)]
     sums_of_unnormalized_dms = picos.sum(unnormalized_dms)
 
     problem.add_list_of_constraints(m | rho == 0 for (m, rho) in zip(measurements, unnormalized_dms))
@@ -268,7 +268,7 @@ def _unambiguous_dual(
 
     problem.add_constraint(lagrangian_variable_big_n >> 0)
 
-    dms = [vector_to_density_matrix(vector) for (p, vector) in zip(probs, vectors)]
+    dms = [to_density_matrix(vector) for (p, vector) in zip(probs, vectors)]
     unnormalized_dms = [proba * rho for (proba, rho) in zip(probs, dms)]
     sum_of_unnormalized_dms = picos.sum(unnormalized_dms)
 
