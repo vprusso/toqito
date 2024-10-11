@@ -42,7 +42,7 @@ Many thanks to first-time contributors @Shivansh20128 and @FabienGhd as well as 
 
 ### Merged Pull Requests
 
-- full automated changelog here
+- full automated changelog [here](https://github.com/vprusso/toqito/releases/tag/v1.1.0)
 
 ## 1.0.9
 
