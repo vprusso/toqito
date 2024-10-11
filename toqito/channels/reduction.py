@@ -1,4 +1,4 @@
-"""The reduction channel."""
+"""Generates the reduction channel."""
 
 import numpy as np
 from scipy.sparse import identity

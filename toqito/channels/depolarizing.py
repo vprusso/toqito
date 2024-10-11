@@ -1,4 +1,4 @@
-"""The depolarizing channel."""
+"""Generates the depolarizing channel."""
 
 import numpy as np
 
