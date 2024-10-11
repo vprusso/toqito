@@ -84,7 +84,7 @@ def random_density_matrix(
            [0.14841568+0.33318114j, 0.17551981+0.j        ]])
 
     We can once again verify that this is in fact a valid density matrix using the
-    :code:`is_denisty` function from :code:`toqito` as follows
+    :code:`is_density` function from :code:`toqito` as follows
 
     >>> from toqito.matrix_props import is_density
     >>> is_density(seeded)
