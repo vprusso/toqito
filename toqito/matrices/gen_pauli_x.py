@@ -1,4 +1,4 @@
-"""Generalized Pauli-X matrix."""
+"""Produces a generalized Pauli-X operator matrix."""
 
 import numpy as np
 

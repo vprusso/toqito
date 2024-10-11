@@ -1,4 +1,4 @@
-"""Fourier matrix."""
+"""Generates a Fourier matrix."""
 
 import numpy as np
 

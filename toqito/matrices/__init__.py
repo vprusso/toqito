@@ -1,4 +1,4 @@
-"""Matrices."""
+"""Matrices is a set of modules that are used to implement commonly used matrices."""
 
 from toqito.matrices.gen_pauli_x import gen_pauli_x
 from toqito.matrices.gen_pauli_z import gen_pauli_z

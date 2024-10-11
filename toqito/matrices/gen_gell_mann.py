@@ -1,4 +1,4 @@
-"""Generalized Gell-Mann matrices."""
+"""Produces the generalized Gell-Mann operator matrices."""
 
 import numpy as np
 
