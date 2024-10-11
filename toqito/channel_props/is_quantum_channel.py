@@ -1,4 +1,4 @@
-"""Is quantum channel."""
+"""Determines if an input is a quantum channel."""
 
 import numpy as np
 
