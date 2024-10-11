@@ -3,7 +3,7 @@
 import numpy as np
 import scipy
 
-from toqito.matrix_ops import vector_to_density_matrix
+from toqito.matrix_ops import to_density_matrix
 
 
 def pretty_good_measurement(states: list[np.ndarray], probs: list[float] | None = None) -> list[np.ndarray]:
@@ -69,7 +69,7 @@ def pretty_good_measurement(states: list[np.ndarray], probs: list[float] | None 
     if not np.isclose(sum(probs), 1):
         raise ValueError("Probability vector should sum to 1.")
 
-    states = [vector_to_density_matrix(state) for state in states]
+    states = [to_density_matrix(state) for state in states]
     p_var = sum(probs[i] * states[i] for i in range(n))
 
     p_var_sqrt = scipy.linalg.fractional_matrix_power(p_var, -1 / 2)
