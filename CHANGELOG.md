@@ -1,5 +1,23 @@
 # Changelog
 
+## 1.1.0
+
+Many thanks to first-time contributor @Shivansh20128 and returning contributor @tnemoz for their participation in this
+milestone. 
+
+### Highlights
+
+- Tensor products now utilize fast exponentiation, @tnemoz in #809
+- Documentation employs a different theme, search inside documentation is also fixes, @vprusso and @purva-thakre in #836
+
+### New Features
+
+- 
+
+### Merged Pull Requests
+
+- full automated changelog here
+
 ## 1.0.9
 
 
