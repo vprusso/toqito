@@ -346,7 +346,9 @@ use :code:`toqito` to determine the lower bound on the quantum value.
     >>> import numpy as np
     >>> from toqito.nonlocal_games.nonlocal_game import NonlocalGame
     >>> chsh = NonlocalGame(prob_mat, pred_mat)
-    >>> np.around(chsh.quantum_value_lower_bound(), decimals=2)
+    >>> # Multiple runs to avoid trap in suboptimal quantum value.
+    >>> results = [np.around(chsh.quantum_value_lower_bound(), decimals=2) for _ in range(5)] 
+    >>> max(results)
     np.float64(0.85)
 
 In this case, we can see that the quantum value of the CHSH game is in fact
