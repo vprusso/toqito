@@ -3,7 +3,7 @@
 import numpy as np
 import pytest
 
-from toqito.matrix_ops import perturb_vectors
+from toqito.matrix_ops.perturb_vectors import perturb_vectors
 
 
 @pytest.mark.parametrize(
