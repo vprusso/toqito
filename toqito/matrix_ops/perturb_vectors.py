@@ -1,4 +1,7 @@
-"""Perturb vectors is used to add a small random number/noise to each element of a vector."""
+"""Perturb vectors is used to add a small random number to each element of a vector.
+
+A random value is added sampled from a normal distribution scaled by `eps`.
+"""
 
 import numpy as np
 
