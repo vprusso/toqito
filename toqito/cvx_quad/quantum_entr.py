@@ -252,6 +252,18 @@ def trace_logm(
     elif X.is_constant():
         return trace_logm(X.value, C)
     elif X.is_affine():
-        pass
+        n = X.shape[0]
+        iscplx = np.iscomplexobj(X) or np.iscomplexobj(C)
+        if iscplx:
+            TAU = cvx.Variable((n, n), hermitian=True)
+        else:
+            TAU = cvx.Variable((n, n), symmetric=True)
+        cons = [cvx.OpRelEntrConeQuad(np.eye(n), X, TAU, m, k)]
+        objective = cvx.Maximize(-1 * cvx.trace(C @ TAU))
+        problem = cvx.Problem(objective, constraints=cons)
+        problem.solve(verbose=True)
+
+        return -1 * cvx.trace(C @ TAU)
+
     else:
         raise Exception("The input must be an affine expression.")
