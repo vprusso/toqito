@@ -44,6 +44,25 @@ def quantum_entr(X: np.ndarray, m: int = 3, k: int = 3, apx: int = 0) -> cvx.Exp
         return quantum_entr(X.value, m, k)
     elif X.is_affine():
         n = X.shape[0]
+        iscplx = not np.isrealobj(X.value)
+        if iscplx:
+            TAU = cvx.Variable((n, n), hermitian=True)
+        else:
+            TAU = cvx.Variable((n, n), symmetric=True)
+        objective = cvx.Minimize(-1 * cvx.trace(TAU))
+        cons = [
+            cvx.OpRelEntrConeQuad(
+                X,
+                cvx.Constant(np.eye(n)),
+                TAU,
+                m,
+                k,
+            ),
+            X == [[0.5, 0], [0, 0.5]],
+        ]
+        problem = cvx.Problem(objective, constraints=cons)
+        problem.solve(verbose=True)
+        return -1 * cvx.trace(TAU)
     else:
         raise Exception("The input has to be an affine expression")
 
@@ -122,7 +141,19 @@ def quantum_rel_entr(
     elif B.is_constant():
         return -1 * quantum_entr(A, m, k, -1 * apx) - np.trace(A @ logm(B))
     elif A.is_affine() and B.is_affine():
-        pass
+        n = A.shape[0]
+        e = np.eye(n).flatten()
+        iscplx = np.iscomplexobj(A.value) or np.iscomplexobj(B.value)
+        tau = cvx.Variable()
+        kronAI = np.kron(A, np.eye(N))
+        kronIB = np.kron(np.eye(N), np.conj(B))
+        constraints = [cvx.OpRelEntrConeQuad(kronAI, kronIB, tau, m, k)]
+        objective = cvx.Minimize(tau)
+
+        # Define and solve the problem
+        problem = cvx.Problem(objective, constraints)
+        problem.solve()
+        return tau.value
     else:
         raise Exception("The input has to be an affine expression")
 
