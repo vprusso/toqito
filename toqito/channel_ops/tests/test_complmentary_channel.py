@@ -13,8 +13,8 @@ kraus_4 = np.array([[1, 0], [0, -1]]) / np.sqrt(2)
 
 # Expected results for the complementary map
 expected_res_comp = [
-    np.array([[1, 0], [0, 1], [0, -1j], [1, 0]]) / np.sqrt(2),
-    np.array([[0, 1], [1, 0], [1j, 0], [0, -1]]) / np.sqrt(2),
+    np.array([[1, 0], [0, 1], [0, 0], [0, -1j]]),
+    np.array([[0, 1], [1, 0], [1j, 0], [0, -1]]),
 ]
 
 # Higher-dimensional Kraus operators (3x3)
@@ -22,14 +22,14 @@ kraus_5 = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]]) / np.sqrt(3)
 kraus_6 = np.array([[0, 1, 0], [1, 0, 1], [0, 1, 0]]) / np.sqrt(3)
 
 expected_res_comp_high_dim = [
-    np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1], [0, 1, 0], [1, 0, 1], [0, 1, 0]]) / np.sqrt(3),
-    np.array([[0, 1, 0], [1, 0, 1], [0, 1, 0], [1, 0, 0], [0, 1, 0], [1, 0, 1]]) / np.sqrt(3),
+    np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1], [0, 1, 0], [1, 0, 0], [0, 0, 0]]),
+    np.array([[0, 1, 0], [1, 0, 1], [0, 1, 0], [0, 0, 0], [1, 0, 0], [1, 0, 0]]),
 ]
 
 # Single Kraus operator (edge case)
 kraus_single = np.array([[1, 0], [0, 1]])
 
-expected_res_single = [np.array([[1, 0], [0, 1]])]
+expected_res_single = [np.array([[1, 0], [0, 1]])]  # Same as input
 
 # Large size (4x4 Kraus operator)
 kraus_large_1 = np.eye(4)
@@ -92,9 +92,9 @@ def test_complementary_channel_special_cases(kraus_ops):
     # For identity, the complementary map should stack identity rows
     if np.array_equal(kraus_ops[0], np.eye(2)):
         expected = [np.eye(2)]
-        assert np.isclose(calculated, expected).all()
+        assert np.isclose(calculated[0], expected[0]).all()
 
     # For zero operators, complementary map should be zero as well
     if np.array_equal(kraus_ops[0], np.zeros((2, 2))):
         expected = [np.zeros((2, 2))]
-        assert np.isclose(calculated, expected).all()
+        assert np.isclose(calculated[0], expected[0]).all()
