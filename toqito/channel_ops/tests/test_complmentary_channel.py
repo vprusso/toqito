@@ -1,9 +1,9 @@
-"""Tests for complementary_map."""
+"""Tests for complementary_channel."""
 
 import numpy as np
 import pytest
 
-from toqito.channel_ops import complementary_map
+from toqito.channel_ops import complementary_channel
 
 # Define test cases for complementary map
 kraus_1 = np.array([[1, 0], [0, 1]]) / np.sqrt(2)
@@ -43,19 +43,19 @@ expected_res_large = [
 @pytest.mark.parametrize(
     "kraus_ops, expected",
     [
-        # Test complementary_map on a set of 2x2 Kraus operators (the ones you gave).
+        # Test complementary_channel on a set of 2x2 Kraus operators (the ones you gave).
         ([kraus_1, kraus_2, kraus_3, kraus_4], expected_res_comp),
-        # Test complementary_map with higher-dimensional (3x3) Kraus operators.
+        # Test complementary_channel with higher-dimensional (3x3) Kraus operators.
         ([kraus_5, kraus_6], expected_res_comp_high_dim),
-        # Test complementary_map with a single Kraus operator (edge case).
+        # Test complementary_channel with a single Kraus operator (edge case).
         ([kraus_single], expected_res_single),
-        # Test complementary_map with large (4x4) Kraus operators.
+        # Test complementary_channel with large (4x4) Kraus operators.
         ([kraus_large_1, kraus_large_2], expected_res_large),
     ],
 )
-def test_complementary_map(kraus_ops, expected):
-    """Test complementary_map works as expected for valid inputs."""
-    calculated = complementary_map(kraus_ops)
+def test_complementary_channel(kraus_ops, expected):
+    """Test complementary_channel works as expected for valid inputs."""
+    calculated = complementary_channel(kraus_ops)
     for calc_op, exp_op in zip(calculated, expected):
         assert np.isclose(calc_op, exp_op).all()
 
@@ -70,24 +70,24 @@ def test_complementary_map(kraus_ops, expected):
         ([np.array([[1, 0]])]),
     ],
 )
-def test_complementary_map_error(kraus_ops):
+def test_complementary_channel_error(kraus_ops):
     """Test function raises error as expected for invalid inputs."""
     with pytest.raises(ValueError):
-        complementary_map(kraus_ops)
+        complementary_channel(kraus_ops)
 
 @pytest.mark.parametrize(
     "kraus_ops",
     [
-        # Test complementary_map with identity operator (should return same operator rows stacked).
+        # Test complementary_channel with identity operator (should return same operator rows stacked).
         ([np.eye(2)]),
-        # Test complementary_map with Kraus operators that are zero matrices.
+        # Test complementary_channel with Kraus operators that are zero matrices.
         ([np.zeros((2, 2))]),
     ],
 )
-def test_complementary_map_special_cases(kraus_ops):
-    """Test complementary_map handles special cases like identity or zero operators."""
+def test_complementary_channel_special_cases(kraus_ops):
+    """Test complementary_channel handles special cases like identity or zero operators."""
     # Calculate the complementary map
-    calculated = complementary_map(kraus_ops)
+    calculated = complementary_channel(kraus_ops)
 
     # For identity, the complementary map should stack identity rows
     if np.array_equal(kraus_ops[0], np.eye(2)):
