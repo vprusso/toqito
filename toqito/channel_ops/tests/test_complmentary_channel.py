@@ -2,6 +2,7 @@
 
 import numpy as np
 import pytest
+
 from toqito.channel_ops import complementary_map
 
 # Define test cases for complementary map
