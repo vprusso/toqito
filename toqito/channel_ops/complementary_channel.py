@@ -49,7 +49,7 @@ def complementary_channel(kraus_ops: list[np.ndarray]) -> list[np.ndarray]:
     ...     np.array([[0, -1j], [1j, 0]]) / np.sqrt(2),
     ...     np.array([[1, 0], [0, -1]]) / np.sqrt(2)
     ... ]
-    >>> comp_kraus_ops = complementary_map(kraus_ops_Phi)
+    >>> comp_kraus_ops = complementary_channel(kraus_ops_Phi)
     >>> for i, op in enumerate(comp_kraus_ops):
     ...     print(f"Kraus operator {i + 1}:\n{op}\n")
 
