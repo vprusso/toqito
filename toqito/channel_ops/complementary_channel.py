@@ -39,35 +39,6 @@ def complementary_channel(kraus_ops: list[np.ndarray]) -> list[np.ndarray]:
             0 & -1
         \end{pmatrix}
 
-    To compute the Kraus operators for the complementary map, we rearrange the rows of these
-    Kraus operators as follows:
-
-    >>> import numpy as np
-    >>> kraus_ops_Phi = [
-    ...     np.array([[1, 0], [0, 1]]) / np.sqrt(2),
-    ...     np.array([[0, 1], [1, 0]]) / np.sqrt(2),
-    ...     np.array([[0, -1j], [1j, 0]]) / np.sqrt(2),
-    ...     np.array([[1, 0], [0, -1]]) / np.sqrt(2)
-    ... ]
-    >>> comp_kraus_ops = complementary_channel(kraus_ops_Phi)
-    >>> for i, op in enumerate(comp_kraus_ops):
-    ...     print(f"Kraus operator {i + 1}:\n{op}\n")
-
-    The output would be:
-
-    .. math::
-        K_1^C = \frac{1}{\sqrt{2}} \begin{pmatrix}
-            1 & 0 \\
-            0 & 1 \\
-            0 & -i \\
-            1 & 0
-        \end{pmatrix},
-        K_2^C = \frac{1}{\sqrt{2}} \begin{pmatrix}
-            0 & 1 \\
-            1 & 0 \\
-            i & 0 \\
-            0 & -1
-        \end{pmatrix}
 
     References
     ==========
