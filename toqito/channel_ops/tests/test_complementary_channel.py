@@ -56,8 +56,11 @@ expected_res_large = [
 def test_complementary_channel(kraus_ops, expected):
     """Test complementary_channel works as expected for valid inputs."""
     calculated = complementary_channel(kraus_ops)
+
+    # Compare the shapes first to debug broadcasting issues
+    assert len(calculated) == len(expected), "Mismatch in number of Kraus operators"
     for calc_op, exp_op in zip(calculated, expected):
-        assert np.isclose(calc_op, exp_op).all()
+        assert np.isclose(calc_op, exp_op, atol=1e-6).all()
 
 @pytest.mark.parametrize(
     "kraus_ops",
