@@ -16,30 +16,6 @@ def complementary_channel(kraus_ops: list[np.ndarray]) -> list[np.ndarray]:
     we define the complementary Kraus operators :math:`K_i^C` by stacking the rows of
     :math:`K_i` from all Kraus operators vertically.
 
-    Examples
-    ==========
-
-    Suppose the following Kraus operators define a quantum channel:
-
-    .. math::
-        K_1 = \frac{1}{\sqrt{2}} \begin{pmatrix}
-            1 & 0 \\
-            0 & 1
-        \end{pmatrix},
-        K_2 = \frac{1}{\sqrt{2}} \begin{pmatrix}
-            0 & 1 \\
-            1 & 0
-        \end{pmatrix},
-        K_3 = \frac{1}{\sqrt{2}} \begin{pmatrix}
-            0 & -i \\
-            i & 0
-        \end{pmatrix},
-        K_4 = \frac{1}{\sqrt{2}} \begin{pmatrix}
-            1 & 0 \\
-            0 & -1
-        \end{pmatrix}
-
-
     References
     ==========
     .. bibliography::
