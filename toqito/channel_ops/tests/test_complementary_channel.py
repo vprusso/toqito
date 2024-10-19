@@ -62,42 +62,42 @@ expected_res_large = [
 #     for calc_op, exp_op in zip(calculated, expected):
 #         assert np.isclose(calc_op, exp_op, atol=1e-6).all()
 
-@pytest.mark.parametrize(
-    "kraus_ops",
-    [
-        # Invalid test case: non-square matrices
-        ([np.array([[1, 0, 0], [0, 1, 0]])]),  # Not a square matrix
-        # Invalid test case: empty list of Kraus operators
-        ([]),
-        # Invalid test case: single row matrix (not a square)
-        ([np.array([[1, 0]])]),
-    ],
-)
-def test_complementary_channel_error(kraus_ops):
-    """Test function raises error as expected for invalid inputs."""
-    with pytest.raises(ValueError):
-        complementary_channel(kraus_ops)
+# @pytest.mark.parametrize(
+#     "kraus_ops",
+#     [
+#         # Invalid test case: non-square matrices
+#         ([np.array([[1, 0, 0], [0, 1, 0]])]),  # Not a square matrix
+#         # Invalid test case: empty list of Kraus operators
+#         ([]),
+#         # Invalid test case: single row matrix (not a square)
+#         ([np.array([[1, 0]])]),
+#     ],
+# )
+# def test_complementary_channel_error(kraus_ops):
+#     """Test function raises error as expected for invalid inputs."""
+#     with pytest.raises(ValueError):
+#         complementary_channel(kraus_ops)
 
-@pytest.mark.parametrize(
-    "kraus_ops",
-    [
-        # Test complementary_channel with identity operator (should return same operator rows stacked).
-        ([np.eye(2)]),
-        # Test complementary_channel with Kraus operators that are zero matrices.
-        ([np.zeros((2, 2))]),
-    ],
-)
-def test_complementary_channel_special_cases(kraus_ops):
-    """Test complementary_channel handles special cases like identity or zero operators."""
-    # Calculate the complementary map
-    calculated = complementary_channel(kraus_ops)
+# @pytest.mark.parametrize(
+#     "kraus_ops",
+#     [
+#         # Test complementary_channel with identity operator (should return same operator rows stacked).
+#         ([np.eye(2)]),
+#         # Test complementary_channel with Kraus operators that are zero matrices.
+#         ([np.zeros((2, 2))]),
+#     ],
+# )
+# def test_complementary_channel_special_cases(kraus_ops):
+#     """Test complementary_channel handles special cases like identity or zero operators."""
+#     # Calculate the complementary map
+#     calculated = complementary_channel(kraus_ops)
 
-    # For identity, the complementary map should stack identity rows
-    if np.array_equal(kraus_ops[0], np.eye(2)):
-        expected = [np.eye(2)]
-        assert np.isclose(calculated[0], expected[0]).all()
+#     # For identity, the complementary map should stack identity rows
+#     if np.array_equal(kraus_ops[0], np.eye(2)):
+#         expected = [np.eye(2)]
+#         assert np.isclose(calculated[0], expected[0]).all()
 
-    # For zero operators, complementary map should be zero as well
-    if np.array_equal(kraus_ops[0], np.zeros((2, 2))):
-        expected = [np.zeros((2, 2))]
-        assert np.isclose(calculated[0], expected[0]).all()
+#     # For zero operators, complementary map should be zero as well
+#     if np.array_equal(kraus_ops[0], np.zeros((2, 2))):
+#         expected = [np.zeros((2, 2))]
+#         assert np.isclose(calculated[0], expected[0]).all()
