@@ -28,6 +28,9 @@ def complementary_channel(kraus_ops: list[np.ndarray]) -> list[np.ndarray]:
 
     """
     num_kraus = len(kraus_ops)
+    if num_kraus==0:
+        raise ValueError("All Kraus operators must be non-empty matrices.")
+
     op_dim = kraus_ops[0].shape[0]
 
     if any(k.shape[0] != k.shape[1] for k in kraus_ops):
