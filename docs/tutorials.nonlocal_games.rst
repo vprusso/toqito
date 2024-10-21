@@ -346,7 +346,9 @@ use :code:`toqito` to determine the lower bound on the quantum value.
     >>> import numpy as np
     >>> from toqito.nonlocal_games.nonlocal_game import NonlocalGame
     >>> chsh = NonlocalGame(prob_mat, pred_mat)
-    >>> np.around(chsh.quantum_value_lower_bound(), decimals=2)
+    >>> # Multiple runs to avoid trap in suboptimal quantum value.
+    >>> results = [np.around(chsh.quantum_value_lower_bound(), decimals=2) for _ in range(5)] 
+    >>> max(results)
     np.float64(0.85)
 
 In this case, we can see that the quantum value of the CHSH game is in fact
@@ -416,7 +418,7 @@ value and calculate lower bounds on the quantum value of the FFL game.
     >>> np.around(ffl.classical_value(), decimals=2)
     np.float64(0.67)
     >>> np.around(ffl.quantum_value_lower_bound(), decimals=2)
-    np.float64(0.22)
+    np.float64(0.67)
 
 In this case, we obtained the correct quantum value of :math:`2/3`, however,
 the lower bound technique is not guaranteed to converge to the true quantum
@@ -424,8 +426,6 @@ value in general.
 
 Parallel repetitions of nonlocal games
 --------------------------------------
-
-
 
 For classical strategies, it is known that parallel repetition does *not* hold
 for the CHSH game, that is:
@@ -435,6 +435,60 @@ for the CHSH game, that is:
         w_c(CHSH \land CHSH) = 10/16 > 9/16 = w_c(CHSH) w_c(CHSH).
     \end{equation}
 
+Binary constraint system games
+------------------------------
+
+The notion of a binary constraint system game was introduced in
+:cite:`Cleve_2014_Characterization` and the following introductory material is
+extracted from that work.
+
+A *binary constraint system* (BCS) (sometimes also called a *linear system*
+(LCS)) consists of :math:`n` binary variables :math:`v_1, v_2, \ldots, v_n` and
+:math:`m` constraints, :math:`c_1, c_2, \ldots, c_m`, where each :math:`c_j` is
+a binary-valued function of a subset of the variables.
+
+A *binary constraint system game* (BCS game) is a two-player nonlocal game that
+is associated with a BCS. In a BCS game, the referee randomly selects a
+constraint :math:`c_s` and one variable :math:`x_t` from :math:`c_s`. The
+referee sends :math:`s` to Alice and :math:`t` to Bob. Alice returns a truth
+assignment to all variables in :math:`c_s` and bob returns a truth assignment to
+variable :math:`x_t`. The verifier accepts the answer if and only if:
+
+1. Alice's truth assignment satisfies the constraint :math:`c_s`;
+2. Bob's truth assignment for :math:`x_t` is consistent with Alice's.
+
+As an example, the CHSH game can be described as a BCS game:
+
+.. math::
+    v_1 \oplus v_2 = 0 \quad \quad v_1 \oplus v_2 = 1
+
+In :code:`toqito`, we can encode this as a BCS game as follows
+
+.. code-block:: python
+
+    >>> import numpy as np
+    >>> from toqito.nonlocal_games import NonlocalGame
+    >>> 
+    >>> # Define constraints c_1 and c_2.
+    >>> c_1 = np.zeros((2, 2))
+    >>> c_2 = np.zeros((2, 2))
+    >>> 
+    >>> # Loop over variables and populate constraints.
+    >>> for v_1 in range(2):
+    ...     for v_2 in range(2):
+    ...         if v_1 ^ v_2 == 0:
+    ...             c_1[v_1, v_2] = 1
+    ...         else:
+    ...             c_2[v_1, v_2] = 1
+    >>>
+    >>> # Define the BCS game from the variables and constraints.
+    >>> chsh_bcs = NonlocalGame.from_bcs_game([c_1, c_2])
+    >>> # Classical value of CHSH is 3 / 4 = 0.75
+    >>> np.around(chsh_bcs.classical_value(), decimals=2)
+    np.float64(0.75)
+    >>> # Quantum value of CHSH is cos^2(pi/8) \approx 0.853...
+    >>> np.around(chsh_bcs.quantum_value_lower_bound(), decimals=2)
+    np.float64(0.85)
 
 
 References

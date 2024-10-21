@@ -48,8 +48,8 @@ class QuantumHedging:
     >>> l_2 = alpha * sin(theta) * e_10
     >>> l_3 = sqrt(1 - alpha ** 2) * cos(theta) * e_01
     >>>
-    >>> q_1 = w_var * w_var.conj().T
-    >>> q_0 = l_1 * l_1.conj().T + l_2 * l_2.conj().T + l_3 * l_3.conj().T
+    >>> q_1 = w_var @ w_var.conj().T
+    >>> q_0 = l_1 @ l_1.conj().T + l_2 @ l_2.conj().T + l_3 @ l_3.conj().T
     >>> molina_watrous = QuantumHedging(q_0, 1)
     >>>
     >>> # cos(pi/8)**2 \approx 0.8536

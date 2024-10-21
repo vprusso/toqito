@@ -13,7 +13,7 @@ def test_trace_norm():
     e_11 = np.kron(e_1, e_1)
 
     u_vec = 1 / np.sqrt(2) * (e_00 + e_11)
-    rho = u_vec * u_vec.conj().T
+    rho = u_vec @ u_vec.conj().T
 
     res = trace_norm(rho)
     _, singular_vals, _ = np.linalg.svd(rho)

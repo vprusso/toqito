@@ -34,7 +34,7 @@ def is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray = None) -> boo
 
     >>> from toqito.state_props import is_product
     >>> from toqito.states import bell
-    >>> rho = bell(0) * bell(0).conj().T
+    >>> rho = bell(0) @ bell(0).conj().T
     >>> u_vec = bell(0)
     >>> is_product(rho)
     (array([False]), None)

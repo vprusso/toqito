@@ -61,7 +61,7 @@ def test_invalid_dim_parameter():
 
 def test_entangled_ppt_criterion():
     """Determined to be entangled via the PPT criterion."""
-    rho = bell(0) * bell(0).conj().T
+    rho = bell(0) @ bell(0).conj().T
     np.testing.assert_equal(is_separable(rho), False)
 
 
@@ -72,7 +72,7 @@ def test_ppt_small_dimensions():
 
     e_0, e_1 = basis(2, 0), basis(2, 1)
     phi = np.kron((1 / np.sqrt(2) * e_0 + 1 / np.sqrt(2) * e_1), psi)
-    sigma = phi * phi.conj().T
+    sigma = phi @ phi.conj().T
     np.testing.assert_equal(is_separable(sigma), True)
 
 
@@ -102,7 +102,7 @@ def test_entangled_realignment_criterion():
     # :math:`\rho = \frac{1}{4} \mathbb{I}_3 \otimes \mathbb{I}_3 - \sum_{i=0}^4 | \psi_i \rangle \langle \psi_i |`
     rho = np.identity(9)
     for i in range(5):
-        rho = rho - tile(i) * tile(i).conj().T
+        rho = rho - tile(i) @ tile(i).conj().T
     rho = rho / 4
     np.testing.assert_equal(is_density(rho), True)
     np.testing.assert_equal(is_separable(rho), False)

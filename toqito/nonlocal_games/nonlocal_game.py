@@ -72,36 +72,27 @@ class NonlocalGame:
 
     @classmethod
     def from_bcs_game(cls, constraints: list[np.ndarray], reps: int = 1) -> "NonlocalGame":
-        """Construct nonlocal game object from a binary constraint system game.
+        """Convert constraints that specify a binary constraint system game to a nonlocal game.
 
-        :raises ValueError: At least one constraint needs to be supplied.
-        :param constraints: A list of m matrices corresponding to the `m`
-                            constraints in the BCS game. Each constraint matrix is
-                            an `n`-dimensional matrix of shape `2 x 2 x ... x 2`.
-                            The `(i, j, k, ...)`-th entry is 1 if and only if the
-                            contraint is satisfied given the values v_1 = i, v_2 = j,
-                            v_3 = k, ..., and otherwise 0.
+        Binary constraint system games (BCS) games were originally defined in :cite:`Cleve_2014_Characterization`.
+
+        :param constraints: List of binary constraints that define the game.
         :param reps: Number of parallel repetitions to perform. Default is 1.
-
-        :return: An instance of a nonlocal game object.
+        :return: A NonlocalGame object arising from the variables and constraints that define the game.
         """
         if (num_constraints := len(constraints)) == 0:
             raise ValueError("At least 1 constraint is required")
         num_variables = constraints[0].ndim
 
-        # Retrieve dependent variables for each constraint
+        # Retrieve dependent variables for each constraint.
         dependent_variables = np.zeros((num_constraints, num_variables))
 
-        # `v_i` is _not_ a dependent variable of `c_j` if all entries in
-        # the `i`-th dimension of `constraints[j]` are equal, i.e.:
-        #   c_j[:, ..., :, 0, : ..., :] == c_j[:, ..., :, 1, : ..., :]
         for j in range(num_constraints):
             for i in range(num_variables):
+                # Identifying independent variables based on equality check.
                 dependent_variables[j, i] = np.diff(constraints[j], axis=i).any()
 
-        # Calculate probability matrix P(x, y) where:
-        #   x: uniformly randomly-selected constraint `c_x`
-        #   y: uniformly randomly-selected variable `v_y` in `c_x`
+        # Compute the probability matrix.
         prob_mat = np.zeros((num_constraints, num_variables))
         for j in range(num_constraints):
             p_x = 1.0 / num_constraints
@@ -109,24 +100,23 @@ class NonlocalGame:
             p_y = dependent_variables[j] / num_dependent_vars
             prob_mat[j] = p_x * p_y
 
-        # Compute prediction matrix of outcomes given questions and answer pairs:
-        #   a: Alice's truth assignment to all variables in `c_x`
-        #   b: Bob's truth assignment for `v_y` in `c_x`
+        # Compute the prediction matrix.
         pred_mat = np.zeros((2**num_variables, 2, num_constraints, num_variables))
         for x_ques in range(num_constraints):
             for a_ans in range(pred_mat.shape[0]):
-                # Convert to binary representation
-                bin_a = [int(x) for x in np.binary_repr(a_ans)]
-                truth_assignment = np.zeros(num_variables, dtype=np.int8)
-                truth_assignment[-len(bin_a) :] = bin_a
-                truth_assignment = tuple(truth_assignment)
+                # Convert Alice's truth assignment to binary.
+                bin_a = np.array(list(map(int, np.binary_repr(a_ans, num_variables))))
+
+                # Convert truth assignment to a tuple for easy indexing.
+                truth_assignment = tuple(bin_a)
 
                 for y_ques in range(num_variables):
-                    # The verifier can only accept the answer if Bob's truth assignment
-                    # is consistent with Alice's
+                    # Bob’s assignment is Alice’s truth assignment for the current variable.
                     b_ans = truth_assignment[y_ques]
 
-                    pred_mat[a_ans, b_ans, x_ques, y_ques] = constraints[x_ques][truth_assignment]
+                    # Check if this satisfies the constraint.
+                    if constraints[x_ques][truth_assignment] == 1:
+                        pred_mat[a_ans, b_ans, x_ques, y_ques] = 1
 
         return cls(prob_mat, pred_mat, reps)
 
@@ -144,30 +134,26 @@ class NonlocalGame:
             num_bob_inputs,
         ) = self.pred_mat.shape
 
+        # Create a copy of pred_mat to avoid in-place modification
+        pred_mat_copy = np.copy(self.pred_mat)
+
         for x_alice_in in range(num_alice_inputs):
             for y_bob_in in range(num_bob_inputs):
-                self.pred_mat[:, :, x_alice_in, y_bob_in] = (
-                    self.prob_mat[x_alice_in, y_bob_in] * self.pred_mat[:, :, x_alice_in, y_bob_in]
+                pred_mat_copy[:, :, x_alice_in, y_bob_in] = (
+                    self.prob_mat[x_alice_in, y_bob_in] * pred_mat_copy[:, :, x_alice_in, y_bob_in]
                 )
         p_win = float("-inf")
         if num_alice_outputs**num_alice_inputs < num_bob_outputs**num_bob_inputs:
-            self.pred_mat = np.transpose(self.pred_mat, (1, 0, 3, 2))
+            pred_mat_copy = np.transpose(pred_mat_copy, (1, 0, 3, 2))
             (
                 num_alice_outputs,
                 num_bob_outputs,
                 num_alice_inputs,
                 num_bob_inputs,
-            ) = self.pred_mat.shape
-        self.pred_mat = np.transpose(self.pred_mat, (0, 2, 1, 3))
-
-        # Paralleize for loop.
-        # if num_bob_outputs ** num_bob_inputs <= 10 ** 6:
-        #     parallel_threads = 1
-        # else:
-        #     parallel_threads = 5
+            ) = pred_mat_copy.shape
+        pred_mat_copy = np.transpose(pred_mat_copy, (0, 2, 1, 3))
 
         for i in range(num_alice_outputs**num_bob_inputs):
-            # Convert :code:`number` to the base :code:`base` with digits :code:`digits`.
             number = i
             base = num_bob_outputs
             digits = num_bob_inputs
@@ -178,7 +164,7 @@ class NonlocalGame:
             pred_alice = np.zeros((num_alice_outputs, num_alice_inputs))
 
             for y_bob_in in range(num_bob_inputs):
-                pred_alice = pred_alice + self.pred_mat[:, :, int(b_ind[y_bob_in]), y_bob_in]
+                pred_alice = pred_alice + pred_mat_copy[:, :, int(b_ind[y_bob_in]), y_bob_in]
             tgval = np.sum(np.amax(pred_alice, axis=0))
             p_win = max(p_win, tgval)
         return p_win
@@ -384,7 +370,6 @@ class NonlocalGame:
         # .. math::
         #    \sum_{(x,y) \in \Sigma} \pi(x, y) V(a,b|x,y) \ip{B_b^y}{A_a^x}
         win = 0
-        is_real = True
         for x_ques in range(num_inputs_alice):
             for y_ques in range(num_inputs_bob):
                 for a_ans in range(num_outputs_alice):
@@ -399,7 +384,6 @@ class NonlocalGame:
                             bob_povms[y_ques, b_ans],
                             cvxpy.expressions.variable.Variable,
                         ):
-                            is_real = False
                             win += (
                                 self.prob_mat[x_ques, y_ques]
                                 * self.pred_mat[a_ans, b_ans, x_ques, y_ques]

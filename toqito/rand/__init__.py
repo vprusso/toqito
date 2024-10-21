@@ -8,3 +8,4 @@ from toqito.rand.random_state_vector import random_state_vector
 from toqito.rand.random_states import random_states
 from toqito.rand.random_circulant_gram_matrix import random_circulant_gram_matrix
 from toqito.rand.random_psd import random_psd
+from toqito.rand.random_orthonormal_basis import random_orthonormal_basis

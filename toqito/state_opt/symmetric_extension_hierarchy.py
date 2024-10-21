@@ -89,14 +89,14 @@ def symmetric_extension_hierarchy(
     >>> # Define the resource state.
     >>> eps = 0.5
     >>> eps_state = np.sqrt((1+eps)/2) * e_00 + np.sqrt((1-eps)/2) * e_11
-    >>> eps_dm = eps_state * eps_state.conj().T
+    >>> eps_dm = eps_state @ eps_state.conj().T
     >>>
     >>> # Define the ensemble of states to be distinguished.
     >>> states = [
-    ...     np.kron(bell(0) * bell(0).conj().T, eps_dm),
-    ...     np.kron(bell(1) * bell(1).conj().T, eps_dm),
-    ...     np.kron(bell(2) * bell(2).conj().T, eps_dm),
-    ...     np.kron(bell(3) * bell(3).conj().T, eps_dm),
+    ...     np.kron(bell(0) @ bell(0).conj().T, eps_dm),
+    ...     np.kron(bell(1) @ bell(1).conj().T, eps_dm),
+    ...     np.kron(bell(2) @ bell(2).conj().T, eps_dm),
+    ...     np.kron(bell(3) @ bell(3).conj().T, eps_dm),
     ... ]
     >>>
     >>> # Ensure the distinguishability is conducted on the proper spaces.
@@ -154,7 +154,7 @@ def symmetric_extension_hierarchy(
     # into density matrices.
     if n_cols == 1:
         for i, state_ket in enumerate(states):
-            states[i] = state_ket * state_ket.conj().T
+            states[i] = state_ket @ state_ket.conj().T
 
     # Set default dimension if none was provided.
     if dim is None:

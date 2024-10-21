@@ -83,5 +83,5 @@ def is_unitary(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> boo
     u_uc_mat = mat @ mat.conj().T
     id_mat = np.eye(len(mat))
 
-    # If U^* * U = I U * U^*, the matrix "U" is unitary.
+    # If U^* @ U = I U @ U^*, the matrix "U" is unitary.
     return np.allclose(uc_u_mat, id_mat, rtol=rtol, atol=atol) and np.allclose(u_uc_mat, id_mat, rtol=rtol, atol=atol)

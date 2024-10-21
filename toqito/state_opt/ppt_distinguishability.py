@@ -3,7 +3,7 @@
 import numpy as np
 import picos
 
-from toqito.matrix_ops import calculate_vector_matrix_dimension, vector_to_density_matrix
+from toqito.matrix_ops import calculate_vector_matrix_dimension, to_density_matrix
 from toqito.matrix_props import has_same_dimension
 
 
@@ -79,10 +79,10 @@ def ppt_distinguishability(
     >>> x_4 = np.kron(psi_3, psi_3)
     >>>
     >>> # YDY density matrices.
-    >>> rho_1 = x_1 * x_1.conj().T
-    >>> rho_2 = x_2 * x_2.conj().T
-    >>> rho_3 = x_3 * x_3.conj().T
-    >>> rho_4 = x_4 * x_4.conj().T
+    >>> rho_1 = x_1 @ x_1.conj().T
+    >>> rho_2 = x_2 @ x_2.conj().T
+    >>> rho_3 = x_3 @ x_3.conj().T
+    >>> rho_4 = x_4 @ x_4.conj().T
     >>>
     >>> states = [rho_1, rho_2, rho_3, rho_4]
     >>> probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
@@ -156,7 +156,7 @@ def _min_error_primal(
         ]
     )
 
-    dms = [vector_to_density_matrix(vector) for vector in vectors]
+    dms = [to_density_matrix(vector) for vector in vectors]
     if strategy == "unambig":
         for i in range(n):
             for j in range(n):
@@ -189,7 +189,7 @@ def _min_error_dual(
     y_var = picos.HermitianVariable("Y", (d, d))
     problem.add_list_of_constraints(
         [
-            y_var - probs[i] * vector_to_density_matrix(vectors[i])
+            y_var - probs[i] * to_density_matrix(vectors[i])
             >> picos.partial_transpose(
                 q_var,
                 subsystems=subsystems,

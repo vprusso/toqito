@@ -81,7 +81,7 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
     if min(dim_x, dim_y) == 1:
         rho = rho[:]
         dim = [int(x) for x in dim]
-        return von_neumann_entropy(partial_trace(rho * rho.conj().T, [1], dim))
+        return von_neumann_entropy(partial_trace(rho @ rho.conj().T, [1], dim))
 
     # Case: :code:`rho` is a density matrix.
     if dim_x == dim_y:
