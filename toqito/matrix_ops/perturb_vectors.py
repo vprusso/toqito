@@ -14,6 +14,8 @@ def perturb_vectors(vectors: list[np.ndarray], eps: float = 0.1) -> list[np.ndar
     :return: Resulting list of perturbed vectors by a factor of epsilon.
 
     Example:
+        >>> import numpy as np
+        >>> from toqito.matrix_ops import perturb_vectors
         >>> vectors = [np.array([1.0, 2.0]), np.array([3.0, 4.0])]
         >>> perturbed_vectors = perturb_vectors(vectors, eps=0.1)
         >>> for v in perturbed_vectors:
