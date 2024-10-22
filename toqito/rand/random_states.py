@@ -1,15 +1,13 @@
-"""Generate random quantum states using Qiskit."""
+"""Generate random quantum states."""
 
 import numpy as np
-from qiskit.quantum_info.states.random import random_statevector
 
 
-def random_states(n: int, d: int) -> list[np.ndarray]:
+def random_states(n: int, d: int, seed: int | None = None) -> list[np.ndarray]:
     r"""Generate a list of random quantum states.
 
-    This function utilizes Qiskit's `random_statevector` to generate a list of quantum states,
-    each of a specified dimension. The states are valid quantum states distributed according
-    to the Haar measure.
+    This function generates a list of quantum states, each of a specified dimension. The states are
+    valid quantum states distributed according to the Haar measure.
 
     Examples
     ==========
@@ -33,16 +31,37 @@ def random_states(n: int, d: int) -> list[np.ndarray]:
            [-0.27852449+0.39980357j],
            [ 0.17033502+0.18562365j]])]
 
+    It is also possible to pass a seed to this function for reproducibility.
+
+    >>> from toqito.rand import random_states
+    >>> states = random_states(3, 4, seed=42)
+    >>> states
+    [array([[ 0.13830446+0.0299699j ],
+           [-0.47202619+0.51163029j],
+           [ 0.34061349+0.21219233j],
+           [ 0.42690188-0.39001418j]]), array([[-0.71489214+0.1351165j ],
+           [-0.47714049-0.35135073j],
+           [ 0.04684288+0.32187898j],
+           [-0.11587661-0.01829369j]]), array([[-0.00827473-0.0910465j ],
+           [-0.42013238-0.33536439j],
+           [ 0.43311201+0.60211343j],
+           [ 0.38307005-0.07610726j]])]
+
 
 
     :param n: int
         The number of random states to generate.
     :param d: int
         The dimension of each quantum state.
+    :param seed: int | None
+        A seed used to instantiate numpy's random number generator.
 
     :return: list[numpy.ndarray]
         A list of `n` numpy arrays, each representing a d-dimensional quantum state as a
         column vector.
 
     """
-    return [random_statevector(d).data.reshape(-1, 1) for _ in range(n)]
+    gen = np.random.default_rng(seed=seed)
+    samples = gen.normal(size=(n, d)) + 1j * gen.normal(size=(n, d))
+    samples /= np.linalg.norm(samples, axis=1)[:, np.newaxis]
+    return [sample.reshape(-1, 1) for sample in samples]

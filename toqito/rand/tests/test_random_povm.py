@@ -2,6 +2,7 @@
 
 import numpy as np
 import pytest
+from numpy.ma.testutils import assert_array_almost_equal
 
 from toqito.rand import random_povm
 
@@ -24,3 +25,40 @@ def test_random_povm_validity(dim, num_inputs, num_outputs):
     for i in range(num_inputs):
         sum_povms = sum(povms[:, :, i, j] for j in range(num_outputs))
         assert np.allclose(sum_povms, np.identity(dim))
+
+@pytest.mark.parametrize(
+    "dim, num_inputs, num_outputs, expected",
+    [
+        (
+            2,
+            2,
+            2,
+            np.array([
+                [
+                    [
+                        [0.68105648+0.j, 0.31894352+0.j],
+                        [0.46623871+0.j, 0.53376129+0.j]
+                    ],
+                    [
+                        [0.01373155+0.j, -0.01373155+0.j],
+                        [0.42523981+0.j, -0.42523981+0.j]
+                    ]
+                ],
+                [
+                    [
+                        [0.01373155+0.j, -0.01373155+0.j],
+                        [0.42523981+0.j, -0.42523981+0.j]
+                    ],
+                    [
+                        [0.04748388+0.j, 0.95251612+0.j],
+                        [0.47081969+0.j, 0.52918031+0.j]
+                    ]
+                ]
+            ])
+        )
+    ]
+)
+def test_seed(dim, num_inputs, num_outputs, expected):
+    """Test that the function returns the expected output when seeded."""
+    povms = random_povm(dim=dim, num_inputs=num_inputs, num_outputs=num_outputs, seed=123)
+    assert_array_almost_equal(povms, expected)
