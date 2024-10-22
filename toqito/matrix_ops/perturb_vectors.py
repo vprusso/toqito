@@ -12,6 +12,16 @@ def perturb_vectors(vectors: list[np.ndarray], eps: float = 0.1) -> list[np.ndar
     :param vectors: List of vectors to perturb.
     :param eps: Amount by which to perturb vectors.
     :return: Resulting list of perturbed vectors by a factor of epsilon.
+
+    Example:
+        >>> vectors = [np.array([1.0, 2.0]), np.array([3.0, 4.0])]
+        >>> perturbed_vectors = perturb_vectors(vectors, eps=0.1)
+        >>> for v in perturbed_vectors:
+        ...     print(v)
+        ...
+        [0.997, 2.001]  # The values will be slightly perturbed
+        [2.999, 4.003]  # Actual values will vary due to randomness
+
     """
     perturbed_vectors: list[np.ndarray] = []
     for i, v in enumerate(vectors):
