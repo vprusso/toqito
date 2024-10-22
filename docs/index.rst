@@ -66,3 +66,10 @@ References
 
     references
 
+.. toctree:: 
+    :hidden:
+    :caption: Project Links
+
+    GitHub <https://github.com/vprusso/toqito>
+    PyPI <https://pypi.org/project/toqito/>
+    Chat <http://discord.unitary.fund/>
