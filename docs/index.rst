@@ -72,4 +72,4 @@ References
 
     GitHub <https://github.com/vprusso/toqito>
     PyPI <https://pypi.org/project/toqito/>
-    Chat <http://discord.unitary.fund/>
+    Discord Channel <https://discord.com/channels/764231928676089909/1172282184833454090/>
