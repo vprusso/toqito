@@ -20,9 +20,6 @@ def perturb_vectors(vectors: list[np.ndarray], eps: float = 0.1) -> list[np.ndar
         >>> perturbed_vectors = perturb_vectors(vectors, eps=0.1)
         >>> for v in perturbed_vectors:
         ...     print(v)
-        ...
-        [0.997, 2.001]  # The values will be slightly perturbed
-        [2.999, 4.003]  # Actual values will vary due to randomness
 
     """
     perturbed_vectors: list[np.ndarray] = []
