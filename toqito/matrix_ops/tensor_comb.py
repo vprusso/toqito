@@ -4,7 +4,7 @@ import itertools
 
 import numpy as np
 
-from toqito.matrix_ops import vector_to_density_matrix
+from toqito.matrix_ops import to_density_matrix
 
 
 def tensor_comb(states: list[np.ndarray], k: int) -> dict:
@@ -72,6 +72,6 @@ def tensor_comb(states: list[np.ndarray], k: int) -> dict:
         sequence_tensor_product = np.array(state_sequence[0])
         for state in state_sequence[1:]:
             sequence_tensor_product = np.kron(sequence_tensor_product, state)
-        sequences_of_states[seq] = vector_to_density_matrix(sequence_tensor_product)
+        sequences_of_states[seq] = to_density_matrix(sequence_tensor_product)
 
     return sequences_of_states
