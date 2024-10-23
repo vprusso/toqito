@@ -1,4 +1,4 @@
-"""The Choi channel."""
+"""Generates the Choi channel."""
 
 import numpy as np
 

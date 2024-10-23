@@ -1,4 +1,4 @@
-"""Hadamard matrix."""
+"""Generates a Hadamard matrix."""
 
 import numpy as np
 

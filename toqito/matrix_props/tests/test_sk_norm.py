@@ -77,3 +77,65 @@ def test_sk_norm_of_zero_matrix():
     lower_bound, upper_bound = sk_operator_norm(mat)
     np.testing.assert_equal(np.allclose(lower_bound, 0.0), True)
     np.testing.assert_equal(np.allclose(upper_bound, 0.0), True)
+
+
+def test_sk_norm_k_larger_than_dim():
+    """Test S(k) norm when k is larger than the dimensions."""
+    dim = 3
+    k = 4  # k is larger than the matrix dimension
+    mat = max_entangled(dim) @ max_entangled(dim).conj().T
+
+    lower_bound, upper_bound = sk_operator_norm(mat, k)
+    expected = np.linalg.norm(mat, ord=2)
+    np.testing.assert_equal(np.allclose(lower_bound, expected), True)
+    np.testing.assert_equal(np.allclose(upper_bound, expected), True)
+
+
+def test_sk_norm_non_square_matrix():
+    """Test S(k) norm with a non-square matrix (should raise an error)."""
+    mat = np.random.rand(4, 5)  # Non-square matrix
+    with pytest.raises(ValueError, match="Input matrix must be square."):
+        sk_operator_norm(mat, k=2)
+
+
+def test_sk_norm_zero_rank_matrix():
+    """Test S(k) norm of a zero-rank matrix."""
+    mat = np.zeros((4, 4))
+    lower_bound, upper_bound = sk_operator_norm(mat)
+    np.testing.assert_equal(np.allclose(lower_bound, 0.0), True)
+    np.testing.assert_equal(np.allclose(upper_bound, 0.0), True)
+
+
+def test_sk_norm_hermitian_psd():
+    """Test S(k) norm of a Hermitian positive semi-definite matrix."""
+    mat = np.array([[1, 0], [0, 1]])  # Identity matrix
+    lower_bound, upper_bound = sk_operator_norm(mat, k=1)
+    np.testing.assert_equal(np.allclose(lower_bound, 1.0), True)
+    np.testing.assert_equal(np.allclose(upper_bound, 1.0), True)
+
+
+def test_sk_norm_randomized_bound():
+    """Test randomized method for lower bound of the S(k)-norm."""
+    mat = np.random.rand(4, 4) + 1j * np.random.rand(4, 4)
+    mat = mat @ mat.T.conj()  # Make the matrix Hermitian
+    lower_bound, upper_bound = sk_operator_norm(mat, k=2)
+    assert lower_bound <= upper_bound
+
+
+def test_sk_norm_target_met():
+    """Test early exit when target value is met."""
+    mat = np.eye(4)
+    target = 1.0  # Target value that will be met early
+    lower_bound, upper_bound = sk_operator_norm(mat, k=1, target=target)
+    np.testing.assert_equal(np.allclose(lower_bound, target), True)
+    np.testing.assert_equal(np.allclose(upper_bound, target), True)
+
+
+def test_sk_norm_non_hermitian_matrix():
+    """Test S(k) norm of a non-Hermitian matrix."""
+    mat = np.array([[1, 2], [3, 4]])  # Non-Hermitian matrix
+    lower_bound, upper_bound = sk_operator_norm(mat, k=1)
+
+    # Assert that the lower bound and upper bound are non-negative
+    assert lower_bound >= 0
+    assert upper_bound >= lower_bound

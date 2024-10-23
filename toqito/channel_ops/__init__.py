@@ -1,4 +1,4 @@
-"""A number of operations on quantum channels."""
+"""Channel operations is a module used to implement a number of operations on quantum channels."""
 
 from toqito.channel_ops.apply_channel import apply_channel
 from toqito.channel_ops.partial_channel import partial_channel

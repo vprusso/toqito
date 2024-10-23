@@ -1,4 +1,4 @@
-"""Hilbert-Schmidt Inner Product."""
+"""Hilbert-Schmidt Inner Product refers to the inner product between two Hilbert-Schmidt operators."""
 
 import numpy as np
 

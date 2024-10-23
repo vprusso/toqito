@@ -1,4 +1,4 @@
-"""Is matrix a positive semidefinite matrix."""
+"""Checks if the matrix is a positive semidefinite matrix."""
 
 import numpy as np
 

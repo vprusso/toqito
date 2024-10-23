@@ -1,4 +1,7 @@
-"""BB84 basis states."""
+"""BB84 states represent the BB84 basis states, which are based on BB84, a quantum key distribution scheme.
+
+In the BB884 scheme, each qubit is encoded with one of the 4 polarization states: 0, 1, +45° or -45°.
+"""
 
 import numpy as np
 

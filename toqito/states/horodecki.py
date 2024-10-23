@@ -1,4 +1,8 @@
-"""Horodecki state."""
+"""Horodecki states are bound entangled states.
+
+These states are entangled, but no pure entangled states can be extracted from these states through local operations and
+classical communication (LOCC).
+"""
 
 import numpy as np
 

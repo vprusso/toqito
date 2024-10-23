@@ -1,4 +1,7 @@
-"""Sub-fidelity metric."""
+"""Sub-fidelity metric is a lower bound for the fidelity.
+
+The sub-fidelity metric is a concave function and sub-multiplicative.
+"""
 
 import numpy as np
 

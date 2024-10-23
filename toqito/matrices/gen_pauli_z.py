@@ -1,4 +1,4 @@
-"""Generalized Pauli-Z matrix."""
+"""Produces a generalized Pauli-Z operator matrix."""
 
 from cmath import exp, pi
 

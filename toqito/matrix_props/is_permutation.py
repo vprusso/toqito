@@ -1,4 +1,4 @@
-"""Is matrix a permutation matrix."""
+"""Checks if the matrix is a permutation matrix."""
 
 import numpy as np
 

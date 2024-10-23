@@ -1,4 +1,7 @@
-"""Basis state."""
+"""Basis state represent the standard basis vectors of some n-dimensional Hilbert Space.
+
+Here, n can be given as a parameter as shown below.
+"""
 
 import numpy as np
 
@@ -9,7 +12,7 @@ def basis(dim: int, pos: int) -> np.ndarray:
     Examples
     ==========
 
-    The standard basis bra vectors given as :math:`|0 \rangle` and :math:`|1 \rangle` where
+    The standard basis ket vectors given as :math:`|0 \rangle` and :math:`|1 \rangle` where
 
     .. math::
         |0 \rangle = \left[1, 0 \right]^{\text{T}} \quad \text{and} \quad

@@ -1,4 +1,4 @@
-"""Calculate the Choi rank of a channel."""
+"""Calculates the Choi rank of a channel."""
 
 import numpy as np
 
