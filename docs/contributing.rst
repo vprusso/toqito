@@ -116,7 +116,9 @@ References in Docstrings
 
 
 If you are adding a new function, make sure the docstring of your function follows the formatting specifications
-in `Code Style`_. A standard format for :code:`toqito` docstring is provided below: ::
+in `Code Style`_. A standard format for :code:`toqito` docstring is provided below:
+
+.. code-block:: python
     
     def my_new_function(some_parameter: parameter_type) -> return_type:
         r"""One liner description of the new function.
@@ -143,7 +145,9 @@ Use :code:`.. math::` mode for equations and use use :code:`:cite:some_ref` for 
 To add an attribution to a paper or a book, add your reference with :code:`some_ref` as the citation key to 
 `refs.bib`.
 
-Following is used in a docstring for the references to show up in the documentation build. ::
+Following is used in a docstring for the references to show up in the documentation build.
+
+.. code-block:: text
 
     References
     ==========
