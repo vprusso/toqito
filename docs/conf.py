@@ -43,6 +43,7 @@ extensions = [
     "sphinx.ext.githubpages",
     "sphinx.ext.napoleon",
     "sphinxcontrib.bibtex",
+    "sphinx_copybutton",
 ]
 
 bibtex_bibfiles = ["refs.bib"]
