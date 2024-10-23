@@ -132,7 +132,9 @@ in `Code Style`_. A standard format for :code:`toqito` docstring is provided bel
             .. bibliography::
                 :filter: docname in docnames
         
-            :param name_of_parameter: Details about the input and output parameters and parameter types.
+            :param name_of_parameter: Description of the parameter.
+            :raises SomeError: Description for when the function raises an error.
+            :return: Description of what the function returns.
                 
         """
 
