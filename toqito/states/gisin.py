@@ -1,4 +1,4 @@
-"""Gisin state."""
+"""Gisin states are the mixtures of separable mixed states and some purely entangled states."""
 
 import numpy as np
 

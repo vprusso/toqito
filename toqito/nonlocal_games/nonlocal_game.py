@@ -72,20 +72,27 @@ class NonlocalGame:
 
     @classmethod
     def from_bcs_game(cls, constraints: list[np.ndarray], reps: int = 1) -> "NonlocalGame":
-        """Convert constraints that specify a binary constraint system game to a nonlocal game."""
+        """Convert constraints that specify a binary constraint system game to a nonlocal game.
+
+        Binary constraint system games (BCS) games were originally defined in :cite:`Cleve_2014_Characterization`.
+
+        :param constraints: List of binary constraints that define the game.
+        :param reps: Number of parallel repetitions to perform. Default is 1.
+        :return: A NonlocalGame object arising from the variables and constraints that define the game.
+        """
         if (num_constraints := len(constraints)) == 0:
             raise ValueError("At least 1 constraint is required")
         num_variables = constraints[0].ndim
 
-        # Retrieve dependent variables for each constraint
+        # Retrieve dependent variables for each constraint.
         dependent_variables = np.zeros((num_constraints, num_variables))
 
         for j in range(num_constraints):
             for i in range(num_variables):
-                # Identifying independent variables based on equality check
+                # Identifying independent variables based on equality check.
                 dependent_variables[j, i] = np.diff(constraints[j], axis=i).any()
 
-        # Compute the probability matrix
+        # Compute the probability matrix.
         prob_mat = np.zeros((num_constraints, num_variables))
         for j in range(num_constraints):
             p_x = 1.0 / num_constraints
@@ -93,21 +100,21 @@ class NonlocalGame:
             p_y = dependent_variables[j] / num_dependent_vars
             prob_mat[j] = p_x * p_y
 
-        # Compute the prediction matrix
+        # Compute the prediction matrix.
         pred_mat = np.zeros((2**num_variables, 2, num_constraints, num_variables))
         for x_ques in range(num_constraints):
             for a_ans in range(pred_mat.shape[0]):
-                # Convert Alice's truth assignment to binary
+                # Convert Alice's truth assignment to binary.
                 bin_a = np.array(list(map(int, np.binary_repr(a_ans, num_variables))))
 
-                # Convert truth assignment to a tuple for easy indexing
+                # Convert truth assignment to a tuple for easy indexing.
                 truth_assignment = tuple(bin_a)
 
                 for y_ques in range(num_variables):
-                    # Bob’s assignment is Alice’s truth assignment for the current variable
+                    # Bob’s assignment is Alice’s truth assignment for the current variable.
                     b_ans = truth_assignment[y_ques]
 
-                    # Check if this satisfies the constraint
+                    # Check if this satisfies the constraint.
                     if constraints[x_ques][truth_assignment] == 1:
                         pred_mat[a_ans, b_ans, x_ques, y_ques] = 1
 

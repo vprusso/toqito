@@ -1,4 +1,4 @@
-"""Determine whether channel is unital."""
+"""Determines if a channel is unital."""
 
 import numpy as np
 

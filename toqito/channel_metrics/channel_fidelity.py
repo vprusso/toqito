@@ -1,4 +1,4 @@
-"""Compute the channel fidelity between two quantum channels."""
+"""Computes the channel fidelity between two quantum channels."""
 
 import cvxpy
 import numpy as np

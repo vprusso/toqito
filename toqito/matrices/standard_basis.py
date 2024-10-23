@@ -1,4 +1,4 @@
-"""Construct standard basis."""
+"""Constructs the standard basis."""
 
 import numpy as np
 

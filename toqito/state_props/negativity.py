@@ -1,4 +1,4 @@
-"""Negativity property."""
+"""Calculates the negativity property of a quantum state."""
 
 import numpy as np
 from picos import partial_transpose

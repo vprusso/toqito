@@ -1,9 +1,9 @@
-"""Generate random POVM."""
+"""Generates a random POVM."""
 
 import numpy as np
 
 
-def random_povm(dim: int, num_inputs: int, num_outputs: int) -> np.ndarray:
+def random_povm(dim: int, num_inputs: int, num_outputs: int, seed: int | None = None) -> np.ndarray:
     """Generate random positive operator valued measurements (POVMs) :cite:`WikiPOVM`.
 
     Examples
@@ -40,6 +40,33 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int) -> np.ndarray:
     [[1.+0.j, 0.+0.j],
      [0.+0.j, 1.+0.j]]
 
+     It is also possible to add a seed for reproducibility.
+
+    >>> from toqito.rand import random_povm
+    >>> import numpy as np
+    >>>
+    >>> dim, num_inputs, num_outputs = 2, 2, 2
+    >>> povms = random_povm(dim, num_inputs, num_outputs, seed=42)
+    >>> povms
+    array([[[[ 0.22988028+0.j,  0.77011972+0.j],
+             [ 0.45021752+0.j,  0.54978248+0.j]],
+    <BLANKLINE>
+            [[-0.23938341+0.j,  0.23938341+0.j],
+             [ 0.32542956+0.j, -0.32542956+0.j]]],
+    <BLANKLINE>
+    <BLANKLINE>
+           [[[-0.23938341+0.j,  0.23938341+0.j],
+             [ 0.32542956+0.j, -0.32542956+0.j]],
+    <BLANKLINE>
+            [[ 0.83184406+0.j,  0.16815594+0.j],
+             [ 0.61323275+0.j,  0.38676725+0.j]]]])
+
+    We can once again verify that this constitutes a valid set of POVM elements as checking that
+    these operators all sum to the identity operator.
+
+    >>> np.round(povms[:, :, 0, 0] + povms[:, :, 0, 1])
+    array([[ 1.+0.j, -0.+0.j],
+           [-0.+0.j,  1.+0.j]])
 
     References
     ==========
@@ -51,11 +78,13 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int) -> np.ndarray:
     :param dim: The dimensions of the measurements.
     :param num_inputs: The number of inputs for the measurement.
     :param num_outputs: The number of outputs for the measurement.
+    :param seed: A seed used to instantiate numpy's random number generator.
     :return: A set of `dim`-by-`dim` POVMs of shape `(dim, dim, num_inputs, num_outputs)`.
 
     """
     povms = []
-    gram_vectors = np.random.normal(size=(num_inputs, num_outputs, dim, dim))
+    gen = np.random.default_rng(seed=seed)
+    gram_vectors = gen.normal(size=(num_inputs, num_outputs, dim, dim))
     for input_block in gram_vectors:
         normalizer = sum(np.array(output_block).T.conj() @ output_block for output_block in input_block)
         u_mat, d_mat, _ = np.linalg.svd(normalizer)

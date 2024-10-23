@@ -1,9 +1,9 @@
-"""Generate random circulant Gram matrix."""
+"""Generates a random circulant Gram matrix."""
 
 import numpy as np
 
 
-def random_circulant_gram_matrix(dim: int) -> np.ndarray:
+def random_circulant_gram_matrix(dim: int, seed: int | None = None) -> np.ndarray:
     r"""Generate a random circulant Gram matrix of specified dimension.
 
     A circulant matrix is a square matrix where the elements of each row are identical to the elements of the
@@ -38,6 +38,16 @@ def random_circulant_gram_matrix(dim: int) -> np.ndarray:
            [0.04257471, 0.21058986, 0.42351891, 0.21058986],
            [0.21058986, 0.04257471, 0.21058986, 0.42351891]])
 
+    It is also possible to pass a seed to this function for reproducibility.
+
+    >>> from toqito.rand import random_circulant_gram_matrix
+    >>> circulant_matrix = random_circulant_gram_matrix(4, seed=42)
+    >>> circulant_matrix
+    array([[ 0.69220011, -0.02116047,  0.12407687, -0.02116047],
+           [-0.02116047,  0.69220011, -0.02116047,  0.12407687],
+           [ 0.12407687, -0.02116047,  0.69220011, -0.02116047],
+           [-0.02116047,  0.12407687, -0.02116047,  0.69220011]])
+
 
     References
     ==========
@@ -46,13 +56,16 @@ def random_circulant_gram_matrix(dim: int) -> np.ndarray:
 
     :param dim: int
         The dimension of the circulant matrix to generate.
+    :param seed: int | None
+        A seed used to instantiate numpy's random number generator.
 
     :return: numpy.ndarray
         A `dim` x `dim` real, symmetric, circulant matrix.
 
     """
+    gen = np.random.default_rng(seed=seed)
     # Step 1: Generate a random diagonal matrix with non-negative entries
-    diag_mat = np.diag(np.random.rand(dim))
+    diag_mat = np.diag(gen.random(dim))
 
     # Step 2: Construct the normalized DFT matrix
     dft_mat = np.fft.fft(np.eye(dim)) / np.sqrt(dim)

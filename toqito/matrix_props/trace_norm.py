@@ -1,4 +1,4 @@
-"""Trace norm metric."""
+"""Computes the trace norm metric of a density matrix."""
 
 import numpy as np
 

@@ -1,4 +1,4 @@
-"""Check if state is product."""
+"""Checks if a quantum state is product state."""
 
 import numpy as np
 

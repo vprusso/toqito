@@ -1,4 +1,4 @@
-"""Perfect matchings."""
+"""Perfect matchings refers to ways of grouping an even number of objects into pairs."""
 
 import numpy as np
 

@@ -1,4 +1,4 @@
-"""Generalized singlet state."""
+"""Generalized singlet state is a singlet state of `n` qubits in the invariant space of alternating representation."""
 
 import numpy as np
 

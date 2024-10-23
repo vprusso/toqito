@@ -1,4 +1,4 @@
-"""A number of widely-studied quantum channels."""
+"""Channels is a module used to generate a number of widely-studied quantum channels."""
 
 from toqito.channels.choi import choi
 from toqito.channels.dephasing import dephasing

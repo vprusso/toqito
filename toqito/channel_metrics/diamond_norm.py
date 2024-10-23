@@ -1,4 +1,4 @@
-"""Compute the diamond norm between two quantum channels."""
+"""Computes the diamond norm between two quantum channels."""
 
 import cvxpy
 import numpy as np

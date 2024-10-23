@@ -1,4 +1,4 @@
-"""Is channel trace-preserving."""
+"""Determines if a channel is trace-preserving."""
 
 import numpy as np
 

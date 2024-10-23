@@ -1,4 +1,4 @@
-"""Is matrix block positive."""
+"""Checks if the matrix is block positive."""
 
 import numpy as np
 

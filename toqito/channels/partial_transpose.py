@@ -1,4 +1,4 @@
-"""The partial transpose."""
+"""Generates the partial transpose of a matrix."""
 
 import numpy as np
 from cvxpy.expressions.expression import Expression

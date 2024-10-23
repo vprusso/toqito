@@ -1,4 +1,4 @@
-"""The partial trace."""
+"""Generates the partial trace of a matrix."""
 
 import numpy as np
 from cvxpy.expressions.expression import Expression

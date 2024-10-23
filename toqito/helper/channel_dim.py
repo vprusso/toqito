@@ -1,4 +1,4 @@
-"""Channel dimensions."""
+"""Channel dimensions coputes and returns the input, output and environment dimensions of a channel."""
 
 import itertools
 

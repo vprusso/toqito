@@ -1,4 +1,4 @@
-"""Generate random density matrix."""
+"""Generates a random density matrix."""
 
 import numpy as np
 
@@ -10,6 +10,7 @@ def random_density_matrix(
     is_real: bool = False,
     k_param: list[int] | int = None,
     distance_metric: str = "haar",
+    seed: int | None = None,
 ) -> np.ndarray:
     r"""Generate a random density matrix.
 
@@ -74,6 +75,21 @@ def random_density_matrix(
     >>> is_density(bures_mat)
     np.True_
 
+    It is also possible to pass a seed to this function for reproducibility.
+
+    >>> from toqito.rand import random_density_matrix
+    >>> seeded = random_density_matrix(2, seed=42)
+    >>> seeded
+    array([[0.82448019+0.j        , 0.14841568-0.33318114j],
+           [0.14841568+0.33318114j, 0.17551981+0.j        ]])
+
+    We can once again verify that this is in fact a valid density matrix using the
+    :code:`is_density` function from :code:`toqito` as follows
+
+    >>> from toqito.matrix_props import is_density
+    >>> is_density(seeded)
+    np.True_
+
 
     :param dim: The number of rows (and columns) of the density matrix.
     :param is_real: Boolean denoting whether the returned matrix will have all
@@ -83,20 +99,22 @@ def random_density_matrix(
                             density matrix. This metric is either the Haar
                             measure or the Bures measure. Default value is to
                             use the Haar measure.
+    :param seed: A seed used to instantiate numpy's random number generator.
     :return: A :code:`dim`-by-:code:`dim` random density matrix.
 
     """
+    gen = np.random.default_rng(seed=seed)
     if k_param is None:
         k_param = dim
 
     # Haar / Hilbert-Schmidt measure.
-    gin = np.random.rand(dim, k_param)
+    gin = gen.random((dim, k_param))
 
     if not is_real:
-        gin = gin + 1j * np.random.randn(dim, k_param)
+        gin = gin + 1j * gen.standard_normal((dim, k_param))
 
     if distance_metric == "bures":
-        gin = random_unitary(dim, is_real) + np.identity(dim) @ gin
+        gin = random_unitary(dim, is_real, seed=seed) + np.identity(dim) @ gin
 
     rho = gin @ np.array(gin).conj().T
 
