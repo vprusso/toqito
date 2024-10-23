@@ -1,4 +1,4 @@
-"""Compute a list of Kraus operators from the Choi matrix."""
+"""Computes a list of Kraus operators from the Choi matrix."""
 
 import numpy as np
 

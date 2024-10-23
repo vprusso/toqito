@@ -1,4 +1,4 @@
-"""Generate random state vector."""
+"""Generates a random state vector."""
 
 import numpy as np
 

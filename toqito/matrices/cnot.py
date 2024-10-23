@@ -1,4 +1,4 @@
-"""CNOT matrix."""
+"""CNOT matrix generates the CNOT operator matrix."""
 
 import numpy as np
 

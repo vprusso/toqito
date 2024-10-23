@@ -1,4 +1,4 @@
-"""Trine states."""
+"""Trine states are states of linear polarization separated by 60°."""
 
 import numpy as np
 

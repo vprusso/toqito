@@ -1,4 +1,4 @@
-"""Apply channel a subsystem of an operator."""
+"""Applies a channel to a subsystem of an operator."""
 
 import itertools
 

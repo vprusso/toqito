@@ -1,4 +1,4 @@
-"""The realignment channel."""
+"""Generates the realignment channel of a matrix."""
 
 import numpy as np
 

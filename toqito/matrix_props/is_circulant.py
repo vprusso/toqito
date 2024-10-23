@@ -1,4 +1,4 @@
-"""Is matrix circulant."""
+"""Checks if the matrix is circulant."""
 
 import numpy as np
 

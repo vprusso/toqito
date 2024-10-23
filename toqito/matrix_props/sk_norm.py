@@ -1,4 +1,4 @@
-"""Compute the S(k)-norm of a matrix."""
+"""Computes the S(k)-norm of a matrix."""
 
 import warnings
 
@@ -34,12 +34,10 @@ def sk_operator_norm(
             \text{Schmidt - rank}(|w\rangle) \leq k
         \Big\}
 
-    Since computing the exact value of S(k)-norm :cite:`Johnston_2012_Norms` is in the general case
-    an intractable problem, this function tries to find some good lower and
-    upper bounds. You can control the amount of computation you want to
-    devote to computing the bounds by `effort` input argument. Note that if
-    the input matrix is not positive semidefinite the output bounds might be
-    quite pooor.
+    Since computing the exact value of S(k)-norm :cite:`Johnston_2012_Norms` is in the general case an intractable
+    problem, this function tries to find some good lower and upper bounds. You can control the amount of computation you
+    want to devote to computing the bounds by `effort` input argument. Note that if the input matrix is not positive
+    semidefinite the output bounds might be quite poor.
 
     This function was adapted from QETLAB.
 
@@ -68,7 +66,7 @@ def sk_operator_norm(
 
     :raises ValueError: If dimension of the input matrix is not specified.
     :param mat: A matrix.
-    :param k: The "index" of the norm -- that is, it is the Schmidt rank of the
+    :param k: The "index" of the norm--that is, it is the Schmidt rank of the
               vectors that are multiplying X on the left and right in the definition
               of the norm.
     :param dim: The dimension of the two sub-systems. By default it's
@@ -81,6 +79,9 @@ def sk_operator_norm(
     """
     eps = np.finfo(float).eps
     tol = eps ** (3 / 8)
+
+    if mat.shape[0] != mat.shape[1]:
+        raise ValueError("Input matrix must be square.")
 
     dim_xy = mat.shape[0]
     # Set default dimension if none was provided.
@@ -96,14 +97,14 @@ def sk_operator_norm(
 
     dim = np.array(dim, dtype=int)
 
-    # some useful, repeatedly-used, values
+    # Some useful, repeatedly-used, values.
     prod_dim = np.prod(dim)
     op_norm = np.linalg.norm(mat, ord=2)
     if np.allclose(op_norm, 0.0):
         return 0.0, 0.0
 
     rank = np.linalg.matrix_rank(mat)
-    # rescale X to have unit norm
+    # Rescale X to have unit norm.
     mat = mat / op_norm
 
     # The S(k)-norm is just the operator norm if k is large enough.
@@ -119,18 +120,17 @@ def sk_operator_norm(
         upper_bound = lower_bound
         return lower_bound, upper_bound
 
-    # Compute some more simple bounds. We will multiply these by op_norm before
-    # we leave this function.
-    # comes from Theorem 4.13 in [1]
+    # Compute some more simple bounds. We will multiply these by op_norm before we leave this function.
+    # This comes from Theorem 4.13 in [1].
     lower_bound = k / min(dim)
     # our most basic upper bound
     upper_bound = 1
 
-    # break out of the function if the target value has already been met
+    # Break out of the function if the target value has already been met.
     if __target_is_proved(lower_bound, upper_bound, op_norm, tol, target):
         return op_norm * lower_bound, op_norm * upper_bound
 
-    # If input is not hermitian, we don't have better bounds, so we aboort.
+    # If input is not Hermitian, we don't have better bounds, so we abort.
     if not is_hermitian(mat):
         return op_norm * lower_bound, op_norm * upper_bound
 
@@ -148,14 +148,14 @@ def sk_operator_norm(
 
     is_trans_exact = min(dim) == 2 and max(dim) <= 3
 
-    # if the exact answer won't be found by SDP, compute bounds via other methods first
+    # If the exact answer won't be found by SDP, compute bounds via other methods first.
     if not (is_positive and is_trans_exact and k == 1 and effort >= 1):
-        # use the lower bound of Proposition 4.14 of [1]
+        # Use the lower bound of Proposition 4.14 of [1].
         for r in range(k, min(dim) + 1):
             t_ind = np.prod(dim) - np.prod(dim - r) - 1
             lower_bound = max(lower_bound, (k / r) * eig_val[t_ind])
 
-        # use the lower bound of Theorem 4.2.15 of [3]
+        # Use the lower bound of Theorem 4.2.15 of [3].
         if k == 1:
             lower_bound = max(
                 lower_bound,
@@ -191,7 +191,7 @@ def sk_operator_norm(
                 + (k - 1) / (min(dim) - 1),
             )
 
-        # break out of the function if the target value has already been met
+        # Break out of the function if the target value has already been met.
         if __target_is_proved(lower_bound, upper_bound, op_norm, tol, target):
             return op_norm * lower_bound, op_norm * upper_bound
 
@@ -203,7 +203,7 @@ def sk_operator_norm(
                     __lower_bound_sk_norm_randomized(mat, k, dim, tol**2),
                 )
 
-                # break out of the function if the target value has already been met
+                # Break out of the function if the target value has already been met.
                 if __target_is_proved(lower_bound, upper_bound, op_norm, tol, target):
                     return op_norm * lower_bound, op_norm * upper_bound
 
@@ -233,8 +233,8 @@ def sk_operator_norm(
         if is_trans_exact and k == 1:
             lower_bound = upper_bound
         elif k == 1:
-            # we can also get decent lower bounds from the SDP results when k=1
-            # See Theorem 5.2.8 of [2]
+            # We can also get decent lower bounds from the SDP results when k=1
+            # See Theorem 5.2.8 of [2].
             roots, _ = scipy.special.roots_jacobi(1, dim[1] - 2, 1)
             gs = min(1 - roots)
             xmineig = min(eig_val)
@@ -246,7 +246,7 @@ def sk_operator_norm(
             # Done the effort = 1 SDP, now get better upper bounds via symmetric
             # extensions if effort >= 2.
             for j in range(2, effort + 1):
-                # break out of the function if the target value has already been met
+                # Break out of the function if the target value has already been met.
                 if __target_is_proved(lower_bound, upper_bound, op_norm, tol, target):
                     return op_norm * lower_bound, op_norm * upper_bound
 
@@ -286,23 +286,21 @@ def sk_operator_norm(
     return lower_bound, upper_bound
 
 
-# This function checks whether or not the lower bound or upper bound
-# already computed meets the desired target value (within numerical error)
-# and thus we can abort early.
+# This function checks whether or not the lower bound or upper bound already computed meets the desired target value
+# (within numerical error) and thus we can abort early.
 def __target_is_proved(lower_bound: float, upper_bound: float, op_norm: float, tol: float, target: float) -> bool:
     return op_norm * (lower_bound + tol) >= op_norm * upper_bound or (
         target is not None and (op_norm * (lower_bound - tol) >= target or op_norm * (upper_bound + tol) <= target)
     )
 
 
-# This function computes a lower bound of the S(k)-norm of the input matrix
-# via a randomized method that searches for local maxima.
+# This function computes a lower bound of the S(k)-norm of the input matrix via a randomized method that searches for
+# local maxima.
 #
-# In more detail, starting from a random vector of Schmidt-rank less than k,
-# we alternately fix the Schmidt vectors of one sub-system and optimize the
-# Schmidt vectors of the other sub-system. This optimization is equivalent to
-# a generalized eigenvalue problem. The algorithm terminates when an iteration
-# cannot improve the lower bound by more than tol.
+# In more detail, starting from a random vector of Schmidt-rank less than k, we alternately fix the Schmidt vectors of
+# one sub-system and optimize the Schmidt vectors of the other sub-system. This optimization is equivalent to a
+# generalized eigenvalue problem. The algorithm terminates when an iteration cannot improve the lower bound by more than
+# tol.
 def __lower_bound_sk_norm_randomized(
     mat: np.ndarray,
     k: int = 1,
@@ -310,6 +308,10 @@ def __lower_bound_sk_norm_randomized(
     tol: float = 1e-5,
     start_vec: np.ndarray = None,
 ) -> float:
+
+    if mat.shape[0] != mat.shape[1]:
+        raise ValueError("Input matrix must be square.")
+
     dim_a, dim_b = dim
 
     psi = max_entangled(k, is_normalized=False)
@@ -324,7 +326,7 @@ def __lower_bound_sk_norm_randomized(
         if (s_rank := len(singular_vals)) > k:
             warnings.warn(
                 f"The Schmidt rank of the initial vector is {s_rank}, which is larger than k={k}. \
-                Using a randomly-generated intial vector instead."
+                Using a randomly-generated initial vector instead."
             )
         else:
             opt_vec = start_vec
@@ -351,8 +353,7 @@ def __lower_bound_sk_norm_randomized(
 
         # Loop through the 2 parties.
         for p in range(2):
-            # If Schmidt rank is not full, we will have numerical problems; go to
-            # lower Schmidt rank iteration.
+            # If Schmidt rank is not full, we will have numerical problems; go to lower Schmidt rank iteration.
             if (s_rank := schmidt_rank(opt_vec, dim)) < k:
                 return __lower_bound_sk_norm_randomized(mat, s_rank, dim, tol, opt_vec)
 

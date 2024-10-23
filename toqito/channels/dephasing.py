@@ -1,4 +1,4 @@
-"""The dephasing channel."""
+"""Generates the dephasing channel."""
 
 import numpy as np
 

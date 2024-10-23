@@ -1,4 +1,4 @@
-"""Calculate the (common) dimension of a set of vectors or matrices."""
+"""Calculates the (common) dimension of a set of vectors or matrices."""
 
 import numpy as np
 

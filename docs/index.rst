@@ -66,3 +66,10 @@ References
 
     references
 
+.. toctree:: 
+    :hidden:
+    :caption: Project Links
+
+    GitHub <https://github.com/vprusso/toqito>
+    PyPI <https://pypi.org/project/toqito/>
+    Discord Channel <https://discord.com/channels/764231928676089909/1172282184833454090/>
