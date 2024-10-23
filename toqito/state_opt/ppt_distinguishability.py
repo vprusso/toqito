@@ -3,7 +3,7 @@
 import numpy as np
 import picos
 
-from toqito.matrix_ops import calculate_vector_matrix_dimension, vector_to_density_matrix
+from toqito.matrix_ops import calculate_vector_matrix_dimension, to_density_matrix
 from toqito.matrix_props import has_same_dimension
 
 
@@ -156,7 +156,7 @@ def _min_error_primal(
         ]
     )
 
-    dms = [vector_to_density_matrix(vector) for vector in vectors]
+    dms = [to_density_matrix(vector) for vector in vectors]
     if strategy == "unambig":
         for i in range(n):
             for j in range(n):
@@ -189,7 +189,7 @@ def _min_error_dual(
     y_var = picos.HermitianVariable("Y", (d, d))
     problem.add_list_of_constraints(
         [
-            y_var - probs[i] * vector_to_density_matrix(vectors[i])
+            y_var - probs[i] * to_density_matrix(vectors[i])
             >> picos.partial_transpose(
                 q_var,
                 subsystems=subsystems,

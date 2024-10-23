@@ -3,7 +3,7 @@
 import numpy as np
 from picos import partial_transpose
 
-from toqito.state_ops import pure_to_mixed
+from toqito.matrix_ops import to_density_matrix
 
 
 def negativity(rho: np.ndarray, dim: list[int] | int = None) -> float:
@@ -47,7 +47,7 @@ def negativity(rho: np.ndarray, dim: list[int] | int = None) -> float:
 
     """
     # Allow the user to input either a pure state vector or a density matrix.
-    rho = pure_to_mixed(rho)
+    rho = to_density_matrix(rho)
     rho_dims = rho.shape
     round_dim = np.round(np.sqrt(rho_dims))
 

@@ -4,7 +4,7 @@ import numpy as np
 from toqito.rand import random_unitary
 
 
-def random_orthonormal_basis(dim: int, is_real: bool = False) -> list[np.ndarray]:
+def random_orthonormal_basis(dim: int, is_real: bool = False, seed: int | None = None) -> list[np.ndarray]:
     r"""Generate a real random orthonormal basis of given dimension :math:`d`.
 
     The basis is generated from the columns of a random unitary matrix of the same dimension
@@ -21,6 +21,13 @@ def random_orthonormal_basis(dim: int, is_real: bool = False) -> list[np.ndarray
     array([ 0.23965404, -0.58538248,  0.187136  ,  0.75158061]),
     array([ 0.658269  ,  0.25243989, -0.69118291,  0.158815  ])]
 
+    It is also possible to add a seed for reproducibility.
+
+    >>> from toqito.rand import random_orthonormal_basis
+    >>> random_orthonormal_basis(2, is_real=True, seed=42)
+    [array([0.66954664, 0.74277002]), array([-0.74277002,  0.66954664])]
+
+
     References
     ==========
     .. bibliography::
@@ -28,7 +35,9 @@ def random_orthonormal_basis(dim: int, is_real: bool = False) -> list[np.ndarray
 
     dim: int
         Number of elements in the random orthonormal basis.
+    seed: int | None
+        A seed used to instantiate numpy's random number generator.
 
     """
-    random_mat = random_unitary(dim, is_real)
+    random_mat = random_unitary(dim, is_real, seed)
     return [random_mat[:, i] for i in range(dim)]

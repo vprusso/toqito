@@ -4,7 +4,7 @@ import numpy as np
 import pytest
 
 from toqito.matrices import standard_basis
-from toqito.state_ops import pure_to_mixed
+from toqito.matrix_ops import to_density_matrix
 from toqito.state_opt import state_exclusion
 from toqito.states import bell
 
@@ -14,8 +14,8 @@ states_min_error = [
     # Bell states are perfectly distinguishable, so the probability of error should be nil
     ([bell(0), bell(1), bell(2), bell(3)], None, 0, {}),
     ([bell(0), bell(1), bell(2), bell(3)], [1 / 4, 1 / 4, 1 / 4, 1 / 4], 0, {}),
-    ([pure_to_mixed(bell(0)), pure_to_mixed(bell(1))], None, 0, {"cvxopt_kktsolver": "ldl"}),
-    ([pure_to_mixed(bell(0)), pure_to_mixed(bell(1))], [1 / 2, 1 / 2], 0, {"cvxopt_kktsolver": "ldl"}),
+    ([to_density_matrix(bell(0)), to_density_matrix(bell(1))], None, 0, {"cvxopt_kktsolver": "ldl"}),
+    ([to_density_matrix(bell(0)), to_density_matrix(bell(1))], [1 / 2, 1 / 2], 0, {"cvxopt_kktsolver": "ldl"}),
     # For |0> and |+>, this probability is 1/2 - 1/(2*sqrt(2))
     (
         [np.array([[1.], [0.]]), np.array([[1.], [1.]]) / np.sqrt(2)],
@@ -35,8 +35,8 @@ states_unambiguous = [
     # Bell states are perfectly distinguishable, so the probability of error should be nil
     ([bell(0), bell(1), bell(2), bell(3)], None, 0, {}),
     ([bell(0), bell(1), bell(2), bell(3)], [1 / 4, 1 / 4, 1 / 4, 1 / 4], 0, {}),
-    ([pure_to_mixed(bell(0)), pure_to_mixed(bell(1))], None, 0, {}),
-    ([pure_to_mixed(bell(0)), pure_to_mixed(bell(1))], [1 / 2, 1 / 2], 0, {}),
+    ([to_density_matrix(bell(0)), to_density_matrix(bell(1))], None, 0, {}),
+    ([to_density_matrix(bell(0)), to_density_matrix(bell(1))], [1 / 2, 1 / 2], 0, {}),
     # For |0> and |+>, this probability is 1/sqrt(2)
     (
         [np.array([[1.], [0.]]), np.array([[1.], [1.]]) / np.sqrt(2)],
