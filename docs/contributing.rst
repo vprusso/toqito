@@ -116,24 +116,28 @@ References in Docstrings
 
 
 If you are adding a new function, make sure the docstring of your function follows the formatting specifications
-in `Code Style`_. A standard format for :code:`toqito` docstring is provided below: ::
+in `Code Style`_. A standard format for :code:`toqito` docstring is provided below:
+
+.. code-block:: python
     
     def my_new_function(some_parameter: parameter_type) -> return_type:
         r"""One liner description of the new function.
 
-          Detailed description of the function.
+            Detailed description of the function.
 
-          Examples
-          ==========
-          Demonstrate how the function works with expected output.
+            Examples
+            ==========
+            Demonstrate how the function works with expected output.
 
-          References
-          ==========
-          .. bibliography::
-               :filter: docname in docnames
-
-          some_parameter: parameter_type
-               Details about the input and output parameters and parameter types.
+            References
+            ==========
+            .. bibliography::
+                :filter: docname in docnames
+        
+            :param name_of_parameter: Description of the parameter.
+            :raises SomeError: Description for when the function raises an error.
+            :return: Description of what the function returns.
+                
         """
 
 Use :code:`.. math::` mode for equations and use use :code:`:cite:some_ref` for some reference in the docstring. 
@@ -141,7 +145,9 @@ Use :code:`.. math::` mode for equations and use use :code:`:cite:some_ref` for 
 To add an attribution to a paper or a book, add your reference with :code:`some_ref` as the citation key to 
 `refs.bib`.
 
-Following is used in a docstring for the references to show up in the documentation build. ::
+Following is used in a docstring for the references to show up in the documentation build.
+
+.. code-block:: text
 
     References
     ==========
@@ -155,7 +161,7 @@ Documentation
 
 
 We use :code:`sphinx` to build the documentation and :code:`doctest` to test the examples in the documentation and function docstrings. 
-To build the documentation locally, make sure :code:`sphinx` and :code:`sphinx-wagtail-theme` are installed when poetry was used to
+To build the documentation locally, make sure :code:`sphinx` and :code:`furo` are installed when poetry was used to
 install :code:`toqito`.
 
 .. code-block:: bash
@@ -166,9 +172,9 @@ If you would prefer to decrease the amount of time taken by :code:`sphinx` to bu
 instead.
 
 A standard document has to follow the :code:`.rst` format.  For more information on :code:`sphinx` and
-:code:`sphinx-wagtail-theme`, visit
+the documentation theme :code:`furo`, visit
 `sphinx documentation <https://docs.readthedocs.io/en/stable/intro/getting-started-with-sphinx.html>`_ &
-`sphinx-wagtail-theme documentation <https://github.com/wagtail/sphinx-wagtail-theme>`_ .
+`furo documentation <https://sphinx-themes.org/sample-sites/furo/>`_ .
 
 To use `doctest`:
 
