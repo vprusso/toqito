@@ -1,4 +1,4 @@
-"""Calculate permutation sign."""
+"""Calculates the permutation sign."""
 
 import numpy as np
 from scipy import linalg

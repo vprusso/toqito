@@ -1,4 +1,4 @@
-"""Is matrix a symmetric matrix."""
+"""Checks if the matrix is a symmetric matrix."""
 
 import numpy as np
 

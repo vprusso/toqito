@@ -1,4 +1,4 @@
-"""Gell-Mann matrices."""
+"""Generates the Gell-Mann operator matrices."""
 
 import numpy as np
 from scipy.sparse import csr_array

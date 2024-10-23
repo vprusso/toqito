@@ -1,4 +1,4 @@
-"""Properties of matrices and vectors."""
+"""Matrix operations is a set of modules that implements various properties of matrices and vectors."""
 
 from toqito.matrix_props.has_same_dimension import has_same_dimension
 from toqito.matrix_props.is_square import is_square

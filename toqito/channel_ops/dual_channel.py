@@ -1,4 +1,4 @@
-"""Compute the dual of a map."""
+"""Computes the dual of a map."""
 
 import numpy as np
 

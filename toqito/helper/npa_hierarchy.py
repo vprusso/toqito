@@ -1,4 +1,4 @@
-"""NPA constraints."""
+"""Generates the NPA constraints."""
 
 from collections import namedtuple
 from itertools import product

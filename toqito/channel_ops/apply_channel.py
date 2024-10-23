@@ -1,4 +1,4 @@
-"""Apply channel to an operator."""
+"""Applies a quantum channel to an operator."""
 
 import itertools
 

@@ -1,4 +1,4 @@
-"""Operations on matrices and vectors."""
+"""Matrix operations is a set of modules that are used to implement commonly used operations on vectors and matrices."""
 
 from toqito.matrix_ops.tensor import tensor
 from toqito.matrix_ops.vec import vec

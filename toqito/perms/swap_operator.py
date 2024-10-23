@@ -1,4 +1,4 @@
-"""Swap operator."""
+"""Swap operator. is used to generate a unitary operator that can swap two subsystems."""
 
 import numpy as np
 import scipy as sp

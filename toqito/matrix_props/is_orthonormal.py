@@ -1,4 +1,4 @@
-"""Tests for is_orthonormal."""
+"""Checks if the set of vectors are orthonormal."""
 
 import numpy as np
 

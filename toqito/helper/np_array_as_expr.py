@@ -1,4 +1,4 @@
-"""np.array object as cvxpy expression object."""
+"""Converts a np.array object to cvxpy expression object."""
 
 import numpy as np
 from cvxpy import bmat
