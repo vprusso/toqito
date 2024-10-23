@@ -38,7 +38,7 @@ isort = "5.13.2"
 myst-parser = "4.0.0"
 pep8 = "1.7.1"
 ruff = "0.7.0"
-mypy = "1.12.1"
+mypy = "1.13.0"
 black = "*"
 
 [tool.poetry.group.docs.dependencies]
