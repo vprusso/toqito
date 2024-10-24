@@ -1,4 +1,4 @@
-"""Von neumann entropy metric."""
+"""Calculates the Von neumann entropy metric of a quantum state."""
 
 import numpy as np
 

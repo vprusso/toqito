@@ -1,9 +1,9 @@
-"""Generate Ginibre random matrix."""
+"""Generates a Ginibre random matrix."""
 
 import numpy as np
 
 
-def random_ginibre(dim_n: int, dim_m: int) -> np.ndarray:
+def random_ginibre(dim_n: int, dim_m: int, seed: int | None = None) -> np.ndarray:
     r"""Generate a Ginibre random matrix :cite:`WikiCircLaw`.
 
     Generates a random :code:`dim_n`-by-:code:`dim_m` Ginibre matrix.
@@ -23,6 +23,12 @@ def random_ginibre(dim_n: int, dim_m: int) -> np.ndarray:
     array([[0.39166472-1.54657971j, 0.36538245+0.23324642j],
            [0.50103695-0.25857737j, 0.8357054 +0.31404353j]])
 
+    It is also possible to pass a seed to this function for reproducibility.
+
+    >>> from toqito.rand import random_ginibre
+    >>> random_ginibre(2, 2, seed=42)
+    array([[ 0.21546751-1.37959021j, -0.73537981-0.92077996j],
+           [ 0.53064913+0.09039682j,  0.66507969-0.22361728j]])
 
 
     References
@@ -33,7 +39,9 @@ def random_ginibre(dim_n: int, dim_m: int) -> np.ndarray:
 
     :param dim_n: The number of rows of the Ginibre random matrix.
     :param dim_m: The number of columns of the Ginibre random matrix.
+    :param seed: A seed used to instantiate numpy's random number generator.
     :return: A :code:`dim_n`-by-:code:`dim_m` Ginibre random density matrix.
 
     """
-    return (np.random.randn(dim_n, dim_m) + 1j * np.random.randn(dim_n, dim_m)) / np.sqrt(2)
+    gen = np.random.default_rng(seed=seed)
+    return (gen.standard_normal((dim_n, dim_m)) + 1j * gen.standard_normal((dim_n, dim_m))) / np.sqrt(2)

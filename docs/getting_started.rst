@@ -75,13 +75,13 @@ If you are using the :code:`toqito` software package in research work, please
 include an explicit mention of :code:`toqito` in your publication. Something
 along the lines of:
 
-.. code-block:: bash
+.. code-block:: text
 
     To solve problem "X" we used `toqito`; a package for studying certain aspects of quantum information.
 
 A BibTeX entry that you can use to cite :code:`toqito` is provided here:
 
-.. code-block:: bash
+.. code-block:: text
 
     @misc{toqito,
        author       = {Vincent Russo},

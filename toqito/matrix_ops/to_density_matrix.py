@@ -1,9 +1,9 @@
-"""Convert row or column vector to density matrix."""
+"""Converts a row or a column vector to a density matrix."""
 
 import numpy as np
 
 
-def vector_to_density_matrix(input_array: np.ndarray) -> np.ndarray:
+def to_density_matrix(input_array: np.ndarray) -> np.ndarray:
     """Convert a given vector to a density matrix or return the density matrix if already given.
 
     If the input is a vector, this function computes the outer product to form a density matrix.
@@ -15,9 +15,9 @@ def vector_to_density_matrix(input_array: np.ndarray) -> np.ndarray:
     As an example, consider one of the Bell states.
 
     >>> from toqito.states import bell
-    >>> from toqito.matrix_ops import vector_to_density_matrix
+    >>> from toqito.matrix_ops import to_density_matrix
     >>>
-    >>> vector_to_density_matrix(bell(0))
+    >>> to_density_matrix(bell(0))
     array([[0.5, 0. , 0. , 0.5],
            [0. , 0. , 0. , 0. ],
            [0. , 0. , 0. , 0. ],

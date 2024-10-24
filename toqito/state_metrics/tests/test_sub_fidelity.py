@@ -8,7 +8,7 @@ from toqito.states import basis, bell
 
 def test_sub_fidelity_default():
     """Test sub_fidelity default arguments."""
-    rho = bell(0) * bell(0).conj().T
+    rho = bell(0) @ bell(0).conj().T
     sigma = rho
 
     res = sub_fidelity(rho, sigma)
@@ -18,8 +18,8 @@ def test_sub_fidelity_default():
 def test_sub_fidelity_lower_bound_1():
     """Test sub_fidelity is lower bound on fidelity for rho and sigma."""
     e_0, e_1 = basis(2, 0), basis(2, 1)
-    rho = 3 / 4 * e_0 * e_0.conj().T + 1 / 4 * e_1 * e_1.conj().T
-    sigma = 2 / 3 * e_0 * e_0.conj().T + 1 / 3 * e_1 * e_1.conj().T
+    rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T
+    sigma = 2 / 3 * e_0 @ e_0.conj().T + 1 / 3 * e_1 @ e_1.conj().T
 
     res = sub_fidelity(rho, sigma)
     np.testing.assert_array_less(res, fidelity(rho, sigma))
@@ -28,8 +28,8 @@ def test_sub_fidelity_lower_bound_1():
 def test_sub_fidelity_lower_bound_2():
     """Test sub_fidelity is lower bound on fidelity for rho and pi."""
     e_0, e_1 = basis(2, 0), basis(2, 1)
-    rho = 3 / 4 * e_0 * e_0.conj().T + 1 / 4 * e_1 * e_1.conj().T
-    sigma = 1 / 8 * e_0 * e_0.conj().T + 7 / 8 * e_1 * e_1.conj().T
+    rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T
+    sigma = 1 / 8 * e_0 @ e_0.conj().T + 7 / 8 * e_1 @ e_1.conj().T
 
     res = sub_fidelity(rho, sigma)
     np.testing.assert_array_less(res, fidelity(rho, sigma))

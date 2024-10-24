@@ -1,4 +1,8 @@
-"""Construct a set of mutually unbiased bases."""
+"""Mutually unbiased basis states.
+
+If a system prepared in an eigenstate of one of the bases gives an equal probability of (1/d) when measured with respect
+to the other bases, mutually unbiased basis states are orthonormal bases in the Hilbert space Cᵈ.
+"""
 
 import numpy as np
 from sympy import isprime, primerange

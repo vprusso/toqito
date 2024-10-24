@@ -1,4 +1,4 @@
-"""Compute the completely bounded spectral norm of a quantum channel."""
+"""Computes the completely bounded spectral norm of a quantum channel."""
 
 import numpy as np
 

@@ -1,4 +1,4 @@
-"""Generate a cyclic permutation matrix."""
+"""Generates a cyclic permutation matrix."""
 
 import numpy as np
 

@@ -1,8 +1,8 @@
-"""Compute the l1-norm of coherence of a quantum state."""
+"""Computes the l1-norm of coherence of a quantum state."""
 
 import numpy as np
 
-from toqito.state_ops import pure_to_mixed
+from toqito.matrix_ops import to_density_matrix
 
 
 def l1_norm_coherence(rho: np.ndarray) -> float:
@@ -49,5 +49,5 @@ def l1_norm_coherence(rho: np.ndarray) -> float:
     :return: The l1-norm coherence of :code:`rho`.
 
     """
-    rho = pure_to_mixed(rho)
+    rho = to_density_matrix(rho)
     return np.sum(np.sum(np.abs(rho))) - np.trace(rho)

@@ -36,7 +36,7 @@ def majorizes(a_var: np.ndarray | list[int], b_var: np.ndarray | list[int]) -> b
     >>> from toqito.channels import partial_trace
     >>>
     >>> v_vec = max_entangled(3)
-    >>> rho = v_vec * v_vec.conj().T
+    >>> rho = v_vec @ v_vec.conj().T
     >>> majorizes(partial_trace(rho, [1]), rho)
     False
 

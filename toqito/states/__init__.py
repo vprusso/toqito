@@ -1,4 +1,7 @@
-"""Quantum states."""
+"""Quantum States is the set of modules that numerically implements the well known quantum states listed below.
+
+They are one of the three fundamental objects that `toqito` provides, the others being `channels` and `measurements`.
+"""
 
 from toqito.states.basis import basis
 from toqito.states.bb84 import bb84

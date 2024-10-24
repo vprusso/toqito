@@ -1,9 +1,10 @@
 .. figure:: figures/logo.png
    :alt: toqito logo
-   :align: center
+   :align: left
 
-toqito
-======
+
+|
+|
 
 The :code:`toqito` package is an open source library for studying various
 objects in quantum information, namely, states, channels, and measurements.
@@ -52,6 +53,7 @@ API Reference
 -------------
 
 .. toctree::
+   :maxdepth: 2
    :titlesonly:
 
    autoapi_members
@@ -64,3 +66,10 @@ References
 
     references
 
+.. toctree:: 
+    :hidden:
+    :caption: Project Links
+
+    GitHub <https://github.com/vprusso/toqito>
+    PyPI <https://pypi.org/project/toqito/>
+    Discord Channel <https://discord.com/channels/764231928676089909/1172282184833454090/>

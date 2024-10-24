@@ -40,10 +40,10 @@ def measure(measurement: np.ndarray, state: np.ndarray) -> float:
     >>> e_0, e_1 = basis(2, 0), basis(2, 1)
     >>>
     >>> u = 1/np.sqrt(3) * e_0 + np.sqrt(2/3) * e_1
-    >>> rho = u * u.conj().T
+    >>> rho = u @ u.conj().T
     >>>
-    >>> proj_0 = e_0 * e_0.conj().T
-    >>> proj_1 = e_1 * e_1.conj().T
+    >>> proj_0 = e_0 @ e_0.conj().T
+    >>> proj_1 = e_1 @ e_1.conj().T
 
     Then the probability of obtaining outcome :math:`0` is given by
 
@@ -73,4 +73,4 @@ def measure(measurement: np.ndarray, state: np.ndarray) -> float:
              the variable :code:`measurement` to the variable :code:`state`.
 
     """
-    return float(np.trace(measurement.conj().T * state))
+    return float(np.trace(measurement.conj().T @ state))

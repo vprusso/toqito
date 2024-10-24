@@ -1,4 +1,4 @@
-"""Properties of quantum states."""
+"""State Properties is a set of modules that implements some common properties of quantum states."""
 
 from toqito.state_props.is_ensemble import is_ensemble
 from toqito.state_props.is_pure import is_pure

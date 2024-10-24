@@ -1,4 +1,4 @@
-"""Permute systems."""
+"""Permute systems is used to permute subsystems within a quantum state or an operator."""
 
 import functools
 import operator
@@ -210,7 +210,7 @@ def permute_systems(
     row_perm = permute_systems(vec_arg, perm, dim[0][:], False, inv_perm)
 
     # This condition is only necessary if the `input_mat` variable is sparse.
-    if isinstance(input_mat, (sparse.csr_matrix, sparse.dia_matrix)):
+    if sparse.issparse(input_mat):
         input_mat = input_mat.toarray()
         permuted_mat = input_mat[row_perm, :]
         permuted_mat = np.array(permuted_mat)

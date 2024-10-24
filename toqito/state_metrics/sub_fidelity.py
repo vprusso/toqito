@@ -1,4 +1,7 @@
-"""Sub-fidelity metric."""
+"""Sub-fidelity metric is a lower bound for the fidelity.
+
+The sub-fidelity metric is a concave function and sub-multiplicative.
+"""
 
 import numpy as np
 
@@ -35,8 +38,8 @@ def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     >>> from toqito.states import basis
     >>> from toqito.state_metrics import fidelity
     >>> e_0, e_1 = basis(2, 0), basis(2, 1)
-    >>> rho = 3 / 4 * e_0 * e_0.conj().T + 1 / 4 * e_1 * e_1.conj().T
-    >>> sigma = 1/8 * e_0 * e_0.conj().T + 7/8 * e_1 * e_1.conj().T
+    >>> rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T
+    >>> sigma = 1/8 * e_0 @ e_0.conj().T + 7/8 * e_1 @ e_1.conj().T
     >>> fidelity(rho, sigma)
     np.float64(0.77389339119464)
 
@@ -46,8 +49,8 @@ def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     >>> from toqito.states import basis
     >>> from toqito.state_metrics import sub_fidelity
     >>> e_0, e_1 = basis(2, 0), basis(2, 1)
-    >>> rho = 3 / 4 * e_0 * e_0.conj().T + 1 / 4 * e_1 * e_1.conj().T
-    >>> sigma = 1/8 * e_0 * e_0.conj().T + 7/8 * e_1 * e_1.conj().T
+    >>> rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T
+    >>> sigma = 1/8 * e_0 @ e_0.conj().T + 7/8 * e_1 @ e_1.conj().T
     >>> sub_fidelity(rho, sigma)
     np.float64(0.5989109809347399)
 
@@ -70,5 +73,5 @@ def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
         raise ValueError("Sub-fidelity is only defined for density operators.")
 
     return np.real(
-        np.trace(rho * sigma) + np.sqrt(2 * (np.trace(rho * sigma) ** 2 - np.trace(rho * sigma * rho * sigma)))
+        np.trace(rho @ sigma) + np.sqrt(2 * (np.trace(rho @ sigma) ** 2 - np.trace(rho @ sigma @ rho @ sigma)))
     )

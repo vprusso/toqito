@@ -1,4 +1,4 @@
-"""Check if violates the PPT criterion."""
+"""Checks if a quantum state violates the PPT criterion."""
 
 import numpy as np
 
@@ -57,7 +57,7 @@ def is_ppt(mat: np.ndarray, sys: int = 2, dim: int | list[int] = None, tol: floa
 
     >>> from toqito.states import bell
     >>> from toqito.state_props import is_ppt
-    >>> rho = bell(2) * bell(2).conj().T
+    >>> rho = bell(2) @ bell(2).conj().T
     >>> is_ppt(rho)
     False
 

@@ -1,4 +1,4 @@
-"""Is matrix a density matrix."""
+"""Checks if the matrix is a density matrix."""
 
 import numpy as np
 
@@ -36,7 +36,7 @@ def is_density(mat: np.ndarray) -> bool:
     >>> from toqito.matrix_props import is_density
     >>> from toqito.states import bell
     >>> import numpy as np
-    >>> rho = bell(0) * bell(0).conj().T
+    >>> rho = bell(0) @ bell(0).conj().T
     >>> is_density(rho)
     np.True_
 

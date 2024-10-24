@@ -1,4 +1,4 @@
-"""Compute the Choi matrix of a list of Kraus operators."""
+"""Computes the Choi matrix of a list of Kraus operators."""
 
 import numpy as np
 
@@ -63,7 +63,7 @@ def kraus_to_choi(kraus_ops: list[list[np.ndarray]], sys: int = 2) -> np.ndarray
     dim_op_1, dim_op_2 = dim_in
 
     choi_mat = partial_channel(
-        max_entangled(dim_op_1, False, False) * max_entangled(dim_op_2, False, False).conj().T,
+        max_entangled(dim_op_1, False, False) @ max_entangled(dim_op_2, False, False).conj().T,
         kraus_ops,
         sys,
         np.array([[dim_op_1, dim_op_1], [dim_op_2, dim_op_2]]),

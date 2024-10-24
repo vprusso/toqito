@@ -1,4 +1,4 @@
-"""Is matrix a Hermitian matrix."""
+"""Checks if the matrix is a Hermitian matrix."""
 
 import numpy as np
 

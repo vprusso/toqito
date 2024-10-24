@@ -1,4 +1,4 @@
-"""Check if state is separable."""
+"""Checks if a quantum state is a separable state."""
 
 from itertools import product
 

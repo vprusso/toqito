@@ -1,4 +1,4 @@
-"""Check is a matrix is stochastic."""
+"""Checks if the matrix is stochastic."""
 
 import numpy as np
 

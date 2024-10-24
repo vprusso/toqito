@@ -2,6 +2,7 @@
 
 import numpy as np
 import pytest
+from numpy.ma.testutils import assert_array_almost_equal
 
 from toqito.rand import random_ginibre
 
@@ -12,6 +13,32 @@ def test_random_ginibre_dims(dim_n, dim_m):
     """Generate random Ginibre matrix and check proper dimensions."""
     gin_mat = random_ginibre(dim_n, dim_m)
     np.testing.assert_equal(gin_mat.shape, (dim_n, dim_m))
+
+@pytest.mark.parametrize(
+    "dim_n, dim_m, expected",
+    [
+        (
+            2,
+            3,
+            np.array([
+                [-0.69941441-0.45004776j, -0.26006444+0.38321809j, 0.91070069-0.22386679j],
+                [0.13716063-0.22796353j, 0.65070151+0.06870767j, 0.408074-1.07899574j]
+            ])
+        ),
+        (
+            2,
+            2,
+            np.array([
+                [-0.69941441+0.65070151j, -0.26006444+0.408074j],
+                [0.91070069-0.45004776j, 0.13716063+0.38321809j]
+            ])
+        ),
+    ]
+)
+def test_seed(dim_n, dim_m, expected):
+    """Test that the function returns the expected output when seeded."""
+    gin_mat = random_ginibre(dim_n, dim_m, seed=123)
+    assert_array_almost_equal(gin_mat, expected)
 
 
 @pytest.mark.parametrize(

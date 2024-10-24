@@ -11,7 +11,6 @@ requirements = [
     "numpy",
     "picos",
     "scipy",
-    "scikit-image",
     "pytest",
     "pytest-cov",
     "qiskit",
@@ -20,7 +19,7 @@ requirements = [
 
 setuptools.setup(
     name="toqito",
-    version="1.0.9",
+    version="1.1.0",
     author="Vincent Russo",
     author_email="vincentrusso1@gmail.com",
     description="Python toolkit for quantum information theory",

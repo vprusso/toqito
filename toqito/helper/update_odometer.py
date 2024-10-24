@@ -1,4 +1,4 @@
-"""Update odometer."""
+"""Updates the odometer."""
 
 import numpy as np
 

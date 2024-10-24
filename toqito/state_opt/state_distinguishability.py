@@ -1,9 +1,9 @@
-"""State distinguishability."""
+"""Calculates the probability of optimally distinguishing quantum states."""
 
 import numpy as np
 import picos
 
-from toqito.matrix_ops import calculate_vector_matrix_dimension, vector_to_density_matrix, vectors_to_gram_matrix
+from toqito.matrix_ops import calculate_vector_matrix_dimension, to_density_matrix, vectors_to_gram_matrix
 from toqito.matrix_props import has_same_dimension
 
 
@@ -167,7 +167,7 @@ def _min_error_primal(
     problem.add_list_of_constraints([meas >> 0 for meas in measurements])
     problem.add_constraint(picos.sum(measurements) == picos.I(dim))
 
-    dms = [vector_to_density_matrix(vector) for vector in vectors]
+    dms = [to_density_matrix(vector) for vector in vectors]
 
     problem.set_objective("max", np.real(picos.sum([(probs[i] * dms[i] | measurements[i]) for i in range(n)])))
     solution = problem.solve(solver=solver, **kwargs)
@@ -188,7 +188,7 @@ def _min_error_dual(
     # Set up variables and constraints for SDP:
     y_var = picos.HermitianVariable("Y", (dim, dim))
     problem.add_list_of_constraints(
-        [y_var >> probs[i] * vector_to_density_matrix(vector) for i, vector in enumerate(vectors)]
+        [y_var >> probs[i] * to_density_matrix(vector) for i, vector in enumerate(vectors)]
     )
 
     # Objective function:

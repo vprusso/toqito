@@ -1,4 +1,4 @@
-"""Hilbert-Schmidt metric."""
+"""Hilbert-Schmidt metric is a distance metric used to generate an entanglement measure."""
 
 import numpy as np
 
@@ -23,8 +23,8 @@ def hilbert_schmidt(rho: np.ndarray, sigma: np.ndarray) -> float:
     >>> import numpy as np
     >>> from toqito.states import bell
     >>> from toqito.state_metrics import hilbert_schmidt
-    >>> rho = bell(0) * bell(0).conj().T
-    >>> sigma = bell(3) * bell(3).conj().T
+    >>> rho = bell(0) @ bell(0).conj().T
+    >>> sigma = bell(3) @ bell(3).conj().T
     >>> np.around(hilbert_schmidt(rho, sigma), decimals=2)
     np.float64(1.0)
 
