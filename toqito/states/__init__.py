@@ -7,6 +7,7 @@ from toqito.states.basis import basis
 from toqito.states.bb84 import bb84
 from toqito.states.bell import bell
 from toqito.states.chessboard import chessboard
+from toqito.states.dicke import dicke
 from toqito.states.domino import domino
 from toqito.states.gen_bell import gen_bell
 from toqito.states.ghz import ghz
