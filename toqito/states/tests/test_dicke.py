@@ -18,7 +18,10 @@ from toqito.states import dicke
 )
 def test_dicke_state(num_qubit, num_excited, expected_state):
     """Test that dicke_state produces the correct vector state."""
-    np.testing.assert_array_almost_equal(dicke(num_qubit, num_excited), expected_state, decimal=6)
+    result = dicke(num_qubit, num_excited)
+    assert np.allclose(result, expected_state, atol=1e-6), (
+        f"Result: {result} does not match expected: {expected_state}"
+    )
 
 
 @pytest.mark.parametrize(
@@ -33,8 +36,10 @@ def test_dicke_state(num_qubit, num_excited, expected_state):
 def test_dicke_state_density_matrix(num_qubit, num_excited, expected_dm_shape):
     """Test that dicke_state returns correct density matrix dimensions."""
     dm = dicke(num_qubit, num_excited, return_dm=True)
-    assert dm.shape == expected_dm_shape
-    assert np.isclose(np.trace(dm), 1)  # Ensure the trace of the density matrix is 1
+    assert dm.shape == expected_dm_shape, (
+        f"Expected shape: {expected_dm_shape}, but got {dm.shape}"
+    )
+    assert np.isclose(np.trace(dm), 1), f"Trace of the density matrix is not 1, but {np.trace(dm)}"
 
 
 @pytest.mark.parametrize(

@@ -1,4 +1,4 @@
-"""Dicke state."""
+"""Dicke states are an equal-weight superposition of all n-qubit states with Hamming Weight k."""
 
 import itertools
 
