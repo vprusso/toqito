@@ -63,5 +63,5 @@ def test_zero_perturbation(vectors):
     """Test that if eps = 0, the vectors remain the same."""
     perturbed_vectors = perturb_vectors(vectors, eps=0.0)
     for i in range(len(vectors)):
-        np.testing.assert_array_almost_equal(vectors[i], perturbed_vectors[i])
+        assert np.allclose(vectors[i], perturbed_vectors[i]), f"Vector {i} does not match."
 
