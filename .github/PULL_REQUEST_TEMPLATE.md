@@ -1,10 +1,10 @@
 ## Description
-Provide a brief description of the PR's purpose here. If your PR is supposed to fix an existing issue, use
-a [keyword](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue) to link your PR to the issue.
+<!--Provide a brief description of the PR's purpose here. If your PR is supposed to fix an existing issue, use
+a [keyword](https://docs.github.com/en/issues/tracking-your-work-with-issues/linking-a-pull-request-to-an-issue) to link your PR to the issue. -->
 
 ## Changes
-Notable changes that this PR has either accomplished or will accomplish. Feel free to add more lines to the itemized list
-below.
+<!--Notable changes that this PR has either accomplished or will accomplish. Feel free to add more lines to the itemized list
+below. -->
 
   -  [ ] Change 1
 
