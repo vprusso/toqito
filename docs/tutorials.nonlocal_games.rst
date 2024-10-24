@@ -487,7 +487,9 @@ In :code:`toqito`, we can encode this as a BCS game as follows
     >>> np.around(chsh_bcs.classical_value(), decimals=2)
     np.float64(0.75)
     >>> # Quantum value of CHSH is cos^2(pi/8) \approx 0.853...
-    >>> np.around(chsh_bcs.quantum_value_lower_bound(), decimals=2)
+    >>> # Multiple runs to avoid trap in suboptimal quantum value.
+    >>> results = [np.around(chsh_bcs.quantum_value_lower_bound(), decimals=2) for _ in range(5)] 
+    >>> max(results)
     np.float64(0.85)
 
 
