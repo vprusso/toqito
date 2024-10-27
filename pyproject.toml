@@ -37,7 +37,7 @@ flake8-docstrings = "1.7.0"
 isort = "5.13.2"
 myst-parser = "4.0.0"
 pep8 = "1.7.1"
-ruff = "0.7.0"
+ruff = "0.7.1"
 mypy = "1.13.0"
 black = "*"
 
