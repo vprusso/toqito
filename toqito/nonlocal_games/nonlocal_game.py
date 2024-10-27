@@ -195,56 +195,6 @@ class NonlocalGame:
 
         return p_win
 
-
-    def classical_value(self) -> float:
-        """Compute the classical value of the nonlocal game.
-
-        This function has been adapted from the QETLAB package.
-
-        :return: A value between [0, 1] representing the classical value.
-        """
-        (
-            num_alice_outputs,
-            num_bob_outputs,
-            num_alice_inputs,
-            num_bob_inputs,
-        ) = self.pred_mat.shape
-
-        # Create a copy of pred_mat to avoid in-place modification
-        pred_mat_copy = np.copy(self.pred_mat)
-
-        for x_alice_in in range(num_alice_inputs):
-            for y_bob_in in range(num_bob_inputs):
-                pred_mat_copy[:, :, x_alice_in, y_bob_in] = (
-                    self.prob_mat[x_alice_in, y_bob_in] * pred_mat_copy[:, :, x_alice_in, y_bob_in]
-                )
-        p_win = float("-inf")
-        if num_alice_outputs**num_alice_inputs < num_bob_outputs**num_bob_inputs:
-            pred_mat_copy = np.transpose(pred_mat_copy, (1, 0, 3, 2))
-            (
-                num_alice_outputs,
-                num_bob_outputs,
-                num_alice_inputs,
-                num_bob_inputs,
-            ) = pred_mat_copy.shape
-        pred_mat_copy = np.transpose(pred_mat_copy, (0, 2, 1, 3))
-
-        for i in range(num_alice_outputs**num_bob_inputs):
-            number = i
-            base = num_bob_outputs
-            digits = num_bob_inputs
-            b_ind = np.zeros(digits)
-            for j in range(digits):
-                b_ind[digits - j - 1] = np.mod(number, base)
-                number = np.floor(number / base)
-            pred_alice = np.zeros((num_alice_outputs, num_alice_inputs))
-
-            for y_bob_in in range(num_bob_inputs):
-                pred_alice = pred_alice + pred_mat_copy[:, :, int(b_ind[y_bob_in]), y_bob_in]
-            tgval = np.sum(np.amax(pred_alice, axis=0))
-            p_win = max(p_win, tgval)
-        return p_win
-
     def quantum_value_lower_bound(
         self,
         dim: int = 2,
