@@ -1,5 +1,6 @@
 """Two-player nonlocal game."""
 
+import multiprocessing
 from collections import defaultdict
 
 import cvxpy
@@ -119,6 +120,81 @@ class NonlocalGame:
                         pred_mat[a_ans, b_ans, x_ques, y_ques] = 1
 
         return cls(prob_mat, pred_mat, reps)
+
+    def process_iteration(i, num_bob_outputs, num_bob_inputs, pred_mat_copy, num_alice_outputs, num_alice_inputs):
+        """Help the classical_value function as a helper method.
+
+        :return: A value between [0, 1] representing the tgval.
+        """
+        number = i
+        base = num_bob_outputs
+        digits = num_bob_inputs
+        b_ind = np.zeros(digits)
+
+        for j in range(digits):
+            b_ind[digits - j - 1] = np.mod(number, base)
+            number = np.floor(number / base)
+
+        pred_alice = np.zeros((num_alice_outputs, num_alice_inputs))
+
+        for y_bob_in in range(num_bob_inputs):
+            pred_alice += pred_mat_copy[:, :, int(b_ind[y_bob_in]), y_bob_in]
+
+        tgval = np.sum(np.amax(pred_alice, axis=0))
+        return tgval
+
+    def classical_value(self) -> float:
+        """Compute the classical value of the nonlocal game.
+
+        This function has been adapted from the QETLAB package.
+
+        :return: A value between [0, 1] representing the classical value.
+        """
+        (
+            num_alice_outputs,
+            num_bob_outputs,
+            num_alice_inputs,
+            num_bob_inputs,
+        ) = self.pred_mat.shape
+
+        # Create a copy of pred_mat to avoid in-place modification
+        pred_mat_copy = np.copy(self.pred_mat)
+
+        for x_alice_in in range(num_alice_inputs):
+            for y_bob_in in range(num_bob_inputs):
+                pred_mat_copy[:, :, x_alice_in, y_bob_in] = (
+                    self.prob_mat[x_alice_in, y_bob_in] * pred_mat_copy[:, :, x_alice_in, y_bob_in]
+                )
+
+        if num_alice_outputs**num_alice_inputs < num_bob_outputs**num_bob_inputs:
+            pred_mat_copy = np.transpose(pred_mat_copy, (1, 0, 3, 2))
+            (
+                num_alice_outputs,
+                num_bob_outputs,
+                num_alice_inputs,
+                num_bob_inputs,
+            ) = pred_mat_copy.shape
+        pred_mat_copy = np.transpose(pred_mat_copy, (0, 2, 1, 3))
+
+        p_win = float("-inf")
+        num_iterations = num_alice_outputs**num_bob_inputs
+
+        if num_iterations > 1000:
+            with multiprocessing.Pool() as pool:
+                tgvals = pool.starmap(
+                    NonlocalGame.process_iteration,
+                    [(i, num_bob_outputs, num_bob_inputs, pred_mat_copy, num_alice_outputs, num_alice_inputs)
+                    for i in range(num_iterations)]
+                )
+                p_win = max(tgvals)
+        else:
+            for i in range(num_iterations):
+                tgval = NonlocalGame.process_iteration(i, num_bob_outputs, num_bob_inputs, pred_mat_copy,
+                                                       num_alice_outputs, num_alice_inputs)
+                p_win = max(p_win, tgval)
+
+        return p_win
+
 
     def classical_value(self) -> float:
         """Compute the classical value of the nonlocal game.
