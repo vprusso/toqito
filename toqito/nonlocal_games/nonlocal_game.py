@@ -179,14 +179,16 @@ class NonlocalGame:
 
         num_iterations = num_alice_outputs**num_bob_inputs
 
+        # we parallelize for large problems only
         if num_iterations > 1000:
-            with multiprocessing.Pool() as pool:
+            with multiprocessing.Pool() as pool:  # Creating a pool of processes for parallelization
                 tgvals = pool.starmap(
                     NonlocalGame.process_iteration,
                     [(i, num_bob_outputs, num_bob_inputs, pred_mat_copy, num_alice_outputs, num_alice_inputs)
                     for i in range(num_iterations)]
                 )
                 p_win = max(tgvals)
+        # Using single core implementation for small problems
         else:
             for i in range(num_iterations):
                 tgval = NonlocalGame.process_iteration(i, num_bob_outputs, num_bob_inputs, pred_mat_copy,
