@@ -165,7 +165,7 @@ class NonlocalGame:
                 pred_mat_copy[:, :, x_alice_in, y_bob_in] = (
                     self.prob_mat[x_alice_in, y_bob_in] * pred_mat_copy[:, :, x_alice_in, y_bob_in]
                 )
-
+        p_win = float("-inf")
         if num_alice_outputs**num_alice_inputs < num_bob_outputs**num_bob_inputs:
             pred_mat_copy = np.transpose(pred_mat_copy, (1, 0, 3, 2))
             (
@@ -176,7 +176,6 @@ class NonlocalGame:
             ) = pred_mat_copy.shape
         pred_mat_copy = np.transpose(pred_mat_copy, (0, 2, 1, 3))
 
-        p_win = float("-inf")
         num_iterations = num_alice_outputs**num_bob_inputs
 
         if num_iterations > 1000:
