@@ -132,9 +132,9 @@ class NonlocalGame:
         digits = num_bob_inputs
         b_ind = np.zeros(digits)
 
-        for j in range(digits):
-            b_ind[digits - j - 1] = np.mod(number, base)
-            number = np.floor(number / base)
+        for j in range(digits - 1, -1, -1):
+            number, remainder = divmod(number, base)
+            b_ind[j] = remainder
 
         pred_alice = np.zeros((num_alice_outputs, num_alice_inputs))
 
