@@ -1766,13 +1766,13 @@ test = ["cython (>=3.0)", "defusedxml (>=0.7.1)", "pytest (>=8.0)", "setuptools 
 
 [[package]]
 name = "sphinx-autoapi"
-version = "3.3.2"
+version = "3.3.3"
 description = "Sphinx API documentation generator"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "sphinx_autoapi-3.3.2-py2.py3-none-any.whl", hash = "sha256:08afa656f7fcd45fe7dd64bf9f44698ddb8ca7c2d5cd0614c7455912ed580324"},
-    {file = "sphinx_autoapi-3.3.2.tar.gz", hash = "sha256:ebf8b44b2ebab5c28f0263ec6c2f8acdd156e9b2d539a58eca39d2f368445173"},
+    {file = "sphinx_autoapi-3.3.3-py3-none-any.whl", hash = "sha256:5c7349b42d45a492a611cb81fb48583d5148e9eab7fc6b1f326dc9273b9191e3"},
+    {file = "sphinx_autoapi-3.3.3.tar.gz", hash = "sha256:c44fd719580e9a3684ff82019f4f7f39fc970e3030ffd325936654a6f4d31f22"},
 ]
 
 [package.dependencies]
@@ -1783,9 +1783,6 @@ astroid = [
 Jinja2 = "*"
 PyYAML = "*"
 sphinx = ">=6.1.0"
-
-[package.extras]
-docs = ["furo", "sphinx", "sphinx-design"]
 
 [[package]]
 name = "sphinx-basic-ng"
@@ -2041,4 +2038,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<4"
-content-hash = "256e8d2403d42ffb2c8fd233c8845326c41494c0daf853e672be15ff1acdab0e"
+content-hash = "e05ca118bfc19dcb6f86acb7ed87c519d743562fe2861a34ca3cff45bba1754e"
