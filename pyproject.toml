@@ -24,7 +24,7 @@ picos = "2.5.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "8.3.3"
-pytest-cov = "5.0.0"
+pytest-cov = "6.0.0"
 coverage = "7.6.4"
 sympy = "1.13.3"
 distlib = "0.3.9"
