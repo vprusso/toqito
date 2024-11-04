@@ -1208,12 +1208,12 @@ ptyprocess = ">=0.5"
 
 [[package]]
 name = "picos"
-version = "2.5.0"
+version = "2.5.1"
 description = "A Python interface to conic optimization solvers."
 optional = false
 python-versions = ">=3.4"
 files = [
-    {file = "picos-2.5.0.tar.gz", hash = "sha256:4fcb99c3f37902cb4a2370ce14810fcc05692a1c020376e4730fe57353095116"},
+    {file = "picos-2.5.1.tar.gz", hash = "sha256:666b7385f7aed055112bba420c9ec0b1973a12565faedef7ad51f783c3a4902b"},
 ]
 
 [package.dependencies]
@@ -2038,4 +2038,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.10,<4"
-content-hash = "2a7074c553d090a18326acdf842e006783a3adb89d04f509ad4713a15cf76bde"
+content-hash = "87b0c160d091843bc5aebbf5465db69a929c350afe84626ccb03959d0cbb84be"
