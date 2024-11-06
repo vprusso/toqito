@@ -1,4 +1,4 @@
-"""Is matrix a normal matrix."""
+"""Checks if the matrix is a normal matrix."""
 
 import numpy as np
 

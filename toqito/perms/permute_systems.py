@@ -1,4 +1,4 @@
-"""Permute systems."""
+"""Permute systems is used to permute subsystems within a quantum state or an operator."""
 
 import functools
 import operator

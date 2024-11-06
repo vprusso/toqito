@@ -1,4 +1,4 @@
-"""Cvxpy expression as np.array."""
+"""Converts a Cvxpy expression into a np.array."""
 
 import numpy as np
 from cvxpy.expressions.expression import Expression

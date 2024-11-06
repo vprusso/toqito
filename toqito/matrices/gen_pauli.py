@@ -1,4 +1,4 @@
-"""Generalized Pauli matrices."""
+"""Produces the generalized Pauli operator matrices."""
 
 import numpy as np
 

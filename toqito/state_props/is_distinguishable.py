@@ -1,4 +1,4 @@
-"""Check if set of states are distinguishable."""
+"""Checks if a set of quantum states are distinguishable."""
 
 import numpy as np
 

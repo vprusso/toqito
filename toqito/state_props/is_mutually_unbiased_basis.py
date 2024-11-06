@@ -1,4 +1,4 @@
-"""Check if states form mutually unbiased basis."""
+"""Checks if the quantum states form a mutually unbiased basis."""
 
 from typing import Any
 

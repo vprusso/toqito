@@ -1,4 +1,4 @@
-"""Helstrom-Holevo metric."""
+"""Helstrom-Holevo metric gives the bst success probability to distinguish two mixed states."""
 
 import numpy as np
 

@@ -1,4 +1,4 @@
-"""Permutation operator."""
+"""Permutation operator is a unitary operator that permutes subsystems."""
 
 import numpy as np
 import scipy as sp

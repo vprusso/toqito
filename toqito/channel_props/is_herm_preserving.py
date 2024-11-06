@@ -1,4 +1,4 @@
-"""Is channel Hermiticity-preserving."""
+"""Determines if a channel is Hermiticity-preserving."""
 
 import numpy as np
 

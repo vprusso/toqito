@@ -1,4 +1,4 @@
-"""Swap."""
+"""Swap is used to apply the swap function within a quantum state or an operator."""
 
 import numpy as np
 

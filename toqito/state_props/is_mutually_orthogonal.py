@@ -1,4 +1,4 @@
-"""Check if states are mutually orthogonal."""
+"""Checks if quantum states are mutually orthogonal."""
 
 from typing import Any
 

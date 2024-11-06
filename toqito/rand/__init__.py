@@ -1,4 +1,4 @@
-"""Generate random quantum states and measurements."""
+"""Rand is a set of modules used to generate random quantum states and measurements."""
 
 from toqito.rand.random_unitary import random_unitary
 from toqito.rand.random_density_matrix import random_density_matrix

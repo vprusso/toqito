@@ -1,4 +1,4 @@
-"""Is channel completely positive."""
+"""Determines if a channel is completely positive."""
 
 import numpy as np
 
