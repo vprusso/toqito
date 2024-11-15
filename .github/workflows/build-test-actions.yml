@@ -74,7 +74,7 @@ jobs:
       - name: Run tests
         run: poetry run pytest -v --cov-config=.coveragerc --cov-report=xml --cov-report term-missing:skip-covered --cov=toqito
       - name: Upload coverage information
-        uses: codecov/codecov-action@v4
+        uses: codecov/codecov-action@v5
         with:
           token: 42c62957-6808-41de-af29-3bbc4f8f0867
           name: codecov-umbrella
