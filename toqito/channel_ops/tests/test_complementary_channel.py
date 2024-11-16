@@ -64,6 +64,10 @@ def test_complementary_channel(kraus_ops, expected):
         ([]),
         # Invalid test case: single row matrix (not a square)
         ([np.array([[1, 0]])]),
+        # Different dimenisions for kraus operators in a set
+        ([np.array([[1, 0, 0], [0, 1, 0], [0, 1, 1]]), np.array([[1, 0], [0, 1]])]),
+        # Invalid test case: Kraus operators that do not satisfy the completeness relation
+        ([np.array([[1, 0], [0, 0.5]]), np.array([[0, 0.5], [0, 0.5]])]),  # Sum != I
     ],
 )
 def test_complementary_channel_error(kraus_ops):
