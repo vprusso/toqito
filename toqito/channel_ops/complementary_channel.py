@@ -85,7 +85,7 @@ def complementary_channel(kraus_ops: list[np.ndarray]) -> list[np.ndarray]:
 
     if any(k.shape[0] != op_dim for k in kraus_ops):
         raise ValueError("All Kraus operators must be equal size matrices.")
-    
+
     # Check the Kraus completeness relation: ∑ K_i† K_i = I
     identity = np.eye(op_dim, dtype=kraus_ops[0].dtype)
     sum_k_dagger_k = sum(k.T.conj() @ k for k in kraus_ops)
