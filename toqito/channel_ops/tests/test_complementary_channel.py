@@ -42,7 +42,7 @@ expected_res_single =[
         # Test complementary_channel on a set of 2x2 Kraus operators (the ones you gave).
         ([kraus_1, kraus_2, kraus_3, kraus_4], expected_res_comp),
         # Test complementary_channel with higher-dimensional (3x3) Kraus operators.
-        ([kraus_5, kraus_6], expected_res_comp_high_dim),
+        ([kraus_5, kraus_6, kraus_7], expected_res_comp_high_dim),
         # Test complementary_channel with a single Kraus operator (edge case).
         ([kraus_single], expected_res_single),
     ],
