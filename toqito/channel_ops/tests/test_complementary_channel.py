@@ -6,25 +6,26 @@ import pytest
 from toqito.channel_ops import complementary_channel
 
 # Define test cases for complementary map
-kraus_1 = np.array([[0.5, 0], [0, 0]])
-kraus_2 = np.array([[0, 0.5], [0, 0]])
-kraus_3 = np.array([[0, 0], [0.5, 0]])
-kraus_4 = np.array([[0, 0], [0, 0.5]])
+kraus_1 = np.array([[1, 0], [0, 0]]) / np.sqrt(2)
+kraus_2 = np.array([[0, 1], [0, 0]]) / np.sqrt(2)
+kraus_3 = np.array([[0, 0], [1, 0]]) / np.sqrt(2)
+kraus_4 = np.array([[0, 0], [0, 1]]) / np.sqrt(2)
 
 # Expected results for the complementary map
 expected_res_comp = [
-    np.array([[0.5, 0], [0, 0.5], [0, 0], [0, 0]]),
-    np.array([[0, 0], [0, 0], [0.5, 0], [0, 0.5]]),
+    np.array([[1, 0], [0, 1], [0, 0], [0, 0]]) / np.sqrt(2),
+    np.array([[0, 0], [0, 0], [1, 0], [0, 1]]) / np.sqrt(2),
 ]
 
 # Higher-dimensional Kraus operators (3x3)
-kraus_5 = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 0]]) / np.sqrt(2)
-kraus_6 = np.array([[0, 0, 1], [0, 0, 0], [1, 0, 0]]) / np.sqrt(2)
+kraus_5 = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]]) / np.sqrt(3)
+kraus_6 = np.array([[0, 1, 0], [0, 0, 1], [1, 0, 0]]) / np.sqrt(3)
+kraus_7 = np.array([[0, 0, 1], [1, 0, 0], [0, 1, 0]]) / np.sqrt(3)
 
 expected_res_comp_high_dim = [
-    np.array([[1, 0, 0], [0, 0, 1]]) / np.sqrt(2),
-    np.array([[0, 1, 0], [0, 0, 0]]) / np.sqrt(2),
-    np.array([[0, 0, 0], [1, 0, 0]]) / np.sqrt(2),
+    np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]]) / np.sqrt(3),
+    np.array([[0, 1, 0], [0, 0, 1], [1, 0, 0]]) / np.sqrt(3),
+    np.array([[0, 0, 1], [1, 0, 0], [0, 1, 0]]) / np.sqrt(3),
 ]
 
 # Single Kraus operator (edge case)
