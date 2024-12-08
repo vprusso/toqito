@@ -110,8 +110,13 @@ Do not use an autoformatter like :code:`black` as the configuration settings for
 might be incompatible with the changes made by :code:`black`. This is discussed in detail at
 `this link <https://docs.astral.sh/ruff/formatter/black/>`_.
 
+Setting Up Pre-Commit Hooks
+Pre-commit hooks ensure that code meets our formatting and linting standards before it is committed to the repository. Install the hooks with the following command:
 .. code-block:: bash
   poetry run pre-commit install
+This integrates ruff checks into your workflow, ensuring consistent code quality across the project.
+
+
 ------------------------
 References in Docstrings
 ------------------------
