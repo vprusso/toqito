@@ -110,6 +110,8 @@ Do not use an autoformatter like :code:`black` as the configuration settings for
 might be incompatible with the changes made by :code:`black`. This is discussed in detail at
 `this link <https://docs.astral.sh/ruff/formatter/black/>`_.
 
+.. code-block:: bash
+  poetry run pre-commit install
 ------------------------
 References in Docstrings
 ------------------------
