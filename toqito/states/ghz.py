@@ -96,4 +96,4 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray
         index = sum(i * dim**k for k in range(num_qubits))
         ret_ghz_state[index] = coeff[i]
 
-    return ret_ghz_state
+    return ret_ghz_state.flatten()
