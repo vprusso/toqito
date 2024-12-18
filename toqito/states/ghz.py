@@ -49,19 +49,6 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray
         \frac{1}{\sqrt{30}} \left(|0000000 \rangle + 2|1111111 \rangle +
         3|2222222 \rangle + 4|3333333\rangle \right).
 
-    Using :code:`toqito`, we can see this generates the appropriate generalized GHZ state.
-
-    >>> from toqito.states import ghz
-    >>> import numpy as np
-    >>> ghz(4, 7, np.array([1, 2, 3, 4]) / np.sqrt(30))
-    array([[0.18257419],
-        [0.        ],
-        [0.        ],
-        ...,
-        [0.        ],
-        [0.        ],
-        [0.73029674]])
-
     References
     ==========
     .. bibliography::
