@@ -40,7 +40,7 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray
            [0.        ],
            [0.        ],
            [0.        ],
-           [0.70710678]], shape=(8, 1))
+           [0.70710678]])
 
     As this function covers the generalized GHZ state, we can consider higher dimensions. For instance here is the GHZ
     state in :math:`\mathbb{C}^{4^{\otimes 7}}` as
