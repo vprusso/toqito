@@ -32,7 +32,7 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray
     Using :code:`toqito`, we can see that this yields the proper state.
 
     >>> from toqito.states import ghz
-    >>> ghz(2, 3)
+    >>> ghz(2, 3).tolist()
     array([[0.70710678],
            [0.        ],
            [0.        ],
@@ -53,7 +53,7 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray
 
     >>> from toqito.states import ghz
     >>> import numpy as np
-    >>> ghz(4, 7, np.array([1, 2, 3, 4]) / np.sqrt(30))
+    >>> ghz(4, 7, np.array([1, 2, 3, 4]) / np.sqrt(30)).tolist()
     array([[0.18257419],
            [0.        ],
            [0.        ],
