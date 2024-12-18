@@ -33,14 +33,6 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray
 
     >>> from toqito.states import ghz
     >>> ghz(2, 3)
-    array([[0.70710678],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.70710678]])
     array([0.70710678, 0.        , 0.        , 0.        , 0.        ,
            0.        , 0.        , 0.70710678])
 
