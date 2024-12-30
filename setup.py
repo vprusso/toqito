@@ -19,7 +19,7 @@ requirements = [
 
 setuptools.setup(
     name="toqito",
-    version="1.1.0",
+    version="1.1.1",
     author="Vincent Russo",
     author_email="vincentrusso1@gmail.com",
     description="Python toolkit for quantum information theory",

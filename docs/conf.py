@@ -18,11 +18,11 @@ import sys
 # -- Project information -----------------------------------------------------
 
 project = "toqito"
-copyright = "2020-2024, toqito Contributors"
+copyright = "2020-2025, toqito contributors"
 author = "Contributors to toqito"
 
 # The full version, including alpha/beta/rc tags
-release = "1.1.0"
+release = "1.1.1"
 
 
 # -- General configuration ---------------------------------------------------

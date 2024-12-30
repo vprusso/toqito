@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.1.1
+
+Thanks to @Shivansh20128 for numerous contributions and improvements to toqito. Thanks to @RohitP2005 for adding a
+pre-commit hook to keep the local development flow clean.
+
+### Highlights
+
+- `complementary_channel` feature to compute the complementary channel of a provided quantum channel.
+- Parallelzing the calculation of the classical value of a nonlocal local game.
+- Numerous fixes, improvements, corrections, and clarifications both in documentation and in code.
+
 ## 1.1.0
 
 Many thanks to first-time contributors @Shivansh20128 and @FabienGhd as well as returning contributor @tnemoz for their participation in this milestone. 
