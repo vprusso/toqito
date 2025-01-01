@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from toqito.states import basis
+from toqito.matrices import standard_basis
 
 
 def trine() -> list[np.ndarray]:
@@ -37,7 +37,7 @@ def trine() -> list[np.ndarray]:
     :return: Vector of trine states.
 
     """
-    e_0, e_1 = basis(2, 0), basis(2, 1)
+    e_0, e_1 = standard_basis(2)
     return [
         e_0,
         -1 / 2 * (e_0 + np.sqrt(3) * e_1),

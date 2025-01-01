@@ -58,9 +58,9 @@ def concurrence(rho: np.ndarray) -> float:
     As this state has no entanglement, the concurrence is zero.
 
     >>> import numpy as np
-    >>> from toqito.states import basis
+    >>> from toqito.matrices import standard_basis
     >>> from toqito.state_props import concurrence
-    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
+    >>> e_0, e_1 = standard_basis(2)
     >>> v_vec = np.kron(e_0, e_1)
     >>> sigma = v_vec @ v_vec.conj().T
     >>> concurrence(sigma)

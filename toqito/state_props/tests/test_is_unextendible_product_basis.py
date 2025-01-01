@@ -3,11 +3,12 @@
 import numpy as np
 import pytest
 
+from toqito.matrices import standard_basis
 from toqito.matrix_ops import tensor
 from toqito.state_props import is_unextendible_product_basis
-from toqito.states import basis, bell, tile
+from toqito.states import bell, tile
 
-e_0, e_1 = basis(2, 0), basis(2, 1)
+e_0, e_1 = standard_basis(2)
 e_p, e_m = (e_0 + e_1) / np.sqrt(2), (e_0 - e_1) / np.sqrt(2)
 
 

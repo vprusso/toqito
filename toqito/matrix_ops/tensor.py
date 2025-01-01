@@ -52,9 +52,9 @@ def tensor(*args) -> np.ndarray:
 
     This can be accomplished in :code:`toqito` as follows.
 
-    >>> from toqito.states import basis
+    >>> from toqito.matrices import standard_basis
     >>> from toqito.matrix_ops import tensor
-    >>> e_0 = basis(2, 0)
+    >>> e_0, _ = standard_basis(2)
     >>> tensor(e_0, e_0)
     array([[1],
            [0],
@@ -71,9 +71,9 @@ def tensor(*args) -> np.ndarray:
 
     in :code:`toqito` as follows.
 
-    >>> from toqito.states import basis
+    >>> from toqito.matrices import standard_basis
     >>> from toqito.matrix_ops import tensor
-    >>> e_0 = basis(2, 0)
+    >>> e_0, _ = standard_basis(2)
     >>> tensor(e_0, 3)
     array([[1],
            [0],
@@ -91,9 +91,9 @@ def tensor(*args) -> np.ndarray:
     compute :math:`e_0 \otimes e_1 \otimes e_0`, we can do
     so as follows.
 
-    >>> from toqito.states import basis
+    >>> from toqito.matrices import standard_basis
     >>> from toqito.matrix_ops import tensor
-    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
+    >>> e_0, e_1 = standard_basis(2)
     >>> tensor([e_0, e_1, e_0])
     array([[0],
            [0],

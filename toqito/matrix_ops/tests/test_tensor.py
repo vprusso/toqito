@@ -4,9 +4,9 @@ import numpy as np
 import pytest
 
 from toqito.matrix_ops import tensor
-from toqito.states import basis
+from toqito.matrices import standard_basis
 
-e_0, e_1 = basis(2, 0), basis(2, 1)
+e_0, e_1 = standard_basis(2)
 matrix1 = np.array([[1, 2]])
 matrix2 = np.array([[3], [4]])
 matrix3 = np.array([[5, 6]])

@@ -34,10 +34,10 @@ def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float:
     Calculating the Helstrom-Holevo distance of states that are identical yield a value of
     :math:`1/2`. This can be verified in :code:`toqito` as follows.
 
-    >>> from toqito.states import basis
+    >>> from toqito.matrices import standard_basis
     >>> from toqito.state_metrics import helstrom_holevo
     >>> import numpy as np
-    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
+    >>> e_0, e_1 = standard_basis(2)
     >>> e_00 = np.kron(e_0, e_0)
     >>> e_11 = np.kron(e_1, e_1)
     >>>

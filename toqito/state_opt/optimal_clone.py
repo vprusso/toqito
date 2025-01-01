@@ -75,9 +75,9 @@ def optimal_clone(
     We can see that the optimal value we obtain in solving the SDP is 3/4.
 
     >>> from toqito.state_opt import optimal_clone
-    >>> from toqito.states import basis
+    >>> from toqito.matrices import standard_basis
     >>> import numpy as np
-    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
+    >>> e_0, e_1 = standard_basis(2)
     >>> e_p = (e_0 + e_1) / np.sqrt(2)
     >>> e_m = (e_0 - e_1) / np.sqrt(2)
     >>>

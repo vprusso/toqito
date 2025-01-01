@@ -2,13 +2,13 @@
 
 import numpy as np
 
+from toqito.matrices import standard_basis
 from toqito.state_metrics import helstrom_holevo
-from toqito.states import basis
 
 
 def test_helstrom_holevo_same_state():
     """Test Helstrom-Holevo distance on same state."""
-    e_0, e_1 = basis(2, 0), basis(2, 1)
+    e_0, e_1 = standard_basis(2)
     e_00 = np.kron(e_0, e_0)
     e_11 = np.kron(e_1, e_1)
 

@@ -34,10 +34,10 @@ def measure(measurement: np.ndarray, state: np.ndarray) -> float:
     .. math::
         P_0 = e_0 e_0^* \quad \text{and} \quad P_1 = e_1 e_1^*.
 
-    >>> from toqito.states import basis
+    >>> from toqito.matrices import standard_basi
     >>> from toqito.measurement_ops import measure
     >>> import numpy as np
-    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
+    >>> e_0, e_1 = standard_basis(2)
     >>>
     >>> u = 1/np.sqrt(3) * e_0 + np.sqrt(2/3) * e_1
     >>> rho = u @ u.conj().T

@@ -3,12 +3,12 @@
 import numpy as np
 
 from toqito.matrix_props import trace_norm
-from toqito.states import basis
+from toqito.matrices import standard_basis
 
 
 def test_trace_norm():
     """Test trace norm."""
-    e_0, e_1 = basis(2, 0), basis(2, 1)
+    e_0, e_1 = standard_basis(2)
     e_00 = np.kron(e_0, e_0)
     e_11 = np.kron(e_1, e_1)
 

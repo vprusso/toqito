@@ -115,11 +115,11 @@ Using :code:`toqito`, we can calculate this probability directly as follows:
 .. code-block:: python
 
     >>> import numpy as np
-    >>> from toqito.states import basis
+    >>> from toqito.matrices import standard_basis
     >>> from toqito.state_opt import state_distinguishability
     >>> 
     >>> # Define the standard basis |0> and |1>
-    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
+    >>> e_0, e_1 = standard_basis(2)
     >>>
     >>> # Define the corresponding density matrices of |0> and |1> 
     >>> # given as |0><0| and |1><1|, respectively.

@@ -4,12 +4,13 @@ import cvxpy
 import numpy as np
 import pytest
 
+from toqito.matrices import standard_basis
 from toqito.state_metrics import matsumoto_fidelity
-from toqito.states import basis
+
 
 rho = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
 
-e_0, e_1 = basis(2, 0), basis(2, 1)
+e_0, e_1 = standard_basis(2)
 rho1 = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T
 sigma1 = 2 / 3 * e_0 @ e_0.conj().T + 1 / 3 * e_1 @ e_1.conj().T
 

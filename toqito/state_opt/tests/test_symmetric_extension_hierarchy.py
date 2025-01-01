@@ -3,9 +3,10 @@
 import numpy as np
 import pytest
 
+from toqito.matrices import standard_basis
 from toqito.perms import swap
 from toqito.state_opt import symmetric_extension_hierarchy
-from toqito.states import basis, bell, werner
+from toqito.states import bell, werner
 
 
 def test_symmetric_extension_hierarchy_four_bell_density_matrices():
@@ -29,7 +30,7 @@ def test_symmetric_extension_hierarchy_four_bell_states():
 
 def test_symmetric_extension_hierarchy_four_bell_with_resource_state_lvl_1():
     """Level 1 of hierarchy for four Bell states and resource state."""
-    e_0, e_1 = basis(2, 0), basis(2, 1)
+    e_0, e_1 = standard_basis(2)
     e_00, e_11 = np.kron(e_0, e_0), np.kron(e_1, e_1)
 
     eps = 1 / 2
@@ -62,7 +63,7 @@ def test_symmetric_extension_hierarchy_four_bell_with_resource_state_lvl_1():
 @pytest.mark.skip(reason="This test takes too much time.")
 def test_symmetric_extension_hierarchy_four_bell_with_resource_state():
     """Symmetric extension hierarchy for four Bell states and resource state."""
-    e_0, e_1 = basis(2, 0), basis(2, 1)
+    e_0, e_1 = standard_basis(2)
     e_00, e_11 = np.kron(e_0, e_0), np.kron(e_1, e_1)
 
     eps = 1 / 2
@@ -93,7 +94,7 @@ def test_symmetric_extension_hierarchy_four_bell_with_resource_state():
 @pytest.mark.skip(reason="This test takes too much time.")
 def test_symmetric_extension_hierarchy_three_bell_with_resource_state():
     """Symmetric extension hierarchy for three Bell and resource state."""
-    e_0, e_1 = basis(2, 0), basis(2, 1)
+    e_0, e_1 = standard_basis(2)
     e_00, e_11 = np.kron(e_0, e_0), np.kron(e_1, e_1)
 
     eps = 1 / 2

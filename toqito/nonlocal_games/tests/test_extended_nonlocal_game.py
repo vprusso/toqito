@@ -5,7 +5,7 @@ import unittest
 import numpy as np
 
 from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
-from toqito.states import basis
+from toqito.matrices import standard_basis
 
 
 class TestExtendedNonlocalGame(unittest.TestCase):
@@ -14,7 +14,7 @@ class TestExtendedNonlocalGame(unittest.TestCase):
     @staticmethod
     def bb84_extended_nonlocal_game():
         """Define the BB84 extended nonlocal game."""
-        e_0, e_1 = basis(2, 0), basis(2, 1)
+        e_0, e_1 = standard_basis(2)
         e_p = (e_0 + e_1) / np.sqrt(2)
         e_m = (e_0 - e_1) / np.sqrt(2)
 
@@ -61,7 +61,7 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         prob_mat = 1 / 4 * np.identity(4)
 
         dim = 3
-        e_0, e_1, e_2 = basis(dim, 0), basis(dim, 1), basis(dim, 2)
+        e_0, e_1, e_2 = standard_basis(3)
 
         eta = np.exp((2 * np.pi * 1j) / dim)
         mub_0 = [e_0, e_1, e_2]

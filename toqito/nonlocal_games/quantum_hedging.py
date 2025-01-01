@@ -33,10 +33,10 @@ class QuantumHedging:
 
     >>> import numpy as np
     >>> from numpy import kron, cos, sin, pi, sqrt, isclose
-    >>> from toqito.states import basis
+    >>> from toqito.matrices import standard_basis
     >>> from toqito.nonlocal_games.quantum_hedging import QuantumHedging
     >>>
-    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
+    >>> e_0, e_1 = standard_basis(2)
     >>> e_00, e_01 = kron(e_0, e_0), kron(e_0, e_1)
     >>> e_10, e_11 = kron(e_1, e_0), kron(e_1, e_1)
     >>>

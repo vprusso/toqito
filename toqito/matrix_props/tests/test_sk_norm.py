@@ -4,7 +4,8 @@ import numpy as np
 import pytest
 
 from toqito.matrix_props import sk_operator_norm
-from toqito.states import basis, max_entangled, werner
+from toqito.matrices import standard_basis
+from toqito.states import max_entangled, werner
 
 
 def test_s1_norm_example():
@@ -60,10 +61,8 @@ def test_s1_norm_werner(n, a):
 
 def test_sk_norm_hermitian_not_psd():
     """Test S(k) norm of a Hermitian but not PSD matrix."""
-    e_0 = basis(2, 0)
+    e_0, e_1 = standard_basis(2)
     e_00 = np.kron(e_0, e_0)
-
-    e_1 = basis(2, 1)
     e_11 = np.kron(e_1, e_1)
 
     mat = e_00 @ e_11.T + e_11 @ e_00.T

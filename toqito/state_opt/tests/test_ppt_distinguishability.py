@@ -3,8 +3,9 @@
 import numpy as np
 import pytest
 
+from toqito.matrices import standard_basis
 from toqito.state_opt import ppt_distinguishability
-from toqito.states import basis, bell
+from toqito.states import bell
 
 
 def test_ppt_distinguishability_yyd_density_matrices():
@@ -181,7 +182,7 @@ def test_ppt_distinguishability_four_bell_states():
     rho_3 = bell(2)
     rho_4 = bell(3)
 
-    e_0, e_1 = basis(2, 0), basis(2, 1)
+    e_0, e_1 = standard_basis(2)
     e_00 = np.kron(e_0, e_0)
     e_11 = np.kron(e_1, e_1)
 
