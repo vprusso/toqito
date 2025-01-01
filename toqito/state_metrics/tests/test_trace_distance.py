@@ -2,13 +2,13 @@
 
 import numpy as np
 
+from toqito.matrices import standard_basis
 from toqito.state_metrics import trace_distance
-from toqito.states import basis
 
 
 def test_trace_distance_same_state():
     r"""Test that: :math:`T(\rho, \sigma) = 0` iff `\rho = \sigma`."""
-    e_0, e_1 = basis(2, 0), basis(2, 1)
+    e_0, e_1 = standard_basis(2)
     e_00 = np.kron(e_0, e_0)
     e_11 = np.kron(e_1, e_1)
 
