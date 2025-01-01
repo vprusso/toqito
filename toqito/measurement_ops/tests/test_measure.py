@@ -2,8 +2,8 @@
 
 import numpy as np
 
-from toqito.measurement_ops import measure
 from toqito.matrices import standard_basis
+from toqito.measurement_ops import measure
 
 
 def test_measure_state():

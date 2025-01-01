@@ -4,8 +4,8 @@ import unittest
 
 import numpy as np
 
-from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
 from toqito.matrices import standard_basis
+from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
 
 
 class TestExtendedNonlocalGame(unittest.TestCase):

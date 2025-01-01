@@ -7,7 +7,6 @@ import pytest
 from toqito.matrices import standard_basis
 from toqito.state_metrics import matsumoto_fidelity
 
-
 rho = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
 
 e_0, e_1 = standard_basis(2)

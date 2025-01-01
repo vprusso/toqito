@@ -4,8 +4,8 @@ import unittest
 
 from numpy import cos, isclose, kron, pi, sin, sqrt
 
-from toqito.nonlocal_games.quantum_hedging import QuantumHedging
 from toqito.matrices import standard_basis
+from toqito.nonlocal_games.quantum_hedging import QuantumHedging
 
 
 class TestQuantumHedging(unittest.TestCase):

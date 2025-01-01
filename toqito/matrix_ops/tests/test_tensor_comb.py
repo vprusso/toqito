@@ -3,8 +3,8 @@
 import numpy as np
 import pytest
 
-from toqito.matrix_ops import tensor_comb
 from toqito.matrices import standard_basis
+from toqito.matrix_ops import tensor_comb
 
 e_0, e_1 = standard_basis(2)
 

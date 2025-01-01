@@ -2,8 +2,8 @@
 
 import numpy as np
 
-from toqito.matrix_props import trace_norm
 from toqito.matrices import standard_basis
+from toqito.matrix_props import trace_norm
 
 
 def test_trace_norm():

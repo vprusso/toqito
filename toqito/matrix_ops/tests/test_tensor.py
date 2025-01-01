@@ -3,8 +3,8 @@
 import numpy as np
 import pytest
 
-from toqito.matrix_ops import tensor
 from toqito.matrices import standard_basis
+from toqito.matrix_ops import tensor
 
 e_0, e_1 = standard_basis(2)
 matrix1 = np.array([[1, 2]])

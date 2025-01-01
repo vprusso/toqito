@@ -2,8 +2,8 @@
 
 import numpy as np
 
-from toqito.state_metrics import bures_angle
 from toqito.matrices import standard_basis
+from toqito.state_metrics import bures_angle
 
 
 def test_bures_angle_default():

@@ -3,12 +3,11 @@
 import numpy as np
 import pytest
 
-from toqito.matrix_ops import tensor
 from toqito.matrices import standard_basis
+from toqito.matrix_ops import tensor
 from toqito.rand import random_density_matrix, random_state_vector
 from toqito.state_ops import schmidt_decomposition
 from toqito.states import max_entangled
-
 
 e_0, e_1 = standard_basis(2)
 phi1 = 1 / 2 * (np.kron(e_0, e_0) + np.kron(e_0, e_1) + np.kron(e_1, e_0) + np.kron(e_1, e_1))

@@ -3,8 +3,8 @@
 import numpy as np
 import pytest
 
-from toqito.matrix_props import sk_operator_norm
 from toqito.matrices import standard_basis
+from toqito.matrix_props import sk_operator_norm
 from toqito.states import max_entangled, werner
 
 
