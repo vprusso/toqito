@@ -91,8 +91,9 @@ def fidelity_of_separability(
     >>> import numpy as np
     >>> from toqito.state_metrics import fidelity_of_separability
     >>> from toqito.matrix_ops import tensor
-    >>> from toqito.states import basis
-    >>> state = tensor(basis(2, 0), basis(2, 0))
+    >>> from toqito.matrices import standard_basis
+    >>> e_0, e_1 = standard_basis(2)
+    >>> state = tensor(e_0, e_1)
     >>> rho = state @ state.conj().T
     >>> np.around(fidelity_of_separability(rho, [2, 2]), decimals=2)
     np.float64(1.0)

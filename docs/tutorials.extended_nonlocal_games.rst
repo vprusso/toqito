@@ -271,10 +271,10 @@ arrays where :code:`prob_mat` corresponds to the probability distribution
     
     >>> # Define the BB84 extended nonlocal game.
     >>> import numpy as np
-    >>> from toqito.states import basis
+    >>> from toqito.matrices import standard_basis
     >>>
     >>> # The basis: {|0>, |1>}:
-    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
+    >>> e_0, e_1 = standard_basis
     >>>
     >>> # The basis: {|+>, |->}:
     >>> e_p = (e_0 + e_1) / np.sqrt(2)

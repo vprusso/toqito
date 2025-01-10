@@ -3,10 +3,10 @@
 import numpy as np
 import pytest
 
+from toqito.matrices import standard_basis
 from toqito.matrix_ops import tensor_comb
-from toqito.states import basis
 
-e_0, e_1 = basis(2, 0), basis(2, 1)
+e_0, e_1 = standard_basis(2)
 
 
 @pytest.mark.parametrize(
