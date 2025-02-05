@@ -79,11 +79,12 @@ def symmetric_extension_hierarchy(
 
     Consider a fixed value of :math:`\epsilon = 0.5`.
 
-    >>> from toqito.states import basis, bell
+    >>> from toqito.matrices import standard_basis
+    >>> from toqito.states import bell
     >>> from toqito.perms import swap
     >>> import numpy as np
     >>> from toqito.state_opt import symmetric_extension_hierarchy
-    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
+    >>> e_0, e_1 = standard_basis(2)
     >>> e_00, e_11 = np.kron(e_0, e_0), np.kron(e_1, e_1)
     >>>
     >>> # Define the resource state.
