@@ -60,7 +60,7 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     ... )
     >>> sigma = rho
     >>> np.around(matsumoto_fidelity(rho, sigma), decimals=2)
-    np.longdouble('1.0')
+    np.float64(1.0)
 
     References
     ==========
