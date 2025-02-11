@@ -19,7 +19,7 @@ more-itertools = "10.6.0"
 numpy = "2.2.2"
 scipy = "1.15.1"
 scs = "3.2.7.post2"
-picos = "2.5.1"
+picos = "2.6.0"
 
 
 [tool.poetry.group.dev.dependencies]
