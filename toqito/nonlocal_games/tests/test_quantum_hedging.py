@@ -4,14 +4,14 @@ import unittest
 
 from numpy import cos, isclose, kron, pi, sin, sqrt
 
+from toqito.matrices import standard_basis
 from toqito.nonlocal_games.quantum_hedging import QuantumHedging
-from toqito.states import basis
 
 
 class TestQuantumHedging(unittest.TestCase):
     """Unit test for hedging_value."""
 
-    e_0, e_1 = basis(2, 0), basis(2, 1)
+    e_0, e_1 = standard_basis(2)
     e_00, e_01 = kron(e_0, e_0), kron(e_0, e_1)
     e_10, e_11 = kron(e_1, e_0), kron(e_1, e_1)
 

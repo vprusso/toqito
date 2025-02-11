@@ -3,8 +3,8 @@
 import cvxpy
 import numpy as np
 
+from toqito.matrices import standard_basis
 from toqito.state_metrics import fidelity
-from toqito.states import basis
 
 
 def test_fidelity_default():
@@ -27,7 +27,7 @@ def test_fidelity_cvx():
 
 def test_fidelity_non_identical_states_1():
     """Test the fidelity between two non-identical states."""
-    e_0, e_1 = basis(2, 0), basis(2, 1)
+    e_0, e_1 = standard_basis(2)
     rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T
     sigma = 2 / 3 * e_0 @ e_0.conj().T + 1 / 3 * e_1 @ e_1.conj().T
     np.testing.assert_equal(np.isclose(fidelity(rho, sigma), 0.996, rtol=1e-03), True)
@@ -35,7 +35,7 @@ def test_fidelity_non_identical_states_1():
 
 def test_fidelity_non_identical_states_2():
     """Test the fidelity between two non-identical states."""
-    e_0, e_1 = basis(2, 0), basis(2, 1)
+    e_0, e_1 = standard_basis(2)
     rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T
     sigma = 1 / 8 * e_0 @ e_0.conj().T + 7 / 8 * e_1 @ e_1.conj().T
     np.testing.assert_equal(np.isclose(fidelity(rho, sigma), 0.774, rtol=1e-03), True)

@@ -3,7 +3,6 @@
 They are one of the three fundamental objects that `toqito` provides, the others being `channels` and `measurements`.
 """
 
-from toqito.states.basis import basis
 from toqito.states.bb84 import bb84
 from toqito.states.bell import bell
 from toqito.states.chessboard import chessboard
