@@ -1,6 +1,6 @@
 furo == 2024.8.6
 sphinxcontrib-bibtex == 2.6.3
 sympy == 1.13.3
-sphinx-autoapi == 3.4.0
+sphinx-autoapi == 3.5.0
 sphinx-copybutton == 0.5.2
 
