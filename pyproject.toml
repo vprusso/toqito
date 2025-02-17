@@ -32,7 +32,7 @@ ipython = "8.32.0"
 setuptools = ">65.5.1"
 
 [tool.poetry.group.lint.dependencies]
-flake8 = "7.1.1"
+flake8 = "7.1.2"
 flake8-docstrings = "1.7.0"
 isort = "6.0.0"
 myst-parser = "4.0.0"
