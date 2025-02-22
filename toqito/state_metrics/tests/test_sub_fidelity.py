@@ -2,8 +2,9 @@
 
 import numpy as np
 
+from toqito.matrices import standard_basis
 from toqito.state_metrics import fidelity, sub_fidelity
-from toqito.states import basis, bell
+from toqito.states import bell
 
 
 def test_sub_fidelity_default():
@@ -17,7 +18,7 @@ def test_sub_fidelity_default():
 
 def test_sub_fidelity_lower_bound_1():
     """Test sub_fidelity is lower bound on fidelity for rho and sigma."""
-    e_0, e_1 = basis(2, 0), basis(2, 1)
+    e_0, e_1 = standard_basis(2)
     rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T
     sigma = 2 / 3 * e_0 @ e_0.conj().T + 1 / 3 * e_1 @ e_1.conj().T
 
@@ -27,7 +28,7 @@ def test_sub_fidelity_lower_bound_1():
 
 def test_sub_fidelity_lower_bound_2():
     """Test sub_fidelity is lower bound on fidelity for rho and pi."""
-    e_0, e_1 = basis(2, 0), basis(2, 1)
+    e_0, e_1 = standard_basis(2)
     rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T
     sigma = 1 / 8 * e_0 @ e_0.conj().T + 7 / 8 * e_1 @ e_1.conj().T
 

@@ -56,10 +56,10 @@ def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray = None) -> f
 
     Computing the Schmidt rank of a separable state should yield a value equal to :math:`1`.
 
-    >>> from toqito.states import basis
+    >>> from toqito.matrices import standard_basis
     >>> from toqito.state_props import schmidt_rank
     >>> import numpy as np
-    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
+    >>> e_0, e_1 = standard_basis(2)
     >>> e_00 = np.kron(e_0, e_0)
     >>> e_01 = np.kron(e_0, e_1)
     >>> e_10 = np.kron(e_1, e_0)

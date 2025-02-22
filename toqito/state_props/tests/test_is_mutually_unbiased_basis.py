@@ -3,8 +3,8 @@
 import numpy as np
 import pytest
 
+from toqito.matrices import standard_basis
 from toqito.state_props import is_mutually_unbiased_basis
-from toqito.states import basis
 
 MUB_2 = [
     np.array([[1], [0]]),
@@ -38,7 +38,7 @@ MUB_4 = [
     1 / 2 * np.array([[1], [1j], [1], [-1j]]),
 ]
 
-e_0, e_1 = basis(2, 0), basis(2, 1)
+e_0, e_1 = standard_basis(2)
 
 
 @pytest.mark.parametrize(

@@ -6,7 +6,7 @@ These states are inside the 3x3 Hilbert Space, whose bases are denoted by |0⟩,
 
 import numpy as np
 
-from toqito.states import basis
+from toqito.matrices import standard_basis
 
 
 def domino(idx: int) -> np.ndarray:
@@ -86,7 +86,7 @@ def domino(idx: int) -> np.ndarray:
     :return: Domino state of index :code:`idx`.
 
     """
-    e_0, e_1, e_2 = basis(3, 0), basis(3, 1), basis(3, 2)
+    e_0, e_1, e_2 = standard_basis(3)
     match idx:
         case 0:
             return np.kron(e_1, e_1)

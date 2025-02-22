@@ -3,13 +3,14 @@
 import numpy as np
 import pytest
 
+from toqito.matrices import standard_basis
 from toqito.matrix_ops import tensor
-from toqito.states import basis, w_state
+from toqito.states import w_state
 
 
 def test_w_state_3():
     """The 3-qubit W-state."""
-    e_0, e_1 = basis(2, 0), basis(2, 1)
+    e_0, e_1 = standard_basis(2)
     expected_res = 1 / np.sqrt(3) * (tensor(e_1, e_0, e_0) + tensor(e_0, e_1, e_0) + tensor(e_0, e_0, e_1))
 
     res = w_state(3)
@@ -18,7 +19,7 @@ def test_w_state_3():
 
 def test_w_state_generalized():
     """Generalized 4-qubit W-state."""
-    e_0, e_1 = basis(2, 0), basis(2, 1)
+    e_0, e_1 = standard_basis(2)
     expected_res = (
         1
         / np.sqrt(30)
