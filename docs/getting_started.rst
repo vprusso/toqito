@@ -39,7 +39,7 @@ can be ignored as :code:`pip install toqito` will also install :code:`cvxpy` as 
 
 As a dependency for many of the solvers, you will need to ensure you have the :code:`BLAS` and :code:`LAPACK`
 mathematical libraries installed on your machine. If you have :code:`numpy` working on your machine
-(installed as a :code:`toqito` dependency), you already have these libraries on your machine. See NumPy `docs <https://numpy.org/install/#numpy-packages--accelerated-linear-algebra-libraries>`_. If you don't,
+(installed as a :code:`toqito` dependency), you already have these libraries on your machine. See NumPy `docs <https://numpy.org/doc/stable/building/blas_lapack.html>`_. If you don't,
 :code:`BLAS` and :code:`LAPACK` can be installed using the following command:
 
 .. code-block:: bash
