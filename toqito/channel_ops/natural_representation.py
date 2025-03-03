@@ -1,28 +1,25 @@
 """Kraus operators to natural representation."""
 
+from typing import List
+
 import numpy as np
 
 from toqito.matrix_ops import tensor
 
 
-def natural_representation(kraus_ops):
-    """Convert a set of Kraus operators to the natural representation of a quantum channel.
+def natural_representation(kraus_ops: List[np.ndarray]) -> np.ndarray:
+    r"""Convert a set of Kraus operators to the natural representation of a quantum channel.
 
     The natural representation of a quantum channel is given by:
-    Φ = ∑_i K_i ⊗ K_i*
-    where K_i* is the complex conjugate of K_i.
-
-    :args: kraus_ops (list[np.ndarray]): List of Kraus operators.
-    :return: np.ndarray: The natural representation of the quantum channel.
+    :math:`\Phi = \sum_i K_i \otimes K_i^*`
+    where :math:`K_i^*` is the complex conjugate of :math:`K_i`.
 
     Examples:
     >>> import numpy as np
     >>> # Kraus operators for a depolarizing channel
     >>> k0 = np.sqrt(1/2) * np.array([[1, 0], [0, 1]])
     >>> k1 = np.sqrt(1/2) * np.array([[0, 1], [1, 0]])
-    >>> nat_rep = natural_representation([k0, k1])
-    >>> print(nat_rep)
-    >>> print(nat_rep)
+    >>> print(natural_representation([k0, k1]))
     [[0.5 0.  0.  0.5]
      [0.  0.5 0.5 0. ]
      [0.  0.5 0.5 0. ]
