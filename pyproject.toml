@@ -34,7 +34,7 @@ setuptools = ">65.5.1"
 [tool.poetry.group.lint.dependencies]
 flake8 = "7.1.2"
 flake8-docstrings = "1.7.0"
-isort = "6.0.0"
+isort = "6.0.1"
 myst-parser = "4.0.1"
 pep8 = "1.7.1"
 ruff = "0.9.9"
