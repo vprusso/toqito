@@ -14,7 +14,8 @@ def natural_representation(kraus_ops: List[np.ndarray]) -> np.ndarray:
     :math:`\Phi = \sum_i K_i \otimes K_i^*`
     where :math:`K_i^*` is the complex conjugate of :math:`K_i`.
 
-    Examples:
+    Examples
+    ==========
     >>> import numpy as np
     >>> # Kraus operators for a depolarizing channel
     >>> k0 = np.sqrt(1/2) * np.array([[1, 0], [0, 1]])
