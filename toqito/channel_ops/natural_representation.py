@@ -17,7 +17,7 @@ def natural_representation(kraus_ops: List[np.ndarray]) -> np.ndarray:
     Examples
     ==========
     >>> import numpy as np
-    >>> # Kraus operators for a depolarizing channel
+    >>> from toqito.channel_ops import natural_representation
     >>> k0 = np.sqrt(1/2) * np.array([[1, 0], [0, 1]])
     >>> k1 = np.sqrt(1/2) * np.array([[0, 1], [1, 0]])
     >>> print(natural_representation([k0, k1]))
@@ -27,6 +27,12 @@ def natural_representation(kraus_ops: List[np.ndarray]) -> np.ndarray:
      [0.5 0.  0.  0.5]]
 
     """
+    if not isinstance(kraus_ops, list):
+        raise ValueError("Kraus operators must be provided as a list.")
+
+    if not all(isinstance(k, np.ndarray) for k in kraus_ops):
+        raise ValuesError("All Kraus operators must be NumPy arrays.")
+
     if len(kraus_ops) == 0:
         raise ValueError("At least one Kraus operator must be provided.")
 

@@ -3,11 +3,13 @@
 import numpy as np
 import pytest
 
+from toqito.channel_ops import choi_to_kraus
 from toqito.channel_ops.natural_representation import natural_representation
+from toqito.channels import depolarizing
 from toqito.matrices import pauli
 from toqito.matrix_ops import tensor
 
-I2 = np.eye(2)
+I2 = pauli("I")
 X = pauli("X")
 Y = pauli("Y")
 Z = pauli("Z")
@@ -15,8 +17,8 @@ Z = pauli("Z")
 identity_channel = [I2]
 bit_flip_channel = [np.sqrt(0.7) * I2, np.sqrt(0.3) * X]
 amp_damp_channel = [np.array([[1, 0], [0, np.sqrt(0.6)]]), np.array([[0, np.sqrt(0.4)], [0, 0]])]
-p = 0.1
-depol_channel = [np.sqrt(1 - 3 * p / 4) * I2, np.sqrt(p / 4) * X, np.sqrt(p / 4) * Y, np.sqrt(p / 4) * Z]
+depol_choi = depolarizing(2, 0.1)
+depol_channel = choi_to_kraus(depol_choi)
 
 
 @pytest.mark.parametrize(
