@@ -27,12 +27,6 @@ def natural_representation(kraus_ops: List[np.ndarray]) -> np.ndarray:
      [0.5 0.  0.  0.5]]
 
     """
-    if not isinstance(kraus_ops, list):
-        raise ValueError("Kraus operators must be provided as a list.")
-
-    if not all(isinstance(k, np.ndarray) for k in kraus_ops):
-        raise ValueError("All Kraus operators must be NumPy arrays.")
-
     if len(kraus_ops) == 0:
         raise ValueError("At least one Kraus operator must be provided.")
 
