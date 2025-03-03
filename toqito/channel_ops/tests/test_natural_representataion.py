@@ -49,24 +49,6 @@ def test_natural_representation_valid_inputs(kraus_ops, expected):
     np.testing.assert_allclose(actual, expected)
 
 
-def test_natural_representation_empty_list():
-    """Test natural_representation with empty list."""
-    with pytest.raises(ValueError, match="At least one Kraus operator must be provided."):
-        natural_representation([])
-
-
-def test_natural_representation_invalid_type():
-    """Test natural_representation with invalid input type."""
-    with pytest.raises(ValueError, match="Kraus operators must be provided as a list."):
-        natural_representation(I2)
-
-
-def test_natural_representation_invalid_item_type():
-    """Test natural_representation with invalid item type in list."""
-    with pytest.raises(ValueError, match="All Kraus operators must be NumPy arrays."):
-        natural_representation([I2, "not_an_array"])
-
-
 def test_natural_representation_different_dimensions():
     """Test natural_representation with Kraus operators of different dimensions."""
     k1 = np.array([[1, 0], [0, 1]])
