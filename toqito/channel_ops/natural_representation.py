@@ -1,13 +1,11 @@
 """Kraus operators to natural representation."""
 
-from typing import List
-
 import numpy as np
 
 from toqito.matrix_ops import tensor
 
 
-def natural_representation(kraus_ops: List[np.ndarray]) -> np.ndarray:
+def natural_representation(kraus_ops: list[np.ndarray]) -> np.ndarray:
     r"""Convert a set of Kraus operators to the natural representation of a quantum channel.
 
     The natural representation of a quantum channel is given by:
@@ -31,5 +29,5 @@ def natural_representation(kraus_ops: List[np.ndarray]) -> np.ndarray:
     if not all(k.shape == dim for k in kraus_ops):
         raise ValueError("All Kraus operators must have the same dimensions.")
 
-    # Compute the natural representation
+    # Compute the natural representation.
     return np.sum([tensor(k, np.conjugate(k)) for k in kraus_ops], axis=0)
