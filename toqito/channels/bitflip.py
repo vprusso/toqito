@@ -84,10 +84,8 @@ def bitflip(
     k0 = no_flip_prob * np.eye(dim)
 
     # X gate for the flip case
-    if dim == 2:
-        k1 = flip_prob * np.array([[0, 1], [1, 0]])
-    else:
-        raise ValueError("Bitflip channel is only defined for qubits (dim=2).")
+    k1 = flip_prob * np.array([[0, 1], [1, 0]])
+
     kraus_ops = [k0, k1]
 
     # If no input matrix is provided, return the Kraus operators
