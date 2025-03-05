@@ -1,16 +1,14 @@
 """Implements the bitflip quantum gate channel."""
 
 import numpy as np
-from cvxpy.expressions.expression import Expression
-from cvxpy.expressions.variable import Variable
 
 from toqito.helper import expr_as_np_array, np_array_as_expr
 
 
 def bitflip(
-    input_mat: np.ndarray | Variable = None,
+    input_mat: np.ndarray | None,
     prob: float = 0,
-) -> np.ndarray | Expression:
+) -> np.ndarray:
     r"""Apply the bitflip quantum channel to a state or return the Kraus operators.
 
     The *bitflip channel* is a quantum channel that flips a qubit from :math:`|0\rangle` to :math:`|1\rangle`
