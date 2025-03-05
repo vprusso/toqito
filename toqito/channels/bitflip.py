@@ -10,7 +10,6 @@ from toqito.helper import expr_as_np_array, np_array_as_expr
 def bitflip(
     input_mat: np.ndarray | Variable = None,
     prob: float = 0,
-    dim: int = 2,
 ) -> np.ndarray | Expression:
     r"""Apply the bitflip quantum channel to a state or return the Kraus operators.
 
@@ -56,25 +55,26 @@ def bitflip(
     References
     ==========
     .. bibliography::
-        :filter: docname in docnames
+        [1] https://arxiv.org/abs/1106.1445
+        [2] https://www.quantumchannelzoo.org/person/bit-flip
 
     :param input_mat: A matrix or state to apply the channel to. If None, returns the Kraus operators.
     :param prob: The probability of a bitflip occurring.
-    :param dim: The dimension of the system (default is 2 for qubits).
     :return: Either the Kraus operators of the bitflip channel if input_mat is None,
              or the result of applying the channel to input_mat.
 
     """
-    if prob < 0 or prob > 1:
+    if not (0 <= prob <= 1):
         raise ValueError("Probability must be between 0 and 1.")
 
-    # If input is a CVX variable, handle it appropriately
-    if isinstance(input_mat, Variable):
-        input_np = expr_as_np_array(input_mat)
-        if dim != 2:
-            raise ValueError("Bitflip channel is only defined for qubits (dim=2).")
-        result = bitflip(input_np, prob, dim)
-        return np_array_as_expr(result)
+    if input_mat is not None:
+        dim = input_mat.shape[0]
+    else:
+        dim = 2
+
+    # Enforce 2-dimensional (qubit) requirement
+    if dim != 2:
+        raise ValueError("Bitflip channel is only defined for qubits (dim=2).")
 
     # Define the Kraus operators for the bitflip channel
     no_flip_prob = np.sqrt(1 - prob)
@@ -95,7 +95,6 @@ def bitflip(
         return kraus_ops
 
     # Apply the channel to the input state
-    # print(type(input_mat))
     input_mat = np.asarray(input_mat, dtype=complex)
 
     result = np.zeros_like(input_mat, dtype=complex)
