@@ -42,7 +42,7 @@ def is_pseudo_unitary(mat: np.ndarray, p: int, q: int, rtol: float = 1e-05, atol
     >>> from toqito.matrix_props import is_pseudo_unitary
     >>> A = np.array([[np.cosh(1), np.sinh(1)], [np.sinh(1), np.cosh(1)]])
     >>> is_pseudo_unitary(A, p=1, q=1)
-    True
+    np.True_
 
     However, the following matrix :math:B
 
@@ -56,7 +56,7 @@ def is_pseudo_unitary(mat: np.ndarray, p: int, q: int, rtol: float = 1e-05, atol
 
     >>> B = np.array([[1, 0], [1, 1]])
     >>> is_pseudo_unitary(B, p=1, q=1)
-    False
+    np.False_
 
     References
     ==========
