@@ -25,7 +25,7 @@ def test_is_not_pseudo_unitary():
     np.testing.assert_equal(is_pseudo_unitary(mat, p=1, q=1), False)
 
 
-def test_is_not_pseudo_unitary_incorrect_signatur_dimensions():
+def test_is_not_pseudo_unitary_incorrect_signature_dimensions():
     """Test that non-unitary matrix returns False."""
     mat = np.array([[1, 0], [1, 1]])
     np.testing.assert_equal(is_pseudo_unitary(mat, p=4, q=5), False)
@@ -35,3 +35,10 @@ def test_is_pseudo_unitary_not_square():
     """Input must be a square matrix."""
     mat = np.array([[-1, 1, 1], [1, 2, 3]])
     np.testing.assert_equal(is_pseudo_unitary(mat, p=1, q=1), False)
+
+
+def test_is_pseudo_unitary_value_error():
+    """Input must have p >= 0 and q >= 0."""
+    mat = np.array([[1, 0], [0, 1]])
+    np.testing.assert_raises_regex(ValueError, "p and q must be non-negative", is_pseudo_unitary, mat, p=-1, q=1)
+    np.testing.assert_raises_regex(ValueError, "p and q must be non-negative", is_pseudo_unitary, mat, p=1, q=-1)
