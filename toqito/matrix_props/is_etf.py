@@ -13,7 +13,7 @@ def is_etf(mat: np.ndarray) -> bool:
     A matrix math::`A` constitutes an equilangular tight frame if it satisfies three conditions:
         1) If each of the columns of the matrix math::`A` has unit norm. 
         2) If all the diagonol elements of the gram matrix is one and its off-diagonol elements are constant.
-        3) :math:`AA* = (ncols/nrows)I`. Here :math:`A*` is conjugate transpose of :math:`A` and I is Identity matrix.
+        3) :math:`AA* = (ncols/nrows)I`. Here :math:`A*` is conjugate transpose of :math:`A` and :math:`I` is Identity matrix.
     
     Examples
     ========
