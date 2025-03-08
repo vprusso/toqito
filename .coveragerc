@@ -1,20 +1,14 @@
-# nosetests --with-coverage --cover-erase --cover-package .
-
 # .coveragerc to control coverage.py
 [run]
 source = toqito
 branch = True
-
-[report]
-show_missing = True
-precision = 2
 omit =
-        *__init__*
-        */tests/*
-        *tests/*
-        */tests*
-        *tests*
-        virtualenvs/*
+    */__init__.py
+    */tests/*
+    */virtualenvs/*
+    */.tox/*
+    */venv/*
+    */.venv/*
 
 [html]
 directory = coverage_html_report
