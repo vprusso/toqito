@@ -1,7 +1,6 @@
 """Test is_etf."""
 
 import numpy as np
-from toqito.matrix_ops import vectors_to_gram_matrix
 from toqito.matrix_props import is_etf
 
 def test_is_etf_valid_etf():
@@ -24,15 +23,15 @@ def test_is_etf_unit_norm_but_not_equiangular():
     """Test that a matrix whose columns have unit norm but are not equiangular returns False."""
     # Each column has unit norm but the off-diagonal of the Gram matrix isn't constant.
     mat_unit_but_not_equiangular = np.array([
-        [1,              0,           1/np.sqrt(2)],
-        [0,              1,           1/np.sqrt(2)]
+        [1, 0, 1/np.sqrt(2)],
+        [0, 1, 1/np.sqrt(2)]
     ])
     np.testing.assert_equal(is_etf(mat_unit_but_not_equiangular), False)
 
 def test_is_etf_equiangular_but_not_tight():
     """Test that a matrix with equiangular columns but not tight frame returns False."""
     # Columns are identical, so off-diagonal inner product is 1 (hence equiangular),
-    # but fails the tight frame condition A A^* = (ncols/nrows) I.
+    # but fails the tight frame condition A A* = (ncols/nrows) I.
     c1 = np.array([1/np.sqrt(2), 1/np.sqrt(2)])
     c2 = np.array([1/np.sqrt(2), 1/np.sqrt(2)])
     mat_equiangular_not_tight = np.column_stack((c1, c2))
