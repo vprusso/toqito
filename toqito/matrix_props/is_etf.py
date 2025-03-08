@@ -10,10 +10,10 @@ def is_etf(mat: np.ndarray) -> bool:
     Definition taken from:
     :cite:`hoffman2011complexequiangulartightframes`.
     
-    A matrix \(A\) constitutes an equilangular tight frame if it satisfies three conditions:
-        1) If each of the columns of the matrix \(A\) has unit norm. 
+    A matrix math::`A` constitutes an equilangular tight frame if it satisfies three conditions:
+        1) If each of the columns of the matrix math::`A` has unit norm. 
         2) If all the diagonol elements of the gram matrix is one and its off-diagonol elements are constant.
-        3) \(A A* = \frac{\text{ncols}}{\text{nrows}} \, I\), where \(A*\) is the conjugate transpose of \(A\).
+        3) :math:`AA* = (ncols/nrows)I`. Here :math:`A*` is conjugate transpose of :math:`A` and I is Identity matrix.
     
     Examples
     ========
@@ -31,7 +31,7 @@ def is_etf(mat: np.ndarray) -> bool:
         :filter: docname in docnames
         
     :param mat: The matrix to check.
-    :return: Return :code:True if the matrix constitutes ETF, and :code:False otherwise.
+    :return: Return True if the matrix constitutes ETF, and False otherwise.
     
     """
     nrows, ncols = mat.shape[0], mat.shape[1]
