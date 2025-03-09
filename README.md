@@ -74,9 +74,6 @@ chsh.quantum_value()
 Full documentation along with specific examples and tutorials are provided here:
 [https://toqito.readthedocs.io/](https://toqito.readthedocs.io/). 
 
-More information can also be found on the following
-[toqito homepage](https://vprusso.github.io/toqito/).
-
 Chat with us in our `toqito` channel on [Discord](http://discord.unitary.fund/). 
 
 ## Testing
