@@ -8,3 +8,11 @@ repos:
       args: [ --fix ]
     # Run the formatter.
     - id: ruff-format 
+
+-   repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.15.0
+    hooks:
+    -   id: mypy
+        args: [--config-file=pyproject.toml]
+        pass_filenames: false
+        stages: [pre-commit]
