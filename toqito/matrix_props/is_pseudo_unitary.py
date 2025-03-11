@@ -23,7 +23,7 @@ def is_pseudo_unitary(mat: np.ndarray, p: int, q: int, rtol: float = 1e-05, atol
     Consider the following matrix:
 
     .. math::
-        A = \frac{1}{\sqrt{2}} \begin{pmatrix}
+        A = \begin{pmatrix}
             cosh(1) & sinh(1) \\
             sinh(1) & cosh(1)
         \end{pmatrix}
