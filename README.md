@@ -88,7 +88,7 @@ pytest --cov-report term-missing --cov=toqito
 ## Citing
 
 You can cite `toqito` using the following DOI:
-10.5281/zenodo.4743211
+`10.5281/zenodo.4743211`
 
 
 If you are using the `toqito` software package in research work, please include
