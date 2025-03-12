@@ -40,7 +40,7 @@ def is_pseudo_hermitian(mat: np.ndarray, signature: np.ndarray, rtol: float = 1e
 
     >>> import numpy as np
     >>> from toqito.matrix_props import is_pseudo_hermitian
-    >>> H = np.array([[1, 1j], [-1j, 1]])
+    >>> H = np.array([[1, 1+1j], [-1+1j, -1]])
     >>> eta = np.array([[1, 0], [0, -1]])
     >>> is_pseudo_hermitian(H, eta)
     True
@@ -56,7 +56,7 @@ def is_pseudo_hermitian(mat: np.ndarray, signature: np.ndarray, rtol: float = 1e
     is not pseudo-Hermitian with respect to the same signature matrix:
 
     >>> A = np.array([[1, 1j], [-1j, 1]])
-    >>> is_pseudo_hermitian(B, eta)
+    >>> is_pseudo_hermitian(A, eta)
     False
 
     References
