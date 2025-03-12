@@ -54,7 +54,7 @@ linkcheck_ignore = [
     r"https://arxiv\.org/.*",
     r"https://doi\.org/.*",
     r"https://link\.aps\.org/doi/.*",
-    r"http://dx\.doi\.org/.*"
+    r"http://dx\.doi\.org/.*",
 ]
 # we need to skip these warnigns because all the references appear twice, in a function docstring
 # and on the references page.
