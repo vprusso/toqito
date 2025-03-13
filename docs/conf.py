@@ -44,6 +44,7 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinxcontrib.bibtex",
     "sphinx_copybutton",
+    "versionwarning.extension",
 ]
 
 bibtex_bibfiles = ["refs.bib"]
