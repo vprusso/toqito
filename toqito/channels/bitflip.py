@@ -1,32 +1,35 @@
 """Implements the bitflip quantum gate channel."""
 
 import numpy as np
-from cvxpy.expressions.expression import Expression
-from cvxpy.expressions.variable import Variable
 
 from toqito.helper import expr_as_np_array, np_array_as_expr
 
 
 def bitflip(
-    input_mat: np.ndarray | Variable = None,
+    input_mat: np.ndarray | None = None,
     prob: float = 0,
-) -> np.ndarray | Expression:
+) -> np.ndarray:
     r"""Apply the bitflip quantum channel to a state or return the Kraus operators.
 
     The *bitflip channel* is a quantum channel that flips a qubit from :math:`|0\rangle` to :math:`|1\rangle`
-    and from :math:`|1\rangle` to :math:`|0\rangle` with probability :math:`p`. It is defined by
-    the following operation:
+    and from :math:`|1\rangle` to :math:`|0\rangle` with probability :math:`p`. 
+
+    It is defined by the following operation:
+
     .. math::
+
         \mathcal{E}(\rho) = (1-p) \rho + p X \rho X
 
     where :math:`X` is the Pauli-X (NOT) gate given by:
 
     .. math::
+
         X = \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}
 
     The Kraus operators for this channel are:
 
     .. math::
+
         K_0 = \sqrt{1-p} \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}, \quad
         K_1 = \sqrt{p} \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}
 
@@ -55,26 +58,24 @@ def bitflip(
     References
     ==========
     .. bibliography::
-        [1] https://arxiv.org/abs/1106.1445
-        [2] https://www.quantumchannelzoo.org/person/bit-flip
+        :filter: docname in docnames
+    
 
-    :param input_mat: A matrix or state to apply the channel to. If None, returns the Kraus operators.
+    :param input_mat: A matrix or state to apply the channel to. If `None`, returns the Kraus operators.
     :param prob: The probability of a bitflip occurring.
-    :return: Either the Kraus operators of the bitflip channel if input_mat is None,
-             or the result of applying the channel to input_mat.
+    :return: Either the Kraus operators of the bitflip channel if `input_mat` is `None`,
+             or the result of applying the channel to `input_mat`.
 
     """
     if not (0 <= prob <= 1):
         raise ValueError("Probability must be between 0 and 1.")
 
     if input_mat is not None:
-        dim = input_mat.shape[0]
-    else:
-        dim = 2
-
-    # Enforce 2-dimensional (qubit) requirement
-    if dim != 2:
-        raise ValueError("Bitflip channel is only defined for qubits (dim=2).")
+        if input_mat.shape[0] != 2:
+              raise ValueError("Bitflip channel is only defined for qubits (dim=2).")
+    
+      
+    dim = 2
 
     # Define the Kraus operators for the bitflip channel
     no_flip_prob = np.sqrt(1 - prob)

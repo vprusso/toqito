@@ -6,62 +6,58 @@ import pytest
 from toqito.channels import bitflip
 
 
-def test_kraus_operators():
+@pytest.mark.parametrize("prob", [0.0, 0.3, 0.5, 1.0])
+def test_kraus_operators(prob):
     """Test if the function returns correct Kraus operators for given probability."""
-    prob = 0.3
-    kraus_ops = bitflip(prob=prob)
-    expected_k0 = np.sqrt(1 - prob) * np.eye(2)
-    expected_k1 = np.sqrt(prob) * np.array([[0, 1], [1, 0]])
+    kraus_ops = bitflip(None, prob=prob)  # Get Kraus operators
 
-    np.testing.assert_almost_equal(kraus_ops[0], expected_k0)
-    np.testing.assert_almost_equal(kraus_ops[1], expected_k1)
+    expected_kraus_ops = [
+        np.sqrt(1 - prob) * np.eye(2),
+        np.sqrt(prob) * np.array([[0, 1], [1, 0]]),
+    ]
+
+    np.testing.assert_almost_equal(kraus_ops, expected_kraus_ops)
 
 
-def test_apply_to_state_0():
-    """Test bitflip application to |0><0| state."""
-    prob = 0.3
-    rho = np.array([[1, 0], [0, 0]])  # |0><0|
-    expected_output = (1 - prob) * rho + prob * np.array([[0, 0], [0, 1]])
+@pytest.mark.parametrize(
+    "rho, expected_output, prob",
+    [
+        (np.array([[1, 0], [0, 0]]), (1 - 0.3) * np.array([[1, 0], [0, 0]]) + 0.3 * np.array([[0, 0], [0, 1]]), 0.3),
+        (np.array([[0, 0], [0, 1]]), (1 - 0.3) * np.array([[0, 0], [0, 1]]) + 0.3 * np.array([[1, 0], [0, 0]]), 0.3),
+    ]
+)
+def test_apply_to_state(rho, expected_output, prob):
+    """Test bitflip application to |0><0| and |1><1| states."""
     result = bitflip(rho, prob=prob)
-
     np.testing.assert_almost_equal(result, expected_output)
 
 
-def test_apply_to_state_1():
-    """Test bitflip application to |1><1| state."""
-    prob = 0.3
-    rho = np.array([[0, 0], [0, 1]])  # |1><1|
-    expected_output = (1 - prob) * rho + prob * np.array([[1, 0], [0, 0]])
+@pytest.mark.parametrize(
+    "rho, prob, expected_output",
+    [
+        # Test probability 0 (no change)
+        (np.array([[0.5, 0.5], [0.5, 0.5]]), 0, np.array([[0.5, 0.5], [0.5, 0.5]])),
+        # Test probability 1 (always flips, but same for max mixed state)
+        (np.array([[0.5, 0.5], [0.5, 0.5]]), 1, np.array([[0.5, 0.5], [0.5, 0.5]])),
+    ],
+)
+def test_bitflip_probabilities(rho, prob, expected_output):
+    """Test bitflip channel with probabilities 0 and 1."""
     result = bitflip(rho, prob=prob)
-
     np.testing.assert_almost_equal(result, expected_output)
 
 
-def test_probability_0():
-    """Test bitflip with probability 0 (no change)."""
-    rho = np.array([[0.5, 0.5], [0.5, 0.5]])
-    result = bitflip(rho, prob=0)
-    np.testing.assert_almost_equal(result, rho)
-
-
-def test_probability_1():
-    """Test bitflip with probability 1 (always flips)."""
-    rho = np.array([[0.5, 0.5], [0.5, 0.5]])
-    expected_output = np.array([[0.5, 0.5], [0.5, 0.5]])  # Same for maximally mixed state
-    result = bitflip(rho, prob=1)
-    np.testing.assert_almost_equal(result, expected_output)
-
-
-def test_invalid_probability_negative():
-    """Test that a negative probability raises an error."""
-    with pytest.raises(ValueError, match="Probability must be between 0 and 1."):
-        bitflip(prob=-0.1)
-
-
-def test_invalid_probability_greater_than_1():
-    """Test that a probability greater than 1 raises an error."""
-    with pytest.raises(ValueError, match="Probability must be between 0 and 1."):
-        bitflip(prob=1.1)
+@pytest.mark.parametrize(
+    "prob, error_message",
+    [
+        (-0.1, "Probability must be between 0 and 1."),
+        (1.1, "Probability must be between 0 and 1."),
+    ],
+)
+def test_invalid_probability(prob, error_message):
+    """Test that invalid probabilities raise an error."""
+    with pytest.raises(ValueError, match=error_message):
+        bitflip(prob=prob)
 
 
 def test_invalid_dimension():
