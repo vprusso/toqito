@@ -12,8 +12,7 @@ def bitflip(
     r"""Apply the bitflip quantum channel to a state or return the Kraus operators.
 
     The *bitflip channel* is a quantum channel that flips a qubit from :math:`|0\rangle` to :math:`|1\rangle`
-    and from :math:`|1\rangle` to :math:`|0\rangle` with probability :math:`p`. 
-
+    and from :math:`|1\rangle` to :math:`|0\rangle` with probability :math:`p`.
     It is defined by the following operation:
 
     .. math::
@@ -59,7 +58,6 @@ def bitflip(
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
 
     :param input_mat: A matrix or state to apply the channel to. If `None`, returns the Kraus operators.
     :param prob: The probability of a bitflip occurring.
@@ -72,9 +70,8 @@ def bitflip(
 
     if input_mat is not None:
         if input_mat.shape[0] != 2:
-              raise ValueError("Bitflip channel is only defined for qubits (dim=2).")
-    
-      
+            raise ValueError("Bitflip channel is only defined for qubits (dim=2).")
+
     dim = 2
 
     # Define the Kraus operators for the bitflip channel
@@ -99,5 +96,4 @@ def bitflip(
     result = np.zeros_like(input_mat, dtype=complex)
     for op in kraus_ops:
         result += op @ input_mat @ op.conj().T
-
     return result

@@ -10,7 +10,6 @@ from toqito.channels import bitflip
 def test_kraus_operators(prob):
     """Test if the function returns correct Kraus operators for given probability."""
     kraus_ops = bitflip(None, prob=prob)  # Get Kraus operators
-
     expected_kraus_ops = [
         np.sqrt(1 - prob) * np.eye(2),
         np.sqrt(prob) * np.array([[0, 1], [1, 0]]),
@@ -24,7 +23,7 @@ def test_kraus_operators(prob):
     [
         (np.array([[1, 0], [0, 0]]), (1 - 0.3) * np.array([[1, 0], [0, 0]]) + 0.3 * np.array([[0, 0], [0, 1]]), 0.3),
         (np.array([[0, 0], [0, 1]]), (1 - 0.3) * np.array([[0, 0], [0, 1]]) + 0.3 * np.array([[1, 0], [0, 0]]), 0.3),
-    ]
+    ],
 )
 def test_apply_to_state(rho, expected_output, prob):
     """Test bitflip application to |0><0| and |1><1| states."""
