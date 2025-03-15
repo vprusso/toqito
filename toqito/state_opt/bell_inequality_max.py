@@ -1,45 +1,27 @@
-"""Computes the upper bound for a given Bipartite bell inequality."""
+"""Computes the upper bound for a given bipartite Bell inequality."""
 
 from itertools import combinations
 
 import cvxpy as cp
-import mosek
 import numpy as np
-from scipy.sparse import eye
 
 from toqito.channels import partial_transpose
 from toqito.perms import permutation_operator, swap
 
 
-def MN_matrix(m: int, a: int, x: int) -> np.ndarray:
-    r"""Compute the matrices M_a^x and N_b^y.
-
-    Args:
-        m: The number of measurement settings for Alice and Bob.
-        a: The specific measurement setting for Alice.
-        x: The specific measurement setting for Bob.
-
-    Returns:
-        The computed matrix.
-
-    """
-    # Create a permutation list as done in MATLAB
-    perm = list(range(m + 1))  # MATLAB indices start from 1
-    perm[0] = x
-    perm[x] = 0
-
-    # Calculate the matrix as in the MATLAB code
-    MN = a * np.eye(2 ** (m + 1)) + ((-1) ** a) * permutation_operator([2] * (m + 1), perm, 0, 1)
-
-    return MN
-
-
-def bell_inequality_max(joint_coe, a_coe, b_coe, a_val, b_val):
+def bell_inequality_max(
+    joint_coe: np.ndarray,
+    a_coe: np.ndarray,
+    b_coe: np.ndarray,
+    a_val: np.ndarray,
+    b_val: np.ndarray,
+    solver_name: str = "SCS",
+) -> float:
     r"""Return the upper bound for the maximum violation(Tsirelson Bound) for a given bipartite Bell Inequality.
 
-    This computes the upper bound for the maximum value of a given bipartite Bell Inequality using SDP.
+    This computes the upper bound for the maximum value of a given bipartite Bell Inequality using an SDP.
     The method is from :cite:`Navascues_2014_Characterization` and the implementation is based on :cite:`QETLAB_link`.
-    This is useful for various tasks in device independent quantum information processing
+    This is useful for various tasks in device independent quantum information processing.
 
     The function formulates the problem as a SDP problem in the following format
 
@@ -60,7 +42,7 @@ def bell_inequality_max(joint_coe, a_coe, b_coe, a_val, b_val):
 
 
     Consider the I3322 Bell inequality
-    . . math::
+    .. math::
     I_{3322} = P(A_1 = B_1) + P(B_1 = A_2) + P(A_2 = B_2) + P(B_2 = A_3)
            - P(A_1 = B_2) - P(A_2 = B_3) - P(A_3 = B_1) - P(A_3 = B_3)
            \leq 2
@@ -77,8 +59,8 @@ def bell_inequality_max(joint_coe, a_coe, b_coe, a_val, b_val):
     ... ])
     >>> a_coe = np.array([0, -1, 0])
     >>> b_coe = np.array([-1, -2, 0])
-    >>> a_val = np.array([0,1])
-    >>> b_val = np.array([0,1])
+    >>> a_val = np.array([0, 1])
+    >>> b_val = np.array([0, 1])
     >>> '%.3f' % bell_inequality_max(joint_coe, a_coe, b_coe, a_val, b_val)
     '0.250'
 
@@ -95,74 +77,75 @@ def bell_inequality_max(joint_coe, a_coe, b_coe, a_val, b_val):
     :param b_val: The value of each measurement outcome for B
     :return: The upper bound for the maximum violation of the Bell inequality
 
-
-
     """
     m, _ = joint_coe.shape
-    oa = len(a_val)
-    ob = len(b_val)
 
-    # Ensure the input vectors are column vectors
+    # Ensure the input vectors are column vectors.
     a_val = a_val.reshape(-1, 1)
     b_val = b_val.reshape(-1, 1)
     a_coe = a_coe.reshape(-1, 1)
     b_coe = b_coe.reshape(-1, 1)
 
-    # Check if vectors a_val and b_val have only two elements
-    if oa != 2 or ob != 2:
+    # Check if vectors a_val and b_val have only two elements.
+    if len(a_val) != 2 or len(b_val) != 2:
         raise ValueError("This script is only capable of handling Bell inequalities with two outcomes.")
 
     tot_dim = 2 ** (2 * m + 2)
     obj_mat = np.zeros((tot_dim, tot_dim), dtype=float)
 
-    # Nested loops to compute the objective matrix
+    # Nested loops to compute the objective matrix.
     for a in range(2):  # a = 0 to 1
         for b in range(2):  # b = 0 to 1
+            # Indicies below are adjusted to account for Python-MATLAB difference.
             for x in range(1, m + 1):  # x = 1 to m (1-indexed in MATLAB, hence the range adjustment)
                 for y in range(1, m + 1):  # y = 1 to m
-                    b_coeff = (
-                        joint_coe[x - 1, y - 1] * a_val[a, 0] * b_val[b, 0]
-                    )  # Adjust index for 0-based Python indexing
+                    b_coeff = joint_coe[x - 1, y - 1] * a_val[a, 0] * b_val[b, 0]
                     if y == 1:
-                        b_coeff += a_coe[x - 1, 0] * a_val[a, 0]  # Adjust for 0-based indexing
+                        b_coeff += a_coe[x - 1, 0] * a_val[a, 0]
                     if x == 1:
-                        b_coeff += b_coe[y - 1, 0] * b_val[b, 0]  # Adjust for 0-based indexing
+                        b_coeff += b_coe[y - 1, 0] * b_val[b, 0]
 
-                    # Adding the result of the tensor product to the objective matrix
-                    obj_mat += b_coeff * np.kron(MN_matrix(m, a, x), MN_matrix(m, b, y))
+                    # Construct Alice and Bob's extended measurement operators.
+                    perm_x = [x if i == 0 else (0 if i == x else i) for i in range(m + 1)]
+                    perm_y = [y if i == 0 else (0 if i == y else i) for i in range(m + 1)]
+                    M = a * np.eye(2 ** (m + 1)) + ((-1) ** a) * permutation_operator([2] * (m + 1), perm_x, 0, 1)
+                    N = b * np.eye(2 ** (m + 1)) + ((-1) ** b) * permutation_operator([2] * (m + 1), perm_y, 0, 1)
 
-    # Symmetrize the matrix to avoid numerical issues
+                    # Adding the result of the tensor product to the objective matrix.
+                    obj_mat += b_coeff * np.kron(M, N)
+
+    # Symmetrize the matrix to avoid numerical issues.
     obj_mat = (obj_mat + obj_mat.T) / 2
     aux_mat = np.array([[1, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]])
 
-    # Construct the SDP problem
+    # Construct the SDP problem.
     W = cp.Variable((2 ** (2 * m), 2 ** (2 * m)), symmetric=True)
 
+    # Dimension boost W to the same dimension as obj_mat.
     M = swap(W, [2, m + 1], [2] * (2 * m))
     X = swap(cp.kron(M, aux_mat), [m + 1, 2 * m + 1], [2] * (2 * m + 2))
     Z = swap(X, [m + 2, 2 * m + 1], [2] * (2 * m + 2))
 
     objective = cp.Maximize(cp.trace(Z @ obj_mat))
 
-    # Define the constraints
+    # Define the constraints.
     constraints = [cp.trace(W) == 1, W >> 0]
 
-    # Adding PPT constraints
+    # Adding PPT constraints.
     for sz in range(1, m + 1):
-        # Generate all combinations of indices from 1 to 2*m-1 of size sz
+        # Generate all combinations of indices from 1 to 2*m-1 of size sz.
         for ppt_partition in combinations(range(1, 2 * m - 1), sz):
-            # Convert to 0-based indexing for Python
+            # Convert to 0-based indexing for Python.
             ppt_partition_updated = [x - 1 for x in ppt_partition]
-            # Partial transpose on the partition, ensuring it's positive semidefinite
+            # Partial transpose on the partition, ensuring it's positive semidefinite.
             pt_matrix = partial_transpose(W, ppt_partition_updated, [4] + [2] * (2 * (m - 1)))
             constraints.append(pt_matrix >> 0)
 
-    # Solve the problem
+    # Solve the problem.
     prob = cp.Problem(objective, constraints)
-    prob.solve(solver="MOSEK", verbose=False)
+    prob.solve(solver=solver_name, verbose=False)
 
-    # Return the results
-    rho = W.value
+    # Return the results.
     bmax = prob.value
 
     return bmax
