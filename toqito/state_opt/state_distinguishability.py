@@ -187,9 +187,7 @@ def _min_error_dual(
 
     # Set up variables and constraints for SDP:
     y_var = picos.HermitianVariable("Y", (dim, dim))
-    problem.add_list_of_constraints(
-        [y_var >> probs[i] * to_density_matrix(vector) for i, vector in enumerate(vectors)]
-    )
+    problem.add_list_of_constraints([y_var >> probs[i] * to_density_matrix(vector) for i, vector in enumerate(vectors)])
 
     # Objective function:
     problem.set_objective("min", picos.trace(y_var))
