@@ -8,3 +8,10 @@ repos:
       args: [ --fix ]
     # Run the formatter.
     - id: ruff-format 
+
+# - repo: https://github.com/compilerla/conventional-pre-commit
+#   rev: ceb71eed66199731982017ed09279f51d3bc2cb3
+#   hooks:
+#     - id: conventional-pre-commit
+#       stages: [commit-msg]
+#       args: []

@@ -27,6 +27,7 @@ sympy = "1.13.3"
 distlib = "0.3.9"
 ipython = "8.34.0"
 setuptools = ">65.5.1"
+pre-commit = ">=3.0.0"
 
 [tool.poetry.group.lint.dependencies]
 flake8 = "7.1.2"
