@@ -2,8 +2,6 @@
 
 import numpy as np
 
-from toqito.helper import expr_as_np_array, np_array_as_expr
-
 
 def bitflip(
     input_mat: np.ndarray | None = None,
@@ -72,28 +70,17 @@ def bitflip(
         if input_mat.shape[0] != 2:
             raise ValueError("Bitflip channel is only defined for qubits (dim=2).")
 
-    dim = 2
+    # Identity matrix for the no-flip case.
+    k0 = np.sqrt(1 - prob) * np.eye(2)
 
-    # Define the Kraus operators for the bitflip channel
-    no_flip_prob = np.sqrt(1 - prob)
-    flip_prob = np.sqrt(prob)
+    # X gate for the flip case.
+    k1 = np.sqrt(prob) * np.array([[0, 1], [1, 0]])
 
-    # Identity matrix for the no-flip case
-    k0 = no_flip_prob * np.eye(dim)
-
-    # X gate for the flip case
-    k1 = flip_prob * np.array([[0, 1], [1, 0]])
-
-    kraus_ops = [k0, k1]
-
-    # If no input matrix is provided, return the Kraus operators
+    # If no input matrix is provided, return the Kraus operators.
     if input_mat is None:
-        return kraus_ops
+        return [k0, k1]
 
-    # Apply the channel to the input state
+    # Apply the channel to the input state.
     input_mat = np.asarray(input_mat, dtype=complex)
 
-    result = np.zeros_like(input_mat, dtype=complex)
-    for op in kraus_ops:
-        result += op @ input_mat @ op.conj().T
-    return result
+    return k0 @ input_mat @ k0.conj().T + k1 @ input_mat @ k1.conj().T
