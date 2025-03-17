@@ -26,11 +26,6 @@ from toqito.states import bell
 )
 def test_common_quantum_overlap_parametrized(states, expected_overlap, description):
     """Test common quantum overlap for various sets of state preparations.
-
-    References:
-
-        - Bell states case: arXiv:2401.17980v2.
-        - Maximally mixed states: Corollary 1 in arXiv:2401.17980v2.
     """
     overlap = common_quantum_overlap(states)
     assert np.isclose(overlap, expected_overlap), description
