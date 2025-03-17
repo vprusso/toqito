@@ -1,3 +1,6 @@
+"""Computes the common quantum overlap quantum states."""
+
+
 import numpy as np
 from toqito.state_opt.state_exclusion import state_exclusion
 
