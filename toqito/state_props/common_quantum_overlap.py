@@ -38,11 +38,9 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
     >>> states = [np.eye(d)/d, np.eye(d)/d, np.eye(d)/d]
     >>> common_quantum_overlap(states)
     1.0
-    
     For two pure states with known inner product:
-
     >>> theta = np.pi/4
-    >>> states = [np.array([1, 0]), np.array([np.cos(theta), np.sin(theta)])]
+    >>> states = [np.array([1, 0]), np.array([np.cos(theta), np.sin(theta)])] 
     >>> common_quantum_overlap(states)  # Should approximate (1-sqrt(1-cos²(π/4)))
     0.2928932188134524
 
