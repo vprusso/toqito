@@ -45,10 +45,11 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
     0.2928932188134524
 
     References
+    
     ==========
     .. bibliography::
         :filter: docname in docnames
-    
+
     The common quantum overlap is discussed in :cite:`campos2024` for studying
     the limitations of epistemic models in quantum mechanics.
 
