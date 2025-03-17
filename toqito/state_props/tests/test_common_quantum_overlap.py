@@ -25,8 +25,7 @@ from toqito.states import bell
     ],
 )
 def test_common_quantum_overlap_parametrized(states, expected_overlap, description):
-    """Test common quantum overlap for various sets of state preparations.
-    """
+    """Test common quantum overlap for various sets of state preparations."""
     overlap = common_quantum_overlap(states)
     assert np.isclose(overlap, expected_overlap), description
 
