@@ -143,7 +143,6 @@ def bell_inequality_max(
             pt_matrix = partial_transpose(W, ppt_partition_updated, [4] + [2] * (2 * (m - 1)))
             constraints.append(pt_matrix >> 0)
 
-    # Solve the problem.
     prob = cp.Problem(objective, constraints)
     prob.solve(solver=solver_name, verbose=False)
 
