@@ -71,13 +71,7 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
     """
 
     n = len(states)
-    probs = [1] * n
-    opt_val, _ = state_exclusion(vectors=states, probs=probs, primal_dual="dual")
-    A_q = 1 - opt_val/n   #   1 - (1/n) < A_q < 1
- 
-
-    omega_q = n * (1 - A_q)
-
-    return omega_q
+    opt_val, _ = state_exclusion(vectors=states, probs=[1] * n, primal_dual="dual")
+    return n * (1 - (1 - opt_val / n))
 
 
