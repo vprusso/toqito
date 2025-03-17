@@ -8,10 +8,9 @@ from toqito.states import bell
     "states, expected_overlap, description",
     [
         (
-            # Bell states are perfectly antidistinguishable so the common quantum overlap should be 0.
+            # Bell states are perfectly antidistinguishable (ω_Q = 0) as per arXiv:2401.17980v2.
             [bell(0), bell(1), bell(2), bell(3)],
-            0,
-            "Bell states are perfectly antidistinguishable (ω_Q = 0) as per arXiv:2401.17980v2.",
+            0
         ),
         (
             # For n maximally mixed preparations (here n=3) the overlap is maximum (ω_Q = 1).
