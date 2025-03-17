@@ -26,17 +26,13 @@ def bell_inequality_max(
     The function formulates the problem as a SDP problem in the following format
 
     .. math::
-    
-        \[
-        \max \operatorname{tr} \left( W \cdot \sum_{a,b,x,y} B^{xy}_{ab} M^x_a \otimes N^y_b \right),
-        \]
-        \[
-        \text{s.t.} \quad \operatorname{tr}(W) = 1, \quad W \geq 0,
-        \]
-        \[
-        W^{T_P} \geq 0, \quad \text{for all bipartitions } P.
-        \]
-        \]
+
+        \begin{multline}
+        \max \operatorname{tr}\!\Bigl( W \cdot \sum_{a,b,x,y} B^{xy}_{ab}\, M^x_a \otimes N^y_b \Bigr),\\[1ex]
+        \text{s.t.} \quad \operatorname{tr}(W) = 1,\quad W \ge 0,\\[1ex]
+        W^{T_P} \ge 0,\quad \text{for all bipartitions } P.
+        \end{multline}
+
 
     Examples
     =======
@@ -44,10 +40,12 @@ def bell_inequality_max(
 
     Consider the I3322 Bell inequality
     .. math::
-    
-    I_{3322} = P(A_1 = B_1) + P(B_1 = A_2) + P(A_2 = B_2) + P(B_2 = A_3)
-           - P(A_1 = B_2) - P(A_2 = B_3) - P(A_3 = B_1) - P(A_3 = B_3)
-           \leq 2
+
+        \begin{aligned}
+        I_{3322} &= P(A_1 = B_1) + P(B_1 = A_2) + P(A_2 = B_2) + P(B_2 = A_3) \\
+                 &\quad - P(A_1 = B_2) - P(A_2 = B_3) - P(A_3 = B_1) - P(A_3 = B_3) \\
+                 &\le 2
+        \end{aligned}
 
     The individual and joint coefficents and measurement values are encoded as matrices.
     The upper bound can then be found in :code:'toqito' as follows.
