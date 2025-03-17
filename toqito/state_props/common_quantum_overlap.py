@@ -13,10 +13,11 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
 
     .. math::
         \omega_Q[n] = n(1 - A_Q[n])
-        
-    For two pure states with inner product \(|\langle\psi|\phi\rangle| = p\), the common quantum overlap is:
+
+    For two pure states with inner product :math:`|\langle\psi|\phi\rangle| = p`, the common quantum overlap is:
+
     .. math::
-        \omega_Q = (1 - \sqrt{1-|p|^2})
+        \omega_Q = 1 - \sqrt{1 - p^2}
         
     The common quantum overlap is a key concept in analyzing epistemic models of quantum
     mechanics and understanding quantum state preparation contextuality.
