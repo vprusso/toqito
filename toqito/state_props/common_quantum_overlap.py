@@ -7,7 +7,7 @@ from toqito.state_opt.state_exclusion import state_exclusion
 def common_quantum_overlap(states: list[np.ndarray]) -> float:
     r"""Calculate the common quantum overlap of a collection of quantum states.
 
-    The common quantum overlap \(\omega_Q[n]\) quantifies the "overlap" between \(n\) quantum states
+    The common quantum overlap :math:`\(\omega_Q[n]\)` quantifies the "overlap" between :math:`\(n\)` quantum states
     based on their antidistinguishability properties. It is related to the
     antidistinguishability probability \(A_Q[n]\) by the formula:
 
