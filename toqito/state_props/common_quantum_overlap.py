@@ -57,7 +57,7 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
     .. bibliography::
         :filter: docname in docnames
 
-    The common quantum overlap is discussed in :cite:`campos2024` for studying
+    The common quantum overlap is discussed in :cite:`Campos_2024_AntiDistinguishability` for studying
     the limitations of epistemic models in quantum mechanics.
 
     :param states: A list of quantum states represented as numpy arrays. States can be
