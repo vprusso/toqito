@@ -13,21 +13,19 @@ entanglement theory, nonlocal games, and other aspects of quantum information
 that are often associated with computer science.
 
 
-.. image:: https://github.com/vprusso/toqito/actions/workflows/build-test-actions.yml/badge.svg?style=plastic
+.. image:: https://github.com/vprusso/toqito/actions/workflows/build-test-actions.yml/badge.svg
    :alt: Build Status
    :target: https://github.com/vprusso/toqito/actions/workflows/build-test-actions.yml
-.. image:: https://readthedocs.org/projects/toqito/badge/?version=latest&style=plastic
-   :alt: Documentation
+.. image:: https://readthedocs.org/projects/toqito/badge/?version=latest
    :target: https://toqito.readthedocs.io/en/latest/
-.. image:: https://codecov.io/gh/vprusso/toqito/branch/master/graph/badge.svg?style=plastic
+.. image:: https://codecov.io/gh/vprusso/toqito/branch/master/graph/badge.svg
    :alt: Codecov
    :target: https://codecov.io/gh/vprusso/toqito
-.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4743211.svg?style=plastic
-   :alt: DOI
+.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4743211.svg
    :target: https://doi.org/10.5281/zenodo.4743211
-.. image:: https://img.shields.io/badge/Supported%20By-UNITARY%20FUND-brightgreen.svg?style=plastic
-   :alt: Unitary Fund
-   :target: http://unitary.fund
+.. image:: https://img.shields.io/badge/Supported%20By-Unitary%20Foundation-FFFF00.svg
+   :alt: Unitary Foundation
+   :target: https://unitary.foundation
 
 
 User Documentation
