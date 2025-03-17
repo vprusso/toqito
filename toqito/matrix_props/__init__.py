@@ -31,4 +31,5 @@ from toqito.matrix_props.is_positive import is_positive
 from toqito.matrix_props.positive_semidefinite_rank import positive_semidefinite_rank
 from toqito.matrix_props.is_stochastic import is_stochastic
 from toqito.matrix_props.spark import spark
+from toqito.matrix_props.is_pseudo_unitary import is_pseudo_unitary
 from toqito.matrix_props.is_pseudo_hermitian import is_pseudo_hermitian
