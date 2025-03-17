@@ -38,7 +38,14 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
     >>> states = [np.eye(d)/d, np.eye(d)/d, np.eye(d)/d]
     >>> common_quantum_overlap(states)
     1.0
-    For two pure states with known inner product:
+    The common quantum overlap :math:`\omega_Q` for two pure states 
+    with inner product :math:`|\langle \psi | \phi \rangle| = \cos\theta` is given by:
+    
+    .. math::
+    \omega_Q = 1 - \sqrt{1 - \cos^2\theta}
+    
+    where :math:`\theta` represents the angle between the two states in Hilbert space.
+    For two pure states with a known inner product:
     >>> theta = np.pi/4
     >>> states = [np.array([1, 0]), np.array([np.cos(theta), np.sin(theta)])] 
     >>> common_quantum_overlap(states)  # Should approximate (1-sqrt(1-cos²(π/4)))
