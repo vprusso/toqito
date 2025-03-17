@@ -146,7 +146,4 @@ def bell_inequality_max(
     prob = cp.Problem(objective, constraints)
     prob.solve(solver=solver_name, verbose=False)
 
-    # Return the results.
-    bmax = prob.value
-
-    return bmax
+    return prob.value
