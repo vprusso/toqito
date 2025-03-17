@@ -9,7 +9,7 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
     r"""Calculate the common quantum overlap of a collection of quantum states.
 
     The common quantum overlap :math:`\omega_Q[n]` quantifies the "overlap" between :math:`n` quantum states
-    based on their antidistinguishability properties. It is related to the 
+    based on their antidistinguishability properties. It is related to the
     antidistinguishability probability :math:`A_Q[n]` by the formula:
 
     .. math::
@@ -19,7 +19,7 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
 
     .. math::
         \omega_Q = 1 - \sqrt{1 - p^2}
-        
+
     The common quantum overlap is a key concept in analyzing epistemic models of quantum
     mechanics and understanding quantum state preparation contextuality.
 
@@ -38,22 +38,22 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
     >>> states = [np.eye(d)/d, np.eye(d)/d, np.eye(d)/d]
     >>> common_quantum_overlap(states)
     1.0
-    The common quantum overlap :math:`\omega_Q` for two pure states 
+    The common quantum overlap :math:`\omega_Q` for two pure states
     with inner product :math:`|\langle \psi | \phi \rangle| = \cos\theta` is given by:
-    
+
     .. math::
     \omega_Q = 1 - \sqrt{1 - \cos^2\theta}
-    
+
     where :math:`\theta` represents the angle between the two states in Hilbert space.
     For two pure states with a known inner product:
     >>> theta = np.pi/4
-    >>> states = [np.array([1, 0]), np.array([np.cos(theta), np.sin(theta)])] 
+    >>> states = [np.array([1, 0]), np.array([np.cos(theta), np.sin(theta)])]
     >>> common_quantum_overlap(states)  # Should approximate (1-sqrt(1-cos²(π/4)))
     0.2928932188134524
 
     References
-    
     ==========
+
     .. bibliography::
         :filter: docname in docnames
 
