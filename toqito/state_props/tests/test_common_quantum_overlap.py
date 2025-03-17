@@ -52,9 +52,7 @@ def test_two_states_known_overlap():
     overlap = common_quantum_overlap(states)
 
     expected_value = 1 - np.sqrt(1 - inner_product**2)
-    assert np.isclose(overlap, expected_value), (
-        f"Expected overlap {expected_value} for two states with inner product {inner_product}, but got {overlap}"
-    )
+    assert np.isclose(overlap, expected_value)
 
 
 def test_three_states_on_great_circle():
@@ -70,7 +68,5 @@ def test_three_states_on_great_circle():
     states = [psi_0, psi_1, psi_2]
     overlap = common_quantum_overlap(states)
 
-    assert np.isclose(overlap, 0), (
-        f"Expected overlap 0 for three equally spaced states on a great circle, but got {overlap}"
-    )
+    assert np.isclose(overlap, 0)
 
