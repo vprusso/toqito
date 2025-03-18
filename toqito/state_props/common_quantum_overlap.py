@@ -34,7 +34,7 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
     >>> bell_states = [bell(0), bell(1), bell(2), bell(3)]
     >>> common_quantum_overlap(bell_states)
     3.3910869667863608e-09
-    
+
     For maximally mixed states in any dimension:
 
     >>> import numpy as np
