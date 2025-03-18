@@ -66,21 +66,14 @@ def bitflip(
     if not (0 <= prob <= 1):
         raise ValueError("Probability must be between 0 and 1.")
 
-    if input_mat is not None:
-        if input_mat.shape[0] != 2:
-            raise ValueError("Bitflip channel is only defined for qubits (dim=2).")
-
-    # Identity matrix for the no-flip case.
     k0 = np.sqrt(1 - prob) * np.eye(2)
-
-    # X gate for the flip case.
     k1 = np.sqrt(prob) * np.array([[0, 1], [1, 0]])
 
-    # If no input matrix is provided, return the Kraus operators.
-    if input_mat is None:
+    if input_mat is not None and input_mat.shape != (2, 2):
+        raise ValueError("Input matrix must be 2x2 for the bitflip channel.")
+    elif input_mat is None:
         return [k0, k1]
 
-    # Apply the channel to the input state.
     input_mat = np.asarray(input_mat, dtype=complex)
 
     return k0 @ input_mat @ k0.conj().T + k1 @ input_mat @ k1.conj().T
