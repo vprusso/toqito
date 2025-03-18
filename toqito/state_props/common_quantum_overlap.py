@@ -47,7 +47,7 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
     with inner product :math:`|\langle \psi | \phi \rangle| = \cos\theta` is given by:
 
     .. math::
-    \omega_Q = 1 - \sqrt{1 - \cos^2\theta}
+        \omega_Q = 1 - \sqrt{1 - \cos^2\theta}
 
     where :math:`\theta` represents the angle between the two states in Hilbert space.
     For two pure states with a known inner product:
