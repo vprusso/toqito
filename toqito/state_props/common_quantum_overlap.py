@@ -58,7 +58,7 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
     >>> theta = np.pi/4
     >>> states = [np.array([1, 0]), np.array([np.cos(theta), np.sin(theta)])]
     >>> common_quantum_overlap(states)  # Should approximate (1-sqrt(1-cos²(π/4)))
-    0.2928932188134524
+    0.29289321883356534
 
     References
     ==========
