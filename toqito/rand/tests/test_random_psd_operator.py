@@ -1,9 +1,8 @@
-import numpy as np
-import pytest
 from numpy.testing import assert_equal
+import pytest
 
 from toqito.matrix_props import is_positive_semidefinite
-from toqito.rand.random_psd_operator import random_psd_operator
+from toqito.rand import random_psd_operator
 
 @pytest.mark.parametrize(
     "dim, is_real",
@@ -18,10 +17,10 @@ from toqito.rand.random_psd_operator import random_psd_operator
         (10, True)
     ]
 )
-def test_random_psd_operator(dim):
+def test_random_psd_operator(dim, is_real):
     """Test for random_psd_operator function."""
     # Generate a random positive semidefinite operator.
-    rand_psd_operator = random_psd_operator(dim)
+    rand_psd_operator = random_psd_operator(dim, is_real)
 
     # Ensure the matrix has the correct shape.
     assert_equal(rand_psd_operator.shape, (dim, dim))
