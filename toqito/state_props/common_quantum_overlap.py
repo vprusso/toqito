@@ -34,12 +34,15 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
     >>> bell_states = [bell(0), bell(1), bell(2), bell(3)]
     >>> common_quantum_overlap(bell_states) #expected 0.0
     3.3910869667863608e-09
+    
     For maximally mixed states in any dimension:
+    
     >>> import numpy as np
     >>> d = 2  # dimension
     >>> states = [np.eye(d)/d, np.eye(d)/d, np.eye(d)/d]
     >>> common_quantum_overlap(states) #expected 1.0
     0.9999999999999998
+    
     The common quantum overlap :math:`\omega_Q` for two pure states
     with inner product :math:`|\langle \psi | \phi \rangle| = \cos\theta` is given by:
 
@@ -48,6 +51,7 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
 
     where :math:`\theta` represents the angle between the two states in Hilbert space.
     For two pure states with a known inner product:
+    
     >>> theta = np.pi/4
     >>> states = [np.array([1, 0]), np.array([np.cos(theta), np.sin(theta)])]
     >>> common_quantum_overlap(states)  # Should approximate (1-sqrt(1-cos²(π/4)))
