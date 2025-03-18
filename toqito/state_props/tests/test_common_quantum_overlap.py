@@ -40,6 +40,7 @@ from toqito.states import bell
 )
 
 def test_common_quantum_overlap_parametrized(states, expected_overlap):
+    """Test function works as expected for a valid input."""
     overlap = common_quantum_overlap(states)
     assert np.isclose(overlap, expected_overlap)
 
