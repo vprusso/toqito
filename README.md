@@ -117,6 +117,9 @@ A BibTeX entry that you can use to cite `toqito` is provided here:
 
 The `toqito` project has been used or referenced in the following works:
 
+- [![a](https://img.shields.io/static/v1?label=thesis&message=31639397&color=inactive&style=flat-square)]([https://arxiv.org/abs/2406.13430](https://www.proquest.com/openview/eb0021dd3eb463b5fb12b7fc71d920eb/1?cbl=18750&diss=y&pq-origsite=gscholar)) Philip, Aby
+"On Multipartite Entanglement and Its Use", (2024).
+
 - [![a](https://img.shields.io/static/v1?label=arXiv&message=2406.13430&color=inactive&style=flat-square)](https://arxiv.org/abs/2406.13430) Bandyopadhyay, Somshubhro and Russo, Vincent
 "Distinguishing a maximally entangled basis using LOCC and shared entanglement", (2024).
 
