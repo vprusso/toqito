@@ -32,12 +32,13 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
     >>> from toqito.states import bell
     >>> from toqito.state_props import common_quantum_overlap
     >>> bell_states = [bell(0), bell(1), bell(2), bell(3)]
-    >>> common_quantum_overlap(bell_states) #expected 0.0
+    >>> common_quantum_overlap(bell_states)
     3.3910869667863608e-09
     
     For maximally mixed states in any dimension:
     
     >>> import numpy as np
+    >>> from toqito.state_props import common_quantum_overlap
     >>> dim = 2
     >>> states = [np.eye(dim) / dim, np.eye(dim) / dim, np.eye(dim) / dim]
     >>> common_quantum_overlap(states)
@@ -51,7 +52,9 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
 
     where :math:`\theta` represents the angle between the two states in Hilbert space.
     For two pure states with a known inner product:
-    
+
+    >>> import numpy as np
+    >>> from toqito.state_props import common_quantum_overlap
     >>> theta = np.pi/4
     >>> states = [np.array([1, 0]), np.array([np.cos(theta), np.sin(theta)])]
     >>> common_quantum_overlap(states)  # Should approximate (1-sqrt(1-cos²(π/4)))
