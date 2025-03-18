@@ -1,9 +1,9 @@
-"""Generates the Generalised Amplitude Damping Channel."""
+"""Generates the generalized Amplitude Damping Channel."""
 
 import numpy as np
 
 
-def GeneralisedAmplitudeDamping(
+def generalized_amplitude_damping(
     input_mat: np.ndarray | None = None,
     gamma: float = 0,
     prob: float = 0,
@@ -18,10 +18,10 @@ def GeneralisedAmplitudeDamping(
     The Kraus operators for the generalized amplitude damping channel are given by:
 
     .. math::
-        K_0 = \sqrt{p} \begin{pmatrix} 1 & 0 \\ 0 & \sqrt{1 - \gamma} \end{pmatrix},
-        K_1 = \sqrt{p} \sqrt{\gamma} \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix},
-        K_2 = \sqrt{1 - p} \begin{pmatrix} \sqrt{1 - \gamma} & 0 \\ 0 & 1 \end{pmatrix},
-        K_3 = \sqrt{1 - p} \sqrt{\gamma} \begin{pmatrix} 0 & 0 \\ 1 & 0 \end{pmatrix}.
+        K_0 = \sqrt{p} \begin{pmatrix} 1 & 0 \\ 0 & \sqrt{1 - \gamma} \end{pmatrix}\\
+        K_1 = \sqrt{p}  \begin{pmatrix} 0 & \sqrt{\gamma} \\ 0 & 0 \end{pmatrix}\\
+        K_2 = \sqrt{1 - p} \begin{pmatrix} \sqrt{1 - \gamma} & 0 \\ 0 & 1 \end{pmatrix}\\
+        K_3 = \sqrt{1 - p}  \begin{pmatrix} 0 & 0 \\ \sqrt{\gamma} & 0 \end{pmatrix}\\
 
     These operators describe the evolution of a quantum state under the generalized amplitude
     damping process.
@@ -32,11 +32,11 @@ def GeneralisedAmplitudeDamping(
     Apply the generalized amplitude damping channel to a qubit state:
 
     >>> import numpy as np
-    >>> from toqito.channels import GeneralisedAmplitudeDamping
+    >>> from toqito.channels import generalizedAmplitudeDamping
     >>> rho = np.array([[1, 0], [0, 0]])  # |0><0|
     >>> gamma = 0.1  # Damping rate
-    >>> prob = 0.5  # Probability of energy loss
-    >>> result = GeneralisedAmplitudeDamping(rho, gamma, prob)
+    >>> prob = 0.5  # Probability
+    >>> result = generalized_amplitude_damping(rho, gamma, prob)
     >>> print(result)
     [[0.95 0.  ]
      [0.   0.05]]
@@ -46,14 +46,11 @@ def GeneralisedAmplitudeDamping(
     .. bibliography::
         :filter: docname in docnames
 
-    :param input_mat: The input quantum state (density matrix) to which the channel is applied.
+    :param input_mat: The input matrix to which the channel is applied.
                       If `None`, the function returns the Kraus operators of the channel.
     :param gamma: The damping rate, a float between 0 and 1. Represents the probability of
                   energy dissipation.
-    :param prob: The probability of energy loss, a float between 0 and 1. Represents the
-                 likelihood of the system transitioning to a lower energy state.
-    :raises ValueError: If `gamma` or `prob` are not in the range [0, 1], or if `input_mat`
-                        is not a valid 2x2 density matrix.
+    :param prob: The probability of energy loss, a float between 0 and 1.
     :return: The evolved quantum state after applying the generalized amplitude damping channel.
              If `input_mat` is `None`, returns the list of Kraus operators.
 
@@ -64,26 +61,21 @@ def GeneralisedAmplitudeDamping(
     if not (0 <= gamma <= 1):
         raise ValueError("Probability must be between 0 and 1.")
 
-    if input_mat is not None:
-        if input_mat.shape[0] != 2:
-            raise ValueError("Generalised Amplitude Damping Channel is only defined for qubits (dim=2).")
-
-    dim = 2
-
     k0 = np.sqrt(prob) * np.array([[1, 0], [0, np.sqrt(1 - gamma)]])
     k1 = np.sqrt(prob) * np.sqrt(gamma) * np.array([[0, 1], [0, 0]])
-    k2 = np.sqrt(1 - prob) * np.array([np.sqrt(1 - gamma), 0][0, 1])
+    k2 = np.sqrt(1 - prob) * np.array([[np.sqrt(1 - gamma), 0], [0, 1]])
     k3 = np.sqrt(1 - prob) * np.sqrt(gamma) * np.array([[0, 0], [1, 0]])
 
-    kraus_ops = [k0, k1, k2, k3]
-
-    if input_mat is None:
-        return kraus_ops
+    if input_mat is not None and input_mat.shape != (2, 2):
+        raise ValueError("Input matrix must be 2x2 for the generalized amplitude damping channel.")
+    elif input_mat is None:
+        return [k0, k1, k2, k3]
 
     input_mat = np.asarray(input_mat, dtype=complex)
 
-    result = np.zeros_like(input_mat, dtype=complex)
-
-    for op in kraus_ops:
-        result += op @ input_mat @ op.conj().T
-    return result
+    return (
+        k0 @ input_mat @ k0.conj().T
+        + k1 @ input_mat @ k1.conj().T
+        + k2 @ input_mat @ k2.conj().T
+        + k3 @ input_mat @ k3.conj().T
+    )
