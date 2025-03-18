@@ -49,6 +49,9 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
     .. math::
         \omega_Q = 1 - \sqrt{1 - \cos^2\theta}
 
+    .. math::
+        \omega_Q[n] = n(1 - A_Q[n])
+
     where :math:`\theta` represents the angle between the two states in Hilbert space.
     For two pure states with a known inner product:
     
