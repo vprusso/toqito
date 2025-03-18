@@ -38,9 +38,9 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
     For maximally mixed states in any dimension:
     
     >>> import numpy as np
-    >>> d = 2  # dimension
-    >>> states = [np.eye(d)/d, np.eye(d)/d, np.eye(d)/d]
-    >>> common_quantum_overlap(states) #expected 1.0
+    >>> dim = 2
+    >>> states = [np.eye(dim) / dim, np.eye(dim) / dim, np.eye(dim) / dim]
+    >>> common_quantum_overlap(states)
     0.9999999999999998
     
     The common quantum overlap :math:`\omega_Q` for two pure states
