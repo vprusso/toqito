@@ -76,6 +76,7 @@ def bell_inequality_max(
     :param b_coe: The coefficent for terms only containing B.
     :param a_val: The value of each measurement outcome for A.
     :param b_val: The value of each measurement outcome for B.
+    :param solver_name: The solver used.
     :return: The upper bound for the maximum violation of the Bell inequality.
 
     """
