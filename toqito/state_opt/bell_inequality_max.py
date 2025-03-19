@@ -17,9 +17,9 @@ def bell_inequality_max(
     b_val: np.ndarray,
     solver_name: str = "SCS",
 ) -> float:
-    r"""Return the upper bound for the maximum violation(Tsirelson Bound) for a given bipartite Bell Inequality.
+    r"""Return the upper bound for the maximum violation(Tsirelson Bound) for a given bipartite Bell inequality.
 
-    This computes the upper bound for the maximum value of a given bipartite Bell Inequality using an SDP.
+    This computes the upper bound for the maximum value of a given bipartite Bell inequality using an SDP.
     The method is from :cite:`Navascues_2014_Characterization` and the implementation is based on :cite:`QETLAB_link`.
     This is useful for various tasks in device independent quantum information processing.
 
