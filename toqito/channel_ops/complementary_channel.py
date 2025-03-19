@@ -19,6 +19,7 @@ def complementary_channel(kraus_ops: list[np.ndarray]) -> list[np.ndarray]:
     Examples
     ==========
     Suppose the following Kraus operators define a quantum channel:
+
     .. math::
         K_1 = \frac{1}{\sqrt{2}} \begin{pmatrix}
             1 & 0 \\
