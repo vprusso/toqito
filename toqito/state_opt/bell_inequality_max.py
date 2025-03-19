@@ -39,7 +39,7 @@ def bell_inequality_max(
 
 
     Consider the I3322 Bell inequality
-    
+
     .. math::
 
         \begin{aligned}
@@ -49,7 +49,7 @@ def bell_inequality_max(
         \end{aligned}
 
     The individual and joint coefficents and measurement values are encoded as matrices.
-    The upper bound can then be found in :code:'toqito' as follows.
+    The upper bound can then be found in :code:`toqito` as follows.
 
     >>> from toqito.state_opt import bell_inequality_max
     >>> import numpy as np
@@ -71,12 +71,12 @@ def bell_inequality_max(
         :filter: docname in docnames
 
     :raises ValueError: If a_val or b_val are not length 2.
-    :param joint_coe: The coefficents for terms containing both A and B
-    :param a_coe: The coefficent for terms only containing A
-    :param b_coe: The coefficent for terms only containing B
-    :param a_val: The value of each measurement outcome for A
-    :param b_val: The value of each measurement outcome for B
-    :return: The upper bound for the maximum violation of the Bell inequality
+    :param joint_coe: The coefficents for terms containing both A and B.
+    :param a_coe: The coefficent for terms only containing A.
+    :param b_coe: The coefficent for terms only containing B.
+    :param a_val: The value of each measurement outcome for A.
+    :param b_val: The value of each measurement outcome for B.
+    :return: The upper bound for the maximum violation of the Bell inequality.
 
     """
     m, _ = joint_coe.shape
