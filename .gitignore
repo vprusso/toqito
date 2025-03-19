@@ -7,6 +7,7 @@
 *.hdf5
 *.ipynb_checkpoints
 *.jupyter_cache
+*.ipynb
 _build
 __pycache__/
 docs/build/
