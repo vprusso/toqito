@@ -39,6 +39,7 @@ def bell_inequality_max(
 
 
     Consider the I3322 Bell inequality
+    
     .. math::
 
         \begin{aligned}
