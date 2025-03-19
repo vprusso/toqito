@@ -32,7 +32,7 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
     >>> from toqito.states import bell
     >>> from toqito.state_props import common_quantum_overlap
     >>> bell_states = [bell(0), bell(1), bell(2), bell(3)]
-    >>> common_quantum_overlap(bell_states)
+    >>> round(common_quantum_overlap(bell_states),4)
     0.0
 
     For maximally mixed states in any dimension:
@@ -41,7 +41,7 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
     >>> from toqito.state_props import common_quantum_overlap
     >>> dim = 2
     >>> states = [np.eye(dim) / dim, np.eye(dim) / dim, np.eye(dim) / dim]
-    >>> common_quantum_overlap(states)
+    >>> round(common_quantum_overlap(states),4)
     1.0
 
     The common quantum overlap :math:`\omega_Q` for two pure states
@@ -57,8 +57,8 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
     >>> from toqito.state_props import common_quantum_overlap
     >>> theta = np.pi/4
     >>> states = [np.array([1, 0]), np.array([np.cos(theta), np.sin(theta)])]
-    >>> common_quantum_overlap(states)  # Should approximate (1-sqrt(1-cos²(π/4)))
-    0.29289322
+    >>> round(common_quantum_overlap(states),4)  # Should approximate (1-sqrt(1-cos²(π/4)))
+    0.2929
 
     References
     ==========
@@ -74,5 +74,5 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
     """
     n = len(states)
     opt_val, _ = state_exclusion(vectors=states, probs=[1] * n, primal_dual="dual")
-    return np.round(n * (1 - (1 - opt_val / n)),8)
+    return n * (1 - (1 - opt_val / n))
 
