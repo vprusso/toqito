@@ -20,10 +20,7 @@ expected_value = 0.250
     [(joint_coe, a_coe, b_coe, a_val_valid, b_val_valid, expected_value)],
 )
 def test_bell_inequality_max_valid(joint_coe, a_coe, b_coe, a_val, b_val, expected):
-    """Test bell_inequality_max returns the expected value using valid input.
-
-    This test uses the I3322 Bell inequality.
-    """
+    """Test bell_inequality_max returns the expected value using valid input."""
     result = bell_inequality_max(joint_coe, a_coe, b_coe, a_val, b_val)
     assert pytest.approx(result, 0.01) == expected
 
