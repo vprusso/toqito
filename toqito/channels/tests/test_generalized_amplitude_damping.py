@@ -1,5 +1,7 @@
 """Tests for generalized amplitude damping channel."""
 
+import re
+
 import numpy as np
 import pytest
 
@@ -72,13 +74,13 @@ def test_invalid_prob(prob, error_message):
 @pytest.mark.parametrize(
     "gamma, error_message",
     [
-        (-0.1, "Probability must be between 0 and 1."),
-        (1.1, "Probability must be between 0 and 1."),
+        (-0.1, "Gamma (damping rate) must be between 0 and 1."),
+        (1.1, "Gamma (damping rate) must be between 0 and 1."),
     ],
 )
 def test_invalid_gamma(gamma, error_message):
     """Test that invalid gamma values raise an error."""
-    with pytest.raises(ValueError, match=error_message):
+    with pytest.raises(ValueError, match=re.escape(error_message)):
         generalized_amplitude_damping(prob=0.5, gamma=gamma)
 
 
