@@ -87,12 +87,6 @@ def test_bell_inequality_max_minimal(joint_coe, a_coe, b_coe, a_val, b_val):
 
 
 # CHSH inequality test
-chsh_joint_coe = np.array([[1, 1], [1, -1]])
-chsh_a_coe = np.array([0, 0])
-chsh_b_coe = np.array([0, 0])
-chsh_a_val = np.array([1, -1])
-chsh_b_val = np.array([1, -1])
-chsh_expected = 2.828  # Tsirelson's bound
 
 
 @pytest.mark.parametrize(
