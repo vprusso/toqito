@@ -15,7 +15,7 @@ def generalized_amplitude_damping(
     probability. This channel is defined by two parameters: `gamma` (the damping rate) and `prob`
     (the probability of energy loss).
 
-    Note: This channel is defined for qubit systems in the standard literature.
+    Note: This channel is defined for qubit systems in the standard literature :cite:`PhysRevA.102.012401`.
 
     The Kraus operators for the generalized amplitude damping channel are given by:
 
