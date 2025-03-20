@@ -6,13 +6,6 @@ import scs
 
 from toqito.state_opt import bell_inequality_max
 
-# Example inputs from the I3322 Bell inequality
-joint_coe = np.array([[1, 1, -1], [1, 1, 1], [-1, 1, 0]])
-a_coe = np.array([0, -1, 0])
-b_coe = np.array([-1, -2, 0])
-a_val_valid = np.array([0, 1])
-b_val_valid = np.array([0, 1])
-expected_value = 0.250
 
 
 @pytest.mark.parametrize(
