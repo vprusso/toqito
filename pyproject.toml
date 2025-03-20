@@ -8,6 +8,15 @@ readme = "README.md"
 homepage = "https://vprusso.github.io/toqito/"
 repository = "https://github.com/vprusso/toqito"
 keywords = ["quantum information", "quantum computing", "nonlocal games"]
+classifiers= [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+]
+packages = [{include = "toqito"}]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<4"
@@ -46,8 +55,8 @@ sphinx-autoapi = "3.6.0"
 sphinx-copybutton = "0.5.2"
 
 [build-system]
-requires = ["setuptools","poetry>=0.12"]
-build-backend = "poetry.masonry.api"
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
 
 [tool.ruff]
 # exclude = ["__init__.py"]
