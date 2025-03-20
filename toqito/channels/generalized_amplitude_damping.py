@@ -54,7 +54,7 @@ def generalized_amplitude_damping(
                   energy dissipation.
     :param prob: The probability of energy loss, a float between 0 and 1.
     :return: The evolved quantum state after applying the generalized amplitude damping channel.
-             If `input_mat` is `None`, returns the list of Kraus operators.
+             If `input_mat` is `None`, it returns the list of Kraus operators.
 
     """
     if not (0 <= prob <= 1):
