@@ -10,7 +10,16 @@ from toqito.state_opt import bell_inequality_max
 
 @pytest.mark.parametrize(
     "joint_coe, a_coe, b_coe, a_val, b_val, expected",
-    [(joint_coe, a_coe, b_coe, a_val_valid, b_val_valid, expected_value)],
+    # Bell I3322 inequality.
+    [
+        np.array([[1, 1, -1], [1, 1, 1], [-1, 1, 0]]),
+        np.array([0, -1, 0]),
+        np.array([-1, -2, 0]),
+        np.array([0, 1]),
+        np.array([0, 1]),
+        0.250,
+    ],
+    # CHSH inequality
 )
 def test_bell_inequality_max_valid(joint_coe, a_coe, b_coe, a_val, b_val, expected):
     """Test bell_inequality_max returns the expected value using valid input."""
