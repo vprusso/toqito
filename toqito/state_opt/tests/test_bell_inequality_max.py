@@ -45,11 +45,6 @@ def test_bell_inequality_max_invalid(joint_coe, a_coe, b_coe, a_val, b_val):
         bell_inequality_max(joint_coe, a_coe, b_coe, a_val, b_val)
 
 
-# Degenerate case: all coefficients are zero (using minimal m = 1)
-degenerate_joint_coe = np.zeros((1, 1))
-degenerate_a_coe = np.zeros(1)
-degenerate_b_coe = np.zeros(1)
-
 
 @pytest.mark.parametrize(
     "joint_coe, a_coe, b_coe, a_val, b_val, expected",
