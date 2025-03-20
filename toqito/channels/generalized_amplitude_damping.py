@@ -6,7 +6,7 @@ import numpy as np
 def generalized_amplitude_damping(
     input_mat: np.ndarray | None = None,
     gamma: float = 0,
-    prob: float = 0,
+    prob: float = 1,
 ) -> np.ndarray:
     r"""Apply the generalized amplitude damping channel to a quantum state.
 
@@ -14,6 +14,8 @@ def generalized_amplitude_damping(
     in a quantum system, where the system can lose energy to its environment with a certain
     probability. This channel is defined by two parameters: `gamma` (the damping rate) and `prob`
     (the probability of energy loss).
+
+    To also include standard implementation of amplitude damping, we have set `prob = 1` as the default implementation.
 
     Note: This channel is defined for qubit systems in the standard literature :cite:`PhysRevA.102.012401`.
 
