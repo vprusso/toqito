@@ -53,7 +53,7 @@ degenerate_b_coe = np.zeros(1)
 
 @pytest.mark.parametrize(
     "joint_coe, a_coe, b_coe, a_val, b_val, expected",
-    [(degenerate_joint_coe, degenerate_a_coe, degenerate_b_coe, np.array([0, 1]), np.array([0, 1]), 0.0)],
+    [(np.zeros((1,1)), np.zeros(1), np.zeros(1), np.array([0, 1]), np.array([0, 1]), 0.0)],
 )
 def test_bell_inequality_max_degenerate(joint_coe, a_coe, b_coe, a_val, b_val, expected):
     """Test bell_inequality_max for the degenerate case where all coefficient values are zero.
