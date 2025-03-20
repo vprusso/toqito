@@ -80,7 +80,7 @@ def test_bell_inequality_max_minimal(joint_coe, a_coe, b_coe, a_val, b_val):
     assert result >= 0
 
 
-# CHSH inequality test
+# CHSH inequality test.
 
 
 @pytest.mark.parametrize(
