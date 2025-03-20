@@ -1,4 +1,4 @@
-"""Generates the generalized Amplitude Damping Channel."""
+"""Generates the (generalized) amplitude damping channel."""
 
 import numpy as np
 
@@ -15,13 +15,15 @@ def generalized_amplitude_damping(
     probability. This channel is defined by two parameters: `gamma` (the damping rate) and `prob`
     (the probability of energy loss).
 
+    Note: This channel is defined for qubit systems in the standard literature.
+
     The Kraus operators for the generalized amplitude damping channel are given by:
 
     .. math::
-        K_0 = \sqrt{p} \begin{pmatrix} 1 & 0 \\ 0 & \sqrt{1 - \gamma} \end{pmatrix}\\
-        K_1 = \sqrt{p}  \begin{pmatrix} 0 & \sqrt{\gamma} \\ 0 & 0 \end{pmatrix}\\
-        K_2 = \sqrt{1 - p} \begin{pmatrix} \sqrt{1 - \gamma} & 0 \\ 0 & 1 \end{pmatrix}\\
-        K_3 = \sqrt{1 - p}  \begin{pmatrix} 0 & 0 \\ \sqrt{\gamma} & 0 \end{pmatrix}\\
+        K_0 = \sqrt{p} \begin{pmatrix} 1 & 0 \\ 0 & \sqrt{1 - \gamma} \end{pmatrix}, \\
+        K_1 = \sqrt{p}  \begin{pmatrix} 0 & \sqrt{\gamma} \\ 0 & 0 \end{pmatrix}, \\
+        K_2 = \sqrt{1 - p} \begin{pmatrix} \sqrt{1 - \gamma} & 0 \\ 0 & 1 \end{pmatrix}, \\
+        K_3 = \sqrt{1 - p}  \begin{pmatrix} 0 & 0 \\ \sqrt{\gamma} & 0 \end{pmatrix}, \\
 
     These operators describe the evolution of a quantum state under the generalized amplitude
     damping process.
@@ -34,9 +36,7 @@ def generalized_amplitude_damping(
     >>> import numpy as np
     >>> from toqito.channels import generalized_amplitude_damping
     >>> rho = np.array([[1, 0], [0, 0]])  # |0><0|
-    >>> gamma = 0.1  # Damping rate
-    >>> prob = 0.5  # Probability
-    >>> result = generalized_amplitude_damping(rho, gamma, prob)
+    >>> result = generalized_amplitude_damping(rho, gamma=0.1, prob=0.5)
     >>> print(result)
     [[0.95+0.j 0.  +0.j]
      [0.  +0.j 0.05+0.j]]
@@ -59,7 +59,7 @@ def generalized_amplitude_damping(
         raise ValueError("Probability must be between 0 and 1.")
 
     if not (0 <= gamma <= 1):
-        raise ValueError("Probability must be between 0 and 1.")
+        raise ValueError("Gamma (damping rate) must be between 0 and 1.")
 
     k0 = np.sqrt(prob) * np.array([[1, 0], [0, np.sqrt(1 - gamma)]])
     k1 = np.sqrt(prob) * np.sqrt(gamma) * np.array([[0, 1], [0, 0]])
