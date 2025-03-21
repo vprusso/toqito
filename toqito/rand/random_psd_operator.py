@@ -31,7 +31,7 @@ def random_psd_operator(
 
     >>> from toqito.matrix_props import is_positive_semidefinite
     >>> is_positive_semidefinite(complex_psd_mat)
-    np.True_
+    True
 
     We can also generate random positive semidefinite matrices that are real-valued as follows.
 
@@ -45,7 +45,7 @@ def random_psd_operator(
 
     >>> from toqito.matrix_props import is_positive_semidefinite
     >>> is_positive_semidefinite(real_psd_mat)
-    np.True_
+    True
 
     References
     ==========
