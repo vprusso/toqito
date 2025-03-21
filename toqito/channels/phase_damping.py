@@ -7,7 +7,7 @@ def phase_damping(
     input_mat: np.ndarray | None = None,
     gamma: float = 0,
 ) -> np.ndarray:
-    r"""Apply the phase damping channel to a quantum state.
+    r"""Apply the phase damping channel to a quantum state :cite:`QC_QIT`.
 
     The phase damping channel describes how quantum information is lost due to environmental interactions,
     causing dephasing in the computational basis without losing energy.
