@@ -84,7 +84,7 @@ def test_random_density_matrix(dim, is_real, distance_metric):
             np.array([
                 [ 0.31466466+0.j, -0.09170064+0.24517065j],
                 [-0.09170064-0.24517065j,  0.68533534+0.j]
-                
+
             ])
         ),
         # Generate random non-real density matrix all params.

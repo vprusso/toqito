@@ -26,8 +26,8 @@ def test_random_orth_basis_int_dim(input_dim, bool):
                 np.array([-0.172472+0.465563j, -0.637147-0.589532j]),
                 np.array([-0.857827+0.132805j, -0.117157+0.482462j])
             ]
-            
- 
+
+
         ),
 (
             2,
