@@ -41,21 +41,21 @@ def test_non_square_dims(dim_n, dim_m, is_real):
             2,
             False,
             np.array([
-                [0.51345691+0.6924564j, 0.38709015+0.32715034j],
-                [0.16581665-0.47892689j, -0.08796944+0.85755189j]
+                [-0.17247218+0.46556261j, -0.85782721+0.13280541j],
+                [-0.63714743-0.58953198j, -0.1171568 +0.48246189j]
             ])
         ),
         (
             2,
             True,
             np.array([
-                [0.95160818, -0.30731397],
-                [0.30731397,  0.95160818]
+                [-0.26129, -0.96526],
+                [-0.96526,  0.26129]
             ])
         ),
     ]
 )
 def test_seed(dim, is_real, expected):
     """Test that the function returns the expected output when seeded."""
-    mat = random_unitary(dim=dim, is_real=is_real, seed=123)
+    mat = random_unitary(dim=dim, is_real=is_real, seed=124)
     assert_array_almost_equal(mat, expected)

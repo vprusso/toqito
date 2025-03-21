@@ -34,8 +34,8 @@ def random_density_matrix(
     >>> from toqito.rand import random_density_matrix
     >>> complex_dm = random_density_matrix(2)
     >>> complex_dm # doctest: +SKIP
-    array([[0.83378447+0.j        , 0.25937396-0.12958422j],
-           [0.25937396+0.12958422j, 0.16621553+0.j        ]])
+    array([[ 0.53822849+0.j        , -0.26155866+0.02081311j],
+           [-0.26155866-0.02081311j,  0.46177151+0.j        ]])
 
     We can verify that this is in fact a valid density matrix using the :code:`is_denisty` function from :code:`toqito`
     as follows
@@ -49,8 +49,8 @@ def random_density_matrix(
     >>> from toqito.rand import random_density_matrix
     >>> real_dm = random_density_matrix(2, is_real=True)
     >>> real_dm # doctest: +SKIP
-    array([[0.3686455 , 0.48243625],
-           [0.48243625, 0.6313545 ]])
+    array([[0.47783773, 0.45763467],
+           [0.45763467, 0.52216227]])
 
 
     Again, verifying that this is a valid density matrix can be done as follows.
@@ -65,8 +65,8 @@ def random_density_matrix(
     >>> from toqito.rand import random_density_matrix
     >>> bures_mat = random_density_matrix(2, distance_metric="bures")
     >>> bures_mat # doctest: +SKIP
-    array([[0.73969055+0.j        , 0.09494426-0.15279342j],
-           [0.09494426+0.15279342j, 0.26030945+0.j        ]])
+    array([[ 0.41427711+0.j       , -0.15503543+0.2405496j],
+           [-0.15503543-0.2405496j,  0.58572289+0.j       ]])
 
 
     As before, we can verify that this matrix generated is a valid density matrix.

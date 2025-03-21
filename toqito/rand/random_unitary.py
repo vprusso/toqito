@@ -22,8 +22,8 @@ def random_unitary(
     >>> from toqito.rand import random_unitary
     >>> complex_dm = random_unitary(2)
     >>> complex_dm # doctest: +SKIP
-    array([[ 0.13764463+0.65538975j,  0.74246453+0.01626838j],
-           [ 0.45776527+0.58478132j, -0.6072508 +0.28236187j]])
+    array([[-0.59597046+0.06963662j,  0.68835876+0.40759314j],
+           [ 0.55431572+0.57680503j,  0.06860805+0.59608975j]])
 
 
     We can verify that this is in fact a valid unitary matrix using the :code:`is_unitary` function
@@ -38,8 +38,8 @@ def random_unitary(
     >>> from toqito.rand import random_unitary
     >>> real_dm = random_unitary(2, True)
     >>> real_dm # doctest: +SKIP
-    array([[ 0.87766506, -0.47927449],
-           [ 0.47927449,  0.87766506]])
+    array([[ 0.99999631, -0.00271622],
+           [-0.00271622, -0.99999631]])
 
 
     Again, verifying that this is a valid unitary matrix can be done as follows.
@@ -54,10 +54,10 @@ def random_unitary(
     >>> from toqito.rand import random_unitary
     >>> mat = random_unitary([4, 4], True)
     >>> mat # doctest: +SKIP
-    array([[ 0.49527332,  0.08749933, -0.16968586,  0.84749922],
-           [ 0.68834418, -0.26695275,  0.62674543, -0.24921614],
-           [ 0.38614979, -0.438767  , -0.7417619 , -0.32887862],
-           [ 0.36300822,  0.85355938, -0.16788735, -0.33387909]])
+    array([[ 0.08457995,  0.02911453, -0.98921738,  0.11596361],
+           [ 0.77315815, -0.49113837,  0.00461571, -0.40123343],
+           [-0.50492423, -0.85772782, -0.05947552,  0.0762704 ],
+           [-0.3743317 ,  0.14912557, -0.13375477, -0.90539881]])
 
 
     As before, we can verify that this matrix generated is a valid unitary matrix.
@@ -71,8 +71,8 @@ def random_unitary(
     >>> from toqito.matrix_props import is_unitary
     >>> seeded = random_unitary(2, seed=42)
     >>> seeded
-    array([[0.34074554-0.85897194j, 0.32146645+0.20668575j],
-           [0.37801036+0.05628362j, 0.30953006-0.87070745j]])
+    array([[ 0.14398279-0.92188954j, -0.05864249+0.35489392j],
+           [ 0.35459797+0.06040626j,  0.91839541+0.16480666j]])
 
     And once again, we can verify that this matrix generated is a valid unitary matrix.
 
@@ -102,7 +102,7 @@ def random_unitary(
         raise ValueError("Unitary matrix must be square.")
 
     # Construct the Ginibre ensemble.
-    gin = gen.random((dim[0], dim[1]))
+    gin = gen.standard_normal((dim[0], dim[1]))
 
     if not is_real:
         gin = gin + 1j * gen.standard_normal((dim[0], dim[1]))
