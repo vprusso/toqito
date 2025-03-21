@@ -26,8 +26,8 @@ def random_psd_operator(
            [0.35699744+1.81934920e-02j, 0.36668881+0.00000000e+00j]])
 
     We can confirm that this matrix indeed represents a valid positive semidefinite matrix by utilizing
-    the :code: `is_positive_semidefinite`
-    function from the :code: `toqito` library, as demonstrated below:
+    the :code:`is_positive_semidefinite`
+    function from the :code:`toqito` library, as demonstrated below:
 
     >>> from toqito.matrix_props import is_positive_semidefinite
     >>> is_positive_semidefinite(complex_psd_mat)
@@ -55,7 +55,7 @@ def random_psd_operator(
     :param dim: The dimension of the operator.
     :param is_real: Boolean denoting whether the returned matrix will have all real entries or not.
                     Default is :code:`False`.
-    :return: A :code:`dim`-by-:code:`dim` random positive semidefinite matrix.
+    :return: A :code:`dim x dim` random positive semidefinite matrix.
 
     """
     # Generate a random matrix of dimension dim x dim.
