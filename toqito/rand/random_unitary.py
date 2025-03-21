@@ -102,7 +102,7 @@ def random_unitary(
         raise ValueError("Unitary matrix must be square.")
 
     # Construct the Ginibre ensemble.
-    gin = gen.random((dim[0], dim[1]))
+    gin = gen.standard_normal((dim[0], dim[1]))
 
     if not is_real:
         gin = gin + 1j * gen.standard_normal((dim[0], dim[1]))
