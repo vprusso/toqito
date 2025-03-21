@@ -71,8 +71,8 @@ def random_unitary(
     >>> from toqito.matrix_props import is_unitary
     >>> seeded = random_unitary(2, seed=42)
     >>> seeded
-    array([[0.14398279-0.92188954j, -0.05864249+0.35489392j],
-           [0.35459797+0.06040626j,  0.91839541+0.16480666j]])
+    array([[ 0.14398279-0.92188954j, -0.05864249+0.35489392j],
+           [ 0.35459797+0.06040626j,  0.91839541+0.16480666j]])
 
     And once again, we can verify that this matrix generated is a valid unitary matrix.
 
