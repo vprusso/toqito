@@ -72,10 +72,14 @@ def test_invalid_gamma(gamma, error_message):
 @pytest.mark.parametrize(
     "rho",
     [
-        np.eye(3),  # 3x3 matrix.
-        np.array([[1, 0, 0], [0, 1, 0]]),  # 2x3 matrix.
-        np.array([1, 0]),  # 1D array.
-        np.array([[1, 0, 0, 0], [0, 1, 0, 0]]),  # 2x4 matrix.
+        # 3x3 matrix.
+        np.eye(3),
+        # 2x3 matrix.
+        np.array([[1, 0, 0], [0, 1, 0]]),
+        # 1D array.
+        np.array([1, 0]),
+        # 2x4 matrix.
+        np.array([[1, 0, 0, 0], [0, 1, 0, 0]]),
     ],
 )
 def test_invalid_dimension(rho):
