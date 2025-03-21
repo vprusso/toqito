@@ -1,8 +1,11 @@
-from numpy.testing import assert_equal
+"""Test random_psd_operator."""
+
 import pytest
+from numpy.testing import assert_equal
 
 from toqito.matrix_props import is_positive_semidefinite
 from toqito.rand import random_psd_operator
+
 
 @pytest.mark.parametrize(
     "dim, is_real",

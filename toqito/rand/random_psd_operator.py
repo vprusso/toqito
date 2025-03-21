@@ -1,12 +1,13 @@
-"Generates a random positive semidefinite operator."
+"""Generates a random positive semidefinite operator."""
 
 import numpy as np
 
+
 def random_psd_operator(
-        dim: int,
-        is_real: bool = False,
+    dim: int,
+    is_real: bool = False,
 ) -> np.ndarray:
-    r""" Generate a random positive semidefinite operator.
+    r"""Generate a random positive semidefinite operator.
 
     A positive semidefinite operator is a Hermitian operator that has only real and non-negative eigenvalues.
     This function generates a random positive semidefinite operator by constructing a Hermitian matrix,
@@ -57,14 +58,13 @@ def random_psd_operator(
     :return: A :code:`dim`-by-:code:`dim` random positive semidefinite matrix.
 
     """
-
     # Generate a random matrix of dimension dim x dim.
     rand_mat = np.random.rand(dim, dim)
 
     # If is_real is False, add an imaginary component to the matrix.
     if not is_real:
-        rand_mat = rand_mat + 1j*np.random.rand(dim, dim)
-    
+        rand_mat = rand_mat + 1j * np.random.rand(dim, dim)
+
     # Constructing a Hermitian matrix.
     rand_mat = (rand_mat.conj().T + rand_mat) / 2
     eigenvals, eigenvecs = np.linalg.eigh(rand_mat)
