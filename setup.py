@@ -6,6 +6,7 @@ with open("README.md", "r") as fh:
 requirements = [
     "cvx",
     "cvxpy",
+    "cvxopt",
     "more-itertools",
     "numpy",
     "picos",
