@@ -1,10 +1,20 @@
 repos:
 - repo: https://github.com/astral-sh/ruff-pre-commit
   # Ruff version (keep in sync with the version in pyproject.toml)
-  rev: v0.8.2
+  rev: v0.11.0
   hooks:
     # Run the linter.
     - id: ruff
       args: [ --fix ]
-    # Run the formatter.
-    - id: ruff-format 
+      stages: [pre-commit]
+    # Run the formatter
+    - id: ruff-format
+      stages: [pre-commit]
+
+- repo: https://github.com/compilerla/conventional-pre-commit
+  rev: ceb71eed66199731982017ed09279f51d3bc2cb3
+  hooks:
+    - id: conventional-pre-commit
+      stages: [commit-msg]
+      args: []
+
