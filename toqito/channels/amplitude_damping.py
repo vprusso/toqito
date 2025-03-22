@@ -3,7 +3,7 @@
 import numpy as np
 
 
-def generalized_amplitude_damping(
+def amplitude_damping(
     input_mat: np.ndarray | None = None,
     gamma: float = 0,
     prob: float = 1,
@@ -17,7 +17,7 @@ def generalized_amplitude_damping(
 
     To also include standard implementation of amplitude damping, we have set `prob = 1` as the default implementation.
 
-    Note: This channel is defined for qubit systems in the standard literature :cite:`PhysRevA.102.012401`.
+    Note: This channel is defined for qubit systems in the standard literature :cite:`Khatri_2020_Information`.
 
     The Kraus operators for the generalized amplitude damping channel are given by:
 
@@ -36,9 +36,9 @@ def generalized_amplitude_damping(
     Apply the generalized amplitude damping channel to a qubit state:
 
     >>> import numpy as np
-    >>> from toqito.channels import generalized_amplitude_damping
+    >>> from toqito.channels import amplitude_damping
     >>> rho = np.array([[1, 0], [0, 0]])  # |0><0|
-    >>> result = generalized_amplitude_damping(rho, gamma=0.1, prob=0.5)
+    >>> result = amplitude_damping(rho, gamma=0.1, prob=0.5)
     >>> print(result)
     [[0.95+0.j 0.  +0.j]
      [0.  +0.j 0.05+0.j]]
