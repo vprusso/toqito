@@ -36,7 +36,7 @@ def random_psd_operator(
     We can also generate random positive semidefinite matrices that are real-valued as follows.
 
     >>> from toqito.rand import random_density_matrix
-    >>> real_psd_mat = random_density_matrix(2, is_real=True)
+    >>> real_psd_mat = random_psd_matrix(2, is_real=True)
     >>> real_psd_mat # doctest: +SKIP
     array([[0.68112055, 0.14885971],
            [0.14885971, 0.62955916]])
@@ -49,8 +49,8 @@ def random_psd_operator(
 
     It is also possible to add a seed for reproducibility.
 
-    >>> from toqito.rand import random_density_matrix
-    >>> seeded = random_density_matrix(2, is_real=True, seed=42)
+    >>> from toqito.rand import random_psd_operator
+    >>> seeded = random_psd_operator(2, is_real=True, seed=42)
     >>> seeded
     array([[0.77395605, 0.64873818],
            [0.64873818, 0.69736803]])
@@ -82,3 +82,4 @@ def random_psd_operator(
     Q, R = np.linalg.qr(eigenvecs)
 
     return Q @ np.diag(np.abs(eigenvals)) @ Q.conj().T
+print(random_psd_operator(2, is_real=True, seed=42))
