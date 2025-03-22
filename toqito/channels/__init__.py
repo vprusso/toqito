@@ -7,4 +7,3 @@ from toqito.channels.partial_trace import partial_trace
 from toqito.channels.partial_transpose import partial_transpose
 from toqito.channels.realignment import realignment
 from toqito.channels.reduction import reduction
-from toqito.channels.bitflip import bitflip
