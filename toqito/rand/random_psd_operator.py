@@ -6,6 +6,7 @@ import numpy as np
 def random_psd_operator(
     dim: int,
     is_real: bool = False,
+    seed: int | None = None,
 ) -> np.ndarray:
     r"""Generate a random positive semidefinite operator.
 
@@ -21,7 +22,7 @@ def random_psd_operator(
 
     >>> from toqito.rand import random_psd_operator
     >>> complex_psd_mat = random_psd_operator(2)
-    >>> complex_psd_mat
+    >>> complex_psd_mat # doctest: +SKIP
     array([[0.42313949+3.85185989e-34j, 0.35699744-1.81934920e-02j],
            [0.35699744+1.81934920e-02j, 0.36668881+0.00000000e+00j]])
 
@@ -36,7 +37,7 @@ def random_psd_operator(
 
     >>> from toqito.rand import random_density_matrix
     >>> real_psd_mat = random_density_matrix(2, is_real=True)
-    >>> real_psd_mat
+    >>> real_psd_mat # doctest: +SKIP
     array([[0.68112055, 0.14885971],
            [0.14885971, 0.62955916]])
 
@@ -46,6 +47,14 @@ def random_psd_operator(
     >>> is_positive_semidefinite(real_psd_mat)
     True
 
+    It is also possible to add a seed for reproducibility.
+
+    >>> from toqito.rand import random_density_matrix
+    >>> seeded = random_density_matrix(2, is_real=True, seed=42)
+    >>> seeded
+    array([[0.77395605, 0.64873818],
+           [0.64873818, 0.69736803]])
+
     References
     ==========
     .. bibliography::
@@ -54,15 +63,17 @@ def random_psd_operator(
     :param dim: The dimension of the operator.
     :param is_real: Boolean denoting whether the returned matrix will have all real entries or not.
                     Default is :code:`False`.
+    :param seed: A seed used to instantiate numpy's random number generator.
     :return: A :code:`dim` x :code:`dim` random positive semidefinite matrix.
 
     """
     # Generate a random matrix of dimension dim x dim.
-    rand_mat = np.random.rand(dim, dim)
+    gen = np.random.default_rng(seed=seed)
+    rand_mat = gen.random((dim, dim))
 
     # If is_real is False, add an imaginary component to the matrix.
     if not is_real:
-        rand_mat = rand_mat + 1j * np.random.rand(dim, dim)
+        rand_mat = rand_mat + 1j * gen.random((dim, dim))
 
     # Constructing a Hermitian matrix.
     rand_mat = (rand_mat.conj().T + rand_mat) / 2
