@@ -18,7 +18,7 @@ def random_psd_operator(
     ========
 
     Using :code:`toqito`, we may generate a random positive semidefinite matrix.
-    For :math:`dim=2`, this can be accomplished as follows.
+    For :math:`\text{dim}=2`, this can be accomplished as follows.
 
     >>> from toqito.rand import random_psd_operator
     >>> complex_psd_mat = random_psd_operator(2)
@@ -35,8 +35,8 @@ def random_psd_operator(
 
     We can also generate random positive semidefinite matrices that are real-valued as follows.
 
-    >>> from toqito.rand import random_density_matrix
-    >>> real_psd_mat = random_psd_matrix(2, is_real=True)
+    >>> from toqito.rand import random_psd_operator
+    >>> real_psd_mat = random_psd_operator(2, is_real=True)
     >>> real_psd_mat # doctest: +SKIP
     array([[0.68112055, 0.14885971],
            [0.14885971, 0.62955916]])
