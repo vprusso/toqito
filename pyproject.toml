@@ -22,7 +22,7 @@ picos = "2.6.0"
 [tool.poetry.group.dev.dependencies]
 pytest = "8.3.4"
 pytest-cov = "6.0.0"
-coverage = "7.6.12"
+coverage = "7.7.0"
 sympy = "1.13.3"
 distlib = "0.3.9"
 ipython = "8.34.0"
@@ -35,7 +35,7 @@ flake8-docstrings = "1.7.0"
 isort = "6.0.0"
 myst-parser = "4.0.1"
 pep8 = "1.7.1"
-ruff = "0.9.9"
+ruff = "0.11.0"
 mypy = "1.15.0"
 
 [tool.poetry.group.docs.dependencies]
