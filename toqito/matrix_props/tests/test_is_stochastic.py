@@ -4,7 +4,7 @@ import numpy as np
 import pytest
 
 from toqito.matrices import cyclic_permutation_matrix, pauli
-from toqito.matrix_props import is_nonnegative, is_square, is_stochastic
+from toqito.matrix_props import is_stochastic
 
 
 @pytest.mark.parametrize("test_input", [(np.identity(3)), (cyclic_permutation_matrix(4)), (pauli("X"))])
