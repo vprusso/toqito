@@ -1,7 +1,6 @@
 """Tests for nonnegative matrix check function."""
 
 import numpy as np
-import pytest
 
 from toqito.matrix_props import is_positive
 

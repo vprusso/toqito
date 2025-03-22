@@ -2,8 +2,6 @@
 
 import numpy as np
 
-from toqito.matrix_props import is_hermitian
-
 
 def is_positive_definite(mat: np.ndarray) -> bool:
     r"""Check if matrix is positive definite (PD) :cite:`WikiPosDef`.
