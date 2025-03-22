@@ -82,4 +82,3 @@ def random_psd_operator(
     Q, R = np.linalg.qr(eigenvecs)
 
     return Q @ np.diag(np.abs(eigenvals)) @ Q.conj().T
-print(random_psd_operator(2, is_real=True, seed=42))
