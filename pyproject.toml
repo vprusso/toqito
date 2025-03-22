@@ -84,6 +84,8 @@ ignore = ["D407", "D203", "D213", "D416", "PLR0912", "PLR0911", "PLR0915", "PLR2
 # PLR0915 -- Checks for functions or methods with too many statements. The default number is 50. 
 # PLR2004 -- Checks if an equality or an inequality is compared to a variable or a num (prefers variable pre)
 # PLR0913 Too many arguments in function definition
+# F811 -- Checks for variable definitions that redefine (or "shadow") unused variables 
+# It was removing definitions with the same name creating conflicts in
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["I001", "F401"]
