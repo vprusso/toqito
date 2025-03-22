@@ -1,4 +1,4 @@
-"""Tests for generalized amplitude damping channel."""
+"""Tests for amplitude damping channel."""
 
 import re
 
