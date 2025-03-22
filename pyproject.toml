@@ -84,5 +84,5 @@ ignore = ["D407", "D203", "D213", "D416", "PLR0912", "PLR0911", "PLR0915", "PLR2
 # PLR0913 Too many arguments in function definition
 
 [tool.ruff.lint.per-file-ignores]
-"__init__.py" = ["I001"]
+"__init__.py" = ["I001", "F401"]
 # I001 - skip checking Import block is un-sorted or un-formatted
