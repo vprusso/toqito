@@ -238,7 +238,7 @@ def _unambiguous_dual(
     problem = picos.Problem()
 
     gram = vectors_to_gram_matrix(vectors)
-    lagrangian_variable_big_z = picos.SymmetricVariable(f"Z", (n, n))
+    lagrangian_variable_big_z = picos.SymmetricVariable("Z", (n, n))
 
     problem.add_constraint(lagrangian_variable_big_z >> 0)
     problem.add_list_of_constraints(lagrangian_variable_big_z[i, i] >= probs[i] for i in range(n))
