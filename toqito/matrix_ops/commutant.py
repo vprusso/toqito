@@ -18,7 +18,7 @@ def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
     This can be rewritten as:
 
     .. math::
-        (A \\otimes I - I \\otimes A^T) \text{vec}(X) = 0
+        (A \otimes I - I \otimes A^T) \text{vec}(X) = 0
 
     where :math:`\text{vec}(X)` denotes the vectorization of :math:`X`. The null space of this
     equation provides a basis for the commutant.
