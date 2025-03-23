@@ -90,9 +90,7 @@ class BCSNonlocalGame(NonlocalGame):
     Integrates the group-theoretic verification of a perfect commuting-operator strategy.
     """
     def __init__(self, prob: np.ndarray, pred: np.ndarray, reps: int):
-        self.prob=prob
-        self.pred=pred
-        self.reps=reps
+        super().__init__(prob, pred, reps)
         self._perfect = False 
     
     def has_perfect_commuting_measurement_strategy(self, tol: float = 1e-6) -> bool:
