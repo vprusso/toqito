@@ -26,6 +26,16 @@ states_unambiguous = [
     ([np.array([[1.], [0.]]), np.array([[1.],[1.]]) / np.sqrt(2)], 0.29289321881345254),
 ]
 
+states_max_confidence = [
+    # Bell states (should be perfectly distinguishable)
+    # ([bell(0), bell(1), bell(2)], [1, 1, 1]),
+    # Symmetric states on the same latitude of bloch sphere
+    ([np.cos(np.pi/6)*e_0+np.sin(np.pi/6)*e_1,
+      np.cos(np.pi/6)*e_0+np.exp(2*np.pi*1j/3)*np.sin(np.pi/6)*e_1,
+      np.cos(np.pi/6)*e_0+np.exp(-2*np.pi*1j/3)*np.sin(np.pi/6)*e_1],
+      [2/3, 2/3, 2/3]),
+]
+
 probs_min_error = [
     None,
     [1 / 4, 1 / 4, 1 / 4, 1 / 4]
@@ -34,6 +44,11 @@ probs_min_error = [
 probs_unambiguous = [
     None,
     [1 / 2, 1 / 2]
+]
+
+probs_max_confidence = [
+    None,
+    [1/3, 1/3, 1/3]
 ]
 
 solvers = [
@@ -69,6 +84,14 @@ def test_state_distinguishability_unambiguous(vectors, probs, solver, primal_dua
         strategy="unambiguous"
     )
     assert abs(val - expected_result) <= 1e-8
+
+@pytest.mark.parametrize("vectors, expected_result", states_max_confidence)
+@pytest.mark.parametrize("probs", probs_max_confidence)
+def test_state_distinguishability_max_confidence(vectors, probs, expected_result):
+    """Test function works as expected for a valid input for the max confidence strategy."""
+    computed_confidences, _ = state_distinguishability(vectors=vectors,probs=probs,strategy="max_confidence")
+    for computed_confidence, expected_confidence in zip(computed_confidences, expected_result):
+        assert abs(computed_confidence - expected_confidence) <= 1e-8
 
 
 @pytest.mark.parametrize(

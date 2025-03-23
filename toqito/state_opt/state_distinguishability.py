@@ -3,6 +3,7 @@
 import numpy as np
 import picos
 
+from scipy.linalg import sqrtm
 from toqito.matrix_ops import calculate_vector_matrix_dimension, to_density_matrix, vectors_to_gram_matrix
 from toqito.matrix_props import has_same_dimension
 
@@ -14,7 +15,7 @@ def state_distinguishability(
     solver: str = "cvxopt",
     primal_dual: str = "dual",
     **kwargs,
-) -> tuple[float, list[picos.HermitianVariable] | tuple[picos.HermitianVariable] | tuple[picos.RealVariable]]:
+) -> tuple[float|list[float], list[picos.HermitianVariable] | tuple[picos.HermitianVariable] | tuple[picos.RealVariable]]:
     r"""Compute probability of state distinguishability :cite:`Eldar_2003_SDPApproach`.
 
     The "quantum state distinguishability" problem involves a collection of :math:`n` quantum states
@@ -144,10 +145,16 @@ def state_distinguishability(
             return _min_error_primal(vectors=vectors, dim=dim, probs=probs, solver=solver, **kwargs)
         return _min_error_dual(vectors=vectors, dim=dim, probs=probs, solver=solver, **kwargs)
 
-    if primal_dual == "primal":
-        return _unambiguous_primal(vectors=vectors, probs=probs, solver=solver, **kwargs)
+    elif strategy == "unambiguous":
+        if primal_dual == "primal":
+            return _unambiguous_primal(vectors=vectors, probs=probs, solver=solver, **kwargs)
+        return _unambiguous_dual(vectors=vectors, probs=probs, solver=solver, **kwargs)
+    
+    elif strategy == "max_confidence":
+        return _max_confidence(vectors=vectors, probs=probs)
 
-    return _unambiguous_dual(vectors=vectors, probs=probs, solver=solver, **kwargs)
+    else:
+        raise ValueError(f"{strategy} is not a valid strategy.")
 
 
 def _min_error_primal(
@@ -206,10 +213,7 @@ def _unambiguous_primal(
     solver: str = "cvxopt",
     **kwargs,
 ) -> tuple[float, tuple[picos.RealVariable]]:
-    """Solve the primal problem for unambiguous quantum state distinguishability SDP.
-
-    Implemented according to Equation (5) of :cite:`Gupta_2024_Unambiguous`:.
-    """
+    """Solve the primal problem for unambiguous quantum state distinguishability SDP."""
     n = len(vectors)
     problem = picos.Problem()
 
@@ -248,3 +252,47 @@ def _unambiguous_dual(
     problem.solve(solver=solver, **kwargs)
 
     return problem.value, (lagrangian_variable_big_z,)
+
+def _max_confidence(
+    vectors: list[np.ndarray],
+    probs: list[float],
+) -> tuple[float, list[np.ndarray]]:
+    """Solve the primal problem for maximum confidence quantum state distinguishability."""
+    probs = np.array(probs)
+    density_matrices = np.array([to_density_matrix(vector) for vector in vectors])
+    
+    rho = np.sum(probs[:, np.newaxis, np.newaxis] * density_matrices, axis=0) #rho = sum of probs[i] * density_matrices[i]
+    rho_inv = np.linalg.inv(rho)
+
+    rho_sqrt_inv = sqrtm(rho_inv)
+    rho_prime = np.array([
+        rho_sqrt_inv @ rho_k @ rho_sqrt_inv / np.trace(rho_k @ rho_inv)
+        for rho_k in density_matrices
+    ])
+    
+    _, eigenvectors = np.linalg.eigh(rho_prime)
+    principal_eigenvectors = eigenvectors[np.arange(len(vectors)), :, -1]
+    principal_density_matrices = np.array([to_density_matrix(vector) for vector in principal_eigenvectors])
+    unscaled_optimal_measurement_operators = probs[:, np.newaxis, np.newaxis] * rho_sqrt_inv @ principal_density_matrices @ rho_sqrt_inv
+    
+    #We now need to find the scaling factors and M{N+1} accordingly
+    #The scaling factor should be positive and M{N+1} = I - (M_1 + M_2 + ... + M_N) should be a PSD matrix
+    #The eigenvalues of the unscaled matrices are upperbounded by some lambda, we can use any random positive numbers
+    #c_1, ..., C_N such that c_1 + ... + c_N <= 1/lambda as our scaling factors
+
+    eigenvalues_all, _ = np.linalg.eigh(unscaled_optimal_measurement_operators)
+    lambda_max = np.max(eigenvalues_all[:, -1])
+    
+    c_values = np.random.rand(len(vectors))
+    c_values /= np.sum(c_values)
+    c_values *= 1/lambda_max
+    
+    measurement_operators = c_values[:, np.newaxis, np.newaxis] * unscaled_optimal_measurement_operators
+    M_ambiguous = np.eye(measurement_operators[0].shape[0]) - np.sum(measurement_operators, axis=0)
+
+    measurement_operators_list = list(measurement_operators)
+    measurement_operators_list.append(M_ambiguous)
+
+    confidences = [p_k * np.trace(M_k @ rho_k) / np.trace(rho @ M_k) for (p_k, rho_k, M_k) in zip(probs, density_matrices, measurement_operators_list)]
+    
+    return confidences, measurement_operators_list
