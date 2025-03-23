@@ -40,8 +40,8 @@ information.
 
 toqito is available via [PyPi](https://pypi.org/project/toqito/) for Linux, and macOS, with support for Python 3.10 to 3.12.
 
-```console
-(venv) $ pip install toqito
+```sh
+pip install toqito
 ```
 
 The following code gives an example on the usage:
@@ -64,7 +64,6 @@ chsh.classical_value()
 # 0.75
 chsh.quantum_value()
 # 0.8535533
-
 ```
 
 **Detailed documentation on all available methods, options, and input formats is available at [ReadTheDocs](https://toqito.readthedocs.io/en/latest/).**
@@ -105,7 +104,7 @@ A BibTeX entry that you can use to cite `toqito` is provided here:
 ```bib
 @misc{toqito,
    author       = {Vincent Russo},
-   title        = {toqito: A {P}ython toolkit for quantum information, version 1.0.0},
+   title        = {toqito: A {P}ython toolkit for quantum information},
    howpublished = {\url{https://github.com/vprusso/toqito}},
    month        = May,
    year         = 2021,
@@ -117,7 +116,7 @@ A BibTeX entry that you can use to cite `toqito` is provided here:
 
 The `toqito` project has been used or referenced in the following works:
 
-- [![a](https://img.shields.io/static/v1?label=thesis&message=31639397&color=inactive&style=flat-square)]([https://arxiv.org/abs/2406.13430](https://www.proquest.com/openview/eb0021dd3eb463b5fb12b7fc71d920eb/1?cbl=18750&diss=y&pq-origsite=gscholar)) Philip, Aby
+- [![a](https://img.shields.io/static/v1?label=thesis&message=31639397&color=inactive&style=flat-square)](https://www.proquest.com/openview/eb0021dd3eb463b5fb12b7fc71d920eb/1?cbl=18750&diss=y&pq-origsite=gscholar) Philip, Aby
 "On Multipartite Entanglement and Its Use", (2024).
 
 - [![a](https://img.shields.io/static/v1?label=arXiv&message=2406.13430&color=inactive&style=flat-square)](https://arxiv.org/abs/2406.13430) Bandyopadhyay, Somshubhro and Russo, Vincent
@@ -149,8 +148,7 @@ All contributions, bug reports, bug fixes, documentation improvements,
 enhancements, and ideas are welcome.
 
 A detailed overview of how to contribute can be found in the
-[contributing guide](https://toqito.readthedocs.io/en/latest/getting_started.html#contributing).
-
+[contributing guide](https://toqito.readthedocs.io/en/latest/contributing.html#contrib-guide-reference-label).
 
 ## License
 
