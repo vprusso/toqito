@@ -284,10 +284,10 @@ def _max_confidence(
     c = picos.RealVariable("c", n, lower=0)
 
     w = np.einsum('ij,kji->k', rho, unscaled_optimal_measurement_operators).real
-    problem.set_objective("max", picos.sum(c[i] * w[i] for i in range(n)))
+    problem.set_objective("max", w | c)
 
     I = np.eye(d)
-    matrix_expr = I - picos.sum([c[i] * unscaled_optimal_measurement_operators[i] for i in range(n)])
+    matrix_expr = I - picos.sum(c[i] * unscaled_optimal_measurement_operators[i] for i in range(n))
     problem.add_constraint(matrix_expr >> 0)
 
     problem.solve(solver=solver)
