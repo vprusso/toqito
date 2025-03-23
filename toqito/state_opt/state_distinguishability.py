@@ -292,8 +292,6 @@ def _max_confidence(
 
     problem.solve(solver=solver)
     c_values = np.array(c.value).reshape((n,))
-    print(c_values)
-    c_values = np.array([4/9,4/9,4/9])
     measurement_operators = c_values[:, np.newaxis, np.newaxis] * unscaled_optimal_measurement_operators
     M_ambiguous = np.eye(measurement_operators[0].shape[0]) - np.sum(measurement_operators, axis=0)
 
