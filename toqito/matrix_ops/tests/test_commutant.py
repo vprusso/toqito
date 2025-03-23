@@ -6,16 +6,16 @@ from toqito.matrix_ops.commutant import commutant
 @pytest.mark.parametrize(
     "matrices, expected_size",
     [
-        # Pauli-Z: Expect diagonal matrices
+        # Pauli-Z: Expect diagonal matrices.
         ([np.array([[1, 0], [0, -1]])], 2),
 
-        # Pauli-X: Expect identity and X
+        # Pauli-X: Expect identity and X.
         ([np.array([[0, 1], [1, 0]])], 2),
 
-        # Pauli-Y: Expect I and Y
+        # Pauli-Y: Expect I and Y.
         ([np.array([[0, -1j], [1j, 0]])], 2),
 
-        # Identity matrix: Should commute with everything
+        # Identity matrix: Should commute with everything.
         ([np.eye(2)], 4),
     ],
 )
@@ -27,10 +27,10 @@ def test_commutant_output_size(matrices, expected_size):
 @pytest.mark.parametrize(
     "matrices",
     [
-        # Pauli-Z
+        # Pauli-Z.
         ([np.array([[1, 0], [0, -1]])]),  
         
-        # Pauli-X
+        # Pauli-X.
         ([np.array([[0, 1], [1, 0]])]),   
     ],
 )
