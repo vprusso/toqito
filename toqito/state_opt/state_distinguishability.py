@@ -151,7 +151,7 @@ def state_distinguishability(
         return _unambiguous_dual(vectors=vectors, probs=probs, solver=solver, **kwargs)
     
     elif strategy == "max_confidence":
-        return _max_confidence(vectors=vectors, probs=probs)
+        return _max_confidence(vectors=vectors, probs=probs, solver=solver, **kwargs)
 
     else:
         raise ValueError(f"{strategy} is not a valid strategy.")
@@ -256,10 +256,13 @@ def _unambiguous_dual(
 def _max_confidence(
     vectors: list[np.ndarray],
     probs: list[float],
+    solver: str = "cvxopt",
+    **kwargs,
 ) -> tuple[float, list[np.ndarray]]:
     """Solve the primal problem for maximum confidence quantum state distinguishability."""
     probs = np.array(probs)
     density_matrices = np.array([to_density_matrix(vector) for vector in vectors])
+    n,d,_ = density_matrices.shape
     
     rho = np.sum(probs[:, np.newaxis, np.newaxis] * density_matrices, axis=0) #rho = sum of probs[i] * density_matrices[i]
     rho_inv = np.linalg.inv(rho)
@@ -275,17 +278,22 @@ def _max_confidence(
     unscaled_optimal_measurement_operators = probs[:, np.newaxis, np.newaxis] * rho_sqrt_inv @ principal_density_matrices @ rho_sqrt_inv
     
     #We now need to find the scaling factors and M{N+1} accordingly
-    #The scaling factor should be positive and M{N+1} = I - (M_1 + M_2 + ... + M_N) should be a PSD matrix
-    #The eigenvalues of the unscaled matrices are upperbounded by some lambda, we can use any random positive numbers
-    #c_1, ..., C_N such that c_1 + ... + c_N <= 1/lambda as our scaling factors
+    #We find the scaling factors such that probability of ambiguous result is minimized
 
-    eigenvalues_all, _ = np.linalg.eigh(unscaled_optimal_measurement_operators)
-    lambda_max = np.max(eigenvalues_all[:, -1])
-    
-    c_values = np.random.rand(len(vectors))
-    c_values /= np.sum(c_values)
-    c_values *= 1/lambda_max
-    
+    problem = picos.Problem()
+    c = picos.RealVariable("c", n, lower=0)
+
+    w = np.einsum('ij,kji->k', rho, unscaled_optimal_measurement_operators).real
+    problem.set_objective("max", picos.sum(c[i] * w[i] for i in range(n)))
+
+    I = np.eye(d)
+    matrix_expr = I - picos.sum([c[i] * unscaled_optimal_measurement_operators[i] for i in range(n)])
+    problem.add_constraint(matrix_expr >> 0)
+
+    problem.solve(solver=solver)
+    c_values = np.array(c.value).reshape((n,))
+    print(c_values)
+    c_values = np.array([4/9,4/9,4/9])
     measurement_operators = c_values[:, np.newaxis, np.newaxis] * unscaled_optimal_measurement_operators
     M_ambiguous = np.eye(measurement_operators[0].shape[0]) - np.sum(measurement_operators, axis=0)
 
