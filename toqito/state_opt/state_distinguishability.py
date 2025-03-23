@@ -265,10 +265,9 @@ def _max_confidence(
     rho_inv = np.linalg.inv(rho)
 
     rho_sqrt_inv = sqrtm(rho_inv)
-    rho_prime = np.array([
-        rho_sqrt_inv @ rho_k @ rho_sqrt_inv / np.trace(rho_k @ rho_inv)
-        for rho_k in density_matrices
-    ])
+    transformed_matrices = rho_sqrt_inv @ density_matrices @ rho_sqrt_inv
+    traces = np.trace(density_matrices @ rho_inv, axis1=1, axis2=2)
+    rho_prime = transformed_matrices / traces[:, np.newaxis, np.newaxis] #rho'_k = rho^(-0.5) @ rho_k @ rho^(-0.5) / trace(rho_k @ rho^(-1)) 
     
     _, eigenvectors = np.linalg.eigh(rho_prime)
     principal_eigenvectors = eigenvectors[np.arange(len(vectors)), :, -1]
