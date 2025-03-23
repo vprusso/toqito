@@ -13,7 +13,7 @@ def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
     The commutant condition is given by:
 
     .. math::
-        A X = X A \\quad \forall A \\in \\mathcal{A}
+        A X = X A \quad \forall A \in \mathcal{A}
 
     This can be rewritten as:
 
