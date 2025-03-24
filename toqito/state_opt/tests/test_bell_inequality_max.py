@@ -17,7 +17,16 @@ from toqito.state_opt import bell_inequality_max
             np.array([0, 1]),
             np.array([0, 1]),
             0.250,
-        )
+        ),
+        # Bell CHSH inequality.
+        (
+            np.array([[1, 1], [1, -1]]),
+            np.array([0, 0]),
+            np.array([0, 0]),
+            np.array([1, -1]),
+            np.array([1, -1]),
+            2 * np.sqrt(2),
+        ),
     ],
 )
 def test_bell_inequality_max_valid(joint_coe, a_coe, b_coe, a_val, b_val, expected):
@@ -79,34 +88,3 @@ def test_bell_inequality_max_minimal(joint_coe, a_coe, b_coe, a_val, b_val):
     result = bell_inequality_max(joint_coe, a_coe, b_coe, a_val, b_val)
     assert isinstance(result, float)
     assert result >= 0
-
-
-# CHSH inequality test.
-
-joint_coe = np.array([[1, 1], [1, -1]])
-a_coe = np.array([0, -1, 0])
-b_coe = np.array([-1, -2, 0])
-a_val = np.array([0, 1])
-b_val = np.array([0, 1])
-
-
-@pytest.mark.parametrize(
-    "joint_coe, a_coe, b_coe, a_val, b_val, expected",
-    [
-        (
-            np.array([[1, 1], [1, -1]]),
-            np.array([0, 0]),
-            np.array([0, 0]),
-            np.array([1, -1]),
-            np.array([1, -1]),
-            2 * np.sqrt(2),
-        )
-    ],
-)
-def test_bell_inequality_max_chsh(joint_coe, a_coe, b_coe, a_val, b_val, expected):
-    """Test bell_inequality_max with CHSH inequality.
-
-    The quantum mechanical upper bound for CHSH is Tsirelson’s bound ≈ 2.828.
-    """
-    result = bell_inequality_max(joint_coe, a_coe, b_coe, a_val, b_val)
-    assert pytest.approx(result, 0.01) == expected
