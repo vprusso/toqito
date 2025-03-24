@@ -48,7 +48,7 @@ extensions = [
 ]
 
 #Sphinx image inverter has been defined here to 
-#Invert the colors when reading into dark mode
+#Invert the colors when reading in the dark mode
 sphinx_image_inverter = {
     'inverter_all': True,  #All images are being inverted
 }
