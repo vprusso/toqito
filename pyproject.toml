@@ -48,6 +48,21 @@ sphinx-copybutton = "0.5.2"
 [build-system]
 requires = ["setuptools","poetry>=0.12"]
 build-backend = "poetry.masonry.api"
+requires = ["sphinx", "sphinx-image-inverter"]
+build-backend = "setuptools.build_meta"
+
+[tool.sphinx]
+extensions = [
+    "sphinx_image_inverter"
+]
+
+[sphinx]
+extra_extensions = [
+    "sphinx_image_inverter"
+]
+
+[sphinx_image_inverter]
+inverter_all = true
 
 [tool.ruff]
 exclude = ["__init__.py"]
