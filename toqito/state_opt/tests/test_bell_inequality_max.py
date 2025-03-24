@@ -2,22 +2,22 @@
 
 import numpy as np
 import pytest
-import scs
 
 from toqito.state_opt import bell_inequality_max
-
 
 
 @pytest.mark.parametrize(
     "joint_coe, a_coe, b_coe, a_val, b_val, expected",
     # Bell I3322 inequality.
     [
-        np.array([[1, 1, -1], [1, 1, 1], [-1, 1, 0]]),
-        np.array([0, -1, 0]),
-        np.array([-1, -2, 0]),
-        np.array([0, 1]),
-        np.array([0, 1]),
-        0.250,
+        (
+            np.array([[1, 1, -1], [1, 1, 1], [-1, 1, 0]]),
+            np.array([0, -1, 0]),
+            np.array([-1, -2, 0]),
+            np.array([0, 1]),
+            np.array([0, 1]),
+            0.250,
+        )
     ],
     # CHSH inequality
 )
@@ -30,10 +30,13 @@ def test_bell_inequality_max_valid(joint_coe, a_coe, b_coe, a_val, b_val, expect
 @pytest.mark.parametrize(
     "joint_coe, a_coe, b_coe, a_val, b_val",
     [
-        # a_val has invalid length (3 instead of 2)
-        (joint_coe, a_coe, b_coe, np.array([0, 1, 2]), b_val_valid),
-        # b_val has invalid length (3 instead of 2)
-        (joint_coe, a_coe, b_coe, a_val_valid, np.array([0, 1, 2])),
+        (
+            np.array([[1, 1, -1], [1, 1, 1], [-1, 1, 0]]),
+            np.array([0, -1, 0]),
+            np.array([-1, -2, 0]),
+            np.array([0, 1, 0]),
+            np.array([0, 1, 0]),
+        )
     ],
 )
 def test_bell_inequality_max_invalid(joint_coe, a_coe, b_coe, a_val, b_val):
@@ -45,10 +48,9 @@ def test_bell_inequality_max_invalid(joint_coe, a_coe, b_coe, a_val, b_val):
         bell_inequality_max(joint_coe, a_coe, b_coe, a_val, b_val)
 
 
-
 @pytest.mark.parametrize(
     "joint_coe, a_coe, b_coe, a_val, b_val, expected",
-    [(np.zeros((1,1)), np.zeros(1), np.zeros(1), np.array([0, 1]), np.array([0, 1]), 0.0)],
+    [(np.zeros((1, 1)), np.zeros(1), np.zeros(1), np.array([0, 1]), np.array([0, 1]), 0.0)],
 )
 def test_bell_inequality_max_degenerate(joint_coe, a_coe, b_coe, a_val, b_val, expected):
     """Test bell_inequality_max for the degenerate case where all coefficient values are zero.
@@ -82,10 +84,25 @@ def test_bell_inequality_max_minimal(joint_coe, a_coe, b_coe, a_val, b_val):
 
 # CHSH inequality test.
 
+joint_coe = np.array([[1, 1], [1, -1]])
+a_coe = np.array([0, -1, 0])
+b_coe = np.array([-1, -2, 0])
+a_val = np.array([0, 1])
+b_val = np.array([0, 1])
+
 
 @pytest.mark.parametrize(
     "joint_coe, a_coe, b_coe, a_val, b_val, expected",
-    [(chsh_joint_coe, chsh_a_coe, chsh_b_coe, chsh_a_val, chsh_b_val, chsh_expected)],
+    [
+        (
+            np.array([[1, 1], [1, -1]]),
+            np.array([0, 0]),
+            np.array([0, 0]),
+            np.array([1, -1]),
+            np.array([1, -1]),
+            2 * np.sqrt(2),
+        )
+    ],
 )
 def test_bell_inequality_max_chsh(joint_coe, a_coe, b_coe, a_val, b_val, expected):
     """Test bell_inequality_max with CHSH inequality.
