@@ -17,6 +17,9 @@ numpy = "2.2.3"
 scipy = "1.15.2"
 scs = "3.2.7.post2"
 picos = "2.6.0"
+sphinx = "4.0"
+sphinx-image-inverter = "0.1.1"
+sphinx-rtd-theme = "1.0.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "8.3.4"
