@@ -56,11 +56,6 @@ extensions = [
     "sphinx_image_inverter"
 ]
 
-[sphinx]
-extra_extensions = [
-    "sphinx_image_inverter"
-]
-
 [sphinx_image_inverter]
 inverter_all = true
 

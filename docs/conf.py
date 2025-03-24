@@ -44,7 +44,14 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinxcontrib.bibtex",
     "sphinx_copybutton",
+    "sphinx-image-inverter",
 ]
+
+#Sphinx image inverter has been defined here to 
+#Invert the colors when reading into dark mode
+sphinx_image_inverter = {
+    'inverter_all': True,  #All images are being inverted
+}
 
 bibtex_bibfiles = ["refs.bib"]
 bibtex_default_style = "unsrt"
