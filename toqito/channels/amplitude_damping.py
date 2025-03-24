@@ -17,7 +17,9 @@ def amplitude_damping(
 
     To also include standard implementation of amplitude damping, we have set `prob = 1` as the default implementation.
 
-    Note: This channel is defined for qubit systems in the standard literature :cite:`Khatri_2020_Information`.
+    .. note::
+          This channel is defined for qubit systems in the standard literature :cite:`Khatri_2020_Information`.
+
 
     The Kraus operators for the generalized amplitude damping channel are given by:
 
