@@ -3,4 +3,5 @@ sphinxcontrib-bibtex == 2.6.3
 sympy == 1.13.3
 sphinx-autoapi == 3.5.0
 sphinx-copybutton == 0.5.2
+sphinx-image-inverter == 1.1.2
 

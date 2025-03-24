@@ -44,6 +44,7 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinxcontrib.bibtex",
     "sphinx_copybutton",
+    "sphinx_image_inverter",
 ]
 
 bibtex_bibfiles = ["refs.bib"]
@@ -119,3 +120,5 @@ html_favicon = "figures/favicon.ico"
 
 # Show in footer when the docs were last updated.
 html_last_updated_fmt = "%b %d, %Y"
+
+# https://github.com/TeachBooks/Sphinx-Image-Inverter?tab=readme-ov-file#image-inverter
