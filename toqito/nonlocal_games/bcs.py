@@ -2,6 +2,20 @@ import numpy as np
 import networkx as nx
 from toqito.nonlocal_games.nonlocal_game import NonlocalGame
 
+def bcs(M, b):
+    """
+    Constructs the BCS constraints from matrix M and vector b.
+    
+    """
+    m, n = M.shape
+    constraints = []
+    for i in range(m):
+        rhs = (-1) ** b[i]
+        constraint = np.concatenate((M[i], np.array([rhs])))
+        constraints.append(constraint)
+    return constraints
+
+
 def generate_solution_group(M: np.ndarray, b: np.ndarray):
     M = np.array(M, dtype=int) % 2
     b = np.array(b, dtype=int) % 2
@@ -83,37 +97,30 @@ def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray) -> bool:
             has_cycle = True
     # This is to check if the nontrivial J exists, consistent with lemma 9.
     return has_cycle
-
-class BCSNonlocalGame(NonlocalGame):
+def nonlocal_game_from_constraints(constraints) -> NonlocalGame:
     """
-    Subclass of toqito's NonlocalGame for binary constraint system games.
-    Integrates the group-theoretic verification of a perfect commuting-operator strategy.
+    Constructs a NonlocalGame using Toqito's built-in from_bcs_game function, but
+    with input given as a list of constraints (each a numpy array that is a row of M with the RHS appended).
+    
+    This function converts the constraints back to M and b:
+      - For each constraint, the last element is the RHS: if it equals 1, then b=0; if it equals -1, then b=1.
+      - The remaining elements form the row of M.
+    
+    It then calls NonlocalGame.from_bcs_game with the constraints and sets the internal _perfect
+    flag using check_perfect_commuting_strategy.
     """
-    def __init__(self, prob: np.ndarray, pred: np.ndarray, reps: int):
-        super().__init__(prob, pred, reps)
-        self._perfect = False 
+    M_list = []
+    b_list = []
+    for c in constraints:
+        # c is a 1D numpy array: first len(c)-1 entries are M's row, last is RHS.
+        M_list.append(c[:-1])
+        # If the last element equals 1, then (-1)^b = 1 implies b=0; if equals -1, then b=1.
+        b_list.append(0 if c[-1] == 1 else 1)
+    M_array = np.array(M_list, dtype=int)
+    b_array = np.array(b_list, dtype=int)
     
-    def has_perfect_commuting_measurement_strategy(self, tol: float = 1e-6) -> bool:
-        return self._perfect
-    
-    @classmethod
-    def from_bcs_game(cls, M: np.ndarray, b: np.ndarray = None):
-        M = np.array(M, dtype=int)
-        if b is None: #if b is not input, then just let b to be 0 vector with length as rows of M
-            b = np.zeros(M.shape[0], dtype=int)
-        else:
-            b = np.array(b, dtype=int)
-        # Determine if a perfect commuting-operator strategy exists
-        perfect = check_perfect_commuting_strategy(M, b)
-        # Set Probability and pred simply, we focus on strategy exists
-        game = cls(np.ones((1, 1)), np.ones((1, 1), dtype=bool), reps=1)
-        game._perfect = perfect
-        return game
-
-
-
-
-
-
-
-
+    perfect = check_perfect_commuting_strategy(M_array, b_array)
+    # Use the built-in from_bcs_game function from NonlocalGame:
+    game = NonlocalGame.from_bcs_game(constraints, reps=1)
+    game._perfect = perfect
+    return game
