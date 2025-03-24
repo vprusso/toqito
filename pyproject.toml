@@ -12,7 +12,6 @@ keywords = ["quantum information", "quantum computing", "nonlocal games"]
 [tool.poetry.dependencies]
 python = ">=3.10,<4"
 cvxpy = "1.6.2"
-cvxopt = "1.3.2"
 more-itertools = "10.6.0"
 numpy = "2.2.3"
 scipy = "1.15.2"
@@ -27,6 +26,7 @@ sympy = "1.13.3"
 distlib = "0.3.9"
 ipython = "8.34.0"
 setuptools = ">65.5.1"
+pre-commit = ">=3.0.0"
 
 [tool.poetry.group.lint.dependencies]
 flake8 = "7.1.2"
@@ -50,22 +50,23 @@ requires = ["setuptools","poetry>=0.12"]
 build-backend = "poetry.masonry.api"
 
 [tool.ruff]
-# exclude = ["__init__.py"]
+exclude = ["__init__.py"]
 line-length = 120
-target-version = "py311"
+target-version = "py312"
 
 [tool.ruff.lint]
-select = ["I", "E", "W", "D", "PL"]
+select = ["I", "E", "W", "D", "PL", "F"]
 # ruff configuration
 # E, W -- pycodestyle
 # D -- pydocstyle
 # I -- isort
 # PL -- pylint
+# F -- pyflakes
 
 # Rules considered over other incompatible ones
 exclude = ["docs/conf.py", "setup.py"]
 
-ignore = ["D407", "D203", "D213", "D416", "PLR0912", "PLR0911", "PLR0915", "PLR2004", "PLR0913"]
+ignore = ["D407", "D203", "D213", "D416", "PLR0912", "PLR0911", "PLR0915", "PLR2004", "PLR0913", "F811"]
 # Rules Ignored
 
 # D407 - Ignored because ==== under a section heading is considered as a missing underline.
@@ -83,7 +84,10 @@ ignore = ["D407", "D203", "D213", "D416", "PLR0912", "PLR0911", "PLR0915", "PLR2
 # PLR0915 -- Checks for functions or methods with too many statements. The default number is 50. 
 # PLR2004 -- Checks if an equality or an inequality is compared to a variable or a num (prefers variable pre)
 # PLR0913 Too many arguments in function definition
+# F811 -- Checks for variable definitions that redefine (or "shadow") unused variables 
+# It was removing definitions with the same name creating conflicts in test_is_stochastic.py
 
 [tool.ruff.lint.per-file-ignores]
-"__init__.py" = ["I001"]
+"__init__.py" = ["I001", "F401"]
 # I001 - skip checking Import block is un-sorted or un-formatted
+# F401 - Checks for unused imports, applying fixes to __init__.py currently under review

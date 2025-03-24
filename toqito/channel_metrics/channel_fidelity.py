@@ -97,4 +97,4 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
 
     problem = cvxpy.Problem(objective, constraints)
 
-    return problem.solve(solver="CVXOPT")
+    return problem.solve(solver="SCS")
