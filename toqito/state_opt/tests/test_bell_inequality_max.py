@@ -19,7 +19,6 @@ from toqito.state_opt import bell_inequality_max
             0.250,
         )
     ],
-    # CHSH inequality
 )
 def test_bell_inequality_max_valid(joint_coe, a_coe, b_coe, a_val, b_val, expected):
     """Test bell_inequality_max returns the expected value using valid input."""
