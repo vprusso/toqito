@@ -1894,6 +1894,22 @@ files = [
 sphinx = "*"
 
 [[package]]
+name = "sphinx-named-colors"
+version = "1.0.1"
+description = "A custom Sphinx extension to use CSS named colors and custom named colors in a Sphinx book"
+optional = false
+python-versions = ">=3.10"
+groups = ["docs"]
+files = [
+    {file = "sphinx_named_colors-1.0.1-py3-none-any.whl", hash = "sha256:df634ea0befa40527b50dc8077e339a870d718154cea541db7fe49c30c2bc981"},
+    {file = "sphinx_named_colors-1.0.1.tar.gz", hash = "sha256:27a9fcab3eb2c1822281d2c633815f6d8eaa3eb318d5aa93caaa2d3274d857d6"},
+]
+
+[package.dependencies]
+sphinx = "*"
+sphinxnotes-comboroles = "*"
+
+[[package]]
 name = "sphinxcontrib-applehelp"
 version = "2.0.0"
 description = "sphinxcontrib-applehelp is a Sphinx extension which outputs Apple help books"
@@ -2013,6 +2029,26 @@ files = [
 [package.extras]
 lint = ["mypy", "ruff (==0.5.5)", "types-docutils"]
 standalone = ["Sphinx (>=5)"]
+test = ["pytest"]
+
+[[package]]
+name = "sphinxnotes-comboroles"
+version = "1.0"
+description = "Sphinx extension for composing multiple roles"
+optional = false
+python-versions = ">=3.8"
+groups = ["docs"]
+files = [
+    {file = "sphinxnotes-comboroles-1.0.tar.gz", hash = "sha256:7219e9cf63ad7663e1b9d8c194901b977db0c5600106b0e9d633fc5fa4f025b9"},
+    {file = "sphinxnotes_comboroles-1.0-py3-none-any.whl", hash = "sha256:c016b0d6ad1db0f91c6da203e3b10d18fcf2869e6833fecc48bc8bc45149f496"},
+]
+
+[package.dependencies]
+Sphinx = ">=4"
+
+[package.extras]
+dev = ["build", "cruft", "twine"]
+docs = ["furo", "sphinx-copybutton", "sphinx-design", "sphinxcontrib-gtagjs", "sphinxnotes-any", "sphinxnotes-strike"]
 test = ["pytest"]
 
 [[package]]
@@ -2179,4 +2215,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10,<4"
-content-hash = "bf9e925040819c92ca9c3d37685369e5e89d6e8da9f1bbb7d2ea514824052e85"
+content-hash = "2c8ef34884a03630f70b2431caa29dc8f9ccc2f09f58fe81dd6057bb1045c459"

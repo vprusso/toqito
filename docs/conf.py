@@ -45,6 +45,7 @@ extensions = [
     "sphinxcontrib.bibtex",
     "sphinx_copybutton",
     "sphinx_image_inverter",
+    "sphinx_named_colors",
 ]
 
 bibtex_bibfiles = ["refs.bib"]
@@ -122,3 +123,7 @@ html_favicon = "figures/favicon.ico"
 html_last_updated_fmt = "%b %d, %Y"
 
 # https://github.com/TeachBooks/Sphinx-Image-Inverter?tab=readme-ov-file#image-inverter
+named_colors_include_CSS = True # default value
+named_colors_dark_and_light = True # default value
+named_colors_saturation = 1.5 # default value
+named_colors_custom_colors = None
