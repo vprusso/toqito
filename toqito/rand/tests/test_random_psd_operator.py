@@ -30,7 +30,7 @@ def test_random_psd_operator(dim, is_real):
     assert_equal(rand_psd_operator.shape, (dim, dim))
 
     # Check if the matrix is positive semidefinite.
-    assert is_positive_semidefinite(rand_psd_operator), "Matrix should be positive semidefinite"
+    assert is_positive_semidefinite(rand_psd_operator)
 
 @pytest.mark.parametrize(
     "dim, is_real, seed, expected_mat",
