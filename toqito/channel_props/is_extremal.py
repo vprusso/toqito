@@ -40,7 +40,7 @@ def is_extremal(phi: np.ndarray | list[np.ndarray | list[np.ndarray]], tol: floa
     ...     (1 / np.sqrt(6)) * np.array([[0, 0], [1, 0], [1, 0], [0, 2]])
     ... ]
     >>> is_extremal(kraus_ops)
-    True
+    np.True_
 
     References
     ==========
