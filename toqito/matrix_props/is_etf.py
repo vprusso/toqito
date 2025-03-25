@@ -1,10 +1,12 @@
 """Checks if matrix forms an equilangular tight frame (ETF)."""
-from toqito.matrix_ops import vectors_to_gram_matrix
+
 import numpy as np
+
+from toqito.matrix_ops import vectors_to_gram_matrix
 
 
 def is_etf(mat: np.ndarray, rtol: float = 1e-9, atol: float = 1e-9) -> bool:
-    """Check if a matrix constitutes an equilangular tight frame (ETF).
+    r"""Check if a matrix constitutes an equilangular tight frame (ETF).
 
     Definition taken from:
     :cite:`hoffman2011equilangular`.
