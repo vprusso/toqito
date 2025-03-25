@@ -36,3 +36,16 @@ def test_is_etf_equiangular_but_not_tight():
     c2 = np.array([1/np.sqrt(2), 1/np.sqrt(2)])
     mat_equiangular_not_tight = np.column_stack((c1, c2))
     np.testing.assert_equal(is_etf(mat_equiangular_not_tight), False)
+
+def test_etf_default_tolerance():
+    """Test with default tolerances (1e-9)."""
+    mat_default_tol = np.array([[1, -0.5, -0.5], [0, np.sqrt(3)/2, -np.sqrt(3)/2]])
+    np.testing.assert_equal(is_etf(mat_default_tol), True)
+
+def test_etf_custom_tolerance():
+    """Test with looser tolerances."""
+    mat_custom_tol = np.array([[1.00001, -0.50001], [0, 0.86603]])  # Approximate ETF
+    np.testing.assert_equal(is_etf(mat, rtol=1e-4, atol=1e-4), False)     
+
+
+
