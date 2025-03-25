@@ -23,7 +23,7 @@ def bell_inequality_max(
     The method is from :cite:`Navascues_2014_Characterization` and the implementation is based on :cite:`QETLAB_link`.
     This is useful for various tasks in device independent quantum information processing.
 
-    The function formulates the problem as a SDP problem in the following format
+    The function formulates the problem as a SDP problem in the following format for the $W$-state.
 
     .. math::
 
@@ -38,7 +38,7 @@ def bell_inequality_max(
     =======
 
 
-    Consider the I3322 Bell inequality
+    Consider the I3322 Bell inequality from :cite:`Collins_2004`.
 
     .. math::
 
@@ -70,7 +70,7 @@ def bell_inequality_max(
     .. bibliography::
         :filter: docname in docnames
 
-    :raises ValueError: If a_val or b_val are not length 2.
+    :raises ValueError: If `a_val` or `b_val` are not length 2.
     :param joint_coe: The coefficents for terms containing both A and B.
     :param a_coe: The coefficent for terms only containing A.
     :param b_coe: The coefficent for terms only containing B.
@@ -98,7 +98,7 @@ def bell_inequality_max(
     # Nested loops to compute the objective matrix.
     for a in range(2):  # a = 0 to 1
         for b in range(2):  # b = 0 to 1
-            # Indicies below are adjusted to account for Python-MATLAB difference.
+            # Indices below are adjusted to account for Python-MATLAB difference.
             for x in range(1, m + 1):  # x = 1 to m (1-indexed in MATLAB, hence the range adjustment)
                 for y in range(1, m + 1):  # y = 1 to m
                     b_coeff = joint_coe[x - 1, y - 1] * a_val[a, 0] * b_val[b, 0]
