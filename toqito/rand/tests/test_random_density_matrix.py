@@ -60,8 +60,8 @@ def test_random_density_matrix(dim, is_real, distance_metric):
             None,
             "haar",
             np.array([
-                [0.67842043+0.j, -0.04636114+0.29398703j],
-                [-0.04636114-0.29398703j, 0.32157957+0.j]
+                [0.37758384+0.j, 0.19597419+0.19965911j],
+                [0.19597419-0.19965911j, 0.62241616+0.j]
             ])
         ),
         # Generate random real density matrix.
@@ -71,8 +71,8 @@ def test_random_density_matrix(dim, is_real, distance_metric):
             None,
             "haar",
             np.array([
-                [0.85019307, 0.29087271],
-                [0.29087271, 0.14980693]
+                [0.45158815, 0.49355259],
+                [0.49355259, 0.54841185]
             ])
         ),
         # Random non-real density matrix according to Bures metric.
@@ -82,8 +82,9 @@ def test_random_density_matrix(dim, is_real, distance_metric):
             None,
             "bures",
             np.array([
-                [0.60005221+0.j, -0.00344727+0.16976473j],
-                [-0.00344727-0.16976473j, 0.39994779+0.j]
+                [ 0.31466466+0.j, -0.09170064+0.24517065j],
+                [-0.09170064-0.24517065j,  0.68533534+0.j]
+
             ])
         ),
         # Generate random non-real density matrix all params.
@@ -93,8 +94,8 @@ def test_random_density_matrix(dim, is_real, distance_metric):
             2,
             "haar",
             np.array([
-                [0.85019307, 0.29087271],
-                [0.29087271, 0.14980693]
+                [0.45158815, 0.49355259],
+                [0.49355259, 0.54841185]
             ])
         ),
     ],
@@ -106,6 +107,6 @@ def test_seed(dim, is_real, k_param, distance_metric, expected):
         is_real,
         k_param=k_param,
         distance_metric=distance_metric,
-        seed=123
+        seed=124
     )
     assert_array_almost_equal(dm, expected)

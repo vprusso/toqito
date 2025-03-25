@@ -56,6 +56,7 @@ def tensor_comb(states: list[np.ndarray], k: int) -> dict:
     :param states: A list of quantum state vectors represented as numpy arrays.
     :param k: The length of the sequence for generating tensor products.
     :return: A dictionary where:
+
         - Keys represent sequences (as tuples) of quantum state indices,
         - Values are density matrices corresponding to the tensor product of
           the state vectors for the sequence.

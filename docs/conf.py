@@ -59,6 +59,10 @@ linkcheck_ignore = [
 # we need to skip these warnigns because all the references appear twice, in a function docstring
 # and on the references page.
 master_doc = "index"
+
+copybutton_prompt_text = r">>> |\.\.\. "
+copybutton_prompt_is_regexp = True
+copybutton_only_copy_prompt_lines = True
 # autosummary_generate = True
 # autodoc_typehints = "none"
 autoapi_dirs = ["../toqito"]
