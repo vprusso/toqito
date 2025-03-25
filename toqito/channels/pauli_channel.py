@@ -5,9 +5,9 @@ from typing import Optional, Union
 import numpy as np
 from scipy import sparse
 
-from toqito.channel_ops import kraus_to_choi
-from toqito.helper import update_odometer
-from toqito.matrices import pauli
+from toqito.channel_ops.kraus_to_choi import kraus_to_choi
+from toqito.helper.update_odometer import update_odometer
+from toqito.matrices.pauli import pauli
 
 
 def pauli_channel(
@@ -55,13 +55,14 @@ def pauli_channel(
         :filter: docname in docnames
 
     :param prob: Probability vector for Pauli operators. If scalar, generates random probabilities
-                 for `Q=prob` qubits. Default is 0 (single qubit with random probabilities).
-    :param kraus_ops: Flag to return Kraus operators. Default is False.
-    :param input_mat: Optional input matrix to apply the channel to. Default is ``None`.
+             for ``Q=prob`` qubits. Default is ``0`` (single qubit with random probabilities).
+    :param kraus_ops: Flag to return Kraus operators. Default is ``False``.
+    :param input_mat: Optional input matrix to apply the channel to. Default is ``None``.
     :raises ValueError: If probabilities are negative or don't sum to 1.
-    :raises ValueError: If length of probability vector is not `4^Q` for some integer `Q`.
-    :return: The Choi matrix of the channel. If input_mat is provided, also returns the output matrix.
-             If kraus_ops is True, returns Kraus operators as well.
+    :raises ValueError: If length of probability vector is not ``4^Q`` for some integer ``Q``.
+    :return: The Choi matrix of the channel.
+         If ``input_mat`` is provided, also returns the output matrix.
+         If ``kraus_ops`` is ``True``, returns Kraus operators as well.
 
     """
     if not isinstance(prob, np.ndarray):
