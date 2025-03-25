@@ -1,13 +1,17 @@
-[tool.poetry]
+[project]
 name = "toqito"
-version = "1.1.1"
+dynamic = ["version", "classifiers", "dependencies"]
 description = "Python tools for the study of quantum information."
-authors = ["Vincent Russo <vincentrusso1@gmail.com>"]
-maintainers = ["Vincent Russo <vincentrusso1@gmail.com>, Purva Thakre <purva.athakre@gmail.com>"]
 readme = "README.md"
-homepage = "https://vprusso.github.io/toqito/"
-repository = "https://github.com/vprusso/toqito"
+requires-python = ">=3.10,<4"
+authors = [{name = "Vincent Russo", email = "vincentrusso1@gmail.com"}]
+maintainers = [
+    {name = "Vincent Russo", email = "vincentrusso1@gmail.com"}, 
+    {name = "Purva Thakre", email = "purva.athakre@gmail.com"}]
 keywords = ["quantum information", "quantum computing", "nonlocal games"]
+
+[tool.poetry]
+version = "1.1.1"
 classifiers= [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Science/Research",
@@ -22,6 +26,10 @@ classifiers= [
     "Operating System :: OS Independent",
 ]
 packages = [{include = "toqito"}]
+
+[project.urls]
+homepage = "https://vprusso.github.io/toqito/"
+repository = "https://github.com/vprusso/toqito"
 
 [tool.poetry.dependencies]
 python = ">=3.10,<4"
