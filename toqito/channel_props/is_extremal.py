@@ -12,7 +12,7 @@ def is_extremal(phi: np.ndarray | list[np.ndarray | list[np.ndarray]], tol: floa
     (Section 2.2.4: Extremal Channels from :cite:`Watrous_2018_TQI`).
 
     Theorem 2.31 in :cite:`Watrous_2018_TQI` provides the characterization of extremal
-    quantum channels: A channel :math:`\Phi` is an extreme point of the convex set
+    quantum channels as a channel :math:`\Phi` is an extreme point of the convex set
     of quantum channels if and only if the collection:
 
     .. math::
