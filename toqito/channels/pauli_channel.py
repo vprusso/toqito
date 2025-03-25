@@ -1,7 +1,5 @@
 """Generates and applies Pauli Channel to a matrix."""
 
-from typing import Optional, Union
-
 import numpy as np
 from scipy import sparse
 
@@ -11,9 +9,9 @@ from toqito.matrices.pauli import pauli
 
 
 def pauli_channel(
-    prob: Union[float, np.ndarray] = 0,
-    kraus_ops: bool = False,
-    input_mat: Optional[np.ndarray] = None,
+    prob=0,
+    kraus_ops=False,
+    input_mat=None,
 ) -> np.ndarray:
     r"""Generate and apply a Pauli channel to a matrix.
 
@@ -96,18 +94,11 @@ def pauli_channel(
         ind = update_odometer(ind, 4 * np.ones(q, dtype=int))
 
     if input_mat is not None:
-        output_mat = np.zeros_like(input_mat, dtype=complex)
-        for kraus in kraus_operators:
-            output_mat += kraus @ input_mat @ kraus.conj().T
+        output_mat = sum(k @ input_mat @ k.conj().T for k in kraus_operators)
     else:
         output_mat = None
 
     if kraus_ops:
-        if input_mat is not None:
-            return Phi, output_mat, kraus_operators
-        else:
-            return Phi, kraus_operators
-    elif input_mat is not None:
-        return Phi, output_mat
-    else:
-        return Phi
+        return (Phi, output_mat, kraus_operators) if input_mat is not None else (Phi, kraus_operators)
+
+    return (Phi, output_mat) if input_mat is not None else Phi
