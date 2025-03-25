@@ -17,21 +17,21 @@ def is_abs_ppt(rho: np.ndarray, dim: list[int] | None = None, max_constraints: i
 
     >>> import numpy as np
     >>> rho = np.array([[0.5, 0.0], [0.0, 0.5]])
-    >>> is_abs_ppt(rho, [2, 2])
+    >>> is_abs_ppt(rho, [2, 1])
     True
 
-    2) Bell state (entangled, not absolutely PPT):
+    Bell state (entangled, not absolutely PPT):
 
     >>> from toqito.states import bell
     >>> bell_state = bell(0) @ bell(0).conj().T
     >>> is_abs_ppt(bell_state, [2, 2])
     False
 
-    3) High-dimensional identity matrix (likely inconclusive):
+    High-dimensional identity matrix:
 
     >>> rho_7 = np.eye(49) / 49
     >>> is_abs_ppt(rho_7, [7, 7])
-    None  # or possibly True or False if partial constraints detect otherwise
+    True
 
     References
     ==========
