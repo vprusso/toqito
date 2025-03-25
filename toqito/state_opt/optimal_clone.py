@@ -122,7 +122,7 @@ def optimal_clone(
         # sequence from: https://oeis.org/A023123
         q_a = tensor(q_a, num_reps)
         perm = []
-        for i in range(num_spaces ):
+        for i in range(num_spaces):
             perm.append(i)
             var = i
             for j in range(1, num_reps):
@@ -132,6 +132,7 @@ def optimal_clone(
     if strategy:
         return primal_problem(q_a, pperm, num_reps)
     return dual_problem(q_a, pperm, num_reps)
+
 
 def primal_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
     """Primal problem for counterfeit attack.

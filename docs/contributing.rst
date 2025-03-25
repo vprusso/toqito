@@ -117,8 +117,13 @@ Pre-commit hooks ensure that code meets our formatting and linting standards bef
    
    poetry run pre-commit install
 
-This integrates ruff checks into your workflow, ensuring consistent code quality across the project.
+This integrates ruff checks into your workflow, ensuring consistent code quality across the project. 
 
+Additionaly, the commit-msg hook ensures adherence to the `Conventional Commits <https://www.conventionalcommits.org/>`_ format for all commit messages and helps maintain a standardized commit history.
+
+.. code-block:: bash
+
+    poetry run pre-commit install --hook-type commit-msg
 
 ------------------------
 References in Docstrings
