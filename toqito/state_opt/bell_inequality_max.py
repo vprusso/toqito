@@ -23,7 +23,7 @@ def bell_inequality_max(
     The method is from :cite:`Navascues_2014_Characterization` and the implementation is based on :cite:`QETLAB_link`.
     This is useful for various tasks in device independent quantum information processing.
 
-    The function formulates the problem as a SDP problem in the following format for the $W$-state.
+    The function formulates the problem as a SDP problem in the following format for the :math:`W`-state.
 
     .. math::
 
