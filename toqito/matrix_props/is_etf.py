@@ -3,7 +3,7 @@ from toqito.matrix_ops import vectors_to_gram_matrix
 import numpy as np
 
 
-def is_etf(mat: np.ndarray) -> bool:
+def is_etf(mat: np.ndarray, rtol: float = 1e-9, atol: float = 1e-9) -> bool:
     """Check if a matrix constitutes an equilangular tight frame (ETF).
 
     Definition taken from:
@@ -34,16 +34,18 @@ def is_etf(mat: np.ndarray) -> bool:
 
     Args:
         mat (np.ndarray): The matrix to check.
-
+        rtol: Relative tolerance for numerical comparisons (default: 1e-9).
+        atol: Absolute tolerance for numerical comparisons (default: 1e-9).
+        
     Returns:
         bool: True if the matrix constitutes an ETF, False otherwise.
-
+        
     """
     nrows, ncols = mat.shape
 
     # Check if each column has unit norm.
     for col in range(ncols):
-        if not np.isclose(np.linalg.norm(mat[:, col]), 1):
+        if not np.isclose(np.linalg.norm(mat[:, col]), 1, rtol=rtol, atol=atol):
             return False
 
     col_vectors = [mat[:, i] for i in range(mat.shape[1])]
@@ -51,15 +53,15 @@ def is_etf(mat: np.ndarray) -> bool:
     diag_gram_matrix = np.diag(gram_matrix)
 
     # Check if diagonal elements of gram matrix are ones.
-    if not np.allclose(diag_gram_matrix, 1):
+    if not np.allclose(diag_gram_matrix, 1, rtol=rtol, atol=atol):
         return False
 
     # Check if off-diagonal elements are constant in magnitude.
     off_diag_elements = gram_matrix[~np.eye(gram_matrix.shape[0], dtype=bool)]
     mod_off_diag = np.abs(off_diag_elements)
 
-    if not np.allclose(mod_off_diag, mod_off_diag[0]):
+    if not np.allclose(mod_off_diag, mod_off_diag[0], rtol=rtol, atol=atol):
         return False
 
     # Verify tight frame condition AA* = (ncols/nrows) * Identity
-    return np.allclose(mat @ mat.conj().T, (ncols / nrows) * np.identity(nrows))
+    return np.allclose(mat @ mat.conj().T, (ncols / nrows) * np.identity(nrows), rtol=rtol, atol=atol)
