@@ -104,6 +104,12 @@ def test_pauli_channel_input_matrix_properties(input_mat, p):
     out_trace = np.trace(output_mat)
     assert np.isclose(out_trace, in_trace), "Trace is not preserved in the output matrix."
 
+    Phi, output_mat, kraus_ops = pauli_channel(prob=p, input_mat=input_mat, kraus_ops=True)
+
+    assert isinstance(output_mat, np.ndarray)
+    assert isinstance(kraus_ops, list)
+    assert len(kraus_ops) == len(p)
+
 
 @pytest.mark.parametrize("Q", [1, 2, 3])
 def test_pauli_channel_choi_matrix_properties(Q):
