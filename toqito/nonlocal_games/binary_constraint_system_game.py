@@ -17,86 +17,87 @@ def bcs(M, b):
 
 
 def generate_solution_group(M: np.ndarray, b: np.ndarray):
+    """
+    Constructs the solution group structure for the BCS game in a more vectorized manner.
+    
+    Each row in M is converted into a bitmask by summing powers of 2 for columns
+    where M[i, j] == 1. The parity bits are taken directly from b.
+    
+    Returns:
+        row_masks (List[int]): Each integer is a bitmask representing one row of M.
+        parity (List[int]): Each element is 0 or 1, taken from b.
+    """
+    # Ensure M and b are binary (0/1)
     M = np.array(M, dtype=int) % 2
     b = np.array(b, dtype=int) % 2
-    m, n = M.shape
-    # store each row in integer
-    row = []
-    for i in range(m):
-        h = 0
-        for j in range(n):
-            if M[i, j] == 1:
-                h |= (1 << j)
-        row.append(h)
-    # Parity bits list
-    parity=[]
-    for i in b:
-        parity.append(int(i))
-    return row, parity
+    
+    # Create an array of powers of 2 for each column: [1, 2, 4, ..., 2^(n-1)]
+    powers = 1 << np.arange(M.shape[1])  # e.g. if n=3 => [1, 2, 4]
+    
+    return (M * powers).sum(axis=1).astype(int).tolist(), b.astype(int).tolist()
 
 def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray) -> bool:
     """
     Determines whether a perfect commuting-operator strategy exists for the BCS game given by Mx = b.
     Returns True if a perfect strategy exists (i.e., J != e in the solution group), False otherwise.
+
+    This function:
+      1. Converts M, b into bitmasks (row, parity).
+      2. Performs Gaussian elimination over GF(2).
+      3. Checks for a row of form 0 = 1 (contradiction).
+      4. Builds a graph of contradictory constraints and checks for a cycle.
+
+    A cycle indicates a nontrivial J, so a perfect strategy exists.
     """
-    # Convert to binary representation
     row, parity = generate_solution_group(M, b)
     m = len(row)
-    store = [1 << i for i in range(m)]
-    # Eliminate variables one by one
+    combo = [1 << i for i in range(m)]
+
     pivot = 0
-    n = max(M.shape[1], 0) if m > 0 else 0
+    n = M.shape[1] if m > 0 else 0
+
+    # Perform Gaussian elimination in GF(2)
     for j in range(n):
-        # Find a row at or below 'pivot' with a 1 in this column
-        pivot_row = None
-        for i in range(pivot, m):
-            if row[i] & (1 << j):
-                pivot_row = i
-                break
+        pivot_row = next((r for r in range(pivot, m) if row[r] & (1 << j)), None)
         if pivot_row is None:
             continue
-        # Swap pivot row into current pivot position
         row[pivot], row[pivot_row] = row[pivot_row], row[pivot]
         parity[pivot], parity[pivot_row] = parity[pivot_row], parity[pivot]
-        store[pivot], store[pivot_row] = store[pivot_row], store[pivot]
-        # Eliminate this bit from all other rows
+        combo[pivot], combo[pivot_row] = combo[pivot_row], combo[pivot]
+
         for i in range(m):
             if i != pivot and (row[i] & (1 << j)):
-                row[i] ^= row[pivot]      
-                parity[i] ^= parity[pivot]   
-                store[i] ^= store[pivot]   
+                row[i] ^= row[pivot]
+                parity[i] ^= parity[pivot]
+                combo[i] ^= combo[pivot]
+
         pivot += 1
         if pivot == m:
             break
-    # Look for a row that ended up as 0 = 1 (contradiction)
-    contradiction = None
-    for i in range(m):
-        if row[i] == 0 and parity[i] == 1:
-            contradiction = store[i]
-            break
+
+    # Check for contradiction: a row with 0 = 1
+    contradiction = next((combo[r] for r in range(m) if row[r] == 0 and parity[r] == 1), None)
     if contradiction is None:
-        # No contradiction found: system is satisfiable classically, hence a perfect strategy exists (trivial case)
+        # No contradiction → classically satisfiable → perfect strategy
         return True
-    # Find the rows contributed to contradiction in classical case
-    nodes=[]
-    for i in range(m):
-        if (contradiction >> i) & 1:
-            nodes.append(i)
+
+    # Build graph of constraints that contributed to the contradiction
+    nodes = [r for r in range(m) if (contradiction >> r) & 1]
     G = nx.Graph()
     G.add_nodes_from(nodes)
-    for i in range(len(nodes)):
-        for j in range(i+1, len(nodes)):
-            k, l = nodes[i], nodes[j]
-            # Check common variables between these constraints
-            if row[k] & row[l]:
-                G.add_edge(k, l)
-    # Check for cycle in the induced subgraph
-    has_cycle = False
-    if len(nodes) > 0:
-        if len(nx.cycle_basis(G)) > 0:
-            has_cycle = True
-    # This is to check if the nontrivial J exists, consistent with lemma 9.
-    return has_cycle
+
+    # Add edge if two rows share a variable
+    edges = [
+        (u, v)
+        for i, u in enumerate(nodes)
+        for v in nodes[i+1:]
+        if row[u] & row[v]
+    ]
+    G.add_edges_from(edges)
+
+    # If there's a cycle, a perfect strategy exists
+    return bool(nx.cycle_basis(G))
+
 def nonlocal_game_from_constraints(constraints) -> NonlocalGame:
     """
     Constructs a NonlocalGame using Toqito's built-in from_bcs_game function, but
