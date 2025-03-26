@@ -21,7 +21,7 @@ def common_epistemic_overlap(states: List[np.ndarray],dim: Union[int, List[int],
     Examples
     ==========
     State vector inputs:
-    
+
     >>> from toqito.states import bell
     >>> psi0 = bell(0)
     >>> psi1 = bell(1)
@@ -29,7 +29,7 @@ def common_epistemic_overlap(states: List[np.ndarray],dim: Union[int, List[int],
     0.0
 
     Mixed state inputs:
-    
+
     >>> rho_mixed = np.eye(2)/2
     >>> common_epistemic_overlap([rho_mixed, rho_mixed])
     1.0
@@ -46,7 +46,7 @@ def common_epistemic_overlap(states: List[np.ndarray],dim: Union[int, List[int],
     :return: Common epistemic overlap value between 0 and 1
 
     """
- 
+
     density_matrices = []
     for state in states:
         if _is_state_vector(state):
@@ -68,6 +68,7 @@ def _is_state_vector(state: np.ndarray) -> bool:
 
     :param state: Input state to check
     :return: True if state is a vector, False otherwise
+
     """
     if state.ndim == 1:
         return True
@@ -79,6 +80,7 @@ def _vector_to_density_matrix(state: np.ndarray) -> np.ndarray:
 
     :param state: Input state vector
     :return: Corresponding density matrix
+
     """
     vector = state.reshape(-1)  # Flatten to 1D array
     return np.outer(vector, vector.conj())
@@ -91,6 +93,7 @@ def _epistemic_distribution(rho: np.ndarray, vertices: List[np.ndarray]) -> np.n
     :param rho: Input density matrix
     :param vertices: Precomputed phase point operators
     :return: Normalized probability vector matching the order of vertices
+
     """
     probabilities = []
     for A in vertices:
@@ -106,6 +109,7 @@ def _generate_phase_point_operators(d: int) -> List[np.ndarray]:
     :param d: Dimension of the quantum system
     :return: List of phase point operators
     :raises ValueError: If dimension has invalid prime factors
+
     """
     if d == 2 or (d % 2 == 1 and _is_prime(d)):
         return _qubit_phase_operators() if d == 2 else _qudit_phase_operators(d)
@@ -119,6 +123,7 @@ def _qubit_phase_operators() -> List[np.ndarray]:
     Generate qubit phase point operators.
 
     :return: List of 4 qubit phase point operators
+
     """
     I, X, Y, Z = (np.eye(2), 
                  np.array([[0,1],[1,0]]), 
@@ -132,6 +137,7 @@ def _qudit_phase_operators(d: int) -> List[np.ndarray]:
 
     :param d: Dimension of the qudit system (must be an odd prime)
     :return: List of d^2 qudit phase point operators
+
     """
     X, Z = _generalized_pauli_X(d), _generalized_pauli_Z(d)
     D = np.zeros((d,d))
@@ -147,6 +153,7 @@ def _generalized_pauli_X(d: int) -> np.ndarray:
 
     :param d: Dimension of the qudit system
     :return: d x d generalized Pauli X operator
+
     """
     return np.array([[1 if (i+1)%d == j else 0 for j in range(d)] for i in range(d)])
 
@@ -156,6 +163,7 @@ def _generalized_pauli_Z(d: int) -> np.ndarray:
 
     :param d: Dimension of the qudit system
     :return: d x d generalized Pauli Z operator
+
     """
     omega = np.exp(2j*np.pi/d)
     return np.diag([omega**i for i in range(d)])
@@ -166,6 +174,7 @@ def _is_prime(n: int) -> bool:
 
     :param n: Number to check for primality
     :return: True if n is prime, False otherwise
+
     """
     return n > 1 and all(n%i for i in range(2, int(np.sqrt(n))+1))
 
@@ -175,6 +184,7 @@ def _prime_factors(n: int) -> List[int]:
 
     :param n: Number to factorize
     :return: List of prime factors of n
+
     """
     factors = []
     while n%2 == 0: factors.append(2); n//=2
