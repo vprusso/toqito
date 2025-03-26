@@ -36,14 +36,14 @@ from toqito.state_props import common_epistemic_overlap
             0.0
         ),
 
-        # Qutrit test cases (d=3)
+   
         (
-            # Fully non-epistemic case (n=4)
+
             [np.eye(3)/3]*4,                      # Four identical maximally mixed states
-            0.0
+            1.0
         ),
         (
-            # Mixed vs pure state
+
             [
                 np.eye(3)/3,                      # Maximally mixed
                 np.outer([0,1,0], [0,1,0])        # Pure state |1>
@@ -53,7 +53,6 @@ from toqito.state_props import common_epistemic_overlap
 
         # Composite dimension test cases
         (
-            # 4D system (d=4=2×2)
             [np.eye(4)/4]*3,                      # Three identical maximally mixed states
             1.0
         ),
@@ -63,6 +62,7 @@ from toqito.state_props import common_epistemic_overlap
         )
     ]
 )
+
 def test_epistemic_overlap_parametrized(states, expected_overlap):
     """Parametrized tests for core paper examples."""
     computed = common_epistemic_overlap(states)
@@ -75,7 +75,6 @@ def test_error_handling():
     # Empty list
     with pytest.raises(ValueError):
         common_epistemic_overlap([])
-
     # Dimension mismatch
     with pytest.raises(ValueError):
         common_epistemic_overlap([np.eye(2), np.eye(3)])

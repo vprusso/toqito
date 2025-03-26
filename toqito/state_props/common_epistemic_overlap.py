@@ -3,9 +3,14 @@
 import numpy as np
 from typing import List, Union
 from itertools import product
+from functools import reduce
 
 
-def common_epistemic_overlap(density_matrices: List[np.ndarray],dim: Union[int, List[int], np.ndarray] = None) -> float:
+
+def common_epistemic_overlap(
+    states: List[np.ndarray],
+    dim: Union[int, List[int], np.ndarray] = None
+) -> float:
     r"""Compute the epistemic overlap :cite:`Campos_2024_Epistemic`.
 
     For a set of quantum states :math:`\{\rho_i\}`, the epistemic overlap is defined as:
@@ -14,177 +19,162 @@ def common_epistemic_overlap(density_matrices: List[np.ndarray],dim: Union[int, 
         \omega_E(\rho_1,\ldots,\rho_n) = \int \min_{\lambda\in\Lambda} 
         (\mu(\lambda|\rho_1), \ldots, \mu(\lambda|\rho_n)) d\lambda
 
-    where :math:`\mu(\lambda|\rho_i)` are epistemic distributions associated with each state.
-
-    The computation follows the framework using phase point operators defined for:
-    - Qubits (d=2) with stabilizer vertices
-    - Odd prime dimensional qudits using symplectic phase space methods
+    Accepts both state vectors and density matrices as input.
 
     Examples
     ==========
-
-    Computing overlap for identical qubit states:
-
+    State vector inputs:
     >>> from toqito.states import bell
-    >>> rho0 = bell(0) @ bell(0).conj().T
-    >>> round(common_epistemic_overlap([rho0, rho0]),4)
-    1.0
-
-    Orthogonal qubit states:
-
-    >>> rho1 = bell(1) @ bell(1).conj().T
-    >>> round(common_epistemic_overlap([rho0, rho1]),4)
+    >>> psi0 = bell(0)
+    >>> psi1 = bell(1)
+    >>> common_epistemic_overlap([psi0, psi1])
     0.0
 
-    Maximally mixed qutrit state with pure state:
+    Mixed state inputs:
+    >>> rho_mixed = np.eye(2)/2
+    >>> common_epistemic_overlap([rho_mixed, rho_mixed])
+    1.0
 
-    >>> d = 3
-    >>> rho_mixed = np.eye(d)/d
-    >>> rho_pure = np.outer([1,0,0], [1,0,0])
-    >>> round(common_epistemic_overlap([rho_mixed, rho_pure]),4 ) # doctest: +ELLIPSIS
-    0.3333
-
-    References
-    ==========
-    .. bibliography::
-        :filter: docname in docnames
-
-    :param density_matrices: List of density matrices to compute overlap for
+    :param states: List of quantum states (vectors or density matrices)
     :param dim: Optional dimension specification for composite systems
     :return: Epistemic overlap value between 0 and 1
     :raises ValueError: For invalid inputs or unsupported dimensions
     """
-
-    if not density_matrices:
-        raise ValueError("Input list of density matrices cannot be empty")
-    first_dim = density_matrices[0].shape[0]
-    if dim is None:
-        dim = first_dim
-    if any(rho.shape[0] != first_dim for rho in density_matrices):
-        raise ValueError("All density matrices must have consistent dimensions")
-    vertices = _generate_phase_point_operators(first_dim)
-    distributions = [_epistemic_distribution(rho, vertices) for rho in density_matrices]
+ 
+    density_matrices = []
+    for state in states:
+        if _is_state_vector(state):
+            density_matrices.append(_vector_to_density_matrix(state))
+        else:
+            if state.shape[0] != state.shape[1]:
+                raise ValueError("Density matrices must be square")
+            density_matrices.append(state)
+    dims = [dm.shape[0] for dm in density_matrices]
+    if len(set(dims)) > 1:
+        raise ValueError("All states must have consistent dimension")
+    vertices = _generate_phase_point_operators(dims[0])
+    distributions = [_epistemic_distribution(dm, vertices) for dm in density_matrices]
     return np.sum(np.min(distributions, axis=0))
+
+def _is_state_vector(state: np.ndarray) -> bool:
+    """
+    Check if input is a state vector (1D or column/row vector).
+
+    :param state: Input state to check
+    :return: True if state is a vector, False otherwise
+    """
+    if state.ndim == 1:
+        return True
+    return state.ndim == 2 and (state.shape[0] == 1 or state.shape[1] == 1)
+
+def _vector_to_density_matrix(state: np.ndarray) -> np.ndarray:
+    """
+    Convert state vector to density matrix.
+
+    :param state: Input state vector
+    :return: Corresponding density matrix
+    """
+    vector = state.reshape(-1)  # Flatten to 1D array
+    return np.outer(vector, vector.conj())
 
 
 def _epistemic_distribution(rho: np.ndarray, vertices: List[np.ndarray]) -> np.ndarray:
-    """Compute normalized epistemic distribution for a density matrix.
+    """
+    Compute normalized epistemic distribution for a density matrix.
     
     :param rho: Input density matrix
     :param vertices: Precomputed phase point operators
-    :return: Probability vector matching the order of vertices
+    :return: Normalized probability vector matching the order of vertices
     """
     probabilities = []
     for A in vertices:
         prob = np.real(np.trace(rho @ A))
-        probabilities.append(prob) 
-        
+        probabilities.append(prob)  
     total = sum(probabilities)
-    if total <= 0:
-        raise ValueError("Invalid distribution (all probabilities zero)")
-        
     return np.array(probabilities) / total
 
-
 def _generate_phase_point_operators(d: int) -> List[np.ndarray]:
-    """Generate phase point operators for dimension d via prime factorization."""
-    if d == 2 or (d % 2 == 1 and _is_prime(d)):
-        if d == 2:
-            return _qubit_phase_operators()
-        return _qudit_phase_operators(d)
-    factors = _prime_factors(d)
-    for p in factors:
-        if p != 2 and (p % 2 == 0 or not _is_prime(p)):
-            raise ValueError(f"Dimension {d} has invalid prime factor {p}")
-    sub_operators = [_generate_phase_point_operators(p) for p in factors]
-    vertices = []
-    for ops in product(*sub_operators):
-        current_op = ops[0]
-        for op in ops[1:]:
-            current_op = np.kron(current_op, op)
-        vertices.append(current_op)
-    
-    return vertices
+    """
+    Generate phase point operators for dimension d via prime factorization.
 
+    :param d: Dimension of the quantum system
+    :return: List of phase point operators
+    :raises ValueError: If dimension has invalid prime factors
+    """
+    if d == 2 or (d % 2 == 1 and _is_prime(d)):
+        return _qubit_phase_operators() if d == 2 else _qudit_phase_operators(d)
+    
+    factors = _prime_factors(d)
+    sub_ops = [_generate_phase_point_operators(p) for p in factors]
+    return [reduce(np.kron, ops) for ops in product(*sub_ops)]
 
 def _qubit_phase_operators() -> List[np.ndarray]:
-    """Generate qubit phase point operators."""
-    I = np.eye(2, dtype=complex)
-    X = np.array([[0, 1], [1, 0]], dtype=complex)
-    Y = np.array([[0, -1j], [1j, 0]], dtype=complex)
-    Z = np.array([[1, 0], [0, -1]], dtype=complex)
-    vertices = []
-    signs = [(1, 1, 1), (1, -1, -1), (-1, 1, -1), (-1, -1, 1)]
-    for sx, sy, sz in signs:
-        A = (I + sx*X + sy*Y + sz*Z) / 2
-        vertices.append(A)
-    return vertices
+    """
+    Generate qubit phase point operators.
 
+    :return: List of 4 qubit phase point operators
+    """
+    I, X, Y, Z = (np.eye(2), 
+                 np.array([[0,1],[1,0]]), 
+                 np.array([[0,-1j],[1j,0]]), 
+                 np.array([[1,0],[0,-1]]))
+    return [(I + x*X + y*Y + z*Z)/2 for x,y,z in [(1,1,1), (1,-1,-1), (-1,1,-1), (-1,-1,1)]]
 
 def _qudit_phase_operators(d: int) -> List[np.ndarray]:
-    """Generate qudit phase point operators for odd prime dimensions."""
-    X = _generalized_pauli_X(d)
-    Z = _generalized_pauli_Z(d)
-    D = _parity_operator(d)
-    inv_2 = pow(2, -1, d)  
-    omega = np.exp(2j * np.pi / d)
-    vertices = []
-    for q, p in product(range(d), repeat=2):
-        phase = omega**((q * p * inv_2) % d)
-        Xq = np.linalg.matrix_power(X, q)
-        Zp = np.linalg.matrix_power(Z, p)
-        A = (phase * Xq @ Zp @ D) / d
-        vertices.append(A)
-    return vertices
+    """
+    Generate qudit phase point operators for odd prime dimensions.
 
+    :param d: Dimension of the qudit system (must be an odd prime)
+    :return: List of d^2 qudit phase point operators
+    """
+    X, Z = _generalized_pauli_X(d), _generalized_pauli_Z(d)
+    D = np.zeros((d,d))
+    D[range(d), (-np.arange(d))%d] = 1
+    inv2 = pow(2, -1, d)
+    omega = np.exp(2j*np.pi/d)
+    return [(omega**((q*p*inv2)%d) * np.linalg.matrix_power(X,q) @ 
+             np.linalg.matrix_power(Z,p) @ D)/d for q,p in product(range(d), repeat=2)]
 
 def _generalized_pauli_X(d: int) -> np.ndarray:
-    """Generalized Pauli X (shift) operator."""
-    X = np.zeros((d, d), dtype=complex)
-    for i in range(d):
-        X[i, (i+1) % d] = 1
-    return X
+    """
+    Generate generalized Pauli X (shift) operator for dimension d.
 
+    :param d: Dimension of the qudit system
+    :return: d x d generalized Pauli X operator
+    """
+    return np.array([[1 if (i+1)%d == j else 0 for j in range(d)] for i in range(d)])
 
 def _generalized_pauli_Z(d: int) -> np.ndarray:
-    """Generalized Pauli Z (clock) operator."""
-    omega = np.exp(2j * np.pi / d)
-    Z = np.zeros((d, d), dtype=complex)
-    for i in range(d):
-        Z[i, i] = omega**i
-    return Z
+    """
+    Generate generalized Pauli Z (clock) operator for dimension d.
 
-
-def _parity_operator(d: int) -> np.ndarray:
-    """Parity operator (|j> → |-j mod d>)."""
-    D = np.zeros((d, d), dtype=complex)
-    for j in range(d):
-        D[j, (-j) % d] = 1
-    return D
-
+    :param d: Dimension of the qudit system
+    :return: d x d generalized Pauli Z operator
+    """
+    omega = np.exp(2j*np.pi/d)
+    return np.diag([omega**i for i in range(d)])
 
 def _is_prime(n: int) -> bool:
-    """Check if a number is prime."""
-    if n < 2:
-        return False
-    for i in range(2, int(np.sqrt(n)) + 1):
-        if n % i == 0:
-            return False
-    return True
+    """
+    Check if a number is prime.
 
+    :param n: Number to check for primality
+    :return: True if n is prime, False otherwise
+    """
+    return n > 1 and all(n%i for i in range(2, int(np.sqrt(n))+1))
 
 def _prime_factors(n: int) -> List[int]:
-    """Prime factorization of n."""
+    """
+    Compute the prime factorization of n.
+
+    :param n: Number to factorize
+    :return: List of prime factors of n
+    """
     factors = []
-    while n % 2 == 0:
-        factors.append(2)
-        n = n // 2
-    i = 3
-    while i * i <= n:
-        while n % i == 0:
-            factors.append(i)
-            n = n // i
-        i += 2
-    if n > 2:
-        factors.append(n)
+    while n%2 == 0: factors.append(2); n//=2
+    i=3
+    while i*i <=n:
+        while n%i ==0: factors.append(i); n//=i
+        i +=2
+    if n>2: factors.append(n)
     return factors
