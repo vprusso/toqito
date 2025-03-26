@@ -1,4 +1,4 @@
-"""Calculate the epistemic overlap of quantum states."""
+"""Calculate the common epistemic overlap of quantum states."""
 
 import numpy as np
 from typing import List, Union
@@ -21,6 +21,7 @@ def common_epistemic_overlap(states: List[np.ndarray],dim: Union[int, List[int],
     Examples
     ==========
     State vector inputs:
+    
     >>> from toqito.states import bell
     >>> psi0 = bell(0)
     >>> psi1 = bell(1)
@@ -28,14 +29,22 @@ def common_epistemic_overlap(states: List[np.ndarray],dim: Union[int, List[int],
     0.0
 
     Mixed state inputs:
+    
     >>> rho_mixed = np.eye(2)/2
     >>> common_epistemic_overlap([rho_mixed, rho_mixed])
     1.0
 
+    References
+    ==========
+    .. bibliography::
+        :filter: docname in docnames
+
+
     :param states: List of quantum states (vectors or density matrices)
     :param dim: Optional dimension specification for composite systems
-    :return: Epistemic overlap value between 0 and 1
     :raises ValueError: For invalid inputs or unsupported dimensions
+    :return: Common epistemic overlap value between 0 and 1
+
     """
  
     density_matrices = []
@@ -86,7 +95,7 @@ def _epistemic_distribution(rho: np.ndarray, vertices: List[np.ndarray]) -> np.n
     probabilities = []
     for A in vertices:
         prob = np.real(np.trace(rho @ A))
-        probabilities.append(prob)  
+        probabilities.append(prob)
     total = sum(probabilities)
     return np.array(probabilities) / total
 
