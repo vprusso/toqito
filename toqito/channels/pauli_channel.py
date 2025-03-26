@@ -9,9 +9,7 @@ from toqito.matrices.pauli import pauli
 
 
 def pauli_channel(
-    prob=0,
-    kraus_ops=False,
-    input_mat=None,
+    prob: int | np.ndarray, return_kraus_ops: bool = False, input_mat: np.ndarray | None = None
 ) -> np.ndarray:
     r"""Generate and apply a Pauli channel to a matrix.
 
@@ -21,12 +19,12 @@ def pauli_channel(
     channel is defined as:
 
     .. math::
-       \Phi(\rho) = \sum_{i=1}^{4^Q} p_i P_i \rho P_i^*
+       \Phi(\rho) = \sum_{i=1}^{4^q} p_i P_i \rho P_i^*
 
-    where :math:`P_i` are Pauli operators and :math:`Q` is the number of qubits.
+    where :math:`P_i` are Pauli operators and :math:`q` is the number of qubits.
     If :code:`prob` is a scalar, it generates a random :code:`prob`-qubit Pauli channel.
-    The length of the probability vector (if provided) must be :math:`4^Q` for some
-    integer :math:`Q` (number of qubits).
+    The length of the probability vector (if provided) must be :math:`4^q` for some
+    integer :math:`q` (number of qubits).
 
     Examples
     ========
@@ -34,7 +32,7 @@ def pauli_channel(
     Generate a random single-qubit Pauli channel:
 
     >>> from toqito.channels import pauli_channel
-    >>> choi_matrix = pauli_channel(prob = 1)
+    >>> choi_matrix = pauli_channel(prob=1)
 
     Apply a specific two-qubit Pauli channel to an input matrix:
 
@@ -53,41 +51,38 @@ def pauli_channel(
         :filter: docname in docnames
 
     :param prob: Probability vector for Pauli operators. If scalar, generates random probabilities
-             for ``Q=prob`` qubits. Default is ``0`` (single qubit with random probabilities).
-    :param kraus_ops: Flag to return Kraus operators. Default is ``False``.
+             for ``q=prob`` qubits. Default is ``0`` (single qubit with random probabilities).
+    :param return_kraus_ops: Flag to return Kraus operators. Default is ``False``.
     :param input_mat: Optional input matrix to apply the channel to. Default is ``None``.
     :raises ValueError: If probabilities are negative or don't sum to 1.
-    :raises ValueError: If length of probability vector is not ``4^Q`` for some integer ``Q``.
+    :raises ValueError: If length of probability vector is not ``4^q`` for some integer ``q``.
     :return: The Choi matrix of the channel.
          If ``input_mat`` is provided, also returns the output matrix.
-         If ``kraus_ops`` is ``True``, returns Kraus operators as well.
+         If ``return_kraus_ops`` is ``True``, returns Kraus operators as well.
 
     """
     if not isinstance(prob, np.ndarray):
         if np.isscalar(prob):
             q = int(prob)
-            len_p = 4**q
-            prob = np.random.rand(len_p)
+            prob = np.random.rand(4**q)
             prob /= np.sum(prob)
-
         else:
             prob = np.array(prob)
 
     if np.any(prob < 0) or not np.isclose(np.sum(prob), 1):
         raise ValueError("Probabilities must be non-negative and sum to 1.")
 
-    len_p = len(prob)
-    q = int(np.round(np.log2(len_p) / 2))
+    q = int(np.round(np.log2(len(prob)) / 2))
 
-    if len_p != 4**q:
-        raise ValueError("The length of the probability vector must be 4^Q for some integer Q (number of qubits).")
+    if len(prob) != 4**q:
+        raise ValueError("The length of the probability vector must be 4^q for some integer q (number of qubits).")
 
     Phi = sparse.csc_matrix((4**q, 4**q), dtype=complex)
 
     kraus_operators = []
     ind = np.zeros(q, dtype=int)
 
-    for j in range(len_p):
+    for j in range(len(prob)):
         pauli_op = pauli(ind.tolist())
         kraus_operators.append(np.sqrt(prob[j]) * pauli_op)
         Phi += prob[j] * kraus_to_choi([[pauli_op, pauli_op.conj().T]])
@@ -98,7 +93,7 @@ def pauli_channel(
     else:
         output_mat = None
 
-    if kraus_ops:
+    if return_kraus_ops:
         return (Phi, output_mat, kraus_operators) if input_mat is not None else (Phi, kraus_operators)
 
     return (Phi, output_mat) if input_mat is not None else Phi
