@@ -81,7 +81,7 @@ def _vector_to_density_matrix(state: np.ndarray) -> np.ndarray:
 def _epistemic_distribution(rho: np.ndarray, vertices: List[np.ndarray]) -> np.ndarray:
     """
     Compute normalized epistemic distribution for a density matrix.
-    
+
     :param rho: Input density matrix
     :param vertices: Precomputed phase point operators
     :return: Normalized probability vector matching the order of vertices
@@ -103,7 +103,7 @@ def _generate_phase_point_operators(d: int) -> List[np.ndarray]:
     """
     if d == 2 or (d % 2 == 1 and _is_prime(d)):
         return _qubit_phase_operators() if d == 2 else _qudit_phase_operators(d)
-    
+
     factors = _prime_factors(d)
     sub_ops = [_generate_phase_point_operators(p) for p in factors]
     return [reduce(np.kron, ops) for ops in product(*sub_ops)]
