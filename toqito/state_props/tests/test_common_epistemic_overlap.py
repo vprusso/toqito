@@ -48,7 +48,7 @@ from toqito.state_props import common_epistemic_overlap
                 np.eye(3)/3,                      # Maximally mixed
                 np.outer([0,1,0], [0,1,0])        # Pure state |1>
             ],
-            0.333  # 1/3 overlap from mixed state contribution
+            0.333333  # 1/3 overlap from mixed state contribution
         ),
 
         # Composite dimension test cases
