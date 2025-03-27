@@ -128,14 +128,14 @@ def _qubit_phase_operators() -> List[np.ndarray]:
     :return: List of 4 qubit phase point operators
 
     """
-    Identity, X, Y, Z = (
+    I_, X, Y, Z = (
         np.eye(2),
         np.array([[0, 1], [1, 0]]),
         np.array([[0, -1j], [1j, 0]]),
         np.array([[1, 0], [0, -1]]),
     )
     return [
-        (Identity + x * X + y * Y + z * Z) / 2
+        (I_ + x * X + y * Y + z * Z) / 2
         for x, y, z in [(1, 1, 1), (1, -1, -1), (-1, 1, -1), (-1, -1, 1)]
     ]
 
