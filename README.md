@@ -16,7 +16,7 @@
 [![Unitary Foundation](https://img.shields.io/badge/Supported%20By-Unitary%20Foundation-FFFF00.svg)](https://unitary.foundation)
 
 
-The `toqito` package is an open-source Python library for studying various
+The `toqito` pace is an open-source Python library for studying various
 objects in quantum information, namely, states, channels, and measurements.
 
 <p align="center">
