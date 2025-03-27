@@ -1,4 +1,4 @@
-"""Vec operation is used to perform the unvec operation on a matrix."""
+"""Performs the vec operation on a matrix."""
 
 import numpy as np
 
@@ -8,12 +8,7 @@ def vec(mat: np.ndarray) -> np.ndarray:
 
     For more info, see Section: The Operator-Vector Correspondence from :cite:`Watrous_2018_TQI`.
 
-    Stacks the rows of the matrix on top of each other to
-    obtain the "vec" representation of the matrix.
-
-    The vec function is a linear mapping that in essence converts each row to
-    column, and then continually stacks the columns on top of each other.
-    An example is helpful.
+    The function reorders the given matrix into a column vector by stacking the columns of the matrix sequentially.
 
     For instance, for the following matrix:
 
@@ -27,7 +22,7 @@ def vec(mat: np.ndarray) -> np.ndarray:
     it holds that
 
     .. math::
-        \text{vec}(X) = \begin{pmatrix} 1 & 2 & 3 & 4 \end{pmatrix}^T
+        \text{vec}(X) = \begin{pmatrix} 1 & 3 & 2 & 4 \end{pmatrix}^T
 
     More formally, the vec operation is defined by
 
@@ -66,7 +61,7 @@ def vec(mat: np.ndarray) -> np.ndarray:
     Performing the :math:`\text{vec}` operation on :math:`A` yields
 
     .. math::
-        \text{vec}(A) = \left[1, 2, 3, 4 \right]^{T}.
+        \text{vec}(A) = \left[1, 3, 2, 4 \right]^{T}.
 
     >>> from toqito.matrix_ops import vec
     >>> import numpy as np
