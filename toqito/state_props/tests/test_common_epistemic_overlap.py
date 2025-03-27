@@ -43,10 +43,25 @@ from toqito.state_props import common_epistemic_overlap
         ),
         # Composite dimension test cases
         ([np.eye(4) / 4] * 3, 1.0),  # Three identical maximally mixed states
-        ([np.eye(6) / 6] * 2, 1.0),  # Two identical maximally mixed states
+        ([np.eye(30) / 6] * 2, 1.0),  # Two identical maximally mixed states
     ],
 )
 def test_epistemic_overlap_parametrized(states, expected_overlap):
     """Parametrized tests for core paper examples."""
     computed = common_epistemic_overlap(states)
     assert np.isclose(computed, expected_overlap, atol=1e-3)
+
+
+@pytest.mark.parametrize("invalid_input, expected_error", [
+
+    #non square density  matrix
+    ([np.array([[1, 0], [0, 0], [0, 0]]), np.array([[1, 0], [0, 0], [0, 0]])], ValueError),
+
+    #non consistent dimensions
+    ([np.eye(2), np.eye(3)], ValueError),
+
+])
+def test_input_validation(invalid_input, expected_error):
+    """Verify proper error handling for invalid inputs."""
+    with pytest.raises(expected_error):
+        common_epistemic_overlap(invalid_input)
