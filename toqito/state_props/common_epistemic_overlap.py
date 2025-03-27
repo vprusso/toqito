@@ -6,8 +6,7 @@ from itertools import product
 from functools import reduce
 
 
-
-def common_epistemic_overlap(states: List[np.ndarray],dim: Union[int, List[int], np.ndarray] = None) -> float:
+def common_epistemic_overlap(states: List[np.ndarray], dim: Union[int, List[int], np.ndarray] = None) -> float:
     r"""Compute the epistemic overlap :cite:`Campos_2024_Epistemic`.
 
     For a set of quantum states :math:`\{\rho_i\}`, the epistemic overlap is defined as:
