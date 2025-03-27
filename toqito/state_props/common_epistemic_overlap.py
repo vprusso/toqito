@@ -98,7 +98,7 @@ def _epistemic_distribution(rho: np.ndarray, vertices: List[np.ndarray]) -> np.n
     probabilities = []
     for A in vertices:
         prob = np.real(np.trace(rho @ A))
-        probabilities.append(max(prob,0))
+        probabilities.append(prob)
     total = sum(probabilities)
     return np.array(probabilities) / total
 
