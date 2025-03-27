@@ -6,13 +6,15 @@ from itertools import product
 from functools import reduce
 
 
-def common_epistemic_overlap(states: List[np.ndarray], dim: Union[int, List[int], np.ndarray] = None) -> float:
+def common_epistemic_overlap(
+    states: List[np.ndarray], dim: Union[int, List[int], np.ndarray] = None
+) -> float:
     r"""Compute the epistemic overlap :cite:`Campos_2024_Epistemic`.
 
     For a set of quantum states :math:`\{\rho_i\}`, the epistemic overlap is defined as:
 
     .. math::
-        \omega_E(\rho_1,\ldots,\rho_n) = \int \min_{\lambda\in\Lambda} 
+        \omega_E(\rho_1,\ldots,\rho_n) = \int \min_{\lambda\in\Lambda}
         (\mu(\lambda|\rho_1), \ldots, \mu(\lambda|\rho_n)) d\lambda
 
     Accepts both state vectors and density matrices as input.
@@ -61,6 +63,7 @@ def common_epistemic_overlap(states: List[np.ndarray], dim: Union[int, List[int]
     distributions = [_epistemic_distribution(dm, vertices) for dm in density_matrices]
     return np.sum(np.min(distributions, axis=0))
 
+
 def _is_state_vector(state: np.ndarray) -> bool:
     """
     Check if input is a state vector (1D or column/row vector).
@@ -72,6 +75,7 @@ def _is_state_vector(state: np.ndarray) -> bool:
     if state.ndim == 1:
         return True
     return state.ndim == 2 and (state.shape[0] == 1 or state.shape[1] == 1)
+
 
 def _vector_to_density_matrix(state: np.ndarray) -> np.ndarray:
     """
@@ -101,6 +105,7 @@ def _epistemic_distribution(rho: np.ndarray, vertices: List[np.ndarray]) -> np.n
     total = sum(probabilities)
     return np.array(probabilities) / total
 
+
 def _generate_phase_point_operators(d: int) -> List[np.ndarray]:
     """
     Generate phase point operators for dimension d via prime factorization.
@@ -117,6 +122,7 @@ def _generate_phase_point_operators(d: int) -> List[np.ndarray]:
     sub_ops = [_generate_phase_point_operators(p) for p in factors]
     return [reduce(np.kron, ops) for ops in product(*sub_ops)]
 
+
 def _qubit_phase_operators() -> List[np.ndarray]:
     """
     Generate qubit phase point operators.
@@ -124,11 +130,17 @@ def _qubit_phase_operators() -> List[np.ndarray]:
     :return: List of 4 qubit phase point operators
 
     """
-    I, X, Y, Z = (np.eye(2), 
-                 np.array([[0,1],[1,0]]), 
-                 np.array([[0,-1j],[1j,0]]), 
-                 np.array([[1,0],[0,-1]]))
-    return [(I + x*X + y*Y + z*Z)/2 for x,y,z in [(1,1,1), (1,-1,-1), (-1,1,-1), (-1,-1,1)]]
+    I, X, Y, Z = (
+        np.eye(2),
+        np.array([[0, 1], [1, 0]]),
+        np.array([[0, -1j], [1j, 0]]),
+        np.array([[1, 0], [0, -1]]),
+    )
+    return [
+        (I + x * X + y * Y + z * Z) / 2
+        for x, y, z in [(1, 1, 1), (1, -1, -1), (-1, 1, -1), (-1, -1, 1)]
+    ]
+
 
 def _qudit_phase_operators(d: int) -> List[np.ndarray]:
     """
@@ -139,12 +151,21 @@ def _qudit_phase_operators(d: int) -> List[np.ndarray]:
 
     """
     X, Z = _generalized_pauli_X(d), _generalized_pauli_Z(d)
-    D = np.zeros((d,d))
-    D[range(d), (-np.arange(d))%d] = 1
+    D = np.zeros((d, d))
+    D[range(d), (-np.arange(d)) % d] = 1
     inv2 = pow(2, -1, d)
-    omega = np.exp(2j*np.pi/d)
-    return [(omega**((q*p*inv2)%d) * np.linalg.matrix_power(X,q) @ 
-             np.linalg.matrix_power(Z,p) @ D)/d for q,p in product(range(d), repeat=2)]
+    omega = np.exp(2j * np.pi / d)
+    return [
+        (
+            omega ** ((q * p * inv2) % d)
+            * np.linalg.matrix_power(X, q)
+            @ np.linalg.matrix_power(Z, p)
+            @ D
+        )
+        / d
+        for q, p in product(range(d), repeat=2)
+    ]
+
 
 def _generalized_pauli_X(d: int) -> np.ndarray:
     """
@@ -154,7 +175,10 @@ def _generalized_pauli_X(d: int) -> np.ndarray:
     :return: d x d generalized Pauli X operator
 
     """
-    return np.array([[1 if (i+1)%d == j else 0 for j in range(d)] for i in range(d)])
+    return np.array(
+        [[1 if (i + 1) % d == j else 0 for j in range(d)] for i in range(d)]
+    )
+
 
 def _generalized_pauli_Z(d: int) -> np.ndarray:
     """
@@ -164,8 +188,9 @@ def _generalized_pauli_Z(d: int) -> np.ndarray:
     :return: d x d generalized Pauli Z operator
 
     """
-    omega = np.exp(2j*np.pi/d)
+    omega = np.exp(2j * np.pi / d)
     return np.diag([omega**i for i in range(d)])
+
 
 def _is_prime(n: int) -> bool:
     """
@@ -175,7 +200,8 @@ def _is_prime(n: int) -> bool:
     :return: True if n is prime, False otherwise
 
     """
-    return n > 1 and all(n%i for i in range(2, int(np.sqrt(n))+1))
+    return n > 1 and all(n % i for i in range(2, int(np.sqrt(n)) + 1))
+
 
 def _prime_factors(n: int) -> List[int]:
     """
@@ -186,10 +212,15 @@ def _prime_factors(n: int) -> List[int]:
 
     """
     factors = []
-    while n%2 == 0: factors.append(2); n//=2
-    i=3
-    while i*i <=n:
-        while n%i ==0: factors.append(i); n//=i
-        i +=2
-    if n>2: factors.append(n)
+    while n % 2 == 0:
+        factors.append(2)
+        n //= 2
+    i = 3
+    while i * i <= n:
+        while n % i == 0:
+            factors.append(i)
+            n //= i
+        i += 2
+    if n > 2:
+        factors.append(n)
     return factors
