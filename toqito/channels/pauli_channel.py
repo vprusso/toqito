@@ -15,7 +15,7 @@ def pauli_channel(
 
     Generates the Choi matrix of a Pauli channel with given probabilities and optionally applies it
     to an input matrix. The Pauli channel is defined by the set of Pauli operators weighted by
-    the probability vector. For a given probability vector :math:`(p_1, \ldots, p_{4^Q})`, the
+    the probability vector. For a given probability vector :math:`(p_1, \ldots, p_{4^q})`, the
     channel is defined as:
 
     .. math::
@@ -63,7 +63,7 @@ def pauli_channel(
     """
     if not isinstance(prob, np.ndarray):
         if np.isscalar(prob):
-            q = int(prob)
+            q = prob
             prob = np.random.rand(4**q)
             prob /= np.sum(prob)
         else:
@@ -88,10 +88,9 @@ def pauli_channel(
         Phi += prob[j] * kraus_to_choi([[pauli_op, pauli_op.conj().T]])
         ind = update_odometer(ind, 4 * np.ones(q, dtype=int))
 
+    output_mat = None
     if input_mat is not None:
         output_mat = sum(k @ input_mat @ k.conj().T for k in kraus_operators)
-    else:
-        output_mat = None
 
     if return_kraus_ops:
         return (Phi, output_mat, kraus_operators) if input_mat is not None else (Phi, kraus_operators)
