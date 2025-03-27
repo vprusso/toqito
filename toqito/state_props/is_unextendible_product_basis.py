@@ -23,6 +23,7 @@ def is_unextendible_product_basis(vecs: list[np.ndarray], dims: list[int]) -> tu
     Examples
     ==========
     See :func:`toqito.states.tile`. All the states together form a UPB:
+    
     >>> import numpy as np
     >>> from toqito.states import tile
     >>> from toqito.state_props import is_unextendible_product_basis
