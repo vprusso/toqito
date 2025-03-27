@@ -1,9 +1,10 @@
 """Calculate the common epistemic overlap of quantum states."""
 
-import numpy as np
-from typing import List, Union
-from itertools import product
 from functools import reduce
+from itertools import product
+from typing import List, Union
+
+import numpy as np
 
 
 def common_epistemic_overlap(
@@ -49,7 +50,6 @@ def common_epistemic_overlap(
     :return: Common epistemic overlap value between 0 and 1
 
     """
-
     density_matrices = []
     for state in states:
         if _is_state_vector(state):
@@ -67,8 +67,7 @@ def common_epistemic_overlap(
 
 
 def _is_state_vector(state: np.ndarray) -> bool:
-    """
-    Check if input is a state vector (1D or column/row vector).
+    """Check if input is a state vector (1D or column/row vector).
 
     :param state: Input state to check
     :return: True if state is a vector, False otherwise
@@ -80,8 +79,7 @@ def _is_state_vector(state: np.ndarray) -> bool:
 
 
 def _vector_to_density_matrix(state: np.ndarray) -> np.ndarray:
-    """
-    Convert state vector to density matrix.
+    """Convert state vector to density matrix.
 
     :param state: Input state vector
     :return: Corresponding density matrix
@@ -92,8 +90,7 @@ def _vector_to_density_matrix(state: np.ndarray) -> np.ndarray:
 
 
 def _epistemic_distribution(rho: np.ndarray, vertices: List[np.ndarray]) -> np.ndarray:
-    """
-    Compute normalized epistemic distribution for a density matrix.
+    """Compute normalized epistemic distribution for a density matrix.
 
     :param rho: Input density matrix
     :param vertices: Precomputed phase point operators
@@ -109,8 +106,7 @@ def _epistemic_distribution(rho: np.ndarray, vertices: List[np.ndarray]) -> np.n
 
 
 def _generate_phase_point_operators(d: int) -> List[np.ndarray]:
-    """
-    Generate phase point operators for dimension d via prime factorization.
+    """Generate phase point operators for dimension d via prime factorization.
 
     :param d: Dimension of the quantum system
     :return: List of phase point operators
@@ -126,27 +122,25 @@ def _generate_phase_point_operators(d: int) -> List[np.ndarray]:
 
 
 def _qubit_phase_operators() -> List[np.ndarray]:
-    """
-    Generate qubit phase point operators.
+    """Generate qubit phase point operators.
 
     :return: List of 4 qubit phase point operators
 
     """
-    I, X, Y, Z = (
+    Identity, X, Y, Z = (
         np.eye(2),
         np.array([[0, 1], [1, 0]]),
         np.array([[0, -1j], [1j, 0]]),
         np.array([[1, 0], [0, -1]]),
     )
     return [
-        (I + x * X + y * Y + z * Z) / 2
+        (Identity + x * X + y * Y + z * Z) / 2
         for x, y, z in [(1, 1, 1), (1, -1, -1), (-1, 1, -1), (-1, -1, 1)]
     ]
 
 
 def _qudit_phase_operators(d: int) -> List[np.ndarray]:
-    """
-    Generate qudit phase point operators for odd prime dimensions.
+    """Generate qudit phase point operators for odd prime dimensions.
 
     :param d: Dimension of the qudit system (must be an odd prime)
     :return: List of d^2 qudit phase point operators
@@ -170,8 +164,7 @@ def _qudit_phase_operators(d: int) -> List[np.ndarray]:
 
 
 def _generalized_pauli_X(d: int) -> np.ndarray:
-    """
-    Generate generalized Pauli X (shift) operator for dimension d.
+    """Generate generalized Pauli X (shift) operator for dimension d.
 
     :param d: Dimension of the qudit system
     :return: d x d generalized Pauli X operator
@@ -183,8 +176,7 @@ def _generalized_pauli_X(d: int) -> np.ndarray:
 
 
 def _generalized_pauli_Z(d: int) -> np.ndarray:
-    """
-    Generate generalized Pauli Z (clock) operator for dimension d.
+    """Generate generalized Pauli Z (clock) operator for dimension d.
 
     :param d: Dimension of the qudit system
     :return: d x d generalized Pauli Z operator
@@ -195,8 +187,7 @@ def _generalized_pauli_Z(d: int) -> np.ndarray:
 
 
 def _is_prime(n: int) -> bool:
-    """
-    Check if a number is prime.
+    """Check if a number is prime.
 
     :param n: Number to check for primality
     :return: True if n is prime, False otherwise
@@ -206,8 +197,7 @@ def _is_prime(n: int) -> bool:
 
 
 def _prime_factors(n: int) -> List[int]:
-    """
-    Compute the prime factorization of n.
+    """Compute the prime factorization of n.
 
     :param n: Number to factorize
     :return: List of prime factors of n
