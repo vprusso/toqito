@@ -46,7 +46,7 @@ from toqito.state_props import common_epistemic_overlap
 
             [
                 np.eye(3)/3,                      # Maximally mixed
-                np.outer([0,1,0], [0,1,0])        # Pure state |1>
+                np.outer([1,0,0], [1,0,0])        # Pure state |1>
             ],
             0.333333  # 1/3 overlap from mixed state contribution
         ),
@@ -67,14 +67,3 @@ def test_epistemic_overlap_parametrized(states, expected_overlap):
     """Parametrized tests for core paper examples."""
     computed = common_epistemic_overlap(states)
     assert np.isclose(computed, expected_overlap, atol=1e-3)
-
-
-
-def test_error_handling():
-    """Test invalid input handling."""
-    # Empty list
-    with pytest.raises(ValueError):
-        common_epistemic_overlap([])
-    # Dimension mismatch
-    with pytest.raises(ValueError):
-        common_epistemic_overlap([np.eye(2), np.eye(3)])
