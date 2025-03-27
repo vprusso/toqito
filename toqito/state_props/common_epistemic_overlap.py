@@ -23,6 +23,7 @@ def common_epistemic_overlap(
     ==========
     State vector inputs:
 
+    >>> from toqito.state_props import common_epistemic_overlap
     >>> from toqito.states import bell
     >>> psi0 = bell(0)
     >>> psi1 = bell(1)
@@ -31,6 +32,7 @@ def common_epistemic_overlap(
 
     Mixed state inputs:
 
+    >>> from toqito.state_props import common_epistemic_overlap
     >>> rho_mixed = np.eye(2)/2
     >>> common_epistemic_overlap([rho_mixed, rho_mixed])
     1.0
