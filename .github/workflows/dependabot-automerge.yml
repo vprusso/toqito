@@ -26,10 +26,14 @@ jobs:
       - name: Check workflow status
         id: check_workflows
         run: |
+          set -e
+          echo "Checking workflow status for branch ${{ github.head_ref }}"
           failed_runs=$(gh run list --workflow="Build" --branch="${{ github.head_ref }}" --json conclusion --jq '.[] | select(.conclusion != "success" and .conclusion != null) | .conclusion')
           if [ -n "$failed_runs" ]; then
             echo "Some workflow runs failed or are still in progress"
             exit 1
+          else
+            echo "All workflow runs completed successfully"
           fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
