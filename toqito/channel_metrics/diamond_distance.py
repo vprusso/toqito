@@ -2,8 +2,6 @@
 
 import numpy as np
 
-from channel_metrics.completely_bounded_trace_norm import completely_bounded_trace_norm
-
 
 def diamond_distance(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     r"""Return the diamond norm distance between two quantum channels.
@@ -51,4 +49,6 @@ def diamond_distance(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     :param choi_2: A 4**N by 4**N matrix (where N is the number of qubits).
 
     """
+    from toqito.channel_metrics import completely_bounded_trace_norm
+
     return completely_bounded_trace_norm(choi_1 - choi_2)
