@@ -48,7 +48,8 @@ def test_pauli_channel_dimensions(num_qubits, expected_dim):
     """Test Pauli channel generation for different numbers of qubits."""
     p = np.ones(expected_dim) / expected_dim
     Phi = pauli_channel(prob=p)
-    assert Phi.shape == (expected_dim, expected_dim), f"Incorrect matrix dimensions for {num_qubits} qubits"
+    assert Phi.shape == (expected_dim, expected_dim)
+
 
 
 @pytest.mark.parametrize("prob", [np.array([0.1, 0.2, 0.3, 0.4]), np.random.rand(16)])
@@ -95,14 +96,15 @@ def test_pauli_channel_input_matrix_properties(input_mat, prob):
     prob = prob / np.sum(prob)
     _, output_mat = pauli_channel(prob=prob, input_mat=input_mat)
 
-    assert np.allclose(output_mat, output_mat.conj().T), "Output matrix is not Hermitian."
+    assert np.allclose(output_mat, output_mat.conj().T)
+
 
     eig_v = eigvalsh(output_mat)
-    assert np.all(eig_v >= -1e-10), "Output matrix is not positive semidefinite."
+    assert np.all(eig_v >= -1e-10)
 
     in_trace = np.trace(input_mat)
     out_trace = np.trace(output_mat)
-    assert np.isclose(out_trace, in_trace), "Trace is not preserved in the output matrix."
+    assert np.isclose(out_trace, in_trace)
 
     Phi, output_mat, kraus_ops = pauli_channel(prob=prob, input_mat=input_mat, return_kraus_ops=True)
 
@@ -126,23 +128,23 @@ def test_pauli_channel_choi_matrix_properties(num_qubits):
     Phi, _ = pauli_channel(prob=num_qubits, return_kraus_ops=True)
     Phi = np.array(Phi)
     expected_choi_dim = 4**num_qubits
-    assert Phi.shape == (expected_choi_dim, expected_choi_dim), (
-        f"Expected shape {(expected_choi_dim, expected_choi_dim)}, got {Phi.shape}"
-    )
+    assert Phi.shape == (expected_choi_dim, expected_choi_dim)
+
 
     eigenvalues = eigvalsh(Phi)
-    assert np.all(eigenvalues >= -1e-10), f"Phi is not positive semidefinite for {num_qubits} qubits"
+    assert np.all(eigenvalues >= -1e-10)
+
 
     input_dim = 2**num_qubits
     dims = [input_dim, input_dim]
     pt_output = partial_trace(Phi, sys=1, dim=dims)
     identity_input = np.eye(input_dim)
-    assert np.allclose(pt_output, identity_input), f"Partial trace does not equal identity for {num_qubits} qubits"
+    assert np.allclose(pt_output, identity_input)
+
 
     total_trace = np.trace(Phi)
-    assert np.isclose(total_trace, input_dim), (
-        f"Total trace ({total_trace}) does not equal input dimension ({input_dim}) for {num_qubits} qubits"
-    )
+    assert np.isclose(total_trace, input_dim)
+
 
 
 @pytest.mark.parametrize(
