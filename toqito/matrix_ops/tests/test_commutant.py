@@ -77,7 +77,7 @@ def test_bicommutant_m3():
 
     B = commutant(commutant(A))  # Compute bicommutant
 
-    assert len(B) == len(A), f"Expected {len(A)} basis elements, got {len(B)}"
+    assert len(B) == len(A)
 
     for expected_matrix in A:
         assert any(np.allclose(expected_matrix, computed_matrix) or np.allclose(expected_matrix, -computed_matrix)
