@@ -45,7 +45,7 @@ def test_commutant_identity_dim():
     """For the identity matrix, the commutant should be the full space."""
     identity = np.eye(2)
     comm_basis = commutant([identity])
-    assert len(comm_basis) == 4, "Expected full space for identity matrix"
+    assert len(comm_basis) == 4
     
 def test_commutant_identity():
     """For the identity matrix, check if the commutant contains the expected basis matrices."""
