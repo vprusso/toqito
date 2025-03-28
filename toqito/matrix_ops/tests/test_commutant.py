@@ -39,7 +39,7 @@ def test_commutation_property(matrices):
     comm_basis = commutant(matrices)
     for mat in matrices:
         for B in comm_basis:
-            assert np.allclose(mat @ B, B @ mat), f"Matrix does not commute:\n{B}"
+            assert np.allclose(mat @ B, B @ mat)
 
 def test_commutant_identity_dim():
     """For the identity matrix, the commutant should be the full space."""
