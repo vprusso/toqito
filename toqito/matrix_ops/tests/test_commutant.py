@@ -59,7 +59,7 @@ def test_commutant_identity():
         np.array([[0, 0], [0, 1]]),
     ]
 
-    assert len(comm_basis) == len(expected_commutant), f"Expected {len(expected_commutant)} basis elements, got {len(comm_basis)}"
+    assert len(comm_basis) == len(expected_commutant)
 
     for expected_matrix in expected_commutant:
         assert any(np.allclose(expected_matrix, computed_matrix) for computed_matrix in comm_basis), \
