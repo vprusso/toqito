@@ -1,7 +1,9 @@
 """Test the commutant function."""
 import numpy as np
 import pytest
+
 from toqito.matrix_ops.commutant import commutant
+
 
 @pytest.mark.parametrize(
     "matrices, expected_size",
@@ -28,10 +30,10 @@ def test_commutant_output_size(matrices, expected_size):
     "matrices",
     [
         # Pauli-Z.
-        ([np.array([[1, 0], [0, -1]])]),  
-        
+        ([np.array([[1, 0], [0, -1]])]),
+
         # Pauli-X.
-        ([np.array([[0, 1], [1, 0]])]),   
+        ([np.array([[0, 1], [1, 0]])]),
     ],
 )
 def test_commutation_property(matrices):
@@ -44,13 +46,13 @@ def test_commutation_property(matrices):
 def test_commutant_identity_dim():
     """For the identity matrix, the commutant should be the full space."""
     identity = np.eye(2)
-    comm_basis = commutant([identity])
+    comm_basis = commutant(identity)
     assert len(comm_basis) == 4
-    
+
 def test_commutant_identity():
     """For the identity matrix, check if the commutant contains the expected basis matrices."""
     identity = np.eye(2)
-    comm_basis = commutant([identity])
+    comm_basis = commutant(identity)
 
     expected_commutant = [
         np.array([[1, 0], [0, 0]]),
@@ -62,9 +64,8 @@ def test_commutant_identity():
     assert len(comm_basis) == len(expected_commutant)
 
     for expected_matrix in expected_commutant:
-        assert any(np.allclose(expected_matrix, computed_matrix) for computed_matrix in comm_basis), \
-            f"Missing expected matrix:\n{expected_matrix}"
-            
+        assert any(np.allclose(expected_matrix, computed_matrix) for computed_matrix in comm_basis)
+
 def test_bicommutant_m3():
     """Verify that the bicommutant spans the same set."""
     A = [
@@ -82,3 +83,21 @@ def test_bicommutant_m3():
     for expected_matrix in A:
         assert any(np.allclose(expected_matrix, computed_matrix) or np.allclose(expected_matrix, -computed_matrix)
         for computed_matrix in B)
+
+def test_explicit_commutant_condition():
+    """Check that the computed commutant matrices satisfy the commutant equation."""
+    # Pauli-Z
+    matrices = [np.array([[1, 0], [0, -1]])]
+
+    comm_basis = commutant(matrices)
+    dim = matrices[0].shape[0]
+
+    for A in matrices:
+        for B in comm_basis:
+            # Compute the commutant condition: (A ⊗ I - I ⊗ A^T) vec(B) = 0
+            comm_matrix = np.kron(A, np.eye(dim)) - np.kron(np.eye(dim), A.T)
+            # Column-vectorization of B
+            vec_B = B.flatten(order="F")[:, np.newaxis]
+
+            residual = comm_matrix @ vec_B
+            assert np.allclose(residual, 0)

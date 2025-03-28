@@ -5,25 +5,68 @@ from scipy.linalg import null_space
 
 
 def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
-    r"""Compute an orthonormal basis for the commutant algebra.
+    r"""Compute an orthonormal basis for the commutant algebra :cite:`qetlab_commutant`.
 
-    Given a set of matrices A, this function determines an orthonormal basis 
-    (with respect to the Hilbert-Schmidt inner product) for the algebra of matrices 
-    that commute with every matrix in A.
+    Given a set of matrices :math:A, this function determines an orthonormal basis
+    (with respect to the Hilbert-Schmidt inner product) for the algebra of matrices
+    that commute with every matrix in :math:A.
 
+    The commutant of a set of matrices consists of all matrices that commute
+    with every matrix in the set. Formally, given a matrix :math:A \in \mathbb{C}^{n \times n},
+    a matrix :math:X \in \mathbb{C}^{n \times n} belongs to the commutant if:
 
-    The commutant condition is given by:
-
-    .. math::
-        A X = X A \quad \forall A \in \mathcal{A}.
+    .. math:: A X = X A \quad \forall A \in \mathcal{A}.
 
     This can be rewritten as:
 
     .. math::
         (A \otimes I - I \otimes A^T) \text{vec}(X) = 0.
 
-    where :math:`\text{vec}(X)` denotes the vectorization of :math:`X`. The null space of this
-    equation provides a basis for the commutant.
+    where :math:`\text{vec}(X)` denotes the vectorization of :math:`X`, which arranges its columns
+    into a single column vector. The null space of this equation provides a basis for the commutant.
+
+    Examples
+    ==========
+
+    Consider the following set of matrices:
+
+    .. math::
+        A_1 = \begin{pmatrix}
+                1 & 0 \\
+                0 & -1
+            \end{pmatrix}, \quad
+        A_2 = \begin{pmatrix}
+                0 & 1 \\
+                1 & 0
+            \end{pmatrix}
+
+    The commutant consists of matrices that commute with both :math:`A_1` and :math:`A_2`.
+
+    >>> import numpy as np
+    >>> from toqito.matrix_ops import commutant
+    >>>
+    >>> A1 = np.array([[1, 0], [0, -1]])
+    >>> A2 = np.array([[0, 1], [1, 0]])
+    >>> basis = commutant([A1, A2])
+    >>> basis
+    [array([[ 0.70710678,  0.        ],
+            [-0.        ,  0.70710678]])]
+
+    Now, consider a single matrix:
+
+    .. math::
+        A = \begin{pmatrix}
+                1 & 1 \\
+                0 & 1
+            \end{pmatrix}
+
+    >>> A = np.array([[1, 1], [0, 1]])
+    >>> basis = commutant(A)
+    >>> basis
+    [array([[0.70710678, 0.        ],
+            [0.        , 0.70710678]]),
+    array([[ 0., -1.],
+           [ 0.,  0.]])]
 
     References
     ==========
@@ -32,6 +75,7 @@ def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
 
     :param A: A single matrix of the form np.ndarray or a list of square matrices of the same dimension.
     :return: A list of matrices forming an orthonormal basis for the commutant.
+
     """
     # Handle list of matrices.
     if isinstance(A, list):
