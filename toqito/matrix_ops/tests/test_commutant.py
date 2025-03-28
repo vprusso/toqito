@@ -22,7 +22,7 @@ from toqito.matrix_ops.commutant import commutant
 def test_commutant_output_size(matrices, expected_size):
     """Check if the number of commutant basis elements is as expected."""
     comm_basis = commutant(matrices)
-    assert len(comm_basis) == expected_size, f"Expected {expected_size}, got {len(comm_basis)}"
+    assert len(comm_basis) == expected_size
 
 @pytest.mark.parametrize(
     "matrices",
