@@ -32,10 +32,10 @@ def kraus_to_channel(
     >>> kraus_2 = np.array([[0, 1], [0, 0]])
     >>> kraus_list = [(kraus_1, kraus_1), (kraus_2, kraus_2)]
     >>> kraus_to_channel(kraus_list)
-    array([[1., 0., 0., 0.],
-           [0., 1., 0., 0.],
-           [0., 0., 1., 0.],
-           [0., 0., 0., 1.]])
+    array([[1, 0, 0, 1],
+           [0, 0, 0, 0],
+           [0, 0, 0, 0],
+           [0, 0, 0, 0]])
 
     See Also
     ========
