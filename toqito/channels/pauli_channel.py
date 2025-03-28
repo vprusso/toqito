@@ -16,7 +16,7 @@ def pauli_channel(
     Generates the Choi matrix of a Pauli channel with given probabilities and optionally applies it
     to an input matrix. The Pauli channel is defined by the set of Pauli operators weighted by
     the probability vector. For a given probability vector :math:`(p_0, \ldots, p_{4^q -1 })`, the
-    channel is defined as shown below. Here, $q$ is the number of qubits.
+    channel is defined as shown below. Where, $q$ is the number of qubits.
 
     .. math::
        \Phi(\rho) = \sum_{i=0}^{4^q - 1} p_i P_i \rho P_i^*
