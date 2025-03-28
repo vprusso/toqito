@@ -56,7 +56,7 @@ def pauli_channel(
         :filter: docname in docnames
 
     :param prob: Probability vector for Pauli operators. If scalar, generates random probabilities
-             for :math:`q = prob ` qubits. The probabilities correspond to Pauli operators in
+             for :math:`q =` `prob` qubits. The probabilities correspond to Pauli operators in
              lexographical order of length strictly equal to :math:`q` ,when `prob` is a vector.
     :param return_kraus_ops: Flag to return Kraus operators. Default is ``False``.
     :param input_mat: Optional input matrix to apply the channel to. Default is ``None``.
