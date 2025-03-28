@@ -81,4 +81,4 @@ def test_bicommutant_m3():
 
     for expected_matrix in A:
         assert any(np.allclose(expected_matrix, computed_matrix) or np.allclose(expected_matrix, -computed_matrix)
-        for computed_matrix in B), f"Missing expected matrix:\n{expected_matrix}"
+        for computed_matrix in B)
