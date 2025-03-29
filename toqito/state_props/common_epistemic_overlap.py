@@ -111,4 +111,4 @@ def common_epistemic_overlap(states, dim=None) -> float:
         tot = sum(probs)
         distributions.append(np.array(probs) / tot)
     overlap = np.sum(np.min(np.stack(distributions), axis=0))
-    return float(overlap)
+    return overlap
