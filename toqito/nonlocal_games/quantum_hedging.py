@@ -56,6 +56,19 @@ class QuantumHedging:
     >>> np.around(molina_watrous.max_prob_outcome_a_primal(), decimals=2)
     np.float64(0.85)
 
+    This example demonstrates strong duality with matching primal and dual values, as can be seen below:
+
+    >>> np.around(molina_watrous.max_prob_outcome_a_dual(), decimals=2)
+    np.float64(0.85)
+
+    and
+
+    >>> np.around(molina_watrous.min_prob_outcome_a_primal(), decimals=2)
+    np.float64(0.15)
+    >>> np.around(molina_watrous.min_prob_outcome_a_dual(), decimals=2)
+    np.float64(0.15)
+
+
     References
     ==========
     .. bibliography::
@@ -83,8 +96,8 @@ class QuantumHedging:
         # action:
         #   π(y1 ⊗ y2 ⊗ x1 ⊗ x2) = y1 ⊗ x1 ⊗ y2 ⊗ x2
         # for all y1 ∈ Y1, y2 ∈ Y2, x1 ∈ X1, x2 ∈ X2.).
-        l_1 = list(range(self._num_reps ))
-        l_2 = list(range(self._num_reps , self._num_reps**2 ))
+        l_1 = list(range(self._num_reps))
+        l_2 = list(range(self._num_reps, self._num_reps**2))
         if self._num_reps == 1:
             self._pperm = np.array([1])
         else:
@@ -117,8 +130,7 @@ class QuantumHedging:
         """
         x_var = cvxpy.Variable((4**self._num_reps, 4**self._num_reps), hermitian=True)
         objective = cvxpy.Maximize(cvxpy.real(cvxpy.trace(self._q_a.conj().T @ x_var)))
-        constraints = [partial_trace(x_var, self._sys, self._dim) == np.identity(2**self._num_reps),
-                       x_var >> 0]
+        constraints = [partial_trace(x_var, self._sys, self._dim) == np.identity(2**self._num_reps), x_var >> 0]
         problem = cvxpy.Problem(objective, constraints)
 
         return problem.solve()
@@ -182,8 +194,7 @@ class QuantumHedging:
         """
         x_var = cvxpy.Variable((4**self._num_reps, 4**self._num_reps), hermitian=True)
         objective = cvxpy.Minimize(cvxpy.real(cvxpy.trace(self._q_a.conj().T @ x_var)))
-        constraints = [partial_trace(x_var, self._sys, self._dim) == np.identity(2**self._num_reps),
-                       x_var >> 0]
+        constraints = [partial_trace(x_var, self._sys, self._dim) == np.identity(2**self._num_reps), x_var >> 0]
         problem = cvxpy.Problem(objective, constraints)
 
         return problem.solve()
