@@ -139,7 +139,7 @@ Full code :
         "11": pauli("X") @ pauli("Z")
     }
 
-    message_to_encode = "11"
+    message_to_encode = "10"
 
     entangled_state_encoded = np.kron(pauli_gate_operations[message_to_encode], pauli("I")) @ bell_state
 
