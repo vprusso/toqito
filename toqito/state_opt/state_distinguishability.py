@@ -151,7 +151,7 @@ def state_distinguishability(
         return _unambiguous_dual(vectors=vectors, probs=probs, solver=solver, **kwargs)
     
     elif strategy == "max_confidence":
-        return _max_confidence(vectors=vectors, probs=probs, solver=solver, **kwargs)
+        return _max_confidence_primal(vectors=vectors, dim=dim, probs=probs, solver=solver, **kwargs)
 
     else:
         raise ValueError(f"{strategy} is not a valid strategy.")
@@ -253,46 +253,62 @@ def _unambiguous_dual(
 
     return problem.value, (lagrangian_variable_big_z,)
 
-def _max_confidence(
+def _max_confidence_primal(
     vectors: list[np.ndarray],
+    dim: int,
     probs: list[float],
     solver: str = "cvxopt",
     **kwargs,
-) -> tuple[float, list[np.ndarray]]:
+) -> tuple[list[float], list[picos.HermitianVariable]]:
     """Solve the primal problem for maximum confidence quantum state distinguishability."""
     probs = np.array(probs)
+    n = len(probs)
     density_matrices = np.array([to_density_matrix(vector) for vector in vectors])
-    n,d,_ = density_matrices.shape
-    
     rho = np.sum(probs[:, np.newaxis, np.newaxis] * density_matrices, axis=0) #rho = sum of probs[i] * density_matrices[i]
-    rho_inv = np.linalg.inv(rho)
+    unscaled_measurement_operators = []
 
-    rho_sqrt_inv = sqrtm(rho_inv)
-    transformed_matrices = rho_sqrt_inv @ density_matrices @ rho_sqrt_inv
-    traces = np.trace(density_matrices @ rho_inv, axis1=1, axis2=2)
-    rho_prime = transformed_matrices / traces[:, np.newaxis, np.newaxis] #rho'_k = rho^(-0.5) @ rho_k @ rho^(-0.5) / trace(rho_k @ rho^(-1)) 
+    # Trying this because the below solution does not work when rho is a singular matrix
+
+    for rho_k in density_matrices:
+        problem = picos.Problem()
+        M_k = picos.HermitianVariable("M_k", (dim, dim))
+        problem.set_objective("max", picos.trace(M_k @ rho_k).real)
+        problem.add_constraint(M_k >> 0)
+        problem.add_constraint(picos.trace(M_k @ rho) == 1)
+        solution = problem.solve(solver=solver, verbosity=True, **kwargs)
+        unscaled_measurement_operators.append(M_k.value)
+
+    unscaled_measurement_operators = np.array(unscaled_measurement_operators)
+
+    # Solution from paper. Works when rho^(-1) exists
+    # rho_inv = np.linalg.inv(rho)
+
+    # rho_sqrt_inv = sqrtm(rho_inv)
+    # transformed_matrices = rho_sqrt_inv @ density_matrices @ rho_sqrt_inv
+    # traces = np.trace(density_matrices @ rho_inv, axis1=1, axis2=2)
+    # rho_prime = transformed_matrices / traces[:, np.newaxis, np.newaxis] #rho'_k = rho^(-0.5) @ rho_k @ rho^(-0.5) / trace(rho_k @ rho^(-1)) 
     
-    _, eigenvectors = np.linalg.eigh(rho_prime)
-    principal_eigenvectors = eigenvectors[np.arange(len(vectors)), :, -1]
-    principal_density_matrices = np.array([to_density_matrix(vector) for vector in principal_eigenvectors])
-    unscaled_optimal_measurement_operators = probs[:, np.newaxis, np.newaxis] * rho_sqrt_inv @ principal_density_matrices @ rho_sqrt_inv
-    
-    #We now need to find the scaling factors and M{N+1} accordingly
-    #We find the scaling factors such that probability of ambiguous result is minimized
+    # _, eigenvectors = np.linalg.eigh(rho_prime)
+    # principal_eigenvectors = eigenvectors[np.arange(len(vectors)), :, -1]
+    # principal_density_matrices = np.array([to_density_matrix(vector) for vector in principal_eigenvectors])
+    # unscaled_measurement_operators = probs[:, np.newaxis, np.newaxis] * rho_sqrt_inv @ principal_density_matrices @ rho_sqrt_inv
+
+    # We now need to find the scaling factors and M{N+1} accordingly
+    # We find the scaling factors such that probability of ambiguous result is minimized
 
     problem = picos.Problem()
     c = picos.RealVariable("c", n, lower=0)
 
-    w = np.einsum('ij,kji->k', rho, unscaled_optimal_measurement_operators).real
+    w = np.einsum('ij,kji->k', rho, unscaled_measurement_operators).real
     problem.set_objective("max", w | c)
 
-    I = np.eye(d)
-    matrix_expr = I - picos.sum(c[i] * unscaled_optimal_measurement_operators[i] for i in range(n))
+    I = np.eye(dim)
+    matrix_expr = I - picos.sum(c[i] * unscaled_measurement_operators[i] for i in range(n))
     problem.add_constraint(matrix_expr >> 0)
 
-    problem.solve(solver=solver)
+    problem.solve(solver=solver, **kwargs)
     c_values = np.array(c.value).reshape((n,))
-    measurement_operators = c_values[:, np.newaxis, np.newaxis] * unscaled_optimal_measurement_operators
+    measurement_operators = c_values[:, np.newaxis, np.newaxis] * unscaled_measurement_operators
     M_ambiguous = np.eye(measurement_operators[0].shape[0]) - np.sum(measurement_operators, axis=0)
 
     measurement_operators_list = list(measurement_operators)
