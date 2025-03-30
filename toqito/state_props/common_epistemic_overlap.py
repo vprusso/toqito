@@ -107,7 +107,7 @@ def common_epistemic_overlap(states, dim=None) -> float:
     vertices = generate_phase_point_operators(d)
     distributions = []
     for dm in density_matrices:
-        probs = [abs(np.real(np.trace(dm @ A))) for A in vertices]
+        probs = [np.real(np.trace(dm @ A)) for A in vertices]
         tot = sum(probs)
         distributions.append(np.array(probs) / tot)
     overlap = np.sum(np.min(np.stack(distributions), axis=0))
