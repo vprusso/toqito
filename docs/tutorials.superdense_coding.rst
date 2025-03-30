@@ -5,11 +5,11 @@ In classical communication, sending two bits of information requires transmittin
 two physical bits. But with the help of quantum mechanics we can bend this rule
 using the phenomenon of quantum entanglement. **Superdense coding** proposed by
 Bennet and Wiesner in 1992 :cite:`Bennett_1992_Communication` lets Alice send two classical bits to
-Bob by transmitting just *one qubit* . The catch here is that they must share an
+Bob by transmitting just *one qubit*. The catch here is that they must share an
 entangled pair of qubits beforehand. We will explain this protocol in detail 
 below:
 
-Superdense Coding protocol
+Superdense coding protocol
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 1. Before any communication begins, a third party prepares two qubits in 
    *Bell state*:
@@ -35,7 +35,7 @@ Superdense Coding protocol
        bell_state = bell(0)
        print("Initial Bell state (|Φ⁺⟩):\n", bell_state)
 
-2. Alice holds two classical bits (:math:`a` and :math:`b`) she wants to send.
+2. Alice holds two classical bits (:math:`a` and :math:`b`) that she wants to send.
    Depending on their values she applies one of four *Pauli Gates* to her qubit:
 
 .. raw:: html
@@ -48,9 +48,9 @@ Superdense Coding protocol
    
    * - :math:`a`
      - :math:`b`
-     - message
-     - *Gate Applied*
-     - *Final Output (Bell State)*
+     - *message*
+     - *Gate applied*
+     - *Final output (Bell state)*
    * - :math:`0`
      - :math:`0`
      - :math:`\ket{00}`
@@ -79,10 +79,21 @@ Superdense Coding protocol
 .. code-block:: python
 
     pauli_gate_operations = {
-        "00": pauli("I"),  # Identity gate
-        "01": pauli("X"),  # Pauli-X gate
-        "10": pauli("Z"),  # Pauli-Z gate
-        "11": pauli("X") @ pauli("Z")  # X followed by Z (equivalent to iY)
+        # Identity gate.
+
+        "00": pauli("I"),
+
+        # Pauli-X gate.
+
+        "01": pauli("X"),
+
+        # Pauli-Z gate.
+
+        "10": pauli("Z"),
+
+        # X followed by Z (equivalent to iY).
+
+        "11": pauli("X") @ pauli("Z")  
     }
 
     message_to_encode = "11"
@@ -101,7 +112,7 @@ Superdense Coding protocol
        print("Decoded state:\n", decoded_state)
 
 4. Finally, Bob measures both qubits in the computational basis (:math:`\ket{0}, 
-   \ket{1}`). The result is guaranteed to be :math:`ab`, the two bits Alice sent.
+   \ket{1}`). The result is guaranteed to be :math:`ab`, the two bits that Alice sent.
 
    .. code-block:: python
 
@@ -121,7 +132,6 @@ Full code :
     bell_state = bell(0)
     print("Initial Bell state (|Φ⁺⟩):\n", bell_state)
 
-
     pauli_gate_operations = {
         "00": pauli("I"),
         "01": pauli("X"),
@@ -129,9 +139,7 @@ Full code :
         "11": pauli("X") @ pauli("Z")
     }
 
-
     message_to_encode = "11"
-
 
     entangled_state_encoded = np.kron(pauli_gate_operations[message_to_encode], pauli("I")) @ bell_state
 
