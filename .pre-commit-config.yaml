@@ -18,3 +18,10 @@ repos:
       stages: [commit-msg]
       args: []
 
+- repo: https://github.com/pre-commit/mirrors-mypy
+  rev: v1.10.0  
+  hooks:
+    - id: mypy
+      args: ["--ignore-missing-imports"]  
+      stages: [pre-commit]
+
