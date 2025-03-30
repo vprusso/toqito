@@ -84,12 +84,20 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
 
 
     :param dim: The dimensionality on which the channel acts.
-    :param param_p: Default 0.
+    :param param_p: A parameter in the range [0, 1] representing the probability of applying the
+                 completely depolarizing channel. A value of 0 means no depolarization
+                 (identity channel), while a value of 1 means complete depolarization.
     :return: The Choi matrix of the completely depolarizing channel.
+
+
+    Note:
+        This function follows the standard convention where `param_p` controls the amount of
+        depolarization applied. If using the Qetlab convention where `param_p` and `1 - param_p`
+        are swapped, adjust your input accordingly.
 
     """
     # Compute the Choi matrix of the depolarizing channel.
 
     # Gives a sparse non-normalized state.
     psi = max_entangled(dim=dim, is_sparse=False, is_normalized=False)
-    return (1 - param_p) * np.identity(dim**2) / dim + param_p * (psi @ psi.conj().T)
+    return param_p * np.identity(dim**2) / dim + (1 - param_p) * (psi @ psi.conj().T)
