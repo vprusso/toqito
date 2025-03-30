@@ -84,4 +84,4 @@ def test_kraus_to_channel_on_quantumStates(rho, kraus_operators):
     print("Difference:\n", rho_after_channel - rho_after_super_op)
 
     # The difference should be close to zero
-    assert np.allclose(rho_after_channel, rho_after_super_op), "Mismatch in quantum channel application!"
+    assert np.allclose(rho_after_channel, rho_after_super_op)
