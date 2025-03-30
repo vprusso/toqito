@@ -39,7 +39,7 @@ def kraus_to_channel(
 
     See Also
     ========
-    choi_to_kraus, kraus_to_choi
+    func:`.choi_to_kraus`, func:`.kraus_to_choi`
 
     References
     ==========
