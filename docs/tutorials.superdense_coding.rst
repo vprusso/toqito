@@ -1,4 +1,128 @@
 Superdense Coding
 ==================
 
-Coming soon.
+In classical communication, sending two bits of information requires transmitting
+two physical bits. But with the help of quantum mechanics we can bend this rule
+using the phenomenon of quantum entanglement. **Superdense coding** proposed by
+Bennet and Wiesner in 1992 :cite:`Bennett_1992_Communication` lets Alice send two classical bits to
+Bob by transmitting just *one qubit* . The catch here is that they must share an
+entangled pair of qubits beforehand. We will explain this protocol in detail 
+below:
+
+Superdense Coding protocol
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+1. Before any communication begins, a third party prepares two qubits in 
+   *Bell state*:
+
+   .. math::
+
+      \begin{equation}
+          \begin{aligned}
+              \ket{\psi} = \frac{\ket{00} + \ket{11}}{\sqrt{2}}
+          \end{aligned}
+      \end{equation}
+
+   Alice takes the first qubit, Bob takes the second, and they both separate.
+   This entangled pair is responsible for linking qubit *non-locally*, allowing
+   Alice's local operations to affect the global state.
+
+   .. code-block:: python
+
+       >>> import numpy as np
+       >>> from toqito.states import bell
+       >>> from toqito.matrices import pauli, cnot, hadamard
+       >>> 
+       >>> bell_state = bell(0)
+       >>> print("Initial Bell state (|Φ⁺⟩):\n", bell_state)
+       Initial Bell state (|Φ⁺⟩):
+       [[0.70710678]
+       [0.        ]
+       [0.        ]
+       [0.70710678]]
+
+2. Alice holds two classical bits (:math:`a` and :math:`b`) she wants to send. \
+   Depending on their values she applies one of four *Pauli Gates* to her qubit:
+
+.. raw:: html
+
+   <div style="text-align: center;">
+
+.. list-table:: 
+   :header-rows: 1
+   :widths: 20 20 40 60 100
+   
+   * - :math:`a`
+     - :math:`b`
+     - message
+     - *Gate Applied*
+     - *Final Output (Bell State)*
+   * - :math:`0`
+     - :math:`0`
+     - :math:`\ket{00}`
+     - :math:`I`
+     - :math:`\frac{|00\rangle + |11\rangle}{\sqrt{2}}`
+   * - :math:`0`
+     - :math:`1`
+     - :math:`\ket{01}`
+     - :math:`X`
+     - :math:`\frac{|10\rangle + |01\rangle}{\sqrt{2}}`
+   * - :math:`1`
+     - :math:`0`
+     - :math:`\ket{10}`
+     - :math:`Z`
+     - :math:`\frac{|00\rangle - |11\rangle}{\sqrt{2}}`
+   * - :math:`1`
+     - :math:`1`
+     - :math:`\ket{11}`
+     - :math:`XZ = iY`
+     - :math:`\frac{|10\rangle - |01\rangle}{\sqrt{2}}`
+
+.. raw:: html
+
+   </div>
+
+.. code-block:: python
+
+    pauli_gate_operations = {
+        "00": pauli("I"),  # Identity gate
+        "01": pauli("X"),  # Pauli-X gate
+        "10": pauli("Z"),  # Pauli-Z gate
+        "11": pauli("X") @ pauli("Z")  # X followed by Z (equivalent to iY)
+    }
+
+    message_to_encode = "11"
+
+    entangled_state_encoded = np.kron(pauli_gate_operations[message_to_encode], pauli("I")) @ bell_state
+
+3. Bob performs operations to reverse the entanglement and extract the bits. First, 
+   he applies a Controlled-NOT or :math:`CX` *(CNOT) Gate* with qubit received from Alice as the
+   *control qubit* and Bob's original qubit as *target qubit*. After this, Bob moves
+   ahead and applies a Hadamard or :math:`H` gate to Alice's qubit.
+
+   .. code-block:: python
+
+       >>> state_after_cnot = cnot() @ entangled_state_encoded
+       >>> decoded_state = np.kron(hadamard(1), pauli("I")) @ state_after_cnot
+       >>> print("Decoded state:\n", decoded_state)
+       Decoded state:
+        [[ 0.]
+        [ 0.]
+        [ 0.]
+        [-1.]]
+
+4. Finally, Bob measures both qubits in the computational basis (:math:`\ket{0}, 
+   \ket{1}`). The result is guaranteed to be :math:`ab`, the two bits Alice sent.
+
+   .. code-block:: python
+
+       >>> measurement_probabilities = np.abs(decoded_state.flatten())**2
+       >>> print("Measurement probabilities for basis states |00>, |01>, |10>, |11>:")
+       >>> print(measurement_probabilities)
+       Measurement probabilities for basis states |00>, |01>, |10>, |11>:
+       [0. 0. 0. 1.]
+
+References
+------------------------------
+
+.. bibliography:: 
+    :filter: docname in docnames
