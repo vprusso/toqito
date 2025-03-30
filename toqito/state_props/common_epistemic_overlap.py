@@ -110,5 +110,5 @@ def common_epistemic_overlap(states, dim=None) -> float:
         probs = [np.real(np.trace(dm @ A)) for A in vertices]
         total = sum(probs)
         distributions.append(np.array(probs) / total)
-    overlap = np.max(np.sum(np.min(np.stack(distributions), axis=0)),0)
+    overlap = max(np.sum(np.min(np.stack(distributions), axis=0)),0)
     return overlap
