@@ -7,10 +7,11 @@ from toqito.matrices.operator_sinkhorn import operator_sinkhorn
 from toqito.rand import random_density_matrix
 from toqito.states import bell
 
+
 def test_operator_sinkhorn_unitary_invariance():
     """Test invariance of Operator Sinkhorn on swapping subsystems."""
     rho = random_density_matrix(4)
-    
+
     U = np.kron(np.eye(2), np.array([[0, 1], [1, 0]]))  # Swap subsystem
     rho_new = U @ rho @ U.conj().T
     sigma_new, F_new = operator_sinkhorn(rho_new)
@@ -95,7 +96,7 @@ def test_operator_sinkhorn_valid_single_dim():
     np.testing.assert_almost_equal(np.trace(sigma), 1)
 
 def test_operator_sinkhorn_max_mixed():
-    """Test operator Sinkhorn on a maximally mixed bipartite state. Should be invariant"""
+    """Test operator Sinkhorn on a maximally mixed bipartite state. Should be invariant."""
     rho = np.eye(9)  # 9-dimensional density matrix
 
     # The dimension `3` divides evenly into `9`, so no error should occur
@@ -105,9 +106,9 @@ def test_operator_sinkhorn_max_mixed():
     np.testing.assert_almost_equal(sigma, rho)
 
 def test_operator_sinkhorn_max_entangled():
-    """Test operator Sinkhorn on a maximally entangled bipartite state. Should be invariant"""
+    """Test operator Sinkhorn on a maximally entangled bipartite state. Should be invariant."""
     # function should return the inintial state since it already satisfies the trace property
-    
+
     u0 = bell(0)
     rho = u0 @ u0.conj().T
 
