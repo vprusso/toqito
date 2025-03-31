@@ -4,7 +4,6 @@ import numpy as np
 import scipy.linalg
 
 from toqito.channels import partial_trace
-# from toqito.rand import random_density_matrix
 
 import warnings
 
