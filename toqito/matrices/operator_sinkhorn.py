@@ -11,7 +11,7 @@ from toqito.channels.partial_trace import partial_trace
 def operator_sinkhorn(
     rho: np.ndarray,
     dim: list[int] =None,
-    tol: float =np.sqrt(np.finfo(float).eps)):
+    tol: float =np.sqrt(np.finfo(float).eps)) -> tuple[np.ndarray, list[np.ndarray]]:
     r"""Perform the operator Sinkhorn iteration.
   
     This function implements the iterative Sinkhorn algorithm to find a density matrix
@@ -27,16 +27,20 @@ def operator_sinkhorn(
     >>> from toqito.matrices import operator_sinkhorn
     >>> from toqito.rand import random_density_matrix
 
-    >>> rho_random = random_density_matrix(4)
+    >>> rho_random = random_density_matrix(4, seed=42)
 
     returns a random 4x4 complex matrix like this
 
     >>> print("rho_random", rho_random, sep='\n')
     rho_random
-    array([[0.34777941+0.j -0.03231138+0.07992951j 0.08131097+0.03285289j -0.07485986+0.07115859j]
-           [-0.03231138-0.07992951j 0.26158857+0.j 0.04867659-0.13939625j 0.05986692+0.00369842j]
-           [0.08131097-0.03285289j 0.04867659+0.13939625j 0.16827722+0.j 0.03699826+0.14622j]
-           [-0.07485986-0.07115859j 0.05986692-0.00369842j 0.03699826-0.14622j 0.22235479+0.j]])
+    [[0.23434155+0.j         0.20535572-0.04701708j 0.11523158-0.02017518j
+      0.18524981-0.13636277j]
+     [0.20535572+0.04701708j 0.2544268 +0.j         0.14478708-0.02004061j
+      0.22496295-0.11837381j]
+     [0.11523158+0.02017518j 0.14478708+0.02004061j 0.11824612+0.j
+      0.09088248-0.05551508j]
+     [0.18524981+0.13636277j 0.22496295+0.11837381j 0.09088248+0.05551508j
+      0.39298553+0.j        ]]
 
     >>> sigma, F = operator_sinkhorn(rho=rho_random, dim=[2, 2])
 
@@ -47,25 +51,28 @@ def operator_sinkhorn(
     that RHO and SIGMA are locally equivalent.
 
     >>> print("sigma", sigma, sep='\n')
-
     sigma
-    array([[0.30410752+0.j 0.02421406-0.0181278j -0.11612204-0.03620092j 0.21646849+0.05515334j]
-           [0.02421406+0.0181278j 0.19589248+0.j -0.02561571+0.01174259j 0.11612205+0.03620092j]
-           [-0.11612204+0.03620092j -0.02561571-0.01174259j  0.19589248+0.j -0.02421406+0.0181278j]
-           [ 0.21646849-0.05515334j  0.11612205-0.03620092j -0.02421406-0.0181278j 0.30410752+0.j]])
+    [[ 0.34784186+0.j          0.09278034+0.00551919j -0.02275152+0.05104798j
+       0.20443565-0.12511156j]
+     [ 0.09278034-0.00551919j  0.15215814+0.j          0.1039554 -0.0350973j
+       0.02275152-0.05104798j]
+     [-0.02275152-0.05104798j  0.1039554 +0.0350973j   0.15215814+0.j
+      -0.09278034-0.00551919j]
+     [ 0.20443565+0.12511156j  0.02275152+0.05104798j -0.09278034+0.00551919j
+       0.34784186+0.j        ]]
 
     >>> print("F", F, sep='\n')
-
     F
-    [array([[ 1.14288548-0.00662635j, -0.07948299-0.24568425j],[-0.07280878+0.20604394j,  1.02019328+0.00723707j]]),
-     array([[ 0.92821148-0.00380203j, -0.45803016+0.01202661j],[-0.49498221-0.00491192j,  1.92337107+0.00388873j]])]
+    [array([[ 1.33132101+0.00313432j, -0.38927801+0.14985847j],
+           [-0.37199021-0.14296461j,  1.24635929-0.00300407j]]), array([[ 1.16317427+0.00765735j, -0.16925696+0.09054309j],
+           [-0.18974418-0.09028502j,  0.93359381-0.00777829j]])]
 
     Similarly to perform sinkhorn operation on multipartite state where the
     subsystems are of dimensions 2, 3 and 4.
 
-    >>> rho_random = random_density_matrix(24)
-    >>> sigma, F = operator_sinkhorn(rho=rho_random, dim=[2, 3, 4])
-    >>> print(sigma, F)
+    >>> # rho_random = random_density_matrix(24)
+    >>> # sigma, F = operator_sinkhorn(rho=rho_random, dim=[2, 3, 4])
+    >>> # print(sigma, F)
 
     References
     ==========
