@@ -89,7 +89,7 @@ def operator_sinkhorn(
     :raises: RuntimeError: if the sinkhorn algorithm doesnot converge before 10000 iterations.
     :raises: ValueError: if the density matrix provided is singular (or is not of full rank).
 
-    """
+    """ # noqa: E501
     # Run checks on the input density matrix
     rho = np.asarray(rho)
     if rho.ndim != 2 or rho.shape[0] != rho.shape[1]:
@@ -182,7 +182,7 @@ def operator_sinkhorn(
                     except np.linalg.LinAlgError:
                         max_cond = np.inf # possible singular matrix
 
-            except Exception as gen_err:
+            except Exception:
                 error_flag_in_iteration = True
                 # error_message = gen_err
             # Check the condition number to ensure invertibility.
