@@ -121,7 +121,7 @@ def test_non_square_density_matrix():
     """Test operator sinkhorn on non-square input matrix."""
     # function should raise a ValueError
 
-    rho = np.random((4, 5))
+    rho = np.random.rand(4, 5)
     try:
         operator_sinkhorn(rho)
     except ValueError as e:
