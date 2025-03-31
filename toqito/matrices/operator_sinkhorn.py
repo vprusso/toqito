@@ -13,7 +13,7 @@ def operator_sinkhorn(
     dim: list[int] =None,
     tol: float =np.sqrt(np.finfo(float).eps)) -> tuple[np.ndarray, list[np.ndarray]]:
     r"""Perform the operator Sinkhorn iteration.
-  
+
     This function implements the iterative Sinkhorn algorithm to find a density matrix
     that is locally equivalent to a given bipartite or multipartite density matrix
     `rho`, but has both of its partial traces proportional to the identity.
@@ -21,7 +21,7 @@ def operator_sinkhorn(
     Examples
     ==========
 
-    To Perform Operator Sinkhorn on a random 2-Qubit Bi-partite state: 
+    To Perform Operator Sinkhorn on a random 2-Qubit Bi-partite state:
 
     >>> import numpy as np
     >>> from toqito.matrices import operator_sinkhorn
@@ -185,7 +185,7 @@ def operator_sinkhorn(
 
             except Exception as gen_err:
                 error_flag_in_iteration = True
-                error_message = gen_err
+                # error_message = gen_err
             # Check the condition number to ensure invertibility.
             if (error_flag_in_iteration) or (max_cond >= 1 / tol) or (np.isinf(max_cond)):
                 raise ValueError("The operator Sinkhorn iteration does not converge for RHO. "
