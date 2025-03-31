@@ -14,10 +14,76 @@ def operator_sinkhorn(
     dim: list[int] =None, 
     tol: float =np.sqrt(np.finfo(float).eps)):
     
-    """Perform the operator Sinkhorn iteration.
-    This function implements the Sinkhorn algorithm to find a density matrix that
-    is locally equivalent to a given bipartite or multipartite density matrix
-    `rho`, but has both of its partial traces proportional to the identity.
+    r"""Perform the operator Sinkhorn iteration.
+    
+        This function implements the iterative Sinkhorn algorithm to find a density matrix 
+        that is locally equivalent to a given bipartite or multipartite density matrix
+        `rho`, but has both of its partial traces proportional to the identity.
+
+        Examples
+        ==========
+
+        To Perform Operator Sinkhorn on a random 2-Qubit Bi-partite state:  
+
+        >>> import numpy as np
+        >>> from toqito.matrices import operator_sinkhorn
+        >>> from toqito.rand import random_density_matrix
+
+        >>> rho_random = random_density_matrix(4)
+
+        returns a random 4x4 complex matrix like this
+
+        >>> print("rho_random", rho_random, sep='\n')
+        
+        rho_random
+        array([[0.34777941+0.j -0.03231138+0.07992951j 0.08131097+0.03285289j -0.07485986+0.07115859j]
+               [-0.03231138-0.07992951j 0.26158857+0.j 0.04867659-0.13939625j 0.05986692+0.00369842j]
+               [0.08131097-0.03285289j 0.04867659+0.13939625j 0.16827722+0.j 0.03699826+0.14622j]
+               [-0.07485986-0.07115859j 0.05986692-0.00369842j 0.03699826-0.14622j 0.22235479+0.j]])
+
+        >>> sigma, F = operator_sinkhorn(rho=rho_random, dim=[2, 2])
+
+        This returns the result density matrix along with the operations list F.
+        SIGMA has all of its (single-party) reduced density matrices
+        proportional to the identity, and SIGMA = Tensor(F)*RHO*Tensor(F)'. In
+        other words, F contains invertible local operations that demonstrate
+        that RHO and SIGMA are locally equivalent.
+
+        >>> print("sigma", sigma, sep='\n')
+
+        sigma
+        array([[0.30410752+0.j 0.02421406-0.0181278j -0.11612204-0.03620092j 0.21646849+0.05515334j]
+               [0.02421406+0.0181278j 0.19589248+0.j -0.02561571+0.01174259j 0.11612205+0.03620092j]
+               [-0.11612204+0.03620092j -0.02561571-0.01174259j  0.19589248+0.j -0.02421406+0.0181278j]
+               [ 0.21646849-0.05515334j  0.11612205-0.03620092j -0.02421406-0.0181278j 0.30410752+0.j]])
+
+        >>> print("F", F, sep='\n')
+
+        F
+        [array([[ 1.14288548-0.00662635j, -0.07948299-0.24568425j],[-0.07280878+0.20604394j,  1.02019328+0.00723707j]]), 
+         array([[ 0.92821148-0.00380203j, -0.45803016+0.01202661j],[-0.49498221-0.00491192j,  1.92337107+0.00388873j]])]
+
+        Similarly to perform sinkhorn operation on multipartite state where the
+        subsystems are of dimensions 2, 3 and 4.
+
+        >>> rho_random = random_density_matrix(24)
+        >>> sigma, F = operator_sinkhorn(rho=rho_random, dim=[2, 3, 4])
+        >>> print(sigma, F)
+
+        References
+        ==========
+        .. bibliography::
+            :filter: docname in docnames
+
+        :param rho: input density matrix of a multipartite system
+        :param dim: `None` list containing dimensions of each subsystem. Assumes 2 subsystems with equal dimensions as default.
+        :param tol: `np.sqrt(np.finfo(float).eps)` Convergence tolerance of the iterative Sinkhorn Algorithm.
+                    Assumes square root of numpy eps as default.
+        :raises: ValueError: if input density matrix is not a square matrix.
+        :raises: ValueError: if the product of dimensions provided/assumed does not match the dimension of density matrix.
+        :raises: RuntimeError: if the sinkhorn algorithm doesnot converge before 10000 iterations.
+        :raises: ValueError: if the density matrix provided is singular (or is not of full rank).
+
     """
     
     # Run checks on the input density matrix
