@@ -5,7 +5,7 @@ import warnings
 import numpy as np
 import scipy.linalg
 
-from toqito.channels import partial_trace
+from toqito.channels.partial_trace import partial_trace
 
 
 def operator_sinkhorn(
@@ -32,7 +32,6 @@ def operator_sinkhorn(
     returns a random 4x4 complex matrix like this
 
     >>> print("rho_random", rho_random, sep='\n')
-   
     rho_random
     array([[0.34777941+0.j -0.03231138+0.07992951j 0.08131097+0.03285289j -0.07485986+0.07115859j]
            [-0.03231138-0.07992951j 0.26158857+0.j 0.04867659-0.13939625j 0.05986692+0.00369842j]
@@ -152,23 +151,17 @@ def operator_sinkhorn(
                     Prho[j] = Prho_tmp.astype(np.complex128)  # Force complex128 for Prho_tmp
 
                     # Apply the filter with explicit complex128 conversion
-                    try:
-                        T_inv = np.linalg.inv(Prho[j]).astype(np.complex128)
+                    T_inv = np.linalg.inv(Prho[j]).astype(np.complex128)
 
-                        # check for NaNs and infinities after inversion
-                        if np.any(np.isnan(T_inv)) or np.any(np.isinf(T_inv)):
-                                raise np.linalg.LinAlgError("Singular matrix encountered during inversion.")
+                    # check for NaNs and infinities after inversion
+                    if np.any(np.isnan(T_inv)) or np.any(np.isinf(T_inv)):
+                        raise np.linalg.LinAlgError("Singular matrix encountered during inversion.")
 
-                        T = scipy.linalg.sqrtm(T_inv) / np.sqrt(dim[j])
-                        T = T.astype(np.complex128)
+                    T = scipy.linalg.sqrtm(T_inv) / np.sqrt(dim[j])
+                    T = T.astype(np.complex128)
 
-                        # enforce hermiticity for numerical stability
-                        T = (T + T.conj().T) / 2.0
-
-                    except np.linalg.LinAlgError as la_err:
-                        error_flag_in_iteration = True
-                        error_message = f"Matrix inversion/sqrt failed for subsystem {j}: {la_err}"
-                        break
+                    # enforce hermiticity for numerical stability
+                    T = (T + T.conj().T) / 2.0
 
                     # Construct the Kronecker product
                     eye_ldim = np.eye(int(ldim[j]), dtype=np.complex128)
@@ -185,7 +178,7 @@ def operator_sinkhorn(
 
             except Exception as gen_err:
                 error_flag_in_iteration = True
-
+                error_message = gen_err
             # Check the condition number to ensure invertibility.
             if (error_flag_in_iteration) or (max_cond >= 1 / tol) or (np.isinf(max_cond)):
                 raise ValueError("The operator Sinkhorn iteration does not converge for RHO. "
