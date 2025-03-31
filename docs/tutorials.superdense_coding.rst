@@ -80,19 +80,12 @@ Superdense coding protocol
 
     pauli_gate_operations = {
         # Identity gate.
-
         "00": pauli("I"),
-
         # Pauli-X gate.
-
         "01": pauli("X"),
-
         # Pauli-Z gate.
-
         "10": pauli("Z"),
-
         # X followed by Z (equivalent to iY).
-
         "11": pauli("X") @ pauli("Z")  
     }
 
@@ -101,8 +94,8 @@ Superdense coding protocol
     entangled_state_encoded = np.kron(pauli_gate_operations[message_to_encode], pauli("I")) @ bell_state
 
 3. Bob performs operations to reverse the entanglement and extract the bits. First, 
-   he applies a Controlled-NOT or :math:`CX` *(CNOT) Gate* with qubit received from Alice as the
-   *control qubit* and Bob's original qubit as *target qubit*. After this, Bob moves
+   he applies a Controlled-NOT or :math:`CX` *(CNOT) Gate* with the qubit received from Alice as the
+   *control qubit* and Bob's original qubit as the *target qubit*. After this, Bob moves
    ahead and applies a Hadamard or :math:`H` gate to Alice's qubit.
 
    .. code-block:: python
@@ -112,7 +105,7 @@ Superdense coding protocol
        print("Decoded state:\n", decoded_state)
 
 4. Finally, Bob measures both qubits in the computational basis (:math:`\ket{0}, 
-   \ket{1}`). The result is guaranteed to be :math:`ab`, the two bits that Alice sent.
+   \ket{1}`). The result is guaranteed to be :math:`ab`; the two bits that Alice sent.
 
    .. code-block:: python
 
@@ -121,7 +114,7 @@ Superdense coding protocol
        print(measurement_probabilities)
 
 
-Full code :
+Full code:
 
 .. code-block:: python
 
