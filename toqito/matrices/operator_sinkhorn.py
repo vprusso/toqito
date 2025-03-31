@@ -161,7 +161,7 @@ def operator_sinkhorn(
 
                     # check for NaNs and infinities after inversion
                     if np.any(np.isnan(T_inv)) or np.any(np.isinf(T_inv)):
-                        raise np.linalg.LinAlgError("Singular matrix encountered during inversion.")
+                        error_flag_in_iteration = True
 
                     T = scipy.linalg.sqrtm(T_inv) / np.sqrt(dim[j])
                     T = T.astype(np.complex128)
@@ -177,14 +177,11 @@ def operator_sinkhorn(
                     rho2 = Tk @ rho2 @ Tk.conj().T
                     F[j] = T @ F[j]
 
-                    try:
-                        max_cond = max(max_cond, np.linalg.cond(F[j]))
-                    except np.linalg.LinAlgError:
-                        max_cond = np.inf # possible singular matrix
+                    max_cond = max(max_cond, np.linalg.cond(F[j]))
 
             except Exception:
                 error_flag_in_iteration = True
-                # error_message = gen_err
+
             # Check the condition number to ensure invertibility.
             if (error_flag_in_iteration) or (max_cond >= 1 / tol) or (np.isinf(max_cond)):
                 raise ValueError("The operator Sinkhorn iteration does not converge for RHO. "

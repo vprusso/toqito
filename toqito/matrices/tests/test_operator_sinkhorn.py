@@ -116,3 +116,16 @@ def test_operator_sinkhorn_max_entangled():
 
     # Check that rho is invariant after sinkhorn operation
     np.testing.assert_almost_equal(sigma, rho)
+
+def test_non_square_density_matrix():
+    """Test operator sinkhorn on non-square input matrix."""
+    # function should raise a ValueError
+
+    rho = np.random((4, 5))
+    try:
+        operator_sinkhorn(rho)
+    except ValueError as e:
+        expected_msg = (
+            "Input 'rho' must be a square matrix."
+        )
+        assert str(e) == expected_msg
