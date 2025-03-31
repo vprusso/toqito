@@ -6,13 +6,15 @@ import numpy as np
 from scipy.linalg import orth
 
 from toqito.channel_ops.partial_channel import partial_channel
-from toqito.channels import realignment
 from toqito.channels.partial_trace import partial_trace
-from toqito.matrix_props import is_positive_semidefinite, trace_norm
+from toqito.channels.realignment import realignment
+from toqito.matrix_props.is_positive_semidefinite import is_positive_semidefinite
+from toqito.matrix_props.trace_norm import trace_norm
 from toqito.perms.swap import swap
 from toqito.perms.swap_operator import swap_operator
-from toqito.state_props import in_separable_ball, is_ppt
 from toqito.state_props.has_symmetric_extension import has_symmetric_extension
+from toqito.state_props.in_separable_ball import in_separable_ball
+from toqito.state_props.is_ppt import is_ppt
 from toqito.state_props.schmidt_rank import schmidt_rank
 from toqito.states.max_entangled import max_entangled
 
@@ -45,8 +47,8 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     On the other hand, a random density matrix will be an entangled state (a separable state).
 
     >>> import numpy as np
-    >>> from toqito.rand import random_density_matrix
-    >>> from toqito.state_props import is_separable
+    >>> from toqito.rand.random_density_matrix import random_density_matrix
+    >>> from toqito.state_props.is_separable import is_separable
     >>> rho_separable = np.array([[1, 0, 1, 0],
     ...                           [0, 1, 0, 1],
     ...                           [1, 0, 1, 0],
