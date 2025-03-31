@@ -147,7 +147,6 @@ def operator_sinkhorn(
             max_cond = 0.0
 
             error_flag_in_iteration = False
-            error_message = ""
 
             try:
                 for j in range(num_sys):
