@@ -70,7 +70,7 @@ def unvec(vector: np.ndarray, shape: list[int] = None) -> np.ndarray:
 
     See Also
     ========
-    vec
+    :func:`.vec`
 
     References
     ==========

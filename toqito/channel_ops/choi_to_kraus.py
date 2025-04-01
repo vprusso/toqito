@@ -79,7 +79,7 @@ def choi_to_kraus(
 
     See Also
     ========
-    kraus_to_choi
+    :func:`.kraus_to_choi`
 
     References
     ==========
