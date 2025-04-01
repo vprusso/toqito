@@ -1,7 +1,6 @@
 """Test entangled_subspace."""
 import numpy as np
 import pytest
-from scipy import sparse
 
 from toqito.matrices import entangled_subspace
 
@@ -13,19 +12,20 @@ from toqito.matrices import entangled_subspace
         (3, [3, 4], 1, (12, 3), 3),  # Test with unequal local dimensions
         (1, 4, 2, (16, 1), 1),  # Test with higher entanglement r=2
         (9, 4, 1, (16, 9), 9),  # Test with maximal dimension
+        (1, [4], 1, (16, 1), 1),  # Test with local_dim as a one-element list
     ],
 )
 def test_entangled_subspace(dim, local_dim, r, expected_shape, expected_rank):
     """Test entangled subspace with different parameters."""
     result = entangled_subspace(dim, local_dim, r)
-    
+
     # Check dimensions
     assert result.shape == expected_shape
-    
+
     # Check rank (linearly independent columns)
     rank = np.linalg.matrix_rank(result.toarray())
     assert rank == expected_rank
-    
+
     # Check that the result is non-zero
     assert np.linalg.norm(result.toarray()) > 0
 
@@ -33,7 +33,7 @@ def test_entangled_subspace(dim, local_dim, r, expected_shape, expected_rank):
 def test_entangled_subspace_invalid_dim():
     """Test that an error is raised when dim is too large."""
     dim, local_dim, r = 10, 3, 1
-    
+
     # (3-1)*(3-1) = 4, so dim=10 is too large
     with pytest.raises(ValueError):
         entangled_subspace(dim, local_dim, r)
@@ -46,8 +46,25 @@ def test_entangled_subspace_default_r():
     result_with_default = entangled_subspace(dim, local_dim)
     # Call with explicit r=1
     result_with_explicit = entangled_subspace(dim, local_dim, 1)
-    
+
     # Results should be identical
     np.testing.assert_array_equal(
         result_with_default.toarray(), result_with_explicit.toarray()
     )
+
+
+def test_entangled_subspace_last_return():
+    """Test the final return statement path."""
+    # Create a case where the function executes the final return
+    # The algorithm will generate exactly the number of columns requested
+    # and not exit early from the loop
+    dim, local_dim = 1, 5
+    r = 1
+
+    # With these parameters, the function should create exactly 1 column
+    # and return via the final return statement
+    result = entangled_subspace(dim, local_dim, r)
+
+    # Verify the result is correct
+    assert result.shape == (25, 1)
+    assert np.linalg.matrix_rank(result.toarray()) == 1
