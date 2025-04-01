@@ -5,7 +5,7 @@ from scipy.linalg import null_space
 
 
 def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
-    r"""Compute an orthonormal basis for the commutant algebra :cite:`qetlab_commutant`.
+    r"""Compute an orthonormal basis for the commutant algebra :cite:`johnston2016qetlab`.
 
     Given a set of matrices :math:`A`, this function determines an orthonormal basis
     (with respect to the Hilbert-Schmidt inner product) for the algebra of matrices
@@ -49,8 +49,8 @@ def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
     >>> A2 = np.array([[0, 1], [1, 0]])
     >>> basis = commutant([A1, A2])
     >>> basis
-    [array([[ 0.70710678,  0.        ],
-            [-0.        ,  0.70710678]])]
+    [array([[0.70710678, 0.        ],
+           [0.        , 0.70710678]])]
 
     Now, consider a single matrix:
 
@@ -64,8 +64,7 @@ def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
     >>> basis = commutant(A)
     >>> basis
     [array([[0.70710678, 0.        ],
-            [0.        , 0.70710678]]),
-    array([[ 0., -1.],
+           [0.        , 0.70710678]]), array([[ 0., -1.],
            [ 0.,  0.]])]
 
     References

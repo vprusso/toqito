@@ -3,6 +3,7 @@ import numpy as np
 import pytest
 
 from toqito.matrix_ops.commutant import commutant
+from toqito.matrix_ops.vec import vec
 
 
 @pytest.mark.parametrize(
@@ -97,7 +98,7 @@ def test_explicit_commutant_condition():
             # Compute the commutant condition: (A ⊗ I - I ⊗ A^T) vec(B) = 0
             comm_matrix = np.kron(A, np.eye(dim)) - np.kron(np.eye(dim), A.T)
             # Column-vectorization of B
-            vec_B = B.flatten(order="F")[:, np.newaxis]
+            vec_B = vec(B)
 
             residual = comm_matrix @ vec_B
             assert np.allclose(residual, 0)
