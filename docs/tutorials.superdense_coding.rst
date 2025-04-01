@@ -118,31 +118,39 @@ Full code:
 
 .. code-block:: python
 
-    import numpy as np
-    from toqito.states import bell
-    from toqito.matrices import pauli, cnot, hadamard
+  >>> import numpy as np
+  >>> from toqito.states import bell
+  >>> from toqito.matrices import pauli, cnot, hadamard
+  >>>
+  >>> bell_state = bell(0)
+  >>> print("Initial Bell state (|Φ⁺⟩):\n", bell_state)
+  Initial Bell state (|Φ⁺⟩):
+   [[0.70710678]
+   [0.        ]
+   [0.        ]
+   [0.70710678]]
 
-    bell_state = bell(0)
-    print("Initial Bell state (|Φ⁺⟩):\n", bell_state)
+  >>> pauli_gate_operations = {
+  ...     "00": pauli("I"),
+  ...     "01": pauli("X"),
+  ...     "10": pauli("Z"),
+  ...     "11": pauli("X") @ pauli("Z")
+  ... }
 
-    pauli_gate_operations = {
-        "00": pauli("I"),
-        "01": pauli("X"),
-        "10": pauli("Z"),
-        "11": pauli("X") @ pauli("Z")
-    }
+  >>> message_to_encode = "10"
 
-    message_to_encode = "10"
+  >>> entangled_state_encoded = np.kron(pauli_gate_operations[message_to_encode], pauli("I")) @ bell_state
 
-    entangled_state_encoded = np.kron(pauli_gate_operations[message_to_encode], pauli("I")) @ bell_state
+  >>> state_after_cnot = cnot() @ entangled_state_encoded
 
-    state_after_cnot = cnot() @ entangled_state_encoded
+  >>> decoded_state = np.kron(hadamard(1), pauli("I")) @ state_after_cnot
 
-    decoded_state = np.kron(hadamard(1), pauli("I")) @ state_after_cnot
+  >>> measurement_probabilities = np.abs(decoded_state.flatten())**2
+  >>> print("Measurement probabilities for basis states |00>, |01>, |10>, |11>:\n", measurement_probabilities)
+  Measurement probabilities for basis states |00>, |01>, |10>, |11>:
+   [0. 0. 1. 0.]
+  
 
-    measurement_probabilities = np.abs(decoded_state.flatten())**2
-    print("Measurement probabilities for basis states |00>, |01>, |10>, |11>:")
-    print(measurement_probabilities)
 
 References
 ------------------------------
