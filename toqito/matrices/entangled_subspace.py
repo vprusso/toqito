@@ -18,8 +18,8 @@ def entangled_subspace(
     >>> from toqito.matrices import entangled_subspace
     >>> dim, local_dim = 2, 3
     >>> entangled_subspace(dim, local_dim)
-    <9x2 sparse matrix of type '<class 'numpy.complex128'>'
-        with 5 stored elements in Compressed Sparse Column format>
+    <Compressed Sparse Row sparse matrix of dtype 'complex128'
+    with 5 stored elements and shape (9, 2)>
 
     References
     ==========
