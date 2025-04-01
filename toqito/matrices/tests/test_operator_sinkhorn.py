@@ -79,8 +79,8 @@ def test_operator_sinkhorn_invalid_single_dim():
         operator_sinkhorn(rho, dim=[4])
     except ValueError as e:
         expected_msg = (
-            "If DIM is a scalar, X must be square and DIM must evenly divide length(X); "
-            "please provide the DIM array containing the dimensions of the subsystems."
+            "If `dim` is of size 1, `rho` must be square and dim[0] must evenly divide length(rho); "
+            "please provide the dim array containing the dimensions of the subsystems."
         )
         assert str(e) == expected_msg
 
@@ -135,7 +135,6 @@ def test_operator_sinkhorn_max_iterations():
     # function should raise a RuntimeError
 
     rho_random = random_density_matrix(4, seed=42)
-
     try:
         operator_sinkhorn(rho=rho_random, dim=[2, 2], max_iterations=20)
     except RuntimeError as e:

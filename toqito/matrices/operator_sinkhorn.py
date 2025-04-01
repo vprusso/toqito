@@ -110,8 +110,8 @@ def operator_sinkhorn(
         dim.append(dX / dim[0])
 
         if abs(dim[1] - round(dim[1])) >= (2 * dX * np.finfo(float).eps):
-            raise ValueError("If DIM is a scalar, X must be square and DIM must evenly divide length(X); "
-                             "please provide the DIM array containing the dimensions of the subsystems.")
+            raise ValueError("If `dim` is of size 1, `rho` must be square and dim[0] must evenly divide length(rho); "
+                             "please provide the dim array containing the dimensions of the subsystems.")
 
         dim[1] = round(dim[1])
 
