@@ -1,9 +1,10 @@
 """Sinkhorn operator."""
 
 import numpy as np
-import scipy.linalg
+import scipy as sp
 
 from toqito.channels.partial_trace import partial_trace
+from toqito.matrix_props.is_square import is_square
 
 
 def operator_sinkhorn(
@@ -92,7 +93,7 @@ def operator_sinkhorn(
     """ # noqa: E501
     # Run checks on the input density matrix
     rho = np.asarray(rho)
-    if rho.ndim != 2 or rho.shape[0] != rho.shape[1]:
+    if not is_square(rho):
         raise ValueError("Input 'rho' must be a square matrix.")
 
     rho = rho.astype(np.complex128)
@@ -159,7 +160,7 @@ def operator_sinkhorn(
                 if np.any(np.isnan(T_inv)) or np.any(np.isinf(T_inv)):
                     error_flag_in_iteration = True
 
-                T = scipy.linalg.sqrtm(T_inv) / np.sqrt(dim[j])
+                T = sp.linalg.sqrtm(T_inv) / np.sqrt(dim[j])
                 T = T.astype(np.complex128)
 
                 # enforce hermiticity for numerical stability
