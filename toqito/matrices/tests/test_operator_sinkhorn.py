@@ -117,7 +117,7 @@ def test_operator_sinkhorn_max_entangled():
     # Check that rho is invariant after sinkhorn operation
     np.testing.assert_almost_equal(sigma, rho)
 
-def test_non_square_density_matrix():
+def test_operator_sinkhorn_non_square_rho():
     """Test operator sinkhorn on non-square input matrix."""
     # function should raise a ValueError
 
@@ -127,5 +127,19 @@ def test_non_square_density_matrix():
     except ValueError as e:
         expected_msg = (
             "Input 'rho' must be a square matrix."
+        )
+        assert str(e) == expected_msg
+
+def test_operator_sinkhorn_max_iterations():
+    """Test operator sinkhorn on insufficient iteration limit."""
+    # function should raise a RuntimeError
+
+    rho_random = random_density_matrix(4, seed=42)
+
+    try:
+        operator_sinkhorn(rho=rho_random, dim=[2, 2], max_iterations=20)
+    except RuntimeError as e:
+        expected_msg = (
+            "operator_sinkhorn did not converge within 20 iterations."
         )
         assert str(e) == expected_msg
