@@ -42,19 +42,17 @@ The standard basis ket vectors given as :math:`|0\rangle` and :math:`|1\rangle` 
 
 can be defined in :code:`toqito` as such
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> from toqito.states import basis
-    >>> # |0>
-    >>> basis(2, 0)
-    array([[1],
-           [0]])
+     from toqito.states import basis
+     # |0>
+     basis(2, 0)
 
-    >>> # |1>
-    >>> basis(2, 1)
-    array([[0],
-           [1]])
+.. jupyter-execute::
 
+     from toqito.states import basis
+     # |1>
+     basis(2, 1)
 
 One may define one of the four Bell states written as
 
@@ -63,16 +61,12 @@ One may define one of the four Bell states written as
 
 using :code:`toqito` as
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> import numpy as np
-    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
-    >>> u_0 = 1/np.sqrt(2) * (np.kron(e_0, e_0) + np.kron(e_1, e_1))
-    >>> u_0
-    array([[0.70710678],
-           [0.        ],
-           [0.        ],
-           [0.70710678]])
+     import numpy as np
+     e_0, e_1 = basis(2, 0), basis(2, 1)
+     u_0 = 1/np.sqrt(2) * (np.kron(e_0, e_0) + np.kron(e_1, e_1))
+     u_0
 
 
 The corresponding density operator of :math:`u_0` can be obtained from
@@ -88,17 +82,13 @@ The corresponding density operator of :math:`u_0` can be obtained from
 
 In :code:`toqito`, that can be obtained as 
 
-.. code-block:: python
+.. jupyter-execute::
     
-    >>> import numpy as np
-    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
-    >>> u_0 = 1/np.sqrt(2) * (np.kron(e_0, e_0) + np.kron(e_1, e_1))
-    >>> rho_0 = u_0 @ u_0.conj().T
-    >>> rho_0
-    array([[0.5, 0. , 0. , 0.5],
-           [0. , 0. , 0. , 0. ],
-           [0. , 0. , 0. , 0. ],
-           [0.5, 0. , 0. , 0.5]])
+     import numpy as np
+     e_0, e_1 = basis(2, 0), basis(2, 1)
+     u_0 = 1/np.sqrt(2) * (np.kron(e_0, e_0) + np.kron(e_1, e_1))
+     rho_0 = u_0 @ u_0.conj().T
+     rho_0
 
 
 Alternatively, we may leverage the :code:`bell` function in :code:`toqito` to
@@ -116,15 +106,11 @@ generate all four Bell states defined as
 
 in a more concise manner as 
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> from toqito.states import bell
-    >>> import numpy as np
-    >>> bell(0)
-    array([[0.70710678],
-           [0.        ],
-           [0.        ],
-           [0.70710678]])
+     from toqito.states import bell
+     import numpy as np
+     bell(0)
 
 The Bell states constitute one such well-known class of quantum states. There
 are many other classes of states that are widely used in the field of quantum
@@ -135,18 +121,11 @@ information. For instance, the GHZ state
 
 is a well-known 3-qubit quantum state. We can invoke this using :code:`toqito` as
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> from toqito.states import ghz
-    >>> ghz(2, 3)
-    array([[0.70710678],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.70710678]])
+     from toqito.states import ghz
+     ghz(2, 3)
+
 
 
 While the 3-qubit form of the GHZ state is arguably the most notable, it is
@@ -175,13 +154,13 @@ matrix that describes the state has rank 1.
 
 Any one of the Bell states serve as an example of a pure state
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> from toqito.states import bell
-    >>> from toqito.state_props import is_pure
-    >>> rho = bell(0) @ bell(0).conj().T
-    >>> is_pure(rho)
-    True
+     from toqito.states import bell
+     from toqito.state_props import is_pure
+     rho = bell(0) @ bell(0).conj().T
+     is_pure(rho)
+
 
 Another property that is useful is whether a given state is PPT (positive
 partial transpose), that is, whether the state remains positive after taking
@@ -196,13 +175,13 @@ As an example, any one of the Bell states constitute a canonical maximally
 entangled state over :math:`2 \otimes 2` and therefore should not satisfy the
 PPT criterion.
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> from toqito.states import bell
-    >>> from toqito.state_props import is_ppt
-    >>> rho = bell(2) @ bell(2).conj().T
-    >>> is_ppt(rho)
-    False
+     from toqito.states import bell
+     from toqito.state_props import is_ppt
+     rho = bell(2) @ bell(2).conj().T
+     is_ppt(rho)
+
 
 As we can see, the PPT criterion is :code:`False` for an entangled state in
 :math:`2 \otimes 2`.
@@ -215,17 +194,17 @@ from the literature to determine if it is separable or entangled.
 For instance, the following bound-entangled tile state is found to be entangled
 (i.e. not separable).
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> import numpy as np
-    >>> from toqito.state_props import is_separable
-    >>> from toqito.states import tile
-    >>> rho = np.identity(9)
-    >>> for i in range(5):
-    ...    rho = rho - tile(i) @ tile(i).conj().T
-    >>> rho = rho / 4
-    >>> is_separable(rho)
-    False
+     import numpy as np
+     from toqito.state_props import is_separable
+     from toqito.states import tile
+     rho = np.identity(9)
+     for i in range(5):
+        rho = rho - tile(i) @ tile(i).conj().T
+     rho = rho / 4
+     is_separable(rho)
+
 
 Further properties that one can check via :code:`toqito` may be found `on this page
 <https://toqito.readthedocs.io/en/latest/autoapi/state_props/index.html>`_.
@@ -253,19 +232,18 @@ where :math:`\rho` and :math:`\sigma` are identical.
 Let us consider an example in :code:`toqito` where we wish to calculate the
 fidelity function between quantum states that happen to be identical.
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> from toqito.states import bell
-    >>> from toqito.state_metrics import fidelity
-    >>> import numpy as np
-    >>>
-    >>> # Define two identical density operators.
-    >>> rho = bell(0)*bell(0).conj().T
-    >>> sigma = bell(0)*bell(0).conj().T
-    >>> 
-    >>> # Calculate the fidelity between `rho` and `sigma`
-    >>> np.around(fidelity(rho, sigma), decimals=2)
-    np.float64(1.0)
+     from toqito.states import bell
+     from toqito.state_metrics import fidelity
+     import numpy as np
+    
+     # Define two identical density operators.
+     rho = bell(0)*bell(0).conj().T
+     sigma = bell(0)*bell(0).conj().T
+     
+     # Calculate the fidelity between `rho` and `sigma`
+     np.around(fidelity(rho, sigma), decimals=2)
 
 There are a number of other metrics one can compute on two density matrices
 including the trace norm, trace distance. These and others are also available
@@ -322,16 +300,15 @@ Taking the partial trace over the second subsystem of :math:`X` yields the follo
 By default, the partial trace function in :code:`toqito` takes the trace of the second
 subsystem.
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> from toqito.channels import partial_trace
-    >>> import numpy as np
-    >>> test_input_mat = np.array(
-    ...     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
-    ... )
-    >>> partial_trace(test_input_mat)
-    array([[ 7, 11],
-           [23, 27]])
+     from toqito.channels import partial_trace
+     import numpy as np
+     test_input_mat = np.array(
+         [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
+     )
+     partial_trace(test_input_mat)
+
 
 
 By specifying the :code:`sys = [0]` argument, we can perform the partial trace over the first
@@ -344,16 +321,15 @@ trace over the first subsystem yields the following matrix
                     20 & 22
                 \end{pmatrix}.
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> from toqito.channels import partial_trace
-    >>> import numpy as np
-    >>> test_input_mat = np.array(
-    ...     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
-    ... )
-    >>> partial_trace(test_input_mat, [0])
-    array([[12, 14],
-           [20, 22]])
+     from toqito.channels import partial_trace
+     import numpy as np
+     test_input_mat = np.array(
+         [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
+     )
+     partial_trace(test_input_mat, [0])
+
 
 
 
@@ -397,16 +373,13 @@ subsystem yields the following matrix
 By default, in :code:`toqito`, the partial transpose function performs the transposition on
 the second subsystem as follows.
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> from toqito.channels import partial_transpose
-    >>> import numpy as np
-    >>> test_input_mat = np.arange(1, 17).reshape(4, 4)
-    >>> partial_transpose(test_input_mat)
-    array([[ 1,  5,  3,  7],
-           [ 2,  6,  4,  8],
-           [ 9, 13, 11, 15],
-           [10, 14, 12, 16]])
+     from toqito.channels import partial_transpose
+     import numpy as np
+     test_input_mat = np.arange(1, 17).reshape(4, 4)
+     partial_transpose(test_input_mat)
+
 
 
 By specifying the :code:`sys = [0]` argument, we can perform the partial transpose over the
@@ -421,18 +394,14 @@ partial transpose over the first subsystem yields the following matrix
                     7 & 8 & 15 & 16
                 \end{pmatrix}.
   
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> from toqito.channels import partial_transpose
-    >>> import numpy as np
-    >>> test_input_mat = np.array(
-    ...     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
-    ... )
-    >>> partial_transpose(test_input_mat, [0])
-    array([[ 1,  2,  9, 10],
-           [ 5,  6, 13, 14],
-           [ 3,  4, 11, 12],
-           [ 7,  8, 15, 16]])
+     from toqito.channels import partial_transpose
+     import numpy as np
+     test_input_mat = np.array(
+         [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
+     )
+     partial_transpose(test_input_mat, [0])
 
 
 
