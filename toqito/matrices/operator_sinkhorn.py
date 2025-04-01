@@ -1,7 +1,5 @@
 """Sinkhorn operator."""
 
-import warnings
-
 import numpy as np
 import scipy.linalg
 
@@ -10,8 +8,9 @@ from toqito.channels.partial_trace import partial_trace
 
 def operator_sinkhorn(
     rho: np.ndarray,
-    dim: list[int] =None,
-    tol: float =np.sqrt(np.finfo(float).eps)) -> tuple[np.ndarray, list[np.ndarray]]:
+    dim: list[int] = None,
+    tol: float = np.sqrt(np.finfo(float).eps),
+    max_iterations: int = 10000) -> tuple[np.ndarray, list[np.ndarray]]:
     r"""Perform the operator Sinkhorn iteration.
 
     This function implements the iterative Sinkhorn algorithm to find a density matrix
@@ -84,9 +83,10 @@ def operator_sinkhorn(
                 Assumes 2 subsystems with equal dimensions as default.
     :param tol: `np.sqrt(np.finfo(float).eps)` Convergence tolerance of the iterative Sinkhorn Algorithm.
                 Assumes square root of numpy eps as default.
+    :param max_iterations: Number of iterations after which the solver terminates with a convergence error (Refer RuntimeError).
     :raises: ValueError: if input density matrix is not a square matrix.
     :raises: ValueError: if the product of dimensions provided/assumed does not match the dimension of density matrix.
-    :raises: RuntimeError: if the sinkhorn algorithm doesnot converge before 10000 iterations.
+    :raises: RuntimeError: if the sinkhorn algorithm doesnot converge before `max_iterations` iterations.
     :raises: ValueError: if the density matrix provided is singular (or is not of full rank).
 
     """ # noqa: E501
@@ -132,62 +132,59 @@ def operator_sinkhorn(
     # Perform the operator Sinkhorn iteration.
     it_err = 1.0
     max_cond = 0
-    max_iterations = 10000
     iterations = 0
     rho2 = rho.copy().astype(np.complex128)
 
-    with warnings.catch_warnings():
-        warnings.simplefilter("ignore", category=RuntimeWarning)
-        while it_err > tol:
+    while it_err > tol:
 
-            if iterations > max_iterations:
-                raise RuntimeError(f"operator_sinkhorn did not converge within {max_iterations} iterations.")
+        if iterations > max_iterations:
+            raise RuntimeError(f"operator_sinkhorn did not converge within {max_iterations} iterations.")
 
-            it_err = 0.0
-            max_cond = 0.0
+        it_err = 0.0
+        max_cond = 0.0
 
-            error_flag_in_iteration = False
+        error_flag_in_iteration = False
 
-            try:
-                for j in range(num_sys):
-                    # Compute the reduced density matrix on the j-th system.
-                    Prho_tmp = partial_trace(rho2, list(set(range(num_sys)) - {j}), dim)
-                    Prho_tmp = (Prho_tmp + Prho_tmp.conj().T) / 2.0  # for numerical stability
-                    it_err += np.linalg.norm(Prho[j] - Prho_tmp)
-                    Prho[j] = Prho_tmp.astype(np.complex128)  # Force complex128 for Prho_tmp
+        try:
+            for j in range(num_sys):
+                # Compute the reduced density matrix on the j-th system.
+                Prho_tmp = partial_trace(rho2, list(set(range(num_sys)) - {j}), dim)
+                Prho_tmp = (Prho_tmp + Prho_tmp.conj().T) / 2.0  # for numerical stability
+                it_err += np.linalg.norm(Prho[j] - Prho_tmp)
+                Prho[j] = Prho_tmp.astype(np.complex128)  # Force complex128 for Prho_tmp
 
-                    # Apply the filter with explicit complex128 conversion
-                    T_inv = np.linalg.inv(Prho[j]).astype(np.complex128)
+                # Apply the filter with explicit complex128 conversion
+                T_inv = np.linalg.inv(Prho[j]).astype(np.complex128)
 
-                    # check for NaNs and infinities after inversion
-                    if np.any(np.isnan(T_inv)) or np.any(np.isinf(T_inv)):
-                        error_flag_in_iteration = True
+                # check for NaNs and infinities after inversion
+                if np.any(np.isnan(T_inv)) or np.any(np.isinf(T_inv)):
+                    error_flag_in_iteration = True
 
-                    T = scipy.linalg.sqrtm(T_inv) / np.sqrt(dim[j])
-                    T = T.astype(np.complex128)
+                T = scipy.linalg.sqrtm(T_inv) / np.sqrt(dim[j])
+                T = T.astype(np.complex128)
 
-                    # enforce hermiticity for numerical stability
-                    T = (T + T.conj().T) / 2.0
+                # enforce hermiticity for numerical stability
+                T = (T + T.conj().T) / 2.0
 
-                    # Construct the Kronecker product
-                    eye_ldim = np.eye(int(ldim[j]), dtype=np.complex128)
-                    eye_rdim = np.eye(int(rdim[j]), dtype=np.complex128)
-                    Tk = np.kron(eye_ldim, np.kron(T, eye_rdim))
+                # Construct the Kronecker product
+                eye_ldim = np.eye(int(ldim[j]), dtype=np.complex128)
+                eye_rdim = np.eye(int(rdim[j]), dtype=np.complex128)
+                Tk = np.kron(eye_ldim, np.kron(T, eye_rdim))
 
-                    rho2 = Tk @ rho2 @ Tk.conj().T
-                    F[j] = T @ F[j]
+                rho2 = Tk @ rho2 @ Tk.conj().T
+                F[j] = T @ F[j]
 
-                    max_cond = max(max_cond, np.linalg.cond(F[j]))
+                max_cond = max(max_cond, np.linalg.cond(F[j]))
 
-            except Exception:
-                error_flag_in_iteration = True
+        except Exception:
+            error_flag_in_iteration = True
 
-            # Check the condition number to ensure invertibility.
-            if (error_flag_in_iteration) or (max_cond >= 1 / tol) or (np.isinf(max_cond)):
-                raise ValueError("The operator Sinkhorn iteration does not converge for RHO. "
+        # Check the condition number to ensure invertibility.
+        if (error_flag_in_iteration) or (max_cond >= 1 / tol) or (np.isinf(max_cond)):
+            raise ValueError("The operator Sinkhorn iteration does not converge for RHO. "
                              "This is often the case if RHO is not of full rank.")
 
-            iterations += 1
+        iterations += 1
 
     # Stabilize the output for numerical reasons.
     sigma = (rho2 + rho2.conj().T) / 2
