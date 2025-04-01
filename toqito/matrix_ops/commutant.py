@@ -9,7 +9,7 @@ def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
 
     Given a set of matrices :math:`A`, this function determines an orthonormal basis
     (with respect to the Hilbert-Schmidt inner product) for the algebra of matrices
-    that commute with every matrix in :math:A.
+    that commute with every matrix in :math:`A`.
 
     The commutant of a set of matrices consists of all matrices that commute
     with every matrix in the set. Formally, given a matrix :math:A \in \mathbb{C}^{n \times n},
