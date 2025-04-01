@@ -17,7 +17,7 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool: # pragma: no cover
 
    See Also
    ========
-   is_doubly_stochastic
+   :func:`.is_doubly_stochastic`
 
    Examples
    ========
