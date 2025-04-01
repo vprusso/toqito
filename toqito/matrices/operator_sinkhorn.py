@@ -95,11 +95,10 @@ def operator_sinkhorn(
     if rho.ndim != 2 or rho.shape[0] != rho.shape[1]:
         raise ValueError("Input 'rho' must be a square matrix.")
 
-    rho = rho.astype(np.complex128)  # Ensure complex128 type for rho
+    rho = rho.astype(np.complex128)
 
     dX = rho.shape[0]
     sdX = int(round(np.sqrt(dX)))
-    tr_rho = np.trace(rho)
 
     # set optional argument defaults: dim=sqrt(length(rho)), tol=sqrt(eps).
     if dim is None:
@@ -121,11 +120,11 @@ def operator_sinkhorn(
         raise ValueError(f"Product of dimensions {dim} does not match rho dimension {dX}.")
 
     # precompute trace for all iterations
-    tr_rho_p = np.power(tr_rho, 1.0 / (2.0 * num_sys)) if tr_rho != 0 else 1.0
+    tr_rho_p = np.power(np.trace(rho), 1.0 / (2.0 * num_sys)) if np.trace(rho) != 0 else 1.0
 
     # Prepare the iteration.
-    Prho = [np.eye(d, dtype=np.complex128) / d for d in dim]  # Force complex128 type for Prho
-    F = [np.eye(d, dtype=np.complex128) * tr_rho_p for d in dim]  # Force complex128 for F
+    Prho = [np.eye(d, dtype=np.complex128) / d for d in dim]
+    F = [np.eye(d, dtype=np.complex128) * tr_rho_p for d in dim]
     ldim = [np.prod(dim[:j]) for j in range(num_sys)]
     rdim = [np.prod(dim[j+1:]) for j in range(num_sys)]
 
@@ -151,9 +150,9 @@ def operator_sinkhorn(
                 Prho_tmp = partial_trace(rho2, list(set(range(num_sys)) - {j}), dim)
                 Prho_tmp = (Prho_tmp + Prho_tmp.conj().T) / 2.0  # for numerical stability
                 it_err += np.linalg.norm(Prho[j] - Prho_tmp)
-                Prho[j] = Prho_tmp.astype(np.complex128)  # Force complex128 for Prho_tmp
+                Prho[j] = Prho_tmp.astype(np.complex128)
 
-                # Apply the filter with explicit complex128 conversion
+                # Apply filter with explicit complex128
                 T_inv = np.linalg.inv(Prho[j]).astype(np.complex128)
 
                 # check for NaNs and infinities after inversion
@@ -166,7 +165,6 @@ def operator_sinkhorn(
                 # enforce hermiticity for numerical stability
                 T = (T + T.conj().T) / 2.0
 
-                # Construct the Kronecker product
                 eye_ldim = np.eye(int(ldim[j]), dtype=np.complex128)
                 eye_rdim = np.eye(int(rdim[j]), dtype=np.complex128)
                 Tk = np.kron(eye_ldim, np.kron(T, eye_rdim))
@@ -188,7 +186,7 @@ def operator_sinkhorn(
 
     # Stabilize the output for numerical reasons.
     sigma = (rho2 + rho2.conj().T) / 2
-    sigma = tr_rho * sigma / np.trace(sigma)
+    sigma = np.trace(rho) * sigma / np.trace(sigma)
 
     # handle cases where trace(sigma) can be near zero: TODO
 
