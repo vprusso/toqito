@@ -26,7 +26,7 @@ def mutually_unbiased_basis(dim: int) -> list[np.ndarray]:
         M_1 = \left\{\frac{|0\rangle + |1\rangle}{\sqrt{2}}, \frac{|0\rangle - |1\rangle}{\sqrt{2}}\right\}
         M_2 = \left\{\frac{|0\rangle + i|1\rangle}{\sqrt{2}}, \frac{|0\rangle - i|1\rangle}{\sqrt{2}}\right\}
 
-    >>> from toqito.matrix_ops import mutually_unbiased_basis
+    >>> from toqito.states import mutually_unbiased_basis
     >>> mubs = mutually_unbiased_basis(2)
     >>> len(mubs)
     3

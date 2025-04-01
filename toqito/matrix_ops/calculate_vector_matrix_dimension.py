@@ -24,7 +24,7 @@ def calculate_vector_matrix_dimension(item: np.ndarray) -> int:
     Example:
     ==========
 
-    Consider a three dimensional vector:
+    Consider the following three-dimensional vector:
 
     .. math::
         v = \left[ 1, 0, 0 \right]^{\text{T}}.
@@ -37,17 +37,18 @@ def calculate_vector_matrix_dimension(item: np.ndarray) -> int:
     >>> calculate_vector_matrix_dimension(v)
     3
 
-    For the density matrix of a two dimensional quantum system
+    For the density matrix of some two-dimensional quantum system
 
     .. math::
-        \rho = \frac{1}{2} \begin{pmatrix}
+        \rho = \frac{1}{2} 
+                \begin{pmatrix}
                     1 & 0 \\
                     0 & 1
                 \end{pmatrix}
 
     >>> from toqito.matrix_ops import calculate_vector_matrix_dimension
     >>> import numpy as np
-    >>> rho = np.array([[1/2,0],[0,1/2]])
+    >>> rho = np.array([[1/2, 0],[0, 1/2]])
     >>> calculate_vector_matrix_dimension(rho)
     2
 
