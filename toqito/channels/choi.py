@@ -88,7 +88,7 @@ def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
 
     See Also
     ==========
-    Reduction: `toqito reduction <https://toqito.readthedocs.io/en/latest/autoapi/channels/reduction/index.html>`_
+    :func:`.reduction`
 
     References
     ==========
