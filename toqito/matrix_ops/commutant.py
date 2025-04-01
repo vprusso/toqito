@@ -12,8 +12,8 @@ def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
     that commute with every matrix in :math:`A`.
 
     The commutant of a set of matrices consists of all matrices that commute
-    with every matrix in the set. Formally, given a matrix :math:A \in \mathbb{C}^{n \times n},
-    a matrix :math:X \in \mathbb{C}^{n \times n} belongs to the commutant if:
+    with every matrix in the set. Formally, given a matrix :math:`A \in \mathbb{C}^{n \times n}`,
+    a matrix :math:`X \in \mathbb{C}^{n \times n}` belongs to the commutant if:
 
     .. math:: A X = X A \quad \forall A \in \mathcal{A}.
 
