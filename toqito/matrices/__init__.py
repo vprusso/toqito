@@ -11,3 +11,4 @@ from toqito.matrices.hadamard import hadamard
 from toqito.matrices.pauli import pauli
 from toqito.matrices.standard_basis import standard_basis
 from toqito.matrices.cyclic_permutation_matrix import cyclic_permutation_matrix
+from toqito.matrices.entangled_subspace import entangled_subspace

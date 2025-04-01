@@ -6,45 +6,27 @@ from scipy import sparse
 from toqito.matrices import entangled_subspace
 
 
-def test_entangled_subspace_dim_2_local_dim_3():
-    """Test entangled subspace with dim=2, local_dim=3."""
-    dim, local_dim = 2, 3
-    result = entangled_subspace(dim, local_dim)
-    
-    # Check dimensions
-    assert result.shape == (9, 2)  # 9 = 3*3, product of local dimensions
-    
-    # Check that the columns are linearly independent (basis of subspace)
-    rank = np.linalg.matrix_rank(result.toarray())
-    assert rank == dim
-    
-    # Additional tests could be added to verify entanglement properties
-    # of the resulting subspace vectors
-
-
-def test_entangled_subspace_dim_3_unequal_local_dims():
-    """Test entangled subspace with unequal local dimensions."""
-    dim, local_dim = 3, [3, 4]
-    result = entangled_subspace(dim, local_dim)
-    
-    # Check dimensions
-    assert result.shape == (12, 3)  # 12 = 3*4, product of local dimensions
-    
-    # Check that the columns are linearly independent
-    rank = np.linalg.matrix_rank(result.toarray())
-    assert rank == dim
-
-
-def test_entangled_subspace_with_r_2():
-    """Test with higher entanglement parameter r=2."""
-    dim, local_dim = 1, 4
-    r = 2
+@pytest.mark.parametrize(
+    "dim, local_dim, r, expected_shape, expected_rank",
+    [
+        (2, 3, 1, (9, 2), 2),  # Test basic case
+        (3, [3, 4], 1, (12, 3), 3),  # Test with unequal local dimensions
+        (1, 4, 2, (16, 1), 1),  # Test with higher entanglement r=2
+        (9, 4, 1, (16, 9), 9),  # Test with maximal dimension
+    ],
+)
+def test_entangled_subspace(dim, local_dim, r, expected_shape, expected_rank):
+    """Test entangled subspace with different parameters."""
     result = entangled_subspace(dim, local_dim, r)
     
     # Check dimensions
-    assert result.shape == (16, 1)  # 16 = 4*4
+    assert result.shape == expected_shape
     
-    # Check that the column is non-zero
+    # Check rank (linearly independent columns)
+    rank = np.linalg.matrix_rank(result.toarray())
+    assert rank == expected_rank
+    
+    # Check that the result is non-zero
     assert np.linalg.norm(result.toarray()) > 0
 
 
@@ -57,16 +39,15 @@ def test_entangled_subspace_invalid_dim():
         entangled_subspace(dim, local_dim, r)
 
 
-def test_entangled_subspace_maximal_dim():
-    """Test with the maximal possible dimension."""
-    local_dim = 4
-    r = 1
-    max_dim = (local_dim - r) * (local_dim - r)  # 9
-    result = entangled_subspace(max_dim, local_dim, r)
+def test_entangled_subspace_default_r():
+    """Test that default r=1 works correctly."""
+    dim, local_dim = 2, 3
+    # Call without specifying r
+    result_with_default = entangled_subspace(dim, local_dim)
+    # Call with explicit r=1
+    result_with_explicit = entangled_subspace(dim, local_dim, 1)
     
-    # Check dimensions
-    assert result.shape == (16, 9)  # 16 = 4*4
-    
-    # Check that the columns are linearly independent
-    rank = np.linalg.matrix_rank(result.toarray())
-    assert rank == max_dim
+    # Results should be identical
+    np.testing.assert_array_equal(
+        result_with_default.toarray(), result_with_explicit.toarray()
+    )

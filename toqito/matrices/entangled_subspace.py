@@ -13,42 +13,26 @@ def entangled_subspace(
     A subspace is called r-entangled if every non-zero vector within it has Schmidt
     rank at least r+1. This function generates a basis for such a subspace.
 
-    Parameters
-    ----------
-    dim : int
-        The dimension of the subspace.
-    local_dim : int or list
-        The dimensions of the local systems. If a single integer
-        is provided, it is assumed that both local dimensions are equal.
-    r : int, optional
-        The entanglement parameter. The resulting subspace will be r-entangled.
-        Default: 1 (i.e., the resulting subspace is just entangled).
-
-    Returns
-    -------
-    sparse.csr_matrix
-        Matrix whose columns form a basis of an r-entangled subspace of the requested
-        dimension.
-
-    Notes
-    -----
-    This function is an implementation of the result from [1].
-    
-    References
-    ----------
-    [1] Parthasarathy, K. R.
-        "On the maximal dimension of a completely entangled subspace for finite
-         level quantum systems."
-        Proceedings of the Indian Academy of Sciences - Mathematical Sciences,
-        114(4):365--374, 2004.
-
     Examples
-    --------
+    ==========
     >>> from toqito.matrices import entangled_subspace
     >>> dim, local_dim = 2, 3
     >>> entangled_subspace(dim, local_dim)
     <9x2 sparse matrix of type '<class 'numpy.complex128'>'
-        with 12 stored elements in Compressed Sparse Column format>    
+        with 5 stored elements in Compressed Sparse Column format>
+
+    References
+    ==========
+    .. bibliography::
+        :filter: docname in docnames
+
+    :param dim: The dimension of the subspace.
+    :param local_dim: The dimensions of the local systems. If a single integer
+                     is provided, it is assumed that both local dimensions are equal.
+    :param r: The entanglement parameter. The resulting subspace will be r-entangled.
+             Default: 1 (i.e., the resulting subspace is just entangled).
+    :return: Matrix whose columns form a basis of an r-entangled subspace of the requested
+            dimension.  
     """
     # Convert local_dim to a list if it was provided as a scalar
     if isinstance(local_dim, int):
