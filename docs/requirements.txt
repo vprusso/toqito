@@ -4,4 +4,5 @@ sympy == 1.13.3
 sphinx-autoapi == 3.5.0
 sphinx-copybutton == 0.5.2
 jupyter-sphinx==0.5.3
+toqito
 
