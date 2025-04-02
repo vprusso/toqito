@@ -5,7 +5,7 @@ from scipy.linalg import null_space
 
 
 def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
-    r"""Compute an orthonormal basis for the commutant algebra :cite:`johnston2016qetlab`.
+    r"""Compute an orthonormal basis for the commutant algebra :cite:`QETLAB_link`.
 
     Given a set of matrices :math:`A`, this function determines an orthonormal basis
     (with respect to the Hilbert-Schmidt inner product) for the algebra of matrices

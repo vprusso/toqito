@@ -97,8 +97,5 @@ def test_explicit_commutant_condition():
         for B in comm_basis:
             # Compute the commutant condition: (A ⊗ I - I ⊗ A^T) vec(B) = 0
             comm_matrix = np.kron(A, np.eye(dim)) - np.kron(np.eye(dim), A.T)
-            # Column-vectorization of B
-            vec_B = vec(B)
-
-            residual = comm_matrix @ vec_B
+            residual = comm_matrix @ vec(B)
             assert np.allclose(residual, 0)
