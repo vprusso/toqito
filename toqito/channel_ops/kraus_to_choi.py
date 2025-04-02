@@ -46,7 +46,7 @@ def kraus_to_choi(kraus_ops: list[list[np.ndarray]], sys: int = 2) -> np.ndarray
 
     See Also
     ========
-    choi_to_kraus
+    :func:`.choi_to_kraus`
 
     References
     ==========
