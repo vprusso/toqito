@@ -40,7 +40,7 @@ def calculate_vector_matrix_dimension(item: np.ndarray) -> int:
     For the density matrix of some two-dimensional quantum system
 
     .. math::
-        \rho = \frac{1}{2} 
+        \rho = \frac{1}{2}
                 \begin{pmatrix}
                     1 & 0 \\
                     0 & 1
