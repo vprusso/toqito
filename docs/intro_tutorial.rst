@@ -172,7 +172,7 @@ here is the GHZ state :math:`\mathbb{C}^{4^{\otimes 7}}` as
     >>> coeffs = [1, 2, 3, 4]
     >>> vec = ghz(dim, num_parties, coeffs)
     >>> vec = vec / np.linalg.norm(vec)
-    >>> print(vec)
+    >>> print(vec.tolist())
     array([[0.18257419],
             [0.        ],
             [0.        ],
