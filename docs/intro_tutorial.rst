@@ -163,6 +163,24 @@ here is the GHZ state :math:`\mathbb{C}^{4^{\otimes 7}}` as
     \frac{1}{\sqrt{30}} \left(| 0000000 \rangle + 2| 1111111 \rangle + 3|
     2222222 \rangle + 4| 3333333\rangle \right).
 
+.. code-block:: python
+
+    >>> from toqito.states import ghz
+    >>> import numpy as np
+    >>> dim = 4
+    >>> num_parties = 7
+    >>> coeffs = [1, 2, 3, 4]
+    >>> vec = ghz(dim, num_parties, coeffs)
+    >>> vec = vec / np.linalg.norm(vec)
+    >>> print(vec)
+    [[0.18257419]
+     [0.        ]
+     [0.        ]
+     ...
+     [0.        ]
+     [0.        ]
+     [0.73029674]]
+
 
 Properties of Quantum States
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
