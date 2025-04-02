@@ -133,7 +133,6 @@ Using :code:`toqito`, we can calculate this probability directly as follows:
     
      # Calculate the probability with which Bob can distinguish the state he is provided.
      print(np.around(state_distinguishability(states, probs)[0], decimals=2))
-    np.float64(1.0)
 
 Specifying similar state distinguishability problems can be done so using this
 general pattern.
