@@ -48,9 +48,9 @@ def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
     >>> A1 = np.array([[1, 0], [0, -1]])
     >>> A2 = np.array([[0, 1], [1, 0]])
     >>> basis = commutant([A1, A2])
-    >>> basis
-    [array([[0.70710678, 0.        ],
-           [0.        , 0.70710678]])]
+    >>> basis # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
+    [array([[ 0.70710678,  0.        ],
+           [-0.        ,  0.70710678]])]
 
     Now, consider a single matrix:
 
