@@ -179,7 +179,7 @@ here is the GHZ state :math:`\mathbb{C}^{4^{\otimes 7}}` as
             [0.        ],
             [0.        ],
             [0.        ],
-            [0.        ],
+            [0.        ], 
             [0.73029674]])
 
 
