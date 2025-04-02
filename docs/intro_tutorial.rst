@@ -436,6 +436,89 @@ partial transpose over the first subsystem yields the following matrix
 
 
 
+Noise Channels
+^^^^^^^^^^^^^^
+
+Quantum noise channels model the interaction between quantum systems and their environment, resulting in decoherence and loss of quantum information. The :code:`toqito` library provides implementations of common noise models used in quantum information processing.
+
+**Phase Damping Channel**
+
+The phase damping channel models quantum decoherence where phase information is lost without any energy dissipation. It is characterized by a parameter :math:`\gamma` representing the probability of phase decoherence.
+
+.. math::
+    K_0 = \begin{pmatrix} 1 & 0 \\ 0 & \sqrt{1 - \gamma} \end{pmatrix}, \quad
+    K_1 = \begin{pmatrix} 0 & 0 \\ 0 & \sqrt{\gamma} \end{pmatrix}
+
+The phase damping channel can be applied to a quantum state as follows:
+
+.. code-block:: python
+
+    >>> from toqito.channels import phase_damping
+    >>> import numpy as np
+    >>> 
+    >>> # Create a density matrix with coherence
+    >>> rho = np.array([[1, 0.5], [0.5, 1]])
+    >>> 
+    >>> # Apply phase damping with γ = 0.2
+    >>> result = phase_damping(rho, gamma=0.2)
+    >>> print(result)
+    [[1.       +0.j 0.4472136+0.j]
+     [0.4472136+0.j 1.       +0.j]]
+     
+Note that the off-diagonal elements (coherences) are reduced by a factor of :math:`\sqrt{1-\gamma}`, while the diagonal elements (populations) remain unchanged.
+
+**Amplitude Damping Channel**
+
+The amplitude damping channel models energy dissipation from a quantum system to its environment, such as the spontaneous emission of a photon. It is parameterized by :math:`\gamma`, representing the probability of losing a quantum of energy.
+
+.. math::
+    K_0 = \begin{pmatrix} 1 & 0 \\ 0 & \sqrt{1 - \gamma} \end{pmatrix}, \quad
+    K_1 = \begin{pmatrix} 0 & \sqrt{\gamma} \\ 0 & 0 \end{pmatrix}
+
+Here's how to use the amplitude damping channel:
+
+.. code-block:: python
+
+    >>> from toqito.channels import amplitude_damping
+    >>> import numpy as np
+    >>> 
+    >>> # Create a quantum state
+    >>> rho = np.array([[0.5, 0.5], [0.5, 0.5]])
+    >>> 
+    >>> # Apply amplitude damping with γ = 0.3
+    >>> result = amplitude_damping(rho, gamma=0.3)
+    >>> print(result)
+    [[0.65      +0.j 0.41833001+0.j]
+     [0.41833001+0.j 0.35      +0.j]]
+
+**Bit Flip Channel**
+
+The bit flip channel randomly flips the state of a qubit with probability :math:`p`, analogous to the classical bit-flip error in classical information theory.
+
+.. math::
+    K_0 = \sqrt{1 - p} \, I = \sqrt{1 - p} \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}, \quad
+    K_1 = \sqrt{p} \, X = \sqrt{p} \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}
+
+Usage example:
+
+.. code-block:: python
+
+    >>> from toqito.channels import bitflip
+    >>> import numpy as np
+    >>> 
+    >>> # Create a quantum state |0⟩
+    >>> rho = np.array([[1, 0], [0, 0]])
+    >>> 
+    >>> # Apply bit flip with p = 0.25
+    >>> result = bitflip(rho, 0.25)
+    >>> print(result)
+    [[0.75+0.j 0.  +0.j]
+     [0.  +0.j 0.25+0.j]]
+     
+Observe that the result is a mixed state with 75% probability of being in state ``|0⟩`` and 25% probability of being in state ``|1⟩`` , as expected for a bit flip error with probability :math:`p = 0.25`.
+
+
+
 Measurements
 ------------
 
