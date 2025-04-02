@@ -577,9 +577,9 @@ Consider the collection of trine states.
     >>> pgm = pretty_good_measurement(states, probs)
     >>> pgm
     [array([[0.66666667, 0.        ],
-            [0.        , 0.        ]]), array([[0.16666667, 0.28867513],
-            [0.28867513, 0.5       ]]), array([[ 0.16666667, -0.28867513],
-            [-0.28867513,  0.5       ]])]
+           [0.        , 0.        ]]), array([[0.16666667, 0.28867513],
+           [0.28867513, 0.5       ]]), array([[ 0.16666667, -0.28867513],
+           [-0.28867513,  0.5       ]])]
 
 
 Consider the collection of trine states.
@@ -599,6 +599,6 @@ Consider the collection of trine states.
     >>> pgm = pretty_bad_measurement(states, probs)
     >>> pgm
     [array([[0.16666667, 0.        ],
-            [0.        , 0.5       ]]), array([[ 0.41666667, -0.14433757],
-            [-0.14433757,  0.25      ]]), array([[0.41666667, 0.14433757],
-            [0.14433757, 0.25      ]])]
+           [0.        , 0.5       ]]), array([[ 0.41666667, -0.14433757],
+           [-0.14433757,  0.25      ]]), array([[0.41666667, 0.14433757],
+           [0.14433757, 0.25      ]])]
