@@ -173,13 +173,13 @@ here is the GHZ state :math:`\mathbb{C}^{4^{\otimes 7}}` as
     >>> vec = ghz(dim, num_parties, coeffs)
     >>> vec = vec / np.linalg.norm(vec)
     >>> print(vec)
-    [[0.18257419]
-     [0.        ]
-     [0.        ]
-     ...
-     [0.        ]
-     [0.        ]
-     [0.73029674]]
+     array([[0.18257419]
+            [0.        ]
+            [0.        ]
+            ...
+            [0.        ]
+            [0.        ]
+            [0.73029674]])
 
 
 Properties of Quantum States
