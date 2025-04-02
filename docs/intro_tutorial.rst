@@ -517,6 +517,44 @@ Usage example:
      
 Observe that the result is a mixed state with 75% probability of being in state ``|0⟩`` and 25% probability of being in state ``|1⟩`` , as expected for a bit flip error with probability :math:`p = 0.25`.
 
+**Pauli Channel**
+
+The Pauli channel is a quantum noise model that applies a probabilistic mixture of Pauli operators 
+to a quantum state. It is defined by a probability vector :math:`(p_0, \ldots, p_{4^q - 1})`, where 
+:math:`q` is the number of qubits, and :math:`P_i` are the Pauli operators acting on the system.
+
+.. math::
+    \Phi(\rho) = \sum_{i=0}^{4^q - 1} p_i P_i \rho P_i^\dagger
+
+For example, when :math:`q = 1`, the Pauli operators are:
+:math:`P_0 = I`, :math:`P_1 = X`, :math:`P_2 = Y`, and :math:`P_3 = Z`. For multiple qubits, 
+these operators are extended as tensor products.
+
+The Pauli channel can be used to apply noise to an input quantum state or generate a Choi matrix.
+
+Usage Example:
+
+.. code-block:: python
+
+    >>> from toqito.channels import pauli_channel
+    >>> import numpy as np
+    >>> 
+    >>> # Define probabilities for single-qubit Pauli operators
+    >>> probabilities = np.array([0.5, 0.2, 0.2, 0.1])
+    >>> 
+    >>> # Define an input density matrix
+    >>> rho = np.array([[1, 0], [0, 0]])
+    >>> 
+    >>> # Apply the Pauli channel
+    >>> _ , result = pauli_channel(prob = probabilities ,input_mat = rho)
+    >>> print(result)
+    [[0.6+0.j 0. +0.j]
+     [0. +0.j 0.4+0.j]]
+
+Here, the probabilities correspond to applying the identity (:math:`I`), bit-flip (:math:`X`), 
+phase-flip (:math:`Z`), and combined flip (:math:`Y`) operators.
+
+
 
 
 Measurements
