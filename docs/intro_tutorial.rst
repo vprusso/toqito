@@ -482,7 +482,7 @@ Here's how to use the amplitude damping channel:
     >>> from toqito.channels import amplitude_damping
     >>> import numpy as np
     >>> 
-    >>> # Create a quantum state
+    >>> # Create a quantum state.
     >>> rho = np.array([[0.5, 0.5], [0.5, 0.5]])
     >>> 
     >>> # Apply amplitude damping with γ = 0.3
