@@ -510,7 +510,7 @@ Usage example:
     >>> rho = np.array([[1, 0], [0, 0]])
     >>> 
     >>> # Apply bit flip with p = 0.25.
-    >>> result = bitflip(rho, p=0.25)
+    >>> result = bitflip(rho, prob = 0.25)
     >>> print(result)
     [[0.75+0.j 0.  +0.j]
      [0.  +0.j 0.25+0.j]]
