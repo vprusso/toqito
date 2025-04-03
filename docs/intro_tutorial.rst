@@ -539,7 +539,7 @@ Usage Example:
     >>> from toqito.channels import pauli_channel
     >>> import numpy as np
     >>> 
-    >>> # Define probabilities for single-qubit Pauli operators
+    >>> # Define probabilities for single-qubit Pauli operators.
     >>> probabilities = np.array([0.5, 0.2, 0.2, 0.1])
     >>> 
     >>> # Define an input density matrix.
