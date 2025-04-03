@@ -1,10 +1,10 @@
-""" Calculates the renyi entropy for a given density matrix. Takes into account the special cases of alpha = 0,1 or infty """
+"""Calculates the renyi entropy for a given density matrix. Valid for special cases of alpha = 0,1 or infty."""
 
 import numpy as np
 
-def renyi_entropy(rho: np.ndarray, alpha: float, tolerance: float = 1e-10) -> float
-    
-    r"""Calculate the Renyi entropy for a quantum density matrix. 
+
+def renyi_entropy(rho: np.ndarray, alpha: float, tolerance: float = 1e-10) -> float:
+    r"""Calculate the Renyi entropy for a quantum density matrix.
 
     The Rényi entropy of order :math:`\alpha` for a density matrix :math:`\rho` is given by :cite:`quantiki_entropy`
 
@@ -14,15 +14,15 @@ def renyi_entropy(rho: np.ndarray, alpha: float, tolerance: float = 1e-10) -> fl
     where :math:`\lambda_i` are the eigenvalues of :math:`\rho`.
 
     Special cases :cite:`muller_lennert_renyi_2013`
-        - For :math:`\alpha = 0` (Hartley entropy):  
-          .. math:: S_0(\rho) = \log_2 d,  
+        - For :math:`\alpha = 0` (Hartley entropy):
+          .. math:: S_0(\rho) = \log_2 d,
           where :math:`d` is the rank of :math:`\rho`.
-        - For :math:`\alpha = 1` (Shannon entropy):  
+        - For :math:`\alpha = 1` (Shannon entropy):
           .. math:: S_1(\rho) = -\sum_i \lambda_i \log_2 \lambda_i.
-        - For :math:`\alpha \to \infty` (Min-entropy):  
+        - For :math:`\alpha \to \infty` (Min-entropy):
           .. math:: S_{\infty}(\rho) = -\log_2 \max_i \lambda_i.
 
-    
+
     Examples
     ========
     Compute the Rényi entropy of a pure state:
@@ -38,7 +38,7 @@ def renyi_entropy(rho: np.ndarray, alpha: float, tolerance: float = 1e-10) -> fl
     >>> renyi_entropy(rho_mixed, alpha=2)
     1.0
 
-    
+
     References
     ==========
     .. bibliography::
@@ -49,31 +49,26 @@ def renyi_entropy(rho: np.ndarray, alpha: float, tolerance: float = 1e-10) -> fl
     :param tolerance: The numerical tolerance for eigenvalues (default is :math:`10^{-10}`).
     :raises ValueError: If the density matrix does not have trace equal to 1.
     :return: The Rényi entropy value.
+
     """
-    
-    
     if not np.allclose(np.trace(rho), 1.0, atol=1e-10):
         raise ValueError("The density matrix must have trace equal to 1")
-    
+
     rho = np.array(rho)
     eigenvalues = np.linalg.eigvalsh(rho)
     eigenvalues = eigenvalues[eigenvalues > tolerance]
 
-    
     if alpha == 0:
         renyi = np.log2(len(eigenvalues))
-      
-  
+
     elif alpha == 1:
         renyi = (-1) * np.sum(np.log2(eigenvalues) * eigenvalues)
 
-    
     elif np.isinf(alpha):
         renyi = (-1) * np.log2(np.max(eigenvalues))
 
-    
     else:
-        pow_eigvals = np.power(eigenvalues,[alpha])
-        renyi = np.log2(np.sum(pow_eigvals))/(1 - alpha)
-    
+        pow_eigvals = np.power(eigenvalues, [alpha])
+        renyi = np.log2(np.sum(pow_eigvals)) / (1 - alpha)
+
     return renyi
