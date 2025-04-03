@@ -524,7 +524,7 @@ to a quantum state. It is defined by a probability vector :math:`(p_0, \ldots, p
 :math:`q` is the number of qubits, and :math:`P_i` are the Pauli operators acting on the system.
 
 .. math::
-    \Phi(\rho) = \sum_{i=0}^{4^q - 1} p_i P_i \rho P_i^\dagger
+    \Phi(\rho) = \sum_{i=0}^{4^q - 1} p_i P_i \rho P_i^\dagger.
 
 For example, when :math:`q = 1`, the Pauli operators are:
 :math:`P_0 = I`, :math:`P_1 = X`, :math:`P_2 = Y`, and :math:`P_3 = Z`. For multiple qubits, 
