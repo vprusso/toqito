@@ -65,6 +65,11 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray
     """
     if coeff is None:
         coeff = np.ones(dim) / np.sqrt(dim)
+    else:
+        coeff = np.asarray(coeff)
+        norm = np.linalg.norm(coeff)
+    if not np.isclose(norm, 1.0):
+        coeff = coeff / norm
 
     # Error checking:
     if dim < 1:
