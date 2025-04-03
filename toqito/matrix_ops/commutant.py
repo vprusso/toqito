@@ -5,7 +5,7 @@ from scipy.linalg import null_space
 
 
 def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
-    r"""Compute an orthonormal basis for the commutant algebra :cite:`QETLAB_link`.
+    r"""Compute an orthonormal basis for the commutant algebra.
 
     Given a set of matrices :math:`A`, this function determines an orthonormal basis
     (with respect to the Hilbert-Schmidt inner product) for the algebra of matrices
@@ -23,7 +23,7 @@ def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
         (A \otimes I - I \otimes A^T) \text{vec}(X) = 0.
 
     where :math:`\text{vec}(X)` denotes the vectorization of :math:`X`, which arranges its columns
-    into a single column vector. The null space of this equation provides a basis for the commutant.
+    into a single column vector. The null space of this equation provides a basis for the commutant :cite:`QETLAB_link`.
 
     Examples
     ==========
