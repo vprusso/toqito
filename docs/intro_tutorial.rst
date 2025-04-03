@@ -485,7 +485,7 @@ Here's how to use the amplitude damping channel:
     >>> # Create a quantum state.
     >>> rho = np.array([[0.5, 0.5], [0.5, 0.5]])
     >>> 
-    >>> # Apply amplitude damping with γ = 0.3
+    >>> # Apply amplitude damping with γ = 0.3.
     >>> result = amplitude_damping(rho, gamma=0.3)
     >>> print(result)
     [[0.65      +0.j 0.41833001+0.j]
