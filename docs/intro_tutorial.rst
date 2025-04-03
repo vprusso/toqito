@@ -459,7 +459,7 @@ The phase damping channel can be applied to a quantum state as follows:
     >>> # Create a density matrix with coherence.
     >>> rho = np.array([[1, 0.5], [0.5, 1]])
     >>> 
-    >>> # Apply phase damping with γ = 0.2
+    >>> # Apply phase damping with γ = 0.2.
     >>> result = phase_damping(rho, gamma=0.2)
     >>> print(result)
     [[1.       +0.j 0.4472136+0.j]
