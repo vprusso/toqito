@@ -71,4 +71,4 @@ def renyi_entropy(rho: np.ndarray, alpha: float, tolerance: float = 1e-10) -> fl
         pow_eigvals = np.power(eigenvalues, [alpha])
         renyi = np.log2(np.sum(pow_eigvals)) / (1 - alpha)
 
-    return renyi
+    return float(abs(renyi))
