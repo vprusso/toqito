@@ -542,7 +542,7 @@ Usage Example:
     >>> # Define probabilities for single-qubit Pauli operators
     >>> probabilities = np.array([0.5, 0.2, 0.2, 0.1])
     >>> 
-    >>> # Define an input density matrix
+    >>> # Define an input density matrix.
     >>> rho = np.array([[1, 0], [0, 0]])
     >>> 
     >>> # Apply the Pauli channel
