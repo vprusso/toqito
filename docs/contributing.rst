@@ -24,22 +24,23 @@ We welcome contributions from external contributors, and this document describes
    versions <https://github.com/pyenv/pyenv-virtualenv>`_ or :code:`conda` to create virtual environments with `different Python
    versions <https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#managing-environments>`_.
 
-5. Install :code:`poetry`. Instead of installing Poetry with :code:`pip`, follow the official Poetry installation guide using pipx:
-    Poetry Installation Guide <https://python-poetry.org/docs/#installation>_
+5. You will require `poetry <https://python-poetry.org/>`_ to manage the dependencies of :code:`toqito`.  
+   Please refer to the `official Poetry installation guide <https://python-poetry.org/docs/#installation>`_  
+   for detailed instructions on configuring it on your machine.
 
 
 6. Now, navigate to your local clone of the :code:`toqito` repository as shown below.
 
 .. code-block:: bash
 
-    cd toqito
+    $ cd toqito/
 
 7. Use :code:`poetry` as shown below in the :code:`toqito` folder. This should install an editable version of :code:`toqito`
    alongside other development dependencies.
 
 .. code-block:: bash
 
-    poetry install
+    ~/toqito$ poetry install
 
 You are now free to make the desired changes in your fork of :code:`toqito`. 
 
@@ -79,7 +80,7 @@ shown below.
 
 .. code-block:: bash
 
-    poetry run pytest
+    ~/toqito$ poetry run pytest
 
 The :code:`pytest` module is used for testing and :code:`pytest-cov` can be used to generate
 coverage reports locally. In order to run and :code:`pytest`, you will need to ensure it is installed on your machine
@@ -179,7 +180,7 @@ install :code:`toqito`.
 
 .. code-block:: bash
 
-    toqito/docs$ poetry make clean html
+    toqito/docs$ poetry run make clean html
 
 If you would prefer to decrease the amount of time taken by :code:`sphinx` to build the documentation locally, use :code:`make html`
 instead.
