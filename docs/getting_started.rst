@@ -11,7 +11,7 @@ Getting started
 Installing
 ----------
 
-1. Ensure you have Python 3.10 or greater installed on your machine or in 
+1. Ensure you have Python 3.11 or greater installed on your machine or in 
 a virtual environment (`pyenv <https://github.com/pyenv/pyenv>`_, `pyenv tutorial <https://realpython.com/intro-to-pyenv/>`_). 
 
 2. Consider using a `virtual environment <https://docs.python.org/3/tutorial/venv.html>`_.
