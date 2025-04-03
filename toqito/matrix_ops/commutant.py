@@ -24,7 +24,7 @@ def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
 
     where :math:`\text{vec}(X)` denotes the vectorization of :math:`X`, which arranges its columns
     into a single column vector. The null space of this equation provides a basis for the commutant
-    :cite:`johnston2016qetlab`.
+    :cite:`QETLAB_link`.
 
     Examples
     ==========
