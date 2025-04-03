@@ -506,7 +506,7 @@ Usage example:
     >>> from toqito.channels import bitflip
     >>> import numpy as np
     >>> 
-    >>> # Create a quantum state |0⟩
+    >>> # Create a quantum state |0⟩⟨0|.
     >>> rho = np.array([[1, 0], [0, 0]])
     >>> 
     >>> # Apply bit flip with p = 0.25.
