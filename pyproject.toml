@@ -3,7 +3,7 @@ name = "toqito"
 dynamic = ["version", "classifiers", "dependencies"]
 description = "Python tools for the study of quantum information."
 readme = "README.md"
-requires-python = ">=3.10,<4"
+requires-python = ">=3.11,<4"
 authors = [{name = "Vincent Russo", email = "vincentrusso1@gmail.com"}]
 maintainers = [
     {name = "Vincent Russo", email = "vincentrusso1@gmail.com"}, 
@@ -32,7 +32,7 @@ homepage = "https://vprusso.github.io/toqito/"
 repository = "https://github.com/vprusso/toqito"
 
 [tool.poetry.dependencies]
-python = ">=3.10,<4"
+python = ">=3.11,<4"
 cvxpy = "1.6.2"
 more-itertools = "10.6.0"
 numpy = "2.2.3"

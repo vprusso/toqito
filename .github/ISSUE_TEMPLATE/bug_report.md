@@ -8,7 +8,7 @@ assignees: ''
 ---
 ## Before reporting this bug:
 - [ ] Verify there is not an existing issue for it already
-- [ ] You are using the latest version of `toqito` with a python version `>=3.10`
+- [ ] You are using the latest version of `toqito` with a python version `>=3.11`
 
 ## Describe the bug
 *A clear and concise description of what the bug is.*
