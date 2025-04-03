@@ -456,7 +456,7 @@ The phase damping channel can be applied to a quantum state as follows:
     >>> from toqito.channels import phase_damping
     >>> import numpy as np
     >>> 
-    >>> # Create a density matrix with coherence
+    >>> # Create a density matrix with coherence.
     >>> rho = np.array([[1, 0.5], [0.5, 1]])
     >>> 
     >>> # Apply phase damping with γ = 0.2
