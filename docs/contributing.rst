@@ -40,7 +40,7 @@ We welcome contributions from external contributors, and this document describes
 
 .. code-block:: bash
 
-    ~/toqito$ poetry install
+    toqito/ $ poetry install
 
 You are now free to make the desired changes in your fork of :code:`toqito`. 
 
@@ -80,7 +80,7 @@ shown below.
 
 .. code-block:: bash
 
-    ~/toqito$ poetry run pytest
+    toqito/ $ poetry run pytest
 
 The :code:`pytest` module is used for testing and :code:`pytest-cov` can be used to generate
 coverage reports locally. In order to run and :code:`pytest`, you will need to ensure it is installed on your machine
