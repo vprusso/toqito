@@ -11,6 +11,7 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 import os
 import sys
+import subprocess
 
 # sys.path.insert(0, os.path.abspath('.'))
 # sys.path.insert(0, os.path.abspath(".."))
@@ -25,6 +26,8 @@ author = "Contributors to toqito"
 # The full version, including alpha/beta/rc tags
 release = "1.1.1"
 
+project_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+subprocess.check_call([sys.executable, "-m", "pip", "install", "-e", project_dir])
 
 # -- General configuration ---------------------------------------------------
 
@@ -135,8 +138,6 @@ html_last_updated_fmt = "%b %d, %Y"
 
 # Override jupyter-sphinx styling to match Furo theme
 def setup(app):
-    app.add_css_file("jupyter-sphinx-override.css")
-
     # Create CSS that inherits colors from Furo theme
     css_content = """
     /* Override jupyter-sphinx styling to match Furo theme */
