@@ -44,10 +44,14 @@ can be defined in :code:`toqito` as such
 
 
 .. jupyter-execute::
+
      import sys
      import os
      sys.path.insert(0, os.path.abspath('..'))
      print("The sys path is", sys.path.insert(0, os.path.abspath('..')) )
+
+.. jupyter-execute::
+
      from toqito.states import basis
      # |0>
      basis(2, 0)
