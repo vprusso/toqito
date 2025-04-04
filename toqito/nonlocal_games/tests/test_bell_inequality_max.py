@@ -1,10 +1,13 @@
 """Unit tests for bell_inequality_max function."""
+import warnings
+from unittest.mock import PropertyMock
+
 import cvxpy
 import numpy as np
 import pytest
 
 from toqito.helper.bell_notation_conversions import fc2cg, fc2fp, fp2cg
-from toqito.nonlocal_games.bell_inequality_max import bell_inequality_max
+from toqito.nonlocal_games.bell_inequality_max import _integer_digits, bell_inequality_max
 
 # Define CHSH coefficients in different notations
 # CHSH = A0B0 + A0B1 + A1B0 - A1B1
@@ -62,6 +65,18 @@ CGLMP3_QUANTUM_K2_MAX = 2.914
 CGLMP3_CLASSICAL_MAX = 2.0
 
 
+# --- Test Helper Functions ---
+
+def test_integer_digits_warning():
+    """Test warning when number is too large for digits."""
+    with pytest.warns(UserWarning, match="too large for base 2 and 3 digits"):
+        _integer_digits(10, 2, 3)
+    # Also test the case where it fits exactly (should not warn)
+    with warnings.catch_warnings():
+        warnings.simplefilter("error")
+        _integer_digits(7, 2, 3)
+
+
 # --- Test Classical Bounds ---
 
 @pytest.mark.parametrize("coeffs, notation", [(CHSH_FC, 'fc'), (CHSH_CG, 'cg'), (CHSH_FP, 'fp')])
@@ -70,14 +85,14 @@ def test_chsh_classical(coeffs, notation):
     bmax = bell_inequality_max(coeffs, DESC_CHSH, notation, mtype='classical')
     np.testing.assert_almost_equal(bmax, CHSH_CLASSICAL_MAX, decimal=5)
 
-# Updated CGLMP classical test: only test FP input, skip CG for now.
+
 @pytest.mark.parametrize("coeffs, notation", [(CGLMP3_FP, 'fp')])
 def test_cglmp3_classical(coeffs, notation):
     """Test CGLMP(d=3) classical maximum (only FP input tested)."""
     bmax = bell_inequality_max(coeffs, DESC_CGLMP3, notation, mtype='classical')
     np.testing.assert_almost_equal(bmax, CGLMP3_CLASSICAL_MAX, decimal=5)
 
-# Optional: Add a test to explicitly check that CG input raises NotImplementedError
+
 def test_cglmp3_classical_cg_unsupported():
     """Test that CG input raises NotImplementedError for general classical case."""
     with pytest.raises(NotImplementedError):
@@ -88,14 +103,12 @@ def test_cglmp3_classical_cg_unsupported():
 
 @pytest.mark.cvxpy
 @pytest.mark.parametrize("coeffs, desc, notation, k_level, expected", [
-    # CHSH Cases
     (CHSH_FC, DESC_CHSH, 'fc', 1, CHSH_QUANTUM_MAX),
     (CHSH_CG, DESC_CHSH, 'cg', 1, CHSH_QUANTUM_MAX),
     (CHSH_FP, DESC_CHSH, 'fp', 1, CHSH_QUANTUM_MAX),
     (CHSH_FC, DESC_CHSH, 'fc', '1+ab', CHSH_QUANTUM_MAX),
     (CHSH_CG, DESC_CHSH, 'cg', '1+ab', CHSH_QUANTUM_MAX),
     (CHSH_FP, DESC_CHSH, 'fp', '1+ab', CHSH_QUANTUM_MAX),
-    # CGLMP3 Cases
     (CGLMP3_FP, DESC_CGLMP3, 'fp', 2, CGLMP3_QUANTUM_K2_MAX),
     (CGLMP3_CG, DESC_CGLMP3, 'cg', 2, CGLMP3_QUANTUM_K2_MAX),
     (CGLMP3_FP, DESC_CGLMP3, 'fp', '1+ab+aab+baa', CGLMP3_QUANTUM_K2_MAX),
@@ -119,7 +132,6 @@ def test_quantum_bounds(coeffs, desc, notation, k_level, expected):
 # --- Test No-Signaling Bounds ---
 
 @pytest.mark.cvxpy
-# Added CGLMP NS test cases (NS bound for CGLMP is known to be 4 for d=3)
 @pytest.mark.parametrize("coeffs, desc, notation, expected", [
     (CHSH_FC, DESC_CHSH, 'fc', CHSH_NOSIGNAL_MAX),
     (CHSH_CG, DESC_CHSH, 'cg', CHSH_NOSIGNAL_MAX),
@@ -166,6 +178,13 @@ def test_fc_non_binary_outputs():
     with pytest.raises(ValueError, match="notation requires binary outcomes"):
         bell_inequality_max(coeffs_dummy_fc, [3, 2, ma, mb], 'fc')
 
+def test_fc_shape_mismatch():
+    """Test error for FC notation with wrong coefficient shape."""
+    desc = [2, 2, 2, 2] # ma=2, mb=2, expects (3, 3) shape
+    wrong_coeffs_fc = np.zeros((2, 3)) # Incorrect shape
+    with pytest.raises(ValueError, match="FC coefficients shape mismatch"):
+        bell_inequality_max(wrong_coeffs_fc, desc, 'fc')
+
 def test_cg_shape_mismatch():
     """Test error for CG notation with wrong coefficient shape."""
     with pytest.raises(ValueError, match="CG coefficients shape mismatch"):
@@ -175,6 +194,7 @@ def test_fp_shape_mismatch():
     """Test error for FP notation with wrong coefficient shape."""
     with pytest.raises(ValueError, match="FP coefficients shape mismatch"):
         bell_inequality_max(np.zeros((2, 2, 3, 2)), [2, 2, 2, 2], 'fp')
+
 
 # --- Test Classical Strategy Swapping ---
 
@@ -193,3 +213,81 @@ def test_classical_swap():
     expected_gen_max = 1.0
     bmax_gen = bell_inequality_max(coeffs_gen_swap_fp, desc_gen_swap, 'fp', mtype='classical')
     np.testing.assert_almost_equal(bmax_gen, expected_gen_max)
+
+
+def test_classical_general_swap_triggered():
+    """Test classical general calculation triggers party swapping."""
+    desc_swap_gen = [2, 3, 3, 2]
+    oa, ob, ma, mb = desc_swap_gen
+    coeffs_fp_swap = np.zeros((oa, ob, ma, mb))
+    coeffs_fp_swap[0, 0, 0, 0] = 1.0
+    expected_max = 1.0
+    bmax = bell_inequality_max(coeffs_fp_swap, desc_swap_gen, 'fp', mtype='classical')
+    np.testing.assert_almost_equal(bmax, expected_max)
+
+
+# --- Test CVXPY Solver Status Handling ---
+
+@pytest.mark.cvxpy
+@pytest.mark.parametrize("status_to_mock, expected_message", [
+    (cvxpy.INFEASIBLE, "Problem is infeasible"),
+    (cvxpy.UNBOUNDED, "Problem is unbounded"),
+    (cvxpy.SOLVER_ERROR, "Optimization failed with status"),
+    (cvxpy.INFEASIBLE_INACCURATE, "Problem is infeasible"),
+    (cvxpy.UNBOUNDED_INACCURATE, "Problem is unbounded"),
+])
+def test_quantum_solver_failure_statuses(mocker, status_to_mock, expected_message):
+    """Test handling of CVXPY failure statuses."""
+    coeffs = CHSH_FP
+    desc = DESC_CHSH
+    notation = 'fp'
+    mtype = 'quantum'
+
+    _ = mocker.patch('cvxpy.Problem.solve', return_value=-1.0)
+    mocker.patch(
+        'cvxpy.Problem.status',
+        new_callable=PropertyMock,
+        return_value=status_to_mock
+    )
+
+    with pytest.raises(RuntimeError, match=expected_message):
+        bell_inequality_max(coeffs, desc, notation, mtype=mtype, k=1)
+
+
+@pytest.mark.cvxpy
+def test_quantum_solver_inaccurate(mocker):
+    """Test warning for OPTIMAL_INACCURATE status."""
+    coeffs = CHSH_FP
+    desc = DESC_CHSH
+    notation = 'fp'
+    mtype = 'quantum'
+
+    _ = mocker.patch('cvxpy.Problem.solve', return_value=2.8)
+    mocker.patch(
+        'cvxpy.Problem.status',
+        new_callable=PropertyMock,
+        return_value=cvxpy.OPTIMAL_INACCURATE
+    )
+
+    with pytest.warns(RuntimeWarning, match="Solver finished with status: optimal_inaccurate"):
+         result = bell_inequality_max(coeffs, desc, notation, mtype=mtype, k=1)
+         assert abs(result - 2.8) < 1e-6
+
+
+@pytest.mark.cvxpy
+def test_quantum_solver_returns_none(mocker):
+    """Test error when solver returns None."""
+    coeffs = CHSH_FP
+    desc = DESC_CHSH
+    notation = 'fp'
+    mtype = 'quantum'
+
+    _ = mocker.patch('cvxpy.Problem.solve', return_value=None)
+    mocker.patch(
+        'cvxpy.Problem.status',
+        new_callable=PropertyMock,
+        return_value=cvxpy.OPTIMAL
+    )
+
+    with pytest.raises(RuntimeError, match="solver failed to return a value"):
+        bell_inequality_max(coeffs, desc, notation, mtype=mtype, k=1)

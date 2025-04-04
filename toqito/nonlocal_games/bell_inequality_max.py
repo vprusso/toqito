@@ -25,8 +25,6 @@ def _integer_digits(number: int, base: int, digits: int) -> np.ndarray:
         dits[digits - 1 - i] = temp_number % base
         temp_number //= base
     if temp_number != 0:
-        # This mimics MATLAB's behavior where it might truncate if 'digits' is too small,
-        # but more often indicates an issue if number is too large for the digits/base.
         warnings.warn(f"Number {number} might be too large for base {base} and {digits} digits.")
     return dits
 
@@ -152,17 +150,14 @@ def bell_inequality_max(
         if notation == 'fp':
             coeffs_fp = coefficients
         elif notation == 'fc':
-            # fc2fp requires coefficients, not behaviour
             coeffs_fp = fc2fp(coefficients, behaviour=False)
         else: # notation == 'cg'
-            # cg2fp requires coefficients, not behaviour
             coeffs_fp = cg2fp(coefficients, (oa, ob), (ma, mb), behaviour=False)
 
         # Define the probability variables P(a,b|x,y)
         prob_vars = cvxpy.Variable((oa, ob, ma, mb), name="P(a,b|x,y)", nonneg=True)
 
         # Define the objective function
-        # Objective: Maximize Sum_{a,b,x,y} C(a,b|x,y) * P(a,b|x,y)
         objective = cvxpy.Maximize(cvxpy.sum(cvxpy.multiply(coeffs_fp, prob_vars)))
 
         # --- Define Constraints ---
@@ -190,13 +185,9 @@ def bell_inequality_max(
 
         # 3. NPA Hierarchy Constraints (only for 'quantum' type)
         if mtype == 'quantum':
-            # Prepare the 'assemblage' dictionary for npa_constraints
-            # The keys are (x, y) tuples, values are the P(a,b|x,y) variable slices.
-            # npa_constraints assumes referee_dim=1 by default.
             assemblage = {}
             for x in range(ma):
                 for y in range(mb):
-                    # Ensure the variable slice matches expectation (oa x ob matrix)
                     assemblage[(x, y)] = prob_vars[:, :, x, y]
 
             npa_level_constraints = npa_constraints(assemblage, k=k, referee_dim=1)
@@ -209,7 +200,6 @@ def bell_inequality_max(
 
         # Check solver status
         if problem.status not in [cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE]:
-             # More specific warnings/errors based on status
             if problem.status in [cvxpy.INFEASIBLE, cvxpy.INFEASIBLE_INACCURATE]:
                 raise RuntimeError(f"Optimization failed: Problem is infeasible. Status: {problem.status}")
             elif problem.status in [cvxpy.UNBOUNDED, cvxpy.UNBOUNDED_INACCURATE]:
@@ -217,15 +207,12 @@ def bell_inequality_max(
             else:
                 raise RuntimeError(f"Optimization failed with status: {problem.status}")
         elif problem.status == cvxpy.OPTIMAL_INACCURATE:
-             # Wrapped long warning line
              warnings.warn(
                  f"Solver finished with status: {problem.status}. Result might be inaccurate.",
                  RuntimeWarning
              )
 
-        # If solution is valid, return it, otherwise handle potential None return from solve
         if bmax is None:
-            # This might happen if solver fails badly even without raising an error in solve()
              raise RuntimeError(f"Optimization solver failed to return a value. Status: {problem.status}")
         return bmax
 
@@ -234,30 +221,24 @@ def bell_inequality_max(
         bmax = -np.inf
 
         # --- Binary Outcome Case (oa=2, ob=2) ---
-        # Use faster algorithm based on Full Correlator notation
         if oa == 2 and ob == 2:
             if notation == 'fc':
                 M_fc = coefficients
             elif notation == 'fp':
-                # fp2fc requires behaviour=False for functional coefficients
                 M_fc = fp2fc(coefficients, behaviour=False)
             else: # notation == 'cg'
-                # cg2fc requires behaviour=False for functional coefficients
                 M_fc = cg2fc(coefficients, behaviour=False)
 
             current_ma, current_mb = ma, mb
-            # If Alice has fewer inputs, swap roles to iterate over fewer strategies
             if ma < mb:
                 M_fc = M_fc.T
                 current_ma, current_mb = mb, ma
 
-            # Extract components from potentially transposed M_fc
             constant_term = M_fc[0, 0]
             bob_marg = M_fc[0, 1:]
             alice_marg = M_fc[1:, 0]
             correlations = M_fc[1:, 1:]
 
-            # Iterate through all 2^mb deterministic strategies for Bob (party B')
             num_bob_strategies = 2**current_mb
             for b_idx in range(num_bob_strategies):
                 b_vec = 1 - 2 * _integer_digits(b_idx, 2, current_mb)
@@ -266,47 +247,34 @@ def bell_inequality_max(
                 temp_bmax = term1 + term2
                 bmax = max(bmax, temp_bmax)
 
-            bmax += constant_term # Add the constant term <1>
+            bmax += constant_term
 
         # --- General Outcome Case ---
-        # Use algorithm based on Full Probability notation
         else:
             if notation == 'fp':
                 M_fp = coefficients
             elif notation == 'fc':
-                 # Should be unreachable due to validation raising error earlier
-                 raise ValueError("Internal logic error: FC notation reached general classical path.")
+                 raise ValueError("Internal error: FC notation reached general classical path.")
             else: # notation == 'cg'
-                # The conversion from CG functional coefficients to FP functional coefficients
-                # used in the original MATLAB code appears potentially incorrect or not generally applicable.
-                # Calculating the classical max directly from CG coefficients is complex and not implemented.
                 raise NotImplementedError(
                     "Classical maximum calculation for general outcomes (oa>2 or ob>2) "
                     "directly from Collins-Gisin ('cg') functional coefficients is not currently supported. "
                     "Please provide coefficients in 'fp' notation for this case."
                 )
 
-            # The rest of the logic assumes M_fp is available and correctly in FP format
             current_oa, current_ob = oa, ob
             current_ma, current_mb = ma, mb
 
-            # Choose Bob as the party with the fewer deterministic strategies (oa^ma vs ob^mb)
             if oa**ma < ob**mb:
-                # Swap roles: Alice becomes Bob, Bob becomes Alice
-                # Permute M_fp[a,b,x,y] -> M_fp_swapped[b,a,y,x]
                 M_fp = np.transpose(M_fp, (1, 0, 3, 2))
                 current_oa, current_ob = ob, oa
                 current_ma, current_mb = mb, ma
 
-            # Reshape M_fp for easier calculation: M_fp[a,b,x,y] -> M_reshaped[a*x, b*y]
-            # (Indices based on *current* dimensions after potential swap)
-            M_reshaped = np.transpose(M_fp, (0, 2, 1, 3)) # M_fp[a, x, b, y]
+            M_reshaped = np.transpose(M_fp, (0, 2, 1, 3))
             M_reshaped = M_reshaped.reshape(current_oa * current_ma, current_ob * current_mb)
 
-            # Offset for indexing into the reshaped matrix based on Bob's strategy
             offset = np.arange(current_mb) * current_ob
 
-            # Iterate through all ob^mb deterministic strategies for Bob (party B')
             num_bob_strategies = current_ob**current_mb
             for b_idx in range(num_bob_strategies):
                 bob_choices = _integer_digits(b_idx, current_ob, current_mb)
@@ -319,5 +287,4 @@ def bell_inequality_max(
         return bmax
 
     else:
-        # This case should not be reachable due to initial validation
         raise ValueError("Internal error: Invalid mtype reached classical calculation block.")
