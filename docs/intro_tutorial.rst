@@ -42,18 +42,12 @@ The standard basis ket vectors given as :math:`|0\rangle` and :math:`|1\rangle` 
 
 can be defined in :code:`toqito` as such
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> from toqito.states import basis
-    >>> # |0>
-    >>> basis(2, 0)
-    array([[1],
-           [0]])
+    from toqito.states import basis
 
-    >>> # |1>
-    >>> basis(2, 1)
-    array([[0],
-           [1]])
+    # |1>
+    basis(2, 1)
 
 
 One may define one of the four Bell states written as
