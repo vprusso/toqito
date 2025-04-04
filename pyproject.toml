@@ -87,7 +87,7 @@ select = ["I", "E", "W", "D", "PL", "F"]
 # Rules considered over other incompatible ones
 exclude = ["docs/conf.py", "setup.py"]
 
-ignore = ["D407", "D203", "D213", "D416", "PLR0912", "PLR0911", "PLR0915", "PLR2004", "PLR0913", "F811"]
+ignore = ["D407", "D203", "D213", "D416", "PLR0912", "PLR0911", "PLR0915", "PLR2004", "PLR0913", "F811", "E203"]
 # Rules Ignored
 
 # D407 - Ignored because ==== under a section heading is considered as a missing underline.
@@ -106,6 +106,7 @@ ignore = ["D407", "D203", "D213", "D416", "PLR0912", "PLR0911", "PLR0915", "PLR2
 # PLR2004 -- Checks if an equality or an inequality is compared to a variable or a num (prefers variable pre)
 # PLR0913 Too many arguments in function definition
 # F811 -- Checks for variable definitions that redefine (or "shadow") unused variables 
+# E203 -- Whitespace before ':'. This rule conflicts with Black's formatting style.
 # It was removing definitions with the same name creating conflicts in test_is_stochastic.py
 
 [tool.ruff.lint.per-file-ignores]
