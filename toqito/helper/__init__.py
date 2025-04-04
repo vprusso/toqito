@@ -5,3 +5,11 @@ from toqito.helper.np_array_as_expr import np_array_as_expr
 from toqito.helper.update_odometer import update_odometer
 from toqito.helper.npa_hierarchy import npa_constraints
 from toqito.helper.channel_dim import channel_dim
+from toqito.helper.bell_notation_conversions import (
+    cg2fc,
+    fc2cg,
+    cg2fp,
+    fp2cg,
+    fc2fp,
+    fp2fc
+)
