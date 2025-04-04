@@ -515,7 +515,7 @@ Usage example:
     [[0.75+0.j 0.  +0.j]
      [0.  +0.j 0.25+0.j]]
      
-Observe that the result is a mixed state with 75% probability of being in state ``|0⟩`` and 25% probability of being in state ``|1⟩`` , as expected for a bit flip error with probability :math:`p = 0.25`.
+Observe that the result is a mixed state with 75% probability of being in state :math:`|0\rangle` and 25% probability of being in state :math:`|1\rangle`, as expected for a bit flip error with probability :math:`p = 0.25`.
 
 **Pauli Channel**
 
