@@ -493,7 +493,7 @@ Here's how to use the amplitude damping channel:
 
 **Bit Flip Channel**
 
-The bit flip channel randomly flips the state of a qubit with probability :math:`p`, analogous to the classical bit-flip error in classical information theory.
+The bit-flip channel randomly flips the state of a qubit with probability :math:`p`, analogous to the classical bit-flip error in classical information theory.
 
 .. math::
     K_0 = \sqrt{1 - p} \, I = \sqrt{1 - p} \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}, \quad
@@ -509,7 +509,7 @@ Usage example:
     >>> # Create a quantum state |0⟩⟨0|.
     >>> rho = np.array([[1, 0], [0, 0]])
     >>> 
-    >>> # Apply bit flip with probability = 0.25.
+    >>> # Apply bit-flip with probability = 0.25.
     >>> result = bitflip(rho, prob = 0.25)
     >>> print(result)
     [[0.75+0.j 0.  +0.j]
