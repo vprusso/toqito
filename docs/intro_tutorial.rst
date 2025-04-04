@@ -554,9 +554,6 @@ Usage Example:
 Here, the probabilities correspond to applying the identity (:math:`I`), bit-flip (:math:`X`), 
 phase-flip (:math:`Z`), and combined flip (:math:`Y`) operators.
 
-
-
-
 Measurements
 ------------
 
