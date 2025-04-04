@@ -139,6 +139,7 @@ html_last_updated_fmt = "%b %d, %Y"
 # Override jupyter-sphinx styling to match Furo theme
 def setup(app):
     # Create CSS that inherits colors from Furo theme
+    app.add_css_file("jupyter-sphinx-override.css")
     css_content = """
     /* Override jupyter-sphinx styling to match Furo theme */
     div.jupyter_container {
