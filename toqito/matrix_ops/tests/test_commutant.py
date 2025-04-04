@@ -29,7 +29,6 @@ def test_commutant_output_size(matrices, expected_size):
     [
         # Pauli-Z.
         ([np.array([[1, 0], [0, -1]])]),
-
         # Pauli-X.
         ([np.array([[0, 1], [1, 0]])]),
     ],
