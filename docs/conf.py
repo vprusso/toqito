@@ -16,12 +16,6 @@ import sys
 # sys.path.insert(0, os.path.abspath(".."))
 # sys.path.insert(0, os.path.abspath('../..'))
 
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-sys.path.insert(0, project_root)
-
-print(f"Python path now includes: {project_root}")
-print(f"Directory contents: {os.listdir(project_root)}")
-
 # -- Project information -----------------------------------------------------
 
 project = "toqito"
