@@ -560,7 +560,17 @@ Similarly, the probability of obtaining outcome :math:`1` is given by
     >>> measure(proj_1, rho)
     0.6666666666666666
 
-Consider the collection of trine states.
+Consider "pretty good measurement" on the set of trine states.
+
+The pretty good measurement also known as the "square root measurement" is a set of POVMs :math:`(G_1, \ldots, G_n)` defined as
+
+.. math::
+    G_i = P^{-1/2} \left(p_i \rho_i\right) P^{-1/2} \quad \text{where} \quad P = \sum_{i=1}^n p_i \rho_i.
+
+This measurement was initially defined in :cite:`Hughston_1993_Complete` and has found applications in quantum state discrimination tasks. 
+While not always optimal, the PGM provides a reasonable measurement strategy that can be computed efficiently.
+
+For example, consider the following trine states:
 
 .. math::
     u_0 = |0\rangle, \quad
@@ -582,7 +592,7 @@ Consider the collection of trine states.
            [-0.28867513,  0.5       ]])]
 
 
-Consider the collection of trine states.
+Similarly, we can consider so called "pretty bad measurement" on the set of trine states :cite:`McIrvin_2024_Pretty`.
 
 .. math::
     u_0 = |0\rangle, \quad
@@ -596,8 +606,8 @@ Consider the collection of trine states.
     >>>
     >>> states = trine()
     >>> probs = [1 / 3, 1 / 3, 1 / 3]
-    >>> pgm = pretty_bad_measurement(states, probs)
-    >>> pgm
+    >>> pbm = pretty_bad_measurement(states, probs)
+    >>> pbm
     [array([[0.16666667, 0.        ],
            [0.        , 0.5       ]]), array([[ 0.41666667, -0.14433757],
            [-0.14433757,  0.25      ]]), array([[0.41666667, 0.14433757],
