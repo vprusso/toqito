@@ -86,8 +86,8 @@ def w_state(num_qubits: int, coeff: list[int] = None) -> np.ndarray:
     else:
         coeff = np.asarray(coeff)
         norm = np.linalg.norm(coeff)
-    if not np.isclose(norm, 1.0):
-        coeff = coeff / norm
+        if not np.isclose(norm, 1.0):
+            coeff = coeff / norm
 
     if num_qubits < 2:
         raise ValueError("InvalidNumQubits: `num_qubits` must be at least 2.")
