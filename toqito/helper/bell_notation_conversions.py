@@ -428,14 +428,14 @@ def fc2fp(fc_mat: np.ndarray, behaviour: bool = False) -> np.ndarray:
     >>> fp_mat_func = fc2fp(fc_mat, False)
     >>> print(np.round(fp_mat_func, decimals=2))
     [[[[ 1.25  0.25]
-       [ 0.25  1.25]] 
+       [ 0.25  1.25]]
     <BLANKLINE>
       [[-0.75  0.25]
-       [ 0.25 -0.75]]] 
+       [ 0.25 -0.75]]]
     <BLANKLINE>
     <BLANKLINE>
      [[[-0.75  0.25]
-       [ 0.25 -0.75]]  
+       [ 0.25 -0.75]]
     <BLANKLINE>
       [[ 1.25  0.25]
        [ 0.25  1.25]]]]
@@ -443,17 +443,17 @@ def fc2fp(fc_mat: np.ndarray, behaviour: bool = False) -> np.ndarray:
     >>> fp_mat_beh = fc2fp(fc_mat, True)
     >>> print(np.round(fp_mat_beh, decimals=2))
     [[[[0.5  0.25]
-       [0.25 0.5 ]]  
+       [0.25 0.5 ]]
     <BLANKLINE>
       [[0.   0.25]
-       [0.25 0.  ]]] 
+       [0.25 0.  ]]]
     <BLANKLINE>
     <BLANKLINE>
      [[[0.   0.25]
-       [0.25 0.  ]]  
+       [0.25 0.  ]]
     <BLANKLINE>
       [[0.5  0.25]
-       [0.25 0.5 ]]]] 
+       [0.25 0.5 ]]]]
 
     References
     ==========
