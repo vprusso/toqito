@@ -11,13 +11,10 @@ from toqito.matrix_ops.vec import vec
     [
         # Pauli-Z: Expect diagonal matrices.
         ([np.array([[1, 0], [0, -1]])], 2),
-
         # Pauli-X: Expect identity and X.
         ([np.array([[0, 1], [1, 0]])], 2),
-
         # Pauli-Y: Expect I and Y.
         ([np.array([[0, -1j], [1j, 0]])], 2),
-
         # Identity matrix: Should commute with everything.
         ([np.eye(2)], 4),
     ],
