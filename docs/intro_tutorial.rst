@@ -172,13 +172,11 @@ here is the GHZ state :math:`\mathbb{C}^{4^{\otimes 7}}` as
     >>> coeffs = [1/np.sqrt(30), 2/np.sqrt(30), 3/np.sqrt(30), 4/np.sqrt(30)]
     >>> vec = ghz(dim, num_parties, coeffs)
     >>> non_zero_indices = np.nonzero(vec)[0]
-    >>> for idx in non_zero_indices:
-    ...     print(f"Index: {idx}, Value: {vec[idx]}")
-
-    Index: 0, Value: [0.18257419]
-    Index: 5461, Value: [0.36514837]
-    Index: 10922, Value: [0.54772256]
-    Index: 16383, Value: [0.73029674]
+    >>> [(idx, vec[idx]) for idx in non_zero_indices]
+    [(0, array([0.18257419])),
+    (5461, array([0.36514837])),
+    (10922, array([0.54772256])),
+    (16383, array([0.73029674]))]
 
 
 Properties of Quantum States
