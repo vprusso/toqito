@@ -23,8 +23,8 @@ def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
         (A \otimes I - I \otimes A^T) \text{vec}(X) = 0.
 
     where :math:`\text{vec}(X)` denotes the vectorization of :math:`X`, which arranges its columns
-    into a single column vector. The null space of this equation provides a basis for the commutant
-    :cite:`QETLAB_link`.
+    into a single column vector. The null space of this equation provides a basis for the commutant.
+    This implementation of the commutant function is derived from :cite:`QETLAB_link`.
 
     Examples
     ==========
