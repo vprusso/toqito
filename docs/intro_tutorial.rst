@@ -42,10 +42,6 @@ The standard basis ket vectors given as :math:`|0\rangle` and :math:`|1\rangle` 
 
 can be defined in :code:`toqito` as such
 
-.. jupyter-execute::
-   :hide-code:
-   
-   !pip install toqito
 
 .. jupyter-execute::
 
