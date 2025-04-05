@@ -561,7 +561,6 @@ The bit-flip channel randomly flips the state of a qubit with probability :math:
     K_0 = \sqrt{1 - p} \, I = \sqrt{1 - p} \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}, \quad
     K_1 = \sqrt{p} \, X = \sqrt{p} \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}
 
-Usage example:
 
 .. code-block:: python
 
