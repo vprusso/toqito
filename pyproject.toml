@@ -65,6 +65,7 @@ furo = "2024.8.6"
 sphinxcontrib-bibtex = "2.6.3"
 sphinx-autoapi = "3.6.0"
 sphinx-copybutton = "0.5.2"
+jupyter-sphinx = "0.5.3"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

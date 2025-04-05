@@ -13,7 +13,8 @@ import os
 import sys
 # sys.path.insert(0, os.path.abspath('.'))
 # sys.path.insert(0, os.path.abspath('..'))
-# sys.path.insert(0, os.path.abspath('../..'))
+sys.path.insert(0, os.path.abspath('../..'))
+
 
 # -- Project information -----------------------------------------------------
 
@@ -44,6 +45,7 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinxcontrib.bibtex",
     "sphinx_copybutton",
+    "jupyter_sphinx",
 ]
 
 bibtex_bibfiles = ["refs.bib"]
