@@ -592,6 +592,14 @@ For example, when :math:`q = 1`, the Pauli operators are:
 :math:`P_0 = I`, :math:`P_1 = X`, :math:`P_2 = Y`, and :math:`P_3 = Z`. For multiple qubits, 
 these operators are extended as tensor products.
 
+It is also worth noting that when
+
+* :math:`P_2 = 0`, and :math:`P_3 = 0`, :func:`.pauli_channel` is equivalent to a :func:`.bitflip` channel
+
+* :math:`P_1 = 0`, and :math:`P_2 = 0`, :func:`.pauli_channel` is equivalent to a Phase Flip channel
+
+* :math:`P_1 = 0`, and :math:`P_3 = 0`, :func:`.pauli_channel` is equivalent to a Bit and Phase Flip channel
+
 The Pauli channel can be used to apply noise to an input quantum state or generate a Choi matrix.
 
 Usage Example:
