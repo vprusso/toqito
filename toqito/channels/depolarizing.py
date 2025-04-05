@@ -92,7 +92,7 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
 
     Note:
         This function follows the standard convention where `param_p` controls the amount of
-        depolarization applied. If using the Qetlab convention where `param_p` and `1 - param_p`
+        depolarization applied. If using the QETLAB convention where `param_p` and `1 - param_p`
         are swapped, adjust your input accordingly.
 
     """
