@@ -6,7 +6,7 @@
  </p>
 
 
-# toqito: Theory of Quantum Information Toolkit
+# |toqito⟩: Theory of Quantum Information Toolkit
 
 [![build status](https://github.com/vprusso/toqito/actions/workflows/build-test-actions.yml/badge.svg)](https://github.com/vprusso/toqito/actions/workflows/build-test-actions.yml)
 [![doc status](https://readthedocs.org/projects/toqito/badge/?version=latest)](https://toqito.readthedocs.io/en/latest/)
@@ -16,7 +16,7 @@
 [![Unitary Foundation](https://img.shields.io/badge/Supported%20By-Unitary%20Foundation-FFFF00.svg)](https://unitary.foundation)
 
 
-The `toqito` package is an open-source Python library for studying various
+The |toqito⟩ package is an open-source Python library for studying various
 objects in quantum information, namely, states, channels, and measurements.
 
 <p align="center">
@@ -25,11 +25,11 @@ objects in quantum information, namely, states, channels, and measurements.
   </a>
 </p>
 
-Specifically, `toqito` focuses on providing numerical tools to study problems
+Specifically, |toqito⟩ focuses on providing numerical tools to study problems
 about entanglement theory, nonlocal games, matrix analysis, and other
 aspects of quantum information that are often associated with computer science.
 
-`toqito` aims to fill the needs of quantum information researchers who want
+|toqito⟩ aims to fill the needs of quantum information researchers who want
 numerical and computational tools for manipulating quantum states,
 measurements, and channels. It can also be used as a tool to enhance the
 experience of students and instructors in classes about quantum
@@ -38,7 +38,7 @@ information.
 
 ## Getting Started
 
-toqito is available via [PyPi](https://pypi.org/project/toqito/) for Linux, and macOS, with support for Python 3.10 to 3.12.
+|toqito⟩ is available via [PyPi](https://pypi.org/project/toqito/) for Linux, and macOS, with support for Python 3.10 to 3.12.
 
 ```sh
 pip install toqito
@@ -66,18 +66,16 @@ chsh.quantum_value()
 # 0.8535533
 ```
 
-**Detailed documentation on all available methods, options, and input formats is available at [ReadTheDocs](https://toqito.readthedocs.io/en/latest/).**
-
 ## Using
 
-Full documentation along with specific examples and tutorials are provided here:
+Full documentation, along with specific examples and tutorials, are provided here:
 [https://toqito.readthedocs.io/](https://toqito.readthedocs.io/). 
 
-Chat with us in our `toqito` channel on [Discord](http://discord.unitary.fund/). 
+Chat with us in our |toqito⟩ channel on [Discord](http://discord.unitary.fund/). 
 
 ## Testing
 
-The `pytest` module is used for testing. To run the suite of tests for `toqito`,
+The `pytest` module is used for testing. To run the suite of tests for |toqito⟩,
 run the following command in the root directory of this project.
 
 ```
@@ -86,20 +84,20 @@ pytest --cov-report term-missing --cov=toqito
 
 ## Citing
 
-You can cite `toqito` using the following DOI:
+You can cite |toqito⟩ using the following DOI:
 `10.5281/zenodo.4743211`
 
 
-If you are using the `toqito` software package in research work, please include
-an explicit mention of `toqito` in your publication. Something along the lines
+If you are using the |toqito⟩ software package in research work, please include
+an explicit mention of |toqito⟩ in your publication. Something along the lines
 of:
 
 ```
-To solve problem "X" we used `toqito`; a package for studying certain
+To solve problem "X", we used |toqito⟩; a package for studying certain
 aspects of quantum information.
 ```
 
-A BibTeX entry that you can use to cite `toqito` is provided here:
+A BibTeX entry that you can use to cite |toqito⟩ is provided here:
 
 ```bib
 @misc{toqito,
@@ -112,9 +110,11 @@ A BibTeX entry that you can use to cite `toqito` is provided here:
  }
 ```
 
-## References
+## Research
 
-The `toqito` project has been used or referenced in the following works:
+The |toqito⟩ project is, first and foremost, a quantum information theory research tool. Consult the following [open problems wiki page](https://github.com/vprusso/toqito/wiki/Research-open-problems-in-quantum-information-theory-using-%7Ctoqito%E2%9F%A9) for a list of certain solved and unsolved problems in quantum information theory in which |toqito⟩ could be potentially helpful in probing. Feel free to add to this list and/or contribute solutions!
+
+The |toqito⟩ project has been used or referenced in the following works:
 
 - [![a](https://img.shields.io/static/v1?label=thesis&message=31639397&color=inactive&style=flat-square)](https://www.proquest.com/openview/eb0021dd3eb463b5fb12b7fc71d920eb/1?cbl=18750&diss=y&pq-origsite=gscholar) Philip, Aby
 "On Multipartite Entanglement and Its Use", (2024).
