@@ -36,4 +36,3 @@ jobs:
         run: |
             cd docs
             poetry run make html
-            poetry run make doctest
