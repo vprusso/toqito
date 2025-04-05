@@ -59,6 +59,12 @@ def test_ghz_4_7():
         (2, 3, [1, 2, 3, 4, 5]),
     ],
 )
+def test_ghz_invalid_input(dim, num_qubits, coeff):
+    """Tests for invalid dimensions."""
+    with np.testing.assert_raises(ValueError):
+        ghz(dim, num_qubits, coeff)
+
+
 def test_ghz_with_non_normalized_coefficients():
     """Test GHZ state with non-normalized coefficients gets normalized internally."""
     dim = 2
@@ -77,9 +83,3 @@ def test_ghz_with_non_normalized_coefficients():
 
     res = ghz(dim, num_qubits, coeff)
     np.testing.assert_allclose(res, expected_res)
-
-
-def test_ghz_invalid_input(dim, num_qubits, coeff):
-    """Tests for invalid dimensions."""
-    with np.testing.assert_raises(ValueError):
-        ghz(dim, num_qubits, coeff)
