@@ -34,8 +34,7 @@ def common_epistemic_overlap(states, dim=None) -> float:
 
     >>> import numpy as np
     >>> from toqito.state_props import common_epistemic_overlap
-    >>> rho_mixed = np.eye(2)/2
-    >>> common_epistemic_overlap([rho_mixed, rho_mixed])
+    >>> common_epistemic_overlap([np.eye(2)/2, np.eye(2)/2])
     np.float64(1.0)
 
     References
