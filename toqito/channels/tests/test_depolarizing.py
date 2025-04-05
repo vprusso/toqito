@@ -12,8 +12,7 @@ def test_depolarizing_complete_depolarizing():
 
     expected_res = 1 / 4 * np.identity(4)
 
-    res = apply_channel(test_input_mat, depolarizing(4))
-
+    res = apply_channel(test_input_mat, depolarizing(dim=4, param_p=1))
     bool_mat = np.isclose(expected_res, res)
     np.testing.assert_equal(np.all(bool_mat), True)
 

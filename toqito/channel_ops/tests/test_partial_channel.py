@@ -109,13 +109,14 @@ expected_res_dim_list = np.array(
 )
 def test_partial_channel(test_input, expected, sys_arg, dim_arg):
     """Test function works as expected for valid inputs."""
-    if sys_arg is None and dim_arg is None:
-        calculated = partial_channel(test_input, depolarizing(2))
-    elif sys_arg is not None and dim_arg is None:
-        calculated = partial_channel(test_input, depolarizing(2), sys_arg)
-    elif sys_arg is not None and dim_arg is not None:
-        calculated = partial_channel(test_input, depolarizing(2), sys_arg, dim_arg)
+    channel = depolarizing(2, param_p=1)
 
+    if sys_arg is None and dim_arg is None:
+        calculated = partial_channel(test_input, channel)
+    elif sys_arg is not None and dim_arg is None:
+        calculated = partial_channel(test_input, channel, sys=sys_arg)
+    else:  # both sys_arg and dim_arg are not None
+        calculated = partial_channel(test_input, channel, sys=sys_arg, dim=dim_arg)
     assert np.isclose(calculated, expected).all()
 
 

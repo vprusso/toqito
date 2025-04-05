@@ -16,7 +16,8 @@ def test_is_unitary_identity_channel_true():
 
 def test_is_unitary_depolarizing_false():
     """Verify that the Choi matrix of the depolarizing map is not a unitary channel."""
-    np.testing.assert_equal(is_unitary(depolarizing(2)), False)
+    choi_matrix = depolarizing(2, param_p=1)
+    assert is_unitary(choi_matrix) is False
 
 
 def test_is_unitary_isometry_false():

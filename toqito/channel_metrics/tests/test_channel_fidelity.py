@@ -7,7 +7,7 @@ from toqito.channel_metrics import channel_fidelity
 from toqito.channels import dephasing, depolarizing
 
 dephasing_channel = dephasing(4)
-depolarizing_channel = depolarizing(4)
+depolarizing_channel = depolarizing(4, param_p=1)
 
 
 @pytest.mark.parametrize(
@@ -29,7 +29,7 @@ def test_channel_fidelity(input1, input2, expected_value):
     "input1, input2, expected_msg",
     [
         # Inconsistent dimensions between Choi matrices
-        (depolarizing_channel, depolarizing(2), "The Choi matrices provided should be of equal dimension."),
+        (depolarizing_channel, depolarizing(2, param_p=1), "The Choi matrices provided should be of equal dimension."),
         # Non-square inputs for channel fidelity
         (
             np.array([[1, 2, 3], [4, 5, 6]]),

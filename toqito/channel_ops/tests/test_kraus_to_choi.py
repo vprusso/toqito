@@ -71,7 +71,7 @@ kraus_ops_depolarizing_channel = [
     [kraus_5_depolarizing_channel, kraus_6_depolarizing_channel],
     [kraus_7_depolarizing_channel, kraus_8_depolarizing_channel],
 ]
-expected_choi_res_depolarizing_channel = depolarizing(2)
+expected_choi_res_depolarizing_channel = depolarizing(2, param_p=1)
 
 v_mat = np.array([[1, 0, 0], [0, 1, 0]])
 expected_v_mat = np.array(
