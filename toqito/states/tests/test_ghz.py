@@ -60,11 +60,12 @@ def test_ghz_4_7():
     ],
 )
 def test_ghz_with_non_normalized_coefficients():
-    """Test GHZ with non-normalized coefficients gets normalized internally."""
+    """Test GHZ state with non-normalized coefficients gets normalized internally."""
     dim = 2
     num_qubits = 3
-    coeff = [1, 1]
+    coeff = [1, 1]  # Not normalized
 
+    # After normalization, this becomes [1/sqrt(2), 1/sqrt(2)]
     expected_res = (
         1
         / np.sqrt(2)
