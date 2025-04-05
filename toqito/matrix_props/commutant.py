@@ -93,10 +93,7 @@ def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
     num_ops, dim, _ = A.shape
 
     # Construct the commutant condition (A ⊗ I - I ⊗ A^T) vec(X) = 0.
-    comm_matrices = [
-        np.kron(A[i], np.eye(dim)) - np.kron(np.eye(dim), A[i].T)
-        for i in range(num_ops)
-    ]
+    comm_matrices = [np.kron(A[i], np.eye(dim)) - np.kron(np.eye(dim), A[i].T) for i in range(num_ops)]
 
     # Stack into a 2D matrix for null_space computation.
     comm_matrix = np.vstack(comm_matrices) if len(comm_matrices) > 1 else comm_matrices[0]
@@ -106,4 +103,3 @@ def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
 
     # Reshape each basis vector into a matrix of size (dim x dim).
     return [null_basis[:, i].reshape((dim, dim)) for i in range(null_basis.shape[1])]
-

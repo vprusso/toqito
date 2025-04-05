@@ -1,9 +1,10 @@
 """Test the commutant function."""
+
 import numpy as np
 import pytest
 
-from toqito.matrix_ops.commutant import commutant
 from toqito.matrix_ops.vec import vec
+from toqito.matrix_props.commutant import commutant
 
 
 @pytest.mark.parametrize(
@@ -24,6 +25,7 @@ def test_commutant_output_size(matrices, expected_size):
     comm_basis = commutant(matrices)
     assert len(comm_basis) == expected_size
 
+
 @pytest.mark.parametrize(
     "matrices",
     [
@@ -40,11 +42,13 @@ def test_commutation_property(matrices):
         for B in comm_basis:
             assert np.allclose(mat @ B, B @ mat)
 
+
 def test_commutant_identity_dim():
     """For the identity matrix, the commutant should be the full space."""
     identity = np.eye(2)
     comm_basis = commutant(identity)
     assert len(comm_basis) == 4
+
 
 def test_commutant_identity():
     """For the identity matrix, check if the commutant contains the expected basis matrices."""
@@ -63,6 +67,7 @@ def test_commutant_identity():
     for expected_matrix in expected_commutant:
         assert any(np.allclose(expected_matrix, computed_matrix) for computed_matrix in comm_basis)
 
+
 def test_bicommutant_m3():
     """Verify that the bicommutant spans the same set."""
     A = [
@@ -78,8 +83,11 @@ def test_bicommutant_m3():
     assert len(B) == len(A)
 
     for expected_matrix in A:
-        assert any(np.allclose(expected_matrix, computed_matrix) or np.allclose(expected_matrix, -computed_matrix)
-        for computed_matrix in B)
+        assert any(
+            np.allclose(expected_matrix, computed_matrix) or np.allclose(expected_matrix, -computed_matrix)
+            for computed_matrix in B
+        )
+
 
 def test_explicit_commutant_condition():
     """Check that the computed commutant matrices satisfy the commutant equation."""
