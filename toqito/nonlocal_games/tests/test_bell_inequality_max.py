@@ -232,7 +232,7 @@ def test_classical_general_swap_triggered():
 @pytest.mark.parametrize("status_to_mock, expected_message", [
     (cvxpy.INFEASIBLE, "Problem is infeasible"),
     (cvxpy.UNBOUNDED, "Problem is unbounded"),
-    (cvxpy.SOLVER_ERROR, "Optimization failed with status"),
+    (cvxpy.SOLVER_ERROR, "Optimization failed due to solver issue or limits. Status: solver_error"),
     (cvxpy.INFEASIBLE_INACCURATE, "Problem is infeasible"),
     (cvxpy.UNBOUNDED_INACCURATE, "Problem is unbounded"),
 ])
