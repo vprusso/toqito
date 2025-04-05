@@ -27,9 +27,7 @@ def common_epistemic_overlap(states, dim=None) -> float:
 
     >>> from toqito.state_props import common_epistemic_overlap
     >>> from toqito.states import bell
-    >>> psi0 = bell(0)
-    >>> psi1 = bell(1)
-    >>> common_epistemic_overlap([psi0, psi1])
+    >>> common_epistemic_overlap([bell(0), bell(1)])
     np.float64(0.0)
 
     Mixed state inputs:
