@@ -547,7 +547,7 @@ Here's how to use the amplitude damping channel:
     [[0.65      +0.j 0.41833001+0.j]
      [0.41833001+0.j 0.35      +0.j]]
 
-**Bit Flip Channel**
+**Bit-Flip Channel**
 
 The bit-flip channel randomly flips the state of a qubit with probability :math:`p`, analogous to the classical bit-flip error in classical information theory.
 
