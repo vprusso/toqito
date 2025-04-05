@@ -481,7 +481,7 @@ where :math:`Z` is the Pauli-Z operator and :math:`p` represents the dephasing p
     >>> # Create a quantum state |+⟩⟨+|.
     >>> rho = np.array([[0.5, 0.5], [0.5, 0.5]])
     >>> 
-    >>> # Generate the dephasing channel Choi matrix with dephasing probability p = 0.4 .
+    >>> # Generate the dephasing channel Choi matrix with dephasing probability p = 0.4.
     >>> choi = dephasing(2, 0.4)
     >>> 
     >>> # Apply the dephasing channel using apply_channel .
