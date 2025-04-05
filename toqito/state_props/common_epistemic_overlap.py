@@ -19,7 +19,7 @@ def common_epistemic_overlap(states, dim=None) -> float:
         \omega_E(\rho_1,\ldots,\rho_n) = \int \min_{\lambda\in\Lambda}
         (\mu(\lambda|\rho_1), \ldots, \mu(\lambda|\rho_n)) d\lambda
 
-    Accepts both state vectors and density matrices as input.
+    This function accepts both state vectors and density matrices as input.
 
     Examples
     ==========
