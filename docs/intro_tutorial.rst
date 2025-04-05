@@ -602,7 +602,7 @@ Usage Example:
     >>> rho = np.array([[1, 0], [0, 0]])
     >>> 
     >>> # Apply the Pauli channel.
-    >>> _ , result = pauli_channel(prob = probabilities ,input_mat = rho)
+    >>> _ , result = pauli_channel(prob = probabilities, input_mat=rho)
     >>> print(result)
     [[0.6+0.j 0. +0.j]
      [0. +0.j 0.4+0.j]]
