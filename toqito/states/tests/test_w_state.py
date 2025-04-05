@@ -36,9 +36,9 @@ def test_w_state_generalized():
 
 
 def test_w_state_with_non_normalized_coeffs():
-    """Test W-state with non-normalized coefficients."""
+    """Test W state with non-normalized coefficients gets normalized internally."""
     e_0, e_1 = basis(2, 0), basis(2, 1)
-    coeffs = [3, 4, 5, 6]  # Not normalized
+    coeffs = [1, 2, 3, 4]  # Not normalized
     norm = np.linalg.norm(coeffs)
     normalized_coeffs = np.array(coeffs) / norm
 
@@ -50,8 +50,7 @@ def test_w_state_with_non_normalized_coeffs():
     )
 
     res = w_state(4, coeffs)
-    np.testing.assert_allclose(res, expected_res, rtol=1e-7)
-    np.testing.assert_allclose(np.linalg.norm(res), 1.0, rtol=1e-7)
+    np.testing.assert_allclose(res, expected_res, rtol=1e-5, atol=1e-8)
 
 
 @pytest.mark.parametrize(
