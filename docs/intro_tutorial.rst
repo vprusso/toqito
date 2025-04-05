@@ -434,7 +434,7 @@ partial transpose over the first subsystem yields the following matrix
            [ 3,  4, 11, 12],
            [ 7,  8, 15, 16]])
 
-Another important operation when working with quantum channels is applying them to quantum states. The :code:`apply_channel` function in :code:`toqito` provides a convenient way to apply a quantum channel (represented by its Choi matrix) to a given quantum state.
+Another important operation when working with quantum channels is applying them to quantum states. :func:`.apply_channel` in :code:`toqito` provides a convenient way to apply a quantum channel (represented by its Choi matrix) to a given quantum state.
 
 Here we illustrate how to apply two widely used channels – the depolarizing channel and the dephasing channel – using :code:`apply_channel`.
 
