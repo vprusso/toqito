@@ -478,7 +478,7 @@ where :math:`Z` is the Pauli-Z operator and :math:`p` represents the dephasing p
     >>> from toqito.channel_ops import apply_channel
     >>> from toqito.channels import dephasing
     >>> 
-    >>> # Create a quantum state |+⟩⟨+| .
+    >>> # Create a quantum state |+⟩⟨+|.
     >>> rho = np.array([[0.5, 0.5], [0.5, 0.5]])
     >>> 
     >>> # Generate the dephasing channel Choi matrix with dephasing probability p = 0.4 .
