@@ -10,3 +10,4 @@ from toqito.matrix_ops.calculate_vector_matrix_dimension import calculate_vector
 from toqito.matrix_ops.tensor_comb import tensor_comb
 from toqito.matrix_ops.to_density_matrix import to_density_matrix
 from toqito.matrix_ops.perturb_vectors import perturb_vectors
+from toqito.matrix_ops.commutant import commutant
