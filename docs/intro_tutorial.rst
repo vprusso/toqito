@@ -434,9 +434,13 @@ partial transpose over the first subsystem yields the following matrix
            [ 3,  4, 11, 12],
            [ 7,  8, 15, 16]])
 
+**Applying Qunatum Channels**
+
 Another important operation when working with quantum channels is applying them to quantum states. :func:`.apply_channel` in :code:`toqito` provides a convenient way to apply a quantum channel (represented by its Choi matrix) to a given quantum state.
 
 Here we illustrate how to apply two widely used channels – the depolarizing channel and the dephasing channel – using :func:`.apply_channel`.
+
+**Depolarizing Channel**
 
 The depolarizing channel replaces a state with the maximally mixed state with probability :math:`p` and leaves it unchanged with probability :math:`(1-p)`. Mathematically, it is defined as
 
@@ -463,6 +467,8 @@ where :math:`\mathbb{I}` is the identity operator and :math:`d` is the dimension
     >>> print(output_state)
     [[0.65 0.  ]
      [0.   0.35]]
+
+**Dephasing Channel**
 
 The dephasing channel reduces the off-diagonal elements of a density matrix without changing the diagonal entries, thereby diminishing quantum coherence. It is commonly expressed as
 
