@@ -190,7 +190,7 @@ def test_cg2fp_behaviour_oa1_ob1():
     fp_actual = cg2fp(cg_mat, (1, 1), (1, 1), behaviour=True)
     np.testing.assert_array_almost_equal(fp_actual, fp_expected)
 
-# Tests for oa=1 or ob=1 scenarios in fp2cg (and helpers 336, 340)
+# Tests for oa=1 or ob=1 scenarios in fp2cg
 def test_fp2cg_behaviour_oa1_ob2():
     """Test fp2cg behaviour with oa=1, ob=2."""
     # fp shape (1, 2, 1, 1). P(a=0,b=0|x=0,y=0)=0.6, P(a=0,b=1|x=0,y=0)=0.4
@@ -218,7 +218,7 @@ def test_fp2cg_behaviour_oa1_ob1():
     cg_actual = fp2cg(fp_mat, behaviour=True)
     np.testing.assert_array_almost_equal(cg_actual, cg_expected)
 
-# Test for fc2fp error check (line 473)
+# Test for fc2fp error check
 def test_fc2fp_zero_inputs_error():
     """Test fc2fp raises error for shape implying ia<0 or ib<0."""
     with pytest.raises(ValueError, match="Input fc_mat shape must be at least"):
@@ -226,7 +226,7 @@ def test_fc2fp_zero_inputs_error():
     with pytest.raises(ValueError, match="Input fc_mat shape must be at least"):
         fc2fp(np.zeros((1, 0)), False) # ib = -1
 
-# Test for fc2fp edge cases ia=0 or ib=0 (no error expected)
+# Test for fc2fp edge cases ia=0 or ib=0
 def test_fc2fp_zero_inputs_functional():
     """Test fc2fp functional case with ia=0 or ib=0."""
     # ia=0, ib=0 -> fc shape (1, 1)
@@ -247,7 +247,7 @@ def test_fc2fp_zero_inputs_functional():
     fp_actual_01 = fc2fp(fc_mat_01, behaviour=False)
     np.testing.assert_array_almost_equal(fp_actual_01, fp_expected_01)
 
-# Test for fp2fc non-binary error check (line 555)
+# Test for fp2fc non-binary error check
 def test_fp2fc_non_binary_error():
     """Test fp2fc raises error if oa or ob is not 2."""
     fp_mat_3211 = np.zeros((3, 2, 1, 1))
@@ -257,7 +257,7 @@ def test_fp2fc_non_binary_error():
     with pytest.raises(ValueError, match="fp2fc only works with binary outcomes"):
         fp2fc(fp_mat_2311)
 
-# Test for fp2fc behaviour with ia=0 or ib=0 (lines 583, 587)
+# Test for fp2fc behaviour with ia=0 or ib=0
 def test_fp2fc_behaviour_zero_inputs():
     """Test fp2fc behaviour case with ia=0 or ib=0."""
     # ia=0, ib=1 -> fp shape (2, 2, 0, 1)
@@ -300,3 +300,231 @@ def test_cg2fp_behaviour_shape_mismatch():
     # Case: oa=2, ob=2, ia=1, ib=1, but cg_mat is not (2,2)
     with pytest.raises(ValueError, match="Expected cg_mat shape"):
         cg2fp(np.zeros((2, 3)), (2, 2), (1, 1), behaviour=True)
+
+
+# --- Tests for Zero Inputs / Single Outputs ---
+
+# cg2fc (Assumes oa=2, ob=2 implicitly, test ia=0/ib=0)
+def test_cg2fc_zero_inputs_behaviour():
+    """Test cg2fc behaviour with ia=0 or ib=0."""
+    # ia=0, ib=1 -> cg shape (1, 2)
+    cg_mat_01 = np.array([[1.0, 0.6]]) # K=1, pB(0|0)=0.6
+    fc_expected_01 = np.array([[1.0, 0.2]]) # K=1, <B0>=2*0.6-1=0.2
+    fc_actual_01 = cg2fc(cg_mat_01, behaviour=True)
+    np.testing.assert_array_almost_equal(fc_actual_01, fc_expected_01)
+
+    # ia=1, ib=0 -> cg shape (2, 1)
+    cg_mat_10 = np.array([[1.0], [0.7]]) # K=1, pA(0|0)=0.7
+    fc_expected_10 = np.array([[1.0], [0.4]]) # K=1, <A0>=2*0.7-1=0.4
+    fc_actual_10 = cg2fc(cg_mat_10, behaviour=True)
+    np.testing.assert_array_almost_equal(fc_actual_10, fc_expected_10)
+
+    # ia=0, ib=0 -> cg shape (1, 1)
+    cg_mat_00 = np.array([[1.0]])
+    fc_expected_00 = np.array([[1.0]])
+    fc_actual_00 = cg2fc(cg_mat_00, behaviour=True)
+    np.testing.assert_array_almost_equal(fc_actual_00, fc_expected_00)
+
+# fc2cg (Assumes oa=2, ob=2 implicitly, test ia=0/ib=0)
+def test_fc2cg_zero_inputs_behaviour():
+    """Test fc2cg behaviour with ia=0 or ib=0."""
+    # ia=0, ib=1 -> fc shape (1, 2)
+    fc_mat_01 = np.array([[1.0, 0.2]]) # K=1, <B0>=0.2
+    cg_expected_01 = np.array([[1.0, 0.6]]) # K=1, pB(0|0)=(1+0.2)/2=0.6
+    cg_actual_01 = fc2cg(fc_mat_01, behaviour=True)
+    np.testing.assert_array_almost_equal(cg_actual_01, cg_expected_01)
+
+    # ia=1, ib=0 -> fc shape (2, 1)
+    fc_mat_10 = np.array([[1.0], [0.4]]) # K=1, <A0>=0.4
+    cg_expected_10 = np.array([[1.0], [0.7]]) # K=1, pA(0|0)=(1+0.4)/2=0.7
+    cg_actual_10 = fc2cg(fc_mat_10, behaviour=True)
+    np.testing.assert_array_almost_equal(cg_actual_10, cg_expected_10)
+
+    # ia=0, ib=0 -> fc shape (1, 1)
+    fc_mat_00 = np.array([[1.0]])
+    cg_expected_00 = np.array([[1.0]])
+    cg_actual_00 = fc2cg(fc_mat_00, behaviour=True)
+    np.testing.assert_array_almost_equal(cg_actual_00, cg_expected_00)
+
+# cg2fp (Test oa=1/ob=1 and ia=0/ib=0)
+def test_cg2fp_single_output_zero_input_behaviour():
+    """Test cg2fp behaviour with single outputs or zero inputs."""
+    # oa=1, ob=2, ia=1, ib=1 -> cg shape (1, 2)
+    cg_mat_1211 = np.array([[1.0, 0.6]]) # K=1, pB(0|0)=0.6
+    fp_exp_1211 = np.zeros((1, 2, 1, 1))
+    fp_exp_1211[0,0,0,0]=0.6
+    fp_exp_1211[0,1,0,0]=0.4
+    fp_act_1211 = cg2fp(cg_mat_1211, (1, 2), (1, 1), behaviour=True)
+    np.testing.assert_array_almost_equal(fp_act_1211, fp_exp_1211)
+
+    # oa=2, ob=1, ia=1, ib=1 -> cg shape (2, 1)
+    cg_mat_2111 = np.array([[1.0], [0.7]]) # K=1, pA(0|0)=0.7
+    fp_exp_2111 = np.zeros((2, 1, 1, 1))
+    fp_exp_2111[0,0,0,0]=0.7
+    fp_exp_2111[1,0,0,0]=0.3
+    fp_act_2111 = cg2fp(cg_mat_2111, (2, 1), (1, 1), behaviour=True)
+    np.testing.assert_array_almost_equal(fp_act_2111, fp_exp_2111)
+
+    # oa=1, ob=1, ia=1, ib=1 -> cg shape (1, 1)
+    cg_mat_1111 = np.array([[1.0]])
+    fp_exp_1111 = np.ones((1, 1, 1, 1))
+    fp_act_1111 = cg2fp(cg_mat_1111, (1, 1), (1, 1), behaviour=True)
+    np.testing.assert_array_almost_equal(fp_act_1111, fp_exp_1111)
+
+    # oa=2, ob=2, ia=0, ib=1 -> cg shape (1, 2)
+    cg_mat_2201 = np.array([[1.0, 0.6]]) # K=1, pB(0|0)=0.6
+    # Expect P(a,b|x,y)=P(b|y) as Alice has no input choice
+    fp_exp_2201 = np.zeros((2, 2, 0, 1))
+    fp_exp_2201[:, 0, :, 0] = 0.6
+    # It should be p(a,0|x,0)=pB(0|0)=0.6, p(a,1|x,0)=pB(1|0)=0.4
+    fp_exp_2201_corr = np.zeros((2, 2, 0, 1))
+    fp_exp_2201_corr[0, 0, :, 0] = 0.6 # Assume P(0,0|x,0)=pB(0|0)
+    fp_exp_2201_corr[1, 0, :, 0] = 0.0 # Assume P(1,0|x,0)=0
+    fp_exp_2201_corr[0, 1, :, 0] = 0.4 # Assume P(0,1|x,0)=pB(1|0)
+    fp_exp_2201_corr[1, 1, :, 0] = 0.0 # Assume P(1,1|x,0)=0 - This is also arbitrary.
+
+    # cg2fp uses P(a,b)=P(b|y).
+    fp_exp_2201_fixed = np.zeros((2, 2, 0, 1))
+    fp_exp_2201_fixed[:, 0, :, 0] = 0.6 # P(a,0|x,0) = pB(0|0) = 0.6
+    fp_exp_2201_fixed[:, 1, :, 0] = 0.4 # P(a,1|x,0) = pB(1|0) = 0.4
+    fp_act_2201 = cg2fp(cg_mat_2201, (2, 2), (0, 1), behaviour=True)
+    np.testing.assert_array_almost_equal(fp_act_2201, fp_exp_2201_fixed)
+
+    # oa=2, ob=2, ia=1, ib=0 -> cg shape (2, 1)
+    cg_mat_2210 = np.array([[1.0], [0.7]]) # K=1, pA(0|0)=0.7
+    # Expect P(a,b|x,y)=P(a|x) as Bob has no input choice
+    fp_exp_2210 = np.zeros((2, 2, 1, 0))
+    fp_exp_2210[0, :, 0, :] = 0.7 # P(0,b|0,y) = pA(0|0) = 0.7
+    fp_exp_2210[1, :, 0, :] = 0.3 # P(1,b|0,y) = pA(1|0) = 0.3
+    fp_act_2210 = cg2fp(cg_mat_2210, (2, 2), (1, 0), behaviour=True)
+    np.testing.assert_array_almost_equal(fp_act_2210, fp_exp_2210)
+
+# fp2cg (Test oa=1/ob=1 and ia=0/ib=0)
+def test_fp2cg_single_output_zero_input_behaviour():
+    """Test fp2cg behaviour with single outputs or zero inputs."""
+    # oa=1, ob=2, ia=1, ib=1 -> fp shape (1, 2, 1, 1)
+    fp_mat_1211 = np.zeros((1, 2, 1, 1))
+    fp_mat_1211[0,0,0,0]=0.6
+    fp_mat_1211[0,1,0,0]=0.4
+    cg_exp_1211 = np.array([[1.0, 0.6]]) # K=1, pB(0|0)=sum_a fp(a,0,x=0,0)=fp(0,0,0,0)=0.6
+    cg_act_1211 = fp2cg(fp_mat_1211, behaviour=True)
+    np.testing.assert_array_almost_equal(cg_act_1211, cg_exp_1211)
+
+    # oa=2, ob=1, ia=1, ib=1 -> fp shape (2, 1, 1, 1)
+    fp_mat_2111 = np.zeros((2, 1, 1, 1))
+    fp_mat_2111[0,0,0,0]=0.7
+    fp_mat_2111[1,0,0,0]=0.3
+    cg_exp_2111 = np.array([[1.0], [0.7]]) # K=1, pA(0|0)=sum_b fp(0,b,0,y=0)=fp(0,0,0,0)=0.7
+    cg_act_2111 = fp2cg(fp_mat_2111, behaviour=True)
+    np.testing.assert_array_almost_equal(cg_act_2111, cg_exp_2111)
+
+    # oa=1, ob=1, ia=1, ib=1 -> fp shape (1, 1, 1, 1)
+    fp_mat_1111 = np.ones((1, 1, 1, 1))
+    cg_exp_1111 = np.array([[1.0]])
+    cg_act_1111 = fp2cg(fp_mat_1111, behaviour=True)
+    np.testing.assert_array_almost_equal(cg_act_1111, cg_exp_1111)
+
+    # oa=2, ob=2, ia=0, ib=1 -> fp shape (2, 2, 0, 1)
+    fp_mat_2201 = np.zeros((2, 2, 0, 1))
+    fp_mat_2201[0, 0, :, 0] = 0.6
+    fp_mat_2201[1, 0, :, 0] = 0.0 # p(a,0|x,0)
+    fp_mat_2201[0, 1, :, 0] = 0.4
+    fp_mat_2201[1, 1, :, 0] = 0.0 # p(a,1|x,0)
+    # K=1, pA not calculated (ia=0). pB(0|0)=sum_a fp(a,0,x=0,0)=0.6+0.0=0.6
+    cg_exp_2201 = np.array([[1.0, 0.0]])
+    cg_act_2201 = fp2cg(fp_mat_2201, behaviour=True)
+    np.testing.assert_array_almost_equal(cg_act_2201, cg_exp_2201)
+
+    # oa=2, ob=2, ia=1, ib=0 -> fp shape (2, 2, 1, 0)
+    fp_mat_2210 = np.zeros((2, 2, 1, 0))
+    fp_mat_2210[0, 0, 0, :] = 0.7
+    fp_mat_2210[0, 1, 0, :] = 0.0 # p(0,b|0,y)
+    fp_mat_2210[1, 0, 0, :] = 0.3
+    fp_mat_2210[1, 1, 0, :] = 0.0 # p(1,b|0,y)
+    # K=1, pB not calculated (ib=0). pA(0|0)=sum_b fp(0,b,0,y=0)=0.7+0.0=0.7
+    cg_exp_2210 = np.array([[1.0], [0.0]])
+    cg_act_2210 = fp2cg(fp_mat_2210, behaviour=True)
+    np.testing.assert_array_almost_equal(cg_act_2210, cg_exp_2210)
+
+def test_fc2fp_zero_inputs_behaviour():
+    """Test fc2fp behaviour case with ia=0 or ib=0."""
+    # ia=1, ib=0 -> fc shape (2, 1)
+    fc_mat_10 = np.array([[1.0], [0.4]]) # K=1, <A0>=0.4
+    # Expected FP: P(0,0)=(1+ax)/4, P(0,1)=(1+ax)/4, P(1,0)=(1-ax)/4, P(1,1)=(1-ax)/4
+    fp_expected_10 = np.zeros((2, 2, 1, 0))
+    fp_expected_10[0, :, 0, :] = (1 + 0.4) / 4 # 0.35
+    fp_expected_10[1, :, 0, :] = (1 - 0.4) / 4 # 0.15
+    fp_actual_10 = fc2fp(fc_mat_10, behaviour=True)
+    np.testing.assert_array_almost_equal(fp_actual_10, fp_expected_10)
+
+    # ia=0, ib=1 -> fc shape (1, 2)
+    fc_mat_01 = np.array([[1.0, 0.2]]) # K=1, <B0>=0.2
+    # Expected FP: P(0,0)=(1+by)/4, P(0,1)=(1-by)/4, P(1,0)=(1+by)/4, P(1,1)=(1-by)/4
+    fp_expected_01 = np.zeros((2, 2, 0, 1))
+    fp_expected_01[:, 0, :, 0] = (1 + 0.2) / 4 # 0.3
+    fp_expected_01[:, 1, :, 0] = (1 - 0.2) / 4 # 0.2
+    fp_actual_01 = fc2fp(fc_mat_01, behaviour=True)
+    np.testing.assert_array_almost_equal(fp_actual_01, fp_expected_01)
+
+    # ia=0, ib=0 -> fc shape (1, 1)
+    fc_mat_00 = np.array([[1.0]]) # K=1
+    fp_expected_00 = np.ones((2, 2, 0, 0)) * 0.25 # Uniform
+    fp_actual_00 = fc2fp(fc_mat_00, behaviour=True)
+    np.testing.assert_array_almost_equal(fp_actual_00, fp_expected_00)
+
+# Test the cg2fp functional case branches for ia/ib=0
+def test_cg2fp_zero_inputs_functional():
+     """Test cg2fp functional case with ia=0 or ib=0."""
+     # ia=1, ib=0 -> cg shape (2, 1)
+     cg_mat_10 = np.array([[0.0], [1.0]]) # K=0, A-marginal=1
+
+     fp_exp_10 = np.zeros((2, 2, 1, 0)) # Shape (2, 2, 1, 0)
+
+     fp_act_10 = cg2fp(cg_mat_10, (2, 2), (1, 0), behaviour=False)
+     np.testing.assert_array_almost_equal(fp_act_10, fp_exp_10)
+
+     # ia=0, ib=1 -> cg shape (1, 2)
+     cg_mat_01 = np.array([[0.0, 1.0]]) # K=0, B-marginal=1
+     fp_exp_01 = np.zeros((2, 2, 0, 1)) # Shape (2, 2, 0, 1)
+
+     fp_act_01 = cg2fp(cg_mat_01, (2, 2), (0, 1), behaviour=False)
+     np.testing.assert_array_almost_equal(fp_act_01, fp_exp_01)
+
+     # ia=0, ib=0 -> cg shape (1, 1)
+     cg_mat_00 = np.array([[0.0]])
+     fp_exp_00 = np.zeros((2, 2, 0, 0))
+     fp_act_00 = cg2fp(cg_mat_00, (2, 2), (0, 0), behaviour=False)
+     np.testing.assert_array_almost_equal(fp_act_00, fp_exp_00)
+
+
+# Test fp2cg functional case branches for ia/ib=0
+def test_fp2cg_zero_inputs_functional():
+    """Test fp2cg functional case with ia=0 or ib=0."""
+    # ia=1, ib=0 -> fp shape (2, 2, 1, 0)
+    fp_mat_10 = np.zeros((2, 2, 1, 0))
+    fp_mat_10[0, 1, 0, :] = 1.0 # V(0, 1, 0, y) = 1
+    fp_mat_10[1, 1, 0, :] = -1.0 # V(1, 1, 0, y) = -1
+
+    cg_exp_10 = np.zeros((2, 1)) # Shape (2, 1)
+
+    cg_act_10 = fp2cg(fp_mat_10, behaviour=False)
+    np.testing.assert_array_almost_equal(cg_act_10, cg_exp_10)
+
+    # ia=0, ib=1 -> fp shape (2, 2, 0, 1)
+    fp_mat_01 = np.zeros((2, 2, 0, 1))
+    fp_mat_01[1, 0, :, 0] = 1.0
+    fp_mat_01[1, 1, :, 0] = -1.0
+    cg_exp_01 = np.zeros((1, 2))
+
+    # The sum should be over existing indices. sum(fp_mat[1,1,:,:]) -> sum(-1) = -1
+    cg_exp_01[0, 0] = 0.0
+
+    cg_act_01 = fp2cg(fp_mat_01, behaviour=False)
+    np.testing.assert_array_almost_equal(cg_act_01, cg_exp_01)
+
+    # ia=0, ib=0 -> fp shape (2, 2, 0, 0)
+    fp_mat_00 = np.zeros((2, 2, 0, 0))
+    cg_exp_00 = np.zeros((1, 1)) # Shape (1, 1)
+    cg_act_00 = fp2cg(fp_mat_00, behaviour=False)
+    np.testing.assert_array_almost_equal(cg_act_00, cg_exp_00)
+

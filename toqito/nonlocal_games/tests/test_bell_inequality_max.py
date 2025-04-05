@@ -98,6 +98,18 @@ def test_cglmp3_classical_cg_unsupported():
     with pytest.raises(NotImplementedError):
         bell_inequality_max(CGLMP3_CG, DESC_CGLMP3, 'cg', mtype='classical')
 
+def test_chsh_classical_fp_binary_path():
+    """Test CHSH classical max using binary path with FP input."""
+    # CHSH_FP is defined globally already
+    bmax = bell_inequality_max(CHSH_FP, DESC_CHSH, 'fp', mtype='classical')
+    np.testing.assert_almost_equal(bmax, CHSH_CLASSICAL_MAX, decimal=5)
+
+def test_chsh_classical_cg_binary_path():
+     """Test CHSH classical max using binary path with CG input."""
+     # CHSH_CG is defined globally already
+     bmax = bell_inequality_max(CHSH_CG, DESC_CHSH, 'cg', mtype='classical')
+     np.testing.assert_almost_equal(bmax, CHSH_CLASSICAL_MAX, decimal=5)
+
 
 # --- Test Quantum Bounds (NPA) ---
 
