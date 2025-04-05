@@ -92,11 +92,13 @@ Superdense coding protocol
     }
 
     message_to_encode = "11"
-
+    
+    #Alice sends her encoded entangeled state after this step.
     entangled_state_encoded = np.kron(pauli_gate_operations[message_to_encode], pauli("I")) @ bell_state
+    
 
-3. Bob performs operations to reverse the entanglement sent by Alice and extract the bits. First, 
-   he applies a Controlled-NOT or :math:`CX` *(CNOT) Gate* with the qubit received from Alice as the
+3. Bob performs operations to reverse the entanglement on encoded state sent by Alice and extract the bits. 
+   First, he applies a Controlled-NOT or :math:`CX` *(CNOT) Gate* with the qubit received from Alice as the
    *control qubit* and Bob's original qubit as the *target qubit*. After this, Bob moves
    ahead and applies a Hadamard or :math:`H` gate to Alice's qubit.
 
@@ -140,7 +142,7 @@ Full code:
   ...     "11": 1j * pauli("Y")
   ... }
 
-  >>> message_to_encode = "10"
+  >>> message_to_encode = "11"
 
   >>> entangled_state_encoded = np.kron(pauli_gate_operations[message_to_encode], pauli("I")) @ bell_state
 
