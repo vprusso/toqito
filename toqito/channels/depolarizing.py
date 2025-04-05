@@ -95,6 +95,11 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
         depolarization applied. If using the QETLAB convention where `param_p` and `1 - param_p`
         are swapped, adjust your input accordingly.
 
+        The convention used here is consistent with standard quantum information references
+        such as Nielsen & Chuang. However, it differs from the convention used by QETLAB
+        (https://www.qetlab.com/DepolarizingChannel), where the roles of `param_p` and
+        `1 - param_p` are reversed.
+
     """
     # Compute the Choi matrix of the depolarizing channel.
 
