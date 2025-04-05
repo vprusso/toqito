@@ -601,7 +601,6 @@ It is also worth noting that when
 
 The Pauli channel can be used to apply noise to an input quantum state or generate a Choi matrix.
 
-Usage Example:
 
 .. code-block:: python
 
