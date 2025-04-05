@@ -608,7 +608,7 @@ Usage Example:
      [0. +0.j 0.4+0.j]]
 
 Here, the probabilities correspond to applying the identity (:math:`I`), bit-flip (:math:`X`), 
-phase-flip (:math:`Z`), and combined flip (:math:`Y`) operators.
+phase-flip (:math:`Z`), and combined bit-phase flip (:math:`Y`) operators.
 
 Measurements
 ------------
