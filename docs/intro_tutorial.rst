@@ -458,7 +458,7 @@ where :math:`\mathbb{I}` is the identity operator and :math:`d` is the dimension
     >>> # Generate the depolarizing channel Choi matrix with noise probability p = 0.3 .
     >>> choi = depolarizing(2, 0.3)
     >>> 
-    >>> # Apply the depolarizing channel using apply_channel .
+    >>> # Apply the depolarizing channel using apply_channel.
     >>> output_state = apply_channel(rho, choi)
     >>> print(output_state)
     [[0.65 0.  ]
