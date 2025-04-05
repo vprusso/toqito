@@ -1,6 +1,5 @@
 """Test is_block_positive."""
 
-from unittest.mock import patch
 
 import numpy as np
 import pytest

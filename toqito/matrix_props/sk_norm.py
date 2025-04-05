@@ -6,13 +6,17 @@ import cvxpy
 import numpy as np
 import scipy
 
-from toqito.channels import partial_trace, partial_transpose, realignment
-from toqito.matrix_props import is_hermitian, kp_norm
-from toqito.perms import swap, symmetric_projection
+from toqito.channels.partial_trace import partial_trace
+from toqito.channels.partial_transpose import partial_transpose
+from toqito.channels.realignment import realignment
+from toqito.matrix_props.is_hermitian import is_hermitian
+from toqito.matrix_props.kp_norm import kp_norm
+from toqito.perms.swap import swap
+from toqito.perms.symmetric_projection import symmetric_projection
 from toqito.state_ops.schmidt_decomposition import schmidt_decomposition
 from toqito.state_props.schmidt_rank import schmidt_rank
 from toqito.state_props.sk_vec_norm import sk_vector_norm
-from toqito.states import max_entangled
+from toqito.states.max_entangled import max_entangled
 
 
 def sk_operator_norm(
@@ -49,9 +53,8 @@ def sk_operator_norm(
     .. math::
         \big|\big| \rho_a \big|\big|_{S(1)} = \frac{1 + |min\{a, 0\}|}{n (n - a)}
 
-    >>> from toqito.states import werner
-    >>> from toqito.matrix_props import sk_operator_norm
-    >>>
+    >>> from toqito.states.werner import werner
+    >>> from toqito.matrix_props.sk_norm import sk_operator_norm
     >>> # Werner state.
     >>> n = 4; a = 0
     >>> rho = werner(4, 0.)
@@ -308,7 +311,6 @@ def __lower_bound_sk_norm_randomized(
     tol: float = 1e-5,
     start_vec: np.ndarray = None,
 ) -> float:
-
     if mat.shape[0] != mat.shape[1]:
         raise ValueError("Input matrix must be square.")
 

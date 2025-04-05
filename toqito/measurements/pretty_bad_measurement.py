@@ -27,7 +27,7 @@ def pretty_bad_measurement(states: list[np.ndarray], probs: list[float] | None =
 
     See Also
     ========
-    pretty_good_measurement
+    :func:`.pretty_good_measurement`
 
     Examples
     ========

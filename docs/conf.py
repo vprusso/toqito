@@ -54,11 +54,16 @@ linkcheck_ignore = [
     r"https://arxiv\.org/.*",
     r"https://doi\.org/.*",
     r"https://link\.aps\.org/doi/.*",
-    r"http://dx\.doi\.org/.*"
+    r"http://dx\.doi\.org/.*",
+    r"https://www\.quantiki\.org/.*",
 ]
 # we need to skip these warnigns because all the references appear twice, in a function docstring
 # and on the references page.
 master_doc = "index"
+
+copybutton_prompt_text = r">>> |\.\.\. "
+copybutton_prompt_is_regexp = True
+copybutton_only_copy_prompt_lines = True
 # autosummary_generate = True
 # autodoc_typehints = "none"
 autoapi_dirs = ["../toqito"]

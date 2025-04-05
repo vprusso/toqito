@@ -3,7 +3,7 @@
 import numpy as np
 import picos
 
-from toqito.matrix_ops import calculate_vector_matrix_dimension, to_density_matrix, vectors_to_gram_matrix
+from toqito.matrix_ops import calculate_vector_matrix_dimension, to_density_matrix
 from toqito.matrix_props import has_same_dimension
 
 
@@ -208,9 +208,7 @@ def _min_error_dual(
 
     # Set up variables and constraints for SDP:
     y_var = picos.HermitianVariable("Y", (dim, dim))
-    problem.add_list_of_constraints(
-        [y_var << probs[i] * to_density_matrix(vector) for i, vector in enumerate(vectors)]
-    )
+    problem.add_list_of_constraints([y_var << probs[i] * to_density_matrix(vector) for i, vector in enumerate(vectors)])
 
     # Objective function:
     problem.set_objective("max", picos.trace(y_var))
@@ -219,6 +217,7 @@ def _min_error_dual(
     measurements = [problem.get_constraint(k).dual for k in range(n)]
 
     return solution.value, measurements
+
 
 def _unambiguous_primal(
     vectors: list[np.ndarray],
