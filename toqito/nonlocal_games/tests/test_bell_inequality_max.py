@@ -1,6 +1,6 @@
 """Unit tests for bell_inequality_max function."""
 import warnings
-from unittest.mock import PropertyMock
+from unittest.mock import PropertyMock  # Make sure patch is imported
 
 import cvxpy
 import numpy as np
@@ -291,3 +291,43 @@ def test_quantum_solver_returns_none(mocker):
 
     with pytest.raises(RuntimeError, match="solver failed to return a value"):
         bell_inequality_max(coeffs, desc, notation, mtype=mtype, k=1)
+
+
+# Added tests for code coverage:
+
+@pytest.mark.cvxpy
+def test_optimization_solver_generic_exception(mocker):
+    """Test handling of generic Exception during problem.solve()."""
+    coeffs = CHSH_FP
+    desc = DESC_CHSH
+    notation = 'fp'
+    mtype = 'nosignal' # Use nosignal or quantum
+
+    # Mock problem.solve to raise a generic exception
+    mocker.patch('cvxpy.Problem.solve', side_effect=Exception("Generic solver error"))
+    # Mock status just in case it's checked after the exception (it shouldn't be)
+    mocker.patch('cvxpy.Problem.status', new_callable=PropertyMock, return_value="error_occurred")
+
+    with pytest.raises(RuntimeError, match="Optimization solver encountered an error: Generic solver error"):
+        bell_inequality_max(coeffs, desc, notation, mtype=mtype)
+
+
+@pytest.mark.cvxpy
+def test_optimization_solver_unexpected_status(mocker):
+    """Test handling of unexpected CVXPY status."""
+    coeffs = CHSH_FP
+    desc = DESC_CHSH
+    notation = 'fp'
+    mtype = 'nosignal' # Use nosignal or quantum
+
+    # Mock solve to return a dummy value
+    mocker.patch('cvxpy.Problem.solve', return_value=-1.0)
+    # Mock status to return something not explicitly checked
+    mocker.patch(
+        'cvxpy.Problem.status',
+        new_callable=PropertyMock,
+        return_value="SOME_UNKNOWN_STATUS"
+    )
+
+    with pytest.raises(RuntimeError, match="Optimization failed with unexpected status: SOME_UNKNOWN_STATUS"):
+        bell_inequality_max(coeffs, desc, notation, mtype=mtype)
