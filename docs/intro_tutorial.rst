@@ -171,8 +171,7 @@ here is the GHZ state :math:`\mathbb{C}^{4^{\otimes 7}}` as
     >>> num_parties = 7
     >>> coeffs = [1/np.sqrt(30), 2/np.sqrt(30), 3/np.sqrt(30), 4/np.sqrt(30)]
     >>> vec = ghz(dim, num_parties, coeffs)
-    >>> non_zero_indices = np.nonzero(vec)[0]
-    >>> for idx in non_zero_indices:
+    >>> for idx in np.nonzero(vec)[0]:
     ...     print(f"Index: {int(idx)}, Value: {vec[idx][0]:.8f}")
     Index: 0, Value: 0.18257419
     Index: 5461, Value: 0.36514837

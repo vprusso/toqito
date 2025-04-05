@@ -55,9 +55,6 @@ linkcheck_ignore = [
     r"https://doi\.org/.*",
     r"https://link\.aps\.org/doi/.*",
     r"http://dx\.doi\.org/.*",
-    r"https://www\.quantiki\.org/wiki/entanglement-formation",
-    r"https://www\.quantiki\.org/wiki/trace-distance",
-    r"https://www\.quantiki\.org/wiki/trace-norm",
 ]
 # we need to skip these warnigns because all the references appear twice, in a function docstring
 # and on the references page.
