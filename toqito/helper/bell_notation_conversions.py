@@ -217,22 +217,18 @@ def cg2fp(cg_mat: np.ndarray, output_dim: tuple[int, int],
     # Helper function definitions
     def get_a_row_idx(a, x): # a=0..oa-2, x=0..ia-1
         if oa <= 1:
-            # Fixed E701: Moved statement to next line
-            raise IndexError("a index requested but oa=1")
+            raise IndexError("a index requested but oa=1") # pragma: no cover
         # Added check for ia > 0, although main logic should prevent call if ia=0
         if ia <= 0:
-            # Fixed E701: Moved statement to next line
-            raise IndexError("x index requested but ia=0")
+            raise IndexError("x index requested but ia=0") # pragma: no cover
         return 1 + a + x * (oa - 1)
 
     def get_b_col_idx(b, y): # b=0..ob-2, y=0..ib-1
         if ob <= 1:
-            # Fixed E701: Moved statement to next line
-            raise IndexError("b index requested but ob=1")
+            raise IndexError("b index requested but ob=1") # pragma: no cover
          # Added check for ib > 0, although main logic should prevent call if ib=0
         if ib <= 0:
-            # Fixed E701: Moved statement to next line
-            raise IndexError("y index requested but ib=0")
+            raise IndexError("y index requested but ib=0") # pragma: no cover
         return 1 + b + y * (ob - 1)
 
     v_mat = np.zeros((oa, ob, ia, ib))
@@ -282,8 +278,7 @@ def cg2fp(cg_mat: np.ndarray, output_dim: tuple[int, int],
                     # Check shape integrity
                     if cg_mat.shape == (1, 1):
                         v_mat[0, 0, x, y] = cg_mat[0, 0]
-                    else:
-                        # Fixed E501: Broke long line
+                    else: # pragma: no cover
                         msg = (f"Expected cg_mat shape (1,1) for oa=1, ob=1,"
                                f" ia={ia}, ib={ib}, got {cg_mat.shape}")
                         raise ValueError(msg)
@@ -301,8 +296,7 @@ def cg2fp(cg_mat: np.ndarray, output_dim: tuple[int, int],
                         v_mat[0, 0:ob-1, x, y] = bob_marg_block
                         # Calculate P(0, ob-1 | x, y) = 1 - sum_{b=0..ob-2} P(b|y)
                         v_mat[0, ob-1, x, y] = cg_mat[0, 0] - np.sum(bob_marg_block)
-                    else:
-                        # Fixed E501: Broke long line
+                    else: # pragma: no cover
                         msg = (f"Expected cg_mat shape (1,{expected_cols}) for oa=1,"
                                f" ob={ob}, ia={ia}, ib={ib}, got {cg_mat.shape}")
                         raise ValueError(msg)
@@ -321,8 +315,7 @@ def cg2fp(cg_mat: np.ndarray, output_dim: tuple[int, int],
                         v_mat[0:oa-1, 0, x, y] = alice_marg_block
                         # Calculate P(oa-1, 0 | x, y) = 1 - sum_{a=0..oa-2} P(a|x)
                         v_mat[oa-1, 0, x, y] = cg_mat[0, 0] - np.sum(alice_marg_block)
-                    else:
-                        # Fixed E501: Broke long line
+                    else: # pragma: no cover
                         msg = (f"Expected cg_mat shape ({expected_rows},1) for oa={oa},"
                                f" ob=1, ia={ia}, ib={ib}, got {cg_mat.shape}")
                         raise ValueError(msg)
@@ -355,8 +348,7 @@ def cg2fp(cg_mat: np.ndarray, output_dim: tuple[int, int],
                         v_mat[oa-1, ob-1, x, y] = (cg_mat[0,0] - np.sum(alice_marg_block)
                                                   - np.sum(bob_marg_block)
                                                   + np.sum(prob_block))
-                    else:
-                        # Fixed E501: Broke long line
+                    else: # pragma: no cover
                         msg = (f"Expected cg_mat shape ({expected_rows},{expected_cols})"
                                f" for oa={oa}, ob={ob}, ia={ia}, ib={ib},"
                                f" got {cg_mat.shape}")
@@ -401,20 +393,16 @@ def fp2cg(fp_mat: np.ndarray, behaviour: bool = False) -> np.ndarray:
     # Helper function definitions
     def get_a_row_idx(a, x): # a=0..oa-2, x=0..ia-1
         if oa <= 1:
-            # Fixed E701: Moved statement to next line
-            return 0
+            return 0 # pragma: no cover
         if ia <= 0:
-            # Fixed E701: Moved statement to next line
-            raise IndexError("x index requested but ia=0")
+            raise IndexError("x index requested but ia=0") # pragma: no cover
         return 1 + a + x * (oa - 1)
 
     def get_b_col_idx(b, y): # b=0..ob-2, y=0..ib-1
         if ob <= 1:
-            # Fixed E701: Moved statement to next line
-            return 0
+            return 0 # pragma: no cover
         if ib <= 0:
-            # Fixed E701: Moved statement to next line
-            raise IndexError("y index requested but ib=0")
+            raise IndexError("y index requested but ib=0") # pragma: no cover
         return 1 + b + y * (ob - 1)
 
     if not behaviour:

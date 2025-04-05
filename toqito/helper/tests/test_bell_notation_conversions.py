@@ -1,6 +1,6 @@
 """Unit test for Bell notation conversion functions."""
 import numpy as np
-import pytest  # Ensure pytest is imported
+import pytest
 
 from toqito.helper.bell_notation_conversions import cg2fc, cg2fp, fc2cg, fc2fp, fp2cg, fp2fc
 
@@ -284,3 +284,19 @@ def test_fp2fc_behaviour_zero_inputs():
     fc_expected_00 = np.array([[1.0]]) # fc shape (1, 1)
     fc_actual_00 = fp2fc(fp_mat_00, behaviour=True)
     np.testing.assert_array_almost_equal(fc_actual_00, fc_expected_00)
+
+# Tests for shape validation errors in cg2fp (behaviour=True)
+def test_cg2fp_behaviour_shape_mismatch():
+    """Test cg2fp behaviour raises ValueError on incorrect cg_mat shape."""
+    # Case: oa=1, ob=1, but cg_mat is not (1,1)
+    with pytest.raises(ValueError, match="Expected cg_mat shape"):
+        cg2fp(np.zeros((1, 2)), (1, 1), (1, 1), behaviour=True)
+    # Case: oa=1, ob=2, ia=1, ib=1 but cg_mat has wrong columns
+    with pytest.raises(ValueError, match="Expected cg_mat shape"):
+        cg2fp(np.zeros((1, 3)), (1, 2), (1, 1), behaviour=True)
+    # Case: oa=2, ob=1, ia=1, ib=1 but cg_mat has wrong rows
+    with pytest.raises(ValueError, match="Expected cg_mat shape"):
+        cg2fp(np.zeros((3, 1)), (2, 1), (1, 1), behaviour=True)
+    # Case: oa=2, ob=2, ia=1, ib=1, but cg_mat is not (2,2)
+    with pytest.raises(ValueError, match="Expected cg_mat shape"):
+        cg2fp(np.zeros((2, 3)), (2, 2), (1, 1), behaviour=True)
