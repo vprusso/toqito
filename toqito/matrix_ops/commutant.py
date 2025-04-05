@@ -5,18 +5,18 @@ from scipy.linalg import null_space
 
 
 def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
-    r"""Compute an orthonormal basis for the commutant algebra.
+    r"""Compute an orthonormal basis for the commutant algebra :cite:`PlanetMathCommutant`.
 
-    Given a matrix :math:`A` or a set of matrices :math:`\mathcal{A} = \{A_1, A_2, \dots\}`, 
-    this function determines an orthonormal basis (with respect to the Hilbert-Schmidt inner product) 
+    Given a matrix :math:`A` or a set of matrices :math:`\mathcal{A} = \{A_1, A_2, \dots\}`,
+    this function determines an orthonormal basis (with respect to the Hilbert-Schmidt inner product)
     for the algebra of matrices that commute with every matrix in :math:`\mathcal{A}`.
 
-    The commutant of a single matrix :math:`A \in \mathbb{C}^{n \times n}` consists of all matrices 
+    The commutant of a single matrix :math:`A \in \mathbb{C}^{n \times n}` consists of all matrices
     :math:`X \in \mathbb{C}^{n \times n}` satisfying:
 
     .. math:: A X = X A.
 
-    More generally, for a set of matrices :math:`\mathcal{A} = \{A_1, A_2, \dots\}`, the commutant 
+    More generally, for a set of matrices :math:`\mathcal{A} = \{A_1, A_2, \dots\}`, the commutant
     consists of all matrices :math:`X` satisfying:
 
     .. math:: A_i X = X A_i \quad \forall A_i \in \mathcal{A}.
@@ -26,7 +26,7 @@ def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
     .. math::
         (A_i \otimes I - I \otimes A_i^T) \text{vec}(X) = 0, \quad \forall A_i \in \mathcal{A}.
 
-    where :math:`\text{vec}(X)` denotes the column-wise vectorization of :math:`X`. 
+    where :math:`\text{vec}(X)` denotes the column-wise vectorization of :math:`X`.
     The null space of this equation provides a basis for the commutant.
 
     This implementation is based on :cite:`QETLAB_link`.
