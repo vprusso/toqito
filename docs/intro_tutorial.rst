@@ -492,7 +492,7 @@ where :math:`Z` is the Pauli-Z operator and :math:`p` represents the dephasing p
 
 
 
-Noisy Channels
+Noise Channels
 ^^^^^^^^^^^^^^
 
 Quantum noise channels model the interaction between quantum systems and their environment, resulting in decoherence and loss of quantum information. The :code:`toqito` library provides implementations of common noise models used in quantum information processing.
