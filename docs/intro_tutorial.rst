@@ -453,6 +453,9 @@ where :math:`\Sigma` represents a set of measurement outcomes and where
 :math:`\mu(a)` represents the measurement operator associated with outcome
 :math:`a \in \Sigma`.
 
+POVM
+^^^^
+
 Consider the following matrices:
 
 .. math::
@@ -468,8 +471,9 @@ Consider the following matrices:
         0 & 1
     \end{pmatrix}.
 
-Our function indicates that this set of operators constitute a set of
-POVMs.
+A POVM (Positive Operator-Valued Measure) is a set of positive operators that sum to the identity. 
+Our function expects this set of operators to be a POVM because it checks if the sum of the operators 
+equals the identity, ensuring that the measurement outcomes are properly normalized.
 
     >>> from toqito.measurement_props import is_povm
     >>> import numpy as np
@@ -478,6 +482,14 @@ POVMs.
     >>> meas = [meas_1, meas_2]
     >>> is_povm(meas)
     True
+
+Random POVM
+^^^^^^^^^^^
+
+A POVM (Positive Operator-Valued Measure) is a set of positive semidefinite operators {M₁, M₂, ..., Mₙ} 
+that sum to the identity matrix (∑ᵢMᵢ = I). Each operator Mᵢ corresponds to a possible measurement outcome, 
+and the probability of obtaining outcome i when measuring a quantum state ρ is given by Tr(Mᵢρ). 
+POVMs provide the most general description of quantum measurements allowed by quantum mechanics.
 
 We may also use the :code:`random_povm` function from :code:`toqito`, and can verify that a
 randomly generated set satisfies the criteria for being a POVM set.
@@ -515,12 +527,20 @@ do not constitute a POVM set.
     >>> is_povm(non_meas)
     False
 
+Measure
+^^^^^^^
+
 Consider the following state:
 
 .. math::
     u = \frac{1}{\sqrt{3}} e_0 + \sqrt{\frac{2}{3}} e_1
 
 where we define :math:`u u^* = \rho \in \text{D}(\mathcal{X})`.
+
+Let :math:`e_0` and :math:`e_1` be the standard basis vectors:
+
+.. math::
+    e_0 = \begin{pmatrix} 1 \\ 0 \end{pmatrix} \quad \text{and} \quad e_1 = \begin{pmatrix} 0 \\ 1 \end{pmatrix}
 
 Define measurement operators
 
@@ -560,9 +580,12 @@ Similarly, the probability of obtaining outcome :math:`1` is given by
     >>> measure(proj_1, rho)
     0.6666666666666666
 
+Pretty Good Measurement
+^^^^^^^^^^^^^^^^^^^^^^^
+
 Consider "pretty good measurement" on the set of trine states.
 
-The pretty good measurement also known as the "square root measurement" is a set of POVMs :math:`(G_1, \ldots, G_n)` defined as
+The pretty good measurement (PGM), also known as the "square root measurement" is a set of POVMs :math:`(G_1, \ldots, G_n)` defined as
 
 .. math::
     G_i = P^{-1/2} \left(p_i \rho_i\right) P^{-1/2} \quad \text{where} \quad P = \sum_{i=1}^n p_i \rho_i.
@@ -591,8 +614,10 @@ For example, consider the following trine states:
            [0.28867513, 0.5       ]]), array([[ 0.16666667, -0.28867513],
            [-0.28867513,  0.5       ]])]
 
+Pretty Bad Measurement
+^^^^^^^^^^^^^^^^^^^^^^
 
-Similarly, we can consider so called "pretty bad measurement" on the set of trine states :cite:`McIrvin_2024_Pretty`.
+Similarly, we can consider so-called "pretty bad measurement" (PBM) on the set of trine states :cite:`McIrvin_2024_Pretty`.
 
 .. math::
     u_0 = |0\rangle, \quad
@@ -612,3 +637,9 @@ Similarly, we can consider so called "pretty bad measurement" on the set of trin
            [0.        , 0.5       ]]), array([[ 0.41666667, -0.14433757],
            [-0.14433757,  0.25      ]]), array([[0.41666667, 0.14433757],
            [0.14433757, 0.25      ]])]
+
+References
+------------------------------
+
+.. bibliography:: 
+    :filter: docname in docnames
