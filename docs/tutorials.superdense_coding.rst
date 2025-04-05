@@ -153,7 +153,7 @@ Full code:
   >>> measurement_probabilities = np.abs(decoded_state.flatten())**2
   >>> print("Measurement probabilities for basis states |00>, |01>, |10>, |11>:\n", measurement_probabilities)
   Measurement probabilities for basis states |00>, |01>, |10>, |11>:
-   [0. 0. 1. 0.]
+   [0. 0. 0. 1.]
   
 
 
