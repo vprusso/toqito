@@ -484,7 +484,7 @@ where :math:`Z` is the Pauli-Z operator and :math:`p` represents the dephasing p
     >>> # Generate the dephasing channel Choi matrix with dephasing probability p = 0.4.
     >>> choi = dephasing(2, 0.4)
     >>> 
-    >>> # Apply the dephasing channel using apply_channel .
+    >>> # Apply the dephasing channel using apply_channel.
     >>> output_state = apply_channel(rho, choi)
     >>> print(output_state)
     [[0.5 0.2]
