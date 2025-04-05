@@ -452,3 +452,163 @@ satisfying
 where :math:`\Sigma` represents a set of measurement outcomes and where
 :math:`\mu(a)` represents the measurement operator associated with outcome
 :math:`a \in \Sigma`.
+
+Consider the following matrices:
+
+.. math::
+    M_0 =
+    \begin{pmatrix}
+        1 & 0 \\
+        0 & 0
+    \end{pmatrix}
+    \quad \text{and} \quad
+    M_1 =
+    \begin{pmatrix}
+        0 & 0 \\
+        0 & 1
+    \end{pmatrix}.
+
+Our function indicates that this set of operators constitute a set of
+POVMs.
+
+    >>> from toqito.measurement_props import is_povm
+    >>> import numpy as np
+    >>> meas_1 = np.array([[1, 0], [0, 0]])
+    >>> meas_2 = np.array([[0, 0], [0, 1]])
+    >>> meas = [meas_1, meas_2]
+    >>> is_povm(meas)
+    True
+
+We may also use the :code:`random_povm` function from :code:`toqito`, and can verify that a
+randomly generated set satisfies the criteria for being a POVM set.
+
+    >>> from toqito.measurement_props import is_povm
+    >>> from toqito.rand import random_povm
+    >>> import numpy as np
+    >>> dim, num_inputs, num_outputs = 2, 2, 2
+    >>> measurements = random_povm(dim, num_inputs, num_outputs)
+    >>> is_povm([measurements[:, :, 0, 0], measurements[:, :, 0, 1]])
+    True
+
+Alternatively, the following matrices
+
+.. math::
+    M_0 =
+    \begin{pmatrix}
+        1 & 2 \\
+        3 & 4
+    \end{pmatrix}
+    \quad \text{and} \quad
+    M_1 =
+    \begin{pmatrix}
+        5 & 6 \\
+        7 & 8
+    \end{pmatrix},
+
+do not constitute a POVM set.
+
+    >>> from toqito.measurement_props import is_povm
+    >>> import numpy as np
+    >>> non_meas_1 = np.array([[1, 2], [3, 4]])
+    >>> non_meas_2 = np.array([[5, 6], [7, 8]])
+    >>> non_meas = [non_meas_1, non_meas_2]
+    >>> is_povm(non_meas)
+    False
+
+Consider the following state:
+
+.. math::
+    u = \frac{1}{\sqrt{3}} e_0 + \sqrt{\frac{2}{3}} e_1
+
+where we define :math:`u u^* = \rho \in \text{D}(\mathcal{X})`.
+
+Define measurement operators
+
+.. math::
+    P_0 = e_0 e_0^* \quad \text{and} \quad P_1 = e_1 e_1^*.
+
+.. code-block:: python
+
+    >>> from toqito.states import basis
+    >>> from toqito.measurement_ops import measure
+    >>> import numpy as np
+    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
+    >>>
+    >>> u = 1/np.sqrt(3) * e_0 + np.sqrt(2/3) * e_1
+    >>> rho = u @ u.conj().T
+    >>>
+    >>> proj_0 = e_0 @ e_0.conj().T
+    >>> proj_1 = e_1 @ e_1.conj().T
+
+Then the probability of obtaining outcome :math:`0` is given by
+
+.. math::
+    \langle P_0, \rho \rangle = \frac{1}{3}.
+
+.. code-block:: python
+
+    >>> measure(proj_0, rho)
+    0.3333333333333334
+
+Similarly, the probability of obtaining outcome :math:`1` is given by
+
+.. math::
+    \langle P_1, \rho \rangle = \frac{2}{3}.
+
+.. code-block:: python
+
+    >>> measure(proj_1, rho)
+    0.6666666666666666
+
+Consider "pretty good measurement" on the set of trine states.
+
+The pretty good measurement also known as the "square root measurement" is a set of POVMs :math:`(G_1, \ldots, G_n)` defined as
+
+.. math::
+    G_i = P^{-1/2} \left(p_i \rho_i\right) P^{-1/2} \quad \text{where} \quad P = \sum_{i=1}^n p_i \rho_i.
+
+This measurement was initially defined in :cite:`Hughston_1993_Complete` and has found applications in quantum state discrimination tasks. 
+While not always optimal, the PGM provides a reasonable measurement strategy that can be computed efficiently.
+
+For example, consider the following trine states:
+
+.. math::
+    u_0 = |0\rangle, \quad
+    u_1 = -\frac{1}{2}\left(|0\rangle + \sqrt{3}|1\rangle\right), \quad \text{and} \quad
+    u_2 = -\frac{1}{2}\left(|0\rangle - \sqrt{3}|1\rangle\right).
+
+.. code-block:: python
+
+    >>> from toqito.states import trine
+    >>> from toqito.measurements import pretty_good_measurement
+    >>>
+    >>> states = trine()
+    >>> probs = [1 / 3, 1 / 3, 1 / 3]
+    >>> pgm = pretty_good_measurement(states, probs)
+    >>> pgm
+    [array([[0.66666667, 0.        ],
+           [0.        , 0.        ]]), array([[0.16666667, 0.28867513],
+           [0.28867513, 0.5       ]]), array([[ 0.16666667, -0.28867513],
+           [-0.28867513,  0.5       ]])]
+
+
+Similarly, we can consider so called "pretty bad measurement" on the set of trine states :cite:`McIrvin_2024_Pretty`.
+
+.. math::
+    u_0 = |0\rangle, \quad
+    u_1 = -\frac{1}{2}\left(|0\rangle + \sqrt{3}|1\rangle\right), \quad \text{and} \quad
+    u_2 = -\frac{1}{2}\left(|0\rangle - \sqrt{3}|1\rangle\right).
+
+.. code-block:: python
+
+    >>> from toqito.states import trine
+    >>> from toqito.measurements import pretty_bad_measurement
+    >>>
+    >>> states = trine()
+    >>> probs = [1 / 3, 1 / 3, 1 / 3]
+    >>> pbm = pretty_bad_measurement(states, probs)
+    >>> pbm
+    [array([[0.16666667, 0.        ],
+           [0.        , 0.5       ]]), array([[ 0.41666667, -0.14433757],
+           [-0.14433757,  0.25      ]]), array([[0.41666667, 0.14433757],
+           [0.14433757, 0.25      ]])]
