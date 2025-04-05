@@ -4,7 +4,7 @@ Superdense Coding
 In classical communication, sending two bits of information requires transmitting
 two physical bits. But with the help of quantum entanglement, we can bend this rule. 
 
-**Superdense coding** proposed bye coding** proposed by Bennet and Wiesner in 1992 
+**Superdense coding** proposed by Bennet and Wiesner in 1992 
 :cite:`Bennett_1992_Communication` lets Alice send two classical bits to
 Bob by transmitting just *one qubit*. The catch here is that they must share an
 entangled pair of qubits beforehand. We will explain this protocol in detail 
@@ -24,7 +24,7 @@ Superdense coding protocol
       \end{equation}
 
    Alice takes the first qubit, Bob takes the second, and they both separate.
-   This entangled pair is responsible for linking qubit *non-locally*, allowing
+   This entangled pair is responsible for linking the qubits *non-locally*, allowing
    Alice's local operations to affect the global state.
 
    .. code-block:: python
@@ -36,7 +36,7 @@ Superdense coding protocol
        bell_state = bell(0)
        print("Initial Bell state (|Φ⁺⟩):\n", bell_state)
 
-2. Alice holds two classical bits (:math:`a` and :math:`b`) that she wants to send.
+2. Alice holds two classical bits (:math:`a` and :math:`b`) that she wants to send. For the tutorial, she is choosing to send :math:`11`.
    Depending on the values of her classical bits, she applies one of the four *Pauli Gates* 
    to her qubit for encoding:
 
@@ -93,7 +93,7 @@ Superdense coding protocol
 
     message_to_encode = "11"
     
-    #Alice sends her encoded entangeled state after this step.
+    # Alice sends her encoded entangled state after this step.
     entangled_state_encoded = np.kron(pauli_gate_operations[message_to_encode], pauli("I")) @ bell_state
     
 
