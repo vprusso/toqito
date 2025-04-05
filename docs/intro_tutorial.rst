@@ -434,6 +434,62 @@ partial transpose over the first subsystem yields the following matrix
            [ 3,  4, 11, 12],
            [ 7,  8, 15, 16]])
 
+Another important operation when working with quantum channels is applying them to quantum states. The :code:`apply_channel` function in :code:`toqito` provides a convenient way to apply a quantum channel (represented by its Choi matrix) to a given quantum state.
+
+Here we illustrate how to apply two widely used channels – the depolarizing channel and the dephasing channel – using :code:`apply_channel`.
+
+The depolarizing channel replaces a state with the maximally mixed state with probability :math:`p` and leaves it unchanged with probability :math:`(1-p)`. Mathematically, it is defined as
+
+.. math::
+    \mathcal{N}(\rho) = (1-p) \rho + p\,\frac{\mathbb{I}}{d},
+
+where :math:`\mathbb{I}` is the identity operator and :math:`d` is the dimension of the Hilbert space. The example below applies the depolarizing channel with :math:`p=0.3` to the computational basis state :math:`|0\rangle`.
+
+.. code-block:: python
+
+    >>> import numpy as np
+    >>> from toqito.states import basis
+    >>> from toqito.channel_ops import apply_channel
+    >>> from toqito.channels import depolarizing
+    >>> 
+    >>> # # Create a quantum state |0⟩⟨0|.
+    >>> rho = np.array([[1, 0], [0, 0]])
+    >>> 
+    >>> # Generate the depolarizing channel Choi matrix with noise probability p = 0.3 .
+    >>> choi = depolarizing(2, 0.3)
+    >>> 
+    >>> # Apply the depolarizing channel using apply_channel .
+    >>> output_state = apply_channel(rho, choi)
+    >>> print(output_state)
+    [[0.65 0.  ]
+     [0.   0.35]]
+
+The dephasing channel reduces the off-diagonal elements of a density matrix without changing the diagonal entries, thereby diminishing quantum coherence. It is commonly expressed as
+
+.. math::
+    \mathcal{N}(\rho) = (1-p) \rho + p\, Z \rho Z,
+
+where :math:`Z` is the Pauli-Z operator and :math:`p` represents the dephasing probability. The example below demonstrates how to apply the dephasing channel with :math:`p=0.4` to the plus state :math:`|+\rangle = \frac{1}{\sqrt{2}}(|0\rangle + |1\rangle)`.
+
+.. code-block:: python
+
+    >>> import numpy as np
+    >>> from toqito.states import basis
+    >>> from toqito.channel_ops import apply_channel
+    >>> from toqito.channels import dephasing
+    >>> 
+    >>> # Create a quantum state |+⟩⟨+| .
+    >>> rho = np.array([[0.5, 0.5], [0.5, 0.5]])
+    >>> 
+    >>> # Generate the dephasing channel Choi matrix with dephasing probability p = 0.4 .
+    >>> choi = dephasing(2, 0.4)
+    >>> 
+    >>> # Apply the dephasing channel using apply_channel .
+    >>> output_state = apply_channel(rho, choi)
+    >>> print(output_state)
+    [[0.5 0.2]
+     [0.2 0.5]]
+
 
 
 Noisy Channels
