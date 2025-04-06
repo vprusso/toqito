@@ -10,6 +10,8 @@ from toqito.helper import npa_constraints, update_odometer
 from toqito.matrix_ops import tensor
 from toqito.rand import random_povm
 
+from binary_constraint_system_game import check_perfect_commuting_strategy
+
 
 class NonlocalGame:
     r"""Create two-player nonlocal game object.
@@ -92,7 +94,6 @@ class NonlocalGame:
             b_array = np.array(b_list, dtype=int)
         
         # Compute the perfect commuting strategy flag.
-            from binary_constraint_system_game import check_perfect_commuting_strategy
             perfect = check_perfect_commuting_strategy(M_array, b_array)
         
         # Convert each 1D constraint into the tensor format.
