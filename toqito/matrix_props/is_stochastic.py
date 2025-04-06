@@ -84,4 +84,4 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool: # pragma: no cover
             if np.all(np.sum(mat, i)==1.0):
                return True
             return False
-   return False
+return False
