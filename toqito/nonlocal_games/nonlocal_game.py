@@ -45,6 +45,7 @@ class NonlocalGame:
             self.prob_mat = prob_mat
             self.pred_mat = pred_mat
             self.reps = reps
+            self._perfect = False
 
         else:
             num_alice_out, num_bob_out, num_alice_in, num_bob_in = pred_mat.shape
@@ -81,6 +82,29 @@ class NonlocalGame:
         :param reps: Number of parallel repetitions to perform. Default is 1.
         :return: A NonlocalGame object arising from the variables and constraints that define the game.
         """
+        # Detect if constraints are in 1D form (each a vector of length n+1).
+        if constraints[0].ndim == 1:
+            n = constraints[0].shape[0] - 1  # number of variables
+        # Extract M and b from the 1D constraints.
+            M_list = [c[:-1] for c in constraints]
+            b_list = [0 if c[-1] == 1 else 1 for c in constraints]
+            M_array = np.array(M_list, dtype=int)
+            b_array = np.array(b_list, dtype=int)
+        
+        # Compute the perfect commuting strategy flag.
+            from binary_constraint_system_game import check_perfect_commuting_strategy
+            perfect = check_perfect_commuting_strategy(M_array, b_array)
+        
+        # Convert each 1D constraint into the tensor format.
+            tensor_constraints = []
+            for c in constraints:
+                constraint = np.ones((2,) * n, dtype=int)
+                idx = tuple(c[:n] % 2)
+                constraint[idx] = c[-1]
+                tensor_constraints.append(constraint)
+            constraints = tensor_constraints
+        else:
+            perfect = None
             
         if (num_constraints := len(constraints)) == 0:
             raise ValueError("At least 1 constraint is required")
@@ -119,7 +143,11 @@ class NonlocalGame:
                     # Check if this satisfies the constraint.
                     if constraints[x_ques][truth_assignment] == 1:
                         pred_mat[a_ans, b_ans, x_ques, y_ques] = 1
-        return cls(prob_mat, pred_mat, reps)
+        game = cls(prob_mat, pred_mat, reps)
+        # Attach the computed perfect flag and a method to access it.
+        game._perfect = perfect
+        game.has_perfect_commuting_measurement_strategy = lambda: bool(game._perfect)
+        return game
 
     def process_iteration(i:int, num_bob_outputs:int, num_bob_inputs:int, pred_mat_copy:np.ndarray,
                           num_alice_outputs:int, num_alice_inputs:int)-> float:
