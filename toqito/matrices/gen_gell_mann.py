@@ -24,7 +24,7 @@ def gen_gell_mann(ind_1: int, ind_2: int, dim: int) -> np.ndarray:
                          1 & 0
                       \end{pmatrix}.
 
-    This can be obtained in :code:`toqito` as follows.
+    This can be obtained in :code:`|toqito⟩` as follows.
 
     >>> from toqito.matrices import gen_gell_mann
     >>> gen_gell_mann(0, 1, 2)
@@ -42,7 +42,7 @@ def gen_gell_mann(ind_1: int, ind_2: int, dim: int) -> np.ndarray:
                         0 & 0 & 1 & 0
                       \end{pmatrix}.
 
-    This can be obtained in :code:`toqito` as follows.
+    This can be obtained in :code:`|toqito⟩` as follows.
 
     >>> from toqito.matrices import gen_gell_mann
     >>> gen_gell_mann(2, 3, 4)

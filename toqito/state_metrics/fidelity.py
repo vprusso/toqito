@@ -38,7 +38,7 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
                        \end{pmatrix} \in \text{D}(\mathcal{X}).
 
     In the event where we calculate the fidelity between states that are identical, we should obtain the value of
-    :math:`1`. This can be observed in :code:`toqito` as follows.
+    :math:`1`. This can be observed in :code:`|toqito⟩` as follows.
 
     >>> from toqito.state_metrics import fidelity
     >>> import numpy as np

@@ -21,7 +21,7 @@ def w_state(num_qubits: int, coeff: list[int] = None) -> np.ndarray:
     Examples
     ==========
 
-    Using :code:`toqito`, we can generate the :math:`3`-qubit W-state
+    Using :code:`|toqito⟩`, we can generate the :math:`3`-qubit W-state
 
     .. math::
         |W_3 \rangle = \frac{1}{\sqrt{3}} \left( |100\rangle + |010 \rangle +
@@ -46,7 +46,7 @@ def w_state(num_qubits: int, coeff: list[int] = None) -> np.ndarray:
         \frac{1}{\sqrt{30}} \left( |1000 \rangle + 2|0100 \rangle + 3|0010
         \rangle + 4 |0001 \rangle \right).
 
-    We can generate this state in :code:`toqito` as
+    We can generate this state in :code:`|toqito⟩` as
 
     >>> from toqito.states import w_state
     >>> import numpy as np

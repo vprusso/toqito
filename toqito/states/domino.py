@@ -37,7 +37,7 @@ def domino(idx: int) -> np.ndarray:
     .. math::
         |\phi_0 \rangle = |11 \rangle |11 \rangle.
 
-    Using :code:`toqito`, we can see that this yields the proper state.
+    Using :code:`|toqito⟩`, we can see that this yields the proper state.
 
     >>> from toqito.states import domino
     >>> domino(0)
@@ -57,7 +57,7 @@ def domino(idx: int) -> np.ndarray:
         |\phi_3\rangle = |2\rangle \left(\frac{|0\rangle + |1\rangle}
         {\sqrt{2}}\right)
 
-    Using :code:`toqito`, we can see that this yields the proper state.
+    Using :code:`|toqito⟩`, we can see that this yields the proper state.
 
     >>> from toqito.states import domino
     >>> domino(3)

@@ -104,7 +104,7 @@ def state_exclusion(
         \end{equation}
 
     It is not possible to conclusively exclude either of the two states. We can see that the result of the function in
-    :code:`toqito` yields a value of :math:`0` as the probability for this to occur.
+    :code:`|toqito⟩` yields a value of :math:`0` as the probability for this to occur.
 
     >>> from toqito.state_opt import state_exclusion
     >>> from toqito.states import bell

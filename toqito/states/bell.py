@@ -33,7 +33,7 @@ def bell(idx: int) -> np.ndarray:
     .. math::
         u_0 = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right).
 
-    Using :code:`toqito`, we can see that this yields the proper state.
+    Using :code:`|toqito⟩`, we can see that this yields the proper state.
 
     >>> from toqito.states import bell
     >>> import numpy as np

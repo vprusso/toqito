@@ -28,7 +28,7 @@ def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) 
             0 & 1
         \end{pmatrix}.
 
-    Using :code:`toqito`, we can see this gives the proper result.
+    Using :code:`|toqito⟩`, we can see this gives the proper result.
 
     >>> from toqito.perms import antisymmetric_projection
     >>> antisymmetric_projection(2, 1)
@@ -51,7 +51,7 @@ def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) 
             0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
         \end{pmatrix}.
 
-    Using :code:`toqito` we can see this gives the proper result.
+    Using :code:`|toqito⟩` we can see this gives the proper result.
 
     >>> from toqito.perms import antisymmetric_projection
     >>> antisymmetric_projection(2, 3)
@@ -84,7 +84,7 @@ def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) 
     if dim < p_param:
         return np.zeros((dimp, dimp * (1 - partial)))
 
-    p_list = np.array(list(permutations(np.arange(p_param ))))
+    p_list = np.array(list(permutations(np.arange(p_param))))
     p_fac = p_list.shape[0]
 
     anti_proj = np.zeros((dimp, dimp))

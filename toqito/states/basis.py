@@ -18,7 +18,7 @@ def basis(dim: int, pos: int) -> np.ndarray:
         |0 \rangle = \left[1, 0 \right]^{\text{T}} \quad \text{and} \quad
         |1 \rangle = \left[0, 1 \right]^{\text{T}},
 
-    can be obtained in :code:`toqito` as follows.
+    can be obtained in :code:`|toqito⟩` as follows.
 
     Example:  Ket basis vector: :math:`|0\rangle`.
 
