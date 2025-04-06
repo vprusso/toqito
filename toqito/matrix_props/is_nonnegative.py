@@ -50,4 +50,6 @@ def is_nonnegative(input_mat: np.ndarray, mat_type: str = "nonnegative") -> bool
         return is_entrywise_nonnegative
 
     if mat_type == "doubly":
-        return is_entrywise_nonnegative and is_positive_semidefinite(input_mat)
+        if not is_entrywise_nonnegative:
+            return False
+        return is_positive_semidefinite(input_mat)

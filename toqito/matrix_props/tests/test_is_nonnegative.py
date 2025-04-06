@@ -33,3 +33,10 @@ def test_invalid_type_raises(bad_type):
     """Check that invalid matrix types raise a TypeError."""
     with pytest.raises(TypeError):
         is_nonnegative(np.identity(3), bad_type)
+
+
+@pytest.mark.parametrize("mat_type", ["doubly"])
+def test_doubly_short_circuit_on_false_entrywise(mat_type):
+    """Force short-circuit in doubly check by using a matrix with negative entry."""
+    mat = np.array([[1, -1], [0, 1]])
+    assert is_nonnegative(mat, mat_type) is False
