@@ -31,7 +31,7 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
                          1 & 0
                       \end{pmatrix}.
 
-    This can be obtained in :code:`toqito` as follows.
+    This can be obtained in :code:`|toqito⟩` as follows.
 
     >>> from toqito.matrices import gen_pauli
     >>> dim = 2
@@ -50,7 +50,7 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
                         1 & 0
                       \end{pmatrix}.
 
-    This can be obtained in :code:`toqito` as follows.
+    This can be obtained in :code:`|toqito⟩` as follows.
 
     >>> from toqito.matrices import gen_pauli
     >>> dim = 2

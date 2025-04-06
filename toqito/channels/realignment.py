@@ -23,7 +23,7 @@ def realignment(input_mat: np.ndarray, dim: int | list[int] = None) -> np.ndarra
 
     The standard realignment map
 
-    Using :code:`toqito`, we can generate the standard realignment map as follows. When viewed as a
+    Using :code:`|toqito⟩`, we can generate the standard realignment map as follows. When viewed as a
     map on block matrices, the realignment map takes each block of the original matrix and makes
     its vectorization the rows of the realignment matrix. This is illustrated by the following
     small example:
