@@ -74,7 +74,7 @@ def vec(mat: np.ndarray) -> np.ndarray:
 
     See Also
     ========
-    unvec
+    :func:`.unvec`
 
     References
     ==========

@@ -112,6 +112,10 @@ class XORGame:
     >>> np.around(odd_cycle.classical_value(), decimals=1)
     np.float64(0.9)
 
+    We can also calculate the nonsignaling value of the odd cycle game.
+    >>> np.around(odd_cycle.nonsignaling_value(), decimals=1)
+    np.float64(1.0)
+
     References
     ==========
     .. bibliography::
