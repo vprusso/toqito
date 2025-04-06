@@ -1,11 +1,11 @@
 Introductory Tutorial
 ======================
 
-This tutorial will illustrate the basics of how to use :code:`toqito`. This
+This tutorial will illustrate the basics of how to use :code:`|toqito⟩`. This
 will cover how to instantiate and use the fundamental objects that
-:code:`toqito` provides; namely quantum states, channels, and measurements.
+:code:`|toqito⟩` provides; namely quantum states, channels, and measurements.
 
-This is a user guide for :code:`toqito` and is not meant to serve as an
+This is a user guide for :code:`|toqito⟩` and is not meant to serve as an
 introduction to quantum information. For introductory material on quantum
 information, please consult "Quantum Information and Quantum Computation" by
 Nielsen and Chuang or the freely available lecture notes `"Introduction to
@@ -14,7 +14,7 @@ by John Watrous.
 
 More advanced tutorials can be found on the `tutorials page <https://toqito.readthedocs.io/en/latest/tutorials.html>`_.
 
-This tutorial assumes you have :code:`toqito` installed on your machine. If you
+This tutorial assumes you have :code:`|toqito⟩` installed on your machine. If you
 do not, please consult the installation instructions in :ref:`getting_started_reference-label`.
 
 States
@@ -40,7 +40,7 @@ The standard basis ket vectors given as :math:`|0\rangle` and :math:`|1\rangle` 
 .. math::
     | 0 \rangle = [1, 0]^{\text{T}} \quad \text{and} \quad | 1 \rangle = [0, 1]^{\text{T}}
 
-can be defined in :code:`toqito` as such
+can be defined in :code:`|toqito⟩` as such
 
 .. code-block:: python
 
@@ -61,7 +61,7 @@ One may define one of the four Bell states written as
 .. math::
     u_0 = \frac{1}{\sqrt{2}} \left(| 00 \rangle + | 11 \rangle \right)
 
-using :code:`toqito` as
+using :code:`|toqito⟩` as
 
 .. code-block:: python
 
@@ -86,7 +86,7 @@ The corresponding density operator of :math:`u_0` can be obtained from
         1 & 0 & 0 & 1
     \end{pmatrix} \in \text{D}(\mathcal{X}).
 
-In :code:`toqito`, that can be obtained as 
+In :code:`|toqito⟩`, that can be obtained as 
 
 .. code-block:: python
     
@@ -101,7 +101,7 @@ In :code:`toqito`, that can be obtained as
            [0.5, 0. , 0. , 0.5]])
 
 
-Alternatively, we may leverage the :code:`bell` function in :code:`toqito` to
+Alternatively, we may leverage the :code:`bell` function in :code:`|toqito⟩` to
 generate all four Bell states defined as
 
 .. math::
@@ -133,7 +133,7 @@ information. For instance, the GHZ state
 .. math::
     | GHZ \rangle = \frac{1}{\sqrt{2}} \left( | 000 \rangle + | 111 \rangle \right)
 
-is a well-known 3-qubit quantum state. We can invoke this using :code:`toqito` as
+is a well-known 3-qubit quantum state. We can invoke this using :code:`|toqito⟩` as
 
 .. code-block:: python
 
@@ -156,7 +156,7 @@ possible to define a generalized GHZ state
     | GHZ_n \rangle = \frac{1}{\sqrt{n}} \left( | 0 \rangle^{\otimes n} + | 1
     \rangle^{\otimes n} \right).
 
-This generalized state may be obtained in :code:`toqito` as well. For instance,
+This generalized state may be obtained in :code:`|toqito⟩` as well. For instance,
 here is the GHZ state :math:`\mathbb{C}^{4^{\otimes 7}}` as 
 
 .. math::
@@ -209,7 +209,7 @@ As we can see, the PPT criterion is :code:`False` for an entangled state in
 
 Determining whether a quantum state is separable or entangled is often useful
 but is, unfortunately, NP-hard. For a given density matrix represented by a
-quantum state, we can use :code:`toqito` to run a number of separability tests
+quantum state, we can use :code:`|toqito⟩` to run a number of separability tests
 from the literature to determine if it is separable or entangled. 
 
 For instance, the following bound-entangled tile state is found to be entangled
@@ -227,7 +227,7 @@ For instance, the following bound-entangled tile state is found to be entangled
     >>> is_separable(rho)
     False
 
-Further properties that one can check via :code:`toqito` may be found `on this page
+Further properties that one can check via :code:`|toqito⟩` may be found `on this page
 <https://toqito.readthedocs.io/en/latest/autoapi/state_props/index.html>`_.
 
 Distance Metrics for Quantum States
@@ -250,7 +250,7 @@ The fidelity function yields a value between :math:`0` and :math:`1`, with
 as different as can be and where a value of :math:`1` indicates a scenario
 where :math:`\rho` and :math:`\sigma` are identical.
 
-Let us consider an example in :code:`toqito` where we wish to calculate the
+Let us consider an example in :code:`|toqito⟩` where we wish to calculate the
 fidelity function between quantum states that happen to be identical.
 
 .. code-block:: python
@@ -269,7 +269,7 @@ fidelity function between quantum states that happen to be identical.
 
 There are a number of other metrics one can compute on two density matrices
 including the trace norm, trace distance. These and others are also available
-in :code:`toqito`. For a full list of distance metrics one can compute on
+in :code:`|toqito⟩`. For a full list of distance metrics one can compute on
 quantum states, consult the docs.
 
 Channels
@@ -319,7 +319,7 @@ Taking the partial trace over the second subsystem of :math:`X` yields the follo
                 23 & 27
                 \end{pmatrix}.
 
-By default, the partial trace function in :code:`toqito` takes the trace of the second
+By default, the partial trace function in :code:`|toqito⟩` takes the trace of the second
 subsystem.
 
 .. code-block:: python
@@ -394,7 +394,7 @@ subsystem yields the following matrix
                 10 & 14 & 12 & 16
                 \end{pmatrix}.
 
-By default, in :code:`toqito`, the partial transpose function performs the transposition on
+By default, in :code:`|toqito⟩`, the partial transpose function performs the transposition on
 the second subsystem as follows.
 
 .. code-block:: python
