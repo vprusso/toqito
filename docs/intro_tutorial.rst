@@ -449,7 +449,193 @@ partial transpose over the first subsystem yields the following matrix
            [ 3,  4, 11, 12],
            [ 7,  8, 15, 16]])
 
+**Applying Quantum Channels**
 
+Another important operation when working with quantum channels is applying them to quantum states. :func:`.apply_channel` in :code:`toqito` provides a convenient way to apply a quantum channel (represented by its Choi matrix) to a given quantum state.
+
+Here, we illustrate how to apply two widely used channels – the depolarizing channel and the dephasing channel – using :func:`.apply_channel`.
+
+**Depolarizing Channel**
+
+The depolarizing channel replaces a state with the maximally mixed state with probability :math:`p` and leaves it unchanged with probability :math:`(1-p)`. Mathematically, it is defined as
+
+.. math::
+    \mathcal{N}(\rho) = (1-p) \rho + p\,\frac{\mathbb{I}}{d},
+
+where :math:`\mathbb{I}` is the identity operator and :math:`d` is the dimension of the Hilbert space. The example below applies the depolarizing channel with :math:`p=0.3` to the computational basis state :math:`|0\rangle`.
+
+.. code-block:: python
+
+    >>> import numpy as np
+    >>> from toqito.states import basis
+    >>> from toqito.channel_ops import apply_channel
+    >>> from toqito.channels import depolarizing
+    >>> 
+    >>> # # Create a quantum state |0⟩⟨0|.
+    >>> rho = np.array([[1, 0], [0, 0]])
+    >>> 
+    >>> # Generate the depolarizing channel Choi matrix with noise probability p = 0.3.
+    >>> choi = depolarizing(2, 0.3)
+    >>> 
+    >>> # Apply the depolarizing channel using apply_channel.
+    >>> output_state = apply_channel(rho, choi)
+    >>> print(output_state)
+    [[0.65 0.  ]
+     [0.   0.35]]
+
+**Dephasing Channel**
+
+The dephasing channel reduces the off-diagonal elements of a density matrix without changing the diagonal entries, thereby diminishing quantum coherence. It is commonly expressed as
+
+.. math::
+    \mathcal{N}(\rho) = (1-p) \rho + p\, Z \rho Z,
+
+where :math:`Z` is the Pauli-Z operator and :math:`p` represents the dephasing probability. The example below demonstrates how to apply the dephasing channel with :math:`p=0.4` to the plus state :math:`|+\rangle = \frac{1}{\sqrt{2}}(|0\rangle + |1\rangle)`.
+
+.. code-block:: python
+
+    >>> import numpy as np
+    >>> from toqito.states import basis
+    >>> from toqito.channel_ops import apply_channel
+    >>> from toqito.channels import dephasing
+    >>> 
+    >>> # Create a quantum state |+⟩⟨+|.
+    >>> rho = np.array([[0.5, 0.5], [0.5, 0.5]])
+    >>> 
+    >>> # Generate the dephasing channel Choi matrix with dephasing probability p = 0.4.
+    >>> choi = dephasing(2, 0.4)
+    >>> 
+    >>> # Apply the dephasing channel using apply_channel.
+    >>> output_state = apply_channel(rho, choi)
+    >>> print(output_state)
+    [[0.5 0.2]
+     [0.2 0.5]]
+
+
+
+Noisy Channels
+^^^^^^^^^^^^^^
+
+Quantum noise channels model the interaction between quantum systems and their environment, resulting in decoherence and loss of quantum information. The :code:`toqito` library provides implementations of common noise models used in quantum information processing.
+
+**Phase Damping Channel**
+
+The phase damping channel models quantum decoherence where phase information is lost without any energy dissipation. It is characterized by a parameter :math:`\gamma` representing the probability of phase decoherence.
+
+.. math::
+    K_0 = \begin{pmatrix} 1 & 0 \\ 0 & \sqrt{1 - \gamma} \end{pmatrix}, \quad
+    K_1 = \begin{pmatrix} 0 & 0 \\ 0 & \sqrt{\gamma} \end{pmatrix}
+
+The phase damping channel can be applied to a quantum state as follows:
+
+.. code-block:: python
+
+    >>> from toqito.channels import phase_damping
+    >>> import numpy as np
+    >>> 
+    >>> # Create a density matrix with coherence.
+    >>> rho = np.array([[1, 0.5], [0.5, 1]])
+    >>> 
+    >>> # Apply phase damping with γ = 0.2.
+    >>> result = phase_damping(rho, gamma=0.2)
+    >>> print(result)
+    [[1.       +0.j 0.4472136+0.j]
+     [0.4472136+0.j 1.       +0.j]]
+     
+Note that the off-diagonal elements (coherences) are reduced by a factor of :math:`\sqrt{1-\gamma}`, while the diagonal elements (populations) remain unchanged.
+
+**Amplitude Damping Channel**
+
+The amplitude damping channel models energy dissipation from a quantum system to its environment, such as the spontaneous emission of a photon. It is parameterized by :math:`\gamma`, representing the probability of losing a quantum of energy.
+
+.. math::
+    K_0 = \begin{pmatrix} 1 & 0 \\ 0 & \sqrt{1 - \gamma} \end{pmatrix}, \quad
+    K_1 = \begin{pmatrix} 0 & \sqrt{\gamma} \\ 0 & 0 \end{pmatrix}
+
+Here's how to use the amplitude damping channel:
+
+.. code-block:: python
+
+    >>> from toqito.channels import amplitude_damping
+    >>> import numpy as np
+    >>> 
+    >>> # Create a quantum state.
+    >>> rho = np.array([[0.5, 0.5], [0.5, 0.5]])
+    >>> 
+    >>> # Apply amplitude damping with γ = 0.3.
+    >>> result = amplitude_damping(rho, gamma=0.3)
+    >>> print(result)
+    [[0.65      +0.j 0.41833001+0.j]
+     [0.41833001+0.j 0.35      +0.j]]
+
+**Bit-Flip Channel**
+
+The bit-flip channel randomly flips the state of a qubit with probability :math:`p`, analogous to the classical bit-flip error in classical information theory.
+
+.. math::
+    K_0 = \sqrt{1 - p} \, I = \sqrt{1 - p} \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}, \quad
+    K_1 = \sqrt{p} \, X = \sqrt{p} \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}
+
+
+.. code-block:: python
+
+    >>> from toqito.channels import bitflip
+    >>> import numpy as np
+    >>> 
+    >>> # Create a quantum state |0⟩⟨0|.
+    >>> rho = np.array([[1, 0], [0, 0]])
+    >>> 
+    >>> # Apply bit-flip with probability = 0.25.
+    >>> result = bitflip(rho, prob=0.25)
+    >>> print(result)
+    [[0.75+0.j 0.  +0.j]
+     [0.  +0.j 0.25+0.j]]
+     
+Observe that the result is a mixed state with 75% probability of being in state :math:`|0\rangle` and 25% probability of being in state :math:`|1\rangle`, as expected for a bit flip error with probability :math:`p = 0.25`.
+
+**Pauli Channel**
+
+The Pauli channel is a quantum noise model that applies a probabilistic mixture of Pauli operators 
+to a quantum state. It is defined by a probability vector :math:`(p_0, \ldots, p_{4^q - 1})`, where 
+:math:`q` is the number of qubits, and :math:`P_i` are the Pauli operators acting on the system.
+
+.. math::
+    \Phi(\rho) = \sum_{i=0}^{4^q - 1} p_i P_i \rho P_i^\dagger.
+
+For example, when :math:`q = 1`, the Pauli operators are:
+:math:`P_0 = I`, :math:`P_1 = X`, :math:`P_2 = Y`, and :math:`P_3 = Z`. For multiple qubits, 
+these operators are extended as tensor products.
+
+It is also worth noting that when
+
+* :math:`P_2 = 0`, and :math:`P_3 = 0`, :func:`.pauli_channel` is equivalent to a :func:`.bitflip` channel
+
+* :math:`P_1 = 0`, and :math:`P_2 = 0`, :func:`.pauli_channel` is equivalent to a Phase Flip channel
+
+* :math:`P_1 = 0`, and :math:`P_3 = 0`, :func:`.pauli_channel` is equivalent to a Bit and Phase Flip channel
+
+The Pauli channel can be used to apply noise to an input quantum state or generate a Choi matrix.
+
+
+.. code-block:: python
+
+    >>> from toqito.channels import pauli_channel
+    >>> import numpy as np
+    >>> 
+    >>> # Define probabilities for single-qubit Pauli operators.
+    >>> probabilities = np.array([0.5, 0.2, 0.2, 0.1])
+    >>> 
+    >>> # Define an input density matrix.
+    >>> rho = np.array([[1, 0], [0, 0]])
+    >>> 
+    >>> # Apply the Pauli channel.
+    >>> _ , result = pauli_channel(prob = probabilities, input_mat=rho)
+    >>> print(result)
+    [[0.6+0.j 0. +0.j]
+     [0. +0.j 0.4+0.j]]
+
+Here, the probabilities correspond to applying the identity (:math:`I`), bit-flip (:math:`X`), 
+phase-flip (:math:`Z`), and combined bit-phase flip (:math:`Y`) operators.
 
 Measurements
 ------------
