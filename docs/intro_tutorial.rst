@@ -456,6 +456,8 @@ where :math:`\Sigma` represents a set of measurement outcomes and where
 POVM
 ^^^^
 
+POVM (Positive Operator-Valued Measure) is a set of positive operators that sum up to the identity. 
+
 Consider the following matrices:
 
 .. math::
@@ -471,9 +473,8 @@ Consider the following matrices:
         0 & 1
     \end{pmatrix}.
 
-A POVM (Positive Operator-Valued Measure) is a set of positive operators that sum to the identity. 
-Our function expects this set of operators to be a POVM because it checks if the sum of the operators 
-equals the identity, ensuring that the measurement outcomes are properly normalized.
+Our function expects this set of operators to be a POVM because it checks if the operators 
+sum up to the identity, ensuring that the measurement outcomes are properly normalized.
 
     >>> from toqito.measurement_props import is_povm
     >>> import numpy as np
@@ -486,12 +487,7 @@ equals the identity, ensuring that the measurement outcomes are properly normali
 Random POVM
 ^^^^^^^^^^^
 
-A POVM (Positive Operator-Valued Measure) is a set of positive semidefinite operators {M₁, M₂, ..., Mₙ} 
-that sum to the identity matrix (∑ᵢMᵢ = I). Each operator Mᵢ corresponds to a possible measurement outcome, 
-and the probability of obtaining outcome i when measuring a quantum state ρ is given by Tr(Mᵢρ). 
-POVMs provide the most general description of quantum measurements allowed by quantum mechanics.
-
-We may also use the :code:`random_povm` function from :code:`toqito`, and can verify that a
+We may also use :func:`.random_povm` to randomly generate a POVM, and can verify that a
 randomly generated set satisfies the criteria for being a POVM set.
 
     >>> from toqito.measurement_props import is_povm
@@ -502,7 +498,7 @@ randomly generated set satisfies the criteria for being a POVM set.
     >>> is_povm([measurements[:, :, 0, 0], measurements[:, :, 0, 1]])
     True
 
-Alternatively, the following matrices
+Alternatively, the following matrices do not constitute a POVM set.
 
 .. math::
     M_0 =
@@ -517,7 +513,7 @@ Alternatively, the following matrices
         7 & 8
     \end{pmatrix},
 
-do not constitute a POVM set.
+.. code-block:: python
 
     >>> from toqito.measurement_props import is_povm
     >>> import numpy as np
@@ -527,22 +523,21 @@ do not constitute a POVM set.
     >>> is_povm(non_meas)
     False
 
-Measure
-^^^^^^^
+Measurement Operators
+^^^^^^^^^^^^^^^^^^^^^
 
 Consider the following state:
 
 .. math::
     u = \frac{1}{\sqrt{3}} e_0 + \sqrt{\frac{2}{3}} e_1
 
-where we define :math:`u u^* = \rho \in \text{D}(\mathcal{X})`.
-
-Let :math:`e_0` and :math:`e_1` be the standard basis vectors:
+where we define :math:`u u^* = \rho \in \text{D}(\mathcal{X})` and :math:`e_0` 
+and :math:`e_1` are the standard basis vectors.
 
 .. math::
     e_0 = \begin{pmatrix} 1 \\ 0 \end{pmatrix} \quad \text{and} \quad e_1 = \begin{pmatrix} 0 \\ 1 \end{pmatrix}
 
-Define measurement operators
+The measurement operators are defined as shown below:
 
 .. math::
     P_0 = e_0 e_0^* \quad \text{and} \quad P_1 = e_1 e_1^*.
@@ -618,6 +613,13 @@ Pretty Bad Measurement
 ^^^^^^^^^^^^^^^^^^^^^^
 
 Similarly, we can consider so-called "pretty bad measurement" (PBM) on the set of trine states :cite:`McIrvin_2024_Pretty`.
+
+The pretty bad measurement (PBM) is a set of POVMs :math:`(B_1, \ldots, B_n)` defined as
+
+.. math::
+    B_i = \left(P + (n-1)p_i \rho_i\right)^{-1} p_i \rho_i \left(P + (n-1)p_i \rho_i\right)^{-1} \quad \text{where} \quad P = \sum_{i=1}^n p_i \rho_i.
+
+Like the PGM, the PBM provides a measurement strategy for quantum state discrimination, but with different properties that can be useful in certain contexts.
 
 .. math::
     u_0 = |0\rangle, \quad
