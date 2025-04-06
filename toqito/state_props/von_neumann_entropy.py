@@ -45,7 +45,7 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
                          1 & 0 & 0 & 1
                        \end{pmatrix} \in \text{D}(\mathcal{X}).
 
-    Calculating the von Neumann entropy of :math:`\rho` in :code:`toqito` can be done as follows.
+    Calculating the von Neumann entropy of :math:`\rho` in :code:`|toqito⟩` can be done as follows.
 
     >>> from toqito.state_props import von_neumann_entropy
     >>> import numpy as np
@@ -66,7 +66,7 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
         \end{pmatrix}.
 
     As this state is maximally mixed, the von Neumann entropy of :math:`\rho` is
-    equal to one. We can see this in :code:`toqito` as follows.
+    equal to one. We can see this in :code:`|toqito⟩` as follows.
 
     >>> from toqito.state_props import von_neumann_entropy
     >>> import numpy as np

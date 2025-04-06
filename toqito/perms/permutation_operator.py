@@ -35,7 +35,7 @@ def permutation_operator(
             0 & 0 & 0 & 1
         \end{pmatrix}
 
-    Using :code:`toqito`, this can be achieved in the following manner.
+    Using :code:`|toqito⟩`, this can be achieved in the following manner.
 
     >>> from toqito.perms import permutation_operator
     >>> permutation_operator(2, [1, 0])

@@ -45,7 +45,7 @@ def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
     .. math::
         |\phi_0\rangle = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right)
 
-    is one of the four standard Bell states. This can be computed via :code:`toqito` as follows.
+    is one of the four standard Bell states. This can be computed via :code:`|toqito⟩` as follows.
 
     >>> from toqito.states import gen_bell
     >>> dim = 2

@@ -65,7 +65,7 @@ def partial_transpose(
                     10 & 14 & 12 & 16
                  \end{pmatrix}.
 
-    By default, in :code:`toqito`, the partial transpose function performs the transposition on
+    By default, in :code:`|toqito⟩`, the partial transpose function performs the transposition on
     the second subsystem as follows.
 
     >>> from toqito.channels import partial_transpose
@@ -167,8 +167,8 @@ def partial_transpose(
     sub_sys_vec_r = prod_dim_r * np.ones(int(sub_prod_r)) / sub_prod_r
     sub_sys_vec_c = prod_dim_c * np.ones(int(sub_prod_c)) / sub_prod_c
 
-    set_diff = list(set(list(range(num_sys ))) - set(sys ))
-    perm = (sys ).tolist()[:]
+    set_diff = list(set(list(range(num_sys))) - set(sys))
+    perm = (sys).tolist()[:]
     perm.extend(set_diff)
 
     # Permute the subsystems so that we just have to do the partial transpose
@@ -198,6 +198,6 @@ def partial_transpose(
     # Return the subsystems back to their original positions.
     dim[:, sys] = np.flipud(dim[:, sys])
 
-    dim = dim[:, (np.array(perm) ).tolist()]
+    dim = dim[:, (np.array(perm)).tolist()]
 
     return permute_systems(z_tmp, perm, dim, False, True)

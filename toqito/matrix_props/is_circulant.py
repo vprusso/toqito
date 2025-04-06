@@ -24,7 +24,7 @@ def is_circulant(mat: np.ndarray) -> bool:
             \end{pmatrix}
 
     As can be seen, this matrix is circulant. We can verify this in
-    :code:`toqito` as
+    :code:`|toqito⟩` as
 
     >>> from toqito.matrix_props import is_circulant
     >>> import numpy as np

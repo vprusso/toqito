@@ -49,7 +49,7 @@ def partial_trace(
                     23 & 27
                  \end{pmatrix}.
 
-    By default, the partial trace function in :code:`toqito` takes the trace of the second
+    By default, the partial trace function in :code:`|toqito⟩` takes the trace of the second
     subsystem.
 
     >>> from toqito.channels import partial_trace

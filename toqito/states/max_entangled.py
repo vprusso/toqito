@@ -23,7 +23,7 @@ def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True)
     .. math::
         u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right)
 
-    using :code:`toqito` as follows.
+    using :code:`|toqito⟩` as follows.
 
     >>> from toqito.states import max_entangled
     >>> max_entangled(2)
@@ -37,7 +37,7 @@ def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True)
     .. math::
         v = |00\rangle + |11 \rangle
 
-    using :code:`toqito` as follows.
+    using :code:`|toqito⟩` as follows.
 
     >>> from toqito.states import max_entangled
     >>> max_entangled(2, False, False)
