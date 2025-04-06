@@ -20,12 +20,12 @@ def is_nonnegative(input_mat: np.ndarray, mat_type: str = "nonnegative") -> bool
 
     >>> import numpy as np
     >>> from toqito.matrix_props import is_nonnegative
-    >>> is_nonnegative(np.identity(3))
+    >>> is_nonnegative(np.eye(2))
     True
-    >>> is_nonnegative(np.identity(3), "doubly")
+    >>> is_nonnegative(np.eye(2), "doubly")
     True
-    >>> is_nonnegative(np.identity(3), "nonnegative")
-    True
+    >>> is_nonnegative(np.array([[1, -1], [1, 1]]))
+    False
 
     References
     ==========
@@ -44,7 +44,7 @@ def is_nonnegative(input_mat: np.ndarray, mat_type: str = "nonnegative") -> bool
     if mat_type not in valid_types:
         raise TypeError(f"Invalid matrix check type: {mat_type}. Must be one of: {valid_types}.")
 
-    is_entrywise_nonnegative = np.all(input_mat >= 0)
+    is_entrywise_nonnegative = bool(np.all(input_mat >= 0))
 
     if mat_type == "nonnegative":
         return is_entrywise_nonnegative
