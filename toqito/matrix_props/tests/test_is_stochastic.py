@@ -21,6 +21,7 @@ def test_true(test_input, test_type):
     """Check if function identifies non-right stochastic matrix correctly."""
     assert not is_stochastic(test_input, test_type)
 
+
 @pytest.mark.parametrize("test_input", [(pauli("Y")), (pauli("Z")), (pauli("X")), (pauli("I"))])
 @pytest.mark.parametrize("bad_type", [("l"), ("r"), (1), (), ("d")])
 def test_true(test_input, bad_type):
