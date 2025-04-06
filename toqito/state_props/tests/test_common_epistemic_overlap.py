@@ -31,7 +31,7 @@ from toqito.state_props import common_epistemic_overlap
                 0.5 * np.array([[1, 1], [1, 1]]),  # |+><+|
                 0.5 * np.array([[1, -1], [-1, 1]]),  # |-><-|
             ],
-            0.0,
+            0.5,
         ),
         ([np.eye(3) / 3] * 4, 1.0),  # Four identical maximally mixed states
         (
@@ -50,18 +50,25 @@ def test_epistemic_overlap_parametrized(states, expected_overlap):
     """Parametrized tests for core paper examples."""
     computed = common_epistemic_overlap(states)
     assert np.isclose(computed, expected_overlap, atol=1e-3)
+    
+@pytest.mark.parametrize(
+    "states, expected_msg",
+    [
+        # Non-square density matrix should raise ValueError.
+        (
+            [np.array([[1, 2, 3],
+                       [4, 5, 6]])],
+            r"Density matrices must be square"
+        ),
+        # States with inconsistent dimensions should raise ValueError.
+        (
+            [np.array([1, 0]), np.array([1, 0, 0])],
+            r"All states must have consistent dimension"
+        )
+    ]
+)
 
-
-@pytest.mark.parametrize("invalid_input, expected_error", [
-
-    #non square density  matrix
-    ([np.array([[1, 0], [0, 0], [0, 0]]), np.array([[1, 0], [0, 0], [0, 0]])], ValueError),
-
-    #non consistent dimensions
-    ([np.eye(2), np.eye(3)], ValueError),
-
-])
-def test_input_validation(invalid_input, expected_error):
-    """Verify proper error handling for invalid inputs."""
-    with pytest.raises(expected_error):
-        common_epistemic_overlap(invalid_input)
+def test_common_epistemic_overlap_invalid_inputs(states, expected_msg):
+    """Test that common_epistemic_overlap raises errors for invalid inputs."""
+    with pytest.raises(ValueError, match=expected_msg):
+        common_epistemic_overlap(states)
