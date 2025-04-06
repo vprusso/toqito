@@ -54,7 +54,7 @@ def is_unitary(phi: np.ndarray | list[list[np.ndarray]]) -> bool:
 
     >>> from toqito.channels import depolarizing
     >>> from toqito.channel_props import is_unitary
-    >>> is_unitary(depolarizing(2))
+    >>> is_unitary(depolarizing(2, param_p=1))
     False
 
     References

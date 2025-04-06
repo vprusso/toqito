@@ -21,7 +21,7 @@ def diamond_distance(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     >>> import numpy as np
     >>> from toqito.channels import depolarizing
     >>> from toqito.channel_metrics import diamond_distance
-    >>> choi_depolarizing = depolarizing(dim=2, param_p=0.2)
+    >>> choi_depolarizing = depolarizing(dim=2, param_p=1)
     >>> choi_identity = np.identity(2**2)
     >>> np.around(diamond_distance(choi_depolarizing, choi_identity), decimals=2)
     np.float64(1.0)
