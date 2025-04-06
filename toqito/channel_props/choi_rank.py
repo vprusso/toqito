@@ -38,7 +38,7 @@ def choi_rank(phi: np.ndarray | list[list[np.ndarray]]) -> int:
             \end{pmatrix}.
         \end{equation}
 
-    and can be generated in :code:`toqito` with the following list:
+    and can be generated in :code:`|toqito⟩` with the following list:
 
     >>> import numpy as np
     >>> kraus_1 = np.array([[1, 0], [0, 0]])

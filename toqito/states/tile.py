@@ -40,7 +40,7 @@ def tile(idx: int) -> np.ndarray:
     .. math::
         \frac{1}{\sqrt{2}} |0\rangle \left( |0\rangle - |1\rangle \right).
 
-    Using :code:`toqito`, we can see that this yields the proper state.
+    Using :code:`|toqito⟩`, we can see that this yields the proper state.
 
     >>> from toqito.states import tile
     >>> import numpy as np

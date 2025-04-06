@@ -38,7 +38,7 @@ def is_ppt(mat: np.ndarray, sys: int = 2, dim: int | list[int] = None, tol: floa
         \end{pmatrix}.
 
     This matrix trivially satisfies the PPT criterion as can be seen using the
-    :code:`toqito` package.
+    :code:`|toqito⟩` package.
 
     >>> from toqito.state_props import is_ppt
     >>> import numpy as np
@@ -53,7 +53,7 @@ def is_ppt(mat: np.ndarray, sys: int = 2, dim: int | list[int] = None, tol: floa
 
     For the density matrix :math:`\rho = u u^*`, as this is an entangled state
     of dimension :math:`2`, it will violate the PPT criterion, which can be seen
-    using the :code:`toqito` package.
+    using the :code:`|toqito⟩` package.
 
     >>> from toqito.states import bell
     >>> from toqito.state_props import is_ppt

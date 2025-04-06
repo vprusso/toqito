@@ -1,7 +1,7 @@
 Additional Tutorials
 ====================
 
-Tutorials for :code:`toqito`.
+Tutorials for :code:`|toqito⟩`.
 
 Introductory Tutorial
 --------------------------

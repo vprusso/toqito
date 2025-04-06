@@ -5,7 +5,7 @@ Contributing Guide
 """"""""""""""""""
 
 We welcome contributions from external contributors, and this document describes how to merge code changes into
-:code:`toqito`. 
+:code:`|toqito⟩`. 
 
 
 1. Make sure you have a `GitHub account <https://github.com/signup/free>`_.
@@ -29,20 +29,20 @@ We welcome contributions from external contributors, and this document describes
    for detailed instructions on configuring it on your machine.
 
 
-6. Now, navigate to your local clone of the :code:`toqito` repository as shown below.
+6. Now, navigate to your local clone of the :code:`|toqito⟩` repository as shown below.
 
 .. code-block:: bash
 
     $ cd toqito/
 
-7. Use :code:`poetry` as shown below in the :code:`toqito` folder. This should install an editable version of :code:`toqito`
+7. Use :code:`poetry` as shown below in the :code:`|toqito⟩` folder. This should install an editable version of :code:`|toqito⟩`
    alongside other development dependencies.
 
 .. code-block:: bash
 
     toqito/ $ poetry install
 
-You are now free to make the desired changes in your fork of :code:`toqito`. 
+You are now free to make the desired changes in your fork of :code:`|toqito⟩`. 
 
 --------------
 Making Changes
@@ -55,7 +55,7 @@ Making Changes
      with the branch name relating to the feature you are going to add.
 
 2.   When you are ready for others to examine and comment on your new feature,
-     navigate to your fork of :code:`toqito` on GitHub and open a 
+     navigate to your fork of :code:`|toqito⟩` on GitHub and open a 
      `pull request(PR) <https://help.github.com/articles/using-pull-requests/>`_ . Note that
      after you launch a PR from one of your fork's branches, all subsequent commits to that branch will be added to the
      open pull request automatically.  Each commit added to the PR will be validated for mergability, compilation and
@@ -67,7 +67,7 @@ Making Changes
 4.   When the code is ready to go, make sure you run the test suite using :code:`pytest`, :code:`ruff`, etc.
 
 5.   When you're ready to be considered for merging, comment on your PR that it is ready for a review
-     to let the :code:`toqito` devs know that the changes are complete. The code will not be reviewed
+     to let the :code:`|toqito⟩` devs know that the changes are complete. The code will not be reviewed
      until you have commented so, the continuous integration workflow passes, and the primary developer approves the
      reviews.
 
@@ -75,7 +75,7 @@ Making Changes
 Testing
 -------
 
-A convenient way to verify if the installation procedure worked correctly, use `pytest` in the :code:`toqito` folder as
+A convenient way to verify if the installation procedure worked correctly, use `pytest` in the :code:`|toqito⟩` folder as
 shown below.
 
 .. code-block:: bash
@@ -130,7 +130,7 @@ References in Docstrings
 
 
 If you are adding a new function, make sure the docstring of your function follows the formatting specifications
-in `Code Style`_. A standard format for :code:`toqito` docstring is provided below:
+in `Code Style`_. A standard format for :code:`|toqito⟩` docstring is provided below:
 
 .. code-block:: python
     
@@ -176,7 +176,7 @@ Documentation
 
 We use :code:`sphinx` to build the documentation and :code:`doctest` to test the examples in the documentation and function docstrings. 
 To build the documentation locally, make sure :code:`sphinx` and :code:`furo` are installed when poetry was used to
-install :code:`toqito`.
+install :code:`|toqito⟩`.
 
 .. code-block:: bash
 
@@ -202,7 +202,7 @@ Adding a new feature
 --------------------
 
 
-If you add a new feature to :code:`toqito`, make sure
+If you add a new feature to :code:`|toqito⟩`, make sure
 
 - The function docstring follows the style guidelines as specified in `References in Docstrings`_.
 - Added lines should show up as covered in the :code:`pytest` code coverage report. See `Testing`_.

@@ -15,7 +15,7 @@ def schmidt_decomposition(
     .. math::
         u = \frac{1}{\sqrt{3}} \left( |000 \rangle + |111 \rangle + |222 \rangle \right).
 
-    We can generate this state using the :code:`toqito` module as follows.
+    We can generate this state using the :code:`|toqito⟩` module as follows.
 
     >>> from toqito.states import max_entangled
     >>> max_entangled(3)

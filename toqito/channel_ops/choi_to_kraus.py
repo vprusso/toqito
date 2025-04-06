@@ -60,7 +60,7 @@ def choi_to_kraus(
         \big]
         \end{equation}
 
-    This can be verified in :code:`toqito` as follows.
+    This can be verified in :code:`|toqito⟩` as follows.
 
     >>> import numpy as np
     >>> from toqito.channel_ops import choi_to_kraus

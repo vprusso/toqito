@@ -101,7 +101,7 @@ class XORGame:
     ... ]
     ... )
 
-    In :code:`toqito`, we can calculate both the quantum and classical value of
+    In :code:`|toqito⟩`, we can calculate both the quantum and classical value of
     the odd cycle game as follows.
 
     >>> import numpy as np

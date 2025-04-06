@@ -29,7 +29,7 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray
     .. math::
         \frac{1}{\sqrt{2}} \left( |000 \rangle + |111 \rangle \right).
 
-    Using :code:`toqito`, we can see that this yields the proper state.
+    Using :code:`|toqito⟩`, we can see that this yields the proper state.
 
     >>> from toqito.states import ghz
     >>> ghz(2, 3)

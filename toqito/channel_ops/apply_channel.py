@@ -72,7 +72,7 @@ def apply_channel(mat: np.ndarray, phi_op: np.ndarray | list[list[np.ndarray]]) 
                         7 & 8 & 9
                    \end{pmatrix}
 
-    Using :code:`toqito`, we can obtain the above matrices as follows.
+    Using :code:`|toqito⟩`, we can obtain the above matrices as follows.
 
     >>> from toqito.channel_ops import apply_channel
     >>> from toqito.perms import swap_operator
