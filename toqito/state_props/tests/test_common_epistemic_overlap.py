@@ -50,7 +50,7 @@ def test_epistemic_overlap_parametrized(states, expected_overlap):
     """Parametrized tests for core paper examples."""
     computed = common_epistemic_overlap(states)
     assert np.isclose(computed, expected_overlap, atol=1e-3)
-    
+
 @pytest.mark.parametrize(
     "states, expected_msg",
     [

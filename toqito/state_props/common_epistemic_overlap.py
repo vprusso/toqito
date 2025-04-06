@@ -1,12 +1,9 @@
 """Calculate the common epistemic overlap of quantum states."""
 
-from functools import reduce
 from itertools import product
 
 import numpy as np
-from sympy import factorint, isprime
 
-from toqito.matrices import gen_pauli_x, gen_pauli_z
 from toqito.matrix_ops.vec import vec
 
 
@@ -19,7 +16,8 @@ def common_epistemic_overlap(states, dim=None) -> float:
         \omega_E(\rho_1,\ldots,\rho_n) = \int \min_{\lambda\in\Lambda}
         (\mu(\lambda|\rho_1), \ldots, \mu(\lambda|\rho_n)) d\lambda
 
-    where :math:`\mu(\lambda|\rho)` is the epistemic state associated with the quantum state :math:`\rho` in einstein's epistemic model
+    where :math:`\mu(\lambda|\rho)` is the epistemic state associated with the quantum state
+    :math:`\rho` in einstein's epistemic model
 
     This function accepts both state vectors and density matrices as input.
 
