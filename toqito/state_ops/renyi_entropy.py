@@ -14,13 +14,10 @@ def renyi_entropy(rho: np.ndarray, alpha: float, tolerance: float = 1e-10) -> fl
     where :math:`\lambda_i` are the eigenvalues of :math:`\rho`.
 
     Special cases :cite:`muller_lennert_renyi_2013`
-        - For :math:`\alpha = 0` (Hartley entropy) \\
-          .. math:: S_0(\rho) = \log_2 d,
+        - For :math:`\alpha = 0` (Hartley entropy):  :math: 'S_0(\rho) = \log_2 d',
           where :math:`d` is the rank of :math:`\rho`.
-        - For :math:`\alpha = 1` (Shannon entropy) \\
-          .. math:: S_1(\rho) = -\sum_i \lambda_i \log_2 \lambda_i.
-        - For :math:`\alpha \to \infty` (Min-entropy) \\
-          .. math:: S_{\infty}(\rho) = -\log_2 \max_i \lambda_i.
+        - For :math:`\alpha = 1` (Shannon entropy):  :math: 'S_1(\rho) = -\sum_i \lambda_i \log_2 \lambda_i'.
+        - For :math:`\alpha \to \infty` (Min-entropy): :math: 'S_{\infty}(\rho) = -\log_2 \max_i \lambda_i'.
 
 
     Examples
