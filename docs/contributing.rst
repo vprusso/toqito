@@ -16,8 +16,8 @@ We welcome contributions from external contributors, and this document describes
 
 .. warning::
      It would be better to avoid an editable installation via :code:`pip` as :code:`poetry` is a better dependency resolver. 
-
-4. As stated in :ref:`getting_started_reference-label`, ensure you have Python 3.10 or greater installed on your machine or in 
+ddddd
+4. As stated in :ref:`getting_started_reference-label`, ensure you have Python 3.10 to 3.12 installed on your machine or in 
    a virtual environment (`pyenv <https://github.com/pyenv/pyenv>`_, `pyenv tutorial <https://realpython.com/intro-to-pyenv/>`_).
    Consider using a `virtual environment <https://docs.python.org/3/tutorial/venv.html>`_.
    You can also use :code:`pyenv` with :code:`virtualenv` `to manage different Python
