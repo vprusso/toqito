@@ -16,8 +16,9 @@ def common_epistemic_overlap(states, dim=None) -> float:
         \omega_E(\rho_1,\ldots,\rho_n) = \int \min_{\lambda\in\Lambda}
         (\mu(\lambda|\rho_1), \ldots, \mu(\lambda|\rho_n)) d\lambda
 
-    where :math:`\mu(\lambda|\rho)` is the epistemic state associated with the quantum state
-    :math:`\rho` in einstein's epistemic model
+    where :math:`\Lambda` is set of all ontic states and
+    :math:`\mu(\lambda|\rho)` is the epistemic state associated with 
+    the quantum state :math:`\rho` in einstein's epistemic model.
 
     This function accepts both state vectors and density matrices as input.
 
@@ -28,14 +29,14 @@ def common_epistemic_overlap(states, dim=None) -> float:
     >>> from toqito.state_props import common_epistemic_overlap
     >>> from toqito.states import bell
     >>> round(common_epistemic_overlap([bell(0), bell(2)]),4)
-    0.0
+    np.float64(0.0)
 
     Mixed state inputs:
 
     >>> import numpy as np
     >>> from toqito.state_props import common_epistemic_overlap
     >>> round(common_epistemic_overlap([np.eye(2)/2, np.eye(2)/2]),4)
-    1.0
+    np.float64(1.0)
 
     References
     ==========
