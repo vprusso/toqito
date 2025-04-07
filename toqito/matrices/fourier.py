@@ -49,8 +49,8 @@ def fourier(dim: int) -> np.ndarray:
 
     Parameters
     ----------
-    dim : int
-        The size of the Fourier matrix.
+    :param dim: The size of the Fourier matrix.
+    :return: The Fourier matrix of dimension :code:`dim`.
 
     Returns
     -------
