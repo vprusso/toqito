@@ -10,7 +10,12 @@ from toqito.matrix_ops.vec import vec
 def common_epistemic_overlap(states, dim=None) -> float:
     r"""Compute the epistemic overlap :cite:`Sagnik_2024_Epistemic`.
 
-    For a set of quantum states :math:`\{\rho_i\}`, the epistemic overlap is defined as:
+    For a set of quantum states :math:`\{\rho_i\}` , the epistemic overlap represents the common region
+    where the probability distributions of these quantum states overlap in the underlying ontic state space.
+    In Einstein's epistemic model of quantum mechanics,
+    this overlap quantifies the extent to which different quantum states
+    share the same underlying physical reality.
+    Mathematically, it is defined as:
 
     .. math::
         \omega_E(\rho_1,\ldots,\rho_n) = \int \min_{\lambda\in\Lambda}
@@ -76,9 +81,8 @@ def common_epistemic_overlap(states, dim=None) -> float:
             prob = np.real(np.trace(np.matmul(rho, l_lambda_proj)))
             distribution[lambda_point] = prob
             total_prob += prob
-        if total_prob > 0:
-            for lambda_point in lambda_space:
-                distribution[lambda_point] /= total_prob
+        for lambda_point in lambda_space:
+            distribution[lambda_point] /= total_prob
         distributions.append(distribution)
     min_probabilities = {}
     for lambda_point in lambda_space:
