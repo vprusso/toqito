@@ -17,7 +17,7 @@ def common_epistemic_overlap(states, dim=None) -> float:
         (\mu(\lambda|\rho_1), \ldots, \mu(\lambda|\rho_n)) d\lambda
 
     where :math:`\Lambda` is set of all ontic states and
-    :math:`\mu(\lambda|\rho)` is the epistemic state associated with 
+    :math:`\mu(\lambda|\rho)` is the epistemic state associated with
     the quantum state :math:`\rho` in einstein's epistemic model.
 
     This function accepts both state vectors and density matrices as input.
