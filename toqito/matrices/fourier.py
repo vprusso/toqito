@@ -2,6 +2,7 @@
 
 import numpy as np
 
+
 def fourier(dim: int) -> np.ndarray:
     r"""Generate the Fourier transform matrix :cite:`WikiDFT`.
 
