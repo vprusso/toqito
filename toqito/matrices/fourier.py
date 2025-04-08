@@ -47,15 +47,8 @@ def fourier(dim: int) -> np.ndarray:
     .. bibliography::
         :filter: docname in docnames
 
-    Parameters
-    ----------
     :param dim: The size of the Fourier matrix.
     :return: The Fourier matrix of dimension :code:`dim`.
-
-    Returns
-    -------
-    np.ndarray
-        The Fourier matrix of dimension :code:`dim`.
     """
     # Primitive root of unity.
     root_unity = np.exp(2 * 1j * np.pi / dim)
