@@ -15,7 +15,7 @@ def kraus_to_choi(kraus_ops: list[list[np.ndarray]], sys: int = 2) -> np.ndarray
     The Choi matrix of the list of Kraus operators, :code:`kraus_ops`. The default convention is
     that the Choi matrix is the result of applying the map to the second subsystem of the
     standard maximally entangled (unnormalized) state. The Kraus operators are expected to be
-    input as a list of numpy arrays (i.e. [[:math:`A_1`, :math:`B_1`],...,[:math:`A_n`, :math:`B_n`]]). 
+    input as a list of numpy arrays (i.e. [[:math:`A_1`, :math:`B_1`],...,[:math:`A_n`, :math:`B_n`]]).
     In case the map is CP (completely positive), it suffices to input a flat list of operators omitting 
     their conjugate transpose (i.e. [:math:`K_1`,..., :math:`K_n`]).
 
@@ -26,7 +26,8 @@ def kraus_to_choi(kraus_ops: list[list[np.ndarray]], sys: int = 2) -> np.ndarray
 
     The transpose map:
 
-    The Choi matrix of the transpose map is the swap operator. Notice that the transpose map is *not* completely positive.
+    The Choi matrix of the transpose map is the swap operator. Notice that the transpose map
+    is *not* completely positive.
 
     >>> import numpy as np
     >>> from toqito.channel_ops import kraus_to_choi
