@@ -58,10 +58,10 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
     >>> import numpy as np
     >>> test_input_mat = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
     >>> apply_channel(test_input_mat, depolarizing(4,param_p=0.1))
-    array([[0.25, 0.  , 0.  , 0.  ],
-           [0.  , 0.25, 0.  , 0.  ],
-           [0.  , 0.  , 0.25, 0.  ],
-           [0.  , 0.  , 0.  , 0.25]])
+    array([[0.475, 0.   , 0.   , 0.45 ],
+           [0.   , 0.025, 0.   , 0.   ],
+           [0.   , 0.   , 0.025, 0.   ],
+           [0.45 , 0.   , 0.   , 0.475]])
 
     >>> from toqito.channel_ops import apply_channel
     >>> from toqito.channels import depolarizing
@@ -70,11 +70,10 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
     ...     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
     ... )
     >>> apply_channel(test_input_mat, depolarizing(4, param_p=0.1))
-    array([[8.5, 0. , 0. , 0. ],
-           [0. , 8.5, 0. , 0. ],
-           [0. , 0. , 8.5, 0. ],
-           [0. , 0. , 0. , 8.5]])
-
+    array([[ 1.75,  1.8 ,  2.7 ,  3.6 ],
+           [ 4.5 ,  6.25,  6.3 ,  7.2 ],
+           [ 8.1 ,  9.  , 10.75, 10.8 ],
+           [11.7 , 12.6 , 13.5 , 15.25]])
 
 
     References
