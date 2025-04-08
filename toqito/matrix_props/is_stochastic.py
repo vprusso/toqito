@@ -5,9 +5,7 @@ import numpy as np
 from toqito.matrix_props import is_nonnegative, is_square
 
 
-# ignore the entire file from the coverage report because covered lines erroneously show up as uncovered in the
-# report
-def is_stochastic(mat: np.ndarray, mat_type: str) -> bool: # pragma: no cover
+def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
    r"""Verify matrix is doubly, right or left stochastic.
 
    When the nonnegative elements in a row of a square matrix sum up to 1, the matrix is right stochastic and if the
@@ -43,7 +41,6 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool: # pragma: no cover
    >>> is_stochastic(pauli("X"), "doubly")
    True
 
-
    >>> from toqito.matrices import pauli
    >>> from toqito.matrix_props import is_stochastic
    >>> is_stochastic(pauli("Z"), "right")
@@ -52,9 +49,6 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool: # pragma: no cover
    False
    >>> is_stochastic(pauli("Z"), "doubly")
    False
-
-
-
 
    References
    ==========
@@ -70,18 +64,20 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool: # pragma: no cover
                      :code:`mat_type`
 
    """
-   if mat_type == "left":
-      axis_num = [0]
-   elif mat_type == "right":
-      axis_num = [1]
-   elif mat_type == "doubly":
-      axis_num = [0, 1]
-   else:
+   if mat_type not in {"left", "right", "doubly"}:
       raise TypeError("Allowed stochastic matrix types are: left, right, and doubly.")
 
-   if is_square(mat) and is_nonnegative(mat):
-      for i in axis_num:
-            if np.all(np.sum(mat, i)==1.0):
-               return True
-            return False
-   return False
+   if not (is_square(mat) and is_nonnegative(mat)):
+      return False
+
+   checks = []
+
+   if mat_type in {"left", "doubly"}:
+      col_sums = np.sum(mat, axis=0)
+      checks.append(np.allclose(col_sums, 1.0))
+
+   if mat_type in {"right", "doubly"}:
+      row_sums = np.sum(mat, axis=1)
+      checks.append(np.allclose(row_sums, 1.0))
+
+   return all(checks)
