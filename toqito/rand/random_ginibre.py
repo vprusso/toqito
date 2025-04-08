@@ -40,7 +40,7 @@ def random_ginibre(dim_n: int, dim_m: int, seed: int | None = None) -> np.ndarra
     :param dim_n: The number of rows of the Ginibre random matrix.
     :param dim_m: The number of columns of the Ginibre random matrix.
     :param seed: A seed used to instantiate numpy's random number generator.
-    :return: A :code:`dim_n`-by-:code:`dim_m` Ginibre random density matrix.
+    :return: A :code:`dim_n`-by-:code:`dim_m` Ginibre random matrix.
 
     """
     gen = np.random.default_rng(seed=seed)
