@@ -16,7 +16,7 @@ def test_is_unitary_identity_channel_true():
 
 def test_is_unitary_depolarizing_false():
     """Verify that the Choi matrix of the depolarizing map is not a unitary channel."""
-    choi_matrix = depolarizing(2, param_p=1)
+    choi_matrix = depolarizing(2, param_p=0.1)
     assert is_unitary(choi_matrix) is False
 
 
