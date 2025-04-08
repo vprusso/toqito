@@ -16,7 +16,7 @@ def kraus_to_choi(kraus_ops: list[list[np.ndarray]], sys: int = 2) -> np.ndarray
     that the Choi matrix is the result of applying the map to the second subsystem of the
     standard maximally entangled (unnormalized) state. The Kraus operators are expected to be
     input as a list of numpy arrays (i.e. [[:math:`A_1`, :math:`B_1`],...,[:math:`A_n`, :math:`B_n`]]).
-    In case the map is CP (completely positive), it suffices to input a flat list of operators omitting 
+    In case the map is CP (completely positive), it suffices to input a flat list of operators omitting
     their conjugate transpose (i.e. [:math:`K_1`,..., :math:`K_n`]).
 
     This function was adapted from the QETLAB package.
