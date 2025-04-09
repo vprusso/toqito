@@ -73,7 +73,7 @@ jobs:
           poetry install --with dev --without docs,lint --no-interaction
       - name: Run tests
         run: |
-          ruff format --check
+          poetry ruff format --check
           poetry run pytest -v --cov-config=.coveragerc --cov-report=xml --cov-report term-missing:skip-covered --cov=toqito
       - name: Upload coverage information
         uses: codecov/codecov-action@v5
