@@ -24,8 +24,10 @@ jobs:
       PYTHON: ${{ matrix.python-version }}
     steps:
       - uses: actions/checkout@v4
-      - uses: chartboost/ruff-action@v1
-      # https://github.com/chartboost/ruff-action
+      - uses: astral-sh/ruff-action@v3
+        with:
+          args: "format --check --diff"
+      # https://github.com/astral-sh/ruff-action
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
@@ -70,11 +72,9 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install poetry
-          poetry install --with dev --without docs --no-interaction
+          poetry install --with dev --without docs,lint --no-interaction
       - name: Run tests
-        run: |
-          poetry ruff format --check
-          poetry run pytest -v --cov-config=.coveragerc --cov-report=xml --cov-report term-missing:skip-covered --cov=toqito
+        run: poetry run pytest -v --cov-config=.coveragerc --cov-report=xml --cov-report term-missing:skip-covered --cov=toqito
       - name: Upload coverage information
         uses: codecov/codecov-action@v5
         with:
