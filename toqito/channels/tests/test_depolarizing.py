@@ -10,9 +10,9 @@ def test_depolarizing_complete_depolarizing():
     """Maps every density matrix to the maximally-mixed state."""
     test_input_mat = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
 
-    expected_res = 1 / 4 * np.identity(4)
+    expected_res = np.array([[0.425, 0, 0, 0.35], [0, 0.075, 0, 0], [0, 0, 0.075, 0], [0.35, 0, 0, 0.425]])
 
-    res = apply_channel(test_input_mat, depolarizing(dim=4, param_p=0.1))
+    res = apply_channel(test_input_mat, depolarizing(dim=4, param_p=0.3))
     bool_mat = np.isclose(expected_res, res)
     np.testing.assert_equal(np.all(bool_mat), True)
 

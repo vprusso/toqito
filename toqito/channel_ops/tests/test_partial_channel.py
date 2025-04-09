@@ -38,10 +38,10 @@ rho_first_system = np.array(
 
 expected_res_first_system = np.array(
     [
-        [0.2364 + 0.0j, 0.0 + 0.0j, -0.2142 + 0.02495j, 0.0 + 0.0j],
-        [0.0 + 0.0j, 0.2364 + 0.0j, 0.0 + 0.0j, -0.2142 + 0.02495j],
-        [-0.2642 - 0.02495j, 0.0 + 0.0j, 0.19455 + 0.0j, 0.0 + 0.0j],
-        [0.0 + 0.0j, -0.2642 - 0.02495j, 0.0 + 0.0j, 0.19455 + 0.0j],
+        [0.32728 + 0.0j, -0.0976 - 0.01752j, -0.17652 + 0.00259j, -0.0936 - 0.05552j],
+        [-0.01864 + 0.01752j, 0.14552 + 0.0j, -0.222 + 0.03936j, -0.25188 + 0.04731j],
+        [-0.26652 - 0.00259j, -0.222 - 0.03936j, 0.14779 + 0.0j, 0.01616 + 0.00496j],
+        [-0.1736 + 0.05552j, -0.26188 - 0.04731j, 0.20816 - 0.00496j, 0.24131 + 0.0j],
     ]
 )
 
@@ -77,22 +77,17 @@ rho_second_system = np.array(
 
 expected_res_second_system = np.array(
     [
-        [0.2231 + 0.0j, 0.0191 - 0.00785j, 0.0 + 0.0j, 0.0 + 0.0j],
-        [0.0191 + 0.00785j, 0.2769 + 0.0j, 0.0 + 0.0j, 0.0 + 0.0j],
-        [0.0 + 0.0j, 0.0 + 0.0j, 0.2231 + 0.0j, 0.0191 - 0.00785j],
-        [0.0 + 0.0j, 0.0 + 0.0j, 0.0191 + 0.00785j, 0.2769 + 0.0j],
+        [0.2927 + 0.0j, -0.01378 - 0.01909j, -0.05368 - 0.0024j, -0.0136 - 0.05552j],
+        [-0.01378 + 0.01909j, 0.13602 + 0.0j, -0.062 + 0.03936j, -0.04904 + 0.04232j],
+        [-0.05368 + 0.0024j, -0.062 - 0.03936j, 0.1535 + 0.0j, 0.05198 + 0.00339j],
+        [-0.0136 + 0.05552j, -0.04904 - 0.04232j, 0.05198 - 0.00339j, 0.41778 + 0.0j],
     ]
 )
 
 rho_dim_list = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
 
 expected_res_dim_list = np.array(
-    [
-        [3.5, 0.0, 5.5, 0.0],
-        [0.0, 3.5, 0.0, 5.5],
-        [11.5, 0.0, 13.5, 0.0],
-        [0.0, 11.5, 0.0, 13.5],
-    ]
+    [[1.5, 1.6, 3.5, 3.2], [4.0, 5.5, 5.6, 7.5], [9.5, 8.0, 11.5, 9.6], [10.4, 13.5, 12.0, 15.5]]
 )
 
 
@@ -110,11 +105,11 @@ expected_res_dim_list = np.array(
 def test_partial_channel(test_input, expected, sys_arg, dim_arg):
     """Test function works as expected for valid inputs."""
     if sys_arg is None and dim_arg is None:
-        calculated = partial_channel(test_input, depolarizing(2, param_p=0.1))
+        calculated = partial_channel(test_input, depolarizing(2, param_p=0.2))
     elif sys_arg is not None and dim_arg is None:
-        calculated = partial_channel(test_input, depolarizing(2, param_p=0.1), sys_arg)
+        calculated = partial_channel(test_input, depolarizing(2, param_p=0.2), sys_arg)
     elif sys_arg is not None and dim_arg is not None:
-        calculated = partial_channel(test_input, depolarizing(2, param_p=0.1), sys_arg, dim_arg)
+        calculated = partial_channel(test_input, depolarizing(2, param_p=0.2), sys_arg, dim_arg)
 
     assert np.isclose(calculated, expected).all()
 

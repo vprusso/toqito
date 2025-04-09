@@ -4,7 +4,7 @@ import numpy as np
 import pytest
 
 from toqito.channel_ops import kraus_to_choi
-from toqito.channels import dephasing, depolarizing
+from toqito.channels import dephasing
 
 kraus_1_transpose = np.array([[1, 0], [0, 0]])
 kraus_2_transpose = np.array([[1, 0], [0, 0]]).conj().T
@@ -71,7 +71,7 @@ kraus_ops_depolarizing_channel = [
     [kraus_5_depolarizing_channel, kraus_6_depolarizing_channel],
     [kraus_7_depolarizing_channel, kraus_8_depolarizing_channel],
 ]
-expected_choi_res_depolarizing_channel = depolarizing(2, param_p=0.1)
+expected_choi_res_depolarizing_channel = 0.5 * np.identity(4)
 
 v_mat = np.array([[1, 0, 0], [0, 1, 0]])
 expected_v_mat = np.array(
