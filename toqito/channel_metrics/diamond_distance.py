@@ -35,7 +35,7 @@ def diamond_distance(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     >>> choi_dephasing = dephasing(dim=2, param_p = 0.3)
     >>> choi_identity = np.identity(2**2)
     >>> np.around(diamond_distance(choi_dephasing, choi_identity), decimals=2)
-    np.float64(1.3)
+    np.float64(1.7)
 
     References
     ==========

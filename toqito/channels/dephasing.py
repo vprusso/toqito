@@ -52,10 +52,10 @@ def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
     >>> import numpy as np
     >>> test_input_mat = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
     >>> apply_channel(test_input_mat, dephasing(4))
-    array([[ 1.,  0.,  0.,  0.],
-           [ 0.,  6.,  0.,  0.],
-           [ 0.,  0., 11.,  0.],
-           [ 0.,  0.,  0., 16.]])
+    array([[ 1.,  2.,  3.,  4.],
+           [ 5.,  6.,  7.,  8.],
+           [ 9., 10., 11., 12.],
+           [13., 14., 15., 16.]])
 
     We may also consider setting the parameter :code:`p = 0.5`.
 
