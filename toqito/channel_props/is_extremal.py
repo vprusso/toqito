@@ -82,9 +82,7 @@ def is_extremal(phi: np.ndarray | list[np.ndarray | list[np.ndarray]], tol: floa
         return True
 
     # Compute the set {A_i^† A_j} for every pair (i, j).
-    flattened_products = [
-        np.dot(A.conj().T, B).flatten() for A in kraus_ops for B in kraus_ops
-    ]
+    flattened_products = [np.dot(A.conj().T, B).flatten() for A in kraus_ops for B in kraus_ops]
 
     # Form a matrix whose columns are these vectorized operators.
     M = np.column_stack(flattened_products)
