@@ -50,6 +50,7 @@ def test_random_density_matrix(dim, is_real, distance_metric):
     else:
         assert np.any(np.iscomplex(dm)), "Matrix should be complex"
 
+
 @pytest.mark.parametrize(
     "dim, is_real, k_param, distance_metric, expected",
     [
@@ -59,54 +60,23 @@ def test_random_density_matrix(dim, is_real, distance_metric):
             False,
             None,
             "haar",
-            np.array([
-                [0.37758384+0.j, 0.19597419+0.19965911j],
-                [0.19597419-0.19965911j, 0.62241616+0.j]
-            ])
+            np.array([[0.37758384 + 0.0j, 0.19597419 + 0.19965911j], [0.19597419 - 0.19965911j, 0.62241616 + 0.0j]]),
         ),
         # Generate random real density matrix.
-        (
-            2,
-            True,
-            None,
-            "haar",
-            np.array([
-                [0.45158815, 0.49355259],
-                [0.49355259, 0.54841185]
-            ])
-        ),
+        (2, True, None, "haar", np.array([[0.45158815, 0.49355259], [0.49355259, 0.54841185]])),
         # Random non-real density matrix according to Bures metric.
         (
             2,
             False,
             None,
             "bures",
-            np.array([
-                [ 0.31466466+0.j, -0.09170064+0.24517065j],
-                [-0.09170064-0.24517065j,  0.68533534+0.j]
-
-            ])
+            np.array([[0.31466466 + 0.0j, -0.09170064 + 0.24517065j], [-0.09170064 - 0.24517065j, 0.68533534 + 0.0j]]),
         ),
         # Generate random non-real density matrix all params.
-        (
-            2,
-            True,
-            2,
-            "haar",
-            np.array([
-                [0.45158815, 0.49355259],
-                [0.49355259, 0.54841185]
-            ])
-        ),
+        (2, True, 2, "haar", np.array([[0.45158815, 0.49355259], [0.49355259, 0.54841185]])),
     ],
 )
 def test_seed(dim, is_real, k_param, distance_metric, expected):
     """Test that the function produces the expected output using a seed."""
-    dm = random_density_matrix(
-        dim,
-        is_real,
-        k_param=k_param,
-        distance_metric=distance_metric,
-        seed=124
-    )
+    dm = random_density_matrix(dim, is_real, k_param=k_param, distance_metric=distance_metric, seed=124)
     assert_array_almost_equal(dm, expected)

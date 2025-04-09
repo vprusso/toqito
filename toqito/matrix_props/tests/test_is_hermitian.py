@@ -14,6 +14,7 @@ data = [
     (np.array([[-1, 1, 1], [1, 2, 3]]), False),
 ]
 
+
 @pytest.mark.parametrize("mat,expected_bool", data)
 def test_is_hermitian(mat, expected_bool):
     """Test if matrix is Hermitian."""

@@ -76,10 +76,7 @@ def _check_psd_rank(mat: np.ndarray, max_rank: int) -> bool:
     constraints = []
     for i in range(m):
         for j in range(n):
-            constraints.append(
-                cp.bmat([[x_var[i,j], mat[i,j]],
-                         [mat[i,j], x_var[j,i]]]) >> 0
-            )
+            constraints.append(cp.bmat([[x_var[i, j], mat[i, j]], [mat[i, j], x_var[j, i]]]) >> 0)
     constraints.append(cp.norm(x_var, "nuc") <= max_rank)
 
     # Define objective.
