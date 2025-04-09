@@ -67,14 +67,14 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray
         raise ValueError("InvalidDim: `dim` must be at least 1.")
     if num_qubits < 1:
         raise ValueError("InvalidNumQubits: `num_qubits` must be at least 1.")
-    
+
     if coeff is None:
         coeff = np.ones(dim)
     else:
         coeff = np.array(coeff)
     if len(coeff) != dim:
         raise ValueError("InvalidCoeff: The variable `coeff` must be a vector of length equal to `dim`.")
-    
+
     # Normalize coefficients if they are not.
     norm = np.linalg.norm(coeff)
     if not np.isclose(norm, 1.0):
