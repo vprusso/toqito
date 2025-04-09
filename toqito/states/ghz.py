@@ -81,11 +81,11 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray
         coeff = coeff / norm
 
     # Initialize the GHZ state vector.
-    ghz_state = np.zeros((dim ** num_qubits, 1))
+    ghz_state = np.zeros((dim**num_qubits, 1))
     # Fill the state vector with the corresponding coefficients.
     for i in range(dim):
         # Calculate the index for the tensor product state |i, i, ..., i>.
-        index = sum(i * (dim ** k) for k in range(num_qubits))
+        index = sum(i * (dim**k) for k in range(num_qubits))
         ghz_state[index] = coeff[i]
 
     return ghz_state

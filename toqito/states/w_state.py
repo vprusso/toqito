@@ -96,11 +96,11 @@ def w_state(num_qubits: int, coeff: list[int] = None) -> np.ndarray:
         coeff = coeff / norm
 
     # Initialize a state vector of appropriate size.
-    ret_w_state = csr_array((2 ** num_qubits, 1)).toarray()
+    ret_w_state = csr_array((2**num_qubits, 1)).toarray()
     # Fill the vector so that the state has the single excitation distributed according to coeff.
     # Note: The ordering assumes that the binary representation corresponds to qubits in little-endian order.
     for i in range(num_qubits):
         # The position for an excitation on qubit i is at index 2**i.
         # We assign the coefficient to the position corresponding to an excitation in that qubit.
-        ret_w_state[2 ** i] = coeff[num_qubits - i - 1]
+        ret_w_state[2**i] = coeff[num_qubits - i - 1]
     return np.around(ret_w_state, 4)
