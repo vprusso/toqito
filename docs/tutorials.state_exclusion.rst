@@ -3,7 +3,7 @@ Quantum state exclusion
 
 In this tutorial, we are going to cover the problem of *quantum state
 exclusion*. We are going to briefly describe the problem setting and then
-describe how one may use :code:`toqito` to calculate the optimal probability
+describe how one may use :code:`|toqito⟩` to calculate the optimal probability
 with which this problem can be solved for a number of different scenarios.
 
 Quantum state exclusion is very closely related to the problem of quantum state

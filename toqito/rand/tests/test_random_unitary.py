@@ -1,4 +1,5 @@
 """Test random_unitary."""
+
 import numpy as np
 import pytest
 from numpy.ma.testutils import assert_array_almost_equal
@@ -34,26 +35,22 @@ def test_non_square_dims(dim_n, dim_m, is_real):
         with pytest.raises(ValueError, match="Unitary matrix must be square."):
             random_unitary(dim=[dim_n, dim_m], is_real=is_real)
 
+
 @pytest.mark.parametrize(
     "dim, is_real, expected",
     [
         (
             2,
             False,
-            np.array([
-                [-0.17247218+0.46556261j, -0.85782721+0.13280541j],
-                [-0.63714743-0.58953198j, -0.1171568 +0.48246189j]
-            ])
+            np.array(
+                [
+                    [-0.17247218 + 0.46556261j, -0.85782721 + 0.13280541j],
+                    [-0.63714743 - 0.58953198j, -0.1171568 + 0.48246189j],
+                ]
+            ),
         ),
-        (
-            2,
-            True,
-            np.array([
-                [-0.26129, -0.96526],
-                [-0.96526,  0.26129]
-            ])
-        ),
-    ]
+        (2, True, np.array([[-0.26129, -0.96526], [-0.96526, 0.26129]])),
+    ],
 )
 def test_seed(dim, is_real, expected):
     """Test that the function returns the expected output when seeded."""

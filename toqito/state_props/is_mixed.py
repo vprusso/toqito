@@ -22,7 +22,7 @@ def is_mixed(state: np.ndarray) -> bool:
                 \end{pmatrix} \in \text{D}(\mathcal{X}).
 
     Calculating the rank of :math:`\rho` yields that the :math:`\rho` is a mixed state. This can be
-    confirmed in :code:`toqito` as follows:
+    confirmed in :code:`|toqito⟩` as follows:
 
     >>> from toqito.states import basis
     >>> from toqito.state_props import is_mixed

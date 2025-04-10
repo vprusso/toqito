@@ -6,7 +6,7 @@
 |
 |
 
-The :code:`toqito` package is an open source library for studying various
+The :code:`|toqito⟩` package is an open source library for studying various
 objects in quantum information, namely, states, channels, and measurements.
 toqito focuses on providing numerical tools to study problems pertaining to
 entanglement theory, nonlocal games, and other aspects of quantum information

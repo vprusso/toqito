@@ -51,7 +51,7 @@ def is_diagonal(mat: np.ndarray) -> bool:
                 3 & 4
             \end{pmatrix}
 
-    is not diagonal, as shown using :code:`toqito`.
+    is not diagonal, as shown using :code:`|toqito⟩`.
 
     >>> from toqito.matrix_props import is_diagonal
     >>> import numpy as np
