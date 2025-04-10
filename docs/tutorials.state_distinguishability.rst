@@ -128,7 +128,7 @@ Using :code:`|toqito⟩`, we can calculate this probability directly as follows:
     
      # Define a list of states and a corresponding list of probabilities with which those 
      # states are selected.
-     states = [E0, E_1] 
+     states = [E_0, E_1] 
      probs = [1/2, 1/2]
     
      # Calculate the probability with which Bob can distinguish the state he is provided.
