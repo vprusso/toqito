@@ -30,7 +30,7 @@ def trace_norm(rho: np.ndarray) -> float:
                          1 & 0 & 0 & 1
                        \end{pmatrix} \in \text{D}(\mathcal{X}).
 
-    It can be observed using :code:`toqito` that :math:`||\rho||_1 = 1` as follows.
+    It can be observed using :code:`|toqito⟩` that :math:`||\rho||_1 = 1` as follows.
 
     >>> from toqito.states import bell
     >>> from toqito.matrix_props import trace_norm

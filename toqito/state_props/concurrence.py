@@ -38,7 +38,7 @@ def concurrence(rho: np.ndarray) -> float:
     .. math::
         \mathcal{C}(\rho) \approx 1.
 
-    The following example calculates this quantity using the :code:`toqito` package.
+    The following example calculates this quantity using the :code:`|toqito⟩` package.
 
     >>> import numpy as np
     >>> from toqito.matrices import standard_basis

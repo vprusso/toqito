@@ -49,7 +49,7 @@ def bell_inequality_max(
         \end{aligned}
 
     The individual and joint coefficents and measurement values are encoded as matrices.
-    The upper bound can then be found in :code:`toqito` as follows.
+    The upper bound can then be found in :code:`|toqito⟩` as follows.
 
     >>> from toqito.state_opt import bell_inequality_max
     >>> import numpy as np

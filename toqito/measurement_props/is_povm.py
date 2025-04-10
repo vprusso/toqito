@@ -47,7 +47,7 @@ def is_povm(mat_list: list[np.ndarray]) -> bool:
     >>> is_povm(meas)
     True
 
-    We may also use the :code:`random_povm` function from :code:`toqito`, and can verify that a
+    We may also use the :code:`random_povm` function from :code:`|toqito⟩`, and can verify that a
     randomly generated set satisfies the criteria for being a POVM set.
 
     >>> from toqito.measurement_props import is_povm

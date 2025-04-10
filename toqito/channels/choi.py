@@ -34,7 +34,7 @@ def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
             -1 & 0 & 0 & 0 & -1 & 0 & 0 & 0 & 1
         \end{pmatrix}
 
-    We can generate the Choi channel in :code:`toqito` as follows.
+    We can generate the Choi channel in :code:`|toqito⟩` as follows.
 
     >>> from toqito.channels import choi
     >>> import numpy as np
@@ -71,7 +71,7 @@ def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
         \end{pmatrix}
 
     The reduction channel is the Choi channel that arises when :code:`a = 0` and when :code:`b =
-    c = 1`. We can obtain this matrix using :code:`toqito` as follows.
+    c = 1`. We can obtain this matrix using :code:`|toqito⟩` as follows.
 
     >>> from toqito.channels import choi
     >>> import numpy as np
@@ -88,7 +88,7 @@ def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
 
     See Also
     ==========
-    reduction
+    :func:`.reduction`
 
     References
     ==========

@@ -27,8 +27,10 @@ from toqito.matrix_props import is_totally_positive
         (np.array([[1, 2], [3, 4 - 1e-10]]), 1e-9, None, False),
         # Test a matrix that is just a single row or column.
         (np.array([[1, 2, 3]]), 1e-6, None, True),
-        # Test the identity matrix, which should be totally positive.
-        (np.identity(3), 1e-6, None, True),
+        # Test the identity matrix, which is not totally positive.
+        (np.identity(3), 1e-6, None, False),
+        # Test a matrix with a zero determinant.
+        (np.array([[1, 2], [2, 4]]), 1e-6, None, False),
     ],
 )
 def test_is_totally_positive(mat, tol, sub_sizes, expected_result):

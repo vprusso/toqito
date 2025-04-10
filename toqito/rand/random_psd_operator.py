@@ -17,7 +17,7 @@ def random_psd_operator(
     Examples
     ========
 
-    Using :code:`toqito`, we may generate a random positive semidefinite matrix.
+    Using :code:`|toqito⟩`, we may generate a random positive semidefinite matrix.
     For :math:`\text{dim}=2`, this can be accomplished as follows.
 
     >>> from toqito.rand import random_psd_operator
@@ -27,7 +27,7 @@ def random_psd_operator(
            [0.35699744+1.81934920e-02j, 0.36668881+0.00000000e+00j]])
 
     We can confirm that this matrix indeed represents a valid positive semidefinite matrix by utilizing
-    the :code:`is_positive_semidefinite` function from the :code:`toqito` library, as demonstrated below:
+    the :code:`is_positive_semidefinite` function from the :code:`|toqito⟩` library, as demonstrated below:
 
     >>> from toqito.matrix_props import is_positive_semidefinite
     >>> is_positive_semidefinite(complex_psd_mat)
