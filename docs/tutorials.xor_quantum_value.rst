@@ -4,11 +4,11 @@ Calculating the quantum and classical value of a two-player XOR game
 =====================================================================
 
 In this tutorial, we will cover the concept of an *XOR game*. We will also
-showcase how the :code:`toqito` software package can be used to calculate the
+showcase how the :code:`|toqito⟩` software package can be used to calculate the
 classical and quantum value of a given XOR game.
 
 For readers who are already familiar with XOR games and who simply want to see
-how to use :code:`toqito` to study these objects, they are welcome to consult the
+how to use :code:`|toqito⟩` to study these objects, they are welcome to consult the
 documentation page, and more specifically the function `xor\_game\_value
 <https://toqito.readthedocs.io/en/latest/autoapi/nonlocal_games/xor_game/index.html#nonlocal_games.xor_game.XORGame>`_.
 
@@ -31,7 +31,7 @@ for these games, please refer to the example:
     It is *not* known how to directly compute the quantum value of an arbitrary
     nonlocal game. For the subset of XOR games, it turns out that it is
     possible to directly calculate the quantum value by solving a semidefinite
-    program. The :code:`toqito` package obtains the quantum value of an XOR game
+    program. The :code:`|toqito⟩` package obtains the quantum value of an XOR game
     in this manner.
 
 The rest of this tutorial is concerned with analyzing specific XOR games.
@@ -87,7 +87,7 @@ condition must be equal to for each question tuple to induce a winning outcome.
     | :math:`1`   | :math:`1`   | :math:`1`            |
     +-------------+-------------+----------------------+
 
-In order to specify an XOR game in :code:`toqito`, we will define two matrices:
+In order to specify an XOR game in :code:`|toqito⟩`, we will define two matrices:
 
     * :code:`prob_mat`: A matrix whose :math:`(x, y)^{th}` entry corresponds to
       the probability that Alice receives question :math:`x` and Bob receives
@@ -119,7 +119,7 @@ to zero. A similar logic can be followed to populate the remaining entries of
 the :code:`pred_mat` variable.
 
 We will use both of the :code:`prob_mat` and :code:`pred_mat` variables in the
-coming subsections to make use of the :code:`toqito` package to compute both the
+coming subsections to make use of the :code:`|toqito⟩` package to compute both the
 classical and quantum value of the CHSH game.
 
 A classical strategy for the CHSH game
@@ -170,7 +170,7 @@ is :math:`3/4`, or stated in an equivalent way
         \omega(G_{CHSH}) = 3/4 = 0.75.
     \end{equation}
 
-We can verify this by making use of :code:`toqito` to compute the classical
+We can verify this by making use of :code:`|toqito⟩` to compute the classical
 value of the CHSH game.
 
 
@@ -283,7 +283,7 @@ to win. As it turns out, the winning probability :math:`\cos^2(\pi/8)` using a
 quantum strategy is optimal, which we can represent as
 :math:`\omega^*(G_{CHSH}) = \cos^2(\pi/8)`.
 
-We can calculate the quantum value of the CHSH game using :code:`toqito` as
+We can calculate the quantum value of the CHSH game using :code:`|toqito⟩` as
 follows:
 
 .. code-block:: python

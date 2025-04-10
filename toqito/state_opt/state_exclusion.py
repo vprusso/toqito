@@ -104,7 +104,7 @@ def state_exclusion(
         \end{equation}
 
     It is not possible to conclusively exclude either of the two states. We can see that the result of the function in
-    :code:`toqito` yields a value of :math:`0` as the probability for this to occur.
+    :code:`|toqito⟩` yields a value of :math:`0` as the probability for this to occur.
 
     >>> from toqito.state_opt import state_exclusion
     >>> from toqito.states import bell
@@ -208,9 +208,7 @@ def _min_error_dual(
 
     # Set up variables and constraints for SDP:
     y_var = picos.HermitianVariable("Y", (dim, dim))
-    problem.add_list_of_constraints(
-        [y_var << probs[i] * to_density_matrix(vector) for i, vector in enumerate(vectors)]
-    )
+    problem.add_list_of_constraints([y_var << probs[i] * to_density_matrix(vector) for i, vector in enumerate(vectors)])
 
     # Objective function:
     problem.set_objective("max", picos.trace(y_var))
@@ -219,6 +217,7 @@ def _min_error_dual(
     measurements = [problem.get_constraint(k).dual for k in range(n)]
 
     return solution.value, measurements
+
 
 def _unambiguous_primal(
     vectors: list[np.ndarray],

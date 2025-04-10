@@ -44,7 +44,7 @@ def is_positive_definite(mat: np.ndarray) -> bool:
 
     See Also
     ========
-    is_positive_semidefinite
+    :func:`.is_positive_semidefinite`
 
     References
     ==========

@@ -37,7 +37,8 @@ def swap(
             4 & 8 & 12 & 16
         \end{pmatrix}.
 
-    If we apply the :code:`swap` function provided by :code:`toqito` on :math:`X`, we should obtain the following matrix
+    If we apply the :code:`swap` function provided by :code:`|toqito⟩` on :math:`X`, we should obtain the following
+    matrix
 
     .. math::
         \text{Swap}(X) =
@@ -48,7 +49,7 @@ def swap(
             4 & 12 & 8 & 16
         \end{pmatrix}.
 
-    This can be observed by the following example in :code:`toqito`.
+    This can be observed by the following example in :code:`|toqito⟩`.
 
     >>> from toqito.perms import swap
     >>> import numpy as np
@@ -72,7 +73,7 @@ def swap(
             4 & 12 & 8 & 16
         \end{pmatrix}.
 
-    Using :code:`toqito` we can see this gives the proper result.
+    Using :code:`|toqito⟩` we can see this gives the proper result.
 
     >>> from toqito.perms import swap
     >>> import numpy as np
@@ -145,7 +146,7 @@ def swap(
         raise ValueError("InvalidSys: `sys` must be a vector with exactly two elements.")
 
     # Swap the indicated subsystems.
-    perm = np.array(range(num_sys ))
+    perm = np.array(range(num_sys))
     sys = np.array(sys) - 1
 
     perm[sys] = perm[sys[::-1]]

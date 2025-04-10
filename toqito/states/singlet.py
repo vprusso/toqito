@@ -26,7 +26,7 @@ def singlet(dim: int) -> np.ndarray:
     .. math::
         |\phi_s\rangle = \frac{1}{\sqrt{2}} \left( |01 \rangle - |10 \rangle \right)
 
-    is the singlet state. This can be computed via :code:`toqito` as follows:
+    is the singlet state. This can be computed via :code:`|toqito⟩` as follows:
 
     >>> from toqito.states import singlet
     >>> dim = 2

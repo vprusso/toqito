@@ -31,7 +31,7 @@ def log_negativity(rho: np.ndarray, dim: list[int] | int = None) -> float:
 
     See Also
     ==========
-    negativity
+    :func:`.negativity`
 
     References
     ==========

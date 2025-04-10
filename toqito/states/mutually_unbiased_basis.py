@@ -26,6 +26,15 @@ def mutually_unbiased_basis(dim: int) -> list[np.ndarray]:
         M_1 = \left\{\frac{|0\rangle + |1\rangle}{\sqrt{2}}, \frac{|0\rangle - |1\rangle}{\sqrt{2}}\right\}
         M_2 = \left\{\frac{|0\rangle + i|1\rangle}{\sqrt{2}}, \frac{|0\rangle - i|1\rangle}{\sqrt{2}}\right\}
 
+    The six vectors above are obtained accordingly:
+
+    >>> from toqito.states import mutually_unbiased_basis
+    >>> mubs = mutually_unbiased_basis(2)
+    >>> len(mubs)
+    6
+    >>> [vec.shape for vec in mubs]
+    [(2,), (2,), (2,), (2,), (2,), (2,)]
+
     References
     ==========
     .. bibliography::

@@ -27,7 +27,7 @@ def pretty_bad_measurement(states: list[np.ndarray], probs: list[float] | None =
 
     See Also
     ========
-    pretty_good_measurement
+    :func:`.pretty_good_measurement`
 
     Examples
     ========
@@ -43,8 +43,8 @@ def pretty_bad_measurement(states: list[np.ndarray], probs: list[float] | None =
     >>>
     >>> states = trine()
     >>> probs = [1 / 3, 1 / 3, 1 / 3]
-    >>> pgm = pretty_bad_measurement(states, probs)
-    >>> pgm
+    >>> pbm = pretty_bad_measurement(states, probs)
+    >>> pbm
     [array([[0.16666667, 0.        ],
            [0.        , 0.5       ]]), array([[ 0.41666667, -0.14433757],
            [-0.14433757,  0.25      ]]), array([[0.41666667, 0.14433757],
@@ -74,7 +74,7 @@ def pretty_bad_measurement(states: list[np.ndarray], probs: list[float] | None =
     if not np.isclose(sum(probs), 1):
         raise ValueError("Probability vector should sum to 1.")
 
-    pgm = pretty_good_measurement(states, probs)
-    dim = pgm[0].shape[0]
+    pbm = pretty_good_measurement(states, probs)
+    dim = pbm[0].shape[0]
 
-    return [1 / (n - 1) * (np.identity(dim) - pgm[i]) for i in range(n)]
+    return [1 / (n - 1) * (np.identity(dim) - pbm[i]) for i in range(n)]

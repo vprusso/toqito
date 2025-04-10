@@ -1,4 +1,5 @@
 """Test random_state_vector."""
+
 import numpy as np
 import pytest
 from numpy.ma.testutils import assert_array_almost_equal
@@ -29,55 +30,39 @@ def test_random_state_vector(dim, is_real, k_param):
     mat = vec @ vec.conj().T
     assert is_pure(mat)
 
+
 @pytest.mark.parametrize(
     "dim, is_real, k_param, expected",
     [
-        (
-            2,
-            False,
-            0,
-            np.array([
-                [0.91920422+0.29684938j],
-                [0.07250293+0.24836943j]
-            ])
-        ),
+        (2, False, 0, np.array([[0.91920422 + 0.29684938j], [0.07250293 + 0.24836943j]])),
         (
             2,
             False,
             1,
-            np.array([
-                -0.01113702 + 0.61768143j,
-                0.07125721 + 0.20424701j,
-                -0.68156797 + 0.21116929j,
-                -0.19827006 + 0.15202896j
-            ])
+            np.array(
+                [
+                    -0.01113702 + 0.61768143j,
+                    0.07125721 + 0.20424701j,
+                    -0.68156797 + 0.21116929j,
+                    -0.19827006 + 0.15202896j,
+                ]
+            ),
         ),
         (
             [2, 2],
             False,
             1,
-            np.array([
-                -0.01113702 + 0.61768143j,
-                0.07125721 + 0.20424701j,
-                -0.68156797 + 0.21116929j,
-                -0.19827006 + 0.15202896j
-            ])
+            np.array(
+                [
+                    -0.01113702 + 0.61768143j,
+                    0.07125721 + 0.20424701j,
+                    -0.68156797 + 0.21116929j,
+                    -0.19827006 + 0.15202896j,
+                ]
+            ),
         ),
-        (
-            2,
-            True,
-            1,
-            np.array([0.76458086, 0.63971337, 0.06030689, 0.05045788])
-        ),
-        (
-            2,
-            True,
-            0,
-            np.array([
-                [0.99690375],
-                [0.07863154]
-            ])
-        ),
+        (2, True, 1, np.array([0.76458086, 0.63971337, 0.06030689, 0.05045788])),
+        (2, True, 0, np.array([[0.99690375], [0.07863154]])),
     ],
 )
 def test_seed(dim, is_real, k_param, expected):

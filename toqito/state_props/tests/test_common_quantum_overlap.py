@@ -23,8 +23,8 @@ from toqito.states import bell
         (
             # Two pure states with inner product cos(theta) (theta = π/4)
             # Expected overlap: ω_Q = 1 - √(1 - cos(π/4)²)
-            [np.array([1, 0]), np.array([np.cos(np.pi/4), np.sin(np.pi/4)])],
-            1 - np.sqrt(1 - np.cos(np.pi/4)**2),
+            [np.array([1, 0]), np.array([np.cos(np.pi / 4), np.sin(np.pi / 4)])],
+            1 - np.sqrt(1 - np.cos(np.pi / 4) ** 2),
         ),
         (
             # Three pure states on a great circle of the Bloch sphere
@@ -32,15 +32,13 @@ from toqito.states import bell
             [
                 np.array([1, 0]),
                 np.array([np.cos(2 * np.pi / 3), np.sin(2 * np.pi / 3)]),
-                np.array([np.cos(4 * np.pi / 3), np.sin(4 * np.pi / 3)])
+                np.array([np.cos(4 * np.pi / 3), np.sin(4 * np.pi / 3)]),
             ],
             0,
         ),
-    ]
+    ],
 )
-
 def test_common_quantum_overlap_parametrized(states, expected_overlap):
     """Test function works as expected for a valid input."""
     overlap = common_quantum_overlap(states)
     assert np.isclose(overlap, expected_overlap)
-
