@@ -337,7 +337,7 @@ use :code:`|toqito⟩` to determine the lower bound on the quantum value.
      chsh = NonlocalGame(prob_mat, pred_mat)
      # Multiple runs to avoid trap in suboptimal quantum value.
      results = [np.around(chsh.quantum_value_lower_bound(), decimals=2) for _ in range(5)] 
-     print("Maximum quantum value after multiple runs is: ",max(results))
+     print(f"Maximum quantum value after multiple runs is: {max(results)}")
 
 In this case, we can see that the quantum value of the CHSH game is in fact
 attained as :math:`\cos^2(\pi/8) \approx 0.85355`.
@@ -403,8 +403,8 @@ value and calculate lower bounds on the quantum value of the FFL game.
                          pred_mat[a_alice, b_bob, x_alice, y_bob] = 1
      # Define the FFL game object.
      ffl = NonlocalGame(prob_mat, pred_mat)
-     print("The classical value of games is: ",np.around(ffl.classical_value(), decimals=2))
-     print("Quantum value lower bound is: ",np.around(ffl.quantum_value_lower_bound(), decimals=2))
+     print(f"Classical value: {np.around(ffl.classical_value(), decimals=2)}")
+     print(f"Quantum value (lower bound): {np.around(ffl.quantum_value_lower_bound(), decimals=2)}")
 
 
 In this case, we obtained the correct quantum value of :math:`2/3`, however,
@@ -471,11 +471,11 @@ In :code:`|toqito⟩`, we can encode this as a BCS game as follows
      # Define the BCS game from the variables and constraints.
      chsh_bcs = NonlocalGame.from_bcs_game([c_1, c_2])
      # Classical value of CHSH is 3 / 4 = 0.75
-     print("The classical value of games is: ",np.around(chsh_bcs.classical_value(), decimals=2))
+     print(f"Classical value: {np.around(chsh_bcs.classical_value(), decimals=2)}")
      # Quantum value of CHSH is cos^2(pi/8) \approx 0.853
      # Multiple runs to avoid trap in suboptimal quantum value.
      results = [np.around(chsh_bcs.quantum_value_lower_bound(), decimals=2) for _ in range(5)] 
-     print("Maximum quantum value after multiple runs is: ",max(results))
+     print(f"Maximum quantum value after multiple runs is: {max(results)}")
 
 
 

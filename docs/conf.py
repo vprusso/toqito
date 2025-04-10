@@ -185,6 +185,5 @@ def setup(app):
     static_dir = os.path.join(app.outdir, "_static")
     os.makedirs(static_dir, exist_ok=True)
 
-    # Write the CSS file
     with open(os.path.join(static_dir, "jupyter-sphinx-override.css"), "w") as f:
         f.write(css_content)

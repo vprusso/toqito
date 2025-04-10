@@ -255,8 +255,8 @@ fidelity function between quantum states that happen to be identical.
      import numpy as np
     
      # Define two identical density operators.
-     rho = bell(0)*bell(0).conj().T
-     sigma = bell(0)*bell(0).conj().T
+     rho = bell(0) @ bell(0).conj().T
+     sigma = bell(0) @ bell(0).conj().T
      
      # Calculate the fidelity between `rho` and `sigma`
      np.around(fidelity(rho, sigma), decimals=2)
@@ -320,9 +320,7 @@ subsystem.
 
      from toqito.channels import partial_trace
      import numpy as np
-     test_input_mat = np.array(
-         [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
-     )
+     test_input_mat = np.arange(1, 17).reshape(4, 4)
      partial_trace(test_input_mat)
 
 
@@ -341,9 +339,7 @@ trace over the first subsystem yields the following matrix
 
      from toqito.channels import partial_trace
      import numpy as np
-     test_input_mat = np.array(
-         [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
-     )
+     test_input_mat = np.arange(1, 17).reshape(4, 4)
      partial_trace(test_input_mat, [0])
 
 
@@ -414,9 +410,7 @@ partial transpose over the first subsystem yields the following matrix
 
      from toqito.channels import partial_transpose
      import numpy as np
-     test_input_mat = np.array(
-         [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
-     )
+     test_input_mat = np.arange(1, 17).reshape(4, 4)
      partial_transpose(test_input_mat, [0])
 
 **Applying Quantum Channels**

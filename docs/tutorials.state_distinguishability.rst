@@ -118,17 +118,17 @@ Using :code:`|toqito⟩`, we can calculate this probability directly as follows:
      from toqito.states import basis
      from toqito.state_opt import state_distinguishability
      
-     # Define the standard basis |0> and |1>
+     # Define the standard basis |0> and |1>.
      e_0, e_1 = basis(2, 0), basis(2, 1)
     
      # Define the corresponding density matrices of |0> and |1> 
      # given as |0><0| and |1><1|, respectively.
-     e_00 = e_0 @ e_0.conj().T
-     e_11 = e_1 @ e_1.conj().T
+     E_0 = e_0 @ e_0.conj().T
+     E_1 = e_1 @ e_1.conj().T
     
      # Define a list of states and a corresponding list of probabilities with which those 
      # states are selected.
-     states = [e_00, e_11] 
+     states = [E0, E_1] 
      probs = [1/2, 1/2]
     
      # Calculate the probability with which Bob can distinguish the state he is provided.
@@ -218,14 +218,9 @@ via PPT measurements in the following manner.
      x_2 = np.kron(psi_1, psi_3)
      x_3 = np.kron(psi_2, psi_3)
      x_4 = np.kron(psi_3, psi_3)
-    
-     # YDY density matrices:
-     rho_1 = x_1 @ x_1.conj().T
-     rho_2 = x_2 @ x_2.conj().T
-     rho_3 = x_3 @ x_3.conj().T
-     rho_4 = x_4 @ x_4.conj().T
-    
-     states = [rho_1, rho_2, rho_3, rho_4]
+     
+     states = [x_1, x_2, x_3, x_4]
+
      probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
      print(np.around(ppt_distinguishability(vectors=states, probs=probs, dimensions=[2, 2, 2, 2], subsystems=[0, 2])[0], decimals=2))
 
