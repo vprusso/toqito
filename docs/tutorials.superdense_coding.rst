@@ -28,11 +28,12 @@ Superdense coding protocol
    This entangled pair is responsible for linking the qubits *non-locally*, allowing
    Alice's local operations to affect the global state.
 
-   .. code-block:: python
+   .. jupyter-execute::
 
        import numpy as np
        from toqito.states import bell
        from toqito.matrices import pauli, cnot, hadamard
+       np.set_printoptions(precision=8, suppress=True)
        
        bell_state = bell(0)
        print("Initial Bell state (|Φ⁺⟩):\n", bell_state)
@@ -79,7 +80,7 @@ Superdense coding protocol
 
    </div>
 
-.. code-block:: python
+.. jupyter-execute::
 
     pauli_gate_operations = {
         # Identity gate.
@@ -96,6 +97,7 @@ Superdense coding protocol
     
     # Alice sends her encoded entangled state after this step.
     entangled_state_encoded = np.kron(pauli_gate_operations[message_to_encode], pauli("I")) @ bell_state
+    print(f"Entangled state is: {entangled_state_encoded}")
     
 
 3. Bob performs operations to reverse the entanglement on encoded state sent by Alice and extract the bits. 
@@ -103,7 +105,7 @@ Superdense coding protocol
    *control qubit* and Bob's original qubit as the *target qubit*. After this, Bob moves
    ahead and applies a Hadamard or :math:`H` gate to Alice's qubit.
 
-   .. code-block:: python
+   .. jupyter-execute::
 
        state_after_cnot = cnot() @ entangled_state_encoded
        decoded_state = np.kron(hadamard(1), pauli("I")) @ state_after_cnot
@@ -112,7 +114,7 @@ Superdense coding protocol
 4. Finally, Bob measures both qubits in the computational basis (:math:`\ket{0}, 
    \ket{1}`). The result is guaranteed to be :math:`11`; the two bits that Alice sent.
 
-   .. code-block:: python
+   .. jupyter-execute::
 
        measurement_probabilities = np.abs(decoded_state.flatten())**2
        print("Measurement probabilities for basis states |00>, |01>, |10>, |11>:")
@@ -121,40 +123,33 @@ Superdense coding protocol
 
 Full code:
 
-.. code-block:: python
+.. jupyter-execute::
 
-  >>> import numpy as np
-  >>> from toqito.states import bell
-  >>> from toqito.matrices import pauli, cnot, hadamard
-  >>> np.set_printoptions(precision=8, suppress=True)
-  >>>
-  >>> bell_state = bell(0)
-  >>> print("Initial Bell state (|Φ⁺⟩):\n", bell_state)
-  Initial Bell state (|Φ⁺⟩):
-   [[0.70710678]
-   [0.        ]
-   [0.        ]
-   [0.70710678]]
+   import numpy as np
+   from toqito.states import bell
+   from toqito.matrices import pauli, cnot, hadamard
+   np.set_printoptions(precision=8, suppress=True)
+  
+   bell_state = bell(0)
+   print("Initial Bell state (|Φ⁺⟩):\n", bell_state)
 
-  >>> pauli_gate_operations = {
-  ...     "00": pauli("I"),
-  ...     "01": pauli("X"),
-  ...     "10": pauli("Z"),
-  ...     "11": 1j * pauli("Y")
-  ... }
+   pauli_gate_operations = {
+       "00": pauli("I"),
+       "01": pauli("X"),
+       "10": pauli("Z"),
+       "11": 1j * pauli("Y")
+   }
 
-  >>> message_to_encode = "11"
+   message_to_encode = "11"
 
-  >>> entangled_state_encoded = np.kron(pauli_gate_operations[message_to_encode], pauli("I")) @ bell_state
+   entangled_state_encoded = np.kron(pauli_gate_operations[message_to_encode], pauli("I")) @ bell_state
 
-  >>> state_after_cnot = cnot() @ entangled_state_encoded
+   state_after_cnot = cnot() @ entangled_state_encoded
 
-  >>> decoded_state = np.kron(hadamard(1), pauli("I")) @ state_after_cnot
+   decoded_state = np.kron(hadamard(1), pauli("I")) @ state_after_cnot
 
-  >>> measurement_probabilities = np.abs(decoded_state.flatten())**2
-  >>> print("Measurement probabilities for basis states |00>, |01>, |10>, |11>:\n", measurement_probabilities)
-  Measurement probabilities for basis states |00>, |01>, |10>, |11>:
-   [0. 0. 0. 1.]
+   measurement_probabilities = np.abs(decoded_state.flatten())**2
+   print("Measurement probabilities for basis states |00>, |01>, |10>, |11>:\n", measurement_probabilities)
   
 
 
