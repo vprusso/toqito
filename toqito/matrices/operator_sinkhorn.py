@@ -3,9 +3,6 @@
 import numpy as np
 import scipy as sp
 
-from toqito.channels.partial_trace import partial_trace
-from toqito.matrix_props.is_square import is_square
-
 
 def operator_sinkhorn(
     rho: np.ndarray,
@@ -91,6 +88,9 @@ def operator_sinkhorn(
     :raises: ValueError: if the density matrix provided is singular (or is not of full rank).
 
     """ # noqa: E501
+    from toqito.channels.partial_trace import partial_trace
+    from toqito.matrix_props.is_square import is_square
+
     # Run checks on the input density matrix
     rho = np.asarray(rho)
     if not is_square(rho):
@@ -110,7 +110,7 @@ def operator_sinkhorn(
         dim.append(dX / dim[0])
 
         if abs(dim[1] - round(dim[1])) >= (2 * dX * np.finfo(float).eps):
-            raise ValueError("If `dim` is of size 1, `rho` must be square and dim[0] must evenly divide length(rho); "
+            raise ValueError("If dim is of size 1, rho must be square and dim[0] must evenly divide length(rho); "
                              "please provide the dim array containing the dimensions of the subsystems.")
 
         dim[1] = round(dim[1])

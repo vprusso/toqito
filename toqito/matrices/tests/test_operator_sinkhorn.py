@@ -79,7 +79,7 @@ def test_operator_sinkhorn_invalid_single_dim():
         operator_sinkhorn(rho, dim=[4])
     except ValueError as e:
         expected_msg = (
-            "If `dim` is of size 1, `rho` must be square and dim[0] must evenly divide length(rho); "
+            "If dim is of size 1, rho must be square and dim[0] must evenly divide length(rho); "
             "please provide the dim array containing the dimensions of the subsystems."
         )
         assert str(e) == expected_msg
