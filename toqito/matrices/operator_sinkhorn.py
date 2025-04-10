@@ -3,6 +3,9 @@
 import numpy as np
 import scipy as sp
 
+from toqito.channels.partial_trace import partial_trace
+from toqito.matrix_props.is_square import is_square
+
 
 def operator_sinkhorn(
     rho: np.ndarray,
@@ -88,9 +91,6 @@ def operator_sinkhorn(
     :raises: ValueError: if the density matrix provided is singular (or is not of full rank).
 
     """ # noqa: E501
-    from toqito.channels.partial_trace import partial_trace
-    from toqito.matrix_props.is_square import is_square
-
     # Run checks on the input density matrix
     rho = np.asarray(rho)
     if not is_square(rho):

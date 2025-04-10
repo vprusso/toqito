@@ -2,8 +2,8 @@
 
 import numpy as np
 
-from toqito.channels import partial_transpose
-from toqito.matrix_props import is_positive_semidefinite
+from toqito.channels.partial_transpose import partial_transpose
+from toqito.matrix_props.is_positive_semidefinite import is_positive_semidefinite
 
 
 def is_ppt(mat: np.ndarray, sys: int = 2, dim: int | list[int] = None, tol: float = None) -> bool:
