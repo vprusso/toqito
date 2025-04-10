@@ -34,7 +34,6 @@ def test_operator_sinkhorn_bipartite_partial_trace():
     # Check that partial trace matches the expected identity.
     np.testing.assert_array_almost_equal(pt_rounded, expected_identity, decimal=2)
 
-
 def test_operator_sinkhorn_tripartite_partial_trace():
     """Test operator Sinkhorn partial trace on a tripartite system."""
     # Generate a random density matrix for a 2x2x2 system (8-dimensional).
@@ -50,7 +49,6 @@ def test_operator_sinkhorn_tripartite_partial_trace():
 
     # Check that partial trace matches the expected identity.
     np.testing.assert_array_almost_equal(pt_rounded, expected_identity, decimal=2)
-
 
 def test_operator_sinkhorn_singular_matrix():
     """Test operator Sinkhorn with a singular matrix that triggers LinAlgError."""
@@ -69,14 +67,13 @@ def test_operator_sinkhorn_singular_matrix():
         )
         assert str(e) == expected_msg
 
-
 def test_operator_sinkhorn_invalid_single_dim():
     """Test operator Sinkhorn when a single number is passed as `dim` and it is invalid."""
     rho = random_density_matrix(8)  # 8-dimensional density matrix
 
-    # The dimension `4` does not divide evenly into `8`, so we expect an error
+    # The dimension `3` does not divide evenly into `8`, so we expect an error
     try:
-        operator_sinkhorn(rho, dim=[4])
+        operator_sinkhorn(rho, dim=[3])
     except ValueError as e:
         expected_msg = (
             "If dim is of size 1, rho must be square and dim[0] must evenly divide length(rho); "
@@ -84,6 +81,21 @@ def test_operator_sinkhorn_invalid_single_dim():
         )
         assert str(e) == expected_msg
 
+def test_operator_sinkhorn_invalid_dim_array():
+    """Test operator Sinkhorn when product of the dim array does not match the density matrix dims."""
+    dX = 8
+    dim1 = [4, 3, 2] # 4*3*2 != 8
+
+    rho = random_density_matrix(8)  # 8-dimensional density matrix
+
+    # The dimension `4` does not divide evenly into `8`, so we expect an error
+    try:
+        operator_sinkhorn(rho, dim=dim1)
+    except ValueError as e:
+        expected_msg = (
+            f"Product of dimensions {dim1} does not match rho dimension {dX}."
+        )
+        assert str(e) == expected_msg
 
 def test_operator_sinkhorn_valid_single_dim():
     """Test operator Sinkhorn when a single valid number is passed as `dim`."""

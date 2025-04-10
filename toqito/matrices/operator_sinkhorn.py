@@ -156,10 +156,6 @@ def operator_sinkhorn(
                 # Apply filter with explicit complex128
                 T_inv = np.linalg.inv(Prho[j]).astype(np.complex128)
 
-                # check for NaNs and infinities after inversion
-                if np.any(np.isnan(T_inv)) or np.any(np.isinf(T_inv)):
-                    error_flag_in_iteration = True
-
                 T = sp.linalg.sqrtm(T_inv) / np.sqrt(dim[j])
                 T = T.astype(np.complex128)
 
