@@ -6,7 +6,7 @@ import numpy as np
 from toqito.channels import partial_trace
 
 
-def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
+def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray, eps: float = 1e-7) -> float:
     r"""Compute the channel fidelity between two quantum channels :cite:`Katariya_2021_Geometric`.
 
     Let :math:`\Phi : \text{L}(\mathcal{Y}) \rightarrow \text{L}(\mathcal{X})` and
@@ -71,6 +71,7 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     :raises ValueError: If matrices are not square.
     :param choi_1: The Choi matrix of the first quantum channel.
     :param choi_2: The Choi matrix of the second quantum channel.
+    :param eps: The solver tolerance for convergence to feasability.
     :return: The channel fidelity between the channels specified by the quantum channels
              corresponding to the Choi matrices :code:`choi_1` and :code:`choi_2`.
 
@@ -97,4 +98,4 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
 
     problem = cvxpy.Problem(objective, constraints)
 
-    return problem.solve(solver="SCS")
+    return problem.solve(solver=cvxpy.SCS, eps=eps)
