@@ -2,7 +2,7 @@
 
 import numpy as np
 import pytest
-from numpy.testing import assert_array_almost_equal, assert_equal
+from numpy.testing import assert_allclose, assert_equal
 
 from toqito.matrix_props import is_positive_semidefinite
 from toqito.rand import random_psd_operator
@@ -78,4 +78,4 @@ def test_random_psd_operator(dim, is_real):
 def test_random_psd_operator_with_seed(dim, is_real, seed, expected_mat):
     """Test that random_psd_operator function returns the expected output when seeded."""
     matrix = random_psd_operator(dim, is_real, seed)
-    assert_array_almost_equal(matrix, expected_mat, decimal=5)
+    assert_allclose(matrix, expected_mat)

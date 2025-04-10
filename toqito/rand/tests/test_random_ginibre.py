@@ -2,7 +2,7 @@
 
 import numpy as np
 import pytest
-from numpy.ma.testutils import assert_array_almost_equal
+from numpy.testing import assert_allclose
 
 from toqito.rand import random_ginibre
 
@@ -43,7 +43,7 @@ def test_random_ginibre_dims(dim_n, dim_m):
 def test_seed(dim_n, dim_m, expected):
     """Test that the function returns the expected output when seeded."""
     gin_mat = random_ginibre(dim_n, dim_m, seed=123)
-    assert_array_almost_equal(gin_mat, expected)
+    assert_allclose(gin_mat, expected)
 
 
 @pytest.mark.parametrize(

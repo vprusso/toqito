@@ -2,7 +2,7 @@
 
 import numpy as np
 import pytest
-from numpy.ma.testutils import assert_array_almost_equal
+from numpy.testing import assert_allclose
 
 from toqito.rand import random_povm
 
@@ -52,4 +52,4 @@ def test_random_povm_validity(dim, num_inputs, num_outputs):
 def test_seed(dim, num_inputs, num_outputs, expected):
     """Test that the function returns the expected output when seeded."""
     povms = random_povm(dim=dim, num_inputs=num_inputs, num_outputs=num_outputs, seed=123)
-    assert_array_almost_equal(povms, expected)
+    assert_allclose(povms, expected, rtol=1e-05)

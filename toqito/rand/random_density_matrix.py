@@ -116,6 +116,6 @@ def random_density_matrix(
     if distance_metric == "bures":
         gin = random_unitary(dim, is_real, seed=seed) + np.identity(dim) @ gin
 
-    rho = gin @ np.array(gin).conj().T
+    rho = gin @ gin.conj().T
 
     return np.divide(rho, np.trace(rho))

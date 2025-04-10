@@ -2,7 +2,7 @@
 
 import numpy as np
 import pytest
-from numpy.ma.testutils import assert_array_almost_equal
+from numpy.testing import assert_allclose
 
 from toqito.rand import random_states
 from toqito.state_props import is_pure
@@ -99,4 +99,4 @@ def test_seed(num_states, dim, expected):
     assert len(states) == len(expected)
 
     for state, expected_state in zip(states, expected):
-        assert_array_almost_equal(state, expected_state)
+        assert_allclose(state, expected_state)

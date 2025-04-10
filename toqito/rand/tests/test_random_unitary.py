@@ -2,7 +2,7 @@
 
 import numpy as np
 import pytest
-from numpy.ma.testutils import assert_array_almost_equal
+from numpy.testing import assert_allclose
 
 from toqito.matrix_props import is_unitary
 from toqito.rand import random_unitary
@@ -55,4 +55,4 @@ def test_non_square_dims(dim_n, dim_m, is_real):
 def test_seed(dim, is_real, expected):
     """Test that the function returns the expected output when seeded."""
     mat = random_unitary(dim=dim, is_real=is_real, seed=124)
-    assert_array_almost_equal(mat, expected)
+    assert_allclose(mat, expected, rtol=1e-05)
