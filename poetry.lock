@@ -1612,37 +1612,37 @@ files = [
 
 [[package]]
 name = "osqp"
-version = "1.0.1"
+version = "1.0.3"
 description = "OSQP: The Operator Splitting QP Solver"
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "osqp-1.0.1-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:59472018fa978ef50977588ea6c269145fda4a6e40aa596308679d310d1cba7a"},
-    {file = "osqp-1.0.1-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:ede1672bd09980cc422415a767e9e3c65376626a5dc7e9ba68e68e2cd79c6bbf"},
-    {file = "osqp-1.0.1-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:39c258d2bb88ea5bafca5fdcaa99225ef34f3b09c0b114fc673c8766766ecd91"},
-    {file = "osqp-1.0.1-cp310-cp310-win_amd64.whl", hash = "sha256:fd9340e272750b390aa0bfa055c0b0d588c332acc0a543868fee9ae877a5f80f"},
-    {file = "osqp-1.0.1-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:ac3c1b1a4e87127f81c846e94d9d752d277e37090b1b16db4a4aafac7fa9cae3"},
-    {file = "osqp-1.0.1-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:afc992bdc62a9b4c0ed41a397a01346fe4036415d21ad2e5073bf4c88a97d4f0"},
-    {file = "osqp-1.0.1-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:36a3c9aa3ba2c077b950c3ce0fa4d859b67f4bd0ba42ae21fd98588fc44013a7"},
-    {file = "osqp-1.0.1-cp311-cp311-win_amd64.whl", hash = "sha256:0ada142b8a824b9f50d7c60331226637c52f4701b4861346a6c31b667ac097e0"},
-    {file = "osqp-1.0.1-cp312-cp312-macosx_10_13_x86_64.whl", hash = "sha256:10fe62f9766479ab626cb82ab8459dd8dc7f0d82052aa547d3086dac11a3dfa9"},
-    {file = "osqp-1.0.1-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:fa93fe11668cb5186dac8c80fe4d6a66bb46b7d2617b5fa53184f1df76fcae7e"},
-    {file = "osqp-1.0.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:cd8d213d4baac00a9e7c2a53dba4169da7b23c65e5b5a4d7c9d802d409314bdb"},
-    {file = "osqp-1.0.1-cp312-cp312-win_amd64.whl", hash = "sha256:9c1bf437d8b8a8940f8416a095b13ddeb30186d37a32a9cd5d46c6b33cc4fb36"},
-    {file = "osqp-1.0.1-cp313-cp313-macosx_10_13_x86_64.whl", hash = "sha256:116abfbd5b9c8389148c5238cac5cc821736aae0910b92ddce263730a5059677"},
-    {file = "osqp-1.0.1-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:f82fdbd76b848011d56ce390855933cdfcd339e1096f0666d1c59f3ff2e3f54f"},
-    {file = "osqp-1.0.1-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:4474f1a8ca7f814769786d192c61dd2b2a42aed19d0156bb032dea371022d911"},
-    {file = "osqp-1.0.1-cp313-cp313-win_amd64.whl", hash = "sha256:46df6041a59fb6655789a47f6de245e9eed663d7a449c1852dc3c4975b625782"},
-    {file = "osqp-1.0.1-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:845179f8715755d4cc691ce59f258a7f19d1cc63c5a372a254cce6ec2da0422c"},
-    {file = "osqp-1.0.1-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:17382b2ff976b0bc3006e05373684168d399cb5eae22836b3114c365c7baa973"},
-    {file = "osqp-1.0.1-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:bf91cdf1d1084d424ce757ff604ef9fc561495e38c21b7c1bbf7aba8f4596ed2"},
-    {file = "osqp-1.0.1-cp38-cp38-win_amd64.whl", hash = "sha256:398a1eb72f52493b47883933bdd08bb9a68755e8f7bba1bdf687df92e1a20665"},
-    {file = "osqp-1.0.1-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:030c59655f3e385dcd70c6d91d24a655a29c0a27e16eb4c7512d39e30690cec1"},
-    {file = "osqp-1.0.1-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:cc831c2a74ba83b2e51dff4213c6c2805fb329d454fd861c89649729fc32facc"},
-    {file = "osqp-1.0.1-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:7eb716ec71e3e2c25823470a55d2cae94f9e7d107ec2e13d02e605d1637d4509"},
-    {file = "osqp-1.0.1-cp39-cp39-win_amd64.whl", hash = "sha256:2cebee518426c59fdb44cf1d148031c225fbf0cde4aabdb2e00afa64556ccb3f"},
-    {file = "osqp-1.0.1.tar.gz", hash = "sha256:8425d24067d9f20ee97919965950f6e661178654114d6f8ce21418cc123eb0b3"},
+    {file = "osqp-1.0.3-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:36a34b186be83920c60083afdbbe73a2117b2294d67b8775e30f2cb3c1f19a6d"},
+    {file = "osqp-1.0.3-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:f585903709140cdaf9426c4256ce60d865529ec4f97d4e5b8dfd41921a833b93"},
+    {file = "osqp-1.0.3-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:5686f088773f5b9f7209293eaa4473a9f122a3b76106de9c33bfb347ecc6eb46"},
+    {file = "osqp-1.0.3-cp310-cp310-win_amd64.whl", hash = "sha256:cdd2b9fc1afa1dffab4e42dad3388de43f4412c91e783ae3e8fab0dcbe54be93"},
+    {file = "osqp-1.0.3-cp311-cp311-macosx_10_9_x86_64.whl", hash = "sha256:3fbc35040ba86295554311ce30da70e0fd08c1c37a4ea0956748c27fc8ca9f49"},
+    {file = "osqp-1.0.3-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:f0c9d69eb027be72f90b5d337cb5c33f8a3760ad1175558104152e0d039c9770"},
+    {file = "osqp-1.0.3-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:b1435b94b91405ce825e45bf7b2ddec8cf03198e46e4de19c63623c1f952c012"},
+    {file = "osqp-1.0.3-cp311-cp311-win_amd64.whl", hash = "sha256:09bd34c885bec05a39e70215ddc74e8b3b8a71df3cab020d80c923578bbe2325"},
+    {file = "osqp-1.0.3-cp312-cp312-macosx_10_13_x86_64.whl", hash = "sha256:21d0c2b773f2a0677112f130a26689cbc86e15da82832455ad1facc612777829"},
+    {file = "osqp-1.0.3-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:ff385ea5aaf9d91805b7a8104386c2023d2f0cf121419be83a1f5310cf239971"},
+    {file = "osqp-1.0.3-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:c02e7c696df64441a4e6996d63d753ac924ef46a26421e6a7ee73d9becfa8b4f"},
+    {file = "osqp-1.0.3-cp312-cp312-win_amd64.whl", hash = "sha256:ec9ca611cb8372ff1a658a2f9d4e47a401401f75b95bbc7f06489090dbd259fe"},
+    {file = "osqp-1.0.3-cp313-cp313-macosx_10_13_x86_64.whl", hash = "sha256:b48d48e567459f23ba3ebd916adab25e710009e8eed3d485c3d5f36a246c1815"},
+    {file = "osqp-1.0.3-cp313-cp313-macosx_11_0_arm64.whl", hash = "sha256:0abbf9dff331568d7e0d5cde95ecc4efaca5db329ffb41361ce5aefadeee1467"},
+    {file = "osqp-1.0.3-cp313-cp313-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:c22d65f66e754d6e0c5a4cab8208df1be803699d13216114ec6e86988cc11240"},
+    {file = "osqp-1.0.3-cp313-cp313-win_amd64.whl", hash = "sha256:aac5b9faab2c898fc22ecc7984fc683e4bf598f8f6ddd32fabb9fe94d5096291"},
+    {file = "osqp-1.0.3-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:6fa1232cc25484b3374d04e862d8a3285f333bd6bbe54c474c677afd69d85645"},
+    {file = "osqp-1.0.3-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:ecc4131272fa9be18dff1e6cc4e0d004e2936ef9ae98ac7d00bfa0a6fd6e51c8"},
+    {file = "osqp-1.0.3-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:9f420cb9f75f7a8700a7fc9bd0d23cdd4cbee9f880afec9c1cbb1ea02d521288"},
+    {file = "osqp-1.0.3-cp38-cp38-win_amd64.whl", hash = "sha256:96d3994b89937265e529ba4bffc58dac79a9f0a19027ea0138f0d2045d8b572e"},
+    {file = "osqp-1.0.3-cp39-cp39-macosx_10_9_x86_64.whl", hash = "sha256:d940bca40a4c5f60494906385d4339acc50e054203df2da7be25e1b80e4712c8"},
+    {file = "osqp-1.0.3-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:ac9b78df06c48e57dca220fe5091636e269f5141e51b800866bbf2a30f3451cd"},
+    {file = "osqp-1.0.3-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:90ad668c84ae52f2f8dbfa8eb71c8cd8ffbb04713afa98e4cb669e2f52b8bac4"},
+    {file = "osqp-1.0.3-cp39-cp39-win_amd64.whl", hash = "sha256:2e3fb7d10fd7c80190d7516fa9b23d09461d84148642aefe37ad80707e72b38d"},
+    {file = "osqp-1.0.3.tar.gz", hash = "sha256:b496d4ffecc7d1b4c189a228301e449f83fb9f196abac9fbb709fe3a483f2f3c"},
 ]
 
 [package.dependencies]
