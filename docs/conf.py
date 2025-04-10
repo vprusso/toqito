@@ -121,14 +121,7 @@ html_favicon = "figures/favicon.ico"
 # html_static_path = ["_static"]
 # html_css_files = ["custom.css"]
 # Add jupyter configuration
-# Add jupyter configuration
-jupyter_sphinx_thebelab_config = {
-    "theme": "dark",  # Change to "light" if you prefer light theme
-    "loader_color": "#069",  # This is the spinner color when cells are executing
-}
 
-# You can also add styling options for highlight.js which renders the code
-jupyter_sphinx_highlight_css = "default"  # Other options: "github", "monokai", etc.
 # Show in footer when the docs were last updated.
 html_last_updated_fmt = "%b %d, %Y"
 
