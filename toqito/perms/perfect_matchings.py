@@ -72,4 +72,3 @@ def perfect_matchings(num: list[int] | int | np.ndarray) -> np.ndarray:
         matchings = np.vstack((matchings, s_vec))
 
     return matchings
-

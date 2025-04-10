@@ -31,7 +31,7 @@ def is_pure(state: list[np.ndarray] | np.ndarray) -> bool:
                        \end{pmatrix} \in \text{D}(\mathcal{X}).
 
     Calculating the rank of :math:`\rho` yields that the :math:`\rho` is a pure state. This can be
-    confirmed in :code:`toqito` as follows:
+    confirmed in :code:`|toqito⟩` as follows:
 
     >>> from toqito.states import bell
     >>> from toqito.state_props import is_pure

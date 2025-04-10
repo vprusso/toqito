@@ -14,10 +14,8 @@ from toqito.channel_props.is_extremal import is_extremal
         # --- Unitary channels (extremal) ---
         # Flat list representation.
         ([np.array([[0, 1], [1, 0]])], True),
-
         # Nested list representation.
         ([[np.array([[0, 1], [1, 0]])]], True),
-
         # --- Non-extremal channels ---
         # Flat list representation: two identical Kraus operators.
         (
@@ -35,10 +33,8 @@ from toqito.channel_props.is_extremal import is_extremal
             ],
             False,
         ),
-
         # --- Choi matrix input ---
         (kraus_to_choi([np.array([[0, 1], [1, 0]])]), True),
-
         # --- Example from Watrous (Example 2.33) ---
         # Flat list representation.
         (
@@ -56,7 +52,6 @@ from toqito.channel_props.is_extremal import is_extremal
             ],
             True,
         ),
-
         # --- Depolarizing channel (non-extremal) ---
         (
             [
@@ -76,18 +71,16 @@ def test_is_extremal(phi, expected):
 
 # <- Consolidated tests for ValueErrors. ->
 
+
 @pytest.mark.parametrize(
     "phi, error_message",
     [
         # Empty list.
         ([], "The channel must contain at least one Kraus operator."),
-
         # Empty nested list.
         ([[]], "The channel must contain at least one Kraus operator."),
-
         # Invalid list contents.
         ([1, np.array([[0, 1], [1, 0]])], "Channel must be a list \\(or nested list\\) of Kraus operators."),
-
         # Unsupported input type.
         (42, "Channel must be a list of Kraus operators or a Choi matrix."),
     ],

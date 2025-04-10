@@ -26,6 +26,7 @@ def test_random_povm_validity(dim, num_inputs, num_outputs):
         sum_povms = sum(povms[:, :, i, j] for j in range(num_outputs))
         assert np.allclose(sum_povms, np.identity(dim))
 
+
 @pytest.mark.parametrize(
     "dim, num_inputs, num_outputs, expected",
     [
@@ -33,30 +34,20 @@ def test_random_povm_validity(dim, num_inputs, num_outputs):
             2,
             2,
             2,
-            np.array([
+            np.array(
                 [
                     [
-                        [0.68105648+0.j, 0.31894352+0.j],
-                        [0.46623871+0.j, 0.53376129+0.j]
+                        [[0.68105648 + 0.0j, 0.31894352 + 0.0j], [0.46623871 + 0.0j, 0.53376129 + 0.0j]],
+                        [[0.01373155 + 0.0j, -0.01373155 + 0.0j], [0.42523981 + 0.0j, -0.42523981 + 0.0j]],
                     ],
                     [
-                        [0.01373155+0.j, -0.01373155+0.j],
-                        [0.42523981+0.j, -0.42523981+0.j]
-                    ]
-                ],
-                [
-                    [
-                        [0.01373155+0.j, -0.01373155+0.j],
-                        [0.42523981+0.j, -0.42523981+0.j]
+                        [[0.01373155 + 0.0j, -0.01373155 + 0.0j], [0.42523981 + 0.0j, -0.42523981 + 0.0j]],
+                        [[0.04748388 + 0.0j, 0.95251612 + 0.0j], [0.47081969 + 0.0j, 0.52918031 + 0.0j]],
                     ],
-                    [
-                        [0.04748388+0.j, 0.95251612+0.j],
-                        [0.47081969+0.j, 0.52918031+0.j]
-                    ]
                 ]
-            ])
+            ),
         )
-    ]
+    ],
 )
 def test_seed(dim, num_inputs, num_outputs, expected):
     """Test that the function returns the expected output when seeded."""

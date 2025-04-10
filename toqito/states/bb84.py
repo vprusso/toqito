@@ -21,7 +21,7 @@ def bb84() -> np.ndarray:
 
     Examples
     ==========
-    The BB84 basis states can be obtained in :code:`toqito` as follows in the form of a list of
+    The BB84 basis states can be obtained in :code:`|toqito⟩` as follows in the form of a list of
     arrays.
 
     >>> from toqito.states import bb84

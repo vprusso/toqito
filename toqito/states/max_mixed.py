@@ -34,7 +34,7 @@ def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, dia_array]:
     Examples
     ==========
 
-    Using :code:`toqito`, we can generate the :math:`2`-dimensional maximally mixed state
+    Using :code:`|toqito⟩`, we can generate the :math:`2`-dimensional maximally mixed state
 
     .. math::
         \omega_2 = \frac{1}{2}

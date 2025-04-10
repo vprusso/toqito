@@ -10,10 +10,10 @@ measurement on that shared state.
 Every extended nonlocal game has a *value* associated to it. Analogously to
 nonlocal games, this value is a quantity that dictates how well the players can
 perform a task in the extended nonlocal game model when given access to certain
-resources. We will be using :code:`toqito` to calculate these quantities.
+resources. We will be using :code:`|toqito⟩` to calculate these quantities.
 
 We will also look at existing results in the literature on these values and be
-able to replicate them using :code:`toqito`. Much of the written content in
+able to replicate them using :code:`|toqito⟩`. Much of the written content in
 this tutorial will be directly taken from :cite:`Russo_2017_Extended`.
 
 Extended nonlocal games have a natural physical interpretation in the setting
@@ -310,7 +310,7 @@ It was shown in :cite:`Tomamichel_2013_AMonogamy` and :cite:`Johnston_2016_Exten
 .. math::
     \omega(G_{BB84}) = \cos^2(\pi/8).
 
-This can be verified in :code:`toqito` as follows.
+This can be verified in :code:`|toqito⟩` as follows.
 
 .. jupyter-execute::
 
@@ -325,7 +325,7 @@ This can be verified in :code:`toqito` as follows.
      print("The unentangled value is ", np.around(bb84.unentangled_value(), decimals=2))
 
 The BB84 game also exhibits strong parallel repetition. We can specify how many
-parallel repetitions for :code:`toqito` to run. The example below provides an
+parallel repetitions for :code:`|toqito⟩` to run. The example below provides an
 example of two parallel repetitions for the BB84 game.
 
 .. jupyter-execute::
@@ -352,7 +352,7 @@ The standard quantum value of the BB84 extended nonlocal game
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 We can calculate lower bounds on the standard quantum value of the BB84 game
-using :code:`toqito` as well.
+using :code:`|toqito⟩` as well.
 
 .. jupyter-execute::
 
@@ -380,7 +380,7 @@ however, in this case, it will prove to be useful.
 The non-signaling value of the BB84 extended nonlocal game
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Using :code:`toqito`, we can see that :math:`\omega_{ns}(G) = \cos^2(\pi/8)`.
+Using :code:`|toqito⟩`, we can see that :math:`\omega_{ns}(G) = \cos^2(\pi/8)`.
 
 .. jupyter-execute::
 
@@ -577,7 +577,7 @@ WARN: A->p (column pointers) not strictly increasing
 ```
 
 This is a known issue, and while it does not appear to impact the correctness
-of the results, it is an outstanding issue for the :code:`toqito` project.
+of the results, it is an outstanding issue for the :code:`|toqito⟩` project.
 
 Example: An extended nonlocal game with quantum advantage
 ----------------------------------------------------------

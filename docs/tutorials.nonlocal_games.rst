@@ -24,7 +24,7 @@ as the *quantum value* of the game.
 Calculating the classical value of a game is NP-hard as we need to perform a
 brute-force check to see which strategy yields the classical value of the game. 
 
-Using :code:`toqito`, we will be able to specify a nonlocal game and be able to
+Using :code:`|toqito⟩`, we will be able to specify a nonlocal game and be able to
 directly calculate the classical value and also place lower bounds on the
 quantum value.
 
@@ -258,12 +258,12 @@ Bob's measurements is given as SDP-2.
 Lower bounding the quantum value in `toqito`
 ---------------------------------------------
 
-The :code:`toqito` software implements both of these optimization problems using
+The :code:`|toqito⟩` software implements both of these optimization problems using
 the :code:`cvxpy` library. We see-saw between the two SDPs until the value we
 obtain reaches a specific precision threshold.
 
 As we are not guaranteed to obtain the true quantum value of a given nonlocal
-game as this approach can get stuck in a local minimum, the :code:`toqito`
+game as this approach can get stuck in a local minimum, the :code:`|toqito⟩`
 function allows the user to specify an :code:`iters` argument that runs the
 see-saw approach a number of times and then returns the highest of the values
 obtained.
@@ -328,7 +328,7 @@ in this matrix into the :code:`pred_mat` variable.
 
 
 Now that we have both :code:`prob_mat` and :code:`pred_mat` defined, we can
-use :code:`toqito` to determine the lower bound on the quantum value.
+use :code:`|toqito⟩` to determine the lower bound on the quantum value.
 
 .. jupyter-execute::
 
@@ -376,7 +376,7 @@ satisfied
         \end{equation}
 
 It is well-known that both the classical and quantum value of this nonlocal
-game is :math:`2/3` :cite:`Cleve_2010_Consequences`. We can verify this fact using :code:`toqito`.
+game is :math:`2/3` :cite:`Cleve_2010_Consequences`. We can verify this fact using :code:`|toqito⟩`.
 The following example encodes the FFL game. We then calculate the classical
 value and calculate lower bounds on the quantum value of the FFL game.
 
@@ -449,7 +449,7 @@ As an example, the CHSH game can be described as a BCS game:
 .. math::
     v_1 \oplus v_2 = 0 \quad \quad v_1 \oplus v_2 = 1
 
-In :code:`toqito`, we can encode this as a BCS game as follows
+In :code:`|toqito⟩`, we can encode this as a BCS game as follows
 
 .. jupyter-execute::
 

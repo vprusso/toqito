@@ -1,6 +1,5 @@
 """Generates random quantum states using Qiskit."""
 
-
 import numpy as np
 
 

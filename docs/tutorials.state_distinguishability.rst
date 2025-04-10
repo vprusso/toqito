@@ -4,7 +4,7 @@ Quantum state distinguishability
 In this tutorial we are going to cover the problem of *quantum state
 distinguishability* (sometimes analogously referred to as quantum state
 discrimination). We are going to briefly describe the problem setting and then
-describe how one may use :code:`toqito` to calculate the optimal probability
+describe how one may use :code:`|toqito⟩` to calculate the optimal probability
 with which this problem can be solved when given access to certain
 measurements.
 
@@ -84,10 +84,10 @@ may be obtained by solving the following semidefinite program (SDP).
                                  & M_i \in \text{Pos}(\mathcal{X}).
     \end{align*}
 
-This optimization problem is solved in :code:`toqito` to obtain the optimal
+This optimization problem is solved in :code:`|toqito⟩` to obtain the optimal
 probability with which Bob can distinguish state :math:`\rho_i`.
 
-To illustrate how we can phrase and solve this problem in :code:`toqito`,
+To illustrate how we can phrase and solve this problem in :code:`|toqito⟩`,
 consider the following example. Assume Alice has an ensemble of quantum states
 
 .. math::
@@ -110,7 +110,7 @@ These states are completely orthogonal to each other, and it is known that Bob
 can optimally distinguish the state he is given perfectly, i.e. with probability
 :math:`1`.
 
-Using :code:`toqito`, we can calculate this probability directly as follows:
+Using :code:`|toqito⟩`, we can calculate this probability directly as follows:
 
 .. jupyter-execute::
 
@@ -166,7 +166,7 @@ also be framed as an SDP and was initially presented in this manner in
         \end{aligned}
     \end{equation}
 
-Using :code:`toqito`, we can determine the optimal probability for Bob to
+Using :code:`|toqito⟩`, we can determine the optimal probability for Bob to
 distinguish a given state from an ensemble if he is only given access to PPT
 measurements.
 
@@ -198,7 +198,7 @@ that the optimal probability of distinguishing via a PPT measurement should yiel
 :math:`7/8 \approx 0.875`.
 
 This ensemble of states and some of its properties with respect to
-distinguishability were initially considered in :cite:`Yu_2012_Four`. In :code:`toqito`,
+distinguishability were initially considered in :cite:`Yu_2012_Four`. In :code:`|toqito⟩`,
 we can calculate the probability with which Bob can distinguish these states
 via PPT measurements in the following manner.
 

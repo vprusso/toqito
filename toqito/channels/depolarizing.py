@@ -51,7 +51,7 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
                                     0 & 0 & 0 & 1
                                  \end{pmatrix}.
 
-    This can be observed in :code:`toqito` as follows.
+    This can be observed in :code:`|toqito⟩` as follows.
 
     >>> from toqito.channel_ops import apply_channel
     >>> from toqito.channels import depolarizing

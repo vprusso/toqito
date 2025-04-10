@@ -17,7 +17,7 @@ def chessboard(mat_params: list[float], s_param: float = None, t_param: float = 
     Examples
     ==========
 
-    The standard chessboard state can be invoked using :code:`toqito` as
+    The standard chessboard state can be invoked using :code:`|toqito⟩` as
 
     >>> from toqito.states import chessboard
     >>> chessboard([1, 2, 3, 4, 5, 6], 7, 8)

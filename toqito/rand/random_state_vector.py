@@ -7,10 +7,7 @@ from toqito.states import max_entangled
 
 
 def random_state_vector(
-        dim: list[int] | int,
-        is_real: bool = False,
-        k_param: int = 0,
-        seed: int | None = None
+    dim: list[int] | int, is_real: bool = False, k_param: int = 0, seed: int | None = None
 ) -> np.ndarray:
     r"""Generate a random pure state vector.
 

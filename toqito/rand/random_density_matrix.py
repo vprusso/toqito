@@ -28,7 +28,7 @@ def random_density_matrix(
     Examples
     ==========
 
-    Using :code:`toqito`, we may generate a random complex-valued :math:`n`- dimensional density matrix. For
+    Using :code:`|toqito⟩`, we may generate a random complex-valued :math:`n`- dimensional density matrix. For
     :math:`d=2`, this can be accomplished as follows.
 
     >>> from toqito.rand import random_density_matrix
@@ -37,8 +37,8 @@ def random_density_matrix(
     array([[ 0.53822849+0.j        , -0.26155866+0.02081311j],
            [-0.26155866-0.02081311j,  0.46177151+0.j        ]])
 
-    We can verify that this is in fact a valid density matrix using the :code:`is_denisty` function from :code:`toqito`
-    as follows
+    We can verify that this is in fact a valid density matrix using the :code:`is_density` function from
+    :code:`|toqito⟩` as follows
 
     >>> from toqito.matrix_props import is_density
     >>> is_density(complex_dm)
@@ -84,7 +84,7 @@ def random_density_matrix(
            [0.14841568+0.33318114j, 0.17551981+0.j        ]])
 
     We can once again verify that this is in fact a valid density matrix using the
-    :code:`is_density` function from :code:`toqito` as follows
+    :code:`is_density` function from :code:`|toqito⟩` as follows
 
     >>> from toqito.matrix_props import is_density
     >>> is_density(seeded)

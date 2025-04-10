@@ -121,8 +121,14 @@ class NonlocalGame:
 
         return cls(prob_mat, pred_mat, reps)
 
-    def process_iteration(i:int, num_bob_outputs:int, num_bob_inputs:int, pred_mat_copy:np.ndarray,
-                          num_alice_outputs:int, num_alice_inputs:int)-> float:
+    def process_iteration(
+        i: int,
+        num_bob_outputs: int,
+        num_bob_inputs: int,
+        pred_mat_copy: np.ndarray,
+        num_alice_outputs: int,
+        num_alice_inputs: int,
+    ) -> float:
         """Help the classical_value function as a helper method.
 
         :return: A value between [0, 1] representing the tgval.
@@ -184,15 +190,18 @@ class NonlocalGame:
             with multiprocessing.Pool() as pool:  # Creating a pool of processes for parallelization
                 tgvals = pool.starmap(
                     NonlocalGame.process_iteration,
-                    [(i, num_bob_outputs, num_bob_inputs, pred_mat_copy, num_alice_outputs, num_alice_inputs)
-                    for i in range(num_iterations)]
+                    [
+                        (i, num_bob_outputs, num_bob_inputs, pred_mat_copy, num_alice_outputs, num_alice_inputs)
+                        for i in range(num_iterations)
+                    ],
                 )
                 p_win = max(tgvals)
         # Using single core implementation for small problems
         else:
             for i in range(num_iterations):
-                tgval = NonlocalGame.process_iteration(i, num_bob_outputs, num_bob_inputs, pred_mat_copy,
-                                                       num_alice_outputs, num_alice_inputs)
+                tgval = NonlocalGame.process_iteration(
+                    i, num_bob_outputs, num_bob_inputs, pred_mat_copy, num_alice_outputs, num_alice_inputs
+                )
                 p_win = max(p_win, tgval)
 
         return p_win
