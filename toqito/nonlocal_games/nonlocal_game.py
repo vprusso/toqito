@@ -6,9 +6,10 @@ from collections import defaultdict
 import cvxpy
 import numpy as np
 
-from toqito.helper import npa_constraints, update_odometer
+from toqito.helper import update_odometer
 from toqito.matrix_ops import tensor
 from toqito.rand import random_povm
+from toqito.state_opt import npa_constraints
 
 
 class NonlocalGame:
