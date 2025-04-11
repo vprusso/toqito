@@ -35,6 +35,7 @@ extensions = [
     "autoapi.extension",
     "sphinx.ext.doctest",
     "sphinx.ext.intersphinx",
+    'sphinx_gallery.gen_gallery',
     "sphinx.ext.todo",
     "sphinx.ext.coverage",
     "sphinx.ext.mathjax",
@@ -45,6 +46,20 @@ extensions = [
     "sphinxcontrib.bibtex",
     "sphinx_copybutton",
 ]
+
+
+sphinx_gallery_conf = {
+    'examples_dirs': '../examples',              # Path to example scripts
+    'gallery_dirs': 'auto_examples',             # Where to save gallery output
+    'filename_pattern': 'plot_',                 # Change from '/plot_' to 'plot_'
+    'line_numbers': True,                        # Display line numbers
+    'download_all_examples': True,               # Option to download all examples
+    'thumbnail_size': (250, 250),                # Size of thumbnails
+    'remove_config_comments': True,              # Remove config comments
+}
+
+suppress_warnings = ['toc.not_included', 'toc.not_readable']
+
 
 bibtex_bibfiles = ["refs.bib"]
 bibtex_default_style = "unsrt"

@@ -1,0 +1,317 @@
+{
+ "XORGame": [
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "toqito.nonlocal_games.xor_game",
+   "module_short": "toqito.nonlocal_games",
+   "name": "XORGame"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "toqito.nonlocal_games",
+   "module_short": "toqito.nonlocal_games",
+   "name": "XORGame"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "toqito",
+   "module_short": "toqito",
+   "name": "XORGame"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "toqito.nonlocal_games.xor_game",
+   "module_short": "toqito.nonlocal_games",
+   "name": "XORGame"
+  }
+ ],
+ "chsh": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "toqito.nonlocal_games.xor_game",
+   "module_short": "toqito.nonlocal_games",
+   "name": "XORGame"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "toqito.nonlocal_games",
+   "module_short": "toqito.nonlocal_games",
+   "name": "XORGame"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "toqito",
+   "module_short": "toqito",
+   "name": "XORGame"
+  }
+ ],
+ "chsh.classical_value": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "toqito.nonlocal_games.xor_game",
+   "module_short": "toqito.nonlocal_games",
+   "name": "XORGame.classical_value"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "toqito.nonlocal_games",
+   "module_short": "toqito.nonlocal_games",
+   "name": "XORGame.classical_value"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "toqito",
+   "module_short": "toqito",
+   "name": "XORGame.classical_value"
+  }
+ ],
+ "chsh.quantum_value": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "toqito.nonlocal_games.xor_game",
+   "module_short": "toqito.nonlocal_games",
+   "name": "XORGame.quantum_value"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "toqito.nonlocal_games",
+   "module_short": "toqito.nonlocal_games",
+   "name": "XORGame.quantum_value"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "toqito",
+   "module_short": "toqito",
+   "name": "XORGame.quantum_value"
+  }
+ ],
+ "classical_val": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "float64"
+  }
+ ],
+ "i": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "int"
+  }
+ ],
+ "np.array": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "builtin_function_or_method"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "array"
+  }
+ ],
+ "plt.bar": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "bar"
+  }
+ ],
+ "plt.figure": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "figure"
+  }
+ ],
+ "plt.grid": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "grid"
+  }
+ ],
+ "plt.show": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "show"
+  }
+ ],
+ "plt.text": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "text"
+  }
+ ],
+ "plt.title": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "title"
+  }
+ ],
+ "plt.ylabel": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "ylabel"
+  }
+ ],
+ "plt.ylim": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "function"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "matplotlib.pyplot",
+   "module_short": "matplotlib.pyplot",
+   "name": "ylim"
+  }
+ ],
+ "pred_mat": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "ndarray"
+  }
+ ],
+ "prob_mat": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "ndarray"
+  }
+ ],
+ "quantum_val": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "float64"
+  }
+ ],
+ "strategies": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "list"
+  }
+ ],
+ "v": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "float64"
+  }
+ ],
+ "values": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "list"
+  }
+ ]
+}
