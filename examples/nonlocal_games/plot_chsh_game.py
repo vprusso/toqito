@@ -1,11 +1,12 @@
-"""
+"""CHSH Game Implementation.
+
 ==============================
 CHSH Game Implementation
 ==============================
 
-This example demonstrates the CHSH game
-implementation using toqito.
+This example demonstrates the CHSH game implementation using toqito.
 """
+
 
 # sphinx_gallery_thumbnail_number = 1
 
