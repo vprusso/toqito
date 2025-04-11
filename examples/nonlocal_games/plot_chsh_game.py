@@ -1,5 +1,5 @@
-"""CHSH Game Example.
-
+"""
+CHSH Game Example
 =================
 
 This example calculates the classical and quantum values for the CHSH game
