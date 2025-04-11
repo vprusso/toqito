@@ -40,7 +40,7 @@ from toqito.matrix_props import is_absolutely_k_incoherent
         # 4x4 custom density matrix with k = 3.
         (np.diag([0.5, 0.25, 0.125, 0.125]), 3, True),
         # 4x4 custom density matrix with k equal to n (trivial).
-        (np.diag([0.5, 0.25, 0.125, 0.125]), 4, True)
+        (np.diag([0.5, 0.25, 0.125, 0.125]), 4, True),
     ],
 )
 def test_is_absolutely_k_incoherent(mat, k, expected):
@@ -76,7 +76,7 @@ def test_is_absolutely_k_incoherent_non_square():
         # [1] Theorem 8 (k == n - 1) branch.
         # For n = 4 and k = 3, if lmax is below the cutoff (1 - 1/4 = 0.75) then the SDP is executed.
         # Here we choose eigenvalues [0.7, 0.15, 0.15, 0]. Assuming the SDP is feasible, it should return True.
-        (np.diag([0.7, 0.15, 0.15, 0]), 3, True, "SDP branch: feasible SDP for k equal to n - 1.")
+        (np.diag([0.7, 0.15, 0.15, 0]), 3, True, "SDP branch: feasible SDP for k equal to n - 1."),
     ],
 )
 def test_is_absolutely_k_incoherent_additional(mat, k, expected, description):
