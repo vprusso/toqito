@@ -60,6 +60,11 @@ sphinx_gallery_conf = {
 suppress_warnings = ["toc.not_included", "toc.not_readable"]
 
 
+linkcheck_ignore = [
+    'https://uwspace.uwaterloo.ca/handle/10012/9572',  # Temporarily ignore until fixed
+]
+
+
 bibtex_bibfiles = ["refs.bib"]
 bibtex_default_style = "unsrt"
 suppress_warnings = ["bibtex.duplicate_label", "bibtex.duplicate_citation"]
