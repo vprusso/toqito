@@ -81,17 +81,26 @@ def w_state(num_qubits: int, coeff: list[int] = None) -> np.ndarray:
                   1-by-`num_qubts` vector of coefficients.
 
     """
-    if coeff is None:
-        coeff = np.ones(num_qubits) / np.sqrt(num_qubits)
-
     if num_qubits < 2:
         raise ValueError("InvalidNumQubits: `num_qubits` must be at least 2.")
+    if coeff is None:
+        coeff = np.ones(num_qubits)
+    else:
+        coeff = np.array(coeff)
     if len(coeff) != num_qubits:
         raise ValueError("InvalidCoeff: The variable `coeff` must be a vector of length equal to `num_qubits`.")
 
+    # Normalize coefficients if necessary.
+    norm = np.linalg.norm(coeff)
+    if not np.isclose(norm, 1.0):
+        coeff = coeff / norm
+
+    # Initialize a state vector of appropriate size.
     ret_w_state = csr_array((2**num_qubits, 1)).toarray()
-
+    # Fill the vector so that the state has the single excitation distributed according to coeff.
+    # Note: The ordering assumes that the binary representation corresponds to qubits in little-endian order.
     for i in range(num_qubits):
+        # The position for an excitation on qubit i is at index 2**i.
+        # We assign the coefficient to the position corresponding to an excitation in that qubit.
         ret_w_state[2**i] = coeff[num_qubits - i - 1]
-
     return np.around(ret_w_state, 4)
