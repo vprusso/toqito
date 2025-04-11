@@ -1,5 +1,4 @@
-"""
-CHSH Nonlocal Game
+"""CHSH Nonlocal Game
 ==================
 
 This example demonstrates the CHSH nonlocal game using toqito.
@@ -7,8 +6,9 @@ This example demonstrates the CHSH nonlocal game using toqito.
 # sphinx_gallery_thumbnail_number = 1  # Use the first figure as thumbnail
 
 
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
+
 from toqito.nonlocal_games.xor_game import XORGame
 
 # The probability matrix
