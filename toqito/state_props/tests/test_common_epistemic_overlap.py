@@ -58,7 +58,7 @@ def test_epistemic_overlap_parametrized(states, expected_overlap):
         (
             [np.array([[1, 2, 3],
                        [4, 5, 6]])],
-            r"Density matrices must be square"
+            r"Input must be either a vector or a square matrix."
         ),
         # States with inconsistent dimensions should raise ValueError.
         (
