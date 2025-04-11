@@ -1,4 +1,5 @@
 """Test ghz."""
+
 import numpy as np
 import pytest
 
@@ -17,7 +18,8 @@ e2_4 = np.array([[0], [0], [1], [0]])
 e3_4 = np.array([[0], [0], [0], [1]])
 # Pre-computed expected GHZ state for 7 qudits in C^4: 1/sqrt(30) (|0000000> + 2|1111111> + 3|2222222> + 4|3333333>)
 ghz_4_7 = (
-    1 / np.sqrt(30)
+    1
+    / np.sqrt(30)
     * (
         tensor(e0_4, e0_4, e0_4, e0_4, e0_4, e0_4, e0_4)
         + 2 * tensor(e1_4, e1_4, e1_4, e1_4, e1_4, e1_4, e1_4)
@@ -25,6 +27,7 @@ ghz_4_7 = (
         + 4 * tensor(e3_4, e3_4, e3_4, e3_4, e3_4, e3_4, e3_4)
     )
 )
+
 
 @pytest.mark.parametrize(
     "dim, num_qubits, coeff, expected_state",
