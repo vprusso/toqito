@@ -3,8 +3,9 @@
 import numpy as np
 import pytest
 
-from toqito.channel_metrics import channel_fidelity
-from toqito.channels import dephasing, depolarizing
+from toqito.channel_metrics.channel_fidelity import channel_fidelity
+from toqito.channels.dephasing import dephasing
+from toqito.channels.depolarizing import depolarizing
 
 dephasing_channel = dephasing(4)
 depolarizing_channel = depolarizing(4)
