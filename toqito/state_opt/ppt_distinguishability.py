@@ -4,7 +4,7 @@ import numpy as np
 import picos
 
 from toqito.matrix_ops import calculate_vector_matrix_dimension, to_density_matrix
-from toqito.matrix_props import has_same_dimension
+from toqito.matrix_props.has_same_dimension import has_same_dimension
 
 
 def ppt_distinguishability(

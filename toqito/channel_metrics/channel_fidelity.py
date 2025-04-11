@@ -3,7 +3,7 @@
 import cvxpy
 import numpy as np
 
-from toqito.channels import partial_trace
+from toqito.channels.partial_trace import partial_trace
 
 
 def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
