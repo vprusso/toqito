@@ -1,16 +1,15 @@
-"""Test tensor_comb for different cases"""
-import sys
+"""Test tensor_comb for different cases."""
 import numpy as np
 import pytest
 
 from toqito.matrix_ops import tensor_comb, to_density_matrix
-from toqito.states import basis
 
 
 @pytest.mark.parametrize(
     "k, states, mode, density_matrix, expected_keys, expected_error",
     [
         (3,
+        # Injective (default).
          [np.array([1, 0]), np.array([0, 1])],
          "injective", False,
          None,
@@ -45,16 +44,14 @@ def test_tensor_comb(k, states, mode, density_matrix, expected_keys, expected_er
     """Test the tensor_comb function."""
     if expected_error:
         with pytest.raises(expected_error):
-            tensor_comb(k, states, mode=mode, density_matrix=density_matrix)
+            tensor_comb(k, states, mode, density_matrix)
 
     else:
-        result = tensor_comb(k, states, mode=mode,
-                             density_matrix=density_matrix)
+        result = tensor_comb(k, states, mode, density_matrix)
         result_keys = list(result.keys())
         # check expected keys
         assert sorted(result.keys()) == sorted(
-            expected_keys)  # , f"Expected: {
-#            expected_keys}, Got: {list(result.keys())}"
+            expected_keys)   , f"Expected: {expected_keys}, Got: {list(result.keys())}"
 
         for seq in expected_keys:
             state_seq = [states[i] for i in seq]
