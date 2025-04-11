@@ -75,6 +75,6 @@ def is_totally_positive(mat: np.ndarray, tol: float = 1e-6, sub_sizes: list | No
             for kr in sub_ind_r:
                 for kc in sub_ind_c:
                     d = np.linalg.det(mat[np.ix_(kr, kc)])
-                    if d < -tol or abs(np.imag(d)) > tol:
+                    if d < tol or abs(np.imag(d)) > tol:
                         return False
     return True

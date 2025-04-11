@@ -29,7 +29,7 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray
     .. math::
         \frac{1}{\sqrt{2}} \left( |000 \rangle + |111 \rangle \right).
 
-    Using :code:`toqito`, we can see that this yields the proper state.
+    Using :code:`|toqito⟩`, we can see that this yields the proper state.
 
     >>> from toqito.states import ghz
     >>> ghz(2, 3)
@@ -63,23 +63,29 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray
     :returns: Numpy vector array as GHZ state.
 
     """
-    if coeff is None:
-        coeff = np.ones(dim) / np.sqrt(dim)
-
-    # Error checking:
     if dim < 1:
         raise ValueError("InvalidDim: `dim` must be at least 1.")
     if num_qubits < 1:
         raise ValueError("InvalidNumQubits: `num_qubits` must be at least 1.")
+
+    if coeff is None:
+        coeff = np.ones(dim)
+    else:
+        coeff = np.array(coeff)
     if len(coeff) != dim:
         raise ValueError("InvalidCoeff: The variable `coeff` must be a vector of length equal to `dim`.")
 
+    # Normalize coefficients if they are not.
+    norm = np.linalg.norm(coeff)
+    if not np.isclose(norm, 1.0):
+        coeff = coeff / norm
+
     # Initialize the GHZ state vector.
-    ret_ghz_state = np.zeros((dim**num_qubits, 1))
-
-    # Fill the GHZ state vector with the appropriate coefficients.
+    ghz_state = np.zeros((dim**num_qubits, 1))
+    # Fill the state vector with the corresponding coefficients.
     for i in range(dim):
-        index = sum(i * dim**k for k in range(num_qubits))
-        ret_ghz_state[index] = coeff[i]
+        # Calculate the index for the tensor product state |i, i, ..., i>.
+        index = sum(i * (dim**k) for k in range(num_qubits))
+        ghz_state[index] = coeff[i]
 
-    return ret_ghz_state
+    return ghz_state

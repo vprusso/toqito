@@ -14,22 +14,28 @@ e_0, e_1 = basis(2, 0), basis(2, 1)
     [
         # Test tensor_comb for sequence length 1
         ([e_0, e_1], 1, {(0,): np.outer(e_0, e_0), (1,): np.outer(e_1, e_1)}),
-
         # Test tensor_comb for sequence length 2
-        ([e_0, e_1], 2, {
-            (0, 0): np.outer(np.kron(e_0, e_0), np.kron(e_0, e_0)),
-            (0, 1): np.outer(np.kron(e_0, e_1), np.kron(e_0, e_1)),
-            (1, 0): np.outer(np.kron(e_1, e_0), np.kron(e_1, e_0)),
-            (1, 1): np.outer(np.kron(e_1, e_1), np.kron(e_1, e_1)),
-        }),
-
+        (
+            [e_0, e_1],
+            2,
+            {
+                (0, 0): np.outer(np.kron(e_0, e_0), np.kron(e_0, e_0)),
+                (0, 1): np.outer(np.kron(e_0, e_1), np.kron(e_0, e_1)),
+                (1, 0): np.outer(np.kron(e_1, e_0), np.kron(e_1, e_0)),
+                (1, 1): np.outer(np.kron(e_1, e_1), np.kron(e_1, e_1)),
+            },
+        ),
         # Test tensor_comb for sequence length 3
-        ([e_0, e_1], 3, {
-            (0, 0, 0): np.outer(np.kron(np.kron(e_0, e_0), e_0), np.kron(np.kron(e_0, e_0), e_0)),
-            (0, 0, 1): np.outer(np.kron(np.kron(e_0, e_0), e_1), np.kron(np.kron(e_0, e_0), e_1)),
-            # other possible sequences omitted for brevity...
-        })
-    ]
+        (
+            [e_0, e_1],
+            3,
+            {
+                (0, 0, 0): np.outer(np.kron(np.kron(e_0, e_0), e_0), np.kron(np.kron(e_0, e_0), e_0)),
+                (0, 0, 1): np.outer(np.kron(np.kron(e_0, e_0), e_1), np.kron(np.kron(e_0, e_0), e_1)),
+                # other possible sequences omitted for brevity...
+            },
+        ),
+    ],
 )
 def test_tensor_comb(states, k, expected):
     """Test tensor_comb for various sequence lengths."""

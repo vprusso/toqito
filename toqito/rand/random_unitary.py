@@ -3,11 +3,7 @@
 import numpy as np
 
 
-def random_unitary(
-        dim: list[int] | int,
-        is_real: bool = False,
-        seed: int | None = None
-) -> np.ndarray:
+def random_unitary(dim: list[int] | int, is_real: bool = False, seed: int | None = None) -> np.ndarray:
     """Generate a random unitary or orthogonal matrix :cite:`Ozols_2009_RandU`.
 
     Calculates a random unitary matrix (if :code:`is_real = False`) or a random real orthogonal
@@ -27,7 +23,7 @@ def random_unitary(
 
 
     We can verify that this is in fact a valid unitary matrix using the :code:`is_unitary` function
-    from :code:`toqito` as follows
+    from :code:`|toqito⟩` as follows
 
     >>> from toqito.matrix_props import is_unitary
     >>> is_unitary(complex_dm)

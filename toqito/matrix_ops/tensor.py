@@ -50,7 +50,7 @@ def tensor(*args) -> np.ndarray:
     .. math:
         e_0 \otimes e_0 = \[1, 0, 0, 0 \]^{\text{T}}.
 
-    This can be accomplished in :code:`toqito` as follows.
+    This can be accomplished in :code:`|toqito⟩` as follows.
 
     >>> from toqito.states import basis
     >>> from toqito.matrix_ops import tensor
@@ -69,7 +69,7 @@ def tensor(*args) -> np.ndarray:
     .. math::
         e_0^{\otimes 3} = \left[1, 0, 0, 0, 0, 0, 0, 0 \right]^{\text{T}}
 
-    in :code:`toqito` as follows.
+    in :code:`|toqito⟩` as follows.
 
     >>> from toqito.states import basis
     >>> from toqito.matrix_ops import tensor
@@ -118,6 +118,7 @@ def tensor(*args) -> np.ndarray:
     :return: The computed tensor product.
 
     """
+
     def fast_exp(matrix, q):
         """Efficient exponentiation by squaring."""
         if q == 1:
