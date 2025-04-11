@@ -1,10 +1,10 @@
-"""CHSH Game Implementation.
+"""CHSH Game Example.
 
-==============================
-CHSH Game Implementation
-==============================
+=================
 
-This example demonstrates the CHSH game implementation using toqito.
+This example calculates the classical and quantum values for the CHSH game
+using the toqito library. It demonstrates how to construct the necessary matrices
+and use the XORGame function.
 """
 
 
