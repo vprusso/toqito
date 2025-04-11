@@ -1,9 +1,10 @@
 """
-===============================
-CHSH Game Demonstration
-===============================
+==============================
+CHSH Game Implementation
+==============================
 
-This example demonstrates the CHSH game...
+This example demonstrates the CHSH (Clauser-Horne-Shimony-Holt) game 
+implementation using toqito.
 """
 
 # sphinx_gallery_thumbnail_number = 1
