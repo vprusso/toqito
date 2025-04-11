@@ -51,23 +51,16 @@ def test_epistemic_overlap_parametrized(states, expected_overlap):
     computed = common_epistemic_overlap(states)
     assert np.isclose(computed, expected_overlap, atol=1e-3)
 
+
 @pytest.mark.parametrize(
     "states, expected_msg",
     [
         # Non-square density matrix should raise ValueError.
-        (
-            [np.array([[1, 2, 3],
-                       [4, 5, 6]])],
-            r"Input must be either a vector or a square matrix."
-        ),
+        ([np.array([[1, 2, 3], [4, 5, 6]])], r"Input must be either a vector or a square matrix."),
         # States with inconsistent dimensions should raise ValueError.
-        (
-            [np.array([1, 0]), np.array([1, 0, 0])],
-            r"All states must have consistent dimension"
-        )
-    ]
+        ([np.array([1, 0]), np.array([1, 0, 0])], r"All states must have consistent dimension"),
+    ],
 )
-
 def test_common_epistemic_overlap_invalid_inputs(states, expected_msg):
     """Test that common_epistemic_overlap raises errors for invalid inputs."""
     with pytest.raises(ValueError, match=expected_msg):
