@@ -3,7 +3,7 @@
 CHSH Game Implementation
 ==============================
 
-This example demonstrates the CHSH (Clauser-Horne-Shimony-Holt) game 
+This example demonstrates the CHSH game
 implementation using toqito.
 """
 
