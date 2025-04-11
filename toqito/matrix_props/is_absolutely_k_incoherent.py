@@ -9,9 +9,12 @@ from toqito.matrix_props import is_positive_semidefinite
 def is_absolutely_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
     r"""Determine whether a quantum state is absolutely k-incoherent :cite:`Johnston_2022_Absolutely`.
 
-    This function checks if the provided density matrix X is absolutely k-incoherent based
+    This function checks if the provided density matrix is absolutely k-incoherent based
     on the criteria introduced in :cite:`Johnston_2022_Absolutely` and the corresponding QETLAB
     functionality :cite:`QETLAB_link`. When necessary, an SDP is set up via cvxpy.
+
+    The notion of absolute k-incoherence is connected to the notion of quantum state antidistinguishability as discussed
+    in :cite:`Johnston_2025_Tight`.
 
     Examples
     =========
@@ -22,6 +25,10 @@ def is_absolutely_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> b
     ...               [2, -1, 5]])
     >>> is_absolutely_k_incoherent(mat, 4)
     True
+
+    See Also
+    ========
+    :func:`.state_props.is_antidistinguishable`
 
     References
     ==========
