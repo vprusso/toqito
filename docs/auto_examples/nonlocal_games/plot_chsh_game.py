@@ -1,5 +1,4 @@
-"""
-CHSH Nonlocal Game
+"""CHSH Nonlocal Game
 ==================
 
 This example demonstrates the CHSH nonlocal game using toqito.
