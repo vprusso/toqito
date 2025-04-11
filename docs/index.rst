@@ -57,17 +57,18 @@ API Reference
 
    autoapi_members
 
-Examples Gallery
-----------------
+
+Examples
+--------
 
 .. toctree::
    :maxdepth: 2
-   :caption: Tutorial Gallery
 
    auto_examples/index
 
+
 References
-------------
+----------
 
 .. toctree::
     :maxdepth: 2
