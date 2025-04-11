@@ -13,31 +13,26 @@ from toqito.matrix_props import is_absolutely_k_incoherent
         (np.eye(2) / 2, 1, True),
         # k == n (trivial).
         (np.eye(2) / 2, 2, True),
-
         # 2x2 pure state (non-maximally mixed density matrix).
         (np.array([[1, 0], [0, 0]]), 1, False),
         # k == n (trivial).
         (np.array([[1, 0], [0, 0]]), 2, True),
-
         # 2x2 non-density matrix (not PSD).
         (np.array([[1, 2], [2, 1]]), 1, False),
         # k == n (trivial).
         (np.array([[1, 2], [2, 1]]), 2, True),
-
         # 3x3 example matrix (as provided by the user).
         (np.array([[2, 1, 2], [1, 2, -1], [2, -1, 5]]), 1, False),
         # k == n (trivial).
         (np.array([[2, 1, 2], [1, 2, -1], [2, -1, 5]]), 3, True),
         # k > n (trivial).
         (np.array([[2, 1, 2], [1, 2, -1], [2, -1, 5]]), 4, True),
-
         # 3x3 maximally mixed state.
         (np.eye(3) / 3, 1, True),
         # Determined via eigenvalue condition.
         (np.eye(3) / 3, 2, True),
         # k == n (trivial).
         (np.eye(3) / 3, 3, True),
-
         # 4x4 custom density matrix: diag(0.5, 0.25, 0.125, 0.125).
         (np.diag([0.5, 0.25, 0.125, 0.125]), 1, False),
         (np.diag([0.5, 0.25, 0.125, 0.125]), 2, False),
