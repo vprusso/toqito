@@ -61,7 +61,7 @@ suppress_warnings = ["toc.not_included", "toc.not_readable"]
 
 
 linkcheck_ignore = [
-    'https://uwspace.uwaterloo.ca/handle/10012/9572',  # Temporarily ignore until fixed
+    "https://uwspace.uwaterloo.ca/handle/10012/9572",  # Temporarily ignore until fixed
 ]
 
 
