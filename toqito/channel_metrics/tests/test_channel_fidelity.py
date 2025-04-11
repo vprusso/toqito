@@ -22,7 +22,7 @@ depolarizing_channel = depolarizing(4)
 def test_channel_fidelity(input1, input2, expected_value):
     """Test functions works as expected for valid inputs."""
     calculated_value = channel_fidelity(input1, input2)
-    assert pytest.approx(expected_value, 1e-3) == calculated_value
+    assert abs(expected_value - calculated_value) < 1E-3
 
 
 @pytest.mark.parametrize(
