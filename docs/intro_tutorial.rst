@@ -143,20 +143,16 @@ here is the GHZ state :math:`\mathbb{C}^{4^{\otimes 7}}` as
     \frac{1}{\sqrt{30}} \left(| 0000000 \rangle + 2| 1111111 \rangle + 3|
     2222222 \rangle + 4| 3333333\rangle \right).
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> from toqito.states import ghz
-    >>> import numpy as np
-    >>> dim = 4
-    >>> num_parties = 7
-    >>> coeffs = [1/np.sqrt(30), 2/np.sqrt(30), 3/np.sqrt(30), 4/np.sqrt(30)]
-    >>> vec = ghz(dim, num_parties, coeffs)
-    >>> for idx in np.nonzero(vec)[0]:
-    ...     print(f"Index: {int(idx)}, Value: {vec[idx][0]:.8f}")
-    Index: 0, Value: 0.18257419
-    Index: 5461, Value: 0.36514837
-    Index: 10922, Value: 0.54772256
-    Index: 16383, Value: 0.73029674
+     from toqito.states import ghz
+     import numpy as np
+     dim = 4
+     num_parties = 7
+     coeffs = [1/np.sqrt(30), 2/np.sqrt(30), 3/np.sqrt(30), 4/np.sqrt(30)]
+     vec = ghz(dim, num_parties, coeffs)
+     for idx in np.nonzero(vec)[0]:
+         print(f"Index: {int(idx)}, Value: {vec[idx][0]:.8f}")
 
 
 Properties of Quantum States
@@ -428,24 +424,22 @@ The depolarizing channel replaces a state with the maximally mixed state with pr
 
 where :math:`\mathbb{I}` is the identity operator and :math:`d` is the dimension of the Hilbert space. The example below applies the depolarizing channel with :math:`p=0.3` to the computational basis state :math:`|0\rangle`.
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> import numpy as np
-    >>> from toqito.states import basis
-    >>> from toqito.channel_ops import apply_channel
-    >>> from toqito.channels import depolarizing
-    >>> 
-    >>> # # Create a quantum state |0⟩⟨0|.
-    >>> rho = np.array([[1, 0], [0, 0]])
-    >>> 
-    >>> # Generate the depolarizing channel Choi matrix with noise probability p = 0.3.
-    >>> choi = depolarizing(2, 0.3)
-    >>> 
-    >>> # Apply the depolarizing channel using apply_channel.
-    >>> output_state = apply_channel(rho, choi)
-    >>> print(output_state)
-    [[0.65 0.  ]
-     [0.   0.35]]
+     import numpy as np
+     from toqito.states import basis
+     from toqito.channel_ops import apply_channel
+     from toqito.channels import depolarizing
+     
+     # # Create a quantum state |0⟩⟨0|.
+     rho = np.array([[1, 0], [0, 0]])
+     
+     # Generate the depolarizing channel Choi matrix with noise probability p = 0.3.
+     choi = depolarizing(2, 0.3)
+     
+     # Apply the depolarizing channel using apply_channel.
+     output_state = apply_channel(rho, choi)
+     print(output_state)
 
 **Dephasing Channel**
 
@@ -456,25 +450,22 @@ The dephasing channel reduces the off-diagonal elements of a density matrix with
 
 where :math:`Z` is the Pauli-Z operator and :math:`p` represents the dephasing probability. The example below demonstrates how to apply the dephasing channel with :math:`p=0.4` to the plus state :math:`|+\rangle = \frac{1}{\sqrt{2}}(|0\rangle + |1\rangle)`.
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> import numpy as np
-    >>> from toqito.states import basis
-    >>> from toqito.channel_ops import apply_channel
-    >>> from toqito.channels import dephasing
-    >>> 
-    >>> # Create a quantum state |+⟩⟨+|.
-    >>> rho = np.array([[0.5, 0.5], [0.5, 0.5]])
-    >>> 
-    >>> # Generate the dephasing channel Choi matrix with dephasing probability p = 0.4.
-    >>> choi = dephasing(2, 0.4)
-    >>> 
-    >>> # Apply the dephasing channel using apply_channel.
-    >>> output_state = apply_channel(rho, choi)
-    >>> print(output_state)
-    [[0.5 0.2]
-     [0.2 0.5]]
-
+     import numpy as np
+     from toqito.states import basis
+     from toqito.channel_ops import apply_channel
+     from toqito.channels import dephasing
+     
+     # Create a quantum state |+⟩⟨+|.
+     rho = np.array([[0.5, 0.5], [0.5, 0.5]])
+     
+     # Generate the dephasing channel Choi matrix with dephasing probability p = 0.4.
+     choi = dephasing(2, 0.4)
+     
+     # Apply the dephasing channel using apply_channel.
+     output_state = apply_channel(rho, choi)
+     print(output_state)
 
 
 Noisy Channels
@@ -492,19 +483,17 @@ The phase damping channel models quantum decoherence where phase information is 
 
 The phase damping channel can be applied to a quantum state as follows:
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> from toqito.channels import phase_damping
-    >>> import numpy as np
-    >>> 
-    >>> # Create a density matrix with coherence.
-    >>> rho = np.array([[1, 0.5], [0.5, 1]])
-    >>> 
-    >>> # Apply phase damping with γ = 0.2.
-    >>> result = phase_damping(rho, gamma=0.2)
-    >>> print(result)
-    [[1.       +0.j 0.4472136+0.j]
-     [0.4472136+0.j 1.       +0.j]]
+     from toqito.channels import phase_damping
+     import numpy as np
+     
+     # Create a density matrix with coherence.
+     rho = np.array([[1, 0.5], [0.5, 1]])
+     
+     # Apply phase damping with γ = 0.2.
+     result = phase_damping(rho, gamma=0.2)
+     print(result)
      
 Note that the off-diagonal elements (coherences) are reduced by a factor of :math:`\sqrt{1-\gamma}`, while the diagonal elements (populations) remain unchanged.
 
@@ -518,19 +507,17 @@ The amplitude damping channel models energy dissipation from a quantum system to
 
 Here's how to use the amplitude damping channel:
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> from toqito.channels import amplitude_damping
-    >>> import numpy as np
-    >>> 
-    >>> # Create a quantum state.
-    >>> rho = np.array([[0.5, 0.5], [0.5, 0.5]])
-    >>> 
-    >>> # Apply amplitude damping with γ = 0.3.
-    >>> result = amplitude_damping(rho, gamma=0.3)
-    >>> print(result)
-    [[0.65      +0.j 0.41833001+0.j]
-     [0.41833001+0.j 0.35      +0.j]]
+     from toqito.channels import amplitude_damping
+     import numpy as np
+     
+     # Create a quantum state.
+     rho = np.array([[0.5, 0.5], [0.5, 0.5]])
+     
+     # Apply amplitude damping with γ = 0.3.
+     result = amplitude_damping(rho, gamma=0.3)
+     print(result)
 
 **Bit-Flip Channel**
 
@@ -541,19 +528,17 @@ The bit-flip channel randomly flips the state of a qubit with probability :math:
     K_1 = \sqrt{p} \, X = \sqrt{p} \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}
 
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> from toqito.channels import bitflip
-    >>> import numpy as np
-    >>> 
-    >>> # Create a quantum state |0⟩⟨0|.
-    >>> rho = np.array([[1, 0], [0, 0]])
-    >>> 
-    >>> # Apply bit-flip with probability = 0.25.
-    >>> result = bitflip(rho, prob=0.25)
-    >>> print(result)
-    [[0.75+0.j 0.  +0.j]
-     [0.  +0.j 0.25+0.j]]
+     from toqito.channels import bitflip
+     import numpy as np
+     
+     # Create a quantum state |0⟩⟨0|.
+     rho = np.array([[1, 0], [0, 0]])
+     
+     # Apply bit-flip with probability = 0.25.
+     result = bitflip(rho, prob=0.25)
+     print(result)
      
 Observe that the result is a mixed state with 75% probability of being in state :math:`|0\rangle` and 25% probability of being in state :math:`|1\rangle`, as expected for a bit flip error with probability :math:`p = 0.25`.
 
@@ -581,22 +566,20 @@ It is also worth noting that when
 The Pauli channel can be used to apply noise to an input quantum state or generate a Choi matrix.
 
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> from toqito.channels import pauli_channel
-    >>> import numpy as np
-    >>> 
-    >>> # Define probabilities for single-qubit Pauli operators.
-    >>> probabilities = np.array([0.5, 0.2, 0.2, 0.1])
-    >>> 
-    >>> # Define an input density matrix.
-    >>> rho = np.array([[1, 0], [0, 0]])
-    >>> 
-    >>> # Apply the Pauli channel.
-    >>> _ , result = pauli_channel(prob = probabilities, input_mat=rho)
-    >>> print(result)
-    [[0.6+0.j 0. +0.j]
-     [0. +0.j 0.4+0.j]]
+     from toqito.channels import pauli_channel
+     import numpy as np
+     
+     # Define probabilities for single-qubit Pauli operators.
+     probabilities = np.array([0.5, 0.2, 0.2, 0.1])
+     
+     # Define an input density matrix.
+     rho = np.array([[1, 0], [0, 0]])
+     
+     # Apply the Pauli channel.
+     _ , result = pauli_channel(prob = probabilities, input_mat=rho)
+     print(result)
 
 Here, the probabilities correspond to applying the identity (:math:`I`), bit-flip (:math:`X`), 
 phase-flip (:math:`Z`), and combined bit-phase flip (:math:`Y`) operators.
@@ -641,13 +624,12 @@ Consider the following matrices:
 Our function expects this set of operators to be a POVM because it checks if the operators 
 sum up to the identity, ensuring that the measurement outcomes are properly normalized.
 
-    >>> from toqito.measurement_props import is_povm
-    >>> import numpy as np
-    >>> meas_1 = np.array([[1, 0], [0, 0]])
-    >>> meas_2 = np.array([[0, 0], [0, 1]])
-    >>> meas = [meas_1, meas_2]
-    >>> is_povm(meas)
-    True
+     from toqito.measurement_props import is_povm
+     import numpy as np
+     meas_1 = np.array([[1, 0], [0, 0]])
+     meas_2 = np.array([[0, 0], [0, 1]])
+     meas = [meas_1, meas_2]
+     is_povm(meas)
 
 Random POVM
 ^^^^^^^^^^^
@@ -655,13 +637,12 @@ Random POVM
 We may also use :func:`.random_povm` to randomly generate a POVM, and can verify that a
 randomly generated set satisfies the criteria for being a POVM set.
 
-    >>> from toqito.measurement_props import is_povm
-    >>> from toqito.rand import random_povm
-    >>> import numpy as np
-    >>> dim, num_inputs, num_outputs = 2, 2, 2
-    >>> measurements = random_povm(dim, num_inputs, num_outputs)
-    >>> is_povm([measurements[:, :, 0, 0], measurements[:, :, 0, 1]])
-    True
+     from toqito.measurement_props import is_povm
+     from toqito.rand import random_povm
+     import numpy as np
+     dim, num_inputs, num_outputs = 2, 2, 2
+     measurements = random_povm(dim, num_inputs, num_outputs)
+     is_povm([measurements[:, :, 0, 0], measurements[:, :, 0, 1]])
 
 Alternatively, the following matrices do not constitute a POVM set.
 
@@ -678,15 +659,14 @@ Alternatively, the following matrices do not constitute a POVM set.
         7 & 8
     \end{pmatrix},
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> from toqito.measurement_props import is_povm
-    >>> import numpy as np
-    >>> non_meas_1 = np.array([[1, 2], [3, 4]])
-    >>> non_meas_2 = np.array([[5, 6], [7, 8]])
-    >>> non_meas = [non_meas_1, non_meas_2]
-    >>> is_povm(non_meas)
-    False
+     from toqito.measurement_props import is_povm
+     import numpy as np
+     non_meas_1 = np.array([[1, 2], [3, 4]])
+     non_meas_2 = np.array([[5, 6], [7, 8]])
+     non_meas = [non_meas_1, non_meas_2]
+     is_povm(non_meas)
 
 Measurement Operators
 ^^^^^^^^^^^^^^^^^^^^^
@@ -707,38 +687,36 @@ The measurement operators are defined as shown below:
 .. math::
     P_0 = e_0 e_0^* \quad \text{and} \quad P_1 = e_1 e_1^*.
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> from toqito.states import basis
-    >>> from toqito.measurement_ops import measure
-    >>> import numpy as np
-    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
-    >>>
-    >>> u = 1/np.sqrt(3) * e_0 + np.sqrt(2/3) * e_1
-    >>> rho = u @ u.conj().T
-    >>>
-    >>> proj_0 = e_0 @ e_0.conj().T
-    >>> proj_1 = e_1 @ e_1.conj().T
+     from toqito.states import basis
+     from toqito.measurement_ops import measure
+     import numpy as np
+     e_0, e_1 = basis(2, 0), basis(2, 1)
+    
+     u = 1/np.sqrt(3) * e_0 + np.sqrt(2/3) * e_1
+     rho = u @ u.conj().T
+    
+     proj_0 = e_0 @ e_0.conj().T
+     proj_1 = e_1 @ e_1.conj().T
 
 Then the probability of obtaining outcome :math:`0` is given by
 
 .. math::
     \langle P_0, \rho \rangle = \frac{1}{3}.
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> measure(proj_0, rho)
-    0.3333333333333334
+     measure(proj_0, rho)
 
 Similarly, the probability of obtaining outcome :math:`1` is given by
 
 .. math::
     \langle P_1, \rho \rangle = \frac{2}{3}.
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> measure(proj_1, rho)
-    0.6666666666666666
+     measure(proj_1, rho)
 
 Pretty Good Measurement
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -760,19 +738,15 @@ For example, consider the following trine states:
     u_1 = -\frac{1}{2}\left(|0\rangle + \sqrt{3}|1\rangle\right), \quad \text{and} \quad
     u_2 = -\frac{1}{2}\left(|0\rangle - \sqrt{3}|1\rangle\right).
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> from toqito.states import trine
-    >>> from toqito.measurements import pretty_good_measurement
-    >>>
-    >>> states = trine()
-    >>> probs = [1 / 3, 1 / 3, 1 / 3]
-    >>> pgm = pretty_good_measurement(states, probs)
-    >>> pgm
-    [array([[0.66666667, 0.        ],
-           [0.        , 0.        ]]), array([[0.16666667, 0.28867513],
-           [0.28867513, 0.5       ]]), array([[ 0.16666667, -0.28867513],
-           [-0.28867513,  0.5       ]])]
+     from toqito.states import trine
+     from toqito.measurements import pretty_good_measurement
+    
+     states = trine()
+     probs = [1 / 3, 1 / 3, 1 / 3]
+     pgm = pretty_good_measurement(states, probs)
+     pgm
 
 Pretty Bad Measurement
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -791,19 +765,15 @@ Like the PGM, the PBM provides a measurement strategy for quantum state discrimi
     u_1 = -\frac{1}{2}\left(|0\rangle + \sqrt{3}|1\rangle\right), \quad \text{and} \quad
     u_2 = -\frac{1}{2}\left(|0\rangle - \sqrt{3}|1\rangle\right).
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> from toqito.states import trine
-    >>> from toqito.measurements import pretty_bad_measurement
-    >>>
-    >>> states = trine()
-    >>> probs = [1 / 3, 1 / 3, 1 / 3]
-    >>> pbm = pretty_bad_measurement(states, probs)
-    >>> pbm
-    [array([[0.16666667, 0.        ],
-           [0.        , 0.5       ]]), array([[ 0.41666667, -0.14433757],
-           [-0.14433757,  0.25      ]]), array([[0.41666667, 0.14433757],
-           [0.14433757, 0.25      ]])]
+     from toqito.states import trine
+     from toqito.measurements import pretty_bad_measurement
+    
+     states = trine()
+     probs = [1 / 3, 1 / 3, 1 / 3]
+     pbm = pretty_bad_measurement(states, probs)
+     pbm
 
 References
 ------------------------------

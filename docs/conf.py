@@ -46,6 +46,7 @@ extensions = [
     "sphinxcontrib.bibtex",
     "sphinx_copybutton",
     "jupyter_sphinx",
+    "sphinx.ext.duration",
 ]
 
 bibtex_bibfiles = ["refs.bib"]
