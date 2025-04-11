@@ -51,9 +51,10 @@ Examples Gallery
 ----------------
 
 .. toctree::
-    :maxdepth: 2
+   :maxdepth: 2
+   :caption: Tutorial Gallery
 
-    auto_examples/index
+   auto_examples/index
 
 
     

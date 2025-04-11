@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:00.071** total execution time for 1 file **from auto_examples/nonlocal_games**:
+**00:00.114** total execution time for 1 file **from auto_examples/nonlocal_games**:
 
 .. container::
 
@@ -33,5 +33,5 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_auto_examples_nonlocal_games_plot_chsh_game.py` (``plot_chsh_game.py``)
-     - 00:00.071
+     - 00:00.114
      - 0.0

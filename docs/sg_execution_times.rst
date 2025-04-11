@@ -6,7 +6,7 @@
 
 Computation times
 =================
-**00:00.071** total execution time for 1 file **from all galleries**:
+**00:00.114** total execution time for 1 file **from all galleries**:
 
 .. container::
 
@@ -33,5 +33,5 @@ Computation times
      - Time
      - Mem (MB)
    * - :ref:`sphx_glr_auto_examples_nonlocal_games_plot_chsh_game.py` (``../examples/nonlocal_games/plot_chsh_game.py``)
-     - 00:00.071
+     - 00:00.114
      - 0.0

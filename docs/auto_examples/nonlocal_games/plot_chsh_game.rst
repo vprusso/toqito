@@ -18,12 +18,13 @@
 .. _sphx_glr_auto_examples_nonlocal_games_plot_chsh_game.py:
 
 
-CHSH Nonlocal Game
-==================
+===============================
+CHSH Game Demonstration
+===============================
 
-This example demonstrates the CHSH nonlocal game using toqito.
+This example demonstrates the CHSH game...
 
-.. GENERATED FROM PYTHON SOURCE LINES 7-14
+.. GENERATED FROM PYTHON SOURCE LINES 8-19
 
 
 
@@ -37,20 +38,23 @@ This example demonstrates the CHSH nonlocal game using toqito.
 
 
 .. code-block:: Python
-   :lineno-start: 8
+
 
 
     import matplotlib.pyplot as plt
 
     plt.plot([0, 1, 2], [0, 1, 4])  # Example plot
+
     plt.title("CHSH Game")
+
     plt.savefig("thumbnail.png")
+
     plt.show()
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 0.071 seconds)
+   **Total running time of the script:** (0 minutes 0.114 seconds)
 
 
 .. _sphx_glr_download_auto_examples_nonlocal_games_plot_chsh_game.py:

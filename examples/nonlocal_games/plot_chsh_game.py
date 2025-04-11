@@ -1,9 +1,9 @@
 """
-CHSH Nonlocal Game.
+===============================
+CHSH Game Demonstration
+===============================
 
-===================
-
-This example demonstrates the CHSH nonlocal game using toqito.
+This example demonstrates the CHSH game...
 """
 
 # sphinx_gallery_thumbnail_number = 1

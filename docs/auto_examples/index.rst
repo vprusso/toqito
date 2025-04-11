@@ -36,7 +36,7 @@ Examples demonstrating nonlocal games using toqito.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the CHSH nonlocal game using toqito.">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example demonstrates the CHSH game...">
 
 .. only:: html
 
@@ -47,7 +47,7 @@ Examples demonstrating nonlocal games using toqito.
 
 .. raw:: html
 
-      <div class="sphx-glr-thumbnail-title">CHSH Nonlocal Game</div>
+      <div class="sphx-glr-thumbnail-title">CHSH Game Demonstration</div>
     </div>
 
 

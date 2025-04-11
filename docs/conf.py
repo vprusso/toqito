@@ -49,14 +49,13 @@ extensions = [
 
 
 sphinx_gallery_conf = {
-    'examples_dirs': '../examples',              # Path to example scripts
-    'gallery_dirs': 'auto_examples',             # Where to save gallery output
-    'filename_pattern': 'plot_',                 # Change from '/plot_' to 'plot_'
-    'line_numbers': True,                        # Display line numbers
-    'download_all_examples': True,               # Option to download all examples
-    'thumbnail_size': (250, 250),                # Size of thumbnails
-    'remove_config_comments': True,              # Remove config comments
+    'examples_dirs': '../examples', 
+    'gallery_dirs': 'auto_examples',
+    'filename_pattern': '/plot_',
+    'run_stale_examples': True,
+    'remove_config_comments': True,
 }
+
 
 suppress_warnings = ['toc.not_included', 'toc.not_readable']
 
