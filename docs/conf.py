@@ -49,7 +49,7 @@ extensions = [
 
 
 sphinx_gallery_conf = {
-   "examples_dirs": "../examples",
+    "examples_dirs": "../examples",
     "gallery_dirs": "auto_examples",
     "filename_pattern": "/plot_",
     "run_stale_examples": True,
