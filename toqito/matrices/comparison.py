@@ -39,7 +39,7 @@ def comparison(mat: np.ndarray) -> np.ndarray:
     :return: The comparison matrix of the input matrix.
 
     """
-    if len(mat.shape) != 2 or mat.shape[0] == mat.shape[1]:
+    if len(mat.shape) != 2 or mat.shape[0] != mat.shape[1]:
         raise ValueError("Input matrix must be square.")
 
     # Compute the matrix whose off-diagonal entries are -|a_{ij}|.
