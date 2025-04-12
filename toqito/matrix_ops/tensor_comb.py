@@ -78,7 +78,8 @@ def tensor_comb(
         raise ValueError("`mode` must be 'injective','non-injective', or 'diagonal'.")
 
     if mode == "injective" and k > len(states):
-        raise ValueError("k must be less than or equal to the number of states for injective sequences.")
+        raise ValueError("""k must be less than or equal to the number of states for 
+injective sequences.""")
 
     # Generate sequences based on the selected mode
     match mode:
