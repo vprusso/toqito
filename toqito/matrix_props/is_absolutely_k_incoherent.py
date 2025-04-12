@@ -91,6 +91,7 @@ def is_absolutely_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> b
     elif k == n - 1:
         # [1] Corollary 1: Check maximum eigenvalue condition.
         if lmax > 1 - 1 / n:
+            print("MAX EIG COND HERE")
             return False
         else:
             # [1] Theorem 8: Solve an SDP to decide absolute (n-1)-incoherence.

@@ -67,6 +67,10 @@ from toqito.matrix_props import is_absolutely_k_incoherent
         # For n = 4 and k = 3, if lmax is below the cutoff (0.75), then the SDP is executed and (assuming feasibility)
         # returns True.
         (np.diag([0.7, 0.15, 0.15, 0]), 3, True),
+        (np.diag([0.34, 0.22, 0.22, 0.22]), 2, True),
+        (np.diag([0.9, 0.05, 0.05]), 2, False),
+        (np.diag([0.7, 0.15, 0.15, 0]), 3, True),
+        (np.diag([0.8, 0.1, 0.05, 0.05]), 3, False),
     ],
 )
 def test_is_absolutely_k_incoherent(mat, k, expected):
@@ -120,3 +124,4 @@ def test_non_equal_eigenvalues_branch(monkeypatch):
     monkeypatch.setattr(cp.Problem, "solve", fake_solve)
     # Expect True as the final result.
     np.testing.assert_equal(is_absolutely_k_incoherent(mat, 3), True)
+
