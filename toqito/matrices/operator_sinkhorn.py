@@ -188,8 +188,8 @@ def operator_sinkhorn(
     # 1. if input trace is near zero (singular matrix) - Algorithm will not converge
     # 2. if there was some numerical instability and result drifted off - Warn users about
     # about a potentially wrong answer
-    if (np.trace(rho) > np.finfo(float).eps) and (np.trace(sigma) < np.finfo(float).eps):
-        warnings.warn("Final trace is near zero, but initial trace was not. Result may be unreliable.")
     sigma = np.trace(rho) * sigma / np.trace(sigma)
+    if np.trace(sigma) < 10 * np.finfo(float).eps:
+        warnings.warn("Final trace is near zero, but initial trace was not. Result may be unreliable.", RuntimeWarning)
 
     return sigma, F

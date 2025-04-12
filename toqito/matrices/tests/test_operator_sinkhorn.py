@@ -1,5 +1,7 @@
 """Tests for operator_sinkhorn."""
 
+import warnings
+
 import numpy as np
 
 from toqito.channels.partial_trace import partial_trace
@@ -155,3 +157,23 @@ def test_operator_sinkhorn_max_iterations():
     except RuntimeError as e:
         expected_msg = "operator_sinkhorn did not converge within 20 iterations."
         assert str(e) == expected_msg
+
+
+def test_operator_sinkhorn_near_zero_trace():
+    """Test if operator sinkhorn raises warnings on near zero output trace."""
+    expected_msg = "Final trace is near zero, but initial trace was not. Result may be unreliable."
+
+    with warnings.catch_warnings():
+        warnings.filterwarnings("error")
+        try:
+            rho_random = np.array(
+                [
+                    [np.finfo(float).eps, 0, 0, 0],
+                    [0, np.finfo(float).eps, 0, 0],
+                    [0, 0, np.finfo(float).eps, 0],
+                    [0, 0, 0, np.finfo(float).eps],
+                ]
+            )
+            operator_sinkhorn(rho=rho_random, dim=[2, 2])
+        except RuntimeWarning as warn_string:
+            assert str(warn_string) == expected_msg
