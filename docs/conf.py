@@ -58,7 +58,6 @@ sphinx_gallery_conf = {
     "remove_config_comments": True,
 }
 
-suppress_warnings = ["toc.not_included", "toc.not_readable"]
 bibtex_bibfiles = ["refs.bib"]
 bibtex_default_style = "unsrt"
 suppress_warnings = ["bibtex.duplicate_label", "bibtex.duplicate_citation"]
