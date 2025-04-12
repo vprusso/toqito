@@ -88,7 +88,6 @@ def is_absolutely_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> b
             return True
         elif n <= 3:
             return False
-            # For n > 3, additional criteria might be applied.
     elif k == n - 1:
         # [1] Corollary 1: Check maximum eigenvalue condition.
         if lmax > 1 - 1 / n:
@@ -109,7 +108,10 @@ def is_absolutely_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> b
             # Dummy objective function.
             objective = cp.Minimize(1)
             prob = cp.Problem(objective, constraints)
-            opt_val = prob.solve(solver=cp.SCS, verbose=False)
+            try:
+                opt_val = prob.solve(solver=cp.SCS, verbose=False)
+            except cp.SolverError:
+                return False
             if np.isclose(opt_val, 1.0):
                 return True
 
