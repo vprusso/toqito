@@ -2,6 +2,7 @@
 
 import numpy as np
 import pytest
+import cvxpy as cp
 
 from toqito.matrix_props import is_absolutely_k_incoherent
 
@@ -40,7 +41,7 @@ from toqito.matrix_props import is_absolutely_k_incoherent
         # 4x4 custom density matrix with k = 3.
         (np.diag([0.5, 0.25, 0.125, 0.125]), 3, True),
         # 4x4 custom density matrix with k equal to n (trivial).
-        (np.diag([0.5, 0.25, 0.125, 0.125]), 4, True),
+        (np.diag([0.5, 0.25, 0.125, 0.125]), 4, True)
     ],
 )
 def test_is_absolutely_k_incoherent(mat, k, expected):
@@ -64,21 +65,45 @@ def test_is_absolutely_k_incoherent_non_square():
         # so it should return False.
         (np.diag([1, 0, 0, 0]), 3, False, "Pure state triggers rankX <= n-k."),
         # [1] Theorem 4 branch.
-        # For n = 4 and k = 3, we have n - k + 1 = 2.
-        # A density matrix with eigenvalues [0.5, 0.5, 0, 0] has rank 2, so it returns True.
+        # For n = 4 and k = 3, we have n - k + 1 = 2. A density matrix with eigenvalues [0.5, 0.5, 0, 0]
+        # has rank 2 and equal nonzero eigenvalues, so it returns True.
         (np.diag([0.5, 0.5, 0, 0]), 3, True, "Equal nonzero eigenvalues with rank equal to n-k+1."),
         # k == 2 branch.
         # For n = 3, a pure state (Frobenius norm squared = 1 > 1/(3-1)=0.5) should return False.
         (np.diag([1, 0, 0]), 2, False, "3x3 pure state for k==2 fails Frobenius norm condition."),
-        # [1] Theorem 8 (k == n - 1) branch.
-        # For n = 4 and k = 3 (n - 1), if lmax > 1 - 1/4 (i.e. lmax > 0.75) then the branch returns False.
+        # [1] Theorem 8 branch.
+        # For n = 4 and k = 3 (n - 1), if lmax > 1 - 1/4 (i.e. lmax > 0.75) then it should return False.
         (np.diag([0.8, 0.1, 0.1, 0]), 3, False, "Eigenvalue too high: lmax > 1 - 1/n triggers False."),
-        # [1] Theorem 8 (k == n - 1) branch.
-        # For n = 4 and k = 3, if lmax is below the cutoff (1 - 1/4 = 0.75) then the SDP is executed.
+        # [1] Theorem 8 branch.
+        # For n = 4 and k = 3, if lmax is below the cutoff (1 - 1/4 = 0.75), then the SDP is executed.
         # Here we choose eigenvalues [0.7, 0.15, 0.15, 0]. Assuming the SDP is feasible, it should return True.
-        (np.diag([0.7, 0.15, 0.15, 0]), 3, True, "SDP branch: feasible SDP for k equal to n - 1."),
+        (np.diag([0.7, 0.15, 0.15, 0]), 3, True, "SDP branch: feasible SDP for k equal to n - 1.")
     ],
 )
 def test_is_absolutely_k_incoherent_additional(mat, k, expected, description):
     """Additional tests to cover specific branches in is_absolutely_k_incoherent."""
     np.testing.assert_equal(is_absolutely_k_incoherent(mat, k), expected)
+
+
+def test_sdp_solver_error(monkeypatch):
+    """Test that a SolverError in the SDP branch causes is_absolutely_k_incoherent to return False."""
+    # Create a 4x4 matrix with eigenvalues that trigger the SDP branch.
+    # For n = 4 and k = 3, we need lmax <= 1 - 1/4 = 0.75.
+    mat = np.diag([0.7, 0.15, 0.15, 0])
+    # Define a fake solve method that raises cp.SolverError.
+    def fake_solve(self, *args, **kwargs):
+        raise cp.SolverError("Forced solver error for testing.")
+    monkeypatch.setattr(cp.Problem, "solve", fake_solve)
+    np.testing.assert_equal(is_absolutely_k_incoherent(mat, 3), False)
+
+
+def test_sdp_not_optimal(monkeypatch):
+    """Test that if the SDP returns a status other than 'optimal' or 'optimal_inaccurate', the function returns False."""
+    # Create a 4x4 matrix with eigenvalues that trigger the SDP branch.
+    mat = np.diag([0.7, 0.15, 0.15, 0])
+    # Define a fake solve method that sets the status to an unfavorable value.
+    def fake_solve(self, *args, **kwargs):
+        self.status = "infeasible"
+        return
+    monkeypatch.setattr(cp.Problem, "solve", fake_solve)
+    np.testing.assert_equal(is_absolutely_k_incoherent(mat, 3), False)
