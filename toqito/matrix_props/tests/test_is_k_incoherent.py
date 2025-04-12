@@ -15,6 +15,10 @@ from toqito.matrix_props import is_k_incoherent
         # Trivial: k >= dimension: every state is d-incoherent.
         (np.eye(4), 4, True),
         (np.eye(4), 5, True),
+        # For a 3x3 state, set trace(mat^2) exactly at the boundary 1/(3-1)=0.5.
+        (np.eye(3) / 3, 3, True),
+        # Another example: slightly below boundary 1/(4-1)=0.3333 for 4x4.
+        (np.diag([0.33, 0.23, 0.22, 0.22]), 3, True),
         # Diagonal state is declared k-incoherent.
         (np.diag([0.6, 0.3, 0.1]), 2, True),
         # For k == 1 and non-diagonal state, return False.
@@ -64,7 +68,9 @@ def test_trace_condition(mat, k, expected):
     "mat, k, expected",
     [
         # Test the dephasing condition.
-        (np.diag([0.5, 0.25, 0.125, 0.125]), 3, True)
+        (np.diag([0.5, 0.25, 0.125, 0.125]), 3, True),
+        (np.array([[0.4, 0, 0], [0, 0.4, 0], [0, 0, 0.2]]), 2, True),
+
     ],
 )
 def test_dephasing_condition(mat, k, expected):
@@ -127,6 +133,19 @@ def test_recursive_and_sdp_branch(monkeypatch):
 
     monkeypatch.setattr(cp.Problem, "solve", fake_solve)
     assert is_k_incoherent(X, 3) is True
+
+
+@pytest.mark.parametrize(
+    "mat, k, expected",
+    [
+        # Explicitly constructed 3x3 matrix requiring SDP check, known from reference:
+        (np.array([[0.5, -0.5, 0.0], [-0.5, 0.5, 0.0], [0.0, 0.0, 0.0]]), 2, True),
+    ],
+)
+def test_sdp_branch(mat, k, expected):
+    """Explicitly test the SDP branch for k-incoherence."""
+    res = is_k_incoherent(mat, k)
+    assert res is True
 
 
 def test_non_square():
