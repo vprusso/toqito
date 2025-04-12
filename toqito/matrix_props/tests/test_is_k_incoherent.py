@@ -208,7 +208,7 @@ def test_hierarchical_recursion_branch():
     k = 3
 
     # Save the original recursive function.
-    orig_is_k_incoherent = is_k_incoherent.__globals__['is_k_incoherent']
+    orig_is_k_incoherent = is_k_incoherent.__globals__["is_k_incoherent"]
 
     # Override is_k_incoherent so that when called with k==2 it returns True.
     def fake_is_k_incoherent(mat, k, tol=1e-15):
@@ -216,6 +216,7 @@ def test_hierarchical_recursion_branch():
             return True
         else:
             return orig_is_k_incoherent(mat, k, tol)
+
     # Patch the global lookup so that recursive calls use fake_is_k_incoherent.
     is_k_incoherent.__globals__["is_k_incoherent"] = fake_is_k_incoherent
 
