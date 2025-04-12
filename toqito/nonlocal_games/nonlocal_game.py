@@ -99,7 +99,7 @@ class NonlocalGame:
         # Convert each 1D constraint into the tensor format.
             tensor_constraints = []
             for c in constraints:
-                constraint = np.ones((2,) * n, dtype=int)
+                constraint = np.full((2,) * n, fill_value=-c[-1], dtype=int)
                 idx = tuple(c[:n] % 2)
                 constraint[idx] = c[-1]
                 tensor_constraints.append(constraint)
