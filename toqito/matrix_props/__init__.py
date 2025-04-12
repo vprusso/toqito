@@ -35,3 +35,4 @@ from toqito.matrix_props.is_pseudo_unitary import is_pseudo_unitary
 from toqito.matrix_props.is_pseudo_hermitian import is_pseudo_hermitian
 from toqito.matrix_props.commutant import commutant
 from toqito.matrix_props.is_absolutely_k_incoherent import is_absolutely_k_incoherent
+from toqito.matrix_props.is_k_incoherent import is_k_incoherent
