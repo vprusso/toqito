@@ -70,7 +70,6 @@ def test_trace_condition(mat, k, expected):
         # Test the dephasing condition.
         (np.diag([0.5, 0.25, 0.125, 0.125]), 3, True),
         (np.array([[0.4, 0, 0], [0, 0.4, 0], [0, 0, 0.2]]), 2, True),
-
     ],
 )
 def test_dephasing_condition(mat, k, expected):
