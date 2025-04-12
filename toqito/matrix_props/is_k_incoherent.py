@@ -56,7 +56,7 @@ def is_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
 
     # [1] Theorem 1: Use the comparison matrix.
     M = comparison(mat)
-    if is_positive_semidefinite(M, atol=tol):
+    if is_positive_semidefinite(M):
         return True
     elif k == 2:
         return False
@@ -67,11 +67,11 @@ def is_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
 
     # :cite:`Johnston_2022_Absolutely` (7): Apply dephasing channel.
     test = ((d - k) / (d - 1)) * np.diag(np.diag(mat))
-    if is_positive_semidefinite(mat - test, atol=tol):
+    if is_positive_semidefinite(mat - test):
         return True
 
     # Hierarchical recursion: for k >= 2 check incoherence for k-1.
-    rec = is_k_incoherent(mat, k - 1, atol=tol)
+    rec = is_k_incoherent(mat, k - 1)
     if rec is not None and rec is not False:
         return rec
 
