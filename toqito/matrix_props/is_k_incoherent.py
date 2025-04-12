@@ -58,7 +58,6 @@ def is_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
     # [1] Theorem 1: Use the comparison matrix.
     M = comparison(mat)
     if is_positive_semidefinite(M):
-        print("IT GETS HIT HERE")
         return True
     elif k == 2:
         return False
@@ -70,7 +69,6 @@ def is_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
     # :cite:`Johnston_2022_Absolutely` (7): Apply dephasing channel.
     test = ((d - k) / (d - 1)) * np.diag(np.diag(mat))
     if is_positive_semidefinite(mat - test):
-        print("BUT IT SHOULD BE HERE")
         return True
 
     # Hierarchical recursion: for k >= 2 check incoherence for k-1.
@@ -95,9 +93,7 @@ def is_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
         P_expr = P_expr + proj.T @ A_j @ proj
     constraints.append(mat == P_expr)
     prob = cp.Problem(cp.Minimize(1), constraints)
-    try:
-        opt_val = prob.solve(solver=cp.SCS, verbose=False)
-    except cp.SolverError:
-        return False
+    opt_val = prob.solve(solver=cp.SCS, verbose=False)
+
     # MATLAB sets ikinc = 1 - min(cvx_optval, 1); here we interpret an optimum near 1 as True.
     return np.isclose(1 - min(opt_val, 1), 1.0)
