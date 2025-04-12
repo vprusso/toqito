@@ -69,8 +69,8 @@ from toqito.matrix_props import is_absolutely_k_incoherent
     ],
 )
 def test_is_absolutely_k_incoherent(mat, k, expected):
-     """Test that is_absolutely_k_incoherent returns the correct boolean value on valid inputs."""
-     np.testing.assert_equal(is_absolutely_k_incoherent(mat, k), expected)
+    """Test that is_absolutely_k_incoherent returns the correct boolean value on valid inputs."""
+    np.testing.assert_equal(is_absolutely_k_incoherent(mat, k), expected)
 
 
 def test_is_absolutely_k_incoherent_non_square():
