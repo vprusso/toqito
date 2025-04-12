@@ -64,4 +64,3 @@ def test_zero_perturbation(vectors):
     perturbed_vectors = perturb_vectors(vectors, eps=0.0)
     for i in range(len(vectors)):
         assert np.allclose(vectors[i], perturbed_vectors[i]), f"Vector {i} does not match."
-

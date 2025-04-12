@@ -63,3 +63,53 @@ def test_ghz_invalid_input(dim, num_qubits, coeff):
     """Tests for invalid dimensions."""
     with np.testing.assert_raises(ValueError):
         ghz(dim, num_qubits, coeff)
+
+
+def test_ghz_non_normalized_coeff_2_3():
+    """Test that non-normalized coefficients for a 3-qubit GHZ state are normalized correctly.
+
+    We pass [2, 2] instead of the normalized [1/sqrt(2), 1/sqrt(2)].
+    """
+    # For 3-qubit with dim=2, [2,2] has norm 2*sqrt(2) which normalizes to [1/sqrt(2), 1/sqrt(2)].
+    dim = 2
+    num_qubits = 3
+    non_normalized_coeff = [2, 2]
+
+    # Expected state is the standard GHZ state: 1/sqrt(2) (|000> + |111>).
+    expected_state = ghz_2_3
+    result = ghz(dim, num_qubits, non_normalized_coeff)
+    np.testing.assert_allclose(result, expected_state)
+
+
+def test_ghz_non_normalized_coeff_4_7():
+    r"""Test that non-normalized coefficients are normalized correctly.
+
+    We pass [1, 2, 3, 4] instead of the normalized [1,2,3,4]/sqrt(30).
+    The expected state is
+    \[
+        \frac{1}{\sqrt{30}} \left(|0000000\rangle + 2|1111111\rangle + 3|2222222\rangle + 4|3333333\rangle\right).
+    \]
+    """
+    dim = 4
+    num_qubits = 7
+    # Non-normalized coefficients.
+    non_normalized_coeff = [1, 2, 3, 4]
+    # Compute normalization factor.
+    normalized_coeff = np.array(non_normalized_coeff) / np.linalg.norm(non_normalized_coeff)
+
+    # Define the standard basis vectors for C^4.
+    e0_4 = np.array([[1], [0], [0], [0]])
+    e1_4 = np.array([[0], [1], [0], [0]])
+    e2_4 = np.array([[0], [0], [1], [0]])
+    e3_4 = np.array([[0], [0], [0], [1]])
+
+    # Build the expected GHZ state using the normalized coefficients.
+    expected_state = (
+        normalized_coeff[0] * tensor(e0_4, e0_4, e0_4, e0_4, e0_4, e0_4, e0_4)
+        + normalized_coeff[1] * tensor(e1_4, e1_4, e1_4, e1_4, e1_4, e1_4, e1_4)
+        + normalized_coeff[2] * tensor(e2_4, e2_4, e2_4, e2_4, e2_4, e2_4, e2_4)
+        + normalized_coeff[3] * tensor(e3_4, e3_4, e3_4, e3_4, e3_4, e3_4, e3_4)
+    )
+
+    result = ghz(dim, num_qubits, non_normalized_coeff)
+    np.testing.assert_allclose(result, expected_state)
