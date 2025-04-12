@@ -10,7 +10,7 @@ from toqito.matrix_ops import to_density_matrix
 def tensor_comb(
     k: int,
     states: list[np.ndarray],
-    mode: str, density_matrix: bool
+    mode: str = "non-injective", density_matrix: bool = True,
     ) -> dict[tuple[int, ...], np.ndarray]:
     r"""Generate all possible tensor product combinations of quantum states (vectors).
 
