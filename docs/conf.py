@@ -36,6 +36,7 @@ extensions = [
     "autoapi.extension",
     "sphinx.ext.doctest",
     "sphinx.ext.intersphinx",
+    "sphinx_gallery.gen_gallery",
     "sphinx.ext.todo",
     "sphinx.ext.coverage",
     "sphinx.ext.mathjax",
@@ -49,6 +50,15 @@ extensions = [
     "sphinx.ext.duration",
 ]
 
+sphinx_gallery_conf = {
+    "examples_dirs": "../examples",
+    "gallery_dirs": "auto_examples",
+    "filename_pattern": "/plot_",
+    "run_stale_examples": True,
+    "remove_config_comments": True,
+}
+
+suppress_warnings = ["toc.not_included", "toc.not_readable"]
 bibtex_bibfiles = ["refs.bib"]
 bibtex_default_style = "unsrt"
 suppress_warnings = ["bibtex.duplicate_label", "bibtex.duplicate_citation"]
