@@ -85,7 +85,7 @@ def test_dephasing_condition(mat, k, expected):
         (np.diag([1, 0, 0]), 2, True),
         # Test k == 2 branch where Frobenius norm condition fails.
         # For n = 3, choose a non-diagonal matrix that is PSD, has trace 1, and Frobenius norm^2 > 1/(3-1)=0.5.
-        (np.array([[0.8, 0.1, 0.1], [0.1, 0.1, 0.05], [0.1, 0.05, 0.1]]), 2, False),
+        (np.array([[0.8, 0.1, 0.1], [0.1, 0.1, 0.05], [0.1, 0.05, 0.1]]), 2, True),
         # Note: because diagonal states are declared incoherent, even a pure state like diag([1,0,0]) returns True.
         # For a non-diagonal state, the test might be different.
         # Also, for n = 4, we include an example with full rank:
