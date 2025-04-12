@@ -4,7 +4,6 @@ import numpy as np
 import pytest
 from numpy.testing import assert_allclose
 
-
 from toqito.matrix_props import is_density, is_positive_semidefinite
 from toqito.rand import random_density_matrix
 

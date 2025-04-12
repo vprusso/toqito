@@ -1,8 +1,9 @@
 # ruff: noqa: D205, D400, D415
-"""
-
-CHSH Game Example
+"""CHSH Game Example
 =================
+
+.. note::
+   This is a sample tutorial to test the layout for the samples gallery project.
 
 This example calculates the classical and quantum values for the CHSH game
 using the toqito library. It demonstrates how to construct the necessary matrices
