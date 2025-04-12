@@ -2,8 +2,6 @@
 
 import numpy as np
 
-from toqito.matrix_props import is_square
-
 
 def comparison(mat: np.ndarray) -> np.ndarray:
     r"""Compute comparison matrix of a given square matrix.
@@ -41,7 +39,7 @@ def comparison(mat: np.ndarray) -> np.ndarray:
     :return: The comparison matrix of the input matrix.
 
     """
-    if not is_square(mat):
+    if len(mat.shape) != 2 or mat.shape[0] == mat.shape[1]:
         raise ValueError("Input matrix must be square.")
 
     # Compute the matrix whose off-diagonal entries are -|a_{ij}|.
