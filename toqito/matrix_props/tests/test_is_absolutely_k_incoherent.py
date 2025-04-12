@@ -124,4 +124,3 @@ def test_non_equal_eigenvalues_branch(monkeypatch):
     monkeypatch.setattr(cp.Problem, "solve", fake_solve)
     # Expect True as the final result.
     np.testing.assert_equal(is_absolutely_k_incoherent(mat, 3), True)
-
