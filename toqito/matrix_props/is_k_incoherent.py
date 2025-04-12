@@ -1,8 +1,9 @@
 """Checks if the matrix is $k$-incoherent."""
 
-import numpy as np
-import cvxpy as cp
 from itertools import combinations
+
+import cvxpy as cp
+import numpy as np
 
 from toqito.matrices import comparison
 from toqito.matrix_props import is_positive_semidefinite, is_square
