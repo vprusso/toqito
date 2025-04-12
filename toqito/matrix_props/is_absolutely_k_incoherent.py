@@ -3,8 +3,7 @@
 import cvxpy as cp
 import numpy as np
 
-from toqito.matrix_props import is_positive_semidefinite
-from toqito.matrix_props import is_square
+from toqito.matrix_props import is_positive_semidefinite, is_square
 
 
 def is_absolutely_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:

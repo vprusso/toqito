@@ -52,7 +52,8 @@ from toqito.matrix_props import is_absolutely_k_incoherent
     # For n = 4 and k = 3 (n - 1), if lmax > 1 - 1/4 (i.e. lmax > 0.75) then it should return False.
     (np.diag([0.8, 0.1, 0.1, 0]), 3, False),
     # [1] Theorem 8 branch:
-    # For n = 4 and k = 3, if lmax is below the cutoff (0.75), then the SDP is executed and (assuming feasibility) returns True.
+    # For n = 4 and k = 3, if lmax is below the cutoff (0.75), then the SDP is executed and (assuming feasibility)
+    # returns True.
     (np.diag([0.7, 0.15, 0.15, 0]), 3, True)
 ])
 def test_is_absolutely_k_incoherent(mat, k, expected):
