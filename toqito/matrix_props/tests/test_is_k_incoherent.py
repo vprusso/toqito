@@ -22,6 +22,7 @@ from toqito.matrix_props import is_k_incoherent
     ],
 )
 def test_trivial_cases(mat, k, expected):
+    """Trivial k-incoherent cases."""
     if k <= 0:
         with pytest.raises(ValueError, match="k must be a positive integer."):
             is_k_incoherent(mat, k)
@@ -40,6 +41,7 @@ def test_trivial_cases(mat, k, expected):
     ],
 )
 def test_comparison_branch(mat, k, expected):
+    """Comparison matrix branch of k-incoherence."""
     res = is_k_incoherent(mat, k)
     assert res in [True, False]
 
@@ -52,6 +54,7 @@ def test_comparison_branch(mat, k, expected):
     ],
 )
 def test_trace_condition(mat, k, expected):
+    """Test for trace condition branch of k-incoherence."""
     assert is_k_incoherent(mat, k) == expected
 
 
@@ -63,6 +66,7 @@ def test_trace_condition(mat, k, expected):
     ],
 )
 def test_dephasing_condition(mat, k, expected):
+    """Test for dephasing branch of k-incoherence."""
     # We allow either outcome since the branch may return True or fall through.
     res = is_k_incoherent(mat, k)
     assert res in [True, False]
@@ -84,6 +88,7 @@ def test_dephasing_condition(mat, k, expected):
     ],
 )
 def test_k2_branch(mat, k, expected):
+    """Test for k2-branch of k-incoherence."""
     assert is_k_incoherent(mat, k) == expected
 
 
@@ -95,11 +100,13 @@ def test_k2_branch(mat, k, expected):
     ],
 )
 def test_given_matrix(mat, k, expected):
+    """Test for known matrix that is n=3 and k=2-incoherent."""
     # This test ensures that, according to your reference, the 3x3 matrix is 2-incoherent.
     assert is_k_incoherent(mat, k) is True
 
 
 def test_recursive_and_sdp_branch(monkeypatch):
+    """Check for SDP k-incoherent."""
     # Choose a 4x4 state that does not trigger earlier branches.
     X = np.array([[0.3, 0.1, 0.05, 0.05], [0.1, 0.25, 0.05, 0.05], [0.05, 0.05, 0.2, 0.05], [0.05, 0.05, 0.05, 0.2]])
     X = X / np.trace(X)
@@ -118,6 +125,7 @@ def test_recursive_and_sdp_branch(monkeypatch):
 
 
 def test_non_square():
+    """Ensure non-square input is flagged."""
     # Construct a non-square matrix.
     X = np.array([[1, 2, 3], [4, 5, 6]])
 
