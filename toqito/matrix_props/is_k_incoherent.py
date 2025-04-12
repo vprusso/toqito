@@ -77,7 +77,7 @@ def is_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
 
     # Fallback: use an SDP to decide incoherence.
     # We follow the MATLAB method via projections onto k-element subsets.
-    n = d  # for clarity, n == d
+    n = d  # for clarity, n == d.
     idx_sets = list(combinations(range(n), k))
     s = len(idx_sets)
     A_vars = [cp.Variable((k, k), hermitian=True) for _ in range(s)]
