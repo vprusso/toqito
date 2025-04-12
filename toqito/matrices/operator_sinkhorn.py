@@ -31,8 +31,7 @@ def operator_sinkhorn(
 
     returns a random 4x4 complex matrix like this
 
-    >>> print("rho_random", rho_random, sep='\n')
-    rho_random
+    >>> print(rho_random)
     [[0.23434155+0.j         0.20535572-0.04701708j 0.11523158-0.02017518j
       0.18524981-0.13636277j]
      [0.20535572+0.04701708j 0.2544268 +0.j         0.14478708-0.02004061j
@@ -50,8 +49,7 @@ def operator_sinkhorn(
     other words, F contains invertible local operations that demonstrate
     that RHO and SIGMA are locally equivalent.
 
-    >>> print("sigma", sigma, sep='\n')
-    sigma
+    >>> print(sigma)
     [[ 0.34784186+0.j          0.09278034+0.00551919j -0.02275152+0.05104798j
        0.20443565-0.12511156j]
      [ 0.09278034-0.00551919j  0.15215814+0.j          0.1039554 -0.0350973j
@@ -61,18 +59,17 @@ def operator_sinkhorn(
      [ 0.20443565+0.12511156j  0.02275152+0.05104798j -0.09278034+0.00551919j
        0.34784186+0.j        ]]
 
-    >>> print("F", F, sep='\n')
-    F
-    [array([[ 1.33132101+0.00313432j, -0.38927801+0.14985847j],
-           [-0.37199021-0.14296461j,  1.24635929-0.00300407j]]), array([[ 1.16317427+0.00765735j, -0.16925696+0.09054309j],
-           [-0.18974418-0.09028502j,  0.93359381-0.00777829j]])]
+    >>> print(len(F))
+    2
 
-    Similarly to perform sinkhorn operation on multipartite state where the
-    subsystems are of dimensions 2, 3 and 4.
+    F here will be the list of 2 local filtering operators, which are
 
-    >>> # rho_random = random_density_matrix(24)
-    >>> # sigma, F = operator_sinkhorn(rho=rho_random, dim=[2, 3, 4])
-    >>> # print(sigma, F)
+    >>> print(F[0])
+    [[ 1.33132101+0.00313432j -0.38927801+0.14985847j]
+     [-0.37199021-0.14296461j  1.24635929-0.00300407j]]
+    >>> print(F[1])
+    [[ 1.16317427+0.00765735j -0.16925696+0.09054309j]
+     [-0.18974418-0.09028502j  0.93359381-0.00777829j]]
 
     References
     ==========
@@ -84,13 +81,13 @@ def operator_sinkhorn(
                 Assumes 2 subsystems with equal dimensions as default.
     :param tol: `np.sqrt(np.finfo(float).eps)` Convergence tolerance of the iterative Sinkhorn Algorithm.
                 Assumes square root of numpy eps as default.
-    :param max_iterations: Number of iterations after which the solver terminates with a convergence error (Refer RuntimeError).
+    :param max_iterations: Number of iterations after which the solver terminates with a convergence error.
     :raises: ValueError: if input density matrix is not a square matrix.
     :raises: ValueError: if the product of dimensions provided/assumed does not match the dimension of density matrix.
     :raises: RuntimeError: if the sinkhorn algorithm doesnot converge before `max_iterations` iterations.
     :raises: ValueError: if the density matrix provided is singular (or is not of full rank).
 
-    """  # noqa: E501
+    """
     # Run checks on the input density matrix
     rho = np.asarray(rho)
     if not is_square(rho):
