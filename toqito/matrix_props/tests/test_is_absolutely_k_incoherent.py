@@ -41,7 +41,7 @@ from toqito.matrix_props import is_absolutely_k_incoherent
         # 4x4 custom density matrix with k = 3.
         (np.diag([0.5, 0.25, 0.125, 0.125]), 3, True),
         # 4x4 custom density matrix with k equal to n (trivial).
-        (np.diag([0.5, 0.25, 0.125, 0.125]), 4, True)
+        (np.diag([0.5, 0.25, 0.125, 0.125]), 4, True),
     ],
 )
 def test_is_absolutely_k_incoherent(mat, k, expected):
@@ -77,7 +77,7 @@ def test_is_absolutely_k_incoherent_non_square():
         # [1] Theorem 8 branch.
         # For n = 4 and k = 3, if lmax is below the cutoff (1 - 1/4 = 0.75), then the SDP is executed.
         # Here we choose eigenvalues [0.7, 0.15, 0.15, 0]. Assuming the SDP is feasible, it should return True.
-        (np.diag([0.7, 0.15, 0.15, 0]), 3, True, "SDP branch: feasible SDP for k equal to n - 1.")
+        (np.diag([0.7, 0.15, 0.15, 0]), 3, True, "SDP branch: feasible SDP for k equal to n - 1."),
     ],
 )
 def test_is_absolutely_k_incoherent_additional(mat, k, expected, description):
@@ -90,9 +90,11 @@ def test_sdp_solver_error(monkeypatch):
     # Create a 4x4 matrix with eigenvalues that trigger the SDP branch.
     # For n = 4 and k = 3, we need lmax <= 1 - 1/4 = 0.75.
     mat = np.diag([0.7, 0.15, 0.15, 0])
+
     # Define a fake solve method that raises cp.SolverError.
     def fake_solve(self, *args, **kwargs):
         raise cp.SolverError("Forced solver error for testing.")
+
     monkeypatch.setattr(cp.Problem, "solve", fake_solve)
     np.testing.assert_equal(is_absolutely_k_incoherent(mat, 3), False)
 
@@ -101,8 +103,10 @@ def test_sdp_not_optimal(monkeypatch):
     """Test that if the SDP returns a status other than 'optimal' or 'optimal_inaccurate'."""
     # Create a 4x4 matrix with eigenvalues that trigger the SDP branch.
     mat = np.diag([0.7, 0.15, 0.15, 0])
+
     # Define a fake solve method that sets the status to an unfavorable value.
     def fake_solve(self, *args, **kwargs):
         self.status = "infeasible"
+
     monkeypatch.setattr(cp.Problem, "solve", fake_solve)
     np.testing.assert_equal(is_absolutely_k_incoherent(mat, 3), False)
