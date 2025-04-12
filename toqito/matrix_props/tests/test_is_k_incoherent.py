@@ -4,6 +4,7 @@ import cvxpy as cp
 import numpy as np
 import pytest
 
+from toqito.matrices import comparison
 from toqito.matrix_props import is_k_incoherent
 
 
@@ -229,22 +230,22 @@ def test_hierarchical_recursion_branch():
 
 
 def test_dephasing_branch(monkeypatch):
-    """Hierarchical recursion: for k >= 2 check incoherence for k-1."""
-    # Candidate 4x4 density matrix A
-    # (This candidate is chosen such that the natural comparisons do not force an early return.)
+    """Force the dephasing branch to be taken."""
+    # Candidate 4x4 density matrix (non-diagonal, trace normalized to 1)
     A = np.array(
-        [[0.01, 0.10, 0.00, 0.00], [0.10, 0.52, 0.00, 0.00], [0.00, 0.00, 0.28, 0.00], [0.00, 0.00, 0.00, 0.19]]
-    )
-    # Normalize A so that trace(A)==1.
+        [[0.01, 0.10, 0.00, 0.00], [0.10, 0.52, 0.00, 0.00], [0.00, 0.00, 0.28, 0.00], [0.00, 0.00, 0.00, 0.19]
+    ])
     A = A / np.trace(A)
     k = 3
     d = A.shape[0]
 
-    # So, we override is_positive_semidefinite so that when it is called with (A - test) it returns True.
+    # Override the comparison function to force its result to be non-PSD.
+    # (This avoids an early return via the comparison branch.)
+    monkeypatch.setattr(comparison, "comparison", lambda mat: np.eye(mat.shape[0]) * (-0.01))
+    
+    # Override is_positive_semidefinite so that when called with (A - test) it returns True.
     from toqito.matrix_props import is_positive_semidefinite as orig_is_psd
-
     def fake_is_positive_semidefinite(X):
-        # Compute the test value exactly as in the function.
         test_val = ((d - k) / (d - 1)) * np.diag(np.diag(A))
         if np.allclose(X, A - test_val, atol=1e-3):
             return True
@@ -252,6 +253,6 @@ def test_dephasing_branch(monkeypatch):
 
     monkeypatch.setattr("toqito.matrix_props.is_positive_semidefinite", fake_is_positive_semidefinite)
 
-    result = bool(is_k_incoherent(A, k))
-    # We now expect the dephasing branch to fire, and returning True.
-    assert result is False
+    result = is_k_incoherent(A, k)
+    # At this point the dephasing branch should fire and return True.
+    assert result is True
