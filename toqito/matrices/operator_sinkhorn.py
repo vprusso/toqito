@@ -1,5 +1,7 @@
 """Sinkhorn operator."""
 
+import warnings
+
 import numpy as np
 import scipy as sp
 
@@ -8,10 +10,8 @@ from toqito.matrix_props.is_square import is_square
 
 
 def operator_sinkhorn(
-    rho: np.ndarray,
-    dim: list[int] = None,
-    tol: float = np.sqrt(np.finfo(float).eps),
-    max_iterations: int = 10000) -> tuple[np.ndarray, list[np.ndarray]]:
+    rho: np.ndarray, dim: list[int] = None, tol: float = np.sqrt(np.finfo(float).eps), max_iterations: int = 10000
+) -> tuple[np.ndarray, list[np.ndarray]]:
     r"""Perform the operator Sinkhorn iteration.
 
     This function implements the iterative Sinkhorn algorithm to find a density matrix
@@ -90,7 +90,7 @@ def operator_sinkhorn(
     :raises: RuntimeError: if the sinkhorn algorithm doesnot converge before `max_iterations` iterations.
     :raises: ValueError: if the density matrix provided is singular (or is not of full rank).
 
-    """ # noqa: E501
+    """  # noqa: E501
     # Run checks on the input density matrix
     rho = np.asarray(rho)
     if not is_square(rho):
@@ -110,8 +110,10 @@ def operator_sinkhorn(
         dim.append(dX / dim[0])
 
         if abs(dim[1] - round(dim[1])) >= (2 * dX * np.finfo(float).eps):
-            raise ValueError("If dim is of size 1, rho must be square and dim[0] must evenly divide length(rho); "
-                             "please provide the dim array containing the dimensions of the subsystems.")
+            raise ValueError(
+                "If dim is of size 1, rho must be square and dim[0] must evenly divide length(rho); "
+                "please provide the dim array containing the dimensions of the subsystems."
+            )
 
         dim[1] = round(dim[1])
 
@@ -127,7 +129,7 @@ def operator_sinkhorn(
     Prho = [np.eye(d, dtype=np.complex128) / d for d in dim]
     F = [np.eye(d, dtype=np.complex128) * tr_rho_p for d in dim]
     ldim = [np.prod(dim[:j]) for j in range(num_sys)]
-    rdim = [np.prod(dim[j+1:]) for j in range(num_sys)]
+    rdim = [np.prod(dim[j + 1 :]) for j in range(num_sys)]
 
     # Perform the operator Sinkhorn iteration.
     it_err = 1.0
@@ -136,7 +138,6 @@ def operator_sinkhorn(
     rho2 = rho.copy().astype(np.complex128)
 
     while it_err > tol:
-
         if iterations > max_iterations:
             raise RuntimeError(f"operator_sinkhorn did not converge within {max_iterations} iterations.")
 
@@ -176,15 +177,22 @@ def operator_sinkhorn(
 
         # Check the condition number to ensure invertibility.
         if (error_flag_in_iteration) or (max_cond >= 1 / tol) or (np.isinf(max_cond)):
-            raise ValueError("The operator Sinkhorn iteration does not converge for RHO. "
-                             "This is often the case if RHO is not of full rank.")
+            raise ValueError(
+                "The operator Sinkhorn iteration does not converge for RHO. "
+                "This is often the case if RHO is not of full rank."
+            )
 
         iterations += 1
 
-    # Stabilize the output for numerical reasons.
+    # Stabilize the output for numerical stability.
     sigma = (rho2 + rho2.conj().T) / 2
+    # handle cases where trace(sigma) can be near zero:
+    # this can happen
+    # 1. if input trace is near zero (singular matrix) - Algorithm will not converge
+    # 2. if there was some numerical instability and result drifted off - Warn users about
+    # about a potentially wrong answer
+    if (np.trace(rho) > np.finfo(float).eps) and (np.trace(sigma) < np.finfo(float).eps):
+        warnings.warn("Final trace is near zero, but initial trace was not. Result may be unreliable.")
     sigma = np.trace(rho) * sigma / np.trace(sigma)
-
-    # handle cases where trace(sigma) can be near zero: TODO
 
     return sigma, F

@@ -18,6 +18,7 @@ def test_operator_sinkhorn_unitary_invariance():
     sigma_original, F_org = operator_sinkhorn(rho)
     np.testing.assert_allclose(sigma_new, U @ sigma_original @ U.conj().T)
 
+
 def test_operator_sinkhorn_bipartite_partial_trace():
     """Test operator Sinkhorn partial trace on a bipartite system."""
     # Generate a random density matrix for a 3x3 system (9-dimensional).
@@ -33,6 +34,7 @@ def test_operator_sinkhorn_bipartite_partial_trace():
 
     # Check that partial trace matches the expected identity.
     np.testing.assert_array_almost_equal(pt_rounded, expected_identity, decimal=2)
+
 
 def test_operator_sinkhorn_tripartite_partial_trace():
     """Test operator Sinkhorn partial trace on a tripartite system."""
@@ -50,13 +52,11 @@ def test_operator_sinkhorn_tripartite_partial_trace():
     # Check that partial trace matches the expected identity.
     np.testing.assert_array_almost_equal(pt_rounded, expected_identity, decimal=2)
 
+
 def test_operator_sinkhorn_singular_matrix():
     """Test operator Sinkhorn with a singular matrix that triggers LinAlgError."""
     # Create a valid 4x4 singular matrix (non-invertible).
-    rho = np.array([[1, 0, 0, 0],
-                    [0, 1, 0, 0],
-                    [0, 0, 0, 0],
-                    [0, 0, 0, 0]])  # This matrix is singular
+    rho = np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]])  # This matrix is singular
 
     try:
         operator_sinkhorn(rho, dim=[2, 2])
@@ -66,6 +66,7 @@ def test_operator_sinkhorn_singular_matrix():
             "This is often the case if RHO is not of full rank."
         )
         assert str(e) == expected_msg
+
 
 def test_operator_sinkhorn_invalid_single_dim():
     """Test operator Sinkhorn when a single number is passed as `dim` and it is invalid."""
@@ -81,10 +82,11 @@ def test_operator_sinkhorn_invalid_single_dim():
         )
         assert str(e) == expected_msg
 
+
 def test_operator_sinkhorn_invalid_dim_array():
     """Test operator Sinkhorn when product of the dim array does not match the density matrix dims."""
     dX = 8
-    dim1 = [4, 3, 2] # 4*3*2 != 8
+    dim1 = [4, 3, 2]  # 4*3*2 != 8
 
     rho = random_density_matrix(8)  # 8-dimensional density matrix
 
@@ -92,10 +94,9 @@ def test_operator_sinkhorn_invalid_dim_array():
     try:
         operator_sinkhorn(rho, dim=dim1)
     except ValueError as e:
-        expected_msg = (
-            f"Product of dimensions {dim1} does not match rho dimension {dX}."
-        )
+        expected_msg = f"Product of dimensions {dim1} does not match rho dimension {dX}."
         assert str(e) == expected_msg
+
 
 def test_operator_sinkhorn_valid_single_dim():
     """Test operator Sinkhorn when a single valid number is passed as `dim`."""
@@ -107,6 +108,7 @@ def test_operator_sinkhorn_valid_single_dim():
     # Check that sigma is a valid density matrix with trace equal to 1
     np.testing.assert_almost_equal(np.trace(sigma), 1)
 
+
 def test_operator_sinkhorn_max_mixed():
     """Test operator Sinkhorn on a maximally mixed bipartite state. Should be invariant."""
     rho = np.eye(9)  # 9-dimensional density matrix
@@ -116,6 +118,7 @@ def test_operator_sinkhorn_max_mixed():
 
     # Check that rho is invariant after sinkhorn operation
     np.testing.assert_almost_equal(sigma, rho)
+
 
 def test_operator_sinkhorn_max_entangled():
     """Test operator Sinkhorn on a maximally entangled bipartite state. Should be invariant."""
@@ -129,6 +132,7 @@ def test_operator_sinkhorn_max_entangled():
     # Check that rho is invariant after sinkhorn operation
     np.testing.assert_almost_equal(sigma, rho)
 
+
 def test_operator_sinkhorn_non_square_rho():
     """Test operator sinkhorn on non-square input matrix."""
     # function should raise a ValueError
@@ -137,10 +141,9 @@ def test_operator_sinkhorn_non_square_rho():
     try:
         operator_sinkhorn(rho)
     except ValueError as e:
-        expected_msg = (
-            "Input 'rho' must be a square matrix."
-        )
+        expected_msg = "Input 'rho' must be a square matrix."
         assert str(e) == expected_msg
+
 
 def test_operator_sinkhorn_max_iterations():
     """Test operator sinkhorn on insufficient iteration limit."""
@@ -150,7 +153,5 @@ def test_operator_sinkhorn_max_iterations():
     try:
         operator_sinkhorn(rho=rho_random, dim=[2, 2], max_iterations=20)
     except RuntimeError as e:
-        expected_msg = (
-            "operator_sinkhorn did not converge within 20 iterations."
-        )
+        expected_msg = "operator_sinkhorn did not converge within 20 iterations."
         assert str(e) == expected_msg
