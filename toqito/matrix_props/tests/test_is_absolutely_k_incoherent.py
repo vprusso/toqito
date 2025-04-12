@@ -43,7 +43,8 @@ from toqito.matrix_props import is_absolutely_k_incoherent
         # 4x4 custom density matrix with k equal to n (trivial).
         (np.diag([0.5, 0.25, 0.125, 0.125]), 4, True),
         # [1] Theorem 4 branch (equal nonzero eigenvalues).
-        # For n = 4 and k = 3, a matrix with eigenvalues [0.5, 0.5, 0, 0] has rank 2 and the nonzero eigenvalues are equal.
+        # For n = 4 and k = 3, a matrix with eigenvalues [0.5, 0.5, 0, 0] has rank 2 and the nonzero eigenvalues are
+        # equal.
         (np.diag([0.5, 0.5, 0, 0]), 3, True),
         # [1] Theorem 4 branch (non-equal nonzero eigenvalues).
         # For n = 4 and k = 3, a matrix with eigenvalues [0.6, 0.4, 0, 0] has rank 2 but the nonzero eigenvalues differ.
@@ -56,8 +57,8 @@ from toqito.matrix_props import is_absolutely_k_incoherent
         # For n = 4, the 4x4 maximally mixed state: Frobenius norm squared = 0.25 <= 1/(4-1)≈0.3333.
         (np.eye(4) / 4, 2, True),
         # k == 2 branch for n=4 pure state.
-        # For n = 4, a pure state (e.g. diag(1,0,0,0)) has Frobenius norm squared = 1 which exceeds 1/(4-1); and n>3 so the
-        # branch falls out.
+        # For n = 4, a pure state (e.g. diag(1,0,0,0)) has Frobenius norm squared = 1 which exceeds 1/(4-1); and n>3 so
+        # the branch falls out.
         (np.diag([1, 0, 0, 0]), 2, False),
         # [1] Theorem 8 branch.
         # For n = 4 and k = 3 (n - 1), if lmax > 1 - 1/4 (i.e. lmax > 0.75), then it returns False.
