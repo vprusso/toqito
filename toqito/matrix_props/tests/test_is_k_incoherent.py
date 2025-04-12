@@ -254,5 +254,6 @@ def test_dephasing_branch(monkeypatch):
     monkeypatch.setattr("toqito.matrix_props.is_positive_semidefinite", fake_is_positive_semidefinite)
 
     result = is_k_incoherent(A, k)
+
     # At this point the dephasing branch should fire and return True.
     assert result is True
