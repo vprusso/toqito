@@ -5,7 +5,7 @@ import cvxpy as cp
 from itertools import combinations
 
 from toqito.matrix_props import is_positive_semidefinite, is_square
-from toqito.matrices.comparison import comparison
+from toqito.matrices import comparison
 
 
 def is_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
