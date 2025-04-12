@@ -1,8 +1,8 @@
 """Test is_absolutely_k_incoherent."""
 
+import cvxpy as cp
 import numpy as np
 import pytest
-import cvxpy as cp
 
 from toqito.matrix_props import is_absolutely_k_incoherent
 
@@ -98,12 +98,11 @@ def test_sdp_solver_error(monkeypatch):
 
 
 def test_sdp_not_optimal(monkeypatch):
-    """Test that if the SDP returns a status other than 'optimal' or 'optimal_inaccurate', the function returns False."""
+    """Test that if the SDP returns a status other than 'optimal' or 'optimal_inaccurate'."""
     # Create a 4x4 matrix with eigenvalues that trigger the SDP branch.
     mat = np.diag([0.7, 0.15, 0.15, 0])
     # Define a fake solve method that sets the status to an unfavorable value.
     def fake_solve(self, *args, **kwargs):
         self.status = "infeasible"
-        return
     monkeypatch.setattr(cp.Problem, "solve", fake_solve)
     np.testing.assert_equal(is_absolutely_k_incoherent(mat, 3), False)
