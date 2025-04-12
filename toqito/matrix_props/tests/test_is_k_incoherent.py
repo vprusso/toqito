@@ -233,8 +233,8 @@ def test_dephasing_branch(monkeypatch):
     """Force the dephasing branch to be taken."""
     # Candidate 4x4 density matrix (non-diagonal, trace normalized to 1)
     A = np.array(
-        [[0.01, 0.10, 0.00, 0.00], [0.10, 0.52, 0.00, 0.00], [0.00, 0.00, 0.28, 0.00], [0.00, 0.00, 0.00, 0.19]
-    ])
+        [[0.01, 0.10, 0.00, 0.00], [0.10, 0.52, 0.00, 0.00], [0.00, 0.00, 0.28, 0.00], [0.00, 0.00, 0.00, 0.19]]
+    )
     A = A / np.trace(A)
     k = 3
     d = A.shape[0]
@@ -242,9 +242,10 @@ def test_dephasing_branch(monkeypatch):
     # Override the comparison function to force its result to be non-PSD.
     # (This avoids an early return via the comparison branch.)
     monkeypatch.setattr(comparison, "comparison", lambda mat: np.eye(mat.shape[0]) * (-0.01))
-    
+
     # Override is_positive_semidefinite so that when called with (A - test) it returns True.
     from toqito.matrix_props import is_positive_semidefinite as orig_is_psd
+
     def fake_is_positive_semidefinite(X):
         test_val = ((d - k) / (d - 1)) * np.diag(np.diag(A))
         if np.allclose(X, A - test_val, atol=1e-3):
