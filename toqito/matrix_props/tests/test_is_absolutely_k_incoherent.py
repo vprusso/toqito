@@ -6,43 +6,55 @@ import pytest
 from toqito.matrix_props import is_absolutely_k_incoherent
 
 
-@pytest.mark.parametrize(
-    "mat, k, expected",
-    [
-        # 2x2 maximally mixed state.
-        (np.eye(2) / 2, 1, True),
-        # 2x2 maximally mixed state with k equal to n (trivial).
-        (np.eye(2) / 2, 2, True),
-        # 2x2 pure state (non-maximally mixed density matrix).
-        (np.array([[1, 0], [0, 0]]), 1, False),
-        # 2x2 pure state with k equal to n (trivial).
-        (np.array([[1, 0], [0, 0]]), 2, True),
-        # 2x2 non-density matrix (not PSD).
-        (np.array([[1, 2], [2, 1]]), 1, False),
-        # 2x2 non-density matrix with k equal to n (trivial).
-        (np.array([[1, 2], [2, 1]]), 2, True),
-        # 3x3 example matrix.
-        (np.array([[2, 1, 2], [1, 2, -1], [2, -1, 5]]), 1, False),
-        # 3x3 example matrix with k equal to n (trivial).
-        (np.array([[2, 1, 2], [1, 2, -1], [2, -1, 5]]), 3, True),
-        # 3x3 example matrix with k greater than n (trivial).
-        (np.array([[2, 1, 2], [1, 2, -1], [2, -1, 5]]), 4, True),
-        # 3x3 maximally mixed state.
-        (np.eye(3) / 3, 1, True),
-        # 3x3 maximally mixed state with an eigenvalue condition.
-        (np.eye(3) / 3, 2, True),
-        # 3x3 maximally mixed state with k equal to n (trivial).
-        (np.eye(3) / 3, 3, True),
-        # 4x4 custom density matrix: diag(0.5, 0.25, 0.125, 0.125).
-        (np.diag([0.5, 0.25, 0.125, 0.125]), 1, False),
-        # 4x4 custom density matrix with k = 2.
-        (np.diag([0.5, 0.25, 0.125, 0.125]), 2, False),
-        # 4x4 custom density matrix with k = 3.
-        (np.diag([0.5, 0.25, 0.125, 0.125]), 3, True),
-        # 4x4 custom density matrix with k equal to n (trivial).
-        (np.diag([0.5, 0.25, 0.125, 0.125]), 4, True),
-    ],
-)
+@pytest.mark.parametrize("mat, k, expected", [
+    # 2x2 maximally mixed state.
+    (np.eye(2) / 2, 1, True),
+    # 2x2 maximally mixed state with k equal to n (trivial).
+    (np.eye(2) / 2, 2, True),
+    # 2x2 pure state (non-maximally mixed density matrix).
+    (np.array([[1, 0], [0, 0]]), 1, False),
+    # 2x2 pure state with k equal to n (trivial).
+    (np.array([[1, 0], [0, 0]]), 2, True),
+    # 2x2 non-density matrix (not PSD).
+    (np.array([[1, 2], [2, 1]]), 1, False),
+    # 2x2 non-density matrix with k equal to n (trivial).
+    (np.array([[1, 2], [2, 1]]), 2, True),
+    # 3x3 example matrix.
+    (np.array([[2, 1, 2], [1, 2, -1], [2, -1, 5]]), 1, False),
+    # 3x3 example matrix with k equal to n (trivial).
+    (np.array([[2, 1, 2], [1, 2, -1], [2, -1, 5]]), 3, True),
+    # 3x3 example matrix with k greater than n (trivial).
+    (np.array([[2, 1, 2], [1, 2, -1], [2, -1, 5]]), 4, True),
+    # 3x3 maximally mixed state.
+    (np.eye(3) / 3, 1, True),
+    # 3x3 maximally mixed state with an eigenvalue condition.
+    (np.eye(3) / 3, 2, True),
+    # 3x3 maximally mixed state with k equal to n (trivial).
+    (np.eye(3) / 3, 3, True),
+    # 4x4 custom density matrix: diag(0.5, 0.25, 0.125, 0.125).
+    (np.diag([0.5, 0.25, 0.125, 0.125]), 1, False),
+    # 4x4 custom density matrix with k = 2.
+    (np.diag([0.5, 0.25, 0.125, 0.125]), 2, False),
+    # 4x4 custom density matrix with k = 3.
+    (np.diag([0.5, 0.25, 0.125, 0.125]), 3, True),
+    # 4x4 custom density matrix with k equal to n (trivial).
+    (np.diag([0.5, 0.25, 0.125, 0.125]), 4, True),
+    # [1] Theorem 4 branch:
+    # For n = 4 and k = 3, a pure state with rank = 1 satisfies rankX <= 4 - 3, so it should return False.
+    (np.diag([1, 0, 0, 0]), 3, False),
+    # [1] Theorem 4 branch:
+    # For n = 4 and k = 3, with eigenvalues [0.5, 0.5, 0, 0] (rank = 2 and equal nonzero eigenvalues), it returns True.
+    (np.diag([0.5, 0.5, 0, 0]), 3, True),
+    # k == 2 branch:
+    # For n = 3, a pure state (frobenius norm squared = 1 > 1/(3-1)=0.5) should return False.
+    (np.diag([1, 0, 0]), 2, False),
+    # [1] Theorem 8 branch:
+    # For n = 4 and k = 3 (n - 1), if lmax > 1 - 1/4 (i.e. lmax > 0.75) then it should return False.
+    (np.diag([0.8, 0.1, 0.1, 0]), 3, False),
+    # [1] Theorem 8 branch:
+    # For n = 4 and k = 3, if lmax is below the cutoff (0.75), then the SDP is executed and (assuming feasibility) returns True.
+    (np.diag([0.7, 0.15, 0.15, 0]), 3, True)
+])
 def test_is_absolutely_k_incoherent(mat, k, expected):
     """Test that is_absolutely_k_incoherent returns the correct boolean value on valid inputs."""
     np.testing.assert_equal(is_absolutely_k_incoherent(mat, k), expected)

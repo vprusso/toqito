@@ -4,6 +4,7 @@ import cvxpy as cp
 import numpy as np
 
 from toqito.matrix_props import is_positive_semidefinite
+from toqito.matrix_props import is_square
 
 
 def is_absolutely_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
@@ -39,11 +40,11 @@ def is_absolutely_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> b
     :param mat: Matrix to check for absolute k-incoherence.
     :param k: The positive integer indicating the absolute coherence level.
     :param tol: Tolerance for numerical comparisons (default is 1e-15).
+    :raises ValueError: If the input matrix is not square.
     :return: True if the quantum state is absolutely k-incoherent, False otherwise.
 
     """
-    # Raise an error if the matrix is not square.
-    if mat.ndim != 2 or mat.shape[0] != mat.shape[1]:
+    if not is_square(mat):
         raise ValueError("Input matrix must be square.")
 
     n = mat.shape[0]
