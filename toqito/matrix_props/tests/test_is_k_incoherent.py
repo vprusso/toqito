@@ -201,12 +201,9 @@ def test_hierarchical_recursion(monkeypatch):
 def test_hierarchical_recursion_branch():
     """Hierarchical recursion: for k =3 check incoherence for k-1."""
     # Candidate 4x4 density matrix (non-diagonal, trace normalized to 1).
-    A2 = np.array([
-        [0.35, 0.30, 0.00, 0.00],
-        [0.30, 0.25, 0.00, 0.00],
-        [0.00, 0.00, 0.25, 0.05],
-        [0.00, 0.00, 0.05, 0.15]
-    ])
+    A2 = np.array(
+        [[0.35, 0.30, 0.00, 0.00], [0.30, 0.25, 0.00, 0.00], [0.00, 0.00, 0.25, 0.05], [0.00, 0.00, 0.05, 0.15]]
+    )
     A2 = A2 / np.trace(A2)
     k = 3
 
@@ -220,26 +217,23 @@ def test_hierarchical_recursion_branch():
         else:
             return orig_is_k_incoherent(mat, k, tol)
     # Patch the global lookup so that recursive calls use fake_is_k_incoherent.
-    is_k_incoherent.__globals__['is_k_incoherent'] = fake_is_k_incoherent
+    is_k_incoherent.__globals__["is_k_incoherent"] = fake_is_k_incoherent
 
     result = is_k_incoherent(A2, k)
     # The hierarchical recursion branch should now trigger and return True.
     assert result is True
 
     # Restore the original function reference.
-    is_k_incoherent.__globals__['is_k_incoherent'] = orig_is_k_incoherent
+    is_k_incoherent.__globals__["is_k_incoherent"] = orig_is_k_incoherent
 
 
 def test_dephasing_branch(monkeypatch):
     """Hierarchical recursion: for k >= 2 check incoherence for k-1."""
     # Candidate 4x4 density matrix A
     # (This candidate is chosen such that the natural comparisons do not force an early return.)
-    A = np.array([
-        [0.01, 0.10, 0.00, 0.00],
-        [0.10, 0.52, 0.00, 0.00],
-        [0.00, 0.00, 0.28, 0.00],
-        [0.00, 0.00, 0.00, 0.19]
-    ])
+    A = np.array(
+        [[0.01, 0.10, 0.00, 0.00], [0.10, 0.52, 0.00, 0.00], [0.00, 0.00, 0.28, 0.00], [0.00, 0.00, 0.00, 0.19]]
+    )
     # Normalize A so that trace(A)==1.
     A = A / np.trace(A)
     k = 3
