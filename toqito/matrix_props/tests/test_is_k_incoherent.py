@@ -174,12 +174,9 @@ def test_non_square():
 def test_hierarchical_recursion(monkeypatch):
     """Hierarchical recursion: for k >= 2 check incoherence for k-1."""
     # Construct a 4x4 non-diagonal density matrix.
-    A = np.array([
-        [0.36, 0.10, 0.05, 0.02],
-        [0.08, 0.28, 0.04, 0.03],
-        [0.05, 0.04, 0.20, 0.06],
-        [0.02, 0.03, 0.06, 0.16]
-    ])
+    A = np.array(
+        [[0.36, 0.10, 0.05, 0.02], [0.08, 0.28, 0.04, 0.03], [0.05, 0.04, 0.20, 0.06], [0.02, 0.03, 0.06, 0.16]]
+    )
     # A is non-diagonal and has trace close to 1.
     A = A / np.trace(A)
 
@@ -192,6 +189,7 @@ def test_hierarchical_recursion(monkeypatch):
             return True
         else:
             return orig_is_k_incoherent(mat, k, tol)
+
     monkeypatch.setattr("toqito.matrix_props.is_k_incoherent", fake_is_k_incoherent)
 
     # Now, when testing for k == 3, the recursive call (with k == 2) will return True,
