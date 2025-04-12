@@ -109,13 +109,8 @@ def is_absolutely_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> b
             # Dummy objective function.
             objective = cp.Minimize(1)
             prob = cp.Problem(objective, constraints)
-            try:
-                _ = prob.solve(solver=cp.SCS, verbose=False)
-            except cp.SolverError:
-                return False
-            if prob.status in ["optimal", "optimal_inaccurate"]:
+            opt_val = prob.solve(solver=cp.SCS, verbose=False)
+            if np.isclose(opt_val, 1.0):
                 return True
-            else:
-                return False
 
     return False
