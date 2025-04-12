@@ -11,24 +11,28 @@ from toqito.matrices.comparison import comparison
 def is_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
     r"""Determine whether a quantum state is k-incoherent :cite:`Johnston_2022_Absolutely`.
 
-    This function checks if the provided density matrix :code:`mat` is k-incoherent. It returns True if
-    :code:`mat` is k-incoherent and False if :code:`mat` is not.
+    This function checks if the provided density matrix :code:`mat` is k-incoherent. It returns True if :code:`mat` is
+    k-incoherent and False if :code:`mat` is not.
+
     
     The function first handles trivial cases. Then it computes the comparison matrix (via
-    :func:`matrices.comparison.comparison`) and performs further tests based on the trace of :code:`mat @ mat`
-    and a dephasing channel. If no decision is reached, the function recurses by checking incoherence for k-1.
-    Finally, if still indeterminate, an SDP is formulated to decide incoherence.
+    :func:`matrices.comparison.comparison`) and performs further tests based on the trace of :code:`mat @ mat` and a
+    dephasing channel. If no decision is reached, the function recurses by checking incoherence for k-1.  Finally, if
+    still indeterminate, an SDP is formulated to decide incoherence.
+
     
     :param mat: Density matrix to test.
     :param k: The positive integer coherence level.
     :param tol: Tolerance for numerical comparisons (default is 1e-15).
     :raises ValueError: If k ≤ 0 or if :code:`mat` is not square.
     :return: True if :code:`mat` is k-incoherent, False otherwise.
+
     
     See Also
     ========
     :func:`toqito.state_props.is_antidistinguishable`
     :func:`toqito.matrix_props.is_absolutely_k_incoherent`
+    
     
     References
     ==========
