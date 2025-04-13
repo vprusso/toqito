@@ -87,18 +87,6 @@ def test_is_absolutely_k_incoherent_non_square():
         is_absolutely_k_incoherent(mat, 1)
 
 
-def test_sdp_solver_error(monkeypatch):
-    """Test that a SolverError in the SDP branch causes is_absolutely_k_incoherent to return False."""
-    # Create a 4x4 matrix that triggers the SDP branch.
-    mat = np.diag([0.7, 0.15, 0.15, 0])
-
-    def fake_solve(self, *args, **kwargs):
-        raise cp.SolverError("Forced solver error for testing.")
-
-    monkeypatch.setattr(cp.Problem, "solve", fake_solve)
-    np.testing.assert_equal(is_absolutely_k_incoherent(mat, 3), False)
-
-
 def test_sdp_not_optimal(monkeypatch):
     """Test that if the SDP returns a value not close to 1.0, is_absolutely_k_incoherent returns False."""
     # Create a 4x4 matrix that triggers the SDP branch.
