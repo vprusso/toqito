@@ -19,7 +19,7 @@ def test_classically_satisfiable_bcs():
     assert check_perfect_commuting_strategy(M, b)
 
     game = NonlocalGame.from_bcs_game(constraints, reps=1)
-    assert game.has_perfect_commuting_measurement_strategy()
+    assert game.is_bcs_perfect_commuting_strategy()
 
 
 def test_chsh_bcs():
@@ -34,7 +34,7 @@ def test_chsh_bcs():
     assert not check_perfect_commuting_strategy(M, b)
 
     game = NonlocalGame.from_bcs_game(constraints, reps=1)
-    assert not game.has_perfect_commuting_measurement_strategy()
+    assert not game.is_bcs_perfect_commuting_strategy()
 
 
 def test_magic_square_bcs():
@@ -55,7 +55,7 @@ def test_magic_square_bcs():
     assert check_perfect_commuting_strategy(M, b)
 
     game = NonlocalGame.from_bcs_game(constraints, reps=1)
-    assert game.has_perfect_commuting_measurement_strategy()
+    assert game.is_bcs_perfect_commuting_strategy()
 
 
 def test_special_case():
@@ -74,7 +74,7 @@ def test_special_case():
     assert check_perfect_commuting_strategy(M, b)
 
     game = NonlocalGame.from_bcs_game(constraints, reps=1)
-    assert game.has_perfect_commuting_measurement_strategy()
+    assert game.is_bcs_perfect_commuting_strategy()
 
 
 

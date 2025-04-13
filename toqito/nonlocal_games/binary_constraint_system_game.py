@@ -4,40 +4,110 @@ from toqito.nonlocal_games.nonlocal_game import NonlocalGame
 
 
 def create_bcs_constraints(M: np.ndarray, b: np.ndarray):
-    r"""Construct a list of constraints for a binary constraint system (BCS) game.
+    r"""Construct a list of constraints in tensor form for a binary constraint system (BCS) game.
 
-    This function builds a list of constraints by concatenating each row of the
-    binary matrix ``M`` with a constant term given by :math:`(-1)^{b[i]}`.
-    The resulting 1D arrays (one per constraint) can be used with nonlocal game routines.
+    This function builds a list of constraints by converting each row of the binary matrix
+    M of shape (m, n) and the corresponding element of the binary vector b
+    into an n-dimensional tensor of shape (2, 2, ..., 2) (one axis per variable).
+
+    The conversion works as follows:
+    
+      1. For the i-th constraint, compute the constant value as 
+         rhs = (-1)**(b[i]).
+      2. Create an n-dimensional array (tensor) of shape (2,)*n filled with -rhs.
+      3. Compute the index from the first n entries of the i-th row of M by taking each value modulo 2.
+      4. Set the tensor element at that index to rhs.
+
+    For example, if 
+       M[i] = [1, 1] and b[i] = 0 (so rhs = 1),
+    then the tensor is of shape (2, 2) and is created as follows:
+    
+      - Start with a (2, 2) array filled with -1 (since -rhs = -1):
+
+            [ [-1, -1],
+              [-1, -1] ]
+
+      - The index is computed as (1 % 2, 1 % 2) = (1, 1).
+      - At position (1, 1), the value is set to 1, resulting in:
+
+            [ [-1, -1],
+              [-1,  1] ]
+
+    This tensor now represents the constraint in full detail.
 
     Examples
     ==========
-    .. code-block:: python
-
         >>> import numpy as np
         >>> from binary_constraint_system_game import create_bcs_constraints
-        >>> from toqito.nonlocal_games.nonlocal_game import NonlocalGame
         >>> M = np.array([[1, 1], [1, 1]], dtype=int)
         >>> b = np.array([0, 1], dtype=int)
         >>> constraints = create_bcs_constraints(M, b)
-        >>> game = NonlocalGame.from_bcs_game(constraints)
+        >>> constraints[0].shape
+        (2, 2)
 
     References
-    ==========
-    .. bibliography::
-        :filter: docname in docnames
+    ============
+        (See bibliography in relevant documentation)
 
-    :param M: A binary matrix of shape ``(m, n)`` defining which variables appear in each constraint.
-    :param b: A binary vector of length ``m`` that determines the constant term :math:`(-1)^{b[i]}`.
-    :return: A list of 1D NumPy arrays, each of length ``n + 1``, representing a constraint.
+    :param M: A binary matrix of shape (m, n) defining which variables appear in each constraint.
+    :param b: A binary vector of length m that determines the constant term (-1)**(b[i]).
+    :return: A list of n-dimensional NumPy arrays (tensors) of shape ((2,)*n) representing each constraint.
     """
     m, n = M.shape
     constraints = []
     for i in range(m):
         rhs = (-1) ** b[i]
-        row_plus_rhs = np.concatenate((M[i], np.array([rhs])))
-        constraints.append(row_plus_rhs)
+        # Create an n-dimensional array of shape (2, 2, ..., 2) filled with -rhs.
+        constraint_tensor = np.full((2,) * n, fill_value=-rhs, dtype=int)
+        # Compute the index from the binary row M[i]. Assume M[i] contains binary values (0 or 1).
+        idx = tuple(M[i] % 2)
+        # Set the tensor element at that index to rhs.
+        constraint_tensor[idx] = rhs
+        constraints.append(constraint_tensor)
     return constraints
+
+
+def tensor_to_raw(constraint_tensor: np.ndarray) -> np.ndarray:
+    r"""Convert a tensor-form constraint back to its raw 1D representation.
+
+    The tensor-form constraint is expected to have shape (2, 2, ..., 2) (n times)
+    and to be constructed as follows:
+
+      - The array is initially filled with -rhs, where rhs = (-1)**(b[i]).
+      - A unique element at some index is overwritten with rhs.
+
+    This function finds the unique element (the one that appears exactly once)
+    and returns a 1D array of length n+1, where the first n entries are the coordinates
+    (taken directly from the unique index) and the last element is the unique constant rhs.
+
+    Examples
+    ==========
+        >>> import numpy as np
+        >>> from binary_constraint_system_game import tensor_to_raw
+        >>> tensor_constraint = np.array([[-1, -1], [-1, 1]])
+        >>> raw = tensor_to_raw(tensor_constraint)
+        >>> raw
+        array([1, 1, 1])
+
+    :param constraint_tensor: An n-dimensional NumPy array representing a constraint (shape (2,)*n).
+    :return: A 1D NumPy array of length n+1 where the first n elements are the coordinates (indices)
+             and the last element is the unique constant (rhs).
+    """
+    values, counts = np.unique(constraint_tensor, return_counts=True)
+    if len(values) != 2:
+        raise ValueError("Constraint tensor does not have exactly two distinct values.")
+    if counts[0] == 1:
+        unique_value = values[0]
+    elif counts[1] == 1:
+        unique_value = values[1]
+    else:
+        raise ValueError("Constraint tensor does not have a unique element that appears exactly once.")
+    unique_idx = np.argwhere(constraint_tensor == unique_value)
+    if unique_idx.shape[0] != 1:
+        raise ValueError("Expected exactly one occurrence of the unique value in the constraint tensor.")
+    idx_tuple = tuple(unique_idx[0])
+    raw_constraint = np.array(list(idx_tuple) + [unique_value])
+    return raw_constraint
 
 
 def generate_solution_group(M: np.ndarray, b: np.ndarray):
