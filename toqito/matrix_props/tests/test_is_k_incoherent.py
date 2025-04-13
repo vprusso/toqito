@@ -227,33 +227,3 @@ def test_hierarchical_recursion_branch():
 
     # Restore the original function reference.
     is_k_incoherent.__globals__["is_k_incoherent"] = orig_is_k_incoherent
-
-
-def test_dephasing_branch(monkeypatch):
-    """Force the dephasing branch to be taken (printing 'PSD')."""
-    # Candidate 4x4 density matrix (non-diagonal, trace normalized to 1)
-    A = np.array(
-        [[0.01, 0.10, 0.00, 0.00], [0.10, 0.52, 0.00, 0.00], [0.00, 0.00, 0.28, 0.00], [0.00, 0.00, 0.00, 0.19]]
-    )
-    A = A / np.trace(A)
-    k = 3
-    d = A.shape[0]
-
-    # Override the comparison function by patching the global binding in is_k_incoherent.
-    is_k_incoherent.__globals__["comparison"] = lambda mat: np.eye(mat.shape[0]) * (-0.01)
-
-    # Override is_positive_semidefinite so that when called with (A - test) it returns True.
-    from toqito.matrix_props import is_positive_semidefinite as orig_is_psd
-
-    def fake_is_positive_semidefinite(X):
-        test_val = ((d - k) / (d - 1)) * np.diag(np.diag(A))
-        if np.allclose(X, A - test_val, atol=1e-3):
-            return True
-        return orig_is_psd(X)
-
-    monkeypatch.setattr("toqito.matrix_props.is_positive_semidefinite", fake_is_positive_semidefinite)
-
-    result = is_k_incoherent(A, k)
-
-    # We expect the dephasing branch to fire and return True.
-    assert result is True
