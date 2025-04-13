@@ -66,6 +66,11 @@ def is_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
     if k > 2 and np.trace(mat @ mat) <= 1 / (d - 1):
         return True
 
+    # :cite:`Johnston_2022_Absolutely` (7): Apply dephasing channel.
+    test = ((d - k) / (d - 1)) * np.diag(np.diag(mat))
+    if is_positive_semidefinite(mat - test):
+        return True
+
     # Hierarchical recursion: for k >= 2 check incoherence for k-1.
     rec = is_k_incoherent(mat, k - 1)
     if rec is not None and rec is not False:
