@@ -259,7 +259,6 @@ whether the set of states are antidistinguishable and :math:`(n-1)`-incoherent.
 As can be seen, whether the random set of states are antidistinguishable or not aligns with whether they are
 :math:`(n-1)`-incoherent or not as well.
 
-
 References
 ------------------------------
 
