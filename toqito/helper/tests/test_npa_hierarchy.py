@@ -19,7 +19,7 @@ def test_gen_words_intermediate_hierarchy():
         (0, 0): cvxpy.Variable((referee_dim * a_out, referee_dim * b_out)),
         (0, 1): cvxpy.Variable((referee_dim * a_out, referee_dim * b_out)),
         (1, 0): cvxpy.Variable((referee_dim * a_out, referee_dim * b_out)),
-        (1, 1): cvxpy.Variable((referee_dim * a_out, referee_dim * b_out))
+        (1, 1): cvxpy.Variable((referee_dim * a_out, referee_dim * b_out)),
     }
 
     # Use a hierarchy level string that includes an intermediate level

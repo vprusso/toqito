@@ -13,15 +13,13 @@ from toqito.matrix_props import is_nonnegative
         (np.eye(3), "nonnegative", True),
         (np.eye(3), "doubly", True),
         (np.eye(3), "nonnegative", True),  # default case
-
         # Matrix with a negative entry: not nonnegative or doubly
         (np.array([[1, -1], [0, 1]]), "nonnegative", False),
         (np.array([[1, -1], [0, 1]]), "doubly", False),
-
         # Entrywise nonnegative but not PSD: fails "doubly"
         (np.array([[0, 10], [10, 0]]), "nonnegative", True),
         (np.array([[0, 10], [10, 0]]), "doubly", False),
-    ]
+    ],
 )
 def test_is_nonnegative(mat, mat_type, expected):
     """Parameterized tests for nonnegative and doubly nonnegative matrix cases."""

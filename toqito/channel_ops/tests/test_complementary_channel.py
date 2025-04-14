@@ -31,10 +31,11 @@ expected_res_comp_high_dim = [
 # Single Kraus operator (edge case)
 kraus_single = np.array([[1, 0], [0, 1]])
 
-expected_res_single =[
+expected_res_single = [
     np.array([[1, 0]]),
     np.array([[0, 1]]),
 ]
+
 
 @pytest.mark.parametrize(
     "kraus_ops, expected",
@@ -55,6 +56,7 @@ def test_complementary_channel(kraus_ops, expected):
     assert len(calculated) == len(expected), "Mismatch in number of Kraus operators"
     for calc_op, exp_op in zip(calculated, expected):
         assert np.isclose(calc_op, exp_op, atol=1e-6).all()
+
 
 @pytest.mark.parametrize(
     "kraus_ops",

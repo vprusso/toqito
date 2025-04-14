@@ -99,13 +99,13 @@ In order to specify an XOR game in :code:`|toqito⟩`, we will define two matric
 
 For the CHSH game, the `prob_mat` and `pred_mat` variables are defined as follows.
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> import numpy as np
-    >>> prob_mat = np.array([[1/4, 1/4],
-    ...                      [1/4, 1/4]])
-    >>> pred_mat = np.array([[0, 0],
-    ...                      [0, 1]])
+     import numpy as np
+     prob_mat = np.array([[1/4, 1/4],
+                          [1/4, 1/4]])
+     pred_mat = np.array([[0, 0],
+                          [0, 1]])
 
 That is, the :code:`prob_mat` matrix encapsulates that each question pair
 :math:`\{(0,0), (0, 1), (1, 0), (1, 1)\}` is equally likely. 
@@ -174,12 +174,11 @@ We can verify this by making use of :code:`|toqito⟩` to compute the classical
 value of the CHSH game.
 
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> from toqito.nonlocal_games.xor_game import XORGame
-    >>> chsh = XORGame(prob_mat, pred_mat)
-    >>> chsh.classical_value()
-    np.float64(0.75)
+     from toqito.nonlocal_games.xor_game import XORGame
+     chsh = XORGame(prob_mat, pred_mat)
+     print("The classical value of game is: ",chsh.classical_value())
 
 A quantum strategy for the CHSH game
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -286,28 +285,26 @@ quantum strategy is optimal, which we can represent as
 We can calculate the quantum value of the CHSH game using :code:`|toqito⟩` as
 follows:
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> import numpy as np
-    >>> np.around(chsh.quantum_value(), decimals=2)
-    np.float64(0.85)
+     import numpy as np
+     print("The quantum value of game is: ",np.around(chsh.quantum_value(), decimals=2))
+
 
 For reference, the complete code to calculate both the classical and quantum
 values of the CHSH game is provided below.
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> import numpy as np
-    >>> from toqito.nonlocal_games.xor_game import XORGame
-    >>> prob_mat = np.array([[1/4, 1/4],
-    ...                      [1/4, 1/4]])
-    >>> pred_mat = np.array([[0, 0],
-    ...                      [0, 1]])
-    >>> chsh = XORGame(prob_mat, pred_mat)
-    >>> chsh.classical_value()
-    np.float64(0.75)
-    >>> np.around(chsh.quantum_value(), decimals=2)
-    np.float64(0.85)
+     import numpy as np
+     from toqito.nonlocal_games.xor_game import XORGame
+     prob_mat = np.array([[1/4, 1/4],
+                          [1/4, 1/4]])
+     pred_mat = np.array([[0, 0],
+                          [0, 1]])
+     chsh = XORGame(prob_mat, pred_mat)
+     print("The classical value of games is: ",chsh.classical_value())
+     print("The quantum value of games is: ",np.around(chsh.quantum_value(), decimals=2))
 
 The odd cycle game
 ------------------
@@ -326,33 +323,32 @@ where :math:`\pi` is the uniform probability distribution over the question set.
 As an example, we can specify the odd cycle game for :math:`n=5` and calculate
 the classical and quantum values of this game.
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> import numpy as np
-    >>> from toqito.nonlocal_games.xor_game import XORGame
-    >>>
-    >>> # Define the probability matrix.
-    >>> prob_mat = np.array([
-    ...    [0.1, 0.1, 0, 0, 0],
-    ...    [0, 0.1, 0.1, 0, 0],
-    ...    [0, 0, 0.1, 0.1, 0],
-    ...    [0, 0, 0, 0.1, 0.1],
-    ...    [0.1, 0, 0, 0, 0.1]])
-    >>>
-    >>> # Define the predicate matrix.
-    >>> pred_mat = np.array([
-    ...    [0, 1, 0, 0, 0],
-    ...    [0, 0, 1, 0, 0],
-    ...    [0, 0, 0, 1, 0],
-    ...    [0, 0, 0, 0, 1],
-    ...    [1, 0, 0, 0, 0]])
-    >>>
-    >>> # Compute the classical and quantum values.
-    >>> odd_cycle = XORGame(prob_mat, pred_mat)
-    >>> np.around(odd_cycle.classical_value(), decimals=2)
-    np.float64(0.9)
-    >>> np.around(odd_cycle.quantum_value(), decimals=2)
-    np.float64(0.98)
+     import numpy as np
+     from toqito.nonlocal_games.xor_game import XORGame
+    
+     # Define the probability matrix.
+     prob_mat = np.array([
+        [0.1, 0.1, 0, 0, 0],
+        [0, 0.1, 0.1, 0, 0],
+        [0, 0, 0.1, 0.1, 0],
+        [0, 0, 0, 0.1, 0.1],
+        [0.1, 0, 0, 0, 0.1]])
+    
+     # Define the predicate matrix.
+     pred_mat = np.array([
+        [0, 1, 0, 0, 0],
+        [0, 0, 1, 0, 0],
+        [0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0]])
+    
+     # Compute the classical and quantum values.
+     odd_cycle = XORGame(prob_mat, pred_mat)
+     print("The classical value of games is: ",np.around(odd_cycle.classical_value(), decimals=2))
+     print("The quantum value of games is: ",np.around(odd_cycle.quantum_value(), decimals=2))
+
 
 Note that the odd cycle game is another example of an XOR game where the
 players are able to win with a strictly higher probability if they adopt a
