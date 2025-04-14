@@ -52,7 +52,7 @@ def mutual_coherence(matrix: np.ndarray) -> float:
     matrix = matrix / np.linalg.norm(matrix, axis=0)
 
     # Calculate the inner product between all pairs of columns
-    inner_products = np.abs(matrix.H @ matrix)
+    inner_products = np.abs(np.conj(matrix.T) @ matrix)
 
     # Set diagonal elements to zero (self-inner products)
     np.fill_diagonal(inner_products, 0)
