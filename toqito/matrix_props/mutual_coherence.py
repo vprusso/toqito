@@ -14,9 +14,6 @@ def mutual_coherence(matrix: np.ndarray) -> float:
     Note: As mutual coherence is also useful in the context of quantum states,
     a list of 1D numpy arrays is also accepted as input.
 
-    Returns:
-        float: The mutual coherence of the list of states or matrix.
-
     Examples
     ==========
     >>> import numpy as np
@@ -26,8 +23,9 @@ def mutual_coherence(matrix: np.ndarray) -> float:
     0.0
 
     >>> # An example with a larger matrix
-    >>> matrix_B = np.array([[1, 0, 1], [0, 1, 1], [1, 1, 0]]) / np.sqrt(3)
+    >>> matrix_B = np.array([[1, 0, 1], [0, 1, 1], [1, 1, 0]])
     >>> mutual_coherence(matrix_B)
+    0.33333333333
 
     References
     ==========
