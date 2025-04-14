@@ -2,7 +2,7 @@
 
 import numpy as np
 import pytest
-from numpy.ma.testutils import assert_array_almost_equal
+from numpy.testing import assert_allclose
 
 from toqito.rand import random_state_vector
 from toqito.state_props import is_pure
@@ -68,4 +68,4 @@ def test_random_state_vector(dim, is_real, k_param):
 def test_seed(dim, is_real, k_param, expected):
     """Test that the function returns the expected output when seeded."""
     vec = random_state_vector(dim, is_real=is_real, k_param=k_param, seed=123)
-    assert_array_almost_equal(vec, expected)
+    assert_allclose(vec, expected)

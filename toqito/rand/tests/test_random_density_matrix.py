@@ -2,7 +2,8 @@
 
 import numpy as np
 import pytest
-from numpy.ma.testutils import assert_array_almost_equal
+from numpy.testing import assert_allclose
+
 
 from toqito.matrix_props import is_density, is_positive_semidefinite
 from toqito.rand import random_density_matrix
@@ -79,4 +80,4 @@ def test_random_density_matrix(dim, is_real, distance_metric):
 def test_seed(dim, is_real, k_param, distance_metric, expected):
     """Test that the function produces the expected output using a seed."""
     dm = random_density_matrix(dim, is_real, k_param=k_param, distance_metric=distance_metric, seed=124)
-    assert_array_almost_equal(dm, expected)
+    assert_allclose(dm, expected)
