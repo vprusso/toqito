@@ -16,7 +16,7 @@ from toqito.matrix_props.mutual_coherence import mutual_coherence
         # Test case 3:
         (np.array([[1, 0], [1, 1]]), 0.7071067811865475),  # sqrt(2)/2
         # Test case 4:
-        (np.array([[1, 0, 1], [0, 1, 1], [1, 1, 0]]), 1 / 3),
+        (np.array([[1, 0, 1], [0, 1, 1], [1, 1, 0]]), 1 / 2),
     ],
 )
 def test_mutual_coherence(matrix, expected_coherence):
