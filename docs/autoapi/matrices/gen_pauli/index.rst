@@ -1,0 +1,89 @@
+matrices.gen_pauli
+==================
+
+.. py:module:: matrices.gen_pauli
+
+.. autoapi-nested-parse::
+
+   Produces the generalized Pauli operator matrices.
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   matrices.gen_pauli.gen_pauli
+
+
+Module Contents
+---------------
+
+.. py:function:: gen_pauli(k_1, k_2, dim)
+
+   Produce generalized Pauli operator :cite:`WikiPauliGen`.
+
+   Generates a :code:`dim`-by-:code:`dim` unitary operator. More specifically,
+   it is the operator :math:`X^k_1 Z^k_2`, where :math:`X` and :math:`Z` are
+   the "gen_pauli_x" and "gen_pauli_z" operators that naturally generalize the Pauli X and
+   Z operators. These matrices span the entire space of
+   :code:`dim`-by-:code:`dim` matrices as :code:`k_1` and :code:`k_2` range
+   from 0 to :code:`dim-1`, inclusive.
+
+   Note that the generalized Pauli operators are also known by the name of
+   "discrete Weyl operators". (Lecture 6: Further Remarks On Measurements And Channels from
+   :cite:`Watrous_2011_Lecture_Notes`)
+
+   .. rubric:: Examples
+
+   The generalized Pauli operator for :code:`k_1 = 1`, :code:`k_2 = 0`, and
+   :code:`dim = 2` is given as the standard Pauli-X matrix
+
+   .. math::
+       G_{1, 0, 2} = \begin{pmatrix}
+                        0 & 1 \\
+                        1 & 0
+                     \end{pmatrix}.
+
+   This can be obtained in :code:`|toqito⟩` as follows.
+
+   >>> from toqito.matrices import gen_pauli
+   >>> dim = 2
+   >>> k_1 = 1
+   >>> k_2 = 0
+   >>> gen_pauli(k_1, k_2, dim)
+   array([[0.+0.j, 1.+0.j],
+          [1.+0.j, 0.+0.j]])
+
+   The generalized Pauli matrix :code:`k_1 = 1`, :code:`k_2 = 1`, and
+   :code:`dim = 2` is given as the standard Pauli-Y matrix
+
+   .. math::
+       G_{1, 1, 2} = \begin{pmatrix}
+                       0 & -1 \\
+                       1 & 0
+                     \end{pmatrix}.
+
+   This can be obtained in :code:`|toqito⟩` as follows.
+
+   >>> from toqito.matrices import gen_pauli
+   >>> dim = 2
+   >>> k_1 = 1
+   >>> k_2 = 1
+   >>> gen_pauli(k_1, k_2, dim)
+   array([[ 0.+0.0000000e+00j, -1.+1.2246468e-16j],
+          [ 1.+0.0000000e+00j,  0.+0.0000000e+00j]])
+
+   .. rubric:: References
+
+   .. bibliography::
+       :filter: docname in docnames
+
+   :param k_1: (a non-negative integer from 0 to :code:`dim-1` inclusive).
+   :param k_2: (a non-negative integer from 0 to :code:`dim-1` inclusive).
+   :param dim: (a positive integer indicating the dimension).
+   :return: A generalized Pauli operator.
+
+
+

@@ -1,0 +1,103 @@
+channels.depolarizing
+=====================
+
+.. py:module:: channels.depolarizing
+
+.. autoapi-nested-parse::
+
+   Generates the depolarizing channel.
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   channels.depolarizing.depolarizing
+
+
+Module Contents
+---------------
+
+.. py:function:: depolarizing(dim, param_p = 0)
+
+   Produce the partially depolarizing channel.
+
+   (Section: Replacement Channels and the Completely Depolarizing Channel from
+   :cite:`Watrous_2018_TQI`).
+
+   The Choi matrix of the completely depolarizing channel :cite:`WikiDepo` that acts on
+   :code:`dim`-by-:code:`dim` matrices.
+
+   The *completely depolarizing channel* is defined as
+
+   .. math::
+       \Omega(X) = \text{Tr}(X) \omega
+
+   for all :math:`X \in \text{L}(\mathcal{X})`, where
+
+   .. math::
+       \omega = \frac{\mathbb{I}_{\mathcal{X}}}{\text{dim}(\mathcal{X})}
+
+   denotes the completely mixed stated defined with respect to the space :math:`\mathcal{X}`.
+
+   .. rubric:: Examples
+
+   The completely depolarizing channel maps every density matrix to the maximally-mixed state.
+   For example, consider the density operator
+
+   .. math::
+       \rho = \frac{1}{2} \begin{pmatrix}
+                            1 & 0 & 0 & 1 \\
+                            0 & 0 & 0 & 0 \\
+                            0 & 0 & 0 & 0 \\
+                            1 & 0 & 0 & 1
+                          \end{pmatrix}
+
+   corresponding to one of the Bell states. Applying the depolarizing channel to :math:`\rho` we
+   have that
+
+   .. math::
+       \Phi(\rho) = \frac{1}{4} \begin{pmatrix}
+                                   1 & 0 & 0 & 0 \\
+                                   0 & 1 & 0 & 0 \\
+                                   0 & 0 & 1 & 0 \\
+                                   0 & 0 & 0 & 1
+                                \end{pmatrix}.
+
+   This can be observed in :code:`|toqito⟩` as follows.
+
+   >>> from toqito.channel_ops import apply_channel
+   >>> from toqito.channels import depolarizing
+   >>> import numpy as np
+   >>> test_input_mat = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
+   >>> apply_channel(test_input_mat, depolarizing(4))
+   array([[0.25, 0.  , 0.  , 0.  ],
+          [0.  , 0.25, 0.  , 0.  ],
+          [0.  , 0.  , 0.25, 0.  ],
+          [0.  , 0.  , 0.  , 0.25]])
+
+   >>> from toqito.channel_ops import apply_channel
+   >>> from toqito.channels import depolarizing
+   >>> import numpy as np
+   >>> test_input_mat = np.array(
+   ...     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
+   ... )
+   >>> apply_channel(test_input_mat, depolarizing(4, 0.5))
+   array([[ 4.75,  1.  ,  1.5 ,  2.  ],
+          [ 2.5 ,  7.25,  3.5 ,  4.  ],
+          [ 4.5 ,  5.  ,  9.75,  6.  ],
+          [ 6.5 ,  7.  ,  7.5 , 12.25]])
+
+   .. rubric:: References
+
+   .. bibliography::
+       :filter: docname in docnames
+
+   :param dim: The dimensionality on which the channel acts.
+   :param param_p: Default 0.
+   :return: The Choi matrix of the completely depolarizing channel.
+
+
+

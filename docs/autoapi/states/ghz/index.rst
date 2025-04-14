@@ -1,0 +1,81 @@
+states.ghz
+==========
+
+.. py:module:: states.ghz
+
+.. autoapi-nested-parse::
+
+   GHZ (Greenberger-Horne-Zeilinger) is used to represent a maximally entangled state.
+
+   In the GHZ state, the state of qubits are completely dependent on the state of other qubits. This state is an important
+   part of quantum computing as it is commonly used in algorithms, protocols, error corrections, cryptography, etc.
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   states.ghz.ghz
+
+
+Module Contents
+---------------
+
+.. py:function:: ghz(dim, num_qubits, coeff = None)
+
+   Generate a (generalized) GHZ state :cite:`Greenberger_2007_Going`.
+
+   Returns a :code:`num_qubits`-partite GHZ state acting on :code:`dim` local dimensions, described
+   in :cite:`Greenberger_2007_Going`. For example, :code:`ghz(2, 3)` returns the standard 3-qubit GHZ state on qubits.
+   The output of this function is a dense NumPy array.
+
+   For a system of :code:`num_qubits` qubits (i.e., :code:`dim = 2`), the GHZ state can be written
+   as
+
+   .. math::
+       |GHZ \rangle = \frac{1}{\sqrt{n}} \left(|0\rangle^{\otimes n} +
+       |1 \rangle^{\otimes n} \right)).
+
+   .. rubric:: Examples
+
+   When :code:`dim = 2`, and :code:`num_qubits = 3` this produces the standard GHZ state
+
+   .. math::
+       \frac{1}{\sqrt{2}} \left( |000 \rangle + |111 \rangle \right).
+
+   Using :code:`|toqito⟩`, we can see that this yields the proper state.
+
+   >>> from toqito.states import ghz
+   >>> ghz(2, 3)
+   array([[0.70710678],
+          [0.        ],
+          [0.        ],
+          [0.        ],
+          [0.        ],
+          [0.        ],
+          [0.        ],
+          [0.70710678]])
+
+   As this function covers the generalized GHZ state, we can consider higher dimensions. For instance here is the GHZ
+   state in :math:`\mathbb{C}^{4^{\otimes 7}}` as
+
+   .. math::
+       \frac{1}{\sqrt{30}} \left(|0000000 \rangle + 2|1111111 \rangle +
+       3|2222222 \rangle + 4|3333333\rangle \right).
+
+   .. rubric:: References
+
+   .. bibliography::
+       :filter: docname in docnames
+
+   :raises ValueError: Number of qubits is not a positive integer.
+   :param dim: The local dimension.
+   :param num_qubits: The number of parties (qubits/qudits)
+   :param coeff: (default `[1, 1, ..., 1])/sqrt(dim)`:
+                 a 1-by-`dim` vector of coefficients.
+   :returns: Numpy vector array as GHZ state.
+
+
+

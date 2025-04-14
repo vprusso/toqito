@@ -1,0 +1,119 @@
+states.gen_bell
+===============
+
+.. py:module:: states.gen_bell
+
+.. autoapi-nested-parse::
+
+   Generalized Bell state represents a bigger set of Bell states.
+
+   This set includes the standard bell states and other higher dimensional bell states as well.
+   Generalized Bell states are the basis of multidimensional bipartite states having maximum entanglement.
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   states.gen_bell.gen_bell
+
+
+Module Contents
+---------------
+
+.. py:function:: gen_bell(k_1, k_2, dim)
+
+   Produce a generalized Bell state :cite:`Sych_2009_AComplete`.
+
+   Produces a generalized Bell state. Note that the standard Bell states can be recovered as:
+
+   .. code-block:: python
+       :linenos:
+
+       bell(0) : gen_bell(0, 0, 2)
+
+       bell(1) : gen_bell(0, 1, 2)
+
+       bell(2) : gen_bell(1, 0, 2)
+
+       bell(3) : gen_bell(1, 1, 2)
+
+
+   .. rubric:: Examples
+
+   For :math:`d = 2` and :math:`k_1 = k_2 = 0`, this generates the following matrix
+
+   .. math::
+       G = \frac{1}{2} \begin{pmatrix}
+                       1 & 0 & 0 & 1 \\
+                       0 & 0 & 0 & 0 \\
+                       0 & 0 & 0 & 0 \\
+                       1 & 0 & 0 & 1
+                   \end{pmatrix}
+
+   which is equivalent to :math:`|\phi_0 \rangle \langle \phi_0 |` where
+
+   .. math::
+       |\phi_0\rangle = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right)
+
+   is one of the four standard Bell states. This can be computed via :code:`|toqito⟩` as follows.
+
+   >>> from toqito.states import gen_bell
+   >>> dim = 2
+   >>> k_1 = 0
+   >>> k_2 = 0
+   >>> gen_bell(k_1, k_2, dim)
+   array([[0.5+0.j, 0. +0.j, 0. +0.j, 0.5+0.j],
+          [0. +0.j, 0. +0.j, 0. +0.j, 0. +0.j],
+          [0. +0.j, 0. +0.j, 0. +0.j, 0. +0.j],
+          [0.5+0.j, 0. +0.j, 0. +0.j, 0.5+0.j]])
+
+   It is possible for us to consider higher dimensional Bell states. For instance, we can consider
+   the :math:`3`-dimensional Bell state for :math:`k_1 = k_2 = 0` as follows.
+
+   >>> from toqito.states import gen_bell
+   >>> dim = 3
+   >>> k_1 = 0
+   >>> k_2 = 0
+   >>> gen_bell(k_1, k_2, dim)
+   array([[0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+           0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+           0.33333333+0.j],
+          [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+           0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+           0.        +0.j],
+          [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+           0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+           0.        +0.j],
+          [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+           0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+           0.        +0.j],
+          [0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+           0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+           0.33333333+0.j],
+          [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+           0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+           0.        +0.j],
+          [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+           0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+           0.        +0.j],
+          [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+           0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+           0.        +0.j],
+          [0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+           0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
+           0.33333333+0.j]])
+
+   .. rubric:: References
+
+   .. bibliography::
+       :filter: docname in docnames
+
+   :param k_1: An integer 0 <= k_1 <= n.
+   :param k_2: An integer 0 <= k_2 <= n.
+   :param dim: The dimension of the generalized Bell state.
+
+
+

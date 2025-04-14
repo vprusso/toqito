@@ -25,7 +25,7 @@ def mutual_coherence(matrix: np.ndarray) -> float:
     >>> # An example with a larger matrix
     >>> matrix_B = np.array([[1, 0, 1], [0, 1, 1], [1, 1, 0]])
     >>> mutual_coherence(matrix_B)
-    1/2
+    0.5
 
     References
     ==========

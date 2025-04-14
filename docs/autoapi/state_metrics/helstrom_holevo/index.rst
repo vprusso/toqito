@@ -1,0 +1,78 @@
+state_metrics.helstrom_holevo
+=============================
+
+.. py:module:: state_metrics.helstrom_holevo
+
+.. autoapi-nested-parse::
+
+   Helstrom-Holevo metric gives the bst success probability to distinguish two mixed states.
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   state_metrics.helstrom_holevo.helstrom_holevo
+
+
+Module Contents
+---------------
+
+.. py:function:: helstrom_holevo(rho, sigma)
+
+   Compute the Helstrom-Holevo distance between density matrices :cite:`WikiHolevo`.
+
+   In general, the best success probability to discriminate two mixed states represented by
+   :math:`\rho` and :math:`\sigma` is given by :cite:`WikiHolevo`.
+
+   .. math::
+        \frac{1}{2}+\frac{1}{2} \left(\frac{1}{2} \left|\rho - \sigma \right|_1\right).
+
+   .. rubric:: Examples
+
+   Consider the following Bell state
+
+   .. math::
+       u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \in \mathcal{X}.
+
+   The corresponding density matrix of :math:`u` may be calculated by:
+
+   .. math::
+       \rho = u u^* = \begin{pmatrix}
+                        1 & 0 & 0 & 1 \\
+                        0 & 0 & 0 & 0 \\
+                        0 & 0 & 0 & 0 \\
+                        1 & 0 & 0 & 1
+                      \end{pmatrix} \in \text{D}(\mathcal{X}).
+
+   Calculating the Helstrom-Holevo distance of states that are identical yield a value of
+   :math:`1/2`. This can be verified in :code:`|toqito⟩` as follows.
+
+   >>> from toqito.states import basis
+   >>> from toqito.state_metrics import helstrom_holevo
+   >>> import numpy as np
+   >>> e_0, e_1 = basis(2, 0), basis(2, 1)
+   >>> e_00 = np.kron(e_0, e_0)
+   >>> e_11 = np.kron(e_1, e_1)
+   >>>
+   >>> u_vec = 1 / np.sqrt(2) * (e_00 + e_11)
+   >>> rho = u_vec @ u_vec.conj().T
+   >>> sigma = rho
+   >>>
+   >>> helstrom_holevo(rho, sigma)
+   np.float64(0.5)
+
+   .. rubric:: References
+
+   .. bibliography::
+       :filter: docname in docnames
+
+   :raises ValueError: If matrices are not density operators.
+   :param rho: Density operator.
+   :param sigma: Density operator.
+   :return: The Helstrom-Holevo distance between :code:`rho` and :code:`sigma`.
+
+
+

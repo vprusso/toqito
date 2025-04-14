@@ -1,0 +1,58 @@
+state_props.is_mixed
+====================
+
+.. py:module:: state_props.is_mixed
+
+.. autoapi-nested-parse::
+
+   Checks if a quantum state is mixed.
+
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   state_props.is_mixed.is_mixed
+
+
+Module Contents
+---------------
+
+.. py:function:: is_mixed(state)
+
+   Determine if a given quantum state is mixed :cite:`WikiMixedSt`.
+
+   A mixed state by definition is a state that is not pure.
+
+   .. rubric:: Examples
+
+   Consider the following density matrix:
+
+   .. math::
+       \rho =  \begin{pmatrix}
+                   \frac{3}{4} & 0 \\
+                   0 & \frac{1}{4}
+               \end{pmatrix} \in \text{D}(\mathcal{X}).
+
+   Calculating the rank of :math:`\rho` yields that the :math:`\rho` is a mixed state. This can be
+   confirmed in :code:`|toqito⟩` as follows:
+
+   >>> from toqito.states import basis
+   >>> from toqito.state_props import is_mixed
+   >>> e_0, e_1 = basis(2, 0), basis(2, 1)
+   >>> rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T
+   >>> is_mixed(rho)
+   True
+
+   .. rubric:: References
+
+   .. bibliography::
+       :filter: docname in docnames
+
+   :param state: The density matrix representing the quantum state.
+   :return: :code:`True` if state is mixed and :code:`False` otherwise.
+
+
+
