@@ -24,7 +24,7 @@ def comparison(mat: np.ndarray) -> np.ndarray:
     .. jupyter-execute::
 
         import numpy as np
-        from matrices import comparison
+        from toqito.matrices import comparison
         A = np.array([[2, -1],
                     [3, 4]])
         print(comparison(A))
