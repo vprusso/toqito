@@ -9,7 +9,7 @@ from toqito.matrix_props.mutual_coherence import mutual_coherence
 @pytest.mark.parametrize(
     "matrix, expected_coherence",
     [
-        # Test case 1: Identity matrix (mutual coherence should be 0).
+        # Identity matrix (mutual coherence should be 0).
         (np.eye(3), 0),
         # Test case 2: Matrix with repeated columns (mutual coherence should be 1).
         (np.array([[1, 1], [0, 0]]), 1),
