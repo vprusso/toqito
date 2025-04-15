@@ -23,10 +23,10 @@ def comparison(mat: np.ndarray) -> np.ndarray:
 
     .. jupyter-execute::
         import numpy as np
-        from matrices import comparison_matrix
+        from matrices import comparison
         A = np.array([[2, -1],
                     [3, 4]])
-        print(comparison_matrix(A))
+        print(comparison(A))
 
     References
     ==========
