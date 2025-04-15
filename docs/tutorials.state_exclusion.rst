@@ -208,7 +208,7 @@ antidistinguishable, but we also get a set of optimal measurement operators. The
 measurements we explicitly constructed earlier.
 
 
-Antidistinguishability and $(n-1)$-incoherence
+Antidistinguishability and :math:`(n-1)`-incoherence
 ----------------------------------------------
 
 Antidistinguishability of a set of pure states is equivalent to a certain notion from the theory of quantum resources
