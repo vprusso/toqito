@@ -7,3 +7,4 @@ from toqito.channel_ops.kraus_to_choi import kraus_to_choi
 from toqito.channel_ops.dual_channel import dual_channel
 from toqito.channel_ops.complementary_channel import complementary_channel
 from toqito.channel_ops.natural_representation import natural_representation
+from toqito.channel_ops.kraus_to_channel import kraus_to_channel
