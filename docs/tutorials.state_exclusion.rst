@@ -227,7 +227,7 @@ It turns out that antidistinguishability is equivalent to :math:`k`-incoherence 
 Reproducing one of the results from :cite:`Johnston_2025_Tight`, we have that
 
 **Theorem**: Let :math:`n \geq 2`be an integer and let :math:`S = \{|\phi_0\rangle, |\phi_1\rangle, \ldots, |\phi_{n-1}\rangle\}`.
-Then :math:`S` is antidistinguishable if and only if the Gram matrix
+Then :math:`S` is antidistinguishable if and only if the Gram matrix :math:`G` is :math:`(n-1)`-incoherent.
 
 .. math::
     G =
