@@ -14,7 +14,7 @@ from toqito.matrix_props.mutual_coherence import mutual_coherence
         # Test case 2: Matrix with repeated columns (mutual coherence should be 1).
         (np.array([[1, 1], [0, 0]]), 1),
         # Test case 3:
-        (np.array([[1, 0], [1, 1]]), 0.7071067811865475),  # sqrt(2)/2
+        (np.array([[1, 0], [1, 1]]), 1/np.sqrt(2)),
         # Test case 4:
         (np.array([[1, 0, 1], [0, 1, 1], [1, 1, 0]]), 1 / 2),
     ],
