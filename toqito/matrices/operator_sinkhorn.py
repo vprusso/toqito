@@ -14,7 +14,7 @@ def operator_sinkhorn(
 ) -> tuple[np.ndarray, list[np.ndarray]]:
     r"""Perform operator Sinkhorn iteration (iterative sinkhorn algorithm) on a quantum system's density matrix.
 
-    This function relies on Sinkhorn's theorem :cite:`Sinkhorn_Theorem` which states "for any positive-definite square
+    This function relies on Sinkhorn's theorem :cite:`Sinkhorn_1964_ARelationship` which states "for any positive-definite square
     matrix, there exist diagonal matrices :math:`D_1` and :math:`D_2` such that :math:`D_1 \, \cdot A \, \cdot D_2` is
     doubly stochastic.
 
@@ -26,7 +26,7 @@ def operator_sinkhorn(
     multipartite density matrix `rho` (:math:`\rho`), but having maximally mixed subsystems. The algorithm will also
     return the list of Filtering Operations which can be directly applied on :math:`\rho` to arrive at :math:`\sigma`.
     Such converted forms of density matrices are useful to analyse entangled systems and to study effects of operations
-    on each subsystems. (as discussed in :cite:`GURVITS2004448`)
+    on each subsystems. (as discussed in :cite:`Gurvits_2004_Classical`)
 
     Examples
     ==========
