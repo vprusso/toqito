@@ -67,6 +67,8 @@ from toqito.matrix_props import is_absolutely_k_incoherent
         # For n = 4 and k = 3, if lmax is below the cutoff (0.75), then the SDP is executed and (assuming feasibility)
         # returns True.
         (np.diag([0.7, 0.15, 0.15, 0]), 3, True),
+        # k <= 0 raise ValueError.
+        (np.diag([0.8, 0.1, 0.1, 0]), 0, False),
         (np.diag([0.34, 0.22, 0.22, 0.22]), 2, True),
         (np.diag([0.9, 0.05, 0.05]), 2, False),
         (np.diag([0.7, 0.15, 0.15, 0]), 3, True),
