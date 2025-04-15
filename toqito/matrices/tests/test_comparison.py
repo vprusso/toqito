@@ -29,7 +29,7 @@ from matrices.comparison import comparison
 )
 def test_comparison_matrix(mat, expected):
     """Test that the correct comparison matrix is generated."""
-    np.testing.assert_array_almost_equal(comparison(mat), expected)
+    np.testing.assert_allclose(comparison(mat), expected)
 
 
 def test_non_square_matrix():
