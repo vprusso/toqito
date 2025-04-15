@@ -12,11 +12,20 @@ from toqito.matrix_props.is_square import is_square
 def operator_sinkhorn(
     rho: np.ndarray, dim: list[int] = None, tol: float = np.sqrt(np.finfo(float).eps), max_iterations: int = 10000
 ) -> tuple[np.ndarray, list[np.ndarray]]:
-    r"""Perform the operator Sinkhorn iteration.
+    r"""Performs the operator Sinkhorn iteration (iterative sinkhorn algorithm) on a quantum system's 
+    density matrix to arrive at its form where all of its reduced (local) states are maximally mixed.
 
-    This function implements the iterative Sinkhorn algorithm to find a density matrix
-    that is locally equivalent to a given bipartite or multipartite density matrix
-    `rho`, but has both of its partial traces proportional to the identity.
+    This function relies on Sinkhorn's theorem :cite:`Sinkhorn_Theorem` which states "for any positive-definite square matrix, 
+    there exist diagonal matrices :math:`D_1` and :math:`D_2` such that :math:`D_1 \, \cdot A \, \cdot D_2` is doubly stochastic.
+
+    The iterative Sinkhorn algorithm alternately rescales the input density matrix of the quantum system along each subsystem 
+    so that its marginals become uniform (i.e., partial traces or row/column sums become proportional to identity), until convergence.
+    
+    Upon convergence we end up with a density matrix `sigma` (:math:`\sigma`), which is locally equivalent to the given 
+    multipartite density matrix `rho` (:math:`\rho`), but having maximally mixed subsystems. The algorithm will also return
+    the list of "Filtering Operations" which can be directly applied on :math:`\rho` to arrive at :math:`\sigma`. Such 
+    converted forms of density matrices are useful to analyse entangled systems and to study effects of operations on each subsystems.
+    (as discussed in :cite:`GURVITS2004448`)
 
     Examples
     ==========
@@ -44,10 +53,14 @@ def operator_sinkhorn(
     >>> sigma, F = operator_sinkhorn(rho=rho_random, dim=[2, 2])
 
     This returns the result density matrix along with the operations list F.
-    SIGMA has all of its (single-party) reduced density matrices
-    proportional to the identity, and SIGMA = Tensor(F)*RHO*Tensor(F)'. In
-    other words, F contains invertible local operations that demonstrate
-    that RHO and SIGMA are locally equivalent.
+    `sigma` (:math:`\sigma`) has all of its (single-party) reduced density matrices
+    proportional to the identity, while satisfying
+    
+    .. math:: 
+        \sigma \, = \, F \, \cdot \, \rho \, \cdot \, F^{\dagger}
+    
+    In other words, F contains invertible local operations that demonstrate
+    that `rho` and `sigma` are locally equivalent.
 
     >>> print(sigma)
     [[ 0.34784186+0.j          0.09278034+0.00551919j -0.02275152+0.05104798j
