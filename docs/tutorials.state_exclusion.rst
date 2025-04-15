@@ -238,7 +238,6 @@ Then :math:`S` is antidistinguishable if and only if the Gram matrix :math:`G` i
         \langle \phi_{n-1} | \phi_0 \rangle & \langle \phi_{n-1} | \phi_1 \rangle & \cdots & 1
     \end{pmatrix}
 
-is :math:`(n-1)`-incoherent.
 
 As an example, we can generate a random collection of quantum states, obtain the corresponding Gram matrix, and compute
 whether the set of states are antidistinguishable and :math:`(n-1)`-incoherent. 
