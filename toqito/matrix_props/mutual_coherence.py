@@ -55,7 +55,4 @@ def mutual_coherence(matrix: np.ndarray) -> float:
     # Set diagonal elements to zero (self-inner products)
     np.fill_diagonal(inner_products, 0)
 
-    # Calculate mutual coherence
-    mutual_coherence = inner_products.max()
-
-    return mutual_coherence
+    return inner_products.max()
