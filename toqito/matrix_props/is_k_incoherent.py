@@ -28,11 +28,18 @@ def is_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
     dephasing channel. If no decision is reached, the function recurses by checking incoherence for k-1.  Finally, if
     still indeterminate, an SDP is formulated to decide incoherence.
 
-    :param mat: Density matrix to test.
-    :param k: The positive integer coherence level.
-    :param tol: Tolerance for numerical comparisons (default is 1e-15).
-    :raises ValueError: If k ≤ 0 or if :code:`mat` is not square.
-    :return: True if :code:`mat` is k-incoherent, False otherwise.
+    Examples
+    =========
+    If :math:`n = 3` and :math:`k = 2`, then the following matrix is :math:`2`-incoherent:
+    
+    .. jupyter-execute::
+
+        import numpy as np
+        from toqito.matrix_props import is_k_incoherent
+        mat = np.array([[2, 1, 2],
+                    [1, 2, -1],
+                    [2, -1, 5]])
+        print(is_k_incoherent(mat, 2))
 
     See Also
     ========
@@ -43,6 +50,12 @@ def is_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
     ==========
     .. bibliography::
         :filter: docname in docnames
+
+    :param mat: Density matrix to test.
+    :param k: The positive integer coherence level.
+    :param tol: Tolerance for numerical comparisons (default is 1e-15).
+    :raises ValueError: If k ≤ 0 or if :code:`mat` is not square.
+    :return: True if :code:`mat` is k-incoherent, False otherwise.
 
     """
     if k <= 0:
