@@ -15,7 +15,7 @@ def is_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
     For a positive integer, :math:`k`, the matrix :math:`X \in \text{Pos}(\complex ^n)` is called :math:`k`-incoherent*
     if there exists a positive integer :math:`m`, a set  :math:`S = \{|\psi_0\rangle, |\psi_1\rangle,\ldots,
     |\psi_{m-1}\rangle\} \subset \complex ^n` with the property that each :math:`|\psi_i\rangle` has at most :math:`k`
-    non-zero entries, and real scalars :math:`c_0, c_1, \ldots, c_{m-1} \geq 0` for which 
+    non-zero entries, and real scalars :math:`c_0, c_1, \ldots, c_{m-1} \geq 0` for which
 
     .. math::
         X = \sum_{j=0}^{m-1} c_j |psi_j\rangle \langle \psi_j|.
@@ -31,7 +31,6 @@ def is_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
     Examples
     =========
     If :math:`n = 3` and :math:`k = 2`, then the following matrix is :math:`2`-incoherent:
-    
     .. jupyter-execute::
 
         import numpy as np
