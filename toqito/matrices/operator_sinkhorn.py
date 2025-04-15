@@ -21,7 +21,7 @@ def operator_sinkhorn(
     Examples
     ==========
 
-    To Perform Operator Sinkhorn on a random 2-Qubit Bi-partite state:
+    To Perform Operator Sinkhorn on a random 2-Qubit Bipartite state:
 
     >>> import numpy as np
     >>> from toqito.matrices import operator_sinkhorn
