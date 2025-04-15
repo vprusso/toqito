@@ -15,7 +15,7 @@ def mutual_coherence(matrix: np.ndarray) -> float:
     a list of 1D numpy arrays is also accepted as input.
 
     Examples
-    ==========
+    =======
     >>> import numpy as np
     >>> from toqito.matrix_props.mutual_coherence import mutual_coherence
     >>> matrix_A = np.array([[1, 0], [0, 1]])
