@@ -4,7 +4,6 @@ import cvxpy as cp
 import numpy as np
 import pytest
 
-from toqito.matrices import comparison
 from toqito.matrix_props import is_k_incoherent
 
 

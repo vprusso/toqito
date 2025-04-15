@@ -45,6 +45,8 @@ def is_absolutely_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> b
     :return: True if the quantum state is absolutely k-incoherent, False otherwise.
 
     """
+    if k <= 0:
+        raise ValueError("k must be a positive integer.")
     if not is_square(mat):
         raise ValueError("Input matrix must be square.")
 
