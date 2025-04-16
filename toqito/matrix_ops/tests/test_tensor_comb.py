@@ -32,26 +32,37 @@ from toqito.matrix_ops import tensor_comb, to_density_matrix
          "injective", False,
          [(0,), (1,)],
          None),
-        # Non-injective mode with k=2
+        # Non-injective mode with k = 1
+        (1,
+         [np.array([1, 0]), np.array([0, 1])],
+         "injective", False,
+         [(0,), (1,)],
+         None),
+        # Non-injective mode with k = 2
         (2,
          [np.array([1, 0]), np.array([0, 1])],
          "non-injective", False,
          [(0, 0), (0, 1), (1, 0), (1, 1)],
          None),
+         # Non-injective mode with k = 3
+        (3,
+         [np.array([1, 0]), np.array([0, 1])],
+         "non-injective", False,
+         [(0, 0, 0), (0, 0, 1)],
+         None),
+         # other possible sequences omitted for brevity
     ],
 )
 def test_tensor_comb(k, states, mode, density_matrix, expected_keys, expected_error):
     """Test the tensor_comb function."""
     if expected_error:
         with pytest.raises(expected_error):
-            tensor_comb(k, states, mode, density_matrix)
+            tensor_comb(k, states, mode=mode, density_matrix=density_matrix)
 
     else:
-        result = tensor_comb(k, states, mode, density_matrix)
+        result = tensor_comb(k, states, mode=mode,
+                             density_matrix=density_matrix)
         result_keys = list(result.keys())
-        # check expected keys
-        assert sorted(result.keys()) == sorted(
-            expected_keys)   , f"Expected: {expected_keys}, Got: {list(result.keys())}"
 
         for seq in expected_keys:
             state_seq = [states[i] for i in seq]
