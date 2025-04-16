@@ -14,9 +14,9 @@ def operator_sinkhorn(
 ) -> tuple[np.ndarray, list[np.ndarray]]:
     r"""Perform operator Sinkhorn iteration (iterative sinkhorn algorithm) on a quantum system's density matrix.
 
-    This function relies on Sinkhorn's theorem :cite:`Sinkhorn_1964_ARelationship` which states "for any positive-definite square
-    matrix, there exist diagonal matrices :math:`D_1` and :math:`D_2` such that :math:`D_1 \, \cdot A \, \cdot D_2` is
-    doubly stochastic.
+    This function relies on Sinkhorn's theorem :cite:`Sinkhorn_1964_ARelationship` which states "for any
+    positive-definite square matrix, there exist diagonal matrices :math:`D_1` and :math:`D_2` such that
+    :math:`D_1 \, \cdot A \, \cdot D_2` is doubly stochastic.
 
     The iterative Sinkhorn algorithm alternately rescales the input density matrix of the quantum system along each
     subsystem so that its marginals become uniform (i.e., partial traces or row/column sums become proportional to
