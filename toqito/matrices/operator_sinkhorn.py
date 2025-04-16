@@ -10,9 +10,11 @@ from toqito.matrix_props.is_square import is_square
 
 
 def operator_sinkhorn(
-    rho: np.ndarray, dim: list[int] = None, tol: float = np.sqrt(np.finfo(float).eps), max_iterations: int = 10000
+    rho: np.ndarray, dim: list[int] = None, tol: float = np.sqrt(np.finfo(float).eps), max_iterations: int = 10_000
 ) -> tuple[np.ndarray, list[np.ndarray]]:
     r"""Perform operator Sinkhorn iteration (iterative sinkhorn algorithm) on a quantum system's density matrix.
+
+    This function is adapted from QETLAB. :cite:`QETLAB_link`.
 
     This function relies on Sinkhorn's theorem :cite:`Sinkhorn_1964_ARelationship` which states "for any
     positive-definite square matrix, there exist diagonal matrices :math:`D_1` and :math:`D_2` such that
@@ -31,15 +33,13 @@ def operator_sinkhorn(
     Examples
     ==========
 
-    To Perform Operator Sinkhorn on a random 2-Qubit Bipartite state:
+    To obtain the Sinkhorn operator of a random 2-qubit bipartite state:
 
     >>> import numpy as np
     >>> from toqito.matrices import operator_sinkhorn
     >>> from toqito.rand import random_density_matrix
 
     >>> rho_random = random_density_matrix(4, seed=42)
-
-    returns a random 4x4 complex matrix like this
 
     >>> print(rho_random)
     [[0.23434155+0.j         0.20535572-0.04701708j 0.11523158-0.02017518j
