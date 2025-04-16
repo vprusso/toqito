@@ -45,7 +45,7 @@ def operator_sinkhorn(
         print(rho_random)
 
     :code:`operator_sinkhorn` returns the result density matrix along with the operations list :code:`F`.
-    :code:`sigma` (:math:`\sigma`) has all of its (single-party) reduced density matrices proportional 
+    :code:`sigma` (:math:`\sigma`) has all of its (single-party) reduced density matrices proportional
     to the identity, while satisfying
 
     .. math::

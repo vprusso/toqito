@@ -34,27 +34,15 @@ def test_operator_sinkhorn_trace_property():
 
 
 # Test partial traces for bipartites and tripartites systems
-
-"""Test operator Sinkhorn partial trace on a bipartite system."""
-# Generate a random density matrix for a 3 qubit x 3qubit system (9-dimensional).
-rho_bi = random_density_matrix(9)
-dim_bi = [3, 3]
-expected_identity_bi = np.eye(3) * (1 / 3)
-subsystem_bi = 0  # first subsystem only
-
-"""Test operator Sinkhorn partial trace on a tripartite system."""
-rho_tri = random_density_matrix(8)
-dim_tri = [2, 2, 2]
-expected_identity_tri = np.eye(2) * (1 / 2)
-subsystem_tri = [0, 2]
-
-params0 = [
-    ([rho_bi, dim_bi], [expected_identity_bi, subsystem_bi]),
-    ([rho_tri, dim_tri], [expected_identity_tri, subsystem_tri]),
-]
-
-
-@pytest.mark.parametrize("test_input,expected", params0)
+@pytest.mark.parametrize(
+    "test_input, expected",
+    [
+        # random bipartite system with (3x3 qubit, 9 dimensional)
+        ([random_density_matrix(9), [3, 3]], [np.eye(3) * (1 / 3), 0]),
+        # # random tripartite system with (2x2x2 qubit, 8 dimensional)
+        ([random_density_matrix(8), [2, 2, 2]], [np.eye(2) * (1 / 2), [0, 2]]),
+    ],
+)
 def test_operator_sinkhorn_partial_trace(test_input, expected):
     """Test partial traces for bipartites and tripartites systems."""
     rho1, dim1 = test_input
@@ -72,46 +60,34 @@ def test_operator_sinkhorn_partial_trace(test_input, expected):
 
 
 # Test Error handling in different scenarios
-
-"""Test operator Sinkhorn with a singular matrix that triggers LinAlgError."""
-rho_singular = np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]])  # This matrix is singular
-dim_singular = [2, 2]
-expected_msg_singular = (
-    "The operator Sinkhorn iteration does not converge for rho. This is often the case if rho is not of full rank."
+@pytest.mark.parametrize(
+    "test_input,expected_msg",
+    [
+        # singular matrix
+        (
+            [np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]), [2, 2]],
+            (
+                "The operator Sinkhorn iteration does not converge for rho. "
+                "This is often the case if rho is not of full rank."
+            ),
+        ),
+        # invalid single dim
+        (
+            [random_density_matrix(8), [3]],
+            (
+                "If dim is of size 1, rho must be square and dim[0] must evenly divide rho.shape[0]; "
+                "please provide the dim array containing the dimensions of the subsystems."
+            ),
+        ),
+        # invalid dim array - when product of the dim array != density matrix dims.
+        (
+            [random_density_matrix(8), [4, 3, 2]],  # Since 4*3*2 != 8.
+            "Product of dimensions [4, 3, 2] does not match rho dimension 8.",
+        ),
+        # non square matrix input
+        ([np.random.rand(4, 5), [2, 2]], "Input 'rho' must be a square matrix."),
+    ],
 )
-
-"""Test operator Sinkhorn when a single number is passed as `dim` and it is invalid."""
-rho_invalid_sdim = random_density_matrix(8)  # 8-dimensional density matrix
-# The dimension `3` does not divide evenly into `8`, so we expect an error
-dim_invalid_sdim = [3]
-expected_msg_invalid_sdim = (
-    "If dim is of size 1, rho must be square and dim[0] must evenly divide rho.shape[0]; "
-    "please provide the dim array containing the dimensions of the subsystems."
-)
-
-"""Test operator Sinkhorn when product of the dim array does not match the density matrix dims."""
-rho_invalid_dimarr = random_density_matrix(8)
-# 4*3*2 != 8. So dim array should not match
-dim_invalid_dimarr = [4, 3, 2]
-expected_msg_invalid_dimarr = " ".join(
-    (f"Product of dimensions {dim_invalid_dimarr}", f"does not match rho dimension {rho_invalid_dimarr.shape[0]}.")
-)
-
-"""Test operator sinkhorn on non-square input matrix."""
-rho_nonsquare = np.random.rand(4, 5)
-dim_nonsquare = [2, 2]
-expected_msg_nonsquare = "Input 'rho' must be a square matrix."
-
-
-params1 = [
-    ([rho_singular, dim_singular], expected_msg_singular),  # singular matrix
-    ([rho_invalid_sdim, dim_invalid_sdim], expected_msg_invalid_sdim),  # invalid single dim
-    ([rho_invalid_dimarr, dim_invalid_dimarr], expected_msg_invalid_dimarr),  # invalid dim array
-    ([rho_nonsquare, dim_nonsquare], expected_msg_nonsquare),  # non square matrix input
-]
-
-
-@pytest.mark.parametrize("test_input,expected_msg", params1)
 def test_operator_sinkhorn_errors(test_input, expected_msg):
     """Test Error handling in different scenarios."""
     # unpack test inputs
@@ -125,7 +101,6 @@ def test_operator_sinkhorn_errors(test_input, expected_msg):
 
 def test_operator_sinkhorn_max_iterations():
     """Test operator sinkhorn on insufficient iteration limit."""
-
     rho_random = random_density_matrix(4, seed=42)
     try:
         operator_sinkhorn(rho=rho_random, dim=[2, 2], max_iterations=20)
@@ -155,22 +130,15 @@ def test_operator_sinkhorn_near_zero_trace():
 
 
 # Test outputs on maximally mixed and entangled states
-
-"""Test operator Sinkhorn on a maximally mixed bipartite state. Result should be invariant."""
-rho_mixed = np.eye(9)  # Identity matrix is a max-mixed state
-# The dimension `3` divides evenly into `9`, so no error should occur
-dim_mixed = [3]
-
-"""Test operator Sinkhorn on a maximally entangled bipartite state. Should be invariant."""
-# function should return the inintial state since it already satisfies the trace property
-u0 = bell(0)
-rho_ent = u0 @ u0.conj().T
-dim_ent = [2]
-
-params2 = [([rho_mixed, dim_mixed]), ([rho_ent, dim_ent])]
-
-
-@pytest.mark.parametrize("test_input", params2)
+@pytest.mark.parametrize(
+    "test_input",
+    [
+        # maximally mixed state - should be invariant
+        ([np.eye(9), [3]]),
+        # maximally entangled state - should be invariant
+        ([(bell(0)) @ ((bell(0)).conj().T), [2]]),
+    ],
+)
 def test_operator_sinkhorn_mix_ent(test_input):
     """Test outputs on maximally mixed and entangled states."""
     rho1, dim1 = test_input
