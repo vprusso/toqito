@@ -77,7 +77,7 @@ def test_operator_sinkhorn_partial_trace(test_input, expected):
 rho_singular = np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]])  # This matrix is singular
 dim_singular = [2, 2]
 expected_msg_singular = (
-    "The operator Sinkhorn iteration does not converge for RHO. This is often the case if RHO is not of full rank."
+    "The operator Sinkhorn iteration does not converge for rho. This is often the case if rho is not of full rank."
 )
 
 """Test operator Sinkhorn when a single number is passed as `dim` and it is invalid."""
@@ -85,7 +85,7 @@ rho_invalid_sdim = random_density_matrix(8)  # 8-dimensional density matrix
 # The dimension `3` does not divide evenly into `8`, so we expect an error
 dim_invalid_sdim = [3]
 expected_msg_invalid_sdim = (
-    "If dim is of size 1, rho must be square and dim[0] must evenly divide length(rho); "
+    "If dim is of size 1, rho must be square and dim[0] must evenly divide rho.shape[0]; "
     "please provide the dim array containing the dimensions of the subsystems."
 )
 
@@ -125,7 +125,6 @@ def test_operator_sinkhorn_errors(test_input, expected_msg):
 
 def test_operator_sinkhorn_max_iterations():
     """Test operator sinkhorn on insufficient iteration limit."""
-    # function should raise a RuntimeError
 
     rho_random = random_density_matrix(4, seed=42)
     try:

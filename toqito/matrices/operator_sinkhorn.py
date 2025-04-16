@@ -16,7 +16,7 @@ def operator_sinkhorn(
 
     This function is adapted from QETLAB. :cite:`QETLAB_link`.
 
-    This function relies on Sinkhorn's theorem :cite:`Sinkhorn_1964_ARelationship` which states "for any
+    This function relies on Sinkhorn's theorem :cite:`Sinkhorn_1964_Relationship` which states "for any
     positive-definite square matrix, there exist diagonal matrices :math:`D_1` and :math:`D_2` such that
     :math:`D_1 \, \cdot A \, \cdot D_2` is doubly stochastic.
 
@@ -33,57 +33,38 @@ def operator_sinkhorn(
     Examples
     ==========
 
-    To obtain the Sinkhorn operator of a random 2-qubit bipartite state:
+    To obtain a locally normalized density matrix of a random 2-qubit bipartite state using operator Sinkhorn:
 
-    >>> import numpy as np
-    >>> from toqito.matrices import operator_sinkhorn
-    >>> from toqito.rand import random_density_matrix
+    ..jupyter-execute::
+        import numpy as np
+        from toqito.matrices import operator_sinkhorn
+        from toqito.rand import random_density_matrix
 
-    >>> rho_random = random_density_matrix(4, seed=42)
+        rho_random = random_density_matrix(4, seed=42)
 
-    >>> print(rho_random)
-    [[0.23434155+0.j         0.20535572-0.04701708j 0.11523158-0.02017518j
-      0.18524981-0.13636277j]
-     [0.20535572+0.04701708j 0.2544268 +0.j         0.14478708-0.02004061j
-      0.22496295-0.11837381j]
-     [0.11523158+0.02017518j 0.14478708+0.02004061j 0.11824612+0.j
-      0.09088248-0.05551508j]
-     [0.18524981+0.13636277j 0.22496295+0.11837381j 0.09088248+0.05551508j
-      0.39298553+0.j        ]]
+        print(rho_random)
 
-    >>> sigma, F = operator_sinkhorn(rho=rho_random, dim=[2, 2])
-
-    This returns the result density matrix along with the operations list F.
-    `sigma` (:math:`\sigma`) has all of its (single-party) reduced density matrices
-    proportional to the identity, while satisfying
+    :code:`operator_sinkhorn` returns the result density matrix along with the operations list :code:`F`.
+    :code:`sigma` (:math:`\sigma`) has all of its (single-party) reduced density matrices proportional 
+    to the identity, while satisfying
 
     .. math::
         \sigma \, = \, F \, \cdot \, \rho \, \cdot \, F^{\dagger}
 
     In other words, F contains invertible local operations that demonstrate
-    that `rho` and `sigma` are locally equivalent.
+    that :code:`rho` and :code:`sigma` are locally equivalent.
 
-    >>> print(sigma)
-    [[ 0.34784186+0.j          0.09278034+0.00551919j -0.02275152+0.05104798j
-       0.20443565-0.12511156j]
-     [ 0.09278034-0.00551919j  0.15215814+0.j          0.1039554 -0.0350973j
-       0.02275152-0.05104798j]
-     [-0.02275152-0.05104798j  0.1039554 +0.0350973j   0.15215814+0.j
-      -0.09278034-0.00551919j]
-     [ 0.20443565+0.12511156j  0.02275152+0.05104798j -0.09278034+0.00551919j
-       0.34784186+0.j        ]]
+    ..jupyter-execute::
+        sigma, F = operator_sinkhorn(rho=rho_random, dim=[2, 2])
 
-    >>> print(len(F))
-    2
+        print(sigma)
+
+        print(len(F))
 
     F here will be the list of 2 local filtering operators, which are
 
-    >>> print(F[0])
-    [[ 1.33132101+0.00313432j -0.38927801+0.14985847j]
-     [-0.37199021-0.14296461j  1.24635929-0.00300407j]]
-    >>> print(F[1])
-    [[ 1.16317427+0.00765735j -0.16925696+0.09054309j]
-     [-0.18974418-0.09028502j  0.93359381-0.00777829j]]
+    ..jupyter-execute::
+        print(F[0])
 
     References
     ==========
@@ -102,7 +83,7 @@ def operator_sinkhorn(
     :raises: ValueError: if the density matrix provided is singular (or is not of full rank).
 
     """
-    # Run checks on the input density matrix
+    # Run checks on the input density matrix.
     rho = np.asarray(rho)
     if not is_square(rho):
         raise ValueError("Input 'rho' must be a square matrix.")
@@ -112,24 +93,24 @@ def operator_sinkhorn(
     dX = rho.shape[0]
     sdX = int(round(np.sqrt(dX)))
 
-    # set optional argument defaults: dim=sqrt(length(rho)), tol=sqrt(eps).
+    # set optional argument defaults: dim=sqrt(len(rho)), tol=sqrt(eps).
     if dim is None:
         dim = [sdX, sdX]
 
-    # allow the user to enter a single number for dim.
+    # Allow the user to enter a single number for dim.
     if len(dim) == 1:
         dim.append(dX / dim[0])
 
         if abs(dim[1] - round(dim[1])) >= (2 * dX * np.finfo(float).eps):
             raise ValueError(
-                "If dim is of size 1, rho must be square and dim[0] must evenly divide length(rho); "
+                "If dim is of size 1, rho must be square and dim[0] must evenly divide rho.shape[0]; "
                 "please provide the dim array containing the dimensions of the subsystems."
             )
 
         dim[1] = round(dim[1])
 
     num_sys = len(dim)
-    # dimensions check before starting iterations
+    # Dimensions check before starting iterations
     if np.prod(dim) != dX:
         raise ValueError(f"Product of dimensions {dim} does not match rho dimension {dX}.")
 
@@ -189,8 +170,8 @@ def operator_sinkhorn(
         # Check the condition number to ensure invertibility.
         if (error_flag_in_iteration) or (max_cond >= 1 / tol) or (np.isinf(max_cond)):
             raise ValueError(
-                "The operator Sinkhorn iteration does not converge for RHO. "
-                "This is often the case if RHO is not of full rank."
+                "The operator Sinkhorn iteration does not converge for rho. "
+                "This is often the case if rho is not of full rank."
             )
 
         iterations += 1
