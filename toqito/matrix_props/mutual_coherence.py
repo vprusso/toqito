@@ -1,30 +1,27 @@
-"""Computes the mutual coherence of the columns of a matrix or a list of 1D numpy arrays."""
+"""Computes the mutual coherence for a list of 1D numpy arrays."""
 
 import numpy as np
 
 
-def mutual_coherence(matrix: np.ndarray) -> float:
-    r"""Calculate the mutual coherence of a set of states.
+def mutual_coherence(setofvecs: list[np.ndarray]) -> float:
+    r"""Calculate the mutual coherence of a set of vectors.
 
-    The mutual coherence of a matrix is defined as the maximum absolute value
-    of the inner product between any two distinct columns, divided
-    by the product of their norms. The mutual coherence is a measure of how
-    distinct the given columns are.
-
-    Note: As mutual coherence is also useful in the context of quantum states,
-    a list of 1D numpy arrays is also accepted as input.
+    The mutual coherence of a set of vectors is defined as the maximum absolute
+    value of the inner product between any two distinct vectors, divided by the
+    product of their norms :cite:WikiMutualCoh. It provides a measure of how
+    similar the vectors are to each other.
 
     Examples
     =======
     >>> import numpy as np
     >>> from toqito.matrix_props.mutual_coherence import mutual_coherence
-    >>> matrix_A = np.array([[1, 0], [0, 1]])
-    >>> mutual_coherence(matrix_A)
+    >>> example_A = [np.array([1, 0]), np.array([0, 1])]
+    >>> mutual_coherence(example_A)
     0.0
 
-    >>> # An example with a larger matrix
-    >>> matrix_B = np.array([[1, 0, 1], [0, 1, 1], [1, 1, 0]])
-    >>> mutual_coherence(matrix_B)
+    >>> # An example with a larger set of vectors
+    >>> example_B = [np.array([1, 0, 1]), np.array([0, 1, 1]), np.array([1, 1, 0])]
+    >>> mutual_coherence(example_B)
     0.5
 
     References
@@ -32,27 +29,27 @@ def mutual_coherence(matrix: np.ndarray) -> float:
     .. bibliography::
         :filter: docname in docnames
 
-    :param states: A 2D numpy array or a list of 1D
-            numpy arrays representing a set of states (list[np.ndarray] or np.ndarray).
+    :param states: A list of 1D numpy arrays.
     :raises isinstance: Check if input is valid.
     :return: The mutual coherence.
 
     """
-    # Check if the input is a valid numpy array or a list of 1D numpy arrays
-    if not isinstance(matrix, (np.ndarray, list)):
-        raise TypeError("Input must be a numpy array or a list of 1D numpy arrays.")
+    # Check if the input is a valid list of 1D numpy arrays.
+    if not isinstance(setofvecs, list):
+        raise TypeError("Input must be a list of 1D numpy arrays.")
+    if not all(isinstance(vec, np.ndarray) and vec.ndim == 1 for vec in setofvecs):
+        raise ValueError("All elements in the list must be 1D numpy arrays.")
 
-    # If input is a list of 1D arrays, convert it to a 2D numpy array
-    if isinstance(matrix, list):
-        matrix = np.column_stack(matrix)
+    # Convert input into a 2D numpy array.
+    setofvecs = np.column_stack(setofvecs).astype(float)
 
-    # Normalize the states
-    matrix = matrix / np.linalg.norm(matrix, axis=0)
+    # Normalize the the vectors.
+    setofvecs /= np.linalg.norm(setofvecs, axis=0)
 
-    # Calculate the inner product between all pairs of columns
-    inner_products = np.abs(np.conj(matrix.T) @ matrix)
+    # Calculate the inner product between all pairs of columns.
+    inner_products = np.abs(np.conj(setofvecs.T) @ setofvecs)
 
-    # Set diagonal elements to zero (self-inner products)
+    # Set diagonal elements to zero (only respecting distinct vectors).
     np.fill_diagonal(inner_products, 0)
 
     return inner_products.max()
