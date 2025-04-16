@@ -10,8 +10,8 @@ from toqito.matrix_ops import to_density_matrix
 def tensor_comb(
     k: int,
     states: list[np.ndarray],
-    mode: str = "non-injective", density_matrix: bool = True,
-    ) -> dict[tuple[int, ...], np.ndarray]:
+    mode: str = "injective", density_matrix: bool = True
+) -> dict[tuple[int, ...], np.ndarray]:
     r"""Generate all possible tensor product combinations of quantum states (vectors).
 
     This function creates a tensor product of quantum state vectors by generating all possible sequences of length `k`
@@ -68,20 +68,20 @@ def tensor_comb(
     :return: A dictionary where keys are tuples representing sequences of state indices,
         and values are density matrices of the tensor products of the corresponding
         state vectors or tensor products of the corresponding state vectors based on
-        input density_matrix = True / False.
+        input :code:`density_matrix` being either `True` or `False`.
 
     """
     if not states:
         raise ValueError("Input list of states cannot be empty.")
 
     if mode not in ("injective", "non-injective", "diagonal"):
-        raise ValueError("`mode` must be 'injective','non-injective', or 'diagonal'.")
+        raise ValueError(
+            "`mode` must be 'injective','non-injective', or 'diagonal'.")
 
     if mode == "injective" and k > len(states):
-        raise ValueError("""k must be less than or equal to the number of states for 
-injective sequences.""")
+        raise ValueError("k must be less than or equal to the number of states for injective sequences.")
 
-    # Generate sequences based on the selected mode
+    # Generate sequences based on the selected mode.
     match mode:
         case "injective":
             sequences = list(itertools.permutations(range(len(states)), k))
