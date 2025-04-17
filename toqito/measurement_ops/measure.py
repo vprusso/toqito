@@ -21,6 +21,7 @@ def measure(
     When a list of operators is provided, the function verifies that they satisfy the completeness relation
 
     .. math::
+      :label: completeness_rel_equation
        \sum_i K_i^\dagger K_i = \mathbb{I},
 
     when `update` is True. Then, for each operator :math:`K_i`, the outcome probability is computed as
