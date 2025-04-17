@@ -79,7 +79,7 @@ def measure(
                    probabilities are returned.
     :raises ValueError: If a list of operators does not satisfy the completeness relation.
     :return: If a single operator is provided, returns a float (probability) or a tuple (probability, post_state)
-             if `update` is True. If a list is provided, returns a list of probabilities or a list of tuples if
+             if ``update`` is True. If a list is provided, returns a list of probabilities or a list of tuples if
              `update` is True.
 
     """
