@@ -18,7 +18,7 @@ def measure(
       - Returns the measurement outcome probability if ``update`` is False.
       - Returns a tuple (probability, post_state) if ``update`` is True.
 
-    When a list of operators is provided, the function verifies that they satisfy the completeness relation
+    When a list of operators is provided, the function verifies that they satisfy the completeness relation in  Eq. :ref:`completeness_rel_equation` when ``update`` is True. 
 
     .. math::
       :label: completeness_rel_equation
