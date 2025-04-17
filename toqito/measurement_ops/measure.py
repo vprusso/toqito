@@ -70,7 +70,7 @@ def measure(
         # Returns list of (probability, post_state) tuples.
         print(measure(rho, [K0, K1], update=True))
 
-    :param state: Quantum state as a density matrix (an np.ndarray with shape (d, d)).
+    :param state: Quantum state as a density matrix shape (d, d) where d is......
     :param measurement: Either a single measurement operator (an np.ndarray) or a list/tuple of operators.
                         When providing a list, they are assumed to be Kraus operators satisfying the completeness
                         relation.
