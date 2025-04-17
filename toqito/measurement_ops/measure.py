@@ -16,7 +16,7 @@ def measure(
 
     When a single operator is provided:
       - Returns the measurement outcome probability if ``update`` is False.
-      - Returns a tuple (probability, post_state) if `update` is True.
+      - Returns a tuple (probability, post_state) if ``update`` is True.
 
     When a list of operators is provided, the function verifies that they satisfy the completeness relation
 
