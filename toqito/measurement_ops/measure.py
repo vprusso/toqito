@@ -15,7 +15,7 @@ def measure(
     list of operators (assumed to be Kraus operators) describing a complete quantum measurement.
 
     When a single operator is provided:
-      - Returns the measurement outcome probability if `update` is False.
+      - Returns the measurement outcome probability if ``update`` is False.
       - Returns a tuple (probability, post_state) if `update` is True.
 
     When a list of operators is provided, the function verifies that they satisfy the completeness relation
