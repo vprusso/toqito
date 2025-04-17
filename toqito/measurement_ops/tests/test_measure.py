@@ -7,7 +7,7 @@ from toqito.measurement_ops.measure import measure
 
 
 @pytest.mark.parametrize(
-    "state, measurement, update, expected",
+    "state, measurement, state_update, expected",
     [
         # Single operator, no update.
         (
@@ -25,10 +25,10 @@ from toqito.measurement_ops.measure import measure
         ),
     ],
 )
-def test_measure_single_operator(state, measurement, update, expected):
+def test_measure_single_operator(state, measurement, state_update, expected):
     """Test cases for a single operator."""
-    result = measure(state, measurement, update=update)
-    if update:
+    result = measure(state, measurement, state_update=state_update)
+    if state_update:
         exp_prob, exp_post = expected
         res_prob, res_post = result
         assert np.isclose(res_prob, exp_prob, atol=1e-7)
@@ -38,7 +38,7 @@ def test_measure_single_operator(state, measurement, update, expected):
 
 
 @pytest.mark.parametrize(
-    "state, measurements, update, expected",
+    "state, measurements, state_update, expected",
     [
         # Multiple operators, no update.
         (
@@ -66,10 +66,10 @@ def test_measure_single_operator(state, measurement, update, expected):
         ),
     ],
 )
-def test_measure_multiple_operators(state, measurements, update, expected):
+def test_measure_multiple_operators(state, measurements, state_update, expected):
     """Test cases for multiple operators."""
-    result = measure(state, measurements, update=update)
-    if update:
+    result = measure(state, measurements, state_update=state_update)
+    if state_update:
         for (res_prob, res_post), (exp_prob, exp_post) in zip(result, expected):
             assert np.isclose(res_prob, exp_prob, atol=1e-7)
             np.testing.assert_allclose(res_post, exp_post, rtol=1e-7)
@@ -79,7 +79,7 @@ def test_measure_multiple_operators(state, measurements, update, expected):
 
 
 @pytest.mark.parametrize(
-    "state, measurement, update",
+    "state, measurement, state_update",
     [
         (
             np.array([[0.5, 0.5], [0.5, 0.5]]),
@@ -93,10 +93,10 @@ def test_measure_multiple_operators(state, measurements, update, expected):
         ),
     ],
 )
-def test_measure_zero_operator(state, measurement, update):
+def test_measure_zero_operator(state, measurement, state_update):
     """Test cases when the measurement operator yields zero probability."""
-    result = measure(state, measurement, update=update)
-    if update:
+    result = measure(state, measurement, state_update=state_update)
+    if state_update:
         prob, post_state = result
         assert np.isclose(prob, 0.0, atol=1e-7)
         np.testing.assert_allclose(post_state, np.zeros_like(state), rtol=1e-7)
@@ -105,7 +105,7 @@ def test_measure_zero_operator(state, measurement, update):
 
 
 @pytest.mark.parametrize(
-    "measurements, update, expected",
+    "measurements, state_update, expected",
     [
         # One zero‑operator and one projector; without update we only get probabilities
         (
@@ -124,12 +124,12 @@ def test_measure_zero_operator(state, measurement, update):
         ),
     ],
 )
-def test_measure_list_with_zero_operator(measurements, update, expected):
+def test_measure_list_with_zero_operator(measurements, state_update, expected):
     """Test cases when the measurement operator yields zero probability (with input as list)."""
     state = np.array([[0.5, 0.5], [0.5, 0.5]])
-    result = measure(state, measurements, update=update)
+    result = measure(state, measurements, state_update=state_update)
 
-    if update:
+    if state_update:
         # Expect a list of (prob, post_state) tuples.
         for (res_p, res_post), (exp_p, exp_post) in zip(result, expected):
             assert np.isclose(res_p, exp_p, atol=1e-7)
@@ -152,4 +152,4 @@ def test_measure_list_with_zero_operator(measurements, update, expected):
 def test_measure_completeness_failure(state, measurements):
     """Test that a list of operators that does not satisfy the completeness relation raises ValueError."""
     with pytest.raises(ValueError, match="Kraus operators do not satisfy completeness relation"):
-        measure(state, measurements, update=True)
+        measure(state, measurements, state_update=True)
