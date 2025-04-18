@@ -14,6 +14,6 @@ and use the XORGame function.
 
 import numpy as np
 
-r  = np.array([[1, 0], [0, 1]])
-r  = np.kron(r, r)
+r = np.array([[1, 0], [0, 1]])
+r = np.kron(r, r)
 print(r)
