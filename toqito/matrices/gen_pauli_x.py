@@ -35,11 +35,11 @@ def gen_pauli_x(dim: int) -> np.ndarray:
             0 & 1 & 0
         \end{pmatrix}
 
-    >>> from toqito.matrices import gen_pauli_x
-    >>> gen_pauli_x(3)
-    array([[0., 0., 1.],
-           [1., 0., 0.],
-           [0., 1., 0.]])
+    .. jupyter-execute::
+
+     from toqito.matrices import gen_pauli_x
+
+     gen_pauli_x(3)
 
     References
     ==========
