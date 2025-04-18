@@ -51,10 +51,11 @@ def test_epistemic_overlap_parametrized(states, expected_overlap):
     computed = common_epistemic_overlap(states)
     assert np.isclose(computed, expected_overlap, atol=1e-3)
 
+
 @pytest.mark.parametrize(
     "states, expected_overlap_uppeder_bound",
     [
-            # test cases based on the formula: epistemic overlap <= quantum overlap = 1 - 0.5 * tr|ρ₁ - ρ₂|
+        # test cases based on the formula: epistemic overlap <= quantum overlap = 1 - 0.5 * tr|ρ₁ - ρ₂|
         (
             # Two diagonal density matrices
             [
@@ -71,13 +72,13 @@ def test_epistemic_overlap_parametrized(states, expected_overlap):
             ],
             1,  # 0.5 * tr|ρ₁ - ρ₂| = 0 -> overlap = 1
         ),
-    ]
+    ],
 )
-
 def test_epistemic_overlap_inequality(states, expected_overlap_uppeder_bound):
     """Test that common_epistemic_overlap returns the expected upper bound."""
     computed = common_epistemic_overlap(states)
-    assert round(computed,4) <= expected_overlap_uppeder_bound
+    assert round(computed, 4) <= expected_overlap_uppeder_bound
+
 
 @pytest.mark.parametrize(
     "states, expected_msg",
