@@ -53,8 +53,7 @@ extensions = [
 sphinx_gallery_conf = {
     "examples_dirs": "../examples",  # Path to example scripts
     "gallery_dirs": "auto_examples",  # Output directory for generated example galleries
-    "filename_pattern": "/plot_",  # Regex to filter example files by name i.e those starting with 'plot_'
-    "run_stale_examples": True,  # Re-run examples that are outdated compared to source code
+    "filename_pattern": r".*\.py",  # Regex to filter example files by name i.e those starting with 'plot_'
 }
 
 bibtex_bibfiles = ["refs.bib"]
