@@ -55,7 +55,6 @@ sphinx_gallery_conf = {
     "gallery_dirs": "auto_examples",  # Output directory for generated example galleries
     "filename_pattern": "/plot_",  # Regex to filter example files by name i.e those starting with 'plot_'
     "run_stale_examples": True,  # Re-run examples that are outdated compared to source code
-    "remove_config_comments": True,  # Strip configuration comments from example scripts in the gallery
 }
 
 bibtex_bibfiles = ["refs.bib"]
