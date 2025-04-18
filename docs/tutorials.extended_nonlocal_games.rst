@@ -267,40 +267,40 @@ We can encode the BB84 game, :math:`G_{BB84} = (\pi, V)`, in :code:`numpy`
 arrays where :code:`prob_mat` corresponds to the probability distribution
 :math:`\pi` and where :code:`pred_mat` corresponds to the operator :math:`V`. 
 
-.. code-block:: python
+.. jupyter-execute::
     
-    >>> # Define the BB84 extended nonlocal game.
-    >>> import numpy as np
-    >>> from toqito.states import basis
-    >>>
-    >>> # The basis: {|0>, |1>}:
-    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
-    >>>
-    >>> # The basis: {|+>, |->}:
-    >>> e_p = (e_0 + e_1) / np.sqrt(2)
-    >>> e_m = (e_0 - e_1) / np.sqrt(2)
-    >>>
-    >>> # The dimension of referee's measurement operators:
-    >>> dim = 2
-    >>> # The number of outputs for Alice and Bob:
-    >>> a_out, b_out = 2, 2
-    >>> # The number of inputs for Alice and Bob:
-    >>> a_in, b_in = 2, 2
-    >>> 
-    >>> # Define the predicate matrix V(a,b|x,y) \in Pos(R)
-    >>> bb84_pred_mat = np.zeros([dim, dim, a_out, b_out, a_in, b_in])
-    >>>
-    >>> # V(0,0|0,0) = |0><0|
-    >>> bb84_pred_mat[:, :, 0, 0, 0, 0] = e_0 @ e_0.conj().T
-    >>> # V(1,1|0,0) = |1><1|
-    >>> bb84_pred_mat[:, :, 1, 1, 0, 0] = e_1 @ e_1.conj().T
-    >>> # V(0,0|1,1) = |+><+|
-    >>> bb84_pred_mat[:, :, 0, 0, 1, 1] = e_p @ e_p.conj().T
-    >>> # V(1,1|1,1) = |-><-|
-    >>> bb84_pred_mat[:, :, 1, 1, 1, 1] = e_m @ e_m.conj().T
-    >>>
-    >>> # The probability matrix encode \pi(0,0) = \pi(1,1) = 1/2
-    >>> bb84_prob_mat = 1/2*np.identity(2)
+     # Define the BB84 extended nonlocal game.
+     import numpy as np
+     from toqito.states import basis
+    
+     # The basis: {|0>, |1>}:
+     e_0, e_1 = basis(2, 0), basis(2, 1)
+    
+     # The basis: {|+>, |->}:
+     e_p = (e_0 + e_1) / np.sqrt(2)
+     e_m = (e_0 - e_1) / np.sqrt(2)
+    
+     # The dimension of referee's measurement operators:
+     dim = 2
+     # The number of outputs for Alice and Bob:
+     a_out, b_out = 2, 2
+     # The number of inputs for Alice and Bob:
+     a_in, b_in = 2, 2
+     
+     # Define the predicate matrix V(a,b|x,y) \in Pos(R)
+     bb84_pred_mat = np.zeros([dim, dim, a_out, b_out, a_in, b_in])
+    
+     # V(0,0|0,0) = |0><0|
+     bb84_pred_mat[:, :, 0, 0, 0, 0] = e_0 @ e_0.conj().T
+     # V(1,1|0,0) = |1><1|
+     bb84_pred_mat[:, :, 1, 1, 0, 0] = e_1 @ e_1.conj().T
+     # V(0,0|1,1) = |+><+|
+     bb84_pred_mat[:, :, 0, 0, 1, 1] = e_p @ e_p.conj().T
+     # V(1,1|1,1) = |-><-|
+     bb84_pred_mat[:, :, 1, 1, 1, 1] = e_m @ e_m.conj().T
+    
+     # The probability matrix encode \pi(0,0) = \pi(1,1) = 1/2
+     bb84_prob_mat = 1/2*np.identity(2)
 
 The unentangled value of the BB84 extended nonlocal game
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -312,35 +312,33 @@ It was shown in :cite:`Tomamichel_2013_AMonogamy` and :cite:`Johnston_2016_Exten
 
 This can be verified in :code:`|toqito⟩` as follows.
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> # Calculate the unentangled value of the BB84 extended nonlocal game.
-    >>> from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
-    >>> import numpy as np
-    >>> 
-    >>> # Define an ExtendedNonlocalGame object based on the BB84 game.
-    >>> bb84 = ExtendedNonlocalGame(bb84_prob_mat, bb84_pred_mat)
-    >>> 
-    >>> # The unentangled value is cos(pi/8)**2 \approx 0.85356
-    >>> np.around(bb84.unentangled_value(), decimals=2)
-    np.float64(0.85)
+     # Calculate the unentangled value of the BB84 extended nonlocal game.
+     from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
+     import numpy as np
+     
+     # Define an ExtendedNonlocalGame object based on the BB84 game.
+     bb84 = ExtendedNonlocalGame(bb84_prob_mat, bb84_pred_mat)
+     
+     # The unentangled value is cos(pi/8)**2 \approx 0.85356
+     print("The unentangled value is ", np.around(bb84.unentangled_value(), decimals=2))
 
 The BB84 game also exhibits strong parallel repetition. We can specify how many
 parallel repetitions for :code:`|toqito⟩` to run. The example below provides an
 example of two parallel repetitions for the BB84 game.
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> # The unentangled value of BB84 under parallel repetition.
-    >>> from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
-    >>> import numpy as np
-    >>> 
-    >>> # Define the bb84 game for two parallel repetitions.
-    >>> bb84_2_reps = ExtendedNonlocalGame(bb84_prob_mat, bb84_pred_mat, 2)
-    >>> 
-    >>> # The unentangled value for two parallel repetitions is cos(pi/8)**4 \approx 0.72855
-    >>> np.around(bb84_2_reps.unentangled_value(), decimals=2)
-    np.float64(0.73)
+     # The unentangled value of BB84 under parallel repetition.
+     from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
+     import numpy as np
+     
+     # Define the bb84 game for two parallel repetitions.
+     bb84_2_reps = ExtendedNonlocalGame(bb84_prob_mat, bb84_pred_mat, 2)
+     
+     # The unentangled value for two parallel repetitions is cos(pi/8)**4 \approx 0.72855
+     print("The unentangled value for two parallel repetitions is ",np.around(bb84_2_reps.unentangled_value(), decimals=2))
 
 It was shown in :cite:`Johnston_2016_Extended` that the BB84 game possesses the property of strong
 parallel repetition. That is,
@@ -356,18 +354,18 @@ The standard quantum value of the BB84 extended nonlocal game
 We can calculate lower bounds on the standard quantum value of the BB84 game
 using :code:`|toqito⟩` as well.
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> # Calculate lower bounds on the standard quantum value of the BB84 extended nonlocal game.
-    >>> from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
-    >>> import numpy as np
-    >>> 
-    >>> # Define an ExtendedNonlocalGame object based on the BB84 game.
-    >>> bb84_lb = ExtendedNonlocalGame(bb84_prob_mat, bb84_pred_mat)
-    >>> 
-    >>> # The standard quantum value is cos(pi/8)**2 \approx 0.85356
-    >>> np.around(bb84_lb.quantum_value_lower_bound(), decimals=2)
-    np.float64(0.85)
+     # Calculate lower bounds on the standard quantum value of the BB84 extended nonlocal game.
+     from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
+     import numpy as np
+     
+     # Define an ExtendedNonlocalGame object based on the BB84 game.
+     bb84_lb = ExtendedNonlocalGame(bb84_prob_mat, bb84_pred_mat)
+     
+     # The standard quantum value is cos(pi/8)**2 \approx 0.85356
+     print("The standard quantum value is ",np.around(bb84_lb.quantum_value_lower_bound(), decimals=2))
+
 
 From :cite:`Johnston_2016_Extended`, it is known that :math:`\omega(G_{BB84}) =
 \omega^*(G_{BB84})`, however, if we did not know this beforehand, we could
@@ -384,18 +382,17 @@ The non-signaling value of the BB84 extended nonlocal game
 
 Using :code:`|toqito⟩`, we can see that :math:`\omega_{ns}(G) = \cos^2(\pi/8)`.
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> # Calculate the non-signaling value of the BB84 extended nonlocal game.
-    >>> from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
-    >>> import numpy as np
-    >>> 
-    >>> # Define an ExtendedNonlocalGame object based on the BB84 game.
-    >>> bb84 = ExtendedNonlocalGame(bb84_prob_mat, bb84_pred_mat)
-    >>> 
-    >>> # The non-signaling value is cos(pi/8)**2 \approx 0.85356
-    >>> np.around(bb84.nonsignaling_value(), decimals=2)
-    np.float64(0.85)
+     # Calculate the non-signaling value of the BB84 extended nonlocal game.
+     from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
+     import numpy as np
+     
+     # Define an ExtendedNonlocalGame object based on the BB84 game.
+     bb84 = ExtendedNonlocalGame(bb84_prob_mat, bb84_pred_mat)
+     
+     # The non-signaling value is cos(pi/8)**2 \approx 0.85356
+     print("The non-signaling value is ",np.around(bb84.nonsignaling_value(), decimals=2))
 
 So we have the relationship that
 
@@ -406,18 +403,17 @@ It turns out that strong parallel repetition does *not* hold in the
 non-signaling scenario for the BB84 game. This was shown in :cite:`Russo_2017_Extended`, and we
 can observe this by the following snippet.
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> # The non-signaling value of BB84 under parallel repetition.
-    >>> from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
-    >>> import numpy as np
-    >>> 
-    >>> # Define the bb84 game for two parallel repetitions.
-    >>> bb84_2_reps = ExtendedNonlocalGame(bb84_prob_mat, bb84_pred_mat, 2)
-    >>> 
-    >>> # The non-signaling value for two parallel repetitions is cos(pi/8)**4 \approx 0.73825
-    >>> np.around(bb84_2_reps.nonsignaling_value(), decimals=2)
-    np.float64(0.74)
+     # The non-signaling value of BB84 under parallel repetition.
+     from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
+     import numpy as np
+     
+     # Define the bb84 game for two parallel repetitions.
+     bb84_2_reps = ExtendedNonlocalGame(bb84_prob_mat, bb84_pred_mat, 2)
+     
+     # The non-signaling value for two parallel repetitions is cos(pi/8)**4 \approx 0.73825
+     print("The non-signaling value for two parallel repetitions is ",np.around(bb84_2_reps.nonsignaling_value(), decimals=2))
 
 Note that :math:`0.73825 \geq \cos(\pi/8)^4 \approx 0.72855` and therefore we
 have that
@@ -476,39 +472,39 @@ CHSH nonlocal game.
 We can encode :math:`G_{CHSH}` in a similar way using :code:`numpy` arrays as
 we did for :math:`G_{BB84}`.
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> # Define the CHSH extended nonlocal game.
-    >>> import numpy as np
-    >>>
-    >>> # The dimension of referee's measurement operators:
-    >>> dim = 2
-    >>> # The number of outputs for Alice and Bob:
-    >>> a_out, b_out = 2, 2
-    >>> # The number of inputs for Alice and Bob:
-    >>> a_in, b_in = 2, 2
-    >>> 
-    >>> # Define the predicate matrix V(a,b|x,y) \in Pos(R)
-    >>> chsh_pred_mat = np.zeros([dim, dim, a_out, b_out, a_in, b_in])
-    >>>
-    >>> # V(0,0|0,0) = V(0,0|0,1) = V(0,0|1,0).
-    >>> chsh_pred_mat[:, :, 0, 0, 0, 0] = np.array([[1, 0], [0, 0]])
-    >>> chsh_pred_mat[:, :, 0, 0, 0, 1] = np.array([[1, 0], [0, 0]])
-    >>> chsh_pred_mat[:, :, 0, 0, 1, 0] = np.array([[1, 0], [0, 0]])
-    >>>
-    >>> # V(1,1|0,0) = V(1,1|0,1) = V(1,1|1,0).
-    >>> chsh_pred_mat[:, :, 1, 1, 0, 0] = np.array([[0, 0], [0, 1]])
-    >>> chsh_pred_mat[:, :, 1, 1, 0, 1] = np.array([[0, 0], [0, 1]])
-    >>> chsh_pred_mat[:, :, 1, 1, 1, 0] = np.array([[0, 0], [0, 1]])
-    >>>
-    >>> # V(0,1|1,1)
-    >>> chsh_pred_mat[:, :, 0, 1, 1, 1] = 1/2 * np.array([[1, 1], [1, 1]])
-    >>>
-    >>> # V(1,0|1,1)
-    >>> chsh_pred_mat[:, :, 1, 0, 1, 1] = 1/2 * np.array([[1, -1], [-1, 1]])
-    >>>
-    >>> # The probability matrix encode \pi(0,0) = \pi(0,1) = \pi(1,0) = \pi(1,1) = 1/4.
-    >>> chsh_prob_mat = np.array([[1/4, 1/4], [1/4, 1/4]])
+     # Define the CHSH extended nonlocal game.
+     import numpy as np
+    
+     # The dimension of referee's measurement operators:
+     dim = 2
+     # The number of outputs for Alice and Bob:
+     a_out, b_out = 2, 2
+     # The number of inputs for Alice and Bob:
+     a_in, b_in = 2, 2
+     
+     # Define the predicate matrix V(a,b|x,y) \in Pos(R)
+     chsh_pred_mat = np.zeros([dim, dim, a_out, b_out, a_in, b_in])
+    
+     # V(0,0|0,0) = V(0,0|0,1) = V(0,0|1,0).
+     chsh_pred_mat[:, :, 0, 0, 0, 0] = np.array([[1, 0], [0, 0]])
+     chsh_pred_mat[:, :, 0, 0, 0, 1] = np.array([[1, 0], [0, 0]])
+     chsh_pred_mat[:, :, 0, 0, 1, 0] = np.array([[1, 0], [0, 0]])
+    
+     # V(1,1|0,0) = V(1,1|0,1) = V(1,1|1,0).
+     chsh_pred_mat[:, :, 1, 1, 0, 0] = np.array([[0, 0], [0, 1]])
+     chsh_pred_mat[:, :, 1, 1, 0, 1] = np.array([[0, 0], [0, 1]])
+     chsh_pred_mat[:, :, 1, 1, 1, 0] = np.array([[0, 0], [0, 1]])
+    
+     # V(0,1|1,1)
+     chsh_pred_mat[:, :, 0, 1, 1, 1] = 1/2 * np.array([[1, 1], [1, 1]])
+    
+     # V(1,0|1,1)
+     chsh_pred_mat[:, :, 1, 0, 1, 1] = 1/2 * np.array([[1, -1], [-1, 1]])
+    
+     # The probability matrix encode \pi(0,0) = \pi(0,1) = \pi(1,0) = \pi(1,1) = 1/4.
+     chsh_prob_mat = np.array([[1/4, 1/4], [1/4, 1/4]])
 
 
 Example: The unentangled value of the CHSH extended nonlocal game
@@ -517,33 +513,31 @@ Example: The unentangled value of the CHSH extended nonlocal game
 Similar to what we did for the BB84 extended nonlocal game, we can also compute
 the unentangled value of :math:`G_{CHSH}`.
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> # Calculate the unentangled value of the CHSH extended nonlocal game
-    >>> from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
-    >>> import numpy as np
-    >>> 
-    >>> # Define an ExtendedNonlocalGame object based on the CHSH game.
-    >>> chsh = ExtendedNonlocalGame(chsh_prob_mat, chsh_pred_mat)
-    >>> 
-    >>> # The unentangled value is 3/4 = 0.75
-    >>> np.around(chsh.unentangled_value(), decimals=2)
-    np.float64(0.75)
+     # Calculate the unentangled value of the CHSH extended nonlocal game
+     from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
+     import numpy as np
+     
+     # Define an ExtendedNonlocalGame object based on the CHSH game.
+     chsh = ExtendedNonlocalGame(chsh_prob_mat, chsh_pred_mat)
+     
+     # The unentangled value is 3/4 = 0.75
+     print("The unentangled value is ",np.around(chsh.unentangled_value(), decimals=2))
 
 We can also run multiple repetitions of :math:`G_{CHSH}`.
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> # The unentangled value of CHSH under parallel repetition.
-    >>> from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
-    >>> import numpy as np
-    >>> 
-    >>> # Define the CHSH game for two parallel repetitions.
-    >>> chsh_2_reps = ExtendedNonlocalGame(chsh_prob_mat, chsh_pred_mat, 2)
-    >>> 
-    >>> # The unentangled value for two parallel repetitions is (3/4)**2 \approx 0.5625
-    >>> np.around(chsh_2_reps.unentangled_value(), decimals=2)
-    np.float64(0.56)
+     # The unentangled value of CHSH under parallel repetition.
+     from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
+     import numpy as np
+     
+     # Define the CHSH game for two parallel repetitions.
+     chsh_2_reps = ExtendedNonlocalGame(chsh_prob_mat, chsh_pred_mat, 2)
+     
+     # The unentangled value for two parallel repetitions is (3/4)**2 \approx 0.5625
+     print("The unentangled value for two parallel repetitions is ",np.around(chsh_2_reps.unentangled_value(), decimals=2))
 
 Note that strong parallel repetition holds as
 
@@ -556,18 +550,17 @@ Example: The non-signaling value of the CHSH extended nonlocal game
 To obtain an upper bound for :math:`G_{CHSH}`, we can calculate the
 non-signaling value.
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> # Calculate the non-signaling value of the CHSH extended nonlocal game.
-    >>> from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
-    >>> import numpy as np
-    >>> 
-    >>> # Define an ExtendedNonlocalGame object based on the CHSH game.
-    >>> chsh = ExtendedNonlocalGame(chsh_prob_mat, chsh_pred_mat)
-    >>> 
-    >>> # The non-signaling value is 3/4 = 0.75
-    >>> np.around(chsh.nonsignaling_value(), decimals=2)
-    np.float64(0.75)
+     # Calculate the non-signaling value of the CHSH extended nonlocal game.
+     from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
+     import numpy as np
+     
+     # Define an ExtendedNonlocalGame object based on the CHSH game.
+     chsh = ExtendedNonlocalGame(chsh_prob_mat, chsh_pred_mat)
+     
+     # The non-signaling value is 3/4 = 0.75
+     print("The non-signaling value is ",np.around(chsh.nonsignaling_value(), decimals=2))
 
 As we know that :math:`\omega(G_{CHSH}) = \omega_{ns}(G_{CHSH}) = 3/4` and that
 
@@ -633,64 +626,63 @@ each :math:`x \in \{0,1,2,3\}`.
 
 Taking the description of :math:`G_{MUB}`, we can encode this as follows.
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> # Define the monogamy-of-entanglement game defined by MUBs.
-    >>> prob_mat = 1 / 4 * np.identity(4)
-    >>>
-    >>> dim = 3
-    >>> e_0, e_1, e_2 = basis(dim, 0), basis(dim, 1), basis(dim, 2)
-    >>>
-    >>> eta = np.exp((2 * np.pi * 1j) / dim)
-    >>> mub_0 = [e_0, e_1, e_2]
-    >>> mub_1 = [
-    ...      (e_0 + e_1 + e_2) / np.sqrt(3),
-    ...      (e_0 + eta ** 2 * e_1 + eta * e_2) / np.sqrt(3),
-    ...     (e_0 + eta * e_1 + eta ** 2 * e_2) / np.sqrt(3),
-    ... ]
-    >>> mub_2 = [
-    ...      (e_0 + e_1 + eta * e_2) / np.sqrt(3),
-    ...      (e_0 + eta ** 2 * e_1 + eta ** 2 * e_2) / np.sqrt(3),
-    ...      (e_0 + eta * e_1 + e_2) / np.sqrt(3),
-    ... ]
-    >>> mub_3 = [
-    ...      (e_0 + e_1 + eta ** 2 * e_2) / np.sqrt(3),
-    ...      (e_0 + eta ** 2 * e_1 + e_2) / np.sqrt(3),
-    ...      (e_0 + eta * e_1 + eta * e_2) / np.sqrt(3),
-    ... ]
-    >>>
-    >>> # List of measurements defined from mutually unbiased basis.
-    >>> mubs = [mub_0, mub_1, mub_2, mub_3]
-    >>> 
-    >>> num_in = 4
-    >>> num_out = 3
-    >>> pred_mat = np.zeros([dim, dim, num_out, num_out, num_in, num_in], dtype=complex)
-    >>>
-    >>> pred_mat[:, :, 0, 0, 0, 0] = mubs[0][0] @ mubs[0][0].conj().T
-    >>> pred_mat[:, :, 1, 1, 0, 0] = mubs[0][1] @ mubs[0][1].conj().T
-    >>> pred_mat[:, :, 2, 2, 0, 0] = mubs[0][2] @ mubs[0][2].conj().T
-    >>>
-    >>> pred_mat[:, :, 0, 0, 1, 1] = mubs[1][0] @ mubs[1][0].conj().T
-    >>> pred_mat[:, :, 1, 1, 1, 1] = mubs[1][1] @ mubs[1][1].conj().T
-    >>> pred_mat[:, :, 2, 2, 1, 1] = mubs[1][2] @ mubs[1][2].conj().T
-    >>>
-    >>> pred_mat[:, :, 0, 0, 2, 2] = mubs[2][0] @ mubs[2][0].conj().T
-    >>> pred_mat[:, :, 1, 1, 2, 2] = mubs[2][1] @ mubs[2][1].conj().T
-    >>> pred_mat[:, :, 2, 2, 2, 2] = mubs[2][2] @ mubs[2][2].conj().T
-    >>>
-    >>> pred_mat[:, :, 0, 0, 3, 3] = mubs[3][0] @ mubs[3][0].conj().T
-    >>> pred_mat[:, :, 1, 1, 3, 3] = mubs[3][1] @ mubs[3][1].conj().T
-    >>> pred_mat[:, :, 2, 2, 3, 3] = mubs[3][2] @ mubs[3][2].conj().T
+     # Define the monogamy-of-entanglement game defined by MUBs.
+     prob_mat = 1 / 4 * np.identity(4)
+    
+     dim = 3
+     e_0, e_1, e_2 = basis(dim, 0), basis(dim, 1), basis(dim, 2)
+    
+     eta = np.exp((2 * np.pi * 1j) / dim)
+     mub_0 = [e_0, e_1, e_2]
+     mub_1 = [
+          (e_0 + e_1 + e_2) / np.sqrt(3),
+          (e_0 + eta ** 2 * e_1 + eta * e_2) / np.sqrt(3),
+          (e_0 + eta * e_1 + eta ** 2 * e_2) / np.sqrt(3),
+     ]
+     mub_2 = [
+          (e_0 + e_1 + eta * e_2) / np.sqrt(3),
+          (e_0 + eta ** 2 * e_1 + eta ** 2 * e_2) / np.sqrt(3),
+          (e_0 + eta * e_1 + e_2) / np.sqrt(3),
+     ]
+     mub_3 = [
+          (e_0 + e_1 + eta ** 2 * e_2) / np.sqrt(3),
+          (e_0 + eta ** 2 * e_1 + e_2) / np.sqrt(3),
+          (e_0 + eta * e_1 + eta * e_2) / np.sqrt(3),
+     ]
+    
+     # List of measurements defined from mutually unbiased basis.
+     mubs = [mub_0, mub_1, mub_2, mub_3]
+     
+     num_in = 4
+     num_out = 3
+     pred_mat = np.zeros([dim, dim, num_out, num_out, num_in, num_in], dtype=complex)
+    
+     pred_mat[:, :, 0, 0, 0, 0] = mubs[0][0] @ mubs[0][0].conj().T
+     pred_mat[:, :, 1, 1, 0, 0] = mubs[0][1] @ mubs[0][1].conj().T
+     pred_mat[:, :, 2, 2, 0, 0] = mubs[0][2] @ mubs[0][2].conj().T
+    
+     pred_mat[:, :, 0, 0, 1, 1] = mubs[1][0] @ mubs[1][0].conj().T
+     pred_mat[:, :, 1, 1, 1, 1] = mubs[1][1] @ mubs[1][1].conj().T
+     pred_mat[:, :, 2, 2, 1, 1] = mubs[1][2] @ mubs[1][2].conj().T
+    
+     pred_mat[:, :, 0, 0, 2, 2] = mubs[2][0] @ mubs[2][0].conj().T
+     pred_mat[:, :, 1, 1, 2, 2] = mubs[2][1] @ mubs[2][1].conj().T
+     pred_mat[:, :, 2, 2, 2, 2] = mubs[2][2] @ mubs[2][2].conj().T
+    
+     pred_mat[:, :, 0, 0, 3, 3] = mubs[3][0] @ mubs[3][0].conj().T
+     pred_mat[:, :, 1, 1, 3, 3] = mubs[3][1] @ mubs[3][1].conj().T
+     pred_mat[:, :, 2, 2, 3, 3] = mubs[3][2] @ mubs[3][2].conj().T
 
 Now that we have encoded :math:`G_{MUB}`, we can calculate the unentangled value.
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> import numpy as np
-    >>> g_mub = ExtendedNonlocalGame(prob_mat, pred_mat)
-    >>> unent_val = g_mub.unentangled_value()
-    >>> np.around(unent_val, decimals=2)
-    np.float64(0.65)
+     import numpy as np
+     g_mub = ExtendedNonlocalGame(prob_mat, pred_mat)
+     unent_val = g_mub.unentangled_value()
+     print("The unentangled value is ",np.around(unent_val, decimals=2))
 
 That is, we have that 
 
@@ -701,13 +693,12 @@ That is, we have that
 However, if we attempt to run a lower bound on the standard quantum value, we
 obtain.
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> import numpy as np
-    >>> g_mub = ExtendedNonlocalGame(prob_mat, pred_mat)
-    >>> q_val = g_mub.quantum_value_lower_bound()
-    >>> np.around(q_val, decimals=2)
-    np.float64(0.66)
+     import numpy as np
+     g_mub = ExtendedNonlocalGame(prob_mat, pred_mat)
+     q_val = g_mub.quantum_value_lower_bound()
+     print("The standard quantum value lower bound is ",np.around(q_val, decimals=2))
 
 Note that as we are calculating a lower bound, it is possible that a value this
 high will not be obtained, or in other words, the algorithm can get stuck in a

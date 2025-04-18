@@ -29,7 +29,7 @@ matrix4 = np.array([[7, 8]])
             np.array([[5, 6, 10, 12], [7, 8, 14, 16], [15, 18, 20, 24], [21, 24, 28, 32]]),
         ),
         # tensor product of vector with n = 0
-        ((e_0, 0), 2, np.array([[1.]])),
+        ((e_0, 0), 2, np.array([[1.0]])),
         # tensor product of vector with n = 1
         ((e_0, 1), 2, e_0),
         # tensor product of vector with n = 2

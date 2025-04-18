@@ -49,7 +49,7 @@ def test_perfect_matchings_num_6():
             [0, 4, 2, 5, 1, 3],
             [0, 5, 2, 3, 4, 1],
             [0, 5, 2, 4, 3, 1],
-            [0, 5, 2, 1, 4, 3]
+            [0, 5, 2, 1, 4, 3],
         ]
     )
     bool_mat = np.isclose(res, expected_res)

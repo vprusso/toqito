@@ -112,29 +112,27 @@ can optimally distinguish the state he is given perfectly, i.e. with probability
 
 Using :code:`|toqito⟩`, we can calculate this probability directly as follows:
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> import numpy as np
-    >>> from toqito.states import basis
-    >>> from toqito.state_opt import state_distinguishability
-    >>> 
-    >>> # Define the standard basis |0> and |1>
-    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
-    >>>
-    >>> # Define the corresponding density matrices of |0> and |1> 
-    >>> # given as |0><0| and |1><1|, respectively.
-    >>> e_00 = e_0 @ e_0.conj().T
-    >>> e_11 = e_1 @ e_1.conj().T
-    >>>
-    >>> # Define a list of states and a corresponding list of 
-    >>> # probabilities with which those states are selected.
-    >>> states = [e_00, e_11] 
-    >>> probs = [1/2, 1/2]
-    >>>
-    >>> # Calculate the probability with which Bob can 
-    >>> # distinguish the state he is provided.
-    >>> np.around(state_distinguishability(states, probs)[0], decimals=2)
-    np.float64(1.0)
+     import numpy as np
+     from toqito.states import basis
+     from toqito.state_opt import state_distinguishability
+     
+     # Define the standard basis |0> and |1>.
+     e_0, e_1 = basis(2, 0), basis(2, 1)
+    
+     # Define the corresponding density matrices of |0> and |1> 
+     # given as |0><0| and |1><1|, respectively.
+     E_0 = e_0 @ e_0.conj().T
+     E_1 = e_1 @ e_1.conj().T
+    
+     # Define a list of states and a corresponding list of probabilities with which those 
+     # states are selected.
+     states = [E_0, E_1] 
+     probs = [1/2, 1/2]
+    
+     # Calculate the probability with which Bob can distinguish the state he is provided.
+     print(np.around(state_distinguishability(states, probs)[0], decimals=2))
 
 Specifying similar state distinguishability problems can be done so using this
 general pattern.
@@ -204,33 +202,27 @@ distinguishability were initially considered in :cite:`Yu_2012_Four`. In :code:`
 we can calculate the probability with which Bob can distinguish these states
 via PPT measurements in the following manner.
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> import numpy as np
-    >>> from toqito.states import bell
-    >>> from toqito.state_opt import ppt_distinguishability
-    >>> # Bell vectors:
-    >>> psi_0 = bell(0)
-    >>> psi_1 = bell(2)
-    >>> psi_2 = bell(3)
-    >>> psi_3 = bell(1)
-    >>>
-    >>> # YDY vectors from :cite:`Yu_2012_Four`:
-    >>> x_1 = np.kron(psi_0, psi_0)
-    >>> x_2 = np.kron(psi_1, psi_3)
-    >>> x_3 = np.kron(psi_2, psi_3)
-    >>> x_4 = np.kron(psi_3, psi_3)
-    >>>
-    >>> # YDY density matrices:
-    >>> rho_1 = x_1 @ x_1.conj().T
-    >>> rho_2 = x_2 @ x_2.conj().T
-    >>> rho_3 = x_3 @ x_3.conj().T
-    >>> rho_4 = x_4 @ x_4.conj().T
-    >>>
-    >>> states = [rho_1, rho_2, rho_3, rho_4]
-    >>> probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
-    >>> np.around(ppt_distinguishability(vectors=states, probs=probs, dimensions=[2, 2, 2, 2], subsystems=[0, 2])[0], decimals=2)
-    np.float64(0.87)
+     import numpy as np
+     from toqito.states import bell
+     from toqito.state_opt import ppt_distinguishability
+     # Bell vectors:
+     psi_0 = bell(0)
+     psi_1 = bell(2)
+     psi_2 = bell(3)
+     psi_3 = bell(1)
+    
+     # YDY vectors from :cite:`Yu_2012_Four`:
+     x_1 = np.kron(psi_0, psi_0)
+     x_2 = np.kron(psi_1, psi_3)
+     x_3 = np.kron(psi_2, psi_3)
+     x_4 = np.kron(psi_3, psi_3)
+     
+     states = [x_1, x_2, x_3, x_4]
+
+     probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
+     print(np.around(ppt_distinguishability(vectors=states, probs=probs, dimensions=[2, 2, 2, 2], subsystems=[0, 2])[0], decimals=2))
 
 Probability of distinguishing a state via separable measurements
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

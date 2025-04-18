@@ -51,7 +51,6 @@ def test_pauli_channel_dimensions(num_qubits, expected_dim):
     assert Phi.shape == (expected_dim, expected_dim)
 
 
-
 @pytest.mark.parametrize("prob", [np.array([0.1, 0.2, 0.3, 0.4]), np.random.rand(16)])
 def test_pauli_channel_kraus_operators(prob):
     """Test generation of Kraus operators for different probability inputs.
@@ -98,7 +97,6 @@ def test_pauli_channel_input_matrix_properties(input_mat, prob):
 
     assert np.allclose(output_mat, output_mat.conj().T)
 
-
     eig_v = eigvalsh(output_mat)
     assert np.all(eig_v >= -1e-10)
 
@@ -130,10 +128,8 @@ def test_pauli_channel_choi_matrix_properties(num_qubits):
     expected_choi_dim = 4**num_qubits
     assert Phi.shape == (expected_choi_dim, expected_choi_dim)
 
-
     eigenvalues = eigvalsh(Phi)
     assert np.all(eigenvalues >= -1e-10)
-
 
     input_dim = 2**num_qubits
     dims = [input_dim, input_dim]
@@ -141,10 +137,8 @@ def test_pauli_channel_choi_matrix_properties(num_qubits):
     identity_input = np.eye(input_dim)
     assert np.allclose(pt_output, identity_input)
 
-
     total_trace = np.trace(Phi)
     assert np.isclose(total_trace, input_dim)
-
 
 
 @pytest.mark.parametrize(
