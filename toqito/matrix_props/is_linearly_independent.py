@@ -23,15 +23,16 @@ def is_linearly_independent(vectors: list[np.ndarray]) -> bool:
         \end{pmatrix}
 
     We can see that these are linearly independent:
+    .. jupyter-execute::
 
-    >>> import numpy as np
-    >>> from toqito.matrix_props import is_linearly_independent
-    >>>
-    >>> v_1 = np.array([[1], [0], [1]])
-    >>> v_2 = np.array([[1], [1], [0]])
-    >>> v_3 = np.array([[0], [0], [1]])
-    >>> is_linearly_independent([v_1, v_2, v_3])
-    np.True_
+     import numpy as np
+     from toqito.matrix_props import is_linearly_independent
+
+     v_1 = np.array([[1], [0], [1]])
+     v_2 = np.array([[1], [1], [0]])
+     v_3 = np.array([[0], [0], [1]])
+
+     is_linearly_independent([v_1, v_2, v_3])
 
     References
     ==========
@@ -43,4 +44,4 @@ def is_linearly_independent(vectors: list[np.ndarray]) -> bool:
 
     """
     # Check if the rank of the matrix equals the number of vectors.
-    return np.linalg.matrix_rank(np.column_stack(vectors)) == len(vectors)
+    return bool(np.linalg.matrix_rank(np.column_stack(vectors)) == len(vectors))
