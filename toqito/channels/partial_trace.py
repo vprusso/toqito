@@ -4,8 +4,9 @@ import numpy as np
 from cvxpy.expressions.expression import Expression
 from cvxpy.expressions.variable import Variable
 
-from toqito.helper import expr_as_np_array, np_array_as_expr
-from toqito.perms import permute_systems
+from toqito.helper.expr_as_np_array import expr_as_np_array
+from toqito.helper.np_array_as_expr import np_array_as_expr
+from toqito.perms.permute_systems import permute_systems
 
 
 def partial_trace(
