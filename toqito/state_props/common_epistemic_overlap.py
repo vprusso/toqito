@@ -4,8 +4,7 @@ from itertools import product
 
 import numpy as np
 
-from toqito.matrix_ops import calculate_vector_matrix_dimension
-from toqito.matrix_ops.vec import vec
+from toqito.matrix_ops import to_density_matrix
 
 
 def common_epistemic_overlap(states: list[np.ndarray]) -> float:
@@ -56,14 +55,7 @@ def common_epistemic_overlap(states: list[np.ndarray]) -> float:
     :return: Common epistemic overlap value between 0 and 1
 
     """
-    density_matrices = []
-    for state in states:
-        dims = calculate_vector_matrix_dimension(state)
-        if state.ndim == 1 or (state.ndim == 2 and (state.shape[0] == 1 or state.shape[1] == 1)):
-            v = vec(state)
-            density_matrices.append(np.outer(v, v.conj()))
-        else:
-            density_matrices.append(state)
+    density_matrices = [to_density_matrix(state) for state in states]
     dims = [dm.shape[0] for dm in density_matrices]
     if len(set(dims)) > 1:
         raise ValueError("All states must have consistent dimension")

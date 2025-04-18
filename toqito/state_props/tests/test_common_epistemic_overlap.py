@@ -51,12 +51,39 @@ def test_epistemic_overlap_parametrized(states, expected_overlap):
     computed = common_epistemic_overlap(states)
     assert np.isclose(computed, expected_overlap, atol=1e-3)
 
+@pytest.mark.parametrize(
+    "states, expected_overlap_uppeder_bound",
+    [
+            # test cases based on the formula: epistemic overlap <= quantum overlap = 1 - 0.5 * tr|ρ₁ - ρ₂|
+        (
+            # Two diagonal density matrices
+            [
+                np.diag([0.7, 0.3]),
+                np.diag([0.4, 0.6]),
+            ],
+            0.7,  # trace norm of difference = 0.6 -> overlap = 1 - 0.5*0.6 = 0.7
+        ),
+        (
+            # Two non-orthogonal pure states: |0> and |+> = 1/√2 [1, 1]
+            [
+                np.array([1, 0]),
+                np.array([1, 1]) / np.sqrt(2),
+            ],
+            1,  # 0.5 * tr|ρ₁ - ρ₂| = 0 -> overlap = 1
+        ),
+    ]
+)
+
+def test_epistemic_overlap_inequality(states, expected_overlap_uppeder_bound):
+    """Test that common_epistemic_overlap returns the expected upper bound."""
+    computed = common_epistemic_overlap(states)
+    assert round(computed,4) <= expected_overlap_uppeder_bound
 
 @pytest.mark.parametrize(
     "states, expected_msg",
     [
         # Non-square density matrix should raise ValueError.
-        ([np.array([[1, 2, 3], [4, 5, 6]])], r"Input must be either a vector or a square matrix."),
+        ([np.array([[1, 2, 3], [4, 5, 6]])], r"Input must be either a vector or a square density matrix."),
         # States with inconsistent dimensions should raise ValueError.
         ([np.array([1, 0]), np.array([1, 0, 0])], r"All states must have consistent dimension"),
     ],
