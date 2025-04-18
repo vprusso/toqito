@@ -39,6 +39,7 @@ def fourier(dim: int) -> np.ndarray:
     .. jupyter-execute::
 
      from toqito.matrices import fourier
+
      fourier(3)
 
     References
