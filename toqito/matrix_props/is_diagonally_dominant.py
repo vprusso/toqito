@@ -26,11 +26,14 @@ def is_diagonally_dominant(mat: np.ndarray, is_strict: bool = True) -> bool:
 
     our function indicates that this is indeed a diagonally dominant matrix.
 
-    >>> from toqito.matrix_props import is_diagonally_dominant
-    >>> import numpy as np
-    >>> A = np.array([[2, -1, 0], [0, 2, -1], [0, -1, 2]])
-    >>> is_diagonally_dominant(A)
-    np.True_
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_diagonally_dominant
+
+     A = np.array([[2, -1, 0], [0, 2, -1], [0, -1, 2]])
+
+     is_diagonally_dominant(A)
 
     Alternatively, the following example matrix :math:`B` defined as
 
@@ -42,11 +45,14 @@ def is_diagonally_dominant(mat: np.ndarray, is_strict: bool = True) -> bool:
 
     is not diagonally dominant.
 
-    >>> from toqito.matrix_props import is_diagonally_dominant
-    >>> import numpy as np
-    >>> B = np.array([[-1, 2], [-1, -1]])
-    >>> is_diagonally_dominant(B)
-    np.False_
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_diagonally_dominant
+
+     B = np.array([[-1, 2], [-1, -1]])
+
+     is_diagonally_dominant(B)
 
     References
     ==========
@@ -65,4 +71,4 @@ def is_diagonally_dominant(mat: np.ndarray, is_strict: bool = True) -> bool:
     mat = np.abs(mat)
     diag_coeffs = np.diag(mat)
     row_sum = np.sum(mat, axis=1) - diag_coeffs
-    return np.all(diag_coeffs > row_sum) if is_strict else np.all(diag_coeffs >= row_sum)
+    return bool(np.all(diag_coeffs > row_sum) if is_strict else np.all(diag_coeffs >= row_sum))

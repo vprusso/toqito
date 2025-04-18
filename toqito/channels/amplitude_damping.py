@@ -37,13 +37,15 @@ def amplitude_damping(
 
     Apply the generalized amplitude damping channel to a qubit state:
 
-    >>> import numpy as np
-    >>> from toqito.channels import amplitude_damping
-    >>> rho = np.array([[1, 0], [0, 0]])  # |0><0|
-    >>> result = amplitude_damping(rho, gamma=0.1, prob=0.5)
-    >>> print(result)
-    [[0.95+0.j 0.  +0.j]
-     [0.  +0.j 0.05+0.j]]
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.channels import amplitude_damping
+
+     rho = np.array([[1, 0], [0, 0]])  # |0><0|
+     result = amplitude_damping(rho, gamma=0.1, prob=0.5)
+
+     print(result)
 
     References
     ==========

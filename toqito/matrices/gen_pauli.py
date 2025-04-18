@@ -32,14 +32,12 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
                       \end{pmatrix}.
 
     This can be obtained in :code:`|toqito⟩` as follows.
+    .. jupyter-execute::
 
-    >>> from toqito.matrices import gen_pauli
-    >>> dim = 2
-    >>> k_1 = 1
-    >>> k_2 = 0
-    >>> gen_pauli(k_1, k_2, dim)
-    array([[0.+0.j, 1.+0.j],
-           [1.+0.j, 0.+0.j]])
+     from toqito.matrices import gen_pauli
+
+     gen_pauli(k_1=1, k_2=0, dim=2)
+
 
     The generalized Pauli matrix :code:`k_1 = 1`, :code:`k_2 = 1`, and
     :code:`dim = 2` is given as the standard Pauli-Y matrix
@@ -52,13 +50,11 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
 
     This can be obtained in :code:`|toqito⟩` as follows.
 
-    >>> from toqito.matrices import gen_pauli
-    >>> dim = 2
-    >>> k_1 = 1
-    >>> k_2 = 1
-    >>> gen_pauli(k_1, k_2, dim)
-    array([[ 0.+0.0000000e+00j, -1.+1.2246468e-16j],
-           [ 1.+0.0000000e+00j,  0.+0.0000000e+00j]])
+    .. jupyter-execute::
+
+     from toqito.matrices import gen_pauli
+
+     gen_pauli(k_1=1, k_2=1, dim=2)
 
     References
     ==========

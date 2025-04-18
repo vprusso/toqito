@@ -14,15 +14,12 @@ def to_density_matrix(input_array: np.ndarray) -> np.ndarray:
 
     As an example, consider one of the Bell states.
 
-    >>> from toqito.states import bell
-    >>> from toqito.matrix_ops import to_density_matrix
-    >>>
-    >>> to_density_matrix(bell(0))
-    array([[0.5, 0. , 0. , 0.5],
-           [0. , 0. , 0. , 0. ],
-           [0. , 0. , 0. , 0. ],
-           [0.5, 0. , 0. , 0.5]])
+    .. jupyter-execute::
 
+     from toqito.states import bell
+     from toqito.matrix_ops import to_density_matrix
+
+     to_density_matrix(bell(0))
 
     :raises ValueError: If the input is not a vector or a square matrix.
     :param input_array: Input array which could be a vector or a density matrix.

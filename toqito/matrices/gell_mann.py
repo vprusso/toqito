@@ -77,12 +77,11 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | csr_array:
                             i & 0 & 0 \\
                             0 & 0 & 0
                     \end{pmatrix}
+    .. jupyter-execute::
 
-    >>> from toqito.matrices import gell_mann
-    >>> gell_mann(2)
-    array([[ 0.+0.j, -0.-1.j,  0.+0.j],
-           [ 0.+1.j,  0.+0.j,  0.+0.j],
-           [ 0.+0.j,  0.+0.j,  0.+0.j]])
+     from toqito.matrices import gell_mann
+
+     gell_mann(ind=2)
 
     References
     ==========

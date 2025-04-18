@@ -52,14 +52,15 @@ def tensor(*args) -> np.ndarray:
 
     This can be accomplished in :code:`|toqito⟩` as follows.
 
-    >>> from toqito.states import basis
-    >>> from toqito.matrix_ops import tensor
-    >>> e_0 = basis(2, 0)
-    >>> tensor(e_0, e_0)
-    array([[1],
-           [0],
-           [0],
-           [0]])
+    .. jupyter-execute::
+
+     from toqito.states import basis
+     from toqito.matrix_ops import tensor
+
+     e_0 = basis(2, 0)
+
+     tensor(e_0, e_0)
+
 
     Tensor product one matrix :math:`n` times with itself.
 
@@ -71,18 +72,14 @@ def tensor(*args) -> np.ndarray:
 
     in :code:`|toqito⟩` as follows.
 
-    >>> from toqito.states import basis
-    >>> from toqito.matrix_ops import tensor
-    >>> e_0 = basis(2, 0)
-    >>> tensor(e_0, 3)
-    array([[1],
-           [0],
-           [0],
-           [0],
-           [0],
-           [0],
-           [0],
-           [0]])
+    .. jupyter-execute::
+
+     from toqito.states import basis
+     from toqito.matrix_ops import tensor
+
+     e_0 = basis(2, 0)
+
+     tensor(e_0, 3)
 
     Perform the tensor product on a list of vectors or matrices.
 
@@ -91,18 +88,14 @@ def tensor(*args) -> np.ndarray:
     compute :math:`e_0 \otimes e_1 \otimes e_0`, we can do
     so as follows.
 
-    >>> from toqito.states import basis
-    >>> from toqito.matrix_ops import tensor
-    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
-    >>> tensor([e_0, e_1, e_0])
-    array([[0],
-           [0],
-           [1],
-           [0],
-           [0],
-           [0],
-           [0],
-           [0]])
+    .. jupyter-execute::
+
+     from toqito.states import basis
+     from toqito.matrix_ops import tensor
+
+     e_0, e_1 = basis(2, 0), basis(2, 1)
+
+     tensor([e_0, e_1, e_0])
 
     References
     ==========

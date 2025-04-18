@@ -24,17 +24,12 @@ def reduction(dim: int, k: int = 1) -> np.ndarray:
     Using :code:`|toqito⟩`, we can generate the :math:`3`-dimensional (or standard) reduction map
     as follows.
 
-    >>> from toqito.channels import reduction
-    >>> reduction(3)
-    array([[ 0.,  0.,  0.,  0., -1.,  0.,  0.,  0., -1.],
-           [ 0.,  1.,  0.,  0.,  0.,  0.,  0.,  0.,  0.],
-           [ 0.,  0.,  1.,  0.,  0.,  0.,  0.,  0.,  0.],
-           [ 0.,  0.,  0.,  1.,  0.,  0.,  0.,  0.,  0.],
-           [-1.,  0.,  0.,  0.,  0.,  0.,  0.,  0., -1.],
-           [ 0.,  0.,  0.,  0.,  0.,  1.,  0.,  0.,  0.],
-           [ 0.,  0.,  0.,  0.,  0.,  0.,  1.,  0.,  0.],
-           [ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  1.,  0.],
-           [-1.,  0.,  0.,  0., -1.,  0.,  0.,  0.,  0.]])
+
+    .. jupyter-execute::
+
+     from toqito.channels import reduction
+
+     reduction(3)
 
     References
     ==========

@@ -37,11 +37,14 @@ def is_diagonal(mat: np.ndarray) -> bool:
 
     Our function indicates that this is indeed a diagonal matrix:
 
-    >>> from toqito.matrix_props import is_diagonal
-    >>> import numpy as np
-    >>> A = np.array([[1, 0], [0, 1]])
-    >>> is_diagonal(A)
-    np.True_
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_diagonal
+
+     A = np.array([[1, 0], [0, 1]])
+
+     is_diagonal(A)
 
     Alternatively, the following example matrix
 
@@ -52,12 +55,15 @@ def is_diagonal(mat: np.ndarray) -> bool:
             \end{pmatrix}
 
     is not diagonal, as shown using :code:`|toqito⟩`.
+    .. jupyter-execute::
 
-    >>> from toqito.matrix_props import is_diagonal
-    >>> import numpy as np
-    >>> B = np.array([[1, 2], [3, 4]])
-    >>> is_diagonal(B)
-    np.False_
+     import numpy as np
+     from toqito.matrix_props import is_diagonal
+
+     B = np.array([[1, 2], [3, 4]])
+
+     is_diagonal(B)
+
 
     References
     ==========
@@ -75,4 +81,4 @@ def is_diagonal(mat: np.ndarray) -> bool:
         return False
     i, j = mat.shape
     test = mat.reshape(-1)[:-1].reshape(i - 1, j + 1)
-    return ~np.any(test[:, 1:])
+    return bool(~np.any(test[:, 1:]))

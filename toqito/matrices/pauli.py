@@ -48,40 +48,46 @@ def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np
 
     Example for identity Pauli matrix.
 
-    >>> from toqito.matrices import pauli
-    >>> pauli("I")
-    array([[1., 0.],
-           [0., 1.]])
+    .. jupyter-execute::
+
+     from toqito.matrices import pauli
+
+     pauli("I")
 
     Example for Pauli-X matrix.
 
-    >>> from toqito.matrices import pauli
-    >>> pauli("X")
-    array([[0, 1],
-           [1, 0]])
+    .. jupyter-execute::
+
+     from toqito.matrices import pauli
+
+     pauli("X")
+
 
     Example for Pauli-Y matrix.
 
-    >>> from toqito.matrices import pauli
-    >>> pauli("Y")
-    array([[ 0.+0.j, -0.-1.j],
-           [ 0.+1.j,  0.+0.j]])
+    .. jupyter-execute::
+
+     from toqito.matrices import pauli
+
+     pauli("Y")
+
 
     Example for Pauli-Z matrix.
 
-    >>> from toqito.matrices import pauli
-    >>> pauli("Z")
-    array([[ 1,  0],
-           [ 0, -1]])
+    .. jupyter-execute::
+
+     from toqito.matrices import pauli
+
+     pauli("Z")
 
     Example using :math:`ind` as list.
 
-    >>> from toqito.matrices import pauli
-    >>> pauli([0,1])
-    array([[0., 1., 0., 0.],
-           [1., 0., 0., 0.],
-           [0., 0., 0., 1.],
-           [0., 0., 1., 0.]])
+    .. jupyter-execute::
+
+     from toqito.matrices import pauli
+
+     pauli([0,1])
+
 
 
     References

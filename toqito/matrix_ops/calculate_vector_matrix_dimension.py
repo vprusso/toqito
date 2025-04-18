@@ -31,11 +31,14 @@ def calculate_vector_matrix_dimension(item: np.ndarray) -> int:
 
     For this case, the dimension of the vector is equal to its length
 
-    >>> from toqito.matrix_ops import calculate_vector_matrix_dimension
-    >>> import numpy as np
-    >>> v = np.array([1, 0, 0])
-    >>> calculate_vector_matrix_dimension(v)
-    3
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_ops import calculate_vector_matrix_dimension
+
+     v = np.array([1, 0, 0])
+
+     calculate_vector_matrix_dimension(v)
 
     For the density matrix of some two-dimensional quantum system
 
@@ -46,11 +49,14 @@ def calculate_vector_matrix_dimension(item: np.ndarray) -> int:
                     0 & 1
                 \end{pmatrix}
 
-    >>> from toqito.matrix_ops import calculate_vector_matrix_dimension
-    >>> import numpy as np
-    >>> rho = np.array([[1/2, 0],[0, 1/2]])
-    >>> calculate_vector_matrix_dimension(rho)
-    2
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_ops import calculate_vector_matrix_dimension
+
+     rho = np.array([[1/2, 0],[0, 1/2]])
+
+     calculate_vector_matrix_dimension(rho)
 
     """
     # Check if the input is a numpy array

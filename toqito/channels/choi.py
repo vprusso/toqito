@@ -36,18 +36,12 @@ def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
 
     We can generate the Choi channel in :code:`|toqito⟩` as follows.
 
-    >>> from toqito.channels import choi
-    >>> import numpy as np
-    >>> choi()
-    array([[ 1.,  0.,  0.,  0., -1.,  0.,  0.,  0., -1.],
-           [ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.],
-           [ 0.,  0.,  1.,  0.,  0.,  0.,  0.,  0.,  0.],
-           [ 0.,  0.,  0.,  1.,  0.,  0.,  0.,  0.,  0.],
-           [-1.,  0.,  0.,  0.,  1.,  0.,  0.,  0., -1.],
-           [ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.],
-           [ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.,  0.],
-           [ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  1.,  0.],
-           [-1.,  0.,  0.,  0., -1.,  0.,  0.,  0.,  1.]])
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.channels import choi
+
+     choi()
 
     The reduction channel is the map :math:`R` defined by:
 
@@ -73,18 +67,12 @@ def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
     The reduction channel is the Choi channel that arises when :code:`a = 0` and when :code:`b =
     c = 1`. We can obtain this matrix using :code:`|toqito⟩` as follows.
 
-    >>> from toqito.channels import choi
-    >>> import numpy as np
-    >>> choi(0, 1, 1)
-    array([[ 0.,  0.,  0.,  0., -1.,  0.,  0.,  0., -1.],
-           [ 0.,  1.,  0.,  0.,  0.,  0.,  0.,  0.,  0.],
-           [ 0.,  0.,  1.,  0.,  0.,  0.,  0.,  0.,  0.],
-           [ 0.,  0.,  0.,  1.,  0.,  0.,  0.,  0.,  0.],
-           [-1.,  0.,  0.,  0.,  0.,  0.,  0.,  0., -1.],
-           [ 0.,  0.,  0.,  0.,  0.,  1.,  0.,  0.,  0.],
-           [ 0.,  0.,  0.,  0.,  0.,  0.,  1.,  0.,  0.],
-           [ 0.,  0.,  0.,  0.,  0.,  0.,  0.,  1.,  0.],
-           [-1.,  0.,  0.,  0., -1.,  0.,  0.,  0.,  0.]])
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.channels import choi
+
+     choi(0, 1, 1)
 
     See Also
     ==========

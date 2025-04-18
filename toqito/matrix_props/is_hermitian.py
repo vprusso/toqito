@@ -27,11 +27,14 @@ def is_hermitian(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> b
     .. math::
         A = A^*.
 
-    >>> from toqito.matrix_props import is_hermitian
-    >>> import numpy as np
-    >>> mat = np.array([[2, 2 + 1j, 4], [2 - 1j, 3, 1j], [4, -1j, 1]])
-    >>> is_hermitian(mat)
-    True
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_hermitian
+
+     mat = np.array([[2, 2 + 1j, 4], [2 - 1j, 3, 1j], [4, -1j, 1]])
+
+     is_hermitian(mat)
 
     Alternatively, the following example matrix :math:`B` defined as
 
@@ -44,11 +47,14 @@ def is_hermitian(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> b
 
     is not Hermitian.
 
-    >>> from toqito.matrix_props import is_hermitian
-    >>> import numpy as np
-    >>> mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-    >>> is_hermitian(mat)
-    False
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_hermitian
+
+     mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+
+     is_hermitian(mat)
 
     References
     ==========

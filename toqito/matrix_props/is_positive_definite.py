@@ -20,11 +20,14 @@ def is_positive_definite(mat: np.ndarray) -> bool:
 
     our function indicates that this is indeed a positive definite matrix.
 
-    >>> from toqito.matrix_props import is_positive_definite
-    >>> import numpy as np
-    >>> A = np.array([[2, -1, 0], [-1, 2, -1], [0, -1, 2]])
-    >>> is_positive_definite(A)
-    True
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_positive_definite
+
+     A = np.array([[2, -1, 0], [-1, 2, -1], [0, -1, 2]])
+
+     is_positive_definite(A)
 
     Alternatively, the following example matrix :math:`B` defined as
 
@@ -36,11 +39,14 @@ def is_positive_definite(mat: np.ndarray) -> bool:
 
     is not positive definite.
 
-    >>> from toqito.matrix_props import is_positive_definite
-    >>> import numpy as np
-    >>> B = np.array([[-1, -1], [-1, -1]])
-    >>> is_positive_definite(B)
-    False
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_positive_definite
+
+     B = np.array([[-1, -1], [-1, -1]])
+
+     is_positive_definite(B)
 
     See Also
     ========

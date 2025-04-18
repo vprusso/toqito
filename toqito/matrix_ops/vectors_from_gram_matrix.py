@@ -16,20 +16,24 @@ def vectors_from_gram_matrix(gram: np.ndarray) -> list[np.ndarray]:
 
     # Example of a positive definite matrix:
 
-    >>> import numpy as np
-    >>> from toqito.matrix_ops import vectors_from_gram_matrix
-    >>> gram_matrix = np.array([[2, -1], [-1, 2]])
-    >>> vectors = vectors_from_gram_matrix(gram_matrix)
-    >>> vectors
-    [array([1.41421356, 0.        ]), array([-0.70710678,  1.22474487])]
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_ops import vectors_from_gram_matrix
+
+     gram_matrix = np.array([[2, -1], [-1, 2]])
+     vectors = vectors_from_gram_matrix(gram_matrix)
+
+     vectors
 
     # Example of a matrix that is not positive definite:
 
-    >>> gram_matrix = np.array([[0, 1], [1, 0]])
-    >>> vectors = vectors_from_gram_matrix(gram_matrix)
-    Matrix is not positive semidefinite. Using eigendecomposition as alternative.
-    >>> vectors
-    [array([0.70710678+0.j        , 0.        -0.70710678j]), array([0.70710678+0.j        , 0.        +0.70710678j])]
+    .. jupyter-execute::
+
+     gram_matrix = np.array([[0, 1], [1, 0]])
+     vectors = vectors_from_gram_matrix(gram_matrix)
+
+     vectors #Matrix is not positive semidefinite. Using eigendecomposition as alternative.
 
     References
     ==========

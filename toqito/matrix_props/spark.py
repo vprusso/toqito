@@ -13,13 +13,17 @@ def spark(mat: np.ndarray) -> int:
 
     Examples
     =========
-    >>> import numpy as np
-    >>> from toqito.matrix_props import spark
-    >>> A = np.array([[1, 0, 1, 2],
-    ...               [0, 1, 1, 3],
-    ...               [1, 1, 2, 5]])
-    >>> spark(A)
-    3
+
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import spark
+
+     A = np.array([[1, 0, 1, 2],
+                   [0, 1, 1, 3],
+                   [1, 1, 2, 5]])
+
+     spark(A)
 
     Notes
     =====

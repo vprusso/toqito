@@ -33,12 +33,15 @@ def is_commuting(mat_1: np.ndarray, mat_2: np.ndarray) -> bool:
 
     and hence, do not commute.
 
-    >>> from toqito.matrix_props import is_commuting
-    >>> import numpy as np
-    >>> mat_1 = np.array([[0, 1], [0, 0]])
-    >>> mat_2 = np.array([[1, 0], [0, 0]])
-    >>> is_commuting(mat_1, mat_2)
-    False
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_commuting
+
+     mat_1 = np.array([[0, 1], [0, 0]])
+     mat_2 = np.array([[1, 0], [0, 0]])
+
+     is_commuting(mat_1, mat_2)
 
     Consider the following pair of matrices:
 
@@ -57,12 +60,15 @@ def is_commuting(mat_1: np.ndarray, mat_2: np.ndarray) -> bool:
     It may be verified that :math:`AB = BA = 0`, and therefore :math:`A` and
     :math:`B` commute.
 
-    >>> from toqito.matrix_props import is_commuting
-    >>> import numpy as np
-    >>> mat_1 = np.array([[1, 0, 0], [0, 1, 0], [1, 0, 2]])
-    >>> mat_2 = np.array([[2, 4, 0], [3, 1, 0], [-1, -4, 1]])
-    >>> is_commuting(mat_1, mat_2)
-    True
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_commuting
+
+     mat_1 = np.array([[1, 0, 0], [0, 1, 0], [1, 0, 2]])
+     mat_2 = np.array([[2, 4, 0], [3, 1, 0], [-1, -4, 1]])
+
+     is_commuting(mat_1, mat_2)
 
     References
     ==========

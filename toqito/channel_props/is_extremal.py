@@ -33,14 +33,16 @@ def is_extremal(phi: np.ndarray | list[np.ndarray | list[np.ndarray]], tol: floa
     The following demonstrates an example of an extremal quantum channel from Example 2.33
     in :cite:`Watrous_2018_TQI`.
 
-    >>> import numpy as np
-    >>> from toqito.channel_props import is_extremal
-    >>> kraus_ops = [
-    ...     (1 / np.sqrt(6)) * np.array([[2, 0], [0, 1], [0, 1], [0, 0]]),
-    ...     (1 / np.sqrt(6)) * np.array([[0, 0], [1, 0], [1, 0], [0, 2]])
-    ... ]
-    >>> is_extremal(kraus_ops)
-    np.True_
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.channel_props import is_extremal
+     kraus_ops = [
+         (1 / np.sqrt(6)) * np.array([[2, 0], [0, 1], [0, 1], [0, 0]]),
+         (1 / np.sqrt(6)) * np.array([[0, 0], [1, 0], [1, 0], [0, 2]])
+     ]
+
+     is_extremal(kraus_ops)
 
     References
     ==========
@@ -89,4 +91,4 @@ def is_extremal(phi: np.ndarray | list[np.ndarray | list[np.ndarray]], tol: floa
 
     # The channel is extremal if and only if the operators {A_i^† A_j} are linearly independent,
     # i.e. the rank of M equals r^2.
-    return matrix_rank(M, tol=tol) == r * r
+    return bool(matrix_rank(M, tol=tol) == r * r)

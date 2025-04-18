@@ -62,20 +62,16 @@ def choi_to_kraus(
 
     This can be verified in :code:`|toqito⟩` as follows.
 
-    >>> import numpy as np
-    >>> from toqito.channel_ops import choi_to_kraus
-    >>> choi_mat = np.array([[1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 1]])
-    >>> kraus_ops = choi_to_kraus(choi_mat)
-    >>> kraus_ops
-    [[array([[ 0.        ,  0.70710678],
-           [-0.70710678,  0.        ]]), array([[-0.        , -0.70710678],
-           [ 0.70710678, -0.        ]])], [array([[0.        , 0.70710678],
-           [0.70710678, 0.        ]]), array([[0.        , 0.70710678],
-           [0.70710678, 0.        ]])], [array([[1., 0.],
-           [0., 0.]]), array([[1., 0.],
-           [0., 0.]])], [array([[0., 0.],
-           [0., 1.]]), array([[0., 0.],
-           [0., 1.]])]]
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.channel_ops import choi_to_kraus
+     choi_mat = np.array([[1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 1]])
+     kraus_ops = choi_to_kraus(choi_mat)
+     for i, pair in enumerate(kraus_ops):
+        print(f"\nKraus Pair {i+1}:")
+        for j, op in enumerate(pair):
+            print(f"  Operator {j+1}:\n{np.array_str(op, precision=4, suppress_small=True)}")
 
     See Also
     ========

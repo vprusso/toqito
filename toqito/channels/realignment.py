@@ -28,14 +28,14 @@ def realignment(input_mat: np.ndarray, dim: int | list[int] = None) -> np.ndarra
     its vectorization the rows of the realignment matrix. This is illustrated by the following
     small example:
 
-    >>> from toqito.channels import realignment
-    >>> import numpy as np
-    >>> test_input_mat = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
-    >>> realignment(test_input_mat)
-    array([[ 1,  2,  5,  6],
-           [ 3,  4,  7,  8],
-           [ 9, 10, 13, 14],
-           [11, 12, 15, 16]])
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.channels import realignment
+
+     test_input_mat = np.arange(1, 17).reshape(4, 4)
+
+     realignment(test_input_mat)
 
     References
     ==========

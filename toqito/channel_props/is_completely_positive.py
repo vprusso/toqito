@@ -46,12 +46,15 @@ def is_completely_positive(
 
     This map is not completely positive, as we can verify as follows.
 
-    >>> from toqito.channel_props import is_completely_positive
-    >>> import numpy as np
-    >>> unitary_mat = np.array([[1, 1], [-1, 1]]) / np.sqrt(2)
-    >>> kraus_ops = [[np.identity(2), np.identity(2)], [unitary_mat, -unitary_mat]]
-    >>> is_completely_positive(kraus_ops)
-    False
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.channel_props import is_completely_positive
+
+     unitary_mat = np.array([[1, 1], [-1, 1]]) / np.sqrt(2)
+     kraus_ops = [[np.identity(2), np.identity(2)], [unitary_mat, -unitary_mat]]
+
+     is_completely_positive(kraus_ops)
 
     We can also specify the input as a Choi matrix. For instance, consider the Choi matrix
     corresponding to the :math:`2`-dimensional completely depolarizing channel
@@ -68,10 +71,12 @@ def is_completely_positive(
 
     We may verify that this channel is completely positive
 
-    >>> from toqito.channels import depolarizing
-    >>> from toqito.channel_props import is_completely_positive
-    >>> is_completely_positive(depolarizing(2))
-    True
+    .. jupyter-execute::
+
+     from toqito.channels import depolarizing
+     from toqito.channel_props import is_completely_positive
+
+     is_completely_positive(depolarizing(2))
 
     References
     ==========

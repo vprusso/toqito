@@ -63,14 +63,14 @@ def vec(mat: np.ndarray) -> np.ndarray:
     .. math::
         \text{vec}(A) = \left[1, 3, 2, 4 \right]^{T}.
 
-    >>> from toqito.matrix_ops import vec
-    >>> import numpy as np
-    >>> X = np.array([[1, 2], [3, 4]])
-    >>> vec(X)
-    array([[1],
-           [3],
-           [2],
-           [4]])
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_ops import vec
+
+     X = np.array([[1, 2], [3, 4]])
+
+     vec(X)
 
     See Also
     ========

@@ -45,21 +45,26 @@ def is_positive(
 
     This map is not completely positive, as we can verify as follows.
 
-    >>> from toqito.channel_props import is_positive
-    >>> import numpy as np
-    >>> unitary_mat = np.array([[1, 1], [-1, -1]]) / np.sqrt(2)
-    >>> kraus_ops = [[np.identity(2), np.identity(2)], [unitary_mat, -unitary_mat]]
-    >>> is_positive(kraus_ops)
-    False
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.channel_props import is_positive
+
+     unitary_mat = np.array([[1, 1], [-1, -1]]) / np.sqrt(2)
+     kraus_ops = [[np.identity(2), np.identity(2)], [unitary_mat, -unitary_mat]]
+
+     is_positive(kraus_ops)
 
     We can also specify the input as a Choi matrix. For instance, consider the Choi matrix
     corresponding to the :math:`4`-dimensional completely depolarizing channel and may verify
     that this channel is positive.
 
-    >>> from toqito.channels import depolarizing
-    >>> from toqito.channel_props import is_positive
-    >>> is_positive(depolarizing(4))
-    True
+    .. jupyter-execute::
+
+     from toqito.channels import depolarizing
+     from toqito.channel_props import is_positive
+
+     is_positive(depolarizing(4))
 
     References
     ==========

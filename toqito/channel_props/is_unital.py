@@ -32,22 +32,26 @@ def is_unital(
     Consider the channel whose Choi matrix is the swap operator. This channel is an example of a
     unital channel.
 
-    >>> from toqito.perms import swap_operator
-    >>> from toqito.channel_props import is_unital
-    >>>
-    >>> choi = swap_operator(3)
-    >>> is_unital(choi)
-    True
+    .. jupyter-execute::
+
+     from toqito.perms import swap_operator
+     from toqito.channel_props import is_unital
+
+     choi = swap_operator(3)
+
+     is_unital(choi)
 
     Additionally, the channel whose Choi matrix is the depolarizing channel is another example of
     a unital channel.
 
-    >>> from toqito.channels import depolarizing
-    >>> from toqito.channel_props import is_unital
-    >>>
-    >>> choi = depolarizing(4)
-    >>> is_unital(choi)
-    True
+    .. jupyter-execute::
+
+     from toqito.channels import depolarizing
+     from toqito.channel_props import is_unital
+
+     choi = depolarizing(4)
+
+     is_unital(choi)
 
     References
     ==========
