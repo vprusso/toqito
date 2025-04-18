@@ -1,6 +1,7 @@
 """Apply measurement to a quantum state."""
 
 import numpy as np
+from toqito.matrix_props import is_density
 
 
 def measure(
@@ -84,7 +85,10 @@ def measure(
              ``state_update`` is True.
 
     """
-    # Single-operator case
+    if not is_density(state):
+        raise ValueError("Input must be a valid density matrix.")
+
+    # Single-operator case.
     if not isinstance(measurement, (list, tuple)):
         result = measurement @ state @ measurement.conj().T
         prob = np.trace(result).real
@@ -94,7 +98,7 @@ def measure(
             post_state = np.zeros_like(state)
         return (prob, post_state) if state_update else prob
 
-    # List-of-operators case
+    # List-of-operators case.
     outcomes: list[float | tuple[float, np.ndarray]] = []
     probs: list[float] = []
 
@@ -110,7 +114,7 @@ def measure(
 
         outcomes.append((prob, post_state) if state_update else prob)
 
-    # Only enforce completeness if we're doing the update AND every outcome was nonzero
+    # Only enforce completeness if we're doing the update AND every outcome was nonzero.
     if state_update and all(p > tol for p in probs):
         d = state.shape[0]
         completeness = sum(op.T.conj() @ op for op in measurement)

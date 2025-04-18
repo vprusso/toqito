@@ -153,3 +153,12 @@ def test_measure_completeness_failure(state, measurements):
     """Test that a list of operators that does not satisfy the completeness relation raises ValueError."""
     with pytest.raises(ValueError, match="Kraus operators do not satisfy completeness relation"):
         measure(state, measurements, state_update=True)
+
+
+def test_measure_invalid_density_matrix():
+    """Test that passing a non-density matrix raises ValueError."""
+    invalid_state = np.array([[1, 1], [1, 1]])  # Not positive semidefinite
+    measurement = np.array([[1, 0], [0, 0]])
+
+    with pytest.raises(ValueError, match="Input must be a valid density matrix"):
+        measure(invalid_state, measurement)
