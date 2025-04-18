@@ -36,11 +36,10 @@ def fourier(dim: int) -> np.ndarray:
             1 & \omega^2 & \omega^4
         \end{pmatrix}
 
-    >>> from toqito.matrices import fourier
-    >>> fourier(3)
-    array([[ 0.57735027+0.j ,  0.57735027+0.j ,  0.57735027+0.j ],
-           [ 0.57735027+0.j , -0.28867513+0.5j, -0.28867513-0.5j],
-           [ 0.57735027+0.j , -0.28867513-0.5j, -0.28867513+0.5j]])
+    .. jupyter-execute::
+
+     from toqito.matrices import fourier
+     fourier(3)
 
     References
     ==========
