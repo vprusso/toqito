@@ -25,7 +25,7 @@ def measure(
     .. math::
        \sum_i K_i^\dagger K_i = \mathbb{I},
 
-    when `state_update` is True. Then, for each operator :math:`K_i`, the outcome probability is computed as
+    when ``state_update`` is True. Then, for each operator :math:`K_i`, the outcome probability is computed as
 
     .. math::
        p_i = \mathrm{Tr}\Bigl(K_i^\dagger K_i\, \rho\Bigr),
