@@ -84,9 +84,8 @@ def common_epistemic_overlap(states: list[np.ndarray]) -> float:
             total_prob += prob
 
         # normalize the distribution
-        if total_prob > 0:
-            for lambda_point in lambda_space:
-                distribution[lambda_point] /= total_prob
+        for lambda_point in lambda_space:
+            distribution[lambda_point] /= total_prob
         distributions.append(distribution)
 
     # Calculate the common epistemic overlap
