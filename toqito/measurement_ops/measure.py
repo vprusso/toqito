@@ -19,11 +19,10 @@ def measure(
       - Returns the measurement outcome probability if ``state_update`` is False.
       - Returns a tuple (probability, post_state) if ``state_update`` is True.
 
-    When a list of operators is provided, the function verifies that they satisfy the completeness relation in  Eq.
-    :ref:`completeness_rel_equation` when ``state_update`` is True.
+    When a list of operators is provided, the function verifies that they satisfy the completeness relation when
+    ``state_update`` is True.
 
     .. math::
-      :label: completeness_rel_equation
        \sum_i K_i^\dagger K_i = \mathbb{I},
 
     when `state_update` is True. Then, for each operator :math:`K_i`, the outcome probability is computed as
