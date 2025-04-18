@@ -6,7 +6,7 @@ import numpy as np
 
 from toqito.channel_ops import apply_channel
 from toqito.perms import permute_systems
-from toqito.states import max_entangled
+from toqito.states.max_entangled import max_entangled
 
 
 def partial_channel(
