@@ -1,6 +1,7 @@
 """Apply measurement to a quantum state."""
 
 import numpy as np
+
 from toqito.matrix_props import is_density
 
 
