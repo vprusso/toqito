@@ -50,7 +50,6 @@ def common_epistemic_overlap(states: list[np.ndarray]) -> float:
 
 
     :param states: List of quantum states (vectors or density matrices)
-    :param dim: Optional dimension specification for composite systems
     :raises ValueError: For invalid inputs or unsupported dimensions
     :return: Common epistemic overlap value between 0 and 1
 
