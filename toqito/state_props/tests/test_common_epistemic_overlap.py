@@ -70,7 +70,7 @@ def test_epistemic_overlap_parametrized(states, expected_overlap):
                 np.array([1, 0]),
                 np.array([1, 1]) / np.sqrt(2),
             ],
-            1,  # 0.5 * tr|ρ₁ - ρ₂| = 0 -> overlap = 1
+            0.5,  # 0.5 * tr|ρ₁ - ρ₂| = 1 -> overlap = 0.5
         ),
     ],
 )
