@@ -56,9 +56,7 @@ def operator_sinkhorn(
 
     ..jupyter-execute::
         sigma, F = operator_sinkhorn(rho=rho_random, dim=[2, 2])
-
         print(sigma)
-
         print(len(F))
 
     F here will be the list of 2 local filtering operators, which are
@@ -71,16 +69,20 @@ def operator_sinkhorn(
     .. bibliography::
         :filter: docname in docnames
 
-    :param rho: input density matrix of a multipartite system
-    :param dim: `None` list containing dimensions of each subsystem.
-                Assumes 2 subsystems with equal dimensions as default.
+    :param rho: Input density matrix of a multipartite system
+    :param dim: List containing dimensions of each subsystem.
+                :code:`None` is passed by default which assumes 2 subsystems with equal dimensions.
     :param tol: `np.sqrt(np.finfo(float).eps)` Convergence tolerance of the iterative Sinkhorn Algorithm.
                 Assumes square root of numpy eps as default.
     :param max_iterations: Number of iterations after which the solver terminates with a convergence error.
     :raises: ValueError: if input density matrix is not a square matrix.
     :raises: ValueError: if the product of dimensions provided/assumed does not match the dimension of density matrix.
-    :raises: RuntimeError: if the sinkhorn algorithm doesnot converge before `max_iterations` iterations.
     :raises: ValueError: if the density matrix provided is singular (or is not of full rank).
+    :raises: RuntimeError: if the Sinkhorn algorithm does not converge before :code:`max_iterations` iterations.
+    :return: A tuple of 2 items :code:`(sigma, F)` where,
+        - :code:`sigma` is the locally normalized form of the input density matrix :code:`rho`.
+          (:code:`numpy.ndarray` of shape equal to :code:`rho`)
+        - :code:`F` is the list of invertible local operators which can obtain :code:`sigma` from :code:`rho`.
 
     """
     # Run checks on the input density matrix.
@@ -93,7 +95,7 @@ def operator_sinkhorn(
     dX = rho.shape[0]
     sdX = int(round(np.sqrt(dX)))
 
-    # set optional argument defaults: dim=sqrt(len(rho)), tol=sqrt(eps).
+    # Set optional argument defaults: dim=sqrt(len(rho)), tol=sqrt(eps).
     if dim is None:
         dim = [sdX, sdX]
 
@@ -110,11 +112,11 @@ def operator_sinkhorn(
         dim[1] = round(dim[1])
 
     num_sys = len(dim)
-    # Dimensions check before starting iterations
+    # Dimensions check before starting iterations.
     if np.prod(dim) != dX:
         raise ValueError(f"Product of dimensions {dim} does not match rho dimension {dX}.")
 
-    # precompute trace for all iterations
+    # Precompute trace for all iterations.
     tr_rho_p = np.power(np.trace(rho), 1.0 / (2.0 * num_sys)) if np.trace(rho) != 0 else 1.0
 
     # Prepare the iteration.
@@ -133,26 +135,24 @@ def operator_sinkhorn(
         if iterations > max_iterations:
             raise RuntimeError(f"operator_sinkhorn did not converge within {max_iterations} iterations.")
 
-        it_err = 0.0
-        max_cond = 0.0
-
-        error_flag_in_iteration = False
+        it_err, max_cond, error_flag_in_iteration = 0.0, 0.0, False
 
         try:
             for j in range(num_sys):
                 # Compute the reduced density matrix on the j-th system.
                 Prho_tmp = partial_trace(rho2, list(set(range(num_sys)) - {j}), dim)
-                Prho_tmp = (Prho_tmp + Prho_tmp.conj().T) / 2.0  # for numerical stability
+                # For numerical stability.
+                Prho_tmp = (Prho_tmp + Prho_tmp.conj().T) / 2.0
                 it_err += np.linalg.norm(Prho[j] - Prho_tmp)
                 Prho[j] = Prho_tmp.astype(np.complex128)
 
-                # Apply filter with explicit complex128
+                # Apply filter with explicit complex128.
                 T_inv = np.linalg.inv(Prho[j]).astype(np.complex128)
 
                 T = sp.linalg.sqrtm(T_inv) / np.sqrt(dim[j])
                 T = T.astype(np.complex128)
 
-                # enforce hermiticity for numerical stability
+                # Enforce hermiticity for numerical stability.
                 T = (T + T.conj().T) / 2.0
 
                 eye_ldim = np.eye(int(ldim[j]), dtype=np.complex128)
@@ -178,11 +178,11 @@ def operator_sinkhorn(
 
     # Stabilize the output for numerical stability.
     sigma = (rho2 + rho2.conj().T) / 2
-    # handle cases where trace(sigma) can be near zero:
-    # this can happen
-    # 1. if input trace is near zero (singular matrix) - Algorithm will not converge
+    # Handle cases where trace(sigma) can be near zero:
+    # This can happen
+    # 1. if input trace is near zero (singular matrix) - Algorithm will not converge.
     # 2. if there was some numerical instability and result drifted off - Warn users about
-    # about a potentially wrong answer
+    # about a potentially wrong answer.
     sigma = np.trace(rho) * sigma / np.trace(sigma)
     if np.trace(sigma) < 10 * np.finfo(float).eps:
         warnings.warn("Final trace is near zero, but initial trace was not. Result may be unreliable.", RuntimeWarning)
