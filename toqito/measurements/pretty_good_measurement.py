@@ -72,15 +72,15 @@ def pretty_good_measurement(states: list[np.ndarray], probs: list[float] | None 
     states = [to_density_matrix(state) for state in states]
     p_var = sum(probs[i] * states[i] for i in range(n))
 
-    # Generalized inverse square‐root. This performs a spectral decomposition and inverts only the nonzero 
-    # eigenvalues while leaving the zero subspace alone.
+    # Generalized inverse square‐root. This performs a spectral decomposition and inverts only the nonzero eigenvalues
+    # while leaving the zero subspace alone.
 
     # Eigen‐decompose.
     vals, vecs = np.linalg.eigh(p_var)
 
     # Build Λ^{-1/2} with a threshold.
     tol = 1e-8
-    inv_sqrt = np.diag([1/np.sqrt(v) if v>tol else 0. for v in vals])
+    inv_sqrt = np.diag([1 / np.sqrt(v) if v > tol else 0.0 for v in vals])
 
     # Reconstruct.
     p_var_sqrt = vecs @ inv_sqrt @ vecs.T
