@@ -27,12 +27,6 @@ jobs:
       PYTHON: ${{ matrix.python-version }}
     steps:
       - uses: actions/checkout@v4
-      - uses: astral-sh/ruff-action@v3
-        with:
-          args: "format --check --diff"
-          version-file: "pyproject.toml"
-      - run: ruff check --fix
-      # https://github.com/astral-sh/ruff-action
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
@@ -45,7 +39,11 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install poetry
-          poetry install --without docs --no-interaction
+          poetry install --with lint --without docs --no-interaction
+      - name: Run Ruff
+        run: |
+          poetry run ruff format --check --diff
+          poetry run ruff check --fix
 
   toqito-pytest:
     strategy:
