@@ -57,10 +57,12 @@ def operator_sinkhorn(
 
     for this example, :math:`F_1` = :code:`local_ops[0]`, and :math:`F_2` = :code:`local_ops[1]`
     and :math:`F` matrix is then
+    
     .. math::
         F = \left( F_1 \otimes F_2 \right)
 
     and in general,
+    
     .. math::
         F = \left( F_1 \otimes F_2 \otimes F_3 \otimes ... F_n \right)
 
@@ -90,6 +92,7 @@ def operator_sinkhorn(
     :raises: ValueError: if the density matrix provided is singular (or is not of full rank).
     :raises: RuntimeError: if the Sinkhorn algorithm does not converge before :code:`max_iterations` iterations.
     :return: A tuple of 2 items :code:`(sigma, local_ops)` where,
+
     - :code:`sigma` is the locally normalized form of the input density matrix :code:`rho`.
         (:code:`numpy.ndarray` of shape equal to :code:`rho`)
     - :code:`local_ops` is the list of invertible local operators which can obtain :code:`sigma` from :code:`rho`.
