@@ -57,12 +57,12 @@ def operator_sinkhorn(
 
     for this example, :math:`F_1` = :code:`local_ops[0]`, and :math:`F_2` = :code:`local_ops[1]`
     and :math:`F` matrix is then
-    
+
     .. math::
         F = \left( F_1 \otimes F_2 \right)
 
     and in general,
-    
+
     .. math::
         F = \left( F_1 \otimes F_2 \otimes F_3 \otimes ... F_n \right)
 
