@@ -44,25 +44,35 @@ def operator_sinkhorn(
 
         print(rho_random)
 
-    :code:`operator_sinkhorn` returns the result density matrix along with the operations list :code:`F`.
+    :code:`operator_sinkhorn` returns the result density matrix along with the operations list :code:`local_ops`.
     :code:`sigma` (:math:`\sigma`) has all of its (single-party) reduced density matrices proportional
     to the identity, while satisfying
 
     .. math::
         \sigma \, = \, F \, \cdot \, \rho \, \cdot \, F^{\dagger}
 
-    In other words, F contains invertible local operations that demonstrate
-    that :code:`rho` and :code:`sigma` are locally equivalent.
+    In other words, :code:`local_ops` contains invertible local operations that demonstrate that :code:`rho` and
+    :code:`sigma` are locally equivalent. This can be checked by first obtaining the :math:`F` matrix using the
+    elements of :code:`local_ops`
+
+    for this example, :math:`F_1` = :code:`local_ops[0]`, and :math:`F_2` = :code:`local_ops[1]`
+    and :math:`F` matrix is then
+    .. math::
+        F = \left( F_1 \otimes F_2 \right)
+
+    and in general,
+    .. math::
+        F = \left( F_1 \otimes F_2 \otimes F_3 \otimes ... F_n \right)
 
     ..jupyter-execute::
-        sigma, F = operator_sinkhorn(rho=rho_random, dim=[2, 2])
+        sigma, local_ops = operator_sinkhorn(rho=rho_random, dim=[2, 2])
         print(sigma)
-        print(len(F))
+        print(len(local_ops))
 
-    F here will be the list of 2 local filtering operators, which are
+    :code:`local_ops` here will be the list of 2 local filtering operators, first of which is
 
     ..jupyter-execute::
-        print(F[0])
+        print(local_ops[0])
 
     References
     ==========
@@ -79,10 +89,10 @@ def operator_sinkhorn(
     :raises: ValueError: if the product of dimensions provided/assumed does not match the dimension of density matrix.
     :raises: ValueError: if the density matrix provided is singular (or is not of full rank).
     :raises: RuntimeError: if the Sinkhorn algorithm does not converge before :code:`max_iterations` iterations.
-    :return: A tuple of 2 items :code:`(sigma, F)` where,
+    :return: A tuple of 2 items :code:`(sigma, local_ops)` where,
         - :code:`sigma` is the locally normalized form of the input density matrix :code:`rho`.
           (:code:`numpy.ndarray` of shape equal to :code:`rho`)
-        - :code:`F` is the list of invertible local operators which can obtain :code:`sigma` from :code:`rho`.
+        - :code:`local_ops` is the list of invertible local operators which can obtain :code:`sigma` from :code:`rho`.
 
     """
     # Run checks on the input density matrix.
@@ -121,7 +131,7 @@ def operator_sinkhorn(
 
     # Prepare the iteration.
     Prho = [np.eye(d, dtype=np.complex128) / d for d in dim]
-    F = [np.eye(d, dtype=np.complex128) * tr_rho_p for d in dim]
+    local_ops = [np.eye(d, dtype=np.complex128) * tr_rho_p for d in dim]
     ldim = [np.prod(dim[:j]) for j in range(num_sys)]
     rdim = [np.prod(dim[j + 1 :]) for j in range(num_sys)]
 
@@ -160,9 +170,9 @@ def operator_sinkhorn(
                 Tk = np.kron(eye_ldim, np.kron(T, eye_rdim))
 
                 rho2 = Tk @ rho2 @ Tk.conj().T
-                F[j] = T @ F[j]
+                local_ops[j] = T @ local_ops[j]
 
-                max_cond = max(max_cond, np.linalg.cond(F[j]))
+                max_cond = max(max_cond, np.linalg.cond(local_ops[j]))
 
         except Exception:
             error_flag_in_iteration = True
@@ -187,4 +197,4 @@ def operator_sinkhorn(
     if np.trace(sigma) < 10 * np.finfo(float).eps:
         warnings.warn("Final trace is near zero, but initial trace was not. Result may be unreliable.", RuntimeWarning)
 
-    return sigma, F
+    return sigma, local_ops
