@@ -5,7 +5,9 @@ import numpy as np
 from toqito.measurements import pretty_good_measurement
 
 
-def pretty_bad_measurement(states: list[np.ndarray], probs: list[float] | None = None, tol: float = 1e-8) -> list[np.ndarray]:
+def pretty_bad_measurement(
+    states: list[np.ndarray], probs: list[float] | None = None, tol: float = 1e-8
+) -> list[np.ndarray]:
     r"""Return the set of pretty bad measurements from a set of vectors and corresponding probabilities.
 
     This computes the "pretty bad measurement" as defined in :cite:`Hughston_1993_Complete` and is an analogous idea to

@@ -1,12 +1,13 @@
 """Compute the set of pretty good measurements from an ensemble."""
 
 import numpy as np
-import scipy
 
 from toqito.matrix_ops import to_density_matrix
 
 
-def pretty_good_measurement(states: list[np.ndarray], probs: list[float] | None = None, tol: float = 1e-8) -> list[np.ndarray]:
+def pretty_good_measurement(
+    states: list[np.ndarray], probs: list[float] | None = None, tol: float = 1e-8
+) -> list[np.ndarray]:
     r"""Return the set of pretty good measurements from a set of vectors and corresponding probabilities.
 
     This computes the "pretty good measurement" as initially defined in :cite:`Hughston_1993_Complete`.
@@ -80,13 +81,10 @@ def pretty_good_measurement(states: list[np.ndarray], probs: list[float] | None 
     vals, vecs = np.linalg.eigh(p_var)
 
     # 3. Invert only the non‑zero eigenvalues.
-    inv_sqrt_vals = np.array([1/np.sqrt(v) if v > tol else 0.0 for v in vals])
+    inv_sqrt_vals = np.array([1 / np.sqrt(v) if v > tol else 0.0 for v in vals])
 
     # 4. Reconstruct P^{-1/2}.
     P_inv_sqrt = vecs @ np.diag(inv_sqrt_vals) @ vecs.conj().T
 
     # 5. Build PGM measurements.
-    return [
-        P_inv_sqrt @ (probs[i] * states[i]) @ P_inv_sqrt
-        for i in range(n)
-    ]
+    return [P_inv_sqrt @ (probs[i] * states[i]) @ P_inv_sqrt for i in range(n)]
