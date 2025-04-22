@@ -90,9 +90,9 @@ def operator_sinkhorn(
     :raises: ValueError: if the density matrix provided is singular (or is not of full rank).
     :raises: RuntimeError: if the Sinkhorn algorithm does not converge before :code:`max_iterations` iterations.
     :return: A tuple of 2 items :code:`(sigma, local_ops)` where,
-        - :code:`sigma` is the locally normalized form of the input density matrix :code:`rho`.
-          (:code:`numpy.ndarray` of shape equal to :code:`rho`)
-        - :code:`local_ops` is the list of invertible local operators which can obtain :code:`sigma` from :code:`rho`.
+    - :code:`sigma` is the locally normalized form of the input density matrix :code:`rho`.
+        (:code:`numpy.ndarray` of shape equal to :code:`rho`)
+    - :code:`local_ops` is the list of invertible local operators which can obtain :code:`sigma` from :code:`rho`.
 
     """
     # Run checks on the input density matrix.
