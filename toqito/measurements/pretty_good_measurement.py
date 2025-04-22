@@ -57,7 +57,6 @@ def pretty_good_measurement(
                   The function assumes a uniform probability distribution if the fixed
                   probabilities for the input ensemble are not provided.
     :param tol: A tolerance value for numerical comparisons.
-    :return A list of matrices representing the pretty good measurement.
 
     """
     n = len(states)

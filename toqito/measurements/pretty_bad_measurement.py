@@ -63,7 +63,6 @@ def pretty_bad_measurement(
     :param states: A collection of either states provided as either vectors or density matrices.
     :param probs: A set of probabilities.
     :param tol: A tolerance value for numerical comparisons.
-    :return: A list of matrices representing the pretty bad measurement operators.
 
     """
     n = len(states)
