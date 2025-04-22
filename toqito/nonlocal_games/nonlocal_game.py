@@ -6,9 +6,10 @@ from collections import defaultdict
 import cvxpy
 import numpy as np
 
-from toqito.helper import npa_constraints, update_odometer
+from toqito.helper import update_odometer
 from toqito.matrix_ops import tensor
 from toqito.rand import random_povm
+from toqito.state_opt import npa_constraints
 
 
 class NonlocalGame:
@@ -112,7 +113,7 @@ class NonlocalGame:
                 truth_assignment = tuple(bin_a)
 
                 for y_ques in range(num_variables):
-                    # Bob’s assignment is Alice’s truth assignment for the current variable.
+                    # Bob's assignment is Alice's truth assignment for the current variable.
                     b_ans = truth_assignment[y_ques]
 
                     # Check if this satisfies the constraint.
