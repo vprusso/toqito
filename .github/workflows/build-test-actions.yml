@@ -30,6 +30,7 @@ jobs:
       - uses: astral-sh/ruff-action@v3
         with:
           args: "format --check --diff"
+          version-file: "pyproject.toml"
       - run: ruff check --fix
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
