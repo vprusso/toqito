@@ -27,10 +27,15 @@ jobs:
       PYTHON: ${{ matrix.python-version }}
     steps:
       - uses: actions/checkout@v4
+      - name: Get Ruff version from pyproject.toml
+        id: get-ruff-version
+        run: |
+          RUFF_VERSION=$(grep 'ruff = ' pyproject.toml | cut -d'"' -f2)
+          echo "ruff_version=$RUFF_VERSION" >> $GITHUB_OUTPUT
       - uses: astral-sh/ruff-action@v3
         with:
           args: "format --check --diff"
-          version: "0.11.0"
+          version: ${{ steps.get-ruff-version.outputs.ruff_version }}
       - run: ruff check --fix
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
