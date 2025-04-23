@@ -31,9 +31,9 @@ def operator_sinkhorn(
     on each subsystems. (as discussed in :cite:`Gurvits_2004_Classical`)
 
     Examples
-    ==========
+    =======
 
-    To obtain a locally normalized density matrix of a random 2-qubit bipartite state using operator Sinkhorn:
+    To obtain a locally normalized density matrix of a random 2-qubit bipartite state using the Sinkhorn operator.
 
     ..jupyter-execute::
         import numpy as np
@@ -44,12 +44,14 @@ def operator_sinkhorn(
 
         print(rho_random)
 
+        sigma, local_ops = operator_sinkhorn(rho=rho_random, dim=[2, 2])
+
     :code:`operator_sinkhorn` returns the result density matrix along with the operations list :code:`local_ops`.
     :code:`sigma` (:math:`\sigma`) has all of its (single-party) reduced density matrices proportional
     to the identity, while satisfying
 
     .. math::
-        \sigma \, = \, F \, \cdot \, \rho \, \cdot \, F^{\dagger}
+        \sigma = F \cdot \rho \cdot F^{\dagger}
 
     In other words, :code:`local_ops` contains invertible local operations that demonstrate that :code:`rho` and
     :code:`sigma` are locally equivalent. This can be checked by first obtaining the :math:`F` matrix using the
@@ -67,7 +69,6 @@ def operator_sinkhorn(
         F = \left( F_1 \otimes F_2 \otimes F_3 \otimes ... F_n \right)
 
     ..jupyter-execute::
-        sigma, local_ops = operator_sinkhorn(rho=rho_random, dim=[2, 2])
         print(sigma)
         print(len(local_ops))
 
