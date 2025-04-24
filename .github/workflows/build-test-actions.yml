@@ -40,6 +40,21 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get install -y libblas-dev liblapack-dev
+      # Commit and push updated poetry.lock if the old one is outdated.
+      - name: Check if poetry.lock is outdated
+        run: |
+          poetry check --lock || echo "outdated" > lock_status.txt
+      - name: Update poetry.lock if needed
+        if: ${{ hashFiles('lock_status.txt') != '' }}
+        run: poetry lock --no-interaction
+      - name: Commit and push updated poetry.lock
+        if: ${{ hashFiles('lock_status.txt') != '' }}
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+          git add poetry.lock
+          git commit -m "Update poetry.lock" || echo "No changes to commit"
+          git push origin ${{ github.ref }} || echo "No changes to push"
       - name: Install toqito + dependencies
         run: |
           python -m pip install --upgrade pip
@@ -48,6 +63,7 @@ jobs:
 
 
   toqito-pytest:
+    needs: code-style
     strategy:
       fail-fast: false
       matrix:
