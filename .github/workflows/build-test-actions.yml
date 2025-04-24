@@ -46,8 +46,8 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
           git add poetry.lock
-          git commit -m "Update poetry.lock" || echo "No changes to commit"
-          git push origin ${{ github.head_ref }} || echo "No changes to push"
+          git commit -m "Update poetry.lock"
+          git push origin ${{ github.head_ref }}
 
   code-style:
     needs: poetry-checklock
