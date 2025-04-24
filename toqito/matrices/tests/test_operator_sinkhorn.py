@@ -15,7 +15,8 @@ def test_operator_sinkhorn_unitary_invariance():
     """Test invariance of operator Sinkhorn on swapping subsystems."""
     rho = random_density_matrix(4)
 
-    U = np.kron(np.eye(2), np.array([[0, 1], [1, 0]]))  # Swap subsystem.
+    # Swap subsystems.
+    U = np.kron(np.eye(2), np.array([[0, 1], [1, 0]]))
     rho_new = U @ rho @ U.conj().T
     sigma_new, local_ops_new = operator_sinkhorn(rho_new)
     sigma_old, local_ops_old = operator_sinkhorn(rho)
@@ -35,7 +36,7 @@ def test_operator_sinkhorn_trace_property():
 
 # Test partial traces for bipartite and tripartite systems.
 @pytest.mark.parametrize(
-    "rho1, dim1, expected_identity, target_subsys",
+    "rho, dim, expected_identity, target_subsys",
     [
         # Random bipartite system with (3x3 qubit, 9 dimensional).
         (random_density_matrix(9), [3, 3], np.eye(3) * (1 / 3), 0),
@@ -43,12 +44,12 @@ def test_operator_sinkhorn_trace_property():
         (random_density_matrix(8), [2, 2, 2], np.eye(2) * (1 / 2), [0, 2]),
     ],
 )
-def test_operator_sinkhorn_partial_trace(rho1, dim1, expected_identity, target_subsys):
+def test_operator_sinkhorn_partial_trace(rho, dim, expected_identity, target_subsys):
     """Test partial traces for bipartite and tripartite systems."""
-    sigma, local_ops = operator_sinkhorn(rho=rho1, dim=dim1)
+    sigma, local_ops = operator_sinkhorn(rho=rho, dim=dim)
 
     # Partial trace on the first subsystem.
-    pt = partial_trace(sigma, target_subsys, dim=dim1)
+    pt = partial_trace(sigma, target_subsys, dim=dim)
     pt_rounded = np.around(pt, decimals=2)
 
     # Check that partial trace matches the expected identity.
@@ -57,7 +58,7 @@ def test_operator_sinkhorn_partial_trace(rho1, dim1, expected_identity, target_s
 
 # Test error handling in different scenarios.
 @pytest.mark.parametrize(
-    "rho1, dim1, iters, error_type, expected_msg",
+    "rho, dim, iters, error_type, expected_msg",
     [
         # Singular matrix.
         (
@@ -101,10 +102,10 @@ def test_operator_sinkhorn_partial_trace(rho1, dim1, expected_identity, target_s
         ),
     ],
 )
-def test_operator_sinkhorn_errors(rho1, dim1, iters, error_type, expected_msg):
+def test_operator_sinkhorn_errors(rho, dim, iters, error_type, expected_msg):
     """Test error handling in different scenarios."""
     try:
-        operator_sinkhorn(rho=rho1, dim=dim1, max_iterations=iters)
+        operator_sinkhorn(rho=rho, dim=dim, max_iterations=iters)
     except error_type as e:
         assert str(e) == expected_msg
 
@@ -131,19 +132,17 @@ def test_operator_sinkhorn_near_zero_trace():
 
 # Test outputs on maximally mixed and entangled states.
 @pytest.mark.parametrize(
-    "test_input",
+    "rho, dim",
     [
-        # Maximally mixed state - should be invariant.
-        ([np.eye(9), [3]]),
-        # Maximally entangled state - should be invariant.
-        ([(bell(0)) @ ((bell(0)).conj().T), [2]]),
+        # Maximally mixed state - already satisfies the required condition. So the input is invariant.
+        (np.eye(9), [3]),
+        # Maximally entangled state - has local marginals proportional to identity. So the input is invariant.
+        ((bell(0)) @ ((bell(0)).conj().T), [2]),
     ],
 )
-def test_operator_sinkhorn_mix_ent(test_input):
+def test_operator_sinkhorn_mix_ent(rho, dim):
     """Test outputs on maximally mixed and entangled states."""
-    rho1, dim1 = test_input
-
-    sigma, local_ops = operator_sinkhorn(rho=rho1, dim=dim1)
+    sigma, local_ops = operator_sinkhorn(rho=rho, dim=dim)
 
     # Check that rho is invariant after sinkhorn operation.
-    np.testing.assert_allclose(sigma, rho1)
+    np.testing.assert_allclose(sigma, rho)

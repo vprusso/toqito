@@ -12,13 +12,13 @@ from toqito.matrix_props.is_square import is_square
 def operator_sinkhorn(
     rho: np.ndarray, dim: list[int] = None, tol: float = np.sqrt(np.finfo(float).eps), max_iterations: int = 10_000
 ) -> tuple[np.ndarray, list[np.ndarray]]:
-    r"""Perform operator Sinkhorn iteration (iterative sinkhorn algorithm) on a quantum system's density matrix.
+    r"""Perform operator Sinkhorn iteration (iterative Sinkhorn algorithm) on a quantum system's density matrix.
 
     This function is adapted from QETLAB. :cite:`QETLAB_link`.
 
     This function relies on Sinkhorn's theorem :cite:`Sinkhorn_1964_Relationship` which states "for any
     positive-definite square matrix, there exist diagonal matrices :math:`D_1` and :math:`D_2` such that
-    :math:`D_1 \, \cdot A \, \cdot D_2` is doubly stochastic.
+    :math:`D_1 \cdot A \cdot D_2` is doubly stochastic.
 
     The iterative Sinkhorn algorithm alternately rescales the input density matrix of the quantum system along each
     subsystem so that its marginals become uniform (i.e., partial traces or row/column sums become proportional to
@@ -26,9 +26,9 @@ def operator_sinkhorn(
 
     Upon convergence we end up with a density matrix `sigma` (:math:`\sigma`), which is locally equivalent to the given
     multipartite density matrix `rho` (:math:`\rho`), but having maximally mixed subsystems. The algorithm will also
-    return the list of Filtering Operations which can be directly applied on :math:`\rho` to arrive at :math:`\sigma`.
+    return the list of filtering operations which can be directly applied on :math:`\rho` to arrive at :math:`\sigma`.
     Such converted forms of density matrices are useful to analyse entangled systems and to study effects of operations
-    on each subsystems. (as discussed in :cite:`Gurvits_2004_Classical`)
+    on each subsystems (as discussed in :cite:`Gurvits_2004_Classical`).
 
     Examples
     =======
@@ -45,6 +45,10 @@ def operator_sinkhorn(
         print(rho_random)
 
         sigma, local_ops = operator_sinkhorn(rho=rho_random, dim=[2, 2])
+
+        print(sigma)
+        print(len(local_ops))
+        print(local_ops[0])
 
     :code:`operator_sinkhorn` returns the result density matrix along with the operations list :code:`local_ops`.
     :code:`sigma` (:math:`\sigma`) has all of its (single-party) reduced density matrices proportional
@@ -68,30 +72,23 @@ def operator_sinkhorn(
     .. math::
         F = \left( F_1 \otimes F_2 \otimes F_3 \otimes ... F_n \right)
 
-    ..jupyter-execute::
-        print(sigma)
-        print(len(local_ops))
-
-    :code:`local_ops` here will be the list of 2 local filtering operators, first of which is
-
-    ..jupyter-execute::
-        print(local_ops[0])
+    :code:`local_ops` here will be the list of 2 local filtering operators, first of which is printed.
 
     References
     ==========
     .. bibliography::
         :filter: docname in docnames
 
-    :param rho: Input density matrix of a multipartite system
+    :param rho: Input density matrix of a multipartite system.
     :param dim: List containing dimensions of each subsystem.
                 :code:`None` is passed by default which assumes 2 subsystems with equal dimensions.
     :param tol: `np.sqrt(np.finfo(float).eps)` Convergence tolerance of the iterative Sinkhorn Algorithm.
                 Assumes square root of numpy eps as default.
     :param max_iterations: Number of iterations after which the solver terminates with a convergence error.
-    :raises: ValueError: if input density matrix is not a square matrix.
-    :raises: ValueError: if the product of dimensions provided/assumed does not match the dimension of density matrix.
-    :raises: ValueError: if the density matrix provided is singular (or is not of full rank).
-    :raises: RuntimeError: if the Sinkhorn algorithm does not converge before :code:`max_iterations` iterations.
+    :raises: ValueError: If input density matrix is not a square matrix.
+    :raises: ValueError: If the product of dimensions provided/assumed does not match the dimension of density matrix.
+    :raises: ValueError: If the density matrix provided is singular (or is not of full rank).
+    :raises: RuntimeError: If the Sinkhorn algorithm does not converge before :code:`max_iterations` iterations.
     :return: A tuple of 2 items :code:`(sigma, local_ops)` where,
 
     - :code:`sigma` is the locally normalized form of the input density matrix :code:`rho`.
