@@ -50,7 +50,6 @@ jobs:
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
-          git remote set-url origin https://github.com/NV-Karthik/toqito.git
           git add poetry.lock
           git commit -m "Update poetry.lock [skip ci]"
           git push origin HEAD
