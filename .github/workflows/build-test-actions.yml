@@ -28,6 +28,10 @@ jobs:
       PYTHON: ${{ matrix.python-version }}
     steps:
       - uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
@@ -41,8 +45,6 @@ jobs:
         if: ${{ hashFiles('lock_status.txt') != '' }}
         run: poetry lock --no-interaction
       - name: Commit and push updated poetry.lock
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
         if: ${{ hashFiles('lock_status.txt') != '' }}
         run: |
           git config --global user.name "github-actions"
