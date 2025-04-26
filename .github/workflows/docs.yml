@@ -12,6 +12,7 @@ on:
         - master
 
 jobs:
+  needs: poetry-checklock
   doc-examples:
     strategy:
       matrix:
