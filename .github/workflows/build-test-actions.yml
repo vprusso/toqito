@@ -41,7 +41,6 @@ jobs:
         if: ${{ hashFiles('lock_status.txt') != '' }}
         run: poetry lock --no-interaction
       - name: Commit and push updated poetry.lock
-        uses: actions/checkout@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
         if: ${{ hashFiles('lock_status.txt') != '' }}
