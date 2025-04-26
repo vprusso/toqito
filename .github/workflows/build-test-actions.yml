@@ -21,8 +21,8 @@ jobs:
       fail-fast: false
       matrix:
           # Add versions here to expand support matrix
-        python-version: ["3.10", "3.11", "3.12"]
-        os: [ubuntu-latest, macos-latest]
+        python-version: ["3.10"]
+        os: [ubuntu-latest]
     runs-on: ${{ matrix.os }}
     env:
       PYTHON: ${{ matrix.python-version }}
@@ -31,6 +31,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
         with:
+          fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
@@ -52,7 +53,7 @@ jobs:
           git remote set-url origin https://github.com/NV-Karthik/toqito.git
           git add poetry.lock
           git commit -m "Update poetry.lock [skip ci]"
-          git push origin ${{ github.head_ref }}
+          git push origin HEAD
 
   code-style:
     needs: poetry-checklock
