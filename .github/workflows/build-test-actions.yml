@@ -35,6 +35,7 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.GH_BOT_TOKEN }}
+          ref: ${{ github.head_ref }}
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
