@@ -53,7 +53,7 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
           git add poetry.lock
-          git commit -m "Update poetry.lock [skip ci]"
+          git commit -m "Update poetry.lock"
           git push origin HEAD:refs/heads/${{ github.head_ref }}
 
   code-style:
