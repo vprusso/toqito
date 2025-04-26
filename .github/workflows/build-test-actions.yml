@@ -41,13 +41,16 @@ jobs:
         if: ${{ hashFiles('lock_status.txt') != '' }}
         run: poetry lock --no-interaction
       - name: Commit and push updated poetry.lock
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
         if: ${{ hashFiles('lock_status.txt') != '' }}
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
           git remote set-url origin https://github.com/NV-Karthik/toqito.git
           git add poetry.lock
-          git commit -m "Update poetry.lock"
+          git commit -m "Update poetry.lock [skip ci]"
           git push origin ${{ github.head_ref }}
 
   code-style:
