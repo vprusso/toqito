@@ -14,6 +14,11 @@ on:
     # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#running-your-workflow-only-when-a-push-to-specific-branches-occurs
       - master
 
+# Add the concurrency key here to cancel older runs on new pushes to the same PR
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
   # Commit and push updated poetry.lock if the old one is outdated.
   poetry-checklock:
