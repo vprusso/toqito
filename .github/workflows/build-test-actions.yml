@@ -12,7 +12,7 @@ on:
   push:
     branches:
     # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#running-your-workflow-only-when-a-push-to-specific-branches-occurs
-        - master
+      - master
 
 jobs:
   # Commit and push updated poetry.lock if the old one is outdated.
@@ -50,7 +50,7 @@ jobs:
           git config --global user.email "github-actions@github.com"
           git remote set-url origin https://github.com/NV-Karthik/toqito.git
           git add poetry.lock
-          git commit -m "Update poetry.lock"
+          git commit -m "Update poetry.lock [skip ci]"
           git push origin ${{ github.head_ref }}
 
   code-style:
