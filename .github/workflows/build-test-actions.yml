@@ -17,6 +17,8 @@ on:
 jobs:
   # Commit and push updated poetry.lock if the old one is outdated.
   poetry-checklock:
+    permissions:
+      contents: write
     strategy:
       fail-fast: false
       matrix:
