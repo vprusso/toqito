@@ -24,3 +24,4 @@ from toqito.state_props.is_antidistinguishable import is_antidistinguishable
 from toqito.state_props.is_distinguishable import is_distinguishable
 from toqito.state_props.is_unextendible_product_basis import is_unextendible_product_basis
 from toqito.state_props.common_quantum_overlap import common_quantum_overlap
+from toqito.state_props.common_epistemic_overlap import common_epistemic_overlap
