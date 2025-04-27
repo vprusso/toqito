@@ -106,24 +106,29 @@ def state_exclusion(
     It is not possible to conclusively exclude either of the two states. We can see that the result of the function in
     :code:`|toqito⟩` yields a value of :math:`0` as the probability for this to occur.
 
-    >>> from toqito.state_opt import state_exclusion
-    >>> from toqito.states import bell
-    >>> import numpy as np
-    >>>
-    >>> vectors = [bell(0), bell(1)]
-    >>> probs = [1/2, 1/2]
-    >>>
-    >>> np.around(state_exclusion(vectors, probs)[0], decimals=2)
-    np.float64(0.0)
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.states import bell
+     from toqito.state_opt import state_exclusion
+
+     vectors = [bell(0), bell(1)]
+     probs = [1/2, 1/2]
+
+     np.around(state_exclusion(vectors, probs)[0], decimals=2)
 
     Unambiguous state exclusion for unbiased states.
 
-    >>> from toqito.state_opt import state_exclusion
-    >>> import numpy as np
-    >>> states = [np.array([[1.], [0.]]), np.array([[1.],[1.]]) / np.sqrt(2)]
-    >>> res, _ = state_exclusion(states, primal_dual="primal", strategy="unambiguous", abs_ipm_opt_tol=1e-7)
-    >>> np.around(res, decimals=2)
-    np.float64(0.71)
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.state_opt import state_exclusion
+
+     states = [np.array([[1.], [0.]]), np.array([[1.],[1.]]) / np.sqrt(2)]
+
+     res, _ = state_exclusion(states, primal_dual="primal", strategy="unambiguous", abs_ipm_opt_tol=1e-7)
+
+     np.around(res, decimals=2)
 
     .. note::
         If you encounter a `ZeroDivisionError` or an `ArithmeticError` when using cvxopt as a solver (which is the
