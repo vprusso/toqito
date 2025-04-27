@@ -40,17 +40,20 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     In the event where we calculate the fidelity between states that are identical, we should obtain the value of
     :math:`1`. This can be observed in :code:`|toqito⟩` as follows.
 
-    >>> from toqito.state_metrics import fidelity
-    >>> import numpy as np
-    >>> rho = 1 / 2 * np.array(
-    ...     [[1, 0, 0, 1],
-    ...      [0, 0, 0, 0],
-    ...      [0, 0, 0, 0],
-    ...      [1, 0, 0, 1]]
-    ... )
-    >>> sigma = rho
-    >>> fidelity(rho, sigma)
-    np.float64(1.0000000000000002)
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.state_metrics import fidelity
+
+     rho = 1 / 2 * np.array(
+         [[1, 0, 0, 1],
+          [0, 0, 0, 0],
+          [0, 0, 0, 0],
+          [1, 0, 0, 1]]
+     )
+     sigma = rho
+
+     fidelity(rho, sigma)
 
     References
     ==========
