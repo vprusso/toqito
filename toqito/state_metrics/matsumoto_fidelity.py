@@ -50,17 +50,20 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     In the event where we calculate the Matsumoto fidelity between states that are identical, we should obtain the value
     of :math:`1`. This can be observed in :code:`|toqito⟩` as follows.
 
-    >>> from toqito.state_metrics import matsumoto_fidelity
-    >>> import numpy as np
-    >>> rho = 1 / 2 * np.array(
-    ...     [[1, 0, 0, 1],
-    ...      [0, 0, 0, 0],
-    ...      [0, 0, 0, 0],
-    ...      [1, 0, 0, 1]]
-    ... )
-    >>> sigma = rho
-    >>> np.around(matsumoto_fidelity(rho, sigma), decimals=2)
-    np.float64(1.0)
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.state_metrics import matsumoto_fidelity
+
+     rho = 1 / 2 * np.array(
+         [[1, 0, 0, 1],
+          [0, 0, 0, 0],
+          [0, 0, 0, 0],
+          [1, 0, 0, 1]]
+     )
+     sigma = rho
+
+     np.around(matsumoto_fidelity(rho, sigma), decimals=2)
 
     References
     ==========
