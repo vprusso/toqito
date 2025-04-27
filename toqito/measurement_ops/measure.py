@@ -34,32 +34,37 @@ def measure(measurement: np.ndarray, state: np.ndarray) -> float:
     .. math::
         P_0 = e_0 e_0^* \quad \text{and} \quad P_1 = e_1 e_1^*.
 
-    >>> from toqito.states import basis
-    >>> from toqito.measurement_ops import measure
-    >>> import numpy as np
-    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
-    >>>
-    >>> u = 1/np.sqrt(3) * e_0 + np.sqrt(2/3) * e_1
-    >>> rho = u @ u.conj().T
-    >>>
-    >>> proj_0 = e_0 @ e_0.conj().T
-    >>> proj_1 = e_1 @ e_1.conj().T
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.states import basis
+     from toqito.measurement_ops import measure
+
+     e_0, e_1 = basis(2, 0), basis(2, 1)
+
+     u = 1/np.sqrt(3) * e_0 + np.sqrt(2/3) * e_1
+     rho = u @ u.conj().T
+
+     proj_0 = e_0 @ e_0.conj().T
+     proj_1 = e_1 @ e_1.conj().T
 
     Then the probability of obtaining outcome :math:`0` is given by
 
     .. math::
         \langle P_0, \rho \rangle = \frac{1}{3}.
 
-    >>> measure(proj_0, rho)
-    0.3333333333333334
+    .. jupyter-execute::
+
+     measure(proj_0, rho)
 
     Similarly, the probability of obtaining outcome :math:`1` is given by
 
     .. math::
         \langle P_1, \rho \rangle = \frac{2}{3}.
 
-    >>> measure(proj_1, rho)
-    0.6666666666666666
+    .. jupyter-execute::
+
+     measure(proj_1, rho)
 
     References
     ==========

@@ -21,9 +21,11 @@ def perm_sign(perm: np.ndarray | list[int]) -> float:
     the permutation sign is positive as the number of elements in the vector are even. This can be performed in
     :code:`|toqito⟩` as follows.
 
-    >>> from toqito.perms import perm_sign
-    >>> perm_sign([1, 2, 3, 4])
-    np.float64(1.0)
+    .. jupyter-execute::
+
+     from toqito.perms import perm_sign
+
+     perm_sign([1, 2, 3, 4])
 
     For the following vector
 
@@ -33,9 +35,11 @@ def perm_sign(perm: np.ndarray | list[int]) -> float:
     the permutation sign is negative as the number of elements in the vector are odd. This can be performed in
     :code:`|toqito⟩` as follows.
 
-    >>> from toqito.perms import perm_sign
-    >>> perm_sign([1, 2, 4, 3, 5])
-    np.float64(-1.0)
+    .. jupyter-execute::
+
+     from toqito.perms import perm_sign
+
+     perm_sign([1, 2, 4, 3, 5])
 
     References
     ==========
