@@ -106,6 +106,8 @@ def random_density_matrix(
 
      from toqito.matrix_props import is_density
 
+     seeded = random_density_matrix(2, seed=42)
+
      is_density(seeded)
 
 

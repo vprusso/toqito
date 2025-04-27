@@ -59,7 +59,7 @@ def symmetric_projection(dim: int, p_val: int = 2, partial: bool = False) -> np.
 
     Using :code:`|toqito⟩` we can see this gives the proper result.
 
-     .. jupyter-execute::
+    .. jupyter-execute::
 
      from toqito.perms import symmetric_projection
 
