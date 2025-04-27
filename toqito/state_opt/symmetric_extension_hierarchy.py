@@ -79,50 +79,47 @@ def symmetric_extension_hierarchy(
 
     Consider a fixed value of :math:`\epsilon = 0.5`.
 
-    >>> from toqito.states import basis, bell
-    >>> from toqito.perms import swap
-    >>> import numpy as np
-    >>> from toqito.state_opt import symmetric_extension_hierarchy
-    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
-    >>> e_00, e_11 = np.kron(e_0, e_0), np.kron(e_1, e_1)
-    >>>
-    >>> # Define the resource state.
-    >>> eps = 0.5
-    >>> eps_state = np.sqrt((1+eps)/2) * e_00 + np.sqrt((1-eps)/2) * e_11
-    >>> eps_dm = eps_state @ eps_state.conj().T
-    >>>
-    >>> # Define the ensemble of states to be distinguished.
-    >>> states = [
-    ...     np.kron(bell(0) @ bell(0).conj().T, eps_dm),
-    ...     np.kron(bell(1) @ bell(1).conj().T, eps_dm),
-    ...     np.kron(bell(2) @ bell(2).conj().T, eps_dm),
-    ...     np.kron(bell(3) @ bell(3).conj().T, eps_dm),
-    ... ]
-    >>>
-    >>> # Ensure the distinguishability is conducted on the proper spaces.
-    >>> states = [
-    ...     swap(states[0], [2, 3], [2, 2, 2, 2]),
-    ...     swap(states[1], [2, 3], [2, 2, 2, 2]),
-    ...     swap(states[2], [2, 3], [2, 2, 2, 2]),
-    ... ]
-    >>>
-    >>> # Calculate the first level of the symmetric extension hierarchy. This
-    >>> # is simply the value of optimally distinguishing via PPT measurements.
-    >>> # np.around(symmetric_extension_hierarchy(states=states, probs=None, level=1), decimals=2)
-    # 0.99
-    >>>
-    >>> # Calculating the second value gets closer to the separable value.
-    >>> # np.around(symmetric_extension_hierarchy(states=states, probs=None, level=2), decimals=2)
-    # 0.96
-    >>>
-    >>> # As proven in :cite:`Cosentino_2015_QuantumState`, the true separable value of distinguishing the
-    >>> # three Bell states is:
-    >>> # np.around(1/3 * (2 + np.sqrt(1 - eps**2)), decimals=2)
-    # 0.96
-    >>>
-    >>> # Computing further levels of the hierarchy would eventually converge to
-    >>> # this value, however, the higher the level, the more computationally
-    >>> # demanding the SDP becomes.
+    .. jupyter-execute::
+
+        from toqito.states import basis, bell
+        from toqito.perms import swap
+        from toqito.state_opt import symmetric_extension_hierarchy
+        import numpy as np
+
+        # Create standard basis vectors.
+        e_0, e_1 = basis(2, 0), basis(2, 1)
+        e_00, e_11 = np.kron(e_0, e_0), np.kron(e_1, e_1)
+
+        # Define the resource state.
+        eps = 0.5
+        eps_state = np.sqrt((1 + eps) / 2) * e_00 + np.sqrt((1 - eps) / 2) * e_11
+        eps_dm = eps_state @ eps_state.conj().T
+
+        # Define the ensemble of Bell states tensored with the resource state.
+        states = [
+            np.kron(bell(0) @ bell(0).conj().T, eps_dm),
+            np.kron(bell(1) @ bell(1).conj().T, eps_dm),
+            np.kron(bell(2) @ bell(2).conj().T, eps_dm),
+            np.kron(bell(3) @ bell(3).conj().T, eps_dm),
+        ]
+
+        # Ensure correct ordering of subsystems.
+        states = [
+            swap(states[0], [2, 3], [2, 2, 2, 2]),
+            swap(states[1], [2, 3], [2, 2, 2, 2]),
+            swap(states[2], [2, 3], [2, 2, 2, 2]),
+        ]
+
+        # Calculate the first and second levels of the symmetric extension hierarchy.
+        val_lvl_1 = symmetric_extension_hierarchy(states=states, probs=None, level=1)
+        val_lvl_2 = symmetric_extension_hierarchy(states=states, probs=None, level=2)
+
+        # Compute the true separable value as proven in literature.
+        true_sep_val = (1/3) * (2 + np.sqrt(1 - eps**2))
+
+        print(f"Level 1 symmetric extension value: {np.around(val_lvl_1, decimals=2)}")
+        print(f"Level 2 symmetric extension value: {np.around(val_lvl_2, decimals=2)}")
+        print(f"True separable value: {np.around(true_sep_val, decimals=2)}")
 
     References
     ==========
