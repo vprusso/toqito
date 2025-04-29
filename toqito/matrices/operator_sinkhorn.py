@@ -33,36 +33,35 @@ def operator_sinkhorn(
     Examples
     =======
 
-    To obtain a locally normalized density matrix of a random 2-qubit bipartite state using the Sinkhorn operator.
+    To obtain a locally normalized density matrix of a random 2-qubit bipartite state using the Sinkhorn operator,
+     consider the following example:
 
     ..jupyter-execute::
         import numpy as np
         from toqito.matrices import operator_sinkhorn
         from toqito.rand import random_density_matrix
 
-        rho_random = random_density_matrix(4, seed=42)
-
-        print(rho_random)
+        rho = random_density_matrix(4, seed=42)
+        print(f"{rho=}")
 
         sigma, local_ops = operator_sinkhorn(rho=rho_random, dim=[2, 2])
 
-        print(sigma)
-        print(len(local_ops))
-        print(local_ops[0])
+        print(f"{sigma=}")
+        print(f"{local_ops[0]=}")
 
     :code:`operator_sinkhorn` returns the result density matrix along with the operations list :code:`local_ops`.
     :code:`sigma` (:math:`\sigma`) has all of its (single-party) reduced density matrices proportional
     to the identity, while satisfying
 
     .. math::
-        \sigma = F \cdot \rho \cdot F^{\dagger}
+        \sigma = F \cdot \rho \cdot F^{\dagger}.
 
     In other words, :code:`local_ops` contains invertible local operations that demonstrate that :code:`rho` and
     :code:`sigma` are locally equivalent. This can be checked by first obtaining the :math:`F` matrix using the
-    elements of :code:`local_ops`
+    elements of :code:`local_ops`.
 
-    for this example, :math:`F_1` = :code:`local_ops[0]`, and :math:`F_2` = :code:`local_ops[1]`
-    and :math:`F` matrix is then
+    For this example, :math:`F_1` = :code:`local_ops[0]`, and :math:`F_2` = :code:`local_ops[1]`
+    and the :math:`F` matrix is then
 
     .. math::
         F = \left( F_1 \otimes F_2 \right)
@@ -70,9 +69,9 @@ def operator_sinkhorn(
     and in general,
 
     .. math::
-        F = \left( F_1 \otimes F_2 \otimes F_3 \otimes ... F_n \right)
+        F = \left( F_1 \otimes F_2 \otimes F_3 \otimes \cdots F_n \right).
 
-    :code:`local_ops` here will be the list of 2 local filtering operators, first of which is printed.
+    The variable :code:`local_ops` here will be the list of 2 local filtering operators.
 
     References
     ==========
@@ -81,8 +80,8 @@ def operator_sinkhorn(
 
     :param rho: Input density matrix of a multipartite system.
     :param dim: List containing dimensions of each subsystem.
-                :code:`None` is passed by default which assumes 2 subsystems with equal dimensions.
-    :param tol: `np.sqrt(np.finfo(float).eps)` Convergence tolerance of the iterative Sinkhorn Algorithm.
+                :code:`None` is passed by default, which assumes two subsystems with equal dimensions.
+    :param tol: `np.sqrt(np.finfo(float).eps)` Convergence tolerance of the iterative Sinkhorn algorithm.
                 Assumes square root of numpy eps as default.
     :param max_iterations: Number of iterations after which the solver terminates with a convergence error.
     :raises: ValueError: If input density matrix is not a square matrix.
