@@ -3,6 +3,7 @@
 import cvxpy
 import numpy as np
 import pytest
+import sys
 
 from toqito.helper.bell_npa_constraints import bell_npa_constraints
 from toqito.nonlocal_games.bell_inequality_max import bell_inequality_max
@@ -372,6 +373,9 @@ def test_quantum_unbounded_status(mocker, capfd):
     assert "Warning: Solver status for 'quantum' k=1: unbounded_inaccurate" in captured.out
 
 
+@pytest.mark.skipif(
+    sys.version_info[:2] == (3, 10), reason="unittest.mock.patch string resolution issue in Python 3.10"
+)
 @pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
 def test_quantum_npa_error(mocker, chsh_cg, desc_chsh):
     """Test ValueError is raised if bell_npa_constraints fails."""
@@ -505,6 +509,9 @@ def test_classical_nonbinary_swap_triggered():
     assert isinstance(result, float)
 
 
+@pytest.mark.skipif(
+    sys.version_info[:2] == (3, 10), reason="unittest.mock.patch string resolution issue in Python 3.10"
+)
 @pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
 def test_nosignal_fp_conversion_internal_error(mocker, desc_chsh):
     """Test catching internal ValueError from fp_to_cg in nosignal path."""
@@ -517,6 +524,9 @@ def test_nosignal_fp_conversion_internal_error(mocker, desc_chsh):
         bell_inequality_max(dummy_fp_coeffs, desc_chsh, "fp", "nosignal")
 
 
+@pytest.mark.skipif(
+    sys.version_info[:2] == (3, 10), reason="unittest.mock.patch string resolution issue in Python 3.10"
+)
 @pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
 def test_quantum_fc_conversion_internal_error(mocker, chsh_fc, desc_chsh):
     """Test catching internal ValueError from fc_to_cg in quantum path."""
@@ -527,6 +537,9 @@ def test_quantum_fc_conversion_internal_error(mocker, chsh_fc, desc_chsh):
         bell_inequality_max(chsh_fc, desc_chsh, "fc", "quantum")
 
 
+@pytest.mark.skipif(
+    sys.version_info[:2] == (3, 10), reason="unittest.mock.patch string resolution issue in Python 3.10"
+)
 def test_classical_nonbinary_cg_to_fp_internal_error(mocker):
     """Test catching internal ValueError from cg_to_fp in classical non-binary path."""
     desc_actual_nonbin = [3, 3, 2, 2]
