@@ -3,6 +3,7 @@
 import cvxpy
 import pytest
 from pytest_mock import MockerFixture
+import sys
 
 from toqito.helper.bell_npa_constraints import _word_to_p_cg_index, bell_npa_constraints
 from toqito.helper.npa_hierarchy import Symbol, _gen_words
@@ -149,6 +150,9 @@ def test_bell_npa_constraints_identity_constraint():
     )
 
 
+@pytest.mark.skipif(
+    sys.version_info[:2] == (3, 10), reason="unittest.mock.patch string resolution issue in Python 3.10"
+)
 def test_bell_npa_constraints_value_error(mocker: MockerFixture):
     """Test that a ValueError is raised if the identity word mapping fails internally."""
     desc = [2, 2, 2, 2]
