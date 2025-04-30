@@ -34,3 +34,4 @@ from toqito.matrix_props.spark import spark
 from toqito.matrix_props.is_pseudo_unitary import is_pseudo_unitary
 from toqito.matrix_props.is_pseudo_hermitian import is_pseudo_hermitian
 from toqito.matrix_props.commutant import commutant
+from toqito.matrix_props.mutual_coherence import mutual_coherence
