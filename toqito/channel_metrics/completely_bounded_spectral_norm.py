@@ -2,8 +2,8 @@
 
 import numpy as np
 
-from toqito.channel_metrics import completely_bounded_trace_norm
-from toqito.channel_ops import dual_channel
+from toqito.channel_metrics.completely_bounded_trace_norm import completely_bounded_trace_norm
+from toqito.channel_ops.dual_channel import dual_channel
 
 
 def completely_bounded_spectral_norm(phi: np.ndarray) -> float:
@@ -32,4 +32,7 @@ def completely_bounded_spectral_norm(phi: np.ndarray) -> float:
     :return: The completely bounded spectral norm of the channel
 
     """
-    return completely_bounded_trace_norm(dual_channel(phi))
+    dual = dual_channel(phi)
+    if not isinstance(dual, np.ndarray):
+        raise TypeError("Expected the input to be a Choi matrix so that dual_channel returns a numpy ndarray.")
+    return completely_bounded_trace_norm(dual)
