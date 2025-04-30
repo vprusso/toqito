@@ -7,7 +7,7 @@ from toqito.matrix_props.mutual_coherence import mutual_coherence
 
 
 @pytest.mark.parametrize(
-    "setofvecs, expected_coherence",
+    "vectors, expected_coherence",
     [
         # Identity matrix (mutual coherence should be 0).
         ([np.array([1, 0, 0]), np.array([0, 1, 0]), np.array([0, 0, 1])], 0),
@@ -19,14 +19,14 @@ from toqito.matrix_props.mutual_coherence import mutual_coherence
         ([np.array([1, 0, 1]), np.array([0, 1, 1]), np.array([1, 1, 0])], 1 / 2),
     ],
 )
-def test_mutual_coherence(setofvecs, expected_coherence):
+def test_mutual_coherence(vectors, expected_coherence):
     """Test the mutual coherence function for valid inputs."""
-    result = mutual_coherence(setofvecs)
+    result = mutual_coherence(vectors)
     assert np.isclose(result, expected_coherence, atol=1e-8)
 
 
 @pytest.mark.parametrize(
-    "setofvecs, expected_coherence",
+    "vectors, expected_coherence",
     [
         # Input is not a list.
         (np.array([1, 0, 0]), TypeError),
@@ -34,7 +34,7 @@ def test_mutual_coherence(setofvecs, expected_coherence):
         ([np.array([[1, 0], [0, 1]])], ValueError),
     ],
 )
-def test_invalid_inputs(setofvecs, expected_coherence):
+def test_invalid_inputs(vectors, expected_coherence):
     """Test the mutual coherence function for invalid inputs."""
     with pytest.raises(expected_coherence):
-        mutual_coherence(setofvecs)
+        mutual_coherence(vectors)
