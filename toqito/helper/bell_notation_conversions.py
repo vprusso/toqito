@@ -1,4 +1,5 @@
 """Conversions between Bell inequality notations."""
+
 import numpy as np
 
 
@@ -88,14 +89,11 @@ def cg_to_fc(cg_mat: np.ndarray, behaviour: bool = False) -> np.ndarray:
     ia = cg_mat.shape[0] - 1
     ib = cg_mat.shape[1] - 1
 
-
     fc_mat = np.zeros((ia + 1, ib + 1))
-
 
     a_vec = cg_mat[1:, 0]
     b_vec = cg_mat[0, 1:]
     c_mat = cg_mat[1:, 1:]
-
 
     if not behaviour:
         fc_mat[0, 0] = cg_mat[0, 0] + np.sum(a_vec) / 2 + np.sum(b_vec) / 2 + np.sum(c_mat) / 4
@@ -106,15 +104,10 @@ def cg_to_fc(cg_mat: np.ndarray, behaviour: bool = False) -> np.ndarray:
         fc_mat[0, 0] = 1
         fc_mat[1:, 0] = 2 * a_vec - 1
         fc_mat[0, 1:] = 2 * b_vec - 1
-        fc_mat[1:, 1:] = (
-            np.ones((ia, ib))
-            - 2 * a_vec[:, np.newaxis]
-            - 2 * b_vec[np.newaxis, :]
-            + 4 * c_mat
-        )
-
+        fc_mat[1:, 1:] = np.ones((ia, ib)) - 2 * a_vec[:, np.newaxis] - 2 * b_vec[np.newaxis, :] + 4 * c_mat
 
     return fc_mat
+
 
 def fc_to_cg(fc_mat: np.ndarray, behaviour: bool = False) -> np.ndarray:
     r"""Convert a Bell functional or behaviour from Full Correlator (FC) to Collins-Gisin (CG) notation.
@@ -202,14 +195,11 @@ def fc_to_cg(fc_mat: np.ndarray, behaviour: bool = False) -> np.ndarray:
     ia = fc_mat.shape[0] - 1
     ib = fc_mat.shape[1] - 1
 
-
     cg_mat = np.zeros((ia + 1, ib + 1))
-
 
     a_vec = fc_mat[1:, 0]
     b_vec = fc_mat[0, 1:]
     c_mat = fc_mat[1:, 1:]
-
 
     if not behaviour:
         cg_mat[0, 0] = fc_mat[0, 0] + np.sum(c_mat) - np.sum(a_vec) - np.sum(b_vec)
@@ -220,17 +210,9 @@ def fc_to_cg(fc_mat: np.ndarray, behaviour: bool = False) -> np.ndarray:
         cg_mat[0, 0] = 1
         cg_mat[1:, 0] = (1 + a_vec) / 2
         cg_mat[0, 1:] = (1 + b_vec) / 2
-        cg_mat[1:, 1:] = (
-            np.ones((ia, ib))
-            + a_vec[:, np.newaxis]
-            + b_vec[np.newaxis, :]
-            + c_mat
-        ) / 4
-
+        cg_mat[1:, 1:] = (np.ones((ia, ib)) + a_vec[:, np.newaxis] + b_vec[np.newaxis, :] + c_mat) / 4
 
     return cg_mat
-
-
 
 
 def cg_to_fp(cg_mat: np.ndarray, desc: list[int], behaviour: bool = False) -> np.ndarray:
@@ -316,16 +298,13 @@ def cg_to_fp(cg_mat: np.ndarray, desc: list[int], behaviour: bool = False) -> np
     oa, ob, ia, ib = desc
     v_mat = np.zeros((oa, ob, ia, ib))
 
-
     def aindex(a: int, x: int) -> int:
         """CG matrix row index for Alice's outcome `a` (0..oa-2) and input `x` (0..ia-1). Returns 1-based index."""
         return 1 + a + x * (oa - 1)
 
-
     def bindex(b: int, y: int) -> int:
         """CG matrix col index for Bob's outcome `b` (0..ob-2) and input `y` (0..ib-1). Returns 1-based index."""
         return 1 + b + y * (ob - 1)
-
 
     if not behaviour:
         # Functional case logic
@@ -337,12 +316,7 @@ def cg_to_fp(cg_mat: np.ndarray, desc: list[int], behaviour: bool = False) -> np
                     a_term = cg_mat[aindex(a, x), 0] / ib if ib > 0 else 0
                     for b in range(ob - 1):
                         b_term = cg_mat[0, bindex(b, y)] / ia if ia > 0 else 0
-                        v_mat[a, b, x, y] = (
-                            k_term
-                            + a_term
-                            + b_term
-                            + cg_mat[aindex(a, x), bindex(b, y)]
-                        )
+                        v_mat[a, b, x, y] = k_term + a_term + b_term + cg_mat[aindex(a, x), bindex(b, y)]
                 # Fill V[a, ob-1, x, y] for a < oa-1 (last column for Bob)
                 for a in range(oa - 1):
                     a_term = cg_mat[aindex(a, x), 0] / ib if ib > 0 else 0
@@ -354,7 +328,6 @@ def cg_to_fp(cg_mat: np.ndarray, desc: list[int], behaviour: bool = False) -> np
                 # Fill V[oa-1, ob-1, x, y] (bottom-right corner)
                 v_mat[oa - 1, ob - 1, x, y] = k_term
 
-
     else:  # behaviour == 1
         for x in range(ia):
             for y in range(ib):
@@ -364,47 +337,42 @@ def cg_to_fp(cg_mat: np.ndarray, desc: list[int], behaviour: bool = False) -> np
                 end_row_a = aindex(oa - 2, x) + 1 if oa > 1 else start_row_a
                 slice_a = slice(start_row_a, end_row_a)
 
-
                 start_col_b = bindex(0, y)
                 end_col_b = bindex(ob - 2, y) + 1 if ob > 1 else start_col_b
                 slice_b = slice(start_col_b, end_col_b)
-
 
                 # Get corresponding submatrix or default to zeros/scalars if outputs=1
                 cg_sub_mat = cg_mat[slice_a, slice_b] if oa > 1 and ob > 1 else np.array([[]])
                 cg_a_marg = cg_mat[slice_a, 0] if oa > 1 else np.array([])
                 cg_b_marg = cg_mat[0, slice_b] if ob > 1 else np.array([])
 
-
                 # V(0..oa-2, 0..ob-2, x, y) = p(a,b|xy)
                 if oa > 1 and ob > 1:
                     v_mat[0 : oa - 1, 0 : ob - 1, x, y] = cg_sub_mat
-
 
                 # V(0..oa-2, ob-1, x, y) = pA(a|x) - sum_{b'=0..ob-2} p(a,b'|xy)
                 if oa > 1:
                     sum_b = np.sum(cg_sub_mat, axis=1) if ob > 1 else np.zeros(oa - 1)
                     v_mat[0 : oa - 1, ob - 1, x, y] = cg_a_marg - sum_b
 
-
                 # V(oa-1, 0..ob-2, x, y) = pB(b|y) - sum_{a'=0..oa-2} p(a',b|xy)
                 if ob > 1:
                     sum_a = np.sum(cg_sub_mat, axis=0) if oa > 1 else np.zeros(ob - 1)
                     v_mat[oa - 1, 0 : ob - 1, x, y] = cg_b_marg - sum_a
-
 
                 # V(oa-1, ob-1, x, y) = 1 - sum pA(a|x) - sum pB(b|y) + sum p(ab|xy)
                 sum_a_marg = np.sum(cg_a_marg)
                 sum_b_marg = np.sum(cg_b_marg)
                 sum_ab_joint = np.sum(cg_sub_mat)
                 v_mat[oa - 1, ob - 1, x, y] = (
-                    cg_mat[0, 0]      # Should be 1 for behaviour
+                    cg_mat[0, 0]  # Should be 1 for behaviour
                     - sum_a_marg
                     - sum_b_marg
                     + sum_ab_joint
                 )
 
     return v_mat
+
 
 def fc_to_fp(fc_mat: np.ndarray, behaviour: bool = False) -> np.ndarray:
     r"""Convert a Bell functional or behaviour from Full Correlator (FC) to Full Probability (FP) notation.
@@ -538,6 +506,7 @@ def fc_to_fp(fc_mat: np.ndarray, behaviour: bool = False) -> np.ndarray:
 
     return v_mat
 
+
 def fp_to_cg(v_mat: np.ndarray, behaviour: bool = False) -> np.ndarray:
     r"""Convert a Bell functional or behaviour from Full Probability (FP) to Collins-Gisin (CG) notation.
 
@@ -605,9 +574,8 @@ def fp_to_cg(v_mat: np.ndarray, behaviour: bool = False) -> np.ndarray:
     bob_pars = max(0, ib * (ob - 1)) + 1 if ob > 0 else 0
 
     if alice_pars == 0 or bob_pars == 0:
-
         if behaviour:
-             raise ValueError("Behaviour case requires non-zero outputs (oa>0, ob>0).")
+            raise ValueError("Behaviour case requires non-zero outputs (oa>0, ob>0).")
         cg_mat = np.zeros((alice_pars, bob_pars))
         return cg_mat
 
@@ -628,16 +596,12 @@ def fp_to_cg(v_mat: np.ndarray, behaviour: bool = False) -> np.ndarray:
         if oa > 1:
             for a in range(oa - 1):
                 for x in range(ia):
-                    cg_mat[_cg_row_index(a, x), 0] = np.sum(
-                        v_mat[a, ob - 1, x, :] - v_mat[oa - 1, ob - 1, x, :]
-                    )
+                    cg_mat[_cg_row_index(a, x), 0] = np.sum(v_mat[a, ob - 1, x, :] - v_mat[oa - 1, ob - 1, x, :])
 
         if ob > 1:
             for b in range(ob - 1):
                 for y in range(ib):
-                    cg_mat[0, _cg_col_index(b, y)] = np.sum(
-                        v_mat[oa - 1, b, :, y] - v_mat[oa - 1, ob - 1, :, y]
-                    )
+                    cg_mat[0, _cg_col_index(b, y)] = np.sum(v_mat[oa - 1, b, :, y] - v_mat[oa - 1, ob - 1, :, y])
 
         if oa > 1 and ob > 1:
             for a in range(oa - 1):
@@ -653,7 +617,6 @@ def fp_to_cg(v_mat: np.ndarray, behaviour: bool = False) -> np.ndarray:
                                 + v_mat[oa - 1, ob - 1, x, y]
                             )
 
-
     else:  # behaviour == 1
         cg_mat[0, 0] = 1.0  # Set K=1 for behaviour
 
@@ -663,8 +626,7 @@ def fp_to_cg(v_mat: np.ndarray, behaviour: bool = False) -> np.ndarray:
                     target_row_0based = _cg_row_index(a, x)
                     cg_mat[target_row_0based, 0] = np.sum(v_mat[a, :, x, 0])
         elif oa > 1 and ib == 0:
-
-             pass # Already initialized to 0
+            pass  # Already initialized to 0
 
         if ob > 1 and ia > 0:
             for y in range(ib):
@@ -672,7 +634,7 @@ def fp_to_cg(v_mat: np.ndarray, behaviour: bool = False) -> np.ndarray:
                     target_col_0based = _cg_col_index(b, y)
                     cg_mat[0, target_col_0based] = np.sum(v_mat[:, b, 0, y])
         elif ob > 1 and ia == 0:
-             pass
+            pass
 
         if oa > 1 and ob > 1:
             for x in range(ia):
@@ -684,6 +646,7 @@ def fp_to_cg(v_mat: np.ndarray, behaviour: bool = False) -> np.ndarray:
                             cg_mat[target_row_0based, target_col_0based] = v_mat[a, b, x, y]
 
     return cg_mat
+
 
 def fp_to_fc(v_mat: np.ndarray, behaviour: bool = False) -> np.ndarray:
     r"""Convert a Bell functional or behaviour from Full Probability (FP) to Full Correlator (FC) notation.
@@ -754,21 +717,18 @@ def fp_to_fc(v_mat: np.ndarray, behaviour: bool = False) -> np.ndarray:
 
     fc_mat = np.zeros((1 + ia, 1 + ib))
 
-    fc_mat[0, 0] = np.sum(v_mat) # K' = sum(V), used for functional case
+    fc_mat[0, 0] = np.sum(v_mat)  # K' = sum(V), used for functional case
 
     for x in range(ia):
         fc_mat[x + 1, 0] = np.sum(v_mat[0, :, x, :]) - np.sum(v_mat[1, :, x, :])
 
     for y in range(ib):
-
         fc_mat[0, 1 + y] = np.sum(v_mat[:, 0, :, y]) - np.sum(v_mat[:, 1, :, y])
 
     # Calculate E[AxBy] for each (x,y) -> FC[x+1, y+1] component
     for x in range(ia):
         for y in range(ib):
-            fc_mat[x + 1, y + 1] = (
-                v_mat[0, 0, x, y] - v_mat[0, 1, x, y] - v_mat[1, 0, x, y] + v_mat[1, 1, x, y]
-            )
+            fc_mat[x + 1, y + 1] = v_mat[0, 0, x, y] - v_mat[0, 1, x, y] - v_mat[1, 0, x, y] + v_mat[1, 1, x, y]
 
     if not behaviour:
         fc_mat = fc_mat / 4
@@ -777,12 +737,12 @@ def fp_to_fc(v_mat: np.ndarray, behaviour: bool = False) -> np.ndarray:
         if ib > 0:
             fc_mat[1:, 0] = fc_mat[1:, 0] / ib
         else:
-             # If no Bob inputs, average marginal <Ax> is 0.
-             fc_mat[1:, 0] = 0
+            # If no Bob inputs, average marginal <Ax> is 0.
+            fc_mat[1:, 0] = 0
         if ia > 0:
             fc_mat[0, 1:] = fc_mat[0, 1:] / ia
         else:
-             # If no Alice inputs, average marginal <By> is 0.
-             fc_mat[0, 1:] = 0
+            # If no Alice inputs, average marginal <By> is 0.
+            fc_mat[0, 1:] = 0
 
     return fc_mat
