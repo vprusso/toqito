@@ -32,7 +32,7 @@ def mutual_coherence(setofvecs: list[np.ndarray]) -> float:
     :param states: A list of 1D numpy arrays.
     :raises ValueError: If arrays in list are not 1D.
     :raises TypeError: If input is not a list.
-    :return: The mutual coherence.
+    :return: The mutual coherence of the collection of input vectors.
 
     """
     # Check if the input is a valid list of 1D numpy arrays.
