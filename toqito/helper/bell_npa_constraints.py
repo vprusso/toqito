@@ -8,9 +8,7 @@ import numpy as np
 from toqito.helper.npa_hierarchy import Symbol, _gen_words, _reduce
 
 
-def _word_to_p_cg_index(
-    word: Tuple[Symbol, ...], oa: int, ob: int, ma: int, mb: int
-) -> Union[int, None]:
+def _word_to_p_cg_index(word: Tuple[Symbol, ...], oa: int, ob: int, ma: int, mb: int) -> Union[int, None]:
     """Map an operator word to its corresponding index in the flattened CG vector."""
     dim_a = (oa - 1) * ma
     dim_b = (ob - 1) * mb

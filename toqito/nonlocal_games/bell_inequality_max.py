@@ -1,4 +1,5 @@
 """Computes classical, quantum (NPA), and no-signalling maximums for Bell inequalities."""
+
 import numbers
 import warnings
 
@@ -25,9 +26,7 @@ def _integer_digits(number: int, base: int, digits: int) -> np.ndarray:
     return dits
 
 
-def _cg_to_fp_cvxpy(
-    p_cg_var: cvxpy.Variable, desc: list[int]
-) -> list[cvxpy.Expression]:
+def _cg_to_fp_cvxpy(p_cg_var: cvxpy.Variable, desc: list[int]) -> list[cvxpy.Expression]:
     """Generate CVXPY expressions for full probabilities from a CG variable."""
     oa, ob, ia, ib = desc
     fp_expressions = []
@@ -53,12 +52,7 @@ def _cg_to_fp_cvxpy(
                     cg_a_marg = p_cg_var[row_idx, 0]
                     sum_b = 0
                     if ob > 1:
-                        sum_b = cvxpy.sum(
-                            [
-                                p_cg_var[row_idx, _cg_col_index(b_prime, y)]
-                                for b_prime in range(ob - 1)
-                            ]
-                        )
+                        sum_b = cvxpy.sum([p_cg_var[row_idx, _cg_col_index(b_prime, y)] for b_prime in range(ob - 1)])
                     fp_expressions.append(cg_a_marg - sum_b)
 
             if ob > 1:
@@ -67,39 +61,24 @@ def _cg_to_fp_cvxpy(
                     cg_b_marg = p_cg_var[0, col_idx]
                     sum_a = 0
                     if oa > 1:
-                        sum_a = cvxpy.sum(
-                            [
-                                p_cg_var[_cg_row_index(a_prime, x), col_idx]
-                                for a_prime in range(oa - 1)
-                            ]
-                        )
+                        sum_a = cvxpy.sum([p_cg_var[_cg_row_index(a_prime, x), col_idx] for a_prime in range(oa - 1)])
                     fp_expressions.append(cg_b_marg - sum_a)
 
             sum_a_marg = 0
             if oa > 1:
-                sum_a_marg = cvxpy.sum(
-                    [p_cg_var[_cg_row_index(a, x), 0] for a in range(oa - 1)]
-                )
+                sum_a_marg = cvxpy.sum([p_cg_var[_cg_row_index(a, x), 0] for a in range(oa - 1)])
 
             sum_b_marg = 0
             if ob > 1:
-                sum_b_marg = cvxpy.sum(
-                    [p_cg_var[0, _cg_col_index(b, y)] for b in range(ob - 1)]
-                )
+                sum_b_marg = cvxpy.sum([p_cg_var[0, _cg_col_index(b, y)] for b in range(ob - 1)])
 
             sum_ab_joint = 0
             if oa > 1 and ob > 1:
                 sum_ab_joint = cvxpy.sum(
-                    [
-                        p_cg_var[_cg_row_index(a, x), _cg_col_index(b, y)]
-                        for a in range(oa - 1)
-                        for b in range(ob - 1)
-                    ]
+                    [p_cg_var[_cg_row_index(a, x), _cg_col_index(b, y)] for a in range(oa - 1) for b in range(ob - 1)]
                 )
 
-            fp_expressions.append(
-                p_cg_var[0, 0] - sum_a_marg - sum_b_marg + sum_ab_joint
-            )
+            fp_expressions.append(p_cg_var[0, 0] - sum_a_marg - sum_b_marg + sum_ab_joint)
 
     return fp_expressions
 
@@ -217,9 +196,7 @@ def bell_inequality_max(
     notation_low = notation.lower()
 
     if notation_low not in ["fp", "fc", "cg"]:
-        raise ValueError(
-            f"Invalid notation: {notation}. Must be 'fp', 'fc', or 'cg'."
-        )
+        raise ValueError(f"Invalid notation: {notation}. Must be 'fp', 'fc', or 'cg'.")
 
     bmax = None
     problem = None
@@ -242,9 +219,8 @@ def bell_inequality_max(
         cg_dim = ((oa - 1) * ma + 1, (ob - 1) * mb + 1)
         if M.shape != cg_dim:
             raise ValueError(
-                 f"Coefficient shape {M.shape} incompatible with desc={desc} "
-                 f"and CG notation (expected {cg_dim})."
-             )
+                f"Coefficient shape {M.shape} incompatible with desc={desc} and CG notation (expected {cg_dim})."
+            )
 
         p_cg = cvxpy.Variable(cg_dim, name="p_cg")
 
@@ -268,7 +244,6 @@ def bell_inequality_max(
             elif problem.status in [cvxpy.UNBOUNDED, cvxpy.UNBOUNDED_INACCURATE]:
                 bmax = np.inf
 
-
     elif mtype_low == "quantum":
         if notation_low == "fc" and (oa != 2 or ob != 2):
             raise ValueError(
@@ -276,19 +251,19 @@ def bell_inequality_max(
             )
 
         if not isinstance(k, (str, numbers.Integral)) or (isinstance(k, numbers.Integral) and k < 0):
-             raise ValueError(f"Invalid NPA level k={k}. Must be a non-negative integer or a valid string level.")
+            raise ValueError(f"Invalid NPA level k={k}. Must be a non-negative integer or a valid string level.")
         if isinstance(k, str):
-            valid_k_prefixes = ['1', '2', '3', '4']
-            valid_k_suffixes = ['', '+a', '+b', '+ab', '+ba', '+aab', '+abb', '+aba', '+bab']
+            valid_k_prefixes = ["1", "2", "3", "4"]
+            valid_k_suffixes = ["", "+a", "+b", "+ab", "+ba", "+aab", "+abb", "+aba", "+bab"]
             is_valid_str_k = False
             for prefix in valid_k_prefixes:
                 if k.startswith(prefix):
-                    suffix = k[len(prefix):]
+                    suffix = k[len(prefix) :]
                     if suffix in valid_k_suffixes:
                         is_valid_str_k = True
                         break
             if not is_valid_str_k:
-                 raise ValueError(f"Invalid NPA level k='{k}'. Unrecognized string format.")
+                raise ValueError(f"Invalid NPA level k='{k}'. Unrecognized string format.")
 
         try:
             if notation_low == "cg":
@@ -303,9 +278,8 @@ def bell_inequality_max(
         cg_dim = ((oa - 1) * ma + 1, (ob - 1) * mb + 1)
         if M.shape != cg_dim:
             raise ValueError(
-                 f"Coefficient shape {M.shape} incompatible with desc={desc} "
-                 f"and CG notation (expected {cg_dim})."
-             )
+                f"Coefficient shape {M.shape} incompatible with desc={desc} and CG notation (expected {cg_dim})."
+            )
 
         p_var = cvxpy.Variable(cg_dim, name="p_cg_quantum")
 
@@ -331,7 +305,6 @@ def bell_inequality_max(
             elif problem.status in [cvxpy.UNBOUNDED, cvxpy.UNBOUNDED_INACCURATE]:
                 bmax = np.inf
 
-
     elif mtype_low == "classical":
         current_oa, current_ob, current_ma, current_mb = oa, ob, ma, mb
 
@@ -355,7 +328,7 @@ def bell_inequality_max(
                             f"with desc={desc} (expected {expected_fp_shape})."
                         )
                     M = fp_to_fc(coefficients, behaviour=False)
-                else: # notation_low == "cg"
+                else:  # notation_low == "cg"
                     if coefficients.shape != expected_cg_shape:
                         raise ValueError(
                             f"CG coefficient shape {coefficients.shape} incompatible "
@@ -363,14 +336,14 @@ def bell_inequality_max(
                         )
                     M = cg_to_fc(coefficients, behaviour=False)
             except ValueError as e:
-                 raise ValueError(f"Notation conversion failed for binary scenario: {e}") from e
+                raise ValueError(f"Notation conversion failed for binary scenario: {e}") from e
 
             if current_ma == 0 or current_mb == 0:
-                 if current_ma == 0:
-                     bmax = M[0, 0] + np.sum(np.abs(M[0, 1:]))
-                 else: # current_mb == 0
-                     bmax = M[0, 0] + np.sum(np.abs(M[1:, 0]))
-                 return float(bmax)
+                if current_ma == 0:
+                    bmax = M[0, 0] + np.sum(np.abs(M[0, 1:]))
+                else:  # current_mb == 0
+                    bmax = M[0, 0] + np.sum(np.abs(M[1:, 0]))
+                return float(bmax)
 
             if current_ma < current_mb:
                 M = M.T
@@ -385,9 +358,7 @@ def bell_inequality_max(
             for b_idx in range(num_bob_strategies):
                 b_digits = _integer_digits(b_idx, 2, current_mb)
                 b_vec = 1 - 2 * b_digits
-                temp_bmax = b_marginal @ b_vec + np.sum(
-                    np.abs(a_marginal + correlations @ b_vec)
-                )
+                temp_bmax = b_marginal @ b_vec + np.sum(np.abs(a_marginal + correlations @ b_vec))
                 bmax = max(bmax, temp_bmax)
 
             bmax += M[0, 0]
@@ -421,7 +392,7 @@ def bell_inequality_max(
                         )
                     M_fp = cg_to_fp(coefficients, desc, behaviour=False)
             except ValueError as e:
-                 raise ValueError(f"Notation conversion failed for non-binary scenario: {e}") from e
+                raise ValueError(f"Notation conversion failed for non-binary scenario: {e}") from e
 
             num_a_strats = current_oa**current_ma
             num_b_strats = current_ob**current_mb
@@ -454,9 +425,7 @@ def bell_inequality_max(
                 bmax = max(bmax, temp_bmax)
 
     else:
-        raise ValueError(
-            f"Invalid mtype: {mtype}. Must be 'classical', 'quantum', or 'nosignal'."
-        )
+        raise ValueError(f"Invalid mtype: {mtype}. Must be 'classical', 'quantum', or 'nosignal'.")
 
     if bmax is None or np.isnan(bmax):
         return -np.inf

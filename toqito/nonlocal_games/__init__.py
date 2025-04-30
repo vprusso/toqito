@@ -9,3 +9,4 @@ from toqito.nonlocal_games.binary_constraint_system_game import (
     check_perfect_commuting_strategy,
 )
 
+from toqito.nonlocal_games.bell_inequality_max import bell_inequality_max

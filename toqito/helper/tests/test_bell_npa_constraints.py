@@ -4,10 +4,7 @@ import cvxpy
 import pytest
 from pytest_mock import MockerFixture
 
-from toqito.helper.bell_npa_constraints import (
-    _word_to_p_cg_index,
-    bell_npa_constraints,
-)
+from toqito.helper.bell_npa_constraints import _word_to_p_cg_index, bell_npa_constraints
 from toqito.helper.npa_hierarchy import Symbol, _gen_words
 
 
@@ -83,6 +80,7 @@ def test_word_to_p_cg_index(word, desc, expected_index):
     oa, ob, ma, mb = desc
     assert _word_to_p_cg_index(word, oa, ob, ma, mb) == expected_index
 
+
 def test_word_to_p_cg_index_bob_explicit():
     """Test the mapping specifically for a Bob-only word and invalid words."""
     desc = [3, 4, 1, 2]
@@ -131,8 +129,9 @@ def test_bell_npa_constraints_identity_constraint():
             expected_gamma_str = str(expected_gamma_arg)
             expected_p_str = str(expected_p_arg)
 
-            if (arg0_str == expected_gamma_str and arg1_str == expected_p_str) or \
-               (arg0_str == expected_p_str and arg1_str == expected_gamma_str):
+            if (arg0_str == expected_gamma_str and arg1_str == expected_p_str) or (
+                arg0_str == expected_p_str and arg1_str == expected_gamma_str
+            ):
                 match_found = True
     except Exception:
         pass
@@ -157,7 +156,7 @@ def test_bell_npa_constraints_value_error(mocker: MockerFixture):
     p_var_dim = ((oa - 1) * ma + 1, (ob - 1) * mb + 1)
     p_var = cvxpy.Variable(p_var_dim, name="p_test_error")
 
-    mocker.patch('toqito.helper.bell_npa_constraints._word_to_p_cg_index', return_value=1)
+    mocker.patch("toqito.helper.bell_npa_constraints._word_to_p_cg_index", return_value=1)
     with pytest.raises(ValueError, match="Internal error: Identity word mapping failed."):
         bell_npa_constraints(p_var, desc, k=1)
 
@@ -184,7 +183,7 @@ def test_bell_npa_constraints_examples(k, desc, expected_gamma_shape_str, capsys
     print(f"PSD constraint {gamma_var.shape}.")
 
     captured = capsys.readouterr()
-    output_lines = captured.out.strip().split('\n')
+    output_lines = captured.out.strip().split("\n")
 
     assert output_lines[1] == f"PSD constraint {expected_gamma_shape_str}."
     assert int(output_lines[0]) > 0
