@@ -169,7 +169,7 @@ def fidelity_of_separability(
     problem.add_constraint((picos.I(dim_r) @ sym_choi) * choi * (picos.I(dim_r) @ sym_choi) == choi)
 
     # PPT condition on Choi state
-    sys = []
+    sys: list[int] = []
     for i in range(1, 1 + k):
         sys = sys + [i]
         problem.add_constraint(picos.partial_transpose(choi, sys, choi_dims) >> 0)
