@@ -1,5 +1,7 @@
 """Computes the dual of a map."""
 
+from typing import Optional, Union, cast
+
 import numpy as np
 
 from toqito.helper import channel_dim
@@ -7,8 +9,8 @@ from toqito.perms import swap
 
 
 def dual_channel(
-    phi_op: np.ndarray | list[np.ndarray] | list[list[np.ndarray]], dims: list[int] = None
-) -> np.ndarray | list[list[np.ndarray]]:
+    phi_op: Union[np.ndarray, list[np.ndarray], list[list[np.ndarray]]], dims: Optional[list[int]] = None
+) -> Union[np.ndarray, list[list[np.ndarray]], list[np.ndarray]]:
     r"""Compute the dual of a map (quantum channel).
 
     (Section: Representations and Characterizations of Channels of :cite:`Watrous_2018_TQI`).
@@ -85,13 +87,19 @@ def dual_channel(
     # and take the Hermitian conjugate.
     if isinstance(phi_op, list):
         if isinstance(phi_op[0], list):
-            return [[a.conj().T for a in x] for x in phi_op]
+            phi_op_2d = cast(list[list[np.ndarray]], phi_op)
+            return [[a.conj().T for a in inner] for inner in phi_op_2d]
         if isinstance(phi_op[0], np.ndarray):
-            return [a.conj().T for a in phi_op]
+            return [a.conj().T for a in phi_op if isinstance(a, np.ndarray)]
 
     # If phi_op is a `ndarray`, assume it is a Choi matrix.
     if isinstance(phi_op, np.ndarray):
         if len(phi_op.shape) == 2:
-            d_in, d_out, _ = channel_dim(phi_op, dim=dims, compute_env_dim=False)
+            if dims is None:
+                raise ValueError("When using a Choi Matrix, dims must be provided")
+            dims_result = channel_dim(phi_op, dim=dims, compute_env_dim=False)
+            if not isinstance(dims_result, list) or len(dims_result) != 2:
+                raise TypeError("Expected `channel_dim` to return a list of two items.")
+            d_in, d_out, _ = dims_result
             return swap(phi_op.conj(), dim=[[d_in[0], d_out[0]], [d_in[1], d_out[1]]])
     raise ValueError("Invalid: The variable `phi_op` must either be a list of Kraus operators or as a Choi matrix.")
