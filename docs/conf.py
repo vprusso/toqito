@@ -54,6 +54,7 @@ sphinx_gallery_conf = {
     "examples_dirs": "../examples",  # Path to example scripts
     "gallery_dirs": "auto_examples",  # Output directory for generated example galleries
     "filename_pattern": r".*\.py",  # Regex to filter example files by name i.e those starting with 'plot_'
+    "write_computation_times": False,  # Do not include computation times
 }
 
 bibtex_bibfiles = ["refs.bib"]
