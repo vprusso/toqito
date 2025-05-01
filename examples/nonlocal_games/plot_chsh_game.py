@@ -13,6 +13,7 @@ and use the XORGame function.
 # sphinx_gallery_thumbnail_path = '_static/chsh_game.png'
 
 import numpy as np
+
 from toqito.nonlocal_games.xor_game import XORGame
 
 # %%

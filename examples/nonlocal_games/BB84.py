@@ -7,10 +7,9 @@ Bennett and Brassard in 1984. The protocol allows two parties to establish a
 shared secret key with security guaranteed by quantum mechanics.
 """
 
-
 import numpy as np
+
 from toqito.states import basis
-import matplotlib.pyplot as plt
 
 # %%
 # Introduction to the BB84 Protocol
@@ -47,10 +46,10 @@ import matplotlib.pyplot as plt
 #
 # Let's implement a simulation of the BB84 protocol:
 
+
 def run_bb84_protocol(num_qubits=100, error_rate=0, eavesdropper=False):
-    """
-    Simulate the BB84 quantum key distribution protocol.
-    
+    """Simulate the BB84 quantum key distribution protocol.
+
     Parameters
     ----------
     num_qubits : int
@@ -59,38 +58,39 @@ def run_bb84_protocol(num_qubits=100, error_rate=0, eavesdropper=False):
         Probability of measurement error.
     eavesdropper : bool
         Whether to simulate an eavesdropper.
-        
+
     Returns
     -------
     tuple
         Alice's key, Bob's key, and the error rate between them.
+
     """
     # Alice's random bits and bases
     alice_bits = np.random.randint(0, 2, num_qubits)
     alice_bases = np.random.randint(0, 2, num_qubits)  # 0: standard, 1: Hadamard
-    
+
     # Bob's random bases
     bob_bases = np.random.randint(0, 2, num_qubits)
-    
+
     # Transmission and measurement
     bob_results = []
-    
+
     for i in range(num_qubits):
         # Alice prepares qubit
         if alice_bits[i] == 0:
             state = basis(2, 0)  # |0⟩
         else:
             state = basis(2, 1)  # |1⟩
-        
+
         # Ensure state is a column vector
         state = np.asarray(state).flatten()
-        
+
         # Alice encodes in chosen basis
         if alice_bases[i] == 1:
             # Hadamard transformation
             h_gate = np.array([[1, 1], [1, -1]]) / np.sqrt(2)
             state = h_gate @ state
-        
+
         # Eve intercepts
         if eavesdropper:
             eve_basis = np.random.randint(0, 2)
@@ -100,21 +100,21 @@ def run_bb84_protocol(num_qubits=100, error_rate=0, eavesdropper=False):
                 eve_state = h_gate @ state
             else:
                 eve_state = state
-                
+
             # Eve's measurement collapses the state
-            eve_probs = np.array([abs(eve_state[0])**2, abs(eve_state[1])**2])
+            eve_probs = np.array([abs(eve_state[0]) ** 2, abs(eve_state[1]) ** 2])
             # Normalize to handle numerical precision issues
             eve_probs = eve_probs / np.sum(eve_probs)
-            
+
             # Eve's measurement outcome
             eve_outcome = np.random.choice([0, 1], p=eve_probs)
-            
+
             if eve_basis == 1:
                 h_gate = np.array([[1, 1], [1, -1]]) / np.sqrt(2)
                 state = h_gate @ basis(2, eve_outcome).flatten()
             else:
                 state = basis(2, eve_outcome).flatten()
-        
+
         # Bob measures
         if bob_bases[i] == 1:
             # Hadamard basis measurement
@@ -122,29 +122,29 @@ def run_bb84_protocol(num_qubits=100, error_rate=0, eavesdropper=False):
             measure_state = h_gate @ state
         else:
             measure_state = state
-            
+
         # Calculate measurement probabilities
-        probs = np.array([abs(measure_state[0])**2, abs(measure_state[1])**2])
+        probs = np.array([abs(measure_state[0]) ** 2, abs(measure_state[1]) ** 2])
         # Normalize to handle numerical precision issues
         probs = probs / np.sum(probs)
-        
+
         # Add some noise
         if np.random.random() < error_rate:
             bob_results.append(1 - np.random.choice([0, 1], p=probs))
         else:
             bob_results.append(np.random.choice([0, 1], p=probs))
-    
+
     # Basis reconciliation
     matching_bases = alice_bases == bob_bases
-    
+
     # Final key bits
     alice_key = alice_bits[matching_bases]
     bob_key = np.array(bob_results)[matching_bases]
-    
+
     # Calculate error rate
     errors = np.sum(alice_key != bob_key)
     error_rate = errors / len(alice_key) if len(alice_key) > 0 else 0
-    
+
     return alice_key, bob_key, error_rate
 
 
@@ -156,13 +156,9 @@ def run_bb84_protocol(num_qubits=100, error_rate=0, eavesdropper=False):
 # and no eavesdropper.
 
 np.random.seed(42)
-alice_key, bob_key, error_rate = run_bb84_protocol(
-    num_qubits=100, 
-    error_rate=0.0, 
-    eavesdropper=False
-)
+alice_key, bob_key, error_rate = run_bb84_protocol(num_qubits=100, error_rate=0.0, eavesdropper=False)
 
-print(f"Example 1 - Ideal conditions:")
+print("Example 1 - Ideal conditions:")
 print(f"First 10 bits of Alice's key: {alice_key[:10]}")
 print(f"First 10 bits of Bob's key:   {bob_key[:10]}")
 print(f"Error rate: {error_rate:.2%}")
@@ -175,13 +171,9 @@ print()
 #
 # Now, let's simulate the protocol with some channel noise (5% error rate).
 
-alice_key, bob_key, error_rate = run_bb84_protocol(
-    num_qubits=100, 
-    error_rate=0.05, 
-    eavesdropper=False
-)
+alice_key, bob_key, error_rate = run_bb84_protocol(num_qubits=100, error_rate=0.05, eavesdropper=False)
 
-print(f"Example 2 - Noisy channel (5%):")
+print("Example 2 - Noisy channel (5%):")
 print(f"First 10 bits of Alice's key: {alice_key[:10]}")
 print(f"First 10 bits of Bob's key:   {bob_key[:10]}")
 print(f"Error rate: {error_rate:.2%}")
@@ -196,13 +188,9 @@ print()
 # According to quantum mechanics, Eve's measurements will disturb the quantum states,
 # introducing detectable errors.
 
-alice_key, bob_key, error_rate = run_bb84_protocol(
-    num_qubits=100, 
-    error_rate=0.0, 
-    eavesdropper=True
-)
+alice_key, bob_key, error_rate = run_bb84_protocol(num_qubits=100, error_rate=0.0, eavesdropper=True)
 
-print(f"Example 3 - Eavesdropper present:")
+print("Example 3 - Eavesdropper present:")
 print(f"First 10 bits of Alice's key: {alice_key[:10]}")
 print(f"First 10 bits of Bob's key:   {bob_key[:10]}")
 print(f"Error rate: {error_rate:.2%}")
@@ -222,18 +210,14 @@ np.random.seed(42)
 scenarios = [
     {"qubits": 1000, "error": 0.0, "eavesdrop": False, "label": "Ideal"},
     {"qubits": 1000, "error": 0.05, "eavesdrop": False, "label": "Noisy (5%)"},
-    {"qubits": 1000, "error": 0.0, "eavesdrop": True, "label": "Eavesdropper"}
+    {"qubits": 1000, "error": 0.0, "eavesdrop": True, "label": "Eavesdropper"},
 ]
 
 # Compare error rates between scenarios
 print("\nComparing Error Rates Under Different Conditions:")
 print("------------------------------------------------")
 for scenario in scenarios:
-    _, _, err_rate = run_bb84_protocol(
-        scenario["qubits"], 
-        scenario["error"], 
-        scenario["eavesdrop"]
-    )
+    _, _, err_rate = run_bb84_protocol(scenario["qubits"], scenario["error"], scenario["eavesdrop"])
     print(f"{scenario['label']} scenario: {err_rate:.2%} error rate")
 
 # Key Retention Efficiency
@@ -250,7 +234,7 @@ for num_qubits in qubits_range:
     print(f"{num_qubits} qubits: {retention:.2%} retention rate")
 
 print(f"\nAverage retention rate: {np.mean(retained_ratios):.2%}")
-print(f"Theoretical expectation: 50%")
+print("Theoretical expectation: 50%")
 
 # %%
 # Conclusion
