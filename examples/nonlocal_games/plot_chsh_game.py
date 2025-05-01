@@ -46,8 +46,7 @@ from toqito.nonlocal_games.xor_game import XORGame
 # probability 1/4:
 
 # The probability distribution matrix for inputs (x,y)
-prob_mat = np.array([[1/4, 1/4], 
-                     [1/4, 1/4]])
+prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
 
 print("Probability matrix (distribution of inputs):")
 print(prob_mat)
@@ -91,17 +90,17 @@ print(f"Classical value of the CHSH game: {classical_val}")
 # The quantum value represents the maximum probability of winning when players
 # can use quantum strategies, such as sharing an entangled quantum state.
 #
-# For the CHSH game, the quantum value is :math:`\cos^2(\pi/8) \approx 0.85`, 
+# For the CHSH game, the quantum value is :math:`\cos^2(\pi/8) \approx 0.85`,
 # which exceeds the classical bound of :math:`0.75`.
 #
 # The CHSH inequality can be expressed mathematically as:
-# 
+#
 # .. math::
 #    |E(0,0) + E(0,1) + E(1,0) - E(1,1)| \leq 2
 #
 # Where :math:`E(x,y)` represents the expected value of the product of Alice's
 # and Bob's outputs when given inputs :math:`x` and :math:`y` respectively.
-# 
+#
 # Quantum mechanics predicts this value can reach :math:`2\sqrt{2} \approx 2.82`,
 # which is known as Tsirelson's bound.
 
