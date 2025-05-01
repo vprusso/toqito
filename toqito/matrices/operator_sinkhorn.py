@@ -45,7 +45,6 @@ def operator_sinkhorn(
         print(f"{rho=}")
 
         sigma, local_ops = operator_sinkhorn(rho=rho_random, dim=[2, 2])
-
         print(f"{sigma=}")
         print(f"{local_ops[0]=}")
 
