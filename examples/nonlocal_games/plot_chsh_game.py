@@ -63,7 +63,7 @@ for x in range(2):
     for y in range(2):
         # For CHSH: winning condition is a ⊕ b = x ∧ y
         # Expressed as V(x,y) = (-1)^(x∧y)
-        pred_mat[x, y] = (-1)**(x & y)
+        pred_mat[x, y] = (-1) ** (x & y)
 
 print("\nPredicate matrix (encoding the winning condition):")
 print(pred_mat)
