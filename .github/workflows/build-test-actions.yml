@@ -48,7 +48,8 @@ jobs:
       - name: Install poetry and check if poetry.lock is outdated
         run: |
           python -m pip install --upgrade pip
-          pip install poetry
+          pip install pipx
+          pipx install poetry
           poetry check --lock || echo "outdated" > lock_status.txt
       - name: Update poetry.lock if needed
         if: ${{ hashFiles('lock_status.txt') != '' }}
@@ -92,7 +93,8 @@ jobs:
       - name: Install toqito + dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install poetry
+          pip install pipx
+          pipx install poetry
           poetry install --without docs --no-interaction
 
 
@@ -125,7 +127,8 @@ jobs:
       - name: Install toqito + dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install poetry
+          pip install pipx
+          pipx install poetry
           poetry install --with dev --without docs,lint --no-interaction
       - name: Run tests
         run: poetry run pytest -v --cov-config=.coveragerc --cov-report=xml --cov-report term-missing:skip-covered --cov=toqito

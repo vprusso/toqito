@@ -30,7 +30,8 @@ jobs:
       - name: Install toqito + dependencies
         run: |
           python -m pip install --upgrade --no-cache-dir pip
-          pip install poetry
+          pip install pipx
+          pipx install poetry
           poetry install --with docs,dev --without lint --no-interaction
       - name: Check docstring examples
         run: |
