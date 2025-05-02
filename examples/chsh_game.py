@@ -2,9 +2,6 @@
 """CHSH Game Example
 =================
 
-.. note::
-   This is a sample tutorial to test the layout of the examples gallery. Tutorials are coming soon.
-
 This example calculates the classical and quantum values for the CHSH game
 using the toqito library. It demonstrates how to construct the necessary matrices
 and use the XORGame function.
