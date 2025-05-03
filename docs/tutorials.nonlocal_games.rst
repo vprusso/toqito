@@ -145,7 +145,7 @@ Let us describe the high-level steps for how Alice and Bob play using a quantum
 strategy.
 
 1. Alice and Bob prepare a state :math:`\sigma \in \text{D}(\mathcal{U} \otimes
-   \mathcal{V})` prior to the start of the game. We use :math:`\textsf{U}`` and
+   \mathcal{V})` prior to the start of the game. We use :math:`\textsf{U}` and
    :math:`\textsf{V}` to denote the respective registers of spaces :math:`\textsf{U}`
    and :math:`\textsf{V}`.
 
@@ -291,14 +291,14 @@ the CHSH game, each of the four pairs
 :math:`\{(0, 0), (0, 1), (1, 0), (1, 1)\}` are all equally likely. We encode
 this in the matrix as follows.
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> # Creating the probability matrix.
-    >>> import numpy as np
-    >>> prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
+     # Creating the probability matrix.
+     import numpy as np
+     prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
 
 Next, we want to loop through all possible combinations of question and answer
-pairs and populate the :math:(a, b, x, y)^{th}` entry of that matrix with a
+pairs and populate the :math:`(a, b, x, y)^{th}` entry of that matrix with a
 :math:`1` in the event that the winning condition is satisfied. Otherwise, if
 the winning condition is not satisfied for that particular choice of
 :math:`a, b, x,` and :math:`y`, we place a :math:`0` at that position.
@@ -306,50 +306,38 @@ the winning condition is not satisfied for that particular choice of
 The following code performs this operation and places the appropriate entries
 in this matrix into the :code:`pred_mat` variable.
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> # Creating the predicate matrix.
-    >>> import numpy as np
-    >>> num_alice_inputs, num_alice_outputs = 2, 2
-    >>> num_bob_inputs, num_bob_outputs = 2, 2
-    >>>
-    >>> pred_mat = np.zeros(
-    ...     (num_alice_outputs, num_bob_outputs, num_alice_inputs, num_bob_inputs)
-    ... )
-    >>>
-    >>> for a_alice in range(num_alice_outputs):
-    ...     for b_bob in range(num_bob_outputs):
-    ...         for x_alice in range(num_alice_inputs):
-    ...             for y_bob in range(num_bob_inputs):
-    ...                 if a_alice ^ b_bob == x_alice * y_bob:
-    ...                     pred_mat[a_alice, b_bob, x_alice, y_bob] = 1
-    >>> pred_mat
-    array([[[[1., 1.],
-             [1., 0.]],
-    <BLANKLINE>
-            [[0., 0.],
-             [0., 1.]]],
-    <BLANKLINE>
-    <BLANKLINE>
-           [[[0., 0.],
-             [0., 1.]],
-    <BLANKLINE>
-            [[1., 1.],
-             [1., 0.]]]])
+     # Creating the predicate matrix.
+     import numpy as np
+     num_alice_inputs, num_alice_outputs = 2, 2
+     num_bob_inputs, num_bob_outputs = 2, 2
+    
+     pred_mat = np.zeros(
+         (num_alice_outputs, num_bob_outputs, num_alice_inputs, num_bob_inputs)
+     )
+    
+     for a_alice in range(num_alice_outputs):
+         for b_bob in range(num_bob_outputs):
+             for x_alice in range(num_alice_inputs):
+                 for y_bob in range(num_bob_inputs):
+                     if a_alice ^ b_bob == x_alice * y_bob:
+                         pred_mat[a_alice, b_bob, x_alice, y_bob] = 1
+     pred_mat
+
 
 
 Now that we have both :code:`prob_mat` and :code:`pred_mat` defined, we can
 use :code:`|toqito⟩` to determine the lower bound on the quantum value.
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> import numpy as np
-    >>> from toqito.nonlocal_games.nonlocal_game import NonlocalGame
-    >>> chsh = NonlocalGame(prob_mat, pred_mat)
-    >>> # Multiple runs to avoid trap in suboptimal quantum value.
-    >>> results = [np.around(chsh.quantum_value_lower_bound(), decimals=2) for _ in range(5)] 
-    >>> max(results)
-    np.float64(0.85)
+     import numpy as np
+     from toqito.nonlocal_games.nonlocal_game import NonlocalGame
+     chsh = NonlocalGame(prob_mat, pred_mat)
+     # Multiple runs to avoid trap in suboptimal quantum value.
+     results = [np.around(chsh.quantum_value_lower_bound(), decimals=2) for _ in range(5)] 
+     print(f"Maximum quantum value after multiple runs is: {max(results)}")
 
 In this case, we can see that the quantum value of the CHSH game is in fact
 attained as :math:`\cos^2(\pi/8) \approx 0.85355`.
@@ -392,33 +380,32 @@ game is :math:`2/3` :cite:`Cleve_2010_Consequences`. We can verify this fact usi
 The following example encodes the FFL game. We then calculate the classical
 value and calculate lower bounds on the quantum value of the FFL game.
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> import numpy as np
-    >>> from toqito.nonlocal_games.nonlocal_game import NonlocalGame
-    >>>
-    >>> # Specify the number of inputs, and number of outputs.
-    >>> num_alice_in, num_alice_out = 2, 2
-    >>> num_bob_in, num_bob_out = 2, 2
-    >>> 
-    >>> # Define the probability matrix of the FFL game.
-    >>> prob_mat = np.array([[1/3, 1/3], [1/3, 0]])
-    >>>
-    >>>
-    >>> # Define the predicate matrix of the FFL game.
-    >>> pred_mat = np.zeros((num_alice_out, num_bob_out, num_alice_in, num_bob_in))
-    >>> for a_alice in range(num_alice_out):
-    ...     for b_bob in range(num_bob_out):
-    ...         for x_alice in range(num_alice_in):
-    ...             for y_bob in range(num_bob_in):
-    ...                 if (a_alice or x_alice) != (b_bob or y_bob):
-    ...                     pred_mat[a_alice, b_bob, x_alice, y_bob] = 1
-    >>> # Define the FFL game object.
-    >>> ffl = NonlocalGame(prob_mat, pred_mat)
-    >>> np.around(ffl.classical_value(), decimals=2)
-    np.float64(0.67)
-    >>> np.around(ffl.quantum_value_lower_bound(), decimals=2)
-    np.float64(0.67)
+     import numpy as np
+     from toqito.nonlocal_games.nonlocal_game import NonlocalGame
+    
+     # Specify the number of inputs, and number of outputs.
+     num_alice_in, num_alice_out = 2, 2
+     num_bob_in, num_bob_out = 2, 2
+     
+     # Define the probability matrix of the FFL game.
+     prob_mat = np.array([[1/3, 1/3], [1/3, 0]])
+    
+    
+     # Define the predicate matrix of the FFL game.
+     pred_mat = np.zeros((num_alice_out, num_bob_out, num_alice_in, num_bob_in))
+     for a_alice in range(num_alice_out):
+         for b_bob in range(num_bob_out):
+             for x_alice in range(num_alice_in):
+                 for y_bob in range(num_bob_in):
+                     if (a_alice or x_alice) != (b_bob or y_bob):
+                         pred_mat[a_alice, b_bob, x_alice, y_bob] = 1
+     # Define the FFL game object.
+     ffl = NonlocalGame(prob_mat, pred_mat)
+     print(f"Classical value: {np.around(ffl.classical_value(), decimals=2)}")
+     print(f"Quantum value (lower bound): {np.around(ffl.quantum_value_lower_bound(), decimals=2)}")
+
 
 In this case, we obtained the correct quantum value of :math:`2/3`, however,
 the lower bound technique is not guaranteed to converge to the true quantum
@@ -464,33 +451,32 @@ As an example, the CHSH game can be described as a BCS game:
 
 In :code:`|toqito⟩`, we can encode this as a BCS game as follows
 
-.. code-block:: python
+.. jupyter-execute::
 
-    >>> import numpy as np
-    >>> from toqito.nonlocal_games import NonlocalGame
-    >>> 
-    >>> # Define constraints c_1 and c_2.
-    >>> c_1 = np.zeros((2, 2))
-    >>> c_2 = np.zeros((2, 2))
-    >>> 
-    >>> # Loop over variables and populate constraints.
-    >>> for v_1 in range(2):
-    ...     for v_2 in range(2):
-    ...         if v_1 ^ v_2 == 0:
-    ...             c_1[v_1, v_2] = 1
-    ...         else:
-    ...             c_2[v_1, v_2] = 1
-    >>>
-    >>> # Define the BCS game from the variables and constraints.
-    >>> chsh_bcs = NonlocalGame.from_bcs_game([c_1, c_2])
-    >>> # Classical value of CHSH is 3 / 4 = 0.75
-    >>> np.around(chsh_bcs.classical_value(), decimals=2)
-    np.float64(0.75)
-    >>> # Quantum value of CHSH is cos^2(pi/8) \approx 0.853...
-    >>> # Multiple runs to avoid trap in suboptimal quantum value.
-    >>> results = [np.around(chsh_bcs.quantum_value_lower_bound(), decimals=2) for _ in range(5)] 
-    >>> max(results)
-    np.float64(0.85)
+     import numpy as np
+     from toqito.nonlocal_games import NonlocalGame
+     
+     # Define constraints c_1 and c_2.
+     c_1 = np.zeros((2, 2))
+     c_2 = np.zeros((2, 2))
+     
+     # Loop over variables and populate constraints.
+     for v_1 in range(2):
+         for v_2 in range(2):
+             if v_1 ^ v_2 == 0:
+                 c_1[v_1, v_2] = 1
+             else:
+                 c_2[v_1, v_2] = 1
+    
+     # Define the BCS game from the variables and constraints.
+     chsh_bcs = NonlocalGame.from_bcs_game([c_1, c_2])
+     # Classical value of CHSH is 3 / 4 = 0.75
+     print(f"Classical value: {np.around(chsh_bcs.classical_value(), decimals=2)}")
+     # Quantum value of CHSH is cos^2(pi/8) \approx 0.853
+     # Multiple runs to avoid trap in suboptimal quantum value.
+     results = [np.around(chsh_bcs.quantum_value_lower_bound(), decimals=2) for _ in range(5)] 
+     print(f"Maximum quantum value after multiple runs is: {max(results)}")
+
 
 
 References

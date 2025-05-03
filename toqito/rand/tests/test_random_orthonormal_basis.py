@@ -2,7 +2,7 @@
 
 import numpy as np
 import pytest
-from numpy.ma.testutils import assert_array_almost_equal
+from numpy.testing import assert_allclose
 
 from toqito.matrix_props import is_orthonormal
 from toqito.rand import random_orthonormal_basis
@@ -34,4 +34,4 @@ def test_random_orth_basis_int_dim(input_dim, bool):
 def test_seed(dim, is_real, expected):
     """Test that the function returns the expected output when seeded."""
     basis = random_orthonormal_basis(dim, is_real, seed=124)
-    assert_array_almost_equal(basis, expected)
+    assert_allclose(basis, expected, rtol=1e-05)
