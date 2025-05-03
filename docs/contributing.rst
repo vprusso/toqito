@@ -111,7 +111,7 @@ For example, if your addition is not properly covered by tests, code coverage ca
 If you are making changes to :code:`toqito.some_module`, the corresponding tests should be in
 :code:`toqito/some_module/tests`.
 
-A beginner introduction to adding unit tests is available `here <https://third-bit.com/py-rse/testing.html>`_
+A beginner introduction to adding unit tests is available `here <https://third-bit.com/py-rse/testing.html>`_ .
 
 
 ----------
