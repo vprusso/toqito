@@ -102,7 +102,7 @@ def test_sdp_not_optimal(monkeypatch):
         return 0.5
 
     monkeypatch.setattr(cp.Problem, "solve", fake_solve)
-    np.testing.assert_equal(is_absolutely_k_incoherent(mat, 3), False)
+    assert is_absolutely_k_incoherent(mat, 3) is False
 
 
 def test_non_equal_eigenvalues_branch(monkeypatch):
