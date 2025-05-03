@@ -81,7 +81,7 @@ def test_is_absolutely_k_incoherent(mat, k, expected):
         with pytest.raises(ValueError, match="k must be a positive integer."):
             is_absolutely_k_incoherent(mat, k)
     else:
-        np.testing.assert_equal(is_absolutely_k_incoherent(mat, k), expected)
+        assert is_absolutely_k_incoherent(mat, k) == expected
 
 
 def test_is_absolutely_k_incoherent_non_square():
