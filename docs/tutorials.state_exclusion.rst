@@ -224,7 +224,7 @@ for which
     X = \sum_{j=0}^{m-1} c_j |psi_j\rangle \langle \psi_j|.
 
 It turns out that antidistinguishability is equivalent to :math:`k`-incoherence in the :math:`k = n - 1` case.
-Reproducing one of the results from :cite:`Johnston_2025_Tight`, we have that
+Reproducing one of the results from :cite:`Johnston_2025_Tight`, we have that.....
 
 **Theorem**: Let :math:`n \geq 2` be an integer and let :math:`S = \{|\phi_0\rangle, |\phi_1\rangle, \ldots, |\phi_{n-1}\rangle\}`.
 Then :math:`S` is antidistinguishable if and only if the Gram matrix :math:`G` is :math:`(n-1)`-incoherent.
