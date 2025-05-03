@@ -17,7 +17,7 @@ def operator_sinkhorn(
     This function is adapted from QETLAB. :cite:`QETLAB_link`.
 
     This function relies on Sinkhorn's theorem :cite:`Sinkhorn_1964_Relationship` which states "for any
-    positive-definite square matrix, there exist diagonal matrices :math:`D_1` and :math:`D_2` such that
+    positive-definite square matrix :math:`A`, there exist diagonal matrices :math:`D_1` and :math:`D_2` such that
     :math:`D_1 \cdot A \cdot D_2` is doubly stochastic.
 
     The iterative Sinkhorn algorithm alternately rescales the input density matrix of the quantum system along each
@@ -80,7 +80,7 @@ def operator_sinkhorn(
     :param rho: Input density matrix of a multipartite system.
     :param dim: List containing dimensions of each subsystem.
                 :code:`None` is passed by default, which assumes two subsystems with equal dimensions.
-    :param tol: `np.sqrt(np.finfo(float).eps)` Convergence tolerance of the iterative Sinkhorn algorithm.
+    :param tol: Convergence tolerance of the iterative Sinkhorn algorithm.
                 Assumes square root of numpy eps as default.
     :param max_iterations: Number of iterations after which the solver terminates with a convergence error.
     :raises: ValueError: If input density matrix is not a square matrix.
