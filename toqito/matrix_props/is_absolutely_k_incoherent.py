@@ -59,7 +59,7 @@ def is_absolutely_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> b
     if k >= n:
         return True
 
-    # Check that X is a valid density matrix.
+    # Check that the input matrix is a valid density matrix.
     if not (is_positive_semidefinite(mat) and np.isclose(np.trace(mat), 1, atol=tol)):
         return False
 
