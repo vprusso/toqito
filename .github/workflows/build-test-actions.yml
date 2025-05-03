@@ -39,7 +39,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT }}
           ref: ${{ github.head_ref }}
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
@@ -57,11 +57,7 @@ jobs:
       - name: Commit and push updated poetry.lock
         if: ${{ hashFiles('lock_status.txt') != '' }}
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-          git add poetry.lock
-          git commit -m "[github-actions-bot] Auto-Commit: Update poetry.lock"
-          git push origin HEAD:refs/heads/${{ github.head_ref }}
+          git status
 
 
   code-style:
