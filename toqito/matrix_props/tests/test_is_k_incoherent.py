@@ -158,8 +158,7 @@ def test_recursive_and_sdp_branch(monkeypatch):
 )
 def test_sdp_branch(mat, k, expected):
     """Explicitly test the SDP branch for k-incoherence."""
-    res = is_k_incoherent(mat, k)
-    assert res is True
+    assert is_k_incoherent(mat, k) is True
 
 
 def test_non_square():
