@@ -216,7 +216,7 @@ referred to as :math:`k`-incoherence :cite:`Johnston_2022_Absolutely`:
 
 **Definition**: Let :math:`k` be a positive integer. Then :math:`X \in \text{Pos}(\mathbb{C} ^n)` is called
 :math:`k`-incoherent* if there exists a positive integer :math:`m`, a set  
-:math:`S = \{|\psi_0\rangle, |\psi_1\rangle,\ldots, |\psi_{m-1}\rangle\} \subset \complex ^n` with the property that 
+:math:`S = \{|\psi_0\rangle, |\psi_1\rangle,\ldots, |\psi_{m-1}\rangle\} \subset \mathbb{C} ^n` with the property that 
 each :math:`|\psi_i\rangle` has at most :math:`k` non-zero entries, and real scalars :math:`c_0, c_1, \ldots, c_{m-1} \geq 0`
 for which 
 
