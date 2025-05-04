@@ -60,9 +60,10 @@ def measure(
     **Multiple operators (Kraus operators):**
 
     .. jupyter-execute::
- 
+
         import numpy as np
         from toqito.measurement_ops.measure import measure
+
         rho = np.array([[0.5, 0.5], [0.5, 0.5]])
         K0 = np.array([[1, 0], [0, 0]])
         K1 = np.array([[0, 0], [0, 1]])
