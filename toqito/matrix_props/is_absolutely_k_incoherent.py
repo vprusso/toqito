@@ -14,7 +14,7 @@ def is_absolutely_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> b
 
     This function checks if the provided density matrix is absolutely k-incoherent based on the criteria introduced in
     :cite:`Johnston_2022_Absolutely` and the corresponding QETLAB functionality :cite:`QETLAB_link`. When necessary, an
-    SDP is set up via `cvxpy`.
+    SDP is set up via ``cvxpy``.
 
     The notion of absolute k-incoherence is connected to the notion of quantum state antidistinguishability as discussed
     in :cite:`Johnston_2025_Tight`.
