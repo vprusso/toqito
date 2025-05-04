@@ -221,7 +221,7 @@ each :math:`|\psi_i\rangle` has at most :math:`k` non-zero entries, and real sca
 for which 
 
 .. math::
-    X = \sum_{j=0}^{m-1} c_j |psi_j\rangle \langle \psi_j|.
+    X = \sum_{j=0}^{m-1} c_j |\psi_j\rangle \langle \psi_j|.
 
 It turns out that antidistinguishability is equivalent to :math:`k`-incoherence in the :math:`k = n - 1` case.
 Reproducing one of the results from :cite:`Johnston_2025_Tight`, we have the following theorem.
