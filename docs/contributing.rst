@@ -58,7 +58,7 @@ Making Changes
      navigate to your fork of :code:`|toqito⟩` on GitHub and open a 
      `pull request(PR) <https://help.github.com/articles/using-pull-requests/>`_ . Note that
      after you launch a PR from one of your fork's branches, all subsequent commits to that branch will be added to the
-     open pull request automatically.  Each commit added to the PR will be validated for mergability, compilation and
+     open pull request automatically.  Each commit added to the PR will be validated for mergeability, compilation and
      test suite compliance; the results of these tests will be visible on the PR page.
 
 3.   If you're adding a new feature, you must add test cases and documentation. See `Adding a new feature`_
@@ -70,6 +70,22 @@ Making Changes
      to let the :code:`|toqito⟩` devs know that the changes are complete. The code will not be reviewed
      until you have commented so, the continuous integration workflow passes, and the primary developer approves the
      reviews.
+
+--------------------
+Adding a new feature
+--------------------
+
+
+If you add a new feature to :code:`|toqito⟩`, make sure
+
+- The function docstring follows the style guidelines as specified in `References in Docstrings`_. 
+- The docstring of a new feature should contain a theoretical description of the feature, one or more examples in an :code:`Examples`
+  subsection and a :code:`References` subsection. The docstring code examples should utilize `jupyter-sphinx <https://jupyter-sphinx.readthedocs.io/en/latest/>`_. 
+- Added lines should show up as covered in the :code:`pytest` code coverage report. See `Testing`_.
+- Code and unit tests for the new feature should follow the style guidelines as discussed in `Code Style`_.
+- The new feature must be added to the :code:`init` file of its module to avoid import issues. 
+- Finally, if the new feature is a new module, it has to be listed in :code:`docs/autoapi_members.rst` such that the new module appears
+  in the :code:`API Reference` page due to :code:`sphinx-autoapi`.
 
 -------
 Testing
@@ -95,6 +111,8 @@ For example, if your addition is not properly covered by tests, code coverage ca
 If you are making changes to :code:`toqito.some_module`, the corresponding tests should be in
 :code:`toqito/some_module/tests`.
 
+A beginner introduction to adding unit tests is available `here <https://third-bit.com/py-rse/testing.html>`_ .
+
 
 ----------
 Code Style
@@ -105,12 +123,14 @@ We use :code:`ruff` to check for formatting issues. Consult the documentation fo
 `ruff <https://docs.astral.sh/ruff/tutorial/#getting-started>`_ for additional information.
 
 Do not use an autoformatter like :code:`black` as the configuration settings for :code:`ruff` as specified in
-`pyproject.toml <https://github.com/vprusso/toqito/blob/8606650b98608330c8b89414f7fb641992517ee4/pyproject.toml>`_
+`pyproject.toml <https://github.com/vprusso/toqito/blob/master/pyproject.toml>`_
 might be incompatible with the changes made by :code:`black`. This is discussed in detail at
 `this link <https://docs.astral.sh/ruff/formatter/black/>`_.
 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Setting Up Pre-Commit Hooks
-Pre-commit hooks ensure that code meets our formatting and linting standards before it is committed to the repository. Install the hooks with the following command.
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Pre-commit hooks ensure that the code meets our formatting and linting standards before it is committed to the repository. Install the hooks with the following command.
 
 .. code-block:: bash
    
@@ -118,7 +138,7 @@ Pre-commit hooks ensure that code meets our formatting and linting standards bef
 
 This integrates ruff checks into your workflow, ensuring consistent code quality across the project. 
 
-Additionaly, the commit-msg hook ensures adherence to the `Conventional Commits <https://www.conventionalcommits.org/>`_ format for all commit messages and helps maintain a standardized commit history.
+Additionally, the commit-msg hook ensures adherence to the `Conventional Commits <https://www.conventionalcommits.org/>`_ format for all commit messages and helps maintain a standardized commit history.
 
 .. code-block:: bash
 
@@ -143,6 +163,12 @@ in `Code Style`_. A standard format for :code:`|toqito⟩` docstring is provided
             ==========
             Demonstrate how the function works with expected output.
 
+            .. jupyter-execute::
+
+                import numpy as np
+                x = np.array([[1, 2], [3, 4]])
+                print(x)
+
             References
             ==========
             .. bibliography::
@@ -157,7 +183,8 @@ in `Code Style`_. A standard format for :code:`|toqito⟩` docstring is provided
 Use :code:`.. math::` mode for equations and use use :code:`:cite:some_ref` for some reference in the docstring. 
 
 To add an attribution to a paper or a book, add your reference with :code:`some_ref` as the citation key to 
-`refs.bib`.
+``docs/refs.bib``. All references in ``refs.bib`` are arranged alphabetically according to the first author's last name. Take a
+look at the `existing entries <https://github.com/vprusso/toqito/blob/master/docs/refs.bib>`_ to get an idea of how to format the ``bib`` keys. 
 
 Following is used in a docstring for the references to show up in the documentation build.
 
@@ -174,8 +201,7 @@ Documentation
 --------------
 
 
-We use :code:`sphinx` to build the documentation and :code:`doctest` to test the examples in the documentation and function docstrings. 
-To build the documentation locally, make sure :code:`sphinx` and :code:`furo` are installed when poetry was used to
+We use :code:`sphinx` to build the documentation. To build the documentation locally, make sure :code:`sphinx` and :code:`furo` are installed when poetry was used to
 install :code:`|toqito⟩`.
 
 .. code-block:: bash
@@ -183,33 +209,13 @@ install :code:`|toqito⟩`.
     toqito/docs$ poetry run make clean html
 
 If you would prefer to decrease the amount of time taken by :code:`sphinx` to build the documentation locally, use :code:`make html`
-instead.
+instead after the documentation has been built once.
 
-A standard document has to follow the :code:`.rst` format.  For more information on :code:`sphinx` and
+A standard document has to follow the :code:`.rst` format.  For more information on :code:`sphinx`, :code:`rst` fromat and
 the documentation theme :code:`furo`, visit
-`sphinx documentation <https://docs.readthedocs.io/en/stable/intro/getting-started-with-sphinx.html>`_ &
+`sphinx documentation <https://docs.readthedocs.io/en/stable/intro/getting-started-with-sphinx.html>`_ , 
+`rst primer <https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html>`_ &
 `furo documentation <https://sphinx-themes.org/sample-sites/furo/>`_ .
-
-To use `doctest`:
-
-- Use :code:`make doctest` in :code:`toqito/docs` for the docstring examples to be verified. 
-- Use :code:`pytest  --doctest-glob=*.rst` to check the examples in all the :code:`.rst` files in :code:`toqito/docs` work as expected. If
-  you would like to only check the examples in a  specific file, use :code:`pytest  --doctest-glob=tutorials.name_of_file.rst`
-  instead. 
-
---------------------
-Adding a new feature
---------------------
-
-
-If you add a new feature to :code:`|toqito⟩`, make sure
-
-- The function docstring follows the style guidelines as specified in `References in Docstrings`_.
-- Added lines should show up as covered in the :code:`pytest` code coverage report. See `Testing`_.
-- Code and tests for the new feature should follow the style guidelines as discussed in `Code Style`_.
-- Finally, if the new feature is a new module, it has to be listed in :code:`docs/autoapi_members.rst` such that the new module appears
-  in the :code:`API Reference` page due to :code:`sphinx-autoapi`.
-
 
 ---------------------
 Additional Resources

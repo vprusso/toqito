@@ -1,9 +1,5 @@
 name: Dependabot Auto-Merge
-
-on:
-  pull_request:
-    branches: 
-      - main
+on: pull_request
 
 permissions:
   contents: write
@@ -12,7 +8,7 @@ permissions:
 jobs:
   dependabot:
     runs-on: ubuntu-latest
-    if: ${{ github.actor == 'dependabot[bot]' }}
+    if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'vprusso/toqito'
     steps:
       - name: Install GitHub CLI
         run: sudo apt update && sudo apt install -y gh
@@ -22,21 +18,6 @@ jobs:
         uses: dependabot/fetch-metadata@v2
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
-        
-      - name: Check workflow status
-        id: check_workflows
-        run: |
-          set -e
-          echo "Checking workflow status for branch ${{ github.head_ref }}"
-          failed_runs=$(gh run list --workflow="Build" --branch="${{ github.head_ref }}" --json conclusion --jq '.[] | select(.conclusion != "success" and .conclusion != null) | .conclusion')
-          if [ -n "$failed_runs" ]; then
-            echo "Some workflow runs failed or are still in progress"
-            exit 1
-          else
-            echo "All workflow runs completed successfully"
-          fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
       - name: Approve pull request
         run: gh pr review --approve "$PR_URL"

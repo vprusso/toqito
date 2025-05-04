@@ -15,11 +15,6 @@ updates:
     ignore:
     - dependency-name: "*"
       update-types: ["version-update:semver-patch"]
-    rebase-strategy: "auto"
-    labels:
-      - "dependencies"
-    commit-message:
-      prefix: ""
 
   # Maintain dependencies for pip
   # poetry is not a valid entry for package-ecosystem
@@ -34,8 +29,3 @@ updates:
     ignore:
     - dependency-name: "*"
       update-types: ["version-update:semver-patch"]
-    rebase-strategy: "auto"
-    labels:
-      - "dependencies"
-    commit-message:
-      prefix: ""
