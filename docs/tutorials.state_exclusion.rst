@@ -214,14 +214,14 @@ Antidistinguishability and :math:`(n-1)`-incoherence
 Antidistinguishability of a set of pure states is equivalent to a certain notion from the theory of quantum resources
 referred to as :math:`k`-incoherence :cite:`Johnston_2022_Absolutely`:
 
-**Definition**: Let :math:`k` be a positive integer. Then :math:`X \in \text{Pos}(\mathbb{C} ^n)` is called
-:math:`k`-incoherent if there exists a positive integer :math:`m`, a set  
+**Definition**: Let :math:`n` and :math:`k` be positive integers. Then :math:`X \in \text{Pos}(\mathbb{C} ^n)` is called
+:math:`k`-incoherent* if there exists a positive integer :math:`m`, a set  
 :math:`S = \{|\psi_0\rangle, |\psi_1\rangle,\ldots, |\psi_{m-1}\rangle\} \subset \mathbb{C} ^n` with the property that 
 each :math:`|\psi_i\rangle` has at most :math:`k` non-zero entries, and real scalars :math:`c_0, c_1, \ldots, c_{m-1} \geq 0`
 for which 
 
 .. math::
-    X = \sum_{j=0}^{m-1} c_j |\psi_j\rangle \langle \psi_j|.
+    X = \sum_{j=0}^{m-1} c_j |psi_j\rangle \langle \psi_j|.
 
 It turns out that antidistinguishability is equivalent to :math:`k`-incoherence in the :math:`k = n - 1` case.
 Reproducing one of the results from :cite:`Johnston_2025_Tight`, we have the following theorem.
@@ -239,7 +239,7 @@ Then :math:`S` is antidistinguishable if and only if the Gram matrix :math:`G` i
     \end{pmatrix}
 
 
-As an example, we can generate a random collection of :math:`n` quantum states of dimension :math:`d`, obtain the corresponding Gram matrix, and compute
+As an example, we can generate a random collection of quantum states, obtain the corresponding Gram matrix, and compute
 whether the set of states are antidistinguishable and :math:`(n-1)`-incoherent. 
 
 .. jupyter-execute::
