@@ -239,7 +239,7 @@ Then :math:`S` is antidistinguishable if and only if the Gram matrix :math:`G` i
     \end{pmatrix}
 
 
-As an example, we can generate a random collection of quantum states, obtain the corresponding Gram matrix, and compute
+As an example, we can generate a random collection of :math:`n` quantum states of dimension :math:`d`, obtain the corresponding Gram matrix, and compute
 whether the set of states are antidistinguishable and :math:`(n-1)`-incoherent. 
 
 .. jupyter-execute::
