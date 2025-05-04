@@ -9,8 +9,8 @@ from toqito.matrix_props import is_positive_semidefinite, is_square
 def is_absolutely_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
     r"""Determine whether a quantum state is absolutely k-incoherent :cite:`Johnston_2022_Absolutely`.
 
-    Formally, a mixed quantum state is said to be absolutely k-incoherent if :math:`U \rho U^* \in \mathbb{I}_{k, n}`
-    for all unitary matrices :math:`U \in \text{U}(\mathbb{C}^n)`.
+    Formally, for positive integers :math:`n` and :math:`k`, a mixed quantum state is said to be absolutely k-incoherent
+    if :math:`U \rho U^* \in \mathbb{I}_{k, n}` for all unitary matrices :math:`U \in \text{U}(\mathbb{C}^n)`.
 
     This function checks if the provided density matrix is absolutely k-incoherent based on the criteria introduced in
     :cite:`Johnston_2022_Absolutely` and the corresponding QETLAB functionality :cite:`QETLAB_link`. When necessary, an
