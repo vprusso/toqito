@@ -31,6 +31,7 @@ def is_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
     Examples
     =========
     If :math:`n = 3` and :math:`k = 2`, then the following matrix is :math:`2`-incoherent:
+    
     .. jupyter-execute::
 
         import numpy as np
