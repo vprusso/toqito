@@ -36,6 +36,7 @@ extensions = [
     "autoapi.extension",
     "sphinx.ext.doctest",
     "sphinx.ext.intersphinx",
+    "sphinx_gallery.gen_gallery",
     "sphinx.ext.todo",
     "sphinx.ext.coverage",
     "sphinx.ext.mathjax",
@@ -48,6 +49,14 @@ extensions = [
     "jupyter_sphinx",
     "sphinx.ext.duration",
 ]
+
+sphinx_gallery_conf = {
+    "examples_dirs": "../examples",  # Path to example scripts
+    "gallery_dirs": "auto_examples",  # Output directory for generated example galleries
+    "filename_pattern": r".*\.py",  # Regex to filter example files by name i.e those starting with 'plot_'
+    "write_computation_times": False,  # Do not include computation times
+    "default_thumb_file": "_static/default_thumbnail.png",  # Default thumbnail image
+}
 
 bibtex_bibfiles = ["refs.bib"]
 bibtex_default_style = "unsrt"
