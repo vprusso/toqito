@@ -1,0 +1,187 @@
+{
+ "XORGame": [
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "toqito.nonlocal_games.xor_game",
+   "module_short": "toqito.nonlocal_games",
+   "name": "XORGame"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "toqito.nonlocal_games",
+   "module_short": "toqito.nonlocal_games",
+   "name": "XORGame"
+  },
+  {
+   "is_class": true,
+   "is_explicit": false,
+   "module": "toqito",
+   "module_short": "toqito",
+   "name": "XORGame"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "toqito.nonlocal_games.xor_game",
+   "module_short": "toqito.nonlocal_games",
+   "name": "XORGame"
+  }
+ ],
+ "chsh_game": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "toqito.nonlocal_games.xor_game",
+   "module_short": "toqito.nonlocal_games",
+   "name": "XORGame"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "toqito.nonlocal_games",
+   "module_short": "toqito.nonlocal_games",
+   "name": "XORGame"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "toqito",
+   "module_short": "toqito",
+   "name": "XORGame"
+  }
+ ],
+ "chsh_game.classical_value": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "toqito.nonlocal_games.xor_game",
+   "module_short": "toqito.nonlocal_games",
+   "name": "XORGame.classical_value"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "toqito.nonlocal_games",
+   "module_short": "toqito.nonlocal_games",
+   "name": "XORGame.classical_value"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "toqito",
+   "module_short": "toqito",
+   "name": "XORGame.classical_value"
+  }
+ ],
+ "chsh_game.quantum_value": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "toqito.nonlocal_games.xor_game",
+   "module_short": "toqito.nonlocal_games",
+   "name": "XORGame.quantum_value"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "toqito.nonlocal_games",
+   "module_short": "toqito.nonlocal_games",
+   "name": "XORGame.quantum_value"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "toqito",
+   "module_short": "toqito",
+   "name": "XORGame.quantum_value"
+  }
+ ],
+ "classical_val": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "float64"
+  }
+ ],
+ "np.array": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "builtin_function_or_method"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "array"
+  }
+ ],
+ "np.zeros": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "builtin_function_or_method"
+  },
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "zeros"
+  }
+ ],
+ "pred_mat": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "ndarray"
+  }
+ ],
+ "prob_mat": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "ndarray"
+  }
+ ],
+ "quantum_val": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "numpy",
+   "module_short": "numpy",
+   "name": "float64"
+  }
+ ],
+ "x": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "int"
+  }
+ ],
+ "y": [
+  {
+   "is_class": false,
+   "is_explicit": false,
+   "module": "builtins",
+   "module_short": "builtins",
+   "name": "int"
+  }
+ ]
+}
