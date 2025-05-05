@@ -1,9 +1,10 @@
 """Tests for classical, quantum (NPA), and no-signalling maximums for Bell inequalities."""
 
+import sys
+
 import cvxpy
 import numpy as np
 import pytest
-import sys
 
 from toqito.helper.bell_npa_constraints import bell_npa_constraints
 from toqito.nonlocal_games.bell_inequality_max import bell_inequality_max

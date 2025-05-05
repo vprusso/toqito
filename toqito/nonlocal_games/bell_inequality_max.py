@@ -1,6 +1,7 @@
 """Computes classical, quantum (NPA), and no-signalling maximums for Bell inequalities."""
 
 import numbers
+import re
 import warnings
 
 import cvxpy
@@ -97,7 +98,7 @@ def bell_inequality_max(
     or no-signalling assumptions.
 
     The maximum classical and no-signalling values are computed exactly. The maximum quantum value
-    is upper bounded using the NPA (Navascués-Pironio-Acín) hierarchy :cite:`Navascues_2008_AConvergent`.
+    is upper bounded using the NPA (Navascués-Pironio-Acín) hierarchy :cite:``Navascues_2008_AConvergent``.
 
     Examples
     ==========
@@ -114,16 +115,15 @@ def bell_inequality_max(
     .. math::
         M_{FC} = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 1 & 1 \\ 0 & 1 & -1 \end{pmatrix}
 
-    >>> import numpy as np
-    >>> from toqito.nonlocal_games.bell_inequality_max import bell_inequality_max
-    >>> M_chsh_fc = np.array([[0, 0, 0], [0, 1, 1], [0, 1, -1]])
-    >>> desc_chsh = [2, 2, 2, 2]
-    >>> bell_inequality_max(M_chsh_fc, desc_chsh, 'fc', 'classical')
-    2.0
-    >>> bell_inequality_max(M_chsh_fc, desc_chsh, 'fc', 'quantum', tol=1e-7)
-    2.828427130524982
-    >>> bell_inequality_max(M_chsh_fc, desc_chsh, 'fc', 'nosignal', tol=1e-9)
-    4.000000016013078
+    .. jupyter-execute::
+
+        import numpy as np
+        from toqito.nonlocal_games.bell_inequality_max import bell_inequality_max
+        M_chsh_fc = np.array([[0, 0, 0], [0, 1, 1], [0, 1, -1]])
+        desc_chsh = [2, 2, 2, 2]
+        bell_inequality_max(M_chsh_fc, desc_chsh, 'fc', 'classical')
+        bell_inequality_max(M_chsh_fc, desc_chsh, 'fc', 'quantum', tol=1e-7)
+        bell_inequality_max(M_chsh_fc, desc_chsh, 'fc', 'nosignal', tol=1e-9)
 
     ==========
 
@@ -139,54 +139,55 @@ def bell_inequality_max(
     .. math::
         M_{CG} = \begin{pmatrix} 0 & -1 & 0 \\ -1 & 1 & 1 \\ 0 & 1 & -1 \end{pmatrix}
 
-    >>> M_chsh_cg = np.array([[0, -1, 0], [-1, 1, 1], [0, 1, -1]])
-    >>> desc_chsh = [2, 2, 2, 2]
-    >>> bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'classical')
-    0.0
-    >>> bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'quantum', tol=1e-7)
-    0.20710677585505718
-    >>> bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'nosignal', tol=1e-9)
-    0.5000000040078985
+    .. jupyter-execute::
+
+        import numpy as np
+        from toqito.nonlocal_games.bell_inequality_max import bell_inequality_max
+        M_chsh_cg = np.array([[0, -1, 0], [-1, 1, 1], [0, 1, -1]])
+        desc_chsh = [2, 2, 2, 2]
+        bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'classical')
+        bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'quantum', tol=1e-7)
+        bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'nosignal', tol=1e-9)
 
     ==========
 
     The I3322 inequality in Collins-Gisin (CG) notation.
     Classical max = 1, No-signalling max = 2. Quantum value is between 1 and 2.
 
-    >>> M_i3322_cg = np.array([[0, 1, 0, 0], [1, -1, -1, -1], [0, -1, -1, 1], [0, -1, 1, 0]])
-    >>> desc_i3322 = [2, 2, 3, 3]
-    >>> bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'classical')
-    1.0
-    >>> bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'quantum', k=1, tol=1e-7)
-    1.3749999912359843
-    >>> bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'quantum', k='1+ab', tol=1e-7)
-    1.2687017279467279
-    >>> bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'nosignal', tol=1e-9)
-    2.0000000079995623
+    .. jupyter-execute::
 
+        import numpy as np
+        from toqito.nonlocal_games.bell_inequality_max import bell_inequality_max
+        M_i3322_cg = np.array([[0, 1, 0, 0], [1, -1, -1, -1], [0, -1, -1, 1], [0, -1, 1, 0]])
+        desc_i3322 = [2, 2, 3, 3]
+        bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'classical')
+        bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'quantum', k=1, tol=1e-7)
+        bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'quantum', k='1+ab', tol=1e-7)
+        bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'nosignal', tol=1e-9)
 
     References
     ==========
     .. bibliography::
         :filter: docname in docnames
 
-    :param coefficients: A matrix or tensor specifying the Bell inequality coefficients in either
-                         full probability (FP), full correlator (FC), or Collins-Gisin (CG) notation.
-    :param desc: A list `[oa, ob, ma, mb]` describing the number of outputs for Alice (oa) and Bob (ob),
-                 and the number of inputs for Alice (ma) and Bob (mb).
-    :param notation: A string ('fp', 'fc', or 'cg') indicating the notation of the `coefficients`.
-    :param mtype: The type of theory to maximize over ('classical', 'quantum', or 'nosignal').
-                  Defaults to 'classical'. Note: 'quantum' computes an upper bound via NPA hierarchy.
-    :param k: The level of the NPA hierarchy to use if `mtype='quantum'`. Can be an integer (e.g., 1, 2)
-              or a string specifying intermediate levels (e.g., '1+ab', '1+aab'). Defaults to 1.
-              Higher levels yield tighter bounds but require more computation. Ignored if `mtype` is
-              not 'quantum'.
-    :param tol: Tolerance for numerical comparisons and solver precision. Defaults to 1e-8.
+    :param ``coefficients``: A matrix or tensor specifying the Bell inequality coefficients in either
+                             full probability (FP), full correlator (FC), or Collins-Gisin (CG) notation.
+    :param ``desc``: A list [:math:`oa`, :math:`ob`, :math:`ma`, :math:`mb`]
+                     describing the number of outputs for Alice (:math:`oa`) and Bob (:math:`ob`),
+                     and the number of inputs for Alice (:math:`ma`) and Bob (:math:`mb`).
+    :param ``notation``: A string ('fp', 'fc', or 'cg') indicating the notation of the ``coefficients``.
+    :param ``mtype``: The type of theory to maximize over ('classical', 'quantum', or 'nosignal').
+                      Defaults to 'classical'. Note: 'quantum' computes an upper bound via NPA hierarchy.
+    :param ``k``: The level of the NPA hierarchy to use if ``mtype='quantum'``. Can be an integer (e.g., 1, 2)
+                  or a string specifying intermediate levels (e.g., '1+ab', '1+aab'). Defaults to 1.
+                  Higher levels yield tighter bounds but require more computation. Ignored if ``mtype`` is
+                  not 'quantum'.
+    :param ``tol``: Tolerance for numerical comparisons and solver precision. Defaults to ``1e-8``.
     :return: The maximum value (or quantum upper bound) of the Bell inequality.
-    :raises ValueError: If the input `notation` is invalid.
-    :raises ValueError: If the input `mtype` is invalid.
+    :raises ValueError: If the input ``notation`` is invalid.
+    :raises ValueError: If the input ``mtype`` is invalid.
     :raises ValueError: If notation conversion fails (e.g., 'fc' for non-binary outputs).
-    :raises ValueError: If the NPA level `k` is invalid.
+    :raises ValueError: If the NPA level ``k`` is invalid.
     :raises ValueError: If generating NPA constraints fails.
     :raises cvxpy.error.SolverError: If the CVXPY solver fails.
 
@@ -210,9 +211,9 @@ def bell_inequality_max(
             if notation_low == "cg":
                 M = coefficients
             elif notation_low == "fp":
-                M = fp_to_cg(coefficients, behaviour=False)
+                M = fp_to_cg(coefficients, behavior=False)
             else:
-                M = fc_to_cg(coefficients, behaviour=False)
+                M = fc_to_cg(coefficients, behavior=False)
         except ValueError as e:
             raise ValueError(f"Notation conversion failed: {e}") from e
 
@@ -253,25 +254,20 @@ def bell_inequality_max(
         if not isinstance(k, (str, numbers.Integral)) or (isinstance(k, numbers.Integral) and k < 0):
             raise ValueError(f"Invalid NPA level k={k}. Must be a non-negative integer or a valid string level.")
         if isinstance(k, str):
-            valid_k_prefixes = ["1", "2", "3", "4"]
-            valid_k_suffixes = ["", "+a", "+b", "+ab", "+ba", "+aab", "+abb", "+aba", "+bab"]
-            is_valid_str_k = False
-            for prefix in valid_k_prefixes:
-                if k.startswith(prefix):
-                    suffix = k[len(prefix) :]
-                    if suffix in valid_k_suffixes:
-                        is_valid_str_k = True
-                        break
-            if not is_valid_str_k:
-                raise ValueError(f"Invalid NPA level k='{k}'. Unrecognized string format.")
+            # Use regex to validate the string format: digits optionally followed by '+' and 'a's/'b's
+            if not re.fullmatch(r"\d+(\+[ab]+)?", k):
+                raise ValueError(
+                    f"Invalid NPA level k='{k}'. String format must be an integer (e.g., '1', '2') "
+                    f"optionally followed by '+' and a sequence of 'a's and 'b's (e.g., '1+ab', '2+aab')."
+                )
 
         try:
             if notation_low == "cg":
                 M = coefficients
             elif notation_low == "fp":
-                M = fp_to_cg(coefficients, behaviour=False)
+                M = fp_to_cg(coefficients, behavior=False)
             else:
-                M = fc_to_cg(coefficients, behaviour=False)
+                M = fc_to_cg(coefficients, behavior=False)
         except ValueError as e:
             raise ValueError(f"Notation conversion failed: {e}") from e
 
@@ -327,14 +323,14 @@ def bell_inequality_max(
                             f"FP coefficient shape {coefficients.shape} incompatible "
                             f"with desc={desc} (expected {expected_fp_shape})."
                         )
-                    M = fp_to_fc(coefficients, behaviour=False)
+                    M = fp_to_fc(coefficients, behavior=False)
                 else:  # notation_low == "cg"
                     if coefficients.shape != expected_cg_shape:
                         raise ValueError(
                             f"CG coefficient shape {coefficients.shape} incompatible "
                             f"with desc={desc} (expected {expected_cg_shape})."
                         )
-                    M = cg_to_fc(coefficients, behaviour=False)
+                    M = cg_to_fc(coefficients, behavior=False)
             except ValueError as e:
                 raise ValueError(f"Notation conversion failed for binary scenario: {e}") from e
 
@@ -390,7 +386,7 @@ def bell_inequality_max(
                             f"CG coefficient shape {coefficients.shape} incompatible "
                             f"with desc={desc} (expected {expected_cg_shape})."
                         )
-                    M_fp = cg_to_fp(coefficients, desc, behaviour=False)
+                    M_fp = cg_to_fp(coefficients, desc, behavior=False)
             except ValueError as e:
                 raise ValueError(f"Notation conversion failed for non-binary scenario: {e}") from e
 

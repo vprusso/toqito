@@ -1,9 +1,10 @@
 """Tests for the bell_npa_constraints function and related helpers."""
 
+import sys
+
 import cvxpy
 import pytest
 from pytest_mock import MockerFixture
-import sys
 
 from toqito.helper.bell_npa_constraints import _word_to_p_cg_index, bell_npa_constraints
 from toqito.helper.npa_hierarchy import Symbol, _gen_words
