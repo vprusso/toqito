@@ -17,3 +17,7 @@ build/
 coverage.xml
 jupyter_execute/
 venv/*
+# Sphinx Gallery generated files in docs output
+docs/auto_examples/
+# Sphinx AutoAPI generated files
+docs/autoapi/
