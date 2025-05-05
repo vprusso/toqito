@@ -36,7 +36,7 @@ from toqito.matrix_ops import tensor_comb, to_density_matrix
          # Non-injective mode with k = 3
         ([np.array([1, 0]), np.array([0, 1])],
          3, "non-injective", False,
-         [(0, 0, 0), (0, 0, 1)],	
+         [(0, 0, 0), (0, 0, 1)],
          # other possible sequences omitted for brevity
         None),
     ],
