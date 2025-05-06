@@ -33,7 +33,7 @@ repository = "https://github.com/vprusso/toqito"
 [tool.poetry.dependencies]
 python = ">=3.10,<4"
 cvxpy = "1.6.2"
-more-itertools = "10.6.0"
+more-itertools = "10.7.0"
 numpy = "2.2.3"
 scipy = "1.15.2"
 scs = "3.2.7.post2" 
