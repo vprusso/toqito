@@ -22,7 +22,8 @@ def is_linearly_independent(vectors: list[np.ndarray]) -> bool:
             0 \\ 0 \\ 1
         \end{pmatrix}
 
-    We can see that these are linearly independent:
+    We can see that these are linearly independent.
+
     .. jupyter-execute::
 
      import numpy as np

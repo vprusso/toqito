@@ -17,6 +17,7 @@ def is_nonnegative(input_mat: np.ndarray, mat_type: str = "nonnegative") -> bool
     Examples
     ==========
     We expect an identity matrix to be nonnegative.
+
     .. jupyter-execute::
 
      import numpy as np

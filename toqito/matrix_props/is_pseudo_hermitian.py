@@ -56,7 +56,8 @@ def is_pseudo_hermitian(mat: np.ndarray, signature: np.ndarray, rtol: float = 1e
             -i & 1
         \end{pmatrix}
 
-    is not pseudo-Hermitian with respect to the same signature matrix:
+    is not pseudo-Hermitian with respect to the same signature matrix.
+
     .. jupyter-execute::
 
      import numpy as np

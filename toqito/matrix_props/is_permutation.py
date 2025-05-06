@@ -22,6 +22,7 @@ def is_permutation(mat: np.ndarray) -> bool:
             \end{pmatrix}
 
     which is indeed a permutation matrix.
+
     .. jupyter-execute::
 
      import numpy as np

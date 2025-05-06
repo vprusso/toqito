@@ -31,7 +31,9 @@ def is_density(mat: np.ndarray) -> bool:
 
     our function indicates that this is indeed a density operator as the trace
     of :math:`\rho` is equal to :math:`1` and the matrix is positive
-    semidefinite:
+    semidefinite.
+
+    .. jupyter-execute::
 
      from toqito.matrix_props import is_density
      from toqito.states import bell

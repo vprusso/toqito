@@ -55,6 +55,7 @@ def is_diagonal(mat: np.ndarray) -> bool:
             \end{pmatrix}
 
     is not diagonal, as shown using :code:`|toqito⟩`.
+
     .. jupyter-execute::
 
      import numpy as np

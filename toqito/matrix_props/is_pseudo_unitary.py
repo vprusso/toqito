@@ -36,7 +36,8 @@ def is_pseudo_unitary(mat: np.ndarray, p: int, q: int, rtol: float = 1e-05, atol
             0 & -1
         \end{pmatrix}
 
-    Our function confirms that :math:A is pseudo-unitary:
+    Our function confirms that :math:`A` is pseudo-unitary.
+
     .. jupyter-execute::
 
      import numpy as np

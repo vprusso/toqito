@@ -11,7 +11,8 @@ def kp_norm(mat: np.ndarray, k: int, p: int) -> float:
 
     Examples
     ========
-    To compute the p-norm of a vector:
+    To compute the p-norm of a vector
+
     .. jupyter-execute::
 
      import numpy as np

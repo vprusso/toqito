@@ -31,6 +31,7 @@ def is_symmetric(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> b
             \end{pmatrix}
 
     our function indicates that this is indeed a symmetric matrix.
+
     .. jupyter-execute::
 
      import numpy as np
