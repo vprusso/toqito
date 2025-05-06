@@ -18,14 +18,15 @@ def is_nonnegative(input_mat: np.ndarray, mat_type: str = "nonnegative") -> bool
     ==========
     We expect an identity matrix to be nonnegative.
 
-    >>> import numpy as np
-    >>> from toqito.matrix_props import is_nonnegative
-    >>> is_nonnegative(np.eye(2))
-    True
-    >>> is_nonnegative(np.eye(2), "doubly")
-    True
-    >>> is_nonnegative(np.array([[1, -1], [1, 1]]))
-    False
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_nonnegative
+
+     print(is_nonnegative(np.eye(2)))
+     print(is_nonnegative(np.eye(2), "doubly"))
+     print(is_nonnegative(np.array([[1, -1], [1, 1]])))
+
 
     References
     ==========

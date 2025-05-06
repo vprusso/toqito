@@ -60,14 +60,15 @@ def permute_systems(
             13 & 15 & 14 & 16
         \end{pmatrix}.
 
-    >>> from toqito.perms import permute_systems
-    >>> import numpy as np
-    >>> test_input_mat = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
-    >>> permute_systems(test_input_mat, [1, 0])
-    array([[ 1,  3,  2,  4],
-           [ 9, 11, 10, 12],
-           [ 5,  7,  6,  8],
-           [13, 15, 14, 16]])
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.perms import permute_systems
+
+     test_input_mat = np.arange(1, 17).reshape(4, 4)
+
+     permute_systems(test_input_mat, [1, 0])
+
 
     For spaces :math:`\mathcal{A}, \mathcal{B}`, and :math:`\mathcal{C}` where :math:`\text{dim}(\mathcal{A}) =
     \text{dim}(\mathcal{B}) = \text{dim}(\mathcal{C}) = 2` we may consider an operator :math:`X \in \mathcal{A} \otimes
@@ -105,30 +106,14 @@ def permute_systems(
             57 & 61 & 58 & 62 & 59 & 63 & 60 & 64
         \end{pmatrix}.
 
-    >>> from toqito.perms import permute_systems
-    >>> import numpy as np
-    >>> test_input_mat = np.array(
-    ...    [
-    ...        [1, 2, 3, 4, 5, 6, 7, 8],
-    ...        [9, 10, 11, 12, 13, 14, 15, 16],
-    ...        [17, 18, 19, 20, 21, 22, 23, 24],
-    ...        [25, 26, 27, 28, 29, 30, 31, 32],
-    ...        [33, 34, 35, 36, 37, 38, 39, 40],
-    ...        [41, 42, 43, 44, 45, 46, 47, 48],
-    ...        [49, 50, 51, 52, 53, 54, 55, 56],
-    ...        [57, 58, 59, 60, 61, 62, 63, 64],
-    ...    ]
-    ... )
-    >>> permute_systems(test_input_mat, [1, 2, 0])
-    array([[ 1,  5,  2,  6,  3,  7,  4,  8],
-           [33, 37, 34, 38, 35, 39, 36, 40],
-           [ 9, 13, 10, 14, 11, 15, 12, 16],
-           [41, 45, 42, 46, 43, 47, 44, 48],
-           [17, 21, 18, 22, 19, 23, 20, 24],
-           [49, 53, 50, 54, 51, 55, 52, 56],
-           [25, 29, 26, 30, 27, 31, 28, 32],
-           [57, 61, 58, 62, 59, 63, 60, 64]])
+    .. jupyter-execute::
 
+     import numpy as np
+     from toqito.perms import permute_systems
+
+     test_input_mat = np.arange(1, 65).reshape(8, 8)
+
+     permute_systems(test_input_mat, [1, 2, 0])
 
 
     :raises ValueError: If dimension does not match the number of subsystems.

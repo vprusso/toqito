@@ -41,17 +41,20 @@ def bures_distance(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> 
     In the event where we calculate the Bures distance between states that are identical, we should obtain the value of
     :math:`0`. This can be observed in :code:`|toqito⟩` as follows.
 
-    >>> from toqito.state_metrics import bures_distance
-    >>> import numpy as np
-    >>> rho = 1 / 2 * np.array(
-    ...     [[1, 0, 0, 1],
-    ...      [0, 0, 0, 0],
-    ...      [0, 0, 0, 0],
-    ...      [1, 0, 0, 1]]
-    ... )
-    >>> sigma = rho
-    >>> bures_distance(rho, sigma)
-    np.float64(0.0)
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.state_metrics import bures_distance
+
+     rho = 1 / 2 * np.array(
+         [[1, 0, 0, 1],
+          [0, 0, 0, 0],
+          [0, 0, 0, 0],
+          [1, 0, 0, 1]]
+     )
+     sigma = rho
+
+     bures_distance(rho, sigma)
 
     References
     ==========

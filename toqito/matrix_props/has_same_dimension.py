@@ -14,27 +14,37 @@ def has_same_dimension(items: list[np.ndarray]) -> bool:
     ==========
     Check a list of vectors with the same dimension:
 
-    >>> import numpy as np
-    >>> from toqito.matrix_props import has_same_dimension
-    >>> vectors = [np.array([1, 2, 3]), np.array([4, 5, 6]), np.array([7, 8, 9])]
-    >>> has_same_dimension(vectors)
-    True
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import has_same_dimension
+
+     vectors = [np.array([1, 2, 3]), np.array([4, 5, 6]), np.array([7, 8, 9])]
+
+     has_same_dimension(vectors)
+
 
     Check a list of matrices with the same dimension:
 
-    >>> import numpy as np
-    >>> from toqito.matrix_props import has_same_dimension
-    >>> matrices = [np.array([[1, 0], [0, 1]]), np.array([[2, 3], [4, 5]]), np.array([[6, 7], [8, 9]])]
-    >>> has_same_dimension(matrices)
-    True
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import has_same_dimension
+
+     matrices = [np.array([[1, 0], [0, 1]]), np.array([[2, 3], [4, 5]]), np.array([[6, 7], [8, 9]])]
+
+     has_same_dimension(matrices)
 
     Check a list containing items of different dimensions:
 
-    >>> import numpy as np
-    >>> from toqito.matrix_props import has_same_dimension
-    >>> mixed = [np.array([1, 2, 3]), np.array([[1, 0], [0, 1]])]
-    >>> has_same_dimension(mixed)
-    False
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import has_same_dimension
+
+     mixed = [np.array([1, 2, 3]), np.array([[1, 0], [0, 1]])]
+
+     has_same_dimension(mixed)
 
 
     :param items: A list containing vectors or matrices. Vectors are represented as 1D numpy arrays, and matrices are

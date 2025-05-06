@@ -13,24 +13,19 @@ def cyclic_permutation_matrix(n: int, k: int = 1) -> np.ndarray:
     ==========
     Generate fixed point.
 
-    >>> from toqito.matrices import cyclic_permutation_matrix
-    >>> n = 4
-    >>> cyclic_permutation_matrix(n)
-    array([[0, 0, 0, 1],
-           [1, 0, 0, 0],
-           [0, 1, 0, 0],
-           [0, 0, 1, 0]])
+    .. jupyter-execute::
+
+     from toqito.matrices import cyclic_permutation_matrix
+
+     cyclic_permutation_matrix(n=4)
 
     Generate successive application.
 
-    >>> from toqito.matrices import cyclic_permutation_matrix
-    >>> n = 4
-    >>> k = 3
-    >>> cyclic_permutation_matrix(n, k)
-    array([[0, 1, 0, 0],
-           [0, 0, 1, 0],
-           [0, 0, 0, 1],
-           [1, 0, 0, 0]])
+    .. jupyter-execute::
+
+     from toqito.matrices import cyclic_permutation_matrix
+
+     cyclic_permutation_matrix(n=4, k=3)
 
     References
     ==========

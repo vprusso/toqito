@@ -16,12 +16,14 @@ def perturb_vectors(vectors: list[np.ndarray], eps: float = 0.1) -> list[np.ndar
     Example:
     ==========
 
-        >>> from toqito.matrix_ops import perturb_vectors
-        >>> import numpy as np
-        >>> vectors = [np.array([1.0, 2.0]), np.array([3.0, 4.0])]
-        >>> perturb_vectors(vectors, eps=0.1) # doctest: +SKIP
-        array([[0.47687587, 0.87897065],
-               [0.58715549, 0.80947417]])
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_ops import perturb_vectors
+
+     vectors = [np.array([1.0, 2.0]), np.array([3.0, 4.0])]
+
+     perturb_vectors(vectors, eps=0.1)
 
     """
     perturbed_vectors: list[np.ndarray] = []
