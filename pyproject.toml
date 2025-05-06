@@ -38,7 +38,6 @@ numpy = "2.2.3"
 scipy = "1.15.2"
 scs = "3.2.7.post2" 
 picos = "2.6.0"
-jupyter-sphinx = "^0.5.3"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "8.3.4"
