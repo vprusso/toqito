@@ -14,13 +14,14 @@ def mutual_coherence(vectors: list[np.ndarray]) -> float:
     Examples
     =======
     .. jupyter-execute::
+
         import numpy as np
         from toqito.matrix_props.mutual_coherence import mutual_coherence
         example_A = [np.array([1, 0]), np.array([0, 1])]
-        mutual_coherence(example_A)
+        print("Result for example_A = ",mutual_coherence(example_A))
         # An example with a larger set of vectors
         example_B = [np.array([1, 0, 1]), np.array([0, 1, 1]), np.array([1, 1, 0])]
-        mutual_coherence(example_B)
+        print("Result for example_B = ",mutual_coherence(example_B))
 
     References
     ==========
