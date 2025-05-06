@@ -25,6 +25,7 @@ def is_circulant(mat: np.ndarray) -> bool:
 
     As can be seen, this matrix is circulant. We can verify this in
     :code:`|toqito⟩` as
+
     .. jupyter-execute::
 
      import numpy as np
