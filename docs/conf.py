@@ -58,6 +58,7 @@ sphinx_gallery_conf = {
     "default_thumb_file": "_static/default_thumbnail.png",  # Default thumbnail image
 }
 
+
 bibtex_bibfiles = ["refs.bib"]
 bibtex_default_style = "unsrt"
 suppress_warnings = ["bibtex.duplicate_label", "bibtex.duplicate_citation"]
