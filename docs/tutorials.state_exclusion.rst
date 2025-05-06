@@ -60,9 +60,10 @@ Perfect state exclusion (antidistinguishability)
 We say that if one is able to perfectly (without error) exclude all quantum states in a set, then the set of states is
 *antidistinguishable*.
 
-**Definition**: Let :math:`n` and :math:`d` be integers. A collection of quantum states :math:`S = \{|\psi_1\rangle, \ldots, |\psi_{n}\rangle\} \subset \mathbb{C}^d` 
-are *antidistinguishable* if there exists a collection of positive operator value measurements :math:`\{M_1, \ldots, M_{n}\}` such that :math:`\langle \psi_i | M_i | \psi_i \rangle = 0` 
-for all :math:`1 \leq i \leq n`. 
+**Definition**: Let :math:`n` and :math:`d` be integers. A collection of quantum states 
+:math:`S = \{|\psi_1\rangle, \ldots, |\psi_{n}\rangle\} \subset \mathbb{C}^d` are *antidistinguishable* if there exists
+a collection of positive operator value measurements :math:`\{M_1, \ldots, M_{n}\}` such that :math:`\langle \psi_i |
+M_i | \psi_i \rangle = 0` for all :math:`1 \leq i \leq n`. 
 
 Recall that a collection of POVMs are positive semidefinite operators 
 :math:`\{M_i : 1 \leq i \leq n\} \subset \mathbb{C}^d` that satisfy 
@@ -205,6 +206,58 @@ the antidistinguishability SDP.
 The SDP not only gives us the optimal value, which is $0$ in this case, indicating that the states are
 antidistinguishable, but we also get a set of optimal measurement operators. These should look familiar to the
 measurements we explicitly constructed earlier.
+
+
+Antidistinguishability and :math:`(n-1)`-incoherence
+----------------------------------------------------
+
+Antidistinguishability of a set of pure states is equivalent to a certain notion from the theory of quantum resources
+referred to as :math:`k`-incoherence :cite:`Johnston_2022_Absolutely`:
+
+**Definition**: Let :math:`n` and :math:`k` be positive integers. Then :math:`X \in \text{Pos}(\mathbb{C} ^n)` is called
+:math:`k`-incoherent* if there exists a positive integer :math:`m`, a set  
+:math:`S = \{|\psi_0\rangle, |\psi_1\rangle,\ldots, |\psi_{m-1}\rangle\} \subset \mathbb{C} ^n` with the property that 
+each :math:`|\psi_i\rangle` has at most :math:`k` non-zero entries, and real scalars :math:`c_0, c_1, \ldots, c_{m-1} \geq 0`
+for which 
+
+.. math::
+    X = \sum_{j=0}^{m-1} c_j |psi_j\rangle \langle \psi_j|.
+
+It turns out that antidistinguishability is equivalent to :math:`k`-incoherence in the :math:`k = n - 1` case.
+Reproducing one of the results from :cite:`Johnston_2025_Tight`, we have the following theorem.
+
+**Theorem**: Let :math:`n \geq 2` be an integer and let :math:`S = \{|\phi_0\rangle, |\phi_1\rangle, \ldots, |\phi_{n-1}\rangle\}`.
+Then :math:`S` is antidistinguishable if and only if the Gram matrix :math:`G` is :math:`(n-1)`-incoherent.
+
+.. math::
+    G =
+    \begin{pmatrix}
+        1 & \langle \phi_0 | \phi_1 \rangle & \cdots & \langle \phi_0 | \phi_{n-1}\rangle \\
+        \langle \phi_1 | \phi_0 \rangle & 1 & \cdots & \langle \phi_1 | \phi_{n-1}\rangle \\
+        \vdots & \vdots & \ddots & \vdots \\
+        \langle \phi_{n-1} | \phi_0 \rangle & \langle \phi_{n-1} | \phi_1 \rangle & \cdots & 1
+    \end{pmatrix}
+
+
+As an example, we can generate a random collection of quantum states, obtain the corresponding Gram matrix, and compute
+whether the set of states are antidistinguishable and :math:`(n-1)`-incoherent. 
+
+.. jupyter-execute::
+
+     from toqito.state_props import is_antidistinguishable
+     from toqito.matrix_ops import vectors_to_gram_matrix
+     from toqito.matrix_props import is_k_incoherent
+     from toqito.rand import random_states
+
+     n, d = 3, 3
+     states = random_states(n, d)
+     gram = vectors_to_gram_matrix(states)
+
+     print(f"Is Antidistinguishable: {is_antidistinguishable(states)}")
+     print(f"Is (n-1)-incoherent: {is_k_incoherent(gram, n-1)}")
+
+As can be seen, whether the random set of states are antidistinguishable or not aligns with whether they are
+:math:`(n-1)`-incoherent or not as well.
 
 References
 ------------------------------
