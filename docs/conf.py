@@ -59,6 +59,7 @@ sphinx_gallery_conf = {
     "default_thumb_file": "_static/default_thumbnail.png",  # Default thumbnail image
 }
 
+
 bibtex_bibfiles = ["refs.bib"]
 bibtex_default_style = "unsrt"
 # Links matching with the following regular expressions will be ignored
