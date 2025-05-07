@@ -1,19 +1,2 @@
-.DS_Store
-.vscode
-.python-version
-.idea/
-.coverage
-*.dat
-*.ipynb
-*.hdf5
-*.ipynb_checkpoints
-*.jupyter_cache
-_build
-__pycache__/
-docs/build/
-toqito.egg-info/
-dist/
-build/
-coverage.xml
-jupyter_execute/
-venv/*
+# Created by venv; see https://docs.python.org/3/library/venv.html
+*
