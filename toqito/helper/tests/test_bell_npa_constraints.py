@@ -175,20 +175,14 @@ def test_bell_npa_constraints_value_error(mocker: MockerFixture):
         ("1+a", [3, 3, 2, 2], "(9, 9)"),
     ],
 )
-def test_bell_npa_constraints_examples(k, desc, expected_gamma_shape_str, capsys):
+def test_bell_npa_constraints_examples(k, desc, expected_gamma_shape_str):
     """Test the examples provided in the function's docstring."""
     oa, ob, ma, mb = desc
     p_var_dim = ((oa - 1) * ma + 1, (ob - 1) * mb + 1)
     p_var = cvxpy.Variable(p_var_dim, name="p_example")
     constraints = bell_npa_constraints(p_var, desc, k=k)
 
-    print(len(constraints))
+    assert len(constraints) > 0
     psd_constraint = [c for c in constraints if isinstance(c, cvxpy.constraints.PSD)][0]
     gamma_var = psd_constraint.args[0].variables()[0]
-    print(f"PSD constraint {gamma_var.shape}.")
-
-    captured = capsys.readouterr()
-    output_lines = captured.out.strip().split("\n")
-
-    assert output_lines[1] == f"PSD constraint {expected_gamma_shape_str}."
-    assert int(output_lines[0]) > 0
+    assert str(gamma_var.shape) == expected_gamma_shape_str
