@@ -38,7 +38,6 @@ numpy = "2.2.3"
 scipy = "1.15.2"
 scs = "3.2.7.post2" 
 picos = "2.6.0"
-jupyter-sphinx = "^0.5.3"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "8.3.4"
@@ -49,6 +48,7 @@ distlib = "0.3.9"
 ipython = "8.36.0"
 setuptools = ">65.5.1"
 pre-commit = ">=3.0.0"
+pytest-mock = "^3.10.0"
 
 [tool.poetry.group.lint.dependencies]
 flake8 = "7.2.0"
