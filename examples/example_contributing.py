@@ -1,7 +1,4 @@
-# ruff: noqa: D205, D400, D415
-
-"""Sample Template
-==================
+"""Sample Template.
 
 This page provides some guidance on how to add an example to the gallery.
 """
