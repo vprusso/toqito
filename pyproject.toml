@@ -79,6 +79,7 @@ build-backend = "poetry.core.masonry.api"
 exclude = ["__init__.py"]
 line-length = 120
 target-version = "py312"
+force-exclude = true
 
 
 [tool.ruff.lint]
@@ -90,8 +91,9 @@ select = ["I", "E", "W", "D", "PL", "F"]
 # PL -- pylint
 # F -- pyflakes
 
+
 # Rules considered over other incompatible ones
-exclude = ["docs/conf.py", "setup.py", "docs/examples"]
+exclude = ["docs/conf.py", "setup.py", "docs/**"]
 
 
 ignore = ["D407", "D203", "D213", "D416", "PLR0912", "PLR0911", "PLR0915", "PLR2004", "PLR0913", "F811", "E203"]
