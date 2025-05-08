@@ -80,6 +80,7 @@ exclude = ["__init__.py"]
 line-length = 120
 target-version = "py312"
 
+
 [tool.ruff.lint]
 select = ["I", "E", "W", "D", "PL", "F"]
 # ruff configuration
@@ -90,7 +91,8 @@ select = ["I", "E", "W", "D", "PL", "F"]
 # F -- pyflakes
 
 # Rules considered over other incompatible ones
-exclude = ["docs/conf.py", "setup.py"]
+exclude = ["docs/conf.py", "setup.py", "docs/examples"]
+
 
 ignore = ["D407", "D203", "D213", "D416", "PLR0912", "PLR0911", "PLR0915", "PLR2004", "PLR0913", "F811", "E203"]
 # Rules Ignored
