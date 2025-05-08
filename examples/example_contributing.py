@@ -1,4 +1,5 @@
-"""Sample Template.
+"""Sample Template
+====================
 
 This page provides some guidance on how to add an example to the gallery.
 """
