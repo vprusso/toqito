@@ -16,7 +16,7 @@ def operator_sinkhorn(
 
     This function is adapted from QETLAB. :cite:`QETLAB_link`.
 
-    This function relies on Sinkhorn's theorem :cite:`Sinkhorn_1964_Relationship` which states "for any
+    The function relies on Sinkhorn's theorem :cite:`Sinkhorn_1964_Relationship`, which states that "for any
     positive-definite square matrix :math:`A`, there exist diagonal matrices :math:`D_1` and :math:`D_2` such that
     :math:`D_1 \cdot A \cdot D_2` is doubly stochastic.
 
@@ -24,11 +24,16 @@ def operator_sinkhorn(
     subsystem so that its marginals become uniform (i.e., partial traces or row/column sums become proportional to
     identity), until convergence.
 
-    Upon convergence we end up with a density matrix `sigma` (:math:`\sigma`), which is locally equivalent to the given
-    multipartite density matrix `rho` (:math:`\rho`), but having maximally mixed subsystems. The algorithm will also
+    Upon convergence we end up with a density matrix :math:`\sigma`, which is locally equivalent to the given
+    multipartite density matrix :math:`\rho`, but having maximally mixed subsystems. The algorithm will also
     return the list of filtering operations which can be directly applied on :math:`\rho` to arrive at :math:`\sigma`.
     Such converted forms of density matrices are useful to analyse entangled systems and to study effects of operations
     on each subsystems (as discussed in :cite:`Gurvits_2004_Classical`).
+
+    See Also
+    ========
+    :func:`.is_positive_definite`
+    :func:`.is_stochastic`
 
     Examples
     =======
