@@ -48,11 +48,15 @@ def operator_sinkhorn(
         from toqito.rand import random_density_matrix
 
         rho = random_density_matrix(4, seed=42)
-        print(f"{rho=}")
+        print("Random density matrix")
+        print(rho)
 
         sigma, local_ops = operator_sinkhorn(rho=rho, dim=[2, 2])
-        print(f"{sigma=}")
-        print(f"{local_ops[0]=}")
+        print("Locally normalized form of input matrix")
+        print(sigma)
+        print(("Example local invertible operator responsible for returning a locally normalized"
+               " form of the input matrix"))
+        print(local_ops[0])
 
     :code:`operator_sinkhorn` returns the result density matrix :code:`sigma` along with the operations list
     :code:`local_ops`. :code:`sigma` (:math:`\sigma`) has all of its (single-party) reduced density matrices
@@ -90,10 +94,11 @@ def operator_sinkhorn(
     :param tol: Convergence tolerance of the iterative Sinkhorn algorithm.
                 Assumes square root of numpy eps as default.
     :param max_iterations: Number of iterations after which the solver terminates with a convergence error.
+                The default value is :math:`10000`.
     :raises ValueError: If input density matrix is not a square matrix.
     :raises ValueError: If the product of dimensions provided/assumed does not match the dimension of density matrix.
     :raises ValueError: If the density matrix provided is singular (or is not of full rank).
-    :raises RuntimeError: If the Sinkhorn algorithm does not converge before :code:`max_iterations` iterations.
+    :raises RuntimeError: If the Sinkhorn algorithm does not converge before the provided iterations.
     :returns:
         A tuple of 2 items :code:`(sigma, local_ops)` where,
 
