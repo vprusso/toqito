@@ -57,8 +57,8 @@ API Reference
    autoapi_members
 
 
-Examples
---------
+Examples Gallery
+-----------------
 
 .. toctree::
    :maxdepth: 2

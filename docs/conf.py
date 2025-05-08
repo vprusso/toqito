@@ -50,12 +50,16 @@ extensions = [
     "sphinx.ext.duration",
 ]
 
+
 sphinx_gallery_conf = {
     "examples_dirs": "../examples",  # Path to example scripts
     "gallery_dirs": "auto_examples",  # Output directory for generated example galleries
-    "filename_pattern": r".*\.py",  # Regex to filter example files by name i.e those starting with 'plot_'
+    "filename_pattern": "/example_",  # Regex to filter example files by name i.e those starting with 'example_'
     "write_computation_times": False,  # Do not include computation times
     "default_thumb_file": "_static/default_thumbnail.png",  # Default thumbnail image
+    "line_numbers": True,  # add line numbers
+    "download_all_examples": False,
+    "ignore_pattern": r"__init__\.py",
 }
 
 
@@ -123,6 +127,7 @@ exclude_patterns = ["_build", "_templates", "Thumbs.db", ".DS_Store"]
 html_theme = "furo"
 html_logo = "figures/logo.svg"
 html_favicon = "figures/favicon.ico"
+
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
