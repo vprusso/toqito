@@ -43,6 +43,7 @@ def is_totally_positive(mat: np.ndarray, tol: float = 1e-6, sub_sizes: list | No
     Our function indicates that this matrix is indeed totally positive.
 
     .. jupyter-execute::
+    
         import numpy as np
         from toqito.matrix_props.is_totally_positive import is_totally_positive
 
