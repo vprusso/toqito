@@ -58,8 +58,8 @@ def tensor_comb(
         :filter: docname in docnames
 
     :raises ValueError: If the input list of states is empty.
-    :param k: The length of the sequence.
     :param states: A list of state vectors.
+    :param k: The length of the sequence.
     :param mode: Determines the type of sequences.
             - "non-injective": Allows repetitions in sequences.
             - "injective": Ensures sequences are injective (no repetitions).
