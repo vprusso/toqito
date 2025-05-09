@@ -68,6 +68,7 @@ def is_totally_positive(mat: np.ndarray, tol: float = 1e-6, sub_sizes: list | No
     Since the determinant is negative, :math:`B` is not totally positive.
 
     .. jupyter-execute::
+    
         import numpy as np
         from toqito.matrix_props.is_totally_positive import is_totally_positive
 
