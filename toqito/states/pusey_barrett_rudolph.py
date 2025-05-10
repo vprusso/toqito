@@ -33,11 +33,11 @@ def pusey_barrett_rudolph(n: int, theta: float) -> list[np.ndarray]:
     Generating the PBR states can be done by simply invoking the function with a given choice of :code:`n` and
     :code:`theta`:
 
-    >>> from toqito.states import pusey_barrett_rudolph
-    >>> pusey_barrett_rudolph(n=1, theta=0.5)
-    [array([[0.96891242],
-    ...    [0.24740396]]), array([[ 0.96891242],
-    ...    [-0.24740396]])]
+    .. jupyter-execute::
+
+        from toqito.states import pusey_barrett_rudolph
+        pusey_barrett_rudolph(n=1, theta=0.5)
+
 
     References
     ==========
