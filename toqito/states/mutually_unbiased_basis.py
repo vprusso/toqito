@@ -35,7 +35,9 @@ def mutually_unbiased_basis(dim: int) -> list[np.ndarray]:
         len(mubs)
 
     .. jupyter-execute::
-        [vec.shape for vec in mubs]
+
+        lst =[vec.shape for vec in mubs]
+        lst
 
 
     References
