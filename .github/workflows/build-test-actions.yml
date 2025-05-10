@@ -5,21 +5,21 @@ permissions:
 
 on:
   pull_request:
-  # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request
+    # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#pull_request
     types: [opened, reopened, converted_to_draft, ready_for_review, synchronize]
     branches:
       - master
   push:
     branches:
-    # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#running-your-workflow-only-when-a-push-to-specific-branches-occurs
-        - master
+      # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#running-your-workflow-only-when-a-push-to-specific-branches-occurs
+      - master
 
 jobs:
   code-style:
     strategy:
       fail-fast: false
       matrix:
-          # Add versions here to expand support matrix
+        # Add versions here to expand support matrix
         python-version: ["3.10", "3.11", "3.12"]
         os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
@@ -27,11 +27,16 @@ jobs:
       PYTHON: ${{ matrix.python-version }}
     steps:
       - uses: actions/checkout@v4
+      - name: Get Ruff version from pyproject.toml
+        id: get-ruff-version
+        run: |
+          RUFF_VERSION=$(grep 'ruff = ' pyproject.toml | cut -d'"' -f2)
+          echo "ruff_version=$RUFF_VERSION" >> $GITHUB_OUTPUT
       - uses: astral-sh/ruff-action@v3
         with:
           args: "format --check --diff"
+          version: ${{ steps.get-ruff-version.outputs.ruff_version }}
       - run: ruff check --fix
-      # https://github.com/astral-sh/ruff-action
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
@@ -44,8 +49,10 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install poetry
-          poetry install --without docs --no-interaction
-
+      - name: Run Ruff
+        run: |
+          poetry run ruff format --check --diff
+          poetry run ruff check --fix
 
   toqito-pytest:
     strategy:
@@ -54,8 +61,9 @@ jobs:
         # Add versions here to expand support matrix
         python-version: ["3.10", "3.11", "3.12"]
         os: [ubuntu-latest, macos-latest]
-    runs-on: ${{ matrix.os }}
-        # https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs#using-a-matrix-strategy
+    runs-on:
+      ${{ matrix.os }}
+      # https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs#using-a-matrix-strategy
     env:
       PYTHON: ${{ matrix.python-version }}
     steps:
@@ -89,4 +97,3 @@ jobs:
           verbose: true
       - name: Build artifacts
         run: poetry build
-
