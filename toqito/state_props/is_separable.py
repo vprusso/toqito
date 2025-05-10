@@ -46,26 +46,25 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
 
     On the other hand, a random density matrix will be an entangled state (a separable state).
 
-    >>> import numpy as np
-    >>> from toqito.rand.random_density_matrix import random_density_matrix
-    >>> from toqito.state_props.is_separable import is_separable
-    >>> rho_separable = np.array([[1, 0, 1, 0],
-    ...                           [0, 1, 0, 1],
-    ...                           [1, 0, 1, 0],
-    ...                           [0, 1, 0, 1]])
-    >>> is_separable(rho_separable)
-    True
+    .. jupyter-execute::
 
-    >>> rho_not_separable = np.array([[ 0.13407875+0.j        , -0.08263926-0.17760437j,
-    ...    -0.0135111 -0.12352182j,  0.0368423 -0.05563985j],
-    ...   [-0.08263926+0.17760437j,  0.53338542+0.j        ,
-    ...     0.19782968-0.04549732j,  0.11287093+0.17024249j],
-    ...   [-0.0135111 +0.12352182j,  0.19782968+0.04549732j,
-    ...     0.21254612+0.j        , -0.00875865+0.11144344j],
-    ...   [ 0.0368423 +0.05563985j,  0.11287093-0.17024249j,
-    ...    -0.00875865-0.11144344j,  0.11998971+0.j        ]])
-    >>> is_separable(rho_not_separable)
-    False
+        import numpy as np
+        from toqito.rand.random_density_matrix import random_density_matrix
+        from toqito.state_props.is_separable import is_separable
+        rho_separable = np.array([[1, 0, 1, 0], [0, 1, 0, 1], [1, 0, 1, 0], [0, 1, 0, 1]])
+        is_separable(rho_separable)
+
+    .. jupyter-execute::
+
+        rho_not_separable = np.array([[ 0.13407875+0.j        , -0.08263926-0.17760437j,
+                -0.0135111 -0.12352182j,  0.0368423 -0.05563985j],
+            [-0.08263926+0.17760437j,  0.53338542+0.j        ,
+                0.19782968-0.04549732j,  0.11287093+0.17024249j],
+            [-0.0135111 +0.12352182j,  0.19782968+0.04549732j,
+                0.21254612+0.j        , -0.00875865+0.11144344j],
+            [ 0.0368423 +0.05563985j,  0.11287093-0.17024249j,
+                -0.00875865-0.11144344j,  0.11998971+0.j        ]])
+        is_separable(rho_not_separable)
 
     References
     ==========

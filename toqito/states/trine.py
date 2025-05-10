@@ -20,13 +20,11 @@ def trine() -> list[np.ndarray]:
 
     Generating the trine states can be done by simply invoking the function:
 
-    >>> from toqito.states import trine
-    >>>
-    >>> trine()
-    [array([[1],
-           [0]]), array([[-0.5      ],
-           [-0.8660254]]), array([[-0.5      ],
-           [ 0.8660254]])]
+    .. jupyter-execute::
+
+        from toqito.states import trine
+        trine()
+
 
 
     References

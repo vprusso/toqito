@@ -18,24 +18,28 @@ def diamond_distance(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     Consider the depolarizing and identity channels in a 2-dimensional space. The depolarizing channel parameter is
     set to 0.2:
 
-    >>> import numpy as np
-    >>> from toqito.channels import depolarizing
-    >>> from toqito.channel_metrics import diamond_distance
-    >>> choi_depolarizing = depolarizing(dim=2, param_p=0.2)
-    >>> choi_identity = np.identity(2**2)
-    >>> np.around(diamond_distance(choi_depolarizing, choi_identity), decimals=2)
-    np.float64(1.0)
+    .. jupyter-execute::
+
+        import numpy as np
+        from toqito.channels import depolarizing
+        from toqito.channel_metrics import diamond_distance
+        choi_depolarizing = depolarizing(dim=2, param_p=0.2)
+        choi_identity = np.identity(2**2)
+        diamond_distance(choi_depolarizing, choi_identity)
+
 
     Similarly, we can compute the diamond norm between the dephasing channel (with parameter 0.3) and the identity
     channel:
 
-    >>> import numpy as np
-    >>> from toqito.channels import dephasing
-    >>> from toqito.channel_metrics import diamond_distance
-    >>> choi_dephasing = dephasing(dim=2)
-    >>> choi_identity = np.identity(2**2)
-    >>> np.around(diamond_distance(choi_dephasing, choi_identity), decimals=2)
-    np.float64(1.0)
+    .. jupyter-execute::
+
+        import numpy as np
+        from toqito.channels import dephasing
+        from toqito.channel_metrics import diamond_distance
+        choi_dephasing = dephasing(dim=2)
+        choi_identity = np.identity(2**2)
+        diamond_distance(choi_dephasing, choi_identity)
+
 
     References
     ==========

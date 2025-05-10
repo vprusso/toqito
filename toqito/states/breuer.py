@@ -24,12 +24,10 @@ def breuer(dim: int, lam: float) -> np.ndarray:
     We can generate a Breuer state of dimension :math:`4` with weight :math:`0.1`. For any weight above :math:`0`, the
     state will be bound entangled, that is, it will satisfy the PPT criterion, but it will be entangled.
 
-    >>> from toqito.states import breuer
-    >>> breuer(2, 0.1)
-    array([[0.3, 0. , 0. , 0. ],
-           [0. , 0.2, 0.1, 0. ],
-           [0. , 0.1, 0.2, 0. ],
-           [0. , 0. , 0. , 0.3]])
+    .. jupyter-execute::
+
+        from toqito.states import breuer
+        breuer(2, 0.1)
 
     References
     ==========

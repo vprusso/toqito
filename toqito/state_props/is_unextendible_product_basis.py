@@ -24,27 +24,25 @@ def is_unextendible_product_basis(vecs: list[np.ndarray], dims: list[int]) -> tu
     ==========
     See :func:`.tile`. All the states together form a UPB:
 
-    >>> import numpy as np
-    >>> from toqito.states import tile
-    >>> from toqito.state_props import is_unextendible_product_basis
-    >>>
-    >>> upb_tiles = np.array([tile(i) for i in range(5)])
-    >>> dims = np.array([3, 3])
-    >>> is_unextendible_product_basis(upb_tiles, dims)
-    (True, None)
+    .. jupyter-execute::
+
+        import numpy as np
+        from toqito.states import tile
+        from toqito.state_props import is_unextendible_product_basis
+        upb_tiles = np.array([tile(i) for i in range(5)])
+        dims = np.array([3, 3])
+        is_unextendible_product_basis(upb_tiles, dims)
 
     However, the first 4 do not:
 
-    >>> import numpy as np
-    >>> from toqito.states import tile
-    >>> from toqito.state_props import is_unextendible_product_basis
-    >>>
-    >>> non_upb_tiles = np.array([tile(i) for i in range(4)])
-    >>> dims = np.array([3, 3])
-    >>> is_unextendible_product_basis(non_upb_tiles, dims)  # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
-    (False, array([-0.00000000e+00,  0.00000000e+00,  0.00000000e+00, -0.00000000e+00,
-        0.00000000e+00,  0.00000000e+00, -1.11022302e-16,  7.07106781e-01,
-        7.07106781e-01]))
+    .. jupyter-execute::
+
+        import numpy as np
+        from toqito.states import tile
+        from toqito.state_props import is_unextendible_product_basis
+        non_upb_tiles = np.array([tile(i) for i in range(4)])
+        dims = np.array([3, 3])
+        is_unextendible_product_basis(non_upb_tiles, dims)
 
     The orthogonal state is given by
 

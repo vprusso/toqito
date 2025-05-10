@@ -24,18 +24,15 @@ def update_odometer(old_ind: list[int] | np.ndarray, upper_lim: list[int] | np.n
     Examples
     ==========
 
-    >>> from toqito.helper import update_odometer
-    >>> import numpy as np
-    >>> vec = np.array([0, 0])
-    >>> upper_lim = np.array([3, 2])
-    >>> for j in range(0, np.prod(upper_lim)-1):
-    ...     vec = update_odometer(vec, upper_lim)
-    ...     vec
-    array([0, 1])
-    array([1, 0])
-    array([1, 1])
-    array([2, 0])
-    array([2, 1])
+    .. jupyter-execute::
+
+        from toqito.helper import update_odometer
+        import numpy as np
+        vec = np.array([0, 0])
+        upper_lim = np.array([3, 2])
+        for j in range(0, np.prod(upper_lim)-1):
+                vec = update_odometer(vec, upper_lim)
+                vec
 
 
 

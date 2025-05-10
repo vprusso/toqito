@@ -28,38 +28,22 @@ def singlet(dim: int) -> np.ndarray:
 
     is the singlet state. This can be computed via :code:`|toqito⟩` as follows:
 
-    >>> from toqito.states import singlet
-    >>> dim = 2
-    >>> singlet(dim)
-    array([[ 0. ,  0. ,  0. ,  0. ],
-           [ 0. ,  0.5, -0.5,  0. ],
-           [ 0. , -0.5,  0.5,  0. ],
-           [ 0. ,  0. ,  0. ,  0. ]])
+    .. jupyter-execute::
+
+      from toqito.states import singlet
+      dim = 2
+      singlet(dim)
+
 
     It is possible for us to consider higher dimensional singlet states. For instance, we can consider the
     :math:`3`-dimensional Singlet state as follows:
 
-    >>> from toqito.states import singlet
-    >>> dim = 3
-    >>> singlet(dim)
-    array([[ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
-             0.        ,  0.        ,  0.        ,  0.        ],
-           [ 0.        ,  0.16666667,  0.        , -0.16666667,  0.        ,
-             0.        ,  0.        ,  0.        ,  0.        ],
-           [ 0.        ,  0.        ,  0.16666667,  0.        ,  0.        ,
-             0.        , -0.16666667,  0.        ,  0.        ],
-           [ 0.        , -0.16666667,  0.        ,  0.16666667,  0.        ,
-             0.        ,  0.        ,  0.        ,  0.        ],
-           [ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
-             0.        ,  0.        ,  0.        ,  0.        ],
-           [ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
-             0.16666667,  0.        , -0.16666667,  0.        ],
-           [ 0.        ,  0.        , -0.16666667,  0.        ,  0.        ,
-             0.        ,  0.16666667,  0.        ,  0.        ],
-           [ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
-            -0.16666667,  0.        ,  0.16666667,  0.        ],
-           [ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
-             0.        ,  0.        ,  0.        ,  0.        ]])
+    .. jupyter-execute::
+
+      from toqito.states import singlet
+      dim = 3
+      singlet(dim)
+
 
 
     References

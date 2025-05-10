@@ -45,18 +45,19 @@ def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, dia_array]:
 
     as follows.
 
-    >>> from toqito.states import max_mixed
-    >>> max_mixed(2, is_sparse=False)
-    array([[0.5, 0. ],
-           [0. , 0.5]])
+    .. jupyter-execute::
+
+        from toqito.states import max_mixed
+        max_mixed(2, is_sparse=False)
+
 
 
     One may also generate a maximally mixed state returned as a sparse matrix
 
-    >>> from toqito.states import max_mixed
-    >>> max_mixed(2, is_sparse=True) # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
-    <DIAgonal sparse array of dtype 'float64'
-        with 2 stored elements (1 diagonals) and shape (2, 2)>
+    .. jupyter-execute::
+
+        from toqito.states import max_mixed
+        max_mixed(2, is_sparse=True)
 
 
     References

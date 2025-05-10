@@ -42,18 +42,11 @@ def tile(idx: int) -> np.ndarray:
 
     Using :code:`|toqito⟩`, we can see that this yields the proper state.
 
-    >>> from toqito.states import tile
-    >>> import numpy as np
-    >>> tile(0)
-    array([[ 0.70710678],
-           [-0.70710678],
-           [ 0.        ],
-           [ 0.        ],
-           [ 0.        ],
-           [ 0.        ],
-           [ 0.        ],
-           [ 0.        ],
-           [ 0.        ]])
+    .. jupyter-execute::
+
+        from toqito.states import tile
+        import numpy as np
+        tile(0)
 
     References
     ==========

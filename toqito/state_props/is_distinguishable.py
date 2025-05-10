@@ -27,12 +27,12 @@ def is_distinguishable(states: list[np.ndarray], probs: list[float] = None) -> b
 
     It can be checked in :code`toqito` that the Bell states are distinguishable:
 
-    >>> from toqito.states import bell
-    >>> from toqito.state_props import is_distinguishable
-    >>>
-    >>> bell_states = [bell(0), bell(1), bell(2), bell(3)]
-    >>> is_distinguishable(bell_states)
-    np.True_
+    .. jupyter-execute::
+
+        from toqito.states import bell
+        from toqito.state_props import is_distinguishable
+        bell_states = [bell(0), bell(1), bell(2), bell(3)]
+        is_distinguishable(bell_states)
 
     References
     ==========

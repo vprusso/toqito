@@ -22,17 +22,17 @@ def basis(dim: int, pos: int) -> np.ndarray:
 
     Example:  Ket basis vector: :math:`|0\rangle`.
 
-    >>> from toqito.states import basis
-    >>> basis(2, 0)
-    array([[1],
-           [0]])
+    .. jupyter-execute::
+
+        from toqito.states import basis
+        basis(2, 0)
 
     Example: Ket basis vector: :math:`|1\rangle`.
 
-    >>> from toqito.states import basis
-    >>> basis(2, 1)
-    array([[0],
-           [1]])
+    .. jupyter-execute::
+
+        from toqito.states import basis
+        basis(2, 1)
 
     References
     ==========

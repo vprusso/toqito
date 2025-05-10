@@ -31,16 +31,10 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray
 
     Using :code:`|toqito⟩`, we can see that this yields the proper state.
 
-    >>> from toqito.states import ghz
-    >>> ghz(2, 3)
-    array([[0.70710678],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.70710678]])
+    .. jupyter-execute::
+
+        from toqito.states import ghz
+        ghz(2, 3)
 
     As this function covers the generalized GHZ state, we can consider higher dimensions. For instance here is the GHZ
     state in :math:`\mathbb{C}^{4^{\otimes 7}}` as

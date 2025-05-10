@@ -23,11 +23,12 @@ def log_negativity(rho: np.ndarray, dim: list[int] | int = None) -> float:
 
     Example of the log-negativity of density matrix of Bell state.
 
-    >>> from toqito.states import bell
-    >>> from toqito.state_props import log_negativity
-    >>> rho = bell(0) @ bell(0).conj().T
-    >>> log_negativity(rho)
-    np.float64(0.9999999999999997)
+    .. jupyter-execute::
+
+        from toqito.states import bell
+        from toqito.state_props import log_negativity
+        rho = bell(0) @ bell(0).conj().T
+        log_negativity(rho)
 
     See Also
     ==========

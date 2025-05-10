@@ -36,13 +36,14 @@ def is_ensemble(states: list[np.ndarray]) -> bool:
 
     The set :math:`\eta` constitutes a valid ensemble.
 
-    >>> from toqito.state_props import is_ensemble
-    >>> import numpy as np
-    >>> rho_0 = np.array([[0.5, 0], [0, 0]])
-    >>> rho_1 = np.array([[0, 0], [0, 0.5]])
-    >>> states = [rho_0, rho_1]
-    >>> is_ensemble(states)
-    True
+    .. jupyter-execute::
+
+        from toqito.state_props import is_ensemble
+        import numpy as np
+        rho_0 = np.array([[0.5, 0], [0, 0]])
+        rho_1 = np.array([[0, 0], [0, 0.5]])
+        states = [rho_0, rho_1]
+        is_ensemble(states)
 
     References
     ==========

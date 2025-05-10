@@ -17,31 +17,18 @@ def dicke(num_qubit: int, num_excited: int, return_dm: bool = False) -> np.ndarr
     ==========
     Consider generating a Dicke state with 3 qubits and 1 excitation:
 
-    >>> from toqito.states import dicke
-    >>> dicke(3, 1)
-    array([0.        , 0.57735027, 0.57735027, 0.        , 0.57735027,
-           0.        , 0.        , 0.        ])
+    .. jupyter-execute::
+
+        from toqito.states import dicke
+        dicke(3, 1)
 
     If we request the density matrix for this state, the return value is:
 
-    >>> from toqito.states import dicke
-    >>> dicke(3, 1, return_dm=True)
-    array([[0.        , 0.        , 0.        , 0.        , 0.        ,
-            0.        , 0.        , 0.        ],
-           [0.        , 0.33333333, 0.33333333, 0.        , 0.33333333,
-            0.        , 0.        , 0.        ],
-           [0.        , 0.33333333, 0.33333333, 0.        , 0.33333333,
-            0.        , 0.        , 0.        ],
-           [0.        , 0.        , 0.        , 0.        , 0.        ,
-            0.        , 0.        , 0.        ],
-           [0.        , 0.33333333, 0.33333333, 0.        , 0.33333333,
-            0.        , 0.        , 0.        ],
-           [0.        , 0.        , 0.        , 0.        , 0.        ,
-            0.        , 0.        , 0.        ],
-           [0.        , 0.        , 0.        , 0.        , 0.        ,
-            0.        , 0.        , 0.        ],
-           [0.        , 0.        , 0.        , 0.        , 0.        ,
-            0.        , 0.        , 0.        ]])
+    .. jupyter-execute::
+
+        from toqito.states import dicke
+        dicke(3, 1, return_dm=True)
+
 
     References
     ==========

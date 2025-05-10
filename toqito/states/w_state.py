@@ -29,16 +29,10 @@ def w_state(num_qubits: int, coeff: list[int] = None) -> np.ndarray:
 
     as follows.
 
-    >>> from toqito.states import w_state
-    >>> w_state(3)
-    array([[0.    ],
-           [0.5774],
-           [0.5774],
-           [0.    ],
-           [0.5774],
-           [0.    ],
-           [0.    ],
-           [0.    ]])
+    .. jupyter-execute::
+
+        from toqito.states import w_state
+        w_state(3)
 
     We may also generate a generalized :math:`W`-state. For instance, here is a :math:`4`-dimensional :math:`W`-state
 
@@ -48,26 +42,12 @@ def w_state(num_qubits: int, coeff: list[int] = None) -> np.ndarray:
 
     We can generate this state in :code:`|toqito⟩` as
 
-    >>> from toqito.states import w_state
-    >>> import numpy as np
-    >>> coeffs = np.array([1, 2, 3, 4]) / np.sqrt(30)
-    >>> w_state(4, coeffs)
-    array([[0.    ],
-           [0.7303],
-           [0.5477],
-           [0.    ],
-           [0.3651],
-           [0.    ],
-           [0.    ],
-           [0.    ],
-           [0.1826],
-           [0.    ],
-           [0.    ],
-           [0.    ],
-           [0.    ],
-           [0.    ],
-           [0.    ],
-           [0.    ]])
+    .. jupyter-execute::
+
+        from toqito.states import w_state
+        import numpy as np
+        coeffs = np.array([1, 2, 3, 4]) / np.sqrt(30)
+        w_state(4, coeffs)
 
     References
     ==========

@@ -33,12 +33,10 @@ def gisin(lambda_var: float, theta: float) -> np.ndarray:
 
     The following code generates the Gisin state :math:`\rho_{0.5, 1}`.
 
-    >>> from toqito.states import gisin
-    >>> gisin(0.5, 1)
-    array([[ 0.25      ,  0.        ,  0.        ,  0.        ],
-           [ 0.        ,  0.35403671, -0.22732436,  0.        ],
-           [ 0.        , -0.22732436,  0.14596329,  0.        ],
-           [ 0.        ,  0.        ,  0.        ,  0.25      ]])
+    .. jupyter-execute::
+
+        from toqito.states import gisin
+        gisin(0.5, 1)
 
     References
     ==========

@@ -30,26 +30,11 @@ def isotropic(dim: int, alpha: float) -> np.ndarray:
     To generate the isotropic state with parameter :math:`\alpha=1/2`, we can make the following call to
     :code:`|toqito⟩` as
 
-    >>> from toqito.states import isotropic
-    >>> isotropic(3, 1 / 2)
-    array([[0.22222222, 0.        , 0.        , 0.        , 0.16666667,
-            0.        , 0.        , 0.        , 0.16666667],
-           [0.        , 0.05555556, 0.        , 0.        , 0.        ,
-            0.        , 0.        , 0.        , 0.        ],
-           [0.        , 0.        , 0.05555556, 0.        , 0.        ,
-            0.        , 0.        , 0.        , 0.        ],
-           [0.        , 0.        , 0.        , 0.05555556, 0.        ,
-            0.        , 0.        , 0.        , 0.        ],
-           [0.16666667, 0.        , 0.        , 0.        , 0.22222222,
-            0.        , 0.        , 0.        , 0.16666667],
-           [0.        , 0.        , 0.        , 0.        , 0.        ,
-            0.05555556, 0.        , 0.        , 0.        ],
-           [0.        , 0.        , 0.        , 0.        , 0.        ,
-            0.        , 0.05555556, 0.        , 0.        ],
-           [0.        , 0.        , 0.        , 0.        , 0.        ,
-            0.        , 0.        , 0.05555556, 0.        ],
-           [0.16666667, 0.        , 0.        , 0.        , 0.16666667,
-            0.        , 0.        , 0.        , 0.22222222]])
+    .. jupyter-execute::
+
+        from toqito.states import isotropic
+        isotropic(3, 1 / 2)
+
 
     References
     ==========
