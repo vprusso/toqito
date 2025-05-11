@@ -37,15 +37,15 @@ def operator_sinkhorn(
     :func:`.is_square`
 
 
-    :code:`operator_sinkhorn` returns the result density matrix :math:`sigma` along with the operations list
+    :code:`operator_sinkhorn` returns the result density matrix :math:`\sigma` along with the operations list
     :code:`local_ops`. :math:`\sigma` has all of its (single-party) reduced density matrices
     proportional to the identity, while satisfying
 
     .. math::
         \sigma = F \cdot \rho \cdot F^{\dagger}.
 
-    In other words, :code:`local_ops` contains invertible local operations that demonstrate that :math:`rho` and
-    :math:`sigma` are locally equivalent. This can be checked by first obtaining the :math:`F` matrix using the
+    In other words, :code:`local_ops` contains invertible local operations that demonstrate that :math:`\rho` and
+    :math:`\sigma` are locally equivalent. This can be checked by first obtaining the :math:`F` matrix using the
     elements of :code:`local_ops`.
 
     For this example, :math:`F_1` = :code:`local_ops[0]`, and :math:`F_2` = :code:`local_ops[1]`
@@ -101,7 +101,7 @@ def operator_sinkhorn(
     :raises ValueError: If the product of dimensions provided/assumed does not match the dimension of density matrix.
     :raises ValueError: If the density matrix provided is singular (or is not of full rank).
     :raises RuntimeError: If the Sinkhorn algorithm does not converge before the provided iterations.
-    :raises RuntimeWarning: If the trace of :math:`sigma` converges to a near zero value for a non-zero input trace.
+    :raises RuntimeWarning: If the trace of :math:`\sigma` converges to a near zero value for a non-zero input trace.
                 This can be due to numerical instabilities in iterations and might potentially cause wrong outputs.
     :returns:
         A tuple of 2 items :code:`(sigma, local_ops)` where,
