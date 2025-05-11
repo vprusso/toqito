@@ -36,6 +36,7 @@ def operator_sinkhorn(
     :func:`.is_stochastic`
     :func:`.is_square`
 
+
     :code:`operator_sinkhorn` returns the result density matrix :math:`sigma` along with the operations list
     :code:`local_ops`. :math:`\sigma` has all of its (single-party) reduced density matrices
     proportional to the identity, while satisfying
@@ -105,8 +106,9 @@ def operator_sinkhorn(
     :returns:
         A tuple of 2 items :code:`(sigma, local_ops)` where,
 
-        - :math:`sigma` is the locally normalized form of  :math:`rho`.
-        - :code:`local_ops` is the list of invertible local operators which can obtain :math:`sigma` from :math:`rho`.
+        - :math:`\sigma` is the locally normalized form of  :math:`\rho`.
+        - :code:`local_ops` is the list of invertible local operators which can obtain :math:`\sigma` 
+        from :math:`\rho`.
     :rtype: tuple(numpy.ndarray, list(numpy.ndarray))
 
     """

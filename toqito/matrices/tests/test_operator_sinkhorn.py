@@ -20,7 +20,7 @@ def test_operator_sinkhorn_unitary_invariance():
     rho_new = U @ rho @ U.conj().T
     sigma_new, local_ops_new = operator_sinkhorn(rho_new)
     sigma_old, local_ops_old = operator_sinkhorn(rho)
-    np.testing.assert_allclose(sigma_new, U @ sigma_old @ U.conj().T)
+    assert pytest.approx(U @ sigma_old @ U.conj().T) == sigma_new
 
 
 def test_operator_sinkhorn_trace_property():
@@ -31,7 +31,7 @@ def test_operator_sinkhorn_trace_property():
     sigma, local_ops = operator_sinkhorn(rho, dim=[3])
 
     # Check that sigma is a valid density matrix with trace equal to 1.
-    np.testing.assert_almost_equal(np.trace(sigma), 1)
+    assert pytest.approx(np.trace(sigma), rel=1e-7) == 1
 
 
 # Test partial traces for bipartite and tripartite systems.
@@ -50,10 +50,10 @@ def test_operator_sinkhorn_partial_trace(rho, dim, expected_identity, target_sub
 
     # Partial trace on the first subsystem.
     pt = partial_trace(sigma, target_subsys, dim=dim)
-    pt_rounded = np.around(pt, decimals=2)
+    pt_rounded = np.around(pt, decimals=3)
 
     # Check that partial trace matches the expected identity.
-    np.testing.assert_allclose(pt_rounded, expected_identity, rtol=1e-2)
+    assert pytest.approx(pt_rounded, rel=1e-2) == expected_identity
 
 
 # Test error handling in different scenarios.
@@ -145,4 +145,4 @@ def test_operator_sinkhorn_mix_ent(rho, dim):
     sigma, local_ops = operator_sinkhorn(rho=rho, dim=dim)
 
     # Check that rho is invariant after sinkhorn operation.
-    np.testing.assert_allclose(sigma, rho)
+    assert pytest.approx(sigma, rel=1e-7) == rho
