@@ -80,7 +80,7 @@ def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np
 
      pauli("Z")
 
-    Example using :math:`ind` as list.
+    Example using :code:`ind` as list.
 
     .. jupyter-execute::
 

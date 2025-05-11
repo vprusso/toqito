@@ -35,13 +35,12 @@ def bell(idx: int) -> np.ndarray:
 
     Using :code:`|toqito⟩`, we can see that this yields the proper state.
 
-    >>> from toqito.states import bell
-    >>> import numpy as np
-    >>> bell(0)
-    array([[0.70710678],
-           [0.        ],
-           [0.        ],
-           [0.70710678]])
+    .. jupyter-execute::
+
+        from toqito.states import bell
+        import numpy as np
+        bell(0)
+
 
     References
     ==========

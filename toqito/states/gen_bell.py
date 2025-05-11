@@ -47,51 +47,24 @@ def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
 
     is one of the four standard Bell states. This can be computed via :code:`|toqito⟩` as follows.
 
-    >>> from toqito.states import gen_bell
-    >>> dim = 2
-    >>> k_1 = 0
-    >>> k_2 = 0
-    >>> gen_bell(k_1, k_2, dim)
-    array([[0.5+0.j, 0. +0.j, 0. +0.j, 0.5+0.j],
-           [0. +0.j, 0. +0.j, 0. +0.j, 0. +0.j],
-           [0. +0.j, 0. +0.j, 0. +0.j, 0. +0.j],
-           [0.5+0.j, 0. +0.j, 0. +0.j, 0.5+0.j]])
+    .. jupyter-execute::
+
+        from toqito.states import gen_bell
+        dim = 2
+        k_1 = 0
+        k_2 = 0
+        gen_bell(k_1, k_2, dim)
 
     It is possible for us to consider higher dimensional Bell states. For instance, we can consider
     the :math:`3`-dimensional Bell state for :math:`k_1 = k_2 = 0` as follows.
 
-    >>> from toqito.states import gen_bell
-    >>> dim = 3
-    >>> k_1 = 0
-    >>> k_2 = 0
-    >>> gen_bell(k_1, k_2, dim)
-    array([[0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.33333333+0.j],
-           [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.        +0.j],
-           [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.        +0.j],
-           [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.        +0.j],
-           [0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.33333333+0.j],
-           [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.        +0.j],
-           [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.        +0.j],
-           [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.        +0.j],
-           [0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.33333333+0.j]])
+    .. jupyter-execute::
+
+        from toqito.states import gen_bell
+        dim = 3
+        k_1 = 0
+        k_2 = 0
+        gen_bell(k_1, k_2, dim)
 
     References
     ==========

@@ -25,12 +25,11 @@ def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True)
 
     using :code:`|toqito⟩` as follows.
 
-    >>> from toqito.states import max_entangled
-    >>> max_entangled(2)
-    array([[0.70710678],
-           [0.        ],
-           [0.        ],
-           [0.70710678]])
+    .. jupyter-execute::
+
+        from toqito.states import max_entangled
+        max_entangled(2)
+
 
     By default, the state returned in normalized, however we can generate the unnormalized state
 
@@ -39,12 +38,11 @@ def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True)
 
     using :code:`|toqito⟩` as follows.
 
-    >>> from toqito.states import max_entangled
-    >>> max_entangled(2, False, False)
-    array([[1.],
-           [0.],
-           [0.],
-           [1.]])
+    .. jupyter-execute::
+
+        from toqito.states import max_entangled
+        max_entangled(2, False, False)
+
 
     References
     ==========
