@@ -37,11 +37,14 @@ def is_normal(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool
 
     our function indicates that this is indeed a normal matrix.
 
-    >>> from toqito.matrix_props import is_normal
-    >>> import numpy as np
-    >>> A = np.identity(4)
-    >>> is_normal(A)
-    True
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_normal
+
+     A = np.identity(4)
+
+     is_normal(A)
 
     Alternatively, the following example matrix :math:`B` defined as
 
@@ -54,11 +57,14 @@ def is_normal(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool
 
     is not normal.
 
-    >>> from toqito.matrix_props import is_normal
-    >>> import numpy as np
-    >>> B = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-    >>> is_normal(B)
-    False
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_normal
+
+     B = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+
+     is_normal(B)
 
     References
     ==========

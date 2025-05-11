@@ -26,11 +26,15 @@ def is_circulant(mat: np.ndarray) -> bool:
     As can be seen, this matrix is circulant. We can verify this in
     :code:`|toqito⟩` as
 
-    >>> from toqito.matrix_props import is_circulant
-    >>> import numpy as np
-    >>> mat = np.array([[4, 1, 2, 3], [3, 4, 1, 2], [2, 3, 4, 1], [1, 2, 3, 4]])
-    >>> is_circulant(mat)
-    True
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_circulant
+
+     mat = np.array([[4, 1, 2, 3], [3, 4, 1, 2], [2, 3, 4, 1], [1, 2, 3, 4]])
+
+     is_circulant(mat)
+
 
     References
     ==========

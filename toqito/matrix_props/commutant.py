@@ -48,15 +48,18 @@ def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
 
     The commutant consists of matrices that commute with both :math:`A_1` and :math:`A_2`.
 
-    >>> import numpy as np
-    >>> from toqito.matrix_props import commutant
-    >>>
-    >>> A1 = np.array([[1, 0], [0, -1]])
-    >>> A2 = np.array([[0, 1], [1, 0]])
-    >>> basis = commutant([A1, A2])
-    >>> basis
-    [array([[0.70710678, 0.        ],
-           [0.        , 0.70710678]])]
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import commutant
+
+     A1 = np.array([[1, 0], [0, -1]])
+     A2 = np.array([[0, 1], [1, 0]])
+
+     basis = commutant([A1, A2])
+
+     basis
+
 
     Now, consider a single matrix:
 
@@ -66,12 +69,17 @@ def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
                 0 & 1
             \end{pmatrix}
 
-    >>> A = np.array([[1, 1], [0, 1]])
-    >>> basis = commutant(A)
-    >>> basis
-    [array([[0.70710678, 0.        ],
-           [0.        , 0.70710678]]), array([[ 0., -1.],
-           [ 0.,  0.]])]
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import commutant
+
+     A = np.array([[1, 1], [0, 1]])
+
+     basis = commutant(A)
+
+     for i, basis_ in enumerate(basis):
+        print(f"basis{ i} :\n{basis_} \n")
 
     References
     ==========

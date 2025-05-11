@@ -25,11 +25,11 @@ def gen_gell_mann(ind_1: int, ind_2: int, dim: int) -> np.ndarray:
                       \end{pmatrix}.
 
     This can be obtained in :code:`|toqito⟩` as follows.
+    .. jupyter-execute::
 
-    >>> from toqito.matrices import gen_gell_mann
-    >>> gen_gell_mann(0, 1, 2)
-    array([[0., 1.],
-           [1., 0.]])
+     from toqito.matrices import gen_gell_mann
+
+     gen_gell_mann(ind_1=0, ind_2=1, dim=2)
 
     The generalized Gell-Mann matrix :code:`ind_1 = 2`, :code:`ind_2 = 3`, and
     :code:`dim = 4` is given as
@@ -44,12 +44,11 @@ def gen_gell_mann(ind_1: int, ind_2: int, dim: int) -> np.ndarray:
 
     This can be obtained in :code:`|toqito⟩` as follows.
 
-    >>> from toqito.matrices import gen_gell_mann
-    >>> gen_gell_mann(2, 3, 4)
-    array([[0., 0., 0., 0.],
-           [0., 0., 0., 0.],
-           [0., 0., 0., 1.],
-           [0., 0., 1., 0.]])
+    .. jupyter-execute::
+
+     from toqito.matrices import gen_gell_mann
+
+     gen_gell_mann(ind_1=2, ind_2=3, dim=4)
 
     References
     ==========

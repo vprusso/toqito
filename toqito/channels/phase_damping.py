@@ -22,13 +22,15 @@ def phase_damping(
     ==========
     Applying the phase damping channel to a qubit state:
 
-    >>> import numpy as np
-    >>> from toqito.channels.phase_damping import phase_damping
-    >>> rho = np.array([[1, 0.5], [0.5, 1]])
-    >>> result = phase_damping(rho, gamma=0.2)
-    >>> print(result)
-    [[1.       +0.j 0.4472136+0.j]
-     [0.4472136+0.j 1.       +0.j]]
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.channels.phase_damping import phase_damping
+
+     rho = np.array([[1, 0.5], [0.5, 1]])
+     result = phase_damping(rho, gamma=0.2)
+
+     print(result)
 
     References
     ==========

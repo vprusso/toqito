@@ -18,11 +18,11 @@ def perfect_matchings(num: list[int] | int | np.ndarray) -> np.ndarray:
     ==========
     This is an example of how to generate all perfect matchings of the numbers 0, 1, 2, 3.
 
-    >>> from toqito.perms import perfect_matchings
-    >>> perfect_matchings(4)
-    array([[0, 1, 2, 3],
-           [0, 2, 1, 3],
-           [0, 3, 2, 1]])
+    .. jupyter-execute::
+
+     from toqito.perms import perfect_matchings
+
+     perfect_matchings(4)
 
     References
     ==========

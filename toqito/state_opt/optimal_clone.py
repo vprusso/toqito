@@ -74,17 +74,20 @@ def optimal_clone(
 
     We can see that the optimal value we obtain in solving the SDP is 3/4.
 
-    >>> from toqito.state_opt import optimal_clone
-    >>> from toqito.states import basis
-    >>> import numpy as np
-    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
-    >>> e_p = (e_0 + e_1) / np.sqrt(2)
-    >>> e_m = (e_0 - e_1) / np.sqrt(2)
-    >>>
-    >>> states = [e_0, e_1, e_p, e_m]
-    >>> probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
-    >>> np.around(optimal_clone(states, probs), decimals=2)
-    np.float64(0.75)
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.states import basis
+     from toqito.state_opt import optimal_clone
+
+     e_0, e_1 = basis(2, 0), basis(2, 1)
+     e_p = (e_0 + e_1) / np.sqrt(2)
+     e_m = (e_0 - e_1) / np.sqrt(2)
+
+     states = [e_0, e_1, e_p, e_m]
+     probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
+
+     np.around(optimal_clone(states, probs), decimals=2)
 
     References
     ==========

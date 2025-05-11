@@ -7,7 +7,7 @@ requires-python = ">=3.10,<4"
 authors = [{name = "Vincent Russo", email = "vincentrusso1@gmail.com"}]
 maintainers = [
     {name = "Vincent Russo", email = "vincentrusso1@gmail.com"}, 
-    {name = "Purva Thakre", email = "purva.athakre@gmail.com"}]
+    {name = "Purva Thakre", email = "quantum.purvat@gmail.com"}]
 keywords = ["quantum information", "quantum computing", "nonlocal games"]
 
 [tool.poetry]
@@ -38,10 +38,11 @@ numpy = "2.2.3"
 scipy = "1.15.2"
 scs = "3.2.7.post2" 
 picos = "2.6.0"
+jupyter-sphinx = "^0.5.3"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "8.3.4"
-pytest-cov = "6.0.0"
+pytest-cov = "6.1.1"
 coverage = "7.8.0"
 sympy = "1.13.3"
 distlib = "0.3.9"

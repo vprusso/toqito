@@ -61,12 +61,14 @@ def unvec(vector: np.ndarray, shape: list[int] = None) -> np.ndarray:
     .. math::
         \text{unvec}(u) = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}
 
-    >>> from toqito.matrix_ops import unvec
-    >>> import numpy as np
-    >>> u = np.array([1, 2, 3, 4])
-    >>> unvec(u)
-    array([[1, 3],
-           [2, 4]])
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_ops import unvec
+
+     u = np.array([1, 2, 3, 4])
+
+     unvec(u)
 
     See Also
     ========

@@ -63,33 +63,36 @@ def ppt_distinguishability(
     that the optimal probability of distinguishing via a PPT measurement should yield
     :math:`7/8 \approx 0.875` as was proved in :cite:`Yu_2012_Four`.
 
-    >>> import numpy as np
-    >>> from toqito.states import bell
-    >>> from toqito.state_opt import ppt_distinguishability
-    >>> # Bell vectors:
-    >>> psi_0 = bell(0)
-    >>> psi_1 = bell(2)
-    >>> psi_2 = bell(3)
-    >>> psi_3 = bell(1)
-    >>>
-    >>> # YDY vectors from :cite:`Yu_2012_Four`.
-    >>> x_1 = np.kron(psi_0, psi_0)
-    >>> x_2 = np.kron(psi_1, psi_3)
-    >>> x_3 = np.kron(psi_2, psi_3)
-    >>> x_4 = np.kron(psi_3, psi_3)
-    >>>
-    >>> # YDY density matrices.
-    >>> rho_1 = x_1 @ x_1.conj().T
-    >>> rho_2 = x_2 @ x_2.conj().T
-    >>> rho_3 = x_3 @ x_3.conj().T
-    >>> rho_4 = x_4 @ x_4.conj().T
-    >>>
-    >>> states = [rho_1, rho_2, rho_3, rho_4]
-    >>> probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
-    >>>
-    >>> opt_val, _ = ppt_distinguishability(vectors=states, probs=probs, dimensions=[2, 2, 2, 2], subsystems=[0, 2])
-    >>> '%.3f' % opt_val
-    '0.875'
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.states import bell
+     from toqito.state_opt import ppt_distinguishability
+
+     # Bell vectors:
+     psi_0 = bell(0)
+     psi_1 = bell(2)
+     psi_2 = bell(3)
+     psi_3 = bell(1)
+
+     # YDY vectors from :cite:`Yu_2012_Four`.
+     x_1 = np.kron(psi_0, psi_0)
+     x_2 = np.kron(psi_1, psi_3)
+     x_3 = np.kron(psi_2, psi_3)
+     x_4 = np.kron(psi_3, psi_3)
+
+     # YDY density matrices.
+     rho_1 = x_1 @ x_1.conj().T
+     rho_2 = x_2 @ x_2.conj().T
+     rho_3 = x_3 @ x_3.conj().T
+     rho_4 = x_4 @ x_4.conj().T
+
+     states = [rho_1, rho_2, rho_3, rho_4]
+     probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
+
+     opt_val, _ = ppt_distinguishability(vectors=states, probs=probs, dimensions=[2, 2, 2, 2], subsystems=[0, 2])
+
+     print(f"Optimal value: {opt_val:.3f}")
 
     References
     ==========
