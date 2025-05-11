@@ -11,7 +11,7 @@ from toqito.matrix_ops import vec
 
 
 def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
-    r"""Produce a generalized Bell state :cite:`Sych_2009_AComplete`.
+    r"""Produce a generalized Bell state :cite:`Sych_2009_Complete`.
 
     Produces a generalized Bell state. Note that the standard Bell states can be recovered as:
 

@@ -3,7 +3,7 @@
 import numpy as np
 import scipy
 
-from toqito.channels import partial_trace
+from toqito.channels.partial_trace import partial_trace
 from toqito.state_props import concurrence, von_neumann_entropy
 
 
