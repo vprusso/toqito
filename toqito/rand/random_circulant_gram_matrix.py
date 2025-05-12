@@ -34,9 +34,13 @@ def random_circulant_gram_matrix(dim: int, seed: int | None = None) -> np.ndarra
 
      print(f"Shape of circulant matrix is {circulant_matrix.shape}")
 
+    .. jupyter-execute::
+
      print(np.allclose(circulant_matrix, circulant_matrix.T))
 
-     print(circulant_matrix)
+    .. jupyter-execute::
+
+     circulant_matrix
 
     It is also possible to pass a seed to this function for reproducibility.
 

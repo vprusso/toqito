@@ -26,29 +26,29 @@ def in_separable_ball(mat: np.ndarray) -> bool:
     :code:`[1, 1, 1, 0]/3`. This example yields a matrix that is contained within the separable
     ball.
 
-    >>> from toqito.rand import random_unitary
-    >>> from toqito.state_props import in_separable_ball
-    >>> import numpy as np
-    >>>
-    >>> U = random_unitary(4)
-    >>> lam = np.array([1, 1, 1, 0]) / 3
-    >>> rho = U @ np.diag(lam) @ U.conj().T
-    >>> in_separable_ball(rho)
-    np.True_
+    .. jupyter-execute::
+
+        from toqito.rand import random_unitary
+        from toqito.state_props import in_separable_ball
+        import numpy as np
+        U = random_unitary(4)
+        lam = np.array([1, 1, 1, 0]) / 3
+        rho = U @ np.diag(lam) @ U.conj().T
+        in_separable_ball(rho)
 
     The following is an example of generating a random density matrix with eigenvalues
     :code:`[1.01, 1, 0.99, 0]/3`. This example yields a matrix that is not contained within the
     separable ball.
 
-    >>> from toqito.rand import random_unitary
-    >>> from toqito.state_props import in_separable_ball
-    >>> import numpy as np
-    >>>
-    >>> U = random_unitary(4)
-    >>> lam = np.array([1.01, 1, 0.99, 0]) / 3
-    >>> rho = U @ np.diag(lam) @ U.conj().T
-    >>> in_separable_ball(rho)
-    np.False_
+    .. jupyter-execute::
+
+        from toqito.rand import random_unitary
+        from toqito.state_props import in_separable_ball
+        import numpy as np
+        U = random_unitary(4)
+        lam = np.array([1.01, 1, 0.99, 0]) / 3
+        rho = U @ np.diag(lam) @ U.conj().T
+        in_separable_ball(rho)
 
     References
     ==========

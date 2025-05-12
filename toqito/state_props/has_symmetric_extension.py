@@ -37,19 +37,19 @@ def has_symmetric_extension(
 
     This closed-form equation is much quicker to check than running the semidefinite program.
 
-    >>> import numpy as np
-    >>> from toqito.state_props import has_symmetric_extension
-    >>> from toqito.channels import partial_trace
-    >>> rho = np.array([[1, 0, 0, -1],
-    ...                 [0, 1, 1/2, 0],
-    ...                 [0, 1/2, 1, 0],
-    ...                 [-1, 0, 0, 1]])
-    >>> # Show the closed-form equation holds
-    >>> np.trace(np.linalg.matrix_power(partial_trace(rho, 1), 2)) >= np.trace(rho**2) - 4 * np.sqrt(np.linalg.det(rho))
-    np.True_
-    >>> # Now show that the `has_symmetric_extension` function recognizes this case.
-    >>> has_symmetric_extension(rho)
-    True
+    .. jupyter-execute::
+
+        import numpy as np
+        from toqito.state_props import has_symmetric_extension
+        from toqito.channels import partial_trace
+        rho = np.array([[1, 0, 0, -1], [0, 1, 1/2, 0], [0, 1/2, 1, 0], [-1, 0, 0, 1]])
+        # Show the closed-form equation holds
+        np.trace(np.linalg.matrix_power(partial_trace(rho, 1), 2)) >= np.trace(rho**2) - 4 * np.sqrt(np.linalg.det(rho))
+
+    .. jupyter-execute::
+
+        # Now show that the `has_symmetric_extension` function recognizes this case.
+        has_symmetric_extension(rho)
 
     Higher qubit systems:
 
@@ -71,14 +71,15 @@ def has_symmetric_extension(
     As the state :math:`\sigma` is entangled, there should not exist a symmetric extension at some
     level. We see this being the case for a relatively low level of the hierarchy.
 
-    >>> import numpy as np
-    >>> from toqito.states import bell
-    >>> from toqito.state_props import has_symmetric_extension
-    >>>
-    >>> rho = bell(0) @ bell(0).conj().T
-    >>> sigma = np.kron(rho, rho)
-    >>> has_symmetric_extension(sigma)
-    False
+    .. jupyter-execute::
+
+        import numpy as np
+        from toqito.states import bell
+        from toqito.state_props import has_symmetric_extension
+        rho = bell(0) @ bell(0).conj().T
+        sigma = np.kron(rho, rho)
+        has_symmetric_extension(sigma)
+
 
     References
     ==========

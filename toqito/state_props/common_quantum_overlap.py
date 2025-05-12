@@ -29,20 +29,22 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
     ==========
     Consider the Bell states:
 
-    >>> from toqito.states import bell
-    >>> from toqito.state_props import common_quantum_overlap
-    >>> bell_states = [bell(0), bell(1), bell(2), bell(3)]
-    >>> round(common_quantum_overlap(bell_states),4)
-    0.0
+    .. jupyter-execute::
+
+        from toqito.states import bell
+        from toqito.state_props import common_quantum_overlap
+        bell_states = [bell(0), bell(1), bell(2), bell(3)]
+        common_quantum_overlap(bell_states)
 
     For maximally mixed states in any dimension:
 
-    >>> import numpy as np
-    >>> from toqito.state_props import common_quantum_overlap
-    >>> dim = 2
-    >>> states = [np.eye(dim) / dim, np.eye(dim) / dim, np.eye(dim) / dim]
-    >>> round(common_quantum_overlap(states),4)
-    1.0
+    .. jupyter-execute::
+
+        import numpy as np
+        from toqito.state_props import common_quantum_overlap
+        dim = 2
+        states = [np.eye(dim) / dim, np.eye(dim) / dim, np.eye(dim) / dim]
+        common_quantum_overlap(states)
 
     The common quantum overlap :math:`\omega_Q` for two pure states
     with inner product :math:`|\langle \psi | \phi \rangle| = \cos(\theta)` is given by:
@@ -53,12 +55,14 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
     where :math:`\theta` represents the angle between the two states in Hilbert space.
     For two pure states with a known inner product:
 
-    >>> import numpy as np
-    >>> from toqito.state_props import common_quantum_overlap
-    >>> theta = np.pi/4
-    >>> states = [np.array([1, 0]), np.array([np.cos(theta), np.sin(theta)])]
-    >>> round(common_quantum_overlap(states),4)  # Should approximate (1-sqrt(1-cos²(π/4)))
-    0.2929
+    .. jupyter-execute::
+
+        import numpy as np
+        from toqito.state_props import common_quantum_overlap
+        theta = np.pi/4
+        states = [np.array([1, 0]), np.array([np.cos(theta), np.sin(theta)])]
+        common_quantum_overlap(states) # Should approximate (1-sqrt(1-cos²(π/4)))
+
 
     References
     ==========

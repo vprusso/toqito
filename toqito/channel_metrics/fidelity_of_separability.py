@@ -81,14 +81,15 @@ def fidelity_of_separability(
     .. math::
         \rho_{AB} = |000 \rangle \langle 000|
 
-    >>> import numpy as np
-    >>> from toqito.state_metrics import fidelity_of_separability
-    >>> from toqito.matrix_ops import tensor
-    >>> from toqito.states import basis
-    >>> state = tensor(basis(2, 0), basis(2, 0))
-    >>> rho = state @ state.conj().T
-    >>> np.around(fidelity_of_separability(rho, [2, 2]), decimals=2)
-    np.float64(1.0)
+    .. jupyter-execute::
+
+        import numpy as np
+        from toqito.state_metrics import fidelity_of_separability
+        from toqito.matrix_ops import tensor
+        from toqito.states import basis
+        state = tensor(basis(2, 0), basis(2, 0))
+        rho = state @ state.conj().T
+        fidelity_of_separability(rho, [2, 2])
 
     References
     ==========
