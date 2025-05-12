@@ -16,7 +16,7 @@ def is_totally_positive(mat: np.ndarray, tol: float = 1e-6, sub_sizes: list | No
     Consider the matrix
 
     .. math::
-        \begin{pmatrix}
+        X = \begin{pmatrix}
             1 & 2 \\
             3 & 4
         \end{pmatrix}
@@ -43,7 +43,7 @@ def is_totally_positive(mat: np.ndarray, tol: float = 1e-6, sub_sizes: list | No
     Our function indicates that this matrix is indeed totally positive.
 
     .. jupyter-execute::
-    
+
         import numpy as np
         from toqito.matrix_props import is_totally_positive
 
@@ -68,7 +68,7 @@ def is_totally_positive(mat: np.ndarray, tol: float = 1e-6, sub_sizes: list | No
     Since the determinant is negative, :math:`B` is not totally positive.
 
     .. jupyter-execute::
-    
+
         import numpy as np
         from toqito.matrix_props import is_totally_positive
 
