@@ -35,15 +35,16 @@ def tensor_comb(
 
     .. jupyter-execute::
 
-        import numpy as np
-        from toqito.matrix_ops import tensor_comb
+     from toqito.matrix_ops import tensor_comb
+     import numpy as np
 
-        e_0 = np.array([1, 0])
-        e_1 = np.array([0, 1])
-        result = tensor_comb([e_0, e_1], 2)
+     e_0 = np.array([1, 0])
+     e_1 = np.array([0, 1])
 
-        for key, mat in result.items():
-            print(f"tensor_comb{key} =\n{mat}\n")
+     result = tensor_comb([e_0, e_1], 2, mode="injective", density_matrix="density_matrix")
+
+     for key, mat in result.items():
+         print(f"tensor_comb{key} =\n{mat}\n")
 
     References
     ==========
