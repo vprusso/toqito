@@ -38,12 +38,15 @@ def is_pseudo_hermitian(mat: np.ndarray, signature: np.ndarray, rtol: float = 1e
 
     Our function confirms that :math:`H` is pseudo-Hermitian:
 
-    >>> import numpy as np
-    >>> from toqito.matrix_props import is_pseudo_hermitian
-    >>> H = np.array([[1, 1+1j], [-1+1j, -1]])
-    >>> eta = np.array([[1, 0], [0, -1]])
-    >>> is_pseudo_hermitian(H, eta)
-    True
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_pseudo_hermitian
+
+     H = np.array([[1, 1+1j], [-1+1j, -1]])
+     eta = np.array([[1, 0], [0, -1]])
+
+     is_pseudo_hermitian(H, eta)
 
     However, the following matrix :math:`A`
 
@@ -53,11 +56,17 @@ def is_pseudo_hermitian(mat: np.ndarray, signature: np.ndarray, rtol: float = 1e
             -i & 1
         \end{pmatrix}
 
-    is not pseudo-Hermitian with respect to the same signature matrix:
+    is not pseudo-Hermitian with respect to the same signature matrix.
 
-    >>> A = np.array([[1, 1j], [-1j, 1]])
-    >>> is_pseudo_hermitian(A, eta)
-    False
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_pseudo_hermitian
+
+     A = np.array([[1, 1j], [-1j, 1]])
+
+     is_pseudo_hermitian(A, eta)
+
 
     References
     ==========

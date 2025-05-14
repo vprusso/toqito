@@ -36,13 +36,17 @@ def is_pseudo_unitary(mat: np.ndarray, p: int, q: int, rtol: float = 1e-05, atol
             0 & -1
         \end{pmatrix}
 
-    Our function confirms that :math:A is pseudo-unitary:
+    Our function confirms that :math:`A` is pseudo-unitary.
 
-    >>> import numpy as np
-    >>> from toqito.matrix_props import is_pseudo_unitary
-    >>> A = np.array([[np.cosh(1), np.sinh(1)], [np.sinh(1), np.cosh(1)]])
-    >>> is_pseudo_unitary(A, p=1, q=1)
-    True
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_pseudo_unitary
+
+     A = np.array([[np.cosh(1), np.sinh(1)], [np.sinh(1), np.cosh(1)]])
+
+     is_pseudo_unitary(A, p=1, q=1)
+
 
     However, the following matrix :math:B
 
@@ -54,9 +58,14 @@ def is_pseudo_unitary(mat: np.ndarray, p: int, q: int, rtol: float = 1e-05, atol
 
     is not pseudo-unitary with respect to the same signature matrix:
 
-    >>> B = np.array([[1, 0], [1, 1]])
-    >>> is_pseudo_unitary(B, p=1, q=1)
-    False
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_pseudo_unitary
+
+     B = np.array([[1, 0], [1, 1]])
+
+     is_pseudo_unitary(B, p=1, q=1)
 
     References
     ==========
@@ -85,4 +94,4 @@ def is_pseudo_unitary(mat: np.ndarray, p: int, q: int, rtol: float = 1e-05, atol
     signature = np.diag(np.hstack((np.ones(p), -np.ones(q))))
     ac_j_a_mat = mat.conj().T @ signature @ mat
 
-    return np.allclose(ac_j_a_mat, signature, rtol=rtol, atol=atol)
+    return bool(np.allclose(ac_j_a_mat, signature, rtol=rtol, atol=atol))

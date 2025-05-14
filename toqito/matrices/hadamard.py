@@ -27,10 +27,11 @@ def hadamard(n_param: int = 1) -> np.ndarray:
 
     The standard 2-qubit Hadamard matrix can be generated in :code:`|toqito⟩` as
 
-    >>> from toqito.matrices import hadamard
-    >>> hadamard(1)
-    array([[ 0.70710678,  0.70710678],
-           [ 0.70710678, -0.70710678]])
+    .. jupyter-execute::
+
+     from toqito.matrices import hadamard
+
+     hadamard(1)
 
     References
     ==========

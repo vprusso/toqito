@@ -40,12 +40,15 @@ def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float:
     The trace distance between :math:`\rho` and another state :math:`\sigma` is equal to :math:`0` if any only if
     :math:`\rho = \sigma`. We can check this using the :code:`|toqito⟩` package.
 
-    >>> from toqito.states import bell
-    >>> from toqito.state_metrics import trace_distance
-    >>> rho = bell(0) @ bell(0).conj().T
-    >>> sigma = rho
-    >>> trace_distance(rho, sigma)
-    np.float64(0.0)
+    .. jupyter-execute::
+
+     from toqito.states import bell
+     from toqito.state_metrics import trace_distance
+
+     rho = bell(0) @ bell(0).conj().T
+     sigma = rho
+
+     trace_distance(rho, sigma)
 
     References
     ==========

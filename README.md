@@ -169,35 +169,38 @@ helpful in probing. Feel free to add to this list and/or contribute solutions!
 
 The |toqito⟩ project has been used or referenced in the following works:
 
+- [![a](https://img.shields.io/static/v1?label=arXiv&message=2311.17047&color=inactive&style=flat-square)](https://arxiv.org/abs/2311.17047) Johnston, Nathaniel and Russo, Vincent and Sikora, Jamie
+*"Tight bounds for antidistinguishability and circulant sets of pure quantum states"*, Quantum 9, 1622, (2025).
+
 - [![a](https://img.shields.io/static/v1?label=thesis&message=31639397&color=inactive&style=flat-square)](https://www.proquest.com/openview/eb0021dd3eb463b5fb12b7fc71d920eb/1?cbl=18750&diss=y&pq-origsite=gscholar) Philip, Aby
-"On Multipartite Entanglement and Its Use", (2024).
+*"On Multipartite Entanglement and Its Use"*, (2024).
+
+- [![a](https://img.shields.io/static/v1?message=report&color=inactive&style=flat-square)](https://ali-almasi.github.io/assets/projects_materials/Internship_report.pdf) Almasi, Ali
+*"Quantum Guessing Games"*, (2024).
 
 - [![a](https://img.shields.io/static/v1?label=arXiv&message=2409.08705&color=inactive&style=flat-square)](https://arxiv.org/abs/2409.08705)
 Gupta, Tathagata and Mushid, Shayeef and Russo, Vincent and Bandyopadhyay, Somshubhro
-"Optimal discrimination of quantum sequences", (2024).
+*"Optimal discrimination of quantum sequences"*, Physical Review A, 110, 062426, (2024).
 
 - [![a](https://img.shields.io/static/v1?label=arXiv&message=2406.13430&color=inactive&style=flat-square)](https://arxiv.org/abs/2406.13430) Bandyopadhyay, Somshubhro and Russo, Vincent
-"Distinguishing a maximally entangled basis using LOCC and shared entanglement", (2024).
+*"Distinguishing a maximally entangled basis using LOCC and shared entanglement"*, Physical Review A 110, 042406, (2024).
 
 - [![a](https://img.shields.io/static/v1?label=arXiv&message=2307.2551&color=inactive&style=flat-square)](https://arxiv.org/abs/2307.02551) Tavakoli, Armin and Pozas-Kerstjens, Alejandro and Brown, Peter and Araújo, Mateus
-"Semidefinite programming relaxations for quantum correlations", (2023).
-
-- [![a](https://img.shields.io/static/v1?label=arXiv&message=2311.17047&color=inactive&style=flat-square)](https://arxiv.org/abs/2311.17047) Johnston, Nathaniel and Russo, Vincent and Sikora, Jamie
-"Tight bounds for antidistinguishability and circulant sets of pure quantum states", (2023).
+*"Semidefinite programming relaxations for quantum correlations"*, Reviews of Modern Physics, Volume 96, (2024).
 
 - [![a](https://img.shields.io/static/v1?label=arXiv&message=2308.15579&color=inactive&style=flat-square)](https://arxiv.org/abs/2308.15579) Pelofske, Elijah and Bartschi, Andreas and Eidenbenz, Stephan and Garcia, Bryan and Kiefer, Boris
-"Probing Quantum Telecloning on Superconducting Quantum Processors", (2023).
+*"Probing Quantum Telecloning on Superconducting Quantum Processors"*, IEEE Transactions on Quantum Engineering, (2024).
  
 - [![a](https://img.shields.io/static/v1?label=arXiv&message=2303.07911&color=inactive&style=flat-square)](https://arxiv.org/abs/2303.07911) Philip, Aby and Rethinasamy, Soorya and Russo, Vincent and Wilde, Mark. 
-"Quantum Steering Algorithm for Estimating Fidelity of Separability.", Quantum 8, 1366, (2023).
+*"Quantum Steering Algorithm for Estimating Fidelity of Separability"*, Quantum 8, 1366, (2023).
 
 - [![a](https://img.shields.io/static/v1?label=arXiv&message=2302.09401&color=inactive&style=flat-square)](https://arxiv.org/abs/2302.09401) Miszczak, Jarosław Adam. 
-"Symbolic quantum programming for supporting applications of quantum computing technologies.", (2023).
+*"Symbolic quantum programming for supporting applications of quantum computing technologies"*, Companion Proceedings of the 7th International Conference on the Art, Science, and Engineering of Programming, (2023).
 
 - [![a](https://img.shields.io/static/v1?label=arXiv&message=2306.09444&color=inactive&style=flat-square)](https://arxiv.org/abs/2306.09444) Casalé, Balthazar and Di Molfetta, Giuseppe and Anthoine, Sandrine and Kadri, Hachem. 
-"Large-Scale Quantum Separability Through a Reproducible Machine Learning Lens.", (2023).
+*"Large-Scale Quantum Separability Through a Reproducible Machine Learning Lens"*, (2023).
 
-- [![a](https://img.shields.io/static/v1?label=arXiv&message=2206.08313&color=inactive&style=flat-square)](https://arxiv.org/abs/2206.08313) Russo, Vincent and Sikora, Jamie "Inner products of pure states and their antidistinguishability", Physical Review A, Vol. 107, No. 3, (2023).
+- [![a](https://img.shields.io/static/v1?label=arXiv&message=2206.08313&color=inactive&style=flat-square)](https://arxiv.org/abs/2206.08313) Russo, Vincent and Sikora, Jamie *"Inner products of pure states and their antidistinguishability"*, Physical Review A, Vol. 107, No. 3, (2023).
 
 ## Contributing
 

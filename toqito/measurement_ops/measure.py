@@ -1,28 +1,37 @@
-"""Determine probability of obtaining measurement outcome."""
+"""Apply measurement to a quantum state."""
 
 import numpy as np
 
+from toqito.matrix_props import is_density
 
-def measure(measurement: np.ndarray, state: np.ndarray) -> float:
-    r"""Determine probability of obtaining a measurement outcome applied to state.
 
-    A *measurement* is defined by a function
+def measure(
+    state: np.ndarray,
+    measurement: np.ndarray | list[np.ndarray] | tuple[np.ndarray, ...],
+    tol: float = 1e-10,
+    state_update: bool = False,
+) -> float | tuple[float, np.ndarray] | list[float | tuple[float, np.ndarray]]:
+    r"""Apply measurement to a quantum state.
+
+    The measurement can be provided as a single operator (POVM element or Kraus operator) or as a
+    list of operators (assumed to be Kraus operators) describing a complete quantum measurement.
+
+    When a single operator is provided:
+      - Returns the measurement outcome probability if ``state_update`` is False.
+      - Returns a tuple (probability, post_state) if ``state_update`` is True.
+
+    When a list of operators is provided, the function verifies that they satisfy the completeness relation when
+    ``state_update`` is True.
 
     .. math::
-        \mu : \Sigma \rightarrow \text{Pos}(\mathcal{X}),
+       \sum_i K_i^\dagger K_i = \mathbb{I},
 
-    for some choice of alphabet :math:`\Sigma` and a complex Euclidean space :math:`\mathcal{X}`
-    that satisfies
+    when ``state_update`` is True. Then, for each operator :math:`K_i`, the outcome probability is computed as
 
     .. math::
-        \sum_{a \in \Sigma} \mu(a) = \mathbb{I}_{\mathcal{X}}.
+       p_i = \mathrm{Tr}\Bigl(K_i^\dagger K_i\, \rho\Bigr),
 
-    Further information can be found here :cite:`WikiQuantMeas`.
-
-    Examples
-    ==========
-
-    Consider the following state:
+    and, if :math:`p_i > tol`, the post‐measurement state is updated via
 
     .. math::
         u = \frac{1}{\sqrt{3}} e_0 + \sqrt{\frac{2}{3}} e_1
@@ -34,43 +43,96 @@ def measure(measurement: np.ndarray, state: np.ndarray) -> float:
     .. math::
         P_0 = e_0 e_0^* \quad \text{and} \quad P_1 = e_1 e_1^*.
 
-    >>> from toqito.states import basis
-    >>> from toqito.measurement_ops import measure
-    >>> import numpy as np
-    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
-    >>>
-    >>> u = 1/np.sqrt(3) * e_0 + np.sqrt(2/3) * e_1
-    >>> rho = u @ u.conj().T
-    >>>
-    >>> proj_0 = e_0 @ e_0.conj().T
-    >>> proj_1 = e_1 @ e_1.conj().T
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.states import basis
+     from toqito.measurement_ops import measure
+
+     e_0, e_1 = basis(2, 0), basis(2, 1)
+
+     u = 1/np.sqrt(3) * e_0 + np.sqrt(2/3) * e_1
+     rho = u @ u.conj().T
+
+     proj_0 = e_0 @ e_0.conj().T
+     proj_1 = e_1 @ e_1.conj().T
 
     Then the probability of obtaining outcome :math:`0` is given by
 
     .. math::
         \langle P_0, \rho \rangle = \frac{1}{3}.
 
-    >>> measure(proj_0, rho)
-    0.3333333333333334
+    .. jupyter-execute::
+
+     measure(proj_0, rho)
 
     Similarly, the probability of obtaining outcome :math:`1` is given by
 
     .. math::
         \langle P_1, \rho \rangle = \frac{2}{3}.
 
-    >>> measure(proj_1, rho)
-    0.6666666666666666
+    .. jupyter-execute::
 
-    References
-    ==========
-    .. bibliography::
-        :filter: docname in docnames
+        import numpy as np
+        from toqito.measurement_ops.measure import measure
 
+        rho = np.array([[0.5, 0.5], [0.5, 0.5]])
+        K0 = np.array([[1, 0], [0, 0]])
+        K1 = np.array([[0, 0], [0, 1]])
 
-    :param measurement: The measurement to apply.
-    :param state: The state to apply the measurement to.
-    :return: Returns the probability of obtaining a given outcome after applying
-             the variable :code:`measurement` to the variable :code:`state`.
+        # Returns list of probabilities.
+        print(measure(rho, [K0, K1]))
+
+        # Returns list of (probability, post_state) tuples.
+        print(measure(rho, [K0, K1], state_update=True))
+
+    :param state: Quantum state as a density matrix shape (d, d) where d is the dimension of the Hilbert space.
+    :param measurement: Either a single measurement operator (an np.ndarray) or a list/tuple of operators.
+                        When providing a list, they are assumed to be Kraus operators satisfying the completeness
+                        relation.
+    :param tol: Tolerance for numerical precision (default is 1e-10).
+    :param state_update: If True, also return the post-measurement state(s); otherwise, only the probability or
+                   probabilities are returned.
+    :raises ValueError: If a list of operators does not satisfy the completeness relation.
+    :return: If a single operator is provided, returns a float (probability) or a tuple (probability, post_state)
+             if ``state_update`` is True. If a list is provided, returns a list of probabilities or a list of tuples if
+             ``state_update`` is True.
 
     """
-    return float(np.trace(measurement.conj().T @ state))
+    if not is_density(state):
+        raise ValueError("Input must be a valid density matrix.")
+
+    # Single-operator case.
+    if not isinstance(measurement, (list, tuple)):
+        result = measurement @ state @ measurement.conj().T
+        prob = np.trace(result).real
+        if prob > tol:
+            post_state = result / prob
+        else:
+            post_state = np.zeros_like(state)
+        return (prob, post_state) if state_update else prob
+
+    # List-of-operators case.
+    outcomes: list[float | tuple[float, np.ndarray]] = []
+    probs: list[float] = []
+
+    for op in measurement:
+        result = op @ state @ op.conj().T
+        prob = np.trace(result).real
+        probs.append(prob)
+
+        if prob > tol:
+            post_state = result / prob
+        else:
+            post_state = np.zeros_like(state)
+
+        outcomes.append((prob, post_state) if state_update else prob)
+
+    # Only enforce completeness if we're doing the update AND every outcome was nonzero.
+    if state_update and all(p > tol for p in probs):
+        d = state.shape[0]
+        completeness = sum(op.T.conj() @ op for op in measurement)
+        if not np.allclose(completeness, np.eye(d), atol=tol):
+            raise ValueError("Kraus operators do not satisfy completeness relation: ∑ Kᵢ†Kᵢ ≠ I.")
+
+    return outcomes

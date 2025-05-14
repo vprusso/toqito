@@ -51,19 +51,23 @@ def bell_inequality_max(
     The individual and joint coefficents and measurement values are encoded as matrices.
     The upper bound can then be found in :code:`|toqito⟩` as follows.
 
-    >>> from toqito.state_opt import bell_inequality_max
-    >>> import numpy as np
-    >>> joint_coe = np.array([
-    ... [1, 1, -1],
-    ... [1, 1, 1],
-    ... [-1, 1, 0]
-    ... ])
-    >>> a_coe = np.array([0, -1, 0])
-    >>> b_coe = np.array([-1, -2, 0])
-    >>> a_val = np.array([0, 1])
-    >>> b_val = np.array([0, 1])
-    >>> '%.3f' % bell_inequality_max(joint_coe, a_coe, b_coe, a_val, b_val)
-    '0.250'
+    .. jupyter-execute::
+
+        import numpy as np
+        from toqito.state_opt import bell_inequality_max
+
+        joint_coe = np.array([
+            [1, 1, -1],
+            [1, 1, 1],
+            [-1, 1, 0],
+        ])
+        a_coe = np.array([0, -1, 0])
+        b_coe = np.array([-1, -2, 0])
+        a_val = np.array([0, 1])
+        b_val = np.array([0, 1])
+
+        result = bell_inequality_max(joint_coe, a_coe, b_coe, a_val, b_val)
+        print(f"Bell inequality maximum value: {result:.3f}")
 
     References
     ==========

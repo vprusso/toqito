@@ -23,11 +23,15 @@ def is_permutation(mat: np.ndarray) -> bool:
 
     which is indeed a permutation matrix.
 
-    >>> from toqito.matrix_props import is_permutation
-    >>> import numpy as np
-    >>> A = np.array([[1, 0, 0], [0, 0, 1], [0, 1, 0]])
-    >>> is_permutation(A)
-    True
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_permutation
+
+     A = np.array([[1, 0, 0], [0, 0, 1], [0, 1, 0]])
+
+     is_permutation(A)
+
 
     Alternatively, the following example matrix :math:`B` defined as
 
@@ -41,11 +45,14 @@ def is_permutation(mat: np.ndarray) -> bool:
     has 2 columns with all zero values and is thus not a
     permutation matrix.
 
-    >>> from toqito.matrix_props import is_permutation
-    >>> import numpy as np
-    >>> B = np.array([[1, 0, 0], [1, 0, 0], [1, 0, 0]])
-    >>> is_permutation(B)
-    False
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_permutation
+
+     B = np.array([[1, 0, 0], [1, 0, 0], [1, 0, 0]])
+
+     is_permutation(B)
 
 
     References

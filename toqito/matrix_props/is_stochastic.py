@@ -23,32 +23,32 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
     We expect these matrices to be left and right stochastic. The same cannot be said about a Pauli-Z or a Pauli-Y
     matrix.
 
-    >>> import numpy as np
-    >>> from toqito.matrix_props import is_stochastic
-    >>> is_stochastic(np.eye(5), "right")
-    True
-    >>> is_stochastic(np.eye(5), "left")
-    True
-    >>> is_stochastic(np.eye(5), "doubly")
-    True
+    .. jupyter-execute::
 
-    >>> from toqito.matrices import pauli
-    >>> from toqito.matrix_props import is_stochastic
-    >>> is_stochastic(pauli("X"), "left")
-    True
-    >>> is_stochastic(pauli("X"), "right")
-    True
-    >>> is_stochastic(pauli("X"), "doubly")
-    True
+     import numpy as np
+     from toqito.matrix_props import is_stochastic
 
-    >>> from toqito.matrices import pauli
-    >>> from toqito.matrix_props import is_stochastic
-    >>> is_stochastic(pauli("Z"), "right")
-    False
-    >>> is_stochastic(pauli("Z"), "left")
-    False
-    >>> is_stochastic(pauli("Z"), "doubly")
-    False
+     print(is_stochastic(np.eye(5), "right"))
+     print(is_stochastic(np.eye(5), "left"))
+     print(is_stochastic(np.eye(5), "doubly"))
+
+    .. jupyter-execute::
+
+     from toqito.matrices import pauli
+     from toqito.matrix_props import is_stochastic
+
+     print(is_stochastic(pauli("X"), "left"))
+     print(is_stochastic(pauli("X"), "right"))
+     print(is_stochastic(pauli("X"), "doubly"))
+
+    .. jupyter-execute::
+
+     from toqito.matrices import pauli
+     from toqito.matrix_props import is_stochastic
+
+     print(is_stochastic(pauli("Z"), "right"))
+     print(is_stochastic(pauli("Z"), "left"))
+     print(is_stochastic(pauli("Z"), "doubly"))
 
     References
     ==========

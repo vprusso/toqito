@@ -18,11 +18,14 @@ def is_positive(input_mat: np.ndarray) -> bool:
     ==========
     We expect a matrix full of 1s to be positive.
 
-    >>> import numpy as np
-    >>> from toqito.matrix_props import is_positive
-    >>> input_mat = np.array([[1, 1, 1],[1, 1, 1],[1, 1, 1]])
-    >>> is_positive(input_mat)
-    np.True_
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_positive
+
+     input_mat = np.array([[1, 1, 1],[1, 1, 1],[1, 1, 1]])
+
+     is_positive(input_mat)
 
     References
     ==========
@@ -34,4 +37,4 @@ def is_positive(input_mat: np.ndarray) -> bool:
         Matrix of interest.
 
     """
-    return np.all(input_mat > 0)
+    return bool(np.all(input_mat > 0))

@@ -41,22 +41,28 @@ def is_quantum_channel(
 
     To check if this is a valid quantum channel or not,
 
-    >>> import numpy as np
-    >>> from toqito.matrices import pauli
-    >>> from toqito.channel_props import is_quantum_channel
-    >>> u = (1/np.sqrt(2))*np.array([[1, 1],[-1, 1]])
-    >>> x = pauli("X")
-    >>> phi = x - np.matmul(u, np.matmul(x, np.conjugate(u)))
-    >>> is_quantum_channel(phi)
-    False
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrices import pauli
+     from toqito.channel_props import is_quantum_channel
+
+     U = (1/np.sqrt(2))*np.array([[1, 1],[-1, 1]])
+     X = pauli("X")
+     phi = X - np.matmul(U, np.matmul(X, np.conjugate(U)))
+
+     is_quantum_channel(phi)
 
     If we instead check for the validity of depolarizing channel being a valid quantum channel,
 
-    >>> from toqito.channels import depolarizing
-    >>> from toqito.channel_props import is_quantum_channel
-    >>> choi_depolarizing = depolarizing(dim=2, param_p=0.2)
-    >>> is_quantum_channel(choi_depolarizing)
-    True
+    .. jupyter-execute::
+
+     from toqito.channels import depolarizing
+     from toqito.channel_props import is_quantum_channel
+
+     choi_depolarizing = depolarizing(dim=2, param_p=0.2)
+
+     is_quantum_channel(choi_depolarizing)
 
     References
     ==========

@@ -33,24 +33,17 @@ def tensor_comb(
 
     We can generate all possible tensor products for sequences of length 2.
 
-    >>> from toqito.matrix_ops import tensor_comb
-    >>> import numpy as np
-    >>> e_0 = np.array([1, 0])
-    >>> e_1 = np.array([0, 1])
-    >>> tensor_comb([e_0, e_1], 2)
-    {(0, 0): array([[1, 0, 0, 0],
-           [0, 0, 0, 0],
-           [0, 0, 0, 0],
-           [0, 0, 0, 0]]), (0, 1): array([[0, 0, 0, 0],
-           [0, 1, 0, 0],
-           [0, 0, 0, 0],
-           [0, 0, 0, 0]]), (1, 0): array([[0, 0, 0, 0],
-           [0, 0, 0, 0],
-           [0, 0, 1, 0],
-           [0, 0, 0, 0]]), (1, 1): array([[0, 0, 0, 0],
-           [0, 0, 0, 0],
-           [0, 0, 0, 0],
-           [0, 0, 0, 1]])}
+    .. jupyter-execute::
+
+        import numpy as np
+        from toqito.matrix_ops import tensor_comb
+
+        e_0 = np.array([1, 0])
+        e_1 = np.array([0, 1])
+        result = tensor_comb([e_0, e_1], 2)
+
+        for key, mat in result.items():
+            print(f"tensor_comb{key} =\n{mat}\n")
 
     References
     ==========
