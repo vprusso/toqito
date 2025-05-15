@@ -1,6 +1,7 @@
 """Apply measurement to a quantum state."""
 
 import numpy as np
+
 from toqito.matrix_props import is_density
 
 
@@ -33,34 +34,48 @@ def measure(
     and, if :math:`p_i > tol`, the post‐measurement state is updated via
 
     .. math::
-       \rho_i = \frac{K_i\, \rho\, K_i^\dagger}{p_i}.
+        u = \frac{1}{\sqrt{3}} e_0 + \sqrt{\frac{2}{3}} e_1
 
-    If :math:`p_i \le tol`, the corresponding post‐measurement state is a zero matrix.
+    where we define :math:`u u^* = \rho \in \text{D}(\mathcal{X})`.
 
-    Examples
-    ========
-    **Single operator (POVM element):**
+    Define measurement operators
+
+    .. math::
+        P_0 = e_0 e_0^* \quad \text{and} \quad P_1 = e_1 e_1^*.
+
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.states import basis
+     from toqito.measurement_ops import measure
+
+     e_0, e_1 = basis(2, 0), basis(2, 1)
+
+     u = 1/np.sqrt(3) * e_0 + np.sqrt(2/3) * e_1
+     rho = u @ u.conj().T
+
+     proj_0 = e_0 @ e_0.conj().T
+     proj_1 = e_1 @ e_1.conj().T
+
+    Then the probability of obtaining outcome :math:`0` is given by
+
+    .. math::
+        \langle P_0, \rho \rangle = \frac{1}{3}.
+
+    .. jupyter-execute::
+
+     measure(proj_0, rho)
+
+    Similarly, the probability of obtaining outcome :math:`1` is given by
+
+    .. math::
+        \langle P_1, \rho \rangle = \frac{2}{3}.
 
     .. jupyter-execute::
 
         import numpy as np
         from toqito.measurement_ops.measure import measure
-        rho = np.array([[0.5, 0.5], [0.5, 0.5]])
-        proj_0 = np.array([[1, 0], [0, 0]])
 
-        # Without update; simply returns the probability.
-        print(measure(rho, proj_0))
-
-        # With state update; returns (probability, post_state).
-        p, post_state = measure(rho, proj_0, state_update=True)
-        print(p)
-
-    **Multiple operators (Kraus operators):**
-
-    .. jupyter-execute::
-
-        import numpy as np
-        from toqito.measurement_ops.measure import measure
         rho = np.array([[0.5, 0.5], [0.5, 0.5]])
         K0 = np.array([[1, 0], [0, 0]])
         K1 = np.array([[0, 0], [0, 1]])

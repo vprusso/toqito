@@ -35,24 +35,30 @@ def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     Calculating the fidelity between the states :math:`\rho` and :math:`\sigma` as :math:`F(\rho, \sigma) \approx
     0.774`. This can be observed in :code:`|toqito⟩` as
 
-    >>> from toqito.states import basis
-    >>> from toqito.state_metrics import fidelity
-    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
-    >>> rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T
-    >>> sigma = 1/8 * e_0 @ e_0.conj().T + 7/8 * e_1 @ e_1.conj().T
-    >>> fidelity(rho, sigma)
-    np.float64(0.77389339119464)
+    .. jupyter-execute::
+
+     from toqito.states import basis
+     from toqito.state_metrics import fidelity
+
+     e_0, e_1 = basis(2, 0), basis(2, 1)
+     rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T
+     sigma = 1/8 * e_0 @ e_0.conj().T + 7/8 * e_1 @ e_1.conj().T
+
+     fidelity(rho, sigma)
 
     As the sub-fidelity is a lower bound on the fidelity, that is :math:`E(\rho, \sigma) \leq F(\rho, \sigma)`, we can
     use :code:`|toqito⟩` to observe that :math:`E(\rho, \sigma) \approx 0.599\leq F(\rho, \sigma \approx 0.774`.
 
-    >>> from toqito.states import basis
-    >>> from toqito.state_metrics import sub_fidelity
-    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
-    >>> rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T
-    >>> sigma = 1/8 * e_0 @ e_0.conj().T + 7/8 * e_1 @ e_1.conj().T
-    >>> sub_fidelity(rho, sigma)
-    np.float64(0.5989109809347399)
+    .. jupyter-execute::
+
+     from toqito.states import basis
+     from toqito.state_metrics import sub_fidelity
+
+     e_0, e_1 = basis(2, 0), basis(2, 1)
+     rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T
+     sigma = 1/8 * e_0 @ e_0.conj().T + 7/8 * e_1 @ e_1.conj().T
+
+     sub_fidelity(rho, sigma)
 
     References
     ==========

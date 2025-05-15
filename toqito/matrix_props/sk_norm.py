@@ -53,13 +53,14 @@ def sk_operator_norm(
     .. math::
         \big|\big| \rho_a \big|\big|_{S(1)} = \frac{1 + |min\{a, 0\}|}{n (n - a)}
 
-    >>> from toqito.states.werner import werner
-    >>> from toqito.matrix_props.sk_norm import sk_operator_norm
-    >>> # Werner state.
-    >>> n = 4; a = 0
-    >>> rho = werner(4, 0.)
-    >>> sk_operator_norm(rho)
-    (np.float64(0.0625), np.float64(0.0625))
+    .. jupyter-execute::
+
+     from toqito.states.werner import werner
+     from toqito.matrix_props.sk_norm import sk_operator_norm
+
+     rho = werner(4, 0.)
+
+     sk_operator_norm(rho)
 
     References
     ==========

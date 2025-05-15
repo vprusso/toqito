@@ -311,25 +311,27 @@ class NonlocalGame:
         :math:`\cos(\pi/8)^2 \approx 0.8536` where the optimal classical value
         is :math:`3/4`.
 
-        >>> import numpy as np
-        >>> from toqito.nonlocal_games.nonlocal_game import NonlocalGame
-        >>>
-        >>> dim = 2
-        >>> num_alice_inputs, num_alice_outputs = 2, 2
-        >>> num_bob_inputs, num_bob_outputs = 2, 2
-        >>> prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
-        >>> pred_mat = np.zeros((num_alice_outputs, num_bob_outputs, num_alice_inputs, num_bob_inputs))
-        >>>
-        >>> for a_alice in range(num_alice_outputs):
-        ...     for b_bob in range(num_bob_outputs):
-        ...        for x_alice in range(num_alice_inputs):
-        ...            for y_bob in range(num_bob_inputs):
-        ...                if np.mod(a_alice + b_bob + x_alice * y_bob, dim) == 0:
-        ...                    pred_mat[a_alice, b_bob, x_alice, y_bob] = 1
-        >>>
-        >>> chsh = NonlocalGame(prob_mat, pred_mat)
-        >>> chsh.quantum_value_lower_bound()   # doctest: +SKIP
-        0.85
+        .. jupyter-execute::
+
+         import numpy as np
+         from toqito.nonlocal_games.nonlocal_game import NonlocalGame
+
+         dim = 2
+         num_alice_inputs, num_alice_outputs = 2, 2
+         num_bob_inputs, num_bob_outputs = 2, 2
+         prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
+         pred_mat = np.zeros((num_alice_outputs, num_bob_outputs, num_alice_inputs, num_bob_inputs))
+
+         for a_alice in range(num_alice_outputs):
+             for b_bob in range(num_bob_outputs):
+                for x_alice in range(num_alice_inputs):
+                    for y_bob in range(num_bob_inputs):
+                        if np.mod(a_alice + b_bob + x_alice * y_bob, dim) == 0:
+                            pred_mat[a_alice, b_bob, x_alice, y_bob] = 1
+
+         chsh = NonlocalGame(prob_mat, pred_mat)
+
+         chsh.quantum_value_lower_bound()
 
         References
         ==========

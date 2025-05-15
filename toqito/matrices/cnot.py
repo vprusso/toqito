@@ -19,13 +19,11 @@ def cnot() -> np.ndarray:
 
     Examples
     ==========
+    .. jupyter-execute::
 
-    >>> from toqito.matrices import cnot
-    >>> cnot()
-    array([[1, 0, 0, 0],
-           [0, 1, 0, 0],
-           [0, 0, 0, 1],
-           [0, 0, 1, 0]])
+     from toqito.matrices import cnot
+
+     cnot()
 
 
     References

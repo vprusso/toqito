@@ -21,11 +21,14 @@ def is_positive_semidefinite(mat: np.ndarray, rtol: float = 1e-05, atol: float =
 
     our function indicates that this is indeed a positive semidefinite matrix.
 
-    >>> from toqito.matrix_props import is_positive_semidefinite
-    >>> import numpy as np
-    >>> A = np.array([[1, -1], [-1, 1]])
-    >>> is_positive_semidefinite(A)
-    True
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_positive_semidefinite
+
+     A = np.array([[1, -1], [-1, 1]])
+
+     is_positive_semidefinite(A)
 
     Alternatively, the following example matrix :math:`B` defined as
 
@@ -37,11 +40,14 @@ def is_positive_semidefinite(mat: np.ndarray, rtol: float = 1e-05, atol: float =
 
     is not positive semidefinite.
 
-    >>> from toqito.matrix_props import is_positive_semidefinite
-    >>> import numpy as np
-    >>> B = np.array([[-1, -1], [-1, -1]])
-    >>> is_positive_semidefinite(B)
-    False
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_positive_semidefinite
+
+     B = np.array([[-1, -1], [-1, -1]])
+
+     is_positive_semidefinite(B)
 
     References
     ==========

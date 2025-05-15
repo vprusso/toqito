@@ -31,14 +31,15 @@ def is_density(mat: np.ndarray) -> bool:
 
     our function indicates that this is indeed a density operator as the trace
     of :math:`\rho` is equal to :math:`1` and the matrix is positive
-    semidefinite:
+    semidefinite.
 
-    >>> from toqito.matrix_props import is_density
-    >>> from toqito.states import bell
-    >>> import numpy as np
-    >>> rho = bell(0) @ bell(0).conj().T
-    >>> is_density(rho)
-    np.True_
+    .. jupyter-execute::
+
+     from toqito.matrix_props import is_density
+     from toqito.states import bell
+     import numpy as np
+     rho = bell(0) @ bell(0).conj().T
+     is_density(rho)
 
     Alternatively, the following example matrix :math:`\sigma` defined as
 
@@ -52,12 +53,15 @@ def is_density(mat: np.ndarray) -> bool:
     semidefinite, and is therefore not a density operator. This can be
     illustrated using :code:`|toqito⟩` as follows.
 
-    >>> from toqito.matrix_props import is_density
-    >>> from toqito.states import bell
-    >>> import numpy as np
-    >>> sigma = 1/2 * np.array([[1, 2], [3, 1]])
-    >>> is_density(sigma)
-    False
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.states import bell
+     from toqito.matrix_props import is_density
+
+     sigma = 1/2 * np.array([[1, 2], [3, 1]])
+
+     is_density(sigma)
 
     References
     ==========
@@ -69,4 +73,4 @@ def is_density(mat: np.ndarray) -> bool:
              and :code:`False` otherwise.
 
     """
-    return is_positive_semidefinite(mat) and np.isclose(np.trace(mat), 1)
+    return bool(is_positive_semidefinite(mat) and np.isclose(np.trace(mat), 1))
