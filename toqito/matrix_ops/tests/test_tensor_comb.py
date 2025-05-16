@@ -3,44 +3,136 @@
 import numpy as np
 import pytest
 
-from toqito.matrix_ops import tensor_comb, to_density_matrix
+from toqito.matrix_ops import tensor_comb
 
 
 @pytest.mark.parametrize(
-    "states, k, mode, density_matrix, expected_keys",
+    "states, k, mode, expected_comb_keys, expected_comb",
     [
         # Injective mode with k = 1.
-        ([np.array([1, 0]), np.array([0, 1])], 1, "injective", False, [(0,), (1,)]),
+        (
+            [np.array([1, 0]), np.array([0, 1])],
+            1,
+            "injective",
+            [(0,), (1,)],
+            {(0,): np.array([1, 0]), (1,): np.array([0, 1])},
+        ),
         # Non-injective mode with k = 1.
-        ([np.array([1, 0]), np.array([0, 1])], 1, "non-injective", False, [(0,), (1,)]),
+        (
+            [np.array([1, 0]), np.array([0, 1])],
+            1,
+            "non-injective",
+            [(0,), (1,)],
+            {(0,): np.array([1, 0]), (1,): np.array([0, 1])},
+        ),
         # Non-injective mode with k = 2.
-        ([np.array([1, 0]), np.array([0, 1])], 2, "non-injective", False, [(0, 0), (0, 1), (1, 0), (1, 1)]),
+        (
+            [np.array([1, 0]), np.array([0, 1])],
+            2,
+            "non-injective",
+            [(0, 0), (0, 1), (1, 0), (1, 1)],
+            {
+                (0, 0): np.array([1, 0, 0, 0]),
+                (0, 1): np.array([0, 1, 0, 0]),
+                (1, 0): np.array([0, 0, 1, 0]),
+                (1, 1): np.array([0, 0, 0, 1]),
+            },
+        ),
         # Non-injective mode with k = 3.
         (
             [np.array([1, 0]), np.array([0, 1])],
             3,
-            "non-injective",
-            False,
-            [(0, 0, 0), (0, 0, 1), (0, 1, 0), (1, 0, 0), (1, 1, 0), (0, 1, 1), (1, 0, 1), (1, 1, 1)],
+            "diagonal",
+            [(0, 0, 0), (1, 1, 1)],
+            {(0, 0, 0): np.array([1, 0, 0, 0, 0, 0, 0, 0]), (1, 1, 1): np.array([0, 0, 0, 0, 0, 0, 0, 1])},
         ),
     ],
 )
-def test_tensor_comb(states, k, mode, density_matrix, expected_keys):
+def test_tensor_comb(states, k, mode, expected_comb_keys, expected_comb):
     """Test the tensor_comb function."""
-    result = tensor_comb(states, k, mode=mode, density_matrix=density_matrix)
-    result_keys = list(result.keys())
+    result = tensor_comb(states, k, mode=mode, density_matrix=False)
+    assert len(result) == len(expected_comb_keys)
+    for key in expected_comb_keys:
+        calc_res = result[key]
+        expected_res = expected_comb[key]
+        assert (calc_res == expected_res).all()
 
-    for seq in expected_keys:
-        state_seq = [states[i] for i in seq]
-        tensor_product = np.array(state_seq[0])
-        for state in state_seq[1:]:
-            tensor_product = np.kron(tensor_product, state)
 
-        if result[result_keys[0]].ndim == 1:
-            np.testing.assert_allclose(result[seq], tensor_product, atol=1e-10)
-        else:
-            expected_density_matrix = to_density_matrix(tensor_product)
-            np.testing.assert_allclose(result[seq], expected_density_matrix, atol=1e-10)
+@pytest.mark.parametrize(
+    "states, k, mode, expected_comb_keys, expected_rho",
+    [
+        # Injective mode with k = 1.
+        (
+            [np.array([1, 0]), np.array([0, 1])],
+            1,
+            "injective",
+            [(0,), (1,)],
+            {(0,): np.array([[1, 0], [0, 0]]), (1,): np.array([[0, 0], [0, 1]])},
+        ),
+        # Non-injective mode with k = 1.
+        (
+            [np.array([1, 0]), np.array([0, 1])],
+            1,
+            "non-injective",
+            [(0,), (1,)],
+            {(0,): np.array([[1, 0], [0, 0]]), (1,): np.array([[0, 0], [0, 1]])},
+        ),
+        # Non-injective mode with k = 2.
+        (
+            [np.array([1, 0]), np.array([0, 1])],
+            2,
+            "non-injective",
+            [(0, 0), (0, 1), (1, 0), (1, 1)],
+            {
+                (0, 0): np.array([[1, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]),
+                (0, 1): np.array([[0, 0, 0, 0], [0, 1, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]),
+                (1, 0): np.array([[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 1, 0], [0, 0, 0, 0]]),
+                (1, 1): np.array([[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 1]]),
+            },
+        ),
+        # Non-injective mode with k = 3.
+        (
+            [np.array([1, 0]), np.array([0, 1])],
+            3,
+            "diagonal",
+            [(0, 0, 0), (1, 1, 1)],
+            {
+                (0, 0, 0): np.array(
+                    [
+                        [1, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0],
+                    ]
+                ),
+                (1, 1, 1): np.array(
+                    [
+                        [0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 0],
+                        [0, 0, 0, 0, 0, 0, 0, 1],
+                    ]
+                ),
+            },
+        ),
+    ],
+)
+def test_tensor_comb_density_matrix(states, k, mode, expected_comb_keys, expected_rho):
+    """Test the tensor_comb function when it returns the density matrix."""
+    result = tensor_comb(states, k, mode=mode, density_matrix=True)
+    assert len(result) == len(expected_comb_keys)
+    for key in expected_comb_keys:
+        calc_res = result[key]
+        expected_res = expected_rho[key]
+        assert (calc_res == expected_res).all()
 
 
 @pytest.mark.parametrize(

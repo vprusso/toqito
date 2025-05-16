@@ -41,7 +41,7 @@ def tensor_comb(
      e_0 = np.array([1, 0])
      e_1 = np.array([0, 1])
 
-     result = tensor_comb([e_0, e_1], 2, mode="injective", density_matrix="density_matrix")
+     result = tensor_comb([e_0, e_1], 2, mode="injective", density_matrix=False)
 
      for key, mat in result.items():
          print(f"tensor_comb{key} =\n{mat}\n")
@@ -59,6 +59,7 @@ def tensor_comb(
            ``injective`` will ensures sequences are injective (no repetitions) and
            ``diagonal`` will allow sequences with repeated indices (diagonal elements).
     :param density_matrix: Determines whether the return is a density matrix or a ket.
+            Default is ``True``.
 
     :return: A dictionary where keys are tuples representing sequences of state indices,
         and values are density matrices of the tensor products of the corresponding
