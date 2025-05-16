@@ -54,9 +54,10 @@ def tensor_comb(
     :raises ValueError: If the input list of states is empty.
     :param states: A list of state vectors.
     :param k: The length of the sequence.
-    :param mode: Determines the type of sequences.``non-injective`` will allow repetitions in
-           sequences,``injective`` will ensures sequences are injective (no repetitions) and ``diagonal`` will allow
-           sequences with repeated indices (diagonal elements).
+    :param mode: Determines the type of sequences. Default is :code:`"injective"`.
+           ``non-injective`` will allow repetitions in sequences,
+           ``injective`` will ensures sequences are injective (no repetitions) and
+           ``diagonal`` will allow sequences with repeated indices (diagonal elements).
     :param density_matrix: Determines whether the return is a density matrix or a ket.
 
     :return: A dictionary where keys are tuples representing sequences of state indices,
