@@ -28,7 +28,7 @@ def mutual_coherence(vectors: list[np.ndarray]) -> float:
     .. bibliography::
         :filter: docname in docnames
 
-    :param states: A list of 1D numpy arrays.
+    :param vectors: A list of 1D numpy arrays.
     :raises ValueError: If arrays in list are not 1D.
     :raises TypeError: If input is not a list.
     :return: The mutual coherence of the collection of input vectors.
