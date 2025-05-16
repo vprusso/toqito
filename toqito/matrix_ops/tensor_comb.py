@@ -41,7 +41,7 @@ def tensor_comb(
      e_0 = np.array([1, 0])
      e_1 = np.array([0, 1])
 
-     result = tensor_comb([e_0, e_1], 2, mode="injective", density_matrix=False)
+     result = tensor_comb([e_0, e_1], 2, mode="injective", density_matrix=True)
 
      for key, mat in result.items():
          print(f"tensor_comb{key} =\n{mat}\n")
