@@ -38,7 +38,7 @@ from toqito.matrix_ops import tensor_comb
                 (1, 1): np.array([0, 0, 0, 1]),
             },
         ),
-        # Non-injective mode with k = 3.
+        # diagonal mode with k = 3.
         (
             [np.array([1, 0]), np.array([0, 1])],
             3,
