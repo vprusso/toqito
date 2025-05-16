@@ -8,10 +8,7 @@ from toqito.matrix_ops import to_density_matrix
 
 
 def tensor_comb(
-    states: list[np.ndarray],
-    k: int,
-    mode: str = "injective",
-    density_matrix: bool = True
+    states: list[np.ndarray], k: int, mode: str = "injective", density_matrix: bool = True
 ) -> dict[tuple[int, ...], np.ndarray]:
     r"""Generate all possible tensor product combinations of quantum states (vectors).
 
@@ -54,11 +51,10 @@ def tensor_comb(
     :raises ValueError: If the input list of states is empty.
     :param states: A list of state vectors.
     :param k: The length of the sequence.
-    :param mode: Determines the type of sequences.
-            - "non-injective": Allows repetitions in sequences.
-            - "injective": Ensures sequences are injective (no repetitions).
-            - "diagonal": Only sequences with repeated indices (diagonal elements).
-    :density_matrix: Determines whether the return is density matrix or ket.
+    :param mode: Determines the type of sequences.-`non-injective`: Allows repetitions in
+           sequences.-`injective`: Ensures sequences are injective (no repetitions).-`diagonal`: Only
+           sequences with repeated indices (diagonal elements).
+    :param density_matrix: Determines whether the return is a density matrix or a ket.
 
     :return: A dictionary where keys are tuples representing sequences of state indices,
         and values are density matrices of the tensor products of the corresponding
@@ -97,4 +93,3 @@ def tensor_comb(
             sequences_of_states[seq] = sequence_tensor_product
 
     return sequences_of_states
-
