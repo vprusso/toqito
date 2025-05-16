@@ -18,8 +18,8 @@ def tensor_comb(
     This function creates a tensor product of quantum state vectors by generating all possible sequences of length `k`
     from a given list of quantum states, and computing the tensor product for each sequence.
 
-    Given `n` quantum states, this function generates `n^k` combinations of sequences of length `k`, computes the tensor
-    product for each sequence, and converts each tensor product to its corresponding density matrix.
+    Given ``n`` quantum states, this function generates :math:`n^k` combinations of sequences of length `k`, computes
+    the tensor product for each sequence, and converts each tensor product to its corresponding density matrix.
 
     For one definition and usage of a quantum sequence, refer to :cite:`Gupta_2024_Optimal`.
 
@@ -54,8 +54,8 @@ def tensor_comb(
     :raises ValueError: If the input list of states is empty.
     :param states: A list of state vectors.
     :param k: The length of the sequence.
-    :param mode: Determines the type of sequences.-`non-injective`: Allows repetitions in
-           sequences.-`injective`: Ensures sequences are injective (no repetitions).-`diagonal`: Only
+    :param mode: Determines the type of sequences.``non-injective`` will allow repetitions in
+           sequences,``injective`` will ensures sequences are injective (no repetitions) and ``diagonal`` will allow
            sequences with repeated indices (diagonal elements).
     :param density_matrix: Determines whether the return is a density matrix or a ket.
 
@@ -69,7 +69,7 @@ def tensor_comb(
         raise ValueError("Input list of states cannot be empty.")
 
     if mode not in ("injective", "non-injective", "diagonal"):
-        raise ValueError("`mode` must be 'injective','non-injective', or 'diagonal'.")
+        raise ValueError("mode must be injective, non-injective, or diagonal.")
 
     if mode == "injective" and k > len(states):
         raise ValueError("k must be less than or equal to the number of states for injective sequences.")
