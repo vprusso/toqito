@@ -21,14 +21,6 @@ XOR Games
    tutorials.xor_quantum_value
 
 
-Quantum State Distinguishability
---------------------------------
-
-.. toctree::
-   :maxdepth: 5
-
-   tutorials.state_distinguishability
-
 Quantum State Exclusion
 -----------------------
 
