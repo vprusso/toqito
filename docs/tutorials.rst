@@ -27,13 +27,6 @@ XOR Games
 
    tutorials.xor_quantum_value
 
-Extended Nonlocal Games
---------------------------
-
-.. toctree::
-   :maxdepth: 5
-
-   tutorials.extended_nonlocal_games
 
 Quantum State Distinguishability
 --------------------------------
