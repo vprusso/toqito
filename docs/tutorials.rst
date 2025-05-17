@@ -11,13 +11,6 @@ Introductory Tutorial
 
    intro_tutorial
 
-Nonlocal Games
---------------------------
-
-.. toctree::
-   :maxdepth: 5
-
-   tutorials.nonlocal_games
 
 XOR Games
 --------------------------
