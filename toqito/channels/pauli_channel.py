@@ -41,7 +41,7 @@ def pauli_channel(
 
      from toqito.channels import pauli_channel
 
-     choi_matrix = pauli_channel(prob=1)
+     pauli_channel(prob=1)
 
     Apply a specific two-qubit Pauli channel to an input matrix:
 

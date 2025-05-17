@@ -7,11 +7,11 @@ requires-python = ">=3.10,<4"
 authors = [{name = "Vincent Russo", email = "vincentrusso1@gmail.com"}]
 maintainers = [
     {name = "Vincent Russo", email = "vincentrusso1@gmail.com"}, 
-    {name = "Purva Thakre", email = "purva.athakre@gmail.com"}]
+    {name = "Purva Thakre", email = "quantum.purvat@gmail.com"}]
 keywords = ["quantum information", "quantum computing", "nonlocal games"]
 
 [tool.poetry]
-version = "1.1.1"
+version = "1.1.2"
 classifiers= [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Science/Research",

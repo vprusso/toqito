@@ -32,6 +32,7 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
                       \end{pmatrix}.
 
     This can be obtained in :code:`|toqito⟩` as follows.
+
     .. jupyter-execute::
 
      from toqito.matrices import gen_pauli

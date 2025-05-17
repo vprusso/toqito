@@ -25,6 +25,7 @@ def gen_gell_mann(ind_1: int, ind_2: int, dim: int) -> np.ndarray:
                       \end{pmatrix}.
 
     This can be obtained in :code:`|toqito⟩` as follows.
+
     .. jupyter-execute::
 
      from toqito.matrices import gen_gell_mann
