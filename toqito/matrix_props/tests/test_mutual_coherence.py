@@ -28,24 +28,9 @@ def test_mutual_coherence(vectors, expected_coherence):
 @pytest.mark.parametrize(
     "vectors, exception, expected_msg",
     [
-        # Not a list → TypeError
-        (
-            None,
-            TypeError,
-            r"Input must be a list of 1D numpy arrays\."
-        ),
-        # List contains something that isn’t a 1D np.ndarray → ValueError
-        (
-            [1, 2, 3],
-            ValueError,
-            r"All elements in the list must be 1D numpy arrays\."
-        ),
-        # List contains a 2D array → ValueError
-        (
-            [np.array([[1, 2], [3, 4]]), np.array([1, 0])],
-            ValueError,
-            r"All elements in the list must be 1D numpy arrays\."
-        ),
+        (None, TypeError, r"Input must be a list of 1D numpy arrays\."),
+        ([1, 2, 3], ValueError, r"All elements in the list must be 1D numpy arrays\."),
+        ([np.array([[1, 2], [3, 4]]), np.array([1, 0])], ValueError, r"All elements in the list must be 1D numpy arrays\."),
     ],
 )
 def test_mutual_coherence_invalid_inputs(vectors, exception, expected_msg):
