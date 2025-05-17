@@ -7,7 +7,11 @@ wherein the referee, who previously only provided questions and answers to the
 players, now share a state with the players and is able to perform a
 measurement on that shared state.
 """
-# sphinx_gallery_thumbnail_path = 'figures/extended_non_local_game.svg'
+# %%
+# .. tags:: nonlocal games, CHSH
+
+# %%
+#  sphinx_gallery_thumbnail_path = 'figures/extended_non_local_game.svg'
 
 # %%
 # Every extended nonlocal game has a *value* associated to it. Analogously to

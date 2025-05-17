@@ -48,8 +48,10 @@ extensions = [
     "sphinx_copybutton",
     "jupyter_sphinx",
     "sphinx.ext.duration",
+    "sphinx_tags",
 ]
 
+tags_create_tags = True
 
 sphinx_gallery_conf = {
     "examples_dirs": "../examples",  # Path to example scripts
