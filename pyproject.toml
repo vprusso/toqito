@@ -49,6 +49,7 @@ distlib = "0.3.9"
 ipython = "8.36.0"
 setuptools = ">65.5.1"
 pre-commit = ">=3.0.0"
+jupyter-sphinx = "^0.5.3"
 
 [tool.poetry.group.lint.dependencies]
 flake8 = "7.2.0"
@@ -66,7 +67,7 @@ sphinx-gallery = "0.19.0"
 matplotlib = "3.10.1"
 furo = "2024.8.6"
 sphinxcontrib-bibtex = "2.6.3"
-jupyter-sphinx = "0.5.3"
+jupyter-sphinx = "^0.5.3"
 sphinx-autoapi = "3.6.0"
 sphinx-copybutton = "0.5.2"
 
