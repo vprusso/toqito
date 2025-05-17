@@ -36,7 +36,6 @@ User Documentation
 
     getting_started
     intro_tutorial
-    tutorials
     
 
 
