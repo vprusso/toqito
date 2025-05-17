@@ -57,7 +57,7 @@ sphinx_gallery_conf = {
     "gallery_dirs": "auto_examples",  # Output directory for generated example galleries
     "filename_pattern": "/example_",  # Regex to filter example files by name i.e those starting with 'example_'
     "write_computation_times": False,  # Do not include computation times
-    "default_thumb_file": "_static/default_thumbnail.png",  # Default thumbnail image
+    "default_thumb_file": "figures/logo.svg",  # Default thumbnail image
     "line_numbers": True,  # add line numbers
     "download_all_examples": False,
     "ignore_pattern": r"__init__\.py",
