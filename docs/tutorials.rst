@@ -20,12 +20,3 @@ XOR Games
 
    tutorials.xor_quantum_value
 
-
-
-Superdense Coding
------------------------
-
-.. toctree::
-   :maxdepth: 5
-
-   tutorials.superdense_coding
