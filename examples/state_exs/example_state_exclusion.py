@@ -1,5 +1,5 @@
 """Quantum state exclusion
-=======================
+===========================
 
 In this tutorial, we are going to cover the problem of *quantum state
 exclusion*. We are going to briefly describe the problem setting and then
