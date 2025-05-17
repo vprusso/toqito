@@ -21,13 +21,6 @@ XOR Games
    tutorials.xor_quantum_value
 
 
-Quantum State Exclusion
------------------------
-
-.. toctree::
-   :maxdepth: 5
-
-   tutorials.state_exclusion
 
 Superdense Coding
 -----------------------
