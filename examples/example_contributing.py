@@ -1,13 +1,8 @@
-# ruff: noqa: D205, D400, D415
-"""CHSH Game Example
-=================
+"""Sample Template
+====================
 
-This example calculates the classical and quantum values for the CHSH game
-using the toqito library. It demonstrates how to construct the necessary matrices
-and use the XORGame function.
+This page provides some guidance on how to add an example to the gallery.
 """
-
-# sphinx_gallery_thumbnail_path = '_static/chsh_game.png'
 
 import numpy as np
 

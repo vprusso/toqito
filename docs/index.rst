@@ -36,7 +36,6 @@ User Documentation
 
     getting_started
     intro_tutorial
-    tutorials
     
 
 
@@ -57,8 +56,8 @@ API Reference
    autoapi_members
 
 
-Examples
---------
+Examples Gallery
+-----------------
 
 .. toctree::
    :maxdepth: 2
