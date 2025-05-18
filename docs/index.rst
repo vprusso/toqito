@@ -35,7 +35,6 @@ User Documentation
     :maxdepth: 2
 
     getting_started
-    intro_tutorial
     
 
 
