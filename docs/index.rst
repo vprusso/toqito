@@ -60,8 +60,7 @@ Examples Gallery
 -----------------
 
 .. toctree::
-   
-   :hidden:
+
    auto_examples/index
 
 
