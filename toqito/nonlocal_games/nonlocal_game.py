@@ -22,7 +22,7 @@ class NonlocalGame:
     The nonlocal game framework was originally introduced in :cite:`Cleve_2010_Consequences`.
 
     A tutorial is available in the documentation. For more info, see
-    :ref:`sphx_glr_auto_examples_example_nonlocal_game.py`.
+    :ref:`sphx_glr_auto_examples_quantumgames_example_nonlocal_game.py`.
 
     References
     ==========
