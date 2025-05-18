@@ -18,7 +18,8 @@ class XORGame:
 
     This function is adapted from the QETLAB package.
 
-    A tutorial is available in the documentation. Go to :ref:`sphx_glr_auto_examples_example_xor_quantum_value.py`.
+    A tutorial is available in the documentation. Go to
+    :ref:`sphx_glr_auto_examples_quantum_games_example_xor_quantum_value.py`.
 
     Examples
     ==========

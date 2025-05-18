@@ -46,6 +46,13 @@ User Documentation
     code_of_conduct
 
 
+Examples Gallery
+-----------------
+
+.. toctree::
+
+   auto_examples/index
+
 API Reference
 -------------
 
@@ -55,13 +62,6 @@ API Reference
 
    autoapi_members
 
-
-Examples Gallery
------------------
-
-.. toctree::
-
-   auto_examples/index
 
 
 References
