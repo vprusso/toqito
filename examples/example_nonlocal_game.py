@@ -9,8 +9,6 @@ cooperatively against an adversary referred to as the referee.
 """
 
 # %%
-# .. _ref-label-nl-games-tutorial:
-#
 # A primary challenge that arises when studying these games is to determine the
 # maximum probability with which Alice and Bob are able to achieve a winning
 # outcome.
