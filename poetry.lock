@@ -776,7 +776,7 @@ description = "Backport of PEP 654 (exception groups)"
 optional = false
 python-versions = ">=3.7"
 groups = ["main", "dev", "docs"]
-markers = "python_version < \"3.11\""
+markers = "python_version == \"3.10\""
 files = [
     {file = "exceptiongroup-1.3.0-py3-none-any.whl", hash = "sha256:4d111e6e0c13d0644cad6ddaa7ed0261a0b36971f6d23e7ec9b4b9097da78a10"},
     {file = "exceptiongroup-1.3.0.tar.gz", hash = "sha256:b241f5885f560bc56a59ee63ca4c6a8bfa46ae4ad651af316d4e81817bb9fd88"},
@@ -3103,25 +3103,6 @@ sphinx = ">=4.0"
 docs = ["furo", "ipython", "myst-parser", "sphinx-copybutton", "sphinx-inline-tabs"]
 
 [[package]]
-name = "sphinx-copybutton"
-version = "0.5.2"
-description = "Add a copy button to each of your code cells."
-optional = false
-python-versions = ">=3.7"
-groups = ["docs"]
-files = [
-    {file = "sphinx-copybutton-0.5.2.tar.gz", hash = "sha256:4cf17c82fb9646d1bc9ca92ac280813a3b605d8c421225fd9913154103ee1fbd"},
-    {file = "sphinx_copybutton-0.5.2-py3-none-any.whl", hash = "sha256:fb543fd386d917746c9a2c50360c7905b605726b9355cd26e9974857afeae06e"},
-]
-
-[package.dependencies]
-sphinx = ">=1.8"
-
-[package.extras]
-code-style = ["pre-commit (==2.12.1)"]
-rtd = ["ipython", "myst-nb", "sphinx", "sphinx-book-theme", "sphinx-examples"]
-
-[[package]]
 name = "sphinx-gallery"
 version = "0.19.0"
 description = "A Sphinx extension that builds an HTML gallery of examples from any set of Python scripts."
@@ -3366,7 +3347,7 @@ files = [
     {file = "tomli-2.2.1-py3-none-any.whl", hash = "sha256:cb55c73c5f4408779d0cf3eef9f762b9c9f147a77de7b258bef0a5628adc85cc"},
     {file = "tomli-2.2.1.tar.gz", hash = "sha256:cd45e1dc79c835ce60f7404ec8119f2eb06d38b1deba146f07ced3bbc44505ff"},
 ]
-markers = {main = "python_version < \"3.11\"", dev = "python_full_version <= \"3.11.0a6\"", docs = "python_version < \"3.11\"", lint = "python_version < \"3.11\""}
+markers = {main = "python_version == \"3.10\"", dev = "python_full_version <= \"3.11.0a6\"", docs = "python_version == \"3.10\"", lint = "python_version == \"3.10\""}
 
 [[package]]
 name = "tornado"
@@ -3496,4 +3477,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10,<4"
-content-hash = "6c967be83145e39e8146061a85c4968813299b3c91eacd608e23f98efb46c675"
+content-hash = "30a231d11d98245b36a217b8040c7d79ae1d5a03a98f6526da75ab7b7348c129"
