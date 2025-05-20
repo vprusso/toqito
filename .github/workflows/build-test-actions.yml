@@ -95,6 +95,8 @@ jobs:
           pip install pipx
           pipx install poetry
           poetry install --without docs --no-interaction
+     #- name: Run mypy
+      #  run: poetry run mypy toqito/ --explicit-package-bases
 
 
   toqito-pytest:
