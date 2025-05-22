@@ -10,14 +10,15 @@ from toqito.rand.generate_random_independent_vectors import generate_random_inde
 @pytest.mark.parametrize(
     "num_vecs,dim",
     [
-        # Test with a matrix of dimension 2.
+        # Test two two-dimensional vectors.
         (2, 2),
-        # Test with a matrix of higher dimension.
+        # Test four four-dimensional vectors.
         (4, 4),
-        # Test with yet another higher dimension.
+        # Test ten ten-dimensional vectors.
         (10, 10),
-        # Test with yet another higher dimension.
+        # Test two five-dimensional vectors.
         (2, 5),
+        # Test two ten-dimensional vectors.
         (2, 10),
     ],
 )
