@@ -26,7 +26,7 @@ def test_generate_random_independent_vectors(num_vecs, dim):
     """Test for generate_random_independent_vectors function."""
     linear_indep = generate_random_independent_vectors(num_vecs, dim)
 
-    # verify the matrix has the correct dimensions
+    # Verify the matrix has the correct dimensions.
     assert_equal(linear_indep.shape, (dim, num_vecs))
 
     # Verify the matrix is real.
