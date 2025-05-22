@@ -29,7 +29,7 @@ def test_generate_random_independent_vectors(num_vecs, dim):
     # verify the matrix has the correct dimensions
     assert_equal(linear_indep.shape, (dim, num_vecs))
 
-    # verify the matrix is real
+    # Verify the matrix is real.
     assert_equal(np.isreal(linear_indep).all(), True)
 
     # verify the vectors are linearaly independent
