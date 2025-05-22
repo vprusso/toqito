@@ -1,0 +1,176 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.10.15, pytest-8.3.4, pluggy-1.6.0
+rootdir: /Users/elizabethterveen/Desktop/projects/toqito
+configfile: pyproject.toml
+plugins: cov-6.1.1
+collected 711 items / 1 error
+
+==================================== ERRORS ====================================
+_ ERROR collecting toqito/rand/tests/test_generate_random_independent_vectors.py _
+In test_generate_random_independent_vectors: function uses no argument 'n'
+================================ tests coverage ================================
+______________ coverage: platform darwin, python 3.10.15-final-0 _______________
+
+Name                                                     Stmts   Miss Branch BrPart   Cover   Missing
+-----------------------------------------------------------------------------------------------------
+setup.py                                                     5      5      0      0   0.00%   1-20
+toqito/channel_ops/apply_channel.py                         28     23     10      0  13.16%   103-148
+toqito/channel_ops/choi_to_kraus.py                         16     11      4      0  25.00%   93-122
+toqito/channel_ops/complementary_channel.py                 19     17     10      0   6.90%   71-96
+toqito/channel_ops/dual_channel.py                          14     10     10      0  16.67%   82-93
+toqito/channel_ops/kraus_to_choi.py                          9      4      0      0  55.56%   64-74
+toqito/channel_ops/natural_representation.py                 7      4      2      0  33.33%   27-32
+toqito/channel_ops/partial_channel.py                       49     43     22      0   8.45%   94-193
+toqito/channels/amplitude_damping.py                        16     14      8      0   8.33%   64-82
+toqito/channels/bitflip.py                                  12     10      6      0  11.11%   67-80
+toqito/channels/choi.py                                      5      2      0      0  60.00%   93-94
+toqito/channels/dephasing.py                                 5      2      0      0  60.00%   88-89
+toqito/channels/depolarizing.py                              5      2      0      0  60.00%   93-94
+toqito/channels/partial_trace.py                            52     46     28      0   7.50%   121-190
+toqito/channels/partial_transpose.py                        50     44     22      0   8.33%   115-201
+toqito/channels/pauli_channel.py                            31     25     14      0  13.33%   76-109
+toqito/channels/phase_damping.py                            12     10      6      0  11.11%   47-60
+toqito/channels/realignment.py                              25     21     10      0  11.43%   52-80
+toqito/channels/reduction.py                                 7      3      0      0  57.14%   45-47
+toqito/helper/channel_dim.py                                57     53     30      0   4.60%   47-128, 133-146
+toqito/helper/expr_as_np_array.py                           13     10      6      0  15.79%   13-23
+toqito/helper/np_array_as_expr.py                            7      3      0      0  57.14%   14-16
+toqito/helper/npa_hierarchy.py                             124    112     84      0   5.77%   15-38, 42-59, 66-92, 96, 100-104, 108, 114-122, 155-285
+toqito/helper/update_odometer.py                            14     12      8      0   9.09%   50-73
+toqito/matrices/cnot.py                                      3      1      0      0  66.67%   38
+toqito/matrices/comparison.py                                7      5      2      0  22.22%   43-50
+toqito/matrices/cyclic_permutation_matrix.py                 7      5      0      0  28.57%   49-54
+toqito/matrices/fourier.py                                   6      4      0      0  33.33%   55-58
+toqito/matrices/gell_mann.py                                26     23     20      0   6.52%   98-123
+toqito/matrices/gen_gell_mann.py                            16     14      6      0   9.09%   66-85
+toqito/matrices/gen_pauli.py                                 7      4      0      0  42.86%   72-77
+toqito/matrices/gen_pauli_x.py                               3      1      0      0  66.67%   55
+toqito/matrices/gen_pauli_z.py                               6      3      0      0  50.00%   56-58
+toqito/matrices/hadamard.py                                  9      6      2      0  27.27%   47, 60-64
+toqito/matrices/pauli.py                                    20     16     12      0  12.50%   104-123
+toqito/matrices/standard_basis.py                            5      3      0      0  40.00%   43-48
+toqito/matrix_ops/calculate_vector_matrix_dimension.py      13     11     10      0   8.70%   63-74
+toqito/matrix_ops/perturb_vectors.py                         9      7      4      0  15.38%   29-38
+toqito/matrix_ops/tensor.py                                 36     34     26      0   3.23%   115-157
+toqito/matrix_ops/tensor_comb.py                            27     23     18      0   8.89%   70-100
+toqito/matrix_ops/to_density_matrix.py                      13     11      8      0   9.52%   30-46
+toqito/matrix_ops/unvec.py                                   8      6      2      0  20.00%   88-93
+toqito/matrix_ops/vec.py                                     3      1      0      0  66.67%   89
+toqito/matrix_ops/vectors_from_gram_matrix.py               13     10      2      0  20.00%   48-60
+toqito/matrix_ops/vectors_to_gram_matrix.py                  6      4      2      0  25.00%   51-58
+toqito/matrix_props/commutant.py                            11      8      2      0  23.08%   94-113
+toqito/matrix_props/has_same_dimension.py                   15     13     10      0   8.00%   56-74
+toqito/matrix_props/is_absolutely_k_incoherent.py           51     47     34      0   4.71%   51-121
+toqito/matrix_props/is_anti_hermitian.py                     4      1      0      0  75.00%   74
+toqito/matrix_props/is_block_positive.py                    24     19     12      0  13.89%   68-112
+toqito/matrix_props/is_circulant.py                         11      9      6      0  11.76%   49-58
+toqito/matrix_props/is_commuting.py                          3      1      0      0  66.67%   85
+toqito/matrix_props/is_density.py                            4      1      0      0  75.00%   76
+toqito/matrix_props/is_diagonal.py                           8      5      2      0  30.00%   81-85
+toqito/matrix_props/is_diagonally_dominant.py                9      6      2      0  27.27%   68-74
+toqito/matrix_props/is_hermitian.py                          6      3      2      0  37.50%   72-74
+toqito/matrix_props/is_idempotent.py                         6      3      2      0  37.50%   68-70
+toqito/matrix_props/is_identity.py                           7      4      2      0  33.33%   81-84
+toqito/matrix_props/is_k_incoherent.py                      43     37     22      0   9.23%   62-116
+toqito/matrix_props/is_linearly_independent.py               3      1      0      0  66.67%   48
+toqito/matrix_props/is_nonnegative.py                       10      7      4      0  21.43%   44-53
+toqito/matrix_props/is_normal.py                             6      3      2      0  37.50%   81-83
+toqito/matrix_props/is_orthonormal.py                        4      1      0      0  75.00%   46
+toqito/matrix_props/is_permutation.py                        8      6      6      0  14.29%   68-74
+toqito/matrix_props/is_positive.py                           3      1      0      0  66.67%   40
+toqito/matrix_props/is_positive_definite.py                  9      7      2      0  18.18%   65-75
+toqito/matrix_props/is_positive_semidefinite.py              7      4      2      0  33.33%   64-67
+toqito/matrix_props/is_projection.py                         6      3      2      0  37.50%   74-76
+toqito/matrix_props/is_pseudo_hermitian.py                  11      8      6      0  17.65%   85-95
+toqito/matrix_props/is_pseudo_unitary.py                    12      9      6      0  16.67%   85-97
+toqito/matrix_props/is_square.py                             5      3      2      0  28.57%   65-67
+toqito/matrix_props/is_stochastic.py                        15     12      8      0  13.04%   67-83
+toqito/matrix_props/is_symmetric.py                          6      3      2      0  37.50%   75-77
+toqito/matrix_props/is_totally_positive.py                  21     18     16      0   8.11%   91-116
+toqito/matrix_props/is_unitary.py                            9      6      2      0  27.27%   88-96
+toqito/matrix_props/kp_norm.py                               7      5      2      0  22.22%   43-52
+toqito/matrix_props/majorizes.py                            26     24     16      0   4.76%   61-97
+toqito/matrix_props/mutual_coherence.py                     11      9      4      0  13.33%   38-55
+toqito/matrix_props/positive_semidefinite_rank.py           24     19     12      0  13.89%   57-65, 75-95
+toqito/matrix_props/sk_norm.py                             166    148     72      0   7.56%   84-290, 296, 315-388
+toqito/matrix_props/spark.py                                14     11     10      0  12.50%   49-65
+toqito/matrix_props/trace_norm.py                            3      1      0      0  66.67%   54
+toqito/perms/antisymmetric_projection.py                    18     14      8      0  15.38%   75-93
+toqito/perms/perfect_matchings.py                           24     22     14      0   5.26%   38-74
+toqito/perms/perm_sign.py                                    4      1      0      0  75.00%   55
+toqito/perms/permutation_operator.py                        10      6      4      0  28.57%   54-62
+toqito/perms/permute_systems.py                             58     52     30      0   6.82%   128-209
+toqito/perms/swap.py                                        31     28     16      0   6.38%   109-156
+toqito/perms/swap_operator.py                                8      4      2      0  40.00%   52-57
+toqito/perms/symmetric_projection.py                        22     16     10      0  18.75%   80-101
+toqito/perms/unique_perms.py                                19     12      6      0  28.00%   42-46, 57-65
+toqito/rand/generate_random_independent_vectors.py          10      8      6      0  12.50%   21-35
+toqito/rand/random_circulant_gram_matrix.py                  6      4      0      0  33.33%   70-79
+toqito/rand/random_density_matrix.py                        13     10      6      0  15.79%   126-141
+toqito/rand/random_ginibre.py                                4      2      0      0  50.00%   48-49
+toqito/rand/random_orthonormal_basis.py                      5      2      0      0  60.00%   44-45
+toqito/rand/random_povm.py                                  17     15      4      0   9.52%   69-87
+toqito/rand/random_psd_operator.py                          10      8      2      0  16.67%   84-97
+toqito/rand/random_state_vector.py                          22     18      8      0  13.33%   68-101
+toqito/rand/random_states.py                                 6      4      0      0  33.33%   55-58
+toqito/rand/random_unitary.py                               14     12      6      0  10.00%   106-129
+toqito/state_ops/schmidt_decomposition.py                   42     39     22      0   4.69%   71-112, 129-162
+toqito/state_opt/bell_inequality_max.py                     45     39     18      0   9.52%   87-153
+toqito/state_opt/optimal_clone.py                           47     39     14      0  13.11%   105-137, 149-170, 178-189
+toqito/state_opt/ppt_distinguishability.py                  43     36     14      0  12.28%   114-125, 139-172, 184-210
+toqito/state_opt/state_distinguishability.py                56     47      8      0  14.06%   143-159, 170-183, 194-207, 220-231, 244-257
+toqito/state_opt/state_exclusion.py                         63     54      8      0  12.68%   158-174, 185-200, 211-224, 238-254, 268-287
+toqito/state_opt/state_helper.py                             9      6      4      0  23.08%   9-11, 16-18
+toqito/state_opt/symmetric_extension_hierarchy.py           47     41     16      0   9.52%   138-196
+toqito/state_props/common_quantum_overlap.py                 6      3      0      0  50.00%   79-81
+toqito/state_props/concurrence.py                           11      8      2      0  23.08%   81-91
+toqito/state_props/entanglement_of_formation.py             32     27     14      0  10.87%   60-105
+toqito/state_props/has_symmetric_extension.py               23     17     12      0  17.14%   99-137
+toqito/state_props/in_separable_ball.py                     10      8      4      0  14.29%   65-84
+toqito/state_props/is_antidistinguishable.py                 6      3      0      0  50.00%   64-68
+toqito/state_props/is_distinguishable.py                     5      2      0      0  60.00%   50-51
+toqito/state_props/is_ensemble.py                            9      6      4      0  23.08%   58-66
+toqito/state_props/is_mixed.py                               4      1      0      0  75.00%   45
+toqito/state_props/is_mutually_orthogonal.py                 9      6      2      0  27.27%   64-78
+toqito/state_props/is_mutually_unbiased_basis.py            17     14     12      0  10.34%   87-106
+toqito/state_props/is_npt.py                                 4      1      0      0  75.00%   45
+toqito/state_props/is_ppt.py                                12      8      4      0  25.00%   83-95
+toqito/state_props/is_product.py                            51     45     26      0   7.79%   58, 69-108, 120-141
+toqito/state_props/is_pure.py                               10      8      6      0  12.50%   71-80
+toqito/state_props/is_separable.py                         103     87     62      0   9.70%   83-312
+toqito/state_props/is_unextendible_product_basis.py         34     27     16      0  14.00%   66-115
+toqito/state_props/l1_norm_coherence.py                      5      2      0      0  60.00%   52-53
+toqito/state_props/log_negativity.py                        21     17     10      0  12.90%   50-80
+toqito/state_props/negativity.py                            21     17     10      0  12.90%   51-81
+toqito/state_props/purity.py                                 6      3      2      0  37.50%   62-65
+toqito/state_props/schmidt_rank.py                          29     25     16      0   8.89%   90-103, 112-131
+toqito/state_props/sk_vec_norm.py                           14     11      6      0  15.00%   53-72
+toqito/state_props/von_neumann_entropy.py                    8      5      2      0  30.00%   89-93
+toqito/states/basis.py                                       7      5      2      0  22.22%   50-55
+toqito/states/bb84.py                                        6      3      0      0  50.00%   42-45
+toqito/states/bell.py                                       14     11      8      0  13.64%   55-65
+toqito/states/brauer.py                                     12      7      2      0  35.71%   56-64
+toqito/states/breuer.py                                     10      6      2      0  33.33%   44-51
+toqito/states/chessboard.py                                 12     10      4      0  12.50%   40-50
+toqito/states/dicke.py                                      16     12      6      0  18.18%   46-61
+toqito/states/domino.py                                     24     21     18      0   7.14%   73-93
+toqito/states/gen_bell.py                                    6      2      0      0  66.67%   80-81
+toqito/states/ghz.py                                        19     17     12      0   6.45%   60-85
+toqito/states/gisin.py                                       7      5      2      0  22.22%   53-67
+toqito/states/horodecki.py                                  19     17      8      0   7.41%   89-133
+toqito/states/isotropic.py                                   5      2      0      0  60.00%   50-51
+toqito/states/max_entangled.py                               8      5      2      0  30.00%   59-63
+toqito/states/max_mixed.py                                   6      3      2      0  37.50%   74-76
+toqito/states/mutually_unbiased_basis.py                    32     27     20      0   9.62%   53-75, 87-100
+toqito/states/pusey_barrett_rudolph.py                      17     12      4      0  23.81%   52-66
+toqito/states/singlet.py                                     4      1      0      0  75.00%   58
+toqito/states/tile.py                                       16     13     10      0  11.54%   62-74
+toqito/states/trine.py                                       5      2      0      0  60.00%   38-39
+toqito/states/w_state.py                                    17     14     10      0  11.11%   64-86
+toqito/states/werner.py                                     24     20     12      0  11.11%   67-95
+-----------------------------------------------------------------------------------------------------
+TOTAL                                                     2802   2249   1226      0  13.73%
+=========================== short test summary info ============================
+ERROR toqito/rand/tests/test_generate_random_independent_vectors.py - Failed:...
+!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+=============================== 1 error in 2.01s ===============================

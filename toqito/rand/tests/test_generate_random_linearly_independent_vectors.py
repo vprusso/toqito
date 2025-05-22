@@ -10,25 +10,26 @@ from toqito.rand.generate_random_linearly_independent_vectors import generate_ra
 @pytest.mark.parametrize(
     "num_vecs,dim",
     [
-        # Test with a matrix of dimension 2.
+        # Test two two-dimensional vectors.
         (2, 2),
-        # Test with a matrix of higher dimension.
+        # Test four four-dimensional vectors.
         (4, 4),
-        # Test with yet another higher dimension.
+        # Test ten ten-dimensional vectors.
         (10, 10),
-        # Test with yet another higher dimension.
+        # Test two five-dimensional vectors.
         (2, 5),
+        # Test two ten-dimensional vectors.
         (2, 10),
     ],
 )
-def test_generate_random_linearly_independent_vectors(num_vecs, dim):
+def test_generate_random_linearly_independent_vectors(num_vecs: int, dim: int):
     """Test for generate_random_linearly_independent_vectors function."""
     linear_indep = generate_random_linearly_independent_vectors(num_vecs, dim)
 
-    # verify the matrix has the correct dimensions
+    # Verify the matrix has the correct dimensions.
     assert_equal(linear_indep.shape, (dim, num_vecs))
 
-    # verify the matrix is real
+    # Verify the matrix is real.
     assert_equal(np.isreal(linear_indep).all(), True)
 
     # verify the vectors are linearaly independent
@@ -46,6 +47,6 @@ def test_generate_random_linearly_independent_vectors(num_vecs, dim):
         (20, 15),
     ],
 )
-def test_generate_random_linearly_independent_vectors_failure(num_vecs, dim):
+def test_generate_random_linearly_independent_vectors_failure(num_vecs: int, dim: int):
     """Test for generate_random_linearly_independent_vectors function; should fail."""
     assert_raises(ValueError, generate_random_linearly_independent_vectors, num_vecs, dim)
