@@ -22,7 +22,7 @@ from toqito.rand.generate_random_independent_vectors import generate_random_inde
         (2, 10),
     ],
 )
-def test_generate_random_independent_vectors(num_vecs, dim):
+def test_generate_random_independent_vectors(num_vecs: int, dim: int):
     """Test for generate_random_independent_vectors function."""
     linear_indep = generate_random_independent_vectors(num_vecs, dim)
 
