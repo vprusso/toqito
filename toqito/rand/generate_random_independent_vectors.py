@@ -1,4 +1,4 @@
-"""Generates a set of linearly independent random vectors."""
+"""Generates a collection of linearly independent vectors."""
 
 import numpy as np
 
@@ -10,7 +10,37 @@ def generate_random_independent_vectors(num_vectors: np.ndarray, dim: int, is_re
 
     Examples
     ==========
-    generate_ran
+    Using :code:`|toqito⟩`, we may generate a random, linearly independent set of (compelx or real-valued)
+    :math:`n`- dimensional vectors. To generate a set of 3 vectors
+    with :math:`d=4`, this can be accomplished as follows.
+
+    .. jupyter-execute::
+
+     from toqito.rand import generate_random_independent_vectors
+
+     li_vecs = generate_random_independent_vectors(3,4)
+
+     li_vecs
+
+    To verify the vectors are in fact linearly indepependent, we use the :code:`is_linearly_independent` function from
+    :code:`|toqito⟩` as follows
+
+    .. jupyter-execute::
+
+     from toqito import is_linearly_independent
+
+     is_linearly_independent(li_vecs)
+
+    It is also possible to generate a set of complex vectors, as follows.
+    .. jupyter-execute::
+
+     from toqito.rand import generate_random_independent_vectors
+
+     li_vecs = generate_random_independent_vectors(3,4,is_real=False)
+
+     li_vecs
+
+    The procedure to verify the vectors are linearly independent is identical to the real-valued case.
 
     :param num_vectors: The number of vectors to generate.
     :param dim: The dimension of the vector space.
