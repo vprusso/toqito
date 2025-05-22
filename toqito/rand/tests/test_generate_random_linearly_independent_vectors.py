@@ -2,7 +2,6 @@
 
 import numpy as np
 import pytest
-from numpy.testing import assert_equal, assert_raises
 
 from toqito.rand.generate_random_linearly_independent_vectors import generate_random_linearly_independent_vectors
 
@@ -27,15 +26,15 @@ def test_generate_random_linearly_independent_vectors(num_vecs: int, dim: int):
     linear_indep = generate_random_linearly_independent_vectors(num_vecs, dim)
 
     # Verify the matrix has the correct dimensions.
-    assert_equal(linear_indep.shape, (dim, num_vecs))
+    assert linear_indep.shape == (dim, num_vecs)
 
     # Verify the matrix is real.
-    assert_equal(np.isreal(linear_indep).all(), True)
+    assert np.isreal(linear_indep).all()
 
     # verify the vectors are linearaly independent
     # by confirming the rank of the vector space
     # is equivalent to the number of vectors generated
-    assert_equal(np.linalg.matrix_rank(linear_indep) == num_vecs, True)
+    assert np.linalg.matrix_rank(linear_indep) == num_vecs
 
 
 @pytest.mark.parametrize(
@@ -49,4 +48,6 @@ def test_generate_random_linearly_independent_vectors(num_vecs: int, dim: int):
 )
 def test_generate_random_linearly_independent_vectors_failure(num_vecs: int, dim: int):
     """Test for generate_random_linearly_independent_vectors function; should fail."""
-    assert_raises(ValueError, generate_random_linearly_independent_vectors, num_vecs, dim)
+    with pytest.raises(ValueError) as excinfo:
+        generate_random_linearly_independent_vectors(num_vecs, dim)
+    assert excinfo.type is ValueError
