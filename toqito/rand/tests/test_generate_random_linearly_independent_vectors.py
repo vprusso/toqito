@@ -23,18 +23,23 @@ from toqito.rand.generate_random_linearly_independent_vectors import generate_ra
 )
 def test_generate_random_linearly_independent_vectors(num_vecs: int, dim: int):
     """Test for generate_random_linearly_independent_vectors function."""
-    linear_indep = generate_random_linearly_independent_vectors(num_vecs, dim)
+    real_linear_indep = generate_random_linearly_independent_vectors(num_vecs, dim)
+    complex_linear_indep = generate_random_linearly_independent_vectors(num_vecs, dim, is_real=False)
 
     # Verify the matrix has the correct dimensions.
-    assert linear_indep.shape == (dim, num_vecs)
+    assert real_linear_indep.shape == (dim, num_vecs)
+    assert complex_linear_indep.shape == (dim, num_vecs)
 
     # Verify the matrix is real.
-    assert np.isreal(linear_indep).all()
+    assert np.isreal(real_linear_indep).all()
+
+    assert not np.isreal(complex_linear_indep).any()
 
     # verify the vectors are linearaly independent
     # by confirming the rank of the vector space
     # is equivalent to the number of vectors generated
-    assert np.linalg.matrix_rank(linear_indep) == num_vecs
+    assert np.linalg.matrix_rank(real_linear_indep) == num_vecs
+    assert np.linalg.matrix_rank(complex_linear_indep) == num_vecs
 
 
 @pytest.mark.parametrize(

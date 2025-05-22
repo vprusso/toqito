@@ -29,7 +29,7 @@ def generate_random_linearly_independent_vectors(
 
     .. jupyter-execute::
 
-     from toqito import is_linearly_independent
+     from toqito.matrix_props import is_linearly_independent
 
      is_linearly_independent(li_vecs)
 
