@@ -30,10 +30,12 @@ def generate_random_linearly_independent_vectors(
     .. jupyter-execute::
 
      from toqito.matrix_props import is_linearly_independent
+     import numpy as np
 
      is_linearly_independent(np.expand_dims(li_vecs.T,axis=2).tolist())
 
     It is also possible to generate a set of complex vectors, as follows.
+    
     .. jupyter-execute::
 
      from toqito.rand import generate_random_linearly_independent_vectors
