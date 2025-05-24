@@ -58,8 +58,11 @@ def generate_random_linearly_independent_vectors(
     if num_vectors > dim:
         raise ValueError("Cannot have more independent vectors than the dimension of the space.")
 
-    random_num_generator = np.random.default_rng(seed=seed)  ## construct a random number generator
     # Keep generating until we get a matrix with independent columns.
+
+    random_num_generator = np.random.default_rng(seed=seed)  ## construct a random number generator
+    failure_count = 0
+
     while True:
         if is_real:
             rand_mat = random_num_generator.standard_normal(size=(dim, num_vectors))
@@ -71,3 +74,7 @@ def generate_random_linearly_independent_vectors(
         # Check that the rank equals num_vectors.
         if np.linalg.matrix_rank(rand_mat) == num_vectors:
             return rand_mat
+        else:
+            failure_count += 1
+            if failure_count > num_vectors * dim:
+                print(f"number of attempts: {failure_count}")
