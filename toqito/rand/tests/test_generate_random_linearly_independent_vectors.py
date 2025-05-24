@@ -3,6 +3,7 @@
 import numpy as np
 import pytest
 
+from toqito.matrix_props import is_linearly_independent
 from toqito.rand.generate_random_linearly_independent_vectors import generate_random_linearly_independent_vectors
 
 
@@ -39,7 +40,9 @@ def test_generate_random_linearly_independent_vectors(num_vecs: int, dim: int):
     # by confirming the rank of the vector space
     # is equivalent to the number of vectors generated
     assert np.linalg.matrix_rank(real_linear_indep) == num_vecs
+    assert is_linearly_independent(np.expand_dims(real_linear_indep.T, axis=2).tolist())
     assert np.linalg.matrix_rank(complex_linear_indep) == num_vecs
+    assert is_linearly_independent(np.expand_dims(complex_linear_indep.T, axis=2).tolist())
 
 
 @pytest.mark.parametrize(

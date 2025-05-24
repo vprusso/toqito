@@ -31,7 +31,7 @@ def generate_random_linearly_independent_vectors(
 
      from toqito.matrix_props import is_linearly_independent
 
-     is_linearly_independent(li_vecs)
+     is_linearly_independent(np.expand_dims(li_vecs.T,axis=2).tolist())
 
     It is also possible to generate a set of complex vectors, as follows.
     .. jupyter-execute::
@@ -57,14 +57,11 @@ def generate_random_linearly_independent_vectors(
         raise ValueError("Cannot have more independent vectors than the dimension of the space.")
 
     random_num_generator = np.random.default_rng(seed=seed)  ## construct a random number generator
-
     # Keep generating until we get a matrix with independent columns.
     while True:
         if is_real:
-            # Generate a random real matrix.
             rand_mat = random_num_generator.standard_normal(size=(dim, num_vectors))
         else:
-            # Generate a random complex matrix: real + i*imag.
             rand_mat = random_num_generator.standard_normal(
                 size=(dim, num_vectors)
             ) + 1j * random_num_generator.standard_normal(size=(dim, num_vectors))
