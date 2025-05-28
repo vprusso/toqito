@@ -62,4 +62,4 @@ def test_invalid_input():
 def test_large_dim_returns_minus_one():
     # 4x4 system (not implemented)
     rho = max_mixed(16)
-    assert is_abs_ppt(rho, [4, 4]) == -1 
+    assert is_abs_ppt(rho, [4, 4]) == -1

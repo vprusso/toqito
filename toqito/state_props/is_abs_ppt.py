@@ -18,40 +18,50 @@ def _abs_ppt_constraints(eigvals: np.ndarray, dim: list[int]) -> list[np.ndarray
         # Only one constraint: 2x2 matrix
         # See Hildebrand, Eq. (2)
         # Matrix: [[2*lam4, lam3-lam1], [lam3-lam1, 2*lam2]]
-        L = np.array([
-            [2 * eigvals[3], eigvals[2] - eigvals[0]],
-            [eigvals[2] - eigvals[0], 2 * eigvals[1]],
-        ])
+        L = np.array(
+            [
+                [2 * eigvals[3], eigvals[2] - eigvals[0]],
+                [eigvals[2] - eigvals[0], 2 * eigvals[1]],
+            ]
+        )
         constraints.append(L)
     elif (d1, d2) in [(2, 3), (3, 2)]:
         # Two constraints: 3x3 matrices
         # See Hildebrand, Eq. (3)
         # eigvals: lam1 >= ... >= lam6
-        L1 = np.array([
-            [2 * eigvals[5], eigvals[4] - eigvals[0], eigvals[3] - eigvals[1]],
-            [eigvals[4] - eigvals[0], 2 * eigvals[2], eigvals[1] - eigvals[3]],
-            [eigvals[3] - eigvals[1], eigvals[1] - eigvals[3], 2 * eigvals[0]],
-        ])
-        L2 = np.array([
-            [2 * eigvals[5], eigvals[4] - eigvals[0], eigvals[2] - eigvals[1]],
-            [eigvals[4] - eigvals[0], 2 * eigvals[3], eigvals[1] - eigvals[2]],
-            [eigvals[2] - eigvals[1], eigvals[1] - eigvals[2], 2 * eigvals[0]],
-        ])
+        L1 = np.array(
+            [
+                [2 * eigvals[5], eigvals[4] - eigvals[0], eigvals[3] - eigvals[1]],
+                [eigvals[4] - eigvals[0], 2 * eigvals[2], eigvals[1] - eigvals[3]],
+                [eigvals[3] - eigvals[1], eigvals[1] - eigvals[3], 2 * eigvals[0]],
+            ]
+        )
+        L2 = np.array(
+            [
+                [2 * eigvals[5], eigvals[4] - eigvals[0], eigvals[2] - eigvals[1]],
+                [eigvals[4] - eigvals[0], 2 * eigvals[3], eigvals[1] - eigvals[2]],
+                [eigvals[2] - eigvals[1], eigvals[1] - eigvals[2], 2 * eigvals[0]],
+            ]
+        )
         constraints.extend([L1, L2])
     elif (d1, d2) == (3, 3):
         # Two constraints: 3x3 matrices
         # See QETLAB/AbsPPTConstraints and Hildebrand, Eq. (4)
         # eigvals: lam1 >= ... >= lam9
-        L1 = np.array([
-            [2 * eigvals[8], eigvals[7] - eigvals[0], eigvals[6] - eigvals[1]],
-            [eigvals[7] - eigvals[0], 2 * eigvals[5], eigvals[4] - eigvals[2]],
-            [eigvals[6] - eigvals[1], eigvals[4] - eigvals[2], 2 * eigvals[3]],
-        ])
-        L2 = np.array([
-            [2 * eigvals[8], eigvals[7] - eigvals[0], eigvals[5] - eigvals[1]],
-            [eigvals[7] - eigvals[0], 2 * eigvals[6], eigvals[4] - eigvals[2]],
-            [eigvals[5] - eigvals[1], eigvals[4] - eigvals[2], 2 * eigvals[3]],
-        ])
+        L1 = np.array(
+            [
+                [2 * eigvals[8], eigvals[7] - eigvals[0], eigvals[6] - eigvals[1]],
+                [eigvals[7] - eigvals[0], 2 * eigvals[5], eigvals[4] - eigvals[2]],
+                [eigvals[6] - eigvals[1], eigvals[4] - eigvals[2], 2 * eigvals[3]],
+            ]
+        )
+        L2 = np.array(
+            [
+                [2 * eigvals[8], eigvals[7] - eigvals[0], eigvals[5] - eigvals[1]],
+                [eigvals[7] - eigvals[0], 2 * eigvals[6], eigvals[4] - eigvals[2]],
+                [eigvals[5] - eigvals[1], eigvals[4] - eigvals[2], 2 * eigvals[3]],
+            ]
+        )
         constraints.extend([L1, L2])
     else:
         # Not implemented for higher dimensions
@@ -108,4 +118,4 @@ def is_abs_ppt(mat: np.ndarray, dim: None | int | list[int] = None, tol: float =
     for L in constraints:
         if not is_positive_semidefinite(L, atol=tol):
             return False
-    return True 
+    return True
