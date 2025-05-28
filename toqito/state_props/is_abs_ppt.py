@@ -1,17 +1,17 @@
 """Checks if a quantum state is absolutely PPT (PPT from spectrum)."""
 
 import numpy as np
+
 from toqito.matrix_props import is_positive_semidefinite, is_square
 
 
 def _abs_ppt_constraints(eigvals: np.ndarray, dim: list[int]) -> list[np.ndarray]:
-    """
-    Generate the constraint matrices for the absolutely PPT test, following QETLAB/AbsPPTConstraints.
+    """Generate the constraint matrices for the absolutely PPT test, following QETLAB/AbsPPTConstraints.
+
     Only implemented for 2x2, 2x3, and 3x3 systems.
     """
     eigvals = np.sort(np.real(eigvals))[::-1]
     d1, d2 = dim
-    n = d1 * d2
     constraints = []
 
     if (d1, d2) == (2, 2):
@@ -70,8 +70,7 @@ def _abs_ppt_constraints(eigvals: np.ndarray, dim: list[int]) -> list[np.ndarray
 
 
 def is_abs_ppt(mat: np.ndarray, dim: None | int | list[int] = None, tol: float = 1e-8) -> bool | int:
-    """
-    Determine whether a density matrix is absolutely PPT (PPT from spectrum).
+    """Determine whether a density matrix is absolutely PPT (PPT from spectrum).
 
     Args:
         mat: The density matrix to check.
@@ -80,6 +79,7 @@ def is_abs_ppt(mat: np.ndarray, dim: None | int | list[int] = None, tol: float =
 
     Returns:
         True if absolutely PPT, False if not, -1 if undecidable (for large dims).
+
     """
     if not is_square(mat):
         raise ValueError("Input matrix must be square.")

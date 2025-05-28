@@ -1,12 +1,15 @@
+"""Unit tests for the is_abs_ppt function in toqito.state_props."""
+
 import numpy as np
 import pytest
 
+from toqito.rand import random_psd_operator
 from toqito.state_props import is_abs_ppt
 from toqito.states import max_mixed
-from toqito.rand import random_psd_operator
 
 
 def test_maximally_mixed_states():
+    """Test that maximally mixed states are absolutely PPT for supported dimensions."""
     # 2x2
     rho_2x2 = max_mixed(4)
     assert is_abs_ppt(rho_2x2, [2, 2]) is True
@@ -19,7 +22,7 @@ def test_maximally_mixed_states():
 
 
 def test_random_psd_not_absolutely_ppt():
-    # Most random PPT states are not absolutely PPT
+    """Test that random PSD states are not always absolutely PPT."""
     np.random.seed(42)
     for dim in ([2, 2], [2, 3], [3, 3]):
         n = dim[0] * dim[1]
@@ -33,6 +36,7 @@ def test_random_psd_not_absolutely_ppt():
 
 
 def test_known_non_absolutely_ppt():
+    """Test a known non-absolutely PPT state (e.g., Bell state)."""
     # Construct a state that is PPT but not absolutely PPT for 2x2
     # Take a pure Bell state (not PPT, so not absolutely PPT)
     bell = np.zeros((4, 4), dtype=complex)
@@ -45,6 +49,7 @@ def test_known_non_absolutely_ppt():
 
 
 def test_invalid_input():
+    """Test that invalid input raises appropriate ValueError."""
     # Not square
     with pytest.raises(ValueError):
         is_abs_ppt(np.ones((3, 4)))
@@ -60,6 +65,7 @@ def test_invalid_input():
 
 
 def test_large_dim_returns_minus_one():
+    """Test that unsupported large dimensions return -1."""
     # 4x4 system (not implemented)
     rho = max_mixed(16)
     assert is_abs_ppt(rho, [4, 4]) == -1
