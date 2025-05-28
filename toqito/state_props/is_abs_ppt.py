@@ -142,14 +142,3 @@ def is_abs_ppt(mat: np.ndarray, dim: None | int | list[int] = None, tol: float =
     return True
 
 
-# TODO: Add the following BibTeX entry to docs/refs.bib if not present:
-# @article{Hildebrand_2007_PPT,
-#   author = {Roland Hildebrand},
-#   title = {Positive partial transpose from spectra},
-#   journal = {Physical Review. A},
-#   volume = {76},
-#   number = {5},
-#   year = {2007},
-#   doi = {10.1103/PHYSREVA.76.052325},
-#   url = {https://doi.org/10.1103/PHYSREVA.76.052325}
-# }
