@@ -6,9 +6,15 @@ from toqito.matrix_props import is_positive_semidefinite, is_square
 
 
 def _abs_ppt_constraints(eigvals: np.ndarray, dim: list[int]) -> list[np.ndarray]:
-    """Generate the constraint matrices for the absolutely PPT test, following QETLAB/AbsPPTConstraints.
+    r"""Generate the constraint matrices for the absolutely PPT test, following QETLAB/AbsPPTConstraints.
 
     Only implemented for 2x2, 2x3, and 3x3 systems.
+
+    References
+    ==========
+    .. bibliography::
+        :filter: docname in docnames
+        :key: Hildebrand_2007_PPT, QETLAB_IsAbsPPT
     """
     eigvals = np.sort(np.real(eigvals))[::-1]
     d1, d2 = dim
@@ -70,16 +76,32 @@ def _abs_ppt_constraints(eigvals: np.ndarray, dim: list[int]) -> list[np.ndarray
 
 
 def is_abs_ppt(mat: np.ndarray, dim: None | int | list[int] = None, tol: float = 1e-8) -> bool | int:
-    """Determine whether a density matrix is absolutely PPT (PPT from spectrum).
+    r"""Determine whether a density matrix is absolutely PPT (PPT from spectrum).
 
-    Args:
-        mat: The density matrix to check.
-        dim: The local dimensions (default: inferred as equal dims).
-        tol: Numerical tolerance for positive semidefinite checks.
+    A density matrix is absolutely PPT if every unitary conjugation of it is PPT. This is a spectrum-based property and can be checked using the Hildebrand/QETLAB constraints for small dimensions.
 
-    Returns:
-        True if absolutely PPT, False if not, -1 if undecidable (for large dims).
+    Examples
+    ==========
+    Consider the maximally mixed state in 2x2 dimensions:
 
+    .. jupyter-execute::
+
+        from toqito.states import max_mixed
+        from toqito.state_props import is_abs_ppt
+        rho = max_mixed(4)
+        is_abs_ppt(rho, [2, 2])
+
+    References
+    ==========
+    .. bibliography::
+        :filter: docname in docnames
+        :key: Hildebrand_2007_PPT, QETLAB_IsAbsPPT
+
+    :param mat: The density matrix to check.
+    :param dim: The local dimensions (default: inferred as equal dims).
+    :param tol: Numerical tolerance for positive semidefinite checks.
+    :return: :code:`True` if absolutely PPT, :code:`False` if not, :code:`-1` if undecidable (for large dims).
+    :raises ValueError: If the input matrix is not a valid density matrix.
     """
     if not is_square(mat):
         raise ValueError("Input matrix must be square.")
