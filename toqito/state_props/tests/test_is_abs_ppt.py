@@ -1,47 +1,52 @@
 """Unit tests for the is_abs_ppt function in toqito.state_props."""
 
+import re
+
 import numpy as np
 import pytest
 
-from toqito.rand import random_psd_operator
 from toqito.state_props import is_abs_ppt
-from toqito.states import max_mixed
+from toqito.states import bell, max_mixed
+
+
+@pytest.mark.parametrize("dims, n, expected_result", [([2, 2], 4, True), ([2, 3], 6, True), ([3, 3], 9, True)])
+def test_maximally_mixed_states(dims, n, expected_result):
+    """Test that maximally mixed states are absolutely PPT for supported dimensions."""
+    rho = max_mixed(n)
+    assert is_abs_ppt(rho, dims) == expected_result
 
 
 @pytest.mark.parametrize(
-    "dims, n",
-    [([2, 2], 4), ([2, 3], 6), ([3, 3], 9)]
+    "matrix, dims, expected_result",
+    [
+        # 2x2: Bell state (not absolutely PPT)
+        (bell(2) @ bell(2).conj().T, [2, 2], False),
+        # 2x3: Diagonal state with sorted eigenvalues (not absolutely PPT)
+        (np.diag([0.4, 0.2, 0.15, 0.1, 0.1, 0.05]), [2, 3], False),
+        # 2x3: Diagonal state with unsatisfying spectrum (not absolutely PPT)
+        (np.diag([0.7, 0.1, 0.1, 0.05, 0.03, 0.02]), [2, 3], False),
+        # 3x3: Diagonal state with sorted eigenvalues (absolutely PPT)
+        (np.diag([1 / 9] * 9), [3, 3], True),
+        # 3x3: Diagonal state with unsatisfying spectrum (not absolutely PPT)
+        (np.diag([0.5, 0.2, 0.1, 0.07, 0.05, 0.03, 0.03, 0.01, 0.01]), [3, 3], False),
+        # 2x2: Separable pure product state (not absolutely PPT)
+        (np.array([[1, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]), [2, 2], False),
+        # 2x3: Separable pure product state (not absolutely PPT)
+        (np.eye(6)[[0], :].T @ np.eye(6)[[0], :], [2, 3], False),
+        # 2x2: Permuted maximally mixed state (should be absolutely PPT)
+        (np.eye(4)[[2, 0, 3, 1], :][:, [2, 0, 3, 1]] * 0.25, [2, 2], True),
+        # 3x3: Block-diagonal state with two large and one small block (not absolutely PPT)
+        (np.diag([0.45, 0.45, 0.05, 0.01, 0.01, 0.01, 0.01, 0.005, 0.005]), [3, 3], False),
+        # 3x3: State with one eigenvalue close to 1 (not absolutely PPT)
+        (np.diag([0.97, 0.01, 0.01, 0.003, 0.002, 0.002, 0.001, 0.001, 0.001]), [3, 3], False),
+    ],
 )
-def test_maximally_mixed_states(dims, n):
-    """Test that maximally mixed states are absolutely PPT for supported dimensions."""
-    rho = max_mixed(n)
-    assert is_abs_ppt(rho, dims) is True
+def test_known_absppt_and_non_absppt(matrix, dims, expected_result):
+    """Test known absolutely PPT and non-absolutely PPT states for 2x2, 2x3, 3x3, and edge cases."""
+    # Normalize if not already
+    matrix = matrix / np.trace(matrix)
+    assert is_abs_ppt(matrix, dims) == expected_result
 
-
-@pytest.mark.parametrize("dims", [([2, 2]), ([2, 3]), ([3, 3])])
-def test_random_psd_not_absolutely_ppt(dims):
-    """Test that random PSD states are not always absolutely PPT."""
-    np.random.seed(42)
-    n = dims[0] * dims[1]
-    for _ in range(3):
-        rho = random_psd_operator(n)
-        rho = rho / np.trace(rho)
-        res = is_abs_ppt(rho, dims)
-        assert res in [True, False, -1]
-
-
-def test_known_non_absolutely_ppt():
-    """Test a known non-absolutely PPT state (e.g., Bell state)."""
-    bell = np.zeros((4, 4), dtype=complex)
-    bell[0, 3] = bell[3, 0] = 1 / 2
-    bell[1, 2] = bell[2, 1] = 1 / 2
-    bell[0, 0] = bell[3, 3] = 1 / 2
-    bell[1, 1] = bell[2, 2] = 1 / 2
-    bell = bell / np.trace(bell)
-    assert is_abs_ppt(bell, [2, 2]) is False
-
-
-import re
 
 @pytest.mark.parametrize(
     "matrix, error_msg",
@@ -50,7 +55,7 @@ import re
         (np.array([[0, 1], [0, 0]]), "Input matrix must be Hermitian."),
         (np.eye(4) * 2, "Input matrix must have trace 1"),
         (np.array([[1, 0], [0, -1]]), "Input matrix must be positive semidefinite."),
-    ]
+    ],
 )
 def test_invalid_input(matrix, error_msg):
     """Test that invalid input raises appropriate ValueError with correct message."""

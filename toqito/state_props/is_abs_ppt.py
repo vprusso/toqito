@@ -2,19 +2,15 @@
 
 import numpy as np
 
-from toqito.matrix_props import is_positive_semidefinite, is_square
+from toqito.matrix_props import is_hermitian, is_positive_semidefinite, is_square
 
 
 def _abs_ppt_constraints(eigvals: np.ndarray, dim: list[int]) -> list[np.ndarray]:
     r"""Generate the constraint matrices for the absolutely PPT test, following QETLAB/AbsPPTConstraints.
 
-    Only implemented for 2x2, 2x3, and 3x3 systems.
+    :cite:`Hildebrand_2007_PPT, QETLAB_link`.
 
-    References
-    ==========
-    .. bibliography::
-        :filter: docname in docnames
-        :key: Hildebrand_2007_PPT, QETLAB_IsAbsPPT
+    Only implemented for 2x2, 2x3, and 3x3 systems.
     """
     eigvals = np.sort(np.real(eigvals))[::-1]
     d1, d2 = dim
@@ -78,7 +74,10 @@ def _abs_ppt_constraints(eigvals: np.ndarray, dim: list[int]) -> list[np.ndarray
 def is_abs_ppt(mat: np.ndarray, dim: None | int | list[int] = None, tol: float = 1e-8) -> bool | int:
     r"""Determine whether a density matrix is absolutely PPT (PPT from spectrum).
 
-    A density matrix is absolutely PPT if every unitary conjugation of it is PPT. This is a spectrum-based property and can be checked using the Hildebrand/QETLAB constraints for small dimensions.
+    :cite:`Hildebrand_2007_PPT, QETLAB_link`.
+
+    A density matrix is absolutely PPT if every unitary conjugation of it is PPT. This is a spectrum-based
+    property and can be checked using the Hildebrand/QETLAB constraints for small dimensions.
 
     Examples
     ==========
@@ -91,26 +90,26 @@ def is_abs_ppt(mat: np.ndarray, dim: None | int | list[int] = None, tol: float =
         rho = max_mixed(4)
         is_abs_ppt(rho, [2, 2])
 
-    References
-    ==========
-    .. bibliography::
-        :filter: docname in docnames
-        :key: Hildebrand_2007_PPT, QETLAB_IsAbsPPT
-
     :param mat: The density matrix to check.
     :param dim: The local dimensions (default: inferred as equal dims).
     :param tol: Numerical tolerance for positive semidefinite checks.
     :return: :code:`True` if absolutely PPT, :code:`False` if not, :code:`-1` if undecidable (for large dims).
-    :raises ValueError: If the input matrix is not a valid density matrix.
+    :raises ValueError: If the input matrix is not square, not Hermitian, does not have trace 1, is not positive
+        semidefinite, or if the provided dimensions do not match the matrix size.
+
+    Note:
+        Returns -1 if the absolutely PPT property is undecidable for the given dimensions (i.e., for dimensions
+        other than 2x2, 2x3, 3x2, or 3x3).
+
     """
     if not is_square(mat):
         raise ValueError("Input matrix must be square.")
-    if not np.allclose(mat, mat.conj().T, atol=tol):
+    if not is_hermitian(mat, atol=tol):
         raise ValueError("Input matrix must be Hermitian.")
+    if not is_positive_semidefinite(mat, atol=tol):
+        raise ValueError("Input matrix must be positive semidefinite.")
     if not np.isclose(np.trace(mat), 1, atol=tol):
         raise ValueError("Input matrix must have trace 1 (density matrix).")
-    if np.any(np.linalg.eigvalsh(mat) < -tol):
-        raise ValueError("Input matrix must be positive semidefinite.")
 
     n = mat.shape[0]
     # Infer dimensions if not provided
@@ -141,3 +140,16 @@ def is_abs_ppt(mat: np.ndarray, dim: None | int | list[int] = None, tol: float =
         if not is_positive_semidefinite(L, atol=tol):
             return False
     return True
+
+
+# TODO: Add the following BibTeX entry to docs/refs.bib if not present:
+# @article{Hildebrand_2007_PPT,
+#   author = {Roland Hildebrand},
+#   title = {Positive partial transpose from spectra},
+#   journal = {Physical Review. A},
+#   volume = {76},
+#   number = {5},
+#   year = {2007},
+#   doi = {10.1103/PHYSREVA.76.052325},
+#   url = {https://doi.org/10.1103/PHYSREVA.76.052325}
+# }
