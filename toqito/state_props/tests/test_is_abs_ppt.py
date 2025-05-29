@@ -55,10 +55,21 @@ def test_known_absppt_and_non_absppt(matrix, dims, expected_result):
         (np.array([[0, 1], [0, 0]]), "Input matrix must be Hermitian."),
         (np.eye(4) * 2, "Input matrix must have trace 1"),
         (np.array([[1, 0], [0, -1]]), "Input matrix must be positive semidefinite."),
+        # Complex non-Hermitian case
+        (np.array([[0, 1j], [0, 0]]), "Input matrix must be Hermitian."),
+        # Numerical tolerance edge case: make smallest eigenvalue negative
+        (
+            lambda: (
+                lambda m: (m := np.eye(4) / 4, m.__setitem__((0, 0), m[0, 0] - 0.3), m := m / np.trace(m), m)[-1]
+            )(),
+            "Input matrix must be positive semidefinite.",
+        ),
     ],
 )
 def test_invalid_input(matrix, error_msg):
     """Test that invalid input raises appropriate ValueError with correct message."""
+    if callable(matrix):
+        matrix = matrix()
     with pytest.raises(ValueError, match=re.escape(error_msg)):
         is_abs_ppt(matrix)
 
@@ -72,9 +83,11 @@ def test_large_dim_returns_none():
 def test_abs_ppt_constraints_not_implemented():
     """Test NotImplementedError is raised for dimensions > 3x3 in _abs_ppt_constraints."""
     from toqito.state_props.is_abs_ppt import _abs_ppt_constraints
+
     eigvals = np.ones(16)
-    with pytest.raises(NotImplementedError,
-                       match="Absolutely PPT constraints for dimensions > 3x3 are not implemented."):
+    with pytest.raises(
+        NotImplementedError, match="Absolutely PPT constraints for dimensions > 3x3 are not implemented."
+    ):
         _abs_ppt_constraints(eigvals, [4, 4])
 
 
@@ -89,19 +102,3 @@ def test_dim_as_int():
     """Test that dim as int is handled correctly (should be [2,2] for 4x4)."""
     rho = max_mixed(4)
     assert is_abs_ppt(rho, 2) is True
-
-
-def test_numerical_tolerance_edge_case():
-    """Test that a non-PSD input matrix raises ValueError."""
-    mat = np.eye(4) / 4
-    mat[0, 0] -= 0.3  # Make the smallest eigenvalue negative
-    mat /= np.trace(mat)  # Ensure trace is 1
-    with pytest.raises(ValueError, match="Input matrix must be positive semidefinite."):
-        is_abs_ppt(mat)
-
-
-def test_complex_non_hermitian():
-    """Test that a non-Hermitian complex matrix raises the correct error."""
-    mat = np.array([[0, 1j], [0, 0]])
-    with pytest.raises(ValueError, match="Input matrix must be Hermitian."):
-        is_abs_ppt(mat)

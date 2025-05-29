@@ -164,6 +164,7 @@ def is_abs_ppt(mat: np.ndarray, dim: None | int | list[int] = None, atol: float 
     for k in range(1, n + 1):
         constraints.append(cp.lambda_sum_largest(rho_var, k) <= np.sum(eigvals[:k]) + atol)
         constraints.append(cp.lambda_sum_largest(rho_var, k) >= np.sum(eigvals[:k]) - atol)
+
     # Partial transpose constraint: rho_var^{T_B} >= 0
     def partial_transpose(mat, dims, sys=1):
         # sys=1 means partial transpose on second subsystem
@@ -171,6 +172,7 @@ def is_abs_ppt(mat: np.ndarray, dim: None | int | list[int] = None, atol: float 
         mat = cp.reshape(mat, (d1, d2, d1, d2))
         mat = cp.transpose(mat, (0, 3, 2, 1))
         return cp.reshape(mat, (n, n))
+
     rho_pt = partial_transpose(rho_var, [d1, d2])
     constraints.append(rho_pt >> 0)
     prob = cp.Problem(cp.Minimize(0), constraints)
@@ -184,5 +186,3 @@ def is_abs_ppt(mat: np.ndarray, dim: None | int | list[int] = None, atol: float 
         return False
     else:
         return None
-
-
