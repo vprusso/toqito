@@ -104,7 +104,6 @@ def is_abs_ppt(mat: np.ndarray, dim: None | int | list[int] = None, atol: float 
     ==========
     .. bibliography::
         :filter: docname in docnames
-        :key: Hildebrand_2007_PPT, QETLAB_link
 
     """
     if not is_square(mat):
