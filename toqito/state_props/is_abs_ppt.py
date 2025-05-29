@@ -71,13 +71,16 @@ def _abs_ppt_constraints(eigvals: np.ndarray, dim: list[int]) -> list[np.ndarray
     return constraints
 
 
-def is_abs_ppt(mat: np.ndarray, dim: None | int | list[int] = None, tol: float = 1e-8) -> bool | int:
+def is_abs_ppt(mat: np.ndarray, dim: None | int | list[int] = None, atol: float = 1e-8) -> bool | None:
     r"""Determine whether a density matrix is absolutely PPT (PPT from spectrum).
 
-    :cite:`Hildebrand_2007_PPT, QETLAB_link`.
+    This function checks whether a density matrix is absolutely PPT using the Hildebrand constraints
+    for 2x2, 2x3, and 3x3 bipartite systems :cite:`Hildebrand_2007_PPT`
+    and the reference implementation from QETLAB :cite:`QETLAB_link`.
 
-    A density matrix is absolutely PPT if every unitary conjugation of it is PPT. This is a spectrum-based
-    property and can be checked using the Hildebrand/QETLAB constraints for small dimensions.
+    Note:
+        The Hildebrand/QETLAB constraints are only known for 2x2, 2x3, and 3x3 bipartite systems.
+        For other dimensions, the absolutely PPT property is undecidable with this method and the function returns None.
 
     Examples
     ==========
@@ -92,23 +95,25 @@ def is_abs_ppt(mat: np.ndarray, dim: None | int | list[int] = None, tol: float =
 
     :param mat: The density matrix to check.
     :param dim: The local dimensions (default: inferred as equal dims).
-    :param tol: Numerical tolerance for positive semidefinite checks.
-    :return: :code:`True` if absolutely PPT, :code:`False` if not, :code:`-1` if undecidable (for large dims).
+    :param atol: Numerical tolerance for positive semidefinite checks.
+    :return: :code:`True` if absolutely PPT, :code:`False` if not, :code:`None` if undecidable (for large dims).
     :raises ValueError: If the input matrix is not square, not Hermitian, does not have trace 1, is not positive
         semidefinite, or if the provided dimensions do not match the matrix size.
 
-    Note:
-        Returns -1 if the absolutely PPT property is undecidable for the given dimensions (i.e., for dimensions
-        other than 2x2, 2x3, 3x2, or 3x3).
+    References
+    ==========
+    .. bibliography::
+        :filter: docname in docnames
+        :key: Hildebrand_2007_PPT, QETLAB_link
 
     """
     if not is_square(mat):
         raise ValueError("Input matrix must be square.")
-    if not is_hermitian(mat, atol=tol):
+    if not is_hermitian(mat, atol=atol):
         raise ValueError("Input matrix must be Hermitian.")
-    if not is_positive_semidefinite(mat, atol=tol):
+    if not is_positive_semidefinite(mat, atol=atol):
         raise ValueError("Input matrix must be positive semidefinite.")
-    if not np.isclose(np.trace(mat), 1, atol=tol):
+    if not np.isclose(np.trace(mat), 1, atol=atol):
         raise ValueError("Input matrix must have trace 1 (density matrix).")
 
     n = mat.shape[0]
@@ -129,15 +134,15 @@ def is_abs_ppt(mat: np.ndarray, dim: None | int | list[int] = None, tol: float =
     if d1 * d2 != n:
         raise ValueError(f"Dimensions {d1} x {d2} do not match matrix size {n}.")
 
-    # Only implemented for 2x2, 2x3, 3x2, 3x3
+    # Only implemented for 2x2, 2x3, 3x2, 3x3 (see Hildebrand 2007, QETLAB)
     if (d1, d2) not in [(2, 2), (2, 3), (3, 2), (3, 3)]:
-        return -1  # undecidable for now
+        return None  # undecidable for now
 
     eigvals = np.linalg.eigvalsh(mat)
     eigvals = np.sort(np.real(eigvals))[::-1]
     constraints = _abs_ppt_constraints(eigvals, [d1, d2])
     for L in constraints:
-        if not is_positive_semidefinite(L, atol=tol):
+        if not is_positive_semidefinite(L, atol=atol):
             return False
     return True
 

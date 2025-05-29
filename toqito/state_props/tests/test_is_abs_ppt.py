@@ -63,7 +63,45 @@ def test_invalid_input(matrix, error_msg):
         is_abs_ppt(matrix)
 
 
-def test_large_dim_returns_minus_one():
-    """Test that unsupported large dimensions return -1."""
+def test_large_dim_returns_none():
+    """Test that unsupported large dimensions return None."""
     rho = max_mixed(16)
-    assert is_abs_ppt(rho, [4, 4]) == -1
+    assert is_abs_ppt(rho, [4, 4]) is None
+
+
+def test_abs_ppt_constraints_not_implemented():
+    """Test NotImplementedError is raised for dimensions > 3x3 in _abs_ppt_constraints."""
+    from toqito.state_props.is_abs_ppt import _abs_ppt_constraints
+    eigvals = np.ones(16)
+    with pytest.raises(NotImplementedError,
+                       match="Absolutely PPT constraints for dimensions > 3x3 are not implemented."):
+        _abs_ppt_constraints(eigvals, [4, 4])
+
+
+def test_dimension_mismatch():
+    """Test ValueError is raised when provided dimensions do not match matrix size."""
+    rho = max_mixed(4)
+    with pytest.raises(ValueError, match="Dimensions 2 x 3 do not match matrix size 4."):
+        is_abs_ppt(rho, [2, 3])
+
+
+def test_dim_as_int():
+    """Test that dim as int is handled correctly (should be [2,2] for 4x4)."""
+    rho = max_mixed(4)
+    assert is_abs_ppt(rho, 2) is True
+
+
+def test_numerical_tolerance_edge_case():
+    """Test that a non-PSD input matrix raises ValueError."""
+    mat = np.eye(4) / 4
+    mat[0, 0] -= 0.3  # Make the smallest eigenvalue negative
+    mat /= np.trace(mat)  # Ensure trace is 1
+    with pytest.raises(ValueError, match="Input matrix must be positive semidefinite."):
+        is_abs_ppt(mat)
+
+
+def test_complex_non_hermitian():
+    """Test that a non-Hermitian complex matrix raises the correct error."""
+    mat = np.array([[0, 1j], [0, 0]])
+    with pytest.raises(ValueError, match="Input matrix must be Hermitian."):
+        is_abs_ppt(mat)
