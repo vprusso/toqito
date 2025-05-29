@@ -11,6 +11,8 @@ from toqito.helper import npa_constraints, update_odometer
 from toqito.matrix_ops import tensor
 from toqito.rand import random_povm
 
+from binary_constraint_system_game import check_perfect_commuting_strategy,tensor_to_raw
+
 
 @nb.njit
 def _fast_classical_value(pred_mat: np.ndarray, num_b_out: int, num_b_in: int, pow_arr: np.ndarray):
@@ -132,6 +134,8 @@ class NonlocalGame:
                 i_ind = update_odometer(i_ind, num_alice_in * np.ones(reps))
             self.pred_mat = pred_mat2
             self.reps = reps
+        # _raw_constraints will store the original 1D BCS constraints (if provided) for later analysis.
+        self._raw_constraints = None
 
     @classmethod
     def from_bcs_game(cls, constraints: list[np.ndarray], reps: int = 1) -> "NonlocalGame":
@@ -143,6 +147,7 @@ class NonlocalGame:
         :param reps: Number of parallel repetitions to perform. Default is 1.
         :return: A NonlocalGame object arising from the variables and constraints that define the game.
         """
+            
         if (num_constraints := len(constraints)) == 0:
             raise ValueError("At least 1 constraint is required")
         num_variables = constraints[0].ndim
@@ -160,7 +165,10 @@ class NonlocalGame:
         for j in range(num_constraints):
             p_x = 1.0 / num_constraints
             num_dependent_vars = dependent_variables[j].sum()
-            p_y = dependent_variables[j] / num_dependent_vars
+            if num_dependent_vars == 0:
+                raise ValueError(f"Constraint {j} is degenerate (has no dependent variables).")
+            else:
+                p_y = dependent_variables[j] / num_dependent_vars
             prob_mat[j] = p_x * p_y
 
         # Compute the prediction matrix.
@@ -180,8 +188,51 @@ class NonlocalGame:
                     # Check if this satisfies the constraint.
                     if constraints[x_ques][truth_assignment] == 1:
                         pred_mat[a_ans, b_ans, x_ques, y_ques] = 1
+        game = cls(prob_mat, pred_mat, reps)
+        game._raw_constraints = constraints
+        return game
+    
+    def is_bcs_perfect_commuting_strategy(self) -> bool:
+        r"""Determine whether the underlying BCS game admits a perfect commuting-operator strategy.
 
-        return cls(prob_mat, pred_mat, reps)
+        This method converts the stored BCS constraints into a binary matrix M and a binary vector b,
+        using the convention that a constant value of +1 becomes 0 and -1 becomes 1.
+        If the stored raw constraints are in tensor form, they are first converted back to a 1D form
+        using the helper function tensor_to_raw.
+        It then calls the imported function check_perfect_commuting_strategy to determine whether a
+        perfect commuting-operator strategy exists.
+
+        Returns
+        -------
+        bool
+            True if a perfect commuting-operator strategy exists; False otherwise.
+
+        Raises
+        ------
+        ValueError
+            If no constraints were stored.
+        """
+        if self._raw_constraints is None:
+            raise ValueError("No raw BCS constraints stored; cannot check strategy.")
+
+        # If the stored constraints are tensor-form (i.e. not 1D), convert them to raw (1D) form.
+        if self._raw_constraints[0].ndim != 1:
+            converted = []
+            for tensor_constraint in self._raw_constraints:
+                converted.append(tensor_to_raw(tensor_constraint))
+            raw_constraints = converted
+        else:
+            raw_constraints = self._raw_constraints
+
+        # Now, for each raw constraint (which should be a 1D array of length n+1),
+        # extract M (all entries except the last) and b (derived from the last entry).
+        M_list = [c[:-1] for c in raw_constraints]
+        b_list = [0 if c[-1] == 1 else 1 for c in raw_constraints]
+        M_array = np.array(M_list, dtype=int)
+        b_array = np.array(b_list, dtype=int)
+        return check_perfect_commuting_strategy(M_array, b_array)
+
+
 
     def process_iteration(i:int, num_bob_outputs:int, num_bob_inputs:int, pred_mat_copy:np.ndarray,
                           num_alice_outputs:int, num_alice_inputs:int)-> float:
