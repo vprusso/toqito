@@ -13,7 +13,6 @@ from toqito.rand import random_povm
 
 from binary_constraint_system_game import check_perfect_commuting_strategy,tensor_to_raw
 
-
 @nb.njit
 def _fast_classical_value(pred_mat: np.ndarray, num_b_out: int, num_b_in: int, pow_arr: np.ndarray):
     r"""Compute the classical winning probability by iterating over all deterministic strategies.
