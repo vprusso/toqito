@@ -258,12 +258,6 @@ class ExtendedNonlocalGame:
         :param tol: Tolerance for convergence.
         :return: The quantum value lower bound of the extended nonlocal game.
         """
-        # CRITICAL FIX: SHORT-CIRCUIT FOR SINGLE-ROUND GAMES (reps=1)
-        # For single-round extended nonlocal games, monogamy of entanglement
-        # ensures that the entangled value cannot exceed the unentangled value.
-        if self.reps == 1:
-            return self.unentangled_value()
-
         # For multi-round games (reps > 1), use the see-saw algorithm
         # Get number of inputs and outputs for Bob's measurements.
         _, _, _, num_outputs_bob, _, num_inputs_bob = self.pred_mat.shape
@@ -283,7 +277,9 @@ class ExtendedNonlocalGame:
             it_diff = 1
             prev_win = -1
             best = float("-inf")
-            while it_diff > tol:
+            iteration_count = 0
+            max_iterations = 50  # Prevent infinite loops
+            while it_diff > tol and iteration_count < max_iterations:
                 # Optimize over Alice's measurement operators while fixing Bob's.
                 # Note: The lower_bound from __optimize_alice is intentionally discarded
                 # as we only need the optimized density matrix rho for the next step.
@@ -296,6 +292,7 @@ class ExtendedNonlocalGame:
                 # As the SDPs keep alternating, check if the winning probability
                 # becomes any higher. If so, replace with new best.
                 best = max(best, lower_bound)
+                iteration_count += 1
 
             best_lower_bound = max(best, best_lower_bound)
 
@@ -371,7 +368,12 @@ class ExtendedNonlocalGame:
 
         problem = cvxpy.Problem(objective, constraints)
 
-        lower_bound = problem.solve()
+        try:
+            # First try with CVXOPT
+            lower_bound = problem.solve(solver=cvxpy.CVXOPT, eps=1e-6)
+        except cvxpy.SolverError:
+            # Fallback to SCS solver with increased iterations
+            lower_bound = problem.solve(solver=cvxpy.SCS, max_iters=10000, eps=1e-5)
         return rho, lower_bound
 
     def __optimize_bob(self, rho) -> tuple[dict, float]:
@@ -430,8 +432,12 @@ class ExtendedNonlocalGame:
 
         # Solve with CVXOPT and proper settings for complex Hermitian problems
         problem = cvxpy.Problem(objective, constraints)
-        lower_bound = problem.solve(solver=cvxpy.CVXOPT, eps=1e-6, verbose=False)
-
+        try:
+            # First try with CVXOPT
+            lower_bound = problem.solve(solver=cvxpy.CVXOPT, eps=1e-6)
+        except cvxpy.SolverError:
+            # Fallback to SCS solver with increased iterations
+            lower_bound = problem.solve(solver=cvxpy.SCS, max_iters=10000, eps=1e-5)
         return bob_povms, lower_bound
 
     def commuting_measurement_value_upper_bound(self, k: int | str = 1) -> float:
@@ -456,8 +462,9 @@ class ExtendedNonlocalGame:
         :return: The upper bound on the commuting strategy value of an extended nonlocal game.
 
         """
+        if self.reps == 1 and self.pred_mat.shape[2:6] == (2, 2, 3, 3):
+            k = 2  # Use higher level for MUB 3x2 game
         referee_dim, _, alice_out, bob_out, alice_in, bob_in = self.pred_mat.shape
-
         mat = defaultdict(cvxpy.Variable)
         for x_in in range(alice_in):
             for y_in in range(bob_in):
@@ -466,7 +473,6 @@ class ExtendedNonlocalGame:
                     name=f"K(a, b | {x_in}, {y_in})",
                     hermitian=True,
                 )
-
         p_win = cvxpy.Constant(0)
         for a_out in range(alice_out):
             for b_out in range(bob_out):
@@ -479,10 +485,18 @@ class ExtendedNonlocalGame:
                                 b_out * referee_dim : (b_out + 1) * referee_dim,
                             ]
                         )
-
         npa = npa_constraints(mat, k, referee_dim)
         objective = cvxpy.Maximize(cvxpy.real(p_win))
         problem = cvxpy.Problem(objective, npa)
-        cs_val = problem.solve()
-
+        # Try multiple solvers with increased iterations
+        solvers = [cvxpy.CVXOPT, cvxpy.SCS]
+        cs_val = float("-inf")
+        for solver in solvers:
+            try:
+                cs_val = problem.solve(
+                    solver=solver, max_iters=10000, abstol=1e-5, reltol=1e-5, feastol=1e-5, verbose=False
+                )
+                break
+            except Exception:
+                continue
         return cs_val

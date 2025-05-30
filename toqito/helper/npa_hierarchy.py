@@ -153,13 +153,12 @@ def npa_constraints(
 
     """
     a_out, a_in, b_out, b_in = _get_nonlocal_game_params(assemblage, referee_dim)
-
     words = _gen_words(k, a_out, a_in, b_out, b_in)
     dim = len(words)
 
     r_var = cvxpy.Variable((referee_dim * dim, referee_dim * dim), hermitian=True, name="R")
     # Normalization.
-    norm = sum(r_var[i * dim, i * dim] for i in range(referee_dim))
+    norm = sum(r_var[i * referee_dim, i * referee_dim] for i in range(referee_dim))
     constraints = [norm == 1, r_var >> 0]
 
     seen = {}
@@ -169,117 +168,116 @@ def npa_constraints(
             w_i = tuple(reversed(w_i))
             word = _reduce(w_i + w_j)
 
-            sub_mat = r_var[i::dim, j::dim]
-            # if i = 0 we would consider (ε, ε) as an empty word.
-            if i != 0 and _is_zero(word):
-                constraints.append(sub_mat == 0)
+            # Correct block extraction with contiguous slicing
+            block = r_var[i * referee_dim : (i + 1) * referee_dim, j * referee_dim : (j + 1) * referee_dim]
 
+            if i != 0 and _is_zero(word):
+                constraints.append(block == 0)
             elif _is_meas(word):
                 s_a, s_b = word
                 constraints.append(
-                    sub_mat
+                    block
                     == assemblage[s_a.question, s_b.question][
                         s_a.answer * referee_dim : (s_a.answer + 1) * referee_dim,
                         s_b.answer * referee_dim : (s_b.answer + 1) * referee_dim,
                     ]
                 )
-
             elif _is_meas_on_one_player(word):
                 symbol = word[0]
                 if symbol.player == "Alice":
                     sum_all_bob_meas = sum(
-                        assemblage[symbol.question, 0][
-                            symbol.answer * referee_dim : (symbol.answer + 1) * referee_dim,
-                            b_ans * referee_dim : (b_ans + 1) * referee_dim,
+                        [
+                            assemblage[symbol.question, y][
+                                symbol.answer * referee_dim : (symbol.answer + 1) * referee_dim,
+                                b_ans * referee_dim : (b_ans + 1) * referee_dim,
+                            ]
+                            for y in range(b_in)
+                            for b_ans in range(b_out)
                         ]
-                        for b_ans in range(b_out)
                     )
-
-                    constraints.append(sub_mat == sum_all_bob_meas)
-
+                    constraints.append(block == sum_all_bob_meas)
                 if symbol.player == "Bob":
                     sum_all_alice_meas = sum(
-                        assemblage[0, symbol.question][
-                            a_ans * referee_dim : (a_ans + 1) * referee_dim,
-                            symbol.answer * referee_dim : (symbol.answer + 1) * referee_dim,
+                        [
+                            assemblage[x, symbol.question][
+                                a_ans * referee_dim : (a_ans + 1) * referee_dim,
+                                symbol.answer * referee_dim : (symbol.answer + 1) * referee_dim,
+                            ]
+                            for x in range(a_in)
+                            for a_ans in range(a_out)
                         ]
-                        for a_ans in range(a_out)
                     )
-
-                    constraints.append(sub_mat == sum_all_alice_meas)
-
+                    constraints.append(block == sum_all_alice_meas)
             elif word in seen:
-                old_i, old_j = seen[word]
-                old_sub_mat = r_var[old_i::dim, old_j::dim]
-                constraints.append(sub_mat == old_sub_mat)
-
+                first_i, first_j = seen[word]
+                first_block = r_var[
+                    first_i * referee_dim : (first_i + 1) * referee_dim,
+                    first_j * referee_dim : (first_j + 1) * referee_dim,
+                ]
+                constraints.append(block == first_block)
             else:
                 seen[word] = (i, j)
 
-    # now we impose constraints to the assemblage operator
+    # Assemblage constraints
     for x_alice_in in range(a_in):
         for y_bob_in in range(b_in):
-            sum_all_meas_and_trace = 0
+            total_trace = 0
             for a_ans in range(a_out):
                 for b_ans in range(b_out):
-                    sum_all_meas_and_trace += sum(
-                        assemblage[x_alice_in, y_bob_in][i + a_ans * referee_dim, i + b_ans * referee_dim]
-                        for i in range(referee_dim)
-                    )
-
-                    # r x r sub - block is PSD since it's an unnormalized quantum state.
-                    constraints.append(
-                        assemblage[x_alice_in, y_bob_in][
-                            a_ans * referee_dim : (a_ans + 1) * referee_dim,
-                            b_ans * referee_dim : (b_ans + 1) * referee_dim,
-                        ]
-                        >> 0
-                    )
-
-            constraints.append(sum_all_meas_and_trace == 1)
+                    block = assemblage[x_alice_in, y_bob_in][
+                        a_ans * referee_dim : (a_ans + 1) * referee_dim,
+                        b_ans * referee_dim : (b_ans + 1) * referee_dim,
+                    ]
+                    constraints.append(block >> 0)
+                    total_trace += cvxpy.trace(block)
+            constraints.append(total_trace == 1)
 
     # Bob marginal consistency
     for y_bob_in in range(b_in):
         for b_ans in range(b_out):
-            sum_first_question = sum(
-                assemblage[0, y_bob_in][
-                    a_ans * referee_dim : (a_ans + 1) * referee_dim,
-                    b_ans * referee_dim : (b_ans + 1) * referee_dim,
-                ]
-                for a_ans in range(a_out)
-            )
-
-            for x_alice_in in range(1, a_in):
-                sum_cur_question = sum(
-                    assemblage[x_alice_in, y_bob_in][
+            sum_first = sum(
+                [
+                    assemblage[0, y_bob_in][
                         a_ans * referee_dim : (a_ans + 1) * referee_dim,
                         b_ans * referee_dim : (b_ans + 1) * referee_dim,
                     ]
                     for a_ans in range(a_out)
+                ]
+            )
+            for x_alice_in in range(1, a_in):
+                sum_current = sum(
+                    [
+                        assemblage[x_alice_in, y_bob_in][
+                            a_ans * referee_dim : (a_ans + 1) * referee_dim,
+                            b_ans * referee_dim : (b_ans + 1) * referee_dim,
+                        ]
+                        for a_ans in range(a_out)
+                    ]
                 )
-
-                constraints.append(sum_first_question == sum_cur_question)
+                constraints.append(sum_first == sum_current)
 
     # Alice marginal consistency
     for x_alice_in in range(a_in):
         for a_ans in range(a_out):
-            sum_first_question = sum(
-                assemblage[x_alice_in, 0][
-                    a_ans * referee_dim : (a_ans + 1) * referee_dim,
-                    b_ans * referee_dim : (b_ans + 1) * referee_dim,
-                ]
-                for b_ans in range(b_out)
-            )
-
-            for y_bob_in in range(1, b_in):
-                sum_cur_question = sum(
-                    assemblage[x_alice_in, y_bob_in][
+            sum_first = sum(
+                [
+                    assemblage[x_alice_in, 0][
                         a_ans * referee_dim : (a_ans + 1) * referee_dim,
                         b_ans * referee_dim : (b_ans + 1) * referee_dim,
                     ]
                     for b_ans in range(b_out)
+                ]
+            )
+            for y_bob_in in range(1, b_in):
+                sum_current = sum(
+                    [
+                        assemblage[x_alice_in, y_bob_in][
+                            a_ans * referee_dim : (a_ans + 1) * referee_dim,
+                            b_ans * referee_dim : (b_ans + 1) * referee_dim,
+                        ]
+                        for b_ans in range(b_out)
+                    ]
                 )
-
-                constraints.append(sum_first_question == sum_cur_question)
+                constraints.append(sum_first == sum_current)
 
     return constraints
