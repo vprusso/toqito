@@ -8,7 +8,6 @@ import numpy as np
 from toqito.helper import npa_constraints, update_odometer
 from toqito.matrix_ops import tensor
 from toqito.rand import random_unitary
-from toqito.rand import random_povm
 
 
 class ExtendedNonlocalGame:
@@ -386,7 +385,7 @@ class ExtendedNonlocalGame:
             num_inputs_alice,
             num_inputs_bob,
         ) = self.pred_mat.shape
-        
+
         # The cvxpy package does not support optimizing over 4-dimensional objects.
         # To overcome this, we use a dictionary to index between the questions and
         # answers, while the cvxpy variables held at this positions are
@@ -395,7 +394,7 @@ class ExtendedNonlocalGame:
         for y_ques in range(num_inputs_bob):
             for b_ans in range(num_outputs_bob):
                 bob_povms[y_ques, b_ans] = cvxpy.Variable((dim, dim), hermitian=True)
-        
+
         win = 0
         for x_ques in range(num_inputs_alice):
             for y_ques in range(num_inputs_bob):
@@ -410,14 +409,14 @@ class ExtendedNonlocalGame:
                             )
                             @ rho[x_ques, a_ans].value
                         )
-        
+
         objective = cvxpy.Maximize(cvxpy.real(win))
         constraints = []
-        
+
         # CRITICAL FIX: Create a CVXPY Constant identity of the correct complex size
         # The identity should be on the referee's space (dimension `dim`), not Bob's output space
         I_dim = cvxpy.Constant(np.eye(dim, dtype=complex))
-        
+
         # Sum over "b" for all "y" for Bob's measurements (POVM completeness)
         for y_ques in range(num_inputs_bob):
             bob_sum_b = 0
@@ -428,13 +427,12 @@ class ExtendedNonlocalGame:
                 bob_sum_b += bob_povms[y_ques, b_ans]
             # CRITICAL FIX: Completeness on the referee's space (dim x dim), not Bob's output space
             constraints.append(bob_sum_b == I_dim)
-        
+
         # Solve with CVXOPT and proper settings for complex Hermitian problems
         problem = cvxpy.Problem(objective, constraints)
         lower_bound = problem.solve(solver=cvxpy.CVXOPT, eps=1e-6, verbose=False)
-        
-        return bob_povms, lower_bound
 
+        return bob_povms, lower_bound
 
     def commuting_measurement_value_upper_bound(self, k: int | str = 1) -> float:
         """Compute an upper bound on the commuting measurement value of an extended nonlocal game.
