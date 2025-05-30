@@ -186,3 +186,41 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         expected_res = 3 / 4
 
         self.assertEqual(np.isclose(res, expected_res, atol=0.001), True)
+
+    
+    def test_mub_3in2out_entangled_bounds(self):
+        """Test that entangled lower bound does not exceed upper bound for MUB 3-in,2-out game."""
+        # Construct the game
+        e0, e1 = basis(2, 0), basis(2, 1)
+        ep = (e0 + e1) / np.sqrt(2)
+        em = (e0 - e1) / np.sqrt(2)
+        dim = 2
+        a_out = b_out = 2
+        a_in = b_in = 3
+        pred_mat = np.zeros([dim, dim, a_out, b_out, a_in, b_in])
+        pred_mat[:, :, 0, 0, 0, 0] = e0 @ e0.conj().T
+        pred_mat[:, :, 1, 1, 0, 0] = e1 @ e1.conj().T
+        pred_mat[:, :, 0, 0, 1, 1] = ep @ ep.conj().T
+        pred_mat[:, :, 1, 1, 1, 1] = em @ em.conj().T
+        pred_mat[:, :, 0, 0, 2, 2] = em @ em.conj().T
+        pred_mat[:, :, 1, 1, 2, 2] = ep @ ep.conj().T
+        prob_mat = 1/3 * np.identity(3)
+        game = ExtendedNonlocalGame(prob_mat, pred_mat, reps=1)
+        
+        # Compute values
+        unent = game.unentangled_value()
+        ent_lb = game.quantum_value_lower_bound(iters=4, tol=1e-3)
+        ent_ub = game.commuting_measurement_value_upper_bound()
+        ns = game.nonsignaling_value()
+        
+        # Check ordering
+        assert unent <= ent_lb + 1e-6, "Unentangled value should not exceed entangled lower bound"
+        assert ent_lb <= ent_ub + 1e-6, "Entangled lower bound should not exceed upper bound"
+        assert ent_ub <= ns + 1e-6, "Entangled upper bound should not exceed nonsignaling value"
+        
+        # Check expected values (within tolerance)
+        np.testing.assert_allclose(unent, 2/3, atol=1e-2)
+        np.testing.assert_allclose(ent_lb, 2/3, atol=1e-2)
+        np.testing.assert_allclose(ent_ub, 2/3, atol=1e-2)
+        np.testing.assert_allclose(ns, 0.8727, atol=1e-2)
+    

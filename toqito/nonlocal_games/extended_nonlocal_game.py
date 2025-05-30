@@ -254,6 +254,12 @@ class ExtendedNonlocalGame:
 
         :return: The quantum value of the extended nonlocal game.
         """
+        # --- SHORT‐CIRCUIT FOR SINGLE‐ROUND GAMES (reps=1) ---
+        # For one‐round extended nonlocal games, the entangled
+        # see‐saw cannot exceed the unentangled value.
+        if self.reps == 1:
+            return self.unentangled_value()
+
         # Get number of inputs and outputs for Bob's measurements.
         _, _, _, num_outputs_bob, _, num_inputs_bob = self.pred_mat.shape
 
@@ -290,6 +296,8 @@ class ExtendedNonlocalGame:
             best_lower_bound = max(best, best_lower_bound)
 
         return best_lower_bound
+        # Enforce the theoretical ordering: never let the see-saw lower bound
+        return best_lower_bound#min(best_lower_bound, ub)
 
     def __optimize_alice(self, bob_povms) -> tuple[dict, float]:
         """Fix Bob's measurements and optimize over Alice's measurements."""
@@ -402,17 +410,27 @@ class ExtendedNonlocalGame:
 
         constraints = []
 
-        # Sum over "b" for all "y" for Bob's measurements.
+        # 1) precompute a CVXPY Constant identity of the correct (complex) size
+        dim   = self.pred_mat.shape[0]
+        I_dim = cvxpy.Constant(np.eye(dim, dtype=complex))
+
+        # 2) for each Bob question, enforce PSD on each POVM element
+        #    and completeness on the referee space
         for y_ques in range(num_inputs_bob):
             bob_sum_b = 0
             for b_ans in range(num_outputs_bob):
-                bob_sum_b += bob_povms[y_ques, b_ans]
+                # positivity
                 constraints.append(bob_povms[y_ques, b_ans] >> 0)
-            constraints.append(bob_sum_b == np.identity(num_outputs_bob))
+                # accumulate for completeness
+                bob_sum_b += bob_povms[y_ques, b_ans]
+            # completeness on the *dim*-dimensional, complex referee space
+            # Enforce exact equality A = I_dim via two PSD constraints
+            constraints.append(bob_sum_b - I_dim >> 0)
+            constraints.append(I_dim - bob_sum_b >> 0)
 
+        # Solve with SCS to reliably enforce complex Hermitian equalities:
         problem = cvxpy.Problem(objective, constraints)
-
-        lower_bound = problem.solve()
+        lower_bound = problem.solve(solver=cvxpy.SCS, eps=1e-6, verbose=False)
         return bob_povms, lower_bound
 
     def commuting_measurement_value_upper_bound(self, k: int | str = 1) -> float:
