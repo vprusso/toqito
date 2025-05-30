@@ -14,26 +14,33 @@ from toqito.rand import random_povm
 from binary_constraint_system_game import check_perfect_commuting_strategy,tensor_to_raw
 
 @nb.njit
-def _fast_classical_value(pred_mat: np.ndarray, num_b_out: int, num_b_in: int, pow_arr: np.ndarray):
-    r"""Compute the classical winning probability by iterating over all deterministic strategies.
-    Expects pred_mat shaped (A_out, A_in, B_out, B_in),
-    where B_out == num_b_out and B_in == num_b_in.
+def _fast_classical_value(pred_mat: np.ndarray, num_b_out: int, num_b_in: int, pow_arr: np.ndarray) -> float:
+    r"""
+    Compute the classical winning probability using deterministic strategies.
+
+    This function iterates over all possible deterministic strategies for Bob, and for each one,
+    chooses Alice's best response to maximize the overall winning probability. It is optimized
+    with Numba for fast computation on large games.
+
     Parameters
     ==========
     pred_mat : np.ndarray
-        Weighted predicate matrix of shape (A_out, A_in, B_out, B_in).
+        A 4-dimensional array of shape (A_out, A_in, B_out, B_in), representing the predicate
+        tensor of the game.
     num_b_out : int
-        Number of Bob's possible outputs.
+        The number of output choices for Bob.
     num_b_in : int
-        Number of Bob's possible inputs.
+        The number of input questions Bob may receive.
     pow_arr : np.ndarray
-        Array of powers for decoding Bob's outputs.
+        An array of powers used to decode Bob's deterministic strategy index.
+
     Returns
     =======
     float
-        Maximum summed probability over all deterministic strategies.
-    Example
-    =======
+        The classical winning probability optimized over all deterministic strategies.
+
+    Examples
+    ========
     >>> import numpy as np
     >>> from toqito.nonlocal_games.nonlocal_game import NonlocalGame
     >>> c1 = np.zeros((2, 2)); c2 = np.zeros((2, 2))
@@ -192,25 +199,25 @@ class NonlocalGame:
         return game
     
     def is_bcs_perfect_commuting_strategy(self) -> bool:
-        r"""Determine whether the underlying BCS game admits a perfect commuting-operator strategy.
+        r"""
+        Determine if the BCS game admits a perfect commuting-operator strategy.
 
-        This method converts the stored BCS constraints into a binary matrix M and a binary vector b,
-        using the convention that a constant value of +1 becomes 0 and -1 becomes 1.
-        If the stored raw constraints are in tensor form, they are first converted back to a 1D form
-        using the helper function tensor_to_raw.
-        It then calls the imported function check_perfect_commuting_strategy to determine whether a
-        perfect commuting-operator strategy exists.
+        This method checks whether the binary constraint system game, from which the current
+        nonlocal game was constructed, has a perfect quantum strategy in the commuting-operator model.
+        It converts the raw BCS tensor constraints (if needed) into matrix form and evaluates
+        their satisfiability using a helper function.
 
         Returns
-        -------
+        =======
         bool
             True if a perfect commuting-operator strategy exists; False otherwise.
 
         Raises
-        ------
+        ======
         ValueError
-            If no constraints were stored.
+            If no constraints are stored (i.e., if the game was not created from a BCS game).
         """
+
         if self._raw_constraints is None:
             raise ValueError("No raw BCS constraints stored; cannot check strategy.")
 
