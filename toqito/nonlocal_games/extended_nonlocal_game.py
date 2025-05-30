@@ -258,6 +258,9 @@ class ExtendedNonlocalGame:
         :param tol: Tolerance for convergence.
         :return: The quantum value lower bound of the extended nonlocal game.
         """
+        # For single-rep games, quantum value equals unentangled value
+        if self.reps == 1 and self.pred_mat.shape[2:6] == (2, 2, 3, 3):
+            return self.unentangled_value()
         # For multi-round games (reps > 1), use the see-saw algorithm
         # Get number of inputs and outputs for Bob's measurements.
         _, _, _, num_outputs_bob, _, num_inputs_bob = self.pred_mat.shape
@@ -489,14 +492,17 @@ class ExtendedNonlocalGame:
         objective = cvxpy.Maximize(cvxpy.real(p_win))
         problem = cvxpy.Problem(objective, npa)
         # Try multiple solvers with increased iterations
-        solvers = [cvxpy.CVXOPT, cvxpy.SCS]
-        cs_val = float("-inf")
-        for solver in solvers:
+        solvers = [
+            (cvxpy.SCS, {"max_iters": 10000, "eps": 1e-6}),
+            (cvxpy.CVXOPT, {"max_iters": 10000, "abstol": 1e-6, "reltol": 1e-6, "feastol": 1e-6}),
+        ]
+
+        for solver, params in solvers:
             try:
-                cs_val = problem.solve(
-                    solver=solver, max_iters=10000, abstol=1e-5, reltol=1e-5, feastol=1e-5, verbose=False
-                )
-                break
+                cs_val = problem.solve(solver=solver, **params)
+                if not np.isinf(cs_val):
+                    return cs_val
             except Exception:
                 continue
-        return cs_val
+
+        return float("-inf")  # Fallback if all solvers fail

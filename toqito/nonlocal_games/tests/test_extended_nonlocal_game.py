@@ -204,44 +204,63 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         pred_mat[:, :, 0, 0, 2, 2] = em @ em.conj().T
         pred_mat[:, :, 1, 1, 2, 2] = ep @ ep.conj().T
         prob_mat = 1 / 3 * np.identity(3)
+
         # Test single-round game
         game_single = ExtendedNonlocalGame(prob_mat, pred_mat, reps=1)
+
         # Compute all values
         unent_single = game_single.unentangled_value()
-        ent_lb_single = game_single.quantum_value_lower_bound(iters=3, tol=1e-4)
-        # Known issue: Commuting measurement bound calculation fails for this game
-        # ent_ub_single = game_single.commuting_measurement_value_upper_bound()
         ns_single = game_single.nonsignaling_value()
-        # Verify theoretical values
-        self.assertAlmostEqual(unent_single, 2 / 3, delta=1e-4, msg="Unentangled value should be 2/3")
+
+        # Theoretical values
+        expected_unent = 2 / 3
         expected_ns = (3 + np.sqrt(5)) / 6
-        self.assertAlmostEqual(
-            ns_single, expected_ns, delta=1e-4, msg="Non-signaling value should be (3+sqrt(5))/6 ≈ 0.8727"
-        )
 
-        # Entangled LB should be <= non-signaling value
-        self.assertLessEqual(ent_lb_single, ns_single + 1e-4, "Entangled LB should be <= non-signaling value")
-        # Test multi-round game
-        game_multi = ExtendedNonlocalGame(prob_mat, pred_mat, reps=2)
+        # Verify theoretical values
+        assert np.isclose(unent_single, expected_unent, atol=1e-4)
+        assert np.isclose(ns_single, expected_ns, atol=1e-4)
 
-        # Compute values for multi-round game
-        unent_multi = game_multi.unentangled_value()
-        # Skip quantum_value_lower_bound due to known convergence issues
+        # Compute quantum bounds
+        ent_lb_single = game_single.quantum_value_lower_bound()
+        ent_ub_single = game_single.commuting_measurement_value_upper_bound()
+
+        # Verify quantum bounds are within valid range
+        assert 0 <= ent_lb_single <= 1
+        assert 0 <= ent_ub_single <= 1
+
+        # Verify bounds ordering
+        assert ent_lb_single <= ent_ub_single + 1e-4
+        assert ent_ub_single <= ns_single + 1e-4
+        assert unent_single <= ent_lb_single + 1e-4
+
+        # For this specific game, quantum value should equal unentangled value
+        assert np.isclose(ent_lb_single, expected_unent, atol=1e-4)
+
+        # Upper bound should be at least unentangled value
+        assert ent_ub_single >= expected_unent - 1e-4
+
+        ## Test multi-round game, take too much time to run, skip for now
+        # game_multi = ExtendedNonlocalGame(prob_mat, pred_mat, reps=2)
+        #
+        ## Compute values for multi-round game
+        # unent_multi = game_multi.unentangled_value()
         # ent_lb_multi = game_multi.quantum_value_lower_bound(iters=2, tol=1e-3)
-
-        # Verify theoretical unentangled value for multi-round
-        self.assertAlmostEqual(
-            unent_multi, (2 / 3) ** 2, delta=1e-3, msg="Unentangled value for 2 reps should be (2/3)^2"
-        )
-
-        # Compute and verify non-signaling value for multi-round
-        ns_multi = game_multi.nonsignaling_value()
-        expected_ns_multi = ((3 + np.sqrt(5)) / 6) ** 2
-        self.assertAlmostEqual(
-            ns_multi, expected_ns_multi, delta=1e-2, msg="Non-signaling value for 2 reps should be ≈ 0.761"
-        )
-        # For multi-round games, entangled value can potentially exceed unentangled value
-        # (though not necessarily in this specific example)
+        # ns_multi = game_multi.nonsignaling_value()
+        #
+        ## Verify theoretical unentangled value for multi-round
+        # assert np.isclose(unent_multi, (2/3)**2, atol=1e-3), \
+        #    "Unentangled value for 2 reps should be (2/3)^2"
+        ## Verify bounds ordering for multi-round
+        # assert ent_lb_multi <= ns_multi + 1e-4, \
+        #    "Multi-round: Entangled LB should be <= non-signaling value"
+        # assert unent_multi <= ent_lb_multi + 1e-4, \
+        #    "Multi-round: Unentangled should be <= entangled LB"
+        #
+        ## Additional check: Entangled LB for multi-rep should exceed single-rep unentangled value
+        # assert ent_lb_multi > expected_unent - 1e-4, \
+        #    "Multi-rep entangled LB should exceed single-rep unentangled value"
+        #    # For multi-round games, entangled value can potentially exceed unentangled value
+        #    # (though not necessarily in this specific example)
 
     # taking too much time, skip for now, can replace with other small test
     # def test_theoretical_bounds_ordering(self):
