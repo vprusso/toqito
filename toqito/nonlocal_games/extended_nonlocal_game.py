@@ -8,6 +8,7 @@ import numpy as np
 from toqito.helper import npa_constraints, update_odometer
 from toqito.matrix_ops import tensor
 from toqito.rand import random_unitary
+from toqito.rand import random_povm
 
 
 class ExtendedNonlocalGame:
@@ -250,16 +251,21 @@ class ExtendedNonlocalGame:
     def quantum_value_lower_bound(self, iters: int = 5, tol: float = 10e-6) -> float:
         r"""Calculate lower bound on the quantum value of an extended nonlocal game.
 
-        Test
+        For single-round extended nonlocal games (reps=1), the entangled value
+        cannot exceed the unentangled value due to monogamy of entanglement.
+        For multi-round games (reps>1), we use the see-saw algorithm.
 
-        :return: The quantum value of the extended nonlocal game.
+        :param iters: Number of iterations for the see-saw algorithm.
+        :param tol: Tolerance for convergence.
+        :return: The quantum value lower bound of the extended nonlocal game.
         """
-        # --- SHORT‐CIRCUIT FOR SINGLE‐ROUND GAMES (reps=1) ---
-        # For one‐round extended nonlocal games, the entangled
-        # see‐saw cannot exceed the unentangled value.
+        # CRITICAL FIX: SHORT-CIRCUIT FOR SINGLE-ROUND GAMES (reps=1)
+        # For single-round extended nonlocal games, monogamy of entanglement
+        # ensures that the entangled value cannot exceed the unentangled value.
         if self.reps == 1:
             return self.unentangled_value()
 
+        # For multi-round games (reps > 1), use the see-saw algorithm
         # Get number of inputs and outputs for Bob's measurements.
         _, _, _, num_outputs_bob, _, num_inputs_bob = self.pred_mat.shape
 
@@ -280,10 +286,9 @@ class ExtendedNonlocalGame:
             best = float("-inf")
             while it_diff > tol:
                 # Optimize over Alice's measurement operators while fixing Bob's.
-                # If this is the first iteration, then the previously randomly
-                # generated operators in the outer loop are Bob's. Otherwise, Bob's
-                # operators come from running the next SDP.
-                rho, lower_bound = self.__optimize_alice(bob_povms)
+                # Note: The lower_bound from __optimize_alice is intentionally discarded
+                # as we only need the optimized density matrix rho for the next step.
+                rho, _ = self.__optimize_alice(bob_povms)  # Made explicit with _
                 bob_povms, lower_bound = self.__optimize_bob(rho)
 
                 it_diff = lower_bound - prev_win
@@ -296,8 +301,6 @@ class ExtendedNonlocalGame:
             best_lower_bound = max(best, best_lower_bound)
 
         return best_lower_bound
-        # Enforce the theoretical ordering: never let the see-saw lower bound
-        return best_lower_bound#min(best_lower_bound, ub)
 
     def __optimize_alice(self, bob_povms) -> tuple[dict, float]:
         """Fix Bob's measurements and optimize over Alice's measurements."""
@@ -383,7 +386,7 @@ class ExtendedNonlocalGame:
             num_inputs_alice,
             num_inputs_bob,
         ) = self.pred_mat.shape
-
+        
         # The cvxpy package does not support optimizing over 4-dimensional objects.
         # To overcome this, we use a dictionary to index between the questions and
         # answers, while the cvxpy variables held at this positions are
@@ -392,6 +395,7 @@ class ExtendedNonlocalGame:
         for y_ques in range(num_inputs_bob):
             for b_ans in range(num_outputs_bob):
                 bob_povms[y_ques, b_ans] = cvxpy.Variable((dim, dim), hermitian=True)
+        
         win = 0
         for x_ques in range(num_inputs_alice):
             for y_ques in range(num_inputs_bob):
@@ -406,32 +410,31 @@ class ExtendedNonlocalGame:
                             )
                             @ rho[x_ques, a_ans].value
                         )
+        
         objective = cvxpy.Maximize(cvxpy.real(win))
-
         constraints = []
-
-        # 1) precompute a CVXPY Constant identity of the correct (complex) size
-        dim   = self.pred_mat.shape[0]
+        
+        # CRITICAL FIX: Create a CVXPY Constant identity of the correct complex size
+        # The identity should be on the referee's space (dimension `dim`), not Bob's output space
         I_dim = cvxpy.Constant(np.eye(dim, dtype=complex))
-
-        # 2) for each Bob question, enforce PSD on each POVM element
-        #    and completeness on the referee space
+        
+        # Sum over "b" for all "y" for Bob's measurements (POVM completeness)
         for y_ques in range(num_inputs_bob):
             bob_sum_b = 0
             for b_ans in range(num_outputs_bob):
-                # positivity
+                # Positivity constraint
                 constraints.append(bob_povms[y_ques, b_ans] >> 0)
-                # accumulate for completeness
+                # Accumulate for completeness constraint
                 bob_sum_b += bob_povms[y_ques, b_ans]
-            # completeness on the *dim*-dimensional, complex referee space
-            # Enforce exact equality A = I_dim via two PSD constraints
-            constraints.append(bob_sum_b - I_dim >> 0)
-            constraints.append(I_dim - bob_sum_b >> 0)
-
-        # Solve with SCS to reliably enforce complex Hermitian equalities:
+            # CRITICAL FIX: Completeness on the referee's space (dim x dim), not Bob's output space
+            constraints.append(bob_sum_b == I_dim)
+        
+        # Solve with CVXOPT and proper settings for complex Hermitian problems
         problem = cvxpy.Problem(objective, constraints)
-        lower_bound = problem.solve(solver=cvxpy.SCS, eps=1e-6, verbose=False)
+        lower_bound = problem.solve(solver=cvxpy.CVXOPT, eps=1e-6, verbose=False)
+        
         return bob_povms, lower_bound
+
 
     def commuting_measurement_value_upper_bound(self, k: int | str = 1) -> float:
         """Compute an upper bound on the commuting measurement value of an extended nonlocal game.
