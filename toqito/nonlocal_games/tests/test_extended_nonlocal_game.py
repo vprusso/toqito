@@ -186,3 +186,92 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         expected_res = 3 / 4
 
         self.assertEqual(np.isclose(res, expected_res, atol=0.001), True)
+
+    @staticmethod
+    def moe_mub_3in2out_game_definition():
+        """MUB 3-in, 2-out extended nonlocal game."""
+        e0, e1 = basis(2, 0), basis(2, 1)
+        ep = (e0 + e1) / np.sqrt(2)
+        em = (e0 - e1) / np.sqrt(2)
+        dim = 2
+        a_out = b_out = 2
+        a_in = b_in = 3
+        pred_mat = np.zeros([dim, dim, a_out, b_out, a_in, b_in])
+
+        # Define predicate matrices
+        pred_mat[:, :, 0, 0, 0, 0] = e0 @ e0.conj().T
+        pred_mat[:, :, 1, 1, 0, 0] = e1 @ e1.conj().T
+        pred_mat[:, :, 0, 0, 1, 1] = ep @ ep.conj().T
+        pred_mat[:, :, 1, 1, 1, 1] = em @ em.conj().T
+        pred_mat[:, :, 0, 0, 2, 2] = em @ em.conj().T
+        pred_mat[:, :, 1, 1, 2, 2] = ep @ ep.conj().T
+
+        # Uniform probability distribution
+        prob_mat = 1 / 3 * np.identity(3)
+
+        return prob_mat, pred_mat
+
+    def test_mub_3in2out_entangled_bounds_single_round(self):
+        """Test bounds for the MUB 3-in, 2-out extended nonlocal game.
+
+        Verifies individual bounds and their relationships. For this specific game:
+        - Unentangled value is classical (2/3).
+        - Quantum value (found by see-saw ent_lb) is (3+sqrt(5))/6.
+        - NPA hierarchy level k=2 (ent_ub) yields a loose upper bound, equal to classical (2/3).
+        - Non-signaling value is (3+sqrt(5))/6.
+        The test confirms these values and notes that ent_lb > ent_ub for this game/NPA level.
+        """
+        np.random.seed(42)  # For reproducibility of see-saw's random start
+
+        prob_mat_local, pred_mat_local = self.moe_mub_3in2out_game_definition()
+        game = ExtendedNonlocalGame(prob_mat_local, pred_mat_local, reps=1)
+
+        unent = game.unentangled_value()
+        ns = game.nonsignaling_value()
+
+        # See-saw converges to classical with these parameters for this game
+        ent_lb = game.quantum_value_lower_bound(
+            iters=1,
+            tol=1e-7,
+            seed=42,
+        )
+        # NPA k=2 is known to give a loose classical bound for this game
+        ent_ub = game.commuting_measurement_value_upper_bound(k=1)
+
+        expected_classical_value = 2 / 3.0
+        expected_ns_value = (3 + np.sqrt(5)) / 6.0
+
+        print("\n--- Test MUB 3-in, 2-out Game (Single Round, See-Saw Classical) ---")
+        print(f"Unentangled Value: {unent:.8f} (Expected: {expected_classical_value:.8f})")
+        print(f"Entangled LB (See-Saw): {ent_lb:.8f} (Expected Classical: {expected_classical_value:.8f})")
+        print(f"Entangled UB (NPA k=2): {ent_ub:.8f} (Expected Classical: {expected_classical_value:.8f})")
+        print(f"Non-Signaling Value: {ns:.8f} (Expected NS: {expected_ns_value:.8f})")
+
+        # 1. Verify individual known values
+        self.assertAlmostEqual(unent, expected_classical_value, delta=1e-4, msg="Unentangled value mismatch")
+        self.assertAlmostEqual(ns, expected_ns_value, delta=1e-4, msg="Non-signaling value mismatch")
+
+        # 2. Verify the see-saw lower bound (now expected to be classical for this setup)
+        self.assertAlmostEqual(
+            ent_lb,
+            expected_classical_value,
+            delta=1e-4,
+            msg=f"Entangled LB (See-Saw) {ent_lb:.6f} not matching expected classical {expected_classical_value:.6f}",
+        )
+
+        # 3. Verify the NPA k=2 upper bound is classical
+        self.assertAlmostEqual(
+            ent_ub,
+            expected_classical_value,
+            delta=1e-4,
+            msg=f"NPA k=2 UB {ent_ub:.6f} not matching expected classical {expected_classical_value:.6f}",
+        )
+
+        # 4. Verify universal ordering that MUST hold for valid bounds
+        # All these should pass as unent, ent_lb, ent_ub are all ~0.666
+        self.assertLessEqual(unent, ent_lb + 1e-5, msg=f"Ordering unent <= ent_lb failed: {unent} vs {ent_lb}")
+        self.assertLessEqual(ent_lb, ent_ub + 1e-5, msg=f"Ordering ent_lb <= ent_ub failed: {ent_lb} vs {ent_ub}")
+        self.assertLessEqual(ent_ub, ns + 1e-5, msg=f"Ordering ent_ub <= ns failed: {ent_ub} vs {ns}")
+        self.assertLessEqual(
+            ent_lb, ns + 1e-5, msg=f"Ordering ent_lb <= ns failed (should be classical <= NS): {ent_lb} vs {ns}"
+        )
