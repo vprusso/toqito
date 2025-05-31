@@ -20,76 +20,65 @@ def _reduce(word: tuple[Symbol, ...]) -> tuple[Symbol, ...]:
     if not word:
         return ()
 
-    # Handle cases that are purely identities
-    is_all_identity = all(s == IDENTITY_SYMBOL for s in word)
-    if is_all_identity:
-        return (IDENTITY_SYMBOL,) if word else ()  # If word was not empty, it's (I). If empty, it's ().
+    # Initial pass to filter out identities IF other ops are present
+    # and to establish Alice-then-Bob order.
+    # If only identities, result is (IDENTITY_SYMBOL,)
 
-    # Filter out identities if other operators are present, as I*S=S
-    # The IDENTITY_SYMBOL has player="", so it won't be in w_a or w_b below
-    # if mixed with actual Alice/Bob symbols.
-    # If word was e.g. (A00, I, B00), it becomes (A00, B00) after w_a, w_b separation.
-    # If word was (I, A00, I), it becomes (A00,).
+    current_list = [s for s in word if s != IDENTITY_SYMBOL]
+    if not current_list:  # Original word was all identities or empty
+        return (IDENTITY_SYMBOL,) if any(s == IDENTITY_SYMBOL for s in word) else ()
 
-    current_word_list_no_id = [s for s in word if s != IDENTITY_SYMBOL]
-    if not current_word_list_no_id:  # Should have been caught by is_all_identity
-        return (IDENTITY_SYMBOL,)
+    # Canonical player order (Alice then Bob), preserving original relative internal order
+    alice_ops = [s for s in current_list if s.player == "Alice"]
+    bob_ops = [s for s in current_list if s.player == "Bob"]
+    current_list = alice_ops + bob_ops  # This is now a list of Symbol objects
 
-    # Separate Alice and Bob symbols, preserving their internal relative order
-    w_a_list = [s for s in current_word_list_no_id if s.player == "Alice"]
-    w_b_list = [s for s in current_word_list_no_id if s.player == "Bob"]
-
-    # Canonical order: All Alice operators, then all Bob operators
-    # The internal order within w_a_list and w_b_list is preserved from input (after ID filtering)
-    processed_word_list = w_a_list + w_b_list
-
-    # Iteratively apply reduction rules (idempotence and orthogonality for adjacent symbols)
-    # This loop ensures that reductions are applied until no more can be made.
-    # E.g., A0 A0 A0 -> A0 A0 -> A0
-    # E.g., A0 A1 B0 -> (0) B0 -> (0)
+    # Iteratively apply reduction rules until no more changes occur
     while True:
-        if not processed_word_list:
-            return ()  # Reduced to zero
+        if not current_list:  # Reduced to zero
+            return ()
 
-        len_before = len(processed_word_list)
-        temp_list = []
-        i = 0
-        while i < len(processed_word_list):
-            s_x = processed_word_list[i]
+        len_before_pass = len(current_list)
+        next_pass_list = []
+        idx = 0
+        made_change_in_pass = False
 
-            if i + 1 < len(processed_word_list):
-                s_y = processed_word_list[i + 1]
+        while idx < len(current_list):
+            s_x = current_list[idx]
 
-                # Check for reduction:
-                # 1. Idempotence: S_x S_x = S_x
-                if s_x == s_y:
-                    temp_list.append(s_x)
-                    i += 2  # Consumed s_x and s_y, replaced with s_x
+            if idx + 1 < len(current_list):
+                s_y = current_list[idx + 1]
+
+                # Rule 1: Idempotence (S_x S_x = S_x)
+                # Only apply if s_x and s_y are from the same player.
+                # (Cross-player idempotence doesn't make sense here for A*A=A)
+                if s_x == s_y and s_x.player in ("Alice", "Bob"):  # s_x != IDENTITY_SYMBOL
+                    next_pass_list.append(s_x)
+                    idx += 2  # Consumed s_x, s_y; added s_x
+                    made_change_in_pass = True
                     continue
-                # 2. Orthogonality: S_x,a S_x,b = 0 if a!=b (for same player and question)
-                elif s_x.player == s_y.player and s_x.question == s_y.question and s_x.answer != s_y.answer:
-                    return ()  # Entire product becomes zero
+                # Rule 2: Orthogonality (S_x,a S_x,b = 0 if a!=b, for same player and question)
+                elif (
+                    s_x.player == s_y.player
+                    and s_x.player in ("Alice", "Bob")  # Ensure not identity
+                    and s_x.question == s_y.question
+                    and s_x.answer != s_y.answer
+                ):
+                    return ()  # Entire word becomes zero
                 else:
-                    # No reduction with s_y, keep s_x and move to check s_y next
-                    temp_list.append(s_x)
-                    i += 1
+                    # No reduction for this pair, keep s_x
+                    next_pass_list.append(s_x)
+                    idx += 1
             else:
-                # Last symbol, just append it
-                temp_list.append(s_x)
-                i += 1
+                # Last element, just append it
+                next_pass_list.append(s_x)
+                idx += 1
 
-        processed_word_list = temp_list
-        if len(processed_word_list) == len_before:
-            # No reductions made in this pass, canonical form reached
+        current_list = next_pass_list
+        if not made_change_in_pass and len(current_list) == len_before_pass:  # Stable
             break
 
-    final_tuple = tuple(processed_word_list)
-
-    # If the list became empty after all reductions, it's zero
-    if not final_tuple:
-        return ()
-
-    return final_tuple
+    return tuple(current_list) if current_list else ()
 
 
 def _parse(k_str: str) -> tuple[int, set[tuple[int, int]]]:
