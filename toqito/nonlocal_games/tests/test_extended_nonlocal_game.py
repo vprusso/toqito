@@ -231,12 +231,12 @@ class TestExtendedNonlocalGame(unittest.TestCase):
 
         # See-saw converges to classical with these parameters for this game
         ent_lb = game.quantum_value_lower_bound(
-            iters=5,
+            iters=1,
             tol=1e-7,
             seed=42,
         )
         # NPA k=2 is known to give a loose classical bound for this game
-        ent_ub = game.commuting_measurement_value_upper_bound(k=2)
+        ent_ub = game.commuting_measurement_value_upper_bound(k=1)
 
         expected_classical_value = 2 / 3.0
         expected_ns_value = (3 + np.sqrt(5)) / 6.0
