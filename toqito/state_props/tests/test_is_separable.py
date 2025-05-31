@@ -34,7 +34,7 @@ def separable_state_2x3_rank3():
 def test_entangled_zhang_realignment_criterion():
     """Test for entanglement using Zhang's realignment criterion (Bell state)."""
     rho = bell(0) @ bell(0).conj().T
-    assert is_separable(rho, dim=[2, 2]) is False
+    assert not is_separable(rho, dim=[2, 2])
 
 
 def test_entangled_qutrit_qutrit():
@@ -43,13 +43,13 @@ def test_entangled_qutrit_qutrit():
         np.kron(basis(3, 0), basis(3, 0)) + np.kron(basis(3, 1), basis(3, 1)) + np.kron(basis(3, 2), basis(3, 2))
     )
     rho = np.outer(psi, psi)
-    assert is_separable(rho, dim=[3, 3]) is False
+    assert not is_separable(rho, dim=[3, 3])
 
 
 def test_entangled_breuer_hall_path_non_ppt():
     """Test Breuer-Hall path with a non-PPT state (Bell state)."""
     rho = bell(0) @ bell(0).conj().T
-    assert is_separable(rho, dim=[2, 2]) is False
+    assert not is_separable(rho, dim=[2, 2])
 
 
 def test_non_positive_semidefinite_matrix():
@@ -61,9 +61,9 @@ def test_non_positive_semidefinite_matrix():
 
 def test_psd_matrix_local_dim_one():
     """Every positive semidefinite matrix is separable when one of the local dimensions is 1."""
-    assert is_separable(np.identity(2) / 2, dim=[1, 2]) is True
-    assert is_separable(np.identity(3) / 3, dim=[3, 1]) is True
-    assert is_separable(np.array([[1.0]]), dim=[1, 1]) is True
+    assert is_separable(np.identity(2) / 2, dim=[1, 2])
+    assert is_separable(np.identity(3) / 3, dim=[3, 1])
+    assert is_separable(np.array([[1.0]]), dim=[1, 1])
 
 
 def test_invalid_dim_parameter():
@@ -76,7 +76,7 @@ def test_invalid_dim_parameter():
 def test_entangled_ppt_criterion():
     """Determined to be entangled via the PPT criterion."""
     rho = bell(0) @ bell(0).conj().T
-    assert is_separable(rho, dim=[2, 2]) is False
+    assert not is_separable(rho, dim=[2, 2])
 
 
 def test_ppt_small_dimensions_2x2_product():
@@ -84,7 +84,7 @@ def test_ppt_small_dimensions_2x2_product():
     psi_A = basis(2, 0)
     psi_B = basis(2, 0)
     rho_prod_2x2 = np.outer(np.kron(psi_A, psi_B), np.kron(psi_A, psi_B).conj())
-    assert is_separable(rho_prod_2x2, dim=[2, 2]) is True
+    assert is_separable(rho_prod_2x2, dim=[2, 2])
 
 
 def test_ppt_small_dimensions_2x3_product():
@@ -92,7 +92,7 @@ def test_ppt_small_dimensions_2x3_product():
     psi_A = basis(2, 0)
     psi_B = (basis(3, 0) + basis(3, 1)) / np.sqrt(2)
     rho_prod_2x3 = np.outer(np.kron(psi_A, psi_B), np.kron(psi_A, psi_B).conj())
-    assert is_separable(rho_prod_2x3, dim=[2, 3]) is True
+    assert is_separable(rho_prod_2x3, dim=[2, 3])
 
 
 def test_entangled_realignment_criterion_tiles_state():
@@ -102,13 +102,13 @@ def test_entangled_realignment_criterion_tiles_state():
         rho_tiles = rho_tiles - tile(i) @ tile(i).conj().T
     rho_tiles = rho_tiles / 4
     assert is_density(rho_tiles)
-    assert is_separable(rho_tiles, dim=[3, 3]) is False
+    assert not is_separable(rho_tiles, dim=[3, 3])
 
 
 def test_entangled_cross_norm_realignment_criterion_non_ppt():
     """Entangled: Original matrix for Zhang et al. (non-PPT)."""
     rho_bell = bell(0) @ bell(0).conj().T
-    assert is_separable(rho_bell, dim=[2, 2]) is False
+    assert not is_separable(rho_bell, dim=[2, 2])
 
 
 def test_separable_closeness_to_maximally_mixed_state():
@@ -128,7 +128,7 @@ def test_separable_closeness_to_maximally_mixed_state():
         dtype=complex,
     )
     rho = rho_raw / np.trace(rho_raw)
-    assert is_separable(rho, dim=[3, 3]) is True
+    assert is_separable(rho, dim=[3, 3])
 
 
 def test_separable_small_rank1_perturbation_of_maximally_mixed_state():
@@ -148,7 +148,7 @@ def test_separable_small_rank1_perturbation_of_maximally_mixed_state():
         dtype=complex,
     )
     rho = rho_raw / np.trace(rho_raw)
-    assert is_separable(rho, dim=[3, 3]) is True
+    assert is_separable(rho, dim=[3, 3])
 
 
 def test_separable_operator_schmidt_rank_2():
@@ -159,7 +159,7 @@ def test_separable_operator_schmidt_rank_2():
     B2 = random_density_matrix(3)
     rho = 0.5 * np.kron(A1, B1) + 0.5 * np.kron(A2, B2)
     rho = rho / np.trace(rho)
-    assert is_separable(rho, dim=[3, 3]) is True
+    assert is_separable(rho, dim=[3, 3])
 
 
 def test_entangled_symmetric_extension_dps():
@@ -179,7 +179,7 @@ def test_entangled_symmetric_extension_dps():
         dtype=complex,
     )
     rho = rho_raw / np.trace(rho_raw)
-    assert is_separable(rho, dim=[3, 3], level=2) is False
+    assert not is_separable(rho, dim=[3, 3], level=2)
 
 
 def test_separable_based_on_eigenvalues_2x2_product_state():
@@ -187,7 +187,7 @@ def test_separable_based_on_eigenvalues_2x2_product_state():
     psi_A = basis(2, 0)
     psi_B = basis(2, 1)
     rho = np.outer(np.kron(psi_A, psi_B), np.kron(psi_A, psi_B).conj())
-    assert is_separable(rho, dim=[2, 2]) is True
+    assert is_separable(rho, dim=[2, 2])
 
 
 def test_product_state_separable():
@@ -195,19 +195,19 @@ def test_product_state_separable():
     psiA = np.array([1, 0], dtype=complex)
     psiB = np.array([0, 1], dtype=complex)
     rho = np.outer(np.kron(psiA, psiB), np.kron(psiA, psiB).conj())
-    assert is_separable(rho, [2, 2]) is True
+    assert is_separable(rho, [2, 2])
 
 
 def test_bell_state_entangled():
     """Entangled: Bell state (non-PPT)."""
     rho = bell(0) @ bell(0).conj().T
-    assert is_separable(rho, [2, 2]) is False
+    assert not is_separable(rho, [2, 2])
 
 
 def test_horodecki_operational_criterion_rank_le_max_dim():
     """Separable: Horodecki Op. (rank <= max_dim) for 2x3 rank 3 state."""
     rho = separable_state_2x3_rank3()
-    assert is_separable(rho, [2, 3]) is True
+    assert is_separable(rho, [2, 3])
 
 
 def test_horodecki_operational_criterion_rank_sum_separable():
@@ -239,7 +239,7 @@ def test_ppt_entangled_state_is_not_separable_tiles():
         f"Tiles state PT_B not PSD as expected. Evals: {np.linalg.eigvalsh(pt_tiles_B)}"
     )
 
-    assert is_separable(rho_tiles, dim=[3, 3]) is False
+    assert not is_separable(rho_tiles, dim=[3, 3])
 
 
 def test_realignment_detects_entanglement_isotropic_3x3():
@@ -247,13 +247,13 @@ def test_realignment_detects_entanglement_isotropic_3x3():
     dim_param = 3
     alpha = 0.4
     rho_iso = isotropic(dim_param, alpha)
-    assert is_separable(rho_iso, [dim_param, dim_param]) is False
+    assert not is_separable(rho_iso, [dim_param, dim_param])
 
 
 def test_reduction_criterion_catches_entanglement_non_ppt():
     """test_reduction_criterion_catches_entanglement_non_ppt."""
     rho = bell(0) @ bell(0).conj().T
-    assert is_separable(rho, [2, 2]) is False
+    assert not is_separable(rho, [2, 2])
 
 
 def test_separable_3x3_rank4_ppt_chow_form():
@@ -277,6 +277,6 @@ def test_separable_3x3_rank4_ppt_chow_form():
     rho = rho / np.trace(rho)
 
     if np.linalg.matrix_rank(rho, tol=1e-7) == 4:
-        assert is_separable(rho, dim=[3, 3]) is True
+        assert is_separable(rho, dim=[3, 3])
     else:
         pytest.skip("Constructed 3x3 state not rank 4, skipping specific det(F) separable test.")
