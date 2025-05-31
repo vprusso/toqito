@@ -250,25 +250,16 @@ class ExtendedNonlocalGame:
     def quantum_value_lower_bound(self, iters: int = 5, tol: float = 10e-6) -> float:
         r"""Calculate lower bound on the quantum value of an extended nonlocal game.
 
-        For single-round extended nonlocal games (reps=1), the entangled value
-        cannot exceed the unentangled value due to monogamy of entanglement.
-        For multi-round games (reps>1), we use the see-saw algorithm.
+        Test
 
-        :param iters: Number of iterations for the see-saw algorithm.
-        :param tol: Tolerance for convergence.
-        :return: The quantum value lower bound of the extended nonlocal game.
+        :return: The quantum value of the extended nonlocal game.
         """
-        # For single-rep games, quantum value equals unentangled value
-        if self.reps == 1 and self.pred_mat.shape[2:6] == (2, 2, 3, 3):
-            return self.unentangled_value()
-        # For multi-round games (reps > 1), use the see-saw algorithm
         # Get number of inputs and outputs for Bob's measurements.
         _, _, _, num_outputs_bob, _, num_inputs_bob = self.pred_mat.shape
 
         best_lower_bound = float("-inf")
         for _ in range(iters):
-            # Generate a set of random POVMs for Bob. These measurements serve as a
-            # rough starting point for the alternating projection algorithm.
+            # Generate random POVMs for Bob
             bob_povms = defaultdict(int)
             for y_ques in range(num_inputs_bob):
                 random_mat = random_unitary(num_outputs_bob)
@@ -276,30 +267,31 @@ class ExtendedNonlocalGame:
                     random_mat_trans = random_mat[:, b_ans].conj().T.reshape(-1, 1)
                     bob_povms[y_ques, b_ans] = random_mat[:, b_ans] * random_mat_trans
 
-            # Run the alternating projection algorithm between the two SDPs.
-            it_diff = 1
-            prev_win = -1
-            best = float("-inf")
-            iteration_count = 0
-            max_iterations = 50  # Prevent infinite loops
-            while it_diff > tol and iteration_count < max_iterations:
-                # Optimize over Alice's measurement operators while fixing Bob's.
-                # Note: The lower_bound from __optimize_alice is intentionally discarded
-                # as we only need the optimized density matrix rho for the next step.
-                rho, _ = self.__optimize_alice(bob_povms)  # Made explicit with _
-                bob_povms, lower_bound = self.__optimize_bob(rho)
+        # Run see-saw optimization
+        prev_win = -1
+        best = float("-inf")
+        converged = False
+        iteration = 0
+        max_iter = 20
+        while not converged and iteration < max_iter:
+            rho, _ = self.__optimize_alice(bob_povms)
+            bob_povms, new_lower_bound = self.__optimize_bob(rho)
 
-                it_diff = lower_bound - prev_win
-                prev_win = lower_bound
+            # Check for convergence and numerical issues
+            if abs(new_lower_bound - prev_win) < tol and new_lower_bound > 0:
+                converged = True
+            # Add validation to prevent numerical divergence
+            if new_lower_bound > 1.0 or new_lower_bound < 0 or np.isnan(new_lower_bound):
+                break  # neumerical failure
 
-                # As the SDPs keep alternating, check if the winning probability
-                # becomes any higher. If so, replace with new best.
-                best = max(best, lower_bound)
-                iteration_count += 1
+            prev_win = new_lower_bound
+            best = max(best, new_lower_bound)
+            iteration += 1
 
-            best_lower_bound = max(best, best_lower_bound)
-
-        return best_lower_bound
+        # Ensure we don't return invalid bounds
+        if best < 0 or np.isnan(best):
+            return 0
+        return max(best, best_lower_bound)
 
     def __optimize_alice(self, bob_povms) -> tuple[dict, float]:
         """Fix Bob's measurements and optimize over Alice's measurements."""
@@ -371,12 +363,7 @@ class ExtendedNonlocalGame:
 
         problem = cvxpy.Problem(objective, constraints)
 
-        try:
-            # First try with CVXOPT
-            lower_bound = problem.solve(solver=cvxpy.CVXOPT, eps=1e-6)
-        except cvxpy.SolverError:
-            # Fallback to SCS solver with increased iterations
-            lower_bound = problem.solve(solver=cvxpy.SCS, max_iters=10000, eps=1e-5)
+        lower_bound = problem.solve()
         return rho, lower_bound
 
     def __optimize_bob(self, rho) -> tuple[dict, float]:
@@ -414,33 +401,21 @@ class ExtendedNonlocalGame:
                             )
                             @ rho[x_ques, a_ans].value
                         )
-
         objective = cvxpy.Maximize(cvxpy.real(win))
+
         constraints = []
 
-        # CRITICAL FIX: Create a CVXPY Constant identity of the correct complex size
-        # The identity should be on the referee's space (dimension `dim`), not Bob's output space
-        I_dim = cvxpy.Constant(np.eye(dim, dtype=complex))
-
-        # Sum over "b" for all "y" for Bob's measurements (POVM completeness)
+        # Sum over "b" for all "y" for Bob's measurements.
         for y_ques in range(num_inputs_bob):
             bob_sum_b = 0
             for b_ans in range(num_outputs_bob):
-                # Positivity constraint
-                constraints.append(bob_povms[y_ques, b_ans] >> 0)
-                # Accumulate for completeness constraint
                 bob_sum_b += bob_povms[y_ques, b_ans]
-            # CRITICAL FIX: Completeness on the referee's space (dim x dim), not Bob's output space
-            constraints.append(bob_sum_b == I_dim)
+                constraints.append(bob_povms[y_ques, b_ans] >> 0)
+            constraints.append(bob_sum_b == np.identity(num_outputs_bob))
 
-        # Solve with CVXOPT and proper settings for complex Hermitian problems
         problem = cvxpy.Problem(objective, constraints)
-        try:
-            # First try with CVXOPT
-            lower_bound = problem.solve(solver=cvxpy.CVXOPT, eps=1e-6)
-        except cvxpy.SolverError:
-            # Fallback to SCS solver with increased iterations
-            lower_bound = problem.solve(solver=cvxpy.SCS, max_iters=10000, eps=1e-5)
+
+        lower_bound = problem.solve()
         return bob_povms, lower_bound
 
     def commuting_measurement_value_upper_bound(self, k: int | str = 1) -> float:
@@ -465,8 +440,6 @@ class ExtendedNonlocalGame:
         :return: The upper bound on the commuting strategy value of an extended nonlocal game.
 
         """
-        if self.reps == 1 and self.pred_mat.shape[2:6] == (2, 2, 3, 3):
-            k = 2  # Use higher level for MUB 3x2 game
         referee_dim, _, alice_out, bob_out, alice_in, bob_in = self.pred_mat.shape
         mat = defaultdict(cvxpy.Variable)
         for x_in in range(alice_in):
@@ -493,16 +466,20 @@ class ExtendedNonlocalGame:
         problem = cvxpy.Problem(objective, npa)
         # Try multiple solvers with increased iterations
         solvers = [
-            (cvxpy.SCS, {"max_iters": 10000, "eps": 1e-6}),
-            (cvxpy.CVXOPT, {"max_iters": 10000, "abstol": 1e-6, "reltol": 1e-6, "feastol": 1e-6}),
+            (cvxpy.SCS, {"max_iters": 25000, "eps": 1e-8}),
+            (cvxpy.CVXOPT, {"max_iters": 10000, "abstol": 1e-8, "reltol": 1e-8, "feastol": 1e-8}),
         ]
 
         for solver, params in solvers:
             try:
                 cs_val = problem.solve(solver=solver, **params)
-                if not np.isinf(cs_val):
+                if not np.isinf(cs_val) and problem.status == "optimal":
                     return cs_val
             except Exception:
                 continue
 
-        return float("-inf")  # Fallback if all solvers fail
+        # Fallback to simple SDP if specialized solvers fail
+        try:
+            return problem.solve(verbose=True)
+        except Exception:
+            return float("-inf")

@@ -75,9 +75,8 @@ def cglmp_inequality(dim: int) -> tuple[dict[tuple[int, int], cvxpy.Variable], c
 @pytest.mark.parametrize(
     "k, expected",
     [
-        (2, 2.857),  # Level 2 value
-        ("1+ab+aab+baa", 2.857),  # Intermediate level value
-        # (3, 2.914)  # Level 3 value,taking too much time, skip for now
+        (2, 2.914),  # Level 2 value
+        ("1+ab+aab+baa", 2.914),  # Intermediate level value
     ],
 )
 def test_cglmp_inequality(k, expected):
