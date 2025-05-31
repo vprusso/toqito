@@ -2,11 +2,40 @@
 
 import numpy as np
 
-from toqito.channels import partial_trace
-from toqito.matrix_props import is_density
+from toqito.channels import partial_trace, partial_transpose
+from toqito.matrix_props import is_density, is_positive_semidefinite
+from toqito.perms import swap_operator
 from toqito.rand import random_density_matrix
-from toqito.state_props.is_separable import is_separable
+from toqito.state_props.is_separable import is_separable  # This is the function under test
 from toqito.states import basis, bell, isotropic, tile
+
+
+# Helper function for Horodecki operational criterion test
+def separable_state_2x3_rank3():
+    """Construct a 2x3 separable state of rank 3."""
+    psi_A0 = np.array([1, 0], dtype=complex)
+    psi_A1 = np.array([0, 1], dtype=complex)
+    psi_B0 = np.array([1, 0, 0], dtype=complex)
+    psi_B1 = np.array([0, 1, 0], dtype=complex)
+    psi_B2 = np.array([0, 0, 1], dtype=complex)
+
+    rho1 = np.kron(np.outer(psi_A0, psi_A0.conj()), np.outer(psi_B0, psi_B0.conj()))
+    rho2 = np.kron(np.outer(psi_A0, psi_A0.conj()), np.outer(psi_B1, psi_B1.conj()))
+    rho3 = np.kron(np.outer(psi_A1, psi_A1.conj()), np.outer(psi_B2, psi_B2.conj()))
+
+    rho = (rho1 + rho2 + rho3) / 3
+
+    # Sanity checks for the constructed state
+    # Using a fixed tolerance for these internal checks.
+    test_tol = 1e-8
+    assert np.isclose(np.trace(rho), 1), "Constructed state not normalized."
+    assert is_positive_semidefinite(rho, rtol=test_tol, atol=test_tol), "Constructed state not PSD."
+    assert np.linalg.matrix_rank(rho, tol=test_tol) == 3, "Constructed state not rank 3."
+
+    rho_pt_A = partial_transpose(rho, sys=0, dim=[2, 3])
+    assert is_positive_semidefinite(rho_pt_A, rtol=test_tol, atol=test_tol), "Constructed state not PPT."
+
+    return rho
 
 
 def test_entangled_zhang_realignment_criterion():
@@ -205,6 +234,46 @@ def test_separable_based_on_eigenvalues():
             [2 / 22, 7 / 22, -2 / 22, -1 / 22],
             [-2 / 22, -2 / 22, 4 / 22, -2 / 22],
             [2 / 22, -1 / 22, -2 / 22, 7 / 22],
-        ]
+        ],
+        dtype=complex,
     )
-    np.testing.assert_equal(is_separable(rho), True)
+    assert is_separable(rho, dim=[2, 2]) is True
+
+
+def test_product_state_separable():
+    """Test a product state is separable."""
+    psiA = np.array([1, 0], dtype=complex)
+    psiB = np.array([0, 1], dtype=complex)
+    rho = np.kron(np.outer(psiA, psiA.conj()), np.outer(psiB, psiB.conj()))
+    assert is_separable(rho, [2, 2]) is True
+
+
+def test_bell_state_entangled():
+    """Test a Bell state is entangled."""
+    psi = (1 / np.sqrt(2)) * np.array([1, 0, 0, 1], dtype=complex)
+    rho = np.outer(psi, psi.conj())
+    assert is_separable(rho, [2, 2]) is False
+
+
+def test_horodecki_low_rank_separable():
+    """Test Horodecki operational criterion for low-rank PPT separable state."""
+    rho = separable_state_2x3_rank3()
+    assert is_separable(rho, [2, 3]) is True
+
+
+def test_realignment_detects_entanglement_isotropic():
+    """Test realignment criterion for an isotropic state."""
+    dim_param = 3
+    alpha = 0.4
+    rho_iso = isotropic(dim_param, alpha)
+    assert is_separable(rho_iso, [dim_param, dim_param]) is False
+
+
+def test_reduction_detects_entanglement_werner():
+    """Test reduction criterion for an entangled Werner state."""
+    rho_singlet = bell(1) @ bell(1).conj().T  # Maximally entangled singlet state for 2x2
+    assert is_separable(rho_singlet, [2, 2]) is False
+
+    S_op = swap_operator(2)
+    rho_singlet_prop = (np.eye(4) - S_op) / 3
+    assert is_separable(rho_singlet_prop, [2, 2]) is False
