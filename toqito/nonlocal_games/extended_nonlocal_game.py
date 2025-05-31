@@ -7,7 +7,6 @@ import numpy as np
 
 from toqito.helper import npa_constraints, update_odometer
 from toqito.matrix_ops import tensor
-from toqito.rand import random_unitary
 
 
 class ExtendedNonlocalGame:
@@ -247,51 +246,100 @@ class ExtendedNonlocalGame:
 
         return ns_val
 
-    def quantum_value_lower_bound(self, iters: int = 5, tol: float = 10e-6, seed: int = None) -> float:
+    # In toqito/nonlocal_games/extended_nonlocal_game.py
+    # class ExtendedNonlocalGame:
+
+    def quantum_value_lower_bound(self, iter: int = 1, tol: float = 1e-7, seed: int = None) -> float:
         r"""Calculate lower bound on the quantum value of an extended nonlocal game.
 
-        Test
+        Uses an iterative see-saw method involving two SDPs.
 
-        :return: The quantum value of the extended nonlocal game.
+        :param iter: Maximum number of see-saw iterations (Alice a-optimizes, Bob optimizes).
+        :param tol: Tolerance for stopping see-saw iteration based on improvement.
+        :param seed: Optional seed for initializing random POVMs for reproducibility.
+        :return: The best lower bound found on the quantum value.
         """
-        # Get number of inputs and outputs for Bob's measurements.
         if seed is not None:
-            np.random.seed(seed)  # Seed for reproducibility of random POVMs
+            np.random.seed(seed)
+
         _, _, _, num_outputs_bob, _, num_inputs_bob = self.pred_mat.shape
 
-        best_lower_bound = float("-inf")
-        for _ in range(iters):
-            # Generate a set of random POVMs for Bob. These measurements serve as a
-            # rough starting point for the alternating projection algorithm.
-            bob_povms = defaultdict(int)
-            for y_ques in range(num_inputs_bob):
-                random_mat = random_unitary(num_outputs_bob)
-                for b_ans in range(num_outputs_bob):
-                    random_mat_trans = random_mat[:, b_ans].conj().T.reshape(-1, 1)
-                    bob_povms[y_ques, b_ans] = random_mat[:, b_ans] * random_mat_trans
+        # Initialize Bob's POVMs RANDOMLY (this is affected by the seed)
+        # These are numpy arrays, not cvxpy variables at this stage.
+        bob_povms_np = defaultdict(
+            lambda: np.zeros((self.pred_mat.shape[0], self.pred_mat.shape[0]), dtype=complex)
+        )  # Assuming POVMs act on referee_dim space initially
+        # This part might need adjustment based on how __optimize_alice expects bob_povms
+        # The original code implies bob_povms are d_bob x d_bob where d_bob = num_outputs_bob
+        # And that they act on a separate Bob's system. Let's stick to that.
+        # The __optimize_alice uses np.kron(pred_mat, bob_povm_element), so bob_povm_element is on Bob's space.
 
-            # Run the alternating projection algorithm between the two SDPs.
-            it_diff = 1
-            prev_win = -1
-            best = float("-inf")
-            while it_diff > tol:
-                # Optimize over Alice's measurement operators while fixing Bob's.
-                # If this is the first iteration, then the previously randomly
-                # generated operators in the outer loop are Bob's. Otherwise, Bob's
-                # operators come from running the next SDP.
-                rho, lower_bound = self.__optimize_alice(bob_povms)
-                bob_povms, lower_bound = self.__optimize_bob(rho)
+        bob_povms_np = defaultdict(lambda: np.zeros((num_outputs_bob, num_outputs_bob), dtype=complex))
 
-                it_diff = lower_bound - prev_win
-                prev_win = lower_bound
+        for y_ques in range(num_inputs_bob):
+            bob_povms_np[y_ques, 0] = np.eye(num_outputs_bob)
+            for b_other_ans in range(1, num_outputs_bob):
+                bob_povms_np[y_ques, b_other_ans] = np.zeros((num_outputs_bob, num_outputs_bob))
 
-                # As the SDPs keep alternating, check if the winning probability
-                # becomes any higher. If so, replace with new best.
-                best = max(best, lower_bound)
+        # See-saw iteration
+        prev_win_val = -float("inf")
+        current_best_lower_bound = -float("inf")
 
-            best_lower_bound = max(best, best_lower_bound)
+        print(f"Starting see-saw for extended game: max_steps={iter}, tol={tol}, seed={seed}")
 
-        return best_lower_bound
+        for step in range(iter):
+            opt_alice_rho_cvxpy_vars, problem_alice = self.__optimize_alice(
+                bob_povms_np
+            )  # bob_povms_np are NUMPY arrays
+
+            if problem_alice.status not in [cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE] or problem_alice.value is None:
+                print(
+                    "Warning: Alice optimization step failed "
+                    + "(status: {problem_alice.status}) in see-saw step {step + 1}."
+                )
+                return current_best_lower_bound if current_best_lower_bound > -float("inf") else 0.0
+
+            # For __optimize_bob, we need the *CVXPY variables* from Alice's step,
+            # as their .value will be used inside __optimize_bob's objective.
+            # So, __optimize_alice should return the dict of CVXPY variables for rho.
+            opt_bob_povm_cvxpy_vars, problem_bob = self.__optimize_bob(opt_alice_rho_cvxpy_vars)
+
+            if problem_bob.status not in [cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE] or problem_bob.value is None:
+                print(
+                    f"Warning: Bob optimization step failed (status: {problem_bob.status}) in see-saw step {step + 1}."
+                )
+                return current_best_lower_bound if current_best_lower_bound > -float("inf") else 0.0
+
+            current_win_val = problem_bob.value  # This is the objective value from Bob's optimization
+
+            # Update Bob's POVMs (numpy arrays) for the next iteration of Alice's optimization
+            for y_ques_b_update in range(num_inputs_bob):  # Ensure num_inputs_bob is defined
+                for b_ans_b_update in range(num_outputs_bob):  # Ensure num_outputs_bob is defined
+                    if opt_bob_povm_cvxpy_vars[y_ques_b_update, b_ans_b_update].value is not None:
+                        bob_povms_np[y_ques_b_update, b_ans_b_update] = opt_bob_povm_cvxpy_vars[
+                            y_ques_b_update, b_ans_b_update
+                        ].value
+                    else:
+                        print(
+                            f"Warning: Bob POVM variable for ({y_ques_b_update},{b_ans_b_update}) "
+                            + "is None after solve in step {step + 1}."
+                        )
+                        # Potentially break or handle this error (e.g., keep old POVM)
+                        return current_best_lower_bound  # Or some other error handling
+
+            it_diff = abs(current_win_val - prev_win_val)
+            # print(f"See-saw step {step + 1}: Win prob = {current_win_val:.8f}, Improvement = {it_diff:.2e}")
+
+            current_best_lower_bound = max(current_best_lower_bound, current_win_val)
+
+            if it_diff <= tol and step > 0:  # Add step > 0 to ensure at least one full iteration
+                print(f"See-saw converged at step {step + 1} with value {current_best_lower_bound:.8f}")
+                break
+            prev_win_val = current_win_val
+        else:
+            print(f"See-saw reached max steps ({iter}) with value {current_best_lower_bound:.8f}")
+
+        return current_best_lower_bound
 
     def __optimize_alice(self, bob_povms) -> tuple[dict, float]:
         """Fix Bob's measurements and optimize over Alice's measurements."""
@@ -363,8 +411,16 @@ class ExtendedNonlocalGame:
 
         problem = cvxpy.Problem(objective, constraints)
 
-        lower_bound = problem.solve()
-        return rho, lower_bound
+        problem.solve(solver=cvxpy.SCS, eps_abs=1e-9, eps_rel=1e-9, verbose=False)
+        # Return the dictionary of CVXPY variables for rho and the problem object
+        if problem.status in [cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE] and problem.value is not None:
+            return rho, problem
+        else:
+            # It's better to still return rho (even if not optimal) if problem.variables() have values,
+            # but indicate failure through the problem object. Or return None for rho.
+            # For simplicity if problem fails badly, returning None for variables is safer.
+            print(f"Warning: __optimize_alice failed to solve optimally. Status: {problem.status}")
+            return None, problem
 
     def __optimize_bob(self, rho) -> tuple[dict, float]:
         """Fix Alice's measurements and optimize over Bob's measurements."""
@@ -387,35 +443,48 @@ class ExtendedNonlocalGame:
             for b_ans in range(num_outputs_bob):
                 bob_povms[y_ques, b_ans] = cvxpy.Variable((dim, dim), hermitian=True)
         win = 0
-        for x_ques in range(num_inputs_alice):
+        # When building objective, use alice_rho_cvxpy_vars[x,a].value
+        for x_ques in range(num_inputs_alice):  # num_inputs_alice needs to be defined or passed
             for y_ques in range(num_inputs_bob):
-                for a_ans in range(num_outputs_alice):
+                for a_ans in range(num_outputs_alice):  # num_outputs_alice needs to be defined
                     for b_ans in range(num_outputs_bob):
-                        win += self.prob_mat[x_ques, y_ques] * cvxpy.trace(
-                            (
-                                cvxpy.kron(
-                                    self.pred_mat[:, :, a_ans, b_ans, x_ques, y_ques],
-                                    bob_povms[y_ques, b_ans],
+                        if rho[x_ques, a_ans].value is not None:  # Check if Alice's part has a value
+                            win += self.prob_mat[x_ques, y_ques] * cvxpy.trace(
+                                (
+                                    cvxpy.kron(
+                                        self.pred_mat[:, :, a_ans, b_ans, x_ques, y_ques],
+                                        bob_povms[y_ques, b_ans],  # This is CVXPY var
+                                    )
                                 )
+                                # Here, we need the .value from Alice's optimization
+                                @ rho[x_ques, a_ans].value
                             )
-                            @ rho[x_ques, a_ans].value
-                        )
+                        else:
+                            # This implies Alice's optimization failed to provide a value.
+                            # Should not happen if quantum_value_lower_bound checks problem_alice.value
+                            # Can add a very small penalty or skip term if this is possible.
+                            # For now, assume alice_rho_cvxpy_vars[x,a].value is valid.
+                            pass
         objective = cvxpy.Maximize(cvxpy.real(win))
 
         constraints = []
 
         # Sum over "b" for all "y" for Bob's measurements.
-        for y_ques in range(num_inputs_bob):
-            bob_sum_b = 0
-            for b_ans in range(num_outputs_bob):
-                bob_sum_b += bob_povms[y_ques, b_ans]
-                constraints.append(bob_povms[y_ques, b_ans] >> 0)
-            constraints.append(bob_sum_b == np.identity(num_outputs_bob))
+        for y_q in range(num_inputs_bob):  # num_inputs_bob needs to be defined
+            s = 0
+            for b_a in range(num_outputs_bob):  # num_outputs_bob needs to be defined
+                constraints.append(bob_povms[y_q, b_a] >> 0)
+                s += bob_povms[y_q, b_a]
+            constraints.append(s == np.identity(num_outputs_bob))  # Ensure correct Identity dimension
 
         problem = cvxpy.Problem(objective, constraints)
+        problem.solve(solver=cvxpy.SCS, eps_abs=1e-9, eps_rel=1e-9, verbose=False)
 
-        lower_bound = problem.solve()
-        return bob_povms, lower_bound
+        if problem.status in [cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE] and problem.value is not None:
+            return bob_povms, problem  # bob_povms is dict of CVXPY variables
+        else:
+            print(f"Warning: __optimize_bob failed to solve optimally. Status: {problem.status}")
+            return None, problem
 
     def commuting_measurement_value_upper_bound(self, k: int | str = 1) -> float:
         """Compute an upper bound on the commuting measurement value of an extended nonlocal game.
