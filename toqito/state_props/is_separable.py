@@ -353,14 +353,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         return True  # OSR <= 2 and PPT implies separable
 
     # Section 6: Fallback to Symmetric Extension
-    if level > 0:
-        try:
-            if has_symmetric_extension(state, level=level, dim=dims_list, tol=tol):
-                return True
-        except RuntimeError as e:
-            if "CVXPY is not installed" in str(e) or "No solver found" in str(e) or "Solver not found" in str(e):
-                pass
-            else:
-                raise e
+    if has_symmetric_extension(state, level=level, dim=dims_list, tol=tol):
+        return True
 
     return False  # Default to entangled if no test proved separability
