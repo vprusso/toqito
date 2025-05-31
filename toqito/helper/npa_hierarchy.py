@@ -10,63 +10,86 @@ IDENTITY_SYMBOL = Symbol("", None, None)  # Explicit identity symbol
 
 
 def _reduce(word: tuple[Symbol, ...]) -> tuple[Symbol, ...]:
+    """Reduce an operator word to its canonical form using NPA rules.
+
+    Identity: I*S = S*I = S, I*I = I
+    Commutation: Alice operators commute with Bob operators. Canonical form: A...AB...B
+    Orthogonality: P_x,a P_x,b = 0 if a != b (for same player x)
+    Idempotence: P_x,a P_x,a = P_x,a (for same player x)
+    """
     if not word:
         return ()
-    if word == (IDENTITY_SYMBOL,):  # Identity reduces to identity
+
+    # Handle cases that are purely identities
+    is_all_identity = all(s == IDENTITY_SYMBOL for s in word)
+    if is_all_identity:
+        return (IDENTITY_SYMBOL,) if word else ()  # If word was not empty, it's (I). If empty, it's ().
+
+    # Filter out identities if other operators are present, as I*S=S
+    # The IDENTITY_SYMBOL has player="", so it won't be in w_a or w_b below
+    # if mixed with actual Alice/Bob symbols.
+    # If word was e.g. (A00, I, B00), it becomes (A00, B00) after w_a, w_b separation.
+    # If word was (I, A00, I), it becomes (A00,).
+
+    current_word_list_no_id = [s for s in word if s != IDENTITY_SYMBOL]
+    if not current_word_list_no_id:  # Should have been caught by is_all_identity
         return (IDENTITY_SYMBOL,)
 
-    # Separate Alice and Bob symbols
-    w_a = tuple(s for s in word if s.player == "Alice")
-    w_b = tuple(s for s in word if s.player == "Bob")
+    # Separate Alice and Bob symbols, preserving their internal relative order
+    w_a_list = [s for s in current_word_list_no_id if s.player == "Alice"]
+    w_b_list = [s for s in current_word_list_no_id if s.player == "Bob"]
 
-    # Reduce Alice's part
-    reduced_w_a = []
-    if w_a:
-        reduced_w_a.append(w_a[0])
-        for i in range(1, len(w_a)):
-            # Orthogonality: P_i P_j = 0 if i != j (for same question)
-            if w_a[i].question == reduced_w_a[-1].question and w_a[i].answer != reduced_w_a[-1].answer:
-                return ()  # Product is zero
-            # Idempotence: P_i P_i = P_i
-            if w_a[i] != reduced_w_a[-1]:
-                reduced_w_a.append(w_a[i])
+    # Canonical order: All Alice operators, then all Bob operators
+    # The internal order within w_a_list and w_b_list is preserved from input (after ID filtering)
+    processed_word_list = w_a_list + w_b_list
 
-    # Reduce Bob's part
-    reduced_w_b = []
-    if w_b:
-        reduced_w_b.append(w_b[0])
-        for i in range(1, len(w_b)):
-            if w_b[i].question == reduced_w_b[-1].question and w_b[i].answer != reduced_w_b[-1].answer:
-                return ()  # Product is zero
-            if w_b[i] != reduced_w_b[-1]:
-                reduced_w_b.append(w_b[i])
+    # Iteratively apply reduction rules (idempotence and orthogonality for adjacent symbols)
+    # This loop ensures that reductions are applied until no more can be made.
+    # E.g., A0 A0 A0 -> A0 A0 -> A0
+    # E.g., A0 A1 B0 -> (0) B0 -> (0)
+    while True:
+        if not processed_word_list:
+            return ()  # Reduced to zero
 
-    final_word = tuple(reduced_w_a) + tuple(reduced_w_b)
-    if not final_word:  # If all symbols got cancelled (e.g. A0A1 B0B1)
+        len_before = len(processed_word_list)
+        temp_list = []
+        i = 0
+        while i < len(processed_word_list):
+            s_x = processed_word_list[i]
+
+            if i + 1 < len(processed_word_list):
+                s_y = processed_word_list[i + 1]
+
+                # Check for reduction:
+                # 1. Idempotence: S_x S_x = S_x
+                if s_x == s_y:
+                    temp_list.append(s_x)
+                    i += 2  # Consumed s_x and s_y, replaced with s_x
+                    continue
+                # 2. Orthogonality: S_x,a S_x,b = 0 if a!=b (for same player and question)
+                elif s_x.player == s_y.player and s_x.question == s_y.question and s_x.answer != s_y.answer:
+                    return ()  # Entire product becomes zero
+                else:
+                    # No reduction with s_y, keep s_x and move to check s_y next
+                    temp_list.append(s_x)
+                    i += 1
+            else:
+                # Last symbol, just append it
+                temp_list.append(s_x)
+                i += 1
+
+        processed_word_list = temp_list
+        if len(processed_word_list) == len_before:
+            # No reductions made in this pass, canonical form reached
+            break
+
+    final_tuple = tuple(processed_word_list)
+
+    # If the list became empty after all reductions, it's zero
+    if not final_tuple:
         return ()
-    if final_word == (IDENTITY_SYMBOL,) and (
-        tuple(reduced_w_a) == (IDENTITY_SYMBOL,) or tuple(reduced_w_b) == (IDENTITY_SYMBOL,)
-    ):
-        # Avoid ((ID), B) becoming (ID, B) then just (ID) if B was empty.
-        # If the only non-empty part was identity, it's just identity.
-        # This logic might need more refinement depending on how Identity is used in product.
-        # For now, if it's just identity, it's identity.
-        pass
 
-    # A more direct approach for single identity: if the word was (ID_SYMBOL,) it should remain so.
-    # The logic above might make reduced_w_a or reduced_w_b empty if original only had ID.
-    # The initial `words = set([(IDENTITY_SYMBOL,)])` handles the pure identity.
-    # A product like A_0 * I should be A_0. _reduce( (A_0, I) )
-    # The current _reduce doesn't explicitly handle identity symbol in products.
-    # Let's assume identity symbols are filtered out before forming composite words,
-    # or _reduce is only called on sequences of actual measurement operators.
-    # The current _gen_words builds words from a_symbols, b_symbols which don't include IDENTITY_SYMBOL.
-    # The only (IDENTITY_SYMBOL,) comes from the initial set.
-
-    # If after reduction, the word is empty, it means it's an algebraic zero.
-    if not final_word:
-        return ()
-    return final_word
+    return final_tuple
 
 
 def _parse(k_str: str) -> tuple[int, set[tuple[int, int]]]:
