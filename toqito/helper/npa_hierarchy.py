@@ -70,23 +70,35 @@ def _reduce(word: tuple[Symbol, ...]) -> tuple[Symbol, ...]:
 
 
 def _parse(k_str: str) -> tuple[int, set[tuple[int, int]]]:
+    if not k_str:  # Explicitly handle empty string input for k_str
+        raise ValueError("Input string k_str cannot be empty.")  # Or more specific error
+
     parts = k_str.split("+")
-    if not parts[0]:  # Handle cases like "+ab" if they were allowed (they are not currently)
+    if not parts[0] or parts[0] == "":  # Check if the first part (base_k) is empty
         raise ValueError("Base level k must be specified, e.g., '1+ab'")
-    base_k = int(parts[0])
+
+    try:
+        base_k = int(parts[0])
+    except ValueError as e:
+        # Re-raise with more context or let the original ValueError propagate
+        raise ValueError(f"Base level k '{parts[0]}' is not a valid integer: {e}") from e
+
     conf = set()
     for val in parts[1:]:
         cnt_a, cnt_b = 0, 0
-        if not val:
-            continue  # Skip empty strings if k_str is like "1+"
+        if not val:  # Handles "1++ab" -> parts like '', skip these
+            continue
         for char_val in val:
             if char_val == "a":
                 cnt_a += 1
             elif char_val == "b":
                 cnt_b += 1
             else:
-                raise ValueError(f"Invalid character '{char_val}' in k string component '{val}'")
-        if cnt_a > 0 or cnt_b > 0:
+                raise ValueError(
+                    f"Invalid character '{char_val}' in k string component "
+                    + f"'{val}'. Only 'a' or 'b' allowed after base k."
+                )
+        if cnt_a > 0 or cnt_b > 0:  # Only add if it's a non-empty configuration part
             conf.add((cnt_a, cnt_b))
     return base_k, conf
 

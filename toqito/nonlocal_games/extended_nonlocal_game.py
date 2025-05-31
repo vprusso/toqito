@@ -259,7 +259,8 @@ class ExtendedNonlocalGame:
 
         best_lower_bound = float("-inf")
         for _ in range(iters):
-            # Generate random POVMs for Bob
+            # Generate a set of random POVMs for Bob. These measurements serve as a
+            # rough starting point for the alternating projection algorithm.
             bob_povms = defaultdict(int)
             for y_ques in range(num_inputs_bob):
                 random_mat = random_unitary(num_outputs_bob)
@@ -267,31 +268,28 @@ class ExtendedNonlocalGame:
                     random_mat_trans = random_mat[:, b_ans].conj().T.reshape(-1, 1)
                     bob_povms[y_ques, b_ans] = random_mat[:, b_ans] * random_mat_trans
 
-        # Run see-saw optimization
-        prev_win = -1
-        best = float("-inf")
-        converged = False
-        iteration = 0
-        max_iter = 20
-        while not converged and iteration < max_iter:
-            rho, _ = self.__optimize_alice(bob_povms)
-            bob_povms, new_lower_bound = self.__optimize_bob(rho)
+            # Run the alternating projection algorithm between the two SDPs.
+            it_diff = 1
+            prev_win = -1
+            best = float("-inf")
+            while it_diff > tol:
+                # Optimize over Alice's measurement operators while fixing Bob's.
+                # If this is the first iteration, then the previously randomly
+                # generated operators in the outer loop are Bob's. Otherwise, Bob's
+                # operators come from running the next SDP.
+                rho, lower_bound = self.__optimize_alice(bob_povms)
+                bob_povms, lower_bound = self.__optimize_bob(rho)
 
-            # Check for convergence and numerical issues
-            if abs(new_lower_bound - prev_win) < tol and new_lower_bound > 0:
-                converged = True
-            # Add validation to prevent numerical divergence
-            if new_lower_bound > 1.0 or new_lower_bound < 0 or np.isnan(new_lower_bound):
-                break  # neumerical failure
+                it_diff = lower_bound - prev_win
+                prev_win = lower_bound
 
-            prev_win = new_lower_bound
-            best = max(best, new_lower_bound)
-            iteration += 1
+                # As the SDPs keep alternating, check if the winning probability
+                # becomes any higher. If so, replace with new best.
+                best = max(best, lower_bound)
 
-        # Ensure we don't return invalid bounds
-        if best < 0 or np.isnan(best):
-            return 0
-        return max(best, best_lower_bound)
+            best_lower_bound = max(best, best_lower_bound)
+
+        return best_lower_bound
 
     def __optimize_alice(self, bob_povms) -> tuple[dict, float]:
         """Fix Bob's measurements and optimize over Alice's measurements."""
@@ -386,7 +384,6 @@ class ExtendedNonlocalGame:
         for y_ques in range(num_inputs_bob):
             for b_ans in range(num_outputs_bob):
                 bob_povms[y_ques, b_ans] = cvxpy.Variable((dim, dim), hermitian=True)
-
         win = 0
         for x_ques in range(num_inputs_alice):
             for y_ques in range(num_inputs_bob):
@@ -441,6 +438,7 @@ class ExtendedNonlocalGame:
 
         """
         referee_dim, _, alice_out, bob_out, alice_in, bob_in = self.pred_mat.shape
+
         mat = defaultdict(cvxpy.Variable)
         for x_in in range(alice_in):
             for y_in in range(bob_in):
@@ -449,6 +447,7 @@ class ExtendedNonlocalGame:
                     name=f"K(a, b | {x_in}, {y_in})",
                     hermitian=True,
                 )
+
         p_win = cvxpy.Constant(0)
         for a_out in range(alice_out):
             for b_out in range(bob_out):
@@ -461,25 +460,10 @@ class ExtendedNonlocalGame:
                                 b_out * referee_dim : (b_out + 1) * referee_dim,
                             ]
                         )
+
         npa = npa_constraints(mat, k, referee_dim)
         objective = cvxpy.Maximize(cvxpy.real(p_win))
         problem = cvxpy.Problem(objective, npa)
-        # Try multiple solvers with increased iterations
-        solvers = [
-            (cvxpy.SCS, {"max_iters": 25000, "eps": 1e-8}),
-            (cvxpy.CVXOPT, {"max_iters": 10000, "abstol": 1e-8, "reltol": 1e-8, "feastol": 1e-8}),
-        ]
+        cs_val = problem.solve()
 
-        for solver, params in solvers:
-            try:
-                cs_val = problem.solve(solver=solver, **params)
-                if not np.isinf(cs_val) and problem.status == "optimal":
-                    return cs_val
-            except Exception:
-                continue
-
-        # Fallback to simple SDP if specialized solvers fail
-        try:
-            return problem.solve(verbose=True)
-        except Exception:
-            return float("-inf")
+        return cs_val

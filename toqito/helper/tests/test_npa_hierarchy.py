@@ -1,111 +1,282 @@
-"""Test npa_constraints."""
+"""Test npa_constraints and its helper functions."""
 
-from collections import defaultdict
+import re
 
 import cvxpy
 import numpy as np
 import pytest
 
-from toqito.helper import npa_constraints
+from toqito.helper.npa_hierarchy import IDENTITY_SYMBOL, Symbol, _gen_words, _parse, _reduce, npa_constraints
+
+# Define common symbols for helper function unit tests
+A00_test = Symbol("Alice", 0, 0)
+A01_test = Symbol("Alice", 0, 1)
+A10_test = Symbol("Alice", 1, 0)
+A11_test = Symbol("Alice", 1, 1)
+B00_test = Symbol("Bob", 0, 0)
+B01_test = Symbol("Bob", 0, 1)
+B10_test = Symbol("Bob", 1, 0)
+B11_test = Symbol("Bob", 1, 1)
 
 
-def test_gen_words_intermediate_hierarchy():
-    """Intermediate NPA hierarchy."""
-    # Create a mock assemblage with cvxpy Variables
-    referee_dim = 1
-    a_out = 2
-    b_out = 2
-    assemblage = {
-        (0, 0): cvxpy.Variable((referee_dim * a_out, referee_dim * b_out)),
-        (0, 1): cvxpy.Variable((referee_dim * a_out, referee_dim * b_out)),
-        (1, 0): cvxpy.Variable((referee_dim * a_out, referee_dim * b_out)),
-        (1, 1): cvxpy.Variable((referee_dim * a_out, referee_dim * b_out)),
+class TestNPAReduce:
+    """Test the _reduce helper function."""
+
+    def test_empty_word(self):
+        """Test reducing an empty word."""
+        assert _reduce(()) == ()
+
+    def test_identity_word(self):
+        """Test reducing an identity word."""
+        assert _reduce((IDENTITY_SYMBOL,)) == (IDENTITY_SYMBOL,)
+
+    def test_single_symbol(self):
+        """Test reducing a single Alice or Bob symbol."""
+        assert _reduce((A00_test,)) == (A00_test,)
+        assert _reduce((B00_test,)) == (B00_test,)
+
+    def test_idempotence(self):
+        """Test projector idempotence A*A = A."""
+        assert _reduce((A00_test, A00_test)) == (A00_test,)
+        assert _reduce((A00_test, A00_test, B00_test)) == (A00_test, B00_test)
+        assert _reduce((A00_test, B00_test, B00_test)) == (A00_test, B00_test)
+
+    def test_orthogonality(self):
+        """Test projector orthogonality A_i A_j = 0 for i!=j."""
+        assert _reduce((A00_test, A01_test)) == ()
+        assert _reduce((B00_test, B01_test)) == ()
+        assert _reduce((A00_test, B00_test, B01_test)) == ()
+        assert _reduce((A00_test, A01_test, B00_test)) == ()
+
+    def test_commutation(self):
+        """Test Alice-Bob operator commutation."""
+        assert _reduce((B00_test, A00_test)) == (A00_test, B00_test)
+        assert _reduce((B00_test, A00_test, B10_test)) == (A00_test, B00_test, B10_test)
+        assert _reduce((B00_test, A00_test, B00_test)) == (A00_test, B00_test)
+
+    def test_complex_reduction_to_zero(self):
+        """Test a more complex reduction that results in zero."""
+        assert _reduce((A00_test, B00_test, A00_test, B01_test)) == ()
+
+    def test_final_not_final_word_empty_after_separate_reduction(self):
+        """Test reduction where both Alice and Bob parts individually become zero."""
+        assert _reduce((A00_test, A01_test, B00_test, B01_test)) == ()
+
+    def test_reduction_with_identity_mixed(self):
+        """Test reduction when IDENTITY_SYMBOL is mixed (though not typical for sub-words)."""
+        assert _reduce((A00_test, IDENTITY_SYMBOL)) == (A00_test,)
+        assert _reduce((IDENTITY_SYMBOL, A00_test)) == (A00_test,)
+        assert _reduce((A00_test, IDENTITY_SYMBOL, B00_test)) == (A00_test, B00_test)
+        assert _reduce((A00_test, B00_test, IDENTITY_SYMBOL)) == (A00_test, B00_test)
+
+
+class TestNPAParse:
+    """Test the _parse helper function for k-string."""
+
+    def test_simple_int(self):
+        """Test parsing a simple integer k."""
+        assert _parse("1") == (1, set())
+        assert _parse("2") == (2, set())
+
+    def test_simple_config(self):
+        """Test parsing k with simple configurations like '1+a'."""
+        assert _parse("1+a") == (1, {(1, 0)})
+        assert _parse("1+b") == (1, {(0, 1)})
+        assert _parse("1+ab") == (1, {(1, 1)})
+        assert _parse("2+aa+bb") == (2, {(2, 0), (0, 2)})
+
+    def test_multiple_configs(self):
+        """Test parsing k with multiple configurations."""
+        k_int, conf = _parse("1+a+b+aa+ab")
+        assert k_int == 1
+        assert conf == {(1, 0), (0, 1), (2, 0), (1, 1)}
+
+    def test_empty_config_part(self):
+        """Test parsing k with empty parts like '1+' or '1++ab'."""
+        assert _parse("1+") == (1, set())
+        assert _parse("1++ab") == (1, {(1, 1)})
+        assert _parse("1+ab+") == (1, {(1, 1)})
+
+    def test_invalid_char_in_config(self):
+        """Test parsing k with invalid characters in configurations."""
+        expected_msg_regex = re.escape(
+            "Invalid character 'c' in k string component " + "'ac'. Only 'a' or 'b' allowed after base k."
+        )
+        with pytest.raises(ValueError, match=expected_msg_regex):
+            _parse("1+ac")
+
+    def test_invalid_base_k_empty_start(self):
+        """Test parsing k string starting with '+' (e.g., '+ab')."""
+        expected_msg_regex = re.escape("Base level k must be specified, e.g., '1+ab'")
+        with pytest.raises(ValueError, match=expected_msg_regex):
+            _parse("+ab")
+
+    def test_empty_string_input_for_parse(self):
+        """Test parsing an empty string k."""
+        with pytest.raises(ValueError, match="Input string k_str cannot be empty."):
+            _parse("")
+
+    def test_invalid_base_k_non_int_start(self):
+        """Test parsing k string where base k is not an integer (e.g., 'a+b')."""
+        expected_msg_regex = re.escape(
+            "Base level k 'a' is not a valid integer: invalid literal for int() with base 10: 'a'"
+        )
+        with pytest.raises(ValueError, match=expected_msg_regex):
+            _parse("a+b")
+
+
+class TestNPAGenWords:
+    """Test the _gen_words helper function."""
+
+    cglmp_a_out, cglmp_a_in = 3, 2
+    cglmp_b_out, cglmp_b_in = 3, 2
+
+    simple_a_out, simple_a_in = 2, 1
+    simple_b_out, simple_b_in = 2, 1
+
+    def test_k1_simple_1in_2out(self):
+        """Test _gen_words for k=1, 1-input/2-output per player."""
+        words = _gen_words(
+            k=1, a_out=self.simple_a_out, a_in=self.simple_a_in, b_out=self.simple_b_out, b_in=self.simple_b_in
+        )
+        expected_set = {(IDENTITY_SYMBOL,), (A00_test,), (B00_test,)}
+        assert set(words) == expected_set
+
+    def test_k1_cglmp_params(self):
+        """Test _gen_words for k=1 with CGLMP parameters."""
+        words = _gen_words(
+            k=1, a_out=self.cglmp_a_out, a_in=self.cglmp_a_in, b_out=self.cglmp_b_out, b_in=self.cglmp_b_in
+        )
+        assert len(words) == 9
+
+    def test_string_k_1_plus_ab_simple(self):
+        """Test _gen_words for k='1+ab', simple params."""
+        words = _gen_words(
+            "1+ab", a_out=self.simple_a_out, a_in=self.simple_a_in, b_out=self.simple_b_out, b_in=self.simple_b_in
+        )
+        expected_set = {(IDENTITY_SYMBOL,), (A00_test,), (B00_test,), (A00_test, B00_test)}
+        assert set(words) == expected_set
+
+    def test_string_k_1_plus_ab_cglmp_params(self):
+        """Test _gen_words for k='1+ab' with CGLMP parameters."""
+        words = _gen_words(
+            "1+ab", a_out=self.cglmp_a_out, a_in=self.cglmp_a_in, b_out=self.cglmp_b_out, b_in=self.cglmp_b_in
+        )
+        assert len(words) == 25
+
+    def test_orthogonality_in_gen_k2(self):
+        """Test _gen_words for k=2 ensuring orthogonality is handled."""
+        a01_for_this_test = Symbol("Alice", 0, 1)
+        words = _gen_words(k=2, a_out=3, a_in=1, b_out=2, b_in=1)
+        expected_set = {
+            (IDENTITY_SYMBOL,),
+            (A00_test,),
+            (a01_for_this_test,),
+            (B00_test,),
+            (A00_test, B00_test),
+            (a01_for_this_test, B00_test),
+        }
+        assert set(words) == expected_set
+
+    def test_gen_words_string_k_complex(self):
+        """Test _gen_words for a complex k-string '1+aa+ab'."""
+        words = _gen_words(
+            "1+aa+ab", a_out=self.simple_a_out, a_in=self.simple_a_in, b_out=self.simple_b_out, b_in=self.simple_b_in
+        )
+        expected_set = {(IDENTITY_SYMBOL,), (A00_test,), (B00_test,), (A00_test, B00_test)}
+        assert set(words) == expected_set
+
+    def test_gen_words_no_operators_if_out_is_1(self):
+        """Test _gen_words when one or both players have only 1 outcome (no non-id symbols)."""
+        words = _gen_words(1, a_out=1, a_in=1, b_out=self.simple_b_out, b_in=self.simple_b_in)
+        assert set(words) == {(IDENTITY_SYMBOL,), (B00_test,)}
+        words_bob_too = _gen_words(1, a_out=1, a_in=1, b_out=1, b_in=1)
+        assert set(words_bob_too) == {(IDENTITY_SYMBOL,)}
+
+
+# Integration tests for npa_constraints
+def cglmp_setup_vars_and_objective(num_outcomes: int) -> tuple[dict[tuple[int, int], cvxpy.Variable], cvxpy.Expression]:
+    """Set up variables and objective for CGLMP inequality for npa_constraints."""
+    (a_in, b_in) = (2, 2)
+    (a_out, b_out) = (num_outcomes, num_outcomes)
+
+    assemblage_vars = {
+        (x, y): cvxpy.Variable((a_out, b_out), name=f"Probs_xy_{x}{y}") for x in range(a_in) for y in range(b_in)
     }
 
-    # Use a hierarchy level string that includes an intermediate level
-    k = "1+ab+bb"
-
-    # Call npa_constraints, which internally calls _gen_words
-    constraints = npa_constraints(assemblage, k)
-
-    # Assert that constraints were generated (exact number may vary)
-    assert len(constraints) > 0
-
-
-def cglmp_inequality(dim: int) -> tuple[dict[tuple[int, int], cvxpy.Variable], cvxpy.Expression]:
-    """Collins-Gisin-Linden-Massar-Popescu inequality."""
-    (a_in, b_in) = (2, 2)
-    (a_out, b_out) = (dim, dim)
-
-    mat = defaultdict(cvxpy.Variable)
-    for x_in in range(a_in):
-        for y_in in range(b_in):
-            mat[x_in, y_in] = cvxpy.Variable((a_out, b_out), name=f"M(a, b | {x_in}, {y_in})")
-
-    i_b = cvxpy.Constant(0)
-    for k in range(dim // 2):
+    i_b_expr = cvxpy.Constant(0)
+    # Using the sum form from the original test for now
+    for k_sum_idx in range(num_outcomes // 2):
         tmp = 0
         for a_val in range(a_out):
             for b_val in range(b_out):
-                if a_val == np.mod(b_val + k, dim):
-                    tmp += mat[0, 0][a_val, b_val]
-                    tmp += mat[1, 1][a_val, b_val]
+                if a_val == np.mod(b_val + k_sum_idx, num_outcomes):
+                    tmp += assemblage_vars[0, 0][a_val, b_val]
+                    tmp += assemblage_vars[1, 1][a_val, b_val]
 
-                if b_val == np.mod(a_val + k + 1, dim):
-                    tmp += mat[1, 0][a_val, b_val]
+                if b_val == np.mod(a_val + k_sum_idx + 1, num_outcomes):
+                    tmp += assemblage_vars[1, 0][a_val, b_val]
 
-                if b_val == np.mod(a_val + k, dim):
-                    tmp += mat[0, 1][a_val, b_val]
+                if b_val == np.mod(a_val + k_sum_idx, num_outcomes):
+                    tmp += assemblage_vars[0, 1][a_val, b_val]
 
-                if a_val == np.mod(b_val - k - 1, dim):
-                    tmp -= mat[0, 0][a_val, b_val]
-                    tmp -= mat[1, 1][a_val, b_val]
+                if a_val == np.mod(b_val - k_sum_idx - 1, num_outcomes):
+                    tmp -= assemblage_vars[0, 0][a_val, b_val]
+                    tmp -= assemblage_vars[1, 1][a_val, b_val]
 
-                if b_val == np.mod(a_val - k, dim):
-                    tmp -= mat[1, 0][a_val, b_val]
+                if b_val == np.mod(a_val - k_sum_idx, num_outcomes):
+                    tmp -= assemblage_vars[1, 0][a_val, b_val]
 
-                if b_val == np.mod(a_val - k - 1, dim):
-                    tmp -= mat[0, 1][a_val, b_val]
+                if b_val == np.mod(a_val - k_sum_idx - 1, num_outcomes):
+                    tmp -= assemblage_vars[0, 1][a_val, b_val]
 
-        i_b += (1 - 2 * k / (dim - 1)) * tmp
+        denominator = num_outcomes - 1
+        if denominator == 0:  # Avoid division by zero if num_outcomes is 1
+            # This case is degenerate for CGLMP, but handle defensively
+            i_b_expr += tmp
+        else:
+            i_b_expr += (1 - 2 * k_sum_idx / denominator) * tmp
 
-    return mat, i_b
-
-
-@pytest.mark.parametrize(
-    "k, expected",
-    [
-        (2, 2.914),  # Level 2 value
-        ("1+ab+aab+baa", 2.914),  # Intermediate level value
-    ],
-)
-def test_cglmp_inequality(k, expected):
-    """Test Collins-Gisin-Linden-Massar-Popescu inequality.
-
-    See Table 1. from NPA paper :cite:`Navascues_2008_AConvergent`.
-    """
-    dim = 3
-    mat, i_b = cglmp_inequality(dim)
-    npa = npa_constraints(mat, k)
-    objective = cvxpy.Maximize(i_b)
-    problem = cvxpy.Problem(objective, npa)
-    val = problem.solve()
-    assert pytest.approx(val, 1e-3) == expected
+    return assemblage_vars, i_b_expr
 
 
-@pytest.mark.parametrize("k, expected_size", [("1+a", 9), ("1+ab", 25)])
-def test_cglmp_dimension(k, expected_size):
-    """Test matrix size in Collins-Gisin-Linden-Massar-Popescu inequality.
+@pytest.mark.parametrize("k_npa", [2, "1+ab+aab+baa"])
+def test_cglmp_inequality_npa_integration(k_npa):
+    """Test CGLMP inequality (d=3) via npa_constraints."""
+    cglmp_d = 3
+    assemblage_vars, i_b_objective = cglmp_setup_vars_and_objective(cglmp_d)
 
-    See Table 1. from NPA paper :cite:`Navascues_2008_AConvergent`.
-    """
-    dim = 3
-    mat, i_b = cglmp_inequality(dim)
-    npa = npa_constraints(mat, k)
-    objective = cvxpy.Maximize(i_b)
-    problem = cvxpy.Problem(objective, npa)
-    r_size = 0
-    for variable in problem.variables():
-        if variable.name() == "R":
-            r_size = variable.shape[0]
-    assert r_size == expected_size
+    npa_constraints_list = npa_constraints(assemblage_vars, k_npa, referee_dim=1)
+
+    objective = cvxpy.Maximize(i_b_objective)
+    problem = cvxpy.Problem(objective, npa_constraints_list)
+    val = problem.solve(solver=cvxpy.SCS, verbose=False)
+
+    expected_cglmp_val = 2.9149
+    print(f"CGLMP d={cglmp_d}, k_npa='{k_npa}', Solved value={val}, Expected={expected_cglmp_val}")
+    assert val == pytest.approx(expected_cglmp_val, abs=1e-3)
+
+
+@pytest.mark.parametrize("k_npa, expected_num_words", [("1+a", 9), ("1+ab", 25)])
+def test_cglmp_moment_matrix_dimension_integration(k_npa, expected_num_words):
+    """Test moment matrix size for CGLMP d=3 via npa_constraints setup."""
+    cglmp_d = 3
+    actual_a_out, actual_a_in, actual_b_out, actual_b_in = (cglmp_d, 2, cglmp_d, 2)
+    words = _gen_words(k_npa, actual_a_out, actual_a_in, actual_b_out, actual_b_in)
+    num_words = len(words)
+    assert num_words * 1 == expected_num_words  # referee_dim=1
+
+
+def test_gen_words_intermediate_hierarchy_call_check():  # Original test name
+    """Check npa_constraints runs with an intermediate hierarchy string."""
+    referee_dim = 1
+    a_out, a_in = 2, 2
+    b_out, b_in = 2, 2
+    assemblage = {
+        (x, y): cvxpy.Variable((referee_dim * a_out, referee_dim * b_out), name=f"K_xy_{x}{y}")
+        for x in range(a_in)
+        for y in range(b_in)
+    }
+    k = "1+ab+bb"
+    constraints = npa_constraints(assemblage, k, referee_dim=referee_dim)
+    assert len(constraints) > 0
