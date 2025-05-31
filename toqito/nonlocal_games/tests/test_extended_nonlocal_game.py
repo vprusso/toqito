@@ -231,11 +231,11 @@ class TestExtendedNonlocalGame(unittest.TestCase):
 
         # Call see-saw with parameters likely to yield classical
         ent_lb = game.quantum_value_lower_bound(
-            iter=1,  # Force very few iterations
+            iters=1,  # Force very few iterations
             tol=1e-6,  # Tol doesn't matter much if steps are few
             seed=42,
         )
-        # Or, if you changed the default in the method signature to 1 iter:
+        # Or, if you changed the default in the method signature to 1 iters:
         # ent_lb = game.quantum_value_lower_bound(seed=42)
 
         ent_ub = game.commuting_measurement_value_upper_bound(k=2)

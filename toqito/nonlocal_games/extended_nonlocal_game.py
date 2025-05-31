@@ -249,7 +249,7 @@ class ExtendedNonlocalGame:
     # In toqito/nonlocal_games/extended_nonlocal_game.py
     # class ExtendedNonlocalGame:
 
-    def quantum_value_lower_bound(self, iter: int = 1, tol: float = 1e-7, seed: int = None) -> float:
+    def quantum_value_lower_bound(self, iters: int = 1, tol: float = 1e-7, seed: int = None) -> float:
         r"""Calculate lower bound on the quantum value of an extended nonlocal game.
 
         Uses an iterative see-saw method involving two SDPs.
@@ -285,9 +285,9 @@ class ExtendedNonlocalGame:
         prev_win_val = -float("inf")
         current_best_lower_bound = -float("inf")
 
-        print(f"Starting see-saw for extended game: max_steps={iter}, tol={tol}, seed={seed}")
+        print(f"Starting see-saw for extended game: max_steps={iters}, tol={tol}, seed={seed}")
 
-        for step in range(iter):
+        for step in range(iters):
             opt_alice_rho_cvxpy_vars, problem_alice = self.__optimize_alice(
                 bob_povms_np
             )  # bob_povms_np are NUMPY arrays
@@ -337,7 +337,7 @@ class ExtendedNonlocalGame:
                 break
             prev_win_val = current_win_val
         else:
-            print(f"See-saw reached max steps ({iter}) with value {current_best_lower_bound:.8f}")
+            print(f"See-saw reached max steps ({iters}) with value {current_best_lower_bound:.8f}")
 
         return current_best_lower_bound
 
