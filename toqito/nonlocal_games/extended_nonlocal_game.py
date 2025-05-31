@@ -247,7 +247,7 @@ class ExtendedNonlocalGame:
 
         return ns_val
 
-    def quantum_value_lower_bound(self, iters: int = 5, tol: float = 10e-6) -> float:
+    def quantum_value_lower_bound(self, iters: int = 5, tol: float = 10e-6, seed: int = None) -> float:
         r"""Calculate lower bound on the quantum value of an extended nonlocal game.
 
         Test
@@ -255,6 +255,8 @@ class ExtendedNonlocalGame:
         :return: The quantum value of the extended nonlocal game.
         """
         # Get number of inputs and outputs for Bob's measurements.
+        if seed is not None:
+            np.random.seed(seed)  # Seed for reproducibility of random POVMs
         _, _, _, num_outputs_bob, _, num_inputs_bob = self.pred_mat.shape
 
         best_lower_bound = float("-inf")

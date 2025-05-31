@@ -221,13 +221,14 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         - Non-signaling value is (3+sqrt(5))/6.
         The test confirms these values and notes that ent_lb > ent_ub for this game/NPA level.
         """
+        np.random.seed(42)
         prob_mat_local, pred_mat_local = self.moe_mub_3in2out_game_definition()
         game = ExtendedNonlocalGame(prob_mat_local, pred_mat_local, reps=1)
 
         unent = game.unentangled_value()
         ns = game.nonsignaling_value()
         # Use sufficient iterations for see-saw convergence
-        ent_lb = game.quantum_value_lower_bound(iters=20, tol=1e-7)
+        ent_lb = game.quantum_value_lower_bound(iters=20, tol=1e-7, seed=42)
         ent_ub = game.commuting_measurement_value_upper_bound(k=2)  # NPA level 2
 
         expected_unent_classical_value = 2 / 3.0
