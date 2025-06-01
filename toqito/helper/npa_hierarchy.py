@@ -35,9 +35,6 @@ def _reduce(word: tuple[Symbol, ...]) -> tuple[Symbol, ...]:
 
     # Iteratively apply reduction rules until no more changes occur
     while True:
-        if not current_list:  # Reduced to zero
-            return ()
-
         len_before_pass = len(current_list)
         next_pass_list = []
         idx = 0
@@ -140,8 +137,6 @@ def _gen_words(k: int | str, a_out: int, a_in: int, b_out: int, b_in: int) -> li
 
                 for word_b_tuple in product(bob_symbols, repeat=bob_len):
                     reduced_b = _reduce(word_b_tuple)
-                    if reduced_b == () and bob_len > 0:
-                        continue  # Skip if Bob's part is zero
 
                     # Construct combined word: Alice's part then Bob's part
                     # _reduce on combined (Alice_reduced, Bob_reduced) handles commutation
@@ -150,23 +145,12 @@ def _gen_words(k: int | str, a_out: int, a_in: int, b_out: int, b_in: int) -> li
                         reduced_b if reduced_b != (IDENTITY_SYMBOL,) else ()
                     )
 
-                    if not combined_word_unreduced:  # if both parts reduced to identity or one was zero
-                        if reduced_a == () or reduced_b == ():  # one part was zero
-                            # This case implies the whole product is zero, _reduce will handle it
-                            pass  # Let _reduce on combined handle it
-                        else:  # both were identity or empty
-                            words.add((IDENTITY_SYMBOL,))  # Ensure identity is added if it's the result
-                            continue
-
                     final_word = _reduce(combined_word_unreduced)
                     if final_word:  # Add if not algebraically zero
                         words.add(final_word)
 
     # Add words from specific configurations (e.g., "1+ab")
     for alice_len, bob_len in configurations:
-        if alice_len == 0 and bob_len == 0:
-            continue  # Already have identity
-
         for word_a_tuple in product(alice_symbols, repeat=alice_len):
             reduced_a = _reduce(word_a_tuple)
             if reduced_a == () and alice_len > 0:
@@ -180,12 +164,6 @@ def _gen_words(k: int | str, a_out: int, a_in: int, b_out: int, b_in: int) -> li
                 combined_word_unreduced = (reduced_a if reduced_a != (IDENTITY_SYMBOL,) else ()) + (
                     reduced_b if reduced_b != (IDENTITY_SYMBOL,) else ()
                 )
-                if not combined_word_unreduced:
-                    if reduced_a == () or reduced_b == ():
-                        pass
-                    else:
-                        words.add((IDENTITY_SYMBOL,))
-                        continue
 
                 final_word = _reduce(combined_word_unreduced)
                 if final_word:

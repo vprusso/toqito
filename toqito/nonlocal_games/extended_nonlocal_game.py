@@ -282,8 +282,6 @@ class ExtendedNonlocalGame:
 
         if solver_params is None:
             solver_params = {"eps": tol / 100, "max_iters": 25000, "verbose": False}
-            if solver == "MOSEK":
-                solver_params = {"verbose": False}
 
         # Initialize Bob's POVMs (NumPy arrays) - Default to RANDOM
         bob_povms_np = defaultdict(lambda: np.zeros((num_outputs_bob, num_outputs_bob), dtype=complex))
@@ -337,19 +335,17 @@ class ExtendedNonlocalGame:
             improvement = abs(current_win_val - prev_win_val)
 
             if step < iters - 1:
-                all_bob_povms_values_valid = True
                 for y_idx in range(self.num_bob_in):
                     for b_idx in range(self.num_bob_out):
                         if opt_bob_povm_cvxpy_vars[y_idx, b_idx].value is not None:
                             bob_povms_np[y_idx, b_idx] = opt_bob_povm_cvxpy_vars[y_idx, b_idx].value
                         else:
                             # print(f"Warning: Bob POVM var ({y_idx},{b_idx}) value is None in step {step+1}.")
-                            all_bob_povms_values_valid = False
                             break
-                    if not all_bob_povms_values_valid:
-                        break
-                if not all_bob_povms_values_valid:
-                    return current_best_lower_bound
+                    # if not all_bob_povms_values_valid:
+                    #     break
+                # if not all_bob_povms_values_valid:
+                #     return current_best_lower_bound
 
             if improvement < tol and step > 0:
                 # print(f"See-saw converged at step {step + 1} with value {current_best_lower_bound:.8f}")
@@ -415,11 +411,10 @@ class ExtendedNonlocalGame:
 
         if problem.status in [cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE] and problem.value is not None:
             return rho_xa_cvxpy_vars, problem
-
-        return None, problem
+        # return None, problem
 
     def __optimize_bob(
-        self, alice_rho_cvxpy_vars: dict | None, solver: str = cvxpy.SCS, solver_params: dict = None
+        self, alice_rho_cvxpy_vars: dict | None, solver: str = cvxpy.SCS, solver_params: dict = {}
     ) -> tuple[dict | None, cvxpy.Problem]:
         """Fix Alice's measurements and optimize over Bob's measurements."""
         # Get number of inputs and outputs.
@@ -429,8 +424,6 @@ class ExtendedNonlocalGame:
         # To overcome this, we use a dictionary to index between the questions and
         # answers, while the cvxpy variables held at this positions are
         # `dim`-by-`dim` cvxpy variables.
-        if solver_params is None:
-            solver_params = {}
 
         bob_povm_cvxpy_vars = defaultdict(cvxpy.Variable)
         for y_ques in range(self.num_bob_in):
@@ -440,12 +433,12 @@ class ExtendedNonlocalGame:
                 )
 
         win_objective = cvxpy.Constant(0)
-        if alice_rho_cvxpy_vars is None:
-            # print("Warning: __optimize_bob received None for alice_rho_cvxpy_vars.")
-            problem = cvxpy.Problem(cvxpy.Maximize(cvxpy.Constant(0)), [])
-            problem.status = "ALICE_OPTIMIZATION_FAILED"
-            problem.value = None
-            return None, problem
+        # if alice_rho_cvxpy_vars is None:
+        #     # print("Warning: __optimize_bob received None for alice_rho_cvxpy_vars.")
+        #     problem = cvxpy.Problem(cvxpy.Maximize(cvxpy.Constant(0)), [])
+        #     problem.status = "ALICE_OPTIMIZATION_FAILED"
+        #     problem.value = None
+        #     return None, problem
 
         for x_q in range(self.num_alice_in):
             for y_q in range(self.num_bob_in):
@@ -483,7 +476,7 @@ class ExtendedNonlocalGame:
             return bob_povm_cvxpy_vars, problem
 
         # print(f"Warning: __optimize_bob failed. Status: {problem.status}, Value: {problem.value}")
-        return None, problem
+        # return None, problem
 
     def commuting_measurement_value_upper_bound(self, k: int | str = 1) -> float:
         """Compute an upper bound on the commuting measurement value of an extended nonlocal game.
