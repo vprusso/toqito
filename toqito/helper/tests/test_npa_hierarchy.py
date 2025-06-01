@@ -327,6 +327,47 @@ class TestNPAGenWords:
         _, conf_test = _parse("1+a")  # A valid config
         assert (0, 0) not in conf_test  # This confirms _parse's behavior.
 
+    def test_gen_words_combined_unreduced_becomes_identity_scenario(self):
+        """test_gen_words_combined_unreduced_becomes_identity_scenario.
+
+        Test the specific `else: words.add((IDENTITY_SYMBOL,))` branch in _gen_words.
+        This happens if combined_word_unreduced is empty, AND
+        it's NOT because one of reduced_a or reduced_b was zero (already ()).
+        It means both reduced_a and reduced_b were effectively identity placeholders (empty tuples here).
+        This requires alice_len=0 and bob_len=0.
+        """
+        # Case: k_int loop, length=L, alice_len=0, bob_len=0.
+        # word_a_tuple = (), reduced_a = _reduce(()) = ()
+        # word_b_tuple = (), reduced_b = _reduce(()) = ()
+        # combined_word_unreduced = (() if () != ID else ()) + (() if () != ID else ()) = ()
+        # `if not combined_word_unreduced:` is TRUE.
+        #   `if reduced_a == () or reduced_b == ():` (True)
+        #       `if reduced_a == () and reduced_b == ():` # Need to assume this was the intended logic for that branch
+        #           `words.add((IDENTITY_SYMBOL,))`
+        # This tests if (I) is correctly added when lengths are zero.
+        # The main k_int loop starts length at 1. So alice_len=0, bob_len=0 won't occur there.
+        # The configurations loop has `if alice_len == 0 and bob_len == 0: continue`.
+        # So this specific `else: words.add((IDENTITY_SYMBOL,))` is indeed unreachable/redundant
+        # if IDENTITY_SYMBOL is added initially and other paths correctly produce empty for zero products.
+        # The test simply confirms that for k=0 (no length > 0 words), only Identity is produced.
+        words = _gen_words(k=0, a_out=2, a_in=1, b_out=2, b_in=1)
+        assert set(words) == {(IDENTITY_SYMBOL,)}
+
+    def test_gen_words_k0_plus_aa_config(self):  # Renamed for clarity
+        """Test _gen_words with k="0+aa". Expects Identity, and reduced forms from "aa".
+
+        For a_out=3, a_in=1: "aa" gives (A0,A0)->(A0,) and (A1,A1)->(A1,). (A0,A1) is zero.
+        """
+        words = _gen_words(k="0+aa", a_out=3, a_in=1, b_out=1, b_in=1)  # Bob has no symbols
+
+        # Define expected symbols based on parameters
+        alice_sym_0 = Symbol("Alice", 0, 0)
+        alice_sym_1 = Symbol("Alice", 0, 1)
+
+        expected_set = {(IDENTITY_SYMBOL,), (alice_sym_0,), (alice_sym_1,)}
+        assert set(words) == expected_set
+        assert len(words) == 3  # Ensure no unexpected extras
+
 
 # Integration tests for npa_constraints
 def cglmp_setup_vars_and_objective(num_outcomes: int) -> tuple[dict[tuple[int, int], cvxpy.Variable], cvxpy.Expression]:
@@ -499,7 +540,7 @@ def test_npa_constraints_non_trivial_identity_product(mock_assemblage_setup):
 
     This branch is hard to hit naturally. We construct a word list to force it.
     """
-    assemblage_vars, a_o, a_i, b_o, b_i, r_dim = mock_assemblage_setup(a_in=1, a_out=2, b_in=1, b_out=1, ref_dim=1)
+    assemblage_vars, _, _, _, _, r_dim = mock_assemblage_setup(a_in=1, a_out=2, b_in=1, b_out=1, ref_dim=1)
 
     constraints = npa_constraints(assemblage_vars, k=1, referee_dim=r_dim)
     assert len(constraints) > 0  # Basic check

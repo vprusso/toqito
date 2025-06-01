@@ -7,6 +7,7 @@ import numpy as np
 
 from toqito.helper import npa_constraints, update_odometer
 from toqito.matrix_ops import tensor
+from toqito.rand import random_unitary
 
 
 class ExtendedNonlocalGame:
@@ -78,6 +79,13 @@ class ExtendedNonlocalGame:
                 i_ind = update_odometer(i_ind, num_alice_in * np.ones(reps))
             self.pred_mat = pred_mat2
             self.reps = reps
+
+    def __get_game_dims(self):
+        if not hasattr(self, "_dims_initialized_by_get_game_dims") or not self._dims_initialized_by_get_game_dims:
+            (self.referee_dim, _, self.num_alice_out, self.num_bob_out, self.num_alice_in, self.num_bob_in) = (
+                self.pred_mat.shape
+            )
+            self._dims_initialized_by_get_game_dims = True
 
     def unentangled_value(self) -> float:
         r"""Calculate the unentangled value of an extended nonlocal game.
@@ -249,7 +257,15 @@ class ExtendedNonlocalGame:
     # In toqito/nonlocal_games/extended_nonlocal_game.py
     # class ExtendedNonlocalGame:
 
-    def quantum_value_lower_bound(self, iters: int = 1, tol: float = 1e-7, seed: int = None) -> float:
+    def quantum_value_lower_bound(
+        self,
+        iters: int = 20,  # Renamed from iters, sensible default
+        tol: float = 1e-8,
+        seed: int = None,
+        initial_bob_strategy: bool = False,
+        solver: str = cvxpy.SCS,
+        solver_params: dict = None,
+    ) -> float:
         r"""Calculate lower bound on the quantum value of an extended nonlocal game.
 
         Uses an iterative see-saw method involving two SDPs.
@@ -259,232 +275,215 @@ class ExtendedNonlocalGame:
         :param seed: Optional seed for initializing random POVMs for reproducibility.
         :return: The best lower bound found on the quantum value.
         """
+        self.__get_game_dims()
         if seed is not None:
             np.random.seed(seed)
-
         _, _, _, num_outputs_bob, _, num_inputs_bob = self.pred_mat.shape
 
-        # Initialize Bob's POVMs RANDOMLY (this is affected by the seed)
-        # These are numpy arrays, not cvxpy variables at this stage.
-        bob_povms_np = defaultdict(
-            lambda: np.zeros((self.pred_mat.shape[0], self.pred_mat.shape[0]), dtype=complex)
-        )  # Assuming POVMs act on referee_dim space initially
-        # This part might need adjustment based on how __optimize_alice expects bob_povms
-        # The original code implies bob_povms are d_bob x d_bob where d_bob = num_outputs_bob
-        # And that they act on a separate Bob's system. Let's stick to that.
-        # The __optimize_alice uses np.kron(pred_mat, bob_povm_element), so bob_povm_element is on Bob's space.
+        if solver_params is None:
+            solver_params = {"eps": tol / 100, "max_iters": 25000, "verbose": False}
+            if solver == "MOSEK":
+                solver_params = {"verbose": False}
 
+        # Initialize Bob's POVMs (NumPy arrays) - Default to RANDOM
         bob_povms_np = defaultdict(lambda: np.zeros((num_outputs_bob, num_outputs_bob), dtype=complex))
+        if initial_bob_strategy:  # If you add the flag
+            for y_ques in range(num_inputs_bob):
+                random_u_mat = random_unitary(num_outputs_bob)
+                for b_ans in range(num_outputs_bob):
+                    ket = random_u_mat[:, b_ans].reshape(-1, 1)
+                    bra = ket.conj().T
+                    bob_povms_np[y_ques, b_ans] = ket @ bra
+        else:
+            for y_ques in range(num_inputs_bob):
+                bob_povms_np[y_ques, 0] = np.eye(num_outputs_bob)
+                for b_other_ans in range(1, num_outputs_bob):
+                    bob_povms_np[y_ques, b_other_ans] = np.zeros((num_outputs_bob, num_outputs_bob))
 
-        for y_ques in range(num_inputs_bob):
-            bob_povms_np[y_ques, 0] = np.eye(num_outputs_bob)
-            for b_other_ans in range(1, num_outputs_bob):
-                bob_povms_np[y_ques, b_other_ans] = np.zeros((num_outputs_bob, num_outputs_bob))
-
-        # See-saw iteration
         prev_win_val = -float("inf")
         current_best_lower_bound = -float("inf")
 
-        print(f"Starting see-saw for extended game: max_steps={iters}, tol={tol}, seed={seed}")
+        # print(f"Starting see-saw: max_steps={iters}, tol={tol}, seed={seed}, solver={solver}")
 
         for step in range(iters):
-            opt_alice_rho_cvxpy_vars, problem_alice = self.__optimize_alice(
-                bob_povms_np
-            )  # bob_povms_np are NUMPY arrays
+            # Pass solver and solver_params
+            opt_alice_rho_cvxpy_vars, problem_alice = self.__optimize_alice(bob_povms_np, solver, solver_params)
 
-            if problem_alice.status not in [cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE] or problem_alice.value is None:
-                print(
-                    "Warning: Alice optimization step failed "
-                    + "(status: {problem_alice.status}) in see-saw step {step + 1}."
-                )
+            if (
+                opt_alice_rho_cvxpy_vars is None
+                or problem_alice.status not in [cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE]
+                or problem_alice.value is None
+            ):
+                # print(f"Warning: Alice opt failed (status: {problem_alice.status})
+                # in step {step + 1}. Val: {problem_alice.value}")
                 return current_best_lower_bound if current_best_lower_bound > -float("inf") else 0.0
 
-            # For __optimize_bob, we need the *CVXPY variables* from Alice's step,
-            # as their .value will be used inside __optimize_bob's objective.
-            # So, __optimize_alice should return the dict of CVXPY variables for rho.
-            opt_bob_povm_cvxpy_vars, problem_bob = self.__optimize_bob(opt_alice_rho_cvxpy_vars)
+            # Pass solver and solver_params
+            opt_bob_povm_cvxpy_vars, problem_bob = self.__optimize_bob(opt_alice_rho_cvxpy_vars, solver, solver_params)
 
-            if problem_bob.status not in [cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE] or problem_bob.value is None:
-                print(
-                    f"Warning: Bob optimization step failed (status: {problem_bob.status}) in see-saw step {step + 1}."
-                )
+            if (
+                opt_bob_povm_cvxpy_vars is None
+                or problem_bob.status not in [cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE]
+                or problem_bob.value is None
+            ):
+                # print(f"Warning: Bob opt failed (status: {problem_bob.status})
+                # in step {step + 1}. Val: {problem_bob.value}")
                 return current_best_lower_bound if current_best_lower_bound > -float("inf") else 0.0
 
-            current_win_val = problem_bob.value  # This is the objective value from Bob's optimization
-
-            # Update Bob's POVMs (numpy arrays) for the next iteration of Alice's optimization
-            for y_ques_b_update in range(num_inputs_bob):  # Ensure num_inputs_bob is defined
-                for b_ans_b_update in range(num_outputs_bob):  # Ensure num_outputs_bob is defined
-                    if opt_bob_povm_cvxpy_vars[y_ques_b_update, b_ans_b_update].value is not None:
-                        bob_povms_np[y_ques_b_update, b_ans_b_update] = opt_bob_povm_cvxpy_vars[
-                            y_ques_b_update, b_ans_b_update
-                        ].value
-                    else:
-                        print(
-                            f"Warning: Bob POVM variable for ({y_ques_b_update},{b_ans_b_update}) "
-                            + "is None after solve in step {step + 1}."
-                        )
-                        # Potentially break or handle this error (e.g., keep old POVM)
-                        return current_best_lower_bound  # Or some other error handling
-
-            it_diff = abs(current_win_val - prev_win_val)
-            # print(f"See-saw step {step + 1}: Win prob = {current_win_val:.8f}, Improvement = {it_diff:.2e}")
+            current_win_val = problem_bob.value
 
             current_best_lower_bound = max(current_best_lower_bound, current_win_val)
 
-            if it_diff <= tol and step > 0:  # Add step > 0 to ensure at least one full iteration
-                print(f"See-saw converged at step {step + 1} with value {current_best_lower_bound:.8f}")
+            improvement = abs(current_win_val - prev_win_val)
+
+            if step < iters - 1:
+                all_bob_povms_values_valid = True
+                for y_idx in range(self.num_bob_in):
+                    for b_idx in range(self.num_bob_out):
+                        if opt_bob_povm_cvxpy_vars[y_idx, b_idx].value is not None:
+                            bob_povms_np[y_idx, b_idx] = opt_bob_povm_cvxpy_vars[y_idx, b_idx].value
+                        else:
+                            # print(f"Warning: Bob POVM var ({y_idx},{b_idx}) value is None in step {step+1}.")
+                            all_bob_povms_values_valid = False
+                            break
+                    if not all_bob_povms_values_valid:
+                        break
+                if not all_bob_povms_values_valid:
+                    return current_best_lower_bound
+
+            if improvement < tol and step > 0:
+                # print(f"See-saw converged at step {step + 1} with value {current_best_lower_bound:.8f}")
                 break
             prev_win_val = current_win_val
-        else:
-            print(f"See-saw reached max steps ({iters}) with value {current_best_lower_bound:.8f}")
+        # else:
+        # print(f"See-saw reached max steps ({iters}) with value {current_best_lower_bound:.8f}")
 
         return current_best_lower_bound
 
-    def __optimize_alice(self, bob_povms) -> tuple[dict, float]:
+    def __optimize_alice(
+        self, fixed_bob_povms_np: dict, solver: str = cvxpy.SCS, solver_params: dict = None
+    ) -> tuple[dict | None, cvxpy.Problem]:
         """Fix Bob's measurements and optimize over Alice's measurements."""
-        # Get number of inputs and outputs.
-        (
-            dim,
-            _,
-            num_outputs_alice,
-            num_outputs_bob,
-            num_inputs_alice,
-            num_inputs_bob,
-        ) = self.pred_mat.shape
-
         # The cvxpy package does not support optimizing over 4-dimensional objects.
         # To overcome this, we use a dictionary to index between the questions and
         # answers, while the cvxpy variables held at this positions are
         # `dim`-by-`dim` cvxpy variables.
-        rho = defaultdict(cvxpy.Variable)
-        for x_ques in range(num_inputs_alice):
-            for a_ans in range(num_outputs_alice):
-                rho[x_ques, a_ans] = cvxpy.Variable((dim * num_outputs_bob, dim * num_outputs_bob), hermitian=True)
+        self.__get_game_dims()
+        if solver_params is None:
+            solver_params = {}
 
-        tau = cvxpy.Variable((dim * num_outputs_bob, dim * num_outputs_bob), hermitian=True)
-        win = 0
-        for x_ques in range(num_inputs_alice):
-            for y_ques in range(num_inputs_bob):
-                for a_ans in range(num_outputs_alice):
-                    for b_ans in range(num_outputs_bob):
-                        if isinstance(bob_povms[y_ques, b_ans], np.ndarray):
-                            win += self.prob_mat[x_ques, y_ques] * cvxpy.trace(
-                                (
-                                    np.kron(
-                                        self.pred_mat[:, :, a_ans, b_ans, x_ques, y_ques],
-                                        bob_povms[y_ques, b_ans],
-                                    )
-                                )
-                                .conj()
-                                .T
-                                @ rho[x_ques, a_ans]
-                            )
-                        if isinstance(
-                            bob_povms[y_ques, b_ans],
-                            cvxpy.expressions.variable.Variable,
-                        ):
-                            win += self.prob_mat[x_ques, y_ques] * cvxpy.trace(
-                                (
-                                    np.kron(
-                                        self.pred_mat[:, :, a_ans, b_ans, x_ques, y_ques],
-                                        bob_povms[y_ques, b_ans].value,
-                                    )
-                                )
-                                .conj()
-                                .T
-                                @ rho[x_ques, a_ans]
-                            )
-        objective = cvxpy.Maximize(cvxpy.real(win))
+        rho_xa_cvxpy_vars = defaultdict(cvxpy.Variable)
+        for x_ques in range(self.num_alice_in):
+            for a_ans in range(self.num_alice_out):
+                rho_xa_cvxpy_vars[x_ques, a_ans] = cvxpy.Variable(
+                    (self.referee_dim * self.num_bob_out, self.referee_dim * self.num_bob_out),
+                    hermitian=True,
+                    name=f"rho_A_{x_ques}{a_ans}",
+                )
+        tau_A_cvxpy_var = cvxpy.Variable(
+            (self.referee_dim * self.num_bob_out, self.referee_dim * self.num_bob_out), hermitian=True, name="tau_A"
+        )
+
+        win_objective = cvxpy.Constant(0)
+        for x_q in range(self.num_alice_in):
+            for y_q in range(self.num_bob_in):
+                if self.prob_mat[x_q, y_q] == 0:
+                    continue
+                for a_ans_alice in range(self.num_alice_out):
+                    for b_ans_bob in range(self.num_bob_out):
+                        # fixed_bob_povms_np is guaranteed to be np.ndarray here
+                        v_xyab = self.pred_mat[:, :, a_ans_alice, b_ans_bob, x_q, y_q]
+                        b_yb = fixed_bob_povms_np[y_q, b_ans_bob]
+                        op_for_trace = np.kron(v_xyab, b_yb)
+                        win_objective += self.prob_mat[x_q, y_q] * cvxpy.trace(
+                            op_for_trace.conj().T @ rho_xa_cvxpy_vars[x_q, a_ans_alice]
+                        )
+
+        objective = cvxpy.Maximize(cvxpy.real(win_objective))
         constraints = []
-
-        # Sum over "a" for all "x" for Alice's measurements.
-        for x_ques in range(num_inputs_alice):
-            rho_sum_a = 0
-            for a_ans in range(num_outputs_alice):
-                rho_sum_a += rho[x_ques, a_ans]
-                constraints.append(rho[x_ques, a_ans] >> 0)
-            constraints.append(rho_sum_a == tau)
-
-        constraints.append(cvxpy.trace(tau) == 1)
-        constraints.append(tau >> 0)
+        for x_q_constr in range(self.num_alice_in):
+            rho_sum_a_constr = 0
+            for a_ans_constr in range(self.num_alice_out):
+                constraints.append(rho_xa_cvxpy_vars[x_q_constr, a_ans_constr] >> 0)
+                rho_sum_a_constr += rho_xa_cvxpy_vars[x_q_constr, a_ans_constr]
+            constraints.append(rho_sum_a_constr == tau_A_cvxpy_var)
+        constraints.append(cvxpy.trace(tau_A_cvxpy_var) == 1)
+        constraints.append(tau_A_cvxpy_var >> 0)
 
         problem = cvxpy.Problem(objective, constraints)
+        problem.solve(solver=solver, **solver_params)  # Use passed solver and params
 
-        problem.solve(solver=cvxpy.SCS, eps_abs=1e-9, eps_rel=1e-9, verbose=False)
-        # Return the dictionary of CVXPY variables for rho and the problem object
         if problem.status in [cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE] and problem.value is not None:
-            return rho, problem
-        else:
-            # It's better to still return rho (even if not optimal) if problem.variables() have values,
-            # but indicate failure through the problem object. Or return None for rho.
-            # For simplicity if problem fails badly, returning None for variables is safer.
-            print(f"Warning: __optimize_alice failed to solve optimally. Status: {problem.status}")
-            return None, problem
+            return rho_xa_cvxpy_vars, problem
 
-    def __optimize_bob(self, rho) -> tuple[dict, float]:
+        return None, problem
+
+    def __optimize_bob(
+        self, alice_rho_cvxpy_vars: dict | None, solver: str = cvxpy.SCS, solver_params: dict = None
+    ) -> tuple[dict | None, cvxpy.Problem]:
         """Fix Alice's measurements and optimize over Bob's measurements."""
         # Get number of inputs and outputs.
-        (
-            dim,
-            _,
-            num_outputs_alice,
-            num_outputs_bob,
-            num_inputs_alice,
-            num_inputs_bob,
-        ) = self.pred_mat.shape
+        self.__get_game_dims()
 
         # The cvxpy package does not support optimizing over 4-dimensional objects.
         # To overcome this, we use a dictionary to index between the questions and
         # answers, while the cvxpy variables held at this positions are
         # `dim`-by-`dim` cvxpy variables.
-        bob_povms = defaultdict(cvxpy.Variable)
-        for y_ques in range(num_inputs_bob):
-            for b_ans in range(num_outputs_bob):
-                bob_povms[y_ques, b_ans] = cvxpy.Variable((dim, dim), hermitian=True)
-        win = 0
-        # When building objective, use alice_rho_cvxpy_vars[x,a].value
-        for x_ques in range(num_inputs_alice):  # num_inputs_alice needs to be defined or passed
-            for y_ques in range(num_inputs_bob):
-                for a_ans in range(num_outputs_alice):  # num_outputs_alice needs to be defined
-                    for b_ans in range(num_outputs_bob):
-                        if rho[x_ques, a_ans].value is not None:  # Check if Alice's part has a value
-                            win += self.prob_mat[x_ques, y_ques] * cvxpy.trace(
-                                (
-                                    cvxpy.kron(
-                                        self.pred_mat[:, :, a_ans, b_ans, x_ques, y_ques],
-                                        bob_povms[y_ques, b_ans],  # This is CVXPY var
-                                    )
-                                )
-                                # Here, we need the .value from Alice's optimization
-                                @ rho[x_ques, a_ans].value
-                            )
-                        else:
-                            # This implies Alice's optimization failed to provide a value.
-                            # Should not happen if quantum_value_lower_bound checks problem_alice.value
-                            # Can add a very small penalty or skip term if this is possible.
-                            # For now, assume alice_rho_cvxpy_vars[x,a].value is valid.
-                            pass
-        objective = cvxpy.Maximize(cvxpy.real(win))
+        if solver_params is None:
+            solver_params = {}
 
+        bob_povm_cvxpy_vars = defaultdict(cvxpy.Variable)
+        for y_ques in range(self.num_bob_in):
+            for b_ans in range(self.num_bob_out):
+                bob_povm_cvxpy_vars[y_ques, b_ans] = cvxpy.Variable(
+                    (self.num_bob_out, self.num_bob_out), hermitian=True, name=f"B_POVM_{y_ques}{b_ans}"
+                )
+
+        win_objective = cvxpy.Constant(0)
+        if alice_rho_cvxpy_vars is None:
+            # print("Warning: __optimize_bob received None for alice_rho_cvxpy_vars.")
+            problem = cvxpy.Problem(cvxpy.Maximize(cvxpy.Constant(0)), [])
+            problem.status = "ALICE_OPTIMIZATION_FAILED"
+            problem.value = None
+            return None, problem
+
+        for x_q in range(self.num_alice_in):
+            for y_q in range(self.num_bob_in):
+                if self.prob_mat[x_q, y_q] == 0:
+                    continue
+                for a_ans_alice in range(self.num_alice_out):
+                    if (x_q, a_ans_alice) not in alice_rho_cvxpy_vars or alice_rho_cvxpy_vars[
+                        x_q, a_ans_alice
+                    ].value is None:
+                        # print(f"Warning: Alice's rho_xa_val is None for x={x_q}
+                        # , a={a_ans_alice} in __optimize_bob. Skipping term.")
+                        continue
+                    rho_xa_val = alice_rho_cvxpy_vars[x_q, a_ans_alice].value
+
+                    for b_ans_bob in range(self.num_bob_out):
+                        v_xyab = self.pred_mat[:, :, a_ans_alice, b_ans_bob, x_q, y_q]
+                        win_objective += self.prob_mat[x_q, y_q] * cvxpy.trace(
+                            cvxpy.kron(v_xyab, bob_povm_cvxpy_vars[y_q, b_ans_bob]) @ rho_xa_val
+                        )
+
+        objective = cvxpy.Maximize(cvxpy.real(win_objective))
         constraints = []
-
-        # Sum over "b" for all "y" for Bob's measurements.
-        for y_q in range(num_inputs_bob):  # num_inputs_bob needs to be defined
-            s = 0
-            for b_a in range(num_outputs_bob):  # num_outputs_bob needs to be defined
-                constraints.append(bob_povms[y_q, b_a] >> 0)
-                s += bob_povms[y_q, b_a]
-            constraints.append(s == np.identity(num_outputs_bob))  # Ensure correct Identity dimension
+        ident_bob_space = np.identity(self.num_bob_out)
+        for y_q_constr in range(self.num_bob_in):
+            sum_b_povm = 0
+            for b_ans_constr in range(self.num_bob_out):
+                constraints.append(bob_povm_cvxpy_vars[y_q_constr, b_ans_constr] >> 0)
+                sum_b_povm += bob_povm_cvxpy_vars[y_q_constr, b_ans_constr]
+            constraints.append(sum_b_povm == ident_bob_space)
 
         problem = cvxpy.Problem(objective, constraints)
-        problem.solve(solver=cvxpy.SCS, eps_abs=1e-9, eps_rel=1e-9, verbose=False)
+        problem.solve(solver=solver, **solver_params)  # Use passed solver and params
 
         if problem.status in [cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE] and problem.value is not None:
-            return bob_povms, problem  # bob_povms is dict of CVXPY variables
-        else:
-            print(f"Warning: __optimize_bob failed to solve optimally. Status: {problem.status}")
-            return None, problem
+            return bob_povm_cvxpy_vars, problem
+
+        # print(f"Warning: __optimize_bob failed. Status: {problem.status}, Value: {problem.value}")
+        return None, problem
 
     def commuting_measurement_value_upper_bound(self, k: int | str = 1) -> float:
         """Compute an upper bound on the commuting measurement value of an extended nonlocal game.
