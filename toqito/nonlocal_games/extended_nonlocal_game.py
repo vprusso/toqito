@@ -339,9 +339,9 @@ class ExtendedNonlocalGame:
                     for b_idx in range(self.num_bob_out):
                         if opt_bob_povm_cvxpy_vars[y_idx, b_idx].value is not None:
                             bob_povms_np[y_idx, b_idx] = opt_bob_povm_cvxpy_vars[y_idx, b_idx].value
-                        else:
-                            # print(f"Warning: Bob POVM var ({y_idx},{b_idx}) value is None in step {step+1}.")
-                            break
+                        # else:
+                        # print(f"Warning: Bob POVM var ({y_idx},{b_idx}) value is None in step {step+1}.")
+                        # break
                     # if not all_bob_povms_values_valid:
                     #     break
                 # if not all_bob_povms_values_valid:
@@ -365,8 +365,6 @@ class ExtendedNonlocalGame:
         # answers, while the cvxpy variables held at this positions are
         # `dim`-by-`dim` cvxpy variables.
         self.__get_game_dims()
-        if solver_params is None:
-            solver_params = {}
 
         rho_xa_cvxpy_vars = defaultdict(cvxpy.Variable)
         for x_ques in range(self.num_alice_in):
@@ -409,7 +407,7 @@ class ExtendedNonlocalGame:
         problem = cvxpy.Problem(objective, constraints)
         problem.solve(solver=solver, **solver_params)  # Use passed solver and params
 
-        if problem.status in [cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE] and problem.value is not None:
+        if problem.status in [cvxpy.OPTIMAL] and problem.value is not None:
             return rho_xa_cvxpy_vars, problem
         # return None, problem
 
@@ -472,7 +470,7 @@ class ExtendedNonlocalGame:
         problem = cvxpy.Problem(objective, constraints)
         problem.solve(solver=solver, **solver_params)  # Use passed solver and params
 
-        if problem.status in [cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE] and problem.value is not None:
+        if problem.status in [cvxpy.OPTIMAL] and problem.value is not None:
             return bob_povm_cvxpy_vars, problem
 
         # print(f"Warning: __optimize_bob failed. Status: {problem.status}, Value: {problem.value}")
