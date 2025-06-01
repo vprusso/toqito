@@ -264,7 +264,7 @@ class ExtendedNonlocalGame:
         seed: int = None,
         initial_bob_is_random: bool = False,
         solver: str = cvxpy.SCS,
-        solver_params: dict = None,
+        solver_params: dict = {},
     ) -> float:
         r"""Calculate lower bound on the quantum value of an extended nonlocal game.
 
@@ -279,9 +279,6 @@ class ExtendedNonlocalGame:
         if seed is not None:
             np.random.seed(seed)
         _, _, _, num_outputs_bob, _, num_inputs_bob = self.pred_mat.shape
-
-        if solver_params is None:
-            solver_params = {"eps": tol / 100, "max_iters": 25000, "verbose": False}
 
         # Initialize Bob's POVMs (NumPy arrays) - Default to RANDOM
         bob_povms_np = defaultdict(lambda: np.zeros((num_outputs_bob, num_outputs_bob), dtype=complex))
@@ -337,11 +334,10 @@ class ExtendedNonlocalGame:
             if step < iters - 1:
                 for y_idx in range(self.num_bob_in):
                     for b_idx in range(self.num_bob_out):
-                        if opt_bob_povm_cvxpy_vars[y_idx, b_idx].value is not None:
-                            bob_povms_np[y_idx, b_idx] = opt_bob_povm_cvxpy_vars[y_idx, b_idx].value
-                        # else:
-                        # print(f"Warning: Bob POVM var ({y_idx},{b_idx}) value is None in step {step+1}.")
-                        # break
+                        bob_povms_np[y_idx, b_idx] = opt_bob_povm_cvxpy_vars[y_idx, b_idx].value
+                    # else:
+                    # print(f"Warning: Bob POVM var ({y_idx},{b_idx}) value is None in step {step+1}.")
+                    # break
                     # if not all_bob_povms_values_valid:
                     #     break
                 # if not all_bob_povms_values_valid:
@@ -407,8 +403,7 @@ class ExtendedNonlocalGame:
         problem = cvxpy.Problem(objective, constraints)
         problem.solve(solver=solver, **solver_params)  # Use passed solver and params
 
-        if problem.status in [cvxpy.OPTIMAL] and problem.value is not None:
-            return rho_xa_cvxpy_vars, problem
+        return rho_xa_cvxpy_vars, problem
         # return None, problem
 
     def __optimize_bob(
@@ -443,12 +438,6 @@ class ExtendedNonlocalGame:
                 if self.prob_mat[x_q, y_q] == 0:
                     continue
                 for a_ans_alice in range(self.num_alice_out):
-                    if (x_q, a_ans_alice) not in alice_rho_cvxpy_vars or alice_rho_cvxpy_vars[
-                        x_q, a_ans_alice
-                    ].value is None:
-                        # print(f"Warning: Alice's rho_xa_val is None for x={x_q}
-                        # , a={a_ans_alice} in __optimize_bob. Skipping term.")
-                        continue
                     rho_xa_val = alice_rho_cvxpy_vars[x_q, a_ans_alice].value
 
                     for b_ans_bob in range(self.num_bob_out):
@@ -470,8 +459,7 @@ class ExtendedNonlocalGame:
         problem = cvxpy.Problem(objective, constraints)
         problem.solve(solver=solver, **solver_params)  # Use passed solver and params
 
-        if problem.status in [cvxpy.OPTIMAL] and problem.value is not None:
-            return bob_povm_cvxpy_vars, problem
+        return bob_povm_cvxpy_vars, problem
 
         # print(f"Warning: __optimize_bob failed. Status: {problem.status}, Value: {problem.value}")
         # return None, problem
