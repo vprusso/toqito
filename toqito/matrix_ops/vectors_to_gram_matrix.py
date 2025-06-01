@@ -17,7 +17,7 @@ def vectors_to_gram_matrix(vectors: list[np.ndarray]) -> np.ndarray:
     .. jupyter-execute::
 
      import numpy as np
-     from toqito.perms import vectors_to_gram_matrix
+     from toqito.matrix_ops import vectors_to_gram_matrix
 
      vectors = [np.array([1, 2]), np.array([3, 4])]
      gram_matrix = vectors_to_gram_matrix(vectors)
@@ -29,7 +29,7 @@ def vectors_to_gram_matrix(vectors: list[np.ndarray]) -> np.ndarray:
     .. jupyter-execute::
 
      import numpy as np
-     from toqito.perms import vectors_to_gram_matrix
+     from toqito.matrix_ops import vectors_to_gram_matrix
 
      vectors = [np.array([1+1j, 2+2j]), np.array([3+3j, 4+4j])]
      gram_matrix = vectors_to_gram_matrix(vectors)

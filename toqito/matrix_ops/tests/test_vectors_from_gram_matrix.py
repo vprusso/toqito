@@ -3,7 +3,7 @@
 import numpy as np
 import pytest
 
-from toqito.perms import vectors_from_gram_matrix
+from toqito.matrix_ops import vectors_from_gram_matrix
 
 
 @pytest.mark.parametrize(

@@ -19,7 +19,7 @@ def vectors_from_gram_matrix(gram: np.ndarray) -> list[np.ndarray]:
     .. jupyter-execute::
 
      import numpy as np
-     from toqito.perms import vectors_from_gram_matrix
+     from toqito.matrix_ops import vectors_from_gram_matrix
 
      gram_matrix = np.array([[2, -1], [-1, 2]])
      vectors = vectors_from_gram_matrix(gram_matrix)
