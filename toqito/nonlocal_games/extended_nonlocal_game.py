@@ -262,7 +262,7 @@ class ExtendedNonlocalGame:
         iters: int = 20,  # Renamed from iters, sensible default
         tol: float = 1e-8,
         seed: int = None,
-        initial_bob_strategy: bool = False,
+        initial_bob_is_random: bool = False,
         solver: str = cvxpy.SCS,
         solver_params: dict = None,
     ) -> float:
@@ -287,7 +287,7 @@ class ExtendedNonlocalGame:
 
         # Initialize Bob's POVMs (NumPy arrays) - Default to RANDOM
         bob_povms_np = defaultdict(lambda: np.zeros((num_outputs_bob, num_outputs_bob), dtype=complex))
-        if initial_bob_strategy:  # If you add the flag
+        if initial_bob_is_random:  # If you add the flag
             for y_ques in range(num_inputs_bob):
                 random_u_mat = random_unitary(num_outputs_bob)
                 for b_ans in range(num_outputs_bob):
