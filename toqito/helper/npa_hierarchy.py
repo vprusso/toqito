@@ -107,8 +107,8 @@ def _parse(k_str: str) -> tuple[int, set[tuple[int, int]]]:
                     f"Invalid character '{char_val}' in k string component "
                     + f"'{val}'. Only 'a' or 'b' allowed after base k."
                 )
-        if cnt_a > 0 or cnt_b > 0:  # Only add if it's a non-empty configuration part
-            conf.add((cnt_a, cnt_b))
+        # if cnt_a > 0 or cnt_b > 0:  # Only add if it's a non-empty configuration part
+        conf.add((cnt_a, cnt_b))
     return base_k, conf
 
 
@@ -158,16 +158,16 @@ def _gen_words(k: int | str, a_out: int, a_in: int, b_out: int, b_in: int) -> li
 
             for word_b_tuple in product(bob_symbols, repeat=bob_len):
                 reduced_b = _reduce(word_b_tuple)
-                if reduced_b == () and bob_len > 0:
-                    continue
+                # if reduced_b == () and bob_len > 0:
+                #     continue
 
                 combined_word_unreduced = (reduced_a if reduced_a != (IDENTITY_SYMBOL,) else ()) + (
                     reduced_b if reduced_b != (IDENTITY_SYMBOL,) else ()
                 )
 
                 final_word = _reduce(combined_word_unreduced)
-                if final_word:
-                    words.add(final_word)
+                # if final_word:
+                words.add(final_word)
 
     # Sort for consistent ordering, important for matrix indexing
     # Identity first, then by length, then lexicographically.
@@ -308,10 +308,10 @@ def npa_constraints(
                 # This occurs for (i,j) where S_i^dagger S_j = I. e.g. S_i = S_j and S_i is unitary (proj).
                 # Or i=0, j=0 (I^dagger I = I).
                 # This means current_block should be rho_R_referee if product_S_i_adj_S_j is I
-                if i == 0 and j == 0:  # This is rho_R itself, already handled by definition
-                    pass
-                else:  # For other S_i^dagger S_j = I, their block should also be rho_R
-                    constraints.append(current_block == rho_R_referee)
+                # if i == 0 and j == 0:  # This is rho_R itself, already handled by definition
+                #     pass
+                # else:  # For other S_i^dagger S_j = I, their block should also be rho_R
+                constraints.append(current_block == rho_R_referee)
 
             elif _is_meas(product_S_i_adj_S_j):  # Product is A_a^x B_b^y
                 alice_symbol, bob_symbol = product_S_i_adj_S_j
@@ -335,7 +335,7 @@ def npa_constraints(
                         for b_ans in range(b_out)
                     )
                     constraints.append(current_block == sum_over_bob_outcomes)
-                elif symbol.player == "Bob":
+                else:  # elif symbol.player == "Bob":
                     # Sum over Alice's outcomes for a fixed Alice question (e.g., x=0)
                     # E[B_b^y] = sum_a K_0y(a,b)
                     sum_over_alice_outcomes = sum(
