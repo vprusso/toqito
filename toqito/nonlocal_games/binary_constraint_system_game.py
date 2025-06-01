@@ -1,23 +1,25 @@
 import numpy as np
-import networkx as nx
+
 from toqito.nonlocal_games.nonlocal_game import NonlocalGame
 
+
 def create_bcs_constraints(M: np.ndarray, b: np.ndarray):
-    r"""Construct a list of constraints in tensor form for a binary constraint system (BCS) game.
+    r"""
+    Construct a list of constraints in tensor form for a binary constraint system (BCS) game.
+
     This function builds a list of constraints by converting each row of the binary matrix
-    M of shape (m, n) and the corresponding element of the binary vector b
+    ``M`` of shape (m, n) and the corresponding element of the binary vector ``b``
     into an n-dimensional tensor of shape (2, 2, ..., 2) (one axis per variable).
+
     The conversion works as follows:
-    
-      1. For the i-th constraint, compute the constant value as 
-         rhs = (-1)**(b[i]).
-      2. Create an n-dimensional array (tensor) of shape (2,)*n filled with -rhs.
+      1. For the i-th constraint, compute the constant value as ``rhs = (-1)**(b[i])``.
+      2. Create an n-dimensional array (tensor) of shape (2,)*n filled with ``-rhs``.
       3. Compute the index from the first n entries of the i-th row of M by taking each value modulo 2.
-      4. Set the tensor element at that index to rhs.
-    For example, if 
-       M[i] = [1, 1] and b[i] = 0 (so rhs = 1),
-    then the tensor is of shape (2, 2) and is created as follows:
-    
+      4. Set the tensor element at that index to ``rhs``.
+
+    For example:
+      If ``M[i] = [1, 1]`` and ``b[i] = 0`` (so rhs = 1),
+      then the tensor is of shape (2, 2) and is created as:
       - Start with a (2, 2) array filled with -1 (since -rhs = -1):
             [ [-1, -1],
               [-1, -1] ]
@@ -25,73 +27,38 @@ def create_bcs_constraints(M: np.ndarray, b: np.ndarray):
       - At position (1, 1), the value is set to 1, resulting in:
             [ [-1, -1],
               [-1,  1] ]
+
     This tensor now represents the constraint in full detail.
+
     Examples
     ==========
-        >>> import numpy as np
-        >>> from binary_constraint_system_game import create_bcs_constraints
-        >>> M = np.array([[1, 1], [1, 1]], dtype=int)
-        >>> b = np.array([0, 1], dtype=int)
-        >>> constraints = create_bcs_constraints(M, b)
-        >>> constraints[0].shape
-        (2, 2)
+    .. jupyter-execute::
+
+        import numpy as np
+        from binary_constraint_system_game import create_bcs_constraints
+
+        M = np.array([[1, 1], [1, 1]], dtype=int)
+        b = np.array([0, 1], dtype=int)
+        constraints = create_bcs_constraints(M, b)
+        constraints[0].shape
+
     References
-    ============
-        (See bibliography in relevant documentation)
+    ==========
+    (See bibliography in relevant documentation)
+
     :param M: A binary matrix of shape (m, n) defining which variables appear in each constraint.
-    :param b: A binary vector of length m that determines the constant term (-1)**(b[i]).
+    :param b: A binary vector of length m that determines the constant term ``(-1)**(b[i])``.
     :return: A list of n-dimensional NumPy arrays (tensors) of shape ((2,)*n) representing each constraint.
     """
     m, n = M.shape
     constraints = []
     for i in range(m):
         rhs = (-1) ** b[i]
-        # Create an n-dimensional array of shape (2, 2, ..., 2) filled with -rhs.
         constraint_tensor = np.full((2,) * n, fill_value=-rhs, dtype=int)
-        # Compute the index from the binary row M[i]. Assume M[i] contains binary values (0 or 1).
         idx = tuple(M[i] % 2)
-        # Set the tensor element at that index to rhs.
         constraint_tensor[idx] = rhs
         constraints.append(constraint_tensor)
     return constraints
-
-
-def tensor_to_raw(constraint_tensor: np.ndarray) -> np.ndarray:
-    r"""Convert a tensor-form constraint back to its raw 1D representation.
-    The tensor-form constraint is expected to have shape (2, 2, ..., 2) (n times)
-    and to be constructed as follows:
-      - The array is initially filled with -rhs, where rhs = (-1)**(b[i]).
-      - A unique element at some index is overwritten with rhs.
-    This function finds the unique element (the one that appears exactly once)
-    and returns a 1D array of length n+1, where the first n entries are the coordinates
-    (taken directly from the unique index) and the last element is the unique constant rhs.
-    Examples
-    ==========
-        >>> import numpy as np
-        >>> from binary_constraint_system_game import tensor_to_raw
-        >>> tensor_constraint = np.array([[-1, -1], [-1, 1]])
-        >>> raw = tensor_to_raw(tensor_constraint)
-        >>> raw
-        array([1, 1, 1])
-    :param constraint_tensor: An n-dimensional NumPy array representing a constraint (shape (2,)*n).
-    :return: A 1D NumPy array of length n+1 where the first n elements are the coordinates (indices)
-             and the last element is the unique constant (rhs).
-    """
-    values, counts = np.unique(constraint_tensor, return_counts=True)
-    if len(values) != 2:
-        raise ValueError("Constraint tensor does not have exactly two distinct values.")
-    if counts[0] == 1:
-        unique_value = values[0]
-    elif counts[1] == 1:
-        unique_value = values[1]
-    else:
-        raise ValueError("Constraint tensor does not have a unique element that appears exactly once.")
-    unique_idx = np.argwhere(constraint_tensor == unique_value)
-    if unique_idx.shape[0] != 1:
-        raise ValueError("Expected exactly one occurrence of the unique value in the constraint tensor.")
-    idx_tuple = tuple(unique_idx[0])
-    raw_constraint = np.array(list(idx_tuple) + [unique_value])
-    return raw_constraint
 
 
 def generate_solution_group(M: np.ndarray, b: np.ndarray):
@@ -129,6 +96,79 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray):
     powers = 1 << np.arange(M.shape[1])
     return (M * powers).sum(axis=1).astype(int).tolist(), b.astype(int).tolist()
 
+def _has_undirected_cycle(nodes: list[int], edges: list[tuple[int, int]]) -> bool:
+    r"""
+    Detect whether the undirected graph formed by the given nodes and edges contains any cycle.
+
+    This function builds an adjacency list from the given list of nodes and edges,
+    and then performs a depth-first search (DFS) with parent tracking to detect cycles
+    in the undirected graph. A cycle is detected if the DFS encounters a previously
+    visited node that is not the parent of the current node.
+
+    The function returns True if at least one cycle exists, and False otherwise.
+
+    Parameters
+    ==========
+    nodes : list of int
+        A list of integer node labels (e.g., [0, 1, 2, ...]).
+    edges : list of tuple of int
+        A list of undirected edges, each represented as a tuple (u, v) where u and v
+        are nodes from the 'nodes' list.
+
+    Returns
+    ==========
+    bool
+        True if the undirected graph contains at least one cycle, False otherwise.
+
+    Examples
+    ==========
+    .. jupyter-execute::
+
+        from binary_constraint_system_game import _has_undirected_cycle
+
+        # Example 1: Graph with a cycle
+        nodes = [0, 1, 2]
+        edges = [(0, 1), (1, 2), (2, 0)]
+        print(_has_undirected_cycle(nodes, edges))  # Output: True
+
+        # Example 2: Graph with no cycle (a tree)
+        nodes = [0, 1, 2]
+        edges = [(0, 1), (1, 2)]
+        print(_has_undirected_cycle(nodes, edges))  # Output: False
+
+    Notes
+    ==========
+    - This function is used internally to replace NetworkX's cycle_basis call for
+      cycle detection in undirected graphs.
+    - The function assumes the graph is undirected; all edges are treated as
+      bidirectional.
+    """
+    ...
+    # Build adjacency list
+    adj: dict[int, list[int]] = {u: [] for u in nodes}
+    for u, v in edges:
+        adj[u].append(v)
+        adj[v].append(u)
+
+    visited: set[int] = set()
+
+    def dfs(u: int, parent: int) -> bool:
+        visited.add(u)
+        for nbr in adj[u]:
+            if nbr == parent:
+                continue
+            if nbr in visited:
+                return True
+            if dfs(nbr, u):
+                return True
+        return False
+
+    for u in nodes:
+        if u not in visited:
+            if dfs(u, parent=-1):
+                return True
+
+    return False
 
 def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray):
     r"""Determine whether a perfect commuting-operator strategy exists for a BCS game.
@@ -182,21 +222,20 @@ def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray):
             break
 
     # Check for contradiction: a row with 0 = 1
-    contradiction = next((combo[r] for r in range(m) if row[r] == 0 and parity[r] == 1), None)
+    contradiction = next(
+        (combo[r] for r in range(m) if row[r] == 0 and parity[r] == 1),
+        None
+    )
     if contradiction is None:
-        return True
+        return True  # no contradiction → perfect strategy exists
 
-    # Build a graph of constraints that contributed to the contradiction
+    # Build the subgraph of nodes involved in a contradiction
     nodes = [r for r in range(m) if (contradiction >> r) & 1]
-    G = nx.Graph()
-    G.add_nodes_from(nodes)
+    edges: list[tuple[int, int]] = []
+    for i, u in enumerate(nodes):
+        for v in nodes[i + 1 :]:
+            if row[u] & row[v]:
+                edges.append((u, v))
 
-    # Add edges where two constraints share a variable
-    edges = [
-        (u, v)
-        for i, u in enumerate(nodes)
-        for v in nodes[i + 1 :]
-        if row[u] & row[v]
-    ]
-    G.add_edges_from(edges)
-    return bool(nx.cycle_basis(G))
+    # If that undirected subgraph has any cycle, return True; otherwise False.
+    return _has_undirected_cycle(nodes, edges)

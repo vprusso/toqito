@@ -252,9 +252,10 @@ class TestNonlocalGame(unittest.TestCase):
         # Expected result: We do not care for the value, just triggering the block
         self.assertIsNotNone(res)
         
-    def test_chsh_classical_value_fast(self):
+    def test_chsh_bcs_game_classical_value(self):
         """Classical value for the CHSH game (fast method)."""
-        c1 = np.zeros((2, 2)); c2 = np.zeros((2, 2))
+        c1 = np.zeros((2, 2))
+        c2 = np.zeros((2, 2))
         for v1 in range(2):
             for v2 in range(2):
                 (c1 if (v1 ^ v2) == 0 else c2)[v1, v2] = 1
@@ -262,7 +263,7 @@ class TestNonlocalGame(unittest.TestCase):
         val = game.classical_value()
         self.assertAlmostEqual(val, 0.75, places=6)
 
-    def test_4line_parity_bcs_classical_value(self):
+     def test_four_line_parity_bcs_classical_value(self):
         """Classical value for the 4-Line Parity BCS game."""
         shape = (2, 2, 2, 2, 2, 2)
         c_1 = np.zeros(shape)
@@ -341,5 +342,4 @@ class TestNonlocalGame(unittest.TestCase):
         game = NonlocalGame.from_bcs_game([c_1, c_2])
         val = game.classical_value()
         self.assertAlmostEqual(val, 5 / 6, places=6)
-
     

@@ -11,7 +11,9 @@ from toqito.helper import npa_constraints, update_odometer
 from toqito.matrix_ops import tensor
 from toqito.rand import random_povm
 
-from binary_constraint_system_game import check_perfect_commuting_strategy,tensor_to_raw
+from binary_constraint_system_game import check_perfect_commuting_strategy
+from tensor_unravel import tensor_unravel
+
 
 @nb.njit
 def _fast_classical_value(pred_mat: np.ndarray, num_b_out: int, num_b_in: int, pow_arr: np.ndarray) -> float:
@@ -225,7 +227,7 @@ class NonlocalGame:
         if self._raw_constraints[0].ndim != 1:
             converted = []
             for tensor_constraint in self._raw_constraints:
-                converted.append(tensor_to_raw(tensor_constraint))
+                converted.append(tensor_unravel(tensor_constraint))
             raw_constraints = converted
         else:
             raw_constraints = self._raw_constraints

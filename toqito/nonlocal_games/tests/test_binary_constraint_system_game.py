@@ -1,4 +1,5 @@
 import numpy as np
+
 from nonlocal_game import NonlocalGame
 from binary_constraint_system_game import (
     create_bcs_constraints,
