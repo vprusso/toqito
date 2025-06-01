@@ -471,16 +471,15 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         )
 
         # The main check is that it doesn't crash and the problem attempts to solve.
-        self.assertIsNotNone(problem_obj, "Problem object should be returned.")
+        self.assertIsNotNone(problem_obj)
         # Depending on how many terms were skipped, the value might be different.
         # We are primarily testing that the `if rho_xa_val is None: continue` path is taken.
         # And that CVXPY doesn't try to operate on a raw Mock object.
-        self.assertTrue(hasattr(problem_obj, "status"), "Problem object should have a status.")
-        self.assertTrue(hasattr(problem_obj, "value"), "Problem object should have a value attribute.")
+        self.assertTrue(hasattr(problem_obj))
+        self.assertTrue(hasattr(problem_obj))
         # A more robust check might be to see if the warning was printed (requires capturing stdout).
         # For now, let's assume if it solves to *something* without TypeErro, the None handling is working.
         self.assertIn(
             problem_obj.status,
             [cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE, cvxpy.USER_LIMIT, cvxpy.INFEASIBLE, cvxpy.UNBOUNDED],
-            f"Problem solved with unexpected status: {problem_obj.status}",
         )
