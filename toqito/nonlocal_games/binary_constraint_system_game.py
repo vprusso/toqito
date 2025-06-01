@@ -62,32 +62,48 @@ def create_bcs_constraints(M: np.ndarray, b: np.ndarray):
 
 
 def generate_solution_group(M: np.ndarray, b: np.ndarray):
-    r"""Generate a bitmask representation for a binary constraint system (BCS) game.
+    r"""
+    Generate a bitmask representation for a binary constraint system (BCS) game.
+
     This function converts each row of the binary matrix ``M`` into an integer bitmask,
     pairing it with the corresponding parity from ``b``. The bitmask representation
     can be useful for analyzing linear system games.
+
     Examples
+    ========
+
+    .. jupyter-execute::
+
+        import numpy as np
+        from toqito.nonlocal_games.binary_constraint_system_game import generate_solution_group
+
+        M = np.array([[1, 1, 0], [0, 1, 1]], dtype=int)
+        b = np.array([0, 1], dtype=int)
+        row_masks, parity = generate_solution_group(M, b)
+
+        print("Row masks:", row_masks)
+        print("Parity:", parity)
+
+    Parameters
     ==========
-    .. code-block:: python
-        >>> import numpy as np
-        >>> from binary_constraint_system_game import generate_solution_group
-        >>> M = np.array([[1, 1, 0], [0, 1, 1]], dtype=int)
-        >>> b = np.array([0, 1], dtype=int)
-        >>> row_masks, parity = generate_solution_group(M, b)
-        >>> print(row_masks)
-        [3, 6]
-        >>> print(parity)
-        [0, 1]
+    M : np.ndarray
+        A binary matrix of shape ``(m, n)``.
+    b : np.ndarray
+        A binary vector of length ``m``.
+
+    Returns
+    =======
+    tuple
+        A tuple containing:
+        - A list of integer bitmasks (one per row of ``M``).
+        - A list of parity values derived from ``b``.
+
     References
     ==========
     .. bibliography::
         :filter: docname in docnames
-    :param M: A binary matrix of shape ``(m, n)``.
-    :param b: A binary vector of length ``m``.
-    :return: A tuple containing:
-             - A list of integer bitmasks (one per row of ``M``).
-             - A list of parity values derived from ``b``.
     """
+
     # Ensure M and b are binary (0/1)
     M = np.array(M, dtype=int) % 2
     b = np.array(b, dtype=int) % 2
