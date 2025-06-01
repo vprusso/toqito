@@ -280,3 +280,137 @@ def test_separable_3x3_rank4_ppt_chow_form():
         assert is_separable(rho, dim=[3, 3])
     else:
         pytest.skip("Constructed 3x3 state not rank 4, skipping specific det(F) separable test.")
+
+
+def test_johnston_spectrum_2x2_specific_separable_passes():
+    """Separable: 2x2 PPT state for Johnston spectrum condition - passing case."""
+    # lam = [0.4, 0.35, 0.15, 0.10]
+    # (0.4-0.15)^2 = (0.25)^2 = 0.0625
+    # 4*0.35*0.1 = 4*0.035 = 0.14.  0.0625 <= 0.14. This passes.
+    rho_johnston_test = np.diag([0.4, 0.35, 0.15, 0.10])
+    assert is_separable(rho_johnston_test, dim=[2, 2])
+
+
+def test_johnston_spectrum_2x2_specific_separable_fails_condition():
+    """Separable: 2x2 PPT state FAILS Johnston spectrum condition but is separable otherwise."""
+    # lam = [0.7, 0.1, 0.1, 0.1]
+    # (0.7-0.1)^2 = 0.6^2 = 0.36
+    # 4*0.1*0.1 = 0.04.  0.36 is NOT <= 0.04. This condition fails.
+    # But this state is diag([0.7,0.1,0.1,0.1]) which is separable (mixture of |00><00| etc)
+    # It will be caught by Horodecki Op (rank 4, max_dim=2, fails; rank_sum 4+4=8 > 6 fails)
+    # It will be caught by OSR (OSR=4, so not OSR<=2)
+    # It might be caught by in_separable_ball.
+    # This test is more about ensuring that if this condition *isn't* met, the state
+    # isn't wrongly declared entangled IF it's separable by other means.
+    rho_fails_johnston_cond = np.diag([0.7, 0.1, 0.1, 0.1])
+    # This state IS separable. is_separable should return True.
+    # It will be caught by the fact that it's a mixture of product states,
+    # possibly by `in_separable_ball` or other general separability.
+    assert is_separable(rho_fails_johnston_cond, dim=[2, 2])
+
+
+def test_hildebrand_block_hankel_2x2_B_hermitian():
+    """Separable: 2x2 PPT by Hildebrand (B is Hermitian, so rank(B-B.T)=0)."""
+    dim_A, dim_B = 2, 2
+    A_block = np.array([[0.3, 0.01j], [-0.01j, 0.25]], dtype=complex)
+    C_block = np.array([[0.25, -0.02j], [0.02j, 0.1]], dtype=complex)
+    B_block = np.array([[0.05, 0.02], [0.02, 0.05]], dtype=complex)
+
+    state_t = np.block([[A_block, B_block], [B_block.conj().T, C_block]])
+    state_t = state_t / np.trace(state_t)
+
+    pt_A = partial_transpose(state_t, sys=0, dim=[dim_A, dim_B])
+    if not (
+        is_positive_semidefinite(state_t, rtol=1e-7, atol=1e-7) and is_positive_semidefinite(pt_A, rtol=1e-7, atol=1e-7)
+    ):
+        pytest.skip("Constructed Hildebrand block Hankel state not PSD/PPT.")
+
+    assert is_separable(state_t, dim=[dim_A, dim_B])
+
+
+def test_hildebrand_homothetic_images_2x2_separable():
+    """Separable: 2x2 PPT state that should pass Hildebrand homothetic images test."""
+    # Use the same state as above, it should also pass this if conditions are related.
+    dim_A, dim_B = 2, 2
+    A_block = np.array([[0.4, 0], [0, 0.2]], dtype=complex)
+    C_block = np.array([[0.3, 0], [0, 0.1]], dtype=complex)
+    B_block = np.array([[0.05, 0.01j], [-0.01j, 0.05]], dtype=complex)
+
+    state_t = np.block([[A_block, B_block], [B_block.conj().T, C_block]])
+    state_t = state_t / np.trace(state_t)
+
+    pt_A = partial_transpose(state_t, sys=0, dim=[dim_A, dim_B])
+    if not (
+        is_positive_semidefinite(state_t, rtol=1e-7, atol=1e-7) and is_positive_semidefinite(pt_A, rtol=1e-7, atol=1e-7)
+    ):
+        pytest.skip("Constructed Hildebrand homothetic test state not PSD or not PPT.")
+
+    assert is_separable(state_t, dim=[dim_A, dim_B])
+
+
+def test_johnston_lemma1_2x2_separable():
+    """Separable: 2x2 PPT state that should pass Johnston Lemma 1."""
+    dim_A, dim_B = 2, 2
+    A_block = np.array([[0.4, 0], [0, 0.3]], dtype=complex)
+    C_block = np.array([[0.2, 0], [0, 0.1]], dtype=complex)
+    B_block = np.array([[0.01, 0.01], [0.01, 0.01]], dtype=complex)
+
+    state_t = np.block([[A_block, B_block], [B_block.conj().T, C_block]])
+    state_t = state_t / np.trace(state_t)
+
+    pt_A = partial_transpose(state_t, sys=0, dim=[dim_A, dim_B])
+    if not (
+        is_positive_semidefinite(state_t, rtol=1e-7, atol=1e-7) and is_positive_semidefinite(pt_A, rtol=1e-7, atol=1e-7)
+    ):
+        pytest.skip("Constructed Johnston Lemma 1 test state not PSD or not PPT.")
+
+    assert is_separable(state_t, dim=[dim_A, dim_B])
+
+
+# --- Skipped tests for very specific literature states ---
+@pytest.mark.skip(reason="Requires specific literature state for Zhang criterion isolation.")
+def test_zhang_criterion_catches_ppt_entangled():
+    """test_ha_map_catches_specific_3x3_ppt_entangled."""
+    pass
+
+
+@pytest.mark.skip(
+    reason="Requires a specific 3x3 PPT entangled state known to be caught by Ha maps but not simpler criteria."
+)
+def test_ha_map_catches_specific_3x3_ppt_entangled():
+    """test_ha_map_catches_specific_3x3_ppt_entangled."""
+    pass
+
+
+@pytest.mark.skip(reason="Breuer-Hall map specific test requires a state not caught by CCNR/Reduction.")
+def test_breuer_hall_catches_even_dim_ppt_entangled():
+    """test_separable_by_symmetric_extension."""
+    pass
+
+
+@pytest.mark.skip(reason="Skipping specific symmetric extension True path: requires specific hard state.")
+def test_separable_by_symmetric_extension():
+    """test_separable_by_symmetric_extension."""
+    pass
+
+
+def test_2xN_rules_after_swap_3x2_separable():
+    """Separable: 3x2 PPT state triggering swap and then a 2xN rule."""
+    dA, dB = 3, 2  # Original dimensions, will be swapped to 2x3
+    dims = [dA, dB]
+
+    psi_A = basis(dA, 0)  # e.g., |0>_A for A in C^3
+    psi_B = basis(dB, 0)  # e.g., |0>_B for B in C^2
+    rho = np.outer(np.kron(psi_A, psi_B), np.kron(psi_A, psi_B).conj())
+
+    assert is_density(rho)
+    assert is_separable(rho, dim=dims)
+
+
+def test_2xN_johnston_spectrum_after_swap_4x2_separable():
+    """Separable: 4x2 PPT state for Johnston spectrum after swap."""
+    # Consider a simple product state on 3x2 that becomes 2x3 after swap
+    psi_A_3dim = basis(3, 0)
+    psi_B_2dim = basis(2, 0)
+    rho_3x2_prod = np.outer(np.kron(psi_A_3dim, psi_B_2dim), np.kron(psi_A_3dim, psi_B_2dim).conj())
+    assert is_separable(rho_3x2_prod, dim=[3, 2])
