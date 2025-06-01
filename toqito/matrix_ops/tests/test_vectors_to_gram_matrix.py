@@ -3,7 +3,7 @@
 import numpy as np
 import pytest
 
-from toqito.matrix_ops import vectors_to_gram_matrix
+from toqito.perms import vectors_to_gram_matrix
 from toqito.states import trine
 
 e_0, e_1 = np.array([[1], [0]]), np.array([[0], [1]])
