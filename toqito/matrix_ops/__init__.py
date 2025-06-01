@@ -2,7 +2,6 @@
 
 from toqito.matrix_ops.to_density_matrix import to_density_matrix
 from toqito.matrix_ops.tensor import tensor
-from toqito.matrix_ops.vec import vec
 from toqito.matrix_ops.unvec import unvec
 from toqito.matrix_ops.vectors_from_gram_matrix import vectors_from_gram_matrix
 from toqito.matrix_ops.vectors_to_gram_matrix import vectors_to_gram_matrix
@@ -17,7 +16,6 @@ from .partial_transpose import partial_transpose
 __all__ = [
     "to_density_matrix",
     "tensor",
-    "vec",
     "unvec",
     "vectors_from_gram_matrix",
     "vectors_to_gram_matrix",
