@@ -6,9 +6,9 @@ import numpy as np
 from scipy.linalg import orth
 
 from toqito.channel_ops.partial_channel import partial_channel
-from toqito.channels import partial_trace
-from toqito.channels import partial_transpose as pt_func
 from toqito.channels.realignment import realignment
+from toqito.matrix_ops import partial_trace
+from toqito.matrix_ops import partial_transpose as pt_func
 from toqito.matrix_props.is_positive_semidefinite import is_positive_semidefinite
 from toqito.matrix_props.trace_norm import trace_norm
 from toqito.perms.swap import swap

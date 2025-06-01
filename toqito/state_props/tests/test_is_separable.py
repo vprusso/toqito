@@ -3,7 +3,7 @@
 import numpy as np
 import pytest  # For pytest.skip and pytest.raises
 
-from toqito.channels import partial_transpose
+from toqito.matrix_ops import partial_transpose
 from toqito.matrix_props import is_density, is_positive_semidefinite
 from toqito.rand import random_density_matrix
 from toqito.state_props.is_separable import is_separable
