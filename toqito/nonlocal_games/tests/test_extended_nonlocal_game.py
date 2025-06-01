@@ -269,7 +269,7 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         self.assertLessEqual(ent_ub, ns + 1e-5)
         self.assertLessEqual(ent_lb, ns + 1e-5)
 
-   def test_mub_3in2out_entangled_bounds_single_round_random(self):
+    def test_mub_3in2out_entangled_bounds_single_round_random(self):
         """Test bounds for the MUB 3-in, 2-out extended nonlocal game with initial_bob_random."""
         np.random.seed(42)  # For reproducibility of see-saw's random start
 
