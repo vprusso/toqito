@@ -314,7 +314,7 @@ subsystem.
 
 .. jupyter-execute::
 
-     from toqito.channels import partial_trace
+     from toqito.matrix_ops import partial_trace
      import numpy as np
      test_input_mat = np.arange(1, 17).reshape(4, 4)
      partial_trace(test_input_mat)
@@ -333,7 +333,7 @@ trace over the first subsystem yields the following matrix
 
 .. jupyter-execute::
 
-     from toqito.channels import partial_trace
+     from toqito.matrix_ops import partial_trace
      import numpy as np
      test_input_mat = np.arange(1, 17).reshape(4, 4)
      partial_trace(test_input_mat, [0])
@@ -383,7 +383,7 @@ the second subsystem as follows.
 
 .. jupyter-execute::
 
-     from toqito.channels import partial_transpose
+     from toqito.matrix_ops import partial_transpose
      import numpy as np
      test_input_mat = np.arange(1, 17).reshape(4, 4)
      partial_transpose(test_input_mat)
@@ -404,7 +404,7 @@ partial transpose over the first subsystem yields the following matrix
   
 .. jupyter-execute::
 
-     from toqito.channels import partial_transpose
+     from toqito.matrix_ops import partial_transpose
      import numpy as np
      test_input_mat = np.arange(1, 17).reshape(4, 4)
      partial_transpose(test_input_mat, [0])

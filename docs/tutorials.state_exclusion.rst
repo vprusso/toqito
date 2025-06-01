@@ -245,7 +245,7 @@ whether the set of states are antidistinguishable and :math:`(n-1)`-incoherent.
 .. jupyter-execute::
 
      from toqito.state_props import is_antidistinguishable
-     from toqito.matrix_ops import vectors_to_gram_matrix
+     from toqito.perms import vectors_to_gram_matrix
      from toqito.matrix_props import is_k_incoherent
      from toqito.rand import random_states
 
