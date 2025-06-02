@@ -3,7 +3,7 @@
 import numpy as np
 from scipy.linalg import orth
 
-from toqito.channel_ops.partial_channel import partial_channel
+from toqito.channel_ops import partial_channel
 from toqito.channels import partial_trace, partial_transpose
 from toqito.channels.realignment import realignment
 from toqito.matrix_props.is_positive_semidefinite import is_positive_semidefinite
@@ -134,10 +134,10 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     if abs(trace_state_val - 1) > tol:
         if abs(trace_state_val) > 100 * EPS:
             current_state = current_state / trace_state_val
-        # elif state_len > 0 and np.any(np.abs(current_state) > tol): # pragma: no cover (Hard to hit with PSD)
-        #     raise ValueError(
-        #         "State has numerically insignificant trace but significant elements; cannot normalize reliably."
-        #     )
+        elif state_len > 0 and np.any(np.abs(current_state) > tol):  # pragma: no cover (Hard to hit with PSD)
+            raise ValueError(
+                "State has numerically insignificant trace but significant elements; cannot normalize reliably."
+            )
 
     # Dimension processing
     temp_dim_param = dim
@@ -459,7 +459,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                 ):
                     return False
 
-    for p_idx_bh in range(2):  # Breuer-Hall
+    for p_idx_bh in range(2):  # Breuer-Hall Loop
         current_dim_bh = dims_list[p_idx_bh]
         if current_dim_bh > 0 and current_dim_bh % 2 == 0:
             phi_me_bh = max_entangled(current_dim_bh, False, False)
@@ -473,9 +473,10 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                 - phi_proj_bh
                 - U_for_phi_constr @ swap_operator(current_dim_bh) @ U_for_phi_constr.conj().T
             )
-            if not is_positive_semidefinite(
-                partial_channel(current_state, Phi_bh_map, sys=p_idx_bh, dim=dims_list), atol=tol, rtol=tol
-            ):
+            mapped_state_bh = partial_channel(current_state, Phi_bh_map, sys=p_idx_bh, dim=dims_list)
+            is_psd_after_bh = is_positive_semidefinite(mapped_state_bh, atol=tol, rtol=tol)
+
+            if not is_psd_after_bh:
                 return False
 
     if level >= 2:
