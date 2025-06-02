@@ -218,151 +218,126 @@ class TestNPAGenWords:
     simple_a_out, simple_a_in = 2, 1
     simple_b_out, simple_b_in = 2, 1
 
-    def test_k1_simple_1in_2out(self):
-        """Test _gen_words for k=1, 1-input/2-output per player."""
-        words = _gen_words(
-            k=1, a_out=self.simple_a_out, a_in=self.simple_a_in, b_out=self.simple_b_out, b_in=self.simple_b_in
-        )
-        expected_set = {(IDENTITY_SYMBOL,), (A00_test,), (B00_test,)}
-        assert set(words) == expected_set
+    @pytest.mark.parametrize(
+        "description, k, a_out, a_in, b_out, b_in, expected_set",
+        [
+            (
+                "k=1, simple params",
+                1,
+                # Using simple parameters.
+                simple_a_out,
+                simple_a_in,
+                simple_b_out,
+                simple_b_in,
+                {(IDENTITY_SYMBOL,), (A00_test,), (B00_test,)},
+            ),
+            (
+                "k='1+ab', simple params",
+                "1+ab",
+                simple_a_out,
+                simple_a_in,
+                simple_b_out,
+                simple_b_in,
+                {(IDENTITY_SYMBOL,), (A00_test,), (B00_test,), (A00_test, B00_test)},
+            ),
+            (
+                "k=2, orthogonality check",
+                2,
+                3,
+                1,
+                2,
+                1,
+                {
+                    (IDENTITY_SYMBOL,),
+                    (A00_test,),
+                    (Symbol("Alice", 0, 1),),  # Custom symbol for A01.
+                    (B00_test,),
+                    (A00_test, B00_test),
+                    (Symbol("Alice", 0, 1), B00_test),
+                },
+            ),
+            (
+                "k='1+aa+ab', simple params",
+                "1+aa+ab",
+                simple_a_out,
+                simple_a_in,
+                simple_b_out,
+                simple_b_in,
+                {(IDENTITY_SYMBOL,), (A00_test,), (B00_test,), (A00_test, B00_test)},
+            ),
+            ("k=1 with one-out for Alice", 1, 1, 1, simple_b_out, simple_b_in, {(IDENTITY_SYMBOL,), (B00_test,)}),
+            ("k=1 with one-out for both players", 1, 1, 1, 1, 1, {(IDENTITY_SYMBOL,)}),
+            (
+                "k='0+aa': drop words reducing fully to zero",
+                "0+aa",
+                3,
+                1,
+                1,
+                1,
+                {
+                    (IDENTITY_SYMBOL,),
+                    (Symbol("Alice", 0, 0),),  # Expected to match A00_test.
+                    (Symbol("Alice", 0, 1),),
+                },
+            ),
+            ("k='0+a', identity handling in loops", "0+a", 2, 1, 1, 1, {(IDENTITY_SYMBOL,), (A00_test,)}),
+            ("k=0, no configurations", 0, 2, 1, 2, 1, {(IDENTITY_SYMBOL,)}),
+        ],
+    )
+    def test_gen_words_expected_sets(self, description, k, a_out, a_in, b_out, b_in, expected_set):
+        """Test that _gen_words returns the expected set of output words.
 
-    def test_k1_cglmp_params(self):
-        """Test _gen_words for k=1 with CGLMP parameters."""
-        words = _gen_words(
-            k=1, a_out=self.cglmp_a_out, a_in=self.cglmp_a_in, b_out=self.cglmp_b_out, b_in=self.cglmp_b_in
-        )
-        assert len(words) == 9
+        Args:
+            description (str): A brief description of the test case.
+            k (int or str): The configuration parameter 'k' (can be an integer or a string).
+            a_out (int): The number of outputs for Alice.
+            a_in (int): The number of inputs for Alice.
+            b_out (int): The number of outputs for Bob.
+            b_in (int): The number of inputs for Bob.
+            expected_set (set): The expected set of operator words (each represented as a tuple).
 
-    def test_string_k_1_plus_ab_simple(self):
-        """Test _gen_words for k='1+ab', simple params."""
-        words = _gen_words(
-            "1+ab", a_out=self.simple_a_out, a_in=self.simple_a_in, b_out=self.simple_b_out, b_in=self.simple_b_in
-        )
-        expected_set = {(IDENTITY_SYMBOL,), (A00_test,), (B00_test,), (A00_test, B00_test)}
-        assert set(words) == expected_set
-
-    def test_string_k_1_plus_ab_cglmp_params(self):
-        """Test _gen_words for k='1+ab' with CGLMP parameters."""
-        words = _gen_words(
-            "1+ab", a_out=self.cglmp_a_out, a_in=self.cglmp_a_in, b_out=self.cglmp_b_out, b_in=self.cglmp_b_in
-        )
-        assert len(words) == 25
-
-    def test_orthogonality_in_gen_k2(self):
-        """Test _gen_words for k=2 ensuring orthogonality is handled."""
-        a01_for_this_test = Symbol("Alice", 0, 1)
-        words = _gen_words(k=2, a_out=3, a_in=1, b_out=2, b_in=1)
-        expected_set = {
-            (IDENTITY_SYMBOL,),
-            (A00_test,),
-            (a01_for_this_test,),
-            (B00_test,),
-            (A00_test, B00_test),
-            (a01_for_this_test, B00_test),
-        }
-        assert set(words) == expected_set
-
-    def test_gen_words_string_k_complex(self):
-        """Test _gen_words for a complex k-string '1+aa+ab'."""
-        words = _gen_words(
-            "1+aa+ab", a_out=self.simple_a_out, a_in=self.simple_a_in, b_out=self.simple_b_out, b_in=self.simple_b_in
-        )
-        expected_set = {(IDENTITY_SYMBOL,), (A00_test,), (B00_test,), (A00_test, B00_test)}
-        assert set(words) == expected_set
-
-    def test_gen_words_no_operators_if_out_is_1(self):
-        """Test _gen_words when one or both players have only 1 outcome (no non-id symbols)."""
-        words = _gen_words(1, a_out=1, a_in=1, b_out=self.simple_b_out, b_in=self.simple_b_in)
-        assert set(words) == {(IDENTITY_SYMBOL,), (B00_test,)}
-        words_bob_too = _gen_words(1, a_out=1, a_in=1, b_out=1, b_in=1)
-        assert set(words_bob_too) == {(IDENTITY_SYMBOL,)}
-
-    def test_gen_words_if_final_word_is_empty_not_added(self):
-        """test_gen_words_if_final_word_is_empty_not_added.
-
-        Ensure words that fully reduce to zero are not added,
-        and words from configurations are added in their reduced form.
-        For k="0+aa", a_out=3, a_in=1:
-        "aa" can be (A0,A0)->(A0,); (A0,A1)->(); (A1,A0)->(); (A1,A1)->(A1,)
-        So, we expect I, A0, A1.
         """
-        # Alice symbols: A0 = Symbol("Alice",0,0), A1 = Symbol("Alice",0,1)
-        # Bob symbols: (none)
-        words = _gen_words(k="0+aa", a_out=3, a_in=1, b_out=1, b_in=1)
+        words = _gen_words(k, a_out=a_out, a_in=a_in, b_out=b_out, b_in=b_in)
+        assert set(words) == expected_set, f"Failed: {description}"
 
-        a0_from_test_scope = Symbol("Alice", 0, 0)  # Match A00_test if it's (Alice,0,0)
-        a1_from_test_scope = Symbol("Alice", 0, 1)  # Match A01_test if it's (Alice,0,1)
+    @pytest.mark.parametrize(
+        "description, k, a_out, a_in, b_out, b_in, expected_length",
+        [
+            ("k=1 with CGLMP params", 1, cglmp_a_out, cglmp_a_in, cglmp_b_out, cglmp_b_in, 9),
+            ("k='1+ab' with CGLMP params", "1+ab", cglmp_a_out, cglmp_a_in, cglmp_b_out, cglmp_b_in, 25),
+        ],
+    )
+    def test_gen_words_expected_length(self, description, k, a_out, a_in, b_out, b_in, expected_length):
+        """Test that _gen_words returns the expected number of output words.
 
-        expected_set = {(IDENTITY_SYMBOL,), (a0_from_test_scope,), (a1_from_test_scope,)}
-        assert set(words) == expected_set
-        assert len(words) == 3  # To ensure no extras
+        Args:
+            description (str): A brief description of the test case.
+            k (int or str): The configuration parameter 'k' (an integer or a string).
+            a_out (int): The number of outputs for Alice.
+            a_in (int): The number of inputs for Alice.
+            b_out (int): The number of outputs for Bob.
+            b_in (int): The number of inputs for Bob.
+            expected_length (int): The expected count of generated words.
 
-    def test_gen_words_identity_handling_in_loops(self):
-        """Test the specific logic for combined_word_unreduced and adding IDENTITY_SYMBOL."""
-        words_k0 = _gen_words(k=0, a_out=2, a_in=1, b_out=2, b_in=1)
-        assert set(words_k0) == {(IDENTITY_SYMBOL,)}  # Changed self.assertEqual to assert
-
-        words_k0_plus_a = _gen_words(k="0+a", a_out=2, a_in=1, b_out=1, b_in=1)
-        assert set(words_k0_plus_a) == {(IDENTITY_SYMBOL,), (A00_test,)}
+        """
+        words = _gen_words(k, a_out=a_out, a_in=a_in, b_out=b_out, b_in=b_in)
+        assert len(words) == expected_length, f"Failed: {description}"
 
     def test_gen_words_unreachable_alice_bob_both_zero_len_config(self):
-        """test_gen_words_unreachable_alice_bob_both_zero_len_config.
+        """Verify that _parse and _gen_words handle empty configurations correctly.
 
-        Verify _parse does not add (0,0) to configurations,
-        making a specific branch in _gen_words' configuration loop unreachable.
+        _parse("0") should return an empty configuration set,
+        ensuring that _gen_words returns only the identity symbol.
+        Also verify that the (0, 0) tuple is not erroneously included.
         """
-        # _parse("0") is valid and returns (0, set())
         k_int_0, conf_0 = _parse("0")
         assert k_int_0 == 0
         assert conf_0 == set()
 
-        # _gen_words with k=0: length loop range(1,1) is empty. Configurations loop is empty.
-        # Returns initial words = set([(IDENTITY_SYMBOL,)]) then sorted.
         words = _gen_words(k=0, a_out=2, a_in=1, b_out=2, b_in=1)
         assert set(words) == {(IDENTITY_SYMBOL,)}
-        _, conf_test = _parse("1+a")  # A valid config
-        assert (0, 0) not in conf_test  # This confirms _parse's behavior.
-
-    def test_gen_words_combined_unreduced_becomes_identity_scenario(self):
-        """test_gen_words_combined_unreduced_becomes_identity_scenario.
-
-        Test the specific `else: words.add((IDENTITY_SYMBOL,))` branch in _gen_words.
-        This happens if combined_word_unreduced is empty, AND
-        it's NOT because one of reduced_a or reduced_b was zero (already ()).
-        It means both reduced_a and reduced_b were effectively identity placeholders (empty tuples here).
-        This requires alice_len=0 and bob_len=0.
-        """
-        # Case: k_int loop, length=L, alice_len=0, bob_len=0.
-        # word_a_tuple = (), reduced_a = _reduce(()) = ()
-        # word_b_tuple = (), reduced_b = _reduce(()) = ()
-        # combined_word_unreduced = (() if () != ID else ()) + (() if () != ID else ()) = ()
-        # `if not combined_word_unreduced:` is TRUE.
-        #   `if reduced_a == () or reduced_b == ():` (True)
-        #       `if reduced_a == () and reduced_b == ():` # Need to assume this was the intended logic for that branch
-        #           `words.add((IDENTITY_SYMBOL,))`
-        # This tests if (I) is correctly added when lengths are zero.
-        # The main k_int loop starts length at 1. So alice_len=0, bob_len=0 won't occur there.
-        # The configurations loop has `if alice_len == 0 and bob_len == 0: continue`.
-        # So this specific `else: words.add((IDENTITY_SYMBOL,))` is indeed unreachable/redundant
-        # if IDENTITY_SYMBOL is added initially and other paths correctly produce empty for zero products.
-        # The test simply confirms that for k=0 (no length > 0 words), only Identity is produced.
-        words = _gen_words(k=0, a_out=2, a_in=1, b_out=2, b_in=1)
-        assert set(words) == {(IDENTITY_SYMBOL,)}
-
-    def test_gen_words_k0_plus_aa_config(self):  # Renamed for clarity
-        """Test _gen_words with k="0+aa". Expects Identity, and reduced forms from "aa".
-
-        For a_out=3, a_in=1: "aa" gives (A0,A0)->(A0,) and (A1,A1)->(A1,). (A0,A1) is zero.
-        """
-        words = _gen_words(k="0+aa", a_out=3, a_in=1, b_out=1, b_in=1)  # Bob has no symbols
-
-        # Define expected symbols based on parameters
-        alice_sym_0 = Symbol("Alice", 0, 0)
-        alice_sym_1 = Symbol("Alice", 0, 1)
-
-        expected_set = {(IDENTITY_SYMBOL,), (alice_sym_0,), (alice_sym_1,)}
-        assert set(words) == expected_set
-        assert len(words) == 3  # Ensure no unexpected extras
+        _, conf_test = _parse("1+a")
+        assert (0, 0) not in conf_test, "Unexpected (0, 0) found in configuration."
 
 
 # Integration tests for npa_constraints
