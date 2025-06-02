@@ -139,7 +139,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                 "State has numerically insignificant trace but significant elements; cannot normalize reliably."
             )
 
-    # Dimension processing (from your version)
+    # Dimension processing
     temp_dim_param = dim
     if temp_dim_param is None:
         if state_len == 0:

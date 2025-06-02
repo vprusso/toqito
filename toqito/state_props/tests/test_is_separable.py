@@ -1,5 +1,7 @@
 """Test is_separable."""
 
+from unittest import mock
+
 import numpy as np
 import pytest
 
@@ -223,7 +225,7 @@ def test_separable_based_on_eigenvalues():
 def test_dim_none_prime_len_defaults_to_1_N():
     """Test dim none prime len defaults to 1N."""
     rho = np.eye(5) / 5
-    assert is_separable(rho) is True  # Expects dim=[1,5] -> min_dim=1
+    assert is_separable(rho)  # Expects dim=[1,5] -> min_dim=1
 
 
 def test_dim_int_not_divisor():
@@ -267,7 +269,7 @@ def test_dim_zero_subsystem_for_nonzero_state():
 def test_pure_entangled_state():
     """test_pure_entangled_state."""
     rho_bell = np.outer(bell(0), bell(0).conj())
-    assert is_separable(rho_bell, dim=[2, 2]) is False
+    assert not is_separable(rho_bell, dim=[2, 2])
 
 
 def test_ppt_2x2_mixed_separable():
@@ -405,13 +407,13 @@ def test_rank1_pert_skip_for_rank_deficient():
 def test_dim_none_state_len_zero_is_sep():
     """0 none state."""
     state = np.zeros((0, 0))
-    assert is_separable(state) is True
+    assert is_separable(state)
 
 
 def test_dim_none_state_len_one_is_sep():
     """1 none state."""
     state = np.array([[1.0]])
-    assert is_separable(state) is True
+    assert is_separable(state)
 
 
 def test_dim_none_composite_len_factors_is_sep():
@@ -422,12 +424,12 @@ def test_dim_none_composite_len_factors_is_sep():
     # Eye(10)/10 is PPT. prod_dim=10 > 6. Horodecki rank <= max_dim (10 <= 5 False).
     # Horodecki rank <= marginal rank. rank(I/10)=10. rank(I/5)=5. 10 <= 5 False.
     # Will pass other checks for separable state.
-    assert is_separable(np.eye(10) / 10) is True
+    assert is_separable(np.eye(10) / 10)
 
 
 def test_dim_int_zero_for_empty_state_is_sep():
     """Test empty state."""
-    assert is_separable(np.zeros((0, 0)), dim=0) is True
+    assert is_separable(np.zeros((0, 0)), dim=0)
 
 
 def test_skip_3x3_rank4_if_not_rank4():
@@ -437,7 +439,7 @@ def test_skip_3x3_rank4_if_not_rank4():
     # Pass Horodecki rank <= marginal rank (9 <= 3 False)
     # Pass Reduction, Realignment.
     # Pass Rank-1 pert. (lam[1]-lam[end] = 0)
-    assert is_separable(rho, dim=[3, 3]) is True
+    assert is_separable(rho, dim=[3, 3])
 
 
 def test_skip_horodecki_if_not_applicable_proceeds():
@@ -447,7 +449,7 @@ def test_skip_horodecki_if_not_applicable_proceeds():
     for i in range(5):
         rho_tiles = rho_tiles - tile(i) @ tile(i).conj().T
     rho_tiles = rho_tiles / 4
-    assert is_separable(rho_tiles, dim=[3, 3]) is False  # Caught by Plucker
+    assert not is_separable(rho_tiles, dim=[3, 3])  # Caught by Plucker
 
 
 def test_reduction_passed_for_product_state():
@@ -456,7 +458,7 @@ def test_reduction_passed_for_product_state():
     # To specifically test reduction pass: need state that passes PPT, prod_dim > 6,
     # and passes Horodecki, then passes Reduction.
     rho_prod_3x3 = np.kron(np.eye(3) / 3, np.eye(3) / 3)
-    assert is_separable(rho_prod_3x3, dim=[3, 3]) is True  # Should be caught by rank-1 pert.
+    assert is_separable(rho_prod_3x3, dim=[3, 3])  # Should be caught by rank-1 pert.
 
 
 # --- Symmetric Extension tests ---
@@ -497,4 +499,65 @@ def test_trace_small_and_matrix_is_almost_zero_proceeds():
     # For this state, with tol=1e-10, abs(trace) < tol is true.
     # is_matrix_effectively_zero (with atol=tol*EPS) should be true. So no error.
     # Proceeds, likely caught by min_dim_val==1 (if dim=[1,2]) or other early checks.
-    assert is_separable(state, dim=[1, 2], tol=1e-10) is True
+    assert is_separable(state, dim=[1, 2], tol=1e-10)
+
+
+def test_dim_int_positive_for_empty_state_value_error_v2():
+    """Test ValueError for positive int dim with an empty state."""
+    empty_state = np.zeros((0, 0))
+    with pytest.raises(ValueError, match="Cannot apply positive dimension 2 to zero-sized state."):
+        is_separable(empty_state, dim=2)
+
+
+def test_dim_list_zero_subsystem_for_nonzero_state_value_error_v2():
+    """Test ValueError for dim=[0, N] for a non-empty state."""
+    state_2x2 = np.eye(2) / 2.0
+    with pytest.raises(ValueError, match="Non-zero state with zero-dim subsystem is inconsistent."):
+        is_separable(state_2x2, dim=[0, 2])
+    with pytest.raises(ValueError, match="Non-zero state with zero-dim subsystem is inconsistent."):
+        is_separable(state_2x2, dim=[2, 0])
+
+
+def test_plucker_linalg_error_in_det_fallthrough_v2():
+    """Test Plucker check fallthrough on LinAlgError during F_det_val calculation."""
+    with mock.patch("numpy.linalg.det", side_effect=np.linalg.LinAlgError("mocked error")):
+        p1 = np.kron(basis(3, 0), basis(3, 0))
+        p2 = np.kron(basis(3, 1), basis(3, 1))
+        p3 = np.kron(basis(3, 2), basis(3, 2))
+        p4_v = (basis(3, 0) + basis(3, 1)) / np.sqrt(2)
+        p4 = np.kron(p4_v, p4_v)
+        rho_3x3_rank4_ppt_sep = (np.outer(p1, p1) + np.outer(p2, p2) + np.outer(p3, p3) + np.outer(p4, p4)) / 4.0
+        # This state is separable. If Plucker det fails, it should still be True by later Horodecki checks.
+        assert is_separable(rho_3x3_rank4_ppt_sep, dim=[3, 3])
+
+
+def test_eig_calc_fails_rank1_pert_check_skipped_v2():
+    """Test rank-1 pert check is skipped if eigenvalue calculation fails."""
+    with mock.patch("numpy.linalg.eigvalsh", side_effect=np.linalg.LinAlgError("mocked eig error")):
+        with mock.patch("numpy.linalg.eigvals", side_effect=np.linalg.LinAlgError("mocked eig error")):
+            # I/8 is separable, normally caught by rank-1 pert.
+            # If eig fails, it will go to 2xN checks (if dim allows) or maps or SES.
+            # Since it's I/8, it should still be found separable.
+            assert is_separable(np.eye(8) / 8.0, dim=[2, 4])
+
+
+def test_2xN_swapped_eig_calc_fails_fallback_v2():
+    """Test fallback eigenvalue calculation in 2xN if eigvalsh on swapped state fails."""
+    rho_3x2_prod = np.kron(np.eye(3) / 3.0, np.eye(2) / 2.0)
+    with mock.patch("numpy.linalg.eigvalsh", side_effect=np.linalg.LinAlgError("mocked eigvalsh error")):
+        assert is_separable(rho_3x2_prod, dim=[3, 2])
+
+
+def test_2xN_block_eig_fails_proceeds_v2():
+    """Test 2xN checks proceed if block eigenvalue calculation fails."""
+    rho_2x3_mixed = np.eye(6) / 6.0  # Separable
+    with mock.patch("numpy.linalg.eigvals", side_effect=np.linalg.LinAlgError("mocked eig error")):
+        assert is_separable(rho_2x3_mixed, dim=[2, 3])
+
+
+def test_symm_ext_solver_exception_proceeds_v2():
+    """Test symmetric extension proceeds or defaults if solver fails."""
+    with mock.patch(
+        "toqito.state_props.has_symmetric_extension.has_symmetric_extension", side_effect=RuntimeError("Solver failed")
+    ):
+        assert is_separable(np.eye(4) / 4.0, dim=[2, 2], level=2)
