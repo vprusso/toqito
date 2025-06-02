@@ -13,17 +13,16 @@ def create_bcs_constraints(M: np.ndarray, b: np.ndarray):
 
     The conversion works as follows:
       1. For the i-th constraint, compute the constant value as ``rhs = (-1)**(b[i])``.
-      2. Create an n-dimensional array (tensor) of shape (2,)*n filled with ``-rhs``.
-      3. Compute the index from the first n entries of the i-th row of M by taking each value modulo 2.
+      2. Create an n-dimensional array (tensor) of shape ``(2,)*n`` filled with ``-rhs``.
+      3. Compute the index from the first n entries of the i-th row of ``M`` by taking each value modulo 2.
       4. Set the tensor element at that index to ``rhs``.
 
     For example:
-      If ``M[i] = [1, 1]`` and ``b[i] = 0`` (so rhs = 1),
-      then the tensor is of shape (2, 2) and is created as:
-      - Start with a (2, 2) array filled with -1 (since -rhs = -1):
+      If ``M[i] = [1, 1]`` and ``b[i] = 0`` (so ``rhs = 1``):
+      - The tensor is of shape (2, 2) and is created as:
             [ [-1, -1],
               [-1, -1] ]
-      - The index is computed as (1 % 2, 1 % 2) = (1, 1).
+      - The index is computed as ``(1 % 2, 1 % 2) = (1, 1)``.
       - At position (1, 1), the value is set to 1, resulting in:
             [ [-1, -1],
               [-1,  1] ]
@@ -34,22 +33,25 @@ def create_bcs_constraints(M: np.ndarray, b: np.ndarray):
     ==========
     .. jupyter-execute::
 
-        import numpy as np
-        from binary_constraint_system_game import create_bcs_constraints
+        >>> import numpy as np
+        >>> from binary_constraint_system_game import create_bcs_constraints
 
-        M = np.array([[1, 1], [1, 1]], dtype=int)
-        b = np.array([0, 1], dtype=int)
-        constraints = create_bcs_constraints(M, b)
-        constraints[0].shape
+        >>> M = np.array([[1, 1], [1, 1]], dtype=int)
+        >>> b = np.array([0, 1], dtype=int)
+        >>> constraints = create_bcs_constraints(M, b)
+        >>> constraints[0].shape
 
-    References
+    Parameters
     ==========
-    (See bibliography in relevant documentation)
-
     :param M: A binary matrix of shape (m, n) defining which variables appear in each constraint.
     :param b: A binary vector of length m that determines the constant term ``(-1)**(b[i])``.
-    :return: A list of n-dimensional NumPy arrays (tensors) of shape ((2,)*n) representing each constraint.
+
+    Returns
+    ========
+    :return: A list of NumPy arrays, each of shape ``(2,)*n``. Each tensor represents
+             one constraint in tensor form.
     """
+
     m, n = M.shape
     constraints = []
     for i in range(m):
@@ -74,15 +76,15 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray):
 
     .. jupyter-execute::
 
-        import numpy as np
-        from toqito.nonlocal_games.binary_constraint_system_game import generate_solution_group
+        >>> import numpy as np
+        >>> from toqito.nonlocal_games.binary_constraint_system_game import generate_solution_group
 
-        M = np.array([[1, 1, 0], [0, 1, 1]], dtype=int)
-        b = np.array([0, 1], dtype=int)
-        row_masks, parity = generate_solution_group(M, b)
+        >>> M = np.array([[1, 1, 0], [0, 1, 1]], dtype=int)
+        >>> b = np.array([0, 1], dtype=int)
+        >>> row_masks, parity = generate_solution_group(M, b)
 
-        print("Row masks:", row_masks)
-        print("Parity:", parity)
+        >>> print("Row masks:", row_masks)
+        >>> print("Parity:", parity)
 
     Parameters
     ==========
@@ -93,10 +95,11 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray):
 
     Returns
     =======
-    tuple
         A tuple containing:
         - A list of integer bitmasks (one per row of ``M``).
         - A list of parity values derived from ``b``.
+
+     The mehod used to determine the existing of perfect commuting strategy was originally introduced in :cite:`William_2016_Perfect`.
 
     References
     ==========
@@ -125,9 +128,9 @@ def _has_undirected_cycle(nodes: list[int], edges: list[tuple[int, int]]) -> boo
 
     Parameters
     ==========
-    nodes : list of int
+    nodes
         A list of integer node labels (e.g., [0, 1, 2, ...]).
-    edges : list of tuple of int
+    edges
         A list of undirected edges, each represented as a tuple (u, v) where u and v
         are nodes from the 'nodes' list.
 
@@ -140,17 +143,17 @@ def _has_undirected_cycle(nodes: list[int], edges: list[tuple[int, int]]) -> boo
     ==========
     .. jupyter-execute::
 
-        from binary_constraint_system_game import _has_undirected_cycle
+        >>> from binary_constraint_system_game import _has_undirected_cycle
 
         # Example 1: Graph with a cycle
-        nodes = [0, 1, 2]
-        edges = [(0, 1), (1, 2), (2, 0)]
-        print(_has_undirected_cycle(nodes, edges))  # Output: True
+        >>> nodes = [0, 1, 2]
+        >>> edges = [(0, 1), (1, 2), (2, 0)]
+        >>> print(_has_undirected_cycle(nodes, edges))  # Output: True
 
         # Example 2: Graph with no cycle (a tree)
-        nodes = [0, 1, 2]
-        edges = [(0, 1), (1, 2)]
-        print(_has_undirected_cycle(nodes, edges))  # Output: False
+        >>> nodes = [0, 1, 2]
+        >>> edges = [(0, 1), (1, 2)]
+        >>> print(_has_undirected_cycle(nodes, edges))  # Output: False
 
     Notes
     ==========
@@ -188,28 +191,32 @@ def _has_undirected_cycle(nodes: list[int], edges: list[tuple[int, int]]) -> boo
 
 def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray):
     r"""Determine whether a perfect commuting-operator strategy exists for a BCS game.
+
     This function checks if the binary constraint system defined by ``Mx = b``
     admits a perfect commuting-operator strategy. It converts the constraints
     to bitmask form, performs Gaussian elimination over :math:`\mathrm{GF}(2)`,
     and examines the resulting constraint graph for cycles that indicate a nontrivial
     solution.
+    
     Examples
     ==========
-    .. code-block:: python
+    ..jupyter-execute
         >>> import numpy as np
         >>> from binary_constraint_system_game import check_perfect_commuting_strategy
         >>> M = np.array([[1, 1], [1, 1]], dtype=int)
         >>> b = np.array([0, 1], dtype=int)
         >>> has_strategy = check_perfect_commuting_strategy(M, b)
         >>> print(has_strategy)
-        True  # or False
-    References
-    ==========
-    .. bibliography::
-        :filter: docname in docnames
+        
+    Parameters
+    ==========  
     :param M: A binary matrix of shape ``(m, n)``.
     :param b: A binary vector of length ``m``.
+
+    Returns
+    ========
     :return: ``True`` if a perfect commuting-operator strategy exists; otherwise, ``False``.
+
     """
     row, parity = generate_solution_group(M, b)
     m = len(row)

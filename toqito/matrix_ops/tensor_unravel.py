@@ -1,26 +1,45 @@
 import numpy as np
 
 def  tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
-    r"""Convert a tensor-form constraint back to its raw 1D representation.
-    The tensor-form constraint is expected to have shape (2, 2, ..., 2) (n times)
-    and to be constructed as follows:
-      - The array is initially filled with -rhs, where rhs = (-1)**(b[i]).
-      - A unique element at some index is overwritten with rhs.
-    This function finds the unique element (the one that appears exactly once)
-    and returns a 1D array of length n+1, where the first n entries are the coordinates
-    (taken directly from the unique index) and the last element is the unique constant rhs.
+    r"""Convert a tensor-form constraint back to its raw 1D-representation.
+
+    A **tensor-form constraint** is a multi-dimensional numpy array of shape
+    :math:`(2, 2, \ldots, 2)` (repeated :math:`n` times). This format is commonly
+    used in the context of binary constraint system (BCS) games to represent
+    constraints in a consistent and structured way.
+
+    Conceptually, a tensor-form constraint is constructed as follows:
+
+      - The entire array is initially filled with :code:`rhs = (-1)**(b[i])`,
+        where :math:`b[i]` is the parity bit corresponding to the row of the
+        constraint matrix.
+        
+      - A single unique element at some index (corresponding to a unique solution)
+        is overwritten with :code:`rhs`.
+
+    This function identifies the unique element (i.e. the one that appears exactly once),
+    extracts its index, and returns a 1D array of length :math:`n+1`. The first
+    :math:`n` entries are the coordinates of the unique index, and the last entry
+    is the unique constant :code:`rhs`.
+    
     Examples
     ==========
+    .. jupyter-execute::
+    
         >>> import numpy as np
         >>> from binary_constraint_system_game import tensor_to_raw
+        
         >>> tensor_constraint = np.array([[-1, -1], [-1, 1]])
-        >>> raw = tensor_to_raw(tensor_constraint)
-        >>> raw
-        array([1, 1, 1])
-    :param constraint_tensor: An n-dimensional NumPy array representing a constraint (shape (2,)*n).
-    :return: A 1D NumPy array of length n+1 where the first n elements are the coordinates (indices)
+        >>> tensor_to_raw(tensor_constraint)
+        
+    :param constraint_tensor: An :math:`n`-dimensional :code:`numpy` array representing a constraint (shape :code:`(2,)*n`).
+
+    :return: A 1D :code:`numpy` array of length :math:`n+1` where the first :math:`n` elements are the coordinates (indices)
+
              and the last element is the unique constant (rhs).
+
     """
+    
     values, counts = np.unique(constraint_tensor, return_counts=True)
     if len(values) != 2:
         raise ValueError("Constraint tensor does not have exactly two distinct values.")
@@ -34,5 +53,4 @@ def  tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
     if unique_idx.shape[0] != 1:
         raise ValueError("Expected exactly one occurrence of the unique value in the constraint tensor.")
     idx_tuple = tuple(unique_idx[0])
-    raw_constraint = np.array(list(idx_tuple) + [unique_value])
-    return raw_constraint
+    return np.array(list(idx_tuple) + [unique_value])
