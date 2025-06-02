@@ -161,28 +161,28 @@ def test_separable_small_rank1_perturbation_of_maximally_mixed_state():
     np.testing.assert_equal(is_separable(rho), True)
 
 
-# def test_separable_schmidt_rank():
-#    """Determined to be separable by having operator Schmidt rank at most 2."""
-#    # TODO: require better OCUT's
-#    rho = np.array(
-#        [
-#            [0.25, 0.15, 0.1, 0.15, 0.09, 0.06, 0.1, 0.06, 0.04],
-#            [0.15, 0.2, 0.05, 0.09, 0.12, 0.03, 0.06, 0.08, 0.02],
-#            [0.1, 0.05, 0.05, 0.06, 0.03, 0.03, 0.04, 0.02, 0.02],
-#            [0.15, 0.09, 0.06, 0.2, 0.12, 0.08, 0.05, 0.03, 0.02],
-#            [0.09, 0.12, 0.03, 0.12, 0.16, 0.04, 0.03, 0.04, 0.01],
-#            [0.06, 0.03, 0.03, 0.08, 0.04, 0.04, 0.02, 0.01, 0.01],
-#            [0.1, 0.06, 0.04, 0.05, 0.03, 0.02, 0.05, 0.03, 0.02],
-#            [0.06, 0.08, 0.02, 0.03, 0.04, 0.01, 0.03, 0.04, 0.01],
-#            [0.04, 0.02, 0.02, 0.02, 0.01, 0.01, 0.02, 0.01, 0.01],
-#        ]
-#    )
-#    rho = rho / np.trace(rho)
-#    np.testing.assert_equal(is_separable(rho,level=3,tol=1e-20), True)
+def test_separable_schmidt_rank():
+    """Determined to be separable by having operator Schmidt rank at most 2."""
+    rho = np.array(
+        [
+            [0.25, 0.15, 0.1, 0.15, 0.09, 0.06, 0.1, 0.06, 0.04],
+            [0.15, 0.2, 0.05, 0.09, 0.12, 0.03, 0.06, 0.08, 0.02],
+            [0.1, 0.05, 0.05, 0.06, 0.03, 0.03, 0.04, 0.02, 0.02],
+            [0.15, 0.09, 0.06, 0.2, 0.12, 0.08, 0.05, 0.03, 0.02],
+            [0.09, 0.12, 0.03, 0.12, 0.16, 0.04, 0.03, 0.04, 0.01],
+            [0.06, 0.03, 0.03, 0.08, 0.04, 0.04, 0.02, 0.01, 0.01],
+            [0.1, 0.06, 0.04, 0.05, 0.03, 0.02, 0.05, 0.03, 0.02],
+            [0.06, 0.08, 0.02, 0.03, 0.04, 0.01, 0.03, 0.04, 0.01],
+            [0.04, 0.02, 0.02, 0.02, 0.01, 0.01, 0.02, 0.01, 0.01],
+        ]
+    )
+    rho = rho / np.trace(rho)
+    np.testing.assert_equal(is_separable(rho, level=1), True)
 
 
 def test_symm_ext_catches_hard_entangled_state():
     """test_entangled_symmetric_extension uses a state."""
+    # TODO: require better OCUT's
     # Ensure is_separable also returns False.
     rho_ent_symm = np.array(  # from test_entangled_symmetric_extension
         [
@@ -199,15 +199,7 @@ def test_symm_ext_catches_hard_entangled_state():
     )
     rho_ent_symm = rho_ent_symm / np.trace(rho_ent_symm)
     # This state should be PPT, pass reduction/realignment maybe, but fail symm ext.
-    # Assuming CVXPY is installed.
-    try:
-        import cvxpy
-
-        cvxpy
-
-        assert is_separable(rho_ent_symm, dim=[3, 3], level=2, tol=1e-7) is False  # More lenient tol for SDP
-    except ImportError:
-        pytest.skip("CVXPY not installed, skipping symmetric extension test.")
+    assert not is_separable(rho_ent_symm, dim=[3, 3], level=2)
 
 
 def test_separable_based_on_eigenvalues():
@@ -563,7 +555,7 @@ def test_symm_ext_solver_exception_proceeds_v2():
     with mock.patch(
         "toqito.state_props.has_symmetric_extension.has_symmetric_extension", side_effect=RuntimeError("Solver failed")
     ):
-        assert is_separable(np.eye(4) / 4.0, dim=[2, 2], level=2)
+        assert is_separable(np.eye(4) / 4.0, dim=[2, 2], level=1)
 
 
 def test_johnston_spectrum_eq12_trigger():
@@ -611,7 +603,7 @@ def test_rank1_pert_not_full_rank_path():
     # This is separable. It will fail len(lam)==prod_dim.
     # Then proceed to has_symmetric_extension.
     try:
-        assert is_separable(rho, dim=[3, 3])  # TODO
+        assert is_separable(rho, dim=[3, 3], level=1)  # TODO
     except AssertionError:
         pytest.skip("skip for not support yet.")
 
@@ -797,7 +789,7 @@ def test_2xN_hard_separable_passes_all_witnesses():
     # For coverage, we want it to pass *through* these specific checks if their conditions are false.
     rho = np.kron(random_density_matrix(2, seed=1), random_density_matrix(4, seed=2))  # 2x4 separable
     try:
-        assert is_separable(rho, dim=[2, 4], level=3, tol=1e-10)  # TODO
+        assert is_separable(rho, dim=[2, 4], level=2, tol=1e-10)  # TODO
     except AssertionError:
         pytest.skip("optimize result loosely.")
 

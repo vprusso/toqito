@@ -134,6 +134,8 @@ def has_symmetric_extension(
     # If the optimal value of the symmetric extension hierarchy is equal to 1,
     # this indicates that there does not exist a symmetric extension at
     # level :code:`level`.
-    sdp_val = symmetric_extension_hierarchy(states=[rho], probs=[1.0], level=level, dim=dim.tolist())
-
-    return np.isclose(sdp_val, 1.0, atol=tol)
+    not np.isclose(
+        (1 - min(symmetric_extension_hierarchy([rho], probs=None, level=level), 1)),
+        0,
+        atol=tol,
+    )
