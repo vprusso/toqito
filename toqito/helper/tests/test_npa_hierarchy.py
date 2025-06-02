@@ -98,39 +98,48 @@ class TestNPAParse:
         assert _parse("1++ab") == (1, {(1, 1)})
         assert _parse("1+ab+") == (1, {(1, 1)})
 
-    def test_invalid_char_in_config(self):
-        """Test parsing k with invalid characters in configurations."""
-        expected_msg_regex = re.escape(
-            "Invalid character 'c' in k string component " + "'ac'. Only 'a' or 'b' allowed after base k."
-        )
-        with pytest.raises(ValueError, match=expected_msg_regex):
-            _parse("1+ac")
+    @pytest.mark.parametrize(
+        "input_str, expected_msg",
+        [
+            ("1+ac", "Invalid character 'c' in k string component 'ac'. Only 'a' or 'b' allowed after base k."),
+            ("+ab", "Base level k must be specified, e.g., '1+ab'"),
+            ("", "Input string k_str cannot be empty."),
+            ("a+b", "Base level k 'a' is not a valid integer: invalid literal for int() with base 10: 'a'"),
+        ],
+    )
+    def test_invalid_k_configs(self, input_str, expected_msg):
+        """Test parsing k string raise an error."""
+        with pytest.raises(ValueError, match=re.escape(expected_msg)):
+            _parse(input_str)
 
-    def test_invalid_base_k_empty_start(self):
-        """Test parsing k string starting with '+' (e.g., '+ab')."""
-        expected_msg_regex = re.escape("Base level k must be specified, e.g., '1+ab'")
-        with pytest.raises(ValueError, match=expected_msg_regex):
-            _parse("+ab")
+    @pytest.mark.parametrize(
+        "input_seq",
+        [
+            # Orthogonality tests
+            ## Immediate return on orthogonality: first signal pair zero
+            (A00_test, A01_test, B00_test, A00_test),  # A0 A1 at start -> 0
+            ## Immediate return on orthogonality: secondary sequence
+            (B00_test, B01_test),
+            # Complex reduction tests
+            ## Complex reduction resulting in zero
+            (A00_test, B00_test, A00_test, B01_test),
+            ## Both player parts reduce to zero
+            (A00_test, A01_test, B00_test, B01_test),
+            # Reduction where one player's part becomes zero
+            ## One player's part reduces to zero (first case)
+            ## (A00_test, B00_test, B01_test) -> A00 * (B00*B01) -> A00 * 0 -> 0
+            (A00_test, B00_test, B01_test),
+            ## One player's part reduces to zero (second case)
+            ## (A00_test, A01_test, B00_test) -> (A00*A01) * B00 -> 0 * B00 -> 0
+            (A00_test, A01_test, B00_test),
+        ],
+    )
+    def test_reduction_returns_empty(self, input_seq):
+        """Test that various input sequences.
 
-    def test_empty_string_input_for_parse(self):
-        """Test parsing an empty string k."""
-        with pytest.raises(ValueError, match="Input string k_str cannot be empty."):
-            _parse("")
-
-    def test_invalid_base_k_non_int_start(self):
-        """Test parsing k string where base k is not an integer (e.g., 'a+b')."""
-        expected_msg_regex = re.escape(
-            "Base level k 'a' is not a valid integer: invalid literal for int() with base 10: 'a'"
-        )
-        with pytest.raises(ValueError, match=expected_msg_regex):
-            _parse("a+b")
-
-    def test_reduction_where_one_player_part_is_zero(self):  # Was test_reduce_final_word_is_identity_from_parts
-        """Test reduction when one player's sequence becomes zero, making the whole product zero."""
-        # (A00_test, B00_test, B01_test) -> A00 * (B00*B01) -> A00 * 0 -> 0
-        assert _reduce((A00_test, B00_test, B01_test)) == ()
-        # (A00_test, A01_test, B00_test) -> (A00*A01) * B00 -> 0 * B00 -> 0
-        assert _reduce((A00_test, A01_test, B00_test)) == ()
+        for _reduce produce an empty tuple, indicating that the reduction result is zero.
+        """
+        assert _reduce(input_seq) == ()
 
     def test_reduce_product_with_actual_identity_symbol(self):  # This one should pass now
         """Test how _reduce handles products involving the explicit IDENTITY_SYMBOL."""
@@ -140,24 +149,11 @@ class TestNPAParse:
         assert _reduce((A00_test, IDENTITY_SYMBOL, B00_test)) == (A00_test, B00_test)
         assert _reduce((A00_test, B00_test, IDENTITY_SYMBOL)) == (A00_test, B00_test)
 
-    def test_complex_reduction_to_zero(self):  # Should still pass
-        """Test a more complex reduction that results in zero."""
-        assert _reduce((A00_test, B00_test, A00_test, B01_test)) == ()
-
-    def test_both_player_parts_reduce_to_zero(self):  # Was test_final_not_final_word_empty_after_separate_reduction
-        """Test reduction where both Alice's and Bob's parts individually become zero."""
-        assert _reduce((A00_test, A01_test, B00_test, B01_test)) == ()
-
     def test_idempotence_iterative(self):
         """Test iterative idempotence A*A*A = A."""
         assert _reduce((A00_test, A00_test, A00_test)) == (A00_test,)
         assert _reduce((A00_test, B00_test, B00_test, B00_test)) == (A00_test, B00_test)
         assert _reduce((A00_test, A00_test, B00_test, B00_test)) == (A00_test, B00_test)
-
-    def test_orthogonality_immediate_return(self):
-        """Test that orthogonality causes an immediate return of ()."""
-        assert _reduce((A00_test, A01_test, B00_test, A00_test)) == ()  # A0 A1 at start -> 0
-        assert _reduce((B00_test, B01_test)) == ()
 
     def test_commutation_and_reduction(self):
         """Test commutation followed by reduction."""

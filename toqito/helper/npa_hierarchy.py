@@ -250,13 +250,6 @@ def npa_constraints(
     words = _gen_words(k, a_out, a_in, b_out, b_in)
     dim = len(words)
 
-    # --- Debugging Print ---
-    print(f"NPA level k='{k}', referee_dim={referee_dim}")
-    print(f"Calculated params: a_out={a_out}, a_in={a_in}, b_out={b_out}, b_in={b_in}")
-    print(f"Number of words (dim for moment matrix): {dim}")
-    # print(f"Generated words: {words}")
-    # --- End Debugging Print ---
-
     if dim == 0:  # Should not happen if IDENTITY_SYMBOL is always included
         raise ValueError("Generated word list is empty. Check _gen_words logic.")
 
