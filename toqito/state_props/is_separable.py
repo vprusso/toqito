@@ -19,7 +19,7 @@ EPS = np.finfo(float).eps
 
 
 def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: int = 2, tol: float = 1e-8) -> bool:
-    r"""Determine if a given state (given as a density matrix) is a separable state.
+    r"""Determine if a given state (given as a density matrix) is a separable state :cite:`WikiSepSt`.
 
     References
     ==========
