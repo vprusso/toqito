@@ -254,9 +254,6 @@ class ExtendedNonlocalGame:
 
         return ns_val
 
-    # In toqito/nonlocal_games/extended_nonlocal_game.py
-    # class ExtendedNonlocalGame:
-
     def quantum_value_lower_bound(
         self,
         iters: int = 20,  # Renamed from iters, sensible default
@@ -270,14 +267,16 @@ class ExtendedNonlocalGame:
 
         Uses an iterative see-saw method involving two SDPs.
 
-        :param iter: Maximum number of see-saw iterations (Alice a-optimizes, Bob optimizes).
-        :param tol: Tolerance for stopping see-saw iteration based on improvement.
+        :param iter: Maximum number of see-saw iterations (Alice optimizes, Bob optimizes). Default is 20.
+        :param tol: Tolerance for stopping see-saw iteration based on improvement (default is 1e-8).
         :param seed: Optional seed for initializing random POVMs for reproducibility.
         :return: The best lower bound found on the quantum value.
         """
         self.__get_game_dims()
         if seed is not None:
             np.random.seed(seed)
+
+        # Get number of inputs and outputs for Bob's measurements.
         _, _, _, num_outputs_bob, _, num_inputs_bob = self.pred_mat.shape
 
         # Initialize Bob's POVMs (NumPy arrays) - Default to RANDOM
@@ -298,8 +297,6 @@ class ExtendedNonlocalGame:
         prev_win_val = -float("inf")
         current_best_lower_bound = -float("inf")
 
-        # print(f"Starting see-saw: max_steps={iters}, tol={tol}, seed={seed}, solver={solver}")
-
         for step in range(iters):
             # Pass solver and solver_params
             opt_alice_rho_cvxpy_vars, problem_alice = self.__optimize_alice(bob_povms_np, solver, solver_params)
@@ -309,8 +306,6 @@ class ExtendedNonlocalGame:
                 or problem_alice.status not in [cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE]
                 or problem_alice.value is None
             ):
-                # print(f"Warning: Alice opt failed (status: {problem_alice.status})
-                # in step {step + 1}. Val: {problem_alice.value}")
                 return current_best_lower_bound if current_best_lower_bound > -float("inf") else 0.0
 
             # Pass solver and solver_params
@@ -321,8 +316,6 @@ class ExtendedNonlocalGame:
                 or problem_bob.status not in [cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE]
                 or problem_bob.value is None
             ):
-                # print(f"Warning: Bob opt failed (status: {problem_bob.status})
-                # in step {step + 1}. Val: {problem_bob.value}")
                 return current_best_lower_bound if current_best_lower_bound > -float("inf") else 0.0
 
             current_win_val = problem_bob.value
@@ -335,20 +328,11 @@ class ExtendedNonlocalGame:
                 for y_idx in range(self.num_bob_in):
                     for b_idx in range(self.num_bob_out):
                         bob_povms_np[y_idx, b_idx] = opt_bob_povm_cvxpy_vars[y_idx, b_idx].value
-                    # else:
-                    # print(f"Warning: Bob POVM var ({y_idx},{b_idx}) value is None in step {step+1}.")
-                    # break
-                    # if not all_bob_povms_values_valid:
-                    #     break
-                # if not all_bob_povms_values_valid:
-                #     return current_best_lower_bound
 
             if improvement < tol and step > 0:
                 # print(f"See-saw converged at step {step + 1} with value {current_best_lower_bound:.8f}")
                 break
             prev_win_val = current_win_val
-        # else:
-        # print(f"See-saw reached max steps ({iters}) with value {current_best_lower_bound:.8f}")
 
         return current_best_lower_bound
 
@@ -404,7 +388,6 @@ class ExtendedNonlocalGame:
         problem.solve(solver=solver, **solver_params)  # Use passed solver and params
 
         return rho_xa_cvxpy_vars, problem
-        # return None, problem
 
     def __optimize_bob(
         self, alice_rho_cvxpy_vars: dict | None, solver: str = cvxpy.SCS, solver_params: dict = {}
@@ -426,12 +409,6 @@ class ExtendedNonlocalGame:
                 )
 
         win_objective = cvxpy.Constant(0)
-        # if alice_rho_cvxpy_vars is None:
-        #     # print("Warning: __optimize_bob received None for alice_rho_cvxpy_vars.")
-        #     problem = cvxpy.Problem(cvxpy.Maximize(cvxpy.Constant(0)), [])
-        #     problem.status = "ALICE_OPTIMIZATION_FAILED"
-        #     problem.value = None
-        #     return None, problem
 
         for x_q in range(self.num_alice_in):
             for y_q in range(self.num_bob_in):
@@ -460,9 +437,6 @@ class ExtendedNonlocalGame:
         problem.solve(solver=solver, **solver_params)  # Use passed solver and params
 
         return bob_povm_cvxpy_vars, problem
-
-        # print(f"Warning: __optimize_bob failed. Status: {problem.status}, Value: {problem.value}")
-        # return None, problem
 
     def commuting_measurement_value_upper_bound(self, k: int | str = 1) -> float:
         """Compute an upper bound on the commuting measurement value of an extended nonlocal game.
