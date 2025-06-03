@@ -81,10 +81,30 @@ class ExtendedNonlocalGame:
             self.reps = reps
 
     def __get_game_dims(self):
+        """Initialize game dimensions from the prediction matrix.
+
+        This private method checks whether the game dimensions have already been initialized by
+        inspecting the '_dims_initialized_by_get_game_dims' flag. If not, it extracts the dimensions
+        from the shape of 'self.pred_mat' and assigns the following instance attributes:
+
+          - referee_dim: The first dimension of self.pred_mat.
+          - num_alice_out: The third element of self.pred_mat.shape.
+          - num_bob_out: The fourth element.
+          - num_alice_in: The fifth element.
+          - num_bob_in: The sixth element.
+
+        After extracting these values, the flag '_dims_initialized_by_get_game_dims' is set to True
+        to prevent re-initialization on subsequent calls.
+        """
         if not hasattr(self, "_dims_initialized_by_get_game_dims") or not self._dims_initialized_by_get_game_dims:
-            (self.referee_dim, _, self.num_alice_out, self.num_bob_out, self.num_alice_in, self.num_bob_in) = (
-                self.pred_mat.shape
-            )
+            (
+                self.referee_dim,
+                _,
+                self.num_alice_out,
+                self.num_bob_out,
+                self.num_alice_in,
+                self.num_bob_in,
+            ) = self.pred_mat.shape
             self._dims_initialized_by_get_game_dims = True
 
     def unentangled_value(self) -> float:
