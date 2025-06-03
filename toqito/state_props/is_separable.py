@@ -23,14 +23,25 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     separable if it can be written as a convex combination of product states. If a state is not
     separable, it is called entangled.
 
+    :raises ValueError: If dimension is not specified correctly or input is invalid.
+    :param state: The density matrix to check.
+    :param dim: The dimension of the input state, e.g., [dim_A, dim_B]. Optional; inferred if None.
+    :param level: The level for symmetric extensions (default: 2).
+    :param tol: Numerical tolerance (default: 1e-8).
+    :return: :code:`True` if separable, :code:`False` if entangled or inconclusive by implemented checks.
+
     Overview
     ==========
     This function implements several criteria to determine separability:
 
     1. Input validation (PSD, square, trace 1 normalization).
+
     2. Trivial cases (e.g., 1D subsystem).
+
     3. Pure states (Schmidt rank).
+
     4. Gurvits-Barnum ball :cite:`Gurvits2002_Classical`.
+
     5. PPT criterion (Peres-Horodecki) :cite:`Peres_1996_Separability`,
     :cite:`Horodecki1996_Separability`.
         - If PPT and :math:`MN \le 6`, it's separable :cite:`Horodecki1996_Separability`.
@@ -40,16 +51,22 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
             - If :math:`\text{rank}(\rho) + \text{rank}(\rho^{T_A}) \le 2 MN - M - N + 2`.
         - Range criterion variant for PPT states (Horodecki 1997 :cite:`Horodecki1997_Separability`).
         - Rank-1 perturbation of identity for PPT states
-        (Vidal & Tarrach 1999 :cite:`VidalTarrach1999_Robustness`).
+        (Vidal & Tarrach 1999 :cite:`Vidal_1999_Robust`).
+
     6. 3x3 rank-4 PPT N&S check (e.g., Breuer 2005 :cite:`Breuer_2006_Optimal`,
-      based on earlier work).
+    based on earlier work).
+
     7. Reduction criterion (Horodecki 1999 :cite:`Horodecki1999_Reduction`).
+
     8. Realignment/CCNR criteria (Chen & Wu 2003 :cite:`ChenWu2003_Realignment`,
     Zhang et al. 2008 :cite:`Zhang_2008_Beyond_realignment`).
-    9. 2xN specific checks for PPT states (Johnston 2013 :cite:`Johnston2013_Separability`,
+
+    9. 2xN specific checks for PPT states (Johnston 2013 :cite:`Johnston_2013_Spectrum`,
     Hildebrand :cite:`Hildebrand2005_PPT`).
+
     10. Decomposable maps: Ha-Kye :cite:`HaKye2011_PositiveMaps`, Breuer-Hall
     :cite:`Breuer_2006_Mixed`, :cite:`Hall2006_Indecomposable`.
+
     11. Symmetric extension hierarchy (DPS :cite:`Doherty2004_CompleteFamily`).
 
     Examples
@@ -100,14 +117,6 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     ==========
     .. bibliography::
         :filter: docname in docnames
-
-
-    :raises ValueError: If dimension is not specified correctly or input is invalid.
-    :param state: The density matrix to check.
-    :param dim: The dimension of the input state, e.g., [dim_A, dim_B]. Optional; inferred if None.
-    :param level: The level for symmetric extensions (default: 2).
-    :param tol: Numerical tolerance (default: 1e-8).
-    :return: :code:`True` if separable, :code:`False` if entangled or inconclusive by implemented checks.
 
     """
     # --- 1. Input Validation, Normalization, Dimension Setup ---
