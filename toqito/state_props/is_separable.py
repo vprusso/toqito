@@ -15,56 +15,42 @@ from toqito.state_props.in_separable_ball import in_separable_ball
 from toqito.state_props.schmidt_rank import schmidt_rank
 from toqito.states.max_entangled import max_entangled
 
-EPS = np.finfo(float).eps
-
 
 def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: int = 2, tol: float = 1e-8) -> bool:
-    r"""Determine if a given state (given as a density matrix) is a separable state :cite:`WikiSepSt`.
+    r"""Determine if a given state (given as a density matrix) is a separable state [WikiSepSt]_.
 
-    References
-    ==========
-    .. bibliography::
-        :filter: docname in docnames
-
-    :raises ValueError: If dimension is not specified correctly or input is invalid.
-    :param state: The density matrix to check.
-    :param dim: The dimension of the input state, e.g., [dim_A, dim_B].
-    :param level: The level for symmetric extensions.
-    :param tol: Numerical tolerance.
-    :return: True if separable, False if entangled or inconclusive by implemented checks.
+    A quantum state :math:`\rho \in \text{D}(\mathcal{H}_A \otimes \mathcal{H}_B)` is called
+    separable if it can be written as a convex combination of product states. If a state is not
+    separable, it is called entangled.
 
     Overview
     ==========
-    :cite:`Horodecki2009_QuantumEntanglement_Review`
-    A quantum state :math:`\rho \in \text{D}(\mathcal{H}_A \otimes \mathcal{H}_B)` is called
-    separable if it can be written as a convex combination of product states.
-    If a state is not separable, it is called entangled.
+    This function implements several criteria to determine separability:
 
-    This function implements several criteria:
-    1. Input validation (PSD, square, trace 1 normalization).
-    2. Trivial cases (e.g., 1D subsystem).
-    3. Pure states (Schmidt rank).
-    4. Gurvits-Barnum ball :cite:`Gurvits2002_LargestSeparableBalls`.
-    5. PPT criterion (Peres-Horodecki) :cite:`Peres1996_SeparabilityCriteria`,
-    :cite:`Horodecki1996_SeparabilityCriterion`.
-        - If PPT and :math:`MN \le 6`, it's separable :cite:`Horodecki1996_SeparabilityCriterion`.
-        - Operational criterion for low-rank PPT states (Horodecki et al. 2000
-        :cite:`Horodecki2000_OperationalCriterionLowRank`):
-            - If :math:`\text{rank}(\rho) \le \max(\text{dim}_A, \text{dim}_B)`.
-            - If :math:`\text{rank}(\rho) + \text{rank}(\rho^{T_A}) \le 2 MN - M - N + 2`.
-        - Range criterion variant for PPT states (Horodecki 1997 :cite:`Horodecki1997_RangeCriterion`).
-        - Rank-1 perturbation of identity for PPT states
-        (Vidal & Tarrach 1999 :cite:`Vidal1999_RobustnessOfEntanglement`).
-    6. 3x3 rank-4 PPT N&S check (e.g., Breuer 2005 :cite:`Breuer2005_VolumeOfTheSetOfSeparableStates`,
-      based on earlier work).
-    7. Reduction criterion (Horodecki 1999 :cite:`Horodecki1999_ReductionCriterion`).
-    8. Realignment/CCNR criteria (Chen & Wu 2003 :cite:`Chen2003_MatrixRealignment`,
-    Zhang et al. 2008 :cite:`Zhang2008_EntanglementDetectionBeyondRealignment`).
-    9. 2xN specific checks for PPT states (Johnston 2013 :cite:`Johnston2013_SeparabilityFromSpectrum`,
-    Hildebrand :cite:`Hildebrand2005_ConeOfPositiveMaps`).
-    10. Decomposable maps: Ha-Kye :cite:`Ha2011_PositiveMapsAndEntanglementQutrits`, Breuer-Hall
-    :cite:`Breuer2006_OptimalEntanglementCriterion`, :cite:`Hall2006_IndecomposablePositiveMaps`.
-    11. Symmetric extension hierarchy (DPS :cite:`Doherty2004_DistinguishingSeparableAndEntangledStates`).
+    1. **Input validation**: Checks if the state is positive semi-definite (PSD), square, and trace-normalized to 1.
+    2. **Trivial cases**: Returns True if a subsystem is 1D.
+    3. **Pure states**: Uses Schmidt rank to determine separability.
+    4. **Gurvits-Barnum ball**: Checks if the state lies within a separable ball [Gurvits2002]_.
+    5. **PPT criterion (Peres-Horodecki)** [Peres1996]_ [Horodecki1996]_:
+       - If PPT and :math:`MN \le 6`, the state is separable [Horodecki1996]_.
+       - Operational criterion for low-rank PPT states [Horodecki2000]_:
+         - If :math:`\text{rank}(\rho) \le \max(\text{dim}_A, \text{dim}_B)`.
+         - If :math:`\text{rank}(\rho) + \text{rank}(\rho^{T_A}) \le 2 MN - M - N + 2`.
+       - Range criterion variant [Horodecki1997]_.
+       - Rank-1 perturbation of identity [Vidal1999]_.
+    6. **3x3 rank-4 PPT check**: Applies necessary and sufficient conditions [Breuer2005]_.
+    7. **Reduction criterion**: Based on [Horodecki1999]_.
+    8. **Realignment/CCNR criteria**: Uses matrix realignment [Chen2003]_ [Zhang2008]_.
+    9. **2xN specific checks**: For PPT states [Johnston2013]_ [Hildebrand2005]_.
+    10. **Decomposable maps**: Applies Ha-Kye [Ha2011]_ and Breuer-Hall [Breuer2006]_ [Hall2006]_.
+    11. **Symmetric extension hierarchy**: Implements DPS hierarchy [Doherty2004]_.
+
+    :raises ValueError: If dimension is not specified correctly or input is invalid.
+    :param state: The density matrix to check.
+    :param dim: The dimension of the input state, e.g., [dim_A, dim_B]. Optional; inferred if None.
+    :param level: The level for symmetric extensions (default: 2).
+    :param tol: Numerical tolerance (default: 1e-8).
+    :return: True if separable, False if entangled or inconclusive by implemented checks.
 
     Examples
     ==========
@@ -110,12 +96,69 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                 -0.00875865-0.11144344j,  0.11998971+0.j        ]])
         is_separable(rho_not_separable)
 
+    References
+    ==========
+    .. bibliography::
+        :filter: docname in docnames
+    .. [WikiSepSt] Wikipedia: Separable state
+       https://en.wikipedia.org/wiki/Separable_state
+    .. [Gurvits2002] Gurvits, L. (2002). Classical deterministic complexity of Edmonds'
+       problem and quantum entanglement.
+       arXiv:quant-ph/0201022.
+    .. [Peres1996] Peres, A. (1996). Separability criterion for density matrices.
+       Physical Review Letters, 77(8), 1413.
+    .. [Horodecki1996] Horodecki, M., Horodecki, P., & Horodecki, R. (1996).
+       Separability of mixed states: necessary and sufficient conditions.
+       Physics Letters A, 223(1-2), 1-8.
+    .. [Horodecki2000] Horodecki, M., Horodecki, P., & Horodecki, R. (2000).
+       Operational criterion for the separability of low-rank density matrices.
+       Physical Review Letters, 84(15), 3494.
+    .. [Horodecki1997] Horodecki, P. (1997). Separability criterion and
+       inseparable mixed states with positive partial transposition.
+       Physics Letters A, 232(5), 333-339.
+    .. [Vidal1999] Vidal, G., & Tarrach, R. (1999). Robustness of entanglement.
+       Physical Review A, 59(1), 141.
+    .. [Breuer2005] Breuer, H. P. (2005). Optimal entanglement criterion for mixed
+       quantum states.
+       Physical Review Letters, 97(8), 080501.
+    .. [Horodecki1999] Horodecki, M., & Horodecki, P. (1999). Reduction criterion of
+       separability and limits for a class of distillation protocols.
+       Physical Review A, 59(6), 4206.
+    .. [Chen2003] Chen, K., & Wu, L. A. (2003). A matrix realignment method for
+       recognizing entanglement.
+       Quantum Information & Computation, 3(3), 193-202.
+    .. [Zhang2008] Zhang, C. J., et al. (2008). Entanglement detection beyond the
+       computable cross-norm or realignment criterion.
+       Physical Review A, 77(6), 062302.
+    .. [Johnston2013] Johnston, N. (2013). Separability from spectrum for qubit-qudit
+       states.
+       Physical Review A, 88(6), 062330.
+    .. [Hildebrand2005] Hildebrand, R. (2005). Positive partial transpose from spectra.
+       Physical Review A, 72(4), 042321.
+    .. [Ha2011] Ha, K. C., & Kye, S. H. (2011). Positive maps and entanglement in qudits.
+       Physical Review A, 84(2), 022314.
+    .. [Breuer2006] Breuer, H. P. (2006). Optimal entanglement criterion for mixed
+       quantum states.
+       Physical Review Letters, 97(8), 080501.
+    .. [Hall2006] Hall, W. (2006). A new criterion for indecomposability of positive maps.
+       Journal of Physics A: Mathematical and General, 39(46), 14119.
+    .. [Doherty2004] Doherty, A. C., Parrilo, P. A., & Spedalieri, F. M. (2004).
+       Complete family of separability criteria.
+       Physical Review A, 69(2), 022308.
+
     """
     # --- 1. Input Validation, Normalization, Dimension Setup ---
     if not isinstance(state, np.ndarray):
         raise TypeError("Input state must be a NumPy array.")
     if state.ndim != 2 or state.shape[0] != state.shape[1]:
         raise ValueError("Input state must be a square matrix.")
+
+    if np.issubdtype(state.dtype, np.complexfloating):
+        _machine_eps = np.finfo(state.real.dtype).eps
+    elif np.issubdtype(state.dtype, np.floating):
+        _machine_eps = np.finfo(state.dtype).eps
+    else:
+        _machine_eps = np.finfo(float).eps
 
     state_len = state.shape[0]
 
@@ -127,12 +170,13 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
 
     if state_len > 0 and abs(trace_state_val) < tol:
         if np.any(
-            np.abs(current_state) > 100 * EPS * max(1, np.max(np.abs(current_state)) if current_state.size > 0 else 1)
+            np.abs(current_state)
+            > 100 * _machine_eps * max(1, np.max(np.abs(current_state)) if current_state.size > 0 else 1)
         ):
             raise ValueError("Trace of the input state is close to zero, but state is not zero matrix.")
 
     if abs(trace_state_val - 1) > tol:
-        if abs(trace_state_val) > 100 * EPS:
+        if abs(trace_state_val) > 100 * _machine_eps:
             current_state = current_state / trace_state_val
         elif state_len > 0 and np.any(np.abs(current_state) > tol):  # pragma: no cover (Hard to hit with PSD)
             raise ValueError(
@@ -152,7 +196,10 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
             #     dim_A_guess = 1
             if dim_A_guess > 0 and state_len % dim_A_guess == 0:  # Simplified from state_len > 0 here
                 dims_arr_val = np.array([dim_A_guess, state_len / dim_A_guess])
-                if np.abs(dims_arr_val[1] - np.round(dims_arr_val[1])) >= 2 * state_len * EPS and state_len > 0:
+                if (
+                    np.abs(dims_arr_val[1] - np.round(dims_arr_val[1])) >= 2 * state_len * _machine_eps
+                    and state_len > 0
+                ):
                     found_factor = False
                     for dA_try in range(2, int(np.sqrt(state_len)) + 1):
                         if state_len % dA_try == 0:
@@ -322,7 +369,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
             ]
             try:
                 F_det_val = np.linalg.det(np.array(F_det_matrix_elements, dtype=complex))
-                return bool(abs(F_det_val) < max(tol**2, EPS ** (3 / 4)))
+                return bool(abs(F_det_val) < max(tol**2, _machine_eps ** (3 / 4)))
             except np.linalg.LinAlgError:
                 pass
 
@@ -372,7 +419,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
             lam = np.sort(np.real(np.linalg.eigvals(current_state)))[::-1]
 
         if len(lam) == prod_dim_val and prod_dim_val > 1:
-            if lam[1] - lam[prod_dim_val - 1] < (tol**2 + 2 * EPS):
+            if lam[1] - lam[prod_dim_val - 1] < (tol**2 + 2 * _machine_eps):
                 return True
     except np.linalg.LinAlgError:
         pass
@@ -446,11 +493,11 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
             t_iter_ha = t_raw_ha
             for j_ha_loop in range(2):  # Iterate for t and 1/t
                 if j_ha_loop == 1:
-                    # if abs(t_raw_ha) < EPS: # pragma: no cover (t_raw_ha always >= 0.1)
+                    # if abs(t_raw_ha) < _machine_eps: # pragma: no cover (t_raw_ha always >= 0.1)
                     #     break  # Should not happen with arange
                     t_iter_ha = 1 / t_raw_ha
                 denom_ha = 1 - t_iter_ha + t_iter_ha**2
-                if abs(denom_ha) < EPS:  # pragma: no cover (denom_ha = 1-t+t^2 > 0)
+                if abs(denom_ha) < _machine_eps:  # pragma: no cover (denom_ha = 1-t+t^2 > 0)
                     continue  # Avoid division by zero
                 a, b, c = (1 - t_iter_ha) ** 2 / denom_ha, t_iter_ha**2 / denom_ha, 1 / denom_ha
                 Phi_map_ha = np.diag([a + 1, c, b, b, a + 1, c, c, b, a + 1]) - phi_proj3
