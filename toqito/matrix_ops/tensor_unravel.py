@@ -32,12 +32,22 @@ def  tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
         >>> tensor_constraint = np.array([[-1, -1], [-1, 1]])
         >>> tensor_to_raw(tensor_constraint)
         
-    :param constraint_tensor: An :math:`n`-dimensional :code:`numpy` array representing a constraint (shape :code:`(2,)*n`).
+    Parameters
+    ==========
+    constraint_tensor : numpy.ndarray
+        An :math:`n`-dimensional :code:`numpy` array representing a constraint (shape :code:`(2,)*n`).
 
-    :return: A 1D :code:`numpy` array of length :math:`n+1` where the first :math:`n` elements are the coordinates (indices)
-
-             and the last element is the unique constant (rhs).
-
+    Returns
+    =======
+    :return: A 1D :code:`numpy` array of length :math:`n+1` where the first :math:`n` elements are the coordinates (indices),
+    and the last element is the unique constant (rhs).
+        
+    The tensor-form constraint representation is commonly used in implementations of binary constraint system (BCS) games. For background on BCS games, see:cite:`Richard_2014_Characterization`.
+    
+    References
+    ==========
+    .. bibliography::
+        :filter: docname in docnames
     """
     
     values, counts = np.unique(constraint_tensor, return_counts=True)

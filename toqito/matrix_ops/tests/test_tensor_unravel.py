@@ -40,4 +40,3 @@ class TestTensorUnravel(unittest.TestCase):
             tensor_unravel(tensor_constraint)
         self.assertIn("unique element", str(context.exception))
 
-

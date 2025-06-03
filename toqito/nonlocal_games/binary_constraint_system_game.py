@@ -95,11 +95,10 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray):
 
     Returns
     =======
-        A tuple containing:
-        - A list of integer bitmasks (one per row of ``M``).
-        - A list of parity values derived from ``b``.
+    :return: A list of integer bitmasks (one per row of ``M``).
+    :return: A list of parity values derived from ``b``.
 
-     The mehod used to determine the existing of perfect commuting strategy was originally introduced in :cite:`William_2016_Perfect`.
+    The mehod used to determine the existing of perfect commuting strategy was originally introduced in :cite:`William_2016_Perfect`.
 
     References
     ==========
@@ -136,8 +135,7 @@ def _has_undirected_cycle(nodes: list[int], edges: list[tuple[int, int]]) -> boo
 
     Returns
     ==========
-    bool
-        True if the undirected graph contains at least one cycle, False otherwise.
+    :return: ``True`` if the undirected graph contains at least one cycle, False otherwise.
 
     Examples
     ==========
@@ -210,8 +208,8 @@ def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray):
         
     Parameters
     ==========  
-    :param M: A binary matrix of shape ``(m, n)``.
-    :param b: A binary vector of length ``m``.
+    M: A binary matrix of shape ``(m, n)``.
+    b: A binary vector of length ``m``.
 
     Returns
     ========
