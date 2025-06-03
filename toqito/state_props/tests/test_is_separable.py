@@ -324,7 +324,6 @@ def test_skip_horodecki_if_not_applicable_proceeds_entangled_tiles():
 
     # Debugging rank
     calculated_rank = np.linalg.matrix_rank(rho_tiles, tol=1e-8)  # Use a consistent tolerance
-    print(f"Rank of rho_tiles: {calculated_rank}")
     assert calculated_rank == 4, f"Expected rank 4, got {calculated_rank}"
 
     assert not is_separable(rho_tiles, dim=[3, 3])
@@ -784,7 +783,6 @@ def test_rank1_pert_eigvalsh_fails_eigvals_fallback():
 
     # Verify the critical difference AFTER normalization
     actual_diff = lam_sorted_desc[1] - lam_sorted_desc[prod_dim - 1]
-    print(f"Actual Diff: {actual_diff}, Target Threshold: {threshold_condition}")
     if actual_diff >= threshold_condition:
         # If normalization messed it up, try to re-adjust or skip
         # This can happen if the initial values are too far apart, normalization shrinks small gaps too much
@@ -796,8 +794,8 @@ def test_rank1_pert_eigvalsh_fails_eigvals_fallback():
     # Sanity checks for rho
     assert np.allclose(np.trace(rho), 1.0), "Trace of rho is not 1"
     eigenvalues_of_rho = np.sort(np.linalg.eigvalsh(rho))[::-1]  # Get actual sorted eigenvalues
-    assert np.allclose(eigenvalues_of_rho, lam_sorted_desc), "Rho does not have the intended eigenvalues"
-    assert is_ppt(rho, dim=[dim_sys, dim_sys], tol=test_tol), "Constructed rho is not PPT"
+    assert np.allclose(eigenvalues_of_rho, lam_sorted_desc)  # "Rho does not have the intended eigenvalues"
+    assert is_ppt(rho, dim=[dim_sys, dim_sys], tol=test_tol)  #  "Constructed rho is not PPT"
 
     # Rest of the mock setup
     original_matrix_rank = np.linalg.matrix_rank
@@ -872,7 +870,6 @@ def test_path_ha_kye_fallthrough_to_final_false_L534_to_L580(tiles_state_3x3_ppt
     def mock_det_for_plucker(matrix_arg):
         if matrix_arg.shape == (6, 6):  # Plucker F_det_matrix is 6x6
             mock_plucker_det_call_info["called"] = True
-            print("DEBUG_TEST: Mocking Plucker det(F) to be small (forcing Plucker to indicate separable)")
             return test_tol**3
         return original_linalg_det(matrix_arg)
 
@@ -891,9 +888,7 @@ def test_path_ha_kye_fallthrough_to_final_false_L534_to_L580(tiles_state_3x3_ppt
         # Only mock for the full 9x9 state and its partial transpose
         if matrix_arg.shape == (9, 9) and mock_rank_call_info["values"]:
             val = mock_rank_call_info["values"].pop(0)
-            print(f"DEBUG_TEST: Mocking rank for shape {matrix_arg.shape} to {val} (tol={tol})")
             return val
-        print(f"DEBUG_TEST: Calling original rank for shape {matrix_arg.shape} (tol={tol})")
         return original_matrix_rank(matrix_arg, tol=tol)
 
     with mock.patch("toqito.state_props.is_separable.in_separable_ball", return_value=False):
@@ -920,7 +915,5 @@ def test_path_ha_kye_fallthrough_to_final_false_L534_to_L580(tiles_state_3x3_ppt
                         # The loop L570-L574 finishes.
                         # L576 `elif level == 1` is false.
                         # Final L580 `return False` is hit.
-
-                        print("DEBUG_TEST: About to call is_separable for Tiles fallthrough test (L534->L580)")
                         assert not is_separable(rho, dim=dims, tol=test_tol, level=2)
-                        assert mock_plucker_det_call_info["called"], "Plucker det mock was not called"
+                        assert mock_plucker_det_call_info["called"]  # Plucker det mock was not called
