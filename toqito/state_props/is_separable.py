@@ -252,12 +252,13 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                     np.abs(dims_arr_val[1] - np.round(dims_arr_val[1])) >= 2 * state_len * _machine_eps
                     and state_len > 0
                 ):
-                    found_factor = False
+                    found_factor = False  # not covered by test
                     for dA_try in range(2, int(np.sqrt(state_len)) + 1):
                         if state_len % dA_try == 0:
                             dims_arr_val = np.array([dA_try, state_len // dA_try])
                             found_factor = True
-                            break
+                            break  # not covered by test
+                    print(f"DEBUG_DIM_INFER: state_len={state_len}, found_factor before L262 check: {found_factor}")
                     if not found_factor:
                         dims_arr_val = np.array([1, state_len])
                 else:
@@ -272,7 +273,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                 if not found_factor:
                     dims_arr_val = np.array([1, state_len])
             else:
-                dims_arr_val = np.array([0, 0])
+                dims_arr_val = np.array([0, 0])  # not covered by test
         dims_list = [int(d) for d in dims_arr_val]
     elif isinstance(temp_dim_param, int):
         if temp_dim_param <= 0:
@@ -302,7 +303,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
 
     dA, dB = dims_list[0], dims_list[1]
     if (dA == 0 or dB == 0) and state_len != 0:
-        raise ValueError("Non-zero state with zero-dim subsystem is inconsistent.")
+        raise ValueError("Non-zero state with zero-dim subsystem is inconsistent.")  # not covered by test
 
     if state_len == 0:
         return True
@@ -319,7 +320,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     # --- 2. Trivial Cases for Separability ---
     if min_dim_val == 1:
         # Every positive semidefinite matrix is separable when one of the local dimensions is 1.
-        # print("DEBUG: Returning True due to min_dim_val == 1")
+        print("DEBUG: Returning True due to min_dim_val == 1")
         return True
 
     # --- 3. Pure State Check (Schmidt Rank) ---
@@ -331,18 +332,18 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     # and QETLAB's implementation. This is distinct from this pure state check.)
     if state_rank == 1:
         s_rank = schmidt_rank(current_state, dims_list)
-        # print(f"DEBUG: Rank 1 state, s_rank={s_rank}. Returning {bool(s_rank <= 2)}")
+        print(f"DEBUG: Rank 1 state, s_rank={s_rank}. Returning {bool(s_rank <= 2)}")
         return bool(s_rank == 1)
 
     # --- 4. Gurvits-Barnum Separable Ball ---
     if in_separable_ball(current_state):
         # Determined to be separable by closeness to the maximally mixed state :cite:`Gurvits_2002_Ball`.
-        # print("DEBUG: Returning True due to in_separable_ball")
+        print("DEBUG: Returning True due to in_separable_ball")
         return True
 
     # --- 5. PPT (Peres-Horodecki) Criterion ---
     is_state_ppt = is_ppt(state, 2, dim, tol)  # sys=2 implies partial transpose on the second system by default
-    # print(f"DEBUG: is_state_ppt = {is_state_ppt}")
+    print(f"DEBUG: is_state_ppt = {is_state_ppt}")
     if not is_state_ppt:
         # Determined to be entangled via the PPT criterion :cite:`Peres_1996_Separability`.
         # Also, see Horodecki Theorem in :cite:`Gühne_2009_Horodecki`.
@@ -353,7 +354,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     # --- 5a. PPT and dim <= 6 implies separable ---
     if prod_dim_val <= 6:  # e.g., 2x2 or 2x3 systems
         # For dA * dB <= 6, PPT is necessary and sufficient for separability :cite:`Horodecki1996_Separability`.
-        # print("DEBUG: Returning True due to prod_dim_val <= 6 (and PPT)")
+        print("DEBUG: Returning True due to prod_dim_val <= 6 (and PPT)")
         return True
 
     # --- 6. 3x3 Rank-4 PPT N&S Check (Plucker/Breuer/Chen&Djokovic) ---
@@ -363,7 +364,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     # :cite:`Chen_2013_MultipartiteRank4`.
     # (Note: Breuer's original PRL also relates it to F being indefinite or zero).
     if dA == 3 and dB == 3 and state_rank == 4:
-        # print("DEBUG: ENTERING 3x3 RANK 4 BLOCK")
+        print("DEBUG: ENTERING 3x3 RANK 4 BLOCK")
         q_orth_basis = orth(current_state)  # Orthonormal basis for the range of rho
         if q_orth_basis.shape[1] < 4:  # Should not happen if rank is indeed 4
             pass  # Proceed, as condition for this check is not strictly met
@@ -373,12 +374,14 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
             for j_breuer in range(6, 0, -1):
                 for k_breuer in range(7, 0, -1):
                     for n_breuer in range(8, 0, -1):
-                        for m_breuer in range(9, 0, -1):
+                        for m_breuer in range(9, 0, -1):  # not covered by test
                             if j_breuer < k_breuer < n_breuer < m_breuer:
                                 selected_rows = [idx - 1 for idx in [j_breuer, k_breuer, n_breuer, m_breuer]]
-                                if all(0 <= r_idx < q_orth_basis.shape[0] for r_idx in selected_rows):
+                                if all(
+                                    0 <= r_idx < q_orth_basis.shape[0] for r_idx in selected_rows
+                                ):  # not covered by test
                                     sub_matrix = q_orth_basis[selected_rows, :]
-                                    if sub_matrix.shape[0] == 4 and sub_matrix.shape[1] == 4:
+                                    if sub_matrix.shape[0] == 4 and sub_matrix.shape[1] == 4:  # not covered by test
                                         try:
                                             p_np_arr[j_breuer - 1, k_breuer - 1, n_breuer - 1, m_breuer - 1] = (
                                                 np.linalg.det(sub_matrix)
@@ -398,7 +401,8 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                     # from the F_det_matrix_elements construction
                     # and p_np_arr is sized for 1-based indices up to 9.
                     # However, being defensive:
-                    return 0.0  # Or handle as an error/warning
+                    print("DEBUG: being defensive return 0")
+                    return 0.0  # Or handle as an error/warning # not covered by test
                 val = p_np_arr[t_tuple[0] - 1, t_tuple[1] - 1, t_tuple[2] - 1, t_tuple[3] - 1]
                 return val if not np.isnan(val) else 0.0
 
@@ -456,11 +460,13 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                 F_det_val = np.linalg.det(np.array(F_det_matrix_elements, dtype=complex))
                 # This condition (abs(det(F)) ~ 0 for separability) is used by QETLAB for this specific test.
                 if bool(abs(F_det_val) < max(tol**2, _machine_eps ** (3 / 4))):
-                    # print(f"DEBUG: 3x3 Rank 4: abs(F_det_val)={abs(F_det_val)} is small. Returning True.")
+                    print(
+                        f"DEBUG: 3x3 Rank 4: abs(F_det_val)={abs(F_det_val)} is small. Returning True."
+                    )  # not covered by test
                     return True  # Separable by this 3x3 rank-4 condition
                 else:
+                    print(f"DEBUG: 3x3 Rank 4: abs(F_det_val)={abs(F_det_val)} is NOT small.")
                     return False
-                #     print(f"DEBUG: 3x3 Rank 4: abs(F_det_val)={abs(F_det_val)} is NOT small.
                 # Proceeding from 3x3 rank 4 block.") # ADD THIS
                 # If det(F) is not close to zero, the state is entangled by this criterion.
                 # TODO: Breuer's PRL indicates separability if F is indefinite or zero. Entangled if F is
@@ -476,27 +482,27 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                 # For UPB tile states (3x3, rank 4, PPT entangled), det(F) is typically non-zero. So this
                 # `return True` isn't hit.
             except np.linalg.LinAlgError:  # If determinant calculation fails
-                # print("DEBUG: 3x3 Rank 4: LinAlgError in det(F). Proceeding.")
+                print("DEBUG: 3x3 Rank 4: LinAlgError in det(F). Proceeding.")
                 pass  # Proceed to other tests
 
     # --- 7. Operational Criteria for Low-Rank PPT States (Horodecki et al. 2000) ---
     # These are sufficient conditions for separability of PPT states :cite:`Horodecki_2000_PPT_low_rank`.
     if state_rank <= max_dim_val:  # rank(rho) <= max(dA, dB)
-        # print(f"DEBUG: state_rank ({state_rank}) <= max_dim_val ({max_dim_val}) is True. Returning True.")
+        print(f"DEBUG: state_rank ({state_rank}) <= max_dim_val ({max_dim_val}) is True. Returning True.")
         return True
 
     rho_pt_A = partial_transpose(current_state, sys=0, dim=dims_list)  # Partial transpose on system A
     rank_pt_A = np.linalg.matrix_rank(rho_pt_A, tol=tol)
     threshold_horodecki = 2 * prod_dim_val - dA - dB + 2  # Threshold for sum of ranks
-    # print(f"DEBUG: Sum-of-Ranks Check:")
-    # print(f"DEBUG: state_rank (r(rho)) = {state_rank}")
-    # print(f"DEBUG: rank_pt_A (r(rho^TA)) = {rank_pt_A}")
-    # print(f"DEBUG: dA={dA}, dB={dB}, prod_dim_val={prod_dim_val}")
-    # print(f"DEBUG: threshold_horodecki (2*dA*dB - dA - dB + 2) = {threshold_horodecki}")
-    # print(f"DEBUG: state_rank + rank_pt_A = {state_rank + rank_pt_A}")
+    print("DEBUG: Sum-of-Ranks Check:")
+    print(f"DEBUG: state_rank (r(rho)) = {state_rank}")
+    print(f"DEBUG: rank_pt_A (r(rho^TA)) = {rank_pt_A}")
+    print(f"DEBUG: dA={dA}, dB={dB}, prod_dim_val={prod_dim_val}")
+    print(f"DEBUG: threshold_horodecki (2*dA*dB - dA - dB + 2) = {threshold_horodecki}")
+    print(f"DEBUG: state_rank + rank_pt_A = {state_rank + rank_pt_A}")
 
     if state_rank + rank_pt_A <= threshold_horodecki:  # rank(rho) + rank(rho^T_A) <= threshold
-        # print("DEBUGl: # rank(rho) + rank(rho^T_A) <= threshold")
+        print("DEBUGl: # rank(rho) + rank(rho^T_A) <= threshold")
         return True
     # TODO: Add check for rank(rho) <= rank(marginal_A) or rank(rho) <= rank(marginal_B) as in QETLAB.
 
@@ -511,11 +517,13 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         is_positive_semidefinite(op_reduct1, atol=tol, rtol=tol)
         and is_positive_semidefinite(op_reduct2, atol=tol, rtol=tol)
     ):  # pragma: no cover (should not be hit for PPT states)
+        print("DEBUG: If state is PPT (which it is at this point)")
         return False  # Entangled by reduction criterion
 
     # --- 9. Realignment/CCNR Criteria ---
     # Basic Realignment Criterion :cite:`Chen_2003_Matrix`. If > 1, entangled.
     if trace_norm(realignment(current_state, dims_list)) > 1 + tol:
+        print("DEBUG: Basic Realignment Return true")
         return False
 
     # Zhang et al. 2008 Variant :cite:`Zhang_2008_Beyond_realignment`.
@@ -526,6 +534,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     val_B = max(0, 1 - tr_rho_B_sq)
     bound_zhang = np.sqrt(val_A * val_B) if (val_A * val_B >= 0) else 0
     if trace_norm(realignment(current_state - np.kron(rho_A_marginal, rho_B_marginal), dims_list)) > bound_zhang + tol:
+        print("DEBUG: return Zhang et al. 2008 Variant")
         return False
     # TODO: Consider adding Filter CMC criterion from Gittsovich et al. 2008, which is stronger.
 
@@ -535,13 +544,21 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         try:
             lam = np.linalg.eigvalsh(current_state)[::-1]  # Eigenvalues sorted descending
         except np.linalg.LinAlgError:  # Fallback if eigvalsh fails
+            print("DEBUG: PPT states close to identity are separable Eigenvalues sorted descending fails")
             lam = np.sort(np.real(np.linalg.eigvals(current_state)))[::-1]
 
-        if len(lam) == prod_dim_val and prod_dim_val > 1:
+        if len(lam) == prod_dim_val and prod_dim_val > 1:  # not covered by test
             # If (lambda_2 - lambda_d) is very small for a PPT state.
-            if lam[1] - lam[prod_dim_val - 1] < (tol**2 + 2 * _machine_eps):
+            diff_pert = lam[1] - lam[prod_dim_val - 1]  # ADD THIS
+            threshold_pert = tol**2 + 2 * _machine_eps  # ADD THIS
+            print(
+                f"DEBUG_IS_SEP_L415: diff_pert={diff_pert}, threshold_pert={threshold_pert}, "
+                + f"condition_met={diff_pert < threshold_pert}"
+            )  # ADD THIS
+            if diff_pert < threshold_pert:
+                print("DEBUG: If (lambda_2 - lambda_d) is very small for a PPT state")
                 return True
-    except np.linalg.LinAlgError:  # If all eigenvalue computations fail
+    except np.linalg.LinAlgError:  # If all eigenvalue computations fail # not covered by test
         pass  # Proceed to other tests
 
     # --- 11. 2xN Specific Checks for PPT States ---
@@ -554,24 +571,24 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         dim_for_hildebrand_map = [2, d_N_val]
 
         if dA != 2 and dB == 2:  # If system A is N-level and B is qubit, swap them
-            state_t_2xn = swap(current_state, sys=[0, 1], dim=dims_list)
+            state_t_2xn = swap(current_state, sys=[0, 1], dim=dims_list)  # not covered by test
             # d_N_val remains max_dim_val. Dimensions for map are now [qubit_dim, N_dim]
             dim_for_hildebrand_map = [dB, dA]  # Should be [2, max_dim_val] after swap
         elif dA == 2:  # System A is already the qubit
             pass  # state_t_2xn and d_N_val are correctly set
         else:  # This case should not be reached if min_dim_val == 2
-            state_t_2xn = None  # Defensive
+            state_t_2xn = None  # Defensive # not covered by test
 
-        if state_t_2xn is not None:
+        if state_t_2xn is not None:  # not covered by test
             current_lam_2xn = lam  # Use eigenvalues of original state if no swap
             if state_t_2xn is not current_state:  # If swap occurred, recompute eigenvalues
-                try:
+                try:  # not covered by test
                     current_lam_2xn = np.linalg.eigvalsh(state_t_2xn)[::-1]
                 except np.linalg.LinAlgError:
                     current_lam_2xn = np.sort(np.real(np.linalg.eigvals(state_t_2xn)))[::-1]
 
             # Johnston's Spectral Condition :cite:`Johnston_2013_Spectrum`
-            if (
+            if (  # not covered by test
                 len(current_lam_2xn) >= 2 * d_N_val  # Check if enough eigenvalues exist
                 and (2 * d_N_val - 1) < len(current_lam_2xn)  # Index validity
                 and (2 * d_N_val - 2) >= 0
@@ -583,7 +600,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                     2 * d_N_val - 3
                 ] * current_lam_2xn[2 * d_N_val - 1] + tol**2:  # Added tolerance
                     print("Condition: (lambda_1 - lambda_{2N-1})^2 <= 4 * lambda_{2N-2} * lambda_{2N}")
-                    return True
+                    return True  # not covered by test
 
             # Hildebrand's Conditions for 2xN PPT states (various papers, e.g.,
             # :cite:`Hildebrand2005_PPT`, :cite:`Hildebrand_2008_Semidefinite`)
@@ -594,10 +611,13 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
 
             # If rank of anti-Hermitian part of B is small (related to "perturbed block Hankel" in QETLAB)
             if B_block.size > 0 and np.linalg.matrix_rank(B_block - B_block.conj().T, tol=tol) <= 1:
+                print("DEBUG: If rank of anti-Hermitian part of B is small")
                 return True
 
             # Hildebrand's homothetic images approach / X_2n_ppt_check
-            if A_block.size > 0 and B_block.size > 0 and C_block.size > 0:  # Ensure blocks are not empty
+            if (
+                A_block.size > 0 and B_block.size > 0 and C_block.size > 0
+            ):  # Ensure blocks are not empty # not covered by test
                 X_2n_ppt_check = np.vstack(
                     (
                         np.hstack(((5 / 6) * A_block - C_block / 6, B_block)),
@@ -609,19 +629,23 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                 # QETLAB uses IsPPT(X_2n_ppt_check,2,[2,xD]), implying PT on 2nd system of a 2xD structure.
                 # Here, sys_to_pt_for_hildebrand_map=1 and dim_for_hildebrand_map=[2,d_N_val] seems correct.
                 if is_positive_semidefinite(X_2n_ppt_check, atol=tol, rtol=tol) and is_ppt(
-                    X_2n_ppt_check, sys=1, dim=dim_for_hildebrand_map, tol=tol
+                    X_2n_ppt_check,
+                    sys=1,
+                    dim=dim_for_hildebrand_map,
+                    tol=tol,  # not covered by test
                 ):  # Check PPT of this map's Choi matrix basically
                     print(
-                        "# Here, sys_to_pt_for_hildebrand_map=1 and dim_for_hildebrand_map=[2,d_N_val] seems correct."
+                        "DEBUG: Here, sys_to_pt_for_hildebrand_map=1 and "
+                        "dim_for_hildebrand_map=[2,d_N_val] seems correct."
                     )
                     return True
 
                 # Johnston Lemma 1 variant / norm B condition
-                try:
+                try:  # not covered by test
                     eig_A_real, eig_C_real = np.real(np.linalg.eigvals(A_block)), np.real(np.linalg.eigvals(C_block))
                     if eig_A_real.size > 0 and eig_C_real.size > 0 and B_block.size > 0:
                         if np.linalg.norm(B_block) ** 2 <= np.min(eig_A_real) * np.min(eig_C_real) + tol**2:
-                            print("# Johnston Lemma 1 variant / norm B condition")
+                            print("DEBUG: Johnston Lemma 1 variant / norm B condition")
                             return True
                 except np.linalg.LinAlgError:
                     pass  # Eigenvalue computation failed
@@ -659,7 +683,8 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                 if not is_positive_semidefinite(
                     partial_channel(current_state, Phi_map_ha, sys=1, dim=dims_list), atol=tol, rtol=tol
                 ):
-                    return False  # Entangled if map application results in non-PSD state
+                    print("DEBUG: Entangled if map application results in non-PSD state")
+                    return False  # Entangled if map application results in non-PSD state # not covered by test
 
     # Breuer-Hall Maps (for even dimensional subsystems) :cite:`Breuer_2006_Mixed`, :cite:`Hall2006_Indecomposable`
     for p_idx_bh in range(2):  # Apply map to subsystem 0 (A), then subsystem 1 (B)
@@ -681,6 +706,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
             )
             mapped_state_bh = partial_channel(current_state, Phi_bh_map_choi, sys=p_idx_bh, dim=dims_list)
             if not is_positive_semidefinite(mapped_state_bh, atol=tol, rtol=tol):
+                print("DEBUG: Entangled if map application results in non-PSD state")
                 return False  # Entangled if map application results in non-PSD state
 
     # --- 13. Symmetric Extension Hierarchy (DPS) ---
@@ -700,6 +726,8 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         for k_actual_level_check in range(2, int(level) + 1):  # Ensure level is int for range
             try:
                 if has_symmetric_extension(rho=current_state, level=k_actual_level_check, dim=dims_list, tol=tol):
+                    print("DEBUG: State has a k-symmetric extension, considered separable by this test level")
+                    # not covered by test
                     return True  # State has a k-symmetric extension, considered separable by this test level.
                 # If it does NOT have a k-symmetric extension, it is entangled.
                 # The current loop structure means if has_symmetric_extension for k=2 is False,
@@ -717,6 +745,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                 pass  # Proceed, may not be able to determine via this method.
     elif level == 1 and is_state_ppt:  # is_state_ppt is True at this point
         # 1-extendibility is equivalent to PPT.
+        print("DEBUG: 1-extendibility is equivalent to PPT.")
         return True
 
     # If all implemented checks are inconclusive, and the state passed PPT (the most basic necessary condition checked),
@@ -724,4 +753,5 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     # or it's a PPT entangled state that also wasn't caught by other implemented witnesses
     # or the DPS hierarchy up to `level`.
     # Defaulting to False implies we couldn't definitively prove separability with the implemented tests.
+    print("DEBUG: Final False")
     return False
