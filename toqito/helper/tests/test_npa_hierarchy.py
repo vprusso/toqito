@@ -388,7 +388,10 @@ def cglmp_setup_vars_and_objective(num_outcomes: int) -> tuple[dict[tuple[int, i
 
 @pytest.mark.parametrize("k_npa", [2, "1+ab+aab+baa"])
 def test_cglmp_inequality_npa_integration(k_npa):
-    """Test CGLMP inequality (d=3) via npa_constraints."""
+    """Test CGLMP inequality (d=3) via npa_constraints.
+
+    See Table 1. from NPA paper :cite:`Navascues_2008_AConvergent`.
+    """
     cglmp_d = 3
     assemblage_vars, i_b_objective = cglmp_setup_vars_and_objective(cglmp_d)
 
