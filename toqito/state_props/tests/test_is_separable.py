@@ -28,7 +28,7 @@ invalid_input_cases = [
     {"state": np.eye(4) / 4, "dim": -2, "error_msg": "must be positive"},
     {"state": np.eye(4) / 4, "dim": "invalid_type", "error_msg": "must be None, an int, or a list"},
     {"state": np.eye(2) / 2, "dim": [2, 0], "error_msg": "zero-dim subsystem"},
-    {"state": np.diag([1e-9, 1e-9]), "tol": 1e-8, "error_msg": "Trace of the input state is close to zero"},
+    {"state": np.diag([1e-9, 1e-9]), "error_msg": "Trace of the input state is close to zero"},
     {"state": np.zeros((0, 0)), "dim": 2, "error_msg": "Cannot apply positive dimension"},
     {"state": np.eye(2) / 2, "dim": [0, 2], "error_msg": "zero-dim subsystem"},
     {"state": np.eye(6) / 6, "dim": [2.0, 3.0], "error_msg": "non-negative integers"},
@@ -38,16 +38,8 @@ invalid_input_cases = [
 @pytest.mark.parametrize("case", invalid_input_cases)
 def test_invalid_inputs(case):
     """Parameterized test for invalid input cases raising ValueError."""
-    state = case["state"]
-    dim = case.get("dim")
-    tol = case.get("tol")
-    error_msg = case["error_msg"]
-    kwargs = {"state": state}
-    if dim is not None:
-        kwargs["dim"] = dim
-    if tol is not None:
-        kwargs["tol"] = tol
-    with pytest.raises(ValueError, match=error_msg):
+    kwargs = {"state": case.get("state"), "dim": case.get("dim")}
+    with pytest.raises(ValueError, match=case.get("error_msg")):
         is_separable(**kwargs)
 
 
@@ -77,6 +69,13 @@ simple_separable_cases = [
     pytest.param(np.array([[1.0]]), {}, id="1x1_state_dim_inferred_sep"),
     pytest.param(np.zeros((0, 0)), {"dim": 0}, id="empty_state_dim_0_sep"),
     pytest.param(np.eye(6) / 6, {"dim": 2}, id="identity_6x6_dim_int_divides_sep"),
+    pytest.param(np.eye(2) * 1e-20, {"dim": [1, 2], "tol": 1e-10}, id="trace_small_and_matrix_is_almost_zero_proceed"),
+    pytest.param(np.kron(np.eye(3) / 3, np.eye(2) / 2), {"dim": [2, 3]}, id="breuer_hall_skip_odd_dim"),
+    pytest.param(
+        np.diag(np.array([0.3, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1])),
+        {"dim": [2, 4]},
+        id="johnston_spectrum_eq12_trigger",
+    ),
 ]
 
 
@@ -154,7 +153,7 @@ simple_entangled_params = [
 
 
 @pytest.mark.parametrize("state_input, is_bool, kwargs", simple_entangled_params)
-def test_entangled_states(state_input, is_bool, kwargs, request):  # Add `request` fixture
+def test_entangled_states(state_input, is_bool, kwargs, request):
     """Test simple entangled states, using indirect fixtures where appropriate."""
     if is_bool:
         assert is_separable(request.getfixturevalue(state_input), **kwargs)
@@ -291,14 +290,6 @@ def test_3x3_ppt_rank3_separable_skips_plucker():
     assert is_separable(rho, dim=[3, 3])
 
 
-def test_breuer_hall_skip_odd_dim():
-    """Separable 2x3 product state; Breuer-Hall skips odd dimension (sysB=3)."""
-    rho_A = np.eye(2) / 2
-    rho_B = np.eye(3) / 3
-    rho = np.kron(rho_A, rho_B)
-    assert is_separable(rho, dim=[2, 3])
-
-
 # --- Individual Tests for Entangled States ---
 
 
@@ -364,12 +355,6 @@ def test_entangled_by_reduction_criterion_non_psd_choi_T():
         is_separable(rho, dim=[d, d])
 
 
-def test_trace_small_and_matrix_is_almost_zero_proceeds():
-    """Near-zero state proceeds if trace and elements are consistently small."""
-    state = np.eye(2) * 1e-20
-    assert is_separable(state, dim=[1, 2], tol=1e-10)  # dim also implies separability
-
-
 def test_plucker_linalg_error_in_det_fallthrough():
     """Plucker check falls through on LinAlgError; state remains separable."""
     with mock.patch("numpy.linalg.det", side_effect=np.linalg.LinAlgError("mocked error")):
@@ -411,14 +396,6 @@ def test_symm_ext_solver_exception_proceeds():
         "toqito.state_props.is_separable.has_symmetric_extension", side_effect=RuntimeError("Solver failed")
     ):
         assert is_separable(np.eye(4) / 4.0, dim=[2, 2], level=1)
-
-
-def test_johnston_spectrum_eq12_trigger():
-    """Separable via Johnston spectrum condition (2x4)."""
-    eigs = np.array([0.3, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1])
-    rho = np.diag(eigs)
-    assert is_ppt(rho, dim=[2, 4]), "Test precondition: State should be PPT"
-    assert is_separable(rho, dim=[2, 4])
 
 
 @pytest.mark.xfail(reason="3x4 separability may not be fully supported.")
@@ -542,8 +519,6 @@ def test_symm_ext_catches_hard_entangled_state():
         pytest.skip("rho_ent_symm unexpectedly NPT for level=1 test")
     assert not is_separable(rho_ent_symm, dim=[3, 3], level=0)  # Level 0 should detect entanglement if PPT
     assert not is_separable(rho_ent_symm, dim=[3, 3], level=2)  # Level 2 should detect entanglement
-
-    assert not is_separable(rho_ent_symm, dim=[3, 3], level=2)
 
 
 def test_L138_plucker_orth_rank_lt_4():
