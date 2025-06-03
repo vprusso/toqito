@@ -816,9 +816,6 @@ def test_rank1_pert_eigvalsh_fails_eigvals_fallback():
 # --- attempt to Targeted Tests for Coverage ---
 
 
-# In test_is_separable.py
-
-
 @pytest.fixture
 def tiles_state_3x3_ppt_entangled():
     """tiles_state_3x3_ppt_entangled."""
