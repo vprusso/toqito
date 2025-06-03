@@ -30,27 +30,20 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     1. **Input validation**: Checks if the state is positive semi-definite (PSD), square, and trace-normalized to 1.
     2. **Trivial cases**: Returns True if a subsystem is 1D.
     3. **Pure states**: Uses Schmidt rank to determine separability.
-    4. **Gurvits-Barnum ball**: Checks if the state lies within a separable ball [Gurvits2002]_.
-    5. **PPT criterion (Peres-Horodecki)** [Peres1996]_ [Horodecki1996]_:
-       - If PPT and :math:`MN \le 6`, the state is separable [Horodecki1996]_.
-       - Operational criterion for low-rank PPT states [Horodecki2000]_:
+    4. **Gurvits-Barnum ball**: Checks if the state lies within a separable ball [1]_.
+    5. **PPT criterion (Peres-Horodecki)** [2]_ [3]_:
+       - If PPT and :math:`MN \le 6`, the state is separable [3]_.
+       - Operational criterion for low-rank PPT states [4]_:
          - If :math:`\text{rank}(\rho) \le \max(\text{dim}_A, \text{dim}_B)`.
          - If :math:`\text{rank}(\rho) + \text{rank}(\rho^{T_A}) \le 2 MN - M - N + 2`.
-       - Range criterion variant [Horodecki1997]_.
-       - Rank-1 perturbation of identity [Vidal1999]_.
-    6. **3x3 rank-4 PPT check**: Applies necessary and sufficient conditions [Breuer2005]_.
-    7. **Reduction criterion**: Based on [Horodecki1999]_.
-    8. **Realignment/CCNR criteria**: Uses matrix realignment [Chen2003]_ [Zhang2008]_.
-    9. **2xN specific checks**: For PPT states [Johnston2013]_ [Hildebrand2005]_.
-    10. **Decomposable maps**: Applies Ha-Kye [Ha2011]_ and Breuer-Hall [Breuer2006]_ [Hall2006]_.
-    11. **Symmetric extension hierarchy**: Implements DPS hierarchy [Doherty2004]_.
-
-    :raises ValueError: If dimension is not specified correctly or input is invalid.
-    :param state: The density matrix to check.
-    :param dim: The dimension of the input state, e.g., [dim_A, dim_B]. Optional; inferred if None.
-    :param level: The level for symmetric extensions (default: 2).
-    :param tol: Numerical tolerance (default: 1e-8).
-    :return: True if separable, False if entangled or inconclusive by implemented checks.
+       - Range criterion variant [5]_.
+       - Rank-1 perturbation of identity [6]_.
+    6. **3x3 rank-4 PPT check**: Applies necessary and sufficient conditions [7]_.
+    7. **Reduction criterion**: Based on [8]_.
+    8. **Realignment/CCNR criteria**: Uses matrix realignment [9]_ [10]_.
+    9. **2xN specific checks**: For PPT states [11]_ [12]_.
+    10. **Decomposable maps**: Applies Ha-Kye [13]_ and Breuer-Hall [14]_ [15]_.
+    11. **Symmetric extension hierarchy**: Implements DPS hierarchy [16]_.
 
     Examples
     ==========
@@ -98,53 +91,60 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
     .. [WikiSepSt] Wikipedia: Separable state
        https://en.wikipedia.org/wiki/Separable_state
-    .. [Gurvits2002] Gurvits, L. (2002). Classical deterministic complexity of Edmonds'
+    .. [1] Gurvits, L. (2002). Classical deterministic complexity of Edmonds'
        problem and quantum entanglement.
        arXiv:quant-ph/0201022.
-    .. [Peres1996] Peres, A. (1996). Separability criterion for density matrices.
+    .. [2] Peres, A. (1996). Separability criterion for density matrices.
        Physical Review Letters, 77(8), 1413.
-    .. [Horodecki1996] Horodecki, M., Horodecki, P., & Horodecki, R. (1996).
+    .. [3] Horodecki, M., Horodecki, P., & Horodecki, R. (1996).
        Separability of mixed states: necessary and sufficient conditions.
        Physics Letters A, 223(1-2), 1-8.
-    .. [Horodecki2000] Horodecki, M., Horodecki, P., & Horodecki, R. (2000).
+    .. [4] Horodecki, M., Horodecki, P., & Horodecki, R. (2000).
        Operational criterion for the separability of low-rank density matrices.
        Physical Review Letters, 84(15), 3494.
-    .. [Horodecki1997] Horodecki, P. (1997). Separability criterion and
+    .. [5] Horodecki, P. (1997). Separability criterion and
        inseparable mixed states with positive partial transposition.
        Physics Letters A, 232(5), 333-339.
-    .. [Vidal1999] Vidal, G., & Tarrach, R. (1999). Robustness of entanglement.
+    .. [6] Vidal, G., & Tarrach, R. (1999). Robustness of entanglement.
        Physical Review A, 59(1), 141.
-    .. [Breuer2005] Breuer, H. P. (2005). Optimal entanglement criterion for mixed
+    .. [7] Breuer, H. P. (2005). Optimal entanglement criterion for mixed
        quantum states.
        Physical Review Letters, 97(8), 080501.
-    .. [Horodecki1999] Horodecki, M., & Horodecki, P. (1999). Reduction criterion of
+    .. [8] Horodecki, M., & Horodecki, P. (1999). Reduction criterion of
        separability and limits for a class of distillation protocols.
        Physical Review A, 59(6), 4206.
-    .. [Chen2003] Chen, K., & Wu, L. A. (2003). A matrix realignment method for
+    .. [9] Chen, K., & Wu, L. A. (2003). A matrix realignment method for
        recognizing entanglement.
        Quantum Information & Computation, 3(3), 193-202.
-    .. [Zhang2008] Zhang, C. J., et al. (2008). Entanglement detection beyond the
+    .. [10] Zhang, C. J., et al. (2008). Entanglement detection beyond the
        computable cross-norm or realignment criterion.
        Physical Review A, 77(6), 062302.
-    .. [Johnston2013] Johnston, N. (2013). Separability from spectrum for qubit-qudit
+    .. [11] Johnston, N. (2013). Separability from spectrum for qubit-qudit
        states.
        Physical Review A, 88(6), 062330.
-    .. [Hildebrand2005] Hildebrand, R. (2005). Positive partial transpose from spectra.
+    .. [12] Hildebrand, R. (2005). Positive partial transpose from spectra.
        Physical Review A, 72(4), 042321.
-    .. [Ha2011] Ha, K. C., & Kye, S. H. (2011). Positive maps and entanglement in qudits.
+    .. [13] Ha, K. C., & Kye, S. H. (2011). Positive maps and entanglement in qudits.
        Physical Review A, 84(2), 022314.
-    .. [Breuer2006] Breuer, H. P. (2006). Optimal entanglement criterion for mixed
+    .. [14] Breuer, H. P. (2006). Optimal entanglement criterion for mixed
        quantum states.
        Physical Review Letters, 97(8), 080501.
-    .. [Hall2006] Hall, W. (2006). A new criterion for indecomposability of positive maps.
+    .. [15] Hall, W. (2006). A new criterion for indecomposability of positive maps.
        Journal of Physics A: Mathematical and General, 39(46), 14119.
-    .. [Doherty2004] Doherty, A. C., Parrilo, P. A., & Spedalieri, F. M. (2004).
+    .. [16] Doherty, A. C., Parrilo, P. A., & Spedalieri, F. M. (2004).
        Complete family of separability criteria.
        Physical Review A, 69(2), 022308.
+
+    .. bibliography::
+        :filter: docname in docnames
+    :raises ValueError: If dimension is not specified correctly or input is invalid.
+    :param state: The density matrix to check.
+    :param dim: The dimension of the input state, e.g., [dim_A, dim_B]. Optional; inferred if None.
+    :param level: The level for symmetric extensions (default: 2).
+    :param tol: Numerical tolerance (default: 1e-8).
+    :return: True if separable, False if entangled or inconclusive by implemented checks.
 
     """
     # --- 1. Input Validation, Normalization, Dimension Setup ---
