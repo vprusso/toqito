@@ -11,6 +11,7 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 import os
 import sys
+import datetime
 
 # sys.path.insert(0, os.path.abspath("."))
 # sys.path.insert(0, os.path.abspath(".."))
@@ -18,9 +19,9 @@ sys.path.insert(0, os.path.abspath("../.."))
 
 # -- Project information -----------------------------------------------------
 
-project = "toqito"
-copyright = "2020-2025, toqito contributors"
-author = "Contributors to toqito"
+project = "|toqito>"
+copyright = f"2020 - {datetime.date.today().year}, |toqito> contributors"
+author = "|toqito> contributors"
 
 # The full version, including alpha/beta/rc tags
 release = "1.1.2"
