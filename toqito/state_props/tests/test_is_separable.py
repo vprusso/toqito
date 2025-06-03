@@ -11,47 +11,6 @@ from toqito.rand import random_density_matrix
 from toqito.state_props import is_ppt, is_separable
 from toqito.states import basis, bell, horodecki, isotropic, tile, werner
 
-
-# --- Fixtures for Reusable Test States ---
-@pytest.fixture
-def entangled_qutrit_qutrit_state():
-    """Fixture for a maximally entangled qutrit-qutrit state (normalized)."""
-    psi = (1 / np.sqrt(3)) * (
-        np.kron([1, 0, 0], [1, 0, 0]) + np.kron([0, 1, 0], [0, 1, 0]) + np.kron([0, 0, 1], [0, 0, 1])
-    )
-    rho = np.outer(psi, psi.conj())
-    assert np.isclose(np.trace(rho), 1.0), "Trace of fixture state is not 1"
-    assert is_positive_semidefinite(rho, 1e-9), "Fixture state is not PSD"
-    return rho
-
-
-@pytest.fixture
-def entangled_bell_state_0():
-    """Fixture for the density matrix for the Bell state |Φ+> (normalized)."""
-    rho = bell(0) @ bell(0).conj().T
-    assert np.isclose(np.trace(rho), 1.0), "Trace of fixture state is not 1"
-    assert is_positive_semidefinite(rho, 1e-9), "Fixture state is not PSD"
-    return rho
-
-
-@pytest.fixture
-def separable_state_2x3_rank3():
-    """Fixture for a separable 2x3 rank-3 state (normalized)."""
-    psi_A0 = np.array([1, 0], dtype=complex)
-    psi_A1 = np.array([0, 1], dtype=complex)
-    psi_B0 = np.array([1, 0, 0], dtype=complex)
-    psi_B1 = np.array([0, 1, 0], dtype=complex)
-    psi_B2 = np.array([0, 0, 1], dtype=complex)
-    rho1 = np.kron(np.outer(psi_A0, psi_A0.conj()), np.outer(psi_B0, psi_B0.conj()))
-    rho2 = np.kron(np.outer(psi_A0, psi_A0.conj()), np.outer(psi_B1, psi_B1.conj()))
-    rho3 = np.kron(np.outer(psi_A1, psi_A1.conj()), np.outer(psi_B2, psi_B2.conj()))
-    rho = (rho1 + rho2 + rho3) / 3
-    assert np.isclose(np.trace(rho), 1), "Trace of fixture state is not 1"
-    # Check PSD with a small tolerance
-    assert np.all(np.linalg.eigvalsh(rho) >= -1e-9), "Fixture state is not PSD"
-    return rho
-
-
 # --- Parameterized Tests for Invalid Inputs ---
 """
 These tests verify that is_separable raises appropriate exceptions for invalid inputs,
@@ -124,7 +83,7 @@ simple_separable_cases = [
 @pytest.mark.parametrize("state, kwargs", simple_separable_cases)
 def test_simple_separable_states(state, kwargs):
     """Test various simple states known to be separable."""
-    assert is_separable(state, **kwargs) is True
+    assert is_separable(state, **kwargs)
 
 
 # --- Parameterized Tests for Simple Entangled States ---
@@ -133,21 +92,74 @@ These tests verify that is_separable returns True for states known to be separab
 based on various criteria such as PPT, low rank, eigenvalue properties, or simple
 product structures.
 """
+
+
+@pytest.fixture
+def entangled_qutrit_qutrit_state():
+    """Fixture for a maximally entangled qutrit-qutrit state (normalized)."""
+    psi = (1 / np.sqrt(3)) * (
+        np.kron([1, 0, 0], [1, 0, 0]) + np.kron([0, 1, 0], [0, 1, 0]) + np.kron([0, 0, 1], [0, 0, 1])
+    )
+    rho = np.outer(psi, psi.conj())
+    assert np.isclose(np.trace(rho), 1.0), "Trace of fixture state is not 1"
+    assert is_positive_semidefinite(rho, 1e-9), "Fixture state is not PSD"
+    return rho
+
+
+@pytest.fixture
+def entangled_bell_state_0():
+    """Fixture for the density matrix for the Bell state |Φ+> (normalized)."""
+    rho = bell(0) @ bell(0).conj().T
+    assert np.isclose(np.trace(rho), 1.0), "Trace of fixture state is not 1"
+    assert is_positive_semidefinite(rho, 1e-9), "Fixture state is not PSD"
+    return rho
+
+
+@pytest.fixture
+def separable_state_2x3_rank3():
+    """Fixture for a separable 2x3 rank-3 state (normalized)."""
+    psi_A0 = np.array([1, 0], dtype=complex)
+    psi_A1 = np.array([0, 1], dtype=complex)
+    psi_B0 = np.array([1, 0, 0], dtype=complex)
+    psi_B1 = np.array([0, 1, 0], dtype=complex)
+    psi_B2 = np.array([0, 0, 1], dtype=complex)
+    rho1 = np.kron(np.outer(psi_A0, psi_A0.conj()), np.outer(psi_B0, psi_B0.conj()))
+    rho2 = np.kron(np.outer(psi_A0, psi_A0.conj()), np.outer(psi_B1, psi_B1.conj()))
+    rho3 = np.kron(np.outer(psi_A1, psi_A1.conj()), np.outer(psi_B2, psi_B2.conj()))
+    rho = (rho1 + rho2 + rho3) / 3
+    assert np.isclose(np.trace(rho), 1), "Trace of fixture state is not 1"
+    assert np.all(np.linalg.eigvalsh(rho) >= -1e-9), "Fixture state is not PSD"
+    return rho
+
+
+@pytest.fixture
+def test_entangled_zhang_realignment_criterion():
+    """Entangled via Zhang's realignment criterion."""
+    rho = np.array([[0.5, 0, 0, 0.5], [0, 0, 0, 0], [0, 0, 0, 0], [0.5, 0, 0, 0.5]], dtype=complex)
+    return rho
+
+
 simple_entangled_params = [
-    pytest.param("entangled_qutrit_qutrit_state", {}, id="max_ent_qutrit_qutrit_ent_fixture"),
-    pytest.param("entangled_bell_state_0", {}, id="bell_state_0_ent_fixture"),
+    pytest.param("entangled_qutrit_qutrit_state", False, {}, id="max_ent_qutrit_qutrit_ent"),
+    pytest.param("entangled_bell_state_0", False, {}, id="bell_state_0_ent"),
+    pytest.param("entangled_bell_state_0", False, {"dim": [2, 2]}, id="pure_entangled_state_0"),
+    pytest.param("separable_state_2x3_rank3", True, {"dim": [2, 3]}, id="Separable 2x3 state (rank 3)"),
     pytest.param(
-        np.array([[0.5, 0, 0, 0.5], [0, 0, 0, 0], [0, 0, 0, 0], [0.5, 0, 0, 0.5]]),
+        "test_entangled_zhang_realignment_criterion",
+        False,
         {},
         id="zhang_realignment_ent_direct",
     ),
 ]
 
 
-@pytest.mark.parametrize("state_input, kwargs", simple_entangled_params, indirect=["state_input"])
-def test_simple_entangled_states(state_input, kwargs):
+@pytest.mark.parametrize("state_input, is_bool, kwargs", simple_entangled_params)
+def test_entangled_states(state_input, is_bool, kwargs, request):  # Add `request` fixture
     """Test simple entangled states, using indirect fixtures where appropriate."""
-    assert is_separable(state_input, **kwargs) is False
+    if is_bool:
+        assert is_separable(request.getfixturevalue(state_input), **kwargs)
+    else:
+        assert not is_separable(request.getfixturevalue(state_input), **kwargs)
 
 
 # --- Individual Tests for Separable States (more complex or specific criteria) ---
@@ -180,7 +192,7 @@ def test_horodecki_rank_le_max_dim_criterion():
     assert np.isclose(current_rank, 3), f"Test state rank is {current_rank}, expected 3"
     assert is_ppt(rho, dim=dims, tol=test_tol), "Test state not PPT"
     assert current_rank <= max_d
-    assert is_separable(rho, dim=dims) is True
+    assert is_separable(rho, dim=dims)
 
 
 def test_separable_closeness_to_maximally_mixed_state():
@@ -290,14 +302,6 @@ def test_breuer_hall_skip_odd_dim():
 # --- Individual Tests for Entangled States ---
 
 
-def test_entangled_breuer_hall_maximally_entangled_2x2(entangled_bell_state_0):
-    """Entangled Bell state (2x2) used to test Breuer-Hall or other criteria."""
-    # This state is NPT, so it should be caught early.
-    # If Breuer-Hall is specifically tested, it should also catch it if it's PPT.
-    # Bell states are NPT.
-    assert not is_separable(entangled_bell_state_0)
-
-
 def test_entangled_realignment_criterion_bound_entangled():
     """Entangled via realignment criterion (UPB tile state)."""
     rho = np.identity(9)
@@ -321,32 +325,6 @@ def test_entangled_cross_norm_realignment_criterion():
     )
     rho = rho / np.trace(rho)  # Ensure trace 1
     assert not is_separable(rho)
-
-
-def test_symm_ext_catches_hard_entangled_state():
-    """Entangled state caught by symmetric extension (level=2)."""
-    rho_ent_symm = (
-        np.array(
-            [
-                [1.0, 0.67, 0.91, 0.67, 0.45, 0.61, 0.88, 0.59, 0.79],
-                [0.67, 1.0, 0.5, 0.45, 0.67, 0.34, 0.59, 0.88, 0.44],
-                [0.91, 0.5, 1.0, 0.61, 0.34, 0.68, 0.81, 0.44, 0.88],
-                [0.67, 0.45, 0.61, 1.0, 0.67, 0.91, 0.5, 0.33, 0.45],
-                [0.45, 0.67, 0.34, 0.67, 1.0, 0.5, 0.33, 0.5, 0.25],
-                [0.61, 0.34, 0.68, 0.91, 0.5, 1.0, 0.45, 0.26, 0.5],
-                [0.88, 0.59, 0.81, 0.5, 0.33, 0.45, 1.0, 0.66, 0.91],
-                [0.59, 0.88, 0.44, 0.33, 0.5, 0.26, 0.66, 1.0, 0.48],
-                [0.79, 0.44, 0.88, 0.45, 0.25, 0.5, 0.91, 0.48, 1.0],
-            ]
-        )
-        / 8.75
-    )
-    assert not is_separable(rho_ent_symm, dim=[3, 3], level=2)
-
-
-def test_pure_entangled_state(entangled_bell_state_0):
-    """Pure entangled Bell state is not separable."""
-    assert not is_separable(entangled_bell_state_0, dim=[2, 2])
 
 
 def test_skip_horodecki_if_not_applicable_proceeds_entangled_tiles():
@@ -374,10 +352,14 @@ def test_entangled_by_reduction_criterion_non_psd_choi_T():
     rho = np.zeros((d * d, d * d), dtype=complex)
     for i in range(d):
         for j in range(d):
-            e_i = basis(d, i)
-            e_j = basis(d, j)
-            rho += np.kron(e_i @ e_j.conj().T, e_i @ e_j.conj().T)  # This is (I tensor T)(max_ent_proj)
-    rho /= d  # Choi of transpose map
+            e_i = np.zeros((d, 1))
+            e_i[i] = 1
+            e_j = np.zeros((d, 1))
+            e_j[j] = 1
+            ket_ij = np.kron(e_i, e_j)
+            bra_ji_conj_T = np.kron(e_j, e_i).conj().T
+            rho += ket_ij @ bra_ji_conj_T
+    rho /= d
     with pytest.raises(ValueError, match="non-positive semidefinite"):
         is_separable(rho, dim=[d, d])
 
@@ -428,7 +410,7 @@ def test_symm_ext_solver_exception_proceeds():
     with mock.patch(
         "toqito.state_props.is_separable.has_symmetric_extension", side_effect=RuntimeError("Solver failed")
     ):
-        assert is_separable(np.eye(4) / 4.0, dim=[2, 2], level=1) is True
+        assert is_separable(np.eye(4) / 4.0, dim=[2, 2], level=1)
 
 
 def test_johnston_spectrum_eq12_trigger():
@@ -493,11 +475,6 @@ def test_breuer_hall_one_dim_odd_path_coverage():
     assert is_separable(rho_sep_3x2, dim=[3, 2])
 
 
-def test_2xN_no_swap_needed_rank3_2x3_fixtured(separable_state_2x3_rank3):
-    """Separable 2x3 state (rank 3) via 2xN rules, using fixture."""
-    assert is_separable(separable_state_2x3_rank3, dim=[2, 3])
-
-
 @pytest.mark.xfail(reason="Random 2x4 product (level=1, tol=1e-10) sep may be numerically sensitive.")
 def test_2xN_no_swap_needed_random_2x4_xfail():
     """XFAIL for random 2x4 separable state with specific tol/level."""
@@ -541,7 +518,7 @@ def test_2xN_hard_separable_passes_all_witnesses_xfail():
     assert is_separable(rho, dim=[2, 4], level=2, tol=1e-10)
 
 
-def test_L270_level1_ppt_final_check():
+def test_symm_ext_catches_hard_entangled_state():
     """Test level=1 behavior for a PPT entangled state."""
     rho_ent_symm = (
         np.array(
@@ -559,15 +536,17 @@ def test_L270_level1_ppt_final_check():
         )
         / 8.75
     )
-    if is_ppt(rho_ent_symm, dim=[3, 3]):  # This state IS PPT
-        assert is_separable(rho_ent_symm, dim=[3, 3], level=1) is True
+    if is_ppt(rho_ent_symm, dim=[3, 3]):  # This state IS PPT L270
+        assert is_separable(rho_ent_symm, dim=[3, 3], level=1)
     else:  # Should not happen for this state
         pytest.skip("rho_ent_symm unexpectedly NPT for level=1 test")
-    assert is_separable(rho_ent_symm, dim=[3, 3], level=0) is False  # Level 0 should detect entanglement if PPT
-    assert is_separable(rho_ent_symm, dim=[3, 3], level=2) is False  # Level 2 should detect entanglement
+    assert not is_separable(rho_ent_symm, dim=[3, 3], level=0)  # Level 0 should detect entanglement if PPT
+    assert not is_separable(rho_ent_symm, dim=[3, 3], level=2)  # Level 2 should detect entanglement
+
+    assert not is_separable(rho_ent_symm, dim=[3, 3], level=2)
 
 
-def test_L138_plucker_orth_rank_lt_4(separable_state_2x3_rank3):
+def test_L138_plucker_orth_rank_lt_4():
     """Separable 3x3 state with Plucker orth basis rank < 4 (skips Plucker determinant)."""
     p1 = np.kron(basis(3, 0), basis(3, 0))
     p2 = np.kron(basis(3, 1), basis(3, 1))
@@ -578,7 +557,7 @@ def test_L138_plucker_orth_rank_lt_4(separable_state_2x3_rank3):
     if not is_ppt(rho_rank3, dim=[3, 3]):  # Should be PPT
         pytest.skip("Constructed rank-3 state unexpectedly not PPT")
     assert np.linalg.matrix_rank(rho_rank3) < 4  # Precondition for this test's intent
-    assert is_separable(rho_rank3, dim=[3, 3]) is True
+    assert is_separable(rho_rank3, dim=[3, 3])
 
 
 def test_L160_horodecki_sum_of_ranks_true_specific():
@@ -605,7 +584,7 @@ def test_L160_horodecki_sum_of_ranks_true_specific():
     if not is_ppt(rho, dim=[dA, dB], tol=test_tol):
         pytest.skip("State not PPT for Horodecki sum-of-ranks test")
     # rank(rho_pt_A) for this should also be low enough for criterion to pass
-    assert is_separable(rho, dim=[dA, dB], tol=1e-8) is True
+    assert is_separable(rho, dim=[dA, dB], tol=1e-8)
 
 
 @pytest.mark.xfail(reason="Behavior for 2x4 sep state past Hildebrand rank fail not fully confirmed.")
@@ -613,7 +592,7 @@ def test_L216_2xN_HildebrandRank_Fails_Proceeds_xfail():
     """XFAIL for separable 2x4 state, Hildebrand rank section."""
     dim_A, dim_N = 2, 4
     rho = np.kron(random_density_matrix(dim_A, seed=50), random_density_matrix(dim_N, seed=51))
-    assert is_separable(rho, dim=[dim_A, dim_N], tol=1e-10) is True  # Tightened tol from 1e-20
+    assert is_separable(rho, dim=[dim_A, dim_N], tol=1e-10)  # Tightened tol from 1e-20
 
 
 def test_L402_johnston_spectrum_true_returns_true_v3():
@@ -630,7 +609,7 @@ def test_L402_johnston_spectrum_true_returns_true_v3():
         "numpy.linalg.matrix_rank",
         side_effect=lambda mat, tol: 5 if mat.shape == (8, 8) else np.linalg.matrix_rank(mat, tol),
     ):
-        assert is_separable(rho, dim=[2, 4], tol=1e-8) is True
+        assert is_separable(rho, dim=[2, 4], tol=1e-8)
 
 
 @pytest.mark.skip(reason="Requires specific 2xN state from Hildebrand paper for homothetic criterion.")
@@ -661,7 +640,7 @@ def test_L459_breuer_hall_on_dB_only_mocked_first_xfail(mock_pc):
 
     mock_pc.side_effect = side_effect_func
 
-    assert is_separable(rho_ent_2x4, dim=[2, 4]) is False  # Expected to be entangled
+    assert not is_separable(rho_ent_2x4, dim=[2, 4])  # Expected to be entangled
     assert mock_info["first_bh_sys0_called_and_passed"]  # Check if our mock was hit
 
 
@@ -672,7 +651,7 @@ def test_L453_breuer_hall_on_dA_detects_entangled_2x2werner():
         # Werner states are PPT iff alpha >= 0. For alpha=0.8, it's PPT.
         # If this fails, Werner state construction or is_ppt is an issue.
         pytest.skip("Werner state (alpha=0.8) unexpectedly not PPT.")
-    assert is_separable(rho_w_ent_2x2, dim=[2, 2], tol=1e-8) is False
+    assert not is_separable(rho_w_ent_2x2, dim=[2, 2], tol=1e-8)
 
 
 @pytest.mark.skip(reason="Requires specific rank-deficient state for perturbation test.")
