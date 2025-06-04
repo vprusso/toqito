@@ -7,8 +7,6 @@ from cvxpy.expressions.variable import Variable
 from toqito.helper import expr_as_np_array, np_array_as_expr
 from toqito.perms import permute_systems
 
-# from toqito.channels import kraus_to_choi
-
 
 def partial_trace(
     input_mat: np.ndarray | Variable,
