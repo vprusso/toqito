@@ -333,10 +333,10 @@ class ExtendedNonlocalGame:
         current_best_lower_bound = -float("inf")
 
         if verbose:
-            "dict" if isinstance(initial_bob_is_random, dict) else initial_bob_is_random
+            init_bob_display = "dict" if isinstance(initial_bob_is_random, dict) else initial_bob_is_random
             print(
                 f"Starting see-saw: max_steps={iters}, tol={tol}, seed={seed}, solver={solver}, "
-                + "random_init={init_bob_display}"
+                + f"random_init={init_bob_display}"
             )
 
         for step in range(iters):
@@ -377,7 +377,7 @@ class ExtendedNonlocalGame:
             if verbose:
                 print(
                     f"See-saw step {step + 1}/{iters}: Win prob = {current_win_val:.8f}, "
-                    + "Improv = {improvement:.2e}, Best = {current_best_lower_bound:.8f}"
+                    + f"Improv = {improvement:.2e}, Best = {current_best_lower_bound:.8f}"
                 )
 
             if (
