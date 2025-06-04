@@ -6,7 +6,8 @@ import numpy as np
 import pytest
 from scipy.linalg import eigvalsh
 
-from toqito.matrix_ops import partial_trace, pauli_channel
+from toqito.channels import pauli_channel
+from toqito.matrix_ops import partial_trace
 
 
 @pytest.mark.parametrize(
