@@ -37,3 +37,17 @@ from toqito.matrix_props.commutant import commutant
 from toqito.matrix_props.mutual_coherence import mutual_coherence
 from toqito.matrix_props.is_absolutely_k_incoherent import is_absolutely_k_incoherent
 from toqito.matrix_props.is_k_incoherent import is_k_incoherent
+
+
+__all__ = ["commutant", "has_same_dimension", "is_absolutely_k_incoherent",
+    "is_anti_hermitian", "is_block_positive", "is_circulant", "is_commuting",
+    "is_density", "is_diagonal", "is_diagonally_dominant", "is_hermitian",
+    "is_idempotent", "is_identity", "is_k_incoherent",
+    "is_linearly_independent", "is_nonnegative", "is_normal",
+    "is_orthonormal", "is_permutation", "is_positive", "is_positive_definite",
+    "is_positive_semidefinite", "is_projection", "is_pseudo_hermitian",
+    "is_pseudo_unitary", "is_square", "is_stochastic", "is_symmetric",
+    "is_totally_positive", "is_unitary", "kp_norm", "majorizes",
+    "mutual_coherence", "positive_semidefinite_rank", "sk_operator_norm",
+    "spark", "trace_norm",
+]

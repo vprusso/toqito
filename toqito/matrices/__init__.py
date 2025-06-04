@@ -12,3 +12,9 @@ from toqito.matrices.hadamard import hadamard
 from toqito.matrices.pauli import pauli
 from toqito.matrices.standard_basis import standard_basis
 from toqito.matrices.cyclic_permutation_matrix import cyclic_permutation_matrix
+
+
+__all__ = ["cnot", "comparison", "cyclic_permutation_matrix", "fourier", "gell_mann",
+    "gen_gell_mann", "gen_pauli", "gen_pauli_x", "gen_pauli_z", "hadamard",
+    "pauli", "standard_basis",
+]

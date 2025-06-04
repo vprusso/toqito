@@ -13,15 +13,7 @@ from toqito.perms.symmetric_projection import symmetric_projection
 
 
 
-__all__ = [
-    "vec",
-    "unique_perms",
-    "perfect_matchings",
-    "perm_sign",
-    "permute_systems",
-    "permutation_operator",
-    "swap",
-    "swap_operator",
-    "antisymmetric_projection",
-    "symmetric_projection",
+__all__ = ["antisymmetric_projection", "perfect_matchings", "perm_sign",
+    "permutation_operator", "permute_systems", "swap", "swap_operator",
+    "symmetric_projection", "unique_perms", "vec",
 ]

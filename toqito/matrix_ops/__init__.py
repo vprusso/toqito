@@ -13,15 +13,7 @@ from toqito.matrix_ops.partial_trace import partial_trace
 from toqito.matrix_ops.partial_transpose import partial_transpose
 
 
-__all__ = [
-    "to_density_matrix",
-    "tensor",
-    "unvec",
-    "vectors_from_gram_matrix",
-    "vectors_to_gram_matrix",
-    "calculate_vector_matrix_dimension",
-    "tensor_comb",
-    "perturb_vectors",
-    "partial_trace",
-    "partial_transpose",
+__all__ = ["calculate_vector_matrix_dimension", "partial_trace", "partial_transpose",
+    "perturb_vectors", "tensor", "tensor_comb", "to_density_matrix", "unvec",
+    "vectors_from_gram_matrix", "vectors_to_gram_matrix",
 ]
