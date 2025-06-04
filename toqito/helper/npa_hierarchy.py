@@ -80,8 +80,7 @@ def _reduce(word: tuple[Symbol, ...]) -> tuple[Symbol, ...]:
 
 def _parse(k_str: str) -> tuple[int, set[tuple[int, int]]]:
     if not k_str:  # Explicitly handle empty string input for k_str
-        raise ValueError("Input string k_str cannot be empty.")  # Or more specific error
-
+        raise ValueError("Input string k_str cannot be empty.")
     parts = k_str.split("+")
     if not parts[0] or parts[0] == "":  # Check if the first part (base_k) is empty
         raise ValueError("Base level k must be specified, e.g., '1+ab'")
@@ -207,8 +206,8 @@ def _get_nonlocal_game_params(
     assemblage: dict[tuple[int, int], cvxpy.Variable], referee_dim: int = 1
 ) -> tuple[int, int, int, int]:
     a_in, b_in = max(assemblage.keys())
-    a_in = a_in + 1
-    b_in = b_in + 1
+    a_in += 1
+    b_in += 1
     operator = next(iter(assemblage.values()))
     a_out = int(operator.shape[0] / referee_dim)
     b_out = int(operator.shape[1] / referee_dim)
@@ -262,9 +261,9 @@ def npa_constraints(
     rho_R_referee = moment_matrix_R[0:referee_dim, 0:referee_dim]
 
     constraints = [
-        cvxpy.trace(rho_R_referee) == 1,  # Tr(rho_R) = 1
-        rho_R_referee >> 0,  # rho_R is PSD
-        moment_matrix_R >> 0,  # Entire moment matrix is PSD
+        cvxpy.trace(rho_R_referee) == 1,
+        rho_R_referee >> 0,
+        moment_matrix_R >> 0,
     ]
 
     # Store relations for (S_i^dagger S_j) -> block_index in moment_matrix_R
@@ -291,6 +290,9 @@ def npa_constraints(
             else:
                 product_S_i_adj_S_j = _reduce(tuple(product_unreduced))
 
+            # Moment matrix (Gamma matrix in NPA paper :cite:`Navascues_2008_AConvergent` - arXiv:0803.4290)
+            # This hierarchy can be generalized, e.g., to incorporate referee systems
+            # as seen in extended nonlocal games (see, e.g., F. Speelman's thesis, arXiv:1605.07720).
             current_block = moment_matrix_R[
                 i * referee_dim : (i + 1) * referee_dim, j * referee_dim : (j + 1) * referee_dim
             ]
@@ -353,7 +355,7 @@ def npa_constraints(
                 # First time seeing this operator product S_k
                 seen_reduced_products[product_S_i_adj_S_j] = (i, j)
 
-    # Constraints on the assemblage K_xy(a,b) itself - ALWAYS APPLY ALL OF THESE
+    # Constraints on the assemblage K_xy(a,b) itself --always apply all of these constraints!
     for x_alice_in in range(a_in):
         for y_bob_in in range(b_in):
             # Positivity: K_xy(a,b) >= 0 (operator PSD)

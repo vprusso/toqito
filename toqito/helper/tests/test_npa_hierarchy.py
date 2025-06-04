@@ -408,7 +408,10 @@ def test_cglmp_inequality_npa_integration(k_npa):
 
 @pytest.mark.parametrize("k_npa, expected_num_words", [("1+a", 9), ("1+ab", 25)])
 def test_cglmp_moment_matrix_dimension_integration(k_npa, expected_num_words):
-    """Test moment matrix size for CGLMP d=3 via npa_constraints setup."""
+    """Test moment matrix size for CGLMP d=3 via npa_constraints setup.
+
+    See Table 1. from NPA paper :cite:`Navascues_2008_AConvergent`.
+    """
     cglmp_d = 3
     actual_a_out, actual_a_in, actual_b_out, actual_b_in = (cglmp_d, 2, cglmp_d, 2)
     words = _gen_words(k_npa, actual_a_out, actual_a_in, actual_b_out, actual_b_in)
@@ -416,7 +419,7 @@ def test_cglmp_moment_matrix_dimension_integration(k_npa, expected_num_words):
     assert num_words * 1 == expected_num_words  # referee_dim=1
 
 
-def test_gen_words_intermediate_hierarchy_call_check():  # Original test name
+def test_gen_words_intermediate_hierarchy_call_check():
     """Check npa_constraints runs with an intermediate hierarchy string."""
     referee_dim = 1
     a_out, a_in = 2, 2
