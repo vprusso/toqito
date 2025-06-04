@@ -7,21 +7,21 @@ from toqito.matrix_props import is_hermitian, is_positive_semidefinite, is_squar
 
 def _abs_ppt_constraints(eigvals: np.ndarray, dim: list[int]) -> list[np.ndarray]:
     r"""Generate the constraint matrices for the absolutely PPT test.
-    
+
     The Hildebrand constraints are a set of necessary and sufficient conditions for a state to be absolutely PPT
     (PPT from spectrum) in 2x2, 2x3, and 3x3 bipartite systems. These constraints are derived from the fact that
     a state is absolutely PPT if and only if its partial transpose remains positive semidefinite under any unitary
     transformation that preserves its spectrum.
-    
+
     For 2x2 systems, there is a single constraint matrix:
     [[2*lam4, lam3-lam1], [lam3-lam1, 2*lam2]]
-    
+
     For 2x3 and 3x2 systems, there are two constraint matrices that must be positive semidefinite.
-    
+
     For 3x3 systems, there are also two constraint matrices that must be checked.
-    
+
     These constraints were first derived in :cite:`Hildebrand_2007_PPT` and implemented in QETLAB.
-    
+
     References
     ==========
     .. bibliography::
@@ -32,6 +32,7 @@ def _abs_ppt_constraints(eigvals: np.ndarray, dim: list[int]) -> list[np.ndarray
     :param dim: The dimensions of the bipartite system [d1, d2]
     :return: List of constraint matrices that must be positive semidefinite
     :raises NotImplementedError: If dimensions > 3x3 are provided
+
     """
     eigvals = np.sort(np.real(eigvals))[::-1]
     d1, d2 = dim
@@ -94,27 +95,27 @@ def _abs_ppt_constraints(eigvals: np.ndarray, dim: list[int]) -> list[np.ndarray
 
 def is_abs_ppt(mat: np.ndarray, dim: None | int | list[int] = None, atol: float = 1e-8) -> bool | None:
     r"""Determine whether a density matrix is absolutely PPT (PPT from spectrum).
-    
+
     A quantum state is said to be absolutely PPT (PPT from spectrum) if its partial transpose remains positive
     semidefinite under any unitary transformation that preserves its spectrum. This property is stronger than
     being PPT, as it depends only on the eigenvalues of the state.
-    
+
     This function implements the necessary and sufficient conditions for absolute PPT derived by Hildebrand
     for 2x2, 2x3, and 3x3 bipartite systems. For higher dimensions, it returns None as the property is
     undecidable with the current method.
-    
+
     The implementation follows the approach from QETLAB's IsAbsPPT function.
-    
+
     Examples
     ==========
     Consider the maximally mixed state in 2x2 dimensions:
-    
+
     .. jupyter-execute::
         from toqito.states import max_mixed
         from toqito.state_props import is_abs_ppt
         rho = max_mixed(4)
         is_abs_ppt(rho, [2, 2])
-    
+
     References
     ==========
     .. bibliography::
@@ -127,6 +128,7 @@ def is_abs_ppt(mat: np.ndarray, dim: None | int | list[int] = None, atol: float 
     :return: True if absolutely PPT, False if not, None if undecidable (for large dims)
     :raises ValueError: If the input matrix is not square, not Hermitian, does not have trace 1,
         is not positive semidefinite, or if the provided dimensions do not match the matrix size
+
     """
     if not is_square(mat):
         raise ValueError("Input matrix must be square.")

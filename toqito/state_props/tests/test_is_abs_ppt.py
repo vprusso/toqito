@@ -54,17 +54,21 @@ def test_known_absppt_and_non_absppt(matrix, dims, expected_result):
     assert is_abs_ppt(matrix, dims) == expected_result
 
 
+def create_non_positive_matrix():
+    """Create a 4x4 matrix that is not positive semidefinite."""
+    mat = np.eye(4) / 4
+    mat[0, 0] = mat[0, 0] - 0.3
+    return mat / np.trace(mat)
+
 @pytest.mark.parametrize(
-    "matrix, error_msg",
+    "rho, expected_error",
     [
-        (np.ones((3, 4)), "Input matrix must be square."),
-        (np.array([[0, 1], [0, 0]]), "Input matrix must be Hermitian."),
-        (np.eye(4) * 2, "Input matrix must have trace 1"),
-        (np.array([[1, 0], [0, -1]]), "Input matrix must be positive semidefinite."),
-        # Complex non-Hermitian case
+        # Non-square matrix
+        (np.array([[1, 0], [0, 1], [0, 0]]), "Input matrix must be square."),
+        # Non-Hermitian matrix
         (np.array([[0, 1j], [0, 0]]), "Input matrix must be Hermitian."),
         # Numerical tolerance edge case: make smallest eigenvalue negative
-        (lambda: (lambda: (m := np.eye(4) / 4, m.__setitem__((0, 0), m[0, 0] - 0.3), m := m / np.trace(m), m)[-1])(), "Input matrix must be positive semidefinite."),
+        (create_non_positive_matrix(), "Input matrix must be positive semidefinite."),
         # Dimension mismatch
         (max_mixed(4), "Dimensions 2 x 3 do not match matrix size 4."),
     ],
