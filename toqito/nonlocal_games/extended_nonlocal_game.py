@@ -48,37 +48,38 @@ class ExtendedNonlocalGame:
 
         else:
             (
-                dim_x,
-                dim_y,
-                num_alice_out,
-                num_bob_out,
-                num_alice_in,
-                num_bob_in,
+                self.dim_x,
+                self.dim_y,
+                self.num_alice_out,
+                self.num_bob_out,
+                self.num_alice_in,
+                self.num_bob_in,
             ) = pred_mat.shape
             self.prob_mat = tensor(prob_mat, reps)
 
             pred_mat2 = np.zeros(
                 (
-                    dim_x**reps,
-                    dim_y**reps,
-                    num_alice_out**reps,
-                    num_bob_out**reps,
-                    num_alice_in**reps,
-                    num_bob_in**reps,
+                    self.dim_x**reps,
+                    self.dim_y**reps,
+                    self.num_alice_out**reps,
+                    self.num_bob_out**reps,
+                    self.num_alice_in**reps,
+                    self.num_bob_in**reps,
                 )
             )
             i_ind = np.zeros(reps, dtype=int)
             j_ind = np.zeros(reps, dtype=int)
-            for i in range(num_alice_in**reps):
-                for j in range(num_bob_in**reps):
-                    to_tensor = np.empty([reps, dim_x, dim_y, num_alice_out, num_bob_out])
+            for i in range(self.num_alice_in**reps):
+                for j in range(self.num_bob_in**reps):
+                    to_tensor = np.empty([reps, self.dim_x, self.dim_y, self.num_alice_out, self.num_bob_out])
                     for k in range(reps - 1, -1, -1):
                         to_tensor[k] = pred_mat[:, :, :, :, i_ind[k], j_ind[k]]
                     pred_mat2[:, :, :, :, i, j] = tensor(to_tensor)
-                    j_ind = update_odometer(j_ind, num_bob_in * np.ones(reps))
-                i_ind = update_odometer(i_ind, num_alice_in * np.ones(reps))
+                    j_ind = update_odometer(j_ind, self.num_bob_in * np.ones(reps))
+                i_ind = update_odometer(i_ind, self.num_alice_in * np.ones(reps))
             self.pred_mat = pred_mat2
             self.reps = reps
+        self.__get_game_dims()
 
     def __get_game_dims(self):
         """Initialize game dimensions from the prediction matrix.
@@ -276,23 +277,29 @@ class ExtendedNonlocalGame:
 
     def quantum_value_lower_bound(
         self,
-        iters: int = 20,  # Renamed from iters, sensible default
+        iters: int = 20,
         tol: float = 1e-8,
         seed: int = None,
-        initial_bob_is_random: bool = False,
+        initial_bob_is_random: bool | dict = False,
         solver: str = cvxpy.SCS,
-        solver_params: dict = {},
+        solver_params: dict = None,
+        verbose: bool = False,
     ) -> float:
         r"""Calculate lower bound on the quantum value of an extended nonlocal game.
 
         Uses an iterative see-saw method involving two SDPs.
 
-        :param iter: Maximum number of see-saw iterations (Alice optimizes, Bob optimizes). Default is 20.
+        :param iter: Maximum number of see-saw iterations (Alice optimizes, Bob optimizes (default is 20).
         :param tol: Tolerance for stopping see-saw iteration based on improvement (default is 1e-8).
-        :param seed: Optional seed for initializing random POVMs for reproducibility.
+        :param seed: Optional seed for initializing random POVMs for reproducibility (default is None).
+        :param solver: Optional option for different solver (default is SCS).
+        :param solver_params: Optional parameters for solver (default is {"eps": 1e-8, "verbose": False}).
+        :param verbos: Optional printout for optimizer step (default is False).
         :return: The best lower bound found on the quantum value.
         """
         self.__get_game_dims()
+        if solver_params is None:
+            solver_params = {"eps_abs": tol, "eps_rel": tol, "max_iters": 50000, "verbose": False}
         if seed is not None:
             np.random.seed(seed)
 
@@ -301,24 +308,38 @@ class ExtendedNonlocalGame:
 
         # Initialize Bob's POVMs (NumPy arrays) - Default to RANDOM
         bob_povms_np = defaultdict(lambda: np.zeros((num_outputs_bob, num_outputs_bob), dtype=complex))
-        if initial_bob_is_random:  # If you add the flag
-            for y_ques in range(num_inputs_bob):
-                random_u_mat = random_unitary(num_outputs_bob)
-                for b_ans in range(num_outputs_bob):
-                    ket = random_u_mat[:, b_ans].reshape(-1, 1)
-                    bra = ket.conj().T
-                    bob_povms_np[y_ques, b_ans] = ket @ bra
+        if isinstance(initial_bob_is_random, bool):
+            if initial_bob_is_random:
+                for y_ques in range(num_inputs_bob):
+                    random_u_mat = random_unitary(num_outputs_bob)
+                    for b_ans in range(num_outputs_bob):
+                        ket = random_u_mat[:, b_ans].reshape(-1, 1)
+                        bra = ket.conj().T
+                        bob_povms_np[y_ques, b_ans] = ket @ bra
+            else:
+                for y_ques in range(num_inputs_bob):
+                    bob_povms_np[y_ques, 0] = np.eye(num_outputs_bob)
+                    for b_other_ans in range(1, num_outputs_bob):
+                        bob_povms_np[y_ques, b_other_ans] = np.zeros((num_outputs_bob, num_outputs_bob))
+        elif isinstance(initial_bob_is_random, dict):  # If you allow dict for custom POVMs
+            bob_povms_np = initial_bob_is_random
         else:
-            for y_ques in range(num_inputs_bob):
-                bob_povms_np[y_ques, 0] = np.eye(num_outputs_bob)
-                for b_other_ans in range(1, num_outputs_bob):
-                    bob_povms_np[y_ques, b_other_ans] = np.zeros((num_outputs_bob, num_outputs_bob))
+            raise TypeError(
+                f"Expected initial_bob_is_random to be bool or dict, "  # Adjust if only bool supported
+                f"got {type(initial_bob_is_random).__name__} instead."
+            )
 
         prev_win_val = -float("inf")
         current_best_lower_bound = -float("inf")
 
+        if verbose:
+            "dict" if isinstance(initial_bob_is_random, dict) else initial_bob_is_random
+            print(
+                f"Starting see-saw: max_steps={iters}, tol={tol}, seed={seed}, solver={solver}, "
+                + "random_init={init_bob_display}"
+            )
+
         for step in range(iters):
-            # Pass solver and solver_params
             opt_alice_rho_cvxpy_vars, problem_alice = self.__optimize_alice(bob_povms_np, solver, solver_params)
 
             if (
@@ -326,9 +347,13 @@ class ExtendedNonlocalGame:
                 or problem_alice.status not in [cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE]
                 or problem_alice.value is None
             ):
+                if verbose:
+                    print(
+                        f"Warning: Alice optimization step failed (status: {problem_alice.status}) "
+                        f"in see-saw step {step + 1}. Value: {problem_alice.value}"
+                    )
                 return current_best_lower_bound if current_best_lower_bound > -float("inf") else 0.0
 
-            # Pass solver and solver_params
             opt_bob_povm_cvxpy_vars, problem_bob = self.__optimize_bob(opt_alice_rho_cvxpy_vars, solver, solver_params)
 
             if (
@@ -336,6 +361,11 @@ class ExtendedNonlocalGame:
                 or problem_bob.status not in [cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE]
                 or problem_bob.value is None
             ):
+                if verbose:
+                    print(
+                        f"Warning: Bob optimization step failed (status: {problem_bob.status}) "
+                        f"in see-saw step {step + 1}. Value: {problem_bob.value}"
+                    )
                 return current_best_lower_bound if current_best_lower_bound > -float("inf") else 0.0
 
             current_win_val = problem_bob.value
@@ -344,17 +374,39 @@ class ExtendedNonlocalGame:
 
             improvement = abs(current_win_val - prev_win_val)
 
-            if step < iters - 1:
-                for y_idx in range(self.num_bob_in):
-                    for b_idx in range(self.num_bob_out):
-                        bob_povms_np[y_idx, b_idx] = opt_bob_povm_cvxpy_vars[y_idx, b_idx].value
+            if verbose:
+                print(
+                    f"See-saw step {step + 1}/{iters}: Win prob = {current_win_val:.8f}, "
+                    + "Improv = {improvement:.2e}, Best = {current_best_lower_bound:.8f}"
+                )
 
-            if improvement < tol and step > 0:
-                # print(f"See-saw converged at step {step + 1} with value {current_best_lower_bound:.8f}")
+            if (
+                improvement < tol and step > 0
+            ):  # step > 0 to ensure prev_win_val is not -inf for the first real improvement check
+                if verbose:
+                    print(f"See-saw converged at step {step + 1} with value {current_best_lower_bound:.8f}")
                 break
             prev_win_val = current_win_val
 
-        return current_best_lower_bound
+            # If not the last iteration, update Bob's POVMs for the next step
+            if step < iters - 1:
+                for y_idx in range(self.num_bob_in):
+                    for b_idx in range(self.num_bob_out):
+                        povm_var = opt_bob_povm_cvxpy_vars.get((y_idx, b_idx))  # Use .get for safety
+                        if povm_var is None or povm_var.value is None:
+                            if verbose:
+                                print(
+                                    f"Warning: Bob POVM var ({y_idx},{b_idx}) value is None in step {step + 1} "
+                                    f"during POVM update. Exiting see-saw early."
+                                )
+                            return current_best_lower_bound if current_best_lower_bound > -float("inf") else 0.0
+                        bob_povms_np[y_idx, b_idx] = povm_var.value
+
+        else:
+            if verbose and iters > 0:
+                print(f"See-Saw reached max steps ({iters}) with value {current_best_lower_bound:.8f}")
+
+        return current_best_lower_bound if current_best_lower_bound > -float("inf") else 0.0
 
     def __optimize_alice(
         self, fixed_bob_povms_np: dict, solver: str = cvxpy.SCS, solver_params: dict = None
@@ -410,7 +462,7 @@ class ExtendedNonlocalGame:
         return rho_xa_cvxpy_vars, problem
 
     def __optimize_bob(
-        self, alice_rho_cvxpy_vars: dict | None, solver: str = cvxpy.SCS, solver_params: dict = {}
+        self, alice_rho_cvxpy_vars: dict | None, solver: str = cvxpy.SCS, solver_params: dict = None
     ) -> tuple[dict | None, cvxpy.Problem]:
         """Fix Alice's measurements and optimize over Bob's measurements."""
         # Get number of inputs and outputs.
