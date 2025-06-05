@@ -129,19 +129,21 @@ def _gen_words(k: int | str, a_out: int, a_in: int, b_out: int, b_in: int) -> li
             # If alice_len is 0, product yields one item: ()
             for word_a_tuple in product(alice_symbols, repeat=alice_len):
                 reduced_a = _reduce(word_a_tuple)
-                if reduced_a == () and alice_len > 0:  # Alice's part (non-empty originally) reduced to zero
+                # Alice's part (non-empty originally) reduced to zero
+                if reduced_a == () and alice_len > 0:
                     continue
 
                 # Generate Bob's part
                 # If bob_len is 0, product yields one item: ()
                 for word_b_tuple in product(bob_symbols, repeat=bob_len):
                     reduced_b = _reduce(word_b_tuple)
-                    if reduced_b == () and bob_len > 0:  # Bob's part (non-empty originally) reduced to zero
+                    # Bob's part (non-empty originally) reduced to zero
+                    if reduced_b == () and bob_len > 0:
                         continue
 
                     if not reduced_a and not reduced_b:  # Both parts are empty (e.g. alice_len=0, bob_len=0)
                         # This means the total length of operators is 0.
-                        final_word = (IDENTITY_SYMBOL,)  # The "empty product" is identity
+                        final_word = (IDENTITY_SYMBOL,)
                     else:
                         # _reduce will put Alice operators before Bob operators if somehow mixed,
                         # and apply rules. It also handles identity filtering if I was part of word.
@@ -161,12 +163,14 @@ def _gen_words(k: int | str, a_out: int, a_in: int, b_out: int, b_in: int) -> li
 
             for word_b_tuple in product(bob_symbols, repeat=bob_len_conf):
                 reduced_b = _reduce(word_b_tuple)
-                if reduced_b == () and bob_len_conf > 0:  # VPRUSSO'S POINT: ADDED THIS CHECK
+                if reduced_b == () and bob_len_conf > 0:
                     continue
 
                 # Combine and add as in the main loop
-                if not reduced_a and not reduced_b:  # Both parts are empty (e.g. alice_len_conf=0, bob_len_conf=0)
-                    final_word = (IDENTITY_SYMBOL,)  # Should not happen if _parse filters (0,0) from conf
+                # Both parts are empty (e.g. alice_len_conf=0, bob_len_conf=0)
+                if not reduced_a and not reduced_b:
+                    # Should not happen if _parse filters (0,0) from conf
+                    final_word = (IDENTITY_SYMBOL,)
 
                 else:
                     final_word = _reduce(reduced_a + reduced_b)
@@ -259,7 +263,8 @@ def npa_constraints(
     words = _gen_words(k, a_out, a_in, b_out, b_in)
     dim = len(words)
 
-    if dim == 0:  # Should not happen if IDENTITY_SYMBOL is always included
+    if dim == 0:
+        # Should not happen if IDENTITY_SYMBOL is always included
         raise ValueError("Generated word list is empty. Check _gen_words logic.")
 
     # Moment matrix (Gamma matrix in NPA paper)
@@ -270,6 +275,7 @@ def npa_constraints(
     # This is the (0,0) block of moment_matrix_R since words[0] is Identity
     rho_R_referee = moment_matrix_R[0:referee_dim, 0:referee_dim]
 
+    # Ensure rho_R_referee is a valid quantum state
     constraints = [
         cvxpy.trace(rho_R_referee) == 1,
         rho_R_referee >> 0,
@@ -295,7 +301,8 @@ def npa_constraints(
             if words[j] != (IDENTITY_SYMBOL,):
                 product_unreduced.extend(list(words[j]))
 
-            if not product_unreduced:  # This happens if both words[i] and words[j] were IDENTITY_SYMBOL
+            # This happens if both words[i] and words[j] were IDENTITY_SYMBOL
+            if not product_unreduced:
                 product_S_i_adj_S_j = (IDENTITY_SYMBOL,)
             else:
                 product_S_i_adj_S_j = _reduce(tuple(product_unreduced))
@@ -313,12 +320,10 @@ def npa_constraints(
                 # This occurs for (i,j) where S_i^dagger S_j = I. e.g. S_i = S_j and S_i is unitary (proj).
                 # Or i=0, j=0 (I^dagger I = I).
                 # This means current_block should be rho_R_referee if product_S_i_adj_S_j is I
-                # if i == 0 and j == 0:  # This is rho_R itself, already handled by definition
-                #     pass
-                # else:  # For other S_i^dagger S_j = I, their block should also be rho_R
                 constraints.append(current_block == rho_R_referee)
 
-            elif _is_meas(product_S_i_adj_S_j):  # Product is A_a^x B_b^y
+            # Product is A_a^x B_b^y
+            elif _is_meas(product_S_i_adj_S_j):
                 alice_symbol, bob_symbol = product_S_i_adj_S_j
                 constraints.append(
                     current_block
@@ -327,6 +332,7 @@ def npa_constraints(
                         bob_symbol.answer * referee_dim : (bob_symbol.answer + 1) * referee_dim,
                     ]
                 )
+            # Product is A_a^x or B_b^y (i.e., only one player involved)
             elif _is_meas_on_one_player(product_S_i_adj_S_j):  # Product is A_a^x or B_b^y
                 symbol = product_S_i_adj_S_j[0]
                 if symbol.player == "Alice":
@@ -390,7 +396,7 @@ def npa_constraints(
     # No-signaling constraints on assemblage - ALWAYS APPLY
     # Bob's marginal rho_B(b|y) = Sum_a K_xy(a,b) must be independent of x
     for y_bob_in in range(b_in):
-        for b_bob_out in range(b_out):  # For each Bob outcome b
+        for b_bob_out in range(b_out):
             sum_over_a_for_x0 = sum(
                 assemblage[0, y_bob_in][
                     a * referee_dim : (a + 1) * referee_dim, b_bob_out * referee_dim : (b_bob_out + 1) * referee_dim

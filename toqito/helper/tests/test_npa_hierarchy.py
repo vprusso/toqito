@@ -41,13 +41,13 @@ class TestNPAReduce:
         "input_word, expected_reduction",
         [
             # Idempotence
-            ((A00_test, A00_test), (A00_test,)),
-            ((B00_test, B00_test), (B00_test,)),
-            ((A00_test, A00_test, A00_test), (A00_test,)),  # Iterative
-            ((A00_test, A00_test, B00_test), (A00_test, B00_test)),
-            ((A00_test, B00_test, B00_test), (A00_test, B00_test)),
-            ((A00_test, A00_test, B00_test, B00_test), (A00_test, B00_test)),
-            ((A00_test, B00_test, B00_test, B00_test), (A00_test, B00_test)),
+            ((A00_test, A00_test), (A00_test,)),  # (A*A = A)
+            ((B00_test, B00_test), (B00_test,)),  # (B*B = B)
+            ((A00_test, A00_test, A00_test), (A00_test,)),  # (A*A*A = A)
+            ((A00_test, A00_test, B00_test), (A00_test, B00_test)),  # (A*A*B = A*B)
+            ((A00_test, B00_test, B00_test), (A00_test, B00_test)),  # (A*B*B = A*B)
+            ((A00_test, A00_test, B00_test, B00_test), (A00_test, B00_test)),  # (A*A*B*B = A*B)
+            ((A00_test, B00_test, B00_test, B00_test), (A00_test, B00_test)),  # (A*B*B*B = A*B)
         ],
     )
     def test_reduce_idempotence(self, input_word, expected_reduction):
@@ -74,13 +74,13 @@ class TestNPAReduce:
         "input_word, expected_reduction",
         [
             # Commutation
-            ((B00_test, A00_test), (A00_test, B00_test)),
-            ((B00_test, A00_test, B10_test), (A00_test, B00_test, B10_test)),
+            ((B00_test, A00_test), (A00_test, B00_test)),  # Commutation of A and B
+            ((B00_test, A00_test, B10_test), (A00_test, B00_test, B10_test)),  # Commutation with additional B
             ((B00_test, A00_test, B00_test), (A00_test, B00_test)),  # Commute then idempotence
             # Commutation with idempotence from your original test_commutation_and_reduction
             ((B00_test, A00_test, A00_test), (A00_test, B00_test)),
-            ((B00_test, B00_test, A00_test), (A00_test, B00_test)),
-            ((B00_test, A00_test, B00_test, A00_test), (A00_test, B00_test)),
+            ((B00_test, B00_test, A00_test), (A00_test, B00_test)),  # (B*B*A = A*B)
+            ((B00_test, A00_test, B00_test, A00_test), (A00_test, B00_test)),  # (B*B*A*A = A*B)
         ],
     )
     def test_reduce_commutation(self, input_word, expected_reduction):
@@ -91,10 +91,10 @@ class TestNPAReduce:
         "input_word, expected_reduction",
         [
             # Interactions with IDENTITY_SYMBOL
-            ((A00_test, IDENTITY_SYMBOL), (A00_test,)),
-            ((IDENTITY_SYMBOL, A00_test), (A00_test,)),
-            ((A00_test, IDENTITY_SYMBOL, B00_test), (A00_test, B00_test)),
-            ((A00_test, B00_test, IDENTITY_SYMBOL), (A00_test, B00_test)),
+            ((A00_test, IDENTITY_SYMBOL), (A00_test,)),  # (A*I = A)
+            ((IDENTITY_SYMBOL, A00_test), (A00_test,)),  # (A*I = A)
+            ((A00_test, IDENTITY_SYMBOL, B00_test), (A00_test, B00_test)),  # (A*I*B = A*B)
+            ((A00_test, B00_test, IDENTITY_SYMBOL), (A00_test, B00_test)),  # (A*B*I = A*B)
             ((IDENTITY_SYMBOL, A00_test, IDENTITY_SYMBOL, B00_test, IDENTITY_SYMBOL), (A00_test, B00_test)),
             ((IDENTITY_SYMBOL, A00_test, IDENTITY_SYMBOL), (A00_test,)),  # from identity_filtering_and_preservation
         ],
@@ -106,12 +106,12 @@ class TestNPAReduce:
     # These tests below are for specific behaviors that are harder to parameterize nicely
     # with the above categories or are distinct enough.
 
-    def test_no_change_pass_terminates_loop(self):  # Keep as is
+    def test_no_change_pass_terminates_loop(self):
         """Test that the while True loop terminates if no changes are made."""
-        assert _reduce((A00_test, B00_test)) == (A00_test, B00_test)
+        assert _reduce((A00_test, B00_test)) == (A00_test, B00_test)  # No change, should terminate
         assert _reduce((A00_test, A10_test)) == (A00_test, A10_test)  # Different questions, same player
 
-    def test_preserves_internal_order_if_no_reduction(self):  # Keep as is
+    def test_preserves_internal_order_if_no_reduction(self):
         """Test internal order of different-question ops for same player is preserved."""
         word1 = (A10_test, A00_test, B10_test, B00_test)
         assert _reduce(word1) == word1
@@ -122,9 +122,9 @@ class TestNPAReduce:
         if word1 != word2:  # Should be true
             assert _reduce(word1) != _reduce(word2)
 
-    def test_already_reduced_words(self):  # Keep as is
+    def test_already_reduced_words(self):
         """Test that already reduced words don't change."""
-        word = (A00_test, A10_test, B00_test, B10_test)  # Different questions
+        word = (A00_test, A10_test, B00_test, B10_test)
         assert _reduce(word) == word
         word_single_a = (A00_test,)
         assert _reduce(word_single_a) == word_single_a
@@ -290,8 +290,8 @@ class TestNPAGenWords:
                 1,  # k_int=0, so only configs. aa -> A(0,0), A(0,1) if a_out=3
                 {
                     (IDENTITY_SYMBOL,),
-                    (Symbol("Alice", 0, 0),),  # Wrapped in a tuple
-                    (Symbol("Alice", 0, 1),),  # Wrapped in a tuple
+                    (Symbol("Alice", 0, 0),),
+                    (Symbol("Alice", 0, 1),),
                 },
                 3,
             ),
@@ -320,7 +320,6 @@ class TestNPAGenWords:
         # However, with Identity pre-seeded, len(words) >= 1 always.
         assert words[0] == (IDENTITY_SYMBOL,)
 
-    # Tests for specific continue branches (lines 128, 134, 160, 164)
     # These seem distinct and valuable enough to keep separate.
     def test_gen_words_k_int_alice_part_reduces_to_zero_continue(self):
         """Test _gen_words with k=2 where Alice's part reduces to zero."""
@@ -385,7 +384,7 @@ class TestNPAGenWords:
     )
     def test_gen_words_cglmp_lengths(self, k_param, expected_len):
         """Test _gen_words word counts for CGLMP-like parameters."""
-        words = _gen_words(
+        words = _gen_words(  # Using CGLMP-like parameters
             k_param, a_out=self.cglmp_a_out, a_in=self.cglmp_a_in, b_out=self.cglmp_b_out, b_in=self.cglmp_b_in
         )
         assert len(words) == expected_len
@@ -463,7 +462,8 @@ def cglmp_setup_vars_and_objective(num_outcomes: int) -> tuple[dict[tuple[int, i
                     tmp -= assemblage_vars[0, 1][a_val, b_val]
 
         denominator = num_outcomes - 1
-        if denominator == 0:  # Avoid division by zero if num_outcomes is 1
+        # Avoid division by zero if num_outcomes is 1
+        if denominator == 0:
             # This case is degenerate for CGLMP, but handle defensively
             i_b_expr += tmp
         else:
@@ -576,7 +576,7 @@ def mock_assemblage_setup():
 
 def test_npa_constraints_identity_product_branch(mock_assemblage_setup):
     """Test the branch: S_i^dagger S_j = I, but (i,j) != (0,0)."""
-    assemblage, a_out, a_in, b_out, b_in, ref_dim = mock_assemblage_setup(a_in=1, a_out=2, b_in=1, b_out=2, ref_dim=1)
+    assemblage, _, _, _, _, ref_dim = mock_assemblage_setup(a_in=1, a_out=2, b_in=1, b_out=2, ref_dim=1)
     # To hit this, we need words such that words[i] = P, words[j] = P (so i=j, i!=0)
     # and _reduce(P_dagger P) = P, which is not Identity unless P=I.
     # Or words[i] = P, words[j] = P_inv. But our symbols are projectors.
@@ -589,8 +589,6 @@ def test_npa_constraints_identity_product_branch(mock_assemblage_setup):
 
 def test_npa_constraints_dim_zero_value_error(mock_assemblage_setup):
     """Test ValueError if _gen_words somehow returns an empty list (dim=0)."""
-    # This requires mocking _gen_words.
-
     assemblage, _, _, _, _, ref_dim = mock_assemblage_setup(1, 1, 1, 1, 1)
     with mock.patch("toqito.helper.npa_hierarchy._gen_words", return_value=[]):
         with pytest.raises(ValueError, match="Generated word list is empty."):
