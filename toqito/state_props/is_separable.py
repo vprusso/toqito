@@ -539,8 +539,8 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
 
         if len(lam) == prod_dim_val and prod_dim_val > 1:
             # If (lambda_2 - lambda_d) is very small for a PPT state.
-            diff_pert = lam[1] - lam[prod_dim_val - 1]  # ADD THIS
-            threshold_pert = tol**2 + 2 * _machine_eps  # ADD THIS
+            diff_pert = lam[1] - lam[prod_dim_val - 1]
+            threshold_pert = tol**2 + 2 * _machine_eps
             if diff_pert < threshold_pert:
                 return True
     except np.linalg.LinAlgError:  # If all eigenvalue computations fail #
