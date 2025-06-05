@@ -120,6 +120,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
             :cite:`Hildebrand2005_PPT`,
             :cite:`Hildebrand_2008_Semidefinite`,
             :cite:`Hildebrand_2005_Cone`:
+
             - Check based on the rank of the anti-Hermitian part of the off-diagonal
               block :math:`B` (i.e., :math:`\text{rank}(B - B^\dagger) \le 1`).
               (Note: QETLAB refers to `B-B'` and "block Hankel").
