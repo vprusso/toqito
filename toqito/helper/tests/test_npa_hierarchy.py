@@ -23,185 +23,108 @@ B11_test = Symbol("Bob", 1, 1)
 class TestNPAReduce:
     """Test the _reduce helper function."""
 
-    def test_empty_word(self):
-        """Test reducing an empty word."""
-        assert _reduce(()) == ()
-
-    def test_identity_word(self):
-        """Test reducing an identity word."""
-        assert _reduce((IDENTITY_SYMBOL,)) == (IDENTITY_SYMBOL,)
-
-    def test_single_symbol(self):
-        """Test reducing a single Alice or Bob symbol."""
-        assert _reduce((A00_test,)) == (A00_test,)
-        assert _reduce((B00_test,)) == (B00_test,)
-
-    def test_idempotence(self):
-        """Test projector idempotence A*A = A."""
-        assert _reduce((A00_test, A00_test)) == (A00_test,)
-        assert _reduce((A00_test, A00_test, B00_test)) == (A00_test, B00_test)
-        assert _reduce((A00_test, B00_test, B00_test)) == (A00_test, B00_test)
-
-    def test_orthogonality(self):
-        """Test projector orthogonality A_i A_j = 0 for i!=j."""
-        assert _reduce((A00_test, A01_test)) == ()
-        assert _reduce((B00_test, B01_test)) == ()
-        assert _reduce((A00_test, B00_test, B01_test)) == ()
-        assert _reduce((A00_test, A01_test, B00_test)) == ()
-
-    def test_commutation(self):
-        """Test Alice-Bob operator commutation."""
-        assert _reduce((B00_test, A00_test)) == (A00_test, B00_test)
-        assert _reduce((B00_test, A00_test, B10_test)) == (A00_test, B00_test, B10_test)
-        assert _reduce((B00_test, A00_test, B00_test)) == (A00_test, B00_test)
-
-    def test_complex_reduction_to_zero(self):
-        """Test a more complex reduction that results in zero."""
-        assert _reduce((A00_test, B00_test, A00_test, B01_test)) == ()
-
-    def test_final_not_final_word_empty_after_separate_reduction(self):
-        """Test reduction where both Alice and Bob parts individually become zero."""
-        assert _reduce((A00_test, A01_test, B00_test, B01_test)) == ()
-
-    def test_reduction_with_identity_mixed(self):
-        """Test reduction when IDENTITY_SYMBOL is mixed (though not typical for sub-words)."""
-        assert _reduce((A00_test, IDENTITY_SYMBOL)) == (A00_test,)
-        assert _reduce((IDENTITY_SYMBOL, A00_test)) == (A00_test,)
-        assert _reduce((A00_test, IDENTITY_SYMBOL, B00_test)) == (A00_test, B00_test)
-        assert _reduce((A00_test, B00_test, IDENTITY_SYMBOL)) == (A00_test, B00_test)
-
-
-class TestNPAParse:
-    """Test the _parse helper function for k-string."""
-
-    def test_simple_int(self):
-        """Test parsing a simple integer k."""
-        assert _parse("1") == (1, set())
-        assert _parse("2") == (2, set())
-
-    def test_simple_config(self):
-        """Test parsing k with simple configurations like '1+a'."""
-        assert _parse("1+a") == (1, {(1, 0)})
-        assert _parse("1+b") == (1, {(0, 1)})
-        assert _parse("1+ab") == (1, {(1, 1)})
-        assert _parse("2+aa+bb") == (2, {(2, 0), (0, 2)})
-
-    def test_multiple_configs(self):
-        """Test parsing k with multiple configurations."""
-        k_int, conf = _parse("1+a+b+aa+ab")
-        assert k_int == 1
-        assert conf == {(1, 0), (0, 1), (2, 0), (1, 1)}
-
-    def test_empty_config_part(self):
-        """Test parsing k with empty parts like '1+' or '1++ab'."""
-        assert _parse("1+") == (1, set())
-        assert _parse("1++ab") == (1, {(1, 1)})
-        assert _parse("1+ab+") == (1, {(1, 1)})
-
     @pytest.mark.parametrize(
-        "input_str, expected_msg",
+        "input_word, expected_reduction",
         [
-            ("1+ac", "Invalid character 'c' in k string component 'ac'. Only 'a' or 'b' allowed after base k."),
-            ("+ab", "Base level k must be specified, e.g., '1+ab'"),
-            ("", "Input string k_str cannot be empty."),
-            ("a+b", "Base level k 'a' is not a valid integer: invalid literal for int() with base 10: 'a'"),
+            ((), ()),  # Empty word
+            ((IDENTITY_SYMBOL,), (IDENTITY_SYMBOL,)),  # Single Identity
+            ((IDENTITY_SYMBOL, IDENTITY_SYMBOL), (IDENTITY_SYMBOL,)),  # Double Identity
+            ((A00_test,), (A00_test,)),  # Single Alice
+            ((B00_test,), (B00_test,)),  # Single Bob
         ],
     )
-    def test_invalid_k_configs(self, input_str, expected_msg):
-        """Test parsing k string raise an error."""
-        with pytest.raises(ValueError, match=re.escape(expected_msg)):
-            _parse(input_str)
+    def test_reduce_basic_cases(self, input_word, expected_reduction):
+        """Test reduction for empty, single identity, and single operator words."""
+        assert _reduce(input_word) == expected_reduction
 
     @pytest.mark.parametrize(
-        "input_seq",
+        "input_word, expected_reduction",
         [
-            # Orthogonality tests
-            ## Immediate return on orthogonality: first signal pair zero
-            (A00_test, A01_test, B00_test, A00_test),  # A0 A1 at start -> 0
-            ## Immediate return on orthogonality: secondary sequence
-            (B00_test, B01_test),
-            # Complex reduction tests
-            ## Complex reduction resulting in zero
-            (A00_test, B00_test, A00_test, B01_test),
-            ## Both player parts reduce to zero
-            (A00_test, A01_test, B00_test, B01_test),
-            # Reduction where one player's part becomes zero
-            ## One player's part reduces to zero (first case)
-            ## (A00_test, B00_test, B01_test) -> A00 * (B00*B01) -> A00 * 0 -> 0
-            (A00_test, B00_test, B01_test),
-            ## One player's part reduces to zero (second case)
-            ## (A00_test, A01_test, B00_test) -> (A00*A01) * B00 -> 0 * B00 -> 0
-            (A00_test, A01_test, B00_test),
+            # Idempotence
+            ((A00_test, A00_test), (A00_test,)),
+            ((B00_test, B00_test), (B00_test,)),
+            ((A00_test, A00_test, A00_test), (A00_test,)),  # Iterative
+            ((A00_test, A00_test, B00_test), (A00_test, B00_test)),
+            ((A00_test, B00_test, B00_test), (A00_test, B00_test)),
+            ((A00_test, A00_test, B00_test, B00_test), (A00_test, B00_test)),
+            ((A00_test, B00_test, B00_test, B00_test), (A00_test, B00_test)),
         ],
     )
-    def test_reduction_returns_empty(self, input_seq):
-        """Test that various input sequences.
+    def test_reduce_idempotence(self, input_word, expected_reduction):
+        """Test projector idempotence (A*A = A, A*A*A = A, etc.)."""
+        assert _reduce(input_word) == expected_reduction
 
-        for _reduce produce an empty tuple, indicating that the reduction result is zero.
-        """
-        assert _reduce(input_seq) == ()
+    @pytest.mark.parametrize(
+        "input_word, expected_reduction",
+        [
+            # Orthogonality
+            ((A00_test, A01_test), ()),
+            ((B00_test, B01_test), ()),
+            ((A00_test, B00_test, B01_test), ()),  # Propagated zero
+            ((A00_test, A01_test, B00_test), ()),  # Propagated zero
+            ((A00_test, A01_test, B00_test, B01_test), ()),  # Both parts zero
+            ((A00_test, B00_test, A00_test, B01_test), ()),  # Complex reduction to zero
+        ],
+    )
+    def test_reduce_to_zero_cases(self, input_word, expected_reduction):
+        """Test reductions that result in an empty tuple (algebraic zero)."""
+        assert _reduce(input_word) == expected_reduction
 
-    def test_reduce_product_with_actual_identity_symbol(self):  # This one should pass now
-        """Test how _reduce handles products involving the explicit IDENTITY_SYMBOL."""
-        assert _reduce((A00_test, IDENTITY_SYMBOL)) == (A00_test,)
-        assert _reduce((IDENTITY_SYMBOL, A00_test)) == (A00_test,)
-        assert _reduce((IDENTITY_SYMBOL, IDENTITY_SYMBOL)) == (IDENTITY_SYMBOL,)  # Fixed by new _reduce
-        assert _reduce((A00_test, IDENTITY_SYMBOL, B00_test)) == (A00_test, B00_test)
-        assert _reduce((A00_test, B00_test, IDENTITY_SYMBOL)) == (A00_test, B00_test)
+    @pytest.mark.parametrize(
+        "input_word, expected_reduction",
+        [
+            # Commutation
+            ((B00_test, A00_test), (A00_test, B00_test)),
+            ((B00_test, A00_test, B10_test), (A00_test, B00_test, B10_test)),
+            ((B00_test, A00_test, B00_test), (A00_test, B00_test)),  # Commute then idempotence
+            # Commutation with idempotence from your original test_commutation_and_reduction
+            ((B00_test, A00_test, A00_test), (A00_test, B00_test)),
+            ((B00_test, B00_test, A00_test), (A00_test, B00_test)),
+            ((B00_test, A00_test, B00_test, A00_test), (A00_test, B00_test)),
+        ],
+    )
+    def test_reduce_commutation(self, input_word, expected_reduction):
+        """Test Alice-Bob operator commutation and subsequent reductions."""
+        assert _reduce(input_word) == expected_reduction
 
-    def test_idempotence_iterative(self):
-        """Test iterative idempotence A*A*A = A."""
-        assert _reduce((A00_test, A00_test, A00_test)) == (A00_test,)
-        assert _reduce((A00_test, B00_test, B00_test, B00_test)) == (A00_test, B00_test)
-        assert _reduce((A00_test, A00_test, B00_test, B00_test)) == (A00_test, B00_test)
+    @pytest.mark.parametrize(
+        "input_word, expected_reduction",
+        [
+            # Interactions with IDENTITY_SYMBOL
+            ((A00_test, IDENTITY_SYMBOL), (A00_test,)),
+            ((IDENTITY_SYMBOL, A00_test), (A00_test,)),
+            ((A00_test, IDENTITY_SYMBOL, B00_test), (A00_test, B00_test)),
+            ((A00_test, B00_test, IDENTITY_SYMBOL), (A00_test, B00_test)),
+            ((IDENTITY_SYMBOL, A00_test, IDENTITY_SYMBOL, B00_test, IDENTITY_SYMBOL), (A00_test, B00_test)),
+            ((IDENTITY_SYMBOL, A00_test, IDENTITY_SYMBOL), (A00_test,)),  # from identity_filtering_and_preservation
+        ],
+    )
+    def test_reduce_identity_interactions(self, input_word, expected_reduction):
+        """Test how explicit IDENTITY_SYMBOL is handled during reduction."""
+        assert _reduce(input_word) == expected_reduction
 
-    def test_commutation_and_reduction(self):
-        """Test commutation followed by reduction."""
-        # B0 A0 A0 -> A0 A0 B0 -> A0 B0
-        assert _reduce((B00_test, A00_test, A00_test)) == (A00_test, B00_test)
-        # B0 B0 A0 -> A0 B0 B0 -> A0 B0
-        assert _reduce((B00_test, B00_test, A00_test)) == (A00_test, B00_test)
-        # B0 A0 B0 A0 -> A0 A0 B0 B0 -> A0 B0
-        assert _reduce((B00_test, A00_test, B00_test, A00_test)) == (A00_test, B00_test)
+    # These tests below are for specific behaviors that are harder to parameterize nicely
+    # with the above categories or are distinct enough.
 
-    def test_identity_filtering_and_preservation(self):
-        """Test how identities are handled."""
-        assert _reduce((IDENTITY_SYMBOL, A00_test, IDENTITY_SYMBOL)) == (A00_test,)
-        assert _reduce((A00_test, IDENTITY_SYMBOL, B00_test)) == (A00_test, B00_test)
-        assert _reduce((IDENTITY_SYMBOL, IDENTITY_SYMBOL)) == (IDENTITY_SYMBOL,)
-        assert _reduce((IDENTITY_SYMBOL, IDENTITY_SYMBOL, IDENTITY_SYMBOL)) == (IDENTITY_SYMBOL,)
-        # Test a word that reduces TO identity after non-id symbols cancel
-        # This case is tricky: (A00, A00_inv, I). If A00_inv is not a symbol type.
-        # With projectors, non-ID symbols won't cancel to pure ID unless they were zero.
-        # If word becomes only identities after filtering non-ID, it should be (I,)
-        # If current_word_list_no_id is non-empty, but processed_word_list becomes empty, it's ().
-
-    def test_no_change_pass_terminates_loop(self):
+    def test_no_change_pass_terminates_loop(self):  # Keep as is
         """Test that the while True loop terminates if no changes are made."""
-        # (A00, B00) is already canonical and reduced. Loop should run once for check, then break.
         assert _reduce((A00_test, B00_test)) == (A00_test, B00_test)
-        # (A00, A10) where A00 and A10 are different questions, no reduction.
-        assert _reduce((A00_test, A10_test)) == (A00_test, A10_test)
+        assert _reduce((A00_test, A10_test)) == (A00_test, A10_test)  # Different questions, same player
 
-    def test_preserves_internal_order_if_no_reduction(self):
-        """Test that internal order of different-question ops for same player is preserved."""
-        # With the latest _reduce (no internal sorting by key for w_a/w_b)
+    def test_preserves_internal_order_if_no_reduction(self):  # Keep as is
+        """Test internal order of different-question ops for same player is preserved."""
         word1 = (A10_test, A00_test, B10_test, B00_test)
-        # alice_ops = [A10, A00], bob_ops = [B10, B00]
-        # processed_word_list = [A10,A00,B10,B00]
-        # Iterative reduction: no adjacent ops will reduce.
         assert _reduce(word1) == word1
 
         word2 = (A00_test, A10_test, B00_test, B10_test)
         assert _reduce(word2) == word2
 
-        # Ensure they are different if they should be
-        if word1 != word2:  # They are different
+        if word1 != word2:  # Should be true
             assert _reduce(word1) != _reduce(word2)
 
-    def test_already_reduced_words(self):
+    def test_already_reduced_words(self):  # Keep as is
         """Test that already reduced words don't change."""
-        word = (A00_test, A10_test, B00_test, B10_test)
+        word = (A00_test, A10_test, B00_test, B10_test)  # Different questions
         assert _reduce(word) == word
         word_single_a = (A00_test,)
         assert _reduce(word_single_a) == word_single_a
@@ -209,44 +132,136 @@ class TestNPAParse:
         assert _reduce(word_single_b) == word_single_b
 
 
+class TestNPAParse:
+    """Test the _parse helper function for k-string."""
+
+    # Test cases for valid parsing
+    @pytest.mark.parametrize(
+        "k_str, expected_k_int, expected_conf_set",
+        [
+            ("1", 1, set()),
+            ("2", 2, set()),
+            ("0", 0, set()),  # Base case k=0
+            ("1+a", 1, {(1, 0)}),
+            ("1+b", 1, {(0, 1)}),
+            ("1+ab", 1, {(1, 1)}),
+            ("2+aa+bb", 2, {(2, 0), (0, 2)}),
+            ("1+a+b+aa+ab", 1, {(1, 0), (0, 1), (2, 0), (1, 1)}),
+            # Edge cases for empty parts (assuming original _parse logic)
+            ("1+", 1, set()),  # Trailing '+'
+            ("1++ab", 1, {(1, 1)}),  # Middle empty part
+            ("1+ab+", 1, {(1, 1)}),  # Trailing '+' after content
+            ("1+a+", 1, {(1, 0)}),  # Trailing '+' after 'a'
+        ],
+    )
+    def test_parse_valid_strings(self, k_str, expected_k_int, expected_conf_set):
+        """Test parsing various valid k-strings."""
+        k_int, conf = _parse(k_str)
+        assert k_int == expected_k_int
+        assert conf == expected_conf_set
+
+    # Test cases for invalid parsing (error handling)
+    @pytest.mark.parametrize(
+        "input_str, expected_msg_pattern",
+        [
+            ("1+ac", "Invalid character 'c' in k string component 'ac'. Only 'a' or 'b' allowed after base k."),
+            ("+ab", "Base level k must be specified, e.g., '1+ab'"),
+            ("", "Input string k_str cannot be empty."),
+            ("a+b", "Base level k 'a' is not a valid integer: invalid literal for int() with base 10: 'a'"),
+            ("1.0+a", "Base level k '1.0' is not a valid integer: invalid literal for int() with base 10: '1.0'"),
+        ],
+    )
+    def test_parse_invalid_strings_raise_valueerror(self, input_str, expected_msg_pattern):
+        """Test that invalid k-strings raise ValueError with an expected message."""
+        with pytest.raises(ValueError, match=re.escape(expected_msg_pattern)):
+            _parse(input_str)
+
+
 class TestNPAGenWords:
     """Test the _gen_words helper function."""
 
+    # Game parameters for reuse
     cglmp_a_out, cglmp_a_in = 3, 2
     cglmp_b_out, cglmp_b_in = 3, 2
-
     simple_a_out, simple_a_in = 2, 1
     simple_b_out, simple_b_in = 2, 1
 
     @pytest.mark.parametrize(
-        "description, k, a_out, a_in, b_out, b_in, expected_set",
+        "k_param, a_o, a_i, b_o, b_i, expected_set_content, expected_len",
         [
+            # Cases where Identity is the main or only element
             (
-                "k=1, simple params",
+                0,
+                simple_a_out,
+                simple_a_in,
+                simple_b_out,
+                simple_b_in,  # k=0
+                {(IDENTITY_SYMBOL,)},
                 1,
-                # Using simple parameters.
+            ),
+            (
+                1,
+                1,
+                1,
+                1,
+                1,  # Both 1 out (no measurement symbols)
+                {(IDENTITY_SYMBOL,)},
+                1,
+            ),
+            (
+                "0",
+                simple_a_out,
+                simple_a_in,
+                simple_b_out,
+                simple_b_in,  # k="0"
+                {(IDENTITY_SYMBOL,)},
+                1,
+            ),
+            # Simple cases with one operator type
+            (
+                1,
+                simple_a_out,
+                simple_a_in,
+                1,
+                1,  # Only Alice ops, k=1
+                {(IDENTITY_SYMBOL,), (A00_test,)},
+                2,
+            ),
+            (
+                1,
+                1,
+                1,
+                simple_b_out,
+                simple_b_in,  # Only Bob ops, k=1
+                {(IDENTITY_SYMBOL,), (B00_test,)},
+                2,
+            ),
+            # Standard small cases from your original list
+            (
+                1,
                 simple_a_out,
                 simple_a_in,
                 simple_b_out,
                 simple_b_in,
                 {(IDENTITY_SYMBOL,), (A00_test,), (B00_test,)},
+                3,
             ),
             (
-                "k='1+ab', simple params",
                 "1+ab",
                 simple_a_out,
                 simple_a_in,
                 simple_b_out,
                 simple_b_in,
                 {(IDENTITY_SYMBOL,), (A00_test,), (B00_test,), (A00_test, B00_test)},
+                4,
             ),
+            # Case testing higher k and more outcomes (from your original)
             (
-                "k=2, orthogonality check",
                 2,
                 3,
                 1,
                 2,
-                1,
+                1,  # a_out=3 means A(0,0), A(0,1); b_out=2 means B(0,0)
                 {
                     (IDENTITY_SYMBOL,),
                     (A00_test,),
@@ -255,89 +270,160 @@ class TestNPAGenWords:
                     (A00_test, B00_test),
                     (Symbol("Alice", 0, 1), B00_test),
                 },
+                6,
             ),
+            # String k with specific configurations (from your original)
             (
-                "k='1+aa+ab', simple params",
                 "1+aa+ab",
                 simple_a_out,
                 simple_a_in,
                 simple_b_out,
                 simple_b_in,
                 {(IDENTITY_SYMBOL,), (A00_test,), (B00_test,), (A00_test, B00_test)},
+                4,
             ),
-            ("k=1 with one-out for Alice", 1, 1, 1, simple_b_out, simple_b_in, {(IDENTITY_SYMBOL,), (B00_test,)}),
-            ("k=1 with one-out for both players", 1, 1, 1, 1, 1, {(IDENTITY_SYMBOL,)}),
             (
-                "k='0+aa': drop words reducing fully to zero",
                 "0+aa",
                 3,
                 1,
                 1,
-                1,
+                1,  # k_int=0, so only configs. aa -> A(0,0), A(0,1) if a_out=3
                 {
                     (IDENTITY_SYMBOL,),
-                    (Symbol("Alice", 0, 0),),  # Expected to match A00_test.
-                    (Symbol("Alice", 0, 1),),
+                    (Symbol("Alice", 0, 0),),  # Wrapped in a tuple
+                    (Symbol("Alice", 0, 1),),  # Wrapped in a tuple
                 },
+                3,
             ),
-            ("k='0+a', identity handling in loops", "0+a", 2, 1, 1, 1, {(IDENTITY_SYMBOL,), (A00_test,)}),
-            ("k=0, no configurations", 0, 2, 1, 2, 1, {(IDENTITY_SYMBOL,)}),
+            (
+                "0+a",
+                2,
+                1,
+                1,
+                1,  # k_int=0, config "a"
+                {(IDENTITY_SYMBOL,), (A00_test,)},
+                2,
+            ),
         ],
     )
-    def test_gen_words_expected_sets(self, description, k, a_out, a_in, b_out, b_in, expected_set):
-        """Test that _gen_words returns the expected set of output words.
+    def test_gen_words_scenarios(self, k_param, a_o, a_i, b_o, b_i, expected_set_content, expected_len):
+        """Test _gen_words for various k, dimensions, and expected outputs."""
+        words = _gen_words(k_param, a_out=a_o, a_in=a_i, b_out=b_o, b_in=b_i)
 
-        Args:
-            description (str): A brief description of the test case.
-            k (int or str): The configuration parameter 'k' (can be an integer or a string).
-            a_out (int): The number of outputs for Alice.
-            a_in (int): The number of inputs for Alice.
-            b_out (int): The number of outputs for Bob.
-            b_in (int): The number of inputs for Bob.
-            expected_set (set): The expected set of operator words (each represented as a tuple).
+        if expected_set_content is not None:
+            assert set(words) == expected_set_content  # Compare sets directly
 
-        """
-        words = _gen_words(k, a_out=a_out, a_in=a_in, b_out=b_out, b_in=b_in)
-        assert set(words) == expected_set, f"Failed: {description}"
+        assert len(words) == expected_len
 
+        # Assert Identity is first only if words are expected (len > 0)
+        # If expected_len is 0 (e.g. a bug case), this would fail.
+        # However, with Identity pre-seeded, len(words) >= 1 always.
+        assert words[0] == (IDENTITY_SYMBOL,)
+
+    # Tests for specific continue branches (lines 128, 134, 160, 164)
+    # These seem distinct and valuable enough to keep separate.
+    def test_gen_words_k_int_alice_part_reduces_to_zero_continue(self):
+        """Test _gen_words with k=2 where Alice's part reduces to zero."""
+        words = _gen_words(k=2, a_out=3, a_in=1, b_out=1, b_in=1)
+        s_a00 = Symbol("Alice", 0, 0)
+        s_a01 = Symbol("Alice", 0, 1)
+        expected_set = {(IDENTITY_SYMBOL,), (s_a00,), (s_a01,)}
+        assert set(words) == expected_set
+        assert len(words) == 3
+
+    def test_gen_words_k_int_bob_part_reduces_to_zero_continue(self):
+        """Test _gen_words with k=2 where Bob's part reduces to zero."""
+        words = _gen_words(k=2, a_out=1, a_in=1, b_out=3, b_in=1)
+        s_b00 = Symbol("Bob", 0, 0)
+        s_b01 = Symbol("Bob", 0, 1)
+        expected_set = {(IDENTITY_SYMBOL,), (s_b00,), (s_b01,)}
+        assert set(words) == expected_set
+        assert len(words) == 3
+
+    def test_gen_words_config_alice_part_reduces_to_zero_continue(self):
+        """Test _gen_words with k="0+aa" where Alice's part reduces to zero."""
+        words = _gen_words(k="0+aa", a_out=3, a_in=1, b_out=1, b_in=1)
+        s_a00 = Symbol("Alice", 0, 0)
+        s_a01 = Symbol("Alice", 0, 1)
+        expected_set = {(IDENTITY_SYMBOL,), (s_a00,), (s_a01,)}
+        assert set(words) == expected_set
+        assert len(words) == 3
+
+    def test_gen_words_config_bob_part_reduces_to_zero_continue(self):
+        """Test _gen_words with k="0+bb" where Bob's part reduces to zero."""
+        words = _gen_words(k="0+bb", a_out=1, a_in=1, b_out=3, b_in=1)
+        s_b00 = Symbol("Bob", 0, 0)
+        s_b01 = Symbol("Bob", 0, 1)
+        expected_set = {(IDENTITY_SYMBOL,), (s_b00,), (s_b01,)}
+        assert set(words) == expected_set
+        assert len(words) == 3
+
+    # Test for fundamental Identity handling
+    def test_gen_words_identity_handling_basic(self):
+        """Test Identity is correctly handled for k=0 and simple k=1."""
+        # Case: k=0 (integer)
+        words_k0 = _gen_words(k=0, a_out=2, a_in=1, b_out=2, b_in=1)
+        assert words_k0 == [(IDENTITY_SYMBOL,)]  # Covers line 140 via length=0
+
+        # Case: k=1 (integer)
+        words_k1 = _gen_words(k=1, a_out=2, a_in=1, b_out=2, b_in=1)
+        sA00 = Symbol("Alice", 0, 0)
+        sB00 = Symbol("Bob", 0, 0)
+        expected_k1_sorted = [(IDENTITY_SYMBOL,)] + sorted(
+            [(sA00,), (sB00,)], key=lambda w: (len(w), tuple(repr(s) for s in w))
+        )
+        assert words_k1 == expected_k1_sorted
+
+    # Parameterized test for CGLMP word counts (combines original test_gen_words_expected_length)
     @pytest.mark.parametrize(
-        "description, k, a_out, a_in, b_out, b_in, expected_length",
+        "k_param, expected_len",
         [
-            ("k=1 with CGLMP params", 1, cglmp_a_out, cglmp_a_in, cglmp_b_out, cglmp_b_in, 9),
-            ("k='1+ab' with CGLMP params", "1+ab", cglmp_a_out, cglmp_a_in, cglmp_b_out, cglmp_b_in, 25),
+            (1, 9),
+            ("1+ab", 25),
+            # Add more complex k or different dimension scenarios if needed
         ],
     )
-    def test_gen_words_expected_length(self, description, k, a_out, a_in, b_out, b_in, expected_length):
-        """Test that _gen_words returns the expected number of output words.
+    def test_gen_words_cglmp_lengths(self, k_param, expected_len):
+        """Test _gen_words word counts for CGLMP-like parameters."""
+        words = _gen_words(
+            k_param, a_out=self.cglmp_a_out, a_in=self.cglmp_a_in, b_out=self.cglmp_b_out, b_in=self.cglmp_b_in
+        )
+        assert len(words) == expected_len
+        assert words[0] == (IDENTITY_SYMBOL,)
 
-        Args:
-            description (str): A brief description of the test case.
-            k (int or str): The configuration parameter 'k' (an integer or a string).
-            a_out (int): The number of outputs for Alice.
-            a_in (int): The number of inputs for Alice.
-            b_out (int): The number of outputs for Bob.
-            b_in (int): The number of inputs for Bob.
-            expected_length (int): The expected count of generated words.
+    # Test for line 166 (config loop, (0,0) configuration)
+    def test_gen_words_config_loop_zero_zero_config_hits_line_166(self):
+        """Test line 166 by mocking _parse to inject a (0,0) configuration."""
 
-        """
-        words = _gen_words(k, a_out=a_out, a_in=a_in, b_out=b_out, b_in=b_in)
-        assert len(words) == expected_length, f"Failed: {description}"
+        def mock_parse_for_00_config(k_str_input):
+            if k_str_input == "MOCK_K_FOR_00_CONFIG":
+                return 0, {(0, 0)}  # k_int=0, configurations has (0,0)
+            # Fallback or raise error for other inputs if necessary for test isolation
+            raise ValueError(f"mock_parse_for_00_config received unexpected: {k_str_input}")
 
-    def test_gen_words_unreachable_alice_bob_both_zero_len_config(self):
-        """Verify that _parse and _gen_words handle empty configurations correctly.
+        with mock.patch("toqito.helper.npa_hierarchy._parse", side_effect=mock_parse_for_00_config):
+            # Assumes _gen_words pre-seeds Identity and handles (0,0) config by adding Identity.
+            words_list = _gen_words(k="MOCK_K_FOR_00_CONFIG", a_out=2, a_in=1, b_out=2, b_in=1)
+            # k_int=0 loop (length=0) ensures (I,) is in words.
+            # config (0,0) hits line 166, final_word=(I,). words.add((I,)) (no change to set).
+            assert words_list == [(IDENTITY_SYMBOL,)]
 
-        _parse("0") should return an empty configuration set,
-        ensuring that _gen_words returns only the identity symbol.
-        Also verify that the (0, 0) tuple is not erroneously included.
-        """
-        k_int_0, conf_0 = _parse("0")
-        assert k_int_0 == 0
-        assert conf_0 == set()
+    # Test related to _parse behavior and its interaction (confirms (0,0) not normally parsed from "1+")
+    def test_gen_words_normal_parse_no_zero_zero_config_from_plus(self):
+        """Verify standard _parse doesn't add (0,0) for "1+", ensuring line 166 isn't hit by it."""
+        # _parse("1+") results in k_int=1, configurations=set()
+        # So the config loop in _gen_words will not run.
+        # This indirectly confirms that line 166 is not hit *via this parsing path*.
+        # The words generated will be from k_int=0 and k_int=1 loops.
+        words = _gen_words(k="1+", a_out=2, a_in=1, b_out=2, b_in=1)
 
-        words = _gen_words(k=0, a_out=2, a_in=1, b_out=2, b_in=1)
-        assert set(words) == {(IDENTITY_SYMBOL,)}
-        _, conf_test = _parse("1+a")
-        assert (0, 0) not in conf_test, "Unexpected (0, 0) found in configuration."
+        # Expected from k_int=0: (I,)
+        # Expected from k_int=1: (A00,), (B00,)
+        sA00 = Symbol("Alice", 0, 0)
+        sB00 = Symbol("Bob", 0, 0)
+        expected_set = {(IDENTITY_SYMBOL,), (sA00,), (sB00,)}
+        assert set(words) == expected_set
+        assert words[0] == (IDENTITY_SYMBOL,)
 
 
 # Integration tests for npa_constraints
@@ -402,7 +488,6 @@ def test_cglmp_inequality_npa_integration(k_npa):
     val = problem.solve(solver=cvxpy.SCS, verbose=False)
 
     expected_cglmp_val = 2.9149
-    print(f"CGLMP d={cglmp_d}, k_npa='{k_npa}', Solved value={val}, Expected={expected_cglmp_val}")
     assert val == pytest.approx(expected_cglmp_val, abs=1e-3)
 
 

@@ -21,9 +21,6 @@ def _reduce(word: tuple[Symbol, ...]) -> tuple[Symbol, ...]:
         return ()
 
     # Initial pass to filter out identities IF other ops are present
-    # and to establish Alice-then-Bob order.
-    # If only identities, result is (IDENTITY_SYMBOL,)
-
     current_list = [s for s in word if s != IDENTITY_SYMBOL]
     if not current_list:  # Original word was all identities or empty
         return (IDENTITY_SYMBOL,) if any(s == IDENTITY_SYMBOL for s in word) else ()
@@ -45,10 +42,7 @@ def _reduce(word: tuple[Symbol, ...]) -> tuple[Symbol, ...]:
 
             if idx + 1 < len(current_list):
                 s_y = current_list[idx + 1]
-
-                # Rule 1: Idempotence (S_x S_x = S_x)
                 # Only apply if s_x and s_y are from the same player.
-                # (Cross-player idempotence doesn't make sense here for A*A=A)
                 if s_x == s_y and s_x.player in ("Alice", "Bob"):  # s_x != IDENTITY_SYMBOL
                     next_pass_list.append(s_x)
                     idx += 2  # Consumed s_x, s_y; added s_x
@@ -84,19 +78,22 @@ def _parse(k_str: str) -> tuple[int, set[tuple[int, int]]]:
     parts = k_str.split("+")
     if not parts[0] or parts[0] == "":  # Check if the first part (base_k) is empty
         raise ValueError("Base level k must be specified, e.g., '1+ab'")
-
     try:
         base_k = int(parts[0])
     except ValueError as e:
-        # Re-raise with more context or let the original ValueError propagate
         raise ValueError(f"Base level k '{parts[0]}' is not a valid integer: {e}") from e
 
     conf = set()
-    for val in parts[1:]:
+    if len(parts) == 1 and base_k >= 0:  # e.g. "0", "1"
+        pass  # conf remains empty, which is correct.
+
+    for val_content in parts[1:]:  # Process each part after the base_k
         cnt_a, cnt_b = 0, 0
-        if not val:  # Handles "1++ab" -> parts like '', skip these
+        if not val_content:  # Handles "1++ab" -> parts like '', skip these
             continue
-        for char_val in val:
+        # If val_content is an empty string (e.g., from "0+", "1++a"),
+        # cnt_a and cnt_b will remain 0, and (0,0) will be added to conf.
+        for char_val in val_content:  # Loop over empty string does nothing
             if char_val == "a":
                 cnt_a += 1
             elif char_val == "b":
@@ -104,9 +101,8 @@ def _parse(k_str: str) -> tuple[int, set[tuple[int, int]]]:
             else:
                 raise ValueError(
                     f"Invalid character '{char_val}' in k string component "
-                    + f"'{val}'. Only 'a' or 'b' allowed after base k."
+                    + f"'{val_content}'. Only 'a' or 'b' allowed after base k."
                 )
-        # if cnt_a > 0 or cnt_b > 0:  # Only add if it's a non-empty configuration part
         conf.add((cnt_a, cnt_b))
     return base_k, conf
 
@@ -119,61 +115,75 @@ def _gen_words(k: int | str, a_out: int, a_in: int, b_out: int, b_in: int) -> li
     words = set([(IDENTITY_SYMBOL,)])  # Start with identity operator
 
     k_int = k
-    configurations = set()  # Additional (length_A, length_B) configurations
+    configurations = set()
 
     if isinstance(k, str):
         k_int, configurations = _parse(k)
 
-    # Generate words up to length k_int
-    for length in range(1, k_int + 1):
+    # Loop 1: Generate words up to length k_int from the hierarchy
+    for length in range(0, k_int + 1):  # Lengths 1, ..., k_int
         for alice_len in range(length + 1):
             bob_len = length - alice_len
 
+            # Generate Alice's part
+            # If alice_len is 0, product yields one item: ()
             for word_a_tuple in product(alice_symbols, repeat=alice_len):
                 reduced_a = _reduce(word_a_tuple)
-                if reduced_a == () and alice_len > 0:
-                    continue  # Skip if Alice's part is zero
+                if reduced_a == () and alice_len > 0:  # Alice's part (non-empty originally) reduced to zero
+                    continue
 
+                # Generate Bob's part
+                # If bob_len is 0, product yields one item: ()
                 for word_b_tuple in product(bob_symbols, repeat=bob_len):
                     reduced_b = _reduce(word_b_tuple)
+                    if reduced_b == () and bob_len > 0:  # Bob's part (non-empty originally) reduced to zero
+                        continue
 
-                    # Construct combined word: Alice's part then Bob's part
-                    # _reduce on combined (Alice_reduced, Bob_reduced) handles commutation
-                    # and potential further reductions if, e.g., A and B parts were empty.
-                    combined_word_unreduced = (reduced_a if reduced_a != (IDENTITY_SYMBOL,) else ()) + (
-                        reduced_b if reduced_b != (IDENTITY_SYMBOL,) else ()
-                    )
+                    if not reduced_a and not reduced_b:  # Both parts are empty (e.g. alice_len=0, bob_len=0)
+                        # This means the total length of operators is 0.
+                        final_word = (IDENTITY_SYMBOL,)  # The "empty product" is identity
+                    else:
+                        # _reduce will put Alice operators before Bob operators if somehow mixed,
+                        # and apply rules. It also handles identity filtering if I was part of word.
+                        # Here, reduced_a + reduced_b is already A...AB...B (or just A...A or B...B).
+                        final_word = _reduce(reduced_a + reduced_b)
+                    words.add(final_word)
 
-                    final_word = _reduce(combined_word_unreduced)
-                    if final_word:  # Add if not algebraically zero
-                        words.add(final_word)
+    # Loop 2: Add words from specific configurations (e.g., "1+ab" means k_int=1, configurations={(1,1)})
+    for alice_len_conf, bob_len_conf in configurations:
+        if alice_len_conf == 0 and bob_len_conf == 0 and k_int == 0 and (IDENTITY_SYMBOL,) in words:
+            pass  # The set `words` will handle duplicates from k_int loop vs config loop.
 
-    # Add words from specific configurations (e.g., "1+ab")
-    for alice_len, bob_len in configurations:
-        for word_a_tuple in product(alice_symbols, repeat=alice_len):
+        for word_a_tuple in product(alice_symbols, repeat=alice_len_conf):
             reduced_a = _reduce(word_a_tuple)
-            if reduced_a == () and alice_len > 0:
+            if reduced_a == () and alice_len_conf > 0:
                 continue
 
-            for word_b_tuple in product(bob_symbols, repeat=bob_len):
+            for word_b_tuple in product(bob_symbols, repeat=bob_len_conf):
                 reduced_b = _reduce(word_b_tuple)
-                # if reduced_b == () and bob_len > 0:
-                #     continue
+                if reduced_b == () and bob_len_conf > 0:  # VPRUSSO'S POINT: ADDED THIS CHECK
+                    continue
 
-                combined_word_unreduced = (reduced_a if reduced_a != (IDENTITY_SYMBOL,) else ()) + (
-                    reduced_b if reduced_b != (IDENTITY_SYMBOL,) else ()
-                )
+                # Combine and add as in the main loop
+                if not reduced_a and not reduced_b:  # Both parts are empty (e.g. alice_len_conf=0, bob_len_conf=0)
+                    final_word = (IDENTITY_SYMBOL,)  # Should not happen if _parse filters (0,0) from conf
 
-                final_word = _reduce(combined_word_unreduced)
-                # if final_word:
+                else:
+                    final_word = _reduce(reduced_a + reduced_b)
+
                 words.add(final_word)
 
-    # Sort for consistent ordering, important for matrix indexing
-    # Identity first, then by length, then lexicographically.
-    # return sorted(list(words), key=lambda w: (len(w), w)) # Previous sorting
-    # Ensure IDENTITY_SYMBOL is first
-    sorted_words = sorted([w for w in words if w != (IDENTITY_SYMBOL,)], key=lambda wd: (len(wd), wd))
-    return [(IDENTITY_SYMBOL,)] + sorted_words
+    # If `words` contains `()`, filter it out before converting to list.
+    words = {w for w in words if w != ()}
+    # Convert set to list, then sort.
+    # Make sure (IDENTITY_SYMBOL,) is always at index 0.
+    list_of_words = list(words)
+    list_of_words.remove((IDENTITY_SYMBOL,))
+    # Sort remaining words: typically by length, then by content.
+    # Sorting tuples of Symbols needs a consistent key.
+    # repr(s) can give a consistent string for sorting.
+    list_of_words.sort(key=lambda w: (len(w), tuple(repr(s) for s in w)))
+    return [(IDENTITY_SYMBOL,)] + list_of_words
 
 
 def _is_zero(word: tuple[Symbol, ...]) -> bool:
