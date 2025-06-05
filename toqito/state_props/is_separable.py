@@ -90,11 +90,11 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     8.  **Reduction Criterion (Horodecki & Horodecki 1999)** :cite:`Horodecki_1998_Reduction`:
 
         - If :math:`I_A \otimes \rho_B - \rho \not\succeq 0`
-            or :math:`\rho_A \otimes I_B - \rho \not\succeq 0` (where
-            :math:`\rho_A, \rho_B` are reduced states), the state is entangled.
-            For PPT states (which is the case if this part of the function is
-            reached), this criterion is always satisfied, so its primary strength
-            is for NPT states (already handled).
+          or :math:`\rho_A \otimes I_B - \rho \not\succeq 0` (where
+          :math:`\rho_A, \rho_B` are reduced states), the state is entangled.
+          For PPT states (which is the case if this part of the function is
+          reached), this criterion is always satisfied, so its primary strength
+          is for NPT states (already handled).
 
     9.  **Realignment/CCNR Criteria**:
 
@@ -105,9 +105,9 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     10. **Rank-1 Perturbation of Identity for PPT States (Vidal & Tarrach 1999)** :cite:`Vidal_1999_Robust`:
 
         - PPT states that are very close to a specific type of rank-1 perturbation
-            of the identity matrix are separable. This is checked by examining the
-            eigenvalue spectrum: if the gap between the second largest and smallest
-            eigenvalues is small.
+          of the identity matrix are separable. This is checked by examining the
+          eigenvalue spectrum: if the gap between the second largest and smallest
+          eigenvalues is small.
 
     11. **2xN Specific Checks for PPT States**:
         For bipartite systems where one subsystem is a qubit (:math:`d_A=2`) and the
@@ -159,8 +159,10 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
 
     .. math::
         \rho = \rho_1 \otimes \rho_2.
+
         \rho_1 = \frac{1}{2} \left(
             |0 \rangle \langle 0| + |0 \rangle \langle 1| + |1 \rangle \langle 0| + |1 \rangle \langle 1| \right)
+
         \rho_2 = \frac{1}{2} \left( |0 \rangle \langle 0| + |1 \rangle \langle 1| \right)
 
     The resulting density matrix will be:
