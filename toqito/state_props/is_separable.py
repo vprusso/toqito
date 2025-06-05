@@ -46,7 +46,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
            QETLAB also considers a more general Operator Schmidt Rank condition
            from :cite:`Cariello_2013_Weak_irreducible` for weak irreducible
            matrices. This is not explicitly separated in this function but might be
-           covered if such matrices are rank 1 (a potential future enhancement).
+           covered if such matrices are rank 1 (see issue #1245).
 
 
     4.  **Gurvits-Barnum Separable Ball**:
@@ -89,11 +89,10 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
 
     8.  **Reduction Criterion (Horodecki & Horodecki 1999)** :cite:`Horodecki_1998_Reduction`:
 
-        - If :math:`I_A \otimes \rho_B - \rho \not\succeq 0`
-          or :math:`\rho_A \otimes I_B - \rho \not\succeq 0` (where
-          :math:`\rho_A, \rho_B` are reduced states), the state is entangled.
-          This means the operator is not positive semidefinite.
-          For PPT states (which is the case if this part of the function is
+        - The state is entangled if :math:`I_A \otimes \rho_B - \rho \not\succeq 0` or
+          :math:`\rho_A \otimes I_B - \rho \not\succeq 0`. This is a check for positive
+          semidefiniteness based on the Loewner partial order, not a check for majorization.
+        - For PPT states (which is the case if this part of the function is
           reached), this criterion is always satisfied, so its primary strength
           is for NPT states (already handled).
 
@@ -237,9 +236,18 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     .. bibliography::
         :filter: docname in docnames
 
-    :raises ValueError: If the input state is not a square, positive semidefinite matrix,
-                        or if the dimensions are specified incorrectly (e.g., product
-                        of dimensions does not match state size, invalid `dim` type, etc.).
+    :raises ValueError:
+
+        - If the input `state` is not a square matrix.
+        - If the input `state` is not positive semidefinite.
+        - If the input `state` has a trace close to zero but contains significant non-zero elements.
+        - If the `dim` parameter has an invalid type (not None, int, or list).
+        - If `dim` is provided as an integer that does not evenly divide the state's dimension.
+        - If `dim` is provided as a list with a number of elements other than two.
+        - If `dim` is provided as a list with non-integer or negative elements.
+        - If the product of the dimensions in the `dim` list does not match the state's dimension.
+        - If a dimension of zero is provided for a non-empty state (or vice-versa).
+
     :param state: The density matrix to check.
     :param dim: The dimension of the input state, e.g., [dim_A, dim_B]. Optional; inferred if None.
     :param level: The level for symmetric extensions (default: 2). A level of -1 implies
