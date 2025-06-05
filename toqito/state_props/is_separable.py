@@ -34,10 +34,12 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         subsystem dimensions :math:`d_A, d_B` is processed or inferred.
 
     2.  **Trivial Cases for Separability**:
+
         - If either subsystem dimension :math:`d_A` or :math:`d_B` is 1
           (i.e., :code:`min_dim_val == 1`), the state is always separable.
 
     3.  **Pure State Check (Schmidt Rank)**:
+
         - If the input state has rank 1 (i.e., it's a pure state), its Schmidt rank is computed.
           A pure state is separable if and only if its Schmidt rank is 1 :cite:`WikiScmidtDecomp`.
         .. note::
@@ -49,6 +51,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
 
 
     4.  **Gurvits-Barnum Separable Ball**:
+
         - Checks if the state lies within the "separable ball" around the
           maximally mixed state, as defined by Gurvits and Barnum
           :cite:`Gurvits_2002_Ball`. States within this ball are guaranteed to be
@@ -57,6 +60,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     5.  **PPT Criterion (Peres-Horodecki)**
         :cite:`Peres_1996_Separability`,
         :cite:`Horodecki_1996_PPT_small_dimensions`:
+
         - The Positive Partial Transpose (PPT) criterion is a necessary condition
           for separability.
         - If the state is NPT (Not PPT), it is definitively entangled.
@@ -66,6 +70,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
 
 
     6.  **3x3 Rank-4 PPT N&S Check (Plücker Coordinates / Breuer / Chen & Djokovic)**:
+
         - For 3x3 systems, if a PPT state has rank 4, there are known
           necessary and sufficient conditions for separability. These are often
           related to the vanishing of the "Chow form" or determinants of
@@ -75,34 +80,39 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
           is close to zero.
 
     7.  **Operational Criteria for Low-Rank PPT States (Horodecki et al. 2000)** :cite:`Horodecki_2000_PPT_low_rank`:
+
         For PPT states (especially when :math:`d_A d_B > 6`):
+
         - If :math:`\text{rank}(\rho) \le \max(d_A, d_B)`, the state is
           separable.
-        - If :math:`\text{rank}(\rho) + \text{rank}(\rho^{T_A}) \le 2 d_A d_B - d_A - d_B + 2`,
-          the state is separable.
+        - If :math:`\text{rank}(\rho) + \text{rank}(\rho^{T_A}) \le 2 d_A d_B - d_A - d_B + 2`, the state is separable.
 
     8.  **Reduction Criterion (Horodecki & Horodecki 1999)** :cite:`Horodecki_1998_Reduction`:
-        - If :math:`I_A \otimes \rho_B - \rho \not\succeq 0` or
-          :math:`\rho_A \otimes I_B - \rho \not\succeq 0` (where
-          :math:`\rho_A, \rho_B` are reduced states), the state is entangled.
-          For PPT states (which is the case if this part of the function is
-          reached), this criterion is always satisfied, so its primary strength
-          is for NPT states (already handled).
+
+        - If :math:`I_A \otimes \rho_B - \rho \not\succeq 0`
+            or :math:`\rho_A \otimes I_B - \rho \not\succeq 0` (where
+            :math:`\rho_A, \rho_B` are reduced states), the state is entangled.
+            For PPT states (which is the case if this part of the function is
+            reached), this criterion is always satisfied, so its primary strength
+            is for NPT states (already handled).
 
     9.  **Realignment/CCNR Criteria**:
+
         - **Basic Realignment (Chen & Wu 2003)** :cite:`Chen_2003_Matrix`:
           If the trace norm of the realigned matrix is greater than 1, the
           state is entangled.
 
     10. **Rank-1 Perturbation of Identity for PPT States (Vidal & Tarrach 1999)** :cite:`Vidal_1999_Robust`:
+
         - PPT states that are very close to a specific type of rank-1 perturbation
-          of the identity matrix are separable. This is checked by examining the
-          eigenvalue spectrum: if the gap between the second largest and smallest
-          eigenvalues is small.
+            of the identity matrix are separable. This is checked by examining the
+            eigenvalue spectrum: if the gap between the second largest and smallest
+            eigenvalues is small.
 
     11. **2xN Specific Checks for PPT States**:
         For bipartite systems where one subsystem is a qubit (:math:`d_A=2`) and the
         other is N-dimensional (:math:`d_B=N`), several specific conditions apply:
+
         - **Johnston's Spectral Condition (2013)** :cite:`Johnston_2013_Spectrum`:
           An inequality involving the largest and smallest eigenvalues of a 2xN PPT
           state that is sufficient for separability.
@@ -122,6 +132,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     12. **Decomposable Maps / Entanglement Witnesses**:
         These tests apply positive but not completely positive (PNCP) maps. If the
         resulting state is not PSD, the original state is entangled.
+
         - **Ha-Kye Maps (3x3 systems)** :cite:`HaKye2011_PositiveMaps`: Specific maps
           for qutrit-qutrit systems.
         - **Breuer-Hall Maps (even dimensions)** :cite:`Breuer_2006_Mixed`, :cite:`Hall2006_Indecomposable`:
@@ -129,8 +140,8 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
           has even dimension.
 
     13. **Symmetric Extension Hierarchy (DPS)** :cite:`Doherty2004_CompleteFamily`:
-        - A state is separable if and only if it has a k-symmetric extension for
-          all :math:`k \ge 1`.
+
+        - A state is separable if and only if it has a k-symmetric extension for all :math:`k \ge 1`.
         - This function checks for k-extendibility up to the specified :code:`level`.
         - If :code:`level=1` and the state is PPT (which it is at this stage),
           it's 1-extendible and thus considered separable by this specific test level.
