@@ -1,7 +1,7 @@
 import numpy as np
 
-from nonlocal_game import NonlocalGame
-from binary_constraint_system_game import (
+from toqito.nonlocal_games.nonlocal_game import NonlocalGame
+from toqito.nonlocal_games.binary_constraint_system_game import (
     create_bcs_constraints,
     check_perfect_commuting_strategy,
 )

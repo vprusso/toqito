@@ -11,8 +11,8 @@ from toqito.helper import npa_constraints, update_odometer
 from toqito.matrix_ops import tensor
 from toqito.rand import random_povm
 
-from binary_constraint_system_game import check_perfect_commuting_strategy
-from tensor_unravel import tensor_unravel
+from toqito.nonlocal_games.binary_constraint_system_game import check_perfect_commuting_strategy
+from toqito.matrix_ops.tensor_unravel import tensor_unravel
 
 
 @nb.njit

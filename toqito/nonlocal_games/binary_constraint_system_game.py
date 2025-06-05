@@ -1,7 +1,5 @@
 import numpy as np
 
-from toqito.nonlocal_games.nonlocal_game import NonlocalGame
-
 
 def create_bcs_constraints(M: np.ndarray, b: np.ndarray):
     r"""

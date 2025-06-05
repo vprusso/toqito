@@ -1,7 +1,7 @@
 import unittest
 import numpy as np
 
-from tensor_unravel import tensor_unravel
+from toqito.matrix_ops.tensor_unravel import tensor_unravel
 
 class TestTensorUnravel(unittest.TestCase):
     
