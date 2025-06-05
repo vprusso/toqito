@@ -9,9 +9,3 @@ from toqito.channel_props.is_trace_preserving import is_trace_preserving
 from toqito.channel_props.is_quantum_channel import is_quantum_channel
 from toqito.channel_props.is_unitary import is_unitary
 from toqito.channel_props.is_extremal import is_extremal
-
-
-__all__ = ["choi_rank", "is_completely_positive", "is_extremal",
-    "is_herm_preserving", "is_positive", "is_quantum_channel",
-    "is_trace_preserving", "is_unital", "is_unitary",
-]

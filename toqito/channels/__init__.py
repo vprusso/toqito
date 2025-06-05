@@ -22,7 +22,18 @@ from toqito.matrix_ops import partial_trace
 from toqito.matrix_ops import partial_transpose
 
 # Define the public API of this module
-__all__ = ["amplitude_damping", "bitflip", "choi", "choi_to_kraus", "dephasing",
-    "depolarizing", "kraus_to_choi", "partial_trace", "partial_transpose",
-    "pauli_channel", "phase_damping", "realignment", "reduction",
+__all__ = [
+    "amplitude_damping",
+    "bitflip",
+    "choi",
+    "dephasing",
+    "depolarizing",
+    "pauli_channel",
+    "phase_damping",
+    "realignment",
+    "reduction", # Add if reduction is defined/imported above
+    "kraus_to_choi",
+    "choi_to_kraus", # Add if imported above
+    "partial_trace",    # If you decided to re-export for backward compatibility
+    "partial_transpose",# If you decided to re-export for backward compatibility
 ]
