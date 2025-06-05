@@ -34,52 +34,65 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         subsystem dimensions :math:`d_A, d_B` is processed or inferred.
 
     2.  **Trivial Cases for Separability**:
-        - If either subsystem dimension :math:`d_A` or :math:`d_B` is 1 (i.e., `min_dim_val == 1`),
-          the state is always separable.
+        - If either subsystem dimension :math:`d_A` or :math:`d_B` is 1
+          (i.e., :code:`min_dim_val == 1`), the state is always separable.
 
     3.  **Pure State Check (Schmidt Rank)**:
         - If the input state has rank 1 (i.e., it's a pure state), its Schmidt rank is computed.
           A pure state is separable if and only if its Schmidt rank is 1 :cite:`WikiScmidtDecomp`.
-          (Note: QETLAB also considers a more general Operator Schmidt Rank condition from
-          :cite:`Cariello_2013_Weak_irreducible` for weak irreducible matrices, which is not
-          explicitly separated here but might be covered if such matrices are rank 1).
+        .. note::
+           QETLAB also considers a more general Operator Schmidt Rank condition
+           from :cite:`Cariello_2013_Weak_irreducible` for weak irreducible
+           matrices. This is not explicitly separated in this function but might be
+           covered if such matrices are rank 1. This is a candidate for a
+           future enhancement (see Issue #XYZ).
+
 
     4.  **Gurvits-Barnum Separable Ball**:
-        - Checks if the state lies within the "separable ball" around the maximally mixed state,
-          as defined by Gurvits and Barnum :cite:`Gurvits_2002_Ball`. States within this ball are
-          guaranteed to be separable.
+        - Checks if the state lies within the "separable ball" around the
+          maximally mixed state, as defined by Gurvits and Barnum
+          :cite:`Gurvits_2002_Ball`. States within this ball are guaranteed to be
+          separable.
 
-    5.  **PPT Criterion (Peres-Horodecki)** :cite:`Peres_1996_Separability`,
+    5.  **PPT Criterion (Peres-Horodecki)**
+        :cite:`Peres_1996_Separability`,
         :cite:`Horodecki_1996_PPT_small_dimensions`:
-        - The Positive Partial Transpose (PPT) criterion is a necessary condition for separability.
+        - The Positive Partial Transpose (PPT) criterion is a necessary condition
+          for separability.
         - If the state is NPT (Not PPT), it is definitively entangled.
-        - If the state is PPT and the total dimension :math:`d_A d_B \le 6`, then PPT is also a
-          *sufficient* condition for separability :cite:`Horodecki_1996_PPT_small_dimensions`.
+        - If the state is PPT and the total dimension :math:`d_A d_B \le 6`,
+          then PPT is also a *sufficient* condition for separability
+          :cite:`Horodecki_1996_PPT_small_dimensions`.
+
 
     6.  **3x3 Rank-4 PPT N&S Check (Plücker Coordinates / Breuer / Chen & Djokovic)**:
-        - For 3x3 systems, if a PPT state has rank 4, there are known necessary and sufficient
-          conditions for separability, often related to the vanishing of the "Chow form" or
-          determinants of matrices constructed from Plücker coordinates of the state's range
+        - For 3x3 systems, if a PPT state has rank 4, there are known
+          necessary and sufficient conditions for separability. These are often
+          related to the vanishing of the "Chow form" or determinants of
+          matrices constructed from Plücker coordinates of the state's range
           (e.g., :cite:`Breuer_2006_Optimal`, :cite:`Chen_2013_MultipartiteRank4`).
-          The implementation checks if a specific determinant (`F_det_val`) is close to zero.
+          The implementation checks if a specific determinant (:code:`F_det_val`)
+          is close to zero.
 
     7.  **Operational Criteria for Low-Rank PPT States (Horodecki et al. 2000)** :cite:`Horodecki_2000_PPT_low_rank`:
         For PPT states (especially when :math:`d_A d_B > 6`):
-        - If :math:`\text{rank}(\rho) \le \max(d_A, d_B)`, the state is separable.
+        - If :math:`\text{rank}(\rho) \le \max(d_A, d_B)`, the state is
+          separable.
         - If :math:`\text{rank}(\rho) + \text{rank}(\rho^{T_A}) \le 2 d_A d_B - d_A - d_B + 2`,
           the state is separable.
 
     8.  **Reduction Criterion (Horodecki & Horodecki 1999)** :cite:`Horodecki_1998_Reduction`:
-        - If :math:`I_A \otimes \rho_B - \rho \not\succeq 0` or :math:`\rho_A \otimes I_B - \rho \not\succeq 0`
-          (where :math:`\rho_A, \rho_B` are reduced states), the state is entangled.
-          For PPT states (which is the case if this part of the function is reached), this criterion
-          is always satisfied, so its primary strength is for NPT states (already handled).
+        - If :math:`I_A \otimes \rho_B - \rho \not\succeq 0` or
+          :math:`\rho_A \otimes I_B - \rho \not\succeq 0` (where
+          :math:`\rho_A, \rho_B` are reduced states), the state is entangled.
+          For PPT states (which is the case if this part of the function is
+          reached), this criterion is always satisfied, so its primary strength
+          is for NPT states (already handled).
 
     9.  **Realignment/CCNR Criteria**:
-        - **Basic Realignment (Chen & Wu 2003)** :cite:`Chen_2003_Matrix`: If the trace norm of the
-          realigned matrix is greater than 1, the state is entangled.
-        - **Zhang et al. 2008 Variant** :cite:`Zhang_2008_Beyond_realignment`: A stricter condition based on
-          :math:`\rho - \rho_A \otimes \rho_B`.
+        - **Basic Realignment (Chen & Wu 2003)** :cite:`Chen_2003_Matrix`:
+          If the trace norm of the realigned matrix is greater than 1, the
+          state is entangled.
 
     10. **Rank-1 Perturbation of Identity for PPT States (Vidal & Tarrach 1999)** :cite:`Vidal_1999_Robust`:
         - PPT states that are very close to a specific type of rank-1 perturbation
