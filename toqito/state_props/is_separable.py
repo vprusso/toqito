@@ -27,7 +27,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     Overview
     ==========
     This function implements several criteria to determine separability, broadly following a similar
-    order of checks as seen in tools like QETLAB's :code:`IsSeparable` function.
+    order of checks as seen in tools like QETLAB's :code:`IsSeparable` function :cite:`QETLAB_link`.
 
     1.  **Input Validation**: Checks if the input :code:`state` is a square, positive semidefinite (PSD)
         NumPy array. Normalizes the trace to 1 if necessary. The :code:`dim` parameter specifying
@@ -46,8 +46,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
            QETLAB also considers a more general Operator Schmidt Rank condition
            from :cite:`Cariello_2013_Weak_irreducible` for weak irreducible
            matrices. This is not explicitly separated in this function but might be
-           covered if such matrices are rank 1. This is a candidate for a
-           future enhancement (see Issue #XYZ).
+           covered if such matrices are rank 1 (a potential future enhancement).
 
 
     4.  **Gurvits-Barnum Separable Ball**:
@@ -76,8 +75,8 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
           related to the vanishing of the "Chow form" or determinants of
           matrices constructed from Plücker coordinates of the state's range
           (e.g., :cite:`Breuer_2006_Optimal`, :cite:`Chen_2013_MultipartiteRank4`).
-          The implementation checks if a specific determinant (:code:`F_det_val`)
-          is close to zero.
+          The implementation checks if a specific determinant, derived from
+          Plücker coordinates of the state's range, is close to zero.
 
     7.  **Operational Criteria for Low-Rank PPT States (Horodecki et al. 2000)** :cite:`Horodecki_2000_PPT_low_rank`:
 
@@ -85,13 +84,15 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
 
         - If :math:`\text{rank}(\rho) \le \max(d_A, d_B)`, the state is
           separable.
-        - If :math:`\text{rank}(\rho) + \text{rank}(\rho^{T_A}) \le 2 d_A d_B - d_A - d_B + 2`, the state is separable.
+        - If :math:`\text{rank}(\rho) + \text{rank}(\rho^{\{T_A\}}) \le 2 d_A d_B - d_A - d_B + 2`,
+          the state is separable.
 
     8.  **Reduction Criterion (Horodecki & Horodecki 1999)** :cite:`Horodecki_1998_Reduction`:
 
         - If :math:`I_A \otimes \rho_B - \rho \not\succeq 0`
           or :math:`\rho_A \otimes I_B - \rho \not\succeq 0` (where
           :math:`\rho_A, \rho_B` are reduced states), the state is entangled.
+          This means the operator is not positive semidefinite.
           For PPT states (which is the case if this part of the function is
           reached), this criterion is always satisfied, so its primary strength
           is for NPT states (already handled).
@@ -107,7 +108,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         - PPT states that are very close to a specific type of rank-1 perturbation
           of the identity matrix are separable. This is checked by examining the
           eigenvalue spectrum: if the gap between the second largest and smallest
-          eigenvalues is small.
+          eigenvalues is small, the state is determined to be separable.
 
     11. **2xN Specific Checks for PPT States**:
         For bipartite systems where one subsystem is a qubit (:math:`d_A=2`) and the
@@ -121,9 +122,10 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
             :cite:`Hildebrand_2008_Semidefinite`,
             :cite:`Hildebrand_2005_Cone`:
 
-            - Check based on the rank of the anti-Hermitian part of the off-diagonal
-              block :math:`B` (i.e., :math:`\text{rank}(B - B^\dagger) \le 1`).
-              (Note: QETLAB refers to `B-B'` and "block Hankel").
+            - For a 2xN state written in block form :math:`\rho = [[A, B], [B^\dagger, C]]`,
+              a check is performed based on the rank of the anti-Hermitian part of the
+              off-diagonal block :math:`B` (i.e., :math:`\text{rank}(B - B^\dagger) \le 1`).
+              (Note: QETLAB refers to this property in relation to "perturbed block Hankel" matrices).
             - A check involving a transformed matrix :math:`X_{2n\_ppt\_check}`
               derived from blocks A, B, C, requiring it and its partial transpose
               to be PSD (related to homothetic images).
@@ -131,7 +133,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
               eigenvalues of blocks :math:`A` and :math:`C`.
 
     12. **Decomposable Maps / Entanglement Witnesses**:
-        These tests apply positive but not completely positive (PNCP) maps. If the
+        These tests apply positive but not completely positive (NCP) maps. If the
         resulting state is not PSD, the original state is entangled.
 
         - **Ha-Kye Maps (3x3 systems)** :cite:`HaKye2011_PositiveMaps`: Specific maps
@@ -147,12 +149,18 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         - If :code:`level=1` and the state is PPT (which it is at this stage),
           it's 1-extendible and thus considered separable by this specific test level.
         - For :code:`level >= 2`, if a k-symmetric extension exists for all k up
-          to :code:`level` (specifically, if `has_symmetric_extension` returns
-          `True` for the highest `k_actual_level_check` in the loop which is
-          `level`), the current implementation returns `True`.
-          (Note: QETLAB's `SymmetricExtension` typically tests
-          k-PPT-extendibility where failure means entangled. It also has
-          `SymmetricInnerExtension` which can prove separability.)
+          to :code:`level` (specifically, if :code:`has_symmetric_extension` returns
+          :code:`True` for the highest :code:`k_actual_level_check` in the loop, which is
+          :code:`level`), the current implementation returns :code:`True`.
+        .. note::
+            The symmetric extension check requires CVXPY and a suitable solver. If these
+            are not installed, or if the solver fails, a warning is printed to the console
+            and this check is skipped.
+        .. note::
+            QETLAB's :code:`SymmetricExtension` typically tests
+            k-PPT-extendibility, where failure means entangled. It also has
+            :code:`SymmetricInnerExtension`, which can prove separability.
+
 
     Examples
     ==========
@@ -200,6 +208,28 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                 -0.00875865-0.11144344j,  0.11998971+0.j        ]])
         is_separable(rho_not_separable)
 
+    We can also detect certain PPT-entangled states. For example, a state constructed
+    from a Breuer-Hall map is entangled but PPT.
+
+    .. jupyter-execute::
+
+        from toqito.states.max_entangled import max_entangled
+        from toqito.perms.swap_operator import swap_operator
+
+        d = 4
+        # Antisymmetric unitary
+        U = np.array([[0, 1, 0, 0], [-1, 0, 0, 0], [0, 0, 0, 1], [0, 0, -1, 0]])
+        # Swap operator for C^d x C^d
+        S = swap_operator(d)
+        # Projector onto maximally entangled state
+        phi_me = max_entangled(d, False, False)
+        P_max = phi_me @ phi_me.conj().T
+        # Breuer-Hall witness operator
+        W = np.eye(d**2) - P_max - np.kron(np.eye(d), U) @ S @ np.kron(np.eye(d), U.conj().T)
+        # The Choi state of the map is a PPT-entangled state
+        rho_ppt_entangled = W / np.trace(W)
+
+        is_separable(rho_ppt_entangled, dim=[4,4])
 
 
     References
@@ -207,12 +237,13 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     .. bibliography::
         :filter: docname in docnames
 
-    :raises ValueError: If dimension is not specified correctly or input is invalid.
+    :raises ValueError: If the input state is not a square, positive semidefinite matrix,
+                        or if the dimensions are specified incorrectly (e.g., product
+                        of dimensions does not match state size, invalid `dim` type, etc.).
     :param state: The density matrix to check.
     :param dim: The dimension of the input state, e.g., [dim_A, dim_B]. Optional; inferred if None.
-    :param level: The level for symmetric extensions (default: 2). A level of -1 (or very high) implies
-                  attempting checks exhaustively (similar to QETLAB's STR=-1, though not all QETLAB checks
-                  are implemented here).
+    :param level: The level for symmetric extensions (default: 2). A level of -1 implies
+                  attempting checks exhaustively (though not all possible checks are implemented).
     :param tol: Numerical tolerance (default: 1e-8).
     :return: :code:`True` if separable, :code:`False` if entangled or inconclusive by implemented checks.
 
@@ -224,11 +255,11 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         raise ValueError("Input state must be a square matrix.")
 
     if np.issubdtype(state.dtype, np.complexfloating):
-        _machine_eps = np.finfo(state.real.dtype).eps
+        machine_eps = np.finfo(state.real.dtype).eps
     elif np.issubdtype(state.dtype, np.floating):
-        _machine_eps = np.finfo(state.dtype).eps
+        machine_eps = np.finfo(state.dtype).eps
     else:
-        _machine_eps = np.finfo(float).eps
+        machine_eps = np.finfo(float).eps
 
     state_len = state.shape[0]
 
@@ -241,12 +272,12 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     if state_len > 0 and abs(trace_state_val) < tol:
         if np.any(
             np.abs(current_state)
-            > 100 * _machine_eps * max(1, np.max(np.abs(current_state)) if current_state.size > 0 else 1)
+            > 100 * machine_eps * max(1, np.max(np.abs(current_state)) if current_state.size > 0 else 1)
         ):
             raise ValueError("Trace of the input state is close to zero, but state is not zero matrix.")
 
     if abs(trace_state_val - 1) > tol:
-        if abs(trace_state_val) > 100 * _machine_eps:
+        if abs(trace_state_val) > 100 * machine_eps:
             current_state = current_state / trace_state_val
         elif state_len > 0 and np.any(np.abs(current_state) > tol):  #  (Hard to hit with PSD)
             raise ValueError(
@@ -254,65 +285,47 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
             )
 
     # Dimension processing
-    temp_dim_param = dim
-    if temp_dim_param is None:
+    if dim is None:
         if state_len == 0:
-            dims_arr_val = np.array([0, 0])
+            dims_list = [0, 0]
         elif state_len == 1:
-            dims_arr_val = np.array([1, 1])
+            dims_list = [1, 1]
         else:
-            dim_A_guess = int(np.round(np.sqrt(state_len)))
-            if dim_A_guess > 0 and state_len % dim_A_guess == 0:
-                dims_arr_val = np.array([dim_A_guess, state_len / dim_A_guess])
-                if (
-                    np.abs(dims_arr_val[1] - np.round(dims_arr_val[1])) >= 2 * state_len * _machine_eps
-                    and state_len > 0
-                ):
-                    found_factor = False
-                    for dA_try in range(2, int(np.sqrt(state_len)) + 1):
-                        if state_len % dA_try == 0:
-                            dims_arr_val = np.array([dA_try, state_len // dA_try])
-                            found_factor = True
-                            break
-                    if not found_factor:
-                        dims_arr_val = np.array([1, state_len])
-                else:
-                    dims_arr_val[1] = np.round(dims_arr_val[1])
-            elif state_len > 0:
+            sqrt_len = int(np.round(np.sqrt(state_len)))
+            if sqrt_len * sqrt_len == state_len:
+                dims_list = [sqrt_len, sqrt_len]
+            else:
                 found_factor = False
                 for dA_try in range(2, int(np.sqrt(state_len)) + 1):
                     if state_len % dA_try == 0:
-                        dims_arr_val = np.array([dA_try, state_len // dA_try])
+                        dims_list = [dA_try, state_len // dA_try]
                         found_factor = True
                         break
                 if not found_factor:
-                    dims_arr_val = np.array([1, state_len])
-            else:
-                dims_arr_val = np.array([0, 0])
-        dims_list = [int(d) for d in dims_arr_val]
-    elif isinstance(temp_dim_param, int):
-        if temp_dim_param <= 0:
-            if state_len == 0 and temp_dim_param == 0:
+                    dims_list = [1, state_len]
+    elif isinstance(dim, int):
+        if dim <= 0:
+            if state_len == 0 and dim == 0:
                 dims_list = [0, 0]
             else:
                 raise ValueError(
                     "Integer `dim` (interpreted as dim_A) must be positive "
                     + "for non-empty states or zero for empty states."
                 )
-        elif state_len == 0 and temp_dim_param != 0:
-            raise ValueError(f"Cannot apply positive dimension {temp_dim_param} to zero-sized state.")
-        elif state_len > 0 and temp_dim_param > 0 and state_len % temp_dim_param != 0:
+        elif state_len == 0 and dim != 0:
+            raise ValueError(f"Cannot apply positive dimension {dim} to zero-sized state.")
+        elif state_len > 0 and dim > 0 and state_len % dim != 0:
             raise ValueError("The parameter `dim` must evenly divide the length of the state.")
         else:
-            dims_list = [int(temp_dim_param), int(np.round(state_len / temp_dim_param))]
-    elif isinstance(temp_dim_param, list) and len(temp_dim_param) == 2:
-        if not all(isinstance(d, (int, np.integer)) and d >= 0 for d in temp_dim_param):
+            dims_list = [int(dim), int(np.round(state_len / dim))]
+    elif isinstance(dim, list) and len(dim) == 2:
+        if not all(isinstance(d, (int, np.integer)) and d >= 0 for d in dim):
             raise ValueError("Dimensions in list must be non-negative integers.")
-        if temp_dim_param[0] * temp_dim_param[1] != state_len:
-            if (temp_dim_param[0] == 0 or temp_dim_param[1] == 0) and state_len != 0:
+        if dim[0] * dim[1] != state_len:
+            if (dim[0] == 0 or dim[1] == 0) and state_len != 0:
                 raise ValueError("Non-zero state with zero-dim subsystem is inconsistent.")
             raise ValueError("Product of list dimensions must equal state length.")
-        dims_list = [int(d) for d in temp_dim_param]
+        dims_list = [int(d) for d in dim]
     else:
         raise ValueError("`dim` must be None, an int, or a list of two non-negative integers.")
 
@@ -466,7 +479,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
             try:
                 F_det_val = np.linalg.det(np.array(F_det_matrix_elements, dtype=complex))
                 # This condition (abs(det(F)) ~ 0 for separability) is used by QETLAB for this specific test.
-                if bool(abs(F_det_val) < max(tol**2, _machine_eps ** (3 / 4))):  #  fully
+                if bool(abs(F_det_val) < max(tol**2, machine_eps ** (3 / 4))):  #  fully
                     return True  # Separable by this 3x3 rank-4 condition
                 else:
                     return False
@@ -540,7 +553,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         if len(lam) == prod_dim_val and prod_dim_val > 1:
             # If (lambda_2 - lambda_d) is very small for a PPT state.
             diff_pert = lam[1] - lam[prod_dim_val - 1]
-            threshold_pert = tol**2 + 2 * _machine_eps
+            threshold_pert = tol**2 + 2 * machine_eps
             if diff_pert < threshold_pert:
                 return True
     except np.linalg.LinAlgError:  # If all eigenvalue computations fail #
@@ -635,12 +648,12 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
             t_iter_ha = t_raw_ha
             for j_ha_loop in range(2):  # Iterate for t and 1/t (common symmetry in these maps)
                 if j_ha_loop == 1:
-                    # if abs(t_raw_ha) < _machine_eps: #  (t_raw_ha always >= 0.1)
+                    # if abs(t_raw_ha) < machine_eps: #  (t_raw_ha always >= 0.1)
                     #     break  # Should not happen with arange
                     t_iter_ha = 1 / t_raw_ha
 
                 denom_ha = 1 - t_iter_ha + t_iter_ha**2  # Denominator from Ha-Kye map parameters
-                if abs(denom_ha) < _machine_eps:
+                if abs(denom_ha) < machine_eps:
                     continue  #  (denom_ha = 1-t+t^2 > 0 for t>0)
 
                 a_hk = (1 - t_iter_ha) ** 2 / denom_ha
