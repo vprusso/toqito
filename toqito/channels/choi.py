@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from toqito.states.max_entangled import max_entangled
+from toqito.states import max_entangled
 
 
 def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
