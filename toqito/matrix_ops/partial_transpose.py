@@ -71,7 +71,7 @@ def partial_transpose(
     .. jupyter-execute::
 
      import numpy as np
-     from toqito.channels import partial_transpose
+     from toqito.matrix_ops import partial_transpose
 
      test_input_mat = np.arange(1, 17).reshape(4, 4)
 
@@ -92,7 +92,7 @@ def partial_transpose(
     .. jupyter-execute::
 
      import numpy as np
-     from toqito.channels import partial_transpose
+     from toqito.matrix_ops import partial_transpose
 
      test_input_mat = np.arange(1, 17).reshape(4, 4)
 

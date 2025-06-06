@@ -6,7 +6,7 @@ import cvxpy
 import numpy as np
 import pytest
 
-from toqito.helper import npa_constraints
+from toqito.state_opt.npa_hierarchy import npa_constraints
 
 
 def test_gen_words_intermediate_hierarchy():

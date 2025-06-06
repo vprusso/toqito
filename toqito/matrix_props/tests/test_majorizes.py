@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from toqito.channels import partial_trace
+from toqito.matrix_ops import partial_trace
 from toqito.matrix_props import majorizes
 from toqito.states import max_entangled
 
