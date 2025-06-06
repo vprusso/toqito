@@ -267,7 +267,7 @@ def npa_constraints(
         # Should not happen if IDENTITY_SYMBOL is always included
         raise ValueError("Generated word list is empty. Check _gen_words logic.")
 
-    # Moment matrix (Gamma matrix in NPA paper)
+    # Moment matrix (Gamma matrix in :cite:`Navascues_2008_AConvergent`)
     # r_var[i,j] block corresponds to E[S_i^dagger S_j]
     moment_matrix_R = cvxpy.Variable((referee_dim * dim, referee_dim * dim), hermitian=True, name="R")
 
