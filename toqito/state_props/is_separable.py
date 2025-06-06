@@ -212,23 +212,21 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
 
     .. jupyter-execute::
 
-        from toqito.states.max_entangled import max_entangled
-        from toqito.perms.swap_operator import swap_operator
+        from toqito.states.horodecki import horodecki
+        from toqito.state_props.is_ppt import is_ppt
 
-        d = 4
-        # Antisymmetric unitary
-        U = np.array([[0, 1, 0, 0], [-1, 0, 0, 0], [0, 0, 0, 1], [0, 0, -1, 0]])
-        # Swap operator for C^d x C^d
-        S = swap_operator(d)
-        # Projector onto maximally entangled state
-        phi_me = max_entangled(d, False, False)
-        P_max = phi_me @ phi_me.conj().T
-        # Breuer-Hall witness operator
-        W = np.eye(d**2) - P_max - np.kron(np.eye(d), U) @ S @ np.kron(np.eye(d), U.conj().T)
-        # The Choi state of the map is a PPT-entangled state
-        rho_ppt_entangled = W / np.trace(W)
+        # The Horodecki state is a well-known 3x3 PPT-entangled state.
+        # The `horodecki` function generates it for a given parameter `a`.
+        # For a=0.5, it is PPT and entangled.
+        a = 0.5
+        rho_ppt_entangled = horodecki(a)
 
-        is_separable(rho_ppt_entangled, dim=[4,4])
+        # First, we can verify that the state is indeed PPT.
+        print(f"Is the state PPT? {is_ppt(rho_ppt_entangled)}")
+
+        # Now, we pass it to is_separable, which should correctly identify it as entangled.
+        # The function will return False, indicating the state is entangled.
+        print(f"Is the state separable? {is_separable(rho_ppt_entangled)}")
 
 
     References
