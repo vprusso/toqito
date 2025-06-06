@@ -84,7 +84,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
 
         - If :math:`\text{rank}(\rho) \le \max(d_A, d_B)`, the state is
           separable.
-        - If :math:`\text{rank}(\rho) + \text{rank}(\rho^{\{T_A\}}) \le 2 d_A d_B - d_A - d_B + 2`,
+        - If :math:`\text{rank}(\rho) + \text{rank}(\rho^{T_A}) \le 2 d_A d_B - d_A - d_B + 2`,
           the state is separable.
 
     8.  **Reduction Criterion (Horodecki & Horodecki 1999)** :cite:`Horodecki_1998_Reduction`:
@@ -250,6 +250,8 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         - If the input `state` is not a square matrix.
         - If the input `state` is not positive semidefinite.
         - If the input `state` has a trace close to zero but contains significant non-zero elements.
+        - If the input `state` has a numerically insignificant trace but significant elements;
+          cannot normalize reliably.
         - If the `dim` parameter has an invalid type (not None, int, or list).
         - If `dim` is provided as an integer that does not evenly divide the state's dimension.
         - If `dim` is provided as a list with a number of elements other than two.
