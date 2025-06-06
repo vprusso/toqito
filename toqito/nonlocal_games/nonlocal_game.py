@@ -17,41 +17,32 @@ from toqito.matrix_ops.tensor_unravel import tensor_unravel
 
 @nb.njit
 def _fast_classical_value(pred_mat: np.ndarray, num_b_out: int, num_b_in: int, pow_arr: np.ndarray) -> float:
-    r"""
-    Compute the classical winning probability using deterministic strategies.
+    r"""Compute the classical winning probability using deterministic strategies.
 
     This function iterates over all possible deterministic strategies for Bob, and for each one,
     chooses Alice's best response to maximize the overall winning probability. It is optimized
     with Numba for fast computation on large games.
-
-    Parameters
-    ==========
-    pred_mat : np.ndarray
-        A 4-dimensional array of shape (A_out, A_in, B_out, B_in), representing the predicate
-        tensor of the game.
-    num_b_out : int
-        The number of output choices for Bob.
-    num_b_in : int
-        The number of input questions Bob may receive.
-    pow_arr : np.ndarray
-        An array of powers used to decode Bob's deterministic strategy index.
-
-    Returns
-    =======
-    float
-        The classical winning probability optimized over all deterministic strategies.
-
+    
     Examples
     ========
-    >>> import numpy as np
-    >>> from toqito.nonlocal_games.nonlocal_game import NonlocalGame
-    >>> c1 = np.zeros((2, 2)); c2 = np.zeros((2, 2))
-    >>> for v1 in range(2):
-    ...     for v2 in range(2):
-    ...         (c1 if (v1 ^ v2) == 0 else c2)[v1, v2] = 1
-    >>> game = NonlocalGame.from_bcs_game([c1, c2])
-    >>> game.classical_value_fast()
-    0.75
+    .. jupyter-execute::
+    
+        >>> import numpy as np
+        >>> from toqito.nonlocal_games.nonlocal_game import NonlocalGame
+        >>> c1 = np.zeros((2, 2)); c2 = np.zeros((2, 2))
+        >>> for v1 in range(2):
+        >>>     for v2 in range(2):
+        >>>         (c1 if (v1 ^ v2) == 0 else c2)[v1, v2] = 1
+        >>> game = NonlocalGame.from_bcs_game([c1, c2])
+        >>> game.classical_value_fast()
+        0.75
+
+    :param pred_mat : A 4-dimensional array of shape (A_out, A_in, B_out, B_in), representing the predicatetensor of the game.
+    :param num_b_out : The number of output choices for Bob.
+    :param num_b_in : The number of input questions Bob may receive.
+    :param pow_arr : An array of powers used to decode Bob's deterministic strategy index.
+    :return: The classical winning probability optimized over all deterministic strategies.
+
     """
     p_win = 0.0
     total = num_b_out ** num_b_in  # Number of deterministic strategies
@@ -147,7 +138,7 @@ class NonlocalGame:
 
     @classmethod
     def from_bcs_game(cls, constraints: list[np.ndarray], reps: int = 1) -> "NonlocalGame":
-        """Convert constraints that specify a binary constraint system game to a nonlocal game.
+        r"""Convert constraints that specify a binary constraint system game to a nonlocal game.
 
         Binary constraint system games (BCS) games were originally defined in :cite:`Cleve_2014_Characterization`.
 
@@ -201,25 +192,17 @@ class NonlocalGame:
         return game
     
     def is_bcs_perfect_commuting_strategy(self) -> bool:
-        r"""
-        Determine if the BCS game admits a perfect commuting-operator strategy.
+        """Determine if the BCS game admits a perfect commuting-operator strategy.
 
         This method checks whether the binary constraint system game, from which the current
         nonlocal game was constructed, has a perfect quantum strategy in the commuting-operator model.
         It converts the raw BCS tensor constraints (if needed) into matrix form and evaluates
         their satisfiability using a helper function.
 
-        Returns
-        =======
-        bool
-            True if a perfect commuting-operator strategy exists; False otherwise.
+        :return: True if a perfect commuting-operator strategy exists; False otherwise.
+        :raise: If no constraints are stored (i.e., if the game was not created from a BCS game).
 
-        Raises
-        ======
-        ValueError
-            If no constraints are stored (i.e., if the game was not created from a BCS game).
         """
-
         if self._raw_constraints is None:
             raise ValueError("No raw BCS constraints stored; cannot check strategy.")
 
@@ -247,6 +230,7 @@ class NonlocalGame:
         """Help the classical_value function as a helper method.
 
         :return: A value between [0, 1] representing the tgval.
+        
         """
         number = i
         base = num_bob_outputs
@@ -266,7 +250,8 @@ class NonlocalGame:
         return tgval
 
     def classical_value(self) -> float:
-        """Compute the classical value of the nonlocal game using Numba acceleration."""
+        """Compute the classical value of the nonlocal game using Numba acceleration.
+        """
         # Prepare weighted predicate matrix
         A_out, B_out, A_in, B_in = self.pred_mat.shape
         pm = np.copy(self.pred_mat)

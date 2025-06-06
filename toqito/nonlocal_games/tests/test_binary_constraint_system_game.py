@@ -13,6 +13,7 @@ def test_classically_satisfiable_bcs():
 
     This system is clearly satisfiable, so it should yield a perfect
     commuting-operator strategy.
+    
     """
     M = np.array([[1, 0], [0, 1]], dtype=int)
     b = np.array([0, 0], dtype=int)
@@ -28,6 +29,7 @@ def test_chsh_bcs():
     Test a CHSH-type BCS system which has no perfect commuting strategy.
 
     The constraint system is classically inconsistent: x + y = 0, x + y = 1.
+    
     """
     M = np.array([[1, 1], [1, 1]], dtype=int)
     b = np.array([0, 1], dtype=int)
@@ -43,6 +45,7 @@ def test_magic_square_bcs():
     Test the magic square BCS game, which admits a perfect strategy
     in the commuting-operator model but not classically.
     """
+
     M = np.array([
         [1, 1, 1, 0, 0, 0, 0, 0, 0],
         [0, 0, 0, 1, 1, 1, 0, 0, 0],
@@ -65,6 +68,7 @@ def test_special_case():
 
     This example still yields a perfect commuting-operator strategy.
     """
+
     M = np.array([
         [1, 1, 1],
         [1, 1, 0],
@@ -93,6 +97,7 @@ def test_4cycle_bcs_no_classical_but_perfect_quantum():
       Summing all four gives 0 ≡ 1 mod 2, so no 0/1 assignment satisfies them.
     Quantumly:
       Even cycles have perfect commuting-operator strategies.
+      
     """
     M = np.array([
         [1, 1, 0, 0],
@@ -107,5 +112,3 @@ def test_4cycle_bcs_no_classical_but_perfect_quantum():
 
     game = NonlocalGame.from_bcs_game(constraints, reps=1)
     assert game.is_bcs_perfect_commuting_strategy()
-
-    

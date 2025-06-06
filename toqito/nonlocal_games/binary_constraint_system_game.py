@@ -2,8 +2,7 @@ import numpy as np
 
 
 def create_bcs_constraints(M: np.ndarray, b: np.ndarray):
-    r"""
-    Construct a list of constraints in tensor form for a binary constraint system (BCS) game.
+    r"""Construct a list of constraints in tensor form for a binary constraint system (BCS) game.
 
     This function builds a list of constraints by converting each row of the binary matrix
     ``M`` of shape (m, n) and the corresponding element of the binary vector ``b``
@@ -39,17 +38,12 @@ def create_bcs_constraints(M: np.ndarray, b: np.ndarray):
         >>> constraints = create_bcs_constraints(M, b)
         >>> constraints[0].shape
 
-    Parameters
-    ==========
-    :param M: A binary matrix of shape (m, n) defining which variables appear in each constraint.
-    :param b: A binary vector of length m that determines the constant term ``(-1)**(b[i])``.
-
-    Returns
-    ========
+    :param M : A binary matrix of shape (m, n) defining which variables appear in each constraint.
+    :param b : A binary vector of length m that determines the constant term ``(-1)**(b[i])``.
     :return: A list of NumPy arrays, each of shape ``(2,)*n``. Each tensor represents
              one constraint in tensor form.
+             
     """
-
     m, n = M.shape
     constraints = []
     for i in range(m):
@@ -84,26 +78,20 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray):
         >>> print("Row masks:", row_masks)
         >>> print("Parity:", parity)
 
-    Parameters
-    ==========
-    M : np.ndarray
-        A binary matrix of shape ``(m, n)``.
-    b : np.ndarray
-        A binary vector of length ``m``.
-
-    Returns
-    =======
-    :return: A list of integer bitmasks (one per row of ``M``).
-    :return: A list of parity values derived from ``b``.
-
     The mehod used to determine the existing of perfect commuting strategy was originally introduced in :cite:`William_2016_Perfect`.
 
     References
     ==========
     .. bibliography::
         :filter: docname in docnames
-    """
 
+
+    :param M : A binary matrix of shape ``(m, n)``.
+    :param b : A binary vector of length ``m``.
+    :return: A list of integer bitmasks (one per row of ``M``).
+    :return: A list of parity values derived from ``b``.
+    
+    """
     # Ensure M and b are binary (0/1)
     M = np.array(M, dtype=int) % 2
     b = np.array(b, dtype=int) % 2
@@ -113,8 +101,7 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray):
     return (M * powers).sum(axis=1).astype(int).tolist(), b.astype(int).tolist()
 
 def _has_undirected_cycle(nodes: list[int], edges: list[tuple[int, int]]) -> bool:
-    r"""
-    Detect whether the undirected graph formed by the given nodes and edges contains any cycle.
+    r"""Detect whether the undirected graph formed by the given nodes and edges contains any cycle.
 
     This function builds an adjacency list from the given list of nodes and edges,
     and then performs a depth-first search (DFS) with parent tracking to detect cycles
@@ -122,18 +109,6 @@ def _has_undirected_cycle(nodes: list[int], edges: list[tuple[int, int]]) -> boo
     visited node that is not the parent of the current node.
 
     The function returns True if at least one cycle exists, and False otherwise.
-
-    Parameters
-    ==========
-    nodes
-        A list of integer node labels (e.g., [0, 1, 2, ...]).
-    edges
-        A list of undirected edges, each represented as a tuple (u, v) where u and v
-        are nodes from the 'nodes' list.
-
-    Returns
-    ==========
-    :return: ``True`` if the undirected graph contains at least one cycle, False otherwise.
 
     Examples
     ==========
@@ -150,6 +125,10 @@ def _has_undirected_cycle(nodes: list[int], edges: list[tuple[int, int]]) -> boo
         >>> nodes = [0, 1, 2]
         >>> edges = [(0, 1), (1, 2)]
         >>> print(_has_undirected_cycle(nodes, edges))  # Output: False
+        
+    :param nodes : A list of integer node labels (e.g., [0, 1, 2, ...]).
+    :param edges : A list of undirected edges, each represented as a tuple (u, v) where u and v are nodes from the 'nodes' list.
+    :return: ``True`` if the undirected graph contains at least one cycle, False otherwise.
 
     Notes
     ==========
@@ -157,6 +136,7 @@ def _has_undirected_cycle(nodes: list[int], edges: list[tuple[int, int]]) -> boo
       cycle detection in undirected graphs.
     - The function assumes the graph is undirected; all edges are treated as
       bidirectional.
+      
     """
     ...
     # Build adjacency list
@@ -204,13 +184,8 @@ def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray):
         >>> has_strategy = check_perfect_commuting_strategy(M, b)
         >>> print(has_strategy)
         
-    Parameters
-    ==========  
-    M: A binary matrix of shape ``(m, n)``.
-    b: A binary vector of length ``m``.
-
-    Returns
-    ========
+    :param M : A binary matrix of shape ``(m, n)``.
+    :param b : A binary vector of length ``m``.
     :return: ``True`` if a perfect commuting-operator strategy exists; otherwise, ``False``.
 
     """

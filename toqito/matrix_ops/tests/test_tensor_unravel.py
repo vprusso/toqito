@@ -39,4 +39,3 @@ class TestTensorUnravel(unittest.TestCase):
         with self.assertRaises(ValueError) as context:
             tensor_unravel(tensor_constraint)
         self.assertIn("unique element", str(context.exception))
-
