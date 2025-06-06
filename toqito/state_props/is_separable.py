@@ -234,6 +234,22 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     .. bibliography::
         :filter: docname in docnames
 
+    :raises Warning:
+
+        If the symmetric extension check is attempted but CVXPY or a suitable solver is not available.
+
+    :raises TypeError:
+
+        - If the input `state` is not a NumPy array.
+
+    :raises RuntimeError:
+
+        - If the symmetric extension check is attempted but fails due to CVXPY solver issues.
+
+    :raises NotImplementedError:
+
+        - If the symmetric extension check is attempted but the level is not implemented (e.g., level < 1).
+
     :raises ValueError:
 
         - If the input `state` is not a square matrix.
@@ -248,8 +264,12 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
 
     :param state: The density matrix to check.
     :param dim: The dimension of the input state, e.g., [dim_A, dim_B]. Optional; inferred if None.
-    :param level: The level for symmetric extensions (default: 2). A level of -1 implies
-                  attempting checks exhaustively (though not all possible checks are implemented).
+    :param level: The level for symmetric extension (DPS) hierarchy (default: 2).
+
+        - If 1, only PPT is checked.
+        - If >=2, checks for k-symmetric extension up to this level.
+        - If -1, attempts all implemented checks exhaustively (not all possible checks are implemented).
+
     :param tol: Numerical tolerance (default: 1e-8).
     :return: :code:`True` if separable, :code:`False` if entangled or inconclusive by implemented checks.
 
