@@ -5,7 +5,7 @@ from itertools import combinations
 import cvxpy as cp
 import numpy as np
 
-from toqito.channels import partial_transpose
+from toqito.matrix_ops import partial_transpose
 from toqito.perms import permutation_operator, swap
 
 

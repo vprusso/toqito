@@ -66,7 +66,7 @@ def vec(mat: np.ndarray) -> np.ndarray:
     .. jupyter-execute::
 
      import numpy as np
-     from toqito.matrix_ops import vec
+     from toqito.perms import vec
 
      X = np.array([[1, 2], [3, 4]])
 

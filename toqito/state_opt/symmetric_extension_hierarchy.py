@@ -3,7 +3,7 @@
 import cvxpy
 import numpy as np
 
-from toqito.channels import partial_trace, partial_transpose
+from toqito.matrix_ops import partial_trace, partial_transpose
 from toqito.perms import symmetric_projection
 
 from .state_helper import __is_probs_valid, __is_states_valid

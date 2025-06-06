@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from toqito.channels import partial_trace
+from toqito.matrix_ops import partial_trace
 from toqito.matrix_props import is_density
 from toqito.rand import random_density_matrix
 from toqito.state_props.is_separable import is_separable

@@ -6,9 +6,9 @@ import cvxpy
 import numpy as np
 import scipy
 
-from toqito.channels.partial_trace import partial_trace
-from toqito.channels.partial_transpose import partial_transpose
 from toqito.channels.realignment import realignment
+from toqito.matrix_ops.partial_trace import partial_trace
+from toqito.matrix_ops.partial_transpose import partial_transpose
 from toqito.matrix_props.is_hermitian import is_hermitian
 from toqito.matrix_props.kp_norm import kp_norm
 from toqito.perms.swap import swap
