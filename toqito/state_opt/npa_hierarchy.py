@@ -223,8 +223,8 @@ def _get_nonlocal_game_params(
     a_in += 1
     b_in += 1
     operator = next(iter(assemblage.values()))
-    a_out = int(operator.shape[0] / referee_dim)
-    b_out = int(operator.shape[1] / referee_dim)
+    a_out = operator.shape[0] // referee_dim
+    b_out = operator.shape[1] // referee_dim
     return a_out, a_in, b_out, b_in
 
 
