@@ -5,8 +5,8 @@ import warnings
 import numpy as np
 import pytest
 
-from toqito.channels.partial_trace import partial_trace
 from toqito.matrices.operator_sinkhorn import operator_sinkhorn
+from toqito.matrix_ops import partial_trace
 from toqito.rand import random_density_matrix
 from toqito.states import bell
 
