@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from toqito.states import max_entangled
+from toqito.states.max_entangled import max_entangled
 
 
 def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
