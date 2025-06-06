@@ -309,7 +309,7 @@ def npa_constraints(
 
             # Moment matrix (Gamma matrix in NPA paper :cite:`Navascues_2008_AConvergent` - arXiv:0803.4290)
             # This hierarchy can be generalized, e.g., to incorporate referee systems
-            # as seen in extended nonlocal games (see, e.g., F. Speelman's thesis, arXiv:1605.07720).
+            # as seen in extended nonlocal games (see, e.g., F. Speelman's thesis, :cite:`Speelman_2016_Position`).
             current_block = moment_matrix_R[
                 i * referee_dim : (i + 1) * referee_dim, j * referee_dim : (j + 1) * referee_dim
             ]
