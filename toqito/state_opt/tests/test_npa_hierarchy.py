@@ -1,4 +1,4 @@
-"""Test npa_constraints and its helper functions."""
+"""Test npa_constraints and its state_opt functions."""
 
 import re
 from unittest import mock
@@ -9,7 +9,7 @@ import pytest
 
 from toqito.state_opt.npa_hierarchy import IDENTITY_SYMBOL, Symbol, _gen_words, _parse, _reduce, npa_constraints
 
-# Define common symbols for helper function unit tests
+# Define common symbols for state_opt function unit tests
 A00_test = Symbol("Alice", 0, 0)
 A01_test = Symbol("Alice", 0, 1)
 A10_test = Symbol("Alice", 1, 0)
@@ -21,7 +21,7 @@ B11_test = Symbol("Bob", 1, 1)
 
 
 class TestNPAReduce:
-    """Test the _reduce helper function."""
+    """Test the _reduce state_opt function."""
 
     @pytest.mark.parametrize(
         "input_word, expected_reduction",
@@ -133,7 +133,7 @@ class TestNPAReduce:
 
 
 class TestNPAParse:
-    """Test the _parse helper function for k-string."""
+    """Test the _parse state_opt function for k-string."""
 
     # Test cases for valid parsing
     @pytest.mark.parametrize(
@@ -178,7 +178,7 @@ class TestNPAParse:
 
 
 class TestNPAGenWords:
-    """Test the _gen_words helper function."""
+    """Test the _gen_words state_opt function."""
 
     # Game parameters for reuse
     cglmp_a_out, cglmp_a_in = 3, 2
@@ -400,7 +400,7 @@ class TestNPAGenWords:
             # Fallback or raise error for other inputs if necessary for test isolation
             raise ValueError(f"mock_parse_for_00_config received unexpected: {k_str_input}")
 
-        with mock.patch("toqito.helper.npa_hierarchy._parse", side_effect=mock_parse_for_00_config):
+        with mock.patch("toqito.state_opt.npa_hierarchy._parse", side_effect=mock_parse_for_00_config):
             # Assumes _gen_words pre-seeds Identity and handles (0,0) config by adding Identity.
             words_list = _gen_words(k="MOCK_K_FOR_00_CONFIG", a_out=2, a_in=1, b_out=2, b_in=1)
             # k_int=0 loop (length=0) ensures (I,) is in words.
@@ -523,7 +523,7 @@ def test_gen_words_intermediate_hierarchy_call_check():
 def mock_assemblage_setup():
     r"""Provide a setup function to create mock assemblage variables for NPA tests.
 
-    This fixture returns a helper function, `_setup`. When called, `_setup`
+    This fixture returns a state_opt function, `_setup`. When called, `_setup`
     generates a dictionary of CVXPY variables representing the commuting
     measurement assemblage operator K. This mock assemblage can then be passed
     to `npa_constraints` for testing purposes.
@@ -544,7 +544,7 @@ def mock_assemblage_setup():
     ) -> tuple[dict[tuple[int, int], cvxpy.Variable], int, int, int, int, int]:
         r"""Create mock assemblage variables and return game parameters.
 
-        This helper function is returned by the `mock_assemblage_setup` fixture.
+        This state_opt function is returned by the `mock_assemblage_setup` fixture.
 
         :param a_in: Number of Alice's possible inputs.
         :param a_out: Number of Alice's possible outputs.
@@ -590,7 +590,7 @@ def test_npa_constraints_identity_product_branch(mock_assemblage_setup):
 def test_npa_constraints_dim_zero_value_error(mock_assemblage_setup):
     """Test ValueError if _gen_words somehow returns an empty list (dim=0)."""
     assemblage, _, _, _, _, ref_dim = mock_assemblage_setup(1, 1, 1, 1, 1)
-    with mock.patch("toqito.helper.npa_hierarchy._gen_words", return_value=[]):
+    with mock.patch("toqito.state_opt.npa_hierarchy._gen_words", return_value=[]):
         with pytest.raises(ValueError, match="Generated word list is empty."):
             npa_constraints(assemblage, k=1, referee_dim=ref_dim)
 
