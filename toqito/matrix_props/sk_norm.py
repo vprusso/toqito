@@ -16,7 +16,7 @@ from toqito.perms.symmetric_projection import symmetric_projection
 from toqito.state_ops.schmidt_decomposition import schmidt_decomposition
 from toqito.state_props.schmidt_rank import schmidt_rank
 from toqito.state_props.sk_vec_norm import sk_vector_norm
-from toqito.states.max_entangled import max_entangled
+from toqito.states import max_entangled
 
 
 def sk_operator_norm(

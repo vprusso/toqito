@@ -16,7 +16,7 @@ from toqito.state_props.has_symmetric_extension import has_symmetric_extension
 from toqito.state_props.in_separable_ball import in_separable_ball
 from toqito.state_props.is_ppt import is_ppt
 from toqito.state_props.schmidt_rank import schmidt_rank
-from toqito.states.max_entangled import max_entangled
+from toqito.states import max_entangled
 
 
 def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: int = 2, tol: float = 1e-8) -> bool:
