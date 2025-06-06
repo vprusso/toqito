@@ -6,7 +6,7 @@ import numpy as np
 import scipy as sp
 
 from toqito.matrix_ops import partial_trace
-from toqito.matrix_props.is_square import is_square
+from toqito.matrix_props import is_square
 
 
 def operator_sinkhorn(
