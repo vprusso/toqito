@@ -7,7 +7,7 @@ Generalized Bell states are the basis of multidimensional bipartite states havin
 import numpy as np
 
 from toqito.matrices import gen_pauli
-from toqito.matrix_ops import vec
+from toqito.perms import vec
 
 
 def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:

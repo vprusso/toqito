@@ -7,7 +7,7 @@ import numpy as np
 import pytest
 from cvxpy.atoms.affine.vstack import Vstack
 
-from toqito.channels import partial_trace
+from toqito.matrix_ops import partial_trace
 
 
 @pytest.mark.parametrize(

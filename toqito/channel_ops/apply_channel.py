@@ -4,8 +4,7 @@ import itertools
 
 import numpy as np
 
-from toqito.matrix_ops import vec
-from toqito.perms import swap
+from toqito.perms import swap, vec
 
 
 def apply_channel(mat: np.ndarray, phi_op: np.ndarray | list[list[np.ndarray]]) -> np.ndarray:

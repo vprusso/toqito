@@ -3,7 +3,7 @@
 import cvxpy
 import numpy as np
 
-from toqito.channels import partial_trace
+from toqito.matrix_ops import partial_trace
 from toqito.perms import permutation_operator
 
 
