@@ -212,21 +212,16 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
 
     .. jupyter-execute::
 
-        from toqito.states.horodecki import horodecki
         from toqito.state_props.is_ppt import is_ppt
 
-        # The Horodecki state is a well-known 3x3 PPT-entangled state.
-        # The `horodecki` function generates it for a given parameter `a`.
-        # For a=0.5, it is PPT and entangled.
-        a = 0.5
-        rho_ppt_entangled = horodecki(a)
+        # Construct a 2x3 separable PPT state of rank 2
+        # |ψ₁⟩ = |0⟩⊗|0⟩, |ψ₂⟩ = |1⟩⊗|1⟩
+        psi1 = np.kron([1, 0], [1, 0, 0])
+        psi2 = np.kron([0, 1], [0, 1, 0])
+        rho = 0.5 * (np.outer(psi1, psi1.conj()) + np.outer(psi2, psi2.conj()))
 
-        # First, we can verify that the state is indeed PPT.
-        print(f"Is the state PPT? {is_ppt(rho_ppt_entangled)}")
-
-        # Now, we pass it to is_separable, which should correctly identify it as entangled.
-        # The function will return False, indicating the state is entangled.
-        print(f"Is the state separable? {is_separable(rho_ppt_entangled)}")
+        print("Is the state PPT?", is_ppt(rho, dim=[2, 3]))         # True
+        print("Is the state separable?", is_separable(rho, dim=[2, 3]))  # True
 
 
     References
