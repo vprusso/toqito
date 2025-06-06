@@ -7,6 +7,7 @@ import cvxpy
 
 Symbol = namedtuple("Symbol", ["player", "question", "answer"], defaults=["", None, None])
 IDENTITY_SYMBOL = Symbol("", None, None)  # Explicit identity symbol
+PLAYERS = ("Alice", "Bob")
 
 
 def _reduce(word: tuple[Symbol, ...]) -> tuple[Symbol, ...]:
@@ -43,7 +44,7 @@ def _reduce(word: tuple[Symbol, ...]) -> tuple[Symbol, ...]:
             if idx + 1 < len(current_list):
                 s_y = current_list[idx + 1]
                 # Only apply if s_x and s_y are from the same player.
-                if s_x == s_y and s_x.player in ("Alice", "Bob"):  # s_x != IDENTITY_SYMBOL
+                if s_x == s_y and s_x.player in PLAYERS:  # s_x != IDENTITY_SYMBOL
                     next_pass_list.append(s_x)
                     idx += 2  # Consumed s_x, s_y; added s_x
                     made_change_in_pass = True
@@ -51,7 +52,7 @@ def _reduce(word: tuple[Symbol, ...]) -> tuple[Symbol, ...]:
                 # Rule 2: Orthogonality (S_x,a S_x,b = 0 if a!=b, for same player and question)
                 elif (
                     s_x.player == s_y.player
-                    and s_x.player in ("Alice", "Bob")  # Ensure not identity
+                    and s_x.player in PLAYERS  # Ensure not identity
                     and s_x.question == s_y.question
                     and s_x.answer != s_y.answer
                 ):
@@ -211,7 +212,7 @@ def _is_meas_on_one_player(word: tuple[Symbol, ...]) -> bool:
     # Expects a reduced word: (Alice_Symbol,) or (Bob_Symbol,)
     if len(word) == 1:
         s = word[0]
-        return s.player in ("Alice", "Bob")  # Excludes IDENTITY_SYMBOL
+        return s.player in PLAYERS  # Excludes IDENTITY_SYMBOL
     return False
 
 
