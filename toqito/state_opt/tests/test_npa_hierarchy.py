@@ -7,7 +7,7 @@ import cvxpy
 import numpy as np
 import pytest
 
-from toqito.helper.npa_hierarchy import IDENTITY_SYMBOL, Symbol, _gen_words, _parse, _reduce, npa_constraints
+from toqito.state_opt.npa_hierarchy import IDENTITY_SYMBOL, Symbol, _gen_words, _parse, _reduce, npa_constraints
 
 # Define common symbols for helper function unit tests
 A00_test = Symbol("Alice", 0, 0)
