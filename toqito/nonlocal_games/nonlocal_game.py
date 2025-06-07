@@ -27,15 +27,15 @@ def _fast_classical_value(pred_mat: np.ndarray, num_b_out: int, num_b_in: int, p
     ========
     .. jupyter-execute::
     
-        >>> import numpy as np
-        >>> from toqito.nonlocal_games.nonlocal_game import NonlocalGame
-        >>> c1 = np.zeros((2, 2)); c2 = np.zeros((2, 2))
-        >>> for v1 in range(2):
-        >>>     for v2 in range(2):
-        >>>         (c1 if (v1 ^ v2) == 0 else c2)[v1, v2] = 1
-        >>> game = NonlocalGame.from_bcs_game([c1, c2])
-        >>> game.classical_value_fast()
-        0.75
+                       import numpy as np
+                       from toqito.nonlocal_games.nonlocal_game import NonlocalGame
+                       c1 = np.zeros((2, 2)); c2 = np.zeros((2, 2))
+                       for v1 in range(2):
+                           for v2 in range(2):
+                               (c1 if (v1 ^ v2) == 0 else c2)[v1, v2] = 1
+                       game = NonlocalGame.from_bcs_game([c1, c2])
+                       game.classical_value_fast()
+                       0.75
 
     :param pred_mat : A 4-dimensional array of shape (A_out, A_in, B_out, B_in), representing the predicatetensor of the game.
     :param num_b_out : The number of output choices for Bob.
@@ -73,6 +73,7 @@ def _fast_classical_value(pred_mat: np.ndarray, num_b_out: int, num_b_in: int, p
             p_win = best_sum
 
     return p_win
+
 
 class NonlocalGame:
     r"""Create two-player nonlocal game object.

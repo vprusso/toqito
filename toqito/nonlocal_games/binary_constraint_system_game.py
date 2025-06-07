@@ -1,7 +1,8 @@
 import numpy as np
+import networkx as nx
 
 
-def create_bcs_constraints(M: np.ndarray, b: np.ndarray):
+def create_bcs_constraints(M: np.ndarray, b: np.ndarray) -> list[np.ndarray]:
     r"""Construct a list of constraints in tensor form for a binary constraint system (BCS) game.
 
     This function builds a list of constraints by converting each row of the binary matrix
@@ -29,14 +30,14 @@ def create_bcs_constraints(M: np.ndarray, b: np.ndarray):
     Examples
     ==========
     .. jupyter-execute::
+    
+                       import numpy as np
+                       from binary_constraint_system_game import create_bcs_constraints
 
-        >>> import numpy as np
-        >>> from binary_constraint_system_game import create_bcs_constraints
-
-        >>> M = np.array([[1, 1], [1, 1]], dtype=int)
-        >>> b = np.array([0, 1], dtype=int)
-        >>> constraints = create_bcs_constraints(M, b)
-        >>> constraints[0].shape
+                       M = np.array([[1, 1], [1, 1]], dtype=int)
+                       b = np.array([0, 1], dtype=int)
+                       constraints = create_bcs_constraints(M, b)
+                       constraints[0].shape
 
     :param M : A binary matrix of shape (m, n) defining which variables appear in each constraint.
     :param b : A binary vector of length m that determines the constant term ``(-1)**(b[i])``.
@@ -67,16 +68,16 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray):
     ========
 
     .. jupyter-execute::
+    
+                       import numpy as np
+                       from toqito.nonlocal_games.binary_constraint_system_game import generate_solution_group
 
-        >>> import numpy as np
-        >>> from toqito.nonlocal_games.binary_constraint_system_game import generate_solution_group
+                       M = np.array([[1, 1, 0], [0, 1, 1]], dtype=int)
+                       b = np.array([0, 1], dtype=int)
+                       row_masks, parity = generate_solution_group(M, b)
 
-        >>> M = np.array([[1, 1, 0], [0, 1, 1]], dtype=int)
-        >>> b = np.array([0, 1], dtype=int)
-        >>> row_masks, parity = generate_solution_group(M, b)
-
-        >>> print("Row masks:", row_masks)
-        >>> print("Parity:", parity)
+                       print("Row masks:", row_masks)
+                       print("Parity:", parity)
 
     The mehod used to determine the existing of perfect commuting strategy was originally introduced in :cite:`William_2016_Perfect`.
 
@@ -100,72 +101,8 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray):
     powers = 1 << np.arange(M.shape[1])
     return (M * powers).sum(axis=1).astype(int).tolist(), b.astype(int).tolist()
 
-def _has_undirected_cycle(nodes: list[int], edges: list[tuple[int, int]]) -> bool:
-    r"""Detect whether the undirected graph formed by the given nodes and edges contains any cycle.
 
-    This function builds an adjacency list from the given list of nodes and edges,
-    and then performs a depth-first search (DFS) with parent tracking to detect cycles
-    in the undirected graph. A cycle is detected if the DFS encounters a previously
-    visited node that is not the parent of the current node.
-
-    The function returns True if at least one cycle exists, and False otherwise.
-
-    Examples
-    ==========
-    .. jupyter-execute::
-
-        >>> from binary_constraint_system_game import _has_undirected_cycle
-
-        # Example 1: Graph with a cycle
-        >>> nodes = [0, 1, 2]
-        >>> edges = [(0, 1), (1, 2), (2, 0)]
-        >>> print(_has_undirected_cycle(nodes, edges))  # Output: True
-
-        # Example 2: Graph with no cycle (a tree)
-        >>> nodes = [0, 1, 2]
-        >>> edges = [(0, 1), (1, 2)]
-        >>> print(_has_undirected_cycle(nodes, edges))  # Output: False
-        
-    :param nodes : A list of integer node labels (e.g., [0, 1, 2, ...]).
-    :param edges : A list of undirected edges, each represented as a tuple (u, v) where u and v are nodes from the 'nodes' list.
-    :return: ``True`` if the undirected graph contains at least one cycle, False otherwise.
-
-    Notes
-    ==========
-    - This function is used internally to replace NetworkX's cycle_basis call for
-      cycle detection in undirected graphs.
-    - The function assumes the graph is undirected; all edges are treated as
-      bidirectional.
-      
-    """
-    ...
-    # Build adjacency list
-    adj: dict[int, list[int]] = {u: [] for u in nodes}
-    for u, v in edges:
-        adj[u].append(v)
-        adj[v].append(u)
-
-    visited: set[int] = set()
-
-    def dfs(u: int, parent: int) -> bool:
-        visited.add(u)
-        for nbr in adj[u]:
-            if nbr == parent:
-                continue
-            if nbr in visited:
-                return True
-            if dfs(nbr, u):
-                return True
-        return False
-
-    for u in nodes:
-        if u not in visited:
-            if dfs(u, parent=-1):
-                return True
-
-    return False
-
-def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray):
+def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray) -> bool:
     r"""Determine whether a perfect commuting-operator strategy exists for a BCS game.
 
     This function checks if the binary constraint system defined by ``Mx = b``
@@ -176,13 +113,14 @@ def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray):
     
     Examples
     ==========
-    ..jupyter-execute
-        >>> import numpy as np
-        >>> from binary_constraint_system_game import check_perfect_commuting_strategy
-        >>> M = np.array([[1, 1], [1, 1]], dtype=int)
-        >>> b = np.array([0, 1], dtype=int)
-        >>> has_strategy = check_perfect_commuting_strategy(M, b)
-        >>> print(has_strategy)
+    ..jupyter-execute::
+    
+                      import numpy as np
+                      from binary_constraint_system_game import check_perfect_commuting_strategy
+                      M = np.array([[1, 1], [1, 1]], dtype=int)
+                      b = np.array([0, 1], dtype=int)
+                      has_strategy = check_perfect_commuting_strategy(M, b)
+                      print(has_strategy)
         
     :param M : A binary matrix of shape ``(m, n)``.
     :param b : A binary vector of length ``m``.
@@ -225,11 +163,15 @@ def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray):
 
     # Build the subgraph of nodes involved in a contradiction
     nodes = [r for r in range(m) if (contradiction >> r) & 1]
-    edges: list[tuple[int, int]] = []
-    for i, u in enumerate(nodes):
-        for v in nodes[i + 1 :]:
-            if row[u] & row[v]:
-                edges.append((u, v))
+    G = nx.Graph()
+    G.add_nodes_from(nodes)
 
-    # If that undirected subgraph has any cycle, return True; otherwise False.
-    return _has_undirected_cycle(nodes, edges)
+    # Add edges where two constraints share a variable
+    edges = [
+        (u, v)
+        for i, u in enumerate(nodes)
+        for v in nodes[i + 1 :]
+        if row[u] & row[v]
+    ]
+    G.add_edges_from(edges)
+    return bool(nx.cycle_basis(G))
