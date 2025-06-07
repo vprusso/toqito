@@ -388,7 +388,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     # and QETLAB's implementation. This is distinct from this pure state check.)
     if state_rank == 1:
         s_rank = schmidt_rank(current_state, dims_list)
-        return s_rank == 1
+        return bool(s_rank == 1)
 
     # --- 4. Gurvits-Barnum Separable Ball ---
     if in_separable_ball(current_state):
@@ -453,7 +453,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                     # However, being defensive:
                     return 0.0  # Or handle as an error/warning #
                 val = p_np_arr[t_tuple[0] - 1, t_tuple[1] - 1, t_tuple[2] - 1, t_tuple[3] - 1]
-                return val if not np.isnan(val) else 0.0
+                return bool(val if not np.isnan(val) else 0.0)
 
             F_det_matrix_elements = [
                 [
