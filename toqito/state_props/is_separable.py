@@ -453,7 +453,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                     # However, being defensive:
                     return 0.0  # Or handle as an error/warning #
                 val = p_np_arr[t_tuple[0] - 1, t_tuple[1] - 1, t_tuple[2] - 1, t_tuple[3] - 1]
-                return bool(val if not np.isnan(val) else 0.0)
+                return val if not np.isnan(val) else 0.0
 
             F_det_matrix_elements = [
                 [

@@ -102,8 +102,8 @@ def entangled_qutrit_qutrit_state():
         np.kron([1, 0, 0], [1, 0, 0]) + np.kron([0, 1, 0], [0, 1, 0]) + np.kron([0, 0, 1], [0, 0, 1])
     )
     rho = np.outer(psi, psi.conj())
-    assert np.isclose(np.trace(rho), 1.0), "Trace of fixture state is not 1"
-    assert is_positive_semidefinite(rho, 1e-9), "Fixture state is not PSD"
+    assert np.isclose(np.trace(rho), 1.0)  # Trace of fixture state shouldbe 1
+    assert is_positive_semidefinite(rho, 1e-9)  # Fixture state should be PSD
     return rho
 
 
@@ -111,8 +111,8 @@ def entangled_qutrit_qutrit_state():
 def entangled_bell_state_0():
     """Fixture for the density matrix for the Bell state |Φ+> (normalized)."""
     rho = bell(0) @ bell(0).conj().T
-    assert np.isclose(np.trace(rho), 1.0), "Trace of fixture state is not 1"
-    assert is_positive_semidefinite(rho, 1e-9), "Fixture state is not PSD"
+    assert np.isclose(np.trace(rho), 1.0)  # Trace of fixture state should be 1
+    assert is_positive_semidefinite(rho, 1e-9)  # Fixture state should be PSD"
     return rho
 
 
@@ -128,8 +128,8 @@ def separable_state_2x3_rank3():
     rho2 = np.kron(np.outer(psi_A0, psi_A0.conj()), np.outer(psi_B1, psi_B1.conj()))
     rho3 = np.kron(np.outer(psi_A1, psi_A1.conj()), np.outer(psi_B2, psi_B2.conj()))
     rho = (rho1 + rho2 + rho3) / 3
-    assert np.isclose(np.trace(rho), 1), "Trace of fixture state is not 1"
-    assert np.all(np.linalg.eigvalsh(rho) >= -1e-9), "Fixture state is not PSD"
+    assert np.isclose(np.trace(rho), 1)  # Trace of fixture state should be 1
+    assert np.all(np.linalg.eigvalsh(rho) >= -1e-9)  # Fixture state shoul be PSD
     return rho
 
 
@@ -186,7 +186,7 @@ def test_horodecki_rank_le_max_dim_criterion():
     test_tol = 1e-7
     assert np.isclose(np.trace(rho), 1.0, atol=test_tol)
     current_rank = np.linalg.matrix_rank(rho, tol=test_tol)
-    assert np.isclose(current_rank, 3), f"Test state rank is {current_rank}, expected 3"
+    assert np.isclose(current_rank, 3)  # Test state rank is expected to be 3"
     assert current_rank <= max_d
     assert is_separable(rho, dim=dims)
 
@@ -296,7 +296,7 @@ def test_entangled_realignment_criterion_bound_entangled():
     for i in range(5):
         rho = rho - tile(i) @ tile(i).conj().T
     rho = rho / 4
-    assert is_density(rho), "Constructed tile state is not a density matrix"
+    assert is_density(rho)  # Constructed tile state should be a density matrix
     assert not is_separable(rho)
 
 
@@ -324,7 +324,7 @@ def test_skip_horodecki_if_not_applicable_proceeds_entangled_tiles():
 
     # Debugging rank
     calculated_rank = np.linalg.matrix_rank(rho_tiles, tol=1e-8)  # Use a consistent tolerance
-    assert calculated_rank == 4, f"Expected rank 4, got {calculated_rank}"
+    assert calculated_rank == 4
 
     assert not is_separable(rho_tiles, dim=[3, 3])
 
@@ -515,7 +515,7 @@ def test_symm_ext_catches_hard_entangled_state():
         )
         / 8.75
     )
-    assert is_separable(rho_ent_symm, dim=[3, 3], level=1)  # This state IS PPT L270\
+    assert is_separable(rho_ent_symm, dim=[3, 3], level=1)  # This state IS PPT
     assert not is_separable(rho_ent_symm, dim=[3, 3], level=0)  # Level 0 should detect entanglement if PPT
     assert not is_separable(rho_ent_symm, dim=[3, 3], level=2)  # Level 2 should detect entanglement
 
@@ -681,8 +681,8 @@ def test_plucker_3x3_rank4_separable_det_F_is_zero():
         + np.outer(p4_vec, p4_vec.conj())
     )
     rho = rho / np.trace(rho)
-    assert np.linalg.matrix_rank(rho, tol=1e-7) == 4, "Constructed state not rank 4"
-    assert is_ppt(rho, dim=[3, 3]), "Constructed state not PPT"
+    assert np.linalg.matrix_rank(rho, tol=1e-7) == 4  # Constructed state should be rank 4
+    assert is_ppt(rho, dim=[3, 3])  # Constructed state should be PPT
     assert is_separable(rho, dim=[3, 3])
 
 
@@ -795,10 +795,10 @@ def test_rank1_pert_eigvalsh_fails_eigvals_fallback():
     rho = np.diag(lam_sorted_desc)
 
     # Sanity checks for rho
-    assert np.allclose(np.trace(rho), 1.0), "Trace of rho is not 1"
+    assert np.allclose(np.trace(rho), 1.0)  # Trace of rho is 1
     eigenvalues_of_rho = np.sort(np.linalg.eigvalsh(rho))[::-1]  # Get actual sorted eigenvalues
-    assert np.allclose(eigenvalues_of_rho, lam_sorted_desc)  # "Rho does not have the intended eigenvalues"
-    assert is_ppt(rho, dim=[dim_sys, dim_sys], tol=test_tol)  #  "Constructed rho is not PPT"
+    assert np.allclose(eigenvalues_of_rho, lam_sorted_desc)  # "Rho must have the intended eigenvalues"
+    assert is_ppt(rho, dim=[dim_sys, dim_sys], tol=test_tol)  #  "Constructed rho must be PPT"
 
     # Rest of the mock setup
     original_matrix_rank = np.linalg.matrix_rank
@@ -916,4 +916,4 @@ def test_path_ha_kye_fallthrough_to_final_false_L534_to_L580(tiles_state_3x3_ppt
                         # L576 `elif level == 1` is false.
                         # Final L580 `return False` is hit.
                         assert not is_separable(rho, dim=dims, tol=test_tol, level=2)
-                        assert mock_plucker_det_call_info["called"]  # Plucker det mock was not called
+                        assert mock_plucker_det_call_info["called"]  # Plucker det mock need be to called
