@@ -45,7 +45,6 @@ def  tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
     and the last element is the unique constant (rhs).
     
     """
-    
     values, counts = np.unique(constraint_tensor, return_counts=True)
     if len(values) != 2:
         raise ValueError("Constraint tensor does not have exactly two distinct values.")
