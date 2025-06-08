@@ -30,21 +30,22 @@ with which this problem can be solved for a number of different scenarios.
 #            \eta = \left( (p_0, \rho_0), \ldots, (p_n, \rho_n)  \right),
 #        \end{equation}
 #
-# where :math:`p_i` is the probability with which state :math:`\rho_i` is
-# selected from the ensemble. Alice picks :math:`\rho_i` with probability
-# :math:`p_i` from her ensemble and sends :math:`\rho_i` to Bob.
+#    where :math:`p_i` is the probability with which state :math:`\rho_i` is
+#    selected from the ensemble. Alice picks :math:`\rho_i` with probability
+#    :math:`p_i` from her ensemble and sends :math:`\rho_i` to Bob.
 #
 # 2. Bob receives :math:`\rho_i`. Both Alice and Bob are aware of how the
-#   ensemble is defined but he does *not* know what index :math:`i`
-#   corresponding to the state :math:`\rho_i` he receives from Alice is.
+#    ensemble is defined but he does *not* know what index :math:`i`
+#    corresponding to the state :math:`\rho_i` he receives from Alice is.
 #
 # 3. Bob wants to guess which of the states from the ensemble he was *not* given.
-#   In order to do so, he may measure :math:`\rho_i` to guess the index
-#   :math:`i` for which the state in the ensemble corresponds.
+#    In order to do so, he may measure :math:`\rho_i` to guess the index
+#    :math:`i` for which the state in the ensemble corresponds.
+#
 #
 # This setting is depicted in the following figure.
 #
-# .. figure:: figures/quantum_state_distinguish.svg
+# .. figure:: ../../figures/quantum_state_distinguish.svg
 #   :alt: quantum state exclusion
 #   :align: center
 #
@@ -79,11 +80,14 @@ with which this problem can be solved for a number of different scenarios.
 #
 # * If :math:`S` is distinguishable then it is antidistinguishable.
 #
-# * If :math:`n = 2` then :math:`S` is distinguishable if and only if :math:`S` is antidistinguishable.
+# * If :math:`n = 2` then :math:`S` is distinguishable if and only if :math:`S` is
+#   antidistinguishable.
 #
-#    * Distinguishing one state from a pair of states is equivalent to excluding one of the states from that pair.
+#   * Distinguishing one state from a pair of states is equivalent to excluding
+#     one of the states from that pair.
 #
 # * If :math:`n \geq 3` then there are antidistinguishable sets that are not distinguishable.
+#
 #
 # Example: Trine states
 # ^^^^^^^^^^^^^^^^^^^^^
@@ -108,7 +112,7 @@ print(f"|𝛙_3> = {psi3.reshape(1, -1)[0]}")
 # The trine states are three states in two dimensions. So they can't be mutually orthogonal, but they are about "as close
 # as you can get" for three states in two dimensions to be mutually orthogonal.
 #
-# .. figure:: figures/trine.png
+# .. figure:: ../../figures/trine.png
 #   :alt: trine states
 #   :align: center
 
