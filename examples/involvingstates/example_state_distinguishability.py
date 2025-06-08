@@ -25,21 +25,22 @@ measurements.
 #            \eta = \left( (p_0, \rho_0), \ldots, (p_n, \rho_n)  \right),
 #        \end{equation}
 #
-# where :math:`p_i` is the probability with which state :math:`\rho_i` is
-# selected from the ensemble. Alice picks :math:`\rho_i` with probability
-# :math:`p_i` from her ensemble and sends :math:`\rho_i` to Bob.
+#    where :math:`p_i` is the probability with which state :math:`\rho_i` is
+#    selected from the ensemble. Alice picks :math:`\rho_i` with probability
+#    :math:`p_i` from her ensemble and sends :math:`\rho_i` to Bob.
 #
 # 2. Bob receives :math:`\rho_i`. Both Alice and Bob are aware of how the
-#   ensemble is defined but he does *not* know what index :math:`i`
-#   corresponding to the state :math:`\rho_i` he receives from Alice is.
+#    ensemble is defined but he does *not* know what index :math:`i`
+#    corresponding to the state :math:`\rho_i` he receives from Alice is.
 #
 # 3. Bob wants to guess which of the states from the ensemble he was given. In
-#   order to do so, he may measure :math:`\rho_i` to guess the index :math:`i`
-#   for which the state in the ensemble corresponds.
+#    order to do so, he may measure :math:`\rho_i` to guess the index :math:`i`
+#    for which the state in the ensemble corresponds.
+#
 #
 # This setting is depicted in the following figure.
 #
-# .. figure:: figures/quantum_state_distinguish.svg
+# .. figure:: ../../figures/quantum_state_distinguish.svg
 #   :alt: quantum state distinguishability
 #   :align: center
 #
@@ -49,7 +50,7 @@ measurements.
 # the optimal probability of distinguishing a given set of states is characterized
 # by the following image.
 #
-# .. figure:: figures/measurement_inclusions.svg
+# .. figure:: ../../figures/measurement_inclusions.svg
 #   :width: 200
 #   :alt: measurement hierarchy
 #   :align: center
@@ -63,14 +64,15 @@ measurements.
 # In general:
 #
 # * LOCC: These are difficult objects to handle mathematically; difficult to
-#  design protocols for and difficult to provide bounds on their power.
+#   design protocols for and difficult to provide bounds on their power.
 #
 # * Separable: Separable measurements have a nicer structure than LOCC.
-#  Unfortunately, optimizing over separable measurements in NP-hard.
+#   Unfortunately, optimizing over separable measurements in NP-hard.
 #
 # * PPT: PPT measurements offer a nice structure and there exists efficient
-#  techniques that allow one to optimize over the set of PPT measurements via
-#  semidefinite programming.
+#   techniques that allow one to optimize over the set of PPT measurements via
+#   semidefinite programming.
+#
 #
 # Optimal probability of distinguishing a quantum state
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

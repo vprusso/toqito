@@ -11,8 +11,8 @@ classical and quantum value of a given XOR game.
 # %%
 # For readers who are already familiar with XOR games and who simply want to see
 # how to use :code:`|toqito⟩` to study these objects, they are welcome to consult the
-# documentation page, and more specifically the function `xor\_game\_value
-# <https://toqito.readthedocs.io/en/latest/autoapi/nonlocal_games/xor_game/index.html#nonlocal_games.xor_game.XORGame>`_.
+# documentation page, and more specifically the function
+# `xor_game_value <https://toqito.readthedocs.io/en/latest/autoapi/nonlocal_games/xor_game/index.html#nonlocal_games.xor_game.XORGame>`_.
 #
 # Further information beyond the scope of this tutorial on the notion of XOR
 # games along with the method of computing their quantum value may be found in
@@ -26,8 +26,8 @@ classical and quantum value of a given XOR game.
 # of nonlocal games along with how one defines classical and quantum strategies
 # for these games, please refer to the example:
 #
-# * `Lower Bounds on the Quantum Value of a Two-Player Nonlocal Game
-#  <https://toqito.readthedocs.io/en/latest/tutorials.nonlocal_games.html#lower-bounding-the-quantum-value-in-toqito>`_
+# * For more information, refer to the tutorial on `Lower Bounds on the Quantum Value of a Two-Player Nonlocal Game <https://toqito.readthedocs.io/en/latest/tutorials.nonlocal_games.html#lower-bounding-the-quantum-value-in-toqito>`_.
+#
 #
 # .. note::
 #    It is *not* known how to directly compute the quantum value of an arbitrary
@@ -98,6 +98,7 @@ classical and quantum value of a given XOR game.
 #    * :code:`pred_mat`: A matrix whose :math:`(x, y)^{th}` entry corresponds to
 #      the winning choice of :math:`a` and :math:`b` when Alice receives
 #      :math:`x` and Bob receives :math:`y` from the referee.
+#
 #
 # For the CHSH game, the `prob_mat` and `pred_mat` variables are defined as follows.
 
@@ -204,13 +205,14 @@ print("The classical value of game is: ", chsh.classical_value())
 #            | \phi_1 \rangle = -\sin(\theta)|0 \rangle + \cos(\theta)|1 \rangle,
 #        \end{equation}
 #
-# such that
+#   such that
 #
-# * If :math:`x = 0` Alice sets :math:`\theta = 0`.
-#  Otherwise, if :math:`x = 1`, Alice sets :math:`\theta = \pi/4`.
+#   * If :math:`x = 0` Alice sets :math:`\theta = 0`.
+#     Otherwise, if :math:`x = 1`, Alice sets :math:`\theta = \pi/4`.
 #
-# * If :math:`y = 0` Bob sets :math:`\theta = \pi/8`.
-#  Otherwise, if :math:`y = 1`, Bob sets :math:`\theta = -\pi/8`.
+#   * If :math:`y = 0` Bob sets :math:`\theta = \pi/8`.
+#     Otherwise, if :math:`y = 1`, Bob sets :math:`\theta = -\pi/8`.
+#
 #
 # We can now analyze how well this particular quantum strategy performs by
 # analyzing what occurs in each of the four possible scenarios. For brevity, we
@@ -219,55 +221,55 @@ print("The classical value of game is: ", chsh.classical_value())
 #
 # * Case: :math:`x = 0, y = 0`:
 #
-# In this case, Alice and Bob win if :math:`a = b = 0` or if :math:`a = b = 1`.
-# Alice receives question :math:`x` and selects her measurements constructed from
-# the basis as specified in the strategy.
+#   In this case, Alice and Bob win if :math:`a = b = 0` or if :math:`a = b = 1`.
+#   Alice receives question :math:`x` and selects her measurements constructed from
+#   the basis as specified in the strategy.
 #
-# .. math::
-#    \begin{equation}
-#        A_0^0 = | \phi_0 \rangle \langle \phi_0 |
-#        \quad \text{and} \quad
-#        A_1^0 = | \phi_1 \rangle \langle \phi_1 |
-#    \end{equation}
+#   .. math::
+#      \begin{equation}
+#          A_0^0 = | \phi_0 \rangle \langle \phi_0 |
+#          \quad \text{and} \quad
+#          A_1^0 = | \phi_1 \rangle \langle \phi_1 |
+#      \end{equation}
 #
-# where
+#   where
 #
-# .. math::
-#    \begin{equation}
-#        \begin{aligned}
-#            | \phi_0 \rangle &= \cos(0)| 0 \rangle + \sin(0)| 1 \rangle, \\
-#            | \phi_1 \rangle &= -\sin(0)| 0 \rangle + \cos(0)| 1 \rangle.
-#        \end{aligned}
-#    \end{equation}
+#   .. math::
+#      \begin{equation}
+#          \begin{aligned}
+#              | \phi_0 \rangle &= \cos(0)| 0 \rangle + \sin(0)| 1 \rangle, \\
+#              | \phi_1 \rangle &= -\sin(0)| 0 \rangle + \cos(0)| 1 \rangle.
+#          \end{aligned}
+#      \end{equation}
 #
-# In a similar way, since Bob receives question :math:`y = 0`, he selects his
-# measurements from the basis
+#   In a similar way, since Bob receives question :math:`y = 0`, he selects his
+#   measurements from the basis
 #
-# .. math::
-#    \begin{equation}
-#        \begin{aligned}
-#            | \phi_0 \rangle &= \cos(\pi/8)| 0 \rangle + \sin(\pi/8)| 1 \rangle, \\
-#            | \phi_1 \rangle &= -\sin(\pi/8)| 0 \rangle + \cos(\pi/8)| 1 \rangle.
-#        \end{aligned}
-#    \end{equation}
+#   .. math::
+#      \begin{equation}
+#          \begin{aligned}
+#              | \phi_0 \rangle &= \cos(\pi/8)| 0 \rangle + \sin(\pi/8)| 1 \rangle, \\
+#              | \phi_1 \rangle &= -\sin(\pi/8)| 0 \rangle + \cos(\pi/8)| 1 \rangle.
+#          \end{aligned}
+#      \end{equation}
 #
-# where the measurement operators themselves are defined as
+#   where the measurement operators themselves are defined as
 #
-# .. math::
-#    \begin{equation}
-#        B_0^0 = | \phi_0 \rangle
-#        \quad \text{and} \quad
-#        B_1^0 = | \phi_1 \rangle \langle \phi_1 |
-#    \end{equation}.
+#   .. math::
+#      \begin{equation}
+#          B_0^0 = | \phi_0 \rangle
+#          \quad \text{and} \quad
+#          B_1^0 = | \phi_1 \rangle \langle \phi_1 |
+#      \end{equation}.
 #
-# Using these measurements, we can calculate the probability that Alice and Bob
-# win on the inputs :math:`x = 0` and :math:`y = 0` as
+#   Using these measurements, we can calculate the probability that Alice and Bob
+#   win on the inputs :math:`x = 0` and :math:`y = 0` as
 #
-# .. math::
-#    \begin{equation}
-#        p(a, b|0, 0) = \langle \psi | A_0^0 \otimes B_0^0 | \psi \rangle +
-#                       \langle \psi | A_1^0 \otimes B_1^0 | \psi \rangle.
-#    \end{equation}
+#   .. math::
+#      \begin{equation}
+#          p(a, b|0, 0) = \langle \psi | A_0^0 \otimes B_0^0 | \psi \rangle +
+#                         \langle \psi | A_1^0 \otimes B_1^0 | \psi \rangle.
+#      \end{equation}
 #
 # Calculating the above equation and normalizing by a factor of :math:`1/4`, we
 # obtain the value of :math:`\cos^2(\pi/8)`. Calculating the remaining three

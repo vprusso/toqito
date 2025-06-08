@@ -7,7 +7,7 @@ wherein the referee, who previously only provided questions and answers to the
 players, now share a state with the players and is able to perform a
 measurement on that shared state.
 """
-# sphinx_gallery_thumbnail_path = 'figures/extended_non_local_game.svg'
+# sphinx_gallery_thumbnail_path = '../../figures/extended_non_local_game.svg'
 
 # %%
 # Every extended nonlocal game has a *value* associated to it. Analogously to
@@ -39,7 +39,7 @@ measurement on that shared state.
 # the referee on its share of the state initially provided to it by Alice and
 # Bob.
 #
-# .. figure:: figures/extended_nonlocal_game.svg
+# .. figure:: ../../figures/extended_nonlocal_game.svg
 #   :alt: extended nonlocal game
 #   :align: center
 #

@@ -15,20 +15,20 @@
 # Superdense coding protocol
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^
 # 1. Before any communication begins, a third party prepares two qubits in
-#   *Bell state*:
+#    *Bell state*:
 #
-#   .. math::
+#    .. math::
 #
-#      \begin{equation}
-#          \begin{aligned}
-#              \ket{\psi} = \frac{\ket{00} + \ket{11}}{\sqrt{2}}
-#          \end{aligned}
-#      \end{equation}
+#       \begin{equation}
+#           \begin{aligned}
+#               \ket{\psi} = \frac{\ket{00} + \ket{11}}{\sqrt{2}}
+#           \end{aligned}
+#       \end{equation}
 #
-#   Alice takes the first qubit, Bob takes the second, and they both separate.
-#   This entangled pair is responsible for linking the qubits *non-locally*, allowing
-#   Alice's local operations to affect the global state.
-
+#    Alice takes the first qubit, Bob takes the second, and they both separate.
+#    This entangled pair is responsible for linking the qubits *non-locally*,
+#    allowing Alice's local operations to affect the global state.
+#
 import numpy as np
 from toqito.states import bell
 from toqito.matrices import pauli, cnot, hadamard
@@ -39,9 +39,10 @@ bell_state = bell(0)
 print("Initial Bell state (|Φ⁺⟩):\n", bell_state)
 
 # %%
-# 2. Alice holds two classical bits (:math:`a` and :math:`b`) that she wants to send. For the tutorial, she is choosing to send :math:`11`.
-#   Depending on the values of her classical bits, she applies one of the four *Pauli Gates*
-#   to her qubit for encoding:
+# 2. Alice holds two classical bits (:math:`a` and :math:`b`) that she wants to
+#    send. For the tutorial, she is choosing to send :math:`11`.
+#    Depending on the values of her classical bits, she applies one of the four
+#    *Pauli Gates* to her qubit for encoding:
 #
 # .. raw:: html
 #
@@ -80,7 +81,7 @@ print("Initial Bell state (|Φ⁺⟩):\n", bell_state)
 # .. raw:: html
 #
 #   </div>
-
+#
 pauli_gate_operations = {
     # Identity gate.
     "00": pauli("I"),
@@ -100,19 +101,21 @@ print(f"Entangled state is: {entangled_state_encoded}")
 
 
 # %%
-# 3. Bob performs operations to reverse the entanglement on encoded state sent by Alice and extract the bits.
-#   First, he applies a Controlled-NOT or :math:`CX` *(CNOT) Gate* with the qubit received from Alice as the
-#   *control qubit* and Bob's original qubit as the *target qubit*. After this, Bob moves
-#   ahead and applies a Hadamard or :math:`H` gate to Alice's qubit.
-
+# 3. Bob performs operations to reverse the entanglement on encoded state sent
+#    by Alice and extract the bits. First, he applies a Controlled-NOT or
+#    :math:`CX` *(CNOT) Gate* with the qubit received from Alice as the *control
+#    qubit* and Bob's original qubit as the *target qubit*. After this, Bob
+#    moves ahead and applies a Hadamard or :math:`H` gate to Alice's qubit.
+#
 state_after_cnot = cnot() @ entangled_state_encoded
 decoded_state = np.kron(hadamard(1), pauli("I")) @ state_after_cnot
 print("Decoded state:\n", decoded_state)
 
 # %%
-# 4. Finally, Bob measures both qubits in the computational basis (:math:`\ket{0},
-#   \ket{1}`). The result is guaranteed to be :math:`11`; the two bits that Alice sent.
-
+# 4. Finally, Bob measures both qubits in the computational basis
+#    (:math:`\ket{0}, \ket{1}`). The result is guaranteed to be :math:`11`; the
+#    two bits that Alice sent.
+#
 measurement_probabilities = np.abs(decoded_state.flatten()) ** 2
 print("Measurement probabilities for basis states |00>, |01>, |10>, |11>:")
 print(measurement_probabilities)
