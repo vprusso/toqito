@@ -4,7 +4,7 @@ import numpy as np
 
 
 def generate_random_linearly_independent_vectors(
-    num_vectors: np.ndarray, dim: int, is_real: bool = True, seed: int | None = None
+    num_vectors: np.ndarray, dim: int, is_real: bool = True, seed: int | None = None, max_attempts: int | None = None
 ) -> list[np.ndarray]:
     r"""Generate a set of linearly independent random vectors.
 
@@ -35,7 +35,7 @@ def generate_random_linearly_independent_vectors(
      is_linearly_independent(np.expand_dims(li_vecs.T,axis=2).tolist())
 
     It is also possible to generate a set of complex vectors, as follows.
-    
+
     .. jupyter-execute::
 
      from toqito.rand import generate_random_linearly_independent_vectors
@@ -52,6 +52,9 @@ def generate_random_linearly_independent_vectors(
                     Default is :code:`False`.
     :param seed: int | None
         A seed used to instantiate numpy's random number generator.
+    :param max_attempts: int | None
+        The maximum number of times to attempt generation. If not set, will
+        default to num_vectors * dim
     :return: A (dim x num_vectors) matrix whose columns are the generated independent vectors.
 
     """
@@ -61,9 +64,11 @@ def generate_random_linearly_independent_vectors(
     # Keep generating until we get a matrix with independent columns.
 
     random_num_generator = np.random.default_rng(seed=seed)  ## construct a random number generator
-    failure_count = 0
 
-    while True:
+    if not max_attempts:
+        max_attempts = num_vectors * dim
+
+    for _ in range(max_attempts):
         if is_real:
             rand_mat = random_num_generator.standard_normal(size=(dim, num_vectors))
         else:
@@ -74,7 +79,8 @@ def generate_random_linearly_independent_vectors(
         # Check that the rank equals num_vectors.
         if np.linalg.matrix_rank(rand_mat) == num_vectors:
             return rand_mat
-        else:
-            failure_count += 1
-            if failure_count > num_vectors * dim:
-                print(f"number of attempts: {failure_count}")
+
+    raise ValueError(
+        f"Failed to generate {num_vectors} linearly independent vectors "
+        f"of dimension {dim} after {max_attempts} attempts."
+    )

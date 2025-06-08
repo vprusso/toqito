@@ -20,6 +20,8 @@ from toqito.rand.generate_random_linearly_independent_vectors import generate_ra
         (2, 5),
         # Test two ten-dimensional vectors.
         (2, 10),
+        # Test very high dimensiona;
+        (999, 1000),
     ],
 )
 def test_generate_random_linearly_independent_vectors(num_vecs: int, dim: int):
@@ -58,4 +60,18 @@ def test_generate_random_linearly_independent_vectors_failure(num_vecs: int, dim
     """Test for generate_random_linearly_independent_vectors function; should fail."""
     with pytest.raises(ValueError) as excinfo:
         generate_random_linearly_independent_vectors(num_vecs, dim)
+    assert excinfo.type is ValueError
+
+
+@pytest.mark.parametrize(
+    "num_vecs,dim,max_attempts",
+    [
+        # Test value error being raised
+        (3, 2, 0)
+    ],
+)
+def test_generate_random_linearly_independent_vectors_attempts(num_vecs: int, dim: int, max_attempts: int):
+    """Test for generate_random_linearly_independent_vectors function; should fail."""
+    with pytest.raises(ValueError) as excinfo:
+        generate_random_linearly_independent_vectors(num_vecs, dim, max_attempts)
     assert excinfo.type is ValueError
