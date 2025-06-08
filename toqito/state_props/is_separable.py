@@ -18,7 +18,7 @@ from toqito.states.max_entangled import max_entangled
 
 
 def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: int = 2, tol: float = 1e-8) -> bool:
-    r"""Determine if a given state (given as a density matrix) is a separable state :cite:`WikiSepSt`.
+    r"""Determine if a given state (given as a density matrix) is a separable state :cite:`WikiSepSt` .
 
     A quantum state :math:`\rho \in \text{D}(\mathcal{H}_A \otimes \mathcal{H}_B)` is called
     separable if it can be written as a convex combination of product states. If a state is not
@@ -27,7 +27,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     Overview
     ==========
     This function implements several criteria to determine separability, broadly following a similar
-    order of checks as seen in tools like QETLAB's :code:`IsSeparable` function :cite:`QETLAB_link`.
+    order of checks as seen in tools like QETLAB's :code:`IsSeparable` function :cite:`QETLAB_link` .
 
     1.  **Input Validation**: Checks if the input :code:`state` is a square, positive semidefinite (PSD)
         NumPy array. Normalizes the trace to 1 if necessary. The :code:`dim` parameter specifying
@@ -56,7 +56,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
           separable.
 
     5.  **PPT Criterion (Peres-Horodecki)**
-        :cite:`Peres_1996_Separability`,
+        :cite:`Peres_1996_Separability` ,
         :cite:`Horodecki_1996_PPT_small_dimensions`:
 
         - The Positive Partial Transpose (PPT) criterion is a necessary condition
