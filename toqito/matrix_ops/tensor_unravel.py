@@ -1,5 +1,6 @@
 import numpy as np
 
+
 def  tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
     r"""Convert a tensor-form constraint back to its raw 1D-representation.
 
