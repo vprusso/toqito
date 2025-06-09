@@ -67,7 +67,9 @@ def test_generate_random_linearly_independent_vectors_failure(num_vecs: int, dim
     "num_vecs,dim,max_attempts",
     [
         # Test value error being raised
-        (3, 2, 0)
+        (3, 2, 0),
+        # Test what happens when max_attempts is null
+        (3, 2, None),
     ],
 )
 def test_generate_random_linearly_independent_vectors_attempts(num_vecs: int, dim: int, max_attempts: int):
@@ -75,3 +77,45 @@ def test_generate_random_linearly_independent_vectors_attempts(num_vecs: int, di
     with pytest.raises(ValueError) as excinfo:
         generate_random_linearly_independent_vectors(num_vecs, dim, max_attempts)
     assert excinfo.type is ValueError
+
+
+def test_custom_max_attempts_failure(monkeypatch):
+    """Test for exceed max_attempts."""
+    # Monkey-patch matrix_rank to always return too-low rank
+    calls = {"count": 0}
+
+    def fake_rank(x):
+        calls["count"] += 1
+        # Always return one less than needed
+        return x.shape[1] - 1
+
+    monkeypatch.setattr(np.linalg, "matrix_rank", fake_rank)
+
+    num, dim, max_attempts = 2, 3, 4
+    with pytest.raises(ValueError) as excinfo:
+        generate_random_linearly_independent_vectors(
+            num_vectors=num, dim=dim, is_real=True, seed=123, max_attempts=max_attempts
+        )
+    assert f"after {max_attempts} attempts" in str(excinfo.value)
+    # Ensure we actually tried max_attempts times
+    assert calls["count"] == max_attempts
+
+
+def test_default_max_attempts_used(monkeypatch):
+    """Test tha max attempts defaults to num_vectors*dim."""
+    # Ensure default max_attempts = num_vectors * dim
+    calls = {"count": 0}
+
+    def fake_rank(x):
+        calls["count"] += 1
+        return x.shape[1]  # always succeed on first try
+
+    monkeypatch.setattr(np.linalg, "matrix_rank", fake_rank)
+    num, dim = 2, 3
+    # omit max_attempts to trigger default
+    mat = generate_random_linearly_independent_vectors(
+        num_vectors=num, dim=dim, is_real=True, seed=999, max_attempts=None
+    )
+    # default attempts = num*dim, but we succeed on first, so only one call
+    assert calls["count"] == 1
+    assert mat.shape == (dim, num)
