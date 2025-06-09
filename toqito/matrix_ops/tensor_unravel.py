@@ -23,6 +23,15 @@ def  tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
     :math:`n` entries are the coordinates of the unique index, and the last entry
     is the unique constant :code:`rhs`.
     
+    Note:
+        This operation is equivalent to **vectorizing** a multi-dimensional
+        constraint back into a 1D row of the constraint system matrix.
+        It is conceptually related to the standard **vec-operator** for matrices
+        (see:cite:`Horn_1985_Matrix`) and to **tensor matricizations**
+        in the tensor decomposition literature (see:cite:`Tamara_2009_Tensor`). In this case, since the tensor constraint corresponds
+        to a single constraint row, the operation can also be seen as flattening
+        the row tensor into its 1D representation.
+    
     Examples
     ==========
     .. jupyter-execute::
