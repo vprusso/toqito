@@ -74,7 +74,6 @@ def _fast_classical_value(pred_mat: np.ndarray, num_b_out: int, num_b_in: int, p
 
     return p_win
 
-
 class NonlocalGame:
     r"""Create two-player nonlocal game object.
 
@@ -223,8 +222,6 @@ class NonlocalGame:
         M_array = np.array(M_list, dtype=int)
         b_array = np.array(b_list, dtype=int)
         return check_perfect_commuting_strategy(M_array, b_array)
-
-
 
     def process_iteration(i:int, num_bob_outputs:int, num_bob_inputs:int, pred_mat_copy:np.ndarray,
                           num_alice_outputs:int, num_alice_inputs:int)-> float:
