@@ -58,33 +58,17 @@ def abs_ppt_constraints(eigs: np.ndarray, p: int, max_constraints: int) -> list[
                 num_pool[k] = 0
                 if i == 0 or X[i - 1, j] < X[i, j]:
                     if i == p - 2 and j == p - 2:
-                        if _check_cross(X, p) and _check_crossB(X, p):
-                            constraints.append(_create_constraint(eigs, X, p))
+                        constraints.append(_create_constraint(eigs, X, p))
                     elif j == p - 1:
                         _fill_matrix(i + 1, i + 1, 3)
                     else:
                         _fill_matrix(i, j + 1, k + 1)
-                    # If still invalid, then exit?
                 num_pool[k] = 1
         X[i, j] = p_p + 1
 
     _fill_matrix(0, 2, 3)
 
     return constraints
-
-def _check_cross(X: np.ndarray, p: int) -> bool:
-    r"""Checks that no "criss-cross" suborderings exist."""
-    for i in range(p):
-        for j in range(p):
-            for k in range(p):
-                for l in range(p):
-                    for m in range(p):
-                        for n in range(p):
-                            if (X[min(i, j), max(i, j)] > X[min(k, l), max(k, l)]
-                            and X[min(l, n), max(l, n)] > X[min(j, m), max(j, m)]
-                            and X[min(k, m), max(k, m)] > X[min(i, n), max(i, n)]):
-                                return False
-    return True
 
 def _create_constraint(eigs: np.ndarray, X: np.ndarray, p: int) -> np.ndarray:
     r"""Return constraint matrix from order matrix."""
