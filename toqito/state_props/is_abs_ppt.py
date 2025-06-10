@@ -73,11 +73,13 @@ def is_abs_ppt(mat: np.ndarray, dim: int | list[int] = None) -> int:
         return 1
 
     # Main check
-    # 2612 is the upper bound on the number of constraint matrices that is required
-    # for p = 6 using the QETLAB routine AbsPPTConstraints
+    # 33592 is the upper bound on the number of constraint matrices that is required
+    # for p = 6 without any additional checks in abs_ppt_constraints
+    # Reference:
+    # http://njohnston.ca/2014/02/counting-the-possible-orderings-of-pairwise-multiplication/
     # 2608 is the minimum value: The list of optimal constraint counts can be found
     # in https://oeis.org/A237749
-    constraints = abs_ppt_constraints(eigs, p, 2612)
+    constraints = abs_ppt_constraints(eigs, p, 33592)
     for constraint in constraints:
         if not is_positive_semidefinite(constraint):
             return 0
