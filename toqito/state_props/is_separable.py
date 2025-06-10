@@ -20,9 +20,9 @@ from toqito.states.max_entangled import max_entangled
 def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: int = 2, tol: float = 1e-8) -> bool:
     r"""Determine if a given state (given as a density matrix) is a separable state :cite:`WikiSepSt` .
 
-    A quantum state :math:`\rho \in \text{D}(\mathcal{H}_A \otimes \mathcal{H}_B)` is called
-    separable if it can be written as a convex combination of product states. If a state is not
-    separable, it is called entangled.
+    A multipartite quantum state:
+    :math:\rho \in \text{D}(\mathcal{H}_1 \otimes \mathcal{H}_2 \otimes \dots \otimes \mathcal{H}_N)
+    is defined as fully separable if it can be written as a convex combination of product states.
 
     Overview
     ==========
