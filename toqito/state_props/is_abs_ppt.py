@@ -7,9 +7,16 @@ from toqito.state_props import in_separable_ball, abs_ppt_constraints
 
 
 def is_abs_ppt(mat: np.ndarray, dim: int | list[int] = None) -> int:
-    r"""Determine whether or not a matrix is absolutely PPT :cite:`ref`.
+    r"""Determine whether or not a matrix is absolutely PPT :cite:`Hildebrand_2007_AbsPPT`.
 
-        This function is adapted from QETLAB.
+        This function is adapted from QETLAB :cite:`QETLAB_link`.
+
+        :notes: If :code:`min(dim)` is :math:`\leq 6`, this function checks all constraints
+        and therefore returns :code:`True` or :code:`False` in all cases. However, if
+        :code:`min(dim)` is :math:`\geq 7`, only the first :math:`33592` constraints are
+        checked, since there are over :math:`23178480` constraints in this case
+        :cite:`Johnston_2014_Orderings`. Therefore the function returns either :code:`False`,
+        or :code:`None` if all checked constraints were satisfied.
 
         Examples
         ==========
@@ -29,9 +36,9 @@ def is_abs_ppt(mat: np.ndarray, dim: int | list[int] = None) -> int:
         :param mat: A square matrix.
         :param dim: A 1-by-2 vector containing the dimensions of the
                     subsystems on which :code:`mat` acts.
-        :return: :code:`1` if :code:`mat` is absolutely PPT,
-        :return: :code:`0` if :code:`mat is not absolutely PPT,
-        :return: :code:`-1` if the function could not decide.
+        :return: :code:`True` if :code:`mat` is absolutely PPT,
+        :return: :code:`False` if :code:`mat is not absolutely PPT,
+        :return: :code:`None` if the function could not decide.
 
     """
     if not is_square(mat):
@@ -64,24 +71,22 @@ def is_abs_ppt(mat: np.ndarray, dim: int | list[int] = None) -> int:
     eigs = np.linalg.eigvalsh(mat)[::-1]
     # 2. Is PSD (TODO: use tolerances)
     if eigs[-1] < 0:
-        return 0
+        return False
     # 3. Check if mat is in separable ball
     if in_separable_ball(mat):
-        return 1
+        return True
     # 4. Check Theorem 7.2 of arXiv:1406.1277
     if sum(eigs[:p-1]) <= eigs[-1] + sum(eigs[-p:]):
-        return 1
+        return True
 
     # Main check
     # 33592 is the upper bound on the number of constraint matrices that is required
     # for p = 6 without any additional checks in abs_ppt_constraints
-    # Reference:
-    # http://njohnston.ca/2014/02/counting-the-possible-orderings-of-pairwise-multiplication/
     # 2608 is the minimum value: The list of optimal constraint counts can be found
     # in https://oeis.org/A237749
     constraints = abs_ppt_constraints(eigs, p, 33592)
     for constraint in constraints:
         if not is_positive_semidefinite(constraint):
-            return 0
+            return False
     # We checked all constraints for p <= 6, but not for p >= 7
-    return 1 if p <= 6 else -1
+    return True if p <= 6 else None
