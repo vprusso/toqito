@@ -12,6 +12,16 @@ def is_abs_ppt(mat: np.ndarray, dim: int = None, rtol: float = 1e-05, atol: floa
 
     This function is adapted from QETLAB :cite:`QETLAB_link`.
 
+    .. note::
+
+    If :code:`min(dim)` :math:`\leq 6`, this function checks all constraints
+    and therefore returns :code:`True` or :code:`False` in all cases. However, if
+    :code:`min(dim)` :math:`\geq 7`, only the first :math:`33592` constraints are
+    checked, since there are over :math:`23178480` constraints in this case
+    :cite:`Johnston_2014_Orderings`. Therefore the function returns either
+    :code:`False` if at least one constraint was not satisfied, or :code:`None`
+    if all checked constraints were satisfied.
+
     Examples
     ==========
     A random density matrix will likely not be absolutely PPT:
@@ -50,13 +60,6 @@ def is_abs_ppt(mat: np.ndarray, dim: int = None, rtol: float = 1e-05, atol: floa
     :param atol: The absolute tolerance parameter (default 1e-08).
     :return: :code:`True` if :code:`mat` is absolutely PPT, :code:`False` if :code:`mat is not
              absolutely PPT, and :code:`None` if the function could not decide.
-    :notes: If :code:`min(dim)` :math:`\leq 6`, this function checks all constraints
-            and therefore returns :code:`True` or :code:`False` in all cases. However, if
-            :code:`min(dim)` :math:`\geq 7`, only the first :math:`33592` constraints are
-            checked, since there are over :math:`23178480` constraints in this case
-            :cite:`Johnston_2014_Orderings`. Therefore the function returns either
-            :code:`False` if at least one constraint was not satisfied, or :code:`None`
-            if all checked constraints were satisfied.
 
     """
     if not is_square(mat):
