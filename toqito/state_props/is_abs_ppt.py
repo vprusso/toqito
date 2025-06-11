@@ -89,7 +89,7 @@ def is_abs_ppt(mat: np.ndarray, dim: int = None, rtol: float = 1e-05, atol: floa
     # eigsvalsh normally returns eigenvalues in ascending order
     # But it is risky to assume this will remain the default behaviour in the future
     eigs = np.sort(np.linalg.eigvalsh(mat))[::-1]
-    # 2. Is PSD (TODO: use tolerances)
+    # 2. Is PSD
     if eigs[-1] < -abs(atol):
         return False
     # 3. Check if mat is in separable ball

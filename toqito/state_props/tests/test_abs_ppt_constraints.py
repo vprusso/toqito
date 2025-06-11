@@ -32,3 +32,8 @@ def test_qutrit_qudit_constraints():
     expected_cons = analytical_qutrit_qudit_constraints(eigs)
     assert (cons[0] == pytest.approx(expected_cons[0]) and cons[1] == pytest.approx(expected_cons[1])
             or cons[1] == pytest.approx(expected_cons[0]) and cons[0] == pytest.approx(expected_cons[1]))
+
+def test_lim_cons():
+    """Test that lim_cons correctly limits number of constraints."""
+    eigs = np.random.rand(7 * 100)
+    assert len(abs_ppt_constraints(eigs, 7, lim_cons=4000)) == 4000
