@@ -17,7 +17,7 @@ def abs_ppt_constraints(eigs: np.ndarray, p: int, lim_cons: int = 33592) -> list
             import numpy as np
             from toqito.rand import random_density_matrix
             from toqito.state_props import abs_ppt_constraints
-            rho = random_density_matrix(12) # assumed to act on a 3 x 4 bipartite system
+            rho = random_density_matrix(9) # assumed to act on a 3 x 3 bipartite system
             eigs = np.linalg.eigvalsh(rho)
             constraints = abs_ppt_constraints(eigs, 3)
             for i, cons in enumerate(constraints, 1):
@@ -77,17 +77,17 @@ def abs_ppt_constraints(eigs: np.ndarray, p: int, lim_cons: int = 33592) -> list
                 num_pool[k] = 1
         X[i, j] = p_p + 1
 
+    def _create_constraint(eigs: np.ndarray, X: np.ndarray, p: int) -> np.ndarray:
+        r"""Return constraint matrix from order matrix."""
+        L = np.zeros((p, p))
+         # Set upper triangle + diagonal
+        upper_inds = np.triu_indices(p)
+        L[upper_inds] = eigs[-X[upper_inds]]
+        strictly_upper_inds = np.triu_indices(p, 1)
+        # Set lower triangle
+        L.T[strictly_upper_inds] = -eigs[np.unique(X[strictly_upper_inds], return_inverse=True)[1]]
+        return L + L.T
+
     _fill_matrix(0, 2, 3)
 
     return constraints
-
-def _create_constraint(eigs: np.ndarray, X: np.ndarray, p: int) -> np.ndarray:
-    r"""Return constraint matrix from order matrix."""
-    L = np.zeros((p, p))
-     # Set upper triangle + diagonal
-    upper_inds = np.triu_indices(p)
-    L[upper_inds] = eigs[-X[upper_inds]]
-    strictly_upper_inds = np.triu_indices(p, 1)
-    # Set lower triangle
-    L.T[strictly_upper_inds] = -eigs[np.unique(X[strictly_upper_inds], return_inverse=True)[1]]
-    return L + L.T

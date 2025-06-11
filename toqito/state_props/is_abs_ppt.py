@@ -10,8 +10,7 @@ from toqito.state_props.abs_ppt_constraints import abs_ppt_constraints
 def is_abs_ppt(mat: np.ndarray, dim: int = None, rtol: float = 1e-05, atol: float = 1e-08) -> bool | None:
     r"""Determine whether or not a matrix is absolutely PPT :cite:`Hildebrand_2007_AbsPPT`.
 
-        A quantum state being absolutely PPT is a necessary, but not sufficient condition
-        for it to be separable. This function is adapted from QETLAB :cite:`QETLAB_link`.
+        This function is adapted from QETLAB :cite:`QETLAB_link`.
 
         :notes: If :code:`min(dim)` :math:`\leq 6`, this function checks all constraints
                 and therefore returns :code:`True` or :code:`False` in all cases. However, if
@@ -23,30 +22,24 @@ def is_abs_ppt(mat: np.ndarray, dim: int = None, rtol: float = 1e-05, atol: floa
 
         Examples
         ==========
-        A random density matrix will likely not be separable, and therefore likely not
-        absolutely PPT.
+        A random density matrix will likely not be absolutely PPT.
 
         .. jupyter-execute::
 
             import numpy as np
             from toqito.rand import random_density_matrix
             from toqito.state_props import is_abs_ppt, is_separable
-            rho = random_density_matrix(12) # assumed to act on a 3 x 4 bipartite system
-            print("rho is separable:", is_separable(rho, 3))
+            rho = random_density_matrix(9) # assumed to act on a 3 x 3 bipartite system
             print("rho is absolutely PPT:", is_abs_ppt(rho, 3))
 
-        However, a random density matrix constructed to be separable, will definitely be
-        absolutely PPT.
+        The maximally-mixed state is an example of an absolutely PPT state.
 
         .. jupyter-execute::
 
             import numpy as np
-            from toqito.rand import random_density_matrix
+            from toqito.states import max_mixed
             from toqito.state_props import is_abs_ppt, is_separable
-            rho_1 = random_density_matrix(3)
-            rho_2 = random_density_matrix(4)
-            rho = np.kron(rho_1, rho_2)
-            print("rho is separable:", is_separable(rho, 3))
+            rho = max_mixed(9) # assumed to act on a 3 x 3 bipartite system
             print("rho is absolutely PPT:", is_abs_ppt(rho, 3))
 
         References
