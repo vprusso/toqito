@@ -12,17 +12,9 @@ def is_abs_ppt(mat: np.ndarray, dim: int = None, rtol: float = 1e-05, atol: floa
 
     This function is adapted from QETLAB :cite:`QETLAB_link`.
 
-    :notes: If :code:`min(dim)` :math:`\leq 6`, this function checks all constraints
-            and therefore returns :code:`True` or :code:`False` in all cases. However, if
-            :code:`min(dim)` :math:`\geq 7`, only the first :math:`33592` constraints are
-            checked, since there are over :math:`23178480` constraints in this case
-            :cite:`Johnston_2014_Orderings`. Therefore the function returns either
-            :code:`False` if at least one constraint was not satisfied, or :code:`None`
-            if all checked constraints were satisfied.
-
     Examples
     ==========
-    A random density matrix will likely not be absolutely PPT.
+    A random density matrix will likely not be absolutely PPT:
 
     .. jupyter-execute::
 
@@ -32,7 +24,7 @@ def is_abs_ppt(mat: np.ndarray, dim: int = None, rtol: float = 1e-05, atol: floa
         rho = random_density_matrix(9) # assumed to act on a 3 x 3 bipartite system
         print("rho is absolutely PPT:", is_abs_ppt(rho, 3))
 
-    The maximally-mixed state is an example of an absolutely PPT state.
+    The maximally-mixed state is an example of an absolutely PPT state:
 
     .. jupyter-execute::
 
@@ -47,6 +39,8 @@ def is_abs_ppt(mat: np.ndarray, dim: int = None, rtol: float = 1e-05, atol: floa
     .. bibliography::
         :filter: docname in docnames
 
+    :raises ValueError: If :code:`mat` is not square.
+    :raises ValueError: If :code:`dim` does not divide the dimensions of :code:`mat`.
     :param mat: A square matrix.
     :param dim: The dimension of any one subsystem on which :code:`mat` acts. If :code:`None`,
                 :code:`dim` is selected such that :code:`min(dim, mat.shape[0] // dim)` is
@@ -54,9 +48,15 @@ def is_abs_ppt(mat: np.ndarray, dim: int = None, rtol: float = 1e-05, atol: floa
                 (see Theorem 2 of :cite:`Hildebrand_2007_AbsPPT`).
     :param rtol: The relative tolerance parameter (default 1e-05).
     :param atol: The absolute tolerance parameter (default 1e-08).
-    :return: :code:`True` if :code:`mat` is absolutely PPT,
-    :return: :code:`False` if :code:`mat is not absolutely PPT,
-    :return: :code:`None` if the function could not decide.
+    :return: :code:`True` if :code:`mat` is absolutely PPT, :code:`False` if :code:`mat is not
+             absolutely PPT, and :code:`None` if the function could not decide.
+    :notes: If :code:`min(dim)` :math:`\leq 6`, this function checks all constraints
+            and therefore returns :code:`True` or :code:`False` in all cases. However, if
+            :code:`min(dim)` :math:`\geq 7`, only the first :math:`33592` constraints are
+            checked, since there are over :math:`23178480` constraints in this case
+            :cite:`Johnston_2014_Orderings`. Therefore the function returns either
+            :code:`False` if at least one constraint was not satisfied, or :code:`None`
+            if all checked constraints were satisfied.
 
     """
     if not is_square(mat):
