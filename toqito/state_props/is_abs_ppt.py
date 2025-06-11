@@ -92,11 +92,11 @@ def is_abs_ppt(mat: np.ndarray, dim: int = None, rtol: float = 1e-05, atol: floa
     # 2. Is PSD
     if eigs[-1] < -abs(atol):
         return False
-    # 3. Check if mat is in separable ball
-    if in_separable_ball(mat):
-        return True
-    # 4. Check Theorem 7.2 of :cite:`Jivulescu_2015_Reduction`
+    # 3. Check Theorem 7.2 of :cite:`Jivulescu_2015_Reduction`
     if sum(eigs[: p - 1]) <= eigs[-1] + sum(eigs[-p:]):
+        return True
+    # 4. Check if mat is in separable ball
+    if in_separable_ball(mat):
         return True
 
     # Main check

@@ -20,9 +20,16 @@ def test_is_positive_semidefinite():
     assert not is_abs_ppt(mat)
 
 
+def test_jivulescu():
+    """Test that matrix satisfying Theorem 7.2 of :cite:`Jivulescu_2015_Reduction` returns True."""
+    mat = np.identity(4) @ np.diag(np.array([1, 1, 1, 0])) / 3 @ np.identity(4).conj().T
+    assert is_abs_ppt(mat)
+
+
 def test_in_separable_ball():
     """Test that matrix in separable ball returns True."""
-    mat = np.identity(4) @ np.diag(np.array([1, 1, 1, 0])) / 3 @ np.identity(4).conj().T
+    mat = np.diag([0.7, 0.7, 0.2, 0.2])
+    mat /= np.trace(mat)
     assert is_abs_ppt(mat)
 
 
