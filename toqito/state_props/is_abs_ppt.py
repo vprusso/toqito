@@ -2,31 +2,52 @@
 
 import numpy as np
 
-from toqito.matrix_props import is_square, is_positive_semidefinite
-from toqito.state_props import in_separable_ball, abs_ppt_constraints
+from toqito.matrix_props import is_square, is_positive_semidefinite, is_hermitian
+from toqito.state_props.in_separable_ball import in_separable_ball
+from toqito.state_props.abs_ppt_constraints import abs_ppt_constraints
 
 
-def is_abs_ppt(mat: np.ndarray, dim: int = None) -> int:
+def is_abs_ppt(mat: np.ndarray, dim: int = None, rtol: float = 1e-05, atol: float = 1e-08) -> bool | None:
     r"""Determine whether or not a matrix is absolutely PPT :cite:`Hildebrand_2007_AbsPPT`.
 
-        This function is adapted from QETLAB :cite:`QETLAB_link`.
+        A quantum state being absolutely PPT is a necessary, but not sufficient condition
+        for it to be separable. This function is adapted from QETLAB :cite:`QETLAB_link`.
 
-        :notes: If :code:`min(dim)` is :math:`\leq 6`, this function checks all constraints
-        and therefore returns :code:`True` or :code:`False` in all cases. However, if
-        :code:`min(dim)` is :math:`\geq 7`, only the first :math:`33592` constraints are
-        checked, since there are over :math:`23178480` constraints in this case
-        :cite:`Johnston_2014_Orderings`. Therefore the function returns either :code:`False`,
-        or :code:`None` if all checked constraints were satisfied.
+        :notes: If :code:`min(dim)` :math:`\leq 6`, this function checks all constraints
+                and therefore returns :code:`True` or :code:`False` in all cases. However, if
+                :code:`min(dim)` :math:`\geq 7`, only the first :math:`33592` constraints are
+                checked, since there are over :math:`23178480` constraints in this case
+                :cite:`Johnston_2014_Orderings`. Therefore the function returns either
+                :code:`False` if at least one constraint was not satisfied, or :code:`None`
+                if all checked constraints were satisfied.
 
         Examples
         ==========
-        Demonstrate how the function works with expected output.
+        A random density matrix will likely not be separable, and therefore likely not
+        absolutely PPT.
 
         .. jupyter-execute::
 
             import numpy as np
-            x = np.array([[1, 2], [3, 4]])
-            print(x)
+            from toqito.rand import random_density_matrix
+            from toqito.state_props import is_abs_ppt, is_separable
+            rho = random_density_matrix(12) # assumed to act on a 3 x 4 bipartite system
+            print("rho is separable:", is_separable(rho, 3))
+            print("rho is absolutely PPT:", is_abs_ppt(rho, 3))
+
+        However, a random density matrix constructed to be separable, will definitely be
+        absolutely PPT.
+
+        .. jupyter-execute::
+
+            import numpy as np
+            from toqito.rand import random_density_matrix
+            from toqito.state_props import is_abs_ppt, is_separable
+            rho_1 = random_density_matrix(3)
+            rho_2 = random_density_matrix(4)
+            rho = np.kron(rho_1, rho_2)
+            print("rho is separable:", is_separable(rho, 3))
+            print("rho is absolutely PPT:", is_abs_ppt(rho, 3))
 
         References
         ==========
@@ -34,7 +55,12 @@ def is_abs_ppt(mat: np.ndarray, dim: int = None) -> int:
             :filter: docname in docnames
 
         :param mat: A square matrix.
-        :param dim: The dimension of any one subsystem on which :code:`mat` acts.
+        :param dim: The dimension of any one subsystem on which :code:`mat` acts. If :code:`None`,
+                    :code:`dim` is selected such that :code:`min(dim, mat.shape[0] // dim)` is
+                    maximised, since this gives the strongest conditions on being absolutely PPT
+                    (see Theorem 2 of :cite:`Hildebrand_2007_AbsPPT`).
+        :param rtol: The relative tolerance parameter (default 1e-05).
+        :param atol: The absolute tolerance parameter (default 1e-08).
         :return: :code:`True` if :code:`mat` is absolutely PPT,
         :return: :code:`False` if :code:`mat is not absolutely PPT,
         :return: :code:`None` if the function could not decide.
@@ -64,26 +90,26 @@ def is_abs_ppt(mat: np.ndarray, dim: int = None) -> int:
 
     # Quick checks
     # 1. Is Hermitian
-    if not is_hermitian(mat):
+    if not is_hermitian(mat, rtol, atol):
         return False
     # Compute eigenvalues (in descending order)
     # eigsvalsh normally returns eigenvalues in ascending order
     # But it is risky to assume this will remain the default behaviour in the future
     eigs = np.sort(np.linalg.eigvalsh(mat))[::-1]
     # 2. Is PSD (TODO: use tolerances)
-    if eigs[-1] < 0:
+    if eigs[-1] < -abs(atol):
         return False
     # 3. Check if mat is in separable ball
     if in_separable_ball(mat):
         return True
-    # 4. Check Theorem 7.2 of arXiv:1406.1277
+    # 4. Check Theorem 7.2 of :cite:`Jivulescu_2015_Reduction`
     if sum(eigs[:p-1]) <= eigs[-1] + sum(eigs[-p:]):
         return True
 
     # Main check
     constraints = abs_ppt_constraints(eigs, p)
     for constraint in constraints:
-        if not is_positive_semidefinite(constraint):
+        if not is_positive_semidefinite(constraint, rtol, atol):
             return False
     # We checked all constraints for p <= 6, but not for p >= 7
     return True if p <= 6 else None

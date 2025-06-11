@@ -17,7 +17,7 @@ def abs_ppt_constraints(eigs: np.ndarray, p: int, lim_cons: int = 33592) -> list
             import numpy as np
             from toqito.rand import random_density_matrix
             from toqito.state_props import abs_ppt_constraints
-            rho = random_density_matrix(9) # assumed to act on a 3 x 3 bipartite system
+            rho = random_density_matrix(12) # assumed to act on a 3 x 4 bipartite system
             eigs = np.linalg.eigvalsh(rho)
             constraints = abs_ppt_constraints(eigs, 3)
             for i, cons in enumerate(constraints, 1):
@@ -33,7 +33,7 @@ def abs_ppt_constraints(eigs: np.ndarray, p: int, lim_cons: int = 33592) -> list
         :param p: The dimension of the smaller subsystem in the bipartite system.
         :param lim_cons: The maximum number of constraint matrices to compute. By default, this is
                          equal to :math:`33592` which is an upper bound on the optimal number of
-                         constraint matrices which must be computed for :code:`p` :math:`\leq 6`
+                         constraint matrices which must be computed for :math:`p \leq 6`
                          :cite:`Johnston_2014_Orderings`.
         :return: A list of `lim_cons` constraint matrices which must be positive
                  semidefinite for an absolutely PPT spectrum.
@@ -59,7 +59,7 @@ def abs_ppt_constraints(eigs: np.ndarray, p: int, lim_cons: int = 33592) -> list
 
     def _fill_matrix(i: int, j: int, l_lim: int) -> None:
         r"""Construct all valid orderings by backtracking."""
-        if len(constraints) == max_constraints:
+        if len(constraints) == lim_cons:
             return
         j_p = j * (j + 1) // 2
         u_lim = min(i * (p - j) + j_p + 1, p_p - 2)
