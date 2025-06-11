@@ -4,26 +4,32 @@ import numpy as np
 
 def abs_ppt_constraints(eigs: np.ndarray, p: int, lim_cons: int = 33592) -> list[np.ndarray]:
     r"""Return the constraint matrices for the spectrum given by :code:`eigs` to be absolutely PPT
-        :cite:`Hildebrand_2007_AbsPPT.
+        :cite:`Hildebrand_2007_AbsPPT`.
 
         This function is adapted from QETLAB :cite:`QETLAB_link`.
 
         Examples
         ==========
-        Demonstrate how the function works with expected output.
+        We can compute the constraint matrices for a random density matrix:
 
         .. jupyter-execute::
 
             import numpy as np
-            x = np.array([[1, 2], [3, 4]])
-            print(x)
+            from toqito.rand import random_density_matrix
+            from toqito.state_props import abs_ppt_constraints
+            rho = random_density_matrix(9) # assumed to act on a 3 x 3 bipartite system
+            eigs = np.linalg.eigvalsh(rho)
+            constraints = abs_ppt_constraints(eigs, 3)
+            for i, cons in enumerate(constraints, 1):
+                print(f"Constraint {i}:")
+                print(cons)
 
         References
         ==========
         .. bibliography::
             :filter: docname in docnames
 
-        :param eigs: A list of eigenvalues in non-increasing order.
+        :param eigs: A list of eigenvalues.
         :param p: The dimension of the smaller subsystem in the bipartite system.
         :param lim_cons: The maximum number of constraint matrices to compute. By default, this is
                          equal to :math:`33592` which is an upper bound on the optimal number of
@@ -33,6 +39,7 @@ def abs_ppt_constraints(eigs: np.ndarray, p: int, lim_cons: int = 33592) -> list
                  semidefinite for an absolutely PPT spectrum.
 
     """
+    eigs = np.sort(eigs)[::-1]
     p_p = p * (p + 1) // 2
     X = (p_p + 1) * np.ones((p, p), dtype=np.int32)
     num_pool = np.ones((p_p, 1), dtype=np.int32)

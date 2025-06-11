@@ -67,7 +67,9 @@ def is_abs_ppt(mat: np.ndarray, dim: int = None) -> int:
     if not is_hermitian(mat):
         return False
     # Compute eigenvalues (in descending order)
-    eigs = np.linalg.eigvalsh(mat)[::-1]
+    # eigsvalsh normally returns eigenvalues in ascending order
+    # But it is risky to assume this will remain the default behaviour in the future
+    eigs = np.sort(np.linalg.eigvalsh(mat))[::-1]
     # 2. Is PSD (TODO: use tolerances)
     if eigs[-1] < 0:
         return False
