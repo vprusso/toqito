@@ -4,8 +4,7 @@ import numpy as np
 
 
 def abs_ppt_constraints(eigs: np.ndarray, p: int, lim_cons: int = 33592) -> list[np.ndarray]:
-    r"""Return the constraint matrices for the spectrum given by :code:`eigs` to be absolutely PPT
-    :cite:`Hildebrand_2007_AbsPPT`.
+    r"""Return the constraint matrices for the spectrum to be absolutely PPT :cite:`Hildebrand_2007_AbsPPT`.
 
     This function is adapted from QETLAB :cite:`QETLAB_link`.
 
