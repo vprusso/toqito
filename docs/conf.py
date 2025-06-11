@@ -120,9 +120,6 @@ exclude_patterns = ["_build", "_templates", "Thumbs.db", ".DS_Store"]
 html_theme = "furo"
 html_logo = "figures/logo.svg"
 html_favicon = "figures/favicon.ico"
-html_theme_options = {
-    "announcement": "|toqito> is participating in this year's unitaryHACK from May 28 - June 11, 2025! For more, visit https://unitaryhack.dev/",
-}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
