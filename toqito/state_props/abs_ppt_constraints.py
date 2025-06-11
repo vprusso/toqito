@@ -2,10 +2,11 @@
 
 import numpy as np
 
-def abs_ppt_constraints(eigs: np.ndarray, p: int, max_constraints: int) -> list[np.ndarray]:
-    r"""Return the constraint matrices for the spectrum given by :code:`eigs` to be absolutely PPT.
+def abs_ppt_constraints(eigs: np.ndarray, p: int, lim_cons: int = 33592) -> list[np.ndarray]:
+    r"""Return the constraint matrices for the spectrum given by :code:`eigs` to be absolutely PPT
+        :cite:`Hildebrand_2007_AbsPPT.
 
-        This function is adapted from QETLAB.
+        This function is adapted from QETLAB :cite:`QETLAB_link`.
 
         Examples
         ==========
@@ -24,8 +25,11 @@ def abs_ppt_constraints(eigs: np.ndarray, p: int, max_constraints: int) -> list[
 
         :param eigs: A list of eigenvalues in non-increasing order.
         :param p: The dimension of the smaller subsystem in the bipartite system.
-        :param max_constraints: The maximum number of constraint matrices to compute.
-        :return: A list of `max_constraints` constraint matrices which must be positive
+        :param lim_cons: The maximum number of constraint matrices to compute. By default, this is
+                         equal to :math:`33592` which is an upper bound on the optimal number of
+                         constraint matrices which must be computed for :code:`p` :math:`\leq 6`
+                         :cite:`Johnston_2014_Orderings`.
+        :return: A list of `lim_cons` constraint matrices which must be positive
                  semidefinite for an absolutely PPT spectrum.
 
     """
