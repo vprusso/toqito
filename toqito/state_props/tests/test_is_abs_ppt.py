@@ -7,35 +7,38 @@ from toqito.rand import random_psd_operator
 from toqito.state_props import is_abs_ppt
 
 
-def test_is_hermitian():
-    """Test that a skew-symmetric matrix returns False."""
-    mat = np.triu(np.random.rand(100, 100))
-    mat += -mat.T  # Make it skew-symmetric
-    assert not is_abs_ppt(mat)
-
-
-def test_is_positive_semidefinite():
-    """Test that a non-PSD matrix returns False."""
-    mat = -random_psd_operator(100)  # Make a negative semidefinite matrix
-    assert not is_abs_ppt(mat)
-
-
-def test_jivulescu():
-    """Test that matrix satisfying Theorem 7.2 of :cite:`Jivulescu_2015_Reduction` returns True."""
-    mat = np.identity(4) @ np.diag(np.array([1, 1, 1, 0])) / 3 @ np.identity(4).conj().T
+@pytest.mark.parametrize(
+    "mat",
+    [
+        # Matrix satisfying Theorem 7.2 of :cite:`Jivulescu_2015_Reduction` is absolutely PPT
+        np.identity(4) @ np.diag(np.array([1, 1, 1, 0])) / 3 @ np.identity(4).conj().T,
+        # Matrix in separable ball is absolutely PPT
+        np.diag([0.7, 0.7, 0.2, 0.2]) / 1.8,
+    ],
+)
+def test_absolutely_ppt(mat):
+    """Test absolutely PPT matrices."""
     assert is_abs_ppt(mat)
 
 
-def test_in_separable_ball():
-    """Test that matrix in separable ball returns True."""
-    mat = np.diag([0.7, 0.7, 0.2, 0.2])
-    mat /= np.trace(mat)
-    assert is_abs_ppt(mat)
+def skew_symmetric(mat):
+    """Make a matrix skew-symmetric."""
+    return mat - mat.T
 
 
-def test_not_absolutely_ppt():
-    """Test that a random PSD matrix is not PPT. Passes with high probability."""
-    mat = random_psd_operator(40)
+@pytest.mark.parametrize(
+    "mat",
+    [
+        # Random PSD operator is not absolutely PPT with high probability
+        random_psd_operator(100),
+        # Negative semidefinite matrix is not absolutely PPT
+        -random_psd_operator(100),
+        # Skew-symmetric matrix is not absolutely PPT
+        skew_symmetric(np.random.rand(100, 100)),
+    ],
+)
+def test_not_absolutely_ppt(mat):
+    """Test not absolutely PPT matrices."""
     assert not is_abs_ppt(mat)
 
 

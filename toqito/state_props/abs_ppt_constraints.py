@@ -34,7 +34,7 @@ def abs_ppt_constraints(eigs: np.ndarray, p: int, lim_cons: int = 33592) -> list
     :param lim_cons: The maximum number of constraint matrices to compute. By default, this is
                      equal to :math:`33592` which is an upper bound on the optimal number of
                      constraint matrices which must be computed for :math:`p \leq 6` :cite:`Johnston_2014_Orderings`.
-    :return: A list of `lim_cons` constraint matrices which must be positive
+    :return: A list of :code:`lim_cons` constraint matrices which must be positive
              semidefinite for an absolutely PPT spectrum.
 
     """
