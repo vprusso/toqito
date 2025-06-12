@@ -3,7 +3,7 @@
 import numpy as np
 
 
-def abs_ppt_constraints(eigs: np.ndarray, p: int, lim_cons: int = 33592) -> list[np.ndarray]:
+def abs_ppt_constraints(eigs: np.ndarray, p: int, max_constraints: int = 33_592) -> list[np.ndarray]:
     r"""Return the constraint matrices for the spectrum to be absolutely PPT :cite:`Hildebrand_2007_AbsPPT`.
 
     This function is adapted from QETLAB :cite:`QETLAB_link`.
@@ -31,10 +31,11 @@ def abs_ppt_constraints(eigs: np.ndarray, p: int, lim_cons: int = 33592) -> list
 
     :param eigs: A list of eigenvalues.
     :param p: The dimension of the smaller subsystem in the bipartite system.
-    :param lim_cons: The maximum number of constraint matrices to compute. By default, this is
-                     equal to :math:`33592` which is an upper bound on the optimal number of
-                     constraint matrices which must be computed for :math:`p \leq 6` :cite:`Johnston_2014_Orderings`.
-    :return: A list of :code:`lim_cons` constraint matrices which must be positive
+    :param max_constraints: The maximum number of constraint matrices to compute. By default, this is
+                            equal to :math:`33592` which is an upper bound on the optimal number of
+                            constraint matrices which must be computed for :math:`p \leq 6`
+                            :cite:`Johnston_2014_Orderings`.
+    :return: A list of :code:`max_constraints` constraint matrices which must be positive
              semidefinite for an absolutely PPT spectrum.
 
     """
@@ -57,7 +58,7 @@ def abs_ppt_constraints(eigs: np.ndarray, p: int, lim_cons: int = 33592) -> list
 
     def _fill_matrix(i: int, j: int, l_lim: int) -> None:
         r"""Construct all valid orderings by backtracking."""
-        if len(constraints) == lim_cons:
+        if len(constraints) == max_constraints:
             return
         j_p = j * (j + 1) // 2
         u_lim = min(i * (p - j) + j_p + 1, p_p - 2)

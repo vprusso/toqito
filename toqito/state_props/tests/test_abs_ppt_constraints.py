@@ -48,7 +48,7 @@ def test_constraints(eigs, p, analytical_constraints):
 @pytest.mark.parametrize(
     "eigs,argslist,expected",
     [
-        # Test that lim_cons correctly limits number of constraints
+        # Test that max_constraints correctly limits number of constraints
         (np.random.rand(7 * 100), [7, 4000], 4000),
         # Test that an empty list is returned when p = 1
         (np.random.rand(1 * 100), [1], 0),
