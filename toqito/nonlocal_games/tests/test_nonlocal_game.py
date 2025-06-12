@@ -263,7 +263,7 @@ class TestNonlocalGame(unittest.TestCase):
         val = game.classical_value()
         self.assertAlmostEqual(val, 0.75, places=6)
 
-     def test_four_line_parity_bcs_classical_value(self):
+    def test_four_line_parity_bcs_classical_value(self):
         """Classical value for the 4-Line Parity BCS game."""
         shape = (2, 2, 2, 2, 2, 2)
         c_1 = np.zeros(shape)
