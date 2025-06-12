@@ -1,5 +1,7 @@
 """Test abs_ppt_constraints."""
 
+from itertools import permutations
+
 import numpy as np
 import pytest
 
@@ -21,34 +23,37 @@ def analytical_qutrit_qudit_constraints(eigs):
     return [cons1 + cons1.T, cons2 + cons2.T]
 
 
-def test_qubit_qudit_constraints():
-    """Test qubit-qudit constraints matrices."""
-    eigs = np.random.rand(2 * 100)
-    cons = abs_ppt_constraints(eigs, 2)
-    expected_cons = analytical_qubit_qudit_constraints(eigs)
-    assert cons[0] == pytest.approx(expected_cons[0])
+@pytest.mark.parametrize(
+    "eigs,p,analytical_constraints",
+    [
+        # Qubit-qudit constraints
+        (np.random.rand(2 * 100), 2, analytical_qubit_qudit_constraints),
+        # Qutrit-qudit constraints
+        (np.random.rand(3 * 100), 3, analytical_qutrit_qudit_constraints),
+    ],
+)
+def test_constraints(eigs, p, analytical_constraints):
+    """Test constraint matrices."""
+    cons = abs_ppt_constraints(eigs, p)
+    expected_cons = analytical_constraints(eigs)
+    any_match = False
+    for cons_ordered in permutations(cons):
+        all_match = True
+        for computed_cons, analytical_cons in zip(cons_ordered, expected_cons):
+            all_match &= computed_cons == pytest.approx(analytical_cons)
+        any_match |= all_match
+    assert any_match
 
 
-def test_qutrit_qudit_constraints():
-    """Test qutrit-qudit constraints matrices."""
-    eigs = np.random.rand(3 * 100)
-    cons = abs_ppt_constraints(eigs, 3)
-    expected_cons = analytical_qutrit_qudit_constraints(eigs)
-    assert (
-        cons[0] == pytest.approx(expected_cons[0])
-        and cons[1] == pytest.approx(expected_cons[1])
-        or cons[1] == pytest.approx(expected_cons[0])
-        and cons[0] == pytest.approx(expected_cons[1])
-    )
-
-
-def test_lim_cons():
-    """Test that lim_cons correctly limits number of constraints."""
-    eigs = np.random.rand(7 * 100)
-    assert len(abs_ppt_constraints(eigs, 7, lim_cons=4000)) == 4000
-
-
-def test_p_equals_1():
-    """Test that an empty list is returned when p = 1."""
-    eigs = np.random.rand(1 * 100)
-    assert len(abs_ppt_constraints(eigs, 1)) == 0
+@pytest.mark.parametrize(
+    "eigs,argslist,expected",
+    [
+        # Test that lim_cons correctly limits number of constraints
+        (np.random.rand(7 * 100), [7, 4000], 4000),
+        # Test that an empty list is returned when p = 1
+        (np.random.rand(1 * 100), [1], 0),
+    ],
+)
+def test_limiting_cases(eigs, argslist, expected):
+    """Test various limiting cases."""
+    assert len(abs_ppt_constraints(eigs, *argslist)) == expected
