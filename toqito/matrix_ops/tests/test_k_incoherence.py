@@ -3,6 +3,7 @@ import numpy as np
 
 from toqito.matrix_ops.k_incoherence import is_k_incoherence
 
+
 class TestIsKIncoherent(unittest.TestCase):
     def test_diagonal_state_k1(self):
         """Diagonal state should be 1-incoherent."""
