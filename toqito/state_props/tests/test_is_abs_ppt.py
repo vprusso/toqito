@@ -14,6 +14,8 @@ from toqito.state_props import is_abs_ppt
         np.identity(4) @ np.diag(np.array([1, 1, 1, 0])) / 3 @ np.identity(4).conj().T,
         # Matrix in separable ball is absolutely PPT
         np.diag([0.7, 0.7, 0.2, 0.2]) / 1.8,
+        # Absolutely PPT 2 * 2 matrix which satisfies neither of the previous properties
+        np.diag([0.42775974, 0.38590341, 0.11395246, 0.07238439]),
     ],
 )
 def test_absolutely_ppt(mat):
