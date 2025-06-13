@@ -26,7 +26,7 @@ classical and quantum value of a given XOR game.
 # of nonlocal games along with how one defines classical and quantum strategies
 # for these games, please refer to the example:
 #
-# * For more information, refer to the tutorial on `Lower Bounds on the Quantum Value of a Two-Player Nonlocal Game <https://toqito.readthedocs.io/en/latest/tutorials.nonlocal_games.html#lower-bounding-the-quantum-value-in-toqito>`_.
+# * :ref:`Lower Bounds on the Quantum Value of a Two-Player Nonlocal Game <sphx_glr_auto_examples_quantumgames_example_nonlocal_game_py>`
 #
 #
 # .. note::
@@ -177,7 +177,7 @@ pred_mat = np.array([[0, 0], [0, 1]])
 from toqito.nonlocal_games.xor_game import XORGame
 
 chsh = XORGame(prob_mat, pred_mat)
-print("The classical value of game is: ", chsh.classical_value())
+print(f"The classical value of game is: {chsh.classical_value()}")
 
 # %%
 # A quantum strategy for the CHSH game
@@ -288,7 +288,7 @@ print("The classical value of game is: ", chsh.classical_value())
 
 import numpy as np
 
-print("The quantum value of game is: ", np.around(chsh.quantum_value(), decimals=2))
+print(f"The quantum value of game is: {np.around(chsh.quantum_value(), decimals=2)}")
 
 
 # %%
@@ -301,8 +301,8 @@ from toqito.nonlocal_games.xor_game import XORGame
 prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
 pred_mat = np.array([[0, 0], [0, 1]])
 chsh = XORGame(prob_mat, pred_mat)
-print("The classical value of games is: ", chsh.classical_value())
-print("The quantum value of games is: ", np.around(chsh.quantum_value(), decimals=2))
+print(f"The classical value of games is: {chsh.classical_value()}")
+print(f"The quantum value of games is: {np.around(chsh.quantum_value(), decimals=2)}")
 
 # %%
 # The odd cycle game
@@ -335,8 +335,8 @@ pred_mat = np.array([[0, 1, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 0, 1, 0], [0, 0, 0
 
 # Compute the classical and quantum values.
 odd_cycle = XORGame(prob_mat, pred_mat)
-print("The classical value of games is: ", np.around(odd_cycle.classical_value(), decimals=2))
-print("The quantum value of games is: ", np.around(odd_cycle.quantum_value(), decimals=2))
+print(f"The classical value of games is: {np.around(odd_cycle.classical_value(), decimals=2)}")
+print(f"The quantum value of games is: {np.around(odd_cycle.quantum_value(), decimals=2)}")
 
 
 # %%

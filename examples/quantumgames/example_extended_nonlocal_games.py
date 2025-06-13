@@ -7,7 +7,7 @@ wherein the referee, who previously only provided questions and answers to the
 players, now share a state with the players and is able to perform a
 measurement on that shared state.
 """
-# sphinx_gallery_thumbnail_path = '../../figures/extended_non_local_game.svg'
+# sphinx_gallery_thumbnail_path = 'figures/extended_nonlocal_game.svg'
 
 # %%
 # Every extended nonlocal game has a *value* associated to it. Analogously to
@@ -567,14 +567,6 @@ print("The non-signaling value is ", np.around(chsh.nonsignaling_value(), decima
 # for any extended nonlocal game, :math:`G`, we may also conclude that
 # :math:`\omega^*(G) = 3/4`.
 #
-# Note the SCS convex optimization solver will generate a large number of warnings of the form
-#
-# ```
-# WARN: A->p (column pointers) not strictly increasing
-# ```
-#
-# This is a known issue, and while it does not appear to impact the correctness
-# of the results, it is an outstanding issue for the :code:`|toqito⟩` project.
 #
 # Example: An extended nonlocal game with quantum advantage
 # ----------------------------------------------------------

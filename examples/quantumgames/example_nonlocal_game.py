@@ -7,6 +7,7 @@ instance of a nonlocal game involves two players, Alice and Bob, who are not
 allowed to communicate with each other once the game has started and who play
 cooperatively against an adversary referred to as the referee.
 """
+# sphinx_gallery_thumbnail_path = 'figures/nonlocal_game.svg'
 
 # %%
 # A primary challenge that arises when studying these games is to determine the
@@ -117,7 +118,6 @@ cooperatively against an adversary referred to as the referee.
 #
 # One question you may have is whether a classical strategy can be improved by
 # introducing randomness. If the players randomly select their answers, is it
-
 # possible for them to do potentially better than if they had just played
 # deterministically? As it happens, probabilistic classical strategies cannot
 # perform any better than deterministic classical strategies.
