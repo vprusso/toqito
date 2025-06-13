@@ -115,7 +115,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
           An inequality involving the largest and smallest eigenvalues of a 2xN PPT
           state that is sufficient for separability.
         - **Hildebrand's Conditions (2005, 2007, 2008)**
-            :cite:`Hildebrand_2005_PPT`,
+            :cite:`Hildebrand_2007_AbsPPT`,
             :cite:`Hildebrand_2008_Semidefinite`,
             :cite:`Hildebrand_2005_Cone`:
 
@@ -628,7 +628,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                     return True
 
             # Hildebrand's Conditions for 2xN PPT states (various papers, e.g.,
-            # :cite:`Hildebrand_2005_PPT`, :cite:`Hildebrand_2008_Semidefinite`)
+            # :cite:`Hildebrand_2007_AbsPPT`, :cite:`Hildebrand_2008_Semidefinite`)
             # Block matrix form: rho_2xn = [[A, B], [B^dagger, C]]
             A_block = state_t_2xn[:d_N_val, :d_N_val]
             B_block = state_t_2xn[:d_N_val, d_N_val : 2 * d_N_val]
