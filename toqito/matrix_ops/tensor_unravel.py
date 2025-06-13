@@ -28,21 +28,22 @@ def  tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
         constraint back into a 1D row of the constraint system matrix.
         It is conceptually related to the standard **vec-operator** for matrices
         (see:cite:`Horn_1985_Matrix`) and to **tensor matricizations**
-        in the tensor decomposition literature (see:cite:`Tamara_2009_Tensor`). In this case, since the tensor constraint corresponds
-        to a single constraint row, the operation can also be seen as flattening
-        the row tensor into its 1D representation.
+        in the tensor decomposition literature (see:cite:`Tamara_2009_Tensor`). In this case, 
+        since the tensor constraint corresponds to a single constraint row, the operation 
+        can also be seen as flattening the row tensor into its 1D representation.
     
     Examples
     ==========
     .. jupyter-execute::
     
-                       import numpy as np
-                       from binary_constraint_system_game import tensor_to_raw
+       import numpy as np
+       from binary_constraint_system_game import tensor_to_raw
         
-                       tensor_constraint = np.array([[-1, -1], [-1, 1]])
-                       tensor_to_raw(tensor_constraint)
+       tensor_constraint = np.array([[-1, -1], [-1, 1]])
+       tensor_to_raw(tensor_constraint)
         
-    The tensor-form constraint representation is commonly used in implementations of binary constraint system (BCS) games. For background on BCS games, see:cite:`Richard_2014_Characterization`.
+    The tensor-form constraint representation is commonly used in implementations of
+    binary constraint system (BCS) games. For background on BCS games, see:cite:`Richard_2014_Characterization`.
     
     References
     ==========
@@ -50,7 +51,7 @@ def  tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
         :filter: docname in docnames
 
 
-    :param constraint_tensor : n`-dimensional :code:`numpy` array representing a constraint (shape :code:`(2,)*n`).
+    :param constraint_tensor: n`-dimensional :code:`numpy` array representing a constraint (shape :code:`(2,)*n`).
     :return: A 1D :code:`numpy` array of length :math:`n+1` where the first :math:`n` elements are the coordinates (indices),
     and the last element is the unique constant (rhs).
     
