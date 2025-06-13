@@ -6,13 +6,14 @@ exclusion*. We are going to briefly describe the problem setting and then
 describe how one may use :code:`|toqito⟩` to calculate the optimal probability
 with which this problem can be solved for a number of different scenarios.
 """
+# sphinx_gallery_thumbnail_path = 'figures/trine.png'
 
 # %%
 # Quantum state exclusion is very closely related to the problem of quantum state
 # distinguishability. It may be useful to consult the following tutorial that
 # covers quantum state distinguishability:
 #
-# * `Quantum State Distinguishability <https://toqito.readthedocs.io/en/latest/tutorials.state_distinguishability.html>`_
+# * :ref:`Quantum State Distinguishability <sphx_glr_auto_examples_involvingstates_example_state_distinguishability_py>`
 #
 # Further information beyond the scope of this tutorial can be found in the text
 # :cite:`Pusey_2012_On` as well as the course :cite:`Bandyopadhyay_2014_Conclusive`.
@@ -41,7 +42,6 @@ with which this problem can be solved for a number of different scenarios.
 # 3. Bob wants to guess which of the states from the ensemble he was *not* given.
 #    In order to do so, he may measure :math:`\rho_i` to guess the index
 #    :math:`i` for which the state in the ensemble corresponds.
-#
 #
 # This setting is depicted in the following figure.
 #

@@ -7,11 +7,7 @@ will cover how to instantiate and use the fundamental objects that
 """
 
 # %% This is an introduction to the functionality in :code:`|toqito⟩` and is not meant to serve as an
-# introduction to quantum information. For introductory material on quantum
-# information, please consult "Quantum Information and Quantum Computation" by
-# Nielsen and Chuang or the freely available lecture notes `"Introduction to
-# Quantum Computing" <https://cs.uwaterloo.ca/~watrous/QC-notes/>`_
-# by John Watrous.
+# introduction to quantum information. For more information, please consult the book :cite:`Chuang_2011_Quantum` or the freely available lecture notes :cite:`Watrous_2018_TQI`.
 #
 # This tutorial assumes you have :code:`|toqito⟩` installed on your machine. If you
 # do not, please consult the installation instructions in :ref:`getting_started_reference-label`.
@@ -41,18 +37,16 @@ will cover how to instantiate and use the fundamental objects that
 #
 # can be defined in :code:`|toqito⟩` as such
 
-from toqito.states import basis
+from toqito.matrices import standard_basis
 
 # |0>
-basis(2, 0)
+standard_basis(2)[0]
 
 # %%
 # To get the other ket
 
-from toqito.states import basis
-
 # |1>
-basis(2, 1)
+standard_basis(2)[1]
 
 # %%
 # One may define one of the four Bell states written as
@@ -64,7 +58,7 @@ basis(2, 1)
 
 import numpy as np
 
-e_0, e_1 = basis(2, 0), basis(2, 1)
+e_0, e_1 = standard_basis(2)
 u_0 = 1 / np.sqrt(2) * (np.kron(e_0, e_0) + np.kron(e_1, e_1))
 u_0
 
@@ -85,7 +79,7 @@ u_0
 
 import numpy as np
 
-e_0, e_1 = basis(2, 0), basis(2, 1)
+e_0, e_1 = standard_basis(2)
 u_0 = 1 / np.sqrt(2) * (np.kron(e_0, e_0) + np.kron(e_1, e_1))
 rho_0 = u_0 @ u_0.conj().T
 rho_0
@@ -211,9 +205,9 @@ from toqito.states import tile
 
 rho = np.identity(9)
 for i in range(5):
-    rho = rho - tile(i) @ tile(i).conj().T
+    rho -= tile(i) @ tile(i).conj().T
 
-rho = rho / 4
+rho /= 4
 is_separable(rho)
 
 
@@ -303,7 +297,7 @@ np.around(fidelity(rho, sigma), decimals=2)
 # Taking the partial trace over the second subsystem of :math:`X` yields the following matrix
 #
 # .. math::
-#    X_{pt, 2} = \begin{pmatrix}
+#    \text{Tr}_B(X) = \begin{pmatrix}
 #                7 & 11 \\
 #                23 & 27
 #                \end{pmatrix}.
@@ -311,7 +305,7 @@ np.around(fidelity(rho, sigma), decimals=2)
 # By default, the partial trace function in :code:`|toqito⟩` takes the trace of the second
 # subsystem.
 
-from toqito.channels import partial_trace
+from toqito.matrix_ops import partial_trace
 import numpy as np
 
 test_input_mat = np.arange(1, 17).reshape(4, 4)
@@ -329,11 +323,11 @@ partial_trace(test_input_mat)
 #                    20 & 22
 #                \end{pmatrix}.
 
-from toqito.channels import partial_trace
+from toqito.matrix_ops import partial_trace
 import numpy as np
 
 test_input_mat = np.arange(1, 17).reshape(4, 4)
-partial_trace(test_input_mat, [0])
+partial_trace(test_input_mat, sys=[0])
 
 
 # %%
@@ -367,7 +361,7 @@ partial_trace(test_input_mat, [0])
 # subsystem yields the following matrix
 #
 # .. math::
-#    X_{pt, 2} = \begin{pmatrix}
+#    X^{T_B} = \begin{pmatrix}
 #                1 & 5 & 3 & 7 \\
 #                2 & 6 & 4 & 8 \\
 #                9 & 13 & 11 & 15 \\
@@ -377,7 +371,7 @@ partial_trace(test_input_mat, [0])
 # By default, in :code:`|toqito⟩`, the partial transpose function performs the transposition on
 # the second subsystem as follows.
 
-from toqito.channels import partial_transpose
+from toqito.matrix_ops import partial_transpose
 import numpy as np
 
 test_input_mat = np.arange(1, 17).reshape(4, 4)
@@ -398,16 +392,16 @@ partial_transpose(test_input_mat)
 #                \end{pmatrix}.
 
 
-from toqito.channels import partial_transpose
+from toqito.matrix_ops import partial_transpose
 import numpy as np
 
 test_input_mat = np.arange(1, 17).reshape(4, 4)
-partial_transpose(test_input_mat, [0])
+partial_transpose(test_input_mat, sys=[0])
 
 # %%
 # **Applying Quantum Channels**
 #
-# Another important operation when working with quantum channels is applying them to quantum states. :func:`.apply_channel` in :code:`toqito` provides a convenient way to apply a quantum channel (represented by its Choi matrix) to a given quantum state.
+# Another important operation when working with quantum channels is applying them to quantum states. :func:`.apply_channel` in :code:`|toqito⟩` provides a convenient way to apply a quantum channel (represented by its Choi matrix) to a given quantum state.
 #
 # Here, we illustrate how to apply two widely used channels – the depolarizing channel and the dephasing channel – using :func:`.apply_channel`.
 #
@@ -421,11 +415,10 @@ partial_transpose(test_input_mat, [0])
 # where :math:`\mathbb{I}` is the identity operator and :math:`d` is the dimension of the Hilbert space. The example below applies the depolarizing channel with :math:`p=0.3` to the computational basis state :math:`|0\rangle`.
 
 import numpy as np
-from toqito.states import basis
 from toqito.channel_ops import apply_channel
 from toqito.channels import depolarizing
 
-# # Create a quantum state |0⟩⟨0|.
+# Create a quantum state |0⟩⟨0|.
 rho = np.array([[1, 0], [0, 0]])
 
 # Generate the depolarizing channel Choi matrix with noise probability p = 0.3.
@@ -446,7 +439,6 @@ print(output_state)
 # where :math:`Z` is the Pauli-Z operator and :math:`p` represents the dephasing probability. The example below demonstrates how to apply the dephasing channel with :math:`p=0.4` to the plus state :math:`|+\rangle = \frac{1}{\sqrt{2}}(|0\rangle + |1\rangle)`.
 
 import numpy as np
-from toqito.states import basis
 from toqito.channel_ops import apply_channel
 from toqito.channels import dephasing
 
@@ -465,7 +457,7 @@ print(output_state)
 # Noisy Channels
 # ^^^^^^^^^^^^^^
 #
-# Quantum noise channels model the interaction between quantum systems and their environment, resulting in decoherence and loss of quantum information. The :code:`toqito` library provides implementations of common noise models used in quantum information processing.
+# Quantum noise channels model the interaction between quantum systems and their environment, resulting in decoherence and loss of quantum information. The :code:`|toqito⟩` library provides implementations of common noise models used in quantum information processing.
 #
 # **Phase Damping Channel**
 #
@@ -681,13 +673,13 @@ is_povm(non_meas)
 # .. math::
 #    P_0 = e_0 e_0^* \quad \text{and} \quad P_1 = e_1 e_1^*.
 
-from toqito.states import basis
+from toqito.matrices import standard_basis
 from toqito.measurement_ops import measure
 import numpy as np
 
-e_0, e_1 = basis(2, 0), basis(2, 1)
+e_0, e_1 = standard_basis(2)
 
-u = 1 / np.sqrt(3) * e_0 + np.sqrt(2 / 3) * e_1
+u = (1 / np.sqrt(3)) * e_0 + (np.sqrt(2 / 3)) * e_1
 rho = u @ u.conj().T
 
 proj_0 = e_0 @ e_0.conj().T

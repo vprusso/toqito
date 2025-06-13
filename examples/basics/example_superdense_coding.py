@@ -36,7 +36,7 @@ from toqito.matrices import pauli, cnot, hadamard
 np.set_printoptions(precision=8, suppress=True)
 
 bell_state = bell(0)
-print("Initial Bell state (|Φ⁺⟩):\n", bell_state)
+print(f"Initial Bell state (|Φ⁺⟩): \n {bell_state}")
 
 # %%
 # 2. Alice holds two classical bits (:math:`a` and :math:`b`) that she wants to
@@ -109,7 +109,7 @@ print(f"Entangled state is: {entangled_state_encoded}")
 #
 state_after_cnot = cnot() @ entangled_state_encoded
 decoded_state = np.kron(hadamard(1), pauli("I")) @ state_after_cnot
-print("Decoded state:\n", decoded_state)
+print(f"Decoded state:\n {decoded_state}")
 
 # %%
 # 4. Finally, Bob measures both qubits in the computational basis
@@ -117,34 +117,7 @@ print("Decoded state:\n", decoded_state)
 #    two bits that Alice sent.
 #
 measurement_probabilities = np.abs(decoded_state.flatten()) ** 2
-print("Measurement probabilities for basis states |00>, |01>, |10>, |11>:")
-print(measurement_probabilities)
-
-
-# %%
-# Full code:
-
-import numpy as np
-from toqito.states import bell
-from toqito.matrices import pauli, cnot, hadamard
-
-np.set_printoptions(precision=8, suppress=True)
-
-bell_state = bell(0)
-print("Initial Bell state (|Φ⁺⟩):\n", bell_state)
-
-pauli_gate_operations = {"00": pauli("I"), "01": pauli("X"), "10": pauli("Z"), "11": 1j * pauli("Y")}
-
-message_to_encode = "11"
-
-entangled_state_encoded = np.kron(pauli_gate_operations[message_to_encode], pauli("I")) @ bell_state
-
-state_after_cnot = cnot() @ entangled_state_encoded
-
-decoded_state = np.kron(hadamard(1), pauli("I")) @ state_after_cnot
-
-measurement_probabilities = np.abs(decoded_state.flatten()) ** 2
-print("Measurement probabilities for basis states |00>, |01>, |10>, |11>:\n", measurement_probabilities)
+print(f"Measurement probabilities for basis states |00>, |01>, |10>, |11>: \n {measurement_probabilities}")
 
 
 # %%

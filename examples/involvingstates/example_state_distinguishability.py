@@ -8,6 +8,7 @@ describe how one may use :code:`|toqito⟩` to calculate the optimal probability
 with which this problem can be solved when given access to certain
 measurements.
 """
+# sphinx_gallery_thumbnail_path = 'figures/quantum_state_distinguish.svg'
 
 # %%
 # Further information beyond the scope of this tutorial can be found in the text
@@ -225,11 +226,11 @@ x_4 = np.kron(psi_3, psi_3)
 states = [x_1, x_2, x_3, x_4]
 
 probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
-print(
-    np.around(
-        ppt_distinguishability(vectors=states, probs=probs, dimensions=[2, 2, 2, 2], subsystems=[0, 2])[0], decimals=2
-    )
-)
+# Calculate the PPT distinguishability value.
+ppt_val, _ = ppt_distinguishability(vectors=states, probs=probs, dimensions=[2, 2, 2, 2], subsystems=[0, 2])
+
+# Print the rounded result.
+print(f"Optimal probability with PPT measurements: {np.around(ppt_val, decimals=2)}")
 
 # %%
 # Probability of distinguishing a state via separable measurements
