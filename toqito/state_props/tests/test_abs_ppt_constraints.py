@@ -2,6 +2,7 @@
 
 from itertools import permutations
 
+import cvxpy
 import numpy as np
 import pytest
 
@@ -43,6 +44,16 @@ def test_constraints(eigs, p, analytical_constraints):
             all_match &= computed_cons == pytest.approx(analytical_cons)
         any_match |= all_match
     assert any_match
+
+
+def test_cvxpy_case():
+    """Test that the function does not throw an error when passed a cvxpy Variable.
+
+    A separate test for checking if the output is correct for cvxpy Variables is not necessary since the algorithm uses
+    the same algorithm in both cases.
+    """
+    eigs = cvxpy.Variable(5 * 5, nonneg=True)
+    abs_ppt_constraints(eigs, 5)
 
 
 @pytest.mark.parametrize(
