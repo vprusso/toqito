@@ -46,6 +46,24 @@ def test_constraints(eigs, p, analytical_constraints):
     assert any_match
 
 
+@pytest.mark.parametrize(
+    "upto,use_check,expected_counts",
+    [
+        # use_check == False
+        (6, False, [0, 1, 2, 12, 286, 33592]),
+        # use_check == True
+        (5, True, [0, 1, 2, 10, 114]),
+    ],
+)
+def test_constraint_counts(upto, use_check, expected_counts):
+    """Test that the constraint counts match those in the docstring."""
+    constraint_counts = []
+    for n in range(1, upto + 1):
+        eigs = np.random.rand(n * n)
+        constraint_counts.append(len(abs_ppt_constraints(eigs, n, use_check=use_check)))
+    assert constraint_counts == expected_counts
+
+
 def test_cvxpy_case():
     """Test that the function does not throw an error when passed a cvxpy Variable.
 
@@ -68,3 +86,18 @@ def test_cvxpy_case():
 def test_limiting_cases(eigs, argslist, expected):
     """Test various limiting cases."""
     assert len(abs_ppt_constraints(eigs, *argslist)) == expected
+
+
+@pytest.mark.parametrize(
+    "mat, dim, error_msg",
+    [
+        # Invalid input type
+        ([1, 2, 3, 4], 2, "mat must be a numpy ndarray or a cvxpy Variable"),
+        # Invalid input type
+        ([cvxpy.Variable(1), cvxpy.Variable(1)], 2, "mat must be a numpy ndarray or a cvxpy Variable"),
+    ],
+)
+def test_invalid(mat, dim, error_msg):
+    """Test error-checking."""
+    with pytest.raises(TypeError, match=error_msg):
+        abs_ppt_constraints(mat, dim)

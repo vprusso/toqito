@@ -26,14 +26,14 @@ def abs_ppt_constraints(
 
     .. note::
         This function accepts a :code:`cvxpy` Variable as input for :code:`eigs`. The function will return the assembled
-        constraint matrices where each entry in a matrix is the corresponding `cvxpy` Expression. These can be used with
-        :code:`cvxpy` to optimize over the space of absolutely PPT matrices. The user must impose the condition
-        :code:`eigs[0] ≥ eigs[1] ≥ ... eigs[-1] ≥ 0` separately. It is recommended to set :code:`use_checks=True` for
-        this use case to minimize the number of constraint equations in the problem.
+        constraint matrices where each entry in a matrix is the corresponding :code:`cvxpy` Expression. These can be
+        used with :code:`cvxpy` to optimize over the space of absolutely PPT matrices. The user must impose the
+        condition :code:`eigs[0] ≥ eigs[1] ≥ ... eigs[-1] ≥ 0` separately. It is recommended to set
+        :code:`use_checks=True` for this use case to minimize the number of constraint equations in the problem.
 
     .. warning::
-        Calling this function with :code:`use_check=True` might be slow (on the order of a few minutes) on
-        lower-end computers.
+        Calling this function with :code:`use_check=True` might be slow (on the order of a few minutes for
+        :math:`p \geq 6) on lower-end computers.
 
 
     This function is adapted from QETLAB :cite:`QETLAB_link`.
@@ -59,6 +59,7 @@ def abs_ppt_constraints(
     .. bibliography::
         :filter: docname in docnames
 
+    :raises TypeError: If :code:`eigs` is not a :code:`numpy` ndarray or a :code:`cvxpy` Variable.
     :param eigs: A list of eigenvalues.
     :param p: The dimension of the smaller subsystem in the bipartite system.
     :param max_constraints: The maximum number of constraint matrices to compute. (default: 33592)
@@ -141,7 +142,7 @@ def abs_ppt_constraints(
     def _check_cross(order_matrix: np.ndarray, p: int) -> bool:
         r"""Check if the order matrix satisfies the "criss-cross" ordering check in :cite:`Johnston_2014_Orderings`."""
         for j in range(p - 3):
-            for k in range(3, p):
+            for k in range(2, p):
                 for m in range(p - 2):
                     for n in range(1, p):
                         for x in range(p - 1):
