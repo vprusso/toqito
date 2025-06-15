@@ -10,6 +10,17 @@ from toqito.state_props.in_separable_ball import in_separable_ball
 def is_abs_ppt(mat: np.ndarray, dim: int = None, rtol: float = 1e-05, atol: float = 1e-08) -> bool | None:
     r"""Determine whether or not a matrix is absolutely PPT :cite:`Hildebrand_2007_AbsPPT`.
 
+    A Hermitian positive semidefinite matrix is absolutely PPT iff it is PPT under all unitary transformations.
+    Equivalently, if the matrix operates on a Hilbert space :math:`H_{nm}` of dimension :math:`nm`, then it is
+    PPT under *all* possible decompositions of :math:`H_{nm}` as :math:`H_{n} \otimes H_{m}`. Being absolutely
+    PPT is a spectral condition (i.e. it is a condition on the eigenvalues of the matrix).
+
+    The function first checks if :code:`mat` is Hermitian positive semidefinite. Then, it checks if its
+    eigenvalues satisfy the Gerschgorin circle property (see Theorem 7.2 of :cite:`Jivulescu_2015_Reduction`).
+    Then it checks if the matrix belongs to the separable ball by calling :code:`in_separable_ball`. Finally,
+    if all the above checks fail to return a definite result, it determines if the matrix is absolutely PPT
+    by checking if all the constraint matrices returned by :code:`abs_ppt_constraints` are positive semidefinite.
+
     This function is adapted from QETLAB :cite:`QETLAB_link`.
 
     .. note::
