@@ -27,8 +27,13 @@ def abs_ppt_constraints(
     .. note::
         This function accepts a :code:`cvxpy` Variable as input for :code:`eigs`. The function will return the assembled
         constraint matrices where each entry in a matrix is the corresponding `cvxpy` Expression. These can be used with
-        :code:`cvxpy` to optimize over the space of absolutely PPT matrices. It is recommended to set
-        :code:`use_checks=True` for this use case to minimize the number of constraint equations in the problem.
+        :code:`cvxpy` to optimize over the space of absolutely PPT matrices. The user must impose the condition
+        :code:`eigs[0] ≥ eigs[1] ≥ ... eigs[-1] ≥ 0` separately. It is recommended to set :code:`use_checks=True` for
+        this use case to minimize the number of constraint equations in the problem.
+
+    .. warning::
+        Calling this function with :code:`use_check=True` might be slow (on the order of a few minutes) on
+        lower-end computers.
 
 
     This function is adapted from QETLAB :cite:`QETLAB_link`.
@@ -152,6 +157,8 @@ def abs_ppt_constraints(
     def _create_constraint(eigs: np.ndarray, order_matrix: np.ndarray, p: int) -> np.ndarray:
         r"""Return constraint matrix from order matrix."""
         constraint_matrix = np.zeros((p, p))
+        if isinstance(eigs, cvxpy.Variable):
+            constraint_matrix = np.empty((p, p), dtype="O")
         # The elements of the upper triangle + diagonal of the constraint matrix are placed by
         # the rule constraint_matrix[row, col] = eigs[-order_matrix[row, col]] (col >= row)
         upper_inds = np.dstack(np.triu_indices(p))[0]
@@ -159,13 +166,15 @@ def abs_ppt_constraints(
             constraint_matrix[row, col] = eigs[-order_matrix[row, col]]
         # The elements of the lower triangle are placed in the same order as that of the
         # transposed upper triangle
-        strictly_upper_inds = np.dstack(np.triu_indices(p, 1))[0]
+        strictly_upper_inds = np.triu_indices(p, 1)
         # First we need to translate the elements of the upper triangle from [0, p(p-1)/2)
         renumbered_upper_triangle = np.unique(order_matrix[strictly_upper_inds], return_inverse=True)[1]
         # Then we can directly place everything by indexing the transposed constraint matrix
-        # The rule is given by constraint_matrix[col, row] = -eigs[renumbered_upper_triangle[row, col]] (col > row)
-        for row, col in strictly_upper_inds:
-            constraint_matrix[col, row] = -eigs[renumbered_upper_triangle[row, col]]
+        # The rule is given by constraint_matrix[col, row] = -eigs[renumbered_upper_triangle[i]] (col > row)
+        # where i is the row major order flattened index for the corresponding upper triangle element
+        strictly_upper_inds = np.dstack(strictly_upper_inds)[0]
+        for i, idx in enumerate(strictly_upper_inds):
+            constraint_matrix[idx[1], idx[0]] = -eigs[renumbered_upper_triangle[i]]
         return constraint_matrix + constraint_matrix.T
 
     # We already set the first two elements of the first row, so start from the third element
