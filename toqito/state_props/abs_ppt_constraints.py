@@ -1,17 +1,35 @@
 """Compute the constraints on a spectrum for it to be absolutely PPT."""
 
+import cvxpy
 import numpy as np
 
 
-def abs_ppt_constraints(eigs: np.ndarray, p: int, max_constraints: int = 33_592) -> list[np.ndarray]:
+def abs_ppt_constraints(
+    eigs: np.ndarray | cvxpy.Variable, p: int, max_constraints: int = 33_592, use_check: bool = False
+) -> list[np.ndarray]:
     r"""Return the constraint matrices for the spectrum to be absolutely PPT :cite:`Hildebrand_2007_AbsPPT`.
 
-    The returned constraint matrices must all be positive semidefinite for the spectrum to be absolutely PPT.
+    The returned matrices are constructed from the eigenvalues `eigs` and they must all be positive
+    semidefinite for the spectrum to be absolutely PPT.
+
 
     .. note::
         The above statement is not strictly true since it is known that the function does not always return the
-        optimal number of constraint matrices. There are some redundant constraint matrices.
-        :cite:`Johnston_2014_Orderings`
+        optimal number of constraint matrices. There are some redundant constraint matrices
+        :cite:`Johnston_2014_Orderings`.
+            * With :code:`use_checks=False`, the number of matrices returned starting from :math:`p=1` is
+              :math:`[0, 1, 2, 12, 286, 33592, 23178480, \ldots]`.
+            * With :code:`use_checks=True`, the number of matrices returned starting from :math:`p=1` is
+              :math:`[0, 1, 2, 10, 114, 2612, 108664, \ldots]`.
+        However, the optimal number of matrices starting from :math:`p=1` is given by :math:`[0, 1, 2, 10, 114,
+        2608, 107498]`.
+
+    .. note::
+        This function accepts a :code:`cvxpy` Variable as input for :code:`eigs`. The function will return the assembled
+        constraint matrices where each entry in a matrix is the corresponding `cvxpy` Expression. These can be used with
+        :code:`cvxpy` to optimize over the space of absolutely PPT matrices. It is recommended to set
+        :code:`use_checks=True` for this use case to minimize the number of constraint equations in the problem.
+
 
     This function is adapted from QETLAB :cite:`QETLAB_link`.
 
@@ -38,16 +56,22 @@ def abs_ppt_constraints(eigs: np.ndarray, p: int, max_constraints: int = 33_592)
 
     :param eigs: A list of eigenvalues.
     :param p: The dimension of the smaller subsystem in the bipartite system.
-    :param max_constraints: The maximum number of constraint matrices to compute. By default, this is
-                            equal to :math:`33592` which is an upper bound on the optimal number of
-                            constraint matrices which must be computed for :math:`p \leq 6`
-                            :cite:`Johnston_2014_Orderings`.
+    :param max_constraints: The maximum number of constraint matrices to compute. (default: 33592)
+    :param use_check: Use the "criss-cross" ordering check described in :cite:`Johnston_2014_Orderings` to reduce the
+                      number of constraint matrices. (default: :code:`False`)
     :return: A list of :code:`max_constraints` constraint matrices which must be positive
              semidefinite for an absolutely PPT spectrum.
 
     """
-    # Sort eigenvalues in non-increasing order
-    eigs = np.sort(eigs)[::-1]
+    if isinstance(eigs, np.ndarray):
+        # Sort eigenvalues in non-increasing order
+        eigs = np.sort(eigs)[::-1]
+    elif isinstance(eigs, cvxpy.Variable):
+        # Don't do anything
+        pass
+    else:
+        # Raise an error for unsupported type
+        raise TypeError("mat must be a numpy ndarray or a cvxpy Variable")
 
     # Hard-code matrices for p = 1, 2
     if p == 1:
@@ -67,7 +91,7 @@ def abs_ppt_constraints(eigs: np.ndarray, p: int, max_constraints: int = 33_592)
     order_matrix[-2, -1] = p_plus - 1
 
     def _fill_matrix(row: int, col: int, l_lim: int) -> None:
-        r"""Construct all valid orderings by backtracking. Processes order_matrix in row major order.
+        r"""Construct all valid orderings by backtracking. Processes order matrix in row major order.
 
         A valid ordering has rows and columns of the upper triangle + diagonal in ascending order.
         """
@@ -93,9 +117,10 @@ def abs_ppt_constraints(eigs: np.ndarray, p: int, max_constraints: int = 33_592)
                 if row == 0 or order_matrix[row - 1, col] < order_matrix[row, col]:
                     if row == p - 2 and col == p - 2:
                         # We already placed the last two elements of the last column, so
-                        # we have completed a valid matrix
+                        # we have completed the matrix
                         # Now we create a constraint matrix out of this order matrix
-                        constraints.append(_create_constraint(eigs, order_matrix, p))
+                        if not use_check or _check_cross(order_matrix, p):
+                            constraints.append(_create_constraint(eigs, order_matrix, p))
                     elif col == p - 1:
                         # We finished the current row, so head to the next row
                         # Also reset l_lim: It will automatically be set to a valid value
@@ -108,21 +133,39 @@ def abs_ppt_constraints(eigs: np.ndarray, p: int, max_constraints: int = 33_592)
                         _fill_matrix(row, col + 1, k + 1)
                 available[k] = True
 
+    def _check_cross(order_matrix: np.ndarray, p: int) -> bool:
+        r"""Check if the order matrix satisfies the "criss-cross" ordering check in :cite:`Johnston_2014_Orderings`."""
+        for j in range(p - 3):
+            for k in range(3, p):
+                for m in range(p - 2):
+                    for n in range(1, p):
+                        for x in range(p - 1):
+                            for g in range(1, p):
+                                if (
+                                    order_matrix[min(j, k)][max(j, k)] > order_matrix[min(m, n)][max(m, n)]
+                                    and order_matrix[min(n, g)][max(n, g)] > order_matrix[min(k, x)][max(k, x)]
+                                    and order_matrix[min(j, g)][max(j, g)] < order_matrix[min(m, x)][max(m, x)]
+                                ):
+                                    return False
+        return True
+
     def _create_constraint(eigs: np.ndarray, order_matrix: np.ndarray, p: int) -> np.ndarray:
         r"""Return constraint matrix from order matrix."""
         constraint_matrix = np.zeros((p, p))
         # The elements of the upper triangle + diagonal of the constraint matrix are placed by
         # the rule constraint_matrix[row, col] = eigs[-order_matrix[row, col]] (col >= row)
-        upper_inds = np.triu_indices(p)
-        constraint_matrix[upper_inds] = eigs[-order_matrix[upper_inds]]
+        upper_inds = np.dstack(np.triu_indices(p))[0]
+        for row, col in upper_inds:
+            constraint_matrix[row, col] = eigs[-order_matrix[row, col]]
         # The elements of the lower triangle are placed in the same order as that of the
         # transposed upper triangle
-        strictly_upper_inds = np.triu_indices(p, 1)
+        strictly_upper_inds = np.dstack(np.triu_indices(p, 1))[0]
         # First we need to translate the elements of the upper triangle from [0, p(p-1)/2)
         renumbered_upper_triangle = np.unique(order_matrix[strictly_upper_inds], return_inverse=True)[1]
         # Then we can directly place everything by indexing the transposed constraint matrix
         # The rule is given by constraint_matrix[col, row] = -eigs[renumbered_upper_triangle[row, col]] (col > row)
-        constraint_matrix.T[strictly_upper_inds] = -eigs[renumbered_upper_triangle]
+        for row, col in strictly_upper_inds:
+            constraint_matrix[col, row] = -eigs[renumbered_upper_triangle[row, col]]
         return constraint_matrix + constraint_matrix.T
 
     # We already set the first two elements of the first row, so start from the third element

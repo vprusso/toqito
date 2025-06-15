@@ -68,7 +68,7 @@ def is_abs_ppt(mat: np.ndarray, dim: int = None, rtol: float = 1e-05, atol: floa
                 (see Theorem 2 of :cite:`Hildebrand_2007_AbsPPT`).
     :param rtol: The relative tolerance parameter (default 1e-05).
     :param atol: The absolute tolerance parameter (default 1e-08).
-    :return: :code:`True` if :code:`mat` is absolutely PPT, :code:`False` if :code:`mat is not
+    :return: :code:`True` if :code:`mat` is absolutely PPT, :code:`False` if :code:`mat` is not
              absolutely PPT, and :code:`None` if the function could not decide.
 
     """
