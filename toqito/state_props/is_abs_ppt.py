@@ -29,9 +29,9 @@ def is_abs_ppt(mat: np.ndarray, dim: int = None, rtol: float = 1e-05, atol: floa
 
         import numpy as np
         from toqito.rand import random_density_matrix
-        from toqito.state_props import is_abs_ppt, is_separable
+        from toqito.state_props import is_abs_ppt
         rho = random_density_matrix(9) # assumed to act on a 3 x 3 bipartite system
-        print("rho is absolutely PPT:", is_abs_ppt(rho, 3))
+        print(f"ρ is absolutely PPT: {is_abs_ppt(rho, 3)}")
 
     The maximally-mixed state is an example of an absolutely PPT state:
 
@@ -39,9 +39,9 @@ def is_abs_ppt(mat: np.ndarray, dim: int = None, rtol: float = 1e-05, atol: floa
 
         import numpy as np
         from toqito.states import max_mixed
-        from toqito.state_props import is_abs_ppt, is_separable
+        from toqito.state_props import is_abs_ppt
         rho = max_mixed(9) # assumed to act on a 3 x 3 bipartite system
-        print("rho is absolutely PPT:", is_abs_ppt(rho, 3))
+        print(f"ρ is absolutely PPT: {is_abs_ppt(rho, 3)}")
 
     References
     ==========

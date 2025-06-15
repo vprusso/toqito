@@ -6,6 +6,13 @@ import numpy as np
 def abs_ppt_constraints(eigs: np.ndarray, p: int, max_constraints: int = 33_592) -> list[np.ndarray]:
     r"""Return the constraint matrices for the spectrum to be absolutely PPT :cite:`Hildebrand_2007_AbsPPT`.
 
+    The returned constraint matrices must all be positive semidefinite for the spectrum to be absolutely PPT.
+
+    .. note::
+        The above statement is not strictly true since it is known that the function does not always return the
+        optimal number of constraint matrices. There are some redundant constraint matrices.
+        :cite:`Johnston_2014_Orderings`
+
     This function is adapted from QETLAB :cite:`QETLAB_link`.
 
     Examples
@@ -39,11 +46,8 @@ def abs_ppt_constraints(eigs: np.ndarray, p: int, max_constraints: int = 33_592)
              semidefinite for an absolutely PPT spectrum.
 
     """
+    # Sort eigenvalues in non-increasing order
     eigs = np.sort(eigs)[::-1]
-    p_p = p * (p + 1) // 2
-    X = (p_p + 1) * np.ones((p, p), dtype=np.int32)
-    num_pool = np.ones((p_p, 1), dtype=np.int32)
-    constraints = []
 
     # Hard-code matrices for p = 1, 2
     if p == 1:
@@ -51,42 +55,78 @@ def abs_ppt_constraints(eigs: np.ndarray, p: int, max_constraints: int = 33_592)
     if p == 2:
         return [np.array([[2 * eigs[-1], eigs[-2] - eigs[0]], [eigs[-2] - eigs[0], 2 * eigs[-3]]])]
 
-    X[0, 0] = 1
-    X[0, 1] = 2
-    X[-1, -1] = p_p
-    X[-2, -1] = p_p - 1
+    p_plus = p * (p + 1) // 2
+    order_matrix = np.zeros((p, p), dtype=np.int32)
+    available = np.ones(p_plus, dtype=bool)
+    constraints = []
 
-    def _fill_matrix(i: int, j: int, l_lim: int) -> None:
-        r"""Construct all valid orderings by backtracking."""
+    # The first two elements of the first row and the last two elements of the last column are fixed
+    order_matrix[0, 0] = 1
+    order_matrix[0, 1] = 2
+    order_matrix[-1, -1] = p_plus
+    order_matrix[-2, -1] = p_plus - 1
+
+    def _fill_matrix(row: int, col: int, l_lim: int) -> None:
+        r"""Construct all valid orderings by backtracking. Processes order_matrix in row major order.
+
+        A valid ordering has rows and columns of the upper triangle + diagonal in ascending order.
+        """
+        # If we already constructed enough constraints, exit
         if len(constraints) == max_constraints:
             return
-        j_p = j * (j + 1) // 2
-        u_lim = min(i * (p - j) + j_p + 1, p_p - 2)
+        col_plus = col * (col + 1) // 2
+        # We check numbers in [l_lim, u_lim]
+        # u_lim is calculated by considering how many numbers are definitely not admissible for
+        # the current location, which is the number of locations to the lower-right of the
+        # current position (directly below and directly to the right included)
+        u_lim = min(row * (p - col) + col_plus + 1, p_plus - 2)
         for k in range(l_lim, u_lim + 1):
-            if num_pool[k] == 1:
-                X[i, j] = k
-                num_pool[k] = 0
-                if i == 0 or X[i - 1, j] < X[i, j]:
-                    if i == p - 2 and j == p - 2:
-                        constraints.append(_create_constraint(eigs, X, p))
-                    elif j == p - 1:
-                        _fill_matrix(i + 1, i + 1, 3)
+            # If k is available, try it
+            if available[k]:
+                order_matrix[row, col] = k
+                available[k] = False
+                # If placing this k was valid, then we proceed
+                # We only check the ascending column condition because the rows are
+                # ascending by construction
+                # A simple explanation: We set l_lim to be greater than the last set number
+                # and we are setting elements in row major order
+                if row == 0 or order_matrix[row - 1, col] < order_matrix[row, col]:
+                    if row == p - 2 and col == p - 2:
+                        # We already placed the last two elements of the last column, so
+                        # we have completed a valid matrix
+                        # Now we create a constraint matrix out of this order matrix
+                        constraints.append(_create_constraint(eigs, order_matrix, p))
+                    elif col == p - 1:
+                        # We finished the current row, so head to the next row
+                        # Also reset l_lim: It will automatically be set to a valid value
+                        # by the column ordering check
+                        _fill_matrix(row + 1, row + 1, 3)
                     else:
-                        _fill_matrix(i, j + 1, k + 1)
-                num_pool[k] = 1
-        X[i, j] = p_p + 1
+                        # We are not done with the current row, so head to the next column
+                        # Set l_lim to be greater than the current number to maintain the
+                        # row ordering condition
+                        _fill_matrix(row, col + 1, k + 1)
+                available[k] = True
 
-    def _create_constraint(eigs: np.ndarray, X: np.ndarray, p: int) -> np.ndarray:
+    def _create_constraint(eigs: np.ndarray, order_matrix: np.ndarray, p: int) -> np.ndarray:
         r"""Return constraint matrix from order matrix."""
-        L = np.zeros((p, p))
-        # Set upper triangle + diagonal
+        constraint_matrix = np.zeros((p, p))
+        # The elements of the upper triangle + diagonal of the constraint matrix are placed by
+        # the rule constraint_matrix[row, col] = eigs[-order_matrix[row, col]] (col >= row)
         upper_inds = np.triu_indices(p)
-        L[upper_inds] = eigs[-X[upper_inds]]
+        constraint_matrix[upper_inds] = eigs[-order_matrix[upper_inds]]
+        # The elements of the lower triangle are placed in the same order as that of the
+        # transposed upper triangle
         strictly_upper_inds = np.triu_indices(p, 1)
-        # Set lower triangle
-        L.T[strictly_upper_inds] = -eigs[np.unique(X[strictly_upper_inds], return_inverse=True)[1]]
-        return L + L.T
+        # First we need to translate the elements of the upper triangle from [0, p(p-1)/2)
+        renumbered_upper_triangle = np.unique(order_matrix[strictly_upper_inds], return_inverse=True)[1]
+        # Then we can directly place everything by indexing the transposed constraint matrix
+        # The rule is given by constraint_matrix[col, row] = -eigs[renumbered_upper_triangle[row, col]] (col > row)
+        constraint_matrix.T[strictly_upper_inds] = -eigs[renumbered_upper_triangle]
+        return constraint_matrix + constraint_matrix.T
 
+    # We already set the first two elements of the first row, so start from the third element
+    # We also used 1 and 2 already in order_matrix, so we start checking numbers from 3
     _fill_matrix(0, 2, 3)
 
     return constraints
