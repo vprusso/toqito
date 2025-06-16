@@ -9,7 +9,7 @@ def abs_ppt_constraints(
 ) -> list[np.ndarray]:
     r"""Return the constraint matrices for the spectrum to be absolutely PPT :cite:`Hildebrand_2007_AbsPPT`.
 
-    The returned matrices are constructed from the eigenvalues :code:`eigs`, and they must all be positive
+    The returned matrices are constructed from the provided eigenvalues :code:`eigs`, and they must all be positive
     semidefinite for the spectrum to be absolutely PPT.
 
 
