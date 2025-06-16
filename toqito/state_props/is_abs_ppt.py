@@ -89,7 +89,7 @@ def is_abs_ppt(mat: np.ndarray, dim: int = None, rtol: float = 1e-05, atol: floa
                 dim = j
 
     if nm % dim != 0:
-        raise ValueError("dim must divide the dimensions of the matrix")
+        raise ValueError("Calculated subsystem dimensions and provided matrix dimensions are incompatible")
 
     n, m = dim, nm // dim
     p = min(n, m)
