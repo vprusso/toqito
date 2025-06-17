@@ -7,7 +7,7 @@ import numpy as np
 
 
 def basis(dim: int, pos: int) -> np.ndarray:
-    r"""Obtain the ket of dimension :code:`dim` :cite:`WikiBraKet`.
+    r"""Obtain the ket of dimension :code:`dim` :footcite:`WikiBraKet`.
 
     Examples
     ==========
@@ -36,8 +36,8 @@ def basis(dim: int, pos: int) -> np.ndarray:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :raises ValueError: If the input position is not in the range [0, dim - 1].

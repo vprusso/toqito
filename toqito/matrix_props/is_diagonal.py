@@ -6,7 +6,7 @@ from toqito.matrix_props import is_square
 
 
 def is_diagonal(mat: np.ndarray) -> bool:
-    r"""Determine if a matrix is diagonal :cite:`WikiDiag`.
+    r"""Determine if a matrix is diagonal :footcite:`WikiDiag`.
 
     A matrix is diagonal if the matrix is square and if the diagonal of the matrix is non-zero,
     while the off-diagonal elements are all zero.
@@ -22,7 +22,7 @@ def is_diagonal(mat: np.ndarray) -> bool:
             \end{pmatrix}
         \end{equation}
 
-    This quick implementation is given by Daniel F. from StackOverflow in :cite:`SO_43884189`.
+    This quick implementation is given by Daniel F. from StackOverflow in :footcite:`SO_43884189`.
 
     Examples
     ==========
@@ -68,8 +68,8 @@ def is_diagonal(mat: np.ndarray) -> bool:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
 

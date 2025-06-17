@@ -4,7 +4,7 @@ import numpy as np
 
 
 def tensor(*args) -> np.ndarray:
-    r"""Compute the Kronecker tensor product :cite:`WikiTensorProd`.
+    r"""Compute the Kronecker tensor product :footcite:`WikiTensorProd`.
 
     Tensor two matrices or vectors together using the standard Kronecker
     operation provided from numpy.
@@ -99,8 +99,8 @@ def tensor(*args) -> np.ndarray:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :raises ValueError: Input must be a vector or matrix.

@@ -728,7 +728,7 @@ The pretty good measurement (PGM), also known as the "square root measurement" i
 .. math::
     G_i = P^{-1/2} \left(p_i \rho_i\right) P^{-1/2} \quad \text{where} \quad P = \sum_{i=1}^n p_i \rho_i.
 
-This measurement was initially defined in :cite:`Hughston_1993_Complete` and has found applications in quantum state discrimination tasks. 
+This measurement was initially defined in :footfootcite:`Hughston_1993_Complete` and has found applications in quantum state discrimination tasks. 
 While not always optimal, the PGM provides a reasonable measurement strategy that can be computed efficiently.
 
 For example, consider the following trine states:
@@ -751,7 +751,7 @@ For example, consider the following trine states:
 Pretty Bad Measurement
 ^^^^^^^^^^^^^^^^^^^^^^
 
-Similarly, we can consider so-called "pretty bad measurement" (PBM) on the set of trine states :cite:`McIrvin_2024_Pretty`.
+Similarly, we can consider so-called "pretty bad measurement" (PBM) on the set of trine states :footcite:`McIrvin_2024_Pretty`.
 
 The pretty bad measurement (PBM) is a set of POVMs :math:`(B_1, \ldots, B_n)` defined as
 
@@ -778,5 +778,5 @@ Like the PGM, the PBM provides a measurement strategy for quantum state discrimi
 References
 ------------------------------
 
-.. bibliography:: 
-    :filter: docname in docnames
+.. footbibliography:: 
+    

@@ -14,7 +14,7 @@ def is_quantum_channel(
     r"""Determine whether the given input is a quantum channel.
 
     For more info, see Section 2.2.1: Definitions and Basic Notions Concerning Channels from
-    :cite:`Watrous_2018_TQI`.
+    :footcite:`Watrous_2018_TQI`.
 
     A map :math:`\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)` is a *quantum
     channel* for some choice of complex Euclidean spaces :math:`\mathcal{X}`
@@ -66,8 +66,8 @@ def is_quantum_channel(
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param phi: The channel provided as either a Choi matrix or a list of Kraus operators.

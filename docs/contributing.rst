@@ -171,8 +171,8 @@ in `Code Style`_. A standard format for :code:`|toqito⟩` docstring is provided
 
             References
             ==========
-            .. bibliography::
-                :filter: docname in docnames
+            .. footbibliography::
+                
         
             :param name_of_parameter: Description of the parameter.
             :raises SomeError: Description for when the function raises an error.
@@ -192,8 +192,8 @@ Following is used in a docstring for the references to show up in the documentat
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+        
 
 
 --------------

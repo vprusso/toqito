@@ -8,7 +8,7 @@ from toqito.states import basis, bell
 
 
 def test_ppt_distinguishability_yyd_density_matrices():
-    """PPT distinguishing the YYD states from :cite:`Yu_2012_Four` should yield `7/8 ~ 0.875`.
+    """PPT distinguishing the YYD states from :footcite:`Yu_2012_Four` should yield `7/8 ~ 0.875`.
 
     Feeding the input to the function as density matrices.
     """
@@ -63,7 +63,7 @@ def test_ppt_distinguishability_yyd_density_matrices():
 
 
 def test_ppt_distinguishability_yyd_vectors():
-    """PPT distinguishing the YYD states from :cite:`Yu_2012_Four` should yield `7/8 ~ 0.875`.
+    """PPT distinguishing the YYD states from :footcite:`Yu_2012_Four` should yield `7/8 ~ 0.875`.
 
     Feeding the input to the function as state vectors.
     """
@@ -114,7 +114,7 @@ def test_ppt_distinguishability_yyd_vectors():
 
 
 def test_ppt_distinguishability_yyd_states_no_probs():
-    """PPT distinguishing the YYD states from :cite:`Yu_2012_Four` should yield `7/8 ~ 0.875`.
+    """PPT distinguishing the YYD states from :footcite:`Yu_2012_Four` should yield `7/8 ~ 0.875`.
 
     If no probability vector is explicitly given, assume uniform probabilities are given.
     """
@@ -158,7 +158,7 @@ def test_ppt_distinguishability_four_bell_states():
 
     There exists a closed form formula for the probability with which one
     is able to distinguish one of the four Bell states given with equal
-    probability when Alice and Bob have access to a resource state :cite:`Bandyopadhyay_2015_Limitations`.
+    probability when Alice and Bob have access to a resource state :footcite:`Bandyopadhyay_2015_Limitations`.
 
     The resource state is defined by
 
@@ -174,7 +174,7 @@ def test_ppt_distinguishability_four_bell_states():
         \frac{1}{2} \left(1 + \sqrt{1 - \epsilon^2} \right).
 
     This formula happens to be equal to LOCC and SEP as well for this case.
-    Refer to Theorem 5 in  :cite:`Bandyopadhyay_2015_Limitations` for more details.
+    Refer to Theorem 5 in  :footcite:`Bandyopadhyay_2015_Limitations` for more details.
     """
     rho_1 = bell(0)
     rho_2 = bell(1)

@@ -4,7 +4,7 @@ import numpy as np
 
 
 def is_positive_definite(mat: np.ndarray) -> bool:
-    r"""Check if matrix is positive definite (PD) :cite:`WikiPosDef`.
+    r"""Check if matrix is positive definite (PD) :footcite:`WikiPosDef`.
 
     Examples
     ==========
@@ -54,8 +54,8 @@ def is_positive_definite(mat: np.ndarray) -> bool:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param mat: Matrix to check.

@@ -6,7 +6,7 @@ import numpy as np
 def complementary_channel(kraus_ops: list[np.ndarray]) -> list[np.ndarray]:
     r"""Compute the Kraus operators for the complementary map of a quantum channel.
 
-    (Section: Representations and Characterizations of Channels from :cite:`Watrous_2018_TQI`).
+    (Section: Representations and Characterizations of Channels from :footcite:`Watrous_2018_TQI`).
 
     The complementary map is derived from the given quantum channel's Kraus operators by
     rearranging the rows of the input Kraus operators into the Kraus operators of the
@@ -59,8 +59,8 @@ def complementary_channel(kraus_ops: list[np.ndarray]) -> list[np.ndarray]:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :raises ValueError: If the input is not a valid list of Kraus operators.
     :param kraus_ops: A list of numpy arrays representing the Kraus operators of a quantum channel.

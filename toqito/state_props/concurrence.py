@@ -9,7 +9,7 @@ from toqito.matrices import pauli
 
 
 def concurrence(rho: np.ndarray) -> float:
-    r"""Calculate the concurrence of a bipartite state :cite:`WikiConcurrence`.
+    r"""Calculate the concurrence of a bipartite state :footcite:`WikiConcurrence`.
 
     The concurrence of a bipartite state :math:`\rho` is defined as
 
@@ -70,8 +70,8 @@ def concurrence(rho: np.ndarray) -> float:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :raises ValueError: If system is not bipartite.
     :param rho: The bipartite system specified as a matrix.
