@@ -48,7 +48,7 @@ def test_not_absolutely_ppt(mat):
     "mat, dim, error_msg",
     [
         # Invalid subsystem dimension
-        (np.identity(4), 3, "dim must divide the dimensions of the matrix"),
+        (np.identity(4), 3, "Calculated subsystem dimensions and provided matrix dimensions are incompatible"),
         # Invalid non-square matrix
         (np.arange(12).reshape((3, 4)), None, "Matrix must be square"),
     ],
