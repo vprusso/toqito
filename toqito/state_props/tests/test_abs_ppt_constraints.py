@@ -64,14 +64,21 @@ def test_constraint_counts(upto, use_check, expected_counts):
     assert constraint_counts == expected_counts
 
 
-def test_cvxpy_case():
+@pytest.mark.parametrize(
+    "n",
+    [
+        2,
+        5,
+    ],
+)
+def test_cvxpy_case(n):
     """Test that the function does not throw an error when passed a cvxpy Variable.
 
     A separate test for checking if the output is correct for cvxpy Variables is not necessary since the algorithm uses
     the same algorithm in both cases.
     """
-    eigs = cvxpy.Variable(5 * 5, nonneg=True)
-    abs_ppt_constraints(eigs, 5)
+    eigs = cvxpy.Variable(n * n, nonneg=True)
+    abs_ppt_constraints(eigs, n)
 
 
 @pytest.mark.parametrize(

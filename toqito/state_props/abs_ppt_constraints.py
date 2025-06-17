@@ -1,12 +1,12 @@
 """Compute the constraints on a spectrum for it to be absolutely PPT."""
 
-import cvxpy
+import cvxpy as cp
 import numpy as np
 
 
 def abs_ppt_constraints(
-    eigs: np.ndarray | cvxpy.Variable, p: int, max_constraints: int = 33_592, use_check: bool = False
-) -> list[np.ndarray]:
+    eigs: np.ndarray | cp.Variable, p: int, max_constraints: int = 33_592, use_check: bool = False
+) -> list[np.ndarray | cp.Expression]:
     r"""Return the constraint matrices for the spectrum to be absolutely PPT :cite:`Hildebrand_2007_AbsPPT`.
 
     The returned matrices are constructed from the provided eigenvalues :code:`eigs`, and they must all be positive
@@ -14,9 +14,8 @@ def abs_ppt_constraints(
 
 
     .. note::
-        The above statement is not strictly true since it is known that the function does not always return the
-        optimal number of constraint matrices. There are some redundant constraint matrices
-        :cite:`Johnston_2014_Orderings`.
+        The function does not always return the optimal number of constraint matrices. There are some redundant
+        constraint matrices :cite:`Johnston_2014_Orderings`.
             * With :code:`use_checks=False`, the number of matrices returned starting from :math:`p=1` is
               :math:`[0, 1, 2, 12, 286, 33592, 23178480, \ldots]`.
             * With :code:`use_checks=True`, the number of matrices returned starting from :math:`p=1` is
@@ -26,14 +25,10 @@ def abs_ppt_constraints(
 
     .. note::
         This function accepts a :code:`cvxpy` Variable as input for :code:`eigs`. The function will return the assembled
-        constraint matrices where each entry in a matrix is the corresponding :code:`cvxpy` Expression. These can be
-        used with :code:`cvxpy` to optimize over the space of absolutely PPT matrices. The user must impose the
-        condition :code:`eigs[0] ≥ eigs[1] ≥ ... eigs[-1] ≥ 0` separately. It is recommended to set
-        :code:`use_checks=True` for this use case to minimize the number of constraint equations in the problem.
-
-    .. warning::
-        Calling this function with :code:`use_check=True` might be slow (on the order of a few minutes for
-        :math:`p \geq 6`) on lower-end computers.
+        constraint matrices as a list of :code:`cvxpy` Expressions. These can be used with :code:`cvxpy` to optimize
+        over the space of absolutely PPT matrices. The user must impose the condition :code:`eigs[0] ≥ eigs[1] ≥ ...
+        eigs[-1] ≥ 0` and the positive semidefinite constraint on each returned matrix separately. It is recommended to
+        set :code:`use_check=True` for this use case to minimize the number of constraint equations in the problem.
 
 
     This function is adapted from QETLAB :cite:`QETLAB_link`.
@@ -71,7 +66,7 @@ def abs_ppt_constraints(
     """
     if isinstance(eigs, np.ndarray):
         eigs = np.sort(eigs)[::-1]
-    elif isinstance(eigs, cvxpy.Variable):
+    elif isinstance(eigs, cp.Variable):
         pass
     else:
         raise TypeError("mat must be a numpy ndarray or a cvxpy Variable")
@@ -80,7 +75,10 @@ def abs_ppt_constraints(
     if p == 1:
         return []
     if p == 2:
-        return [np.array([[2 * eigs[-1], eigs[-2] - eigs[0]], [eigs[-2] - eigs[0], 2 * eigs[-3]]])]
+        add_index = np.array([[-1, -2], [-2, -3]], dtype=np.int32)
+        sub_index = np.array([[-1, 0], [0, -3]], dtype=np.int32)
+        diag = np.diag if isinstance(eigs, np.ndarray) else cp.diag
+        return [eigs[add_index] - eigs[sub_index] + 2 * diag(eigs[np.diag(add_index)])]
 
     p_plus = p * (p + 1) // 2
     order_matrix = np.zeros((p, p), dtype=np.int32)
@@ -154,26 +152,11 @@ def abs_ppt_constraints(
 
     def _create_constraint(eigs: np.ndarray, order_matrix: np.ndarray, p: int) -> np.ndarray:
         r"""Return constraint matrix from order matrix."""
-        constraint_matrix = np.zeros((p, p))
-        if isinstance(eigs, cvxpy.Variable):
-            constraint_matrix = np.empty((p, p), dtype="O")
-        # The elements of the upper triangle + diagonal of the constraint matrix are placed by
-        # the rule constraint_matrix[row, col] = eigs[-order_matrix[row, col]] (col >= row).
-        upper_inds = np.dstack(np.triu_indices(p))[0]
-        for row, col in upper_inds:
-            constraint_matrix[row, col] = eigs[-order_matrix[row, col]]
-        # The elements of the lower triangle are placed in the same order as that of the
-        # transposed upper triangle.
-        strictly_upper_inds = np.triu_indices(p, 1)
-        # First we need to translate the elements of the upper triangle from [0, p(p-1)/2).
-        renumbered_upper_triangle = np.unique(order_matrix[strictly_upper_inds], return_inverse=True)[1]
-        # Then we can directly place everything by indexing the transposed constraint matrix.
-        # The rule is given by constraint_matrix[col, row] = -eigs[renumbered_upper_triangle[i]] (col > row)
-        # where i is the row major order flattened index for the corresponding upper triangle element.
-        strictly_upper_inds = np.dstack(strictly_upper_inds)[0]
-        for i, idx in enumerate(strictly_upper_inds):
-            constraint_matrix[idx[1], idx[0]] = -eigs[renumbered_upper_triangle[i]]
-        return constraint_matrix + constraint_matrix.T
+        add_index = -np.where(order_matrix, order_matrix, order_matrix.T)
+        renum_su_tri = np.unique(order_matrix - np.diag(np.diag(order_matrix)), return_inverse=True)[1]
+        sub_index = renum_su_tri + renum_su_tri.T - 1 + np.diag(np.diag(add_index) + 1)
+        diag = np.diag if isinstance(eigs, np.ndarray) else cp.diag
+        return eigs[add_index] - eigs[sub_index] + 2 * diag(eigs[np.diag(add_index)])
 
     # We already set the first two elements of the first row, so start from the third element.
     # We also used 1 and 2 already in order_matrix, so we start checking numbers from 3.

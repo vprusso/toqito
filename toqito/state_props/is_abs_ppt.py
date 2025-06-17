@@ -81,12 +81,13 @@ def is_abs_ppt(mat: np.ndarray, dim: int = None, rtol: float = 1e-05, atol: floa
         # Find the largest divisor d of nm such that d ** 2 <= nm.
         # nm won't be too large, so let's just use a for-loop.
         # Floating-point arithmetic is risky.
-        dim = 1
-        for j in range(1, nm + 1):
+        dim, j = 1, 1
+        while True:
             if j**2 > nm:
                 break
             if nm % j == 0:
                 dim = j
+            j += 1
 
     if nm % dim != 0:
         raise ValueError("Calculated subsystem dimensions and provided matrix dimensions are incompatible")
