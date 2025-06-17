@@ -728,7 +728,7 @@ The pretty good measurement (PGM), also known as the "square root measurement" i
 .. math::
     G_i = P^{-1/2} \left(p_i \rho_i\right) P^{-1/2} \quad \text{where} \quad P = \sum_{i=1}^n p_i \rho_i.
 
-This measurement was initially defined in :footfootcite:`Hughston_1993_Complete` and has found applications in quantum state discrimination tasks. 
+This measurement was initially defined in :footcite:`Hughston_1993_Complete` and has found applications in quantum state discrimination tasks. 
 While not always optimal, the PGM provides a reasonable measurement strategy that can be computed efficiently.
 
 For example, consider the following trine states:
