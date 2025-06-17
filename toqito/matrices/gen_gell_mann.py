@@ -4,7 +4,7 @@ import numpy as np
 
 
 def gen_gell_mann(ind_1: int, ind_2: int, dim: int) -> np.ndarray:
-    r"""Produce a generalized Gell-Mann operator :cite:`WikiGellMann`.
+    r"""Produce a generalized Gell-Mann operator :footcite:`WikiGellMann`.
 
     Construct a :code:`dim`-by-:code:`dim` Hermitian operator. These matrices
     span the entire space of :code:`dim`-by-:code:`dim` matrices as
@@ -53,8 +53,8 @@ def gen_gell_mann(ind_1: int, ind_2: int, dim: int) -> np.ndarray:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param ind_1: A non-negative integer from 0 to :code:`dim-1` (inclusive).

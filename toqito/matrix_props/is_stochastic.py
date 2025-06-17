@@ -9,9 +9,10 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
     r"""Verify matrix is doubly, right or left stochastic.
 
     When the nonnegative elements in a row of a square matrix sum up to 1, the matrix is right stochastic and if the
-    columns sum up to 1, the matrix is left stochastic :cite:`WikiStochasticMatrix`.
+    columns sum up to 1, the matrix is left stochastic :footcite:`WikiStochasticMatrix`.
 
-    When a matrix is right and left stochastic, it is a doubly stochastic matrix. :cite:`WikiDoublyStochasticMatrix`.
+    When a matrix is right and left stochastic, it is a doubly stochastic matrix :footcite:`WikiDoublyStochasticMatrix`
+    .
 
     See Also
     ========
@@ -52,8 +53,8 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
 
     References
     ==========
-    .. bibliography::
-          :filter: docname in docnames
+    .. footbibliography::
+
 
     :param mat: Matrix of interest
     :param mat_type: Type of stochastic matrix.

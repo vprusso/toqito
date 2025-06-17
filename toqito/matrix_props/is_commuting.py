@@ -4,7 +4,7 @@ import numpy as np
 
 
 def is_commuting(mat_1: np.ndarray, mat_2: np.ndarray) -> bool:
-    r"""Determine if two linear operators commute with each other :cite:`WikiComm`.
+    r"""Determine if two linear operators commute with each other :footcite:`WikiComm`.
 
     For any pair of operators :math:`X, Y \in \text{L}(\mathcal{X})`, the
     Lie bracket :math:`\left[X, Y\right] \in \text{L}(\mathcal{X})` is defined
@@ -14,7 +14,7 @@ def is_commuting(mat_1: np.ndarray, mat_2: np.ndarray) -> bool:
         \left[X, Y\right] = XY - YX.
 
     It holds that :math:`\left[X,Y\right]=0` if and only if :math:`X` and
-    :math:`Y` commute (Section: Lie Brackets And Commutants from :cite:`Watrous_2018_TQI`).
+    :math:`Y` commute (Section: Lie Brackets And Commutants from :footcite:`Watrous_2018_TQI`).
 
     Examples
     ==========
@@ -72,8 +72,8 @@ def is_commuting(mat_1: np.ndarray, mat_2: np.ndarray) -> bool:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
 

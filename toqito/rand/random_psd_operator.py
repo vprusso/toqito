@@ -70,8 +70,8 @@ def random_psd_operator(
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :param dim: The dimension of the operator.
     :param is_real: Boolean denoting whether the returned matrix will have all real entries or not.

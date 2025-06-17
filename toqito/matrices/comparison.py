@@ -7,8 +7,8 @@ def comparison(mat: np.ndarray) -> np.ndarray:
     r"""Compute comparison matrix of a given square matrix.
 
     This function computes the comparison matrix :math:`M(A)` for a square matrix :math:`A` as defined in
-    :cite:`WikiComparisonMatrix`. For each entry, the diagonal entries are given by the absolute value of the original
-    diagonal entries of :math:`A`, while the off-diagonal entries are given by minus the absolute value of the
+    :footcite:`WikiComparisonMatrix`. For each entry, the diagonal entries are given by the absolute value of the
+    original diagonal entries of :math:`A`, while the off-diagonal entries are given by minus the absolute value of the
     corresponding entries. In other words,
 
     .. math::
@@ -31,8 +31,8 @@ def comparison(mat: np.ndarray) -> np.ndarray:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param mat: The input square matrix.

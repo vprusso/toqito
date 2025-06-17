@@ -95,7 +95,7 @@ def test_dephasing_condition(mat, k, expected):
         # For a non-diagonal state, the test might be different.
         # Also, for n = 4, we include an example with full rank:
         (np.diag([0.34, 0.22, 0.22, 0.22]), 2, True),
-        # :cite:`Johnston_2022_Absolutely` (8): Check if trace(mat^2) <= 1/(d - 1) (for k > 2).
+        # :footcite:`Johnston_2022_Absolutely` (8): Check if trace(mat^2) <= 1/(d - 1) (for k > 2).
         # ruff: noqa: E501
         (
             np.array([[0.25, 0.24, 0.0, 0.0], [0.10, 0.25, 0.0, 0.0], [0.0, 0.0, 0.25, 0.0], [0.0, 0.0, 0.0, 0.25]]),

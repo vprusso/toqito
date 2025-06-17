@@ -10,7 +10,7 @@ def pretty_good_measurement(
 ) -> list[np.ndarray]:
     r"""Return the set of pretty good measurements from a set of vectors and corresponding probabilities.
 
-    This computes the "pretty good measurement" as initially defined in :cite:`Hughston_1993_Complete`.
+    This computes the "pretty good measurement" as initially defined in :footcite:`Hughston_1993_Complete`.
 
     The pretty good measurement (PGM) (also known as the "square root measurement") is the set of POVMs :math:`(G_1,
     \ldots, G_n)` such that
@@ -46,8 +46,8 @@ def pretty_good_measurement(
 
     References
     ==========
-        .. bibliography::
-            :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :raises ValueError: If number of vectors does not match number of probabilities.

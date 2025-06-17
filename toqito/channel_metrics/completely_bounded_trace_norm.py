@@ -12,8 +12,8 @@ def completely_bounded_trace_norm(phi: np.ndarray, solver: str = "cvxopt", **kwa
     r"""Find the completely bounded trace norm of a quantum channel.
 
     Also known as the diamond norm of a quantum
-    channel (Section 3.3.2 of :cite:`Watrous_2018_TQI`). The algorithm in p.11 of :cite:`Watrous_2012_Simpler` with
-    implementation in QETLAB :cite:`QETLAB_link` is used.
+    channel (Section 3.3.2 of :footcite:`Watrous_2018_TQI`). The algorithm in p.11 of :footcite:`Watrous_2012_Simpler`
+    with implementation in QETLAB :footcite:`QETLAB_link` is used.
 
     Examples
     ========
@@ -30,8 +30,8 @@ def completely_bounded_trace_norm(phi: np.ndarray, solver: str = "cvxopt", **kwa
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :raises ValueError: If matrix is not square.

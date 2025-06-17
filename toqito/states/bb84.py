@@ -9,7 +9,7 @@ from toqito.matrices import standard_basis
 
 
 def bb84() -> np.ndarray:
-    r"""Obtain the BB84 basis states :cite:`WikiBB84`.
+    r"""Obtain the BB84 basis states :footcite:`WikiBB84`.
 
     The BB84 basis states are defined as
 
@@ -31,8 +31,8 @@ def bb84() -> np.ndarray:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :return: The four BB84 basis states.

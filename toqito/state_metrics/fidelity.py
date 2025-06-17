@@ -8,7 +8,7 @@ from toqito.matrix_props import is_density
 
 
 def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
-    r"""Compute the fidelity of two density matrices :cite:`WikiFidQuant`.
+    r"""Compute the fidelity of two density matrices :footcite:`WikiFidQuant`.
 
     Calculate the fidelity between the two density matrices :code:`rho` and :code:`sigma`, defined by:
 
@@ -57,8 +57,8 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :raises ValueError: If matrices are not density operators.

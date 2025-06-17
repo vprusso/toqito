@@ -7,7 +7,7 @@ def phase_damping(
     input_mat: np.ndarray | None = None,
     gamma: float = 0,
 ) -> np.ndarray:
-    r"""Apply the phase damping channel to a quantum state :cite:`Chuang_2011_Quantum`.
+    r"""Apply the phase damping channel to a quantum state :footcite:`Chuang_2011_Quantum`.
 
     The phase damping channel describes how quantum information is lost due to environmental interactions,
     causing dephasing in the computational basis without losing energy.
@@ -34,8 +34,8 @@ def phase_damping(
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :param input_mat: The input matrix to apply the channel to.
                       If `None`, the function returns the Kraus operators.

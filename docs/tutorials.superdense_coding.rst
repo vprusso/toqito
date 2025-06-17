@@ -6,7 +6,7 @@ In classical communication, sending two bits of information requires transmittin
 two physical bits. But with the help of quantum entanglement, we can bend this rule. 
 
 **Superdense coding** proposed by Bennet and Wiesner in 1992 
-:cite:`Bennett_1992_Communication` lets Alice send two classical bits to
+:footcite:`Bennett_1992_Communication` lets Alice send two classical bits to
 Bob by transmitting just *one qubit*. The catch here is that they must share an
 entangled pair of qubits beforehand. We will explain this protocol in detail 
 below:
@@ -156,5 +156,5 @@ Full code:
 References
 ------------------------------
 
-.. bibliography:: 
-    :filter: docname in docnames
+.. footbibliography:: 
+    
