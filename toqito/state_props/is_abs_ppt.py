@@ -78,9 +78,9 @@ def is_abs_ppt(mat: np.ndarray, dim: int = None, rtol: float = 1e-05, atol: floa
     nm = mat.shape[0]
 
     if dim is None:
-        # Find the largest divisor d of nm such that d ** 2 <= nm
-        # nm won't be too large, so let's just use a for-loop
-        # Floating-point arithmetic is risky
+        # Find the largest divisor d of nm such that d ** 2 <= nm.
+        # nm won't be too large, so let's just use a for-loop.
+        # Floating-point arithmetic is risky.
         dim = 1
         for j in range(1, nm + 1):
             if j**2 > nm:
@@ -94,28 +94,28 @@ def is_abs_ppt(mat: np.ndarray, dim: int = None, rtol: float = 1e-05, atol: floa
     n, m = dim, nm // dim
     p = min(n, m)
 
-    # Quick checks
-    # 1. Is Hermitian
+    # Quick checks:
+    # 1. Check if mat is Hermitian.
     if not is_hermitian(mat, rtol, atol):
         return False
-    # Compute eigenvalues (in descending order)
-    # eigsvalsh normally returns eigenvalues in ascending order
-    # But it is risky to assume this will remain the default behaviour in the future
+    # Compute eigenvalues (in descending order).
+    # np.linalg.eigsvalsh normally returns eigenvalues in ascending order,
+    # but it is risky to assume this will remain the default behaviour in the future.
     eigs = np.sort(np.linalg.eigvalsh(mat))[::-1]
-    # 2. Is PSD
+    # 2. Check if mat is PSD.
     if eigs[-1] < -abs(atol):
         return False
-    # 3. Check Theorem 7.2 of :cite:`Jivulescu_2015_Reduction`
+    # 3. Check Theorem 7.2 of :cite:`Jivulescu_2015_Reduction`.
     if sum(eigs[: p - 1]) <= eigs[-1] + sum(eigs[-p:]):
         return True
-    # 4. Check if mat is in separable ball
+    # 4. Check if mat is in separable ball.
     if in_separable_ball(mat):
         return True
 
-    # Main check
+    # All quick checks failed, so construct constraint matrices and check if all are PSD.
     constraints = abs_ppt_constraints(eigs, p)
     for constraint in constraints:
         if not is_positive_semidefinite(constraint, rtol, atol):
             return False
-    # We checked all constraints for p <= 6, but not for p >= 7
+    # We checked all constraints for p <= 6, but not for p >= 7.
     return True if p <= 6 else None
