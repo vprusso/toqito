@@ -25,7 +25,7 @@ def analytical_qutrit_qudit_constraints(eigs):
 
 
 @pytest.mark.parametrize(
-    "eigs,p,analytical_constraints",
+    "eigs, p, analytical_constraints",
     [
         # Qubit-qudit constraints
         (np.random.rand(2 * 100), 2, analytical_qubit_qudit_constraints),
@@ -47,7 +47,7 @@ def test_constraints(eigs, p, analytical_constraints):
 
 
 @pytest.mark.parametrize(
-    "upto,use_check,expected_counts",
+    "upto, use_check, expected_counts",
     [
         # use_check == False
         (6, False, [0, 1, 2, 12, 286, 33592]),
@@ -82,7 +82,7 @@ def test_cvxpy_case(n):
 
 
 @pytest.mark.parametrize(
-    "eigs,argslist,expected",
+    "eigs, argslist, expected",
     [
         # Test that max_constraints correctly limits number of constraints
         (np.random.rand(7 * 100), [7, 4000], 4000),

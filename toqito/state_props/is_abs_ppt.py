@@ -141,5 +141,5 @@ def is_abs_ppt(
         # We checked all constraints for p <= 6, but not for p >= 7.
         return True if p <= 6 else None
     else:
-        constraints = abs_ppt_constraints(mat, p)
+        constraints = abs_ppt_constraints(mat, p, use_check=True)
         return [mat[-1] >= 0] + [mat[i] >= mat[i + 1] for i in range(nm - 1)] + [c_mat >> 0 for c_mat in constraints]

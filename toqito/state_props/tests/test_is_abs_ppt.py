@@ -1,10 +1,13 @@
 """Test is_abs_ppt."""
 
+import re
+
+import cvxpy as cp
 import numpy as np
 import pytest
 
 from toqito.rand import random_psd_operator
-from toqito.state_props import is_abs_ppt
+from toqito.state_props import abs_ppt_constraints, is_abs_ppt
 
 
 @pytest.mark.parametrize(
@@ -45,15 +48,48 @@ def test_not_absolutely_ppt(mat):
 
 
 @pytest.mark.parametrize(
-    "mat, dim, error_msg",
+    "n",
     [
-        # Invalid subsystem dimension
-        (np.identity(4), 3, "Calculated subsystem dimensions and provided matrix dimensions are incompatible"),
-        # Invalid non-square matrix
-        (np.arange(12).reshape((3, 4)), None, "Matrix must be square"),
+        2,
+        5,
     ],
 )
-def test_invalid(mat, dim, error_msg):
+def test_cvxpy_case(n):
+    """Test that the function does not throw an error when passed a cvxpy Variable."""
+    mat = cp.Variable(n * n)
+    constraints = is_abs_ppt(mat, n)
+    c_mats = abs_ppt_constraints(mat, n, use_check=True)
+    prob = cp.Problem(cp.Maximize(0), constraints)
+    prob.solve()
+    assert mat[-1].value >= 0
+    assert all(mat[i].value >= mat[i + 1].value for i in range(n * n - 1))
+    assert all(cp.lambda_min(c_mat).value >= 0 for c_mat in c_mats)
+
+
+@pytest.mark.parametrize(
+    "mat, dim, error, error_msg",
+    [
+        # Invalid subsystem dimension
+        (
+            np.identity(4),
+            3,
+            ValueError,
+            "Calculated subsystem dimensions and provided matrix dimensions are incompatible",
+        ),
+        # Invalid non-square matrix
+        (
+            np.arange(12).reshape((3, 4)),
+            None,
+            ValueError,
+            re.escape("Expected mat to be square: however mat.shape was (3, 4)"),
+        ),
+        # Invalid non-1D cvxpy Variable
+        (cp.Variable((5, 5)), None, ValueError, "Expected mat to be 1D: however mat had 2 dimensions"),
+        # Invalid type
+        ([1, 2, 3, 4], None, TypeError, "mat must be a square numpy ndarray or a 1D cvxpy Variable"),
+    ],
+)
+def test_invalid(mat, dim, error, error_msg):
     """Test error-checking."""
-    with pytest.raises(ValueError, match=error_msg):
+    with pytest.raises(error, match=error_msg):
         is_abs_ppt(mat, dim)
