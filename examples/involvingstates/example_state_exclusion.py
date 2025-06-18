@@ -8,7 +8,7 @@ with which this problem can be solved for a number of different scenarios.
 """
 # %%
 # Quantum state exclusion is very closely related to the problem of quantum state
-# distinguishability. 
+# distinguishability.
 # It may be useful to consult the
 # :ref:`sphx_glr_auto_examples_involvingstates_example_state_distinguishability.py`
 # tutorial on this topic.
