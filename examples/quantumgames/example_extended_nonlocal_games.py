@@ -7,8 +7,6 @@ wherein the referee, who previously only provided questions and answers to the
 players, now share a state with the players and is able to perform a
 measurement on that shared state.
 """
-# sphinx_gallery_thumbnail_path = 'figures/extended_nonlocal_game.svg'
-
 # %%
 # Every extended nonlocal game has a *value* associated to it. Analogously to
 # nonlocal games, this value is a quantity that dictates how well the players can
@@ -273,6 +271,9 @@ measurement on that shared state.
 # arrays where :code:`prob_mat` corresponds to the probability distribution
 # :math:`\pi` and where :code:`pred_mat` corresponds to the operator :math:`V`.
 
+# sphinx_gallery_start_ignore
+# sphinx_gallery_thumbnail_path = 'figures/extended_nonlocal_game.svg'
+# sphinx_gallery_end_ignore
 # Define the BB84 extended nonlocal game.
 import numpy as np
 from toqito.states import basis

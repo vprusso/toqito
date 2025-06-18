@@ -24,10 +24,8 @@ classical and quantum value of a given XOR game.
 # A two-player XOR game is a nonlocal game in which the winning condition is
 # predicated on an XOR function. For more information on the more general class
 # of nonlocal games along with how one defines classical and quantum strategies
-# for these games, please refer to the example:
-#
-# * :ref:`Lower Bounds on the Quantum Value of a Two-Player Nonlocal Game <sphx_glr_auto_examples_quantumgames_example_nonlocal_game_py>`
-#
+# for these games, please refer to the example in
+# :ref:`sphx_glr_auto_examples_quantumgames_example_nonlocal_game.py`.
 #
 # .. note::
 #    It is *not* known how to directly compute the quantum value of an arbitrary

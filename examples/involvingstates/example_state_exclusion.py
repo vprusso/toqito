@@ -6,14 +6,12 @@ exclusion*. We are going to briefly describe the problem setting and then
 describe how one may use :code:`|toqito⟩` to calculate the optimal probability
 with which this problem can be solved for a number of different scenarios.
 """
-# sphinx_gallery_thumbnail_path = 'figures/trine.png'
-
 # %%
 # Quantum state exclusion is very closely related to the problem of quantum state
-# distinguishability. It may be useful to consult the following tutorial that
-# covers quantum state distinguishability:
-#
-# * :ref:`Quantum State Distinguishability <sphx_glr_auto_examples_involvingstates_example_state_distinguishability_py>`
+# distinguishability. 
+# It may be useful to consult the
+# :ref:`sphx_glr_auto_examples_involvingstates_example_state_distinguishability.py`
+# tutorial on this topic.
 #
 # Further information beyond the scope of this tutorial can be found in the text
 # :cite:`Pusey_2012_On` as well as the course :cite:`Bandyopadhyay_2014_Conclusive`.
@@ -101,6 +99,9 @@ with which this problem can be solved for a number of different scenarios.
 #        |\psi_3\rangle = -\frac{1}{2}(|0\rangle - \sqrt{3}|1\rangle).
 #    \end{equation}
 
+# sphinx_gallery_start_ignore
+# sphinx_gallery_thumbnail_path = 'figures/trine.png'
+# sphinx_gallery_end_ignore
 from toqito.states import trine
 
 psi1, psi2, psi3 = trine()

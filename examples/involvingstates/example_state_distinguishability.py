@@ -8,8 +8,6 @@ describe how one may use :code:`|toqito⟩` to calculate the optimal probability
 with which this problem can be solved when given access to certain
 measurements.
 """
-# sphinx_gallery_thumbnail_path = 'figures/quantum_state_distinguish.svg'
-
 # %%
 # Further information beyond the scope of this tutorial can be found in the text
 # :cite:`Watrous_2018_TQI` as well as the course :cite:`Sikora_2019_Semidefinite`.
@@ -117,6 +115,9 @@ measurements.
 #
 # Using :code:`|toqito⟩`, we can calculate this probability directly as follows:
 
+# sphinx_gallery_start_ignore
+# sphinx_gallery_thumbnail_path = 'figures/quantum_state_distinguish.svg'
+# sphinx_gallery_end_ignore
 import numpy as np
 from toqito.states import basis
 from toqito.state_opt import state_distinguishability

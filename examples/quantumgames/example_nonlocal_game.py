@@ -7,8 +7,6 @@ instance of a nonlocal game involves two players, Alice and Bob, who are not
 allowed to communicate with each other once the game has started and who play
 cooperatively against an adversary referred to as the referee.
 """
-# sphinx_gallery_thumbnail_path = 'figures/nonlocal_game.svg'
-
 # %%
 # A primary challenge that arises when studying these games is to determine the
 # maximum probability with which Alice and Bob are able to achieve a winning
@@ -297,6 +295,9 @@ cooperatively against an adversary referred to as the referee.
 # :math:`\{(0, 0), (0, 1), (1, 0), (1, 1)\}` are all equally likely. We encode
 # this in the matrix as follows.
 
+# sphinx_gallery_start_ignore
+# sphinx_gallery_thumbnail_path = 'figures/nonlocal_game.svg'
+# sphinx_gallery_end_ignore
 # Creating the probability matrix.
 import numpy as np
 
