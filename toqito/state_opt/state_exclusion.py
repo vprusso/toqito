@@ -87,8 +87,8 @@ def state_exclusion(
         It is known that it is always possible to perfectly exclude pure states that are linearly dependent.
         Thus, calling this function on a set of states with this property will return 0.
 
-    The conclusive state exclusion SDP is written explicitly in :cite:`Bandyopadhyay_2014_Conclusive`. The problem
-    of conclusive state exclusion was also thought about under a different guise in :cite:`Pusey_2012_On`.
+    The conclusive state exclusion SDP is written explicitly in :footcite:`Bandyopadhyay_2014_Conclusive`. The problem
+    of conclusive state exclusion was also thought about under a different guise in :footcite:`Pusey_2012_On`.
 
     Examples
     ==========
@@ -139,8 +139,8 @@ def state_exclusion(
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param vectors: A list of states provided as vectors.
@@ -233,7 +233,7 @@ def _unambiguous_primal(
 ) -> tuple[float, list[picos.HermitianVariable]]:
     """Solve the primal problem for unambiguous quantum state distinguishability SDP.
 
-    Implemented according to Equation (33) of :cite:`Bandyopadhyay_2014_Conclusive`.
+    Implemented according to Equation (33) of :footcite:`Bandyopadhyay_2014_Conclusive`.
     """
     n = len(vectors)
     problem = picos.Problem()
@@ -263,7 +263,7 @@ def _unambiguous_dual(
 ) -> tuple[float, tuple[picos.HermitianVariable, picos.RealVariable]]:
     """Solve the dual problem for unambiguous quantum state distinguishability SDP.
 
-    Implemented according to Equation (35) of :cite:`Bandyopadhyay_2014_Conclusive`.
+    Implemented according to Equation (35) of :footcite:`Bandyopadhyay_2014_Conclusive`.
     """
     n = len(vectors)
     problem = picos.Problem()

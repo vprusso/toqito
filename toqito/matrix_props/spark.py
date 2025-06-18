@@ -9,7 +9,7 @@ def spark(mat: np.ndarray) -> int:
     """Compute the spark of a matrix.
 
     The spark of a matrix A is the smallest number of columns from A that are linearly
-    dependent :cite:`Elad_2010_Sparse`.
+    dependent :footcite:`Elad_2010_Sparse`.
 
     Examples
     =========
@@ -38,8 +38,8 @@ def spark(mat: np.ndarray) -> int:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :param mat: The input matrix as a 2D NumPy array.
     :return: The spark of the input matrix :code:`mat`.

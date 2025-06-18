@@ -6,9 +6,9 @@ import numpy as np
 
 
 def gen_pauli_z(dim: int) -> np.ndarray:
-    r"""Produce gen_pauli_z matrix :cite:`WikiClock`.
+    r"""Produce gen_pauli_z matrix :footcite:`WikiClock`.
 
-    Returns the gen_pauli_z matrix of dimension :code:`dim` described in :cite:`WikiClock`.
+    Returns the gen_pauli_z matrix of dimension :code:`dim` described in :footcite:`WikiClock`.
     The gen_pauli_z matrix generates the following :code:`dim`-by-:code:`dim` matrix
 
     .. math::
@@ -45,8 +45,8 @@ def gen_pauli_z(dim: int) -> np.ndarray:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param dim: Dimension of the matrix.

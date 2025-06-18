@@ -10,8 +10,8 @@ def pretty_bad_measurement(
 ) -> list[np.ndarray]:
     r"""Return the set of pretty bad measurements from a set of vectors and corresponding probabilities.
 
-    This computes the "pretty bad measurement" as defined in :cite:`Hughston_1993_Complete` and is an analogous idea to
-    the "pretty good measurement" from :cite:`McIrvin_2024_Pretty`. The "pretty bad measurement" is useful in the
+    This computes the "pretty bad measurement" as defined in :footcite:`Hughston_1993_Complete` and is an analogous idea
+    to the "pretty good measurement" from :footcite:`McIrvin_2024_Pretty`. The "pretty bad measurement" is useful in the
     context of state exclusion where the pretty good measurement is often used for minimum-error quantum state
     discrimination.
 
@@ -55,8 +55,8 @@ def pretty_bad_measurement(
 
     References
     ==========
-        .. bibliography::
-            :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :raises ValueError: If number of vectors does not match number of probabilities.

@@ -19,7 +19,7 @@ def update_odometer(old_ind: list[int] | np.ndarray, upper_lim: list[int] | np.n
     from 1 to 3, you could loop over a single variable going from 1 to 3^2 and
     set [i, j] = update_odometer([i, j], [3, 3]) at each step within the loop.
 
-    This function is adapted from QETLAB :cite:`QETLAB_link`.
+    This function is adapted from QETLAB :footcite:`QETLAB_link`.
 
     Examples
     ==========
@@ -38,8 +38,8 @@ def update_odometer(old_ind: list[int] | np.ndarray, upper_lim: list[int] | np.n
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param old_ind: The initial vector.

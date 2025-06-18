@@ -14,7 +14,7 @@ documentation page, and more specifically the function `xor\_game\_value
 
 Further information beyond the scope of this tutorial on the notion of XOR
 games along with the method of computing their quantum value may be found in
-:cite:`Cleve_2008_Strong`.
+:footcite:`Cleve_2008_Strong`.
 
 Two-player XOR games
 --------------------
@@ -366,6 +366,6 @@ for every XOR game :math:`G`.
 References
 ------------------------------
 
-.. bibliography:: 
-    :filter: docname in docnames
+.. footbibliography:: 
+    
 

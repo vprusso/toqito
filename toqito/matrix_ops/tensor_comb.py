@@ -21,7 +21,7 @@ def tensor_comb(
     Given ``n`` quantum states, this function generates :math:`n^k` combinations of sequences of length ``k``, computes
     the tensor product for each sequence, and converts each tensor product to its corresponding density matrix.
 
-    For one definition and usage of a quantum sequence, refer to :cite:`Gupta_2024_Optimal`.
+    For one definition and usage of a quantum sequence, refer to :footcite:`Gupta_2024_Optimal`.
 
     Examples
     ========
@@ -48,8 +48,8 @@ def tensor_comb(
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :raises ValueError: If the input list of states is empty.
     :param states: A list of state vectors.

@@ -9,7 +9,7 @@ from toqito.states import basis
 
 
 def bell(idx: int) -> np.ndarray:
-    r"""Produce a Bell state :cite:`WikiBellSt`.
+    r"""Produce a Bell state :footcite:`WikiBellSt`.
 
     Returns one of the following four Bell states depending on the value of :code:`idx`:
 
@@ -44,8 +44,8 @@ def bell(idx: int) -> np.ndarray:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :raises ValueError: If :code:`idx` is not an integer.
     :param idx: A parameter in [0, 1, 2, 3]

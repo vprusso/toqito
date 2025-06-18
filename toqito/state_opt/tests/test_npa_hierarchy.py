@@ -476,7 +476,7 @@ def cglmp_setup_vars_and_objective(num_outcomes: int) -> tuple[dict[tuple[int, i
 def test_cglmp_inequality_npa_integration(k_npa):
     """Test CGLMP inequality (d=3) via npa_constraints.
 
-    See Table 1. from NPA paper :cite:`Navascues_2008_AConvergent`.
+    See Table 1. from NPA paper :footcite:`Navascues_2008_AConvergent`.
     """
     cglmp_d = 3
     assemblage_vars, i_b_objective = cglmp_setup_vars_and_objective(cglmp_d)
@@ -495,7 +495,7 @@ def test_cglmp_inequality_npa_integration(k_npa):
 def test_cglmp_moment_matrix_dimension_integration(k_npa, expected_num_words):
     """Test moment matrix size for CGLMP d=3 via npa_constraints setup.
 
-    See Table 1. from NPA paper :cite:`Navascues_2008_AConvergent`.
+    See Table 1. from NPA paper :footcite:`Navascues_2008_AConvergent`.
     """
     cglmp_d = 3
     actual_a_out, actual_a_in, actual_b_out, actual_b_in = (cglmp_d, 2, cglmp_d, 2)

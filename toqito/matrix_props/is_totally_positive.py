@@ -6,7 +6,7 @@ import numpy as np
 
 
 def is_totally_positive(mat: np.ndarray, tol: float = 1e-6, sub_sizes: list | None = None):
-    r"""Determine whether a matrix is totally positive. :cite:`WikiTotPosMat`.
+    r"""Determine whether a matrix is totally positive. :footcite:`WikiTotPosMat`.
 
     A totally positive matrix is a square matrix where all the minors are positive. Equivalently, the determinant of
     every square submatrix is a positive number.
@@ -78,8 +78,8 @@ def is_totally_positive(mat: np.ndarray, tol: float = 1e-6, sub_sizes: list | No
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param mat: Matrix to check.

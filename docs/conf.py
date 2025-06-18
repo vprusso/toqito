@@ -61,7 +61,6 @@ sphinx_gallery_conf = {
 
 bibtex_bibfiles = ["refs.bib"]
 bibtex_default_style = "unsrt"
-suppress_warnings = ["bibtex.duplicate_label", "bibtex.duplicate_citation"]
 # Links matching with the following regular expressions will be ignored
 linkcheck_ignore = [
     r"https://arxiv\.org/.*",

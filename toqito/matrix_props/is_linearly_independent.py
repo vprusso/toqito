@@ -4,7 +4,7 @@ import numpy as np
 
 
 def is_linearly_independent(vectors: list[np.ndarray]) -> bool:
-    r"""Check if set of vectors are linearly independent :cite:`WikiLinearIndependence`.
+    r"""Check if set of vectors are linearly independent :footcite:`WikiLinearIndependence`.
 
     Examples
     ==========
@@ -37,8 +37,8 @@ def is_linearly_independent(vectors: list[np.ndarray]) -> bool:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :param vectors: Vectors to check the linear independence of.
     :return: Return :code:`True` if vectors are linearly independent :code:`False` otherwise.

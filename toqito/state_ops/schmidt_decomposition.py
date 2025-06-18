@@ -6,7 +6,7 @@ import numpy as np
 def schmidt_decomposition(
     rho: np.ndarray, dim: int | list[int] | np.ndarray = None, k_param: int = 0
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    r"""Compute the Schmidt decomposition of a bipartite vector :cite:`WikiScmidtDecomp`.
+    r"""Compute the Schmidt decomposition of a bipartite vector :footcite:`WikiScmidtDecomp`.
 
     Examples
     ==========
@@ -55,8 +55,8 @@ def schmidt_decomposition(
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :raises ValueError: If matrices are not of equal dimension.

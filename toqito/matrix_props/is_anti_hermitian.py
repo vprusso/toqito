@@ -6,7 +6,7 @@ from toqito.matrix_props.is_hermitian import is_hermitian
 
 
 def is_anti_hermitian(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
-    r"""Check if matrix is anti-Hermitian (a.k.a. skew-Hermitian) :cite:`WikiAntiHerm`.
+    r"""Check if matrix is anti-Hermitian (a.k.a. skew-Hermitian) :footcite:`WikiAntiHerm`.
 
     An anti-Hermitian matrix is a complex square matrix that is equal to the negative of its own
     conjugate transpose.
@@ -60,8 +60,8 @@ def is_anti_hermitian(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
 

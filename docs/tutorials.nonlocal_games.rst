@@ -29,8 +29,8 @@ directly calculate the classical value and also place lower bounds on the
 quantum value.
 
 Further information beyond the scope of this tutorial on nonlocal games can be
-found in :cite:`Cleve_2010_Consequences`. Further information on the lower bound technique can be found in
-:cite:`Liang_2007_Bounds`.
+found in :footcite:`Cleve_2010_Consequences`. Further information on the lower bound technique can be found in
+:footcite:`Liang_2007_Bounds`.
 
 Two-player nonlocal games
 --------------------------
@@ -199,7 +199,7 @@ cases for certain nonlocal games.
 
 For an arbitrary nonlocal game, there exist approaches that place upper and
 lower bounds on the quantum value. The lower bound approach is calculated using
-the technique of semidefinite programming :cite:`Liang_2007_Bounds`. While this method is efficient
+the technique of semidefinite programming :footcite:`Liang_2007_Bounds`. While this method is efficient
 to carry out, it does not guarantee convergence to the quantum value (although
 in certain cases, it is attained).
 
@@ -376,7 +376,7 @@ satisfied
         \end{equation}
 
 It is well-known that both the classical and quantum value of this nonlocal
-game is :math:`2/3` :cite:`Cleve_2010_Consequences`. We can verify this fact using :code:`|toqito⟩`.
+game is :math:`2/3` :footcite:`Cleve_2010_Consequences`. We can verify this fact using :code:`|toqito⟩`.
 The following example encodes the FFL game. We then calculate the classical
 value and calculate lower bounds on the quantum value of the FFL game.
 
@@ -426,7 +426,7 @@ Binary constraint system games
 ------------------------------
 
 The notion of a binary constraint system game was introduced in
-:cite:`Cleve_2014_Characterization` and the following introductory material is
+:footcite:`Cleve_2014_Characterization` and the following introductory material is
 extracted from that work.
 
 A *binary constraint system* (BCS) (sometimes also called a *linear system*
@@ -482,5 +482,5 @@ In :code:`|toqito⟩`, we can encode this as a BCS game as follows
 References
 ------------------------------
 
-.. bibliography:: 
-    :filter: docname in docnames
+.. footbibliography:: 
+    

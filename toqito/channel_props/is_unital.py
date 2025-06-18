@@ -24,7 +24,7 @@ def is_unital(
     list :code:`[[r,x], [c,y]]`. If it maps :math:`M_m` to :math:`M_n`, then :code:`dim` can simply
     be the vector :code:`[m,n]`.
 
-    More information can be found in Chapter: Unital Channels And Majorization from :cite:`Watrous_2018_TQI`).
+    More information can be found in Chapter: Unital Channels And Majorization from :footcite:`Watrous_2018_TQI`).
 
     Examples
     ==========
@@ -55,8 +55,8 @@ def is_unital(
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param phi: The channel provided as either a Choi matrix or a list of Kraus operators.
