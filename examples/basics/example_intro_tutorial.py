@@ -6,7 +6,7 @@ will cover how to instantiate and use the fundamental objects that
 :code:`|toqito⟩` provides; namely quantum states, channels, and measurements.
 """
 
-# %% 
+# %%
 # This is an introduction to the functionality in :code:`|toqito⟩` and is not meant to serve as an
 # introduction to quantum information. For more information, please consult the book :footcite:`Chuang_2011_Quantum` or the freely available lecture notes :footcite:`Watrous_2018_TQI`.
 #
@@ -757,8 +757,8 @@ probs = [1 / 3, 1 / 3, 1 / 3]
 pbm = pretty_bad_measurement(states, probs)
 pbm
 
-# %%  
-# 
+# %%
+#
 #
 # References
 # ----------

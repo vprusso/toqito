@@ -702,8 +702,8 @@ print("The standard quantum value lower bound is ", np.around(q_val, decimals=2)
 #
 # For further information on the :math:`G_{MUB}` game, consult :footcite:`Russo_2017_Extended`.
 
-# %%  
-# 
+# %%
+#
 #
 # References
 # ----------

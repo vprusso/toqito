@@ -481,8 +481,8 @@ print(f"Classical value: {np.around(chsh_bcs.classical_value(), decimals=2)}")
 results = [np.around(chsh_bcs.quantum_value_lower_bound(), decimals=2) for _ in range(5)]
 print(f"Maximum quantum value after multiple runs is: {max(results)}")
 
-# %%  
-# 
+# %%
+#
 #
 # References
 # ----------

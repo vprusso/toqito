@@ -350,8 +350,8 @@ print(f"The quantum value of games is: {np.around(odd_cycle.quantum_value(), dec
 #
 # for every XOR game :math:`G`.
 
-# %%  
-# 
+# %%
+#
 #
 # References
 # ----------

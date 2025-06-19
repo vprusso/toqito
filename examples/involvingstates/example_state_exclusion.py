@@ -261,8 +261,8 @@ print(f"Is (n-1)-incoherent: {is_k_incoherent(gram, n - 1)}")
 # As can be seen, whether the random set of states are antidistinguishable or not aligns with whether they are
 # :math:`(n-1)`-incoherent or not as well.
 
-# %%  
-# 
+# %%
+#
 #
 # References
 # ----------

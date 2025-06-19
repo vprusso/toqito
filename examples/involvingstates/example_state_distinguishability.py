@@ -243,8 +243,8 @@ print(f"Optimal probability with PPT measurements: {np.around(ppt_val, decimals=
 # the notion of symmetric extensions. More information about this hierarchy of
 # SDPs can be found here :footcite:`Navascues_2008_Pure`.
 
-# %%  
-# 
+# %%
+#
 #
 # References
 # ----------
