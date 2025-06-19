@@ -7,7 +7,7 @@
 # two physical bits. But with the help of quantum entanglement, we can bend this rule.
 #
 # **Superdense coding** proposed by Bennet and Wiesner in 1992
-# :cite:`Bennett_1992_Communication` lets Alice send two classical bits to
+# :footcite:`Bennett_1992_Communication` lets Alice send two classical bits to
 # Bob by transmitting just *one qubit*. The catch here is that they must share an
 # entangled pair of qubits beforehand. We will explain this protocol in detail
 # below:
@@ -119,10 +119,10 @@ print(f"Decoded state:\n {decoded_state}")
 measurement_probabilities = np.abs(decoded_state.flatten()) ** 2
 print(f"Measurement probabilities for basis states |00>, |01>, |10>, |11>: \n {measurement_probabilities}")
 
-
-# %%
-# References
-# ------------------------------
+# %%  
+# 
 #
-# .. bibliography::
-#    :filter: docname in docnames
+# References
+# ----------
+#
+# .. footbibliography::

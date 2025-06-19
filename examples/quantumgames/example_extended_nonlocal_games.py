@@ -16,13 +16,13 @@ measurement on that shared state.
 # %%
 # We will also look at existing results in the literature on these values and be
 # able to replicate them using :code:`|toqito⟩`. Much of the written content in
-# this tutorial will be directly taken from :cite:`Russo_2017_Extended`.
+# this tutorial will be directly taken from :footcite:`Russo_2017_Extended`.
 
 # %%
 # Extended nonlocal games have a natural physical interpretation in the setting
-# of tripartite steering :cite:`Cavalcanti_2015_Detection` and in device-independent quantum scenarios
-# :cite:`Tomamichel_2013_AMonogamy`. For more information on extended nonlocal games, please refer to
-# :cite:`Johnston_2016_Extended` and :cite:`Russo_2017_Extended`.
+# of tripartite steering :footcite:`Cavalcanti_2015_Detection` and in device-independent quantum scenarios
+# :footcite:`Tomamichel_2013_AMonogamy`. For more information on extended nonlocal games, please refer to
+# :footcite:`Johnston_2016_Extended` and :footcite:`Russo_2017_Extended`.
 
 # %%
 # The extended nonlocal game model
@@ -311,7 +311,7 @@ bb84_prob_mat = 1 / 2 * np.identity(2)
 # The unentangled value of the BB84 extended nonlocal game
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 #
-# It was shown in :cite:`Tomamichel_2013_AMonogamy` and :cite:`Johnston_2016_Extended` that
+# It was shown in :footcite:`Tomamichel_2013_AMonogamy` and :footcite:`Johnston_2016_Extended` that
 #
 # .. math::
 #    \omega(G_{BB84}) = \cos^2(\pi/8).
@@ -345,7 +345,7 @@ bb84_2_reps = ExtendedNonlocalGame(bb84_prob_mat, bb84_pred_mat, 2)
 print("The unentangled value for two parallel repetitions is ", np.around(bb84_2_reps.unentangled_value(), decimals=2))
 
 # %%
-# It was shown in :cite:`Johnston_2016_Extended` that the BB84 game possesses the property of strong
+# It was shown in :footcite:`Johnston_2016_Extended` that the BB84 game possesses the property of strong
 # parallel repetition. That is,
 #
 # .. math::
@@ -370,7 +370,7 @@ bb84_lb = ExtendedNonlocalGame(bb84_prob_mat, bb84_pred_mat)
 print("The standard quantum value is ", np.around(bb84_lb.quantum_value_lower_bound(), decimals=2))
 
 # %%
-# From :cite:`Johnston_2016_Extended`, it is known that :math:`\omega(G_{BB84}) =
+# From :footcite:`Johnston_2016_Extended`, it is known that :math:`\omega(G_{BB84}) =
 # \omega^*(G_{BB84})`, however, if we did not know this beforehand, we could
 # attempt to calculate upper bounds on the standard quantum value.
 #
@@ -402,7 +402,7 @@ print("The non-signaling value is ", np.around(bb84.nonsignaling_value(), decima
 #    \omega(G_{BB84}) = \omega^*(G_{BB84}) = \omega_{ns}(G_{BB84}) = \cos^2(\pi/8).
 #
 # It turns out that strong parallel repetition does *not* hold in the
-# non-signaling scenario for the BB84 game. This was shown in :cite:`Russo_2017_Extended`, and we
+# non-signaling scenario for the BB84 game. This was shown in :footcite:`Russo_2017_Extended`, and we
 # can observe this by the following snippet.
 
 # The non-signaling value of BB84 under parallel repetition.
@@ -700,10 +700,12 @@ print("The standard quantum value lower bound is ", np.around(q_val, decimals=2)
 #
 #    2/3 \geq \omega^*(G) \geq 0.6609.
 #
-# For further information on the :math:`G_{MUB}` game, consult :cite:`Russo_2017_Extended`.
+# For further information on the :math:`G_{MUB}` game, consult :footcite:`Russo_2017_Extended`.
+
+# %%  
+# 
 #
 # References
-# ------------------------------
+# ----------
 #
-# .. bibliography::
-#    :filter: docname in docnames
+# .. footbibliography::

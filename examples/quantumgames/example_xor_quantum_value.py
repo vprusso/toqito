@@ -16,7 +16,7 @@ classical and quantum value of a given XOR game.
 #
 # Further information beyond the scope of this tutorial on the notion of XOR
 # games along with the method of computing their quantum value may be found in
-# :cite:`Cleve_2008_Strong`.
+# :footcite:`Cleve_2008_Strong`.
 #
 # Two-player XOR games
 # --------------------
@@ -349,10 +349,11 @@ print(f"The quantum value of games is: {np.around(odd_cycle.quantum_value(), dec
 #    \omega(G) \leq \omega^*(G),
 #
 # for every XOR game :math:`G`.
-#
+
+# %%  
+# 
 #
 # References
-# ------------------------------
+# ----------
 #
-# .. bibliography::
-#    :filter: docname in docnames
+# .. footbibliography::

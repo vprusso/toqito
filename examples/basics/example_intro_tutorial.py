@@ -6,8 +6,9 @@ will cover how to instantiate and use the fundamental objects that
 :code:`|toqito⟩` provides; namely quantum states, channels, and measurements.
 """
 
-# %% This is an introduction to the functionality in :code:`|toqito⟩` and is not meant to serve as an
-# introduction to quantum information. For more information, please consult the book :cite:`Chuang_2011_Quantum` or the freely available lecture notes :cite:`Watrous_2018_TQI`.
+# %% 
+# This is an introduction to the functionality in :code:`|toqito⟩` and is not meant to serve as an
+# introduction to quantum information. For more information, please consult the book :footcite:`Chuang_2011_Quantum` or the freely available lecture notes :footcite:`Watrous_2018_TQI`.
 #
 # This tutorial assumes you have :code:`|toqito⟩` installed on your machine. If you
 # do not, please consult the installation instructions in :ref:`getting_started_reference-label`.
@@ -712,7 +713,7 @@ measure(proj_1, rho)
 # .. math::
 #    G_i = P^{-1/2} \left(p_i \rho_i\right) P^{-1/2} \quad \text{where} \quad P = \sum_{i=1}^n p_i \rho_i.
 #
-# This measurement was initially defined in :cite:`Hughston_1993_Complete` and has found applications in quantum state discrimination tasks.
+# This measurement was initially defined in :footcite:`Hughston_1993_Complete` and has found applications in quantum state discrimination tasks.
 # While not always optimal, the PGM provides a reasonable measurement strategy that can be computed efficiently.
 #
 # For example, consider the following trine states:
@@ -734,7 +735,7 @@ pgm
 # Pretty Bad Measurement
 # ^^^^^^^^^^^^^^^^^^^^^^
 #
-# Similarly, we can consider so-called "pretty bad measurement" (PBM) on the set of trine states :cite:`McIrvin_2024_Pretty`.
+# Similarly, we can consider so-called "pretty bad measurement" (PBM) on the set of trine states :footcite:`McIrvin_2024_Pretty`.
 #
 # The pretty bad measurement (PBM) is a set of POVMs :math:`(B_1, \ldots, B_n)` defined as
 #
@@ -756,9 +757,10 @@ probs = [1 / 3, 1 / 3, 1 / 3]
 pbm = pretty_bad_measurement(states, probs)
 pbm
 
-# %%
-# References
-# ------------------------------
+# %%  
+# 
 #
-# .. bibliography::
-#    :filter: docname in docnames
+# References
+# ----------
+#
+# .. footbibliography::

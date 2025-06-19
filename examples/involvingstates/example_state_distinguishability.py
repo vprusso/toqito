@@ -10,7 +10,7 @@ measurements.
 """
 # %%
 # Further information beyond the scope of this tutorial can be found in the text
-# :cite:`Watrous_2018_TQI` as well as the course :cite:`Sikora_2019_Semidefinite`.
+# :footcite:`Watrous_2018_TQI` as well as the course :footcite:`Sikora_2019_Semidefinite`.
 #
 # The state distinguishability problem
 # -------------------------------------
@@ -157,7 +157,7 @@ print(np.around(state_distinguishability(states, probs)[0], decimals=2))
 #
 # The problem of state distinguishability with respect to PPT measurements can
 # also be framed as an SDP and was initially presented in this manner in
-# :cite:`Cosentino_2013_PPT`
+# :footcite:`Cosentino_2013_PPT`
 #
 # .. math::
 #
@@ -187,7 +187,7 @@ print(np.around(state_distinguishability(states, probs)[0], decimals=2))
 #        \end{aligned}
 #    \end{equation}
 #
-# It was shown in :cite:`Cosentino_2013_PPT` and later extended in :cite:`Cosentino_2014_Small` that for the following set of states
+# It was shown in :footcite:`Cosentino_2013_PPT` and later extended in :footcite:`Cosentino_2014_Small` that for the following set of states
 #
 # .. math::
 #    \begin{equation}
@@ -203,7 +203,7 @@ print(np.around(state_distinguishability(states, probs)[0], decimals=2))
 # :math:`7/8 \approx 0.875`.
 #
 # This ensemble of states and some of its properties with respect to
-# distinguishability were initially considered in :cite:`Yu_2012_Four`. In :code:`|toqito⟩`,
+# distinguishability were initially considered in :footcite:`Yu_2012_Four`. In :code:`|toqito⟩`,
 # we can calculate the probability with which Bob can distinguish these states
 # via PPT measurements in the following manner.
 
@@ -218,7 +218,7 @@ psi_1 = bell(2)
 psi_2 = bell(3)
 psi_3 = bell(1)
 
-# YDY vectors from :cite:`Yu_2012_Four`:
+# YDY vectors from :footcite:`Yu_2012_Four`:
 x_1 = np.kron(psi_0, psi_0)
 x_2 = np.kron(psi_1, psi_3)
 x_3 = np.kron(psi_2, psi_3)
@@ -241,10 +241,12 @@ print(f"Optimal probability with PPT measurements: {np.around(ppt_val, decimals=
 # NP-hard. However, there does exist a hierarchy of semidefinite programs which
 # eventually does converge to the separable value. This hierarchy is based off
 # the notion of symmetric extensions. More information about this hierarchy of
-# SDPs can be found here :cite:`Navascues_2008_Pure`.
+# SDPs can be found here :footcite:`Navascues_2008_Pure`.
+
+# %%  
+# 
 #
 # References
-# ------------------------------
+# ----------
 #
-# .. bibliography::
-#    :filter: docname in docnames
+# .. footbibliography::

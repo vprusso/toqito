@@ -14,7 +14,7 @@ with which this problem can be solved for a number of different scenarios.
 # tutorial on this topic.
 #
 # Further information beyond the scope of this tutorial can be found in the text
-# :cite:`Pusey_2012_On` as well as the course :cite:`Bandyopadhyay_2014_Conclusive`.
+# `:footcite:Pusey_2012_On` as well as the course :footcite:`Bandyopadhyay_2014_Conclusive`.
 #
 #
 # The state exclusion problem
@@ -40,7 +40,6 @@ with which this problem can be solved for a number of different scenarios.
 # 3. Bob wants to guess which of the states from the ensemble he was *not* given.
 #    In order to do so, he may measure :math:`\rho_i` to guess the index
 #    :math:`i` for which the state in the ensemble corresponds.
-#
 # This setting is depicted in the following figure.
 #
 # .. figure:: ../../figures/quantum_state_distinguish.svg
@@ -216,7 +215,7 @@ print(f"Optimal SDP value: {np.around(opt_value, decimals=2)}")
 # ----------------------------------------------------
 #
 # Antidistinguishability of a set of pure states is equivalent to a certain notion from the theory of quantum resources
-# referred to as :math:`k`-incoherence :cite:`Johnston_2022_Absolutely`:
+# referred to as :math:`k`-incoherence :footcite:`Johnston_2022_Absolutely`:
 #
 # **Definition**: Let :math:`n` and :math:`k` be positive integers. Then :math:`X \in \text{Pos}(\mathbb{C} ^n)` is called
 # :math:`k`-incoherent* if there exists a positive integer :math:`m`, a set
@@ -228,7 +227,7 @@ print(f"Optimal SDP value: {np.around(opt_value, decimals=2)}")
 #    X = \sum_{j=0}^{m-1} c_j |psi_j\rangle \langle \psi_j|.
 #
 # It turns out that antidistinguishability is equivalent to :math:`k`-incoherence in the :math:`k = n - 1` case.
-# Reproducing one of the results from :cite:`Johnston_2025_Tight`, we have the following theorem.
+# Reproducing one of the results from :footcite:`Johnston_2025_Tight`, we have the following theorem.
 #
 # **Theorem**: Let :math:`n \geq 2` be an integer and let :math:`S = \{|\phi_0\rangle, |\phi_1\rangle, \ldots, |\phi_{n-1}\rangle\}`.
 # Then :math:`S` is antidistinguishable if and only if the Gram matrix :math:`G` is :math:`(n-1)`-incoherent.
@@ -261,9 +260,11 @@ print(f"Is (n-1)-incoherent: {is_k_incoherent(gram, n - 1)}")
 # %%
 # As can be seen, whether the random set of states are antidistinguishable or not aligns with whether they are
 # :math:`(n-1)`-incoherent or not as well.
+
+# %%  
+# 
 #
 # References
-# ------------------------------
+# ----------
 #
-# .. bibliography::
-#    :filter: docname in docnames
+# .. footbibliography::
