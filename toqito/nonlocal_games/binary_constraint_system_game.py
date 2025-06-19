@@ -71,8 +71,8 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
        import numpy as np
        from toqito.nonlocal_games.binary_constraint_system_game import generate_solution_group
 
-       M = np.array([[1, 1, 0], [0, 1, 1]], dtype=int)
-       b = np.array([0, 1], dtype=int)
+       M = np.array([[1, 1, 0], [0, 1, 1]])
+       b = np.array([0, 1])
        row_masks, parity = generate_solution_group(M, b)
 
        print("Row masks:", row_masks)
@@ -115,10 +115,9 @@ def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray) -> bool:
     
       import numpy as np
       from binary_constraint_system_game import check_perfect_commuting_strategy
-      M = np.array([[1, 1], [1, 1]], dtype=int)
-      b = np.array([0, 1], dtype=int)
-      has_strategy = check_perfect_commuting_strategy(M, b)
-      print(has_strategy)
+      M = np.array([[1, 1], [1, 1]])
+      b = np.array([0, 1])
+      print(check_perfect_commuting_strategy(M, b))
         
     :param M: A binary matrix of shape ``(m, n)``.
     :param b: A binary vector of length ``m``.
@@ -132,7 +131,7 @@ def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray) -> bool:
     pivot = 0
     n = M.shape[1] if m > 0 else 0
 
-    # Perform Gaussian elimination in GF(2)
+    # Perform Gaussian elimination in GF(2):
     for j in range(n):
         pivot_row = next((r for r in range(pivot, m) if row[r] & (1 << j)), None)
         if pivot_row is None:
@@ -151,7 +150,7 @@ def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray) -> bool:
         if pivot == m:
             break
 
-    # Check for contradiction: a row with 0 = 1
+    # Check for contradiction: a row with 0 = 1.
     contradiction = next(
         (combo[r] for r in range(m) if row[r] == 0 and parity[r] == 1),
         None
