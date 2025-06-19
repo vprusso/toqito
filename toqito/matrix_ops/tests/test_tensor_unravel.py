@@ -31,7 +31,6 @@ def multiple_unique_tensor():
 
         # Invalid tensor: all values same (no unique)
         (lambda: np.full((2, 2), -1), None, ValueError),
-
         # Invalid tensor: two +1s (not unique)
         (multiple_unique_tensor, None, ValueError),
     ],
