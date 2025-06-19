@@ -24,7 +24,7 @@ class ExtendedNonlocalGame:
     information on these games can be found in :footcite:`Russo_2017_Extended`.
 
     An example demonstration is available as a tutorial in the
-    documentation. Go to :ref:`ref-label-bb84_extended_nl_example`.
+    documentation. Go to :ref:`sphx_glr_auto_examples_quantumgames_example_extended_nonlocal_games.py`.
 
     References
     ==========
