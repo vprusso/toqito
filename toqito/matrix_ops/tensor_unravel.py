@@ -1,49 +1,49 @@
 import numpy as np
 
 
-def  tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
-     r"""Decode a clause tensor (indicator tensor) into its raw 1D representation.
+def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
+    r"""Decode a clause tensor (indicator tensor) into its raw 1D representation.
 
-     In binary constraint system (BCS) games, parity constraints can be encoded as
-     **clause tensors** — n-dimensional NumPy arrays of shape `(2, 2, ..., 2)`,
-     filled with a constant background value (e.g., `(-1)**b[i]`) except for a
-     single unique entry that marks the satisfying assignment.
+    In binary constraint system (BCS) games, parity constraints can be encoded as
+    **clause tensors** — n-dimensional NumPy arrays of shape `(2, 2, ..., 2)`,
+    filled with a constant background value (e.g., `(-1)**b[i]`) except for a
+    single unique entry that marks the satisfying assignment.
 
-     This function unravels such a tensor by:
+    This function unravels such a tensor by:
        1. Locating the unique element (the one appearing exactly once).
        2. Extracting its multi-dimensional index `(i1, i2, ..., in)`.
        3. Returning a 1D NumPy array `[i1, i2, ..., in, value]`, where the first `n`
          entries are the coordinates and the last entry is the unique value (±1).
 
-     Conceptually, this is a form of structured tensor decoding, closely related to:
+    Conceptually, this is a form of structured tensor decoding, closely related to:
        - Indicator (Kronecker delta) tensors in multilinear algebra [see:cite:`Kolda_2009_Tensor`]
        - The matrix `vec`-operator for flattening matrices [see:cite:`Horn_1985_Matrix`]
        - Parity-projector encodings in linear-system games [see:cite:`William_2016_Perfect`]
     
-     Examples
-     ==========
-     .. jupyter-execute::
+    Examples
+    ==========
+    .. jupyter-execute::
     
-        import numpy as np
-        from binary_constraint_system_game import tensor_to_raw
+    import numpy as np
+    from binary_constraint_system_game import tensor_to_raw
         
-        tensor_constraint = np.array([[-1, -1], [-1, 1]])
-        tensor_to_raw(tensor_constraint)
+    tensor_constraint = np.array([[-1, -1], [-1, 1]])
+    tensor_to_raw(tensor_constraint)
         
-     The tensor-form constraint representation is commonly used in implementations of
-     binary constraint system (BCS) games. For background on BCS games, see:cite:`Richard_2014_Characterization`.
+    The tensor-form constraint representation is commonly used in implementations of
+    binary constraint system (BCS) games. For background on BCS games, see:cite:`Richard_2014_Characterization`.
     
-     References
-     ==========
-     .. bibliography::
-         :filter: docname in docnames
+    References
+    ==========
+    .. bibliography::
+        :filter: docname in docnames
 
 
-     :param constraint_tensor: n`-dimensional :code:`numpy` array representing a constraint (shape :code:`(2,)*n`).
-     :return: A 1D :code:`numpy` array of length :math:`n+1` where the first :math:`n` elements are the coordinates (indices),
-     and the last element is the unique constant (rhs).
+    :param constraint_tensor: n`-dimensional :code:`numpy` array representing a constraint (shape :code:`(2,)*n`).
+    :return: A 1D :code:`numpy` array of length :math:`n+1` where the first :math:`n` elements are the coordinates (indices),
+    and the last element is the unique constant (rhs).
     
-     """
+    """
     values, counts = np.unique(constraint_tensor, return_counts=True)
     if len(values) != 2:
         raise ValueError("Constraint tensor does not have exactly two distinct values.")
