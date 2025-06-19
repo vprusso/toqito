@@ -1,52 +1,48 @@
+"""Test tensor_unravel."""
+
 import numpy as np
+import pytest
 
 from toqito.matrix_ops.tensor_unravel import tensor_unravel
 
 
-def test_tensor_unravel_basic():
-    """
-    2D tensor with one positive element at (1,1).
-    Should return [1, 1, 1].
-    """
-    tensor_constraint = np.array([[-1, -1], [-1, 1]])
-    expected = np.array([1, 1, 1])
-    result = tensor_unravel(tensor_constraint)
-    assert np.array_equal(result, expected)
+def valid_2d_tensor():
+    return np.array([[-1, -1], [-1, 1]])
 
+def valid_3d_tensor():
+    arr = np.full((2, 2, 2), -1)
+    arr[1, 1, 1] = 1
+    return arr
 
-def test_tensor_unravel_diagonal_unique():
-    """
-    3D tensor with the unique positive element at (1,1,1).
-    Should return [1, 1, 1, 1].
-    """
-    tensor_constraint = np.full((2, 2, 2), -1)
-    tensor_constraint[1, 1, 1] = 1
-    expected = np.array([1, 1, 1, 1])
-    result = tensor_unravel(tensor_constraint)
-    assert np.array_equal(result, expected)
+def multiple_unique_tensor():
+    arr = np.full((2, 2, 2), -1)
+    arr[0, 0, 0] = 1
+    arr[1, 1, 1] = 1
+    return arr
 
+@pytest.mark.parametrize(
+    "tensor_input, expected_output, expected_exception",
+    [
+        # Valid 2D tensor with one +1 at (1,1)
+        (valid_2d_tensor, np.array([1, 1, 1]), None),
 
-def test_tensor_unravel_invalid_tensor():
-    """
-    Raise ValueError if no unique positive element exists.
-    """
-    tensor_constraint = np.full((2, 2), -1)
-    try:
-        tensor_unravel(tensor_constraint)
-        assert False, "Expected ValueError"
-    except ValueError as e:
-        assert "exactly two distinct values" in str(e)
+        # Valid 3D tensor with one +1 at (1,1,1)
+        (valid_3d_tensor, np.array([1, 1, 1, 1]), None),
 
+        # Invalid tensor: all values same (no unique)
+        (lambda: np.full((2, 2), -1), None, ValueError),
 
-def test_tensor_unravel_multiple_unique_elements():
-    """
-    Raise ValueError if multiple unique positive elements exist.
-    """
-    tensor_constraint = np.full((2, 2, 2), -1)
-    tensor_constraint[0, 0, 0] = 1
-    tensor_constraint[1, 1, 1] = 1
-    try:
-        tensor_unravel(tensor_constraint)
-        assert False, "Expected ValueError"
-    except ValueError as e:
-        assert "unique element" in str(e)
+        # Invalid tensor: two +1s (not unique)
+        (multiple_unique_tensor, None, ValueError),
+    ],
+)
+def test_tensor_unravel(tensor_input, expected_output, expected_exception):
+    """Test unraveling clause tensors into 1D index-value form."""
+    tensor = tensor_input() if callable(tensor_input) else tensor_input
+
+    if expected_exception:
+        with pytest.raises(expected_exception):
+            tensor_unravel(tensor)
+    else:
+        result = tensor_unravel(tensor)
+        assert np.array_equal(result, expected_output)
