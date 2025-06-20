@@ -100,6 +100,7 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
     powers = 1 << np.arange(M.shape[1])
     return (M * powers).sum(axis=1).astype(int).tolist(), b.astype(int).tolist()
 
+
 def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray) -> bool:
     r"""Determine whether a perfect commuting-operator strategy exists for a BCS game.
 
