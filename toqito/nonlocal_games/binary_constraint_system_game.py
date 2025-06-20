@@ -55,6 +55,7 @@ def create_bcs_constraints(M: np.ndarray, b: np.ndarray) -> list[np.ndarray]:
         constraints.append(constraint_tensor)
     return constraints
 
+
 def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], list[int]]:
     r"""
     Generate a bitmask representation for a binary constraint system (BCS) game.
@@ -99,6 +100,7 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
     # Create an array of powers of 2 for each column: [1, 2, 4, ..., 2^(n-1)]
     powers = 1 << np.arange(M.shape[1])
     return (M * powers).sum(axis=1).astype(int).tolist(), b.astype(int).tolist()
+
 
 def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray) -> bool:
     r"""Determine whether a perfect commuting-operator strategy exists for a BCS game.
