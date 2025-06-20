@@ -174,3 +174,4 @@ def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray) -> bool:
     ]
     G.add_edges_from(edges)
     return bool(nx.cycle_basis(G))
+    
