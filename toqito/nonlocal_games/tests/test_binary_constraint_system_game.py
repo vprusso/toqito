@@ -23,7 +23,6 @@ def test_classically_satisfiable_bcs():
     game = NonlocalGame.from_bcs_game(constraints, reps=1)
     assert game.is_bcs_perfect_commuting_strategy()
 
-
 def test_chsh_bcs():
     """
     Test a CHSH-type BCS system which has no perfect commuting strategy.
@@ -38,7 +37,6 @@ def test_chsh_bcs():
 
     game = NonlocalGame.from_bcs_game(constraints, reps=1)
     assert not game.is_bcs_perfect_commuting_strategy()
-
 
 def test_magic_square_bcs():
     """
@@ -61,7 +59,6 @@ def test_magic_square_bcs():
     game = NonlocalGame.from_bcs_game(constraints, reps=1)
     assert game.is_bcs_perfect_commuting_strategy()
 
-
 def test_special_case():
     """
     Test a non-trivial satisfiable case with overlapping constraints.
@@ -80,7 +77,6 @@ def test_special_case():
 
     game = NonlocalGame.from_bcs_game(constraints, reps=1)
     assert game.is_bcs_perfect_commuting_strategy()
-
 
 def test_4cycle_bcs_no_classical_but_perfect_quantum():
     """
