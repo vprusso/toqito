@@ -55,6 +55,7 @@ def create_bcs_constraints(M: np.ndarray, b: np.ndarray) -> list[np.ndarray]:
         constraints.append(constraint_tensor)
     return constraints
 
+
 def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], list[int]]:
     r"""
     Generate a bitmask representation for a binary constraint system (BCS) game.
