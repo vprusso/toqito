@@ -6,7 +6,7 @@ from toqito.matrix_props import is_square
 
 
 def is_hermitian(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
-    r"""Check if matrix is Hermitian :cite:`WikiHerm`.
+    r"""Check if matrix is Hermitian :footcite:`WikiHerm`.
 
     A Hermitian matrix is a complex square matrix that is equal to its own conjugate transpose.
 
@@ -58,8 +58,7 @@ def is_hermitian(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> b
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
 
 
 

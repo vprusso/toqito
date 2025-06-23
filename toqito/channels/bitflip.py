@@ -55,8 +55,8 @@ def bitflip(
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :param input_mat: A matrix or state to apply the channel to. If `None`, returns the Kraus operators.
     :param prob: The probability of a bitflip occurring.

@@ -15,7 +15,7 @@ def state_distinguishability(
     primal_dual: str = "dual",
     **kwargs,
 ) -> tuple[float, list[picos.HermitianVariable] | tuple[picos.HermitianVariable] | tuple[picos.RealVariable]]:
-    r"""Compute probability of state distinguishability :cite:`Eldar_2003_SDPApproach`.
+    r"""Compute probability of state distinguishability :footcite:`Eldar_2003_SDPApproach`.
 
     The "quantum state distinguishability" problem involves a collection of :math:`n` quantum states
 
@@ -124,8 +124,8 @@ def state_distinguishability(
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param vectors: A list of states provided as vectors.
@@ -215,7 +215,7 @@ def _unambiguous_primal(
 ) -> tuple[float, tuple[picos.RealVariable]]:
     """Solve the primal problem for unambiguous quantum state distinguishability SDP.
 
-    Implemented according to Equation (5) of :cite:`Gupta_2024_Unambiguous`:.
+    Implemented according to Equation (5) of :footcite:`Gupta_2024_Unambiguous`:.
     """
     n = len(vectors)
     problem = picos.Problem()
@@ -239,7 +239,7 @@ def _unambiguous_dual(
 ) -> tuple[float, tuple[picos.HermitianVariable]]:
     """Solve the dual problem for unambiguous quantum state distinguishability SDP.
 
-    Implemented according to Equation (5) of :cite:`Gupta_2024_Unambiguous`.
+    Implemented according to Equation (5) of :footcite:`Gupta_2024_Unambiguous`.
     """
     n = len(vectors)
     problem = picos.Problem()

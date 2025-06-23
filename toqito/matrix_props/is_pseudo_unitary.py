@@ -70,8 +70,8 @@ def is_pseudo_unitary(mat: np.ndarray, p: int, q: int, rtol: float = 1e-05, atol
     References
     ==========
 
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :param mat: The matrix to check.
     :param p: Number of positive entries in the signature matrix.

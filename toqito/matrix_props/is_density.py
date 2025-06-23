@@ -6,7 +6,7 @@ from toqito.matrix_props import is_positive_semidefinite
 
 
 def is_density(mat: np.ndarray) -> bool:
-    r"""Check if matrix is a density matrix :cite:`WikiDen`.
+    r"""Check if matrix is a density matrix :footcite:`WikiDen`.
 
     A matrix is a density matrix if its trace is equal to one and it has the
     property of being positive semidefinite (PSD).
@@ -65,8 +65,8 @@ def is_density(mat: np.ndarray) -> bool:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :param mat: Matrix to check.
     :return: Return :code:`True` if matrix is a density matrix,

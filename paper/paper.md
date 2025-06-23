@@ -16,7 +16,7 @@ affiliations:
   - name: Modellicity Inc.
     index: 2
 date: 21 Mar 2021
-bibliography: paper.bib
+footbibliography: paper.bib
 
 ---
 

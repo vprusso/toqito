@@ -6,7 +6,7 @@ from toqito.perms import swap
 
 
 def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray = None) -> float:
-    r"""Compute the Schmidt rank :cite:`WikiScmidtDecomp`.
+    r"""Compute the Schmidt rank :footcite:`WikiScmidtDecomp`.
 
     For complex Euclidean spaces :math:`\mathcal{X}` and :math:`\mathcal{Y}`, a pure state
     :math:`u \in \mathcal{X} \otimes \mathcal{Y}` possesses an expansion of the form:
@@ -77,8 +77,8 @@ def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray = None) -> f
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param rho: A bipartite vector or matrix to have its Schmidt rank computed.

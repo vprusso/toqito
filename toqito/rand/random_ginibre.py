@@ -4,14 +4,14 @@ import numpy as np
 
 
 def random_ginibre(dim_n: int, dim_m: int, seed: int | None = None) -> np.ndarray:
-    r"""Generate a Ginibre random matrix :cite:`WikiCircLaw`.
+    r"""Generate a Ginibre random matrix :footcite:`WikiCircLaw`.
 
     Generates a random :code:`dim_n`-by-:code:`dim_m` Ginibre matrix.
 
     A *Ginibre random matrix* is a matrix with independent and identically distributed complex standard Gaussian
     entries.
 
-    Ginibre random matrices are used in the construction of Wishart-random POVMs :cite:`Heinosaari_2020_Random`.
+    Ginibre random matrices are used in the construction of Wishart-random POVMs :footcite:`Heinosaari_2020_Random`.
 
     Examples
     ==========
@@ -35,8 +35,8 @@ def random_ginibre(dim_n: int, dim_m: int, seed: int | None = None) -> np.ndarra
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param dim_n: The number of rows of the Ginibre random matrix.

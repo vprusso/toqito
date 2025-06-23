@@ -9,7 +9,7 @@ from toqito.channel_ops import dual_channel
 def completely_bounded_spectral_norm(phi: np.ndarray) -> float:
     r"""Compute the completely bounded spectral norm of a quantum channel.
 
-    As defined in :cite:`Watrous_2009_Semidefinite` and :cite:`QETLAB_link`.
+    As defined in :footcite:`Watrous_2009_Semidefinite` and :footcite:`QETLAB_link`.
 
     Examples
     ========
@@ -25,8 +25,8 @@ def completely_bounded_spectral_norm(phi: np.ndarray) -> float:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :param phi: superoperator
     :return: The completely bounded spectral norm of the channel

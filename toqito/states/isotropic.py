@@ -9,7 +9,7 @@ from toqito.states import max_entangled
 
 
 def isotropic(dim: int, alpha: float) -> np.ndarray:
-    r"""Produce a isotropic state :cite:`Horodecki_1998_Reduction`.
+    r"""Produce a isotropic state :footcite:`Horodecki_1998_Reduction`.
 
     Returns the isotropic state with parameter :code:`alpha` acting on (:code:`dim`-by-:code:`dim`)-dimensional space.
     The isotropic state has the following form
@@ -38,8 +38,8 @@ def isotropic(dim: int, alpha: float) -> np.ndarray:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param dim: The local dimension.

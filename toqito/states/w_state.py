@@ -1,7 +1,7 @@
 """Generalized w-state is an entangled quantum state of `n` qubits.
 
-This state refers to the quantum superposition in which one of the qubits is in an excited state and others are in the
-ground state.
+This state refers to the quantum superposition in which one of the qubits is in an excited state and others are in
+the ground state.
 """
 
 import numpy as np
@@ -9,9 +9,9 @@ from scipy.sparse import csr_array
 
 
 def w_state(num_qubits: int, coeff: list[int] = None) -> np.ndarray:
-    r"""Produce a W-state :cite:`Dur_2000_ThreeQubits`.
+    r"""Produce a W-state :footcite:`Dur_2000_ThreeQubits`.
 
-    Returns the W-state described in :cite:`Dur_2000_ThreeQubits`. The W-state on `num_qubits` qubits is defined by:
+    Returns the W-state described in :footcite:`Dur_2000_ThreeQubits`. The W-state on `num_qubits` qubits is defined by:
 
     .. math::
         |W \rangle = \frac{1}{\sqrt{num\_qubits}}
@@ -51,8 +51,8 @@ def w_state(num_qubits: int, coeff: list[int] = None) -> np.ndarray:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :raises ValueError: The number of qubits must be greater than or equal to 1.

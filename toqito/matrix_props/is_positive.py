@@ -7,7 +7,7 @@ def is_positive(input_mat: np.ndarray) -> bool:
     r"""Check if the matrix is positive.
 
     When all the entries in the matrix are larger than zero the matrix of interest is a
-    positive matrix :cite:`WikiNonNegative`.
+    positive matrix :footcite:`WikiNonNegative`.
 
     .. note::
         This function is different from :any:`matrix_props.is_positive_definite`,
@@ -29,8 +29,8 @@ def is_positive(input_mat: np.ndarray) -> bool:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     input_mat: np.ndarray

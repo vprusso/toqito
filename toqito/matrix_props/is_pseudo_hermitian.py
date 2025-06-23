@@ -71,8 +71,8 @@ def is_pseudo_hermitian(mat: np.ndarray, signature: np.ndarray, rtol: float = 1e
     References
     ==========
 
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :param mat: The matrix to check.
     :param signature: The signature matrix :math:`\eta`, which must be Hermitian and invertible.
