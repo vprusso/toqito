@@ -11,7 +11,7 @@ from toqito.perms import permutation_operator, swap_operator
 
 
 def werner(dim: int, alpha: float | list[float]) -> np.ndarray:
-    r"""Produce a Werner state :cite:`Werner_1989_QuantumStates`.
+    r"""Produce a Werner state :footcite:`Werner_1989_QuantumStates`.
 
     A Werner state is a state of the following form
 
@@ -54,8 +54,8 @@ def werner(dim: int, alpha: float | list[float]) -> np.ndarray:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :raises ValueError: Alpha vector does not have the correct length.
     :param dim: The dimension of the Werner state.

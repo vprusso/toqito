@@ -6,7 +6,7 @@ from toqito.matrix_props import is_square
 
 
 def is_identity(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> bool:
-    r"""Check if matrix is the identity matrix :cite:`WikiIden`.
+    r"""Check if matrix is the identity matrix :footcite:`WikiIden`.
 
     For dimension :math:`n`, the :math:`n \times n` identity matrix is defined as
 
@@ -67,8 +67,8 @@ def is_identity(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> boo
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param mat: Matrix to check.

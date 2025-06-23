@@ -43,8 +43,8 @@ def diamond_distance(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
 
     References
     ==========
-        .. bibliography::
-            :filter: docname in docnames
+        .. footbibliography::
+
 
 
     :raises ValueError: If matrices are not of equal dimension.

@@ -6,7 +6,7 @@ from toqito.matrix_props import is_square
 
 
 def is_normal(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
-    r"""Determine if a matrix is normal :cite:`WikiNorm`.
+    r"""Determine if a matrix is normal :footcite:`WikiNorm`.
 
     A matrix is normal if it commutes with its adjoint
 
@@ -68,8 +68,8 @@ def is_normal(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param mat: The matrix to check.

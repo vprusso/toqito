@@ -232,7 +232,9 @@ def _get_nonlocal_game_params(
 def npa_constraints(
     assemblage: dict[tuple[int, int], cvxpy.Variable], k: int | str = 1, referee_dim: int = 1
 ) -> list[cvxpy.constraints.constraint.Constraint]:
-    r"""Generate the constraints specified by the NPA hierarchy up to a finite level :cite:`Navascues_2008_AConvergent`.
+    r"""Generate the constraints specified by the NPA hierarchy up to a finite level.
+
+    :footcite:`Navascues_2008_AConvergent`
 
     You can determine the level of the hierarchy by a positive integer or a string
     of a form like "1+ab+aab", which indicates that an intermediate level of the hierarchy
@@ -250,8 +252,8 @@ def npa_constraints(
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :param assemblage: The commuting measurement assemblage operator.
     :param k: The level of the NPA hierarchy to use (default=1).
@@ -268,7 +270,7 @@ def npa_constraints(
         # Should not happen if IDENTITY_SYMBOL is always included
         raise ValueError("Generated word list is empty. Check _gen_words logic.")
 
-    # Moment matrix (Gamma matrix in :cite:`Navascues_2008_AConvergent`)
+    # Moment matrix (Gamma matrix in :footcite:`Navascues_2008_AConvergent`)
     # moment_matrix_R block corresponds to E[S_i^dagger S_j]
     moment_matrix_R = cvxpy.Variable((referee_dim * dim, referee_dim * dim), hermitian=True, name="R")
 
@@ -308,9 +310,9 @@ def npa_constraints(
             else:
                 product_S_i_adj_S_j = _reduce(tuple(product_unreduced))
 
-            # Moment matrix (Gamma matrix in NPA paper :cite:`Navascues_2008_AConvergent` - arXiv:0803.4290)
+            # Moment matrix (Gamma matrix in NPA paper :footcite:`Navascues_2008_AConvergent` - arXiv:0803.4290)
             # This hierarchy can be generalized, e.g., to incorporate referee systems
-            # as seen in extended nonlocal games (see, e.g., F. Speelman's thesis, :cite:`Speelman_2016_Position`).
+            # as seen in extended nonlocal games (see, e.g., F. Speelman's thesis, :footcite:`Speelman_2016_Position`).
             current_block = moment_matrix_R[
                 i * referee_dim : (i + 1) * referee_dim, j * referee_dim : (j + 1) * referee_dim
             ]

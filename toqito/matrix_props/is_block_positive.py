@@ -14,7 +14,7 @@ def is_block_positive(
     effort: int = 2,
     rtol: float = 1e-5,
 ) -> bool:
-    r"""Check if matrix is block positive :cite:`Johnston_2012_Norms`.
+    r"""Check if matrix is block positive :footcite:`Johnston_2012_Norms`.
 
     Examples
     ==========
@@ -46,8 +46,8 @@ def is_block_positive(
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :raises RuntimeError: Unable to determine k-block positivity. Please consider increasing the relative tolerance or
@@ -88,7 +88,7 @@ def is_block_positive(
     # We compute the S(k)-norm of this operator since
     # X k-block positive iff:
     #   c >= S(k)-norm of(c*I - X)
-    # See Corollary 4.2.9. of `:cite:`Johnston_2012_Norms`.
+    # See Corollary 4.2.9. of `:footcite:`Johnston_2012_Norms`.
     c_mat = op_norm * np.eye(dim_xy) - mat
     lower_bound, upper_bound = sk_operator_norm(c_mat, k, dim, op_norm, effort)
 

@@ -58,8 +58,8 @@ def pauli_channel(
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :param prob: Probability vector for Pauli operators. If scalar, generates random probabilities
              for :math:`q =` `prob` qubits. The probabilities correspond to Pauli operators in

@@ -34,7 +34,7 @@ repository = "https://github.com/vprusso/toqito"
 python = ">=3.10,<4"
 cvxpy = "1.6.2"
 more-itertools = "10.7.0"
-numpy = "2.2.3"
+numpy = "2.2.6"
 scipy = "1.15.2"
 scs = "3.2.7.post2" 
 picos = "2.6.0"
@@ -42,9 +42,9 @@ jupyter-sphinx = "^0.5.3"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "8.4.0"
-pytest-cov = "6.1.1"
-coverage = "7.8.0"
-sympy = "1.13.3"
+pytest-cov = "6.2.1"
+coverage = "7.9.1"
+sympy = "1.14.0"
 distlib = "0.3.9"
 ipython = "8.37.0"
 setuptools = ">65.5.1"
@@ -79,6 +79,8 @@ build-backend = "poetry.core.masonry.api"
 exclude = ["__init__.py"]
 line-length = 120
 target-version = "py312"
+force-exclude = true
+
 
 [tool.ruff.lint]
 select = ["I", "E", "W", "D", "PL", "F"]
@@ -89,8 +91,10 @@ select = ["I", "E", "W", "D", "PL", "F"]
 # PL -- pylint
 # F -- pyflakes
 
+
 # Rules considered over other incompatible ones
 exclude = ["docs/conf.py", "setup.py"]
+
 
 ignore = ["D407", "D203", "D213", "D416", "PLR0912", "PLR0911", "PLR0915", "PLR2004", "PLR0913", "F811", "E203"]
 # Rules Ignored
@@ -118,3 +122,5 @@ ignore = ["D407", "D203", "D213", "D416", "PLR0912", "PLR0911", "PLR0915", "PLR2
 "__init__.py" = ["I001", "F401"]
 # I001 - skip checking Import block is un-sorted or un-formatted
 # F401 - Checks for unused imports, applying fixes to __init__.py currently under review
+# skip checking all the .py files in the examples gallery
+"examples/*" = ["I", "E", "W", "D", "PL", "F"]

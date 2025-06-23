@@ -10,7 +10,7 @@ from toqito.perms import permutation_operator
 
 
 def symmetric_projection(dim: int, p_val: int = 2, partial: bool = False) -> np.ndarray:
-    r"""Produce the projection onto the symmetric subspace :cite:`Chen_2014_Symmetric`.
+    r"""Produce the projection onto the symmetric subspace :footcite:`Chen_2014_Symmetric`.
 
     For a complex Euclidean space :math:`\mathcal{X}` and a positive integer :math:`n`, the projection onto the
     symmetric subspace is given by
@@ -67,8 +67,8 @@ def symmetric_projection(dim: int, p_val: int = 2, partial: bool = False) -> np.
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param dim: The dimension of the local systems.
