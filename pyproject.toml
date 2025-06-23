@@ -52,7 +52,7 @@ pre-commit = ">=3.0.0"
 jupyter-sphinx = "^0.5.3"
 
 [tool.poetry.group.lint.dependencies]
-flake8 = "7.2.0"
+flake8 = "7.3.0"
 flake8-docstrings = "1.7.0"
 isort = "6.0.0"
 myst-parser = "4.0.1"
