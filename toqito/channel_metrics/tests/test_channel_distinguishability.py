@@ -2,8 +2,7 @@
 
 import pytest
 
-from channel_distinguishability import channel_distinguishability
-#from toqito.channel_metrics import channel_distinguishability
+from toqito.channel_metrics import channel_distinguishability
 from toqito.channel_ops import kraus_to_choi
 from toqito.channels import amplitude_damping, phase_damping, dephasing, depolarizing
 
