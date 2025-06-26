@@ -19,12 +19,12 @@ def channel_distinguishability(
     **kwargs,
 ) -> float:
     r"""Compute the optimal probability of distinguishing two quantum channels.
-
-        Bayesian and minimax discrimination of two quantum channels are implemented.
-        For Bayesian discrimination a priori probabilities are provided.
-        (Section 3.3.3 of :footcite:`Watrous_2018_TQI`).
-        Implementation in QETLAB :footcite: `QETLAB_link` is used for Bayesian
-        and Implementation in QuTIpy: footcite: `QuTIpy_link` for minimax is used.
+    
+    Bayesian and minimax discrimination of two quantum channels are implemented.
+    For Bayesian discrimination a priori probabilities are provided.
+    (Section 3.3.3 of :footcite:`Watrous_2018_TQI`).
+    Implementation in QETLAB :footcite: `QETLAB_link` is used for Bayesian
+    and Implementation in QuTIpy: footcite: `QuTIpy_link` for minimax is used.
 
 
     Examples
