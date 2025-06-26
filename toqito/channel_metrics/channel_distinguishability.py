@@ -75,7 +75,7 @@ def channel_distinguishability(
     :param p: Prior probabilities of the two channels.
     :param dim: Input and output dimensions of the channels.
     :param strategy: Whether to perform Bayesian or minimax discrimination task. Possible
-                                    values are "Bayesian" and "minimax". Defualt option is `strategy="Bayesian"`.
+                     values are "Bayesian" and "minimax". Defualt option is `strategy="Bayesian"`.
     :param solver: Optimization option for `picos` solver. Default option is `solver="cvxopt"`.
     :param primal_dual: Option for the optimization problem. Defualt option is `solver="cvxopt"`.
     :param kwargs: Additional arguments to pass to picos' solve method.
