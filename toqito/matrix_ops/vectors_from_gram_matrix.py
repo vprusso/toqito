@@ -5,7 +5,7 @@ import scipy
 
 
 def vectors_from_gram_matrix(gram: np.ndarray) -> list[np.ndarray]:
-    r"""Obtain the corresponding ensemble of states from the Gram matrix :cite:`WikiGram`.
+    r"""Obtain the corresponding ensemble of states from the Gram matrix :footcite:`WikiGram`.
 
     The function attempts to compute the Cholesky decomposition of the given Gram matrix. If the matrix is positive
     definite, the Cholesky decomposition is returned. If the matrix is not positive definite, the function falls back to
@@ -37,8 +37,8 @@ def vectors_from_gram_matrix(gram: np.ndarray) -> list[np.ndarray]:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :raises LinAlgError: If the Gram matrix is not square.
     :param gram: A square, symmetric matrix representing the Gram matrix.

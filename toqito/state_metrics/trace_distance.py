@@ -17,7 +17,7 @@ def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float:
         \delta(\rho, \sigma) = \frac{1}{2} \left( \text{Tr}(\left| \rho - \sigma
          \right| \right).
 
-    More information on the trace distance can be found in :cite:`Quantiki_TrDist`.
+    More information on the trace distance can be found in :footcite:`Quantiki_TrDist`.
 
     Examples
     ==========
@@ -52,8 +52,8 @@ def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :raises ValueError: If matrices are not of density operators.
     :param rho: An input matrix.

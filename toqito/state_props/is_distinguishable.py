@@ -36,8 +36,8 @@ def is_distinguishable(states: list[np.ndarray], probs: list[float] = None) -> b
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param states: A set of vectors consisting of quantum states to determine the distinguishability of.

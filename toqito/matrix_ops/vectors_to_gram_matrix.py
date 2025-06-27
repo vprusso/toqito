@@ -4,7 +4,7 @@ import numpy as np
 
 
 def vectors_to_gram_matrix(vectors: list[np.ndarray]) -> np.ndarray:
-    r"""Construct the Gram matrix from a list of vectors :cite:`WikiGram`.
+    r"""Construct the Gram matrix from a list of vectors :footcite:`WikiGram`.
 
     The Gram matrix is a matrix of inner products, where the entry G[i, j] is the inner product of vectors[i] and
     vectors[j]. This function computes the Gram matrix for a given list of vectors.
@@ -39,8 +39,8 @@ def vectors_to_gram_matrix(vectors: list[np.ndarray]) -> np.ndarray:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :raises ValueError: If the vectors are not all of the same length.
     :param vectors: A list of vectors (1D numpy arrays). All vectors must be of the same length.

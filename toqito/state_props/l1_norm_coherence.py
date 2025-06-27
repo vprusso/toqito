@@ -6,7 +6,7 @@ from toqito.matrix_ops import to_density_matrix
 
 
 def l1_norm_coherence(rho: np.ndarray) -> float:
-    r"""Compute the l1-norm of coherence of a quantum state :cite:`Rana_2017_Log`.
+    r"""Compute the l1-norm of coherence of a quantum state :footcite:`Rana_2017_Log`.
 
     The :math:`\ell_1`-norm of coherence of a quantum state :math:`\rho` is
     defined as
@@ -41,8 +41,8 @@ def l1_norm_coherence(rho: np.ndarray) -> float:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param rho: A matrix or vector.

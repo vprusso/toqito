@@ -6,7 +6,7 @@ from toqito.matrices import gen_pauli_x, gen_pauli_z
 
 
 def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
-    r"""Produce generalized Pauli operator :cite:`WikiPauliGen`.
+    r"""Produce generalized Pauli operator :footcite:`WikiPauliGen`.
 
     Generates a :code:`dim`-by-:code:`dim` unitary operator. More specifically,
     it is the operator :math:`X^k_1 Z^k_2`, where :math:`X` and :math:`Z` are
@@ -17,7 +17,7 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
 
     Note that the generalized Pauli operators are also known by the name of
     "discrete Weyl operators". (Lecture 6: Further Remarks On Measurements And Channels from
-    :cite:`Watrous_2011_Lecture_Notes`)
+    :footcite:`Watrous_2011_Lecture_Notes`)
 
     Examples
     ==========
@@ -59,8 +59,8 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param k_1: (a non-negative integer from 0 to :code:`dim-1` inclusive).

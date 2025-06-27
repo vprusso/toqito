@@ -258,7 +258,7 @@ def test_separable_schmidt_rank():  # This state construction appears to be Schm
 
 
 def test_separable_based_on_eigenvalues():
-    """Determined separable by eigenvalues. See Lemma 1 of :cite:`Johnston_2013_Spectrum`."""
+    """Determined separable by eigenvalues. See Lemma 1 of :footcite:`Johnston_2013_Spectrum`."""
     rho = np.array(
         [
             [4 / 22, 2 / 22, -2 / 22, 2 / 22],
@@ -301,7 +301,7 @@ def test_entangled_realignment_criterion_bound_entangled():
 
 
 def test_entangled_cross_norm_realignment_criterion():
-    """Entangled by Thm 1 & Rmk 1 of :cite:`Chen_2003_Matrix`."""
+    """Entangled by Thm 1 & Rmk 1 of :footcite:`Chen_2003_Matrix`."""
     p, a, b = 0.4, 0.8, np.sqrt(0.64)  # b_var was 0.64, assuming it meant b^2
     rho = np.array(
         [

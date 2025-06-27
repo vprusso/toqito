@@ -4,7 +4,7 @@ import numpy as np
 
 
 def cyclic_permutation_matrix(n: int, k: int = 1) -> np.ndarray:
-    r"""Create the cyclic permutation matrix for a given dimension :code:`n` :cite:`WikiCyclicPermutation`.
+    r"""Create the cyclic permutation matrix for a given dimension :code:`n` :footcite:`WikiCyclicPermutation`.
 
     This function creates a cyclic permutation matrix of 0's and 1's which is a special type of square matrix
     that represents a cyclic permutation of its rows. The function allows fixed points and successive applications.
@@ -29,8 +29,8 @@ def cyclic_permutation_matrix(n: int, k: int = 1) -> np.ndarray:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :param n: int
         The number of rows and columns in the cyclic permutation matrix.

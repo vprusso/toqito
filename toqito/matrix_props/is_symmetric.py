@@ -6,7 +6,7 @@ from toqito.matrix_props import is_square
 
 
 def is_symmetric(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
-    r"""Determine if a matrix is symmetric :cite:`WikiSymMat`.
+    r"""Determine if a matrix is symmetric :footcite:`WikiSymMat`.
 
     The following 3x3 matrix is an example of a symmetric matrix:
 
@@ -62,8 +62,8 @@ def is_symmetric(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> b
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param mat: The matrix to check.

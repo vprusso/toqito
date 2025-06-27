@@ -1,6 +1,6 @@
 References
 ==========
 .. rubric:: Articles
-.. bibliography:: refs.bib
+.. footbibliography:: refs.bib
     :all:
     :list: enumerated
