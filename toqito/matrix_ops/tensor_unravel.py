@@ -18,7 +18,7 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
     Conceptually, this is a form of structured tensor decoding, closely related to:
        - Indicator (Kronecker delta) tensors in multilinear algebra [see:cite:`Kolda_2009_Tensor`]
        - The matrix `vec`-operator for flattening matrices [see:cite:`Horn_1985_Matrix`]
-       - Parity-projector encodings in linear-system games [see:cite:`William_2016_Perfect`]
+       - Parity-projector encodings in linear-system games [see:cite:`Cleve_2016_Perfect`]
     
     Examples
     ==========
@@ -31,7 +31,7 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
     tensor_to_raw(tensor_constraint)
         
     The tensor-form constraint representation is commonly used in implementations of
-    binary constraint system (BCS) games. For background on BCS games, see:cite:`Richard_2014_Characterization`.
+    binary constraint system (BCS) games. For background on BCS games, see:cite:`Cleve_2014_Characterization`.
     
     References
     ==========
