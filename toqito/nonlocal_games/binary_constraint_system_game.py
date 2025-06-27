@@ -80,7 +80,7 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
        print("Row masks:", row_masks)
        print("Parity:", parity)
 
-    The mehod used to determine the existing of perfect commuting strategy was originally introduced in :cite:`William_2016_Perfect`.
+    The mehod used to determine the existing of perfect commuting strategy was originally introduced in :cite:`Cleve_2016_Perfect`.
 
     References
     ==========
