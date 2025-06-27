@@ -20,9 +20,12 @@ from toqito.matrix_ops.tensor_unravel import tensor_unravel
         (np.full((2, 2), -1), None, ValueError),
         (valid_2d_tensor, np.array([1, 1, 1]), None),
         # Valid 3D tensor with one +1 at (1,1,1)
-        (valid_3d_tensor, np.array([1, 1, 1, 1]), None),
+        (np.array(
+            [[[-1, -1], [-1, -1]],
+             [[-1, -1], [-1, 1]]]
+        ), np.array([1, 1, 1, 1]), None),
         # Invalid tensor: all values same (no unique)
-        (lambda: np.full((2, 2), -1), None, ValueError),
+        (np.full((2, 2), -1), None, ValueError),
         # Invalid tensor: two +1s (not unique)
         (np.array(
             [[[-1, -1], [-1, -1]],
