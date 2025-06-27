@@ -18,7 +18,6 @@ from toqito.matrix_ops.tensor_unravel import tensor_unravel
         ), np.array([1, 1, 1, 1]), None),
         # Invalid tensor: all values same (no unique)
         (np.full((2, 2), -1), None, ValueError),
-<<<<<<< HEAD
         (valid_2d_tensor, np.array([1, 1, 1]), None),
         # Valid 3D tensor with one +1 at (1,1,1)
         (np.array(
@@ -27,8 +26,6 @@ from toqito.matrix_ops.tensor_unravel import tensor_unravel
         ), np.array([1, 1, 1, 1]), None),
         # Invalid tensor: all values same (no unique)
         (np.full((2, 2), -1), None, ValueError),
-=======
->>>>>>> 50aec3b8 (Modifield test_tensor_unravel.py)
         # Invalid tensor: two +1s (not unique)
         (np.array(
             [[[-1, -1], [-1, -1]],
