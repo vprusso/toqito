@@ -1,3 +1,5 @@
+“Two Players BCS game."
+
 import numpy as np
 import networkx as nx
 
@@ -57,8 +59,7 @@ def create_bcs_constraints(M: np.ndarray, b: np.ndarray) -> list[np.ndarray]:
 
 
 def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], list[int]]:
-    r"""
-    Generate a bitmask representation for a binary constraint system (BCS) game.
+    r"""Generate a bitmask representation for a binary constraint system (BCS) game.
 
     This function converts each row of the binary matrix ``M`` into an integer bitmask,
     pairing it with the corresponding parity from ``b``. The bitmask representation
