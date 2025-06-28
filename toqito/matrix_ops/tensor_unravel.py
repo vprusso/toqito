@@ -16,9 +16,9 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
          entries are the coordinates and the last entry is the unique value (±1).
 
     Conceptually, this is a form of structured tensor decoding, closely related to:
-       - Indicator (Kronecker delta) tensors in multilinear algebra [see:cite:`Kolda_2009_Tensor`]
-       - The matrix `vec`-operator for flattening matrices [see:cite:`Horn_1985_Matrix`]
-       - Parity-projector encodings in linear-system games [see:cite:`Cleve_2016_Perfect`]
+       - Indicator (Kronecker delta) tensors in multilinear algebra (see:cite:`Kolda_2009_Tensor`)
+       - The matrix `vec`-operator for flattening matrices (see:cite:`Horn_1985_Matrix`)
+       - Parity-projector encodings in linear-system games (see:cite:`Cleve_2016_Perfect`)
     
     Examples
     ==========
@@ -56,5 +56,4 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
     unique_idx = np.argwhere(constraint_tensor == unique_value)
     if unique_idx.shape[0] != 1:
         raise ValueError("Expected exactly one occurrence of the unique value in the constraint tensor.")
-    idx_tuple = tuple(unique_idx[0])
     return np.array(list(idx_tuple) + [unique_value])

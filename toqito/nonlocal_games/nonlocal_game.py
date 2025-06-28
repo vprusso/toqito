@@ -45,7 +45,8 @@ def _fast_classical_value(pred_mat: np.ndarray, num_b_out: int, num_b_in: int, p
 
     """
     p_win = 0.0
-    total = num_b_out ** num_b_in  # Number of deterministic strategies
+    # Number of deterministic strategies
+    total = num_b_out ** num_b_in  
 
     A_out = pred_mat.shape[0]
     A_in = pred_mat.shape[1]
