@@ -56,4 +56,4 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
     unique_idx = np.argwhere(constraint_tensor == unique_value)
     if unique_idx.shape[0] != 1:
         raise ValueError("Expected exactly one occurrence of the unique value in the constraint tensor.")
-    return np.array(list(unique_idx) + [unique_value])
+    return np.array(list(unique_idx[0]) + [unique_value])
