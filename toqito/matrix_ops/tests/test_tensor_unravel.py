@@ -9,27 +9,6 @@ from toqito.matrix_ops.tensor_unravel import tensor_unravel
 @pytest.mark.parametrize(
     "tensor_input, expected_output, expected_exception",
     [
-        # Valid 2D tensor with one +1 at (1,1)
-        (np.array([[-1, -1], [-1, 1]]), np.array([1, 1, 1]), None),
-        # Valid 3D tensor with one +1 at (1,1,1)
-        (np.array(
-            [[[-1, -1], [-1, -1]],
-             [[-1, -1], [-1, 1]]]
-        ), np.array([1, 1, 1, 1]), None),
-        # Invalid tensor: all values same (no unique)
-        (np.full((2, 2), -1), None, ValueError),
-        # Valid 3D tensor with one +1 at (1,1,1)
-        (np.array(
-            [[[-1, -1], [-1, -1]],
-             [[-1, -1], [-1, 1]]]
-        ), np.array([1, 1, 1, 1]), None),
-        # Invalid tensor: all values same (no unique)
-        (np.full((2, 2), -1), None, ValueError),
-        # Invalid tensor: two +1s (not unique)
-        (np.array(
-            [[[-1, -1], [-1, -1]],
-             [[ 1, -1], [-1,  1]]]
-        ), None, ValueError),
         # Valid 2D tensor with one +1 at (1, 1).
         (
             np.array([[-1, -1], [-1, 1]]), 
