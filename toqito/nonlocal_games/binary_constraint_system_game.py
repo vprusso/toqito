@@ -1,4 +1,4 @@
-"Two Players BCS game."
+"Two-player binary constraint system (BCS) game."
 
 import numpy as np
 import networkx as nx
