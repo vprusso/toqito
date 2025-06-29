@@ -76,7 +76,6 @@ def test_special_case():
 def test_4cycle_bcs_no_classical_but_perfect_quantum():
     """Test a 4-cycle BCS game with no classical solution but with a perfect
     commuting-operator strategy.
-
     The constraints:
         x1 + x2 = 1
         x2 + x3 = 1
