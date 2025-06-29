@@ -9,7 +9,7 @@ from toqito.state_metrics import fidelity
 
 
 def bures_angle(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> float:
-    r"""Compute the Bures angle of two density matrices :cite:`WikiBures`.
+    r"""Compute the Bures angle of two density matrices :footcite:`WikiBures`.
 
     Calculate the Bures angle between two density matrices :code:`rho_1` and :code:`rho_2` defined by:
 
@@ -39,24 +39,27 @@ def bures_angle(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> flo
                        \end{pmatrix} \in \text{D}(\mathcal{X}).
 
     In the event where we calculate the Bures angle between states that are identical, we should obtain the value of
-    :math:`0`. This can be observed in :code:`toqito` as follows.
+    :math:`0`. This can be observed in :code:`|toqito⟩` as follows.
 
-    >>> from toqito.state_metrics import bures_angle
-    >>> import numpy as np
-    >>> rho = 1 / 2 * np.array(
-    ...     [[1, 0, 0, 1],
-    ...      [0, 0, 0, 0],
-    ...      [0, 0, 0, 0],
-    ...      [1, 0, 0, 1]]
-    ... )
-    >>> sigma = rho
-    >>> bures_angle(rho, sigma)
-    np.float64(0.0)
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.state_metrics import bures_angle
+
+     rho = 1 / 2 * np.array(
+         [[1, 0, 0, 1],
+          [0, 0, 0, 0],
+          [0, 0, 0, 0],
+          [1, 0, 0, 1]]
+     )
+     sigma = rho
+
+     bures_angle(rho, sigma)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :raises ValueError: If matrices are not of equal dimension.
     :param rho_1: Density operator.

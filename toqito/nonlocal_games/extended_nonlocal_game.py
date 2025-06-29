@@ -5,9 +5,10 @@ from collections import defaultdict
 import cvxpy
 import numpy as np
 
-from toqito.helper import npa_constraints, update_odometer
+from toqito.helper import update_odometer
 from toqito.matrix_ops import tensor
 from toqito.rand import random_unitary
+from toqito.state_opt.npa_hierarchy import npa_constraints
 
 
 class ExtendedNonlocalGame:
@@ -19,16 +20,16 @@ class ExtendedNonlocalGame:
     made by the referee, on its part of the shared quantum state, in addition
     to Alice and Bob's answers to the questions sent by the referee.
 
-    Extended nonlocal games were initially defined in :cite:`Johnston_2016_Extended` and more
-    information on these games can be found in :cite:`Russo_2017_Extended`.
+    Extended nonlocal games were initially defined in :footcite:`Johnston_2016_Extended` and more
+    information on these games can be found in :footcite:`Russo_2017_Extended`.
 
     An example demonstration is available as a tutorial in the
-    documentation. Go to :ref:`ref-label-bb84_extended_nl_example`.
+    documentation. Go to :ref:`sphx_glr_auto_examples_quantumgames_example_extended_nonlocal_games.py`.
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     """
 
@@ -48,37 +49,65 @@ class ExtendedNonlocalGame:
 
         else:
             (
-                dim_x,
-                dim_y,
-                num_alice_out,
-                num_bob_out,
-                num_alice_in,
-                num_bob_in,
+                self.dim_x,
+                self.dim_y,
+                self.num_alice_out,
+                self.num_bob_out,
+                self.num_alice_in,
+                self.num_bob_in,
             ) = pred_mat.shape
             self.prob_mat = tensor(prob_mat, reps)
 
             pred_mat2 = np.zeros(
                 (
-                    dim_x**reps,
-                    dim_y**reps,
-                    num_alice_out**reps,
-                    num_bob_out**reps,
-                    num_alice_in**reps,
-                    num_bob_in**reps,
+                    self.dim_x**reps,
+                    self.dim_y**reps,
+                    self.num_alice_out**reps,
+                    self.num_bob_out**reps,
+                    self.num_alice_in**reps,
+                    self.num_bob_in**reps,
                 )
             )
             i_ind = np.zeros(reps, dtype=int)
             j_ind = np.zeros(reps, dtype=int)
-            for i in range(num_alice_in**reps):
-                for j in range(num_bob_in**reps):
-                    to_tensor = np.empty([reps, dim_x, dim_y, num_alice_out, num_bob_out])
+            for i in range(self.num_alice_in**reps):
+                for j in range(self.num_bob_in**reps):
+                    to_tensor = np.empty([reps, self.dim_x, self.dim_y, self.num_alice_out, self.num_bob_out])
                     for k in range(reps - 1, -1, -1):
                         to_tensor[k] = pred_mat[:, :, :, :, i_ind[k], j_ind[k]]
                     pred_mat2[:, :, :, :, i, j] = tensor(to_tensor)
-                    j_ind = update_odometer(j_ind, num_bob_in * np.ones(reps))
-                i_ind = update_odometer(i_ind, num_alice_in * np.ones(reps))
+                    j_ind = update_odometer(j_ind, self.num_bob_in * np.ones(reps))
+                i_ind = update_odometer(i_ind, self.num_alice_in * np.ones(reps))
             self.pred_mat = pred_mat2
             self.reps = reps
+        self.__get_game_dims()
+
+    def __get_game_dims(self):
+        """Initialize game dimensions from the prediction matrix.
+
+        This private method checks whether the game dimensions have already been initialized by
+        inspecting the '_dims_initialized_by_get_game_dims' flag. If not, it extracts the dimensions
+        from the shape of 'self.pred_mat' and assigns the following instance attributes:
+
+          - referee_dim: The first dimension of self.pred_mat.
+          - num_alice_out: The third element of self.pred_mat.shape.
+          - num_bob_out: The fourth element.
+          - num_alice_in: The fifth element.
+          - num_bob_in: The sixth element.
+
+        After extracting these values, the flag '_dims_initialized_by_get_game_dims' is set to True
+        to prevent re-initialization on subsequent calls.
+        """
+        if not hasattr(self, "_dims_initialized_by_get_game_dims") or not self._dims_initialized_by_get_game_dims:
+            (
+                self.referee_dim,
+                _,
+                self.num_alice_out,
+                self.num_bob_out,
+                self.num_alice_in,
+                self.num_bob_in,
+            ) = self.pred_mat.shape
+            self._dims_initialized_by_get_game_dims = True
 
     def unentangled_value(self) -> float:
         r"""Calculate the unentangled value of an extended nonlocal game.
@@ -247,180 +276,247 @@ class ExtendedNonlocalGame:
 
         return ns_val
 
-    def quantum_value_lower_bound(self, iters: int = 5, tol: float = 10e-6) -> float:
+    def quantum_value_lower_bound(
+        self,
+        iters: int = 20,
+        tol: float = 1e-8,
+        seed: int = None,
+        initial_bob_is_random: bool | dict = False,
+        solver: str = cvxpy.SCS,
+        solver_params: dict = None,
+        verbose: bool = False,
+    ) -> float:
         r"""Calculate lower bound on the quantum value of an extended nonlocal game.
 
-        Test
+        Uses an iterative see-saw method involving two SDPs.
 
-        :return: The quantum value of the extended nonlocal game.
+        :param iter: Maximum number of see-saw iterations (Alice optimizes, Bob optimizes (default is 20).
+        :param tol: Tolerance for stopping see-saw iteration based on improvement (default is 1e-8).
+        :param seed: Optional seed for initializing random POVMs for reproducibility (default is None).
+        :param solver: Optional option for different solver (default is SCS).
+        :param solver_params: Optional parameters for solver (default is {"eps": 1e-8, "verbose": False}).
+        :param verbos: Optional printout for optimizer step (default is False).
+        :return: The best lower bound found on the quantum value.
         """
+        self.__get_game_dims()
+        if solver_params is None:
+            solver_params = {"eps_abs": tol, "eps_rel": tol, "max_iters": 50000, "verbose": False}
+        if seed is not None:
+            np.random.seed(seed)
+
         # Get number of inputs and outputs for Bob's measurements.
         _, _, _, num_outputs_bob, _, num_inputs_bob = self.pred_mat.shape
 
-        best_lower_bound = float("-inf")
-        for _ in range(iters):
-            # Generate a set of random POVMs for Bob. These measurements serve as a
-            # rough starting point for the alternating projection algorithm.
-            bob_povms = defaultdict(int)
-            for y_ques in range(num_inputs_bob):
-                random_mat = random_unitary(num_outputs_bob)
-                for b_ans in range(num_outputs_bob):
-                    random_mat_trans = random_mat[:, b_ans].conj().T.reshape(-1, 1)
-                    bob_povms[y_ques, b_ans] = random_mat[:, b_ans] * random_mat_trans
+        # Initialize Bob's POVMs (NumPy arrays) - Default to RANDOM
+        bob_povms_np = defaultdict(lambda: np.zeros((num_outputs_bob, num_outputs_bob), dtype=complex))
+        if isinstance(initial_bob_is_random, bool):
+            if initial_bob_is_random:
+                for y_ques in range(num_inputs_bob):
+                    random_u_mat = random_unitary(num_outputs_bob)
+                    for b_ans in range(num_outputs_bob):
+                        ket = random_u_mat[:, b_ans].reshape(-1, 1)
+                        bra = ket.conj().T
+                        bob_povms_np[y_ques, b_ans] = ket @ bra
+            else:
+                for y_ques in range(num_inputs_bob):
+                    bob_povms_np[y_ques, 0] = np.eye(num_outputs_bob)
+                    for b_other_ans in range(1, num_outputs_bob):
+                        bob_povms_np[y_ques, b_other_ans] = np.zeros((num_outputs_bob, num_outputs_bob))
+        elif isinstance(initial_bob_is_random, dict):  # If you allow dict for custom POVMs
+            bob_povms_np = initial_bob_is_random
+        else:
+            raise TypeError(
+                f"Expected initial_bob_is_random to be bool or dict, "  # Adjust if only bool supported
+                f"got {type(initial_bob_is_random).__name__} instead."
+            )
 
-            # Run the alternating projection algorithm between the two SDPs.
-            it_diff = 1
-            prev_win = -1
-            best = float("-inf")
-            while it_diff > tol:
-                # Optimize over Alice's measurement operators while fixing Bob's.
-                # If this is the first iteration, then the previously randomly
-                # generated operators in the outer loop are Bob's. Otherwise, Bob's
-                # operators come from running the next SDP.
-                rho, lower_bound = self.__optimize_alice(bob_povms)
-                bob_povms, lower_bound = self.__optimize_bob(rho)
+        prev_win_val = -float("inf")
+        current_best_lower_bound = -float("inf")
 
-                it_diff = lower_bound - prev_win
-                prev_win = lower_bound
+        if verbose:
+            init_bob_display = "dict" if isinstance(initial_bob_is_random, dict) else initial_bob_is_random
+            print(
+                f"Starting see-saw: max_steps={iters}, tol={tol}, seed={seed}, solver={solver}, "
+                + f"random_init={init_bob_display}"
+            )
 
-                # As the SDPs keep alternating, check if the winning probability
-                # becomes any higher. If so, replace with new best.
-                best = max(best, lower_bound)
+        for step in range(iters):
+            opt_alice_rho_cvxpy_vars, problem_alice = self.__optimize_alice(bob_povms_np, solver, solver_params)
 
-            best_lower_bound = max(best, best_lower_bound)
+            if (
+                opt_alice_rho_cvxpy_vars is None
+                or problem_alice.status not in [cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE]
+                or problem_alice.value is None
+            ):
+                if verbose:
+                    print(
+                        f"Warning: Alice optimization step failed (status: {problem_alice.status}) "
+                        f"in see-saw step {step + 1}. Value: {problem_alice.value}"
+                    )
+                return current_best_lower_bound if current_best_lower_bound > -float("inf") else 0.0
 
-        return best_lower_bound
+            opt_bob_povm_cvxpy_vars, problem_bob = self.__optimize_bob(opt_alice_rho_cvxpy_vars, solver, solver_params)
 
-    def __optimize_alice(self, bob_povms) -> tuple[dict, float]:
+            if (
+                opt_bob_povm_cvxpy_vars is None
+                or problem_bob.status not in [cvxpy.OPTIMAL, cvxpy.OPTIMAL_INACCURATE]
+                or problem_bob.value is None
+            ):
+                if verbose:
+                    print(
+                        f"Warning: Bob optimization step failed (status: {problem_bob.status}) "
+                        f"in see-saw step {step + 1}. Value: {problem_bob.value}"
+                    )
+                return current_best_lower_bound if current_best_lower_bound > -float("inf") else 0.0
+
+            current_win_val = problem_bob.value
+
+            current_best_lower_bound = max(current_best_lower_bound, current_win_val)
+
+            improvement = abs(current_win_val - prev_win_val)
+
+            if verbose:
+                print(
+                    f"See-saw step {step + 1}/{iters}: Win prob = {current_win_val:.8f}, "
+                    + f"Improv = {improvement:.2e}, Best = {current_best_lower_bound:.8f}"
+                )
+
+            if (
+                improvement < tol and step > 0
+            ):  # step > 0 to ensure prev_win_val is not -inf for the first real improvement check
+                if verbose:
+                    print(f"See-saw converged at step {step + 1} with value {current_best_lower_bound:.8f}")
+                break
+            prev_win_val = current_win_val
+
+            # If not the last iteration, update Bob's POVMs for the next step
+            if step < iters - 1:
+                for y_idx in range(self.num_bob_in):
+                    for b_idx in range(self.num_bob_out):
+                        povm_var = opt_bob_povm_cvxpy_vars.get((y_idx, b_idx))  # Use .get for safety
+                        if povm_var is None or povm_var.value is None:
+                            if verbose:
+                                print(
+                                    f"Warning: Bob POVM var ({y_idx},{b_idx}) value is None in step {step + 1} "
+                                    f"during POVM update. Exiting see-saw early."
+                                )
+                            return current_best_lower_bound if current_best_lower_bound > -float("inf") else 0.0
+                        bob_povms_np[y_idx, b_idx] = povm_var.value
+
+        else:
+            if verbose and iters > 0:
+                print(f"See-Saw reached max steps ({iters}) with value {current_best_lower_bound:.8f}")
+
+        return current_best_lower_bound if current_best_lower_bound > -float("inf") else 0.0
+
+    def __optimize_alice(
+        self, fixed_bob_povms_np: dict, solver: str = cvxpy.SCS, solver_params: dict = None
+    ) -> tuple[dict | None, cvxpy.Problem]:
         """Fix Bob's measurements and optimize over Alice's measurements."""
-        # Get number of inputs and outputs.
-        (
-            dim,
-            _,
-            num_outputs_alice,
-            num_outputs_bob,
-            num_inputs_alice,
-            num_inputs_bob,
-        ) = self.pred_mat.shape
-
         # The cvxpy package does not support optimizing over 4-dimensional objects.
         # To overcome this, we use a dictionary to index between the questions and
         # answers, while the cvxpy variables held at this positions are
         # `dim`-by-`dim` cvxpy variables.
-        rho = defaultdict(cvxpy.Variable)
-        for x_ques in range(num_inputs_alice):
-            for a_ans in range(num_outputs_alice):
-                rho[x_ques, a_ans] = cvxpy.Variable((dim * num_outputs_bob, dim * num_outputs_bob), hermitian=True)
+        self.__get_game_dims()
 
-        tau = cvxpy.Variable((dim * num_outputs_bob, dim * num_outputs_bob), hermitian=True)
-        win = 0
-        for x_ques in range(num_inputs_alice):
-            for y_ques in range(num_inputs_bob):
-                for a_ans in range(num_outputs_alice):
-                    for b_ans in range(num_outputs_bob):
-                        if isinstance(bob_povms[y_ques, b_ans], np.ndarray):
-                            win += self.prob_mat[x_ques, y_ques] * cvxpy.trace(
-                                (
-                                    np.kron(
-                                        self.pred_mat[:, :, a_ans, b_ans, x_ques, y_ques],
-                                        bob_povms[y_ques, b_ans],
-                                    )
-                                )
-                                .conj()
-                                .T
-                                @ rho[x_ques, a_ans]
-                            )
-                        if isinstance(
-                            bob_povms[y_ques, b_ans],
-                            cvxpy.expressions.variable.Variable,
-                        ):
-                            win += self.prob_mat[x_ques, y_ques] * cvxpy.trace(
-                                (
-                                    np.kron(
-                                        self.pred_mat[:, :, a_ans, b_ans, x_ques, y_ques],
-                                        bob_povms[y_ques, b_ans].value,
-                                    )
-                                )
-                                .conj()
-                                .T
-                                @ rho[x_ques, a_ans]
-                            )
-        objective = cvxpy.Maximize(cvxpy.real(win))
+        rho_xa_cvxpy_vars = defaultdict(cvxpy.Variable)
+        for x_ques in range(self.num_alice_in):
+            for a_ans in range(self.num_alice_out):
+                rho_xa_cvxpy_vars[x_ques, a_ans] = cvxpy.Variable(
+                    (self.referee_dim * self.num_bob_out, self.referee_dim * self.num_bob_out),
+                    hermitian=True,
+                    name=f"rho_A_{x_ques}{a_ans}",
+                )
+        tau_A_cvxpy_var = cvxpy.Variable(
+            (self.referee_dim * self.num_bob_out, self.referee_dim * self.num_bob_out), hermitian=True, name="tau_A"
+        )
+
+        win_objective = cvxpy.Constant(0)
+        for x_q in range(self.num_alice_in):
+            for y_q in range(self.num_bob_in):
+                if self.prob_mat[x_q, y_q] == 0:
+                    continue
+                for a_ans_alice in range(self.num_alice_out):
+                    for b_ans_bob in range(self.num_bob_out):
+                        # fixed_bob_povms_np is guaranteed to be np.ndarray here
+                        v_xyab = self.pred_mat[:, :, a_ans_alice, b_ans_bob, x_q, y_q]
+                        b_yb = fixed_bob_povms_np[y_q, b_ans_bob]
+                        op_for_trace = np.kron(v_xyab, b_yb)
+                        win_objective += self.prob_mat[x_q, y_q] * cvxpy.trace(
+                            op_for_trace.conj().T @ rho_xa_cvxpy_vars[x_q, a_ans_alice]
+                        )
+
+        objective = cvxpy.Maximize(cvxpy.real(win_objective))
         constraints = []
-
-        # Sum over "a" for all "x" for Alice's measurements.
-        for x_ques in range(num_inputs_alice):
-            rho_sum_a = 0
-            for a_ans in range(num_outputs_alice):
-                rho_sum_a += rho[x_ques, a_ans]
-                constraints.append(rho[x_ques, a_ans] >> 0)
-            constraints.append(rho_sum_a == tau)
-
-        constraints.append(cvxpy.trace(tau) == 1)
-        constraints.append(tau >> 0)
+        for x_q_constr in range(self.num_alice_in):
+            rho_sum_a_constr = 0
+            for a_ans_constr in range(self.num_alice_out):
+                constraints.append(rho_xa_cvxpy_vars[x_q_constr, a_ans_constr] >> 0)
+                rho_sum_a_constr += rho_xa_cvxpy_vars[x_q_constr, a_ans_constr]
+            constraints.append(rho_sum_a_constr == tau_A_cvxpy_var)
+        constraints.append(cvxpy.trace(tau_A_cvxpy_var) == 1)
+        constraints.append(tau_A_cvxpy_var >> 0)
 
         problem = cvxpy.Problem(objective, constraints)
+        problem.solve(solver=solver, **solver_params)  # Use passed solver and params
 
-        lower_bound = problem.solve()
-        return rho, lower_bound
+        return rho_xa_cvxpy_vars, problem
 
-    def __optimize_bob(self, rho) -> tuple[dict, float]:
+    def __optimize_bob(
+        self, alice_rho_cvxpy_vars: dict | None, solver: str = cvxpy.SCS, solver_params: dict = None
+    ) -> tuple[dict | None, cvxpy.Problem]:
         """Fix Alice's measurements and optimize over Bob's measurements."""
         # Get number of inputs and outputs.
-        (
-            dim,
-            _,
-            num_outputs_alice,
-            num_outputs_bob,
-            num_inputs_alice,
-            num_inputs_bob,
-        ) = self.pred_mat.shape
+        self.__get_game_dims()
 
         # The cvxpy package does not support optimizing over 4-dimensional objects.
         # To overcome this, we use a dictionary to index between the questions and
         # answers, while the cvxpy variables held at this positions are
         # `dim`-by-`dim` cvxpy variables.
-        bob_povms = defaultdict(cvxpy.Variable)
-        for y_ques in range(num_inputs_bob):
-            for b_ans in range(num_outputs_bob):
-                bob_povms[y_ques, b_ans] = cvxpy.Variable((dim, dim), hermitian=True)
-        win = 0
-        for x_ques in range(num_inputs_alice):
-            for y_ques in range(num_inputs_bob):
-                for a_ans in range(num_outputs_alice):
-                    for b_ans in range(num_outputs_bob):
-                        win += self.prob_mat[x_ques, y_ques] * cvxpy.trace(
-                            (
-                                cvxpy.kron(
-                                    self.pred_mat[:, :, a_ans, b_ans, x_ques, y_ques],
-                                    bob_povms[y_ques, b_ans],
-                                )
-                            )
-                            @ rho[x_ques, a_ans].value
+
+        bob_povm_cvxpy_vars = defaultdict(cvxpy.Variable)
+        for y_ques in range(self.num_bob_in):
+            for b_ans in range(self.num_bob_out):
+                bob_povm_cvxpy_vars[y_ques, b_ans] = cvxpy.Variable(
+                    (self.num_bob_out, self.num_bob_out), hermitian=True, name=f"B_POVM_{y_ques}{b_ans}"
+                )
+
+        win_objective = cvxpy.Constant(0)
+
+        for x_q in range(self.num_alice_in):
+            for y_q in range(self.num_bob_in):
+                if self.prob_mat[x_q, y_q] == 0:
+                    continue
+                for a_ans_alice in range(self.num_alice_out):
+                    rho_xa_val = alice_rho_cvxpy_vars[x_q, a_ans_alice].value
+
+                    for b_ans_bob in range(self.num_bob_out):
+                        v_xyab = self.pred_mat[:, :, a_ans_alice, b_ans_bob, x_q, y_q]
+                        win_objective += self.prob_mat[x_q, y_q] * cvxpy.trace(
+                            cvxpy.kron(v_xyab, bob_povm_cvxpy_vars[y_q, b_ans_bob]) @ rho_xa_val
                         )
-        objective = cvxpy.Maximize(cvxpy.real(win))
 
+        objective = cvxpy.Maximize(cvxpy.real(win_objective))
         constraints = []
-
-        # Sum over "b" for all "y" for Bob's measurements.
-        for y_ques in range(num_inputs_bob):
-            bob_sum_b = 0
-            for b_ans in range(num_outputs_bob):
-                bob_sum_b += bob_povms[y_ques, b_ans]
-                constraints.append(bob_povms[y_ques, b_ans] >> 0)
-            constraints.append(bob_sum_b == np.identity(num_outputs_bob))
+        ident_bob_space = np.identity(self.num_bob_out)
+        for y_q_constr in range(self.num_bob_in):
+            sum_b_povm = 0
+            for b_ans_constr in range(self.num_bob_out):
+                constraints.append(bob_povm_cvxpy_vars[y_q_constr, b_ans_constr] >> 0)
+                sum_b_povm += bob_povm_cvxpy_vars[y_q_constr, b_ans_constr]
+            constraints.append(sum_b_povm == ident_bob_space)
 
         problem = cvxpy.Problem(objective, constraints)
+        problem.solve(solver=solver, **solver_params)  # Use passed solver and params
 
-        lower_bound = problem.solve()
-        return bob_povms, lower_bound
+        return bob_povm_cvxpy_vars, problem
 
     def commuting_measurement_value_upper_bound(self, k: int | str = 1) -> float:
         """Compute an upper bound on the commuting measurement value of an extended nonlocal game.
 
         This function calculates an upper bound on the commuting measurement value by
-        using k-levels of the NPA hierarchy :cite:`Navascues_2008_AConvergent`. The NPA hierarchy is a uniform family
-        of semidefinite programs that converges to the commuting measurement value of
+        using k-levels of the NPA hierarchy :footcite:`Navascues_2008_AConvergent`. The NPA hierarchy is a uniform
+        family of semidefinite programs that converges to the commuting measurement value of
         any extended nonlocal game.
 
         You can determine the level of the hierarchy by a positive integer or a string
@@ -430,8 +526,8 @@ class ExtendedNonlocalGame:
 
         References
         ==========
-        .. bibliography::
-            :filter: docname in docnames
+        .. footbibliography::
+
 
         :param k: The level of the NPA hierarchy to use (default=1).
         :return: The upper bound on the commuting strategy value of an extended nonlocal game.

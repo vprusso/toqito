@@ -1,5 +1,6 @@
 """Permutations is a set of modules that are used to implement various permutations and combinatorial functions."""
 
+from toqito.perms.vec import vec
 from toqito.perms.unique_perms import unique_perms
 from toqito.perms.perfect_matchings import perfect_matchings
 from toqito.perms.perm_sign import perm_sign

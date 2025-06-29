@@ -24,7 +24,7 @@ def is_unital(
     list :code:`[[r,x], [c,y]]`. If it maps :math:`M_m` to :math:`M_n`, then :code:`dim` can simply
     be the vector :code:`[m,n]`.
 
-    More information can be found in Chapter: Unital Channels And Majorization from :cite:`Watrous_2018_TQI`).
+    More information can be found in Chapter: Unital Channels And Majorization from :footcite:`Watrous_2018_TQI`).
 
     Examples
     ==========
@@ -32,27 +32,31 @@ def is_unital(
     Consider the channel whose Choi matrix is the swap operator. This channel is an example of a
     unital channel.
 
-    >>> from toqito.perms import swap_operator
-    >>> from toqito.channel_props import is_unital
-    >>>
-    >>> choi = swap_operator(3)
-    >>> is_unital(choi)
-    True
+    .. jupyter-execute::
+
+     from toqito.perms import swap_operator
+     from toqito.channel_props import is_unital
+
+     choi = swap_operator(3)
+
+     is_unital(choi)
 
     Additionally, the channel whose Choi matrix is the depolarizing channel is another example of
     a unital channel.
 
-    >>> from toqito.channels import depolarizing
-    >>> from toqito.channel_props import is_unital
-    >>>
-    >>> choi = depolarizing(4)
-    >>> is_unital(choi)
-    True
+    .. jupyter-execute::
+
+     from toqito.channels import depolarizing
+     from toqito.channel_props import is_unital
+
+     choi = depolarizing(4)
+
+     is_unital(choi)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param phi: The channel provided as either a Choi matrix or a list of Kraus operators.

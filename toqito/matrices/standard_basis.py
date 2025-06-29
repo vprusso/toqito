@@ -18,21 +18,22 @@ def standard_basis(dim: int, flatten: bool = False) -> list[np.ndarray]:
         .
         |n> = (0, 0, 0, ..., 1)^T
 
-    This function was inspired by :cite:`Seshadri_2021_Git, Seshadri_2021_Theory, Seshadri_2021_Versatile`
+    This function was inspired by :footcite:`Seshadri_2021_Git, Seshadri_2021_Theory, Seshadri_2021_Versatile`
 
     Examples
     ========
-    >>> from toqito.matrices import standard_basis
-    >>> standard_basis(2)
-    [array([[1.],
-           [0.]]), array([[0.],
-           [1.]])]
+
+    .. jupyter-execute::
+
+     from toqito.matrices import standard_basis
+
+     standard_basis(2)
 
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :param dim: The dimension of the basis.
     :param flatten: If True, the basis is returned as a flattened list.

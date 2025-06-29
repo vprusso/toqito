@@ -14,11 +14,12 @@ class XORGame:
     communicate during the game itself.
 
     The quantum value of an XOR game can be solved via the semidefinite program
-    from :cite:`Cleve_2010_Consequences`.
+    from :footcite:`Cleve_2010_Consequences`.
 
     This function is adapted from the QETLAB package.
 
-    A tutorial is available in the documentation. Go to :ref:`ref-label-xor-quantum-value-tutorial`.
+    A tutorial is available in the documentation. Go to
+    :ref:`sphx_glr_auto_examples_quantumgames_example_xor_quantum_value.py`.
 
     Examples
     ==========
@@ -26,7 +27,7 @@ class XORGame:
     The CHSH game
 
     The CHSH game is a two-player nonlocal game with the following probability
-    distribution and question and answer sets :cite:`Cleve_2008_Strong`.
+    distribution and question and answer sets :footcite:`Cleve_2008_Strong`.
 
     .. math::
             \begin{equation}
@@ -61,61 +62,76 @@ class XORGame:
     In order to specify the CHSH game, we can define the probability matrix and
     predicate matrix for the CHSH game as `numpy` arrays as follows.
 
-    >>> import numpy as np
-    >>> prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
-    >>> pred_mat = np.array([[0, 0], [0, 1]])
+    .. jupyter-execute::
+
+     import numpy as np
+
+     prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
+     pred_mat = np.array([[0, 0], [0, 1]])
 
     In `toqito`, we can calculate both the quantum and classical value of the
     CHSH game as follows.
 
-    >>> import numpy as np
-    >>> from toqito.nonlocal_games.xor_game import XORGame
-    >>> chsh = XORGame(prob_mat, pred_mat)
-    >>> np.around(chsh.quantum_value(), decimals=2)
-    np.float64(0.85)
-    >>>
-    >>> chsh.classical_value()
-    np.float64(0.75)
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.nonlocal_games.xor_game import XORGame
+
+     chsh = XORGame(prob_mat, pred_mat)
+
+     print(f"Quantum value of the CHSH game is {np.around(chsh.quantum_value(), decimals=2)}")
+     print(f"Classical value of the CHSH game is {chsh.classical_value()}")
 
     The odd cycle game
 
-    The odd cycle game is another XOR game :cite:`Cleve_2010_Consequences`. For this game, we can
+    The odd cycle game is another XOR game :footcite:`Cleve_2010_Consequences`. For this game, we can
     specify the probability and predicate matrices as follows.
 
-    >>> prob_mat = np.array(
-    ... [
-    ...     [0.1, 0.1, 0, 0, 0],
-    ...     [0, 0.1, 0.1, 0, 0],
-    ...     [0, 0, 0.1, 0.1, 0],
-    ...     [0, 0, 0, 0.1, 0.1],
-    ...     [0.1, 0, 0, 0, 0.1],
-    ... ]
-    ... )
-    >>> pred_mat = np.array(
-    ... [
-    ...     [0, 1, 0, 0, 0],
-    ...     [0, 0, 1, 0, 0],
-    ...     [0, 0, 0, 1, 0],
-    ...     [0, 0, 0, 0, 1],
-    ...     [1, 0, 0, 0, 0],
-    ... ]
-    ... )
+    .. jupyter-execute::
 
-    In :code:`toqito`, we can calculate both the quantum and classical value of
+     prob_mat = np.array(
+     [
+         [0.1, 0.1, 0, 0, 0],
+         [0, 0.1, 0.1, 0, 0],
+         [0, 0, 0.1, 0.1, 0],
+         [0, 0, 0, 0.1, 0.1],
+         [0.1, 0, 0, 0, 0.1],
+     ]
+     )
+     pred_mat = np.array(
+     [
+         [0, 1, 0, 0, 0],
+         [0, 0, 1, 0, 0],
+         [0, 0, 0, 1, 0],
+         [0, 0, 0, 0, 1],
+         [1, 0, 0, 0, 0],
+     ]
+     )
+
+    In :code:`|toqito⟩`, we can calculate both the quantum and classical value of
     the odd cycle game as follows.
 
-    >>> import numpy as np
-    >>> from toqito.nonlocal_games.xor_game import XORGame
-    >>> odd_cycle = XORGame(prob_mat, pred_mat)
-    >>> np.around(odd_cycle.quantum_value(), decimals=2)
-    np.float64(0.98)
-    >>> np.around(odd_cycle.classical_value(), decimals=1)
-    np.float64(0.9)
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.nonlocal_games.xor_game import XORGame
+
+     odd_cycle = XORGame(prob_mat, pred_mat)
+
+     print(f"Quantum value of the odd cycle game is {np.around(odd_cycle.quantum_value(), decimals=2)}")
+     print(f"Classical value of the odd cycle game is {np.around(odd_cycle.classical_value(), decimals=1)}")
+
+
+    We can also calculate the nonsignaling value of the odd cycle game.
+
+    .. jupyter-execute::
+
+     print(f"Nonsignaling value of the odd cycle game is {np.around(odd_cycle.nonsignaling_value(), decimals=1)}")
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     """
@@ -167,7 +183,7 @@ class XORGame:
 
         To obtain the quantum value of the XOR game, we calculate the following
         simplified dual problem of the semidefinite program from the set of
-        notes: Lecture 6 of :cite:`Watrous_2011_Lecture_Notes`
+        notes: Lecture 6 of :footcite:`Watrous_2011_Lecture_Notes`
 
                 .. math::
                         \begin{equation}

@@ -9,13 +9,13 @@ from toqito.matrix_props import is_nonnegative, is_square
 def positive_semidefinite_rank(mat: np.ndarray, max_rank: int = 10) -> int | None:
     r"""Compute the positive semidefinite rank (PSD rank) of a nonnegative matrix.
 
-    The definition of PSD rank is defined in :cite:`Fawzi_2015_Positive`.
+    The definition of PSD rank is defined in :footcite:`Fawzi_2015_Positive`.
 
     Finds the PSD rank of an input matrix by checking feasibility for increasing rank.
 
     Examples
     ========
-    As an example (Equation 21 from :cite:`Heinosaari_2024_Can`), the PSD rank of the following matrix
+    As an example (Equation 21 from :footcite:`Heinosaari_2024_Can`), the PSD rank of the following matrix
 
     .. math::
         A = \frac{1}{2}
@@ -27,22 +27,27 @@ def positive_semidefinite_rank(mat: np.ndarray, max_rank: int = 10) -> int | Non
 
     is known to be :math:`\text{rank}_{\text{PSD}}(A) = 2`.
 
-    >>> import numpy as np
-    >>> from toqito.matrix_props import positive_semidefinite_rank
-    >>> positive_semidefinite_rank(1/2 * np.array([[0, 1, 1], [1,0,1], [1,1,0]]))
-    2
+    .. jupyter-execute::
 
-    The PSD rank of the identity matrix is the dimension of the matrix :cite:`Fawzi_2015_Positive`.
+     import numpy as np
+     from toqito.matrix_props import positive_semidefinite_rank
 
-    >>> import numpy as np
-    >>> from toqito.matrix_props import positive_semidefinite_rank
-    >>> positive_semidefinite_rank(np.identity(3))
-    3
+     positive_semidefinite_rank(1/2 * np.array([[0, 1, 1], [1,0,1], [1,1,0]]))
+
+
+    The PSD rank of the identity matrix is the dimension of the matrix :footcite:`Fawzi_2015_Positive`.
+
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import positive_semidefinite_rank
+
+     positive_semidefinite_rank(np.identity(3))
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :param mat: 2D numpy ndarray.
     :param max_rank: The maximum rank to check.
@@ -76,10 +81,7 @@ def _check_psd_rank(mat: np.ndarray, max_rank: int) -> bool:
     constraints = []
     for i in range(m):
         for j in range(n):
-            constraints.append(
-                cp.bmat([[x_var[i,j], mat[i,j]],
-                         [mat[i,j], x_var[j,i]]]) >> 0
-            )
+            constraints.append(cp.bmat([[x_var[i, j], mat[i, j]], [mat[i, j], x_var[j, i]]]) >> 0)
     constraints.append(cp.norm(x_var, "nuc") <= max_rank)
 
     # Define objective.

@@ -37,7 +37,8 @@ def swap(
             4 & 8 & 12 & 16
         \end{pmatrix}.
 
-    If we apply the :code:`swap` function provided by :code:`toqito` on :math:`X`, we should obtain the following matrix
+    If we apply the :code:`swap` function provided by :code:`|toqito⟩` on :math:`X`, we should obtain the following
+    matrix
 
     .. math::
         \text{Swap}(X) =
@@ -48,16 +49,16 @@ def swap(
             4 & 12 & 8 & 16
         \end{pmatrix}.
 
-    This can be observed by the following example in :code:`toqito`.
+    This can be observed by the following example in :code:`|toqito⟩`.
 
-    >>> from toqito.perms import swap
-    >>> import numpy as np
-    >>> test_mat = np.array([[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]])
-    >>> swap(test_mat)
-    array([[ 1,  9,  5, 13],
-           [ 3, 11,  7, 15],
-           [ 2, 10,  6, 14],
-           [ 4, 12,  8, 16]])
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.perms import swap
+
+     test_mat = np.arange(1, 17).reshape(4, 4)
+
+     swap(test_mat)
 
     It is also possible to use the :code:`sys` and :code:`dim` arguments, it is possible to specify the system and
     dimension on which to apply the swap operator. For instance for :code:`sys = [1 ,2]` and :code:`dim = 2` we have
@@ -72,26 +73,28 @@ def swap(
             4 & 12 & 8 & 16
         \end{pmatrix}.
 
-    Using :code:`toqito` we can see this gives the proper result.
+    Using :code:`|toqito⟩` we can see this gives the proper result.
 
-    >>> from toqito.perms import swap
-    >>> import numpy as np
-    >>> test_mat = np.array(
-    ...     [[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]]
-    ... )
-    >>> swap(test_mat, [1, 2], 2)
-    array([[ 1,  9,  5, 13],
-           [ 3, 11,  7, 15],
-           [ 2, 10,  6, 14],
-           [ 4, 12,  8, 16]])
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.perms import swap
+
+     test_mat = np.array(
+         [[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]]
+     )
+     swap(test_mat, [1, 2], 2)
 
     It is also possible to perform the :code:`swap` function on vectors in addition to matrices.
 
-    >>> from toqito.perms import swap
-    >>> import numpy as np
-    >>> test_vec = np.array([1, 2, 3, 4])
-    >>> swap(test_vec)
-    array([1, 3, 2, 4])
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.perms import swap
+
+     test_vec = np.array([1, 2, 3, 4])
+
+     swap(test_vec)
 
 
 
@@ -145,7 +148,7 @@ def swap(
         raise ValueError("InvalidSys: `sys` must be a vector with exactly two elements.")
 
     # Swap the indicated subsystems.
-    perm = np.array(range(num_sys ))
+    perm = np.array(range(num_sys))
     sys = np.array(sys) - 1
 
     perm[sys] = perm[sys[::-1]]

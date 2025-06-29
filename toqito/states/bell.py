@@ -9,7 +9,7 @@ from toqito.states import basis
 
 
 def bell(idx: int) -> np.ndarray:
-    r"""Produce a Bell state :cite:`WikiBellSt`.
+    r"""Produce a Bell state :footcite:`WikiBellSt`.
 
     Returns one of the following four Bell states depending on the value of :code:`idx`:
 
@@ -33,20 +33,19 @@ def bell(idx: int) -> np.ndarray:
     .. math::
         u_0 = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right).
 
-    Using :code:`toqito`, we can see that this yields the proper state.
+    Using :code:`|toqito⟩`, we can see that this yields the proper state.
 
-    >>> from toqito.states import bell
-    >>> import numpy as np
-    >>> bell(0)
-    array([[0.70710678],
-           [0.        ],
-           [0.        ],
-           [0.70710678]])
+    .. jupyter-execute::
+
+        from toqito.states import bell
+        import numpy as np
+        bell(0)
+
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :raises ValueError: If :code:`idx` is not an integer.
     :param idx: A parameter in [0, 1, 2, 3]

@@ -2,12 +2,12 @@
 
 import numpy as np
 
-from toqito.channels import partial_transpose
+from toqito.matrix_ops import partial_transpose
 from toqito.matrix_props import is_positive_semidefinite
 
 
 def is_ppt(mat: np.ndarray, sys: int = 2, dim: int | list[int] = None, tol: float = None) -> bool:
-    r"""Determine whether or not a matrix has positive partial transpose :cite:`WikiPeresHorodecki`.
+    r"""Determine whether or not a matrix has positive partial transpose :footcite:`WikiPeresHorodecki`.
 
     Yields either :code:`True` or :code:`False`, indicating that :code:`mat` does or does not have
     positive partial transpose (within numerical error). The variable :code:`mat` is assumed to act
@@ -38,13 +38,14 @@ def is_ppt(mat: np.ndarray, sys: int = 2, dim: int | list[int] = None, tol: floa
         \end{pmatrix}.
 
     This matrix trivially satisfies the PPT criterion as can be seen using the
-    :code:`toqito` package.
+    :code:`|toqito⟩` package.
 
-    >>> from toqito.state_props import is_ppt
-    >>> import numpy as np
-    >>> mat = np.identity(9)
-    >>> is_ppt(mat)
-    True
+    .. jupyter-execute::
+
+        from toqito.state_props import is_ppt
+        import numpy as np
+        mat = np.identity(9)
+        is_ppt(mat)
 
     Consider the following Bell state:
 
@@ -53,18 +54,20 @@ def is_ppt(mat: np.ndarray, sys: int = 2, dim: int | list[int] = None, tol: floa
 
     For the density matrix :math:`\rho = u u^*`, as this is an entangled state
     of dimension :math:`2`, it will violate the PPT criterion, which can be seen
-    using the :code:`toqito` package.
+    using the :code:`|toqito⟩` package.
 
-    >>> from toqito.states import bell
-    >>> from toqito.state_props import is_ppt
-    >>> rho = bell(2) @ bell(2).conj().T
-    >>> is_ppt(rho)
-    False
+    .. jupyter-execute::
+
+        from toqito.states import bell
+        from toqito.state_props import is_ppt
+        rho = bell(2) @ bell(2).conj().T
+        is_ppt(rho)
+
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param mat: A square matrix.

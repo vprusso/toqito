@@ -1,4 +1,4 @@
-"""Add functions for channel fidelity of Separability as defined in :cite:`Philip_2023_Schrodinger`.
+"""Add functions for channel fidelity of Separability as defined in :footcite:`Philip_2023_Schrodinger`.
 
 The constrainsts for this function are positive partial transpose (PPT)
 & k-extendible channels.
@@ -20,12 +20,12 @@ def fidelity_of_separability(
     verbosity_option: int = 0,
     solver_option: str = "cvxopt",
 ) -> float:
-    r"""Define the first benchmark introduced in Appendix I of :cite:`Philip_2023_Schrodinger`.
+    r"""Define the first benchmark introduced in Appendix I of :footcite:`Philip_2023_Schrodinger`.
 
     If you would like to instead use the benchmark introduced in Appendix H,
     go to :obj:`toqito.state_metrics.fidelity_of_separability`.
 
-    In :cite:`Philip_2023_Schrodinger` a variational quantum algorithm (VQA) is introduced to test
+    In :footcite:`Philip_2023_Schrodinger` a variational quantum algorithm (VQA) is introduced to test
     the separability of a general bipartite state. The algorithm utilizes
     quantum steering between two separated systems such that the separability
     of the state is quantified.
@@ -33,13 +33,13 @@ def fidelity_of_separability(
     Due to the limitations of currently available quantum computers, two
     optimization semidefinite programs (SDP) benchmarks were introduced to
     maximize the fidelity of separability subject to some state constraints (Positive Partial Transpose (PPT),
-    symmetric extensions (k-extendibility) :cite:`Hayden_2013_TwoMessage`).
+    symmetric extensions (k-extendibility) :footcite:`Hayden_2013_TwoMessage`).
     Entangled states do not have k-symmetric extensions. If an extension exists, it cannot be assumed directly
     that the state is separable. This function approximites the fidelity of separability by
     maximizing over PPT channels & k-extendible entanglement breaking channels
-    i.e. an optimization problem over channels :cite:`Watrous_2018_TQI` .
+    i.e. an optimization problem over channels :footcite:`Watrous_2018_TQI` .
 
-    The following discussion (Equation (I4) from :cite:`Philip_2023_Schrodinger` ) defines the
+    The following discussion (Equation (I4) from :footcite:`Philip_2023_Schrodinger` ) defines the
     constraints for approximating :math:`\widetilde{F}_s^2(\rho_{AB})` in
     :math:`\frac{1}{2}(1+\widetilde{F}_s^2(\rho_{AB}))`.
 
@@ -68,7 +68,7 @@ def fidelity_of_separability(
     .. math::
         T_{A^{\prime}_{1\cdots j}}(\Gamma^{\mathcal{E}^{k}_{RA^{\prime k}}}) \geq 0 \quad \forall j\leq k
 
-    These other constraints are due to the PPT condition :cite:`Peres_1996_Separability`.
+    These other constraints are due to the PPT condition :footcite:`Peres_1996_Separability`.
 
     Examples
     ==========
@@ -81,19 +81,20 @@ def fidelity_of_separability(
     .. math::
         \rho_{AB} = |000 \rangle \langle 000|
 
-    >>> import numpy as np
-    >>> from toqito.state_metrics import fidelity_of_separability
-    >>> from toqito.matrix_ops import tensor
-    >>> from toqito.states import basis
-    >>> state = tensor(basis(2, 0), basis(2, 0))
-    >>> rho = state @ state.conj().T
-    >>> np.around(fidelity_of_separability(rho, [2, 2]), decimals=2)
-    np.float64(1.0)
+    .. jupyter-execute::
+
+        import numpy as np
+        from toqito.state_metrics import fidelity_of_separability
+        from toqito.matrix_ops import tensor
+        from toqito.states import basis
+        state = tensor(basis(2, 0), basis(2, 0))
+        rho = state @ state.conj().T
+        fidelity_of_separability(rho, [2, 2])
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param psi: the density matrix for the tripartite state of interest psi_{BAR}

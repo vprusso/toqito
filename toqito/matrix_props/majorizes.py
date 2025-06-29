@@ -4,7 +4,7 @@ import numpy as np
 
 
 def majorizes(a_var: np.ndarray | list[int], b_var: np.ndarray | list[int]) -> bool:
-    r"""Determine if one vector or matrix majorizes another :cite:`WikiMajorization`.
+    r"""Determine if one vector or matrix majorizes another :footcite:`WikiMajorization`.
 
     Given :math:`a, b \in \mathbb{R}^d`, we say that :math:`a` **weakly majorizes** (or dominates)
     :math:`b` from below if and only if
@@ -22,28 +22,33 @@ def majorizes(a_var: np.ndarray | list[int], b_var: np.ndarray | list[int]) -> b
     Simple example illustrating that the vector :math:`(3, 0, 0)` majorizes the vector
     :math:`(1, 1, 1)`.
 
-    >>> from toqito.matrix_props import majorizes
-    >>> majorizes([3, 0, 0], [1, 1, 1])
-    True
+    .. jupyter-execute::
+
+     from toqito.matrix_props import majorizes
+
+     majorizes([3, 0, 0], [1, 1, 1])
+
 
     The majorization criterion says that every separable state
     :math:`\rho \in \text{D}(\mathcal{A} \otimes \mathcal{B})` is such that
     :math:`\text{Tr}_{\mathcal{B}}(\rho)` majorizes
     :math:`\text{Tr}_{\mathcal{A}}(\rho)`.
 
-    >>> from toqito.matrix_props import majorizes
-    >>> from toqito.states import max_entangled
-    >>> from toqito.channels import partial_trace
-    >>>
-    >>> v_vec = max_entangled(3)
-    >>> rho = v_vec @ v_vec.conj().T
-    >>> majorizes(partial_trace(rho, [1]), rho)
-    False
+    .. jupyter-execute::
+
+     from toqito.matrix_props import majorizes
+     from toqito.states import max_entangled
+     from toqito.matrix_ops import partial_trace
+
+     v_vec = max_entangled(3)
+     rho = v_vec @ v_vec.conj().T
+
+     majorizes(partial_trace(rho, [1]), rho)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param a_var: Matrix or vector provided as list or np.array.

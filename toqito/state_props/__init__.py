@@ -6,6 +6,8 @@ from toqito.state_props.is_mixed import is_mixed
 from toqito.state_props.is_mutually_orthogonal import is_mutually_orthogonal
 from toqito.state_props.is_mutually_unbiased_basis import is_mutually_unbiased_basis
 from toqito.state_props.is_ppt import is_ppt
+from toqito.state_props.abs_ppt_constraints import abs_ppt_constraints
+from toqito.state_props.is_abs_ppt import is_abs_ppt
 from toqito.state_props.is_npt import is_npt
 from toqito.state_props.is_product import is_product
 from toqito.state_props.concurrence import concurrence
@@ -23,3 +25,4 @@ from toqito.state_props.sk_vec_norm import sk_vector_norm
 from toqito.state_props.is_antidistinguishable import is_antidistinguishable
 from toqito.state_props.is_distinguishable import is_distinguishable
 from toqito.state_props.is_unextendible_product_basis import is_unextendible_product_basis
+from toqito.state_props.common_quantum_overlap import common_quantum_overlap

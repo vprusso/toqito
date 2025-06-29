@@ -23,12 +23,15 @@ def unique_perms(elements: list[int]):
         \left[1, 1, 2, 2, 1, 2, 1, 3, 3, 3\right].
 
     The number of possible permutations possible with the above vector is :math:`4200`. This can be
-    obtained using the :code:`toqito` package as follows.
+    obtained using the :code:`|toqito⟩` package as follows.
 
-    >>> from toqito.perms import unique_perms
-    >>> vec_nums = [1, 1, 2, 2, 1, 2, 1, 3, 3, 3]
-    >>> len(list(unique_perms(vec_nums)))
-    4200
+    .. jupyter-execute::
+
+     from toqito.perms import unique_perms
+
+     vec_nums = [1, 1, 2, 2, 1, 2, 1, 3, 3, 3]
+
+     len(list(unique_perms(vec_nums)))
 
 
 

@@ -6,7 +6,7 @@ from toqito.matrix_props import is_square
 
 
 def is_identity(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> bool:
-    r"""Check if matrix is the identity matrix :cite:`WikiIden`.
+    r"""Check if matrix is the identity matrix :footcite:`WikiIden`.
 
     For dimension :math:`n`, the :math:`n \times n` identity matrix is defined as
 
@@ -35,11 +35,14 @@ def is_identity(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> boo
     our function indicates that this is indeed the identity matrix of dimension
     3.
 
-    >>> from toqito.matrix_props import is_identity
-    >>> import numpy as np
-    >>> mat = np.eye(3)
-    >>> is_identity(mat)
-    True
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_identity
+
+     mat = np.eye(3)
+
+     is_identity(mat)
 
     Alternatively, the following example matrix :math:`B` defined as
 
@@ -52,16 +55,20 @@ def is_identity(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> boo
 
     is not an identity matrix.
 
-    >>> from toqito.matrix_props import is_identity
-    >>> import numpy as np
-    >>> mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-    >>> is_identity(mat)
-    False
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_identity
+
+     mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+
+     is_identity(mat)
+
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param mat: Matrix to check.

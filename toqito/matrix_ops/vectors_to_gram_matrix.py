@@ -4,37 +4,43 @@ import numpy as np
 
 
 def vectors_to_gram_matrix(vectors: list[np.ndarray]) -> np.ndarray:
-    r"""Construct the Gram matrix from a list of vectors :cite:`WikiGram`.
+    r"""Construct the Gram matrix from a list of vectors :footcite:`WikiGram`.
 
     The Gram matrix is a matrix of inner products, where the entry G[i, j] is the inner product of vectors[i] and
     vectors[j]. This function computes the Gram matrix for a given list of vectors.
 
     Examples
     ========
-    >>> # Example with real vectors:
-    >>> import numpy as np
-    >>> from toqito.matrix_ops import vectors_to_gram_matrix
-    >>> vectors = [np.array([1, 2]), np.array([3, 4])]
-    >>> gram_matrix = vectors_to_gram_matrix(vectors)
-    >>> gram_matrix
-    array([[ 5, 11],
-           [11, 25]])
 
+    Example with real vectors:
 
-    >>> # Example with complex vectors:
-    >>> import numpy as np
-    >>> from toqito.matrix_ops import vectors_to_gram_matrix
-    >>> vectors = [np.array([1+1j, 2+2j]), np.array([3+3j, 4+4j])]
-    >>> gram_matrix = vectors_to_gram_matrix(vectors)
-    >>> gram_matrix
-    array([[10.+0.j, 22.+0.j],
-           [22.+0.j, 50.+0.j]])
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_ops import vectors_to_gram_matrix
+
+     vectors = [np.array([1, 2]), np.array([3, 4])]
+     gram_matrix = vectors_to_gram_matrix(vectors)
+
+     gram_matrix
+
+    Example with complex vectors:
+
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_ops import vectors_to_gram_matrix
+
+     vectors = [np.array([1+1j, 2+2j]), np.array([3+3j, 4+4j])]
+     gram_matrix = vectors_to_gram_matrix(vectors)
+
+     gram_matrix
 
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :raises ValueError: If the vectors are not all of the same length.
     :param vectors: A list of vectors (1D numpy arrays). All vectors must be of the same length.

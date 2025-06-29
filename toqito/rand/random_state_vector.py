@@ -7,10 +7,7 @@ from toqito.states import max_entangled
 
 
 def random_state_vector(
-        dim: list[int] | int,
-        is_real: bool = False,
-        k_param: int = 0,
-        seed: int | None = None
+    dim: list[int] | int, is_real: bool = False, k_param: int = 0, seed: int | None = None
 ) -> np.ndarray:
     r"""Generate a random pure state vector.
 
@@ -20,38 +17,45 @@ def random_state_vector(
     We may generate a random state vector. For instance, here is an example where we can generate a
     :math:`2`-dimensional random state vector.
 
-    >>> from toqito.rand import random_state_vector
-    >>> vec = random_state_vector(2)
-    >>> vec # doctest: +SKIP
-    array([[0.78645233+0.16239043j],
-           [0.56649582+0.18494478j]])
+    .. jupyter-execute::
 
+     from toqito.rand import random_state_vector
+
+     vec = random_state_vector(2)
+
+     vec
 
     We can verify that this is in fact a valid state vector by computing the corresponding density matrix of the vector
     and checking if the density matrix is pure.
 
-    >>> from toqito.state_props import is_pure
-    >>> dm = vec.conj().T @ vec
-    >>> is_pure(dm)
-    True
+    .. jupyter-execute::
+
+     from toqito.state_props import is_pure
+
+     dm = vec.conj().T @ vec
+
+     is_pure(dm)
 
     It is also possible to pass a seed for reproducibility.
 
-    >>> from toqito.rand import random_state_vector
-    >>> vec = random_state_vector(2, seed=42)
-    >>> vec
-    array([[0.54521054+0.60483621j],
-           [0.30916633+0.49125839j]])
+    .. jupyter-execute::
+
+     from toqito.rand import random_state_vector
+
+     vec = random_state_vector(2, seed=42)
+
+     vec
 
     We can once again verify that this is in fact a valid state vector by computing the
     corresponding density matrix of the vector and checking if the density matrix is pure.
 
-    >>> from toqito.state_props import is_pure
-    >>> dm = vec.conj().T @ vec
-    >>> is_pure(dm)
-    True
+    .. jupyter-execute::
 
+     from toqito.state_props import is_pure
 
+     dm = vec.conj().T @ vec
+
+     is_pure(dm)
 
     :param dim: The number of rows (and columns) of the unitary matrix.
     :param is_real: Boolean denoting whether the returned matrix has real

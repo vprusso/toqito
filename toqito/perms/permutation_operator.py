@@ -35,14 +35,13 @@ def permutation_operator(
             0 & 0 & 0 & 1
         \end{pmatrix}
 
-    Using :code:`toqito`, this can be achieved in the following manner.
+    Using :code:`|toqito⟩`, this can be achieved in the following manner.
 
-    >>> from toqito.perms import permutation_operator
-    >>> permutation_operator(2, [1, 0])
-    array([[1., 0., 0., 0.],
-           [0., 0., 1., 0.],
-           [0., 1., 0., 0.],
-           [0., 0., 0., 1.]])
+    .. jupyter-execute::
+
+     from toqito.perms import permutation_operator
+
+     permutation_operator(2, [1, 0])
 
     :param dim: The dimensions of the subsystems to be permuted.
     :param perm: A permutation vector.

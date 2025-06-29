@@ -17,7 +17,7 @@ def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float:
         \delta(\rho, \sigma) = \frac{1}{2} \left( \text{Tr}(\left| \rho - \sigma
          \right| \right).
 
-    More information on the trace distance can be found in :cite:`Quantiki_TrDist`.
+    More information on the trace distance can be found in :footcite:`Quantiki_TrDist`.
 
     Examples
     ==========
@@ -38,19 +38,22 @@ def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float:
                        \end{pmatrix} \in \text{D}(\mathcal{X}).
 
     The trace distance between :math:`\rho` and another state :math:`\sigma` is equal to :math:`0` if any only if
-    :math:`\rho = \sigma`. We can check this using the :code:`toqito` package.
+    :math:`\rho = \sigma`. We can check this using the :code:`|toqito⟩` package.
 
-    >>> from toqito.states import bell
-    >>> from toqito.state_metrics import trace_distance
-    >>> rho = bell(0) @ bell(0).conj().T
-    >>> sigma = rho
-    >>> trace_distance(rho, sigma)
-    np.float64(0.0)
+    .. jupyter-execute::
+
+     from toqito.states import bell
+     from toqito.state_metrics import trace_distance
+
+     rho = bell(0) @ bell(0).conj().T
+     sigma = rho
+
+     trace_distance(rho, sigma)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :raises ValueError: If matrices are not of density operators.
     :param rho: An input matrix.

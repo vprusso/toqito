@@ -6,7 +6,7 @@ import numpy as np
 
 
 def is_totally_positive(mat: np.ndarray, tol: float = 1e-6, sub_sizes: list | None = None):
-    r"""Determine whether a matrix is totally positive. :cite:`WikiTotPosMat`.
+    r"""Determine whether a matrix is totally positive. :footcite:`WikiTotPosMat`.
 
     A totally positive matrix is a square matrix where all the minors are positive. Equivalently, the determinant of
     every square submatrix is a positive number.
@@ -16,7 +16,7 @@ def is_totally_positive(mat: np.ndarray, tol: float = 1e-6, sub_sizes: list | No
     Consider the matrix
 
     .. math::
-        \begin{pmatrix}
+        X = \begin{pmatrix}
             1 & 2 \\
             3 & 4
         \end{pmatrix}
@@ -40,10 +40,46 @@ def is_totally_positive(mat: np.ndarray, tol: float = 1e-6, sub_sizes: list | No
     .. math::
         \text{det}(X) = 1 \times 4 - 2 \times 3 = 4 - 6 = 2
 
+    Our function indicates that this matrix is indeed totally positive.
+
+    .. jupyter-execute::
+
+        import numpy as np
+        from toqito.matrix_props import is_totally_positive
+
+        A = np.array([[1, 2], [3, 4]])
+
+        is_totally_positive(A)
+
+    However, the following example matrix :math:`B` defined as
+
+    .. math::
+        B = \begin{pmatrix}
+                1 & 2 \\
+                3 & -4
+            \end{pmatrix}
+
+    is not totally positive. The 2x2 minor of :math:`B` is the determinant of the entire matrix :math:`B`. The
+    determinant of :math:`B` is calculated as:
+
+    .. math::
+        \text{det}(B) = 1 \times -4 - 2 \times 3 = -4 - 6 = -10
+
+    Since the determinant is negative, :math:`B` is not totally positive.
+
+    .. jupyter-execute::
+
+        import numpy as np
+        from toqito.matrix_props import is_totally_positive
+
+        B = np.array([[1, 2], [3, -4]])
+
+        is_totally_positive(B)
+
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param mat: Matrix to check.
@@ -75,6 +111,6 @@ def is_totally_positive(mat: np.ndarray, tol: float = 1e-6, sub_sizes: list | No
             for kr in sub_ind_r:
                 for kc in sub_ind_c:
                     d = np.linalg.det(mat[np.ix_(kr, kc)])
-                    if d < -tol or abs(np.imag(d)) > tol:
+                    if d < tol or abs(np.imag(d)) > tol:
                         return False
     return True

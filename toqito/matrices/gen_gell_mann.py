@@ -4,7 +4,7 @@ import numpy as np
 
 
 def gen_gell_mann(ind_1: int, ind_2: int, dim: int) -> np.ndarray:
-    r"""Produce a generalized Gell-Mann operator :cite:`WikiGellMann`.
+    r"""Produce a generalized Gell-Mann operator :footcite:`WikiGellMann`.
 
     Construct a :code:`dim`-by-:code:`dim` Hermitian operator. These matrices
     span the entire space of :code:`dim`-by-:code:`dim` matrices as
@@ -24,12 +24,13 @@ def gen_gell_mann(ind_1: int, ind_2: int, dim: int) -> np.ndarray:
                          1 & 0
                       \end{pmatrix}.
 
-    This can be obtained in :code:`toqito` as follows.
+    This can be obtained in :code:`|toqito⟩` as follows.
 
-    >>> from toqito.matrices import gen_gell_mann
-    >>> gen_gell_mann(0, 1, 2)
-    array([[0., 1.],
-           [1., 0.]])
+    .. jupyter-execute::
+
+     from toqito.matrices import gen_gell_mann
+
+     gen_gell_mann(ind_1=0, ind_2=1, dim=2)
 
     The generalized Gell-Mann matrix :code:`ind_1 = 2`, :code:`ind_2 = 3`, and
     :code:`dim = 4` is given as
@@ -42,19 +43,18 @@ def gen_gell_mann(ind_1: int, ind_2: int, dim: int) -> np.ndarray:
                         0 & 0 & 1 & 0
                       \end{pmatrix}.
 
-    This can be obtained in :code:`toqito` as follows.
+    This can be obtained in :code:`|toqito⟩` as follows.
 
-    >>> from toqito.matrices import gen_gell_mann
-    >>> gen_gell_mann(2, 3, 4)
-    array([[0., 0., 0., 0.],
-           [0., 0., 0., 0.],
-           [0., 0., 0., 1.],
-           [0., 0., 1., 0.]])
+    .. jupyter-execute::
+
+     from toqito.matrices import gen_gell_mann
+
+     gen_gell_mann(ind_1=2, ind_2=3, dim=4)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param ind_1: A non-negative integer from 0 to :code:`dim-1` (inclusive).

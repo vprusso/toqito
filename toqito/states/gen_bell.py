@@ -7,11 +7,11 @@ Generalized Bell states are the basis of multidimensional bipartite states havin
 import numpy as np
 
 from toqito.matrices import gen_pauli
-from toqito.matrix_ops import vec
+from toqito.perms import vec
 
 
 def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
-    r"""Produce a generalized Bell state :cite:`Sych_2009_AComplete`.
+    r"""Produce a generalized Bell state :footcite:`Sych_2009_AComplete`.
 
     Produces a generalized Bell state. Note that the standard Bell states can be recovered as:
 
@@ -45,58 +45,31 @@ def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
     .. math::
         |\phi_0\rangle = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right)
 
-    is one of the four standard Bell states. This can be computed via :code:`toqito` as follows.
+    is one of the four standard Bell states. This can be computed via :code:`|toqito⟩` as follows.
 
-    >>> from toqito.states import gen_bell
-    >>> dim = 2
-    >>> k_1 = 0
-    >>> k_2 = 0
-    >>> gen_bell(k_1, k_2, dim)
-    array([[0.5+0.j, 0. +0.j, 0. +0.j, 0.5+0.j],
-           [0. +0.j, 0. +0.j, 0. +0.j, 0. +0.j],
-           [0. +0.j, 0. +0.j, 0. +0.j, 0. +0.j],
-           [0.5+0.j, 0. +0.j, 0. +0.j, 0.5+0.j]])
+    .. jupyter-execute::
+
+        from toqito.states import gen_bell
+        dim = 2
+        k_1 = 0
+        k_2 = 0
+        gen_bell(k_1, k_2, dim)
 
     It is possible for us to consider higher dimensional Bell states. For instance, we can consider
     the :math:`3`-dimensional Bell state for :math:`k_1 = k_2 = 0` as follows.
 
-    >>> from toqito.states import gen_bell
-    >>> dim = 3
-    >>> k_1 = 0
-    >>> k_2 = 0
-    >>> gen_bell(k_1, k_2, dim)
-    array([[0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.33333333+0.j],
-           [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.        +0.j],
-           [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.        +0.j],
-           [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.        +0.j],
-           [0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.33333333+0.j],
-           [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.        +0.j],
-           [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.        +0.j],
-           [0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.        +0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.        +0.j],
-           [0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.33333333+0.j, 0.        +0.j, 0.        +0.j, 0.        +0.j,
-            0.33333333+0.j]])
+    .. jupyter-execute::
+
+        from toqito.states import gen_bell
+        dim = 3
+        k_1 = 0
+        k_2 = 0
+        gen_bell(k_1, k_2, dim)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param k_1: An integer 0 <= k_1 <= n.

@@ -7,9 +7,10 @@ import cvxpy
 import numpy as np
 import numba as nb
 
-from toqito.helper import npa_constraints, update_odometer
+from toqito.helper import update_odometer
 from toqito.matrix_ops import tensor
 from toqito.rand import random_povm
+from toqito.state_opt.npa_hierarchy import npa_constraints
 
 from toqito.nonlocal_games.binary_constraint_system_game import check_perfect_commuting_strategy
 from toqito.matrix_ops.tensor_unravel import tensor_unravel
@@ -83,14 +84,15 @@ class NonlocalGame:
     are not allowed to communicate with each other once the game has started and
     who play cooperative against an adversary referred to as the referee.
 
-    The nonlocal game framework was originally introduced in :cite:`Cleve_2010_Consequences`.
+    The nonlocal game framework was originally introduced in :footcite:`Cleve_2010_Consequences`.
 
-    A tutorial is available in the documentation. For more info, see :ref:`ref-label-nl-games-tutorial`.
+    A tutorial is available in the documentation. For more info, see
+    :ref:`sphx_glr_auto_examples_quantumgames_example_nonlocal_game.py`.
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     """
 
@@ -141,7 +143,7 @@ class NonlocalGame:
     def from_bcs_game(cls, constraints: list[np.ndarray], reps: int = 1) -> "NonlocalGame":
         r"""Convert constraints that specify a binary constraint system game to a nonlocal game.
 
-        Binary constraint system games (BCS) games were originally defined in :cite:`Cleve_2014_Characterization`.
+        Binary constraint system games (BCS) games were originally defined in :footcite:`Cleve_2014_Characterization`.
 
         :param constraints: List of binary constraints that define the game.
         :param reps: Number of parallel repetitions to perform. Default is 1.
@@ -224,8 +226,14 @@ class NonlocalGame:
         b_array = np.array(b_list, dtype=int)
         return check_perfect_commuting_strategy(M_array, b_array)
 
-    def process_iteration(i:int, num_bob_outputs:int, num_bob_inputs:int, pred_mat_copy:np.ndarray,
-                          num_alice_outputs:int, num_alice_inputs:int)-> float:
+    def process_iteration(
+        i: int,
+        num_bob_outputs: int,
+        num_bob_inputs: int,
+        pred_mat_copy: np.ndarray,
+        num_alice_outputs: int,
+        num_alice_inputs: int,
+    ) -> float:
         """Help the classical_value function as a helper method.
 
         :return: A value between [0, 1] representing the tgval.
@@ -277,7 +285,7 @@ class NonlocalGame:
         iters: int = 5,
         tol: float = 10e-6,
     ):
-        r"""Compute a lower bound on the quantum value of a nonlocal game :cite:`Liang_2007_Bounds`.
+        r"""Compute a lower bound on the quantum value of a nonlocal game :footcite:`Liang_2007_Bounds`.
 
         Calculates a lower bound on the maximum value that the specified
         nonlocal game can take on in quantum mechanical settings where Alice and
@@ -295,7 +303,7 @@ class NonlocalGame:
         number of times and keep the highest value obtained.
 
         The algorithm is based on the alternating projections algorithm as it
-        can be applied to Bell inequalities as shown in :cite:`Liang_2007_Bounds`.
+        can be applied to Bell inequalities as shown in :footcite:`Liang_2007_Bounds`.
 
         The alternating projection algorithm has also been referred to as the
         "see-saw" algorithm as it goes back and forth between the following two
@@ -376,30 +384,32 @@ class NonlocalGame:
         :math:`\cos(\pi/8)^2 \approx 0.8536` where the optimal classical value
         is :math:`3/4`.
 
-        >>> import numpy as np
-        >>> from toqito.nonlocal_games.nonlocal_game import NonlocalGame
-        >>>
-        >>> dim = 2
-        >>> num_alice_inputs, num_alice_outputs = 2, 2
-        >>> num_bob_inputs, num_bob_outputs = 2, 2
-        >>> prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
-        >>> pred_mat = np.zeros((num_alice_outputs, num_bob_outputs, num_alice_inputs, num_bob_inputs))
-        >>>
-        >>> for a_alice in range(num_alice_outputs):
-        ...     for b_bob in range(num_bob_outputs):
-        ...        for x_alice in range(num_alice_inputs):
-        ...            for y_bob in range(num_bob_inputs):
-        ...                if np.mod(a_alice + b_bob + x_alice * y_bob, dim) == 0:
-        ...                    pred_mat[a_alice, b_bob, x_alice, y_bob] = 1
-        >>>
-        >>> chsh = NonlocalGame(prob_mat, pred_mat)
-        >>> chsh.quantum_value_lower_bound()   # doctest: +SKIP
-        0.85
+        .. jupyter-execute::
+
+         import numpy as np
+         from toqito.nonlocal_games.nonlocal_game import NonlocalGame
+
+         dim = 2
+         num_alice_inputs, num_alice_outputs = 2, 2
+         num_bob_inputs, num_bob_outputs = 2, 2
+         prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
+         pred_mat = np.zeros((num_alice_outputs, num_bob_outputs, num_alice_inputs, num_bob_inputs))
+
+         for a_alice in range(num_alice_outputs):
+             for b_bob in range(num_bob_outputs):
+                for x_alice in range(num_alice_inputs):
+                    for y_bob in range(num_bob_inputs):
+                        if np.mod(a_alice + b_bob + x_alice * y_bob, dim) == 0:
+                            pred_mat[a_alice, b_bob, x_alice, y_bob] = 1
+
+         chsh = NonlocalGame(prob_mat, pred_mat)
+
+         chsh.quantum_value_lower_bound()
 
         References
         ==========
-        .. bibliography::
-            :filter: docname in docnames
+        .. footbibliography::
+
 
 
         :param dim: The dimension of the quantum system that Alice and Bob have
@@ -653,8 +663,8 @@ class NonlocalGame:
         """Compute an upper bound on the commuting measurement value of the nonlocal game.
 
         This function calculates an upper bound on the commuting measurement value by
-        using k-levels of the NPA hierarchy :cite:`Navascues_2008_AConvergent`. The NPA hierarchy is a uniform family
-        of semidefinite programs that converges to the commuting measurement value of
+        using k-levels of the NPA hierarchy :footcite:`Navascues_2008_AConvergent`. The NPA hierarchy is a uniform
+        family of semidefinite programs that converges to the commuting measurement value of
         any nonlocal game.
 
         You can determine the level of the hierarchy by a positive integer or a string
@@ -664,8 +674,8 @@ class NonlocalGame:
 
         References
         ==========
-        .. bibliography::
-            :filter: docname in docnames
+        .. footbibliography::
+
 
         :param k: The level of the NPA hierarchy to use (default=1).
         :return: The upper bound on the commuting strategy value of a nonlocal game.

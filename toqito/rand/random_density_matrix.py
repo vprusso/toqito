@@ -28,67 +28,87 @@ def random_density_matrix(
     Examples
     ==========
 
-    Using :code:`toqito`, we may generate a random complex-valued :math:`n`- dimensional density matrix. For
+    Using :code:`|toqito⟩`, we may generate a random complex-valued :math:`n`- dimensional density matrix. For
     :math:`d=2`, this can be accomplished as follows.
 
-    >>> from toqito.rand import random_density_matrix
-    >>> complex_dm = random_density_matrix(2)
-    >>> complex_dm # doctest: +SKIP
-    array([[0.83378447+0.j        , 0.25937396-0.12958422j],
-           [0.25937396+0.12958422j, 0.16621553+0.j        ]])
+    .. jupyter-execute::
 
-    We can verify that this is in fact a valid density matrix using the :code:`is_denisty` function from :code:`toqito`
-    as follows
+     from toqito.rand import random_density_matrix
 
-    >>> from toqito.matrix_props import is_density
-    >>> is_density(complex_dm)
-    np.True_
+     complex_dm = random_density_matrix(2)
+
+     complex_dm
+
+
+    We can verify that this is in fact a valid density matrix using the :code:`is_density` function from
+    :code:`|toqito⟩` as follows
+
+    .. jupyter-execute::
+
+     from toqito.matrix_props import is_density
+
+     is_density(complex_dm)
+
 
     We can also generate random density matrices that are real-valued as follows.
 
-    >>> from toqito.rand import random_density_matrix
-    >>> real_dm = random_density_matrix(2, is_real=True)
-    >>> real_dm # doctest: +SKIP
-    array([[0.3686455 , 0.48243625],
-           [0.48243625, 0.6313545 ]])
+    .. jupyter-execute::
+
+     from toqito.rand import random_density_matrix
+
+     real_dm = random_density_matrix(2, is_real=True)
+
+     real_dm
+
 
 
     Again, verifying that this is a valid density matrix can be done as follows.
 
-    >>> from toqito.matrix_props import is_density
-    >>> is_density(real_dm)
-    np.True_
+    .. jupyter-execute::
+
+     from toqito.matrix_props import is_density
+
+     is_density(real_dm)
 
     By default, the random density operators are constructed using the Haar measure. We can select to generate the
     random density matrix according to the Bures metric instead as follows.
 
-    >>> from toqito.rand import random_density_matrix
-    >>> bures_mat = random_density_matrix(2, distance_metric="bures")
-    >>> bures_mat # doctest: +SKIP
-    array([[0.73969055+0.j        , 0.09494426-0.15279342j],
-           [0.09494426+0.15279342j, 0.26030945+0.j        ]])
+    .. jupyter-execute::
+
+     from toqito.rand import random_density_matrix
+
+     bures_mat = random_density_matrix(2, distance_metric="bures")
+
+     bures_mat
 
 
     As before, we can verify that this matrix generated is a valid density matrix.
 
-    >>> from toqito.matrix_props import is_density
-    >>> is_density(bures_mat)
-    np.True_
+    .. jupyter-execute::
+
+     from toqito.matrix_props import is_density
+
+     is_density(bures_mat)
 
     It is also possible to pass a seed to this function for reproducibility.
+    .. jupyter-execute::
 
-    >>> from toqito.rand import random_density_matrix
-    >>> seeded = random_density_matrix(2, seed=42)
-    >>> seeded
-    array([[0.82448019+0.j        , 0.14841568-0.33318114j],
-           [0.14841568+0.33318114j, 0.17551981+0.j        ]])
+     from toqito.rand import random_density_matrix
+
+     seeded = random_density_matrix(2, seed=42)
+
+     seeded
 
     We can once again verify that this is in fact a valid density matrix using the
-    :code:`is_density` function from :code:`toqito` as follows
+    :code:`is_density` function from :code:`|toqito⟩` as follows
 
-    >>> from toqito.matrix_props import is_density
-    >>> is_density(seeded)
-    np.True_
+    .. jupyter-execute::
+
+     from toqito.matrix_props import is_density
+
+     seeded = random_density_matrix(2, seed=42)
+
+     is_density(seeded)
 
 
     :param dim: The number of rows (and columns) of the density matrix.
@@ -116,6 +136,6 @@ def random_density_matrix(
     if distance_metric == "bures":
         gin = random_unitary(dim, is_real, seed=seed) + np.identity(dim) @ gin
 
-    rho = gin @ np.array(gin).conj().T
+    rho = gin @ gin.conj().T
 
     return np.divide(rho, np.trace(rho))

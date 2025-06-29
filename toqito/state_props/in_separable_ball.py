@@ -4,11 +4,11 @@ import numpy as np
 
 
 def in_separable_ball(mat: np.ndarray) -> bool:
-    r"""Check whether an operator is contained in ball of separability :cite:`Gurvits_2002_Largest`.
+    r"""Check whether an operator is contained in ball of separability :footcite:`Gurvits_2002_Largest`.
 
     Determines whether :code:`mat` is contained within the ball of separable operators centered
     at the identity matrix (i.e. the maximally-mixed state). The size of this ball was derived in
-    :cite:`Gurvits_2002_Largest`.
+    :footcite:`Gurvits_2002_Largest`.
 
     This function can be used as a method for separability testing of states in certain scenarios.
 
@@ -26,34 +26,34 @@ def in_separable_ball(mat: np.ndarray) -> bool:
     :code:`[1, 1, 1, 0]/3`. This example yields a matrix that is contained within the separable
     ball.
 
-    >>> from toqito.rand import random_unitary
-    >>> from toqito.state_props import in_separable_ball
-    >>> import numpy as np
-    >>>
-    >>> U = random_unitary(4)
-    >>> lam = np.array([1, 1, 1, 0]) / 3
-    >>> rho = U @ np.diag(lam) @ U.conj().T
-    >>> in_separable_ball(rho)
-    np.True_
+    .. jupyter-execute::
+
+        from toqito.rand import random_unitary
+        from toqito.state_props import in_separable_ball
+        import numpy as np
+        U = random_unitary(4)
+        lam = np.array([1, 1, 1, 0]) / 3
+        rho = U @ np.diag(lam) @ U.conj().T
+        in_separable_ball(rho)
 
     The following is an example of generating a random density matrix with eigenvalues
     :code:`[1.01, 1, 0.99, 0]/3`. This example yields a matrix that is not contained within the
     separable ball.
 
-    >>> from toqito.rand import random_unitary
-    >>> from toqito.state_props import in_separable_ball
-    >>> import numpy as np
-    >>>
-    >>> U = random_unitary(4)
-    >>> lam = np.array([1.01, 1, 0.99, 0]) / 3
-    >>> rho = U @ np.diag(lam) @ U.conj().T
-    >>> in_separable_ball(rho)
-    np.False_
+    .. jupyter-execute::
+
+        from toqito.rand import random_unitary
+        from toqito.state_props import in_separable_ball
+        import numpy as np
+        U = random_unitary(4)
+        lam = np.array([1.01, 1, 0.99, 0]) / 3
+        rho = U @ np.diag(lam) @ U.conj().T
+        in_separable_ball(rho)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param mat: A positive semidefinite matrix or a vector of the eigenvalues of a positive
@@ -80,5 +80,5 @@ def in_separable_ball(mat: np.ndarray) -> bool:
     mat = mat / np.trace(mat)
 
     # The following check relies on the fact that we scaled the matrix so that trace(mat) = 1.
-    # The following condition is then exactly the condition mentioned in :cite:`Gurvits_2002_Largest`.
+    # The following condition is then exactly the condition mentioned in :footcite:`Gurvits_2002_Largest`.
     return np.linalg.norm(mat / np.linalg.norm(mat, "fro") ** 2 - np.eye(max_dim), "fro") <= 1

@@ -26,18 +26,23 @@ def is_orthonormal(vectors: list[np.ndarray]) -> bool:
 
     To check these are a known set of orthonormal vectors:
 
-    >>> import numpy as np
-    >>> from toqito.matrix_props import is_orthonormal
-    >>> v_1 = np.array([1, 0, 0])
-    >>> v_2 = np.array([0, 1, 0])
-    >>> v_3 = np.array([0, 0, 1])
-    >>> v = np.array([v_1, v_2, v_3])
-    >>> is_orthonormal(v)
-    True
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_orthonormal
+
+     v_1 = np.array([1, 0, 0])
+     v_2 = np.array([0, 1, 0])
+     v_3 = np.array([0, 0, 1])
+
+     v = np.array([v_1, v_2, v_3])
+
+     is_orthonormal(v)
 
     :param vectors: A list of `np.ndarray` 1-by-n vectors.
     :return: True if vectors are orthonormal; False otherwise.
 
     """
-    return is_mutually_orthogonal(vectors) and np.allclose(np.dot(vectors, np.conjugate(vectors).T), np.eye(
-        vectors.shape[0]))
+    return is_mutually_orthogonal(vectors) and np.allclose(
+        np.dot(vectors, np.conjugate(vectors).T), np.eye(vectors.shape[0])
+    )

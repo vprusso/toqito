@@ -8,7 +8,7 @@ import numpy as np
 
 
 def horodecki(a_param: float, dim: list[int] = None) -> np.ndarray:
-    r"""Produce a Horodecki state :cite:`Horodecki_1997_Separability, Chruscinski_2011_OnTheSymmetry`.
+    r"""Produce a Horodecki state :footcite:`Horodecki_1997_Separability, Chruscinski_2011_OnTheSymmetry`.
 
     Returns the Horodecki state in either :math:`(3 \otimes 3)`-dimensional space or :math:`(2 \otimes 4)`-dimensional
     space, depending on the dimensions in the 1-by-2 vector :code:`dim`.
@@ -55,62 +55,34 @@ def horodecki(a_param: float, dim: list[int] = None) -> np.ndarray:
         \end{equation}
 
     .. note::
-        Refer to :cite:`Chruscinski_2011_OnTheSymmetry` (specifically equations (1) and (2)) for more information on
+        Refer to :footcite:`Chruscinski_2011_OnTheSymmetry` (specifically equations (1) and (2)) for more information on
         this state and its properties. The 3x3 Horodecki state is defined explicitly in Section 4.1 of
-        :cite:`Horodecki_1997_Separability` and the 2x4 Horodecki state is defined explicitly in Section 4.2 of
-        :cite:`Horodecki_1997_Separability`.
+        :footcite:`Horodecki_1997_Separability` and the 2x4 Horodecki state is defined explicitly in Section 4.2 of
+        :footcite:`Horodecki_1997_Separability`.
 
     Examples
     ==========
 
     The following code generates a Horodecki state in :math:`\mathbb{C}^3 \otimes \mathbb{C}^3`
 
-    >>> from toqito.states import horodecki
-    >>> horodecki(0.5, [3, 3])
-    array([[0.1       , 0.        , 0.        , 0.        , 0.1       ,
-            0.        , 0.        , 0.        , 0.1       ],
-           [0.        , 0.1       , 0.        , 0.        , 0.        ,
-            0.        , 0.        , 0.        , 0.        ],
-           [0.        , 0.        , 0.1       , 0.        , 0.        ,
-            0.        , 0.        , 0.        , 0.        ],
-           [0.        , 0.        , 0.        , 0.1       , 0.        ,
-            0.        , 0.        , 0.        , 0.        ],
-           [0.1       , 0.        , 0.        , 0.        , 0.1       ,
-            0.        , 0.        , 0.        , 0.1       ],
-           [0.        , 0.        , 0.        , 0.        , 0.        ,
-            0.1       , 0.        , 0.        , 0.        ],
-           [0.        , 0.        , 0.        , 0.        , 0.        ,
-            0.        , 0.15      , 0.        , 0.08660254],
-           [0.        , 0.        , 0.        , 0.        , 0.        ,
-            0.        , 0.        , 0.1       , 0.        ],
-           [0.1       , 0.        , 0.        , 0.        , 0.1       ,
-            0.        , 0.08660254, 0.        , 0.15      ]])
+    .. jupyter-execute::
+
+        from toqito.states import horodecki
+        horodecki(0.5, [3, 3])
+
 
     The following code generates a Horodecki state in :math:`\mathbb{C}^2 \otimes \mathbb{C}^4`.
 
-    >>> from toqito.states import horodecki
-    >>> horodecki(0.5, [2, 4])
-    array([[0.11111111, 0.        , 0.        , 0.        , 0.        ,
-            0.11111111, 0.        , 0.        ],
-           [0.        , 0.11111111, 0.        , 0.        , 0.        ,
-            0.        , 0.11111111, 0.        ],
-           [0.        , 0.        , 0.11111111, 0.        , 0.        ,
-            0.        , 0.        , 0.11111111],
-           [0.        , 0.        , 0.        , 0.11111111, 0.        ,
-            0.        , 0.        , 0.        ],
-           [0.        , 0.        , 0.        , 0.        , 0.16666667,
-            0.        , 0.        , 0.09622504],
-           [0.11111111, 0.        , 0.        , 0.        , 0.        ,
-            0.11111111, 0.        , 0.        ],
-           [0.        , 0.11111111, 0.        , 0.        , 0.        ,
-            0.        , 0.11111111, 0.        ],
-           [0.        , 0.        , 0.11111111, 0.        , 0.09622504,
-            0.        , 0.        , 0.16666667]])
+    .. jupyter-execute::
+
+        from toqito.states import horodecki
+        horodecki(0.5, [2, 4])
+
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     """

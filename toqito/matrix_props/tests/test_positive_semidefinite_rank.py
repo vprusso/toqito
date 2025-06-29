@@ -13,8 +13,8 @@ from toqito.matrix_props import positive_semidefinite_rank
         (np.identity(3), 10, 3),
         # If the max_rank is lower than the actual rank, the function returns None.
         (np.identity(3), 2, None),
-        # The PSD rank of this matrix is known to be 2 :cite:`Heinosaari_2024_Can` (Equation 21).
-        (1/2 * np.array([[0, 1, 1], [1,0,1], [1,1,0]]), 10, 2),
+        # The PSD rank of this matrix is known to be 2 :footcite:`Heinosaari_2024_Can` (Equation 21).
+        (1 / 2 * np.array([[0, 1, 1], [1, 0, 1], [1, 1, 0]]), 10, 2),
     ],
 )
 def test_positive_semidefinite_rank(mat, max_rank, expected_psd_rank):

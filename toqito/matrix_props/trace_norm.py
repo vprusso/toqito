@@ -4,7 +4,7 @@ import numpy as np
 
 
 def trace_norm(rho: np.ndarray) -> float:
-    r"""Compute the trace norm of the state :cite:`Quantiki_TrNorm`.
+    r"""Compute the trace norm of the state :footcite:`Quantiki_TrNorm`.
 
     Also computes the operator 1-norm when inputting an operator.
 
@@ -30,18 +30,21 @@ def trace_norm(rho: np.ndarray) -> float:
                          1 & 0 & 0 & 1
                        \end{pmatrix} \in \text{D}(\mathcal{X}).
 
-    It can be observed using :code:`toqito` that :math:`||\rho||_1 = 1` as follows.
+    It can be observed using :code:`|toqito⟩` that :math:`||\rho||_1 = 1` as follows.
 
-    >>> from toqito.states import bell
-    >>> from toqito.matrix_props import trace_norm
-    >>> rho = bell(0) @ bell(0).conj().T
-    >>> trace_norm(rho)
-    np.float64(0.9999999999999999)
+    .. jupyter-execute::
+
+     from toqito.states import bell
+     from toqito.matrix_props import trace_norm
+
+     rho = bell(0) @ bell(0).conj().T
+
+     trace_norm(rho)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param rho: Density operator.

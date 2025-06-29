@@ -3,11 +3,11 @@
 import cvxpy
 import numpy as np
 
-from toqito.channels import partial_trace
+from toqito.matrix_ops import partial_trace
 
 
-def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
-    r"""Compute the channel fidelity between two quantum channels :cite:`Katariya_2021_Geometric`.
+def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray, eps: float = 1e-7) -> float:
+    r"""Compute the channel fidelity between two quantum channels :footcite:`Katariya_2021_Geometric`.
 
     Let :math:`\Phi : \text{L}(\mathcal{Y}) \rightarrow \text{L}(\mathcal{X})` and
     :math:`\Psi: \text{L}(\mathcal{Y}) \rightarrow \text{L}(\mathcal{X})` be quantum channels. Then
@@ -17,7 +17,7 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
         \sqrt{F}(\Phi, \Psi) := \text{inf}_{\rho} \sqrt{F}(\Phi(\rho), \Psi(\rho))
 
     where :math:`\rho \in \text{D}(\mathcal{Z} \otimes \mathcal{X})` can be calculated by means of
-    the following semidefinite program (Proposition 50) in :cite:`Katariya_2021_Geometric`,
+    the following semidefinite program (Proposition 50) in :footcite:`Katariya_2021_Geometric`,
 
     .. math::
         \begin{align*}
@@ -38,39 +38,40 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     For two identical channels, we should expect that the channel fidelity should yield a value of
     :math:`1`.
 
+    .. jupyter-execute::
 
-    >>> import numpy as np
-    >>> from toqito.channels import dephasing
-    >>> from toqito.channel_metrics import channel_fidelity
-    >>>
-    >>> # The Choi matrices of dimension-4 for the dephasing channel
-    >>> choi_1 = dephasing(4)
-    >>> choi_2 = dephasing(4)
-    >>> np.around(channel_fidelity(choi_1, choi_2), decimals=2)
-    np.float64(1.0)
+        import numpy as np
+        from toqito.channels import dephasing
+        from toqito.channel_metrics import channel_fidelity
+        # The Choi matrices of dimension-4 for the dephasing channel
+        choi_1 = dephasing(4)
+        choi_2 = dephasing(4)
+        channel_fidelity(choi_1, choi_2)
+
 
     We can also compute the channel fidelity between two different channels. For example, we can
     compute the channel fidelity between the dephasing and depolarizing channels.
 
-    >>> import numpy as np
-    >>> from toqito.channels import dephasing, depolarizing
-    >>> from toqito.channel_metrics import channel_fidelity
-    >>>
-    >>> # The Choi matrices of dimension-4 for the dephasing and depolarizing channels
-    >>> choi_1 = dephasing(4)
-    >>> choi_2 = depolarizing(4)
-    >>> np.around(channel_fidelity(choi_1, choi_2), decimals=2)
-    np.float64(0.5)
+    .. jupyter-execute::
+
+        import numpy as np
+        from toqito.channels import dephasing, depolarizing
+        from toqito.channel_metrics import channel_fidelity
+        # The Choi matrices of dimension-4 for the dephasing and depolarizing channels
+        choi_1 = dephasing(4)
+        choi_2 = depolarizing(4)
+        channel_fidelity(choi_1, choi_2)
+
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
 
     :raises ValueError: If matrices are not of equal dimension.
     :raises ValueError: If matrices are not square.
     :param choi_1: The Choi matrix of the first quantum channel.
     :param choi_2: The Choi matrix of the second quantum channel.
+    :param eps: The solver tolerance for convergence to feasability.
     :return: The channel fidelity between the channels specified by the quantum channels
              corresponding to the Choi matrices :code:`choi_1` and :code:`choi_2`.
 
@@ -97,4 +98,4 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
 
     problem = cvxpy.Problem(objective, constraints)
 
-    return problem.solve(solver="CVXOPT")
+    return problem.solve(solver=cvxpy.SCS, eps=eps)

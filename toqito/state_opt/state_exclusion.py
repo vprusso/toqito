@@ -3,7 +3,7 @@
 import numpy as np
 import picos
 
-from toqito.matrix_ops import calculate_vector_matrix_dimension, to_density_matrix, vectors_to_gram_matrix
+from toqito.matrix_ops import calculate_vector_matrix_dimension, to_density_matrix
 from toqito.matrix_props import has_same_dimension
 
 
@@ -87,8 +87,8 @@ def state_exclusion(
         It is known that it is always possible to perfectly exclude pure states that are linearly dependent.
         Thus, calling this function on a set of states with this property will return 0.
 
-    The conclusive state exclusion SDP is written explicitly in :cite:`Bandyopadhyay_2014_Conclusive`. The problem
-    of conclusive state exclusion was also thought about under a different guise in :cite:`Pusey_2012_On`.
+    The conclusive state exclusion SDP is written explicitly in :footcite:`Bandyopadhyay_2014_Conclusive`. The problem
+    of conclusive state exclusion was also thought about under a different guise in :footcite:`Pusey_2012_On`.
 
     Examples
     ==========
@@ -104,26 +104,31 @@ def state_exclusion(
         \end{equation}
 
     It is not possible to conclusively exclude either of the two states. We can see that the result of the function in
-    :code:`toqito` yields a value of :math:`0` as the probability for this to occur.
+    :code:`|toqito⟩` yields a value of :math:`0` as the probability for this to occur.
 
-    >>> from toqito.state_opt import state_exclusion
-    >>> from toqito.states import bell
-    >>> import numpy as np
-    >>>
-    >>> vectors = [bell(0), bell(1)]
-    >>> probs = [1/2, 1/2]
-    >>>
-    >>> np.around(state_exclusion(vectors, probs)[0], decimals=2)
-    np.float64(0.0)
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.states import bell
+     from toqito.state_opt import state_exclusion
+
+     vectors = [bell(0), bell(1)]
+     probs = [1/2, 1/2]
+
+     np.around(state_exclusion(vectors, probs)[0], decimals=2)
 
     Unambiguous state exclusion for unbiased states.
 
-    >>> from toqito.state_opt import state_exclusion
-    >>> import numpy as np
-    >>> states = [np.array([[1.], [0.]]), np.array([[1.],[1.]]) / np.sqrt(2)]
-    >>> res, _ = state_exclusion(states, primal_dual="primal", strategy="unambiguous", abs_ipm_opt_tol=1e-7)
-    >>> np.around(res, decimals=2)
-    np.float64(0.71)
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.state_opt import state_exclusion
+
+     states = [np.array([[1.], [0.]]), np.array([[1.],[1.]]) / np.sqrt(2)]
+
+     res, _ = state_exclusion(states, primal_dual="primal", strategy="unambiguous", abs_ipm_opt_tol=1e-7)
+
+     np.around(res, decimals=2)
 
     .. note::
         If you encounter a `ZeroDivisionError` or an `ArithmeticError` when using cvxopt as a solver (which is the
@@ -134,8 +139,8 @@ def state_exclusion(
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param vectors: A list of states provided as vectors.
@@ -208,9 +213,7 @@ def _min_error_dual(
 
     # Set up variables and constraints for SDP:
     y_var = picos.HermitianVariable("Y", (dim, dim))
-    problem.add_list_of_constraints(
-        [y_var << probs[i] * to_density_matrix(vector) for i, vector in enumerate(vectors)]
-    )
+    problem.add_list_of_constraints([y_var << probs[i] * to_density_matrix(vector) for i, vector in enumerate(vectors)])
 
     # Objective function:
     problem.set_objective("max", picos.trace(y_var))
@@ -219,6 +222,7 @@ def _min_error_dual(
     measurements = [problem.get_constraint(k).dual for k in range(n)]
 
     return solution.value, measurements
+
 
 def _unambiguous_primal(
     vectors: list[np.ndarray],
@@ -229,7 +233,7 @@ def _unambiguous_primal(
 ) -> tuple[float, list[picos.HermitianVariable]]:
     """Solve the primal problem for unambiguous quantum state distinguishability SDP.
 
-    Implemented according to Equation (33) of :cite:`Bandyopadhyay_2014_Conclusive`.
+    Implemented according to Equation (33) of :footcite:`Bandyopadhyay_2014_Conclusive`.
     """
     n = len(vectors)
     problem = picos.Problem()
@@ -259,7 +263,7 @@ def _unambiguous_dual(
 ) -> tuple[float, tuple[picos.HermitianVariable, picos.RealVariable]]:
     """Solve the dual problem for unambiguous quantum state distinguishability SDP.
 
-    Implemented according to Equation (35) of :cite:`Bandyopadhyay_2014_Conclusive`.
+    Implemented according to Equation (35) of :footcite:`Bandyopadhyay_2014_Conclusive`.
     """
     n = len(vectors)
     problem = picos.Problem()

@@ -7,7 +7,7 @@ from toqito.matrix_ops import to_density_matrix
 
 
 def log_negativity(rho: np.ndarray, dim: list[int] | int = None) -> float:
-    r"""Compute the log-negativity of a bipartite quantum state :cite:`WikiNeg`.
+    r"""Compute the log-negativity of a bipartite quantum state :footcite:`WikiNeg`.
 
     The log-negativity of a subsystem can be defined in terms of a density matrix :math:`\rho`:
 
@@ -23,20 +23,21 @@ def log_negativity(rho: np.ndarray, dim: list[int] | int = None) -> float:
 
     Example of the log-negativity of density matrix of Bell state.
 
-    >>> from toqito.states import bell
-    >>> from toqito.state_props import log_negativity
-    >>> rho = bell(0) @ bell(0).conj().T
-    >>> log_negativity(rho)
-    np.float64(0.9999999999999997)
+    .. jupyter-execute::
+
+        from toqito.states import bell
+        from toqito.state_props import log_negativity
+        rho = bell(0) @ bell(0).conj().T
+        log_negativity(rho)
 
     See Also
     ==========
-    negativity
+    :func:`.negativity`
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :raises ValueError: If the input matrix is not a density matrix.

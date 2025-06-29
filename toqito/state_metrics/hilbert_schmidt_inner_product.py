@@ -4,7 +4,7 @@ import numpy as np
 
 
 def hilbert_schmidt_inner_product(a_mat: np.ndarray, b_mat: np.ndarray) -> complex:
-    r"""Compute the Hilbert-Schmidt inner product between two matrices :cite:`WikiHilbSchOp`.
+    r"""Compute the Hilbert-Schmidt inner product between two matrices :footcite:`WikiHilbSchOp`.
 
     The Hilbert-Schmidt inner product between :code:`a_mat` and :code:`b_mat` is defined as
 
@@ -14,24 +14,27 @@ def hilbert_schmidt_inner_product(a_mat: np.ndarray, b_mat: np.ndarray) -> compl
 
     where :math:`|B\rangle = \text{vec}(B)` and :math:`\langle A|` is the dual vector to :math:`|A \rangle`.
 
-    Note: This function has been adapted from :cite:`Rigetti_2022_Forest`.
+    Note: This function has been adapted from :footcite:`Rigetti_2022_Forest`.
 
     Examples
     ==========
 
     One may consider taking the Hilbert-Schmidt distance between two Hadamard matrices.
 
-    >>> import numpy as np
-    >>> from toqito.matrices import hadamard
-    >>> from toqito.state_metrics import hilbert_schmidt_inner_product
-    >>> h = hadamard(1)
-    >>> np.around(hilbert_schmidt_inner_product(h, h), decimals=2)
-    np.float64(2.0)
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrices import hadamard
+     from toqito.state_metrics import hilbert_schmidt_inner_product
+
+     h = hadamard(1)
+
+     np.around(hilbert_schmidt_inner_product(h, h), decimals=2)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param a_mat: An input matrix provided as a numpy array.

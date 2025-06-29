@@ -7,16 +7,18 @@ from toqito.matrix_ops import tensor
 
 
 def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np.ndarray | csr_array:
-    r"""Produce a Pauli operator :cite:`WikiPauli`.
+    r"""Produce a Pauli operator :footcite:`WikiPauli`.
 
-    Provides the 2-by-2 Pauli matrix indicated by the value of :code:`ind`. The
-    variable :code:`ind = 1` gives the Pauli-X operator, :code:`ind = 2` gives
-    the Pauli-Y operator, :code:`ind = 3` gives the Pauli-Z operator, and
-    :code:`ind = 0` gives the identity operator. Alternatively, :code:`ind` can
-    be set to "I", "X", "Y", or "Z" (case insensitive) to indicate the Pauli
-    identity, X, Y, or Z operator.
+    Produces the 2-by-2 Pauli matrix indicated by the value of :code:`ind` or a tensor product
+    of Pauli matrices when :code:`ind` is provided as a list. In general, when :code:`ind` is a list
+    :math:`[i_1, i_2, \dots, i_n]`, the function returns the tensor product
 
-    The 2-by-2 Pauli matrices are defined as the following matrices:
+    .. math:: P_{i_1} \otimes P_{i_2} \otimes \cdots \otimes P_{i_n}
+
+    where each :math:`i_k \in \{0,1,2,3\}`, with the correspondence:
+    :math:`P_{0} = I`, :math:`P_{1} = X`, :math:`P_{2} = Y`, and :math:`P_{3} = Z`.
+
+    The 2-by-2 Pauli matrices are defined as follows:
 
     .. math::
 
@@ -46,36 +48,52 @@ def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np
 
     Example for identity Pauli matrix.
 
-    >>> from toqito.matrices import pauli
-    >>> pauli("I")
-    array([[1., 0.],
-           [0., 1.]])
+    .. jupyter-execute::
+
+     from toqito.matrices import pauli
+
+     pauli("I")
 
     Example for Pauli-X matrix.
 
-    >>> from toqito.matrices import pauli
-    >>> pauli("X")
-    array([[0, 1],
-           [1, 0]])
+    .. jupyter-execute::
+
+     from toqito.matrices import pauli
+
+     pauli("X")
+
 
     Example for Pauli-Y matrix.
 
-    >>> from toqito.matrices import pauli
-    >>> pauli("Y")
-    array([[ 0.+0.j, -0.-1.j],
-           [ 0.+1.j,  0.+0.j]])
+    .. jupyter-execute::
+
+     from toqito.matrices import pauli
+
+     pauli("Y")
+
 
     Example for Pauli-Z matrix.
 
-    >>> from toqito.matrices import pauli
-    >>> pauli("Z")
-    array([[ 1,  0],
-           [ 0, -1]])
+    .. jupyter-execute::
+
+     from toqito.matrices import pauli
+
+     pauli("Z")
+
+    Example using :code:`ind` as list.
+
+    .. jupyter-execute::
+
+     from toqito.matrices import pauli
+
+     pauli([0,1])
+
+
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :param ind: The index to indicate which Pauli operator to generate.
     :param is_sparse: Returns a compressed sparse row array if set to True and a non compressed
@@ -100,6 +118,6 @@ def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np
 
     num_qubits = len(ind)
     pauli_mats = []
-    for i in range(num_qubits - 1, -1, -1):
+    for i in range(num_qubits):
         pauli_mats.append(pauli(ind[i], is_sparse))
     return tensor(pauli_mats)

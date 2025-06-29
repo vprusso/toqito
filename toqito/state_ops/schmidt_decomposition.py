@@ -6,7 +6,7 @@ import numpy as np
 def schmidt_decomposition(
     rho: np.ndarray, dim: int | list[int] | np.ndarray = None, k_param: int = 0
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    r"""Compute the Schmidt decomposition of a bipartite vector :cite:`WikiScmidtDecomp`.
+    r"""Compute the Schmidt decomposition of a bipartite vector :footcite:`WikiScmidtDecomp`.
 
     Examples
     ==========
@@ -15,10 +15,12 @@ def schmidt_decomposition(
     .. math::
         u = \frac{1}{\sqrt{3}} \left( |000 \rangle + |111 \rangle + |222 \rangle \right).
 
-    We can generate this state using the :code:`toqito` module as follows.
+    We can generate this state using the :code:`|toqito⟩` module as follows.
 
-    >>> from toqito.states import max_entangled
-    >>> max_entangled(3)
+    .. jupyter-execute::
+
+     from toqito.states import max_entangled
+     max_entangled(3)
     array([[0.57735027],
            [0.        ],
            [0.        ],
@@ -35,26 +37,26 @@ def schmidt_decomposition(
     .. math::
         \frac{1}{\sqrt{3}} \left[1, 1, 1 \right]^{\text{T}}.
 
-    >>> from toqito.states import max_entangled
-    >>> from toqito.state_ops import schmidt_decomposition
-    >>> singular_vals, u_mat, vt_mat = schmidt_decomposition(max_entangled(3))
-    >>> singular_vals
-    array([[0.57735027],
-           [0.57735027],
-           [0.57735027]])
-    >>> u_mat
-    array([[1., 0., 0.],
-           [0., 1., 0.],
-           [0., 0., 1.]])
-    >>> vt_mat
-    array([[1., 0., 0.],
-           [0., 1., 0.],
-           [0., 0., 1.]])
+    .. jupyter-execute::
+
+        from toqito.states import max_entangled
+        from toqito.state_ops import schmidt_decomposition
+
+        singular_vals, u_mat, vt_mat = schmidt_decomposition(max_entangled(3))
+
+        matrices = {
+            "Singular values": singular_vals,
+            "U matrix": u_mat,
+            "V^T matrix": vt_mat,
+        }
+
+        for name, mat in matrices.items():
+            print(f"{name}:\n{mat}\n")
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :raises ValueError: If matrices are not of equal dimension.

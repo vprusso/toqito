@@ -4,7 +4,7 @@ import numpy as np
 
 
 def is_square(mat: np.ndarray) -> bool:
-    r"""Determine if a matrix is square :cite:`WikiSqMat`.
+    r"""Determine if a matrix is square :footcite:`WikiSqMat`.
 
     A matrix is square if the dimensions of the rows and columns are equivalent.
 
@@ -22,11 +22,14 @@ def is_square(mat: np.ndarray) -> bool:
 
     our function indicates that this is indeed a square matrix.
 
-    >>> from toqito.matrix_props import is_square
-    >>> import numpy as np
-    >>> A = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-    >>> is_square(A)
-    True
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_square
+
+     A = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+
+     is_square(A)
 
     Alternatively, the following example matrix :math:`B` defined as
 
@@ -38,16 +41,20 @@ def is_square(mat: np.ndarray) -> bool:
 
     is not square.
 
-    >>> from toqito.matrix_props import is_square
-    >>> import numpy as np
-    >>> B = np.array([[1, 2, 3], [4, 5, 6]])
-    >>> is_square(B)
-    False
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_square
+
+     B = np.array([[1, 2, 3], [4, 5, 6]])
+
+     is_square(B)
+
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :raises ValueError: If variable is not a matrix.

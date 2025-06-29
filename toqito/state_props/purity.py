@@ -6,7 +6,7 @@ from toqito.matrix_props import is_density
 
 
 def purity(rho: np.ndarray) -> float:
-    r"""Compute the purity of a quantum state :cite:`WikiPurity`.
+    r"""Compute the purity of a quantum state :footcite:`WikiPurity`.
 
     The negativity of a subsystem can be defined in terms of a density matrix :math:`\rho`: The
     purity of a quantum state :math:`\rho` is defined as
@@ -30,24 +30,27 @@ def purity(rho: np.ndarray) -> float:
                        \end{pmatrix} \in \text{D}(\mathcal{X}).
 
     Calculating the purity of :math:`\rho` yields :math:`\frac{1}{4}`. This can be observed using
-    :code:`toqito` as follows.
+    :code:`|toqito⟩` as follows.
 
-    >>> from toqito.state_props import purity
-    >>> import numpy as np
-    >>> purity(np.identity(4) / 4)
-    np.float64(0.25)
+    .. jupyter-execute::
+
+        from toqito.state_props import purity
+        import numpy as np
+        purity(np.identity(4) / 4)
+
 
     Calculate the purity of the Werner state:
 
-    >>> from toqito.states import werner
-    >>> rho = werner(2, 1 / 4)
-    >>> np.around(purity(rho), decimals=4)
-    np.float64(0.2653)
+    .. jupyter-execute::
+
+        from toqito.states import werner
+        rho = werner(2, 1 / 4)
+        purity(rho)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :raises ValueError: If matrix is not density operator.

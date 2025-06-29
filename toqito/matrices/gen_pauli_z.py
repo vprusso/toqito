@@ -6,9 +6,9 @@ import numpy as np
 
 
 def gen_pauli_z(dim: int) -> np.ndarray:
-    r"""Produce gen_pauli_z matrix :cite:`WikiClock`.
+    r"""Produce gen_pauli_z matrix :footcite:`WikiClock`.
 
-    Returns the gen_pauli_z matrix of dimension :code:`dim` described in :cite:`WikiClock`.
+    Returns the gen_pauli_z matrix of dimension :code:`dim` described in :footcite:`WikiClock`.
     The gen_pauli_z matrix generates the following :code:`dim`-by-:code:`dim` matrix
 
     .. math::
@@ -37,16 +37,16 @@ def gen_pauli_z(dim: int) -> np.ndarray:
             0 & 0 & \omega^2
         \end{pmatrix}
 
-    >>> from toqito.matrices import gen_pauli_z
-    >>> gen_pauli_z(3)
-    array([[ 1. +0.j       ,  0. +0.j       ,  0. +0.j       ],
-           [ 0. +0.j       , -0.5+0.8660254j,  0. +0.j       ],
-           [ 0. +0.j       ,  0. +0.j       , -0.5-0.8660254j]])
+    .. jupyter-execute::
+
+     from toqito.matrices import gen_pauli_z
+
+     gen_pauli_z(3)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param dim: Dimension of the matrix.

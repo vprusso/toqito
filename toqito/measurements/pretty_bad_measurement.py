@@ -5,11 +5,13 @@ import numpy as np
 from toqito.measurements import pretty_good_measurement
 
 
-def pretty_bad_measurement(states: list[np.ndarray], probs: list[float] | None = None) -> list[np.ndarray]:
+def pretty_bad_measurement(
+    states: list[np.ndarray], probs: list[float] | None = None, tol: float = 1e-8
+) -> list[np.ndarray]:
     r"""Return the set of pretty bad measurements from a set of vectors and corresponding probabilities.
 
-    This computes the "pretty bad measurement" as defined in :cite:`Hughston_1993_Complete` and is an analogous idea to
-    the "pretty good measurement" from :cite:`McIrvin_2024_Pretty`. The "pretty bad measurement" is useful in the
+    This computes the "pretty bad measurement" as defined in :footcite:`Hughston_1993_Complete` and is an analogous idea
+    to the "pretty good measurement" from :footcite:`McIrvin_2024_Pretty`. The "pretty bad measurement" is useful in the
     context of state exclusion where the pretty good measurement is often used for minimum-error quantum state
     discrimination.
 
@@ -27,7 +29,7 @@ def pretty_bad_measurement(states: list[np.ndarray], probs: list[float] | None =
 
     See Also
     ========
-    pretty_good_measurement
+    :func:`.pretty_good_measurement`
 
     Examples
     ========
@@ -38,28 +40,30 @@ def pretty_bad_measurement(states: list[np.ndarray], probs: list[float] | None =
         u_1 = -\frac{1}{2}\left(|0\rangle + \sqrt{3}|1\rangle\right), \quad \text{and} \quad
         u_2 = -\frac{1}{2}\left(|0\rangle - \sqrt{3}|1\rangle\right).
 
-    >>> from toqito.states import trine
-    >>> from toqito.measurements import pretty_bad_measurement
-    >>>
-    >>> states = trine()
-    >>> probs = [1 / 3, 1 / 3, 1 / 3]
-    >>> pgm = pretty_bad_measurement(states, probs)
-    >>> pgm
-    [array([[0.16666667, 0.        ],
-           [0.        , 0.5       ]]), array([[ 0.41666667, -0.14433757],
-           [-0.14433757,  0.25      ]]), array([[0.41666667, 0.14433757],
-           [0.14433757, 0.25      ]])]
+    .. jupyter-execute::
+
+     from toqito.states import trine
+     from toqito.measurements import pretty_bad_measurement
+
+     states = trine()
+     probs = [1 / 3, 1 / 3, 1 / 3]
+
+     pbm = pretty_bad_measurement(states, probs)
+
+     pbm
+
 
     References
     ==========
-        .. bibliography::
-            :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :raises ValueError: If number of vectors does not match number of probabilities.
     :raises ValueError: If probabilities do not sum to 1.
     :param states: A collection of either states provided as either vectors or density matrices.
     :param probs: A set of probabilities.
+    :param tol: A tolerance value for numerical comparisons.
 
     """
     n = len(states)
@@ -74,7 +78,7 @@ def pretty_bad_measurement(states: list[np.ndarray], probs: list[float] | None =
     if not np.isclose(sum(probs), 1):
         raise ValueError("Probability vector should sum to 1.")
 
-    pgm = pretty_good_measurement(states, probs)
-    dim = pgm[0].shape[0]
+    pbm = pretty_good_measurement(states, probs, tol=tol)
+    dim = pbm[0].shape[0]
 
-    return [1 / (n - 1) * (np.identity(dim) - pgm[i]) for i in range(n)]
+    return [1 / (n - 1) * (np.identity(dim) - pbm[i]) for i in range(n)]

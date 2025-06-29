@@ -4,7 +4,7 @@ import numpy as np
 
 
 def fourier(dim: int) -> np.ndarray:
-    r"""Generate the Fourier transform matrix :cite:`WikiDFT`.
+    r"""Generate the Fourier transform matrix :footcite:`WikiDFT`.
 
     Generates the :code:`dim`-by-:code:`dim` unitary matrix that implements the
     quantum Fourier transform.
@@ -12,7 +12,7 @@ def fourier(dim: int) -> np.ndarray:
     The Fourier matrix is defined as:
 
     .. math::
-        W_N = \frac{1}{N}
+        W_N = \frac{1}{\sqrt{N}}
         \begin{pmatrix}
             1 & 1 & 1 & 1 & \ldots & 1 \\
             1 & \omega & \omega^2 & \omega^3 & \ldots & \omega^{N-1} \\
@@ -20,33 +20,31 @@ def fourier(dim: int) -> np.ndarray:
             1 & \omega^3 & \omega^6 & \omega^9 & \ldots & \omega^{3(N-1)} \\
             \vdots & \vdots & \vdots & \vdots & \ddots & \vdots \\
             1 & \omega^{N-1} & \omega^{2(N-1)} & \omega^{3(N-1)} &
-            \ldots & \omega^{3(N-1)}
+            \ldots & \omega^{(N-1)(N-1)}
         \end{pmatrix}
 
     Examples
-    ==========
+    ========
 
-    The Fourier matrix generated from :math:`d = 3` yields the following
-    matrix:
+    The Fourier matrix generated from :math:`d = 3` yields the following matrix:
 
     .. math::
-        W_3 = \frac{1}{3}
+        W_3 = \frac{1}{\sqrt{3}}
         \begin{pmatrix}
             1 & 1 & 1 \\
-            0 & \omega & \omega^2 \\
+            1 & \omega & \omega^2 \\
             1 & \omega^2 & \omega^4
         \end{pmatrix}
 
-    >>> from toqito.matrices import fourier
-    >>> fourier(3)
-    array([[ 0.57735027+0.j ,  0.57735027+0.j ,  0.57735027+0.j ],
-           [ 0.57735027+0.j , -0.28867513+0.5j, -0.28867513-0.5j],
-           [ 0.57735027+0.j , -0.28867513-0.5j, -0.28867513+0.5j]])
+    .. jupyter-execute::
+
+     from toqito.matrices import fourier
+
+     fourier(3)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
 
 
     :param dim: The size of the Fourier matrix.

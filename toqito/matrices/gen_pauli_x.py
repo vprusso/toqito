@@ -4,9 +4,9 @@ import numpy as np
 
 
 def gen_pauli_x(dim: int) -> np.ndarray:
-    r"""Produce a :code:`dim`-by-:code:`dim` gen_pauli_x matrix :cite:`WikiPauliGen`.
+    r"""Produce a :code:`dim`-by-:code:`dim` gen_pauli_x matrix :footcite:`WikiPauliGen`.
 
-    Returns the gen_pauli_x matrix of dimension :code:`dim` described in :cite:`WikiPauliGen`.
+    Returns the gen_pauli_x matrix of dimension :code:`dim` described in :footcite:`WikiPauliGen`.
     The gen_pauli_x matrix generates the following :code:`dim`-by-:code:`dim` matrix:
 
     .. math::
@@ -35,16 +35,16 @@ def gen_pauli_x(dim: int) -> np.ndarray:
             0 & 1 & 0
         \end{pmatrix}
 
-    >>> from toqito.matrices import gen_pauli_x
-    >>> gen_pauli_x(3)
-    array([[0., 0., 1.],
-           [1., 0., 0.],
-           [0., 1., 0.]])
+    .. jupyter-execute::
+
+     from toqito.matrices import gen_pauli_x
+
+     gen_pauli_x(3)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param dim: Dimension of the matrix.

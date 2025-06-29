@@ -14,6 +14,8 @@ lam, _ = np.linalg.eig(U)
 dist = np.abs(lam[:, None] - lam[None, :])  # all to all distance
 diameter = np.max(dist)
 
+solvers = ["cvxopt"]
+
 
 @pytest.mark.parametrize(
     "test_input, expected",
@@ -26,9 +28,10 @@ diameter = np.max(dist)
         (phi, diameter),
     ],
 )
-def test_cb_trace_norm(test_input, expected):
+@pytest.mark.parametrize("solver", solvers)
+def test_cb_trace_norm(test_input, solver, expected):
     """Test function works as expected for valid inputs."""
-    calculated_value = completely_bounded_trace_norm(test_input)
+    calculated_value = completely_bounded_trace_norm(test_input, solver)
     assert abs(calculated_value - expected) <= 1e-3
 
 

@@ -3,8 +3,7 @@
 import cvxpy
 import numpy as np
 
-from toqito.channels import partial_trace
-from toqito.matrix_ops import tensor
+from toqito.matrix_ops import partial_trace, tensor
 from toqito.perms import permutation_operator
 
 
@@ -14,7 +13,7 @@ def optimal_clone(
     num_reps: int = 1,
     strategy: bool = False,
 ) -> float | np.ndarray:
-    r"""Compute probability of counterfeiting quantum money :cite:`Molina_2012_Optimal`.
+    r"""Compute probability of counterfeiting quantum money :footcite:`Molina_2012_Optimal`.
 
     The primal problem for the :math:`n`-fold parallel repetition is given as follows:
 
@@ -50,8 +49,8 @@ def optimal_clone(
     Examples
     ==========
 
-    Wiesner's original quantum money scheme :cite:`Wiesner_1983_Conjugate` was shown in :cite:`Molina_2012_Optimal`
-    to have an optimal probability of 3/4 for succeeding a counterfeiting attack.
+    Wiesner's original quantum money scheme :footcite:`Wiesner_1983_Conjugate` was shown in
+    :footcite:`Molina_2012_Optimal` to have an optimal probability of 3/4 for succeeding a counterfeiting attack.
 
     Specifically, in the single-qubit case, Wiesner's quantum money scheme corresponds to the
     following ensemble:
@@ -74,22 +73,25 @@ def optimal_clone(
 
     We can see that the optimal value we obtain in solving the SDP is 3/4.
 
-    >>> from toqito.state_opt import optimal_clone
-    >>> from toqito.states import basis
-    >>> import numpy as np
-    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
-    >>> e_p = (e_0 + e_1) / np.sqrt(2)
-    >>> e_m = (e_0 - e_1) / np.sqrt(2)
-    >>>
-    >>> states = [e_0, e_1, e_p, e_m]
-    >>> probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
-    >>> np.around(optimal_clone(states, probs), decimals=2)
-    np.float64(0.75)
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.states import basis
+     from toqito.state_opt import optimal_clone
+
+     e_0, e_1 = basis(2, 0), basis(2, 1)
+     e_p = (e_0 + e_1) / np.sqrt(2)
+     e_m = (e_0 - e_1) / np.sqrt(2)
+
+     states = [e_0, e_1, e_p, e_m]
+     probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
+
+     np.around(optimal_clone(states, probs), decimals=2)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param states: A list of states provided as either matrices or vectors.
@@ -122,7 +124,7 @@ def optimal_clone(
         # sequence from: https://oeis.org/A023123
         q_a = tensor(q_a, num_reps)
         perm = []
-        for i in range(num_spaces ):
+        for i in range(num_spaces):
             perm.append(i)
             var = i
             for j in range(1, num_reps):
@@ -132,6 +134,7 @@ def optimal_clone(
     if strategy:
         return primal_problem(q_a, pperm, num_reps)
     return dual_problem(q_a, pperm, num_reps)
+
 
 def primal_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
     """Primal problem for counterfeit attack.

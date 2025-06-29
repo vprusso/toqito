@@ -4,10 +4,10 @@ import numpy as np
 
 
 def unvec(vector: np.ndarray, shape: list[int] = None) -> np.ndarray:
-    r"""Perform the unvec operation on a vector to obtain a matrix :cite:`Rigetti_2022_Forest`.
+    r"""Perform the unvec operation on a vector to obtain a matrix :footcite:`Rigetti_2022_Forest`.
 
     Takes a column vector and transforms it into a :code:`shape[0]`-by-:code:`shape[1]` matrix.
-    This operation is the inverse of :code:`vec` operation in :code:`toqito`.
+    This operation is the inverse of :code:`vec` operation in :code:`|toqito⟩`.
 
     For instance, for the following column vector
 
@@ -46,7 +46,7 @@ def unvec(vector: np.ndarray, shape: list[int] = None) -> np.ndarray:
 
     for all :math:`a` and :math:`b`.
 
-    This function has been adapted from :cite:`Rigetti_2022_Forest`.
+    This function has been adapted from :footcite:`Rigetti_2022_Forest`.
 
     Examples
     ==========
@@ -61,21 +61,23 @@ def unvec(vector: np.ndarray, shape: list[int] = None) -> np.ndarray:
     .. math::
         \text{unvec}(u) = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}
 
-    >>> from toqito.matrix_ops import unvec
-    >>> import numpy as np
-    >>> u = np.array([1, 2, 3, 4])
-    >>> unvec(u)
-    array([[1, 3],
-           [2, 4]])
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_ops import unvec
+
+     u = np.array([1, 2, 3, 4])
+
+     unvec(u)
 
     See Also
     ========
-    vec
+    :func:`.vec`
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param vector: A (:code:`shape[0] * shape[1]`)-by-1 numpy array.

@@ -6,7 +6,7 @@ import operator
 import numpy as np
 from scipy import sparse
 
-from toqito.matrix_ops import vec
+from toqito.perms import vec
 
 
 def permute_systems(
@@ -60,14 +60,15 @@ def permute_systems(
             13 & 15 & 14 & 16
         \end{pmatrix}.
 
-    >>> from toqito.perms import permute_systems
-    >>> import numpy as np
-    >>> test_input_mat = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
-    >>> permute_systems(test_input_mat, [1, 0])
-    array([[ 1,  3,  2,  4],
-           [ 9, 11, 10, 12],
-           [ 5,  7,  6,  8],
-           [13, 15, 14, 16]])
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.perms import permute_systems
+
+     test_input_mat = np.arange(1, 17).reshape(4, 4)
+
+     permute_systems(test_input_mat, [1, 0])
+
 
     For spaces :math:`\mathcal{A}, \mathcal{B}`, and :math:`\mathcal{C}` where :math:`\text{dim}(\mathcal{A}) =
     \text{dim}(\mathcal{B}) = \text{dim}(\mathcal{C}) = 2` we may consider an operator :math:`X \in \mathcal{A} \otimes
@@ -105,30 +106,14 @@ def permute_systems(
             57 & 61 & 58 & 62 & 59 & 63 & 60 & 64
         \end{pmatrix}.
 
-    >>> from toqito.perms import permute_systems
-    >>> import numpy as np
-    >>> test_input_mat = np.array(
-    ...    [
-    ...        [1, 2, 3, 4, 5, 6, 7, 8],
-    ...        [9, 10, 11, 12, 13, 14, 15, 16],
-    ...        [17, 18, 19, 20, 21, 22, 23, 24],
-    ...        [25, 26, 27, 28, 29, 30, 31, 32],
-    ...        [33, 34, 35, 36, 37, 38, 39, 40],
-    ...        [41, 42, 43, 44, 45, 46, 47, 48],
-    ...        [49, 50, 51, 52, 53, 54, 55, 56],
-    ...        [57, 58, 59, 60, 61, 62, 63, 64],
-    ...    ]
-    ... )
-    >>> permute_systems(test_input_mat, [1, 2, 0])
-    array([[ 1,  5,  2,  6,  3,  7,  4,  8],
-           [33, 37, 34, 38, 35, 39, 36, 40],
-           [ 9, 13, 10, 14, 11, 15, 12, 16],
-           [41, 45, 42, 46, 43, 47, 44, 48],
-           [17, 21, 18, 22, 19, 23, 20, 24],
-           [49, 53, 50, 54, 51, 55, 52, 56],
-           [25, 29, 26, 30, 27, 31, 28, 32],
-           [57, 61, 58, 62, 59, 63, 60, 64]])
+    .. jupyter-execute::
 
+     import numpy as np
+     from toqito.perms import permute_systems
+
+     test_input_mat = np.arange(1, 65).reshape(8, 8)
+
+     permute_systems(test_input_mat, [1, 2, 0])
 
 
     :raises ValueError: If dimension does not match the number of subsystems.
@@ -144,7 +129,6 @@ def permute_systems(
         input_mat_dims = (1, input_mat.shape[0])
     else:
         input_mat_dims = input_mat.shape
-
 
     is_vec = np.min(input_mat_dims) == 1
     num_sys = len(perm)
@@ -177,7 +161,7 @@ def permute_systems(
     prod_dim_r = int(np.prod(dim[0, :]))
     prod_dim_c = int(np.prod(dim[1, :]))
 
-    if sorted(perm) != list(range(num_sys )):
+    if sorted(perm) != list(range(num_sys)):
         raise ValueError("InvalidPerm: `perm` must be a permutation vector.")
     if input_mat_dims[0] != prod_dim_r or (not row_only and input_mat_dims[1] != prod_dim_c):
         raise ValueError("InvalidDim: The dimensions specified in DIM do not agree with the size of X.")
@@ -189,7 +173,7 @@ def permute_systems(
         # Rather than using subtraction to generate new indices,
         # it's better to use methods designed for handling permutations directly.
         # This avoids the risk of negative indices and is more straightforward.
-        num_sys -= 1 # 0-indexing (Since we're using 0-indexing, we need to subtract 1 from the number of subsystems.)
+        num_sys -= 1  # 0-indexing (Since we're using 0-indexing, we need to subtract 1 from the number of subsystems.)
         permuted_mat_1 = input_mat.reshape(dim[vec_orien, ::-1].astype(int), order="F")
         if inv_perm:
             permuted_mat = vec(np.transpose(permuted_mat_1, np.argsort(num_sys - np.array(perm[::-1])))).T

@@ -1,4 +1,0 @@
-Superdense Coding
-==================
-
-Coming soon.

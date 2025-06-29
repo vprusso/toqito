@@ -1,73 +1,104 @@
-[tool.poetry]
+[project]
 name = "toqito"
-version = "1.1.1"
+dynamic = ["version", "classifiers", "dependencies"]
 description = "Python tools for the study of quantum information."
-authors = ["Vincent Russo <vincentrusso1@gmail.com>"]
-maintainers = ["Vincent Russo <vincentrusso1@gmail.com>, Purva Thakre <purva.athakre@gmail.com>"]
 readme = "README.md"
+requires-python = ">=3.10,<4"
+authors = [{name = "Vincent Russo", email = "vincentrusso1@gmail.com"}]
+maintainers = [
+    {name = "Vincent Russo", email = "vincentrusso1@gmail.com"}, 
+    {name = "Purva Thakre", email = "quantum.purvat@gmail.com"}]
+keywords = ["quantum information", "quantum computing", "nonlocal games"]
+
+[tool.poetry]
+version = "1.1.2"
+classifiers= [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Physics",
+    "Topic :: Scientific/Engineering :: Quantum Computing",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: BSD License",
+    "Operating System :: OS Independent",
+]
+packages = [{include = "toqito"}]
+
+[project.urls]
 homepage = "https://vprusso.github.io/toqito/"
 repository = "https://github.com/vprusso/toqito"
-keywords = ["quantum information", "quantum computing", "nonlocal games"]
 
 [tool.poetry.dependencies]
 python = ">=3.10,<4"
 cvxpy = "1.6.2"
-cvxopt = "1.3.2"
-more-itertools = "10.6.0"
-numpy = "2.2.3"
-scipy = "1.15.2"
-scs = "3.2.7.post2"
+more-itertools = "10.7.0"
+numpy = "2.2.6"
+scipy = "1.15.3"
+scs = "3.2.7.post2" 
 picos = "2.6.0"
 networkx = "2.6"
 numba = "^0.61.2"
+jupyter-sphinx = "^0.5.3"
 
 [tool.poetry.group.dev.dependencies]
-pytest = "8.3.4"
-pytest-cov = "6.0.0"
-coverage = "7.7.0"
-sympy = "1.13.3"
+pytest = "8.4.0"
+pytest-cov = "6.2.1"
+coverage = "7.9.1"
+sympy = "1.14.0"
 distlib = "0.3.9"
-ipython = "8.34.0"
+ipython = "8.37.0"
 setuptools = ">65.5.1"
+pre-commit = ">=3.0.0"
+jupyter-sphinx = "^0.5.3"
 
 [tool.poetry.group.lint.dependencies]
-flake8 = "7.1.2"
+flake8 = "7.3.0"
 flake8-docstrings = "1.7.0"
 isort = "6.0.0"
 myst-parser = "4.0.1"
 pep8 = "1.7.1"
-ruff = "0.11.0"
-mypy = "1.15.0"
+ruff = "0.12.0"
+mypy = "1.16.0"
 
 [tool.poetry.group.docs.dependencies]
 readthedocs-sphinx-ext = "*"
 sphinx = "8.1.3"
+sphinx-gallery = "0.19.0"
+matplotlib = "3.10.1"
 furo = "2024.8.6"
 sphinxcontrib-bibtex = "2.6.3"
+jupyter-sphinx = "^0.5.3"
 sphinx-autoapi = "3.6.0"
 sphinx-copybutton = "0.5.2"
 
 [build-system]
-requires = ["setuptools","poetry>=0.12"]
-build-backend = "poetry.masonry.api"
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
 
 [tool.ruff]
-# exclude = ["__init__.py"]
+exclude = ["__init__.py"]
 line-length = 120
-target-version = "py311"
+target-version = "py312"
+force-exclude = true
+
 
 [tool.ruff.lint]
-select = ["I", "E", "W", "D", "PL"]
+select = ["I", "E", "W", "D", "PL", "F"]
 # ruff configuration
 # E, W -- pycodestyle
 # D -- pydocstyle
 # I -- isort
 # PL -- pylint
+# F -- pyflakes
+
 
 # Rules considered over other incompatible ones
 exclude = ["docs/conf.py", "setup.py"]
 
-ignore = ["D407", "D203", "D213", "D416", "PLR0912", "PLR0911", "PLR0915", "PLR2004", "PLR0913"]
+
+ignore = ["D407", "D203", "D213", "D416", "PLR0912", "PLR0911", "PLR0915", "PLR2004", "PLR0913", "F811", "E203"]
 # Rules Ignored
 
 # D407 - Ignored because ==== under a section heading is considered as a missing underline.
@@ -85,7 +116,13 @@ ignore = ["D407", "D203", "D213", "D416", "PLR0912", "PLR0911", "PLR0915", "PLR2
 # PLR0915 -- Checks for functions or methods with too many statements. The default number is 50. 
 # PLR2004 -- Checks if an equality or an inequality is compared to a variable or a num (prefers variable pre)
 # PLR0913 Too many arguments in function definition
+# F811 -- Checks for variable definitions that redefine (or "shadow") unused variables 
+# E203 -- Whitespace before ':'. This rule conflicts with Black's formatting style.
+# It was removing definitions with the same name creating conflicts in test_is_stochastic.py
 
 [tool.ruff.lint.per-file-ignores]
-"__init__.py" = ["I001"]
+"__init__.py" = ["I001", "F401"]
 # I001 - skip checking Import block is un-sorted or un-formatted
+# F401 - Checks for unused imports, applying fixes to __init__.py currently under review
+# skip checking all the .py files in the examples gallery
+"examples/*" = ["I", "E", "W", "D", "PL", "F"]

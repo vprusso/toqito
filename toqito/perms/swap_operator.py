@@ -26,28 +26,21 @@ def swap_operator(dim: list[int] | int, is_sparse: bool = False) -> np.ndarray:
             0 & 0 & 0 & 1
         \end{pmatrix}
 
-    Using :code:`toqito` we can obtain this matrix as follows.
+    Using :code:`|toqito⟩` we can obtain this matrix as follows.
 
-    >>> from toqito.perms import swap_operator
-    >>> swap_operator(2)
-    array([[1., 0., 0., 0.],
-           [0., 0., 1., 0.],
-           [0., 1., 0., 0.],
-           [0., 0., 0., 1.]])
+    .. jupyter-execute::
 
-    The :math:`3`-dimensional operator may be obtained using :code:`toqito` as follows.
+     from toqito.perms import swap_operator
 
-    >>> from toqito.perms import swap_operator
-    >>> swap_operator(3)
-    array([[1., 0., 0., 0., 0., 0., 0., 0., 0.],
-           [0., 0., 0., 1., 0., 0., 0., 0., 0.],
-           [0., 0., 0., 0., 0., 0., 1., 0., 0.],
-           [0., 1., 0., 0., 0., 0., 0., 0., 0.],
-           [0., 0., 0., 0., 1., 0., 0., 0., 0.],
-           [0., 0., 0., 0., 0., 0., 0., 1., 0.],
-           [0., 0., 1., 0., 0., 0., 0., 0., 0.],
-           [0., 0., 0., 0., 0., 1., 0., 0., 0.],
-           [0., 0., 0., 0., 0., 0., 0., 0., 1.]])
+     swap_operator(2)
+
+    The :math:`3`-dimensional operator may be obtained using :code:`|toqito⟩` as follows.
+
+    .. jupyter-execute::
+
+     from toqito.perms import swap_operator
+
+     swap_operator(3)
 
 
     :param dim: The dimensions of the subsystems.

@@ -1,4 +1,7 @@
 name: check-build
+permissions:
+  contents: read
+  id-token: write
 
 on:
   pull_request:
@@ -24,8 +27,11 @@ jobs:
       PYTHON: ${{ matrix.python-version }}
     steps:
       - uses: actions/checkout@v4
-      - uses: chartboost/ruff-action@v1
-      # https://github.com/chartboost/ruff-action
+      - uses: astral-sh/ruff-action@v3
+        with:
+          args: "format --check --diff"
+      - run: ruff check --fix
+      # https://github.com/astral-sh/ruff-action
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
