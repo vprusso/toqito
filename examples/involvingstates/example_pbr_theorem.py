@@ -1,10 +1,10 @@
 """The Pusey-Barrett-Rudolph (PBR) Theorem.
 =======================================
 
-In this tutorial, we will explore the Pusey-Barrett-Rudolph (PBR) theorem 
-:footcite:`Pusey_2012_On`, a significant no-go theorem in the foundations 
-of quantum mechanics. We will describe the theorem's core argument and then 
-use :code:`|toqito⟩` to verify the central mathematical property that 
+In this tutorial, we will explore the Pusey-Barrett-Rudolph (PBR) theorem
+:footcite:`Pusey_2012_On`, a significant no-go theorem in the foundations
+of quantum mechanics. We will describe the theorem's core argument and then
+use :code:`|toqito⟩` to verify the central mathematical property that
 the theorem relies on.
 
 The PBR theorem addresses a fundamental question: Is the quantum state
