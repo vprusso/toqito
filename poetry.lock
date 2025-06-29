@@ -1840,9 +1840,7 @@ files = [
     {file = "numba-0.61.2.tar.gz", hash = "sha256:8750ee147940a6637b80ecf7f95062185ad8726c8c28a2295b8ec1160a196f7d"},
 ]
 
-[package.dependencies]
-llvmlite = "==0.44.*"
-numpy = ">=1.24,<2.3"
+[[package]]
 name = "nbclient"
 version = "0.10.2"
 description = "A client library for executing notebooks. Formerly nbconvert's ExecutePreprocessor."
@@ -1855,6 +1853,8 @@ files = [
 ]
 
 [package.dependencies]
+llvmlite = "==0.44.*"
+numpy = ">=1.24,<2.3"
 jupyter-client = ">=6.1.12"
 jupyter-core = ">=4.12,<5.0.dev0 || >=5.1.dev0"
 nbformat = ">=5.1"
