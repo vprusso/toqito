@@ -97,6 +97,5 @@ def test_4cycle_bcs_no_classical_but_perfect_quantum():
     b = np.array([1, 1, 1, 0], dtype=int)
     constraints = create_bcs_constraints(M, b)
     assert check_perfect_commuting_strategy(M, b)
-
     game = NonlocalGame.from_bcs_game(constraints, reps=1)
     assert game.is_bcs_perfect_commuting_strategy()
