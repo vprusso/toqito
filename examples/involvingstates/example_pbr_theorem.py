@@ -43,6 +43,7 @@ incomplete knowledge or information about some deeper underlying reality
 #     :math:`|\psi_0\rangle` or :math:`|\psi_1\rangle`. The PBR theorem shows that the
 #     existence of any such overlap (for any pair of distinct states) leads to a
 #     contradiction with quantum theory's predictions.
+#     Figure adapted from the PBR paper :footcite:`Pusey_2012_On`.
 #
 # 2.  **Thought Experiment**: The PBR paper :footcite:`Pusey_2012_On` constructs a thought
 #     experiment to show this leads to a contradiction. Consider two
