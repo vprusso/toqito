@@ -1,10 +1,11 @@
 """The Pusey-Barrett-Rudolph (PBR) Theorem.
 =======================================
 
-In this tutorial, we will explore the Pusey-Barrett-Rudolph (PBR) theorem,
-a significant no-go theorem in the foundations of quantum mechanics. We will
-describe the theorem's core argument and then use :code:`|toqito⟩` to verify
-the central mathematical property that the theorem relies on.
+In this tutorial, we will explore the Pusey-Barrett-Rudolph (PBR) theorem 
+:footcite:`Pusey_2012_On`, a significant no-go theorem in the foundations 
+of quantum mechanics. We will describe the theorem's core argument and then 
+use :code:`|toqito⟩` to verify the central mathematical property that 
+the theorem relies on.
 
 The PBR theorem addresses a fundamental question: Is the quantum state
 (e.g., the wavefunction :math:`|\\psi\\rangle`) a real, objective property of a
@@ -14,12 +15,12 @@ incomplete knowledge or information about some deeper underlying reality
 """
 
 # %%
-# The PBR Argument
+# PBR Argument
 # ----------------
 #
 # The PBR theorem :footcite:`Pusey_2012_On` argues against a broad class of epistemic models.
 #
-# 1.  **The Epistemic Hypothesis**: An epistemic model assumes there is a
+# 1.  **Epistemic Hypothesis**: An epistemic model assumes there is a
 #     "real" physical state of the system, often denoted by :math:`\lambda`.
 #     The quantum state :math:`|\psi\rangle` is then just a probability
 #     distribution over the possible values of :math:`\lambda`. A key
@@ -29,12 +30,26 @@ incomplete knowledge or information about some deeper underlying reality
 #     could have been prepared in *either* :math:`|\psi_0\rangle` or
 #     :math:`|\psi_1\rangle`.
 #
-# 2.  **The Thought Experiment**: The PBR paper constructs a thought
+#     We can visualize the overlap of these hypothetical probability distributions.
+#
+#     .. figure:: ../../figures/pbr_theorem.png
+#       :alt: overlapping distributions
+#       :align: center
+#
+#       Overlapping distributions for two quantum states
+#
+#     The shaded region :math:`\Delta` represents the set of ontic states
+#     :math:`\lambda` that are ambiguous—the system could have been prepared as
+#     :math:`|\psi_0\rangle` or :math:`|\psi_1\rangle`. The PBR theorem shows that the
+#     existence of any such overlap (for any pair of distinct states) leads to a
+#     contradiction with quantum theory's predictions.
+#
+# 2.  **Thought Experiment**: The PBR paper :footcite:`Pusey_2012_On` constructs a thought
 #     experiment to show this leads to a contradiction. Consider two
 #     non-orthogonal quantum states, for example:
 #
 #     .. math::
-#        |0\rangle \quad \text{and} \quad |+\rangle = \frac{1}{\sqrt{2}}(|0\rangle + |1\rangle)
+#        |0\rangle \quad \text{and } \quad |+\rangle = \frac{1}{\sqrt{2}}(|0\rangle + |1\rangle)
 #
 #     If their underlying reality distributions overlap, it's possible to
 #     prepare a system where its true state :math:`\lambda` is consistent
@@ -47,7 +62,7 @@ incomplete knowledge or information about some deeper underlying reality
 #        |0\rangle \otimes |0\rangle, \quad |0\rangle \otimes |+\rangle,
 #        |+\rangle \otimes |0\rangle, \quad |+\rangle \otimes |+\rangle
 #
-# 3.  **The Contradiction via Antidistinguishability**: The crux of the
+# 3.  **Contradiction via Antidistinguishability**: The crux of the
 #     theorem is to show that quantum mechanics allows for a special
 #     entangled measurement on the two systems. This measurement has a
 #     remarkable property: each of its possible outcomes is strictly
@@ -81,9 +96,12 @@ incomplete knowledge or information about some deeper underlying reality
 # -----------------------------------------------
 #
 # We can now use :code:`|toqito⟩` to verify the key requirement for the PBR
-# theorem: that the set of four states constructed from :math:`|0\rangle`
+# theorem that the set of four states constructed from :math:`|0\rangle`
 # and :math:`|+\rangle` are indeed antidistinguishable.
 
+# sphinx_gallery_start_ignore
+# sphinx_gallery_thumbnail_path = 'figures/pbr_theorem.png'
+# sphinx_gallery_end_ignore
 import numpy as np
 
 from toqito.matrices import standard_basis
@@ -123,7 +141,7 @@ print(f"Are the four PBR states antidistinguishable? {is_ad}")
 # ------------------
 # The theorem holds for any pair of non-orthogonal states. The `toqito`
 # library provides a function to generate the states from the more general
-# proof in the PBR paper, which are defined by an angle :math:`\theta`.
+# proof in the PBR paper :footcite:`Pusey_2012_On`, which are defined by an angle :math:`\theta`.
 #
 # .. math::
 #    |\psi_0\rangle = \cos(\frac{\theta}{2})|0\rangle + \sin(\frac{\theta}{2})|1\rangle \quad \text{and}
@@ -131,11 +149,12 @@ print(f"Are the four PBR states antidistinguishable? {is_ad}")
 #
 # For instance, we can generate a set of :math:`2^n` states for some :math:`n` and :math:`\theta`.
 
-from toqito.states import pusey_barrett_rudolph  # noqa: E402
+from toqito.states import pusey_barrett_rudolph
 
 # Generate states for n=2 systems and theta = pi/3
 general_pbr_states = pusey_barrett_rudolph(n=2, theta=np.pi / 3)
 
+# %%
 # The inner product of the two base states is cos(theta).
 # For these to be antidistinguishable, we need to check the condition from the paper.
 # The theorem states that if 2^(1/n) - 1 < tan(theta/2), a contradiction is obtained.
