@@ -259,13 +259,11 @@ class NonlocalGame:
     def classical_value(self) -> float:
         """Compute the classical value of the nonlocal game using Numba acceleration.
         """
-        # Prepare weighted predicate matrix
         A_out, B_out, A_in, B_in = self.pred_mat.shape
         pm = np.copy(self.pred_mat)
         pm *= self.prob_mat[np.newaxis, np.newaxis, :A_in, :B_in]
 
         # Align dimensions for Bob's strategies
-        A_out, B_out, A_in, B_in = pm.shape
         if A_out ** A_in < B_out ** B_in:
             pm = pm.transpose((1, 0, 3, 2))
             A_out, B_out, A_in, B_in = pm.shape
@@ -276,8 +274,26 @@ class NonlocalGame:
         # Build power array for decoding Bob's outputs
         pow_arr = np.array([B_out ** (B_in - 1 - y) for y in range(B_in)], dtype=np.int64)
 
-        # Call the fast Numba-accelerated helper
-        return _fast_classical_value(pm, B_out, B_in, pow_arr)
+        # === Begin fast classical value logic ===
+        p_win = 0.0
+        total = B_out ** B_in
+
+        for i in range(total):
+            best_sum = 0.0
+            for x in range(A_in):
+                best_for_x = 0.0
+                for a in range(A_out):
+                    acc = 0.0
+                    for y in range(B_in):
+                        b_q = (i // pow_arr[y]) % B_out
+                        acc += pm[a, x, b_q, y]
+                    if acc > best_for_x:
+                        best_for_x = acc
+                best_sum += best_for_x
+            if best_sum > p_win:
+                p_win = best_sum
+
+        return p_win
 
     def quantum_value_lower_bound(
         self,
