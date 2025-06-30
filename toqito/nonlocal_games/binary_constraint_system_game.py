@@ -34,7 +34,7 @@ def create_bcs_constraints(M: np.ndarray, b: np.ndarray) -> list[np.ndarray]:
     .. jupyter-execute::
     
           import numpy as np
-          from inary_constraint_system_game import create_bcs_constraints
+          from toqito.nonlocal_games.binary_constraint_system_game import create_bcs_constraints
 
           M = np.array([[1, 1], [1, 1]], dtype=int)
           b = np.array([0, 1], dtype=int)
