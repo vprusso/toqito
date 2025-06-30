@@ -36,7 +36,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.stats import norm
 
-# sphinx_gallery_start_ignore
 fig, ax = plt.subplots(figsize=(8, 4), dpi=100)
 lambda_space = np.linspace(-4, 4, 1000)
 dist_0 = norm(loc=-1, scale=1)
