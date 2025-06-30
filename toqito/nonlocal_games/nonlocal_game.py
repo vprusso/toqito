@@ -5,7 +5,6 @@ from collections import defaultdict
 
 import cvxpy
 import numpy as np
-import numba as nb
 
 from toqito.helper import update_odometer
 from toqito.matrix_ops import tensor
