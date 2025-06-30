@@ -40,7 +40,7 @@ def create_bcs_constraints(M: np.ndarray, b: np.ndarray) -> list[np.ndarray]:
           b = np.array([0, 1], dtype=int)
           constraints = create_bcs_constraints(M, b)
           constraints[0].shape
-
+          
     :param M: A binary matrix of shape (m, n) defining which variables appear in each constraint.
     :param b: A binary vector of length m that determines the constant term ``(-1)**(b[i])``.
     :return: A list of NumPy arrays, each of shape ``(2,)*n``. Each tensor represents
@@ -79,7 +79,7 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
 
        print("Row masks:", row_masks)
        print("Parity:", parity)
-
+       
     The method used to determine the existence of a perfect commuting strategy was originally introduced in :cite:`Cleve_2016_Perfect`.
 
     References
@@ -118,10 +118,11 @@ def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray) -> bool:
     
          import numpy as np
          from toqito.nonlocal_games.binary_constraint_system_game import check_perfect_commuting_strategy
+         
          M = np.array([[1, 1], [1, 1]])
          b = np.array([0, 1])
          print(check_perfect_commuting_strategy(M, b))
-        
+         
     :param M: A binary matrix of shape ``(m, n)``.
     :param b: A binary vector of length ``m``.
     :return: ``True`` if a perfect commuting-operator strategy exists; otherwise, ``False``.
