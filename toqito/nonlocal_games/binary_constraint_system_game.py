@@ -34,11 +34,11 @@ def create_bcs_constraints(M: np.ndarray, b: np.ndarray) -> list[np.ndarray]:
     .. jupyter-execute::
     
           import numpy as np
-          from toqito.nonlocal_games.binary_constraint_system_game import create_bcs_constraints
-
+          from toqito.nonlocal_games import binary_constraint_system_game
+          
           M = np.array([[1, 1], [1, 1]], dtype=int)
           b = np.array([0, 1], dtype=int)
-          constraints = create_bcs_constraints(M, b)
+          constraints = binary_constraint_system_game.create_bcs_constraints(M, b)
           constraints[0].shape
           
     :param M: A binary matrix of shape (m, n) defining which variables appear in each constraint.
@@ -71,11 +71,11 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
     .. jupyter-execute::
     
           import numpy as np
-          from toqito.nonlocal_games.binary_constraint_system_game import generate_solution_group
+          from toqito.nonlocal_games import binary_constraint_system_game
 
           M = np.array([[1, 1, 0], [0, 1, 1]])
           b = np.array([0, 1])
-          row_masks, parity = generate_solution_group(M, b)
+          row_masks, parity = binary_constraint_system_game.generate_solution_group(M, b)
 
        print("Row masks:", row_masks)
        print("Parity:", parity)
@@ -117,11 +117,11 @@ def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray) -> bool:
     ..jupyter-execute::
     
          import numpy as np
-         from toqito.nonlocal_games.binary_constraint_system_game import check_perfect_commuting_strategy
+         from toqito.nonlocal_games import binary_constraint_system_game
          
          M = np.array([[1, 1], [1, 1]])
          b = np.array([0, 1])
-         print(check_perfect_commuting_strategy(M, b))
+         print(binary_constraint_system_game.check_perfect_commuting_strategy(M, b))
          
     :param M: A binary matrix of shape ``(m, n)``.
     :param b: A binary vector of length ``m``.
