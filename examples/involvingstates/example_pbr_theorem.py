@@ -1,5 +1,5 @@
 """The Pusey-Barrett-Rudolph (PBR) Theorem
-=======================================
+=========================================
 
 In this tutorial, we will explore the Pusey-Barrett-Rudolph (PBR) theorem
 :footcite:`Pusey_2012_On`, a significant no-go theorem in the foundations
@@ -31,6 +31,16 @@ incomplete knowledge or information about some deeper underlying reality
 #     :math:`|\psi_1\rangle`.
 #
 #     We can visualize the overlap of these hypothetical probability distributions.
+#     To do this, we will create a simple illustrative plot. We are not assuming
+#     any specific physical model for `λ`; the plot is purely a visual aid to
+#     make the concept of overlapping probability distributions concrete.
+#
+#     For this illustration, we represent the space of possible ontic states `λ`
+#     on the x-axis. We then choose two simple, overlapping normal (Gaussian)
+#     distributions to represent the hypothetical probability densities
+#     `p(λ | ψ₀)` and `p(λ | ψ₁)`. The specific choice of Gaussian distributions
+#     is arbitrary; any pair of distinct, overlapping distributions would
+#     demonstrate the same essential feature.
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -117,8 +127,8 @@ plt.tight_layout()
 
 
 # %%
-# Verifying Antidistinguishability with :code:`|toqito⟩`
-# -----------------------------------------------
+# Verifying Antidistinguishability with `|toqito⟩`
+# ------------------------------------------------
 #
 # We can now use :code:`|toqito⟩` to verify the key requirement for the PBR
 # theorem that the set of four states constructed from :math:`|0\rangle`
@@ -177,12 +187,12 @@ from toqito.states import pusey_barrett_rudolph
 general_pbr_states = pusey_barrett_rudolph(n=2, theta=np.pi / 3)
 
 # %%
-# The inner product of the two base states is :math:`cos(\theta)`.
+# The inner product of the two base states is :math:`\cos(\theta)`.
 # For these to be antidistinguishable, we need to check the condition from the paper.
-# The theorem states that if 2^(1/n) - 1 < tan(theta/2), a contradiction is obtained.
-# For n=2 and theta=pi/3, tan(theta/2) = tan(pi/6) approx 0.577.
-# 2^(1/2) - 1 approx 0.414.
-# Since 0.414 < 0.577, the theorem applies and this set should be antidistinguishable.
+# The theorem states that if :math:`2^{1/n} - 1 < \tan(\theta/2)`, a contradiction is obtained.
+# For :math:`n=2` and :math:`\theta=\pi/3`, we have :math:`\tan(\theta/2) = \tan(\pi/6) \approx 0.577`.
+# The other side of the inequality is :math:`2^{1/2} - 1 \approx 0.414`.
+# Since :math:`0.414 < 0.577`, the theorem applies and this set should be antidistinguishable.
 
 is_ad_general = is_antidistinguishable(general_pbr_states)
 
