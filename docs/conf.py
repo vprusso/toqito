@@ -16,6 +16,8 @@ import datetime
 # sys.path.insert(0, os.path.abspath("."))
 # sys.path.insert(0, os.path.abspath(".."))
 sys.path.insert(0, os.path.abspath("../.."))
++# make sure Sphinx can “see” your toqito/ package
++sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 # -- Project information -----------------------------------------------------
 
