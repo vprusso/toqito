@@ -1,4 +1,4 @@
-"""The Pusey-Barrett-Rudolph (PBR) Theorem.
+"""The Pusey-Barrett-Rudolph (PBR) Theorem
 =======================================
 
 In this tutorial, we will explore the Pusey-Barrett-Rudolph (PBR) theorem
@@ -84,7 +84,7 @@ plt.tight_layout()
 #     four possible quantum preparations:
 #
 #     .. math::
-#        |0\rangle \otimes |0\rangle, \quad |0\rangle \otimes |+\rangle,
+#        |0\rangle \otimes |0\rangle, \quad |0\rangle \otimes |+\rangle, \text{ }
 #        |+\rangle \otimes |0\rangle, \quad |+\rangle \otimes |+\rangle
 #
 # 3.  **Contradiction via Antidistinguishability**: The crux of the
@@ -117,7 +117,7 @@ plt.tight_layout()
 
 
 # %%
-# Verifying Antidistinguishability with `|toqito⟩`
+# Verifying Antidistinguishability with :code:`|toqito⟩`
 # -----------------------------------------------
 #
 # We can now use :code:`|toqito⟩` to verify the key requirement for the PBR
@@ -149,12 +149,12 @@ is_ad = is_antidistinguishable(pbr_states)
 print(f"Are the four PBR states antidistinguishable? {is_ad}")
 
 # %%
-# The result is :code:`True`. This confirms that there exists a measurement
+# The result confirms that there exists a measurement
 # that can perfectly exclude each of the four states, providing the
 # necessary ingredient for the PBR no-go theorem's contradiction.
 #
 # This result, derived from a solvable semidefinite program within
-# :code:`|toqito⟩`'s `state_exclusion` module, supports the theorem's
+# :code:`|toqito⟩`'s :func:`.state_exclusion` module, supports the theorem's
 # conclusion that the quantum state has a strong claim to being an
 # objective feature of reality.
 
@@ -166,7 +166,7 @@ print(f"Are the four PBR states antidistinguishable? {is_ad}")
 # proof in the PBR paper :footcite:`Pusey_2012_On`, which are defined by an angle :math:`\theta`.
 #
 # .. math::
-#    |\psi_0\rangle = \cos(\frac{\theta}{2})|0\rangle + \sin(\frac{\theta}{2})|1\rangle \quad \text{and}
+#    |\psi_0\rangle = \cos(\frac{\theta}{2})|0\rangle + \sin(\frac{\theta}{2})|1\rangle \quad \text{and }
 #    |\psi_1\rangle = \cos(\frac{\theta}{2})|0\rangle - \sin(\frac{\theta}{2})|1\rangle
 #
 # For instance, we can generate a set of :math:`2^n` states for some :math:`n` and :math:`\theta`.
@@ -177,7 +177,7 @@ from toqito.states import pusey_barrett_rudolph
 general_pbr_states = pusey_barrett_rudolph(n=2, theta=np.pi / 3)
 
 # %%
-# The inner product of the two base states is cos(theta).
+# The inner product of the two base states is :math:`cos(\theta)`.
 # For these to be antidistinguishable, we need to check the condition from the paper.
 # The theorem states that if 2^(1/n) - 1 < tan(theta/2), a contradiction is obtained.
 # For n=2 and theta=pi/3, tan(theta/2) = tan(pi/6) approx 0.577.
