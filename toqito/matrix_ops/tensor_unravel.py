@@ -25,7 +25,8 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
     .. jupyter-execute::
     
           import numpy as np
-        
+          from toqito.matrix_ops.tensor_unravel import tensor_unravel
+          
           tensor_constraint = np.array([[-1, -1], [-1, 1]])
           tensor_unravel(tensor_constraint)
         
