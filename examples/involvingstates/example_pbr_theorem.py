@@ -32,13 +32,13 @@ incomplete knowledge or information about some deeper underlying reality
 #
 #     We can visualize the overlap of these hypothetical probability distributions.
 #     To do this, we will create a simple illustrative plot. We are not assuming
-#     any specific physical model for `λ`; the plot is purely a visual aid to
+#     any specific physical model for :math:`\lambda`; the plot is purely a visual aid to
 #     make the concept of overlapping probability distributions concrete.
 #
-#     For this illustration, we represent the space of possible ontic states `λ`
+#     For this illustration, we represent the space of possible ontic states :math:`\lambda`
 #     on the x-axis. We then choose two simple, overlapping normal (Gaussian)
 #     distributions to represent the hypothetical probability densities
-#     `p(λ | ψ₀)` and `p(λ | ψ₁)`. The specific choice of Gaussian distributions
+#     :math:`p(\lambda | \psi_0)` and :math:`p(\lambda | \psi_1)`. The specific choice of Gaussian distributions
 #     is arbitrary; any pair of distinct, overlapping distributions would
 #     demonstrate the same essential feature.
 
