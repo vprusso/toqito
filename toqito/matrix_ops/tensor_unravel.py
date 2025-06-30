@@ -25,10 +25,9 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
     .. jupyter-execute::
     
           import numpy as np
-          from binary_constraint_system_game import tensor_to_raw
         
           tensor_constraint = np.array([[-1, -1], [-1, 1]])
-          tensor_to_raw(tensor_constraint)
+          tensor_unravel(tensor_constraint)
         
     The tensor-form constraint representation is commonly used in implementations of
     binary constraint system (BCS) games. For background on BCS games, see:cite:`Cleve_2014_Characterization`.
