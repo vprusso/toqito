@@ -27,6 +27,8 @@ ph_damp_2 = kraus_to_choi(phase_damping(gamma=0.35))
         (amp_damp_1, amp_damp_2, [0.2, 0.8], [2, 2], 0.8),
         # One channel in Kraus and another in Choi representation.
         (amp_damp_1_kraus, amp_damp_2, [0.2, 0.8], [2, 2], 0.8),
+        # Same as previous channels but max(p) > 1.
+        (amp_damp_1_kraus, amp_damp_2, [0.2, 1.8], [2, 2], 1),
     ],
 )
 def test_channel_distinguishability_bayesian(test_input_1, test_input_2, prior_prob, dim, expected):
@@ -58,7 +60,7 @@ def test_channel_distinguishability_minimax(test_input_1, test_input_2, prior_pr
 
 
 @pytest.mark.parametrize(
-    "test_input1, test_input_2, prior_prob, dim, expected_msg",
+    "test_input_1, test_input_2, prior_prob, dim",
     [
         # Inconsistent dimensions between two channels.
         (
@@ -66,8 +68,28 @@ def test_channel_distinguishability_minimax(test_input_1, test_input_2, prior_pr
             dephasing(2),
             [0.5, 0.5],
             [2, 2],
-            "The channels must have the same dimension input and output spaces as each other.",
         ),
+    ],
+)
+@pytest.mark.parametrize(
+    "strategy",
+    [
+        "Bayesian",
+        "Minimax",
+    ],
+)
+def test_state_distinguishability_invalid_channels(test_input_1, test_input_2, prior_prob, dim, strategy):
+    """Test function raises error for invalid channel dimensions for both bayesian and minimax settings."""
+    with pytest.raises(
+        ValueError,
+        match="The channels must have the same dimension input and output spaces as each other.",
+    ):
+        channel_distinguishability(test_input_1, test_input_2, prior_prob, dim, strategy=strategy)
+
+
+@pytest.mark.parametrize(
+    "test_input1, test_input_2, prior_prob, dim, expected_msg",
+    [
         # Sum of prior probabilities greater than 1.
         (
             dephasing(2),
@@ -86,7 +108,7 @@ def test_channel_distinguishability_minimax(test_input_1, test_input_2, prior_pr
         ),
     ],
 )
-def test_channel_distinguishability_invalid_inputs(test_input1, test_input_2, prior_prob, dim, expected_msg):
-    """Test function raises error as expected for invalid inputs."""
+def test_bayesian_channel_distinguishability_invalid_inputs(test_input1, test_input_2, prior_prob, dim, expected_msg):
+    """Test function raises error as expected for invalid inputs for bayesian setting."""
     with pytest.raises(ValueError, match=expected_msg):
         channel_distinguishability(test_input1, test_input_2, prior_prob, dim)

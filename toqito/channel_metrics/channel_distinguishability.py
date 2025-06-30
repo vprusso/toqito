@@ -100,19 +100,19 @@ def channel_distinguishability(
     if not np.array_equal(dim_phi, dim_psi):
         raise ValueError("The channels must have the same dimension input and output spaces as each other.")
 
-    if strategy == "bayesian":
+    if strategy.lower() == "bayesian":
         if len(p) != 2:
             raise ValueError("p must be a probability distribution with 2 entries.")
 
         if max(p) >= 1:
             return 1
 
-        if (abs(sum(p) - 1)) != 0:
+        if abs(sum(p) - 1) != 0:
             raise ValueError("Sum of prior probabilities must add up to 1.")
 
         return 1 / 2 * (1 + completely_bounded_trace_norm(p[0] * phi - p[1] * psi))
 
-    elif strategy == "minimax":
+    elif strategy.lower() == "minimax":
         if primal_dual == "primal":
             return _minimax_primal(phi, psi, d_in_phi[0], d_out_phi[0], solver=solver, **kwargs)
         return _minimax_dual(phi, psi, d_in_phi[0], d_out_phi[0], solver=solver, **kwargs)
@@ -128,23 +128,23 @@ def _minimax_dual(
     **kwargs,
 ) -> float:
     """Find the dual problem for minimax quantum channel distinguishability SDP."""
-    J = list([phi, psi])
+    J_var = list([phi, psi])
 
     problem = pc.Problem()
 
-    a = pc.RealVariable("a", lower=0)
-    P = pc.RealVariable("P", 2)
-    Y = pc.HermitianVariable("Y", (dimA * dimB, dimA * dimB))
+    a_var = pc.RealVariable("a", lower=0)
+    P_var = pc.RealVariable("P", 2)
+    Y_var = pc.HermitianVariable("Y", (dimA * dimB, dimA * dimB))
 
-    Y0 = pc.partial_trace(Y, 1)
+    Y0 = pc.partial_trace(Y_var, 1)
 
-    problem.add_list_of_constraints(Y >> P[i] * J[i] for i in range(2))
-    problem.add_constraint(pc.sum(P) == 1)
-    problem.add_constraint(Y >> 0)
-    problem.add_constraint(Y0 == a * np.eye(dimA))
-    problem.add_list_of_constraints(p >= 0 for p in P)
+    problem.add_list_of_constraints(Y_var >> P_var[i] * J_var[i] for i in range(2))
+    problem.add_constraint(pc.sum(P_var) == 1)
+    problem.add_constraint(Y_var >> 0)
+    problem.add_constraint(Y0 == a_var * np.eye(dimA))
+    problem.add_list_of_constraints(p >= 0 for p in P_var)
 
-    problem.set_objective("min", a)
+    problem.set_objective("min", a_var)
 
     problem.solve(solver=solver, **kwargs)
 
@@ -156,26 +156,26 @@ def _minimax_primal(
     psi: np.ndarray | list[np.ndarray] | list[list[np.ndarray]],
     dimA: int,
     dimB: int,
-    primal_dual="primal",
+    primal_dual: str = "primal",
     solver: str = "cvxopt",
     **kwargs,
 ) -> float:
     """Find the primal problem for minimax quantum channel distinguishability SDP."""
-    J = list([phi, psi])
+    J_var = list([phi, psi])
 
     problem = pc.Problem()
 
-    a = pc.RealVariable("a", lower=0)
-    P = [pc.HermitianVariable(f"P[{i}]", (dimA * dimB, dimA * dimB)) for i in range(2)]
+    a_var = pc.RealVariable("a", lower=0)
+    P_var = [pc.HermitianVariable(f"P[{i}]", (dimA * dimB, dimA * dimB)) for i in range(2)]
     rho = pc.HermitianVariable("rho", (dimA, dimA))
 
-    problem.add_list_of_constraints(P[i] >> 0 for i in range(2))
-    problem.add_list_of_constraints(a <= pc.trace(P[i] * J[i]).real for i in range(2))
-    problem.add_constraint(pc.sum(P) == rho @ np.eye(dimB))
+    problem.add_list_of_constraints(P_var[i] >> 0 for i in range(2))
+    problem.add_list_of_constraints(a_var <= pc.trace(P_var[i] * J_var[i]).real for i in range(2))
+    problem.add_constraint(pc.sum(P_var) == rho @ np.eye(dimB))
     problem.add_constraint(rho >> 0)
     problem.add_constraint(pc.trace(rho) == 1)
 
-    problem.set_objective("max", a)
+    problem.set_objective("max", a_var)
 
     problem.solve(solver=solver, **kwargs)
 
