@@ -31,13 +31,39 @@ incomplete knowledge or information about some deeper underlying reality
 #     :math:`|\psi_1\rangle`.
 #
 #     We can visualize the overlap of these hypothetical probability distributions.
-#
-#     .. figure:: ../../figures/pbr_theorem.png
-#       :alt: overlapping distributions
-#       :align: center
-#
-#       Overlapping distributions for two quantum states
-#
+
+import matplotlib.pyplot as plt
+import numpy as np
+from scipy.stats import norm
+
+# sphinx_gallery_start_ignore
+fig, ax = plt.subplots(figsize=(8, 4), dpi=100)
+lambda_space = np.linspace(-4, 4, 1000)
+dist_0 = norm(loc=-1, scale=1)
+dist_1 = norm(loc=1, scale=1)
+p_lambda_0 = dist_0.pdf(lambda_space)
+p_lambda_1 = dist_1.pdf(lambda_space)
+ax.plot(lambda_space, p_lambda_0, label=r"$p(\lambda | \psi_0)$")
+ax.plot(lambda_space, p_lambda_1, label=r"$p(\lambda | \psi_1)$")
+ax.fill_between(
+    lambda_space,
+    np.minimum(p_lambda_0, p_lambda_1),
+    color="gray",
+    alpha=0.5,
+    label="Overlap Region (Δ)",
+)
+ax.set_xlabel(r"Ontic State Space ($\lambda$)", fontsize=12)
+ax.set_ylabel(r"Probability Density", fontsize=12)
+ax.set_yticks([])
+ax.legend(fontsize=12)
+ax.spines["top"].set_visible(False)
+ax.spines["right"].set_visible(False)
+ax.spines["left"].set_visible(False)
+plt.tight_layout()
+# sphinx_gallery_end_ignore
+
+# %%
+#  .. note::
 #     The shaded region :math:`\Delta` represents the set of ontic states
 #     :math:`\lambda` that are ambiguous—the system could have been prepared as
 #     :math:`|\psi_0\rangle` or :math:`|\psi_1\rangle`. The PBR theorem shows that the
@@ -100,9 +126,6 @@ incomplete knowledge or information about some deeper underlying reality
 # theorem that the set of four states constructed from :math:`|0\rangle`
 # and :math:`|+\rangle` are indeed antidistinguishable.
 
-# sphinx_gallery_start_ignore
-# sphinx_gallery_thumbnail_path = 'figures/pbr_theorem.png'
-# sphinx_gallery_end_ignore
 import numpy as np
 
 from toqito.matrices import standard_basis
