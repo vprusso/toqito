@@ -34,7 +34,7 @@ def create_bcs_constraints(M: np.ndarray, b: np.ndarray) -> list[np.ndarray]:
     .. jupyter-execute::
     
           import numpy as np
-          from binary_constraint_system_game import create_bcs_constraints
+          from toqito.nonlocal_games.binary_constraint_system_game import create_bcs_constraints
 
           M = np.array([[1, 1], [1, 1]], dtype=int)
           b = np.array([0, 1], dtype=int)
@@ -117,7 +117,7 @@ def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray) -> bool:
     ..jupyter-execute::
     
          import numpy as np
-         from binary_constraint_system_game import check_perfect_commuting_strategy
+         from toqito.nonlocal_games.binary_constraint_system_game import check_perfect_commuting_strategy
          M = np.array([[1, 1], [1, 1]])
          b = np.array([0, 1])
          print(check_perfect_commuting_strategy(M, b))
