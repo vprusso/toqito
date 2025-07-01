@@ -12,6 +12,7 @@ amp_damp_2 = kraus_to_choi(amplitude_damping(gamma=0.35))
 
 # In Kraus representation.
 amp_damp_1_kraus = amplitude_damping(gamma=0.22)
+amp_damp_2_kraus = amplitude_damping(gamma=0.35)
 
 # Creating two phase damping channels.
 ph_damp_1 = kraus_to_choi(phase_damping(gamma=0.22))
@@ -27,6 +28,8 @@ ph_damp_2 = kraus_to_choi(phase_damping(gamma=0.35))
         (amp_damp_1, amp_damp_2, [0.2, 0.8], [2, 2], 0.8),
         # One channel in Kraus and another in Choi representation.
         (amp_damp_1_kraus, amp_damp_2, [0.2, 0.8], [2, 2], 0.8),
+        # Both channels in Kraus representation.
+        (amp_damp_1_kraus, amp_damp_2_kraus, [0.2, 0.8], [2, 2], 0.8),
         # Same as previous channels but max(p) > 1.
         (amp_damp_1_kraus, amp_damp_2, [0.2, 1.8], [2, 2], 1),
     ],
