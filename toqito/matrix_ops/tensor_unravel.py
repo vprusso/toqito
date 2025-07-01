@@ -20,8 +20,8 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
        - The matrix `vec`-operator for flattening matrices (see:cite:`Horn_1985_Matrix`)
        - Parity-projector encodings in linear-system games (see:cite:`Cleve_2016_Perfect`)
     
-    Examples
-    ==========
+   Examples
+   ==========
    .. jupyter-execute::
     
        import numpy as np
@@ -33,10 +33,10 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
     The tensor-form constraint representation is commonly used in implementations of
     binary constraint system (BCS) games. For background on BCS games, see:cite:`Cleve_2014_Characterization`.
     
-    References
-    ==========
-    .. bibliography::
-        :filter: docname in docnames
+   References
+   ==========
+   .. bibliography::
+       :filter: docname in docnames
 
 
     :param constraint_tensor: n`-dimensional :code:`numpy` array representing a constraint (shape :code:`(2,)*n`).
