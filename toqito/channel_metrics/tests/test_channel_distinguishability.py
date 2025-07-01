@@ -88,6 +88,32 @@ def test_state_distinguishability_invalid_channels(test_input_1, test_input_2, p
 
 
 @pytest.mark.parametrize(
+    "test_input_1, test_input_2, prior_prob, dim",
+    [
+        (
+            dephasing(2),
+            dephasing(2),
+            [0.5, 0.5],
+            [2, 2],
+        ),
+    ],
+)
+@pytest.mark.parametrize(
+    "strategy",
+    [
+        "Random",
+    ],
+)
+def test_state_distinguishability_invalid_strategy(test_input_1, test_input_2, prior_prob, dim, strategy):
+    """Test function raises error for strategy other than `Bayesian` or `Minimax`."""
+    with pytest.raises(
+        ValueError,
+        match="The strategy must either be Bayesian or Minimax.",
+    ):
+        channel_distinguishability(test_input_1, test_input_2, prior_prob, dim, strategy=strategy)
+
+
+@pytest.mark.parametrize(
     "test_input1, test_input_2, prior_prob, dim, expected_msg",
     [
         # Sum of prior probabilities greater than 1.

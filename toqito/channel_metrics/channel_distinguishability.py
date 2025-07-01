@@ -24,7 +24,7 @@ def channel_distinguishability(
     For Bayesian discrimination a priori probabilities are provided.
     (Section 3.3.3 of :footcite:`Watrous_2018_TQI`).
     Implementation in QETLAB :footcite:`QETLAB_link` is used for Bayesian
-    and Implementation in QuTIpy: footcite:`QuTIpy_link` for minimax is used.
+    and Implementation in QuTIpy :footcite:`QuTIpy_link` for minimax is used.
 
 
     Examples
@@ -62,7 +62,6 @@ def channel_distinguishability(
     References
     ==========
     .. footbibliography::
-        :filter: docname in docnames
 
 
     :raises ValueError: If channels have different input or output dimensions.
@@ -75,9 +74,9 @@ def channel_distinguishability(
     :param p: Prior probabilities of the two channels.
     :param dim: Input and output dimensions of the channels.
     :param strategy: Whether to perform Bayesian or minimax discrimination task. Possible
-                     values are "Bayesian" and "minimax". Defualt option is `strategy="Bayesian"`.
-    :param solver: Optimization option for `picos` solver. Default option is `solver="cvxopt"`.
-    :param primal_dual: Option for the optimization problem. Defualt option is `solver="cvxopt"`.
+                     values are "Bayesian" and "minimax". Defualt option is :code:`strategy="Bayesian"`.
+    :param solver: Optimization option for `picos` solver. Default option is :code:`solver="cvxopt"`.
+    :param primal_dual: Option for the optimization problem. Defualt option is :code:`solver="cvxopt"`.
     :param kwargs: Additional arguments to pass to picos' solve method.
     :return: The optimal probability of discriminating two quantum channels.
 
@@ -97,6 +96,9 @@ def channel_distinguishability(
     dim_phi, dim_psi = np.array([d_in_phi, d_out_phi]), np.array([d_in_psi, d_out_psi])
 
     # checking for errors.
+    if strategy.lower() not in ("bayesian", "minimax"):
+        raise ValueError("The strategy must either be Bayesian or Minimax.")
+
     if not np.array_equal(dim_phi, dim_psi):
         raise ValueError("The channels must have the same dimension input and output spaces as each other.")
 
@@ -112,10 +114,10 @@ def channel_distinguishability(
 
         return 1 / 2 * (1 + completely_bounded_trace_norm(p[0] * phi - p[1] * psi))
 
-    elif strategy.lower() == "minimax":
-        if primal_dual == "primal":
-            return _minimax_primal(phi, psi, d_in_phi[0], d_out_phi[0], solver=solver, **kwargs)
-        return _minimax_dual(phi, psi, d_in_phi[0], d_out_phi[0], solver=solver, **kwargs)
+    if primal_dual == "primal":
+        return _minimax_primal(phi, psi, d_in_phi[0], d_out_phi[0], solver=solver, **kwargs)
+
+    return _minimax_dual(phi, psi, d_in_phi[0], d_out_phi[0], solver=solver, **kwargs)
 
 
 def _minimax_dual(
