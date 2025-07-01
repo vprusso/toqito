@@ -29,17 +29,17 @@ def create_bcs_constraints(M: np.ndarray, b: np.ndarray) -> list[np.ndarray]:
 
     This tensor now represents the constraint in full detail.
 
-   Examples
-   ==========
-   .. jupyter-execute::
+    Examples
+    ==========
+    .. jupyter-execute::
     
-       import numpy as np
-       from toqito.nonlocal_games.binary_constraint_system_game import create_bcs_constraints
+     import numpy as np
+     from toqito.nonlocal_games.binary_constraint_system_game import create_bcs_constraints
           
-       M = np.array([[1, 1], [1, 1]], dtype=int)
-       b = np.array([0, 1], dtype=int)
-       constraints = create_bcs_constraints(M, b)
-       constraints[0].shape
+     M = np.array([[1, 1], [1, 1]], dtype=int)
+     b = np.array([0, 1], dtype=int)
+     constraints = create_bcs_constraints(M, b)
+     constraints[0].shape
           
     :param M: A binary matrix of shape (m, n) defining which variables appear in each constraint.
     :param b: A binary vector of length m that determines the constant term ``(-1)**(b[i])``.
@@ -65,32 +65,32 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
     pairing it with the corresponding parity from ``b``. The bitmask representation
     can be useful for analyzing linear system games.
 
-   Examples
-   ========
-   .. jupyter-execute::
+    Examples
+    ========
+    .. jupyter-execute::
     
-       import numpy as np
-       from toqito.nonlocal_games.binary_constraint_system_game import create_bcs_constraints
+     import numpy as np
+     from toqito.nonlocal_games.binary_constraint_system_game import create_bcs_constraints
 
-       M = np.array([[1, 1, 0], [0, 1, 1]])
-       b = np.array([0, 1])
-       row_masks, parity = generate_solution_group(M, b)
+     M = np.array([[1, 1, 0], [0, 1, 1]])
+     b = np.array([0, 1])
+     row_masks, parity = generate_solution_group(M, b)
 
-       print("Row masks:", row_masks)
-       print("Parity:", parity)
+     print("Row masks:", row_masks)
+     print("Parity:", parity)
        
-    The method used to determine the existence of a perfect commuting strategy was originally introduced in :cite:`Cleve_2016_Perfect`.
+     The method used to determine the existence of a perfect commuting strategy was originally introduced in :cite:`Cleve_2016_Perfect`.
 
-   References
-   ==========
-   .. bibliography::
-       :filter: docname in docnames
+    References
+    ==========
+    .. bibliography::
+        :filter: docname in docnames
 
 
-    :param M: A binary matrix of shape ``(m, n)``.
-    :param b: A binary vector of length ``m``.
-    :return: A list of integer bitmasks (one per row of ``M``).
-    :return: A list of parity values derived from ``b``.
+     :param M: A binary matrix of shape ``(m, n)``.
+     :param b: A binary vector of length ``m``.
+     :return: A list of integer bitmasks (one per row of ``M``).
+     :return: A list of parity values derived from ``b``.
     
     """
     # Ensure M and b are binary (0/1)
@@ -111,20 +111,20 @@ def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray) -> bool:
     and examines the resulting constraint graph for cycles that indicate a nontrivial
     solution.
     
-   Examples
-   ==========
-   ..jupyter-execute::
+    Examples
+    ==========
+    ..jupyter-execute::
    
-       import numpy as np
-       from toqito.nonlocal_games.binary_constraint_system_game import create_bcs_constraints
+     import numpy as np
+     from toqito.nonlocal_games.binary_constraint_system_game import create_bcs_constraints
          
-       M = np.array([[1, 1], [1, 1]])
-       b = np.array([0, 1])
-       print(check_perfect_commuting_strategy(M, b))
+     M = np.array([[1, 1], [1, 1]])
+     b = np.array([0, 1])
+     print(check_perfect_commuting_strategy(M, b))
          
-    :param M: A binary matrix of shape ``(m, n)``.
-    :param b: A binary vector of length ``m``.
-    :return: ``True`` if a perfect commuting-operator strategy exists; otherwise, ``False``.
+     :param M: A binary matrix of shape ``(m, n)``.
+     :param b: A binary vector of length ``m``.
+     :return: ``True`` if a perfect commuting-operator strategy exists; otherwise, ``False``.
 
     """
     row, parity = generate_solution_group(M, b)
