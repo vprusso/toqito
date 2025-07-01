@@ -29,8 +29,8 @@ def create_bcs_constraints(M: np.ndarray, b: np.ndarray) -> list[np.ndarray]:
 
     This tensor now represents the constraint in full detail.
 
-    Examples
-    ==========
+   Examples
+   ==========
    .. jupyter-execute::
     
        import numpy as np
@@ -65,8 +65,8 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
     pairing it with the corresponding parity from ``b``. The bitmask representation
     can be useful for analyzing linear system games.
 
-    Examples
-    ========
+   Examples
+   ========
    .. jupyter-execute::
     
        import numpy as np
@@ -81,10 +81,10 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
        
     The method used to determine the existence of a perfect commuting strategy was originally introduced in :cite:`Cleve_2016_Perfect`.
 
-    References
-    ==========
-    .. bibliography::
-        :filter: docname in docnames
+   References
+   ==========
+   .. bibliography::
+       :filter: docname in docnames
 
 
     :param M: A binary matrix of shape ``(m, n)``.
@@ -111,8 +111,8 @@ def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray) -> bool:
     and examines the resulting constraint graph for cycles that indicate a nontrivial
     solution.
     
-    Examples
-    ==========
+   Examples
+   ==========
    ..jupyter-execute::
    
        import numpy as np
