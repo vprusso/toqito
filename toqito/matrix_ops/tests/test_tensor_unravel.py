@@ -3,7 +3,7 @@
 import numpy as np
 import pytest
 
-from toqito.matrix_ops.tensor_unravel import tensor_unravel
+from toqito.matrix_ops import tensor_unravel
 
 
 @pytest.mark.parametrize(
