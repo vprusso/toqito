@@ -111,7 +111,7 @@ def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray) -> bool:
     
     Examples
     ==========
-    ..jupyter-execute::
+    .. jupyter-execute::
         import numpy as np
         from toqito.nonlocal_games.binary_constraint_system_game import create_bcs_constraints
          
