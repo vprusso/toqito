@@ -19,7 +19,10 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
        - Indicator (Kronecker delta) tensors in multilinear algebra (see:cite:`Kolda_2009_Tensor`)
        - The matrix `vec`-operator for flattening matrices (see:cite:`Horn_1985_Matrix`)
        - Parity-projector encodings in linear-system games (see:cite:`Cleve_2016_Perfect`)
-    
+
+    The tensor-form constraint representation is commonly used in implementations of
+    binary constraint system (BCS) games. For background on BCS games, see:cite:`Cleve_2014_Characterization`.
+
     Examples
     ==========
     .. jupyter-execute::
@@ -29,9 +32,6 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
           
      tensor_constraint = np.array([[-1, -1], [-1, 1]])
      tensor_unravel(tensor_constraint)
-        
-    The tensor-form constraint representation is commonly used in implementations of
-    binary constraint system (BCS) games. For background on BCS games, see:cite:`Cleve_2014_Characterization`.
     
     References
     ==========
@@ -41,7 +41,7 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
 
      :param constraint_tensor: n`-dimensional :code:`numpy` array representing a constraint (shape :code:`(2,)*n`).
      :return: A 1D :code:`numpy` array of length :math:`n+1` where the first :math:`n` elements are the coordinates (indices),
-     and the last element is the unique constant (rhs).
+              and the last element is the unique constant (rhs).
     
     """
     values, counts = np.unique(constraint_tensor, return_counts=True)

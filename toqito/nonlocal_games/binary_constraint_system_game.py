@@ -65,6 +65,8 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
     pairing it with the corresponding parity from ``b``. The bitmask representation
     can be useful for analyzing linear system games.
 
+    The method used to determine the existence of a perfect commuting strategy was originally introduced in :cite:`Cleve_2016_Perfect`.
+
     Examples
     ========
     .. jupyter-execute::
@@ -75,11 +77,6 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
      M = np.array([[1, 1, 0], [0, 1, 1]])
      b = np.array([0, 1])
      row_masks, parity = generate_solution_group(M, b)
-
-     print("Row masks:", row_masks)
-     print("Parity:", parity)
-       
-     The method used to determine the existence of a perfect commuting strategy was originally introduced in :cite:`Cleve_2016_Perfect`.
 
     References
     ==========
@@ -120,7 +117,7 @@ def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray) -> bool:
          
      M = np.array([[1, 1], [1, 1]])
      b = np.array([0, 1])
-     print(check_perfect_commuting_strategy(M, b))
+     check_perfect_commuting_strategy(M, b)
          
      :param M: A binary matrix of shape ``(m, n)``.
      :param b: A binary vector of length ``m``.
