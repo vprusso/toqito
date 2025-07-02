@@ -72,7 +72,7 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
     .. jupyter-execute::
     
      import numpy as np
-     from toqito.nonlocal_games.binary_constraint_system_game import create_bcs_constraints
+     from toqito.nonlocal_games.binary_constraint_system_game import generate_solution_group
 
      M = np.array([[1, 1, 0], [0, 1, 1]])
      b = np.array([0, 1])
