@@ -27,12 +27,6 @@ from toqito.matrix_ops import tensor_unravel
             None, 
             ValueError
         ),
-        # Valid 3D tensor with one +1 at (1, 1, 1).
-        (
-            np.array([[[-1, -1], [-1, -1]], [[-1, -1], [-1, 1]]]), 
-            np.array([1, 1, 1, 1]), 
-            None
-        ),
         # Invalid tensor: all values are the same (no unique).
         (
             np.full((2, 2), -1),

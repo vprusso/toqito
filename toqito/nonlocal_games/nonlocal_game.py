@@ -88,27 +88,10 @@ class NonlocalGame:
         :param reps: Number of parallel repetitions to perform. Default is 1.
         :return: A NonlocalGame object arising from the variables and constraints that define the game.
         """
-        if constraints is None:
-            raise TypeError("Must pass a list of BCS constraint arrays.")    
-        if len(constraints) == 0:
+            
+        if (num_constraints := len(constraints)) == 0:
             raise ValueError("At least 1 constraint is required")
-
-        # Flatten any tensor‐form constraints so all become 1D
-        flat_constraints: list[np.ndarray] = []
-        for c in constraints:
-            if c.ndim != 1:
-                flat_constraints.append(tensor_unravel(c))
-            else:
-                flat_constraints.append(c.copy())
-        constraints = flat_constraints
-        
-        num_constraints = len(constraints)
-        num_variables   = constraints[0].ndim
-
-        # Check for degenerate constraints (no dependent variables)
-        for j, row in enumerate(constraints):
-            if row.sum() == 0:
-                raise ValueError(f"Constraint {j} is degenerate (has no dependent variables).")
+        num_variables = constraints[0].ndim
 
         # Retrieve dependent variables for each constraint.
         dependent_variables = np.zeros((num_constraints, num_variables))
@@ -122,7 +105,11 @@ class NonlocalGame:
         prob_mat = np.zeros((num_constraints, num_variables))
         for j in range(num_constraints):
             p_x = 1.0 / num_constraints
-            p_y = dependent_variables[j] / dependent_variables[j].sum()
+            num_dependent_vars = dependent_variables[j].sum()
+            if num_dependent_vars == 0:
+                raise ValueError(f"Constraint {j} is degenerate (has no dependent variables).")
+            else:
+                p_y = dependent_variables[j] / num_dependent_vars
             prob_mat[j] = p_x * p_y
 
         # Compute the prediction matrix.
@@ -157,23 +144,22 @@ class NonlocalGame:
         :return: True if a perfect commuting-operator strategy exists; False otherwise.
         :raise: If no constraints are stored (i.e., if the game was not created from a BCS game).
 
-        """ 
-        # sanity check that we actually have BCS constraints stored
-        if not hasattr(self, "_raw_constraints"):
-            raise ValueError("No raw BCS constraints stored; cannot check strategy.")
+        """
+        # If the stored constraints are tensor-form (i.e. not 1D), convert them to raw (1D) form.
+        if self._raw_constraints[0].ndim != 1:
+            converted = []
+            for tensor_constraint in self._raw_constraints:
+                converted.append(tensor_unravel(tensor_constraint))
+            raw_constraints = converted
+        else:
+            raw_constraints = self._raw_constraints
 
-        # by construction, these _raw_constraints are all 1-D
-        raw = self._raw_constraints
-        
         # Now, for each raw constraint (which should be a 1D array of length n+1),
         # extract M (all entries except the last) and b (derived from the last entry).
         M_list = [c[:-1] for c in raw_constraints]
         b_list = [0 if c[-1] == 1 else 1 for c in raw_constraints]
-        
         M_array = np.array(M_list, dtype=int)
         b_array = np.array(b_list, dtype=int)
-
-        # delegate to the BCS solver check
         return check_perfect_commuting_strategy(M_array, b_array)
 
     def process_iteration(

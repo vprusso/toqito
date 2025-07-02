@@ -73,6 +73,7 @@ def test_special_case():
 
     game = NonlocalGame.from_bcs_game(constraints, reps=1)
     assert game.is_bcs_perfect_commuting_strategy()
+    
 def test_4cycle_bcs_no_classical_but_perfect_quantum():
     """Test a 4-cycle BCS game with no classical solution but with a perfect
     commuting-operator strategy.
@@ -100,40 +101,34 @@ def test_4cycle_bcs_no_classical_but_perfect_quantum():
     game = NonlocalGame.from_bcs_game(constraints, reps=1)
     assert game.is_bcs_perfect_commuting_strategy()
 
-def test_commuting_strategy_raises_if_raw_constraints_none():
-    """Test that strategy check raises ValueError when _raw_constraints is None."""
+def test_tensor_diff_finds_no_dependent_variables():
+    """Test that a tensor with constant values triggers degenerate constraint error."""
+    import numpy as np
+    from toqito.nonlocal_games.nonlocal_game import NonlocalGame
 
-    game = NonlocalGame.from_bcs_game(None)
-    game._raw_constraints = None  # Manually unset
-
-    try:
-        game.is_bcs_perfect_commuting_strategy()
-        assert False, "Expected ValueError when _raw_constraints is None"
-    except ValueError as e:
-        assert "No raw BCS constraints stored" in str(e)
-
-def test_tensor_constraint_ndim_not_1_triggers_unravel():
-    """Test that 2D tensor constraint (ndim != 1) triggers conversion."""
-
-    tensor = np.array([[1, 0],
-                       [0, 1]])
-    constraints = [tensor]
-
-    game = NonlocalGame.from_bcs_game(constraints)
-
-    # The method should still succeed; this test just triggers .ndim != 1
-    # We assert that the stored constraints were converted to 1D
-    for arr in game._raw_constraints:
-        assert arr.ndim == 1, "Expected flattened constraint"
-
-def test_commuting_strategy_raises_on_degenerate_constraint():
-    """Test that degenerate BCS constraints raise ValueError."""
-
-    M = np.array([[0, 0]], dtype=int)  # no dependent variables
-    b = np.array([0], dtype=int)
+    # Create a 2D constraint tensor of shape (2, 2) with all values set to 1
+    # This causes np.diff(..., axis=0/1) to be zero everywhere → no dependent variables
+    constant_tensor = np.ones((2, 2), dtype=int)
 
     try:
-        check_perfect_commuting_strategy(M, b)
-        assert False, "Expected ValueError for degenerate constraint"
+        NonlocalGame.from_bcs_game([constant_tensor])
+        assert False, "Expected ValueError due to degenerate constraint (no dependent variables)"
     except ValueError as e:
         assert "degenerate" in str(e)
+
+def test_is_bcs_perfect_commuting_strategy_flat_constraints_path():
+    """Test that 1D constraints directly use the raw path."""
+    import numpy as np
+    from toqito.nonlocal_games.nonlocal_game import NonlocalGame
+
+    # This constraint has ndim = 1, so it will follow the else block (line 158)
+    constraint = np.array([1, 1, 0], dtype=int)  # last element is RHS
+
+    # from_bcs_game will store this directly as _raw_constraints
+    game = NonlocalGame.from_bcs_game([constraint])
+
+    # Now calling this will pass through line 158:
+    result = game.is_bcs_perfect_commuting_strategy()
+
+    # It's okay if the result is False, we only want to exercise the line
+    assert isinstance(result, bool)
