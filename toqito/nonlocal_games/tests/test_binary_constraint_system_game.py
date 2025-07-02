@@ -99,3 +99,41 @@ def test_4cycle_bcs_no_classical_but_perfect_quantum():
     assert check_perfect_commuting_strategy(M, b)
     game = NonlocalGame.from_bcs_game(constraints, reps=1)
     assert game.is_bcs_perfect_commuting_strategy()
+
+def test_commuting_strategy_raises_if_raw_constraints_none():
+    """Test that strategy check raises ValueError when _raw_constraints is None."""
+
+    game = NonlocalGame.from_bcs_game(None)
+    game._raw_constraints = None  # Manually unset
+
+    try:
+        game.is_bcs_perfect_commuting_strategy()
+        assert False, "Expected ValueError when _raw_constraints is None"
+    except ValueError as e:
+        assert "No raw BCS constraints stored" in str(e)
+
+def test_tensor_constraint_ndim_not_1_triggers_unravel():
+    """Test that 2D tensor constraint (ndim != 1) triggers conversion."""
+
+    tensor = np.array([[1, 0],
+                       [0, 1]])
+    constraints = [tensor]
+
+    game = NonlocalGame.from_bcs_game(constraints)
+
+    # The method should still succeed; this test just triggers .ndim != 1
+    # We assert that the stored constraints were converted to 1D
+    for arr in game._raw_constraints:
+        assert arr.ndim == 1, "Expected flattened constraint"
+
+def test_commuting_strategy_raises_on_degenerate_constraint():
+    """Test that degenerate BCS constraints raise ValueError."""
+
+    M = np.array([[0, 0]], dtype=int)  # no dependent variables
+    b = np.array([0], dtype=int)
+
+    try:
+        check_perfect_commuting_strategy(M, b)
+        assert False, "Expected ValueError for degenerate constraint"
+    except ValueError as e:
+        assert "degenerate" in str(e)
