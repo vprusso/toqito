@@ -38,7 +38,8 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
     .. bibliography::
         :filter: docname in docnames
 
-
+    Parameters
+    ==========
      :param constraint_tensor: n`-dimensional :code:`numpy` array representing a constraint (shape :code:`(2,)*n`).
      :return: A 1D :code:`numpy` array of length :math:`n+1` where the first :math:`n` elements are the coordinates (indices),
               and the last element is the unique constant (rhs).
