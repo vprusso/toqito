@@ -341,4 +341,4 @@ class TestNonlocalGame(unittest.TestCase):
 
         game = NonlocalGame.from_bcs_game([c_1, c_2])
         val = game.classical_value()
-        self.assertAlmostEqual(val, 5 / 6, places=6)    
+        self.assertAlmostEqual(val, 5 / 6, places=6)

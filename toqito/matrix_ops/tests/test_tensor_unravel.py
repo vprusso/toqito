@@ -14,12 +14,11 @@ from toqito.matrix_ops import tensor_unravel
         # Valid 3D tensor with one +1 at (1, 1, 1).
         (np.array([[[-1, -1], [-1, -1]], [[-1, -1], [-1, 1]]]), np.array([1, 1, 1, 1]), None),
         # Invalid tensor: all values are the same (no unique).
-         (np.full((2, 2), -1), None, ValueError),
+        (np.full((2, 2), -1), None, ValueError),
         # Invalid tensor: all values are the same (no unique).
         (np.full((2, 2), -1), None, ValueError),
         # Invalid tensor: two +1s (not unique).
         (np.array([[[-1, -1], [-1, -1]], [[1, -1], [-1, 1]]]), None, ValueError),
-
     ],
 )
 def test_tensor_unravel(tensor_input, expected_output, expected_exception):
@@ -31,4 +30,4 @@ def test_tensor_unravel(tensor_input, expected_output, expected_exception):
             tensor_unravel(tensor)
     else:
         result = tensor_unravel(tensor)
-        assert np.array_equal(result, expected_output)        
+        assert np.array_equal(result, expected_output)

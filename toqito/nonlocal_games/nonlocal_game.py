@@ -212,7 +212,7 @@ class NonlocalGame:
         # === Begin fast classical value logic ===
         p_win = 0.0
         total = B_out**B_in
-        
+
         for i in range(total):
             best_sum = 0.0
             for x in range(A_in):
