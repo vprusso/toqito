@@ -32,10 +32,10 @@ def create_bcs_constraints(M: np.ndarray, b: np.ndarray) -> list[np.ndarray]:
     Examples
     ==========
     .. jupyter-execute::
-    
+
      import numpy as np
      from toqito.nonlocal_games.binary_constraint_system_game import create_bcs_constraints
-          
+     
      M = np.array([[1, 1], [1, 1]], dtype=int)
      b = np.array([0, 1], dtype=int)
      constraints = create_bcs_constraints(M, b)
@@ -47,7 +47,7 @@ def create_bcs_constraints(M: np.ndarray, b: np.ndarray) -> list[np.ndarray]:
     :param b: A binary vector of length m that determines the constant term ``(-1)**(b[i])``.
     :return: A list of NumPy arrays, each of shape ``(2,)*n``. Each tensor represents
              one constraint in tensor form.
-             
+
     """
     m, n = M.shape
     constraints = []
@@ -72,7 +72,7 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
     Examples
     ========
     .. jupyter-execute::
-    
+
      import numpy as np
      from toqito.nonlocal_games.binary_constraint_system_game import generate_solution_group
 
@@ -91,7 +91,7 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
      :param b: A binary vector of length m.
      :return: A list of integer bitmasks.
      :return: A list of parity values.
-    
+
     """
     # Ensure M and b are binary (0/1)
     M = np.array(M, dtype=int) % 2
@@ -110,14 +110,14 @@ def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray) -> bool:
     to bitmask form, performs Gaussian elimination over :math:`\mathrm{GF}(2)`,
     and examines the resulting constraint graph for cycles that indicate a nontrivial
     solution.
-    
+
     Examples
     ==========
     .. jupyter-execute::
 
      import numpy as np
      from toqito.nonlocal_games.binary_constraint_system_game import check_perfect_commuting_strategy
-         
+    
      M = np.array([[1, 1], [1, 1]])
      b = np.array([0, 1])
      check_perfect_commuting_strategy(M, b)

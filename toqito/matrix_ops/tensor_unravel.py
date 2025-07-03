@@ -26,13 +26,13 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
     Examples
     ==========
     .. jupyter-execute::
-    
+
      import numpy as np
      from toqito.matrix_ops import tensor_unravel
-          
+
      tensor_constraint = np.array([[-1, -1], [-1, 1]])
      tensor_unravel(tensor_constraint)
-    
+
     References
     ==========
     .. bibliography::
@@ -43,7 +43,7 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
      :param constraint_tensor: n`-dimensional :code:`numpy` array representing a constraint (shape :code:`(2,)*n`).
      :return: A 1D :code:`numpy` array of length :math:`n+1` where the first :math:`n` elements are the coordinates (indices),
               and the last element is the unique constant (rhs).
-    
+
     """
     values, counts = np.unique(constraint_tensor, return_counts=True)
     if len(values) != 2:

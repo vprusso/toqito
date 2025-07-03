@@ -12,7 +12,7 @@ def test_classically_satisfiable_bcs():
 
     This system is clearly satisfiable, so it should yield a perfect
     commuting-operator strategy.
-    
+
     """
     M = np.array([[1, 0], [0, 1]], dtype=int)
     b = np.array([0, 0], dtype=int)
@@ -22,11 +22,12 @@ def test_classically_satisfiable_bcs():
     game = NonlocalGame.from_bcs_game(constraints, reps=1)
     assert game.is_bcs_perfect_commuting_strategy()
 
+
 def test_chsh_bcs():
     """Test a CHSH-type BCS system which has no perfect commuting strategy.
 
     The constraint system is classically inconsistent: x + y = 0, x + y = 1.
-    
+
     """
     M = np.array([[1, 1], [1, 1]], dtype=int)
     b = np.array([0, 1], dtype=int)
@@ -36,9 +37,11 @@ def test_chsh_bcs():
     game = NonlocalGame.from_bcs_game(constraints, reps=1)
     assert not game.is_bcs_perfect_commuting_strategy()
 
+
 def test_magic_square_bcs():
     """Test the magic square BCS game, which admits a perfect strategy
     in the commuting-operator model but not classically.
+
     """
 
     M = np.array(
@@ -59,10 +62,12 @@ def test_magic_square_bcs():
     game = NonlocalGame.from_bcs_game(constraints, reps=1)
     assert game.is_bcs_perfect_commuting_strategy()
 
+
 def test_special_case():
     """Test a non-trivial satisfiable case with overlapping constraints.
 
     This example still yields a perfect commuting-operator strategy.
+
     """
 
     M = np.array([[1, 1, 1], [1, 1, 0], [0, 1, 1]], dtype=int)
@@ -72,7 +77,8 @@ def test_special_case():
 
     game = NonlocalGame.from_bcs_game(constraints, reps=1)
     assert game.is_bcs_perfect_commuting_strategy()
-    
+
+
 def test_4cycle_bcs_no_classical_but_perfect_quantum():
     """Test a 4-cycle BCS game with no classical solution but with a perfect
     commuting-operator strategy.
@@ -86,7 +92,7 @@ def test_4cycle_bcs_no_classical_but_perfect_quantum():
       Summing all four gives 0 ≡ 1 mod 2, so no 0/1 assignment satisfies them.
     Quantumly:
       Even cycles have perfect commuting-operator strategies.
-      
+
     """
     M = np.array([
         [1, 1, 0, 0],
@@ -100,10 +106,9 @@ def test_4cycle_bcs_no_classical_but_perfect_quantum():
     game = NonlocalGame.from_bcs_game(constraints, reps=1)
     assert game.is_bcs_perfect_commuting_strategy()
 
+
 def test_tensor_diff_finds_no_dependent_variables():
     """Test that a tensor with constant values triggers degenerate constraint error."""
-    import numpy as np
-    from toqito.nonlocal_games.nonlocal_game import NonlocalGame
 
     # Create a 2D constraint tensor of shape (2, 2) with all values set to 1
     # This causes np.diff(..., axis=0/1) to be zero everywhere → no dependent variables
@@ -115,10 +120,9 @@ def test_tensor_diff_finds_no_dependent_variables():
     except ValueError as e:
         assert "degenerate" in str(e)
 
+
 def test_is_bcs_perfect_commuting_strategy_flat_constraints_path():
     """Test that 1D constraints directly use the raw path."""
-    import numpy as np
-    from toqito.nonlocal_games.nonlocal_game import NonlocalGame
 
     # This constraint has ndim = 1, so it will follow the else block (line 158)
     constraint = np.array([1, 1, 0], dtype=int)  # last element is RHS

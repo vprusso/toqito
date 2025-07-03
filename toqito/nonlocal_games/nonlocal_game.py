@@ -88,7 +88,7 @@ class NonlocalGame:
         :param reps: Number of parallel repetitions to perform. Default is 1.
         :return: A NonlocalGame object arising from the variables and constraints that define the game.
         """
-            
+
         if (num_constraints := len(constraints)) == 0:
             raise ValueError("At least 1 constraint is required")
         num_variables = constraints[0].ndim
@@ -132,7 +132,7 @@ class NonlocalGame:
         game = cls(prob_mat, pred_mat, reps)
         game._raw_constraints = constraints
         return game
-    
+
     def is_bcs_perfect_commuting_strategy(self) -> bool:
         """Determine if the BCS game admits a perfect commuting-operator strategy.
 
@@ -173,7 +173,7 @@ class NonlocalGame:
         """Help the classical_value function as a helper method.
 
         :return: A value between [0, 1] representing the tgval.
-        
+
         """
         number = i
         base = num_bob_outputs

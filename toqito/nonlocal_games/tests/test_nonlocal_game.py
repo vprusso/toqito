@@ -251,7 +251,7 @@ class TestNonlocalGame(unittest.TestCase):
 
         # Expected result: We do not care for the value, just triggering the block
         self.assertIsNotNone(res)
-        
+
     def test_chsh_bcs_game_classical_value(self):
         """Classical value for the CHSH game (fast method)."""
         c1 = np.zeros((2, 2))
