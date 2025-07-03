@@ -43,8 +43,8 @@ def create_bcs_constraints(M: np.ndarray, b: np.ndarray) -> list[np.ndarray]:
 
     Parameters
     ==========
-    :param M: A binary matrix of shape (m, n) defining which variables appear in each constraint.
-    :param b: A binary vector of length m that determines the constant term ``(-1)**(b[i])``.
+    :param M: A 2D binary NumPy array of shape (m, n). Each row represents a constraint on n variables.
+    :param b: A 1D binary array of length m. Each entry defines the sign of the constraint.
     :return: A list of NumPy arrays, each of shape ``(2,)*n``. Each tensor represents
              one constraint in tensor form.
 
@@ -67,7 +67,8 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
     pairing it with the corresponding parity from ``b``. The bitmask representation
     can be useful for analyzing linear system games.
 
-    The method used to determine the existence of a perfect commuting strategy was originally introduced in :cite:`Cleve_2016_Perfect`.
+    The method used to determine the existence of a perfect commuting strategy was originally introduced
+    in :cite:`Cleve_2016_Perfect`.
 
     Examples
     ========
@@ -87,8 +88,8 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
 
     Parameters
     ==========
-     :param M: A binary matrix of shape (m, n).
-     :param b: A binary vector of length m.
+     :param M: A binary matrix of shape (m, n).Each row encodes which variables appear in a constraint.
+     :param b: A binary vector of length m.Each entry determines the parity for its corresponding constraint row.
      :return: A list of integer bitmasks.
      :return: A list of parity values.
 
@@ -124,8 +125,8 @@ def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray) -> bool:
 
     Parameters
     ==========
-     :param M: A binary matrix of shape (m, n).
-     :param b: A binary vector of length m.
+     :param M: A binary matrix representing a system of parity constraints.
+     :param b: A binary vector representing the right-hand side of the constraint equations.
      :return: ``True`` if a perfect commuting-operator strategy exists; otherwise, ``False``.
 
     """

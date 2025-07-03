@@ -1,3 +1,5 @@
+"""Tests for Binary constraint system (BCS) game."""
+
 import numpy as np
 
 from toqito.nonlocal_games.nonlocal_game import NonlocalGame
@@ -39,8 +41,10 @@ def test_chsh_bcs():
 
 
 def test_magic_square_bcs():
-    """Test the magic square BCS game, which admits a perfect strategy
-    in the commuting-operator model but not classically.
+    """Test the magic square BCS game.
+
+    This example admits a perfect strategy in the commuting-operator model
+    but not classically.
 
     """
 
@@ -80,8 +84,8 @@ def test_special_case():
 
 
 def test_4cycle_bcs_no_classical_but_perfect_quantum():
-    """Test a 4-cycle BCS game with no classical solution but with a perfect
-    commuting-operator strategy.
+    """Test a 4-cycle BCS game with no classical solution but with a perfect strategy.
+
     The constraints:
         x1 + x2 = 1
         x2 + x3 = 1
