@@ -1,4 +1,4 @@
-"Generate the 1D contraint"
+"Generate the 1D contraint."
 
 import numpy as np
 
@@ -25,6 +25,12 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
     The tensor-form constraint representation is commonly used in implementations of
     binary constraint system (BCS) games. For background on BCS games, see:cite:`Cleve_2014_Characterization`.
 
+    :param constraint_tensor: An n-dimensional tensor with shape `(2,)*n`, where each element is either -1 or +1.
+                              All entries should be equal except for one unique position that marks
+                              the satisfying assignment.
+    :return: A 1D : code:`numpy` array of length :math:`n+1` where the first :math:`n`
+                    elements are the coordinates (indices), and the last element is the unique constant (rhs).
+
     Examples
     ==========
     .. jupyter-execute::
@@ -39,13 +45,6 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
     ==========
     .. bibliography::
         :filter: docname in docnames
-
-    Parameters
-    ==========
-     :param constraint_tensor: An n-dimensional tensor with shape `(2,)*n`, where each element is either -1 or +1.
-                               All entries should be equal except for one unique position that marks the satisfying assignment.
-     :return: A 1D : code:`numpy` array of length :math:`n+1` where the first :math:`n`
-                     elements are the coordinates (indices), and the last element is the unique constant (rhs).
 
     """
     values, counts = np.unique(constraint_tensor, return_counts=True)

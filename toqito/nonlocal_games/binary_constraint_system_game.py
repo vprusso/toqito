@@ -29,6 +29,11 @@ def create_bcs_constraints(M: np.ndarray, b: np.ndarray) -> list[np.ndarray]:
 
     This tensor now represents the constraint in full detail.
 
+    :param M: A 2D binary NumPy array of shape (m, n). Each row represents a constraint on n variables.
+    :param b: A 1D binary array of length m. Each entry defines the sign of the constraint.
+    :return: A list of NumPy arrays, each of shape ``(2,)*n``. Each tensor represents
+             one constraint in tensor form.
+
     Examples
     ==========
     .. jupyter-execute::
@@ -40,13 +45,6 @@ def create_bcs_constraints(M: np.ndarray, b: np.ndarray) -> list[np.ndarray]:
      b = np.array([0, 1], dtype=int)
      constraints = create_bcs_constraints(M, b)
      constraints[0].shape
-
-    Parameters
-    ==========
-    :param M: A 2D binary NumPy array of shape (m, n). Each row represents a constraint on n variables.
-    :param b: A 1D binary array of length m. Each entry defines the sign of the constraint.
-    :return: A list of NumPy arrays, each of shape ``(2,)*n``. Each tensor represents
-             one constraint in tensor form.
 
     """
     m, n = M.shape
@@ -70,6 +68,11 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
     The method used to determine the existence of a perfect commuting strategy was originally introduced
     in :cite:`Cleve_2016_Perfect`.
 
+    :param M: A binary matrix of shape (m, n).Each row encodes which variables appear in a constraint.
+    :param b: A binary vector of length m.Each entry determines the parity for its corresponding constraint row.
+    :return: A list of integer bitmasks.
+    :return: A list of parity values.
+
     Examples
     ========
     .. jupyter-execute::
@@ -85,13 +88,6 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
     ==========
     .. bibliography::
         :filter: docname in docnames
-
-    Parameters
-    ==========
-     :param M: A binary matrix of shape (m, n).Each row encodes which variables appear in a constraint.
-     :param b: A binary vector of length m.Each entry determines the parity for its corresponding constraint row.
-     :return: A list of integer bitmasks.
-     :return: A list of parity values.
 
     """
     # Ensure M and b are binary (0/1)
@@ -112,6 +108,10 @@ def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray) -> bool:
     and examines the resulting constraint graph for cycles that indicate a nontrivial
     solution.
 
+    :param M: A binary matrix representing a system of parity constraints.
+    :param b: A binary vector representing the right-hand side of the constraint equations.
+    :return: ``True`` if a perfect commuting-operator strategy exists; otherwise, ``False``.
+
     Examples
     ==========
     .. jupyter-execute::
@@ -122,12 +122,6 @@ def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray) -> bool:
      M = np.array([[1, 1], [1, 1]])
      b = np.array([0, 1])
      check_perfect_commuting_strategy(M, b)
-
-    Parameters
-    ==========
-     :param M: A binary matrix representing a system of parity constraints.
-     :param b: A binary vector representing the right-hand side of the constraint equations.
-     :return: ``True`` if a perfect commuting-operator strategy exists; otherwise, ``False``.
 
     """
     row, parity = generate_solution_group(M, b)
