@@ -156,10 +156,7 @@ def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray) -> bool:
             break
 
     # Check for contradiction: a row with 0 = 1.
-    contradiction = next(
-        (combo[r] for r in range(m) if row[r] == 0 and parity[r] == 1),
-        None
-    )
+    contradiction = next((combo[r] for r in range(m) if row[r] == 0 and parity[r] == 1), None)
     if contradiction is None:
         return True  # no contradiction → perfect strategy exists
 
@@ -169,11 +166,6 @@ def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray) -> bool:
     G.add_nodes_from(nodes)
 
     # Add edges where two constraints share a variable
-    edges = [
-        (u, v)
-        for i, u in enumerate(nodes)
-        for v in nodes[i + 1 :]
-        if row[u] & row[v]
-    ]
+    edges = [(u, v) for i, u in enumerate(nodes) for v in nodes[i + 1 :] if row[u] & row[v]]
     G.add_edges_from(edges)
     return bool(nx.cycle_basis(G))

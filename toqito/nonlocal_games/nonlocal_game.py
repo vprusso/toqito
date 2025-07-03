@@ -193,14 +193,13 @@ class NonlocalGame:
         return tgval
 
     def classical_value(self) -> float:
-        """Compute the classical value of the nonlocal game using Numba acceleration.
-        """
+        """Compute the classical value of the nonlocal game using Numba acceleration."""
         A_out, B_out, A_in, B_in = self.pred_mat.shape
         pm = np.copy(self.pred_mat)
         pm *= self.prob_mat[np.newaxis, np.newaxis, :A_in, :B_in]
 
         # Align dimensions for Bob's strategies
-        if A_out ** A_in < B_out ** B_in:
+        if A_out**A_in < B_out**B_in:
             pm = pm.transpose((1, 0, 3, 2))
             A_out, B_out, A_in, B_in = pm.shape
 
@@ -212,8 +211,8 @@ class NonlocalGame:
 
         # === Begin fast classical value logic ===
         p_win = 0.0
-        total = B_out ** B_in
-
+        total = B_out**B_in
+        
         for i in range(total):
             best_sum = 0.0
             for x in range(A_in):

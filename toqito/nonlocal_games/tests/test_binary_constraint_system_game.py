@@ -41,14 +41,17 @@ def test_magic_square_bcs():
     in the commuting-operator model but not classically.
     """
 
-    M = np.array([
-        [1, 1, 1, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 1, 1, 1, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 1, 1, 1],
-        [1, 0, 0, 1, 0, 0, 1, 0, 0],
-        [0, 1, 0, 0, 1, 0, 0, 1, 0],
-        [0, 0, 1, 0, 0, 1, 0, 0, 1]
-    ], dtype=int)
+    M = np.array(
+        [
+            [1, 1, 1, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 1, 1, 1, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 1, 1, 1],
+            [1, 0, 0, 1, 0, 0, 1, 0, 0],
+            [0, 1, 0, 0, 1, 0, 0, 1, 0],
+            [0, 0, 1, 0, 0, 1, 0, 0, 1],
+        ],
+        dtype=int,
+    )
     b = np.array([0, 0, 0, 1, 1, 1], dtype=int)
     constraints = create_bcs_constraints(M, b)
     assert check_perfect_commuting_strategy(M, b)
@@ -62,11 +65,7 @@ def test_special_case():
     This example still yields a perfect commuting-operator strategy.
     """
 
-    M = np.array([
-        [1, 1, 1],
-        [1, 1, 0],
-        [0, 1, 1]
-    ], dtype=int)
+    M = np.array([[1, 1, 1], [1, 1, 0], [0, 1, 1]], dtype=int)
     b = np.array([1, 0, 0], dtype=int)
     constraints = create_bcs_constraints(M, b)
     assert check_perfect_commuting_strategy(M, b)
