@@ -25,7 +25,7 @@ This tutorial builds upon the concepts introduced in the
 # introduced a simple and powerful necessary condition for a set of states to be
 # antidistinguishable.
 #
-# According to **Corollary 4.2 from** :footcite:`Johnston_2025_Tight`, when :math:`n \geq 2`, :math:`S = \{| 
+# According to **Corollary 4.2 from** :footcite:`Johnston_2025_Tight`, when :math:`n \geq 2`, :math:`S = \{|
 # \psi_0\rangle, \ldots, |\psi_{n-1}\rangle\}` is not anstidistinguishable if the following condition is satisfied.
 #
 # .. math::
@@ -43,14 +43,29 @@ This tutorial builds upon the concepts introduced in the
 # Numerical Verification
 # ^^^^^^^^^^^^^^^^^^^^^^
 #
-# Let's test this for the case of :math:`n=4` states. The critical threshold
-# for the inner product is :math:`\gamma_{\text{crit}} = (4-2)/(4-1) = 2/3`.
+# To demonstrate the tightness of this bound, we follow Example 3.3 from
+# the paper :footcite:`Johnston_2025_Tight`. The Gram matrix for a set of :math:`n`
+# equiangular states is given by
 #
-# We will construct Gram matrices for states with inner products *at* the
-# threshold and slightly *above* it. To robustly check for
-# antidistinguishability, we will directly use the :func:`~toqito.state_opt.state_exclusion`
-# function. A set of states is antidistinguishable if and only if the optimal
-# value of the state exclusion SDP is 0.
+# .. math::
+#    G = (1 - \gamma) I + \gamma J,
+#
+# where :math:`I` is the identity matrix and :math:`J` is the all-ones matrix.
+#
+# We will verify the threshold for the :math:`n=4` case, where the critical
+# inner product is :math:`\gamma_{\text{crit}} = (4-2)/(4-1) = 2/3`.
+# Our verification plan is as follows:
+#
+# 1.  Construct the Gram matrix :math:`G_{\text{at}}` for :math:`\gamma = \gamma_{\text{crit}}`.
+# 2.  Construct a second Gram matrix :math:`G_{\text{above}}` for :math:`\gamma`
+#     slightly greater than :math:`\gamma_{\text{crit}}`.
+# 3.  For each Gram matrix, use :code:`toqito` to generate a corresponding set of
+#     state vectors.
+# 4.  Use the :func:`~toqito.state_opt.state_exclusion` SDP solver on both
+#     sets of states. A set is antidistinguishable if and only if the optimal
+#     value of this SDP is 0.
+# 5.  Confirm that the states *at* the threshold are antidistinguishable
+#     (SDP value is 0) and the states *above* it are not (SDP value is > 0).
 
 import numpy as np
 from toqito.matrix_ops import vectors_from_gram_matrix
@@ -101,49 +116,57 @@ print(f"  - Is the set antidistinguishable? {is_ad_above} (as expected)")
 # Visualizing the Threshold
 # ^^^^^^^^^^^^^^^^^^^^^^^^^
 #
-# We can make this "sharp cliff" even clearer by plotting the optimal value of
-# the state exclusion SDP against the inner product :math:`\gamma`. The optimal
-# value is 0 if and only if the states are antidistinguishable. The plot should
-# show the value lifting off from 0 precisely at :math:`\gamma_{\text{crit}}`.
+# We can make this "sharp cliff" even clearer by plotting the optimal error
+# probability of state exclusion against the inner product :math:`\gamma`. To
+# match Figure 2 from :footcite:`Johnston_2025_Tight`, we will plot this for
+# several values of :math:`n`.
+#
+# The optimal error probability is given by the optimal value of the state
+# exclusion SDP divided by :math:`n`. The plot should show this probability
+# lifting off from 0 precisely at the threshold :math:`\gamma_{\text{crit}} = (n-2)/(n-1)`
+# for each respective :math:`n`.
 #
 # A Gram matrix for equiangular states is positive semidefinite (and thus
-# physically valid) if and only if :math:`-1/(n-1) \leq \gamma \leq 1`. Our
-# plot covers the most interesting part of this range.
+# physically valid) if and only if :math:`-1/(n-1) \leq \gamma \leq 1`.
 
 import matplotlib.pyplot as plt
 from toqito.matrix_props import is_positive_semidefinite
 
-gamma_vals = np.linspace(0, 0.8, 101)
-sdp_vals = []
-
-for gamma in gamma_vals:
-    # Construct the Gram matrix for this gamma.
-    gram_matrix = (1 - gamma) * np.identity(n) + gamma * np.ones((n, n))
-
-    # We can only generate states if the Gram matrix is positive semidefinite.
-    if is_positive_semidefinite(gram_matrix):
-        states = vectors_from_gram_matrix(gram_matrix)
-        # state_exclusion can be called without probabilities for a uniform ensemble.
-        opt_val, _ = state_exclusion(states)
-        sdp_vals.append(opt_val)
-    else:
-        # If not PSD, it's not a valid Gram matrix for a state ensemble.
-        sdp_vals.append(np.nan)
-
-
 fig, ax = plt.subplots(figsize=(8, 5), dpi=100)
-ax.plot(gamma_vals, sdp_vals, marker=".", linestyle="-", markersize=5)
-ax.axvline(
-    x=gamma_crit,
-    color="r",
-    linestyle="--",
-    label=f"Threshold $\\gamma = (n-2)/(n-1) \\approx {gamma_crit:.3f}$",
-)
+gamma_range = np.linspace(0, 1.0, 101)
+n_vals_to_plot = [2, 3, 4, 5, 10]
+
+for n_val in n_vals_to_plot:
+    error_probs = []
+    gamma_crit_n = (n_val - 2) / (n_val - 1)
+
+    for gamma in gamma_range:
+        # The Gram matrix is only PSD in a specific range.
+        if gamma < -1 / (n_val - 1):
+            error_probs.append(np.nan)
+            continue
+
+        gram_matrix = (1 - gamma) * np.identity(n_val) + gamma * np.ones((n_val, n_val))
+
+        if is_positive_semidefinite(gram_matrix):
+            states = vectors_from_gram_matrix(gram_matrix)
+            opt_val, _ = state_exclusion(states)
+            # The error probability is the SDP value divided by n.
+            error_probs.append(opt_val / n_val)
+        else:
+            # If not PSD, it's not a valid Gram matrix for a state ensemble.
+            error_probs.append(np.nan)
+
+    # The "knee" of the curve occurs at the threshold.
+    ax.plot(gamma_range, error_probs, label=f"$n={n_val}$ ($\\gamma_{{crit}} \\approx {gamma_crit_n:.2f}$)")
+
+
 ax.set_xlabel("Inner Product $\\gamma = |\\langle \\psi_i | \\psi_j \\rangle|$", fontsize=12)
-ax.set_ylabel("Optimal SDP Value (State Exclusion)", fontsize=12)
-ax.set_title(f"Antidistinguishability Threshold for $n={n}$ Equiangular States", fontsize=14)
-ax.legend(fontsize=12)
+ax.set_ylabel("Optimal Error Probability", fontsize=12)
+ax.set_title("Antidistinguishability Threshold for Equiangular States", fontsize=14)
+ax.legend(fontsize=10)
 ax.grid(True)
+ax.set_ylim(bottom=0)
 plt.tight_layout()
 plt.show()
 
