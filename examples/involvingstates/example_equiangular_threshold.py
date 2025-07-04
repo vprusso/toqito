@@ -4,13 +4,12 @@ Equiangular States and the Antidistinguishability Threshold
 
 In this tutorial, we explore a sharp threshold for the antidistinguishability
 of a special class of quantum states known as equiangular states. We will
-numerically verify a tight bound presented in the paper "Tight bounds for
-antidistinguishability and circulant sets of pure quantum states"
+numerically verify a tight bound presented in the paper by Johnson et.al
 :footcite:`Johnston_2025_Tight` and visualize the "sharp cliff" where this
 property changes.
 
-This tutorial builds upon the concepts introduced in
-:ref:`sphx_glr_auto_examples_involvingstates_example_state_exclusion.py`.
+This tutorial builds upon the concepts introduced in the
+:ref:`sphx_glr_auto_examples_involvingstates_example_state_exclusion.py` tutorial.
 """
 
 # %%
@@ -22,12 +21,12 @@ This tutorial builds upon the concepts introduced in
 # any two distinct states is a constant, i.e.,
 # :math:`|\langle \psi_i | \psi_j \rangle| = \gamma` for all :math:`i \neq j`.
 #
-# The paper by Johnston, Russo, and Sikora :footcite:`Johnston_2025_Tight`
-# provides a simple and powerful necessary condition for a set of states to be
+# Johnston et.al :footcite:`Johnston_2025_Tight`
+# introduced a simple and powerful necessary condition for a set of states to be
 # antidistinguishable.
 #
-# **Corollary 4.2 from** :footcite:`Johnston_2025_Tight`: Let :math:`n \geq 2` be an
-# integer and let :math:`S = \{|\psi_0\rangle, \ldots, |\psi_{n-1}\rangle\}`. If
+# According to **Corollary 4.2 from** :footcite:`Johnston_2025_Tight`, when :math:`n \geq 2`, :math:`S = \{| 
+# \psi_0\rangle, \ldots, |\psi_{n-1}\rangle\}` is not anstidistinguishable if the following condition is satisfied.
 #
 # .. math::
 #    |\langle \psi_i | \psi_j \rangle| > \frac{n-2}{n-1}
