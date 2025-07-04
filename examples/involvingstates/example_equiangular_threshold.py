@@ -61,11 +61,10 @@ This tutorial builds upon the concepts introduced in the
 #     slightly greater than :math:`\gamma_{\text{crit}}`.
 # 3.  For each Gram matrix, use :code:`toqito` to generate a corresponding set of
 #     state vectors.
-# 4.  Use the :func:`~toqito.state_opt.state_exclusion` SDP solver on both
-#     sets of states. A set is antidistinguishable if and only if the optimal
-#     value of this SDP is :math:`0`.
+# 4.  For each set of states, compute the **minimum probability of error** for state exclusion using
+#     the :func:`~toqito.state_opt.state_exclusion` function.
 # 5.  Confirm that the states *at* the threshold are antidistinguishable
-#     (SDP value is :math:`0`) and the states *above* it are not (SDP value is > :math:`0`).
+#     (error probability is :math:`0`) and the states *above* it are not (error probability is > :math:`0`).
 
 import numpy as np
 from toqito.matrix_ops import vectors_from_gram_matrix
@@ -87,7 +86,7 @@ opt_val_at, _ = state_exclusion(states_at)
 is_ad_at = np.isclose(opt_val_at, 0)
 
 print(f"\nFor γ = {gamma_at:.4f} (at threshold):")
-print(f"  - Optimal SDP value is {opt_val_at:.2e}")
+print(f"  - Optimal error probability is {opt_val_at:.2e}")
 print(f"  - Is the set antidistinguishable? {is_ad_at} (as expected)")
 
 # 2. Construct and test the Gram matrix slightly ABOVE the threshold.
@@ -98,7 +97,7 @@ opt_val_above, _ = state_exclusion(states_above)
 is_ad_above = np.isclose(opt_val_above, 0)
 
 print(f"\nFor γ = {gamma_above:.4f} (above threshold):")
-print(f"  - Optimal SDP value is {opt_val_above:.2e}")
+print(f"  - Optimal error probability is {opt_val_above:.2e}")
 print(f"  - Is the set antidistinguishable? {is_ad_above} (as expected)")
 
 
