@@ -544,15 +544,10 @@ class ExtendedNonlocalGame:
                 for a in range(A_out):
                     for b in range(B_out):
                         P_ref = self.pred_mat[:, :, a, b, x, y]
-                        blk = K[(x, y)][a*dR:(a+1)*dR, b*dR:(b+1)*dR]
+                        blk = K[(x, y)][a * dR : (a + 1) * dR, b * dR : (b + 1) * dR]
                         total_win += self.prob_mat[x, y] * cvxpy.trace(P_ref.conj().T @ blk)
         cons = npa_constraints(K, k, referee_dim=dR)
         prob = cvxpy.Problem(cvxpy.Maximize(cvxpy.real(total_win)), cons)
-        cs_val = prob.solve(
-            solver=cvxpy.SCS,
-            eps=1e-8,
-            max_iters=100_000,
-            verbose=False
-            )
+        cs_val = prob.solve(solver=cvxpy.SCS, eps=1e-8, max_iters=100_000, verbose=False)
 
         return cs_val

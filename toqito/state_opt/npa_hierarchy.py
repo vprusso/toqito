@@ -38,9 +38,28 @@ def _reduce(word: tuple[Symbol, ...]) -> tuple[Symbol, ...]:
     return tuple(current_list) if current_list else ()
 
 def _parse(k_str: str) -> tuple[int, set[tuple[int, int]]]:
-    parts = k_str.split("+")
-    base_k = int(parts[0]) if parts[0] else 0
-    return base_k, {(v.count("a"), v.count("b")) for v in parts[1:]}
+    if not k_str:
+        raise ValueError("Input string k_str cannot be empty.")
+
+    # Filter out empty strings that result from split (e.g., "1++ab" -> ['1', '', 'ab'])
+    parts = [p for p in k_str.split("+") if p] 
+
+    if not parts: # Handles cases like "+++" or just "+" after filtering
+        raise ValueError("Base level k must be specified, e.g., '1+ab'")
+
+    try:
+        base_k = int(parts[0])
+    except ValueError:
+        raise ValueError(f"Base level k '{parts[0]}' is not a valid integer: invalid literal for int() with base 10: '{parts[0]}'")
+
+    configurations = set()
+    for v in parts[1:]:
+        # Validate characters in configuration string
+        if not all(char in ('a', 'b') for char in v):
+            raise ValueError(f"Invalid character in k string component '{v}'. Only 'a' or 'b' allowed after base k.")
+        configurations.add((v.count("a"), v.count("b")))
+    
+    return base_k, configurations
 
 def _gen_words(k: int | str, a_out: int, a_in: int, b_out: int, b_in: int) -> list[tuple[Symbol, ...]]:
     # Use an independent basis: omit the last outcome for each question
