@@ -109,7 +109,7 @@ def npa_constraints(assemblage, k=1, referee_dim=1):
                 else:
                     constraints.append(block == sum(assemblage[0,x][a_idx*dR:(a_idx+1)*dR, a*dR:(a+1)*dR] for a_idx in range(a_out)))
 
-    # CRITICAL FIX: Add constraints for the dependent outcomes
+    # Add constraints for the dependent outcomes
     for x, y in product(range(a_in), range(b_in)):
         # Dependent Alice outcome
         a_last = a_out - 1
