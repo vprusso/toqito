@@ -59,7 +59,7 @@ This tutorial builds upon the concepts introduced in the
 # 1.  Construct the Gram matrix :math:`G_{\text{at}}` for :math:`\gamma = \gamma_{\text{crit}}`.
 # 2.  Construct a second Gram matrix :math:`G_{\text{above}}` for :math:`\gamma`
 #     slightly greater than :math:`\gamma_{\text{crit}}`.
-# 3.  For each Gram matrix, use :code:`toqito` to generate a corresponding set of
+# 3.  For each Gram matrix, use :code:`|toqito⟩` to generate a corresponding set of
 #     state vectors.
 # 4.  For each set of states, compute the **minimum probability of error** for state exclusion using
 #     the :func:`~toqito.state_opt.state_exclusion` function.
