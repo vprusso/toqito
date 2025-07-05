@@ -64,9 +64,9 @@ class TestExtendedNonlocalGame4MUB(unittest.TestCase):
         """NPA upper bound at k='1+ab' approximates the quantum value."""
         pi, pred_mat = self.four_mub_game()
         game = ExtendedNonlocalGame(pi, pred_mat)
-        ub = game.commuting_measurement_value_upper_bound(k=1)
+        ub = game.commuting_measurement_value_upper_bound(k="1+ab")
         # Should be close to 2/3 within tolerance
-        self.assertAlmostEqual(ub, 0.760573, delta=5e-3)
+        self.assertAlmostEqual(ub, 2/3, delta=5e-3)
 
     def test_nonsignaling_value(self):
         """No-signaling value matches literature."""
