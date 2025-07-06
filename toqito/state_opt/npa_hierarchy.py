@@ -41,25 +41,33 @@ def _parse(k_str: str) -> tuple[int, set[tuple[int, int]]]:
     if not k_str:
         raise ValueError("Input string k_str cannot be empty.")
 
-    # Filter out empty strings that result from split (e.g., "1++ab" -> ['1', '', 'ab'])
-    parts = [p for p in k_str.split("+") if p] 
+    parts = k_str.split("+")
 
-    if not parts: # Handles cases like "+++" or just "+" after filtering
+    # Validate and parse the base_k part
+    if not parts[0]:
         raise ValueError("Base level k must be specified, e.g., '1+ab'")
-
     try:
         base_k = int(parts[0])
-    except ValueError:
-        raise ValueError(f"Base level k '{parts[0]}' is not a valid integer: invalid literal for int() with base 10: '{parts[0]}'")
+    except ValueError as e:
+        raise ValueError(
+            f"Base level k '{parts[0]}' is not a valid integer: {e}"
+        ) from e
 
-    configurations = set()
-    for v in parts[1:]:
-        # Validate characters in configuration string
-        if not all(char in ('a', 'b') for char in v):
-            raise ValueError(f"Invalid character in k string component '{v}'. Only 'a' or 'b' allowed after base k.")
-        configurations.add((v.count("a"), v.count("b")))
-    
-    return base_k, configurations
+    # Validate and parse configuration parts
+    configs = set()
+    for i, part in enumerate(parts[1:]):
+        if not part:  # Handle empty parts like "1++ab" or "1+"
+            continue
+        # Validate characters in the configuration string
+        if not all(c in ("a", "b") for c in part):
+            invalid_char = next((c for c in part if c not in ("a", "b")), None)
+            raise ValueError(
+                f"Invalid character '{invalid_char}' in k string component '{part}'. "
+                "Only 'a' or 'b' allowed after base k."
+            )
+        configs.add((part.count("a"), part.count("b")))
+
+    return base_k, configs
 
 def _gen_words(k: int | str, a_out: int, a_in: int, b_out: int, b_in: int) -> list[tuple[Symbol, ...]]:
     # Use an independent basis: omit the last outcome for each question
@@ -127,6 +135,42 @@ def npa_constraints(assemblage, k=1, referee_dim=1):
                     constraints.append(block == sum(assemblage[x,0][a*dR:(a+1)*dR, b_idx*dR:(b_idx+1)*dR] for b_idx in range(b_out)))
                 else:
                     constraints.append(block == sum(assemblage[0,x][a_idx*dR:(a_idx+1)*dR, a*dR:(a+1)*dR] for a_idx in range(a_out)))
+    # No-signaling conditions:
+    # 1. Alice's marginals must be independent of Bob's input `y`.
+    for x_q in range(a_in):
+        for a_ans in range(a_out):
+            # Calculate Alice's marginal for the first Bob's input (y=0) as reference
+            alice_marginal_ref = sum(
+                assemblage[x_q, 0][a_ans * dR : (a_ans + 1) * dR, b_ans * dR : (b_ans + 1) * dR]
+                for b_ans in range(b_out)
+            )
+            # Compare this reference marginal with marginals for other Bob's inputs `y_q_prime`.
+            for y_q_prime in range(1, b_in):
+                alice_marginal_current = sum(
+                    assemblage[x_q, y_q_prime][
+                        a_ans * dR : (a_ans + 1) * dR, b_ans * dR : (b_ans + 1) * dR
+                    ]
+                    for b_ans in range(b_out)
+                )
+                constraints.append(alice_marginal_ref == alice_marginal_current)
+
+    # 2. Bob's marginals must be independent of Alice's input `x`.
+    for y_q in range(b_in):
+        for b_ans in range(b_out):
+            # Calculate Bob's marginal for the first Alice's input (x=0) as reference
+            bob_marginal_ref = sum(
+                assemblage[0, y_q][a_ans * dR : (a_ans + 1) * dR, b_ans * dR : (b_ans + 1) * dR]
+                for a_ans in range(a_out)
+            )
+            # Compare this reference marginal with marginals for other Alice's inputs `x_q_prime`.
+            for x_q_prime in range(1, a_in):
+                bob_marginal_current = sum(
+                    assemblage[x_q_prime, y_q][
+                        a_ans * dR : (a_ans + 1) * dR, b_ans * dR : (b_ans + 1) * dR
+                    ]
+                    for a_ans in range(a_out)
+                )
+                constraints.append(bob_marginal_ref == bob_marginal_current)
 
     # Add constraints for the dependent outcomes
     for x, y in product(range(a_in), range(b_in)):

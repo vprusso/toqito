@@ -449,7 +449,70 @@ class TestExtendedNonlocalGame(unittest.TestCase):
             for key, val_expected in custom_bob_povms_dict.items():
                 self.assertTrue(np.array_equal(called_bob_povms_arg[key], val_expected))
 
+    @staticmethod
+    def four_mub_game():
+        """Define the 4-MUB extended nonlocal game (single round, qutrit bases)."""
+        d = 3
+        e0, e1, e2 = np.eye(3, dtype=complex)
+        zeta = np.exp(2j * np.pi / 3)
+        B = [
+            [e0, e1, e2],
+            [
+                (e0 + e1 + e2) / np.sqrt(3),
+                (e0 + zeta**2 * e1 + zeta * e2) / np.sqrt(3),
+                (e0 + zeta * e1 + zeta**2 * e2) / np.sqrt(3),
+            ],
+            [
+                (e0 + e1 + zeta * e2) / np.sqrt(3),
+                (e0 + zeta**2 * e1 + zeta**2 * e2) / np.sqrt(3),
+                (e0 + zeta * e1 + e2) / np.sqrt(3),
+            ],
+            [
+                (e0 + e1 + zeta**2 * e2) / np.sqrt(3),
+                (e0 + zeta**2 * e1 + e2) / np.sqrt(3),
+                (e0 + zeta * e1 + zeta * e2) / np.sqrt(3),
+            ],
+        ]
+        num_inputs = 4
+        num_outputs = 3
+        pi = np.zeros((num_inputs, num_inputs), dtype=float)
+        for x in range(num_inputs):
+            pi[x, x] = 1.0 / num_inputs
+        pred_mat = np.zeros((d, d, num_outputs, num_outputs, num_inputs, num_inputs), dtype=complex)
+        for x in range(num_inputs):
+            for a in range(num_outputs):
+                ket = B[x][a]
+                pred_mat[:, :, a, a, x, x] = np.outer(ket, ket.conj())
+        return pi, pred_mat
+    def test_four_mub_unentangled_value(self):
+        """Unentangled (classical) value of the 4-MUB game."""
+        pi, pred_mat = self.four_mub_game()
+        game = ExtendedNonlocalGame(pi, pred_mat)
+        res = game.unentangled_value()
+        expected = (3 + np.sqrt(5)) / 8
+        self.assertAlmostEqual(res, expected, places=6)
 
+    def test_four_mub_quantum_lower_bound(self):
+        """Quantum heuristic lower bound of the 4-MUB game."""
+        pi, pred_mat = self.four_mub_game()
+        game = ExtendedNonlocalGame(pi, pred_mat)
+        lb = game.quantum_value_lower_bound(initial_bob_is_random=True, seed=42, iters=50, tol=1e-6, verbose=False)
+        self.assertAlmostEqual(lb, 0.660986, delta=5e-3)
+
+    def test_four_mub_npa_upper_bound_k1ab(self):
+        """NPA upper bound at k='1+ab' for the 4-MUB game."""
+        pi, pred_mat = self.four_mub_game()
+        game = ExtendedNonlocalGame(pi, pred_mat)
+        ub = game.commuting_measurement_value_upper_bound(k=1)
+        self.assertAlmostEqual(ub, 0.760573, delta=5e-3)
+
+    def test_four_mub_nonsignaling_value(self):
+        """No-signaling value of the 4-MUB game."""
+        pi, pred_mat = self.four_mub_game()
+        game = ExtendedNonlocalGame(pi, pred_mat)
+        ns = game.nonsignaling_value()
+        self.assertAlmostEqual(ns, 0.788675, places=6)
+        
 class TestExtendedNonlocalGameVerbosePrints:
     """test verbose printout logic."""
 
