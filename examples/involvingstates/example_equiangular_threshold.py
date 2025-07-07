@@ -62,7 +62,7 @@ This tutorial builds upon the concepts introduced in the
 # 3.  For each Gram matrix, use :code:`|toqito⟩` to generate a corresponding set of
 #     state vectors.
 # 4.  For each set of states, compute the **minimum probability of error** for state exclusion using
-#     the :func:`~toqito.state_opt.state_exclusion` function.
+#     the :func:`.state_exclusion` function.
 # 5.  Confirm that the states *at* the threshold are antidistinguishable
 #     (error probability is :math:`0`) and the states *above* it are not (error probability is > :math:`0`).
 
