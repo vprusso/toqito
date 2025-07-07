@@ -32,7 +32,7 @@ This tutorial builds upon the concepts introduced in the
 #    |\langle \psi_i | \psi_j \rangle| > \frac{n-2}{n-1}
 #    \quad \forall \ i \neq j,
 #
-# 
+#
 #
 # Crucially, Example 3.3 in the paper demonstrates that this bound is *tight*.
 # That is, a set of equiangular states with an inner product exactly equal
