@@ -409,7 +409,8 @@ def npa_constraints(
                 for x_alice_in in range(1, a_in):
                     sum_over_a_for_x_current = sum(
                         assemblage[x_alice_in, y_bob_in][
-                            a * referee_dim : (a + 1) * referee_dim, b_bob_out * referee_dim : (b_bob_out + 1) * referee_dim
+                            a * referee_dim : (a + 1) * referee_dim,
+                            b_bob_out * referee_dim : (b_bob_out + 1) * referee_dim,
                         ]
                         for a in range(a_out)
                     )
@@ -420,7 +421,8 @@ def npa_constraints(
             for a_alice_out in range(a_out):  # For each Alice outcome a
                 sum_over_b_for_y0 = sum(
                     assemblage[x_alice_in, 0][
-                        a_alice_out * referee_dim : (a_alice_out + 1) * referee_dim, b * referee_dim : (b + 1) * referee_dim
+                        a_alice_out * referee_dim : (a_alice_out + 1) * referee_dim,
+                        b * referee_dim : (b + 1) * referee_dim,
                     ]
                     for b in range(b_out)
                 )
