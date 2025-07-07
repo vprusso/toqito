@@ -511,7 +511,7 @@ class ExtendedNonlocalGame:
 
         return bob_povm_cvxpy_vars, problem
 
-    def commuting_measurement_value_upper_bound(self, k: int | str = 1) -> float:
+    def commuting_measurement_value_upper_bound(self, k: int | str = 1, no_signaling: bool = True) -> float:
         """Compute an upper bound on the commuting measurement value of an extended nonlocal game.
 
         This function calculates an upper bound on the commuting measurement value by
@@ -546,7 +546,7 @@ class ExtendedNonlocalGame:
                         P_ref = self.pred_mat[:, :, a, b, x, y]
                         blk = K[(x, y)][a * dR : (a + 1) * dR, b * dR : (b + 1) * dR]
                         total_win += self.prob_mat[x, y] * cvxpy.trace(P_ref.conj().T @ blk)
-        cons = npa_constraints(K, k, referee_dim=dR)
+        cons = npa_constraints(K, k, referee_dim=dR, no_signaling=no_signaling)
         prob = cvxpy.Problem(cvxpy.Maximize(cvxpy.real(total_win)), cons)
         cs_val = prob.solve(solver=cvxpy.SCS, eps=1e-8, max_iters=100_000, verbose=False)
 

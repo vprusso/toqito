@@ -503,7 +503,7 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         """NPA upper bound at k='1+ab' for the 4-MUB game."""
         pi, pred_mat = self.four_mub_game()
         game = ExtendedNonlocalGame(pi, pred_mat)
-        ub = game.commuting_measurement_value_upper_bound(k=1)
+        ub = game.commuting_measurement_value_upper_bound(k=1,no_signaling=False)
         self.assertAlmostEqual(ub, 0.760573, delta=5e-3)
 
     def test_four_mub_nonsignaling_value(self):
