@@ -13,7 +13,7 @@ This tutorial builds upon the concepts introduced in the
 """
 
 # %%
-# The Antidistinguishability Threshold for Equiangular States
+# Antidistinguishability Threshold for Equiangular States
 # -----------------------------------------------------------
 #
 # A set of :math:`n` pure states :math:`\{|\psi_0\rangle, \ldots, |\psi_{n-1}\rangle\}`
@@ -32,7 +32,7 @@ This tutorial builds upon the concepts introduced in the
 #    |\langle \psi_i | \psi_j \rangle| > \frac{n-2}{n-1}
 #    \quad \forall \ i \neq j,
 #
-# then :math:`S` is **not** antidistinguishable.
+# 
 #
 # Crucially, Example 3.3 in the paper demonstrates that this bound is *tight*.
 # That is, a set of equiangular states with an inner product exactly equal
@@ -105,7 +105,7 @@ print(f"  - Is the set antidistinguishable? {is_ad_above} (as expected)")
 # Antidistinguishability and (n-1)-Incoherence
 # ---------------------------------------------
 #
-# The core theoretical result of :footcite:`Johnston_2025_Tight` (Theorem 3.2)
+# The core theoretical result of (Theorem 3.2) :footcite:`Johnston_2025_Tight`
 # is that a set of :math:`n` pure states is antidistinguishable if and only if its
 # Gram matrix is :math:`(n-1)`-incoherent. Our numerical results above,
 # obtained by solving the state exclusion SDP, implicitly verify this
@@ -120,7 +120,7 @@ print(f"  - Is the set antidistinguishable? {is_ad_above} (as expected)")
 # match the style of Figure 2 from :footcite:`Johnston_2025_Tight`, we will
 # plot this for several values of :math:`n`.
 #
-# The value returned by `toqito.state_opt.state_exclusion` is the optimal
+# The value returned by :func:`.state_exclusion` is the optimal
 # probability of error. The plot should show this probability lifting off from
 # :math:`0` precisely at the threshold :math:`\gamma_{\text{crit}} = (n-2)/(n-1)` for
 # each respective :math:`n`.
