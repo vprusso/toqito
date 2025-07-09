@@ -484,7 +484,7 @@ class TestExtendedNonlocalGame(unittest.TestCase):
                 ket = B[x][a]
                 pred_mat[:, :, a, a, x, x] = np.outer(ket, ket.conj())
         return pi, pred_mat
-    
+
     def test_four_mub_unentangled_value(self):
         """Unentangled (classical) value of the 4-MUB game."""
         pi, pred_mat = self.four_mub_game()
