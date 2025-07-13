@@ -511,7 +511,7 @@ class ExtendedNonlocalGame:
 
         return bob_povm_cvxpy_vars, problem
 
-    def commuting_measurement_value_upper_bound(self, k: int | str = 1) -> float:
+    def commuting_measurement_value_upper_bound(self, k: int | str = 1, no_signaling: bool = True) -> float:
         """Compute an upper bound on the commuting measurement value of an extended nonlocal game.
 
         This function calculates an upper bound on the commuting measurement value by
@@ -533,33 +533,21 @@ class ExtendedNonlocalGame:
         :return: The upper bound on the commuting strategy value of an extended nonlocal game.
 
         """
-        referee_dim, _, alice_out, bob_out, alice_in, bob_in = self.pred_mat.shape
-
-        mat = defaultdict(cvxpy.Variable)
-        for x_in in range(alice_in):
-            for y_in in range(bob_in):
-                mat[x_in, y_in] = cvxpy.Variable(
-                    (alice_out * referee_dim, bob_out * referee_dim),
-                    name=f"K(a, b | {x_in}, {y_in})",
-                    hermitian=True,
-                )
-
-        p_win = cvxpy.Constant(0)
-        for a_out in range(alice_out):
-            for b_out in range(bob_out):
-                for x_in in range(alice_in):
-                    for y_in in range(bob_in):
-                        p_win += self.prob_mat[x_in, y_in] * cvxpy.trace(
-                            self.pred_mat[:, :, a_out, b_out, x_in, y_in].conj().T
-                            @ mat[x_in, y_in][
-                                a_out * referee_dim : (a_out + 1) * referee_dim,
-                                b_out * referee_dim : (b_out + 1) * referee_dim,
-                            ]
-                        )
-
-        npa = npa_constraints(mat, k, referee_dim)
-        objective = cvxpy.Maximize(cvxpy.real(p_win))
-        problem = cvxpy.Problem(objective, npa)
-        cs_val = problem.solve()
+        dR, _, A_out, B_out, A_in, B_in = self.pred_mat.shape
+        K = {}
+        for x in range(A_in):
+            for y in range(B_in):
+                K[(x, y)] = cvxpy.Variable((A_out * dR, B_out * dR), hermitian=True, name=f"K({x},{y})")
+        total_win = cvxpy.Constant(0)
+        for x in range(A_in):
+            for y in range(B_in):
+                for a in range(A_out):
+                    for b in range(B_out):
+                        P_ref = self.pred_mat[:, :, a, b, x, y]
+                        blk = K[(x, y)][a * dR : (a + 1) * dR, b * dR : (b + 1) * dR]
+                        total_win += self.prob_mat[x, y] * cvxpy.trace(P_ref.conj().T @ blk)
+        cons = npa_constraints(K, k, referee_dim=dR, no_signaling=no_signaling)
+        prob = cvxpy.Problem(cvxpy.Maximize(cvxpy.real(total_win)), cons)
+        cs_val = prob.solve(solver=cvxpy.SCS, eps=1e-8, max_iters=100_000, verbose=False)
 
         return cs_val
