@@ -4,7 +4,7 @@ Antidistinguishability of Circulant States and the Eigenvalue Criterion
 
 In this tutorial, we investigate the antidistinguishability of a special
 class of quantum states known as circulant states. We will numerically verify a
-powerful necessary and sufficient condition based on the eigenvalues of the
+necessary, and sufficient condition based on the eigenvalues of the
 states' Gram matrix, as presented in the paper by Johnston et al.
 :footcite:`Johnston_2025_Tight`.
 
@@ -21,7 +21,7 @@ This tutorial builds upon the concepts introduced in the
 # row above it. Such sets of states have a high degree of symmetry and appear
 # in various quantum information contexts.
 #
-# A key result from :footcite:`Johnston_2025_Tight` (Theorem 5.1) provides a
+# A key result from (Theorem 5.1) :footcite:`Johnston_2025_Tight` provides a
 # simple and exact criterion for determining if a circulant set is
 # antidistinguishable, based solely on the eigenvalues of its Gram matrix.
 #
@@ -44,13 +44,13 @@ This tutorial builds upon the concepts introduced in the
 # Our plan to verify this theorem is as follows:
 #
 # 1.  Generate a random circulant Gram matrix :math:`G` using
-#     :func:`~toqito.rand.random_circulant_gram_matrix`.
+#     :func:`.random_circulant_gram_matrix`.
 # 2.  Compute its eigenvalues and perform the **analytical check** using the
 #     inequality from the theorem.
 # 3.  Generate the corresponding set of state vectors from :math:`G` using
-#     :func:`~toqito.matrix_ops.vectors_from_gram_matrix`.
+#     :func:`.vectors_from_gram_matrix`.
 # 4.  Perform a **numerical check** by computing the minimum error probability
-#     of state exclusion using :func:`~toqito.state_opt.state_exclusion`. The
+#     of state exclusion using :func:`.state_exclusion`. The
 #     set is antidistinguishable if this probability is zero.
 # 5.  Confirm that the analytical and numerical checks yield the same conclusion.
 
