@@ -6,13 +6,13 @@ from toqito.states import max_entangled
 
 
 def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
-    r"""Produce the Choi channel or one of its generalizations :cite:`Choi_1992_Generalized`.
+    r"""Produce the Choi channel or one of its generalizations :footcite:`Choi_1992_Generalized`.
 
     The *Choi channel* is a positive map on 3-by-3 matrices that is capable of detecting some
     entanglement that the transpose map is not.
 
     The standard Choi channel defined with :code:`a=1`, :code:`b=1`, and :code:`c=0` is the Choi
-    matrix of the positive map defined in :cite:`Choi_1992_Generalized`. Many of these maps are capable of detecting
+    matrix of the positive map defined in :footcite:`Choi_1992_Generalized`. Many of these maps are capable of detecting
     PPT entanglement.
 
     Examples
@@ -80,8 +80,8 @@ def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param a_var: Default integer for standard Choi map.

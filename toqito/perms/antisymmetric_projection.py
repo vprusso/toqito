@@ -8,7 +8,7 @@ from toqito.perms import perm_sign, permutation_operator
 
 
 def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) -> np.ndarray:
-    r"""Produce the projection onto the antisymmetric subspace :cite:`WikiAsymmOp`.
+    r"""Produce the projection onto the antisymmetric subspace :footcite:`WikiAsymmOp`.
 
     Produces the orthogonal projection onto the anti-symmetric subspace of :code:`p_param` copies of
     :code:`dim`-dimensional space. If :code:`partial = True`, then the antisymmetric projection (PA) isn't the
@@ -62,8 +62,8 @@ def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) 
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param dim: The dimension of the local systems.

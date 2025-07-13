@@ -9,9 +9,9 @@ from toqito.channel_ops.choi_to_kraus import choi_to_kraus
 def is_extremal(phi: np.ndarray | list[np.ndarray | list[np.ndarray]], tol: float = 1e-9) -> bool:
     r"""Determine whether a quantum channel is extremal.
 
-    (Section 2.2.4: Extremal Channels from :cite:`Watrous_2018_TQI`).
+    (Section 2.2.4: Extremal Channels from :footcite:`Watrous_2018_TQI`).
 
-    Theorem 2.31 in :cite:`Watrous_2018_TQI` provides the characterization of extremal
+    Theorem 2.31 in :footcite:`Watrous_2018_TQI` provides the characterization of extremal
     quantum channels as a channel :math:`\Phi` is an extreme point of the convex set
     of quantum channels if and only if the collection:
 
@@ -31,7 +31,7 @@ def is_extremal(phi: np.ndarray | list[np.ndarray | list[np.ndarray]], tol: floa
     ==========
 
     The following demonstrates an example of an extremal quantum channel from Example 2.33
-    in :cite:`Watrous_2018_TQI`.
+    in :footcite:`Watrous_2018_TQI`.
 
     .. jupyter-execute::
 
@@ -46,8 +46,8 @@ def is_extremal(phi: np.ndarray | list[np.ndarray | list[np.ndarray]], tol: floa
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :param phi: The quantum channel, which may be given as a Choi matrix or a list of Kraus operators.
     :param tol: Tolerance value for numerical precision in rank computation.

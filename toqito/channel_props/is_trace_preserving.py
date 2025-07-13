@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from toqito.channels import partial_trace
+from toqito.matrix_ops import partial_trace
 from toqito.matrix_props import is_identity
 
 
@@ -79,12 +79,12 @@ def is_trace_preserving(
      is_trace_preserving(choi_mat)
 
     Further information for determining the trace preserving properties of channels consult (Section: Linear Maps Of
-    Square Operators from :cite:`Watrous_2018_TQI`).
+    Square Operators from :footcite:`Watrous_2018_TQI`).
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :param phi: The channel provided as either a Choi matrix or a list of Kraus operators.
     :param rtol: The relative tolerance parameter (default 1e-05).

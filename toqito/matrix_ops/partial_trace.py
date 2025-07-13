@@ -13,7 +13,7 @@ def partial_trace(
     sys: int | list[int] = None,
     dim: int | list[int] = None,
 ) -> np.ndarray | Expression:
-    r"""Compute the partial trace of a matrix :cite:`WikiPartialTr`.
+    r"""Compute the partial trace of a matrix :footcite:`WikiPartialTr`.
 
     The *partial trace* is defined as
 
@@ -55,7 +55,7 @@ def partial_trace(
     .. jupyter-execute::
 
      import numpy as np
-     from toqito.channels import partial_trace
+     from toqito.matrix_ops import partial_trace
 
      test_input_mat = np.arange(1, 17).reshape(4, 4)
 
@@ -75,7 +75,7 @@ def partial_trace(
     .. jupyter-execute::
 
      import numpy as np
-     from toqito.channels import partial_trace
+     from toqito.matrix_ops import partial_trace
 
      test_input_mat = np.arange(1, 17).reshape(4, 4)
 
@@ -87,7 +87,7 @@ def partial_trace(
     .. jupyter-execute::
 
      import numpy as np
-     from toqito.channels import partial_trace
+     from toqito.matrix_ops import partial_trace
 
      test_input_mat = np.arange(1, 257).reshape(16, 16)
      test_input_mat
@@ -99,15 +99,15 @@ def partial_trace(
     .. jupyter-execute::
 
      import numpy as np
-     from toqito.channels import partial_trace
+     from toqito.matrix_ops import partial_trace
 
      partial_trace(test_input_mat, [0, 2], [2, 2, 2, 2])
 
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :raises ValueError: If matrix dimension is not equal to the number of subsystems.

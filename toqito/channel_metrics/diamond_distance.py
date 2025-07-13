@@ -43,8 +43,8 @@ def diamond_distance(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
 
     References
     ==========
-        .. bibliography::
-            :filter: docname in docnames
+        .. footbibliography::
+
 
 
     :raises ValueError: If matrices are not of equal dimension.
@@ -53,6 +53,6 @@ def diamond_distance(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
     :param choi_2: A 4**N by 4**N matrix (where N is the number of qubits).
 
     """
-    from toqito.channel_metrics import completely_bounded_trace_norm
+    from toqito.channel_metrics import completely_bounded_trace_norm  # noqa
 
     return completely_bounded_trace_norm(choi_1 - choi_2)

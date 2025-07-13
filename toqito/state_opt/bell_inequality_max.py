@@ -5,7 +5,7 @@ from itertools import combinations
 import cvxpy as cp
 import numpy as np
 
-from toqito.channels import partial_transpose
+from toqito.matrix_ops import partial_transpose
 from toqito.perms import permutation_operator, swap
 
 
@@ -20,8 +20,8 @@ def bell_inequality_max(
     r"""Return the upper bound for the maximum violation(Tsirelson Bound) for a given bipartite Bell inequality.
 
     This computes the upper bound for the maximum value of a given bipartite Bell inequality using an SDP.
-    The method is from :cite:`Navascues_2014_Characterization` and the implementation is based on :cite:`QETLAB_link`.
-    This is useful for various tasks in device independent quantum information processing.
+    The method is from :footcite:`Navascues_2014_Characterization` and the implementation is based on
+    :footcite:`QETLAB_link`. This is useful for various tasks in device independent quantum information processing.
 
     The function formulates the problem as a SDP problem in the following format for the :math:`W`-state.
 
@@ -38,7 +38,7 @@ def bell_inequality_max(
     =======
 
 
-    Consider the I3322 Bell inequality from :cite:`Collins_2004`.
+    Consider the I3322 Bell inequality from :footcite:`Collins_2004`.
 
     .. math::
 
@@ -71,8 +71,8 @@ def bell_inequality_max(
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :raises ValueError: If `a_val` or `b_val` are not length 2.
     :param joint_coe: The coefficents for terms containing both A and B.

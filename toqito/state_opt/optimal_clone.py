@@ -3,8 +3,7 @@
 import cvxpy
 import numpy as np
 
-from toqito.channels import partial_trace
-from toqito.matrix_ops import tensor
+from toqito.matrix_ops import partial_trace, tensor
 from toqito.perms import permutation_operator
 
 
@@ -14,7 +13,7 @@ def optimal_clone(
     num_reps: int = 1,
     strategy: bool = False,
 ) -> float | np.ndarray:
-    r"""Compute probability of counterfeiting quantum money :cite:`Molina_2012_Optimal`.
+    r"""Compute probability of counterfeiting quantum money :footcite:`Molina_2012_Optimal`.
 
     The primal problem for the :math:`n`-fold parallel repetition is given as follows:
 
@@ -50,8 +49,8 @@ def optimal_clone(
     Examples
     ==========
 
-    Wiesner's original quantum money scheme :cite:`Wiesner_1983_Conjugate` was shown in :cite:`Molina_2012_Optimal`
-    to have an optimal probability of 3/4 for succeeding a counterfeiting attack.
+    Wiesner's original quantum money scheme :footcite:`Wiesner_1983_Conjugate` was shown in
+    :footcite:`Molina_2012_Optimal` to have an optimal probability of 3/4 for succeeding a counterfeiting attack.
 
     Specifically, in the single-qubit case, Wiesner's quantum money scheme corresponds to the
     following ensemble:
@@ -91,8 +90,8 @@ def optimal_clone(
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param states: A list of states provided as either matrices or vectors.

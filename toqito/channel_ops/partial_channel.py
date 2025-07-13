@@ -15,7 +15,7 @@ def partial_channel(
     sys: int = 2,
     dim: list[int] | np.ndarray = None,
 ) -> np.ndarray:
-    r"""Apply channel to a subsystem of an operator :cite:`Watrous_2018_TQI`.
+    r"""Apply channel to a subsystem of an operator :footcite:`Watrous_2018_TQI`.
 
     Applies the operator
 
@@ -77,8 +77,8 @@ def partial_channel(
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :raises ValueError: If Phi map is not provided as a Choi matrix or Kraus

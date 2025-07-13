@@ -8,7 +8,7 @@ def mutual_coherence(vectors: list[np.ndarray]) -> float:
 
     The mutual coherence of a collection of input vectors is defined as the maximum
     absolute value of the inner product between any two distinct vectors, divided by the
-    product of their norms :cite:`WikiMutualCoh`. It provides a measure of how
+    product of their norms :footcite:`WikiMutualCoh`. It provides a measure of how
     similar the vectors are to each other.
 
     Examples
@@ -25,8 +25,8 @@ def mutual_coherence(vectors: list[np.ndarray]) -> float:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :param vectors: A list of 1D numpy arrays.
     :raises ValueError: If arrays in list are not 1D.

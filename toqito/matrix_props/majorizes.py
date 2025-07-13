@@ -4,7 +4,7 @@ import numpy as np
 
 
 def majorizes(a_var: np.ndarray | list[int], b_var: np.ndarray | list[int]) -> bool:
-    r"""Determine if one vector or matrix majorizes another :cite:`WikiMajorization`.
+    r"""Determine if one vector or matrix majorizes another :footcite:`WikiMajorization`.
 
     Given :math:`a, b \in \mathbb{R}^d`, we say that :math:`a` **weakly majorizes** (or dominates)
     :math:`b` from below if and only if
@@ -38,7 +38,7 @@ def majorizes(a_var: np.ndarray | list[int], b_var: np.ndarray | list[int]) -> b
 
      from toqito.matrix_props import majorizes
      from toqito.states import max_entangled
-     from toqito.channels import partial_trace
+     from toqito.matrix_ops import partial_trace
 
      v_vec = max_entangled(3)
      rho = v_vec @ v_vec.conj().T
@@ -47,8 +47,8 @@ def majorizes(a_var: np.ndarray | list[int], b_var: np.ndarray | list[int]) -> b
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param a_var: Matrix or vector provided as list or np.array.

@@ -4,7 +4,7 @@ import cvxpy
 import numpy as np
 from cvxpy.atoms.affine.vstack import Vstack
 
-from toqito.channels import partial_transpose
+from toqito.matrix_ops import partial_transpose
 from toqito.states import bell
 
 

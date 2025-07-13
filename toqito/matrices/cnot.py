@@ -4,7 +4,7 @@ import numpy as np
 
 
 def cnot() -> np.ndarray:
-    r"""Produce the CNOT matrix :cite:`WikiCNOT`.
+    r"""Produce the CNOT matrix :footcite:`WikiCNOT`.
 
     The CNOT matrix is defined as
 
@@ -28,8 +28,8 @@ def cnot() -> np.ndarray:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :return: The CNOT matrix.

@@ -4,14 +4,13 @@ import itertools
 
 import numpy as np
 
-from toqito.matrix_ops import vec
-from toqito.perms import swap
+from toqito.perms import swap, vec
 
 
 def apply_channel(mat: np.ndarray, phi_op: np.ndarray | list[list[np.ndarray]]) -> np.ndarray:
     r"""Apply a quantum channel to an operator.
 
-    (Section: Representations and Characterizations of Channels of :cite:`Watrous_2018_TQI`).
+    (Section: Representations and Characterizations of Channels of :footcite:`Watrous_2018_TQI`).
 
     Specifically, an application of the channel is defined as
 
@@ -84,8 +83,8 @@ def apply_channel(mat: np.ndarray, phi_op: np.ndarray | list[list[np.ndarray]]) 
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :raises ValueError: If matrix is not Choi matrix.

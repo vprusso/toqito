@@ -6,7 +6,7 @@ from toqito.matrix_props import is_positive_semidefinite
 
 
 def is_povm(mat_list: list[np.ndarray]) -> bool:
-    r"""Determine if a list of matrices constitute a valid set of POVMs :cite:`WikiPOVM`.
+    r"""Determine if a list of matrices constitute a valid set of POVMs :footcite:`WikiPOVM`.
 
     A valid set of measurements are defined by a set of positive semidefinite operators
 
@@ -94,8 +94,8 @@ def is_povm(mat_list: list[np.ndarray]) -> bool:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param mat_list: A list of matrices.

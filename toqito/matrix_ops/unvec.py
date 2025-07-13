@@ -4,7 +4,7 @@ import numpy as np
 
 
 def unvec(vector: np.ndarray, shape: list[int] = None) -> np.ndarray:
-    r"""Perform the unvec operation on a vector to obtain a matrix :cite:`Rigetti_2022_Forest`.
+    r"""Perform the unvec operation on a vector to obtain a matrix :footcite:`Rigetti_2022_Forest`.
 
     Takes a column vector and transforms it into a :code:`shape[0]`-by-:code:`shape[1]` matrix.
     This operation is the inverse of :code:`vec` operation in :code:`|toqito⟩`.
@@ -46,7 +46,7 @@ def unvec(vector: np.ndarray, shape: list[int] = None) -> np.ndarray:
 
     for all :math:`a` and :math:`b`.
 
-    This function has been adapted from :cite:`Rigetti_2022_Forest`.
+    This function has been adapted from :footcite:`Rigetti_2022_Forest`.
 
     Examples
     ==========
@@ -76,8 +76,8 @@ def unvec(vector: np.ndarray, shape: list[int] = None) -> np.ndarray:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param vector: A (:code:`shape[0] * shape[1]`)-by-1 numpy array.
