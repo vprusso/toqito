@@ -4,7 +4,7 @@ Antidistinguishability of Circulant States and the Eigenvalue Criterion
 
 In this tutorial, we investigate the antidistinguishability of a special
 class of quantum states known as circulant states. We will numerically verify a
-necessary, and sufficient condition based on the eigenvalues of the
+necessary and sufficient condition based on the eigenvalues of the
 states' Gram matrix, as presented in the paper by Johnston et al.
 :footcite:`Johnston_2025_Tight`.
 
@@ -49,16 +49,15 @@ This tutorial builds upon the concepts introduced in the
 #     inequality from the theorem.
 # 3.  Generate the corresponding set of state vectors from :math:`G` using
 #     :func:`.vectors_from_gram_matrix`.
-# 4.  Perform a **numerical check** by computing the minimum error probability
-#     of state exclusion using :func:`.state_exclusion`. The
-#     set is antidistinguishable if this probability is zero.
+# 4.  Perform a **numerical check** by calling the high-level function
+#     :func:`.is_antidistinguishable` to directly verify the property.
 # 5.  Confirm that the analytical and numerical checks yield the same conclusion.
 
 import numpy as np
 
 from toqito.matrix_ops import vectors_from_gram_matrix
 from toqito.rand import random_circulant_gram_matrix
-from toqito.state_opt import state_exclusion
+from toqito.state_props import is_antidistinguishable
 
 # 1. Define parameters and generate a random circulant Gram matrix.
 n = 5
@@ -92,13 +91,10 @@ print(f"  Conclusion: The set SHOULD BE antidistinguishable: {analytical_is_ad}"
 # 3. Generate states from the Gram matrix for the numerical check.
 states = vectors_from_gram_matrix(gram_matrix)
 
-# 4. Perform the numerical check by solving the state exclusion SDP.
-opt_val, _ = state_exclusion(states)
-# The set is antidistinguishable if and only if the optimal error probability is zero.
-numerical_is_ad = np.isclose(opt_val, 0)
+# 4. Perform the numerical check using |toqito⟩'s high-level function.
+numerical_is_ad = is_antidistinguishable(states)
 
-print("\nNUMERICAL CHECK (via state exclusion SDP):")
-print(f"  Optimal error probability from SDP: {opt_val:.2e}")
+print("\nNUMERICAL CHECK (via is_antidistinguishable function):")
 print(f"  Conclusion: The set IS antidistinguishable: {numerical_is_ad}")
 
 # 5. Verify that both methods agree.
@@ -109,7 +105,7 @@ print("------------------------------------------------------")
 
 # %%
 # The results from both the analytical eigenvalue criterion and the numerical
-# SDP solver agree, providing a concrete verification of Theorem 5.1 from
+# check using :code:`|toqito⟩`'s helper function agree, providing a concrete verification of Theorem 5.1 from
 # :footcite:`Johnston_2025_Tight`. This demonstrates how a deep theoretical
 # result can provide a powerful and efficient shortcut for a problem that would
 # otherwise require a more computationally intensive optimization.
