@@ -17,7 +17,7 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
        3. Returning a 1D NumPy array `[i1, i2, ..., in, value]`, where the first `n`
          entries are the coordinates and the last entry is the unique value (±1).
 
-        Conceptually, this is a form of structured tensor decoding, closely related to:
+    Conceptually, this is a form of structured tensor decoding, closely related to:
        - Indicator (Kronecker delta) tensors in multilinear algebra :cite:`Kolda_2009_Tensor`
        - The matrix ``vec``-operator for flattening matrices :cite:`Horn_1985_Matrix`
        - Parity-projector encodings in linear-system games :cite:`Cleve_2016_Perfect`
