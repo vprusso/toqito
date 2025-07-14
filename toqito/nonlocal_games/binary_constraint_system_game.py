@@ -18,17 +18,15 @@ def create_bcs_constraints(M: np.ndarray, b: np.ndarray) -> list[np.ndarray]:
       4. Set the tensor element at that index to ``rhs``.
 
     For example:
-      If ``M[i] = [1, 1]`` and ``b[i] = 0`` (so ``rhs = 1``):
-      - The tensor is of shape (2, 2) and is created as:
+    If ``M[i] = [1, 1]`` and ``b[i] = 0`` (so ``rhs = 1``):
+    The tensor is of shape (2, 2) and is created as:
 
-    .. math::
-        u = \begin{pmatrix} -1 \\ -1 \\ -1 \\ -1 \end{pmatrix}
+    np.array([[-1, -1], [-1, -1]]
 
     The index is computed as ``(1 % 2, 1 % 2) = (1, 1)``.
     At position (1, 1), the value is set to 1, resulting in:
 
-    .. math::
-        u = \begin{pmatrix} -1 \\ -1 \\ -1 \\ 1 \end{pmatrix}
+    np.array([[-1, -1], [-1, 1]]
 
     This tensor now represents the constraint in full detail.
 
@@ -68,6 +66,8 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
     pairing it with the corresponding parity from ``b``. The bitmask representation
     can be useful for analyzing linear system games.
 
+    Notes
+    -----
     The method used to determine the existence of a perfect commuting strategy was originally introduced
     in :footcite:`Cleve_2016_Perfect`.
 
