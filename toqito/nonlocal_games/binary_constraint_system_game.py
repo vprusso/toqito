@@ -20,13 +20,13 @@ def create_bcs_constraints(M: np.ndarray, b: np.ndarray) -> list[np.ndarray]:
     For example:
       If ``M[i] = [1, 1]`` and ``b[i] = 0`` (so ``rhs = 1``):
       - The tensor is of shape (2, 2) and is created as:
-      
+
     .. math::
         u = \begin{pmatrix} -1 \\ -1 \\ -1 \\ -1 \end{pmatrix}
-        
+
       - The index is computed as ``(1 % 2, 1 % 2) = (1, 1)``.
       - At position (1, 1), the value is set to 1, resulting in:
-      
+
     .. math::
         u = \begin{pmatrix} -1 \\ -1 \\ -1 \\ 1 \end{pmatrix}
 
