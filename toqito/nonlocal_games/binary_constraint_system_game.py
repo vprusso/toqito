@@ -20,12 +20,15 @@ def create_bcs_constraints(M: np.ndarray, b: np.ndarray) -> list[np.ndarray]:
     For example:
       If ``M[i] = [1, 1]`` and ``b[i] = 0`` (so ``rhs = 1``):
       - The tensor is of shape (2, 2) and is created as:
-            [ [-1, -1],
-              [-1, -1] ]
+      
+    .. math::
+        u = \begin{pmatrix} -1 \\ -1 \\ -1 \\ -1 \end{pmatrix}
+        
       - The index is computed as ``(1 % 2, 1 % 2) = (1, 1)``.
       - At position (1, 1), the value is set to 1, resulting in:
-            [ [-1, -1],
-              [-1,  1] ]
+      
+    .. math::
+        u = \begin{pmatrix} -1 \\ -1 \\ -1 \\ 1 \end{pmatrix}
 
     This tensor now represents the constraint in full detail.
 
@@ -89,6 +92,7 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
     References
     ==========
     .. footbibliography::
+
 
     """
     # Ensure M and b are binary (0/1)

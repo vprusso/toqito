@@ -46,6 +46,7 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
     ==========
     .. footbibliography::
 
+
     """
     values, counts = np.unique(constraint_tensor, return_counts=True)
     if len(values) != 2:
