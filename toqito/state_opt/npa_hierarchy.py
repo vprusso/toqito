@@ -230,7 +230,7 @@ def _get_nonlocal_game_params(
 
 
 def npa_constraints(
-    assemblage: dict[tuple[int, int], cvxpy.Variable], k: int | str = 1, referee_dim: int = 1
+    assemblage: dict[tuple[int, int], cvxpy.Variable], k: int | str = 1, referee_dim: int = 1, no_signaling: bool = True
 ) -> list[cvxpy.constraints.constraint.Constraint]:
     r"""Generate the constraints specified by the NPA hierarchy up to a finite level.
 
@@ -395,43 +395,45 @@ def npa_constraints(
                 for b in range(b_out)
             )
             constraints.append(sum_over_outcomes_ab == rho_R_referee)
-
-    # No-signaling constraints on assemblage - ALWAYS APPLY
-    # Bob's marginal rho_B(b|y) = Sum_a K_xy(a,b) must be independent of x
-    for y_bob_in in range(b_in):
-        for b_bob_out in range(b_out):
-            sum_over_a_for_x0 = sum(
-                assemblage[0, y_bob_in][
-                    a * referee_dim : (a + 1) * referee_dim, b_bob_out * referee_dim : (b_bob_out + 1) * referee_dim
-                ]
-                for a in range(a_out)
-            )
-            for x_alice_in in range(1, a_in):
-                sum_over_a_for_x_current = sum(
-                    assemblage[x_alice_in, y_bob_in][
+    if no_signaling:
+        # No-signaling constraints on assemblage - ALWAYS APPLY
+        # Bob's marginal rho_B(b|y) = Sum_a K_xy(a,b) must be independent of x
+        for y_bob_in in range(b_in):
+            for b_bob_out in range(b_out):
+                sum_over_a_for_x0 = sum(
+                    assemblage[0, y_bob_in][
                         a * referee_dim : (a + 1) * referee_dim, b_bob_out * referee_dim : (b_bob_out + 1) * referee_dim
                     ]
                     for a in range(a_out)
                 )
-                constraints.append(sum_over_a_for_x0 == sum_over_a_for_x_current)
+                for x_alice_in in range(1, a_in):
+                    sum_over_a_for_x_current = sum(
+                        assemblage[x_alice_in, y_bob_in][
+                            a * referee_dim : (a + 1) * referee_dim,
+                            b_bob_out * referee_dim : (b_bob_out + 1) * referee_dim,
+                        ]
+                        for a in range(a_out)
+                    )
+                    constraints.append(sum_over_a_for_x0 == sum_over_a_for_x_current)
 
-    # Alice's marginal rho_A(a|x) = Sum_b K_xy(a,b) must be independent of y
-    for x_alice_in in range(a_in):
-        for a_alice_out in range(a_out):  # For each Alice outcome a
-            sum_over_b_for_y0 = sum(
-                assemblage[x_alice_in, 0][
-                    a_alice_out * referee_dim : (a_alice_out + 1) * referee_dim, b * referee_dim : (b + 1) * referee_dim
-                ]
-                for b in range(b_out)
-            )
-            for y_bob_in in range(1, b_in):
-                sum_over_b_for_y_current = sum(
-                    assemblage[x_alice_in, y_bob_in][
+        # Alice's marginal rho_A(a|x) = Sum_b K_xy(a,b) must be independent of y
+        for x_alice_in in range(a_in):
+            for a_alice_out in range(a_out):  # For each Alice outcome a
+                sum_over_b_for_y0 = sum(
+                    assemblage[x_alice_in, 0][
                         a_alice_out * referee_dim : (a_alice_out + 1) * referee_dim,
                         b * referee_dim : (b + 1) * referee_dim,
                     ]
                     for b in range(b_out)
                 )
-                constraints.append(sum_over_b_for_y0 == sum_over_b_for_y_current)
+                for y_bob_in in range(1, b_in):
+                    sum_over_b_for_y_current = sum(
+                        assemblage[x_alice_in, y_bob_in][
+                            a_alice_out * referee_dim : (a_alice_out + 1) * referee_dim,
+                            b * referee_dim : (b + 1) * referee_dim,
+                        ]
+                        for b in range(b_out)
+                    )
+                    constraints.append(sum_over_b_for_y0 == sum_over_b_for_y_current)
 
     return constraints
