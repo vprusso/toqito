@@ -18,9 +18,9 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
          entries are the coordinates and the last entry is the unique value (±1).
 
     Conceptually, this is a form of structured tensor decoding, closely related to:
-       - Indicator (Kronecker delta) tensors in multilinear algebra refer to :footcite:`Kolda_2009_Tensor`
-       - The matrix ``vec``-operator for flattening matrices refer to :footcite:`Horn_1985_Matrix`
-       - Parity-projector encodings in linear-system games refer to :footcite:`Cleve_2016_Perfect`
+       - Indicator (Kronecker delta) tensors in multilinear algebra refer to :footcite:`Kolda_2009_Tensor`.
+       - The matrix ``vec``-operator for flattening matrices refer to :footcite:`Horn_1985_Matrix`.
+       - Parity-projector encodings in linear-system games refer to :footcite:`Cleve_2016_Perfect`.
 
     The tensor-form constraint representation is commonly used in implementations of
     binary constraint system (BCS) games. For background on BCS games, refer to :footcite:`Cleve_2014_Characterization`.

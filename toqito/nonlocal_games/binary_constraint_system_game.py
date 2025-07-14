@@ -24,8 +24,8 @@ def create_bcs_constraints(M: np.ndarray, b: np.ndarray) -> list[np.ndarray]:
     .. math::
         u = \begin{pmatrix} -1 \\ -1 \\ -1 \\ -1 \end{pmatrix}
 
-      - The index is computed as ``(1 % 2, 1 % 2) = (1, 1)``.
-      - At position (1, 1), the value is set to 1, resulting in:
+    The index is computed as ``(1 % 2, 1 % 2) = (1, 1)``.
+    At position (1, 1), the value is set to 1, resulting in:
 
     .. math::
         u = \begin{pmatrix} -1 \\ -1 \\ -1 \\ 1 \end{pmatrix}
