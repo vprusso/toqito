@@ -20,9 +20,23 @@ def channel_distinguishability(
 ) -> float:
     r"""Compute the optimal probability of distinguishing two quantum channels.
 
+    Overview
+    ========
+
     Bayesian and minimax discrimination of two quantum channels are implemented.
-    For Bayesian discrimination, a priori probabilities should be provided.
+    For Bayesian discrimination, channels with given a priori probability distribution
+    for the channels to be discriminated. The task of discriminating channels can be
+    connected to completely bounded trace norm.
     (Section 3.3.3 of :footcite:`Watrous_2018_TQI`).
+    The problem is finding POVMs for which error probability of discrimination of
+    output states is minimized after input state is acted on by the two quantum channels.
+    In the language of statistical decision theory, minimizing quantum Bayes' risk.
+
+    In the minimax problem, there are no a priori probabilities.
+    Minimax discrimination of two channels consists in finding the
+    optimal input state so that the two possible output states are discriminated
+    with minimum risk. (:footcite:`d2005minimax`).
+
     QETLAB's functionality inspired the :footcite:`QETLAB_link` Bayesian option
     and the minimax option is adapted from  QuTIpy :footcite:`QuTIpy_link`.
 
@@ -63,7 +77,8 @@ def channel_distinguishability(
     ==========
     .. footbibliography::
 
-
+    :raises ValueError: If prior probabilities not provided at all for Bayesian strategy.
+    :raises ValueError: If strategy is neither Bayesian nor minimax.
     :raises ValueError: If channels have different input or output dimensions.
     :raises ValueError: If prior probabilities do not add up to 1.
     :raises ValueError: If number of prior probabilities not equal to 2.
@@ -103,6 +118,9 @@ def channel_distinguishability(
         raise ValueError("The channels must have the same dimension input and output spaces as each other.")
 
     if strategy.lower() == "bayesian":
+        if p is None:
+            raise ValueError("Must provide valid prior probabilities for Bayesian strategy.")
+
         if len(p) != 2:
             raise ValueError("p must be a probability distribution with 2 entries.")
 
@@ -157,7 +175,6 @@ def _minimax_primal(
     psi: np.ndarray | list[np.ndarray] | list[list[np.ndarray]],
     dimA: int,
     dimB: int,
-    primal_dual: str = "primal",
     solver: str = "cvxopt",
     **kwargs,
 ) -> float:

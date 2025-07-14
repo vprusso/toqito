@@ -135,6 +135,14 @@ def test_state_distinguishability_invalid_strategy(test_input_1, test_input_2, p
             [2, 2],
             "p must be a probability distribution with 2 entries.",
         ),
+        # Prior probability must be provided for Bayesian strategy.
+        (
+            dephasing(2),
+            dephasing(2),
+            None,
+            [2, 2],
+            "Must provide valid prior probabilities for Bayesian strategy.",
+        ),
     ],
 )
 def test_bayesian_channel_distinguishability_invalid_inputs(test_input1, test_input_2, prior_prob, dim, expected_msg):
