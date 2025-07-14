@@ -19,6 +19,8 @@ from toqito.matrix_ops import tensor_unravel
         (np.full((2, 2), -1), None, ValueError),
         # Invalid tensor: two +1s (not unique).
         (np.array([[[-1, -1], [-1, -1]], [[1, -1], [-1, 1]]]), None, ValueError),
+        # Invalid tensor: not unique. 
+        (np.array([[-1, -1], [1, 1]]), None, ValueError),
     ],
 )
 def test_tensor_unravel(tensor_input, expected_output, expected_exception):

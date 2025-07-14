@@ -17,13 +17,14 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
        3. Returning a 1D NumPy array `[i1, i2, ..., in, value]`, where the first `n`
          entries are the coordinates and the last entry is the unique value (±1).
 
-    Conceptually, this is a form of structured tensor decoding, closely related to:
-       - Indicator (Kronecker delta) tensors in multilinear algebra (see:cite:`Kolda_2009_Tensor`)
-       - The matrix `vec`-operator for flattening matrices (see:cite:`Horn_1985_Matrix`)
-       - Parity-projector encodings in linear-system games (see:cite:`Cleve_2016_Perfect`)
+        Conceptually, this is a form of structured tensor decoding, closely related to:
+       - Indicator (Kronecker delta) tensors in multilinear algebra :cite:`Kolda_2009_Tensor`
+       - The matrix ``vec``-operator for flattening matrices :cite:`Horn_1985_Matrix`
+       - Parity-projector encodings in linear-system games :cite:`Cleve_2016_Perfect`
 
     The tensor-form constraint representation is commonly used in implementations of
-    binary constraint system (BCS) games. For background on BCS games, see:cite:`Cleve_2014_Characterization`.
+    binary constraint system (BCS) games. For background on BCS games, see :cite:`Cleve_2014_Characterization`.
+
 
     :param constraint_tensor: An n-dimensional tensor with shape `(2,)*n`, where each element is either -1 or +1.
                               All entries should be equal except for one unique position that marks
