@@ -18,7 +18,7 @@ from toqito.matrix_ops import tensor_unravel
         # Invalid tensor: all values are the same (no unique).
         (np.full((2, 2), -1), None, ValueError),
         # Invalid tensor: two +1s (not unique).
-        (np.array([[[-1, -1], [-1, -1]], [[1, -1], [-1, 1]]]), None, ValueError),
+        (np.array([[np.nan, -1], [-1, -1]]), None, ValueError),
         # Invalid tensor: not unique.
         (np.array([[-1, -1], [1, 1]]), None, ValueError),
     ],
