@@ -13,7 +13,7 @@ def partial_transpose(
     sys: list[int] | np.ndarray | int = None,
     dim: list[int] | np.ndarray = None,
 ) -> np.ndarray | Expression:
-    r"""Compute the partial transpose of a matrix :cite:`WikiPeresHorodecki`.
+    r"""Compute the partial transpose of a matrix :footcite:`WikiPeresHorodecki`.
 
     The *partial transpose* is defined as
 
@@ -68,14 +68,14 @@ def partial_transpose(
     By default, in :code:`|toqito⟩`, the partial transpose function performs the transposition on
     the second subsystem as follows.
 
-    >>> from toqito.channels import partial_transpose
-    >>> import numpy as np
-    >>> test_input_mat = np.arange(1, 17).reshape(4, 4)
-    >>> partial_transpose(test_input_mat)
-    array([[ 1,  5,  3,  7],
-           [ 2,  6,  4,  8],
-           [ 9, 13, 11, 15],
-           [10, 14, 12, 16]])
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_ops import partial_transpose
+
+     test_input_mat = np.arange(1, 17).reshape(4, 4)
+
+     partial_transpose(test_input_mat)
 
     By specifying the :code:`sys = 1` argument, we can perform the partial transpose over the
     first subsystem (instead of the default second subsystem as done above). Performing the
@@ -89,21 +89,19 @@ def partial_transpose(
                         7 & 8 & 15 & 16
                     \end{pmatrix}.
 
-    >>> from toqito.channels import partial_transpose
-    >>> import numpy as np
-    >>> test_input_mat = np.array(
-    ...     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
-    ... )
-    >>> partial_transpose(test_input_mat, 1)
-    array([[ 1,  5,  3,  7],
-           [ 2,  6,  4,  8],
-           [ 9, 13, 11, 15],
-           [10, 14, 12, 16]])
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_ops import partial_transpose
+
+     test_input_mat = np.arange(1, 17).reshape(4, 4)
+
+     partial_transpose(test_input_mat, 1)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param rho: A matrix.

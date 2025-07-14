@@ -31,7 +31,7 @@ def test_kraus_operators(gamma):
     [
         # Ground state |0⟩⟨0|.
         (np.array([[1, 0], [0, 0]]), 0.3),
-        # Excited state |1⟩⟨1|.
+        # Exfootcited state |1⟩⟨1|.
         (np.array([[0, 0], [0, 1]]), 0.4),
         # Superposition state (|0⟩+|1⟩)(⟨0|+⟨1|)/2.
         (np.array([[0.5, 0.5], [0.5, 0.5]]), 0.5),

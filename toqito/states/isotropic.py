@@ -9,7 +9,7 @@ from toqito.states import max_entangled
 
 
 def isotropic(dim: int, alpha: float) -> np.ndarray:
-    r"""Produce a isotropic state :cite:`Horodecki_1998_Reduction`.
+    r"""Produce a isotropic state :footcite:`Horodecki_1998_Reduction`.
 
     Returns the isotropic state with parameter :code:`alpha` acting on (:code:`dim`-by-:code:`dim`)-dimensional space.
     The isotropic state has the following form
@@ -30,31 +30,16 @@ def isotropic(dim: int, alpha: float) -> np.ndarray:
     To generate the isotropic state with parameter :math:`\alpha=1/2`, we can make the following call to
     :code:`|toqito⟩` as
 
-    >>> from toqito.states import isotropic
-    >>> isotropic(3, 1 / 2)
-    array([[0.22222222, 0.        , 0.        , 0.        , 0.16666667,
-            0.        , 0.        , 0.        , 0.16666667],
-           [0.        , 0.05555556, 0.        , 0.        , 0.        ,
-            0.        , 0.        , 0.        , 0.        ],
-           [0.        , 0.        , 0.05555556, 0.        , 0.        ,
-            0.        , 0.        , 0.        , 0.        ],
-           [0.        , 0.        , 0.        , 0.05555556, 0.        ,
-            0.        , 0.        , 0.        , 0.        ],
-           [0.16666667, 0.        , 0.        , 0.        , 0.22222222,
-            0.        , 0.        , 0.        , 0.16666667],
-           [0.        , 0.        , 0.        , 0.        , 0.        ,
-            0.05555556, 0.        , 0.        , 0.        ],
-           [0.        , 0.        , 0.        , 0.        , 0.        ,
-            0.        , 0.05555556, 0.        , 0.        ],
-           [0.        , 0.        , 0.        , 0.        , 0.        ,
-            0.        , 0.        , 0.05555556, 0.        ],
-           [0.16666667, 0.        , 0.        , 0.        , 0.16666667,
-            0.        , 0.        , 0.        , 0.22222222]])
+    .. jupyter-execute::
+
+        from toqito.states import isotropic
+        isotropic(3, 1 / 2)
+
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param dim: The local dimension.

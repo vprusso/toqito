@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from toqito.channels import partial_trace
+from toqito.matrix_ops import partial_trace
 from toqito.matrix_props import is_identity
 
 
@@ -57,28 +57,34 @@ def is_trace_preserving(
             -1 & 1
         \end{pmatrix}.
 
-    >>> import numpy as np
-    >>> from toqito.channel_props import is_trace_preserving
-    >>> unitary_mat = np.array([[1, 1], [-1, 1]]) / np.sqrt(2)
-    >>> kraus_ops = [[np.identity(2), np.identity(2)], [unitary_mat, -unitary_mat]]
-    >>> is_trace_preserving(kraus_ops)
-    False
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.channel_props import is_trace_preserving
+
+     unitary_mat = np.array([[1, 1], [-1, 1]]) / np.sqrt(2)
+     kraus_ops = [[np.identity(2), np.identity(2)], [unitary_mat, -unitary_mat]]
+
+     is_trace_preserving(kraus_ops)
 
     As another example, the depolarizing channel is trace-preserving.
 
-    >>> from toqito.channels import depolarizing
-    >>> from toqito.channel_props import is_trace_preserving
-    >>> choi_mat = depolarizing(2)
-    >>> is_trace_preserving(choi_mat)
-    True
+    .. jupyter-execute::
+
+     from toqito.channels import depolarizing
+     from toqito.channel_props import is_trace_preserving
+
+     choi_mat = depolarizing(2)
+
+     is_trace_preserving(choi_mat)
 
     Further information for determining the trace preserving properties of channels consult (Section: Linear Maps Of
-    Square Operators from :cite:`Watrous_2018_TQI`).
+    Square Operators from :footcite:`Watrous_2018_TQI`).
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :param phi: The channel provided as either a Choi matrix or a list of Kraus operators.
     :param rtol: The relative tolerance parameter (default 1e-05).

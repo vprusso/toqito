@@ -14,7 +14,7 @@ def is_quantum_channel(
     r"""Determine whether the given input is a quantum channel.
 
     For more info, see Section 2.2.1: Definitions and Basic Notions Concerning Channels from
-    :cite:`Watrous_2018_TQI`.
+    :footcite:`Watrous_2018_TQI`.
 
     A map :math:`\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)` is a *quantum
     channel* for some choice of complex Euclidean spaces :math:`\mathcal{X}`
@@ -41,27 +41,33 @@ def is_quantum_channel(
 
     To check if this is a valid quantum channel or not,
 
-    >>> import numpy as np
-    >>> from toqito.matrices import pauli
-    >>> from toqito.channel_props import is_quantum_channel
-    >>> u = (1/np.sqrt(2))*np.array([[1, 1],[-1, 1]])
-    >>> x = pauli("X")
-    >>> phi = x - np.matmul(u, np.matmul(x, np.conjugate(u)))
-    >>> is_quantum_channel(phi)
-    False
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrices import pauli
+     from toqito.channel_props import is_quantum_channel
+
+     U = (1/np.sqrt(2))*np.array([[1, 1],[-1, 1]])
+     X = pauli("X")
+     phi = X - np.matmul(U, np.matmul(X, np.conjugate(U)))
+
+     is_quantum_channel(phi)
 
     If we instead check for the validity of depolarizing channel being a valid quantum channel,
 
-    >>> from toqito.channels import depolarizing
-    >>> from toqito.channel_props import is_quantum_channel
-    >>> choi_depolarizing = depolarizing(dim=2, param_p=0.2)
-    >>> is_quantum_channel(choi_depolarizing)
-    True
+    .. jupyter-execute::
+
+     from toqito.channels import depolarizing
+     from toqito.channel_props import is_quantum_channel
+
+     choi_depolarizing = depolarizing(dim=2, param_p=0.2)
+
+     is_quantum_channel(choi_depolarizing)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param phi: The channel provided as either a Choi matrix or a list of Kraus operators.

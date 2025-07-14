@@ -4,7 +4,7 @@ import numpy as np
 
 
 def cyclic_permutation_matrix(n: int, k: int = 1) -> np.ndarray:
-    r"""Create the cyclic permutation matrix for a given dimension :code:`n` :cite:`WikiCyclicPermutation`.
+    r"""Create the cyclic permutation matrix for a given dimension :code:`n` :footcite:`WikiCyclicPermutation`.
 
     This function creates a cyclic permutation matrix of 0's and 1's which is a special type of square matrix
     that represents a cyclic permutation of its rows. The function allows fixed points and successive applications.
@@ -13,29 +13,24 @@ def cyclic_permutation_matrix(n: int, k: int = 1) -> np.ndarray:
     ==========
     Generate fixed point.
 
-    >>> from toqito.matrices import cyclic_permutation_matrix
-    >>> n = 4
-    >>> cyclic_permutation_matrix(n)
-    array([[0, 0, 0, 1],
-           [1, 0, 0, 0],
-           [0, 1, 0, 0],
-           [0, 0, 1, 0]])
+    .. jupyter-execute::
+
+     from toqito.matrices import cyclic_permutation_matrix
+
+     cyclic_permutation_matrix(n=4)
 
     Generate successive application.
 
-    >>> from toqito.matrices import cyclic_permutation_matrix
-    >>> n = 4
-    >>> k = 3
-    >>> cyclic_permutation_matrix(n, k)
-    array([[0, 1, 0, 0],
-           [0, 0, 1, 0],
-           [0, 0, 0, 1],
-           [1, 0, 0, 0]])
+    .. jupyter-execute::
+
+     from toqito.matrices import cyclic_permutation_matrix
+
+     cyclic_permutation_matrix(n=4, k=3)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :param n: int
         The number of rows and columns in the cyclic permutation matrix.

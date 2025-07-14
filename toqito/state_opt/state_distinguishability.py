@@ -15,7 +15,7 @@ def state_distinguishability(
     primal_dual: str = "dual",
     **kwargs,
 ) -> tuple[float, list[picos.HermitianVariable] | tuple[picos.HermitianVariable] | tuple[picos.RealVariable]]:
-    r"""Compute probability of state distinguishability :cite:`Eldar_2003_SDPApproach`.
+    r"""Compute probability of state distinguishability :footcite:`Eldar_2003_SDPApproach`.
 
     The "quantum state distinguishability" problem involves a collection of :math:`n` quantum states
 
@@ -78,45 +78,54 @@ def state_distinguishability(
 
     Minimal-error state distinguishability for the Bell states (which are perfectly distinguishable).
 
-    >>> import numpy as np
-    >>> from toqito.states import bell
-    >>> from toqito.state_opt import state_distinguishability
-    >>> states = [bell(0), bell(1), bell(2), bell(3)]
-    >>> probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
-    >>> res, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="dual")
-    >>> np.around(res, decimals=2)
-    np.float64(1.0)
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.states import bell
+     from toqito.state_opt import state_distinguishability
+
+     states = [bell(0), bell(1), bell(2), bell(3)]
+     probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
+
+     res, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="dual")
+
+     np.around(res, decimals=2)
 
     Note that if we are just interested in obtaining the optimal value, it is computationally less intensive to compute
     the dual problem over the primal problem. However, the primal problem does allow us to extract the explicit
     measurement operators which may be of interest to us.
 
-    >>> import numpy as np
-    >>> from toqito.states import bell
-    >>> from toqito.state_opt import state_distinguishability
-    >>> states = [bell(0), bell(1), bell(2), bell(3)]
-    >>> probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
-    >>> res, measurements = state_distinguishability(vectors=states, probs=probs, primal_dual="primal")
-    >>> np.around(measurements[0], decimals=5)  # doctest: +SKIP
-    array([[ 0.5+0.j,  0. +0.j, -0. -0.j,  0.5-0.j],
-           [ 0. -0.j,  0. +0.j, -0. +0.j,  0. -0.j],
-           [-0. +0.j, -0. -0.j,  0. +0.j, -0. +0.j],
-           [ 0.5+0.j,  0. +0.j, -0. -0.j,  0.5+0.j]])
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.states import bell
+     from toqito.state_opt import state_distinguishability
+
+     states = [bell(0), bell(1), bell(2), bell(3)]
+     probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
+
+     res, measurements = state_distinguishability(vectors=states, probs=probs, primal_dual="primal")
+
+     np.around(measurements[0], decimals=5)
 
     Unambiguous state distinguishability for unbiased states.
 
-    >>> from toqito.state_opt import state_distinguishability
-    >>> import numpy as np
-    >>> states = [np.array([[1.], [0.]]), np.array([[1.],[1.]]) / np.sqrt(2)]
-    >>> probs = [1 / 2, 1 / 2]
-    >>> res, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="primal", strategy="unambiguous")
-    >>> np.around(res, decimals=2)
-    np.float64(0.29)
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.state_opt import state_distinguishability
+
+     states = [np.array([[1.], [0.]]), np.array([[1.],[1.]]) / np.sqrt(2)]
+     probs = [1 / 2, 1 / 2]
+
+     res, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="primal", strategy="unambiguous")
+
+     np.around(res, decimals=2)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param vectors: A list of states provided as vectors.
@@ -206,7 +215,7 @@ def _unambiguous_primal(
 ) -> tuple[float, tuple[picos.RealVariable]]:
     """Solve the primal problem for unambiguous quantum state distinguishability SDP.
 
-    Implemented according to Equation (5) of :cite:`Gupta_2024_Unambiguous`:.
+    Implemented according to Equation (5) of :footcite:`Gupta_2024_Unambiguous`:.
     """
     n = len(vectors)
     problem = picos.Problem()
@@ -230,7 +239,7 @@ def _unambiguous_dual(
 ) -> tuple[float, tuple[picos.HermitianVariable]]:
     """Solve the dual problem for unambiguous quantum state distinguishability SDP.
 
-    Implemented according to Equation (5) of :cite:`Gupta_2024_Unambiguous`.
+    Implemented according to Equation (5) of :footcite:`Gupta_2024_Unambiguous`.
     """
     n = len(vectors)
     problem = picos.Problem()

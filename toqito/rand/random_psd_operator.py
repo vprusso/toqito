@@ -20,45 +20,58 @@ def random_psd_operator(
     Using :code:`|toqito⟩`, we may generate a random positive semidefinite matrix.
     For :math:`\text{dim}=2`, this can be accomplished as follows.
 
-    >>> from toqito.rand import random_psd_operator
-    >>> complex_psd_mat = random_psd_operator(2)
-    >>> complex_psd_mat # doctest: +SKIP
-    array([[0.42313949+3.85185989e-34j, 0.35699744-1.81934920e-02j],
-           [0.35699744+1.81934920e-02j, 0.36668881+0.00000000e+00j]])
+    .. jupyter-execute::
+
+     from toqito.rand import random_psd_operator
+
+     complex_psd_mat = random_psd_operator(2)
+
+     complex_psd_mat
 
     We can confirm that this matrix indeed represents a valid positive semidefinite matrix by utilizing
     the :code:`is_positive_semidefinite` function from the :code:`|toqito⟩` library, as demonstrated below:
 
-    >>> from toqito.matrix_props import is_positive_semidefinite
-    >>> is_positive_semidefinite(complex_psd_mat)
-    True
+    .. jupyter-execute::
+
+     from toqito.matrix_props import is_positive_semidefinite
+
+     is_positive_semidefinite(complex_psd_mat)
+
 
     We can also generate random positive semidefinite matrices that are real-valued as follows.
 
-    >>> from toqito.rand import random_psd_operator
-    >>> real_psd_mat = random_psd_operator(2, is_real=True)
-    >>> real_psd_mat # doctest: +SKIP
-    array([[0.68112055, 0.14885971],
-           [0.14885971, 0.62955916]])
+    .. jupyter-execute::
+
+     from toqito.rand import random_psd_operator
+
+     real_psd_mat = random_psd_operator(2, is_real=True)
+
+     real_psd_mat
+
 
     Again, verifying that this is a valid positive semidefinite matrix can be done as follows.
 
-    >>> from toqito.matrix_props import is_positive_semidefinite
-    >>> is_positive_semidefinite(real_psd_mat)
-    True
+    .. jupyter-execute::
+
+     from toqito.matrix_props import is_positive_semidefinite
+     is_positive_semidefinite(real_psd_mat)
+
 
     It is also possible to add a seed for reproducibility.
 
-    >>> from toqito.rand import random_psd_operator
-    >>> seeded = random_psd_operator(2, is_real=True, seed=42)
-    >>> seeded
-    array([[0.77395605, 0.64873818],
-           [0.64873818, 0.69736803]])
+    .. jupyter-execute::
+
+     from toqito.rand import random_psd_operator
+
+     seeded = random_psd_operator(2, is_real=True, seed=42)
+
+     seeded
+
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :param dim: The dimension of the operator.
     :param is_real: Boolean denoting whether the returned matrix will have all real entries or not.

@@ -11,6 +11,7 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 import os
 import sys
+import datetime
 
 # sys.path.insert(0, os.path.abspath("."))
 # sys.path.insert(0, os.path.abspath(".."))
@@ -18,12 +19,12 @@ sys.path.insert(0, os.path.abspath("../.."))
 
 # -- Project information -----------------------------------------------------
 
-project = "toqito"
-copyright = "2020-2025, toqito contributors"
-author = "Contributors to toqito"
+project = "|toqito>"
+copyright = f"2020 - {datetime.date.today().year}, |toqito> contributors"
+author = "|toqito> contributors"
 
 # The full version, including alpha/beta/rc tags
-release = "1.1.1"
+release = "1.1.2"
 
 
 # -- General configuration ---------------------------------------------------
@@ -36,6 +37,7 @@ extensions = [
     "autoapi.extension",
     "sphinx.ext.doctest",
     "sphinx.ext.intersphinx",
+    "sphinx_gallery.gen_gallery",
     "sphinx.ext.todo",
     "sphinx.ext.coverage",
     "sphinx.ext.mathjax",
@@ -49,9 +51,21 @@ extensions = [
     "sphinx.ext.duration",
 ]
 
+
+sphinx_gallery_conf = {
+    "examples_dirs": "../examples",  # Path to example scripts
+    "gallery_dirs": "auto_examples",  # Output directory for generated example galleries
+    "filename_pattern": r"[/\\]example_",  # Regex to filter example files by name i.e those starting with 'example_'
+    "write_computation_times": False,  # Do not include computation times
+    "default_thumb_file": "figures/logo.svg",  # Default thumbnail image
+    "line_numbers": True,  # add line numbers
+    "download_all_examples": False,
+    "ignore_pattern": r"__init__\.py",
+}
+
+
 bibtex_bibfiles = ["refs.bib"]
 bibtex_default_style = "unsrt"
-suppress_warnings = ["bibtex.duplicate_label", "bibtex.duplicate_citation"]
 # Links matching with the following regular expressions will be ignored
 linkcheck_ignore = [
     r"https://arxiv\.org/.*",
@@ -64,9 +78,6 @@ linkcheck_ignore = [
 # and on the references page.
 master_doc = "index"
 
-copybutton_prompt_text = r">>> |\.\.\. "
-copybutton_prompt_is_regexp = True
-copybutton_only_copy_prompt_lines = True
 # autosummary_generate = True
 # autodoc_typehints = "none"
 autoapi_dirs = ["../toqito"]
@@ -113,6 +124,7 @@ exclude_patterns = ["_build", "_templates", "Thumbs.db", ".DS_Store"]
 html_theme = "furo"
 html_logo = "figures/logo.svg"
 html_favicon = "figures/favicon.ico"
+
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,

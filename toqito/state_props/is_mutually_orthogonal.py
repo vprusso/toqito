@@ -6,7 +6,7 @@ import numpy as np
 
 
 def is_mutually_orthogonal(vec_list: list[np.ndarray | list[float | Any]]) -> bool:
-    r"""Check if list of vectors are mutually orthogonal :cite:`WikiOrthog`.
+    r"""Check if list of vectors are mutually orthogonal :footcite:`WikiOrthog`.
 
     We say that two bases
 
@@ -31,25 +31,28 @@ def is_mutually_orthogonal(vec_list: list[np.ndarray | list[float | Any]]) -> bo
 
     The Bell states constitute a set of mutually orthogonal vectors.
 
-    >>> from toqito.states import bell
-    >>> from toqito.state_props import is_mutually_orthogonal
-    >>> states = [bell(0), bell(1), bell(2), bell(3)]
-    >>> is_mutually_orthogonal(states)
-    True
+    .. jupyter-execute::
+
+        from toqito.states import bell
+        from toqito.state_props import is_mutually_orthogonal
+        states = [bell(0), bell(1), bell(2), bell(3)]
+        is_mutually_orthogonal(states)
+
 
     The following is an example of a list of vectors that are not mutually orthogonal.
 
-    >>> import numpy as np
-    >>> from toqito.states import bell
-    >>> from toqito.state_props import is_mutually_orthogonal
-    >>> states = [np.array([1, 0]), np.array([1, 1])]
-    >>> is_mutually_orthogonal(states)
-    False
+    .. jupyter-execute::
+
+        import numpy as np
+        from toqito.states import bell
+        from toqito.state_props import is_mutually_orthogonal
+        states = [np.array([1, 0]), np.array([1, 1])]
+        is_mutually_orthogonal(states)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :raises ValueError: If at least two vectors are not provided.

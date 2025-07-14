@@ -9,7 +9,7 @@ from toqito.matrices import standard_basis
 
 
 def bb84() -> np.ndarray:
-    r"""Obtain the BB84 basis states :cite:`WikiBB84`.
+    r"""Obtain the BB84 basis states :footcite:`WikiBB84`.
 
     The BB84 basis states are defined as
 
@@ -24,18 +24,15 @@ def bb84() -> np.ndarray:
     The BB84 basis states can be obtained in :code:`|toqito⟩` as follows in the form of a list of
     arrays.
 
-    >>> from toqito.states import bb84
-    >>> bb84()
-    [[array([[1.],
-           [0.]]), array([[0.],
-           [1.]])], [array([[0.70710678],
-           [0.70710678]]), array([[ 0.70710678],
-           [-0.70710678]])]]
+    .. jupyter-execute::
+
+        from toqito.states import bb84
+        bb84()
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :return: The four BB84 basis states.

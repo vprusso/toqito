@@ -8,7 +8,7 @@ from toqito.states import max_entangled
 def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
     r"""Produce the partially dephasing channel.
 
-    (Section: The Completely Dephasing Channel from :cite:`Watrous_2018_TQI`).
+    (Section: The Completely Dephasing Channel from :footcite:`Watrous_2018_TQI`).
 
     The Choi matrix of the completely dephasing channel that acts on :code:`dim`-by-:code:`dim`
     matrices.
@@ -47,34 +47,34 @@ def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
 
     This can be observed in :code:`|toqito⟩` as follows.
 
-    >>> from toqito.channel_ops import apply_channel
-    >>> from toqito.channels import dephasing
-    >>> import numpy as np
-    >>> test_input_mat = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
-    >>> apply_channel(test_input_mat, dephasing(4))
-    array([[ 1.,  0.,  0.,  0.],
-           [ 0.,  6.,  0.,  0.],
-           [ 0.,  0., 11.,  0.],
-           [ 0.,  0.,  0., 16.]])
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.channels import dephasing
+     from toqito.channel_ops import apply_channel
+
+     test_input_mat = np.arange(1, 17).reshape(4, 4)
+
+     apply_channel(test_input_mat, dephasing(4))
+
 
     We may also consider setting the parameter :code:`p = 0.5`.
 
-    >>> from toqito.channel_ops import apply_channel
-    >>> from toqito.channels import dephasing
-    >>> import numpy as np
-    >>> test_input_mat = np.array(
-    ...     [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]
-    ... )
-    >>> apply_channel(test_input_mat, dephasing(4, 0.5))
-    array([[ 1. ,  1. ,  1.5,  2. ],
-           [ 2.5,  6. ,  3.5,  4. ],
-           [ 4.5,  5. , 11. ,  6. ],
-           [ 6.5,  7. ,  7.5, 16. ]])
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.channels import dephasing
+     from toqito.channel_ops import apply_channel
+
+     test_input_mat = np.arange(1, 17).reshape(4, 4)
+
+     apply_channel(test_input_mat, dephasing(4, 0.5))
+
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param dim: The dimensionality on which the channel acts.

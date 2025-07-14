@@ -3,8 +3,8 @@
 import numpy as np
 import pytest
 
-from toqito.matrix_ops.vec import vec
 from toqito.matrix_props.commutant import commutant
+from toqito.perms.vec import vec
 
 
 @pytest.mark.parametrize(

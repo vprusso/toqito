@@ -6,7 +6,7 @@ from toqito.states import basis
 
 
 def trine() -> list[np.ndarray]:
-    r"""Produce the set of trine states (Slide 6 of :cite:`Yard_2017_Lecture11`).
+    r"""Produce the set of trine states (Slide 6 of :footcite:`Yard_2017_Lecture11`).
 
     The trine states are formally defined as:
 
@@ -20,19 +20,17 @@ def trine() -> list[np.ndarray]:
 
     Generating the trine states can be done by simply invoking the function:
 
-    >>> from toqito.states import trine
-    >>>
-    >>> trine()
-    [array([[1],
-           [0]]), array([[-0.5      ],
-           [-0.8660254]]), array([[-0.5      ],
-           [ 0.8660254]])]
+    .. jupyter-execute::
+
+        from toqito.states import trine
+        trine()
+
 
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :return: Vector of trine states.
 

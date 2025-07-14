@@ -6,7 +6,7 @@ from toqito.matrix_props import is_square
 
 
 def is_idempotent(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> bool:
-    r"""Check if matrix is the idempotent matrix :cite:`WikiIdemPot`.
+    r"""Check if matrix is the idempotent matrix :footcite:`WikiIdemPot`.
 
     An *idempotent matrix* is a square matrix, which, when multiplied by itself, yields itself.
     That is, the matrix :math:`A` is idempotent if and only if :math:`A^2 = A`.
@@ -22,11 +22,15 @@ def is_idempotent(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> b
             1 & -2
         \end{pmatrix}
 
-    >>> from toqito.matrix_props import is_idempotent
-    >>> import numpy as np
-    >>> mat = np.array([[3, -6], [1, -2]])
-    >>> is_idempotent(mat)
-    True
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_idempotent
+
+     mat = np.array([[3, -6], [1, -2]])
+
+     is_idempotent(mat)
+
 
     Alternatively, the following matrix
 
@@ -39,16 +43,19 @@ def is_idempotent(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> b
 
     is not idempotent.
 
-    >>> from toqito.matrix_props import is_idempotent
-    >>> import numpy as np
-    >>> mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-    >>> is_idempotent(mat)
-    False
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_idempotent
+
+     mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+
+     is_idempotent(mat)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param mat: Matrix to check.

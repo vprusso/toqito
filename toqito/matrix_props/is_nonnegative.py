@@ -9,28 +9,29 @@ def is_nonnegative(input_mat: np.ndarray, mat_type: str = "nonnegative") -> bool
     r"""Check if the matrix is nonnegative.
 
     When all the entries in the matrix are larger than or equal to zero the matrix of interest is a
-    nonnegative matrix :cite:`WikiNonNegative`.
+    nonnegative matrix :footcite:`WikiNonNegative`.
 
-    When a matrix is nonegative and positive semidefinite :cite:`WikiPosDef`, the matrix is doubly nonnegative.
+    When a matrix is nonegative and positive semidefinite :footcite:`WikiPosDef`, the matrix is doubly nonnegative.
 
 
     Examples
     ==========
     We expect an identity matrix to be nonnegative.
 
-    >>> import numpy as np
-    >>> from toqito.matrix_props import is_nonnegative
-    >>> is_nonnegative(np.eye(2))
-    True
-    >>> is_nonnegative(np.eye(2), "doubly")
-    True
-    >>> is_nonnegative(np.array([[1, -1], [1, 1]]))
-    False
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_nonnegative
+
+     print(is_nonnegative(np.eye(2)))
+     print(is_nonnegative(np.eye(2), "doubly"))
+     print(is_nonnegative(np.array([[1, -1], [1, 1]])))
+
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :param input_mat: np.ndarray
                     Matrix of interest.

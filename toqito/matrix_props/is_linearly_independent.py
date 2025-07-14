@@ -4,7 +4,7 @@ import numpy as np
 
 
 def is_linearly_independent(vectors: list[np.ndarray]) -> bool:
-    r"""Check if set of vectors are linearly independent :cite:`WikiLinearIndependence`.
+    r"""Check if set of vectors are linearly independent :footcite:`WikiLinearIndependence`.
 
     Examples
     ==========
@@ -22,25 +22,27 @@ def is_linearly_independent(vectors: list[np.ndarray]) -> bool:
             0 \\ 0 \\ 1
         \end{pmatrix}
 
-    We can see that these are linearly independent:
+    We can see that these are linearly independent.
 
-    >>> import numpy as np
-    >>> from toqito.matrix_props import is_linearly_independent
-    >>>
-    >>> v_1 = np.array([[1], [0], [1]])
-    >>> v_2 = np.array([[1], [1], [0]])
-    >>> v_3 = np.array([[0], [0], [1]])
-    >>> is_linearly_independent([v_1, v_2, v_3])
-    np.True_
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_linearly_independent
+
+     v_1 = np.array([[1], [0], [1]])
+     v_2 = np.array([[1], [1], [0]])
+     v_3 = np.array([[0], [0], [1]])
+
+     is_linearly_independent([v_1, v_2, v_3])
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :param vectors: Vectors to check the linear independence of.
     :return: Return :code:`True` if vectors are linearly independent :code:`False` otherwise.
 
     """
     # Check if the rank of the matrix equals the number of vectors.
-    return np.linalg.matrix_rank(np.column_stack(vectors)) == len(vectors)
+    return bool(np.linalg.matrix_rank(np.column_stack(vectors)) == len(vectors))

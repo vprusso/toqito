@@ -7,7 +7,7 @@ from toqito.matrix_ops import to_density_matrix
 
 
 def negativity(rho: np.ndarray, dim: list[int] | int = None) -> float:
-    r"""Compute the negativity of a bipartite quantum state :cite:`WikiNeg`.
+    r"""Compute the negativity of a bipartite quantum state :footcite:`WikiNeg`.
 
     The negativity of a subsystem can be defined in terms of a density matrix :math:`\rho`:
 
@@ -24,11 +24,12 @@ def negativity(rho: np.ndarray, dim: list[int] | int = None) -> float:
 
     Example of the negativity of density matrix of Bell state.
 
-    >>> from toqito.states import bell
-    >>> from toqito.state_props import negativity
-    >>> rho = bell(0) @ bell(0).conj().T
-    >>> negativity(rho)
-    np.float64(0.4999999999999998)
+    .. jupyter-execute::
+
+        from toqito.states import bell
+        from toqito.state_props import negativity
+        rho = bell(0) @ bell(0).conj().T
+        negativity(rho)
 
     See Also
     ==========
@@ -36,8 +37,8 @@ def negativity(rho: np.ndarray, dim: list[int] | int = None) -> float:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :raises ValueError: If dimension of matrix is invalid.

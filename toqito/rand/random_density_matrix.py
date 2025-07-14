@@ -31,64 +31,84 @@ def random_density_matrix(
     Using :code:`|toqito⟩`, we may generate a random complex-valued :math:`n`- dimensional density matrix. For
     :math:`d=2`, this can be accomplished as follows.
 
-    >>> from toqito.rand import random_density_matrix
-    >>> complex_dm = random_density_matrix(2)
-    >>> complex_dm # doctest: +SKIP
-    array([[ 0.53822849+0.j        , -0.26155866+0.02081311j],
-           [-0.26155866-0.02081311j,  0.46177151+0.j        ]])
+    .. jupyter-execute::
+
+     from toqito.rand import random_density_matrix
+
+     complex_dm = random_density_matrix(2)
+
+     complex_dm
+
 
     We can verify that this is in fact a valid density matrix using the :code:`is_density` function from
     :code:`|toqito⟩` as follows
 
-    >>> from toqito.matrix_props import is_density
-    >>> is_density(complex_dm)
-    np.True_
+    .. jupyter-execute::
+
+     from toqito.matrix_props import is_density
+
+     is_density(complex_dm)
+
 
     We can also generate random density matrices that are real-valued as follows.
 
-    >>> from toqito.rand import random_density_matrix
-    >>> real_dm = random_density_matrix(2, is_real=True)
-    >>> real_dm # doctest: +SKIP
-    array([[0.47783773, 0.45763467],
-           [0.45763467, 0.52216227]])
+    .. jupyter-execute::
+
+     from toqito.rand import random_density_matrix
+
+     real_dm = random_density_matrix(2, is_real=True)
+
+     real_dm
+
 
 
     Again, verifying that this is a valid density matrix can be done as follows.
 
-    >>> from toqito.matrix_props import is_density
-    >>> is_density(real_dm)
-    np.True_
+    .. jupyter-execute::
+
+     from toqito.matrix_props import is_density
+
+     is_density(real_dm)
 
     By default, the random density operators are constructed using the Haar measure. We can select to generate the
     random density matrix according to the Bures metric instead as follows.
 
-    >>> from toqito.rand import random_density_matrix
-    >>> bures_mat = random_density_matrix(2, distance_metric="bures")
-    >>> bures_mat # doctest: +SKIP
-    array([[ 0.41427711+0.j       , -0.15503543+0.2405496j],
-           [-0.15503543-0.2405496j,  0.58572289+0.j       ]])
+    .. jupyter-execute::
+
+     from toqito.rand import random_density_matrix
+
+     bures_mat = random_density_matrix(2, distance_metric="bures")
+
+     bures_mat
 
 
     As before, we can verify that this matrix generated is a valid density matrix.
 
-    >>> from toqito.matrix_props import is_density
-    >>> is_density(bures_mat)
-    np.True_
+    .. jupyter-execute::
+
+     from toqito.matrix_props import is_density
+
+     is_density(bures_mat)
 
     It is also possible to pass a seed to this function for reproducibility.
+    .. jupyter-execute::
 
-    >>> from toqito.rand import random_density_matrix
-    >>> seeded = random_density_matrix(2, seed=42)
-    >>> seeded
-    array([[0.82448019+0.j        , 0.14841568-0.33318114j],
-           [0.14841568+0.33318114j, 0.17551981+0.j        ]])
+     from toqito.rand import random_density_matrix
+
+     seeded = random_density_matrix(2, seed=42)
+
+     seeded
 
     We can once again verify that this is in fact a valid density matrix using the
     :code:`is_density` function from :code:`|toqito⟩` as follows
 
-    >>> from toqito.matrix_props import is_density
-    >>> is_density(seeded)
-    np.True_
+    .. jupyter-execute::
+
+     from toqito.matrix_props import is_density
+
+     seeded = random_density_matrix(2, seed=42)
+
+     is_density(seeded)
 
 
     :param dim: The number of rows (and columns) of the density matrix.

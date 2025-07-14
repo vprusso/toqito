@@ -7,7 +7,7 @@ def phase_damping(
     input_mat: np.ndarray | None = None,
     gamma: float = 0,
 ) -> np.ndarray:
-    r"""Apply the phase damping channel to a quantum state :cite:`Chuang_2011_Quantum`.
+    r"""Apply the phase damping channel to a quantum state :footcite:`Chuang_2011_Quantum`.
 
     The phase damping channel describes how quantum information is lost due to environmental interactions,
     causing dephasing in the computational basis without losing energy.
@@ -22,18 +22,20 @@ def phase_damping(
     ==========
     Applying the phase damping channel to a qubit state:
 
-    >>> import numpy as np
-    >>> from toqito.channels.phase_damping import phase_damping
-    >>> rho = np.array([[1, 0.5], [0.5, 1]])
-    >>> result = phase_damping(rho, gamma=0.2)
-    >>> print(result)
-    [[1.       +0.j 0.4472136+0.j]
-     [0.4472136+0.j 1.       +0.j]]
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.channels.phase_damping import phase_damping
+
+     rho = np.array([[1, 0.5], [0.5, 1]])
+     result = phase_damping(rho, gamma=0.2)
+
+     print(result)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :param input_mat: The input matrix to apply the channel to.
                       If `None`, the function returns the Kraus operators.

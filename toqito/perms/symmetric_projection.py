@@ -10,7 +10,7 @@ from toqito.perms import permutation_operator
 
 
 def symmetric_projection(dim: int, p_val: int = 2, partial: bool = False) -> np.ndarray:
-    r"""Produce the projection onto the symmetric subspace :cite:`Chen_2014_Symmetric`.
+    r"""Produce the projection onto the symmetric subspace :footcite:`Chen_2014_Symmetric`.
 
     For a complex Euclidean space :math:`\mathcal{X}` and a positive integer :math:`n`, the projection onto the
     symmetric subspace is given by
@@ -40,10 +40,12 @@ def symmetric_projection(dim: int, p_val: int = 2, partial: bool = False) -> np.
 
     Using :code:`|toqito⟩`, we can see this gives the proper result.
 
-    >>> from toqito.perms import symmetric_projection
-    >>> symmetric_projection(2, 1)
-    array([[1., 0.],
-           [0., 1.]])
+    .. jupyter-execute::
+
+     from toqito.perms import symmetric_projection
+
+     symmetric_projection(2, 1)
+
 
     When :math:`d = 2` and :math:`p = 2` we have that
 
@@ -57,17 +59,16 @@ def symmetric_projection(dim: int, p_val: int = 2, partial: bool = False) -> np.
 
     Using :code:`|toqito⟩` we can see this gives the proper result.
 
-    >>> from toqito.perms import symmetric_projection
-    >>> symmetric_projection(dim=2)
-    array([[1. , 0. , 0. , 0. ],
-           [0. , 0.5, 0.5, 0. ],
-           [0. , 0.5, 0.5, 0. ],
-           [0. , 0. , 0. , 1. ]])
+    .. jupyter-execute::
+
+     from toqito.perms import symmetric_projection
+
+     symmetric_projection(dim=2)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param dim: The dimension of the local systems.

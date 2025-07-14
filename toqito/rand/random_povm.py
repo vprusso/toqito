@@ -4,7 +4,7 @@ import numpy as np
 
 
 def random_povm(dim: int, num_inputs: int, num_outputs: int, seed: int | None = None) -> np.ndarray:
-    """Generate random positive operator valued measurements (POVMs) :cite:`WikiPOVM`.
+    """Generate random positive operator valued measurements (POVMs) :footcite:`WikiPOVM`.
 
     Examples
     ==========
@@ -13,65 +13,49 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int, seed: int | None = 
     measurement inputs and measurement outputs. As an example, we can construct a random set of :math:`2`-by-:math:`2`
     POVMs of dimension with :math:`2` inputs and :math:`2` outputs.
 
-    >>> from toqito.rand import random_povm
-    >>> import numpy as np
-    >>>
-    >>> dim, num_inputs, num_outputs = 2, 2, 2
-    >>> povms = random_povm(dim, num_inputs, num_outputs)
-    >>> povms  # doctest: +SKIP
-    array([[[[ 0.20649603+0.j,  0.79350397+0.j],
-             [ 0.77451456+0.j,  0.22548544+0.j]],
-    <BLANKLINE>
-            [[-0.25971638+0.j,  0.25971638+0.j],
-             [-0.28048509+0.j,  0.28048509+0.j]]],
-    <BLANKLINE>
-    <BLANKLINE>
-           [[[-0.25971638+0.j,  0.25971638+0.j],
-             [-0.28048509+0.j,  0.28048509+0.j]],
-    <BLANKLINE>
-            [[ 0.40448792+0.j,  0.59551208+0.j],
-             [ 0.10740892+0.j,  0.89259108+0.j]]]])
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.rand import random_povm
+
+     dim, num_inputs, num_outputs = 2, 2, 2
+
+     povms = random_povm(dim, num_inputs, num_outputs)
+
+     povms
 
 
     We can verify that this constitutes a valid set of POVM elements as checking that these operators all sum to the
     identity operator.
 
-    >>> np.round(povms[:, :, 0, 0] + povms[:, :, 0, 1]) # doctest: +SKIP
-    [[1.+0.j, 0.+0.j],
-     [0.+0.j, 1.+0.j]]
+    .. jupyter-execute::
 
-     It is also possible to add a seed for reproducibility.
+     np.round(povms[:, :, 0, 0] + povms[:, :, 0, 1])
 
-    >>> from toqito.rand import random_povm
-    >>> import numpy as np
-    >>>
-    >>> dim, num_inputs, num_outputs = 2, 2, 2
-    >>> povms = random_povm(dim, num_inputs, num_outputs, seed=42)
-    >>> povms
-    array([[[[ 0.22988028+0.j,  0.77011972+0.j],
-             [ 0.45021752+0.j,  0.54978248+0.j]],
-    <BLANKLINE>
-            [[-0.23938341+0.j,  0.23938341+0.j],
-             [ 0.32542956+0.j, -0.32542956+0.j]]],
-    <BLANKLINE>
-    <BLANKLINE>
-           [[[-0.23938341+0.j,  0.23938341+0.j],
-             [ 0.32542956+0.j, -0.32542956+0.j]],
-    <BLANKLINE>
-            [[ 0.83184406+0.j,  0.16815594+0.j],
-             [ 0.61323275+0.j,  0.38676725+0.j]]]])
+    It is also possible to add a seed for reproducibility.
+
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.rand import random_povm
+
+     dim, num_inputs, num_outputs = 2, 2, 2
+
+     povms = random_povm(dim, num_inputs, num_outputs, seed=42)
+
+     povms
 
     We can once again verify that this constitutes a valid set of POVM elements as checking that
     these operators all sum to the identity operator.
 
-    >>> np.round(povms[:, :, 0, 0] + povms[:, :, 0, 1])
-    array([[ 1.+0.j, -0.+0.j],
-           [-0.+0.j,  1.+0.j]])
+    .. jupyter-execute:
+
+     np.round(povms[:, :, 0, 0] + povms[:, :, 0, 1])
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
 

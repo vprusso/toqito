@@ -8,7 +8,7 @@ from toqito.states import max_entangled
 
 
 def brauer(dim: int, p_val: int) -> np.ndarray:
-    r"""Produce all Brauer states :cite:`WikiBrauer`.
+    r"""Produce all Brauer states :footcite:`WikiBrauer`.
 
     Produce a matrix whose columns are all of the (unnormalized) "Brauer" states: states that are the :code:`p_val`-fold
     tensor product of the standard maximally-entangled pure state on :code:`dim` local dimensions. There are many such
@@ -17,11 +17,12 @@ def brauer(dim: int, p_val: int) -> np.ndarray:
 
     The exact number of such states is:
 
-    >>> import math
-    >>> import numpy as np
-    >>> p_val = 2
-    >>> math.factorial(2 * p_val) / (math.factorial(p_val) * 2**p_val)
-    3.0
+    .. jupyter-execute::
+
+        import math
+        import numpy as np
+        p_val = 2
+        math.factorial(2 * p_val) / (math.factorial(p_val) * 2**p_val)
 
     which is the number of columns of the returned matrix.
 
@@ -32,29 +33,16 @@ def brauer(dim: int, p_val: int) -> np.ndarray:
 
     Generate a matrix whose columns are all Brauer states on 4 qubits.
 
-    >>> from toqito.states import brauer
-    >>> brauer(2, 2)
-    array([[1., 1., 1.],
-           [0., 0., 0.],
-           [0., 0., 0.],
-           [1., 0., 0.],
-           [0., 0., 0.],
-           [0., 1., 0.],
-           [0., 0., 1.],
-           [0., 0., 0.],
-           [0., 0., 0.],
-           [0., 0., 1.],
-           [0., 1., 0.],
-           [0., 0., 0.],
-           [1., 0., 0.],
-           [0., 0., 0.],
-           [0., 0., 0.],
-           [1., 1., 1.]])
+    .. jupyter-execute::
+
+        from toqito.states import brauer
+        brauer(2, 2)
+
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param dim: Dimension of each local subsystem

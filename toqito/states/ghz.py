@@ -8,11 +8,11 @@ import numpy as np
 
 
 def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray:
-    r"""Generate a (generalized) GHZ state :cite:`Greenberger_2007_Going`.
+    r"""Generate a (generalized) GHZ state :footcite:`Greenberger_2007_Going`.
 
     Returns a :code:`num_qubits`-partite GHZ state acting on :code:`dim` local dimensions, described
-    in :cite:`Greenberger_2007_Going`. For example, :code:`ghz(2, 3)` returns the standard 3-qubit GHZ state on qubits.
-    The output of this function is a dense NumPy array.
+    in :footcite:`Greenberger_2007_Going`. For example, :code:`ghz(2, 3)` returns the standard 3-qubit GHZ state on
+    qubits. The output of this function is a dense NumPy array.
 
     For a system of :code:`num_qubits` qubits (i.e., :code:`dim = 2`), the GHZ state can be written
     as
@@ -31,16 +31,10 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray
 
     Using :code:`|toqito⟩`, we can see that this yields the proper state.
 
-    >>> from toqito.states import ghz
-    >>> ghz(2, 3)
-    array([[0.70710678],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.70710678]])
+    .. jupyter-execute::
+
+        from toqito.states import ghz
+        ghz(2, 3)
 
     As this function covers the generalized GHZ state, we can consider higher dimensions. For instance here is the GHZ
     state in :math:`\mathbb{C}^{4^{\otimes 7}}` as
@@ -51,8 +45,8 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :raises ValueError: Number of qubits is not a positive integer.

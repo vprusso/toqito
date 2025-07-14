@@ -6,7 +6,7 @@ from toqito.matrix_props import is_density
 
 
 def hilbert_schmidt(rho: np.ndarray, sigma: np.ndarray) -> float:
-    r"""Compute the Hilbert-Schmidt distance between two states :cite:`WikiHilbSchOp`.
+    r"""Compute the Hilbert-Schmidt distance between two states :footcite:`WikiHilbSchOp`.
 
     The Hilbert-Schmidt distance between density operators :math:`\rho` and :math:`\sigma` is defined as
 
@@ -20,18 +20,21 @@ def hilbert_schmidt(rho: np.ndarray, sigma: np.ndarray) -> float:
     One may consider taking the Hilbert-Schmidt distance between two Bell states. In :code:`|toqito⟩`,
     one may accomplish this as
 
-    >>> import numpy as np
-    >>> from toqito.states import bell
-    >>> from toqito.state_metrics import hilbert_schmidt
-    >>> rho = bell(0) @ bell(0).conj().T
-    >>> sigma = bell(3) @ bell(3).conj().T
-    >>> np.around(hilbert_schmidt(rho, sigma), decimals=2)
-    np.float64(1.0)
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.states import bell
+     from toqito.state_metrics import hilbert_schmidt
+
+     rho = bell(0) @ bell(0).conj().T
+     sigma = bell(3) @ bell(3).conj().T
+
+     np.around(hilbert_schmidt(rho, sigma), decimals=2)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
 

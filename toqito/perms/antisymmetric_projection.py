@@ -8,7 +8,7 @@ from toqito.perms import perm_sign, permutation_operator
 
 
 def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) -> np.ndarray:
-    r"""Produce the projection onto the antisymmetric subspace :cite:`WikiAsymmOp`.
+    r"""Produce the projection onto the antisymmetric subspace :footcite:`WikiAsymmOp`.
 
     Produces the orthogonal projection onto the anti-symmetric subspace of :code:`p_param` copies of
     :code:`dim`-dimensional space. If :code:`partial = True`, then the antisymmetric projection (PA) isn't the
@@ -30,10 +30,11 @@ def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) 
 
     Using :code:`|toqito⟩`, we can see this gives the proper result.
 
-    >>> from toqito.perms import antisymmetric_projection
-    >>> antisymmetric_projection(2, 1)
-    array([[1., 0.],
-           [0., 1.]])
+    .. jupyter-execute::
+
+     from toqito.perms import antisymmetric_projection
+
+     antisymmetric_projection(2, 1)
 
     When the :math:`p` value is greater than the dimension of the antisymmetric projection, this just gives the matrix
     consisting of all zero entries. For instance, when :math:`d = 2` and :math:`p = 3` we have that
@@ -53,21 +54,16 @@ def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) 
 
     Using :code:`|toqito⟩` we can see this gives the proper result.
 
-    >>> from toqito.perms import antisymmetric_projection
-    >>> antisymmetric_projection(2, 3)
-    array([[0., 0., 0., 0., 0., 0., 0., 0.],
-           [0., 0., 0., 0., 0., 0., 0., 0.],
-           [0., 0., 0., 0., 0., 0., 0., 0.],
-           [0., 0., 0., 0., 0., 0., 0., 0.],
-           [0., 0., 0., 0., 0., 0., 0., 0.],
-           [0., 0., 0., 0., 0., 0., 0., 0.],
-           [0., 0., 0., 0., 0., 0., 0., 0.],
-           [0., 0., 0., 0., 0., 0., 0., 0.]])
+    .. jupyter-execute::
+
+     from toqito.perms import antisymmetric_projection
+
+     antisymmetric_projection(2, 3)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param dim: The dimension of the local systems.

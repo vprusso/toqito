@@ -37,24 +37,29 @@ def pauli_channel(
 
     Generate a random single-qubit Pauli channel:
 
-    >>> from toqito.channels import pauli_channel
-    >>> choi_matrix = pauli_channel(prob=1)
+    .. jupyter-execute::
+
+     from toqito.channels import pauli_channel
+
+     pauli_channel(prob=1)
 
     Apply a specific two-qubit Pauli channel to an input matrix:
 
-    >>> from toqito.channels import pauli_channel
-    >>> import numpy as np
-    >>> _, output = pauli_channel(
-    ...     prob=np.array([0.1, 0.2, 0.3, 0.4]), input_mat=np.eye(2)
-    ... )  # doctest: +NORMALIZE_WHITESPACE
-    >>> print(output)  # doctest: +NORMALIZE_WHITESPACE
-    [[1.+0.j 0.+0.j]
-     [0.+0.j 1.+0.j]]
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.channels import pauli_channel
+
+     _, output = pauli_channel(
+         prob=np.array([0.1, 0.2, 0.3, 0.4]), input_mat=np.eye(2)
+     )
+     print(output)
+
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :param prob: Probability vector for Pauli operators. If scalar, generates random probabilities
              for :math:`q =` `prob` qubits. The probabilities correspond to Pauli operators in

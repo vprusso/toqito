@@ -6,7 +6,7 @@ import numpy as np
 
 
 def is_mutually_unbiased_basis(vectors: list[np.ndarray | list[float | Any]]) -> bool:
-    r"""Check if list of vectors constitute a mutually unbiased basis :cite:`WikiMUB`.
+    r"""Check if list of vectors constitute a mutually unbiased basis :footcite:`WikiMUB`.
 
     We say that two orthonormal bases
 
@@ -44,35 +44,37 @@ def is_mutually_unbiased_basis(vectors: list[np.ndarray | list[float | Any]]) ->
             \end{aligned}
         \end{equation}
 
-    >>> import numpy as np
-    >>> from toqito.states import basis
-    >>> from toqito.state_props import is_mutually_unbiased_basis
-    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
-    >>> mub_1 = [e_0, e_1]
-    >>> mub_2 = [1 / np.sqrt(2) * (e_0 + e_1), 1 / np.sqrt(2) * (e_0 - e_1)]
-    >>> mub_3 = [1 / np.sqrt(2) * (e_0 + 1j * e_1), 1 / np.sqrt(2) * (e_0 - 1j * e_1)]
-    >>> nested_mubs = [mub_1, mub_2, mub_3]
-    >>> mubs = sum(nested_mubs, [])
-    >>> is_mutually_unbiased_basis(mubs)
-    True
+    .. jupyter-execute::
+
+        import numpy as np
+        from toqito.states import basis
+        from toqito.state_props import is_mutually_unbiased_basis
+        e_0, e_1 = basis(2, 0), basis(2, 1)
+        mub_1 = [e_0, e_1]
+        mub_2 = [1 / np.sqrt(2) * (e_0 + e_1), 1 / np.sqrt(2) * (e_0 - e_1)]
+        mub_3 = [1 / np.sqrt(2) * (e_0 + 1j * e_1), 1 / np.sqrt(2) * (e_0 - 1j * e_1)]
+        nested_mubs = [mub_1, mub_2, mub_3]
+        mubs = sum(nested_mubs, [])
+        is_mutually_unbiased_basis(mubs)
 
     Non-MUB of dimension :math:`2`.
 
-    >>> import numpy as np
-    >>> from toqito.states import basis
-    >>> from toqito.state_props import is_mutually_unbiased_basis
-    >>> e_0, e_1 = basis(2, 0), basis(2, 1)
-    >>> mub_1 = [e_0, e_1]
-    >>> mub_2 = [1 / np.sqrt(2) * (e_0 + e_1), e_1]
-    >>> mub_3 = [1 / np.sqrt(2) * (e_0 + 1j * e_1), e_0]
-    >>> mubs = [mub_1, mub_2, mub_3]
-    >>> is_mutually_unbiased_basis(mubs)
-    False
+    .. jupyter-execute::
+
+        import numpy as np
+        from toqito.states import basis
+        from toqito.state_props import is_mutually_unbiased_basis
+        e_0, e_1 = basis(2, 0), basis(2, 1)
+        mub_1 = [e_0, e_1]
+        mub_2 = [1 / np.sqrt(2) * (e_0 + e_1), e_1]
+        mub_3 = [1 / np.sqrt(2) * (e_0 + 1j * e_1), e_0]
+        mubs = [mub_1, mub_2, mub_3]
+        is_mutually_unbiased_basis(mubs)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
 

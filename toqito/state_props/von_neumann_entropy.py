@@ -6,7 +6,7 @@ from toqito.matrix_props import is_density
 
 
 def von_neumann_entropy(rho: np.ndarray) -> float:
-    r"""Compute the von Neumann entropy of a density matrix :cite:`WikiUVonNeumann`.
+    r"""Compute the von Neumann entropy of a density matrix :footcite:`WikiUVonNeumann`.
 
     Let :math:`P \in \text{Pos}(\mathcal{X})` be a positive semidefinite operator, for a complex
     Euclidean space :math:`\mathcal{X}`. Then one defines the *von Neumann entropy* as
@@ -25,7 +25,7 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
     nonnegative real numbers indexed by :math:`\Sigma`.
 
     Further information for computing the von Neumann entropy of a density matrix can be found in Section: "Definitions
-    Of Quantum Entropic Functions" from :cite:`Watrous_2018_TQI`).
+    Of Quantum Entropic Functions" from :footcite:`Watrous_2018_TQI`).
 
     Examples
     ==========
@@ -47,14 +47,15 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
 
     Calculating the von Neumann entropy of :math:`\rho` in :code:`|toqito⟩` can be done as follows.
 
-    >>> from toqito.state_props import von_neumann_entropy
-    >>> import numpy as np
-    >>> test_input_mat = np.array(
-    ...     [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0],
-    ...      [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
-    ... )
-    >>> von_neumann_entropy(test_input_mat)
-    np.float64(5.88418203051333e-15)
+    .. jupyter-execute::
+
+        from toqito.state_props import von_neumann_entropy
+        import numpy as np
+        test_input_mat = np.array(
+                [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0],
+                [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
+            )
+        von_neumann_entropy(test_input_mat)
 
     Consider the density operator corresponding to the maximally mixed state of dimension two
 
@@ -68,16 +69,17 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
     As this state is maximally mixed, the von Neumann entropy of :math:`\rho` is
     equal to one. We can see this in :code:`|toqito⟩` as follows.
 
-    >>> from toqito.state_props import von_neumann_entropy
-    >>> import numpy as np
-    >>> rho = 1/2 * np.identity(2)
-    >>> von_neumann_entropy(rho)
-    np.float64(1.0)
+    .. jupyter-execute::
+
+        from toqito.state_props import von_neumann_entropy
+        import numpy as np
+        rho = 1/2 * np.identity(2)
+        von_neumann_entropy(rho)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param rho: Density operator.

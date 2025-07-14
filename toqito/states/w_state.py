@@ -1,7 +1,7 @@
 """Generalized w-state is an entangled quantum state of `n` qubits.
 
-This state refers to the quantum superposition in which one of the qubits is in an excited state and others are in the
-ground state.
+This state refers to the quantum superposition in which one of the qubits is in an excited state and others are in
+the ground state.
 """
 
 import numpy as np
@@ -9,9 +9,9 @@ from scipy.sparse import csr_array
 
 
 def w_state(num_qubits: int, coeff: list[int] = None) -> np.ndarray:
-    r"""Produce a W-state :cite:`Dur_2000_ThreeQubits`.
+    r"""Produce a W-state :footcite:`Dur_2000_ThreeQubits`.
 
-    Returns the W-state described in :cite:`Dur_2000_ThreeQubits`. The W-state on `num_qubits` qubits is defined by:
+    Returns the W-state described in :footcite:`Dur_2000_ThreeQubits`. The W-state on `num_qubits` qubits is defined by:
 
     .. math::
         |W \rangle = \frac{1}{\sqrt{num\_qubits}}
@@ -29,16 +29,10 @@ def w_state(num_qubits: int, coeff: list[int] = None) -> np.ndarray:
 
     as follows.
 
-    >>> from toqito.states import w_state
-    >>> w_state(3)
-    array([[0.    ],
-           [0.5774],
-           [0.5774],
-           [0.    ],
-           [0.5774],
-           [0.    ],
-           [0.    ],
-           [0.    ]])
+    .. jupyter-execute::
+
+        from toqito.states import w_state
+        w_state(3)
 
     We may also generate a generalized :math:`W`-state. For instance, here is a :math:`4`-dimensional :math:`W`-state
 
@@ -48,31 +42,17 @@ def w_state(num_qubits: int, coeff: list[int] = None) -> np.ndarray:
 
     We can generate this state in :code:`|toqito⟩` as
 
-    >>> from toqito.states import w_state
-    >>> import numpy as np
-    >>> coeffs = np.array([1, 2, 3, 4]) / np.sqrt(30)
-    >>> w_state(4, coeffs)
-    array([[0.    ],
-           [0.7303],
-           [0.5477],
-           [0.    ],
-           [0.3651],
-           [0.    ],
-           [0.    ],
-           [0.    ],
-           [0.1826],
-           [0.    ],
-           [0.    ],
-           [0.    ],
-           [0.    ],
-           [0.    ],
-           [0.    ],
-           [0.    ]])
+    .. jupyter-execute::
+
+        from toqito.states import w_state
+        import numpy as np
+        coeffs = np.array([1, 2, 3, 4]) / np.sqrt(30)
+        w_state(4, coeffs)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :raises ValueError: The number of qubits must be greater than or equal to 1.

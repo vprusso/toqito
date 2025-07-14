@@ -7,7 +7,7 @@ from toqito.state_ops import schmidt_decomposition
 
 
 def is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray = None) -> bool | np.ndarray:
-    r"""Determine if a given vector is a product state :cite:`WikiSepSt`.
+    r"""Determine if a given vector is a product state :footcite:`WikiSepSt`.
 
     If the input is deemed to be product, then the product decomposition is also
     returned.
@@ -32,20 +32,22 @@ def is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray = None) -> boo
     We can provide the input as either the vector :math:`u` or the denisty matrix :math:`\rho`.
     In either case, this represents an entangled state (and hence a non-product state).
 
-    >>> from toqito.state_props import is_product
-    >>> from toqito.states import bell
-    >>> rho = bell(0) @ bell(0).conj().T
-    >>> u_vec = bell(0)
-    >>> is_product(rho)
-    (array([False]), None)
-    >>>
-    >>> is_product(u_vec)
-    (array([False]), None)
+    .. jupyter-execute::
+
+        from toqito.state_props import is_product
+        from toqito.states import bell
+        rho = bell(0) @ bell(0).conj().T
+        u_vec = bell(0)
+        is_product(rho)
+
+    .. jupyter-execute::
+
+        is_product(u_vec)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param rho: The vector or matrix to check.

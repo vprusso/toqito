@@ -4,7 +4,7 @@ import numpy as np
 
 
 def hadamard(n_param: int = 1) -> np.ndarray:
-    r"""Produce a :code:`2^{n_param}` dimensional Hadamard matrix :cite:`WikiHadamard`.
+    r"""Produce a :code:`2^{n_param}` dimensional Hadamard matrix :footcite:`WikiHadamard`.
 
     The standard Hadamard matrix that is often used in quantum information as a
     two-qubit quantum gate is defined as
@@ -27,15 +27,16 @@ def hadamard(n_param: int = 1) -> np.ndarray:
 
     The standard 2-qubit Hadamard matrix can be generated in :code:`|toqito⟩` as
 
-    >>> from toqito.matrices import hadamard
-    >>> hadamard(1)
-    array([[ 0.70710678,  0.70710678],
-           [ 0.70710678, -0.70710678]])
+    .. jupyter-execute::
+
+     from toqito.matrices import hadamard
+
+     hadamard(1)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
 

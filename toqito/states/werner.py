@@ -11,7 +11,7 @@ from toqito.perms import permutation_operator, swap_operator
 
 
 def werner(dim: int, alpha: float | list[float]) -> np.ndarray:
-    r"""Produce a Werner state :cite:`Werner_1989_QuantumStates`.
+    r"""Produce a Werner state :footcite:`Werner_1989_QuantumStates`.
 
     A Werner state is a state of the following form
 
@@ -38,54 +38,24 @@ def werner(dim: int, alpha: float | list[float]) -> np.ndarray:
 
     Computing the qutrit Werner state with :math:`\alpha = 1/2` can be done in :code:`|toqito⟩` as
 
-    >>> from toqito.states import werner
-    >>> werner(3, 1 / 2)
-    array([[ 0.06666667,  0.        ,  0.        ,  0.        ,  0.        ,
-             0.        ,  0.        ,  0.        ,  0.        ],
-           [ 0.        ,  0.13333333,  0.        , -0.06666667,  0.        ,
-             0.        ,  0.        ,  0.        ,  0.        ],
-           [ 0.        ,  0.        ,  0.13333333,  0.        ,  0.        ,
-             0.        , -0.06666667,  0.        ,  0.        ],
-           [ 0.        , -0.06666667,  0.        ,  0.13333333,  0.        ,
-             0.        ,  0.        ,  0.        ,  0.        ],
-           [ 0.        ,  0.        ,  0.        ,  0.        ,  0.06666667,
-             0.        ,  0.        ,  0.        ,  0.        ],
-           [ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
-             0.13333333,  0.        , -0.06666667,  0.        ],
-           [ 0.        ,  0.        , -0.06666667,  0.        ,  0.        ,
-             0.        ,  0.13333333,  0.        ,  0.        ],
-           [ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
-            -0.06666667,  0.        ,  0.13333333,  0.        ],
-           [ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
-             0.        ,  0.        ,  0.        ,  0.06666667]])
+    .. jupyter-execute::
+
+      from toqito.states import werner
+      werner(3, 1 / 2)
 
 
     We may also compute multipartite Werner states in :code:`|toqito⟩` as well.
 
-    >>> from toqito.states import werner
-    >>> werner(2, [0.01, 0.02, 0.03, 0.04, 0.05])
-    array([[ 0.11286089,  0.        ,  0.        ,  0.        ,  0.        ,
-             0.        ,  0.        ,  0.        ],
-           [ 0.        ,  0.12729659, -0.00787402,  0.        , -0.00656168,
-             0.        ,  0.        ,  0.        ],
-           [ 0.        , -0.00918635,  0.1312336 ,  0.        , -0.00918635,
-             0.        ,  0.        ,  0.        ],
-           [ 0.        ,  0.        ,  0.        ,  0.12860892,  0.        ,
-            -0.01049869, -0.00524934,  0.        ],
-           [ 0.        , -0.00524934, -0.01049869,  0.        ,  0.12860892,
-             0.        ,  0.        ,  0.        ],
-           [ 0.        ,  0.        ,  0.        , -0.00918635,  0.        ,
-             0.1312336 , -0.00918635,  0.        ],
-           [ 0.        ,  0.        ,  0.        , -0.00656168,  0.        ,
-            -0.00787402,  0.12729659,  0.        ],
-           [ 0.        ,  0.        ,  0.        ,  0.        ,  0.        ,
-             0.        ,  0.        ,  0.11286089]])
+    .. jupyter-execute::
+
+      from toqito.states import werner
+      werner(2, [0.01, 0.02, 0.03, 0.04, 0.05])
 
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :raises ValueError: Alpha vector does not have the correct length.
     :param dim: The dimension of the Werner state.

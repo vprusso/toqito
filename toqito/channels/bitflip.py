@@ -35,27 +35,28 @@ def bitflip(
 
     We can generate the Kraus operators for the bitflip channel with probability 0.3:
 
-    >>> from toqito.channels import bitflip
-    >>> bitflip(prob=0.3) # doctest: +NORMALIZE_WHITESPACE
-    [array([[0.83666003, 0.        ],
-            [0.        , 0.83666003]]),
-     array([[0.        , 0.54772256],
-            [0.54772256, 0.        ]])]
+    .. jupyter-execute::
+
+     from toqito.channels import bitflip
+
+     bitflip(prob=0.3)
+
 
     We can also apply the bitflip channel to a quantum state. For the state :math:`|0\rangle`,
     the bitflip channel with probability 0.3 produces:
 
-    >>> from toqito.channels import bitflip
-    >>> import numpy as np
-    >>> rho = np.array([[1, 0], [0, 0]])  # |0><0|
-    >>> bitflip(rho, prob=0.3) # doctest: +NORMALIZE_WHITESPACE
-    array([[0.7+0.j, 0. +0.j],
-        [0. +0.j, 0.3+0.j]])
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.channels import bitflip
+
+     rho = np.array([[1, 0], [0, 0]])  # |0><0|
+     bitflip(rho, prob=0.3)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :param input_mat: A matrix or state to apply the channel to. If `None`, returns the Kraus operators.
     :param prob: The probability of a bitflip occurring.

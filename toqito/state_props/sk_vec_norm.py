@@ -6,7 +6,7 @@ from toqito.state_ops import schmidt_decomposition
 
 
 def sk_vector_norm(rho: np.ndarray, k: int = 1, dim: int | list[int] = None) -> float:
-    r"""Compute the S(k)-norm of a vector :cite:`Johnston_2010_AFamily`.
+    r"""Compute the S(k)-norm of a vector :footcite:`Johnston_2010_AFamily`.
 
     The :math:`S(k)`-norm of of a vector :math:`|v \rangle` is
     defined as:
@@ -28,19 +28,19 @@ def sk_vector_norm(rho: np.ndarray, k: int = 1, dim: int | list[int] = None) -> 
     :math:`\sqrt{\frac{k}{n}}`, and is attained exactly by the "maximally entangled
     states".
 
-    >>> from toqito.states import max_entangled
-    >>> from toqito.state_props import sk_vector_norm
-    >>> import numpy as np
-    >>>
-    >>> # Maximally entagled state.
-    >>> v = max_entangled(4)
-    >>> sk_vector_norm(v)
-    np.float64(0.5)
+    .. jupyter-execute::
+
+        from toqito.states import max_entangled
+        from toqito.state_props import sk_vector_norm
+        import numpy as np
+        # Maximally entagled state.
+        v = max_entangled(4)
+        sk_vector_norm(v)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param rho: A vector.

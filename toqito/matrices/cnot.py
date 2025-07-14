@@ -4,7 +4,7 @@ import numpy as np
 
 
 def cnot() -> np.ndarray:
-    r"""Produce the CNOT matrix :cite:`WikiCNOT`.
+    r"""Produce the CNOT matrix :footcite:`WikiCNOT`.
 
     The CNOT matrix is defined as
 
@@ -19,19 +19,17 @@ def cnot() -> np.ndarray:
 
     Examples
     ==========
+    .. jupyter-execute::
 
-    >>> from toqito.matrices import cnot
-    >>> cnot()
-    array([[1, 0, 0, 0],
-           [0, 1, 0, 0],
-           [0, 0, 0, 1],
-           [0, 0, 1, 0]])
+     from toqito.matrices import cnot
+
+     cnot()
 
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :return: The CNOT matrix.

@@ -8,7 +8,7 @@ from scipy.sparse import dia_array, eye_array
 
 
 def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, dia_array]:
-    r"""Produce the maximally mixed state :cite:`Aaronson_2018_MaxMixed`.
+    r"""Produce the maximally mixed state :footcite:`Aaronson_2018_MaxMixed`.
 
     Produces the maximally mixed state on of :code:`dim` dimensions. The maximally mixed state is defined as
 
@@ -45,24 +45,25 @@ def max_mixed(dim: int, is_sparse: bool = False) -> [np.ndarray, dia_array]:
 
     as follows.
 
-    >>> from toqito.states import max_mixed
-    >>> max_mixed(2, is_sparse=False)
-    array([[0.5, 0. ],
-           [0. , 0.5]])
+    .. jupyter-execute::
+
+        from toqito.states import max_mixed
+        max_mixed(2, is_sparse=False)
+
 
 
     One may also generate a maximally mixed state returned as a sparse matrix
 
-    >>> from toqito.states import max_mixed
-    >>> max_mixed(2, is_sparse=True) # doctest: +ELLIPSIS, +NORMALIZE_WHITESPACE
-    <DIAgonal sparse array of dtype 'float64'
-        with 2 stored elements (1 diagonals) and shape (2, 2)>
+    .. jupyter-execute::
+
+        from toqito.states import max_mixed
+        max_mixed(2, is_sparse=True)
 
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param dim: Dimension of the entangled state.

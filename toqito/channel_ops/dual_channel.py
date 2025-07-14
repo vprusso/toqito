@@ -11,7 +11,7 @@ def dual_channel(
 ) -> np.ndarray | list[list[np.ndarray]]:
     r"""Compute the dual of a map (quantum channel).
 
-    (Section: Representations and Characterizations of Channels of :cite:`Watrous_2018_TQI`).
+    (Section: Representations and Characterizations of Channels of :footcite:`Watrous_2018_TQI`).
 
     The map can be represented as a Choi matrix, with optional specification of input
     and output dimensions. If the input channel maps :math:`M_{r,c}` to :math:`M_{x,y}`
@@ -39,38 +39,34 @@ def dual_channel(
     When a channel is represented by a 1-D list of of Kraus operators, the CPTP dual channel can be determined
     as shown below.
 
-    >>> import numpy as np
-    >>> from toqito.channel_ops import dual_channel
-    >>> kraus_1 = np.array([[1, 0, 1j, 0]])
-    >>> kraus_2 = np.array([[0, 1, 0, 1j]])
-    >>> kraus_list = [kraus_1, kraus_2]
-    >>> dual_channel(kraus_list)
-    [array([[1.-0.j],
-           [0.-0.j],
-           [0.-1.j],
-           [0.-0.j]]), array([[0.-0.j],
-           [1.-0.j],
-           [0.-0.j],
-           [0.-1.j]])]
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.channel_ops import dual_channel
+     kraus_1 = np.array([[1, 0, 1j, 0]])
+     kraus_2 = np.array([[0, 1, 0, 1j]])
+     kraus_list = [kraus_1, kraus_2]
+     dual_kraus = dual_channel(kraus_list)
+     for i, op in enumerate(dual_kraus, start=1):
+        print(f"\nDual Kraus operator {i}:")
+        print(op)
+
 
     If the input channel's dimensions are different from the output dual channel's dimensions,
 
-    >>> import numpy as np
-    >>> from toqito.channel_ops import dual_channel
-    >>> from toqito.perms import swap_operator
-    >>> input_op = swap_operator([2, 3])
-    >>> dual_channel(input_op, [[3, 2], [2, 3]])
-    array([[1., 0., 0., 0., 0., 0.],
-           [0., 0., 1., 0., 0., 0.],
-           [0., 0., 0., 0., 1., 0.],
-           [0., 1., 0., 0., 0., 0.],
-           [0., 0., 0., 1., 0., 0.],
-           [0., 0., 0., 0., 0., 1.]])
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.channel_ops import dual_channel
+     from toqito.perms import swap_operator
+     input_op = swap_operator([2, 3])
+     output = dual_channel(input_op, [[3, 2], [2, 3]])
+     print(output)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :raises ValueError: If matrices are not Choi matrix.

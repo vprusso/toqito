@@ -8,7 +8,7 @@ from toqito.matrix_props import is_density
 
 
 def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
-    r"""Compute the Matsumoto fidelity of two density matrices :cite:`Matsumoto_2010_Reverse`.
+    r"""Compute the Matsumoto fidelity of two density matrices :footcite:`Matsumoto_2010_Reverse`.
 
     Calculate the Matsumoto fidelity between the two density matrices :code:`rho` and :code:`sigma`, defined by:
 
@@ -50,22 +50,25 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     In the event where we calculate the Matsumoto fidelity between states that are identical, we should obtain the value
     of :math:`1`. This can be observed in :code:`|toqito⟩` as follows.
 
-    >>> from toqito.state_metrics import matsumoto_fidelity
-    >>> import numpy as np
-    >>> rho = 1 / 2 * np.array(
-    ...     [[1, 0, 0, 1],
-    ...      [0, 0, 0, 0],
-    ...      [0, 0, 0, 0],
-    ...      [1, 0, 0, 1]]
-    ... )
-    >>> sigma = rho
-    >>> np.around(matsumoto_fidelity(rho, sigma), decimals=2)
-    np.float64(1.0)
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.state_metrics import matsumoto_fidelity
+
+     rho = 1 / 2 * np.array(
+         [[1, 0, 0, 1],
+          [0, 0, 0, 0],
+          [0, 0, 0, 0],
+          [1, 0, 0, 1]]
+     )
+     sigma = rho
+
+     np.around(matsumoto_fidelity(rho, sigma), decimals=2)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :raises ValueError: If matrices are not of equal dimension.

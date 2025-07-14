@@ -16,12 +16,12 @@ def ppt_distinguishability(
     solver: str = "cvxopt",
     primal_dual: str = "dual",
 ) -> float:
-    r"""Compute probability of optimally distinguishing a state via PPT measurements :cite:`Cosentino_2013_PPT`.
+    r"""Compute probability of optimally distinguishing a state via PPT measurements :footcite:`Cosentino_2013_PPT`.
 
     Implements the semidefinite program (SDP) whose optimal value is equal to the maximum
     probability of perfectly distinguishing orthogonal maximally entangled states using any PPT
     measurement; a measurement whose operators are positive under partial transpose. This SDP was
-    explicitly provided in :cite:`Cosentino_2013_PPT`.
+    explicitly provided in :footcite:`Cosentino_2013_PPT`.
 
     One can specify the distinguishability method using the :code:`dist_method` argument.
 
@@ -48,7 +48,7 @@ def ppt_distinguishability(
             \end{aligned}
         \end{equation}
 
-    It was illustrated in :cite:`Yu_2012_Four` that for the following set of states
+    It was illustrated in :footcite:`Yu_2012_Four` that for the following set of states
 
     .. math::
         \begin{equation}
@@ -61,40 +61,43 @@ def ppt_distinguishability(
         \end{equation}
 
     that the optimal probability of distinguishing via a PPT measurement should yield
-    :math:`7/8 \approx 0.875` as was proved in :cite:`Yu_2012_Four`.
+    :math:`7/8 \approx 0.875` as was proved in :footcite:`Yu_2012_Four`.
 
-    >>> import numpy as np
-    >>> from toqito.states import bell
-    >>> from toqito.state_opt import ppt_distinguishability
-    >>> # Bell vectors:
-    >>> psi_0 = bell(0)
-    >>> psi_1 = bell(2)
-    >>> psi_2 = bell(3)
-    >>> psi_3 = bell(1)
-    >>>
-    >>> # YDY vectors from :cite:`Yu_2012_Four`.
-    >>> x_1 = np.kron(psi_0, psi_0)
-    >>> x_2 = np.kron(psi_1, psi_3)
-    >>> x_3 = np.kron(psi_2, psi_3)
-    >>> x_4 = np.kron(psi_3, psi_3)
-    >>>
-    >>> # YDY density matrices.
-    >>> rho_1 = x_1 @ x_1.conj().T
-    >>> rho_2 = x_2 @ x_2.conj().T
-    >>> rho_3 = x_3 @ x_3.conj().T
-    >>> rho_4 = x_4 @ x_4.conj().T
-    >>>
-    >>> states = [rho_1, rho_2, rho_3, rho_4]
-    >>> probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
-    >>>
-    >>> opt_val, _ = ppt_distinguishability(vectors=states, probs=probs, dimensions=[2, 2, 2, 2], subsystems=[0, 2])
-    >>> '%.3f' % opt_val
-    '0.875'
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.states import bell
+     from toqito.state_opt import ppt_distinguishability
+
+     # Bell vectors:
+     psi_0 = bell(0)
+     psi_1 = bell(2)
+     psi_2 = bell(3)
+     psi_3 = bell(1)
+
+     # YDY vectors from :footcite:`Yu_2012_Four`.
+     x_1 = np.kron(psi_0, psi_0)
+     x_2 = np.kron(psi_1, psi_3)
+     x_3 = np.kron(psi_2, psi_3)
+     x_4 = np.kron(psi_3, psi_3)
+
+     # YDY density matrices.
+     rho_1 = x_1 @ x_1.conj().T
+     rho_2 = x_2 @ x_2.conj().T
+     rho_3 = x_3 @ x_3.conj().T
+     rho_4 = x_4 @ x_4.conj().T
+
+     states = [rho_1, rho_2, rho_3, rho_4]
+     probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
+
+     opt_val, _ = ppt_distinguishability(vectors=states, probs=probs, dimensions=[2, 2, 2, 2], subsystems=[0, 2])
+
+     print(f"Optimal value: {opt_val:.3f}")
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param vectors: A list of states provided as either matrices or vectors.

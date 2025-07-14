@@ -6,7 +6,7 @@ from toqito.states import basis
 
 
 def domino(idx: int) -> np.ndarray:
-    r"""Produce a domino state :cite:`Bennett_1999_QuantumNonlocality, Bennett_1999_UPB`.
+    r"""Produce a domino state :footcite:`Bennett_1999_QuantumNonlocality, Bennett_1999_UPB`.
 
     The orthonormal product basis of domino states is given as
 
@@ -39,17 +39,11 @@ def domino(idx: int) -> np.ndarray:
 
     Using :code:`|toqito⟩`, we can see that this yields the proper state.
 
-    >>> from toqito.states import domino
-    >>> domino(0)
-    array([[0],
-           [0],
-           [0],
-           [0],
-           [1],
-           [0],
-           [0],
-           [0],
-           [0]])
+    .. jupyter-execute::
+
+        from toqito.states import domino
+        domino(0)
+
 
     When :code:`idx = 3`, this produces the following Domino state
 
@@ -59,22 +53,16 @@ def domino(idx: int) -> np.ndarray:
 
     Using :code:`|toqito⟩`, we can see that this yields the proper state.
 
-    >>> from toqito.states import domino
-    >>> domino(3)
-    array([[0.        ],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.70710678],
-           [0.70710678]])
+    .. jupyter-execute::
+
+        from toqito.states import domino
+        domino(3)
+
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :raises ValueError: Invalid value for :code:`idx`.

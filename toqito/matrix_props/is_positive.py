@@ -7,7 +7,7 @@ def is_positive(input_mat: np.ndarray) -> bool:
     r"""Check if the matrix is positive.
 
     When all the entries in the matrix are larger than zero the matrix of interest is a
-    positive matrix :cite:`WikiNonNegative`.
+    positive matrix :footcite:`WikiNonNegative`.
 
     .. note::
         This function is different from :any:`matrix_props.is_positive_definite`,
@@ -18,20 +18,23 @@ def is_positive(input_mat: np.ndarray) -> bool:
     ==========
     We expect a matrix full of 1s to be positive.
 
-    >>> import numpy as np
-    >>> from toqito.matrix_props import is_positive
-    >>> input_mat = np.array([[1, 1, 1],[1, 1, 1],[1, 1, 1]])
-    >>> is_positive(input_mat)
-    np.True_
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_positive
+
+     input_mat = np.array([[1, 1, 1],[1, 1, 1],[1, 1, 1]])
+
+     is_positive(input_mat)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     input_mat: np.ndarray
         Matrix of interest.
 
     """
-    return np.all(input_mat > 0)
+    return bool(np.all(input_mat > 0))

@@ -6,7 +6,7 @@ import numpy as np
 def vec(mat: np.ndarray) -> np.ndarray:
     r"""Perform the vec operation on a matrix.
 
-    For more info, see Section: The Operator-Vector Correspondence from :cite:`Watrous_2018_TQI`.
+    For more info, see Section: The Operator-Vector Correspondence from :footcite:`Watrous_2018_TQI`.
 
     The function reorders the given matrix into a column vector by stacking the columns of the matrix sequentially.
 
@@ -63,14 +63,14 @@ def vec(mat: np.ndarray) -> np.ndarray:
     .. math::
         \text{vec}(A) = \left[1, 3, 2, 4 \right]^{T}.
 
-    >>> from toqito.matrix_ops import vec
-    >>> import numpy as np
-    >>> X = np.array([[1, 2], [3, 4]])
-    >>> vec(X)
-    array([[1],
-           [3],
-           [2],
-           [4]])
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.perms import vec
+
+     X = np.array([[1, 2], [3, 4]])
+
+     vec(X)
 
     See Also
     ========
@@ -78,8 +78,8 @@ def vec(mat: np.ndarray) -> np.ndarray:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param mat: The input matrix.

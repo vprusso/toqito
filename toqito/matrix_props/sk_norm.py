@@ -6,9 +6,9 @@ import cvxpy
 import numpy as np
 import scipy
 
-from toqito.channels.partial_trace import partial_trace
-from toqito.channels.partial_transpose import partial_transpose
 from toqito.channels.realignment import realignment
+from toqito.matrix_ops.partial_trace import partial_trace
+from toqito.matrix_ops.partial_transpose import partial_transpose
 from toqito.matrix_props.is_hermitian import is_hermitian
 from toqito.matrix_props.kp_norm import kp_norm
 from toqito.perms.swap import swap
@@ -26,7 +26,7 @@ def sk_operator_norm(
     target: float = None,
     effort: int = 2,
 ) -> float:
-    r"""Compute the S(k)-norm of a matrix :cite:`Johnston_2010_AFamily`.
+    r"""Compute the S(k)-norm of a matrix :footcite:`Johnston_2010_AFamily`.
 
     The :math:`S(k)`-norm of of a matrix :math:`X` is defined as:
 
@@ -38,7 +38,7 @@ def sk_operator_norm(
             \text{Schmidt - rank}(|w\rangle) \leq k
         \Big\}
 
-    Since computing the exact value of S(k)-norm :cite:`Johnston_2012_Norms` is in the general case an intractable
+    Since computing the exact value of S(k)-norm :footcite:`Johnston_2012_Norms` is in the general case an intractable
     problem, this function tries to find some good lower and upper bounds. You can control the amount of computation you
     want to devote to computing the bounds by `effort` input argument. Note that if the input matrix is not positive
     semidefinite the output bounds might be quite poor.
@@ -53,18 +53,19 @@ def sk_operator_norm(
     .. math::
         \big|\big| \rho_a \big|\big|_{S(1)} = \frac{1 + |min\{a, 0\}|}{n (n - a)}
 
-    >>> from toqito.states.werner import werner
-    >>> from toqito.matrix_props.sk_norm import sk_operator_norm
-    >>> # Werner state.
-    >>> n = 4; a = 0
-    >>> rho = werner(4, 0.)
-    >>> sk_operator_norm(rho)
-    (np.float64(0.0625), np.float64(0.0625))
+    .. jupyter-execute::
+
+     from toqito.states.werner import werner
+     from toqito.matrix_props.sk_norm import sk_operator_norm
+
+     rho = werner(4, 0.)
+
+     sk_operator_norm(rho)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :raises ValueError: If dimension of the input matrix is not specified.

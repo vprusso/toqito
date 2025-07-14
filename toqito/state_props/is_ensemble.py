@@ -8,7 +8,7 @@ from toqito.matrix_props import is_positive_semidefinite
 def is_ensemble(states: list[np.ndarray]) -> bool:
     r"""Determine if a set of states constitute an ensemble.
 
-    For more info, see Section: Ensemble Of Quantum States from cite:`Watrous_2018_TQI`.
+    For more info, see Section: Ensemble Of Quantum States from footcite:`Watrous_2018_TQI`.
 
     An ensemble of quantum states is defined by a function
 
@@ -36,18 +36,19 @@ def is_ensemble(states: list[np.ndarray]) -> bool:
 
     The set :math:`\eta` constitutes a valid ensemble.
 
-    >>> from toqito.state_props import is_ensemble
-    >>> import numpy as np
-    >>> rho_0 = np.array([[0.5, 0], [0, 0]])
-    >>> rho_1 = np.array([[0, 0], [0, 0.5]])
-    >>> states = [rho_0, rho_1]
-    >>> is_ensemble(states)
-    True
+    .. jupyter-execute::
+
+        from toqito.state_props import is_ensemble
+        import numpy as np
+        rho_0 = np.array([[0.5, 0], [0, 0]])
+        rho_1 = np.array([[0, 0], [0, 0.5]])
+        states = [rho_0, rho_1]
+        is_ensemble(states)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param states: The list of states to check.

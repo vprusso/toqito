@@ -6,7 +6,7 @@ import numpy as np
 def complementary_channel(kraus_ops: list[np.ndarray]) -> list[np.ndarray]:
     r"""Compute the Kraus operators for the complementary map of a quantum channel.
 
-    (Section: Representations and Characterizations of Channels from :cite:`Watrous_2018_TQI`).
+    (Section: Representations and Characterizations of Channels from :footcite:`Watrous_2018_TQI`).
 
     The complementary map is derived from the given quantum channel's Kraus operators by
     rearranging the rows of the input Kraus operators into the Kraus operators of the
@@ -41,33 +41,26 @@ def complementary_channel(kraus_ops: list[np.ndarray]) -> list[np.ndarray]:
     To compute the Kraus operators for the complementary map, we rearrange the rows of these
     Kraus operators as follows:
 
-    >>> import numpy as np
-    >>> from toqito.channel_ops import complementary_channel
-    >>> kraus_ops_Phi = [
-    ...     np.sqrt(0.5) * np.array([[1, 0], [0, 0]]),
-    ...     np.sqrt(0.5) * np.array([[0, 1], [0, 0]]),
-    ...     np.sqrt(0.5) * np.array([[0, 0], [1, 0]]),
-    ...     np.sqrt(0.5) * np.array([[0, 0], [0, 1]])
-    ... ]
-    >>> comp_kraus_ops = complementary_channel(kraus_ops_Phi)
-    >>> for i, op in enumerate(comp_kraus_ops):
-    ...     print(f"Kraus operator {i + 1}:")
-    ...     print(op)
-    Kraus operator 1:
-    [[0.70710678 0.        ]
-     [0.         0.70710678]
-     [0.         0.        ]
-     [0.         0.        ]]
-    Kraus operator 2:
-    [[0.         0.        ]
-     [0.         0.        ]
-     [0.70710678 0.        ]
-     [0.         0.70710678]]
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.channel_ops import complementary_channel
+     kraus_ops_Phi = [
+         np.sqrt(0.5) * np.array([[1, 0], [0, 0]]),
+         np.sqrt(0.5) * np.array([[0, 1], [0, 0]]),
+         np.sqrt(0.5) * np.array([[0, 0], [1, 0]]),
+         np.sqrt(0.5) * np.array([[0, 0], [0, 1]])
+     ]
+     comp_kraus_ops = complementary_channel(kraus_ops_Phi)
+     for i, op in enumerate(comp_kraus_ops):
+         print(f"Kraus operator {i + 1}:")
+         print(op)
+
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :raises ValueError: If the input is not a valid list of Kraus operators.
     :param kraus_ops: A list of numpy arrays representing the Kraus operators of a quantum channel.

@@ -7,7 +7,7 @@ import numpy as np
 
 
 def basis(dim: int, pos: int) -> np.ndarray:
-    r"""Obtain the ket of dimension :code:`dim` :cite:`WikiBraKet`.
+    r"""Obtain the ket of dimension :code:`dim` :footcite:`WikiBraKet`.
 
     Examples
     ==========
@@ -22,22 +22,22 @@ def basis(dim: int, pos: int) -> np.ndarray:
 
     Example:  Ket basis vector: :math:`|0\rangle`.
 
-    >>> from toqito.states import basis
-    >>> basis(2, 0)
-    array([[1],
-           [0]])
+    .. jupyter-execute::
+
+        from toqito.states import basis
+        basis(2, 0)
 
     Example: Ket basis vector: :math:`|1\rangle`.
 
-    >>> from toqito.states import basis
-    >>> basis(2, 1)
-    array([[0],
-           [1]])
+    .. jupyter-execute::
+
+        from toqito.states import basis
+        basis(2, 1)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :raises ValueError: If the input position is not in the range [0, dim - 1].

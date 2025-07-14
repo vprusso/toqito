@@ -9,7 +9,7 @@ from toqito.matrix_props import is_block_positive
 from toqito.perms import swap, swap_operator
 from toqito.states import bell
 
-# matrix for lemma 3 of :cite:`Bandyopadhyay_2015_Limitations`
+# matrix for lemma 3 of :footcite:`Bandyopadhyay_2015_Limitations`
 b_0 = bell(0)
 b_3 = bell(3)
 v_0 = np.kron(b_0, b_0)
@@ -37,7 +37,7 @@ def test_is_block_positive_not_block_positive():
         (swap_operator(4), True, False),
         # Test Choi map is 1-block positive but not 2-block positive.
         (choi(), True, False),
-        # Test that the positive linear map introduced in :cite:`Bandyopadhyay_2015_Limitations` is block positive
+        # Test that the positive linear map introduced in :footcite:`Bandyopadhyay_2015_Limitations` is block positive
         (mat, True, None),
         # non-hermitian input is not is_block_positive
         (np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]]), False, None),

@@ -14,7 +14,7 @@ def is_block_positive(
     effort: int = 2,
     rtol: float = 1e-5,
 ) -> bool:
-    r"""Check if matrix is block positive :cite:`Johnston_2012_Norms`.
+    r"""Check if matrix is block positive :footcite:`Johnston_2012_Norms`.
 
     Examples
     ==========
@@ -22,26 +22,32 @@ def is_block_positive(
     The swap operator is always block positive, since it is the Choi
     matrix of the transpose map.
 
-    >>> from toqito.matrix_props.is_block_positive import is_block_positive
-    >>> from toqito.perms.swap_operator import swap_operator
-    >>>
-    >>> mat = swap_operator(3)
-    >>> is_block_positive(mat)
-    True
+    .. jupyter-execute::
+
+     from toqito.perms.swap_operator import swap_operator
+     from toqito.matrix_props.is_block_positive import is_block_positive
+
+     mat = swap_operator(3)
+
+     is_block_positive(mat=mat)
+
 
     However, it's not 2 - block positive.
 
-    >>> from toqito.matrix_props.is_block_positive import is_block_positive
-    >>> from toqito.perms.swap_operator import swap_operator
-    >>>
-    >>> mat = swap_operator(3)
-    >>> is_block_positive(mat, k=2)
-    False
+    .. jupyter-execute::
+
+     from toqito.perms.swap_operator import swap_operator
+     from toqito.matrix_props.is_block_positive import is_block_positive
+
+     mat = swap_operator(3)
+
+     is_block_positive(mat=mat, k=2)
+
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :raises RuntimeError: Unable to determine k-block positivity. Please consider increasing the relative tolerance or
@@ -82,7 +88,7 @@ def is_block_positive(
     # We compute the S(k)-norm of this operator since
     # X k-block positive iff:
     #   c >= S(k)-norm of(c*I - X)
-    # See Corollary 4.2.9. of `:cite:`Johnston_2012_Norms`.
+    # See Corollary 4.2.9. of `:footcite:`Johnston_2012_Norms`.
     c_mat = op_norm * np.eye(dim_xy) - mat
     lower_bound, upper_bound = sk_operator_norm(c_mat, k, dim, op_norm, effort)
 

@@ -9,17 +9,21 @@ def spark(mat: np.ndarray) -> int:
     """Compute the spark of a matrix.
 
     The spark of a matrix A is the smallest number of columns from A that are linearly
-    dependent :cite:`Elad_2010_Sparse`.
+    dependent :footcite:`Elad_2010_Sparse`.
 
     Examples
     =========
-    >>> import numpy as np
-    >>> from toqito.matrix_props import spark
-    >>> A = np.array([[1, 0, 1, 2],
-    ...               [0, 1, 1, 3],
-    ...               [1, 1, 2, 5]])
-    >>> spark(A)
-    3
+
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import spark
+
+     A = np.array([[1, 0, 1, 2],
+                   [0, 1, 1, 3],
+                   [1, 1, 2, 5]])
+
+     spark(A)
 
     Notes
     =====
@@ -34,8 +38,8 @@ def spark(mat: np.ndarray) -> int:
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :param mat: The input matrix as a 2D NumPy array.
     :return: The spark of the input matrix :code:`mat`.

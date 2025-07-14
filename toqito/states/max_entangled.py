@@ -8,7 +8,7 @@ from scipy.sparse import dia_array, eye_array
 
 
 def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True) -> [np.ndarray, dia_array]:
-    r"""Produce a maximally entangled bipartite pure state :cite:`WikiMaxEnt`.
+    r"""Produce a maximally entangled bipartite pure state :footcite:`WikiMaxEnt`.
 
     Produces a maximally entangled pure state as above that is sparse if :code:`is_sparse = True` and is full if
     :code:`is_sparse = False`. The pure state is normalized to have Euclidean norm 1 if :code:`is_normalized = True`,
@@ -25,12 +25,11 @@ def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True)
 
     using :code:`|toqito⟩` as follows.
 
-    >>> from toqito.states import max_entangled
-    >>> max_entangled(2)
-    array([[0.70710678],
-           [0.        ],
-           [0.        ],
-           [0.70710678]])
+    .. jupyter-execute::
+
+        from toqito.states import max_entangled
+        max_entangled(2)
+
 
     By default, the state returned in normalized, however we can generate the unnormalized state
 
@@ -39,17 +38,16 @@ def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True)
 
     using :code:`|toqito⟩` as follows.
 
-    >>> from toqito.states import max_entangled
-    >>> max_entangled(2, False, False)
-    array([[1.],
-           [0.],
-           [0.],
-           [1.]])
+    .. jupyter-execute::
+
+        from toqito.states import max_entangled
+        max_entangled(2, False, False)
+
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
 
     :param dim: Dimension of the entangled state.

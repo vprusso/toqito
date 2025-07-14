@@ -9,9 +9,10 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
     r"""Verify matrix is doubly, right or left stochastic.
 
     When the nonnegative elements in a row of a square matrix sum up to 1, the matrix is right stochastic and if the
-    columns sum up to 1, the matrix is left stochastic :cite:`WikiStochasticMatrix`.
+    columns sum up to 1, the matrix is left stochastic :footcite:`WikiStochasticMatrix`.
 
-    When a matrix is right and left stochastic, it is a doubly stochastic matrix. :cite:`WikiDoublyStochasticMatrix`.
+    When a matrix is right and left stochastic, it is a doubly stochastic matrix :footcite:`WikiDoublyStochasticMatrix`
+    .
 
     See Also
     ========
@@ -23,37 +24,37 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
     We expect these matrices to be left and right stochastic. The same cannot be said about a Pauli-Z or a Pauli-Y
     matrix.
 
-    >>> import numpy as np
-    >>> from toqito.matrix_props import is_stochastic
-    >>> is_stochastic(np.eye(5), "right")
-    True
-    >>> is_stochastic(np.eye(5), "left")
-    True
-    >>> is_stochastic(np.eye(5), "doubly")
-    True
+    .. jupyter-execute::
 
-    >>> from toqito.matrices import pauli
-    >>> from toqito.matrix_props import is_stochastic
-    >>> is_stochastic(pauli("X"), "left")
-    True
-    >>> is_stochastic(pauli("X"), "right")
-    True
-    >>> is_stochastic(pauli("X"), "doubly")
-    True
+     import numpy as np
+     from toqito.matrix_props import is_stochastic
 
-    >>> from toqito.matrices import pauli
-    >>> from toqito.matrix_props import is_stochastic
-    >>> is_stochastic(pauli("Z"), "right")
-    False
-    >>> is_stochastic(pauli("Z"), "left")
-    False
-    >>> is_stochastic(pauli("Z"), "doubly")
-    False
+     print(is_stochastic(np.eye(5), "right"))
+     print(is_stochastic(np.eye(5), "left"))
+     print(is_stochastic(np.eye(5), "doubly"))
+
+    .. jupyter-execute::
+
+     from toqito.matrices import pauli
+     from toqito.matrix_props import is_stochastic
+
+     print(is_stochastic(pauli("X"), "left"))
+     print(is_stochastic(pauli("X"), "right"))
+     print(is_stochastic(pauli("X"), "doubly"))
+
+    .. jupyter-execute::
+
+     from toqito.matrices import pauli
+     from toqito.matrix_props import is_stochastic
+
+     print(is_stochastic(pauli("Z"), "right"))
+     print(is_stochastic(pauli("Z"), "left"))
+     print(is_stochastic(pauli("Z"), "doubly"))
 
     References
     ==========
-    .. bibliography::
-          :filter: docname in docnames
+    .. footbibliography::
+
 
     :param mat: Matrix of interest
     :param mat_type: Type of stochastic matrix.

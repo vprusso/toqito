@@ -35,8 +35,6 @@ User Documentation
     :maxdepth: 2
 
     getting_started
-    intro_tutorial
-    tutorials
     
 
 
@@ -47,6 +45,13 @@ User Documentation
     code_of_conduct
 
 
+Examples Gallery
+-----------------
+
+.. toctree::
+
+   auto_examples/index
+
 API Reference
 -------------
 
@@ -55,6 +60,8 @@ API Reference
    :titlesonly:
 
    autoapi_members
+
+
 
 References
 ------------

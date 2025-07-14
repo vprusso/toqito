@@ -12,22 +12,22 @@ def perfect_matchings(num: list[int] | int | np.ndarray) -> np.ndarray:
     Returns all perfect matchings of a given list of objects. That is, it returns all ways of grouping an even number of
     objects into pairs.
 
-    This function is adapted from QETLAB. :cite:`QETLAB_link`.
+    This function is adapted from QETLAB. :footcite:`QETLAB_link`.
 
     Examples
     ==========
     This is an example of how to generate all perfect matchings of the numbers 0, 1, 2, 3.
 
-    >>> from toqito.perms import perfect_matchings
-    >>> perfect_matchings(4)
-    array([[0, 1, 2, 3],
-           [0, 2, 1, 3],
-           [0, 3, 2, 1]])
+    .. jupyter-execute::
+
+     from toqito.perms import perfect_matchings
+
+     perfect_matchings(4)
 
     References
     ==========
-    .. bibliography::
-        :filter: docname in docnames
+    .. footbibliography::
+
 
     :param num: Either an even integer, indicating that you would like all perfect matchings of the
                 integers 0, 1, ... N-1, or a `list` or `np.array` containing an even number of distinct
