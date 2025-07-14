@@ -125,7 +125,6 @@ def _minimax_dual(
     psi: np.ndarray | list[np.ndarray] | list[list[np.ndarray]],
     dimA: int,
     dimB: int,
-    primal_dual: str = "dual",
     solver: str = "cvxopt",
     **kwargs,
 ) -> float:
