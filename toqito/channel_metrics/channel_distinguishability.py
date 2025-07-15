@@ -20,24 +20,22 @@ def channel_distinguishability(
 ) -> float:
     r"""Compute the optimal probability of distinguishing two quantum channels.
 
-    Overview
-    ========
 
     Bayesian and minimax discrimination of two quantum channels are implemented.
-    For Bayesian discrimination, channels with given a priori probability distribution
-    for the channels to be discriminated. The task of discriminating channels can be
-    connected to completely bounded trace norm.
-    (Section 3.3.3 of :footcite:`Watrous_2018_TQI`).
+    
+    For Bayesian discrimination, channels to be distinguished should have a given a priori probability distribution.
+    The task of discriminating channels can be
+    connected to the completely bounded trace norm (Section 3.3.3 of :footcite:`Watrous_2018_TQI`).
     The problem is finding POVMs for which error probability of discrimination of
     output states is minimized after input state is acted on by the two quantum channels.
-    In the language of statistical decision theory, minimizing quantum Bayes' risk.
+    In the language of statistical decision theory, the problem is equivalent to minimizing quantum Bayes' risk.
 
     In the minimax problem, there are no a priori probabilities.
-    Minimax discrimination of two channels consists in finding the
+    Minimax discrimination of two channels consists of finding the
     optimal input state so that the two possible output states are discriminated
     with minimum risk. (:footcite:`d2005minimax`).
 
-    QETLAB's functionality inspired the :footcite:`QETLAB_link` Bayesian option
+    QETLAB's functionality inspired the Bayesian option  :footcite:`QETLAB_link`
     and the minimax option is adapted from  QuTIpy :footcite:`QuTIpy_link`.
 
 
