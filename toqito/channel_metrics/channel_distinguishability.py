@@ -20,17 +20,11 @@ def channel_distinguishability(
 ) -> float:
     r"""Compute the optimal probability of distinguishing two quantum channels.
 
-<<<<<<< HEAD
     Bayesian and minimax discrimination of two quantum channels are implemented.
 
-=======
-
-    Bayesian and minimax discrimination of two quantum channels are implemented.
-    
->>>>>>> origin/channel_distinguishability
     For Bayesian discrimination, channels to be distinguished should have a given a priori probability distribution.
-    The task of discriminating channels can be
-    connected to the completely bounded trace norm (Section 3.3.3 of :footcite:`Watrous_2018_TQI`).
+    The task of discriminating channels can be connected to the completely bounded trace norm
+    (Section 3.3.3 of :footcite:`Watrous_2018_TQI`).
     The problem is finding POVMs for which error probability of discrimination of
     output states is minimized after input state is acted on by the two quantum channels.
     In the language of statistical decision theory, the problem is equivalent to minimizing quantum Bayes' risk.
@@ -133,6 +127,7 @@ def channel_distinguishability(
         if abs(sum(p) - 1) != 0:
             raise ValueError("Sum of prior probabilities must add up to 1.")
 
+        # optimal success probability is minimizing error probability (Bayes risk).
         return 1 / 2 * (1 + completely_bounded_trace_norm(p[0] * phi - p[1] * psi))
 
     if primal_dual == "primal":
