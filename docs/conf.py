@@ -12,6 +12,7 @@
 import os
 import sys
 import datetime
+import re
 
 # sys.path.insert(0, os.path.abspath("."))
 # sys.path.insert(0, os.path.abspath(".."))
@@ -200,3 +201,41 @@ def setup(app):
 
     with open(os.path.join(static_dir, "jupyter-sphinx-override.css"), "w") as f:
         f.write(css_content)
+
+
+FAST_MODE = os.environ.get("TOQITO_DOCS_FAST") == "1"
+ONLY_DOC_TARGET = os.environ.get("TOQITO_DOCS_ONLY", "")
+
+
+def maybe_strip_jupyter_blocks(app, what, name, obj, options, lines):
+    # If not fast mode or no jupyter blocks, skip
+    if not FAST_MODE:
+        return
+
+    # if only want to run one docstring example
+    should_run = name == ONLY_DOC_TARGET
+    in_block = False
+    new_lines = []
+
+    for line in lines:
+        # modify the code blocks to readable code blocks only during build time
+        if ".. jupyter-execute::" in line:
+            in_block = True
+            if should_run:
+                new_lines.append(line)
+            else:
+                new_lines.append(".. code-block:: python")
+            continue
+        elif in_block:
+            # Skip jupyter-execute options (like :raises-exception:)
+            if re.match(r"\s*:[a-zA-Z-]+:", line):
+                continue
+            if not line.strip() or len(line) - len(line.lstrip()) < 3:
+                in_block = False
+        new_lines.append(line)
+
+    lines[:] = new_lines
+
+
+def setup(app):
+    app.connect("autodoc-process-docstring", maybe_strip_jupyter_blocks)
