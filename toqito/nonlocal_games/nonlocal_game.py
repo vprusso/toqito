@@ -162,36 +162,6 @@ class NonlocalGame:
         b_array = np.array(b_list, dtype=int)
         return check_perfect_commuting_strategy(M_array, b_array)
 
-    def process_iteration(
-        i: int,
-        num_bob_outputs: int,
-        num_bob_inputs: int,
-        pred_mat_copy: np.ndarray,
-        num_alice_outputs: int,
-        num_alice_inputs: int,
-    ) -> float:
-        """Help the classical_value function as a helper method.
-
-        :return: A value between [0, 1] representing the tgval.
-
-        """
-        number = i
-        base = num_bob_outputs
-        digits = num_bob_inputs
-        b_ind = np.zeros(digits)
-
-        for j in range(digits - 1, -1, -1):
-            number, remainder = divmod(number, base)
-            b_ind[j] = remainder
-
-        pred_alice = np.zeros((num_alice_outputs, num_alice_inputs))
-
-        for y_bob_in in range(num_bob_inputs):
-            pred_alice += pred_mat_copy[:, :, int(b_ind[y_bob_in]), y_bob_in]
-
-        tgval = np.sum(np.amax(pred_alice, axis=0))
-        return tgval
-
     def classical_value(self) -> float:
         """Compute the classical value of the nonlocal game using Numba acceleration."""
         A_out, B_out, A_in, B_in = self.pred_mat.shape
