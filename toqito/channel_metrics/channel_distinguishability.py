@@ -20,8 +20,14 @@ def channel_distinguishability(
 ) -> float:
     r"""Compute the optimal probability of distinguishing two quantum channels.
 
+<<<<<<< HEAD
     Bayesian and minimax discrimination of two quantum channels are implemented.
 
+=======
+
+    Bayesian and minimax discrimination of two quantum channels are implemented.
+    
+>>>>>>> origin/channel_distinguishability
     For Bayesian discrimination, channels to be distinguished should have a given a priori probability distribution.
     The task of discriminating channels can be
     connected to the completely bounded trace norm (Section 3.3.3 of :footcite:`Watrous_2018_TQI`).
