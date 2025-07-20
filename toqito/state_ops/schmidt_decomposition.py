@@ -6,7 +6,7 @@ import numpy as np
 def schmidt_decomposition(
     rho: np.ndarray, dim: int | list[int] | np.ndarray = None, k_param: int = 0
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    r"""Compute the Schmidt decomposition of a bipartite vector :footcite:`WikiScmidtDecomp`.
+    r"""Compute the Schmidt decomposition of a bipartite vector :footcite:`WikiScmidtDecomp` .
 
     Examples
     ==========
@@ -19,19 +19,19 @@ def schmidt_decomposition(
 
     .. jupyter-execute::
 
-     from toqito.states import max_entangled
-     max_entangled(3)
-    array([[0.57735027],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.57735027],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.57735027]])
+      from toqito.states import max_entangled
+      max_entangled(3)
+      array([[0.57735027],
+             [0.        ],
+             [0.        ],
+             [0.        ],
+             [0.57735027],
+             [0.        ],
+             [0.        ],
+             [0.        ],
+             [0.57735027]])
 
-    Computing the Schmidt decomposition of :math:`u`, we can obtain the corresponding singular
+    Computing the Schmidt decomposition of :math:`u` , we can obtain the corresponding singular
     values of :math:`u` as
 
     .. math::
@@ -55,8 +55,8 @@ def schmidt_decomposition(
 
     References
     ==========
-    .. footbibliography::
 
+    .. footbibliography::
 
 
     :raises ValueError: If matrices are not of equal dimension.
@@ -120,7 +120,7 @@ def _operator_schmidt_decomposition(
     Given an input `rho` provided as a matrix, determine its corresponding
     Schmidt decomposition.
 
-    :raises ValueError: If matrices are not of equal dimension..
+    :raises ValueError: If matrices are not of equal dimension.
     :param rho: The matrix.
     :param dim: The dimension of the matrix
     :param k_param: The number of Schmidt coefficients to compute.

@@ -7,31 +7,31 @@ import numpy as np
 def abs_ppt_constraints(
     eigs: np.ndarray | cp.Variable, p: int, max_constraints: int = 33_592, use_check: bool = False
 ) -> list[np.ndarray | cp.Expression]:
-    r"""Return the constraint matrices for the spectrum to be absolutely PPT :footcite:`Hildebrand_2007_AbsPPT`.
+    r"""Return the constraint matrices for the spectrum to be absolutely PPT :footcite:`Hildebrand_2007_AbsPPT` .
 
-    The returned matrices are constructed from the provided eigenvalues :code:`eigs`, and they must all be positive
+    The returned matrices are constructed from the provided eigenvalues :code:`eigs` , and they must all be positive
     semidefinite for the spectrum to be absolutely PPT.
 
 
     .. note::
         The function does not always return the optimal number of constraint matrices. There are some redundant
-        constraint matrices :footcite:`Johnston_2014_Orderings`.
-            * With :code:`use_checks=False`, the number of matrices returned starting from :math:`p=1` is
+        constraint matrices :footcite:`Johnston_2014_Orderings` .
+            * With :code:`use_checks=False` , the number of matrices returned starting from :math:`p=1` is
               :math:`[0, 1, 2, 12, 286, 33592, 23178480, \ldots]`.
-            * With :code:`use_checks=True`, the number of matrices returned starting from :math:`p=1` is
+            * With :code:`use_checks=True` , the number of matrices returned starting from :math:`p=1` is
               :math:`[0, 1, 2, 10, 114, 2612, 108664, \ldots]`.
         However, the optimal number of matrices starting from :math:`p=1` is given by :math:`[0, 1, 2, 10, 114,
         2608, 107498]`.
 
     .. note::
-        This function accepts a :code:`cvxpy` Variable as input for :code:`eigs`. The function will return the assembled
+        This function accepts a :code:`cvxpy` Variable as input for :code:`eigs` . The function will return the assembled
         constraint matrices as a list of :code:`cvxpy` Expressions. These can be used with :code:`cvxpy` to optimize
         over the space of absolutely PPT matrices. The user must impose the condition :code:`eigs[0] ≥ eigs[1] ≥ ...
         eigs[-1] ≥ 0` and the positive semidefinite constraint on each returned matrix separately. It is recommended to
         set :code:`use_check=True` for this use case to minimize the number of constraint equations in the problem.
 
 
-    This function is adapted from QETLAB :footcite:`QETLAB_link`.
+    This function is adapted from QETLAB :footcite:`QETLAB_link` .
 
     Examples
     ==========
@@ -51,6 +51,7 @@ def abs_ppt_constraints(
 
     References
     ==========
+
     .. footbibliography::
 
     :raises TypeError: If :code:`eigs` is not a :code:`numpy` ndarray or a :code:`cvxpy` Variable.
@@ -58,7 +59,7 @@ def abs_ppt_constraints(
     :param p: The dimension of the smaller subsystem in the bipartite system.
     :param max_constraints: The maximum number of constraint matrices to compute. (default: 33,592)
     :param use_check: Use the "criss-cross" ordering check described in :footcite:`Johnston_2014_Orderings` to reduce
-                      the number of constraint matrices. (default: :code:`False`)
+                      the number of constraint matrices. (default: :code:`False` )
     :return: A list of :code:`max_constraints` constraint matrices which must be positive
              semidefinite for an absolutely PPT spectrum.
 
@@ -134,7 +135,7 @@ def abs_ppt_constraints(
                 available[k] = True
 
     def _check_cross(order_matrix: np.ndarray, p: int) -> bool:
-        r"""Check if the order matrix satisfies the "criss-cross" check in :footcite:`Johnston_2014_Orderings`."""
+        r"""Check if the order matrix satisfies the "criss-cross" check in :footcite:`Johnston_2014_Orderings` ."""
         for j in range(p - 3):
             for k in range(2, p):
                 for m in range(p - 2):

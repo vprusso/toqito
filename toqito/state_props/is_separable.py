@@ -21,7 +21,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     r"""Determine if a given state (given as a density matrix) is a separable state :footcite:`WikiSepSt` .
 
     A multipartite quantum state:
-    :math:\rho \in \text{D}(\mathcal{H}_1 \otimes \mathcal{H}_2 \otimes \dots \otimes \mathcal{H}_N)
+    :math:`\rho \in \text{D}(\mathcal{H}_1 \otimes \mathcal{H}_2 \otimes \dots \otimes \mathcal{H}_N)`
     is defined as fully separable if it can be written as a convex combination of product states.
 
     Overview
@@ -36,35 +36,36 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     2.  **Trivial Cases for Separability**:
 
         - If either subsystem dimension :math:`d_A` or :math:`d_B` is 1
-          (i.e., :code:`min_dim_val == 1`), the state is always separable.
+          (i.e., :code:`min_dim_val == 1` ), the state is always separable.
 
     3.  **Pure State Check (Schmidt Rank)**:
 
         - If the input state has rank 1 (i.e., it's a pure state), its Schmidt rank is computed.
-          A pure state is separable if and only if its Schmidt rank is 1 :footcite:`WikiScmidtDecomp`.
+          A pure state is separable if and only if its Schmidt rank is 1 :footcite:`WikiScmidtDecomp` .
+
         .. note::
-           QETLAB also considers a more general Operator Schmidt Rank condition
-           from :footcite:`Cariello_2013_Weak_irreducible` for weak irreducible
-           matrices. This is not explicitly separated in this function but might be
-           covered if such matrices are rank 1 (see issue #1245).
+            QETLAB also considers a more general Operator Schmidt Rank condition
+            from :footcite:`Cariello_2013_Weak_irreducible` for weak irreducible
+            matrices. This is not explicitly separated in this function but might be
+            covered if such matrices are rank 1 (see issue #1245).
 
     4.  **Gurvits-Barnum Separable Ball**:
 
         - Checks if the state lies within the "separable ball" around the
           maximally mixed state, as defined by Gurvits and Barnum
-          :footcite:`Gurvits_2002_Ball`. States within this ball are guaranteed to be
+          :footcite:`Gurvits_2002_Ball` . States within this ball are guaranteed to be
           separable.
 
     5.  **PPT Criterion (Peres-Horodecki)**
         :footcite:`Peres_1996_Separability` ,
-        :footcite:`Horodecki_1996_PPT_small_dimensions`:
+        :footcite:`Horodecki_1996_PPT_small_dimensions` :
 
         - The Positive Partial Transpose (PPT) criterion is a necessary condition
           for separability.
         - If the state is NPT (Not PPT), it is definitively entangled.
         - If the state is PPT and the total dimension :math:`d_A d_B \le 6`,
           then PPT is also a *sufficient* condition for separability
-          :footcite:`Horodecki_1996_PPT_small_dimensions`.
+          :footcite:`Horodecki_1996_PPT_small_dimensions` .
 
     6.  **3x3 Rank-4 PPT N&S Check (Plücker Coordinates / Breuer / Chen & Djokovic)**:
 
@@ -72,12 +73,12 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
           necessary and sufficient conditions for separability. These are often
           related to the vanishing of the "Chow form" or determinants of
           matrices constructed from Plücker coordinates of the state's range
-          (e.g., :footcite:`Breuer_2006_Optimal`, :footcite:`Chen_2013_MultipartiteRank4`).
+          (e.g., :footcite:`Breuer_2006_Optimal` , :footcite:`Chen_2013_MultipartiteRank4` ).
           The implementation checks if a specific determinant, derived from
           Plücker coordinates of the state's range, is close to zero.
 
     7.  **Operational Criteria for Low-Rank PPT States (Horodecki et al. 2000)**
-        :footcite:`Horodecki_2000_PPT_low_rank`:
+        :footcite:`Horodecki_2000_PPT_low_rank` :
 
         For PPT states (especially when :math:`d_A d_B > 6`):
 
@@ -86,7 +87,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         - If :math:`\text{rank}(\rho) + \text{rank}(\rho^{T_A}) \le 2 d_A d_B - d_A - d_B + 2`,
           the state is separable.
 
-    8.  **Reduction Criterion (Horodecki & Horodecki 1999)** :footcite:`Horodecki_1998_Reduction`:
+    8.  **Reduction Criterion (Horodecki & Horodecki 1999)** :footcite:`Horodecki_1998_Reduction` :
 
         - The state is entangled if :math:`I_A \otimes \rho_B - \rho \not\succeq 0` or
           :math:`\rho_A \otimes I_B - \rho \not\succeq 0`. This is a check for positive
@@ -97,12 +98,12 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
 
     9.  **Realignment/CCNR Criteria**:
 
-        - **Basic Realignment (Chen & Wu 2003)** :footcite:`Chen_2003_Matrix`:
+        - **Basic Realignment (Chen & Wu 2003)** :footcite:`Chen_2003_Matrix` :
           If the trace norm of the realigned matrix is greater than 1, the
           state is entangled.
 
     10. **Rank-1 Perturbation of Identity for PPT States (Vidal & Tarrach 1999)**
-        :footcite:`Vidal_1999_Robust`:
+        :footcite:`Vidal_1999_Robust` :
 
         - PPT states that are very close to a specific type of rank-1 perturbation
           of the identity matrix are separable. This is checked by examining the
@@ -113,52 +114,54 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         For bipartite systems where one subsystem is a qubit (:math:`d_A=2`) and the
         other is N-dimensional (:math:`d_B=N`), several specific conditions apply:
 
-        - **Johnston's Spectral Condition (2013)** :footcite:`Johnston_2013_Spectrum`:
+        - **Johnston's Spectral Condition (2013)** :footcite:`Johnston_2013_Spectrum` :
           An inequality involving the largest and smallest eigenvalues of a 2xN PPT
           state that is sufficient for separability.
         - **Hildebrand's Conditions (2005, 2007, 2008)**
-            :footcite:`Hildebrand_2005_PPT`,
-            :footcite:`Hildebrand_2008_Semidefinite`,
-            :footcite:`Hildebrand_2005_Cone`:
+          :footcite:`Hildebrand_2005_PPT` ,
+          :footcite:`Hildebrand_2008_Semidefinite` ,
+          :footcite:`Hildebrand_2005_Cone` :
 
-            - For a 2xN state written in block form :math:`\rho = [[A, B], [B^\dagger, C]]`,
-              a check is performed based on the rank of the anti-Hermitian part of the
-              off-diagonal block :math:`B` (i.e., :math:`\text{rank}(B - B^\dagger) \le 1`).
-              (Note: QETLAB refers to this property in relation to "perturbed block Hankel" matrices).
-            - A check involving a transformed matrix :math:`X_{2n\_ppt\_check}`
-              derived from blocks A, B, C, requiring it and its partial transpose
-              to be PSD (related to homothetic images).
-            - A condition based on the Frobenius norm of block :math:`B` compared to
-              eigenvalues of blocks :math:`A` and :math:`C`.
+          - For a 2xN state written in block form :math:`\rho = [[A, B], [B^\dagger, C]]` ,
+            a check is performed based on the rank of the anti-Hermitian part of the
+            off-diagonal block :math:`B` (i.e., :math:`\text{rank}(B - B^\dagger) \le 1`).
+            (Note: QETLAB refers to this property in relation to "perturbed block Hankel" matrices).
+          - A check involving a transformed matrix :math:`X_{2n\_ppt\_check}`
+            derived from blocks A, B, C, requiring it and its partial transpose
+            to be PSD (related to homothetic images).
+          - A condition based on the Frobenius norm of block :math:`B` compared to
+            eigenvalues of blocks :math:`A` and :math:`C`.
 
     12. **Decomposable Maps / Entanglement Witnesses**:
         These tests apply positive but not completely positive (NCP) maps. If the
         resulting state is not PSD, the original state is entangled.
 
-        - **Ha-Kye Maps (3x3 systems)** :footcite:`HaKye_2011_Positive`: Specific maps
+        - **Ha-Kye Maps (3x3 systems)** :footcite:`HaKye_2011_Positive` : Specific maps
           for qutrit-qutrit systems.
-        - **Breuer-Hall Maps (even dimensions)** :footcite:`Breuer_2006_Mixed`, :footcite:`Hall_2006_Indecomposable`:
+        - **Breuer-Hall Maps (even dimensions)** :footcite:`Breuer_2006_Mixed` , :footcite:`Hall_2006_Indecomposable` :
           Maps based on antisymmetric unitary matrices, applicable when a subsystem
           has even dimension.
 
-    13. **Symmetric Extension Hierarchy (DPS)** :footcite:`Doherty_2004_CompleteFamily`:
+    13. **Symmetric Extension Hierarchy (DPS)** :footcite:`Doherty_2004_CompleteFamily` :
 
         - A state is separable if and only if it has a k-symmetric extension for all :math:`k \ge 1`.
-        - This function checks for k-extendibility up to the specified :code:`level`.
+        - This function checks for k-extendibility up to the specified :code:`level` .
         - If :code:`level=1` and the state is PPT (which it is at this stage),
           it's 1-extendible and thus considered separable by this specific test level.
-        - For :code:`level >= 2`, if a k-symmetric extension exists for all k up
+        - For :code:`level >= 2` , if a k-symmetric extension exists for all k up
           to :code:`level` (specifically, if :code:`has_symmetric_extension` returns
           :code:`True` for the highest :code:`k_actual_level_check` in the loop, which is
-          :code:`level`), the current implementation returns :code:`True`.
+          :code:`level` ), the current implementation returns :code:`True` .
+
         .. note::
             The symmetric extension check requires CVXPY and a suitable solver. If these
             are not installed, or if the solver fails, a warning is printed to the console
             and this check is skipped.
+
         .. note::
             QETLAB's :code:`SymmetricExtension` typically tests
             k-PPT-extendibility, where failure means entangled. It also has
-            :code:`SymmetricInnerExtension`, which can prove separability.
+            :code:`SymmetricInnerExtension` , which can prove separability.
 
 
     Examples
@@ -177,11 +180,11 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
 
     .. math::
         \rho =  \frac{1}{4} \begin{pmatrix}
-                1 & 0 & 1 & 0 \\
-                0 & 1 & 0 & 1 \\
-                1 & 0 & 1 & 0 \\
-                0 & 1 & 0 & 1
-                \end{pmatrix} \in \text{D}(\mathcal{X}).
+                    1 & 0 & 1 & 0 \\
+                    0 & 1 & 0 & 1 \\
+                    1 & 0 & 1 & 0 \\
+                    0 & 1 & 0 & 1
+                    \end{pmatrix} \in \text{D}(\mathcal{X}).
 
     We provide the input as a density matrix :math:`\rho`.
 
@@ -220,12 +223,13 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         psi2 = np.kron([0, 1], [0, 1, 0])
         rho = 0.5 * (np.outer(psi1, psi1.conj()) + np.outer(psi2, psi2.conj()))
 
-        print("Is the state PPT?", is_ppt(rho, dim=[2, 3]))         # True
+        print("Is the state PPT?", is_ppt(rho, dim=[2, 3]))      # True
         print("Is the state separable?", is_separable(rho, dim=[2, 3]))  # True
 
 
     References
     ==========
+
     .. footbibliography::
 
 
@@ -394,14 +398,14 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
 
     # --- 4. Gurvits-Barnum Separable Ball ---
     if in_separable_ball(current_state):
-        # Determined to be separable by closeness to the maximally mixed state :footcite:`Gurvits_2002_Ball`.
+        # Determined to be separable by closeness to the maximally mixed state :footcite:`Gurvits_2002_Ball` .
         return True
 
     # --- 5. PPT (Peres-Horodecki) Criterion ---
     is_state_ppt = is_ppt(state, 2, dim, tol)  # sys=2 implies partial transpose on the second system by default
     if not is_state_ppt:
-        # Determined to be entangled via the PPT criterion :footcite:`Peres_1996_Separability`.
-        # Also, see Horodecki Theorem in :footcite:`Gühne_2009_Horodecki`.
+        # Determined to be entangled via the PPT criterion :footcite:`Peres_1996_Separability` .
+        # Also, see Horodecki Theorem in :footcite:`Gühne_2009_Horodecki` .
         return False
 
     # ----- From here on, the state is known to be PPT -----
@@ -409,14 +413,14 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     # --- 5a. PPT and dim <= 6 implies separable ---
     if prod_dim_val <= 6:  # e.g., 2x2 or 2x3 systems
         # For dA * dB <= 6, PPT is necessary and sufficient for separability
-        # :footcite:`Horodecki_1996_PPT_small_dimensions`.
+        # :footcite:`Horodecki_1996_PPT_small_dimensions` .
         return True
 
     # --- 6. 3x3 Rank-4 PPT N&S Check (Plucker/Breuer/Chen&Djokovic) ---
     # This checks if a 3x3 PPT state of rank 4 is separable.
     # The condition involves the determinant of a matrix F constructed from Plücker coordinates.
-    # Separability is linked to det(F) being (close to) zero :footcite:`Breuer_2006_Optimal`,
-    # :footcite:`Chen_2013_MultipartiteRank4`.
+    # Separability is linked to det(F) being (close to) zero :footcite:`Breuer_2006_Optimal` ,
+    # :footcite:`Chen_2013_MultipartiteRank4` .
     # (Note: Breuer's original PRL also relates it to F being indefinite or zero).
     if dA == 3 and dB == 3 and state_rank == 4:
         q_orth_basis = orth(current_state)  # Orthonormal basis for the range of rho
@@ -531,7 +535,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                 pass  # Proceed to other tests
 
     # --- 7. Operational Criteria for Low-Rank PPT States (Horodecki et al. 2000) ---
-    # These are sufficient conditions for separability of PPT states :footcite:`Horodecki_2000_PPT_low_rank`.
+    # These are sufficient conditions for separability of PPT states :footcite:`Horodecki_2000_PPT_low_rank` .
     if state_rank <= max_dim_val:  # rank(rho) <= max(dA, dB)
         return True
 
@@ -557,11 +561,11 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         return False  # Entangled by reduction criterion
 
     # --- 9. Realignment/CCNR Criteria ---
-    # Basic Realignment Criterion :footcite:`Chen_2003_Matrix`. If > 1, entangled.
+    # Basic Realignment Criterion :footcite:`Chen_2003_Matrix` . If > 1, entangled.
     if trace_norm(realignment(current_state, dims_list)) > 1 + tol:
         return False
 
-    # Zhang et al. 2008 Variant :footcite:`Zhang_2008_Beyond_realignment`.
+    # Zhang et al. 2008 Variant :footcite:`Zhang_2008_Beyond_realignment` .
     # If ||R(rho - rho_A \otimes rho_B)||_1 > sqrt((1-Tr(rho_A^2))(1-Tr(rho_B^2))), entangled.
     tr_rho_A_sq = np.real(np.trace(rho_A_marginal @ rho_A_marginal))
     tr_rho_B_sq = np.real(np.trace(rho_B_marginal @ rho_B_marginal))
@@ -573,7 +577,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     # TODO: #1246 Consider adding Filter CMC criterion from Gittsovich et al. 2008, which is stronger.
 
     # --- 10. Rank-1 Perturbation of Identity for PPT States (Vidal & Tarrach 1999) ---
-    # PPT states close to identity are separable :footcite:`Vidal_1999_Robust`.
+    # PPT states close to identity are separable :footcite:`Vidal_1999_Robust` .
     try:
         try:
             lam = np.linalg.eigvalsh(current_state)[::-1]  # Eigenvalues sorted descending
@@ -630,7 +634,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                     return True
 
             # Hildebrand's Conditions for 2xN PPT states (various papers, e.g.,
-            # :footcite:`Hildebrand_2005_PPT`, :footcite:`Hildebrand_2008_Semidefinite`)
+            # :footcite:`Hildebrand_2005_PPT` , :footcite:`Hildebrand_2008_Semidefinite` )
             # Block matrix form: rho_2xn = [[A, B], [B^dagger, C]]
             A_block = state_t_2xn[:d_N_val, :d_N_val]
             B_block = state_t_2xn[:d_N_val, d_N_val : 2 * d_N_val]
@@ -679,7 +683,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
             for j_ha_loop in range(2):  # Iterate for t and 1/t (common symmetry in these maps)
                 if j_ha_loop == 1:
                     # if abs(t_raw_ha) < machine_eps: #  (t_raw_ha always >= 0.1)
-                    #     break  # Should not happen with arange
+                    #      break  # Should not happen with arange
                     t_iter_ha = 1 / t_raw_ha
 
                 denom_ha = 1 - t_iter_ha + t_iter_ha**2  # Denominator from Ha-Kye map parameters
@@ -696,7 +700,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                 ):
                     return False  # Entangled if map application results in non-PSD state #
 
-    # Breuer-Hall Maps (for even dimensional subsystems) :footcite:`Breuer_2006_Mixed`,
+    # Breuer-Hall Maps (for even dimensional subsystems) :footcite:`Breuer_2006_Mixed` ,
     # :footcite:`Hall_2006_Indecomposable`
     for p_idx_bh in range(2):  # Apply map to subsystem 0 (A), then subsystem 1 (B)
         current_dim_bh = dims_list[p_idx_bh]  # Dimension of the subsystem map acts on
@@ -720,7 +724,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                 return False  # Entangled if map application results in non-PSD state
 
     # --- 13. Symmetric Extension Hierarchy (DPS) ---
-    # A state is separable iff it has a k-symmetric extension for all k :footcite:`Doherty_2004_CompleteFamily`.
+    # A state is separable iff it has a k-symmetric extension for all k :footcite:`Doherty_2004_CompleteFamily` .
     # We check up to the specified `level`.
     if level >= 2:  # Level 1 (PPT) is already confirmed if we reach here.
         # Loop for k from 2 up to `level` specified by user.
