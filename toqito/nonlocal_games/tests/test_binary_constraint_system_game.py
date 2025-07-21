@@ -111,10 +111,10 @@ def test_tensor_diff_finds_no_dependent_variables():
 
     # Create a 2D constraint tensor of shape (2, 2) with all values set to 1
     # This causes np.diff(..., axis=0/1) to be zero everywhere → no dependent variables
-    constant_tensor = np.ones((2, 2), dtype=int)
+    constraint_tensor = np.ones((2, 2), dtype=int)
 
     try:
-        NonlocalGame.from_bcs_game([constant_tensor])
+        NonlocalGame.from_bcs_game([constraint_tensor])
         assert False, "Expected ValueError due to degenerate constraint (no dependent variables)"
     except ValueError as e:
         assert "degenerate" in str(e)
@@ -123,13 +123,13 @@ def test_tensor_diff_finds_no_dependent_variables():
 def test_is_bcs_perfect_commuting_strategy_flat_constraints_path():
     """Test that 1D constraints directly use the raw path."""
 
-    # This constraint has ndim = 1, so it will follow the else block (line 158)
+    # This constraint has ndim = 1, so it will follow the else block:
+    # https://github.com/vprusso/toqito/blob/abcdef123456/toqito/nonlocal_games/nonlocal_game.py#L158
     constraint = np.array([1, 1, 0], dtype=int)  # last element is RHS
 
     # from_bcs_game will store this directly as _raw_constraints
     game = NonlocalGame.from_bcs_game([constraint])
 
-    # Now calling this will pass through line 158:
     result = game.is_bcs_perfect_commuting_strategy()
 
     # It's okay if the result is False, we only want to exercise the line

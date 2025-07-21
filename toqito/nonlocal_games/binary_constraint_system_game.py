@@ -39,13 +39,13 @@ def create_bcs_constraints(M: np.ndarray, b: np.ndarray) -> list[np.ndarray]:
     ==========
     .. jupyter-execute::
 
-     import numpy as np
-     from toqito.nonlocal_games.binary_constraint_system_game import create_bcs_constraints
+         import numpy as np
+         from toqito.nonlocal_games.binary_constraint_system_game import create_bcs_constraints
 
-     M = np.array([[1, 1], [1, 1]], dtype=int)
-     b = np.array([0, 1], dtype=int)
-     constraints = create_bcs_constraints(M, b)
-     constraints[0].shape
+         M = np.array([[1, 1], [1, 1]], dtype=int)
+         b = np.array([0, 1], dtype=int)
+         constraints = create_bcs_constraints(M, b)
+         constraints[0].shape
 
     """
     m, n = M.shape
@@ -75,14 +75,14 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
     ========
     .. jupyter-execute::
 
-     import numpy as np
-     from toqito.nonlocal_games.binary_constraint_system_game import generate_solution_group
+         import numpy as np
+         from toqito.nonlocal_games.binary_constraint_system_game import generate_solution_group
 
-     M = np.array([[1, 1, 0], [0, 1, 1]])
-     b = np.array([0, 1])
-     row_masks, parity = generate_solution_group(M, b)
-     print(row_masks)  # Output: [3, 6]
-     print(parity)     # Output: [0, 1]
+         M = np.array([[1, 1, 0], [0, 1, 1]])
+         b = np.array([0, 1])
+         row_masks, parity = generate_solution_group(M, b)
+         print(row_masks)  # Output: [3, 6]
+         print(parity)     # Output: [0, 1]
 
     References
     ==========
@@ -94,11 +94,11 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
     :return: A list of parity values.
 
     """
-    # Ensure M and b are binary (0/1)
+    # Ensure M and b are binary.
     M = np.array(M, dtype=int) % 2
     b = np.array(b, dtype=int) % 2
 
-    # Create an array of powers of 2 for each column: [1, 2, 4, ..., 2^(n-1)]
+    # Create an array of powers of 2 for each column: [1, 2, 4, ..., 2^(n-1)].
     powers = 1 << np.arange(M.shape[1])
     return (M * powers).sum(axis=1).astype(int).tolist(), b.astype(int).tolist()
 
@@ -120,11 +120,11 @@ def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray) -> bool:
     ==========
     .. jupyter-execute::
 
-     import numpy as np
-     from toqito.nonlocal_games.binary_constraint_system_game import check_perfect_commuting_strategy
+         import numpy as np
+         from toqito.nonlocal_games.binary_constraint_system_game import check_perfect_commuting_strategy
 
-     M = np.array([[1, 1], [1, 1]])
-     b = np.array([0, 1])
+         M = np.array([[1, 1], [1, 1]])
+         b = np.array([0, 1])
      check_perfect_commuting_strategy(M, b)
 
     """
@@ -157,14 +157,14 @@ def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray) -> bool:
     # Check for contradiction: a row with 0 = 1.
     contradiction = next((combo[r] for r in range(m) if row[r] == 0 and parity[r] == 1), None)
     if contradiction is None:
-        return True  # no contradiction → perfect strategy exists
+        return True  # no contradiction → perfect strategy exists.
 
-    # Build the subgraph of nodes involved in a contradiction
+    # Build the subgraph of nodes involved in a contradiction.
     nodes = [r for r in range(m) if (contradiction >> r) & 1]
     G = nx.Graph()
     G.add_nodes_from(nodes)
 
-    # Add edges where two constraints share a variable
+    # Add edges where two constraints share a variable.
     edges = [(u, v) for i, u in enumerate(nodes) for v in nodes[i + 1 :] if row[u] & row[v]]
     G.add_edges_from(edges)
     return bool(nx.cycle_basis(G))
