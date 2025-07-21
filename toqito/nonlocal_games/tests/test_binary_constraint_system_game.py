@@ -81,7 +81,6 @@ def test_special_case():
 
     game = NonlocalGame.from_bcs_game(constraints, reps=1)
     assert game.is_bcs_perfect_commuting_strategy()
-
 def test_4cycle_bcs_no_classical_but_perfect_quantum():
     """Test a 4-cycle BCS game with no classical solution but with a perfect strategy.
 
