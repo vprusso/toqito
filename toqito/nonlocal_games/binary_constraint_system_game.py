@@ -39,13 +39,13 @@ def create_bcs_constraints(M: np.ndarray, b: np.ndarray) -> list[np.ndarray]:
     ==========
     .. jupyter-execute::
 
-         import numpy as np
-         from toqito.nonlocal_games.binary_constraint_system_game import create_bcs_constraints
+     import numpy as np
+     from toqito.nonlocal_games.binary_constraint_system_game import create_bcs_constraints
 
-         M = np.array([[1, 1], [1, 1]], dtype=int)
-         b = np.array([0, 1], dtype=int)
-         constraints = create_bcs_constraints(M, b)
-         constraints[0].shape
+     M = np.array([[1, 1], [1, 1]], dtype=int)
+     b = np.array([0, 1], dtype=int)
+     constraints = create_bcs_constraints(M, b)
+     constraints[0].shape
 
     """
     m, n = M.shape
@@ -75,14 +75,14 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
     ========
     .. jupyter-execute::
 
-         import numpy as np
-         from toqito.nonlocal_games.binary_constraint_system_game import generate_solution_group
+     import numpy as np
+     from toqito.nonlocal_games.binary_constraint_system_game import generate_solution_group
 
-         M = np.array([[1, 1, 0], [0, 1, 1]])
-         b = np.array([0, 1])
-         row_masks, parity = generate_solution_group(M, b)
-         print(row_masks)  # Output: [3, 6]
-         print(parity)     # Output: [0, 1]
+     M = np.array([[1, 1, 0], [0, 1, 1]])
+     b = np.array([0, 1])
+     row_masks, parity = generate_solution_group(M, b)
+     print(row_masks)  # Output: [3, 6]
+     print(parity)     # Output: [0, 1]
 
     References
     ==========
@@ -120,11 +120,11 @@ def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray) -> bool:
     ==========
     .. jupyter-execute::
 
-         import numpy as np
-         from toqito.nonlocal_games.binary_constraint_system_game import check_perfect_commuting_strategy
+     import numpy as np
+     from toqito.nonlocal_games.binary_constraint_system_game import check_perfect_commuting_strategy
 
-         M = np.array([[1, 1], [1, 1]])
-         b = np.array([0, 1])
+     M = np.array([[1, 1], [1, 1]])
+     b = np.array([0, 1])
      check_perfect_commuting_strategy(M, b)
 
     """
