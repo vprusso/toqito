@@ -91,7 +91,7 @@ class NonlocalGame:
         References
         ==========
         .. footbibliography::
-        
+
         """
 
         if (num_constraints := len(constraints)) == 0:
