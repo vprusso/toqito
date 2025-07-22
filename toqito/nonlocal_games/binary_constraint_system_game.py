@@ -47,6 +47,10 @@ def create_bcs_constraints(M: np.ndarray, b: np.ndarray) -> list[np.ndarray]:
      constraints = create_bcs_constraints(M, b)
      constraints[0].shape
 
+    References
+    ==========
+    .. footbibliography::
+
     """
     m, n = M.shape
     constraints = []
@@ -126,6 +130,10 @@ def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray) -> bool:
      M = np.array([[1, 1], [1, 1]])
      b = np.array([0, 1])
      check_perfect_commuting_strategy(M, b)
+
+    References
+    ==========
+    .. footbibliography::    
 
     """
     row, parity = generate_solution_group(M, b)

@@ -87,6 +87,11 @@ class NonlocalGame:
         :param constraints: List of binary constraints that define the game.
         :param reps: Number of parallel repetitions to perform. Default is 1.
         :return: A NonlocalGame object arising from the variables and constraints that define the game.
+
+        References
+        ==========
+        .. footbibliography::
+        
         """
 
         if (num_constraints := len(constraints)) == 0:

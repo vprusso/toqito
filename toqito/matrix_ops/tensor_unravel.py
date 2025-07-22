@@ -43,7 +43,7 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
     :param constraint_tensor: An n-dimensional tensor with shape `(2,)*n`, where each element is either -1 or +1.
                               All entries should be equal except for one unique position that marks
                               the satisfying assignment.
-    :return: A 1D : code:`numpy` array of length :math:`n+1` where the first :math:`n`
+    :return: A 1D :code:`numpy` array of length :math:`n+1` where the first :math:`n`
                     elements are the coordinates (indices), and the last element is the unique constant (rhs).
 
     """
