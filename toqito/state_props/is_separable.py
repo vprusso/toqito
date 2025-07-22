@@ -117,7 +117,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
           An inequality involving the largest and smallest eigenvalues of a 2xN PPT
           state that is sufficient for separability.
         - **Hildebrand's Conditions (2005, 2007, 2008)**
-            :footcite:`Hildebrand_2005_PPT`,
+            :footcite:`Hildebrand_2007_AbsPPT`,
             :footcite:`Hildebrand_2008_Semidefinite`,
             :footcite:`Hildebrand_2005_Cone`:
 
