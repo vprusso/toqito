@@ -133,7 +133,7 @@ def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray) -> bool:
 
     References
     ==========
-    .. footbibliography::    
+    .. footbibliography::
 
     """
     row, parity = generate_solution_group(M, b)
