@@ -8,21 +8,16 @@ from toqito.measurements import pretty_good_measurement
 def pretty_bad_measurement(
     states: list[np.ndarray], probs: list[float] | None = None, tol: float = 1e-8
 ) -> list[np.ndarray]:
-    r"""Return the set of pretty bad measurements from a set of vectors and corresponding probabilities.
+    r"""Return the set of pretty bad measurements from an ensemble.
 
-    This computes the "pretty bad measurement" as defined in :footcite:`Hughston_1993_Complete` and is an analogous idea
-    to the "pretty good measurement" from :footcite:`McIrvin_2024_Pretty`. The "pretty bad measurement" is useful in the
-    context of state exclusion where the pretty good measurement is often used for minimum-error quantum state
-    discrimination.
+    This computes the "pretty bad measurement" (PBM) as defined in
+    :footcite:`McIrvin_2024_Pretty`. The PBM is an analogue to the "pretty
+    good measurement" and is useful for approximating the optimal measurement
+    for state exclusion.
 
-    The pretty bad measurement (PBM) is defined in terms of an offset of the pretty good measurement (PGM). Recall that
-    the PGM is defined as a set of POVMs :math:`(G_1, \ldots, G_n)` such that
-
-    .. math::
-        G_i = P^{-1/2} \left(p_i \rho_i\right) P^{-1/2} \quad \text{where} \quad
-        P = \sum_{i=1}^n p_i \rho_i.
-
-    By proxy, the corresponding PBM is defined as a set of POVMs :math:`(B_1, \ldots, B_n)` where
+    The PBM is defined in terms of the pretty good measurement (PGM).
+    Given the PGM operators :math:`(G_1, \ldots, G_n)`, the corresponding PBM
+    is the set of POVMs :math:`(B_1, \ldots, B_n)` where
 
     .. math::
         B_i = \frac{1}{n - 1} \left(\mathbb{I} - G_i\right).
@@ -47,23 +42,20 @@ def pretty_bad_measurement(
 
      states = trine()
      probs = [1 / 3, 1 / 3, 1 / 3]
-
      pbm = pretty_bad_measurement(states, probs)
-
      pbm
-
 
     References
     ==========
     .. footbibliography::
 
-
-
-    :raises ValueError: If number of vectors does not match number of probabilities.
+    :raises ValueError: If number of states does not match number of probabilities.
     :raises ValueError: If probabilities do not sum to 1.
-    :param states: A collection of either states provided as either vectors or density matrices.
-    :param probs: A set of probabilities.
+    :param states: A collection of states provided as either vectors or density matrices.
+    :param probs: A set of fixed probabilities for each quantum state.
+                  If not provided, a uniform distribution is assumed.
     :param tol: A tolerance value for numerical comparisons.
+    :return: A list of POVM operators for the PBM.
 
     """
     n = len(states)
