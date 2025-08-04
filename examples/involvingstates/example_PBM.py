@@ -4,7 +4,7 @@ The Pretty Good and Pretty Bad Measurements
 
 In this tutorial, we will explore the "pretty good measurement" (PGM) and its
 novel counterpart, the "pretty bad measurement" (PBM), as introduced by
-McIrvin, Mohan, and Sikora :footcite:`McIrvin_2024_Pretty`. These measurements
+McIrvin et.al :footcite:`McIrvin_2024_Pretty`. These measurements
 provide elegant, easy-to-construct tools for two opposing goals in quantum
 information: state discrimination and state exclusion.
 
