@@ -94,6 +94,7 @@ def calculate_success_prob(
         success_prob += probs[i] * prob_i
     return np.real(success_prob)
 
+
 # 1. Define the states and probabilities.
 state_vectors = trine()
 k = len(state_vectors)
@@ -109,7 +110,7 @@ print(f"\nOptimal Benchmarks:")
 print(f"  P_Best  = {p_best:.4f} (Max discrimination probability)")
 print(f"  P_Worst = {p_worst:.4f} (Min discrimination probability)")
 
-# 3. Compute the PGM and PBM operators. 
+# 3. Compute the PGM and PBM operators.
 pgm_operators = pretty_good_measurement(state_vectors, probs)
 pbm_operators = pretty_bad_measurement(state_vectors, probs)
 
@@ -124,12 +125,12 @@ print(f"  P_PBM = {p_pbm:.4f}")
 # 5. Verify the core relationship and the hierarchy.
 relation_lhs = p_pgm + (k - 1) * p_pbm
 print(f"\nVerifying P_PGM + (k-1)*P_PBM = 1:")
-print(f"  {p_pgm:.4f} + ({k-1})*{p_pbm:.4f} = {relation_lhs:.4f} -> {np.isclose(relation_lhs, 1)}")
+print(f"  {p_pgm:.4f} + ({k - 1})*{p_pbm:.4f} = {relation_lhs:.4f} -> {np.isclose(relation_lhs, 1)}")
 
 print("\nVerifying hierarchy (P_Best >= P_PGM >= 1/k >= P_PBM >= P_Worst):")
 print(f"  {p_best:.4f} >= {p_pgm:.4f}  ?  {p_best >= p_pgm or np.isclose(p_best, p_pgm)}")
-print(f"  {p_pgm:.4f} >= {1/k:.4f}  ?  {p_pgm >= 1/k or np.isclose(p_pgm, 1/k)}")
-print(f"  {1/k:.4f} >= {p_pbm:.4f}  ?  {1/k >= p_pbm or np.isclose(1/k, p_pbm)}")
+print(f"  {p_pgm:.4f} >= {1 / k:.4f}  ?  {p_pgm >= 1 / k or np.isclose(p_pgm, 1 / k)}")
+print(f"  {1 / k:.4f} >= {p_pbm:.4f}  ?  {1 / k >= p_pbm or np.isclose(1 / k, p_pbm)}")
 print(f"  {p_pbm:.4f} >= {p_worst:.4f}?  {p_pbm >= p_worst or np.isclose(p_pbm, p_worst)}")
 
 
