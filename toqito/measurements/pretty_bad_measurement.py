@@ -8,7 +8,7 @@ from toqito.measurements import pretty_good_measurement
 def pretty_bad_measurement(
     states: list[np.ndarray], probs: list[float] | None = None, tol: float = 1e-8
 ) -> list[np.ndarray]:
-    r"""Return the set of pretty bad measurements from an ensemble.
+    r"""Return the set of pretty bad measurements from a set of vectors and corresponding probabilities.
 
     This computes the "pretty bad measurement" (PBM) as defined in
     :footcite:`McIrvin_2024_Pretty`. The PBM is an analogue to the "pretty

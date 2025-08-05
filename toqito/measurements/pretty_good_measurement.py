@@ -8,7 +8,7 @@ from toqito.matrix_ops import to_density_matrix
 def pretty_good_measurement(
     states: list[np.ndarray], probs: list[float] | None = None, tol: float = 1e-8
 ) -> list[np.ndarray]:
-    r"""Return the set of pretty good measurements from an ensemble.
+    r"""Return the set of pretty good measurements from a set of vectors and corresponding probabilities.
 
     This computes the "pretty good measurement" (PGM), also known as the
     square-root measurement, which is a widely used measurement for quantum
