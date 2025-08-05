@@ -11,6 +11,9 @@ from toqito.matrix_ops import tensor
 from toqito.rand import random_povm
 from toqito.state_opt.npa_hierarchy import npa_constraints
 
+from toqito.nonlocal_games.binary_constraint_system_game import check_perfect_commuting_strategy
+from toqito.matrix_ops.tensor_unravel import tensor_unravel
+
 
 class NonlocalGame:
     r"""Create two-player nonlocal game object.
@@ -72,17 +75,25 @@ class NonlocalGame:
                 i_ind = update_odometer(i_ind, num_alice_in * np.ones(reps))
             self.pred_mat = pred_mat2
             self.reps = reps
+        # _raw_constraints will store the original 1D BCS constraints (if provided) for later analysis.
+        self._raw_constraints = None
 
     @classmethod
     def from_bcs_game(cls, constraints: list[np.ndarray], reps: int = 1) -> "NonlocalGame":
-        """Convert constraints that specify a binary constraint system game to a nonlocal game.
+        r"""Convert constraints that specify a binary constraint system game to a nonlocal game.
 
         Binary constraint system games (BCS) games were originally defined in :footcite:`Cleve_2014_Characterization`.
 
         :param constraints: List of binary constraints that define the game.
         :param reps: Number of parallel repetitions to perform. Default is 1.
         :return: A NonlocalGame object arising from the variables and constraints that define the game.
+
+        References
+        ==========
+        .. footbibliography::
+
         """
+
         if (num_constraints := len(constraints)) == 0:
             raise ValueError("At least 1 constraint is required")
         num_variables = constraints[0].ndim
@@ -100,7 +111,10 @@ class NonlocalGame:
         for j in range(num_constraints):
             p_x = 1.0 / num_constraints
             num_dependent_vars = dependent_variables[j].sum()
-            p_y = dependent_variables[j] / num_dependent_vars
+            if num_dependent_vars == 0:
+                raise ValueError(f"Constraint {j} is degenerate (has no dependent variables).")
+            else:
+                p_y = dependent_variables[j] / num_dependent_vars
             prob_mat[j] = p_x * p_y
 
         # Compute the prediction matrix.
@@ -120,91 +134,74 @@ class NonlocalGame:
                     # Check if this satisfies the constraint.
                     if constraints[x_ques][truth_assignment] == 1:
                         pred_mat[a_ans, b_ans, x_ques, y_ques] = 1
+        game = cls(prob_mat, pred_mat, reps)
+        game._raw_constraints = constraints
+        return game
 
-        return cls(prob_mat, pred_mat, reps)
+    def is_bcs_perfect_commuting_strategy(self) -> bool:
+        """Determine if the BCS game admits a perfect commuting-operator strategy.
 
-    def process_iteration(
-        i: int,
-        num_bob_outputs: int,
-        num_bob_inputs: int,
-        pred_mat_copy: np.ndarray,
-        num_alice_outputs: int,
-        num_alice_inputs: int,
-    ) -> float:
-        """Help the classical_value function as a helper method.
+        This method checks whether the binary constraint system game, from which the current
+        nonlocal game was constructed, has a perfect quantum strategy in the commuting-operator model.
+        It converts the raw BCS tensor constraints (if needed) into matrix form and evaluates
+        their satisfiability using a helper function.
 
-        :return: A value between [0, 1] representing the tgval.
+        :return: True if a perfect commuting-operator strategy exists; False otherwise.
+        :raise: If no constraints are stored (i.e., if the game was not created from a BCS game).
+
         """
-        number = i
-        base = num_bob_outputs
-        digits = num_bob_inputs
-        b_ind = np.zeros(digits)
+        # If the stored constraints are tensor-form (i.e. not 1D), convert them to raw (1D) form.
+        if self._raw_constraints[0].ndim != 1:
+            converted = []
+            for tensor_constraint in self._raw_constraints:
+                converted.append(tensor_unravel(tensor_constraint))
+            raw_constraints = converted
+        else:
+            raw_constraints = self._raw_constraints
 
-        for j in range(digits - 1, -1, -1):
-            number, remainder = divmod(number, base)
-            b_ind[j] = remainder
-
-        pred_alice = np.zeros((num_alice_outputs, num_alice_inputs))
-
-        for y_bob_in in range(num_bob_inputs):
-            pred_alice += pred_mat_copy[:, :, int(b_ind[y_bob_in]), y_bob_in]
-
-        tgval = np.sum(np.amax(pred_alice, axis=0))
-        return tgval
+        # Now, for each raw constraint (which should be a 1D array of length n+1),
+        # extract M (all entries except the last) and b (derived from the last entry).
+        M_list = [c[:-1] for c in raw_constraints]
+        b_list = [0 if c[-1] == 1 else 1 for c in raw_constraints]
+        M_array = np.array(M_list, dtype=int)
+        b_array = np.array(b_list, dtype=int)
+        return check_perfect_commuting_strategy(M_array, b_array)
 
     def classical_value(self) -> float:
-        """Compute the classical value of the nonlocal game.
+        """Compute the classical value of the nonlocal game using Numba acceleration."""
+        A_out, B_out, A_in, B_in = self.pred_mat.shape
+        pm = np.copy(self.pred_mat)
+        pm *= self.prob_mat[np.newaxis, np.newaxis, :A_in, :B_in]
 
-        This function has been adapted from the QETLAB package.
+        # Align dimensions for Bob's strategies
+        if A_out**A_in < B_out**B_in:
+            pm = pm.transpose((1, 0, 3, 2))
+            A_out, B_out, A_in, B_in = pm.shape
 
-        :return: A value between [0, 1] representing the classical value.
-        """
-        (
-            num_alice_outputs,
-            num_bob_outputs,
-            num_alice_inputs,
-            num_bob_inputs,
-        ) = self.pred_mat.shape
+        # Reorder axes to (A_out, A_in, B_out, B_in)
+        pm = pm.transpose((0, 2, 1, 3))
 
-        # Create a copy of pred_mat to avoid in-place modification
-        pred_mat_copy = np.copy(self.pred_mat)
+        # Build power array for decoding Bob's outputs
+        pow_arr = np.array([B_out ** (B_in - 1 - y) for y in range(B_in)], dtype=np.int64)
 
-        for x_alice_in in range(num_alice_inputs):
-            for y_bob_in in range(num_bob_inputs):
-                pred_mat_copy[:, :, x_alice_in, y_bob_in] = (
-                    self.prob_mat[x_alice_in, y_bob_in] * pred_mat_copy[:, :, x_alice_in, y_bob_in]
-                )
-        p_win = float("-inf")
-        if num_alice_outputs**num_alice_inputs < num_bob_outputs**num_bob_inputs:
-            pred_mat_copy = np.transpose(pred_mat_copy, (1, 0, 3, 2))
-            (
-                num_alice_outputs,
-                num_bob_outputs,
-                num_alice_inputs,
-                num_bob_inputs,
-            ) = pred_mat_copy.shape
-        pred_mat_copy = np.transpose(pred_mat_copy, (0, 2, 1, 3))
+        # === Begin fast classical value logic ===
+        p_win = 0.0
+        total = B_out**B_in
 
-        num_iterations = num_alice_outputs**num_bob_inputs
-
-        # we parallelize for large problems only
-        if num_iterations > 1000:
-            with multiprocessing.Pool() as pool:  # Creating a pool of processes for parallelization
-                tgvals = pool.starmap(
-                    NonlocalGame.process_iteration,
-                    [
-                        (i, num_bob_outputs, num_bob_inputs, pred_mat_copy, num_alice_outputs, num_alice_inputs)
-                        for i in range(num_iterations)
-                    ],
-                )
-                p_win = max(tgvals)
-        # Using single core implementation for small problems
-        else:
-            for i in range(num_iterations):
-                tgval = NonlocalGame.process_iteration(
-                    i, num_bob_outputs, num_bob_inputs, pred_mat_copy, num_alice_outputs, num_alice_inputs
-                )
-                p_win = max(p_win, tgval)
+        for i in range(total):
+            best_sum = 0.0
+            for x in range(A_in):
+                best_for_x = 0.0
+                for a in range(A_out):
+                    acc = 0.0
+                    for y in range(B_in):
+                        b_q = (i // pow_arr[y]) % B_out
+                        acc += pm[a, x, b_q, y]
+                    if acc > best_for_x:
+                        best_for_x = acc
+                best_sum += best_for_x
+            if best_sum > p_win:
+                p_win = best_sum
 
         return p_win
 
