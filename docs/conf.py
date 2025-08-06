@@ -54,7 +54,7 @@ extensions = [
 
 
 sphinx_gallery_conf = {
-    "examples_dirs": "../examples",  # Path to example scripts
+    "examples_dirs": "examples",  # Path to example scripts
     "gallery_dirs": "auto_examples",  # Output directory for generated example galleries
     "filename_pattern": r"[/\\]example_",  # Regex to filter example files by name i.e those starting with 'example_'
     "write_computation_times": False,  # Do not include computation times
@@ -114,7 +114,7 @@ templates_path = ["_templates"]
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ["_build", "_templates", "Thumbs.db", ".DS_Store"]
+exclude_patterns = ["_build", "_templates", "Thumbs.db", ".DS_Store", "examples/README.rst", "examples/**/README.rst",]
 
 
 # -- Options for HTML output -------------------------------------------------
