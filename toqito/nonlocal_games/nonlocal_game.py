@@ -1,6 +1,5 @@
 """Two-player nonlocal game."""
 
-import multiprocessing
 from collections import defaultdict
 
 import cvxpy
@@ -8,11 +7,10 @@ import numpy as np
 
 from toqito.helper import update_odometer
 from toqito.matrix_ops import tensor
+from toqito.matrix_ops.tensor_unravel import tensor_unravel
+from toqito.nonlocal_games.binary_constraint_system_game import check_perfect_commuting_strategy
 from toqito.rand import random_povm
 from toqito.state_opt.npa_hierarchy import npa_constraints
-
-from toqito.nonlocal_games.binary_constraint_system_game import check_perfect_commuting_strategy
-from toqito.matrix_ops.tensor_unravel import tensor_unravel
 
 
 class NonlocalGame:
@@ -26,7 +24,7 @@ class NonlocalGame:
     The nonlocal game framework was originally introduced in :footcite:`Cleve_2010_Consequences`.
 
     A tutorial is available in the documentation. For more info, see
-    :ref:`sphx_glr_auto_examples_quantumgames_example_nonlocal_game.py`.
+    :ref:`sphx_glr_auto_examples_nonlocal_games_example_nonlocal_game.py`.
 
     References
     ==========
@@ -93,7 +91,6 @@ class NonlocalGame:
         .. footbibliography::
 
         """
-
         if (num_constraints := len(constraints)) == 0:
             raise ValueError("At least 1 constraint is required")
         num_variables = constraints[0].ndim
@@ -197,11 +194,9 @@ class NonlocalGame:
                     for y in range(B_in):
                         b_q = (i // pow_arr[y]) % B_out
                         acc += pm[a, x, b_q, y]
-                    if acc > best_for_x:
-                        best_for_x = acc
+                    best_for_x = max(best_for_x, acc)
                 best_sum += best_for_x
-            if best_sum > p_win:
-                p_win = best_sum
+            p_win = max(p_win, best_sum)
 
         return p_win
 
