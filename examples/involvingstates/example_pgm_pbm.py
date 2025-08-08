@@ -16,14 +16,14 @@ results and figures from the paper using :code:`|toqito⟩`.
 # Background: Discrimination vs. Exclusion
 # ----------------------------------------
 #
-# The standard quantum state discrimination task involves Alice sending Bob a
+# The standard **quantum state discrimination** task involves Alice sending Bob a
 # quantum state :math:`\rho_i` chosen from a known ensemble
 # :math:`\{(p_i, \rho_i)\}_{i=1}^k`. Bob's goal is to perform a measurement
 # that maximizes his probability of correctly guessing the index :math:`i`.
 # The best possible probability is denoted :math:`P_{\text{Best}}`. The "pretty good
 # measurement" (PGM) is a well-known and effective heuristic for this task.
 #
-# The state exclusion task is the opposite: Bob wins if he correctly guesses
+# The **state exclusion** task is the opposite: Bob wins if he correctly guesses
 # a state that Alice *did not* send. This is equivalent to minimizing the
 # probability of correctly guessing the state Alice *did* send. The minimum
 # possible success probability for discrimination is :math:`P_{\text{Worst}}`. The
