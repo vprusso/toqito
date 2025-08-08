@@ -6,7 +6,8 @@ In this tutorial, we will explore the "pretty good measurement" (PGM) and its
 novel counterpart, the "pretty bad measurement" (PBM), as introduced by
 McIrvin et.al :footcite:`McIrvin_2024_Pretty`. These measurements
 provide elegant, easy-to-construct tools for two opposing goals in quantum
-information: state discrimination and state exclusion. PGM is useful for the former while PBM is of use for the latter.
+information: state discrimination and state exclusion.
+PGM is useful for the former while PBM is of use for the latter.
 
 We will verify their core properties and replicate some of the key numerical
 results and figures from the paper using :code:`|toqito⟩`.
@@ -20,15 +21,33 @@ results and figures from the paper using :code:`|toqito⟩`.
 # quantum state :math:`\rho_i` chosen from a known ensemble
 # :math:`\{(p_i, \rho_i)\}_{i=1}^k`. Bob's goal is to perform a measurement
 # that maximizes his probability of correctly guessing the index :math:`i`.
-# The best possible probability is denoted :math:`P_{\text{Best}}`. The "pretty good
-# measurement" (PGM) is a well-known and effective heuristic for this task.
+# The best possible probability, :math:`P_{\text{Best}}`, is the maximum success
+# probability achievable over all possible measurements (POVMs) :math:`\{M_i\}`.
+#
+# .. math::
+#    P_{\text{Best}} = \max \sum_{i=1}^k p_i \text{Tr}(M_i \rho_i)
+#
+# The "pretty good measurement" (PGM), also known as the square root measurement,
+# is a heuristic for this task that is not always optimal but performs well.
+# Its measurement operators :math:`G_i` are constructed as:
+#
+# .. math::
+#    G_i = P^{-1/2} (p_i \rho_i) P^{-1/2} \quad \text{where} \quad P = \sum_{j=1}^k p_j \rho_j
 #
 # The **state exclusion** task is the opposite: Bob wins if he correctly guesses
 # a state that Alice *did not* send. This is equivalent to minimizing the
-# probability of correctly guessing the state Alice *did* send. The minimum
-# possible success probability for discrimination is :math:`P_{\text{Worst}}`. The
-# "pretty bad measurement" (PBM) is a new heuristic designed to approximate
-# this worst-case performance.
+# probability of correctly guessing the state Alice *did* send. The "pretty bad
+# measurement" (PBM) is a heuristic designed to approximate this worst-case
+# performance. The minimum success probability for discrimination, denoted
+# :math:`P_{\text{Worst}}`, is defined as:
+#
+# .. math::
+#    P_{\text{Worst}} = \min \sum_{i=1}^k p_i \text{Tr}(M_i \rho_i)
+#
+# The PBM is elegantly defined in terms of the PGM operators :math:`G_i`:
+#
+# .. math::
+#    B_i = \frac{1}{k-1}(I - G_i)
 #
 # A key result from :footcite:`McIrvin_2024_Pretty` is the tight relationship
 # between the success probabilities of these two measurements:
@@ -51,7 +70,8 @@ results and figures from the paper using :code:`|toqito⟩`.
 # Figure 3 of the paper :footcite:`McIrvin_2024_Pretty` analyzes the performance
 # of these measurements for the three **trine states** with a uniform prior
 # probability. The trine states are a classic example of a set that is
-# antidistinguishable but not distinguishable.
+# antidistinguishable but not distinguishable,a property demonstrated in the
+# :ref:`sphx_glr_auto_examples_quantum_states_example_state_exclusion.py` tutorial.
 #
 # Our plan is to:
 #
