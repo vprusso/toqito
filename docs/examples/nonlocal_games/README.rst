@@ -1,2 +1,2 @@
-Quantum Games
+Nonlocal Games
 --------------
