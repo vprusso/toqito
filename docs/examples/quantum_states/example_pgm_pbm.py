@@ -27,7 +27,7 @@ results and figures from the paper using :code:`|toqito⟩`.
 # .. math::
 #    P_{\text{Best}} = \max \sum_{i=1}^k p_i \text{Tr}(M_i \rho_i)
 #
-# The "pretty good measurement" (PGM), also known as the square root measurement,
+# The "pretty good measurement" (PGM), also known as the square root measurement :footcite:`Belavkin_1975_Optimal,Hughston_1993_Complete`,
 # is a heuristic for this task that is not always optimal but performs well.
 # Its measurement operators :math:`G_i` are constructed as:
 #
