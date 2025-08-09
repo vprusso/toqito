@@ -61,8 +61,6 @@ def schmidt_decomposition(
 
 
 
-
-
     :raises ValueError: If matrices are not of equal dimension.
     :param rho: A bipartite quantum state to compute the Schmidt decomposition of.
     :param dim: An array consisting of the dimensions of the subsystems (default gives subsystems
