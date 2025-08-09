@@ -28,9 +28,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/ruff-action@v3
-        with:
-          args: "format --check --diff"
       - run: ruff check --fix
+      - run: ruff format
       # https://github.com/astral-sh/ruff-action
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
