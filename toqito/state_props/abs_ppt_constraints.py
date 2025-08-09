@@ -50,7 +50,6 @@ def abs_ppt_constraints(
 
     Examples
     ========
-
     We can compute the constraint matrices for a random density matrix:
 
     .. jupyter-execute::
