@@ -3,8 +3,10 @@ The Pretty Good and Pretty Bad Measurements
 ===========================================
 
 In this tutorial, we will explore the "pretty good measurement" (PGM) and its
-novel counterpart, the "pretty bad measurement" (PBM), as introduced by
-McIrvin et.al :footcite:`McIrvin_2024_Pretty`. These measurements
+novel counterpart, the "pretty bad measurement" (PBM). The PGM, also known as the
+square-root measurement, is a widely used measurement for quantum
+state discrimination :footcite:`Belavkin_1975_Optimal,Hughston_1993_Complete`. The PBM, in contrast,
+was recently introduced by McIrvin et. al. :footcite:`McIrvin_2024_Pretty`. These measurements
 provide elegant, easy-to-construct tools for two opposing goals in quantum
 information: state discrimination and state exclusion.
 PGM is useful for the former while PBM is of use for the latter.
@@ -17,9 +19,9 @@ results and figures from the paper using :code:`|toqito⟩`.
 # Background: Discrimination vs. Exclusion
 # ----------------------------------------
 #
-# The standard **quantum state discrimination** task involves Bob winning if he successfully guesses the state sent by Alice. Alice is sending Bob a
-# quantum state :math:`\rho_i` chosen from an ensemble
-# :math:`\{(p_i, \rho_i)\}_{i=1}^k` known to Bob. Bob's goal is to perform a measurement
+# The standard **quantum state discrimination** task involves Alice sending Bob a
+# quantum state :math:`\rho_i` chosen from a known ensemble
+# :math:`\{(p_i, \rho_i)\}_{i=1}^k`. Bob's goal is to perform a measurement
 # that maximizes his probability of correctly guessing the index :math:`i`.
 # The best possible probability, :math:`P_{\text{Best}}`, is the maximum success
 # probability achievable over all possible measurements (POVMs) :math:`\{M_i\}`.
@@ -27,29 +29,38 @@ results and figures from the paper using :code:`|toqito⟩`.
 # .. math::
 #    P_{\text{Best}} = \max \sum_{i=1}^k p_i \text{Tr}(M_i \rho_i)
 #
-# The "pretty good measurement" (PGM), also known as the square root measurement :footcite:`Belavkin_1975_Optimal,Hughston_1993_Complete`,
-# is a heuristic for this task that is not always optimal but performs well.
-# Its measurement operators :math:`G_i` are constructed as:
+# However, finding :math:`P_{\text{Best}}` is often computationally very hard. The "pretty good measurement" (PGM) is a well-established heuristic for this task.
+# Its measurement operators :math:`G_i` are constructed from the ensemble as:
 #
 # .. math::
-#    G_i = P^{-1/2} (p_i \rho_i) P^{-1/2} \quad \text{where} \quad P = \sum_{j=1}^k p_j \rho_j
+#    G_i = P^{-1/2} (p_i \rho_i) P^{-1/2} \quad \text{where} \quad P = \sum_{i=1}^k p_i \rho_i
+#
+# The success probability when using the PGM is given by the standard Born rule, averaged over the ensemble:
+#
+# .. math::
+#    P_{\text{PGM}} = \sum_{i=1}^k p_i \text{Tr}(\rho_i G_i)
 #
 # The **state exclusion** task is the opposite: Bob wins if he correctly guesses
 # a state that Alice *did not* send. This is equivalent to minimizing the
-# probability of correctly guessing the state Alice *did* send. The "pretty bad
-# measurement" (PBM) is a heuristic designed to approximate this worst-case
-# performance. The minimum success probability for discrimination, denoted
-# :math:`P_{\text{Worst}}`, is defined as:
+# probability of correctly guessing the state Alice *did* send. This minimum
+# achievable success probability is denoted :math:`P_{\text{Worst}}`:
 #
 # .. math::
 #    P_{\text{Worst}} = \min \sum_{i=1}^k p_i \text{Tr}(M_i \rho_i)
 #
-# The PBM is elegantly defined in terms of the PGM operators :math:`G_i`:
+# The "pretty bad measurement" (PBM) is a heuristic designed to approximate
+# this worst-case performance. The PBM is elegantly defined in terms of the
+# PGM operators :math:`G_i`:
 #
 # .. math::
-#    B_i = \frac{1}{k-1}(I - G_i)
+#    B_i = \frac{1}{k-1}(\mathbb{I} - G_i)
 #
-# A key result from McIrvin et.al :footcite:`McIrvin_2024_Pretty` is the tight relationship
+# The success probability for discrimination when using the PBM is, analogously:
+#
+# .. math::
+#    P_{\text{PBM}} = \sum_{i=1}^k p_i \text{Tr}(\rho_i B_i)
+#
+# A key result from :footcite:`McIrvin_2024_Pretty` is the tight relationship
 # between the success probabilities of these two measurements:
 #
 # .. math::
@@ -67,10 +78,10 @@ results and figures from the paper using :code:`|toqito⟩`.
 # Numerical Example: The Trine States
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 #
-# Figure 3 from McIrvin et.al :footcite:`McIrvin_2024_Pretty` analyzes the performance
+# Figure 3 of the paper :footcite:`McIrvin_2024_Pretty` analyzes the performance
 # of these measurements for the three **trine states** with a uniform prior
 # probability. The trine states are a classic example of a set that is
-# antidistinguishable but not distinguishable,a property demonstrated in the
+# antidistinguishable but not distinguishable, a property demonstrated in the
 # :ref:`sphx_glr_auto_examples_quantum_states_example_state_exclusion.py` tutorial.
 #
 # Our plan is to:
@@ -130,6 +141,11 @@ print(f"\nOptimal Benchmarks:")
 print(f"  P_Best  = {p_best:.4f} (Max discrimination probability)")
 print(f"  P_Worst = {p_worst:.4f} (Min discrimination probability)")
 
+# %%
+# The results for the optimal benchmarks show that the maximum possible success
+# probability is :math:`2/3`, and the minimum is :math:`0`. The PGM is known to be
+# optimal for the trine states, so we expect :math:`P_{\text{PGM}} = P_{\text{Best}}`.
+
 # 3. Compute the PGM and PBM operators.
 pgm_operators = pretty_good_measurement(state_vectors, probs)
 pbm_operators = pretty_bad_measurement(state_vectors, probs)
@@ -142,34 +158,37 @@ print(f"\nHeuristic Measurements:")
 print(f"  P_PGM = {p_pgm:.4f}")
 print(f"  P_PBM = {p_pbm:.4f}")
 
+# %%
+# As expected, the PGM achieves the optimal value. Our calculated value for the
+# PBM is :math:`1/6 \approx 0.1667`, which is a good approximation of the true
+# worst case of :math:`0`.
+#
+# Finally, we can verify the core relationship between these two measurements
+# and the full performance hierarchy.
+
 # 5. Verify the core relationship and the hierarchy.
 relation_lhs = p_pgm + (k - 1) * p_pbm
 print(f"\nVerifying P_PGM + (k-1)*P_PBM = 1:")
 print(f"  {p_pgm:.4f} + ({k - 1})*{p_pbm:.4f} = {relation_lhs:.4f} -> {np.isclose(relation_lhs, 1)}")
 
 print("\nVerifying hierarchy (P_Best >= P_PGM >= 1/k >= P_PBM >= P_Worst):")
-print(f"  {p_best:.4f} >= {p_pgm:.4f}  ?  {p_best >= p_pgm or np.isclose(p_best, p_pgm)}")
-print(f"  {p_pgm:.4f} >= {1 / k:.4f}  ?  {p_pgm >= 1 / k or np.isclose(p_pgm, 1 / k)}")
-print(f"  {1 / k:.4f} >= {p_pbm:.4f}  ?  {1 / k >= p_pbm or np.isclose(1 / k, p_pbm)}")
-print(f"  {p_pbm:.4f} >= {p_worst:.4f}?  {p_pbm >= p_worst or np.isclose(p_pbm, p_worst)}")
-
+print(f"  P_Best >= P_PGM:    {p_best:.4f} >= {p_pgm:.4f}  ->  {p_best >= p_pgm or np.isclose(p_best, p_pgm)}")
+print(f"  P_PGM >= 1/k:       {p_pgm:.4f} >= {1 / k:.4f}  ->  {p_pgm >= 1 / k or np.isclose(p_pgm, 1 / k)}")
+print(f"  1/k >= P_PBM:       {1 / k:.4f} >= {p_pbm:.4f}  ->  {1 / k >= p_pbm or np.isclose(1 / k, p_pbm)}")
+print(f"  P_PBM >= P_Worst:   {p_pbm:.4f} >= {p_worst:.4f} ->  {p_pbm >= p_worst or np.isclose(p_pbm, p_worst)}")
 
 # %%
-# The results perfectly match those presented in Figure 3 of the paper. For
-# the trine states, the PGM is optimal (:math:`P_{\text{PGM}} = P_{\text{Best}} = 2/3`)
-# and the worst possible measurement gives zero success probability
-# (:math:`P_{\text{Worst}} = 0`).
+# The verifications confirm that all theoretical relationships hold true for the
+# trine states.
 #
-# Our calculated value for the PBM is :math:`1/6 \approx 0.1667`, which is a
-# good approximation of the true worst case. We also explicitly confirm
-# the identity :math:`P_{\text{PGM}} + (k-1)P_{\text{PBM}} = 1` and the full
-# performance hierarchy.
+# Now we can move on to visualizing the performance for the more general case
+# of random states.
 
 # %%
 # Visualizing Performance on Random States
 # ----------------------------------------
 #
-# Figures 4 and 5 from McIrvin et.al :footcite:`McIrvin_2024_Pretty` show that for many randomly generated
+# Figures 4 and 5 in the paper :footcite:`McIrvin_2024_Pretty` show that for many randomly generated
 # states, the PGM and PBM probabilities cluster around the blind guessing
 # baseline of :math:`1/k`. We can reproduce a similar plot.
 #
