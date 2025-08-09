@@ -140,6 +140,9 @@ html_last_updated_fmt = "%b %d, %Y"
 
 # Override jupyter-sphinx styling to match Furo theme
 def setup(app):
+    # light docs build option
+    app.connect("autodoc-process-docstring", maybe_strip_jupyter_blocks)
+
     # Create CSS that inherits colors from Furo theme
     app.add_css_file("jupyter-sphinx-override.css")
     css_content = """
@@ -235,7 +238,3 @@ def maybe_strip_jupyter_blocks(app, what, name, obj, options, lines):
         new_lines.append(line)
 
     lines[:] = new_lines
-
-
-def setup(app):
-    app.connect("autodoc-process-docstring", maybe_strip_jupyter_blocks)
