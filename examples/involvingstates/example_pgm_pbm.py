@@ -19,9 +19,9 @@ results and figures from the paper using :code:`|toqito⟩`.
 # Background: Discrimination vs. Exclusion
 # ----------------------------------------
 #
-# The standard **quantum state discrimination** task involves Alice sending Bob a
-# quantum state :math:`\rho_i` chosen from a known ensemble
-# :math:`\{(p_i, \rho_i)\}_{i=1}^k`. Bob's goal is to perform a measurement
+# The standard **quantum state discrimination** task Bob winning if he successfully guesses the state sent by Alice.
+# Alice is sending Bob a quantum state :math:`\rho_i` chosen from an ensemble
+# :math:`\{(p_i, \rho_i)\}_{i=1}^k` known to Bob. Bob's goal is to perform a measurement
 # that maximizes his probability of correctly guessing the index :math:`i`.
 # The best possible probability, :math:`P_{\text{Best}}`, is the maximum success
 # probability achievable over all possible measurements (POVMs) :math:`\{M_i\}`.
@@ -61,7 +61,7 @@ results and figures from the paper using :code:`|toqito⟩`.
 # .. math::
 #    P_{\text{PBM}} = \sum_{i=1}^k p_i \text{Tr}(\rho_i B_i)
 #
-# A key result from :footcite:`McIrvin_2024_Pretty` is the tight relationship
+# A key result from McIrvin et.al :footcite:`McIrvin_2024_Pretty` is the tight relationship
 # between the success probabilities of these two measurements:
 #
 # .. math::
@@ -79,7 +79,7 @@ results and figures from the paper using :code:`|toqito⟩`.
 # Numerical Example: The Trine States
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 #
-# Figure 3 of the paper :footcite:`McIrvin_2024_Pretty` analyzes the performance
+# Figure 3 from McIrvin et.al :footcite:`McIrvin_2024_Pretty` analyzes the performance
 # of these measurements for the three **trine states** with a uniform prior
 # probability. The trine states are a classic example of a set that is
 # antidistinguishable but not distinguishable, a property demonstrated in the
@@ -189,7 +189,7 @@ print(f"  P_PBM >= P_Worst:   {p_pbm:.4f} >= {p_worst:.4f} ->  {p_pbm >= p_worst
 # Visualizing Performance on Random States
 # ----------------------------------------
 #
-# Figures 4 and 5 in the paper :footcite:`McIrvin_2024_Pretty` show that for many randomly generated
+# Figures 4 and 5 from McIrvin et.al :footcite:`McIrvin_2024_Pretty` show that for many randomly generated
 # states, the PGM and PBM probabilities cluster around the blind guessing
 # baseline of :math:`1/k`. We can reproduce a similar plot.
 #
