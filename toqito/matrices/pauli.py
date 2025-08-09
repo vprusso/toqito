@@ -111,7 +111,7 @@ def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np
             pauli_mat = np.array([[0, -1j], [1j, 0]])
         elif ind in {"z", "Z", 3}:
             pauli_mat = np.array([[1, 0], [0, -1]])
-        elif ind in {"i", "I", 0}:
+        else:
             pauli_mat = np.identity(2)
 
         if is_sparse:
