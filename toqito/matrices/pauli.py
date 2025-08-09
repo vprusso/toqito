@@ -102,6 +102,9 @@ def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np
 
     """
     if isinstance(ind, (int, str)):
+        allowed_ind_options = {"x", "X", 1, "y", "Y", 2, "z", "Z", 3, "i", "I", 0}
+        if ind not in allowed_ind_options:
+            raise ValueError(f"Invalid Pauli operator index provided. Allowed options are {allowed_ind_options}.")
         if ind in {"x", "X", 1}:
             pauli_mat = np.array([[0, 1], [1, 0]])
         elif ind in {"y", "Y", 2}:
