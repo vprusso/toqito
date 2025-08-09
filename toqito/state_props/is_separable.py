@@ -42,6 +42,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
 
         - If the input state has rank 1 (i.e., it's a pure state), its Schmidt rank is computed.
           A pure state is separable if and only if its Schmidt rank is 1 :footcite:`WikiScmidtDecomp`.
+
         .. note::
            QETLAB also considers a more general Operator Schmidt Rank condition
            from :footcite:`Cariello_2013_Weak_irreducible` for weak irreducible
@@ -151,6 +152,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
           to :code:`level` (specifically, if :code:`has_symmetric_extension` returns
           :code:`True` for the highest :code:`k_actual_level_check` in the loop, which is
           :code:`level`), the current implementation returns :code:`True`.
+
         .. note::
             The symmetric extension check requires CVXPY and a suitable solver. If these
             are not installed, or if the solver fails, a warning is printed to the console
@@ -268,6 +270,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         - If -1, attempts all implemented checks exhaustively (not all possible checks are implemented).
 
     :param tol: Numerical tolerance (default: 1e-8).
+
     :return: :code:`True` if separable, :code:`False` if entangled or inconclusive by implemented checks.
 
     """
@@ -630,7 +633,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                     return True
 
             # Hildebrand's Conditions for 2xN PPT states (various papers, e.g.,
-            # :footcite:`Hildebrand_2005_PPT`, :footcite:`Hildebrand_2008_Semidefinite`)
+            # :footcite:`Hildebrand_2005_Cone`, :footcite:`Hildebrand_2008_Semidefinite`)
             # Block matrix form: rho_2xn = [[A, B], [B^dagger, C]]
             A_block = state_t_2xn[:d_N_val, :d_N_val]
             B_block = state_t_2xn[:d_N_val, d_N_val : 2 * d_N_val]
