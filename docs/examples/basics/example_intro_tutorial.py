@@ -102,8 +102,9 @@ rho_0
 #
 # in a more concise manner as
 
-from toqito.states import bell
 import numpy as np
+
+from toqito.states import bell
 
 bell(0)
 
@@ -137,8 +138,9 @@ ghz(2, 3)
 #    \frac{1}{\sqrt{30}} \left(| 0000000 \rangle + 2| 1111111 \rangle + 3|
 #    2222222 \rangle + 4| 3333333\rangle \right).
 
-from toqito.states import ghz
 import numpy as np
+
+from toqito.states import ghz
 
 dim = 4
 num_parties = 7
@@ -160,8 +162,8 @@ for idx in np.nonzero(vec)[0]:
 #
 # Any one of the Bell states serve as an example of a pure state
 
-from toqito.states import bell
 from toqito.state_props import is_pure
+from toqito.states import bell
 
 rho = bell(0) @ bell(0).conj().T
 is_pure(rho)
@@ -181,8 +183,8 @@ is_pure(rho)
 # entangled state over :math:`2 \otimes 2` and therefore should not satisfy the
 # PPT criterion.
 
-from toqito.states import bell
 from toqito.state_props import is_ppt
+from toqito.states import bell
 
 rho = bell(2) @ bell(2).conj().T
 is_ppt(rho)
@@ -201,6 +203,7 @@ is_ppt(rho)
 # (i.e. not separable).
 
 import numpy as np
+
 from toqito.state_props import is_separable
 from toqito.states import tile
 
@@ -239,9 +242,10 @@ is_separable(rho)
 # Let us consider an example in :code:`|toqito⟩` where we wish to calculate the
 # fidelity function between quantum states that happen to be identical.
 
-from toqito.states import bell
-from toqito.state_metrics import fidelity
 import numpy as np
+
+from toqito.state_metrics import fidelity
+from toqito.states import bell
 
 # Define two identical density operators.
 rho = bell(0) @ bell(0).conj().T
@@ -306,8 +310,9 @@ np.around(fidelity(rho, sigma), decimals=2)
 # By default, the partial trace function in :code:`|toqito⟩` takes the trace of the second
 # subsystem.
 
-from toqito.matrix_ops import partial_trace
 import numpy as np
+
+from toqito.matrix_ops import partial_trace
 
 test_input_mat = np.arange(1, 17).reshape(4, 4)
 partial_trace(test_input_mat)
@@ -324,8 +329,9 @@ partial_trace(test_input_mat)
 #                    20 & 22
 #                \end{pmatrix}.
 
-from toqito.matrix_ops import partial_trace
 import numpy as np
+
+from toqito.matrix_ops import partial_trace
 
 test_input_mat = np.arange(1, 17).reshape(4, 4)
 partial_trace(test_input_mat, sys=[0])
@@ -372,8 +378,9 @@ partial_trace(test_input_mat, sys=[0])
 # By default, in :code:`|toqito⟩`, the partial transpose function performs the transposition on
 # the second subsystem as follows.
 
-from toqito.matrix_ops import partial_transpose
 import numpy as np
+
+from toqito.matrix_ops import partial_transpose
 
 test_input_mat = np.arange(1, 17).reshape(4, 4)
 partial_transpose(test_input_mat)
@@ -393,8 +400,9 @@ partial_transpose(test_input_mat)
 #                \end{pmatrix}.
 
 
-from toqito.matrix_ops import partial_transpose
 import numpy as np
+
+from toqito.matrix_ops import partial_transpose
 
 test_input_mat = np.arange(1, 17).reshape(4, 4)
 partial_transpose(test_input_mat, sys=[0])
@@ -416,6 +424,7 @@ partial_transpose(test_input_mat, sys=[0])
 # where :math:`\mathbb{I}` is the identity operator and :math:`d` is the dimension of the Hilbert space. The example below applies the depolarizing channel with :math:`p=0.3` to the computational basis state :math:`|0\rangle`.
 
 import numpy as np
+
 from toqito.channel_ops import apply_channel
 from toqito.channels import depolarizing
 
@@ -440,6 +449,7 @@ print(output_state)
 # where :math:`Z` is the Pauli-Z operator and :math:`p` represents the dephasing probability. The example below demonstrates how to apply the dephasing channel with :math:`p=0.4` to the plus state :math:`|+\rangle = \frac{1}{\sqrt{2}}(|0\rangle + |1\rangle)`.
 
 import numpy as np
+
 from toqito.channel_ops import apply_channel
 from toqito.channels import dephasing
 
@@ -470,8 +480,9 @@ print(output_state)
 #
 # The phase damping channel can be applied to a quantum state as follows:
 
-from toqito.channels import phase_damping
 import numpy as np
+
+from toqito.channels import phase_damping
 
 # Create a density matrix with coherence.
 rho = np.array([[1, 0.5], [0.5, 1]])
@@ -493,8 +504,9 @@ print(result)
 #
 # Here's how to use the amplitude damping channel:
 
-from toqito.channels import amplitude_damping
 import numpy as np
+
+from toqito.channels import amplitude_damping
 
 # Create a quantum state.
 rho = np.array([[0.5, 0.5], [0.5, 0.5]])
@@ -513,8 +525,9 @@ print(result)
 #    K_1 = \sqrt{p} \, X = \sqrt{p} \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}
 
 
-from toqito.channels import bitflip
 import numpy as np
+
+from toqito.channels import bitflip
 
 # Create a quantum state |0⟩⟨0|.
 rho = np.array([[1, 0], [0, 0]])
@@ -550,8 +563,9 @@ print(result)
 # The Pauli channel can be used to apply noise to an input quantum state or generate a Choi matrix.
 
 
-from toqito.channels import pauli_channel
 import numpy as np
+
+from toqito.channels import pauli_channel
 
 # Define probabilities for single-qubit Pauli operators.
 probabilities = np.array([0.5, 0.2, 0.2, 0.1])
@@ -607,8 +621,9 @@ print(result)
 # Our function expects this set of operators to be a POVM because it checks if the operators
 # sum up to the identity, ensuring that the measurement outcomes are properly normalized.
 
-from toqito.measurement_props import is_povm
 import numpy as np
+
+from toqito.measurement_props import is_povm
 
 meas_1 = np.array([[1, 0], [0, 0]])
 meas_2 = np.array([[0, 0], [0, 1]])
@@ -622,9 +637,10 @@ is_povm(meas)
 # We may also use :func:`.random_povm` to randomly generate a POVM, and can verify that a
 # randomly generated set satisfies the criteria for being a POVM set.
 
+import numpy as np
+
 from toqito.measurement_props import is_povm
 from toqito.rand import random_povm
-import numpy as np
 
 dim, num_inputs, num_outputs = 2, 2, 2
 measurements = random_povm(dim, num_inputs, num_outputs)
@@ -646,8 +662,9 @@ is_povm([measurements[:, :, 0, 0], measurements[:, :, 0, 1]])
 #        7 & 8
 #    \end{pmatrix},
 
-from toqito.measurement_props import is_povm
 import numpy as np
+
+from toqito.measurement_props import is_povm
 
 non_meas_1 = np.array([[1, 2], [3, 4]])
 non_meas_2 = np.array([[5, 6], [7, 8]])
@@ -674,9 +691,10 @@ is_povm(non_meas)
 # .. math::
 #    P_0 = e_0 e_0^* \quad \text{and} \quad P_1 = e_1 e_1^*.
 
+import numpy as np
+
 from toqito.matrices import standard_basis
 from toqito.measurement_ops import measure
-import numpy as np
 
 e_0, e_1 = standard_basis(2)
 
@@ -723,8 +741,8 @@ measure(proj_1, rho)
 #    u_1 = -\frac{1}{2}\left(|0\rangle + \sqrt{3}|1\rangle\right), \quad \text{and} \quad
 #    u_2 = -\frac{1}{2}\left(|0\rangle - \sqrt{3}|1\rangle\right).
 
-from toqito.states import trine
 from toqito.measurements import pretty_good_measurement
+from toqito.states import trine
 
 states = trine()
 probs = [1 / 3, 1 / 3, 1 / 3]
@@ -749,8 +767,8 @@ pgm
 #    u_1 = -\frac{1}{2}\left(|0\rangle + \sqrt{3}|1\rangle\right), \quad \text{and} \quad
 #    u_2 = -\frac{1}{2}\left(|0\rangle - \sqrt{3}|1\rangle\right).
 
-from toqito.states import trine
 from toqito.measurements import pretty_bad_measurement
+from toqito.states import trine
 
 states = trine()
 probs = [1 / 3, 1 / 3, 1 / 3]

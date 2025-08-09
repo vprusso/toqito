@@ -30,8 +30,9 @@
 #    allowing Alice's local operations to affect the global state.
 #
 import numpy as np
+
+from toqito.matrices import cnot, hadamard, pauli
 from toqito.states import bell
-from toqito.matrices import pauli, cnot, hadamard
 
 np.set_printoptions(precision=8, suppress=True)
 

@@ -119,8 +119,9 @@ measurements.
 # sphinx_gallery_thumbnail_path = 'figures/quantum_state_distinguish.svg'
 # sphinx_gallery_end_ignore
 import numpy as np
-from toqito.states import basis
+
 from toqito.state_opt import state_distinguishability
+from toqito.states import basis
 
 # Define the standard basis |0> and |1>.
 e_0, e_1 = basis(2, 0), basis(2, 1)
@@ -209,8 +210,9 @@ print(np.around(state_distinguishability(states, probs)[0], decimals=2))
 
 
 import numpy as np
-from toqito.states import bell
+
 from toqito.state_opt import ppt_distinguishability
+from toqito.states import bell
 
 # Bell vectors:
 psi_0 = bell(0)
