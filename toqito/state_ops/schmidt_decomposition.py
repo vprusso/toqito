@@ -19,17 +19,18 @@ def schmidt_decomposition(
 
     .. jupyter-execute::
 
-     from toqito.states import max_entangled
-     max_entangled(3)
+        from toqito.states import max_entangled
+        max_entangled(3)
+
     array([[0.57735027],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.57735027],
-           [0.        ],
-           [0.        ],
-           [0.        ],
-           [0.57735027]])
+        [0.        ],
+        [0.        ],
+        [0.        ],
+        [0.57735027],
+        [0.        ],
+        [0.        ],
+        [0.        ],
+        [0.57735027]])
 
     Computing the Schmidt decomposition of :math:`u`, we can obtain the corresponding singular
     values of :math:`u` as
@@ -55,7 +56,10 @@ def schmidt_decomposition(
 
     References
     ==========
+
     .. footbibliography::
+
+
 
 
 
