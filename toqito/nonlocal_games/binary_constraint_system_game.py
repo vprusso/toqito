@@ -1,7 +1,7 @@
-"Two-player binary constraint system (BCS) game."
+"""Two-player binary constraint system (BCS) game."""
 
-import numpy as np
 import networkx as nx
+import numpy as np
 
 
 def create_bcs_constraints(M: np.ndarray, b: np.ndarray) -> list[np.ndarray]:
