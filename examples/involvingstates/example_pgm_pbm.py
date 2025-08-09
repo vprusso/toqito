@@ -50,7 +50,8 @@ results and figures from the paper using :code:`|toqito⟩`.
 #
 # The "pretty bad measurement" (PBM) is a heuristic designed to approximate
 # this worst-case performance. The PBM is elegantly defined in terms of the
-# PGM operators :math:`G_i`:
+# PGM operators :math:`G_i`. In the formula below, :math:`k` is the number of states in the ensemble,
+# and :math:`\mathbb{I}` is the identity operator with the same dimensions as the states:
 #
 # .. math::
 #    B_i = \frac{1}{k-1}(\mathbb{I} - G_i)
