@@ -2,11 +2,11 @@
 
 import numpy as np
 
-from toqito.nonlocal_games.nonlocal_game import NonlocalGame
 from toqito.nonlocal_games.binary_constraint_system_game import (
-    create_bcs_constraints,
     check_perfect_commuting_strategy,
+    create_bcs_constraints,
 )
+from toqito.nonlocal_games.nonlocal_game import NonlocalGame
 
 
 def test_classically_satisfiable_bcs():
@@ -47,7 +47,6 @@ def test_magic_square_bcs():
     but not classically.
 
     """
-
     M = np.array(
         [
             [1, 1, 1, 0, 0, 0, 0, 0, 0],
@@ -73,7 +72,6 @@ def test_special_case():
     This example still yields a perfect commuting-operator strategy.
 
     """
-
     M = np.array([[1, 1, 1], [1, 1, 0], [0, 1, 1]], dtype=int)
     b = np.array([1, 0, 0], dtype=int)
     constraints = create_bcs_constraints(M, b)
@@ -108,7 +106,6 @@ def test_4cycle_bcs_no_classical_but_perfect_quantum():
 
 def test_tensor_diff_finds_no_dependent_variables():
     """Test that a tensor with constant values triggers degenerate constraint error."""
-
     # Create a 2D constraint tensor of shape (2, 2) with all values set to 1
     # This causes np.diff(..., axis=0/1) to be zero everywhere → no dependent variables
     constraint_tensor = np.ones((2, 2), dtype=int)
@@ -122,7 +119,6 @@ def test_tensor_diff_finds_no_dependent_variables():
 
 def test_is_bcs_perfect_commuting_strategy_flat_constraints_path():
     """Test that 1D constraints directly use the raw path."""
-
     # This constraint has ndim = 1, so it will follow the else block:
     # https://github.com/vprusso/toqito/blob/abcdef123456/toqito/nonlocal_games/nonlocal_game.py#L158
     constraint = np.array([1, 1, 0], dtype=int)  # last element is RHS
