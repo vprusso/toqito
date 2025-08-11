@@ -15,36 +15,28 @@ def abs_ppt_constraints(
 
     .. note::
 
-        The function does not always return the optimal number of constraint
-        matrices. There are some redundant constraint matrices
-        :footcite:`Johnston_2014_Orderings`.
+        The function does not always return the optimal number of constraint matrices.
+        There are some redundant constraint matrices :footcite:`Johnston_2014_Orderings`.
 
-        * With :code:`use_checks=False`, the number of matrices returned
-          starting from :math:`p=1` is
+        * With :code:`use_checks=False`, the number of matrices returned starting from :math:`p=1` is
           :math:`[0, 1, 2, 12, 286, 33592, 23178480, \ldots]`.
-        * With :code:`use_checks=True`, the number of matrices returned
-          starting from :math:`p=1` is
+        * With :code:`use_checks=True`, the number of matrices returned starting from :math:`p=1` is
           :math:`[0, 1, 2, 10, 114, 2612, 108664, \ldots]`.
 
-        However, the optimal number of matrices starting from :math:`p=1`
-        is given by
+        However, the optimal number of matrices starting from :math:`p=1` is given by
         :math:`[0, 1, 2, 10, 114, 2608, 107498]`.
 
     .. note::
 
-        This function accepts a :code:`cvxpy` Variable as input for
-        :code:`eigs`. The function will return the assembled constraint
-        matrices as a list of :code:`cvxpy` Expressions. These can be used
-        with :code:`cvxpy` to optimize over the space of absolutely PPT
-        matrices.
+        This function accepts a :code:`cvxpy` Variable as input for :code:`eigs`. The function
+        will return the assembled constraint matrices as a list of :code:`cvxpy` Expressions.
+        These can be used with :code:`cvxpy` to optimize over the space of absolutely PPT matrices.
 
-        The user must impose the condition
-        :code:`eigs[0] ≥ eigs[1] ≥ ... ≥ eigs[-1] ≥ 0`
-        and the positive semidefinite constraint on each returned matrix
-        separately.
+        The user must impose the condition :code:`eigs[0] ≥ eigs[1] ≥ ... ≥ eigs[-1] ≥ 0` and the
+        positive semidefinite constraint on each returned matrix separately.
 
-        It is recommended to set :code:`use_check=True` for this use case
-        to minimize the number of constraint equations in the problem.
+        It is recommended to set :code:`use_check=True` for this use case to minimize the number of
+        constraint equations in the problem.
 
     This function is adapted from QETLAB :footcite:`QETLAB_link`.
 

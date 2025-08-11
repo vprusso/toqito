@@ -32,8 +32,7 @@ def schmidt_decomposition(
         [0.        ],
         [0.57735027]])
 
-    Computing the Schmidt decomposition of :math:`u`, we can obtain the corresponding singular
-    values of :math:`u` as
+    Computing the Schmidt decomposition of :math:`u`, we can obtain the corresponding singular values of :math:`u` as
 
     .. math::
         \frac{1}{\sqrt{3}} \left[1, 1, 1 \right]^{\text{T}}.
