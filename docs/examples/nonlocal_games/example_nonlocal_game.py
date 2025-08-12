@@ -336,6 +336,7 @@ pred_mat
 # use :code:`|toqito⟩` to determine the lower bound on the quantum value.
 
 import numpy as np
+
 from toqito.nonlocal_games.nonlocal_game import NonlocalGame
 
 chsh = NonlocalGame(prob_mat, pred_mat)
@@ -387,6 +388,7 @@ print(f"Maximum quantum value after multiple runs is: {max(results)}")
 
 
 import numpy as np
+
 from toqito.nonlocal_games.nonlocal_game import NonlocalGame
 
 # Specify the number of inputs, and number of outputs.
@@ -458,6 +460,7 @@ print(f"Quantum value (lower bound): {np.around(ffl.quantum_value_lower_bound(),
 # In :code:`|toqito⟩`, we can encode this as a BCS game as follows
 
 import numpy as np
+
 from toqito.nonlocal_games import NonlocalGame
 
 # Define constraints c_1 and c_2.
