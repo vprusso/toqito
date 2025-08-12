@@ -276,6 +276,7 @@ measurement on that shared state.
 # sphinx_gallery_end_ignore
 # Define the BB84 extended nonlocal game.
 import numpy as np
+
 from toqito.states import basis
 
 # The basis: {|0>, |1>}:
@@ -320,8 +321,9 @@ bb84_prob_mat = 1 / 2 * np.identity(2)
 
 
 # Calculate the unentangled value of the BB84 extended nonlocal game.
-from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
 import numpy as np
+
+from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
 
 # Define an ExtendedNonlocalGame object based on the BB84 game.
 bb84 = ExtendedNonlocalGame(bb84_prob_mat, bb84_pred_mat)
@@ -335,8 +337,9 @@ print("The unentangled value is ", np.around(bb84.unentangled_value(), decimals=
 # example of two parallel repetitions for the BB84 game.
 
 # The unentangled value of BB84 under parallel repetition.
-from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
 import numpy as np
+
+from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
 
 # Define the bb84 game for two parallel repetitions.
 bb84_2_reps = ExtendedNonlocalGame(bb84_prob_mat, bb84_pred_mat, 2)
@@ -360,8 +363,9 @@ print("The unentangled value for two parallel repetitions is ", np.around(bb84_2
 # using :code:`|toqito⟩` as well.
 
 # Calculate lower bounds on the standard quantum value of the BB84 extended nonlocal game.
-from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
 import numpy as np
+
+from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
 
 # Define an ExtendedNonlocalGame object based on the BB84 game.
 bb84_lb = ExtendedNonlocalGame(bb84_prob_mat, bb84_pred_mat)
@@ -386,8 +390,9 @@ print("The standard quantum value is ", np.around(bb84_lb.quantum_value_lower_bo
 # Using :code:`|toqito⟩`, we can see that :math:`\omega_{ns}(G) = \cos^2(\pi/8)`.
 
 # Calculate the non-signaling value of the BB84 extended nonlocal game.
-from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
 import numpy as np
+
+from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
 
 # Define an ExtendedNonlocalGame object based on the BB84 game.
 bb84 = ExtendedNonlocalGame(bb84_prob_mat, bb84_pred_mat)
@@ -406,8 +411,9 @@ print("The non-signaling value is ", np.around(bb84.nonsignaling_value(), decima
 # can observe this by the following snippet.
 
 # The non-signaling value of BB84 under parallel repetition.
-from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
 import numpy as np
+
+from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
 
 # Define the bb84 game for two parallel repetitions.
 bb84_2_reps = ExtendedNonlocalGame(bb84_prob_mat, bb84_pred_mat, 2)
@@ -515,8 +521,9 @@ chsh_prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
 # the unentangled value of :math:`G_{CHSH}`.
 
 # Calculate the unentangled value of the CHSH extended nonlocal game
-from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
 import numpy as np
+
+from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
 
 # Define an ExtendedNonlocalGame object based on the CHSH game.
 chsh = ExtendedNonlocalGame(chsh_prob_mat, chsh_pred_mat)
@@ -528,8 +535,9 @@ print("The unentangled value is ", np.around(chsh.unentangled_value(), decimals=
 # We can also run multiple repetitions of :math:`G_{CHSH}`.
 
 # The unentangled value of CHSH under parallel repetition.
-from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
 import numpy as np
+
+from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
 
 # Define the CHSH game for two parallel repetitions.
 chsh_2_reps = ExtendedNonlocalGame(chsh_prob_mat, chsh_pred_mat, 2)
@@ -550,8 +558,9 @@ print("The unentangled value for two parallel repetitions is ", np.around(chsh_2
 # non-signaling value.
 
 # Calculate the non-signaling value of the CHSH extended nonlocal game.
-from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
 import numpy as np
+
+from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
 
 # Define an ExtendedNonlocalGame object based on the CHSH game.
 chsh = ExtendedNonlocalGame(chsh_prob_mat, chsh_pred_mat)
