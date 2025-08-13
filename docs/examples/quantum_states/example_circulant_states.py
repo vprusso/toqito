@@ -1,5 +1,4 @@
-"""
-Antidistinguishability of Circulant States and the Eigenvalue Criterion
+"""Antidistinguishability of Circulant States and the Eigenvalue Criterion
 =======================================================================
 
 In this tutorial, we investigate the antidistinguishability of a special
@@ -9,7 +8,7 @@ states' Gram matrix, as presented in the paper by Johnston et al.
 :footcite:`Johnston_2025_Tight`.
 
 This tutorial builds upon the concepts introduced in the
-:ref:`sphx_glr_auto_examples_involvingstates_example_state_exclusion.py` tutorial.
+:ref:`sphx_glr_auto_examples_quantum_states_example_state_exclusion.py` tutorial.
 """
 
 # %%

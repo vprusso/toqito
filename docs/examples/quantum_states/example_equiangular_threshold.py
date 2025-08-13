@@ -1,5 +1,4 @@
-"""
-Equiangular States and the Antidistinguishability Threshold
+"""Equiangular States and the Antidistinguishability Threshold
 ===========================================================
 
 In this tutorial, we explore a sharp threshold for the antidistinguishability
@@ -9,7 +8,7 @@ numerically verify a tight bound presented in the paper by Johnson et.al
 property changes.
 
 This tutorial builds upon the concepts introduced in the
-:ref:`sphx_glr_auto_examples_involvingstates_example_state_exclusion.py` tutorial.
+:ref:`sphx_glr_auto_examples_quantum_states_example_state_exclusion.py` tutorial.
 """
 
 # %%
@@ -67,6 +66,7 @@ This tutorial builds upon the concepts introduced in the
 #     (error probability is :math:`0`) and the states *above* it are not (error probability is > :math:`0`).
 
 import numpy as np
+
 from toqito.matrix_ops import vectors_from_gram_matrix
 from toqito.state_opt import state_exclusion
 
@@ -129,6 +129,7 @@ print(f"  - Is the set antidistinguishable? {is_ad_above} (as expected)")
 # physically valid) if and only if :math:`-1/(n-1) \leq \gamma \leq 1`.
 
 import matplotlib.pyplot as plt
+
 from toqito.matrix_props import is_positive_semidefinite
 
 fig, ax = plt.subplots(figsize=(8, 5), dpi=100)
