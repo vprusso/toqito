@@ -5,8 +5,6 @@ Also known as EPR pairs, Bell states comprise of four quantum states in a superp
 
 import numpy as np
 
-from toqito.states import basis
-
 
 def bell(idx: int) -> np.ndarray:
     r"""Produce a Bell state :footcite:`WikiBellSt`.
@@ -52,14 +50,13 @@ def bell(idx: int) -> np.ndarray:
     :return: Bell state with index :code:`idx`.
 
     """
-    e_0, e_1 = basis(2, 0), basis(2, 1)
     match idx:
         case 0:
-            return 1 / np.sqrt(2) * (np.kron(e_0, e_0) + np.kron(e_1, e_1))
+            return 1 / np.sqrt(2) * np.array([[1], [0], [0], [1]])
         case 1:
-            return 1 / np.sqrt(2) * (np.kron(e_0, e_0) - np.kron(e_1, e_1))
+            return 1 / np.sqrt(2) * np.array([[1], [0], [0], [-1]])
         case 2:
-            return 1 / np.sqrt(2) * (np.kron(e_0, e_1) + np.kron(e_1, e_0))
+            return 1 / np.sqrt(2) * np.array([[0], [1], [1], [0]])
         case 3:
-            return 1 / np.sqrt(2) * (np.kron(e_0, e_1) - np.kron(e_1, e_0))
+            return 1 / np.sqrt(2) * np.array([[0], [1], [-1], [0]])
     raise ValueError("Invalid integer value for Bell state.")
