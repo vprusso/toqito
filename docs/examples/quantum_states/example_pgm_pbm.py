@@ -6,7 +6,7 @@ In this tutorial, we will explore the "pretty good measurement" (PGM) and its
 novel counterpart, the "pretty bad measurement" (PBM). The PGM, also known as the
 square-root measurement, is a widely used measurement for quantum
 state discrimination :footcite:`Belavkin_1975_Optimal,Hughston_1993_Complete`. The PBM, in contrast,
-was recently introduced by McIrvin et. al. :footcite:`McIrvin_2024_Pretty`. These measurements
+was recently introduced by McIrvin et. al. :footcite:`McIrvin_2024_Pretty`. Both these measurements
 provide elegant, easy-to-construct tools for two opposing goals in quantum
 information: state discrimination and state exclusion.
 PGM is useful for the former while PBM is of use for the latter.
@@ -19,7 +19,7 @@ results and figures from the paper using :code:`|toqito⟩`.
 # Background: Discrimination vs. Exclusion
 # ----------------------------------------
 #
-# The standard **quantum state discrimination** task Bob winning if he successfully guesses the state sent by Alice.
+# Bob wins the standard **quantum state discrimination** task, if he successfully guesses the state sent by Alice.
 # Alice is sending Bob a quantum state :math:`\rho_i` chosen from an ensemble
 # :math:`\{(p_i, \rho_i)\}_{i=1}^k` known to Bob. Bob's goal is to perform a measurement
 # that maximizes his probability of correctly guessing the index :math:`i`.
@@ -165,7 +165,10 @@ print(f"  P_PBM = {p_pbm:.4f}")
 # worst case of :math:`0`.
 #
 # Finally, we can verify the core relationship between these two measurements
-# and the full performance hierarchy.
+# and the full performance hierarchy stated previously.
+
+# .. math::
+#    P_{\text{Best}} \ge P_{\text{PGM}} \ge \frac{1}{k} \ge P_{\text{PBM}} \ge P_{\text{Worst}}
 
 # 5. Verify the core relationship and the hierarchy.
 relation_lhs = p_pgm + (k - 1) * p_pbm
@@ -248,8 +251,8 @@ plt.show()
 
 # %%
 # This plot clearly illustrates the theoretical bounds. Every blue dot
-# (:math:`P_{\text{PGM}}`) lies on or above the blind guessing line, and every
-# red dot (:math:`P_{\text{PBM}}`) lies on or below it. This provides strong
+# representing :math:`P_{\text{PGM}}` lies on or above the blind guessing line, and every
+# red dot representing :math:`P_{\text{PBM}}` lies on or below it. This provides strong
 # numerical evidence for the inequalities
 # :math:`P_{\text{PGM}} \ge 1/k \ge P_{\text{PBM}}`, confirming that the PGM is
 # always a better-than-random guess and the PBM is always a worse-than-random
