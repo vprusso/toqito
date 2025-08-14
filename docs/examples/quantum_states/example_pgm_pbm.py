@@ -189,7 +189,7 @@ print(f"  P_PBM >= P_Worst:   {p_pbm:.4f} >= {p_worst:.4f} ->  {p_pbm >= p_worst
 # Visualizing Performance on Random States
 # ----------------------------------------
 #
-# Figures 4 and 5 from McIrvin et.al :footcite:`McIrvin_2024_Pretty` show that for many randomly generated
+# Figures 4 and 5 from McIrvin et. al :footcite:`McIrvin_2024_Pretty` show that for many randomly generated
 # states, the PGM and PBM probabilities cluster around the blind guessing
 # baseline of :math:`1/k`. We can reproduce a similar plot.
 #
