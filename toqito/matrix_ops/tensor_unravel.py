@@ -15,7 +15,7 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
        1. Locating the unique element (the one appearing exactly once).
        2. Extracting its multi-dimensional index `(i1, i2, ..., in)`.
        3. Returning a 1D NumPy array `[i1, i2, ..., in, value]`, where the first `n`
-         entries are the coordinates and the last entry is the unique value (±1).
+          entries are the coordinates and the last entry is the unique value (±1).
 
     Conceptually, this is a form of structured tensor decoding, closely related to:
 
