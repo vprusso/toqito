@@ -22,7 +22,16 @@ def test_basis(dim, pos, expected_result):
     np.testing.assert_array_equal(basis(dim, pos), expected_result)
 
 
-def test_basis_invalid_dim():
+@pytest.mark.parametrize(
+    "dim, pos",
+    [
+        # Test for dim = pos.
+        (4, 4),
+        # Test for pos < 0.
+        (4, -1),
+    ],
+)
+def test_basis_invalid_dim(dim, pos):
     """Tests for invalid dimension inputs."""
     with np.testing.assert_raises(ValueError):
-        basis(4, 4)
+        basis(dim, pos)
