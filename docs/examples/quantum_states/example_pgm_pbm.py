@@ -166,6 +166,7 @@ print(f"  P_PBM = {p_pbm:.4f}")
 #
 # Finally, we can verify the core relationship between these two measurements
 # and the full performance hierarchy stated previously.
+#
 # .. math::
 #    P_{\text{Best}} \ge P_{\text{PGM}} \ge \frac{1}{k} \ge P_{\text{PBM}} \ge P_{\text{Worst}}
 
