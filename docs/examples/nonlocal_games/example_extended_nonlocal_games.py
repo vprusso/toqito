@@ -740,7 +740,6 @@ print("The standard quantum value lower bound is ", np.around(q_val, decimals=2)
 # successfully respond to a challenge from the referee (playing the role of Bob).
 #
 # Setting Up the Bit Commitment Game
-# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 #
 # *   **Players:** The game models the two-party protocol between Alice (the
 #     committer) and Bob (the receiver). To fit this cryptographic scenario into
@@ -805,7 +804,7 @@ bc_pred_mat[:, :, 0, 0, 0, 1] = proj_p
 
 # %%
 # Calculating Alice's Maximum Cheating Probability
-# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
 from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
 
 bc_binding_game = ExtendedNonlocalGame(bc_prob_mat, bc_pred_mat)
