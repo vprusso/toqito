@@ -170,6 +170,6 @@ def test_permute_systems_invalid_dim_mismatch_perm():
 
 def test_dim_flatten_branch():
     """Testing the dim flatten."""
-    X = np.arange(16).reshape(4, 4)
+    X = np.arange(4).reshape(2, 2)
     result = permute_systems(X, [0, 1], dim=[[4], [4]])
     assert np.allclose(result, X)
