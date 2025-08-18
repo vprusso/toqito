@@ -121,7 +121,7 @@ def permute_systems(
     :param perm: A permutation vector.
     :param dim: The default has all subsystems of equal dimension.
     :param row_only: Default: :code:`False`
-    :param inv_perm: Default: :code:`True`
+    :param inv_perm: Default: :code:`False`
     :return: The matrix or vector that has been permuted.
 
     """
