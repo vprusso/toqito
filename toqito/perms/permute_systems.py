@@ -1,5 +1,8 @@
 """Permute systems is used to permute subsystems within a quantum state or an operator."""
 
+import functools
+import operator
+
 import numpy as np
 from scipy import sparse
 
@@ -186,7 +189,7 @@ def permute_systems(
     # If the dimensions are specified, ensure they are given to the
     # recursive calls as flattened lists.
     if len(dim[0][:]) == 1:
-        dim = np.concatenate(dim).reshape(2, -1).tolist()
+        dim = functools.reduce(operator.iconcat, dim, [])
 
     row_perm = permute_systems(vec_arg, perm, dim[0][:], False, inv_perm)
 
