@@ -181,7 +181,7 @@ def permute_systems(
             permuted_mat = vec(np.transpose(permuted_mat_1, num_sys - np.array(perm[::-1]))).T
 
         # We need to flatten out the array.
-        permuted_mat = functools.reduce(operator.iconcat, permuted_mat, [])
+        permuted_mat = permuted_mat.flatten()
         return np.array(permuted_mat)
 
     vec_arg = np.array(list(range(0, input_mat_dims[0])))
