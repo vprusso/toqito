@@ -156,7 +156,7 @@ def permute_systems(
             dim = np.ones((2, len(dim)))
             dim[vec_orien, :] = dim_tmp
         else:
-            dim = np.array([dim_tmp], [dim_tmp])
+            dim = np.array([dim_tmp, dim_tmp])
 
     prod_dim_r = int(np.prod(dim[0, :]))
     prod_dim_c = int(np.prod(dim[1, :]))
