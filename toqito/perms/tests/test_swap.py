@@ -519,3 +519,10 @@ def test_invalid_swap(input_matrix, sys, dim, row_only):
     """Test function works as expected for an invalid input."""
     with pytest.raises(ValueError):
         swap(input_matrix, sys, dim, row_only)
+
+
+def test_swap_with_invalid_dim_type():
+    """Test swap raises TypeError when dim is of unsupported type."""
+    X = np.arange(1, 17).reshape(4, 4)
+    with pytest.raises(TypeError):
+        swap(X, [1, 2], dim=[{}])
