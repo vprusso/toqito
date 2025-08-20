@@ -7,7 +7,7 @@ from toqito.perms import permute_systems
 
 def swap(
     rho: np.ndarray,
-    sys: list[int] = None,
+    sys: list[int] | None = None,
     dim: list[int] | list[list[int]] | int | np.ndarray | None = None,
     row_only: bool = False,
 ) -> np.ndarray:
@@ -111,7 +111,7 @@ def swap(
     else:
         rho_dims = rho.shape
 
-    round_dim = np.round(np.sqrt(rho_dims))
+    round_dim = np.rint(np.sqrt(rho_dims)).astype(int)
 
     if sys is None:
         sys = [1, 2]
@@ -132,15 +132,14 @@ def swap(
     else:
         raise TypeError("dim must be None, int, list, or np.ndarray.")
 
-    # Verify that the input sys makes sense.
-    if min(sys) < 1 or max(sys) > num_sys:
+    if len(sys) != 2:
+        raise ValueError("InvalidSys: sys must be a vector with exactly two elements.")
+
+    if not (1 <= sys[0] <= num_sys and 1 <= sys[1] <= num_sys):
         raise ValueError("InvalidSys: The subsystems in sys must be between 1 and len(dim). inclusive.")
 
-    if len(sys) != 2:
-        raise ValueError("InvalidSys: `sys` must be a vector with exactly two elements.")
-
     # Swap the indicated subsystems.
-    perm = np.array(range(num_sys))
+    perm = np.arange(num_sys)
     sys = np.array(sys) - 1
 
     perm[sys] = perm[sys[::-1]]
