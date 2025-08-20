@@ -8,7 +8,7 @@ from toqito.perms import permute_systems
 def swap(
     rho: np.ndarray,
     sys: list[int] = None,
-    dim: list[int] | list[list[int], int, np.ndarray] = None,
+    dim: list[int] | list[list[int]] | int | np.ndarray | None = None,
     row_only: bool = False,
 ) -> np.ndarray:
     r"""Swap two subsystems within a state or operator.
