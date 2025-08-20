@@ -89,9 +89,8 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
     result = np.zeros((dim**2, dim**2), dtype=np.float64)
     np.fill_diagonal(result, (1 - param_p) / dim)
 
-    if param_p != 0:
-        for i in range(dim):
-            for j in range(dim):
-                result[i * dim + i, j * dim + j] += param_p
+    if param_p != 0.0:
+        idx = np.arange(dim) * (dim + 1)
+        result[np.ix_(idx, idx)] += param_p
 
     return result
