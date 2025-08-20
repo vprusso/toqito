@@ -142,8 +142,9 @@ def swap(
         num_sys = len(dim)
 
     # Verify that the input sys makes sense.
-    if any(sys) < 1 or any(sys) > num_sys:
-        raise ValueError("InvalidSys: The subsystems in `sys` must be between 1 and `len(dim).` inclusive.")
+    if min(sys) < 1 or max(sys) > num_sys:
+        raise ValueError("InvalidSys: The subsystems in sys must be between 1 and len(dim). inclusive.")
+
     if len(sys) != 2:
         raise ValueError("InvalidSys: `sys` must be a vector with exactly two elements.")
 
