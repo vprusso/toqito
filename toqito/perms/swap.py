@@ -106,7 +106,6 @@ def swap(
     :return: The swapped matrix.
 
     """
-    eps = np.finfo(float).eps
     if len(rho.shape) == 1:
         rho_dims = (1, rho.shape[0])
     else:
@@ -117,29 +116,21 @@ def swap(
     if sys is None:
         sys = [1, 2]
 
-    if isinstance(dim, list):
-        dim = np.array(dim)
     if dim is None:
-        dim = np.array([[round_dim[0], round_dim[0]], [round_dim[1], round_dim[1]]])
-
-    if isinstance(dim, int):
-        dim = np.array([[dim, rho_dims[0] / dim], [dim, rho_dims[1] / dim]])
-        if (
-            np.abs(dim[0, 1] - np.round(dim[0, 1])) + np.abs(dim[1, 1] - np.round(dim[1, 1]))
-            >= 2 * np.prod(rho_dims) * eps
-        ):
-            val_error = """
-                InvalidDim: The value of `dim` must evenly divide the number of
-                rows and columns of `rho`; please provide the `dim` array
-                containing the dimensions of the subsystems.
-            """
-            raise ValueError(val_error)
-
-        dim[0, 1] = np.round(dim[0, 1])
-        dim[1, 1] = np.round(dim[1, 1])
-        num_sys = 2
-    else:
+        # Assume square subsystems inferred from rho_dims.
+        dim = np.array([[round_dim[0], round_dim[0]], [round_dim[1], round_dim[1]]], dtype=int)
         num_sys = len(dim)
+    elif isinstance(dim, int):
+        # Split dimensions into two factors: dim and rho_dim/dim.
+        if rho_dims[0] % dim != 0 or rho_dims[1] % dim != 0:
+            raise ValueError("InvalidDim: The value of dim must evenly divide the number of rows and columns of rho.")
+        dim = np.array([[dim, rho_dims[0] // dim], [dim, rho_dims[1] // dim]], dtype=int)
+        num_sys = 2
+    elif isinstance(dim, (list, np.ndarray)):
+        dim = np.array(dim, dtype=int)
+        num_sys = len(dim)
+    else:
+        raise TypeError("dim must be None, int, list, or np.ndarray.")
 
     # Verify that the input sys makes sense.
     if min(sys) < 1 or max(sys) > num_sys:
