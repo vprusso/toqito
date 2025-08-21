@@ -129,21 +129,26 @@ def partial_trace(
         traced_rho = np_array_as_expr(traced_rho)
         return traced_rho
 
+    n = input_mat.shape[0]
     if dim is None:
-        dim = np.array([np.round(np.sqrt(len(input_mat)))])
+        d = int(round(np.sqrt(n)))
+        if d * d != n:
+            raise ValueError("Cannot infer subsystem dimensions directly. Please provide `dim`.")
+        dim = np.array([d, d])
     if isinstance(dim, int):
-        dim = np.array([dim])
+        if n % dim != 0:
+            raise ValueError("Invalid: If `dim` is a scalar, it must evenly divide matrix dimension.")
+        dim = np.array([dim, n // dim])
     if isinstance(dim, list):
-        dim = np.array(dim)
+        if len(dim) == 1:
+            d = dim[0]
+            if n % d != 0:
+                raise ValueError("Invalid: If `dim` is a scalar, it must evenly divide matrix dimension.")
+            dim = np.array([d, n // d])
+        else:
+            dim = np.array(dim)
 
-    # Allow the user to enter a single number for dim.
-    if (num_sys := len(dim)) == 1:
-        dim = np.array([dim[0], len(input_mat) / dim[0]])
-        if np.abs(dim[1] - np.round(dim[1])) >= 2 * len(input_mat) * np.finfo(float).eps:
-            raise ValueError("Invalid: If `dim` is a scalar, `dim` must evenly divide `len(input_mat)`.")
-        dim[1] = np.round(dim[1])
-        num_sys = 2
-
+    num_sys = len(dim)
     prod_dim = np.prod(dim)
     if isinstance(sys, list):
         if len(sys) == 1:

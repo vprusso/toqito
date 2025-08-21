@@ -23,7 +23,7 @@ from toqito.matrix_ops import partial_trace
             np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]]),
             [1],
             [2],
-            re.escape("Invalid: If `dim` is a scalar, `dim` must evenly divide `len(input_mat)`."),
+            re.escape("Invalid: If `dim` is a scalar, it must evenly divide matrix dimension."),
         ),
     ],
 )
