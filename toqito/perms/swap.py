@@ -144,4 +144,4 @@ def swap(
 
     perm[sys] = perm[sys[::-1]]
 
-    return permute_systems(rho, perm, dim, row_only)
+    return permute_systems(rho=rho, perm=perm, dim=dim, row_only=row_only)
