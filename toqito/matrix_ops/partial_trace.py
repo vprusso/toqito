@@ -150,15 +150,10 @@ def partial_trace(
 
     num_sys = len(dim)
     prod_dim = np.prod(dim)
-    if isinstance(sys, list):
-        if len(sys) == 1:
-            prod_dim_sys = np.prod(dim[sys[0]])
-        else:
-            prod_dim_sys = 1
-            for idx in sys:
-                prod_dim_sys *= dim[idx]
-    elif isinstance(sys, int):
-        prod_dim_sys = np.prod(dim[sys])
+    if isinstance(sys, int):
+        prod_dim_sys = dim[sys]
+    elif isinstance(sys, (list, np.ndarray)):
+        prod_dim_sys = int(np.prod([dim[i] for i in sys]))
     else:
         raise ValueError("Invalid: The variable `sys` must either be of type int or of a list of ints.")
 
