@@ -7,8 +7,8 @@ from toqito.perms import permute_systems
 
 def swap(
     rho: np.ndarray,
-    sys: list[int] = None,
-    dim: list[int] | list[list[int], int, np.ndarray] = None,
+    sys: list[int] | None = None,
+    dim: list[int] | list[list[int]] | int | np.ndarray | None = None,
     row_only: bool = False,
 ) -> np.ndarray:
     r"""Swap two subsystems within a state or operator.
@@ -106,51 +106,45 @@ def swap(
     :return: The swapped matrix.
 
     """
-    eps = np.finfo(float).eps
+    if dim is not None and not isinstance(dim, (int, list, np.ndarray)):
+        raise TypeError("dim must be None, int, list, or np.ndarray.")
+
     if len(rho.shape) == 1:
         rho_dims = (1, rho.shape[0])
     else:
         rho_dims = rho.shape
 
-    round_dim = np.round(np.sqrt(rho_dims))
+    round_dim = np.rint(np.sqrt(rho_dims)).astype(int)
 
     if sys is None:
         sys = [1, 2]
 
-    if isinstance(dim, list):
-        dim = np.array(dim)
     if dim is None:
-        dim = np.array([[round_dim[0], round_dim[0]], [round_dim[1], round_dim[1]]])
-
-    if isinstance(dim, int):
-        dim = np.array([[dim, rho_dims[0] / dim], [dim, rho_dims[1] / dim]])
-        if (
-            np.abs(dim[0, 1] - np.round(dim[0, 1])) + np.abs(dim[1, 1] - np.round(dim[1, 1]))
-            >= 2 * np.prod(rho_dims) * eps
-        ):
-            val_error = """
-                InvalidDim: The value of `dim` must evenly divide the number of
-                rows and columns of `rho`; please provide the `dim` array
-                containing the dimensions of the subsystems.
-            """
-            raise ValueError(val_error)
-
-        dim[0, 1] = np.round(dim[0, 1])
-        dim[1, 1] = np.round(dim[1, 1])
+        # Assume square subsystems inferred from rho_dims.
+        dim = np.array([[round_dim[0], round_dim[0]], [round_dim[1], round_dim[1]]], dtype=int)
+        num_sys = len(dim)
+    elif isinstance(dim, int):
+        # Split dimensions into two factors: dim and rho_dim/dim.
+        if rho_dims[0] % dim != 0 or rho_dims[1] % dim != 0:
+            raise ValueError("InvalidDim: The value of dim must evenly divide the number of rows and columns of rho.")
+        dim = np.array([[dim, rho_dims[0] // dim], [dim, rho_dims[1] // dim]], dtype=int)
         num_sys = 2
-    else:
+    elif isinstance(dim, (list, np.ndarray)):
+        if not all(isinstance(d, (int, float, np.integer, np.floating)) for d in np.ravel(dim)):
+            raise TypeError("dim entries must be int or float values.")
+        dim = np.array(dim, dtype=int)
         num_sys = len(dim)
 
-    # Verify that the input sys makes sense.
-    if any(sys) < 1 or any(sys) > num_sys:
-        raise ValueError("InvalidSys: The subsystems in `sys` must be between 1 and `len(dim).` inclusive.")
     if len(sys) != 2:
-        raise ValueError("InvalidSys: `sys` must be a vector with exactly two elements.")
+        raise ValueError("InvalidSys: sys must be a vector with exactly two elements.")
+
+    if not (1 <= sys[0] <= num_sys and 1 <= sys[1] <= num_sys):
+        raise ValueError("InvalidSys: The subsystems in sys must be between 1 and len(dim). inclusive.")
 
     # Swap the indicated subsystems.
-    perm = np.array(range(num_sys))
+    perm = np.arange(num_sys)
     sys = np.array(sys) - 1
 
     perm[sys] = perm[sys[::-1]]
 
-    return permute_systems(rho, perm, dim, row_only)
+    return permute_systems(input_mat=rho, perm=perm, dim=dim, row_only=row_only)

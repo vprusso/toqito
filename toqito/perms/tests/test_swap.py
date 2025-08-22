@@ -506,6 +506,13 @@ def test_swap(input_matrix, sys, dim, row_only, expected_result):
             None,
             False,
         ),
+        # Invalid sys parameters but their len(sys) == 2.
+        (
+            np.array([[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]]),
+            [0, 20],
+            None,
+            False,
+        ),
         # Invalid sys parameters (length).
         (
             np.array([[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]]),
@@ -519,3 +526,14 @@ def test_invalid_swap(input_matrix, sys, dim, row_only):
     """Test function works as expected for an invalid input."""
     with pytest.raises(ValueError):
         swap(input_matrix, sys, dim, row_only)
+
+
+def test_swap_with_invalid_dim_type():
+    """Test swap raises TypeError when dim is of unsupported type."""
+    X = np.arange(1, 17).reshape(4, 4)
+
+    with pytest.raises(TypeError, match="dim must be None, int, list, or np.ndarray."):
+        swap(X, sys=[1, 2], dim={})
+
+    with pytest.raises(TypeError, match="dim entries must be int or float values."):
+        swap(X, sys=[1, 2], dim=[{}])
