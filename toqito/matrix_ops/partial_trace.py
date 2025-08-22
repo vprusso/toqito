@@ -135,11 +135,11 @@ def partial_trace(
         if d * d != n:
             raise ValueError("Cannot infer subsystem dimensions directly. Please provide `dim`.")
         dim = np.array([d, d])
-    if isinstance(dim, int):
+    elif isinstance(dim, int):
         if n % dim != 0:
             raise ValueError("Invalid: If `dim` is a scalar, it must evenly divide matrix dimension.")
         dim = np.array([dim, n // dim])
-    if isinstance(dim, list):
+    elif isinstance(dim, list):
         if len(dim) == 1:
             d = dim[0]
             if n % d != 0:
@@ -152,22 +152,18 @@ def partial_trace(
     prod_dim = np.prod(dim)
     if isinstance(sys, int):
         prod_dim_sys = dim[sys]
+        sys = np.array([sys])
     elif isinstance(sys, (list, np.ndarray)):
         prod_dim_sys = int(np.prod([dim[i] for i in sys]))
+        sys = np.array(sys)
     else:
         raise ValueError("Invalid: The variable `sys` must either be of type int or of a list of ints.")
 
     sub_prod = prod_dim // prod_dim_sys
     sub_sys_size = prod_dim_sys
 
-    if isinstance(sys, list):
-        sys = np.array(sys)
-    if isinstance(sys, int):
-        sys = np.array([sys])
-
-    set_diff = list(set(list(range(num_sys))) - set(sys))
-    perm = set_diff
-    perm.extend(sys)
+    remaining_sys = np.setdiff1d(np.arange(num_sys), sys, assume_unique=True)
+    perm = np.concatenate([remaining_sys, sys])
 
     a_mat = permute_systems(input_mat, perm, dim)
 
