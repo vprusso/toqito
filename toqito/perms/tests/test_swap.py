@@ -535,5 +535,5 @@ def test_swap_with_invalid_dim_type():
     with pytest.raises(TypeError, match="dim must be None, int, list, or np.ndarray."):
         swap(X, sys=[1, 2], dim={})
 
-    with pytest.raises(TypeError, match="dim elements must all be integers."):
+    with pytest.raises(TypeError, match="dim entries must be int or float values."):
         swap(X, sys=[1, 2], dim=[{}])

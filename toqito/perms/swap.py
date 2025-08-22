@@ -130,8 +130,8 @@ def swap(
         dim = np.array([[dim, rho_dims[0] // dim], [dim, rho_dims[1] // dim]], dtype=int)
         num_sys = 2
     elif isinstance(dim, (list, np.ndarray)):
-        if not all(isinstance(d, (int, np.integer)) for d in np.ravel(dim)):
-            raise TypeError("dim elements must all be integers.")
+        if not all(isinstance(d, (int, float, np.integer, np.floating)) for d in np.ravel(dim)):
+            raise TypeError("dim entries must be int or float values.")
         dim = np.array(dim, dtype=int)
         num_sys = len(dim)
 
