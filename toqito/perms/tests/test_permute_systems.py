@@ -166,3 +166,10 @@ def test_permute_systems_invalid_dim_mismatch_perm():
     with np.testing.assert_raises(ValueError):
         test_input_mat = np.array([1, 2, 3, 4])
         permute_systems(test_input_mat, [2, 1, 3, 4])
+
+
+def test_dim_flatten_branch():
+    """Testing the dim flatten."""
+    X = np.arange(4).reshape(2, 2)
+    result = permute_systems(X, [0, 1], dim=[[2], [2]])
+    assert np.allclose(result, X)
