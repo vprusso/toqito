@@ -157,8 +157,6 @@ def partial_trace(
     else:
         raise ValueError("Invalid: The variable `sys` must either be of type int or of a list of ints.")
 
-    # sub_prod = prod_dim / prod_dim_sys
-    # sub_sys_vec = prod_dim * np.ones(int(sub_prod)) / sub_prod
     sub_prod = prod_dim // prod_dim_sys
     sub_sys_size = prod_dim_sys
 
@@ -186,7 +184,8 @@ def partial_trace(
         order="F",
     )
 
-    pt_mat = permuted_reshaped_mat[:, :, list(range(0, int(sub_sys_size**2), int(sub_sys_size + 1)))]
+    diag_idx = np.arange(sub_sys_size) * (sub_sys_size + 1)
+    pt_mat = permuted_reshaped_mat[:, :, diag_idx]
     pt_mat = np.sum(pt_mat, axis=2)
 
     return pt_mat
