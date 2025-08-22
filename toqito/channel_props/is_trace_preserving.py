@@ -105,8 +105,12 @@ def is_trace_preserving(
         k_r = np.concatenate(phi_r, axis=0)
 
         mat = k_l.conj().T @ k_r
-    elif dim is None:
-        mat = partial_trace(phi, [sys - 1])
     else:
+        if dim is None:
+            n = phi.shape[0]
+            d = int(round(np.sqrt(n)))
+            if d * d != n:
+                raise ValueError("Cannot infer equal subsystem dimensions. Please provide `dim`.")
+            dim = [d, d]
         mat = partial_trace(phi, [sys - 1], dim)
     return is_identity(np.array(mat), rtol=rtol, atol=atol)

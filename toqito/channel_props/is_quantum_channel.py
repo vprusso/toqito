@@ -83,4 +83,7 @@ def is_quantum_channel(
 
     # A valid quantum channel is a superoperator that is both completely
     # positive and trace-preserving.
-    return is_completely_positive(phi, rtol, atol) and is_trace_preserving(phi, rtol, atol)
+    try:
+        return is_completely_positive(phi, rtol, atol) and is_trace_preserving(phi, rtol, atol)
+    except Exception:
+        return False
