@@ -25,6 +25,12 @@ from toqito.matrix_ops import partial_trace
             [2],
             re.escape("Invalid: If `dim` is a scalar, it must evenly divide matrix dimension."),
         ),
+        (
+            np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]]),
+            [1],
+            None,
+            re.escape("Cannot infer subsystem dimensions directly. Please provide `dim`."),
+        ),
     ],
 )
 def test_invalid_input(input_mat, sys_arg, dim_arg, msg):
