@@ -106,6 +106,9 @@ def swap(
     :return: The swapped matrix.
 
     """
+    if dim is not None and not isinstance(dim, (int, list, np.ndarray)):
+        raise TypeError("dim must be None, int, list, or np.ndarray.")
+
     if len(rho.shape) == 1:
         rho_dims = (1, rho.shape[0])
     else:
@@ -127,10 +130,10 @@ def swap(
         dim = np.array([[dim, rho_dims[0] // dim], [dim, rho_dims[1] // dim]], dtype=int)
         num_sys = 2
     elif isinstance(dim, (list, np.ndarray)):
+        if not all(isinstance(d, (int, np.integer)) for d in np.ravel(dim)):
+            raise TypeError("dim elements must all be integers.")
         dim = np.array(dim, dtype=int)
         num_sys = len(dim)
-    else:
-        raise TypeError("dim must be None, int, list, or np.ndarray.")
 
     if len(sys) != 2:
         raise ValueError("InvalidSys: sys must be a vector with exactly two elements.")

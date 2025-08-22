@@ -531,5 +531,9 @@ def test_invalid_swap(input_matrix, sys, dim, row_only):
 def test_swap_with_invalid_dim_type():
     """Test swap raises TypeError when dim is of unsupported type."""
     X = np.arange(1, 17).reshape(4, 4)
-    with pytest.raises(TypeError):
-        swap(X, [1, 2], dim=[{}])
+
+    with pytest.raises(TypeError, match="dim must be None, int, list, or np.ndarray."):
+        swap(X, sys=[1, 2], dim={})
+
+    with pytest.raises(TypeError, match="dim elements must all be integers."):
+        swap(X, sys=[1, 2], dim=[{}])
