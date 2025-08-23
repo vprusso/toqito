@@ -96,3 +96,18 @@ jobs:
         echo "Fail on Regression: ${{ steps.defaults.outputs.fail_on_regression  }}"
         echo "Triggered by: ${{ github.event_name }}"
         echo "================================"
+    
+    - name: Checkout toqito-bench repository  
+      uses: actions/checkout@v4
+      with:
+        repository: vprusso/toqito-bench
+        path: toqito-bench
+        ref: master
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    
+    - name: Install Poetry
+      run: pip install poetry
