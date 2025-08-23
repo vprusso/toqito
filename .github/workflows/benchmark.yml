@@ -273,8 +273,10 @@ jobs:
         echo "✅ Simple benchmarks completed!"
  
         if [ "$SAVE" = "true" ]; then
-          RESULTS_FILE="../toqito-bench/${{ env.BENCHMARK_STORAGE }}/toqito/$FILTER/$FUNCTION/Linux-CPython-3.11-64bit/simple_${{ env.TIMESTAMP }}.json"
+          RESULTS_DIR="../toqito-bench/${{ env.BENCHMARK_STORAGE }}/toqito/$FILTER/$FUNCTION/Linux-CPython-3.11-64bit"
+          RESULTS_FILE=$(ls -1 $RESULTS_DIR/*simple_${{ env.TIMESTAMP }}.json | head -n 1)
           echo "RESULTS_FILE=$RESULTS_FILE" >> $GITHUB_ENV
+          echo "Using results file: $RESULTS_FILE"
         else
           echo "RESULTS_FILE=" >> $GITHUB_ENV  # No file to analyze
         fi
