@@ -54,12 +54,12 @@ jobs:
     - name: Set default values for all trigger types
       id: defaults
       run: |
-        # Set defaults that work for both workflow_dispatch and other triggers
+
         echo "benchmark_type=${{ github.event.inputs.benchmark_type || 'full' }}" >> $GITHUB_OUTPUT
         echo "fail_on_regression=${{ github.event.inputs.fail_on_regression || 'true' }}" >> $GITHUB_OUTPUT  
         echo "regression_threshold=${{ github.event.inputs.regression_threshold || '10' }}" >> $GITHUB_OUTPUT
         
-        # For target_ref, use input if provided, otherwise use the current SHA
+
         if [ -n "${{ github.event.inputs.target_ref }}" ]; then
           echo "target_ref=${{ github.event.inputs.target_ref }}" >> $GITHUB_OUTPUT
           echo "📍 Using specified reference: ${{ github.event.inputs.target_ref }}"
@@ -91,7 +91,8 @@ jobs:
         echo "Commit Message: $(git log -1 --pretty=format:'%s')"
         echo "Author: $(git log -1 --pretty=format:'%an <%ae>')"
         echo "Date: $(git log -1 --pretty=format:'%ad')"
-        echo "Benchmark Type: ${{ github.event.inputs.benchmark_type }}"
-        echo "Regression Threshold: ${{ github.event.inputs.regression_threshold }}%"
-        echo "Fail on Regression: ${{ github.event.inputs.fail_on_regression }}"
+        echo "Benchmark Type: ${{  steps.defaults.outputs.benchmark_type }}"
+        echo "Regression Threshold: ${{ steps.defaults.outputs.regression_threshold }}%"
+        echo "Fail on Regression: ${{ steps.defaults.outputs.fail_on_regression  }}"
+        echo "Triggered by: ${{ github.event_name }}"
         echo "================================"
