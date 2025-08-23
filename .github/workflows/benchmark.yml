@@ -81,7 +81,7 @@ jobs:
       id: defaults
       run: |
 
-        echo "benchmark_type=${{ github.event.inputs.benchmark_type || 'simple' }}" >> $GITHUB_OUTPUT
+        echo "benchmark_type=${{ github.event.inputs.benchmark_type || 'full' }}" >> $GITHUB_OUTPUT
         # echo "filter=${{ github.event.inputs.filter || '' }}" >> $GITHUB_OUTPUT
         # echo "function=${{ github.event.inputs.function || '' }}" >> $GITHUB_OUTPUT
         echo "filter=${{ github.event.inputs.filter || '' }}" >> $GITHUB_OUTPUT
