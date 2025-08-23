@@ -28,3 +28,10 @@ jobs:
           echo "ref=${{ github.sha }}" >> $GITHUB_OUTPUT
           echo "Benchmarking current commit: ${{ github.sha }}"
         fi
+    
+    - name: Checkout toqito repository at the current/mentioned commit
+      uses: actions/checkout@v4
+      with:
+        path: toqito
+        ref: ${{ steps.target-ref.outputs.ref }}
+        fetch-depth: 0
