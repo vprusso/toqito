@@ -187,30 +187,33 @@ jobs:
       run: |
         cd toqito-bench
         echo "Running FULL benchmarks for toqito..."
-        echo "Benchmark file: ${{ env.BENCHMARK_FILE_TOQITO }}"
+        echo "Benchmark file: scripts/benchmark_toqito.py"
         echo "Filter applied: ${{ steps.defaults.outputs.filter || 'none' }}"
         echo "Function applied: ${{ steps.defaults.outputs.function || 'none' }}"
         echo "Storage: ${{ env.BENCHMARK_STORAGE }}/toqito/full"
 
+        # Make sure toqito is on the Python path
         export PYTHONPATH="../toqito:$PYTHONPATH"
 
-        PYTEST_CMD="poetry run pytest ${{ env.BENCHMARK_DIR }}/${{ env.BENCHMARK_FILE_TOQITO }}"
+        # Use poetry from the toqito env
+        cd ../toqito
+
+        PYTEST_CMD="poetry run pytest ../toqito-bench/scripts/benchmark_toqito.py"
         if [ -n "${{ steps.defaults.outputs.filter }}" ]; then
-          PYTEST_CMD="$PYTEST_CMD -k \"${{ steps.defaults.outputs.filter }}\""
+        PYTEST_CMD="$PYTEST_CMD -k \"${{ steps.defaults.outputs.filter }}\""
         fi
         if [ -n "${{ steps.defaults.outputs.function }}" ]; then
-          PYTEST_CMD="$PYTEST_CMD -m \"${{ steps.defaults.outputs.function }}\""
+        PYTEST_CMD="$PYTEST_CMD -m \"${{ steps.defaults.outputs.function }}\""
         fi
 
         PYTEST_CMD="$PYTEST_CMD \
-          --benchmark-warmup=on \
-          --benchmark-sort=name \
-          --benchmark-columns=min,max,mean,stddev,median,iqr,outliers,ops,rounds \
-          --benchmark-save=detailed_${{ env.TIMESTAMP }} \
-          --benchmark-storage=$(pwd)/${{ env.BENCHMARK_STORAGE }}/toqito/full \
-          --benchmark-verbose \
-          -v --tb=long"
-        
-        echo "Executing: $PYTEST_CMD currently in $(pwd)"
-        cd ../toqito-bench/ && eval "$PYTEST_CMD"
-        
+        --benchmark-warmup=on \
+        --benchmark-sort=name \
+        --benchmark-columns=min,max,mean,stddev,median,iqr,outliers,ops,rounds \
+        --benchmark-save=detailed_${{ env.TIMESTAMP }} \
+        --benchmark-storage=$(pwd)/../toqito-bench/${{ env.BENCHMARK_STORAGE }}/toqito/full \
+        --benchmark-verbose \
+        -v --tb=long"
+
+        echo "🔧 Executing: $PYTEST_CMD currently in $(pwd)"
+        eval "$PYTEST_CMD"
