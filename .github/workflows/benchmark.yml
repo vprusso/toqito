@@ -118,9 +118,12 @@ jobs:
         poetry install --with dev
         poetry add pytest-benchmark --group dev pytest-memray sympy pygal
     
-    - name: Verify toqito installation
+    - name: Verify baseline benchmark exists
       run: |
-        cd toqito
-        echo " Verifying toqito installation..."
-        poetry run python -c "import toqito; print(f'toqito version: {toqito.__version__}')"
-        poetry run python -c "import toqito; print('✅ toqito imported successfully')"
+        BASE_FILE="toqito-bench/benchmarks/baseline.json"
+        if [ ! -f "$BASE_FILE" ]; then
+          echo "  Baseline benchmark file not found at $BASE_FILE"
+          echo "Please ensure the baseline benchmark exists in the toqito-bench repository"
+          exit 1
+        fi
+        echo "  Baseline benchmark found"
