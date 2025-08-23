@@ -163,7 +163,7 @@ def partial_trace(
     sub_sys_size = prod_dim_sys
 
     remaining_sys = np.setdiff1d(np.arange(num_sys), sys, assume_unique=True)
-    perm = np.concatenate([remaining_sys, sys])
+    perm = np.concatenate([remaining_sys, sys]).astype(np.int32)
 
     a_mat = permute_systems(input_mat, perm, dim)
 
