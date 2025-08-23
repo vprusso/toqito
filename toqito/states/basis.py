@@ -1,4 +1,4 @@
-"""Basis state represent the standard basis vectors of some n-dimensional Hilbert Space.
+"""A basis state represents the standard basis vectors of some n-dimensional Hilbert Space.
 
 Here, n can be given as a parameter as shown below.
 """
@@ -42,14 +42,14 @@ def basis(dim: int, pos: int) -> np.ndarray:
 
     :raises ValueError: If the input position is not in the range [0, dim - 1].
     :param dim: The dimension of the column vector.
-    :param pos: The position in which to place a 1.
+    :param pos: 0-indexed position of the basis vector where the 1 will be placed.
     :return: The column vector of dimension :code:`dim` with all entries set to `0` except the entry
-             at position `1`.
+             at `pos` which is set to `1`.
 
     """
-    if pos >= dim:
-        raise ValueError("Invalid: The `pos` variable needs to be less than `dim` for ket function.")
+    if pos >= dim or pos < 0:
+        raise ValueError("Invalid: The `pos` variable needs to be between [0, dim - 1] for ket function.")
 
-    ret = np.array(list(int(x) for x in list(f"{0:0{dim}}")))
+    ret = np.zeros(dim, dtype=np.int64)
     ret[pos] = 1
-    return ret.conj().T.reshape(-1, 1)
+    return ret.reshape(-1, 1)
