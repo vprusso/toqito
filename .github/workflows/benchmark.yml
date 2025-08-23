@@ -134,7 +134,7 @@ jobs:
       with:
         repository: vprusso/toqito-bench
         path: toqito-bench
-        ref: master
+        ref: post_cycle
     
     - name: Set up Python
       uses: actions/setup-python@v5
