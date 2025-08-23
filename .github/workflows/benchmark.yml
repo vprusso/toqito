@@ -212,5 +212,5 @@ jobs:
           -v --tb=long"
         
         echo "Executing: $PYTEST_CMD currently in $(pwd)"
-        cd toqito-bench/ && eval "$PYTEST_CMD"
+        cd ../toqito-bench/ && eval "$PYTEST_CMD"
         
