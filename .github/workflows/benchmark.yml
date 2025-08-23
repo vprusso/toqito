@@ -84,7 +84,7 @@ jobs:
         echo "benchmark_type=${{ github.event.inputs.benchmark_type || 'simple' }}" >> $GITHUB_OUTPUT
         # echo "filter=${{ github.event.inputs.filter || '' }}" >> $GITHUB_OUTPUT
         # echo "function=${{ github.event.inputs.function || '' }}" >> $GITHUB_OUTPUT
-        echo "filter=${{ github.event.inputs.filter || 'TestPartialTraceBenchmarks' }}" >> $GITHUB_OUTPUT
+        echo "filter=${{ github.event.inputs.filter || '' }}" >> $GITHUB_OUTPUT
         echo "function=${{ github.event.inputs.function || '' }}" >> $GITHUB_OUTPUT
         echo "save_results=${{ github.event.inputs.save_results || 'true' }}" >> $GITHUB_OUTPUT
         echo "fail_on_regression=${{ github.event.inputs.fail_on_regression || 'true' }}" >> $GITHUB_OUTPUT  
@@ -192,38 +192,46 @@ jobs:
         echo "Benchmark file: scripts/benchmark_toqito.py"
         echo "Filter applied: ${{ steps.defaults.outputs.filter || 'none' }}"
         echo "Function applied: ${{ steps.defaults.outputs.function || 'none' }}"
-        echo "Storage: ${{ env.BENCHMARK_STORAGE }}/toqito/full"
 
-        # Make sure toqito is on the Python path
+        FILTER="${{ steps.defaults.outputs.filter }}"
+        FUNCTION="${{ steps.defaults.outputs.function }}"
+        SAVE="${{ steps.defaults.outputs.save_results }}"
+
+        STORAGE_DIR="$(pwd)/${{ env.BENCHMARK_STORAGE }}/toqito/full"
+        mkdir -p "$STORAGE_DIR"
+        echo "💾 Storage: $STORAGE_DIR"
+
         export PYTHONPATH="../toqito:$PYTHONPATH"
 
-        # Use poetry from the toqito env
         cd ../toqito
 
         PYTEST_CMD="poetry run pytest ../toqito-bench/scripts/benchmark_toqito.py"
-        if [ -n "${{ steps.defaults.outputs.filter }}" ]; then
-        PYTEST_CMD="$PYTEST_CMD -k \"${{ steps.defaults.outputs.filter }}\""
+        if [ -n "$FILTER" ]; then
+          PYTEST_CMD="$PYTEST_CMD -k \"$FILTER\""
         fi
-        if [ -n "${{ steps.defaults.outputs.function }}" ]; then
-        PYTEST_CMD="$PYTEST_CMD -m \"${{ steps.defaults.outputs.function }}\""
+        if [ -n "$FUNCTION" ]; then
+          PYTEST_CMD="$PYTEST_CMD -m \"$FUNCTION\""
         fi
 
         PYTEST_CMD="$PYTEST_CMD \
-        --benchmark-warmup=on \
-        --benchmark-sort=name \
-        --benchmark-columns=min,max,mean,stddev,median,iqr,outliers,ops,rounds \
-        --benchmark-save=detailed_${{ env.TIMESTAMP }} \
-        --benchmark-storage=$(pwd)/../toqito-bench/${{ env.BENCHMARK_STORAGE }}/toqito/full \
-        --benchmark-verbose \
-        -v --tb=long"
+          --benchmark-warmup=on \
+          --benchmark-sort=name \
+          --benchmark-columns=min,max,mean,stddev,median,iqr,outliers,ops,rounds \
+          --benchmark-save=detailed_${{ env.TIMESTAMP }} \
+          --benchmark-storage=$STORAGE_DIR \
+          --benchmark-verbose \
+          -v --tb=long"
 
         echo "🔧 Executing: $PYTEST_CMD currently in $(pwd)"
         eval "$PYTEST_CMD"
 
-        echo "Benchmarks Completed!"
+        echo "✅ Full benchmarks completed!"
 
-        RESULTS_FILE="../toqito-bench/${{ env.BENCHMARK_STORAGE }}/toqito/full/.benchmarks/Linux-CPython-3.11-64bit/detailed_${{ env.TIMESTAMP }}.json"
+        RESULTS_FILE=$(ls -1 "$STORAGE_DIR"/Linux-CPython-3.11-64bit/*detailed_${{ env.TIMESTAMP }}.json | head -n 1)
+        RESULTS_FILE="$(realpath "$RESULTS_FILE")"
         echo "RESULTS_FILE=$RESULTS_FILE" >> $GITHUB_ENV
+        echo "Using results file: $RESULTS_FILE"
+
     
     - name: Run benchmark (simple)
       if: steps.defaults.outputs.benchmark_type == 'simple'
@@ -294,12 +302,81 @@ jobs:
           echo "No benchmark directory found at $BASE_DIR"
         fi
 
+    # - name: Regression Analysis
+    #   if: env.RESULTS_FILE != ''  # only run if we saved results
+    #   run: |
+    #     echo "📊 Running regression analysis..."
+    #     BASE_FILE="$(pwd)/toqito-bench/${{ env.BASE_BENCHMARK_FILE }}"
+    #     RESULTS_FILE="${{ env.RESULTS_FILE }}"  # already absolute
+    #     THRESHOLD=${{ steps.defaults.outputs.regression_threshold }}
+    #     FAIL_ON_REGRESSION=${{ steps.defaults.outputs.fail_on_regression }}
+
+    #     echo "Baseline: $BASE_FILE"
+    #     echo "Results:  $RESULTS_FILE"
+    #     echo "Threshold: $THRESHOLD%"
+    #     echo "Fail on Regression: $FAIL_ON_REGRESSION"
+
+    #     python3 <<EOF
+    #     import json, sys
+
+    #     base_file = "${BASE_FILE}"
+    #     results_file = "${RESULTS_FILE}"
+    #     threshold = float("${THRESHOLD}")
+    #     fail_on_regression = "${FAIL_ON_REGRESSION}".lower() == "true"
+
+    #     with open(base_file) as f:
+    #         base = json.load(f)
+    #     with open(results_file) as f:
+    #         results = json.load(f)
+
+    #     regressions = []
+    #     indicators = {}
+
+    #     # pytest-benchmark stores results in list-of-dicts format
+    #     base_map = {b["name"]: b for b in base["benchmarks"]}
+    #     for r in results["benchmarks"]:
+    #         name = r["name"]
+    #         if name not in base_map:
+    #             continue
+    #         base_mean = base_map[name]["stats"]["mean"]
+    #         curr_mean = r["stats"]["mean"]
+    #         change_pct = ((curr_mean - base_mean) / base_mean) * 100
+
+    #         indicators[name] = {
+    #             "baseline": base_mean,
+    #             "current": curr_mean,
+    #             "change_pct": change_pct,
+    #             "regression": change_pct > threshold
+    #         }
+
+    #         if change_pct > threshold:
+    #             regressions.append((name, base_mean, curr_mean, change_pct))
+
+    #     print("📈 Regression Analysis Report")
+    #     for name, data in indicators.items():
+    #         print(f"- {name}: baseline={data['baseline']:.6f}, "
+    #               f"current={data['current']:.6f}, "
+    #               f"Δ={data['change_pct']:.2f}% "
+    #               f"{'⚠️ REGRESSION' if data['regression'] else '✅ OK'}")
+
+    #     if regressions:
+    #         print("\n❌ Regressions detected:")
+    #         for n, b, c, pct in regressions:
+    #             print(f"  {n}: {b:.6f} → {c:.6f} ({pct:.2f}% slower)")
+    #         if fail_on_regression:
+    #             sys.exit(1)
+    #     else:
+    #         print("✅ No regressions found")
+    #     EOF
     - name: Regression Analysis
-      if: env.RESULTS_FILE != ''  # only run if we saved results
+      if: env.RESULTS_FILE != ''  # only run if we have a results file
       run: |
         echo "📊 Running regression analysis..."
-        BASE_FILE="$(pwd)/toqito-bench/${{ env.BASE_BENCHMARK_FILE }}"
-        RESULTS_FILE="${{ env.RESULTS_FILE }}"  # already absolute
+        
+        # Absolute paths
+        BASE_FILE="$(realpath toqito-bench/${{ env.BASE_BENCHMARK_FILE }})"
+        RESULTS_FILE="$(realpath "${{ env.RESULTS_FILE }}")"
+        
         THRESHOLD=${{ steps.defaults.outputs.regression_threshold }}
         FAIL_ON_REGRESSION=${{ steps.defaults.outputs.fail_on_regression }}
 
@@ -309,12 +386,20 @@ jobs:
         echo "Fail on Regression: $FAIL_ON_REGRESSION"
 
         python3 <<EOF
-        import json, sys
+        import json, sys, os
 
         base_file = "${BASE_FILE}"
         results_file = "${RESULTS_FILE}"
         threshold = float("${THRESHOLD}")
         fail_on_regression = "${FAIL_ON_REGRESSION}".lower() == "true"
+
+        # Validate files exist
+        if not os.path.isfile(base_file):
+            print(f"❌ Baseline file not found: {base_file}")
+            sys.exit(1)
+        if not os.path.isfile(results_file):
+            print(f"❌ Results file not found: {results_file}")
+            sys.exit(1)
 
         with open(base_file) as f:
             base = json.load(f)
@@ -324,9 +409,9 @@ jobs:
         regressions = []
         indicators = {}
 
-        # pytest-benchmark stores results in list-of-dicts format
-        base_map = {b["name"]: b for b in base["benchmarks"]}
-        for r in results["benchmarks"]:
+        # Map benchmarks by name for comparison
+        base_map = {b["name"]: b for b in base.get("benchmarks", [])}
+        for r in results.get("benchmarks", []):
             name = r["name"]
             if name not in base_map:
                 continue
@@ -360,3 +445,4 @@ jobs:
         else:
             print("✅ No regressions found")
         EOF
+
