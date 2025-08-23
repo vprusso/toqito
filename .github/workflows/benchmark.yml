@@ -309,54 +309,54 @@ jobs:
         echo "Fail on Regression: $FAIL_ON_REGRESSION"
 
         python3 <<EOF
-    import json, sys
+        import json, sys
 
-    base_file = "${BASE_FILE}"
-    results_file = "${RESULTS_FILE}"
-    threshold = float("${THRESHOLD}")
-    fail_on_regression = "${FAIL_ON_REGRESSION}".lower() == "true"
+        base_file = "${BASE_FILE}"
+        results_file = "${RESULTS_FILE}"
+        threshold = float("${THRESHOLD}")
+        fail_on_regression = "${FAIL_ON_REGRESSION}".lower() == "true"
 
-    with open(base_file) as f:
-        base = json.load(f)
-    with open(results_file) as f:
-        results = json.load(f)
+        with open(base_file) as f:
+            base = json.load(f)
+        with open(results_file) as f:
+            results = json.load(f)
 
-    regressions = []
-    indicators = {}
+        regressions = []
+        indicators = {}
 
-    # pytest-benchmark stores results in list-of-dicts format
-    base_map = {b["name"]: b for b in base["benchmarks"]}
-    for r in results["benchmarks"]:
-        name = r["name"]
-        if name not in base_map:
-            continue
-        base_mean = base_map[name]["stats"]["mean"]
-        curr_mean = r["stats"]["mean"]
-        change_pct = ((curr_mean - base_mean) / base_mean) * 100
+        # pytest-benchmark stores results in list-of-dicts format
+        base_map = {b["name"]: b for b in base["benchmarks"]}
+        for r in results["benchmarks"]:
+            name = r["name"]
+            if name not in base_map:
+                continue
+            base_mean = base_map[name]["stats"]["mean"]
+            curr_mean = r["stats"]["mean"]
+            change_pct = ((curr_mean - base_mean) / base_mean) * 100
 
-        indicators[name] = {
-            "baseline": base_mean,
-            "current": curr_mean,
-            "change_pct": change_pct,
-            "regression": change_pct > threshold
-        }
+            indicators[name] = {
+                "baseline": base_mean,
+                "current": curr_mean,
+                "change_pct": change_pct,
+                "regression": change_pct > threshold
+            }
 
-        if change_pct > threshold:
-            regressions.append((name, base_mean, curr_mean, change_pct))
+            if change_pct > threshold:
+                regressions.append((name, base_mean, curr_mean, change_pct))
 
-    print("📈 Regression Analysis Report")
-    for name, data in indicators.items():
-        print(f"- {name}: baseline={data['baseline']:.6f}, "
-              f"current={data['current']:.6f}, "
-              f"Δ={data['change_pct']:.2f}% "
-              f"{'⚠️ REGRESSION' if data['regression'] else '✅ OK'}")
+        print("📈 Regression Analysis Report")
+        for name, data in indicators.items():
+            print(f"- {name}: baseline={data['baseline']:.6f}, "
+                  f"current={data['current']:.6f}, "
+                  f"Δ={data['change_pct']:.2f}% "
+                  f"{'⚠️ REGRESSION' if data['regression'] else '✅ OK'}")
 
-    if regressions:
-        print("\n❌ Regressions detected:")
-        for n, b, c, pct in regressions:
-            print(f"  {n}: {b:.6f} → {c:.6f} ({pct:.2f}% slower)")
-        if fail_on_regression:
-            sys.exit(1)
-    else:
-        print("✅ No regressions found")
-    EOF
+        if regressions:
+            print("\n❌ Regressions detected:")
+            for n, b, c, pct in regressions:
+                print(f"  {n}: {b:.6f} → {c:.6f} ({pct:.2f}% slower)")
+            if fail_on_regression:
+                sys.exit(1)
+        else:
+            print("✅ No regressions found")
+        EOF
