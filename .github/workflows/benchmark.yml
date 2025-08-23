@@ -294,8 +294,8 @@ jobs:
       if: env.RESULTS_FILE != ''  # only run if we saved results
       run: |
         echo "📊 Running regression analysis..."
-        BASE_FILE="toqito-bench/${{ env.BASE_BENCHMARK_FILE }}"
-        RESULTS_FILE="${{ env.RESULTS_FILE }}"
+        BASE_FILE="$(pwd)/toqito-bench/${{ env.BASE_BENCHMARK_FILE }}"
+        RESULTS_FILE="$(pwd)/${{ env.RESULTS_FILE }}"
         THRESHOLD=${{ steps.defaults.outputs.regression_threshold }}
         FAIL_ON_REGRESSION=${{ steps.defaults.outputs.fail_on_regression }}
 
