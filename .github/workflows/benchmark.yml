@@ -8,6 +8,10 @@ on:
                 required: false
                 default: ''
                 type: string
+    
+    pull_request:
+        branches:
+            - master
 
 jobs:
   benchmark-regression:
