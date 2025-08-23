@@ -12,7 +12,7 @@ on:
             benchmark_type:
                 description: 'Type of benchmark to run'
                 required: true
-                default: 'full'
+                default: 'simple'
                 type: choice
                 options:
                     - 'full'
