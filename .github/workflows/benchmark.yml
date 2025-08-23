@@ -21,13 +21,13 @@ on:
             filter:
                 description: 'Filter tests by name pattern (eg. "TestPartialTraceBenchmarks")'
                 required: false
-                default: ''
+                default: "TestPartialTraceBenchmarks"
                 type: string
             
             function:
                 description: 'Filter tests by function pattern (eg. "test_bench__partial_trace__vary__dim")'
                 required: false
-                default: ''
+                default: "test_bench__partial_trace__vary__dim"
                 type: string
             
             save_results:
@@ -217,3 +217,67 @@ jobs:
 
         echo "🔧 Executing: $PYTEST_CMD currently in $(pwd)"
         eval "$PYTEST_CMD"
+
+        echo "Benchmarks Completed!"
+
+        RESULTS_FILE="../toqito-bench/${{ env.BENCHMARK_STORAGE }}/toqito/full/.benchmarks/Linux-CPython-3.11-64bit/detailed_${{ env.TIMESTAMP }}.json"
+        echo "RESULTS_FILE=$RESULTS_FILE" >> $GITHUB_ENV
+    
+    - name: Run benchmark (simple)
+      if: steps.defaults.outputs.benchmark_type == 'simple'
+      run: |
+        cd toqito-bench
+        echo "Running SIMPLE benchmarks for toqito..."
+        echo "Benchmark file: ${{ env.BENCHMARK_FILE_TOQITO }}"
+        echo "Filter applied: ${{ steps.defaults.outputs.filter || 'none' }}"
+        echo "Function applied: ${{ steps.defaults.outputs.function || 'none' }}"
+
+        FILTER="${{ steps.defaults.outputs.filter }}"
+        FUNCTION="${{ steps.defaults.outputs.function }}"
+        SAVE="${{ steps.defaults.outputs.save_results }}"
+
+        if [ "$SAVE" = "true" ]; then
+          echo "💾 Storage: ${{ env.BENCHMARK_STORAGE }}/toqito/$FILTER/$FUNCTION"
+        else
+          echo "💾 Storage: not saving results"
+        fi
+
+        export PYTHONPATH="../toqito:$PYTHONPATH"
+
+        cd ../toqito
+
+        PYTEST_CMD="poetry run pytest ../toqito-bench/scripts/benchmark_toqito.py"
+        if [ -n "${{ steps.defaults.outputs.filter }}" ]; then
+        PYTEST_CMD="$PYTEST_CMD -k \"${{ steps.defaults.outputs.filter }}\""
+        fi
+        if [ -n "${{ steps.defaults.outputs.function }}" ]; then
+        PYTEST_CMD="$PYTEST_CMD -m \"${{ steps.defaults.outputs.function }}\""
+        fi
+
+        PYTEST_CMD="$PYTEST_CMD \
+          --benchmark-sort=name \
+          --benchmark-columns=mean,median,stddev,ops \
+          --tb=short"
+        
+        if [ "$SAVE" = "true" ]; then
+          PYTEST_CMD="$PYTEST_CMD \
+            --benchmark-save=simple_${{ env.TIMESTAMP }} \
+            --benchmark-storage=$(pwd)/../toqito-bench/${{ env.BENCHMARK_STORAGE }}/toqito/$FILTER/$FUNCTION \
+        fi
+
+        echo "🔧 Executing: $PYTEST_CMD currently in $(pwd)"
+        eval "$PYTEST_CMD"
+
+        echo "✅ Simple benchmarks completed!"
+
+        RESULTS_FILE="../toqito-bench/${{ env.BENCHMARK_STORAGE }}/toqito/full/.benchmarks/Linux-CPython-3.11-64bit/detailed_${{ env.TIMESTAMP }}.json"
+        echo "RESULTS_FILE=$RESULTS_FILE" >> $GITHUB_ENV
+
+        if [ "$SAVE" = "true" ]; then
+          RESULTS_FILE="../toqito-bench/${{ env.BENCHMARK_STORAGE }}/toqito/$FILTER/$FUNCTION/.benchmarks/Linux-CPython-3.11-64bit/simple_${{ env.TIMESTAMP }}.json"
+          echo "RESULTS_FILE=$RESULTS_FILE" >> $GITHUB_ENV
+        else
+          echo "RESULTS_FILE=" >> $GITHUB_ENV  # No file to analyze
+        fi
+
+
