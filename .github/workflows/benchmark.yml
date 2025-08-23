@@ -62,14 +62,14 @@ jobs:
 
         if [ -n "${{ github.event.inputs.target_ref }}" ]; then
           echo "target_ref=${{ github.event.inputs.target_ref }}" >> $GITHUB_OUTPUT
-          echo "📍 Using specified reference: ${{ github.event.inputs.target_ref }}"
+          echo " Using specified reference: ${{ github.event.inputs.target_ref }}"
         else
           echo "target_ref=${{ github.sha }}" >> $GITHUB_OUTPUT
-          echo "📍 Using current commit: ${{ github.sha }}"
+          echo " Using current commit: ${{ github.sha }}"
         fi
         
         # Log the trigger type for debugging
-        echo "🔧 Workflow triggered by: ${{ github.event_name }}"
+        echo " Workflow triggered by: ${{ github.event_name }}"
 
 
     
@@ -111,3 +111,16 @@ jobs:
     
     - name: Install Poetry
       run: pip install poetry
+    
+    - name: Setup toqito environment
+      run: |
+        cd toqito
+        poetry install --with dev
+        poetry add toqito pytest-benchmark --group dev pytest-memray sympy pygal
+    
+    - name: Verify toqito installation
+      run: |
+        cd toqito
+        echo " Verifying toqito installation..."
+        poetry run python -c "import toqito; print(f'toqito version: {toqito.__version__}')"
+        poetry run python -c "import toqito; print('✅ toqito imported successfully')"
