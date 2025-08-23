@@ -377,12 +377,12 @@ jobs:
         BASE_FILE="$(realpath toqito-bench/${{ env.BASE_BENCHMARK_FILE }})"
         RESULTS_FILE="$(realpath "${{ env.RESULTS_FILE }}")"
         
-        THRESHOLD=${{ steps.defaults.outputs.regression_threshold }}
+        TOLERANCE=1e-6   # absolute difference tolerance
         FAIL_ON_REGRESSION=${{ steps.defaults.outputs.fail_on_regression }}
 
         echo "Baseline: $BASE_FILE"
         echo "Results:  $RESULTS_FILE"
-        echo "Threshold: $THRESHOLD%"
+        echo "Absolute tolerance: $TOLERANCE"
         echo "Fail on Regression: $FAIL_ON_REGRESSION"
 
         python3 <<EOF
@@ -390,7 +390,7 @@ jobs:
 
         base_file = "${BASE_FILE}"
         results_file = "${RESULTS_FILE}"
-        threshold = float("${THRESHOLD}")
+        tolerance = float("${TOLERANCE}")
         fail_on_regression = "${FAIL_ON_REGRESSION}".lower() == "true"
 
         # Validate files exist
@@ -417,32 +417,37 @@ jobs:
                 continue
             base_mean = base_map[name]["stats"]["mean"]
             curr_mean = r["stats"]["mean"]
-            change_pct = ((curr_mean - base_mean) / base_mean) * 100
+            abs_diff = abs(curr_mean - base_mean)
+            change_pct = ((curr_mean - base_mean) / base_mean) * 100 if base_mean != 0 else 0.0
+
+            # Mark as regression only if absolute difference exceeds tolerance
+            is_regression = abs_diff > tolerance
 
             indicators[name] = {
                 "baseline": base_mean,
                 "current": curr_mean,
+                "abs_diff": abs_diff,
                 "change_pct": change_pct,
-                "regression": change_pct > threshold
+                "regression": is_regression
             }
 
-            if change_pct > threshold:
-                regressions.append((name, base_mean, curr_mean, change_pct))
+            if is_regression:
+                regressions.append((name, base_mean, curr_mean, abs_diff, change_pct))
 
         print("📈 Regression Analysis Report")
         for name, data in indicators.items():
+            status = "⚠️ REGRESSION" if data['regression'] else "✅ within noise tolerance"
             print(f"- {name}: baseline={data['baseline']:.6f}, "
                   f"current={data['current']:.6f}, "
-                  f"Δ={data['change_pct']:.2f}% "
-                  f"{'⚠️ REGRESSION' if data['regression'] else '✅ OK'}")
+                  f"Δ_abs={data['abs_diff']:.6e}, "
+                  f"Δ_pct={data['change_pct']:.2f}% {status}")
 
         if regressions:
             print("\n❌ Regressions detected:")
-            for n, b, c, pct in regressions:
-                print(f"  {n}: {b:.6f} → {c:.6f} ({pct:.2f}% slower)")
+            for n, b, c, abs_d, pct in regressions:
+                print(f"  {n}: {b:.6f} → {c:.6f} (Δ_abs={abs_d:.6e}, Δ_pct={pct:.2f}%)")
             if fail_on_regression:
                 sys.exit(1)
         else:
             print("✅ No regressions found")
         EOF
-
