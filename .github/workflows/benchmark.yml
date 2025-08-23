@@ -210,7 +210,7 @@ jobs:
           --benchmark-storage=$(pwd)/${{ env.BENCHMARK_STORAGE }}/toqito/full \
           --benchmark-verbose \
           -v --tb=long"
-        ]
+        
         echo "Executing: $PYTEST_CMD currently in $(pwd)"
         cd toqito-bench/ && eval "$PYTEST_CMD"
         
