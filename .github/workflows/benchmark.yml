@@ -297,7 +297,7 @@ jobs:
         echo "Threshold: $THRESHOLD%"
         echo "Fail on Regression: $FAIL_ON_REGRESSION"
 
-        python3 <<'EOF'
+        python3 <<EOF
         import json, sys
 
         base_file = "${BASE_FILE}"
