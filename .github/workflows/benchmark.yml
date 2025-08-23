@@ -1,0 +1,26 @@
+name: Benchmark Regression Analysis
+
+on:
+    workflow_dispatch:
+        inputs:
+            target_ref:
+                description: 'SHA commit to benchmark.'
+                required: false
+                default: ''
+                type: string
+
+jobs:
+  benchmark-regression:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Determine target reference
+      id: target-ref
+      run: |
+        if [ -n "${{ github.event.inputs.target_ref }}" ]; then
+          echo "ref=${{ github.event.inputs.target_ref }}" >> $GITHUB_OUTPUT
+          echo "Benchmarking specified reference: ${{ github.event.inputs.target_ref }}"
+        else
+          echo "ref=${{ github.sha }}" >> $GITHUB_OUTPUT
+          echo "Benchmarking current commit: ${{ github.sha }}"
+        fi
