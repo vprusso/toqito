@@ -85,7 +85,7 @@ jobs:
         # echo "filter=${{ github.event.inputs.filter || '' }}" >> $GITHUB_OUTPUT
         # echo "function=${{ github.event.inputs.function || '' }}" >> $GITHUB_OUTPUT
         echo "filter=${{ github.event.inputs.filter || 'TestPartialTraceBenchmarks' }}" >> $GITHUB_OUTPUT
-        echo "function=${{ github.event.inputs.function || 'test_bench__partial_trace__vary__dim' }}" >> $GITHUB_OUTPUT
+        echo "function=${{ github.event.inputs.function || '' }}" >> $GITHUB_OUTPUT
         echo "save_results=${{ github.event.inputs.save_results || 'true' }}" >> $GITHUB_OUTPUT
         echo "fail_on_regression=${{ github.event.inputs.fail_on_regression || 'true' }}" >> $GITHUB_OUTPUT  
         echo "regression_threshold=${{ github.event.inputs.regression_threshold || '10' }}" >> $GITHUB_OUTPUT
