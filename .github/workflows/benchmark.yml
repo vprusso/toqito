@@ -8,7 +8,28 @@ on:
                 required: false
                 default: ''
                 type: string
-    
+            
+            benchmark_type:
+                description: 'Type of benchmark to run'
+                required: true
+                default: 'full'
+                type: choice
+                options:
+                    - 'full'
+                    #later add functionalities for functionwise benchmarking results
+            
+            fail_on_regression:
+                description: 'Fail the workflow if regressions are detected'
+                required: false
+                default: true
+                type: boolean
+            
+            regression_threshold:
+                description: 'Regression threshold percentage (e.g., 10 for 10%)'
+                required: false
+                default: '10'
+                type: string
+            
     pull_request:
         branches:
             - master
@@ -35,3 +56,19 @@ jobs:
         path: toqito
         ref: ${{ steps.target-ref.outputs.ref }}
         fetch-depth: 0
+    
+    - name: Display benchmark target info
+      run: |
+        cd toqito
+        echo "  BENCHMARK TARGET INFORMATION"
+        echo "================================"
+        echo "Repository: vprusso/toqito"
+        echo "Reference: ${{ steps.target-ref.outputs.ref }}"
+        echo "Commit SHA: $(git rev-parse HEAD)"
+        echo "Commit Message: $(git log -1 --pretty=format:'%s')"
+        echo "Author: $(git log -1 --pretty=format:'%an <%ae>')"
+        echo "Date: $(git log -1 --pretty=format:'%ad')"
+        echo "Benchmark Type: ${{ github.event.inputs.benchmark_type }}"
+        echo "Regression Threshold: ${{ github.event.inputs.regression_threshold }}%"
+        echo "Fail on Regression: ${{ github.event.inputs.fail_on_regression }}"
+        echo "================================"
