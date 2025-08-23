@@ -38,23 +38,46 @@ jobs:
   benchmark-regression:
     runs-on: ubuntu-latest
     
+    #steps:
+    # - name: Determine target reference
+    #   id: target-ref
+    #   run: |
+    #     if [ -n "${{ github.event.inputs.target_ref }}" ]; then
+    #       echo "ref=${{ github.event.inputs.target_ref }}" >> $GITHUB_OUTPUT
+    #       echo "Benchmarking specified reference: ${{ github.event.inputs.target_ref }}"
+    #     else
+    #       echo "ref=${{ github.sha }}" >> $GITHUB_OUTPUT
+    #       echo "Benchmarking current commit: ${{ github.sha }}"
+    #     fi
+
     steps:
-    - name: Determine target reference
-      id: target-ref
+    - name: Set default values for all trigger types
+      id: defaults
       run: |
+        # Set defaults that work for both workflow_dispatch and other triggers
+        echo "benchmark_type=${{ github.event.inputs.benchmark_type || 'full' }}" >> $GITHUB_OUTPUT
+        echo "fail_on_regression=${{ github.event.inputs.fail_on_regression || 'true' }}" >> $GITHUB_OUTPUT  
+        echo "regression_threshold=${{ github.event.inputs.regression_threshold || '10' }}" >> $GITHUB_OUTPUT
+        
+        # For target_ref, use input if provided, otherwise use the current SHA
         if [ -n "${{ github.event.inputs.target_ref }}" ]; then
-          echo "ref=${{ github.event.inputs.target_ref }}" >> $GITHUB_OUTPUT
-          echo "Benchmarking specified reference: ${{ github.event.inputs.target_ref }}"
+          echo "target_ref=${{ github.event.inputs.target_ref }}" >> $GITHUB_OUTPUT
+          echo "📍 Using specified reference: ${{ github.event.inputs.target_ref }}"
         else
-          echo "ref=${{ github.sha }}" >> $GITHUB_OUTPUT
-          echo "Benchmarking current commit: ${{ github.sha }}"
+          echo "target_ref=${{ github.sha }}" >> $GITHUB_OUTPUT
+          echo "📍 Using current commit: ${{ github.sha }}"
         fi
+        
+        # Log the trigger type for debugging
+        echo "🔧 Workflow triggered by: ${{ github.event_name }}"
+
+
     
     - name: Checkout toqito repository at the current/mentioned commit
       uses: actions/checkout@v4
       with:
         path: toqito
-        ref: ${{ steps.target-ref.outputs.ref }}
+        ref: ${{ steps.defaults.outputs.target_ref }}
         fetch-depth: 0
     
     - name: Display benchmark target info
@@ -63,7 +86,7 @@ jobs:
         echo "  BENCHMARK TARGET INFORMATION"
         echo "================================"
         echo "Repository: vprusso/toqito"
-        echo "Reference: ${{ steps.target-ref.outputs.ref }}"
+        echo "Reference: ${{ steps.defaults.outputs.target_ref }}"
         echo "Commit SHA: $(git rev-parse HEAD)"
         echo "Commit Message: $(git log -1 --pretty=format:'%s')"
         echo "Author: $(git log -1 --pretty=format:'%an <%ae>')"
