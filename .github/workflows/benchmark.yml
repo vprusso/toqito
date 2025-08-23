@@ -116,7 +116,7 @@ jobs:
       run: |
         cd toqito
         poetry install --with dev
-        poetry add toqito pytest-benchmark --group dev pytest-memray sympy pygal
+        poetry add pytest-benchmark --group dev pytest-memray sympy pygal
     
     - name: Verify toqito installation
       run: |
