@@ -264,7 +264,7 @@ jobs:
         if [ "$SAVE" = "true" ]; then
           PYTEST_CMD="$PYTEST_CMD \
             --benchmark-save=simple_${{ env.TIMESTAMP }} \
-            --benchmark-storage=$(pwd)/../toqito-bench/${{ env.BENCHMARK_STORAGE }}/toqito/$FILTER/$FUNCTION \"
+            --benchmark-storage=$(pwd)/../toqito-bench/${{ env.BENCHMARK_STORAGE }}/toqito/$FILTER/$FUNCTION"
         fi
 
         echo "🔧 Executing: $PYTEST_CMD currently in $(pwd)"
