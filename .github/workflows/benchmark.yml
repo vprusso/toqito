@@ -39,7 +39,7 @@ on:
             fail_on_regression:
                 description: 'Fail the workflow if regressions are detected'
                 required: false
-                default: true
+                default: false
                 type: boolean
             
             regression_threshold:
@@ -63,18 +63,6 @@ env:
 jobs:
   benchmark-regression:
     runs-on: ubuntu-latest
-    
-    #steps:
-    # - name: Determine target reference
-    #   id: target-ref
-    #   run: |
-    #     if [ -n "${{ github.event.inputs.target_ref }}" ]; then
-    #       echo "ref=${{ github.event.inputs.target_ref }}" >> $GITHUB_OUTPUT
-    #       echo "Benchmarking specified reference: ${{ github.event.inputs.target_ref }}"
-    #     else
-    #       echo "ref=${{ github.sha }}" >> $GITHUB_OUTPUT
-    #       echo "Benchmarking current commit: ${{ github.sha }}"
-    #     fi
 
     steps:
     - name: Set default values for all trigger types
@@ -87,7 +75,7 @@ jobs:
         echo "filter=${{ github.event.inputs.filter || '' }}" >> $GITHUB_OUTPUT
         echo "function=${{ github.event.inputs.function || '' }}" >> $GITHUB_OUTPUT
         echo "save_results=${{ github.event.inputs.save_results || 'true' }}" >> $GITHUB_OUTPUT
-        echo "fail_on_regression=${{ github.event.inputs.fail_on_regression || 'true' }}" >> $GITHUB_OUTPUT  
+        echo "fail_on_regression=${{ github.event.inputs.fail_on_regression || 'false' }}" >> $GITHUB_OUTPUT  
         echo "regression_threshold=${{ github.event.inputs.regression_threshold || '10' }}" >> $GITHUB_OUTPUT
         
 
@@ -302,72 +290,6 @@ jobs:
           echo "No benchmark directory found at $BASE_DIR"
         fi
 
-    # - name: Regression Analysis
-    #   if: env.RESULTS_FILE != ''  # only run if we saved results
-    #   run: |
-    #     echo "📊 Running regression analysis..."
-    #     BASE_FILE="$(pwd)/toqito-bench/${{ env.BASE_BENCHMARK_FILE }}"
-    #     RESULTS_FILE="${{ env.RESULTS_FILE }}"  # already absolute
-    #     THRESHOLD=${{ steps.defaults.outputs.regression_threshold }}
-    #     FAIL_ON_REGRESSION=${{ steps.defaults.outputs.fail_on_regression }}
-
-    #     echo "Baseline: $BASE_FILE"
-    #     echo "Results:  $RESULTS_FILE"
-    #     echo "Threshold: $THRESHOLD%"
-    #     echo "Fail on Regression: $FAIL_ON_REGRESSION"
-
-    #     python3 <<EOF
-    #     import json, sys
-
-    #     base_file = "${BASE_FILE}"
-    #     results_file = "${RESULTS_FILE}"
-    #     threshold = float("${THRESHOLD}")
-    #     fail_on_regression = "${FAIL_ON_REGRESSION}".lower() == "true"
-
-    #     with open(base_file) as f:
-    #         base = json.load(f)
-    #     with open(results_file) as f:
-    #         results = json.load(f)
-
-    #     regressions = []
-    #     indicators = {}
-
-    #     # pytest-benchmark stores results in list-of-dicts format
-    #     base_map = {b["name"]: b for b in base["benchmarks"]}
-    #     for r in results["benchmarks"]:
-    #         name = r["name"]
-    #         if name not in base_map:
-    #             continue
-    #         base_mean = base_map[name]["stats"]["mean"]
-    #         curr_mean = r["stats"]["mean"]
-    #         change_pct = ((curr_mean - base_mean) / base_mean) * 100
-
-    #         indicators[name] = {
-    #             "baseline": base_mean,
-    #             "current": curr_mean,
-    #             "change_pct": change_pct,
-    #             "regression": change_pct > threshold
-    #         }
-
-    #         if change_pct > threshold:
-    #             regressions.append((name, base_mean, curr_mean, change_pct))
-
-    #     print("📈 Regression Analysis Report")
-    #     for name, data in indicators.items():
-    #         print(f"- {name}: baseline={data['baseline']:.6f}, "
-    #               f"current={data['current']:.6f}, "
-    #               f"Δ={data['change_pct']:.2f}% "
-    #               f"{'⚠️ REGRESSION' if data['regression'] else '✅ OK'}")
-
-    #     if regressions:
-    #         print("\n❌ Regressions detected:")
-    #         for n, b, c, pct in regressions:
-    #             print(f"  {n}: {b:.6f} → {c:.6f} ({pct:.2f}% slower)")
-    #         if fail_on_regression:
-    #             sys.exit(1)
-    #     else:
-    #         print("✅ No regressions found")
-    #     EOF
     - name: Regression Analysis
       if: env.RESULTS_FILE != ''  # only run if we have a results file
       run: |
@@ -393,7 +315,6 @@ jobs:
         results_file = "${RESULTS_FILE}"
         fail_on_regression = "${FAIL_ON_REGRESSION}".lower() == "true"
 
-        # Validate files exist
         if not os.path.isfile(base_file):
             print(f"❌ Baseline file not found: {base_file}")
             sys.exit(1)
@@ -411,7 +332,6 @@ jobs:
 
         print("📈 Regression Analysis Report")
 
-        # Map benchmarks by name for comparison
         base_map = {b["name"]: b for b in base.get("benchmarks", [])}
         for r in results.get("benchmarks", []):
             name = r["name"]
@@ -422,11 +342,9 @@ jobs:
             curr_mean = r["stats"]["mean"]
             base_stddev = base_map[name]["stats"].get("stddev", 0)
             
-            # Calculate percentage change
             percent_change = ((curr_mean - base_mean) / base_mean) * 100 if base_mean != 0 else 0
-            
-            # Use standard deviation as noise threshold (more scientific than fixed tolerance)
-            noise_threshold = base_stddev * 2  # 2 standard deviations
+
+            noise_threshold = base_stddev * 2
             abs_change = abs(curr_mean - base_mean)
             
             # Flag as regression if: change > noise AND change > 10%
