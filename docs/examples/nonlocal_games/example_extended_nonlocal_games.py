@@ -725,8 +725,8 @@ print("The standard quantum value lower bound is ", np.around(q_val, decimals=2)
 #
 # The Mayers-Lo-Chau (MLC) no-go theorem :footcite:`Mayers_1997_Unconditionally,Lo_1997_Is`
 # proves that no quantum protocol can be both perfectly hiding and binding. Here,
-# we will use the :code:`ExtendedNonlocalGame` framework not to prove the full
-# theorem in its generality, but to illustrate a key consequence: the failure of
+# we will use the :func:`.ExtendedNonlocalGame` framework not to prove the full
+# theorem in its generality, but to illustrate the failure of
 # the binding property. We will model a simplified, single-shot protocol to make
 # the abstract threat of cheating concrete and quantifiable.
 #
