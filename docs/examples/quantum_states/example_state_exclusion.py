@@ -10,7 +10,7 @@ with which this problem can be solved for a number of different scenarios.
 # Quantum state exclusion is very closely related to the problem of quantum state
 # distinguishability.
 # It may be useful to consult the
-# :ref:`sphx_glr_auto_examples_involvingstates_example_state_distinguishability.py`
+# :ref:`sphx_glr_auto_examples_quantum_states_example_state_distinguishability.py`
 # tutorial on this topic.
 #
 # Further information beyond the scope of this tutorial can be found in the text
@@ -40,6 +40,7 @@ with which this problem can be solved for a number of different scenarios.
 # 3. Bob wants to guess which of the states from the ensemble he was *not* given.
 #    In order to do so, he may measure :math:`\rho_i` to guess the index
 #    :math:`i` for which the state in the ensemble corresponds.
+#
 # This setting is depicted in the following figure.
 #
 # .. figure:: ../../figures/quantum_state_distinguish.svg
@@ -116,16 +117,16 @@ print(f"|𝛙_3> = {psi3.reshape(1, -1)[0]}")
 #   :alt: trine states
 #   :align: center
 
-from toqito.states import trine
 from toqito.state_props import is_mutually_orthogonal
+from toqito.states import trine
 
 print(f"Are states mutually orthogonal: {is_mutually_orthogonal(trine())}")
 
 # %%
 # An interesting property of these states is that they are antidistinguishable but *not* distinguishable.
 
+from toqito.state_props import is_antidistinguishable, is_distinguishable
 from toqito.states import trine
-from toqito.state_props import is_distinguishable, is_antidistinguishable
 
 print(f"Trine antidistinguishable: {is_antidistinguishable(trine())}")
 print(f"Trine distinguishable: {is_distinguishable(trine())}")
@@ -199,8 +200,8 @@ print(f"<𝛙_3| M_3 |𝛙_3>: {np.around((psi3.reshape(1, -1)[0] @ M3 @ psi3)[0
 # Consider again the trine states from the previous example. We can determine that they are antidistinguishable by way of
 # the antidistinguishability SDP.
 
-from toqito.states import trine
 from toqito.state_opt import state_exclusion
+from toqito.states import trine
 
 opt_value, measurements = state_exclusion(trine(), probs=[1, 1, 1], primal_dual="dual")
 print(f"Optimal SDP value: {np.around(opt_value, decimals=2)}")
@@ -245,10 +246,10 @@ print(f"Optimal SDP value: {np.around(opt_value, decimals=2)}")
 # As an example, we can generate a random collection of quantum states, obtain the corresponding Gram matrix, and compute
 # whether the set of states are antidistinguishable and :math:`(n-1)`-incoherent.
 
-from toqito.state_props import is_antidistinguishable
 from toqito.matrix_ops import vectors_to_gram_matrix
 from toqito.matrix_props import is_k_incoherent
 from toqito.rand import random_states
+from toqito.state_props import is_antidistinguishable
 
 n, d = 3, 3
 states = random_states(n, d)

@@ -1,6 +1,4 @@
-"""
-
-Calculating the quantum and classical value of a two-player XOR game
+"""Calculating the quantum and classical value of a two-player XOR game
 =====================================================================
 
 In this tutorial, we will cover the concept of an *XOR game*. We will also
@@ -25,7 +23,7 @@ classical and quantum value of a given XOR game.
 # predicated on an XOR function. For more information on the more general class
 # of nonlocal games along with how one defines classical and quantum strategies
 # for these games, please refer to the example in
-# :ref:`sphx_glr_auto_examples_quantumgames_example_nonlocal_game.py`.
+# :ref:`sphx_glr_auto_examples_nonlocal_games_example_nonlocal_game.py`.
 #
 # .. note::
 #    It is *not* known how to directly compute the quantum value of an arbitrary
@@ -294,6 +292,7 @@ print(f"The quantum value of game is: {np.around(chsh.quantum_value(), decimals=
 # values of the CHSH game is provided below.
 
 import numpy as np
+
 from toqito.nonlocal_games.xor_game import XORGame
 
 prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
@@ -321,6 +320,7 @@ print(f"The quantum value of games is: {np.around(chsh.quantum_value(), decimals
 # the classical and quantum values of this game.
 
 import numpy as np
+
 from toqito.nonlocal_games.xor_game import XORGame
 
 # Define the probability matrix.

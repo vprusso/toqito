@@ -1,2 +1,2 @@
-Involving Quantum States
+Quantum States
 -------------------------
