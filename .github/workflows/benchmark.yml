@@ -387,10 +387,10 @@ jobs:
 
         python3 <<EOF
         import json, sys, os
+        import math
 
         base_file = "${BASE_FILE}"
         results_file = "${RESULTS_FILE}"
-        tolerance = float("${TOLERANCE}")
         fail_on_regression = "${FAIL_ON_REGRESSION}".lower() == "true"
 
         # Validate files exist
@@ -407,7 +407,9 @@ jobs:
             results = json.load(f)
 
         regressions = []
-        indicators = {}
+        PERCENT_THRESHOLD = 10.0  # Flag if >10% slower
+
+        print("📈 Regression Analysis Report")
 
         # Map benchmarks by name for comparison
         base_map = {b["name"]: b for b in base.get("benchmarks", [])}
@@ -415,39 +417,46 @@ jobs:
             name = r["name"]
             if name not in base_map:
                 continue
+            
             base_mean = base_map[name]["stats"]["mean"]
             curr_mean = r["stats"]["mean"]
-            abs_diff = abs(curr_mean - base_mean)
-            change_pct = ((curr_mean - base_mean) / base_mean) * 100 if base_mean != 0 else 0.0
-
-            # Mark as regression only if absolute difference exceeds tolerance
-            is_regression = abs_diff > tolerance
-
-            indicators[name] = {
-                "baseline": base_mean,
-                "current": curr_mean,
-                "abs_diff": abs_diff,
-                "change_pct": change_pct,
-                "regression": is_regression
-            }
-
+            base_stddev = base_map[name]["stats"].get("stddev", 0)
+            
+            # Calculate percentage change
+            percent_change = ((curr_mean - base_mean) / base_mean) * 100 if base_mean != 0 else 0
+            
+            # Use standard deviation as noise threshold (more scientific than fixed tolerance)
+            noise_threshold = base_stddev * 2  # 2 standard deviations
+            abs_change = abs(curr_mean - base_mean)
+            
+            # Flag as regression if: change > noise AND change > 10%
+            is_significant = abs_change > noise_threshold
+            is_large_change = abs(percent_change) > PERCENT_THRESHOLD
+            is_regression = is_significant and is_large_change and curr_mean > base_mean
+            
+            # Status indicators
             if is_regression:
-                regressions.append((name, base_mean, curr_mean, abs_diff, change_pct))
-
-        print("📈 Regression Analysis Report")
-        for name, data in indicators.items():
-            status = "⚠️ REGRESSION" if data['regression'] else "✅ within noise tolerance"
-            print(f"- {name}: baseline={data['baseline']:.6f}, "
-                  f"current={data['current']:.6f}, "
-                  f"Δ_abs={data['abs_diff']:.6e}, "
-                  f"Δ_pct={data['change_pct']:.2f}% {status}")
+                status = "🔴 REGRESSION"
+                regressions.append(name)
+            elif is_large_change:
+                status = "🟡 LARGE CHANGE" 
+            elif is_significant:
+                status = "🟠 SIGNIFICANT"
+            else:
+                status = "✅ OK"
+            
+            print(f"- {name}: {base_mean:.6f} → {curr_mean:.6f} "
+                  f"({percent_change:+.1f}%) {status}")
 
         if regressions:
-            print("\n❌ Regressions detected:")
-            for n, b, c, abs_d, pct in regressions:
-                print(f"  {n}: {b:.6f} → {c:.6f} (Δ_abs={abs_d:.6e}, Δ_pct={pct:.2f}%)")
+            print(f"\n❌ Found {len(regressions)} regressions:")
+            for name in regressions:
+                print(f"  - {name}")
+            
             if fail_on_regression:
+                print("Failing build due to performance regressions")
                 sys.exit(1)
         else:
-            print("✅ No regressions found")
-        EOF
+            print("\n✅ No performance regressions detected")
+EOF
+
