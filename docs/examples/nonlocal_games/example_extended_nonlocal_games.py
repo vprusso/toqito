@@ -723,7 +723,7 @@ print("The standard quantum value lower bound is ", np.around(q_val, decimals=2)
 # - **Hiding:** The receiver, Bob, cannot learn :math:`b` before Alice unveils it.
 # - **Binding:** Alice cannot change her bit once committed.
 #
-# The Mayers-Lo-Chau (MLC) no-go theorem :footcite:`Mayers_1997_Unconditionally,Lo_1997_Is`
+# The Mayers-Lo-Chau (MLC) no-go theorem :footcite:`Mayers_1997_Unconditionally,Lo_1997_Why`
 # proves that no quantum protocol can be both perfectly hiding and binding. Here,
 # we will use the :func:`.ExtendedNonlocalGame` framework not to prove the full
 # theorem in its generality, but to illustrate the failure of
@@ -731,7 +731,7 @@ print("The standard quantum value lower bound is ", np.around(q_val, decimals=2)
 # the abstract threat of cheating concrete and quantifiable.
 #
 # The core of this impossibility proof lies in Alice's ability to use an
-# Einstein-Podolsky-Rosen (EPR) type of attack: she prepares an entangled state
+# Einstein-Podolsky-Rosen (EPR) type of attack :footcite:`Mayers_1997_Unconditionally,Lo_1997_Why`: she prepares an entangled state
 # and shares one part with Bob, keeping the other. This entanglement allows her
 # to delay her decision and "steer" the outcome to her advantage later on.
 #
