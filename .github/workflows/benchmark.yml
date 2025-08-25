@@ -458,5 +458,5 @@ jobs:
                 sys.exit(1)
         else:
             print("\n✅ No performance regressions detected")
-EOF
+        EOF
 
