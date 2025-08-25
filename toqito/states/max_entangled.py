@@ -4,10 +4,10 @@ In these states, when a measurement is taken on one of the qubits, the state of 
 """
 
 import numpy as np
-from scipy.sparse import dia_array, eye_array
+from scipy.sparse import coo_array
 
 
-def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True) -> [np.ndarray, dia_array]:
+def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True) -> [np.ndarray, coo_array]:
     r"""Produce a maximally entangled bipartite pure state :footcite:`WikiMaxEnt`.
 
     Produces a maximally entangled pure state as above that is sparse if :code:`is_sparse = True` and is full if
@@ -56,8 +56,15 @@ def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True)
     :return: The maximally entangled state of dimension :code:`dim`.
 
     """
-    mat = eye_array(dim) if is_sparse else np.identity(dim)
-    psi = np.reshape(mat, (dim**2, 1))
-    if is_normalized:
-        psi = psi / np.sqrt(dim)
+    norm_factor = 1 / np.sqrt(dim) if is_normalized else 1.0
+    idx = np.arange(dim) * (dim + 1)  # positions of nonzero entries in flattened form.
+
+    if is_sparse:
+        # Construct sparse vector directly.
+        data = np.full(dim, norm_factor)
+        psi = coo_array((data, (idx, np.zeros(dim))), shape=(dim**2, 1))
+        return psi
+
+    psi = np.zeros((dim**2, 1), dtype=float)
+    psi[idx, 0] = norm_factor
     return psi

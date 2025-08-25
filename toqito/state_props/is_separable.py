@@ -21,7 +21,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     r"""Determine if a given state (given as a density matrix) is a separable state :footcite:`WikiSepSt`.
 
     A multipartite quantum state:
-    :math:\rho \in \text{D}(\mathcal{H}_1 \otimes \mathcal{H}_2 \otimes \dots \otimes \mathcal{H}_N)
+    :math:`\rho \in \text{D}(\mathcal{H}_1 \otimes \mathcal{H}_2 \otimes \dots \otimes \mathcal{H}_N)`
     is defined as fully separable if it can be written as a convex combination of product states.
 
     Overview
