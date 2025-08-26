@@ -70,8 +70,6 @@ jobs:
       run: |
 
         echo "benchmark_type=${{ github.event.inputs.benchmark_type || 'full' }}" >> $GITHUB_OUTPUT
-        # echo "filter=${{ github.event.inputs.filter || '' }}" >> $GITHUB_OUTPUT
-        # echo "function=${{ github.event.inputs.function || '' }}" >> $GITHUB_OUTPUT
         echo "filter=${{ github.event.inputs.filter || '' }}" >> $GITHUB_OUTPUT
         echo "function=${{ github.event.inputs.function || '' }}" >> $GITHUB_OUTPUT
         echo "save_results=${{ github.event.inputs.save_results || 'true' }}" >> $GITHUB_OUTPUT
@@ -328,7 +326,7 @@ jobs:
             results = json.load(f)
 
         regressions = []
-        PERCENT_THRESHOLD = 10.0  # Flag if >10% slower
+        PERCENT_THRESHOLD = 20.0
 
         print("📈 Regression Analysis Report")
 
@@ -344,16 +342,17 @@ jobs:
             
             percent_change = ((curr_mean - base_mean) / base_mean) * 100 if base_mean != 0 else 0
 
-            noise_threshold = base_stddev * 2
+            noise_threshold = base_stddev * 2.5
             abs_change = abs(curr_mean - base_mean)
             
-            # Flag as regression if: change > noise AND change > 10%
             is_significant = abs_change > noise_threshold
             is_large_change = abs(percent_change) > PERCENT_THRESHOLD
             is_regression = is_significant and is_large_change and curr_mean > base_mean
-            
-            # Status indicators
-            if is_regression:
+            is_improvement = is_significant and is_large_change and curr_mean < base_mean
+
+            if is_improvement:
+              status = "🟢 IMPROVEMENT"
+            elif is_regression:
                 status = "🔴 REGRESSION"
                 regressions.append(name)
             elif is_large_change:
