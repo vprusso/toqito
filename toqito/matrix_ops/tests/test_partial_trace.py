@@ -72,6 +72,8 @@ test_input_mat7 = np.arange(1, 4097).reshape(64, 64)
         (test_input_mat, np.array([[12, 14], [20, 22]]), 0, None),
         # specify non-zero sys value and default dim value
         (test_input_mat, np.array([[7, 11], [23, 27]]), [1], None),
+        # specify non-zero sys value and single list dim value.
+        (test_input_mat, np.array([[7, 11], [23, 27]]), [1], [2]),
         # specify dim value as int and default sys value
         (test_input_mat, np.array([[34]]), None, 1),
         # specify non-zero sys value and dim value
