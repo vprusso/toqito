@@ -20,9 +20,9 @@ from toqito.matrix_ops import partial_trace
             "Invalid: The variable `sys` must either be of type int or of a list of ints.",
         ),
         (
-            np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]]),
+            np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]),
             [1],
-            [2],
+            [3],
             re.escape("Invalid: If `dim` is a scalar, it must evenly divide matrix dimension."),
         ),
         (
@@ -30,6 +30,12 @@ from toqito.matrix_ops import partial_trace
             [1],
             None,
             re.escape("Cannot infer subsystem dimensions directly. Please provide `dim`."),
+        ),
+        (
+            np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]),
+            [1],
+            3,
+            re.escape("Invalid: If `dim` is a scalar, it must evenly divide matrix dimension."),
         ),
     ],
 )
