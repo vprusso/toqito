@@ -25,6 +25,14 @@ from toqito.perms import swap
             False,
             np.array([[1, 9, 5, 13], [3, 11, 7, 15], [2, 10, 6, 14], [4, 12, 8, 16]]),
         ),
+        # Hard-coded argument (systems [1, 2]) but dim is an np.array:
+        (
+            np.arange(1, 17).reshape(4, 4).transpose(),
+            [1, 2],
+            np.array([2, 2]),
+            False,
+            np.array([[1, 9, 5, 13], [3, 11, 7, 15], [2, 10, 6, 14], [4, 12, 8, 16]]),
+        ),
         # Hard-coded argument (systems [2, 1])--this should be identical to the prior two cases.
         (
             np.arange(1, 17).reshape(4, 4).transpose(),
