@@ -36,5 +36,5 @@ def test_depolarizing_partially_depolarizing():
 @pytest.mark.parametrize("param_p", [-0.1, 1.5])
 def test_depolarizing_invalid_param_p(param_p):
     """Test invalid input to param_p."""
-    with pytest.raises(ValueError, match=re.escape("the depolarizing probability must be between 0 and 1.")):
+    with pytest.raises(ValueError, match=re.escape("The depolarizing probability must be between 0 and 1.")):
         depolarizing(2, param_p)

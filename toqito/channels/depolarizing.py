@@ -84,11 +84,12 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
     :param param_p: Depolarizing probability \(p \) \in [0,1] that mixes the input state
                     with the maximally mixed state. Default 0.
     :return: The Choi matrix of the completely depolarizing channel.
+    :raises ValueError: If `param_p` is outside the interval [0,1].
 
     """
     # Compute the Choi matrix of the depolarizing channel.
     if param_p > 1 or param_p < 0:
-        raise ValueError("the depolarizing probability must be between 0 and 1.")
+        raise ValueError("The depolarizing probability must be between 0 and 1.")
 
     result = np.zeros((dim**2, dim**2), dtype=np.float64)
     np.fill_diagonal(result, (1 - param_p) / dim)
