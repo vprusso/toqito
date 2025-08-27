@@ -1,6 +1,9 @@
 """Test depolarizing."""
 
+import re
+
 import numpy as np
+import pytest
 
 from toqito.channel_ops import apply_channel
 from toqito.channels import depolarizing
@@ -28,3 +31,10 @@ def test_depolarizing_partially_depolarizing():
 
     bool_mat = np.isclose(expected_res, res)
     np.testing.assert_equal(np.all(bool_mat), True)
+
+
+@pytest.mark.parametrize("param_p", [-0.1, 1.5])
+def test_depolarizing_invalid_param_p(param_p):
+    """Test invalid input to param_p."""
+    with pytest.raises(ValueError, match=re.escape("the depolarizing probability must be between 0 and 1.")):
+        depolarizing(2, param_p)
