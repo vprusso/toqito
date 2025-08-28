@@ -78,9 +78,22 @@ def is_quantum_channel(
     """
     # If the variable `phi` is provided as a list, we assume this is a list
     # of Kraus operators.
+    if not (
+        isinstance(phi, np.ndarray)
+        or (
+            isinstance(phi, list)
+            and all(isinstance(row, list) and all(isinstance(op, np.ndarray) for op in row) for row in phi)
+        )
+    ):
+        raise TypeError(
+            "phi must be either a numpy array (Choi matrix) or a list of lists of numpy arrays (Kraus operators)."
+        )
     if isinstance(phi, list):
         phi = kraus_to_choi(phi)
 
     # A valid quantum channel is a superoperator that is both completely
     # positive and trace-preserving.
-    return is_completely_positive(phi, rtol, atol) and is_trace_preserving(phi, rtol, atol)
+    try:
+        return is_completely_positive(phi, rtol, atol) and is_trace_preserving(phi, rtol, atol)
+    except Exception:
+        return False
