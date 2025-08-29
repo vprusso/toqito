@@ -23,8 +23,8 @@ class ExtendedNonlocalGame:
     Extended nonlocal games were initially defined in :footcite:`Johnston_2016_Extended` and more
     information on these games can be found in :footcite:`Russo_2017_Extended`.
 
-    An example demonstration is available as a tutorial in the
-    documentation. Go to :ref:`sphx_glr_auto_examples_nonlocal_games_example_extended_nonlocal_games.py`.
+    For a detailed walkthrough and several examples, including the BB84 and CHSH
+    games, please see the tutorial on :ref:`sphx_glr_auto_examples_extended_nonlocal_games`.
 
     References
     ==========
