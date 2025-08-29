@@ -717,11 +717,25 @@ print("The standard quantum value lower bound is ", np.around(q_val, decimals=2)
 # Example: Modeling Bit Commitment Binding Failure
 # ------------------------------------------------
 #
-# A bit commitment (BC) protocol is a cryptographic task where Alice commits to
-# a secret bit :math:`b` that she can reveal later. The protocol must be:
+# A bit commitment (BC) protocol is a cryptographic task involving two parties,
+# Alice (the sender) and Bob (the receiver), which proceeds in two phases:
 #
-# - **Hiding:** The receiver, Bob, cannot learn :math:`b` before Alice unveils it.
-# - **Binding:** Alice cannot change her bit once committed.
+# 1.  **Commit Phase:** Alice chooses a secret bit :math:`b` and provides Bob with
+#     a piece of evidence (in this case, a quantum state).
+# 2.  **Reveal Phase:** At a later time, Alice announces the value of her bit, say
+#     :math:`b'`, and provides information that allows Bob to use his evidence
+#     from the commit phase to verify her claim.
+#
+# For the protocol to be secure, it must satisfy two fundamental properties:
+#
+# - **Hiding:** The evidence Bob receives during the **Commit Phase** must reveal
+#   essentially no information about the value of Alice's bit :math:`b`. Bob
+#   should not be able to distinguish the evidence for :math:`b=0` from the
+#   evidence for :math:`b=1`.
+# - **Binding:** Alice must be "locked in" to her choice after the **Commit Phase**.
+#   She should not be able to change her mind and successfully convince Bob of a
+#   different bit during the **Reveal Phase**. If she committed to :math:`b=0`,
+#   she cannot successfully open the commitment as :math:`b=1`.
 #
 # The Mayers-Lo-Chau (MLC) no-go theorem :footcite:`Mayers_1997_Unconditionally,Lo_1997_Why`
 # proves that no quantum protocol can be both perfectly hiding and binding. Here,
