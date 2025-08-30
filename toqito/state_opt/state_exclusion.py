@@ -183,10 +183,8 @@ def _min_error_primal(
 ) -> tuple[float, list[picos.HermitianVariable]]:
     """Find the primal problem for minimum-error quantum state exclusion SDP."""
     n = len(vectors)
-
     problem = picos.Problem()
-    num_measurements = len(vectors)
-    measurements = [picos.HermitianVariable(f"M[{i}]", (dim, dim)) for i in range(num_measurements)]
+    measurements = [picos.HermitianVariable(f"M[{i}]", (dim, dim)) for i in range(n)]
 
     problem.add_list_of_constraints([meas >> 0 for meas in measurements])
     problem.add_constraint(picos.sum(measurements) == picos.I(dim))
