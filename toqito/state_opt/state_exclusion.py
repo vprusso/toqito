@@ -9,7 +9,7 @@ from toqito.matrix_props import has_same_dimension
 
 def state_exclusion(
     vectors: list[np.ndarray],
-    probs: list[float] = None,
+    probs: list[float] | None = None,
     strategy: str = "min_error",
     solver: str = "cvxopt",
     primal_dual: str = "dual",
@@ -177,13 +177,12 @@ def state_exclusion(
 def _min_error_primal(
     vectors: list[np.ndarray],
     dim: int,
-    probs: list[float] = None,
+    probs: list[float] | None = None,
     solver: str = "cvxopt",
     **kwargs,
 ) -> tuple[float, list[picos.HermitianVariable]]:
     """Find the primal problem for minimum-error quantum state exclusion SDP."""
     n = len(vectors)
-
     problem = picos.Problem()
     measurements = [picos.HermitianVariable(f"M[{i}]", (dim, dim)) for i in range(n)]
 
@@ -191,11 +190,8 @@ def _min_error_primal(
     problem.add_constraint(picos.sum(measurements) == picos.I(dim))
 
     dms = [to_density_matrix(vector) for vector in vectors]
-    # # Numerical inaccuracies can make it so the trace of the density matrices aren't unital, which messes up with
-    # # cvxopt
-    # dms = [state / np.trace(state) for state in dms]
-    objective = picos.sum([(picos.trace(probs[i] * dms[i] * measurements[i])) for i in range(n)])
-    problem.set_objective("min", objective)
+
+    problem.set_objective("min", np.real(picos.sum([(probs[i] * dms[i] | measurements[i]) for i in range(n)])))
     solution = problem.solve(solver=solver, **kwargs)
     return solution.value, measurements
 
@@ -227,7 +223,7 @@ def _min_error_dual(
 def _unambiguous_primal(
     vectors: list[np.ndarray],
     dim: int,
-    probs: list[float] = None,
+    probs: list[float] | None = None,
     solver: str = "cvxopt",
     **kwargs,
 ) -> tuple[float, list[picos.HermitianVariable]]:
@@ -257,7 +253,7 @@ def _unambiguous_primal(
 def _unambiguous_dual(
     vectors: list[np.ndarray],
     dim: int,
-    probs: list[float] = None,
+    probs: list[float] | None = None,
     solver: str = "cvxopt",
     **kwargs,
 ) -> tuple[float, tuple[picos.HermitianVariable, picos.RealVariable]]:
