@@ -191,7 +191,7 @@ def _min_error_primal(
 
     dms = [to_density_matrix(vector) for vector in vectors]
 
-    problem.set_objective("min", np.real(picos.sum([(probs[i] * dms[i] | measurements[i]) for i in range(n)])))
+    problem.set_objective("min", picos.real(picos.sum([(probs[i] * dms[i] | measurements[i]) for i in range(n)])))
     solution = problem.solve(solver=solver, **kwargs)
     return solution.value, measurements
 
