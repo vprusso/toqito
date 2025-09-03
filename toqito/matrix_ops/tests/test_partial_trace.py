@@ -20,10 +20,22 @@ from toqito.matrix_ops import partial_trace
             "Invalid: The variable `sys` must either be of type int or of a list of ints.",
         ),
         (
+            np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]),
+            [1],
+            [3],
+            re.escape("Invalid: If `dim` is a scalar, it must evenly divide matrix dimension."),
+        ),
+        (
             np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]]),
             [1],
-            [2],
-            re.escape("Invalid: If `dim` is a scalar, `dim` must evenly divide `len(input_mat)`."),
+            None,
+            re.escape("Cannot infer subsystem dimensions directly. Please provide `dim`."),
+        ),
+        (
+            np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]),
+            [1],
+            3,
+            re.escape("Invalid: If `dim` is a scalar, it must evenly divide matrix dimension."),
         ),
     ],
 )
@@ -60,6 +72,8 @@ test_input_mat7 = np.arange(1, 4097).reshape(64, 64)
         (test_input_mat, np.array([[12, 14], [20, 22]]), 0, None),
         # specify non-zero sys value and default dim value
         (test_input_mat, np.array([[7, 11], [23, 27]]), [1], None),
+        # specify non-zero sys value and single list dim value.
+        (test_input_mat, np.array([[7, 11], [23, 27]]), [1], [2]),
         # specify dim value as int and default sys value
         (test_input_mat, np.array([[34]]), None, 1),
         # specify non-zero sys value and dim value

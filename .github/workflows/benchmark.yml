@@ -1,0 +1,379 @@
+name: Benchmark Regression Analysis
+
+on:
+    workflow_dispatch:
+        inputs:
+            target_ref:
+                description: 'SHA commit to benchmark.'
+                required: false
+                default: ''
+                type: string
+            
+            benchmark_type:
+                description: 'Type of benchmark to run'
+                required: true
+                default: 'full'
+                type: choice
+                options:
+                    - 'full'
+                    - 'simple'
+            
+            filter:
+                description: 'Filter tests by name pattern (eg. "TestPartialTraceBenchmarks")'
+                required: false
+                default: "TestPartialTraceBenchmarks"
+                type: string
+            
+            function:
+                description: 'Filter tests by function pattern (eg. "test_bench__partial_trace__vary__dim")'
+                required: false
+                default: "test_bench__partial_trace__vary__dim"
+                type: string
+            
+            save_results:
+                description: 'Save benchmark results to storage'
+                required: false
+                default: true
+                type: boolean
+            
+            fail_on_regression:
+                description: 'Fail the workflow if regressions are detected'
+                required: false
+                default: false
+                type: boolean
+            
+            regression_threshold:
+                description: 'Regression threshold percentage (e.g., 10 for 10%)'
+                required: false
+                default: '10'
+                type: string
+            
+    pull_request:
+        branches:
+            - master
+
+env:
+    PYTHON_VERSION: '3.11'
+    BASE_BENCHMARK_FILE: "benchmarks/baseline.json"
+    BENCHMARK_FILE_TOQITO: "toqito-bench/scripts/benchmark_toqito.py"
+    BENCHMARK_STORAGE: "results"
+    BENCHMARK_DIR: "scripts"
+
+
+jobs:
+  benchmark-regression:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set default values for all trigger types
+      id: defaults
+      run: |
+
+        echo "benchmark_type=${{ github.event.inputs.benchmark_type || 'full' }}" >> $GITHUB_OUTPUT
+        echo "filter=${{ github.event.inputs.filter || '' }}" >> $GITHUB_OUTPUT
+        echo "function=${{ github.event.inputs.function || '' }}" >> $GITHUB_OUTPUT
+        echo "save_results=${{ github.event.inputs.save_results || 'true' }}" >> $GITHUB_OUTPUT
+        echo "fail_on_regression=${{ github.event.inputs.fail_on_regression || 'false' }}" >> $GITHUB_OUTPUT  
+        echo "regression_threshold=${{ github.event.inputs.regression_threshold || '10' }}" >> $GITHUB_OUTPUT
+        
+
+        if [ -n "${{ github.event.inputs.target_ref }}" ]; then
+          echo "target_ref=${{ github.event.inputs.target_ref }}" >> $GITHUB_OUTPUT
+          echo " Using specified reference: ${{ github.event.inputs.target_ref }}"
+        else
+          echo "target_ref=${{ github.sha }}" >> $GITHUB_OUTPUT
+          echo " Using current commit: ${{ github.sha }}"
+        fi
+        
+        # Log the trigger type for debugging
+        echo " Workflow triggered by: ${{ github.event_name }}"
+
+
+    
+    - name: Checkout toqito repository at the current/mentioned commit
+      uses: actions/checkout@v4
+      with:
+        path: toqito
+        ref: ${{ steps.defaults.outputs.target_ref }}
+        fetch-depth: 0
+    
+    - name: Display benchmark target info
+      run: |
+        cd toqito
+        echo "  BENCHMARK TARGET INFORMATION"
+        echo "================================"
+        echo "Repository: vprusso/toqito"
+        echo "Reference: ${{ steps.defaults.outputs.target_ref }}"
+        echo "Commit SHA: $(git rev-parse HEAD)"
+        echo "Commit Message: $(git log -1 --pretty=format:'%s')"
+        echo "Author: $(git log -1 --pretty=format:'%an <%ae>')"
+        echo "Date: $(git log -1 --pretty=format:'%ad')"
+        echo "Benchmark Type: ${{  steps.defaults.outputs.benchmark_type }}"
+        echo "Filter Applied: ${{ steps.defaults.outputs.filter || 'none' }}"
+        echo "Function Applied: ${{ steps.defaults.outputs.function || 'none' }}"
+        echo "Save Results: ${{ steps.defaults.outputs.save_results }}"
+        echo "Regression Threshold: ${{ steps.defaults.outputs.regression_threshold }}%"
+        echo "Fail on Regression: ${{ steps.defaults.outputs.fail_on_regression  }}"
+        echo "Triggered by: ${{ github.event_name }}"
+        echo "================================"
+    
+    - name: Checkout toqito-bench repository  
+      uses: actions/checkout@v4
+      with:
+        repository: vprusso/toqito-bench
+        path: toqito-bench
+        ref: post_cycle
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+    
+    - name: Install Poetry
+      run: pip install poetry
+    
+    - name: Setup toqito environment
+      run: |
+        cd toqito
+        echo "Setting up toqito development environment..."
+        poetry install --with dev
+        poetry add pytest-benchmark --group dev pytest-memray sympy pygal
+        echo "Environment setup complete"
+    
+    - name: Verify baseline benchmark exists
+      run: |
+        BASE_FILE="toqito-bench/${{ env.BASE_BENCHMARK_FILE }}"
+        if [ ! -f "$BASE_FILE" ]; then
+          echo "  Baseline benchmark file not found at $BASE_FILE"
+          echo "Please ensure the baseline benchmark exists in the toqito-bench repository"
+          exit 1
+        fi
+        echo "  Baseline benchmark found !"
+    
+    - name: Prepare benchmark environment
+      run: |
+        echo "📁 Creating benchmark directories..."
+
+        TIMESTAMP=$(date +%Y_%m_%d__%H_%M_%S)
+        echo "TIMESTAMP=$TIMESTAMP" >> $GITHUB_ENV
+
+        cd toqito-bench
+        mkdir -p ${{ env.BENCHMARK_STORAGE }}/toqito/full
+        mkdir -p ${{ env.BENCHMARK_STORAGE }}/toqito/simple
+
+        FILTER="${{ steps.defaults.outputs.filter }}"
+        FUNCTION="${{ steps.defaults.outputs.function }}"
+        if [ -n "$FILTER" ] || [ -n "$FUNCTION" ]; then
+          mkdir -p "${{ env.BENCHMARK_STORAGE }}/toqito/$FILTER/$FUNCTION"
+        fi
+
+        echo "📁 Directory structure created"
+        ls -la ${{ env.BENCHMARK_STORAGE }}/toqito/
+    
+    - name: Run benchmark (full)
+      if: steps.defaults.outputs.benchmark_type == 'full'
+      run: |
+        cd toqito-bench
+        echo "Running FULL benchmarks for toqito..."
+        echo "Benchmark file: scripts/benchmark_toqito.py"
+        echo "Filter applied: ${{ steps.defaults.outputs.filter || 'none' }}"
+        echo "Function applied: ${{ steps.defaults.outputs.function || 'none' }}"
+
+        FILTER="${{ steps.defaults.outputs.filter }}"
+        FUNCTION="${{ steps.defaults.outputs.function }}"
+        SAVE="${{ steps.defaults.outputs.save_results }}"
+
+        STORAGE_DIR="$(pwd)/${{ env.BENCHMARK_STORAGE }}/toqito/full"
+        mkdir -p "$STORAGE_DIR"
+        echo "💾 Storage: $STORAGE_DIR"
+
+        export PYTHONPATH="../toqito:$PYTHONPATH"
+
+        cd ../toqito
+
+        PYTEST_CMD="poetry run pytest ../toqito-bench/scripts/benchmark_toqito.py"
+        if [ -n "$FILTER" ]; then
+          PYTEST_CMD="$PYTEST_CMD -k \"$FILTER\""
+        fi
+        if [ -n "$FUNCTION" ]; then
+          PYTEST_CMD="$PYTEST_CMD -m \"$FUNCTION\""
+        fi
+
+        PYTEST_CMD="$PYTEST_CMD \
+          --benchmark-warmup=on \
+          --benchmark-sort=name \
+          --benchmark-columns=min,max,mean,stddev,median,iqr,outliers,ops,rounds \
+          --benchmark-save=detailed_${{ env.TIMESTAMP }} \
+          --benchmark-storage=$STORAGE_DIR \
+          --benchmark-verbose \
+          -v --tb=long"
+
+        echo "🔧 Executing: $PYTEST_CMD currently in $(pwd)"
+        eval "$PYTEST_CMD"
+
+        echo "✅ Full benchmarks completed!"
+
+        RESULTS_FILE=$(ls -1 "$STORAGE_DIR"/Linux-CPython-3.11-64bit/*detailed_${{ env.TIMESTAMP }}.json | head -n 1)
+        RESULTS_FILE="$(realpath "$RESULTS_FILE")"
+        echo "RESULTS_FILE=$RESULTS_FILE" >> $GITHUB_ENV
+        echo "Using results file: $RESULTS_FILE"
+
+    
+    - name: Run benchmark (simple)
+      if: steps.defaults.outputs.benchmark_type == 'simple'
+      run: |
+        cd toqito-bench
+        echo "Running SIMPLE benchmarks for toqito..."
+        echo "Benchmark file: ${{ env.BENCHMARK_FILE_TOQITO }}"
+        echo "Filter applied: ${{ steps.defaults.outputs.filter || 'none' }}"
+        echo "Function applied: ${{ steps.defaults.outputs.function || 'none' }}"
+
+        FILTER="${{ steps.defaults.outputs.filter }}"
+        FUNCTION="${{ steps.defaults.outputs.function }}"
+        SAVE="${{ steps.defaults.outputs.save_results }}"
+
+        if [ "$SAVE" = "true" ]; then
+          STORAGE_DIR="$(pwd)/${{ env.BENCHMARK_STORAGE }}/toqito/$FILTER/$FUNCTION"
+          mkdir -p "$STORAGE_DIR"
+          echo "💾 Storage: $STORAGE_DIR"
+        else
+          echo "💾 Storage: not saving results"
+        fi
+
+        export PYTHONPATH="../toqito:$PYTHONPATH"
+
+        cd ../toqito
+
+        PYTEST_CMD="poetry run pytest ../toqito-bench/scripts/benchmark_toqito.py"
+        if [ -n "$FILTER" ]; then
+          PYTEST_CMD="$PYTEST_CMD -k \"$FILTER\""
+        fi
+        if [ -n "$FUNCTION" ]; then
+          PYTEST_CMD="$PYTEST_CMD -m \"$FUNCTION\""
+        fi
+
+        PYTEST_CMD="$PYTEST_CMD \
+          --benchmark-sort=name \
+          --benchmark-columns=mean,median,stddev,ops \
+          --tb=short"
+
+        if [ "$SAVE" = "true" ]; then
+          PYTEST_CMD="$PYTEST_CMD \
+            --benchmark-save=simple_${{ env.TIMESTAMP }} \
+            --benchmark-storage=$STORAGE_DIR"
+        fi
+
+        echo "🔧 Executing: $PYTEST_CMD currently in $(pwd)"
+        eval "$PYTEST_CMD"
+
+        echo "✅ Simple benchmarks completed!"
+
+        if [ "$SAVE" = "true" ]; then
+          RESULTS_FILE=$(ls -1 "$STORAGE_DIR"/Linux-CPython-3.11-64bit/*simple_${{ env.TIMESTAMP }}.json | head -n 1)
+          # Make absolute path
+          RESULTS_FILE="$(realpath "$RESULTS_FILE")"
+          echo "RESULTS_FILE=$RESULTS_FILE" >> $GITHUB_ENV
+          echo "Using results file: $RESULTS_FILE"
+        else
+          echo "RESULTS_FILE=" >> $GITHUB_ENV
+        fi
+
+
+        echo "📁 Benchmark directory structure:"
+        BASE_DIR="../toqito-bench/${{ env.BENCHMARK_STORAGE }}/toqito"
+        if [ -d "$BASE_DIR" ]; then
+          find "$BASE_DIR" -type d -exec echo "Directory: {}" \;
+          find "$BASE_DIR" -type f -exec echo "File: {}" \;
+        else
+          echo "No benchmark directory found at $BASE_DIR"
+        fi
+
+    - name: Regression Analysis
+      if: env.RESULTS_FILE != ''  # only run if we have a results file
+      run: |
+        echo "📊 Running regression analysis..."
+        
+        # Absolute paths
+        BASE_FILE="$(realpath toqito-bench/${{ env.BASE_BENCHMARK_FILE }})"
+        RESULTS_FILE="$(realpath "${{ env.RESULTS_FILE }}")"
+        
+        TOLERANCE=1e-6   # absolute difference tolerance
+        FAIL_ON_REGRESSION=${{ steps.defaults.outputs.fail_on_regression }}
+
+        echo "Baseline: $BASE_FILE"
+        echo "Results:  $RESULTS_FILE"
+        echo "Absolute tolerance: $TOLERANCE"
+        echo "Fail on Regression: $FAIL_ON_REGRESSION"
+
+        python3 <<EOF
+        import json, sys, os
+        import math
+
+        base_file = "${BASE_FILE}"
+        results_file = "${RESULTS_FILE}"
+        fail_on_regression = "${FAIL_ON_REGRESSION}".lower() == "true"
+
+        if not os.path.isfile(base_file):
+            print(f"❌ Baseline file not found: {base_file}")
+            sys.exit(1)
+        if not os.path.isfile(results_file):
+            print(f"❌ Results file not found: {results_file}")
+            sys.exit(1)
+
+        with open(base_file) as f:
+            base = json.load(f)
+        with open(results_file) as f:
+            results = json.load(f)
+
+        regressions = []
+        PERCENT_THRESHOLD = 20.0
+
+        print("📈 Regression Analysis Report")
+
+        base_map = {b["name"]: b for b in base.get("benchmarks", [])}
+        for r in results.get("benchmarks", []):
+            name = r["name"]
+            if name not in base_map:
+                continue
+            
+            base_mean = base_map[name]["stats"]["mean"]
+            curr_mean = r["stats"]["mean"]
+            base_stddev = base_map[name]["stats"].get("stddev", 0)
+            
+            percent_change = ((curr_mean - base_mean) / base_mean) * 100 if base_mean != 0 else 0
+
+            noise_threshold = base_stddev * 2.5
+            abs_change = abs(curr_mean - base_mean)
+            
+            is_significant = abs_change > noise_threshold
+            is_large_change = abs(percent_change) > PERCENT_THRESHOLD
+            is_regression = is_significant and is_large_change and curr_mean > base_mean
+            is_improvement = is_significant and is_large_change and curr_mean < base_mean
+
+            if is_improvement:
+              status = "🟢 IMPROVEMENT"
+            elif is_regression:
+                status = "🔴 REGRESSION"
+                regressions.append(name)
+            elif is_large_change:
+                status = "🟡 LARGE CHANGE" 
+            elif is_significant:
+                status = "🟠 SIGNIFICANT"
+            else:
+                status = "✅ OK"
+            
+            print(f"- {name}: {base_mean:.6f} → {curr_mean:.6f} "
+                  f"({percent_change:+.1f}%) {status}")
+
+        if regressions:
+            print(f"\n❌ Found {len(regressions)} regressions:")
+            for name in regressions:
+                print(f"  - {name}")
+            
+            if fail_on_regression:
+                print("Failing build due to performance regressions")
+                sys.exit(1)
+        else:
+            print("\n✅ No performance regressions detected")
+        EOF
+
