@@ -13,6 +13,7 @@ import os
 import sys
 import datetime
 import re
+from sphinx_gallery.sorting import ExplicitOrder
 
 # sys.path.insert(0, os.path.abspath("."))
 # sys.path.insert(0, os.path.abspath(".."))
@@ -56,6 +57,14 @@ extensions = [
 sphinx_gallery_conf = {
     "examples_dirs": "examples",  # Path to example scripts
     "gallery_dirs": "auto_examples",  # Output directory for generated example galleries
+    "subsection_order": ExplicitOrder(
+        [
+            "examples/basics",
+            "examples/quantum_states",
+            "examples/nonlocal_games",
+            "examples/extended_nonlocal_games",
+        ]
+    ),
     "filename_pattern": r"[/\\]example_",  # Regex to filter example files by name i.e those starting with 'example_'
     "write_computation_times": False,  # Do not include computation times
     "default_thumb_file": "figures/logo.svg",  # Default thumbnail image

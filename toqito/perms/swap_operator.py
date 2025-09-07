@@ -1,7 +1,7 @@
 """Swap operator. is used to generate a unitary operator that can swap two subsystems."""
 
 import numpy as np
-import scipy as sp
+from scipy import sparse
 
 from toqito.perms import swap
 
@@ -52,6 +52,6 @@ def swap_operator(dim: list[int] | int, is_sparse: bool = False) -> np.ndarray:
     if isinstance(dim, int):
         dim = np.array([dim, dim])
 
-    mat = sp.sparse.identity(int(np.prod(dim))) if is_sparse else np.identity(int(np.prod(dim)))
+    mat = sparse.identity(int(np.prod(dim))) if is_sparse else np.identity(int(np.prod(dim)))
     # Swap the rows of the identity appropriately.
-    return swap(mat, [1, 2], dim, True)
+    return swap(rho=mat, sys=[1, 2], dim=dim, row_only=True)

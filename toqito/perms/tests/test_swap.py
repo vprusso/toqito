@@ -25,6 +25,22 @@ from toqito.perms import swap
             False,
             np.array([[1, 9, 5, 13], [3, 11, 7, 15], [2, 10, 6, 14], [4, 12, 8, 16]]),
         ),
+        # Hard-coded argument (systems [1, 2]) but dim is an np.array:
+        (
+            np.arange(1, 17).reshape(4, 4).transpose(),
+            [1, 2],
+            np.array([2, 2]),
+            False,
+            np.array([[1, 9, 5, 13], [3, 11, 7, 15], [2, 10, 6, 14], [4, 12, 8, 16]]),
+        ),
+        # Hard-coded argument (systems [1, 2]) but dim is an np.array with float entries:
+        (
+            np.arange(1, 17).reshape(4, 4).transpose(),
+            [1, 2],
+            np.array([2.0, 2.0]),
+            False,
+            np.array([[1, 9, 5, 13], [3, 11, 7, 15], [2, 10, 6, 14], [4, 12, 8, 16]]),
+        ),
         # Hard-coded argument (systems [2, 1])--this should be identical to the prior two cases.
         (
             np.arange(1, 17).reshape(4, 4).transpose(),
@@ -506,6 +522,13 @@ def test_swap(input_matrix, sys, dim, row_only, expected_result):
             None,
             False,
         ),
+        # Invalid sys parameters but their len(sys) == 2.
+        (
+            np.array([[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]]),
+            [0, 20],
+            None,
+            False,
+        ),
         # Invalid sys parameters (length).
         (
             np.array([[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]]),
@@ -519,3 +542,14 @@ def test_invalid_swap(input_matrix, sys, dim, row_only):
     """Test function works as expected for an invalid input."""
     with pytest.raises(ValueError):
         swap(input_matrix, sys, dim, row_only)
+
+
+def test_swap_with_invalid_dim_type():
+    """Test swap raises TypeError when dim is of unsupported type."""
+    X = np.arange(1, 17).reshape(4, 4)
+
+    with pytest.raises(TypeError, match="dim must be None, int, list, or np.ndarray."):
+        swap(X, sys=[1, 2], dim={})
+
+    with pytest.raises(TypeError, match="dim entries must be int or float values."):
+        swap(X, sys=[1, 2], dim=[{}])
