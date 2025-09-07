@@ -24,7 +24,7 @@ def hadamard(n_param: int = 1) -> np.ndarray:
 
     Examples
     ==========
-    The standard 1-qubit Hadamard matrix can be generated in :code:`|toqito⟩` as
+    The standard 1-qubit Hadamard matrix can be generated in :code:`toqito` as
 
     .. jupyter-execute::
 
