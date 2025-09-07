@@ -2,8 +2,6 @@
 
 import numpy as np
 
-from toqito.states import max_entangled
-
 
 def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
     r"""Produce the partially depolarizing channel.
@@ -83,12 +81,21 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
 
 
     :param dim: The dimensionality on which the channel acts.
-    :param param_p: Default 0.
+    :param param_p: Depolarizing probability \(p \) \in [0,1] that mixes the input state
+                    with the maximally mixed state. Default 0.
     :return: The Choi matrix of the completely depolarizing channel.
+    :raises ValueError: If `param_p` is outside the interval [0,1].
 
     """
     # Compute the Choi matrix of the depolarizing channel.
+    if param_p > 1 or param_p < 0:
+        raise ValueError("The depolarizing probability must be between 0 and 1.")
 
-    # Gives a sparse non-normalized state.
-    psi = max_entangled(dim=dim, is_sparse=False, is_normalized=False)
-    return (1 - param_p) * np.identity(dim**2) / dim + param_p * (psi @ psi.conj().T)
+    result = np.zeros((dim**2, dim**2), dtype=np.float64)
+    np.fill_diagonal(result, (1 - param_p) / dim)
+
+    if param_p != 0.0:
+        idx = np.arange(dim) * (dim + 1)
+        result[np.ix_(idx, idx)] += param_p
+
+    return result

@@ -40,6 +40,7 @@ with which this problem can be solved for a number of different scenarios.
 # 3. Bob wants to guess which of the states from the ensemble he was *not* given.
 #    In order to do so, he may measure :math:`\rho_i` to guess the index
 #    :math:`i` for which the state in the ensemble corresponds.
+#
 # This setting is depicted in the following figure.
 #
 # .. figure:: ../../figures/quantum_state_distinguish.svg
