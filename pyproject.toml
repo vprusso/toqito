@@ -44,7 +44,7 @@ jupyter-sphinx = "^0.5.3"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "8.4.0"
-pytest-cov = "6.2.1"
+pytest-cov = "6.3.0"
 coverage = "7.10.2"
 sympy = "1.14.0"
 distlib = "0.4.0"
