@@ -1,59 +1,51 @@
 """Test hadamard."""
 
 import numpy as np
+import pytest
 
 from toqito.matrices import hadamard
 
 
-def test_hadamard_0():
-    """Test for Hadamard function when n = 0."""
-    res = hadamard(0)
-    expected_res = np.array([[1]])
+@pytest.mark.parametrize(
+    "n, expected_res",
+    [
+        (0, np.array([[1]])),
+        (1, 1 / np.sqrt(2) * np.array([[1, 1], [1, -1]])),
+        (2, 1 / 2 * np.array([[1, 1, 1, 1], [1, -1, 1, -1], [1, 1, -1, -1], [1, -1, -1, 1]])),
+        (
+            3,
+            1
+            / (2 ** (3 / 2))
+            * np.array(
+                [
+                    [1, 1, 1, 1, 1, 1, 1, 1],
+                    [1, -1, 1, -1, 1, -1, 1, -1],
+                    [1, 1, -1, -1, 1, 1, -1, -1],
+                    [1, -1, -1, 1, 1, -1, -1, 1],
+                    [1, 1, 1, 1, -1, -1, -1, -1],
+                    [1, -1, 1, -1, -1, 1, -1, 1],
+                    [1, 1, -1, -1, -1, -1, 1, 1],
+                    [1, -1, -1, 1, -1, 1, 1, -1],
+                ]
+            ),
+        ),
+    ],
+)
+def test_hadamard_matrix_values(n, expected_res):
+    """Test for Hadamard function with specific expected matrices."""
+    res = hadamard(n)
     bool_mat = np.isclose(res, expected_res)
     np.testing.assert_equal(np.all(bool_mat), True)
 
 
-def test_hadamard_1():
-    """Test for Hadamard function when n = 1."""
-    res = hadamard(1)
-    expected_res = 1 / np.sqrt(2) * np.array([[1, 1], [1, -1]])
-    bool_mat = np.isclose(res, expected_res)
-    np.testing.assert_equal(np.all(bool_mat), True)
-
-
-def test_hadamard_2():
-    """Test for Hadamard function when n = 2."""
-    res = hadamard(2)
-    expected_res = 1 / 2 * np.array([[1, 1, 1, 1], [1, -1, 1, -1], [1, 1, -1, -1], [1, -1, -1, 1]])
-    bool_mat = np.isclose(res, expected_res)
-    np.testing.assert_equal(np.all(bool_mat), True)
-
-
-def test_hadamard_3():
-    """Test for Hadamard function when n = 3."""
-    res = hadamard(3)
-    expected_res = (
-        1
-        / (2 ** (3 / 2))
-        * np.array(
-            [
-                [1, 1, 1, 1, 1, 1, 1, 1],
-                [1, -1, 1, -1, 1, -1, 1, -1],
-                [1, 1, -1, -1, 1, 1, -1, -1],
-                [1, -1, -1, 1, 1, -1, -1, 1],
-                [1, 1, 1, 1, -1, -1, -1, -1],
-                [1, -1, 1, -1, -1, 1, -1, 1],
-                [1, 1, -1, -1, -1, -1, 1, 1],
-                [1, -1, -1, 1, -1, 1, 1, -1],
-            ]
-        )
-    )
-    bool_mat = np.isclose(res, expected_res)
-    np.testing.assert_equal(np.all(bool_mat), True)
-
-
-def test_hadamard_4():
-    """Test for Hadamard function when n = 4."""
-    res = hadamard(4)
-    bool_mat = np.isclose(res.shape, (16, 16))
-    np.testing.assert_equal(np.all(bool_mat), True)
+@pytest.mark.parametrize(
+    "n, expected_shape",
+    [
+        (4, (16, 16)),
+        # You can add more shape tests here if needed
+    ],
+)
+def test_hadamard_matrix_shape(n, expected_shape):
+    """Test for Hadamard function matrix shapes."""
+    res = hadamard(n)
+    assert res.shape == expected_shape
