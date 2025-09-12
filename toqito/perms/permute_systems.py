@@ -121,7 +121,7 @@ def permute_systems(
     :param perm: A permutation vector.
     :param dim: The default has all subsystems of equal dimension.
     :param row_only: Default: :code:`False`
-    :param inv_perm: Default: :code:`True`
+    :param inv_perm: Default: :code:`False`
     :return: The matrix or vector that has been permuted.
 
     """
@@ -156,7 +156,7 @@ def permute_systems(
             dim = np.ones((2, len(dim)))
             dim[vec_orien, :] = dim_tmp
         else:
-            dim = np.array([[dim_tmp], [dim_tmp]])
+            dim = np.array([dim_tmp, dim_tmp])
 
     prod_dim_r = int(np.prod(dim[0, :]))
     prod_dim_c = int(np.prod(dim[1, :]))
@@ -181,7 +181,7 @@ def permute_systems(
             permuted_mat = vec(np.transpose(permuted_mat_1, num_sys - np.array(perm[::-1]))).T
 
         # We need to flatten out the array.
-        permuted_mat = functools.reduce(operator.iconcat, permuted_mat, [])
+        permuted_mat = permuted_mat.flatten()
         return np.array(permuted_mat)
 
     vec_arg = np.array(list(range(0, input_mat_dims[0])))
