@@ -33,7 +33,7 @@ repository = "https://github.com/vprusso/toqito"
 [tool.poetry.dependencies]
 python = ">=3.10,<4"
 cvxpy = "1.7.1"
-more-itertools = "10.7.0"
+more-itertools = "10.8.0"
 numpy = "2.2.6"
 scipy = "1.15.3"
 scs = "3.2.7.post2" 
@@ -44,7 +44,7 @@ jupyter-sphinx = "^0.5.3"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "8.4.0"
-pytest-cov = "6.2.1"
+pytest-cov = "6.3.0"
 coverage = "7.10.2"
 sympy = "1.14.0"
 distlib = "0.4.0"
