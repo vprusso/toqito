@@ -20,7 +20,7 @@ jobs:
       fail-fast: false
       matrix:
           # Add versions here to expand support matrix
-        python-version: ["3.10", "3.11", "3.12"]
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
         os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     env:
@@ -89,3 +89,29 @@ jobs:
       - name: Build artifacts
         run: poetry build
 
+  broken-links:
+    strategy:
+      matrix:
+          # Add versions here to expand support matrix
+        python-version: ["3.12"]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    env:
+      PYTHON: ${{ matrix.python-version }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install toqito + dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install poetry
+          poetry install --with docs --without dev,lint --no-interaction
+          python -m pip install --upgrade --no-cache-dir setuptools sphinx readthedocs-sphinx-ext
+          python -m pip install -r docs/requirements.txt
+      - name: Check for broken links
+        run: |
+            cd docs
+            make linkcheck
