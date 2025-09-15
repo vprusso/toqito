@@ -60,7 +60,7 @@ isort = "6.0.0"
 myst-parser = "4.0.1"
 pep8 = "1.7.1"
 ruff = "0.13.0"
-mypy = "1.17.1"
+mypy = "1.18.1"
 
 [tool.poetry.group.docs.dependencies]
 readthedocs-sphinx-ext = "*"
