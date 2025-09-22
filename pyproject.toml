@@ -39,7 +39,7 @@ scipy = "1.15.3"
 scs = "3.2.7.post2" 
 picos = "2.6.0"
 networkx = "^3.4"
-numba = "^0.61.2"
+numba = "^0.62.0"
 jupyter-sphinx = "^0.5.3"
 
 [tool.poetry.group.dev.dependencies]
