@@ -94,3 +94,21 @@ def test_random_state_vector_negative_k_param():
     """k_param must be non-negative."""
     with pytest.raises(ValueError, match="k_param must be non-negative"):
         random_state_vector(2, k_param=-1)
+
+
+def test_random_state_vector_empty_dim_sequence():
+    """Empty dimension sequences are not allowed."""
+    with pytest.raises(ValueError, match="dim must not be empty"):
+        random_state_vector([], k_param=0)
+
+
+def test_random_state_vector_non_positive_dimension():
+    """Dimension entries must be positive integers."""
+    with pytest.raises(ValueError, match="dim entries must be positive integers"):
+        random_state_vector([2, 0], k_param=0)
+
+
+def test_random_state_vector_invalid_bipartite_shape_for_k_param():
+    """When k_param > 0 the dimension sequence must describe a bipartite system."""
+    with pytest.raises(ValueError, match="When k_param > 0"):
+        random_state_vector([2, 2, 2], k_param=1)
