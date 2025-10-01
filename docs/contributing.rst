@@ -15,7 +15,7 @@ We welcome contributions from external contributors, and this document describes
 
 
 .. warning::
-     It would be better to avoid an editable installation via :code:`pip` as :code:`poetry` is a better dependency resolver. 
+     Avoid ad-hoc :code:`pip install -e .` workflows; the project standardizes on :code:`uv` for syncing dependencies.
 
 4. As stated in :ref:`getting_started_reference-label`, ensure you have Python 3.10 to 3.12 installed on your machine or in 
    a virtual environment (`pyenv <https://github.com/pyenv/pyenv>`_, `pyenv tutorial <https://realpython.com/intro-to-pyenv/>`_).
@@ -24,9 +24,9 @@ We welcome contributions from external contributors, and this document describes
    versions <https://github.com/pyenv/pyenv-virtualenv>`_ or :code:`conda` to create virtual environments with `different Python
    versions <https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html#managing-environments>`_.
 
-5. You will require `poetry <https://python-poetry.org/>`_ to manage the dependencies of :code:`toqito`.  
-   Please refer to the `official Poetry installation guide <https://python-poetry.org/docs/#installation>`_  
-   for detailed instructions on configuring it on your machine.
+5. You will require `uv <https://docs.astral.sh/uv/>`_ to manage the dependencies of :code:`toqito`.  
+   Refer to the `uv installation guide <https://docs.astral.sh/uv/getting-started/installation/>`_ for
+   platform-specific instructions.
 
 
 6. Now, navigate to your local clone of the :code:`|toqito⟩` repository as shown below.
@@ -35,12 +35,12 @@ We welcome contributions from external contributors, and this document describes
 
     $ cd toqito/
 
-7. Use :code:`poetry` as shown below in the :code:`|toqito⟩` folder. This should install an editable version of :code:`|toqito⟩`
-   alongside other development dependencies.
+7. Use :code:`uv` as shown below in the :code:`|toqito⟩` folder. This installs an editable version of :code:`|toqito⟩`
+   along with the default development tools.
 
 .. code-block:: bash
 
-    toqito/ $ poetry install
+    toqito/ $ uv sync
 
 You are now free to make the desired changes in your fork of :code:`|toqito⟩`. 
 
@@ -96,7 +96,7 @@ shown below.
 
 .. code-block:: bash
 
-    toqito/ $ poetry run pytest
+    toqito/ $ uv run pytest
 
 The :code:`pytest` module is used for testing and :code:`pytest-cov` can be used to generate
 coverage reports locally. In order to run and :code:`pytest`, you will need to ensure it is installed on your machine
@@ -134,7 +134,7 @@ Pre-commit hooks ensure that the code meets our formatting and linting standards
 
 .. code-block:: bash
    
-   poetry run pre-commit install
+   uv run pre-commit install
 
 This integrates ruff checks into your workflow, ensuring consistent code quality across the project. 
 
@@ -142,7 +142,7 @@ Additionally, the commit-msg hook ensures adherence to the `Conventional Commits
 
 .. code-block:: bash
 
-    poetry run pre-commit install --hook-type commit-msg
+    uv run pre-commit install --hook-type commit-msg
 
 ------------------------
 References in Docstrings
@@ -201,12 +201,12 @@ Documentation
 --------------
 
 
-We use :code:`sphinx` to build the documentation. To build the documentation locally, make sure :code:`sphinx` and :code:`furo` are installed when poetry was used to
-install :code:`|toqito⟩`.
+We use :code:`sphinx` to build the documentation. Sync the docs dependency group first (``uv sync --group docs``),
+then run:
 
 .. code-block:: bash
 
-    toqito/docs$ poetry run make clean html
+    toqito/docs$ uv run make clean html
 
 If you would prefer to decrease the amount of time taken by :code:`sphinx` to build the documentation locally, use :code:`make html`
 instead after the documentation has been built once.
