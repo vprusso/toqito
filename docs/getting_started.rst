@@ -20,8 +20,8 @@ a virtual environment (`pyenv <https://github.com/pyenv/pyenv>`_, `pyenv tutoria
 2. Consider using a `virtual environment <https://docs.python.org/3/tutorial/venv.html>`_.
 You can also use :code:`pyenv` with :code:`virtualenv` `to manage different Python versions <https://github.com/pyenv/pyenv-virtualenv>`_. 
 
-3. The preferred way to install the :code:`|toqito⟩` package is via :code:`poetry` as it is a better dependency resolver
-compared to :code:`pip`. An editable version of :code:`|toqito⟩` can be installed through the instructions provided
+3. The preferred way to install the :code:`|toqito⟩` package is via :code:`uv`, which keeps dependencies in sync with the
+project's lockfile. An editable version of :code:`|toqito⟩` can be installed through the instructions provided
 in the :ref:`contrib_guide_reference-label`.
 
 If you prefer to not install an editable version of :code:`|toqito⟩`, use:
