@@ -113,6 +113,11 @@ If you are making changes to :code:`toqito.some_module`, the corresponding tests
 
 A beginner introduction to adding unit tests is available `here <https://third-bit.com/py-rse/testing.html>`_ .
 
+.. note::
+    Performance benchmarks are not part of the standard test run. Trigger the
+    ``Benchmark Regression Analysis`` GitHub workflow manually when you need
+    timings or regression checks.
+
 
 ----------
 Code Style

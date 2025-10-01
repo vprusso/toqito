@@ -8,7 +8,7 @@ on:
                 required: false
                 default: ''
                 type: string
-            
+
             benchmark_type:
                 description: 'Type of benchmark to run'
                 required: true
@@ -17,40 +17,36 @@ on:
                 options:
                     - 'full'
                     - 'simple'
-            
+
             filter:
                 description: 'Filter tests by name pattern (eg. "TestPartialTraceBenchmarks")'
                 required: false
                 default: "TestPartialTraceBenchmarks"
                 type: string
-            
+
             function:
                 description: 'Filter tests by function pattern (eg. "test_bench__partial_trace__vary__dim")'
                 required: false
                 default: "test_bench__partial_trace__vary__dim"
                 type: string
-            
+
             save_results:
                 description: 'Save benchmark results to storage'
                 required: false
                 default: true
                 type: boolean
-            
+
             fail_on_regression:
                 description: 'Fail the workflow if regressions are detected'
                 required: false
                 default: false
                 type: boolean
-            
+
             regression_threshold:
                 description: 'Regression threshold percentage (e.g., 10 for 10%)'
                 required: false
                 default: '10'
                 type: string
-            
-    pull_request:
-        branches:
-            - master
 
 env:
     PYTHON_VERSION: '3.11'
