@@ -38,10 +38,10 @@ def symmetric_extension_hierarchy(
                                         & \text{Tr}_{\mathcal{Y}_2 \otimes \ldots \otimes
                                           \mathcal{Y}_s}(X_k) = \mu(k), \\
                                         & \left( \mathbb{I}_{\mathcal{X}} \otimes
-                                          \Pi_{\mathcal{Y} \ovee \mathcal{Y}_2 \ovee \ldots \ovee
+                                          \Pi_{\mathcal{Y} \circledvee \mathcal{Y}_2 \circledvee \ldots \circledvee
                                           \mathcal{Y}_s} \right) X_k
                                           \left(\mathbb{I}_{\mathcal{X}} \otimes
-                                          \Pi_{\mathcal{Y} \ovee \mathcal{Y}_2 \ovee \ldots \ovee
+                                          \Pi_{\mathcal{Y} \circledvee \mathcal{Y}_2 \circledvee \ldots \circledvee
                                           \mathcal{Y}_s} \right)
                                           = X_k \\
                                         & \text{T}_{\mathcal{X}}(X_k) \in \text{Pos}\left(
