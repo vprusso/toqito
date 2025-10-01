@@ -17,6 +17,8 @@ from toqito.state_props import is_pure
         (2, False, 1),
         # Check that complex state vector with k_param > 0 and dim list.
         ([2, 2], False, 1),
+        # Check that complex state vector with k_param == 0 and dim list.
+        ([2, 2], False, 0),
         # Check that real state vector with k_param > 0.
         (2, True, 1),
         # Check that real state vector from random state vector is pure.
@@ -34,17 +36,22 @@ def test_random_state_vector(dim, is_real, k_param):
 @pytest.mark.parametrize(
     "dim, is_real, k_param, expected",
     [
-        (2, False, 0, np.array([[0.91920422 + 0.29684938j], [0.07250293 + 0.24836943j]])),
+        (
+            2,
+            False,
+            0,
+            np.array([[0.91920422 + 0.29684938j], [0.07250293 + 0.24836943j]]),
+        ),
         (
             2,
             False,
             1,
             np.array(
                 [
-                    -0.01113702 + 0.61768143j,
-                    0.07125721 + 0.20424701j,
-                    -0.68156797 + 0.21116929j,
-                    -0.19827006 + 0.15202896j,
+                    [-0.01113702 + 0.61768143j],
+                    [0.07125721 + 0.20424701j],
+                    [-0.68156797 + 0.21116929j],
+                    [-0.19827006 + 0.15202896j],
                 ]
             ),
         ),
@@ -54,14 +61,26 @@ def test_random_state_vector(dim, is_real, k_param):
             1,
             np.array(
                 [
-                    -0.01113702 + 0.61768143j,
-                    0.07125721 + 0.20424701j,
-                    -0.68156797 + 0.21116929j,
-                    -0.19827006 + 0.15202896j,
+                    [-0.01113702 + 0.61768143j],
+                    [0.07125721 + 0.20424701j],
+                    [-0.68156797 + 0.21116929j],
+                    [-0.19827006 + 0.15202896j],
                 ]
             ),
         ),
-        (2, True, 1, np.array([0.76458086, 0.63971337, 0.06030689, 0.05045788])),
+        (
+            2,
+            True,
+            1,
+            np.array(
+                [
+                    [0.76458086],
+                    [0.63971337],
+                    [0.06030689],
+                    [0.05045788],
+                ]
+            ),
+        ),
         (2, True, 0, np.array([[0.99690375], [0.07863154]])),
     ],
 )
@@ -69,3 +88,9 @@ def test_seed(dim, is_real, k_param, expected):
     """Test that the function returns the expected output when seeded."""
     vec = random_state_vector(dim, is_real=is_real, k_param=k_param, seed=123)
     assert_allclose(vec, expected)
+
+
+def test_random_state_vector_negative_k_param():
+    """k_param must be non-negative."""
+    with pytest.raises(ValueError, match="k_param must be non-negative"):
+        random_state_vector(2, k_param=-1)
