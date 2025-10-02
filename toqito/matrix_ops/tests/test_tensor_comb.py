@@ -46,6 +46,17 @@ from toqito.matrix_ops import tensor_comb
             [(0, 0, 0), (1, 1, 1)],
             {(0, 0, 0): np.array([1, 0, 0, 0, 0, 0, 0, 0]), (1, 1, 1): np.array([0, 0, 0, 0, 0, 0, 0, 1])},
         ),
+        # diagonal mode with k = 2.
+        (
+            [np.array([1, 0]), np.array([0, 1])],
+            2,
+            "diagonal",
+            [(0, 0), (1, 1)],
+            {
+                (0, 0): np.array([1, 0, 0, 0]),
+                (1, 1): np.array([0, 0, 0, 1]),
+            },
+        ),
     ],
 )
 def test_tensor_comb(states, k, mode, expected_comb_keys, expected_comb):
@@ -119,6 +130,31 @@ def test_tensor_comb(states, k, mode, expected_comb_keys, expected_comb):
                         [0, 0, 0, 0, 0, 0, 0, 0],
                         [0, 0, 0, 0, 0, 0, 0, 0],
                         [0, 0, 0, 0, 0, 0, 0, 1],
+                    ]
+                ),
+            },
+        ),
+        # diagonal mode with k = 2.
+        (
+            [np.array([1, 0]), np.array([0, 1])],
+            2,
+            "diagonal",
+            [(0, 0), (1, 1)],
+            {
+                (0, 0): np.array(
+                    [
+                        [1, 0, 0, 0],
+                        [0, 0, 0, 0],
+                        [0, 0, 0, 0],
+                        [0, 0, 0, 0],
+                    ]
+                ),
+                (1, 1): np.array(
+                    [
+                        [0, 0, 0, 0],
+                        [0, 0, 0, 0],
+                        [0, 0, 0, 0],
+                        [0, 0, 0, 1],
                     ]
                 ),
             },

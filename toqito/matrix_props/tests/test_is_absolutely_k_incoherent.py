@@ -118,3 +118,20 @@ def test_non_equal_eigenvalues_branch(monkeypatch):
     monkeypatch.setattr(cp.Problem, "solve", fake_solve)
     # Expect True as the final result.
     assert is_absolutely_k_incoherent(mat, 3) is True
+
+
+def test_k_equals_n_minus_one_true(monkeypatch):
+    """When k = n - 1 and the SDP succeeds, the function returns True."""
+    mat = np.diag([0.6, 0.2, 0.2, 0.0])
+
+    def fake_solve(self, *args, **kwargs):
+        return 1.0
+
+    monkeypatch.setattr(cp.Problem, "solve", fake_solve)
+    assert is_absolutely_k_incoherent(mat, 3) is True
+
+
+def test_k_equals_n_minus_one_large_eigenvalue():
+    """When k = n - 1 and the largest eigenvalue exceeds the bound, return False immediately."""
+    mat = np.diag([0.9, 0.05, 0.05, 0.0])
+    assert is_absolutely_k_incoherent(mat, 3) is False

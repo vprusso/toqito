@@ -77,13 +77,12 @@ def tensor_comb(
         raise ValueError("k must be less than or equal to the number of states for injective sequences.")
 
     # Generate sequences based on the selected mode.
-    match mode:
-        case "injective":
-            sequences = list(itertools.permutations(range(len(states)), k))
-        case "non-injective":
-            sequences = list(itertools.product(range(len(states)), repeat=k))
-        case "diagonal":
-            sequences = [(i,) * k for i in range(len(states))]
+    if mode == "injective":
+        sequences = list(itertools.permutations(range(len(states)), k))
+    elif mode == "non-injective":
+        sequences = list(itertools.product(range(len(states)), repeat=k))
+    else:  # mode == "diagonal"
+        sequences = [(i,) * k for i in range(len(states))]
 
     sequences_of_states = {}
     for seq in sequences:
