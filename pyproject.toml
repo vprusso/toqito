@@ -55,7 +55,7 @@ dev = [
 lint = [
     "flake8==7.3.0",
     "flake8-docstrings==1.7.0",
-    "isort==6.0.0",
+    "isort==6.1.0",
     "myst-parser==4.0.1",
     "pep8==1.7.1",
     "ruff==0.13.0",
