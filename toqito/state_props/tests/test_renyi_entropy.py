@@ -32,13 +32,15 @@ def test_renyi_entropy(rho, alpha, expected_result):
 
 
 @pytest.mark.parametrize(
-    "rho",
+    "rho, alpha",
     [
         # Test Rényi entropy on non-density matrix.
-        (np.array([[1, 2], [3, 4]])),
+        (np.array([[1, 2], [3, 4]]), 3 / 2),
+        # Test Rényi entropy on non-positive order.
+        (RHO_TEST, -1.0),
     ],
 )
-def test_renyi_invalid_input(rho):
+def test_renyi_invalid_input(rho, alpha):
     """Test function works as expected for an invalid input."""
     with np.testing.assert_raises(ValueError):
-        renyi_entropy(rho, 3 / 2)
+        renyi_entropy(rho, alpha)
