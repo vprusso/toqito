@@ -3,7 +3,7 @@
 import cvxpy
 import numpy as np
 
-from toqito.helper.npa_hierarchy import Symbol, _gen_words, _reduce
+from toqito.state_opt.npa_hierarchy import Symbol, _gen_words, _reduce
 
 
 def _word_to_p_cg_index(word: tuple[Symbol, ...], oa: int, ob: int, ma: int, mb: int) -> int | None:

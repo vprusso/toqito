@@ -7,7 +7,7 @@ import pytest
 from pytest_mock import MockerFixture
 
 from toqito.helper.bell_npa_constraints import _word_to_p_cg_index, bell_npa_constraints
-from toqito.helper.npa_hierarchy import Symbol, _gen_words
+from toqito.state_opt.npa_hierarchy import Symbol, _gen_words
 
 
 @pytest.mark.parametrize(
@@ -16,7 +16,7 @@ from toqito.helper.npa_hierarchy import Symbol, _gen_words
         (1, [2, 2, 2, 2], (5, 5)),
         ("1+ab", [2, 2, 2, 2], (9, 9)),
         (2, [2, 2, 2, 2], (13, 13)),
-        ("1+aab", [2, 2, 2, 2], (9, 9)),
+        ("1+aab", [2, 2, 2, 2], (13, 13)),
         (1, [3, 3, 2, 2], (9, 9)),
         ("1+a", [3, 3, 2, 2], (9, 9)),
         ("1+ab", [3, 3, 2, 2], (25, 25)),
