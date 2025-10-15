@@ -34,6 +34,16 @@ dependencies = [
     "networkx>=3.4,<4.0",
     "numba>=0.62.0,<0.63.0",
     "jupyter-sphinx>=0.5.3,<0.6.0",
+    "sphinx-gallery>=0.19.0",
+    "sphinx-autoapi>=3.6.0",
+    "sphinxcontrib-bibtex>=2.6.3",
+    "sphinx>=8.1.3",
+    "sphinx-rtd-theme>=3.0.2",
+    "myst-parser>=4.0.1",
+    "nbsphinx>=0.9.7",
+    "sphinx-copybutton>=0.5.2",
+    "furo>=2025.9.25",
+    "matplotlib>=3.10.1",
 ]
 
 [project.urls]
@@ -50,6 +60,7 @@ dev = [
     "ipython==8.37.0",
     "setuptools>65.5.1",
     "pre-commit>=3.0.0",
+    "pytest-mock>=3.10.0,<4.0.0",
     "jupyter-sphinx>=0.5.3,<0.6.0",
 ]
 lint = [
