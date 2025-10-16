@@ -1,14 +1,13 @@
 """Tests for learnability."""
 
-import sys
-
 import numpy as np
 import pytest
+from importlib import import_module
 
 from toqito.state_opt import learnability
 from toqito.states import basis
 
-learnability_module = sys.modules[learnability.__module__]
+learnability_module = import_module("toqito.state_opt.learnability")
 
 
 @pytest.fixture(autouse=True)
@@ -167,3 +166,4 @@ def test_learnability_reduced_invalid_k_raises():
 
 def test_sum_expressions_empty_returns_zero():
     assert learnability_module._sum_expressions([]) == 0.0
+

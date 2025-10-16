@@ -1,4 +1,4 @@
-r"""Evaluate the quantum learnability semidefinite programs."""
+"""Evaluate the quantum learnability semidefinite programs."""
 
 from itertools import combinations
 from typing import Any, Iterable, Sequence
@@ -8,7 +8,7 @@ import cvxpy as cp
 import numpy as np
 
 from toqito.matrix_ops import to_density_matrix, vectors_to_gram_matrix
-from toqito.matrix_props import is_positive_semidefinite
+from toqito.matrix_props import is_positive_semidefinite, is_rank_one
 
 
 def learnability(
@@ -208,6 +208,19 @@ def _convert_states(
     *,
     tol: float,
 ) -> tuple[list[np.ndarray], list[np.ndarray] | None]:
+    """Normalize input states and detect whether they are uniformly pure.
+
+    Each entry in :code:`states` may be a state vector or a density matrix. The
+    routine converts every element to a unit-trace density matrix, checks
+    positivity, and records the original pure state vectors when all inputs are
+    rank one.
+
+    :param states: Collection of quantum states to normalise.
+    :param tol: Numerical tolerance used for positivity and rank checks.
+    :return: List of density matrices and, when available, the corresponding
+        state vectors.
+
+    """
     density_matrices: list[np.ndarray] = []
     pure_vectors: list[np.ndarray] = []
     all_pure = True
@@ -234,7 +247,7 @@ def _convert_states(
         density_matrices.append(rho)
 
         if all_pure:
-            if _is_rank_one(rho, tol):
+            if is_rank_one(rho, tol=tol):
                 pure_vectors.append(_extract_state_vector(state_array, rho))
             else:
                 all_pure = False
@@ -261,12 +274,6 @@ def _extract_state_vector(
     return (vector / norm).astype(np.complex128)
 
 
-def _is_rank_one(matrix: np.ndarray, tol: float) -> bool:
-    eigenvalues = np.linalg.eigvalsh((matrix + matrix.conj().T) / 2)
-    positive = np.count_nonzero(eigenvalues > tol)
-    return positive <= 1
-
-
 def _sum_expressions(expressions: Iterable[cp.expressions.expression.Expression]):
     iterator = iter(expressions)
     try:
@@ -276,3 +283,4 @@ def _sum_expressions(expressions: Iterable[cp.expressions.expression.Expression]
     for expr in iterator:
         total = total + expr
     return total
+
