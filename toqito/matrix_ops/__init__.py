@@ -12,3 +12,4 @@ from toqito.matrix_ops.perturb_vectors import perturb_vectors
 from toqito.matrix_ops.tensor_unravel import tensor_unravel
 from toqito.matrix_ops.partial_trace import partial_trace 
 from toqito.matrix_ops.partial_transpose import partial_transpose
+from toqito.matrix_ops.null_space import null_space
