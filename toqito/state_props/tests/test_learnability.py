@@ -4,17 +4,17 @@ import numpy as np
 import pytest
 from importlib import import_module
 
-from toqito.state_opt import learnability
+from toqito.state_props import learnability
 from toqito.states import basis
 
-learnability_module = import_module("toqito.state_opt.learnability")
+learnability_module = import_module("toqito.state_props.learnability")
 
 
 @pytest.fixture(autouse=True)
 def mock_cvxpy_problem_solve(monkeypatch):
     def fake_solve(self, *args, **kwargs):
         self._status = "optimal"
-        self._value = 1.0
+        self._value = 0.0
         return self._value
 
     monkeypatch.setattr("cvxpy.problems.problem.Problem.solve", fake_solve)
@@ -36,6 +36,7 @@ def test_learnability_accepts_vectors_and_matches_reduced():
     assert np.isclose(result["value"], result["reduced_value"], atol=1e-3)
     assert isinstance(result["measurement_operators"], dict)
     assert isinstance(result["reduced_operators"], dict)
+    assert result["total_value"] == pytest.approx(result["value"] * len(states), abs=1e-9)
 
 
 def test_learnability_handles_mixed_states_and_skips_reduced():
@@ -52,6 +53,7 @@ def test_learnability_handles_mixed_states_and_skips_reduced():
     assert result["value"] >= 0
     assert isinstance(result["measurement_operators"], dict)
     assert result["reduced_operators"] is None
+    assert result["total_value"] == pytest.approx(result["value"] * 3, abs=1e-9)
 
 
 def test_learnability_returns_warning_on_large_gap(monkeypatch):
@@ -84,7 +86,7 @@ def test_learnability_k_equals_number_of_states():
         solver="SCS",
         solver_kwargs={"eps": 1e-6, "max_iters": 5_000},
     )
-    assert result["value"] == pytest.approx(1.0, abs=1e-9)
+    assert result["value"] == pytest.approx(0.0, abs=1e-9)
 
 
 def test_learnability_verify_reduced_disabled():
@@ -166,4 +168,3 @@ def test_learnability_reduced_invalid_k_raises():
 
 def test_sum_expressions_empty_returns_zero():
     assert learnability_module._sum_expressions([]) == 0.0
-

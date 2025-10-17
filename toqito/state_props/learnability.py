@@ -21,13 +21,13 @@ def learnability(
     verify_tolerance: float = 1e-6,
     tol: float = 1e-8,
 ) -> dict[str, float | str | None]:
-    r"""Compute the optimal value of the learnability semidefinite program.
+    r"""Compute the average error value of the learnability semidefinite program.
 
     This routine minimizes
 
     .. math::
 
-        \sum_{i = 1}^n \left\langle \rho_i,
+        \frac{1}{n} \sum_{i = 1}^n \left\langle \rho_i,
         \sum_{S: i \notin S} M_S \right\rangle.
 
     over POVM elements :math:`(M_S)` indexed by ``k``-element subsets, subject to
@@ -46,7 +46,7 @@ def learnability(
 
     .. jupyter-execute::
 
-        from toqito.state_opt import learnability
+        from toqito.state_props import learnability
         from toqito.states import basis
 
         e0, e1 = basis(2, 0), basis(2, 1)
@@ -64,8 +64,9 @@ def learnability(
     :param verify_reduced: If :code:`True` and the states are pure, also solve the reduced SDP.
     :param verify_tolerance: Absolute tolerance used when comparing the two optimal values.
     :param tol: Numerical tolerance used when validating positivity and rank-one states.
-    :return: Dictionary with keys :code:`value`, :code:`status`, :code:`measurement_operators`,
-        and optionally :code:`reduced_value`, :code:`reduced_status`, :code:`reduced_operators`.
+    :return: Dictionary with keys :code:`value`, :code:`total_value`, :code:`status`,
+        :code:`measurement_operators`, and optionally :code:`reduced_value`,
+        :code:`reduced_total_value`, :code:`reduced_status`, :code:`reduced_operators`.
     :raises ValueError: If the data are inconsistent with valid quantum states or if :code:`k`
         lies outside the permissible range.
     :raises cvxpy.error.SolverError: If the selected solver reports a failure.
@@ -94,7 +95,9 @@ def learnability(
         "reduced_status": None,
         "measurement_operators": operator_values,
         "reduced_operators": None,
+        "total_value": float(np.real(general_value)) * len(density_matrices),
     }
+    result["reduced_total_value"] = None
 
     if verify_reduced and candidate_vectors is not None:
         gram = vectors_to_gram_matrix(candidate_vectors)
@@ -110,6 +113,7 @@ def learnability(
         result["reduced_value"] = float(np.real(reduced_value))
         result["reduced_status"] = reduced_status
         result["reduced_operators"] = reduced_operator_values
+        result["reduced_total_value"] = float(np.real(reduced_value)) * len(density_matrices)
 
         if abs(result["value"] - result["reduced_value"]) > verify_tolerance:
             warnings.warn(
@@ -152,7 +156,7 @@ def _solve_learnability_general(
             objective_terms.append(0.0)
             continue
         summed = _sum_expressions(without_idx)
-        objective_terms.append(cp.real(cp.trace(rho @ summed)))
+        objective_terms.append(cp.real(cp.trace(rho @ summed)) / n)
 
     problem = cp.Problem(cp.Minimize(cp.sum(objective_terms)), constraints)
     solve_kwargs = dict(solver_kwargs or {})
@@ -191,7 +195,7 @@ def _solve_learnability_reduced(
             objective_terms.append(0.0)
             continue
         summed = _sum_expressions(without_idx)
-        objective_terms.append(cp.real(summed[idx, idx]))
+        objective_terms.append(cp.real(summed[idx, idx]) / n)
 
     problem = cp.Problem(cp.Minimize(cp.sum(objective_terms)), constraints)
     solve_kwargs = dict(solver_kwargs or {})
@@ -215,7 +219,7 @@ def _convert_states(
     positivity, and records the original pure state vectors when all inputs are
     rank one.
 
-    :param states: Collection of quantum states to normalise.
+    :param states: Collection of quantum states to normalize.
     :param tol: Numerical tolerance used for positivity and rank checks.
     :return: List of density matrices and, when available, the corresponding
         state vectors.
@@ -283,4 +287,3 @@ def _sum_expressions(expressions: Iterable[cp.expressions.expression.Expression]
     for expr in iterator:
         total = total + expr
     return total
-
