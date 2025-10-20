@@ -6,6 +6,11 @@ import pytest
 
 from toqito.matrix_props import is_k_incoherent
 
+pytestmark = [
+    pytest.mark.filterwarnings("ignore:Converting A to a CSC"),
+    pytest.mark.filterwarnings("ignore:Solution may be inaccurate"),
+]
+
 
 @pytest.mark.parametrize(
     "mat, k, expected",
@@ -127,6 +132,19 @@ def test_k2_branch(mat, k, expected):
 def test_given_matrix(mat, k, expected):
     """Test for known matrix that is n=3 and k=2-incoherent."""
     # This test ensures that, according to your reference, the 3x3 matrix is 2-incoherent.
+    assert is_k_incoherent(mat, k) is True
+
+
+def test_incoherent_ball_example():
+    """Matrix within Frobenius ball around identity should be 2-incoherent."""
+    d = 4
+    k = 2
+    x = 0.4
+    eps = x / (4 * d)
+    u = np.zeros((d, 1), dtype=np.complex128)
+    u[:2, 0] = 1 / np.sqrt(2)
+    uu = u @ u.conj().T
+    mat = (1 - eps / d) * (x * np.eye(d) / d + (1 - x) * uu)
     assert is_k_incoherent(mat, k) is True
 
 
