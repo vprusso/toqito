@@ -44,7 +44,7 @@ repository = "https://github.com/vprusso/toqito"
 dev = [
     "pytest==8.4.0",
     "pytest-cov==6.3.0",
-    "coverage==7.10.2",
+    "coverage==7.11.0",
     "sympy==1.14.0",
     "distlib==0.4.0",
     "ipython==8.37.0",
