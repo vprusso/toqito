@@ -35,7 +35,6 @@ def null_space(mat: np.ndarray, tol: float = 1e-08) -> np.ndarray:
     :return: A matrix whose columns form an orthonormal basis for the null space.
 
     """
-
     mat = np.asarray(mat, dtype=np.complex128)
     if mat.ndim != 2:
         raise ValueError("Input must be a two-dimensional array.")
@@ -49,4 +48,3 @@ def null_space(mat: np.ndarray, tol: float = 1e-08) -> np.ndarray:
         return np.zeros((mat.shape[1], 0), dtype=np.complex128)
     q, _ = np.linalg.qr(kernel)
     return q
-

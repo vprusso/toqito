@@ -1,8 +1,9 @@
-"""Tests for learnability."""
+"""Tests for the learnability helper functions and solver integration."""
+
+from importlib import import_module
 
 import numpy as np
 import pytest
-from importlib import import_module
 
 from toqito.state_props import learnability
 from toqito.states import basis
@@ -12,6 +13,7 @@ learnability_module = import_module("toqito.state_props.learnability")
 
 @pytest.fixture(autouse=True)
 def mock_cvxpy_problem_solve(monkeypatch):
+    """Replace CVXPY's solve method to avoid heavy solver calls in tests."""
     def fake_solve(self, *args, **kwargs):
         self._status = "optimal"
         self._value = 0.0
@@ -21,6 +23,7 @@ def mock_cvxpy_problem_solve(monkeypatch):
 
 
 def test_learnability_accepts_vectors_and_matches_reduced():
+    """Pure-state inputs should match reduced SDP verification."""
     e0, e1 = basis(2, 0), basis(2, 1)
     states = [e0, e1, e0 + e1]
     result = learnability(
@@ -40,6 +43,7 @@ def test_learnability_accepts_vectors_and_matches_reduced():
 
 
 def test_learnability_handles_mixed_states_and_skips_reduced():
+    """Mixed states should skip reduced SDP validation."""
     rho_1 = np.array([[1.0, 0.0], [0.0, 0.0]], dtype=np.complex128)
     rho_2 = np.array([[0.75, 0.0], [0.0, 0.25]], dtype=np.complex128)
     rho_3 = np.array([[0.5, 0.0], [0.0, 0.5]], dtype=np.complex128)
@@ -57,6 +61,7 @@ def test_learnability_handles_mixed_states_and_skips_reduced():
 
 
 def test_learnability_returns_warning_on_large_gap(monkeypatch):
+    """Trigger a warning when reduced and general optima differ substantially."""
     states = [basis(2, 0), basis(2, 1)]
 
     def fake_reduced(*args, **kwargs):
@@ -79,6 +84,7 @@ def test_learnability_returns_warning_on_large_gap(monkeypatch):
 
 
 def test_learnability_k_equals_number_of_states():
+    """K equal to the number of states makes the objective zero."""
     states = [basis(2, 0), basis(2, 1)]
     result = learnability(
         states,
@@ -90,6 +96,7 @@ def test_learnability_k_equals_number_of_states():
 
 
 def test_learnability_verify_reduced_disabled():
+    """Disabling verify_reduced suppresses the Gram matrix solve."""
     states = [basis(2, 0), basis(2, 1)]
     result = learnability(
         states,
@@ -112,6 +119,7 @@ def test_learnability_verify_reduced_disabled():
     ],
 )
 def test_learnability_invalid_inputs_raise(states, k):
+    """Invalid state collections should raise ValueError."""
     with pytest.raises(ValueError):
         learnability(states, k=k)
 
@@ -130,11 +138,13 @@ def test_learnability_invalid_inputs_raise(states, k):
     ],
 )
 def test_learnability_state_validation_raises(states):
+    """Detect invalid density matrices before solving."""
     with pytest.raises(ValueError):
         learnability(states, k=1)
 
 
 def test_learnability_pure_density_matrices_extract_vector():
+    """Pure density matrices should recover reference vectors."""
     rho = np.array([[1.0, 0.0], [0.0, 0.0]], dtype=np.complex128)
     result = learnability(
         [rho, rho],
@@ -146,17 +156,20 @@ def test_learnability_pure_density_matrices_extract_vector():
 
 
 def test_learnability_empty_state_list_raises():
+    """An empty state list is invalid input."""
     with pytest.raises(ValueError):
         learnability([], k=1)
 
 
 def test_learnability_solver_none_branch():
+    """Solver=None should use CVXPY defaults successfully."""
     states = [basis(2, 0), basis(2, 1)]
     result = learnability(states, k=1, solver=None)
     assert result["status"] == "optimal"
 
 
 def test_learnability_reduced_invalid_k_raises():
+    """Reduced SDP helper validates k bounds."""
     with pytest.raises(ValueError):
         learnability_module._solve_learnability_reduced(
             np.eye(2, dtype=np.complex128),
@@ -167,4 +180,5 @@ def test_learnability_reduced_invalid_k_raises():
 
 
 def test_sum_expressions_empty_returns_zero():
+    """Summing an empty collection returns zero as a sentinel."""
     assert learnability_module._sum_expressions([]) == 0.0
