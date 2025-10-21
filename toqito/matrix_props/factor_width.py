@@ -1,9 +1,12 @@
 """Determine the factor width of a positive semidefinite matrix."""
 
 from collections import deque
+from typing import Any
 
 import cvxpy as cp
+import cvxpy.settings as cp_settings
 import numpy as np
+import scipy.sparse as sp
 
 from toqito.matrix_ops import null_space
 from toqito.matrix_props import is_positive_semidefinite
@@ -105,7 +108,9 @@ def factor_width(
         }
 
     # Build the SDP: variables live in the reduced coordinates of each subspace.
-    variables = []
+    mat_block = _complex_to_real_block(mat)
+
+    variables: list[tuple[np.ndarray, cp.Variable]] = []
     components = []
     constraints = []
 
@@ -113,11 +118,11 @@ def factor_width(
         dim = basis.shape[1]
         if dim == 0:
             continue
-        var = cp.Variable((dim, dim), hermitian=True)
-        constraints.append(var >> 0)
-        lift = basis @ var @ basis.conj().T
-        variables.append(var)
-        components.append(lift)
+        basis_block = _complex_to_real_block(basis)
+        var = cp.Variable((2 * dim, 2 * dim), PSD=True)
+        lift_block = basis_block @ var @ basis_block.T
+        variables.append((basis, var))
+        components.append(lift_block)
 
     if not components:
         return {
@@ -130,38 +135,106 @@ def factor_width(
     total = components[0]
     for comp in components[1:]:
         total += comp
-    real_part = cp.real(total)
-    imag_part = cp.imag(total)
-    constraints.append(real_part == mat.real)
-    constraints.append(imag_part == mat.imag)
+    constraints.append(total == mat_block)
     problem = cp.Problem(cp.Minimize(cp.Constant(0)), constraints)
 
-    solve_kwargs = dict(solver_kwargs or {})
-    if solver is None:
-        status = problem.solve(**solve_kwargs)
-    else:
-        status = problem.solve(solver=solver, **solve_kwargs)
+    status = _solve_problem(problem, solver, solver_kwargs)
 
-    feasible = problem.status in {cp.OPTIMAL, cp.OPTIMAL_INACCURATE}
+    feasible = status in {cp.OPTIMAL, cp.OPTIMAL_INACCURATE}
     factor_matrices = None
     if feasible:
         factor_matrices = []
-        for basis, var in zip(subspaces, variables):
+        for basis, var in variables:
             if var.value is None:
                 return {
                     "feasible": False,
-                    "status": problem.status,
+                    "status": status,
                     "factors": None,
                     "subspaces": subspaces,
                 }
-            factor_matrices.append(basis @ var.value @ basis.conj().T)
+            local_factor = _real_block_to_complex(var.value)
+            factor_matrices.append(basis @ local_factor @ basis.conj().T)
 
     return {
         "feasible": feasible,
-        "status": problem.status,
+        "status": status,
         "factors": factor_matrices,
         "subspaces": subspaces,
     }
+
+
+def _solve_problem(
+    problem: cp.Problem,
+    solver: str | None,
+    solver_kwargs: dict[str, Any] | None,
+) -> str:
+    """Solve a CVXPY problem and return the solver status."""
+    solve_kwargs = dict(solver_kwargs or {})
+
+    if _is_scs_solver(solver):
+        return _solve_problem_with_scs(problem, solve_kwargs)
+
+    if solver is None:
+        problem.solve(**solve_kwargs)
+    else:
+        problem.solve(solver=solver, **solve_kwargs)
+    return problem.status
+
+
+def _solve_problem_with_scs(
+    problem: cp.Problem,
+    solver_kwargs: dict[str, Any],
+) -> str:
+    """Solve with SCS ensuring sparse matrices are provided in CSC form."""
+    warm_start = bool(solver_kwargs.pop("warm_start", False))
+    verbose = bool(solver_kwargs.pop("verbose", False))
+
+    data, chain, inverse_data = problem.get_problem_data(cp.SCS)
+    for key in (cp_settings.A, cp_settings.P):
+        if key in data and data[key] is not None:
+            data[key] = sp.csc_matrix(data[key])
+
+    solution = chain.solve_via_data(
+        problem,
+        data,
+        warm_start=warm_start,
+        verbose=verbose,
+        solver_opts=solver_kwargs,
+    )
+    problem.unpack_results(solution, chain, inverse_data)
+    return problem.status
+
+
+def _is_scs_solver(solver: Any | None) -> bool:
+    """Return ``True`` when the solver selection corresponds to SCS."""
+    if solver is None:
+        return False
+    if solver is cp.SCS:
+        return True
+    if isinstance(solver, str) and solver.strip().upper() == "SCS":
+        return True
+    return False
+
+
+def _complex_to_real_block(mat: np.ndarray) -> np.ndarray:
+    """Embed a complex matrix into its real block representation."""
+    real = mat.real
+    imag = mat.imag
+    top = np.concatenate((real, -imag), axis=1)
+    bottom = np.concatenate((imag, real), axis=1)
+    return np.concatenate((top, bottom), axis=0)
+
+
+def _real_block_to_complex(block: np.ndarray) -> np.ndarray:
+    """Recover a complex matrix from its real block representation."""
+    rows, cols = block.shape
+    if rows % 2 != 0 or cols % 2 != 0:
+        raise ValueError("Real block matrix must have even dimensions.")
+    half_rows = rows // 2
+    half_cols = cols // 2
+    real = block[:half_rows, :half_cols]
+    imag = block[half_rows:, :half_cols]
+    return real + 1j * imag
 
 
 def _enumerate_support_subspaces(

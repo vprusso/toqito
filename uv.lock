@@ -2829,6 +2829,7 @@ source = { editable = "." }
 dependencies = [
     { name = "cvxpy" },
     { name = "jupyter-sphinx" },
+    { name = "matplotlib" },
     { name = "more-itertools" },
     { name = "networkx", version = "3.4.2", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
     { name = "networkx", version = "3.5", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.11'" },
@@ -2876,6 +2877,7 @@ lint = [
 requires-dist = [
     { name = "cvxpy", specifier = "==1.7.1" },
     { name = "jupyter-sphinx", specifier = ">=0.5.3,<0.6.0" },
+    { name = "matplotlib", specifier = "==3.10.1" },
     { name = "more-itertools", specifier = "==10.8.0" },
     { name = "networkx", specifier = ">=3.4,<4.0" },
     { name = "numba", specifier = ">=0.62.0,<0.63.0" },

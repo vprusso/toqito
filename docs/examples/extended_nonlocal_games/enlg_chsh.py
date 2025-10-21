@@ -158,7 +158,7 @@ print("The non-signaling value is ", np.around(chsh.nonsignaling_value(), decima
 # :math:`\omega^*(G_{CHSH}) = 3/4`.
 #
 # So far, both the BB84 and CHSH examples have demonstrated cases where the
-# unentangled and standard quantum values are equal. In the next tutorial, :ref:`sphx_glr_auto_examples_extended_nonlocal_games_example_enlg_mub.py` we
+# unentangled and standard quantum values are equal. In the next tutorial, :ref:`sphx_glr_auto_examples_extended_nonlocal_games_enlg_mub.py` we
 # will explore a game based on mutually unbiased bases that exhibits a strict
 # quantum advantage, where :math:`\omega(G) < \omega^*(G)`.
 

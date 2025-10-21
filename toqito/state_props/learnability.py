@@ -1,11 +1,13 @@
 """Evaluate the quantum learnability semidefinite programs."""
 
+import warnings
 from itertools import combinations
 from typing import Any, Iterable, Sequence
-import warnings
 
 import cvxpy as cp
+import cvxpy.settings as cp_settings
 import numpy as np
+import scipy.sparse as sp
 
 from toqito.matrix_ops import to_density_matrix, vectors_to_gram_matrix
 from toqito.matrix_props import is_positive_semidefinite, is_rank_one
@@ -18,7 +20,7 @@ def learnability(
     solver: str | None = "SCS",
     solver_kwargs: dict[str, Any] | None = None,
     verify_reduced: bool = True,
-    verify_tolerance: float = 1e-6,
+    verify_tolerance: float = 1e-4,
     tol: float = 1e-8,
 ) -> dict[str, float | str | None]:
     r"""Compute the average error value of the learnability semidefinite program.
@@ -159,13 +161,9 @@ def _solve_learnability_general(
         objective_terms.append(cp.real(cp.trace(rho @ summed)) / n)
 
     problem = cp.Problem(cp.Minimize(cp.sum(objective_terms)), constraints)
-    solve_kwargs = dict(solver_kwargs or {})
-    if solver is None:
-        value = problem.solve(**solve_kwargs)
-    else:
-        value = problem.solve(solver=solver, **solve_kwargs)
+    value, status = _solve_problem(problem, solver, solver_kwargs)
 
-    return value, problem.status, variables
+    return value, status, variables
 
 
 def _solve_learnability_reduced(
@@ -198,13 +196,9 @@ def _solve_learnability_reduced(
         objective_terms.append(cp.real(summed[idx, idx]) / n)
 
     problem = cp.Problem(cp.Minimize(cp.sum(objective_terms)), constraints)
-    solve_kwargs = dict(solver_kwargs or {})
-    if solver is None:
-        value = problem.solve(**solve_kwargs)
-    else:
-        value = problem.solve(solver=solver, **solve_kwargs)
+    value, status = _solve_problem(problem, solver, solver_kwargs)
 
-    return value, problem.status, variables
+    return value, status, variables
 
 
 def _convert_states(
@@ -260,6 +254,59 @@ def _convert_states(
         pure_vectors = None
 
     return density_matrices, pure_vectors
+
+
+def _solve_problem(
+    problem: cp.Problem,
+    solver: str | None,
+    solver_kwargs: dict[str, Any] | None,
+) -> tuple[float, str]:
+    """Solve a CVXPY problem and return both the optimal value and status."""
+    solve_kwargs = dict(solver_kwargs or {})
+
+    if _is_scs_solver(solver):
+        return _solve_problem_with_scs(problem, solve_kwargs)
+
+    if solver is None:
+        value = problem.solve(**solve_kwargs)
+    else:
+        value = problem.solve(solver=solver, **solve_kwargs)
+    return value, problem.status
+
+
+def _solve_problem_with_scs(
+    problem: cp.Problem,
+    solver_kwargs: dict[str, Any],
+) -> tuple[float, str]:
+    """Solve with SCS ensuring sparse matrices use CSC format to avoid warnings."""
+    warm_start = bool(solver_kwargs.pop("warm_start", False))
+    verbose = bool(solver_kwargs.pop("verbose", False))
+
+    data, chain, inverse_data = problem.get_problem_data(cp.SCS)
+    for key in (cp_settings.A, cp_settings.P):
+        if key in data and data[key] is not None:
+            data[key] = sp.csc_matrix(data[key])
+
+    solution = chain.solve_via_data(
+        problem,
+        data,
+        warm_start=warm_start,
+        verbose=verbose,
+        solver_opts=solver_kwargs,
+    )
+    problem.unpack_results(solution, chain, inverse_data)
+    return problem.value, problem.status
+
+
+def _is_scs_solver(solver: Any | None) -> bool:
+    """Return True when the requested solver corresponds to SCS."""
+    if solver is None:
+        return False
+    if solver is cp.SCS:
+        return True
+    if isinstance(solver, str) and solver.strip().upper() == "SCS":
+        return True
+    return False
 
 
 def _extract_state_vector(

@@ -83,7 +83,7 @@ results and figures from the paper using :code:`|toqito⟩`.
 # of these measurements for the three **trine states** with a uniform prior
 # probability. The trine states are a classic example of a set that is
 # antidistinguishable but not distinguishable, a property demonstrated in the
-# :ref:`sphx_glr_auto_examples_quantum_states_example_state_exclusion.py` tutorial.
+# :ref:`sphx_glr_auto_examples_quantum_states_state_exclusion.py` tutorial.
 #
 # Our plan is to:
 #

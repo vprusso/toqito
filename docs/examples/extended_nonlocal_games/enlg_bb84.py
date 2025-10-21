@@ -1,7 +1,7 @@
 """The BB84 extended nonlocal game
 =====================================
 
-In our :ref:`sphx_glr_auto_examples_extended_nonlocal_games_example_enlg_introduction.py`
+In our :ref:`sphx_glr_auto_examples_extended_nonlocal_games_enlg_introduction.py`
 tutorial, we introduced the framework for extended nonlocal games. Now, we will
 construct our first concrete example, the *BB84 extended nonlocal game*.
 """
@@ -205,7 +205,7 @@ print(
 #
 # for :math:`r = 2`.
 #
-# Next, we will explore another well-known example, :ref:`sphx_glr_auto_examples_extended_nonlocal_games_example_enlg_chsh.py`, and see how its properties compare.
+# Next, we will explore another well-known example, :ref:`sphx_glr_auto_examples_extended_nonlocal_games_enlg_chsh.py`, and see how its properties compare.
 
 # %%
 # References

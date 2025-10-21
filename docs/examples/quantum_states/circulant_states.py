@@ -8,7 +8,7 @@ states' Gram matrix, as presented in the paper by Johnston et al.
 :footcite:`Johnston_2025_Tight`.
 
 This tutorial builds upon the concepts introduced in the
-:ref:`sphx_glr_auto_examples_quantum_states_example_state_exclusion.py` tutorial.
+:ref:`sphx_glr_auto_examples_quantum_states_state_exclusion.py` tutorial.
 """
 
 # %%

@@ -8,7 +8,7 @@ numerically verify a tight bound presented in the paper by Johnson et.al
 property changes.
 
 This tutorial builds upon the concepts introduced in the
-:ref:`sphx_glr_auto_examples_quantum_states_example_state_exclusion.py` tutorial.
+:ref:`sphx_glr_auto_examples_quantum_states_state_exclusion.py` tutorial.
 """
 
 # %%
