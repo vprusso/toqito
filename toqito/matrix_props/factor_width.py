@@ -22,10 +22,10 @@ def factor_width(
 ) -> dict:
     r"""Decide whether a positive semidefinite matrix has factor width at most :math:`k`.
 
-    The factor width of a matrix is the minimal value of :math:`k` for which it admits a
-    decomposition :math:`M = \sum_j v_j v_j^*` with each :math:`v_j` supported on at most :math:`k`
-    coordinates.  This routine implements the low-rank algorithm sketched in
-    Theorem~\ref{thm:low_rank_easy} of the accompanying manuscript.
+    The factor width of a matrix is the minimal value of :math:`k` for which it
+    admits a decomposition :math:`M = \sum_j v_j v_j^*` with each :math:`v_j`
+    supported on at most :math:`k` coordinates.  This routine implements the
+    low-rank algorithm in :footcite:`Johnston_2025_Complexity`.
 
     Examples
     ========
@@ -314,3 +314,4 @@ def _max_support_size(basis: np.ndarray, tol: float) -> int:
     # The support size is bounded by the number of indices not identically zero.
     mask = np.linalg.norm(basis, axis=1) > tol
     return int(np.count_nonzero(mask))
+

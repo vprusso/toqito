@@ -18,7 +18,7 @@ def is_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
     has at most :math:`k` non-zero entries, and real scalars :math:`c_0, c_1, \ldots, c_{m-1} \geq 0` for which
 
     .. math::
-        X = \sum_{j=0}^{m-1} c_j |psi_j\rangle \langle \psi_j|.
+        X = \sum_{j=0}^{m-1} c_j |\psi_j\rangle \langle \psi_j|.
 
     This function checks if the provided density matrix :code:`mat` is k-incoherent. It returns True if :code:`mat` is
     k-incoherent and False if :code:`mat` is not.

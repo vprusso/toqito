@@ -1,22 +1,15 @@
 """
-=================================================
-Quantum classification, factor width, incoherence
-=================================================
+============================================================
+Quantum classification, factor width, :math:`k`-incoherence
+============================================================
 
 This example accompanies the "The complexity of quantum state classification"
-paper :footcite:``
+paper :footcite:`Johnston_2025_Complexity`.
 
-In this tutorial, we will explore the Pusey-Barrett-Rudolph (PBR) theorem
-:footcite:`Pusey_2012_On`, a significant no-go theorem in the foundations
-of quantum mechanics. We will describe the theorem's core argument and then
-use :code:`|toqito⟩` to verify the central mathematical property that
-the theorem relies on.
-
-The PBR theorem addresses a fundamental question: Is the quantum state
-(e.g., the wavefunction :math:`|\\psi\\rangle`) a real, objective property of a
-single system (an *ontic* state), or does it merely represent our
-incomplete knowledge or information about some deeper underlying reality
-(an *epistemic* state)?
+In this tutorial, we will cover the concepts of the so-called "learnability" of
+quantum states along with related settings of "factor width" and the notion of
+:math:`k`-incoherence of a matrix. More details can be found in the
+aforementioned paper.
 """
 
 # %%
@@ -110,45 +103,68 @@ learnability_result = learnability(states, k=1)
 print(f"Average classification error (k=1): {learnability_result['value']}")
 
 # %%
-# Factor width of the Gram matrix
-# --------------------------------
-# The same tetrahedral ensemble has Gram matrix
+# :math:`k`-Incoherence
+# ----------------------
+# The notion of :math:`k`-icoherence comes from
+# footcite:`Johnston_2022_Absolutely`. For a positive integers, :math:`k` and
+# :math:`n`, the matrix :math:`X \in \text{Pos}(\mathbb{C}^n)` is called
+# :math:`k`-incoherent if there exists a positive integer :math:`m`, a set
+# :math:`S = \{|\psi_0\rangle, |\psi_1\rangle,\ldots, |\psi_{m-1}\rangle\}
+# \subset \mathbb{C}^n` with the property that each :math:`|\psi_i\rangle` has
+# at most :math:`k` non-zero entries, and real scalars :math:`c_0, c_1, \ldots,
+# c_{m-1} \geq 0` for which
+# 
+# .. math::
+#     X = \sum_{j=0}^{m-1} c_j |\psi_j\rangle \langle \psi_j|.
+# 
+# This function checks if the provided density matrix :code:`mat` is
+# k-incoherent. It returns True if :code:`mat` is k-incoherent and False if
+# :code:`mat` is not.
+#
+# For example, the following matrix is :math:`2`-incoherent
 #
 # .. math::
-#    G_{ij} = \langle \psi_i, \psi_j \rangle,
-#
-# and the paper shows this matrix has factor width 2. We confirm this using
-# :func:`toqito.matrix_props.factor_width`.
-
-from toqito.matrix_props import factor_width
-
-
-gram = np.array(
-    [[np.vdot(psi_i, psi_j) for psi_j in states] for psi_i in states], 
-    dtype=np.complex128
-)
-factor_width_result = factor_width(gram, k=2)
-
-print(f"Factor-width decomposition feasible? {factor_width_result['feasible']}")
-if factor_width_result["feasible"] and factor_width_result["factors"]:
-    reconstructed = sum((mat for mat in factor_width_result["factors"] if mat is not None), np.zeros_like(gram))
-    recon_residual = np.max(np.abs(reconstructed - gram))
-    print(f"Reconstruction residual max|.|     : {recon_residual:.2e}")
-
-# %%
-# :math:`k`-Incoherence diagnostics
-# ----------------------------------
-# The manuscript links factor width to $k$-incoherence.  We compare three
-# matrices: the Gram matrix above, a diagonal PSD matrix, and a dense PSD
-# matrix that violates the criterion for $k=2$.
+#   \begin{equation}
+#       \begin{pmatrix}
+#           2 & 1 & 2 \\ 1 & 2 & -1 \\ 2 & -1 & 5
+#       \end{pmatrix}
+#   \end{equation}
+# 
+# Indeed, one can verify this numerically using the
+# :func:`toqito.matrix_props.is_k_incoherent` function.
 
 from toqito.matrix_props import is_k_incoherent
 
 
-diagonal_psd = np.diag([0.5, 0.3, 0.2])
-dense_psd = np.array([[0.8, 0.4, 0.4], [0.4, 0.3, 0.2], [0.4, 0.2, 0.3]], dtype=np.float64)
+mat = np.array([[2, 1, 2], [1, 2, -1], [2, -1, 5]])
+print(is_k_incoherent(mat, 2))
 
-print(f"Tetrahedral Gram matrix 2-incoherent? {is_k_incoherent(gram, 2)}")
-print(f"Diagonal PSD matrix      1-incoherent? {is_k_incoherent(diagonal_psd, 1)}")
-print(f"Dense PSD matrix         2-incoherent? {is_k_incoherent(dense_psd, 2)}")
+# %%
+# Factor width
+# -------------
+# 
+# Another closely related definition to :math:`k`-incoherence is that of
+# factor width :footcite:`Barioli_2003_Maximal, Johnston_2025_Factor,
+# Boman_2005_factor` below.
+#
+# Let :math:`k` be a positive integer. The factor width of a positive
+# semidefinite matrix :math:`X` is the smallest :math:`k` such that it is
+# :math:`k`-incoherent. 
+#
+# For example, the matrix :math:`\operatorname{diag}(1, 1, 0)` has factor width
+# at most :math:`1`.
 
+from toqito.matrix_props import factor_width
+
+diag_mat = np.diag([1, 1, 0])
+result = factor_width(diag_mat, k=1)
+print(result["feasible"])
+
+
+# %% 
+# Conversely, the rank-one matrix :math:`\frac{1}{2}\begin{pmatrix} 1 & 1 \\ 1
+# & 1 \end{pmatrix}` is not :math:`1`-factorable.
+
+hadamard = np.array([[1, 1], [1, 1]], dtype=np.complex128) / 2
+result = factor_width(hadamard, k=1)
+print(result["feasible"])
