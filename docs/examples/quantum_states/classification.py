@@ -26,10 +26,10 @@ aforementioned paper.
 # .. math::
 #   \begin{equation}
 #       \begin{aligned}
-#           \ket{\psi_1} = \frac{1}{\sqrt 3} (\ket{0} + \ket{1} + \ket{2}), \quad & 
-#           \ket{\psi_2} = \frac{1}{\sqrt 3} (\ket{0} - \ket{1} - \ket{2}), \\ 
-#           \ket{\psi_3} = \frac{1}{\sqrt 3} (-\ket{0} - \ket{1} + \ket{2}), \quad & 
-#           \ket{\psi_4} = \frac{1}{\sqrt 3} (-\ket{0} + \ket{1} - \ket{2}). 
+#           \ket{\psi_1} = \frac{1}{\sqrt{3}} (\ket{0} + \ket{1} + \ket{2}), \quad & 
+#           \ket{\psi_2} = \frac{1}{\sqrt{3}} (\ket{0} - \ket{1} - \ket{2}), \\ 
+#           \ket{\psi_3} = \frac{1}{\sqrt{3}} (-\ket{0} - \ket{1} + \ket{2}), \quad & 
+#           \ket{\psi_4} = \frac{1}{\sqrt{3}} (-\ket{0} + \ket{1} - \ket{2}). 
 #       \end{aligned}
 #   \end{equation}
 
