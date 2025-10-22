@@ -224,6 +224,60 @@ def test_enumerate_support_subspaces_tracks_max_zero(monkeypatch):
     np.testing.assert_allclose(subspaces[0], basis)
 
 
+def test_factor_width_solver_returns_components(monkeypatch):
+    """Factor width returns assembled factors when the solver succeeds."""
+
+    mat = np.eye(2, dtype=np.complex128)
+
+    def fake_enumerate(range_basis, max_zero_count, tol):  # noqa: ARG001
+        return [np.eye(2, dtype=np.complex128)]
+
+    fake_variable = factor_width_module.cp.Variable((2, 2), PSD=True)
+
+    class FakeProblem:
+        def __init__(self):
+            self.status = factor_width_module.cp.OPTIMAL
+
+        def solve(self, *args, **kwargs):
+            return None
+
+    def fake_problem(*args, **kwargs):  # noqa: ARG001
+        return FakeProblem()
+
+    monkeypatch.setattr(
+        factor_width_module,
+        "_enumerate_support_subspaces",
+        fake_enumerate,
+    )
+    monkeypatch.setattr(
+        factor_width_module.cp,
+        "Variable",
+        lambda *args, **kwargs: fake_variable,
+    )
+    monkeypatch.setattr(
+        factor_width_module.cp,
+        "Problem",
+        lambda *args, **kwargs: fake_problem(),
+    )
+    monkeypatch.setattr(
+        factor_width_module,
+        "_solve_problem",
+        lambda problem, solver, solver_kwargs: factor_width_module.cp.OPTIMAL,
+    )
+    monkeypatch.setattr(
+        fake_variable,
+        "value",
+        np.eye(2),
+        raising=False,
+    )
+
+    result = factor_width_module.factor_width(mat, k=1)
+    assert result["feasible"] is True
+    assert result["status"] == factor_width_module.cp.OPTIMAL
+    assert result["factors"]
+    np.testing.assert_allclose(result["factors"][0], np.eye(2))
+
+
 def test_intersect_with_zero_covers_degenerate_and_generic_cases():
     """Intersection helper handles both trivial and non-trivial kernels."""
     basis = np.eye(2, dtype=np.complex128)

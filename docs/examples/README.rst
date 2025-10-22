@@ -8,4 +8,7 @@ We use `sphinx-gallery <https://sphinx-gallery.github.io/stable/index.html>`_ to
 .. toctree::
    :maxdepth: 1
 
-   quantum_states/classification
+   basics/README
+   quantum_states/README
+   nonlocal_games/README
+   extended_nonlocal_games/README

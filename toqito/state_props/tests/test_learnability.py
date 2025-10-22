@@ -250,6 +250,18 @@ def test_learnability_solve_problem_routes_to_scs(monkeypatch):
     assert status == "optimal"
 
 
+def test_convert_states_degrades_to_mixed_vectors():
+    """Pure input list with a mixed state clears the candidate vectors."""
+    pure_state = np.array([1.0, 0.0], dtype=np.complex128)
+    mixed_state = np.array([[0.5, 0.0], [0.0, 0.5]], dtype=np.complex128)
+    densities, vectors = learnability_module._convert_states(
+        [pure_state, mixed_state],
+        tol=1e-8,
+    )
+    assert len(densities) == 2
+    assert vectors is None
+
+
 def test_learnability_solve_problem_with_scs_helper():
     """Specialized SCS solver wrapper converts sparse inputs to CSC."""
 
