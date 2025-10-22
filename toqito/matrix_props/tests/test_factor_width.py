@@ -193,6 +193,38 @@ def test_canonical_key_handles_zero_and_nonzero_bases():
     )
 
 
+def test_enumerate_support_subspaces_tracks_max_zero(monkeypatch):
+    """Seen entries update their max_zero value when revisited."""
+
+    basis = np.array([[1.0], [0.0], [0.0]], dtype=np.complex128)
+
+    def fake_canonical_key(_, tol):  # noqa: ARG001
+        return b"fixed", basis
+
+    def fake_intersect_with_zero(_, idx, tol):  # noqa: ARG001
+        return basis
+
+    monkeypatch.setattr(factor_width_module, "_canonical_key", fake_canonical_key)
+    monkeypatch.setattr(
+        factor_width_module,
+        "_intersect_with_zero",
+        fake_intersect_with_zero,
+    )
+    monkeypatch.setattr(
+        factor_width_module,
+        "_max_support_size",
+        lambda *_: 1,
+    )
+
+    subspaces = factor_width_module._enumerate_support_subspaces(
+        basis,
+        max_zero_count=2,
+        tol=1e-8,
+    )
+    assert len(subspaces) == 1
+    np.testing.assert_allclose(subspaces[0], basis)
+
+
 def test_intersect_with_zero_covers_degenerate_and_generic_cases():
     """Intersection helper handles both trivial and non-trivial kernels."""
     basis = np.eye(2, dtype=np.complex128)

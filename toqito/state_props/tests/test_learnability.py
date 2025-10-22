@@ -226,6 +226,31 @@ def test_learnability_solve_problem_non_scs_branch():
     assert problem.calls == [{"solver": "ECOS", "max_iters": 25}]
 
 
+def test_learnability_solve_problem_routes_to_scs(monkeypatch):
+    """_solve_problem delegates to the specialized SCS helper when requested."""
+
+    calls = {}
+
+    def fake_scs(problem, kwargs):  # noqa: ARG001
+        calls["invoked"] = kwargs
+        return 0.0, "optimal"
+
+    monkeypatch.setattr(
+        learnability_module,
+        "_solve_problem_with_scs",
+        fake_scs,
+    )
+
+    value, status = learnability_module._solve_problem(
+        object(),
+        solver="SCS",
+        solver_kwargs={"warm_start": True},
+    )
+    assert calls == {"invoked": {"warm_start": True}}
+    assert value == 0.0
+    assert status == "optimal"
+
+
 def test_learnability_solve_problem_with_scs_helper():
     """Specialized SCS solver wrapper converts sparse inputs to CSC."""
 
