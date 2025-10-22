@@ -195,7 +195,6 @@ def test_canonical_key_handles_zero_and_nonzero_bases():
 
 def test_enumerate_support_subspaces_tracks_max_zero(monkeypatch):
     """Seen entries update their max_zero value when revisited."""
-
     basis = np.array([[1.0], [0.0], [0.0]], dtype=np.complex128)
 
     def fake_canonical_key(_, tol):  # noqa: ARG001

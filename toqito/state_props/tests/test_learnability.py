@@ -228,7 +228,6 @@ def test_learnability_solve_problem_non_scs_branch():
 
 def test_learnability_solve_problem_routes_to_scs(monkeypatch):
     """_solve_problem delegates to the specialized SCS helper when requested."""
-
     calls = {}
 
     def fake_scs(problem, kwargs):  # noqa: ARG001
