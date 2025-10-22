@@ -3,7 +3,7 @@
 import numpy as np
 import pytest
 
-from matrices.comparison import comparison
+from toqito.matrices.comparison import comparison
 
 
 @pytest.mark.parametrize(
