@@ -226,6 +226,30 @@ def test_learnability_solve_problem_non_scs_branch():
     assert problem.calls == [{"solver": "ECOS", "max_iters": 25}]
 
 
+def test_learnability_solve_problem_default_solver():
+    """_solve_problem uses CVXPY defaults when solver is None."""
+
+    class DummyProblem:
+        def __init__(self):
+            self.status = "unknown"
+            self.calls: list[dict] = []
+
+        def solve(self, *_, **kwargs):
+            self.calls.append(kwargs)
+            self.status = "optimal"
+            return 0.75
+
+    problem = DummyProblem()
+    value, status = learnability_module._solve_problem(
+        problem,
+        solver=None,
+        solver_kwargs={"rho": 0.1},
+    )
+    assert value == 0.75
+    assert status == "optimal"
+    assert problem.calls == [{"rho": 0.1}]
+
+
 def test_learnability_solve_problem_routes_to_scs(monkeypatch):
     """_solve_problem delegates to the specialized SCS helper when requested."""
     calls = {}
@@ -299,6 +323,55 @@ def test_learnability_solve_problem_with_scs_helper():
     assert status == "optimal"
     assert problem.value == 0.125
     assert problem.status == "optimal"
+
+
+def test_learnability_solve_problem_with_scs_handles_missing_matrix():
+    """SCS helper leaves absent matrices untouched while still returning results."""
+
+    class DummyChain:
+        def __init__(self):
+            self.called = False
+            self.opts = None
+
+        def solve_via_data(self, problem, data, warm_start, verbose, solver_opts):
+            self.called = True
+            self.opts = solver_opts
+            assert sp.isspmatrix_csc(data[learnability_module.cp_settings.A])
+            assert data[learnability_module.cp_settings.P] is None
+            assert warm_start is False
+            assert verbose is False
+            return {"status": "optimal", "value": 0.0}
+
+    class DummyProblem:
+        def __init__(self):
+            self.status = None
+            self.value = None
+            self.chain = DummyChain()
+
+        def get_problem_data(self, solver):
+            assert solver is learnability_module.cp.SCS
+            data = {
+                learnability_module.cp_settings.A: sp.csr_matrix([[1.0]]),
+                learnability_module.cp_settings.P: None,
+            }
+            return data, self.chain, {}
+
+        def unpack_results(self, solution, chain, inverse_data):
+            assert chain is self.chain
+            self.status = solution["status"]
+            self.value = solution["value"]
+
+    problem = DummyProblem()
+    value, status = learnability_module._solve_problem_with_scs(
+        problem,
+        {"warm_start": False, "verbose": False, "alpha": 0.9},
+    )
+    assert value == 0.0
+    assert status == "optimal"
+    assert problem.status == "optimal"
+    assert problem.value == 0.0
+    assert problem.chain.called is True
+    assert problem.chain.opts == {"alpha": 0.9}
 
 
 def test_is_scs_solver_supports_cvxtag_and_strings():

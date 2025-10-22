@@ -354,3 +354,88 @@ def test_solve_problem_dispatches_to_default_solver():
     )
     assert status == "optimal"
     assert problem.calls == [{"solver": "ECOS", "max_iters": 50}]
+
+
+def test_solve_problem_defaults_to_cvxpy_when_solver_none():
+    """_solve_problem should call the default CVXPY solver when solver is None."""
+
+    class DummyProblem:
+        def __init__(self):
+            self.status = "unknown"
+            self.calls: list[dict] = []
+
+        def solve(self, *_, **kwargs):
+            self.calls.append(kwargs)
+            self.status = "optimal"
+            return 0.0
+
+    problem = DummyProblem()
+    status = factor_width_module._solve_problem(
+        problem,
+        solver=None,
+        solver_kwargs={"rho": 0.5},
+    )
+    assert status == "optimal"
+    assert problem.calls == [{"rho": 0.5}]
+
+
+def test_solve_problem_with_scs_skips_missing_matrix():
+    """SCS helper leaves absent matrices untouched while still unpacking."""
+
+    class DummyChain:
+        def __init__(self):
+            self.called = False
+            self.received_opts = None
+
+        def solve_via_data(self, problem, data, warm_start, verbose, solver_opts):
+            self.called = True
+            self.received_opts = solver_opts
+            assert sp.isspmatrix_csc(data[factor_width_module.cp_settings.A])
+            assert data[factor_width_module.cp_settings.P] is None
+            assert warm_start is False
+            assert verbose is False
+            return {"status": "optimal", "value": 0.0}
+
+    class DummyProblem:
+        def __init__(self):
+            self.status = None
+            self.value = None
+            self.chain = DummyChain()
+
+        def get_problem_data(self, solver):
+            assert solver is factor_width_module.cp.SCS
+            data = {
+                factor_width_module.cp_settings.A: sp.csr_matrix([[1.0]]),
+                factor_width_module.cp_settings.P: None,
+            }
+            return data, self.chain, {}
+
+        def unpack_results(self, solution, chain, inverse_data):
+            assert chain is self.chain
+            assert solution["status"] == "optimal"
+            self.status = solution["status"]
+            self.value = solution["value"]
+
+    problem = DummyProblem()
+    status = factor_width_module._solve_problem_with_scs(
+        problem,
+        {"warm_start": False, "verbose": False, "rho": 1.0},
+    )
+    assert status == "optimal"
+    assert problem.status == "optimal"
+    assert problem.value == 0.0
+    assert problem.chain.called is True
+    assert problem.chain.received_opts == {"rho": 1.0}
+
+
+def test_intersect_with_zero_returns_input_when_basis_empty():
+    """Intersection helper returns the same basis when it has no columns."""
+    basis = np.zeros((4, 0), dtype=np.complex128)
+    result = factor_width_module._intersect_with_zero(basis, 0, tol=1e-8)
+    assert result.shape == (4, 0)
+
+
+def test_max_support_size_zero_columns_returns_zero():
+    """Support counter should return zero when the basis has no columns."""
+    basis = np.zeros((3, 0), dtype=np.complex128)
+    assert factor_width_module._max_support_size(basis, tol=1e-8) == 0
