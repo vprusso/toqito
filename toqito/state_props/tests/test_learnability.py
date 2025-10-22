@@ -4,6 +4,7 @@ from importlib import import_module
 
 import numpy as np
 import pytest
+import scipy.sparse as sp
 
 from toqito.state_props import learnability
 from toqito.states import basis
@@ -29,7 +30,7 @@ def test_learnability_accepts_vectors_and_matches_reduced():
     result = learnability(
         states,
         k=1,
-        solver="SCS",
+        solver=None,
         solver_kwargs={"eps": 1e-6, "max_iters": 10_000},
         verify_tolerance=1e-3,
     )
@@ -50,7 +51,7 @@ def test_learnability_handles_mixed_states_and_skips_reduced():
     result = learnability(
         [rho_1, rho_2, rho_3],
         k=1,
-        solver="SCS",
+        solver=None,
         solver_kwargs={"eps": 1e-6, "max_iters": 5_000},
     )
     assert result["reduced_value"] is None
@@ -77,7 +78,7 @@ def test_learnability_returns_warning_on_large_gap(monkeypatch):
         learnability(
             states,
             k=1,
-            solver="SCS",
+            solver=None,
             solver_kwargs={"eps": 1e-6, "max_iters": 10_000},
             verify_tolerance=1e-9,
         )
@@ -89,7 +90,7 @@ def test_learnability_k_equals_number_of_states():
     result = learnability(
         states,
         k=2,
-        solver="SCS",
+        solver=None,
         solver_kwargs={"eps": 1e-6, "max_iters": 5_000},
     )
     assert result["value"] == pytest.approx(0.0, abs=1e-9)
@@ -101,7 +102,7 @@ def test_learnability_verify_reduced_disabled():
     result = learnability(
         states,
         k=1,
-        solver="SCS",
+        solver=None,
         solver_kwargs={"eps": 1e-6, "max_iters": 5_000},
         verify_reduced=False,
     )
@@ -149,7 +150,7 @@ def test_learnability_pure_density_matrices_extract_vector():
     result = learnability(
         [rho, rho],
         k=1,
-        solver="SCS",
+        solver=None,
         solver_kwargs={"eps": 1e-6, "max_iters": 5_000},
     )
     assert result["reduced_value"] is not None
@@ -182,3 +183,91 @@ def test_learnability_reduced_invalid_k_raises():
 def test_sum_expressions_empty_returns_zero():
     """Summing an empty collection returns zero as a sentinel."""
     assert learnability_module._sum_expressions([]) == 0.0
+
+
+def test_extract_state_vector_handles_column_vector():
+    """Column-vector inputs are flattened without diagonalization."""
+    column = np.array([[1.0], [0.0]], dtype=np.complex128)
+    density = column @ column.conj().T
+    vector = learnability_module._extract_state_vector(column, density)
+    np.testing.assert_allclose(vector, np.array([1.0, 0.0]))
+
+
+def test_convert_states_rejects_zero_trace_state():
+    """States with zero trace are invalid for the SDP."""
+    with pytest.raises(ValueError):
+        learnability_module._convert_states(
+            [np.zeros((2, 2), dtype=np.complex128)],
+            tol=1e-8,
+        )
+
+
+def test_learnability_solve_problem_non_scs_branch():
+    """_solve_problem forwards solver keywords for non-SCS solvers."""
+
+    class DummyProblem:
+        def __init__(self):
+            self.status = "unknown"
+            self.calls: list[dict] = []
+
+        def solve(self, *args, **kwargs):
+            self.calls.append(kwargs)
+            self.status = "optimal"
+            return 0.5
+
+    problem = DummyProblem()
+    value, status = learnability_module._solve_problem(
+        problem,
+        solver="ECOS",
+        solver_kwargs={"max_iters": 25},
+    )
+    assert value == 0.5
+    assert status == "optimal"
+    assert problem.calls == [{"solver": "ECOS", "max_iters": 25}]
+
+
+def test_learnability_solve_problem_with_scs_helper():
+    """Specialized SCS solver wrapper converts sparse inputs to CSC."""
+
+    class DummyChain:
+        def solve_via_data(self, problem, data, warm_start, verbose, solver_opts):
+            assert sp.isspmatrix_csc(data[learnability_module.cp_settings.A])
+            assert sp.isspmatrix_csc(data[learnability_module.cp_settings.P])
+            assert "warm_start" not in solver_opts
+            assert "verbose" not in solver_opts
+            return {"value": 0.125, "status": "optimal"}
+
+    class DummyProblem:
+        def __init__(self):
+            self.value = None
+            self.status = None
+
+        def get_problem_data(self, solver):
+            assert solver is learnability_module.cp.SCS
+            data = {
+                learnability_module.cp_settings.A: sp.csr_matrix([[1.0]]),
+                learnability_module.cp_settings.P: sp.csr_matrix([[1.0]]),
+            }
+            return data, DummyChain(), {}
+
+        def unpack_results(self, solution, chain, inverse_data):
+            self.value = solution["value"]
+            self.status = solution["status"]
+
+    problem = DummyProblem()
+    value, status = learnability_module._solve_problem_with_scs(
+        problem,
+        {"warm_start": True, "verbose": True, "max_iters": 5_000},
+    )
+    assert value == 0.125
+    assert status == "optimal"
+    assert problem.value == 0.125
+    assert problem.status == "optimal"
+
+
+def test_is_scs_solver_supports_cvxtag_and_strings():
+    """Solver detection recognizes both constants and strings for SCS."""
+    assert learnability_module._is_scs_solver(None) is False
+    assert learnability_module._is_scs_solver(learnability_module.cp.SCS) is True
+    assert learnability_module._is_scs_solver("SCS") is True
+    assert learnability_module._is_scs_solver("ECOS") is False
