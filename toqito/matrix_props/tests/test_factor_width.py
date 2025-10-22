@@ -226,7 +226,6 @@ def test_enumerate_support_subspaces_tracks_max_zero(monkeypatch):
 
 def test_factor_width_solver_returns_components(monkeypatch):
     """Factor width returns assembled factors when the solver succeeds."""
-
     mat = np.eye(2, dtype=np.complex128)
 
     def fake_enumerate(range_basis, max_zero_count, tol):  # noqa: ARG001
