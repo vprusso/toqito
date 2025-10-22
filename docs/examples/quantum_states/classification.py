@@ -12,6 +12,9 @@ quantum states along with related settings of "factor width" and the notion of
 aforementioned paper.
 """
 
+# Use the saved Bloch sphere render as the gallery thumbnail.
+# sphinx_gallery_thumbnail_path = "figures/classification_tetrahedron.png"
+
 # %%
 # Learnability of quantum states
 # ------------------------------
