@@ -231,7 +231,7 @@ def test_factor_width_solver_returns_components(monkeypatch):
     def fake_enumerate(range_basis, max_zero_count, tol):  # noqa: ARG001
         return [np.eye(2, dtype=np.complex128)]
 
-    fake_variable = factor_width_module.cp.Variable((2, 2), PSD=True)
+    fake_variable = factor_width_module.cp.Variable((4, 4), PSD=True)
 
     class FakeProblem:
         def __init__(self):
@@ -266,7 +266,7 @@ def test_factor_width_solver_returns_components(monkeypatch):
     monkeypatch.setattr(
         fake_variable,
         "value",
-        np.eye(2),
+        np.eye(4),
         raising=False,
     )
 
