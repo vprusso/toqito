@@ -19,7 +19,7 @@ aforementioned paper.
 # Learnability of quantum states
 # ------------------------------
 #
-# To illustrate :math:`k`-learnability, cosnider the following generalization
+# To illustrate :math:`k`-learnability, consider the following generalization
 # of the trine states to four states in three dimensions, called the
 # *tetrahedral states*:
 #
@@ -108,7 +108,7 @@ print(f"Average classification error (k=1): {learnability_result['value']}")
 # %%
 # :math:`k`-Incoherence
 # ----------------------
-# The notion of :math:`k`-icoherence comes from
+# The notion of :math:`k`-incoherence comes from
 # footcite:`Johnston_2022_Absolutely`. For a positive integers, :math:`k` and
 # :math:`n`, the matrix :math:`X \in \text{Pos}(\mathbb{C}^n)` is called
 # :math:`k`-incoherent if there exists a positive integer :math:`m`, a set
