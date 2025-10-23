@@ -200,6 +200,36 @@ def test_real_block_to_complex_requires_even_dimension():
         factor_width_module._real_block_to_complex(block)
 
 
+def test_enumerate_support_subspaces_respects_max_zero_limit():
+    """The enumeration skips subsets exceeding the maximum zero count."""
+    basis = np.eye(2, dtype=np.complex128)
+    subspaces = factor_width_module._enumerate_support_subspaces(basis, max_zero_count=0.5, tol=1e-8)
+    assert subspaces == []
+
+
+def test_intersect_with_zero_returns_empty_when_product_is_empty():
+    """Intersection that collapses to the zero subspace returns an empty basis."""
+
+    class ZeroIntersectionBasis(np.ndarray):
+        """Custom basis whose intersection with any kernel is empty."""
+
+        def __new__(cls, array):
+            obj = np.asarray(array, dtype=np.complex128).view(cls)
+            return obj
+
+        def __array_finalize__(self, obj):
+            # Nothing special to propagate from parent instances.
+            return None
+
+        def __matmul__(self, other):  # pragma: no cover - exercised via numpy's matmul
+            return np.zeros((self.shape[0], 0), dtype=np.complex128)
+
+    basis = ZeroIntersectionBasis(np.eye(2, dtype=np.complex128))
+    result = factor_width_module._intersect_with_zero(basis, index=0, tol=1e-8)
+    assert result.shape == (2, 0)
+    assert np.all(result == 0)
+
+
 def test_is_scs_solver_variants():
     """The solver detection helper accepts multiple SCS identifiers."""
     assert factor_width_module._is_scs_solver(None) is False

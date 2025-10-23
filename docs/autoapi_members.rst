@@ -5,4 +5,5 @@ API Reference
    :maxdepth: 2
    :titlesonly:
 
+   autoapi/index
    autoapi/toqito/index

@@ -193,6 +193,14 @@ def test_extract_state_vector_handles_column_vector():
     np.testing.assert_allclose(vector, np.array([1.0, 0.0]))
 
 
+def test_extract_state_vector_uses_eigendecomposition_for_matrices():
+    """Matrix inputs fall back to the dominant eigenvector representation."""
+    density = np.array([[0.5, 0.5], [0.5, 0.5]], dtype=np.complex128)
+    vector = learnability_module._extract_state_vector(density, density)
+    expected = np.array([1.0, 1.0], dtype=np.complex128) / np.sqrt(2)
+    np.testing.assert_allclose(vector, expected)
+
+
 def test_convert_states_rejects_zero_trace_state():
     """States with zero trace are invalid for the SDP."""
     with pytest.raises(ValueError):
