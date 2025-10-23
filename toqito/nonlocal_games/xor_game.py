@@ -19,7 +19,7 @@ class XORGame:
     This function is adapted from the QETLAB package.
 
     A tutorial is available in the documentation. Go to
-    :ref:`sphx_glr_auto_examples_nonlocal_games_example_xor_quantum_value.py`.
+    :ref:`sphx_glr_auto_examples_nonlocal_games_xor_quantum_value.py`.
 
     Examples
     ==========

@@ -143,8 +143,6 @@ print(np.around(state_distinguishability(states, probs)[0], decimals=2))
 # Specifying similar state distinguishability problems can be done so using this
 # general pattern.
 #
-# .. _ref-label-state-dist-ppt:
-#
 # Optimal probability of distinguishing a state via PPT measurements
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 #

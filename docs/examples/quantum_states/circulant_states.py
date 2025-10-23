@@ -8,7 +8,7 @@ states' Gram matrix, as presented in the paper by Johnston et al.
 :footcite:`Johnston_2025_Tight`.
 
 This tutorial builds upon the concepts introduced in the
-:ref:`sphx_glr_auto_examples_quantum_states_example_state_exclusion.py` tutorial.
+:ref:`sphx_glr_auto_examples_quantum_states_state_exclusion.py` tutorial.
 """
 
 # %%
@@ -43,13 +43,13 @@ This tutorial builds upon the concepts introduced in the
 # Our plan to verify this theorem is as follows:
 #
 # 1.  Generate a random circulant Gram matrix :math:`G` using
-#     :func:`.random_circulant_gram_matrix`.
+#     :py:func:`~toqito.rand.random_circulant_gram_matrix.random_circulant_gram_matrix`.
 # 2.  Compute its eigenvalues and perform the **analytical check** using the
 #     inequality from the theorem.
 # 3.  Generate the corresponding set of state vectors from :math:`G` using
-#     :func:`.vectors_from_gram_matrix`.
+#     :py:func:`~toqito.matrix_ops.vectors_from_gram_matrix.vectors_from_gram_matrix`.
 # 4.  Perform a **numerical check** by calling the high-level function
-#     :func:`.is_antidistinguishable` to directly verify the property.
+#     :py:func:`~toqito.state_props.is_antidistinguishable.is_antidistinguishable` to directly verify the property.
 # 5.  Confirm that the analytical and numerical checks yield the same conclusion.
 
 import numpy as np

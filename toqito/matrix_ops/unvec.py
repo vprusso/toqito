@@ -72,7 +72,7 @@ def unvec(vector: np.ndarray, shape: list[int] = None) -> np.ndarray:
 
     See Also
     ========
-    :func:`.vec`
+    :py:func:`~toqito.matrix_ops.vec.vec`
 
     References
     ==========

@@ -164,7 +164,7 @@ print(f"Are the four PBR states antidistinguishable? {is_ad}")
 # necessary ingredient for the PBR no-go theorem's contradiction.
 #
 # This result, derived from a solvable semidefinite program within
-# :code:`|toqito⟩`'s :func:`.state_exclusion` module, supports the theorem's
+# :code:`|toqito⟩`'s :py:func:`~toqito.state_opt.state_exclusion.state_exclusion` function supports the theorem's
 # conclusion that the quantum state has a strong claim to being an
 # objective feature of reality.
 

@@ -234,7 +234,7 @@ measurement on that shared state.
 # will construct well-known games such as the BB84 and CHSH extended nonlocal
 # games and use :code:`|toqito⟩` to calculate their various values.
 #
-# We will start by examining the BB84 extended nonlocal game in :ref:`sphx_glr_auto_examples_extended_nonlocal_games_example_enlg_bb84.py`
+# We will start by examining the BB84 extended nonlocal game in :ref:`sphx_glr_auto_examples_extended_nonlocal_games_enlg_bb84.py`
 #
 # References
 # ----------

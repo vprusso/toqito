@@ -8,7 +8,7 @@ numerically verify a tight bound presented in the paper by Johnson et.al
 property changes.
 
 This tutorial builds upon the concepts introduced in the
-:ref:`sphx_glr_auto_examples_quantum_states_example_state_exclusion.py` tutorial.
+:ref:`sphx_glr_auto_examples_quantum_states_state_exclusion.py` tutorial.
 """
 
 # %%
@@ -61,7 +61,7 @@ This tutorial builds upon the concepts introduced in the
 # 3.  For each Gram matrix, use :code:`|toqito⟩` to generate a corresponding set of
 #     state vectors.
 # 4.  For each set of states, compute the **minimum probability of error** for state exclusion using
-#     the :func:`.state_exclusion` function.
+#     the :py:func:`~toqito.state_opt.state_exclusion.state_exclusion` function.
 # 5.  Confirm that the states *at* the threshold are antidistinguishable
 #     (error probability is :math:`0`) and the states *above* it are not (error probability is > :math:`0`).
 
@@ -120,7 +120,7 @@ print(f"  - Is the set antidistinguishable? {is_ad_above} (as expected)")
 # match the style of Figure 2 from :footcite:`Johnston_2025_Tight`, we will
 # plot this for several values of :math:`n`.
 #
-# The value returned by :func:`.state_exclusion` is the optimal
+# The value returned by :py:func:`~toqito.state_opt.state_exclusion.state_exclusion` is the optimal
 # probability of error. The plot should show this probability lifting off from
 # :math:`0` precisely at the threshold :math:`\gamma_{\text{crit}} = (n-2)/(n-1)` for
 # each respective :math:`n`.

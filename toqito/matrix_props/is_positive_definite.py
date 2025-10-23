@@ -50,7 +50,7 @@ def is_positive_definite(mat: np.ndarray) -> bool:
 
     See Also
     ========
-    :func:`.is_positive_semidefinite`
+    :py:func:`~toqito.matrix_props.is_positive_semidefinite.is_positive_semidefinite`
 
     References
     ==========

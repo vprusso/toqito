@@ -1,8 +1,8 @@
 """An extended nonlocal game with quantum advantage
 =========================================================
 
-In the previous tutorials on :ref:`sphx_glr_auto_examples_extended_nonlocal_games_example_enlg_bb84.py`
-and :ref:`sphx_glr_auto_examples_extended_nonlocal_games_example_enlg_chsh.py`, we
+In the previous tutorials on :ref:`sphx_glr_auto_examples_extended_nonlocal_games_enlg_bb84.py`
+and :ref:`sphx_glr_auto_examples_extended_nonlocal_games_enlg_chsh.py`, we
 saw examples where the standard quantum and unentangled values were equal
 (:math:`\omega(G) = \omega^*(G)`). Here, we will construct an extended
 nonlocal game where the standard quantum value is *strictly higher* than the

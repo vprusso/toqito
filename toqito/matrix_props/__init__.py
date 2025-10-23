@@ -6,6 +6,8 @@ from toqito.matrix_props.kp_norm import kp_norm
 from toqito.matrix_props.is_anti_hermitian import is_anti_hermitian
 from toqito.matrix_props.is_hermitian import is_hermitian
 from toqito.matrix_props.is_positive_semidefinite import is_positive_semidefinite
+from toqito.matrix_props.factor_width import factor_width
+from toqito.matrix_props.is_rank_one import is_rank_one
 from toqito.matrix_props.is_density import is_density
 from toqito.matrix_props.is_circulant import is_circulant
 from toqito.matrix_props.is_diagonal import is_diagonal

@@ -18,7 +18,7 @@ def dual_channel(
     then :code:`dim` should be the list :code:`[[r,x], [c,y]]`. If it maps :math:`M_m`
     to :math:`M_n`, then :code:`dim` can simply be the vector :code:`[m,n]`. In this
     case the Choi matrix of the dual channel is returned, obtained by swapping input and
-    output (see :func:`.swap`), and complex conjugating all elements.
+    output (see :py:func:`~toqito.perms.swap.swap`), and complex conjugating all elements.
 
     The map can also be represented as a list of Kraus operators.
     A list of lists, each containing two elements, corresponds to the families

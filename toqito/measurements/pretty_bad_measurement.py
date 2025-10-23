@@ -25,7 +25,7 @@ def pretty_bad_measurement(
 
     See Also
     ========
-    :func:`.pretty_good_measurement`
+    :py:func:`~toqito.measurements.pretty_good_measurement.pretty_good_measurement`
 
     Examples
     ========

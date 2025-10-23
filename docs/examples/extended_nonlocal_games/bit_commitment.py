@@ -33,7 +33,7 @@ theorem :footcite:`Mayers_1997_Unconditionally,Lo_1997_Why`.
 #
 # The Mayers-Lo-Chau (MLC) no-go theorem :footcite:`Mayers_1997_Unconditionally,Lo_1997_Why`
 # proves that no quantum protocol can be both perfectly hiding and binding. Here,
-# we will use the :func:`.ExtendedNonlocalGame` framework not to prove the full
+# we will use the :py:class:`~toqito.nonlocal_games.extended_nonlocal_game.ExtendedNonlocalGame` framework not to prove the full
 # theorem in its generality, but to illustrate the failure of
 # the binding property. We will model a simplified, single-shot protocol to make
 # the abstract threat of cheating concrete and quantifiable.
@@ -53,7 +53,7 @@ theorem :footcite:`Mayers_1997_Unconditionally,Lo_1997_Why`.
 #     committer) and Bob (the receiver). To fit this cryptographic scenario into
 #     our framework, we model the verifier, Bob, as the **Referee** who issues
 #     the challenge. The 'player Bob' defined in the code is therefore a
-#     necessary placeholder with trivial inputs and outputs, as his active role
+#     simple stand-in with trivial inputs and outputs, as his active role
 #     is handled by the Referee.
 #
 # *   **The Challenge (Referee's Input):** The Referee (Bob) will challenge Alice

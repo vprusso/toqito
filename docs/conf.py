@@ -9,15 +9,18 @@
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-import os
-import sys
 import datetime
+import os
 import re
+import sys
+from pathlib import Path
 from sphinx_gallery.sorting import ExplicitOrder
 
 # sys.path.insert(0, os.path.abspath("."))
 # sys.path.insert(0, os.path.abspath(".."))
 sys.path.insert(0, os.path.abspath("../.."))
+
+DOCS_DIR = Path(__file__).resolve().parent
 
 # -- Project information -----------------------------------------------------
 
@@ -54,6 +57,9 @@ extensions = [
 ]
 
 
+DOCS_FAST = bool(os.environ.get("TOQITO_DOCS_FAST"))
+
+
 sphinx_gallery_conf = {
     "examples_dirs": "examples",  # Path to example scripts
     "gallery_dirs": "auto_examples",  # Output directory for generated example galleries
@@ -65,13 +71,20 @@ sphinx_gallery_conf = {
             "examples/extended_nonlocal_games",
         ]
     ),
-    "filename_pattern": r"[/\\]example_",  # Regex to filter example files by name i.e those starting with 'example_'
+    # Match every example script; filenames no longer share a common prefix.
+    "filename_pattern": r"^",
     "write_computation_times": False,  # Do not include computation times
-    "default_thumb_file": "figures/logo.svg",  # Default thumbnail image
+    "default_thumb_file": str(DOCS_DIR / "figures" / "logo.png"),  # Default thumbnail image
     "line_numbers": True,  # add line numbers
     "download_all_examples": False,
     "ignore_pattern": r"__init__\.py",
 }
+
+autoapi_options = [
+    "members",
+    "undoc-members",
+    "show-inheritance",
+]
 
 
 bibtex_bibfiles = ["refs.bib"]
@@ -114,7 +127,7 @@ autoapi_ignore = [
     "*/measurement_props/tests/*",
 ]
 autodoc_typehints = "description"
-autoapi_add_toctree_entry = False
+autoapi_add_toctree_entry = True
 autoapi_keep_files = False
 
 # Add any paths that contain templates here, relative to this directory.
@@ -128,9 +141,11 @@ exclude_patterns = [
     "_templates",
     "Thumbs.db",
     ".DS_Store",
-    "examples/README.rst",
-    "examples/**/README.rst",
 ]
+
+
+if DOCS_FAST:
+    sphinx_gallery_conf["run_stale_examples"] = False
 
 
 # -- Options for HTML output -------------------------------------------------

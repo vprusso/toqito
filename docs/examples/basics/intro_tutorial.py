@@ -410,9 +410,9 @@ partial_transpose(test_input_mat, sys=[0])
 # %%
 # **Applying Quantum Channels**
 #
-# Another important operation when working with quantum channels is applying them to quantum states. :func:`.apply_channel` in :code:`|toqito⟩` provides a convenient way to apply a quantum channel (represented by its Choi matrix) to a given quantum state.
+# Another important operation when working with quantum channels is applying them to quantum states. :py:func:`~toqito.channel_ops.apply_channel.apply_channel` in :code:`|toqito⟩` provides a convenient way to apply a quantum channel (represented by its Choi matrix) to a given quantum state.
 #
-# Here, we illustrate how to apply two widely used channels – the depolarizing channel and the dephasing channel – using :func:`.apply_channel`.
+# Here, we illustrate how to apply two widely used channels – the depolarizing channel and the dephasing channel – using :py:func:`~toqito.channel_ops.apply_channel.apply_channel`.
 #
 # **Depolarizing Channel**
 #
@@ -554,11 +554,11 @@ print(result)
 #
 # It is also worth noting that when
 #
-# * :math:`P_2 = 0`, and :math:`P_3 = 0`, :func:`.pauli_channel` is equivalent to a :func:`.bitflip` channel
+# * :math:`P_2 = 0`, and :math:`P_3 = 0`, :py:func:`~toqito.channels.pauli_channel.pauli_channel` is equivalent to a :py:func:`~toqito.channels.bitflip.bitflip` channel
 #
-# * :math:`P_1 = 0`, and :math:`P_2 = 0`, :func:`.pauli_channel` is equivalent to a Phase Flip channel
+# * :math:`P_1 = 0`, and :math:`P_2 = 0`, :py:func:`~toqito.channels.pauli_channel.pauli_channel` is equivalent to a Phase Flip channel
 #
-# * :math:`P_1 = 0`, and :math:`P_3 = 0`, :func:`.pauli_channel` is equivalent to a Bit and Phase Flip channel
+# * :math:`P_1 = 0`, and :math:`P_3 = 0`, :py:func:`~toqito.channels.pauli_channel.pauli_channel` is equivalent to a Bit and Phase Flip channel
 #
 # The Pauli channel can be used to apply noise to an input quantum state or generate a Choi matrix.
 
@@ -634,7 +634,7 @@ is_povm(meas)
 # Random POVM
 # ^^^^^^^^^^^
 #
-# We may also use :func:`.random_povm` to randomly generate a POVM, and can verify that a
+# We may also use :py:func:`~toqito.rand.random_povm.random_povm` to randomly generate a POVM, and can verify that a
 # randomly generated set satisfies the criteria for being a POVM set.
 
 import numpy as np

@@ -75,7 +75,7 @@ def choi_to_kraus(
 
     See Also
     ========
-    :func:`.kraus_to_choi`
+    :py:func:`~toqito.channel_ops.kraus_to_choi.kraus_to_choi`
 
     References
     ==========

@@ -32,7 +32,7 @@ def log_negativity(rho: np.ndarray, dim: list[int] | int = None) -> float:
 
     See Also
     ==========
-    :func:`.negativity`
+    :py:func:`~toqito.state_props.negativity.negativity`
 
     References
     ==========

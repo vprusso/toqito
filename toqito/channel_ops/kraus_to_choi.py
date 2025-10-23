@@ -48,7 +48,7 @@ def kraus_to_choi(kraus_ops: list[list[np.ndarray]], sys: int = 2) -> np.ndarray
 
     See Also
     ========
-    :func:`.choi_to_kraus`
+    :py:func:`~toqito.channel_ops.choi_to_kraus.choi_to_kraus`
 
     References
     ==========

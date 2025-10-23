@@ -32,8 +32,8 @@ def is_absolutely_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> b
 
     See Also
     ========
-    :func:`.is_antidistinguishable`
-    :func:`.is_k_incoherent`
+    :py:func:`~toqito.state_props.is_antidistinguishable.is_antidistinguishable`
+    :py:func:`~toqito.matrix_props.is_k_incoherent.is_k_incoherent`
 
     References
     ==========
