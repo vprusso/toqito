@@ -170,8 +170,6 @@ html_last_updated_fmt = "%b %d, %Y"
 
 
 def setup(app):
-    if FAST_MODE:
-        app.tags.add("toqito_docs_fast")
     # light docs build option
     app.connect("autodoc-process-docstring", maybe_strip_jupyter_blocks)
 
@@ -243,19 +241,6 @@ def setup(app):
 
 FAST_MODE = os.environ.get("TOQITO_DOCS_FAST") == "1"
 ONLY_DOC_TARGET = os.environ.get("TOQITO_DOCS_ONLY", "")
-
-rst_prolog = ""
-
-if FAST_MODE:
-    rst_prolog += (
-        ".. |ppt_state_distinguishability_tutorial| replace::\n"
-        "   For more info, see the ``state_distinguishability`` tutorial in ``auto_examples/quantum_states``.\n"
-    )
-else:
-    rst_prolog += (
-        ".. |ppt_state_distinguishability_tutorial| replace::\n"
-        "   For more info, see the tutorial :doc:`/auto_examples/quantum_states/state_distinguishability`.\n"
-    )
 
 
 def maybe_strip_jupyter_blocks(app, what, name, obj, options, lines):

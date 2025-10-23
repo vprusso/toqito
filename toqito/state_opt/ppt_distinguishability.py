@@ -31,7 +31,8 @@ def ppt_distinguishability(
     For :code:`dist_method = "unambig"`, Alice and Bob never provide an incorrect answer,
     although it is possible that their answer is inconclusive.
 
-    |ppt_state_distinguishability_tutorial|
+    For more background, see the ``state_distinguishability`` example in the
+    quantum states gallery.
 
     Examples
     ==========
