@@ -45,14 +45,11 @@ pip install toqito
 
 ## Examples
 
-Full documentation, along with specific examples and tutorials, is provided here:
-[https://toqito.readthedocs.io/](https://toqito.readthedocs.io/). 
-
-Chat with us in our |toqito⟩ channel on [Discord](http://discord.unitary.fund/). 
+For the full documentation, please consult: [Documentation](https://toqito.readthedocs.io/) | [Examples](https://toqito.readthedocs.io/en/latest/auto_examples/index.html)
 
 ### Example: Nonlocal games
 
-[Nonlocal games](https://toqito.readthedocs.io/en/latest/tutorials.nonlocal_games.html) are a mathematical framework
+[Nonlocal games](https://toqito.readthedocs.io/en/latest/auto_examples/nonlocal_games/index.html) are a mathematical framework
 that abstractly models a physical system. The CHSH game is a subtype of nonlocal game referred to as an XOR game that
 characterizes the seminal [CHSH inequality](https://en.wikipedia.org/wiki/CHSH_inequality). 
 
@@ -119,8 +116,8 @@ ppt_res, _ = ppt_distinguishability(states, subsystems=[0], dimensions=[2, 2])
 print(f"Distinguishing four Bell states (PPT measurements): {ppt_res}")
 ```
 
-Consult the [tutorials](https://toqito.readthedocs.io/en/latest/tutorials.html#quantum-state-distinguishability) for
-additional examples and information.
+Consult the [quantum state tutorials](https://toqito.readthedocs.io/en/latest/auto_examples/quantum_states/index.html) for
+additional examples and information about quantum states within the context of |toqito⟩.
 
 ## Testing
 
@@ -204,11 +201,12 @@ Gupta, Tathagata and Mushid, Shayeef and Russo, Vincent and Bandyopadhyay, Somsh
 
 ## Contributing
 
-All contributions, bug reports, bug fixes, documentation improvements,
-enhancements, and ideas are welcome.
+All contributions, bug reports, bug fixes, documentation improvements, enhancements, and ideas are welcome.
 
 A detailed overview of how to contribute can be found in the
 [contributing guide](https://toqito.readthedocs.io/en/latest/contributing.html#contrib-guide-reference-label).
+
+Chat with us in our |toqito⟩ channel on [Discord](http://discord.unitary.fund/). 
 
 ## License
 
