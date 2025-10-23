@@ -72,6 +72,41 @@ def test_factor_width_ball_example(solver_settings):
     np.testing.assert_allclose(reconstructed, mat, atol=1e-5)
 
 
+def test_factor_width_rank3_example_matches_paper(solver_settings):
+    """Rank-3 example from the paper has factor width three but not two."""
+    mat = np.array(
+        [
+            [2, 1, 1, -1],
+            [1, 2, 0, 1],
+            [1, 0, 2, -1],
+            [-1, 1, -1, 2],
+        ],
+        dtype=np.complex128,
+    )
+
+    result_three = factor_width(
+        mat,
+        k=3,
+        solver="SCS",
+        solver_kwargs=solver_settings,
+    )
+    assert result_three["feasible"] is True
+    assert result_three["factors"]
+    np.testing.assert_allclose(
+        sum(result_three["factors"]),
+        mat,
+        atol=1e-5,
+    )
+
+    result_two = factor_width(
+        mat,
+        k=2,
+        solver="SCS",
+        solver_kwargs=solver_settings,
+    )
+    assert result_two["feasible"] is False
+
+
 def test_factor_width_rejects_non_square_matrix():
     """Non-square input matrices should be rejected."""
     mat = np.ones((2, 3), dtype=np.complex128)

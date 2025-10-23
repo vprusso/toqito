@@ -22,7 +22,7 @@ def is_unextendible_product_basis(vecs: list[np.ndarray], dims: list[int]) -> tu
 
     Examples
     ==========
-    See :func:`.tile`. All the states together form a UPB:
+    See :py:func:`~toqito.states.tile.tile`. All the states together form a UPB:
 
     .. jupyter-execute::
 

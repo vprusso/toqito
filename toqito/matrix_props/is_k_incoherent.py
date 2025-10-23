@@ -24,7 +24,7 @@ def is_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
     k-incoherent and False if :code:`mat` is not.
 
     The function first handles trivial cases. Then it computes the comparison matrix (via
-    :func:`matrices.comparison.comparison`) and performs further tests based on the trace of :math:`mat^2` and a
+    :py:func:`~toqito.matrices.comparison.comparison`) and performs further tests based on the trace of :math:`mat^2` and a
     dephasing channel. If no decision is reached, the function recurses by checking incoherence for k-1.  Finally, if
     still indeterminate, an SDP is formulated to decide incoherence.
 
@@ -43,8 +43,8 @@ def is_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
 
     See Also
     ========
-    :func:`.is_antidistinguishable`
-    :func:`.is_absolutely_k_incoherent`
+    :py:func:`~toqito.state_props.is_antidistinguishable.is_antidistinguishable`
+    :py:func:`~toqito.matrix_props.is_absolutely_k_incoherent.is_absolutely_k_incoherent`
 
     References
     ==========

@@ -57,6 +57,9 @@ extensions = [
 ]
 
 
+DOCS_FAST = bool(os.environ.get("TOQITO_DOCS_FAST"))
+
+
 sphinx_gallery_conf = {
     "examples_dirs": "examples",  # Path to example scripts
     "gallery_dirs": "auto_examples",  # Output directory for generated example galleries
@@ -76,6 +79,12 @@ sphinx_gallery_conf = {
     "download_all_examples": False,
     "ignore_pattern": r"__init__\.py",
 }
+
+autoapi_options = [
+    "undoc-members",
+    "show-inheritance",
+    "imported-members",
+]
 
 
 bibtex_bibfiles = ["refs.bib"]
@@ -118,7 +127,7 @@ autoapi_ignore = [
     "*/measurement_props/tests/*",
 ]
 autodoc_typehints = "description"
-autoapi_add_toctree_entry = False
+autoapi_add_toctree_entry = True
 autoapi_keep_files = False
 
 # Add any paths that contain templates here, relative to this directory.
@@ -132,9 +141,11 @@ exclude_patterns = [
     "_templates",
     "Thumbs.db",
     ".DS_Store",
-    "examples/README.rst",
-    "examples/**/README.rst",
 ]
+
+
+if DOCS_FAST:
+    sphinx_gallery_conf["run_stale_examples"] = False
 
 
 # -- Options for HTML output -------------------------------------------------

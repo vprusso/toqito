@@ -1,8 +1,7 @@
 Basic Tutorials
 ----------------
 
-.. toctree::
-   :maxdepth: 1
+The following rendered tutorials demonstrate introductory concepts:
 
-   intro_tutorial
-   superdense_coding
+- :doc:`/auto_examples/basics/intro_tutorial`
+- :doc:`/auto_examples/basics/superdense_coding`

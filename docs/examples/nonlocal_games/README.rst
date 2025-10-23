@@ -1,8 +1,5 @@
 Nonlocal Games
 --------------
 
-.. toctree::
-   :maxdepth: 1
-
-   nonlocal_game
-   xor_quantum_value
+- :doc:`/auto_examples/nonlocal_games/nonlocal_game`
+- :doc:`/auto_examples/nonlocal_games/xor_quantum_value`

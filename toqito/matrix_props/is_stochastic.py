@@ -16,7 +16,7 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
 
     See Also
     ========
-    :func:`.is_doubly_stochastic`
+    :py:func:`~toqito.matrix_props.is_doubly_stochastic.is_doubly_stochastic`
 
     Examples
     ========

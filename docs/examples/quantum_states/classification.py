@@ -12,9 +12,6 @@ quantum states along with related settings of "factor width" and the notion of
 aforementioned paper.
 """
 
-# Use the saved Bloch sphere render as the gallery thumbnail.
-# sphinx_gallery_thumbnail_path = "figures/classification_tetrahedron.png"
-
 # %%
 # Learnability of quantum states
 # ------------------------------
@@ -109,7 +106,7 @@ print(f"Average classification error (k=1): {learnability_result['value']}")
 # :math:`k`-Incoherence
 # ----------------------
 # The notion of :math:`k`-incoherence comes from
-# footcite:`Johnston_2022_Absolutely`. For a positive integers, :math:`k` and
+# :footcite:`Johnston_2022_Absolutely`. For a positive integers, :math:`k` and
 # :math:`n`, the matrix :math:`X \in \text{Pos}(\mathbb{C}^n)` is called
 # :math:`k`-incoherent if there exists a positive integer :math:`m`, a set
 # :math:`S = \{|\psi_0\rangle, |\psi_1\rangle,\ldots, |\psi_{m-1}\rangle\}
@@ -134,7 +131,7 @@ print(f"Average classification error (k=1): {learnability_result['value']}")
 #   \end{equation}
 # 
 # Indeed, one can verify this numerically using the
-# :func:`toqito.matrix_props.is_k_incoherent` function.
+# :py:func:`~toqito.matrix_props.is_k_incoherent.is_k_incoherent`.
 
 from toqito.matrix_props import is_k_incoherent
 
@@ -170,4 +167,117 @@ print(result["feasible"])
 
 hadamard = np.array([[1, 1], [1, 1]], dtype=np.complex128) / 2
 result = factor_width(hadamard, k=1)
+print(result["feasible"])
+
+# %%
+# This example comes directly from :footcite:`Johnston_2025_Factor`. Suppose we want to determine the factor width of
+# the rank-:math:`3` matrix
+#
+# .. math::
+#   \begin{equation}
+#       M = \begin{bmatrix}
+#        2 & 1 & 1 & -1 \\
+#        1 & 2 & 0 & 1 \\
+#        1 & 0 & 2 & -1 \\
+#        -1 & 1 & -1 & 2
+#       \end{bmatrix}.
+#   \end{equation}
+# 
+# We start by finding a basis for :math:`S := \text{range}(M)`, which can be done by picking a linearly independent set
+# of :math:`r = 3` columns of :math:`M$` :math:`S = \operatorname{span}\{(2,1,1,-1), (1,2,0,1), (1,0,2,-1)\}`. Then
+# :math:`R_0 = \{S\}` and we proceed recursively:
+#
+# .. math::
+#   \begin{equation}
+#       \begin{aligned}
+#           R_1 = \{S_1, S_2, S_3, S_3\}, \quad \text{where} \quad S_1 & = \operatorname{span}\{(0,1,-1,1), (0,1,-3,1)\}, \\
+#           S_2 & = \operatorname{span}\{(1,0,2,-1), (3,0,2,-3)\}, \\
+#           S_3 & = \operatorname{span}\{(1,2,0,1), (3,2,0,-1)\}, \ \ \text{and} \\
+#           S_4 & = \operatorname{span}\{(1,1,1,0), (3,3,1,0)\}.
+#       \end{aligned}
+#   \end{equation}
+#
+# To determine whether or not :math:`M` is :math:`3`-incoherent, we let :math:`\Pi_1`, :math:`\Pi_2`, :math:`\Pi_3`, and
+# :math:`\Pi_4` be the orthogonal projections onto :math:`S_1`, :math:`S_2`, :math:`S_3`, and :math:`S_4`, respectively.
+# We then use semidefinite programming to determine whether or not there exist matrices :math:`M_1, M_2, M_3, M_4 \in
+# \text{Pos}(\mathbb{C}^4)` for which
+# 
+# .. math::
+#   \begin{equation}
+#       M = M_1 + M_2 + M_3 + M_4, \quad \text{and} \quad M_j = \Pi_j M_j \Pi_j \quad \text{for all} \quad j \in \{1,2,3,4\}.
+#   \end{equation}
+#
+# Indeed, such matrices do exist:
+# 
+# .. math::
+#    \begin{equation}
+#        M_1 = \begin{bmatrix}
+#            0 & 0 & 0 & 0 \\
+#            0 & 1 & -1 & 1 \\
+#            0 & -1 & 1 & -1 \\
+#            0 & 1 & -1 & 1
+#        \end{bmatrix}, \ M_2 = \begin{bmatrix}
+#            1 & 0 & 0 & -1 \\
+#            0 & 0 & 0 & 0 \\
+#            0 & 0 & 0 & 0 \\
+#            -1 & 0 & 0 & 1
+#        \end{bmatrix}, \ M_3 = \begin{bmatrix}
+#            0 & 0 & 0 & 0 \\
+#            0 & 0 & 0 & 0 \\
+#            0 & 0 & 0 & 0 \\
+#            0 & 0 & 0 & 0
+#        \end{bmatrix}, \ M_4 = \begin{bmatrix}
+#            1 & 1 & 1 & 0 \\
+#            1 & 1 & 1 & 0 \\
+#            1 & 1 & 1 & 0 \\
+#            0 & 0 & 0 & 0
+#        \end{bmatrix},
+#    \end{equation}
+#
+# so :math:`M` is :math:`3`-incoherent. For example, we can verify this numerically using the
+# :py:func:`~toqito.matrix_props.factor_width.factor_width`.
+
+mat = np.array(
+    [
+        [2, 1, 1, -1],
+        [1, 2, 0, 1],
+        [1, 0, 2, -1],
+        [-1, 1, -1, 2],
+    ],
+    dtype=np.complex128,
+)
+result = factor_width(mat, k=3)
+print(sum(result["factors"]))
+    
+# %%
+# To similarly determine whether or not :math:`M`` is :math:`2`-incoherent, we proceed further with the recursive
+# construction by computing
+#
+# .. math::
+#   \begin{equation}
+#       \begin{aligned}
+#           R_2 = \{S_{\{1,2\}}, S_{\{1,3\}}, S_{\{2,3\}}, S_{\{3,4\}}\}, \quad \text{where} \quad S_{\{1,2\}} = S_{\{1,4\}} = S_{\{2,4\}} & = \operatorname{span}\{(0,0,1,0)\}, \\
+#           S_{\{1,3\}} & = \operatorname{span}\{(0,1,0,1)\}, \\
+#           S_{\{2,3\}} & = \operatorname{span}\{(1,0,0,-1)\}, \ \ \text{and} \\
+#           S_{\{3,4\}} & = \operatorname{span}\{(1,1,0,0)\}.
+#       \end{aligned}
+#   \end{equation}
+#
+# It follows that the only vectors in :math:`\text{range}(M)` with :math:`k = 2` or fewer non-zero entries are the scalar
+# multiples of :math:`{v_1} := (0,0,1,0)`, :math:`{v_2} := (0,1,0,1)`, :math:`{v_3} := (1,0,0,-1)`, and :math:`{v_4} :=
+# (1,1,0,0)`, so :math:`M` is :math:`2`-incoherent if and only if there exist non-negative real scalars :math:`c_1`,
+# :math:`c_2`, :math:`c_3`, and :math:`c_4` for which
+#
+# .. math::
+#   \begin{equation}
+#       \begin{aligned}
+#           M = c_1{v_1}{v_1}^* + c_2{v_2}{v_2}^* + c_3{v_3}{v_3}^* + c_4{v_4}{v_4}^*.
+#       \end{aligned}
+#   \end{equation}
+#
+#    It is straightforward to use semidefinite programming (or even just solve by hand in this small example) to see
+#    that no such scalars exist, so :math:`X` is not :math:`2`-incoherent. It follows that :math:`X` has factor width
+#    :math:`3`.
+
+result = factor_width(mat, k=2)
 print(result["feasible"])

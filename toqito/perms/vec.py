@@ -74,7 +74,7 @@ def vec(mat: np.ndarray) -> np.ndarray:
 
     See Also
     ========
-    :func:`.unvec`
+    :py:func:`~toqito.matrix_ops.unvec.unvec`
 
     References
     ==========

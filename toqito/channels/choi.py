@@ -76,7 +76,7 @@ def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
 
     See Also
     ==========
-    :func:`.reduction`
+    :py:func:`~toqito.channels.reduction.reduction`
 
     References
     ==========
