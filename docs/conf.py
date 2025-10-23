@@ -81,9 +81,9 @@ sphinx_gallery_conf = {
 }
 
 autoapi_options = [
+    "members",
     "undoc-members",
     "show-inheritance",
-    "imported-members",
 ]
 
 
@@ -241,6 +241,9 @@ def setup(app):
 
 FAST_MODE = os.environ.get("TOQITO_DOCS_FAST") == "1"
 ONLY_DOC_TARGET = os.environ.get("TOQITO_DOCS_ONLY", "")
+
+if FAST_MODE:
+    tags.add("toqito_docs_fast")
 
 
 def maybe_strip_jupyter_blocks(app, what, name, obj, options, lines):
