@@ -388,3 +388,8 @@ def test_is_scs_solver_supports_cvxtag_and_strings():
     assert learnability_module._is_scs_solver(learnability_module.cp.SCS) is True
     assert learnability_module._is_scs_solver("SCS") is True
     assert learnability_module._is_scs_solver("ECOS") is False
+
+
+def test_is_scs_solver_strips_and_normalizes_strings():
+    """String inputs with extra whitespace still identify the SCS solver."""
+    assert learnability_module._is_scs_solver("  scs  ") is True
