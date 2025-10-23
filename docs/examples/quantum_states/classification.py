@@ -254,14 +254,10 @@ print(sum(result["factors"]))
 # construction by computing
 #
 # .. math::
-#   \begin{equation}
-#       \begin{aligned}
-#           R_2 = \{S_{\{1,2\}}, S_{\{1,3\}}, S_{\{2,3\}}, S_{\{3,4\}}\}, \quad \text{where} \quad S_{\{1,2\}} = S_{\{1,4\}} = S_{\{2,4\}} & = \operatorname{span}\{(0,0,1,0)\}, \\
-#           S_{\{1,3\}} & = \operatorname{span}\{(0,1,0,1)\}, \\
-#           S_{\{2,3\}} & = \operatorname{span}\{(1,0,0,-1)\}, \ \ \text{and} \\
-#           S_{\{3,4\}} & = \operatorname{span}\{(1,1,0,0)\}.
-#       \end{aligned}
-#   \end{equation}
+#
+#    R_2 = \{S_{\{1,2\}}, S_{\{1,3\}}, S_{\{2,3\}}, S_{\{3,4\}}\}, \quad \text{where} \quad S_{\{1,2\}} = S_{\{1,4\}} = S_{\{2,4\}} = \operatorname{span}\{(0,0,1,0)\},
+#
+#    S_{\{1,3\}} = \operatorname{span}\{(0,1,0,1)\}, \quad S_{\{2,3\}} = \operatorname{span}\{(1,0,0,-1)\}, \quad \text{and} \quad S_{\{3,4\}} = \operatorname{span}\{(1,1,0,0)\}.
 #
 # It follows that the only vectors in :math:`\text{range}(M)` with :math:`k = 2` or fewer non-zero entries are the scalar
 # multiples of :math:`{v_1} := (0,0,1,0)`, :math:`{v_2} := (0,1,0,1)`, :math:`{v_3} := (1,0,0,-1)`, and :math:`{v_4} :=
@@ -269,11 +265,8 @@ print(sum(result["factors"]))
 # :math:`c_2`, :math:`c_3`, and :math:`c_4` for which
 #
 # .. math::
-#   \begin{equation}
-#       \begin{aligned}
-#           M = c_1{v_1}{v_1}^* + c_2{v_2}{v_2}^* + c_3{v_3}{v_3}^* + c_4{v_4}{v_4}^*.
-#       \end{aligned}
-#   \end{equation}
+#
+#    M = c_1 v_1 v_1^* + c_2 v_2 v_2^* + c_3 v_3 v_3^* + c_4 v_4 v_4^*.
 #
 #    It is straightforward to use semidefinite programming (or even just solve by hand in this small example) to see
 #    that no such scalars exist, so :math:`X` is not :math:`2`-incoherent. It follows that :math:`X` has factor width

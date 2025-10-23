@@ -53,7 +53,7 @@ theorem :footcite:`Mayers_1997_Unconditionally,Lo_1997_Why`.
 #     committer) and Bob (the receiver). To fit this cryptographic scenario into
 #     our framework, we model the verifier, Bob, as the **Referee** who issues
 #     the challenge. The 'player Bob' defined in the code is therefore a
-#     necessary placeholder with trivial inputs and outputs, as his active role
+#     simple stand-in with trivial inputs and outputs, as his active role
 #     is handled by the Referee.
 #
 # *   **The Challenge (Referee's Input):** The Referee (Bob) will challenge Alice
