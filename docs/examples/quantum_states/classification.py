@@ -268,9 +268,9 @@ print(sum(result["factors"]))
 #
 #    M = c_1 v_1 v_1^* + c_2 v_2 v_2^* + c_3 v_3 v_3^* + c_4 v_4 v_4^*.
 #
-#    It is straightforward to use semidefinite programming (or even just solve by hand in this small example) to see
-#    that no such scalars exist, so :math:`X` is not :math:`2`-incoherent. It follows that :math:`X` has factor width
-#    :math:`3`.
+# It is straightforward to use semidefinite programming (or even just solve by hand in this small example) to see
+# that no such scalars exist, so :math:`X` is not :math:`2`-incoherent. It follows that :math:`X` has factor width
+# :math:`3`.
 
 result = factor_width(mat, k=2)
 print(result["feasible"])
