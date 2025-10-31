@@ -166,6 +166,9 @@ helpful in probing. Feel free to add to this list and/or contribute solutions!
 
 The |toqito⟩ project has been used or referenced in the following works:
 
+- [![a](https://img.shields.io/static/v1?label=arXiv&message=2510.20789&color=inactive&style=flat-square)](https://arxiv.org/abs/2510.20789) Lovitz, Benjamin and Johnston, Nathaniel and Russo, Vincent and Sikora, Jamie
+*"The complexity of perfect quantum state classification"*, arXiv:2510.20789, (2025).
+
 - [![a](https://img.shields.io/static/v1?label=arXiv&message=2311.17047&color=inactive&style=flat-square)](https://arxiv.org/abs/2311.17047) Johnston, Nathaniel and Russo, Vincent and Sikora, Jamie
 *"Tight bounds for antidistinguishability and circulant sets of pure quantum states"*, Quantum 9, 1622, (2025).
 
