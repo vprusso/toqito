@@ -154,7 +154,7 @@ def state_distinguishability(
         return _min_error_dual(vectors=vectors, dim=dim, probs=probs, solver=solver, **kwargs)
 
     if primal_dual == "primal":
-        return _unambiguous_primal(vectors=vectors, probs=probs, solver=solver, **kwargs)
+        return _unambiguous_primal(vectors=vectors, dim=dim, probs=probs, solver=solver, **kwargs)
 
     return _unambiguous_dual(vectors=vectors, probs=probs, solver=solver, **kwargs)
 
@@ -170,8 +170,7 @@ def _min_error_primal(
     n = len(vectors)
 
     problem = picos.Problem()
-    num_measurements = len(vectors)
-    measurements = [picos.HermitianVariable(f"M[{i}]", (dim, dim)) for i in range(num_measurements)]
+    measurements = [picos.HermitianVariable(f"M[{i}]", (dim, dim)) for i in range(n)]
 
     problem.add_list_of_constraints([meas >> 0 for meas in measurements])
     problem.add_constraint(picos.sum(measurements) == picos.I(dim))
@@ -207,8 +206,10 @@ def _min_error_dual(
     return solution.value, measurements
 
 
+
 def _unambiguous_primal(
     vectors: list[np.ndarray],
+    dim: int,
     probs: list[float] = None,
     solver: str = "cvxopt",
     **kwargs,
@@ -218,6 +219,8 @@ def _unambiguous_primal(
     Implemented according to Equation (5) of :footcite:`Gupta_2024_Unambiguous`:.
     """
     n = len(vectors)
+    probs = [1 / n] * n if probs is None else probs
+
     problem = picos.Problem()
 
     gram = vectors_to_gram_matrix(vectors)
@@ -226,9 +229,40 @@ def _unambiguous_primal(
     problem.add_constraint(gram - picos.diag(success_probabilities) >> 0)
     problem.set_objective("max", np.array(probs) | success_probabilities)
 
-    problem.solve(solver=solver, **kwargs)
+    solution = problem.solve(solver=solver, **kwargs)
+    value = float(solution.value)
 
-    return problem.value, (success_probabilities,)
+    # Extract numeric q_i.
+    q = np.array(success_probabilities.value, dtype=np.complex128).reshape(n)
+
+    # POVM reconstruction:
+
+    # Stack states into Psi = [psi_1 ... psi_n].
+    psi = np.hstack(vectors)  # shape (dim, n)
+
+    # Gram and its inverse (should match 'gram' up to numerical noise).
+    gram_np = psi.conj().T @ psi
+    gram_inv = np.linalg.inv(gram_np)
+
+    # Dual (reciprocal) states: Psi_tilde = Psi * Gamma^{-1}.
+    psi_tilde = psi @ gram_inv  # shape (dim, n)
+
+    measurements: list[np.ndarray] = []
+
+    # Conclusive POVM elements: M_i = q_i |psi_tilde_i><psi_tilde_i|.
+    for i in range(n):
+        phi_i = psi_tilde[:, [i]]  # column (dim, 1)
+        m_i = q[i] * (phi_i @ phi_i.conj().T)
+        # Symmetrize numerically.
+        m_i = 0.5 * (m_i + m_i.conj().T)
+        measurements.append(m_i)
+
+    # Inconclusive operator: M_0 = I - sum_i M_i
+    m_inconclusive = np.eye(dim, dtype=np.complex128) - sum(measurements)
+    m_inconclusive = 0.5 * (m_inconclusive + m_inconclusive.conj().T)
+    measurements.insert(0, m_inconclusive)
+
+    return value, measurements
 
 
 def _unambiguous_dual(
