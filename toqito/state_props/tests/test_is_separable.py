@@ -10,7 +10,7 @@ from toqito.matrix_props import is_density, is_positive_semidefinite
 from toqito.matrix_props.trace_norm import trace_norm
 from toqito.rand import random_density_matrix
 from toqito.state_props import is_separable
-from toqito.state_props.is_ppt import is_ppt
+from toqito.state_props import is_ppt
 from toqito.states import basis, bell, horodecki, isotropic, tile
 
 # --- Parameterized Tests for Invalid Inputs ---

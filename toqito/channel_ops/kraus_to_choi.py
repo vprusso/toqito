@@ -3,7 +3,7 @@
 import numpy as np
 
 from toqito.channel_ops import partial_channel
-from toqito.helper import channel_dim
+from toqito.channel_props import channel_dim
 from toqito.states import max_entangled
 
 

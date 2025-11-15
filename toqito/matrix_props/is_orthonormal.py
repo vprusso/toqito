@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from toqito.state_props.is_mutually_orthogonal import is_mutually_orthogonal
+from toqito.state_props import is_mutually_orthogonal
 
 
 def is_orthonormal(vectors: list[np.ndarray]) -> bool:

@@ -4,7 +4,7 @@ import numpy as np
 import pytest
 
 from toqito.channel_ops.kraus_to_choi import kraus_to_choi
-from toqito.channel_props.is_extremal import is_extremal
+from toqito.channel_props import is_extremal
 
 
 # Consolidated test for all extremal cases.

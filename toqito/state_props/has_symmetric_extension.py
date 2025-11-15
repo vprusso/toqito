@@ -5,7 +5,7 @@ from picos import partial_trace
 
 from toqito.matrix_props import is_positive_semidefinite
 from toqito.state_opt.symmetric_extension_hierarchy import symmetric_extension_hierarchy
-from toqito.state_props.is_ppt import is_ppt
+from toqito.state_props import is_ppt
 
 
 def has_symmetric_extension(

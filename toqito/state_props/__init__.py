@@ -1,30 +1,58 @@
-"""State Properties is a set of modules that implements some common properties of quantum states."""
+"""State properties module."""
 
-from toqito.state_props.is_ensemble import is_ensemble
-from toqito.state_props.is_pure import is_pure
-from toqito.state_props.is_mixed import is_mixed
-from toqito.state_props.is_mutually_orthogonal import is_mutually_orthogonal
-from toqito.state_props.is_mutually_unbiased_basis import is_mutually_unbiased_basis
-from toqito.state_props.is_ppt import is_ppt
-from toqito.state_props.abs_ppt_constraints import abs_ppt_constraints
-from toqito.state_props.is_abs_ppt import is_abs_ppt
-from toqito.state_props.is_npt import is_npt
-from toqito.state_props.is_product import is_product
-from toqito.state_props.concurrence import concurrence
-from toqito.state_props.negativity import negativity
-from toqito.state_props.log_negativity import log_negativity
-from toqito.state_props.purity import purity
-from toqito.state_props.schmidt_rank import schmidt_rank
-from toqito.state_props.von_neumann_entropy import von_neumann_entropy
-from toqito.state_props.entanglement_of_formation import entanglement_of_formation
-from toqito.state_props.l1_norm_coherence import l1_norm_coherence
-from toqito.state_props.in_separable_ball import in_separable_ball
-from toqito.state_props.is_separable import is_separable
-from toqito.state_props.has_symmetric_extension import has_symmetric_extension
-from toqito.state_props.sk_vec_norm import sk_vector_norm
-from toqito.state_props.is_antidistinguishable import is_antidistinguishable
-from toqito.state_props.is_distinguishable import is_distinguishable
-from toqito.state_props.is_unextendible_product_basis import is_unextendible_product_basis
-from toqito.state_props.common_quantum_overlap import common_quantum_overlap
-from toqito.state_props.renyi_entropy import renyi_entropy
-from toqito.state_props.learnability import learnability
+from importlib import import_module
+import sys
+
+__all__ = [
+    "abs_ppt_constraints",
+    "bures_angle",
+    "bures_distance",
+    "common_quantum_overlap",
+    "concurrence",
+    "entanglement_of_formation",
+    "fidelity",
+    "fidelity_of_separability",
+    "has_symmetric_extension",
+    "helstrom_holevo",
+    "hilbert_schmidt",
+    "hilbert_schmidt_inner_product",
+    "in_separable_ball",
+    "is_abs_ppt",
+    "is_antidistinguishable",
+    "is_distinguishable",
+    "is_ensemble",
+    "is_mixed",
+    "is_mutually_orthogonal",
+    "is_mutually_unbiased_basis",
+    "is_npt",
+    "is_product",
+    "is_ppt",
+    "is_pure",
+    "is_separable",
+    "is_unextendible_product_basis",
+    "l1_norm_coherence",
+    "learnability",
+    "log_negativity",
+    "matsumoto_fidelity",
+    "negativity",
+    "purity",
+    "renyi_entropy",
+    "schmidt_rank",
+    "sk_vector_norm",
+    "sub_fidelity",
+    "trace_distance",
+    "von_neumann_entropy",
+]
+
+
+def __getattr__(name):
+    if name not in __all__:
+        raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
+    module = import_module(f"{__name__}.{name}")
+    attr = getattr(module, name)
+    setattr(sys.modules[__name__], name, attr)
+    return attr
+
+
+def __dir__():
+    return sorted(__all__)

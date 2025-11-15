@@ -14,8 +14,7 @@ from toqito.matrix_props.kp_norm import kp_norm
 from toqito.perms.swap import swap
 from toqito.perms.symmetric_projection import symmetric_projection
 from toqito.state_ops.schmidt_decomposition import schmidt_decomposition
-from toqito.state_props.schmidt_rank import schmidt_rank
-from toqito.state_props.sk_vec_norm import sk_vector_norm
+from toqito.state_props import schmidt_rank, sk_vector_norm
 from toqito.states.max_entangled import max_entangled
 
 

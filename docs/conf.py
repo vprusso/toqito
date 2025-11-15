@@ -106,12 +106,10 @@ master_doc = "index"
 autoapi_dirs = ["../toqito"]
 autoapi_type = "python"
 autoapi_ignore = [
-    "*/channel_metrics/tests/*",
     "*/rand/tests/*",
     "*/perms/tests/*",
     "*/state_props/tests/*",
     "*/nonlocal_games/tests/*",
-    "*/state_metrics/tests/*",
     "*/channel_ops/tests/*",
     "*/helper/tests/*",
     "*/matrix_props/tests/*",

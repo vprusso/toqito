@@ -4,8 +4,7 @@ import cvxpy as cp
 import numpy as np
 
 from toqito.matrix_props import is_hermitian, is_positive_semidefinite, is_square
-from toqito.state_props.abs_ppt_constraints import abs_ppt_constraints
-from toqito.state_props.in_separable_ball import in_separable_ball
+from toqito.state_props import abs_ppt_constraints, in_separable_ball
 
 
 def is_abs_ppt(

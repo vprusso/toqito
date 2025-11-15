@@ -244,7 +244,7 @@ is_separable(rho)
 
 import numpy as np
 
-from toqito.state_metrics import fidelity
+from toqito.state_props import fidelity
 from toqito.states import bell
 
 # Define two identical density operators.

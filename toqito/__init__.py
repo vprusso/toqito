@@ -1,7 +1,6 @@
 """toqito package namespace."""
 
 __all__ = [
-    "channel_metrics",
     "channel_ops",
     "channel_props",
     "channels",
@@ -16,7 +15,6 @@ __all__ = [
     "perms",
     "rand",
     "random",
-    "state_metrics",
     "state_ops",
     "state_opt",
     "state_props",

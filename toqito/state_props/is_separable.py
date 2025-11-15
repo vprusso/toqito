@@ -11,9 +11,7 @@ from toqito.matrix_props.trace_norm import trace_norm
 from toqito.perms.swap import swap
 from toqito.perms.swap_operator import swap_operator
 from toqito.state_props import is_ppt
-from toqito.state_props.has_symmetric_extension import has_symmetric_extension
-from toqito.state_props.in_separable_ball import in_separable_ball
-from toqito.state_props.schmidt_rank import schmidt_rank
+from toqito.state_props import has_symmetric_extension, in_separable_ball, schmidt_rank
 from toqito.states.max_entangled import max_entangled
 
 
