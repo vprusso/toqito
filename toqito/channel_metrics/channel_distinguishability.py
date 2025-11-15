@@ -5,7 +5,7 @@ import picos as pc
 
 from toqito.channel_metrics import completely_bounded_trace_norm
 from toqito.channel_ops import kraus_to_choi
-from toqito.helper import channel_dim
+from toqito.channel_props.channel_dim import channel_dim
 
 
 def channel_distinguishability(
