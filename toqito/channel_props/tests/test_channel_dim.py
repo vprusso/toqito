@@ -3,7 +3,7 @@
 import numpy as np
 import pytest
 
-from toqito.helper import channel_dim
+from toqito.channel_props.channel_dim import channel_dim
 from toqito.matrices import pauli
 from toqito.perms import swap_operator
 

@@ -3,7 +3,7 @@
 import numpy as np
 
 from toqito.channel_ops import apply_channel
-from toqito.helper import channel_dim
+from toqito.channel_props.channel_dim import channel_dim
 from toqito.matrix_props import is_identity
 
 
