@@ -9,7 +9,7 @@ from toqito.matrix_ops import partial_transpose
 from toqito.perms import permutation_operator, swap
 
 
-def bell_inequality_max(
+def bell_inequality_max_qubits(
     joint_coe: np.ndarray,
     a_coe: np.ndarray,
     b_coe: np.ndarray,
@@ -54,7 +54,7 @@ def bell_inequality_max(
     .. jupyter-execute::
 
         import numpy as np
-        from toqito.state_opt import bell_inequality_max
+        from toqito.state_opt import bell_inequality_max_qubits
 
         joint_coe = np.array([
             [1, 1, -1],
@@ -66,7 +66,7 @@ def bell_inequality_max(
         a_val = np.array([0, 1])
         b_val = np.array([0, 1])
 
-        result = bell_inequality_max(joint_coe, a_coe, b_coe, a_val, b_val)
+        result = bell_inequality_max_qubits(joint_coe, a_coe, b_coe, a_val, b_val)
         print(f"Bell inequality maximum value: {result:.3f}")
 
     References
