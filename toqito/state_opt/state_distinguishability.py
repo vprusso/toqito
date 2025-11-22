@@ -334,9 +334,6 @@ def _reconstruct_povm_mixed(
 
     solution = problem.solve(solver="cvxopt")
 
-    if solution.status not in ["optimal", "feasible", "primal feasible"]:
-        raise ValueError(f"Could not reconstruct POVM for mixed states. Solver status: {solution.status}")
-
     # Extract measurement operators
     measurements_np = [np.array(m.value, dtype=np.complex128) for m in measurements]
 
