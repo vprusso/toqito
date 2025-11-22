@@ -332,7 +332,7 @@ def _reconstruct_povm_mixed(
     success_vars = [measurements[i] | vectors[i] for i in range(n)]
     problem.set_objective("max", picos.sum(success_vars))
 
-    solution = problem.solve(solver="cvxopt")
+    _ = problem.solve(solver="cvxopt")
 
     # Extract measurement operators
     measurements_np = [np.array(m.value, dtype=np.complex128) for m in measurements]
