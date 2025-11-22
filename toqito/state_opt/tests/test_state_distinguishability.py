@@ -26,6 +26,18 @@ states_unambiguous = [
     ([np.array([[1.0], [0.0]]), np.array([[1.0], [1.0]]) / np.sqrt(2)], 0.29289321881345254),
 ]
 
+# Mixed states for unambiguous discrimination
+states_unambiguous_mixed = [
+    # Two orthogonal mixed states (Werner-like states)
+    (
+        [
+            0.7 * np.array([[1.0, 0.0], [0.0, 0.0]]) + 0.3 * np.eye(2) / 2,
+            0.7 * np.array([[0.0, 0.0], [0.0, 1.0]]) + 0.3 * np.eye(2) / 2,
+        ],
+        0.49,
+    ),
+]
+
 probs_min_error = [None, [1 / 4, 1 / 4, 1 / 4, 1 / 4]]
 
 probs_unambiguous = [None, [1 / 2, 1 / 2]]
@@ -54,6 +66,29 @@ def test_state_distinguishability_unambiguous(vectors, probs, solver, primal_dua
         vectors=vectors, probs=probs, solver=solver, primal_dual=primal_dual, strategy="unambiguous"
     )
     assert abs(val - expected_result) <= 1e-8
+
+
+@pytest.mark.parametrize("vectors, expected_result", states_unambiguous_mixed)
+@pytest.mark.parametrize("solver", solvers)
+@pytest.mark.parametrize("primal_dual", primal_duals)
+@pytest.mark.parametrize("probs", probs_unambiguous)
+def test_state_distinguishability_unambiguous_mixed(vectors, probs, solver, primal_dual, expected_result):
+    """Test function works as expected for mixed states with the unambiguous strategy."""
+    val, measurements = state_distinguishability(
+        vectors=vectors, probs=probs, solver=solver, primal_dual=primal_dual, strategy="unambiguous"
+    )
+    assert abs(val - expected_result) <= 1e-2
+
+    # For primal, also verify POVM properties
+    if primal_dual == "primal":
+        # Check that measurements sum to at most identity
+        povm_sum = sum(measurements)
+        assert np.allclose(povm_sum, np.eye(len(vectors[0])), atol=1e-6)
+
+        # Check that all measurements are positive semidefinite
+        for m in measurements:
+            eigvals = np.linalg.eigvalsh(m)
+            assert np.all(eigvals >= -1e-8)
 
 
 @pytest.mark.parametrize(

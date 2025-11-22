@@ -89,7 +89,8 @@ def _check_psd_rank(mat: np.ndarray, max_rank: int) -> bool:
 
     # Solve problem.
     prob = cp.Problem(cp.Minimize(obj), constraints)
-    prob.solve(solver=cp.SCS, eps=1e-8)
+    # Use CVXOPT solver (project default) which handles nuclear norm and avoids SCS compatibility issues
+    prob.solve(solver=cp.CVXOPT)
 
     # Check if the problem is feasible and the objective is close to zero.
     return prob.status == cp.OPTIMAL and prob.value < 1e-6
