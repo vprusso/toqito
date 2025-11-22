@@ -61,7 +61,8 @@ def vectors_to_gram_matrix(vectors: list[np.ndarray]) -> np.ndarray:
 
 
     :raises ValueError: If the vectors are not all of the same shape.
-    :param vectors: A list of vectors (1D/column arrays for pure states) or density matrices (2D arrays for mixed states).
+    :param vectors: A list of vectors (1D/column arrays for pure states) or density matrices (2D arrays for
+        mixed states).
     :return: The Gram matrix with entries G[i,j] = ⟨vᵢ|vⱼ⟩ for vectors or Tr(ρᵢρⱼ) for density matrices.
 
     """
