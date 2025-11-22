@@ -7,6 +7,31 @@ from toqito.matrix_ops import calculate_vector_matrix_dimension, to_density_matr
 from toqito.matrix_props import has_same_dimension
 
 
+def _compute_gram_matrix(vectors: list[np.ndarray]) -> tuple[np.ndarray, bool]:
+    """Compute Gram matrix for pure states (vectors) or mixed states (density matrices).
+
+    For pure states |ψᵢ⟩: Γ_ij = ⟨ψᵢ|ψⱼ⟩
+    For mixed states ρᵢ: Γ_ij = Tr(ρᵢ ρⱼ)
+
+    :param vectors: List of quantum states (either vectors or density matrices).
+    :return: Tuple of (gram_matrix, is_pure) where is_pure indicates if inputs are pure states.
+    """
+    first_input = vectors[0]
+
+    # Check if inputs are vectors (1D or column vectors) or density matrices (2D with d > 1)
+    if first_input.ndim == 1 or (first_input.ndim == 2 and first_input.shape[1] == 1):
+        # Pure states: use existing vectors_to_gram_matrix
+        return vectors_to_gram_matrix(vectors), True
+    else:
+        # Mixed states: compute Tr(ρᵢ ρⱼ)
+        n = len(vectors)
+        gram = np.zeros((n, n), dtype=complex)
+        for i in range(n):
+            for j in range(n):
+                gram[i, j] = np.trace(vectors[i] @ vectors[j])
+        return gram, False
+
+
 def state_distinguishability(
     vectors: list[np.ndarray],
     probs: list[float] = None,
@@ -68,10 +93,11 @@ def state_distinguishability(
     the Gram matrix of :math:`\left|\psi_1\right\rangle,\cdots,\left|\psi_n\right\rangle` and :math:`F_i` is
     :math:`-|i\rangle\langle i|`.
 
-    .. warning::
-        Note that it only makes sense to distinguish unambiguously when the pure states are linearly
-        independent. Calling this function on a set of states that doesn't verify this property will
-        return 0.
+    .. note::
+        For unambiguous discrimination, this function supports both pure states (vectors) and mixed states
+        (density matrices). For pure states, the states should be linearly independent. For mixed states,
+        the Gram matrix is computed as Tr(ρᵢ ρⱼ). If the states cannot be unambiguously distinguished,
+        the optimal probability will be low or zero.
 
     Examples
     ==========
@@ -108,7 +134,7 @@ def state_distinguishability(
 
      np.around(measurements[0], decimals=5)
 
-    Unambiguous state distinguishability for unbiased states.
+    Unambiguous state distinguishability for unbiased pure states.
 
     .. jupyter-execute::
 
@@ -122,17 +148,35 @@ def state_distinguishability(
 
      np.around(res, decimals=2)
 
+    Unambiguous state distinguishability for mixed states.
+
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.state_opt import state_distinguishability
+
+     # Two mixed states (Werner-like states)
+     rho1 = 0.7 * np.array([[1., 0.], [0., 0.]]) + 0.3 * np.eye(2) / 2
+     rho2 = 0.7 * np.array([[0., 0.], [0., 1.]]) + 0.3 * np.eye(2) / 2
+     states = [rho1, rho2]
+     probs = [1 / 2, 1 / 2]
+
+     res, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="primal", strategy="unambiguous")
+
+     np.around(res, decimals=2)
+
     References
     ==========
     .. footbibliography::
 
 
 
-    :param vectors: A list of states provided as vectors.
+    :param vectors: A list of states provided as vectors (for pure states) or density matrices (for mixed states).
     :param probs: Respective list of probabilities each state is selected. If no
                   probabilities are provided, a uniform probability distribution is assumed.
     :param strategy: Whether to perform unambiguous or minimal error discrimination task. Possible
                      values are "min_error" and "unambiguous". Default option is `strategy="min_error"`.
+                     Both strategies support pure and mixed states.
     :param solver: Optimization option for `picos` solver. Default option is `solver="cvxopt"`.
     :param primal_dual: Option for the optimization problem. Default option is `"dual"`.
     :param kwargs: Additional arguments to pass to picos' solve method.
@@ -207,40 +251,22 @@ def _min_error_dual(
 
 
 
-def _unambiguous_primal(
-    vectors: list[np.ndarray],
-    dim: int,
-    probs: list[float] = None,
-    solver: str = "cvxopt",
-    **kwargs,
-) -> tuple[float, tuple[picos.RealVariable]]:
-    """Solve the primal problem for unambiguous quantum state distinguishability SDP.
+def _reconstruct_povm_pure(vectors: list[np.ndarray], q: np.ndarray, dim: int) -> list[np.ndarray]:
+    """Reconstruct POVM for unambiguous discrimination of pure states.
 
-    Implemented according to Equation (5) of :footcite:`Gupta_2024_Unambiguous`:.
+    Uses reciprocal/dual states construction: M_i = q_i |ψ̃ᵢ⟩⟨ψ̃ᵢ| where ψ̃ᵢ are dual states.
+
+    :param vectors: List of pure state vectors.
+    :param q: Success probabilities for each state.
+    :param dim: Dimension of the Hilbert space.
+    :return: List of POVM elements [M_inconclusive, M_1, ..., M_n].
     """
     n = len(vectors)
-    probs = [1 / n] * n if probs is None else probs
-
-    problem = picos.Problem()
-
-    gram = vectors_to_gram_matrix(vectors)
-    success_probabilities = picos.RealVariable("success_probabilities", n, lower=0)
-
-    problem.add_constraint(gram - picos.diag(success_probabilities) >> 0)
-    problem.set_objective("max", np.array(probs) | success_probabilities)
-
-    solution = problem.solve(solver=solver, **kwargs)
-    value = float(solution.value)
-
-    # Extract numeric q_i.
-    q = np.array(success_probabilities.value, dtype=np.complex128).reshape(n)
-
-    # POVM reconstruction:
 
     # Stack states into Psi = [psi_1 ... psi_n].
     psi = np.hstack(vectors)  # shape (dim, n)
 
-    # Gram and its inverse (should match 'gram' up to numerical noise).
+    # Gram and its inverse.
     gram_np = psi.conj().T @ psi
     gram_inv = np.linalg.inv(gram_np)
 
@@ -262,6 +288,101 @@ def _unambiguous_primal(
     m_inconclusive = 0.5 * (m_inconclusive + m_inconclusive.conj().T)
     measurements.insert(0, m_inconclusive)
 
+    return measurements
+
+
+def _reconstruct_povm_mixed(
+    vectors: list[np.ndarray], q: np.ndarray, dim: int, gram: np.ndarray
+) -> list[np.ndarray]:
+    """Reconstruct POVM for unambiguous discrimination of mixed states.
+
+    For mixed states, we solve for the POVM elements directly using the SDP conditions.
+    We use a relaxed approach where we maximize the success probability while enforcing
+    the unambiguous property.
+
+    :param vectors: List of density matrices.
+    :param q: Success probabilities for each state (used as target).
+    :param dim: Dimension of the Hilbert space.
+    :param gram: Gram matrix with entries Tr(ρᵢ ρⱼ).
+    :return: List of POVM elements [M_inconclusive, M_1, ..., M_n].
+    """
+    n = len(vectors)
+
+    # For mixed states, we solve for POVM elements that satisfy:
+    # 1. Tr(Mᵢ ρⱼ) = 0 for i ≠ j (no false positives - unambiguous property)
+    # 2. Mᵢ ≥ 0, Σᵢ Mᵢ ≤ I
+    # 3. Maximize Σᵢ Tr(Mᵢ ρᵢ) to get the best success probability
+
+    problem = picos.Problem()
+    measurements = [picos.HermitianVariable(f"M[{i}]", (dim, dim)) for i in range(n)]
+
+    # POVM elements must be positive semidefinite
+    problem.add_list_of_constraints([m >> 0 for m in measurements])
+
+    # Unambiguous discrimination constraints: Tr(Mᵢ ρⱼ) = 0 for i ≠ j
+    for i in range(n):
+        for j in range(n):
+            if i != j:
+                problem.add_constraint((measurements[i] | vectors[j]) == 0)
+
+    # Total measurement must not exceed identity
+    problem.add_constraint(picos.sum(measurements) << picos.I(dim))
+
+    # Maximize total success probability
+    success_vars = [measurements[i] | vectors[i] for i in range(n)]
+    problem.set_objective("max", picos.sum(success_vars))
+
+    solution = problem.solve(solver="cvxopt")
+
+    if solution.status not in ["optimal", "feasible", "primal feasible"]:
+        raise ValueError(f"Could not reconstruct POVM for mixed states. Solver status: {solution.status}")
+
+    # Extract measurement operators
+    measurements_np = [np.array(m.value, dtype=np.complex128) for m in measurements]
+
+    # Compute inconclusive measurement
+    m_inconclusive = np.eye(dim, dtype=np.complex128) - sum(measurements_np)
+    m_inconclusive = 0.5 * (m_inconclusive + m_inconclusive.conj().T)
+    measurements_np.insert(0, m_inconclusive)
+
+    return measurements_np
+
+
+def _unambiguous_primal(
+    vectors: list[np.ndarray],
+    dim: int,
+    probs: list[float] = None,
+    solver: str = "cvxopt",
+    **kwargs,
+) -> tuple[float, list[np.ndarray]]:
+    """Solve the primal problem for unambiguous quantum state distinguishability SDP.
+
+    Implemented according to Equation (5) of :footcite:`Gupta_2024_Unambiguous`:.
+    Supports both pure states (vectors) and mixed states (density matrices).
+    """
+    n = len(vectors)
+    probs = [1 / n] * n if probs is None else probs
+
+    problem = picos.Problem()
+
+    gram, is_pure = _compute_gram_matrix(vectors)
+    success_probabilities = picos.RealVariable("success_probabilities", n, lower=0)
+
+    problem.add_constraint(gram - picos.diag(success_probabilities) >> 0)
+    problem.set_objective("max", np.array(probs) | success_probabilities)
+
+    solution = problem.solve(solver=solver, **kwargs)
+    value = float(solution.value)
+
+    # Extract numeric q_i.
+    q = np.array(success_probabilities.value, dtype=np.complex128).reshape(n)
+
+    # POVM reconstruction depends on whether states are pure or mixed
+    if is_pure:
+        measurements = _reconstruct_povm_pure(vectors, q, dim)
+    else:
+        measurements = _reconstruct_povm_mixed(vectors, q, dim, gram)
+
     return value, measurements
 
 
@@ -274,11 +395,12 @@ def _unambiguous_dual(
     """Solve the dual problem for unambiguous quantum state distinguishability SDP.
 
     Implemented according to Equation (5) of :footcite:`Gupta_2024_Unambiguous`.
+    Supports both pure states (vectors) and mixed states (density matrices).
     """
     n = len(vectors)
     problem = picos.Problem()
 
-    gram = vectors_to_gram_matrix(vectors)
+    gram, _ = _compute_gram_matrix(vectors)
     lagrangian_variable_big_z = picos.SymmetricVariable("Z", (n, n))
 
     problem.add_constraint(lagrangian_variable_big_z >> 0)

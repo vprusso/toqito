@@ -34,6 +34,11 @@ def ppt_distinguishability(
     For more background, see the ``state_distinguishability`` example in the
     quantum states gallery.
 
+    .. note::
+        This function supports both pure states (vectors) and mixed states (density matrices).
+        The PPT constraints are applied to the measurement operators to restrict the class of
+        allowed measurements.
+
     Examples
     ==========
 

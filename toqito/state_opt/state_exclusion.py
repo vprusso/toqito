@@ -84,6 +84,7 @@ def state_exclusion(
 
 
     .. note::
+        This function supports both pure states (vectors) and mixed states (density matrices).
         It is known that it is always possible to perfectly exclude pure states that are linearly dependent.
         Thus, calling this function on a set of states with this property will return 0.
 
@@ -117,7 +118,7 @@ def state_exclusion(
 
      np.around(state_exclusion(vectors, probs)[0], decimals=2)
 
-    Unambiguous state exclusion for unbiased states.
+    Unambiguous state exclusion for unbiased pure states.
 
     .. jupyter-execute::
 
@@ -127,6 +128,22 @@ def state_exclusion(
      states = [np.array([[1.], [0.]]), np.array([[1.],[1.]]) / np.sqrt(2)]
 
      res, _ = state_exclusion(states, primal_dual="primal", strategy="unambiguous", abs_ipm_opt_tol=1e-7)
+
+     np.around(res, decimals=2)
+
+    State exclusion for mixed states.
+
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.state_opt import state_exclusion
+
+     # Two mixed states
+     rho1 = 0.7 * np.array([[1., 0.], [0., 0.]]) + 0.3 * np.eye(2) / 2
+     rho2 = 0.7 * np.array([[0., 0.], [0., 1.]]) + 0.3 * np.eye(2) / 2
+     states = [rho1, rho2]
+
+     res, _ = state_exclusion(states, primal_dual="dual")
 
      np.around(res, decimals=2)
 
@@ -143,11 +160,11 @@ def state_exclusion(
 
 
 
-    :param vectors: A list of states provided as vectors.
+    :param vectors: A list of states provided as vectors (for pure states) or density matrices (for mixed states).
     :param probs: Respective list of probabilities each state is selected. If no
                   probabilities are provided, a uniform probability distribution is assumed.
     :param strategy: Whether to perform minimal error or unambiguous discrimination task. Possible values are
-                     "min_error" and "unambiguous".
+                     "min_error" and "unambiguous". Both strategies support pure and mixed states.
     :param solver: Optimization option for `picos` solver. Default option is `solver_option="cvxopt"`.
     :param primal_dual: Option for the optimization problem.
     :param kwargs: Additional arguments to pass to picos' solve method.
