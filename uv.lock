@@ -1801,13 +1801,13 @@ wheels = [
 
 [[package]]
 name = "picos"
-version = "2.6.0"
+version = "2.6.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "cvxopt" },
     { name = "numpy" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/9a/50/19480985292c26526578d1aa8e8bc8ae09b54fde1482a272d7415977bc66/picos-2.6.0.tar.gz", hash = "sha256:2d4e4ec629e10c17b043fdf6731c8e490c947b1303f31749224aec89a5818a5b", size = 541213, upload-time = "2025-02-08T12:58:26.411Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/89/6d/4b4b28b767cec4fbf9d2c4dd280134f342356ccb551f5963e80144b227dc/picos-2.6.2.tar.gz", hash = "sha256:f3af4f9e98f0c449eb4b602d7e4e02cc0927e7a9094aa53f5d79a7487659e433", size = 541158, upload-time = "2025-10-13T08:50:16.686Z" }
 
 [[package]]
 name = "pillow"
@@ -2896,7 +2896,7 @@ requires-dist = [
     { name = "networkx", specifier = ">=3.4,<4.0" },
     { name = "numba", specifier = ">=0.62.0,<0.63.0" },
     { name = "numpy", specifier = "==2.2.6" },
-    { name = "picos", specifier = "==2.6.0" },
+    { name = "picos", specifier = ">=2.6.2" },
     { name = "scipy", specifier = "==1.15.3" },
     { name = "scs", specifier = "==3.2.7.post2" },
 ]

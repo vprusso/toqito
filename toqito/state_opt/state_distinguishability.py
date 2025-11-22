@@ -7,29 +7,13 @@ from toqito.matrix_ops import calculate_vector_matrix_dimension, to_density_matr
 from toqito.matrix_props import has_same_dimension
 
 
-def _compute_gram_matrix(vectors: list[np.ndarray]) -> tuple[np.ndarray, bool]:
-    """Compute Gram matrix for pure states (vectors) or mixed states (density matrices).
+def _is_pure_state(vector: np.ndarray) -> bool:
+    """Check if input is a pure state (vector) or mixed state (density matrix).
 
-    For pure states |ψᵢ⟩: Γ_ij = ⟨ψᵢ|ψⱼ⟩
-    For mixed states ρᵢ: Γ_ij = Tr(ρᵢ ρⱼ)
-
-    :param vectors: List of quantum states (either vectors or density matrices).
-    :return: Tuple of (gram_matrix, is_pure) where is_pure indicates if inputs are pure states.
+    :param vector: Quantum state as vector or density matrix.
+    :return: True if pure state (vector), False if mixed state (density matrix).
     """
-    first_input = vectors[0]
-
-    # Check if inputs are vectors (1D or column vectors) or density matrices (2D with d > 1)
-    if first_input.ndim == 1 or (first_input.ndim == 2 and first_input.shape[1] == 1):
-        # Pure states: use existing vectors_to_gram_matrix
-        return vectors_to_gram_matrix(vectors), True
-    else:
-        # Mixed states: compute Tr(ρᵢ ρⱼ)
-        n = len(vectors)
-        gram = np.zeros((n, n), dtype=complex)
-        for i in range(n):
-            for j in range(n):
-                gram[i, j] = np.trace(vectors[i] @ vectors[j])
-        return gram, False
+    return vector.ndim == 1 or (vector.ndim == 2 and vector.shape[1] == 1)
 
 
 def state_distinguishability(
@@ -362,7 +346,8 @@ def _unambiguous_primal(
 
     problem = picos.Problem()
 
-    gram, is_pure = _compute_gram_matrix(vectors)
+    gram = vectors_to_gram_matrix(vectors)
+    is_pure = _is_pure_state(vectors[0])
     success_probabilities = picos.RealVariable("success_probabilities", n, lower=0)
 
     problem.add_constraint(gram - picos.diag(success_probabilities) >> 0)
@@ -397,7 +382,7 @@ def _unambiguous_dual(
     n = len(vectors)
     problem = picos.Problem()
 
-    gram, _ = _compute_gram_matrix(vectors)
+    gram = vectors_to_gram_matrix(vectors)
     lagrangian_variable_big_z = picos.SymmetricVariable("Z", (n, n))
 
     problem.add_constraint(lagrangian_variable_big_z >> 0)
