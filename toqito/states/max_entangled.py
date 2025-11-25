@@ -56,6 +56,10 @@ def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True)
     :return: The maximally entangled state of dimension :code:`dim`.
 
     """
+    # Allow both standard int and numpy integer types
+    if not isinstance(dim, (int, np.integer)) or dim <= 0:
+        raise ValueError("Dimension must be a positive integer.")
+
     norm_factor = 1 / np.sqrt(dim) if is_normalized else 1.0
     idx = np.arange(dim) * (dim + 1)  # positions of nonzero entries in flattened form.
 

@@ -21,3 +21,10 @@ def test_max_entangled(dim, is_sparse, is_normalized, expected_res):
     """Test function works as expected for a valid input."""
     res = max_entangled(dim=dim, is_sparse=is_sparse, is_normalized=is_normalized)
     np.testing.assert_allclose(res, expected_res)
+
+
+@pytest.mark.parametrize("dim", [-1, 0, 1.5])
+def test_max_entangled_invalid_dim(dim):
+    """Test function raises ValueError for invalid input."""
+    with pytest.raises(ValueError, match="Dimension must be a positive integer."):
+        max_entangled(dim=dim)
