@@ -87,7 +87,7 @@ jobs:
 
     
     - name: Checkout toqito repository at the current/mentioned commit
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
       with:
         path: toqito
         ref: ${{ steps.defaults.outputs.target_ref }}
@@ -114,7 +114,7 @@ jobs:
         echo "================================"
     
     - name: Checkout toqito-bench repository  
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
       with:
         repository: vprusso/toqito-bench
         path: toqito-bench
