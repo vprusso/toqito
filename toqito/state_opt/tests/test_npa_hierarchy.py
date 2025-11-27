@@ -649,8 +649,21 @@ def test_bell_npa_constraints_output_structure(k, desc, expected_gamma_shape):
     [
         ((), [2, 2, 2, 2], 0),
         ((Symbol("Alice", 0, 0),), [2, 2, 2, 2], 1),
+        ((Symbol("Alice", 1, 0),), [2, 2, 2, 2], 2),
+        ((Symbol("Bob", 0, 0),), [2, 2, 2, 2], 3),
+        ((Symbol("Bob", 1, 0),), [2, 2, 2, 2], 6),
         ((Symbol("Alice", 0, 0), Symbol("Bob", 0, 0)), [2, 2, 2, 2], 4),
-        # ... Add other representative cases ...
+        ((Symbol("Alice", 1, 0), Symbol("Bob", 1, 0)), [2, 2, 2, 2], 8),
+        ((Symbol("Alice", 0, 0), Symbol("Alice", 1, 0)), [2, 2, 2, 2], None),
+        ((Symbol("Alice", 0, 0), Symbol("Bob", 0, 0), Symbol("Bob", 1, 0)), [2, 2, 2, 2], None),
+        ((), [3, 3, 2, 2], 0),
+        ((Symbol("Alice", 0, 0),), [3, 3, 2, 2], 1),
+        ((Symbol("Alice", 0, 1),), [3, 3, 2, 2], 2),
+        ((Symbol("Alice", 1, 0),), [3, 3, 2, 2], 3),
+        ((Symbol("Bob", 0, 0),), [3, 3, 2, 2], 5),
+        ((Symbol("Bob", 1, 1),), [3, 3, 2, 2], 20),
+        ((Symbol("Alice", 0, 0), Symbol("Bob", 0, 0)), [3, 3, 2, 2], 6),
+        ((Symbol("Alice", 1, 1), Symbol("Bob", 1, 1)), [3, 3, 2, 2], 24),
     ],
 )
 def test_word_to_p_cg_index(word, desc, expected_index):
