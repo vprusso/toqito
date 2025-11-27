@@ -13,8 +13,8 @@ from toqito.state_opt.npa_hierarchy import (
     _gen_words,
     _parse,
     _reduce,
-    _word_to_p_cg_index,  # Added (if exposed for testing, otherwise test implicitly)
-    bell_npa_constraints,  # Added
+    _word_to_p_cg_index,
+    bell_npa_constraints,
     npa_constraints,
 )
 
