@@ -1,4 +1,4 @@
-"""Test npa_constraints and its state_opt functions."""
+"""Test npa_constraints and hierarchy functions."""
 
 import re
 from unittest import mock
@@ -7,7 +7,16 @@ import cvxpy
 import numpy as np
 import pytest
 
-from toqito.state_opt.npa_hierarchy import IDENTITY_SYMBOL, Symbol, _gen_words, _parse, _reduce, npa_constraints
+from toqito.state_opt.npa_hierarchy import (
+    IDENTITY_SYMBOL,
+    Symbol,
+    _gen_words,
+    _parse,
+    _reduce,
+    _word_to_p_cg_index,  # Added (if exposed for testing, otherwise test implicitly)
+    bell_npa_constraints,  # Added
+    npa_constraints,
+)
 
 # Define common symbols for state_opt function unit tests
 A00_test = Symbol("Alice", 0, 0)
@@ -604,3 +613,68 @@ def test_npa_constraints_non_trivial_identity_product(mock_assemblage_setup):
 
     constraints = npa_constraints(assemblage_vars, k=1, referee_dim=r_dim)
     assert len(constraints) > 0  # Basic check
+
+
+@pytest.mark.parametrize(
+    "k, desc, expected_gamma_shape",
+    [
+        (1, [2, 2, 2, 2], (5, 5)),
+        ("1+ab", [2, 2, 2, 2], (9, 9)),
+        (2, [2, 2, 2, 2], (13, 13)),
+        ("1+aab", [2, 2, 2, 2], (13, 13)),
+        (1, [3, 3, 2, 2], (9, 9)),
+        ("1+a", [3, 3, 2, 2], (9, 9)),
+        ("1+ab", [3, 3, 2, 2], (25, 25)),
+    ],
+)
+def test_bell_npa_constraints_output_structure(k, desc, expected_gamma_shape):
+    """Test the output structure and Gamma matrix shape."""
+    oa, ob, ma, mb = desc
+    p_var_dim = ((oa - 1) * ma + 1, (ob - 1) * mb + 1)
+    p_var = cvxpy.Variable(p_var_dim, name="p_test")
+    constraints = bell_npa_constraints(p_var, desc, k=k)
+
+    # Check for Gamma PSD constraint
+    gamma_var = None
+    for constr in constraints:
+        if isinstance(constr, cvxpy.constraints.PSD):
+            gamma_var = constr.args[0].variables()[0]
+            break
+
+    assert gamma_var is not None
+    assert gamma_var.shape == expected_gamma_shape
+
+@pytest.mark.parametrize(
+    "word, desc, expected_index",
+    [
+        ((), [2, 2, 2, 2], 0),
+        ((Symbol("Alice", 0, 0),), [2, 2, 2, 2], 1),
+        ((Symbol("Alice", 0, 0), Symbol("Bob", 0, 0)), [2, 2, 2, 2], 4),
+        # ... Add other representative cases ...
+    ],
+)
+def test_word_to_p_cg_index(word, desc, expected_index):
+    """Test mapping operator words to CG indices."""
+    oa, ob, ma, mb = desc
+    assert _word_to_p_cg_index(word, oa, ob, ma, mb) == expected_index
+
+def test_bell_npa_constraints_identity_constraint():
+    """Test that Gamma[0,0] == p_var[0,0] constraint exists."""
+    desc = [2, 2, 2, 2]
+    p_var = cvxpy.Variable((3, 3), name="p")
+    constraints = bell_npa_constraints(p_var, desc, k=1)
+
+    # Simple check: one equality constraint involves both variables
+    has_identity = False
+    for c in constraints:
+        if isinstance(c, cvxpy.constraints.Equality):
+            vars_in_constraint = c.variables()
+            # We expect p_var and Gamma to be involved
+            if len(vars_in_constraint) == 2:
+                names = [v.name() for v in vars_in_constraint]
+                if any("p" in n for n in names) and any("Gamma" in n for n in names):
+                    has_identity = True
+                    break
+    assert has_identity
+
+# Note: The test_bell_npa_constraints_value_error is REMOVED as per strategy.

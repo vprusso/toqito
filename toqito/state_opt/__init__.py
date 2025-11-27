@@ -7,7 +7,6 @@ from toqito.state_opt.optimal_clone import optimal_clone
 from toqito.state_opt.ppt_distinguishability import ppt_distinguishability
 from toqito.state_opt.state_distinguishability import state_distinguishability
 from toqito.state_opt.state_exclusion import state_exclusion
-from toqito.state_opt.npa_hierarchy import npa_constraints
+from toqito.state_opt.npa_hierarchy import npa_constraints, bell_npa_constraints
 from toqito.state_opt.symmetric_extension_hierarchy import symmetric_extension_hierarchy
-from toqito.state_opt.bell_inequality_max_qubits import bell_inequality_max_qubits
-from toqito.state_opt.bell_npa_constraints import bell_npa_constraints
+from toqito.state_opt.bell_inequality_max import bell_inequality_max, bell_inequality_max_qubits
