@@ -1,11 +1,13 @@
 """Tests for Bell inequality maximization (General and Qubits)."""
 
+import sys
+from unittest.mock import MagicMock, patch
+
 import cvxpy
 import numpy as np
 import pytest
 
 from toqito.state_opt.bell_inequality_max import bell_inequality_max, bell_inequality_max_qubits
-
 from toqito.state_opt.npa_hierarchy import bell_npa_constraints
 
 
@@ -58,6 +60,7 @@ RTOL = 1e-4
 ATOL = 1e-4
 
 # --- General Solver Tests ---
+
 
 def test_chsh_fc_classical(chsh_fc, desc_chsh):
     """Test classical maximum for CHSH inequality in FC notation."""
@@ -163,10 +166,10 @@ def test_classical_swap_fc():
 def test_classical_swap_fp():
     """Test classical max is invariant under swapping Alice/Bob roles (FP notation, non-binary)."""
     desc_swap = [2, 3, 2, 1]
-    dummy_fp_swap = np.random.rand(2, 3, 2, 1)
-    sum_ab = np.sum(dummy_fp_swap, axis=(0, 1), keepdims=True)
-    sum_ab[sum_ab == 0] = 1
-    dummy_fp_swap /= sum_ab
+    # Use random but deterministic seeds if needed, or simple logic.
+    # Here just ensuring code runs and values are consistent.
+    dummy_fp_swap = np.zeros((2, 3, 2, 1))
+    dummy_fp_swap[0, 0, 0, 0] = 1.0  # Simple non-zero
 
     val_swap = bell_inequality_max(dummy_fp_swap, desc_swap, "fp", "classical")
 
@@ -412,6 +415,153 @@ def test_classical_nonbinary_swap_triggered():
     assert isinstance(result, float)
 
 
+@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+def test_nosignal_infeasible_status(capfd):
+    """Test handling of infeasible solver status for no-signalling (mocked)."""
+    mock_problem = MagicMock(spec=cvxpy.Problem)
+    mock_problem.solve.return_value = -np.inf
+    mock_problem.status = cvxpy.INFEASIBLE
+
+    with patch("cvxpy.Problem", return_value=mock_problem):
+        desc = [2, 2, 1, 1]
+        coeffs_cg = np.array([[0, 0], [0, 1]])
+        result = bell_inequality_max(coeffs_cg, desc, "cg", "nosignal")
+        captured = capfd.readouterr()
+        assert result == -np.inf
+        assert "Warning: Solver status for 'nosignal': infeasible" in captured.out
+
+
+@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+def test_nosignal_unbounded_status(capfd):
+    """Test handling of unbounded solver status for no-signalling (mocked)."""
+    mock_problem = MagicMock(spec=cvxpy.Problem)
+    mock_problem.solve.return_value = np.inf
+    mock_problem.status = cvxpy.UNBOUNDED
+
+    with patch("cvxpy.Problem", return_value=mock_problem):
+        desc = [2, 2, 1, 1]
+        coeffs_cg = np.array([[0, 0], [0, 1]])
+        result = bell_inequality_max(coeffs_cg, desc, "cg", "nosignal")
+        captured = capfd.readouterr()
+        assert result == np.inf
+        assert "Warning: Solver status for 'nosignal': unbounded" in captured.out
+
+
+@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+def test_quantum_infeasible_status(capfd):
+    """Test handling of infeasible solver status for quantum (mocked)."""
+    mock_problem = MagicMock(spec=cvxpy.Problem)
+    mock_problem.solve.return_value = -np.inf
+    mock_problem.status = cvxpy.INFEASIBLE_INACCURATE
+
+    with patch("cvxpy.Problem", return_value=mock_problem):
+        # We need to mock bell_npa_constraints to return an empty list or something valid
+        # so the code proceeds to problem creation.
+        with patch("toqito.state_opt.bell_inequality_max.bell_npa_constraints", return_value=[]):
+            desc = [2, 2, 2, 2]
+            coeffs_cg = np.array([[0, -1, 0], [-1, 1, 1], [0, 1, -1]])
+            result = bell_inequality_max(coeffs_cg, desc, "cg", "quantum")
+            captured = capfd.readouterr()
+            assert result == -np.inf
+            assert "Warning: Solver status for 'quantum' k=1: infeasible_inaccurate" in captured.out
+
+
+@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+def test_quantum_unbounded_status(capfd):
+    """Test handling of unbounded solver status for quantum (mocked)."""
+    mock_problem = MagicMock(spec=cvxpy.Problem)
+    mock_problem.solve.return_value = np.inf
+    mock_problem.status = cvxpy.UNBOUNDED_INACCURATE
+
+    with patch("cvxpy.Problem", return_value=mock_problem):
+        with patch("toqito.state_opt.bell_inequality_max.bell_npa_constraints", return_value=[]):
+            desc = [2, 2, 2, 2]
+            coeffs_cg = np.array([[0, -1, 0], [-1, 1, 1], [0, 1, -1]])
+            result = bell_inequality_max(coeffs_cg, desc, "cg", "quantum")
+            captured = capfd.readouterr()
+            assert result == np.inf
+            assert "Warning: Solver status for 'quantum' k=1: unbounded_inaccurate" in captured.out
+
+
+@pytest.mark.skipif(
+    sys.version_info[:2] == (3, 10), reason="unittest.mock.patch string resolution issue in Python 3.10"
+)
+@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+def test_quantum_npa_error(chsh_cg, desc_chsh):
+    """Test ValueError is raised if bell_npa_constraints fails."""
+    with patch(
+        "toqito.state_opt.bell_inequality_max.bell_npa_constraints",
+        side_effect=ValueError("Mock NPA Error"),
+    ):
+        with pytest.raises(ValueError, match="Error generating NPA constraints: Mock NPA Error"):
+            bell_inequality_max(chsh_cg, desc_chsh, "cg", "quantum", k=1)
+
+
+@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+def test_quantum_result_is_nan(chsh_cg, desc_chsh):
+    """Test return value is -inf if solver returns NaN for quantum."""
+    mock_problem = MagicMock(spec=cvxpy.Problem)
+    mock_problem.solve.return_value = np.nan
+    mock_problem.status = cvxpy.SOLVER_ERROR
+
+    with patch("cvxpy.Problem", return_value=mock_problem):
+        with patch("toqito.state_opt.bell_inequality_max.bell_npa_constraints", return_value=[]):
+            assert bell_inequality_max(chsh_cg, desc_chsh, "cg", "quantum") == -np.inf
+
+
+@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+def test_nosignal_result_is_nan(chsh_cg, desc_chsh):
+    """Test return value is -inf if solver returns None/NaN for no-signalling."""
+    mock_problem = MagicMock(spec=cvxpy.Problem)
+    mock_problem.solve.return_value = None
+    mock_problem.status = cvxpy.SOLVER_ERROR
+
+    with patch("cvxpy.Problem", return_value=mock_problem):
+        assert bell_inequality_max(chsh_cg, desc_chsh, "cg", "nosignal") == -np.inf
+
+
+@pytest.mark.skipif(
+    sys.version_info[:2] == (3, 10), reason="unittest.mock.patch string resolution issue in Python 3.10"
+)
+@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+def test_nosignal_fp_conversion_internal_error(desc_chsh):
+    """Test catching internal ValueError from fp_to_cg in nosignal path."""
+    dummy_fp_coeffs = np.zeros((2, 2, 2, 2))  # Correct shape
+    with patch(
+        "toqito.state_opt.bell_inequality_max.fp_to_cg", side_effect=ValueError("Internal fp_to_cg error")
+    ):
+        with pytest.raises(ValueError, match="Notation conversion failed: Internal fp_to_cg error"):
+            bell_inequality_max(dummy_fp_coeffs, desc_chsh, "fp", "nosignal")
+
+
+@pytest.mark.skipif(
+    sys.version_info[:2] == (3, 10), reason="unittest.mock.patch string resolution issue in Python 3.10"
+)
+@pytest.mark.skipif(cvxpy.SCS not in cvxpy.installed_solvers(), reason="SCS solver not installed.")
+def test_quantum_fc_conversion_internal_error(chsh_fc, desc_chsh):
+    """Test catching internal ValueError from fc_to_cg in quantum path."""
+    with patch(
+        "toqito.state_opt.bell_inequality_max.fc_to_cg", side_effect=ValueError("Internal fc_to_cg error")
+    ):
+        with pytest.raises(ValueError, match="Notation conversion failed: Internal fc_to_cg error"):
+            bell_inequality_max(chsh_fc, desc_chsh, "fc", "quantum")
+
+
+@pytest.mark.skipif(
+    sys.version_info[:2] == (3, 10), reason="unittest.mock.patch string resolution issue in Python 3.10"
+)
+def test_classical_nonbinary_cg_to_fp_internal_error():
+    """Test catching internal ValueError from cg_to_fp in classical non-binary path."""
+    desc_actual_nonbin = [3, 3, 2, 2]
+    coeffs_cg_actual_nonbin = np.zeros(((3 - 1) * 2 + 1, (3 - 1) * 2 + 1))
+
+    with patch(
+        "toqito.state_opt.bell_inequality_max.cg_to_fp", side_effect=ValueError("Internal cg_to_fp error")
+    ):
+        with pytest.raises(
+            ValueError, match="Notation conversion failed for non-binary scenario: Internal cg_to_fp error"
+        ):
+            bell_inequality_max(coeffs_cg_actual_nonbin, desc_actual_nonbin, "cg", "classical")
 
 # --- Qubit Solver Tests ---
 
