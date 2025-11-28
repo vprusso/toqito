@@ -9,4 +9,4 @@ from toqito.state_opt.state_distinguishability import state_distinguishability
 from toqito.state_opt.state_exclusion import state_exclusion
 from toqito.state_opt.npa_hierarchy import npa_constraints, bell_npa_constraints
 from toqito.state_opt.symmetric_extension_hierarchy import symmetric_extension_hierarchy
-from toqito.state_opt.bell_inequality_max import bell_inequality_max, bell_inequality_max_qubits
+from toqito.state_opt.bell_inequality_max import bell_inequality_max_general, bell_inequality_max_qubits

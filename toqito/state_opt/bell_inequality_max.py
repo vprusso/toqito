@@ -87,7 +87,7 @@ def _cg_to_fp_cp(p_cg_var: cp.Variable, desc: list[int]) -> list[cp.Expression]:
     return fp_expressions
 
 
-def bell_inequality_max(
+def bell_inequality_max_general(
     coefficients: np.ndarray,
     desc: list[int],
     notation: str,
@@ -121,12 +121,12 @@ def bell_inequality_max(
     .. jupyter-execute::
 
         import numpy as np
-        from toqito.nonlocal_games.bell_inequality_max import bell_inequality_max
+        from toqito.state_opt.bell_inequality_max import bell_inequality_max_general
         M_chsh_fc = np.array([[0, 0, 0], [0, 1, 1], [0, 1, -1]])
         desc_chsh = [2, 2, 2, 2]
-        bell_inequality_max(M_chsh_fc, desc_chsh, 'fc', 'classical')
-        bell_inequality_max(M_chsh_fc, desc_chsh, 'fc', 'quantum', tol=1e-7)
-        bell_inequality_max(M_chsh_fc, desc_chsh, 'fc', 'nosignal', tol=1e-9)
+        bell_inequality_max_general(M_chsh_fc, desc_chsh, 'fc', 'classical')
+        bell_inequality_max_general(M_chsh_fc, desc_chsh, 'fc', 'quantum', tol=1e-7)
+        bell_inequality_max_general(M_chsh_fc, desc_chsh, 'fc', 'nosignal', tol=1e-9)
 
     ==========
 
@@ -145,12 +145,12 @@ def bell_inequality_max(
     .. jupyter-execute::
 
         import numpy as np
-        from toqito.nonlocal_games.bell_inequality_max import bell_inequality_max
+        from toqito.state_opt import bell_inequality_max_general
         M_chsh_cg = np.array([[0, -1, 0], [-1, 1, 1], [0, 1, -1]])
         desc_chsh = [2, 2, 2, 2]
-        bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'classical')
-        bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'quantum', tol=1e-7)
-        bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'nosignal', tol=1e-9)
+        bell_inequality_max_general(M_chsh_cg, desc_chsh, 'cg', 'classical')
+        bell_inequality_max_general(M_chsh_cg, desc_chsh, 'cg', 'quantum', tol=1e-7)
+        bell_inequality_max_general(M_chsh_cg, desc_chsh, 'cg', 'nosignal', tol=1e-9)
 
     ==========
 
@@ -160,13 +160,13 @@ def bell_inequality_max(
     .. jupyter-execute::
 
         import numpy as np
-        from toqito.nonlocal_games.bell_inequality_max import bell_inequality_max
+        from toqito.state_opt import bell_inequality_max_general
         M_i3322_cg = np.array([[0, 1, 0, 0], [1, -1, -1, -1], [0, -1, -1, 1], [0, -1, 1, 0]])
         desc_i3322 = [2, 2, 3, 3]
-        bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'classical')
-        bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'quantum', k=1, tol=1e-7)
-        bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'quantum', k='1+ab', tol=1e-7)
-        bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'nosignal', tol=1e-9)
+        bell_inequality_max_general(M_i3322_cg, desc_i3322, 'cg', 'classical')
+        bell_inequality_max_general(M_i3322_cg, desc_i3322, 'cg', 'quantum', k=1, tol=1e-7)
+        bell_inequality_max_general(M_i3322_cg, desc_i3322, 'cg', 'quantum', k='1+ab', tol=1e-7)
+        bell_inequality_max_general(M_i3322_cg, desc_i3322, 'cg', 'nosignal', tol=1e-9)
 
     References
     ==========
