@@ -145,7 +145,7 @@ def bell_inequality_max(
     .. jupyter-execute::
 
         import numpy as np
-        from toqito.state_opt import bell_inequality_max
+        from toqito.state_opt.bell_inequality_max import bell_inequality_max
         M_chsh_cg = np.array([[0, -1, 0], [-1, 1, 1], [0, 1, -1]])
         desc_chsh = [2, 2, 2, 2]
         bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'classical')
@@ -160,7 +160,7 @@ def bell_inequality_max(
     .. jupyter-execute::
 
         import numpy as np
-        from toqito.state_opt import bell_inequality_max
+        from toqito.state_opt.bell_inequality_max import bell_inequality_max
         M_i3322_cg = np.array([[0, 1, 0, 0], [1, -1, -1, -1], [0, -1, -1, 1], [0, -1, 1, 0]])
         desc_i3322 = [2, 2, 3, 3]
         bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'classical')
@@ -480,7 +480,7 @@ def bell_inequality_max_qubits(
     .. jupyter-execute::
 
         import numpy as np
-        from toqito.state_opt import bell_inequality_max_qubits
+        from toqito.state_opt.bell_inequality_max import bell_inequality_max_qubits
 
         joint_coe = np.array([
             [1, 1, -1],

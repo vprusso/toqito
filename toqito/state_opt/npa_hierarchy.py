@@ -508,7 +508,7 @@ def bell_npa_constraints(
 
         import cvxpy
         import numpy as np
-        from toqito.state_opt import bell_npa_constraints
+        from toqito.state_opt.npa_hierarchy import bell_npa_constraints
         desc = [2, 2, 2, 2]
         oa, ob, ma, mb = desc
         p_var_dim = ((oa - 1) * ma + 1, (ob - 1) * mb + 1)
@@ -530,8 +530,8 @@ def bell_npa_constraints(
     .. jupyter-execute::
 
         import cvxpy
-        import numpy as np
-        from toqito.state_opt import bell_npa_constraints
+        import numpy as 
+        from toqito.state_opt.npa_hierarchy import bell_npa_constraints
         desc_cglmp = [3, 3, 2, 2]
         oa_c, ob_c, ma_c, mb_c = desc_cglmp
         p_var_dim_c = ((oa_c - 1) * ma_c + 1, (ob_c - 1) * mb_c + 1)
