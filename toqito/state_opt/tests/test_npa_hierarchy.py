@@ -689,5 +689,3 @@ def test_bell_npa_constraints_identity_constraint():
                     has_identity = True
                     break
     assert has_identity
-
-# Note: The test_bell_npa_constraints_value_error is REMOVED as per strategy.
