@@ -530,7 +530,7 @@ def bell_npa_constraints(
     .. jupyter-execute::
 
         import cvxpy
-        import numpy as 
+        import numpy as np
         from toqito.state_opt.npa_hierarchy import bell_npa_constraints
         desc_cglmp = [3, 3, 2, 2]
         oa_c, ob_c, ma_c, mb_c = desc_cglmp
