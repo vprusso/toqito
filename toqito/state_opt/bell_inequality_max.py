@@ -8,6 +8,8 @@ from itertools import combinations
 import cvxpy as cp
 import numpy as np
 
+from toqito.matrix_ops import partial_transpose
+from toqito.perms import permutation_operator, swap
 from toqito.state_opt.bell_notation_conversions import (
     cg_to_fc,
     cg_to_fp,
@@ -15,8 +17,6 @@ from toqito.state_opt.bell_notation_conversions import (
     fp_to_cg,
     fp_to_fc,
 )
-from toqito.matrix_ops import partial_transpose
-from toqito.perms import permutation_operator, swap
 from toqito.state_opt.npa_hierarchy import bell_npa_constraints
 
 
