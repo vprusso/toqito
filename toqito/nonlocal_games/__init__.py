@@ -8,4 +8,3 @@ from toqito.nonlocal_games.binary_constraint_system_game import (
     create_bcs_constraints,
     check_perfect_commuting_strategy,
 )
-
