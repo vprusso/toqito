@@ -3,7 +3,7 @@
 import numpy as np
 import pytest
 
-from toqito.helper.bell_notation_conversions import cg_to_fc, cg_to_fp, fc_to_cg, fc_to_fp, fp_to_cg, fp_to_fc
+from toqito.state_opt.bell_notation_conversions import cg_to_fc, cg_to_fp, fc_to_cg, fc_to_fp, fp_to_cg, fp_to_fc
 
 
 @pytest.fixture(name="chsh_cg")

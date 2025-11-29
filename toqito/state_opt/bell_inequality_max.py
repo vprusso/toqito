@@ -8,7 +8,7 @@ from itertools import combinations
 import cvxpy as cp
 import numpy as np
 
-from toqito.helper.bell_notation_conversions import (
+from toqito.state_opt.bell_notation_conversions import (
     cg_to_fc,
     cg_to_fp,
     fc_to_cg,

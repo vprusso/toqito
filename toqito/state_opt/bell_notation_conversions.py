@@ -48,7 +48,7 @@ def cg_to_fc(cg_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
     .. jupyter-execute::
 
         import numpy as np
-        from toqito.helper import cg_to_fc
+        from toqito.state_opt.bell_notation_conversions import cg_to_fc
 
         chsh_cg = np.array([[0, 0, 0], [0, 1, -1], [0, -1, 1]])
         cg_to_fc(chsh_cg)
@@ -68,7 +68,7 @@ def cg_to_fc(cg_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
     .. jupyter-execute::
 
         import numpy as np
-        from toqito.helper import cg_to_fc
+        from toqito.state_opt.bell_notation_conversions import cg_to_fc
         p_cg = np.array([[1, 0.5, 0.5], [0.5, 0.25, 0.25], [0.5, 0.25, 0.25]])
         cg_to_fc(p_cg, behavior=True)
 
@@ -153,7 +153,7 @@ def fc_to_cg(fc_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
     .. jupyter-execute::
 
         import numpy as np
-        from toqito.helper import fc_to_cg
+        from toqito.state_opt.bell_notation_conversions import fc_to_cg
         chsh_fc = np.array([[0, 0, 0], [0, 0.25, -0.25], [0, -0.25, 0.25]])
         fc_to_cg(chsh_fc)
 
@@ -172,7 +172,7 @@ def fc_to_cg(fc_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
     .. jupyter-execute::
 
         import numpy as np
-        from toqito.helper import fc_to_cg
+        from toqito.state_opt.bell_notation_conversions import fc_to_cg
         p_fc = np.array([[1, 0, 0], [0, 0, 0], [0, 0, 0]])
         fc_to_cg(p_fc, behavior=True)
 
@@ -242,7 +242,7 @@ def cg_to_fp(cg_mat: np.ndarray, desc: list[int], behavior: bool = False) -> np.
     .. jupyter-execute::
 
         import numpy as np
-        from toqito.helper import cg_to_fp
+        from toqito.state_opt.bell_notation_conversions import cg_to_fp
         chsh_cg = np.array([[0, 0, 0], [0, 1, -1], [0, -1, 1]])
         desc = [2, 2, 2, 2] # oa, ob, ia, ib
         cg_to_fp(chsh_cg, desc)
@@ -262,7 +262,7 @@ def cg_to_fp(cg_mat: np.ndarray, desc: list[int], behavior: bool = False) -> np.
     .. jupyter-execute::
 
         import numpy as np
-        from toqito.helper import cg_to_fp
+        from toqito.state_opt.bell_notation_conversions import cg_to_fp
         p_cg = np.array([[1, 0.5, 0.5], [0.5, 0.25, 0.25], [0.5, 0.25, 0.25]])
         desc = [2, 2, 2, 2]
         cg_to_fp(p_cg, desc, behavior=True)
@@ -399,7 +399,7 @@ def fc_to_fp(fc_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
     .. jupyter-execute::
 
         import numpy as np
-        from toqito.helper import fc_to_fp
+        from toqito.state_opt.bell_notation_conversions import fc_to_fp
         chsh_fc = np.array([[0, 0, 0], [0, 0.25, -0.25], [0, -0.25, 0.25]])
         fc_to_fp(chsh_fc)
 
@@ -420,7 +420,7 @@ def fc_to_fp(fc_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
     .. jupyter-execute::
 
         import numpy as np
-        from toqito.helper import fc_to_fp
+        from toqito.state_opt.bell_notation_conversions import fc_to_fp
         p_fc = np.array([[1, 0, 0], [0, 1/np.sqrt(2), 1/np.sqrt(2)], [0, 1/np.sqrt(2), -1/np.sqrt(2)]])
         fc_to_fp(p_fc, behavior=True)
 
@@ -506,7 +506,7 @@ def fp_to_cg(v_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
     .. jupyter-execute::
 
         import numpy as np
-        from toqito.helper import fp_to_cg
+        from toqito.state_opt.bell_notation_conversions import fp_to_cg
         chsh_fp = np.zeros((2, 2, 2, 2))
         chsh_fp[0, 0, 0, 0] = 1
         chsh_fp[0, 0, 0, 1] = -1
@@ -519,7 +519,7 @@ def fp_to_cg(v_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
     .. jupyter-execute::
 
         import numpy as np
-        from toqito.helper import fp_to_cg
+        from toqito.state_opt.bell_notation_conversions import fp_to_cg
         pr_box = np.zeros((2, 2, 2, 2))
         pr_box[0, 0, 0, 0] = 0.5 # p(0,0|0,0)
         pr_box[1, 1, 0, 0] = 0.5 # p(1,1|0,0)
@@ -656,7 +656,7 @@ def fp_to_fc(v_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
     .. jupyter-execute::
 
         import numpy as np
-        from toqito.helper import fp_to_fc, fc_to_fp
+        from toqito.state_opt.bell_notation_conversions import fp_to_fc, fc_to_fp
         chsh_fc = np.array([[0, 0, 0], [0, 0.25, -0.25], [0, -0.25, 0.25]])
         chsh_fp = fc_to_fp(chsh_fc)
         fp_to_fc(chsh_fp)
@@ -666,7 +666,7 @@ def fp_to_fc(v_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
     .. jupyter-execute::
 
         import numpy as np
-        from toqito.helper import fp_to_fc
+        from toqito.state_opt.bell_notation_conversions import fp_to_fc
         pr_box = np.zeros((2, 2, 2, 2))
         pr_box[0, 0, 0, 0] = 0.5 # p(0,0|0,0)
         pr_box[1, 1, 0, 0] = 0.5 # p(1,1|0,0)
