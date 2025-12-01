@@ -60,7 +60,7 @@ lint = [
     "myst-parser==4.0.1",
     "pep8==1.7.1",
     "ruff==0.14.0",
-    "mypy==1.18.1",
+    "mypy==1.19.0",
 ]
 docs = [
     "readthedocs-sphinx-ext",
