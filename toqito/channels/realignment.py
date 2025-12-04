@@ -1,10 +1,29 @@
 """Generates the realignment channel of a matrix."""
 
 import numpy as np
+from collections.abc import Iterable
 
 from toqito.matrix_ops import partial_transpose
 from toqito.perms import swap
 
+def _validate_dim_param(dim):
+    """Validate dim parameter: must be int > 0 or iterable of ints > 0."""
+    # Accept None (preserve current behaviour)
+    if dim is None:
+        return
+    # Check iterable of ints (exclude str/bytes)
+    if isinstance(dim, Iterable) and not isinstance(dim, (str, bytes)):
+        for d in dim:
+            if not isinstance(d, int):
+                raise TypeError("dim must be an int or a list/tuple of ints.")
+            if d <= 0:
+                raise ValueError("All dim values must be greater than 0.")
+        return
+    # Single int case
+    if not isinstance(dim, int):
+        raise TypeError("dim must be an int or a list/tuple of ints.")
+    if dim <= 0:
+        raise ValueError("dim must be greater than 0.")
 
 def realignment(input_mat: np.ndarray, dim: int | list[int] = None) -> np.ndarray:
     r"""Compute the realignment of a bipartite operator :footcite:`Lupo_2008_Bipartite`.
@@ -49,6 +68,7 @@ def realignment(input_mat: np.ndarray, dim: int | list[int] = None) -> np.ndarra
     :return: The realignment map matrix.
 
     """
+    _validate_dim_param(dim)
     dim_mat = input_mat.shape
     round_dim = np.round(np.sqrt(dim_mat))
     if dim is None:
