@@ -61,6 +61,9 @@ def kraus_to_choi(kraus_ops: list[list[np.ndarray]], sys: int = 2) -> np.ndarray
     :return: The corresponding Choi matrix of the provided Kraus operators.
 
     """
+    if sys < 0:
+        raise ValueError("The `sys` (system dimension/index) must be non-negative.")
+
     dim_in, _, _ = channel_dim(kraus_ops)
     dim_op_1, dim_op_2 = dim_in
 
