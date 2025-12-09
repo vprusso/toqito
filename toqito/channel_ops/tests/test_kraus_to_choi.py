@@ -133,4 +133,4 @@ def test_kraus_to_choi(test_input, expected):
 def test_kraus_to_choi_raises_on_negative_sys():
     """Ensure negative `sys` raises ValueError."""
     with pytest.raises(ValueError):
-        _ = kraus_to_choi(kraus_ops_transpose, sys=-1)
+        kraus_to_choi(kraus_ops_transpose, sys=-1)
