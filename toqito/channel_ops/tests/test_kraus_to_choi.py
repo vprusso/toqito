@@ -108,42 +108,34 @@ expected_non_square = np.array(
 
 
 @pytest.mark.parametrize(
-    "test_input, expected",
+    "test_input, expected, sys",
     [
         # Choi matrix of the transpose map is the swap operator.
-        (kraus_ops_transpose, expected_choi_res_transpose),
+        (kraus_ops_transpose, expected_choi_res_transpose, None),
         # As Kraus operators are non-unique, these also should yield the swap operator
-        (kraus_ops_swap_operator_non_unique, expected_choi_res_swap_operator_non_unique),
+        (kraus_ops_swap_operator_non_unique, expected_choi_res_swap_operator_non_unique, None),
         # Kraus operators for dephasing channel should yield the proper Choi matrix.
-        (kraus_ops_dephasing_channel, expected_choi_res_dephasing_channel),
+        (kraus_ops_dephasing_channel, expected_choi_res_dephasing_channel, None),
         # Kraus operators for depolarizing channel should yield the proper Choi matrix
-        (kraus_ops_depolarizing_channel, expected_choi_res_depolarizing_channel),
+        (kraus_ops_depolarizing_channel, expected_choi_res_depolarizing_channel, None),
         # Kraus operators for an isometry
-        ([v_mat], expected_v_mat),
+        ([v_mat], expected_v_mat, None),
         # Kraus operators for non square inputs and outputs
-        ([[kraus_1, kraus_2]], expected_non_square),
-    ],
-)
-def test_kraus_to_choi(test_input, expected):
-    """Test function works as expected for valid inputs."""
-    calculated = kraus_to_choi(test_input)
-    assert np.isclose(calculated, expected).all()
-
-
-@pytest.mark.parametrize(
-    "test_input, sys, expected",
-    [
+        ([[kraus_1, kraus_2]], expected_non_square, None),
         # Transpose map with sys=2 yields the swap operator.
-        (kraus_ops_transpose, 2, expected_choi_res_transpose),
+        (kraus_ops_transpose, expected_choi_res_transpose, 2),
         # Dephasing channel with sys=2.
-        (kraus_ops_dephasing_channel, 2, expected_choi_res_dephasing_channel),
+        (kraus_ops_dephasing_channel, expected_choi_res_dephasing_channel, 2),
         # Depolarizing channel with sys=2.
-        (kraus_ops_depolarizing_channel, 2, expected_choi_res_depolarizing_channel),
+        (kraus_ops_depolarizing_channel, expected_choi_res_depolarizing_channel, 2),
     ],
 )
-def test_kraus_to_choi_with_sys_argument(test_input, sys, expected):
-    """Test function works as expected with valid sys argument."""
-    calculated = kraus_to_choi(test_input, sys=sys)
+def test_kraus_to_choi(test_input, expected, sys):
+    """Test function works as expected for valid inputs."""
+    if sys is None:
+        calculated = kraus_to_choi(test_input)
+    else:
+        calculated = kraus_to_choi(test_input, sys=sys)
     assert np.isclose(calculated, expected).all()
 
 
