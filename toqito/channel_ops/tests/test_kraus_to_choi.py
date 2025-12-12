@@ -130,25 +130,21 @@ def test_kraus_to_choi(test_input, expected):
     assert np.isclose(calculated, expected).all()
 
 
-def test_kraus_to_choi_with_sys_argument():
-    """Test function works with explicitly provided valid sys argument."""
-    # Test with sys=2 (second subsystem) - should give the swap operator
-    calculated_sys_2 = kraus_to_choi(kraus_ops_transpose, sys=2)
-    assert np.isclose(calculated_sys_2, expected_choi_res_transpose).all()
-
-    # Test with sys=1 (first subsystem)
-    calculated_sys_1 = kraus_to_choi(kraus_ops_transpose, sys=1)
-    # When acting on the first subsystem, result will be different from sys=2
-    # The result should still be a valid Choi matrix
-    assert calculated_sys_1.shape == expected_choi_res_transpose.shape
-
-    # Test dephasing channel with sys=2
-    calculated_dephasing = kraus_to_choi(kraus_ops_dephasing_channel, sys=2)
-    assert np.isclose(calculated_dephasing, expected_choi_res_dephasing_channel).all()
-
-    # Test depolarizing channel with sys=2
-    calculated_depolarizing = kraus_to_choi(kraus_ops_depolarizing_channel, sys=2)
-    assert np.isclose(calculated_depolarizing, expected_choi_res_depolarizing_channel).all()
+@pytest.mark.parametrize(
+    "test_input, sys, expected",
+    [
+        # Transpose map with sys=2 yields the swap operator.
+        (kraus_ops_transpose, 2, expected_choi_res_transpose),
+        # Dephasing channel with sys=2.
+        (kraus_ops_dephasing_channel, 2, expected_choi_res_dephasing_channel),
+        # Depolarizing channel with sys=2.
+        (kraus_ops_depolarizing_channel, 2, expected_choi_res_depolarizing_channel),
+    ],
+)
+def test_kraus_to_choi_with_sys_argument(test_input, sys, expected):
+    """Test function works as expected with valid sys argument."""
+    calculated = kraus_to_choi(test_input, sys=sys)
+    assert np.isclose(calculated, expected).all()
 
 
 def test_kraus_to_choi_raises_on_negative_sys():
