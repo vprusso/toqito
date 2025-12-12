@@ -130,6 +130,27 @@ def test_kraus_to_choi(test_input, expected):
     assert np.isclose(calculated, expected).all()
 
 
+def test_kraus_to_choi_with_sys_argument():
+    """Test function works with explicitly provided valid sys argument."""
+    # Test with sys=2 (second subsystem) - should give the swap operator
+    calculated_sys_2 = kraus_to_choi(kraus_ops_transpose, sys=2)
+    assert np.isclose(calculated_sys_2, expected_choi_res_transpose).all()
+
+    # Test with sys=1 (first subsystem)
+    calculated_sys_1 = kraus_to_choi(kraus_ops_transpose, sys=1)
+    # When acting on the first subsystem, result will be different from sys=2
+    # The result should still be a valid Choi matrix
+    assert calculated_sys_1.shape == expected_choi_res_transpose.shape
+
+    # Test dephasing channel with sys=2
+    calculated_dephasing = kraus_to_choi(kraus_ops_dephasing_channel, sys=2)
+    assert np.isclose(calculated_dephasing, expected_choi_res_dephasing_channel).all()
+
+    # Test depolarizing channel with sys=2
+    calculated_depolarizing = kraus_to_choi(kraus_ops_depolarizing_channel, sys=2)
+    assert np.isclose(calculated_depolarizing, expected_choi_res_depolarizing_channel).all()
+
+
 def test_kraus_to_choi_raises_on_negative_sys():
     """Ensure negative `sys` raises ValueError."""
     with pytest.raises(ValueError):
