@@ -95,22 +95,21 @@ def measured_relative_entropy(rho, sigma, err):
         return 0
     n = len(rho)
     m, k = find_mk(rho, sigma, err)
-    w, theta = cvx.Variable((n, n), complex=True, hermitian=True), cvx.Variable((n, n), complex=True, hermitian=True)
-    Ts = [cvx.Variable((n, n), complex=True, hermitian=True) for _ in range(m)]
-    Zs = [cvx.Variable((n, n), complex=True, hermitian=True) for _ in range(k + 1)]
+    w, theta = cvx.Variable((n, n), hermitian=True), cvx.Variable((n, n), hermitian=True)
+    Ts = [cvx.Variable((n, n), hermitian=True) for _ in range(m)]
+    Zs = [cvx.Variable((n, n), hermitian=True) for _ in range(k + 1)]
     ts, ws = gauss_legendre_on_01(m)
 
     Id = cvx.Constant(np.eye(n))
     Zblocks = [cvx.bmat(((Zs[i], Zs[i + 1]), (Zs[i + 1], Id))) for i in range(k)]
-
     Tblocks = [
         cvx.bmat(((Zs[k] - Id - Ts[j], -np.sqrt(ts[j]) * Ts[j]), (-np.sqrt(ts[j]) * Ts[j], Id - ts[j] * Ts[j])))
         for j in range(m)
     ]
 
     cons = (
-        [Zs[0] == w]
-        + [(sum(ws[i] * Ts[i] for i in range(m))) == 2 ** (-k) * theta]
+        [Zs[0] == w, w >> 0, theta >> 0]
+        + +[(sum(ws[i] * Ts[i] for i in range(m))) == 2 ** (-k) * theta]
         + [Zblocks[i] >> 0 for i in range(k)]
         + [Tblocks[j] >> 0 for j in range(m)]
     )
@@ -124,7 +123,7 @@ def measured_relative_entropy(rho, sigma, err):
 
 
 def gauss_legendre_on_01(m):
-    """Gauss legendre quadrature weights on the interval [0,1]."""
+    """m-point Gauss legendre quadrature weights on the interval [0,1]."""
     x = np.polynomial.legendre.leggauss(m)[0]
     w = np.polynomial.legendre.leggauss(m)[1]
     T = 0.5 * (x + 1)
