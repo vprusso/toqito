@@ -163,7 +163,7 @@ def abs_ppt_constraints(
     def _create_constraint(eigs: np.ndarray, order_matrix: np.ndarray, p: int) -> np.ndarray:
         r"""Return constraint matrix from order matrix."""
         add_index = -np.where(order_matrix, order_matrix, order_matrix.T)
-        renum_su_tri = np.unique(order_matrix - np.diag(np.diag(order_matrix)), return_inverse=True)[1]
+        renum_su_tri = np.unique(order_matrix - np.diag(np.diag(order_matrix)), return_inverse=True)[1].reshape(p, p)
         sub_index = renum_su_tri + renum_su_tri.T - 1 + np.diag(np.diag(add_index) + 1)
         diag = np.diag if isinstance(eigs, np.ndarray) else cp.diag
         return eigs[add_index] - eigs[sub_index] + 2 * diag(eigs[np.diag(add_index)])
