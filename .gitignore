@@ -17,4 +17,5 @@ build/
 coverage.xml
 jupyter_execute/
 venv/*
+.venv/
 docs/auto_examples/

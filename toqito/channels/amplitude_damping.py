@@ -7,6 +7,7 @@ def amplitude_damping(
     input_mat: np.ndarray | None = None,
     gamma: float = 0,
     prob: float = 1,
+    apply_channel: bool = False,
 ) -> np.ndarray:
     r"""Apply the generalized amplitude damping channel to a quantum state.
 
@@ -56,6 +57,8 @@ def amplitude_damping(
                       If `None`, the function returns the Kraus operators of the channel.
     :param gamma: The damping rate, a float between 0 and 1. Represents the probability of
                   energy dissipation.
+    :param apply_channel: If True, apply the channel to `input_mat`. If False and `input_mat` is None,
+                      return the Kraus operators (the channel).
     :param prob: The probability of energy loss, a float between 0 and 1.
     :return: The evolved quantum state after applying the generalized amplitude damping channel.
              If `input_mat` is `None`, it returns the list of Kraus operators.
@@ -72,11 +75,17 @@ def amplitude_damping(
     k2 = np.sqrt(1 - prob) * np.array([[np.sqrt(1 - gamma), 0], [0, 1]])
     k3 = np.sqrt(1 - prob) * np.sqrt(gamma) * np.array([[0, 0], [1, 0]])
 
+    kraus_ops = [k0, k1, k2, k3]
+    if not apply_channel and input_mat is None:
+        return kraus_ops
+    # If user explicitly wants to apply, they must provide input.
+    if apply_channel and input_mat is None:
+        raise ValueError("Input matrix must be provided when apply_channel=True.")
+
+    # If input_mat is provided but apply_channel was left default,(same behavior as before).
     if input_mat is not None and input_mat.shape != (2, 2):
         raise ValueError("Input matrix must be 2x2 for the generalized amplitude damping channel.")
-    elif input_mat is None:
-        return [k0, k1, k2, k3]
-
+    
     input_mat = np.asarray(input_mat, dtype=complex)
 
     return (
