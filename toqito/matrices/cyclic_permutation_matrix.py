@@ -46,6 +46,13 @@ def cyclic_permutation_matrix(n: int, k: int = 1) -> np.ndarray:
         of the cyclic permutation.
 
     """
+    if not isinstance(n, int):
+        raise TypeError("'n' must be an integer.")
+    if n <= 0:
+        raise ValueError("'n' must be a positive integer.")
+    if not isinstance(k, int):
+        raise TypeError("'k' must be an integer.")
+
     p_mat = np.zeros((n, n), dtype=int)
     np.fill_diagonal(p_mat[1:], 1)
     p_mat[0, -1] = 1
