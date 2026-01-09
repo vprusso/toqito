@@ -126,10 +126,7 @@ def measured_relative_entropy(rho: np.ndarray, sigma: np.ndarray, eps: float = 1
     ]
 
     cons = (
-        [
-            zs[0] == w,
-            w >> 0,
-        ]
+        [zs[0] == w, w >> 0]
         + [(sum(weights[i] * ts[i] for i in range(m))) == 2 ** (-k) * theta]
         + [zblocks[i] >> 0 for i in range(k)]
         + [tblocks[j] >> 0 for j in range(m)]
