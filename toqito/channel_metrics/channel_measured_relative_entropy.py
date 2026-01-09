@@ -134,7 +134,7 @@ def channel_measured_relative_entropy(N, M, dA, m, k, H, E):
 
 
 def _gauss_legendre_on_01(m):
-    # m-point Gauss legendre quadrature weights on the interval [0,1].
+    """m-point Gauss legendre quadrature weights on the interval [0,1]."""
     x = np.polynomial.legendre.leggauss(m)[0]
     w = np.polynomial.legendre.leggauss(m)[1]
     T = 0.5 * (x + 1)
