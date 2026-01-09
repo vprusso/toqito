@@ -79,19 +79,15 @@ def measured_relative_entropy(rho: np.ndarray, sigma: np.ndarray, eps: float = 1
 
     .. jupyter-execute::
 
+        from toqito.matrices import pauli
         from toqito.state_metrics import measured_relative_entropy
         import numpy as np
 
-        sigmax = np.array([ [0, 1], [1, 0]])
-        sigmay = np.array([ [0, -1j], [1j, 0]])
-        sigmaz = np.array([ [1, 0], [0, -1]])
-        I = np.eye(2)
-
         r = np.array([0.9, 0.05, -0.02])
         s = np.array([-0.8, 0.1, 0.1])
-        rho = 0.5*(I + r[0]*sigmax + r[1]*sigmay + r[2]*sigmaz)
-        sigma = 0.5*(I + s[0]*sigmax + s[1]*sigmay + s[2]*sigmaz)
-        measured_relative_entropy(rho, sigma, 10e-3)
+        rho = 0.5 * (pauli("I") + r[0] * pauli("X") + r[1] * pauli("Y") + r[2] * pauli("Z"))
+        sigma = 0.5 * (pauli("I") + s[0] * pauli("X") + s[1] * pauli("Y") + s[2] * pauli("Z"))
+        measured_relative_entropy(rho, sigma, 1e-5)
 
     References
     ==========
