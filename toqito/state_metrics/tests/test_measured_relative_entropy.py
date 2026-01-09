@@ -63,7 +63,7 @@ err4 = 10e-5
         (r4, s4, err4),
     ],
 )
-def test_meausred_relative_entropy(r, s, err):
+def test_measured_relative_entropy(r, s, err):
     """Test functions works as expected for valid inputs."""
     rho = state(r)
     sigma = state(s)
