@@ -6,7 +6,15 @@ import numpy as np
 from toqito.channel_props import is_completely_positive, is_quantum_channel
 
 
-def channel_measured_relative_entropy(N, M, dA, m, k, H, E):
+def measured_relative_entropy(
+    channel_1: np.ndarray,
+    channel_2: np.ndarray,
+    in_dim: int,
+    m: int,
+    k: int,
+    hamiltonian: np.ndarray,
+    energy: float = 1,
+) -> float:
     r"""Compute the measured relative entropy of two quantum channels :footcite:`Huang_2025_Msrd_Rel_Entr`.
 
     Given a quantum channel :math:`\mathcal{N}_{A \to B}`, a completely positive map :math:`\mathcal{M}_{A \to B}`,
@@ -61,55 +69,55 @@ def channel_measured_relative_entropy(N, M, dA, m, k, H, E):
 
     .. jupyter-execute::
 
-        from toqito.channel_metrics import channel_measured_relative_entropy
+        from toqito.channel_metrics import measured_relative_entropy
         from toqito.channels import depolarizing
         import numpy as np
 
-        N = depolarizing(2, 0.2)
-        M = np.eye(4)
-        dA = 2
+        channel_1 = depolarizing(2, 0.2)
+        channel_2 = np.eye(4)
+        in_dim = 2
         m = 5
         k = 5
-        H = np.zeros((2, 2))
-        E = 100
-        channel_measured_relative_entropy(N, M, dA, m, k, H, E)
+        hamiltonian = np.zeros((2, 2))
+        energy = 100
+        measured_relative_entropy(channel_1, channel_2, in_dim, m, k, hamiltonian, energy)
 
     References
     ==========
     .. footbibliography::
 
-    :param N: Choi matrix for first channel.
-    :param M: Choi matrix for second channel.
-    :param dA: the dimension of the input of the quantum channels.
+    :param channel_1: Choi matrix for first channel.
+    :param channel_2: Choi matrix for second channel.
+    :param in_dim: the dimension of the input of the quantum channels.
     :param m: one of the optimization parameters.
     :param k: the other optimization parameter.
-    :param H: the Hamiltonian.
-    :param E: the energy constraint.
+    :param hamiltonian: the Hamiltonian.
+    :param energy: the energy constraint.
     :return: The measured relative entropy between :math:`\mathcal{N}_{A \to B}` and :math:`\mathcal{M}_{A \to B}`.
 
     """
-    if not is_quantum_channel(N):
+    if not is_quantum_channel(channel_1):
         raise ValueError("Measured relative entropy is only defined if N is a quantum channel.")
-    if not is_completely_positive(M):
+    if not is_completely_positive(channel_2):
         raise ValueError("Measured relative entropy is only defined if M is a completely positive map.")
-    if np.array_equal(N, M):
+    if np.array_equal(channel_1, channel_2):
         return 0
-    n = len(N)
-    dB = len(N) // dA
-    Omega = cvx.Variable((n, n), complex=True)
-    rho = cvx.Variable((dA, dA), complex=True)
-    Theta = cvx.Variable((n, n), hermitian=True)
-    Ts = [cvx.Variable((n, n), hermitian=True) for i in range(m)]
-    Zs = [cvx.Variable((n, n), hermitian=True) for _ in range(k + 1)]
-    ts, ws = _gauss_legendre_on_01(m)
+    n = len(channel_1)
+    out_dim = len(channel_1) // in_dim
+    omega = cvx.Variable((n, n), complex=True)
+    rho = cvx.Variable((in_dim, in_dim), complex=True)
+    theta = cvx.Variable((n, n), hermitian=True)
+    ts = [cvx.Variable((n, n), hermitian=True) for _ in range(m)]
+    zs = [cvx.Variable((n, n), hermitian=True) for _ in range(k + 1)]
+    nodes, weights = _gauss_legendre_on_01(m)
 
-    Id = cvx.Constant(np.eye(dB))
-    Zblocks = [cvx.bmat(([Zs[i], Zs[i + 1]], [Zs[i + 1], cvx.kron(rho, Id)])) for i in range(k)]
-    Tblocks = [
+    Id = cvx.Constant(np.eye(out_dim))
+    zblocks = [cvx.bmat(([zs[i], zs[i + 1]], [zs[i + 1], cvx.kron(rho, Id)])) for i in range(k)]
+    tblocks = [
         cvx.bmat(
             (
-                [Zs[k] - cvx.kron(rho, Id) - Ts[j], -np.sqrt(ts[j]) * Ts[j]],
-                [-np.sqrt(ts[j]) * Ts[j], cvx.kron(rho, Id) - ts[j] * Ts[j]],
+                [zs[k] - cvx.kron(rho, Id) - nodes[j], -np.sqrt(nodes[j]) * ts[j]],
+                [-np.sqrt(nodes[j]) * ts[j], cvx.kron(rho, Id) - nodes[j] * ts[j]],
             )
         )
         for j in range(m)
@@ -117,26 +125,26 @@ def channel_measured_relative_entropy(N, M, dA, m, k, H, E):
 
     cons = (
         [cvx.trace(rho) == 1]
-        + [Zs[0] == Omega]
-        + [cvx.real(cvx.trace(H @ rho)) <= E]
-        + [rho >> 0, Omega >> 0]
-        + [sum([ws[i] * Ts[i] for i in range(m)]) == 2 ** (-k) * Theta]
-        + [Zblocks[i] >> 0 for i in range(k)]
-        + [Tblocks[j] >> 0 for j in range(m)]
+        + [zs[0] == omega]
+        + [cvx.real(cvx.trace(hamiltonian @ rho)) <= energy]
+        + [rho >> 0, omega >> 0]
+        + [sum([weights[i] * ts[i] for i in range(m)]) == 2 ** (-k) * theta]
+        + [zblocks[i] >> 0 for i in range(k)]
+        + [tblocks[j] >> 0 for j in range(m)]
     )
 
-    Ncvx = cvx.Constant(N)
-    Mcvx = cvx.Constant(M)
-    obj = cvx.Maximize(cvx.real(cvx.trace(Theta @ Ncvx) - cvx.trace(Omega @ Mcvx) + 1))
+    channel_1_cvx = cvx.Constant(channel_1)
+    channel_2_cvx = cvx.Constant(channel_2)
+    obj = cvx.Maximize(cvx.real(cvx.trace(theta @ channel_1_cvx) - cvx.trace(omega @ channel_2_cvx) + 1))
     problem = cvx.Problem(obj, constraints=cons)
     problem.solve(verbose=False)
     return obj.value
 
 
-def _gauss_legendre_on_01(m):
+def _gauss_legendre_on_01(m: int):
     # m-point Gauss legendre quadrature weights on the interval [0,1].
     x = np.polynomial.legendre.leggauss(m)[0]
     w = np.polynomial.legendre.leggauss(m)[1]
-    T = 0.5 * (x + 1)
-    W = 0.5 * w
-    return T, W
+    node = 0.5 * (x + 1)
+    weight = 0.5 * w
+    return node, weight
