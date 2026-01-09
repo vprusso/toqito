@@ -98,9 +98,9 @@ def measured_relative_entropy(rho, sigma, err):
     .. footbibliography::
 
     :param rho: Density operator.
-    :param alpha: Positive semi-definite operator.
+    :param sigma: Positive semi-definite operator.
     :param err: Tolerance level.
-    :return: The measured relative entropy between :math:`\\rho` and :math:`\sigma`.
+    :return: The measured relative entropy between :math:`\rho` and :math:`\sigma`.
 
     """
     if not is_density(rho):

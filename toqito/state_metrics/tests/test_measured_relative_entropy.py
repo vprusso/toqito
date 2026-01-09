@@ -14,17 +14,12 @@ def D_bern(r, s, alpha):
     p = (1 + rnorm * np.cos(alpha)) / 2
     phi = np.arccos(np.dot(r, s) / rnorm / snorm)
     q = (1 + snorm * np.cos(alpha - phi)) / 2
-    bern = p * np.log(p / q) + (1 - p) * np.log((1 - p) / (1 - q))
-    return bern
+    return p * np.log(p / q) + (1 - p) * np.log((1 - p) / (1 - q))
 
 
 def state(vec):
     """Vector to matrix representation of state."""
-    I2 = pauli("I")
-    X = pauli("X")
-    Y = pauli("Y")
-    Z = pauli("Z")
-    return 0.5 * (I2 + vec[0] * X + vec[1] * Y + vec[2] * Z)
+    return 0.5 * (pauli("I") + vec[0] * pauli("X") + vec[1] * pauli("Y") + vec[2] * pauli("Z"))
 
 
 def Dmk_qubit(r, s):
@@ -62,7 +57,7 @@ s4 = np.array([0.1, 0.1, 0.1])
         (r4, s4, err),
     ],
 )
-def test_meausred_relative_entropy(r, s, err):
+def test_measured_relative_entropy(r, s, err):
     """Test functions works as expected for valid inputs."""
     rho = state(r)
     sigma = state(s)

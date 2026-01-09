@@ -7,7 +7,7 @@ from toqito.channel_props import is_completely_positive, is_quantum_channel
 
 
 def channel_measured_relative_entropy(N, M, dA, m, k, H, E):
-    r"""Compute the measured relative entropy of two quantum channels. :footcite:`Huang_2025_Msrd_Rel_Entr`.
+    r"""Compute the measured relative entropy of two quantum channels :footcite:`Huang_2025_Msrd_Rel_Entr`.
 
     Given a quantum channel :math:`\mathcal{N}_{A \to B}`, a completely positive map :math:`\mathcal{M}_{A \to B}`,
     a Hamiltonian :math:`H_A` (Hermitian operator acting on system :math:`A`), and an energy constraint
@@ -100,7 +100,7 @@ def channel_measured_relative_entropy(N, M, dA, m, k, H, E):
     rho = cvx.Variable((dA, dA), complex=True)
     Theta = cvx.Variable((n, n), hermitian=True)
     Ts = [cvx.Variable((n, n), hermitian=True) for i in range(m)]
-    Zs = [cvx.Variable((n, n), hermitian=True) for i in range(k + 1)]
+    Zs = [cvx.Variable((n, n), hermitian=True) for _ in range(k + 1)]
     ts, ws = _gauss_legendre_on_01(m)
 
     Id = cvx.Constant(np.eye(dB))
