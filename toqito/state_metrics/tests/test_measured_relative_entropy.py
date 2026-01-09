@@ -19,11 +19,7 @@ def D_bern(r, s, alpha):
 
 def state(vec):
     """Vector to matrix representation of state."""
-    I2 = pauli("I")
-    X = pauli("X")
-    Y = pauli("Y")
-    Z = pauli("Z")
-    return 0.5 * (I2 + vec[0] * X + vec[1] * Y + vec[2] * Z)
+    return 0.5 * (pauli("I") + vec[0] * pauli("X") + vec[1] * pauli("Y") + vec[2] * pauli("Z"))
 
 
 def Dmk_qubit(r, s):
