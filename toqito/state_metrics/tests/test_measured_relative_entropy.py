@@ -14,8 +14,7 @@ def D_bern(r, s, alpha):
     p = (1 + rnorm * np.cos(alpha)) / 2
     phi = np.arccos(np.dot(r, s) / rnorm / snorm)
     q = (1 + snorm * np.cos(alpha - phi)) / 2
-    bern = p * np.log(p / q) + (1 - p) * np.log((1 - p) / (1 - q))
-    return bern
+    return p * np.log(p / q) + (1 - p) * np.log((1 - p) / (1 - q))
 
 
 def state(vec):
