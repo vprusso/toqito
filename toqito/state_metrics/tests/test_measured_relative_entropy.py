@@ -37,31 +37,29 @@ def Dmk_qubit(r, s):
     return np.max(results)
 
 
+err = 10e-5
+
 r1 = np.array([0.9, 0.05, -0.02])
 s1 = np.array([-0.8, 0.1, 0.1])
-err1 = 10e-3
 
 r2 = np.array([0.1, 0.2, 0.3])
 s2 = np.array([-0.1, -0.2, -0.3])
-err2 = 10e-3
 
 r3 = np.array([-0.4, -0.12, 0.35])
 s3 = np.array([0.23, -0.15, 0.06])
-err3 = 10e-3
 
 r4 = np.array([0.1, 0.1, 0.1])
 s4 = np.array([0.1, 0.1, 0.1])
-err4 = 10e-5
 
 
 @pytest.mark.parametrize(
     "r, s, err",
     [
-        (r1, s1, err1),
-        (r2, s2, err2),
-        (r3, s3, err3),
+        (r1, s1, err),
+        (r2, s2, err),
+        (r3, s3, err),
         # test when states are the same
-        (r4, s4, err4),
+        (r4, s4, err),
     ],
 )
 def test_meausred_relative_entropy(r, s, err):
@@ -70,4 +68,28 @@ def test_meausred_relative_entropy(r, s, err):
     sigma = state(s)
     calculated_result = measured_relative_entropy(rho, sigma, err)
     expected = Dmk_qubit(r, s)
-    assert abs(calculated_result - expected) <= 1e-03
+    assert abs(calculated_result - expected) <= 1e-04
+
+
+r5 = np.array([1, 1, 1])
+s5 = np.array([0.5, 0.5, 0.5])
+
+r6 = np.array([0.1, 0.1, 0.1])
+s6 = np.array([1, 1, 1])
+
+
+@pytest.mark.parametrize(
+    "r, s, err, expected_msg",
+    [
+        # rho not density operator
+        (r5, s5, err, "Measured relative entropy is only defined if rho is a density operator."),
+        # sigma is not positive semi-definite
+        (r6, s6, err, "Measured relative entropy is only defined if sigma is positive semi-definite."),
+    ],
+)
+def test_meausred_relative_entropy_invalid_input(r, s, err, expected_msg):
+    """Test function raises an error for invalid inputs."""
+    rho = state(r)
+    sigma = state(s)
+    with pytest.raises(ValueError, match=expected_msg):
+        measured_relative_entropy(rho, sigma, err)
