@@ -7,7 +7,7 @@ from toqito.channel_props import is_completely_positive, is_quantum_channel
 
 
 def channel_measured_relative_entropy(N, M, dA, m, k, H, E):
-    r"""Compute the measured relative entropy of two quantum channels. :footcite:`Huang_2025_Msrd_Rel_Entr`.
+    r"""Compute the measured relative entropy of two quantum channels :footcite:`Huang_2025_Msrd_Rel_Entr`.
 
     Given a quantum channel :math:`\mathcal{N}_{A \to B}`, a completely positive map :math:`\mathcal{M}_{A \to B}`,
     a Hamiltonian :math:`H_A` (Hermitian operator acting on system :math:`A`), and an energy constraint
