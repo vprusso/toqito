@@ -141,8 +141,8 @@ def measured_relative_entropy(
     return obj.value
 
 
-def _gauss_legendre_on_01(m: int):
-    # m-point Gauss legendre quadrature weights on the interval [0,1].
+def _gauss_legendre_on_01(m):
+    """m-point Gauss legendre quadrature weights on the interval [0,1]."""
     x = np.polynomial.legendre.leggauss(m)[0]
     w = np.polynomial.legendre.leggauss(m)[1]
     node = 0.5 * (x + 1)
