@@ -7,7 +7,7 @@ from toqito.matrices import pauli
 from toqito.state_metrics import measured_relative_entropy
 
 
-def D_bern(r, s, alpha):
+def bernoulli_relative_entropy(r: np.ndarray, s: np.ndarray, alpha: float) -> float:
     """Bernoulli relative entropy."""
     rnorm = np.linalg.norm(r)
     snorm = np.linalg.norm(s)
@@ -17,22 +17,23 @@ def D_bern(r, s, alpha):
     return p * np.log(p / q) + (1 - p) * np.log((1 - p) / (1 - q))
 
 
-def state(vec):
+def state(vec: np.ndarray) -> np.ndarray:
     """Vector to matrix representation of state."""
     return 0.5 * (pauli("I") + vec[0] * pauli("X") + vec[1] * pauli("Y") + vec[2] * pauli("Z"))
 
 
-def Dmk_qubit(r, s):
+def qubit_measured_relative_entropy(r: np.ndarray, s: np.ndarray) -> float:
     """Measured relative entropy for qubit states."""
+    # sampling 1000 points in the interval [0, 2pi] usually achieves enough precision
     n = 1000
     results = np.zeros(n)
     for i in range(n):
         alpha = 2 * np.pi * i / n
-        results[i] = D_bern(r, s, alpha)
+        results[i] = bernoulli_relative_entropy(r, s, alpha)
     return np.max(results)
 
 
-err = 10e-5
+err = 1e-5
 
 r1 = np.array([0.9, 0.05, -0.02])
 s1 = np.array([-0.8, 0.1, 0.1])
@@ -57,12 +58,12 @@ s4 = np.array([0.1, 0.1, 0.1])
         (r4, s4, err),
     ],
 )
-def test_measured_relative_entropy(r, s, err):
+def test_measured_relative_entropy(r: np.ndarray, s: np.ndarray, err: float):
     """Test functions works as expected for valid inputs."""
     rho = state(r)
     sigma = state(s)
     calculated_result = measured_relative_entropy(rho, sigma, err)
-    expected = Dmk_qubit(r, s)
+    expected = qubit_measured_relative_entropy(r, s)
     assert abs(calculated_result - expected) <= 1e-04
 
 
@@ -82,7 +83,7 @@ s6 = np.array([1, 1, 1])
         (r6, s6, err, "Measured relative entropy is only defined if sigma is positive semi-definite."),
     ],
 )
-def test_meausred_relative_entropy_invalid_input(r, s, err, expected_msg):
+def test_meausred_relative_entropy_invalid_input(r: np.ndarray, s: np.ndarray, err: float, expected_msg: str):
     """Test function raises an error for invalid inputs."""
     rho = state(r)
     sigma = state(s)

@@ -7,7 +7,7 @@ import scipy.linalg
 from toqito.matrix_props import is_density, is_positive_semidefinite
 
 
-def measured_relative_entropy(rho, sigma, err):
+def measured_relative_entropy(rho: np.ndarray, sigma: np.ndarray, eps: float = 1e-5) -> float:
     r"""Compute the measured relative entropy of two quantum states. :footcite:`Huang_2025_Msrd_Rel_Entr`.
 
     Given a quantum state :math:`\rho` and a positive semi-definite operator :math:`\sigma`,
@@ -110,27 +110,29 @@ def measured_relative_entropy(rho, sigma, err):
     if np.array_equal(rho, sigma):
         return 0
     n = len(rho)
-    m, k = _find_mk(rho, sigma, err)
+    m, k = _find_mk(rho, sigma, eps)
     w, theta = cvx.Variable((n, n), complex=True), cvx.Variable((n, n), hermitian=True)
-    Ts = [cvx.Variable((n, n), hermitian=True) for _ in range(m)]
-    Zs = [cvx.Variable((n, n), hermitian=True) for _ in range(k + 1)]
-    ts, ws = _gauss_legendre_on_01(m)
+    ts = [cvx.Variable((n, n), hermitian=True) for _ in range(m)]
+    zs = [cvx.Variable((n, n), hermitian=True) for _ in range(k + 1)]
+    nodes, weights = _gauss_legendre_on_01(m)
 
     Id = cvx.Constant(np.eye(n))
-    Zblocks = [cvx.bmat(((Zs[i], Zs[i + 1]), (Zs[i + 1], Id))) for i in range(k)]
-    Tblocks = [
-        cvx.bmat(((Zs[k] - Id - Ts[j], -np.sqrt(ts[j]) * Ts[j]), (-np.sqrt(ts[j]) * Ts[j], Id - ts[j] * Ts[j])))
+    zblocks = [cvx.bmat(((zs[i], zs[i + 1]), (zs[i + 1], Id))) for i in range(k)]
+    tblocks = [
+        cvx.bmat(
+            ((zs[k] - Id - ts[j], -np.sqrt(nodes[j]) * ts[j]), (-np.sqrt(nodes[j]) * ts[j], Id - nodes[j] * ts[j]))
+        )
         for j in range(m)
     ]
 
     cons = (
         [
-            Zs[0] == w,
+            zs[0] == w,
             w >> 0,
         ]
-        + [(sum(ws[i] * Ts[i] for i in range(m))) == 2 ** (-k) * theta]
-        + [Zblocks[i] >> 0 for i in range(k)]
-        + [Tblocks[j] >> 0 for j in range(m)]
+        + [(sum(weights[i] * ts[i] for i in range(m))) == 2 ** (-k) * theta]
+        + [zblocks[i] >> 0 for i in range(k)]
+        + [tblocks[j] >> 0 for j in range(m)]
     )
 
     rho = cvx.Constant(rho)
@@ -141,17 +143,17 @@ def measured_relative_entropy(rho, sigma, err):
     return obj.value
 
 
-def _gauss_legendre_on_01(m):
-    # m-point Gauss legendre quadrature weights on the interval [0,1].
+def _gauss_legendre_on_01(m: int) -> (np.ndarray, np.ndarray):
+    """m-point Gauss legendre quadrature weights on the interval [0,1]."""
     x = np.polynomial.legendre.leggauss(m)[0]
     w = np.polynomial.legendre.leggauss(m)[1]
-    T = 0.5 * (x + 1)
-    W = 0.5 * w
-    return T, W
+    node = 0.5 * (x + 1)
+    weight = 0.5 * w
+    return node, weight
 
 
-def _compute_a(rho, sigma):
-    # Find optimal a.
+def _compute_a(rho: np.ndarray, sigma: np.ndarray) -> float:
+    """Find optimal a."""
     rho_half_inv = scipy.linalg.inv(scipy.linalg.sqrtm(rho))
     X = rho_half_inv @ sigma @ rho_half_inv
     eigs = np.linalg.eigvalsh(X)
@@ -159,8 +161,8 @@ def _compute_a(rho, sigma):
     return a
 
 
-def _find_mk(rho, sigma, error):
-    # Find m and k for the desired error rate.
+def _find_mk(rho: np.ndarray, sigma: np.ndarray, error: float) -> (int, int):
+    """Find m and k for the desired error rate."""
     a = _compute_a(rho, sigma)
     k1 = int(np.ceil(np.log2(np.log(a))) + 1)
     k2 = int(2 * np.ceil(np.sqrt(np.log2(32 * np.log(a) / error)) / 2))

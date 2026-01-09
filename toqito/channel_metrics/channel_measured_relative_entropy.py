@@ -6,14 +6,14 @@ import numpy as np
 from toqito.channel_props import is_completely_positive, is_quantum_channel
 
 
-def measured_relative_entropy(
+def channel_measured_relative_entropy(
     channel_1: np.ndarray,
     channel_2: np.ndarray,
     in_dim: int,
     m: int,
     k: int,
     hamiltonian: np.ndarray,
-    energy: float = 1,
+    energy: float,
 ) -> float:
     r"""Compute the measured relative entropy of two quantum channels :footcite:`Huang_2025_Msrd_Rel_Entr`.
 
@@ -69,7 +69,7 @@ def measured_relative_entropy(
 
     .. jupyter-execute::
 
-        from toqito.channel_metrics import measured_relative_entropy
+        from toqito.channel_metrics import channel_measured_relative_entropy
         from toqito.channels import depolarizing
         import numpy as np
 
@@ -80,7 +80,7 @@ def measured_relative_entropy(
         k = 5
         hamiltonian = np.zeros((2, 2))
         energy = 100
-        measured_relative_entropy(channel_1, channel_2, in_dim, m, k, hamiltonian, energy)
+        channel_measured_relative_entropy(channel_1, channel_2, in_dim, m, k, hamiltonian, energy)
 
     References
     ==========
@@ -141,7 +141,7 @@ def measured_relative_entropy(
     return obj.value
 
 
-def _gauss_legendre_on_01(m):
+def _gauss_legendre_on_01(m: int) -> (np.ndarray, np.ndarray):
     """m-point Gauss legendre quadrature weights on the interval [0,1]."""
     x = np.polynomial.legendre.leggauss(m)[0]
     w = np.polynomial.legendre.leggauss(m)[1]
