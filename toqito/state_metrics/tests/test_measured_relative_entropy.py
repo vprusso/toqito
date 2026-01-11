@@ -33,7 +33,7 @@ def qubit_measured_relative_entropy(r: np.ndarray, s: np.ndarray) -> float:
     return np.max(results)
 
 
-err = 1e-5
+eps = 1e-5
 
 r1 = np.array([0.9, 0.05, -0.02])
 s1 = np.array([-0.8, 0.1, 0.1])
@@ -49,20 +49,20 @@ s4 = np.array([0.1, 0.1, 0.1])
 
 
 @pytest.mark.parametrize(
-    "r, s, err",
+    "r, s, eps",
     [
-        (r1, s1, err),
-        (r2, s2, err),
-        (r3, s3, err),
+        (r1, s1, eps),
+        (r2, s2, eps),
+        (r3, s3, eps),
         # test when states are the same
-        (r4, s4, err),
+        (r4, s4, eps),
     ],
 )
-def test_measured_relative_entropy(r: np.ndarray, s: np.ndarray, err: float):
+def test_measured_relative_entropy(r: np.ndarray, s: np.ndarray, eps: float):
     """Test functions works as expected for valid inputs."""
     rho = state(r)
     sigma = state(s)
-    calculated_result = measured_relative_entropy(rho, sigma, err)
+    calculated_result = measured_relative_entropy(rho, sigma, eps)
     expected = qubit_measured_relative_entropy(r, s)
     assert abs(calculated_result - expected) <= 1e-04
 
@@ -75,17 +75,17 @@ s6 = np.array([1, 1, 1])
 
 
 @pytest.mark.parametrize(
-    "r, s, err, expected_msg",
+    "r, s, eps, expected_msg",
     [
         # rho not density operator
-        (r5, s5, err, "Measured relative entropy is only defined if rho is a density operator."),
+        (r5, s5, eps, "Measured relative entropy is only defined if rho is a density operator."),
         # sigma is not positive semi-definite
-        (r6, s6, err, "Measured relative entropy is only defined if sigma is positive semi-definite."),
+        (r6, s6, eps, "Measured relative entropy is only defined if sigma is positive semi-definite."),
     ],
 )
-def test_meausred_relative_entropy_invalid_input(r: np.ndarray, s: np.ndarray, err: float, expected_msg: str):
-    """Test function raises an error for invalid inputs."""
+def test_meausred_relative_entropy_invalid_input(r: np.ndarray, s: np.ndarray, eps: float, expected_msg: str):
+    """Test function raises an epsor for invalid inputs."""
     rho = state(r)
     sigma = state(s)
     with pytest.raises(ValueError, match=expected_msg):
-        measured_relative_entropy(rho, sigma, err)
+        measured_relative_entropy(rho, sigma, eps)

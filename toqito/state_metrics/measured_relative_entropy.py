@@ -95,7 +95,7 @@ def measured_relative_entropy(rho: np.ndarray, sigma: np.ndarray, eps: float = 1
 
     :param rho: Density operator.
     :param sigma: Positive semi-definite operator.
-    :param err: Tolerance level.
+    :param eps: Tolerance level.
     :return: The measured relative entropy between :math:`\rho` and :math:`\sigma`.
 
     """
@@ -154,11 +154,11 @@ def _compute_a(rho: np.ndarray, sigma: np.ndarray) -> float:
     return a
 
 
-def _find_mk(rho: np.ndarray, sigma: np.ndarray, error: float) -> (int, int):
-    """Find m and k for the desired error rate."""
+def _find_mk(rho: np.ndarray, sigma: np.ndarray, eps: float) -> (int, int):
+    """Find m and k for the desired epsilon value."""
     a = _compute_a(rho, sigma)
     k1 = int(np.ceil(np.log2(np.log(a))) + 1)
-    k2 = int(2 * np.ceil(np.sqrt(np.log2(32 * np.log(a) / error)) / 2))
+    k2 = int(2 * np.ceil(np.sqrt(np.log2(32 * np.log(a) / eps)) / 2))
     k = k1 + k2
     m = k2 // 2
     return m, k
