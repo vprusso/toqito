@@ -97,9 +97,9 @@ def channel_measured_relative_entropy(
 
     """
     if not is_quantum_channel(channel_1):
-        raise ValueError("Measured relative entropy is only defined if N is a quantum channel.")
+        raise ValueError("Measured relative entropy is only defined if channel_1 is a quantum channel.")
     if not is_completely_positive(channel_2):
-        raise ValueError("Measured relative entropy is only defined if M is a completely positive map.")
+        raise ValueError("Measured relative entropy is only defined if channel_2 is a completely positive map.")
     if np.array_equal(channel_1, channel_2):
         return 0
     n = len(channel_1)
@@ -116,7 +116,7 @@ def channel_measured_relative_entropy(
     tblocks = [
         cvx.bmat(
             (
-                [zs[k] - cvx.kron(rho, Id) - nodes[j], -np.sqrt(nodes[j]) * ts[j]],
+                [zs[k] - cvx.kron(rho, Id) - ts[j], -np.sqrt(nodes[j]) * ts[j]],
                 [-np.sqrt(nodes[j]) * ts[j], cvx.kron(rho, Id) - nodes[j] * ts[j]],
             )
         )
