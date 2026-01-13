@@ -93,10 +93,11 @@ def measured_relative_entropy(rho: np.ndarray, sigma: np.ndarray, eps: float = 1
     ==========
     .. footbibliography::
 
+    :raises ValueError: If :code:`rho` if not a density operator or if :code:`sigma` is not positive semi-definite.
     :param rho: Density operator.
     :param sigma: Positive semi-definite operator.
     :param eps: Tolerance level.
-    :return: The measured relative entropy between :math:`\rho` and :math:`\sigma`.
+    :return: The measured relative entropy between :code:`rho` and :code:`sigma`.
 
     """
     if not is_density(rho):

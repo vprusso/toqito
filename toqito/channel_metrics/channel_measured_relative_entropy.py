@@ -86,6 +86,7 @@ def channel_measured_relative_entropy(
     ==========
     .. footbibliography::
 
+    :raises ValueError: If :code:`channel_1` is not a quantum channel/:code:`channel_2` is not completely positive.
     :param channel_1: Choi matrix for first channel.
     :param channel_2: Choi matrix for second channel.
     :param in_dim: the dimension of the input of the quantum channels.
@@ -93,7 +94,7 @@ def channel_measured_relative_entropy(
     :param k: the other optimization parameter.
     :param hamiltonian: the Hamiltonian.
     :param energy: the energy constraint.
-    :return: The measured relative entropy between :math:`\mathcal{N}_{A \to B}` and :math:`\mathcal{M}_{A \to B}`.
+    :return: The measured relative entropy between :code:`channel_1` and :code:`channel_2`.
 
     """
     if not is_quantum_channel(channel_1):
