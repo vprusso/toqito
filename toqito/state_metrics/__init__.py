@@ -10,3 +10,4 @@ from toqito.state_metrics.trace_distance import trace_distance
 from toqito.state_metrics.bures_distance import bures_distance
 from toqito.state_metrics.bures_angle import bures_angle
 from toqito.state_metrics.matsumoto_fidelity import matsumoto_fidelity
+from toqito.state_metrics.measured_relative_entropy import measured_relative_entropy
