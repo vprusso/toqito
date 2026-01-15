@@ -1,6 +1,7 @@
 """Local diagonal orthogonal twirl channel."""
 
 import itertools
+
 import numpy as np
 
 
@@ -89,9 +90,12 @@ def _ldot_channel_standard_basis(mat: np.ndarray) -> np.ndarray:
         for j in range(dim):
             row = i * dim + j
             for k in range(dim):
-                for l in range(dim):
-                    col = k * dim + l
-                    if (i == j and k == l) or (i == k and j == l) or (i == l and j == k):
+                for target in range(dim):
+                    col = k * dim + target
+                    same_diag = i == j and k == target
+                    same_indices = i == k and j == target
+                    swapped_indices = i == target and j == k
+                    if same_diag or same_indices or swapped_indices:
                         result[row, col] = mat[row, col]
 
     return result
