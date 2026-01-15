@@ -3,7 +3,7 @@
 import numpy as np
 import pytest
 
-from toqito.state_props import is_ldoi
+from toqito.matrix_props import is_ldoi
 
 
 def test_diagonal_state_is_ldoi() -> None:

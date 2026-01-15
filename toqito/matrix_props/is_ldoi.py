@@ -28,7 +28,7 @@ def is_ldoi(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
 
     .. jupyter-execute::
 
-        from toqito.state_props import is_ldoi
+        from toqito.matrix_props import is_ldoi
         import numpy as np
 
         # Example X-state
@@ -42,7 +42,7 @@ def is_ldoi(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
 
     .. jupyter-execute::
 
-        from toqito.state_props import is_ldoi
+        from toqito.matrix_props import is_ldoi
         import numpy as np
 
         diagonal_state = np.diag([1, 2, 3, 4])
@@ -52,7 +52,7 @@ def is_ldoi(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
 
     .. jupyter-execute::
 
-        from toqito.state_props import is_ldoi
+        from toqito.matrix_props import is_ldoi
         import numpy as np
 
         # Random non-LDOI state
