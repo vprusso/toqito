@@ -92,10 +92,11 @@ def _ldot_channel_standard_basis(mat: np.ndarray) -> np.ndarray:
             for k in range(dim):
                 for target in range(dim):
                     col = k * dim + target
-                    same_diag = i == j and k == target
-                    same_indices = i == k and j == target
-                    swapped_indices = i == target and j == k
-                    if same_diag or same_indices or swapped_indices:
+                    if (
+                        (i == j and k == target)
+                        or (i == k and j == target)
+                        or (i == target and j == k)
+                    ):
                         result[row, col] = mat[row, col]
 
     return result
