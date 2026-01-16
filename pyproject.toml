@@ -60,7 +60,7 @@ lint = [
     "myst-parser==4.0.1",
     "pep8==1.7.1",
     "ruff==0.14.0",
-    "mypy==1.19.0",
+    "ty==0.0.12",
 ]
 docs = [
     "readthedocs-sphinx-ext",
@@ -104,6 +104,9 @@ exclude = ["__init__.py"]
 line-length = 120
 target-version = "py312"
 force-exclude = true
+
+[tool.ty.environment]
+python-version = "3.10"
 
 
 [tool.ruff.lint]

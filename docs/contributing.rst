@@ -132,6 +132,13 @@ Do not use an autoformatter like :code:`black` as the configuration settings for
 might be incompatible with the changes made by :code:`black`. This is discussed in detail at
 `this link <https://docs.astral.sh/ruff/formatter/black/>`_.
 
+Static typing is enforced with :code:`mypy <https://mypy.readthedocs.io/en/stable/>`_. Before submitting a pull request, run the
+type checker against the source tree (the type checker lives in the ``lint`` dependency group):
+
+.. code-block:: bash
+
+    uv run --group lint mypy toqito
+
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Setting Up Pre-Commit Hooks
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^

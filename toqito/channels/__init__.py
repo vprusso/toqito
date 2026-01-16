@@ -5,6 +5,7 @@ from toqito.channels.bitflip import bitflip
 from toqito.channels.choi import choi
 from toqito.channels.dephasing import dephasing
 from toqito.channels.depolarizing import depolarizing
+from toqito.channels.ldot_channel import ldot_channel
 from toqito.channels.pauli_channel import pauli_channel
 from toqito.channels.phase_damping import phase_damping
 from toqito.channels.realignment import realignment
