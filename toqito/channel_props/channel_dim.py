@@ -131,9 +131,13 @@ def channel_dim(
 def _expand_dim(dim):
     # user just entered a single number for DIM
     if isinstance(dim, int):
+        if dim <= 0:
+            raise ValueError("The dimensions must be positive.")
         return np.array([[dim, dim], [dim, dim]])
 
     dim = np.array(dim)
+    if np.any(dim <= 0):
+        raise ValueError("The dimensions must be positive.")
     # user entered a full 2-by-2 matrix for DIM
     if dim.shape == (2, 2):
         return dim

@@ -101,6 +101,22 @@ def test_channel_dim_with_invalid_dim_input():
         channel_dim(swap_operator(3), dim=np.eye(3))
 
 
+@pytest.mark.parametrize(
+    "dim",
+    [
+        0,
+        -1,
+        [2, 0],
+        [-1, 2],
+        np.array([[2, 3], [0, 4]]),
+    ],
+)
+def test_channel_dim_with_non_positive_dim_input(dim):
+    """Test channel dim with non-positive values."""
+    with np.testing.assert_raises(ValueError):
+        channel_dim(swap_operator(2), dim=dim)
+
+
 def test_channel_dim_with_vector_dim_input():
     """Test channel dim with vector dim."""
     v_mat = np.array([[1, 0, 0], [0, 1, 0]])
