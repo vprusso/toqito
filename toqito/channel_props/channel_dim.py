@@ -41,6 +41,7 @@ def channel_dim(
     :param allow_rect: A flag indicating that the input and output spaces of PHI can be non-square (default True).
     :param dim: A scalar, vector or matrix containing the input and output dimensions of PHI.
     :param compute_env_dim: A flag indicating whether we compute the enviroment dimension.
+    :raises ValueError: Raises ValueError if dimension is not greater than 0.
     :return: The input, output, and environment dimensions of a channel.
 
     """
