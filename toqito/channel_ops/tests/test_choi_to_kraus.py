@@ -131,3 +131,13 @@ def test_choi_to_kraus_general_map():
     res_kraus_ops = choi_to_kraus(choi_mat)
 
     assert np.isclose(kraus_ops, res_kraus_ops).all()
+
+
+def test_choi_to_kraus_invalid_dim():
+    """Choi to kraus output for invalid dimensions."""
+    choi_mat = np.identity(4)
+    with pytest.raises(ValueError, match="Dimension must be greater than 0."):
+        choi_to_kraus(choi_mat, dim=0)
+
+    with pytest.raises(ValueError, match="Dimension must be greater than 0."):
+        choi_to_kraus(choi_mat, dim=[-2, 2])

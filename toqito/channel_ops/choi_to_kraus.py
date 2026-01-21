@@ -89,6 +89,15 @@ def choi_to_kraus(
     :return: List of Kraus operators
 
     """
+    if dim is not None:
+        if isinstance(dim, int):
+            dim_check = np.array([dim])
+        else:
+            dim_check = np.array(dim)
+
+        if np.any(dim_check <= 0):
+            raise ValueError("Dimension must be greater than 0.")
+
     d_in, d_out, _ = channel_dim(choi_mat, dim=dim, compute_env_dim=False)
     if is_hermitian(choi_mat):
         eigvals, v_mat = np.linalg.eigh(choi_mat)
