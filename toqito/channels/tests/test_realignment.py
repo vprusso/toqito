@@ -1,6 +1,7 @@
 """Test realignment."""
 
 import numpy as np
+import pytest
 
 from toqito.channels import realignment
 
@@ -70,3 +71,12 @@ def test_realignment_int_dim():
 
     res = realignment(test_input_mat, 1)
     np.testing.assert_array_equal(res, expected_res)
+
+
+def test_realignment_invalid_dim():
+    """Pass in invalid dimension argument."""
+    test_input_mat = np.arange(1, 17).reshape(4, 4)
+    with pytest.raises(ValueError, match="Dimension must be greater than 0."):
+        realignment(test_input_mat, dim=0)
+    with pytest.raises(ValueError, match="Dimension must be greater than 0."):
+        realignment(test_input_mat, dim=[2, -2])

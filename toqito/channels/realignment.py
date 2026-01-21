@@ -49,6 +49,14 @@ def realignment(input_mat: np.ndarray, dim: int | list[int] = None) -> np.ndarra
     :return: The realignment map matrix.
 
     """
+    if dim is not None:
+        if isinstance(dim, int):
+            dim_check = np.array([dim])
+        else:
+            dim_check = np.array(dim)
+
+        if np.any(dim_check <= 0):
+            raise ValueError("Dimension must be greater than 0.")
     dim_mat = input_mat.shape
     round_dim = np.round(np.sqrt(dim_mat))
     if dim is None:
