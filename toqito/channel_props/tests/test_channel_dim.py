@@ -128,3 +128,10 @@ def test_channel_dim_with_compute_env_dim_disabled():
     """Test channel dim without computing the enviroment dimension."""
     din, dout, de = channel_dim(swap_operator(2), compute_env_dim=False)
     np.testing.assert_equal((din, dout, de), (2, 2, None))
+
+
+def test_channel_dim_with_invalid_dim_shape_vector():
+    """Test channel dim with invalid dim vector shape."""
+    v_mat = np.array([[1, 0], [0, 1]])
+    with np.testing.assert_raises(ValueError):
+        channel_dim([v_mat], dim=[2, 2, 2])
