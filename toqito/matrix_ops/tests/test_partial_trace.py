@@ -29,7 +29,7 @@ from toqito.matrix_ops import partial_trace
             np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]]),
             [1],
             None,
-            re.escape("Cannot infer subsystem dimensions directly. Please provide `dim`."),
+            re.escape("input_mat must be a square matrix."),
         ),
         (
             np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]),
@@ -641,3 +641,60 @@ def test_is_trace_prserving(input_mat, expected_result, sys_arg, dim_arg):
     """Test function works as expected."""
     res = partial_trace(input_mat, sys_arg, dim_arg)
     assert (res == expected_result).all()
+
+
+@pytest.mark.parametrize(
+    "sys_value",
+    [
+        2,  # int out-of-bounds
+        [2],  # list out-of-bounds
+        [-1],  # negative index
+    ],
+)
+def test_sys_out_of_bounds(sys_value):
+    """Test that out-of-bounds subsystem indices raise ValueError."""
+    mat = np.eye(4)
+    with pytest.raises(ValueError, match="out of bounds"):
+        partial_trace(mat, sys_value, [2, 2])
+
+
+@pytest.mark.parametrize(
+    "dim_value",
+    [
+        [2],  # len == 1 branch
+        [2, 2],  # len > 1 branch
+    ],
+)
+def test_dim_list_branches(dim_value):
+    """Test dim list handling for len == 1 and len > 1 branches."""
+    mat = np.eye(4)
+    result = partial_trace(mat, 0, dim_value)
+    assert result.shape == (2, 2)
+
+
+def test_partial_trace_non_square_matrix():
+    """Test that non-square matrices raise ValueError."""
+    mat = np.ones((2, 3))
+    with pytest.raises(ValueError, match="square"):
+        partial_trace(mat)
+
+
+def test_partial_trace_dim_product_mismatch():
+    """Test that mismatched dim product raises ValueError."""
+    mat = np.eye(4)
+    with pytest.raises(ValueError, match="Product of `dim`"):
+        partial_trace(mat, [0], [2, 3])
+
+
+def test_dim_none_non_perfect_square():
+    """Test that non-perfect-square matrices with dim=None raise ValueError."""
+    mat = np.ones((6, 6))  # sqrt(6) not integer
+    with pytest.raises(ValueError, match="Cannot infer subsystem dimensions directly"):
+        partial_trace(mat, [0], None)
+
+
+def test_dim_invalid_type_branch():
+    """Test that invalid dim type raises ValueError."""
+    mat = np.eye(4)
+    with pytest.raises(ValueError):
+        partial_trace(mat, [0], (2, 2))  # tuple instead of list
