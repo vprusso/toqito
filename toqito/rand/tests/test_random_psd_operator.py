@@ -79,3 +79,15 @@ def test_random_psd_operator_with_seed(dim, is_real, seed, expected_mat):
     """Test that random_psd_operator function returns the expected output when seeded."""
     matrix = random_psd_operator(dim, is_real, seed)
     assert_allclose(matrix, expected_mat)
+
+def test_random_psd_operator_wishart():
+    """Test Wishart distribution generates PSD matrix."""
+    mat = random_psd_operator(4, distribution="wishart")
+    assert mat.shape == (4, 4)
+    assert is_positive_semidefinite(mat)
+
+
+def test_random_psd_operator_invalid_distribution():
+    """Test invalid distribution raises ValueError."""
+    with pytest.raises(ValueError):
+        random_psd_operator(4, distribution="invalid")
