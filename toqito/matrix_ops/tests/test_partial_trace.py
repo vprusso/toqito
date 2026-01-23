@@ -684,15 +684,15 @@ def test_dim_list_branches(dim_value):
         # dim=None and non-perfect-square
         (np.ones((6, 6)), [0], None, "Cannot infer subsystem dimensions directly"),
 
-        # Invalid dim type
-        (np.eye(4), [0], (2, 2), None),
+        # dim not 1D (2D array)
+        (np.eye(4), [0], np.array([[2, 2]]), "1D"),
+
+        # completely invalid dim type
+        (np.eye(4), [0], "invalid_dim", "int or array-like"),
     ],
 )
 def test_partial_trace_invalid_inputs(input_mat, sys_value, dim_value, error_msg):
     """Test various invalid parameter combinations."""
-    if error_msg:
-        with pytest.raises(ValueError, match=error_msg):
-            partial_trace(input_mat, sys_value, dim_value)
-    else:
-        with pytest.raises(ValueError):
-            partial_trace(input_mat, sys_value, dim_value)
+    with pytest.raises(ValueError, match=error_msg):
+        partial_trace(input_mat, sys_value, dim_value)
+
