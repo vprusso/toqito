@@ -91,3 +91,22 @@ def test_random_psd_operator_invalid_distribution():
     """Test invalid distribution raises ValueError."""
     with pytest.raises(ValueError):
         random_psd_operator(4, distribution="invalid")
+
+def test_random_psd_operator_invalid_dim_type():
+    """Test invalid dim type raises ValueError."""
+    with pytest.raises(ValueError):
+        random_psd_operator("4")
+
+
+def test_random_psd_operator_invalid_dim_negative():
+    """Test negative dim raises ValueError."""
+    with pytest.raises(ValueError):
+        random_psd_operator(-2)
+
+
+def test_random_psd_operator_wishart_real_branch():
+    """Test Wishart distribution with real sampling branch."""
+    mat = random_psd_operator(4, is_real=True, distribution="wishart")
+    assert mat.shape == (4, 4)
+    assert is_positive_semidefinite(mat)
+
