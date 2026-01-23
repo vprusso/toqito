@@ -143,16 +143,19 @@ def partial_trace(
         if n % dim != 0:
             raise ValueError("Invalid: If `dim` is a scalar, it must evenly divide matrix dimension.")
         dim = np.array([dim, n // dim])
-    elif isinstance(dim, list):
+    elif isinstance(dim, (list, tuple, np.ndarray)):
+        dim = np.array(dim)
+        if dim.ndim != 1:
+            raise ValueError("Invalid: `dim` must be a 1D array-like of ints.")
         if len(dim) == 1:
             d = dim[0]
             if n % d != 0:
-                raise ValueError("Invalid: If `dim` is a scalar, it must evenly divide matrix dimension.")
+                raise ValueError(
+                    "Invalid: If `dim` is a scalar, it must evenly divide matrix dimension."
+                )
             dim = np.array([d, n // d])
-        else:
-            dim = np.array(dim)
     else:
-        raise ValueError("Invalid: `dim` must be int or list of ints.")
+        raise ValueError("Invalid: `dim` must be int or array-like of ints.")
 
     num_sys = len(dim)
     prod_dim = np.prod(dim)
