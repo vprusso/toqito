@@ -25,3 +25,10 @@ from toqito.states import bell, horodecki
 def test_is_ppt(mat, sys, dim, tol, expected_result):
     """Test function works as expected for a valid input."""
     np.testing.assert_equal(is_ppt(mat=mat, sys=sys, dim=dim, tol=tol), expected_result)
+
+def test_is_ppt_non_hermitian_matrix():
+    """Non-Hermitian matrices with invalid dimensions should raise an error."""
+    mat = np.array([[1, 2], [0, 1]])  # Not Hermitian, not valid bipartite dims
+
+    with pytest.raises(ValueError):
+        is_ppt(mat)
