@@ -124,18 +124,27 @@ def random_density_matrix(
 
     """
     gen = np.random.default_rng(seed=seed)
+
     if k_param is None:
         k_param = dim
 
-    # Haar / Hilbert-Schmidt measure.
-    gin = gen.random((dim, k_param))
+    # Haar / Hilbert–Schmidt measure
+    if is_real:
+        gin = gen.standard_normal((dim, k_param))
+    else:
+        gin = (
+            gen.standard_normal((dim, k_param))
+            + 1j * gen.standard_normal((dim, k_param))
+        )
 
-    if not is_real:
-        gin = gin + 1j * gen.standard_normal((dim, k_param))
-
+    # Bures measure
     if distance_metric == "bures":
-        gin = random_unitary(dim, is_real, seed=seed) + np.identity(dim) @ gin
+        U = random_unitary(dim, is_real, seed=seed)
+        gin = (np.identity(dim) + U) @ gin
+    elif distance_metric != "haar":
+        raise ValueError("distance_metric must be either 'haar' or 'bures'")
 
     rho = gin @ gin.conj().T
+    rho = rho / np.trace(rho)
 
-    return np.divide(rho, np.trace(rho))
+    return rho
