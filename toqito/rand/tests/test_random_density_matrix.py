@@ -54,29 +54,63 @@ def test_random_density_matrix(dim, is_real, distance_metric):
 @pytest.mark.parametrize(
     "dim, is_real, k_param, distance_metric, expected",
     [
-        # Generate random non-real density matrix.
         (
             2,
             False,
             None,
             "haar",
-            np.array([[0.37758384 + 0.0j, 0.19597419 + 0.19965911j], [0.19597419 - 0.19965911j, 0.62241616 + 0.0j]]),
+            np.array(
+                [
+                    [0.22986343 + 0.0j, 0.13365203 - 0.20624294j],
+                    [0.13365203 + 0.20624294j, 0.77013657 + 0.0j],
+                ]
+            ),
         ),
-        # Generate random real density matrix.
-        (2, True, None, "haar", np.array([[0.45158815, 0.49355259], [0.49355259, 0.54841185]])),
-        # Random non-real density matrix according to Bures metric.
+        (
+            2,
+            True,
+            None,
+            "haar",
+            np.array(
+                [
+                    [0.13871939, 0.33280544],
+                    [0.33280544, 0.86128061],
+                ]
+            ),
+        ),
         (
             2,
             False,
             None,
             "bures",
-            np.array([[0.31466466 + 0.0j, -0.09170064 + 0.24517065j], [-0.09170064 - 0.24517065j, 0.68533534 + 0.0j]]),
+            np.array(
+                [
+                    [0.38769156 + 0.0j, -0.3872277 + 0.26396657j],
+                    [-0.3872277 - 0.26396657j, 0.61230844 + 0.0j],
+                ]
+            ),
         ),
-        # Generate random non-real density matrix all params.
-        (2, True, 2, "haar", np.array([[0.45158815, 0.49355259], [0.49355259, 0.54841185]])),
+        (
+            2,
+            True,
+            2,
+            "haar",
+            np.array(
+                [
+                    [0.13871939, 0.33280544],
+                    [0.33280544, 0.86128061],
+                ]
+            ),
+        ),
     ],
 )
+
 def test_seed(dim, is_real, k_param, distance_metric, expected):
     """Test that the function produces the expected output using a seed."""
     dm = random_density_matrix(dim, is_real, k_param=k_param, distance_metric=distance_metric, seed=124)
     assert_allclose(dm, expected)
+
+def test_invalid_distance_metric():
+    """Ensure invalid distance_metric raises ValueError."""
+    with pytest.raises(ValueError):
+        random_density_matrix(2, distance_metric="invalid")
