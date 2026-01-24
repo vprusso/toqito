@@ -110,6 +110,4 @@ def random_psd_operator(
         return X @ X.conj().T
 
     else:
-        raise ValueError(
-            "Invalid distribution. Supported options are 'uniform' and 'wishart'."
-        )
+        raise ValueError("Invalid distribution. Supported options are 'uniform' and 'wishart'.")

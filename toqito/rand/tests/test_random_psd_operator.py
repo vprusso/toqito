@@ -82,10 +82,12 @@ def test_random_psd_operator_with_seed(dim, is_real, seed, expected_mat):
 
 @pytest.mark.parametrize(
     "dim, distribution",
-    [
-        ("4", "uniform"),        # invalid dim type
-        (-2, "uniform"),         # invalid dim negative
-        (4, "invalid"),          # invalid distribution
+    [   # Invalid dim type.
+        ("4", "uniform"),
+        # Invalid dim negative.
+        (-2, "uniform"),
+        # Invalid distribution.
+        (4, "invalid"),
     ],
 )
 def test_random_psd_operator_invalid_inputs(dim, distribution):
