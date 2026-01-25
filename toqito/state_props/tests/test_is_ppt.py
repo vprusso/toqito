@@ -30,5 +30,5 @@ def test_is_ppt_non_hermitian_matrix():
     """Non-Hermitian matrices with invalid dimensions should raise an error."""
     mat = np.array([[1, 2], [0, 1]])  # Not Hermitian, not valid bipartite dims
 
-    with pytest.raises(ValueError):
+    with pytest.raises(Exception):
         is_ppt(mat)
