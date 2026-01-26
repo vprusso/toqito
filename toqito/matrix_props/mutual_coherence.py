@@ -43,7 +43,7 @@ def mutual_coherence(vectors: list[np.ndarray]) -> float:
     # Convert input into a 2D numpy array.
     vectors = np.column_stack(vectors).astype(float)
 
-    # Normalize the the vectors.
+    # Normalize the vectors.
     vectors /= np.linalg.norm(vectors, axis=0)
 
     # Calculate the inner product between all pairs of columns.
