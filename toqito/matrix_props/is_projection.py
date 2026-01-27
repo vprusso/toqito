@@ -39,6 +39,28 @@ def is_projection(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> 
 
      is_projection(A)
 
+    A common use case in quantum mechanics is checking if a matrix represents a valid quantum measurement
+    projector. For example, the projector onto the :math:`|0\rangle` state is defined as:
+
+    .. math::
+        P_0 = |0\rangle\langle 0| = \begin{pmatrix}
+                1 & 0 \\
+                0 & 0
+              \end{pmatrix}
+
+    This projector satisfies :math:`P_0^2 = P_0` and is positive semidefinite.
+
+    .. jupyter-execute::
+
+     import numpy as np
+     from toqito.matrix_props import is_projection
+
+     # Projector onto |0⟩ state
+     ket_0 = np.array([[1], [0]])
+     proj_0 = ket_0 @ ket_0.conj().T
+
+     is_projection(proj_0)
+
     Alternatively, the following example matrix :math:`B` defined as
 
     .. math::
