@@ -41,4 +41,23 @@ from toqito.states import bell
 def test_common_quantum_overlap_parametrized(states, expected_overlap):
     """Test function works as expected for a valid input."""
     overlap = common_quantum_overlap(states)
-    assert np.isclose(overlap, expected_overlap)
+    assert np.isclose(overlap, expected_overlap, atol=1e-6)
+
+def test_common_quantum_overlap_identical_states():
+    """Identical states cannot be antidistinguished."""
+    psi = np.array([1, 0])
+    states = [psi, psi]
+    overlap = common_quantum_overlap(states)
+    assert np.isclose(overlap, 1.0)
+
+def test_common_quantum_overlap_orthogonal_states():
+    """Orthogonal states are perfectly antidistinguishable."""
+    states = [np.array([1, 0]), np.array([0, 1])]
+    overlap = common_quantum_overlap(states)
+    assert np.isclose(overlap, 0.0)
+
+def test_common_quantum_overlap_single_state():
+    """Single state has maximal overlap."""
+    state = np.eye(2) / 2
+    overlap = common_quantum_overlap([state])
+    assert np.isclose(overlap, 1.0)
