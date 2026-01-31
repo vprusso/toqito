@@ -37,3 +37,17 @@ def test_generate_random_independent_vectors_invalid():
     """Requesting too many vectors should raise a ValueError."""
     with pytest.raises(ValueError):
         generate_random_independent_vectors(num_vectors=5, dim=3)
+
+def test_generate_random_independent_vectors_failure(monkeypatch):
+    """Raises RuntimeError if independent vectors cannot be generated."""
+
+    def always_dependent(*args, **kwargs):
+        return np.zeros((3, 2))
+
+    monkeypatch.setattr(
+        "toqito.rand.generate_random_independent_vectors.is_linearly_independent",
+        lambda _: False,
+    )
+
+    with pytest.raises(RuntimeError):
+        generate_random_independent_vectors(num_vectors=2, dim=3, seed=0)
