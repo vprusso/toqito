@@ -11,23 +11,33 @@ def generate_random_independent_vectors(
     is_real: bool = True,
     seed: int | None = None,
 ) -> np.ndarray:
-    r"""Generate a set of random linearly independent vectors.
+    r"""Generate random linearly independent vectors.
 
-    This function generates a collection of random vectors that are guaranteed
+    Generates a collection of random vectors that are guaranteed
     to be linearly independent.
 
     Examples
-    =========
-    >>> from toqito.rand import generate_random_independent_vectors
-    >>> vecs = generate_random_independent_vectors(num_vectors=2, dim=3, seed=42)
-    >>> vecs.shape
-    (3, 2)
+    ==========
+    Demonstrate generation of random independent vectors.
+
+    .. jupyter-execute::
+
+        from toqito.rand import generate_random_independent_vectors
+        vecs = generate_random_independent_vectors(num_vectors=2, dim=3, seed=42)
+        vecs.shape
+
+    References
+    ==========
+    .. footbibliography::
+
 
     :param num_vectors: Number of independent vectors to generate.
     :param dim: Dimension of the vector space.
-    :param is_real: Whether vectors are real-valued. Defaults to True.
-    :param seed: Optional random seed for reproducibility.
-    :return: A (dim x num_vectors) matrix whose columns are linearly independent.
+    :param is_real: Whether vectors are real-valued (default is True).
+    :param seed: Random seed for reproducibility.
+    :raises ValueError: If ``num_vectors`` is greater than ``dim``.
+    :raises RuntimeError: If independent vectors cannot be generated.
+    :return: A ``(dim x num_vectors)`` matrix with independent columns.
 
     """
     if num_vectors > dim:
