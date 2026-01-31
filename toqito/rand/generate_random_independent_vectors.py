@@ -18,13 +18,11 @@ def generate_random_independent_vectors(
 
     Examples
     ==========
-    Demonstrate generation of random independent vectors.
+    >>> from toqito.rand import generate_random_independent_vectors
+    >>> vecs = generate_random_independent_vectors(num_vectors=2, dim=3, seed=42)
+    >>> vecs.shape
+    (3, 2)
 
-    .. jupyter-execute::
-
-        from toqito.rand import generate_random_independent_vectors
-        vecs = generate_random_independent_vectors(num_vectors=2, dim=3, seed=42)
-        vecs.shape
 
     References
     ==========
