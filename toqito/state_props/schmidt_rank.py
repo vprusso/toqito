@@ -95,16 +95,12 @@ def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = Non
     slv = int(np.round(np.sqrt(len(rho))))
 
     if dim is None:
-        dim_arr = np.array([slv, len(rho) / slv], dtype=int)
-    elif isinstance(dim, int):
-        dim_arr = np.array([dim, len(rho) / dim], dtype=int)
-        dim_arr[1] = np.round(dim_arr[1])
-    elif isinstance(dim, list):
-        dim_arr = np.array(dim)
-    else:
-        dim_arr = dim
+        dim = slv
+    if isinstance(dim, int):
+        dim = np.array([dim, len(rho) / dim], dtype=int)
+        dim[1] = np.round(dim[1])
 
-    return np.linalg.matrix_rank(np.reshape(rho, dim_arr[::-1]))
+    return np.linalg.matrix_rank(np.reshape(rho, dim[::-1]))
 
 
 def _operator_schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = None) -> int | float:
@@ -116,20 +112,20 @@ def _operator_schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray | 
     if dim is None:
         dim_x = rho.shape
         sqrt_dim = np.round(np.sqrt(dim_x))
-        dim_arr = np.array([[sqrt_dim[0], sqrt_dim[0]], [sqrt_dim[1], sqrt_dim[1]]])
-    elif isinstance(dim, list):
-        dim_arr = np.array(dim)
-    elif isinstance(dim, int):
-        dim_arr = np.array([dim, len(rho) / dim], dtype=int)
-        dim_arr[1] = np.round(dim_arr[1])
-    else:
-        dim_arr = dim
+        dim = np.array([[sqrt_dim[0], sqrt_dim[0]], [sqrt_dim[1], sqrt_dim[1]]])
 
-    if min(dim_arr.shape) == 1 or len(dim_arr.shape) == 1:
-        dim_arr = np.array([dim_arr, dim_arr])
+    if isinstance(dim, list):
+        dim = np.array(dim)
 
-    op_1 = rho.reshape(int(np.prod(np.prod(dim_arr))), 1)
-    swap_dim = np.concatenate((dim_arr[1, :].astype(int), dim_arr[0, :].astype(int)))
+    if isinstance(dim, int):
+        dim = np.array([dim, len(rho) / dim], dtype=int)
+        dim[1] = np.round(dim[1])
+
+    if min(dim.shape) == 1 or len(dim.shape) == 1:
+        dim = np.array([dim, dim])
+
+    op_1 = rho.reshape(int(np.prod(np.prod(dim))), 1)
+    swap_dim = np.concatenate((dim[1, :].astype(int), dim[0, :].astype(int)))
     op_2 = swap(op_1, [2, 3], swap_dim).reshape(-1, 1)
 
-    return schmidt_rank(op_2, np.prod(dim_arr, axis=0).astype(int))
+    return schmidt_rank(op_2, np.prod(dim, axis=0).astype(int))

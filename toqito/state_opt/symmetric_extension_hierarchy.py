@@ -155,22 +155,16 @@ def symmetric_extension_hierarchy(
 
     # Set default dimension if none was provided.
     if dim is None:
-        dim_val = int(np.round(np.sqrt(dim_xy)))
-    elif isinstance(dim, int):
-        dim_val = dim
-    else:
-        dim_val = None
+        dim = int(np.round(np.sqrt(dim_xy)))
 
     # Allow the user to enter in a single integer for dimension.
-    if dim_val is not None:
-        dim_arr = np.array([dim_val, dim_xy / dim_val])
-        if np.abs(dim_arr[1] - np.round(dim_arr[1])) >= 2 * dim_xy * np.finfo(float).eps:
+    if isinstance(dim, int):
+        dim = np.array([dim, dim_xy / dim])
+        if np.abs(dim[1] - np.round(dim[1])) >= 2 * dim_xy * np.finfo(float).eps:
             raise ValueError("If `dim` is a scalar, it must evenly divide the length of the state.")
-        dim_arr[1] = int(np.round(dim_arr[1]))
-    else:
-        dim_arr = np.array(dim)
+        dim[1] = int(np.round(dim[1]))
 
-    dim_x, dim_y = int(dim_arr[0]), int(dim_arr[1])
+    dim_x, dim_y = int(dim[0]), int(dim[1])
 
     dim_list = [dim_x] + [dim_y] * level
     dim_list = np.int_(dim_list)

@@ -74,22 +74,17 @@ def schmidt_decomposition(
             return _operator_schmidt_decomposition(rho, dim, k_param)
 
     if dim is None:
-        dim_arr: np.ndarray = np.array([np.round(np.sqrt(len(rho)))])
-    elif isinstance(dim, list):
-        dim_arr = np.array(dim)
-    elif isinstance(dim, (int, float)):
-        dim_arr = np.array([float(dim)])
-    else:
-        dim_arr = dim
+        dim = np.round(np.sqrt(len(rho)))
+    if isinstance(dim, list):
+        dim = np.array(dim)
 
     # Allow the user to enter a single number for `dim`.
-    if dim_arr.size == 1:
-        dim_val = float(dim_arr.flat[0])
-        dim_arr = np.array([dim_val, len(rho) / dim_val])
-        dim_arr[1] = np.round(dim_arr[1])
+    if isinstance(dim, float):
+        dim = np.array([dim, len(rho) / dim])
+        dim[1] = np.round(dim[1])
 
     # Otherwise, use lots of Schmidt coefficients.
-    u_mat, singular_vals, vt_mat = np.linalg.svd(rho.reshape(dim_arr[::-1].astype(int), order="F"))
+    u_mat, singular_vals, vt_mat = np.linalg.svd(rho.reshape(dim[::-1].astype(int), order="F"))
 
     # Otherwise, use lots of Schmidt coefficients.
     # After taking the transpose, the columns of `vt_mat` are actually the
@@ -109,7 +104,7 @@ def schmidt_decomposition(
     singular_vals = singular_vals.reshape(-1, 1)
     if k_param == 0:
         # Schmidt rank.
-        r_param = np.sum(singular_vals > np.max(dim_arr) * np.spacing(singular_vals[0]))
+        r_param = np.sum(singular_vals > np.max(dim) * np.spacing(singular_vals[0]))
         # Schmidt coefficients.
         singular_vals = singular_vals[:r_param]
         u_mat = u_mat[:, :r_param]
@@ -135,33 +130,34 @@ def _operator_schmidt_decomposition(
     if dim is None:
         dim_x = rho.shape
         sqrt_dim = np.round(np.sqrt(dim_x))
-        dim_arr = np.array([[sqrt_dim[0], sqrt_dim[0]], [sqrt_dim[1], sqrt_dim[1]]])
-    elif isinstance(dim, list):
-        dim_arr = np.array(dim)
-    elif isinstance(dim, int):
-        dim_arr = np.array([dim, len(rho) / dim])
-        dim_arr[1] = np.round(dim_arr[1])
-    else:
-        dim_arr = dim
+        dim = np.array([[sqrt_dim[0], sqrt_dim[0]], [sqrt_dim[1], sqrt_dim[1]]])
 
-    if min(dim_arr.shape) == 1 or len(dim_arr.shape) == 1:
-        dim_arr = np.array([dim_arr, dim_arr])
+    if isinstance(dim, list):
+        dim = np.array(dim)
+
+    # Allow the user to enter a single number for `dim` if `rho` is square.
+    if isinstance(dim, int):
+        dim = np.array([dim, len(rho) / dim])
+        dim[1] = np.round(dim[1])
+
+    if min(dim.shape) == 1 or len(dim.shape) == 1:
+        dim = np.array([dim, dim])
 
     # Vectorize `rho` in a block ordering and compute singular values and vectors.
     rho = np.moveaxis(
-        rho.reshape((int(dim_arr[0, 0]), int(dim_arr[0, 1]), int(dim_arr[1, 0]), int(dim_arr[1, 1]))),
+        rho.reshape((int(dim[0, 0]), int(dim[0, 1]), int(dim[1, 0]), int(dim[1, 1]))),
         (1, 2),
         (2, 1),
     )
     singular_vals, u_mat, vt_mat = schmidt_decomposition(
-        rho.reshape((rho.size, 1)), np.prod(dim_arr, axis=0).astype(int), k_param
+        rho.reshape((rho.size, 1)), np.prod(dim, axis=0).astype(int), k_param
     )
 
     # Reshape columns of `u_mat` and `vt_mat` to form a list of left and right
     # singular operators of `rho`.  The singular operators are given along the
     # last axis for consistency with the Schmidt decomposition of a state
     # vector.
-    u_mat = u_mat.reshape((int(dim_arr[0, 0]), int(dim_arr[1, 0]), len(singular_vals)))
-    vt_mat = vt_mat.reshape((int(dim_arr[0, 1]), int(dim_arr[1, 1]), len(singular_vals)))
+    u_mat = u_mat.reshape((int(dim[0, 0]), int(dim[1, 0]), len(singular_vals)))
+    vt_mat = vt_mat.reshape((int(dim[0, 1]), int(dim[1, 1]), len(singular_vals)))
 
     return singular_vals, u_mat, vt_mat

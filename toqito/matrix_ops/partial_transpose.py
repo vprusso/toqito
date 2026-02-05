@@ -127,56 +127,51 @@ def partial_transpose(
     sqrt_rho_dims = np.round(np.sqrt(list(rho.shape)))
 
     if dim is None:
-        dim_arr = np.array([[sqrt_rho_dims[0], sqrt_rho_dims[0]], [sqrt_rho_dims[1], sqrt_rho_dims[1]]])
-    elif isinstance(dim, float):
-        dim_arr = np.array([dim])
-    elif isinstance(dim, list):
-        dim_arr = np.array(dim)
-    else:
-        dim_arr = dim
-
+        dim = np.array([[sqrt_rho_dims[0], sqrt_rho_dims[0]], [sqrt_rho_dims[1], sqrt_rho_dims[1]]])
+    if isinstance(dim, float):
+        dim = np.array([dim])
+    if isinstance(dim, list):
+        dim = np.array(dim)
     if isinstance(sys, list):
-        sys_arr = np.array(sys)
-    elif isinstance(sys, int):
-        sys_arr = np.array([sys])
-    else:
-        sys_arr = sys
+        sys = np.array(sys)
+    if isinstance(sys, int):
+        sys = np.array([sys])
 
     # Allow the user to enter a single number for dim.
-    if (num_sys := max(dim_arr.shape)) == 1:
-        dim_arr = np.array([dim_arr, list(rho.shape)[0] / dim_arr])
-        if np.abs(dim_arr[1] - np.round(dim_arr[1]))[0] >= 2 * list(rho.shape)[0] * np.finfo(float).eps:
+    if (num_sys := max(dim.shape)) == 1:
+        dim = np.array([dim, list(rho.shape)[0] / dim])
+        if np.abs(dim[1] - np.round(dim[1]))[0] >= 2 * list(rho.shape)[0] * np.finfo(float).eps:
             raise ValueError(
                 "InvalidDim: If `dim` is a scalar, `rho` must be "
                 "square and `dim` must evenly divide `len(rho)`; "
                 "please provide the `dim` array containing the "
                 "dimensions of the subsystems."
             )
-        dim_arr[1] = np.round(dim_arr[1])
+        dim[1] = np.round(dim[1])
         num_sys = 2
 
     # Allow the user to enter a vector for dim if X is square.
-    if min(dim_arr.shape) == 1 or len(dim_arr.shape) == 1:
+    if min(dim.shape) == 1 or len(dim.shape) == 1:
         # Force dim to be a row vector.
-        dim_arr = dim_arr.T.flatten()
-        dim_arr = np.array([dim_arr, dim_arr])
+        dim = dim.T.flatten()
+        dim = np.array([dim, dim])
 
-    prod_dim_r = int(np.prod(dim_arr[0, :]))
-    prod_dim_c = int(np.prod(dim_arr[1, :]))
+    prod_dim_r = int(np.prod(dim[0, :]))
+    prod_dim_c = int(np.prod(dim[1, :]))
 
-    sub_prod_r = np.prod(dim_arr[0, sys_arr])
-    sub_prod_c = np.prod(dim_arr[1, sys_arr])
+    sub_prod_r = np.prod(dim[0, sys])
+    sub_prod_c = np.prod(dim[1, sys])
 
     sub_sys_vec_r = prod_dim_r * np.ones(int(sub_prod_r)) / sub_prod_r
     sub_sys_vec_c = prod_dim_c * np.ones(int(sub_prod_c)) / sub_prod_c
 
-    set_diff = list(set(list(range(num_sys))) - set(sys_arr))
-    perm = (sys_arr).tolist()[:]
+    set_diff = list(set(list(range(num_sys))) - set(sys))
+    perm = (sys).tolist()[:]
     perm.extend(set_diff)
 
     # Permute the subsystems so that we just have to do the partial transpose
     # on the first (potentially larger) subsystem.
-    rho_permuted = permute_systems(rho, perm, dim_arr)
+    rho_permuted = permute_systems(rho, perm, dim)
 
     x_tmp = np.reshape(
         rho_permuted,
@@ -199,8 +194,8 @@ def partial_transpose(
     )
 
     # Return the subsystems back to their original positions.
-    dim_arr[:, sys_arr] = np.flipud(dim_arr[:, sys_arr])
+    dim[:, sys] = np.flipud(dim[:, sys])
 
-    dim_arr = dim_arr[:, (np.array(perm)).tolist()]
+    dim = dim[:, (np.array(perm)).tolist()]
 
-    return permute_systems(z_tmp, perm, dim_arr, False, True)
+    return permute_systems(z_tmp, perm, dim, False, True)
