@@ -675,19 +675,15 @@ def test_dim_list_branches(dim_value):
 @pytest.mark.parametrize(
     "input_mat, sys_value, dim_value, error_msg",
     [
-        # Non-square matrix
+        # Non-square matrix.
         (np.ones((2, 3)), None, None, "square"),
-
-        # Dim product mismatch
+        # Dim product mismatch.
         (np.eye(4), [0], [2, 3], "Product of `dim`"),
-
-        # dim=None and non-perfect-square
+        # dim=None and non-perfect-square.
         (np.ones((6, 6)), [0], None, "Cannot infer subsystem dimensions directly"),
-
-        # dim not 1D (2D array)
+        # dim not 1D (2D array).
         (np.eye(4), [0], np.array([[2, 2]]), "1D"),
-
-        # completely invalid dim type
+        # completely invalid dim type.
         (np.eye(4), [0], "invalid_dim", "int or array-like"),
     ],
 )

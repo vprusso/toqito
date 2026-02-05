@@ -150,9 +150,8 @@ def partial_trace(
         if len(dim) == 1:
             d = dim[0]
             if n % d != 0:
-                raise ValueError(
-                    "Invalid: If `dim` is a scalar, it must evenly divide matrix dimension."
-                )
+                raise ValueError("Invalid: If `dim` is a scalar, it must evenly divide matrix dimension.")
+
             dim = np.array([d, n // d])
     else:
         raise ValueError("Invalid: `dim` must be int or array-like of ints.")
@@ -163,7 +162,7 @@ def partial_trace(
     if prod_dim != n:
         raise ValueError("Product of `dim` must match the dimension of input_mat.")
 
-    # Validate sys indices and compute subsystem product
+    # Validate sys indices and compute subsystem product.
     if isinstance(sys, int):
         if sys < 0 or sys >= num_sys:
             raise ValueError("Subsystem indices in `sys` are out of bounds.")
