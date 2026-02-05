@@ -21,14 +21,12 @@ aforementioned paper.
 # *tetrahedral states*:
 #
 # .. math::
-#   \begin{equation}
 #       \begin{aligned}
-#           \ket{\psi_1} = \frac{1}{\sqrt{3}} (\ket{0} + \ket{1} + \ket{2}), \quad & 
-#           \ket{\psi_2} = \frac{1}{\sqrt{3}} (\ket{0} - \ket{1} - \ket{2}), \\ 
-#           \ket{\psi_3} = \frac{1}{\sqrt{3}} (-\ket{0} - \ket{1} + \ket{2}), \quad & 
-#           \ket{\psi_4} = \frac{1}{\sqrt{3}} (-\ket{0} + \ket{1} - \ket{2}). 
+#           \ket{\psi_1} = \frac{1}{\sqrt{3}} (\ket{0} + \ket{1} + \ket{2}), \quad &
+#           \ket{\psi_2} = \frac{1}{\sqrt{3}} (\ket{0} - \ket{1} - \ket{2}), \\
+#           \ket{\psi_3} = \frac{1}{\sqrt{3}} (-\ket{0} - \ket{1} + \ket{2}), \quad &
+#           \ket{\psi_4} = \frac{1}{\sqrt{3}} (-\ket{0} + \ket{1} - \ket{2}).
 #       \end{aligned}
-#   \end{equation}
 
 import numpy as np
 
@@ -57,16 +55,14 @@ print(f"Average classification error (k=2): {learnability_result['value']}")
 # \frac{1}{2} \ket{\phi_{i,j}} \bra{\phi_{i,j}}`, where
 #
 # .. math::
-#   \begin{equation}
 #       \begin{aligned}
 #           \ket{\phi_{1,2}} &= \frac{1}{\sqrt{2}}(\ket{1} + \ket{2}), \quad
 #           \ket{\phi_{1,3}} = \frac{1}{\sqrt{2}}(\ket{0} + \ket{1}), \quad
 #           \ket{\phi_{1,4}} = \frac{1}{\sqrt{2}}(\ket{0} + \ket{2}), \\
 #           \ket{\phi_{2,3}} &= \frac{1}{\sqrt{2}}(\ket{0} - \ket{2}), \quad
-#           \ket{\phi_{2,4}} = \frac{1}{\sqrt{2}}(\ket{0} - \ket{1}), \quad
+#           \ket{\phi_{2,4}} &= \frac{1}{\sqrt{2}}(\ket{0} - \ket{1}), \quad
 #           \ket{\phi_{3,4}} = \frac{1}{\sqrt{2}}(\ket{1} - \ket{2}).
 #       \end{aligned}
-#   \end{equation}
 
 def povm_residual(states: list[np.ndarray], povm: dict[tuple[int, int], np.ndarray]) -> tuple[float, float]:
     """Return the maximum POVM reconstruction and support violations."""
@@ -124,11 +120,9 @@ print(f"Average classification error (k=1): {learnability_result['value']}")
 # For example, the following matrix is :math:`2`-incoherent
 #
 # .. math::
-#   \begin{equation}
 #       \begin{pmatrix}
 #           2 & 1 & 2 \\ 1 & 2 & -1 \\ 2 & -1 & 5
 #       \end{pmatrix}
-#   \end{equation}
 # 
 # Indeed, one can verify this numerically using the
 # :py:func:`~toqito.matrix_props.is_k_incoherent.is_k_incoherent`.
@@ -174,28 +168,24 @@ print(result["feasible"])
 # the rank-:math:`3` matrix
 #
 # .. math::
-#   \begin{equation}
 #       M = \begin{bmatrix}
 #        2 & 1 & 1 & -1 \\
 #        1 & 2 & 0 & 1 \\
 #        1 & 0 & 2 & -1 \\
 #        -1 & 1 & -1 & 2
 #       \end{bmatrix}.
-#   \end{equation}
 # 
 # We start by finding a basis for :math:`S := \text{range}(M)`, which can be done by picking a linearly independent set
 # of :math:`r = 3` columns of :math:`M`: :math:`S = \operatorname{span}\{(2,1,1,-1), (1,2,0,1), (1,0,2,-1)\}`. Then
 # :math:`R_0 = \{S\}` and we proceed recursively:
 #
 # .. math::
-#   \begin{equation}
 #       \begin{aligned}
 #           R_1 = \{S_1, S_2, S_3, S_3\}, \quad \text{where} \quad S_1 & = \operatorname{span}\{(0,1,-1,1), (0,1,-3,1)\}, \\
 #           S_2 & = \operatorname{span}\{(1,0,2,-1), (3,0,2,-3)\}, \\
 #           S_3 & = \operatorname{span}\{(1,2,0,1), (3,2,0,-1)\}, \ \ \text{and} \\
 #           S_4 & = \operatorname{span}\{(1,1,1,0), (3,3,1,0)\}.
 #       \end{aligned}
-#   \end{equation}
 #
 # To determine whether or not :math:`M` is :math:`3`-incoherent, we let :math:`\Pi_1`, :math:`\Pi_2`, :math:`\Pi_3`, and
 # :math:`\Pi_4` be the orthogonal projections onto :math:`S_1`, :math:`S_2`, :math:`S_3`, and :math:`S_4`, respectively.
@@ -203,14 +193,11 @@ print(result["feasible"])
 # \text{Pos}(\mathbb{C}^4)` for which
 # 
 # .. math::
-#   \begin{equation}
 #       M = M_1 + M_2 + M_3 + M_4, \quad \text{and} \quad M_j = \Pi_j M_j \Pi_j \quad \text{for all} \quad j \in \{1,2,3,4\}.
-#   \end{equation}
 #
 # Indeed, such matrices do exist:
 # 
 # .. math::
-#    \begin{equation}
 #        M_1 = \begin{bmatrix}
 #            0 & 0 & 0 & 0 \\
 #            0 & 1 & -1 & 1 \\
@@ -232,7 +219,6 @@ print(result["feasible"])
 #            1 & 1 & 1 & 0 \\
 #            0 & 0 & 0 & 0
 #        \end{bmatrix},
-#    \end{equation}
 #
 # so :math:`M` is :math:`3`-incoherent. For example, we can verify this numerically using the
 # :py:func:`~toqito.matrix_props.factor_width.factor_width`.
