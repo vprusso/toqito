@@ -184,7 +184,7 @@ print(result["feasible"])
 #   \end{equation}
 # 
 # We start by finding a basis for :math:`S := \text{range}(M)`, which can be done by picking a linearly independent set
-# of :math:`r = 3` columns of :math:`M$` :math:`S = \operatorname{span}\{(2,1,1,-1), (1,2,0,1), (1,0,2,-1)\}`. Then
+# of :math:`r = 3` columns of :math:`M`: :math:`S = \operatorname{span}\{(2,1,1,-1), (1,2,0,1), (1,0,2,-1)\}`. Then
 # :math:`R_0 = \{S\}` and we proceed recursively:
 #
 # .. math::
@@ -250,7 +250,7 @@ result = factor_width(mat, k=3)
 print(sum(result["factors"]))
     
 # %%
-# To similarly determine whether or not :math:`M`` is :math:`2`-incoherent, we proceed further with the recursive
+# To similarly determine whether or not :math:`M` is :math:`2`-incoherent, we proceed further with the recursive
 # construction by computing
 #
 # .. math::
