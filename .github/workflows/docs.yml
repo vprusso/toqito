@@ -25,6 +25,10 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Install system dependencies for BLAS/LAPACK
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libblas-dev liblapack-dev gfortran libatlas-base-dev
       - name: Install uv
         run: pip install uv
 
