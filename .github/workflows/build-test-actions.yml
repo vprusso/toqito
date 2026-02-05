@@ -20,7 +20,7 @@ jobs:
       fail-fast: false
       matrix:
           # Add versions here to expand support matrix
-        python-version: ["3.10", "3.11", "3.12"]
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
         os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     env:
@@ -39,11 +39,15 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get install -y libblas-dev liblapack-dev
+      - name: Install suite-sparse for macOS
+        if: runner.os == 'macOS'
+        run: |
+          brew install suite-sparse
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
       - name: Install toqito + dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install poetry
-          poetry install --without docs --no-interaction
+          uv sync --group dev --no-group docs --no-group lint
 
 
   toqito-pytest:
@@ -51,7 +55,7 @@ jobs:
       fail-fast: false
       matrix:
         # Add versions here to expand support matrix
-        python-version: ["3.10", "3.11", "3.12"]
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
         os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
         # https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs#using-a-matrix-strategy
@@ -67,17 +71,17 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           sudo apt-get install -y libblas-dev liblapack-dev
-      - name: Install blas, lapack for macOS
+      - name: Install blas, lapack, suite-sparse for macOS
         if: runner.os == 'macOS'
         run: |
-          brew install openblas lapack
+          brew install openblas lapack suite-sparse
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
       - name: Install toqito + dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install poetry
-          poetry install --with dev --without docs,lint --no-interaction
+          uv sync --group dev --no-group docs --no-group lint
       - name: Run tests
-        run: poetry run pytest -v --cov-config=.coveragerc --cov-report=xml --cov-report term-missing:skip-covered --cov=toqito
+        run: uv run pytest -v --cov-config=.coveragerc --cov-report=xml --cov-report term-missing:skip-covered --cov=toqito
       - name: Upload coverage information
         uses: codecov/codecov-action@v5
         with:
@@ -87,5 +91,5 @@ jobs:
           files: ./coverage.xml
           verbose: true
       - name: Build artifacts
-        run: poetry build
+        run: uv build
 

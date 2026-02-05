@@ -125,15 +125,15 @@ jobs:
       with:
         python-version: ${{ env.PYTHON_VERSION }}
     
-    - name: Install Poetry
-      run: pip install poetry
-    
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
+
     - name: Setup toqito environment
       run: |
         cd toqito
         echo "Setting up toqito development environment..."
-        poetry install --with dev
-        poetry add pytest-benchmark --group dev pytest-memray sympy pygal
+        uv sync --group dev
+        uv pip install pytest-benchmark pytest-memray pygal
         echo "Environment setup complete"
     
     - name: Verify baseline benchmark exists
@@ -187,7 +187,7 @@ jobs:
 
         cd ../toqito
 
-        PYTEST_CMD="poetry run pytest ../toqito-bench/scripts/benchmark_toqito.py"
+        PYTEST_CMD="uv run pytest ../toqito-bench/scripts/benchmark_toqito.py"
         if [ -n "$FILTER" ]; then
           PYTEST_CMD="$PYTEST_CMD -k \"$FILTER\""
         fi
@@ -240,7 +240,7 @@ jobs:
 
         cd ../toqito
 
-        PYTEST_CMD="poetry run pytest ../toqito-bench/scripts/benchmark_toqito.py"
+        PYTEST_CMD="uv run pytest ../toqito-bench/scripts/benchmark_toqito.py"
         if [ -n "$FILTER" ]; then
           PYTEST_CMD="$PYTEST_CMD -k \"$FILTER\""
         fi
