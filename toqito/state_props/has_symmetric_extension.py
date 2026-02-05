@@ -11,7 +11,7 @@ from toqito.state_props.is_ppt import is_ppt
 def has_symmetric_extension(
     rho: np.ndarray,
     level: int = 2,
-    dim: np.ndarray | int = None,
+    dim: np.ndarray | int | None = None,
     ppt: bool = True,
     tol: float = 1e-4,
 ) -> bool:
@@ -100,18 +100,24 @@ def has_symmetric_extension(
 
     # Set default dimension if none was provided.
     if dim is None:
-        dim = int(np.round(np.sqrt(len_mat)))
+        dim_val = int(np.round(np.sqrt(len_mat)))
+    elif isinstance(dim, int):
+        dim_val = dim
+    else:
+        dim_val = None
 
     # Allow the user to enter in a single integer for dimension.
-    if isinstance(dim, int):
-        dim = np.array([dim, len_mat / dim])
-        if np.abs(dim[1] - np.round(dim[1])) >= 2 * len_mat * np.finfo(float).eps:
+    if dim_val is not None:
+        dim_arr = np.array([dim_val, len_mat / dim_val])
+        if np.abs(dim_arr[1] - np.round(dim_arr[1])) >= 2 * len_mat * np.finfo(float).eps:
             raise ValueError("If `dim` is a scalar, it must evenly divide the length of the matrix.")
-        dim[1] = int(np.round(dim[1]))
+        dim_arr[1] = int(np.round(dim_arr[1]))
+    else:
+        dim_arr = np.array(dim)
 
-    dim = np.int_(dim)
+    dim_arr = np.int_(dim_arr)
 
-    dim_x, dim_y = int(dim[0]), int(dim[1])
+    dim_x, dim_y = int(dim_arr[0]), int(dim_arr[1])
     # In certain situations, we don't need semidefinite programming.
     if level == 1 or len_mat <= 6 and ppt:
         if not ppt:
@@ -120,7 +126,7 @@ def has_symmetric_extension(
 
         # In this case, all they asked for is a 1-copy PPT symmetric extension
         # (i.e., they're asking if the state is PPT).
-        return is_ppt(rho, 2, dim) and is_positive_semidefinite(rho)
+        return is_ppt(rho, 2, dim_arr) and is_positive_semidefinite(rho)
 
     # In the 2-qubit case, an analytic formula is known for whether or not a state has a
     # (2-copy, non-PPT) symmetric extension that is much faster to use than semidefinite

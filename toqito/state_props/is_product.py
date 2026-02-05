@@ -6,7 +6,7 @@ from toqito.perms import permute_systems, swap
 from toqito.state_ops import schmidt_decomposition
 
 
-def is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray = None) -> bool | np.ndarray:
+def is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = None) -> tuple:
     r"""Determine if a given vector is a product state :footcite:`WikiSepSt`.
 
     If the input is deemed to be product, then the product decomposition is also
@@ -58,7 +58,7 @@ def is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray = None) -> boo
     return _is_product(rho, dim)
 
 
-def _is_product(rho: np.ndarray, dim: int | list[int] = None) -> list[int, bool]:
+def _is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = None) -> tuple:
     """Determine if input is a product state recursive helper.
 
     :param rho: The vector or matrix to check.
@@ -71,44 +71,50 @@ def _is_product(rho: np.ndarray, dim: int | list[int] = None) -> list[int, bool]
             return _operator_is_product(rho, dim)
 
     if dim is None:
-        dim = np.round(np.sqrt(len(rho)))
-    if isinstance(dim, list):
-        dim = np.array(dim)
+        dim_val = np.round(np.sqrt(len(rho)))
+    elif isinstance(dim, (int, float)):
+        dim_val = float(dim)
+    else:
+        dim_val = None
 
-    # Allow the user to enter a single number for dim.
-    if isinstance(dim, float):
+    if dim_val is not None:
+        # Allow the user to enter a single number for dim.
         num_sys = 1
     else:
-        num_sys = len(dim)
+        dim_arr = np.array(dim) if isinstance(dim, list) else dim
+        num_sys = len(dim_arr)
 
     if num_sys == 1:
-        dim = np.array([dim, len(rho) // dim])
-        dim[1] = np.round(dim[1])
+        dim_arr = np.array([dim_val, len(rho) // dim_val])
+        dim_arr[1] = np.round(dim_arr[1])
         num_sys = 2
+    elif dim_val is None:
+        # dim_arr is already set above
+        pass
 
     dec = None
     # If there are only two subsystems, just use the Schmidt decomposition.
     if num_sys == 2:
-        singular_vals, u_mat, vt_mat = schmidt_decomposition(rho, dim, 2)
+        singular_vals, u_mat, vt_mat = schmidt_decomposition(rho, dim_arr, 2)
 
         # Provide this even if not requested, since it is needed if this
         # function was called as part of its recursive algorithm (see below)
-        if ipv := singular_vals[1] <= np.prod(dim) * np.spacing(singular_vals[0]):
+        if ipv := singular_vals[1] <= np.prod(dim_arr) * np.spacing(singular_vals[0]):
             u_mat = u_mat * np.sqrt(singular_vals[0])
             vt_mat = vt_mat * np.sqrt(singular_vals[0])
             dec = [u_mat[:, 0], vt_mat[:, 0]]
     else:
-        new_dim = [dim[0] * dim[1]]
-        new_dim.extend(dim[2:])
+        new_dim = [dim_arr[0] * dim_arr[1]]
+        new_dim.extend(dim_arr[2:])
         ipv, dec = _is_product(rho, new_dim)
         if ipv:
-            ipv, tdec = _is_product(dec[0], [dim[0], dim[1]])
+            ipv, tdec = _is_product(dec[0], [dim_arr[0], dim_arr[1]])
             if ipv:
                 dec = [*tdec, *dec[1:]]
     return ipv, dec
 
 
-def _operator_is_product(rho: np.ndarray, dim: int | list[int] = None) -> list[int, bool]:
+def _operator_is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = None) -> tuple:
     r"""Determine if a given matrix is a product operator.
 
     Given an input `rho` provided as a matrix, determine if it is a product
@@ -121,21 +127,24 @@ def _operator_is_product(rho: np.ndarray, dim: int | list[int] = None) -> list[i
         dim_x = rho.shape
         sqrt_dim = np.round(np.sqrt(dim_x))
 
-        dim = np.array([[sqrt_dim[0], sqrt_dim[0]], [sqrt_dim[1], sqrt_dim[1]]])
+        dim_arr = np.array([[sqrt_dim[0], sqrt_dim[0]], [sqrt_dim[1], sqrt_dim[1]]])
+    elif isinstance(dim, list):
+        dim_arr = np.array(dim)
+    elif isinstance(dim, np.ndarray):
+        dim_arr = dim
+    else:
+        dim_arr = np.array([dim])
 
-    if isinstance(dim, list):
-        dim = np.array(dim)
-
-    num_sys = len(dim)
+    num_sys = len(dim_arr)
 
     # Allow the user to enter a vector for `dim` if `rho` is square.
-    if min(dim.shape) == 1 or len(dim.shape) == 1:
-        dim = dim.T.flatten()
-        dim = np.array([dim, dim])
+    if min(dim_arr.shape) == 1 or len(dim_arr.shape) == 1:
+        dim_arr = dim_arr.T.flatten()
+        dim_arr = np.array([dim_arr, dim_arr])
 
-    op_1 = rho.reshape(int(np.prod(np.prod(dim))), 1)
+    op_1 = rho.reshape(int(np.prod(np.prod(dim_arr))), 1)
     perm = swap(np.array(list(range(2 * num_sys))), [1, 2], [2, num_sys])
-    perm_dim = np.concatenate((dim[1, :].astype(int), dim[0, :].astype(int)))
+    perm_dim = np.concatenate((dim_arr[1, :].astype(int), dim_arr[0, :].astype(int)))
     op_3 = permute_systems(op_1, perm, perm_dim).reshape(-1, 1)
 
-    return is_product(op_3, np.prod(dim, axis=0).astype(int))
+    return is_product(op_3, np.prod(dim_arr, axis=0).astype(int))

@@ -7,7 +7,7 @@ def amplitude_damping(
     input_mat: np.ndarray | None = None,
     gamma: float = 0,
     prob: float = 1,
-) -> np.ndarray:
+) -> np.ndarray | list[np.ndarray]:
     r"""Apply the generalized amplitude damping channel to a quantum state.
 
     The generalized amplitude damping channel is a quantum channel that models energy dissipation

@@ -6,7 +6,7 @@ from picos import partial_transpose
 from toqito.matrix_ops import to_density_matrix
 
 
-def log_negativity(rho: np.ndarray, dim: list[int] | int = None) -> float:
+def log_negativity(rho: np.ndarray, dim: list[int] | int | None = None) -> float:
     r"""Compute the log-negativity of a bipartite quantum state :footcite:`WikiNeg`.
 
     The log-negativity of a subsystem can be defined in terms of a density matrix :math:`\rho`:
@@ -52,29 +52,29 @@ def log_negativity(rho: np.ndarray, dim: list[int] | int = None) -> float:
     round_dim = np.round(np.sqrt(rho_dims))
 
     if dim is None:
-        dim = np.array([round_dim])
-        dim = dim.T
-    if isinstance(dim, list):
-        dim = np.array(dim)
-
-    # Allow the user to enter a single number for dim.
-    if isinstance(dim, int):
-        dim = np.array([dim, rho_dims[0] / dim])
-        if abs(dim[1] - np.round(dim[1])) >= 2 * rho_dims[0] * np.finfo(float).eps:
+        dim_arr: np.ndarray = np.array([round_dim])
+        dim_arr = dim_arr.T
+    elif isinstance(dim, list):
+        dim_arr = np.array(dim)
+    elif isinstance(dim, int):
+        dim_arr = np.array([dim, rho_dims[0] / dim])
+        if abs(dim_arr[1] - np.round(dim_arr[1])) >= 2 * rho_dims[0] * np.finfo(float).eps:
             raise ValueError(
                 "InvalidDim: If `dim` is a scalar, `rho` must be "
                 "square and `dim` must evenly divide `len(rho)`. "
                 "Please provide the `dim` array containing the "
                 "dimensions of the subsystems."
             )
-        dim[1] = np.round(dim[1])
+        dim_arr[1] = np.round(dim_arr[1])
+    else:
+        dim_arr = dim
 
-    if np.prod(dim) != rho_dims[0]:
+    if np.prod(dim_arr) != rho_dims[0]:
         raise ValueError(
             "InvalidDim: Please provide local dimensions in the argument `dim` that match the size of `rho`."
         )
 
-    dim = [int(x.item()) for x in dim]
+    dim_list = [int(x.item()) for x in dim_arr]
 
     # Compute the log-negativity.
-    return np.log2(np.linalg.norm(partial_transpose(rho, [1], dim), ord="nuc"))
+    return np.log2(np.linalg.norm(partial_transpose(rho, [1], dim_list), ord="nuc"))

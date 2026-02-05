@@ -8,7 +8,7 @@ from toqito.state_opt.state_exclusion import state_exclusion
 # imported https://github.com/vprusso/toqito/issues/473
 
 
-def is_antidistinguishable(states: list[np.ndarray]) -> bool:
+def is_antidistinguishable(states: list[np.ndarray]) -> bool | np.bool_:
     r"""Check whether a collection of vectors are antidistinguishable or not.
 
     For more information, see :footcite:`Heinosaari_2018_Antidistinguishability`.
