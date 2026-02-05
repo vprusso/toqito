@@ -8,6 +8,8 @@ def random_psd_operator(
     is_real: bool = False,
     seed: int | None = None,
     distribution: str = "uniform",
+    scale: np.ndarray | None = None,
+    df: int | None = None,
 ) -> np.ndarray:
     r"""Generate a random positive semidefinite operator.
 
@@ -80,7 +82,11 @@ def random_psd_operator(
     :param seed: A seed used to instantiate numpy's random number generator.
     :param distribution: Distribution used to generate the PSD operator.
                          Options are `"uniform"` (default) and `"wishart"`.
-    :return: A :code:`dim` x :code:`dim` random positive semidefinite matrix.
+    :param scale: Scale matrix for Wishart distribution. Must be of shape
+                  `(dim, dim)`. Defaults to the identity matrix.
+    :param df: Degrees of freedom for Wishart distribution. Must be
+               greater than or equal to `dim`. Defaults to `dim`.
+
 
     """
     # Generate a random matrix of dimension dim x dim.
@@ -102,12 +108,27 @@ def random_psd_operator(
         return Q @ np.diag(np.abs(eigenvals)) @ Q.conj().T
 
     elif distribution == "wishart":
-        if is_real:
-            X = gen.standard_normal((dim, dim))
-        else:
-            X = gen.standard_normal((dim, dim)) + 1j * gen.standard_normal((dim, dim))
+        if scale is None:
+            scale = np.eye(dim)
 
-        return X @ X.conj().T
+        if df is None:
+            df = dim
+
+        if not isinstance(df, int) or df < dim:
+            raise ValueError("`df` must be an integer greater than or equal to `dim`.")
+
+        if not isinstance(scale, np.ndarray):
+            raise ValueError("`scale` must be a NumPy array.")
+
+        if scale.shape != (dim, dim):
+            raise ValueError("`scale` must have shape (dim, dim).")
+
+        if is_real:
+            X = gen.standard_normal((df, dim))
+        else:
+            X = gen.standard_normal((df, dim)) + 1j * gen.standard_normal((df, dim))
+
+        return scale @ (X.conj().T @ X)
 
     else:
         raise ValueError("Invalid distribution. Supported options are 'uniform' and 'wishart'.")
