@@ -5,7 +5,7 @@ import numpy as np
 from toqito.perms import swap
 
 
-def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray = None) -> float:
+def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = None) -> int | float:
     r"""Compute the Schmidt rank :footcite:`WikiScmidtDecomp`.
 
     For complex Euclidean spaces :math:`\mathcal{X}` and :math:`\mathcal{Y}`, a pure state
@@ -103,7 +103,7 @@ def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray = None) -> f
     return np.linalg.matrix_rank(np.reshape(rho, dim[::-1]))
 
 
-def _operator_schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray = None) -> float:
+def _operator_schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = None) -> int | float:
     """Operator Schmidt rank of variable.
 
     If the input is provided as a density operator instead of a vector, compute

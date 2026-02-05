@@ -7,7 +7,7 @@ chess piece.
 import numpy as np
 
 
-def chessboard(mat_params: list[float], s_param: float = None, t_param: float = None) -> np.ndarray:
+def chessboard(mat_params: list[float], s_param: float | None = None, t_param: float | None = None) -> np.ndarray:
     r"""Produce a chessboard state :footcite:`Bruß_2000_Construction`.
 
     Generates the chessboard state defined in :footcite:`Bruß_2000_Construction`. Note that, for certain choices of

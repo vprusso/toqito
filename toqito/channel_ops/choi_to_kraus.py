@@ -8,7 +8,7 @@ from toqito.matrix_props import is_hermitian, is_positive_semidefinite
 
 
 def choi_to_kraus(
-    choi_mat: np.ndarray, tol: float = 1e-9, dim: int | list[int] | np.ndarray = None
+    choi_mat: np.ndarray, tol: float = 1e-9, dim: int | list[int] | np.ndarray | None = None
 ) -> list[np.ndarray] | list[list[np.ndarray]]:
     r"""Compute a list of Kraus operators from the Choi matrix from :footcite:`Rigetti_2022_Forest`.
 

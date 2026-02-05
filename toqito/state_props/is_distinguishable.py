@@ -8,7 +8,7 @@ from toqito.state_opt.state_distinguishability import state_distinguishability
 # imported https://github.com/vprusso/toqito/issues/473
 
 
-def is_distinguishable(states: list[np.ndarray], probs: list[float] = None) -> bool:
+def is_distinguishable(states: list[np.ndarray], probs: list[float] | None = None) -> bool | np.bool_:
     r"""Check whether a collection of vectors are (perfectly) distinguishable or not.
 
     The ability to determine whether a set of quantum states are distinguishable can be obtained via the state
