@@ -119,6 +119,8 @@ A beginner introduction to adding unit tests is available `here <https://third-b
     timings or regression checks.
 
 
+.. _code_style_reference-label:
+
 ----------
 Code Style
 ----------
@@ -162,7 +164,7 @@ References in Docstrings
 
 
 If you are adding a new function, make sure the docstring of your function follows the formatting specifications
-in `Code Style`_. A standard format for :code:`|toqito⟩` docstring is provided below:
+in :ref:`Code Style <code_style_reference-label>`. A standard format for :code:`|toqito⟩` docstring is provided below:
 
 .. code-block:: python
     
