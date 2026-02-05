@@ -9,8 +9,8 @@ from toqito.state_props.in_separable_ball import in_separable_ball
 
 
 def is_abs_ppt(
-    mat: np.ndarray | cp.Variable, dim: int = None, rtol: float = 1e-05, atol: float = 1e-08
-) -> bool | list[cp.Constraint]:
+    mat: np.ndarray | cp.Variable, dim: int | None = None, rtol: float = 1e-05, atol: float = 1e-08
+) -> bool | None | list[cp.Constraint]:
     r"""Determine whether or not a matrix is absolutely PPT :footcite:`Hildebrand_2007_AbsPPT`.
 
     A Hermitian positive semidefinite matrix is absolutely PPT iff it is PPT under all unitary transformations.

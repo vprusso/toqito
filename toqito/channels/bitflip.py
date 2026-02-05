@@ -6,7 +6,7 @@ import numpy as np
 def bitflip(
     input_mat: np.ndarray | None = None,
     prob: float = 0,
-) -> np.ndarray:
+) -> np.ndarray | list[np.ndarray]:
     r"""Apply the bitflip quantum channel to a state or return the Kraus operators.
 
     The *bitflip channel* is a quantum channel that flips a qubit from :math:`|0\rangle` to :math:`|1\rangle`

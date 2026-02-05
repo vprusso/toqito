@@ -6,7 +6,7 @@ from toqito.perms import permute_systems, swap
 from toqito.state_ops import schmidt_decomposition
 
 
-def is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray = None) -> bool | np.ndarray:
+def is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = None) -> tuple:
     r"""Determine if a given vector is a product state :footcite:`WikiSepSt`.
 
     If the input is deemed to be product, then the product decomposition is also
@@ -58,7 +58,7 @@ def is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray = None) -> boo
     return _is_product(rho, dim)
 
 
-def _is_product(rho: np.ndarray, dim: int | list[int] = None) -> list[int, bool]:
+def _is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = None) -> tuple:
     """Determine if input is a product state recursive helper.
 
     :param rho: The vector or matrix to check.
@@ -108,7 +108,7 @@ def _is_product(rho: np.ndarray, dim: int | list[int] = None) -> list[int, bool]
     return ipv, dec
 
 
-def _operator_is_product(rho: np.ndarray, dim: int | list[int] = None) -> list[int, bool]:
+def _operator_is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = None) -> tuple:
     r"""Determine if a given matrix is a product operator.
 
     Given an input `rho` provided as a matrix, determine if it is a product

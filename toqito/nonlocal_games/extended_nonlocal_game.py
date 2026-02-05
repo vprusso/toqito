@@ -280,10 +280,10 @@ class ExtendedNonlocalGame:
         self,
         iters: int = 20,
         tol: float = 1e-8,
-        seed: int = None,
+        seed: int | None = None,
         initial_bob_is_random: bool | dict = False,
         solver: str = cvxpy.SCS,
-        solver_params: dict = None,
+        solver_params: dict | None = None,
         verbose: bool = False,
     ) -> float:
         r"""Calculate lower bound on the quantum value of an extended nonlocal game.
@@ -410,7 +410,7 @@ class ExtendedNonlocalGame:
         return current_best_lower_bound if current_best_lower_bound > -float("inf") else 0.0
 
     def __optimize_alice(
-        self, fixed_bob_povms_np: dict, solver: str = cvxpy.SCS, solver_params: dict = None
+        self, fixed_bob_povms_np: dict, solver: str = cvxpy.SCS, solver_params: dict | None = None
     ) -> tuple[dict | None, cvxpy.Problem]:
         """Fix Bob's measurements and optimize over Alice's measurements."""
         # The cvxpy package does not support optimizing over 4-dimensional objects.
@@ -463,7 +463,7 @@ class ExtendedNonlocalGame:
         return rho_xa_cvxpy_vars, problem
 
     def __optimize_bob(
-        self, alice_rho_cvxpy_vars: dict | None, solver: str = cvxpy.SCS, solver_params: dict = None
+        self, alice_rho_cvxpy_vars: dict | None, solver: str = cvxpy.SCS, solver_params: dict | None = None
     ) -> tuple[dict | None, cvxpy.Problem]:
         """Fix Alice's measurements and optimize over Bob's measurements."""
         # Get number of inputs and outputs.

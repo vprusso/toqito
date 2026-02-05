@@ -8,7 +8,7 @@ from toqito.channel_props import is_completely_positive, is_quantum_channel
 from toqito.matrix_props import trace_norm
 
 
-def completely_bounded_trace_norm(phi: np.ndarray, solver: str = "cvxopt", **kwargs) -> float:
+def completely_bounded_trace_norm(phi: np.ndarray, solver: str = "cvxopt", **kwargs) -> float | np.floating:
     r"""Find the completely bounded trace norm of a quantum channel.
 
     Also known as the diamond norm of a quantum

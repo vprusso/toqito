@@ -6,7 +6,7 @@ from toqito.matrix_ops import partial_transpose
 from toqito.perms import swap
 
 
-def realignment(input_mat: np.ndarray, dim: int | list[int] = None) -> np.ndarray:
+def realignment(input_mat: np.ndarray, dim: int | list[int] | np.ndarray | None = None) -> np.ndarray:
     r"""Compute the realignment of a bipartite operator :footcite:`Lupo_2008_Bipartite`.
 
     Gives the realignment of the matrix :code:`input_mat`, where it is assumed that the number
@@ -52,29 +52,30 @@ def realignment(input_mat: np.ndarray, dim: int | list[int] = None) -> np.ndarra
     dim_mat = input_mat.shape
     round_dim = np.round(np.sqrt(dim_mat))
     if dim is None:
-        dim = np.transpose(np.array([round_dim]))
-    if isinstance(dim, list):
-        dim = np.array(dim)
-
-    if isinstance(dim, int):
-        dim = np.array([int(dim), int(dim_mat[0] / dim)])
-        dim[1] = np.round(dim[1])
+        dim_arr = np.transpose(np.array([round_dim]))
+    elif isinstance(dim, list):
+        dim_arr = np.array(dim)
+    elif isinstance(dim, int):
+        dim_arr = np.array([int(dim), int(dim_mat[0] / dim)])
+        dim_arr[1] = np.round(dim_arr[1])
+    else:
+        dim_arr = dim
 
     # Dimension if row vector.
-    if len(dim.shape) == 1:
-        dim = dim[:].T
-        dim = np.array([dim, dim])
+    if len(dim_arr.shape) == 1:
+        dim_arr = dim_arr[:].T
+        dim_arr = np.array([dim_arr, dim_arr])
 
     # Dimension is column vector.
-    if min(dim.shape) == 1:
-        dim = dim[:].T[0]
-        dim = np.array([dim, dim])
+    if min(dim_arr.shape) == 1:
+        dim_arr = dim_arr[:].T[0]
+        dim_arr = np.array([dim_arr, dim_arr])
 
-    dim_x = np.array([[dim[0][1], dim[0][0]], [dim[1][0], dim[1][1]]])
+    dim_x = np.array([[dim_arr[0][1], dim_arr[0][0]], [dim_arr[1][0], dim_arr[1][1]]])
     dim_x = np.int_(dim_x)
-    dim_y = np.array([[dim[1][0], dim[0][0]], [dim[0][1], dim[1][1]]])
+    dim_y = np.array([[dim_arr[1][0], dim_arr[0][0]], [dim_arr[0][1], dim_arr[1][1]]])
 
-    x_tmp = swap(input_mat, [1, 2], dim, True)
+    x_tmp = swap(input_mat, [1, 2], dim_arr, True)
     y_tmp = partial_transpose(x_tmp, [0], dim_x)
 
     return swap(y_tmp, [1, 2], dim_y, True)

@@ -6,7 +6,9 @@ from toqito.matrix_ops import partial_transpose
 from toqito.matrix_props import is_positive_semidefinite
 
 
-def is_ppt(mat: np.ndarray, sys: int = 2, dim: int | list[int] = None, tol: float = None) -> bool:
+def is_ppt(
+    mat: np.ndarray, sys: int = 2, dim: int | list[int] | np.ndarray | None = None, tol: float | None = None
+) -> bool:
     r"""Determine whether or not a matrix has positive partial transpose :footcite:`WikiPeresHorodecki`.
 
     Yields either :code:`True` or :code:`False`, indicating that :code:`mat` does or does not have

@@ -3,7 +3,7 @@
 import numpy as np
 
 
-def kp_norm(mat: np.ndarray, k: int, p: int) -> float:
+def kp_norm(mat: np.ndarray, k: int, p: int) -> float | np.floating:
     r"""Compute the kp_norm of vector or matrix.
 
     Calculate the p-norm of a vector or the k-largest singular values of a

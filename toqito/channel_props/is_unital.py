@@ -11,7 +11,7 @@ def is_unital(
     phi: np.ndarray | list[list[np.ndarray]],
     rtol: float = 1e-05,
     atol: float = 1e-08,
-    dim: int | list[int] | np.ndarray = None,
+    dim: int | list[int] | np.ndarray | None = None,
 ) -> bool:
     r"""Determine whether the given channel is unital.
 

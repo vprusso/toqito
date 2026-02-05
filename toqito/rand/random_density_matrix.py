@@ -8,7 +8,7 @@ from toqito.rand import random_unitary
 def random_density_matrix(
     dim: int,
     is_real: bool = False,
-    k_param: list[int] | int = None,
+    k_param: list[int] | int | None = None,
     distance_metric: str = "haar",
     seed: int | None = None,
 ) -> np.ndarray:

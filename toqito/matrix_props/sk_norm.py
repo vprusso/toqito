@@ -22,10 +22,10 @@ from toqito.states.max_entangled import max_entangled
 def sk_operator_norm(
     mat: np.ndarray,
     k: int = 1,
-    dim: int | list[int] = None,
-    target: float = None,
+    dim: int | list[int] | None = None,
+    target: float | None = None,
     effort: int = 2,
-) -> float:
+) -> tuple[float, float]:
     r"""Compute the S(k)-norm of a matrix :footcite:`Johnston_2010_AFamily`.
 
     The :math:`S(k)`-norm of of a matrix :math:`X` is defined as:
@@ -308,9 +308,9 @@ def __target_is_proved(lower_bound: float, upper_bound: float, op_norm: float, t
 def __lower_bound_sk_norm_randomized(
     mat: np.ndarray,
     k: int = 1,
-    dim: int | list[int] = None,
+    dim: int | list[int] | None = None,
     tol: float = 1e-5,
-    start_vec: np.ndarray = None,
+    start_vec: np.ndarray | None = None,
 ) -> float:
     if mat.shape[0] != mat.shape[1]:
         raise ValueError("Input matrix must be square.")
