@@ -4,7 +4,7 @@ import numpy as np
 
 from toqito.matrix_props import is_linearly_independent
 
-
+max_tries = 1000
 def generate_random_independent_vectors(
     num_vectors: int,
     dim: int,
@@ -13,8 +13,7 @@ def generate_random_independent_vectors(
 ) -> np.ndarray:
     r"""Generate random linearly independent vectors.
 
-    Generates a collection of random vectors that are guaranteed
-    to be linearly independent.
+    Generates a collection of random vectors that are guaranteed to be linearly independent.
 
     Examples
     ==========
@@ -23,12 +22,9 @@ def generate_random_independent_vectors(
     >>> vecs.shape
     (3, 2)
 
-
     References
     ==========
     .. footbibliography::
-
-
     :param num_vectors: Number of independent vectors to generate.
     :param dim: Dimension of the vector space.
     :param is_real: Whether vectors are real-valued (default is True).
@@ -42,21 +38,16 @@ def generate_random_independent_vectors(
         raise ValueError("Cannot have more independent vectors than the dimension of the space.")
 
     rng = np.random.default_rng(seed)
-    max_tries = 1000
 
     for _ in range(max_tries):
         if is_real:
             mat = rng.standard_normal((dim, num_vectors))
         else:
-            mat = rng.standard_normal((dim, num_vectors)) + 1j * rng.standard_normal(
-                (dim, num_vectors)
-            )
+            mat = rng.standard_normal((dim, num_vectors)) + 1j * rng.standard_normal((dim, num_vectors))
 
         vectors: list[np.ndarray] = [mat[:, i] for i in range(mat.shape[1])]
 
         if is_linearly_independent(vectors):
             return mat
 
-    raise RuntimeError(
-        "Failed to generate linearly independent vectors after multiple attempts."
-    )
+    raise RuntimeError("Failed to generate linearly independent vectors after multiple attempts.")

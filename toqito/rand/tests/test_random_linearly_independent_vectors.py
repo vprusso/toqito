@@ -4,9 +4,7 @@ import numpy as np
 import pytest
 
 from toqito.matrix_props import is_linearly_independent
-from toqito.rand.generate_random_independent_vectors import (
-    generate_random_independent_vectors,
-)
+from toqito.rand.random_linearly_independent_vectors import generate_random_independent_vectors
 
 
 @pytest.mark.parametrize("is_real", [True, False])
@@ -45,7 +43,7 @@ def test_generate_random_independent_vectors_failure(monkeypatch):
         return np.zeros((3, 2))
 
     monkeypatch.setattr(
-        "toqito.rand.generate_random_independent_vectors.is_linearly_independent",
+        "toqito.rand.random_linearly_independent_vectors.is_linearly_independent",
         lambda _: False,
     )
 
