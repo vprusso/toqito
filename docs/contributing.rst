@@ -82,7 +82,7 @@ If you add a new feature to :code:`|toqito⟩`, make sure
 - The docstring of a new feature should contain a theoretical description of the feature, one or more examples in an :code:`Examples`
   subsection and a :code:`References` subsection. The docstring code examples should utilize `jupyter-sphinx <https://jupyter-sphinx.readthedocs.io/en/latest/>`_. 
 - Added lines should show up as covered in the :code:`pytest` code coverage report. See `Testing`_.
-- Code and unit tests for the new feature should follow the style guidelines as discussed in `Code Style`_.
+- Code and unit tests for the new feature should follow the style guidelines as discussed in :ref:`Code Style <code_style_reference-label>`.
 - The new feature must be added to the :code:`init` file of its module to avoid import issues. 
 - Finally, if the new feature is a new module, it has to be listed in :code:`docs/autoapi_members.rst` such that the new module appears
   in the :code:`API Reference` page due to :code:`sphinx-autoapi`.
