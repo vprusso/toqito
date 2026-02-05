@@ -11,11 +11,17 @@ Getting started
 Installing
 ----------
 
-1. Ensure you have Python 3.10 or greater installed on your machine or in 
-a virtual environment (`pyenv <https://github.com/pyenv/pyenv>`_, `pyenv tutorial <https://realpython.com/intro-to-pyenv/>`_). 
+1. Ensure you have Python 3.10 or greater installed on your machine or in
+a virtual environment (`pyenv <https://github.com/pyenv/pyenv>`_, `pyenv tutorial <https://realpython.com/intro-to-pyenv/>`_).
 
-.. warning::
-    Python 3.13 is not yet supported due to incompatibilities with some dependencies (e.g., :code:`cvxopt`).
+.. note::
+    On macOS, the :code:`cvxopt` dependency (pulled in by :code:`picos`) may need to be built from source
+    if a pre-built wheel is not available for your Python version and macOS version. If you encounter a
+    build error mentioning :code:`umfpack.h`, install the required system library with:
+
+    .. code-block:: bash
+
+        brew install suite-sparse
 
 2. Consider using a `virtual environment <https://docs.python.org/3/tutorial/venv.html>`_.
 You can also use :code:`pyenv` with :code:`virtualenv` `to manage different Python versions <https://github.com/pyenv/pyenv-virtualenv>`_. 
