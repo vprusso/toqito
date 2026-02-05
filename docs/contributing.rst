@@ -82,7 +82,7 @@ If you add a new feature to :code:`|toqito⟩`, make sure
 - The docstring of a new feature should contain a theoretical description of the feature, one or more examples in an :code:`Examples`
   subsection and a :code:`References` subsection. The docstring code examples should utilize `jupyter-sphinx <https://jupyter-sphinx.readthedocs.io/en/latest/>`_. 
 - Added lines should show up as covered in the :code:`pytest` code coverage report. See `Testing`_.
-- Code and unit tests for the new feature should follow the style guidelines as discussed in `Code Style`_.
+- Code and unit tests for the new feature should follow the style guidelines as discussed in :ref:`Code Style <code_style_reference-label>`.
 - The new feature must be added to the :code:`init` file of its module to avoid import issues. 
 - Finally, if the new feature is a new module, it has to be listed in :code:`docs/autoapi_members.rst` such that the new module appears
   in the :code:`API Reference` page due to :code:`sphinx-autoapi`.
@@ -119,6 +119,8 @@ A beginner introduction to adding unit tests is available `here <https://third-b
     timings or regression checks.
 
 
+.. _code_style_reference-label:
+
 ----------
 Code Style
 ----------
@@ -132,7 +134,7 @@ Do not use an autoformatter like :code:`black` as the configuration settings for
 might be incompatible with the changes made by :code:`black`. This is discussed in detail at
 `this link <https://docs.astral.sh/ruff/formatter/black/>`_.
 
-Static typing is enforced with :code:`mypy <https://mypy.readthedocs.io/en/stable/>`_. Before submitting a pull request, run the
+Static typing is enforced with :code:`mypy` (see `mypy documentation <https://mypy.readthedocs.io/en/stable/>`_). Before submitting a pull request, run the
 type checker against the source tree (the type checker lives in the ``lint`` dependency group):
 
 .. code-block:: bash
@@ -162,7 +164,7 @@ References in Docstrings
 
 
 If you are adding a new function, make sure the docstring of your function follows the formatting specifications
-in `Code Style`_. A standard format for :code:`|toqito⟩` docstring is provided below:
+in :ref:`Code Style <code_style_reference-label>`. A standard format for :code:`|toqito⟩` docstring is provided below:
 
 .. code-block:: python
     
