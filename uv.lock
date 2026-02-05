@@ -715,7 +715,7 @@ name = "exceptiongroup"
 version = "1.3.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "typing-extensions", marker = "python_full_version < '3.11'" },
+    { name = "typing-extensions", marker = "python_full_version < '3.13'" },
 ]
 sdist = { url = "https://files.pythonhosted.org/packages/0b/9f/a65090624ecf468cdca03533906e7c69ed7588582240cfe7cc9e770b50eb/exceptiongroup-1.3.0.tar.gz", hash = "sha256:b241f5885f560bc56a59ee63ca4c6a8bfa46ae4ad651af316d4e81817bb9fd88", size = 29749, upload-time = "2025-05-10T17:42:51.123Z" }
 wheels = [
@@ -2789,6 +2789,7 @@ dependencies = [
     { name = "picos" },
     { name = "scipy" },
     { name = "scs" },
+    { name = "sympy" },
 ]
 
 [package.dev-dependencies]
@@ -2801,7 +2802,6 @@ dev = [
     { name = "pytest" },
     { name = "pytest-cov" },
     { name = "setuptools" },
-    { name = "sympy" },
 ]
 docs = [
     { name = "furo" },
@@ -2836,6 +2836,7 @@ requires-dist = [
     { name = "picos", specifier = ">=2.6.2" },
     { name = "scipy", specifier = "==1.15.3" },
     { name = "scs", specifier = "==3.2.7.post2" },
+    { name = "sympy", specifier = "==1.14.0" },
 ]
 
 [package.metadata.requires-dev]
@@ -2848,7 +2849,6 @@ dev = [
     { name = "pytest", specifier = "==9.0.0" },
     { name = "pytest-cov", specifier = "==6.3.0" },
     { name = "setuptools", specifier = ">65.5.1" },
-    { name = "sympy", specifier = "==1.14.0" },
 ]
 docs = [
     { name = "furo", specifier = "==2025.12.19" },
