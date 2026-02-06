@@ -29,26 +29,14 @@ nav:
   - Home: index.md
   - Getting Started: getting-started.md
   - Contributing Guide: contributing-guide.md
-  # - CLI Reference:
-  #   - Overview: cli/overview.md
-  #   - Job Commands: cli/job-commands.md
-  #   - Suite Commands: cli/suite-commands.md
-  # - Provider Configuration:
-  #   - Overview: providers/overview.md
-  #   - IBM Quantum: providers/ibm.md
-  #   - IonQ: providers/ionq.md
-  #   - AWS Braket: providers/braket.md
-  #   - Azure Quantum: providers/azure.md
-  #   - Quantinuum: providers/quantinuum.md
-  #   - OriginQ (Wukong): providers/originq.md
-  #   - Local Simulators: providers/local.md
-  # - Benchmarks: benchmarks/overview.md
-  # - Uploading Results:
-  #   - Contributing to metriq-data: uploading/github.md
-  # - Development:
-  #   - Developer Guide: development/developer-guide.md
-  #   - Adding New Benchmarks: development/adding-benchmarks.md
-  #   - API Reference: development/api-reference.md
+  - Code of Conduct: code-of-conduct.md
+  - Examples : 
+    - Overview : examples/overview.md
+    - Basic Tutorials :
+      - Overview : examples/basic-tutorials/overview.md
+      - Introductory Tutorial : examples/basic-tutorials/introductory-tutorial.md
+      - Superdense Coding : examples/basic-tutorials/superdense-coding.md
+  - References: references.md
 
 plugins:
   - search
@@ -56,8 +44,13 @@ plugins:
       handlers:
         python:
           paths: [".."]
+  - bibtex:
+      bib_dir: content
+  - mkdocs-jupyter:
+      execute: false
 
 markdown_extensions:
+  - footnotes
   - admonition
   - pymdownx.highlight:
       anchor_linenums: true

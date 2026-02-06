@@ -19,3 +19,4 @@ jupyter_execute/
 venv/*
 docs/auto_examples/
 docs/autoapi/
+mkdocs/site/

@@ -27,8 +27,7 @@ versions](https://github.com/pyenv/pyenv-virtualenv).
 3\. The preferred way to install the `|toqito⟩` package is via `uv`,
 which keeps dependencies in sync with the project\'s lockfile. An
 editable version of `|toqito⟩` can be installed through the instructions
-provided in the `contrib_guide_reference-label`{.interpreted-text
-role="ref"}.
+provided in the [Contributing Guide](./contributing-guide.md).
 
 If you prefer to not install an editable version of `|toqito⟩`, use:
 
@@ -78,7 +77,7 @@ All contributions, bug reports, bug fixes, documentation improvements,
 enhancements, and ideas are welcome.
 
 A detailed overview on how to contribute can be found in the
-`contrib_guide_reference-label`{.interpreted-text role="ref"}.
+[Contributing Guide](./contributing-guide.md).
 
 ## Reporting Issues
 
