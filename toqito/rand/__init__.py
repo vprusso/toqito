@@ -9,4 +9,4 @@ from toqito.rand.random_states import random_states
 from toqito.rand.random_circulant_gram_matrix import random_circulant_gram_matrix
 from toqito.rand.random_orthonormal_basis import random_orthonormal_basis
 from toqito.rand.random_psd_operator import random_psd_operator
-from toqito.rand.random_linearly_independent_vectors import generate_random_independent_vectors
+from toqito.rand.random_linearly_independent_vectors import random_linearly_independent_vectors

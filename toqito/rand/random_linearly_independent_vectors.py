@@ -1,30 +1,33 @@
-"""Utilities for generating random linearly independent vectors."""
+"""Generate a random set of linearly independent vectors."""
 
 import numpy as np
 
 from toqito.matrix_props import is_linearly_independent
 
-max_tries = 1000
-def generate_random_independent_vectors(
+
+def random_linearly_independent_vectors(
     num_vectors: int,
     dim: int,
     is_real: bool = True,
     seed: int | None = None,
+    max_tries: int = 1_000,
 ) -> np.ndarray:
     r"""Generate random linearly independent vectors.
 
-    Generates a collection of random vectors that are guaranteed to be linearly independent.
+    This function repeatedly samples random vectors (real or complex) and checks
+    their linear independence until a valid set is found or a maximum number of
+    attempts is reached.
 
-    Examples
-    ==========
-    >>> from toqito.rand import generate_random_independent_vectors
-    >>> vecs = generate_random_independent_vectors(num_vectors=2, dim=3, seed=42)
-    >>> vecs.shape
-    (3, 2)
+    Random vectors are drawn from a standard normal distribution. Independence is
+    verified using :func:`toqito.matrix_props.is_linearly_independent`. If a valid
+    set of vectors cannot be generated within ``max_tries`` attempts, a
+    ``RuntimeError`` is raised.
 
     References
     ==========
     .. footbibliography::
+
+
     :param num_vectors: Number of independent vectors to generate.
     :param dim: Dimension of the vector space.
     :param is_real: Whether vectors are real-valued (default is True).
@@ -35,7 +38,7 @@ def generate_random_independent_vectors(
 
     """
     if num_vectors > dim:
-        raise ValueError("Cannot have more independent vectors than the dimension of the space.")
+        raise ValueError(f"Number of vectors {num_vectors} cannot be greater than dimension {dim}")
 
     rng = np.random.default_rng(seed)
 
@@ -50,4 +53,4 @@ def generate_random_independent_vectors(
         if is_linearly_independent(vectors):
             return mat
 
-    raise RuntimeError("Failed to generate linearly independent vectors after multiple attempts.")
+    raise RuntimeError(f"Failed to generate linearly independent vectors after {max_tries} attempts.")
