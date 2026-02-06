@@ -60,7 +60,7 @@ print(f"Average classification error (k=2): {learnability_result['value']}")
 #           \ket{\phi_{1,3}} = \frac{1}{\sqrt{2}}(\ket{0} + \ket{1}), \quad
 #           \ket{\phi_{1,4}} = \frac{1}{\sqrt{2}}(\ket{0} + \ket{2}), \\
 #           \ket{\phi_{2,3}} &= \frac{1}{\sqrt{2}}(\ket{0} - \ket{2}), \quad
-#           \ket{\phi_{2,4}} &= \frac{1}{\sqrt{2}}(\ket{0} - \ket{1}), \quad
+#           \ket{\phi_{2,4}} = \frac{1}{\sqrt{2}}(\ket{0} - \ket{1}), \quad
 #           \ket{\phi_{3,4}} = \frac{1}{\sqrt{2}}(\ket{1} - \ket{2}).
 #       \end{aligned}
 
