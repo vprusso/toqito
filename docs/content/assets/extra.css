@@ -1,0 +1,17 @@
+/* Metriq brand colors - must target the scheme selectors for specificity */
+/* Colors from metriq-web: cyan (#3cd2f9) and navy (#04165D) */
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: #3cd2f9;
+  --md-primary-fg-color--light: #68D0F4;
+  --md-primary-fg-color--dark: #2bb8dc;
+  --md-accent-fg-color: #04165D;
+  --md-accent-fg-color--transparent: rgba(4, 22, 93, 0.1);
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color: #3cd2f9;
+  --md-primary-fg-color--light: #68D0F4;
+  --md-primary-fg-color--dark: #2bb8dc;
+  --md-accent-fg-color: #68D0F4;
+  --md-accent-fg-color--transparent: rgba(104, 208, 244, 0.1);
+}

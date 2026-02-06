@@ -1,0 +1,83 @@
+site_name: toqito
+site_url: https://vprusso.github.io/toqito/
+site_description: Python tools for the study of quantum information.
+repo_url: https://github.com/vprusso/toqito
+repo_name: vprusso/toqito
+docs_dir: content
+
+theme:
+  name: material
+  logo: assets/logo.svg
+  favicon: assets/logo.svg
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.indexes
+    - navigation.top
+    - content.code.copy
+    - content.code.annotate
+    - search.highlight
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Contributing Guide: contributing-guide.md
+  # - CLI Reference:
+  #   - Overview: cli/overview.md
+  #   - Job Commands: cli/job-commands.md
+  #   - Suite Commands: cli/suite-commands.md
+  # - Provider Configuration:
+  #   - Overview: providers/overview.md
+  #   - IBM Quantum: providers/ibm.md
+  #   - IonQ: providers/ionq.md
+  #   - AWS Braket: providers/braket.md
+  #   - Azure Quantum: providers/azure.md
+  #   - Quantinuum: providers/quantinuum.md
+  #   - OriginQ (Wukong): providers/originq.md
+  #   - Local Simulators: providers/local.md
+  # - Benchmarks: benchmarks/overview.md
+  # - Uploading Results:
+  #   - Contributing to metriq-data: uploading/github.md
+  # - Development:
+  #   - Developer Guide: development/developer-guide.md
+  #   - Adding New Benchmarks: development/adding-benchmarks.md
+  #   - API Reference: development/api-reference.md
+
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [".."]
+
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.details
+  - pymdownx.arithmatex:
+      generic: true
+  - toc:
+      permalink: true
+
+extra_css:
+  - assets/extra.css
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/vprusso/toqito
