@@ -3,7 +3,7 @@
 import numpy as np
 
 
-def mutual_coherence(vectors: list[np.ndarray]) -> float:
+def mutual_coherence(vectors: list[np.ndarray]) -> float | np.floating:
     r"""Calculate the mutual coherence of a collection of input vectors.
 
     The mutual coherence of a collection of input vectors is defined as the maximum

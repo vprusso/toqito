@@ -18,12 +18,12 @@ def _is_pure_state(vector: np.ndarray) -> bool:
 
 def state_distinguishability(
     vectors: list[np.ndarray],
-    probs: list[float] = None,
+    probs: list[float] | None = None,
     strategy: str = "min_error",
     solver: str = "cvxopt",
     primal_dual: str = "dual",
     **kwargs,
-) -> tuple[float, list[picos.HermitianVariable] | tuple[picos.HermitianVariable] | tuple[picos.RealVariable]]:
+) -> tuple[float, list[picos.HermitianVariable] | list[np.ndarray] | tuple[picos.SymmetricVariable]]:
     r"""Compute probability of state distinguishability :footcite:`Eldar_2003_SDPApproach`.
 
     The "quantum state distinguishability" problem involves a collection of :math:`n` quantum states
@@ -190,7 +190,7 @@ def state_distinguishability(
 def _min_error_primal(
     vectors: list[np.ndarray],
     dim: int,
-    probs: list[float] = None,
+    probs: list[float] | None = None,
     solver: str = "cvxopt",
     **kwargs,
 ) -> tuple[float, list[picos.HermitianVariable]]:
@@ -213,7 +213,7 @@ def _min_error_primal(
 def _min_error_dual(
     vectors: list[np.ndarray],
     dim: int,
-    probs: list[float] = None,
+    probs: list[float] | None = None,
     solver: str = "cvxopt",
     **kwargs,
 ) -> tuple[float, list[picos.HermitianVariable]]:
@@ -332,7 +332,7 @@ def _reconstruct_povm_mixed(
 def _unambiguous_primal(
     vectors: list[np.ndarray],
     dim: int,
-    probs: list[float] = None,
+    probs: list[float] | None = None,
     solver: str = "cvxopt",
     **kwargs,
 ) -> tuple[float, list[np.ndarray]]:
@@ -370,10 +370,10 @@ def _unambiguous_primal(
 
 def _unambiguous_dual(
     vectors: list[np.ndarray],
-    probs: list[float] = None,
+    probs: list[float] | None = None,
     solver: str = "cvxopt",
     **kwargs,
-) -> tuple[float, tuple[picos.HermitianVariable]]:
+) -> tuple[float, tuple[picos.SymmetricVariable]]:
     """Solve the dual problem for unambiguous quantum state distinguishability SDP.
 
     Implemented according to Equation (5) of :footcite:`Gupta_2024_Unambiguous`.
@@ -392,4 +392,4 @@ def _unambiguous_dual(
 
     problem.solve(solver=solver, **kwargs)
 
-    return problem.value, (lagrangian_variable_big_z,)
+    return float(problem.value), (lagrangian_variable_big_z,)

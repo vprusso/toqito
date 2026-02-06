@@ -14,7 +14,7 @@ with which this problem can be solved for a number of different scenarios.
 # tutorial on this topic.
 #
 # Further information beyond the scope of this tutorial can be found in the text
-# `:footcite:Pusey_2012_On` as well as the course :footcite:`Bandyopadhyay_2014_Conclusive`.
+# :footcite:`Pusey_2012_On` as well as the course :footcite:`Bandyopadhyay_2014_Conclusive`.
 #
 #
 # The state exclusion problem
@@ -207,7 +207,7 @@ opt_value, measurements = state_exclusion(trine(), probs=[1, 1, 1], primal_dual=
 print(f"Optimal SDP value: {np.around(opt_value, decimals=2)}")
 
 # %%
-# The SDP not only gives us the optimal value, which is $0$ in this case, indicating that the states are
+# The SDP not only gives us the optimal value, which is :math:`0` in this case, indicating that the states are
 # antidistinguishable, but we also get a set of optimal measurement operators. These should look familiar to the
 # measurements we explicitly constructed earlier.
 #
@@ -225,7 +225,7 @@ print(f"Optimal SDP value: {np.around(opt_value, decimals=2)}")
 # for which
 #
 # .. math::
-#    X = \sum_{j=0}^{m-1} c_j |psi_j\rangle \langle \psi_j|.
+#    X = \sum_{j=0}^{m-1} c_j |\psi_j\rangle \langle \psi_j|.
 #
 # It turns out that antidistinguishability is equivalent to :math:`k`-incoherence in the :math:`k = n - 1` case.
 # Reproducing one of the results from :footcite:`Johnston_2025_Tight`, we have the following theorem.

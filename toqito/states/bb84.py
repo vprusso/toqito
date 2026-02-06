@@ -8,7 +8,7 @@ import numpy as np
 from toqito.matrices import standard_basis
 
 
-def bb84() -> np.ndarray:
+def bb84() -> list[list[np.ndarray]]:
     r"""Obtain the BB84 basis states :footcite:`WikiBB84`.
 
     The BB84 basis states are defined as
