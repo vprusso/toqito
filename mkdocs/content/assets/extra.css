@@ -15,3 +15,51 @@
   --md-accent-fg-color: #68D0F4;
   --md-accent-fg-color--transparent: rgba(104, 208, 244, 0.1);
 }
+
+/* Code output styling for light mode */
+[data-md-color-scheme="default"] .highlight pre,
+[data-md-color-scheme="default"] .highlight code {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+[data-md-color-scheme="default"] .highlight {
+  background-color: #f5f5f5;
+}
+
+/* Code output styling for dark mode */
+[data-md-color-scheme="slate"] .highlight pre,
+[data-md-color-scheme="slate"] .highlight code {
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+}
+
+[data-md-color-scheme="slate"] .highlight {
+  background-color: #1e1e1e;
+}
+
+/* Output blocks specifically */
+[data-md-color-scheme="slate"] pre.mg-output {
+  background-color: #1e1e1e !important;
+  color: #d4d4d4 !important;
+  border: 1px solid #333;
+}
+
+[data-md-color-scheme="default"] pre.mg-output {
+  background-color: #f8f8f8 !important;
+  color: #333 !important;
+  border: 1px solid #e0e0e0;
+}
+
+/* Jupyter-style output blocks */
+[data-md-color-scheme="slate"] .output pre,
+[data-md-color-scheme="slate"] .output code {
+  background-color: #1e1e1e !important;
+  color: #d4d4d4 !important;
+}
+
+[data-md-color-scheme="default"] .output pre,
+[data-md-color-scheme="default"] .output code {
+  background-color: #f8f8f8 !important;
+  color: #333 !important;
+}

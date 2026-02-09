@@ -4,6 +4,7 @@ site_description: Python tools for the study of quantum information.
 repo_url: https://github.com/vprusso/toqito
 repo_name: vprusso/toqito
 docs_dir: content
+edit_uri: edit/main/mkdocs/content
 
 theme:
   name: material
@@ -30,39 +31,44 @@ nav:
   - Getting Started: getting-started.md
   - Contributing Guide: contributing-guide.md
   - Code of Conduct: code-of-conduct.md
-  - Examples : 
-    - Overview : examples/overview.md
-    - Basic Tutorials :
-      - Overview : examples/basic-tutorials/overview.md
-      - Introductory Tutorial : examples/basic-tutorials/introductory-tutorial.md
-      - Superdense Coding : examples/basic-tutorials/superdense-coding.md
+  - Examples:
+      - generated/gallery/basics/index.md
+      - generated/gallery/quantum_states/index.md
   - References: references.md
 
 plugins:
   - search
+  - gallery:
+      examples_dirs: content/examples
+      gallery_dirs: content/generated/gallery
+      filename_pattern: \.py$
+      ignore_pattern: __init__\.py
+      download_all_examples: false
   - mkdocstrings:
       handlers:
         python:
           paths: [".."]
+          options:
+            show_root_heading: true
+            show_source: false
+  - autorefs
   - bibtex:
       bib_dir: content
-  - mkdocs-jupyter:
-      execute: false
 
 markdown_extensions:
   - footnotes
   - admonition
+  - attr_list
+  - pymdownx.details
+  - pymdownx.superfences
   - pymdownx.highlight:
       anchor_linenums: true
-  - pymdownx.superfences
   - pymdownx.tabbed:
       alternate_style: true
-  - pymdownx.details
   - pymdownx.arithmatex:
       generic: true
   - toc:
       permalink: true
-
 extra_css:
   - assets/extra.css
 
