@@ -7,6 +7,9 @@ def random_psd_operator(
     dim: int,
     is_real: bool = False,
     seed: int | None = None,
+    distribution: str = "uniform",
+    scale: np.ndarray | None = None,
+    df: int | None = None,
 ) -> np.ndarray:
     r"""Generate a random positive semidefinite operator.
 
@@ -77,21 +80,55 @@ def random_psd_operator(
     :param is_real: Boolean denoting whether the returned matrix will have all real entries or not.
                     Default is :code:`False`.
     :param seed: A seed used to instantiate numpy's random number generator.
-    :return: A :code:`dim` x :code:`dim` random positive semidefinite matrix.
+    :param distribution: Distribution used to generate the PSD operator.
+                         Options are `"uniform"` (default) and `"wishart"`.
+    :param scale: Scale matrix for Wishart distribution. Must be of shape
+                  `(dim, dim)`. Defaults to the identity matrix.
+    :param df: Degrees of freedom for Wishart distribution. Must be
+               greater than or equal to `dim`. Defaults to `dim`.
+
 
     """
     # Generate a random matrix of dimension dim x dim.
     gen = np.random.default_rng(seed=seed)
-    rand_mat = gen.random((dim, dim))
 
-    # If is_real is False, add an imaginary component to the matrix.
-    if not is_real:
-        rand_mat = rand_mat + 1j * gen.random((dim, dim))
+    if not isinstance(dim, int) or dim <= 0:
+        raise ValueError("`dim` must be a positive integer.")
 
-    # Constructing a Hermitian matrix.
-    rand_mat = (rand_mat.conj().T + rand_mat) / 2
-    eigenvals, eigenvecs = np.linalg.eigh(rand_mat)
+    if distribution == "uniform":
+        rand_mat = gen.random((dim, dim))
 
-    Q, R = np.linalg.qr(eigenvecs)
+        if not is_real:
+            rand_mat = rand_mat + 1j * gen.random((dim, dim))
 
-    return Q @ np.diag(np.abs(eigenvals)) @ Q.conj().T
+        rand_mat = (rand_mat.conj().T + rand_mat) / 2
+        eigenvals, eigenvecs = np.linalg.eigh(rand_mat)
+        Q, _ = np.linalg.qr(eigenvecs)
+
+        return Q @ np.diag(np.abs(eigenvals)) @ Q.conj().T
+
+    elif distribution == "wishart":
+        if scale is None:
+            scale = np.eye(dim)
+
+        if df is None:
+            df = dim
+
+        if not isinstance(df, int) or df < dim:
+            raise ValueError("`df` must be an integer greater than or equal to `dim`.")
+
+        if not isinstance(scale, np.ndarray):
+            raise ValueError("`scale` must be a NumPy array.")
+
+        if scale.shape != (dim, dim):
+            raise ValueError("`scale` must have shape (dim, dim).")
+
+        if is_real:
+            X = gen.standard_normal((df, dim))
+        else:
+            X = gen.standard_normal((df, dim)) + 1j * gen.standard_normal((df, dim))
+
+        return scale @ (X.conj().T @ X)
+
+    else:
+        raise ValueError("Invalid distribution. Supported options are 'uniform' and 'wishart'.")
