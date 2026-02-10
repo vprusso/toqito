@@ -36,27 +36,27 @@ cooperatively against an adversary referred to as the referee.
 # A *two-player nonlocal game* consists of players that we give the names *Alice*
 # and *Bob*:
 #
-# ![nonlocal game](../../figures/alice_and_bob.svg)
+# ![nonlocal game](../../../figures/alice_and_bob.svg){.center}
 #
-#   The players: Alice and Bob.
+# <p style="text-align: center;"><em>The players: Alice and Bob.</em></p>
 #
 # Alice and Bob are in separate locations and cannot communicate once the game
 # begins. Prior to the game however, Alice and Bob are free to communicate with
 # each other. In addition to the players, there is also another party in this
 # game that is referred to as the *referee*.
 #
-# ![nonlocal game](../../figures/referee.svg)
+# ![nonlocal game](../../../figures/referee.svg){.center}
 #
-#   The referee.
+# <p style="text-align: center;"><em>The referee.</em></p>
 #
 # Alice and Bob want to play in a cooperative fashion against the referee.
 #
 # Now that we have set the stage with respect to the actors and actresses we will
 # encounter in this game, let us see how the game is actually played.
 #
-# ![nonlocal game](../../figures/nonlocal_game.svg)
+# ![nonlocal game](../../../figures/nonlocal_game.svg){.center}
 #
-#   A two-player nonlocal game.
+# <p style="text-align: center;"><em>A two-player nonlocal game.</em></p>
 #
 # A nonlocal game unfolds in the following manner.
 #
@@ -126,9 +126,8 @@ cooperatively against an adversary referred to as the referee.
 # the players over all quantum strategies. For a nonlocal game, $G$, we use
 # $\omega^*(G)$ to represent the quantum value of $G$.
 #
-# ![nonlocal game quantum strategy](../../figures/nonlocal_game_quantum_strategy.svg)
-#
-#   A two-player nonlocal game invoking a quantum strategy.
+# ![nonlocal game quantum strategy](../../../figures/nonlocal_game_quantum_strategy.svg){.center}
+# <p style="text-align: center;"> <em>A two-player nonlocal game invoking a quantum strategy.</em></p>
 #
 # Let us describe the high-level steps for how Alice and Bob play using a quantum
 # strategy.
@@ -147,28 +146,25 @@ cooperatively against an adversary referred to as the referee.
 #    $b \in \Gamma_B$. Specifically, Alice and Bob have collections of
 #    measurements
 #
-#    $$
-#       \begin{equation}
-#           \begin{aligned}
-#               \{ A_a^x : a \in \Gamma_{\text{A}} \} \subset \text{Pos}(\mathcal{U})
-#               \quad \text{and} \quad
-#               \{ B_b^y : b \in \Gamma_{\text{B}} \} \subset \text{Pos}(\mathcal{V}),
-#           \end{aligned}
-#       \end{equation}
+# $$
+# \begin{aligned}
+# \{ A_a^x : a \in \Gamma_{\text{A}} \} \subset \text{Pos}(\mathcal{U})
+# \quad \text{and} \quad
+# \{ B_b^y : b \in \Gamma_{\text{B}} \} \subset \text{Pos}(\mathcal{V}),
+# \end{aligned}
+# $$
 #
-#    such that the measurements satisfy
+#   such that the measurements satisfy
 #
-#    $$
-#       \begin{equation}
-#           \begin{aligned}
-#               \sum_{a \in \Gamma_A} A_a^x = \mathbb{I}_{\mathcal{U}}
-#               \quad \text{and} \quad
-#               \sum_{b \in \Gamma_B} B_b^y = \mathbb{I}_{\mathcal{V}}
-#           \end{aligned}
-#       \end{equation}
-#    $$
+# $$
+# \begin{aligned}
+# \sum_{a \in \Gamma_A} A_a^x = \mathbb{I}_{\mathcal{U}}
+# \quad \text{and} \quad
+# \sum_{b \in \Gamma_B} B_b^y = \mathbb{I}_{\mathcal{V}}
+# \end{aligned}
+# $$
 #
-# 4. The referee determines whether Alice and Bob win or lose, based on the
+# *4.* The referee determines whether Alice and Bob win or lose, based on the
 #    questions $x$ and $y$ as well as the answers $a$ and
 #    $b$.
 #
@@ -270,7 +266,7 @@ cooperatively against an adversary referred to as the referee.
 #     exists a specific SDP formulation that one can use to directly compute the
 #     quantum value of an XOR game. More information on how one defines the CHSH
 #     game as well as this method to directly calculate the quantum value of an
-#     XOR game is provided in `"Calculating the Quantum and Classical Value of a Two-Player XOR Game" <https://toqito.readthedocs.io/en/latest/tutorials.xor_quantum_value.html>`_
+#     XOR game is provided in [Calculating the Quantum and Classical Value of a Two-Player XOR Game](../xor_quantum_value)
 #
 # We will use the CHSH game here as an illustrative example as we already know
 # what the optimal quantum value should be.
@@ -281,10 +277,8 @@ cooperatively against an adversary referred to as the referee.
 # $\{(0, 0), (0, 1), (1, 0), (1, 1)\}$ are all equally likely. We encode
 # this in the matrix as follows.
 #
-# %%
-# sphinx_gallery_start_ignore
-# sphinx_gallery_thumbnail_path = 'figures/nonlocal_game.svg'
-# sphinx_gallery_end_ignore
+
+#%%
 # Creating the probability matrix.
 import numpy as np
 
@@ -413,39 +407,40 @@ print(f"Quantum value (lower bound): {np.around(ffl.quantum_value_lower_bound(),
 #
 # $$
 # \begin{equation}
-w_c(CHSH \land CHSH) = 10/16 > 9/16 = w_c(CHSH) w_c(CHSH).
-\end{equation}
-
-## Binary constraint system games
-
-The notion of a binary constraint system game was introduced in
-[@Cleve_2014_Characterization] and the following introductory material is
-extracted from that work.
-
-A *binary constraint system* (BCS) (sometimes also called a *linear system*
-(LCS)) consists of $n$ binary variables ``v_1``, ``v_2``, ..., ``v_n`` and
-$m$ constraints, ``c_1``, ``c_2``, ..., ``c_m``, where each ``c_j`` is
-a binary-valued function of a subset of the variables.
-
-A *binary constraint system game* (BCS game) is a two-player nonlocal game
-that is associated with a BCS. In a BCS game, the referee randomly selects a
-constraint ``c_s`` and one variable ``x_t`` from ``c_s``. The
-referee sends ``s`` to Alice and ``t`` to Bob. Alice returns a truth
-assignment to all variables in ``c_s`` and bob returns a truth assignment to
-variable ``x_t``. The verifier accepts the answer if and only if:
-
-1. Alice's truth assignment satisfies the constraint ``c_s``;
-2. Bob's truth assignment for ``x_t`` is consistent with Alice's.
-
-
-As an example, the CHSH game can be described as a BCS game:
-
-$$
-v_1 \oplus v_2 = 0 \quad \text{and} \quad v_1 \oplus v_2 = 1
-
-In `|toqito⟩`, we can encode this as a BCS game as follows
-
+# w_c(\text{CHSH} \land \text{CHSH}) = 10/16 > 9/16 = w_c(\text{CHSH}) w_c(\text{CHSH}).
+# \end{equation}
 # $$
+#
+# ## Binary constraint system games
+#
+# The notion of a binary constraint system game was introduced in
+# [@Cleve_2014_Characterization] and the following introductory material is
+# extracted from that work.
+#
+# A *binary constraint system* (BCS) (sometimes also called a *linear system*
+# (LCS)) consists of $n$ binary variables ``v_1``, ``v_2``, ..., ``v_n`` and
+# $m$ constraints, ``c_1``, ``c_2``, ..., ``c_m``, where each ``c_j`` is
+# a binary-valued function of a subset of the variables.
+#
+# A *binary constraint system game* (BCS game) is a two-player nonlocal game
+# that is associated with a BCS. In a BCS game, the referee randomly selects a
+# constraint ``c_s`` and one variable ``x_t`` from ``c_s``. The
+# referee sends ``s`` to Alice and ``t`` to Bob. Alice returns a truth
+# assignment to all variables in ``c_s`` and bob returns a truth assignment to
+# variable ``x_t``. The verifier accepts the answer if and only if:
+#
+# 1. Alice's truth assignment satisfies the constraint ``c_s``;
+# 2. Bob's truth assignment for ``x_t`` is consistent with Alice's.
+#
+#
+# As an example, the CHSH game can be described as a BCS game:
+#
+# $$
+# v_1 \oplus v_2 = 0 \quad \text{and} \quad v_1 \oplus v_2 = 1
+# $$
+#
+# In `|toqito⟩`, we can encode this as a BCS game as follows
+#
 import numpy as np
 
 from toqito.nonlocal_games import NonlocalGame
