@@ -31,27 +31,55 @@ nav:
   - Getting Started: getting-started.md
   - Contributing Guide: contributing-guide.md
   - Code of Conduct: code-of-conduct.md
-  - Examples:
-      - generated/gallery/basics/index.md
-      - generated/gallery/quantum_states/index.md
+  - generated/gallery/index.md
   - References: references.md
 
 plugins:
   - search
+  
+  - autorefs
+  
+  - mkdocstrings:
+      handlers:
+        python:
+          paths:
+            - ..
+          options:
+            show_root_heading: true
+            show_root_full_path: false
+            show_source: false
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            heading_level: 1
+            merge_init_into_class: true
+            signature_crossrefs: true
+            separate_signature: true
+            docstring_section_style: list
+            show_signature_annotations: true
+            members_order: source
+  
+  - mkdocs-autoapi:
+      autoapi_dir: ../toqito
+      autoapi_root: reference
+      autoapi_keep_files: true
+      autoapi_add_nav_entry: API Reference
+      autoapi_file_patterns:
+        - "*.py"
+      autoapi_ignore:
+        - "*/tests/*"
+        - "**/tests/**"
+        - "**/__pycache__/**"
+  
   - gallery:
       examples_dirs: content/examples
       gallery_dirs: content/generated/gallery
       filename_pattern: \.py$
       ignore_pattern: __init__\.py
       download_all_examples: false
-  - mkdocstrings:
-      handlers:
-        python:
-          paths: [".."]
-          options:
-            show_root_heading: true
-            show_source: false
-  - autorefs
+      backreferences_dir: content/generated/backreferences
+      doc_module:
+        - toqito
+      
   - bibtex:
       bib_dir: content
 

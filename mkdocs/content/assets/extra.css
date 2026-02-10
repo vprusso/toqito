@@ -63,3 +63,9 @@
   background-color: #f8f8f8 !important;
   color: #333 !important;
 }
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

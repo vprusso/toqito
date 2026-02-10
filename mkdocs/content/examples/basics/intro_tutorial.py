@@ -27,8 +27,8 @@ quantum states, channels, and measurements.
 #
 # ### Quantum States
 #
-# A complete overview of the scope of quantum states can be found
-# [here](https://toqito.readthedocs.io/en/latest/autoapi/states/index.html)
+# A complete overview of the scope of quantum states can be found in the
+# [states module][toqito.states].
 #
 # The standard basis ket vectors given as $|0\rangle$ and $|1\rangle$ where
 #
@@ -221,7 +221,8 @@ is_separable(rho)
 
 
 # %%
-# Further properties that one can check via `|toqito⟩` may be found [on this page](https://toqito.readthedocs.io/en/latest/autoapi/state_props/index.html)
+# Further properties that one can check via `|toqito⟩` may be found in the
+# [state properties module][toqito.state_props].
 # 
 # ###Distance Metrics for Quantum States
 #
@@ -569,11 +570,11 @@ print(result)
 #
 # It is also worth noting that when
 #
-# * $P_2 = 0$, and $P_3 = 0$, [pauli_channel()](toqito.channels.pauli_channel.pauli_channel) is equivalent to a [bitflip()](toqito.channels.bitflip.bitflip) channel
+# * $P_2 = 0$, and $P_3 = 0$, [`pauli_channel`][toqito.channels.pauli_channel] is equivalent to a [`bitflip`][toqito.channels.bitflip] channel
 #
-# * $P_1 = 0$, and $P_2 = 0$, [pauli_channel()](toqito.channels.pauli_channel.pauli_channel) is equivalent to a Phase Flip channel
+# * $P_1 = 0$, and $P_2 = 0$, [`pauli_channel`][toqito.channels.pauli_channel] is equivalent to a Phase Flip channel
 #
-# * $P_1 = 0$, and $P_3 = 0$, [pauli_channel()](toqito.channels.pauli_channel.pauli_channel) is equivalent to a Bit and Phase Flip channel
+# * $P_1 = 0$, and $P_3 = 0$, [`pauli_channel`][toqito.channels.pauli_channel] is equivalent to a Bit and Phase Flip channel
 #
 # The Pauli channel can be used to apply noise to an input quantum state or generate a Choi matrix.
 
@@ -649,7 +650,7 @@ is_povm(meas)
 # %%
 # ###Random POVM
 #
-# We may also use [random_povm()](toqito.rand.random_povm.random_povm) to randomly generate a POVM, and can verify that a
+# We may also use [`random_povm`][toqito.rand.random_povm] to randomly generate a POVM, and can verify that a
 # randomly generated set satisfies the criteria for being a POVM set.
 
 import numpy as np

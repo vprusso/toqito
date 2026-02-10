@@ -199,7 +199,7 @@ Measurement probabilities for basis states |00>, |01>, |10>, |11>:
 
 
 
-**Total running time of the script:** ( 0 minutes  1.730 seconds)
+**Total running time of the script:** ( 0 minutes  0.855 seconds)
 
 <div id="download_links"></div>
 

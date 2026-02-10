@@ -1,0 +1,18 @@
+
+
+Examples using ``toqito.rand.random_circulant_gram_matrix``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+<div class="mkd-glr-thumbcontainer" tooltip="In this tutorial, we investigate the antidistinguishability of a special class of quantum state...">
+    <!--div class="figure align-default" id="id1"-->
+        <img alt="Antidistinguishability of Circulant States and the Eigenvalue Criterion" src="quantum_states/images/thumb/mkd_glr_circulant_states_thumb.png" />
+        <p class="caption">
+            <span class="caption-text">
+                <a class="reference internal" href="quantum_states/circulant_states">
+                    <span class="std std-ref">Antidistinguishability of Circulant States and the Eigenvalue Criterion</span>
+                </a>
+            </span>
+            <!--a class="headerlink" href="#id1" title="Permalink to this image"></a-->
+        </p>
+    <!--/div-->
+</div>

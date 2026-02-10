@@ -41,8 +41,8 @@ set of matrices that are positive semidefinite with trace equal to $1$.
 
 ### Quantum States
 
-A complete overview of the scope of quantum states can be found
-[here](https://toqito.readthedocs.io/en/latest/autoapi/states/index.html)
+A complete overview of the scope of quantum states can be found in the
+[states module][toqito.states].
 
 The standard basis ket vectors given as $|0\rangle$ and $|1\rangle$ where
 
@@ -474,9 +474,10 @@ False
 
 
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 224-248 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 224-249 -->
 
-Further properties that one can check via `|toqito⟩` may be found [on this page](https://toqito.readthedocs.io/en/latest/autoapi/state_props/index.html)
+Further properties that one can check via `|toqito⟩` may be found in the
+[state properties module][toqito.state_props].
 
 ###Distance Metrics for Quantum States
 
@@ -501,7 +502,7 @@ where $\rho$ and $\sigma$ are identical.
 Let us consider an example in `|toqito⟩` where we wish to calculate the
 fidelity function between quantum states that happen to be identical.
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 248-261 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 249-262 -->
 
 ```{.python }
 
@@ -534,7 +535,7 @@ np.float64(1.0)
 
 
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 262-318 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 263-319 -->
 
 There are a number of other metrics one can compute on two density matrices
 including the trace norm, trace distance. These and others are also available
@@ -593,7 +594,7 @@ $$
 By default, the partial trace function in `|toqito⟩` takes the trace of the second
 subsystem.
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 318-327 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 319-328 -->
 
 ```{.python }
 
@@ -623,7 +624,7 @@ array([[ 7, 11],
 
 
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 328-339 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 329-340 -->
 
 By specifying the `sys = [0]` argument, we can perform the partial trace over the first
 subsystem (instead of the default second subsystem as done above). Performing the partial
@@ -637,7 +638,7 @@ X_{pt, 1} = \begin{pmatrix}
 $$
 
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 339-347 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 340-348 -->
 
 ```{.python }
 import numpy as np
@@ -666,7 +667,7 @@ array([[12, 14],
 
 
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 348-391 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 349-392 -->
 
 Another often useful channel is the *partial transpose*. The *partial transpose*
 is defined as
@@ -712,7 +713,7 @@ $$
 By default, in `|toqito⟩`, the partial transpose function performs the transposition on
 the second subsystem as follows.
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 391-400 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 392-401 -->
 
 ```{.python }
 
@@ -744,7 +745,7 @@ array([[ 1,  5,  3,  7],
 
 
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 401-413 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 402-414 -->
 
 By specifying the `sys = [0]` argument, we can perform the partial transpose over the
 first subsystem (instead of the default second subsystem as done above). Performing the partial 
@@ -759,7 +760,7 @@ X_{pt, 1} = \begin{pmatrix}
             \end{pmatrix}.
 $$
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 413-421 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 414-422 -->
 
 ```{.python }
 
@@ -790,7 +791,7 @@ array([[ 1,  2,  9, 10],
 
 
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 422-437 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 423-438 -->
 
 **Applying Quantum Channels**
 
@@ -808,7 +809,7 @@ $$
 
 where $\mathbb{I}$ is the identity operator and $d$ is the dimension of the Hilbert space. The example below applies the depolarizing channel with $p=0.3$ to the computational basis state $|0\rangle$.
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 437-453 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 438-454 -->
 
 ```{.python }
 
@@ -845,7 +846,7 @@ Out:
 
 
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 454-463 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 455-464 -->
 
 **Dephasing Channel**
 
@@ -857,7 +858,7 @@ $$
 
 where $Z$ is the Pauli-Z operator and $p$ represents the dephasing probability. The example below demonstrates how to apply the dephasing channel with $p=0.4$ to the plus state $|+\rangle = \frac{1}{\sqrt{2}}(|0\rangle + |1\rangle)$.
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 463-480 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 464-481 -->
 
 ```{.python }
 
@@ -895,7 +896,7 @@ Out:
 
 
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 481-495 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 482-496 -->
 
 ###Noisy Channels
 
@@ -912,7 +913,7 @@ $$
 
 The phase damping channel can be applied to a quantum state as follows:
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 495-507 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 496-508 -->
 
 ```{.python }
 
@@ -945,7 +946,7 @@ Out:
 
 
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 508-520 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 509-521 -->
 
 Note that the off-diagonal elements (coherences) are reduced by a factor of $\sqrt{1-\gamma}$, while the diagonal elements (populations) remain unchanged.
 
@@ -960,7 +961,7 @@ $$
 
 Here's how to use the amplitude damping channel:
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 520-532 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 521-533 -->
 
 ```{.python }
 
@@ -993,7 +994,7 @@ Out:
 
 
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 533-541 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 534-542 -->
 
 **Bit-Flip Channel**
 
@@ -1004,7 +1005,7 @@ K_0 = \sqrt{1 - p} \, I = \sqrt{1 - p} \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatr
 K_1 = \sqrt{p} \, X = \sqrt{p} \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}
 $$
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 541-553 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 542-554 -->
 
 ```{.python }
 
@@ -1037,7 +1038,7 @@ Out:
 
 
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 554-579 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 555-580 -->
 
 Observe that the result is a mixed state with 75% probability of being in state $|0\rangle$ and 25% probability of being in state $|1\rangle$, as expected for a bit flip error with probability $p = 0.25$.
 
@@ -1057,15 +1058,15 @@ these operators are extended as tensor products.
 
 It is also worth noting that when
 
-* $P_2 = 0$, and $P_3 = 0$, [pauli_channel()](toqito.channels.pauli_channel.pauli_channel) is equivalent to a [bitflip()](toqito.channels.bitflip.bitflip) channel
+* $P_2 = 0$, and $P_3 = 0$, [`pauli_channel`][toqito.channels.pauli_channel] is equivalent to a [`bitflip`][toqito.channels.bitflip] channel
 
-* $P_1 = 0$, and $P_2 = 0$, [pauli_channel()](toqito.channels.pauli_channel.pauli_channel) is equivalent to a Phase Flip channel
+* $P_1 = 0$, and $P_2 = 0$, [`pauli_channel`][toqito.channels.pauli_channel] is equivalent to a Phase Flip channel
 
-* $P_1 = 0$, and $P_3 = 0$, [pauli_channel()](toqito.channels.pauli_channel.pauli_channel) is equivalent to a Bit and Phase Flip channel
+* $P_1 = 0$, and $P_3 = 0$, [`pauli_channel`][toqito.channels.pauli_channel] is equivalent to a Bit and Phase Flip channel
 
 The Pauli channel can be used to apply noise to an input quantum state or generate a Choi matrix.
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 579-595 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 580-596 -->
 
 ```{.python }
 
@@ -1102,7 +1103,7 @@ Out:
 
 
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 596-639 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 597-640 -->
 
 Here, the probabilities correspond to applying the identity ($I$), bit-flip ($X$),
 phase-flip ($Z$), and combined bit-phase flip ($Y$) operators.
@@ -1148,7 +1149,7 @@ $$
 Our function expects this set of operators to be a POVM because it checks if the operators
 sum up to the identity, ensuring that the measurement outcomes are properly normalized.
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 639-649 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 640-650 -->
 
 ```{.python }
 
@@ -1178,14 +1179,14 @@ True
 
 
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 650-654 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 651-655 -->
 
 ###Random POVM
 
-We may also use [random_povm()](toqito.rand.random_povm.random_povm) to randomly generate a POVM, and can verify that a
+We may also use [`random_povm`][toqito.rand.random_povm] to randomly generate a POVM, and can verify that a
 randomly generated set satisfies the criteria for being a POVM set.
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 654-664 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 655-665 -->
 
 ```{.python }
 
@@ -1215,7 +1216,7 @@ True
 
 
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 665-681 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 666-682 -->
 
 Alternatively, the following matrices do not constitute a POVM set.
 
@@ -1234,7 +1235,7 @@ M_1 =
 $$
 
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 681-690 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 682-691 -->
 
 ```{.python }
 import numpy as np
@@ -1263,7 +1264,7 @@ False
 
 
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 691-711 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 692-712 -->
 
 ###Measurement Operators
 
@@ -1286,7 +1287,7 @@ $$
 P_0 = e_0 e_0^* \quad \text{and} \quad P_1 = e_1 e_1^*.
 $$
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 711-725 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 712-726 -->
 
 ```{.python }
 
@@ -1312,7 +1313,7 @@ proj_1 = e_1 @ e_1.conj().T
 
 
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 726-731 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 727-732 -->
 
 Then the probability of obtaining outcome $0$ is given by
 
@@ -1320,7 +1321,7 @@ $$
 \langle P_0, \rho \rangle = \frac{1}{3}.
 $$
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 731-734 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 732-735 -->
 
 ```{.python }
 
@@ -1343,7 +1344,7 @@ np.float64(0.3333333333333334)
 
 
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 735-740 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 736-741 -->
 
 Similarly, the probability of obtaining outcome $1$ is given by
 
@@ -1351,7 +1352,7 @@ $$
 \langle P_1, \rho \rangle = \frac{2}{3}.
 $$
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 740-743 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 741-744 -->
 
 ```{.python }
 
@@ -1374,7 +1375,7 @@ np.float64(0.6666666666666667)
 
 
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 744-764 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 745-765 -->
 
 ###Pretty Good Measurement
 
@@ -1397,7 +1398,7 @@ u_1 = -\frac{1}{2}\left(|0\rangle + \sqrt{3}|1\rangle\right), \quad \text{and} \
 u_2 = -\frac{1}{2}\left(|0\rangle - \sqrt{3}|1\rangle\right).
 $$
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 764-773 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 765-774 -->
 
 ```{.python }
 
@@ -1429,7 +1430,7 @@ Out:
 
 
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 774-791 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 775-792 -->
 
 ###Pretty Bad Measurement
 
@@ -1449,7 +1450,7 @@ u_1 = -\frac{1}{2}\left(|0\rangle + \sqrt{3}|1\rangle\right), \quad \text{and} \
 u_2 = -\frac{1}{2}\left(|0\rangle - \sqrt{3}|1\rangle\right).
 $$
 
-<!-- GENERATED FROM PYTHON SOURCE LINES 791-800 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 792-801 -->
 
 ```{.python }
 
@@ -1482,7 +1483,7 @@ Out:
 
 
 
-**Total running time of the script:** ( 0 minutes  0.779 seconds)
+**Total running time of the script:** ( 0 minutes  0.114 seconds)
 
 <div id="download_links"></div>
 

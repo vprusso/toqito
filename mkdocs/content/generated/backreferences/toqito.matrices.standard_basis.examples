@@ -1,0 +1,18 @@
+
+
+Examples using ``toqito.matrices.standard_basis``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+<div class="mkd-glr-thumbcontainer" tooltip="In this tutorial, we will explore the Pusey-Barrett-Rudolph (PBR) theorem [@Pusey_2012_On], a s...">
+    <!--div class="figure align-default" id="id1"-->
+        <img alt="The Pusey-Barrett-Rudolph (PBR) Theorem" src="quantum_states/images/thumb/mkd_glr_pbr_theorem_thumb.png" />
+        <p class="caption">
+            <span class="caption-text">
+                <a class="reference internal" href="quantum_states/pbr_theorem">
+                    <span class="std std-ref">The Pusey-Barrett-Rudolph (PBR) Theorem</span>
+                </a>
+            </span>
+            <!--a class="headerlink" href="#id1" title="Permalink to this image"></a-->
+        </p>
+    <!--/div-->
+</div>
