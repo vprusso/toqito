@@ -1,6 +1,7 @@
 """Checks separability using iterative product state subtraction (IPSS)."""
 
-from typing import List, Tuple, Optional
+from typing import List, Optional, Tuple
+
 import numpy as np
 from numpy.typing import NDArray
 
@@ -18,9 +19,9 @@ def _partial_trace_B_op_on_phi(
     dim_a: int,
     dim_b: int,
 ) -> NDArray[np.complex128]:
-    """
-    Compute M = Tr_B(residual · (I_A ⊗ |phi><phi|))
-    Returns an (dim_a x dim_a) Hermitian matrix.
+    """Compute M = Tr_B(residual · (I_A ⊗ |phi><phi|)).
+
+    Return a (dim_a x dim_a) Hermitian matrix.
     """
     rho_rs = residual.reshape(dim_a, dim_b, dim_a, dim_b)
     # Correct contraction over the B indices (b and b')
@@ -34,8 +35,8 @@ def _partial_trace_A_op_on_psi(
     dim_a: int,
     dim_b: int,
 ) -> NDArray[np.complex128]:
-    """
-    Compute N = Tr_A(residual · (|psi><psi| ⊗ I_B))
+    """Compute N = Tr_A(residual · (|psi><psi| ⊗ I_B)).
+
     Returns an (dim_b x dim_b) Hermitian matrix.
     """
     rho_rs = residual.reshape(dim_a, dim_b, dim_a, dim_b)
@@ -51,10 +52,12 @@ def _find_max_overlap_product_state(
     tol: float = 1e-12,
     n_restarts: int = 5,
 ) -> Tuple[NDArray[np.complex128], NDArray[np.complex128], float]:
-    """
-    Alternating optimization (with random restarts) to find product vectors
-    |psi> |phi> that approximately maximize p^* residual p, where p = kron(psi,phi).
-    Returns (psi, phi, overlap).
+    """Find product vectors maximizing overlap with a residual state.
+
+    Use alternating optimization with random restarts to approximate
+    max_{psi,phi} (psi ⊗ phi)^* residual (psi ⊗ phi).
+
+    Return (psi, phi, overlap).
     """
     if len(dim) != 2:
         raise ValueError("Only bipartite systems supported (dim list of length 2).")
@@ -114,6 +117,8 @@ def _find_max_overlap_product_state(
     if best_overlap < 0 and best_overlap > -1e-15:
         best_overlap = 0.0
 
+    assert best_psi is not None
+    assert best_phi is not None
     return best_psi, best_phi, float(best_overlap)
 
 
@@ -129,7 +134,7 @@ def iterative_product_state_subtraction(
     renormalize: bool = False,
     strength: int = 1,
 ) -> Tuple[bool, List[Tuple[float, NDArray[np.complex128]]], NDArray[np.complex128]]:
-    r"""Iterative Product State Subtraction (IPSS) for separability testing.
+    r"""Perform iterative product state subtraction (IPSS) for separability testing.
 
     Implements a constructive method for proving separability by explicitly
     decomposing a bipartite quantum state into product states.
@@ -149,7 +154,7 @@ def iterative_product_state_subtraction(
 
     References
     ==========
-    Gühne, O., et al. "Entanglement detection." Physics Reports 474.1-6 (2009).  
+    Gühne, O., et al. "Entanglement detection." Physics Reports 474.1-6 (2009).
     QETLAB `sk_iterate` routine.
 
     Parameters
@@ -158,8 +163,22 @@ def iterative_product_state_subtraction(
         Density matrix acting on a bipartite system.
     dim : list[int]
         Subsystem dimensions [dim_A, dim_B].
+    max_iterations : int
+        Maximum number of subtraction iterations.
+    overlap_tol : float
+        Threshold below which overlap is considered negligible.
+    residual_tol : float
+        Frobenius norm tolerance for declaring convergence.
+    psd_tol : float
+        Numerical tolerance for positive semidefiniteness checks.
+    verbose : bool
+        If True, print iteration diagnostics.
+    n_restarts_find : int
+        Number of random restarts used in product-state search.
+    renormalize : bool
+        Whether to renormalize the residual during search.
     strength : int
-        Controls computational effort.
+        Control computational effort.
 
     Returns
     ==========
@@ -169,6 +188,7 @@ def iterative_product_state_subtraction(
         Constructive separable decomposition found (if any).
     residual : ndarray
         Remaining residual state.
+
     """
     if len(dim) != 2:
         raise ValueError("Only bipartite systems supported")
@@ -205,9 +225,7 @@ def iterative_product_state_subtraction(
         trace_abs = float(np.real(np.trace(residual_abs)))
 
         if verbose:
-            print(
-                f"[IPSS] iter {iteration:3d}: residual norm {residual_norm:.3e}, trace {trace_abs:.3e}"
-            )
+            print(f"[IPSS] iter {iteration:3d}: residual norm {residual_norm:.3e}, trace {trace_abs:.3e}")
 
         # check convergence in absolute residual
         if residual_norm < residual_tol and is_positive_semidefinite(residual_abs, psd_tol):
@@ -222,9 +240,7 @@ def iterative_product_state_subtraction(
             working_residual = residual_abs
 
         # Find product state maximizing overlap on working_residual
-        psi, phi, overlap_work = _find_max_overlap_product_state(
-            working_residual, dim, n_restarts=effective_restarts
-        )
+        psi, phi, overlap_work = _find_max_overlap_product_state(working_residual, dim, n_restarts=effective_restarts)
         if verbose:
             print(f"  Found overlap (working frame) = {overlap_work:.6e}")
 
@@ -241,7 +257,7 @@ def iterative_product_state_subtraction(
             return False, decomposition, residual_abs
 
         p_vec = _kron_vec(psi, phi)
-        P = np.outer(p_vec, p_vec.conj())  # rank-1 projector
+        P = np.outer(p_vec, p_vec.conj()).astype(np.complex128)  # rank-1 projector
 
         # If subtracting full weight preserves PSD, accept it; otherwise binary search.
         test_resid_abs = residual_abs - weight_hi_abs * P
@@ -297,13 +313,12 @@ def verify_separable_decomposition(
     decomposition: List[Tuple[float, NDArray[np.complex128]]],
     atol: float = 1e-7,
 ) -> bool:
-    """
-    Verify that sum_i w_i * P_i approximates rho within atol (Frobenius norm).
-    decomposition elements must be (weight, product_state_matrix).
+    """Verify that a separable decomposition reconstructs rho.
+
+    Check whether sum_i w_i P_i approximates rho within atol
+    using the Frobenius norm.
     """
     if not decomposition:
         return False
     reconstructed = sum(w * P for w, P in decomposition)
-    return np.linalg.norm(rho - reconstructed, ord="fro") < atol
-
-
+    return bool(np.linalg.norm(rho - reconstructed, ord="fro") < atol)
