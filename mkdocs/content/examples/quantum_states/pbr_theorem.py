@@ -1,16 +1,15 @@
 """
 # The Pusey-Barrett-Rudolph (PBR) Theorem
 
-In this tutorial, we will explore the Pusey-Barrett-Rudolph (PBR) theorem
-[@Pusey_2012_On], a significant no-go theorem in the foundations
-of quantum mechanics. We will describe the theorem's core argument and then
-use `|toqito⟩` to verify the central mathematical property that
-the theorem relies on.
+In this tutorial, we will explore the Pusey-Barrett-Rudolph (PBR) theorem,
+a significant no-go theorem in the foundations of quantum mechanics. We will
+describe the theorem's core argument and then use `|toqito⟩` to verify the
+central mathematical property that the theorem relies on.
 
-The PBR theorem addresses a fundamental question: Is the quantum state
-(e.g., the wavefunction $|\\psi\\rangle$) a real, objective property of a
-single system (an *ontic* state), or does it merely represent our
-incomplete knowledge or information about some deeper underlying reality
+The PBR theorem [@Pusey_2012_On] addresses a fundamental question: Is the
+quantum state (e.g., the wavefunction $|\\psi\\rangle$) a real, objective
+property of a single system (an *ontic* state), or does it merely represent
+our incomplete knowledge or information about some deeper underlying reality
 (an *epistemic* state)?
 """
 

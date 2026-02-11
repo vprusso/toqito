@@ -8,8 +8,8 @@ edit_uri: edit/main/mkdocs/content
 
 theme:
   name: material
-  logo: assets/logo.svg
-  favicon: assets/logo.svg
+  logo: figures/logo.svg
+  favicon: figures/logo.svg
   palette:
     - scheme: default
       toggle:
@@ -31,7 +31,8 @@ nav:
   - Getting Started: getting-started.md
   - Contributing Guide: contributing-guide.md
   - Code of Conduct: code-of-conduct.md
-  - generated/gallery/index.md
+  - Examples: generated/gallery/index.md
+  - API Reference
   - References: references.md
 
 plugins:
@@ -47,7 +48,7 @@ plugins:
           options:
             show_root_heading: true
             show_root_full_path: false
-            show_source: false
+            show_source: true
             show_symbol_type_heading: true
             show_symbol_type_toc: true
             heading_level: 1
@@ -58,17 +59,13 @@ plugins:
             show_signature_annotations: true
             members_order: source
   
-  - mkdocs-autoapi:
-      autoapi_dir: ../toqito
-      autoapi_root: reference
-      autoapi_keep_files: true
-      autoapi_add_nav_entry: API Reference
-      autoapi_file_patterns:
-        - "*.py"
-      autoapi_ignore:
-        - "*/tests/*"
-        - "**/tests/**"
-        - "**/__pycache__/**"
+  - api-autonav:
+      modules:
+        - ../toqito
+      nav_section_title: "API Reference"
+      api_root_uri: "reference"
+      exclude_private: true
+      show_full_namespace: false
   
   - gallery:
       examples_dirs: content/examples
@@ -89,6 +86,8 @@ markdown_extensions:
   - attr_list
   - pymdownx.details
   - pymdownx.superfences
+  - pymdownx.snippets:
+      base_path: ['.', '..']
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.tabbed:

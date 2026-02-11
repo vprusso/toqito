@@ -69,3 +69,59 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+/* mkdocs-gallery thumbnail fixes for Material theme */
+.mkd-glr-thumbcontainer {
+  width: 200px;
+  min-height: 280px;
+  margin: 10px;
+  padding: 10px;
+  display: inline-block;
+  vertical-align: top;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.mkd-glr-thumbcontainer img {
+  max-width: 180px;
+  max-height: 140px;
+  width: auto;
+  height: auto;
+  display: block;
+  margin: 0 auto 10px;
+}
+
+.mkd-glr-thumbcontainer p.caption {
+  margin: 10px 0 0 0;
+  line-height: 1.4;
+  min-height: 60px;
+  font-size: 0.9em;
+  word-wrap: break-word;
+}
+
+.mkd-glr-thumbcontainer .caption-text {
+  display: block;
+}
+
+.mkd-glr-thumbcontainer a.internal {
+  position: static;
+  padding: 0;
+  display: inline;
+}
+
+/* Ensure proper clearing of floats */
+.mkd-glr-clear {
+  clear: both;
+  height: 0;
+  line-height: 0;
+}
+
+/* Tooltip styling for dark mode */
+[data-md-color-scheme="slate"] .mkd-glr-thumbcontainer {
+  background-color: var(--md-code-bg-color);
+  border-color: var(--md-code-bg-color);
+}
+
+[data-md-color-scheme="slate"] .mkd-glr-thumbcontainer:hover {
+  border-color: var(--md-accent-fg-color);
+}

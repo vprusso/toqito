@@ -422,9 +422,9 @@ partial_transpose(test_input_mat, sys=[0])
 # %%
 # **Applying Quantum Channels**
 #
-# Another important operation when working with quantum channels is applying them to quantum states. [`apply_channel`](toqito.channel_ops.apply_channel.apply_channel) in `|toqito⟩` provides a convenient way to apply a quantum channel (represented by its Choi matrix) to a given quantum state.
+# Another important operation when working with quantum channels is applying them to quantum states. [`apply_channel`][toqito.channel_ops.apply_channel.apply_channel] in `|toqito⟩` provides a convenient way to apply a quantum channel (represented by its Choi matrix) to a given quantum state.
 #
-# Here, we illustrate how to apply two widely used channels – the depolarizing channel and the dephasing channel – using [`apply_channel`](toqito.channel_ops.apply_channel.apply_channel).
+# Here, we illustrate how to apply two widely used channels – the depolarizing channel and the dephasing channel – using [`apply_channel`][toqito.channel_ops.apply_channel.apply_channel].
 #
 # **Depolarizing Channel**
 #

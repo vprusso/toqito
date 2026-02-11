@@ -20,3 +20,5 @@ venv/*
 docs/auto_examples/
 docs/autoapi/
 mkdocs/site/
+mkdocs/content/reference/
+mkdocs/content/generated/
