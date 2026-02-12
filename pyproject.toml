@@ -72,6 +72,8 @@ docs = [
     "pypandoc>=1.13",
     "mkdocs-jupyter>=0.24",
     "mkdocs-gallery>=0.10.0",
+    "pymdown-extensions>=10.0",
+    "mkdocs-api-autonav>=0.4.0",
 ]
 
 [tool.uv]

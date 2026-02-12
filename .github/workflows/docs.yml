@@ -3,9 +3,11 @@ name: Deploy Documentation
 on:
   push:
     branches: 
-      -  master
+      - master
+      - docs/gh-pages-switch
     paths:
-      - "docs/**"
+      - "mkdocs/**"
+      - "toqito/**"
       - ".github/workflows/docs.yml"
   workflow_dispatch:
 
@@ -13,35 +15,36 @@ permissions:
   contents: write
 
 jobs:
-  docs:
+  deploy:
     runs-on: ubuntu-latest
-
+    
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v6
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v6
         with:
-          python-version: "3.12"
+          python-version: '3.12'
 
       - name: Install system dependencies for BLAS/LAPACK
         run: |
           sudo apt-get update
           sudo apt-get install -y libblas-dev liblapack-dev gfortran libatlas-base-dev
+          
       - name: Install uv
-        run: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@v5
 
-      - name: Install documentation dependencies
+      - name: Install dependencies with uv
         run: uv sync --group docs
 
-      - name: Build Sphinx documentation
+      - name: Configure Git
         run: |
-          cd docs
-          uv run make html
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs/_build/html
+        run: |
+          cd mkdocs
+          uv run mkdocs gh-deploy --force
