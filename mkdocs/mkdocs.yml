@@ -31,7 +31,7 @@ nav:
   - Getting Started: getting-started.md
   - Contributing Guide: contributing-guide.md
   - Code of Conduct: code-of-conduct.md
-  - Examples: generated/gallery/index.md
+  - generated/gallery/index.md
   - API Reference
   - References: references.md
 
@@ -39,6 +39,8 @@ plugins:
   - search
   
   - autorefs
+
+  - markdown-exec
   
   - mkdocstrings:
       handlers:
@@ -55,9 +57,13 @@ plugins:
             merge_init_into_class: true
             signature_crossrefs: true
             separate_signature: true
+            docstring_style: google
             docstring_section_style: list
             show_signature_annotations: true
             members_order: source
+            extensions:
+              - _extensions/griffe_bibtex_docstring.py:BibtexDocstringExtension:
+                  bib_dir: content
   
   - api-autonav:
       modules:
@@ -66,6 +72,8 @@ plugins:
       api_root_uri: "reference"
       exclude_private: true
       show_full_namespace: false
+      exclude:
+        - "re:.*\\.tests($|\\.)"
   
   - gallery:
       examples_dirs: content/examples

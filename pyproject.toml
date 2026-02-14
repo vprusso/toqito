@@ -74,6 +74,8 @@ docs = [
     "mkdocs-gallery>=0.10.0",
     "pymdown-extensions>=10.0",
     "mkdocs-api-autonav>=0.4.0",
+    "markdown-exec[ansi]>=1.7",
+    "pybtex>=0.24",
 ]
 
 [tool.uv]

@@ -1263,6 +1263,23 @@ wheels = [
 ]
 
 [[package]]
+name = "markdown-exec"
+version = "1.12.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pymdown-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/96/73/1f20927d075c83c0e2bc814d3b8f9bd254d919069f78c5423224b4407944/markdown_exec-1.12.1.tar.gz", hash = "sha256:eee8ba0df99a5400092eeda80212ba3968f3cbbf3a33f86f1cd25161538e6534", size = 78105, upload-time = "2025-11-11T19:25:05.44Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ea/22/7b684ddb01b423b79eaba9726954bbe559540d510abc7a72a84d8eee1b26/markdown_exec-1.12.1-py3-none-any.whl", hash = "sha256:a645dce411fee297f5b4a4169c245ec51e20061d5b71e225bef006e87f3e465f", size = 38046, upload-time = "2025-11-11T19:25:03.878Z" },
+]
+
+[package.optional-dependencies]
+ansi = [
+    { name = "pygments-ansi-color" },
+]
+
+[[package]]
 name = "markdown-it-py"
 version = "3.0.0"
 source = { registry = "https://pypi.org/simple" }
@@ -2237,6 +2254,18 @@ wheels = [
 ]
 
 [[package]]
+name = "pygments-ansi-color"
+version = "0.3.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pygments" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/50/f9/7f417aaee98a74b4f757f2b72971245181fcf25d824d2e7a190345669eaf/pygments-ansi-color-0.3.0.tar.gz", hash = "sha256:7018954cf5b11d1e734383a1bafab5af613213f246109417fee3f76da26d5431", size = 7317, upload-time = "2023-05-18T22:44:35.792Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e6/17/8306a0bcd8c88d7761c2e73e831b0be026cd6873ce1f12beb3b4c9a03ffa/pygments_ansi_color-0.3.0-py3-none-any.whl", hash = "sha256:7eb063feaecadad9d4d1fd3474cbfeadf3486b64f760a8f2a00fc25392180aba", size = 10242, upload-time = "2023-05-18T22:44:34.287Z" },
+]
+
+[[package]]
 name = "pymdown-extensions"
 version = "10.20.1"
 source = { registry = "https://pypi.org/simple" }
@@ -3004,6 +3033,7 @@ dev = [
     { name = "setuptools" },
 ]
 docs = [
+    { name = "markdown-exec", extra = ["ansi"] },
     { name = "matplotlib" },
     { name = "mkdocs" },
     { name = "mkdocs-api-autonav" },
@@ -3012,6 +3042,7 @@ docs = [
     { name = "mkdocs-jupyter" },
     { name = "mkdocs-material" },
     { name = "mkdocstrings", extra = ["python"] },
+    { name = "pybtex" },
     { name = "pymdown-extensions" },
     { name = "pypandoc" },
 ]
@@ -3052,6 +3083,7 @@ dev = [
     { name = "setuptools", specifier = ">65.5.1" },
 ]
 docs = [
+    { name = "markdown-exec", extras = ["ansi"], specifier = ">=1.7" },
     { name = "matplotlib", specifier = "==3.10.1" },
     { name = "mkdocs", specifier = ">=1.5" },
     { name = "mkdocs-api-autonav", specifier = ">=0.4.0" },
@@ -3060,6 +3092,7 @@ docs = [
     { name = "mkdocs-jupyter", specifier = ">=0.24" },
     { name = "mkdocs-material", specifier = ">=9.0" },
     { name = "mkdocstrings", extras = ["python"], specifier = ">=0.24" },
+    { name = "pybtex", specifier = ">=0.24" },
     { name = "pymdown-extensions", specifier = ">=10.0" },
     { name = "pypandoc", specifier = ">=1.13" },
 ]
