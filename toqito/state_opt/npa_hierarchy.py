@@ -282,8 +282,8 @@ def npa_constraints(
     # Ensure rho_R_referee is a valid quantum state
     constraints = [
         cvxpy.trace(rho_R_referee) == 1,
-        rho_R_referee >> 0,
         moment_matrix_R >> 0,
+        # rho_R_referee >> 0 holds since it is a minor of moment_matrix_R
     ]
 
     # Store relations for (S_i^dagger S_j) -> block_index in moment_matrix_R
