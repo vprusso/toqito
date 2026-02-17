@@ -13,6 +13,9 @@ This is a Hugo-based static site using the PaperMod theme, designed for automati
 
 ## Quick Start
 
+Inside the toqito_landing_page you also need the Hugo executable, which can be found [here][https://drive.google.com/file/d/1hiG5d84_SA042pV7XloOJdlAfQ6889XS/view?usp=sharing]
+
+
 ### 1. Clone the Repository
 
 ```bash
