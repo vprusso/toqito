@@ -1,0 +1,43 @@
+baseURL = 'https://example.org/'  # Author will configure their domain
+languageCode = 'en-us'
+title = 'toqito'
+theme = 'PaperMod'
+
+[params]
+  defaultTheme = "auto"
+  ShowReadingTime = true
+  ShowShareButtons = false
+  ShowCodeCopyButtons = true
+  description = "Open-source Python library for quantum information theory"
+
+[minify]
+  minifyOutput = true
+
+[outputs]
+  home = ["HTML", "RSS"]
+  section = ["HTML", "RSS"]
+
+[[menu.main]]
+  name = "Blog"
+  url = "/blog/"
+  weight = 1
+
+[[menu.main]]
+  name = "News"
+  url = "/news/"
+  weight = 2
+
+[[menu.main]]
+  name = "Releases"
+  url = "/releases/"
+  weight = 3
+
+[[menu.main]]
+  name = "GitHub"
+  url = "https://github.com/vprusso/toqito"
+  weight = 4
+
+[[menu.main]]
+  name = "Docs"
+  url = "https://toqito.readthedocs.io/"
+  weight = 5
