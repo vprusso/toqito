@@ -537,7 +537,11 @@ class ExtendedNonlocalGame:
         K = {}
         for x in range(A_in):
             for y in range(B_in):
-                K[(x, y)] = cvxpy.Variable((A_out * dR, B_out * dR), hermitian=True, name=f"K({x},{y})")
+                blocks = [[None for _ in range(B_out)] for _ in range(A_out)]
+                for a in range(A_out):
+                    for b in range(B_out):
+                        blocks[a][b] = cvxpy.Variable((dR, dR), hermitian=True, name=f"K({x},{y})_{a}{b}")
+                K[(x, y)] = cvxpy.bmat(blocks)
         total_win = cvxpy.Constant(0)
         for x in range(A_in):
             for y in range(B_in):
