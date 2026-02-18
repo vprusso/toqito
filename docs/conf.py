@@ -14,6 +14,12 @@ import os
 import re
 import sys
 from pathlib import Path
+
+try:
+    import tomllib
+except ImportError:
+    import tomli as tomllib  # type: ignore[import-not-found]
+
 from sphinx_gallery.sorting import ExplicitOrder
 
 # sys.path.insert(0, os.path.abspath("."))
@@ -21,6 +27,17 @@ from sphinx_gallery.sorting import ExplicitOrder
 sys.path.insert(0, os.path.abspath("../.."))
 
 DOCS_DIR = Path(__file__).resolve().parent
+
+# -- Read repository info from pyproject.toml for Binder configuration -------
+pyproject_path = DOCS_DIR.parent / "pyproject.toml"
+with open(pyproject_path, "rb") as f:
+    pyproject_data = tomllib.load(f)
+
+# Extract org and repo from repository URL (e.g., "https://github.com/vprusso/toqito")
+repo_url = pyproject_data["project"]["urls"]["repository"]
+# Parse: https://github.com/org/repo -> org, repo
+repo_parts = repo_url.rstrip("/").split("/")[-2:]
+binder_org, binder_repo = repo_parts[0], repo_parts[1]
 
 # -- Project information -----------------------------------------------------
 
@@ -78,6 +95,13 @@ sphinx_gallery_conf = {
     "line_numbers": True,  # add line numbers
     "download_all_examples": False,
     "ignore_pattern": r"__init__\.py",
+    # Binder configuration - reads org/repo from pyproject.toml
+    "binder_enabled": True,
+    "binder_service": "mybinder",
+    "binder_org": binder_org,
+    "binder_repo": binder_repo,
+    "binder_branch": "master",
+    "binder_notebooks_dir": "docs/examples",
 }
 
 autoapi_options = [
