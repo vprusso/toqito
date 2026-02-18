@@ -33,6 +33,28 @@ def test_depolarizing_partially_depolarizing():
     np.testing.assert_equal(np.all(bool_mat), True)
 
 
+def test_depolarizing_apply_channel_false():
+    """Test that apply_channel=False returns the Choi matrix (existing behavior)."""
+    res = depolarizing(4)
+    # Should return a 16x16 Choi matrix for dim=4
+    np.testing.assert_equal(res.shape, (16, 16))
+
+
+def test_depolarizing_apply_channel_with_input_mat():
+    """Test apply_channel=True with a valid input matrix."""
+    test_input_mat = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
+    res = depolarizing(4, input_mat=test_input_mat, apply_channel=True)
+    expected_res = 1 / 4 * np.identity(4)
+    bool_mat = np.isclose(expected_res, res)
+    np.testing.assert_equal(np.all(bool_mat), True)
+
+
+def test_depolarizing_apply_channel_no_input_mat():
+    """Test apply_channel=True with input_mat=None raises ValueError."""
+    with pytest.raises(ValueError, match="input_mat is required when apply_channel=True"):
+        depolarizing(4, apply_channel=True)
+
+
 @pytest.mark.parametrize("param_p", [-0.1, 1.5])
 def test_depolarizing_invalid_param_p(param_p):
     """Test invalid input to param_p."""

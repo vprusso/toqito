@@ -63,7 +63,7 @@ def test_pauli_channel_kraus_operators(prob):
     - Checks that the Kraus operators satisfy the completeness condition.
     """
     prob = prob / np.sum(prob)
-    _, kraus_operators = pauli_channel(prob=prob, return_kraus_ops=True)
+    kraus_operators = pauli_channel(prob=prob, return_kraus=True)
 
     assert len(kraus_operators) == len(prob)
 
@@ -94,7 +94,7 @@ def test_pauli_channel_input_matrix_properties(input_mat, prob):
 
     """
     prob = prob / np.sum(prob)
-    _, output_mat = pauli_channel(prob=prob, input_mat=input_mat)
+    output_mat = pauli_channel(prob=prob, input_mat=input_mat, apply_channel=True)
 
     assert np.allclose(output_mat, output_mat.conj().T)
 
@@ -105,9 +105,9 @@ def test_pauli_channel_input_matrix_properties(input_mat, prob):
     out_trace = np.trace(output_mat)
     assert np.isclose(out_trace, in_trace)
 
-    Phi, output_mat, kraus_ops = pauli_channel(prob=prob, input_mat=input_mat, return_kraus_ops=True)
+    # Test that Kraus operators are returned when requested
+    kraus_ops = pauli_channel(prob=prob, return_kraus=True)
 
-    assert isinstance(output_mat, np.ndarray)
     assert isinstance(kraus_ops, list)
     assert len(kraus_ops) == len(prob)
 
@@ -124,7 +124,7 @@ def test_pauli_channel_choi_matrix_properties(num_qubits):
     - Its total trace equals the input dimension `(2**q)`.
 
     """
-    Phi, _ = pauli_channel(prob=num_qubits, return_kraus_ops=True)
+    Phi = pauli_channel(prob=num_qubits)
     Phi = np.array(Phi)
     expected_choi_dim = 4**num_qubits
     assert Phi.shape == (expected_choi_dim, expected_choi_dim)
@@ -157,8 +157,27 @@ def test_pauli_channel_zero_probability(prob):
     This function ensures that when certain probabilities in `p` are zero,
     their corresponding Kraus operators are effectively zero.
     """
-    _, kraus_ops = pauli_channel(prob=prob, return_kraus_ops=True)
+    kraus_ops = pauli_channel(prob=prob, return_kraus=True)
 
     for i, k in enumerate(kraus_ops):
         if prob[i] == 0:
             np.testing.assert_almost_equal(k, np.zeros_like(k))
+
+
+def test_pauli_channel_apply_channel_with_input_mat():
+    """Test apply_channel=True with a valid input matrix."""
+    prob = np.array([0.25, 0.25, 0.25, 0.25])
+    input_mat = np.eye(2)
+    output_mat = pauli_channel(prob=prob, input_mat=input_mat, apply_channel=True)
+
+    # Should return a 2x2 matrix (result of applying the channel)
+    assert output_mat.shape == (2, 2)
+    # The output should be the identity matrix (since all Pauli operators have equal probability)
+    np.testing.assert_allclose(output_mat, np.eye(2))
+
+
+def test_pauli_channel_apply_channel_no_input_mat():
+    """Test apply_channel=True with input_mat=None raises ValueError."""
+    prob = np.array([0.25, 0.25, 0.25, 0.25])
+    with pytest.raises(ValueError, match="input_mat is required when apply_channel=True"):
+        pauli_channel(prob=prob, apply_channel=True)

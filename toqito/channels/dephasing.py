@@ -5,7 +5,13 @@ import numpy as np
 from toqito.states import max_entangled
 
 
-def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
+def dephasing(
+    dim: int,
+    param_p: float = 0,
+    input_mat: np.ndarray | None = None,
+    apply_channel: bool = False,
+    return_kraus: bool = False,
+) -> np.ndarray | list[np.ndarray]:
     r"""Produce the partially dephasing channel.
 
     (Section: The Completely Dephasing Channel from :footcite:`Watrous_2018_TQI`).
@@ -51,11 +57,11 @@ def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
 
      import numpy as np
      from toqito.channels import dephasing
-     from toqito.channel_ops import apply_channel
 
      test_input_mat = np.arange(1, 17).reshape(4, 4)
 
-     apply_channel(test_input_mat, dephasing(4))
+     # Using apply_channel parameter:
+     dephasing(4, input_mat=test_input_mat, apply_channel=True)
 
 
     We may also consider setting the parameter :code:`p = 0.5`.
@@ -64,11 +70,11 @@ def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
 
      import numpy as np
      from toqito.channels import dephasing
-     from toqito.channel_ops import apply_channel
 
      test_input_mat = np.arange(1, 17).reshape(4, 4)
 
-     apply_channel(test_input_mat, dephasing(4, 0.5))
+     # Using apply_channel parameter:
+     dephasing(4, 0.5, input_mat=test_input_mat, apply_channel=True)
 
 
     References
@@ -78,12 +84,32 @@ def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
 
 
     :param dim: The dimensionality on which the channel acts.
-    :param param_p: Default is 0.
-    :return: The Choi matrix of the dephasing channel.
+    :param param_p: Dephasing probability in [0,1]. Default is 0.
+    :param input_mat: Optional input matrix to apply the channel to.
+    :param apply_channel: If True and input_mat is provided, apply the channel
+        to input_mat. If False, return the Choi matrix or Kraus operators.
+    :param return_kraus: If True, return Kraus operators instead of Choi matrix.
+    :return: Choi matrix, Kraus operators, or applied result depending on parameters.
 
     """
     # Compute the Choi matrix of the dephasing channel.
 
     # Gives a sparse non-normalized state.
     psi = max_entangled(dim=dim, is_sparse=False, is_normalized=False)
-    return (1 - param_p) * np.diag(np.diag(psi @ psi.conj().T)) + param_p * (psi @ psi.conj().T)
+    choi = (1 - param_p) * np.diag(np.diag(psi @ psi.conj().T)) + param_p * (psi @ psi.conj().T)
+
+    # Apply channel if requested
+    if apply_channel:
+        if input_mat is None:
+            raise ValueError("input_mat is required when apply_channel=True")
+        from toqito.channel_ops.apply_channel import apply_channel as apply_op
+
+        return apply_op(input_mat, choi)
+
+    # Return Kraus operators if requested
+    if return_kraus:
+        from toqito.channel_ops.choi_to_kraus import choi_to_kraus
+
+        return choi_to_kraus(choi)
+
+    return choi

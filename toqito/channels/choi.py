@@ -2,10 +2,17 @@
 
 import numpy as np
 
+from toqito.channel_ops import apply_channel as apply_op
 from toqito.states import max_entangled
 
 
-def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
+def choi(
+    a_var: int = 1,
+    b_var: int = 1,
+    c_var: int = 0,
+    input_mat: np.ndarray | None = None,
+    apply_channel: bool = False,
+) -> np.ndarray:
     r"""Produce the Choi channel or one of its generalizations :footcite:`Choi_1992_Generalized`.
 
     The *Choi channel* is a positive map on 3-by-3 matrices that is capable of detecting some
@@ -87,8 +94,20 @@ def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
     :param a_var: Default integer for standard Choi map.
     :param b_var: Default integer for standard Choi map.
     :param c_var: Default integer for standard Choi map.
-    :return: The Choi channel (or one of its  generalizations).
+    :param input_mat: Optional input matrix to apply the channel to. Must be a 3x3 matrix
+        (qutrit state) for the Choi channel.
+    :param apply_channel: If True and input_mat is provided, apply the channel to input_mat.
+        If False (default), return the Choi matrix.
+    :return: The Choi channel matrix, or the result of applying the channel to input_mat.
+    :raises ValueError: If apply_channel is True but input_mat is None.
 
     """
     psi = max_entangled(3, False, False)
-    return np.diag([a_var + 1, c_var, b_var, b_var, a_var + 1, c_var, c_var, b_var, a_var + 1]) - psi @ psi.conj().T
+    choi_mat = np.diag([a_var + 1, c_var, b_var, b_var, a_var + 1, c_var, c_var, b_var, a_var + 1]) - psi @ psi.conj().T
+
+    if apply_channel:
+        if input_mat is None:
+            raise ValueError("input_mat is required when apply_channel=True")
+        return apply_op(input_mat, choi_mat)
+
+    return choi_mat
