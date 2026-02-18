@@ -96,12 +96,14 @@ sphinx_gallery_conf = {
     "download_all_examples": False,
     "ignore_pattern": r"__init__\.py",
     # Binder configuration - reads org/repo from pyproject.toml
-    "binder_enabled": True,
-    "binder_service": "mybinder",
-    "binder_org": binder_org,
-    "binder_repo": binder_repo,
-    "binder_branch": "master",
-    "binder_notebooks_dir": "docs/examples",
+    "binder": {
+        "org": binder_org,
+        "repo": binder_repo,
+        "branch": "master",
+        "binderhub_url": "https://mybinder.org",
+        "notebooks_dir": "docs/examples",
+        "dependencies": "./docs/requirements.txt",
+    },
 }
 
 autoapi_options = [
