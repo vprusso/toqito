@@ -38,6 +38,8 @@ _rho_qutrit_ent = _psi_qutrit @ _psi_qutrit.conj().T
         (_rho_qutrit_ent, 2, None, True, False),
         # Maximally mixed qutrit state (3x3, reaches SDP path) should have symmetric extension.
         (np.identity(9) / 9, 2, None, True, True),
+        # Entangled qutrit (3x3, SDP path) without PPT constraint should not have symmetric extension.
+        (_rho_qutrit_ent, 2, None, False, False),
     ],
 )
 def test_has_symmetric_extension(rho, level, dim, ppt, expected_result):
