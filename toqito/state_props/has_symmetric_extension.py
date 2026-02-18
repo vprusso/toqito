@@ -1,10 +1,11 @@
 """Determine whether there exists a symmetric extension for a given quantum state."""
 
+import cvxpy
 import numpy as np
-from picos import partial_trace
 
+from toqito.matrix_ops import partial_trace, partial_transpose
 from toqito.matrix_props import is_positive_semidefinite
-from toqito.state_opt.symmetric_extension_hierarchy import symmetric_extension_hierarchy
+from toqito.perms import symmetric_projection
 from toqito.state_props.is_ppt import is_ppt
 
 
@@ -132,16 +133,33 @@ def has_symmetric_extension(
     # (2-copy, non-PPT) symmetric extension that is much faster to use than semidefinite
     # programming [CJKLZB14]_.
     if level == 2 and not ppt and dim_x == 2 and dim_y == 2:
-        return np.trace(np.linalg.matrix_power(partial_trace(rho, [0]), 2)) >= np.trace(
+        return np.trace(np.linalg.matrix_power(partial_trace(rho, [0], [dim_x, dim_y]), 2)) >= np.trace(
             np.linalg.matrix_power(rho, 2)
         ) - 4 * np.sqrt(np.linalg.det(rho))
 
     # Otherwise, use semidefinite programming to find a symmetric extension.
-    # If the optimal value of the symmetric extension hierarchy is equal to 1,
-    # this indicates that there does not exist a symmetric extension at
-    # level :code:`level`.
-    return not np.isclose(
-        (1 - min(symmetric_extension_hierarchy([rho], probs=None, level=level), 1)),
-        0,
-        atol=tol,
-    )
+    # We solve a feasibility SDP: find sigma on X ⊗ Y^⊗level such that
+    # tr_{Y_2,...,Y_level}(sigma) = rho, sigma >= 0, sigma is symmetric
+    # under permutations of Y copies, and (optionally) PPT constraints hold.
+    dim_list = np.int_([dim_x] + [dim_y] * level)
+    sys_list = list(range(2, 2 + level - 1))
+    sym = symmetric_projection(dim_y, level)
+    dim_total = int(np.prod(dim_list))
+
+    sigma = cvxpy.Variable((dim_total, dim_total), hermitian=True)
+
+    constraints = [
+        partial_trace(sigma, sys_list, dim_list) == rho,
+        sigma >> 0,
+        np.kron(np.identity(dim_x), sym) @ sigma @ np.kron(np.identity(dim_x), sym) == sigma,
+    ]
+
+    if ppt:
+        constraints.append(partial_transpose(sigma, [0], dim_list) >> 0)
+        for sys in range(level - 1):
+            constraints.append(partial_transpose(sigma, [sys + 2], dim_list) >> 0)
+
+    problem = cvxpy.Problem(cvxpy.Minimize(0), constraints)
+    problem.solve()
+
+    return problem.status == "optimal"
