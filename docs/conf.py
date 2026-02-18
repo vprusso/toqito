@@ -15,10 +15,7 @@ import re
 import sys
 from pathlib import Path
 
-try:
-    import tomllib
-except ImportError:
-    import tomli as tomllib  # type: ignore[import-not-found]
+import tomllib
 
 from sphinx_gallery.sorting import ExplicitOrder
 
