@@ -9,7 +9,10 @@ from toqito.matrices.pauli import pauli
 
 
 def pauli_channel(
-    prob: int | np.ndarray, return_kraus_ops: bool = False, input_mat: np.ndarray | None = None
+    prob: int | np.ndarray,
+    return_kraus_ops: bool = False,
+    input_mat: np.ndarray | None = None,
+    apply_channel: bool = False,
 ) -> np.ndarray | sparse.csc_matrix | tuple:
     r"""Generate and apply a Pauli channel to a matrix.
 
@@ -106,7 +109,7 @@ def pauli_channel(
         return sum(k @ input_mat @ k.conj().T for k in kraus_operators)
 
     # Return Kraus operators if requested
-    if return_kraus:
+    if return_kraus_ops:
         return kraus_operators
 
     return Phi
