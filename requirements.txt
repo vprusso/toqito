@@ -1,0 +1,12 @@
+# Dependencies for Binder/Jupyter notebooks
+# Based on pyproject.toml dependencies
+cvxpy==1.7.1
+more-itertools==10.8.0
+numpy==2.2.6
+scipy==1.15.3
+scs==3.2.7.post2
+picos>=2.6.2
+networkx>=3.4,<4.0
+numba>=0.62.0,<0.64.0
+matplotlib==3.10.1
+sympy==1.14.0
