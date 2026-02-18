@@ -239,7 +239,7 @@ class TestExtendedNonlocalGame(unittest.TestCase):
             tol=1e-7,
             seed=42,
         )
-        # NPA k=2 is known to give a loose classical bound for this game
+        # NPA k=1 upper bound (loose for this game)
         ent_ub = game.commuting_measurement_value_upper_bound(k=1)
 
         expected_classical_value = 2 / 3.0
@@ -256,15 +256,12 @@ class TestExtendedNonlocalGame(unittest.TestCase):
             delta=1e-4,
         )
 
-        # 3. Verify the NPA k=2 upper bound is classical
-        self.assertAlmostEqual(
-            ent_ub,
-            expected_classical_value,
-            delta=1e-4,
-        )
+        # 3. Verify the NPA k=1 upper bound.
+        # With block-hermitian K (correct formulation), the NPA k=1 bound is
+        # loose for this game (~0.873), not the classical value.
+        self.assertAlmostEqual(ent_ub, 0.8727, delta=5e-3)
 
         # 4. Verify universal ordering that MUST hold for valid bounds
-        # All these should pass as unent, ent_lb, ent_ub are all ~0.666
         self.assertLessEqual(unent, ent_lb + 1e-5)
         self.assertLessEqual(ent_lb, ent_ub + 1e-5)
         self.assertLessEqual(ent_ub, ns + 1e-5)
@@ -505,7 +502,9 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         pi, pred_mat = self.four_mub_game()
         game = ExtendedNonlocalGame(pi, pred_mat)
         ub = game.commuting_measurement_value_upper_bound(k=1, no_signaling=False)
-        self.assertAlmostEqual(ub, 0.760573, delta=5e-3)
+        # With block-hermitian K (correct formulation), the bound is looser than
+        # the old globally-hermitian formulation which gave ~0.761.
+        self.assertAlmostEqual(ub, 0.8067, delta=5e-3)
 
     def test_four_mub_nonsignaling_value(self):
         """No-signaling value of the 4-MUB game."""
