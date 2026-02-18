@@ -4,7 +4,11 @@ import numpy as np
 import pytest
 
 from toqito.state_props import has_symmetric_extension
-from toqito.states import bell
+from toqito.states import bell, max_entangled
+
+# Maximally entangled qutrit state (3x3 system, reaches SDP path since dim > 6).
+_psi_qutrit = max_entangled(3)
+_rho_qutrit_ent = _psi_qutrit @ _psi_qutrit.conj().T
 
 
 @pytest.mark.parametrize(
@@ -30,6 +34,10 @@ from toqito.states import bell
         (bell(0) @ bell(0).conj().T, 2, 2, False, False),
         # Entangled state should not have PPT-symmetric extension for some level (level-2)."""
         (bell(0) @ bell(0).conj().T, 2, 2, True, False),
+        # Maximally entangled qutrit (3x3, reaches SDP path) should not have symmetric extension.
+        (_rho_qutrit_ent, 2, None, True, False),
+        # Maximally mixed qutrit state (3x3, reaches SDP path) should have symmetric extension.
+        (np.identity(9) / 9, 2, None, True, True),
     ],
 )
 def test_has_symmetric_extension(rho, level, dim, ppt, expected_result):
