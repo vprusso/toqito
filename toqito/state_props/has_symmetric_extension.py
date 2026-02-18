@@ -160,6 +160,6 @@ def has_symmetric_extension(
             constraints.append(partial_transpose(sigma, [sys + 2], dim_list) >> 0)
 
     problem = cvxpy.Problem(cvxpy.Minimize(0), constraints)
-    problem.solve(solver=cvxpy.SCS, eps=tol)
+    problem.solve()
 
     return problem.status == "optimal"
