@@ -53,8 +53,8 @@ def pauli_channel(
      import numpy as np
      from toqito.channels import pauli_channel
 
-     _, output = pauli_channel(
-         prob=np.array([0.1, 0.2, 0.3, 0.4]), input_mat=np.eye(2)
+     output = pauli_channel(
+         prob=np.array([0.1, 0.2, 0.3, 0.4]), input_mat=np.eye(2), apply_channel=True
      )
      print(output)
 
