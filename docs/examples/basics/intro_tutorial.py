@@ -574,7 +574,7 @@ probabilities = np.array([0.5, 0.2, 0.2, 0.1])
 rho = np.array([[1, 0], [0, 0]])
 
 # Apply the Pauli channel.
-_, result = pauli_channel(prob=probabilities, input_mat=rho)
+result = pauli_channel(prob=probabilities, input_mat=rho, apply_channel=True)
 print(result)
 
 # %%

@@ -2,8 +2,15 @@
 
 import numpy as np
 
+from toqito.channel_ops import apply_channel as apply_op
 
-def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
+
+def depolarizing(
+    dim: int,
+    param_p: float = 0,
+    input_mat: np.ndarray | None = None,
+    apply_channel: bool = False,
+) -> np.ndarray:
     r"""Produce the partially depolarizing channel.
 
     (Section: Replacement Channels and the Completely Depolarizing Channel from
@@ -55,21 +62,19 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
 
      import numpy as np
      from toqito.channels import depolarizing
-     from toqito.channel_ops import apply_channel
 
      test_input_mat = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
 
-     apply_channel(test_input_mat, depolarizing(4))
+     depolarizing(4, input_mat=test_input_mat, apply_channel=True)
 
     .. jupyter-execute::
 
      import numpy as np
      from toqito.channels import depolarizing
-     from toqito.channel_ops import apply_channel
 
      test_input_mat = np.arange(1, 17).reshape(4, 4)
 
-     apply_channel(test_input_mat, depolarizing(4, 0.5))
+     depolarizing(4, 0.5, input_mat=test_input_mat, apply_channel=True)
 
 
 
@@ -83,8 +88,13 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
     :param dim: The dimensionality on which the channel acts.
     :param param_p: Depolarizing probability \(p \) \in [0,1] that mixes the input state
                     with the maximally mixed state. Default 0.
-    :return: The Choi matrix of the completely depolarizing channel.
-    :raises ValueError: If `param_p` is outside the interval [0,1].
+    :param input_mat: Optional input matrix to apply the channel to.
+    :param apply_channel: If True and input_mat is provided, apply the channel to input_mat.
+        If False (default), return the Choi matrix.
+    :return: The Choi matrix of the completely depolarizing channel, or the result of
+        applying the channel to input_mat.
+    :raises ValueError: If `param_p` is outside the interval [0,1], or if apply_channel is True
+        but input_mat is None.
 
     """
     # Compute the Choi matrix of the depolarizing channel.
@@ -97,5 +107,10 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
     if param_p != 0.0:
         idx = np.arange(dim) * (dim + 1)
         result[np.ix_(idx, idx)] += param_p
+
+    if apply_channel:
+        if input_mat is None:
+            raise ValueError("input_mat is required when apply_channel=True")
+        return apply_op(input_mat, result)
 
     return result

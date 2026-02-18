@@ -11,12 +11,14 @@ from toqito.channels import phase_damping
 @pytest.mark.parametrize("gamma", [0.0, 0.3, 0.5, 0.7, 1.0])
 def test_kraus_operators(gamma):
     """Test if the function returns correct Kraus operators for given gamma."""
-    kraus_ops = phase_damping(None, gamma=gamma)
+    kraus_ops = phase_damping(gamma=gamma)
 
     k0_expected = np.diag([1, np.sqrt(1 - gamma)])
     k1_expected = np.diag([0, np.sqrt(gamma)])
     expected_kraus_ops = [k0_expected, k1_expected]
 
+    assert isinstance(kraus_ops, list)
+    assert len(kraus_ops) == 2
     for i in range(2):
         np.testing.assert_almost_equal(kraus_ops[i], expected_kraus_ops[i])
 
@@ -29,11 +31,11 @@ def test_kraus_operators(gamma):
 @pytest.mark.parametrize(
     "rho, gamma",
     [
-        # Ground state |0⟩⟨0|.
+        # Ground state |0><0|.
         (np.array([[1, 0], [0, 0]]), 0.3),
-        # Exfootcited state |1⟩⟨1|.
+        # Excited state |1><1|.
         (np.array([[0, 0], [0, 1]]), 0.4),
-        # Superposition state (|0⟩+|1⟩)(⟨0|+⟨1|)/2.
+        # Superposition state (|0>+|1>)(<0|+<1|)/2.
         (np.array([[0.5, 0.5], [0.5, 0.5]]), 0.5),
         # Mixed state.
         (np.array([[0.7, 0.2j], [-0.2j, 0.3]]), 0.6),
@@ -42,14 +44,14 @@ def test_kraus_operators(gamma):
     ],
 )
 def test_apply_to_states(rho, gamma):
-    """Apply the channel to various input states rho."""
-    kraus_ops = phase_damping(None, gamma=gamma)
+    """Apply the channel to various input states rho with apply_channel=True."""
+    kraus_ops = phase_damping(gamma=gamma)
 
     expected_output = np.zeros((2, 2), dtype=complex)
     for k in kraus_ops:
         expected_output += k @ rho @ k.conj().T
 
-    result = phase_damping(rho, gamma=gamma)
+    result = phase_damping(rho, gamma=gamma, apply_channel=True)
 
     np.testing.assert_almost_equal(result, expected_output)
     np.testing.assert_almost_equal(np.trace(result), np.trace(rho))
@@ -83,9 +85,9 @@ def test_invalid_gamma(gamma, error_message):
     ],
 )
 def test_invalid_dimension(rho):
-    """Test that invalid matrix dimensions raise an error."""
+    """Test that invalid matrix dimensions raise an error when apply_channel=True."""
     with pytest.raises(ValueError, match="Input matrix must be 2x2 for the phase damping channel."):
-        phase_damping(rho, gamma=0.5)
+        phase_damping(rho, gamma=0.5, apply_channel=True)
 
 
 def test_input_and_return_type():
@@ -96,7 +98,34 @@ def test_input_and_return_type():
     for op in kraus_ops:
         assert op.shape == (2, 2)
 
-    # Test integer input matrix conversion to complex.
+    # Test integer input matrix conversion to complex when apply_channel=True.
     input_mat = np.array([[1, 0], [0, 0]], dtype=int)
-    result = phase_damping(input_mat, gamma=0.4)
+    result = phase_damping(input_mat, gamma=0.4, apply_channel=True)
     assert result.dtype == complex
+
+
+def test_apply_channel_false_with_input_mat_returns_kraus():
+    """Test that apply_channel=False returns Kraus operators even when input_mat is provided."""
+    input_mat = np.array([[1, 0], [0, 0]])
+    result = phase_damping(input_mat, gamma=0.4, apply_channel=False)
+
+    # Should return Kraus operators, not applied result
+    assert isinstance(result, list)
+    assert len(result) == 2
+
+    # Verify these are the Kraus operators
+    k0_expected = np.diag([1, np.sqrt(1 - 0.4)])
+    np.testing.assert_almost_equal(result[0], k0_expected)
+
+
+def test_apply_channel_true_without_input_mat_raises():
+    """Test that apply_channel=True with input_mat=None raises ValueError."""
+    with pytest.raises(ValueError, match="input_mat is required when apply_channel=True"):
+        phase_damping(gamma=0.4, apply_channel=True)
+
+
+def test_default_behavior_returns_kraus():
+    """Test that default behavior (apply_channel=False) returns Kraus operators."""
+    result = phase_damping(gamma=0.5)
+    assert isinstance(result, list)
+    assert len(result) == 2
