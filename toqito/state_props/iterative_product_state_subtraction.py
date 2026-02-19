@@ -113,7 +113,7 @@ def _find_max_overlap_product_state(
             best_psi = psi.copy()
             best_phi = phi.copy()
 
-    # numeric floor
+    # Clamp tiny negative overlap due to floating-point noise
     if best_overlap < 0 and best_overlap > -1e-15:
         best_overlap = 0.0
 
@@ -214,7 +214,6 @@ def iterative_product_state_subtraction(
     # normalized working residual for searches when renormalize=True.
     residual_abs = rho.copy()
     decomposition: List[Tuple[float, NDArray[np.complex128]]] = []
-    total_subtracted = 0.0
 
     # scale restarts by strength (simple linear scaling)
     effective_restarts = max(1, int(n_restarts_find * max(1, strength)))
@@ -228,7 +227,7 @@ def iterative_product_state_subtraction(
             print(f"[IPSS] iter {iteration:3d}: residual norm {residual_norm:.3e}, trace {trace_abs:.3e}")
 
         # check convergence in absolute residual
-        if residual_norm < residual_tol and is_positive_semidefinite(residual_abs, psd_tol):
+        if residual_norm < residual_tol and is_positive_semidefinite(residual_abs, rtol=1e-05, atol=abs(psd_tol)):
             if verbose:
                 print("[IPSS] Converged: residual small and PSD.")
             return True, decomposition, residual_abs
@@ -265,10 +264,15 @@ def iterative_product_state_subtraction(
         if min_eig_test >= psd_tol:
             weight_abs = weight_hi_abs
         else:
-            # binary search over absolute weights in [0, weight_hi_abs]
+            # binary search to find largest subtractable weight that preserves PSD.
+            # 80 iterations is more than enough to reach machine precision
+            # (since each step halves the interval).
+            max_bisect_iter = 80
+            bisect_tol = 1e-14  # close to double precision limit
+
             weight_lo = 0.0
             weight_hi = weight_hi_abs
-            for _ in range(80):
+            for _ in range(max_bisect_iter):
                 mid = 0.5 * (weight_lo + weight_hi)
                 test_resid_abs = residual_abs - mid * P
                 min_eig = np.min(np.linalg.eigvalsh((test_resid_abs + test_resid_abs.conj().T) / 2))
@@ -276,7 +280,7 @@ def iterative_product_state_subtraction(
                     weight_lo = mid
                 else:
                     weight_hi = mid
-                if weight_hi - weight_lo < 1e-14:
+                if weight_hi - weight_lo < bisect_tol:
                     break
             weight_abs = float(weight_lo)
 
@@ -289,7 +293,6 @@ def iterative_product_state_subtraction(
         # Subtract in absolute frame and record
         residual_abs = residual_abs - weight_abs * P
         decomposition.append((weight_abs, P))
-        total_subtracted += weight_abs
 
         # Numerical cleanup: enforce Hermiticity and clamp tiny negative eigenvalues
         residual_abs = (residual_abs + residual_abs.conj().T) / 2
