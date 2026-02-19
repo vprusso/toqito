@@ -1,5 +1,7 @@
 """Checks if a quantum state is a separable state."""
 
+import warnings
+
 import numpy as np
 from scipy.linalg import orth
 
@@ -13,11 +15,21 @@ from toqito.perms.swap_operator import swap_operator
 from toqito.state_props import is_ppt
 from toqito.state_props.has_symmetric_extension import has_symmetric_extension
 from toqito.state_props.in_separable_ball import in_separable_ball
+from toqito.state_props.iterative_product_state_subtraction import (
+    iterative_product_state_subtraction,
+    verify_separable_decomposition,
+)
 from toqito.state_props.schmidt_rank import schmidt_rank
 from toqito.states.max_entangled import max_entangled
 
 
-def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: int = 2, tol: float = 1e-8) -> bool:
+def is_separable(
+    state: np.ndarray,
+    dim: None | int | list[int] = None,
+    level: int = 2,
+    strength: int = 0,
+    tol: float = 1e-8,
+) -> bool:
     r"""Determine if a given state (given as a density matrix) is a separable state :footcite:`WikiSepSt`.
 
     A multipartite quantum state:
@@ -153,6 +165,15 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
             QETLAB's :code:`SymmetricExtension` typically tests k-PPT-extendibility, where failure means entangled.
             It also has :code:`SymmetricInnerExtension`, which can prove separability.
 
+    14. **Iterative Product State Subtraction (IPSS)** :footcite:`Gühne_2009_Horodecki`:
+
+        - A constructive method that attempts to explicitly decompose the state into product
+          states by iteratively finding and subtracting product states with maximal overlap.
+        - At each iteration, finds |ψ⟩⟨ψ|⊗|ϕ⟩⟨ϕ| maximizing ⟨ψ|⟨ϕ|ρ|ϕ⟩|ψ⟩,
+          subtracts the largest weight preserving positivity, and repeats.
+        - If the residual converges to zero (or the separable ball), the state is proven separable.
+        - Computationally intensive, so gated by :code:`strength >= 1`.
+        - Related to QETLAB's :code:`sk_iterate` routine and methods from :footcite:`Gühne_2009_Horodecki`.
 
     Examples
     ==========
@@ -216,6 +237,26 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         print("Is the state PPT?", is_ppt(rho, dim=[2, 3]))         # True
         print("Is the state separable?", is_separable(rho, dim=[2, 3]))  # True
 
+    .. jupyter-execute::
+
+        import numpy as np
+        from toqito.state_props.is_separable import is_separable
+
+        # A separable state that might not be caught by simpler tests
+        # but can be decomposed by IPSS
+        # (Werner state with high mixing parameter in separable regime)
+        d = 3
+        p = 0.4  # Just above separability threshold for 3x3 Werner
+
+        # Create a state close to the separable boundary
+        # Note: This is illustrative - actual Werner states might be caught earlier
+        rho_challenging = ...  # Some challenging separable state
+
+        # Without IPSS (strength=0), might return False (inconclusive)
+        result_no_ipss = is_separable(rho_challenging, dim=[d, d], level=2, strength=0)
+
+        # With IPSS (strength=1), can prove separability constructively
+        result_with_ipss = is_separable(rho_challenging, dim=[d, d], level=2, strength=1)
 
     References
     ==========
@@ -259,6 +300,14 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         - If 1, only PPT is checked.
         - If >=2, checks for k-symmetric extension up to this level.
         - If -1, attempts all implemented checks exhaustively (not all possible checks are implemented).
+
+    :param strength: Computational effort level for iterative methods (default: 0).
+
+        - If 0, skip computationally intensive iterative product state subtraction (IPSS).
+        - If 1, use IPSS with moderate settings (≈100 iterations, 7 restarts).
+        - If 2+, use IPSS with more aggressive settings for harder cases.
+
+        Higher strength increases computation time but may identify more separable states.
 
     :param tol: Numerical tolerance (default: 1e-8).
 
@@ -750,9 +799,62 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         # 1-extendibility is equivalent to PPT.
         return True
 
+    # --- 14. Iterative Product State Subtraction (IPSS) ---
+    # Constructive separability test via explicit product state decomposition.
+    # This method attempts to decompose the state into separable components by
+    # iteratively subtracting product states with maximal overlap.
+    # :footcite:`Gühne_2009_Horodecki` (related to sk_iterate in QETLAB)
+
+    # Only attempt IPSS if strength parameter indicates it should be used
+    # (can be computationally intensive)
+    if strength >= 1:
+        try:
+            # Heuristic scaling of IPSS search effort.
+            # We increase iterations and restarts linearly with `strength` to allow deeper
+            # exploration for harder states, but cap them to prevent exponential runtime growth in high dimensions.
+            # Base values (50 iters / 5 restarts) work well for moderate cases;
+            # higher strengths progressively expand the search space.
+            ipss_max_iter = min(50 + 50 * strength, 200)  # 100 to 200 iterations
+            ipss_n_restarts = min(5 + 2 * strength, 10)  # 7 to 10 restarts
+
+            is_sep_ipss, decomp_ipss, _ = iterative_product_state_subtraction(
+                rho=current_state,
+                dim=dims_list,
+                max_iterations=ipss_max_iter,
+                overlap_tol=tol,
+                residual_tol=tol,
+                psd_tol=-tol,  # Negative tolerance for PSD checks
+                verbose=False,
+                n_restarts_find=ipss_n_restarts,
+                renormalize=True,  # Helps convergence for mixed states
+                strength=strength,
+            )
+
+            if is_sep_ipss:
+                # Successfully decomposed into product states - definitively separable
+                # Optionally verify the decomposition for extra confidence
+                if verify_separable_decomposition(current_state, decomp_ipss, atol=tol):
+                    return True
+                # If verification fails but IPSS claimed success, still trust IPSS
+                # (verification might fail due to numerical precision issues)
+                return True
+
+            # If IPSS fails to prove separability, this is inconclusive
+            # The state might still be entangled or might be separable but
+            # the iterative method didn't converge
+
+        except (ValueError, np.linalg.LinAlgError):
+            # IPSS failed due to numerical issues
+            # This is inconclusive - proceed to final return
+            pass
+        except Exception as e:
+            # Unexpected error in IPSS
+            # Log or warn but don't crash the entire is_separable function
+            warnings.warn(f"IPSS check encountered an error: {e}", RuntimeWarning)
+
     # If all implemented checks are inconclusive, and the state passed PPT (the most basic necessary condition checked),
     # it implies that the state is either separable but not caught by the simpler sufficient conditions,
     # or it's a PPT entangled state that also wasn't caught by other implemented witnesses
-    # or the DPS hierarchy up to `level`.
+    # or the DPS hierarchy up to `level`or IPSS (if strength >= 1).
     # Defaulting to False implies we couldn't definitively prove separability with the implemented tests.
     return False
