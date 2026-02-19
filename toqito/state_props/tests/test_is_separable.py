@@ -917,3 +917,136 @@ def test_path_ha_kye_fallthrough_to_final_false_L534_to_L580(tiles_state_3x3_ppt
                         # Final L580 `return False` is hit.
                         assert not is_separable(rho, dim=dims, tol=test_tol, level=2)
                         assert mock_plucker_det_call_info["called"]  # Plucker det mock need be to called
+
+
+# --- IPSS (Iterative Product State Subtraction) Logic Tests ---
+
+
+def _get_difficult_state():
+    """Return a synthetic mixed 3x3 state that avoids trivial early exits."""
+    rho = np.zeros((9, 9), dtype=complex)
+    np.fill_diagonal(rho, 0.1)
+    rho[0, 4] = rho[4, 0] = 0.05
+    return rho / np.trace(rho)
+
+
+@mock.patch("toqito.state_props.is_separable.verify_separable_decomposition")
+@mock.patch("toqito.state_props.is_separable.iterative_product_state_subtraction")
+@mock.patch("toqito.state_props.is_separable.in_separable_ball", return_value=False)
+@mock.patch("toqito.state_props.is_separable.trace_norm", return_value=0.5)
+def test_ipss_success_path(mock_trace, mock_ball, mock_ipss, mock_verify):
+    """Test that a successful IPSS decomposition returns True."""
+    mock_ipss.return_value = (True, ["dummy_decomp"], None)
+    mock_verify.return_value = True
+
+    rho = _get_difficult_state()
+
+    # level=0 ensures symmetric extension is skipped
+    assert is_separable(rho, dim=[3, 3], strength=1, level=0) is True
+
+    mock_ball.assert_called_once()
+    mock_trace.assert_called()
+    mock_ipss.assert_called_once()
+    mock_verify.assert_called_once()
+
+
+@mock.patch("toqito.state_props.is_separable.iterative_product_state_subtraction")
+@mock.patch("toqito.state_props.is_separable.in_separable_ball", return_value=False)
+@mock.patch("toqito.state_props.is_separable.trace_norm", return_value=0.5)
+def test_ipss_catches_linalg_error(mock_trace, mock_ball, mock_ipss):
+    """Test that numerical optimization errors allow the function to fall through."""
+    mock_ipss.side_effect = np.linalg.LinAlgError("Optimization failed")
+
+    rho = _get_difficult_state()
+
+    assert is_separable(rho, dim=[3, 3], strength=1, level=0) is False
+
+    mock_ball.assert_called_once()
+    mock_trace.assert_called()
+    mock_ipss.assert_called_once()
+
+
+@mock.patch("toqito.state_props.is_separable.iterative_product_state_subtraction")
+@mock.patch("toqito.state_props.is_separable.in_separable_ball", return_value=False)
+@mock.patch("toqito.state_props.is_separable.trace_norm", return_value=0.5)
+def test_ipss_returns_false_falls_through(mock_trace, mock_ball, mock_ipss):
+    """Test that inconclusive IPSS results allow other heuristics to proceed."""
+    mock_ipss.return_value = (False, [], None)
+
+    rho = _get_difficult_state()
+
+    assert is_separable(rho, dim=[3, 3], strength=1, level=0) is False
+
+    mock_ball.assert_called_once()
+    mock_trace.assert_called()
+    mock_ipss.assert_called_once()
+
+
+@mock.patch("toqito.state_props.is_separable.iterative_product_state_subtraction")
+@mock.patch("toqito.state_props.is_separable.in_separable_ball", return_value=False)
+@mock.patch("toqito.state_props.is_separable.trace_norm", return_value=0.5)
+def test_ipss_emits_runtime_warning_on_general_exception(mock_trace, mock_ball, mock_ipss):
+    """Verify that unexpected errors emit a warning instead of crashing."""
+    mock_ipss.side_effect = Exception("Strange error")
+
+    rho = _get_difficult_state()
+
+    with pytest.warns(RuntimeWarning, match="IPSS check encountered an error: Strange error"):
+        is_separable(rho, dim=[3, 3], strength=1, level=0)
+
+    mock_ball.assert_called_once()
+    mock_trace.assert_called()
+    mock_ipss.assert_called_once()
+
+
+@mock.patch("toqito.state_props.is_separable.iterative_product_state_subtraction")
+@mock.patch("toqito.state_props.is_separable.in_separable_ball", return_value=False)
+@mock.patch("toqito.state_props.is_separable.trace_norm", return_value=0.5)
+def test_ipss_high_strength_caps_parameters(mock_trace, mock_ball, mock_ipss):
+    """Verify parameter scaling caps at 200 iterations and 10 restarts."""
+    mock_ipss.return_value = (False, [], None)
+
+    rho = _get_difficult_state()
+
+    is_separable(rho, dim=[3, 3], strength=100, level=0)
+
+    mock_ball.assert_called_once()
+    mock_trace.assert_called()
+    mock_ipss.assert_called_once()
+
+    _, kwargs = mock_ipss.call_args
+    assert kwargs["max_iterations"] == 200
+    assert kwargs["n_restarts_find"] == 10
+
+
+def test_ipss_backward_compatible_3x3():
+    """Verify strength=0 (default) skips the IPSS logic entirely."""
+    rho = np.eye(9) / 9
+    result_default = is_separable(rho, dim=[3, 3])
+    result_explicit = is_separable(rho, dim=[3, 3], strength=0)
+    assert result_default == result_explicit
+
+
+def test_ipss_real_world_success_3x3():
+    """Verify IPSS correctly identifies a sum of product states as separable."""
+    # 1. Construct a separable state from 4 random product states
+    # We use 4 states so the rank (4) > dim (3), bypassing simple rank heuristics.
+    rho = np.zeros((9, 9), dtype=complex)
+
+    for _ in range(4):
+        # Create random normalized vectors for A and B
+        a = np.random.randn(3) + 1j * np.random.randn(3)
+        b = np.random.randn(3) + 1j * np.random.randn(3)
+        a /= np.linalg.norm(a)
+        b /= np.linalg.norm(b)
+
+        # Form the product state |a>|b>
+        p_vec = np.kron(a, b)
+        rho += np.outer(p_vec, p_vec.conj())
+
+    rho /= np.trace(rho)  # Normalize
+
+    # 2. Call is_separable with strength=1 to trigger the actual IPSS algorithm
+    # We expect this to return True because the state is by-construction separable.
+    # No mocks are used here; the algorithm must actually find the product states.
+    assert is_separable(rho, dim=[3, 3], strength=2, level=0) is True
