@@ -169,7 +169,8 @@ def is_separable(
 
         - A constructive method that attempts to explicitly decompose the state into product
           states by iteratively finding and subtracting product states with maximal overlap.
-        - At each iteration, finds |ψ⟩⟨ψ|⊗|ϕ⟩⟨ϕ| maximizing ⟨ψ|⟨ϕ|ρ|ϕ⟩|ψ⟩,
+        - At each iteration, finds :math:`|\psi \rangle \langle \psi | \otimes |\phi \rangle \langle \phi |`
+          maximizing :math:`\langle \psi | \langle \phi | \rho |\phi \rangle |\psi \rangle`,
           subtracts the largest weight preserving positivity, and repeats.
         - If the residual converges to zero (or the separable ball), the state is proven separable.
         - Computationally intensive, so gated by :code:`strength >= 1`.

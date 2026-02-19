@@ -140,7 +140,7 @@ def iterative_product_state_subtraction(
     decomposing a bipartite quantum state into product states.
 
     At each iteration the algorithm:
-        1. Finds product vectors maximizing overlap with the residual state
+        1. Finds product vectors maximizing overlap with the residual state :math:`\rho_{res}`
         2. Subtracts the largest possible multiple preserving positivity
         3. Repeats until convergence or failure
 
