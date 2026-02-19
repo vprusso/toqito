@@ -219,11 +219,10 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         """Test bounds for the MUB 3-in, 2-out extended nonlocal game.
 
         Verifies individual bounds and their relationships. For this specific game:
-        - Unentangled value is classical (2/3).
-        - Quantum value (found by see-saw ent_lb) is (3+sqrt(5))/6.
-        - NPA hierarchy level k=2 (ent_ub) yields a loose upper bound, equal to classical (2/3).
+        - Unentangled value is (3+sqrt(5))/6 (achieved by non-constant strategy f=(0,0,1)).
+        - Quantum value equals the unentangled value (no quantum advantage).
+        - NPA hierarchy level k=1 upper bound matches the unentangled value.
         - Non-signaling value is (3+sqrt(5))/6.
-        The test confirms these values and notes that ent_lb > ent_ub for this game/NPA level.
         """
         np.random.seed(42)  # For reproducibility of see-saw's random start
 
@@ -233,39 +232,27 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         unent = game.unentangled_value()
         ns = game.nonsignaling_value()
 
-        # See-saw converges to classical with these parameters for this game
+        # See-saw with only 1 iteration may not converge to the optimal
         ent_lb = game.quantum_value_lower_bound(
             iters=1,
             tol=1e-7,
             seed=42,
         )
-        # NPA k=1 upper bound (loose for this game)
+        # NPA k=1 upper bound
         ent_ub = game.commuting_measurement_value_upper_bound(k=1)
 
-        expected_classical_value = 2 / 3.0
-        expected_ns_value = (3 + np.sqrt(5)) / 6.0
+        expected_value = (3 + np.sqrt(5)) / 6.0
 
         # 1. Verify individual known values
-        self.assertAlmostEqual(unent, expected_classical_value, delta=1e-4)
-        self.assertAlmostEqual(ns, expected_ns_value, delta=1e-4)
+        self.assertAlmostEqual(unent, expected_value, delta=1e-4)
+        self.assertAlmostEqual(ns, expected_value, delta=1e-4)
+        self.assertAlmostEqual(ent_ub, expected_value, delta=5e-3)
 
-        # 2. Verify the see-saw lower bound (now expected to be classical for this setup)
-        self.assertAlmostEqual(
-            ent_lb,
-            expected_classical_value,
-            delta=1e-4,
-        )
-
-        # 3. Verify the NPA k=1 upper bound.
-        # With block-hermitian K (correct formulation), the NPA k=1 bound is
-        # loose for this game (~0.873), not the classical value.
-        self.assertAlmostEqual(ent_ub, 0.8727, delta=5e-3)
-
-        # 4. Verify universal ordering that MUST hold for valid bounds
-        self.assertLessEqual(unent, ent_lb + 1e-5)
+        # 2. Verify universal ordering that MUST hold for valid bounds
         self.assertLessEqual(ent_lb, ent_ub + 1e-5)
         self.assertLessEqual(ent_ub, ns + 1e-5)
         self.assertLessEqual(ent_lb, ns + 1e-5)
+        self.assertLessEqual(unent, ent_ub + 1e-5)
 
     @pytest.mark.xfail(reason="Result not stable on this platform")
     def test_mub_3in2out_entangled_bounds_single_round_random(self):
