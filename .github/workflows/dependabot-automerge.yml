@@ -1,0 +1,38 @@
+name: Dependabot Auto-Merge
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  dependabot:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.user.login == 'dependabot[bot]' && github.repository == 'vprusso/toqito'
+    steps:
+      - name: Fetch Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v2
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Approve and enable auto-merge for Dependabot PRs
+        run: |
+          UPDATE_TYPE="${{ steps.metadata.outputs.update-type }}"
+          DEPENDENCY_TYPE="${{ steps.metadata.outputs.dependency-type }}"
+
+          # Only auto-merge minor and patch updates for direct dependencies
+          if [[ "$UPDATE_TYPE" == "version-update:semver-minor" || "$UPDATE_TYPE" == "version-update:semver-patch" ]] && \
+             [[ "$DEPENDENCY_TYPE" == "direct" || "$DEPENDENCY_TYPE" == "direct:development" ]]; then
+            gh pr review --approve "$PR_URL"
+            gh pr merge --auto --merge "$PR_URL"
+            echo "Auto-merge enabled for $PR_URL"
+          else
+            echo "PR does not meet auto-merge criteria (update-type: $UPDATE_TYPE, dependency-type: $DEPENDENCY_TYPE)"
+          fi
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

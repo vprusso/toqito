@@ -12,9 +12,6 @@ updates:
     allow:
       # Allow both direct and indirect updates for all packages
       - dependency-type: "direct"
-    ignore:
-    - dependency-name: "*"
-      update-types: ["version-update:semver-patch"]
 
   # Maintain dependencies for pip
   # poetry is not a valid entry for package-ecosystem
@@ -26,6 +23,3 @@ updates:
     allow:
       # Allow both direct and indirect updates for all packages
       - dependency-type: "direct"
-    ignore:
-    - dependency-name: "*"
-      update-types: ["version-update:semver-patch"]
