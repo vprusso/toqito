@@ -237,26 +237,25 @@ def is_separable(
         print("Is the state PPT?", is_ppt(rho, dim=[2, 3]))         # True
         print("Is the state separable?", is_separable(rho, dim=[2, 3]))  # True
 
+    Using IPSS to prove separability constructively:
+
     .. jupyter-execute::
 
         import numpy as np
         from toqito.state_props.is_separable import is_separable
 
-        # A separable state that might not be caught by simpler tests
-        # but can be decomposed by IPSS
-        # (Werner state with high mixing parameter in separable regime)
-        d = 3
-        p = 0.4  # Just above separability threshold for 3x3 Werner
+        # Separable state: mixture of product states
+        psi1 = np.kron([1, 0], [1, 0])
+        psi2 = np.kron([0, 1], [0, 1])
+        rho_sep = 0.5 * (np.outer(psi1, psi1.conj()) + np.outer(psi2, psi2.conj()))
 
-        # Create a state close to the separable boundary
-        # Note: This is illustrative - actual Werner states might be caught earlier
-        rho_challenging = ...  # Some challenging separable state
+        # Entangled state: Bell state
+        bell = np.array([1, 0, 0, 1], dtype=complex) / np.sqrt(2)
+        rho_ent = np.outer(bell, bell.conj())
 
-        # Without IPSS (strength=0), might return False (inconclusive)
-        result_no_ipss = is_separable(rho_challenging, dim=[d, d], level=2, strength=0)
-
-        # With IPSS (strength=1), can prove separability constructively
-        result_with_ipss = is_separable(rho_challenging, dim=[d, d], level=2, strength=1)
+        # IPSS can identify both (when strength >= 1)
+        print(f"Separable state: {is_separable(rho_sep, dim=[2, 2], strength=1)}") # True
+        print(f"Bell state: {is_separable(rho_ent, dim=[2, 2], strength=1)}") # False
 
     References
     ==========
