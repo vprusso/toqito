@@ -17,7 +17,7 @@ from toqito.state_props.schmidt_rank import schmidt_rank
 from toqito.states.max_entangled import max_entangled
 
 
-def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: int = 2, tol: float = 1e-8) -> bool:
+def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: int = 2, S_k: int=1, tol: float = 1e-8) -> bool:
     r"""Determine if a given state (given as a density matrix) is a separable state :footcite:`WikiSepSt`.
 
     A multipartite quantum state:
@@ -152,7 +152,8 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         .. note::
             QETLAB's :code:`SymmetricExtension` typically tests k-PPT-extendibility, where failure means entangled.
             It also has :code:`SymmetricInnerExtension`, which can prove separability.
-
+    14 **Iterative :math:`S_k` decomposition**: 
+        - If   
 
     Examples
     ==========
@@ -749,7 +750,10 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     elif level == 1 and is_state_ppt:  # is_state_ppt is True at this point
         # 1-extendibility is equivalent to PPT.
         return True
+    # --- 14. Iterative product state subtraction---
+    
 
+        
     # If all implemented checks are inconclusive, and the state passed PPT (the most basic necessary condition checked),
     # it implies that the state is either separable but not caught by the simpler sufficient conditions,
     # or it's a PPT entangled state that also wasn't caught by other implemented witnesses
