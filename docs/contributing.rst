@@ -209,7 +209,6 @@ Following is used in a docstring for the references to show up in the documentat
     .. footbibliography::
         
 
-
 --------------
 Documentation
 --------------
@@ -230,6 +229,15 @@ the documentation theme :code:`furo`, visit
 `sphinx documentation <https://docs.readthedocs.io/en/stable/intro/getting-started-with-sphinx.html>`_ , 
 `rst primer <https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html>`_ &
 `furo documentation <https://sphinx-themes.org/sample-sites/furo/>`_ .
+
+----------
+AI Policy
+----------
+We support the responsible use of AI-driven tools, but reserve the right not to
+engage or close contributions that are not reviewed or properly understood by
+the submitter. AI can save time in some instances, but when poorly applied, it
+can produce correct-but-wrong output and waste the time of both the contributor
+and the reviewers.
 
 ---------------------
 Additional Resources
