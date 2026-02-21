@@ -1,5 +1,6 @@
 """Two-player extended nonlocal game."""
 
+import itertools
 from collections import defaultdict
 
 import cvxpy
@@ -132,22 +133,16 @@ class ExtendedNonlocalGame:
         dim_x, dim_y, alice_out, bob_out, alice_in, bob_in = self.pred_mat.shape
 
         max_unent_val = float("-inf")
-        for a_out in range(alice_out):
-            for b_out in range(bob_out):
+        for f_alice in itertools.product(range(alice_out), repeat=alice_in):
+            for g_bob in itertools.product(range(bob_out), repeat=bob_in):
                 p_win = np.zeros([dim_x, dim_y], dtype=complex)
                 for x_in in range(alice_in):
                     for y_in in range(bob_in):
-                        p_win += self.prob_mat[x_in, y_in] * self.pred_mat[:, :, a_out, b_out, x_in, y_in]
+                        p_win += self.prob_mat[x_in, y_in] * self.pred_mat[:, :, f_alice[x_in], g_bob[y_in], x_in, y_in]
 
-                rho = cvxpy.Variable((dim_x, dim_y), hermitian=True)
-
-                objective = cvxpy.Maximize(cvxpy.real(cvxpy.trace(p_win.conj().T @ rho)))
-
-                constraints = [cvxpy.trace(rho) == 1, rho >> 0]
-                problem = cvxpy.Problem(objective, constraints)
-                unent_val = problem.solve()
+                unent_val = max(np.linalg.eigvalsh(p_win))
                 max_unent_val = max(max_unent_val, unent_val)
-        return max_unent_val
+        return float(max_unent_val)
 
     def nonsignaling_value(self) -> float:
         r"""Calculate the non-signaling value of an extended nonlocal game.
