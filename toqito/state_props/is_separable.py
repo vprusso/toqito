@@ -260,8 +260,7 @@ def is_separable(
 
     :param state: The density matrix to check.
     :param dim: The dimension of the input state, e.g., [dim_A, dim_B]. Optional; inferred if None.
-    :param level: The level for symmetric extension (DPS) hierarchy.
-        If `None`, it defaults based on the `strength` parameter (default: 2 for `strength=0`, 3 for `strength=1`, 4 for `strength >= 2`).
+    :param level: The level for symmetric extension (DPS) hierarchy. If `None`, it defaults based on the `strength` parameter (default: 2 for `strength=0`, 3 for `strength=1`, 4 for `strength >= 2`).
 
         - If 1, only PPT is checked.
         - If >= 2, checks for k-symmetric extension up to this level.
