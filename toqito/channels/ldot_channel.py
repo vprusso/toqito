@@ -11,63 +11,62 @@ def ldot_channel(mat: np.ndarray, efficient: bool = True) -> np.ndarray:
     The LDOT channel projects a matrix onto the subspace of local diagonal
     orthogonal invariant (LDOI) matrices. It is defined as:
 
-    .. math::
+    \[
         \Phi_O(A) = \frac{1}{2^n} \sum_{O \in \text{DO}(\mathcal{X})} (O \otimes O) A (O \otimes O)
+    \]
 
-    where :math:`\text{DO}(\mathcal{X})` is the set of :math:`n \times n` diagonal matrices with
-    diagonal entries equal to :math:`\pm 1`.
+    where \(\text{DO}(\mathcal{X})\) is the set of \(n \times n\) diagonal matrices with
+    diagonal entries equal to \(\pm 1\).
 
     The LDOT channel has the following properties:
 
     - It is a quantum channel (completely positive and trace-preserving)
-    - It is self-adjoint: :math:`\Phi_O^* = \Phi_O`
+    - It is self-adjoint: \(\Phi_O^* = \Phi_O\)
     - It preserves PPT and separability
     - It is an orthogonal projection onto the LDOI subspace
 
     The efficient implementation works directly in the computational basis, zeroing out the entries
-    that average to zero under the twirl. This keeps the complexity polynomial in :math:`n` instead
-    of the exponential :math:`O(2^n)` for the brute-force approach.
+    that average to zero under the twirl. This keeps the complexity polynomial in \(n\) instead
+    of the exponential \(O(2^n)\) for the brute-force approach.
 
-    Examples
-    ==========
+    Examples:
 
     Apply LDOT channel to project an arbitrary matrix onto LDOI subspace:
 
-    .. jupyter-execute::
-
-        from toqito.channels import ldot_channel
-        import numpy as np
-
-        # Arbitrary 2-qubit matrix
-        mat = np.array([[1, 2, 3, 4],
-                        [5, 6, 7, 8],
-                        [9, 10, 11, 12],
-                        [13, 14, 15, 16]])
-        ldoi_projection = ldot_channel(mat)
-        print(ldoi_projection)
+    ```python exec="1" source="above"
+    from toqito.channels import ldot_channel
+    import numpy as np
+    
+    # Arbitrary 2-qubit matrix
+    mat = np.array([[1, 2, 3, 4],
+                    [5, 6, 7, 8],
+                    [9, 10, 11, 12],
+                    [13, 14, 15, 16]])
+    ldoi_projection = ldot_channel(mat)
+    print(ldoi_projection)
+    ```
 
     The LDOT channel is idempotent (applying it twice gives the same result):
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    from toqito.channels import ldot_channel
+    import numpy as np
+    
+    mat = np.random.rand(4, 4)
+    once = ldot_channel(mat)
+    twice = ldot_channel(once)
+    print(np.allclose(once, twice))
+    ```
 
-        from toqito.channels import ldot_channel
-        import numpy as np
-
-        mat = np.random.rand(4, 4)
-        once = ldot_channel(mat)
-        twice = ldot_channel(once)
-        np.allclose(once, twice)
-
-    References
-    ==========
-    .. footbibliography::
-
-    :param mat: A square matrix of dimension :math:`n^2 \times n^2` representing a bipartite
-                operator on :math:`\mathcal{X} \otimes \mathcal{Y}` where
-                :math:`\mathcal{X} = \mathcal{Y} = \mathbb{C}^n`.
-    :param efficient: If True, use the efficient O(n²) standard basis implementation. If False,
+    Args:
+        mat: A square matrix of dimension \(n^2 \times n^2\) representing a bipartite
+                operator on \(\mathcal{X} \otimes \mathcal{Y}\) where
+                \(\mathcal{X} = \mathcal{Y} = \mathbb{C}^n\).
+        efficient: If True, use the efficient O(n²) standard basis implementation. If False,
                       use the brute-force O(2ⁿ) implementation (useful for verification).
-    :return: The LDOI projection of the input matrix.
+                      
+    Returns:
+        The LDOI projection of the input matrix.
 
     """
     if mat.ndim != 2 or mat.shape[0] != mat.shape[1]:
@@ -107,6 +106,13 @@ def _ldot_channel_brute_force(mat: np.ndarray) -> np.ndarray:
 
     This implementation is provided for verification purposes and to match the mathematical
     definition exactly. For practical use, the efficient implementation should be preferred.
+    Args:
+        mat: A square matrix of dimension \(n^2 \times n^2\) representing a bipartite operator on \(\mathcal{X} \otimes \mathcal{Y}\) where \(\mathcal{X} = \mathcal{Y} = \mathbb{C}^n\).
+        efficient: If True, use the efficient O(n²) standard basis implementation. If False, use the brute-force O(2ⁿ) implementation (useful for verification).
+
+    Returns:
+        The LDOI projection of the input matrix.
+
     """
     dim = int(np.sqrt(mat.shape[0]))
 

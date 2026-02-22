@@ -1,9 +1,6 @@
 <p align="center">
- <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/vprusso/toqito/raw/cfb62c4a5ce04b782f64229e7acd2b1c97f09801/docs/figures/logo.svg" width="60%">
-   <img src="https://github.com/vprusso/toqito/raw/cfb62c4a5ce04b782f64229e7acd2b1c97f09801/docs/figures/logo.svg" width="60%">
- </picture>
- </p>
+  <img src="figures/logo.svg" width="60%" class="theme-logo">
+</p>
 
 
 # |toqito⟩: Theory of Quantum Information Toolkit

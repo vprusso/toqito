@@ -5,38 +5,42 @@ from scipy.linalg import null_space
 
 
 def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
-    r"""Compute an orthonormal basis for the commutant algebra :footcite:`PlanetMathCommutant`.
+    r"""Compute an orthonormal basis for the commutant algebra [@PlanetMathCommutant].
 
-    Given a matrix :math:`A` or a set of matrices :math:`\mathcal{A} = \{A_1, A_2, \dots\}`,
+    Given a matrix \(A\) or a set of matrices \(\mathcal{A} = \{A_1, A_2, \dots\}\),
     this function determines an orthonormal basis (with respect to the Hilbert-Schmidt inner product)
-    for the algebra of matrices that commute with every matrix in :math:`\mathcal{A}`.
+    for the algebra of matrices that commute with every matrix in \(\mathcal{A}\).
 
-    The commutant of a single matrix :math:`A \in \mathbb{C}^{n \times n}` consists of all matrices
-    :math:`X \in \mathbb{C}^{n \times n}` satisfying:
+    The commutant of a single matrix \(A \in \mathbb{C}^{n \times n}\) consists of all matrices
+    \(X \in \mathbb{C}^{n \times n}\) satisfying:
 
-    .. math:: A X = X A.
+    \[
+        A X = X A.
+    \]
 
-    More generally, for a set of matrices :math:`\mathcal{A} = \{A_1, A_2, \dots\}`, the commutant
-    consists of all matrices :math:`X` satisfying:
+    More generally, for a set of matrices \(\mathcal{A} = \{A_1, A_2, \dots\}\), the commutant
+    consists of all matrices \(X\) satisfying:
 
-    .. math:: A_i X = X A_i \quad \forall A_i \in \mathcal{A}.
+    \[
+        A_i X = X A_i \quad \forall A_i \in \mathcal{A}.
+    \]
 
     This condition can be rewritten in vectorized form as:
 
-    .. math::
+    \[
         (A_i \otimes I - I \otimes A_i^T) \text{vec}(X) = 0, \quad \forall A_i \in \mathcal{A}.
+    \]
 
-    where :math:`\text{vec}(X)` denotes the column-wise vectorization of :math:`X`.
+    where \(\text{vec}(X)\) denotes the column-wise vectorization of \(X\).
     The null space of this equation provides a basis for the commutant.
 
-    This implementation is based on :footcite:`QETLAB_link`.
+    This implementation is based on [@QETLAB_link].
 
-    Examples
-    ==========
+    Examples:
 
     Consider the following set of matrices:
 
-    .. math::
+    \[
         A_1 = \begin{pmatrix}
                 1 & 0 \\
                 0 & -1
@@ -45,49 +49,49 @@ def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
                 0 & 1 \\
                 1 & 0
             \end{pmatrix}
+    \]
 
-    The commutant consists of matrices that commute with both :math:`A_1` and :math:`A_2`.
+    The commutant consists of matrices that commute with both \(A_1\) and \(A_2\).
 
-    .. jupyter-execute::
-
-     import numpy as np
-     from toqito.matrix_props import commutant
-
-     A1 = np.array([[1, 0], [0, -1]])
-     A2 = np.array([[0, 1], [1, 0]])
-
-     basis = commutant([A1, A2])
-
-     basis
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.matrix_props import commutant
+    
+    A1 = np.array([[1, 0], [0, -1]])
+    A2 = np.array([[0, 1], [1, 0]])
+    
+    basis = commutant([A1, A2])
+    
+    print(basis)
+    ```
 
 
     Now, consider a single matrix:
 
-    .. math::
+    \[
         A = \begin{pmatrix}
                 1 & 1 \\
                 0 & 1
             \end{pmatrix}
+    \]
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.matrix_props import commutant
+    
+    A = np.array([[1, 1], [0, 1]])
+    
+    basis = commutant(A)
+    
+    for i, basis_ in enumerate(basis):
+       print(f"basis{ i} :\n{basis_} \n")
+    ```
 
-     import numpy as np
-     from toqito.matrix_props import commutant
+    Args:
+        A: A single matrix of the form np.ndarray or a list of square matrices of the same dimension.
 
-     A = np.array([[1, 1], [0, 1]])
-
-     basis = commutant(A)
-
-     for i, basis_ in enumerate(basis):
-        print(f"basis{ i} :\n{basis_} \n")
-
-    References
-    ==========
-    .. footbibliography::
-
-
-    :param A: A single matrix of the form np.ndarray or a list of square matrices of the same dimension.
-    :return: A list of matrices forming an orthonormal basis for the commutant.
+    Returns:
+        A list of matrices forming an orthonormal basis for the commutant.
 
     """
     # Handle list of matrices.

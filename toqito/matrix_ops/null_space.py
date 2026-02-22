@@ -4,35 +4,38 @@ import numpy as np
 
 
 def null_space(mat: np.ndarray, tol: float = 1e-08) -> np.ndarray:
-    r"""Return an orthonormal basis for the kernel of ``mat`` :footcite:`WikiNullSpace`.
+    r"""Return an orthonormal basis for the kernel of ``mat`` [@WikiNullSpace].
 
     The routine employs the singular value decomposition so that the columns of the
     returned matrix span the null space and are orthonormal with respect to the
     standard inner product.
 
-    Examples
-    ========
+    Examples:
 
     Consider the matrix
 
-    .. math::
-
+    \[
         A = \begin{pmatrix} 1 & 1 & 0 \\ 0 & 0 & 0 \end{pmatrix}.
+    \]
 
-    Its null space is spanned by the vectors :math:`(1,-1,0)` and :math:`(0,0,1)`.
+    Its null space is spanned by the vectors \((1,-1,0)\) and \((0,0,1)\).
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.matrix_ops import null_space
+    
+    A = np.array([[1, 1, 0], [0, 0, 0]], dtype=float)
+    null_basis = null_space(A)
+    print(null_basis)
+    ```
 
-        import numpy as np
-        from toqito.matrix_ops import null_space
 
-        A = np.array([[1, 1, 0], [0, 0, 0]], dtype=float)
-        null_basis = null_space(A)
-        null_basis
+    Args:
+        mat: Matrix whose null space is sought.
+        tol: Numerical tolerance that distinguishes zero singular values.
 
-    :param mat: Matrix whose null space is sought.
-    :param tol: Numerical tolerance that distinguishes zero singular values.
-    :return: A matrix whose columns form an orthonormal basis for the null space.
+    Returns:
+        A matrix whose columns form an orthonormal basis for the null space.
 
     """
     mat = np.asarray(mat, dtype=np.complex128)

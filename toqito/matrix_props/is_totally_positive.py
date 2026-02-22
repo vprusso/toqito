@@ -6,25 +6,25 @@ import numpy as np
 
 
 def is_totally_positive(mat: np.ndarray, tol: float = 1e-6, sub_sizes: list | None = None):
-    r"""Determine whether a matrix is totally positive. :footcite:`WikiTotPosMat`.
+    r"""Determine whether a matrix is totally positive. [@WikiTotPosMat].
 
     A totally positive matrix is a square matrix where all the minors are positive. Equivalently, the determinant of
     every square submatrix is a positive number.
 
-    Examples
-    ========
+    Examples:
     Consider the matrix
 
-    .. math::
+    \[
         X = \begin{pmatrix}
             1 & 2 \\
             3 & 4
         \end{pmatrix}
+    \]
 
     To determine if this matrix is totally positive, we need to check the positivity of all of its minors. The 1x1
-    minors are simply the individual entries of the matrix. For :math:`X`, these are
+    minors are simply the individual entries of the matrix. For \(X\), these are
 
-    .. math::
+    \[
         \begin{equation}
             \begin{aligned}
                 X_{1,1} &= 1 \\
@@ -33,59 +33,60 @@ def is_totally_positive(mat: np.ndarray, tol: float = 1e-6, sub_sizes: list | No
                 X_{2,2} &= 4 \\
             \end{aligned}
         \end{equation}
+    \]
 
     Each of these entries is positive. There is only one 2x2 minor in this case, which is the determinant of the entire
-    matrix :math:`X`. The determinant of :math:`X` is calculated as:
+    matrix \(X\). The determinant of \(X\) is calculated as:
 
-    .. math::
+    \[
         \text{det}(X) = 1 \times 4 - 2 \times 3 = 4 - 6 = 2
+    \]
 
     Our function indicates that this matrix is indeed totally positive.
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.matrix_props import is_totally_positive
+    
+    A = np.array([[1, 2], [3, 4]])
+    
+    print(is_totally_positive(A))
+    ```
 
-        import numpy as np
-        from toqito.matrix_props import is_totally_positive
+    However, the following example matrix \(B\) defined as
 
-        A = np.array([[1, 2], [3, 4]])
-
-        is_totally_positive(A)
-
-    However, the following example matrix :math:`B` defined as
-
-    .. math::
+    \[
         B = \begin{pmatrix}
                 1 & 2 \\
                 3 & -4
             \end{pmatrix}
+    \]
 
-    is not totally positive. The 2x2 minor of :math:`B` is the determinant of the entire matrix :math:`B`. The
-    determinant of :math:`B` is calculated as:
+    is not totally positive. The 2x2 minor of \(B\) is the determinant of the entire matrix \(B\). The
+    determinant of \(B\) is calculated as:
 
-    .. math::
+    \[
         \text{det}(B) = 1 \times -4 - 2 \times 3 = -4 - 6 = -10
+    \]
 
-    Since the determinant is negative, :math:`B` is not totally positive.
+    Since the determinant is negative, \(B\) is not totally positive.
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.matrix_props import is_totally_positive
+    
+    B = np.array([[1, 2], [3, -4]])
+    
+    print(is_totally_positive(B))
+    ```
 
-        import numpy as np
-        from toqito.matrix_props import is_totally_positive
+    Args:
+        mat: Matrix to check.
+        tol: The absolute tolerance parameter (default 1e-06).
+        sub_sizes: List of sizes of submatrices to consider. Default is all sizes up to `min(mat.shape)`.
 
-        B = np.array([[1, 2], [3, -4]])
-
-        is_totally_positive(B)
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param mat: Matrix to check.
-    :param tol: The absolute tolerance parameter (default 1e-06).
-    :param sub_sizes: List of sizes of submatrices to consider. Default is all sizes up to :code:`min(mat.shape)`.
-    :return: Return :code:`True` if matrix is totally positive, and :code:`False` otherwise.
+    Returns:
+        Return `True` if matrix is totally positive, and `False` otherwise.
 
     """
     if mat.size == 0:

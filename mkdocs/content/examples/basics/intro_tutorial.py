@@ -5,7 +5,6 @@ This tutorial illustrates the basics of how to use `|toqito⟩`. This will cover
 instantiate and use the fundamental objects that `|toqito⟩` provides; namely
 quantum states, channels, and measurements.
 """ 
-
 # %%
 # This is an introduction to the functionality in `|toqito⟩` and is not meant to serve as an
 # introduction to quantum information. For more information, please consult the book [@Chuang_2011_Quantum] or the freely available lecture notes [@Watrous_2018_TQI].
@@ -39,7 +38,7 @@ quantum states, channels, and measurements.
 # can be defined in `|toqito⟩` as such
 
 from toqito.matrices import standard_basis
-
+# mkdocs_gallery_thumbnail_path = 'figures/logo.png'
 # |0>
 standard_basis(2)[0]
 

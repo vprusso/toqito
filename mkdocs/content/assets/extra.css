@@ -125,3 +125,12 @@
 [data-md-color-scheme="slate"] .mkd-glr-thumbcontainer:hover {
   border-color: var(--md-accent-fg-color);
 }
+
+
+.theme-logo {
+  filter: none;
+}
+
+[data-md-color-scheme="slate"] .theme-logo {
+  filter: invert(1);
+}

@@ -18,53 +18,46 @@ def tensor_comb(
     This function creates a tensor product of quantum state vectors by generating all possible sequences of length `k`
     from a given list of quantum states, and computing the tensor product for each sequence.
 
-    Given ``n`` quantum states, this function generates :math:`n^k` combinations of sequences of length ``k``, computes
+    Given ``n`` quantum states, this function generates \(n^k\) combinations of sequences of length ``k``, computes
     the tensor product for each sequence, and converts each tensor product to its corresponding density matrix.
 
-    For one definition and usage of a quantum sequence, refer to :footcite:`Gupta_2024_Optimal`.
+    For one definition and usage of a quantum sequence, refer to [@Gupta_2024_Optimal].
 
-    Examples
-    ========
+    Examples:
 
     Consider the following basis vectors for a 2-dimensional quantum system.
 
-    .. math::
+    \[
         e_0 = \left[1, 0 \right]^{\text{T}}, e_1 = \left[0, 1 \right]^{\text{T}}.
+    \]
 
     We can generate all possible tensor products for sequences of length 2.
 
-    .. jupyter-execute::
-
-     from toqito.matrix_ops import tensor_comb
-     import numpy as np
-
-     e_0 = np.array([1, 0])
-     e_1 = np.array([0, 1])
-
-     result = tensor_comb([e_0, e_1], 2, mode="injective", density_matrix=True)
-
-     for key, mat in result.items():
-         print(f"tensor_comb{key} =\n{mat}\n")
-
-    References
-    ==========
-    .. footbibliography::
+    ```python exec="1" source="above"
+    from toqito.matrix_ops import tensor_comb
+    import numpy as np
+    
+    e_0 = np.array([1, 0])
+    e_1 = np.array([0, 1])
+    
+    result = tensor_comb([e_0, e_1], 2, mode="injective", density_matrix=True)
+    
+    for key, mat in result.items():
+        print(f"tensor_comb{key} =\n{mat}\n")
+    ```
 
 
-    :raises ValueError: If the input list of states is empty.
-    :param states: A list of state vectors.
-    :param k: The length of the sequence.
-    :param mode: Determines the type of sequences. Default is :code:`"injective"`.
-           ``non-injective`` will allow repetitions in sequences,
-           ``injective`` will ensures sequences are injective (no repetitions) and
-           ``diagonal`` will allow sequences with repeated indices (diagonal elements).
-    :param density_matrix: Determines whether the return is a density matrix or a ket.
-            Default is ``True``.
+    Raises:
+        ValueError: If the input list of states is empty.
 
-    :return: A dictionary where keys are tuples representing sequences of state indices,
-        and values are density matrices of the tensor products of the corresponding
-        state vectors or tensor products of the corresponding state vectors based on
-        input :code:`density_matrix` being either ``True`` or ``False``.
+    Args:
+        states: A list of state vectors.
+        k: The length of the sequence.
+        mode: Determines the type of sequences. Default is `"injective"`. ``non-injective`` will allow repetitions in sequences, ``injective`` will ensures sequences are injective (no repetitions) and ``diagonal`` will allow sequences with repeated indices (diagonal elements).
+        density_matrix: Determines whether the return is a density matrix or a ket. Default is ``True``.
+
+    Returns:
+        A dictionary where keys are tuples representing sequences of state indices, and values are density matrices of the tensor products of the corresponding state vectors or tensor products of the corresponding state vectors based on input `density_matrix` being either ``True`` or ``False``.
 
     """
     if not states:

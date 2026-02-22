@@ -7,41 +7,37 @@ def phase_damping(
     input_mat: np.ndarray | None = None,
     gamma: float = 0,
 ) -> np.ndarray | list[np.ndarray]:
-    r"""Apply the phase damping channel to a quantum state :footcite:`Chuang_2011_Quantum`.
+    r"""Apply the phase damping channel to a quantum state [@Chuang_2011_Quantum].
 
     The phase damping channel describes how quantum information is lost due to environmental interactions,
     causing dephasing in the computational basis without losing energy.
 
     The Kraus operators for the phase damping channel are:
 
-    .. math::
+    \[
         K_0 = \begin{pmatrix} 1 & 0 \\ 0 & \sqrt{1 - \gamma} \end{pmatrix}, \\
         K_1 = \begin{pmatrix} 0 & 0 \\ 0 & \sqrt{\gamma} \end{pmatrix},
+    \]
 
-    Examples
-    ==========
+    Examples:
     Applying the phase damping channel to a qubit state:
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.channels.phase_damping import phase_damping
+    
+    rho = np.array([[1, 0.5], [0.5, 1]])
+    result = phase_damping(rho, gamma=0.2)
+    
+    print(result)
+    ```
 
-     import numpy as np
-     from toqito.channels.phase_damping import phase_damping
+    Args:
+        input_mat: The input matrix to apply the channel to. If `None`, the function returns the Kraus operators.
+        gamma: The dephasing rate (between 0 and 1), representing the probability of phase decoherence.
 
-     rho = np.array([[1, 0.5], [0.5, 1]])
-     result = phase_damping(rho, gamma=0.2)
-
-     print(result)
-
-    References
-    ==========
-    .. footbibliography::
-
-
-    :param input_mat: The input matrix to apply the channel to.
-                      If `None`, the function returns the Kraus operators.
-    :param gamma: The dephasing rate (between 0 and 1), representing the probability of phase decoherence.
-    :return: The transformed quantum state after applying the phase damping channel.
-             If `input_mat` is `None`, returns the list of Kraus operators.
+    Returns:
+        The transformed quantum state after applying the phase damping channel. If `input_mat` is `None`, returns the list of Kraus operators.
 
     """
     if not (0 <= gamma <= 1):

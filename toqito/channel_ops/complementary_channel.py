@@ -6,21 +6,20 @@ import numpy as np
 def complementary_channel(kraus_ops: list[np.ndarray]) -> list[np.ndarray]:
     r"""Compute the Kraus operators for the complementary map of a quantum channel.
 
-    (Section: Representations and Characterizations of Channels from :footcite:`Watrous_2018_TQI`).
+    (Section: Representations and Characterizations of Channels from [@Watrous_2018_TQI]).
 
     The complementary map is derived from the given quantum channel's Kraus operators by
     rearranging the rows of the input Kraus operators into the Kraus operators of the
     complementary map.
 
-    Specifically, for each Kraus operator :math:`K_i` in the input channel :math:`\Phi`,
-    we define the complementary Kraus operators :math:`K_i^C` by stacking the rows of
-    :math:`K_i` from all Kraus operators vertically.
+    Specifically, for each Kraus operator \(K_i\) in the input channel \(\Phi\),
+    we define the complementary Kraus operators \(K_i^C\) by stacking the rows of
+    \(K_i\) from all Kraus operators vertically.
 
-    Examples
-    ==========
+    Examples:
     Suppose the following Kraus operators define a quantum channel:
 
-    .. math::
+    \[
         K_1 = \frac{1}{\sqrt{2}} \begin{pmatrix}
             1 & 0 \\
             0 & 0
@@ -37,35 +36,34 @@ def complementary_channel(kraus_ops: list[np.ndarray]) -> list[np.ndarray]:
             0 & 0 \\
             0 & 1
         \end{pmatrix}
+    \]
 
     To compute the Kraus operators for the complementary map, we rearrange the rows of these
     Kraus operators as follows:
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.channel_ops import complementary_channel
+    kraus_ops_Phi = [
+        np.sqrt(0.5) * np.array([[1, 0], [0, 0]]),
+        np.sqrt(0.5) * np.array([[0, 1], [0, 0]]),
+        np.sqrt(0.5) * np.array([[0, 0], [1, 0]]),
+        np.sqrt(0.5) * np.array([[0, 0], [0, 1]])
+    ]
+    comp_kraus_ops = complementary_channel(kraus_ops_Phi)
+    for i, op in enumerate(comp_kraus_ops):
+        print(f"Kraus operator {i + 1}:")
+        print(op)
+    ```
 
-     import numpy as np
-     from toqito.channel_ops import complementary_channel
-     kraus_ops_Phi = [
-         np.sqrt(0.5) * np.array([[1, 0], [0, 0]]),
-         np.sqrt(0.5) * np.array([[0, 1], [0, 0]]),
-         np.sqrt(0.5) * np.array([[0, 0], [1, 0]]),
-         np.sqrt(0.5) * np.array([[0, 0], [0, 1]])
-     ]
-     comp_kraus_ops = complementary_channel(kraus_ops_Phi)
-     for i, op in enumerate(comp_kraus_ops):
-         print(f"Kraus operator {i + 1}:")
-         print(op)
+    Raises:
+        ValueError: If the input is not a valid list of Kraus operators.
 
+    Args:
+        kraus_ops: A list of numpy arrays representing the Kraus operators of a quantum channel. Each Kraus operator is assumed to be a square matrix.
 
-    References
-    ==========
-    .. footbibliography::
-
-
-    :raises ValueError: If the input is not a valid list of Kraus operators.
-    :param kraus_ops: A list of numpy arrays representing the Kraus operators of a quantum channel.
-                      Each Kraus operator is assumed to be a square matrix.
-    :return: A list of numpy arrays representing the Kraus operators of the complementary map.
+    Returns:
+        A list of numpy arrays representing the Kraus operators of the complementary map.
 
     """
     num_kraus = len(kraus_ops)

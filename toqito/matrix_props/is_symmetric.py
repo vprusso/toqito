@@ -6,70 +6,68 @@ from toqito.matrix_props import is_square
 
 
 def is_symmetric(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
-    r"""Determine if a matrix is symmetric :footcite:`WikiSymMat`.
+    r"""Determine if a matrix is symmetric [@WikiSymMat].
 
     The following 3x3 matrix is an example of a symmetric matrix:
 
-    .. math::
-
+    \[
         \begin{pmatrix}
             1 & 7 & 3 \\
             7 & 4 & -5 \\
             3 &-5 & 6
         \end{pmatrix}
+    \]
 
-    Examples
-    ==========
+    Examples:
 
     Consider the following matrix
 
-    .. math::
+    \[
         A = \begin{pmatrix}
                 1 & 7 & 3 \\
                 7 & 4 & -5 \\
                 3 & -5 & 6
             \end{pmatrix}
+    \]
 
     our function indicates that this is indeed a symmetric matrix.
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.matrix_props import is_symmetric
+    
+    A = np.array([[1, 7, 3], [7, 4, -5], [3, -5, 6]])
+    
+    print(is_symmetric(A))
+    ```
 
-     import numpy as np
-     from toqito.matrix_props import is_symmetric
+    Alternatively, the following example matrix \(B\) defined as
 
-     A = np.array([[1, 7, 3], [7, 4, -5], [3, -5, 6]])
-
-     is_symmetric(A)
-
-    Alternatively, the following example matrix :math:`B` defined as
-
-    .. math::
+    \[
         B = \begin{pmatrix}
                 1 & 2 \\
                 4 & 5
             \end{pmatrix}
+    \]
 
     is not symmetric.
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.matrix_props import is_symmetric
+    
+    B = np.array([[1, 2], [3, 4]])
+    
+    print(is_symmetric(B))
+    ```
 
-     import numpy as np
-     from toqito.matrix_props import is_symmetric
+    Args:
+        mat: The matrix to check.
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
 
-     B = np.array([[1, 2], [3, 4]])
-
-     is_symmetric(B)
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param mat: The matrix to check.
-    :param rtol: The relative tolerance parameter (default 1e-05).
-    :param atol: The absolute tolerance parameter (default 1e-08).
-    :return: Returns :code:`True` if the matrix is symmetric and :code:`False` otherwise.
+    Returns:
+        Returns `True` if the matrix is symmetric and `False` otherwise.
 
     """
     if not is_square(mat):

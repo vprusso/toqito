@@ -10,37 +10,37 @@ from toqito.matrix_props import is_hermitian, is_positive_semidefinite
 def choi_to_kraus(
     choi_mat: np.ndarray, tol: float = 1e-9, dim: int | list[int] | np.ndarray | None = None
 ) -> list[np.ndarray] | list[list[np.ndarray]]:
-    r"""Compute a list of Kraus operators from the Choi matrix from :footcite:`Rigetti_2022_Forest`.
+    r"""Compute a list of Kraus operators from the Choi matrix from [@Rigetti_2022_Forest].
 
     Note that unlike the Choi or natural representation of operators, the Kraus representation is
     *not* unique.
 
-    If the input channel maps :math:`M_{r,c}` to :math:`M_{x,y}` then :code:`dim` should be the
-    list :code:`[[r,x], [c,y]]`. If it maps :math:`M_m` to :math:`M_n`, then :code:`dim` can simply
-    be the vector :code:`[m,n]`.
+    If the input channel maps \(M_{r,c}\) to \(M_{x,y}\) then `dim` should be the
+    list `[[r,x], [c,y]]`. If it maps \(M_m\) to \(M_n\), then `dim` can simply
+    be the vector `[m,n]`.
 
     For completely positive maps the output is a single flat list of numpy arrays since the left and
     right Kraus maps are the same.
 
-    This function has been adapted from :footcite:`Rigetti_2022_Forest` and QETLAB :footcite:`QETLAB_link`.
+    This function has been adapted from [@Rigetti_2022_Forest] and QETLAB [@QETLAB_link].
 
-    Examples
-    ========
+    Examples:
 
     Consider taking the Kraus operators of the Choi matrix that characterizes the "swap operator"
     defined as
 
-    .. math::
+    \[
         \begin{pmatrix}
             1 & 0 & 0 & 0 \\
             0 & 0 & 1 & 0 \\
             0 & 1 & 0 & 0 \\
             0 & 0 & 0 & 1
         \end{pmatrix}
+    \]
 
     The corresponding Kraus operators of the swap operator are given as follows,
 
-    .. math::
+    \[
         \begin{equation}
         \big[
             \frac{1}{\sqrt{2}} \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix},
@@ -59,34 +59,31 @@ def choi_to_kraus(
             \begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix}
         \big]
         \end{equation}
+    \]
 
-    This can be verified in :code:`|toqito⟩` as follows.
+    This can be verified in `|toqito⟩` as follows.
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.channel_ops import choi_to_kraus
+    choi_mat = np.array([[1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 1]])
+    kraus_ops = choi_to_kraus(choi_mat)
+    for i, pair in enumerate(kraus_ops):
+       print(f"\nKraus Pair {i+1}:")
+       for j, op in enumerate(pair):
+           print(f"  Operator {j+1}:\n{np.array_str(op, precision=4, suppress_small=True)}")
+    ```
 
-     import numpy as np
-     from toqito.channel_ops import choi_to_kraus
-     choi_mat = np.array([[1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 1]])
-     kraus_ops = choi_to_kraus(choi_mat)
-     for i, pair in enumerate(kraus_ops):
-        print(f"\nKraus Pair {i+1}:")
-        for j, op in enumerate(pair):
-            print(f"  Operator {j+1}:\n{np.array_str(op, precision=4, suppress_small=True)}")
+    !!! See Also
+        [kraus_to_choi][toqito.channel_ops.kraus_to_choi.kraus_to_choi]
 
-    See Also
-    ========
-    :py:func:`~toqito.channel_ops.kraus_to_choi.kraus_to_choi`
+    Args:
+        choi_mat: A Choi matrix
+        tol: optional threshold parameter for eigenvalues/kraus ops to be discarded
+        dim: A scalar, vector or matrix containing the input and output dimensions of Choi matrix.
 
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param choi_mat: A Choi matrix
-    :param tol: optional threshold parameter for eigenvalues/kraus ops to be discarded
-    :param dim: A scalar, vector or matrix containing the input and output dimensions of Choi matrix.
-    :return: List of Kraus operators
+    Returns:
+        List of Kraus operators
 
     """
     d_in, d_out, _ = channel_dim(choi_mat, dim=dim, compute_env_dim=False)
