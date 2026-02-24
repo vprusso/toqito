@@ -45,26 +45,22 @@ def ppt_distinguishability(
     Consider the following Bell states:
 
     .. math::
-        \begin{equation}
-            \begin{aligned}
+        \begin{aligned}
             |\psi_0 \rangle = \frac{|00\rangle + |11\rangle}{\sqrt{2}}, &\quad
             |\psi_1 \rangle = \frac{|01\rangle + |10\rangle}{\sqrt{2}}, \\
             |\psi_2 \rangle = \frac{|01\rangle - |10\rangle}{\sqrt{2}}, &\quad
             |\psi_3 \rangle = \frac{|00\rangle - |11\rangle}{\sqrt{2}}.
-            \end{aligned}
-        \end{equation}
+        \end{aligned}
 
     It was illustrated in :footcite:`Yu_2012_Four` that for the following set of states
 
     .. math::
-        \begin{equation}
-            \begin{aligned}
+        \begin{aligned}
             \rho_1^{(2)} &= |\psi_0 \rangle | \psi_0 \rangle \langle \psi_0 | \langle \psi_0 |, \quad
             \rho_2^{(2)} &= |\psi_1 \rangle | \psi_3 \rangle \langle \psi_1 | \langle \psi_3 |, \\
             \rho_3^{(2)} &= |\psi_2 \rangle | \psi_3 \rangle \langle \psi_2 | \langle \psi_3 |, \quad
             \rho_4^{(2)} &= |\psi_3 \rangle | \psi_3 \rangle \langle \psi_3 | \langle \psi_3 |, \\
-            \end{aligned}
-        \end{equation}
+        \end{aligned}
 
     that the optimal probability of distinguishing via a PPT measurement should yield
     :math:`7/8 \approx 0.875` as was proved in :footcite:`Yu_2012_Four`.

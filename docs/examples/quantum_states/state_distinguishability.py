@@ -80,14 +80,12 @@ measurements.
 # may be obtained by solving the following semidefinite program (SDP).
 #
 # .. math::
-#    \begin{equation}
-#        \begin{aligned}
-#            \text{maximize:} \quad & \sum_{i=0}^n p_i \langle M_i,
-#            \rho_i \rangle \\
-#            \text{subject to:} \quad & \sum_{i=0}^n M_i = \mathbb{I}_{\mathcal{X}},\\
-#                                     & M_i \in \text{Pos}(\mathcal{X}).
-#        \end{aligned}
-#    \end{equation}
+#    \begin{aligned}
+#        \text{maximize:} \quad & \sum_{i=0}^n p_i \langle M_i,
+#        \rho_i \rangle \\
+#        \text{subject to:} \quad & \sum_{i=0}^n M_i = \mathbb{I}_{\mathcal{X}},\\
+#                                 & M_i \in \text{Pos}(\mathcal{X}).
+#    \end{aligned}
 #
 # This optimization problem is solved in :code:`|toqito⟩` to obtain the optimal
 # probability with which Bob can distinguish state :math:`\rho_i`.
@@ -162,15 +160,13 @@ print(np.around(state_distinguishability(states, probs)[0], decimals=2))
 #
 # .. math::
 #
-#    \begin{equation}
-#        \begin{aligned}
-#            \text{minimize:} \quad & \frac{1}{k} \text{Tr}(Y) \\
-#            \text{subject to:} \quad & Y \geq \text{T}_{\mathcal{A}}
-#                                      (\rho_j), \quad j = 1, \ldots, k, \\
-#                                     & Y \in \text{Herm}(\mathcal{A} \otimes
-#                                      \mathcal{B}).
-#        \end{aligned}
-#    \end{equation}
+#    \begin{aligned}
+#        \text{minimize:} \quad & \frac{1}{k} \text{Tr}(Y) \\
+#        \text{subject to:} \quad & Y \geq \text{T}_{\mathcal{A}}
+#                                  (\rho_j), \quad j = 1, \ldots, k, \\
+#                                 & Y \in \text{Herm}(\mathcal{A} \otimes
+#                                  \mathcal{B}).
+#    \end{aligned}
 #
 # Using :code:`|toqito⟩`, we can determine the optimal probability for Bob to
 # distinguish a given state from an ensemble if he is only given access to PPT
@@ -179,26 +175,22 @@ print(np.around(state_distinguishability(states, probs)[0], decimals=2))
 # Consider the following Bell states
 #
 # .. math::
-#    \begin{equation}
-#        \begin{aligned}
-#            | \psi_0 \rangle = \frac{|00\rangle + |11\rangle}{\sqrt{2}}, &\quad
-#            | \psi_1 \rangle = \frac{|01\rangle + |10\rangle}{\sqrt{2}}, \\
-#            | \psi_2 \rangle = \frac{|01\rangle - |10\rangle}{\sqrt{2}}, &\quad
-#            | \psi_3 \rangle = \frac{|00\rangle - |11\rangle}{\sqrt{2}}.
-#        \end{aligned}
-#    \end{equation}
+#    \begin{aligned}
+#        | \psi_0 \rangle = \frac{|00\rangle + |11\rangle}{\sqrt{2}}, &\quad
+#        | \psi_1 \rangle = \frac{|01\rangle + |10\rangle}{\sqrt{2}}, \\
+#        | \psi_2 \rangle = \frac{|01\rangle - |10\rangle}{\sqrt{2}}, &\quad
+#        | \psi_3 \rangle = \frac{|00\rangle - |11\rangle}{\sqrt{2}}.
+#    \end{aligned}
 #
 # It was shown in :footcite:`Cosentino_2013_PPT` and later extended in :footcite:`Cosentino_2014_Small` that for the following set of states
 #
 # .. math::
-#    \begin{equation}
-#        \begin{aligned}
-#            \rho_1^{(2)} &= |\psi_0 \rangle | \psi_0 \rangle \langle \psi_0 | \langle \psi_0 |, \quad
-#            \rho_2^{(2)} &= |\psi_1 \rangle | \psi_3 \rangle \langle \psi_1 | \langle \psi_3 |, \\
-#            \rho_3^{(2)} &= |\psi_2 \rangle | \psi_3 \rangle \langle \psi_2 | \langle \psi_3 |, \quad
-#            \rho_4^{(2)} &= |\psi_3 \rangle | \psi_3 \rangle \langle \psi_3 | \langle \psi_3 |, \\
-#        \end{aligned}
-#    \end{equation}
+#    \begin{aligned}
+#        \rho_1^{(2)} &= |\psi_0 \rangle | \psi_0 \rangle \langle \psi_0 | \langle \psi_0 |, \quad
+#        \rho_2^{(2)} &= |\psi_1 \rangle | \psi_3 \rangle \langle \psi_1 | \langle \psi_3 |, \\
+#        \rho_3^{(2)} &= |\psi_2 \rangle | \psi_3 \rangle \langle \psi_2 | \langle \psi_3 |, \quad
+#        \rho_4^{(2)} &= |\psi_3 \rangle | \psi_3 \rangle \langle \psi_3 | \langle \psi_3 |, \\
+#    \end{aligned}
 #
 # that the optimal probability of distinguishing via a PPT measurement should yield
 # :math:`7/8 \approx 0.875`.

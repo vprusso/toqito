@@ -14,55 +14,53 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | csr_array:
     The 9 Gell-Mann matrices are defined as follows:
 
     .. math::
-        \begin{equation}
-            \begin{aligned}
-                \lambda_0 = \begin{pmatrix}
-                                1 & 0 & 0 \\
-                                0 & 1 & 0 \\
-                                0 & 0 & 1
-                            \end{pmatrix}, \quad
-                \lambda_1 = \begin{pmatrix}
-                                0 & 1 & 0 \\
-                                1 & 0 & 0 \\
-                                0 & 0 & 0
-                            \end{pmatrix}, \quad &
-                \lambda_2 = \begin{pmatrix}
-                                0 & -i & 0 \\
-                                i & 0 & 0 \\
-                                0 & 0 & 0
-                            \end{pmatrix},  \\
-                \lambda_3 = \begin{pmatrix}
-                                1 & 0 & 0 \\
-                                0 & -1 & 0 \\
-                                0 & 0 & 0
-                            \end{pmatrix}, \quad
-                \lambda_4 = \begin{pmatrix}
-                                0 & 0 & 1 \\
-                                0 & 0 & 0 \\
-                                1 & 0 & 0
-                            \end{pmatrix}, \quad &
-                \lambda_5 = \begin{pmatrix}
-                                0 & 0 & -i \\
-                                0 & 0 & 0 \\
-                                i & 0 & 0
-                            \end{pmatrix},  \\
-                \lambda_6 = \begin{pmatrix}
-                                0 & 0 & 0 \\
-                                0 & 0 & 1 \\
-                                0 & 1 & 0
-                            \end{pmatrix}, \quad
-                \lambda_7 = \begin{pmatrix}
-                                0 & 0 & 0 \\
-                                0 & 0 & -i \\
-                                0 & i & 0
-                            \end{pmatrix}, \quad &
-                \lambda_8 = \frac{1}{\sqrt{3}} \begin{pmatrix}
-                                                    1 & 0 & 0 \\
-                                                    0 & 1 & 0 \\
-                                                    0 & 0 & -2
-                                                \end{pmatrix}.
-                \end{aligned}
-            \end{equation}
+        \begin{aligned}
+            \lambda_0 = \begin{pmatrix}
+                            1 & 0 & 0 \\
+                            0 & 1 & 0 \\
+                            0 & 0 & 1
+                        \end{pmatrix}, \quad
+            \lambda_1 = \begin{pmatrix}
+                            0 & 1 & 0 \\
+                            1 & 0 & 0 \\
+                            0 & 0 & 0
+                        \end{pmatrix}, \quad &
+            \lambda_2 = \begin{pmatrix}
+                            0 & -i & 0 \\
+                            i & 0 & 0 \\
+                            0 & 0 & 0
+                        \end{pmatrix},  \\
+            \lambda_3 = \begin{pmatrix}
+                            1 & 0 & 0 \\
+                            0 & -1 & 0 \\
+                            0 & 0 & 0
+                        \end{pmatrix}, \quad
+            \lambda_4 = \begin{pmatrix}
+                            0 & 0 & 1 \\
+                            0 & 0 & 0 \\
+                            1 & 0 & 0
+                        \end{pmatrix}, \quad &
+            \lambda_5 = \begin{pmatrix}
+                            0 & 0 & -i \\
+                            0 & 0 & 0 \\
+                            i & 0 & 0
+                        \end{pmatrix},  \\
+            \lambda_6 = \begin{pmatrix}
+                            0 & 0 & 0 \\
+                            0 & 0 & 1 \\
+                            0 & 1 & 0
+                        \end{pmatrix}, \quad
+            \lambda_7 = \begin{pmatrix}
+                            0 & 0 & 0 \\
+                            0 & 0 & -i \\
+                            0 & i & 0
+                        \end{pmatrix}, \quad &
+            \lambda_8 = \frac{1}{\sqrt{3}} \begin{pmatrix}
+                                                1 & 0 & 0 \\
+                                                0 & 1 & 0 \\
+                                                0 & 0 & -2
+                                            \end{pmatrix}.
+            \end{aligned}
 
     Examples
     ==========

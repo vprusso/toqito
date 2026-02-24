@@ -18,33 +18,29 @@ def optimal_clone(
     The primal problem for the :math:`n`-fold parallel repetition is given as follows:
 
     .. math::
-        \begin{equation}
-            \begin{aligned}
-                \text{maximize:} \quad &
-                \langle W_{\pi} \left(Q^{\otimes n} \right) W_{\pi}^*, X \rangle \\
-                \text{subject to:} \quad & \text{Tr}_{\mathcal{Y}^{\otimes n}
-                                           \otimes \mathcal{Z}^{\otimes n}}(X)
-                                           = \mathbb{I}_{\mathcal{X}^{\otimes
-                                           n}},\\
-                                           & X \in \text{Pos}(
-                                           \mathcal{Y}^{\otimes n}
-                                           \otimes \mathcal{Z}^{\otimes n}
-                                           \otimes \mathcal{X}^{\otimes n}).
-            \end{aligned}
-        \end{equation}
+        \begin{aligned}
+            \text{maximize:} \quad &
+            \langle W_{\pi} \left(Q^{\otimes n} \right) W_{\pi}^*, X \rangle \\
+            \text{subject to:} \quad & \text{Tr}_{\mathcal{Y}^{\otimes n}
+                                       \otimes \mathcal{Z}^{\otimes n}}(X)
+                                       = \mathbb{I}_{\mathcal{X}^{\otimes
+                                       n}},\\
+                                       & X \in \text{Pos}(
+                                       \mathcal{Y}^{\otimes n}
+                                       \otimes \mathcal{Z}^{\otimes n}
+                                       \otimes \mathcal{X}^{\otimes n}).
+        \end{aligned}
 
     The dual problem for the :math:`n`-fold parallel repetition is given as follows:
 
     .. math::
-        \begin{equation}
-            \begin{aligned}
-                \text{minimize:} \quad & \text{Tr}(Y) \\
-                \text{subject to:} \quad & \mathbb{I}_{\mathcal{Y}^{\otimes n}
-                \otimes \mathcal{Z}^{\otimes n}} \otimes Y \geq W_{\pi}
-                \left( Q^{\otimes n} \right) W_{\pi}^*, \\
-                & Y \in \text{Herm} \left(\mathcal{X}^{\otimes n} \right).
-            \end{aligned}
-        \end{equation}
+        \begin{aligned}
+            \text{minimize:} \quad & \text{Tr}(Y) \\
+            \text{subject to:} \quad & \mathbb{I}_{\mathcal{Y}^{\otimes n}
+            \otimes \mathcal{Z}^{\otimes n}} \otimes Y \geq W_{\pi}
+            \left( Q^{\otimes n} \right) W_{\pi}^*, \\
+            & Y \in \text{Herm} \left(\mathcal{X}^{\otimes n} \right).
+        \end{aligned}
 
     Examples
     ==========

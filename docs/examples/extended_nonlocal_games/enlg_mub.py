@@ -17,7 +17,6 @@ unentangled value, demonstrating a true quantum advantage.
 # mutually unbiased bases:
 #
 # .. math::
-#    \begin{equation}\label{eq:MUB43}
 #    \begin{aligned}
 #      \mathcal{B}_0 &= \left\{ e_0,\: e_1,\: e_2 \right\}, \\
 #      \mathcal{B}_1 &= \left\{ \frac{e_0 + e_1 + e_2}{\sqrt{3}},\:
@@ -30,7 +29,6 @@ unentangled value, demonstrating a true quantum advantage.
 #      \frac{e_0 + \zeta^2 e_1 + e_2}{\sqrt{3}},\:
 #      \frac{e_0 + \zeta e_1 + \zeta e_2}{\sqrt{3}} \right\}.
 #    \end{aligned}
-#    \end{equation}
 #
 # Define an extended nonlocal game :math:`G_{MUB} = (\pi,R)` so that
 #

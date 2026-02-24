@@ -160,24 +160,20 @@ cooperatively against an adversary referred to as the referee.
 #    measurements
 #
 #    .. math::
-#       \begin{equation}
-#           \begin{aligned}
-#               \{ A_a^x : a \in \Gamma_{\text{A}} \} \subset \text{Pos}(\mathcal{U})
-#               \quad \text{and} \quad
-#               \{ B_b^y : b \in \Gamma_{\text{B}} \} \subset \text{Pos}(\mathcal{V}),
-#           \end{aligned}
-#       \end{equation}
+#       \begin{aligned}
+#           \{ A_a^x : a \in \Gamma_{\text{A}} \} \subset \text{Pos}(\mathcal{U})
+#           \quad \text{and} \quad
+#           \{ B_b^y : b \in \Gamma_{\text{B}} \} \subset \text{Pos}(\mathcal{V}),
+#       \end{aligned}
 #
 #    such that the measurements satisfy
 #
 #    .. math::
-#       \begin{equation}
-#           \begin{aligned}
-#               \sum_{a \in \Gamma_A} A_a^x = \mathbb{I}_{\mathcal{U}}
-#               \quad \text{and} \quad
-#               \sum_{b \in \Gamma_B} B_b^y = \mathbb{I}_{\mathcal{V}}
-#           \end{aligned}
-#       \end{equation}
+#       \begin{aligned}
+#           \sum_{a \in \Gamma_A} A_a^x = \mathbb{I}_{\mathcal{U}}
+#           \quad \text{and} \quad
+#           \sum_{b \in \Gamma_B} B_b^y = \mathbb{I}_{\mathcal{V}}
+#       \end{aligned}
 #
 # 4. The referee determines whether Alice and Bob win or lose, based on the
 #    questions :math:`x` and :math:`y` as well as the answers :math:`a` and
@@ -220,43 +216,39 @@ cooperatively against an adversary referred to as the referee.
 #
 # .. math::
 #
-#    \begin{equation}
-#        \begin{aligned}
-#            \textbf{SDP-1:} \quad & \\
-#            \text{maximize:} \quad & \sum_{(x,y \in \Sigma)} \pi(x,y)
-#                                     \sum_{(a,b) \in \Gamma}
-#                                     V(a,b|x,y)
-#                                     \langle B_b^y, A_a^x \rangle \\
-#            \text{subject to:} \quad & \sum_{a \in \Gamma_{\mathsf{A}}} =
-#                                       \tau, \qquad \qquad
-#                                       \forall x \in \Sigma_{\mathsf{A}}, \\
-#                               \quad & A_a^x \in \text{Pos}(\mathcal{A}),
-#                                       \qquad
-#                                       \forall x \in \Sigma_{\mathsf{A}}, \
-#                                       \forall a \in \Gamma_{\mathsf{A}}, \\
-#                                       & \tau \in \text{D}(\mathcal{A}).
-#        \end{aligned}
-#    \end{equation}
+#    \begin{aligned}
+#        \textbf{SDP-1:} \quad & \\
+#        \text{maximize:} \quad & \sum_{(x,y \in \Sigma)} \pi(x,y)
+#                                 \sum_{(a,b) \in \Gamma}
+#                                 V(a,b|x,y)
+#                                 \langle B_b^y, A_a^x \rangle \\
+#        \text{subject to:} \quad & \sum_{a \in \Gamma_{\mathsf{A}}} =
+#                                   \tau, \qquad \qquad
+#                                   \forall x \in \Sigma_{\mathsf{A}}, \\
+#                           \quad & A_a^x \in \text{Pos}(\mathcal{A}),
+#                                   \qquad
+#                                   \forall x \in \Sigma_{\mathsf{A}}, \
+#                                   \forall a \in \Gamma_{\mathsf{A}}, \\
+#                                   & \tau \in \text{D}(\mathcal{A}).
+#    \end{aligned}
 #
 # Similarly, the second SDP where we fix Alice's measurements and optimize over
 # Bob's measurements is given as SDP-2.
 #
 # .. math::
 #
-#    \begin{equation}
-#        \begin{aligned}
-#            \textbf{SDP-2:} \quad & \\
-#            \text{maximize:} \quad & \sum_{(x,y \in \Sigma)} \pi(x,y)
-#                                     \sum_{(a,b) \in \Gamma} V(a,b|x,y)
-#                                     \langle B_b^y, A_a^x \rangle \\
-#            \text{subject to:} \quad & \sum_{b \in \Gamma_{\mathsf{B}}} =
-#                                       \mathbb{I}, \qquad \qquad
-#                                       \forall y \in \Sigma_{\mathsf{B}}, \\
-#                               \quad & B_b^y \in \text{Pos}(\mathcal{B}),
-#                               \qquad \forall y \in \Sigma_{\mathsf{B}}, \
-#                               \forall b \in \Gamma_{\mathsf{B}}.
-#        \end{aligned}
-#    \end{equation}
+#    \begin{aligned}
+#        \textbf{SDP-2:} \quad & \\
+#        \text{maximize:} \quad & \sum_{(x,y \in \Sigma)} \pi(x,y)
+#                                 \sum_{(a,b) \in \Gamma} V(a,b|x,y)
+#                                 \langle B_b^y, A_a^x \rangle \\
+#        \text{subject to:} \quad & \sum_{b \in \Gamma_{\mathsf{B}}} =
+#                                   \mathbb{I}, \qquad \qquad
+#                                   \forall y \in \Sigma_{\mathsf{B}}, \\
+#                           \quad & B_b^y \in \text{Pos}(\mathcal{B}),
+#                           \qquad \forall y \in \Sigma_{\mathsf{B}}, \
+#                           \forall b \in \Gamma_{\mathsf{B}}.
+#    \end{aligned}
 #
 #
 # Lower bounding the quantum value in `toqito`
@@ -355,15 +347,13 @@ print(f"Maximum quantum value after multiple runs is: {max(results)}")
 # follows.
 #
 # .. math::
-#    \begin{equation}
-#        \begin{aligned}
-#            &\pi(0, 0) = \frac{1}{3}, \quad
-#             \pi(0, 1) = \frac{1}{3}, \quad
-#             \pi(1, 0) = \frac{1}{3}, \quad
-#             \pi(1, 1) = 0, \\
-#            &(x,y) \in \Sigma_A \times \Sigma_B, \qquad \text{and} \qquad (a, b) \in \Gamma_A \times \Gamma_B,
-#        \end{aligned}
-#    \end{equation}
+#    \begin{aligned}
+#        &\pi(0, 0) = \frac{1}{3}, \quad
+#         \pi(0, 1) = \frac{1}{3}, \quad
+#         \pi(1, 0) = \frac{1}{3}, \quad
+#         \pi(1, 1) = 0, \\
+#        &(x,y) \in \Sigma_A \times \Sigma_B, \qquad \text{and} \qquad (a, b) \in \Gamma_A \times \Gamma_B,
+#    \end{aligned}
 #
 # where
 #

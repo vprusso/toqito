@@ -14,26 +14,24 @@ condition reminiscent of the standard CHSH nonlocal game.
 # such that
 #
 # .. math::
-#    \begin{equation}
-#        \begin{aligned}
-#            V(0,0|0,0) = V(0,0|0,1) = V(0,0|1,0) = \begin{pmatrix}
-#                                                    1 & 0 \\
-#                                                    0 & 0
-#                                                   \end{pmatrix}, \\
-#            V(1,1|0,0) = V(1,1|0,1) = V(1,1|1,0) = \begin{pmatrix}
-#                                                    0 & 0 \\
-#                                                    0 & 1
-#                                                   \end{pmatrix}, \\
-#            V(0,1|1,1) = \frac{1}{2}\begin{pmatrix}
-#                                        1 & 1 \\
-#                                        1 & 1
-#                                    \end{pmatrix}, \\
-#            V(1,0|1,1) = \frac{1}{2} \begin{pmatrix}
-#                                        1 & -1 \\
-#                                        -1 & 1
-#                                     \end{pmatrix},
-#        \end{aligned}
-#    \end{equation}
+#    \begin{aligned}
+#        V(0,0|0,0) = V(0,0|0,1) = V(0,0|1,0) = \begin{pmatrix}
+#                                                1 & 0 \\
+#                                                0 & 0
+#                                               \end{pmatrix}, \\
+#        V(1,1|0,0) = V(1,1|0,1) = V(1,1|1,0) = \begin{pmatrix}
+#                                                0 & 0 \\
+#                                                0 & 1
+#                                               \end{pmatrix}, \\
+#        V(0,1|1,1) = \frac{1}{2}\begin{pmatrix}
+#                                    1 & 1 \\
+#                                    1 & 1
+#                                \end{pmatrix}, \\
+#        V(1,0|1,1) = \frac{1}{2} \begin{pmatrix}
+#                                    1 & -1 \\
+#                                    -1 & 1
+#                                 \end{pmatrix},
+#    \end{aligned}
 #
 # define
 #
