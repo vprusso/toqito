@@ -11,26 +11,24 @@ construct our first concrete example, the *BB84 extended nonlocal game*.
 # \Sigma_B = \Gamma_A = \Gamma_B = \{0,1\}`, define
 #
 # .. math::
-#    \begin{equation}
-#        \begin{aligned}
-#            V(0,0|0,0) = \begin{pmatrix}
-#                            1 & 0 \\
-#                            0 & 0
-#                         \end{pmatrix}, &\quad
-#            V(1,1|0,0) = \begin{pmatrix}
-#                            0 & 0 \\
-#                            0 & 1
-#                         \end{pmatrix}, \\
-#            V(0,0|1,1) = \frac{1}{2}\begin{pmatrix}
-#                            1 & 1 \\
-#                            1 & 1
-#                         \end{pmatrix}, &\quad
-#            V(1,1|1,1) = \frac{1}{2}\begin{pmatrix}
-#                            1 & -1 \\
-#                            -1 & 1
-#                         \end{pmatrix},
-#        \end{aligned}
-#    \end{equation}
+#    \begin{aligned}
+#        V(0,0|0,0) = \begin{pmatrix}
+#                        1 & 0 \\
+#                        0 & 0
+#                     \end{pmatrix}, &\quad
+#        V(1,1|0,0) = \begin{pmatrix}
+#                        0 & 0 \\
+#                        0 & 1
+#                     \end{pmatrix}, \\
+#        V(0,0|1,1) = \frac{1}{2}\begin{pmatrix}
+#                        1 & 1 \\
+#                        1 & 1
+#                     \end{pmatrix}, &\quad
+#        V(1,1|1,1) = \frac{1}{2}\begin{pmatrix}
+#                        1 & -1 \\
+#                        -1 & 1
+#                     \end{pmatrix},
+#    \end{aligned}
 #
 # define
 #

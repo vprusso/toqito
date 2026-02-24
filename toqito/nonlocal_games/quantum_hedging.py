@@ -117,20 +117,18 @@ class QuantumHedging:
 
         .. math::
 
-            \begin{equation}
-                \begin{aligned}
-                    \text{maximize:} \quad & \langle Q_{a_1} \otimes \ldots
-                                             \otimes Q_{a_n}, X \rangle \\
+            \begin{aligned}
+                \text{maximize:} \quad & \langle Q_{a_1} \otimes \ldots
+                                         \otimes Q_{a_n}, X \rangle \\
                 \text{subject to:} \quad & \text{Tr}_{\mathcal{Y}_1 \otimes
-                                            \ldots \otimes \mathcal{Y}_n}(X) =
-                                            I_{\mathcal{X}_1 \otimes \ldots
-                                            \otimes \mathcal{X}_n},\\
-                                            & X \in \text{Pos}(\mathcal{Y}_1
-                                            \otimes \mathcal{X}_1 \otimes \ldots
-                                            \otimes \mathcal{Y}_n \otimes
-                                            \mathcal{X}_n)
-                \end{aligned}
-            \end{equation}
+                                        \ldots \otimes \mathcal{Y}_n}(X) =
+                                        I_{\mathcal{X}_1 \otimes \ldots
+                                        \otimes \mathcal{X}_n},\\
+                                        & X \in \text{Pos}(\mathcal{Y}_1
+                                        \otimes \mathcal{X}_1 \otimes \ldots
+                                        \otimes \mathcal{Y}_n \otimes
+                                        \mathcal{X}_n)
+            \end{aligned}
 
         :return: The optimal maximal probability for obtaining outcome "a".
         """
@@ -148,16 +146,14 @@ class QuantumHedging:
 
         .. math::
 
-            \begin{equation}
-                \begin{aligned}
-                    \text{minimize:} \quad & \text{Tr}(Y) \\
-                    \text{subject to:} \quad & \pi \left(I_{\mathcal{Y}_1
-                    \otimes \ldots \otimes \mathcal{Y}_n} \otimes Y \right)
-                    \pi^* \geq Q_{a_1} \otimes \ldots \otimes Q_{a_n}, \\
-                    & Y \in \text{Herm} \left(\mathcal{X} \otimes \ldots \otimes
-                    \mathcal{X}_n \right)
-                \end{aligned}
-            \end{equation}
+            \begin{aligned}
+                \text{minimize:} \quad & \text{Tr}(Y) \\
+                \text{subject to:} \quad & \pi \left(I_{\mathcal{Y}_1
+                \otimes \ldots \otimes \mathcal{Y}_n} \otimes Y \right)
+                \pi^* \geq Q_{a_1} \otimes \ldots \otimes Q_{a_n}, \\
+                & Y \in \text{Herm} \left(\mathcal{X} \otimes \ldots \otimes
+                \mathcal{X}_n \right)
+            \end{aligned}
 
         :return: The optimal maximal probability for obtaining outcome "a".
         """
@@ -181,20 +177,18 @@ class QuantumHedging:
 
         .. math::
 
-            \begin{equation}
-                \begin{aligned}
-                    \text{minimize:} \quad & \langle Q_{a_1} \otimes \ldots
-                                             \otimes Q_{a_n}, X \rangle \\
+            \begin{aligned}
+                \text{minimize:} \quad & \langle Q_{a_1} \otimes \ldots
+                                         \otimes Q_{a_n}, X \rangle \\
                 \text{subject to:} \quad & \text{Tr}_{\mathcal{Y}_1 \otimes
-                                            \ldots \otimes \mathcal{Y}_n}(X) =
-                                            I_{\mathcal{X}_1 \otimes \ldots
-                                            \otimes \mathcal{X}_n},\\
-                                            & X \in \text{Pos}(\mathcal{Y}_1
-                                            \otimes \mathcal{X}_1 \otimes \ldots
-                                            \otimes \mathcal{Y}_n \otimes
-                                            \mathcal{X}_n)
-                \end{aligned}
-            \end{equation}
+                                        \ldots \otimes \mathcal{Y}_n}(X) =
+                                        I_{\mathcal{X}_1 \otimes \ldots
+                                        \otimes \mathcal{X}_n},\\
+                                        & X \in \text{Pos}(\mathcal{Y}_1
+                                        \otimes \mathcal{X}_1 \otimes \ldots
+                                        \otimes \mathcal{Y}_n \otimes
+                                        \mathcal{X}_n)
+            \end{aligned}
 
         :return: The optimal minimal probability for obtaining outcome "a".
         """
@@ -212,16 +206,14 @@ class QuantumHedging:
 
         .. math::
 
-            \begin{equation}
-                \begin{aligned}
-                    \text{maximize:} \quad & \text{Tr}(Y) \\
-                    \text{subject to:} \quad & \pi \left(I_{\mathcal{Y}_1
-                    \otimes \ldots \otimes \mathcal{Y}_n} \otimes Y \right)
-                    \pi^* \leq Q_{a_1} \otimes \ldots \otimes Q_{a_n}, \\
-                    & Y \in \text{Herm} \left(\mathcal{X} \otimes \ldots \otimes
-                    \mathcal{X}_n \right)
-                \end{aligned}
-            \end{equation}
+            \begin{aligned}
+                \text{maximize:} \quad & \text{Tr}(Y) \\
+                \text{subject to:} \quad & \pi \left(I_{\mathcal{Y}_1
+                \otimes \ldots \otimes \mathcal{Y}_n} \otimes Y \right)
+                \pi^* \leq Q_{a_1} \otimes \ldots \otimes Q_{a_n}, \\
+                & Y \in \text{Herm} \left(\mathcal{X} \otimes \ldots \otimes
+                \mathcal{X}_n \right)
+            \end{aligned}
 
         :return: The optimal minimal probability for obtaining outcome "a".
         """

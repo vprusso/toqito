@@ -11,8 +11,7 @@ def domino(idx: int) -> np.ndarray:
     The orthonormal product basis of domino states is given as
 
     .. math::
-        \begin{equation}
-            \begin{aligned}
+        \begin{aligned}
             |\phi_0\rangle = |1\rangle |1 \rangle,
             \qquad
             |\phi_1\rangle = |0 \rangle \left(\frac{|0 \rangle + |1 \rangle}{\sqrt{2}} \right),
@@ -24,8 +23,7 @@ def domino(idx: int) -> np.ndarray:
             |\phi_6\rangle = \left(\frac{|0\rangle - |1\rangle}{\sqrt{2}}\right) |0\rangle, \qquad
             |\phi_7\rangle = \left(\frac{|0\rangle + |1\rangle}{\sqrt{2}}\right) |2\rangle, & \qquad
             |\phi_8\rangle = \left(\frac{|0\rangle - |1\rangle}{\sqrt{2}}\right) |2\rangle.
-            \end{aligned}
-        \end{equation}
+        \end{aligned}
 
     Returns one of the following nine domino states depending on the value of :code:`idx`.
 

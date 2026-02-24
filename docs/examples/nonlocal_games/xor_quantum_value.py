@@ -41,13 +41,11 @@ classical and quantum value of a given XOR game.
 # distribution and question and answer sets.
 #
 # .. math::
-#    \begin{equation}
-#        \begin{aligned} \pi(x,y) = \frac{1}{4}, \qquad (x,y) \in
-#                        \Sigma_A \times
-#            \Sigma_B, \qquad \text{and} \qquad (a, b) \in \Gamma_A \times
-#            \Gamma_B,
-#        \end{aligned}
-#    \end{equation}
+#    \begin{aligned} \pi(x,y) = \frac{1}{4}, \qquad (x,y) \in
+#                    \Sigma_A \times
+#        \Sigma_B, \qquad \text{and} \qquad (a, b) \in \Gamma_A \times
+#        \Gamma_B,
+#    \end{aligned}
 #
 # where
 #
@@ -128,12 +126,10 @@ pred_mat = np.array([[0, 0], [0, 1]])
 # the following equations:
 #
 # .. math::
-#    \begin{equation}
-#        \begin{aligned}
-#            a_0 \oplus b_0 = 0, \quad a_0 \oplus b_1 = 0, \\
-#            a_1 \oplus b_0 = 0, \quad a_1 \oplus b_1 = 1.
-#        \end{aligned}
-#    \end{equation}
+#    \begin{aligned}
+#        a_0 \oplus b_0 = 0, \quad a_0 \oplus b_1 = 0, \\
+#        a_1 \oplus b_0 = 0, \quad a_1 \oplus b_1 = 1.
+#    \end{aligned}
 #
 # In the above equation, :math:`a_x` is Alice's answer in the event that she
 # receives question :math:`x` from the referee for :math:`x \in \Sigma_A`.
@@ -148,12 +144,10 @@ pred_mat = np.array([[0, 0], [0, 1]])
 # do is satisfy three out of the four equations
 #
 # .. math::
-#    \begin{equation}
-#        \begin{aligned}
-#            a_0 \oplus b_0 = 0, \quad a_0 \oplus b_1 = 0, \\
-#            a_1 \oplus b_0 = 0.
-#        \end{aligned}
-#    \end{equation}
+#    \begin{aligned}
+#        a_0 \oplus b_0 = 0, \quad a_0 \oplus b_1 = 0, \\
+#        a_1 \oplus b_0 = 0.
+#    \end{aligned}
 #
 # They can achieve this if they either have answers :math:`a_0 = b_0 = a_1 = b_1
 # = 0` or :math:`a_0 = b_0 = a_1 = b_1 = 1`.
@@ -231,23 +225,19 @@ print(f"The classical value of game is: {chsh.classical_value()}")
 #   where
 #
 #   .. math::
-#      \begin{equation}
-#          \begin{aligned}
-#              | \phi_0 \rangle &= \cos(0)| 0 \rangle + \sin(0)| 1 \rangle, \\
-#              | \phi_1 \rangle &= -\sin(0)| 0 \rangle + \cos(0)| 1 \rangle.
-#          \end{aligned}
-#      \end{equation}
+#      \begin{aligned}
+#          | \phi_0 \rangle &= \cos(0)| 0 \rangle + \sin(0)| 1 \rangle, \\
+#          | \phi_1 \rangle &= -\sin(0)| 0 \rangle + \cos(0)| 1 \rangle.
+#      \end{aligned}
 #
 #   In a similar way, since Bob receives question :math:`y = 0`, he selects his
 #   measurements from the basis
 #
 #   .. math::
-#      \begin{equation}
-#          \begin{aligned}
-#              | \phi_0 \rangle &= \cos(\pi/8)| 0 \rangle + \sin(\pi/8)| 1 \rangle, \\
-#              | \phi_1 \rangle &= -\sin(\pi/8)| 0 \rangle + \cos(\pi/8)| 1 \rangle.
-#          \end{aligned}
-#      \end{equation}
+#      \begin{aligned}
+#          | \phi_0 \rangle &= \cos(\pi/8)| 0 \rangle + \sin(\pi/8)| 1 \rangle, \\
+#          | \phi_1 \rangle &= -\sin(\pi/8)| 0 \rangle + \cos(\pi/8)| 1 \rangle.
+#      \end{aligned}
 #
 #   where the measurement operators themselves are defined as
 #
@@ -308,11 +298,9 @@ print(f"The quantum value of games is: {np.around(chsh.quantum_value(), decimals
 # The *odd cycle game* is another two-player XOR game with the following question and answer sets
 #
 # .. math::
-#    \begin{equation}
-#        \begin{aligned}
-#            \Sigma_{A} = \Sigma_B = \mathbb{Z}_n \qquad \text{and} \qquad \Gamma_A = \Gamma_B = \{0, 1\},
-#        \end{aligned}
-#    \end{equation}
+#    \begin{aligned}
+#        \Sigma_{A} = \Sigma_B = \mathbb{Z}_n \qquad \text{and} \qquad \Gamma_A = \Gamma_B = \{0, 1\},
+#    \end{aligned}
 #
 # where :math:`\pi` is the uniform probability distribution over the question set.
 #

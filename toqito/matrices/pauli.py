@@ -22,26 +22,24 @@ def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np
 
     .. math::
 
-        \begin{equation}
-            \begin{aligned}
-                X = \begin{pmatrix}
-                        0 & 1 \\
-                        1 & 0
-                    \end{pmatrix}, \quad
-                Y = \begin{pmatrix}
-                        0 & -i \\
-                        i & 0
-                    \end{pmatrix}, \quad
-                Z = \begin{pmatrix}
-                        1 & 0 \\
-                        0 & -1
-                    \end{pmatrix}, \quad
-                I = \begin{pmatrix}
-                        1 & 0 \\
-                        0 & 1
-                    \end{pmatrix}.
-                \end{aligned}
-            \end{equation}
+        \begin{aligned}
+            X = \begin{pmatrix}
+                    0 & 1 \\
+                    1 & 0
+                \end{pmatrix}, \quad
+            Y = \begin{pmatrix}
+                    0 & -i \\
+                    i & 0
+                \end{pmatrix}, \quad
+            Z = \begin{pmatrix}
+                    1 & 0 \\
+                    0 & -1
+                \end{pmatrix}, \quad
+            I = \begin{pmatrix}
+                    1 & 0 \\
+                    0 & 1
+                \end{pmatrix}.
+        \end{aligned}
 
     Examples
     ==========

@@ -21,12 +21,12 @@ aforementioned paper.
 # *tetrahedral states*:
 #
 # .. math::
-#       \begin{aligned}
-#           \ket{\psi_1} = \frac{1}{\sqrt{3}} (\ket{0} + \ket{1} + \ket{2}), \quad &
-#           \ket{\psi_2} = \frac{1}{\sqrt{3}} (\ket{0} - \ket{1} - \ket{2}), \\
-#           \ket{\psi_3} = \frac{1}{\sqrt{3}} (-\ket{0} - \ket{1} + \ket{2}), \quad &
-#           \ket{\psi_4} = \frac{1}{\sqrt{3}} (-\ket{0} + \ket{1} - \ket{2}).
-#       \end{aligned}
+#   \begin{aligned}
+#       \ket{\psi_1} = \frac{1}{\sqrt{3}} (\ket{0} + \ket{1} + \ket{2}), \quad &
+#       \ket{\psi_2} = \frac{1}{\sqrt{3}} (\ket{0} - \ket{1} - \ket{2}), \\
+#       \ket{\psi_3} = \frac{1}{\sqrt{3}} (-\ket{0} - \ket{1} + \ket{2}), \quad &
+#       \ket{\psi_4} = \frac{1}{\sqrt{3}} (-\ket{0} + \ket{1} - \ket{2}).
+#   \end{aligned}
 
 import numpy as np
 
@@ -55,14 +55,14 @@ print(f"Average classification error (k=2): {learnability_result['value']}")
 # \frac{1}{2} \ket{\phi_{i,j}} \bra{\phi_{i,j}}`, where
 #
 # .. math::
-#       \begin{aligned}
-#           \ket{\phi_{1,2}} &= \frac{1}{\sqrt{2}}(\ket{1} + \ket{2}), \quad
-#           \ket{\phi_{1,3}} = \frac{1}{\sqrt{2}}(\ket{0} + \ket{1}), \quad
-#           \ket{\phi_{1,4}} = \frac{1}{\sqrt{2}}(\ket{0} + \ket{2}), \\
-#           \ket{\phi_{2,3}} &= \frac{1}{\sqrt{2}}(\ket{0} - \ket{2}), \quad
-#           \ket{\phi_{2,4}} = \frac{1}{\sqrt{2}}(\ket{0} - \ket{1}), \quad
-#           \ket{\phi_{3,4}} = \frac{1}{\sqrt{2}}(\ket{1} - \ket{2}).
-#       \end{aligned}
+#   \begin{aligned}
+#       \ket{\phi_{1,2}} &= \frac{1}{\sqrt{2}}(\ket{1} + \ket{2}), \quad
+#       \ket{\phi_{1,3}} = \frac{1}{\sqrt{2}}(\ket{0} + \ket{1}), \quad
+#       \ket{\phi_{1,4}} = \frac{1}{\sqrt{2}}(\ket{0} + \ket{2}), \\
+#       \ket{\phi_{2,3}} &= \frac{1}{\sqrt{2}}(\ket{0} - \ket{2}), \quad
+#       \ket{\phi_{2,4}} = \frac{1}{\sqrt{2}}(\ket{0} - \ket{1}), \quad
+#       \ket{\phi_{3,4}} = \frac{1}{\sqrt{2}}(\ket{1} - \ket{2}).
+#   \end{aligned}
 
 def povm_residual(states: list[np.ndarray], povm: dict[tuple[int, int], np.ndarray]) -> tuple[float, float]:
     """Return the maximum POVM reconstruction and support violations."""
@@ -180,12 +180,12 @@ print(result["feasible"])
 # :math:`R_0 = \{S\}` and we proceed recursively:
 #
 # .. math::
-#       \begin{aligned}
-#           R_1 = \{S_1, S_2, S_3, S_3\}, \quad \text{where} \quad S_1 & = \operatorname{span}\{(0,1,-1,1), (0,1,-3,1)\}, \\
-#           S_2 & = \operatorname{span}\{(1,0,2,-1), (3,0,2,-3)\}, \\
-#           S_3 & = \operatorname{span}\{(1,2,0,1), (3,2,0,-1)\}, \ \ \text{and} \\
-#           S_4 & = \operatorname{span}\{(1,1,1,0), (3,3,1,0)\}.
-#       \end{aligned}
+#   \begin{aligned}
+#       R_1 = \{S_1, S_2, S_3, S_3\}, \quad \text{where} \quad S_1 & = \operatorname{span}\{(0,1,-1,1), (0,1,-3,1)\}, \\
+#       S_2 & = \operatorname{span}\{(1,0,2,-1), (3,0,2,-3)\}, \\
+#       S_3 & = \operatorname{span}\{(1,2,0,1), (3,2,0,-1)\}, \ \ \text{and} \\
+#       S_4 & = \operatorname{span}\{(1,1,1,0), (3,3,1,0)\}.
+#   \end{aligned}
 #
 # To determine whether or not :math:`M` is :math:`3`-incoherent, we let :math:`\Pi_1`, :math:`\Pi_2`, :math:`\Pi_3`, and
 # :math:`\Pi_4` be the orthogonal projections onto :math:`S_1`, :math:`S_2`, :math:`S_3`, and :math:`S_4`, respectively.

@@ -34,15 +34,13 @@ def is_mutually_unbiased_basis(vectors: list[np.ndarray | list[float | Any]]) ->
     For :math:`d=2`, the following constitutes a mutually unbiased basis:
 
     .. math::
-        \begin{equation}
-            \begin{aligned}
-                M_0 &= \left\{ |0 \rangle, |1 \rangle \right\}, \\
-                M_1 &= \left\{ \frac{|0 \rangle + |1 \rangle}{\sqrt{2}},
-                \frac{|0 \rangle - |1 \rangle}{\sqrt{2}} \right\}, \\
-                M_2 &= \left\{ \frac{|0 \rangle i|1 \rangle}{\sqrt{2}},
-                \frac{|0 \rangle - i|1 \rangle}{\sqrt{2}} \right\}. \\
-            \end{aligned}
-        \end{equation}
+        \begin{aligned}
+            M_0 &= \left\{ |0 \rangle, |1 \rangle \right\}, \\
+            M_1 &= \left\{ \frac{|0 \rangle + |1 \rangle}{\sqrt{2}},
+            \frac{|0 \rangle - |1 \rangle}{\sqrt{2}} \right\}, \\
+            M_2 &= \left\{ \frac{|0 \rangle i|1 \rangle}{\sqrt{2}},
+            \frac{|0 \rangle - i|1 \rangle}{\sqrt{2}} \right\}. \\
+        \end{aligned}
 
     .. jupyter-execute::
 

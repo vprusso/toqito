@@ -18,11 +18,8 @@
 #    *Bell state*:
 #
 #    .. math::
-#
 #       \begin{equation}
-#           \begin{aligned}
-#               \ket{\psi} = \frac{\ket{00} + \ket{11}}{\sqrt{2}}
-#           \end{aligned}
+#           \ket{\psi} = \frac{\ket{00} + \ket{11}}{\sqrt{2}}
 #       \end{equation}
 #
 #    Alice takes the first qubit, Bob takes the second, and they both separate.
