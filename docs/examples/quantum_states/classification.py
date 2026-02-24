@@ -22,10 +22,10 @@ aforementioned paper.
 #
 # .. math::
 #   \begin{aligned}
-#       \ket{\psi_1} = \frac{1}{\sqrt{3}} (\ket{0} + \ket{1} + \ket{2}), \quad & 
-#       \ket{\psi_2} = \frac{1}{\sqrt{3}} (\ket{0} - \ket{1} - \ket{2}), \\ 
-#       \ket{\psi_3} = \frac{1}{\sqrt{3}} (-\ket{0} - \ket{1} + \ket{2}), \quad & 
-#       \ket{\psi_4} = \frac{1}{\sqrt{3}} (-\ket{0} + \ket{1} - \ket{2}). 
+#       \ket{\psi_1} = \frac{1}{\sqrt{3}} (\ket{0} + \ket{1} + \ket{2}), \quad &
+#       \ket{\psi_2} = \frac{1}{\sqrt{3}} (\ket{0} - \ket{1} - \ket{2}), \\
+#       \ket{\psi_3} = \frac{1}{\sqrt{3}} (-\ket{0} - \ket{1} + \ket{2}), \quad &
+#       \ket{\psi_4} = \frac{1}{\sqrt{3}} (-\ket{0} + \ket{1} - \ket{2}).
 #   \end{aligned}
 
 import numpy as np
@@ -120,11 +120,9 @@ print(f"Average classification error (k=1): {learnability_result['value']}")
 # For example, the following matrix is :math:`2`-incoherent
 #
 # .. math::
-#   \begin{equation}
 #       \begin{pmatrix}
 #           2 & 1 & 2 \\ 1 & 2 & -1 \\ 2 & -1 & 5
 #       \end{pmatrix}
-#   \end{equation}
 # 
 # Indeed, one can verify this numerically using the
 # :py:func:`~toqito.matrix_props.is_k_incoherent.is_k_incoherent`.
@@ -170,14 +168,12 @@ print(result["feasible"])
 # the rank-:math:`3` matrix
 #
 # .. math::
-#   \begin{equation}
 #       M = \begin{bmatrix}
 #        2 & 1 & 1 & -1 \\
 #        1 & 2 & 0 & 1 \\
 #        1 & 0 & 2 & -1 \\
 #        -1 & 1 & -1 & 2
 #       \end{bmatrix}.
-#   \end{equation}
 # 
 # We start by finding a basis for :math:`S := \text{range}(M)`, which can be done by picking a linearly independent set
 # of :math:`r = 3` columns of :math:`M`: :math:`S = \operatorname{span}\{(2,1,1,-1), (1,2,0,1), (1,0,2,-1)\}`. Then
@@ -197,14 +193,11 @@ print(result["feasible"])
 # \text{Pos}(\mathbb{C}^4)` for which
 # 
 # .. math::
-#   \begin{equation}
 #       M = M_1 + M_2 + M_3 + M_4, \quad \text{and} \quad M_j = \Pi_j M_j \Pi_j \quad \text{for all} \quad j \in \{1,2,3,4\}.
-#   \end{equation}
 #
 # Indeed, such matrices do exist:
 # 
 # .. math::
-#    \begin{equation}
 #        M_1 = \begin{bmatrix}
 #            0 & 0 & 0 & 0 \\
 #            0 & 1 & -1 & 1 \\
@@ -226,7 +219,6 @@ print(result["feasible"])
 #            1 & 1 & 1 & 0 \\
 #            0 & 0 & 0 & 0
 #        \end{bmatrix},
-#    \end{equation}
 #
 # so :math:`M` is :math:`3`-incoherent. For example, we can verify this numerically using the
 # :py:func:`~toqito.matrix_props.factor_width.factor_width`.

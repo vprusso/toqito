@@ -10,7 +10,7 @@ from toqito.matrix_ops import tensor
 from toqito.state_props import is_product
 
 
-def is_unextendible_product_basis(vecs: list[np.ndarray], dims: list[int]) -> tuple[bool, np.ndarray]:
+def is_unextendible_product_basis(vecs: list[np.ndarray], dims: list[int]) -> tuple[bool, np.ndarray | None]:
     r"""Check if a set of vectors form an unextendible product basis (UPB) :footcite:`Bennett_1999_UPB`.
 
     Consider a multipartite quantum system :math:`\mathcal{H} = \bigotimes_{i=1}^{m} \mathcal{H}_{i}` with :math:`m`

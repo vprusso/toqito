@@ -11,9 +11,9 @@ from .state_helper import __is_probs_valid, __is_states_valid
 
 def symmetric_extension_hierarchy(
     states: list[np.ndarray],
-    probs: list[float] = None,
+    probs: list[float] | None = None,
     level: int = 2,
-    dim: int | list[int] = None,
+    dim: int | list[int] | None = None,
 ) -> float:
     r"""Compute optimal value of the symmetric extension hierarchy SDP :footcite:`Navascues_2008_Pure`.
 

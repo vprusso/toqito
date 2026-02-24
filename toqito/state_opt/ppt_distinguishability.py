@@ -11,7 +11,7 @@ def ppt_distinguishability(
     vectors: list[np.ndarray],
     subsystems: list[int],
     dimensions: list[int],
-    probs: list[float] = None,
+    probs: list[float] | None = None,
     strategy: str = "min_error",
     solver: str = "cvxopt",
     primal_dual: str = "dual",

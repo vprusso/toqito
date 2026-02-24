@@ -134,12 +134,12 @@ Do not use an autoformatter like :code:`black` as the configuration settings for
 might be incompatible with the changes made by :code:`black`. This is discussed in detail at
 `this link <https://docs.astral.sh/ruff/formatter/black/>`_.
 
-Static typing is enforced with :code:`mypy` (see `mypy documentation <https://mypy.readthedocs.io/en/stable/>`_). Before submitting a pull request, run the
+Static typing is enforced with :code:`ty` (see `ty documentation <https://docs.astral.sh/ty/>`_). Before submitting a pull request, run the
 type checker against the source tree (the type checker lives in the ``lint`` dependency group):
 
 .. code-block:: bash
 
-    uv run --group lint mypy toqito
+    uv run --group lint ty check toqito
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Setting Up Pre-Commit Hooks
@@ -209,7 +209,6 @@ Following is used in a docstring for the references to show up in the documentat
     .. footbibliography::
         
 
-
 --------------
 Documentation
 --------------
@@ -230,6 +229,15 @@ the documentation theme :code:`furo`, visit
 `sphinx documentation <https://docs.readthedocs.io/en/stable/intro/getting-started-with-sphinx.html>`_ , 
 `rst primer <https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html>`_ &
 `furo documentation <https://sphinx-themes.org/sample-sites/furo/>`_ .
+
+----------
+AI Policy
+----------
+We support the responsible use of AI-driven tools, but reserve the right not to
+engage or close contributions that are not reviewed or properly understood by
+the submitter. AI can save time in some instances, but when poorly applied, it
+can produce correct-but-wrong output and waste the time of both the contributor
+and the reviewers.
 
 ---------------------
 Additional Resources

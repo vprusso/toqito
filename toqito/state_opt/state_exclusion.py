@@ -210,7 +210,7 @@ def _min_error_primal(
 def _min_error_dual(
     vectors: list[np.ndarray],
     dim: int,
-    probs: list[float] = None,
+    probs: list[float] | None = None,
     solver: str = "cvxopt",
     **kwargs,
 ) -> tuple[float, list[picos.HermitianVariable]]:
