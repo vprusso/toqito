@@ -17,12 +17,12 @@ from toqito.state_props.schmidt_rank import schmidt_rank
 from toqito.states.max_entangled import max_entangled
 
 
-def is_separable( 
-    state: np.ndarray, 
-    dim: None | int | list[int] = None, 
-    level: int | None = None, 
-    tol: float = 1e-8, 
-    strength: int = 0, 
+def is_separable(
+    state: np.ndarray,
+    dim: None | int | list[int] = None,
+    level: int | None = None,
+    tol: float = 1e-8,
+    strength: int = 0,
 ) -> bool:
     r"""Determine if a given state (given as a density matrix) is a separable state :footcite:`WikiSepSt`.
 
@@ -260,7 +260,8 @@ def is_separable(
 
     :param state: The density matrix to check.
     :param dim: The dimension of the input state, e.g., [dim_A, dim_B]. Optional; inferred if None.
-    :param level: The level for symmetric extension (DPS) hierarchy. If `None`, it defaults based on the `strength` parameter (default: 2 for `strength=0`, 3 for `strength=1`, 4 for `strength >= 2`).
+    :param level: The level for symmetric extension (DPS) hierarchy. If `None`, it defaults based on the `strength`
+        parameter (default: 2 for `strength=0`, 3 for `strength=1`, 4 for `strength >= 2`).
 
         - If 1, only PPT is checked.
         - If >= 2, checks for k-symmetric extension up to this level.
@@ -269,14 +270,16 @@ def is_separable(
     :param tol: Numerical tolerance (default: 1e-8).
     :param strength: Integer parameter to control the computational effort (default: 0).
         - If 0 (Default): Performs standard, relatively fast checks and a baseline symmetric extension (`level=2`).
-        - If 1: Includes more computationally intensive checks such as Filter CMC, more exhaustive 2xN conditions,
-          iterative product state subtraction, Decomposable Maps, and deeper default symmetric extension (`level=3`).
-        - If >=2 or -1: Attempts to be as exhaustive as possible with all implemented criteria, running all
-          available tests with deeper symmetric extensions (`level=4`).
+        - If 1: Increases the depth of the symmetric extension hierarchy to `level=3`.
+        - If >=2 or -1: Attempts to be as exhaustive as possible with deeper symmetric extensions (`level=4`).
 
     :return: :code:`True` if separable, :code:`False` if entangled or inconclusive by implemented checks.
 
     """
+    if not isinstance(strength, int):
+        raise ValueError("The parameter `strength` must be an integer.")
+    if strength < -1:
+        raise ValueError("The parameter `strength` must be >= -1.")
     if level is None:
         if strength == 0:
             level = 2
@@ -686,55 +689,57 @@ def is_separable(
                     pass  # Eigenvalue computation failed
 
     # --- 12. Decomposable Maps (Positive but not Completely Positive Maps as Witnesses) ---
-    if strength >= 1 or strength == -1:
-        # Ha-Kye Maps for 3x3 systems :footcite:`HaKye_2011_Positive`
-        if dA == 3 and dB == 3:
-            phi_me3 = max_entangled(3, False, False)  # Maximally entangled state vector in C^3 x C^3
-            phi_proj3 = phi_me3 @ phi_me3.conj().T  # Projector onto it
-            for t_raw_ha in np.arange(0.1, 1.0, 0.1):  # Parameter 't' for map construction
-                t_iter_ha = t_raw_ha
-                for j_ha_loop in range(2):  # Iterate for t and 1/t (common symmetry in these maps)
-                    if j_ha_loop == 1:
-                        # if abs(t_raw_ha) < machine_eps: #  (t_raw_ha always >= 0.1)
-                        #     break  # Should not happen with arange
-                        t_iter_ha = 1 / t_raw_ha
+    # These tests apply positive but not completely positive (NCP) maps. If the resulting state is not PSD,
+    # the original state is entangled.
 
-                    denom_ha = 1 - t_iter_ha + t_iter_ha**2  # Denominator from Ha-Kye map parameters
-                    if abs(denom_ha) < machine_eps:
-                        continue  #  (denom_ha = 1-t+t^2 > 0 for t>0)
+    # Ha-Kye Maps for 3x3 systems :footcite:`HaKye_2011_Positive`
+    if dA == 3 and dB == 3:
+        phi_me3 = max_entangled(3, False, False)  # Maximally entangled state vector in C^3 x C^3
+        phi_proj3 = phi_me3 @ phi_me3.conj().T  # Projector onto it
+        for t_raw_ha in np.arange(0.1, 1.0, 0.1):  # Parameter 't' for map construction
+            t_iter_ha = t_raw_ha
+            for j_ha_loop in range(2):  # Iterate for t and 1/t (common symmetry in these maps)
+                if j_ha_loop == 1:
+                    # if abs(t_raw_ha) < machine_eps: #  (t_raw_ha always >= 0.1)
+                    #     break  # Should not happen with arange
+                    t_iter_ha = 1 / t_raw_ha
 
-                    a_hk = (1 - t_iter_ha) ** 2 / denom_ha
-                    b_hk = t_iter_ha**2 / denom_ha
-                    c_hk = 1 / denom_ha
-                    # Choi matrix of a generalized Choi map (related to Ha-Kye constructions)
-                    Phi_map_ha = np.diag([a_hk + 1, c_hk, b_hk, b_hk, a_hk + 1, c_hk, c_hk, b_hk, a_hk + 1]) - phi_proj3
-                    if not is_positive_semidefinite(
-                        partial_channel(current_state, Phi_map_ha, sys=1, dim=dims_list), atol=tol, rtol=tol
-                    ):
-                        return False  # Entangled if map application results in non-PSD state #
+                denom_ha = 1 - t_iter_ha + t_iter_ha**2  # Denominator from Ha-Kye map parameters
+                if abs(denom_ha) < machine_eps:
+                    continue  #  (denom_ha = 1-t+t^2 > 0 for t>0)
 
-        # Breuer-Hall Maps (for even dimensional subsystems) :footcite:`Breuer_2006_Mixed`,
-        # :footcite:`Hall_2006_Indecomposable`
-        for p_idx_bh in range(2):  # Apply map to subsystem 0 (A), then subsystem 1 (B)
-            current_dim_bh = dims_list[p_idx_bh]  # Dimension of the subsystem map acts on
-            if current_dim_bh > 0 and current_dim_bh % 2 == 0:  # Map defined for even dimensions
-                phi_me_bh = max_entangled(current_dim_bh, False, False)
-                phi_proj_bh = phi_me_bh @ phi_me_bh.conj().T
-                half_dim_bh = current_dim_bh // 2
-                # Construct an antisymmetric unitary U_bh_kron_part
-                diag_U_elems_bh = np.concatenate([np.ones(half_dim_bh), -np.ones(half_dim_bh)])
-                U_bh_kron_part = np.fliplr(np.diag(diag_U_elems_bh))  # U = -U^T
-                # Choi matrix of the Breuer-Hall witness map W_U(X) = Tr(X)I - X - U X^T U^dagger
-                # The Choi matrix used here is I - P_max_ent - (I kron U) SWAP (I kron U^dagger)
-                U_for_phi_constr = np.kron(np.eye(current_dim_bh), U_bh_kron_part)
-                Phi_bh_map_choi = (  # This is Choi(W_U)
-                    np.eye(current_dim_bh**2)
-                    - phi_proj_bh
-                    - U_for_phi_constr @ swap_operator(current_dim_bh) @ U_for_phi_constr.conj().T
-                )
-                mapped_state_bh = partial_channel(current_state, Phi_bh_map_choi, sys=p_idx_bh, dim=dims_list)
-                if not is_positive_semidefinite(mapped_state_bh, atol=tol, rtol=tol):
-                    return False  # Entangled if map application results in non-PSD state
+                a_hk = (1 - t_iter_ha) ** 2 / denom_ha
+                b_hk = t_iter_ha**2 / denom_ha
+                c_hk = 1 / denom_ha
+                # Choi matrix of a generalized Choi map (related to Ha-Kye constructions)
+                Phi_map_ha = np.diag([a_hk + 1, c_hk, b_hk, b_hk, a_hk + 1, c_hk, c_hk, b_hk, a_hk + 1]) - phi_proj3
+                if not is_positive_semidefinite(
+                    partial_channel(current_state, Phi_map_ha, sys=1, dim=dims_list), atol=tol, rtol=tol
+                ):
+                    return False  # Entangled if map application results in non-PSD state #
+
+    # Breuer-Hall Maps (for even dimensional subsystems) :footcite:`Breuer_2006_Mixed`,
+    # :footcite:`Hall_2006_Indecomposable`
+    for p_idx_bh in range(2):  # Apply map to subsystem 0 (A), then subsystem 1 (B)
+        current_dim_bh = dims_list[p_idx_bh]  # Dimension of the subsystem map acts on
+        if current_dim_bh > 0 and current_dim_bh % 2 == 0:  # Map defined for even dimensions
+            phi_me_bh = max_entangled(current_dim_bh, False, False)
+            phi_proj_bh = phi_me_bh @ phi_me_bh.conj().T
+            half_dim_bh = current_dim_bh // 2
+            # Construct an antisymmetric unitary U_bh_kron_part
+            diag_U_elems_bh = np.concatenate([np.ones(half_dim_bh), -np.ones(half_dim_bh)])
+            U_bh_kron_part = np.fliplr(np.diag(diag_U_elems_bh))  # U = -U^T
+            # Choi matrix of the Breuer-Hall witness map W_U(X) = Tr(X)I - X - U X^T U^dagger
+            # The Choi matrix used here is I - P_max_ent - (I kron U) SWAP (I kron U^dagger)
+            U_for_phi_constr = np.kron(np.eye(current_dim_bh), U_bh_kron_part)
+            Phi_bh_map_choi = (  # This is Choi(W_U)
+                np.eye(current_dim_bh**2)
+                - phi_proj_bh
+                - U_for_phi_constr @ swap_operator(current_dim_bh) @ U_for_phi_constr.conj().T
+            )
+            mapped_state_bh = partial_channel(current_state, Phi_bh_map_choi, sys=p_idx_bh, dim=dims_list)
+            if not is_positive_semidefinite(mapped_state_bh, atol=tol, rtol=tol):
+                return False  # Entangled if map application results in non-PSD state
 
     # --- 13. Symmetric Extension Hierarchy (DPS) ---
     # A state is separable iff it has a k-symmetric extension for all k :footcite:`Doherty_2004_CompleteFamily`.
