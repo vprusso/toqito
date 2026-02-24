@@ -30,33 +30,31 @@ def symmetric_extension_hierarchy(
 
     .. math::
 
-        \begin{equation}
-            \begin{aligned}
-                \text{maximize:} \quad & \sum_{k=1}^N p_k \langle \rho_k, \mu(k) \rangle, \\
-                \text{subject to:} \quad & \sum_{k=1}^N \mu(k) =
-                                           \mathbb{I}_{\mathcal{X} \otimes \mathcal{Y}}, \\
-                                        & \text{Tr}_{\mathcal{Y}_2 \otimes \ldots \otimes
-                                          \mathcal{Y}_s}(X_k) = \mu(k), \\
-                                        & \left( \mathbb{I}_{\mathcal{X}} \otimes
-                                          \Pi_{\mathcal{Y} \circledvee \mathcal{Y}_2 \circledvee \ldots \circledvee
-                                          \mathcal{Y}_s} \right) X_k
-                                          \left(\mathbb{I}_{\mathcal{X}} \otimes
-                                          \Pi_{\mathcal{Y} \circledvee \mathcal{Y}_2 \circledvee \ldots \circledvee
-                                          \mathcal{Y}_s} \right)
-                                          = X_k \\
-                                        & \text{T}_{\mathcal{X}}(X_k) \in \text{Pos}\left(
-                                            \mathcal{X} \otimes \mathcal{Y} \otimes \mathcal{Y}_2
-                                            \otimes \ldots \otimes \mathcal{Y}_s \right), \\
-                                        & \text{T}_{\mathcal{Y}_2 \otimes \ldots \otimes
-                                            \mathcal{Y}_s}(X_k) \in \text{Pos}\left(
-                                            \mathcal{X} \otimes \mathcal{Y} \otimes \mathcal{Y}_2
-                                            \otimes \ldots \otimes \mathcal{Y}_s \right), \\
-                                        & X_1, \ldots, X_N \in
-                                          \text{Pos}\left(\mathcal{X} \otimes \mathcal{Y} \otimes
-                                          \mathcal{Y}_2 \otimes \ldots \otimes \mathcal{Y}_s
-                                          \right).
-            \end{aligned}
-        \end{equation}
+        \begin{aligned}
+            \text{maximize:} \quad & \sum_{k=1}^N p_k \langle \rho_k, \mu(k) \rangle, \\
+            \text{subject to:} \quad & \sum_{k=1}^N \mu(k) =
+                                        \mathbb{I}_{\mathcal{X} \otimes \mathcal{Y}}, \\
+                                    & \text{Tr}_{\mathcal{Y}_2 \otimes \ldots \otimes
+                                        \mathcal{Y}_s}(X_k) = \mu(k), \\
+                                    & \left( \mathbb{I}_{\mathcal{X}} \otimes
+                                        \Pi_{\mathcal{Y} \circledvee \mathcal{Y}_2 \circledvee \ldots \circledvee
+                                        \mathcal{Y}_s} \right) X_k
+                                        \left(\mathbb{I}_{\mathcal{X}} \otimes
+                                        \Pi_{\mathcal{Y} \circledvee \mathcal{Y}_2 \circledvee \ldots \circledvee
+                                        \mathcal{Y}_s} \right)
+                                        = X_k \\
+                                    & \text{T}_{\mathcal{X}}(X_k) \in \text{Pos}\left(
+                                        \mathcal{X} \otimes \mathcal{Y} \otimes \mathcal{Y}_2
+                                        \otimes \ldots \otimes \mathcal{Y}_s \right), \\
+                                    & \text{T}_{\mathcal{Y}_2 \otimes \ldots \otimes
+                                        \mathcal{Y}_s}(X_k) \in \text{Pos}\left(
+                                        \mathcal{X} \otimes \mathcal{Y} \otimes \mathcal{Y}_2
+                                        \otimes \ldots \otimes \mathcal{Y}_s \right), \\
+                                    & X_1, \ldots, X_N \in
+                                        \text{Pos}\left(\mathcal{X} \otimes \mathcal{Y} \otimes
+                                        \mathcal{Y}_2 \otimes \ldots \otimes \mathcal{Y}_s
+                                        \right).
+        \end{aligned}
 
     Examples
     ==========

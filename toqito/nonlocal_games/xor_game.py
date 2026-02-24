@@ -30,13 +30,11 @@ class XORGame:
     distribution and question and answer sets :footcite:`Cleve_2008_Strong`.
 
     .. math::
-            \begin{equation}
-                    \begin{aligned} \pi(x,y) = \frac{1}{4}, \qquad (x,y) \in
-                                                    \Sigma_A \times
-                            \Sigma_B, \qquad \text{and} \qquad (a, b) \in \Gamma_A \times
-                            \Gamma_B,
-                    \end{aligned}
-            \end{equation}
+            \begin{aligned} \pi(x,y) = \frac{1}{4}, \qquad (x,y) \in
+                                            \Sigma_A \times
+                    \Sigma_B, \qquad \text{and} \qquad (a, b) \in \Gamma_A \times
+                    \Gamma_B,
+            \end{aligned}
 
     where
 
@@ -186,20 +184,18 @@ class XORGame:
         notes: Lecture 6 of :footcite:`Watrous_2011_Lecture_Notes`
 
                 .. math::
-                        \begin{equation}
-                                \begin{aligned}
-                                        \text{minimize:} \quad & \frac{1}{2} \sum_{x \in X} u(x) +
-                                                                                         \frac{1}{2} \sum_{
-                                                                                            y \in Y} v(y) \\
-                                        \text{subject to:} \quad &
-                                                        \begin{pmatrix}
-                                                                \text{Diag}(u) & -D \\
-                                                                -D^* & \text{Diag}(v)
-                                                        \end{pmatrix} \geq 0, \\
-                                                        & u \in \mathbb{R}^X, \
-                                                          v \in \mathbb{R}^Y.
-                                \end{aligned}
-                        \end{equation}
+                    \begin{aligned}
+                            \text{minimize:} \quad & \frac{1}{2} \sum_{x \in X} u(x) +
+                                                                             \frac{1}{2} \sum_{
+                                                                                y \in Y} v(y) \\
+                            \text{subject to:} \quad &
+                                            \begin{pmatrix}
+                                                    \text{Diag}(u) & -D \\
+                                                    -D^* & \text{Diag}(v)
+                                            \end{pmatrix} \geq 0, \\
+                                            & u \in \mathbb{R}^X, \
+                                              v \in \mathbb{R}^Y.
+                    \end{aligned}
 
                 where :math:`D` is the matrix defined to be
 

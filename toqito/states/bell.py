@@ -12,16 +12,14 @@ def bell(idx: int) -> np.ndarray:
     Returns one of the following four Bell states depending on the value of :code:`idx`:
 
     .. math::
-        \begin{equation}
-            \begin{aligned}
-                u_0 = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right), &
-                \qquad &
-                u_1 = \frac{1}{\sqrt{2}} \left( |00 \rangle - |11 \rangle \right), \\
-                u_2 = \frac{1}{\sqrt{2}} \left( |01 \rangle + |10 \rangle \right), &
-                \qquad &
-                u_3 = \frac{1}{\sqrt{2}} \left( |01 \rangle - |10 \rangle \right).
-            \end{aligned}
-        \end{equation}
+        \begin{aligned}
+            u_0 = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right), &
+            \qquad &
+            u_1 = \frac{1}{\sqrt{2}} \left( |00 \rangle - |11 \rangle \right), \\
+            u_2 = \frac{1}{\sqrt{2}} \left( |01 \rangle + |10 \rangle \right), &
+            \qquad &
+            u_3 = \frac{1}{\sqrt{2}} \left( |01 \rangle - |10 \rangle \right).
+        \end{aligned}
 
     Examples
     ==========

@@ -38,25 +38,21 @@ def state_exclusion(
     with which Bob can conduct quantum state exclusion.
 
         .. math::
-            \begin{equation}
-                \begin{aligned}
-                    \text{minimize:} \quad & \sum_{i=1}^n p_i \langle M_i, \rho_i \rangle \\
-                    \text{subject to:} \quad & \sum_{i=1}^n M_i = \mathbb{I}_{\mathcal{X}}, \\
-                                             & M_0, \ldots, M_n \in \text{Pos}(\mathcal{X}).
-                \end{aligned}
-            \end{equation}
+            \begin{aligned}
+                \text{minimize:} \quad & \sum_{i=1}^n p_i \langle M_i, \rho_i \rangle \\
+                \text{subject to:} \quad & \sum_{i=1}^n M_i = \mathbb{I}_{\mathcal{X}}, \\
+                                         & M_0, \ldots, M_n \in \text{Pos}(\mathcal{X}).
+            \end{aligned}
 
         .. math::
-            \begin{equation}
-                \begin{aligned}
-                    \text{maximize:} \quad & \text{Tr}(Y) \\
-                    \text{subject to:} \quad & Y \preceq p_1\rho_1, \\
-                                             & Y \preceq p_2\rho_2, \\
-                                             & \vdots \\
-                                             & Y \preceq p_n\rho_n, \\
-                                             & Y \in\text{Herm}(\mathcal{X}).
-                \end{aligned}
-            \end{equation}
+            \begin{aligned}
+                \text{maximize:} \quad & \text{Tr}(Y) \\
+                \text{subject to:} \quad & Y \preceq p_1\rho_1, \\
+                                         & Y \preceq p_2\rho_2, \\
+                                         & \vdots \\
+                                         & Y \preceq p_n\rho_n, \\
+                                         & Y \in\text{Herm}(\mathcal{X}).
+            \end{aligned}
 
     For :code:`strategy = "unambiguous"`, Bob never provides an incorrect answer, although it is
     possible that his answer is inconclusive. This function then yields the probability of an inconclusive outcome.
@@ -97,12 +93,10 @@ def state_exclusion(
     Consider the following two Bell states
 
     .. math::
-        \begin{equation}
-            \begin{aligned}
-                u_0 &= \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right), \\
-                u_1 &= \frac{1}{\sqrt{2}} \left( |00 \rangle - |11 \rangle \right).
-            \end{aligned}
-        \end{equation}
+        \begin{aligned}
+            u_0 &= \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right), \\
+            u_1 &= \frac{1}{\sqrt{2}} \left( |00 \rangle - |11 \rangle \right).
+        \end{aligned}
 
     It is not possible to conclusively exclude either of the two states. We can see that the result of the function in
     :code:`|toqito⟩` yields a value of :math:`0` as the probability for this to occur.

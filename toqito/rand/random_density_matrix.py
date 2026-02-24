@@ -91,6 +91,7 @@ def random_density_matrix(
      is_density(bures_mat)
 
     It is also possible to pass a seed to this function for reproducibility.
+
     .. jupyter-execute::
 
      from toqito.rand import random_density_matrix
