@@ -18,10 +18,9 @@
 #    *Bell state*:
 #
 #    .. math::
-#
-#       \begin{aligned}
+#       \begin{equation}
 #           \ket{\psi} = \frac{\ket{00} + \ket{11}}{\sqrt{2}}
-#       \end{aligned}
+#       \end{equation}
 #
 #    Alice takes the first qubit, Bob takes the second, and they both separate.
 #    This entangled pair is responsible for linking the qubits *non-locally*,
