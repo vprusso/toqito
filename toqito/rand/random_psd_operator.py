@@ -9,13 +9,14 @@ def random_psd_operator(
     seed: int | None = None,
     distribution: str = "uniform",
     scale: np.ndarray | None = None,
-    df: int | None = None,
+    num_degrees: int | None = None,
 ) -> np.ndarray:
     r"""Generate a random positive semidefinite operator.
 
     A positive semidefinite operator is a Hermitian operator that has only real and non-negative eigenvalues.
-    This function generates a random positive semidefinite operator by constructing a Hermitian matrix,
-    based on the fact that a Hermitian matrix can have real eigenvalues.
+    This function generates a random PSD operator using one of two sampling strategies: ``"uniform"``
+    constructs a Hermitian matrix via random sampling and eigendecomposition, while ``"wishart"`` samples
+    from the Wishart distribution parameterized by a scale matrix and degrees of freedom.
 
     Examples
     ========
@@ -57,6 +58,7 @@ def random_psd_operator(
     .. jupyter-execute::
 
      from toqito.matrix_props import is_positive_semidefinite
+
      is_positive_semidefinite(real_psd_mat)
 
 
@@ -68,8 +70,6 @@ def random_psd_operator(
 
      seeded = random_psd_operator(2, is_real=True, seed=42)
 
-     seeded
-
 
     References
     ==========
@@ -80,55 +80,41 @@ def random_psd_operator(
     :param is_real: Boolean denoting whether the returned matrix will have all real entries or not.
                     Default is :code:`False`.
     :param seed: A seed used to instantiate numpy's random number generator.
-    :param distribution: Distribution used to generate the PSD operator.
-                         Options are `"uniform"` (default) and `"wishart"`.
-    :param scale: Scale matrix for Wishart distribution. Must be of shape
-                  `(dim, dim)`. Defaults to the identity matrix.
-    :param df: Degrees of freedom for Wishart distribution. Must be
-               greater than or equal to `dim`. Defaults to `dim`.
-
+    :return: A :code:`dim` x :code:`dim` random positive semidefinite matrix.
+    :param distribution: The sampling strategy to use. Either ``"uniform"`` (default) or ``"wishart"``.
+    :param scale: Scale matrix for the Wishart distribution. Defaults to the identity matrix if not provided.
+                  Only used when ``distribution="wishart"``.
+    :param num_degrees: Degrees of freedom for the Wishart distribution. Defaults to ``dim`` if not provided.
+                        Only used when ``distribution="wishart"``.
 
     """
     # Generate a random matrix of dimension dim x dim.
-    gen = np.random.default_rng(seed=seed)
+    if not isinstance(dim, int) or dim < 0:
+        raise ValueError("dim must be a non-negative integer.")
 
-    if not isinstance(dim, int) or dim <= 0:
-        raise ValueError("`dim` must be a positive integer.")
+    gen = np.random.default_rng(seed=seed)
 
     if distribution == "uniform":
         rand_mat = gen.random((dim, dim))
-
         if not is_real:
             rand_mat = rand_mat + 1j * gen.random((dim, dim))
-
         rand_mat = (rand_mat.conj().T + rand_mat) / 2
         eigenvals, eigenvecs = np.linalg.eigh(rand_mat)
-        Q, _ = np.linalg.qr(eigenvecs)
+        q_mat, _ = np.linalg.qr(eigenvecs)
+        return q_mat @ np.diag(np.abs(eigenvals)) @ q_mat.conj().T
 
-        return Q @ np.diag(np.abs(eigenvals)) @ Q.conj().T
-
-    elif distribution == "wishart":
+    if distribution == "wishart":
         if scale is None:
             scale = np.eye(dim)
-
-        if df is None:
-            df = dim
-
-        if not isinstance(df, int) or df < dim:
-            raise ValueError("`df` must be an integer greater than or equal to `dim`.")
-
-        if not isinstance(scale, np.ndarray):
-            raise ValueError("`scale` must be a NumPy array.")
-
-        if scale.shape != (dim, dim):
-            raise ValueError("`scale` must have shape (dim, dim).")
-
+        if num_degrees is None:
+            num_degrees = dim
         if is_real:
-            X = gen.standard_normal((df, dim))
+            x_mat = gen.multivariate_normal(np.zeros(dim), scale, size=num_degrees).T
         else:
-            X = gen.standard_normal((df, dim)) + 1j * gen.standard_normal((df, dim))
+            x_mat = (
+                gen.multivariate_normal(np.zeros(dim), scale, size=num_degrees).T
+                + 1j * gen.multivariate_normal(np.zeros(dim), scale, size=num_degrees).T
+            )
+        return x_mat @ x_mat.conj().T
 
-        return scale @ (X.conj().T @ X)
-
-    else:
-        raise ValueError("Invalid distribution. Supported options are 'uniform' and 'wishart'.")
+    raise ValueError("Invalid distribution. Supported options are 'uniform' and 'wishart'.")
