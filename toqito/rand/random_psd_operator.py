@@ -80,12 +80,12 @@ def random_psd_operator(
     :param is_real: Boolean denoting whether the returned matrix will have all real entries or not.
                     Default is :code:`False`.
     :param seed: A seed used to instantiate numpy's random number generator.
-    :return: A :code:`dim` x :code:`dim` random positive semidefinite matrix.
     :param distribution: The sampling strategy to use. Either ``"uniform"`` (default) or ``"wishart"``.
     :param scale: Scale matrix for the Wishart distribution. Defaults to the identity matrix if not provided.
                   Only used when ``distribution="wishart"``.
     :param num_degrees: Degrees of freedom for the Wishart distribution. Defaults to ``dim`` if not provided.
                         Only used when ``distribution="wishart"``.
+    :return: A :code:`dim` x :code:`dim` random positive semidefinite matrix.
 
     """
     # Generate a random matrix of dimension dim x dim.
