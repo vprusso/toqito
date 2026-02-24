@@ -10,10 +10,10 @@ from toqito.matrix_props.sk_norm import sk_operator_norm
 def is_block_positive(
     mat: np.ndarray,
     k: int = 1,
-    dim: int | list[int] = None,
+    dim: int | list[int] | None = None,
     effort: int = 2,
     rtol: float = 1e-5,
-) -> bool:
+) -> bool | RuntimeError:
     r"""Check if matrix is block positive :footcite:`Johnston_2012_Norms`.
 
     Examples
@@ -71,17 +71,23 @@ def is_block_positive(
     dim_xy = mat.shape[0]
     # Set default dimension if none was provided.
     if dim is None:
-        dim = int(np.round(np.sqrt(dim_xy)))
+        dim_val = int(np.round(np.sqrt(dim_xy)))
+    elif isinstance(dim, int):
+        dim_val = dim
+    else:
+        dim_val = None
 
     # Allow the user to enter in a single integer for dimension.
-    if isinstance(dim, int):
-        dim = np.array([dim, dim_xy / dim])
-        dim[1] = int(np.round(dim[1]))
+    if dim_val is not None:
+        dim_arr = np.array([dim_val, dim_xy / dim_val])
+        dim_arr[1] = int(np.round(dim_arr[1]))
+    else:
+        dim_arr = np.array(dim)
 
-    dim = np.array(dim, dtype=int)
+    dim_arr = np.array(dim_arr, dtype=int)
 
     # When a local dimension is small, block positivity is trivial.
-    if min(dim) <= k:
+    if min(dim_arr) <= k:
         return is_positive_semidefinite(mat)
 
     op_norm = np.linalg.norm(mat, ord=2)
@@ -90,7 +96,7 @@ def is_block_positive(
     #   c >= S(k)-norm of(c*I - X)
     # See Corollary 4.2.9. of `:footcite:`Johnston_2012_Norms`.
     c_mat = op_norm * np.eye(dim_xy) - mat
-    lower_bound, upper_bound = sk_operator_norm(c_mat, k, dim, op_norm, effort)
+    lower_bound, upper_bound = sk_operator_norm(c_mat, k, dim_arr, op_norm, effort)
 
     # block positive
     # Note that QETLAB is more conservative here and multiplies

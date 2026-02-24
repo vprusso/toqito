@@ -10,8 +10,8 @@ from toqito.perms import permute_systems
 
 def partial_trace(
     input_mat: np.ndarray | Variable,
-    sys: int | list[int] = None,
-    dim: int | list[int] = None,
+    sys: int | list[int] | None = None,
+    dim: int | list[int] | np.ndarray | None = None,
 ) -> np.ndarray | Expression:
     r"""Compute the partial trace of a matrix :footcite:`WikiPartialTr`.
 

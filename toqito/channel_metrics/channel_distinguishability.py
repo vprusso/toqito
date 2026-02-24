@@ -12,12 +12,12 @@ def channel_distinguishability(
     phi: np.ndarray | list[np.ndarray] | list[list[np.ndarray]],
     psi: np.ndarray | list[np.ndarray] | list[list[np.ndarray]],
     p: list[float] | None,
-    dim: int | list[int] | np.ndarray = None,
+    dim: int | list[int] | np.ndarray | None = None,
     strategy: str = "bayesian",
     solver: str = "cvxopt",
     primal_dual: str = "dual",
     **kwargs,
-) -> float:
+) -> float | np.floating:
     r"""Compute the optimal probability of distinguishing two quantum channels.
 
     Bayesian and minimax discrimination of two quantum channels are implemented.
@@ -94,8 +94,8 @@ def channel_distinguishability(
 
     """
     # Get the input, output and environment dimensions of phi and psi.
-    d_in_phi, d_out_phi, d_e = channel_dim(phi, dim)
-    d_in_psi, d_out_psi, d_e = channel_dim(psi, dim)
+    d_in_phi, d_out_phi, d_e = channel_dim(phi, dim=dim)
+    d_in_psi, d_out_psi, d_e = channel_dim(psi, dim=dim)
 
     # If the variable `phi` and/or `psi` are provided as a list, we assume this is a list
     # of Kraus operators. We convert to choi matrices if not provided as choi matrix.

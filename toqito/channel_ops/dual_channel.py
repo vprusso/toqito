@@ -7,8 +7,8 @@ from toqito.perms import swap
 
 
 def dual_channel(
-    phi_op: np.ndarray | list[np.ndarray] | list[list[np.ndarray]], dims: list[int] = None
-) -> np.ndarray | list[list[np.ndarray]]:
+    phi_op: np.ndarray | list[np.ndarray] | list[list[np.ndarray]], dims: list[int] | None = None
+) -> np.ndarray | list[list[np.ndarray]] | list[np.ndarray]:
     r"""Compute the dual of a map (quantum channel).
 
     (Section: Representations and Characterizations of Channels of :footcite:`Watrous_2018_TQI`).
