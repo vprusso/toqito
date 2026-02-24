@@ -17,7 +17,13 @@ from toqito.state_props.schmidt_rank import schmidt_rank
 from toqito.states.max_entangled import max_entangled
 
 
-def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: int = 2, tol: float = 1e-8) -> bool:
+def is_separable(
+    state: np.ndarray,
+    dim: None | int | list[int] = None,
+    level: int | None = None,
+    tol: float = 1e-8,
+    strength: int = 0,
+) -> bool:
     r"""Determine if a given state (given as a density matrix) is a separable state :footcite:`WikiSepSt`.
 
     A multipartite quantum state:
@@ -254,17 +260,36 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
 
     :param state: The density matrix to check.
     :param dim: The dimension of the input state, e.g., [dim_A, dim_B]. Optional; inferred if None.
-    :param level: The level for symmetric extension (DPS) hierarchy (default: 2).
+    :param level: The level for symmetric extension (DPS) hierarchy. If `None`, it defaults based on the `strength`
+        parameter (default: 2 for `strength=0`, 3 for `strength=1`, 4 for `strength >= 2`).
 
         - If 1, only PPT is checked.
-        - If >=2, checks for k-symmetric extension up to this level.
+        - If >= 2, checks for k-symmetric extension up to this level.
         - If -1, attempts all implemented checks exhaustively (not all possible checks are implemented).
 
     :param tol: Numerical tolerance (default: 1e-8).
+    :param strength: Integer parameter to control the computational effort (default: 0).
+        - If 0 (Default): Performs standard, relatively fast checks and a baseline symmetric extension (`level=2`).
+        - If 1: Increases the depth of the symmetric extension hierarchy to `level=3`.
+        - If >=2 or -1: Attempts to be as exhaustive as possible with deeper symmetric extensions (`level=4`).
 
     :return: :code:`True` if separable, :code:`False` if entangled or inconclusive by implemented checks.
 
     """
+    if not isinstance(strength, int):
+        raise ValueError("The parameter `strength` must be an integer.")
+    if strength < -1:
+        raise ValueError("The parameter `strength` must be >= -1.")
+    if level is None:
+        if strength == 0:
+            level = 2
+        elif strength == 1:
+            level = 3
+        elif strength >= 2 or strength == -1:
+            level = 4
+        else:
+            level = 2
+
     # --- 1. Input Validation, Normalization, Dimension Setup ---
     if not isinstance(state, np.ndarray):
         raise TypeError("Input state must be a NumPy array.")
@@ -664,6 +689,9 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                     pass  # Eigenvalue computation failed
 
     # --- 12. Decomposable Maps (Positive but not Completely Positive Maps as Witnesses) ---
+    # These tests apply positive but not completely positive (NCP) maps. If the resulting state is not PSD,
+    # the original state is entangled.
+
     # Ha-Kye Maps for 3x3 systems :footcite:`HaKye_2011_Positive`
     if dA == 3 and dB == 3:
         phi_me3 = max_entangled(3, False, False)  # Maximally entangled state vector in C^3 x C^3

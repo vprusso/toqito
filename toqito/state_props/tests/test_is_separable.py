@@ -34,13 +34,19 @@ invalid_input_cases = [
     {"state": np.zeros((0, 0)), "dim": 2, "error_msg": "Cannot apply positive dimension"},
     {"state": np.eye(2) / 2, "dim": [0, 2], "error_msg": "zero-dim subsystem"},
     {"state": np.eye(6) / 6, "dim": [2.0, 3.0], "error_msg": "non-negative integers"},
+    {"state": np.eye(4) / 4, "strength": "invalid", "error_msg": "The parameter `strength` must be an integer."},
+    {"state": np.eye(4) / 4, "strength": -5, "error_msg": "The parameter `strength` must be >= -1."},
 ]
 
 
 @pytest.mark.parametrize("case", invalid_input_cases)
 def test_invalid_inputs(case):
     """Parameterized test for invalid input cases raising ValueError."""
-    kwargs = {"state": case.get("state"), "dim": case.get("dim")}
+    kwargs = {"state": case.get("state")}
+    if "dim" in case:
+        kwargs["dim"] = case.get("dim")
+    if "strength" in case:
+        kwargs["strength"] = case.get("strength")
     with pytest.raises(ValueError, match=case.get("error_msg")):
         is_separable(**kwargs)
 
@@ -919,3 +925,38 @@ def test_path_ha_kye_fallthrough_to_final_false_L534_to_L580(tiles_state_3x3_ppt
                         # Final L580 `return False` is hit.
                         assert not is_separable(rho, dim=dims, tol=test_tol, level=2)
                         assert mock_plucker_det_call_info["called"]  # Plucker det mock need be to called
+
+
+def test_strength_level_defaults():
+    """Test that strength correctly sets the default level."""
+    # We need a state that passes through all the early quick checks
+    # so that has_symmetric_extension is actually called.
+    rho = np.eye(9) / 9.0
+    with mock.patch("toqito.state_props.is_separable.has_symmetric_extension", return_value=False) as mock_hse:
+        # Mock other early checks so we reach symmetric extension
+        with mock.patch("toqito.state_props.is_separable.in_separable_ball", return_value=False):
+            with mock.patch("toqito.state_props.is_separable.is_ppt", return_value=True):
+                with mock.patch("numpy.linalg.matrix_rank", return_value=9):
+                    with mock.patch("toqito.state_props.is_separable.trace_norm", return_value=0.5):
+                        # Avoid rank-1 perturbation check:
+                        with mock.patch("numpy.linalg.eigvalsh", return_value=np.arange(9.0) * 10):
+                            # Default scenario: strength=0 -> level=2
+                            is_separable(rho, dim=[3, 3], strength=0)
+                            assert mock_hse.call_args_list == [
+                                mock.call(rho=mock.ANY, level=2, dim=[3, 3], tol=mock.ANY)
+                            ]
+
+                            mock_hse.reset_mock()
+
+                            # Scenario: strength=1 -> level=3
+                            is_separable(rho, dim=[3, 3], strength=1)
+                            assert mock_hse.call_args_list == [
+                                mock.call(rho=mock.ANY, level=2, dim=[3, 3], tol=mock.ANY),
+                                mock.call(rho=mock.ANY, level=3, dim=[3, 3], tol=mock.ANY),
+                            ]
+
+                            mock_hse.reset_mock()
+
+                            # Scenario: explicitly specified level=1 overrides strength
+                            is_separable(rho, dim=[3, 3], strength=1, level=1)
+                            mock_hse.assert_not_called()
