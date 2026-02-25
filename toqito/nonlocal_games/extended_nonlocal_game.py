@@ -20,27 +20,20 @@ class ExtendedNonlocalGame:
     made by the referee, on its part of the shared quantum state, in addition
     to Alice and Bob's answers to the questions sent by the referee.
 
-    Extended nonlocal games were initially defined in :footcite:`Johnston_2016_Extended` and more
-    information on these games can be found in :footcite:`Russo_2017_Extended`.
+    Extended nonlocal games were initially defined in [@Johnston_2016_Extended] and more
+    information on these games can be found in [@Russo_2017_Extended].
 
     For a detailed walkthrough and several examples, including the BB84 and CHSH
-    games, please see the tutorial on :ref:`sphx_glr_auto_examples_extended_nonlocal_games`.
-
-    References
-    ==========
-    .. footbibliography::
-
-
-    """
+    games, please see the tutorial on [Extended Nonlocal Games](../../../generated/gallery/extended_nonlocal_games/index.md).
+"""
 
     def __init__(self, prob_mat: np.ndarray, pred_mat: np.ndarray, reps: int = 1) -> None:
         """Construct extended nonlocal game object.
 
-        :param prob_mat: A matrix whose (x, y)-entry gives the probability
-                        that the referee will give Alice the value `x` and Bob
-                        the value `y`.
-        :param pred_mat:
-        :param reps: Number of parallel repetitions to perform.
+        Args:
+            prob_mat: A matrix whose (x, y)-entry gives the probability that the referee will give Alice the value `x` and Bob the value `y`.
+            pred_mat: A matrix representing the predictions for the game.
+            reps: Number of parallel repetitions to perform.
         """
         if reps == 1:
             self.prob_mat = prob_mat
@@ -86,7 +79,7 @@ class ExtendedNonlocalGame:
         """Initialize game dimensions from the prediction matrix.
 
         This private method checks whether the game dimensions have already been initialized by
-        inspecting the '_dims_initialized_by_get_game_dims' flag. If not, it extracts the dimensions
+        inspecting the `_dims_initialized_by_get_game_dims` flag. If not, it extracts the dimensions
         from the shape of 'self.pred_mat' and assigns the following instance attributes:
 
           - referee_dim: The first dimension of self.pred_mat.
@@ -117,17 +110,20 @@ class ExtendedNonlocalGame:
         unentangled strategies. Due to convexity and compactness, it is possible
         to calculate the unentangled extended nonlocal game by:
 
-        .. math::
+        \[
             \omega(G) = \max_{f, g}
             \lVert
             \sum_{(x,y) \in \Sigma_A \times \Sigma_B} \pi(x,y)
             V(f(x), g(y)|x, y)
             \rVert
+        \]
 
-        where the maximum is over all functions :math:`f : \Sigma_A \rightarrow
-        \Gamma_A` and :math:`g : \Sigma_B \rightarrow \Gamma_B`.
+        where the maximum is over all functions \(f : \Sigma_A \rightarrow
+        \Gamma_A\) and \(g : \Sigma_B \rightarrow \Gamma_B\).
 
-        :return: The unentangled value of the extended nonlocal game.
+        Returns:
+            The unentangled value of the extended nonlocal game.
+
         """
         dim_x, dim_y, alice_out, bob_out, alice_in, bob_in = self.pred_mat.shape
 
@@ -159,31 +155,36 @@ class ExtendedNonlocalGame:
         A *non-signaling strategy* for an extended nonlocal game consists of a
         function
 
-        .. math::
+        \[
             K : \Gamma_A \times \Gamma_B \times \Sigma_A \times \Sigma_B
             \rightarrow \text{Pos}(\mathcal{R})
+        \]
 
         such that
 
-        .. math::
+        \[
             \sum_{a \in \Gamma_A} K(a,b|x,y) = \rho_b^y
             \quad \text{and} \quad
             \sum_{b \in \Gamma_B} K(a,b|x,y) = \sigma_a^x,
+        \]
 
-        for all :math:`x \in \Sigma_A` and :math:`y \in \Sigma_B` where
-        :math:`\{\rho_b^y : y \in \Sigma_A, \ b \in \Gamma_B\}` and
-        :math:`\{\sigma_a^x : x \in \Sigma_A, \ a \in \Gamma_B\}` are
+        for all \(x \in \Sigma_A\) and \(y \in \Sigma_B\) where
+        \(\{\rho_b^y : y \in \Sigma_A, \ b \in \Gamma_B\}\) and
+        \(\{\sigma_a^x : x \in \Sigma_A, \ a \in \Gamma_B\}\) are
         collections of operators satisfying
 
-        .. math::
+        \[
             \sum_{a \in \Gamma_A} \rho_b^y =
             \tau =
             \sum_{b \in \Gamma_B} \sigma_a^x,
+        \]
 
-        for every choice of :math:`x \in \Sigma_A` and :math:`y \in \Sigma_B`
-        where :math:`\tau \in \text{D}(\mathcal{R})` is a density operator.
+        for every choice of \(x \in \Sigma_A\) and \(y \in \Sigma_B\)
+        where \(\tau \in \text{D}(\mathcal{R})\) is a density operator.
 
-        :return: The non-signaling value of the extended nonlocal game.
+        Returns:
+            The non-signaling value of the extended nonlocal game.
+
         """
         dim_x, dim_y, alice_out, bob_out, alice_in, bob_in = self.pred_mat.shape
         constraints = []
@@ -290,13 +291,17 @@ class ExtendedNonlocalGame:
 
         Uses an iterative see-saw method involving two SDPs.
 
-        :param iter: Maximum number of see-saw iterations (Alice optimizes, Bob optimizes (default is 20).
-        :param tol: Tolerance for stopping see-saw iteration based on improvement (default is 1e-8).
-        :param seed: Optional seed for initializing random POVMs for reproducibility (default is None).
-        :param solver: Optional option for different solver (default is SCS).
-        :param solver_params: Optional parameters for solver (default is {"eps": 1e-8, "verbose": False}).
-        :param verbos: Optional printout for optimizer step (default is False).
-        :return: The best lower bound found on the quantum value.
+        Args:
+            iter: Maximum number of see-saw iterations (Alice optimizes, Bob optimizes (default is 20).
+            tol: Tolerance for stopping see-saw iteration based on improvement (default is 1e-8).
+            seed: Optional seed for initializing random POVMs for reproducibility (default is None).
+            solver: Optional option for different solver (default is SCS).
+            solver_params: Optional parameters for solver (default is {"eps": 1e-8, "verbose": False}).
+            verbos: Optional printout for optimizer step (default is False).
+
+        Returns:
+            The best lower bound found on the quantum value.
+
         """
         self.__get_game_dims()
         if solver_params is None:
@@ -512,27 +517,26 @@ class ExtendedNonlocalGame:
         return bob_povm_cvxpy_vars, problem
 
     def commuting_measurement_value_upper_bound(self, k: int | str = 1, no_signaling: bool = True) -> float:
-        """Compute an upper bound on the commuting measurement value of an extended nonlocal game.
+        r"""Compute an upper bound on the commuting measurement value of an extended nonlocal game.
 
-        This function calculates an upper bound on the commuting measurement value by
-        using k-levels of the NPA hierarchy :footcite:`Navascues_2008_AConvergent`. The NPA hierarchy is a uniform
+    This function calculates an upper bound on the commuting measurement value by
+        using k-levels of the NPA hierarchy [@Navascues_2008_AConvergent]. The NPA hierarchy is a uniform
         family of semidefinite programs that converges to the commuting measurement value of
         any extended nonlocal game.
 
-        You can determine the level of the hierarchy by a positive integer or a string
+    You can determine the level of the hierarchy by a positive integer or a string
         of a form like '1+ab+aab', which indicates that an intermediate level of the hierarchy
         should be used, where this example uses all products of one measurement, all products of
         one Alice and one Bob measurement, and all products of two Alice and one Bob measurements.
 
-        References
-        ==========
-        .. footbibliography::
+    Args:
+        k: The level of the NPA hierarchy to use (default=1).
+        no_signaling: Whether to enforce the no-signaling constraints (default=True).
 
+    Returns:
+        The upper bound on the commuting strategy value of an extended nonlocal game.
 
-        :param k: The level of the NPA hierarchy to use (default=1).
-        :return: The upper bound on the commuting strategy value of an extended nonlocal game.
-
-        """
+    """
         dR, _, A_out, B_out, A_in, B_in = self.pred_mat.shape
         K = {}
         for x in range(A_in):

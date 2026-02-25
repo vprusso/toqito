@@ -444,7 +444,7 @@ print(f"Quantum value (lower bound): {np.around(ffl.quantum_value_lower_bound(),
 import numpy as np
 
 from toqito.nonlocal_games import NonlocalGame
-
+# mkdocs_gallery_thumbnail_path = 'figures/nonlocal_game.svg'
 # Define constraints c_1 and c_2.
 c_1 = np.zeros((2, 2))
 c_2 = np.zeros((2, 2))

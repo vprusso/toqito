@@ -7,71 +7,63 @@ import numpy as np
 def abs_ppt_constraints(
     eigs: np.ndarray | cp.Variable, p: int, max_constraints: int = 33_592, use_check: bool = False
 ) -> list[np.ndarray | cp.Expression]:
-    r"""Return the constraint matrices for the spectrum to be absolutely PPT :footcite:`Hildebrand_2007_AbsPPT`.
+    r"""Return the constraint matrices for the spectrum to be absolutely PPT [@Hildebrand_2007_AbsPPT].
 
-    The returned matrices are constructed from the provided eigenvalues :code:`eigs`, and they must all be positive
+    The returned matrices are constructed from the provided eigenvalues `eigs`, and they must all be positive
     semidefinite for the spectrum to be absolutely PPT.
 
 
-    .. note::
-
+    !!! Note
         The function does not always return the optimal number of constraint matrices.
-        There are some redundant constraint matrices :footcite:`Johnston_2014_Orderings`.
+        There are some redundant constraint matrices [@Johnston_2014_Orderings].
 
-        * With :code:`use_checks=False`, the number of matrices returned starting from :math:`p=1` is
-          :math:`[0, 1, 2, 12, 286, 33592, 23178480, \ldots]`.
-        * With :code:`use_checks=True`, the number of matrices returned starting from :math:`p=1` is
-          :math:`[0, 1, 2, 10, 114, 2612, 108664, \ldots]`.
+        * With `use_checks=False`, the number of matrices returned starting from \(p=1\) is
+          \([0, 1, 2, 12, 286, 33592, 23178480, \ldots]\).
+        * With `use_checks=True`, the number of matrices returned starting from \(p=1\) is
+          \([0, 1, 2, 10, 114, 2612, 108664, \ldots]\).
 
-        However, the optimal number of matrices starting from :math:`p=1` is given by
-        :math:`[0, 1, 2, 10, 114, 2608, 107498]`.
+        However, the optimal number of matrices starting from \(p=1\) is given by
+        \([0, 1, 2, 10, 114, 2608, 107498]\).
 
-    .. note::
+    !!! Note
+        This function accepts a `cvxpy` Variable as input for `eigs`. The function
+        will return the assembled constraint matrices as a list of `cvxpy` Expressions.
+        These can be used with `cvxpy` to optimize over the space of absolutely PPT matrices.
 
-        This function accepts a :code:`cvxpy` Variable as input for :code:`eigs`. The function
-        will return the assembled constraint matrices as a list of :code:`cvxpy` Expressions.
-        These can be used with :code:`cvxpy` to optimize over the space of absolutely PPT matrices.
-
-        The user must impose the condition :code:`eigs[0] ≥ eigs[1] ≥ ... ≥ eigs[-1] ≥ 0` and the
+        The user must impose the condition `eigs[0] ≥ eigs[1] ≥ ... ≥ eigs[-1] ≥ 0` and the
         positive semidefinite constraint on each returned matrix separately.
 
-        It is recommended to set :code:`use_check=True` for this use case to minimize the number of
+        It is recommended to set `use_check=True` for this use case to minimize the number of
         constraint equations in the problem.
 
-    This function is adapted from QETLAB :footcite:`QETLAB_link`.
+    This function is adapted from QETLAB [@QETLAB_link].
 
-    Examples
-    ========
+    Examples:
     We can compute the constraint matrices for a random density matrix:
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.rand import random_density_matrix
+    from toqito.state_props import abs_ppt_constraints
+    
+    rho = random_density_matrix(9)  # assumed to act on a 3 x 3 bipartite system
+    eigs = np.linalg.eigvalsh(rho)
+    constraints = abs_ppt_constraints(eigs, 3)
+    for i, cons in enumerate(constraints, 1):
+        print(f"Constraint {i}:")
+        print(cons)
+    ```
+    Raises:
+        TypeError: If `eigs` is not a `numpy` ndarray or a `cvxpy` Variable.
 
-        import numpy as np
-        from toqito.rand import random_density_matrix
-        from toqito.state_props import abs_ppt_constraints
+    Args:
+        eigs: A list of eigenvalues.
+        p: The dimension of the smaller subsystem in the bipartite system.
+        max_constraints: The maximum number of constraint matrices to compute. (default: 33,592)
+        use_check: Use the "criss-cross" ordering check described in [@Johnston_2014_Orderings] to reduce the number of constraint matrices. (default: `False`)
 
-        rho = random_density_matrix(9)  # assumed to act on a 3 x 3 bipartite system
-        eigs = np.linalg.eigvalsh(rho)
-        constraints = abs_ppt_constraints(eigs, 3)
-        for i, cons in enumerate(constraints, 1):
-            print(f"Constraint {i}:")
-            print(cons)
-
-    References
-    ==========
-
-    .. footbibliography::
-
-
-
-    :raises TypeError: If :code:`eigs` is not a :code:`numpy` ndarray or a :code:`cvxpy` Variable.
-    :param eigs: A list of eigenvalues.
-    :param p: The dimension of the smaller subsystem in the bipartite system.
-    :param max_constraints: The maximum number of constraint matrices to compute. (default: 33,592)
-    :param use_check: Use the "criss-cross" ordering check described in :footcite:`Johnston_2014_Orderings` to reduce
-                      the number of constraint matrices. (default: :code:`False`)
-    :return: A list of :code:`max_constraints` constraint matrices which must be positive
-             semidefinite for an absolutely PPT spectrum.
+    Returns:
+        A list of `max_constraints` constraint matrices which must be positive semidefinite for an absolutely PPT spectrum.
 
     """
     if isinstance(eigs, np.ndarray):
@@ -105,7 +97,7 @@ def abs_ppt_constraints(
         r"""Construct all valid orderings by backtracking. Processes order matrix in row major order.
 
         A valid ordering has rows and columns of the upper triangle + diagonal in ascending order.
-        """
+    """
         # If we already constructed enough constraints, exit.
         if len(constraints) == max_constraints:
             return
@@ -145,7 +137,7 @@ def abs_ppt_constraints(
                 available[k] = True
 
     def _check_cross(order_matrix: np.ndarray, p: int) -> bool:
-        r"""Check if the order matrix satisfies the "criss-cross" check in :footcite:`Johnston_2014_Orderings`."""
+        r"""Check if the order matrix satisfies the "criss-cross" check in [@Johnston_2014_Orderings]."""
         for j in range(p - 3):
             for k in range(2, p):
                 for m in range(p - 2):

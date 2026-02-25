@@ -245,7 +245,7 @@ from toqito.matrix_ops import vectors_to_gram_matrix
 from toqito.matrix_props import is_k_incoherent
 from toqito.rand import random_states
 from toqito.state_props import is_antidistinguishable
-
+# mkdocs_gallery_thumbnail_path = 'figures/trine.png'
 n, d = 3, 3
 states = random_states(n, d)
 gram = vectors_to_gram_matrix(states)

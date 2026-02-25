@@ -6,13 +6,13 @@ from toqito.states import basis
 
 
 def tile(idx: int) -> np.ndarray:
-    r"""Produce a Tile state :footcite:`Bennett_1999_UPB`.
+    r"""Produce a Tile state [@Bennett_1999_UPB].
 
     The Tile states constitute five states on 3-by-3 dimensional space that form a UPB (unextendible product basis).
 
-    Returns one of the following five tile states depending on the value of :code:`idx`:
+    Returns one of the following five tile states depending on the value of `idx`:
 
-    .. math::
+    \[
         \begin{equation}
             \begin{aligned}
                 |\psi_0 \rangle = \frac{1}{\sqrt{2}} |0 \rangle
@@ -31,31 +31,32 @@ def tile(idx: int) -> np.ndarray:
                 \left(|0\rangle + |1\rangle + |2\rangle \right).
             \end{aligned}
         \end{equation}
+    \]
 
-    Examples
-    ==========
+    Examples:
 
-    When :code:`idx = 0`, this produces the following tile state
+    When `idx = 0`, this produces the following tile state
 
-    .. math::
+    \[
         \frac{1}{\sqrt{2}} |0\rangle \left( |0\rangle - |1\rangle \right).
+    \]
 
-    Using :code:`|toqito⟩`, we can see that this yields the proper state.
+    Using `|toqito⟩`, we can see that this yields the proper state.
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    from toqito.states import tile
+    import numpy as np
+    print(tile(0))
+    ```
 
-        from toqito.states import tile
-        import numpy as np
-        tile(0)
+    Raises:
+        ValueError: Invalid value for `idx`.
 
-    References
-    ==========
-    .. footbibliography::
+    Args:
+        idx: A parameter in [0, 1, 2, 3, 4]
 
-
-    :raises ValueError: Invalid value for :code:`idx`.
-    :param idx: A parameter in [0, 1, 2, 3, 4]
-    :return: Tile state.
+    Returns:
+        Tile state.
 
     """
     e_0, e_1, e_2 = basis(3, 0), basis(3, 1), basis(3, 2)

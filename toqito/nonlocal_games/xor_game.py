@@ -14,127 +14,121 @@ class XORGame:
     communicate during the game itself.
 
     The quantum value of an XOR game can be solved via the semidefinite program
-    from :footcite:`Cleve_2010_Consequences`.
+    from [@Cleve_2010_Consequences].
 
     This function is adapted from the QETLAB package.
 
-    A tutorial is available in the documentation. Go to
-    :ref:`sphx_glr_auto_examples_nonlocal_games_xor_quantum_value.py`.
+    A tutorial is available in the documentation. Go to [ Calculating the quantum and classical value of a two-player XOR game](../../../generated/gallery/nonlocal_games/xor_quantum_val.md).
 
-    Examples
-    ==========
+    Examples:
 
     The CHSH game
 
     The CHSH game is a two-player nonlocal game with the following probability
-    distribution and question and answer sets :footcite:`Cleve_2008_Strong`.
+    distribution and question and answer sets [@Cleve_2008_Strong].
 
-    .. math::
-            \begin{equation}
-                    \begin{aligned} \pi(x,y) = \frac{1}{4}, \qquad (x,y) \in
-                                                    \Sigma_A \times
-                            \Sigma_B, \qquad \text{and} \qquad (a, b) \in \Gamma_A \times
-                            \Gamma_B,
-                    \end{aligned}
-            \end{equation}
+    \[
+        \begin{equation}
+                \begin{aligned} \pi(x,y) = \frac{1}{4}, \qquad (x,y) \in
+                                                \Sigma_A \times
+                        \Sigma_B, \qquad \text{and} \qquad (a, b) \in \Gamma_A \times
+                        \Gamma_B,
+                \end{aligned}
+        \end{equation}
+    \]
 
     where
 
-    .. math::
-            \begin{equation}
-                    \Sigma_A = \{0, 1\}, \quad \Sigma_B = \{0, 1\}, \quad \Gamma_A =
-                    \{0,1\}, \quad \text{and} \quad \Gamma_B = \{0, 1\}.
-            \end{equation}
+    \[
+        \begin{equation}
+                \Sigma_A = \{0, 1\}, \quad \Sigma_B = \{0, 1\}, \quad \Gamma_A =
+                \{0,1\}, \quad \text{and} \quad \Gamma_B = \{0, 1\}.
+        \end{equation}
+    \]
 
     Alice and Bob win the CHSH game if and only if the following equation is
     satisfied
 
-    .. math::
-            \begin{equation}
-            a \oplus b = x \land y.
-            \end{equation}
+    \[
+        \begin{equation}
+        a \oplus b = x \land y.
+        \end{equation}
+    \]
 
-    Recall that :math:`\oplus` refers to the XOR operation.
+    Recall that \(\oplus\) refers to the XOR operation.
 
-    The optimal quantum value of CHSH is :math:`\cos(\pi/8)^2 \approx 0.8536`
-    where the optimal classical value is :math:`3/4`.
+    The optimal quantum value of CHSH is \(\cos(\pi/8)^2 \approx 0.8536\)
+    where the optimal classical value is \(3/4\).
 
     In order to specify the CHSH game, we can define the probability matrix and
     predicate matrix for the CHSH game as `numpy` arrays as follows.
 
-    .. jupyter-execute::
-
-     import numpy as np
-
-     prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
-     pred_mat = np.array([[0, 0], [0, 1]])
+    ```python exec="1" source="above" session="chsh"
+    import numpy as np
+    
+    prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
+    pred_mat = np.array([[0, 0], [0, 1]])
+    ```
 
     In `toqito`, we can calculate both the quantum and classical value of the
     CHSH game as follows.
 
-    .. jupyter-execute::
-
-     import numpy as np
-     from toqito.nonlocal_games.xor_game import XORGame
-
-     chsh = XORGame(prob_mat, pred_mat)
-
-     print(f"Quantum value of the CHSH game is {np.around(chsh.quantum_value(), decimals=2)}")
-     print(f"Classical value of the CHSH game is {chsh.classical_value()}")
+    ```python exec="1" source="above" session="chsh"
+    import numpy as np
+    from toqito.nonlocal_games.xor_game import XORGame
+    
+    chsh = XORGame(prob_mat, pred_mat)
+    
+    print(f"Quantum value of the CHSH game is {np.around(chsh.quantum_value(), decimals=2)}")
+    print(f"Classical value of the CHSH game is {chsh.classical_value()}")
+    ```
 
     The odd cycle game
 
-    The odd cycle game is another XOR game :footcite:`Cleve_2010_Consequences`. For this game, we can
+    The odd cycle game is another XOR game [@Cleve_2010_Consequences]. For this game, we can
     specify the probability and predicate matrices as follows.
 
-    .. jupyter-execute::
+    ```python exec="1" source="above" session="odd_cycle"
+    import numpy as np
+    prob_mat = np.array(
+    [
+        [0.1, 0.1, 0, 0, 0],
+        [0, 0.1, 0.1, 0, 0],
+        [0, 0, 0.1, 0.1, 0],
+        [0, 0, 0, 0.1, 0.1],
+        [0.1, 0, 0, 0, 0.1],
+    ]
+    )
+    pred_mat = np.array(
+    [
+        [0, 1, 0, 0, 0],
+        [0, 0, 1, 0, 0],
+        [0, 0, 0, 1, 0],
+        [0, 0, 0, 0, 1],
+        [1, 0, 0, 0, 0],
+    ])
+    ```
 
-     prob_mat = np.array(
-     [
-         [0.1, 0.1, 0, 0, 0],
-         [0, 0.1, 0.1, 0, 0],
-         [0, 0, 0.1, 0.1, 0],
-         [0, 0, 0, 0.1, 0.1],
-         [0.1, 0, 0, 0, 0.1],
-     ]
-     )
-     pred_mat = np.array(
-     [
-         [0, 1, 0, 0, 0],
-         [0, 0, 1, 0, 0],
-         [0, 0, 0, 1, 0],
-         [0, 0, 0, 0, 1],
-         [1, 0, 0, 0, 0],
-     ]
-     )
-
-    In :code:`|toqito⟩`, we can calculate both the quantum and classical value of
+    In `|toqito⟩`, we can calculate both the quantum and classical value of
     the odd cycle game as follows.
 
-    .. jupyter-execute::
-
-     import numpy as np
-     from toqito.nonlocal_games.xor_game import XORGame
-
-     odd_cycle = XORGame(prob_mat, pred_mat)
-
-     print(f"Quantum value of the odd cycle game is {np.around(odd_cycle.quantum_value(), decimals=2)}")
-     print(f"Classical value of the odd cycle game is {np.around(odd_cycle.classical_value(), decimals=1)}")
+    ```python exec="1" source="above" session="odd_cycle"
+    import numpy as np
+    from toqito.nonlocal_games.xor_game import XORGame
+    
+    odd_cycle = XORGame(prob_mat, pred_mat)
+    
+    print(f"Quantum value of the odd cycle game is {np.around(odd_cycle.quantum_value(), decimals=2)}")
+    print(f"Classical value of the odd cycle game is {np.around(odd_cycle.classical_value(), decimals=1)}")
+    ```
 
 
     We can also calculate the nonsignaling value of the odd cycle game.
 
-    .. jupyter-execute::
-
-     print(f"Nonsignaling value of the odd cycle game is {np.around(odd_cycle.nonsignaling_value(), decimals=1)}")
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    """
+    ```python exec="1" source="above" session="odd_cycle"
+    print(f"Nonsignaling value of the odd cycle game is {np.around(odd_cycle.nonsignaling_value(), decimals=1)}")
+    ```
+"""
 
     def __init__(
         self,
@@ -145,15 +139,19 @@ class XORGame:
     ) -> None:
         """Construct XOR game object.
 
-        :raises ValueError: If dimension of probability matrix is not equal to
+        Raises:
+            ValueError: If dimension of probability matrix is not equal to
                                                 dimension of predicate matrix.
-        :param prob_mat: A matrix whose (q_0, q_1)-entry gives the probability that
+
+        Args:
+            prob_mat: A matrix whose (q_0, q_1)-entry gives the probability that
                                  the referee will give Alice the value `q_0` and Bob the
                                  value `q_1`.
-        :param pred_mat: A binary matrix whose (q_0, q_1)-entry indicates the
+            pred_mat: A binary matrix whose (q_0, q_1)-entry indicates the
                                  winning choice (either 0 or 1) when Alice and Bob receive
                                  values `q_0` and `q_1` from the referee.
-        :param tol: The error tolerance for the value.
+            tol: The error tolerance for the value.
+                                                dimension of predicate matrix.
         """
         self.prob_mat = prob_mat
         self.pred_mat = pred_mat
@@ -181,35 +179,38 @@ class XORGame:
     def quantum_value(self) -> float:
         r"""Compute the quantum value of the XOR game.
 
-        To obtain the quantum value of the XOR game, we calculate the following
+    To obtain the quantum value of the XOR game, we calculate the following
         simplified dual problem of the semidefinite program from the set of
-        notes: Lecture 6 of :footcite:`Watrous_2011_Lecture_Notes`
+        notes: Lecture 6 of [@Watrous_2011_Lecture_Notes]
 
-                .. math::
-                        \begin{equation}
-                                \begin{aligned}
-                                        \text{minimize:} \quad & \frac{1}{2} \sum_{x \in X} u(x) +
-                                                                                         \frac{1}{2} \sum_{
-                                                                                            y \in Y} v(y) \\
-                                        \text{subject to:} \quad &
-                                                        \begin{pmatrix}
-                                                                \text{Diag}(u) & -D \\
-                                                                -D^* & \text{Diag}(v)
-                                                        \end{pmatrix} \geq 0, \\
-                                                        & u \in \mathbb{R}^X, \
-                                                          v \in \mathbb{R}^Y.
-                                \end{aligned}
-                        \end{equation}
+    \[
+        \begin{equation}
+                \begin{aligned}
+                        \text{minimize:} \quad & \frac{1}{2} \sum_{x \in X} u(x) +
+                                                                            \frac{1}{2} \sum_{
+                                                                            y \in Y} v(y) \\
+                        \text{subject to:} \quad &
+                                        \begin{pmatrix}
+                                                \text{Diag}(u) & -D \\
+                                                -D^* & \text{Diag}(v)
+                                        \end{pmatrix} \geq 0, \\
+                                        & u \in \mathbb{R}^X, \
+                                            v \in \mathbb{R}^Y.
+                \end{aligned}
+        \end{equation}
+    \]
 
-                where :math:`D` is the matrix defined to be
+    where \(D\) is the matrix defined to be
 
-                .. math::
-                        D(x,y) = \pi(x, y) (-1)^{f(x,y)}
+    \[
+        D(x,y) = \pi(x, y) (-1)^{f(x,y)}
+    \]
 
-                In other words, :math:`\pi(x, y)` corresponds to :code:`prob_mat[x, y]`,
-                and :math:`f(x,y)` corresponds to :code:`pred_mat[x, y]`.
+    In other words, \(\pi(x, y)\) corresponds to `prob_mat[x, y]`, and \(f(x,y)\) corresponds to `pred_mat[x, y]`.
 
-                :return: A value between [0, 1] representing the quantum value.
+    Returns: 
+        A value between [0, 1] representing the quantum value.
+
         """
         alice_in, bob_in = self.prob_mat.shape
         d_mat = np.zeros([alice_in, bob_in])
@@ -245,26 +246,32 @@ class XORGame:
         return (np.real(problem.value) / 4 + 1 / 2) ** self.reps
 
     def classical_value(self) -> float:
-        """Compute the classical value of the XOR game.
+        r"""Compute the classical value of the XOR game.
 
-        :return: A value between [0, 1] representing the classical value.
+        Returns:
+            A value between [0, 1] representing the classical value.
+
         """
         return self.to_nonlocal_game().classical_value()
 
     def nonsignaling_value(self) -> float:
         """Compute the nonsignaling value of an XOR game.
 
-        Here, the exising function in the :code:`NonlocalGame` class is called.
+        Here, the existing function in the `NonlocalGame` class is called.
 
-        :return: A value between [0, 1] representing the nonsignaling value.
+        Returns:
+            A value between [0, 1] representing the nonsignaling value.
+
         """
         return self.to_nonlocal_game().nonsignaling_value()
 
     def to_nonlocal_game(self) -> NonlocalGame:
-        """Given an XOR game, compute a predicate matrix representing the more generic :code:`NonlocalGame` equivalent.
+        """Given an XOR game, compute a predicate matrix representing the more generic `NonlocalGame` equivalent.
 
-        :return: A :code:`NonlocalGame` object equivalent to the XOR game.
-        """
+    Returns:
+        A `NonlocalGame` object equivalent to the XOR game.
+
+    """
         q_0, q_1 = self.prob_mat.shape
         xor_pred_mat = self.pred_mat
         nlg_pred_mat = np.ndarray((2, 2, q_0, q_1))

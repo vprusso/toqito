@@ -22,7 +22,7 @@ def fidelity_of_separability(
 ) -> float:
     r"""Define the first benchmark introduced in Appendix I of [@Philip_2023_Schrodinger].
 
-    If you would like to instead use the benchmark introduced in Appendix H, go to `toqito.state_metrics.fidelity_of_separability`.
+    If you would like to instead use the benchmark introduced in Appendix H, go to [state_metrics.fidelity_of_separability][toqito.state_metrics.fidelity_of_separability].
 
     In [@Philip_2023_Schrodinger], a variational quantum algorithm (VQA) is introduced to test the separability of a general bipartite state. The algorithm utilizes quantum steering between two separated systems such that the separability of the state is quantified.
 

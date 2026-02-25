@@ -12,6 +12,7 @@ def create_bcs_constraints(M: np.ndarray, b: np.ndarray) -> list[np.ndarray]:
     into an n-dimensional tensor of shape (2, 2, ..., 2) (one axis per variable).
 
     The conversion works as follows:
+
       1. For the i-th constraint, compute the constant value as ``rhs = (-1)**(b[i])``.
       2. Create an n-dimensional array (tensor) of shape ``(2,)*n`` filled with ``-rhs``.
       3. Compute the index from the first n entries of the i-th row of ``M`` by taking each value modulo 2.
@@ -30,28 +31,24 @@ def create_bcs_constraints(M: np.ndarray, b: np.ndarray) -> list[np.ndarray]:
 
     This tensor now represents the constraint in full detail.
 
-    :param M: A 2D binary NumPy array of shape (m, n). Each row represents a constraint on n variables.
-    :param b: A 1D binary array of length m. Each entry defines the sign of the constraint.
-    :return: A list of NumPy arrays, each of shape ``(2,)*n``. Each tensor represents
-             one constraint in tensor form.
-
-    Examples
-    ==========
-    .. jupyter-execute::
-
-     import numpy as np
-     from toqito.nonlocal_games.binary_constraint_system_game import create_bcs_constraints
-
-     M = np.array([[1, 1], [1, 1]], dtype=int)
-     b = np.array([0, 1], dtype=int)
-     constraints = create_bcs_constraints(M, b)
-     constraints[0].shape
-
-    References
-    ==========
-    .. footbibliography::
-
-    """
+    Args:
+        M: A 2D binary NumPy array of shape (m, n). Each row represents a constraint on n variables.
+        b: A 1D binary array of length m. Each entry defines the sign of the constraint.
+    
+    Returns:
+        A list of NumPy arrays, each of shape ``(2,)*n``. Each tensor represents one constraint in tensor form.
+        
+    Examples:
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.nonlocal_games.binary_constraint_system_game import create_bcs_constraints
+    
+    M = np.array([[1, 1], [1, 1]], dtype=int)
+    b = np.array([0, 1], dtype=int)
+    constraints = create_bcs_constraints(M, b)
+    print(constraints[0].shape)
+    ```
+"""
     m, n = M.shape
     constraints = []
     for i in range(m):
@@ -70,33 +67,30 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
     pairing it with the corresponding parity from ``b``. The bitmask representation
     can be useful for analyzing linear system games.
 
-    Notes
-    ========
+    NOTES
+
     The method used to determine the existence of a perfect commuting strategy was originally introduced
-    in :footcite:`Cleve_2016_Perfect`.
+    in [@Cleve_2016_Perfect].
 
-    Examples
-    ========
-    .. jupyter-execute::
+    Examples:
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.nonlocal_games.binary_constraint_system_game import generate_solution_group
+    
+    M = np.array([[1, 1, 0], [0, 1, 1]])
+    b = np.array([0, 1])
+    row_masks, parity = generate_solution_group(M, b)
+    print(row_masks)  # Output: [3, 6]
+    print(parity)     # Output: [0, 1]
+    ```
 
-     import numpy as np
-     from toqito.nonlocal_games.binary_constraint_system_game import generate_solution_group
+    Args:
+        M: A binary matrix of shape (m, n).Each row encodes which variables appear in a constraint.
+        b: A binary vector of length m.Each entry determines the parity for its corresponding constraint row.
 
-     M = np.array([[1, 1, 0], [0, 1, 1]])
-     b = np.array([0, 1])
-     row_masks, parity = generate_solution_group(M, b)
-     print(row_masks)  # Output: [3, 6]
-     print(parity)     # Output: [0, 1]
-
-    References
-    ==========
-    .. footbibliography::
-
-    :param M: A binary matrix of shape (m, n).Each row encodes which variables appear in a constraint.
-    :param b: A binary vector of length m.Each entry determines the parity for its corresponding constraint row.
-    :return: A list of integer bitmasks.
-    :return: A list of parity values.
-
+    Returns:
+        A list of integer bitmasks.
+        A list of parity values.
     """
     # Ensure M and b are binary.
     M = np.array(M, dtype=int) % 2
@@ -112,30 +106,27 @@ def check_perfect_commuting_strategy(M: np.ndarray, b: np.ndarray) -> bool:
 
     This function checks if the binary constraint system defined by ``Mx = b``
     admits a perfect commuting-operator strategy. It converts the constraints
-    to bitmask form, performs Gaussian elimination over :math:`\mathrm{GF}(2)`,
+    to bitmask form, performs Gaussian elimination over \(\mathrm{GF}(2)\),
     and examines the resulting constraint graph for cycles that indicate a nontrivial
     solution.
 
-    :param M: A binary matrix representing a system of parity constraints.
-    :param b: A binary vector representing the right-hand side of the constraint equations.
-    :return: ``True`` if a perfect commuting-operator strategy exists; otherwise, ``False``.
+    Args:
+        M: A binary matrix representing a system of parity constraints.
+        b: A binary vector representing the right-hand side of the constraint equations.
 
-    Examples
-    ==========
-    .. jupyter-execute::
+    Returns:
+        ``True`` if a perfect commuting-operator strategy exists; otherwise, ``False``.
 
-     import numpy as np
-     from toqito.nonlocal_games.binary_constraint_system_game import check_perfect_commuting_strategy
-
-     M = np.array([[1, 1], [1, 1]])
-     b = np.array([0, 1])
-     check_perfect_commuting_strategy(M, b)
-
-    References
-    ==========
-    .. footbibliography::
-
-    """
+    Examples:
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.nonlocal_games.binary_constraint_system_game import check_perfect_commuting_strategy
+    
+    M = np.array([[1, 1], [1, 1]])
+    b = np.array([0, 1])
+    print(check_perfect_commuting_strategy(M, b))
+    ```
+"""
     row, parity = generate_solution_group(M, b)
     m = len(row)
     combo = [1 << i for i in range(m)]

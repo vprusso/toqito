@@ -9,67 +9,67 @@ from toqito.matrix_props import is_density
 
 
 def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
-    r"""Compute the sub fidelity of two density matrices :footcite:`Miszczak_2008_Sub`.
+    r"""Compute the sub fidelity of two density matrices [@Miszczak_2008_Sub].
 
     The sub-fidelity is a measure of similarity between density operators. It is defined as
 
-    .. math::
+    \[
         E(\rho, \sigma) = \text{Tr}(\rho \sigma) +
         \sqrt{2 \left[ \text{Tr}(\rho \sigma)^2 - \text{Tr}(\rho \sigma \rho \sigma) \right]},
+    \]
 
-    where :math:`\sigma` and :math:`\rho` are density matrices. The sub-fidelity serves as an lower bound for the
+    where \(\sigma\) and \(\rho\) are density matrices. The sub-fidelity serves as an lower bound for the
     fidelity.
 
-    Examples
-    ==========
+    Examples:
 
     Consider the following pair of states:
 
-    .. math::
+    \[
         \rho = \frac{3}{4}|0\rangle \langle 0| +
                \frac{1}{4}|1 \rangle \langle 1|
                 \quad \text{and} \quad
         \sigma = \frac{1}{8}|0 \rangle \langle 0| +
                  \frac{7}{8}|1 \rangle \langle 1|.
+    \]
 
-    Calculating the fidelity between the states :math:`\rho` and :math:`\sigma` as :math:`F(\rho, \sigma) \approx
-    0.774`. This can be observed in :code:`|toqito⟩` as
+    Calculating the fidelity between the states \(\rho\) and \(\sigma\) as \(F(\rho, \sigma) \approx
+    0.774\). This can be observed in `|toqito⟩` as
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    from toqito.states import basis
+    from toqito.state_metrics import fidelity
+    
+    e_0, e_1 = basis(2, 0), basis(2, 1)
+    rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T
+    sigma = 1/8 * e_0 @ e_0.conj().T + 7/8 * e_1 @ e_1.conj().T
+    
+    print(fidelity(rho, sigma))
+    ```
 
-     from toqito.states import basis
-     from toqito.state_metrics import fidelity
+    As the sub-fidelity is a lower bound on the fidelity, that is \(E(\rho, \sigma) \leq F(\rho, \sigma)\), we can
+    use `|toqito⟩` to observe that \(E(\rho, \sigma) \approx 0.599\leq F(\rho, \sigma \approx 0.774\).
 
-     e_0, e_1 = basis(2, 0), basis(2, 1)
-     rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T
-     sigma = 1/8 * e_0 @ e_0.conj().T + 7/8 * e_1 @ e_1.conj().T
+    ```python exec="1" source="above"
+    from toqito.states import basis
+    from toqito.state_metrics import sub_fidelity
+    
+    e_0, e_1 = basis(2, 0), basis(2, 1)
+    rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T
+    sigma = 1/8 * e_0 @ e_0.conj().T + 7/8 * e_1 @ e_1.conj().T
+    
+    print(sub_fidelity(rho, sigma))
+    ```
 
-     fidelity(rho, sigma)
+    Raises:
+        ValueError: If matrices are not of equal dimension.
 
-    As the sub-fidelity is a lower bound on the fidelity, that is :math:`E(\rho, \sigma) \leq F(\rho, \sigma)`, we can
-    use :code:`|toqito⟩` to observe that :math:`E(\rho, \sigma) \approx 0.599\leq F(\rho, \sigma \approx 0.774`.
+    Args:
+        rho: Density operator.
+        sigma: Density operator.
 
-    .. jupyter-execute::
-
-     from toqito.states import basis
-     from toqito.state_metrics import sub_fidelity
-
-     e_0, e_1 = basis(2, 0), basis(2, 1)
-     rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T
-     sigma = 1/8 * e_0 @ e_0.conj().T + 7/8 * e_1 @ e_1.conj().T
-
-     sub_fidelity(rho, sigma)
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :raises ValueError: If matrices are not of equal dimension.
-    :param rho: Density operator.
-    :param sigma: Density operator.
-    :return: The sub-fidelity between :code:`rho` and :code:`sigma`.
+    Returns:
+        The sub-fidelity between `rho` and `sigma`.
 
     """
     # Perform some error checking.

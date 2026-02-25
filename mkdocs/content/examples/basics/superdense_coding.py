@@ -84,6 +84,6 @@ print(f"Decoded state:\n {decoded_state}")
 #
 measurement_probabilities = np.abs(decoded_state.flatten()) ** 2
 print(f"Measurement probabilities for basis states |00>, |01>, |10>, |11>: \n {measurement_probabilities}")
-
+# mkdocs_gallery_thumbnail_path = 'figures/logo.png'
 # %%
 

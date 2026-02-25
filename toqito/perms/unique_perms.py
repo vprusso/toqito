@@ -5,38 +5,38 @@ from dataclasses import dataclass
 
 @dataclass
 class UniqueElement:
-    """Class for unique elements to keep track of occurrences."""
+    """Class for unique elements to keep track of occurrences. """
 
     value: int
     occurrences: int
-
-
+    
 def unique_perms(elements: list[int]):
     r"""Determine the number of unique permutations of a list.
 
-    Examples
-    ==========
+    Examples:
 
     Consider the following vector
 
-    .. math::
+    \[
         \left[1, 1, 2, 2, 1, 2, 1, 3, 3, 3\right].
+    \]
 
-    The number of possible permutations possible with the above vector is :math:`4200`. This can be
-    obtained using the :code:`|toqito⟩` package as follows.
+    The number of possible permutations possible with the above vector is \(4200\). This can be
+    obtained using the `|toqito⟩` package as follows.
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    from toqito.perms import unique_perms
+    
+    vec_nums = [1, 1, 2, 2, 1, 2, 1, 3, 3, 3]
+    
+    print(len(list(unique_perms(vec_nums))))
+    ```
 
-     from toqito.perms import unique_perms
+    Args:
+        elements: List of integers.
 
-     vec_nums = [1, 1, 2, 2, 1, 2, 1, 3, 3, 3]
-
-     len(list(unique_perms(vec_nums)))
-
-
-
-    :param elements: List of integers.
-    :return: The number of possible permutations possible.
+    Returns:
+        The number of possible permutations possible.
 
     """
     elem_set = set(elements)
@@ -49,10 +49,11 @@ def unique_perms(elements: list[int]):
 def perm_unique_helper(list_unique: list[UniqueElement], result_list: list[int], elem_d: int):
     """Provide helper function for unique_perms.
 
-    :param list_unique:
-    :param result_list:
-    :param elem_d:
-    :return:
+    Args:
+        list_unique: 
+        result_list: 
+        elem_d: 
+
     """
     if elem_d < 0:
         yield tuple(result_list)

@@ -27,52 +27,53 @@ def learnability(
 
     This routine minimizes
 
-    .. math::
-
+    \[
         \frac{1}{n} \sum_{i = 1}^n \left\langle \rho_i,
         \sum_{S: i \notin S} M_S \right\rangle.
+    \]
 
-    over POVM elements :math:`(M_S)` indexed by ``k``-element subsets, subject to
-    :math:`\sum_S M_S = \mathbb{I}` and :math:`M_S \succeq 0`.  When all inputs are pure, the
+    over POVM elements \((M_S)\) indexed by ``k``-element subsets, subject to
+    \(\sum_S M_S = \mathbb{I}\) and \(M_S \succeq 0\).  When all inputs are pure, the
     reduced Gram-matrix SDP
 
-    .. math::
-
+    \[
         \sum_{i = 1}^n \bra{i} \sum_{S: i \notin S} W_S \ket{i}.
+    \]
 
-    with constraint :math:`\sum_S W_S = G` (Gram matrix) and :math:`W_S \succeq 0`
+    with constraint \(\sum_S W_S = G\) (Gram matrix) and \(W_S \succeq 0\)
     is also solved as a consistency check.
 
-    Examples
-    ========
+    Examples:
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    from toqito.state_props import learnability
+    from toqito.states import basis
+    
+    e0, e1 = basis(2, 0), basis(2, 1)
+    print(learnability(
+        [e0, e1],
+        k=1,
+        solver="SCS",
+        solver_kwargs={"eps": 1e-6, "max_iters": 5_000},
+    ))
+    ```
 
-        from toqito.state_props import learnability
-        from toqito.states import basis
-
-        e0, e1 = basis(2, 0), basis(2, 1)
-        learnability(
-            [e0, e1],
-            k=1,
-            solver="SCS",
-            solver_kwargs={"eps": 1e-6, "max_iters": 5_000},
-        )
-
-    :param states: Sequence of state vectors or density matrices acting on the same space.
-    :param k: Subset size for the POVM outcomes; must satisfy :code:`1 <= k <= len(states)`.
-    :param solver: Optional CVXPY solver name. Defaults to :code:`"SCS"`.
-    :param solver_kwargs: Extra keyword arguments forwarded to :meth:`cvxpy.Problem.solve`.
-    :param verify_reduced: If :code:`True` and the states are pure, also solve the reduced SDP.
-    :param verify_tolerance: Absolute tolerance used when comparing the two optimal values.
-    :param tol: Numerical tolerance used when validating positivity and rank-one states.
-    :return: Dictionary with keys :code:`value`, :code:`total_value`, :code:`status`,
-        :code:`measurement_operators`, and optionally :code:`reduced_value`,
-        :code:`reduced_total_value`, :code:`reduced_status`, :code:`reduced_operators`.
-    :raises ValueError: If the data are inconsistent with valid quantum states or if :code:`k`
-        lies outside the permissible range.
-    :raises cvxpy.error.SolverError: If the selected solver reports a failure.
-
+    Args:
+        states: Sequence of state vectors or density matrices acting on the same space.
+        k: Subset size for the POVM outcomes; must satisfy `1 <= k <= len(states)`.
+        solver: Optional CVXPY solver name. Defaults to `"SCS"`.
+        solver_kwargs: Extra keyword arguments forwarded to :meth:`cvxpy.Problem.solve`.
+        verify_reduced: If `True` and the states are pure, also solve the reduced SDP.
+        verify_tolerance: Absolute tolerance used when comparing the two optimal values.
+        tol: Numerical tolerance used when validating positivity and rank-one states.
+        
+    Returns:
+        Dictionary with keys `value`, `total_value`, `status`, `measurement_operators`, and optionally `reduced_value`,
+        `reduced_total_value`, `reduced_status`, `reduced_operators`.
+        
+    Raises:
+        ValueError: If the data are inconsistent with valid quantum states or if `k` lies outside the permissible range.
+        cvxpy.error.SolverError: If the selected solver reports a failure.
     """
     if not states:
         raise ValueError("The list of states must be non-empty.")
@@ -206,17 +207,19 @@ def _convert_states(
     *,
     tol: float,
 ) -> tuple[list[np.ndarray], list[np.ndarray] | None]:
-    """Normalize input states and detect whether they are uniformly pure.
+    r"""Normalize input states and detect whether they are uniformly pure.
 
-    Each entry in :code:`states` may be a state vector or a density matrix. The
+    Each entry in `states` may be a state vector or a density matrix. The
     routine converts every element to a unit-trace density matrix, checks
     positivity, and records the original pure state vectors when all inputs are
     rank one.
 
-    :param states: Collection of quantum states to normalize.
-    :param tol: Numerical tolerance used for positivity and rank checks.
-    :return: List of density matrices and, when available, the corresponding
-        state vectors.
+    Args:
+        states: Collection of quantum states to normalize.
+        tol: Numerical tolerance used for positivity and rank checks.
+
+    Returns:
+        List of density matrices and, when available, the corresponding state vectors.
 
     """
     density_matrices: list[np.ndarray] = []
@@ -299,6 +302,8 @@ def _solve_problem_with_scs(
 
 
 def _is_scs_solver(solver: Any | None) -> bool:
+
+
     """Return True when the requested solver corresponds to SCS."""
     if solver is None:
         return False

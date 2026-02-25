@@ -241,4 +241,6 @@ measurement on that shared state.
 # will construct well-known games such as the BB84 and CHSH extended nonlocal
 # games and use `|toqito⟩` to calculate their various values.
 #
+# %%
+# mkdocs_gallery_thumbnail_path = 'figures/logo.png'
 # We will start by examining the BB84 extended nonlocal game in [The BB84 extended nonlocal game](../enlg_bb84)

@@ -4,62 +4,56 @@ import numpy as np
 
 
 def in_separable_ball(mat: np.ndarray) -> bool | np.bool_:
-    r"""Check whether an operator is contained in ball of separability :footcite:`Gurvits_2002_Largest`.
+    r"""Check whether an operator is contained in ball of separability [@Gurvits_2002_Largest].
 
-    Determines whether :code:`mat` is contained within the ball of separable operators centered
+    Determines whether `mat` is contained within the ball of separable operators centered
     at the identity matrix (i.e. the maximally-mixed state). The size of this ball was derived in
-    :footcite:`Gurvits_2002_Largest`.
+    [@Gurvits_2002_Largest].
 
     This function can be used as a method for separability testing of states in certain scenarios.
 
     This function is adapted from QETLAB.
 
-    Examples
-    ==========
+    Examples:
 
-    The only states acting on :math:`\mathbb{C}^m \otimes \mathbb{C}^n` in the
+    The only states acting on \(\mathbb{C}^m \otimes \mathbb{C}^n\) in the
     separable ball that do not have full rank are those with exactly 1 zero
-    eigenvalue, and the :math:`mn - 1` non-zero eigenvalues equal to each
+    eigenvalue, and the \(mn - 1\) non-zero eigenvalues equal to each
     other.
 
     The following is an example of generating a random density matrix with eigenvalues
-    :code:`[1, 1, 1, 0]/3`. This example yields a matrix that is contained within the separable
+    `[1, 1, 1, 0]/3`. This example yields a matrix that is contained within the separable
     ball.
 
-    .. jupyter-execute::
-
-        from toqito.rand import random_unitary
-        from toqito.state_props import in_separable_ball
-        import numpy as np
-        U = random_unitary(4)
-        lam = np.array([1, 1, 1, 0]) / 3
-        rho = U @ np.diag(lam) @ U.conj().T
-        in_separable_ball(rho)
+    ```python exec="1" source="above"
+    from toqito.rand import random_unitary
+    from toqito.state_props import in_separable_ball
+    import numpy as np
+    U = random_unitary(4)
+    lam = np.array([1, 1, 1, 0]) / 3
+    rho = U @ np.diag(lam) @ U.conj().T
+    print(in_separable_ball(rho))
+    ```
 
     The following is an example of generating a random density matrix with eigenvalues
-    :code:`[1.01, 1, 0.99, 0]/3`. This example yields a matrix that is not contained within the
+    `[1.01, 1, 0.99, 0]/3`. This example yields a matrix that is not contained within the
     separable ball.
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    from toqito.rand import random_unitary
+    from toqito.state_props import in_separable_ball
+    import numpy as np
+    U = random_unitary(4)
+    lam = np.array([1.01, 1, 0.99, 0]) / 3
+    rho = U @ np.diag(lam) @ U.conj().T
+    print(in_separable_ball(rho))
+    ```
 
-        from toqito.rand import random_unitary
-        from toqito.state_props import in_separable_ball
-        import numpy as np
-        U = random_unitary(4)
-        lam = np.array([1.01, 1, 0.99, 0]) / 3
-        rho = U @ np.diag(lam) @ U.conj().T
-        in_separable_ball(rho)
+    Args:
+        mat: A positive semidefinite matrix or a vector of the eigenvalues of a positive semidefinite matrix.
 
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param mat: A positive semidefinite matrix or a vector of the eigenvalues of a positive
-                semidefinite matrix.
-    :return: :code:`True` if the matrix :code:`mat` is contained within the separable ball, and
-            :code:`False` otherwise.
+    Returns:
+        `True` if the matrix `mat` is contained within the separable ball, and `False` otherwise.
 
     """
     mat_dims = mat.shape
@@ -80,5 +74,5 @@ def in_separable_ball(mat: np.ndarray) -> bool | np.bool_:
     mat = mat / np.trace(mat)
 
     # The following check relies on the fact that we scaled the matrix so that trace(mat) = 1.
-    # The following condition is then exactly the condition mentioned in :footcite:`Gurvits_2002_Largest`.
+    # The following condition is then exactly the condition mentioned in [@Gurvits_2002_Largest].
     return np.linalg.norm(mat / np.linalg.norm(mat, "fro") ** 2 - np.eye(max_dim), "fro") <= 1

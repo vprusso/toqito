@@ -190,7 +190,7 @@ import numpy as np
 
 from toqito.state_opt import ppt_distinguishability
 from toqito.states import bell
-
+# mkdocs_gallery_thumbnail_path = 'figures/quantum_state_distinguish.svg'
 # Bell vectors:
 psi_0 = bell(0)
 psi_1 = bell(2)
