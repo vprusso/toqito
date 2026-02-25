@@ -58,7 +58,8 @@ def is_unextendible_product_basis(vecs: list[np.ndarray], dims: list[int]) -> tu
         dims: The list of dimensions.
 
     Returns:
-        Returns a tuple. The first element is `True` if input is a UPB and `False` otherwise. The second element is a witness (a product state orthogonal to all the input vectors) if the input is a PB and `None` otherwise.
+        Returns a tuple. The first element is `True` if input is a UPB and `False` otherwise. The second element is a
+        witness (a product state orthogonal to all the input vectors) if the input is a PB and `None` otherwise.
 
     """
     vecs = np.array(vecs)

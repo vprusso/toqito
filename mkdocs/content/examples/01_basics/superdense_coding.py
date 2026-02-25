@@ -1,6 +1,4 @@
-"""
-# Superdense Coding
-"""
+"""# Superdense Coding"""
 
 # %%
 # In classical communication, sending two bits of information requires transmitting
@@ -86,4 +84,3 @@ measurement_probabilities = np.abs(decoded_state.flatten()) ** 2
 print(f"Measurement probabilities for basis states |00>, |01>, |10>, |11>: \n {measurement_probabilities}")
 # mkdocs_gallery_thumbnail_path = 'figures/logo.png'
 # %%
-

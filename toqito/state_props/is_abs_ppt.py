@@ -71,12 +71,15 @@ def is_abs_ppt(
 
     Args:
         mat: A square matrix.
-        dim: The dimension of any one subsystem on which `mat` acts. If `None`, `dim` is selected such that `min(dim, mat.shape[0] // dim)` is maximised, since this gives the strongest conditions on being absolutely PPT (see Theorem 2 of [@Hildebrand_2007_AbsPPT]).
+        dim: The dimension of any one subsystem on which `mat` acts. If `None`, `dim` is selected such that
+        `min(dim, mat.shape[0] // dim)` is maximised, since this gives the strongest conditions on being absolutely PPT
+        (see Theorem 2 of [@Hildebrand_2007_AbsPPT]).
         rtol: The relative tolerance parameter (default 1e-05).
         atol: The absolute tolerance parameter (default 1e-08).
 
     Returns:
-        If `mat` is a 1D `cvxpy` Variable, return a list of `cvxpy` Constraints required for optimizing over the space of absolutely PPT matrices.
+        If `mat` is a 1D `cvxpy` Variable, return a list of `cvxpy` Constraints required for optimizing over the space
+        of absolutely PPT matrices.
 
     """
     if isinstance(mat, np.ndarray):

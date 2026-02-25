@@ -31,12 +31,11 @@ def bitflip(
     \]
 
     Examples:
-
     We can generate the Kraus operators for the bitflip channel with probability 0.3:
 
     ```python exec="1" source="above"
     from toqito.channels import bitflip
-    
+
     print(bitflip(prob=0.3))
     ```
 
@@ -47,7 +46,7 @@ def bitflip(
     ```python exec="1" source="above"
     import numpy as np
     from toqito.channels import bitflip
-    
+
     rho = np.array([[1, 0], [0, 0]])  # |0><0|
     print(bitflip(rho, prob=0.3))
     ```
@@ -57,7 +56,8 @@ def bitflip(
         prob: The probability of a bitflip occurring.
 
     Returns:
-        Either the Kraus operators of the bitflip channel if `input_mat` is `None`, or the result of applying the channel to `input_mat`.
+        Either the Kraus operators of the bitflip channel if `input_mat` is `None`, or the result of applying the
+        channel to `input_mat`.
 
     """
     if not (0 <= prob <= 1):

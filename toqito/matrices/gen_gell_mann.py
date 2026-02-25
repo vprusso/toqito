@@ -13,7 +13,6 @@ def gen_gell_mann(ind_1: int, ind_2: int, dim: int) -> np.ndarray:
     Gell-Mann operators when `dim = 3`.
 
     Examples:
-
     The generalized Gell-Mann matrix for `ind_1 = 0`, `ind_2 = 1`
     and `dim = 2` is given as
 
@@ -28,7 +27,7 @@ def gen_gell_mann(ind_1: int, ind_2: int, dim: int) -> np.ndarray:
 
     ```python exec="1" source="above"
     from toqito.matrices import gen_gell_mann
-    
+
     print(gen_gell_mann(ind_1=0, ind_2=1, dim=2))
     ```
 
@@ -48,7 +47,7 @@ def gen_gell_mann(ind_1: int, ind_2: int, dim: int) -> np.ndarray:
 
     ```python exec="1" source="above"
     from toqito.matrices import gen_gell_mann
-    
+
     gen_gell_mann(ind_1=2, ind_2=3, dim=4)
     ```
 

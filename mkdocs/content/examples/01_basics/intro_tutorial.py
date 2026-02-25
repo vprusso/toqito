@@ -1,10 +1,9 @@
-"""
-# Introductory Tutorial
+"""# Introductory Tutorial
 
 This tutorial illustrates the basics of how to use `|toqito⟩`. This will covers how to
 instantiate and use the fundamental objects that `|toqito⟩` provides; namely
 quantum states, channels, and measurements.
-""" 
+"""
 # %%
 # This is an introduction to the functionality in `|toqito⟩` and is not meant to serve as an
 # introduction to quantum information. For more information, please consult the book [@Chuang_2011_Quantum] or the freely available lecture notes [@Watrous_2018_TQI].
@@ -38,6 +37,7 @@ quantum states, channels, and measurements.
 # can be defined in `|toqito⟩` as such
 
 from toqito.matrices import standard_basis
+
 # mkdocs_gallery_thumbnail_path = 'figures/logo.png'
 # |0>
 standard_basis(2)[0]
@@ -222,7 +222,7 @@ is_separable(rho)
 # %%
 # Further properties that one can check via `|toqito⟩` may be found in the
 # [state properties module][toqito.state_props].
-# 
+#
 # ###Distance Metrics for Quantum States
 #
 # Given two quantum states, it is often useful to have some way in which to
@@ -399,7 +399,7 @@ partial_transpose(test_input_mat)
 
 # %%
 # By specifying the `sys = [0]` argument, we can perform the partial transpose over the
-# first subsystem (instead of the default second subsystem as done above). Performing the partial 
+# first subsystem (instead of the default second subsystem as done above). Performing the partial
 # transpose over the first subsystem yields the following matrix
 #
 # $$

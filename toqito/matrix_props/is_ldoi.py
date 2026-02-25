@@ -23,13 +23,12 @@ def is_ldoi(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
     standard basis representation.
 
     Examples:
-
     X-states are examples of 2-qubit LDOI states:
 
     ```python exec="1" source="above"
     from toqito.matrix_props import is_ldoi
     import numpy as np
-    
+
     # Example X-state
     x_state = np.array([[1, 0, 0, 2],
                          [0, 3, 4, 0],
@@ -43,7 +42,7 @@ def is_ldoi(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
     ```python exec="1" source="above"
     from toqito.matrix_props import is_ldoi
     import numpy as np
-    
+
     diagonal_state = np.diag([1, 2, 3, 4])
     print(is_ldoi(diagonal_state))
     ```
@@ -53,7 +52,7 @@ def is_ldoi(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
     ```python exec="1" source="above"
     from toqito.matrix_props import is_ldoi
     import numpy as np
-    
+
     # Random non-LDOI state
     non_ldoi = np.array([[1, 2, 3, 4],
                           [5, 6, 7, 8],

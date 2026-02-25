@@ -1,5 +1,4 @@
-"""
-# Nonlocal games
+"""# Nonlocal games
 
 In this tutorial, we are going to cover the notion of a *nonlocal game*; a
 mathematical framework that abstractly models a physical system. The simplest
@@ -278,7 +277,7 @@ cooperatively against an adversary referred to as the referee.
 # this in the matrix as follows.
 #
 
-#%%
+# %%
 # Creating the probability matrix.
 import numpy as np
 
@@ -444,6 +443,7 @@ print(f"Quantum value (lower bound): {np.around(ffl.quantum_value_lower_bound(),
 import numpy as np
 
 from toqito.nonlocal_games import NonlocalGame
+
 # mkdocs_gallery_thumbnail_path = 'figures/nonlocal_game.svg'
 # Define constraints c_1 and c_2.
 c_1 = np.zeros((2, 2))

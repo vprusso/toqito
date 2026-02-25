@@ -46,11 +46,11 @@ def is_quantum_channel(
     import numpy as np
     from toqito.matrices import pauli
     from toqito.channel_props import is_quantum_channel
-    
+
     U = (1/np.sqrt(2))*np.array([[1, 1],[-1, 1]])
     X = pauli("X")
     phi = X - np.matmul(U, np.matmul(X, np.conjugate(U)))
-    
+
     print(is_quantum_channel(phi))
     ```
 
@@ -59,9 +59,9 @@ def is_quantum_channel(
     ```python exec="1" source="above"
     from toqito.channels import depolarizing
     from toqito.channel_props import is_quantum_channel
-    
+
     choi_depolarizing = depolarizing(dim=2, param_p=0.2)
-    
+
     print(is_quantum_channel(choi_depolarizing))
     ```
 

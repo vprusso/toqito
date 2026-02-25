@@ -44,7 +44,6 @@ def is_trace_preserving(
     \]
 
     Examples:
-
     The map \(\Phi\) defined as
 
     \[
@@ -64,10 +63,10 @@ def is_trace_preserving(
     ```python exec="1" source="above"
     import numpy as np
     from toqito.channel_props import is_trace_preserving
-    
+
     unitary_mat = np.array([[1, 1], [-1, 1]]) / np.sqrt(2)
     kraus_ops = [[np.identity(2), np.identity(2)], [unitary_mat, -unitary_mat]]
-    
+
     print(is_trace_preserving(kraus_ops))
     ```
 
@@ -76,9 +75,9 @@ def is_trace_preserving(
     ```python exec="1" source="above"
     from toqito.channels import depolarizing
     from toqito.channel_props import is_trace_preserving
-    
+
     choi_mat = depolarizing(2)
-    
+
     print(is_trace_preserving(choi_mat))
     ```
 

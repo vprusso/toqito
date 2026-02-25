@@ -30,7 +30,6 @@ def partial_trace(
     given by the scalar or vector `sys`.
 
     Examples:
-
     Consider the following matrix
 
     \[
@@ -57,9 +56,9 @@ def partial_trace(
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_ops import partial_trace
-    
+
     test_input_mat = np.arange(1, 17).reshape(4, 4)
-    
+
     print(partial_trace(test_input_mat))
     ```
 
@@ -78,9 +77,9 @@ def partial_trace(
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_ops import partial_trace
-    
+
     test_input_mat = np.arange(1, 17).reshape(4, 4)
-    
+
     print(partial_trace(test_input_mat, [0]))
     ```
 
@@ -90,7 +89,7 @@ def partial_trace(
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_ops import partial_trace
-    
+
     test_input_mat = np.arange(1, 257).reshape(16, 16)
     print(test_input_mat)
     ```
@@ -103,7 +102,7 @@ def partial_trace(
     import numpy as np
     from toqito.matrix_ops import partial_trace
     test_input_mat = np.arange(1, 257).reshape(16, 16)
-    
+
     print(partial_trace(test_input_mat, [0, 2], [2, 2, 2, 2]))
     ```
 

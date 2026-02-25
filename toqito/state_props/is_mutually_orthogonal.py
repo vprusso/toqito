@@ -28,7 +28,6 @@ def is_mutually_orthogonal(vec_list: list[np.ndarray | list[float | Any]]) -> bo
     \(x, x^{\prime} \in \Sigma\).
 
     Examples:
-
     The Bell states constitute a set of mutually orthogonal vectors.
 
     ```python exec="1" source="above"

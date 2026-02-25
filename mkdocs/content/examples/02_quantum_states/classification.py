@@ -1,5 +1,4 @@
-"""
-# Quantum classification, factor width, $k$-incoherence
+"""# Quantum classification, factor width, k-incoherence
 
 This example accompanies the "The complexity of quantum state classification"
 paper [@Johnston_2025_Complexity].
@@ -36,6 +35,8 @@ def tetrahedral_states() -> list[np.ndarray]:
         np.array([-1, -1, 1], dtype=np.complex128) / np.sqrt(3),
         np.array([-1, 1, -1], dtype=np.complex128) / np.sqrt(3),
     ]
+
+
 print(tetrahedral_states())
 
 # %%
@@ -47,6 +48,7 @@ from toqito.state_props import learnability
 states = tetrahedral_states()
 learnability_result = learnability(states, k=2)
 print(f"Average classification error (k=2): {learnability_result['value']}")
+
 
 # %%
 # Indeed, can be accomplished using the following POVM $M_{i,j} =
@@ -76,6 +78,7 @@ def povm_residual(states: list[np.ndarray], povm: dict[tuple[int, int], np.ndarr
                 zero_residual = max(zero_residual, np.abs(np.vdot(state, operator @ state)))
     return sum_residual, zero_residual
 
+
 phi_vectors = {
     (0, 1): np.array([0, 1, 1], dtype=np.complex128) / np.sqrt(2),
     (0, 2): np.array([1, 1, 0], dtype=np.complex128) / np.sqrt(2),
@@ -98,7 +101,7 @@ learnability_result = learnability(states, k=1)
 print(f"Average classification error (k=1): {learnability_result['value']}")
 
 # %%
-# ## $k$-Incoherence
+# ## k-Incoherence
 # The notion of $k$-incoherence comes from
 # [@Johnston_2022_Absolutely]. For a positive integers, $k$ and
 # $n$, the matrix $X \in \text{Pos}(\mathbb{C}^n)$ is called
@@ -107,7 +110,7 @@ print(f"Average classification error (k=1): {learnability_result['value']}")
 # \subset \mathbb{C}^n$ with the property that each $|\psi_i\rangle$ has
 # at most $k$ non-zero entries, and real scalars $c_0, c_1, \ldots,
 # c_{m-1} \geq 0$ for which
-# 
+#
 # $$
 # X = \sum_{j=0}^{m-1} c_j |\psi_j\rangle \langle \psi_j|.
 # $$
@@ -128,19 +131,18 @@ print(f"Average classification error (k=1): {learnability_result['value']}")
 #
 from toqito.matrix_props import is_k_incoherent
 
-
 mat = np.array([[2, 1, 2], [1, 2, -1], [2, -1, 5]])
 print(is_k_incoherent(mat, 2))
 
 # %%
 # ## Factor width
-# 
+#
 # Another closely related definition to $k$-incoherence is that of
 # factor width [@Barioli_2003_Maximal][@Johnston_2025_Factor][@Boman_2005_factor] below.
 #
 # Let $k$ be a positive integer. The factor width of a positive
 # semidefinite matrix $X$ is the smallest $k$ such that it is
-# $k$-incoherent. 
+# $k$-incoherent.
 #
 # For example, the matrix $\operatorname{diag}(1, 1, 0)$ has factor width
 # at most $1$.
@@ -152,7 +154,7 @@ result = factor_width(diag_mat, k=1)
 print(result["feasible"])
 
 
-# %% 
+# %%
 # Conversely, the rank-one matrix $\frac{1}{2}\begin{pmatrix} 1 & 1 \\ 1
 # & 1 \end{pmatrix}$ is not $1$-factorable.
 
@@ -234,7 +236,7 @@ mat = np.array(
 )
 result = factor_width(mat, k=3)
 print(sum(result["factors"]))
-    
+
 # %%
 # To similarly determine whether or not $M$ is $2$-incoherent, we proceed further with the recursive
 # construction by computing

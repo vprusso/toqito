@@ -9,7 +9,6 @@ def is_square(mat: np.ndarray) -> bool:
     A matrix is square if the dimensions of the rows and columns are equivalent.
 
     Examples:
-
     Consider the following matrix
 
     \[
@@ -25,9 +24,9 @@ def is_square(mat: np.ndarray) -> bool:
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import is_square
-    
+
     A = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-    
+
     print(is_square(A))
     ```
 
@@ -45,9 +44,9 @@ def is_square(mat: np.ndarray) -> bool:
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import is_square
-    
+
     B = np.array([[1, 2, 3], [4, 5, 6]])
-    
+
     print(is_square(B))
     ```
 

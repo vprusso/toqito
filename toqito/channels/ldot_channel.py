@@ -30,13 +30,12 @@ def ldot_channel(mat: np.ndarray, efficient: bool = True) -> np.ndarray:
     of the exponential \(O(2^n)\) for the brute-force approach.
 
     Examples:
-
     Apply LDOT channel to project an arbitrary matrix onto LDOI subspace:
 
     ```python exec="1" source="above"
     from toqito.channels import ldot_channel
     import numpy as np
-    
+
     # Arbitrary 2-qubit matrix
     mat = np.array([[1, 2, 3, 4],
                     [5, 6, 7, 8],
@@ -51,7 +50,7 @@ def ldot_channel(mat: np.ndarray, efficient: bool = True) -> np.ndarray:
     ```python exec="1" source="above"
     from toqito.channels import ldot_channel
     import numpy as np
-    
+
     mat = np.random.rand(4, 4)
     once = ldot_channel(mat)
     twice = ldot_channel(once)
@@ -64,7 +63,7 @@ def ldot_channel(mat: np.ndarray, efficient: bool = True) -> np.ndarray:
                 \(\mathcal{X} = \mathcal{Y} = \mathbb{C}^n\).
         efficient: If True, use the efficient O(n²) standard basis implementation. If False,
                       use the brute-force O(2ⁿ) implementation (useful for verification).
-                      
+
     Returns:
         The LDOI projection of the input matrix.
 
@@ -91,24 +90,23 @@ def _ldot_channel_standard_basis(mat: np.ndarray) -> np.ndarray:
             for k in range(dim):
                 for target in range(dim):
                     col = k * dim + target
-                    if (
-                        (i == j and k == target)
-                        or (i == k and j == target)
-                        or (i == target and j == k)
-                    ):
+                    if (i == j and k == target) or (i == k and j == target) or (i == target and j == k):
                         result[row, col] = mat[row, col]
 
     return result
 
 
 def _ldot_channel_brute_force(mat: np.ndarray) -> np.ndarray:
-    """Brute-force O(2ⁿ) implementation by averaging over all diagonal ±1 matrices.
+    r"""Brute-force O(2ⁿ) implementation by averaging over all diagonal ±1 matrices.
 
     This implementation is provided for verification purposes and to match the mathematical
     definition exactly. For practical use, the efficient implementation should be preferred.
+
     Args:
-        mat: A square matrix of dimension \(n^2 \times n^2\) representing a bipartite operator on \(\mathcal{X} \otimes \mathcal{Y}\) where \(\mathcal{X} = \mathcal{Y} = \mathbb{C}^n\).
-        efficient: If True, use the efficient O(n²) standard basis implementation. If False, use the brute-force O(2ⁿ) implementation (useful for verification).
+        mat: A square matrix of dimension \\(n^2 \times n^2\\) representing a bipartite operator on
+        \\(\\mathcal{X} \\otimes \\mathcal{Y}\\) where \\(\\mathcal{X} = \\mathcal{Y} = \\mathbb{C}^n\\).
+        efficient: If True, use the efficient O(n²) standard basis implementation. If False, use the brute-force O(2ⁿ)
+        implementation (useful for verification).
 
     Returns:
         The LDOI projection of the input matrix.

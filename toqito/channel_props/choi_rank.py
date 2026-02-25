@@ -11,7 +11,6 @@ def choi_rank(phi: np.ndarray | list[list[np.ndarray]]) -> int:
     (Section 2.2: Quantum Channels from [@Watrous_2018_TQI]).
 
     Examples:
-
     The transpose map can be written either in Choi representation (as a
     SWAP operator) or in Kraus representation. If we choose the latter, it
     will be given by the following matrices:
@@ -43,7 +42,7 @@ def choi_rank(phi: np.ndarray | list[list[np.ndarray]]) -> int:
     ```python exec="1" source="above"
     import numpy as np
     from toqito.channel_props import choi_rank
-    
+
     kraus_1 = np.array([[1, 0], [0, 0]])
     kraus_2 = np.array([[1, 0], [0, 0]]).conj().T
     kraus_3 = np.array([[0, 1], [0, 0]])
@@ -53,7 +52,7 @@ def choi_rank(phi: np.ndarray | list[list[np.ndarray]]) -> int:
     kraus_7 = np.array([[0, 0], [0, 1]])
     kraus_8 = np.array([[0, 0], [0, 1]]).conj().T
     kraus_ops = [[kraus_1, kraus_2], [kraus_3, kraus_4],[kraus_5, kraus_6],[kraus_7, kraus_8]]
-    
+
     print(choi_rank(kraus_ops))
     ```
 

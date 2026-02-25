@@ -11,7 +11,8 @@ def is_positive(input_mat: np.ndarray) -> bool:
 
     !!! note
         This function is different from [`is_positive_definite`][toqito.matrix_props.is_positive_definite],
-        [`is_totally_positive`][toqito.matrix_props.is_totally_positive] and [`is_positive_semidefinite`][toqito.matrix_props.is_positive_semidefinite].
+        [`is_totally_positive`][toqito.matrix_props.is_totally_positive] and
+        [`is_positive_semidefinite`][toqito.matrix_props.is_positive_semidefinite].
 
     Examples:
     We expect a matrix full of 1s to be positive.
@@ -19,9 +20,9 @@ def is_positive(input_mat: np.ndarray) -> bool:
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import is_positive
-    
+
     input_mat = np.array([[1, 1, 1],[1, 1, 1],[1, 1, 1]])
-    
+
     print(is_positive(input_mat))
     ```
 

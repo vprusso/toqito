@@ -22,7 +22,6 @@ def bures_angle(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> flo
     corresponding to the case `rho_1` and `rho_2` with orthogonal support.
 
     Examples:
-
     Consider the following Bell state
 
     \[
@@ -46,7 +45,7 @@ def bures_angle(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> flo
     ```python exec="1" source="above"
     import numpy as np
     from toqito.state_metrics import bures_angle
-    
+
     rho = 1 / 2 * np.array(
         [[1, 0, 0, 1],
          [0, 0, 0, 0],
@@ -54,7 +53,7 @@ def bures_angle(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> flo
          [1, 0, 0, 1]]
     )
     sigma = rho
-    
+
     print(bures_angle(rho, sigma))
     ```
 

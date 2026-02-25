@@ -1,5 +1,4 @@
-"""
-# Calculating the quantum and classical value of a two-player XOR game
+"""# Calculating the quantum and classical value of a two-player XOR game
 
 In this tutorial, we will cover the concept of an *XOR game*. We will also
 showcase how the `|toqito⟩` software package can be used to calculate the

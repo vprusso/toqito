@@ -25,7 +25,7 @@ def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = Non
 
     The Schmidt rank is the number of non-zero eigenvalues of \(A\). The Schmidt rank allows us
     to determine if a given state is entangled or separable. For instance:
-    
+
     - If the Schmidt rank is 1: The state is separable,
     - If the Schmidt rank > 1: The state is entangled.
 
@@ -37,7 +37,6 @@ def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = Non
     determined as the number of Schmidt coefficients larger than `tol`.
 
     Examples:
-
     Computing the Schmidt rank of the entangled Bell state should yield a value greater than one.
 
     ```python exec="1" source="above"
@@ -74,13 +73,14 @@ def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = Non
     rho = rho @ rho.conj().T
     print(schmidt_rank(rho))
     ```
-    
+
     Args:
         rho: A bipartite vector or matrix to have its Schmidt rank computed.
         dim: A 1-by-2 vector or matrix.
 
     Returns:
         The Schmidt rank of `rho`.
+
     """
     # If the input is provided as a matrix, compute the operator Schmidt rank.
     if len(rho.shape) == 2:

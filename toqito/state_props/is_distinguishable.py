@@ -15,7 +15,6 @@ def is_distinguishable(states: list[np.ndarray], probs: list[float] | None = Non
     distinguishability SDP as defined in `state_distinguishability`
 
     Examples:
-
     The set of Bell states are an example of distinguishable states. Recall that the Bell states are defined as:
 
     \[
@@ -38,7 +37,8 @@ def is_distinguishable(states: list[np.ndarray], probs: list[float] | None = Non
 
     Args:
         states: A set of vectors consisting of quantum states to determine the distinguishability of.
-        probs: Respective list of probabilities each state is selected. If no probabilities are provided, a uniform probability distribution is assumed.
+        probs: Respective list of probabilities each state is selected. If no probabilities are provided, a uniform
+        probability distribution is assumed.
 
     Returns:
         `True` if the vectors are distinguishable; `False` otherwise.

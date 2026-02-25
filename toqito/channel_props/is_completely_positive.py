@@ -29,7 +29,6 @@ def is_completely_positive(
     channel is both Hermitian-preserving and positive semidefinite.
 
     Examples:
-
     We can specify the input as a list of Kraus operators. Consider the map \(\Phi\) defined as
 
     \[
@@ -51,10 +50,10 @@ def is_completely_positive(
     ```python exec="1" source="above"
     import numpy as np
     from toqito.channel_props import is_completely_positive
-    
+
     unitary_mat = np.array([[1, 1], [-1, 1]]) / np.sqrt(2)
     kraus_ops = [[np.identity(2), np.identity(2)], [unitary_mat, -unitary_mat]]
-    
+
     print(is_completely_positive(kraus_ops))
     ```
 
@@ -77,7 +76,7 @@ def is_completely_positive(
     ```python exec="1" source="above"
     from toqito.channels import depolarizing
     from toqito.channel_props import is_completely_positive
-    
+
     print(is_completely_positive(depolarizing(2)))
     ```
 

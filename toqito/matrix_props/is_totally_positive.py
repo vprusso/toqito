@@ -47,9 +47,9 @@ def is_totally_positive(mat: np.ndarray, tol: float = 1e-6, sub_sizes: list | No
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import is_totally_positive
-    
+
     A = np.array([[1, 2], [3, 4]])
-    
+
     print(is_totally_positive(A))
     ```
 
@@ -74,9 +74,9 @@ def is_totally_positive(mat: np.ndarray, tol: float = 1e-6, sub_sizes: list | No
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import is_totally_positive
-    
+
     B = np.array([[1, 2], [3, -4]])
-    
+
     print(is_totally_positive(B))
     ```
 

@@ -21,7 +21,6 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     corresponding to the case `rho = sigma`.
 
     Examples:
-
     Consider the following Bell state
 
     \[
@@ -45,7 +44,7 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     ```python exec="1" source="above"
     import numpy as np
     from toqito.state_metrics import fidelity
-    
+
     rho = 1 / 2 * np.array(
         [[1, 0, 0, 1],
          [0, 0, 0, 0],
@@ -53,7 +52,7 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
          [1, 0, 0, 1]]
     )
     sigma = rho
-    
+
     print(fidelity(rho, sigma))
     ```
 

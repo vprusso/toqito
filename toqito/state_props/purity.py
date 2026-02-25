@@ -18,7 +18,6 @@ def purity(rho: np.ndarray) -> float:
     where \(\text{Tr}\) is the trace function.
 
     Examples:
-
     Consider the following scaled state defined as the scaled identity matrix
 
     \[

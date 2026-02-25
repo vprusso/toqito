@@ -11,7 +11,6 @@ def is_hermitian(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> b
     A Hermitian matrix is a complex square matrix that is equal to its own conjugate transpose.
 
     Examples:
-
     Consider the following matrix:
 
     \[
@@ -31,9 +30,9 @@ def is_hermitian(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> b
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import is_hermitian
-    
+
     mat = np.array([[2, 2 + 1j, 4], [2 - 1j, 3, 1j], [4, -1j, 1]])
-    
+
     print(is_hermitian(mat))
     ```
 
@@ -52,9 +51,9 @@ def is_hermitian(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> b
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import is_hermitian
-    
+
     mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-    
+
     print(is_hermitian(mat))
     ```
 

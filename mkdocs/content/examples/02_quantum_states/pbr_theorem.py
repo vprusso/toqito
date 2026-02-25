@@ -1,5 +1,4 @@
-"""
-# The Pusey-Barrett-Rudolph (PBR) Theorem
+"""# The Pusey-Barrett-Rudolph (PBR) Theorem
 
 In this tutorial, we will explore the Pusey-Barrett-Rudolph (PBR) theorem,
 a significant no-go theorem in the foundations of quantum mechanics. We will

@@ -11,7 +11,6 @@ def is_circulant(mat: np.ndarray) -> bool:
     relative to the preceding row vector.
 
     Examples:
-
     Consider the following matrix:
 
     \[
@@ -29,9 +28,9 @@ def is_circulant(mat: np.ndarray) -> bool:
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import is_circulant
-    
+
     mat = np.array([[4, 1, 2, 3], [3, 4, 1, 2], [2, 3, 4, 1], [1, 2, 3, 4]])
-    
+
     print(is_circulant(mat))
     ```
 

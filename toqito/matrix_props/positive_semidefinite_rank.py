@@ -30,7 +30,7 @@ def positive_semidefinite_rank(mat: np.ndarray, max_rank: int = 10) -> int | Non
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import positive_semidefinite_rank
-    
+
     print(positive_semidefinite_rank(1/2 * np.array([[0, 1, 1], [1,0,1], [1,1,0]])))
     ```
 
@@ -40,7 +40,7 @@ def positive_semidefinite_rank(mat: np.ndarray, max_rank: int = 10) -> int | Non
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import positive_semidefinite_rank
-    
+
     print(positive_semidefinite_rank(np.identity(3)))
     ```
 

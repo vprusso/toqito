@@ -10,15 +10,14 @@ def random_unitary(dim: list[int] | int, is_real: bool = False, seed: int | None
     matrix (if `is_real = True`), uniformly distributed according to the Haar measure.
 
     Examples:
-
     We may generate a random unitary matrix. Here is an example of how we may be able to generate a
     random \(2\)-dimensional random unitary matrix with complex entries.
 
     ```python exec="1" source="above" session="complex_dm"
     from toqito.rand import random_unitary
-    
+
     complex_dm = random_unitary(2)
-    
+
     print(complex_dm)
     ```
 
@@ -28,7 +27,7 @@ def random_unitary(dim: list[int] | int, is_real: bool = False, seed: int | None
 
     ```python exec="1" source="above" session="complex_dm"
     from toqito.matrix_props import is_unitary
-    
+
     print(is_unitary(complex_dm))
     ```
 
@@ -36,9 +35,9 @@ def random_unitary(dim: list[int] | int, is_real: bool = False, seed: int | None
 
     ```python exec="1" source="above" session="real_dm"
     from toqito.rand import random_unitary
-    
+
     real_dm = random_unitary(2, True)
-    
+
     print(real_dm)
     ```
 
@@ -47,7 +46,7 @@ def random_unitary(dim: list[int] | int, is_real: bool = False, seed: int | None
 
     ```python exec="1" source="above" session="real_dm"
     from toqito.matrix_props import is_unitary
-    
+
     print(is_unitary(real_dm))
     ```
 
@@ -56,9 +55,9 @@ def random_unitary(dim: list[int] | int, is_real: bool = False, seed: int | None
 
     ```python exec="1" source="above" session="mat"
     from toqito.rand import random_unitary
-    
+
     mat = random_unitary([4, 4], True)
-    
+
     print(mat)
     ```
 
@@ -67,7 +66,7 @@ def random_unitary(dim: list[int] | int, is_real: bool = False, seed: int | None
 
     ```python exec="1" source="above" session="mat"
     from toqito.matrix_props import is_unitary
-    
+
     print(is_unitary(mat))
     ```
 
@@ -75,9 +74,9 @@ def random_unitary(dim: list[int] | int, is_real: bool = False, seed: int | None
 
     ```python exec="1" source="above" session="seeded"
     from toqito.rand import random_unitary
-    
+
     seeded = random_unitary(2, seed=42)
-    
+
     print(seeded)
     ```
 
@@ -85,7 +84,7 @@ def random_unitary(dim: list[int] | int, is_real: bool = False, seed: int | None
 
     ```python exec="1" source="above" session="seeded"
     from toqito.matrix_props import is_unitary
-    
+
     print(is_unitary(seeded))
     ```
 

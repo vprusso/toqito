@@ -63,7 +63,6 @@ def horodecki(a_param: float, dim: list[int] | None = None) -> np.ndarray:
         [@Horodecki_1997_Separability].
 
     Examples:
-
     The following code generates a Horodecki state in \(\mathbb{C}^3 \otimes \mathbb{C}^3\)
 
     ```python exec="1" source="above"
@@ -78,7 +77,8 @@ def horodecki(a_param: float, dim: list[int] | None = None) -> np.ndarray:
     from toqito.states import horodecki
     print(horodecki(0.5, [2, 4]))
     ```
-"""
+
+    """
     if a_param < 0 or a_param > 1:
         raise ValueError("Invalid: Argument A_PARAM must be in the interval [0, 1].")
 

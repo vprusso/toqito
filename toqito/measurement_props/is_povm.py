@@ -21,7 +21,6 @@ def is_povm(mat_list: list[np.ndarray]) -> bool:
     \]
 
     Examples:
-
     Consider the following matrices:
 
     \[
@@ -44,11 +43,11 @@ def is_povm(mat_list: list[np.ndarray]) -> bool:
     ```python exec="1" source="above"
     import numpy as np
     from toqito.measurement_props import is_povm
-    
+
     meas_1 = np.array([[1, 0], [0, 0]])
     meas_2 = np.array([[0, 0], [0, 1]])
     meas = [meas_1, meas_2]
-    
+
     print(is_povm(meas))
     ```
 
@@ -59,10 +58,10 @@ def is_povm(mat_list: list[np.ndarray]) -> bool:
     import numpy as np
     from toqito.rand import random_povm
     from toqito.measurement_props import is_povm
-    
+
     dim, num_inputs, num_outputs = 2, 2, 2
     measurements = random_povm(dim, num_inputs, num_outputs)
-    
+
     print(is_povm([measurements[:, :, 0, 0], measurements[:, :, 0, 1]]))
     ```
 
@@ -87,11 +86,11 @@ def is_povm(mat_list: list[np.ndarray]) -> bool:
     ```python exec="1" source="above"
     import numpy as np
     from toqito.measurement_props import is_povm
-    
+
     non_meas_1 = np.array([[1, 2], [3, 4]])
     non_meas_2 = np.array([[5, 6], [7, 8]])
     non_meas = [non_meas_1, non_meas_2]
-    
+
     print(is_povm(non_meas))
     ```
 

@@ -18,10 +18,11 @@ class XORGame:
 
     This function is adapted from the QETLAB package.
 
-    A tutorial is available in the documentation. Go to [ Calculating the quantum and classical value of a two-player XOR game](../../../generated/gallery/nonlocal_games/xor_quantum_val.md).
+    A tutorial is available in the documentation. Go to
+    [Calculating the quantum and classical value of a two-player XOR game]
+    (../../../generated/gallery/nonlocal_games/xor_quantum_val.md).
 
     Examples:
-
     The CHSH game
 
     The CHSH game is a two-player nonlocal game with the following probability
@@ -65,7 +66,7 @@ class XORGame:
 
     ```python exec="1" source="above" session="chsh"
     import numpy as np
-    
+
     prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
     pred_mat = np.array([[0, 0], [0, 1]])
     ```
@@ -76,9 +77,9 @@ class XORGame:
     ```python exec="1" source="above" session="chsh"
     import numpy as np
     from toqito.nonlocal_games.xor_game import XORGame
-    
+
     chsh = XORGame(prob_mat, pred_mat)
-    
+
     print(f"Quantum value of the CHSH game is {np.around(chsh.quantum_value(), decimals=2)}")
     print(f"Classical value of the CHSH game is {chsh.classical_value()}")
     ```
@@ -115,9 +116,9 @@ class XORGame:
     ```python exec="1" source="above" session="odd_cycle"
     import numpy as np
     from toqito.nonlocal_games.xor_game import XORGame
-    
+
     odd_cycle = XORGame(prob_mat, pred_mat)
-    
+
     print(f"Quantum value of the odd cycle game is {np.around(odd_cycle.quantum_value(), decimals=2)}")
     print(f"Classical value of the odd cycle game is {np.around(odd_cycle.classical_value(), decimals=1)}")
     ```
@@ -128,7 +129,8 @@ class XORGame:
     ```python exec="1" source="above" session="odd_cycle"
     print(f"Nonsignaling value of the odd cycle game is {np.around(odd_cycle.nonsignaling_value(), decimals=1)}")
     ```
-"""
+
+    """
 
     def __init__(
         self,
@@ -150,8 +152,10 @@ class XORGame:
             pred_mat: A binary matrix whose (q_0, q_1)-entry indicates the
                                  winning choice (either 0 or 1) when Alice and Bob receive
                                  values `q_0` and `q_1` from the referee.
+            reps: int
             tol: The error tolerance for the value.
                                                 dimension of predicate matrix.
+
         """
         self.prob_mat = prob_mat
         self.pred_mat = pred_mat
@@ -179,11 +183,11 @@ class XORGame:
     def quantum_value(self) -> float:
         r"""Compute the quantum value of the XOR game.
 
-    To obtain the quantum value of the XOR game, we calculate the following
+        To obtain the quantum value of the XOR game, we calculate the following
         simplified dual problem of the semidefinite program from the set of
         notes: Lecture 6 of [@Watrous_2011_Lecture_Notes]
 
-    \[
+        \[
         \begin{equation}
                 \begin{aligned}
                         \text{minimize:} \quad & \frac{1}{2} \sum_{x \in X} u(x) +
@@ -198,17 +202,17 @@ class XORGame:
                                             v \in \mathbb{R}^Y.
                 \end{aligned}
         \end{equation}
-    \]
+        \]
 
-    where \(D\) is the matrix defined to be
+        where \(D\) is the matrix defined to be
 
-    \[
+        \[
         D(x,y) = \pi(x, y) (-1)^{f(x,y)}
-    \]
+        \]
 
-    In other words, \(\pi(x, y)\) corresponds to `prob_mat[x, y]`, and \(f(x,y)\) corresponds to `pred_mat[x, y]`.
+        In other words, \(\pi(x, y)\) corresponds to `prob_mat[x, y]`, and \(f(x,y)\) corresponds to `pred_mat[x, y]`.
 
-    Returns: 
+        Returns:
         A value between [0, 1] representing the quantum value.
 
         """
@@ -268,10 +272,10 @@ class XORGame:
     def to_nonlocal_game(self) -> NonlocalGame:
         """Given an XOR game, compute a predicate matrix representing the more generic `NonlocalGame` equivalent.
 
-    Returns:
-        A `NonlocalGame` object equivalent to the XOR game.
+        Returns:
+            A `NonlocalGame` object equivalent to the XOR game.
 
-    """
+        """
         q_0, q_1 = self.prob_mat.shape
         xor_pred_mat = self.pred_mat
         nlg_pred_mat = np.ndarray((2, 2, q_0, q_1))

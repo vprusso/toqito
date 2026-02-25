@@ -35,9 +35,9 @@ def is_unitary(phi: np.ndarray | list[list[np.ndarray]]) -> bool:
     ```python exec="1" source="above"
     import numpy as np
     from toqito.channel_props import is_unitary
-    
+
     kraus_ops = [[np.identity(2), np.identity(2)]]
-    
+
     print(is_unitary(kraus_ops))
     ```
 
@@ -60,7 +60,7 @@ def is_unitary(phi: np.ndarray | list[list[np.ndarray]]) -> bool:
     ```python exec="1" source="above"
     from toqito.channels import depolarizing
     from toqito.channel_props import is_unitary
-    
+
     print(is_unitary(depolarizing(2)))
     ```
 

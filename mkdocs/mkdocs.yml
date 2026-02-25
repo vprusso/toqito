@@ -31,7 +31,7 @@ nav:
   - Getting Started: getting-started.md
   - Contributing Guide: contributing-guide.md
   - Code of Conduct: code-of-conduct.md
-  - generated/gallery/index.md
+  - Examples: generated/gallery
   - API Reference
   - References: references.md
 

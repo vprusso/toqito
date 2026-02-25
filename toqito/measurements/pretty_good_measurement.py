@@ -36,7 +36,7 @@ def pretty_good_measurement(
     ```python exec="1" source="above"
     from toqito.states import trine
     from toqito.measurements import pretty_good_measurement
-    
+
     states = trine()
     probs = [1 / 3, 1 / 3, 1 / 3]
     pgm = pretty_good_measurement(states, probs)

@@ -49,7 +49,6 @@ def optimal_clone(
     \]
 
     Examples:
-
     Wiesner's original quantum money scheme [@Wiesner_1983_Conjugate] was shown in
     [@Molina_2012_Optimal] to have an optimal probability of 3/4 for succeeding a counterfeiting attack.
 
@@ -80,14 +79,14 @@ def optimal_clone(
     import numpy as np
     from toqito.states import basis
     from toqito.state_opt import optimal_clone
-    
+
     e_0, e_1 = basis(2, 0), basis(2, 1)
     e_p = (e_0 + e_1) / np.sqrt(2)
     e_m = (e_0 - e_1) / np.sqrt(2)
-    
+
     states = [e_0, e_1, e_p, e_m]
     probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
-    
+
     print(np.around(optimal_clone(states, probs), decimals=2))
     ```
 
@@ -99,6 +98,7 @@ def optimal_clone(
 
     Returns:
         The optimal probability with of counterfeiting quantum money.
+
     """
     dim = len(states[0]) ** 3
 
@@ -144,6 +144,7 @@ def primal_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
 
     Returns:
         The optimal value of performing a counterfeit attack.
+
     """
     num_spaces = 3
 

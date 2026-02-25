@@ -31,7 +31,6 @@ def domino(idx: int) -> np.ndarray:
     Returns one of the following nine domino states depending on the value of `idx`.
 
     Examples:
-
     When `idx = 0`, this produces the following Domino state
 
     \[

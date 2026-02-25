@@ -5,16 +5,16 @@ from dataclasses import dataclass
 
 @dataclass
 class UniqueElement:
-    """Class for unique elements to keep track of occurrences. """
+    """Class for unique elements to keep track of occurrences."""
 
     value: int
     occurrences: int
-    
+
+
 def unique_perms(elements: list[int]):
     r"""Determine the number of unique permutations of a list.
 
     Examples:
-
     Consider the following vector
 
     \[
@@ -26,9 +26,9 @@ def unique_perms(elements: list[int]):
 
     ```python exec="1" source="above"
     from toqito.perms import unique_perms
-    
+
     vec_nums = [1, 1, 2, 2, 1, 2, 1, 3, 3, 3]
-    
+
     print(len(list(unique_perms(vec_nums))))
     ```
 
@@ -50,9 +50,9 @@ def perm_unique_helper(list_unique: list[UniqueElement], result_list: list[int],
     """Provide helper function for unique_perms.
 
     Args:
-        list_unique: 
-        result_list: 
-        elem_d: 
+        list_unique: list[UniqueElement]
+        result_list: list[int]
+        elem_d: int
 
     """
     if elem_d < 0:

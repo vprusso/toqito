@@ -22,13 +22,12 @@ def is_sic_povm(states: Sequence[np.ndarray], *, tol: float = 1e-6) -> bool:
     and the projectors satisfy \(\sum_j \ket{\psi_j}\!\bra{\psi_j} = d \mathbb{I}\).
 
     Examples:
-
     Qubit tetrahedron SIC.
 
     ```python exec="1" source="above"
     import numpy as np
     from toqito.state_props import is_sic_povm
-    
+
     omega = np.exp(2j * np.pi / 3)
     sic_vectors = [
         np.array([0, 1], dtype=np.complex128),
@@ -45,7 +44,7 @@ def is_sic_povm(states: Sequence[np.ndarray], *, tol: float = 1e-6) -> bool:
     import numpy as np
     from toqito.state_props import is_sic_povm
     from toqito.states import basis
-    
+
     e0, e1 = basis(2, 0), basis(2, 1)
     non_sic = [e0, e1, (e0 + e1) / np.sqrt(2), (e0 - e1) / np.sqrt(2)]
     print(is_sic_povm(non_sic))
@@ -85,7 +84,7 @@ def is_sic_povm(states: Sequence[np.ndarray], *, tol: float = 1e-6) -> bool:
 
     target_overlap = 1.0 / (dimension + 1.0)
     off_diag_mask = ~np.eye(num_states, dtype=bool)
-    off_diag_values = np.abs(gram)**2
+    off_diag_values = np.abs(gram) ** 2
 
     if not np.allclose(off_diag_values[off_diag_mask], target_overlap, atol=tol):
         return False

@@ -29,7 +29,6 @@ def is_extremal(phi: np.ndarray | list[np.ndarray | list[np.ndarray]], tol: floa
     - A nested list of Kraus operators, which will be flattened automatically.
 
     Examples:
-
     The following demonstrates an example of an extremal quantum channel from Example 2.33
     in [@Watrous_2018_TQI].
 
@@ -40,10 +39,10 @@ def is_extremal(phi: np.ndarray | list[np.ndarray | list[np.ndarray]], tol: floa
         (1 / np.sqrt(6)) * np.array([[2, 0], [0, 1], [0, 1], [0, 0]]),
         (1 / np.sqrt(6)) * np.array([[0, 0], [1, 0], [1, 0], [0, 2]])
     ]
-    
+
     print(is_extremal(kraus_ops))
     ```
-    
+
     Raises:
         ValueError: If the input is neither a valid list of Kraus operators nor a Choi matrix.
 

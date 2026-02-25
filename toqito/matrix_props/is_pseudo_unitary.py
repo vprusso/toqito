@@ -17,10 +17,10 @@ def is_pseudo_unitary(mat: np.ndarray, p: int, q: int, rtol: float = 1e-05, atol
     where:
 
     - \(A^*\) is the conjugate transpose (Hermitian transpose) of \(A\),
-    - \(J\) is a diagonal matrix with first \(p\) diagonal entries equal to 1 and next \(q\) diagonal entries equal to -1
+    - \(J\) is a diagonal matrix with first \(p\) diagonal entries equal to 1 and next \(q\)
+        diagonal entries equal to -1
 
     Examples:
-
     Consider the following matrix:
 
     \[
@@ -44,9 +44,9 @@ def is_pseudo_unitary(mat: np.ndarray, p: int, q: int, rtol: float = 1e-05, atol
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import is_pseudo_unitary
-    
+
     A = np.array([[np.cosh(1), np.sinh(1)], [np.sinh(1), np.cosh(1)]])
-    
+
     print(is_pseudo_unitary(A, p=1, q=1))
     ```
 
@@ -65,9 +65,9 @@ def is_pseudo_unitary(mat: np.ndarray, p: int, q: int, rtol: float = 1e-05, atol
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import is_pseudo_unitary
-    
+
     B = np.array([[1, 0], [1, 1]])
-    
+
     print(is_pseudo_unitary(B, p=1, q=1))
     ```
 

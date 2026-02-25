@@ -101,10 +101,10 @@ def bell_inequality_max(
     or no-signalling assumptions.
 
     The maximum classical and no-signalling values are computed exactly. The maximum quantum value
-    is upper bounded using the NPA (Navascués-Pironio-Acín) hierarchy `Navascues_2008_AConvergent`[@Navascues_2008_AConvergent].
+    is upper bounded using the NPA (Navascués-Pironio-Acín) hierarchy
+    `Navascues_2008_AConvergent`[@Navascues_2008_AConvergent].
 
     Examples:
-
     The CHSH inequality in Full Correlator (FC) notation.
     The classical maximum is 2, the quantum maximum (Tsirelson's bound) is \(2\sqrt{2}\),
     and the no-signalling maximum is 4.
@@ -169,20 +169,20 @@ def bell_inequality_max(
     ```
 
     Args:
-        `coefficients`: A matrix or tensor specifying the Bell inequality coefficients in either
+        coefficients: A matrix or tensor specifying the Bell inequality coefficients in either
                              full probability (FP), full correlator (FC), or Collins-Gisin (CG) notation.
-        `desc`: A list [\(oa\), \(ob\), \(ma\), \(mb\)]
+        desc: A list [\(oa\), \(ob\), \(ma\), \(mb\)]
                      describing the number of outputs for Alice (\(oa\)) and Bob (\(ob\)),
                      and the number of inputs for Alice (\(ma\)) and Bob (\(mb\)).
-        `notation`: A string ('fp', 'fc', or 'cg') indicating the notation of the ``coefficients``.
-        `mtype`: The type of theory to maximize over ('classical', 'quantum', or 'nosignal').
+        notation: A string ('fp', 'fc', or 'cg') indicating the notation of the ``coefficients``.
+        mtype: The type of theory to maximize over ('classical', 'quantum', or 'nosignal').
                       Defaults to 'classical'. Note: 'quantum' computes an upper bound via NPA hierarchy.
-        `k`: The level of the NPA hierarchy to use if ``mtype='quantum'``. Can be an integer (e.g., 1, 2)
+        k: The level of the NPA hierarchy to use if ``mtype='quantum'``. Can be an integer (e.g., 1, 2)
                   or a string specifying intermediate levels (e.g., '1+ab', '1+aab'). Defaults to 1.
                   Higher levels yield tighter bounds but require more computation. Ignored if ``mtype`` is
                   not 'quantum'.
-        `tol`: Tolerance for numerical comparisons and solver precision. Defaults to ``1e-8``.
-        
+        tol: Tolerance for numerical comparisons and solver precision. Defaults to ``1e-8``.
+
     Returns:
         The maximum value (or quantum upper bound) of the Bell inequality.
 
@@ -461,8 +461,6 @@ def bell_inequality_max_qubits(
 
 
     Examples:
-
-
     Consider the I3322 Bell inequality from [@Collins_2004].
 
     \[
@@ -479,7 +477,7 @@ def bell_inequality_max_qubits(
     ```python exec="1" source="above"
     import numpy as np
     from toqito.state_opt.bell_inequality_max import bell_inequality_max_qubits
-    
+
     joint_coe = np.array([
         [1, 1, -1],
         [1, 1, 1],
@@ -489,12 +487,12 @@ def bell_inequality_max_qubits(
     b_coe = np.array([-1, -2, 0])
     a_val = np.array([0, 1])
     b_val = np.array([0, 1])
-    
+
     result = bell_inequality_max_qubits(joint_coe, a_coe, b_coe, a_val, b_val)
     print(f"Bell inequality maximum value: {result:.3f}")
     ```
 
-    Raises: 
+    Raises:
         ValueError: If `a_val` or `b_val` are not length 2.
 
     Args:

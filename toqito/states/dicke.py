@@ -14,7 +14,6 @@ def dicke(num_qubit: int, num_exfootcited: int, return_dm: bool = False) -> np.n
     an equal superposition of all possible states with the specified number of exfootcited qubits.
 
     Example
-    
     Consider generating a Dicke state with 3 qubits and 1 excitation:
 
     ```python exec="1" source="above"

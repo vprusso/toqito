@@ -26,15 +26,14 @@ def random_density_matrix(
         The Bures measure.
 
     Examples:
-
     Using `|toqito⟩`, we may generate a random complex-valued \(n\)- dimensional density matrix. For
     \(d=2\), this can be accomplished as follows.
 
     ```python exec="1" source="above" session="complex_dm_example"
     from toqito.rand import random_density_matrix
-    
+
     complex_dm = random_density_matrix(2)
-    
+
     print(complex_dm)
     ```
 
@@ -44,7 +43,7 @@ def random_density_matrix(
 
     ```python exec="1" source="above" session="complex_dm_example"
     from toqito.matrix_props import is_density
-    
+
     print(is_density(complex_dm))
     ```
 
@@ -53,9 +52,9 @@ def random_density_matrix(
 
     ```python exec="1" source="above" session="real_dm_example"
     from toqito.rand import random_density_matrix
-    
+
     real_dm = random_density_matrix(2, is_real=True)
-    
+
     print(real_dm)
     ```
 
@@ -65,7 +64,7 @@ def random_density_matrix(
 
     ```python exec="1" source="above" session="real_dm_example"
     from toqito.matrix_props import is_density
-    
+
     print(is_density(real_dm))
     ```
 
@@ -74,9 +73,9 @@ def random_density_matrix(
 
     ```python exec="1" source="above" session="bures_dm_example"
     from toqito.rand import random_density_matrix
-    
+
     bures_mat = random_density_matrix(2, distance_metric="bures")
-    
+
     print(bures_mat)
     ```
 
@@ -85,16 +84,16 @@ def random_density_matrix(
 
     ```python exec="1" source="above" session="bures_dm_example"
     from toqito.matrix_props import is_density
-    
+
     print(is_density(bures_mat))
     ```
 
     It is also possible to pass a seed to this function for reproducibility.
     ```python exec="1" source="above" session="seeded_dm_example"
     from toqito.rand import random_density_matrix
-    
+
     seeded = random_density_matrix(2, seed=42)
-    
+
     print(seeded)
     ```
 
@@ -103,9 +102,9 @@ def random_density_matrix(
 
     ```python exec="1" source="above" session="seeded_dm_example"
     from toqito.matrix_props import is_density
-    
+
     seeded = random_density_matrix(2, seed=42)
-    
+
     print(is_density(seeded))
     ```
 
@@ -115,7 +114,8 @@ def random_density_matrix(
         dim: The number of rows (and columns) of the density matrix.
         is_real: Boolean denoting whether the returned matrix will have all real entries or not.
         k_param: Default value is equal to `dim`.
-        distance_metric: The distance metric used to randomly generate the density matrix. This metric is either the Haar measure or the Bures measure. Default value is to use the Haar measure.
+        distance_metric: The distance metric used to randomly generate the density matrix. This metric is either the
+        Haar measure or the Bures measure. Default value is to use the Haar measure.
         seed: A seed used to instantiate numpy's random number generator.
 
     Returns:

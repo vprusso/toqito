@@ -12,7 +12,6 @@ def is_idempotent(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> b
     That is, the matrix \(A\) is idempotent if and only if \(A^2 = A\).
 
     Examples:
-
     The following is an example of a \(2 x 2\) idempotent matrix:
 
     \[
@@ -25,9 +24,9 @@ def is_idempotent(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> b
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import is_idempotent
-    
+
     mat = np.array([[3, -6], [1, -2]])
-    
+
     print(is_idempotent(mat))
     ```
 
@@ -47,9 +46,9 @@ def is_idempotent(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> b
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import is_idempotent
-    
+
     mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-    
+
     print(is_idempotent(mat))
     ```
 

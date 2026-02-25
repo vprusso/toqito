@@ -24,7 +24,6 @@ def swap(
     this is equivalent to multiplying `rho` on the left by the corresponding swap operator, but not on the right.
 
     Examples:
-
     Consider the following matrix
 
     \[
@@ -55,9 +54,9 @@ def swap(
     ```python exec="1" source="above"
     import numpy as np
     from toqito.perms import swap
-    
+
     test_mat = np.arange(1, 17).reshape(4, 4)
-    
+
     print(swap(test_mat))
     ```
 
@@ -80,7 +79,7 @@ def swap(
     ```python exec="1" source="above"
     import numpy as np
     from toqito.perms import swap
-    
+
     test_mat = np.array(
         [[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]]
     )
@@ -92,9 +91,9 @@ def swap(
     ```python exec="1" source="above"
     import numpy as np
     from toqito.perms import swap
-    
+
     test_vec = np.array([1, 2, 3, 4])
-    
+
     print(swap(test_vec))
     ```
 

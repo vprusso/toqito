@@ -20,7 +20,6 @@ def log_negativity(rho: np.ndarray, dim: list[int] | int | None = None) -> float
     them in the optional `dim` argument).
 
     Examples:
-
     Example of the log-negativity of density matrix of Bell state.
 
     ```python exec="1" source="above"

@@ -34,12 +34,11 @@ def pauli_channel(
     integer \(q\) (number of qubits).
 
     Examples:
-
     Generate a random single-qubit Pauli channel:
 
     ```python exec="1" source="above"
     from toqito.channels import pauli_channel
-    
+
     print(pauli_channel(prob=1))
     ```
 
@@ -48,7 +47,7 @@ def pauli_channel(
     ```python exec="1" source="above"
     import numpy as np
     from toqito.channels import pauli_channel
-    
+
     _, output = pauli_channel(
         prob=np.array([0.1, 0.2, 0.3, 0.4]), input_mat=np.eye(2)
     )
@@ -60,12 +59,15 @@ def pauli_channel(
         ValueError: If length of probability vector is not ``4^q`` for some integer ``q``.
 
     Args:
-        prob: Probability vector for Pauli operators. If scalar, generates random probabilities for \(q =\) `prob` qubits. The probabilities correspond to Pauli operators in lexographical order of length strictly equal to \(q\) ,when `prob` is a vector.
+        prob: Probability vector for Pauli operators. If scalar, generates random probabilities for \(q =\) `prob`
+        qubits. The probabilities correspond to Pauli operators in lexographical order of length strictly equal to \(q\)
+            ,when `prob` is a vector.
         return_kraus_ops: Flag to return Kraus operators. Default is ``False``.
         input_mat: Optional input matrix to apply the channel to. Default is ``None``.
 
     Returns:
-        The Choi matrix of the channel. If ``input_mat`` is provided, also returns the output matrix. If ``return_kraus_ops`` is ``True``, returns Kraus operators as well.
+        The Choi matrix of the channel. If ``input_mat`` is provided, also returns the output matrix.
+        If ``return_kraus_ops`` is ``True``, returns Kraus operators as well.
 
     """
     if not isinstance(prob, np.ndarray):

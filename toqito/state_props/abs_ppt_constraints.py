@@ -45,7 +45,7 @@ def abs_ppt_constraints(
     import numpy as np
     from toqito.rand import random_density_matrix
     from toqito.state_props import abs_ppt_constraints
-    
+
     rho = random_density_matrix(9)  # assumed to act on a 3 x 3 bipartite system
     eigs = np.linalg.eigvalsh(rho)
     constraints = abs_ppt_constraints(eigs, 3)
@@ -60,10 +60,12 @@ def abs_ppt_constraints(
         eigs: A list of eigenvalues.
         p: The dimension of the smaller subsystem in the bipartite system.
         max_constraints: The maximum number of constraint matrices to compute. (default: 33,592)
-        use_check: Use the "criss-cross" ordering check described in [@Johnston_2014_Orderings] to reduce the number of constraint matrices. (default: `False`)
+        use_check: Use the "criss-cross" ordering check described in [@Johnston_2014_Orderings] to reduce the number of
+        constraint matrices. (default: `False`)
 
     Returns:
-        A list of `max_constraints` constraint matrices which must be positive semidefinite for an absolutely PPT spectrum.
+        A list of `max_constraints` constraint matrices which must be positive semidefinite for an absolutely PPT
+        spectrum.
 
     """
     if isinstance(eigs, np.ndarray):
@@ -97,7 +99,7 @@ def abs_ppt_constraints(
         r"""Construct all valid orderings by backtracking. Processes order matrix in row major order.
 
         A valid ordering has rows and columns of the upper triangle + diagonal in ascending order.
-    """
+        """
         # If we already constructed enough constraints, exit.
         if len(constraints) == max_constraints:
             return

@@ -1,4 +1,5 @@
 """Determine whether there exists a symmetric extension for a given quantum state."""
+
 import cvxpy
 import numpy as np
 
@@ -25,7 +26,6 @@ def has_symmetric_extension(
     This function was adapted from QETLAB.
 
     Examples:
-
     2-qubit symmetric extension:
 
     In [@Chen_2014_Symmetric], it was shown that a 2-qubit state \(\rho_{AB}\) has a
@@ -43,7 +43,8 @@ def has_symmetric_extension(
     from toqito.matrix_ops import partial_trace
     rho = np.array([[1, 0, 0, -1], [0, 1, 1/2, 0], [0, 1/2, 1, 0], [-1, 0, 0, 1]])
     # Show the closed-form equation holds
-    print(np.trace(np.linalg.matrix_power(partial_trace(rho, 1), 2)) >= np.trace(rho**2) - 4 * np.sqrt(np.linalg.det(rho)))
+    print(
+    np.trace(np.linalg.matrix_power(partial_trace(rho, 1), 2)) >= np.trace(rho**2) - 4 * np.sqrt(np.linalg.det(rho)))
     ```
 
     ```python exec="1" source="above" session="has_symmetric_example"

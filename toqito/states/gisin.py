@@ -30,7 +30,6 @@ def gisin(lambda_var: float, theta: float) -> np.ndarray:
     \]
 
     Examples:
-
     The following code generates the Gisin state \(\rho_{0.5, 1}\).
 
     ```python exec="1" source="above"

@@ -52,12 +52,12 @@ def measure(
     import numpy as np
     from toqito.states import basis
     from toqito.measurement_ops import measure
-    
+
     e_0, e_1 = basis(2, 0), basis(2, 1)
-    
+
     u = 1/np.sqrt(3) * e_0 + np.sqrt(2/3) * e_1
     rho = u @ u.conj().T
-    
+
     proj_0 = e_0 @ e_0.conj().T
     proj_1 = e_1 @ e_1.conj().T
     print(measure(proj_0, rho))
@@ -79,14 +79,14 @@ def measure(
     ```python exec="1" source="above"
     import numpy as np
     from toqito.measurement_ops.measure import measure
-    
+
     rho = np.array([[0.5, 0.5], [0.5, 0.5]])
     K0 = np.array([[1, 0], [0, 0]])
     K1 = np.array([[0, 0], [0, 1]])
-    
+
     # Returns list of probabilities.
     print(measure(rho, [K0, K1]))
-    
+
     # Returns list of (probability, post_state) tuples.
     print(measure(rho, [K0, K1], state_update=True))
     ```
@@ -97,12 +97,16 @@ def measure(
 
     Args:
         state: Quantum state as a density matrix shape (d, d) where d is the dimension of the Hilbert space.
-        measurement: Either a single measurement operator (an np.ndarray) or a list/tuple of operators. When providing a list, they are assumed to be Kraus operators satisfying the completeness relation.
+        measurement: Either a single measurement operator (an np.ndarray) or a list/tuple of operators. When providing a
+        list, they are assumed to be Kraus operators satisfying the completeness relation.
         tol: Tolerance for numerical precision (default is 1e-10).
-        state_update: If True, also return the post-measurement state(s); otherwise, only the probability or probabilities are returned.
+        state_update: If True, also return the post-measurement state(s); otherwise, only the probability or
+        probabilities are returned.
 
     Returns:
-        If a single operator is provided, returns a float (probability) or a tuple (probability, post_state) if ``state_update`` is True. If a list is provided, returns a list of probabilities or a list of tuples if ``state_update`` is True.
+        If a single operator is provided, returns a float (probability) or a tuple (probability, post_state) if
+        ``state_update`` is True. If a list is provided, returns a list of probabilities or a list of tuples if
+        ``state_update`` is True.
 
     """
     if not is_density(state):

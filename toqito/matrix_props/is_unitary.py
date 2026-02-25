@@ -22,7 +22,6 @@ def is_unitary(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> boo
     where \(\mathbb{I}\) is the identity matrix.
 
     Examples:
-
     Consider the following matrix
 
     \[
@@ -37,9 +36,9 @@ def is_unitary(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> boo
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import is_unitary
-    
+
     A = np.array([[0, 1], [1, 0]])
-    
+
     print(is_unitary(A))
     ```
 
@@ -49,9 +48,9 @@ def is_unitary(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> boo
     ```python exec="1" source="above"
     from toqito.matrix_props import is_unitary
     from toqito.rand import random_unitary
-    
+
     mat = random_unitary(2)
-    
+
     print(is_unitary(mat))
     ```
 
@@ -69,9 +68,9 @@ def is_unitary(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> boo
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import is_unitary
-    
+
     B = np.array([[1, 0], [1, 1]])
-    
+
     print(is_unitary(B))
     ```
 

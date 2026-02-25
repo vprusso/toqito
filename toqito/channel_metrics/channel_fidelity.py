@@ -71,7 +71,8 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray, eps: float = 1e-7) 
         eps: The solver tolerance for convergence to feasability.
 
     Returns:
-        The channel fidelity between the channels specified by the quantum channels corresponding to the Choi matrices `choi_1` and `choi_2`.
+        The channel fidelity between the channels specified by the quantum channels corresponding to the Choi matrices
+        `choi_1` and `choi_2`.
 
     """
     if choi_1.shape != choi_2.shape:
@@ -97,5 +98,3 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray, eps: float = 1e-7) 
     problem = cvxpy.Problem(objective, constraints)
 
     return problem.solve(solver=cvxpy.SCS, eps=eps)
-
-

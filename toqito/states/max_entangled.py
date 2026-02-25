@@ -16,7 +16,6 @@ def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True)
     `sqrt(dim)` if `is_normalized = False`.
 
     Examples:
-
     We can generate the canonical \(2\)-dimensional maximally entangled state
 
     \[

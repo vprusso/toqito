@@ -10,7 +10,6 @@ def is_permutation(mat: np.ndarray) -> bool:
     single element of 1 and all others are 0.
 
     Examples:
-
     Consider the following permutation matrix
 
     \[
@@ -26,9 +25,9 @@ def is_permutation(mat: np.ndarray) -> bool:
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import is_permutation
-    
+
     A = np.array([[1, 0, 0], [0, 0, 1], [0, 1, 0]])
-    
+
     print(is_permutation(A))
     ```
 
@@ -49,9 +48,9 @@ def is_permutation(mat: np.ndarray) -> bool:
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import is_permutation
-    
+
     B = np.array([[1, 0, 0], [1, 0, 0], [1, 0, 0]])
-    
+
     print(is_permutation(B))
     ```
 

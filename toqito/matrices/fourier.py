@@ -25,7 +25,6 @@ def fourier(dim: int) -> np.ndarray:
     \]
 
     Examples:
-
     The Fourier matrix generated from \(d = 3\) yields the following matrix:
 
     \[
@@ -39,7 +38,7 @@ def fourier(dim: int) -> np.ndarray:
 
     ```python exec="1" source="above"
     from toqito.matrices import fourier
-    
+
     print(fourier(3))
     ```
 

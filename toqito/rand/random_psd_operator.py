@@ -15,15 +15,14 @@ def random_psd_operator(
     based on the fact that a Hermitian matrix can have real eigenvalues.
 
     Examples:
-
     Using `|toqito⟩`, we may generate a random positive semidefinite matrix.
     For \(\text{dim}=2\), this can be accomplished as follows.
 
     ```python exec="1" source="above" session="psd_operator"
     from toqito.rand import random_psd_operator
-    
+
     complex_psd_mat = random_psd_operator(2)
-    
+
     print(complex_psd_mat)
     ```
 
@@ -32,7 +31,7 @@ def random_psd_operator(
 
     ```python exec="1" source="above" session="psd_operator"
     from toqito.matrix_props import is_positive_semidefinite
-    
+
     print(is_positive_semidefinite(complex_psd_mat))
     ```
 
@@ -41,9 +40,9 @@ def random_psd_operator(
 
     ```python exec="1" source="above" session="psd_operator"
     from toqito.rand import random_psd_operator
-    
+
     real_psd_mat = random_psd_operator(2, is_real=True)
-    
+
     print(real_psd_mat)
     ```
 
@@ -60,9 +59,9 @@ def random_psd_operator(
 
     ```python exec="1" source="above" session="psd_operator"
     from toqito.rand import random_psd_operator
-    
+
     seeded = random_psd_operator(2, is_real=True, seed=42)
-    
+
     print(seeded)
     ```
 

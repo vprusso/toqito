@@ -1,5 +1,4 @@
-"""
-# An extended nonlocal game with quantum advantage
+r"""# An extended nonlocal game with quantum advantage
 
 In the previous tutorials on [The BB84 extended nonlocal game](../enlg_bb84) and [The CHSH extended nonlocal game](../enlg_chsh), we
 saw examples where the standard quantum and unentangled values were equal
@@ -48,9 +47,9 @@ unentangled value, demonstrating a true quantum advantage.
 #
 # Taking the description of $G_{MUB}$, we can encode this as follows.
 
-from toqito.states import basis
 import numpy as np
 
+from toqito.states import basis
 
 # The basis: {|0>, |1>}:
 e_0, e_1 = basis(2, 0), basis(2, 1)
@@ -106,6 +105,7 @@ pred_mat[:, :, 2, 2, 3, 3] = mubs[3][2] @ mubs[3][2].conj().T
 # Now that we have encoded $G_{MUB}$, we can calculate the unentangled value.
 
 import numpy as np
+
 from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
 
 g_mub = ExtendedNonlocalGame(prob_mat, pred_mat)

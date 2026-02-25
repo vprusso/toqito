@@ -16,7 +16,6 @@ def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) 
     (and hence the PA * PA' is the orthogonal projection onto the symmetric subspace.)
 
     Examples:
-
     The \(2\)-dimensional antisymmetric projection with \(p=1\) is given as
     \(2\)-by-\(2\) identity matrix
 
@@ -32,7 +31,7 @@ def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) 
 
     ```python exec="1" source="above"
     from toqito.perms import antisymmetric_projection
-    
+
     print(antisymmetric_projection(2, 1))
     ```
 
@@ -57,7 +56,7 @@ def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) 
 
     ```python exec="1" source="above"
     from toqito.perms import antisymmetric_projection
-    
+
     print(antisymmetric_projection(2, 3))
     ```
 

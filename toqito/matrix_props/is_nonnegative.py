@@ -20,7 +20,7 @@ def is_nonnegative(input_mat: np.ndarray, mat_type: str = "nonnegative") -> bool
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import is_nonnegative
-    
+
     print(is_nonnegative(np.eye(2)))
     print(is_nonnegative(np.eye(2), "doubly"))
     print(is_nonnegative(np.array([[1, -1], [1, 1]])))
@@ -32,7 +32,8 @@ def is_nonnegative(input_mat: np.ndarray, mat_type: str = "nonnegative") -> bool
 
     Args:
         input_mat: np.ndarray Matrix of interest.
-        mat_type: Type of nonnegative matrix. `"nonnegative"` for a nonnegative matrix and `"doubly"` for a doubly nonnegative matrix.
+        mat_type: Type of nonnegative matrix. `"nonnegative"` for a nonnegative matrix and `"doubly"` for a doubly
+        nonnegative matrix.
 
     """
     valid_types = {"nonnegative", "doubly"}

@@ -16,9 +16,9 @@ def has_same_dimension(items: list[np.ndarray]) -> bool:
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import has_same_dimension
-    
+
     vectors = [np.array([1, 2, 3]), np.array([4, 5, 6]), np.array([7, 8, 9])]
-    
+
     print(has_same_dimension(vectors))
     ```
 
@@ -28,9 +28,9 @@ def has_same_dimension(items: list[np.ndarray]) -> bool:
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import has_same_dimension
-    
+
     matrices = [np.array([[1, 0], [0, 1]]), np.array([[2, 3], [4, 5]]), np.array([[6, 7], [8, 9]])]
-    
+
     print(has_same_dimension(matrices))
     ```
 
@@ -39,9 +39,9 @@ def has_same_dimension(items: list[np.ndarray]) -> bool:
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import has_same_dimension
-    
+
     mixed = [np.array([1, 2, 3]), np.array([[1, 0], [0, 1]])]
-    
+
     print(has_same_dimension(mixed))
     ```
 
@@ -49,7 +49,8 @@ def has_same_dimension(items: list[np.ndarray]) -> bool:
         ValueError: If the input list is empty.
 
     Args:
-        items: A list containing vectors or matrices. Vectors are represented as 1D numpy arrays, and matrices are represented as 2D numpy arrays.
+        items: A list containing vectors or matrices. Vectors are represented as 1D numpy arrays, and matrices are
+        represented as 2D numpy arrays.
 
     Returns:
         Returns `True` if all items in the list have the same dimension, `False` otherwise.

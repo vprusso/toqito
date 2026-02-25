@@ -1,5 +1,4 @@
-"""
-# Equiangular States and the Antidistinguishability Threshold
+"""# Equiangular States and the Antidistinguishability Threshold
 
 In this tutorial, we explore a sharp threshold for the antidistinguishability
 of a special class of quantum states known as equiangular states. We will

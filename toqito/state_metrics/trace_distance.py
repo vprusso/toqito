@@ -21,7 +21,6 @@ def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
     More information on the trace distance can be found in [@Quantiki_TrDist].
 
     Examples:
-
     Consider the following Bell state
 
     \[
@@ -45,10 +44,10 @@ def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
     ```python exec="1" source="above"
     from toqito.states import bell
     from toqito.state_metrics import trace_distance
-    
+
     rho = bell(0) @ bell(0).conj().T
     sigma = rho
-    
+
     print(trace_distance(rho, sigma))
     ```
 

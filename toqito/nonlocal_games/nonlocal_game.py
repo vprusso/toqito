@@ -23,8 +23,9 @@ class NonlocalGame:
 
     The nonlocal game framework was originally introduced in [@Cleve_2010_Consequences].
 
-    A tutorial is available in the documentation. For more info, see [Nonlocal Games](../../../generated/gallery/nonlocal_games/index.md).
-"""
+    A tutorial is available in the documentation. For more info, see
+    [Nonlocal Games](../../../generated/gallery/nonlocal_games/index.md).
+    """
 
     def __init__(self, prob_mat: np.ndarray, pred_mat: np.ndarray, reps: int = 1) -> None:
         """Construct nonlocal game object.
@@ -37,6 +38,7 @@ class NonlocalGame:
                       the outcome for answers "a" and "b" given questions
                       "x" and "y".
             reps: Number of parallel repetitions to perform. Default is 1.
+
         """
         if reps == 1:
             self.prob_mat = prob_mat
@@ -83,7 +85,7 @@ class NonlocalGame:
         Returns:
             A NonlocalGame object arising from the variables and constraints that define the game.
 
-"""
+        """
         if (num_constraints := len(constraints)) == 0:
             raise ValueError("At least 1 constraint is required")
         num_variables = constraints[0].ndim
@@ -161,9 +163,7 @@ class NonlocalGame:
         return check_perfect_commuting_strategy(M_array, b_array)
 
     def classical_value(self) -> float:
-        r"""Compute the classical value of the nonlocal game using Numba acceleration.
-
-        """
+        r"""Compute the classical value of the nonlocal game using Numba acceleration."""
         A_out, B_out, A_in, B_in = self.pred_mat.shape
         pm = np.copy(self.pred_mat)
         pm *= self.prob_mat[np.newaxis, np.newaxis, :A_in, :B_in]
@@ -266,7 +266,6 @@ class NonlocalGame:
         \]
 
         Examples:
-
         The CHSH game
 
         The CHSH game is a two-player nonlocal game with the following
@@ -308,22 +307,22 @@ class NonlocalGame:
         ```python exec="1" source="above"
         import numpy as np
         from toqito.nonlocal_games.nonlocal_game import NonlocalGame
-        
+
         dim = 2
         num_alice_inputs, num_alice_outputs = 2, 2
         num_bob_inputs, num_bob_outputs = 2, 2
         prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
         pred_mat = np.zeros((num_alice_outputs, num_bob_outputs, num_alice_inputs, num_bob_inputs))
-        
+
         for a_alice in range(num_alice_outputs):
             for b_bob in range(num_bob_outputs):
                for x_alice in range(num_alice_inputs):
                    for y_bob in range(num_bob_inputs):
                        if np.mod(a_alice + b_bob + x_alice * y_bob, dim) == 0:
                            pred_mat[a_alice, b_bob, x_alice, y_bob] = 1
-        
+
         chsh = NonlocalGame(prob_mat, pred_mat)
-        
+
         print(chsh.quantum_value_lower_bound())
         ```
 
@@ -337,6 +336,7 @@ class NonlocalGame:
 
         Returns:
             The lower bound on the quantum value of a nonlocal game.
+
         """
         # Get number of inputs and outputs.
         _, num_outputs_bob, _, num_inputs_bob = self.pred_mat.shape
@@ -486,7 +486,6 @@ class NonlocalGame:
     def nonsignaling_value(self) -> float:
         """Compute the non-signaling value of the nonlocal game.
 
-        
         Returns:
             A value between [0, 1] representing the non-signaling value.
 
@@ -582,23 +581,23 @@ class NonlocalGame:
     def commuting_measurement_value_upper_bound(self, k: int | str = 1) -> float:
         r"""Compute an upper bound on the commuting measurement value of the nonlocal game.
 
-    This function calculates an upper bound on the commuting measurement value by
-        using k-levels of the NPA hierarchy [@Navascues_2008_AConvergent]. The NPA hierarchy is a uniform
-        family of semidefinite programs that converges to the commuting measurement value of
-        any nonlocal game.
+        This function calculates an upper bound on the commuting measurement value by
+            using k-levels of the NPA hierarchy [@Navascues_2008_AConvergent]. The NPA hierarchy is a uniform
+            family of semidefinite programs that converges to the commuting measurement value of
+            any nonlocal game.
 
-    You can determine the level of the hierarchy by a positive integer or a string
-        of a form like '1+ab+aab', which indicates that an intermediate level of the hierarchy
-        should be used, where this example uses all products of one measurement, all products of
-        one Alice and one Bob measurement, and all products of two Alice and one Bob measurements.
+        You can determine the level of the hierarchy by a positive integer or a string
+            of a form like '1+ab+aab', which indicates that an intermediate level of the hierarchy
+            should be used, where this example uses all products of one measurement, all products of
+            one Alice and one Bob measurement, and all products of two Alice and one Bob measurements.
 
-    Args:
-        k: The level of the NPA hierarchy to use (default=1).
+        Args:
+            k: The level of the NPA hierarchy to use (default=1).
 
-    Returns:
-        The upper bound on the commuting strategy value of a nonlocal game.
+        Returns:
+            The upper bound on the commuting strategy value of a nonlocal game.
 
-    """
+        """
         alice_out, bob_out, alice_in, bob_in = self.pred_mat.shape
 
         mat = defaultdict(cvxpy.Variable)

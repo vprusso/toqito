@@ -16,7 +16,6 @@ def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
     PPT entanglement.
 
     Examples:
-
     The standard Choi channel is given as
 
     \[
@@ -39,7 +38,7 @@ def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
     ```python exec="1" source="above"
     import numpy as np
     from toqito.channels import choi
-    
+
     print(choi())
     ```
 
@@ -72,7 +71,7 @@ def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
     ```python exec="1" source="above"
     import numpy as np
     from toqito.channels import choi
-    
+
     print(choi(0, 1, 1))
     ```
 

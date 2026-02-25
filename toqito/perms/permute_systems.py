@@ -32,7 +32,6 @@ def permute_systems(
     instead of `perm` itself.
 
     Examples:
-
     For spaces \(\mathcal{A}\) and \(\mathcal{B}\) where \(\text{dim}(\mathcal{A}) =
     \text{dim}(\mathcal{B}) = 2\) we may consider an operator \(X \in \mathcal{A} \otimes \mathcal{B}\). Applying the
     `permute_systems` function with vector \([1,0]\) on \(X\), we may reorient the spaces such that \(X \in
@@ -64,9 +63,9 @@ def permute_systems(
     ```python exec="1" source="above"
     import numpy as np
     from toqito.perms import permute_systems
-    
+
     test_input_mat = np.arange(1, 17).reshape(4, 4)
-    
+
     print(permute_systems(test_input_mat, [1, 0]))
     ```
 
@@ -112,9 +111,9 @@ def permute_systems(
     ```python exec="1" source="above"
     import numpy as np
     from toqito.perms import permute_systems
-    
+
     test_input_mat = np.arange(1, 65).reshape(8, 8)
-    
+
     print(permute_systems(test_input_mat, [1, 2, 0]))
     ```
 

@@ -22,7 +22,6 @@ def kraus_to_choi(kraus_ops: list[np.ndarray] | list[list[np.ndarray]], sys: int
     This function was adapted from the QETLAB package.
 
     Examples:
-
     The transpose map:
 
     The Choi matrix of the transpose map is the swap operator. Notice that the transpose map
@@ -39,7 +38,7 @@ def kraus_to_choi(kraus_ops: list[np.ndarray] | list[list[np.ndarray]], sys: int
     kraus_6 = np.array([[0, 0], [1, 0]]).conj().T
     kraus_7 = np.array([[0, 0], [0, 1]])
     kraus_8 = np.array([[0, 0], [0, 1]]).conj().T
-    
+
     kraus_ops = [[kraus_1, kraus_2], [kraus_3, kraus_4], [kraus_5, kraus_6], [kraus_7, kraus_8]]
     choi_op = kraus_to_choi(kraus_ops)
     print(choi_op)

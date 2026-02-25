@@ -79,7 +79,7 @@ def channel_measured_relative_entropy(
         energy = 100
         print(channel_measured_relative_entropy(channel_1, channel_2, in_dim, m, k, hamiltonian, energy))
         ```
-    
+
     Raises:
         ValueError: If `channel_1` is not a quantum channel or `channel_2` is not completely positive.
 
@@ -91,7 +91,7 @@ def channel_measured_relative_entropy(
         k: The other optimization parameter.
         hamiltonian: The Hamiltonian.
         energy: The energy constraint.
-    
+
     Returns:
         The measured relative entropy between `channel_1` and `channel_2`.
 

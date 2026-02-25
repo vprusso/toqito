@@ -44,7 +44,6 @@ def partial_transpose(
     first row of `dim` and the column dimensions in the second row of `dim`.
 
     Examples:
-
     Consider the following matrix
 
     \[
@@ -74,9 +73,9 @@ def partial_transpose(
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_ops import partial_transpose
-    
+
     test_input_mat = np.arange(1, 17).reshape(4, 4)
-    
+
     print(partial_transpose(test_input_mat))
     ```
 
@@ -96,9 +95,9 @@ def partial_transpose(
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_ops import partial_transpose
-    
+
     test_input_mat = np.arange(1, 17).reshape(4, 4)
-    
+
     print(partial_transpose(test_input_mat, 1))
     ```
 

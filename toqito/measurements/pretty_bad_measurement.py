@@ -39,7 +39,7 @@ def pretty_bad_measurement(
     ```python exec="1" source="above"
     from toqito.states import trine
     from toqito.measurements import pretty_bad_measurement
-    
+
     states = trine()
     probs = [1 / 3, 1 / 3, 1 / 3]
     pbm = pretty_bad_measurement(states, probs)

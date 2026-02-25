@@ -54,7 +54,7 @@ def channel_distinguishability(
         ```
 
         Optimal probability of distinguishing two amplitude damping channels in the minimax setting:
-        
+
         ```python exec="1" source="above"
         from toqito.channels import amplitude_damping
         from toqito.channel_ops import kraus_to_choi

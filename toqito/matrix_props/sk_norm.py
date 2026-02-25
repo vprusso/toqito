@@ -47,7 +47,6 @@ def sk_operator_norm(
     This function was adapted from QETLAB.
 
     Examples:
-
     The \(S(1)\)-norm of a Werner state \(\rho_a \in M_n \otimes M_n\) is
 
     \[
@@ -57,9 +56,9 @@ def sk_operator_norm(
     ```python exec="1" source="above"
     from toqito.states.werner import werner
     from toqito.matrix_props.sk_norm import sk_operator_norm
-    
+
     rho = werner(4, 0.)
-    
+
     print(sk_operator_norm(rho))
     ```
 
@@ -68,7 +67,8 @@ def sk_operator_norm(
 
     Args:
         mat: A matrix.
-        k: The "index" of the norm--that is, it is the Schmidt rank of the vectors that are multiplying X on the left and right in the definition of the norm.
+        k: The "index" of the norm--that is, it is the Schmidt rank of the vectors that are multiplying X on the left
+        and right in the definition of the norm.
         dim: The dimension of the two sub-systems. By default it's assumed to be equal.
         target: A target value that you wish to prove that the norm is above or below.
         effort: An integer value indicating the amount of computation you want to devote to computing the bounds.

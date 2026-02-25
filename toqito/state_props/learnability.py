@@ -44,11 +44,10 @@ def learnability(
     is also solved as a consistency check.
 
     Examples:
-
     ```python exec="1" source="above"
     from toqito.state_props import learnability
     from toqito.states import basis
-    
+
     e0, e1 = basis(2, 0), basis(2, 1)
     print(learnability(
         [e0, e1],
@@ -66,14 +65,15 @@ def learnability(
         verify_reduced: If `True` and the states are pure, also solve the reduced SDP.
         verify_tolerance: Absolute tolerance used when comparing the two optimal values.
         tol: Numerical tolerance used when validating positivity and rank-one states.
-        
+
     Returns:
         Dictionary with keys `value`, `total_value`, `status`, `measurement_operators`, and optionally `reduced_value`,
         `reduced_total_value`, `reduced_status`, `reduced_operators`.
-        
+
     Raises:
         ValueError: If the data are inconsistent with valid quantum states or if `k` lies outside the permissible range.
         cvxpy.error.SolverError: If the selected solver reports a failure.
+
     """
     if not states:
         raise ValueError("The list of states must be non-empty.")
@@ -86,10 +86,7 @@ def learnability(
         solver_kwargs=solver_kwargs,
     )
 
-    operator_values = {
-        combo: measurement_variables[combo].value
-        for combo in measurement_variables
-    }
+    operator_values = {combo: measurement_variables[combo].value for combo in measurement_variables}
 
     result: dict[str, float | str | None | dict] = {
         "value": float(np.real(general_value)),
@@ -110,9 +107,7 @@ def learnability(
             solver=solver,
             solver_kwargs=solver_kwargs,
         )
-        reduced_operator_values = {
-            combo: var.value for combo, var in reduced_variables.items()
-        }
+        reduced_operator_values = {combo: var.value for combo, var in reduced_variables.items()}
         result["reduced_value"] = float(np.real(reduced_value))
         result["reduced_status"] = reduced_status
         result["reduced_operators"] = reduced_operator_values
@@ -144,10 +139,7 @@ def _solve_learnability_general(
 
     dim = density_matrices[0].shape[0]
     combos = list(combinations(range(n), k))
-    variables = {
-        combo: cp.Variable((dim, dim), hermitian=True)
-        for combo in combos
-    }
+    variables = {combo: cp.Variable((dim, dim), hermitian=True) for combo in combos}
 
     constraints = [var >> 0 for var in variables.values()]
     constraints.append(_sum_expressions(variables.values()) == np.eye(dim, dtype=np.complex128))
@@ -179,10 +171,7 @@ def _solve_learnability_reduced(
         raise ValueError(f"k must satisfy 1 <= k <= n (= {n}).")
 
     combos = list(combinations(range(n), k))
-    variables = {
-        combo: cp.Variable((n, n), hermitian=True)
-        for combo in combos
-    }
+    variables = {combo: cp.Variable((n, n), hermitian=True) for combo in combos}
 
     constraints = [var >> 0 for var in variables.values()]
     constraints.append(_sum_expressions(variables.values()) == gram_matrix)
@@ -302,8 +291,6 @@ def _solve_problem_with_scs(
 
 
 def _is_scs_solver(solver: Any | None) -> bool:
-
-
     """Return True when the requested solver corresponds to SCS."""
     if solver is None:
         return False

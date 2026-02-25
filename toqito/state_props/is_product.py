@@ -58,7 +58,7 @@ def is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = None)
 
 def _is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = None) -> tuple:
     """Determine if input is a product state recursive helper.
-    
+
     Args:
         rho: The vector or matrix to check.
         dim: The dimension of the input.

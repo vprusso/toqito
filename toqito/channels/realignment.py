@@ -19,7 +19,6 @@ def realignment(input_mat: np.ndarray, dim: int | list[int] | np.ndarray | None 
     second row of `dim`.
 
     Examples:
-
     The standard realignment map
 
     Using `|toqito⟩`, we can generate the standard realignment map as follows. When viewed as a
@@ -30,9 +29,9 @@ def realignment(input_mat: np.ndarray, dim: int | list[int] | np.ndarray | None 
     ```python exec="1" source="above"
     import numpy as np
     from toqito.channels import realignment
-    
+
     test_input_mat = np.arange(1, 17).reshape(4, 4)
-    
+
     print(realignment(test_input_mat))
     ```
 

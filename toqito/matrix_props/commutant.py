@@ -37,7 +37,6 @@ def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
     This implementation is based on [@QETLAB_link].
 
     Examples:
-
     Consider the following set of matrices:
 
     \[
@@ -56,12 +55,12 @@ def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import commutant
-    
+
     A1 = np.array([[1, 0], [0, -1]])
     A2 = np.array([[0, 1], [1, 0]])
-    
+
     basis = commutant([A1, A2])
-    
+
     print(basis)
     ```
 
@@ -78,11 +77,11 @@ def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import commutant
-    
+
     A = np.array([[1, 1], [0, 1]])
-    
+
     basis = commutant(A)
-    
+
     for i, basis_ in enumerate(basis):
        print(f"basis{ i} :\n{basis_} \n")
     ```

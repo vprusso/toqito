@@ -34,7 +34,6 @@ def werner(dim: int, alpha: float | list[float]) -> np.ndarray:
     3, 2], [2, 1,3], [2, 3, 1], [3, 1, 2], [3, 2, 1],` so P(4) in this case equals permutation_operator(dim, [2, 3, 1]).
 
     Examples:
-
     Computing the qutrit Werner state with \(\alpha = 1/2\) can be done in `|toqito⟩` as
 
     ```python exec="1" source="above"

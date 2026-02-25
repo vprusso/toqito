@@ -149,7 +149,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         !!! Note
             The symmetric extension check requires CVXPY and a suitable solver. If these are not installed,
             or if the solver fails, a warning is printed to the console and this check is skipped.
-        
+
         !!! Note
             QETLAB's `SymmetricExtension` typically tests k-PPT-extendibility, where failure means entangled.
             It also has `SymmetricInnerExtension`, which can prove separability.
@@ -164,7 +164,8 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
 
     \[
     \begin{aligned}
-        \rho_1 &= \frac{1}{2} \left(|0 \rangle \langle 0| + |0 \rangle \langle 1| + |1 \rangle \langle 0| + |1 \rangle \langle 1| \right), \\
+        \rho_1 &= \frac{1}{2} \left(|0 \rangle \langle 0| + |0 \rangle \langle 1|
+                + |1 \rangle \langle 0| + |1 \rangle \langle 1| \right), \\
         \rho_2 &= \frac{1}{2} \left( |0 \rangle \langle 0| + |1 \rangle \langle 1| \right).
     \end{aligned}
     \]
@@ -209,13 +210,13 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
 
     ```python exec="1" source="above" session="is_separable_example"
     from toqito.state_props.is_ppt import is_ppt
-    
+
     # Construct a 2x3 separable PPT state of rank 2
     # |ψ₁⟩ = |0⟩⊗|0⟩, |ψ₂⟩ = |1⟩⊗|1⟩
     psi1 = np.kron([1, 0], [1, 0, 0])
     psi2 = np.kron([0, 1], [0, 1, 0])
     rho = 0.5 * (np.outer(psi1, psi1.conj()) + np.outer(psi2, psi2.conj()))
-    
+
     print("Is the state PPT?", is_ppt(rho, dim=[2, 3]))         # True
     print("Is the state separable?", is_separable(rho, dim=[2, 3]))  # True
     ```
@@ -224,8 +225,9 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         Warning: If the symmetric extension check is attempted but CVXPY or a suitable solver is not available.
         TypeError: If the input `state` is not a NumPy array.
         RuntimeError: If the symmetric extension check is attempted but fails due to CVXPY solver issues.
-        NotImplementedError: If the symmetric extension check is attempted but the level is not implemented (e.g., level < 1).
-        ValueError: 
+        NotImplementedError: If the symmetric extension check is attempted but the level is not implemented
+        (e.g., level < 1).
+        ValueError:
             - If the input `state` is not a square matrix.
             - If the input `state` is not positive semidefinite.
             - If the input `state` has a trace close to zero but contains significant non-zero elements.
@@ -242,7 +244,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     Args:
         state: The density matrix to check.
         dim: The dimension of the input state, e.g., [dim_A, dim_B]. Optional; inferred if None.
-        level: 
+        level:
             - The level for symmetric extension (DPS) hierarchy (default: 2)
             - If 1, only PPT is checked.
             - If >=2, checks for k-symmetric extension up to this level.

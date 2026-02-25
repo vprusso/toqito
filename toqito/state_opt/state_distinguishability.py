@@ -9,12 +9,13 @@ from toqito.matrix_props import has_same_dimension
 
 def _is_pure_state(vector: np.ndarray) -> bool:
     """Check if input is a pure state (vector) or mixed state (density matrix).
-    
+
     Args:
         vector: Quantum state as vector or density matrix.
-        
+
     Returns:
         True if pure state (vector), False if mixed state (density matrix).
+
     """
     return vector.ndim == 1 or (vector.ndim == 2 and vector.shape[1] == 1)
 
@@ -92,19 +93,18 @@ def state_distinguishability(
         the optimal probability will be low or zero.
 
     Examples:
-
     Minimal-error state distinguishability for the Bell states (which are perfectly distinguishable).
 
     ```python exec="1" source="above"
     import numpy as np
     from toqito.states import bell
     from toqito.state_opt import state_distinguishability
-    
+
     states = [bell(0), bell(1), bell(2), bell(3)]
     probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
-    
+
     res, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="dual")
-    
+
     print(np.around(res, decimals=2))
     ```
 
@@ -116,12 +116,12 @@ def state_distinguishability(
     import numpy as np
     from toqito.states import bell
     from toqito.state_opt import state_distinguishability
-    
+
     states = [bell(0), bell(1), bell(2), bell(3)]
     probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
-    
+
     res, measurements = state_distinguishability(vectors=states, probs=probs, primal_dual="primal")
-    
+
     print(np.around(measurements[0], decimals=5))
     ```
 
@@ -130,12 +130,12 @@ def state_distinguishability(
     ```python exec="1" source="above"
     import numpy as np
     from toqito.state_opt import state_distinguishability
-    
+
     states = [np.array([[1.], [0.]]), np.array([[1.],[1.]]) / np.sqrt(2)]
     probs = [1 / 2, 1 / 2]
-    
+
     res, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="primal", strategy="unambiguous")
-    
+
     print(np.around(res, decimals=2))
     ```
 
@@ -144,28 +144,32 @@ def state_distinguishability(
     ```python exec="1" source="above"
     import numpy as np
     from toqito.state_opt import state_distinguishability
-    
+
     # Two mixed states (Werner-like states)
     rho1 = 0.7 * np.array([[1., 0.], [0., 0.]]) + 0.3 * np.eye(2) / 2
     rho2 = 0.7 * np.array([[0., 0.], [0., 1.]]) + 0.3 * np.eye(2) / 2
     states = [rho1, rho2]
     probs = [1 / 2, 1 / 2]
-    
+
     res, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="primal", strategy="unambiguous")
-    
+
     print(np.around(res, decimals=2))
     ```
 
     Args:
         vectors: A list of states provided as vectors (for pure states) or density matrices (for mixed states).
-        probs: Respective list of probabilities each state is selected. If no probabilities are provided, a uniform probability distribution is assumed.
-        strategy: Whether to perform unambiguous or minimal error discrimination task. Possible values are "min_error" and "unambiguous". Default option is `strategy="min_error"`. Both strategies support pure and mixed states.
+        probs: Respective list of probabilities each state is selected. If no probabilities are provided, a uniform
+        probability distribution is assumed.
+        strategy: Whether to perform unambiguous or minimal error discrimination task. Possible values are "min_error"
+        and "unambiguous". Default option is `strategy="min_error"`. Both strategies support pure and mixed states.
         solver: Optimization option for `picos` solver. Default option is `solver="cvxopt"`.
         primal_dual: Option for the optimization problem. Default option is `"dual"`.
         kwargs: Additional arguments to pass to picos' solve method.
 
     Returns:
-        The optimal probability with which Bob can guess the state he was not given from `states` along with the optimal set of measurements.
+        The optimal probability with which Bob can guess the state he was not given from `states` along with the optimal
+        set of measurements.
+
     """
     if not has_same_dimension(vectors):
         raise ValueError("Vectors for state distinguishability must all have the same dimension.")
@@ -233,7 +237,6 @@ def _min_error_dual(
     return solution.value, measurements
 
 
-
 def _reconstruct_povm_pure(vectors: list[np.ndarray], q: np.ndarray, dim: int) -> list[np.ndarray]:
     """Reconstruct POVM for unambiguous discrimination of pure states.
 
@@ -246,6 +249,7 @@ def _reconstruct_povm_pure(vectors: list[np.ndarray], q: np.ndarray, dim: int) -
 
     Returns:
         List of POVM elements [M_inconclusive, M_1, ..., M_n].
+
     """
     n = len(vectors)
 
@@ -277,9 +281,7 @@ def _reconstruct_povm_pure(vectors: list[np.ndarray], q: np.ndarray, dim: int) -
     return measurements
 
 
-def _reconstruct_povm_mixed(
-    vectors: list[np.ndarray], q: np.ndarray, dim: int, gram: np.ndarray
-) -> list[np.ndarray]:
+def _reconstruct_povm_mixed(vectors: list[np.ndarray], q: np.ndarray, dim: int, gram: np.ndarray) -> list[np.ndarray]:
     """Reconstruct POVM for unambiguous discrimination of mixed states.
 
     For mixed states, we solve for the POVM elements directly using the SDP conditions.
@@ -294,6 +296,7 @@ def _reconstruct_povm_mixed(
 
     Returns:
         List of POVM elements [M_inconclusive, M_1, ..., M_n].
+
     """
     n = len(vectors)
 

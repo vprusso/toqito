@@ -9,16 +9,15 @@ import numpy as np
 def perturb_vectors(vectors: list[np.ndarray], eps: float = 0.1) -> np.ndarray:
     """Perturb the vectors by adding a small random number to each element.
 
-
     Example:
     ==========
 
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_ops import perturb_vectors
-    
+
     vectors = [np.array([1.0, 2.0]), np.array([3.0, 4.0])]
-    
+
     print(perturb_vectors(vectors, eps=0.1))
     ```
 

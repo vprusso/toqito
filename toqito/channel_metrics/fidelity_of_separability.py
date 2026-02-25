@@ -22,13 +22,22 @@ def fidelity_of_separability(
 ) -> float:
     r"""Define the first benchmark introduced in Appendix I of [@Philip_2023_Schrodinger].
 
-    If you would like to instead use the benchmark introduced in Appendix H, go to [state_metrics.fidelity_of_separability][toqito.state_metrics.fidelity_of_separability].
+    If you would like to instead use the benchmark introduced in Appendix H, go to
+    [state_metrics.fidelity_of_separability][toqito.state_metrics.fidelity_of_separability].
 
-    In [@Philip_2023_Schrodinger], a variational quantum algorithm (VQA) is introduced to test the separability of a general bipartite state. The algorithm utilizes quantum steering between two separated systems such that the separability of the state is quantified.
+    In [@Philip_2023_Schrodinger], a variational quantum algorithm (VQA) is introduced to test the separability of
+    general bipartite state. The algorithm utilizes quantum steering between two separated systems such that the
+    separability of the state is quantified.
 
-    Due to the limitations of currently available quantum computers, two optimization semidefinite programs (SDP) benchmarks were introduced to maximize the fidelity of separability subject to some state constraints (Positive Partial Transpose (PPT), symmetric extensions (k-extendibility) [@Hayden_2013_TwoMessage]). Entangled states do not have k-symmetric extensions. If an extension exists, it cannot be assumed directly that the state is separable. This function approximates the fidelity of separability by maximizing over PPT channels & k-extendible entanglement breaking channels i.e. an optimization problem over channels [@Watrous_2018_TQI].
+    Due to the limitations of currently available quantum computers, two optimization semidefinite programs (SDP)
+    benchmarks were introduced to maximize the fidelity of separability subject to some state constraints
+    (Positive Partial Transpose (PPT), symmetric extensions (k-extendibility) [@Hayden_2013_TwoMessage]).
+    Entangled states do not have k-symmetric extensions. If an extension exists, it cannot be assumed directly that the
+    state is separable. This function approximates the fidelity of separability by maximizing over PPT channels &
+    k-extendible entanglement breaking channels i.e. an optimization problem over channels [@Watrous_2018_TQI].
 
-    The following discussion (Equation (I4) from [@Philip_2023_Schrodinger]) defines the constraints for approximating $\widetilde{F}_s^2(\rho_{AB})$ in $\frac{1}{2}(1+\widetilde{F}_s^2(\rho_{AB}))$.
+    The following discussion (Equation (I4) from [@Philip_2023_Schrodinger]) defines the constraints for approximating
+    $\widetilde{F}_s^2(\rho_{AB})$ in $\frac{1}{2}(1+\widetilde{F}_s^2(\rho_{AB}))$.
 
     $$
     \operatorname{Tr}[
@@ -36,7 +45,8 @@ def fidelity_of_separability(
             T_R(\psi_{RAB})\Gamma^{\mathcal{E}^{k}}_{RA^{\prime}_1}]]
     $$
 
-    Above expression defines the maximization problem subject to PPT & k-extendible channel constraints over $\max_{\Gamma^{\mathcal{E}^{k}}_{RA^{\prime k}}\geq 0}$.
+    Above expression defines the maximization problem subject to PPT & k-extendible channel constraints over
+    $\max_{\Gamma^{\mathcal{E}^{k}}_{RA^{\prime k}}\geq 0}$.
 
     The constraint expressions are listed below:
 
@@ -59,7 +69,8 @@ def fidelity_of_separability(
     These other constraints are due to the PPT condition [@Peres_1996_Separability].
 
     Examples:
-        Let's consider a density matrix of a state that we know is pure & separable. $|000 \rangle = |0 \rangle \otimes |0 \rangle \otimes |0 \rangle$.
+        Let's consider a density matrix of a state that we know is pure & separable.
+        $|000 \rangle = |0 \rangle \otimes |0 \rangle \otimes |0 \rangle$.
 
         The expected approximation of fidelity of separability is the maximum
         value possible i.e. very close to 1.
@@ -84,10 +95,11 @@ def fidelity_of_separability(
             is PSD with trace 1).
         ValueError: the input state is entangled.
         ValueError: the input state is a mixed state.
-        
+
     Args:
         psi: the density matrix for the tripartite state of interest psi_{BAR}
-        psi_dims: the dimensions of System A, B, & R in the input state density matrix. It is assumed that the first quantity in this list is the dimension of System B.
+        psi_dims: the dimensions of System A, B, & R in the input state density matrix. It is assumed that the first
+        quantity in this list is the dimension of System B.
         k: value for k-extendibility.
         verbosity_option: Parameter option for `picos`. Default value is
             `verbosity = 0`. For more info, visit

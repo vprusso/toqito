@@ -1,5 +1,4 @@
-"""
-# The CHSH extended nonlocal game
+"""# The CHSH extended nonlocal game
 
 Following our analysis of the BB84 game, let us now define another important
 extended nonlocal game, $G_{CHSH}$. This game is defined by a winning

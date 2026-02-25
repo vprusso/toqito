@@ -14,7 +14,6 @@ class QuantumHedging:
     hedging to occur in certain two-party scenarios [@Arunachalam_2017_QuantumHedging, Molina_2012_Hedging].
 
     Examples:
-
     This example illustrates the initial example of perfect hedging when Alice
     and Bob play two repetitions of the game where Alice prepares the maximally
     entangled state:
@@ -37,24 +36,24 @@ class QuantumHedging:
     from toqito.states import basis
     from numpy import kron, cos, sin, pi, sqrt, isclose
     from toqito.nonlocal_games.quantum_hedging import QuantumHedging
-    
+
     e_0, e_1 = basis(2, 0), basis(2, 1)
     e_00, e_01 = kron(e_0, e_0), kron(e_0, e_1)
     e_10, e_11 = kron(e_1, e_0), kron(e_1, e_1)
-    
+
     alpha = 1 / sqrt(2)
     theta = pi / 8
     w_var = alpha * cos(theta) * e_00 + sqrt(1 - alpha ** 2) * sin(theta) * e_11
-    
+
     l_1 = -alpha * sin(theta) * e_00 + sqrt(1 - alpha ** 2) * cos(theta) * e_11
     l_2 = alpha * sin(theta) * e_10
     l_3 = sqrt(1 - alpha ** 2) * cos(theta) * e_01
-    
+
     q_1 = w_var @ w_var.conj().T
     q_0 = l_1 @ l_1.conj().T + l_2 @ l_2.conj().T + l_3 @ l_3.conj().T
-    
+
     molina_watrous = QuantumHedging(q_0, 1)
-    
+
     # cos(pi/8)**2 \approx 0.8536
     print(np.around(molina_watrous.max_prob_outcome_a_primal(), decimals=2))
     ```
@@ -66,22 +65,22 @@ class QuantumHedging:
     from toqito.states import basis
     from numpy import kron, cos, sin, pi, sqrt, isclose
     from toqito.nonlocal_games.quantum_hedging import QuantumHedging
-    
+
     e_0, e_1 = basis(2, 0), basis(2, 1)
     e_00, e_01 = kron(e_0, e_0), kron(e_0, e_1)
     e_10, e_11 = kron(e_1, e_0), kron(e_1, e_1)
-    
+
     alpha = 1 / sqrt(2)
     theta = pi / 8
     w_var = alpha * cos(theta) * e_00 + sqrt(1 - alpha ** 2) * sin(theta) * e_11
-    
+
     l_1 = -alpha * sin(theta) * e_00 + sqrt(1 - alpha ** 2) * cos(theta) * e_11
     l_2 = alpha * sin(theta) * e_10
     l_3 = sqrt(1 - alpha ** 2) * cos(theta) * e_01
-    
+
     q_1 = w_var @ w_var.conj().T
     q_0 = l_1 @ l_1.conj().T + l_2 @ l_2.conj().T + l_3 @ l_3.conj().T
-    
+
     molina_watrous = QuantumHedging(q_0, 1)
     print(np.around(molina_watrous.max_prob_outcome_a_dual(), decimals=2))
     ```
@@ -93,22 +92,22 @@ class QuantumHedging:
     from toqito.states import basis
     from numpy import kron, cos, sin, pi, sqrt, isclose
     from toqito.nonlocal_games.quantum_hedging import QuantumHedging
-    
+
     e_0, e_1 = basis(2, 0), basis(2, 1)
     e_00, e_01 = kron(e_0, e_0), kron(e_0, e_1)
     e_10, e_11 = kron(e_1, e_0), kron(e_1, e_1)
-    
+
     alpha = 1 / sqrt(2)
     theta = pi / 8
     w_var = alpha * cos(theta) * e_00 + sqrt(1 - alpha ** 2) * sin(theta) * e_11
-    
+
     l_1 = -alpha * sin(theta) * e_00 + sqrt(1 - alpha ** 2) * cos(theta) * e_11
     l_2 = alpha * sin(theta) * e_10
     l_3 = sqrt(1 - alpha ** 2) * cos(theta) * e_01
-    
+
     q_1 = w_var @ w_var.conj().T
     q_0 = l_1 @ l_1.conj().T + l_2 @ l_2.conj().T + l_3 @ l_3.conj().T
-    
+
     molina_watrous = QuantumHedging(q_0, 1)
     print(np.around(molina_watrous.min_prob_outcome_a_primal(), decimals=2))
     ```
@@ -118,30 +117,31 @@ class QuantumHedging:
     from toqito.states import basis
     from numpy import kron, cos, sin, pi, sqrt, isclose
     from toqito.nonlocal_games.quantum_hedging import QuantumHedging
-    
+
     e_0, e_1 = basis(2, 0), basis(2, 1)
     e_00, e_01 = kron(e_0, e_0), kron(e_0, e_1)
     e_10, e_11 = kron(e_1, e_0), kron(e_1, e_1)
-    
+
     alpha = 1 / sqrt(2)
     theta = pi / 8
     w_var = alpha * cos(theta) * e_00 + sqrt(1 - alpha ** 2) * sin(theta) * e_11
-    
+
     l_1 = -alpha * sin(theta) * e_00 + sqrt(1 - alpha ** 2) * cos(theta) * e_11
     l_2 = alpha * sin(theta) * e_10
     l_3 = sqrt(1 - alpha ** 2) * cos(theta) * e_01
-    
+
     q_1 = w_var @ w_var.conj().T
     q_0 = l_1 @ l_1.conj().T + l_2 @ l_2.conj().T + l_3 @ l_3.conj().T
-    
+
     molina_watrous = QuantumHedging(q_0, 1)
     print(np.around(molina_watrous.min_prob_outcome_a_dual(), decimals=2))
     ```
-"""
+
+    """
 
     def __init__(self, q_a: np.ndarray, num_reps: int) -> None:
         """Initialize the variables for semidefinite program.
-        
+
         Args:
             q_a: The fixed SDP variable.
             num_reps: The number of parallel repetitions.
@@ -190,8 +190,9 @@ class QuantumHedging:
             \end{equation}
         \]
 
-        Returns: 
+        Returns:
             The optimal maximal probability for obtaining outcome "a".
+
         """
         x_var = cvxpy.Variable((4**self._num_reps, 4**self._num_reps), hermitian=True)
         objective = cvxpy.Maximize(cvxpy.real(cvxpy.trace(self._q_a.conj().T @ x_var)))
@@ -220,6 +221,7 @@ class QuantumHedging:
 
         Returns:
             The optimal maximal probability for obtaining outcome "a".
+
         """
         y_var = cvxpy.Variable((2**self._num_reps, 2**self._num_reps), hermitian=True)
         objective = cvxpy.Minimize(cvxpy.trace(cvxpy.real(y_var)))
@@ -255,9 +257,10 @@ class QuantumHedging:
                 \end{aligned}
             \end{equation}
         \]
-        
+
         Returns:
             The optimal minimal probability for obtaining outcome "a".
+
         """
         x_var = cvxpy.Variable((4**self._num_reps, 4**self._num_reps), hermitian=True)
         objective = cvxpy.Minimize(cvxpy.real(cvxpy.trace(self._q_a.conj().T @ x_var)))
@@ -269,9 +272,9 @@ class QuantumHedging:
     def min_prob_outcome_a_dual(self) -> float:
         r"""Compute the minimal probability for calculating outcome "a".
 
-    The dual problem for the minimal probability of "a" is given as:
+        The dual problem for the minimal probability of "a" is given as:
 
-    \[
+        \[
         \begin{equation}
             \begin{aligned}
                 \text{maximize:} \quad & \text{Tr}(Y) \\
@@ -282,12 +285,12 @@ class QuantumHedging:
                 \mathcal{X}_n \right)
             \end{aligned}
         \end{equation}
-    \]
+        \]
 
-    Returns:
+        Returns:
         The optimal minimal probability for obtaining outcome "a".
 
-    """
+        """
         y_var = cvxpy.Variable((2**self._num_reps, 2**self._num_reps), hermitian=True)
         objective = cvxpy.Maximize(cvxpy.trace(cvxpy.real(y_var)))
 

@@ -25,16 +25,19 @@ class ExtendedNonlocalGame:
     information on these games can be found in [@Russo_2017_Extended].
 
     For a detailed walkthrough and several examples, including the BB84 and CHSH
-    games, please see the tutorial on [Extended Nonlocal Games](../../../generated/gallery/extended_nonlocal_games/index.md).
-"""
+    games, please see the tutorial on
+    [Extended Nonlocal Games](../../../generated/gallery/extended_nonlocal_games/index.md).
+    """
 
     def __init__(self, prob_mat: np.ndarray, pred_mat: np.ndarray, reps: int = 1) -> None:
         """Construct extended nonlocal game object.
 
         Args:
-            prob_mat: A matrix whose (x, y)-entry gives the probability that the referee will give Alice the value `x` and Bob the value `y`.
+            prob_mat: A matrix whose (x, y)-entry gives the probability that the referee will give Alice the value `x`
+            and Bob the value `y`.
             pred_mat: A matrix representing the predictions for the game.
             reps: Number of parallel repetitions to perform.
+
         """
         if reps == 1:
             self.prob_mat = prob_mat
@@ -287,12 +290,13 @@ class ExtendedNonlocalGame:
         Uses an iterative see-saw method involving two SDPs.
 
         Args:
-            iter: Maximum number of see-saw iterations (Alice optimizes, Bob optimizes (default is 20).
+            iters: Maximum number of see-saw iterations (Alice optimizes, Bob optimizes (default is 20).
             tol: Tolerance for stopping see-saw iteration based on improvement (default is 1e-8).
             seed: Optional seed for initializing random POVMs for reproducibility (default is None).
+            initial_bob_is_random: Optional
             solver: Optional option for different solver (default is SCS).
             solver_params: Optional parameters for solver (default is {"eps": 1e-8, "verbose": False}).
-            verbos: Optional printout for optimizer step (default is False).
+            verbose: Optional printout for optimizer step (default is False).
 
         Returns:
             The best lower bound found on the quantum value.
@@ -514,24 +518,24 @@ class ExtendedNonlocalGame:
     def commuting_measurement_value_upper_bound(self, k: int | str = 1, no_signaling: bool = True) -> float:
         r"""Compute an upper bound on the commuting measurement value of an extended nonlocal game.
 
-    This function calculates an upper bound on the commuting measurement value by
-        using k-levels of the NPA hierarchy [@Navascues_2008_AConvergent]. The NPA hierarchy is a uniform
-        family of semidefinite programs that converges to the commuting measurement value of
-        any extended nonlocal game.
+        This function calculates an upper bound on the commuting measurement value by
+            using k-levels of the NPA hierarchy [@Navascues_2008_AConvergent]. The NPA hierarchy is a uniform
+            family of semidefinite programs that converges to the commuting measurement value of
+            any extended nonlocal game.
 
-    You can determine the level of the hierarchy by a positive integer or a string
-        of a form like '1+ab+aab', which indicates that an intermediate level of the hierarchy
-        should be used, where this example uses all products of one measurement, all products of
-        one Alice and one Bob measurement, and all products of two Alice and one Bob measurements.
+        You can determine the level of the hierarchy by a positive integer or a string
+            of a form like '1+ab+aab', which indicates that an intermediate level of the hierarchy
+            should be used, where this example uses all products of one measurement, all products of
+            one Alice and one Bob measurement, and all products of two Alice and one Bob measurements.
 
-    Args:
-        k: The level of the NPA hierarchy to use (default=1).
-        no_signaling: Whether to enforce the no-signaling constraints (default=True).
+        Args:
+            k: The level of the NPA hierarchy to use (default=1).
+            no_signaling: Whether to enforce the no-signaling constraints (default=True).
 
-    Returns:
-        The upper bound on the commuting strategy value of an extended nonlocal game.
+        Returns:
+            The upper bound on the commuting strategy value of an extended nonlocal game.
 
-    """
+        """
         dR, _, A_out, B_out, A_in, B_in = self.pred_mat.shape
         K = {}
         for x in range(A_in):

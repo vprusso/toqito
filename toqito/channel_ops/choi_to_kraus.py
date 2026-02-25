@@ -25,7 +25,6 @@ def choi_to_kraus(
     This function has been adapted from [@Rigetti_2022_Forest] and QETLAB [@QETLAB_link].
 
     Examples:
-
     Consider taking the Kraus operators of the Choi matrix that characterizes the "swap operator"
     defined as
 

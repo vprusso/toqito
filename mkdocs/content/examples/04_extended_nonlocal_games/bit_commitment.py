@@ -1,5 +1,4 @@
-"""
-# Modeling Bit Commitment Binding Failure
+"""# Modeling Bit Commitment Binding Failure
 
 In this tutorial, we will model a quantum bit commitment protocol as an
 extended nonlocal game where the "player" Alice attempts to cheat. Instead of
@@ -82,6 +81,7 @@ theorem [@Mayers_1997_Unconditionally][@Lo_1997_Why].
 # Now, let's translate this game into code.
 #
 import numpy as np
+
 from toqito.states import basis
 
 # 1. Define Game Parameters

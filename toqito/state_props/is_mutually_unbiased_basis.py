@@ -28,7 +28,6 @@ def is_mutually_unbiased_basis(vectors: list[np.ndarray | list[float | Any]]) ->
     \(x, x^{\prime} \in \Sigma\).
 
     Examples:
-
     MUB of dimension \(2\).
 
     For \(d=2\), the following constitutes a mutually unbiased basis:

@@ -22,7 +22,6 @@ def update_odometer(old_ind: list[int] | np.ndarray, upper_lim: list[int] | np.n
     This function is adapted from QETLAB [@QETLAB_link].
 
     Examples:
-
     ```python exec="1" source="above"
     from toqito.helper import update_odometer
     import numpy as np

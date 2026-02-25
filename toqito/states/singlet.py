@@ -9,7 +9,6 @@ def singlet(dim: int) -> np.ndarray:
     r"""Produce a generalized singlet state acting on two n-dimensional systems [@Cabello_2002_NParticle].
 
     Examples:
-
     For \(n = 2\) this generates the following matrix
 
     \[

@@ -25,7 +25,7 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import is_stochastic
-    
+
     print(is_stochastic(np.eye(5), "right"))
     print(is_stochastic(np.eye(5), "left"))
     print(is_stochastic(np.eye(5), "doubly"))
@@ -34,7 +34,7 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
     ```python exec="1" source="above"
     from toqito.matrices import pauli
     from toqito.matrix_props import is_stochastic
-    
+
     print(is_stochastic(pauli("X"), "left"))
     print(is_stochastic(pauli("X"), "right"))
     print(is_stochastic(pauli("X"), "doubly"))
@@ -43,7 +43,7 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
     ```python exec="1" source="above"
     from toqito.matrices import pauli
     from toqito.matrix_props import is_stochastic
-    
+
     print(is_stochastic(pauli("Z"), "right"))
     print(is_stochastic(pauli("Z"), "left"))
     print(is_stochastic(pauli("Z"), "doubly"))
@@ -55,7 +55,8 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
 
     Args:
         mat: Matrix of interest
-        mat_type: Type of stochastic matrix. `"left"` for left stochastic matrix and `"right"` for right stochastic matrix and `"doubly"` for a doubly stochastic matrix.
+        mat_type: Type of stochastic matrix. `"left"` for left stochastic matrix and `"right"` for right stochastic
+        matrix and `"doubly"` for a doubly stochastic matrix.
 
     Returns:
         Returns `True` if the matrix is doubly, right or left stochastic, `False` otherwise.

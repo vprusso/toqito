@@ -14,7 +14,7 @@ def cyclic_permutation_matrix(n: int, k: int = 1) -> np.ndarray:
 
     ```python exec="1" source="above"
     from toqito.matrices import cyclic_permutation_matrix
-    
+
     print(cyclic_permutation_matrix(n=4))
     ```
 
@@ -22,7 +22,7 @@ def cyclic_permutation_matrix(n: int, k: int = 1) -> np.ndarray:
 
     ```python exec="1" source="above"
     from toqito.matrices import cyclic_permutation_matrix
-    
+
     print(cyclic_permutation_matrix(n=4, k=3))
     ```
 
@@ -33,7 +33,9 @@ def cyclic_permutation_matrix(n: int, k: int = 1) -> np.ndarray:
         k: int The power to which the elements are raised, representing successive applications.
 
     Returns:
-         A NumPy array representing a cyclic permutation matrix of dimension `n x n`. Each row of the matrix is shifted one position to the right in a cyclic manner, creating a circular permutation pattern. If `k` is specified, the function raises the matrix to the power of `k`, representing successive applications of the cyclic permutation.
+         A NumPy array representing a cyclic permutation matrix of dimension `n x n`. Each row of the matrix is shifted
+         one position to the right in a cyclic manner, creating a circular permutation pattern. If `k` is specified, the
+         function raises the matrix to the power of `k`, representing successive applications of the cyclic permutation.
 
     """
     if not isinstance(n, int):

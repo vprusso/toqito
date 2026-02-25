@@ -18,7 +18,6 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int | None = Non
     This function was adapted from QETLAB.
 
     Examples:
-
     Compute the entanglement-of-formation of a Bell state.
 
     Let \(u = \frac{1}{\sqrt{2}} \left(|00\rangle + |11\rangle \right)\)

@@ -60,7 +60,8 @@ def complementary_channel(kraus_ops: list[np.ndarray]) -> list[np.ndarray]:
         ValueError: If the input is not a valid list of Kraus operators.
 
     Args:
-        kraus_ops: A list of numpy arrays representing the Kraus operators of a quantum channel. Each Kraus operator is assumed to be a square matrix.
+        kraus_ops: A list of numpy arrays representing the Kraus operators of a quantum channel. Each Kraus operator is
+        assumed to be a square matrix.
 
     Returns:
         A list of numpy arrays representing the Kraus operators of the complementary map.

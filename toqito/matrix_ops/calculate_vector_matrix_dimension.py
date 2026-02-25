@@ -11,7 +11,6 @@ def calculate_vector_matrix_dimension(item: np.ndarray) -> int:
     The dimension is the length for vectors and the square of the side length for density matrices.
 
     Example:
-
     Consider the following three-dimensional vector:
 
     \[
@@ -23,9 +22,9 @@ def calculate_vector_matrix_dimension(item: np.ndarray) -> int:
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_ops import calculate_vector_matrix_dimension
-    
+
     v = np.array([1, 0, 0])
-    
+
     print(calculate_vector_matrix_dimension(v))
     ```
 
@@ -42,21 +41,24 @@ def calculate_vector_matrix_dimension(item: np.ndarray) -> int:
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_ops import calculate_vector_matrix_dimension
-    
+
     rho = np.array([[1/2, 0],[0, 1/2]])
-    
+
     print(calculate_vector_matrix_dimension(rho))
     ```
 
-    Returns: 
-        The dimension of the item. For vectors (1D or 2D representations), it's the length. For square matrices, it's the square of the size of one side.
+    Returns:
+        The dimension of the item. For vectors (1D or 2D representations), it's the length. For square matrices, it's
+        the square of the size of one side.
 
     Raises:
-        ValueError: If the input is not a numpy array, not a 1D array (vector), a 2D array representing a vector, or a square 2D
+        ValueError: If the input is not a numpy array, not a 1D array (vector), a 2D array representing a vector, or a
+        square 2D
         array (density matrix).
 
     Args:
-        item: The item whose dimension is being calculated. Can be a 1D array (vector), a 2D array representing a vector with one dimension being 1, or a square 2D array (density matrix).
+        item: The item whose dimension is being calculated. Can be a 1D array (vector), a 2D array representing a vector
+        with one dimension being 1, or a square 2D array (density matrix).
 
     Returns:
         The dimension of the vector or matrix.

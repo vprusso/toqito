@@ -1,5 +1,4 @@
-"""
-# Antidistinguishability of Circulant States and the Eigenvalue Criterion
+"""# Antidistinguishability of Circulant States and the Eigenvalue Criterion
 
 In this tutorial, we investigate the antidistinguishability of a special
 class of quantum states known as circulant states. We will numerically verify a

@@ -20,7 +20,6 @@ def w_state(num_qubits: int, coeff: list[int] | None = None) -> np.ndarray:
     \]
 
     Examples:
-
     Using `|toqito⟩`, we can generate the \(3\)-qubit W-state
 
     \[

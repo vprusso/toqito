@@ -1,5 +1,4 @@
-"""
-The Pretty Good and Pretty Bad Measurements
+"""The Pretty Good and Pretty Bad Measurements
 ===========================================
 
 In this tutorial, we will explore the "pretty good measurement" (PGM) and its
@@ -100,9 +99,10 @@ results and figures from the paper using `|toqito⟩`.
 #     the relationship between $P_{\text{PGM}}$ and $P_{\text{PBM}}$.
 
 import numpy as np
+
 from toqito.measurements import pretty_bad_measurement, pretty_good_measurement
-from toqito.states import trine
 from toqito.state_opt import state_distinguishability, state_exclusion
+from toqito.states import trine
 
 
 def calculate_success_prob(
@@ -142,7 +142,7 @@ print(f"Analyzing k={k} trine states with uniform probability.")
 p_best, _ = state_distinguishability(state_vectors, probs)
 p_worst, _ = state_exclusion(state_vectors, probs)
 
-print(f"\nOptimal Benchmarks:")
+print("\nOptimal Benchmarks:")
 print(f"  P_Best  = {p_best:.4f} (Max discrimination probability)")
 print(f"  P_Worst = {p_worst:.4f} (Min discrimination probability)")
 
@@ -159,7 +159,7 @@ pbm_operators = pretty_bad_measurement(state_vectors, probs)
 p_pgm = calculate_success_prob(state_vectors, probs, pgm_operators)
 p_pbm = calculate_success_prob(state_vectors, probs, pbm_operators)
 
-print(f"\nHeuristic Measurements:")
+print("\nHeuristic Measurements:")
 print(f"  P_PGM = {p_pgm:.4f}")
 print(f"  P_PBM = {p_pbm:.4f}")
 
@@ -177,7 +177,7 @@ print(f"  P_PBM = {p_pbm:.4f}")
 #
 # 5. Verify the core relationship and the hierarchy.
 relation_lhs = p_pgm + (k - 1) * p_pbm
-print(f"\nVerifying P_PGM + (k-1)*P_PBM = 1:")
+print("\nVerifying P_PGM + (k-1)*P_PBM = 1:")
 print(f"  {p_pgm:.4f} + ({k - 1})*{p_pbm:.4f} = {relation_lhs:.4f} -> {np.isclose(relation_lhs, 1)}")
 
 print("\nVerifying hierarchy (P_Best >= P_PGM >= 1/k >= P_PBM >= P_Worst):")

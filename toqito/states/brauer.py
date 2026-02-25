@@ -29,7 +29,6 @@ def brauer(dim: int, p_val: int) -> np.ndarray:
     This function has been adapted from QETLAB.
 
     Examples:
-
     Generate a matrix whose columns are all Brauer states on 4 qubits.
 
     ```python exec="1" source="above"
@@ -39,7 +38,8 @@ def brauer(dim: int, p_val: int) -> np.ndarray:
 
     Args:
         dim: Dimension of each local subsystem
-        p_val: Half of the number of parties (i.e., the state that this function computes will live in \((\mathbb{C}^D)^{\otimes 2 P})\)
+        p_val: Half of the number of parties (i.e., the state that this function computes will live in
+        \((\mathbb{C}^D)^{\otimes 2 P})\)
 
     Returns:
         Matrix whose columns are all of the unnormalized Brauer states.

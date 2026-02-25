@@ -235,30 +235,32 @@ def npa_constraints(
 ) -> list[cvxpy.constraints.constraint.Constraint]:
     r"""Generate the constraints specified by the NPA hierarchy up to a finite level.
 
-[@Navascues_2008_AConvergent]
+    [@Navascues_2008_AConvergent]
 
-You can determine the level of the hierarchy by a positive integer or a string
-of a form like "1+ab+aab", which indicates that an intermediate level of the hierarchy
-should be used, where this example uses all products of 1 measurement, all products of
-one Alice and one Bob measurement, and all products of two Alice and one Bob measurement.
+    You can determine the level of the hierarchy by a positive integer or a string
+    of a form like "1+ab+aab", which indicates that an intermediate level of the hierarchy
+    should be used, where this example uses all products of 1 measurement, all products of
+    one Alice and one Bob measurement, and all products of two Alice and one Bob measurement.
 
-The commuting measurement assemblage operator must be given as a dictionary. The keys are
-tuples of Alice and Bob questions \(x, y\) and the values are cvxpy Variables which
-are matrices with entries:
+    The commuting measurement assemblage operator must be given as a dictionary. The keys are
+    tuples of Alice and Bob questions \(x, y\) and the values are cvxpy Variables which
+    are matrices with entries:
 
-\[
-    K_{xy}\Big(i + a \cdot dim_R, j + b \cdot dim_R \Big) =
-    \langle i| \text{Tr}_{\mathcal{H}} \Big( \big(
-        I_R \otimes A_a^x B_b^y \big) \sigma \Big) |j \rangle
-\]
+    \[
+        K_{xy}\Big(i + a \cdot dim_R, j + b \cdot dim_R \Big) =
+        \langle i| \text{Tr}_{\mathcal{H}} \Big( \big(
+            I_R \otimes A_a^x B_b^y \big) \sigma \Big) |j \rangle
+    \]
 
-Args:
-    assemblage: The commuting measurement assemblage operator.
-    k: The level of the NPA hierarchy to use (default=1).
-    referee_dim: The dimension of the referee's quantum system (default=1).
+    Args:
+        assemblage: The commuting measurement assemblage operator.
+        k: The level of the NPA hierarchy to use (default=1).
+        referee_dim: The dimension of the referee's quantum system (default=1).
+        no_signaling: bool
 
-Returns:
-    A list of cvxpy constraints.
+    Returns:
+        A list of cvxpy constraints.
+
     """
     a_out, a_in, b_out, b_in = _get_nonlocal_game_params(assemblage, referee_dim)
 
@@ -498,7 +500,6 @@ def bell_npa_constraints(
     - ``p_var[i, j]`` corresponds to the expectation of the product \(A_{a|x} B_{b|y}\).
 
     Examples:
-
     Consider the CHSH inequality scenario with ``desc = [2, 2, 2, 2]``. We want to generate the NPA level 1 constraints.
 
     ```python exec="1" source="above" session="npa_example"

@@ -24,7 +24,6 @@ def gen_pauli_x(dim: int) -> np.ndarray:
     Pauli operators.
 
     Examples:
-
     The gen_pauli_x matrix generated from \(d = 3\) yields the following matrix:
 
     \[
@@ -38,7 +37,7 @@ def gen_pauli_x(dim: int) -> np.ndarray:
 
     ```python exec="1" source="above"
     from toqito.matrices import gen_pauli_x
-    
+
     print(gen_pauli_x(3))
     ```
 

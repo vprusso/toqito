@@ -12,7 +12,7 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
     single unique entry that marks the satisfying assignment.
 
     This function unravels such a tensor by:
-    
+
        1. Locating the unique element (the one appearing exactly once).
        2. Extracting its multi-dimensional index `(i1, i2, ..., in)`.
        3. Returning a 1D NumPy array `[i1, i2, ..., in, value]`, where the first `n`
@@ -31,16 +31,18 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_ops import tensor_unravel
-    
+
     tensor_constraint = np.array([[-1, -1], [-1, 1]])
     print(tensor_unravel(tensor_constraint))
     ```
 
     Args:
-        constraint_tensor: An n-dimensional tensor with shape `(2,)*n`, where each element is either -1 or +1. All entries should be equal except for one unique position that marks the satisfying assignment.
+        constraint_tensor: An n-dimensional tensor with shape `(2,)*n`, where each element is either -1 or +1.
+        All entries should be equal except for one unique position that marks the satisfying assignment.
 
     Returns:
-        A 1D `numpy` array of length \(n+1\) where the first \(n\) elements are the coordinates (indices), and the last element is the unique constant (rhs).
+        A 1D `numpy` array of length \(n+1\) where the first \(n\) elements are the coordinates (indices), and the last
+        element is the unique constant (rhs).
 
     """
     values, counts = np.unique(constraint_tensor, return_counts=True)

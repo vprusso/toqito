@@ -34,26 +34,27 @@ def amplitude_damping(
     damping process.
 
     Examples:
-
     Apply the generalized amplitude damping channel to a qubit state:
 
     ```python exec="1" source="above"
     import numpy as np
     from toqito.channels import amplitude_damping
-    
+
     rho = np.array([[1, 0], [0, 0]])  # |0><0|
     result = amplitude_damping(rho, gamma=0.1, prob=0.5)
-    
+
     print(result)
     ```
 
     Args:
-        input_mat: The input matrix to which the channel is applied. If `None`, the function returns the Kraus operators of the channel.
+        input_mat: The input matrix to which the channel is applied. If `None`, the function returns the Kraus operators
+        of the channel.
         gamma: The damping rate, a float between 0 and 1. Represents the probability of energy dissipation.
         prob: The probability of energy loss, a float between 0 and 1.
 
     Returns:
-        The evolved quantum state after applying the generalized amplitude damping channel. If `input_mat` is `None`, it returns the list of Kraus operators.
+        The evolved quantum state after applying the generalized amplitude damping channel. If `input_mat` is `None`, it
+        returns the list of Kraus operators.
 
     """
     if not (0 <= prob <= 1):

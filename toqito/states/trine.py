@@ -17,7 +17,6 @@ def trine() -> list[np.ndarray]:
     \]
 
     Examples:
-
     Generating the trine states can be done by simply invoking the function:
 
     ```python exec="1" source="above"

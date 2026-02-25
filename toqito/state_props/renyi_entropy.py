@@ -30,7 +30,6 @@ def renyi_entropy(rho: np.ndarray, alpha: float) -> float:
     \(\alpha=1\) and the min-entropy for \(\alpha=+\infty\).
 
     Examples:
-
     Consider the following Bell state:
 
     \[
@@ -83,7 +82,8 @@ def renyi_entropy(rho: np.ndarray, alpha: float) -> float:
 
     Args:
         rho: Density operator.
-        alpha: Order for the Rényi entropy. Note that numerical instability may happen for small positive values because of the computation of the spectral decomposition.
+        alpha: Order for the Rényi entropy. Note that numerical instability may happen for small positive values because
+        of the computation of the spectral decomposition.
 
     Returns:
         The Rényi entropy of order `alpha` of `rho`.

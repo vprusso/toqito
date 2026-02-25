@@ -25,7 +25,6 @@ def is_herm_preserving(
     for every Hermitian operator \(H \in \text{Herm}(\mathcal{X})\).
 
     Examples:
-
     The map \(\Phi\) defined as
 
     \[
@@ -45,10 +44,10 @@ def is_herm_preserving(
     ```python exec="1" source="above"
     import numpy as np
     from toqito.channel_props import is_herm_preserving
-    
+
     unitary_mat = np.array([[1, 1], [-1, 1]]) / np.sqrt(2)
     kraus_ops = [[np.identity(2), np.identity(2)], [unitary_mat, -unitary_mat]]
-    
+
     print(is_herm_preserving(kraus_ops))
     ```
 
@@ -61,10 +60,10 @@ def is_herm_preserving(
     import numpy as np
     from toqito.perms import swap_operator
     from toqito.channel_props import is_herm_preserving
-    
+
     unitary_mat = np.array([[1, 1], [-1, 1]]) / np.sqrt(2)
     choi_mat = swap_operator(3)
-    
+
     print(is_herm_preserving(choi_mat))
     ```
 

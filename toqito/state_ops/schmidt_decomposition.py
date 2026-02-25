@@ -41,30 +41,31 @@ def schmidt_decomposition(
     ```python exec="1" source="above"
     from toqito.states import max_entangled
     from toqito.state_ops import schmidt_decomposition
-    
+
     singular_vals, u_mat, vt_mat = schmidt_decomposition(max_entangled(3))
-    
+
     matrices = {
         "Singular values": singular_vals,
         "U matrix": u_mat,
         "V^T matrix": vt_mat,
     }
-    
+
     for name, mat in matrices.items():
         print(f"{name}:\n{mat}\n")
     ```
-    
+
     Raises:
         ValueError: If matrices are not of equal dimension.
-    
+
     Args:
         rho: A bipartite quantum state to compute the Schmidt decomposition of.
         dim: An array consisting of the dimensions of the subsystems (default gives subsystems
                 equal dimensions).
         k_param: How many terms of the Schmidt decomposition should be computed (default is 0).
-    
+
     Returns:
         The Schmidt decomposition of the `rho` input.
+
     """
     # If the input is provided as a matrix, compute the operator Schmidt decomposition.
     if len(rho.shape) == 2:

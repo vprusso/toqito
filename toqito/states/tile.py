@@ -34,7 +34,6 @@ def tile(idx: int) -> np.ndarray:
     \]
 
     Examples:
-
     When `idx = 0`, this produces the following tile state
 
     \[

@@ -20,7 +20,6 @@ def is_pseudo_hermitian(mat: np.ndarray, signature: np.ndarray, rtol: float = 1e
     - \(\eta\) is a Hermitian, invertible matrix.
 
     Examples:
-
     Consider the following matrix:
 
     \[
@@ -44,10 +43,10 @@ def is_pseudo_hermitian(mat: np.ndarray, signature: np.ndarray, rtol: float = 1e
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import is_pseudo_hermitian
-    
+
     H = np.array([[1, 1+1j], [-1+1j, -1]])
     eta = np.array([[1, 0], [0, -1]])
-    
+
     print(is_pseudo_hermitian(H, eta))
     ```
 
@@ -67,7 +66,7 @@ def is_pseudo_hermitian(mat: np.ndarray, signature: np.ndarray, rtol: float = 1e
     from toqito.matrix_props import is_pseudo_hermitian
     eta = np.array([[1, 0], [0, -1]])
     A = np.array([[1, 1j], [-1j, 1]])
-    
+
     print(is_pseudo_hermitian(A, eta))
     ```
 

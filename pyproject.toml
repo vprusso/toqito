@@ -155,3 +155,4 @@ ignore = ["D407", "D203", "D213", "D416", "PLR0912", "PLR0911", "PLR0915", "PLR2
 # F401 - Checks for unused imports, applying fixes to __init__.py currently under review
 # skip checking all the .py files in the examples gallery
 "docs/examples/*" = ["I", "E", "W", "D", "PL", "F"]
+"mkdocs/content/examples/*" = ["I", "E", "W", "D", "PL", "F"]

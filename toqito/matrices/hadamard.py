@@ -29,7 +29,7 @@ def hadamard(n_param: int = 1) -> np.ndarray:
 
     ```python exec="1" source="above"
     from toqito.matrices import hadamard
-    
+
     print(hadamard(1))
     ```
 

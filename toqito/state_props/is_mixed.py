@@ -11,7 +11,6 @@ def is_mixed(state: np.ndarray) -> bool:
     A mixed state by definition is a state that is not pure.
 
     Examples:
-
     Consider the following density matrix:
 
     \[

@@ -32,7 +32,8 @@ def channel_dim(
     This functions was adapted from QETLAB [@QETLAB_link].
 
     Args:
-        phi: A superoperator. It should be provided either as a Choi matrix, or as a (1d or 2d) list of numpy arrays whose entries are its Kraus operators.
+        phi: A superoperator. It should be provided either as a Choi matrix, or as a (1d or 2d) list of numpy arrays
+        whose entries are its Kraus operators.
         allow_rect: A flag indicating that the input and output spaces of PHI can be non-square (default True).
         dim: A scalar, vector or matrix containing the input and output dimensions of PHI.
         compute_env_dim: A flag indicating whether we compute the enviroment dimension.

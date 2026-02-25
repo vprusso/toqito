@@ -15,12 +15,15 @@ from pathlib import Path
 
 import griffe
 
+try:
+    from pybtex.database import parse_file
+except ImportError:
+    parse_file = None
+
 
 def _load_bib_entries(bib_dir: str | Path) -> dict[str, str]:
     """Load all .bib files from a directory and return a dict of key -> formatted reference."""
-    try:
-        from pybtex.database import parse_file
-    except ImportError:
+    if parse_file is None:
         # Fallback: try pypandoc-based parsing
         entries = {}
         bib_path = Path(bib_dir)
@@ -105,11 +108,6 @@ def _load_bib_entries(bib_dir: str | Path) -> dict[str, str]:
     return entries
 
 
-# Module-level cache for bib entries
-_bib_cache: dict[str, str] | None = None
-_bib_dir: str | None = None
-
-
 class BibtexDocstringExtension(griffe.Extension):
     """Griffe extension that resolves [@cite_key] in docstrings."""
 
@@ -119,9 +117,8 @@ class BibtexDocstringExtension(griffe.Extension):
         Args:
             bib_dir: Path to directory containing .bib files,
                      relative to the mkdocs config directory.
-        """
-        global _bib_cache, _bib_dir
 
+        """
         # Resolve bib_dir relative to this extension file's location
         # which is in mkdocs/_extensions/
         mkdocs_dir = Path(__file__).parent.parent
@@ -130,14 +127,13 @@ class BibtexDocstringExtension(griffe.Extension):
             # Try from current working directory
             resolved = Path(bib_dir)
 
-        _bib_dir = str(resolved)
-        _bib_cache = None  # Reset cache
+        self._bib_dir: str = str(resolved)
+        self._bib_cache: dict[str, str] | None = None
 
     def _get_entries(self) -> dict[str, str]:
-        global _bib_cache
-        if _bib_cache is None:
-            _bib_cache = _load_bib_entries(_bib_dir)
-        return _bib_cache
+        if self._bib_cache is None:
+            self._bib_cache = _load_bib_entries(self._bib_dir)
+        return self._bib_cache
 
     def _process_docstring(self, obj: griffe.Object) -> None:
         """Process a Griffe object's docstring to resolve bibtex citations."""
@@ -172,9 +168,7 @@ class BibtexDocstringExtension(griffe.Extension):
                 found_keys.append(key)
                 num = key_to_num[key]
                 # Clickable superscript that jumps to the reference at the bottom
-                refs.append(
-                    f'<sup><a id="cite-{obj_path}-{num}" href="#ref-{obj_path}-{num}">{num}</a></sup>'
-                )
+                refs.append(f'<sup><a id="cite-{obj_path}-{num}" href="#ref-{obj_path}-{num}">{num}</a></sup>')
             return "".join(refs)
 
         new_text = cite_pattern.sub(replace_cite, text)

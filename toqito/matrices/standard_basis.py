@@ -4,7 +4,7 @@ import numpy as np
 
 
 def standard_basis(dim: int, flatten: bool = False) -> list[np.ndarray]:
-    """Create standard basis of dimension `dim`.
+    r"""Create standard basis of dimension `dim`.
 
     Create a list containing the elements of the standard basis for the
     given dimension:
@@ -21,10 +21,9 @@ def standard_basis(dim: int, flatten: bool = False) -> list[np.ndarray]:
     This function was inspired by [@Seshadri_2021_Git, Seshadri_2021_Theory, Seshadri_2021_Versatile]
 
     Examples:
-
     ```python exec="1" source="above"
     from toqito.matrices import standard_basis
-    
+
     print(standard_basis(2))
     ```
 

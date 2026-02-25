@@ -23,7 +23,6 @@ def is_ensemble(states: list[np.ndarray]) -> bool:
     \]
 
     Examples:
-
     Consider the following set of matrices
 
     \[

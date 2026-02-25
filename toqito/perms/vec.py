@@ -53,7 +53,6 @@ def vec(mat: np.ndarray) -> np.ndarray:
     for all \(a\) and \(b\).
 
     Examples:
-
     Consider the following matrix
 
     \[
@@ -72,9 +71,9 @@ def vec(mat: np.ndarray) -> np.ndarray:
     ```python exec="1" source="above"
     import numpy as np
     from toqito.perms import vec
-    
+
     X = np.array([[1, 2], [3, 4]])
-    
+
     print(vec(X))
     ```
 

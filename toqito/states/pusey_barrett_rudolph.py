@@ -30,7 +30,6 @@ def pusey_barrett_rudolph(n: int, theta: float) -> list[np.ndarray]:
     These PBR states are defined in Equation (A6) from [@Pusey_2012_On].
 
     Examples:
-
     Generating the PBR states can be done by simply invoking the function with a given choice of `n` and
     `theta`:
 

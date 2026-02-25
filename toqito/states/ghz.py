@@ -23,7 +23,6 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray
     \]
 
     Examples:
-
     When `dim = 2`, and `num_qubits = 3` this produces the standard GHZ state
 
     \[

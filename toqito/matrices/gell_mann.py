@@ -66,7 +66,6 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | csr_array:
     \]
 
     Examples:
-
     The Gell-Mann matrix generated from `idx = 2` yields the following
     matrix:
 
@@ -79,7 +78,7 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | csr_array:
     \]
     ```python exec="1" source="above"
     from toqito.matrices import gell_mann
-    
+
     print(gell_mann(ind=2))
     ```
 

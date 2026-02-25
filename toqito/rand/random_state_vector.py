@@ -25,15 +25,14 @@ def random_state_vector(
     combining them with a maximally entangled resource state.
 
     Examples:
-
     We may generate a random state vector. For instance, here is an example where we can generate a
     \(2\)-dimensional random state vector.
 
     ```python exec="1" source="above" session="vec_example"
     from toqito.rand import random_state_vector
-    
+
     vec = random_state_vector(2)
-    
+
     print(vec)
     ```
 
@@ -42,9 +41,9 @@ def random_state_vector(
 
     ```python exec="1" source="above" session="vec_example"
     from toqito.state_props import is_pure
-    
+
     dm = vec @ vec.conj().T
-    
+
     print(is_pure(dm))
     ```
 
@@ -52,9 +51,9 @@ def random_state_vector(
 
     ```python exec="1" source="above" session="vec_example"
     from toqito.rand import random_state_vector
-    
+
     vec = random_state_vector(2, seed=42)
-    
+
     print(vec)
     ```
 
@@ -63,21 +62,26 @@ def random_state_vector(
 
     ```python exec="1" source="above" session="vec_example"
     from toqito.state_props import is_pure
-    
+
     dm = vec @ vec.conj().T
-    
+
     print(is_pure(dm))
     ```
 
 
     Args:
-        dim: Either a positive integer giving the total Hilbert-space dimension, or a length-2 sequence specifying the individual subsystem dimensions for bipartite sampling.
-        is_real: Boolean denoting whether the returned vector has real entries. Default is `False`, which produces complex amplitudes.
-        k_param: Optional upper bound on the Schmidt rank when ``dim`` describes a bipartite system.  Set to `0` (default) to ignore the Schmidt rank constraint.  Must be non-negative and strictly less than the smaller subsystem dimension when used.
+        dim: Either a positive integer giving the total Hilbert-space dimension, or a length-2 sequence specifying the
+        individual subsystem dimensions for bipartite sampling.
+        is_real: Boolean denoting whether the returned vector has real entries. Default is `False`, which produces
+        complex amplitudes.
+        k_param: Optional upper bound on the Schmidt rank when ``dim`` describes a bipartite system.  Set to `0`
+        (default) to ignore the Schmidt rank constraint.  Must be non-negative and strictly less than the smaller
+        subsystem dimension when used.
         seed: A seed used to instantiate numpy's random number generator.
 
     Returns:
-        A normalized column vector of shape ``(total_dim, 1)`` where ``total_dim`` equals `dim` if ``dim`` is an integer and equals the product of entries in ``dim`` otherwise.
+        A normalized column vector of shape ``(total_dim, 1)`` where ``total_dim`` equals `dim` if ``dim`` is an integer
+        and equals the product of entries in ``dim`` otherwise.
 
     """
     gen = np.random.default_rng(seed=seed)

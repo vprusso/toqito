@@ -1,5 +1,4 @@
-"""
-# Extended nonlocal games
+"""# Extended nonlocal games
 
 In this tutorial, we will define the concept of an *extended nonlocal game*.
 Extended nonlocal games are a more general abstraction of nonlocal games
@@ -38,7 +37,7 @@ measurement on that shared state.
 #
 # ![extended nonlocal game](../../../figures/extended_nonlocal_game.svg){.center}
 # <p style="text-align: center;"><em>An extended nonlocal game. </em></p>
-#   
+#
 # Specifically, Alice and Bob's winning probability is determined by
 # collections of measurements, $V(a,b|x,y) \in \text{Pos}(\mathcal{R})$,
 # where $\mathcal{R} = \mathbb{C}^m$ is a complex Euclidean space with

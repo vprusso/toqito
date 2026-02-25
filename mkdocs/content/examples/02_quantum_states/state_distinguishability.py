@@ -1,7 +1,4 @@
-"""
-# Quantum state distinguishability
-
-"""
+"""# Quantum state distinguishability"""
 # %%
 # In this tutorial we are going to cover the problem of *quantum state
 # distinguishability* (sometimes analogously referred to as quantum state
@@ -79,7 +76,7 @@
 #
 # This optimization problem is solved in `|toqito⟩` to obtain the optimal
 # probability with which Bob can distinguish state $\rho_i$.
-# 
+#
 # To illustrate how we can phrase and solve this problem in `|toqito⟩`,
 # consider the following example. Assume Alice has an ensemble of quantum states
 #
@@ -105,7 +102,7 @@
 # $1$.
 #
 # Using `|toqito⟩`, we can calculate this probability directly as follows:
-# 
+#
 import numpy as np
 
 from toqito.state_opt import state_distinguishability
@@ -190,6 +187,7 @@ import numpy as np
 
 from toqito.state_opt import ppt_distinguishability
 from toqito.states import bell
+
 # mkdocs_gallery_thumbnail_path = 'figures/quantum_state_distinguish.svg'
 # Bell vectors:
 psi_0 = bell(0)

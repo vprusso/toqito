@@ -12,7 +12,6 @@ def is_density(mat: np.ndarray) -> bool:
     property of being positive semidefinite (PSD).
 
     Examples:
-
     Consider the Bell state:
 
     \[
@@ -59,9 +58,9 @@ def is_density(mat: np.ndarray) -> bool:
     import numpy as np
     from toqito.states import bell
     from toqito.matrix_props import is_density
-    
+
     sigma = 1/2 * np.array([[1, 2], [3, 1]])
-    
+
     print(is_density(sigma))
     ```
 

@@ -16,7 +16,7 @@ def kp_norm(mat: np.ndarray, k: int, p: int) -> float | np.floating:
     import numpy as np
     from toqito.states import bell
     from toqito.matrix_props import kp_norm
-    
+
     print(np.around(kp_norm(bell(0), 1, np.inf), decimals=2))
     ```
 
@@ -28,7 +28,7 @@ def kp_norm(mat: np.ndarray, k: int, p: int) -> float | np.floating:
     import numpy as np
     from toqito.matrix_props import kp_norm
     from toqito.rand import random_unitary
-    
+
     print(np.around(kp_norm(random_unitary(5), 5, 2), decimals=2))
     ```
 

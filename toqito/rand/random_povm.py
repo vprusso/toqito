@@ -25,7 +25,6 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int, seed: int | None = 
     Wishart measure on the POVM effects.  Supplying ``seed`` reproduces the same sample sequence.
 
     Examples:
-
     We can generate a set of `dim`-by-`dim` POVMs consisting of a specific dimension along with a given number of
     measurement inputs and measurement outputs. As an example, we can construct a random set of \(2\)-by-\(2\)
     POVMs of dimension with \(2\) inputs and \(2\) outputs.
@@ -33,11 +32,11 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int, seed: int | None = 
     ```python exec="1" source="above" session="povm_example"
     import numpy as np
     from toqito.rand import random_povm
-    
+
     dim, num_inputs, num_outputs = 2, 2, 2
-    
+
     povms = random_povm(dim, num_inputs, num_outputs)
-    
+
     print(povms)
     ```
 
@@ -54,11 +53,11 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int, seed: int | None = 
     ```python exec="1" source="above" session="povm_example"
     import numpy as np
     from toqito.rand import random_povm
-    
+
     dim, num_inputs, num_outputs = 2, 2, 2
-    
+
     povms = random_povm(dim, num_inputs, num_outputs, seed=42)
-    
+
     print(povms)
     ```
 

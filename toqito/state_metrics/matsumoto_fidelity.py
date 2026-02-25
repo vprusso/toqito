@@ -33,7 +33,6 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float | np.floatin
     fidelity is a lower bound for the fidelity.
 
     Examples:
-
     Consider the following Bell state
 
     \[
@@ -57,7 +56,7 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float | np.floatin
     ```python exec="1" source="above"
     import numpy as np
     from toqito.state_metrics import matsumoto_fidelity
-    
+
     rho = 1 / 2 * np.array(
         [[1, 0, 0, 1],
          [0, 0, 0, 0],
@@ -65,7 +64,7 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float | np.floatin
          [1, 0, 0, 1]]
     )
     sigma = rho
-    
+
     print(np.around(matsumoto_fidelity(rho, sigma), decimals=2))
     ```
 

@@ -11,7 +11,6 @@ def perm_sign(perm: np.ndarray | list[int]) -> float:
     inversions contained in `perm`.
 
     Examples:
-
     For the following vector
 
     \[
@@ -23,7 +22,7 @@ def perm_sign(perm: np.ndarray | list[int]) -> float:
 
     ```python exec="1" source="above"
     from toqito.perms import perm_sign
-    
+
     print(perm_sign([1, 2, 3, 4]))
     ```
 
@@ -38,7 +37,7 @@ def perm_sign(perm: np.ndarray | list[int]) -> float:
 
     ```python exec="1" source="above"
     from toqito.perms import perm_sign
-    
+
     print(perm_sign([1, 2, 4, 3, 5]))
     ```
 

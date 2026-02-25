@@ -25,7 +25,6 @@ def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
 
 
     Examples:
-
     For \(d = 2\) and \(k_1 = k_2 = 0\), this generates the following matrix
 
     \[

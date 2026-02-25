@@ -25,10 +25,10 @@ def phase_damping(
     ```python exec="1" source="above"
     import numpy as np
     from toqito.channels.phase_damping import phase_damping
-    
+
     rho = np.array([[1, 0.5], [0.5, 1]])
     result = phase_damping(rho, gamma=0.2)
-    
+
     print(result)
     ```
 
@@ -37,7 +37,8 @@ def phase_damping(
         gamma: The dephasing rate (between 0 and 1), representing the probability of phase decoherence.
 
     Returns:
-        The transformed quantum state after applying the phase damping channel. If `input_mat` is `None`, returns the list of Kraus operators.
+        The transformed quantum state after applying the phase damping channel. If `input_mat` is `None`, returns the
+        list of Kraus operators.
 
     """
     if not (0 <= gamma <= 1):

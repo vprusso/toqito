@@ -27,7 +27,6 @@ def concurrence(rho: np.ndarray) -> float:
     Concurrence can serve as a measure of entanglement.
 
     Examples:
-
     Consider the following Bell state:
 
     \[

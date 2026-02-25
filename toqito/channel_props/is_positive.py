@@ -28,7 +28,6 @@ def is_positive(
     Hermitian-preserving and positive semidefinite.
 
     Examples:
-
     We can specify the input as a list of Kraus operators. Consider the map \(\Phi\) defined as
 
     \[
@@ -50,10 +49,10 @@ def is_positive(
     ```python exec="1" source="above"
     import numpy as np
     from toqito.channel_props import is_positive
-    
+
     unitary_mat = np.array([[1, 1], [-1, -1]]) / np.sqrt(2)
     kraus_ops = [[np.identity(2), np.identity(2)], [unitary_mat, -unitary_mat]]
-    
+
     print(is_positive(kraus_ops))
     ```
 
@@ -64,7 +63,7 @@ def is_positive(
     ```python exec="1" source="above"
     from toqito.channels import depolarizing
     from toqito.channel_props import is_positive
-    
+
     print(is_positive(depolarizing(4)))
     ```
 

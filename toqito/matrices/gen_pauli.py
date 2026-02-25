@@ -20,7 +20,6 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
     [@Watrous_2011_Lecture_Notes])
 
     Examples:
-
     The generalized Pauli operator for `k_1 = 1`, `k_2 = 0`, and
     `dim = 2` is given as the standard Pauli-X matrix
 
@@ -35,7 +34,7 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
 
     ```python exec="1" source="above"
     from toqito.matrices import gen_pauli
-    
+
     print(gen_pauli(k_1=1, k_2=0, dim=2))
     ```
 
@@ -54,7 +53,7 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
 
     ```python exec="1" source="above"
     from toqito.matrices import gen_pauli
-    
+
     print(gen_pauli(k_1=1, k_2=1, dim=2))
     ```
 

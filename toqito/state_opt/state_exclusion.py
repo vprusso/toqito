@@ -98,7 +98,6 @@ def state_exclusion(
     of conclusive state exclusion was also thought about under a different guise in [@Pusey_2012_On].
 
     Examples:
-
     Consider the following two Bell states
 
     \[
@@ -117,10 +116,10 @@ def state_exclusion(
     import numpy as np
     from toqito.states import bell
     from toqito.state_opt import state_exclusion
-    
+
     vectors = [bell(0), bell(1)]
     probs = [1/2, 1/2]
-    
+
     print(np.around(state_exclusion(vectors, probs)[0], decimals=2))
     ```
 
@@ -129,11 +128,11 @@ def state_exclusion(
     ```python exec="1" source="above"
     import numpy as np
     from toqito.state_opt import state_exclusion
-    
+
     states = [np.array([[1.], [0.]]), np.array([[1.],[1.]]) / np.sqrt(2)]
-    
+
     res, _ = state_exclusion(states, primal_dual="primal", strategy="unambiguous", abs_ipm_opt_tol=1e-7)
-    
+
     print(np.around(res, decimals=2))
     ```
 
@@ -142,14 +141,14 @@ def state_exclusion(
     ```python exec="1" source="above"
     import numpy as np
     from toqito.state_opt import state_exclusion
-    
+
     # Two mixed states
     rho1 = 0.7 * np.array([[1., 0.], [0., 0.]]) + 0.3 * np.eye(2) / 2
     rho2 = 0.7 * np.array([[0., 0.], [0., 1.]]) + 0.3 * np.eye(2) / 2
     states = [rho1, rho2]
-    
+
     res, _ = state_exclusion(states, primal_dual="dual")
-    
+
     print(np.around(res, decimals=2))
     ```
 
@@ -162,14 +161,17 @@ def state_exclusion(
 
     Args:
         vectors: A list of states provided as vectors (for pure states) or density matrices (for mixed states).
-        probs: Respective list of probabilities each state is selected. If no probabilities are provided, a uniform probability distribution is assumed.
-        strategy: Whether to perform minimal error or unambiguous discrimination task. Possible values are "min_error" and "unambiguous". Both strategies support pure and mixed states.
+        probs: Respective list of probabilities each state is selected. If no probabilities are provided, a uniform
+        probability distribution is assumed.
+        strategy: Whether to perform minimal error or unambiguous discrimination task. Possible values are "min_error"
+        and "unambiguous". Both strategies support pure and mixed states.
         solver: Optimization option for `picos` solver. Default option is `solver_option="cvxopt"`.
         primal_dual: Option for the optimization problem.
         kwargs: Additional arguments to pass to picos' solve method.
 
     Returns:
-        The optimal probability with which Bob can guess the state he was not given from `states` along with the optimal set of measurements.
+        The optimal probability with which Bob can guess the state he was not given from `states` along with the optimal
+        set of measurements.
 
     """
     if not has_same_dimension(vectors):

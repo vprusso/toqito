@@ -21,7 +21,6 @@ def is_ppt(
     of `False` would indicate the state is entangled.
 
     Examples:
-
     Consider the following matrix
 
     \[

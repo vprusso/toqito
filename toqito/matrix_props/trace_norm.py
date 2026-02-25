@@ -13,7 +13,6 @@ def trace_norm(rho: np.ndarray) -> float | np.floating:
     \(\rho \rho^*\).
 
     Examples:
-
     Consider the following Bell state
 
     \[
@@ -36,9 +35,9 @@ def trace_norm(rho: np.ndarray) -> float | np.floating:
     ```python exec="1" source="above"
     from toqito.states import bell
     from toqito.matrix_props import trace_norm
-    
+
     rho = bell(0) @ bell(0).conj().T
-    
+
     print(trace_norm(rho))
     ```
 

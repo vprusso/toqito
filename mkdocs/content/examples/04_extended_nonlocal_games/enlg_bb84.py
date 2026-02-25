@@ -1,5 +1,4 @@
-"""
-# The BB84 extended nonlocal game
+"""# The BB84 extended nonlocal game
 
 In our [Extended nonlocal games](../enlg_introduction)
 tutorial, we introduced the framework for extended nonlocal games. Now, we will
@@ -188,6 +187,7 @@ print("The non-signaling value is ", np.around(bb84.nonsignaling_value(), decima
 
 # The non-signaling value of BB84 under parallel repetition.
 import numpy as np
+
 # mkdocs_gallery_thumbnail_path = 'figures/extended_nonlocal_game.svg'
 from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
 

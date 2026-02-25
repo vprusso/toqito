@@ -1,5 +1,4 @@
-"""
-# Quantum state exclusion
+"""# Quantum state exclusion
 
 In this tutorial, we are going to cover the problem of *quantum state
 exclusion*. We are going to briefly describe the problem setting and then
@@ -245,6 +244,7 @@ from toqito.matrix_ops import vectors_to_gram_matrix
 from toqito.matrix_props import is_k_incoherent
 from toqito.rand import random_states
 from toqito.state_props import is_antidistinguishable
+
 # mkdocs_gallery_thumbnail_path = 'figures/trine.png'
 n, d = 3, 3
 states = random_states(n, d)

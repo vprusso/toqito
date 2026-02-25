@@ -20,7 +20,6 @@ def comparison(mat: np.ndarray) -> np.ndarray:
     \]
 
     Examples:
-
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrices import comparison

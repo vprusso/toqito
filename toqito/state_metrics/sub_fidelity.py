@@ -22,7 +22,6 @@ def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     fidelity.
 
     Examples:
-
     Consider the following pair of states:
 
     \[
@@ -39,11 +38,11 @@ def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     ```python exec="1" source="above"
     from toqito.states import basis
     from toqito.state_metrics import fidelity
-    
+
     e_0, e_1 = basis(2, 0), basis(2, 1)
     rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T
     sigma = 1/8 * e_0 @ e_0.conj().T + 7/8 * e_1 @ e_1.conj().T
-    
+
     print(fidelity(rho, sigma))
     ```
 
@@ -53,11 +52,11 @@ def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     ```python exec="1" source="above"
     from toqito.states import basis
     from toqito.state_metrics import sub_fidelity
-    
+
     e_0, e_1 = basis(2, 0), basis(2, 1)
     rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T
     sigma = 1/8 * e_0 @ e_0.conj().T + 7/8 * e_1 @ e_1.conj().T
-    
+
     print(sub_fidelity(rho, sigma))
     ```
 

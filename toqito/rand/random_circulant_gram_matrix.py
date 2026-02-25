@@ -27,9 +27,9 @@ def random_circulant_gram_matrix(dim: int, seed: int | None = None) -> np.ndarra
     ```python exec="1" source="above" session="random_circulant_gram_matrix_example"
     import numpy as np
     from toqito.rand import random_circulant_gram_matrix
-    
+
     circulant_matrix = random_circulant_gram_matrix(4)
-    
+
     print(f"Shape of circulant matrix is {circulant_matrix.shape}")
     ```
 
@@ -45,9 +45,9 @@ def random_circulant_gram_matrix(dim: int, seed: int | None = None) -> np.ndarra
 
     ```python exec="1" source="above"
     from toqito.rand import random_circulant_gram_matrix
-    
+
     circulant_matrix = random_circulant_gram_matrix(4, seed=42)
-    
+
     print(circulant_matrix)
     ```
 

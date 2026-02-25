@@ -17,7 +17,6 @@ def mutually_unbiased_basis(dim: int) -> list[np.ndarray]:
     know how to generate general MUBs.
 
     Examples:
-
     For the case of dimension 2, the three mutually unbiased bases are provided by:
 
     \[

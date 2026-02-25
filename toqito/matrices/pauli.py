@@ -46,12 +46,11 @@ def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np
     \]
 
     Examples:
-
     Example for identity Pauli matrix.
 
     ```python exec="1" source="above"
     from toqito.matrices import pauli
-    
+
     print(pauli("I"))
     ```
 
@@ -59,7 +58,7 @@ def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np
 
     ```python exec="1" source="above"
     from toqito.matrices import pauli
-    
+
     print(pauli("X"))
     ```
 
@@ -68,7 +67,7 @@ def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np
 
     ```python exec="1" source="above"
     from toqito.matrices import pauli
-    
+
     print(pauli("Y"))
     ```
 
@@ -77,7 +76,7 @@ def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np
 
     ```python exec="1" source="above"
     from toqito.matrices import pauli
-    
+
     print(pauli("Z"))
     ```
 
@@ -85,14 +84,15 @@ def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np
 
     ```python exec="1" source="above"
     from toqito.matrices import pauli
-    
+
     print(pauli([0,1]))
     ```
 
 
     Args:
         ind: The index to indicate which Pauli operator to generate.
-        is_sparse: Returns a compressed sparse row array if set to True and a non compressed sparse row array if set to False.
+        is_sparse: Returns a compressed sparse row array if set to True and a non compressed sparse row array if set to
+        False.
 
     """
     if isinstance(ind, (int, str)):

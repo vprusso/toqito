@@ -25,7 +25,6 @@ def bell(idx: int) -> np.ndarray:
     \]
 
     Examples:
-
     When `idx = 0`, this produces the following Bell state:
 
     \[

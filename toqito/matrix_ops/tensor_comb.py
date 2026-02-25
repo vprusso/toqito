@@ -24,7 +24,6 @@ def tensor_comb(
     For one definition and usage of a quantum sequence, refer to [@Gupta_2024_Optimal].
 
     Examples:
-
     Consider the following basis vectors for a 2-dimensional quantum system.
 
     \[
@@ -36,12 +35,12 @@ def tensor_comb(
     ```python exec="1" source="above"
     from toqito.matrix_ops import tensor_comb
     import numpy as np
-    
+
     e_0 = np.array([1, 0])
     e_1 = np.array([0, 1])
-    
+
     result = tensor_comb([e_0, e_1], 2, mode="injective", density_matrix=True)
-    
+
     for key, mat in result.items():
         print(f"tensor_comb{key} =\n{mat}\n")
     ```
@@ -53,11 +52,15 @@ def tensor_comb(
     Args:
         states: A list of state vectors.
         k: The length of the sequence.
-        mode: Determines the type of sequences. Default is `"injective"`. ``non-injective`` will allow repetitions in sequences, ``injective`` will ensures sequences are injective (no repetitions) and ``diagonal`` will allow sequences with repeated indices (diagonal elements).
+        mode: Determines the type of sequences. Default is `"injective"`. ``non-injective`` will allow repetitions in
+        sequences, ``injective`` will ensures sequences are injective (no repetitions) and ``diagonal`` will allow
+        sequences with repeated indices (diagonal elements).
         density_matrix: Determines whether the return is a density matrix or a ket. Default is ``True``.
 
     Returns:
-        A dictionary where keys are tuples representing sequences of state indices, and values are density matrices of the tensor products of the corresponding state vectors or tensor products of the corresponding state vectors based on input `density_matrix` being either ``True`` or ``False``.
+        A dictionary where keys are tuples representing sequences of state indices, and values are density matrices of
+        the tensor products of the corresponding state vectors or tensor products of the corresponding state vectors
+        based on input `density_matrix` being either ``True`` or ``False``.
 
     """
     if not states:

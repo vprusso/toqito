@@ -19,7 +19,6 @@ def is_projection(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> 
     where \(X\) is the matrix in question.
 
     Examples:
-
     Consider the following matrix
 
     \[
@@ -34,9 +33,9 @@ def is_projection(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> 
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import is_projection
-    
+
     A = np.array([[0, 1], [0, 1]])
-    
+
     print(is_projection(A))
     ```
 
@@ -54,9 +53,9 @@ def is_projection(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> 
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import is_projection
-    
+
     B = np.array([[-1, -1], [-1, -1]])
-    
+
     print(is_projection(B))
     ```
 

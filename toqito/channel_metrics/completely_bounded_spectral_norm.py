@@ -24,8 +24,9 @@ def completely_bounded_spectral_norm(phi: np.ndarray) -> float | np.floating:
 
     Args:
         phi: superoperator
-    
+
     Returns:
         The completely bounded spectral norm of the channel
+
     """
     return completely_bounded_trace_norm(dual_channel(phi))

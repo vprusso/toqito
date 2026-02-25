@@ -22,7 +22,6 @@ def is_identity(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> boo
     \]
 
     Examples:
-
     Consider the following matrix:
 
     \[
@@ -39,9 +38,9 @@ def is_identity(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> boo
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import is_identity
-    
+
     mat = np.eye(3)
-    
+
     print(is_identity(mat))
     ```
 
@@ -60,9 +59,9 @@ def is_identity(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> boo
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import is_identity
-    
+
     mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-    
+
     print(is_identity(mat))
     ```
 

@@ -38,7 +38,6 @@ def tensor(*args) -> np.ndarray | None:
     \]
 
     Examples:
-
     Tensor product two matrices or vectors
 
     Consider the following ket vector
@@ -58,9 +57,9 @@ def tensor(*args) -> np.ndarray | None:
     ```python exec="1" source="above"
     from toqito.states import basis
     from toqito.matrix_ops import tensor
-    
+
     e_0 = basis(2, 0)
-    
+
     print(tensor(e_0, e_0))
     ```
 
@@ -79,9 +78,9 @@ def tensor(*args) -> np.ndarray | None:
     ```python exec="1" source="above"
     from toqito.states import basis
     from toqito.matrix_ops import tensor
-    
+
     e_0 = basis(2, 0)
-    
+
     print(tensor(e_0, 3))
     ```
 
@@ -95,12 +94,12 @@ def tensor(*args) -> np.ndarray | None:
     ```python exec="1" source="above"
     from toqito.states import basis
     from toqito.matrix_ops import tensor
-    
+
     e_0, e_1 = basis(2, 0), basis(2, 1)
-    
+
     print(tensor([e_0, e_1, e_0]))
     ```
-    
+
     Raises:
         ValueError: Input must be a vector or matrix.
 
@@ -109,7 +108,7 @@ def tensor(*args) -> np.ndarray | None:
             - list[np.ndarray]: List of numpy matrices,
             - np.ndarray, ... , np.ndarray: An arbitrary number of numpy arrays,
             - np.ndarray, int: A numpy array and an integer.
-            
+
     Returns:
         The computed tensor product.
 

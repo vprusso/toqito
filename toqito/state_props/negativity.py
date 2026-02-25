@@ -21,7 +21,6 @@ def negativity(rho: np.ndarray, dim: list[int] | int | None = None) -> float | n
     absolute value of the negative eigenvalues of the partial transpose of \(\rho\).
 
     Examples:
-
     Example of the negativity of density matrix of Bell state.
 
     ```python exec="1" source="above"

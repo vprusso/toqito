@@ -21,7 +21,8 @@ def fidelity_of_separability(
 ) -> float:
     r"""Define the first benchmark introduced in Appendix H of [@Philip_2023_Schrodinger].
 
-    If you would like to instead use the benchmark introduced in Appendix I, go to [channel_metrics.fidelity_of_separability][toqito.channel_metrics.fidelity_of_separability].
+    If you would like to instead use the benchmark introduced in Appendix I, go to
+    [channel_metrics.fidelity_of_separability][toqito.channel_metrics.fidelity_of_separability].
 
     In [@Philip_2023_Schrodinger] a variational quantum algorithm (VQA) is introduced to test
     the separability of a general bipartite state. The algorithm utilizes
@@ -91,10 +92,10 @@ def fidelity_of_separability(
     from toqito.state_metrics import fidelity_of_separability
     from toqito.matrix_ops import tensor
     from toqito.states import basis
-    
+
     state = tensor(basis(2, 0), basis(2, 0))
     rho = state @ state.conj().T
-    
+
     print(np.around(fidelity_of_separability(rho, [2, 2]), decimals=2))
     ```
         is PSD with trace 1).
@@ -107,10 +108,12 @@ def fidelity_of_separability(
 
     Args:
         input_state_rho: the density matrix for the bipartite state of interest.
-        input_state_rho_dims: the dimensions of System A & B respectively in the input state density matrix. It is assumed that the first quantity in this list is the dimension of System A.
+        input_state_rho_dims: the dimensions of System A & B respectively in the input state density matrix. It is
+        assumed that the first quantity in this list is the dimension of System A.
         k: value for k-extendibility.
         verbosity_option: Parameter option for `picos`. Default value is `verbosity = 0`. For more info, visit https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-verbosity.
-        solver_option: Optimization option for `picos` solver. Default option is `solver_option="cvxopt"`. For more info, visit https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-solver.
+        solver_option: Optimization option for `picos` solver. Default option is `solver_option="cvxopt"`. For more
+        info, visit https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-solver.
 
     Returns:
         Optimized value of the SDP when maximized over a set of linear operators subject to some constraints.

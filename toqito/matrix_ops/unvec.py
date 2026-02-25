@@ -54,7 +54,6 @@ def unvec(vector: np.ndarray, shape: list[int] | None = None) -> np.ndarray:
     This function has been adapted from [@Rigetti_2022_Forest].
 
     Examples:
-
     Consider the following vector
 
     \[
@@ -70,9 +69,9 @@ def unvec(vector: np.ndarray, shape: list[int] | None = None) -> np.ndarray:
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_ops import unvec
-    
+
     u = np.array([1, 2, 3, 4])
-    
+
     print(unvec(u))
     ```
 

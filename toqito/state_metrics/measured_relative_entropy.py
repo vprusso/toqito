@@ -68,7 +68,6 @@ def measured_relative_entropy(rho: np.ndarray, sigma: np.ndarray, eps: float = 1
     on the interval \([0, 1]\).
 
     Examples:
-
     Consider the following quantum state \(\rho = \frac{1}{2}(I + r \cdot \mathbf{\sigma})\)
     and the PSD operator \(\sigma = \frac{1}{2}(I + s \cdot \mathbf{\sigma})\), where
     \(r = (0.9, 0.05, -0.02)\), \(s = (-0.8, 0.1, 0.1)\), and \(\mathbf{\sigma} =
@@ -80,7 +79,7 @@ def measured_relative_entropy(rho: np.ndarray, sigma: np.ndarray, eps: float = 1
     from toqito.matrices import pauli
     from toqito.state_metrics import measured_relative_entropy
     import numpy as np
-    
+
     r = np.array([0.9, 0.05, -0.02])
     s = np.array([-0.8, 0.1, 0.1])
     rho = 0.5 * (pauli("I") + r[0] * pauli("X") + r[1] * pauli("Y") + r[2] * pauli("Z"))
@@ -90,14 +89,15 @@ def measured_relative_entropy(rho: np.ndarray, sigma: np.ndarray, eps: float = 1
 
     Raises:
         ValueError: If `rho` if not a density operator or if `sigma` is not positive semi-definite.
-    
+
     Args:
         rho: Density operator.
         sigma: Positive semi-definite operator.
         eps: Tolerance level.
-        
+
     Returns:
         The measured relative entropy between `rho` and `sigma`.
+
     """
     if not is_density(rho):
         raise ValueError("Measured relative entropy is only defined if rho is a density operator.")

@@ -18,7 +18,6 @@ def is_commuting(mat_1: np.ndarray, mat_2: np.ndarray) -> bool:
     \(Y\) commute (Section: Lie Brackets And Commutants from [@Watrous_2018_TQI]).
 
     Examples:
-
     Consider the following matrices:
 
     \[
@@ -38,10 +37,10 @@ def is_commuting(mat_1: np.ndarray, mat_2: np.ndarray) -> bool:
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import is_commuting
-    
+
     mat_1 = np.array([[0, 1], [0, 0]])
     mat_2 = np.array([[1, 0], [0, 0]])
-    
+
     print(is_commuting(mat_1, mat_2))
     ```
 
@@ -66,10 +65,10 @@ def is_commuting(mat_1: np.ndarray, mat_2: np.ndarray) -> bool:
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import is_commuting
-    
+
     mat_1 = np.array([[1, 0, 0], [0, 1, 0], [1, 0, 2]])
     mat_2 = np.array([[2, 4, 0], [3, 1, 0], [-1, -4, 1]])
-    
+
     print(is_commuting(mat_1, mat_2))
     ```
 

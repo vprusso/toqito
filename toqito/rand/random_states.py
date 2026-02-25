@@ -14,12 +14,12 @@ def random_states(n: int, d: int, seed: int | None = None) -> list[np.ndarray]:
 
     ```python exec="1" source="above"
     from toqito.rand import random_states
-    
+
     states = random_states(3, 4)
     print(f"length of states is {len(states)}")
-    
+
     print(f"Shape of each state vector: {states[0].shape}")
-    
+
     for idx, state in enumerate(states):
        print(f"\nState {idx}:")
        print(state)
@@ -29,9 +29,9 @@ def random_states(n: int, d: int, seed: int | None = None) -> list[np.ndarray]:
 
     ```python exec="1" source="above"
     from toqito.rand import random_states
-    
+
     states = random_states(3, 4, seed=42)
-    
+
     for idx, state in enumerate(states):
        print(f"\nState {idx}:")
        print(state)

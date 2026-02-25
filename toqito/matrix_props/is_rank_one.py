@@ -10,14 +10,13 @@ def is_rank_one(mat: np.ndarray, tol: float = 1e-08) -> bool:
     and counts how many are greater than the provided tolerance.
 
     Examples:
-
     Consider the Bell state density matrix \(\rho = \ket{\Phi^+}\bra{\Phi^+}\). This matrix
     has rank one.
 
     ```python exec="1" source="above"
     from toqito.matrix_props import is_rank_one
     from toqito.states import bell
-    
+
     rho = bell(0) @ bell(0).conj().T
     print(is_rank_one(rho))
     ```
@@ -27,7 +26,7 @@ def is_rank_one(mat: np.ndarray, tol: float = 1e-08) -> bool:
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import is_rank_one
-    
+
     maximally_mixed = np.eye(2) / 2
     print(is_rank_one(maximally_mixed))
     ```

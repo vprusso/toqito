@@ -30,7 +30,6 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
     Of Quantum Entropic Functions" from [@Watrous_2018_TQI]).
 
     Examples:
-
     Consider the following Bell state:
 
     \[

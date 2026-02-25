@@ -13,7 +13,6 @@ def is_diagonally_dominant(mat: np.ndarray, is_strict: bool = True) -> bool:
     than or equal to the sum of the magnitudes of all the other (non-diagonal) entries in that row.
 
     Examples:
-
     The following is an example of a 3-by-3 diagonal matrix:
 
     \[
@@ -29,9 +28,9 @@ def is_diagonally_dominant(mat: np.ndarray, is_strict: bool = True) -> bool:
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import is_diagonally_dominant
-    
+
     A = np.array([[2, -1, 0], [0, 2, -1], [0, -1, 2]])
-    
+
     print(is_diagonally_dominant(A))
     ```
 
@@ -49,9 +48,9 @@ def is_diagonally_dominant(mat: np.ndarray, is_strict: bool = True) -> bool:
     ```python exec="1" source="above"
     import numpy as np
     from toqito.matrix_props import is_diagonally_dominant
-    
+
     B = np.array([[-1, 2], [-1, -1]])
-    
+
     print(is_diagonally_dominant(B))
     ```
 
