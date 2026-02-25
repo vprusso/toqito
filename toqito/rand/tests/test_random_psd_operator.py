@@ -9,27 +9,26 @@ from toqito.rand import random_psd_operator
 
 
 @pytest.mark.parametrize(
-    "dim, is_real",
+    "dim, is_real, distribution",
     [
-        # Test with a matrix of dimension 2.
-        (2, True),
-        # Test with a matrix of dimension 4.
-        (4, False),
-        # Test with a matrix of dimension 5.
-        (5, False),
-        # Test with a matrix of dimension 10.
-        (10, True),
+        # Test with a matrix of dimension 2, real, uniform.
+        (2, True, "uniform"),
+        # Test with a matrix of dimension 4, complex, uniform.
+        (4, False, "uniform"),
+        # Test with a matrix of dimension 5, complex, uniform.
+        (5, False, "uniform"),
+        # Test with a matrix of dimension 10, real, uniform.
+        (10, True, "uniform"),
+        # Test with a matrix of dimension 4, complex, wishart.
+        (4, False, "wishart"),
+        # Test with a matrix of dimension 4, real, wishart.
+        (4, True, "wishart"),
     ],
 )
-def test_random_psd_operator(dim, is_real):
+def test_random_psd_operator(dim, is_real, distribution):
     """Test for random_psd_operator function."""
-    # Generate a random positive semidefinite operator.
-    rand_psd_operator = random_psd_operator(dim, is_real)
-
-    # Ensure the matrix has the correct shape.
+    rand_psd_operator = random_psd_operator(dim, is_real, distribution=distribution)
     assert_equal(rand_psd_operator.shape, (dim, dim))
-
-    # Check if the matrix is positive semidefinite.
     assert is_positive_semidefinite(rand_psd_operator)
 
 
@@ -79,3 +78,24 @@ def test_random_psd_operator_with_seed(dim, is_real, seed, expected_mat):
     """Test that random_psd_operator function returns the expected output when seeded."""
     matrix = random_psd_operator(dim, is_real, seed)
     assert_allclose(matrix, expected_mat)
+
+
+@pytest.mark.parametrize(
+    "dim, distribution",
+    [
+        # Invalid dim type.
+        ("4", "uniform"),
+        # Negative dim.
+        (-2, "uniform"),
+    ],
+)
+def test_random_psd_operator_invalid_dim(dim, distribution):
+    """Test that invalid dim raises ValueError."""
+    with pytest.raises(ValueError):
+        random_psd_operator(dim, distribution=distribution)
+
+
+def test_random_psd_operator_invalid_distribution():
+    """Test that invalid distribution raises ValueError."""
+    with pytest.raises(ValueError):
+        random_psd_operator(4, distribution="invalid")
