@@ -1,11 +1,11 @@
 """Griffe extension to resolve [@cite_key] references in docstrings using bibtex.
 
 This extension pre-processes docstrings before mkdocstrings renders them,
-replacing [@cite_key] with markdown footnote references [^cite_key] and
-appending the footnote definitions from the .bib files. This is necessary
-because mkdocs-bibtex only processes page-level markdown (on_page_markdown),
-but mkdocstrings renders docstrings in a separate Markdown pipeline that
-bibtex never sees.
+replacing [@cite_key] with clickable superscript numbered references that
+link to a numbered reference list at the bottom of the docstring. This is
+necessary because mkdocs-bibtex only processes page-level markdown
+(on_page_markdown), but mkdocstrings renders docstrings in a separate Markdown
+pipeline that bibtex never sees.
 """
 
 from __future__ import annotations
@@ -150,35 +150,52 @@ class BibtexDocstringExtension(griffe.Extension):
 
         entries = self._get_entries()
 
+        # Build a unique prefix for anchor IDs to avoid collisions on the same page
+        obj_path = obj.path.replace(".", "-").replace("/", "-")
+
         # Find all [@key] patterns
         cite_pattern = re.compile(r"\[@([\w]+(?:;@[\w]+)*)\]")
         found_keys: list[str] = []
+        # Map from cite key to its assigned number (per-docstring numbering)
+        key_to_num: dict[str, int] = {}
+        counter = 0
 
         def replace_cite(match: re.Match) -> str:
+            nonlocal counter
             keys_str = match.group(1)
             keys = [k.lstrip("@") for k in keys_str.split(";")]
             refs = []
             for key in keys:
+                if key not in key_to_num:
+                    counter += 1
+                    key_to_num[key] = counter
                 found_keys.append(key)
-                refs.append(f"[^{key}]")
+                num = key_to_num[key]
+                # Clickable superscript that jumps to the reference at the bottom
+                refs.append(
+                    f'<sup><a id="cite-{obj_path}-{num}" href="#ref-{obj_path}-{num}">{num}</a></sup>'
+                )
             return "".join(refs)
 
         new_text = cite_pattern.sub(replace_cite, text)
 
-        # Append footnote definitions for all found keys
-        footnotes = []
+        # Append numbered reference list with back-links
+        references = []
         seen: set[str] = set()
         for key in found_keys:
             if key in seen:
                 continue
             seen.add(key)
-            if key in entries:
-                footnotes.append(f"[^{key}]: {entries[key]}")
-            else:
-                footnotes.append(f"[^{key}]: {key}")
+            num = key_to_num[key]
+            ref_text = entries[key] if key in entries else key
+            references.append(
+                f'<span id="ref-{obj_path}-{num}">'
+                f'<sup><a href="#cite-{obj_path}-{num}">{num}</a></sup> {ref_text}'
+                f"</span>"
+            )
 
-        if footnotes:
-            new_text = new_text + "\n\n" + "\n".join(footnotes)
+        if references:
+            new_text = new_text + "\n\n**References**\n\n" + "<br>\n".join(references)
 
         obj.docstring.value = new_text
 
