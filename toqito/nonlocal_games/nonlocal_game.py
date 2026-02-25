@@ -275,8 +275,8 @@ class NonlocalGame:
         \[
             \begin{equation}
             \begin{aligned}
-              \pi(x,y) = \frac{1}{4}, \qquad (x,y) \in \Sigma_A \times \Sigma_B,
-              \qquad \text{and} \qquad (a, b) \in \Gamma_A \times \Gamma_B,
+                \pi(x,y) = \frac{1}{4}, \qquad (x,y) \in \Sigma_A \times \Sigma_B,
+                \qquad \text{and} \qquad (a, b) \in \Gamma_A \times \Gamma_B,
             \end{aligned}
             \end{equation}
         \]

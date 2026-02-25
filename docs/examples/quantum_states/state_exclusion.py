@@ -188,13 +188,11 @@ print(f"<𝛙_3| M_3 |𝛙_3>: {np.around((psi3.reshape(1, -1)[0] @ M3 @ psi3)[0
 # or not can be determined by the following semidefinite program (SDP).
 #
 # .. math::
-#    \begin{equation}
-#        \begin{aligned}
-#            \text{minimize:} \quad & \sum_{i=1}^{n} \langle \psi_i | M_i | \psi_i \rangle  \\
-#            \text{subject to:} \quad & \sum_{i=1}^{n} M_i = \mathbb{I}_{\mathcal{X}}, \\
-#                                     & M_i \succeq 0 \quad \forall \ 1 \leq i \leq n.
-#        \end{aligned}
-#    \end{equation}
+#    \begin{aligned}
+#        \text{minimize:} \quad & \sum_{i=1}^{n} \langle \psi_i | M_i | \psi_i \rangle  \\
+#        \text{subject to:} \quad & \sum_{i=1}^{n} M_i = \mathbb{I}_{\mathcal{X}}, \\
+#                                 & M_i \succeq 0 \quad \forall \ 1 \leq i \leq n.
+#    \end{aligned}
 #
 #
 # Consider again the trine states from the previous example. We can determine that they are antidistinguishable by way of
