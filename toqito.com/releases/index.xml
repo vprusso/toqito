@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+  <channel>
+    <title>toqito releases</title>
+    <link>https://toqito.com/releases/</link>
+    <description>Release announcements and changelog highlights for toqito.</description>
+    <language>en-us</language>
+    <item>
+      <title>Release feed endpoint retained in React website</title>
+      <link>https://toqito.com/releases/react-feed-update</link>
+      <description>Releases feed remains available at /releases/index.xml for subscribers.</description>
+      <pubDate>Mon, 23 Feb 2026 13:00:00 GMT</pubDate>
+      <guid>toqito-release-react-feed</guid>
+    </item>
+  </channel>
+</rss>

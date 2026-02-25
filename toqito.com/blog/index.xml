@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+  <channel>
+    <title>toqito blog</title>
+    <link>https://toqito.com/blog/</link>
+    <description>Blog posts from the toqito project.</description>
+    <language>en-us</language>
+    <item>
+      <title>toqito homepage now powered by React + Markdown</title>
+      <link>https://toqito.com/blog/react-markdown-homepage</link>
+      <description>Introducing a QuTiP-inspired interface while preserving lightweight static deployment.</description>
+      <pubDate>Mon, 23 Feb 2026 12:00:00 GMT</pubDate>
+      <guid>toqito-blog-react-home</guid>
+    </item>
+  </channel>
+</rss>
