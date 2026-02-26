@@ -1,0 +1,32 @@
+
+
+Examples using ``toqito.nonlocal_games.ExtendedNonlocalGame.quantum_value_lower_bound``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+<div class="mkd-glr-thumbcontainer" tooltip="In the previous tutorials on [The BB84 extended nonlocal game](../enlg_bb84) and [The CHSH exte...">
+    <!--div class="figure align-default" id="id1"-->
+        <img alt="An extended nonlocal game with quantum advantage" src="04_extended_nonlocal_games/images/thumb/mkd_glr_enlg_mub_thumb.png" />
+        <p class="caption">
+            <span class="caption-text">
+                <a class="reference internal" href="04_extended_nonlocal_games/enlg_mub">
+                    <span class="std std-ref">An extended nonlocal game with quantum advantage</span>
+                </a>
+            </span>
+            <!--a class="headerlink" href="#id1" title="Permalink to this image"></a-->
+        </p>
+    <!--/div-->
+</div>
+
+<div class="mkd-glr-thumbcontainer" tooltip="In our [Extended nonlocal games](../enlg_introduction) tutorial, we introduced the framework fo...">
+    <!--div class="figure align-default" id="id1"-->
+        <img alt="The BB84 extended nonlocal game" src="04_extended_nonlocal_games/images/thumb/mkd_glr_enlg_bb84_thumb.svg" />
+        <p class="caption">
+            <span class="caption-text">
+                <a class="reference internal" href="04_extended_nonlocal_games/enlg_bb84">
+                    <span class="std std-ref">The BB84 extended nonlocal game</span>
+                </a>
+            </span>
+            <!--a class="headerlink" href="#id1" title="Permalink to this image"></a-->
+        </p>
+    <!--/div-->
+</div>
