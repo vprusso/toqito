@@ -1,6 +1,6 @@
-const blogMarkdown = `# toqito blog spotlight
+const blogMarkdown = `# |toqito> blog spotlight
 
-toqito supports practical workflows for **quantum information theory**, from matrix utilities to state/channel properties.
+|toqito> supports practical workflows for **quantum information theory**, from matrix utilities to state/channel properties.
 
 \`\`\`python
 from toqito.states import bell
@@ -24,7 +24,7 @@ Future work can automate entries from GitHub Releases.`;
 
 const newsMarkdown = `# News and updates
 
-- New qutip-inspired homepage design.
+- New QuTiP-inspired homepage design.
 - Improved onboarding and external resources.
 - Dedicated RSS feeds for blog, news, and releases.`;
 
@@ -150,7 +150,7 @@ root.innerHTML = `
           <div>
             <p class="eyebrow">Open-source quantum information toolkit</p>
             <h1>Build, test, and analyze quantum information workflows in Python.</h1>
-            <p class="lead">toqito provides utilities for states, channels, measurements, and optimization in a clean scientific workflow.</p>
+            <p class="lead">|toqito> provides utilities for states, channels, measurements, and optimization in a clean scientific workflow.</p>
             <div class="cta-row">
               <a class="btn btn-primary" href="https://github.com/vprusso/toqito">Get started</a>
               <a class="btn" href="https://toqito.readthedocs.io">Read docs</a>
