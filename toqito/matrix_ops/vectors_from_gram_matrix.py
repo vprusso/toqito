@@ -5,44 +5,44 @@ import scipy
 
 
 def vectors_from_gram_matrix(gram: np.ndarray) -> list[np.ndarray]:
-    r"""Obtain the corresponding ensemble of states from the Gram matrix :footcite:`WikiGram`.
+    r"""Obtain the corresponding ensemble of states from the Gram matrix [@WikiGram].
 
     The function attempts to compute the Cholesky decomposition of the given Gram matrix. If the matrix is positive
     definite, the Cholesky decomposition is returned. If the matrix is not positive definite, the function falls back to
     eigendecomposition.
 
-    Examples
-    ========
+    Examples:
+    Example of a positive definite matrix:
 
-    # Example of a positive definite matrix:
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.matrix_ops import vectors_from_gram_matrix
 
-    .. jupyter-execute::
+    gram_matrix = np.array([[2, -1], [-1, 2]])
+    vectors = vectors_from_gram_matrix(gram_matrix)
 
-     import numpy as np
-     from toqito.matrix_ops import vectors_from_gram_matrix
+    print(vectors)
+    ```
 
-     gram_matrix = np.array([[2, -1], [-1, 2]])
-     vectors = vectors_from_gram_matrix(gram_matrix)
+    Example of a matrix that is not positive definite:
 
-     vectors
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.matrix_ops import vectors_from_gram_matrix
+    gram_matrix = np.array([[0, 1], [1, 0]])
+    vectors = vectors_from_gram_matrix(gram_matrix)
 
-    # Example of a matrix that is not positive definite:
+    print(vectors)  # Matrix is not positive semidefinite. Using eigendecomposition as alternative.
+    ```
 
-    .. jupyter-execute::
+    Raises:
+        LinAlgError: If the Gram matrix is not square.
 
-     gram_matrix = np.array([[0, 1], [1, 0]])
-     vectors = vectors_from_gram_matrix(gram_matrix)
+    Args:
+        gram: A square, symmetric matrix representing the Gram matrix.
 
-     vectors #Matrix is not positive semidefinite. Using eigendecomposition as alternative.
-
-    References
-    ==========
-    .. footbibliography::
-
-
-    :raises LinAlgError: If the Gram matrix is not square.
-    :param gram: A square, symmetric matrix representing the Gram matrix.
-    :return: A list of vectors (np.ndarray) corresponding to the ensemble of states.
+    Returns:
+        A list of vectors (np.ndarray) corresponding to the ensemble of states.
 
     """
     dim = gram.shape[0]

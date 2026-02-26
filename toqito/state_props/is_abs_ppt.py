@@ -11,78 +11,75 @@ from toqito.state_props.in_separable_ball import in_separable_ball
 def is_abs_ppt(
     mat: np.ndarray | cp.Variable, dim: int | None = None, rtol: float = 1e-05, atol: float = 1e-08
 ) -> bool | None | list[cp.Constraint]:
-    r"""Determine whether or not a matrix is absolutely PPT :footcite:`Hildebrand_2007_AbsPPT`.
+    r"""Determine whether or not a matrix is absolutely PPT [@Hildebrand_2007_AbsPPT].
 
     A Hermitian positive semidefinite matrix is absolutely PPT iff it is PPT under all unitary transformations.
-    Equivalently, if the matrix operates on a Hilbert space :math:`H_{nm}` of dimension :math:`nm`, then it is
-    PPT under *all* possible decompositions of :math:`H_{nm}` as :math:`H_{n} \otimes H_{m}`. Being absolutely
+    Equivalently, if the matrix operates on a Hilbert space \(H_{nm}\) of dimension \(nm\), then it is
+    PPT under *all* possible decompositions of \(H_{nm}\) as \(H_{n} \otimes H_{m}\). Being absolutely
     PPT is a spectral condition (i.e. it is a condition on the eigenvalues of the matrix).
 
-    The function allows passing a :code:`numpy` ndarray or a :code:`cvxpy` Variable for :code:`mat`:
+    The function allows passing a `numpy` ndarray or a `cvxpy` Variable for `mat`:
 
-        * If :code:`mat` is a :code:`numpy` ndarray, the function first checks if :code:`mat` is Hermitian positive
-          semidefinite. Then, it checks if its eigenvalues satisfy the Gerschgorin circle property (see Theorem 7.2 of
-          :footcite:`Jivulescu_2015_Reduction`). Then it checks if the matrix belongs to the separable ball by calling
-          :code:`in_separable_ball`. Finally, if all the above checks fail to return a definite result, it determines if
-          the matrix is absolutely PPT by checking if all the constraint matrices returned by
-          :code:`abs_ppt_constraints` are positive semidefinite.
-        * If :code:`mat` is a :code:`cvxpy` Variable, :code:`mat` must be a 1D vector representing the eigenvalues of
-          a matrix. The function then returns the list of :code:`cvxpy` Constraints required for optimizing over the
-          space of absolutely PPT matrices. This includes the positive semidefinite constraint on each constraint matrix
-          as well as :code:`mat[0] ≥ mat[1] ≥ ... ≥ mat[-1] ≥ 0`.
+    - If `mat` is a `numpy` ndarray, the function first checks if `mat` is Hermitian positive
+        semidefinite. Then, it checks if its eigenvalues satisfy the Gerschgorin circle property (see Theorem 7.2 of
+        [@Jivulescu_2015_Reduction]). Then it checks if the matrix belongs to the separable ball by calling
+        `in_separable_ball`. Finally, if all the above checks fail to return a definite result, it determines if
+        the matrix is absolutely PPT by checking if all the constraint matrices returned by
+        `abs_ppt_constraints` are positive semidefinite.
+    - If `mat` is a `cvxpy` Variable, `mat` must be a 1D vector representing the eigenvalues of
+        a matrix. The function then returns the list of `cvxpy` Constraints required for optimizing over the
+        space of absolutely PPT matrices. This includes the positive semidefinite constraint on each constraint matrix
+        as well as `mat[0] ≥ mat[1] ≥ ... ≥ mat[-1] ≥ 0`.
 
-    This function is adapted from QETLAB :footcite:`QETLAB_link`.
+    This function is adapted from QETLAB [@QETLAB_link].
 
-    .. note::
-        If :code:`min(dim)` :math:`\leq 6`, this function checks all constraints
-        and therefore returns :code:`True` or :code:`False` in all cases. However, if
-        :code:`min(dim)` :math:`\geq 7`, only the first :math:`33592` constraints are
-        checked, since there are over :math:`23178480` constraints in this case
-        :footcite:`Johnston_2014_Orderings`. Therefore the function returns either
-        :code:`False` if at least one constraint was not satisfied, or :code:`None`
+    !!! Note
+        If `min(dim)` \(\leq 6\), this function checks all constraints
+        and therefore returns `True` or `False` in all cases. However, if
+        `min(dim)` \(\geq 7\), only the first \(33592\) constraints are
+        checked, since there are over \(23178480\) constraints in this case
+        [@Johnston_2014_Orderings]. Therefore the function returns either
+        `False` if at least one constraint was not satisfied, or `None`
         if all checked constraints were satisfied.
 
-    Examples
-    ==========
+    Examples:
     A random density matrix will likely not be absolutely PPT:
 
-    .. jupyter-execute::
-
-        import numpy as np
-        from toqito.rand import random_density_matrix
-        from toqito.state_props import is_abs_ppt
-        rho = random_density_matrix(9) # assumed to act on a 3 x 3 bipartite system
-        print(f"ρ is absolutely PPT: {is_abs_ppt(rho, 3)}")
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.rand import random_density_matrix
+    from toqito.state_props import is_abs_ppt
+    rho = random_density_matrix(9) # assumed to act on a 3 x 3 bipartite system
+    print(f"ρ is absolutely PPT: {is_abs_ppt(rho, 3)}")
+    ```
 
     The maximally-mixed state is an example of an absolutely PPT state:
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.states import max_mixed
+    from toqito.state_props import is_abs_ppt
+    rho = max_mixed(9) # assumed to act on a 3 x 3 bipartite system
+    print(f"ρ is absolutely PPT: {is_abs_ppt(rho, 3)}")
+    ```
 
-        import numpy as np
-        from toqito.states import max_mixed
-        from toqito.state_props import is_abs_ppt
-        rho = max_mixed(9) # assumed to act on a 3 x 3 bipartite system
-        print(f"ρ is absolutely PPT: {is_abs_ppt(rho, 3)}")
+    Raises:
+        TypeError: If `mat` is not a `numpy` ndarray or a `cvxpy` Variable.
+        ValueError: If `mat` is a `numpy` ndarray but is not square.
+        ValueError: If `mat` is a `cvxpy` Variable but is not 1D.
+        ValueError: If `dim` does not divide the dimensions of `mat`.
 
-    References
-    ==========
-    .. footbibliography::
+    Args:
+        mat: A square matrix.
+        dim: The dimension of any one subsystem on which `mat` acts. If `None`, `dim` is selected such that
+        `min(dim, mat.shape[0] // dim)` is maximised, since this gives the strongest conditions on being absolutely PPT
+        (see Theorem 2 of [@Hildebrand_2007_AbsPPT]).
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
 
-    :raises TypeError: If :code:`mat` is not a :code:`numpy` ndarray or a :code:`cvxpy` Variable.
-    :raises ValueError: If :code:`mat` is a :code:`numpy` ndarray but is not square.
-    :raises ValueError: If :code:`mat` is a :code:`cvxpy` Variable but is not 1D.
-    :raises ValueError: If :code:`dim` does not divide the dimensions of :code:`mat`.
-    :param mat: A square matrix.
-    :param dim: The dimension of any one subsystem on which :code:`mat` acts. If :code:`None`,
-                :code:`dim` is selected such that :code:`min(dim, mat.shape[0] // dim)` is
-                maximised, since this gives the strongest conditions on being absolutely PPT
-                (see Theorem 2 of :footcite:`Hildebrand_2007_AbsPPT`).
-    :param rtol: The relative tolerance parameter (default 1e-05).
-    :param atol: The absolute tolerance parameter (default 1e-08).
-    :return: If :code:`mat` is a :code:`numpy` ndarray, return :code:`True` if :code:`mat` is absolutely PPT,
-             :code:`False` if :code:`mat` is not absolutely PPT, and :code:`None` if the function could not decide.
-    :return: If :code:`mat` is a 1D :code:`cvxpy` Variable, return a list of :code:`cvxpy` Constraints required for
-             optimizing over the space of absolutely PPT matrices.
+    Returns:
+        If `mat` is a 1D `cvxpy` Variable, return a list of `cvxpy` Constraints required for optimizing over the space
+        of absolutely PPT matrices.
 
     """
     if isinstance(mat, np.ndarray):
@@ -126,7 +123,7 @@ def is_abs_ppt(
         # 2. Check if mat is PSD.
         if eigs[-1] < -abs(atol):
             return False
-        # 3. Check Theorem 7.2 of :footcite:`Jivulescu_2015_Reduction`.
+        # 3. Check Theorem 7.2 of [@Jivulescu_2015_Reduction].
         if sum(eigs[: p - 1]) <= eigs[-1] + sum(eigs[-p:]):
             return True
         # 4. Check if mat is in separable ball.

@@ -29,19 +29,17 @@ def channel_dim(
     instead of vectors. If COMPUTE_ENV_DIM is false and the PHI is a Choi matrix we avoid
     computing the rank of the Choi matrix.
 
-    This functions was adapted from QETLAB :footcite:`QETLAB_link`.
+    This functions was adapted from QETLAB [@QETLAB_link].
 
-    References
-    ==========
-    .. footbibliography::
+    Args:
+        phi: A superoperator. It should be provided either as a Choi matrix, or as a (1d or 2d) list of numpy arrays
+        whose entries are its Kraus operators.
+        allow_rect: A flag indicating that the input and output spaces of PHI can be non-square (default True).
+        dim: A scalar, vector or matrix containing the input and output dimensions of PHI.
+        compute_env_dim: A flag indicating whether we compute the enviroment dimension.
 
-
-    :param phi: A superoperator. It should be provided either as a Choi matrix,
-                or as a (1d or 2d) list of numpy arrays whose entries are its Kraus operators.
-    :param allow_rect: A flag indicating that the input and output spaces of PHI can be non-square (default True).
-    :param dim: A scalar, vector or matrix containing the input and output dimensions of PHI.
-    :param compute_env_dim: A flag indicating whether we compute the enviroment dimension.
-    :return: The input, output, and environment dimensions of a channel.
+    Returns:
+        The input, output, and environment dimensions of a channel.
 
     """
     dim_in = np.zeros(2, dtype=int)

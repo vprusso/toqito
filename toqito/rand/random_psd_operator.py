@@ -14,70 +14,64 @@ def random_psd_operator(
     This function generates a random positive semidefinite operator by constructing a Hermitian matrix,
     based on the fact that a Hermitian matrix can have real eigenvalues.
 
-    Examples
-    ========
+    Examples:
+    Using `|toqito⟩`, we may generate a random positive semidefinite matrix.
+    For \(\text{dim}=2\), this can be accomplished as follows.
 
-    Using :code:`|toqito⟩`, we may generate a random positive semidefinite matrix.
-    For :math:`\text{dim}=2`, this can be accomplished as follows.
+    ```python exec="1" source="above" session="psd_operator"
+    from toqito.rand import random_psd_operator
 
-    .. jupyter-execute::
+    complex_psd_mat = random_psd_operator(2)
 
-     from toqito.rand import random_psd_operator
-
-     complex_psd_mat = random_psd_operator(2)
-
-     complex_psd_mat
+    print(complex_psd_mat)
+    ```
 
     We can confirm that this matrix indeed represents a valid positive semidefinite matrix by utilizing
-    the :code:`is_positive_semidefinite` function from the :code:`|toqito⟩` library, as demonstrated below:
+    the `is_positive_semidefinite` function from the `|toqito⟩` library, as demonstrated below:
 
-    .. jupyter-execute::
+    ```python exec="1" source="above" session="psd_operator"
+    from toqito.matrix_props import is_positive_semidefinite
 
-     from toqito.matrix_props import is_positive_semidefinite
-
-     is_positive_semidefinite(complex_psd_mat)
+    print(is_positive_semidefinite(complex_psd_mat))
+    ```
 
 
     We can also generate random positive semidefinite matrices that are real-valued as follows.
 
-    .. jupyter-execute::
+    ```python exec="1" source="above" session="psd_operator"
+    from toqito.rand import random_psd_operator
 
-     from toqito.rand import random_psd_operator
+    real_psd_mat = random_psd_operator(2, is_real=True)
 
-     real_psd_mat = random_psd_operator(2, is_real=True)
-
-     real_psd_mat
+    print(real_psd_mat)
+    ```
 
 
     Again, verifying that this is a valid positive semidefinite matrix can be done as follows.
 
-    .. jupyter-execute::
-
-     from toqito.matrix_props import is_positive_semidefinite
-     is_positive_semidefinite(real_psd_mat)
+    ```python exec="1" source="above" session="psd_operator"
+    from toqito.matrix_props import is_positive_semidefinite
+    print(is_positive_semidefinite(real_psd_mat))
+    ```
 
 
     It is also possible to add a seed for reproducibility.
 
-    .. jupyter-execute::
+    ```python exec="1" source="above" session="psd_operator"
+    from toqito.rand import random_psd_operator
 
-     from toqito.rand import random_psd_operator
+    seeded = random_psd_operator(2, is_real=True, seed=42)
 
-     seeded = random_psd_operator(2, is_real=True, seed=42)
+    print(seeded)
+    ```
 
-     seeded
+    Args:
+        dim: The dimension of the operator.
+        is_real: Boolean denoting whether the returned matrix will have all real entries or not. Default is `False`.
+        seed: A seed used to instantiate numpy's random number generator.
 
-
-    References
-    ==========
-    .. footbibliography::
-
-
-    :param dim: The dimension of the operator.
-    :param is_real: Boolean denoting whether the returned matrix will have all real entries or not.
-                    Default is :code:`False`.
-    :param seed: A seed used to instantiate numpy's random number generator.
-    :return: A :code:`dim` x :code:`dim` random positive semidefinite matrix.
+    Returns:
+        A `dim` x `dim` random positive semidefinite matrix.
 
     """
     # Generate a random matrix of dimension dim x dim.

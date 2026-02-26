@@ -4,63 +4,60 @@ import numpy as np
 
 
 def gen_gell_mann(ind_1: int, ind_2: int, dim: int) -> np.ndarray:
-    r"""Produce a generalized Gell-Mann operator :footcite:`WikiGellMann`.
+    r"""Produce a generalized Gell-Mann operator [@WikiGellMann].
 
-    Construct a :code:`dim`-by-:code:`dim` Hermitian operator. These matrices
-    span the entire space of :code:`dim`-by-:code:`dim` matrices as
-    :code:`ind_1` and :code:`ind_2` range from 0 to :code:`dim-1`, inclusive,
-    and they generalize the Pauli operators when :code:`dim = 2` and the
-    Gell-Mann operators when :code:`dim = 3`.
+    Construct a `dim`-by-`dim` Hermitian operator. These matrices
+    span the entire space of `dim`-by-`dim` matrices as
+    `ind_1` and `ind_2` range from 0 to `dim-1`, inclusive,
+    and they generalize the Pauli operators when `dim = 2` and the
+    Gell-Mann operators when `dim = 3`.
 
-    Examples
-    ==========
+    Examples:
+    The generalized Gell-Mann matrix for `ind_1 = 0`, `ind_2 = 1`
+    and `dim = 2` is given as
 
-    The generalized Gell-Mann matrix for :code:`ind_1 = 0`, :code:`ind_2 = 1`
-    and :code:`dim = 2` is given as
-
-    .. math::
+    \[
         G_{0, 1, 2} = \begin{pmatrix}
                          0 & 1 \\
                          1 & 0
                       \end{pmatrix}.
+    \]
 
-    This can be obtained in :code:`|toqito⟩` as follows.
+    This can be obtained in `|toqito⟩` as follows.
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    from toqito.matrices import gen_gell_mann
 
-     from toqito.matrices import gen_gell_mann
+    print(gen_gell_mann(ind_1=0, ind_2=1, dim=2))
+    ```
 
-     gen_gell_mann(ind_1=0, ind_2=1, dim=2)
+    The generalized Gell-Mann matrix `ind_1 = 2`, `ind_2 = 3`, and
+    `dim = 4` is given as
 
-    The generalized Gell-Mann matrix :code:`ind_1 = 2`, :code:`ind_2 = 3`, and
-    :code:`dim = 4` is given as
-
-    .. math::
+    \[
         G_{2, 3, 4} = \begin{pmatrix}
                         0 & 0 & 0 & 0 \\
                         0 & 0 & 0 & 0 \\
                         0 & 0 & 0 & 1 \\
                         0 & 0 & 1 & 0
                       \end{pmatrix}.
+    \]
 
-    This can be obtained in :code:`|toqito⟩` as follows.
+    This can be obtained in `|toqito⟩` as follows.
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    from toqito.matrices import gen_gell_mann
 
-     from toqito.matrices import gen_gell_mann
+    gen_gell_mann(ind_1=2, ind_2=3, dim=4)
+    ```
 
-     gen_gell_mann(ind_1=2, ind_2=3, dim=4)
+    Args:
+        ind_1: A non-negative integer from 0 to `dim-1` (inclusive).
+        ind_2: A non-negative integer from 0 to `dim-1` (inclusive).
+        dim: The dimension of the Gell-Mann operator.
 
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param ind_1: A non-negative integer from 0 to :code:`dim-1` (inclusive).
-    :param ind_2: A non-negative integer from 0 to :code:`dim-1` (inclusive).
-    :param dim: The dimension of the Gell-Mann operator.
-    :return: The generalized Gell-Mann operator as an array.
+    Returns:
+        The generalized Gell-Mann operator as an array.
 
     """
     if ind_1 == ind_2:

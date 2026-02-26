@@ -17,48 +17,44 @@ def amplitude_damping(
 
     To also include standard implementation of amplitude damping, we have set `prob = 1` as the default implementation.
 
-    .. note::
-          This channel is defined for qubit systems in the standard literature :footcite:`Khatri_2020_Information`.
+    !!! note
+        This channel is defined for qubit systems in the standard literature [@Khatri_2020_Information].
 
 
     The Kraus operators for the generalized amplitude damping channel are given by:
 
-    .. math::
+    \[
         K_0 = \sqrt{p} \begin{pmatrix} 1 & 0 \\ 0 & \sqrt{1 - \gamma} \end{pmatrix}, \\
         K_1 = \sqrt{p}  \begin{pmatrix} 0 & \sqrt{\gamma} \\ 0 & 0 \end{pmatrix}, \\
         K_2 = \sqrt{1 - p} \begin{pmatrix} \sqrt{1 - \gamma} & 0 \\ 0 & 1 \end{pmatrix}, \\
         K_3 = \sqrt{1 - p}  \begin{pmatrix} 0 & 0 \\ \sqrt{\gamma} & 0 \end{pmatrix}, \\
+    \]
 
     These operators describe the evolution of a quantum state under the generalized amplitude
     damping process.
 
-    Examples
-    ==========
-
+    Examples:
     Apply the generalized amplitude damping channel to a qubit state:
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.channels import amplitude_damping
 
-     import numpy as np
-     from toqito.channels import amplitude_damping
+    rho = np.array([[1, 0], [0, 0]])  # |0><0|
+    result = amplitude_damping(rho, gamma=0.1, prob=0.5)
 
-     rho = np.array([[1, 0], [0, 0]])  # |0><0|
-     result = amplitude_damping(rho, gamma=0.1, prob=0.5)
+    print(result)
+    ```
 
-     print(result)
+    Args:
+        input_mat: The input matrix to which the channel is applied. If `None`, the function returns the Kraus operators
+        of the channel.
+        gamma: The damping rate, a float between 0 and 1. Represents the probability of energy dissipation.
+        prob: The probability of energy loss, a float between 0 and 1.
 
-    References
-    ==========
-    .. footbibliography::
-
-
-    :param input_mat: The input matrix to which the channel is applied.
-                      If `None`, the function returns the Kraus operators of the channel.
-    :param gamma: The damping rate, a float between 0 and 1. Represents the probability of
-                  energy dissipation.
-    :param prob: The probability of energy loss, a float between 0 and 1.
-    :return: The evolved quantum state after applying the generalized amplitude damping channel.
-             If `input_mat` is `None`, it returns the list of Kraus operators.
+    Returns:
+        The evolved quantum state after applying the generalized amplitude damping channel. If `input_mat` is `None`, it
+        returns the list of Kraus operators.
 
     """
     if not (0 <= prob <= 1):

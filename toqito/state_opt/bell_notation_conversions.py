@@ -8,81 +8,81 @@ def cg_to_fc(cg_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
 
     The Collins-Gisin (CG) notation for a Bell functional or behavior is represented by a matrix:
 
-    .. math::
-        \text{CG} =
-        \begin{pmatrix}
-            K      & p_B(0|1) & p_B(0|2) & \dots \\
-            p_A(0|1) & p(00|11) & p(00|12) & \dots \\
-            p_A(0|2) & p(00|21) & p(00|22) & \dots \\
-            \vdots   & \vdots   & \vdots   & \ddots
-        \end{pmatrix}
+    \[
+    \text{CG} =
+    \begin{pmatrix}
+        K      & p_B(0|1) & p_B(0|2) & \dots \\
+        p_A(0|1) & p(00|11) & p(00|12) & \dots \\
+        p_A(0|2) & p(00|21) & p(00|22) & \dots \\
+        \vdots   & \vdots   & \vdots   & \ddots
+    \end{pmatrix}
+    \]
 
     The Full Correlator (FC) notation is represented by:
 
-    .. math::
-        \text{FC} =
-        \begin{pmatrix}
-            K      & \langle B_1 \rangle & \langle B_2 \rangle & \dots \\
-            \langle A_1 \rangle & \langle A_1 B_1 \rangle & \langle A_1 B_2 \rangle & \dots \\
-            \langle A_2 \rangle & \langle A_2 B_1 \rangle & \langle A_2 B_2 \rangle & \dots \\
-            \vdots   & \vdots      & \vdots      & \ddots
-        \end{pmatrix}
+    \[
+    \text{FC} =
+    \begin{pmatrix}
+        K      & \langle B_1 \rangle & \langle B_2 \rangle & \dots \\
+        \langle A_1 \rangle & \langle A_1 B_1 \rangle & \langle A_1 B_2 \rangle & \dots \\
+        \langle A_2 \rangle & \langle A_2 B_1 \rangle & \langle A_2 B_2 \rangle & \dots \\
+        \vdots   & \vdots      & \vdots      & \ddots
+    \end{pmatrix}
+    \]
 
     This function converts between these two notations.
 
-    Examples
-    ==========
-
+    Examples:
     Consider the CHSH inequality in CG notation for a functional:
 
-    .. math::
-        \text{CHSH}_{CG} =
-        \begin{pmatrix}
-            0 & 0 & 0 \\
-            0 & 1 & -1 \\
-            0 & -1 & 1
-        \end{pmatrix}
+    \[
+    \text{CHSH}_{CG} =
+    \begin{pmatrix}
+        0 & 0 & 0 \\
+        0 & 1 & -1 \\
+        0 & -1 & 1
+    \end{pmatrix}
+    \]
 
     Converting to FC notation:
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.state_opt.bell_notation_conversions import cg_to_fc
 
-        import numpy as np
-        from toqito.state_opt.bell_notation_conversions import cg_to_fc
-
-        chsh_cg = np.array([[0, 0, 0], [0, 1, -1], [0, -1, 1]])
-        cg_to_fc(chsh_cg)
+    chsh_cg = np.array([[0, 0, 0], [0, 1, -1], [0, -1, 1]])
+    print(cg_to_fc(chsh_cg))
+    ```
 
     Consider a behavior (probability distribution) in CG notation:
 
-    .. math::
-        P_{CG} =
-        \begin{pmatrix}
-            1 & 0.5 & 0.5 \\
-            0.5 & 0.25 & 0.25 \\
-            0.5 & 0.25 & 0.25
-        \end{pmatrix}
+    \[
+    P_{CG} =
+    \begin{pmatrix}
+        1 & 0.5 & 0.5 \\
+        0.5 & 0.25 & 0.25 \\
+        0.5 & 0.25 & 0.25
+    \end{pmatrix}
+    \]
 
     Converting to FC notation:
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.state_opt.bell_notation_conversions import cg_to_fc
+    p_cg = np.array([[1, 0.5, 0.5], [0.5, 0.25, 0.25], [0.5, 0.25, 0.25]])
+    print(cg_to_fc(p_cg, behavior=True))
+    ```
 
-        import numpy as np
-        from toqito.state_opt.bell_notation_conversions import cg_to_fc
-        p_cg = np.array([[1, 0.5, 0.5], [0.5, 0.25, 0.25], [0.5, 0.25, 0.25]])
-        cg_to_fc(p_cg, behavior=True)
+    Args:
+    cg_mat: The matrix in Collins-Gisin notation.
+    behavior: If True, assume input is a behavior (default: False, assume functional).
 
-    :param ``cg_mat``: The matrix in Collins-Gisin notation.
-    :param ``behavior``: If True, assume input is a behavior (default: False, assume functional).
-    :return: The matrix in Full Correlator notation.
+    Returns:
+    The matrix in Full Correlator notation.
 
-    .. note::
-        This function is adapted from the QETLAB MATLAB package function ``CG2FC`` :cite:``QETLAB``.
-
-    References
-    ==========
-    .. bibliography::
-        :filter: docname in docnames
+    !!! Note
+    This function is adapted from the QETLAB MATLAB package function ``CG2FC``.
 
     """
     ia = cg_mat.shape[0] - 1
@@ -113,80 +113,80 @@ def fc_to_cg(fc_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
 
     The Full Correlator (FC) notation is represented by:
 
-    .. math::
-        \text{FC} =
-        \begin{pmatrix}
-            K      & \langle B_1 \rangle & \langle B_2 \rangle & \dots \\
-            \langle A_1 \rangle & \langle A_1 B_1 \rangle & \langle A_1 B_2 \rangle & \dots \\
-            \langle A_2 \rangle & \langle A_2 B_1 \rangle & \langle A_2 B_2 \rangle & \dots \\
-            \vdots   & \vdots      & \vdots      & \ddots
-        \end{pmatrix}
+    \[
+    \text{FC} =
+    \begin{pmatrix}
+        K      & \langle B_1 \rangle & \langle B_2 \rangle & \dots \\
+        \langle A_1 \rangle & \langle A_1 B_1 \rangle & \langle A_1 B_2 \rangle & \dots \\
+        \langle A_2 \rangle & \langle A_2 B_1 \rangle & \langle A_2 B_2 \rangle & \dots \\
+        \vdots   & \vdots      & \vdots      & \ddots
+    \end{pmatrix}
+    \]
 
     The Collins-Gisin (CG) notation for a Bell functional or behavior is represented by a matrix:
 
-    .. math::
-        \text{CG} =
-        \begin{pmatrix}
-            K      & p_B(0|1) & p_B(0|2) & \dots \\
-            p_A(0|1) & p(00|11) & p(00|12) & \dots \\
-            p_A(0|2) & p(00|21) & p(00|22) & \dots \\
-            \vdots   & \vdots   & \vdots   & \ddots
-        \end{pmatrix}
+    \[
+    \text{CG} =
+    \begin{pmatrix}
+        K      & p_B(0|1) & p_B(0|2) & \dots \\
+        p_A(0|1) & p(00|11) & p(00|12) & \dots \\
+        p_A(0|2) & p(00|21) & p(00|22) & \dots \\
+        \vdots   & \vdots   & \vdots   & \ddots
+    \end{pmatrix}
+    \]
 
     This function converts between these two notations.
 
-    Examples
-    ==========
-
+    Examples:
     Consider the CHSH inequality in FC notation for a functional:
 
-    .. math::
-        \text{CHSH}_{FC} =
-        \begin{pmatrix}
-            0 & 0 & 0 \\
-            0 & 1/4 & -1/4 \\
-            0 & -1/4 & 1/4
-        \end{pmatrix}
+    \[
+    \text{CHSH}_{FC} =
+    \begin{pmatrix}
+        0 & 0 & 0 \\
+        0 & 1/4 & -1/4 \\
+        0 & -1/4 & 1/4
+    \end{pmatrix}
+    \]
 
     Converting to CG notation:
 
-    .. jupyter-execute::
-
-        import numpy as np
-        from toqito.state_opt.bell_notation_conversions import fc_to_cg
-        chsh_fc = np.array([[0, 0, 0], [0, 0.25, -0.25], [0, -0.25, 0.25]])
-        fc_to_cg(chsh_fc)
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.state_opt.bell_notation_conversions import fc_to_cg
+    chsh_fc = np.array([[0, 0, 0], [0, 0.25, -0.25], [0, -0.25, 0.25]])
+    print(fc_to_cg(chsh_fc))
+    ```
 
     Consider a behavior (correlation matrix) in FC notation:
 
-    .. math::
-        P_{FC} =
-        \begin{pmatrix}
-            1 & 0 & 0 \\
-            0 & 0 & 0 \\
-            0 & 0 & 0
-        \end{pmatrix}
+    \[
+    P_{FC} =
+    \begin{pmatrix}
+        1 & 0 & 0 \\
+        0 & 0 & 0 \\
+        0 & 0 & 0
+    \end{pmatrix}
+    \]
 
     Converting to CG notation:
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.state_opt.bell_notation_conversions import fc_to_cg
+    p_fc = np.array([[1, 0, 0], [0, 0, 0], [0, 0, 0]])
+    print(fc_to_cg(p_fc, behavior=True))
+    ```
 
-        import numpy as np
-        from toqito.state_opt.bell_notation_conversions import fc_to_cg
-        p_fc = np.array([[1, 0, 0], [0, 0, 0], [0, 0, 0]])
-        fc_to_cg(p_fc, behavior=True)
+    Args:
+    fc_mat: The matrix in Full Correlator notation.
+    behavior: If True, assume input is a behavior (default: False, assume functional).
 
-    :param ``fc_mat``: The matrix in Full Correlator notation.
-    :param ``behavior``: If True, assume input is a behavior (default: False, assume functional).
-    :return: The matrix in Collins-Gisin notation.
+    Returns:
+    The matrix in Collins-Gisin notation.
 
-    .. note::
-        This function is adapted from the QETLAB MATLAB package function ``FC2CG`` :cite:``QETLAB``.
-
-    References
-    ==========
-    .. bibliography::
-        :filter: docname in docnames
+    !!! Note
+    This function is adapted from the QETLAB MATLAB package function ``FC2CG``.
 
     """
     ia = fc_mat.shape[0] - 1
@@ -217,83 +217,81 @@ def cg_to_fp(cg_mat: np.ndarray, desc: list[int], behavior: bool = False) -> np.
 
     The Collins-Gisin (CG) notation for a Bell functional or behavior is represented by a matrix
     (see :func:`cg_to_fc`). The Full Probability (FP) notation represents the full probability
-    distribution :math:`V(a, b, x, y) = P(a, b | x, y)`, the probability of Alice getting outcome
-    :math:`a` (0 to oa-1) and Bob getting outcome :math:`b` (0 to ob-1) given inputs :math:`x`
-    (0 to ia-1) and :math:`y` (0 to ib-1). This is stored as a 4D numpy array with indices
+    distribution \(V(a, b, x, y) = P(a, b | x, y)\), the probability of Alice getting outcome
+    \(a\) (0 to oa-1) and Bob getting outcome \(b\) (0 to ob-1) given inputs \(x\)
+    (0 to ia-1) and \(y\) (0 to ib-1). This is stored as a 4D numpy array with indices
     `V[a, b, x, y]`.
 
     This function converts from CG to FP notation.
 
-    Examples
-    ==========
-
+    Examples:
     Consider the CHSH inequality functional in CG notation:
 
-    .. math::
-        \text{CHSH}_{CG} =
-        \begin{pmatrix}
-            0 & 0 & 0 \\
-            0 & 1 & -1 \\
-            0 & -1 & 1
-        \end{pmatrix}
+    \[
+    \text{CHSH}_{CG} =
+    \begin{pmatrix}
+        0 & 0 & 0 \\
+        0 & 1 & -1 \\
+        0 & -1 & 1
+    \end{pmatrix}
+    \]
 
     Converting to FP notation (desc = [2, 2, 2, 2]):
 
-    .. jupyter-execute::
-
-        import numpy as np
-        from toqito.state_opt.bell_notation_conversions import cg_to_fp
-        chsh_cg = np.array([[0, 0, 0], [0, 1, -1], [0, -1, 1]])
-        desc = [2, 2, 2, 2] # oa, ob, ia, ib
-        cg_to_fp(chsh_cg, desc)
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.state_opt.bell_notation_conversions import cg_to_fp
+    chsh_cg = np.array([[0, 0, 0], [0, 1, -1], [0, -1, 1]])
+    desc = [2, 2, 2, 2] # oa, ob, ia, ib
+    print(cg_to_fp(chsh_cg, desc))
+    ```
 
     Consider a behavior (probability distribution) in CG notation (desc = [2, 2, 2, 2]):
 
-    .. math::
-        P_{CG} =
-        \begin{pmatrix}
-            1 & 0.5 & 0.5 \\
-            0.5 & 0.25 & 0.25 \\
-            0.5 & 0.25 & 0.25
-        \end{pmatrix}
+    \[
+    P_{CG} =
+    \begin{pmatrix}
+        1 & 0.5 & 0.5 \\
+        0.5 & 0.25 & 0.25 \\
+        0.5 & 0.25 & 0.25
+    \end{pmatrix}
+    \]
 
     Converting to FP notation:
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.state_opt.bell_notation_conversions import cg_to_fp
+    p_cg = np.array([[1, 0.5, 0.5], [0.5, 0.25, 0.25], [0.5, 0.25, 0.25]])
+    desc = [2, 2, 2, 2]
+    print(cg_to_fp(p_cg, desc, behavior=True))
+    ```
 
-        import numpy as np
-        from toqito.state_opt.bell_notation_conversions import cg_to_fp
-        p_cg = np.array([[1, 0.5, 0.5], [0.5, 0.25, 0.25], [0.5, 0.25, 0.25]])
-        desc = [2, 2, 2, 2]
-        cg_to_fp(p_cg, desc, behavior=True)
+    Args:
+    cg_mat: The matrix in Collins-Gisin notation.
+    desc: A list [:math:`oa`, :math:`ob`, :math:`ia`, :math:`ib`] describing the number of outputs
+              (:math:`oa`, :math:`ob`) and inputs (:math:`ia`, :math:`ib`).
+    behavior: If True, assume input is a behavior (default: False, assume functional).
 
-    :param ``cg_mat``: The matrix in Collins-Gisin notation.
-    :param ``desc``: A list [:math:`oa`, :math:`ob`, :math:`ia`, :math:`ib`] describing the number of outputs
-                     (:math:`oa`, :math:`ob`) and inputs (:math:`ia`, :math:`ib`).
-    :param ``behavior``: If True, assume input is a behavior (default: False, assume functional).
-    :return: The probability tensor :math:`V[a, b, x, y]` in Full Probability notation.
+    Returns:
+    The probability tensor :math:`V[a, b, x, y]` in Full Probability notation.
 
-    .. note::
-        This function is adapted from the QETLAB MATLAB package function ``CG2FP`` :cite:``QETLAB``.
-
-    References
-    ==========
-    .. bibliography::
-        :filter: docname in docnames
+    !!! Note
+    This function is adapted from the QETLAB MATLAB package function ``CG2FP``.
 
     """
     oa, ob, ia, ib = desc
     v_mat = np.zeros((oa, ob, ia, ib))
 
     def aindex(a: int, x: int) -> int:
-        """CG matrix row index for Alice's outcome :math:`a` (0..:math:`oa-2`) and input :math:`x` (0..:math:`ia-1`).
+        r"""CG matrix row index for Alice's outcome \(a\) (0..\(oa-2\)) and input \(x\) (0..\(ia-1\)).
 
         Returns 1-based index.
         """
         return 1 + a + x * (oa - 1)
 
     def bindex(b: int, y: int) -> int:
-        """CG matrix col index for Bob's outcome :math:`b` (0..:math:`ob-2`) and input :math:`y` (0..:math:`ib-1`).
+        r"""CG matrix col index for Bob's outcome \(b\) (0..\(ob-2\)) and input \(y\) (0..\(ib-1\)).
 
         Returns 1-based index.
         """
@@ -370,79 +368,77 @@ def cg_to_fp(cg_mat: np.ndarray, desc: list[int], behavior: bool = False) -> np.
 def fc_to_fp(fc_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
     r"""Convert a Bell functional or behavior from Full Correlator (FC) to Full Probability (FP) notation.
 
-    Assumes binary outcomes (:math:`oa=2`, :math:`ob=2`) corresponding to physical values +1 and -1.
-    The FP tensor indices :math:`a, b = 0, 1` correspond to outcomes :math:`+1, -1` respectively.
+    Assumes binary outcomes (\(oa=2\), \(ob=2\)) corresponding to physical values +1 and -1.
+    The FP tensor indices \(a, b = 0, 1\) correspond to outcomes \(+1, -1\) respectively.
 
     The Full Correlator (FC) notation is represented by a matrix (see :func:`.fc_to_cg`).
     The Full Probability (FP) notation represents the full probability distribution
-    :math:`V(a, b, x, y) = P(\text{out}_A=a', \text{out}_B=b' | x, y)`,
-    where :math:`a=0 \rightarrow a'=+1`, :math:`a=1 \rightarrow a'=-1` (similarly for :math:`b`),
-    stored as a 4D numpy array :math:`V[a, b, x, y]`.
+    \(V(a, b, x, y) = P(\text{out}_A=a', \text{out}_B=b' | x, y)\),
+    where \(a=0 \rightarrow a'=+1\), \(a=1 \rightarrow a'=-1\) (similarly for \(b\)),
+    stored as a 4D numpy array \(V[a, b, x, y]\).
 
     This function converts from FC to FP notation.
 
-    Examples
-    ==========
-
+    Examples:
     Consider the CHSH inequality functional in FC notation:
 
-    .. math::
-        \text{CHSH}_{FC} =
-        \begin{pmatrix}
-            0 & 0 & 0 \\
-            0 & 1/4 & -1/4 \\
-            0 & -1/4 & 1/4
-        \end{pmatrix}
+    \[
+    \text{CHSH}_{FC} =
+    \begin{pmatrix}
+        0 & 0 & 0 \\
+        0 & 1/4 & -1/4 \\
+        0 & -1/4 & 1/4
+    \end{pmatrix}
+    \]
 
     Converting to FP notation:
 
-    .. jupyter-execute::
-
-        import numpy as np
-        from toqito.state_opt.bell_notation_conversions import fc_to_fp
-        chsh_fc = np.array([[0, 0, 0], [0, 0.25, -0.25], [0, -0.25, 0.25]])
-        fc_to_fp(chsh_fc)
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.state_opt.bell_notation_conversions import fc_to_fp
+    chsh_fc = np.array([[0, 0, 0], [0, 0.25, -0.25], [0, -0.25, 0.25]])
+    print(fc_to_fp(chsh_fc))
+    ```
 
     Consider a behavior (correlation matrix) in FC notation (e.g., from PR box):
     Note: This FC matrix corresponds to the PR box *after* applying ``fp_to_fc(pr_box, behavior=True)``,
     which uses the QETLAB convention of averaging marginal correlators.
 
-    .. math::
-        P_{FC} =
-        \begin{pmatrix}
-            1 & 0 & 0 \\
-            0 & 1/\sqrt{2} & 1/\sqrt{2} \\
-            0 & 1/\sqrt{2} & -1/\sqrt{2}
-        \end{pmatrix}
+    \[
+    P_{FC} =
+    \begin{pmatrix}
+        1 & 0 & 0 \\
+        0 & 1/\sqrt{2} & 1/\sqrt{2} \\
+        0 & 1/\sqrt{2} & -1/\sqrt{2}
+    \end{pmatrix}
+    \]
 
     Converting to FP notation:
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.state_opt.bell_notation_conversions import fc_to_fp
+    p_fc = np.array([[1, 0, 0], [0, 1/np.sqrt(2), 1/np.sqrt(2)], [0, 1/np.sqrt(2), -1/np.sqrt(2)]])
+    print(fc_to_fp(p_fc, behavior=True))
+    ```
 
-        import numpy as np
-        from toqito.state_opt.bell_notation_conversions import fc_to_fp
-        p_fc = np.array([[1, 0, 0], [0, 1/np.sqrt(2), 1/np.sqrt(2)], [0, 1/np.sqrt(2), -1/np.sqrt(2)]])
-        fc_to_fp(p_fc, behavior=True)
+    Args:
+    fc_mat: The matrix in Full Correlator notation.
+    behavior: If True, assume input is a behavior (default: False, assume functional).
 
-    :param ``fc_mat``: The matrix in Full Correlator notation.
-    :param ``behavior``: If True, assume input is a behavior (default: False, assume functional).
-    :return: The probability tensor :math:`V[a, b, x, y]` in Full Probability notation (oa=2, ob=2).
+    Returns:
+    The probability tensor :math:`V[a, b, x, y]` in Full Probability notation (oa=2, ob=2).
 
-    .. note::
-        This function is adapted from the QETLAB MATLAB package function ``FC2FP`` :cite:``QETLAB``.
-        For `behavior=True`, it applies the standard formula relating probabilities to correlators:
-        :math:`P(a', b' | x, y) = (1 + a'\langle A_x \rangle + b'\langle B_y \rangle +`
-        :math:`a'b'\langle A_x B_y \rangle) / 4`,
-        where :math:`a', b' \in \{+1, -1\}`.
-        Crucially, it uses the values :math:`\langle A_x \rangle` and :math:`\langle B_y \rangle` directly
-        from the input ``fc_mat``. If this input matrix was generated using a convention where these
-        entries represent *averaged* marginal correlators (like the output of ``fp_to_fc(..., behavior=True)``),
-        the resulting FP tensor might not represent a valid probability distribution (e.g., entries could be negative).
-
-    References
-    ==========
-    .. bibliography::
-        :filter: docname in docnames
+    !!! Note
+    This function is adapted from the QETLAB MATLAB package function ``FC2FP`` [@QETLAB].
+    For `behavior=True`, it applies the standard formula relating probabilities to correlators:
+    \(P(a', b' | x, y) = (1 + a'\langle A_x \rangle + b'\langle B_y \rangle +\)
+    \(a'b'\langle A_x B_y \rangle) / 4\),
+    where \(a', b' \in \{+1, -1\}\).
+    Crucially, it uses the values \(\langle A_x \rangle\) and \(\langle B_y \rangle\) directly
+    from the input ``fc_mat``. If this input matrix was generated using a convention where these
+    entries represent *averaged* marginal correlators (like the output of ``fp_to_fc(..., behavior=True)``),
+    the resulting FP tensor might not represent a valid probability distribution (e.g., entries could be negative).
 
     """
     ia = fc_mat.shape[0] - 1
@@ -490,61 +486,57 @@ def fp_to_cg(v_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
     r"""Convert a Bell functional or behavior from Full Probability (FP) to Collins-Gisin (CG) notation.
 
     The Full Probability (FP) notation represents the full probability distribution
-    :math:`V(a, b, x, y) = P(a, b | x, y)`, where :math:`a` (0 to :math:`oa-1`), :math:`b` (0 to :math:`ob-1`) are
-    outcomes and :math:`x` (0 to :math:`ia-1`), :math:`y`  (0 to :math:`ib-1`) are inputs. It's stored as a 4D
-    numpy array :math:`V[a, b, x, y]`. The Collins-Gisin (CG) notation for a Bell functional or
-    behavior is represented by a matrix (see :func:`.cg_to_fc`).
+    \(V(a, b, x, y) = P(a, b | x, y)\), where \(a\) (0 to \(oa-1\)), \(b\) (0 to \(ob-1\)) are
+    outcomes and \(x\) (0 to \(ia-1\)), \(y\)  (0 to \(ib-1\)) are inputs. It's stored as a 4D
+    numpy array \(V[a, b, x, y]\). The Collins-Gisin (CG) notation for a Bell functional or
+    behavior is represented by a matrix (see :[cg_to_fc][toqito.state_opt.bell_notation_conversions.cg_to_fc]).
 
     This function converts from FP to CG notation.
 
-    Examples
-    ==========
-
+    Examples:
     Consider the CHSH inequality functional in FP notation:
     (Here V represents coefficients, not probabilities)
 
-    .. jupyter-execute::
-
-        import numpy as np
-        from toqito.state_opt.bell_notation_conversions import fp_to_cg
-        chsh_fp = np.zeros((2, 2, 2, 2))
-        chsh_fp[0, 0, 0, 0] = 1
-        chsh_fp[0, 0, 0, 1] = -1
-        chsh_fp[0, 0, 1, 0] = -1
-        chsh_fp[0, 0, 1, 1] = 1
-        fp_to_cg(chsh_fp)
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.state_opt.bell_notation_conversions import fp_to_cg
+    chsh_fp = np.zeros((2, 2, 2, 2))
+    chsh_fp[0, 0, 0, 0] = 1
+    chsh_fp[0, 0, 0, 1] = -1
+    chsh_fp[0, 0, 1, 0] = -1
+    chsh_fp[0, 0, 1, 1] = 1
+    print(fp_to_cg(chsh_fp))
+    ```
 
     Consider a behavior (probability distribution) in FP notation (standard PR box):
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.state_opt.bell_notation_conversions import fp_to_cg
+    pr_box = np.zeros((2, 2, 2, 2))
+    pr_box[0, 0, 0, 0] = 0.5 # p(0,0|0,0)
+    pr_box[1, 1, 0, 0] = 0.5 # p(1,1|0,0)
+    pr_box[0, 0, 0, 1] = 0.5 # p(0,0|0,1)
+    pr_box[1, 1, 0, 1] = 0.5 # p(1,1|0,1)
+    pr_box[0, 0, 1, 0] = 0.5 # p(0,0|1,0)
+    pr_box[1, 1, 1, 0] = 0.5 # p(1,1|1,0)
+    pr_box[0, 1, 1, 1] = 0.5 # p(0,1|1,1)
+    pr_box[1, 0, 1, 1] = 0.5 # p(1,0|1,1)
+    print(fp_to_cg(pr_box, behavior=True))
+    ```
 
-        import numpy as np
-        from toqito.state_opt.bell_notation_conversions import fp_to_cg
-        pr_box = np.zeros((2, 2, 2, 2))
-        pr_box[0, 0, 0, 0] = 0.5 # p(0,0|0,0)
-        pr_box[1, 1, 0, 0] = 0.5 # p(1,1|0,0)
-        pr_box[0, 0, 0, 1] = 0.5 # p(0,0|0,1)
-        pr_box[1, 1, 0, 1] = 0.5 # p(1,1|0,1)
-        pr_box[0, 0, 1, 0] = 0.5 # p(0,0|1,0)
-        pr_box[1, 1, 1, 0] = 0.5 # p(1,1|1,0)
-        pr_box[0, 1, 1, 1] = 0.5 # p(0,1|1,1)
-        pr_box[1, 0, 1, 1] = 0.5 # p(1,0|1,1)
-        fp_to_cg(pr_box, behavior=True)
+    Args:
+        v_mat: The probability tensor :math:`V[a, b, x, y]` in Full Probability notation.
+        behavior: If True, assume input is a behavior (default: False, assume functional).
 
-    :param ``v_mat``: The probability tensor :math:`V[a, b, x, y]` in Full Probability notation.
-    :param ``behavior``: If True, assume input is a behavior (default: False, assume functional).
-    :return: The matrix in Collins-Gisin notation.
+    Returns:
+        The matrix in Collins-Gisin notation.
 
-    .. note::
-        This function is adapted from the QETLAB MATLAB package function ``FP2CG`` :cite:``QETLAB``.
+    !!! Note
+        This function is adapted from the QETLAB MATLAB package function ``FP2CG``.
         For ``behavior=True``, it uses the QETLAB convention for calculating marginal probabilities,
         summing over the other party's outcomes for a *fixed* input setting of the other party
-        (:math:`y=0` for Alice's marginal :math:`p_A(a|x)`, :math:`x=0` for Bob's marginal :math:`p_B(b|y)`).
-
-    References
-    ==========
-    .. bibliography::
-        :filter: docname in docnames
+        (\(y=0\) for Alice's marginal \(p_A(a|x)\), \(x=0\) for Bob's marginal \(p_B(b|y)\)).
 
     """
     oa, ob, ia, ib = v_mat.shape
@@ -561,16 +553,16 @@ def fp_to_cg(v_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
     cg_mat = np.zeros((alice_pars, bob_pars))
 
     def _cg_row_index(a: int, x: int) -> int:
-        """Calculate 0-based CG matrix row index for Alice.
+        r"""Calculate 0-based CG matrix row index for Alice.
 
-        Outcome :math:`a` (0..:math:`oa-2`) and input :math:`x` (0..:math:`ia-1`).
+        Outcome \(a\) (0..\(oa-2\)) and input \(x\) (0..\(ia-1\)).
         """
         return 1 + a + x * (oa - 1)
 
     def _cg_col_index(b: int, y: int) -> int:
-        """Calculate 0-based CG matrix col index for Bob.
+        r"""Calculate 0-based CG matrix col index for Bob.
 
-        Outcome :math:`b` (0..:math:`ob-2`) and input :math:`y` (0..:math:`ib-1`).
+        Outcome \(b\) (0..\(ob-2\)) and input \(y\) (0..\(ib-1\)).
         """
         return 1 + b + y * (ob - 1)
 
@@ -636,64 +628,61 @@ def fp_to_cg(v_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
 def fp_to_fc(v_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
     r"""Convert a Bell functional or behavior from Full Probability (FP) to Full Correlator (FC) notation.
 
-    Assumes binary outcomes (:math:`oa=2`, :math:`ob=2`). The FP tensor indices :math:`a, b = 0, 1`
-    correspond to physical outcomes :math:`+1, -1` respectively.
+    Assumes binary outcomes (\(oa=2\), \(ob=2\)). The FP tensor indices \(a, b = 0, 1\)
+    correspond to physical outcomes \(+1, -1\) respectively.
 
     The Full Probability (FP) notation represents the full probability distribution
-    :math:`V(a, b, x, y) = P(\text{out}_A=a', \text{out}_B=b' | x, y)`, where
-    :math:`a=0 \rightarrow a'=+1`, :math:`a=1 \rightarrow a'=-1` (similarly for :math:`b`),
-    stored as a 4D numpy array :math:`V[a, b, x, y]`.
-    The Full Correlator (FC) notation is represented by a matrix (see :func:`.fc_to_cg`).
+    \(V(a, b, x, y) = P(\text{out}_A=a', \text{out}_B=b' | x, y)\), where
+    \(a=0 \rightarrow a'=+1\), \(a=1 \rightarrow a'=-1\) (similarly for \(b\)),
+    stored as a 4D numpy array \(V[a, b, x, y]\).
+    The Full Correlator (FC) notation is represented by a matrix
+    (see [fc_to_cg][toqito.state_opt.bell_notation_conversions.fc_to_cg]).
 
     This function converts from FP to FC notation.
 
-    Examples
-    ==========
-
+    Examples:
     Consider the CHSH inequality functional in FP notation:
     (Here V represents coefficients, not probabilities)
 
-    .. jupyter-execute::
-
-        import numpy as np
-        from toqito.state_opt.bell_notation_conversions import fp_to_fc, fc_to_fp
-        chsh_fc = np.array([[0, 0, 0], [0, 0.25, -0.25], [0, -0.25, 0.25]])
-        chsh_fp = fc_to_fp(chsh_fc)
-        fp_to_fc(chsh_fp)
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.state_opt.bell_notation_conversions import fp_to_fc, fc_to_fp
+    chsh_fc = np.array([[0, 0, 0], [0, 0.25, -0.25], [0, -0.25, 0.25]])
+    chsh_fp = fc_to_fp(chsh_fc)
+    print(fp_to_fc(chsh_fp))
+    ```
 
     Consider a behavior (probability distribution) in FP notation (standard PR box):
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.state_opt.bell_notation_conversions import fp_to_fc
+    pr_box = np.zeros((2, 2, 2, 2))
+    pr_box[0, 0, 0, 0] = 0.5 # p(0,0|0,0)
+    pr_box[1, 1, 0, 0] = 0.5 # p(1,1|0,0)
+    pr_box[0, 0, 0, 1] = 0.5 # p(0,0|0,1)
+    pr_box[1, 1, 0, 1] = 0.5 # p(1,1|0,1)
+    pr_box[0, 0, 1, 0] = 0.5 # p(0,0|1,0)
+    pr_box[1, 1, 1, 0] = 0.5 # p(1,1|1,0)
+    pr_box[0, 1, 1, 1] = 0.5 # p(0,1|1,1)
+    pr_box[1, 0, 1, 1] = 0.5 # p(1,0|1,1)
+    print(fp_to_fc(pr_box, behavior=True))
+    ```
 
-        import numpy as np
-        from toqito.state_opt.bell_notation_conversions import fp_to_fc
-        pr_box = np.zeros((2, 2, 2, 2))
-        pr_box[0, 0, 0, 0] = 0.5 # p(0,0|0,0)
-        pr_box[1, 1, 0, 0] = 0.5 # p(1,1|0,0)
-        pr_box[0, 0, 0, 1] = 0.5 # p(0,0|0,1)
-        pr_box[1, 1, 0, 1] = 0.5 # p(1,1|0,1)
-        pr_box[0, 0, 1, 0] = 0.5 # p(0,0|1,0)
-        pr_box[1, 1, 1, 0] = 0.5 # p(1,1|1,0)
-        pr_box[0, 1, 1, 1] = 0.5 # p(0,1|1,1)
-        pr_box[1, 0, 1, 1] = 0.5 # p(1,0|1,1)
-        fp_to_fc(pr_box, behavior=True)
+    Args:
+        v_mat: The probability tensor :math:`V[a, b, x, y]`
+                          in Full Probability notation (:math:`oa=2`, :math:`ob=2`).
+        behavior: If True, assume input is a behavior (default: False, assume functional).
 
-    :param ``v_mat``: The probability tensor :math:`V[a, b, x, y]`
-                      in Full Probability notation (:math:`oa=2`, :math:`ob=2`).
-    :param ``behavior``: If True, assume input is a behavior (default: False, assume functional).
-    :return: The matrix in Full Correlator notation.
+    Returns:
+        The matrix in Full Correlator notation.
 
-    .. note::
-        This function is adapted from the QETLAB MATLAB package function ``FP2FC`` :cite:``QETLAB``.
-        For ``behavior=True``, it calculates the *average* marginal correlators :math:`\langle A_x \rangle`
-        and :math:`\langle B_y \rangle` by summing over the other party's inputs
-        and dividing by the number of inputs (:math:`ib` or :math:`ia`).
-        The joint correlators :math:`\langle A_x B_y \rangle` are calculated directly for each (:math:`x`, :math:`y`).
-
-    References
-    ==========
-    .. bibliography::
-        :filter: docname in docnames
+    !!! Note
+        This function is adapted from the QETLAB MATLAB package function ``FP2FC``.
+        For ``behavior=True``, it calculates the *average* marginal correlators \(\langle A_x \rangle\)
+        and \(\langle B_y \rangle\) by summing over the other party's inputs
+        and dividing by the number of inputs (\(ib\) or \(ia\)).
+        The joint correlators \(\langle A_x B_y \rangle\) are calculated directly for each (\(x\), \(y\)).
 
     """
     oa, ob, ia, ib = v_mat.shape

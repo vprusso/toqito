@@ -4,62 +4,58 @@ import numpy as np
 
 
 def is_positive_definite(mat: np.ndarray) -> bool:
-    r"""Check if matrix is positive definite (PD) :footcite:`WikiPosDef`.
+    r"""Check if matrix is positive definite (PD) [@WikiPosDef].
 
-    Examples
-    ==========
-
+    Examples:
     Consider the following matrix
 
-    .. math::
+    \[
         A = \begin{pmatrix}
                 2 & -1 & 0 \\
                 -1 & 2 & -1 \\
                 0 & -1 & 2
             \end{pmatrix}
+    \]
 
     our function indicates that this is indeed a positive definite matrix.
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.matrix_props import is_positive_definite
 
-     import numpy as np
-     from toqito.matrix_props import is_positive_definite
+    A = np.array([[2, -1, 0], [-1, 2, -1], [0, -1, 2]])
 
-     A = np.array([[2, -1, 0], [-1, 2, -1], [0, -1, 2]])
+    print(is_positive_definite(A))
+    ```
 
-     is_positive_definite(A)
+    Alternatively, the following example matrix \(B\) defined as
 
-    Alternatively, the following example matrix :math:`B` defined as
-
-    .. math::
+    \[
         B = \begin{pmatrix}
                 -1 & -1 \\
                 -1 & -1
             \end{pmatrix}
+    \]
 
     is not positive definite.
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.matrix_props import is_positive_definite
 
-     import numpy as np
-     from toqito.matrix_props import is_positive_definite
+    B = np.array([[-1, -1], [-1, -1]])
 
-     B = np.array([[-1, -1], [-1, -1]])
+    print(is_positive_definite(B))
+    ```
 
-     is_positive_definite(B)
+    !!! See Also
+        [`is_positive_semidefinite`][toqito.matrix_props.is_positive_semidefinite.is_positive_semidefinite]
 
-    See Also
-    ========
-    :py:func:`~toqito.matrix_props.is_positive_semidefinite.is_positive_semidefinite`
+    Args:
+        mat: Matrix to check.
 
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param mat: Matrix to check.
-    :return: Return :code:`True` if matrix is positive definite, and :code:`False` otherwise.
+    Returns:
+        Return `True` if matrix is positive definite, and `False` otherwise.
 
     """
     if np.array_equal(mat, mat.conj().T):

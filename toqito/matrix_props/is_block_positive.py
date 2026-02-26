@@ -14,55 +14,50 @@ def is_block_positive(
     effort: int = 2,
     rtol: float = 1e-5,
 ) -> bool | RuntimeError:
-    r"""Check if matrix is block positive :footcite:`Johnston_2012_Norms`.
+    r"""Check if matrix is block positive [@Johnston_2012_Norms].
 
-    Examples
-    ==========
-
+    Examples:
     The swap operator is always block positive, since it is the Choi
     matrix of the transpose map.
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    from toqito.perms.swap_operator import swap_operator
+    from toqito.matrix_props.is_block_positive import is_block_positive
 
-     from toqito.perms.swap_operator import swap_operator
-     from toqito.matrix_props.is_block_positive import is_block_positive
+    mat = swap_operator(3)
 
-     mat = swap_operator(3)
-
-     is_block_positive(mat=mat)
+    print(is_block_positive(mat=mat))
+    ```
 
 
     However, it's not 2 - block positive.
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    from toqito.perms.swap_operator import swap_operator
+    from toqito.matrix_props.is_block_positive import is_block_positive
 
-     from toqito.perms.swap_operator import swap_operator
-     from toqito.matrix_props.is_block_positive import is_block_positive
+    mat = swap_operator(3)
 
-     mat = swap_operator(3)
+    print(is_block_positive(mat=mat, k=2))
+    ```
 
-     is_block_positive(mat=mat, k=2)
+    Raises:
+        RuntimeError: Unable to determine k-block positivity. Please consider increasing the relative tolerance or the
+        effort level.
 
+    Args:
+        mat: A bipartite Hermitian operator.
+        k: A positive integer indicating that the function should determine whether or not the input operator is k-block
+        positive, i.e., whether or not it remains nonnegative under left and right multiplication by vectors with
+        Schmidt rank <= k (default 1).
+        dim: The dimension of the two sub-systems. By default it's assumed to be equal.
+        effort: An integer value indicating the amount of computation you want to devote to determine block positivity
+        before giving up.
+        rtol: The relative tolerance parameter (default 1e-05).
 
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :raises RuntimeError: Unable to determine k-block positivity. Please consider increasing the relative tolerance or
-                            the effort level.
-    :param mat: A bipartite Hermitian operator.
-    :param k: A positive integer indicating that the function should determine whether or not
-              the input operator is k-block positive, i.e., whether or not it remains nonnegative
-              under left and right multiplication by vectors with Schmidt rank <= k (default 1).
-    :param dim: The dimension of the two sub-systems. By default it's assumed to be equal.
-    :param effort: An integer value indicating the amount of computation you want to devote to
-                   determine block positivity before giving up.
-    :param rtol: The relative tolerance parameter (default 1e-05).
-    :return: Return :code:`True` if matrix is k-block positive definite,
-             :code:`False` if not, or raise a runtime error if we are unable to determine
-             whether or not the operator is block positive.
+    Returns:
+        Return `True` if matrix is k-block positive definite, `False` if not, or raise a runtime error if we are unable
+        to determine whether or not the operator is block positive.
 
     """
     if not is_hermitian(mat):
@@ -94,7 +89,7 @@ def is_block_positive(
     # We compute the S(k)-norm of this operator since
     # X k-block positive iff:
     #   c >= S(k)-norm of(c*I - X)
-    # See Corollary 4.2.9. of `:footcite:`Johnston_2012_Norms`.
+    # See Corollary 4.2.9. of `[@Johnston_2012_Norms].
     c_mat = op_norm * np.eye(dim_xy) - mat
     lower_bound, upper_bound = sk_operator_norm(c_mat, k, dim_arr, op_norm, effort)
 

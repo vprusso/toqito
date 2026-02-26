@@ -101,98 +101,98 @@ def bell_inequality_max(
     or no-signalling assumptions.
 
     The maximum classical and no-signalling values are computed exactly. The maximum quantum value
-    is upper bounded using the NPA (Navascués-Pironio-Acín) hierarchy :cite:``Navascues_2008_AConvergent``.
+    is upper bounded using the NPA (Navascués-Pironio-Acín) hierarchy
+    `Navascues_2008_AConvergent`[@Navascues_2008_AConvergent].
 
-    Examples
-    ==========
-
+    Examples:
     The CHSH inequality in Full Correlator (FC) notation.
-    The classical maximum is 2, the quantum maximum (Tsirelson's bound) is :math:`2\sqrt{2}`,
+    The classical maximum is 2, the quantum maximum (Tsirelson's bound) is \(2\sqrt{2}\),
     and the no-signalling maximum is 4.
 
-    .. math::
+    \[
         \langle A_1 B_1 \rangle + \langle A_1 B_2 \rangle + \langle A_2 B_1 \rangle - \langle A_2 B_2 \rangle \le V
+    \]
 
     Represented by the coefficient matrix:
 
-    .. math::
+    \[
         M_{FC} = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 1 & 1 \\ 0 & 1 & -1 \end{pmatrix}
+    \]
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.state_opt.bell_inequality_max import bell_inequality_max
+    M_chsh_fc = np.array([[0, 0, 0], [0, 1, 1], [0, 1, -1]])
+    desc_chsh = [2, 2, 2, 2]
+    bell_inequality_max(M_chsh_fc, desc_chsh, 'fc', 'classical')
+    bell_inequality_max(M_chsh_fc, desc_chsh, 'fc', 'quantum', tol=1e-7)
+    print(bell_inequality_max(M_chsh_fc, desc_chsh, 'fc', 'nosignal', tol=1e-9))
+    ```
 
-        import numpy as np
-        from toqito.state_opt.bell_inequality_max import bell_inequality_max
-        M_chsh_fc = np.array([[0, 0, 0], [0, 1, 1], [0, 1, -1]])
-        desc_chsh = [2, 2, 2, 2]
-        bell_inequality_max(M_chsh_fc, desc_chsh, 'fc', 'classical')
-        bell_inequality_max(M_chsh_fc, desc_chsh, 'fc', 'quantum', tol=1e-7)
-        bell_inequality_max(M_chsh_fc, desc_chsh, 'fc', 'nosignal', tol=1e-9)
-
-    ==========
 
     The CHSH inequality in Collins-Gisin (CG) notation.
-    The classical maximum is 0, the quantum maximum is :math:`1/\sqrt{2} - 1/2`,
+    The classical maximum is 0, the quantum maximum is \(1/\sqrt{2} - 1/2\),
     and the no-signalling maximum is 1/2.
 
-    .. math::
+    \[
         p(00|11)+p(00|12)+p(00|21)-p(00|22)-p_A(0|1)-p_B(0|1) \le V
+    \]
 
     Represented by the coefficient matrix:
 
-    .. math::
+    \[
         M_{CG} = \begin{pmatrix} 0 & -1 & 0 \\ -1 & 1 & 1 \\ 0 & 1 & -1 \end{pmatrix}
+    \]
 
-    .. jupyter-execute::
-
-        import numpy as np
-        from toqito.state_opt.bell_inequality_max import bell_inequality_max
-        M_chsh_cg = np.array([[0, -1, 0], [-1, 1, 1], [0, 1, -1]])
-        desc_chsh = [2, 2, 2, 2]
-        bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'classical')
-        bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'quantum', tol=1e-7)
-        bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'nosignal', tol=1e-9)
-
-    ==========
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.state_opt.bell_inequality_max import bell_inequality_max
+    M_chsh_cg = np.array([[0, -1, 0], [-1, 1, 1], [0, 1, -1]])
+    desc_chsh = [2, 2, 2, 2]
+    bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'classical')
+    bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'quantum', tol=1e-7)
+    print(bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'nosignal', tol=1e-9))
+    ```
 
     The I3322 inequality in Collins-Gisin (CG) notation.
     Classical max = 1, No-signalling max = 2. Quantum value is between 1 and 2.
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.state_opt.bell_inequality_max import bell_inequality_max
+    M_i3322_cg = np.array([[0, 1, 0, 0], [1, -1, -1, -1], [0, -1, -1, 1], [0, -1, 1, 0]])
+    desc_i3322 = [2, 2, 3, 3]
+    bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'classical')
+    bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'quantum', k=1, tol=1e-7)
+    bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'quantum', k='1+ab', tol=1e-7)
+    print(bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'nosignal', tol=1e-9))
+    ```
 
-        import numpy as np
-        from toqito.state_opt.bell_inequality_max import bell_inequality_max
-        M_i3322_cg = np.array([[0, 1, 0, 0], [1, -1, -1, -1], [0, -1, -1, 1], [0, -1, 1, 0]])
-        desc_i3322 = [2, 2, 3, 3]
-        bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'classical')
-        bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'quantum', k=1, tol=1e-7)
-        bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'quantum', k='1+ab', tol=1e-7)
-        bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'nosignal', tol=1e-9)
-
-    References
-    ==========
-    .. bibliography::
-        :filter: docname in docnames
-
-    :param ``coefficients``: A matrix or tensor specifying the Bell inequality coefficients in either
+    Args:
+        coefficients: A matrix or tensor specifying the Bell inequality coefficients in either
                              full probability (FP), full correlator (FC), or Collins-Gisin (CG) notation.
-    :param ``desc``: A list [:math:`oa`, :math:`ob`, :math:`ma`, :math:`mb`]
-                     describing the number of outputs for Alice (:math:`oa`) and Bob (:math:`ob`),
-                     and the number of inputs for Alice (:math:`ma`) and Bob (:math:`mb`).
-    :param ``notation``: A string ('fp', 'fc', or 'cg') indicating the notation of the ``coefficients``.
-    :param ``mtype``: The type of theory to maximize over ('classical', 'quantum', or 'nosignal').
+        desc: A list [\(oa\), \(ob\), \(ma\), \(mb\)]
+                     describing the number of outputs for Alice (\(oa\)) and Bob (\(ob\)),
+                     and the number of inputs for Alice (\(ma\)) and Bob (\(mb\)).
+        notation: A string ('fp', 'fc', or 'cg') indicating the notation of the ``coefficients``.
+        mtype: The type of theory to maximize over ('classical', 'quantum', or 'nosignal').
                       Defaults to 'classical'. Note: 'quantum' computes an upper bound via NPA hierarchy.
-    :param ``k``: The level of the NPA hierarchy to use if ``mtype='quantum'``. Can be an integer (e.g., 1, 2)
+        k: The level of the NPA hierarchy to use if ``mtype='quantum'``. Can be an integer (e.g., 1, 2)
                   or a string specifying intermediate levels (e.g., '1+ab', '1+aab'). Defaults to 1.
                   Higher levels yield tighter bounds but require more computation. Ignored if ``mtype`` is
                   not 'quantum'.
-    :param ``tol``: Tolerance for numerical comparisons and solver precision. Defaults to ``1e-8``.
-    :return: The maximum value (or quantum upper bound) of the Bell inequality.
-    :raises ValueError: If the input ``notation`` is invalid.
-    :raises ValueError: If the input ``mtype`` is invalid.
-    :raises ValueError: If notation conversion fails (e.g., 'fc' for non-binary outputs).
-    :raises ValueError: If the NPA level ``k`` is invalid.
-    :raises ValueError: If generating NPA constraints fails.
-    :raises cp.error.SolverError: If the cp solver fails.
+        tol: Tolerance for numerical comparisons and solver precision. Defaults to ``1e-8``.
+
+    Returns:
+        The maximum value (or quantum upper bound) of the Bell inequality.
+
+    Raises:
+        ValueError: If the input ``notation`` is invalid.
+        ValueError: If the input ``mtype`` is invalid.
+        ValueError: If notation conversion fails (e.g., 'fc' for non-binary outputs).
+        ValueError: If the NPA level ``k`` is invalid.
+        ValueError: If generating NPA constraints fails.
+        cp.error.SolverError: If the cp solver fails.
 
     """
     oa, ob, ma, mb = desc
@@ -446,68 +446,65 @@ def bell_inequality_max_qubits(
     r"""Return the upper bound for the maximum violation(Tsirelson Bound) for a given bipartite Bell inequality.
 
     This computes the upper bound for the maximum value of a given bipartite Bell inequality using an SDP.
-    The method is from :footcite:`Navascues_2014_Characterization` and the implementation is based on
-    :footcite:`QETLAB_link`. This is useful for various tasks in device independent quantum information processing.
+    The method is from [@Navascues_2014_Characterization] and the implementation is based on
+    [@QETLAB_link]. This is useful for various tasks in device independent quantum information processing.
 
-    The function formulates the problem as a SDP problem in the following format for the :math:`W`-state.
+    The function formulates the problem as a SDP problem in the following format for the \(W\)-state.
 
-    .. math::
-
+    \[
         \begin{multline}
         \max \operatorname{tr}\!\Bigl( W \cdot \sum_{a,b,x,y} B^{xy}_{ab}\, M^x_a \otimes N^y_b \Bigr),\\[1ex]
         \text{s.t.} \quad \operatorname{tr}(W) = 1,\quad W \ge 0,\\[1ex]
         W^{T_P} \ge 0,\quad \text{for all bipartitions } P.
         \end{multline}
+    \]
 
 
-    Examples
-    =======
+    Examples:
+    Consider the I3322 Bell inequality from [@Collins_2004].
 
-
-    Consider the I3322 Bell inequality from :footcite:`Collins_2004`.
-
-    .. math::
-
+    \[
         \begin{aligned}
         I_{3322} &= P(A_1 = B_1) + P(B_1 = A_2) + P(A_2 = B_2) + P(B_2 = A_3) \\
                  &\quad - P(A_1 = B_2) - P(A_2 = B_3) - P(A_3 = B_1) - P(A_3 = B_3) \\
                  &\le 2
         \end{aligned}
+    \]
 
     The individual and joint coefficents and measurement values are encoded as matrices.
-    The upper bound can then be found in :code:`|toqito⟩` as follows.
+    The upper bound can then be found in `|toqito⟩` as follows.
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.state_opt.bell_inequality_max import bell_inequality_max_qubits
 
-        import numpy as np
-        from toqito.state_opt.bell_inequality_max import bell_inequality_max_qubits
+    joint_coe = np.array([
+        [1, 1, -1],
+        [1, 1, 1],
+        [-1, 1, 0],
+    ])
+    a_coe = np.array([0, -1, 0])
+    b_coe = np.array([-1, -2, 0])
+    a_val = np.array([0, 1])
+    b_val = np.array([0, 1])
 
-        joint_coe = np.array([
-            [1, 1, -1],
-            [1, 1, 1],
-            [-1, 1, 0],
-        ])
-        a_coe = np.array([0, -1, 0])
-        b_coe = np.array([-1, -2, 0])
-        a_val = np.array([0, 1])
-        b_val = np.array([0, 1])
+    result = bell_inequality_max_qubits(joint_coe, a_coe, b_coe, a_val, b_val)
+    print(f"Bell inequality maximum value: {result:.3f}")
+    ```
 
-        result = bell_inequality_max_qubits(joint_coe, a_coe, b_coe, a_val, b_val)
-        print(f"Bell inequality maximum value: {result:.3f}")
+    Raises:
+        ValueError: If `a_val` or `b_val` are not length 2.
 
-    References
-    ==========
-    .. footbibliography::
+    Args:
+        joint_coe: The coefficents for terms containing both A and B.
+        a_coe: The coefficent for terms only containing A.
+        b_coe: The coefficent for terms only containing B.
+        a_val: The value of each measurement outcome for A.
+        b_val: The value of each measurement outcome for B.
+        solver_name: The solver used.
 
-
-    :raises ValueError: If `a_val` or `b_val` are not length 2.
-    :param joint_coe: The coefficents for terms containing both A and B.
-    :param a_coe: The coefficent for terms only containing A.
-    :param b_coe: The coefficent for terms only containing B.
-    :param a_val: The value of each measurement outcome for A.
-    :param b_val: The value of each measurement outcome for B.
-    :param solver_name: The solver used.
-    :return: The upper bound for the maximum violation of the Bell inequality.
+    Returns:
+        The upper bound for the maximum violation of the Bell inequality.
 
     """
     m, _ = joint_coe.shape

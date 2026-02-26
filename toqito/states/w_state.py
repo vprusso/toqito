@@ -9,56 +9,53 @@ from scipy.sparse import csr_array
 
 
 def w_state(num_qubits: int, coeff: list[int] | None = None) -> np.ndarray:
-    r"""Produce a W-state :footcite:`Dur_2000_ThreeQubits`.
+    r"""Produce a W-state [@Dur_2000_ThreeQubits].
 
-    Returns the W-state described in :footcite:`Dur_2000_ThreeQubits`. The W-state on `num_qubits` qubits is defined by:
+    Returns the W-state described in [@Dur_2000_ThreeQubits]. The W-state on `num_qubits` qubits is defined by:
 
-    .. math::
+    \[
         |W \rangle = \frac{1}{\sqrt{num\_qubits}}
         \left(|100 \ldots 0 \rangle + |010 \ldots 0 \rangle + \ldots +
         |000 \ldots 1 \rangle \right).
+    \]
 
-    Examples
-    ==========
+    Examples:
+    Using `|toqito⟩`, we can generate the \(3\)-qubit W-state
 
-    Using :code:`|toqito⟩`, we can generate the :math:`3`-qubit W-state
-
-    .. math::
+    \[
         |W_3 \rangle = \frac{1}{\sqrt{3}} \left( |100\rangle + |010 \rangle +
         |001 \rangle \right)
+    \]
 
     as follows.
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    from toqito.states import w_state
+    print(w_state(3))
+    ```
 
-        from toqito.states import w_state
-        w_state(3)
+    We may also generate a generalized \(W\)-state. For instance, here is a \(4\)-dimensional \(W\)-state
 
-    We may also generate a generalized :math:`W`-state. For instance, here is a :math:`4`-dimensional :math:`W`-state
-
-    .. math::
+    \[
         \frac{1}{\sqrt{30}} \left( |1000 \rangle + 2|0100 \rangle + 3|0010
         \rangle + 4 |0001 \rangle \right).
+    \]
 
-    We can generate this state in :code:`|toqito⟩` as
+    We can generate this state in `|toqito⟩` as
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    from toqito.states import w_state
+    import numpy as np
+    coeffs = np.array([1, 2, 3, 4]) / np.sqrt(30)
+    print(w_state(4, coeffs))
+    ```
 
-        from toqito.states import w_state
-        import numpy as np
-        coeffs = np.array([1, 2, 3, 4]) / np.sqrt(30)
-        w_state(4, coeffs)
+    Raises:
+        ValueError: The number of qubits must be greater than or equal to 1.
 
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :raises ValueError: The number of qubits must be greater than or equal to 1.
-    :param num_qubits: An integer representing the number of qubits.
-    :param coeff: default is `[1, 1, ..., 1]/sqrt(num_qubits)`: a
-                  1-by-`num_qubts` vector of coefficients.
+    Args:
+        num_qubits: An integer representing the number of qubits.
+        coeff: default is `[1, 1, ..., 1]/sqrt(num_qubits)`: a 1-by-`num_qubts` vector of coefficients.
 
     """
     if num_qubits < 2:

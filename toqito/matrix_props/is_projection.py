@@ -6,69 +6,66 @@ from toqito.matrix_props import is_square
 
 
 def is_projection(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
-    r"""Check if matrix is a projection matrix :footcite:`WikiProjMat`.
+    r"""Check if matrix is a projection matrix [@WikiProjMat].
 
     A matrix is a projection matrix if it is positive semidefinite (PSD) and if
 
-    .. math::
+    \[
         \begin{equation}
             X^2 = X
         \end{equation}
+    \]
 
-    where :math:`X` is the matrix in question.
+    where \(X\) is the matrix in question.
 
-    Examples
-    ==========
-
+    Examples:
     Consider the following matrix
 
-    .. math::
+    \[
         A = \begin{pmatrix}
                 0 & 1 \\
                 0 & 1
             \end{pmatrix}
+    \]
 
     our function indicates that this is indeed a projection matrix.
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.matrix_props import is_projection
 
-     import numpy as np
-     from toqito.matrix_props import is_projection
+    A = np.array([[0, 1], [0, 1]])
 
-     A = np.array([[0, 1], [0, 1]])
+    print(is_projection(A))
+    ```
 
-     is_projection(A)
+    Alternatively, the following example matrix \(B\) defined as
 
-    Alternatively, the following example matrix :math:`B` defined as
-
-    .. math::
+    \[
         B = \begin{pmatrix}
                 -1 & -1 \\
                 -1 & -1
             \end{pmatrix}
+    \]
 
     is not positive definite.
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.matrix_props import is_projection
 
-     import numpy as np
-     from toqito.matrix_props import is_projection
+    B = np.array([[-1, -1], [-1, -1]])
 
-     B = np.array([[-1, -1], [-1, -1]])
+    print(is_projection(B))
+    ```
 
-     is_projection(B)
+    Args:
+        mat: Matrix to check.
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
 
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param mat: Matrix to check.
-    :param rtol: The relative tolerance parameter (default 1e-05).
-    :param atol: The absolute tolerance parameter (default 1e-08).
-    :return: Return :code:`True` if matrix is a projection matrix, and :code:`False` otherwise.
+    Returns:
+        Return `True` if matrix is a projection matrix, and `False` otherwise.
 
     """
     if not is_square(mat):

@@ -4,7 +4,7 @@ import numpy as np
 
 
 def perfect_matchings(num: list[int] | int | np.ndarray) -> np.ndarray:
-    r"""Give all perfect matchings of :code:`num` objects.
+    r"""Give all perfect matchings of `num` objects.
 
     The input can be either an even natural number (the number of objects to be matched) or a `numpy` array containing
     an even number of distinct objects to be matched.
@@ -12,27 +12,24 @@ def perfect_matchings(num: list[int] | int | np.ndarray) -> np.ndarray:
     Returns all perfect matchings of a given list of objects. That is, it returns all ways of grouping an even number of
     objects into pairs.
 
-    This function is adapted from QETLAB. :footcite:`QETLAB_link`.
+    This function is adapted from QETLAB. [@QETLAB_link].
 
-    Examples
-    ==========
+    Examples:
     This is an example of how to generate all perfect matchings of the numbers 0, 1, 2, 3.
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    from toqito.perms import perfect_matchings
 
-     from toqito.perms import perfect_matchings
+    print(perfect_matchings(4))
+    ```
 
-     perfect_matchings(4)
+    Args:
+        num: Either an even integer, indicating that you would like all perfect matchings of the integers 0, 1, ... N-1,
+        or a `list` or `np.array` containing an even number of distinct entries, indicating that you would like all
+        perfect matchings of those entries.
 
-    References
-    ==========
-    .. footbibliography::
-
-
-    :param num: Either an even integer, indicating that you would like all perfect matchings of the
-                integers 0, 1, ... N-1, or a `list` or `np.array` containing an even number of distinct
-                entries, indicating that you would like all perfect matchings of those entries.
-    :return: An array containing all valid perfect matchings of size :code:`num`.
+    Returns:
+        An array containing all valid perfect matchings of size `num`.
 
     """
     if isinstance(num, int):

@@ -9,33 +9,28 @@ from toqito.matrices import standard_basis
 
 
 def bb84() -> list[list[np.ndarray]]:
-    r"""Obtain the BB84 basis states :footcite:`WikiBB84`.
+    r"""Obtain the BB84 basis states [@WikiBB84].
 
     The BB84 basis states are defined as
 
-    .. math::
+    \[
         |0\rangle := \begin{pmatrix} 1 \\ 0 \end{pmatrix}, \quad \\
         |1\rangle := \begin{pmatrix} 0 \\ 1 \end{pmatrix}, \quad \\
         |+\rangle := \frac{1}{\sqrt{2}} \begin{pmatrix} 1 \\ 1 \end{pmatrix}, \quad \\
         |-\rangle := \frac{1}{\sqrt{2}} \begin{pmatrix} 1 \\ -1 \end{pmatrix}.
+    \]
 
-    Examples
-    ==========
-    The BB84 basis states can be obtained in :code:`|toqito⟩` as follows in the form of a list of
+    Examples:
+    The BB84 basis states can be obtained in `|toqito⟩` as follows in the form of a list of
     arrays.
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    from toqito.states import bb84
+    print(bb84())
+    ```
 
-        from toqito.states import bb84
-        bb84()
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :return: The four BB84 basis states.
+    Returns:
+        The four BB84 basis states.
 
     """
     # Computational basis states |0>, |1>:

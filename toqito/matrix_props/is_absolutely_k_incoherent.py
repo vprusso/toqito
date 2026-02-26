@@ -7,45 +7,42 @@ from toqito.matrix_props import is_positive_semidefinite, is_square
 
 
 def is_absolutely_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
-    r"""Determine whether a quantum state is absolutely k-incoherent :footcite:`Johnston_2022_Absolutely`.
+    r"""Determine whether a quantum state is absolutely k-incoherent [@Johnston_2022_Absolutely].
 
-    Formally, for positive integers :math:`n` and :math:`k`, a mixed quantum state is said to be absolutely k-incoherent
-    if :math:`U \rho U^* \in \mathbb{I}_{k, n}` for all unitary matrices :math:`U \in \text{U}(\mathbb{C}^n)`.
+    Formally, for positive integers \(n\) and \(k\), a mixed quantum state is said to be absolutely k-incoherent
+    if \(U \rho U^* \in \mathbb{I}_{k, n}\) for all unitary matrices \(U \in \text{U}(\mathbb{C}^n)\).
 
     This function checks if the provided density matrix is absolutely k-incoherent based on the criteria introduced in
-    :footcite:`Johnston_2022_Absolutely` and the corresponding QETLAB functionality :footcite:`QETLAB_link`. When
+    [@Johnston_2022_Absolutely] and the corresponding QETLAB functionality [@QETLAB_link]. When
     necessary, an SDP is set up via ``cvxpy``.
 
     The notion of absolute k-incoherence is connected to the notion of quantum state antidistinguishability as discussed
-    in :footcite:`Johnston_2025_Tight`.
+    in [@Johnston_2025_Tight].
 
-    Examples
-    =========
-    .. jupyter-execute::
+    Examples:
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.matrix_props import is_absolutely_k_incoherent
+    mat = np.array([[2, 1, 2],
+                [1, 2, -1],
+                [2, -1, 5]])
+    print(is_absolutely_k_incoherent(mat, 4))
+    ```
 
-        import numpy as np
-        from toqito.matrix_props import is_absolutely_k_incoherent
-        mat = np.array([[2, 1, 2],
-                    [1, 2, -1],
-                    [2, -1, 5]])
-        is_absolutely_k_incoherent(mat, 4)
+    !!! See
+        [is_antidistinguishable()][toqito.state_props.is_antidistinguishable.is_antidistinguishable],
+        [is_k_incoherent()][toqito.matrix_props.is_k_incoherent.is_k_incoherent]
 
-    See Also
-    ========
-    :py:func:`~toqito.state_props.is_antidistinguishable.is_antidistinguishable`
-    :py:func:`~toqito.matrix_props.is_k_incoherent.is_k_incoherent`
+    Raises:
+        ValueError: If the input matrix is not square.
 
-    References
-    ==========
-    .. footbibliography::
+    Args:
+        mat: Matrix to check for absolute k-incoherence.
+        k: The positive integer indicating the absolute coherence level.
+        tol: Tolerance for numerical comparisons (default is 1e-15).
 
-
-
-    :param mat: Matrix to check for absolute k-incoherence.
-    :param k: The positive integer indicating the absolute coherence level.
-    :param tol: Tolerance for numerical comparisons (default is 1e-15).
-    :raises ValueError: If the input matrix is not square.
-    :return: True if the quantum state is absolutely k-incoherent, False otherwise.
+    Returns:
+        True if the quantum state is absolutely k-incoherent, False otherwise.
 
     """
     if k <= 0:

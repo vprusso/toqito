@@ -11,42 +11,37 @@ from toqito.matrices import gen_pauli
 
 
 def mutually_unbiased_basis(dim: int) -> list[np.ndarray]:
-    r"""Generate list of MUBs for a given dimension :footcite:`WikiMUB`.
+    r"""Generate list of MUBs for a given dimension [@WikiMUB].
 
     Note that this function only works if the dimension provided is prime or a power of a prime. Otherwise, we don't
     know how to generate general MUBs.
 
-    Examples
-    ========
-
+    Examples:
     For the case of dimension 2, the three mutually unbiased bases are provided by:
 
-    .. math::
+    \[
         M_0 = \left\{|0\rangle, |1\rangle \right\}, \\
         M_1 = \left\{\frac{|0\rangle + |1\rangle}{\sqrt{2}}, \frac{|0\rangle - |1\rangle}{\sqrt{2}}\right\}
         M_2 = \left\{\frac{|0\rangle + i|1\rangle}{\sqrt{2}}, \frac{|0\rangle - i|1\rangle}{\sqrt{2}}\right\}
+    \]
 
     The six vectors above are obtained accordingly:
 
-    .. jupyter-execute::
+    ```python exec="1" source="above" session="mubs"
+    from toqito.states import mutually_unbiased_basis
+    mubs = mutually_unbiased_basis(2)
+    print(len(mubs))
+    ```
 
-        from toqito.states import mutually_unbiased_basis
-        mubs = mutually_unbiased_basis(2)
-        len(mubs)
+    ```python exec="1" source="above" session="mubs"
+    lst =[vec.shape for vec in mubs]
+    print(lst)
+    ```
+    Args:
+        dim: The dimension of the mutually unbiased bases to produce.
 
-    .. jupyter-execute::
-
-        lst =[vec.shape for vec in mubs]
-        lst
-
-
-    References
-    ==========
-    .. footbibliography::
-
-
-    :param dim: The dimension of the mutually unbiased bases to produce.
-    :return: The set of mutually unbiased bases of dimension :code:`dim` (if known).
+    Returns:
+        The set of mutually unbiased bases of dimension `dim` (if known).
 
     """
     # The first basis will always be the standard basis:
@@ -80,8 +75,12 @@ def _is_prime_power(n: int) -> bool:
 
     A number is a prime power if it can be written as p^k, where p is a prime number and k is an integer greater than 0.
 
-    :param n: An integer to check for being a prime power.
-    :return: True if n is a prime power, False otherwise.
+    Args:
+        n: An integer to check for being a prime power.
+
+    Returns:
+        True if n is a prime power, False otherwise.
+
     """
     # 1 is not considered a prime power
     if n == 1:

@@ -14,19 +14,17 @@ def permutation_operator(
 ) -> np.ndarray:
     r"""Produce a unitary operator that permutes subsystems.
 
-    Generates a unitary operator that permutes the order of subsystems according to the permutation vector :code:`perm`,
-    where the :math:`i^{th}` subsystem has dimension :code:`dim[i]`.
+    Generates a unitary operator that permutes the order of subsystems according to the permutation vector `perm`,
+    where the \(i^{th}\) subsystem has dimension `dim[i]`.
 
-    If :code:`inv_perm` = True, it implements the inverse permutation of :code:`perm`. The permutation operator return
-    is full is :code:`is_sparse` is :code:`False` and sparse if :code:`is_sparse` is :code:`True`.
+    If `inv_perm` = True, it implements the inverse permutation of `perm`. The permutation operator return
+    is full is `is_sparse` is `False` and sparse if `is_sparse` is `True`.
 
-    Examples
-    ==========
-
-    The permutation operator obtained with dimension :math:`d = 2` is equivalent to the standard swap operator on two
+    Examples:
+    The permutation operator obtained with dimension \(d = 2\) is equivalent to the standard swap operator on two
     qubits
 
-    .. math::
+    \[
         P_{2, [1, 0]} =
         \begin{pmatrix}
             1 & 0 & 0 & 0 \\
@@ -34,20 +32,25 @@ def permutation_operator(
             0 & 1 & 0 & 0 \\
             0 & 0 & 0 & 1
         \end{pmatrix}
+    \]
 
-    Using :code:`|toqito⟩`, this can be achieved in the following manner.
+    Using `|toqito⟩`, this can be achieved in the following manner.
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    from toqito.perms import permutation_operator
 
-     from toqito.perms import permutation_operator
+    print(permutation_operator(2, [1, 0]))
+    ```
 
-     permutation_operator(2, [1, 0])
 
-    :param dim: The dimensions of the subsystems to be permuted.
-    :param perm: A permutation vector.
-    :param inv_perm: Boolean dictating if :code:`perm` is inverse or not.
-    :param is_sparse: Boolean indicating if return is sparse or not.
-    :return: Permutation operator of dimension :code:`dim`.
+    Args:
+        dim: The dimensions of the subsystems to be permuted.
+        perm: A permutation vector.
+        inv_perm: Boolean dictating if `perm` is inverse or not.
+        is_sparse: Boolean indicating if return is sparse or not.
+
+    Returns:
+        Permutation operator of dimension `dim`.
 
     """
     # Allow the user to enter a single number for `dim`.

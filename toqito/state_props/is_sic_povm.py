@@ -11,54 +11,54 @@ from toqito.state_ops import normalize
 def is_sic_povm(states: Sequence[np.ndarray], *, tol: float = 1e-6) -> bool:
     r"""Check if the provided vectors yield a symmetric informationally complete POVM.
 
-    A set of :math:`d^2` unit vectors :math:`\{\ket{\psi_j}\}` in :math:`\mathbb{C}^d` forms a
+    A set of \(d^2\) unit vectors \(\{\ket{\psi_j}\}\) in \(\mathbb{C}^d\) forms a
     symmetric informationally complete POVM (SIC POVM) when
 
-    .. math::
+    \[
         \left| \langle \psi_j, \psi_k \rangle \right|^2 = \frac{1}{d + 1}
         \quad \text{for all } j \neq k,
+    \]
 
-    and the projectors satisfy :math:`\sum_j \ket{\psi_j}\!\bra{\psi_j} = d \mathbb{I}`.
+    and the projectors satisfy \(\sum_j \ket{\psi_j}\!\bra{\psi_j} = d \mathbb{I}\).
 
-    Examples
-    ========
-
+    Examples:
     Qubit tetrahedron SIC.
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.state_props import is_sic_povm
 
-        import numpy as np
-        from toqito.state_props import is_sic_povm
-
-        omega = np.exp(2j * np.pi / 3)
-        sic_vectors = [
-            np.array([0, 1], dtype=np.complex128),
-            np.array([np.sqrt(2/3), 1/np.sqrt(3)], dtype=np.complex128),
-            np.array([np.sqrt(2/3), omega / np.sqrt(3)], dtype=np.complex128),
-            np.array([np.sqrt(2/3), (omega**2) / np.sqrt(3)], dtype=np.complex128),
-        ]
-        is_sic_povm(sic_vectors)
+    omega = np.exp(2j * np.pi / 3)
+    sic_vectors = [
+        np.array([0, 1], dtype=np.complex128),
+        np.array([np.sqrt(2/3), 1/np.sqrt(3)], dtype=np.complex128),
+        np.array([np.sqrt(2/3), omega / np.sqrt(3)], dtype=np.complex128),
+        np.array([np.sqrt(2/3), (omega**2) / np.sqrt(3)], dtype=np.complex128),
+    ]
+    print(is_sic_povm(sic_vectors))
+    ```
 
     Non-SIC vector family.
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    import numpy as np
+    from toqito.state_props import is_sic_povm
+    from toqito.states import basis
 
-        import numpy as np
-        from toqito.state_props import is_sic_povm
-        from toqito.states import basis
+    e0, e1 = basis(2, 0), basis(2, 1)
+    non_sic = [e0, e1, (e0 + e1) / np.sqrt(2), (e0 - e1) / np.sqrt(2)]
+    print(is_sic_povm(non_sic))
+    ```
 
-        e0, e1 = basis(2, 0), basis(2, 1)
-        non_sic = [e0, e1, (e0 + e1) / np.sqrt(2), (e0 - e1) / np.sqrt(2)]
-        is_sic_povm(non_sic)
+    Raises:
+        ValueError: If the vectors cannot represent valid quantum states.
 
-    References
-    ==========
-    .. footbibliography::
+    Args:
+        states: Collection of vectors to test.
+        tol: Numerical tolerance used for equality comparisons.
 
-    :param states: Collection of vectors to test.
-    :param tol: Numerical tolerance used for equality comparisons.
-    :raises ValueError: If the vectors cannot represent valid quantum states.
-    :return: :code:`True` when the vectors form a SIC POVM and :code:`False` otherwise.
+    Returns:
+        `True` when the vectors form a SIC POVM and `False` otherwise.
 
     """
     if not states:
@@ -84,7 +84,7 @@ def is_sic_povm(states: Sequence[np.ndarray], *, tol: float = 1e-6) -> bool:
 
     target_overlap = 1.0 / (dimension + 1.0)
     off_diag_mask = ~np.eye(num_states, dtype=bool)
-    off_diag_values = np.abs(gram)**2
+    off_diag_values = np.abs(gram) ** 2
 
     if not np.allclose(off_diag_values[off_diag_mask], target_overlap, atol=tol):
         return False

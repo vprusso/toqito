@@ -38,6 +38,8 @@ def tetrahedral_states() -> list[np.ndarray]:
         np.array([-1, -1, 1], dtype=np.complex128) / np.sqrt(3),
         np.array([-1, 1, -1], dtype=np.complex128) / np.sqrt(3),
     ]
+
+
 print(tetrahedral_states())
 
 # %%
@@ -64,6 +66,7 @@ print(f"Average classification error (k=2): {learnability_result['value']}")
 #       \ket{\phi_{3,4}} = \frac{1}{\sqrt{2}}(\ket{1} - \ket{2}).
 #   \end{aligned}
 
+
 def povm_residual(states: list[np.ndarray], povm: dict[tuple[int, int], np.ndarray]) -> tuple[float, float]:
     """Return the maximum POVM reconstruction and support violations."""
     dim = states[0].shape[0]
@@ -76,6 +79,7 @@ def povm_residual(states: list[np.ndarray], povm: dict[tuple[int, int], np.ndarr
             if idx not in subset:
                 zero_residual = max(zero_residual, np.abs(np.vdot(state, operator @ state)))
     return sum_residual, zero_residual
+
 
 phi_vectors = {
     (0, 1): np.array([0, 1, 1], dtype=np.complex128) / np.sqrt(2),
@@ -109,10 +113,10 @@ print(f"Average classification error (k=1): {learnability_result['value']}")
 # \subset \mathbb{C}^n` with the property that each :math:`|\psi_i\rangle` has
 # at most :math:`k` non-zero entries, and real scalars :math:`c_0, c_1, \ldots,
 # c_{m-1} \geq 0` for which
-# 
+#
 # .. math::
 #     X = \sum_{j=0}^{m-1} c_j |\psi_j\rangle \langle \psi_j|.
-# 
+#
 # This function checks if the provided density matrix :code:`mat` is
 # k-incoherent. It returns True if :code:`mat` is k-incoherent and False if
 # :code:`mat` is not.
@@ -123,7 +127,7 @@ print(f"Average classification error (k=1): {learnability_result['value']}")
 #       \begin{pmatrix}
 #           2 & 1 & 2 \\ 1 & 2 & -1 \\ 2 & -1 & 5
 #       \end{pmatrix}
-# 
+#
 # Indeed, one can verify this numerically using the
 # :py:func:`~toqito.matrix_props.is_k_incoherent.is_k_incoherent`.
 
@@ -136,14 +140,14 @@ print(is_k_incoherent(mat, 2))
 # %%
 # Factor width
 # -------------
-# 
+#
 # Another closely related definition to :math:`k`-incoherence is that of
 # factor width :footcite:`Barioli_2003_Maximal, Johnston_2025_Factor,
 # Boman_2005_factor` below.
 #
 # Let :math:`k` be a positive integer. The factor width of a positive
 # semidefinite matrix :math:`X` is the smallest :math:`k` such that it is
-# :math:`k`-incoherent. 
+# :math:`k`-incoherent.
 #
 # For example, the matrix :math:`\operatorname{diag}(1, 1, 0)` has factor width
 # at most :math:`1`.
@@ -155,7 +159,7 @@ result = factor_width(diag_mat, k=1)
 print(result["feasible"])
 
 
-# %% 
+# %%
 # Conversely, the rank-one matrix :math:`\frac{1}{2}\begin{pmatrix} 1 & 1 \\ 1
 # & 1 \end{pmatrix}` is not :math:`1`-factorable.
 
@@ -174,7 +178,7 @@ print(result["feasible"])
 #        1 & 0 & 2 & -1 \\
 #        -1 & 1 & -1 & 2
 #       \end{bmatrix}.
-# 
+#
 # We start by finding a basis for :math:`S := \text{range}(M)`, which can be done by picking a linearly independent set
 # of :math:`r = 3` columns of :math:`M`: :math:`S = \operatorname{span}\{(2,1,1,-1), (1,2,0,1), (1,0,2,-1)\}`. Then
 # :math:`R_0 = \{S\}` and we proceed recursively:
@@ -191,12 +195,12 @@ print(result["feasible"])
 # :math:`\Pi_4` be the orthogonal projections onto :math:`S_1`, :math:`S_2`, :math:`S_3`, and :math:`S_4`, respectively.
 # We then use semidefinite programming to determine whether or not there exist matrices :math:`M_1, M_2, M_3, M_4 \in
 # \text{Pos}(\mathbb{C}^4)` for which
-# 
+#
 # .. math::
 #       M = M_1 + M_2 + M_3 + M_4, \quad \text{and} \quad M_j = \Pi_j M_j \Pi_j \quad \text{for all} \quad j \in \{1,2,3,4\}.
 #
 # Indeed, such matrices do exist:
-# 
+#
 # .. math::
 #        M_1 = \begin{bmatrix}
 #            0 & 0 & 0 & 0 \\
@@ -234,7 +238,7 @@ mat = np.array(
 )
 result = factor_width(mat, k=3)
 print(sum(result["factors"]))
-    
+
 # %%
 # To similarly determine whether or not :math:`M` is :math:`2`-incoherent, we proceed further with the recursive
 # construction by computing

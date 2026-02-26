@@ -6,39 +6,32 @@ from toqito.rand import random_unitary
 
 
 def random_orthonormal_basis(dim: int, is_real: bool = False, seed: int | None = None) -> list[np.ndarray]:
-    r"""Generate a real random orthonormal basis of given dimension :math:`d`.
+    r"""Generate a real random orthonormal basis of given dimension \(d\).
 
     The basis is generated from the columns of a random unitary matrix of the same dimension
-    as the columns of a unitary matrix typically form an orthonormal basis :footcite:`SE_1688950`.
+    as the columns of a unitary matrix typically form an orthonormal basis [@SE_1688950].
 
-    Examples
-    ==========
-    To generate a random orthonormal basis of dimension :math:`4`,
+    Examples:
+    To generate a random orthonormal basis of dimension \(4\),
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    from toqito.rand import random_orthonormal_basis
 
-     from toqito.rand import random_orthonormal_basis
-
-     random_orthonormal_basis(4, is_real = True)
+    print(random_orthonormal_basis(4, is_real = True))
+    ```
 
     It is also possible to add a seed for reproducibility.
 
-    .. jupyter-execute::
+    ```python exec="1" source="above"
+    from toqito.rand import random_orthonormal_basis
 
-     from toqito.rand import random_orthonormal_basis
+    print(random_orthonormal_basis(2, is_real=True, seed=42))
+    ```
 
-     random_orthonormal_basis(2, is_real=True, seed=42)
-
-
-    References
-    ==========
-    .. footbibliography::
-
-
-    dim: int
-        Number of elements in the random orthonormal basis.
-    seed: int | None
-        A seed used to instantiate numpy's random number generator.
+    Args:
+        dim: Number of elements in the random orthonormal basis.
+        is_real: Bool
+        seed: A seed used to instantiate numpy's random number generator.
 
     """
     random_mat = random_unitary(dim, is_real, seed)

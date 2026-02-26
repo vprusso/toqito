@@ -7,52 +7,50 @@ from toqito.state_ops import schmidt_decomposition
 
 
 def is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = None) -> tuple:
-    r"""Determine if a given vector is a product state :footcite:`WikiSepSt`.
+    r"""Determine if a given vector is a product state [@WikiSepSt].
 
     If the input is deemed to be product, then the product decomposition is also
     returned.
 
-    Examples
-    ==========
+    Examples:
     Consider the following Bell state
 
-    .. math::
+    \[
         u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \in \mathcal{X}.
+    \]
 
-    The corresponding density matrix of :math:`u` may be calculated by:
+    The corresponding density matrix of \(u\) may be calculated by:
 
-    .. math::
+    \[
         \rho = u u^* = \frac{1}{2} \begin{pmatrix}
                          1 & 0 & 0 & 1 \\
                          0 & 0 & 0 & 0 \\
                          0 & 0 & 0 & 0 \\
                          1 & 0 & 0 & 1
                        \end{pmatrix} \in \text{D}(\mathcal{X}).
+    \]
 
-    We can provide the input as either the vector :math:`u` or the denisty matrix :math:`\rho`.
+    We can provide the input as either the vector \(u\) or the denisty matrix \(\rho\).
     In either case, this represents an entangled state (and hence a non-product state).
 
-    .. jupyter-execute::
+    ```python exec="1" source="above" session="is_product_example"
+    from toqito.state_props import is_product
+    from toqito.states import bell
+    rho = bell(0) @ bell(0).conj().T
+    u_vec = bell(0)
+    print(is_product(rho))
+    ```
 
-        from toqito.state_props import is_product
-        from toqito.states import bell
-        rho = bell(0) @ bell(0).conj().T
-        u_vec = bell(0)
-        is_product(rho)
+    ```python exec="1" source="above" session="is_product_example"
+    print(is_product(u_vec))
+    ```
 
-    .. jupyter-execute::
+    Args:
+        rho: The vector or matrix to check.
+        dim: The dimension of the input.
 
-        is_product(u_vec)
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param rho: The vector or matrix to check.
-    :param dim: The dimension of the input.
-    :return: :code:`True` if :code:`rho` is a product vector and :code:`False` otherwise.
+    Returns:
+        `True` if `rho` is a product vector and `False` otherwise.
 
     """
     return _is_product(rho, dim)
@@ -61,9 +59,13 @@ def is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = None)
 def _is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = None) -> tuple:
     """Determine if input is a product state recursive helper.
 
-    :param rho: The vector or matrix to check.
-    :param dim: The dimension of the input.
-    :return: :code:`True` if :code:`rho` is a product vector and :code:`False` otherwise.
+    Args:
+        rho: The vector or matrix to check.
+        dim: The dimension of the input.
+
+    Returns:
+        `True` if `rho` is a product vector and `False` otherwise.
+
     """
     # If the input is provided as a matrix, compute the operator Schmidt rank.
     if len(rho.shape) == 2:
@@ -113,9 +115,14 @@ def _operator_is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray | No
 
     Given an input `rho` provided as a matrix, determine if it is a product
     state.
-    :param rho: The matrix to check.
-    :param dim: The dimension of the matrix
-    :return: :code:`True` if :code:`rho` is product and :code:`False` otherwise.
+
+    Args:
+        rho: The matrix to check.
+        dim: The dimension of the matrix
+
+    Returns:
+        `True` if `rho` is product and `False` otherwise.
+
     """
     if dim is None:
         dim_x = rho.shape
