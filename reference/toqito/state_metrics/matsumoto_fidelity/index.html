@@ -8970,7 +8970,8 @@ fidelity is a lower bound for the fidelity.</p>
                      1 &amp; 0 &amp; 0 &amp; 1
                    \end{pmatrix} \in \text{D}(\mathcal{X}).
 \]</div>
-<p>In the event where we calculate the Matsumoto fidelity between states that are identical, we should obtain the value
+<p>In the event where we calculate the Matsumoto fidelity between states that are identical, we should obtain
+the value
 of <span class="arithmatex">\(1\)</span>. This can be observed in <code>|toqito‚ü©</code> as follows.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">matsumoto_fidelity</span>
@@ -9141,7 +9142,8 @@ of <span class="arithmatex">\(1\)</span>. This can be observed in <code>|toqito‚
 <span class="normal"><a href="#__codelineno-0-111">111</a></span>
 <span class="normal"><a href="#__codelineno-0-112">112</a></span>
 <span class="normal"><a href="#__codelineno-0-113">113</a></span>
-<span class="normal"><a href="#__codelineno-0-114">114</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">matsumoto_fidelity</span><span class="p">(</span><span class="n">rho</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">sigma</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">floating</span><span class="p">:</span>
+<span class="normal"><a href="#__codelineno-0-114">114</a></span>
+<span class="normal"><a href="#__codelineno-0-115">115</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">matsumoto_fidelity</span><span class="p">(</span><span class="n">rho</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">sigma</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">floating</span><span class="p">:</span>
 <a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the Matsumoto fidelity of two density matrices [@Matsumoto_2010_Reverse].</span>
 <a id="__codelineno-0-12" name="__codelineno-0-12"></a>
 <a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="sd">    Calculate the Matsumoto fidelity between the two density matrices `rho` and `sigma`, defined by:</span>
@@ -9184,68 +9186,69 @@ of <span class="arithmatex">\(1\)</span>. This can be observed in <code>|toqito‚
 <a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">                           \end{pmatrix} \in \text{D}(\mathcal{X}).</span>
 <a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-52" name="__codelineno-0-52"></a>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        In the event where we calculate the Matsumoto fidelity between states that are identical, we should obtain the value</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        of \(1\). This can be observed in `|toqito‚ü©` as follows.</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        from toqito.state_metrics import matsumoto_fidelity</span>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        rho = 1 / 2 * np.array(</span>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">            [[1, 0, 0, 1],</span>
-<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">             [0, 0, 0, 0],</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        In the event where we calculate the Matsumoto fidelity between states that are identical, we should obtain</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        the value</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        of \(1\). This can be observed in `|toqito‚ü©` as follows.</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        from toqito.state_metrics import matsumoto_fidelity</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        rho = 1 / 2 * np.array(</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">            [[1, 0, 0, 1],</span>
 <a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">             [0, 0, 0, 0],</span>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">             [1, 0, 0, 1]]</span>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        )</span>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        sigma = rho</span>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        print(np.around(matsumoto_fidelity(rho, sigma), decimals=2))</span>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">    Raises:</span>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">        ValueError: If matrices are not of equal dimension.</span>
-<a id="__codelineno-0-73" name="__codelineno-0-73"></a>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">        rho: Density operator.</span>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">        sigma: Density operator.</span>
-<a id="__codelineno-0-77" name="__codelineno-0-77"></a>
-<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">        The Matsumoto fidelity between `rho` and `sigma`.</span>
-<a id="__codelineno-0-80" name="__codelineno-0-80"></a>
-<a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-82" name="__codelineno-0-82"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">rho</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">sigma</span><span class="o">.</span><span class="n">shape</span><span class="p">):</span>
-<a id="__codelineno-0-83" name="__codelineno-0-83"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;InvalidDim: `rho` and `sigma` must be matrices of the same size.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-84" name="__codelineno-0-84"></a>
-<a id="__codelineno-0-85" name="__codelineno-0-85"></a>    <span class="c1"># If `rho` or `sigma` is a cvxpy variable then compute Matsumoto fidelity via</span>
-<a id="__codelineno-0-86" name="__codelineno-0-86"></a>    <span class="c1"># semidefinite programming, so that this function can be used in the</span>
-<a id="__codelineno-0-87" name="__codelineno-0-87"></a>    <span class="c1"># objective function or constraints of other cvxpy optimization problems.</span>
-<a id="__codelineno-0-88" name="__codelineno-0-88"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">affine</span><span class="o">.</span><span class="n">vstack</span><span class="o">.</span><span class="n">Vstack</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sigma</span><span class="p">,</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">affine</span><span class="o">.</span><span class="n">vstack</span><span class="o">.</span><span class="n">Vstack</span><span class="p">):</span>
-<a id="__codelineno-0-89" name="__codelineno-0-89"></a>        <span class="n">w_var</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">rho</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">hermitian</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<a id="__codelineno-0-90" name="__codelineno-0-90"></a>        <span class="n">objective</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Maximize</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">w_var</span><span class="p">)))</span>
-<a id="__codelineno-0-91" name="__codelineno-0-91"></a>        <span class="n">constraints</span> <span class="o">=</span> <span class="p">[</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">bmat</span><span class="p">([[</span><span class="n">rho</span><span class="p">,</span> <span class="n">w_var</span><span class="p">],</span> <span class="p">[</span><span class="n">w_var</span><span class="p">,</span> <span class="n">sigma</span><span class="p">]])</span> <span class="o">&gt;&gt;</span> <span class="mi">0</span><span class="p">]</span>
-<a id="__codelineno-0-92" name="__codelineno-0-92"></a>        <span class="n">problem</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">constraints</span><span class="p">)</span>
-<a id="__codelineno-0-93" name="__codelineno-0-93"></a>
-<a id="__codelineno-0-94" name="__codelineno-0-94"></a>        <span class="k">return</span> <span class="n">problem</span><span class="o">.</span><span class="n">solve</span><span class="p">()</span>
-<a id="__codelineno-0-95" name="__codelineno-0-95"></a>
-<a id="__codelineno-0-96" name="__codelineno-0-96"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_density</span><span class="p">(</span><span class="n">rho</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">is_density</span><span class="p">(</span><span class="n">sigma</span><span class="p">):</span>
-<a id="__codelineno-0-97" name="__codelineno-0-97"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Matsumoto fidelity is only defined for density operators.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-98" name="__codelineno-0-98"></a>
-<a id="__codelineno-0-99" name="__codelineno-0-99"></a>    <span class="c1"># If `rho` or `sigma` are *not* cvxpy variables, compute Matsumoto fidelity directly.</span>
-<a id="__codelineno-0-100" name="__codelineno-0-100"></a>    <span class="c1"># For numerical stability, invert the matrix with larger determinant</span>
-<a id="__codelineno-0-101" name="__codelineno-0-101"></a>    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">sigma</span><span class="p">))</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">rho</span><span class="p">)):</span>
-<a id="__codelineno-0-102" name="__codelineno-0-102"></a>        <span class="n">rho</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">=</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">rho</span>
-<a id="__codelineno-0-103" name="__codelineno-0-103"></a>
-<a id="__codelineno-0-104" name="__codelineno-0-104"></a>    <span class="c1"># If rho is singular, add epsilon</span>
-<a id="__codelineno-0-105" name="__codelineno-0-105"></a>    <span class="k">try</span><span class="p">:</span>
-<a id="__codelineno-0-106" name="__codelineno-0-106"></a>        <span class="n">sq_rho</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">sqrtm</span><span class="p">(</span><span class="n">rho</span><span class="p">)</span>
-<a id="__codelineno-0-107" name="__codelineno-0-107"></a>        <span class="n">sqinv_rho</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">sq_rho</span><span class="p">)</span>
-<a id="__codelineno-0-108" name="__codelineno-0-108"></a>    <span class="k">except</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">LinAlgError</span><span class="p">:</span>
-<a id="__codelineno-0-109" name="__codelineno-0-109"></a>        <span class="n">sq_rho</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">sqrtm</span><span class="p">(</span><span class="n">rho</span> <span class="o">+</span> <span class="mf">1e-7</span><span class="p">)</span>  <span class="c1"># if rho is not invertible, add epsilon=1e-7 to it</span>
-<a id="__codelineno-0-110" name="__codelineno-0-110"></a>        <span class="c1"># note if epsilon=1e-8 or smaller, it leads to test failures.</span>
-<a id="__codelineno-0-111" name="__codelineno-0-111"></a>        <span class="n">sqinv_rho</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">sq_rho</span><span class="p">)</span>
-<a id="__codelineno-0-112" name="__codelineno-0-112"></a>
-<a id="__codelineno-0-113" name="__codelineno-0-113"></a>    <span class="n">sq_mfid</span> <span class="o">=</span> <span class="n">sq_rho</span> <span class="o">@</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">sqrtm</span><span class="p">(</span><span class="n">sqinv_rho</span> <span class="o">@</span> <span class="n">sigma</span> <span class="o">@</span> <span class="n">sqinv_rho</span><span class="p">)</span> <span class="o">@</span> <span class="n">sq_rho</span>
-<a id="__codelineno-0-114" name="__codelineno-0-114"></a>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">sq_mfid</span><span class="p">))</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">             [0, 0, 0, 0],</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">             [1, 0, 0, 1]]</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        )</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        sigma = rho</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        print(np.around(matsumoto_fidelity(rho, sigma), decimals=2))</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">    Raises:</span>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">        ValueError: If matrices are not of equal dimension.</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">        rho: Density operator.</span>
+<a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">        sigma: Density operator.</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">        The Matsumoto fidelity between `rho` and `sigma`.</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81"></a>
+<a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-83" name="__codelineno-0-83"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">rho</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">sigma</span><span class="o">.</span><span class="n">shape</span><span class="p">):</span>
+<a id="__codelineno-0-84" name="__codelineno-0-84"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;InvalidDim: `rho` and `sigma` must be matrices of the same size.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-85" name="__codelineno-0-85"></a>
+<a id="__codelineno-0-86" name="__codelineno-0-86"></a>    <span class="c1"># If `rho` or `sigma` is a cvxpy variable then compute Matsumoto fidelity via</span>
+<a id="__codelineno-0-87" name="__codelineno-0-87"></a>    <span class="c1"># semidefinite programming, so that this function can be used in the</span>
+<a id="__codelineno-0-88" name="__codelineno-0-88"></a>    <span class="c1"># objective function or constraints of other cvxpy optimization problems.</span>
+<a id="__codelineno-0-89" name="__codelineno-0-89"></a>    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">rho</span><span class="p">,</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">affine</span><span class="o">.</span><span class="n">vstack</span><span class="o">.</span><span class="n">Vstack</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sigma</span><span class="p">,</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">atoms</span><span class="o">.</span><span class="n">affine</span><span class="o">.</span><span class="n">vstack</span><span class="o">.</span><span class="n">Vstack</span><span class="p">):</span>
+<a id="__codelineno-0-90" name="__codelineno-0-90"></a>        <span class="n">w_var</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">rho</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">hermitian</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<a id="__codelineno-0-91" name="__codelineno-0-91"></a>        <span class="n">objective</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Maximize</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">w_var</span><span class="p">)))</span>
+<a id="__codelineno-0-92" name="__codelineno-0-92"></a>        <span class="n">constraints</span> <span class="o">=</span> <span class="p">[</span><span class="n">cvxpy</span><span class="o">.</span><span class="n">bmat</span><span class="p">([[</span><span class="n">rho</span><span class="p">,</span> <span class="n">w_var</span><span class="p">],</span> <span class="p">[</span><span class="n">w_var</span><span class="p">,</span> <span class="n">sigma</span><span class="p">]])</span> <span class="o">&gt;&gt;</span> <span class="mi">0</span><span class="p">]</span>
+<a id="__codelineno-0-93" name="__codelineno-0-93"></a>        <span class="n">problem</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">constraints</span><span class="p">)</span>
+<a id="__codelineno-0-94" name="__codelineno-0-94"></a>
+<a id="__codelineno-0-95" name="__codelineno-0-95"></a>        <span class="k">return</span> <span class="n">problem</span><span class="o">.</span><span class="n">solve</span><span class="p">()</span>
+<a id="__codelineno-0-96" name="__codelineno-0-96"></a>
+<a id="__codelineno-0-97" name="__codelineno-0-97"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">is_density</span><span class="p">(</span><span class="n">rho</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">is_density</span><span class="p">(</span><span class="n">sigma</span><span class="p">):</span>
+<a id="__codelineno-0-98" name="__codelineno-0-98"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Matsumoto fidelity is only defined for density operators.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-99" name="__codelineno-0-99"></a>
+<a id="__codelineno-0-100" name="__codelineno-0-100"></a>    <span class="c1"># If `rho` or `sigma` are *not* cvxpy variables, compute Matsumoto fidelity directly.</span>
+<a id="__codelineno-0-101" name="__codelineno-0-101"></a>    <span class="c1"># For numerical stability, invert the matrix with larger determinant</span>
+<a id="__codelineno-0-102" name="__codelineno-0-102"></a>    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">sigma</span><span class="p">))</span> <span class="o">&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">det</span><span class="p">(</span><span class="n">rho</span><span class="p">)):</span>
+<a id="__codelineno-0-103" name="__codelineno-0-103"></a>        <span class="n">rho</span><span class="p">,</span> <span class="n">sigma</span> <span class="o">=</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">rho</span>
+<a id="__codelineno-0-104" name="__codelineno-0-104"></a>
+<a id="__codelineno-0-105" name="__codelineno-0-105"></a>    <span class="c1"># If rho is singular, add epsilon</span>
+<a id="__codelineno-0-106" name="__codelineno-0-106"></a>    <span class="k">try</span><span class="p">:</span>
+<a id="__codelineno-0-107" name="__codelineno-0-107"></a>        <span class="n">sq_rho</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">sqrtm</span><span class="p">(</span><span class="n">rho</span><span class="p">)</span>
+<a id="__codelineno-0-108" name="__codelineno-0-108"></a>        <span class="n">sqinv_rho</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">sq_rho</span><span class="p">)</span>
+<a id="__codelineno-0-109" name="__codelineno-0-109"></a>    <span class="k">except</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">LinAlgError</span><span class="p">:</span>
+<a id="__codelineno-0-110" name="__codelineno-0-110"></a>        <span class="n">sq_rho</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">sqrtm</span><span class="p">(</span><span class="n">rho</span> <span class="o">+</span> <span class="mf">1e-7</span><span class="p">)</span>  <span class="c1"># if rho is not invertible, add epsilon=1e-7 to it</span>
+<a id="__codelineno-0-111" name="__codelineno-0-111"></a>        <span class="c1"># note if epsilon=1e-8 or smaller, it leads to test failures.</span>
+<a id="__codelineno-0-112" name="__codelineno-0-112"></a>        <span class="n">sqinv_rho</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">sq_rho</span><span class="p">)</span>
+<a id="__codelineno-0-113" name="__codelineno-0-113"></a>
+<a id="__codelineno-0-114" name="__codelineno-0-114"></a>    <span class="n">sq_mfid</span> <span class="o">=</span> <span class="n">sq_rho</span> <span class="o">@</span> <span class="n">scipy</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">sqrtm</span><span class="p">(</span><span class="n">sqinv_rho</span> <span class="o">@</span> <span class="n">sigma</span> <span class="o">@</span> <span class="n">sqinv_rho</span><span class="p">)</span> <span class="o">@</span> <span class="n">sq_rho</span>
+<a id="__codelineno-0-115" name="__codelineno-0-115"></a>    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">sq_mfid</span><span class="p">))</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>

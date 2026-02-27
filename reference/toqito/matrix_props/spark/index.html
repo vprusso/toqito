@@ -8954,16 +8954,23 @@ dependent <sup><a id="cite-toqito-matrix_props-spark-spark-1" href="#ref-toqito-
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">spark</span><span class="p">(</span><span class="n">A</span><span class="p">))</span>
 </code></pre></div>
 <p>3</p>
-<p>Notes
-- This function only works for 2D NumPy arrays.
-- If all columns are linearly independent, the function returns n_cols + 1.
-- The time complexity of this implementation is O(2^n) in the worst case,
-  where n is the number of columns.
-- For an m x n matrix A with n &gt;= m:
-    - If spark(A) = m + 1, then rank(A) = m (full rank).
-    - If spark(A) = 1, then the matrix has a zero column.
-    - If spark(A) &lt;= rank(A) + 1, then the matrix has dependent columns.</p>
 
+
+<details class="notes" open>
+  <summary>Notes</summary>
+  <ul>
+<li>This function only works for 2D NumPy arrays.</li>
+<li>If all columns are linearly independent, the function returns n_cols + 1.</li>
+<li>The time complexity of this implementation is O(2^n) in the worst case,
+  where n is the number of columns.</li>
+<li>For an m x n matrix A with n &gt;= m:<ul>
+<li>If spark(A) = m + 1, then rank(A) = m (full rank).</li>
+<li>If spark(A) = 1, then the matrix has a zero column.</li>
+<li>If spark(A) &lt;= rank(A) + 1, then the matrix has dependent columns.</li>
+</ul>
+</li>
+</ul>
+</details>
 
 <p><span class="doc-section-title">Raises:</span></p>
     <ul>
@@ -9078,7 +9085,7 @@ dependent <sup><a id="cite-toqito-matrix_props-spark-spark-1" href="#ref-toqito-
 <a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        print(spark(A))</span>
 <a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-25" name="__codelineno-0-25"></a>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">        Notes</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">    Notes:</span>
 <a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        - This function only works for 2D NumPy arrays.</span>
 <a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">        - If all columns are linearly independent, the function returns n_cols + 1.</span>
 <a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        - The time complexity of this implementation is O(2^n) in the worst case,</span>

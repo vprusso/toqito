@@ -9001,20 +9001,20 @@ POVMs of dimension with <span class="arithmatex">\(2\)</span> inputs and <span c
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">povms</span><span class="p">)</span>
 </code></pre></div>
-<p>[[[[ 0.02574924+0.j  0.97425076+0.j]
-   [ 0.08386493+0.j  0.91613507+0.j]]</p>
-<p>[[ 0.1237476 +0.j -0.1237476 +0.j]
-   [ 0.24819155+0.j -0.24819155+0.j]]]</p>
-<p>[[[ 0.1237476 +0.j -0.1237476 +0.j]
-   [ 0.24819155+0.j -0.24819155+0.j]]</p>
-<p>[[ 0.9297977 +0.j  0.0702023 +0.j]
-   [ 0.92295426+0.j  0.07704574+0.j]]]]</p>
+<p>[[[[ 0.02318086+0.j  0.97681914+0.j]
+   [ 0.16977027+0.j  0.83022973+0.j]]</p>
+<p>[[ 0.06384931+0.j -0.06384931+0.j]
+   [-0.13550355+0.j  0.13550355+0.j]]]</p>
+<p>[[[ 0.06384931+0.j -0.06384931+0.j]
+   [-0.13550355+0.j  0.13550355+0.j]]</p>
+<p>[[ 0.19881945+0.j  0.80118055+0.j]
+   [ 0.11707275+0.j  0.88292725+0.j]]]]</p>
 <p>We can verify that this constitutes a valid set of POVM elements as checking that these operators all sum to the
 identity operator.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">povms</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">povms</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>
 </code></pre></div>
-<p>[[1.+0.j 0.+0.j]
- [0.+0.j 1.+0.j]]</p>
+<p>[[ 1.+0.j -0.+0.j]
+ [-0.+0.j  1.+0.j]]</p>
 <p>It is also possible to add a seed for reproducibility.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.rand</span><span class="w"> </span><span class="kn">import</span> <span class="n">random_povm</span>

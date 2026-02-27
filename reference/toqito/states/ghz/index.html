@@ -8969,7 +8969,8 @@ as</p>
  [0.        ]
  [0.        ]
  [0.70710678]]</p>
-<p>As this function covers the generalized GHZ state, we can consider higher dimensions. For instance here is the GHZ
+<p>As this function covers the generalized GHZ state, we can consider higher dimensions. For instance here
+is the GHZ
 state in <span class="arithmatex">\(\mathbb{C}^{4^{\otimes 7}}\)</span> as</p>
 <div class="arithmatex">\[
     \frac{1}{\sqrt{30}} \left(|0000000 \rangle + 2|1111111 \rangle +
@@ -9110,7 +9111,8 @@ state in <span class="arithmatex">\(\mathbb{C}^{4^{\otimes 7}}\)</span> as</p>
 <span class="normal"><a href="#__codelineno-0-81">81</a></span>
 <span class="normal"><a href="#__codelineno-0-82">82</a></span>
 <span class="normal"><a href="#__codelineno-0-83">83</a></span>
-<span class="normal"><a href="#__codelineno-0-84">84</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">ghz</span><span class="p">(</span><span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">num_qubits</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">coeff</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="normal"><a href="#__codelineno-0-84">84</a></span>
+<span class="normal"><a href="#__codelineno-0-85">85</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">ghz</span><span class="p">(</span><span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">num_qubits</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">coeff</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Generate a (generalized) GHZ state [@Greenberger_2007_Going].</span>
 <a id="__codelineno-0-12" name="__codelineno-0-12"></a>
 <a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="sd">    Returns a `num_qubits`-partite GHZ state acting on `dim` local dimensions, described</span>
@@ -9139,52 +9141,53 @@ state in <span class="arithmatex">\(\mathbb{C}^{4^{\otimes 7}}\)</span> as</p>
 <a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        print(ghz(2, 3))</span>
 <a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-38" name="__codelineno-0-38"></a>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        As this function covers the generalized GHZ state, we can consider higher dimensions. For instance here is the GHZ</span>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        state in \(\mathbb{C}^{4^{\otimes 7}}\) as</span>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        \[</span>
-<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">            \frac{1}{\sqrt{30}} \left(|0000000 \rangle + 2|1111111 \rangle +</span>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">            3|2222222 \rangle + 4|3333333\rangle \right).</span>
-<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        \]</span>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">    Raises:</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        ValueError: Number of qubits is not a positive integer.</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        dim: The local dimension.</span>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        num_qubits: The number of parties (qubits/qudits)</span>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        coeff: (default `[1, 1, ..., 1])/sqrt(dim)`: a 1-by-`dim` vector of coefficients.</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        Numpy vector array as GHZ state.</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a>    <span class="k">if</span> <span class="n">dim</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;InvalidDim: `dim` must be at least 1.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a>    <span class="k">if</span> <span class="n">num_qubits</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
-<a id="__codelineno-0-62" name="__codelineno-0-62"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;InvalidNumQubits: `num_qubits` must be at least 1.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-63" name="__codelineno-0-63"></a>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a>    <span class="k">if</span> <span class="n">coeff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a>        <span class="n">coeff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a>    <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a>        <span class="n">coeff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">coeff</span><span class="p">)</span>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">coeff</span><span class="p">)</span> <span class="o">!=</span> <span class="n">dim</span><span class="p">:</span>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;InvalidCoeff: The variable `coeff` must be a vector of length equal to `dim`.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a>    <span class="c1"># Normalize coefficients if they are not.</span>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a>    <span class="n">norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">coeff</span><span class="p">)</span>
-<a id="__codelineno-0-73" name="__codelineno-0-73"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">norm</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">):</span>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a>        <span class="n">coeff</span> <span class="o">=</span> <span class="n">coeff</span> <span class="o">/</span> <span class="n">norm</span>
-<a id="__codelineno-0-75" name="__codelineno-0-75"></a>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a>    <span class="c1"># Initialize the GHZ state vector.</span>
-<a id="__codelineno-0-77" name="__codelineno-0-77"></a>    <span class="n">ghz_state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">dim</span><span class="o">**</span><span class="n">num_qubits</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<a id="__codelineno-0-78" name="__codelineno-0-78"></a>    <span class="c1"># Fill the state vector with the corresponding coefficients.</span>
-<a id="__codelineno-0-79" name="__codelineno-0-79"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dim</span><span class="p">):</span>
-<a id="__codelineno-0-80" name="__codelineno-0-80"></a>        <span class="c1"># Calculate the index for the tensor product state |i, i, ..., i&gt;.</span>
-<a id="__codelineno-0-81" name="__codelineno-0-81"></a>        <span class="n">index</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="p">(</span><span class="n">dim</span><span class="o">**</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">))</span>
-<a id="__codelineno-0-82" name="__codelineno-0-82"></a>        <span class="n">ghz_state</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">coeff</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-<a id="__codelineno-0-83" name="__codelineno-0-83"></a>
-<a id="__codelineno-0-84" name="__codelineno-0-84"></a>    <span class="k">return</span> <span class="n">ghz_state</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        As this function covers the generalized GHZ state, we can consider higher dimensions. For instance here</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        is the GHZ</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        state in \(\mathbb{C}^{4^{\otimes 7}}\) as</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">            \frac{1}{\sqrt{30}} \left(|0000000 \rangle + 2|1111111 \rangle +</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">            3|2222222 \rangle + 4|3333333\rangle \right).</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">        \]</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">    Raises:</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        ValueError: Number of qubits is not a positive integer.</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        dim: The local dimension.</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        num_qubits: The number of parties (qubits/qudits)</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        coeff: (default `[1, 1, ..., 1])/sqrt(dim)`: a 1-by-`dim` vector of coefficients.</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        Numpy vector array as GHZ state.</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a>    <span class="k">if</span> <span class="n">dim</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;InvalidDim: `dim` must be at least 1.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a>    <span class="k">if</span> <span class="n">num_qubits</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;InvalidNumQubits: `num_qubits` must be at least 1.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a>    <span class="k">if</span> <span class="n">coeff</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a>        <span class="n">coeff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">dim</span><span class="p">)</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a>    <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a>        <span class="n">coeff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">coeff</span><span class="p">)</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">coeff</span><span class="p">)</span> <span class="o">!=</span> <span class="n">dim</span><span class="p">:</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;InvalidCoeff: The variable `coeff` must be a vector of length equal to `dim`.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a>    <span class="c1"># Normalize coefficients if they are not.</span>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a>    <span class="n">norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">coeff</span><span class="p">)</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">norm</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">):</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a>        <span class="n">coeff</span> <span class="o">=</span> <span class="n">coeff</span> <span class="o">/</span> <span class="n">norm</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a>
+<a id="__codelineno-0-77" name="__codelineno-0-77"></a>    <span class="c1"># Initialize the GHZ state vector.</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a>    <span class="n">ghz_state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">dim</span><span class="o">**</span><span class="n">num_qubits</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a>    <span class="c1"># Fill the state vector with the corresponding coefficients.</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80"></a>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">dim</span><span class="p">):</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81"></a>        <span class="c1"># Calculate the index for the tensor product state |i, i, ..., i&gt;.</span>
+<a id="__codelineno-0-82" name="__codelineno-0-82"></a>        <span class="n">index</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">i</span> <span class="o">*</span> <span class="p">(</span><span class="n">dim</span><span class="o">**</span><span class="n">k</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_qubits</span><span class="p">))</span>
+<a id="__codelineno-0-83" name="__codelineno-0-83"></a>        <span class="n">ghz_state</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">coeff</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<a id="__codelineno-0-84" name="__codelineno-0-84"></a>
+<a id="__codelineno-0-85" name="__codelineno-0-85"></a>    <span class="k">return</span> <span class="n">ghz_state</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>
