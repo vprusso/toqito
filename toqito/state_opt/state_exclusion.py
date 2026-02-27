@@ -109,7 +109,8 @@ def state_exclusion(
             \end{equation}
         \]
 
-        It is not possible to conclusively exclude either of the two states. We can see that the result of the function in
+        It is not possible to conclusively exclude either of the two states. We can see that the result of the
+        function in
         `|toqito⟩` yields a value of \(0\) as the probability for this to occur.
 
         ```python exec="1" source="above"

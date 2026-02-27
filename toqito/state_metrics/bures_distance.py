@@ -39,7 +39,8 @@ def bures_distance(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> 
                            \end{pmatrix} \in \text{D}(\mathcal{X}).
         \]
 
-        In the event where we calculate the Bures distance between states that are identical, we should obtain the value of
+        In the event where we calculate the Bures distance between states that are identical, we should obtain
+        the value of
         \(0\). This can be observed in `|toqito⟩` as follows.
 
         ```python exec="1" source="above"

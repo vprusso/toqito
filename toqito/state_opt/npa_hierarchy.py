@@ -500,7 +500,8 @@ def bell_npa_constraints(
     - ``p_var[i, j]`` corresponds to the expectation of the product \(A_{a|x} B_{b|y}\).
 
     Examples:
-        Consider the CHSH inequality scenario with ``desc = [2, 2, 2, 2]``. We want to generate the NPA level 1 constraints.
+        Consider the CHSH inequality scenario with ``desc = [2, 2, 2, 2]``. We want to generate the NPA level 1
+        constraints.
 
         ```python exec="1" source="above" session="npa_example"
         import cvxpy
