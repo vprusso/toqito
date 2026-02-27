@@ -753,6 +753,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     # --- 14. Iterative product state subtraction---
     
     rho_sub=state.copy()
+    max_depth=sep_factor*min(dA,dB) #mainly to bound the depth of the loop
     for dep in range(max_depth):
         count_rand_starts=0
         while count_rand_starts<max_iter: #loop for random starts
@@ -762,10 +763,14 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
             v1=np.zeros(dB,dtype=complex)
             delta=1#flag for convergence
             while delta>min(dA,dB)*tol :#loop for see-saw attempting to find max overlap product state.
-                rho_part=partial_trace(rho_sub@np.kron(np.outer(v0,v0.conj().T),np.identity((dB,dB))),sys=1,dim=[dA,dB])
-                ev1,v1_new=np.linalg.eigh(rho_part)[:,-1]
-                rho_part=partial_trace(rho_sub@np.kron(np.identity((dA,dA)),np.outer(v1_new,v1_new.conj().T)),sys=0,dim=[dA,dB])
-                ev0,v0_new=np.linalg.eigh(rho_part)[:,-1]
+                rho_part=partial_trace(rho_sub@np.kron(np.outer(v0,v0.conj().T),np.identity(dB)),sys=1,dim=[dA,dB])
+                dev1,dv1_new=np.linalg.eigh(rho_part)
+                v1_new=dv1_new[:,-1]
+                ev1_new=dev1[-1]
+                rho_part=partial_trace(rho_sub@np.kron(np.identity(dA),np.outer(v1_new,v1_new.conj().T)),sys=0,dim=[dA,dB])
+                dev0,dv0_new=np.linalg.eigh(rho_part)
+                v0_new=dv0_new[:,-1]
+                ev0=dev0[-1]
                 delta=np.linalg.norm(v1_new-v1)+np.linalg.norm(v0_new-v0)
                 v0=v0_new
                 v1=v1_new
@@ -779,7 +784,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                     break
             else: 
                 rho_sub=rho_sub+max_product_state
-                
+
 
 
 
