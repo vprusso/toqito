@@ -20,42 +20,42 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
     [@Watrous_2011_Lecture_Notes])
 
     Examples:
-    The generalized Pauli operator for `k_1 = 1`, `k_2 = 0`, and
-    `dim = 2` is given as the standard Pauli-X matrix
+        The generalized Pauli operator for `k_1 = 1`, `k_2 = 0`, and
+        `dim = 2` is given as the standard Pauli-X matrix
 
-    \[
-        G_{1, 0, 2} = \begin{pmatrix}
-                         0 & 1 \\
-                         1 & 0
-                      \end{pmatrix}.
-    \]
+        \[
+            G_{1, 0, 2} = \begin{pmatrix}
+                             0 & 1 \\
+                             1 & 0
+                          \end{pmatrix}.
+        \]
 
-    This can be obtained in `|toqito⟩` as follows.
+        This can be obtained in `|toqito⟩` as follows.
 
-    ```python exec="1" source="above"
-    from toqito.matrices import gen_pauli
+        ```python exec="1" source="above"
+        from toqito.matrices import gen_pauli
 
-    print(gen_pauli(k_1=1, k_2=0, dim=2))
-    ```
+        print(gen_pauli(k_1=1, k_2=0, dim=2))
+        ```
 
 
-    The generalized Pauli matrix `k_1 = 1`, `k_2 = 1`, and
-    `dim = 2` is given as the standard Pauli-Y matrix
+        The generalized Pauli matrix `k_1 = 1`, `k_2 = 1`, and
+        `dim = 2` is given as the standard Pauli-Y matrix
 
-    \[
-        G_{1, 1, 2} = \begin{pmatrix}
-                        0 & -1 \\
-                        1 & 0
-                      \end{pmatrix}.
-    \]
+        \[
+            G_{1, 1, 2} = \begin{pmatrix}
+                            0 & -1 \\
+                            1 & 0
+                          \end{pmatrix}.
+        \]
 
-    This can be obtained in `|toqito⟩` as follows.
+        This can be obtained in `|toqito⟩` as follows.
 
-    ```python exec="1" source="above"
-    from toqito.matrices import gen_pauli
+        ```python exec="1" source="above"
+        from toqito.matrices import gen_pauli
 
-    print(gen_pauli(k_1=1, k_2=1, dim=2))
-    ```
+        print(gen_pauli(k_1=1, k_2=1, dim=2))
+        ```
 
     Args:
         k_1: (a non-negative integer from 0 to `dim-1` inclusive).

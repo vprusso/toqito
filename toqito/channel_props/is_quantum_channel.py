@@ -24,46 +24,46 @@ def is_quantum_channel(
     2. \(\Phi\) is trace preserving.
 
     Examples:
-    We can specify the input as a list of Kraus operators. Consider the map \(\Phi\) defined as
+        We can specify the input as a list of Kraus operators. Consider the map \(\Phi\) defined as
 
-    \[
-        \Phi(X) = X - U X U^*
-    \]
+        \[
+            \Phi(X) = X - U X U^*
+        \]
 
-    where
+        where
 
-    \[
-        U = \frac{1}{\sqrt{2}}
-        \begin{pmatrix}
-            1 & 1 \\
-            -1 & 1
-        \end{pmatrix}.
-    \]
+        \[
+            U = \frac{1}{\sqrt{2}}
+            \begin{pmatrix}
+                1 & 1 \\
+                -1 & 1
+            \end{pmatrix}.
+        \]
 
-    To check if this is a valid quantum channel or not,
+        To check if this is a valid quantum channel or not,
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrices import pauli
-    from toqito.channel_props import is_quantum_channel
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrices import pauli
+        from toqito.channel_props import is_quantum_channel
 
-    U = (1/np.sqrt(2))*np.array([[1, 1],[-1, 1]])
-    X = pauli("X")
-    phi = X - np.matmul(U, np.matmul(X, np.conjugate(U)))
+        U = (1/np.sqrt(2))*np.array([[1, 1],[-1, 1]])
+        X = pauli("X")
+        phi = X - np.matmul(U, np.matmul(X, np.conjugate(U)))
 
-    print(is_quantum_channel(phi))
-    ```
+        print(is_quantum_channel(phi))
+        ```
 
-    If we instead check for the validity of depolarizing channel being a valid quantum channel,
+        If we instead check for the validity of depolarizing channel being a valid quantum channel,
 
-    ```python exec="1" source="above"
-    from toqito.channels import depolarizing
-    from toqito.channel_props import is_quantum_channel
+        ```python exec="1" source="above"
+        from toqito.channels import depolarizing
+        from toqito.channel_props import is_quantum_channel
 
-    choi_depolarizing = depolarizing(dim=2, param_p=0.2)
+        choi_depolarizing = depolarizing(dim=2, param_p=0.2)
 
-    print(is_quantum_channel(choi_depolarizing))
-    ```
+        print(is_quantum_channel(choi_depolarizing))
+        ```
 
     Args:
         phi: The channel provided as either a Choi matrix or a list of Kraus operators.

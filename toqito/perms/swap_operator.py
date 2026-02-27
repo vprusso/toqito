@@ -13,33 +13,33 @@ def swap_operator(dim: list[int] | int, is_sparse: bool = False) -> np.ndarray:
     of the same dimension, `dim` should be a 1-by-2 vector containing the dimension of the subsystems.
 
     Examples:
-    The \(2\)-dimensional swap operator is given by the following matrix
+        The \(2\)-dimensional swap operator is given by the following matrix
 
-    \[
-        X_2 =
-        \begin{pmatrix}
-            1 & 0 & 0 & 0 \\
-            0 & 0 & 1 & 0 \\
-            0 & 1 & 0 & 0 \\
-            0 & 0 & 0 & 1
-        \end{pmatrix}
-    \]
+        \[
+            X_2 =
+            \begin{pmatrix}
+                1 & 0 & 0 & 0 \\
+                0 & 0 & 1 & 0 \\
+                0 & 1 & 0 & 0 \\
+                0 & 0 & 0 & 1
+            \end{pmatrix}
+        \]
 
-    Using `|toqito⟩` we can obtain this matrix as follows.
+        Using `|toqito⟩` we can obtain this matrix as follows.
 
-    ```python exec="1" source="above"
-    from toqito.perms import swap_operator
+        ```python exec="1" source="above"
+        from toqito.perms import swap_operator
 
-    print(swap_operator(2))
-    ```
+        print(swap_operator(2))
+        ```
 
-    The \(3\)-dimensional operator may be obtained using `|toqito⟩` as follows.
+        The \(3\)-dimensional operator may be obtained using `|toqito⟩` as follows.
 
-    ```python exec="1" source="above"
-    from toqito.perms import swap_operator
+        ```python exec="1" source="above"
+        from toqito.perms import swap_operator
 
-    print(swap_operator(3))
-    ```
+        print(swap_operator(3))
+        ```
 
 
 

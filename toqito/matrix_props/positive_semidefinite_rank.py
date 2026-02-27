@@ -14,35 +14,35 @@ def positive_semidefinite_rank(mat: np.ndarray, max_rank: int = 10) -> int | Non
     Finds the PSD rank of an input matrix by checking feasibility for increasing rank.
 
     Examples:
-    As an example (Equation 21 from [@Heinosaari_2024_Can]), the PSD rank of the following matrix
+        As an example (Equation 21 from [@Heinosaari_2024_Can]), the PSD rank of the following matrix
 
-    \[
-        A = \frac{1}{2}
-        \begin{pmatrix}
-            0 & 1 & 1 \\
-            1 & 0 & 1 \\
-            1 & 1 & 0
-        \end{pmatrix}
-    \]
+        \[
+            A = \frac{1}{2}
+            \begin{pmatrix}
+                0 & 1 & 1 \\
+                1 & 0 & 1 \\
+                1 & 1 & 0
+            \end{pmatrix}
+        \]
 
-    is known to be \(\text{rank}_{\text{PSD}}(A) = 2\).
+        is known to be \(\text{rank}_{\text{PSD}}(A) = 2\).
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import positive_semidefinite_rank
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import positive_semidefinite_rank
 
-    print(positive_semidefinite_rank(1/2 * np.array([[0, 1, 1], [1,0,1], [1,1,0]])))
-    ```
+        print(positive_semidefinite_rank(1/2 * np.array([[0, 1, 1], [1,0,1], [1,1,0]])))
+        ```
 
 
-    The PSD rank of the identity matrix is the dimension of the matrix [@Fawzi_2015_Positive].
+        The PSD rank of the identity matrix is the dimension of the matrix [@Fawzi_2015_Positive].
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import positive_semidefinite_rank
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import positive_semidefinite_rank
 
-    print(positive_semidefinite_rank(np.identity(3)))
-    ```
+        print(positive_semidefinite_rank(np.identity(3)))
+        ```
 
     """
     if not is_nonnegative(mat):

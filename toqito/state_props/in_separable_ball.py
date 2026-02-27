@@ -15,38 +15,38 @@ def in_separable_ball(mat: np.ndarray) -> bool | np.bool_:
     This function is adapted from QETLAB.
 
     Examples:
-    The only states acting on \(\mathbb{C}^m \otimes \mathbb{C}^n\) in the
-    separable ball that do not have full rank are those with exactly 1 zero
-    eigenvalue, and the \(mn - 1\) non-zero eigenvalues equal to each
-    other.
+        The only states acting on \(\mathbb{C}^m \otimes \mathbb{C}^n\) in the
+        separable ball that do not have full rank are those with exactly 1 zero
+        eigenvalue, and the \(mn - 1\) non-zero eigenvalues equal to each
+        other.
 
-    The following is an example of generating a random density matrix with eigenvalues
-    `[1, 1, 1, 0]/3`. This example yields a matrix that is contained within the separable
-    ball.
+        The following is an example of generating a random density matrix with eigenvalues
+        `[1, 1, 1, 0]/3`. This example yields a matrix that is contained within the separable
+        ball.
 
-    ```python exec="1" source="above"
-    from toqito.rand import random_unitary
-    from toqito.state_props import in_separable_ball
-    import numpy as np
-    U = random_unitary(4)
-    lam = np.array([1, 1, 1, 0]) / 3
-    rho = U @ np.diag(lam) @ U.conj().T
-    print(in_separable_ball(rho))
-    ```
+        ```python exec="1" source="above"
+        from toqito.rand import random_unitary
+        from toqito.state_props import in_separable_ball
+        import numpy as np
+        U = random_unitary(4)
+        lam = np.array([1, 1, 1, 0]) / 3
+        rho = U @ np.diag(lam) @ U.conj().T
+        print(in_separable_ball(rho))
+        ```
 
-    The following is an example of generating a random density matrix with eigenvalues
-    `[1.01, 1, 0.99, 0]/3`. This example yields a matrix that is not contained within the
-    separable ball.
+        The following is an example of generating a random density matrix with eigenvalues
+        `[1.01, 1, 0.99, 0]/3`. This example yields a matrix that is not contained within the
+        separable ball.
 
-    ```python exec="1" source="above"
-    from toqito.rand import random_unitary
-    from toqito.state_props import in_separable_ball
-    import numpy as np
-    U = random_unitary(4)
-    lam = np.array([1.01, 1, 0.99, 0]) / 3
-    rho = U @ np.diag(lam) @ U.conj().T
-    print(in_separable_ball(rho))
-    ```
+        ```python exec="1" source="above"
+        from toqito.rand import random_unitary
+        from toqito.state_props import in_separable_ball
+        import numpy as np
+        U = random_unitary(4)
+        lam = np.array([1.01, 1, 0.99, 0]) / 3
+        rho = U @ np.diag(lam) @ U.conj().T
+        print(in_separable_ball(rho))
+        ```
 
     Args:
         mat: A positive semidefinite matrix or a vector of the eigenvalues of a positive semidefinite matrix.

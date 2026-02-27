@@ -21,35 +21,35 @@ def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
     More information on the trace distance can be found in [@Quantiki_TrDist].
 
     Examples:
-    Consider the following Bell state
+        Consider the following Bell state
 
-    \[
-        u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \in \mathcal{X}.
-    \]
+        \[
+            u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \in \mathcal{X}.
+        \]
 
-    The corresponding density matrix of \(u\) may be calculated by:
+        The corresponding density matrix of \(u\) may be calculated by:
 
-    \[
-        \rho = u u^* = \begin{pmatrix}
-                         1 & 0 & 0 & 1 \\
-                         0 & 0 & 0 & 0 \\
-                         0 & 0 & 0 & 0 \\
-                         1 & 0 & 0 & 1
-                       \end{pmatrix} \in \text{D}(\mathcal{X}).
-    \]
+        \[
+            \rho = u u^* = \begin{pmatrix}
+                             1 & 0 & 0 & 1 \\
+                             0 & 0 & 0 & 0 \\
+                             0 & 0 & 0 & 0 \\
+                             1 & 0 & 0 & 1
+                           \end{pmatrix} \in \text{D}(\mathcal{X}).
+        \]
 
-    The trace distance between \(\rho\) and another state \(\sigma\) is equal to \(0\) if any only if
-    \(\rho = \sigma\). We can check this using the `|toqito⟩` package.
+        The trace distance between \(\rho\) and another state \(\sigma\) is equal to \(0\) if any only if
+        \(\rho = \sigma\). We can check this using the `|toqito⟩` package.
 
-    ```python exec="1" source="above"
-    from toqito.states import bell
-    from toqito.state_metrics import trace_distance
+        ```python exec="1" source="above"
+        from toqito.states import bell
+        from toqito.state_metrics import trace_distance
 
-    rho = bell(0) @ bell(0).conj().T
-    sigma = rho
+        rho = bell(0) @ bell(0).conj().T
+        sigma = rho
 
-    print(trace_distance(rho, sigma))
-    ```
+        print(trace_distance(rho, sigma))
+        ```
 
     Raises:
         ValueError: If matrices are not of density operators.

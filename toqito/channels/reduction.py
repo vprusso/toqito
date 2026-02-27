@@ -20,15 +20,15 @@ def reduction(dim: int, k: int = 1) -> np.ndarray:
     where \(\mathbb{I}\) is the identity matrix. This map is \(k\)-positive.
 
     Examples:
-    Using `|toqito⟩`, we can generate the \(3\)-dimensional (or standard) reduction map
-    as follows.
+        Using `|toqito⟩`, we can generate the \(3\)-dimensional (or standard) reduction map
+        as follows.
 
 
-    ```python exec="1" source="above"
-    from toqito.channels import reduction
+        ```python exec="1" source="above"
+        from toqito.channels import reduction
 
-    print(reduction(3))
-    ```
+        print(reduction(3))
+        ```
 
     Args:
         dim: A positive integer (the dimension of the reduction map).

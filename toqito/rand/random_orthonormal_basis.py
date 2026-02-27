@@ -12,21 +12,21 @@ def random_orthonormal_basis(dim: int, is_real: bool = False, seed: int | None =
     as the columns of a unitary matrix typically form an orthonormal basis [@SE_1688950].
 
     Examples:
-    To generate a random orthonormal basis of dimension \(4\),
+        To generate a random orthonormal basis of dimension \(4\),
 
-    ```python exec="1" source="above"
-    from toqito.rand import random_orthonormal_basis
+        ```python exec="1" source="above"
+        from toqito.rand import random_orthonormal_basis
 
-    print(random_orthonormal_basis(4, is_real = True))
-    ```
+        print(random_orthonormal_basis(4, is_real = True))
+        ```
 
-    It is also possible to add a seed for reproducibility.
+        It is also possible to add a seed for reproducibility.
 
-    ```python exec="1" source="above"
-    from toqito.rand import random_orthonormal_basis
+        ```python exec="1" source="above"
+        from toqito.rand import random_orthonormal_basis
 
-    print(random_orthonormal_basis(2, is_real=True, seed=42))
-    ```
+        print(random_orthonormal_basis(2, is_real=True, seed=42))
+        ```
 
     Args:
         dim: Number of elements in the random orthonormal basis.

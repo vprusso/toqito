@@ -47,20 +47,20 @@ def sk_operator_norm(
     This function was adapted from QETLAB.
 
     Examples:
-    The \(S(1)\)-norm of a Werner state \(\rho_a \in M_n \otimes M_n\) is
+        The \(S(1)\)-norm of a Werner state \(\rho_a \in M_n \otimes M_n\) is
 
-    \[
-        \big|\big| \rho_a \big|\big|_{S(1)} = \frac{1 + |min\{a, 0\}|}{n (n - a)}
-    \]
+        \[
+            \big|\big| \rho_a \big|\big|_{S(1)} = \frac{1 + |min\{a, 0\}|}{n (n - a)}
+        \]
 
-    ```python exec="1" source="above"
-    from toqito.states.werner import werner
-    from toqito.matrix_props.sk_norm import sk_operator_norm
+        ```python exec="1" source="above"
+        from toqito.states.werner import werner
+        from toqito.matrix_props.sk_norm import sk_operator_norm
 
-    rho = werner(4, 0.)
+        rho = werner(4, 0.)
 
-    print(sk_operator_norm(rho))
-    ```
+        print(sk_operator_norm(rho))
+        ```
 
     Raises:
         ValueError: If dimension of the input matrix is not specified.

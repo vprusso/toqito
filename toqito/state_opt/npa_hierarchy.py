@@ -500,43 +500,43 @@ def bell_npa_constraints(
     - ``p_var[i, j]`` corresponds to the expectation of the product \(A_{a|x} B_{b|y}\).
 
     Examples:
-    Consider the CHSH inequality scenario with ``desc = [2, 2, 2, 2]``. We want to generate the NPA level 1 constraints.
+        Consider the CHSH inequality scenario with ``desc = [2, 2, 2, 2]``. We want to generate the NPA level 1 constraints.
 
-    ```python exec="1" source="above" session="npa_example"
-    import cvxpy
-    import numpy as np
-    from toqito.state_opt.npa_hierarchy import bell_npa_constraints
-    desc = [2, 2, 2, 2]
-    oa, ob, ma, mb = desc
-    p_var_dim = ((oa - 1) * ma + 1, (ob - 1) * mb + 1)
-    p_var = cvxpy.Variable(p_var_dim, name="p_cg")
-    constraints = bell_npa_constraints(p_var, desc, k=1)
-    print(len(constraints))
-    print(constraints[0])
-    ```
+        ```python exec="1" source="above" session="npa_example"
+        import cvxpy
+        import numpy as np
+        from toqito.state_opt.npa_hierarchy import bell_npa_constraints
+        desc = [2, 2, 2, 2]
+        oa, ob, ma, mb = desc
+        p_var_dim = ((oa - 1) * ma + 1, (ob - 1) * mb + 1)
+        p_var = cvxpy.Variable(p_var_dim, name="p_cg")
+        constraints = bell_npa_constraints(p_var, desc, k=1)
+        print(len(constraints))
+        print(constraints[0])
+        ```
 
-    We can also use intermediate levels, like "1+ab":
+        We can also use intermediate levels, like "1+ab":
 
-    ```python exec="1" source="above" session="npa_example"
-    constraints_1ab = bell_npa_constraints(p_var, desc, k="1+ab")
-    print(len(constraints_1ab))
-    print(constraints_1ab[0])
-    ```
+        ```python exec="1" source="above" session="npa_example"
+        constraints_1ab = bell_npa_constraints(p_var, desc, k="1+ab")
+        print(len(constraints_1ab))
+        print(constraints_1ab[0])
+        ```
 
-    For the CGLMP inequality with ``dim=3``, ``desc = [3, 3, 2, 2]``, level 1:
+        For the CGLMP inequality with ``dim=3``, ``desc = [3, 3, 2, 2]``, level 1:
 
-    ```python exec="1" source="above"
-    import cvxpy
-    import numpy as np
-    from toqito.state_opt.npa_hierarchy import bell_npa_constraints
-    desc_cglmp = [3, 3, 2, 2]
-    oa_c, ob_c, ma_c, mb_c = desc_cglmp
-    p_var_dim_c = ((oa_c - 1) * ma_c + 1, (ob_c - 1) * mb_c + 1)
-    p_var_c = cvxpy.Variable(p_var_dim_c, name="p_cglmp")
-    constraints_c = bell_npa_constraints(p_var_c, desc_cglmp, k=1)
-    print(len(constraints_c))
-    print(constraints_c[0])
-    ```
+        ```python exec="1" source="above"
+        import cvxpy
+        import numpy as np
+        from toqito.state_opt.npa_hierarchy import bell_npa_constraints
+        desc_cglmp = [3, 3, 2, 2]
+        oa_c, ob_c, ma_c, mb_c = desc_cglmp
+        p_var_dim_c = ((oa_c - 1) * ma_c + 1, (ob_c - 1) * mb_c + 1)
+        p_var_c = cvxpy.Variable(p_var_dim_c, name="p_cglmp")
+        constraints_c = bell_npa_constraints(p_var_c, desc_cglmp, k=1)
+        print(len(constraints_c))
+        print(constraints_c[0])
+        ```
 
 
     Raises:
@@ -544,8 +544,8 @@ def bell_npa_constraints(
 
     Args:
         p_var: A CVXPY Variable representing probabilities/correlations in Collins-Gisin notation.
-                  Shape: :math:`((oa-1) \times ma+1, (ob-1) \times mb+1)`.
-        desc: A list [:math:`oa`, :math:`ob`, :math:`ma`, :math:`mb`]
+                  Shape: \(((oa-1) \times ma+1, (ob-1) \times mb+1)\).
+        desc: A list [\(oa\), \(ob\), \(ma\), \(mb\)]
                     specifying outputs and inputs for Alice and Bob.
         k: The level of the NPA hierarchy (integer or string like "1+ab"). Default is 1.
 

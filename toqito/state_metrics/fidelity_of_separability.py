@@ -78,27 +78,27 @@ def fidelity_of_separability(
     The other constraints are due to the PPT condition [@Peres_1996_Separability].
 
     Examples:
-    Let's consider a density matrix of a state that we know is pure and separable; \(|00 \rangle = |0 \rangle
-    \otimes |0 \rangle\).
+        Let's consider a density matrix of a state that we know is pure and separable; \(|00 \rangle = |0 \rangle
+        \otimes |0 \rangle\).
 
-    The expected approximation of fidelity of separability is the maximum value possible i.e. very close to 1.
+        The expected approximation of fidelity of separability is the maximum value possible i.e. very close to 1.
 
-    \[
-        \rho_{AB} = |00 \rangle \langle 00|
-    \]
+        \[
+            \rho_{AB} = |00 \rangle \langle 00|
+        \]
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.state_metrics import fidelity_of_separability
-    from toqito.matrix_ops import tensor
-    from toqito.states import basis
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.state_metrics import fidelity_of_separability
+        from toqito.matrix_ops import tensor
+        from toqito.states import basis
 
-    state = tensor(basis(2, 0), basis(2, 0))
-    rho = state @ state.conj().T
+        state = tensor(basis(2, 0), basis(2, 0))
+        rho = state @ state.conj().T
 
-    print(np.around(fidelity_of_separability(rho, [2, 2]), decimals=2))
-    ```
-        is PSD with trace 1).
+        print(np.around(fidelity_of_separability(rho, [2, 2]), decimals=2))
+        ```
+            is PSD with trace 1).
 
     Raises:
         AssertionError: If the provided dimensions are not for a bipartite density matrix.

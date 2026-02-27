@@ -34,19 +34,19 @@ def tile(idx: int) -> np.ndarray:
     \]
 
     Examples:
-    When `idx = 0`, this produces the following tile state
+        When `idx = 0`, this produces the following tile state
 
-    \[
-        \frac{1}{\sqrt{2}} |0\rangle \left( |0\rangle - |1\rangle \right).
-    \]
+        \[
+            \frac{1}{\sqrt{2}} |0\rangle \left( |0\rangle - |1\rangle \right).
+        \]
 
-    Using `|toqito⟩`, we can see that this yields the proper state.
+        Using `|toqito⟩`, we can see that this yields the proper state.
 
-    ```python exec="1" source="above"
-    from toqito.states import tile
-    import numpy as np
-    print(tile(0))
-    ```
+        ```python exec="1" source="above"
+        from toqito.states import tile
+        import numpy as np
+        print(tile(0))
+        ```
 
     Raises:
         ValueError: Invalid value for `idx`.

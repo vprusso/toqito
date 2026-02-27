@@ -12,26 +12,26 @@ def spark(mat: np.ndarray) -> int:
     dependent [@Elad_2010_Sparse].
 
     Examples:
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import spark
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import spark
 
-    A = np.array([[1, 0, 1, 2],
-                  [0, 1, 1, 3],
-                  [1, 1, 2, 5]])
+        A = np.array([[1, 0, 1, 2],
+                      [0, 1, 1, 3],
+                      [1, 1, 2, 5]])
 
-    print(spark(A))
-    ```
+        print(spark(A))
+        ```
 
-    Notes
-    - This function only works for 2D NumPy arrays.
-    - If all columns are linearly independent, the function returns n_cols + 1.
-    - The time complexity of this implementation is O(2^n) in the worst case,
-      where n is the number of columns.
-    - For an m x n matrix A with n >= m:
-        - If spark(A) = m + 1, then rank(A) = m (full rank).
-        - If spark(A) = 1, then the matrix has a zero column.
-        - If spark(A) <= rank(A) + 1, then the matrix has dependent columns.
+        Notes
+        - This function only works for 2D NumPy arrays.
+        - If all columns are linearly independent, the function returns n_cols + 1.
+        - The time complexity of this implementation is O(2^n) in the worst case,
+          where n is the number of columns.
+        - For an m x n matrix A with n >= m:
+            - If spark(A) = m + 1, then rank(A) = m (full rank).
+            - If spark(A) = 1, then the matrix has a zero column.
+            - If spark(A) <= rank(A) + 1, then the matrix has dependent columns.
 
     Raises:
         ValueError: If the input is not a 2D NumPy array.

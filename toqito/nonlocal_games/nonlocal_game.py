@@ -266,65 +266,65 @@ class NonlocalGame:
         \]
 
         Examples:
-        The CHSH game
+            The CHSH game
 
-        The CHSH game is a two-player nonlocal game with the following
-        probability distribution and question and answer sets.
+            The CHSH game is a two-player nonlocal game with the following
+            probability distribution and question and answer sets.
 
-        \[
-            \begin{equation}
-            \begin{aligned}
-                \pi(x,y) = \frac{1}{4}, \qquad (x,y) \in \Sigma_A \times \Sigma_B,
-                \qquad \text{and} \qquad (a, b) \in \Gamma_A \times \Gamma_B,
-            \end{aligned}
-            \end{equation}
-        \]
+            \[
+                \begin{equation}
+                \begin{aligned}
+                    \pi(x,y) = \frac{1}{4}, \qquad (x,y) \in \Sigma_A \times \Sigma_B,
+                    \qquad \text{and} \qquad (a, b) \in \Gamma_A \times \Gamma_B,
+                \end{aligned}
+                \end{equation}
+            \]
 
-        where
+            where
 
-        \[
-            \begin{equation}
-            \Sigma_A = \{0, 1\}, \quad \Sigma_B = \{0, 1\}, \quad \Gamma_A =
-            \{0,1\}, \quad \text{and} \quad \Gamma_B = \{0, 1\}.
-            \end{equation}
-        \]
+            \[
+                \begin{equation}
+                \Sigma_A = \{0, 1\}, \quad \Sigma_B = \{0, 1\}, \quad \Gamma_A =
+                \{0,1\}, \quad \text{and} \quad \Gamma_B = \{0, 1\}.
+                \end{equation}
+            \]
 
-        Alice and Bob win the CHSH game if and only if the following equation is
-        satisfied.
+            Alice and Bob win the CHSH game if and only if the following equation is
+            satisfied.
 
-        \[
-            \begin{equation}
-            a \oplus b = x \land y.
-            \end{equation}
-        \]
+            \[
+                \begin{equation}
+                a \oplus b = x \land y.
+                \end{equation}
+            \]
 
-        Recall that \(\oplus\) refers to the XOR operation.
+            Recall that \(\oplus\) refers to the XOR operation.
 
-        The optimal quantum value of CHSH is
-        \(\cos(\pi/8)^2 \approx 0.8536\) where the optimal classical value
-        is \(3/4\).
+            The optimal quantum value of CHSH is
+            \(\cos(\pi/8)^2 \approx 0.8536\) where the optimal classical value
+            is \(3/4\).
 
-        ```python exec="1" source="above"
-        import numpy as np
-        from toqito.nonlocal_games.nonlocal_game import NonlocalGame
+            ```python exec="1" source="above"
+            import numpy as np
+            from toqito.nonlocal_games.nonlocal_game import NonlocalGame
 
-        dim = 2
-        num_alice_inputs, num_alice_outputs = 2, 2
-        num_bob_inputs, num_bob_outputs = 2, 2
-        prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
-        pred_mat = np.zeros((num_alice_outputs, num_bob_outputs, num_alice_inputs, num_bob_inputs))
+            dim = 2
+            num_alice_inputs, num_alice_outputs = 2, 2
+            num_bob_inputs, num_bob_outputs = 2, 2
+            prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
+            pred_mat = np.zeros((num_alice_outputs, num_bob_outputs, num_alice_inputs, num_bob_inputs))
 
-        for a_alice in range(num_alice_outputs):
-            for b_bob in range(num_bob_outputs):
-               for x_alice in range(num_alice_inputs):
-                   for y_bob in range(num_bob_inputs):
-                       if np.mod(a_alice + b_bob + x_alice * y_bob, dim) == 0:
-                           pred_mat[a_alice, b_bob, x_alice, y_bob] = 1
+            for a_alice in range(num_alice_outputs):
+                for b_bob in range(num_bob_outputs):
+                   for x_alice in range(num_alice_inputs):
+                       for y_bob in range(num_bob_inputs):
+                           if np.mod(a_alice + b_bob + x_alice * y_bob, dim) == 0:
+                               pred_mat[a_alice, b_bob, x_alice, y_bob] = 1
 
-        chsh = NonlocalGame(prob_mat, pred_mat)
+            chsh = NonlocalGame(prob_mat, pred_mat)
 
-        print(chsh.quantum_value_lower_bound())
-        ```
+            print(chsh.quantum_value_lower_bound())
+            ```
 
         Args:
             dim: The dimension of the quantum system that Alice and Bob have

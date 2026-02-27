@@ -10,14 +10,14 @@ def to_density_matrix(input_array: np.ndarray) -> np.ndarray:
     If the input is already a density matrix (square matrix), it returns the matrix as is.
 
     Examples:
-    As an example, consider one of the Bell states.
+        As an example, consider one of the Bell states.
 
-    ```python exec="1" source="above"
-    from toqito.states import bell
-    from toqito.matrix_ops import to_density_matrix
+        ```python exec="1" source="above"
+        from toqito.states import bell
+        from toqito.matrix_ops import to_density_matrix
 
-    print(to_density_matrix(bell(0)))
-    ```
+        print(to_density_matrix(bell(0)))
+        ```
 
 
     Raises:

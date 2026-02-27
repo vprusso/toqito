@@ -26,87 +26,87 @@ def random_density_matrix(
         The Bures measure.
 
     Examples:
-    Using `|toqito⟩`, we may generate a random complex-valued \(n\)- dimensional density matrix. For
-    \(d=2\), this can be accomplished as follows.
+        Using `|toqito⟩`, we may generate a random complex-valued \(n\)- dimensional density matrix. For
+        \(d=2\), this can be accomplished as follows.
 
-    ```python exec="1" source="above" session="complex_dm_example"
-    from toqito.rand import random_density_matrix
+        ```python exec="1" source="above" session="complex_dm_example"
+        from toqito.rand import random_density_matrix
 
-    complex_dm = random_density_matrix(2)
+        complex_dm = random_density_matrix(2)
 
-    print(complex_dm)
-    ```
-
-
-    We can verify that this is in fact a valid density matrix using the `is_density` function from
-    `|toqito⟩` as follows
-
-    ```python exec="1" source="above" session="complex_dm_example"
-    from toqito.matrix_props import is_density
-
-    print(is_density(complex_dm))
-    ```
+        print(complex_dm)
+        ```
 
 
-    We can also generate random density matrices that are real-valued as follows.
+        We can verify that this is in fact a valid density matrix using the `is_density` function from
+        `|toqito⟩` as follows
 
-    ```python exec="1" source="above" session="real_dm_example"
-    from toqito.rand import random_density_matrix
+        ```python exec="1" source="above" session="complex_dm_example"
+        from toqito.matrix_props import is_density
 
-    real_dm = random_density_matrix(2, is_real=True)
-
-    print(real_dm)
-    ```
-
+        print(is_density(complex_dm))
+        ```
 
 
-    Again, verifying that this is a valid density matrix can be done as follows.
+        We can also generate random density matrices that are real-valued as follows.
 
-    ```python exec="1" source="above" session="real_dm_example"
-    from toqito.matrix_props import is_density
+        ```python exec="1" source="above" session="real_dm_example"
+        from toqito.rand import random_density_matrix
 
-    print(is_density(real_dm))
-    ```
+        real_dm = random_density_matrix(2, is_real=True)
 
-    By default, the random density operators are constructed using the Haar measure. We can select to generate the
-    random density matrix according to the Bures metric instead as follows.
-
-    ```python exec="1" source="above" session="bures_dm_example"
-    from toqito.rand import random_density_matrix
-
-    bures_mat = random_density_matrix(2, distance_metric="bures")
-
-    print(bures_mat)
-    ```
+        print(real_dm)
+        ```
 
 
-    As before, we can verify that this matrix generated is a valid density matrix.
 
-    ```python exec="1" source="above" session="bures_dm_example"
-    from toqito.matrix_props import is_density
+        Again, verifying that this is a valid density matrix can be done as follows.
 
-    print(is_density(bures_mat))
-    ```
+        ```python exec="1" source="above" session="real_dm_example"
+        from toqito.matrix_props import is_density
 
-    It is also possible to pass a seed to this function for reproducibility.
-    ```python exec="1" source="above" session="seeded_dm_example"
-    from toqito.rand import random_density_matrix
+        print(is_density(real_dm))
+        ```
 
-    seeded = random_density_matrix(2, seed=42)
+        By default, the random density operators are constructed using the Haar measure. We can select to generate the
+        random density matrix according to the Bures metric instead as follows.
 
-    print(seeded)
-    ```
+        ```python exec="1" source="above" session="bures_dm_example"
+        from toqito.rand import random_density_matrix
 
-    We can once again verify that this is in fact a valid density matrix using the
-    `is_density` function from `|toqito⟩` as follows
+        bures_mat = random_density_matrix(2, distance_metric="bures")
 
-    ```python exec="1" source="above" session="seeded_dm_example"
-    from toqito.matrix_props import is_density
+        print(bures_mat)
+        ```
 
-    seeded = random_density_matrix(2, seed=42)
 
-    print(is_density(seeded))
-    ```
+        As before, we can verify that this matrix generated is a valid density matrix.
+
+        ```python exec="1" source="above" session="bures_dm_example"
+        from toqito.matrix_props import is_density
+
+        print(is_density(bures_mat))
+        ```
+
+        It is also possible to pass a seed to this function for reproducibility.
+        ```python exec="1" source="above" session="seeded_dm_example"
+        from toqito.rand import random_density_matrix
+
+        seeded = random_density_matrix(2, seed=42)
+
+        print(seeded)
+        ```
+
+        We can once again verify that this is in fact a valid density matrix using the
+        `is_density` function from `|toqito⟩` as follows
+
+        ```python exec="1" source="above" session="seeded_dm_example"
+        from toqito.matrix_props import is_density
+
+        seeded = random_density_matrix(2, seed=42)
+
+        print(is_density(seeded))
+        ```
 
 
 

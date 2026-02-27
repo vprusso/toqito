@@ -16,32 +16,32 @@ def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True)
     `sqrt(dim)` if `is_normalized = False`.
 
     Examples:
-    We can generate the canonical \(2\)-dimensional maximally entangled state
+        We can generate the canonical \(2\)-dimensional maximally entangled state
 
-    \[
-        u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right)
-    \]
+        \[
+            u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right)
+        \]
 
-    using `|toqito⟩` as follows.
+        using `|toqito⟩` as follows.
 
-    ```python exec="1" source="above"
-    from toqito.states import max_entangled
-    print(max_entangled(2))
-    ```
+        ```python exec="1" source="above"
+        from toqito.states import max_entangled
+        print(max_entangled(2))
+        ```
 
 
-    By default, the state returned in normalized, however we can generate the unnormalized state
+        By default, the state returned in normalized, however we can generate the unnormalized state
 
-    \[
-        v = |00\rangle + |11 \rangle
-    \]
+        \[
+            v = |00\rangle + |11 \rangle
+        \]
 
-    using `|toqito⟩` as follows.
+        using `|toqito⟩` as follows.
 
-    ```python exec="1" source="above"
-    from toqito.states import max_entangled
-    print(max_entangled(2, False, False))
-    ```
+        ```python exec="1" source="above"
+        from toqito.states import max_entangled
+        print(max_entangled(2, False, False))
+        ```
 
     Args:
         dim: Dimension of the entangled state.

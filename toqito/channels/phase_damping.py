@@ -20,17 +20,17 @@ def phase_damping(
     \]
 
     Examples:
-    Applying the phase damping channel to a qubit state:
+        Applying the phase damping channel to a qubit state:
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.channels.phase_damping import phase_damping
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.channels.phase_damping import phase_damping
 
-    rho = np.array([[1, 0.5], [0.5, 1]])
-    result = phase_damping(rho, gamma=0.2)
+        rho = np.array([[1, 0.5], [0.5, 1]])
+        result = phase_damping(rho, gamma=0.2)
 
-    print(result)
-    ```
+        print(result)
+        ```
 
     Args:
         input_mat: The input matrix to apply the channel to. If `None`, the function returns the Kraus operators.

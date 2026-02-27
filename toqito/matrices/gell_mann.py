@@ -66,21 +66,21 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | csr_array:
     \]
 
     Examples:
-    The Gell-Mann matrix generated from `idx = 2` yields the following
-    matrix:
+        The Gell-Mann matrix generated from `idx = 2` yields the following
+        matrix:
 
-    \[
-        \lambda_2 = \begin{pmatrix}
-                            0 & -i & 0 \\
-                            i & 0 & 0 \\
-                            0 & 0 & 0
-                    \end{pmatrix}
-    \]
-    ```python exec="1" source="above"
-    from toqito.matrices import gell_mann
+        \[
+            \lambda_2 = \begin{pmatrix}
+                                0 & -i & 0 \\
+                                i & 0 & 0 \\
+                                0 & 0 & 0
+                        \end{pmatrix}
+        \]
+        ```python exec="1" source="above"
+        from toqito.matrices import gell_mann
 
-    print(gell_mann(ind=2))
-    ```
+        print(gell_mann(ind=2))
+        ```
 
     Raises:
         ValueError: Indices must be integers between 0 and 8.

@@ -34,25 +34,25 @@ def pauli_channel(
     integer \(q\) (number of qubits).
 
     Examples:
-    Generate a random single-qubit Pauli channel:
+        Generate a random single-qubit Pauli channel:
 
-    ```python exec="1" source="above"
-    from toqito.channels import pauli_channel
+        ```python exec="1" source="above"
+        from toqito.channels import pauli_channel
 
-    print(pauli_channel(prob=1))
-    ```
+        print(pauli_channel(prob=1))
+        ```
 
-    Apply a specific two-qubit Pauli channel to an input matrix:
+        Apply a specific two-qubit Pauli channel to an input matrix:
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.channels import pauli_channel
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.channels import pauli_channel
 
-    _, output = pauli_channel(
-        prob=np.array([0.1, 0.2, 0.3, 0.4]), input_mat=np.eye(2)
-    )
-    print(output)
-    ```
+        _, output = pauli_channel(
+            prob=np.array([0.1, 0.2, 0.3, 0.4]), input_mat=np.eye(2)
+        )
+        print(output)
+        ```
 
     Raises:
         ValueError: If probabilities are negative or don't sum to 1.

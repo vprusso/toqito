@@ -19,45 +19,45 @@ def is_projection(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> 
     where \(X\) is the matrix in question.
 
     Examples:
-    Consider the following matrix
+        Consider the following matrix
 
-    \[
-        A = \begin{pmatrix}
-                0 & 1 \\
-                0 & 1
-            \end{pmatrix}
-    \]
+        \[
+            A = \begin{pmatrix}
+                    0 & 1 \\
+                    0 & 1
+                \end{pmatrix}
+        \]
 
-    our function indicates that this is indeed a projection matrix.
+        our function indicates that this is indeed a projection matrix.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import is_projection
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_projection
 
-    A = np.array([[0, 1], [0, 1]])
+        A = np.array([[0, 1], [0, 1]])
 
-    print(is_projection(A))
-    ```
+        print(is_projection(A))
+        ```
 
-    Alternatively, the following example matrix \(B\) defined as
+        Alternatively, the following example matrix \(B\) defined as
 
-    \[
-        B = \begin{pmatrix}
-                -1 & -1 \\
-                -1 & -1
-            \end{pmatrix}
-    \]
+        \[
+            B = \begin{pmatrix}
+                    -1 & -1 \\
+                    -1 & -1
+                \end{pmatrix}
+        \]
 
-    is not positive definite.
+        is not positive definite.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import is_projection
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_projection
 
-    B = np.array([[-1, -1], [-1, -1]])
+        B = np.array([[-1, -1], [-1, -1]])
 
-    print(is_projection(B))
-    ```
+        print(is_projection(B))
+        ```
 
     Args:
         mat: Matrix to check.

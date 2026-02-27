@@ -9,50 +9,50 @@ def schmidt_decomposition(
     r"""Compute the Schmidt decomposition of a bipartite vector [@WikiScmidtDecomp].
 
     Examples:
-    Consider the \(3\)-dimensional maximally entangled state:
+        Consider the \(3\)-dimensional maximally entangled state:
 
-    \[
-        u = \frac{1}{\sqrt{3}} \left( |000 \rangle + |111 \rangle + |222 \rangle \right).
-    \]
+        \[
+            u = \frac{1}{\sqrt{3}} \left( |000 \rangle + |111 \rangle + |222 \rangle \right).
+        \]
 
-    We can generate this state using the `|toqito⟩` module as follows.
+        We can generate this state using the `|toqito⟩` module as follows.
 
-    ```python exec="1" source="above"
-    from toqito.states import max_entangled
-    print(max_entangled(3))
-    ```
+        ```python exec="1" source="above"
+        from toqito.states import max_entangled
+        print(max_entangled(3))
+        ```
 
-    array([[0.57735027],
-        [0.        ],
-        [0.        ],
-        [0.        ],
-        [0.57735027],
-        [0.        ],
-        [0.        ],
-        [0.        ],
-        [0.57735027]])
+        array([[0.57735027],
+            [0.        ],
+            [0.        ],
+            [0.        ],
+            [0.57735027],
+            [0.        ],
+            [0.        ],
+            [0.        ],
+            [0.57735027]])
 
-    Computing the Schmidt decomposition of \(u\), we can obtain the corresponding singular values of \(u\) as
+        Computing the Schmidt decomposition of \(u\), we can obtain the corresponding singular values of \(u\) as
 
-    \[
-        \frac{1}{\sqrt{3}} \left[1, 1, 1 \right]^{\text{T}}.
-    \]
+        \[
+            \frac{1}{\sqrt{3}} \left[1, 1, 1 \right]^{\text{T}}.
+        \]
 
-    ```python exec="1" source="above"
-    from toqito.states import max_entangled
-    from toqito.state_ops import schmidt_decomposition
+        ```python exec="1" source="above"
+        from toqito.states import max_entangled
+        from toqito.state_ops import schmidt_decomposition
 
-    singular_vals, u_mat, vt_mat = schmidt_decomposition(max_entangled(3))
+        singular_vals, u_mat, vt_mat = schmidt_decomposition(max_entangled(3))
 
-    matrices = {
-        "Singular values": singular_vals,
-        "U matrix": u_mat,
-        "V^T matrix": vt_mat,
-    }
+        matrices = {
+            "Singular values": singular_vals,
+            "U matrix": u_mat,
+            "V^T matrix": vt_mat,
+        }
 
-    for name, mat in matrices.items():
-        print(f"{name}:\n{mat}\n")
-    ```
+        for name, mat in matrices.items():
+            print(f"{name}:\n{mat}\n")
+        ```
 
     Raises:
         ValueError: If matrices are not of equal dimension.

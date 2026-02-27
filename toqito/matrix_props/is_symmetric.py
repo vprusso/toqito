@@ -19,46 +19,46 @@ def is_symmetric(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> b
     \]
 
     Examples:
-    Consider the following matrix
+        Consider the following matrix
 
-    \[
-        A = \begin{pmatrix}
-                1 & 7 & 3 \\
-                7 & 4 & -5 \\
-                3 & -5 & 6
-            \end{pmatrix}
-    \]
+        \[
+            A = \begin{pmatrix}
+                    1 & 7 & 3 \\
+                    7 & 4 & -5 \\
+                    3 & -5 & 6
+                \end{pmatrix}
+        \]
 
-    our function indicates that this is indeed a symmetric matrix.
+        our function indicates that this is indeed a symmetric matrix.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import is_symmetric
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_symmetric
 
-    A = np.array([[1, 7, 3], [7, 4, -5], [3, -5, 6]])
+        A = np.array([[1, 7, 3], [7, 4, -5], [3, -5, 6]])
 
-    print(is_symmetric(A))
-    ```
+        print(is_symmetric(A))
+        ```
 
-    Alternatively, the following example matrix \(B\) defined as
+        Alternatively, the following example matrix \(B\) defined as
 
-    \[
-        B = \begin{pmatrix}
-                1 & 2 \\
-                4 & 5
-            \end{pmatrix}
-    \]
+        \[
+            B = \begin{pmatrix}
+                    1 & 2 \\
+                    4 & 5
+                \end{pmatrix}
+        \]
 
-    is not symmetric.
+        is not symmetric.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import is_symmetric
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_symmetric
 
-    B = np.array([[1, 2], [3, 4]])
+        B = np.array([[1, 2], [3, 4]])
 
-    print(is_symmetric(B))
-    ```
+        print(is_symmetric(B))
+        ```
 
     Args:
         mat: The matrix to check.

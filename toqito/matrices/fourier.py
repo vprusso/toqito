@@ -25,22 +25,22 @@ def fourier(dim: int) -> np.ndarray:
     \]
 
     Examples:
-    The Fourier matrix generated from \(d = 3\) yields the following matrix:
+        The Fourier matrix generated from \(d = 3\) yields the following matrix:
 
-    \[
-        W_3 = \frac{1}{\sqrt{3}}
-        \begin{pmatrix}
-            1 & 1 & 1 \\
-            1 & \omega & \omega^2 \\
-            1 & \omega^2 & \omega^4
-        \end{pmatrix}
-    \]
+        \[
+            W_3 = \frac{1}{\sqrt{3}}
+            \begin{pmatrix}
+                1 & 1 & 1 \\
+                1 & \omega & \omega^2 \\
+                1 & \omega^2 & \omega^4
+            \end{pmatrix}
+        \]
 
-    ```python exec="1" source="above"
-    from toqito.matrices import fourier
+        ```python exec="1" source="above"
+        from toqito.matrices import fourier
 
-    print(fourier(3))
-    ```
+        print(fourier(3))
+        ```
 
     Args:
         dim: The size of the Fourier matrix.

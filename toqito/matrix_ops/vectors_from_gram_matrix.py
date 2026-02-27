@@ -12,28 +12,28 @@ def vectors_from_gram_matrix(gram: np.ndarray) -> list[np.ndarray]:
     eigendecomposition.
 
     Examples:
-    Example of a positive definite matrix:
+        Example of a positive definite matrix:
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_ops import vectors_from_gram_matrix
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_ops import vectors_from_gram_matrix
 
-    gram_matrix = np.array([[2, -1], [-1, 2]])
-    vectors = vectors_from_gram_matrix(gram_matrix)
+        gram_matrix = np.array([[2, -1], [-1, 2]])
+        vectors = vectors_from_gram_matrix(gram_matrix)
 
-    print(vectors)
-    ```
+        print(vectors)
+        ```
 
-    Example of a matrix that is not positive definite:
+        Example of a matrix that is not positive definite:
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_ops import vectors_from_gram_matrix
-    gram_matrix = np.array([[0, 1], [1, 0]])
-    vectors = vectors_from_gram_matrix(gram_matrix)
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_ops import vectors_from_gram_matrix
+        gram_matrix = np.array([[0, 1], [1, 0]])
+        vectors = vectors_from_gram_matrix(gram_matrix)
 
-    print(vectors)  # Matrix is not positive semidefinite. Using eigendecomposition as alternative.
-    ```
+        print(vectors)  # Matrix is not positive semidefinite. Using eigendecomposition as alternative.
+        ```
 
     Raises:
         LinAlgError: If the Gram matrix is not square.

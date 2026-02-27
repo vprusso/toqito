@@ -30,81 +30,81 @@ def partial_trace(
     given by the scalar or vector `sys`.
 
     Examples:
-    Consider the following matrix
+        Consider the following matrix
 
-    \[
-        X = \begin{pmatrix}
-                1 & 2 & 3 & 4 \\
-                5 & 6 & 7 & 8 \\
-                9 & 10 & 11 & 12 \\
-                13 & 14 & 15 & 16
-            \end{pmatrix}.
-    \]
+        \[
+            X = \begin{pmatrix}
+                    1 & 2 & 3 & 4 \\
+                    5 & 6 & 7 & 8 \\
+                    9 & 10 & 11 & 12 \\
+                    13 & 14 & 15 & 16
+                \end{pmatrix}.
+        \]
 
-    Taking the partial trace over the second subsystem of \(X\) yields the following matrix
+        Taking the partial trace over the second subsystem of \(X\) yields the following matrix
 
-    \[
-        X_{pt, 2} = \begin{pmatrix}
-                    7 & 11 \\
-                    23 & 27
-                 \end{pmatrix}.
-    \]
+        \[
+            X_{pt, 2} = \begin{pmatrix}
+                        7 & 11 \\
+                        23 & 27
+                     \end{pmatrix}.
+        \]
 
-    By default, the partial trace function in `|toqito⟩` takes the trace of the second
-    subsystem.
+        By default, the partial trace function in `|toqito⟩` takes the trace of the second
+        subsystem.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_ops import partial_trace
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_ops import partial_trace
 
-    test_input_mat = np.arange(1, 17).reshape(4, 4)
+        test_input_mat = np.arange(1, 17).reshape(4, 4)
 
-    print(partial_trace(test_input_mat))
-    ```
-
-
-    By specifying the `sys = [0]` argument, we can perform the partial trace over the first
-    subsystem (instead of the default second subsystem as done above). Performing the partial
-    trace over the first subsystem yields the following matrix
-
-    \[
-        X_{pt, 1} = \begin{pmatrix}
-                        12 & 14 \\
-                        20 & 22
-                    \end{pmatrix}
-    \]
-
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_ops import partial_trace
-
-    test_input_mat = np.arange(1, 17).reshape(4, 4)
-
-    print(partial_trace(test_input_mat, [0]))
-    ```
-
-    We can also specify both dimension and system size as `list` arguments. Consider the
-    following \(16\)-by-\(16\) matrix.
-
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_ops import partial_trace
-
-    test_input_mat = np.arange(1, 257).reshape(16, 16)
-    print(test_input_mat)
-    ```
+        print(partial_trace(test_input_mat))
+        ```
 
 
-    We can take the partial trace on the first and third subsystems and assume that the size of
-    each of the 4 systems is of dimension 2.
+        By specifying the `sys = [0]` argument, we can perform the partial trace over the first
+        subsystem (instead of the default second subsystem as done above). Performing the partial
+        trace over the first subsystem yields the following matrix
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_ops import partial_trace
-    test_input_mat = np.arange(1, 257).reshape(16, 16)
+        \[
+            X_{pt, 1} = \begin{pmatrix}
+                            12 & 14 \\
+                            20 & 22
+                        \end{pmatrix}
+        \]
 
-    print(partial_trace(test_input_mat, [0, 2], [2, 2, 2, 2]))
-    ```
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_ops import partial_trace
+
+        test_input_mat = np.arange(1, 17).reshape(4, 4)
+
+        print(partial_trace(test_input_mat, [0]))
+        ```
+
+        We can also specify both dimension and system size as `list` arguments. Consider the
+        following \(16\)-by-\(16\) matrix.
+
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_ops import partial_trace
+
+        test_input_mat = np.arange(1, 257).reshape(16, 16)
+        print(test_input_mat)
+        ```
+
+
+        We can take the partial trace on the first and third subsystems and assume that the size of
+        each of the 4 systems is of dimension 2.
+
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_ops import partial_trace
+        test_input_mat = np.arange(1, 257).reshape(16, 16)
+
+        print(partial_trace(test_input_mat, [0, 2], [2, 2, 2, 2]))
+        ```
 
     Raises:
         ValueError: If matrix dimension is not equal to the number of subsystems.

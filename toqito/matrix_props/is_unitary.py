@@ -22,57 +22,57 @@ def is_unitary(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> boo
     where \(\mathbb{I}\) is the identity matrix.
 
     Examples:
-    Consider the following matrix
+        Consider the following matrix
 
-    \[
-        X = \begin{pmatrix}
-            0 & 1 \\
-            1 & 0
-            \end{pmatrix}
-    \]
+        \[
+            X = \begin{pmatrix}
+                0 & 1 \\
+                1 & 0
+                \end{pmatrix}
+        \]
 
-    our function indicates that this is indeed a unitary matrix.
+        our function indicates that this is indeed a unitary matrix.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import is_unitary
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_unitary
 
-    A = np.array([[0, 1], [1, 0]])
+        A = np.array([[0, 1], [1, 0]])
 
-    print(is_unitary(A))
-    ```
+        print(is_unitary(A))
+        ```
 
-    We may also use the `random_unitary` function from `toqito`, and can verify that a randomly
-    generated matrix is unitary
+        We may also use the `random_unitary` function from `toqito`, and can verify that a randomly
+        generated matrix is unitary
 
-    ```python exec="1" source="above"
-    from toqito.matrix_props import is_unitary
-    from toqito.rand import random_unitary
+        ```python exec="1" source="above"
+        from toqito.matrix_props import is_unitary
+        from toqito.rand import random_unitary
 
-    mat = random_unitary(2)
+        mat = random_unitary(2)
 
-    print(is_unitary(mat))
-    ```
+        print(is_unitary(mat))
+        ```
 
-    Alternatively, the following example matrix \(B\) defined as
+        Alternatively, the following example matrix \(B\) defined as
 
-    \[
-        B = \begin{pmatrix}
-            1 & 0 \\
-            1 & 1
-            \end{pmatrix}
-    \]
+        \[
+            B = \begin{pmatrix}
+                1 & 0 \\
+                1 & 1
+                \end{pmatrix}
+        \]
 
-    is not unitary.
+        is not unitary.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import is_unitary
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_unitary
 
-    B = np.array([[1, 0], [1, 1]])
+        B = np.array([[1, 0], [1, 1]])
 
-    print(is_unitary(B))
-    ```
+        print(is_unitary(B))
+        ```
 
     Args:
         mat: Matrix to check.

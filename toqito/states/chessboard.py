@@ -15,12 +15,12 @@ def chessboard(mat_params: list[float], s_param: float | None = None, t_param: f
     thus may not be bound entangled.
 
     Examples:
-    The standard chessboard state can be invoked using `|toqito⟩` as
+        The standard chessboard state can be invoked using `|toqito⟩` as
 
-    ```python exec="1" source="above"
-    from toqito.states import chessboard
-    print(chessboard([1, 2, 3, 4, 5, 6], 7, 8))
-    ```
+        ```python exec="1" source="above"
+        from toqito.states import chessboard
+        print(chessboard([1, 2, 3, 4, 5, 6], 7, 8))
+        ```
 
     Args:
         mat_params: Parameters of the chessboard state as defined in [@Bruß_2000_Construction].

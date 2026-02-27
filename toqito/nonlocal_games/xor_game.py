@@ -23,112 +23,112 @@ class XORGame:
     (../../../generated/gallery/nonlocal_games/xor_quantum_val.md).
 
     Examples:
-    The CHSH game
+        The CHSH game
 
-    The CHSH game is a two-player nonlocal game with the following probability
-    distribution and question and answer sets [@Cleve_2008_Strong].
+        The CHSH game is a two-player nonlocal game with the following probability
+        distribution and question and answer sets [@Cleve_2008_Strong].
 
-    \[
-        \begin{equation}
-                \begin{aligned} \pi(x,y) = \frac{1}{4}, \qquad (x,y) \in
-                                                \Sigma_A \times
-                        \Sigma_B, \qquad \text{and} \qquad (a, b) \in \Gamma_A \times
-                        \Gamma_B,
-                \end{aligned}
-        \end{equation}
-    \]
+        \[
+            \begin{equation}
+                    \begin{aligned} \pi(x,y) = \frac{1}{4}, \qquad (x,y) \in
+                                                    \Sigma_A \times
+                            \Sigma_B, \qquad \text{and} \qquad (a, b) \in \Gamma_A \times
+                            \Gamma_B,
+                    \end{aligned}
+            \end{equation}
+        \]
 
-    where
+        where
 
-    \[
-        \begin{equation}
-                \Sigma_A = \{0, 1\}, \quad \Sigma_B = \{0, 1\}, \quad \Gamma_A =
-                \{0,1\}, \quad \text{and} \quad \Gamma_B = \{0, 1\}.
-        \end{equation}
-    \]
+        \[
+            \begin{equation}
+                    \Sigma_A = \{0, 1\}, \quad \Sigma_B = \{0, 1\}, \quad \Gamma_A =
+                    \{0,1\}, \quad \text{and} \quad \Gamma_B = \{0, 1\}.
+            \end{equation}
+        \]
 
-    Alice and Bob win the CHSH game if and only if the following equation is
-    satisfied
+        Alice and Bob win the CHSH game if and only if the following equation is
+        satisfied
 
-    \[
-        \begin{equation}
-        a \oplus b = x \land y.
-        \end{equation}
-    \]
+        \[
+            \begin{equation}
+            a \oplus b = x \land y.
+            \end{equation}
+        \]
 
-    Recall that \(\oplus\) refers to the XOR operation.
+        Recall that \(\oplus\) refers to the XOR operation.
 
-    The optimal quantum value of CHSH is \(\cos(\pi/8)^2 \approx 0.8536\)
-    where the optimal classical value is \(3/4\).
+        The optimal quantum value of CHSH is \(\cos(\pi/8)^2 \approx 0.8536\)
+        where the optimal classical value is \(3/4\).
 
-    In order to specify the CHSH game, we can define the probability matrix and
-    predicate matrix for the CHSH game as `numpy` arrays as follows.
+        In order to specify the CHSH game, we can define the probability matrix and
+        predicate matrix for the CHSH game as `numpy` arrays as follows.
 
-    ```python exec="1" source="above" session="chsh"
-    import numpy as np
+        ```python exec="1" source="above" session="chsh"
+        import numpy as np
 
-    prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
-    pred_mat = np.array([[0, 0], [0, 1]])
-    ```
+        prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
+        pred_mat = np.array([[0, 0], [0, 1]])
+        ```
 
-    In `toqito`, we can calculate both the quantum and classical value of the
-    CHSH game as follows.
+        In `toqito`, we can calculate both the quantum and classical value of the
+        CHSH game as follows.
 
-    ```python exec="1" source="above" session="chsh"
-    import numpy as np
-    from toqito.nonlocal_games.xor_game import XORGame
+        ```python exec="1" source="above" session="chsh"
+        import numpy as np
+        from toqito.nonlocal_games.xor_game import XORGame
 
-    chsh = XORGame(prob_mat, pred_mat)
+        chsh = XORGame(prob_mat, pred_mat)
 
-    print(f"Quantum value of the CHSH game is {np.around(chsh.quantum_value(), decimals=2)}")
-    print(f"Classical value of the CHSH game is {chsh.classical_value()}")
-    ```
+        print(f"Quantum value of the CHSH game is {np.around(chsh.quantum_value(), decimals=2)}")
+        print(f"Classical value of the CHSH game is {chsh.classical_value()}")
+        ```
 
-    The odd cycle game
+        The odd cycle game
 
-    The odd cycle game is another XOR game [@Cleve_2010_Consequences]. For this game, we can
-    specify the probability and predicate matrices as follows.
+        The odd cycle game is another XOR game [@Cleve_2010_Consequences]. For this game, we can
+        specify the probability and predicate matrices as follows.
 
-    ```python exec="1" source="above" session="odd_cycle"
-    import numpy as np
-    prob_mat = np.array(
-    [
-        [0.1, 0.1, 0, 0, 0],
-        [0, 0.1, 0.1, 0, 0],
-        [0, 0, 0.1, 0.1, 0],
-        [0, 0, 0, 0.1, 0.1],
-        [0.1, 0, 0, 0, 0.1],
-    ]
-    )
-    pred_mat = np.array(
-    [
-        [0, 1, 0, 0, 0],
-        [0, 0, 1, 0, 0],
-        [0, 0, 0, 1, 0],
-        [0, 0, 0, 0, 1],
-        [1, 0, 0, 0, 0],
-    ])
-    ```
+        ```python exec="1" source="above" session="odd_cycle"
+        import numpy as np
+        prob_mat = np.array(
+        [
+            [0.1, 0.1, 0, 0, 0],
+            [0, 0.1, 0.1, 0, 0],
+            [0, 0, 0.1, 0.1, 0],
+            [0, 0, 0, 0.1, 0.1],
+            [0.1, 0, 0, 0, 0.1],
+        ]
+        )
+        pred_mat = np.array(
+        [
+            [0, 1, 0, 0, 0],
+            [0, 0, 1, 0, 0],
+            [0, 0, 0, 1, 0],
+            [0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0],
+        ])
+        ```
 
-    In `|toqito⟩`, we can calculate both the quantum and classical value of
-    the odd cycle game as follows.
+        In `|toqito⟩`, we can calculate both the quantum and classical value of
+        the odd cycle game as follows.
 
-    ```python exec="1" source="above" session="odd_cycle"
-    import numpy as np
-    from toqito.nonlocal_games.xor_game import XORGame
+        ```python exec="1" source="above" session="odd_cycle"
+        import numpy as np
+        from toqito.nonlocal_games.xor_game import XORGame
 
-    odd_cycle = XORGame(prob_mat, pred_mat)
+        odd_cycle = XORGame(prob_mat, pred_mat)
 
-    print(f"Quantum value of the odd cycle game is {np.around(odd_cycle.quantum_value(), decimals=2)}")
-    print(f"Classical value of the odd cycle game is {np.around(odd_cycle.classical_value(), decimals=1)}")
-    ```
+        print(f"Quantum value of the odd cycle game is {np.around(odd_cycle.quantum_value(), decimals=2)}")
+        print(f"Classical value of the odd cycle game is {np.around(odd_cycle.classical_value(), decimals=1)}")
+        ```
 
 
-    We can also calculate the nonsignaling value of the odd cycle game.
+        We can also calculate the nonsignaling value of the odd cycle game.
 
-    ```python exec="1" source="above" session="odd_cycle"
-    print(f"Nonsignaling value of the odd cycle game is {np.around(odd_cycle.nonsignaling_value(), decimals=1)}")
-    ```
+        ```python exec="1" source="above" session="odd_cycle"
+        print(f"Nonsignaling value of the odd cycle game is {np.around(odd_cycle.nonsignaling_value(), decimals=1)}")
+        ```
 
     """
 
@@ -213,7 +213,7 @@ class XORGame:
         In other words, \(\pi(x, y)\) corresponds to `prob_mat[x, y]`, and \(f(x,y)\) corresponds to `pred_mat[x, y]`.
 
         Returns:
-        A value between [0, 1] representing the quantum value.
+            A value between [0, 1] representing the quantum value.
 
         """
         alice_in, bob_in = self.prob_mat.shape

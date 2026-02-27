@@ -13,33 +13,33 @@ def trace_norm(rho: np.ndarray) -> float | np.floating:
     \(\rho \rho^*\).
 
     Examples:
-    Consider the following Bell state
+        Consider the following Bell state
 
-    \[
-        u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \in \mathcal{X}.
-    \]
+        \[
+            u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \in \mathcal{X}.
+        \]
 
-    The corresponding density matrix of \(u\) may be calculated by:
+        The corresponding density matrix of \(u\) may be calculated by:
 
-    \[
-        \rho = u u^* = \begin{pmatrix}
-                         1 & 0 & 0 & 1 \\
-                         0 & 0 & 0 & 0 \\
-                         0 & 0 & 0 & 0 \\
-                         1 & 0 & 0 & 1
-                       \end{pmatrix} \in \text{D}(\mathcal{X}).
-    \]
+        \[
+            \rho = u u^* = \begin{pmatrix}
+                             1 & 0 & 0 & 1 \\
+                             0 & 0 & 0 & 0 \\
+                             0 & 0 & 0 & 0 \\
+                             1 & 0 & 0 & 1
+                           \end{pmatrix} \in \text{D}(\mathcal{X}).
+        \]
 
-    It can be observed using `|toqito⟩` that \(||\rho||_1 = 1\) as follows.
+        It can be observed using `|toqito⟩` that \(||\rho||_1 = 1\) as follows.
 
-    ```python exec="1" source="above"
-    from toqito.states import bell
-    from toqito.matrix_props import trace_norm
+        ```python exec="1" source="above"
+        from toqito.states import bell
+        from toqito.matrix_props import trace_norm
 
-    rho = bell(0) @ bell(0).conj().T
+        rho = bell(0) @ bell(0).conj().T
 
-    print(trace_norm(rho))
-    ```
+        print(trace_norm(rho))
+        ```
 
     Args:
         rho: Density operator.

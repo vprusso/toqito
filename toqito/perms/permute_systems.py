@@ -32,90 +32,90 @@ def permute_systems(
     instead of `perm` itself.
 
     Examples:
-    For spaces \(\mathcal{A}\) and \(\mathcal{B}\) where \(\text{dim}(\mathcal{A}) =
-    \text{dim}(\mathcal{B}) = 2\) we may consider an operator \(X \in \mathcal{A} \otimes \mathcal{B}\). Applying the
-    `permute_systems` function with vector \([1,0]\) on \(X\), we may reorient the spaces such that \(X \in
-    \mathcal{B} \otimes \mathcal{A}\).
+        For spaces \(\mathcal{A}\) and \(\mathcal{B}\) where \(\text{dim}(\mathcal{A}) =
+        \text{dim}(\mathcal{B}) = 2\) we may consider an operator \(X \in \mathcal{A} \otimes \mathcal{B}\). Applying the
+        `permute_systems` function with vector \([1,0]\) on \(X\), we may reorient the spaces such that \(X \in
+        \mathcal{B} \otimes \mathcal{A}\).
 
-    For example, if we define \(X \in \mathcal{A} \otimes \mathcal{B}\) as
+        For example, if we define \(X \in \mathcal{A} \otimes \mathcal{B}\) as
 
-    \[
-        X = \begin{pmatrix}
-            1 & 2 & 3 & 4 \\
-            5 & 6 & 7 & 8 \\
-            9 & 10 & 11 & 12 \\
-            13 & 14 & 15 & 16
-        \end{pmatrix},
-    \]
+        \[
+            X = \begin{pmatrix}
+                1 & 2 & 3 & 4 \\
+                5 & 6 & 7 & 8 \\
+                9 & 10 & 11 & 12 \\
+                13 & 14 & 15 & 16
+            \end{pmatrix},
+        \]
 
-    then applying the `permute_systems` function on \(X\) to obtain \(X \in \mathcal{B} \otimes \mathcal{A}\)
-    yield the following matrix
+        then applying the `permute_systems` function on \(X\) to obtain \(X \in \mathcal{B} \otimes \mathcal{A}\)
+        yield the following matrix
 
-    \[
-        X_{[1,0]} = \begin{pmatrix}
-            1 & 3 & 2 & 4 \\
-            9 & 11 & 10 & 12 \\
-            5 & 7 & 6 & 8 \\
-            13 & 15 & 14 & 16
-        \end{pmatrix}.
-    \]
+        \[
+            X_{[1,0]} = \begin{pmatrix}
+                1 & 3 & 2 & 4 \\
+                9 & 11 & 10 & 12 \\
+                5 & 7 & 6 & 8 \\
+                13 & 15 & 14 & 16
+            \end{pmatrix}.
+        \]
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.perms import permute_systems
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.perms import permute_systems
 
-    test_input_mat = np.arange(1, 17).reshape(4, 4)
+        test_input_mat = np.arange(1, 17).reshape(4, 4)
 
-    print(permute_systems(test_input_mat, [1, 0]))
-    ```
+        print(permute_systems(test_input_mat, [1, 0]))
+        ```
 
 
-    For spaces \(\mathcal{A}, \mathcal{B}\), and \(\mathcal{C}\) where \(\text{dim}(\mathcal{A}) =
-    \text{dim}(\mathcal{B}) = \text{dim}(\mathcal{C}) = 2\) we may consider an operator \(X \in \mathcal{A} \otimes
-    \mathcal{B} \otimes \mathcal{C}\). Applying the `permute_systems` function with vector \([1,2,0]\) on
-    \(X\), we may reorient the spaces such that \(X \in \mathcal{B} \otimes \mathcal{C} \otimes \mathcal{A}\).
+        For spaces \(\mathcal{A}, \mathcal{B}\), and \(\mathcal{C}\) where \(\text{dim}(\mathcal{A}) =
+        \text{dim}(\mathcal{B}) = \text{dim}(\mathcal{C}) = 2\) we may consider an operator \(X \in \mathcal{A} \otimes
+        \mathcal{B} \otimes \mathcal{C}\). Applying the `permute_systems` function with vector \([1,2,0]\) on
+        \(X\), we may reorient the spaces such that \(X \in \mathcal{B} \otimes \mathcal{C} \otimes \mathcal{A}\).
 
-    For example, if we define \(X \in \mathcal{A} \otimes \mathcal{B} \otimes \mathcal{C}\) as
+        For example, if we define \(X \in \mathcal{A} \otimes \mathcal{B} \otimes \mathcal{C}\) as
 
-    \[
-        X =
-        \begin{pmatrix}
-            1 & 2 & 3 & 4, 5 & 6 & 7 & 8 \\
-            9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 \\
-            17 & 18 & 19 & 20 & 21 & 22 & 23 & 24 \\
-            25 & 26 & 27 & 28 & 29 & 30 & 31 & 32 \\
-            33 & 34 & 35 & 36 & 37 & 38 & 39 & 40 \\
-            41 & 42 & 43 & 44 & 45 & 46 & 47 & 48 \\
-            49 & 50 & 51 & 52 & 53 & 54 & 55 & 56 \\
-            57 & 58 & 59 & 60 & 61 & 62 & 63 & 64
-        \end{pmatrix},
-    \]
+        \[
+            X =
+            \begin{pmatrix}
+                1 & 2 & 3 & 4, 5 & 6 & 7 & 8 \\
+                9 & 10 & 11 & 12 & 13 & 14 & 15 & 16 \\
+                17 & 18 & 19 & 20 & 21 & 22 & 23 & 24 \\
+                25 & 26 & 27 & 28 & 29 & 30 & 31 & 32 \\
+                33 & 34 & 35 & 36 & 37 & 38 & 39 & 40 \\
+                41 & 42 & 43 & 44 & 45 & 46 & 47 & 48 \\
+                49 & 50 & 51 & 52 & 53 & 54 & 55 & 56 \\
+                57 & 58 & 59 & 60 & 61 & 62 & 63 & 64
+            \end{pmatrix},
+        \]
 
-    then applying the `permute_systems` function on \(X\) to obtain \(X \in \mathcal{B} \otimes \mathcal{C}
-    \otimes \mathcal{C}\) yield the following matrix
+        then applying the `permute_systems` function on \(X\) to obtain \(X \in \mathcal{B} \otimes \mathcal{C}
+        \otimes \mathcal{C}\) yield the following matrix
 
-    \[
-        X_{[1, 2, 0]} =
-        \begin{pmatrix}
-            1 & 5 & 2 & 6 & 3 & 7 & 4, 8 \\
-            33 & 37 & 34 & 38 & 35 & 39 & 36 & 40 \\
-            9 & 13 & 10 & 14 & 11 & 15 & 12 & 16 \\
-            41 & 45 & 42 & 46 & 43 & 47 & 44 & 48 \\
-            17 & 21 & 18 & 22 & 19 & 23 & 20 & 24 \\
-            49 & 53 & 50 & 54 & 51 & 55 & 52 & 56 \\
-            25 & 29 & 26 & 30 & 27 & 31 & 28 & 32 \\
-            57 & 61 & 58 & 62 & 59 & 63 & 60 & 64
-        \end{pmatrix}.
-    \]
+        \[
+            X_{[1, 2, 0]} =
+            \begin{pmatrix}
+                1 & 5 & 2 & 6 & 3 & 7 & 4, 8 \\
+                33 & 37 & 34 & 38 & 35 & 39 & 36 & 40 \\
+                9 & 13 & 10 & 14 & 11 & 15 & 12 & 16 \\
+                41 & 45 & 42 & 46 & 43 & 47 & 44 & 48 \\
+                17 & 21 & 18 & 22 & 19 & 23 & 20 & 24 \\
+                49 & 53 & 50 & 54 & 51 & 55 & 52 & 56 \\
+                25 & 29 & 26 & 30 & 27 & 31 & 28 & 32 \\
+                57 & 61 & 58 & 62 & 59 & 63 & 60 & 64
+            \end{pmatrix}.
+        \]
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.perms import permute_systems
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.perms import permute_systems
 
-    test_input_mat = np.arange(1, 65).reshape(8, 8)
+        test_input_mat = np.arange(1, 65).reshape(8, 8)
 
-    print(permute_systems(test_input_mat, [1, 2, 0]))
-    ```
+        print(permute_systems(test_input_mat, [1, 2, 0]))
+        ```
 
 
 

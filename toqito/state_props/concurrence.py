@@ -27,49 +27,49 @@ def concurrence(rho: np.ndarray) -> float:
     Concurrence can serve as a measure of entanglement.
 
     Examples:
-    Consider the following Bell state:
+        Consider the following Bell state:
 
-    \[
-        u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right).
-    \]
+        \[
+            u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right).
+        \]
 
-    The concurrence of the density matrix \(\rho = u u^*\) defined by the vector \(u\) is
-    given as
+        The concurrence of the density matrix \(\rho = u u^*\) defined by the vector \(u\) is
+        given as
 
-    \[
-        \mathcal{C}(\rho) \approx 1.
-    \]
+        \[
+            \mathcal{C}(\rho) \approx 1.
+        \]
 
-    The following example calculates this quantity using the `|toqito⟩` package.
+        The following example calculates this quantity using the `|toqito⟩` package.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrices import standard_basis
-    from toqito.state_props import concurrence
-    e_0, e_1 = standard_basis(2)
-    e_00, e_11 = np.kron(e_0, e_0), np.kron(e_1, e_1)
-    u_vec = 1 / np.sqrt(2) * (e_00 + e_11)
-    rho = u_vec @ u_vec.conj().T
-    print(concurrence(rho))
-    ```
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrices import standard_basis
+        from toqito.state_props import concurrence
+        e_0, e_1 = standard_basis(2)
+        e_00, e_11 = np.kron(e_0, e_0), np.kron(e_1, e_1)
+        u_vec = 1 / np.sqrt(2) * (e_00 + e_11)
+        rho = u_vec @ u_vec.conj().T
+        print(concurrence(rho))
+        ```
 
-    Consider the concurrence of the following product state
+        Consider the concurrence of the following product state
 
-    \[
-        v = |0\rangle \otimes |1 \rangle.
-    \]
+        \[
+            v = |0\rangle \otimes |1 \rangle.
+        \]
 
-    As this state has no entanglement, the concurrence is zero.
+        As this state has no entanglement, the concurrence is zero.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.states import basis
-    from toqito.state_props import concurrence
-    e_0, e_1 = basis(2, 0), basis(2, 1)
-    v_vec = np.kron(e_0, e_1)
-    sigma = v_vec @ v_vec.conj().T
-    print(concurrence(sigma))
-    ```
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.states import basis
+        from toqito.state_props import concurrence
+        e_0, e_1 = basis(2, 0), basis(2, 1)
+        v_vec = np.kron(e_0, e_1)
+        sigma = v_vec @ v_vec.conj().T
+        print(concurrence(sigma))
+        ```
 
     Raises:
         ValueError: If system is not bipartite.

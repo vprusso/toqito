@@ -21,55 +21,55 @@ def is_pseudo_unitary(mat: np.ndarray, p: int, q: int, rtol: float = 1e-05, atol
         diagonal entries equal to -1
 
     Examples:
-    Consider the following matrix:
+        Consider the following matrix:
 
-    \[
-        A = \begin{pmatrix}
-            cosh(1) & sinh(1) \\
-            sinh(1) & cosh(1)
-        \end{pmatrix}
-    \]
+        \[
+            A = \begin{pmatrix}
+                cosh(1) & sinh(1) \\
+                sinh(1) & cosh(1)
+            \end{pmatrix}
+        \]
 
-    with the signature matrix:
+        with the signature matrix:
 
-    \[
-        J = \begin{pmatrix}
-            1 & 0 \\
-            0 & -1
-        \end{pmatrix}
-    \]
+        \[
+            J = \begin{pmatrix}
+                1 & 0 \\
+                0 & -1
+            \end{pmatrix}
+        \]
 
-    Our function confirms that \(A\) is pseudo-unitary.
+        Our function confirms that \(A\) is pseudo-unitary.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import is_pseudo_unitary
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_pseudo_unitary
 
-    A = np.array([[np.cosh(1), np.sinh(1)], [np.sinh(1), np.cosh(1)]])
+        A = np.array([[np.cosh(1), np.sinh(1)], [np.sinh(1), np.cosh(1)]])
 
-    print(is_pseudo_unitary(A, p=1, q=1))
-    ```
+        print(is_pseudo_unitary(A, p=1, q=1))
+        ```
 
 
-    However, the following matrix :math:B
+        However, the following matrix \(B\)
 
-    \[
-        B = \begin{pmatrix}
-            1 & 0 \\
-            1 & 1
-        \end{pmatrix}
-    \]
+        \[
+            B = \begin{pmatrix}
+                1 & 0 \\
+                1 & 1
+            \end{pmatrix}
+        \]
 
-    is not pseudo-unitary with respect to the same signature matrix:
+        is not pseudo-unitary with respect to the same signature matrix:
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import is_pseudo_unitary
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_pseudo_unitary
 
-    B = np.array([[1, 0], [1, 1]])
+        B = np.array([[1, 0], [1, 1]])
 
-    print(is_pseudo_unitary(B, p=1, q=1))
-    ```
+        print(is_pseudo_unitary(B, p=1, q=1))
+        ```
 
     Raises:
         ValueError: When p < 0 or q < 0.

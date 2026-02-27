@@ -25,48 +25,48 @@ def random_state_vector(
     combining them with a maximally entangled resource state.
 
     Examples:
-    We may generate a random state vector. For instance, here is an example where we can generate a
-    \(2\)-dimensional random state vector.
+        We may generate a random state vector. For instance, here is an example where we can generate a
+        \(2\)-dimensional random state vector.
 
-    ```python exec="1" source="above" session="vec_example"
-    from toqito.rand import random_state_vector
+        ```python exec="1" source="above" session="vec_example"
+        from toqito.rand import random_state_vector
 
-    vec = random_state_vector(2)
+        vec = random_state_vector(2)
 
-    print(vec)
-    ```
+        print(vec)
+        ```
 
-    We can verify that this is in fact a valid state vector by computing the corresponding density
-    matrix of the vector and checking if the density matrix is pure.
+        We can verify that this is in fact a valid state vector by computing the corresponding density
+        matrix of the vector and checking if the density matrix is pure.
 
-    ```python exec="1" source="above" session="vec_example"
-    from toqito.state_props import is_pure
+        ```python exec="1" source="above" session="vec_example"
+        from toqito.state_props import is_pure
 
-    dm = vec @ vec.conj().T
+        dm = vec @ vec.conj().T
 
-    print(is_pure(dm))
-    ```
+        print(is_pure(dm))
+        ```
 
-    It is also possible to pass a seed for reproducibility.
+        It is also possible to pass a seed for reproducibility.
 
-    ```python exec="1" source="above" session="vec_example"
-    from toqito.rand import random_state_vector
+        ```python exec="1" source="above" session="vec_example"
+        from toqito.rand import random_state_vector
 
-    vec = random_state_vector(2, seed=42)
+        vec = random_state_vector(2, seed=42)
 
-    print(vec)
-    ```
+        print(vec)
+        ```
 
-    We can once again verify that this is in fact a valid state vector by computing the
-    corresponding density matrix of the vector and checking if the density matrix is pure.
+        We can once again verify that this is in fact a valid state vector by computing the
+        corresponding density matrix of the vector and checking if the density matrix is pure.
 
-    ```python exec="1" source="above" session="vec_example"
-    from toqito.state_props import is_pure
+        ```python exec="1" source="above" session="vec_example"
+        from toqito.state_props import is_pure
 
-    dm = vec @ vec.conj().T
+        dm = vec @ vec.conj().T
 
-    print(is_pure(dm))
-    ```
+        print(is_pure(dm))
+        ```
 
 
     Args:

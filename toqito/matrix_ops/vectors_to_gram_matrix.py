@@ -13,44 +13,44 @@ def vectors_to_gram_matrix(vectors: list[np.ndarray]) -> np.ndarray:
     For density matrices ρᵢ: G[i, j] = Tr(ρᵢ ρⱼ)
 
     Examples:
-    Example with real vectors:
+        Example with real vectors:
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_ops import vectors_to_gram_matrix
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_ops import vectors_to_gram_matrix
 
-    vectors = [np.array([1, 2]), np.array([3, 4])]
-    gram_matrix = vectors_to_gram_matrix(vectors)
+        vectors = [np.array([1, 2]), np.array([3, 4])]
+        gram_matrix = vectors_to_gram_matrix(vectors)
 
-    print(gram_matrix)
-    ```
+        print(gram_matrix)
+        ```
 
-    Example with complex vectors:
+        Example with complex vectors:
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_ops import vectors_to_gram_matrix
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_ops import vectors_to_gram_matrix
 
-    vectors = [np.array([1+1j, 2+2j]), np.array([3+3j, 4+4j])]
-    gram_matrix = vectors_to_gram_matrix(vectors)
+        vectors = [np.array([1+1j, 2+2j]), np.array([3+3j, 4+4j])]
+        gram_matrix = vectors_to_gram_matrix(vectors)
 
-    print(gram_matrix)
-    ```
+        print(gram_matrix)
+        ```
 
-    Example with density matrices (mixed states):
+        Example with density matrices (mixed states):
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_ops import vectors_to_gram_matrix
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_ops import vectors_to_gram_matrix
 
-    # Two mixed states
-    rho1 = 0.7 * np.array([[1., 0.], [0., 0.]]) + 0.3 * np.eye(2) / 2
-    rho2 = 0.7 * np.array([[0., 0.], [0., 1.]]) + 0.3 * np.eye(2) / 2
-    states = [rho1, rho2]
+        # Two mixed states
+        rho1 = 0.7 * np.array([[1., 0.], [0., 0.]]) + 0.3 * np.eye(2) / 2
+        rho2 = 0.7 * np.array([[0., 0.], [0., 1.]]) + 0.3 * np.eye(2) / 2
+        states = [rho1, rho2]
 
-    gram_matrix = vectors_to_gram_matrix(states)
-    print(gram_matrix)
-    ```
+        gram_matrix = vectors_to_gram_matrix(states)
+        print(gram_matrix)
+        ```
 
     Raises:
         ValueError: If the vectors are not all of the same shape.

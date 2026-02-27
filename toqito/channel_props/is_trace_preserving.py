@@ -44,45 +44,45 @@ def is_trace_preserving(
     \]
 
     Examples:
-    The map \(\Phi\) defined as
+        The map \(\Phi\) defined as
 
-    \[
-        \Phi(X) = X - U X U^*
-    \]
+        \[
+            \Phi(X) = X - U X U^*
+        \]
 
-    is not trace-preserving, where
+        is not trace-preserving, where
 
-    \[
-        U = \frac{1}{\sqrt{2}}
-        \begin{pmatrix}
-            1 & 1 \\
-            -1 & 1
-        \end{pmatrix}.
-    \]
+        \[
+            U = \frac{1}{\sqrt{2}}
+            \begin{pmatrix}
+                1 & 1 \\
+                -1 & 1
+            \end{pmatrix}.
+        \]
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.channel_props import is_trace_preserving
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.channel_props import is_trace_preserving
 
-    unitary_mat = np.array([[1, 1], [-1, 1]]) / np.sqrt(2)
-    kraus_ops = [[np.identity(2), np.identity(2)], [unitary_mat, -unitary_mat]]
+        unitary_mat = np.array([[1, 1], [-1, 1]]) / np.sqrt(2)
+        kraus_ops = [[np.identity(2), np.identity(2)], [unitary_mat, -unitary_mat]]
 
-    print(is_trace_preserving(kraus_ops))
-    ```
+        print(is_trace_preserving(kraus_ops))
+        ```
 
-    As another example, the depolarizing channel is trace-preserving.
+        As another example, the depolarizing channel is trace-preserving.
 
-    ```python exec="1" source="above"
-    from toqito.channels import depolarizing
-    from toqito.channel_props import is_trace_preserving
+        ```python exec="1" source="above"
+        from toqito.channels import depolarizing
+        from toqito.channel_props import is_trace_preserving
 
-    choi_mat = depolarizing(2)
+        choi_mat = depolarizing(2)
 
-    print(is_trace_preserving(choi_mat))
-    ```
+        print(is_trace_preserving(choi_mat))
+        ```
 
-    Further information for determining the trace preserving properties of channels consult (Section: Linear Maps Of
-    Square Operators from [@Watrous_2018_TQI]).
+        Further information for determining the trace preserving properties of channels consult (Section: Linear Maps Of
+        Square Operators from [@Watrous_2018_TQI]).
 
     Args:
         phi: The channel provided as either a Choi matrix or a list of Kraus operators.

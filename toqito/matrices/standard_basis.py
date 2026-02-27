@@ -21,11 +21,11 @@ def standard_basis(dim: int, flatten: bool = False) -> list[np.ndarray]:
     This function was inspired by [@Seshadri_2021_Git, Seshadri_2021_Theory, Seshadri_2021_Versatile]
 
     Examples:
-    ```python exec="1" source="above"
-    from toqito.matrices import standard_basis
+        ```python exec="1" source="above"
+        from toqito.matrices import standard_basis
 
-    print(standard_basis(2))
-    ```
+        print(standard_basis(2))
+        ```
 
     Args:
         dim: The dimension of the basis.

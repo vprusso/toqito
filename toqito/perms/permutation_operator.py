@@ -21,26 +21,26 @@ def permutation_operator(
     is full is `is_sparse` is `False` and sparse if `is_sparse` is `True`.
 
     Examples:
-    The permutation operator obtained with dimension \(d = 2\) is equivalent to the standard swap operator on two
-    qubits
+        The permutation operator obtained with dimension \(d = 2\) is equivalent to the standard swap operator on two
+        qubits
 
-    \[
-        P_{2, [1, 0]} =
-        \begin{pmatrix}
-            1 & 0 & 0 & 0 \\
-            0 & 0 & 1 & 0 \\
-            0 & 1 & 0 & 0 \\
-            0 & 0 & 0 & 1
-        \end{pmatrix}
-    \]
+        \[
+            P_{2, [1, 0]} =
+            \begin{pmatrix}
+                1 & 0 & 0 & 0 \\
+                0 & 0 & 1 & 0 \\
+                0 & 1 & 0 & 0 \\
+                0 & 0 & 0 & 1
+            \end{pmatrix}
+        \]
 
-    Using `|toqito⟩`, this can be achieved in the following manner.
+        Using `|toqito⟩`, this can be achieved in the following manner.
 
-    ```python exec="1" source="above"
-    from toqito.perms import permutation_operator
+        ```python exec="1" source="above"
+        from toqito.perms import permutation_operator
 
-    print(permutation_operator(2, [1, 0]))
-    ```
+        print(permutation_operator(2, [1, 0]))
+        ```
 
 
     Args:

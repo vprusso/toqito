@@ -39,20 +39,20 @@ def abs_ppt_constraints(
     This function is adapted from QETLAB [@QETLAB_link].
 
     Examples:
-    We can compute the constraint matrices for a random density matrix:
+        We can compute the constraint matrices for a random density matrix:
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.rand import random_density_matrix
-    from toqito.state_props import abs_ppt_constraints
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.rand import random_density_matrix
+        from toqito.state_props import abs_ppt_constraints
 
-    rho = random_density_matrix(9)  # assumed to act on a 3 x 3 bipartite system
-    eigs = np.linalg.eigvalsh(rho)
-    constraints = abs_ppt_constraints(eigs, 3)
-    for i, cons in enumerate(constraints, 1):
-        print(f"Constraint {i}:")
-        print(cons)
-    ```
+        rho = random_density_matrix(9)  # assumed to act on a 3 x 3 bipartite system
+        eigs = np.linalg.eigvalsh(rho)
+        constraints = abs_ppt_constraints(eigs, 3)
+        for i, cons in enumerate(constraints, 1):
+            print(f"Constraint {i}:")
+            print(cons)
+        ```
     Raises:
         TypeError: If `eigs` is not a `numpy` ndarray or a `cvxpy` Variable.
 

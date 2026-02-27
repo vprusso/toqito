@@ -20,35 +20,35 @@ def w_state(num_qubits: int, coeff: list[int] | None = None) -> np.ndarray:
     \]
 
     Examples:
-    Using `|toqito⟩`, we can generate the \(3\)-qubit W-state
+        Using `|toqito⟩`, we can generate the \(3\)-qubit W-state
 
-    \[
-        |W_3 \rangle = \frac{1}{\sqrt{3}} \left( |100\rangle + |010 \rangle +
-        |001 \rangle \right)
-    \]
+        \[
+            |W_3 \rangle = \frac{1}{\sqrt{3}} \left( |100\rangle + |010 \rangle +
+            |001 \rangle \right)
+        \]
 
-    as follows.
+        as follows.
 
-    ```python exec="1" source="above"
-    from toqito.states import w_state
-    print(w_state(3))
-    ```
+        ```python exec="1" source="above"
+        from toqito.states import w_state
+        print(w_state(3))
+        ```
 
-    We may also generate a generalized \(W\)-state. For instance, here is a \(4\)-dimensional \(W\)-state
+        We may also generate a generalized \(W\)-state. For instance, here is a \(4\)-dimensional \(W\)-state
 
-    \[
-        \frac{1}{\sqrt{30}} \left( |1000 \rangle + 2|0100 \rangle + 3|0010
-        \rangle + 4 |0001 \rangle \right).
-    \]
+        \[
+            \frac{1}{\sqrt{30}} \left( |1000 \rangle + 2|0100 \rangle + 3|0010
+            \rangle + 4 |0001 \rangle \right).
+        \]
 
-    We can generate this state in `|toqito⟩` as
+        We can generate this state in `|toqito⟩` as
 
-    ```python exec="1" source="above"
-    from toqito.states import w_state
-    import numpy as np
-    coeffs = np.array([1, 2, 3, 4]) / np.sqrt(30)
-    print(w_state(4, coeffs))
-    ```
+        ```python exec="1" source="above"
+        from toqito.states import w_state
+        import numpy as np
+        coeffs = np.array([1, 2, 3, 4]) / np.sqrt(30)
+        print(w_state(4, coeffs))
+        ```
 
     Raises:
         ValueError: The number of qubits must be greater than or equal to 1.

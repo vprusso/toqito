@@ -22,30 +22,30 @@ def kraus_to_choi(kraus_ops: list[np.ndarray] | list[list[np.ndarray]], sys: int
     This function was adapted from the QETLAB package.
 
     Examples:
-    The transpose map:
+        The transpose map:
 
-    The Choi matrix of the transpose map is the swap operator. Notice that the transpose map
-    is *not* completely positive.
+        The Choi matrix of the transpose map is the swap operator. Notice that the transpose map
+        is *not* completely positive.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.channel_ops import kraus_to_choi
-    kraus_1 = np.array([[1, 0], [0, 0]])
-    kraus_2 = np.array([[1, 0], [0, 0]]).conj().T
-    kraus_3 = np.array([[0, 1], [0, 0]])
-    kraus_4 = np.array([[0, 1], [0, 0]]).conj().T
-    kraus_5 = np.array([[0, 0], [1, 0]])
-    kraus_6 = np.array([[0, 0], [1, 0]]).conj().T
-    kraus_7 = np.array([[0, 0], [0, 1]])
-    kraus_8 = np.array([[0, 0], [0, 1]]).conj().T
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.channel_ops import kraus_to_choi
+        kraus_1 = np.array([[1, 0], [0, 0]])
+        kraus_2 = np.array([[1, 0], [0, 0]]).conj().T
+        kraus_3 = np.array([[0, 1], [0, 0]])
+        kraus_4 = np.array([[0, 1], [0, 0]]).conj().T
+        kraus_5 = np.array([[0, 0], [1, 0]])
+        kraus_6 = np.array([[0, 0], [1, 0]]).conj().T
+        kraus_7 = np.array([[0, 0], [0, 1]])
+        kraus_8 = np.array([[0, 0], [0, 1]]).conj().T
 
-    kraus_ops = [[kraus_1, kraus_2], [kraus_3, kraus_4], [kraus_5, kraus_6], [kraus_7, kraus_8]]
-    choi_op = kraus_to_choi(kraus_ops)
-    print(choi_op)
-    ```
+        kraus_ops = [[kraus_1, kraus_2], [kraus_3, kraus_4], [kraus_5, kraus_6], [kraus_7, kraus_8]]
+        choi_op = kraus_to_choi(kraus_ops)
+        print(choi_op)
+        ```
 
-    !!! See Also
-        [choi_to_kraus][toqito.channel_ops.choi_to_kraus.choi_to_kraus]
+        !!! See Also
+            [choi_to_kraus][toqito.channel_ops.choi_to_kraus.choi_to_kraus]
 
     Args:
         kraus_ops: A list of Kraus operators.

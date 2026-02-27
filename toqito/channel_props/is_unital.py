@@ -28,29 +28,29 @@ def is_unital(
     More information can be found in Chapter: Unital Channels And Majorization from [@Watrous_2018_TQI]).
 
     Examples:
-    Consider the channel whose Choi matrix is the swap operator. This channel is an example of a
-    unital channel.
+        Consider the channel whose Choi matrix is the swap operator. This channel is an example of a
+        unital channel.
 
-    ```python exec="1" source="above"
-    from toqito.perms import swap_operator
-    from toqito.channel_props import is_unital
+        ```python exec="1" source="above"
+        from toqito.perms import swap_operator
+        from toqito.channel_props import is_unital
 
-    choi = swap_operator(3)
+        choi = swap_operator(3)
 
-    print(is_unital(choi))
-    ```
+        print(is_unital(choi))
+        ```
 
-    Additionally, the channel whose Choi matrix is the depolarizing channel is another example of
-    a unital channel.
+        Additionally, the channel whose Choi matrix is the depolarizing channel is another example of
+        a unital channel.
 
-    ```python exec="1" source="above"
-    from toqito.channels import depolarizing
-    from toqito.channel_props import is_unital
+        ```python exec="1" source="above"
+        from toqito.channels import depolarizing
+        from toqito.channel_props import is_unital
 
-    choi = depolarizing(4)
+        choi = depolarizing(4)
 
-    print(is_unital(choi))
-    ```
+        print(is_unital(choi))
+        ```
 
     Args:
         phi: The channel provided as either a Choi matrix or a list of Kraus operators.

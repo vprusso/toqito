@@ -14,48 +14,48 @@ def is_pure(state: list[np.ndarray] | np.ndarray) -> bool:
     \]
 
     Examples:
-    Consider the following Bell state:
+        Consider the following Bell state:
 
-    \[
-        u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \in \mathcal{X}.
-    \]
+        \[
+            u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \in \mathcal{X}.
+        \]
 
-    The corresponding density matrix of \(u\) may be calculated by:
+        The corresponding density matrix of \(u\) may be calculated by:
 
-    \[
-        \rho = u u^* = \frac{1}{2} \begin{pmatrix}
-                         1 & 0 & 0 & 1 \\
-                         0 & 0 & 0 & 0 \\
-                         0 & 0 & 0 & 0 \\
-                         1 & 0 & 0 & 1
-                       \end{pmatrix} \in \text{D}(\mathcal{X}).
-    \]
+        \[
+            \rho = u u^* = \frac{1}{2} \begin{pmatrix}
+                             1 & 0 & 0 & 1 \\
+                             0 & 0 & 0 & 0 \\
+                             0 & 0 & 0 & 0 \\
+                             1 & 0 & 0 & 1
+                           \end{pmatrix} \in \text{D}(\mathcal{X}).
+        \]
 
-    Calculating the rank of \(\rho\) yields that the \(\rho\) is a pure state. This can be
-    confirmed in `|toqito⟩` as follows:
+        Calculating the rank of \(\rho\) yields that the \(\rho\) is a pure state. This can be
+        confirmed in `|toqito⟩` as follows:
 
-    ```python exec="1" source="above"
-    from toqito.states import bell
-    from toqito.state_props import is_pure
-    u = bell(0)
-    rho = u @ u.conj().T
-    print(is_pure(rho))
-    ```
+        ```python exec="1" source="above"
+        from toqito.states import bell
+        from toqito.state_props import is_pure
+        u = bell(0)
+        rho = u @ u.conj().T
+        print(is_pure(rho))
+        ```
 
-    It is also possible to determine whether a set of density matrices are pure. For instance, we
-    can see that the density matrices corresponding to the four Bell states yield a result of
-    `True` indicating that all states provided to the function are pure.
+        It is also possible to determine whether a set of density matrices are pure. For instance, we
+        can see that the density matrices corresponding to the four Bell states yield a result of
+        `True` indicating that all states provided to the function are pure.
 
-    ```python exec="1" source="above"
-    from toqito.states import bell
-    from toqito.state_props import is_pure
-    u0, u1, u2, u3 = bell(0), bell(1), bell(2), bell(3)
-    rho0 = u0 @ u0.conj().T
-    rho1 = u1 @ u1.conj().T
-    rho2 = u2 @ u2.conj().T
-    rho3 = u3 @ u3.conj().T
-    print(is_pure([rho0, rho1, rho2, rho3]))
-    ```
+        ```python exec="1" source="above"
+        from toqito.states import bell
+        from toqito.state_props import is_pure
+        u0, u1, u2, u3 = bell(0), bell(1), bell(2), bell(3)
+        rho0 = u0 @ u0.conj().T
+        rho1 = u1 @ u1.conj().T
+        rho2 = u2 @ u2.conj().T
+        rho3 = u3 @ u3.conj().T
+        print(is_pure([rho0, rho1, rho2, rho3]))
+        ```
 
     Args:
         state: The density matrix representing the quantum state or a list of density matrices representing quantum

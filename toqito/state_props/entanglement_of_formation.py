@@ -18,30 +18,30 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int | None = Non
     This function was adapted from QETLAB.
 
     Examples:
-    Compute the entanglement-of-formation of a Bell state.
+        Compute the entanglement-of-formation of a Bell state.
 
-    Let \(u = \frac{1}{\sqrt{2}} \left(|00\rangle + |11\rangle \right)\)
-    and let
+        Let \(u = \frac{1}{\sqrt{2}} \left(|00\rangle + |11\rangle \right)\)
+        and let
 
-    \[
-        \rho = uu^* = \frac{1}{2}\begin{pmatrix}
-                                    1 & 0 & 0 & 1 \\
-                                    0 & 0 & 0 & 0 \\
-                                    0 & 0 & 0 & 0 \\
-                                    1 & 0 & 0 & 1
-                                 \end{pmatrix}.
-    \]
+        \[
+            \rho = uu^* = \frac{1}{2}\begin{pmatrix}
+                                        1 & 0 & 0 & 1 \\
+                                        0 & 0 & 0 & 0 \\
+                                        0 & 0 & 0 & 0 \\
+                                        1 & 0 & 0 & 1
+                                     \end{pmatrix}.
+        \]
 
-    The entanglement-of-formation of \(\rho\) is equal to 1.
+        The entanglement-of-formation of \(\rho\) is equal to 1.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.state_props import entanglement_of_formation
-    from toqito.states import bell
-    u_vec = bell(0)
-    rho = u_vec @ u_vec.conj().T
-    print(entanglement_of_formation(rho))
-    ```
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.state_props import entanglement_of_formation
+        from toqito.states import bell
+        u_vec = bell(0)
+        rho = u_vec @ u_vec.conj().T
+        print(entanglement_of_formation(rho))
+        ```
 
     Raises:
         ValueError: If matrices have improper dimension.

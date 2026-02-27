@@ -13,43 +13,43 @@ def gen_gell_mann(ind_1: int, ind_2: int, dim: int) -> np.ndarray:
     Gell-Mann operators when `dim = 3`.
 
     Examples:
-    The generalized Gell-Mann matrix for `ind_1 = 0`, `ind_2 = 1`
-    and `dim = 2` is given as
+        The generalized Gell-Mann matrix for `ind_1 = 0`, `ind_2 = 1`
+        and `dim = 2` is given as
 
-    \[
-        G_{0, 1, 2} = \begin{pmatrix}
-                         0 & 1 \\
-                         1 & 0
-                      \end{pmatrix}.
-    \]
+        \[
+            G_{0, 1, 2} = \begin{pmatrix}
+                             0 & 1 \\
+                             1 & 0
+                          \end{pmatrix}.
+        \]
 
-    This can be obtained in `|toqito⟩` as follows.
+        This can be obtained in `|toqito⟩` as follows.
 
-    ```python exec="1" source="above"
-    from toqito.matrices import gen_gell_mann
+        ```python exec="1" source="above"
+        from toqito.matrices import gen_gell_mann
 
-    print(gen_gell_mann(ind_1=0, ind_2=1, dim=2))
-    ```
+        print(gen_gell_mann(ind_1=0, ind_2=1, dim=2))
+        ```
 
-    The generalized Gell-Mann matrix `ind_1 = 2`, `ind_2 = 3`, and
-    `dim = 4` is given as
+        The generalized Gell-Mann matrix `ind_1 = 2`, `ind_2 = 3`, and
+        `dim = 4` is given as
 
-    \[
-        G_{2, 3, 4} = \begin{pmatrix}
-                        0 & 0 & 0 & 0 \\
-                        0 & 0 & 0 & 0 \\
-                        0 & 0 & 0 & 1 \\
-                        0 & 0 & 1 & 0
-                      \end{pmatrix}.
-    \]
+        \[
+            G_{2, 3, 4} = \begin{pmatrix}
+                            0 & 0 & 0 & 0 \\
+                            0 & 0 & 0 & 0 \\
+                            0 & 0 & 0 & 1 \\
+                            0 & 0 & 1 & 0
+                          \end{pmatrix}.
+        \]
 
-    This can be obtained in `|toqito⟩` as follows.
+        This can be obtained in `|toqito⟩` as follows.
 
-    ```python exec="1" source="above"
-    from toqito.matrices import gen_gell_mann
+        ```python exec="1" source="above"
+        from toqito.matrices import gen_gell_mann
 
-    gen_gell_mann(ind_1=2, ind_2=3, dim=4)
-    ```
+        gen_gell_mann(ind_1=2, ind_2=3, dim=4)
+        ```
 
     Args:
         ind_1: A non-negative integer from 0 to `dim-1` (inclusive).

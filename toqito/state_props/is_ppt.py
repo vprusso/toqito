@@ -21,49 +21,49 @@ def is_ppt(
     of `False` would indicate the state is entangled.
 
     Examples:
-    Consider the following matrix
+        Consider the following matrix
 
-    \[
-        X =
-        \begin{pmatrix}
-            1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-            0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-            0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
-            0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
-            0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
-            0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
-            0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
-            0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
-            0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
-        \end{pmatrix}.
-    \]
+        \[
+            X =
+            \begin{pmatrix}
+                1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
+            \end{pmatrix}.
+        \]
 
-    This matrix trivially satisfies the PPT criterion as can be seen using the
-    `|toqito⟩` package.
+        This matrix trivially satisfies the PPT criterion as can be seen using the
+        `|toqito⟩` package.
 
-    ```python exec="1" source="above"
-    from toqito.state_props import is_ppt
-    import numpy as np
-    mat = np.identity(9)
-    print(is_ppt(mat))
-    ```
+        ```python exec="1" source="above"
+        from toqito.state_props import is_ppt
+        import numpy as np
+        mat = np.identity(9)
+        print(is_ppt(mat))
+        ```
 
-    Consider the following Bell state:
+        Consider the following Bell state:
 
-    \[
-        u = \frac{1}{\sqrt{2}}\left( |01 \rangle + |10 \rangle \right).
-    \]
+        \[
+            u = \frac{1}{\sqrt{2}}\left( |01 \rangle + |10 \rangle \right).
+        \]
 
-    For the density matrix \(\rho = u u^*\), as this is an entangled state
-    of dimension \(2\), it will violate the PPT criterion, which can be seen
-    using the `|toqito⟩` package.
+        For the density matrix \(\rho = u u^*\), as this is an entangled state
+        of dimension \(2\), it will violate the PPT criterion, which can be seen
+        using the `|toqito⟩` package.
 
-    ```python exec="1" source="above"
-    from toqito.states import bell
-    from toqito.state_props import is_ppt
-    rho = bell(2) @ bell(2).conj().T
-    print(is_ppt(rho))
-    ```
+        ```python exec="1" source="above"
+        from toqito.states import bell
+        from toqito.state_props import is_ppt
+        rho = bell(2) @ bell(2).conj().T
+        print(is_ppt(rho))
+        ```
 
     Args:
         mat: A square matrix.

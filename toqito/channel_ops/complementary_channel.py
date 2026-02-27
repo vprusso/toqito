@@ -17,44 +17,44 @@ def complementary_channel(kraus_ops: list[np.ndarray]) -> list[np.ndarray]:
     \(K_i\) from all Kraus operators vertically.
 
     Examples:
-    Suppose the following Kraus operators define a quantum channel:
+        Suppose the following Kraus operators define a quantum channel:
 
-    \[
-        K_1 = \frac{1}{\sqrt{2}} \begin{pmatrix}
-            1 & 0 \\
-            0 & 0
-        \end{pmatrix},
-        K_2 = \frac{1}{\sqrt{2}} \begin{pmatrix}
-            0 & 1 \\
-            0 & 0
-        \end{pmatrix},
-        K_3 = \frac{1}{\sqrt{2}} \begin{pmatrix}
-            0 & 0 \\
-            1 & 0
-        \end{pmatrix},
-        K_4 = \frac{1}{\sqrt{2}} \begin{pmatrix}
-            0 & 0 \\
-            0 & 1
-        \end{pmatrix}
-    \]
+        \[
+            K_1 = \frac{1}{\sqrt{2}} \begin{pmatrix}
+                1 & 0 \\
+                0 & 0
+            \end{pmatrix},
+            K_2 = \frac{1}{\sqrt{2}} \begin{pmatrix}
+                0 & 1 \\
+                0 & 0
+            \end{pmatrix},
+            K_3 = \frac{1}{\sqrt{2}} \begin{pmatrix}
+                0 & 0 \\
+                1 & 0
+            \end{pmatrix},
+            K_4 = \frac{1}{\sqrt{2}} \begin{pmatrix}
+                0 & 0 \\
+                0 & 1
+            \end{pmatrix}
+        \]
 
-    To compute the Kraus operators for the complementary map, we rearrange the rows of these
-    Kraus operators as follows:
+        To compute the Kraus operators for the complementary map, we rearrange the rows of these
+        Kraus operators as follows:
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.channel_ops import complementary_channel
-    kraus_ops_Phi = [
-        np.sqrt(0.5) * np.array([[1, 0], [0, 0]]),
-        np.sqrt(0.5) * np.array([[0, 1], [0, 0]]),
-        np.sqrt(0.5) * np.array([[0, 0], [1, 0]]),
-        np.sqrt(0.5) * np.array([[0, 0], [0, 1]])
-    ]
-    comp_kraus_ops = complementary_channel(kraus_ops_Phi)
-    for i, op in enumerate(comp_kraus_ops):
-        print(f"Kraus operator {i + 1}:")
-        print(op)
-    ```
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.channel_ops import complementary_channel
+        kraus_ops_Phi = [
+            np.sqrt(0.5) * np.array([[1, 0], [0, 0]]),
+            np.sqrt(0.5) * np.array([[0, 1], [0, 0]]),
+            np.sqrt(0.5) * np.array([[0, 0], [1, 0]]),
+            np.sqrt(0.5) * np.array([[0, 0], [0, 1]])
+        ]
+        comp_kraus_ops = complementary_channel(kraus_ops_Phi)
+        for i, op in enumerate(comp_kraus_ops):
+            print(f"Kraus operator {i + 1}:")
+            print(op)
+        ```
 
     Raises:
         ValueError: If the input is not a valid list of Kraus operators.

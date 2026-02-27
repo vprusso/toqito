@@ -10,32 +10,32 @@ def random_states(n: int, d: int, seed: int | None = None) -> list[np.ndarray]:
     valid quantum states distributed according to the Haar measure.
 
     Examples:
-    Generating three quantum states each of dimension 4.
+        Generating three quantum states each of dimension 4.
 
-    ```python exec="1" source="above"
-    from toqito.rand import random_states
+        ```python exec="1" source="above"
+        from toqito.rand import random_states
 
-    states = random_states(3, 4)
-    print(f"length of states is {len(states)}")
+        states = random_states(3, 4)
+        print(f"length of states is {len(states)}")
 
-    print(f"Shape of each state vector: {states[0].shape}")
+        print(f"Shape of each state vector: {states[0].shape}")
 
-    for idx, state in enumerate(states):
-       print(f"\nState {idx}:")
-       print(state)
-    ```
+        for idx, state in enumerate(states):
+           print(f"\nState {idx}:")
+           print(state)
+        ```
 
-    It is also possible to pass a seed to this function for reproducibility.
+        It is also possible to pass a seed to this function for reproducibility.
 
-    ```python exec="1" source="above"
-    from toqito.rand import random_states
+        ```python exec="1" source="above"
+        from toqito.rand import random_states
 
-    states = random_states(3, 4, seed=42)
+        states = random_states(3, 4, seed=42)
 
-    for idx, state in enumerate(states):
-       print(f"\nState {idx}:")
-       print(state)
-    ```
+        for idx, state in enumerate(states):
+           print(f"\nState {idx}:")
+           print(state)
+        ```
 
 
 

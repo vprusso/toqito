@@ -18,59 +18,59 @@ def is_commuting(mat_1: np.ndarray, mat_2: np.ndarray) -> bool:
     \(Y\) commute (Section: Lie Brackets And Commutants from [@Watrous_2018_TQI]).
 
     Examples:
-    Consider the following matrices:
+        Consider the following matrices:
 
-    \[
-        A = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix},
-        \quad \text{and} \quad
-        B = \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}.
-    \]
+        \[
+            A = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix},
+            \quad \text{and} \quad
+            B = \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}.
+        \]
 
-    It holds that \(AB=0\), however
+        It holds that \(AB=0\), however
 
-    \[
-        BA = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} = A,
-    \]
+        \[
+            BA = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} = A,
+        \]
 
-    and hence, do not commute.
+        and hence, do not commute.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import is_commuting
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_commuting
 
-    mat_1 = np.array([[0, 1], [0, 0]])
-    mat_2 = np.array([[1, 0], [0, 0]])
+        mat_1 = np.array([[0, 1], [0, 0]])
+        mat_2 = np.array([[1, 0], [0, 0]])
 
-    print(is_commuting(mat_1, mat_2))
-    ```
+        print(is_commuting(mat_1, mat_2))
+        ```
 
-    Consider the following pair of matrices:
+        Consider the following pair of matrices:
 
-    \[
-        A = \begin{pmatrix}
-            1 & 0 & 0 \\
-            0 & 1 & 0 \\
-            1 & 0 & 2
-            \end{pmatrix} \quad \text{and} \quad
-        B = \begin{pmatrix}
-            2 & 4 & 0 \\
-            3 & 1 & 0 \\
-            -1 & -4 & 1
-            \end{pmatrix}.
-    \]
+        \[
+            A = \begin{pmatrix}
+                1 & 0 & 0 \\
+                0 & 1 & 0 \\
+                1 & 0 & 2
+                \end{pmatrix} \quad \text{and} \quad
+            B = \begin{pmatrix}
+                2 & 4 & 0 \\
+                3 & 1 & 0 \\
+                -1 & -4 & 1
+                \end{pmatrix}.
+        \]
 
-    It may be verified that \(AB = BA = 0\), and therefore \(A\) and
-    \(B\) commute.
+        It may be verified that \(AB = BA = 0\), and therefore \(A\) and
+        \(B\) commute.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import is_commuting
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_commuting
 
-    mat_1 = np.array([[1, 0, 0], [0, 1, 0], [1, 0, 2]])
-    mat_2 = np.array([[2, 4, 0], [3, 1, 0], [-1, -4, 1]])
+        mat_1 = np.array([[1, 0, 0], [0, 1, 0], [1, 0, 2]])
+        mat_2 = np.array([[2, 4, 0], [3, 1, 0], [-1, -4, 1]])
 
-    print(is_commuting(mat_1, mat_2))
-    ```
+        print(is_commuting(mat_1, mat_2))
+        ```
 
     Args:
         mat_1: First matrix to check.

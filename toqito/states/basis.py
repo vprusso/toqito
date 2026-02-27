@@ -10,28 +10,28 @@ def basis(dim: int, pos: int) -> np.ndarray:
     r"""Obtain the ket of dimension `dim` [@WikiBraKet].
 
     Examples:
-    The standard basis ket vectors given as \(|0 \rangle\) and \(|1 \rangle\) where
+        The standard basis ket vectors given as \(|0 \rangle\) and \(|1 \rangle\) where
 
-    \[
-        |0 \rangle = \left[1, 0 \right]^{\text{T}} \quad \text{and} \quad
-        |1 \rangle = \left[0, 1 \right]^{\text{T}},
-    \]
+        \[
+            |0 \rangle = \left[1, 0 \right]^{\text{T}} \quad \text{and} \quad
+            |1 \rangle = \left[0, 1 \right]^{\text{T}},
+        \]
 
-    can be obtained in `|toqito⟩` as follows.
+        can be obtained in `|toqito⟩` as follows.
 
-    Example:  Ket basis vector: \(|0\rangle\).
+        Example:  Ket basis vector: \(|0\rangle\).
 
-    ```python exec="1" source="above"
-    from toqito.states import basis
-    print(basis(2, 0))
-    ```
+        ```python exec="1" source="above"
+        from toqito.states import basis
+        print(basis(2, 0))
+        ```
 
-    Example: Ket basis vector: \(|1\rangle\).
+        Example: Ket basis vector: \(|1\rangle\).
 
-    ```python exec="1" source="above"
-    from toqito.states import basis
-    print(basis(2, 1))
-    ```
+        ```python exec="1" source="above"
+        from toqito.states import basis
+        print(basis(2, 1))
+        ```
 
     Raises:
         ValueError: If the input position is not in the range [0, dim - 1].

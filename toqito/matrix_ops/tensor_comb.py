@@ -24,26 +24,26 @@ def tensor_comb(
     For one definition and usage of a quantum sequence, refer to [@Gupta_2024_Optimal].
 
     Examples:
-    Consider the following basis vectors for a 2-dimensional quantum system.
+        Consider the following basis vectors for a 2-dimensional quantum system.
 
-    \[
-        e_0 = \left[1, 0 \right]^{\text{T}}, e_1 = \left[0, 1 \right]^{\text{T}}.
-    \]
+        \[
+            e_0 = \left[1, 0 \right]^{\text{T}}, e_1 = \left[0, 1 \right]^{\text{T}}.
+        \]
 
-    We can generate all possible tensor products for sequences of length 2.
+        We can generate all possible tensor products for sequences of length 2.
 
-    ```python exec="1" source="above"
-    from toqito.matrix_ops import tensor_comb
-    import numpy as np
+        ```python exec="1" source="above"
+        from toqito.matrix_ops import tensor_comb
+        import numpy as np
 
-    e_0 = np.array([1, 0])
-    e_1 = np.array([0, 1])
+        e_0 = np.array([1, 0])
+        e_1 = np.array([0, 1])
 
-    result = tensor_comb([e_0, e_1], 2, mode="injective", density_matrix=True)
+        result = tensor_comb([e_0, e_1], 2, mode="injective", density_matrix=True)
 
-    for key, mat in result.items():
-        print(f"tensor_comb{key} =\n{mat}\n")
-    ```
+        for key, mat in result.items():
+            print(f"tensor_comb{key} =\n{mat}\n")
+        ```
 
 
     Raises:

@@ -43,25 +43,25 @@ def is_abs_ppt(
         if all checked constraints were satisfied.
 
     Examples:
-    A random density matrix will likely not be absolutely PPT:
+        A random density matrix will likely not be absolutely PPT:
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.rand import random_density_matrix
-    from toqito.state_props import is_abs_ppt
-    rho = random_density_matrix(9) # assumed to act on a 3 x 3 bipartite system
-    print(f"ρ is absolutely PPT: {is_abs_ppt(rho, 3)}")
-    ```
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.rand import random_density_matrix
+        from toqito.state_props import is_abs_ppt
+        rho = random_density_matrix(9) # assumed to act on a 3 x 3 bipartite system
+        print(f"ρ is absolutely PPT: {is_abs_ppt(rho, 3)}")
+        ```
 
-    The maximally-mixed state is an example of an absolutely PPT state:
+        The maximally-mixed state is an example of an absolutely PPT state:
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.states import max_mixed
-    from toqito.state_props import is_abs_ppt
-    rho = max_mixed(9) # assumed to act on a 3 x 3 bipartite system
-    print(f"ρ is absolutely PPT: {is_abs_ppt(rho, 3)}")
-    ```
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.states import max_mixed
+        from toqito.state_props import is_abs_ppt
+        rho = max_mixed(9) # assumed to act on a 3 x 3 bipartite system
+        print(f"ρ is absolutely PPT: {is_abs_ppt(rho, 3)}")
+        ```
 
     Raises:
         TypeError: If `mat` is not a `numpy` ndarray or a `cvxpy` Variable.

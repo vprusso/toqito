@@ -9,46 +9,46 @@ def is_square(mat: np.ndarray) -> bool:
     A matrix is square if the dimensions of the rows and columns are equivalent.
 
     Examples:
-    Consider the following matrix
+        Consider the following matrix
 
-    \[
-        A = \begin{pmatrix}
-                1 & 2 & 3 \\
-                4 & 5 & 6 \\
-                7 & 8 & 9
-            \end{pmatrix}
-    \]
+        \[
+            A = \begin{pmatrix}
+                    1 & 2 & 3 \\
+                    4 & 5 & 6 \\
+                    7 & 8 & 9
+                \end{pmatrix}
+        \]
 
-    our function indicates that this is indeed a square matrix.
+        our function indicates that this is indeed a square matrix.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import is_square
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_square
 
-    A = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        A = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
 
-    print(is_square(A))
-    ```
+        print(is_square(A))
+        ```
 
-    Alternatively, the following example matrix \(B\) defined as
+        Alternatively, the following example matrix \(B\) defined as
 
-    \[
-        B = \begin{pmatrix}
-                1 & 2 & 3 \\
-                4 & 5 & 6
-            \end{pmatrix}
-    \]
+        \[
+            B = \begin{pmatrix}
+                    1 & 2 & 3 \\
+                    4 & 5 & 6
+                \end{pmatrix}
+        \]
 
-    is not square.
+        is not square.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import is_square
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_square
 
-    B = np.array([[1, 2, 3], [4, 5, 6]])
+        B = np.array([[1, 2, 3], [4, 5, 6]])
 
-    print(is_square(B))
-    ```
+        print(is_square(B))
+        ```
 
     Raises:
         ValueError: If variable is not a matrix.

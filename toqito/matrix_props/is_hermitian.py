@@ -11,51 +11,51 @@ def is_hermitian(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> b
     A Hermitian matrix is a complex square matrix that is equal to its own conjugate transpose.
 
     Examples:
-    Consider the following matrix:
+        Consider the following matrix:
 
-    \[
-        A = \begin{pmatrix}
-                2 & 2 +1j & 4 \\
-                2 - 1j & 3 & 1j \\
-                4 & -1j & 1
-            \end{pmatrix}
-    \]
+        \[
+            A = \begin{pmatrix}
+                    2 & 2 +1j & 4 \\
+                    2 - 1j & 3 & 1j \\
+                    4 & -1j & 1
+                \end{pmatrix}
+        \]
 
-    our function indicates that this is indeed a Hermitian matrix as it holds that
+        our function indicates that this is indeed a Hermitian matrix as it holds that
 
-    \[
-        A = A^*.
-    \]
+        \[
+            A = A^*.
+        \]
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import is_hermitian
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_hermitian
 
-    mat = np.array([[2, 2 + 1j, 4], [2 - 1j, 3, 1j], [4, -1j, 1]])
+        mat = np.array([[2, 2 + 1j, 4], [2 - 1j, 3, 1j], [4, -1j, 1]])
 
-    print(is_hermitian(mat))
-    ```
+        print(is_hermitian(mat))
+        ```
 
-    Alternatively, the following example matrix \(B\) defined as
+        Alternatively, the following example matrix \(B\) defined as
 
-    \[
-        B = \begin{pmatrix}
-                1 & 2 & 3 \\
-                4 & 5 & 6 \\
-                7 & 8 & 9
-            \end{pmatrix}
-    \]
+        \[
+            B = \begin{pmatrix}
+                    1 & 2 & 3 \\
+                    4 & 5 & 6 \\
+                    7 & 8 & 9
+                \end{pmatrix}
+        \]
 
-    is not Hermitian.
+        is not Hermitian.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import is_hermitian
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_hermitian
 
-    mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
 
-    print(is_hermitian(mat))
-    ```
+        print(is_hermitian(mat))
+        ```
 
     Args:
         mat: Matrix to check.

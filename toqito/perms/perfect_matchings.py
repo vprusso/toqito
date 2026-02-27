@@ -15,13 +15,13 @@ def perfect_matchings(num: list[int] | int | np.ndarray) -> np.ndarray:
     This function is adapted from QETLAB. [@QETLAB_link].
 
     Examples:
-    This is an example of how to generate all perfect matchings of the numbers 0, 1, 2, 3.
+        This is an example of how to generate all perfect matchings of the numbers 0, 1, 2, 3.
 
-    ```python exec="1" source="above"
-    from toqito.perms import perfect_matchings
+        ```python exec="1" source="above"
+        from toqito.perms import perfect_matchings
 
-    print(perfect_matchings(4))
-    ```
+        print(perfect_matchings(4))
+        ```
 
     Args:
         num: Either an even integer, indicating that you would like all perfect matchings of the integers 0, 1, ... N-1,

@@ -18,34 +18,34 @@ def purity(rho: np.ndarray) -> float:
     where \(\text{Tr}\) is the trace function.
 
     Examples:
-    Consider the following scaled state defined as the scaled identity matrix
+        Consider the following scaled state defined as the scaled identity matrix
 
-    \[
-        \rho = \frac{1}{4} \begin{pmatrix}
-                         1 & 0 & 0 & 0 \\
-                         0 & 1 & 0 & 0 \\
-                         0 & 0 & 1 & 0 \\
-                         0 & 0 & 0 & 1
-                       \end{pmatrix} \in \text{D}(\mathcal{X}).
-    \]
+        \[
+            \rho = \frac{1}{4} \begin{pmatrix}
+                             1 & 0 & 0 & 0 \\
+                             0 & 1 & 0 & 0 \\
+                             0 & 0 & 1 & 0 \\
+                             0 & 0 & 0 & 1
+                           \end{pmatrix} \in \text{D}(\mathcal{X}).
+        \]
 
-    Calculating the purity of \(\rho\) yields \(\frac{1}{4}\). This can be observed using
-    `|toqito⟩` as follows.
+        Calculating the purity of \(\rho\) yields \(\frac{1}{4}\). This can be observed using
+        `|toqito⟩` as follows.
 
-    ```python exec="1" source="above" session="purity_example"
-    from toqito.state_props import purity
-    import numpy as np
-    print(purity(np.identity(4) / 4))
-    ```
+        ```python exec="1" source="above" session="purity_example"
+        from toqito.state_props import purity
+        import numpy as np
+        print(purity(np.identity(4) / 4))
+        ```
 
 
-    Calculate the purity of the Werner state:
+        Calculate the purity of the Werner state:
 
-    ```python exec="1" source="above" session="purity_example"
-    from toqito.states import werner
-    rho = werner(2, 1 / 4)
-    print(purity(rho))
-    ```
+        ```python exec="1" source="above" session="purity_example"
+        from toqito.states import werner
+        rho = werner(2, 1 / 4)
+        print(purity(rho))
+        ```
 
     Raises:
         ValueError: If matrix is not density operator.

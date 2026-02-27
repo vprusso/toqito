@@ -28,48 +28,48 @@ def is_mutually_unbiased_basis(vectors: list[np.ndarray | list[float | Any]]) ->
     \(x, x^{\prime} \in \Sigma\).
 
     Examples:
-    MUB of dimension \(2\).
+        MUB of dimension \(2\).
 
-    For \(d=2\), the following constitutes a mutually unbiased basis:
+        For \(d=2\), the following constitutes a mutually unbiased basis:
 
-    \[
-        \begin{equation}
-            \begin{aligned}
-                M_0 &= \left\{ |0 \rangle, |1 \rangle \right\}, \\
-                M_1 &= \left\{ \frac{|0 \rangle + |1 \rangle}{\sqrt{2}},
-                \frac{|0 \rangle - |1 \rangle}{\sqrt{2}} \right\}, \\
-                M_2 &= \left\{ \frac{|0 \rangle i|1 \rangle}{\sqrt{2}},
-                \frac{|0 \rangle - i|1 \rangle}{\sqrt{2}} \right\}. \\
-            \end{aligned}
-        \end{equation}
-    \]
+        \[
+            \begin{equation}
+                \begin{aligned}
+                    M_0 &= \left\{ |0 \rangle, |1 \rangle \right\}, \\
+                    M_1 &= \left\{ \frac{|0 \rangle + |1 \rangle}{\sqrt{2}},
+                    \frac{|0 \rangle - |1 \rangle}{\sqrt{2}} \right\}, \\
+                    M_2 &= \left\{ \frac{|0 \rangle i|1 \rangle}{\sqrt{2}},
+                    \frac{|0 \rangle - i|1 \rangle}{\sqrt{2}} \right\}. \\
+                \end{aligned}
+            \end{equation}
+        \]
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.states import basis
-    from toqito.state_props import is_mutually_unbiased_basis
-    e_0, e_1 = basis(2, 0), basis(2, 1)
-    mub_1 = [e_0, e_1]
-    mub_2 = [1 / np.sqrt(2) * (e_0 + e_1), 1 / np.sqrt(2) * (e_0 - e_1)]
-    mub_3 = [1 / np.sqrt(2) * (e_0 + 1j * e_1), 1 / np.sqrt(2) * (e_0 - 1j * e_1)]
-    nested_mubs = [mub_1, mub_2, mub_3]
-    mubs = sum(nested_mubs, [])
-    print(is_mutually_unbiased_basis(mubs))
-    ```
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.states import basis
+        from toqito.state_props import is_mutually_unbiased_basis
+        e_0, e_1 = basis(2, 0), basis(2, 1)
+        mub_1 = [e_0, e_1]
+        mub_2 = [1 / np.sqrt(2) * (e_0 + e_1), 1 / np.sqrt(2) * (e_0 - e_1)]
+        mub_3 = [1 / np.sqrt(2) * (e_0 + 1j * e_1), 1 / np.sqrt(2) * (e_0 - 1j * e_1)]
+        nested_mubs = [mub_1, mub_2, mub_3]
+        mubs = sum(nested_mubs, [])
+        print(is_mutually_unbiased_basis(mubs))
+        ```
 
-    Non-MUB of dimension \(2\).
+        Non-MUB of dimension \(2\).
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.states import basis
-    from toqito.state_props import is_mutually_unbiased_basis
-    e_0, e_1 = basis(2, 0), basis(2, 1)
-    mub_1 = [e_0, e_1]
-    mub_2 = [1 / np.sqrt(2) * (e_0 + e_1), e_1]
-    mub_3 = [1 / np.sqrt(2) * (e_0 + 1j * e_1), e_0]
-    mubs = [mub_1, mub_2, mub_3]
-    print(is_mutually_unbiased_basis(mubs))
-    ```
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.states import basis
+        from toqito.state_props import is_mutually_unbiased_basis
+        e_0, e_1 = basis(2, 0), basis(2, 1)
+        mub_1 = [e_0, e_1]
+        mub_2 = [1 / np.sqrt(2) * (e_0 + e_1), e_1]
+        mub_3 = [1 / np.sqrt(2) * (e_0 + 1j * e_1), e_0]
+        mubs = [mub_1, mub_2, mub_3]
+        print(is_mutually_unbiased_basis(mubs))
+        ```
 
     Raises:
         ValueError: If at least two vectors are not provided.

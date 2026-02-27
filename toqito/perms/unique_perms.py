@@ -15,22 +15,22 @@ def unique_perms(elements: list[int]):
     r"""Determine the number of unique permutations of a list.
 
     Examples:
-    Consider the following vector
+        Consider the following vector
 
-    \[
-        \left[1, 1, 2, 2, 1, 2, 1, 3, 3, 3\right].
-    \]
+        \[
+            \left[1, 1, 2, 2, 1, 2, 1, 3, 3, 3\right].
+        \]
 
-    The number of possible permutations possible with the above vector is \(4200\). This can be
-    obtained using the `|toqito⟩` package as follows.
+        The number of possible permutations possible with the above vector is \(4200\). This can be
+        obtained using the `|toqito⟩` package as follows.
 
-    ```python exec="1" source="above"
-    from toqito.perms import unique_perms
+        ```python exec="1" source="above"
+        from toqito.perms import unique_perms
 
-    vec_nums = [1, 1, 2, 2, 1, 2, 1, 3, 3, 3]
+        vec_nums = [1, 1, 2, 2, 1, 2, 1, 3, 3, 3]
 
-    print(len(list(unique_perms(vec_nums))))
-    ```
+        print(len(list(unique_perms(vec_nums))))
+        ```
 
     Args:
         elements: List of integers.

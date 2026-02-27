@@ -25,56 +25,56 @@ def choi_to_kraus(
     This function has been adapted from [@Rigetti_2022_Forest] and QETLAB [@QETLAB_link].
 
     Examples:
-    Consider taking the Kraus operators of the Choi matrix that characterizes the "swap operator"
-    defined as
+        Consider taking the Kraus operators of the Choi matrix that characterizes the "swap operator"
+        defined as
 
-    \[
-        \begin{pmatrix}
-            1 & 0 & 0 & 0 \\
-            0 & 0 & 1 & 0 \\
-            0 & 1 & 0 & 0 \\
-            0 & 0 & 0 & 1
-        \end{pmatrix}
-    \]
+        \[
+            \begin{pmatrix}
+                1 & 0 & 0 & 0 \\
+                0 & 0 & 1 & 0 \\
+                0 & 1 & 0 & 0 \\
+                0 & 0 & 0 & 1
+            \end{pmatrix}
+        \]
 
-    The corresponding Kraus operators of the swap operator are given as follows,
+        The corresponding Kraus operators of the swap operator are given as follows,
 
-    \[
-        \begin{equation}
-        \big[
-            \frac{1}{\sqrt{2}} \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix},
-            \frac{1}{\sqrt{2}} \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}
-        \big],
-        \big[
-            \frac{1}{\sqrt{2}} \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix},
-            \frac{1}{\sqrt{2}} \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}
-        \big],
-        \big[
-            \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix},
-            \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}
-        \big],
-        \big[
-            \begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix},
-            \begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix}
-        \big]
-        \end{equation}
-    \]
+        \[
+            \begin{equation}
+            \big[
+                \frac{1}{\sqrt{2}} \begin{pmatrix} 0 & 1 \\ -1 & 0 \end{pmatrix},
+                \frac{1}{\sqrt{2}} \begin{pmatrix} 0 & -1 \\ 1 & 0 \end{pmatrix}
+            \big],
+            \big[
+                \frac{1}{\sqrt{2}} \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix},
+                \frac{1}{\sqrt{2}} \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}
+            \big],
+            \big[
+                \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix},
+                \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}
+            \big],
+            \big[
+                \begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix},
+                \begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix}
+            \big]
+            \end{equation}
+        \]
 
-    This can be verified in `|toqito⟩` as follows.
+        This can be verified in `|toqito⟩` as follows.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.channel_ops import choi_to_kraus
-    choi_mat = np.array([[1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 1]])
-    kraus_ops = choi_to_kraus(choi_mat)
-    for i, pair in enumerate(kraus_ops):
-       print(f"\nKraus Pair {i+1}:")
-       for j, op in enumerate(pair):
-           print(f"  Operator {j+1}:\n{np.array_str(op, precision=4, suppress_small=True)}")
-    ```
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.channel_ops import choi_to_kraus
+        choi_mat = np.array([[1, 0, 0, 0], [0, 0, 1, 0], [0, 1, 0, 0], [0, 0, 0, 1]])
+        kraus_ops = choi_to_kraus(choi_mat)
+        for i, pair in enumerate(kraus_ops):
+           print(f"\nKraus Pair {i+1}:")
+           for j, op in enumerate(pair):
+               print(f"  Operator {j+1}:\n{np.array_str(op, precision=4, suppress_small=True)}")
+        ```
 
-    !!! See Also
-        [kraus_to_choi][toqito.channel_ops.kraus_to_choi.kraus_to_choi]
+        !!! See Also
+            [kraus_to_choi][toqito.channel_ops.kraus_to_choi.kraus_to_choi]
 
     Args:
         choi_mat: A Choi matrix

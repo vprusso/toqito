@@ -37,42 +37,42 @@ def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = Non
     determined as the number of Schmidt coefficients larger than `tol`.
 
     Examples:
-    Computing the Schmidt rank of the entangled Bell state should yield a value greater than one.
+        Computing the Schmidt rank of the entangled Bell state should yield a value greater than one.
 
-    ```python exec="1" source="above"
-    from toqito.states import bell
-    from toqito.state_props import schmidt_rank
-    rho = bell(0) @ bell(0).conj().T
-    print(schmidt_rank(rho))
-    ```
-
-
-    Computing the Schmidt rank of the entangled singlet state should yield a value greater than
-    \(1\).
-
-    ```python exec="1" source="above"
-    from toqito.states import bell
-    from toqito.state_props import schmidt_rank
-    u = bell(2) @ bell(2).conj().T
-    print(schmidt_rank(u))
-    ```
+        ```python exec="1" source="above"
+        from toqito.states import bell
+        from toqito.state_props import schmidt_rank
+        rho = bell(0) @ bell(0).conj().T
+        print(schmidt_rank(rho))
+        ```
 
 
-    Computing the Schmidt rank of a separable state should yield a value equal to \(1\).
+        Computing the Schmidt rank of the entangled singlet state should yield a value greater than
+        \(1\).
 
-    ```python exec="1" source="above"
-    from toqito.states import basis
-    from toqito.state_props import schmidt_rank
-    import numpy as np
-    e_0, e_1 = basis(2, 0), basis(2, 1)
-    e_00 = np.kron(e_0, e_0)
-    e_01 = np.kron(e_0, e_1)
-    e_10 = np.kron(e_1, e_0)
-    e_11 = np.kron(e_1, e_1)
-    rho = 1 / 2 * (e_00 - e_01 - e_10 + e_11)
-    rho = rho @ rho.conj().T
-    print(schmidt_rank(rho))
-    ```
+        ```python exec="1" source="above"
+        from toqito.states import bell
+        from toqito.state_props import schmidt_rank
+        u = bell(2) @ bell(2).conj().T
+        print(schmidt_rank(u))
+        ```
+
+
+        Computing the Schmidt rank of a separable state should yield a value equal to \(1\).
+
+        ```python exec="1" source="above"
+        from toqito.states import basis
+        from toqito.state_props import schmidt_rank
+        import numpy as np
+        e_0, e_1 = basis(2, 0), basis(2, 1)
+        e_00 = np.kron(e_0, e_0)
+        e_01 = np.kron(e_0, e_1)
+        e_10 = np.kron(e_1, e_0)
+        e_11 = np.kron(e_1, e_1)
+        rho = 1 / 2 * (e_00 - e_01 - e_10 + e_11)
+        rho = rho @ rho.conj().T
+        print(schmidt_rank(rho))
+        ```
 
     Args:
         rho: A bipartite vector or matrix to have its Schmidt rank computed.

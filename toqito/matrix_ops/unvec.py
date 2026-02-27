@@ -54,29 +54,29 @@ def unvec(vector: np.ndarray, shape: list[int] | None = None) -> np.ndarray:
     This function has been adapted from [@Rigetti_2022_Forest].
 
     Examples:
-    Consider the following vector
+        Consider the following vector
 
-    \[
-        u = \begin{pmatrix} 1 \\ 3 \\ 2 \\ 4 \end{pmatrix}
-    \]
+        \[
+            u = \begin{pmatrix} 1 \\ 3 \\ 2 \\ 4 \end{pmatrix}
+        \]
 
-    Performing the \(\text{unvec}\) operation on \(u\) yields
+        Performing the \(\text{unvec}\) operation on \(u\) yields
 
-    \[
-        \text{unvec}(u) = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}
-    \]
+        \[
+            \text{unvec}(u) = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}
+        \]
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_ops import unvec
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_ops import unvec
 
-    u = np.array([1, 2, 3, 4])
+        u = np.array([1, 2, 3, 4])
 
-    print(unvec(u))
-    ```
+        print(unvec(u))
+        ```
 
-    !!! See Also
-        [vec][toqito.matrix_ops.vec.vec]
+        !!! See Also
+            [vec][toqito.matrix_ops.vec.vec]
 
     Args:
         vector: A (`shape[0] * shape[1]`)-by-1 numpy array.

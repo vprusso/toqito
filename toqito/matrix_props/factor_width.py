@@ -28,28 +28,28 @@ def factor_width(
     low-rank algorithm in [@Johnston_2025_Complexity].
 
     Examples:
-    The matrix \(\operatorname{diag}(1, 1, 0)\) has factor width at most \(1\).
+        The matrix \(\operatorname{diag}(1, 1, 0)\) has factor width at most \(1\).
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import factor_width
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import factor_width
 
-    diag_mat = np.diag([1, 1, 0])
-    result = factor_width(diag_mat, k=1)
-    print(result["feasible"])
-    ```
+        diag_mat = np.diag([1, 1, 0])
+        result = factor_width(diag_mat, k=1)
+        print(result["feasible"])
+        ```
 
-    Conversely, the rank-one matrix \(\begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix}/2\) is not
-    \(1\)-factorable.
+        Conversely, the rank-one matrix \(\begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix}/2\) is not
+        \(1\)-factorable.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import factor_width
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import factor_width
 
-    hadamard = np.array([[1, 1], [1, 1]], dtype=np.complex128) / 2
-    result = factor_width(hadamard, k=1)
-    print(result["feasible"])
-    ```
+        hadamard = np.array([[1, 1], [1, 1]], dtype=np.complex128) / 2
+        result = factor_width(hadamard, k=1)
+        print(result["feasible"])
+        ```
 
     Args:
         mat: Positive semidefinite matrix to test.

@@ -93,68 +93,68 @@ def state_distinguishability(
         the optimal probability will be low or zero.
 
     Examples:
-    Minimal-error state distinguishability for the Bell states (which are perfectly distinguishable).
+        Minimal-error state distinguishability for the Bell states (which are perfectly distinguishable).
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.states import bell
-    from toqito.state_opt import state_distinguishability
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.states import bell
+        from toqito.state_opt import state_distinguishability
 
-    states = [bell(0), bell(1), bell(2), bell(3)]
-    probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
+        states = [bell(0), bell(1), bell(2), bell(3)]
+        probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
 
-    res, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="dual")
+        res, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="dual")
 
-    print(np.around(res, decimals=2))
-    ```
+        print(np.around(res, decimals=2))
+        ```
 
-    Note that if we are just interested in obtaining the optimal value, it is computationally less intensive to compute
-    the dual problem over the primal problem. However, the primal problem does allow us to extract the explicit
-    measurement operators which may be of interest to us.
+        Note that if we are just interested in obtaining the optimal value, it is computationally less intensive to compute
+        the dual problem over the primal problem. However, the primal problem does allow us to extract the explicit
+        measurement operators which may be of interest to us.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.states import bell
-    from toqito.state_opt import state_distinguishability
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.states import bell
+        from toqito.state_opt import state_distinguishability
 
-    states = [bell(0), bell(1), bell(2), bell(3)]
-    probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
+        states = [bell(0), bell(1), bell(2), bell(3)]
+        probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
 
-    res, measurements = state_distinguishability(vectors=states, probs=probs, primal_dual="primal")
+        res, measurements = state_distinguishability(vectors=states, probs=probs, primal_dual="primal")
 
-    print(np.around(measurements[0], decimals=5))
-    ```
+        print(np.around(measurements[0], decimals=5))
+        ```
 
-    Unambiguous state distinguishability for unbiased pure states.
+        Unambiguous state distinguishability for unbiased pure states.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.state_opt import state_distinguishability
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.state_opt import state_distinguishability
 
-    states = [np.array([[1.], [0.]]), np.array([[1.],[1.]]) / np.sqrt(2)]
-    probs = [1 / 2, 1 / 2]
+        states = [np.array([[1.], [0.]]), np.array([[1.],[1.]]) / np.sqrt(2)]
+        probs = [1 / 2, 1 / 2]
 
-    res, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="primal", strategy="unambiguous")
+        res, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="primal", strategy="unambiguous")
 
-    print(np.around(res, decimals=2))
-    ```
+        print(np.around(res, decimals=2))
+        ```
 
-    Unambiguous state distinguishability for mixed states.
+        Unambiguous state distinguishability for mixed states.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.state_opt import state_distinguishability
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.state_opt import state_distinguishability
 
-    # Two mixed states (Werner-like states)
-    rho1 = 0.7 * np.array([[1., 0.], [0., 0.]]) + 0.3 * np.eye(2) / 2
-    rho2 = 0.7 * np.array([[0., 0.], [0., 1.]]) + 0.3 * np.eye(2) / 2
-    states = [rho1, rho2]
-    probs = [1 / 2, 1 / 2]
+        # Two mixed states (Werner-like states)
+        rho1 = 0.7 * np.array([[1., 0.], [0., 0.]]) + 0.3 * np.eye(2) / 2
+        rho2 = 0.7 * np.array([[0., 0.], [0., 1.]]) + 0.3 * np.eye(2) / 2
+        states = [rho1, rho2]
+        probs = [1 / 2, 1 / 2]
 
-    res, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="primal", strategy="unambiguous")
+        res, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="primal", strategy="unambiguous")
 
-    print(np.around(res, decimals=2))
-    ```
+        print(np.around(res, decimals=2))
+        ```
 
     Args:
         vectors: A list of states provided as vectors (for pure states) or density matrices (for mixed states).

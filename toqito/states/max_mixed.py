@@ -34,31 +34,31 @@ def max_mixed(dim: int, is_sparse: bool = False) -> np.ndarray | dia_array:
     = False`.
 
     Examples:
-    Using `|toqito⟩`, we can generate the \(2\)-dimensional maximally mixed state
+        Using `|toqito⟩`, we can generate the \(2\)-dimensional maximally mixed state
 
-    \[
-        \omega_2 = \frac{1}{2}
-        \begin{pmatrix}
-            1 & 0 \\
-            0 & 1
-        \end{pmatrix}
-    \]
+        \[
+            \omega_2 = \frac{1}{2}
+            \begin{pmatrix}
+                1 & 0 \\
+                0 & 1
+            \end{pmatrix}
+        \]
 
-    as follows.
+        as follows.
 
-    ```python exec="1" source="above"
-    from toqito.states import max_mixed
-    print(max_mixed(2, is_sparse=False))
-    ```
+        ```python exec="1" source="above"
+        from toqito.states import max_mixed
+        print(max_mixed(2, is_sparse=False))
+        ```
 
 
 
-    One may also generate a maximally mixed state returned as a sparse matrix
+        One may also generate a maximally mixed state returned as a sparse matrix
 
-    ```python exec="1" source="above"
-    from toqito.states import max_mixed
-    print(max_mixed(2, is_sparse=True))
-    ```
+        ```python exec="1" source="above"
+        from toqito.states import max_mixed
+        print(max_mixed(2, is_sparse=True))
+        ```
 
     Args:
         dim: Dimension of the entangled state.

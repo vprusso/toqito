@@ -21,33 +21,33 @@ def is_unextendible_product_basis(vecs: list[np.ndarray], dims: list[int]) -> tu
     [@QETLAB_link].
 
     Examples:
-    See [tile()][toqito.states.tile.tile]. All the states together form a UPB:
+        See [tile()][toqito.states.tile.tile]. All the states together form a UPB:
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.states import tile
-    from toqito.state_props import is_unextendible_product_basis
-    upb_tiles = np.array([tile(i) for i in range(5)])
-    dims = np.array([3, 3])
-    print(is_unextendible_product_basis(upb_tiles, dims))
-    ```
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.states import tile
+        from toqito.state_props import is_unextendible_product_basis
+        upb_tiles = np.array([tile(i) for i in range(5)])
+        dims = np.array([3, 3])
+        print(is_unextendible_product_basis(upb_tiles, dims))
+        ```
 
-    However, the first 4 do not:
+        However, the first 4 do not:
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.states import tile
-    from toqito.state_props import is_unextendible_product_basis
-    non_upb_tiles = np.array([tile(i) for i in range(4)])
-    dims = np.array([3, 3])
-    print(is_unextendible_product_basis(non_upb_tiles, dims))
-    ```
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.states import tile
+        from toqito.state_props import is_unextendible_product_basis
+        non_upb_tiles = np.array([tile(i) for i in range(4)])
+        dims = np.array([3, 3])
+        print(is_unextendible_product_basis(non_upb_tiles, dims))
+        ```
 
-    The orthogonal state is given by
+        The orthogonal state is given by
 
-    \[
-        \frac{1}{\sqrt{2}} |2\rangle \left( |1\rangle + |2\rangle \right)
-    \]
+        \[
+            \frac{1}{\sqrt{2}} |2\rangle \left( |1\rangle + |2\rangle \right)
+        \]
 
     Raises:
         ValueError: If product of dimensions does not match the size of a vector.

@@ -25,19 +25,19 @@ def bell(idx: int) -> np.ndarray:
     \]
 
     Examples:
-    When `idx = 0`, this produces the following Bell state:
+        When `idx = 0`, this produces the following Bell state:
 
-    \[
-        u_0 = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right).
-    \]
+        \[
+            u_0 = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right).
+        \]
 
-    Using `|toqito⟩`, we can see that this yields the proper state.
+        Using `|toqito⟩`, we can see that this yields the proper state.
 
-    ```python exec="1" source="above"
-    from toqito.states import bell
-    import numpy as np
-    print(bell(0))
-    ```
+        ```python exec="1" source="above"
+        from toqito.states import bell
+        import numpy as np
+        print(bell(0))
+        ```
 
     Raises:
         ValueError: If `idx` is not an integer.

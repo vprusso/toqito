@@ -12,52 +12,52 @@ def is_anti_hermitian(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08)
     conjugate transpose.
 
     Examples:
-    Consider the following matrix:
+        Consider the following matrix:
 
-    \[
-        A = \begin{pmatrix}
-                2j & -1 + 2j & 4j \\
-                1 + 2j & 3j & -1 \\
-                4j & 1 & 1j
-            \end{pmatrix}
-    \]
+        \[
+            A = \begin{pmatrix}
+                    2j & -1 + 2j & 4j \\
+                    1 + 2j & 3j & -1 \\
+                    4j & 1 & 1j
+                \end{pmatrix}
+        \]
 
-    our function indicates that this is indeed an anti-Hermitian matrix as it holds that
+        our function indicates that this is indeed an anti-Hermitian matrix as it holds that
 
-    \[
-        A = -A^*.
-    \]
+        \[
+            A = -A^*.
+        \]
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import is_anti_hermitian
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_anti_hermitian
 
-    mat = np.array([[2j, -1 + 2j, 4j], [1 + 2j, 3j, -1], [4j, 1, 1j]])
+        mat = np.array([[2j, -1 + 2j, 4j], [1 + 2j, 3j, -1], [4j, 1, 1j]])
 
-    print(is_anti_hermitian(mat))
-    ```
+        print(is_anti_hermitian(mat))
+        ```
 
 
-    Alternatively, the following example matrix \(B\) defined as
+        Alternatively, the following example matrix \(B\) defined as
 
-    \[
-        B = \begin{pmatrix}
-                1 & 2 & 3 \\
-                4 & 5 & 6 \\
-                7 & 8 & 9
-            \end{pmatrix}
-    \]
+        \[
+            B = \begin{pmatrix}
+                    1 & 2 & 3 \\
+                    4 & 5 & 6 \\
+                    7 & 8 & 9
+                \end{pmatrix}
+        \]
 
-    is not anti-Hermitian.
+        is not anti-Hermitian.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import is_anti_hermitian
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_anti_hermitian
 
-    mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
 
-    print(is_anti_hermitian(mat))
-    ```
+        print(is_anti_hermitian(mat))
+        ```
 
     Args:
         mat: Matrix to check.

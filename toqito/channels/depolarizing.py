@@ -27,51 +27,51 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
     denotes the completely mixed stated defined with respect to the space \(\mathcal{X}\).
 
     Examples:
-    The completely depolarizing channel maps every density matrix to the maximally-mixed state.
-    For example, consider the density operator
+        The completely depolarizing channel maps every density matrix to the maximally-mixed state.
+        For example, consider the density operator
 
-    \[
-        \rho = \frac{1}{2} \begin{pmatrix}
-                             1 & 0 & 0 & 1 \\
-                             0 & 0 & 0 & 0 \\
-                             0 & 0 & 0 & 0 \\
-                             1 & 0 & 0 & 1
-                           \end{pmatrix}
-    \]
+        \[
+            \rho = \frac{1}{2} \begin{pmatrix}
+                                 1 & 0 & 0 & 1 \\
+                                 0 & 0 & 0 & 0 \\
+                                 0 & 0 & 0 & 0 \\
+                                 1 & 0 & 0 & 1
+                               \end{pmatrix}
+        \]
 
-    corresponding to one of the Bell states. Applying the depolarizing channel to \(\rho\) we
-    have that
+        corresponding to one of the Bell states. Applying the depolarizing channel to \(\rho\) we
+        have that
 
-    \[
-        \Phi(\rho) = \frac{1}{4} \begin{pmatrix}
-                                    1 & 0 & 0 & 0 \\
-                                    0 & 1 & 0 & 0 \\
-                                    0 & 0 & 1 & 0 \\
-                                    0 & 0 & 0 & 1
-                                 \end{pmatrix}.
-    \]
+        \[
+            \Phi(\rho) = \frac{1}{4} \begin{pmatrix}
+                                        1 & 0 & 0 & 0 \\
+                                        0 & 1 & 0 & 0 \\
+                                        0 & 0 & 1 & 0 \\
+                                        0 & 0 & 0 & 1
+                                     \end{pmatrix}.
+        \]
 
-    This can be observed in `|toqito⟩` as follows.
+        This can be observed in `|toqito⟩` as follows.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.channels import depolarizing
-    from toqito.channel_ops import apply_channel
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.channels import depolarizing
+        from toqito.channel_ops import apply_channel
 
-    test_input_mat = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
+        test_input_mat = np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]])
 
-    print(apply_channel(test_input_mat, depolarizing(4)))
-    ```
+        print(apply_channel(test_input_mat, depolarizing(4)))
+        ```
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.channels import depolarizing
-    from toqito.channel_ops import apply_channel
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.channels import depolarizing
+        from toqito.channel_ops import apply_channel
 
-    test_input_mat = np.arange(1, 17).reshape(4, 4)
+        test_input_mat = np.arange(1, 17).reshape(4, 4)
 
-    print(apply_channel(test_input_mat, depolarizing(4, 0.5)))
-    ```
+        print(apply_channel(test_input_mat, depolarizing(4, 0.5)))
+        ```
 
     Raises:
         ValueError: If `param_p` is outside the interval [0,1].

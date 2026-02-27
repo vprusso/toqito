@@ -19,21 +19,21 @@ def realignment(input_mat: np.ndarray, dim: int | list[int] | np.ndarray | None 
     second row of `dim`.
 
     Examples:
-    The standard realignment map
+        The standard realignment map
 
-    Using `|toqito⟩`, we can generate the standard realignment map as follows. When viewed as a
-    map on block matrices, the realignment map takes each block of the original matrix and makes
-    its vectorization the rows of the realignment matrix. This is illustrated by the following
-    small example:
+        Using `|toqito⟩`, we can generate the standard realignment map as follows. When viewed as a
+        map on block matrices, the realignment map takes each block of the original matrix and makes
+        its vectorization the rows of the realignment matrix. This is illustrated by the following
+        small example:
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.channels import realignment
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.channels import realignment
 
-    test_input_mat = np.arange(1, 17).reshape(4, 4)
+        test_input_mat = np.arange(1, 17).reshape(4, 4)
 
-    print(realignment(test_input_mat))
-    ```
+        print(realignment(test_input_mat))
+        ```
 
     Raises:
         ValueError: If dimension of matrix is invalid.

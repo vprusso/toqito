@@ -34,55 +34,55 @@ def apply_channel(mat: np.ndarray, phi_op: np.ndarray | list[list[np.ndarray]]) 
     This function is adapted from the QETLAB package.
 
     Examples:
-    The swap operator is the Choi matrix of the transpose map. The following is a (non-ideal,
-    but illustrative) way of computing the transpose of a matrix.
+        The swap operator is the Choi matrix of the transpose map. The following is a (non-ideal,
+        but illustrative) way of computing the transpose of a matrix.
 
-    Consider the following matrix
+        Consider the following matrix
 
-    \[
-        X = \begin{pmatrix}
-                1 & 4 & 7 \\
-                2 & 5 & 8 \\
-                3 & 6 & 9
-            \end{pmatrix}
-    \]
+        \[
+            X = \begin{pmatrix}
+                    1 & 4 & 7 \\
+                    2 & 5 & 8 \\
+                    3 & 6 & 9
+                \end{pmatrix}
+        \]
 
-    Applying the swap operator given as
+        Applying the swap operator given as
 
-    \[
-        \Phi =
-        \begin{pmatrix}
-            1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-            0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
-            0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
-            0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-            0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
-            0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
-            0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
-            0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
-            0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1
-         \end{pmatrix}
-    \]
+        \[
+            \Phi =
+            \begin{pmatrix}
+                1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+                0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+                0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1
+             \end{pmatrix}
+        \]
 
-    to the matrix \(X\), we have the resulting matrix of
+        to the matrix \(X\), we have the resulting matrix of
 
-    \[
-        \Phi(X) = \begin{pmatrix}
-                        1 & 2 & 3 \\
-                        4 & 5 & 6 \\
-                        7 & 8 & 9
-                   \end{pmatrix}
-    \]
+        \[
+            \Phi(X) = \begin{pmatrix}
+                            1 & 2 & 3 \\
+                            4 & 5 & 6 \\
+                            7 & 8 & 9
+                       \end{pmatrix}
+        \]
 
-    Using `|toqito⟩`, we can obtain the above matrices as follows.
+        Using `|toqito⟩`, we can obtain the above matrices as follows.
 
-    ```python exec="1" source="above"
-    from toqito.channel_ops import apply_channel
-    from toqito.perms import swap_operator
-    import numpy as np
-    test_input_mat = np.array([[1, 4, 7], [2, 5, 8], [3, 6, 9]])
-    print(apply_channel(test_input_mat, swap_operator(3)))
-    ```
+        ```python exec="1" source="above"
+        from toqito.channel_ops import apply_channel
+        from toqito.perms import swap_operator
+        import numpy as np
+        test_input_mat = np.array([[1, 4, 7], [2, 5, 8], [3, 6, 9]])
+        print(apply_channel(test_input_mat, swap_operator(3)))
+        ```
 
     Raises:
         ValueError: If matrix is not Choi matrix.

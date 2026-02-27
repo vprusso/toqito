@@ -44,18 +44,18 @@ def learnability(
     is also solved as a consistency check.
 
     Examples:
-    ```python exec="1" source="above"
-    from toqito.state_props import learnability
-    from toqito.states import basis
+        ```python exec="1" source="above"
+        from toqito.state_props import learnability
+        from toqito.states import basis
 
-    e0, e1 = basis(2, 0), basis(2, 1)
-    print(learnability(
-        [e0, e1],
-        k=1,
-        solver="SCS",
-        solver_kwargs={"eps": 1e-6, "max_iters": 5_000},
-    ))
-    ```
+        e0, e1 = basis(2, 0), basis(2, 1)
+        print(learnability(
+            [e0, e1],
+            k=1,
+            solver="SCS",
+            solver_kwargs={"eps": 1e-6, "max_iters": 5_000},
+        ))
+        ```
 
     Args:
         states: Sequence of state vectors or density matrices acting on the same space.

@@ -25,48 +25,48 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int, seed: int | None = 
     Wishart measure on the POVM effects.  Supplying ``seed`` reproduces the same sample sequence.
 
     Examples:
-    We can generate a set of `dim`-by-`dim` POVMs consisting of a specific dimension along with a given number of
-    measurement inputs and measurement outputs. As an example, we can construct a random set of \(2\)-by-\(2\)
-    POVMs of dimension with \(2\) inputs and \(2\) outputs.
+        We can generate a set of `dim`-by-`dim` POVMs consisting of a specific dimension along with a given number of
+        measurement inputs and measurement outputs. As an example, we can construct a random set of \(2\)-by-\(2\)
+        POVMs of dimension with \(2\) inputs and \(2\) outputs.
 
-    ```python exec="1" source="above" session="povm_example"
-    import numpy as np
-    from toqito.rand import random_povm
+        ```python exec="1" source="above" session="povm_example"
+        import numpy as np
+        from toqito.rand import random_povm
 
-    dim, num_inputs, num_outputs = 2, 2, 2
+        dim, num_inputs, num_outputs = 2, 2, 2
 
-    povms = random_povm(dim, num_inputs, num_outputs)
+        povms = random_povm(dim, num_inputs, num_outputs)
 
-    print(povms)
-    ```
+        print(povms)
+        ```
 
 
-    We can verify that this constitutes a valid set of POVM elements as checking that these operators all sum to the
-    identity operator.
+        We can verify that this constitutes a valid set of POVM elements as checking that these operators all sum to the
+        identity operator.
 
-    ```python exec="1" source="above" session="povm_example"
-    print(np.round(povms[:, :, 0, 0] + povms[:, :, 0, 1]))
-    ```
+        ```python exec="1" source="above" session="povm_example"
+        print(np.round(povms[:, :, 0, 0] + povms[:, :, 0, 1]))
+        ```
 
-    It is also possible to add a seed for reproducibility.
+        It is also possible to add a seed for reproducibility.
 
-    ```python exec="1" source="above" session="povm_example"
-    import numpy as np
-    from toqito.rand import random_povm
+        ```python exec="1" source="above" session="povm_example"
+        import numpy as np
+        from toqito.rand import random_povm
 
-    dim, num_inputs, num_outputs = 2, 2, 2
+        dim, num_inputs, num_outputs = 2, 2, 2
 
-    povms = random_povm(dim, num_inputs, num_outputs, seed=42)
+        povms = random_povm(dim, num_inputs, num_outputs, seed=42)
 
-    print(povms)
-    ```
+        print(povms)
+        ```
 
-    We can once again verify that this constitutes a valid set of POVM elements as checking that
-    these operators all sum to the identity operator.
+        We can once again verify that this constitutes a valid set of POVM elements as checking that
+        these operators all sum to the identity operator.
 
-    ```python exec="1" source="above" session="povm_example"
-    print(np.round(povms[:, :, 0, 0] + povms[:, :, 0, 1]))
-    ```
+        ```python exec="1" source="above" session="povm_example"
+        print(np.round(povms[:, :, 0, 0] + povms[:, :, 0, 1]))
+        ```
 
     Args:
         dim: The dimensions of the measurements.

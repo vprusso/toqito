@@ -28,23 +28,23 @@ def pretty_bad_measurement(
         [pretty_good_measurement()][toqito.measurements.pretty_good_measurement.pretty_good_measurement]
 
     Examples:
-    Consider the collection of trine states.
+        Consider the collection of trine states.
 
-    \[
-        u_0 = |0\rangle, \quad
-        u_1 = -\frac{1}{2}\left(|0\rangle + \sqrt{3}|1\rangle\right), \quad \text{and} \quad
-        u_2 = -\frac{1}{2}\left(|0\rangle - \sqrt{3}|1\rangle\right).
-    \]
+        \[
+            u_0 = |0\rangle, \quad
+            u_1 = -\frac{1}{2}\left(|0\rangle + \sqrt{3}|1\rangle\right), \quad \text{and} \quad
+            u_2 = -\frac{1}{2}\left(|0\rangle - \sqrt{3}|1\rangle\right).
+        \]
 
-    ```python exec="1" source="above"
-    from toqito.states import trine
-    from toqito.measurements import pretty_bad_measurement
+        ```python exec="1" source="above"
+        from toqito.states import trine
+        from toqito.measurements import pretty_bad_measurement
 
-    states = trine()
-    probs = [1 / 3, 1 / 3, 1 / 3]
-    pbm = pretty_bad_measurement(states, probs)
-    print(pbm)
-    ```
+        states = trine()
+        probs = [1 / 3, 1 / 3, 1 / 3]
+        pbm = pretty_bad_measurement(states, probs)
+        print(pbm)
+        ```
 
     Raises:
         ValueError: If number of states does not match number of probabilities.

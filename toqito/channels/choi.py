@@ -16,67 +16,67 @@ def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
     PPT entanglement.
 
     Examples:
-    The standard Choi channel is given as
+        The standard Choi channel is given as
 
-    \[
-        \Phi_{1, 1, 0} =
-        \begin{pmatrix}
-            1 & 0 & 0 & 0 & -1 & 0 & 0 & 0 & -1 \\
-            0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-            0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
-            0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
-            -1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & -1 \\
-            0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-            0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-            0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
-            -1 & 0 & 0 & 0 & -1 & 0 & 0 & 0 & 1
-        \end{pmatrix}
-    \]
+        \[
+            \Phi_{1, 1, 0} =
+            \begin{pmatrix}
+                1 & 0 & 0 & 0 & -1 & 0 & 0 & 0 & -1 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+                -1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & -1 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+                -1 & 0 & 0 & 0 & -1 & 0 & 0 & 0 & 1
+            \end{pmatrix}
+        \]
 
-    We can generate the Choi channel in `|toqito⟩` as follows.
+        We can generate the Choi channel in `|toqito⟩` as follows.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.channels import choi
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.channels import choi
 
-    print(choi())
-    ```
+        print(choi())
+        ```
 
-    The reduction channel is the map \(R\) defined by:
+        The reduction channel is the map \(R\) defined by:
 
-    \[
-        R(X) = \text{Tr}(X) \mathbb{I} - X.
-    \]
+        \[
+            R(X) = \text{Tr}(X) \mathbb{I} - X.
+        \]
 
-    The matrix correspond to this is given as
+        The matrix correspond to this is given as
 
-    \[
-        \Phi_{0, 1, 1} =
-        \begin{pmatrix}
-            0 & 0 & 0 & 0 & -1 & 0 & 0 & 0 & -1 \\
-            0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-            0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
-            0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
-            -1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & -1 \\
-            0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
-            0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
-            0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
-            -1 & 0 & 0 & 0 & -1 & 0 & 0 & 0 & 0
-        \end{pmatrix}
-    \]
+        \[
+            \Phi_{0, 1, 1} =
+            \begin{pmatrix}
+                0 & 0 & 0 & 0 & -1 & 0 & 0 & 0 & -1 \\
+                0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+                -1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & -1 \\
+                0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+                -1 & 0 & 0 & 0 & -1 & 0 & 0 & 0 & 0
+            \end{pmatrix}
+        \]
 
-    The reduction channel is the Choi channel that arises when `a = 0` and when `b =
-    c = 1`. We can obtain this matrix using `|toqito⟩` as follows.
+        The reduction channel is the Choi channel that arises when `a = 0` and when `b =
+        c = 1`. We can obtain this matrix using `|toqito⟩` as follows.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.channels import choi
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.channels import choi
 
-    print(choi(0, 1, 1))
-    ```
+        print(choi(0, 1, 1))
+        ```
 
-    !!! See Also
-        [reduction][toqito.channels.reduction.reduction]
+        !!! See Also
+            [reduction][toqito.channels.reduction.reduction]
 
     Args:
         a_var: Default integer for standard Choi map.

@@ -53,32 +53,32 @@ def vec(mat: np.ndarray) -> np.ndarray:
     for all \(a\) and \(b\).
 
     Examples:
-    Consider the following matrix
+        Consider the following matrix
 
-    \[
-        A = \begin{pmatrix}
-                1 & 2 \\
-                3 & 4
-            \end{pmatrix}
-    \]
+        \[
+            A = \begin{pmatrix}
+                    1 & 2 \\
+                    3 & 4
+                \end{pmatrix}
+        \]
 
-    Performing the \(\text{vec}\) operation on \(A\) yields
+        Performing the \(\text{vec}\) operation on \(A\) yields
 
-    \[
-        \text{vec}(A) = \left[1, 3, 2, 4 \right]^{T}.
-    \]
+        \[
+            \text{vec}(A) = \left[1, 3, 2, 4 \right]^{T}.
+        \]
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.perms import vec
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.perms import vec
 
-    X = np.array([[1, 2], [3, 4]])
+        X = np.array([[1, 2], [3, 4]])
 
-    print(vec(X))
-    ```
+        print(vec(X))
+        ```
 
-    !!! See Also
-        [`unvec()`][toqito.matrix_ops.unvec.unvec]
+        !!! See Also
+            [`unvec()`][toqito.matrix_ops.unvec.unvec]
 
     Args:
         mat: The input matrix.

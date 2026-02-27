@@ -11,28 +11,28 @@ def is_circulant(mat: np.ndarray) -> bool:
     relative to the preceding row vector.
 
     Examples:
-    Consider the following matrix:
+        Consider the following matrix:
 
-    \[
-        C = \begin{pmatrix}
-                4 & 1 & 2 & 3 \\
-                3 & 4 & 1 & 2 \\
-                2 & 3 & 4 & 1 \\
-                1 & 2 & 3 & 4
-            \end{pmatrix}
-    \]
+        \[
+            C = \begin{pmatrix}
+                    4 & 1 & 2 & 3 \\
+                    3 & 4 & 1 & 2 \\
+                    2 & 3 & 4 & 1 \\
+                    1 & 2 & 3 & 4
+                \end{pmatrix}
+        \]
 
-    As can be seen, this matrix is circulant. We can verify this in
-    `|toqito⟩` as
+        As can be seen, this matrix is circulant. We can verify this in
+        `|toqito⟩` as
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import is_circulant
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_circulant
 
-    mat = np.array([[4, 1, 2, 3], [3, 4, 1, 2], [2, 3, 4, 1], [1, 2, 3, 4]])
+        mat = np.array([[4, 1, 2, 3], [3, 4, 1, 2], [2, 3, 4, 1], [1, 2, 3, 4]])
 
-    print(is_circulant(mat))
-    ```
+        print(is_circulant(mat))
+        ```
 
     Args:
         mat: Matrix to check the circulancy of.

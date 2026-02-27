@@ -23,53 +23,53 @@ def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
     for every \(X \in \text{L}(\mathcal{X})\) is defined as the *completely dephasing channel*.
 
     Examples:
-    The completely dephasing channel maps kills everything off the diagonal. Consider the
-    following matrix
+        The completely dephasing channel maps kills everything off the diagonal. Consider the
+        following matrix
 
-    \[
-        \rho = \begin{pmatrix}
-                   1 & 2 & 3 & 4 \\
-                   5 & 6 & 7 & 8 \\
-                   9 & 10 & 11 & 12 \\
-                   13 & 14 & 15 & 16
-               \end{pmatrix}.
-    \]
+        \[
+            \rho = \begin{pmatrix}
+                       1 & 2 & 3 & 4 \\
+                       5 & 6 & 7 & 8 \\
+                       9 & 10 & 11 & 12 \\
+                       13 & 14 & 15 & 16
+                   \end{pmatrix}.
+        \]
 
-    Applying the dephasing channel to \(\rho\) we have that
+        Applying the dephasing channel to \(\rho\) we have that
 
-    \[
-        \Phi(\rho) = \begin{pmatrix}
-                         1 & 0 & 0 & 0 \\
-                         0 & 6 & 0 & 0 \\
-                         0 & 0 & 11 & 0 \\
-                         0 & 0 & 0 & 16
-                     \end{pmatrix}.
-    \]
+        \[
+            \Phi(\rho) = \begin{pmatrix}
+                             1 & 0 & 0 & 0 \\
+                             0 & 6 & 0 & 0 \\
+                             0 & 0 & 11 & 0 \\
+                             0 & 0 & 0 & 16
+                         \end{pmatrix}.
+        \]
 
-    This can be observed in `|toqito⟩` as follows.
+        This can be observed in `|toqito⟩` as follows.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.channels import dephasing
-    from toqito.channel_ops import apply_channel
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.channels import dephasing
+        from toqito.channel_ops import apply_channel
 
-    test_input_mat = np.arange(1, 17).reshape(4, 4)
+        test_input_mat = np.arange(1, 17).reshape(4, 4)
 
-    print(apply_channel(test_input_mat, dephasing(4)))
-    ```
+        print(apply_channel(test_input_mat, dephasing(4)))
+        ```
 
 
-    We may also consider setting the parameter `p = 0.5`.
+        We may also consider setting the parameter `p = 0.5`.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.channels import dephasing
-    from toqito.channel_ops import apply_channel
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.channels import dephasing
+        from toqito.channel_ops import apply_channel
 
-    test_input_mat = np.arange(1, 17).reshape(4, 4)
+        test_input_mat = np.arange(1, 17).reshape(4, 4)
 
-    print(apply_channel(test_input_mat, dephasing(4, 0.5)))
-    ```
+        print(apply_channel(test_input_mat, dephasing(4, 0.5)))
+        ```
 
     Args:
         dim: The dimensionality on which the channel acts.

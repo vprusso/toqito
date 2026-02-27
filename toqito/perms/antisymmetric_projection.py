@@ -16,49 +16,49 @@ def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) 
     (and hence the PA * PA' is the orthogonal projection onto the symmetric subspace.)
 
     Examples:
-    The \(2\)-dimensional antisymmetric projection with \(p=1\) is given as
-    \(2\)-by-\(2\) identity matrix
+        The \(2\)-dimensional antisymmetric projection with \(p=1\) is given as
+        \(2\)-by-\(2\) identity matrix
 
-    \[
-        A_{2,1} =
-        \begin{pmatrix}
-            1 & 0 \\
-            0 & 1
-        \end{pmatrix}.
-    \]
+        \[
+            A_{2,1} =
+            \begin{pmatrix}
+                1 & 0 \\
+                0 & 1
+            \end{pmatrix}.
+        \]
 
-    Using `|toqito⟩`, we can see this gives the proper result.
+        Using `|toqito⟩`, we can see this gives the proper result.
 
-    ```python exec="1" source="above"
-    from toqito.perms import antisymmetric_projection
+        ```python exec="1" source="above"
+        from toqito.perms import antisymmetric_projection
 
-    print(antisymmetric_projection(2, 1))
-    ```
+        print(antisymmetric_projection(2, 1))
+        ```
 
-    When the \(p\) value is greater than the dimension of the antisymmetric projection, this just gives the matrix
-    consisting of all zero entries. For instance, when \(d = 2\) and \(p = 3\) we have that
+        When the \(p\) value is greater than the dimension of the antisymmetric projection, this just gives the matrix
+        consisting of all zero entries. For instance, when \(d = 2\) and \(p = 3\) we have that
 
-    \[
-        A_{2, 3} =
-        \begin{pmatrix}
-            0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-            0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-            0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-            0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-            0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-            0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-            0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-            0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
-        \end{pmatrix}.
-    \]
+        \[
+            A_{2, 3} =
+            \begin{pmatrix}
+                0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 0 & 0
+            \end{pmatrix}.
+        \]
 
-    Using `|toqito⟩` we can see this gives the proper result.
+        Using `|toqito⟩` we can see this gives the proper result.
 
-    ```python exec="1" source="above"
-    from toqito.perms import antisymmetric_projection
+        ```python exec="1" source="above"
+        from toqito.perms import antisymmetric_projection
 
-    print(antisymmetric_projection(2, 3))
-    ```
+        print(antisymmetric_projection(2, 3))
+        ```
 
     Args:
         dim: The dimension of the local systems.

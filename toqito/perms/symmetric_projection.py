@@ -29,42 +29,42 @@ def symmetric_projection(dim: int, p_val: int = 2, partial: bool = False) -> np.
     This function was adapted from the QETLAB package.
 
     Examples:
-    The \(2\)-dimensional symmetric projection with \(p=1\) is given as \(2\)-by-\(2\) identity matrix
+        The \(2\)-dimensional symmetric projection with \(p=1\) is given as \(2\)-by-\(2\) identity matrix
 
-    \[
-        \begin{pmatrix}
-            1 & 0 \\
-            0 & 1
-        \end{pmatrix}.
-    \]
+        \[
+            \begin{pmatrix}
+                1 & 0 \\
+                0 & 1
+            \end{pmatrix}.
+        \]
 
-    Using `|toqito⟩`, we can see this gives the proper result.
+        Using `|toqito⟩`, we can see this gives the proper result.
 
-    ```python exec="1" source="above"
-    from toqito.perms import symmetric_projection
+        ```python exec="1" source="above"
+        from toqito.perms import symmetric_projection
 
-    print(symmetric_projection(2, 1))
-    ```
+        print(symmetric_projection(2, 1))
+        ```
 
 
-    When \(d = 2\) and \(p = 2\) we have that
+        When \(d = 2\) and \(p = 2\) we have that
 
-    \[
-        \begin{pmatrix}
-            1 & 0 & 0 & 0 \\
-            0 & 1/2 & 1/2 & 0 \\
-            0 & 1/2 & 1/2 & 0 \\
-            0 & 0 & 0 & 1
-        \end{pmatrix}.
-    \]
+        \[
+            \begin{pmatrix}
+                1 & 0 & 0 & 0 \\
+                0 & 1/2 & 1/2 & 0 \\
+                0 & 1/2 & 1/2 & 0 \\
+                0 & 0 & 0 & 1
+            \end{pmatrix}.
+        \]
 
-    Using `|toqito⟩` we can see this gives the proper result.
+        Using `|toqito⟩` we can see this gives the proper result.
 
-    ```python exec="1" source="above"
-    from toqito.perms import symmetric_projection
+        ```python exec="1" source="above"
+        from toqito.perms import symmetric_projection
 
-    print(symmetric_projection(dim=2))
-    ```
+        print(symmetric_projection(dim=2))
+        ```
 
     Args:
         dim: The dimension of the local systems.

@@ -24,78 +24,78 @@ def swap(
     this is equivalent to multiplying `rho` on the left by the corresponding swap operator, but not on the right.
 
     Examples:
-    Consider the following matrix
+        Consider the following matrix
 
-    \[
-        X =
-        \begin{pmatrix}
-            1 & 5 & 9 & 13 \\
-            2 & 6 & 10 & 14 \\
-            3 & 7 & 11 & 15 \\
-            4 & 8 & 12 & 16
-        \end{pmatrix}.
-    \]
+        \[
+            X =
+            \begin{pmatrix}
+                1 & 5 & 9 & 13 \\
+                2 & 6 & 10 & 14 \\
+                3 & 7 & 11 & 15 \\
+                4 & 8 & 12 & 16
+            \end{pmatrix}.
+        \]
 
-    If we apply the `swap` function provided by `|toqito⟩` on \(X\), we should obtain the following
-    matrix
+        If we apply the `swap` function provided by `|toqito⟩` on \(X\), we should obtain the following
+        matrix
 
-    \[
-        \text{Swap}(X) =
-        \begin{pmatrix}
-            1 & 9 & 5 & 13 \\
-            3 & 11 & 7 & 15 \\
-            2 & 10 & 6 & 14 \\
-            4 & 12 & 8 & 16
-        \end{pmatrix}.
-    \]
+        \[
+            \text{Swap}(X) =
+            \begin{pmatrix}
+                1 & 9 & 5 & 13 \\
+                3 & 11 & 7 & 15 \\
+                2 & 10 & 6 & 14 \\
+                4 & 12 & 8 & 16
+            \end{pmatrix}.
+        \]
 
-    This can be observed by the following example in `|toqito⟩`.
+        This can be observed by the following example in `|toqito⟩`.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.perms import swap
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.perms import swap
 
-    test_mat = np.arange(1, 17).reshape(4, 4)
+        test_mat = np.arange(1, 17).reshape(4, 4)
 
-    print(swap(test_mat))
-    ```
+        print(swap(test_mat))
+        ```
 
-    It is also possible to use the `sys` and `dim` arguments, it is possible to specify the system and
-    dimension on which to apply the swap operator. For instance for `sys = [1 ,2]` and `dim = 2` we have
-    that
+        It is also possible to use the `sys` and `dim` arguments, it is possible to specify the system and
+        dimension on which to apply the swap operator. For instance for `sys = [1 ,2]` and `dim = 2` we have
+        that
 
-    \[
-        \text{Swap}(X)_{2, [1, 2]} =
-        \begin{pmatrix}
-            1 & 9 & 5 & 13 \\
-            3 & 11 & 7 & 15 \\
-            2 & 10 & 6 & 14 \\
-            4 & 12 & 8 & 16
-        \end{pmatrix}.
-    \]
+        \[
+            \text{Swap}(X)_{2, [1, 2]} =
+            \begin{pmatrix}
+                1 & 9 & 5 & 13 \\
+                3 & 11 & 7 & 15 \\
+                2 & 10 & 6 & 14 \\
+                4 & 12 & 8 & 16
+            \end{pmatrix}.
+        \]
 
-    Using `|toqito⟩` we can see this gives the proper result.
+        Using `|toqito⟩` we can see this gives the proper result.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.perms import swap
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.perms import swap
 
-    test_mat = np.array(
-        [[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]]
-    )
-    print(swap(test_mat, [1, 2], 2))
-    ```
+        test_mat = np.array(
+            [[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]]
+        )
+        print(swap(test_mat, [1, 2], 2))
+        ```
 
-    It is also possible to perform the `swap` function on vectors in addition to matrices.
+        It is also possible to perform the `swap` function on vectors in addition to matrices.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.perms import swap
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.perms import swap
 
-    test_vec = np.array([1, 2, 3, 4])
+        test_vec = np.array([1, 2, 3, 4])
 
-    print(swap(test_vec))
-    ```
+        print(swap(test_vec))
+        ```
 
 
 

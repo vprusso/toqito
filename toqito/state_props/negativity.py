@@ -21,17 +21,17 @@ def negativity(rho: np.ndarray, dim: list[int] | int | None = None) -> float | n
     absolute value of the negative eigenvalues of the partial transpose of \(\rho\).
 
     Examples:
-    Example of the negativity of density matrix of Bell state.
+        Example of the negativity of density matrix of Bell state.
 
-    ```python exec="1" source="above"
-    from toqito.states import bell
-    from toqito.state_props import negativity
-    rho = bell(0) @ bell(0).conj().T
-    print(negativity(rho))
-    ```
+        ```python exec="1" source="above"
+        from toqito.states import bell
+        from toqito.state_props import negativity
+        rho = bell(0) @ bell(0).conj().T
+        print(negativity(rho))
+        ```
 
-    !!!See Also
-        [log_negativity()][toqito.state_props.log_negativity.log_negativity]
+        !!!See Also
+            [log_negativity()][toqito.state_props.log_negativity.log_negativity]
 
     Raises:
         ValueError: If dimension of matrix is invalid.

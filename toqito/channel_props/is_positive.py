@@ -28,44 +28,44 @@ def is_positive(
     Hermitian-preserving and positive semidefinite.
 
     Examples:
-    We can specify the input as a list of Kraus operators. Consider the map \(\Phi\) defined as
+        We can specify the input as a list of Kraus operators. Consider the map \(\Phi\) defined as
 
-    \[
-        \Phi(X) = X - U X U^*
-    \]
+        \[
+            \Phi(X) = X - U X U^*
+        \]
 
-    where
+        where
 
-    \[
-        U = \frac{1}{\sqrt{2}}
-        \begin{pmatrix}
-            1 & 1 \\
-            -1 & -1
-        \end{pmatrix}.
-    \]
+        \[
+            U = \frac{1}{\sqrt{2}}
+            \begin{pmatrix}
+                1 & 1 \\
+                -1 & -1
+            \end{pmatrix}.
+        \]
 
-    This map is not completely positive, as we can verify as follows.
+        This map is not completely positive, as we can verify as follows.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.channel_props import is_positive
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.channel_props import is_positive
 
-    unitary_mat = np.array([[1, 1], [-1, -1]]) / np.sqrt(2)
-    kraus_ops = [[np.identity(2), np.identity(2)], [unitary_mat, -unitary_mat]]
+        unitary_mat = np.array([[1, 1], [-1, -1]]) / np.sqrt(2)
+        kraus_ops = [[np.identity(2), np.identity(2)], [unitary_mat, -unitary_mat]]
 
-    print(is_positive(kraus_ops))
-    ```
+        print(is_positive(kraus_ops))
+        ```
 
-    We can also specify the input as a Choi matrix. For instance, consider the Choi matrix
-    corresponding to the \(4\)-dimensional completely depolarizing channel and may verify
-    that this channel is positive.
+        We can also specify the input as a Choi matrix. For instance, consider the Choi matrix
+        corresponding to the \(4\)-dimensional completely depolarizing channel and may verify
+        that this channel is positive.
 
-    ```python exec="1" source="above"
-    from toqito.channels import depolarizing
-    from toqito.channel_props import is_positive
+        ```python exec="1" source="above"
+        from toqito.channels import depolarizing
+        from toqito.channel_props import is_positive
 
-    print(is_positive(depolarizing(4)))
-    ```
+        print(is_positive(depolarizing(4)))
+        ```
 
     Args:
         phi: The channel provided as either a Choi matrix or a list of Kraus operators.

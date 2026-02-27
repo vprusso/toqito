@@ -18,37 +18,37 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
         [`is_doubly_stochastic()`][toqito.matrix_props.is_doubly_stochastic]
 
     Examples:
-    The elements of an identity matrix and a Pauli-X matrix are nonnegative such that the rows and columns sum up to 1.
-    We expect these matrices to be left and right stochastic. The same cannot be said about a Pauli-Z or a Pauli-Y
-    matrix.
+        The elements of an identity matrix and a Pauli-X matrix are nonnegative such that the rows and columns sum up to 1.
+        We expect these matrices to be left and right stochastic. The same cannot be said about a Pauli-Z or a Pauli-Y
+        matrix.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import is_stochastic
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_stochastic
 
-    print(is_stochastic(np.eye(5), "right"))
-    print(is_stochastic(np.eye(5), "left"))
-    print(is_stochastic(np.eye(5), "doubly"))
-    ```
+        print(is_stochastic(np.eye(5), "right"))
+        print(is_stochastic(np.eye(5), "left"))
+        print(is_stochastic(np.eye(5), "doubly"))
+        ```
 
-    ```python exec="1" source="above"
-    from toqito.matrices import pauli
-    from toqito.matrix_props import is_stochastic
+        ```python exec="1" source="above"
+        from toqito.matrices import pauli
+        from toqito.matrix_props import is_stochastic
 
-    print(is_stochastic(pauli("X"), "left"))
-    print(is_stochastic(pauli("X"), "right"))
-    print(is_stochastic(pauli("X"), "doubly"))
-    ```
+        print(is_stochastic(pauli("X"), "left"))
+        print(is_stochastic(pauli("X"), "right"))
+        print(is_stochastic(pauli("X"), "doubly"))
+        ```
 
-    ```python exec="1" source="above"
-    from toqito.matrices import pauli
-    from toqito.matrix_props import is_stochastic
+        ```python exec="1" source="above"
+        from toqito.matrices import pauli
+        from toqito.matrix_props import is_stochastic
 
-    print(is_stochastic(pauli("Z"), "right"))
-    print(is_stochastic(pauli("Z"), "left"))
-    print(is_stochastic(pauli("Z"), "doubly"))
-    ```
-                      `mat_type`
+        print(is_stochastic(pauli("Z"), "right"))
+        print(is_stochastic(pauli("Z"), "left"))
+        print(is_stochastic(pauli("Z"), "doubly"))
+        ```
+                          `mat_type`
 
     Raises:
         TypeError: If something other than `"doubly"`, `"left"` or `"right"` is used for

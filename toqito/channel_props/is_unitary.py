@@ -20,49 +20,49 @@ def is_unitary(phi: np.ndarray | list[list[np.ndarray]]) -> bool:
     \]
 
     Examples:
-    The identity channel is one example of a unitary channel:
+        The identity channel is one example of a unitary channel:
 
-    \[
-        U =
-        \begin{pmatrix}
-            1 & 0 \\
-            0 & 1
-        \end{pmatrix}.
-    \]
+        \[
+            U =
+            \begin{pmatrix}
+                1 & 0 \\
+                0 & 1
+            \end{pmatrix}.
+        \]
 
-    We can verify this as follows:
+        We can verify this as follows:
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.channel_props import is_unitary
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.channel_props import is_unitary
 
-    kraus_ops = [[np.identity(2), np.identity(2)]]
+        kraus_ops = [[np.identity(2), np.identity(2)]]
 
-    print(is_unitary(kraus_ops))
-    ```
+        print(is_unitary(kraus_ops))
+        ```
 
-    We can also specify the input as a Choi matrix. For instance, consider the Choi matrix
-    corresponding to the \(2\)-dimensional completely depolarizing channel.
+        We can also specify the input as a Choi matrix. For instance, consider the Choi matrix
+        corresponding to the \(2\)-dimensional completely depolarizing channel.
 
-    \[
-        \Omega =
-        \frac{1}{2}
-        \begin{pmatrix}
-            1 & 0 & 0 & 0 \\
-            0 & 1 & 0 & 0 \\
-            0 & 0 & 1 & 0 \\
-            0 & 0 & 0 & 1
-        \end{pmatrix}.
-    \]
+        \[
+            \Omega =
+            \frac{1}{2}
+            \begin{pmatrix}
+                1 & 0 & 0 & 0 \\
+                0 & 1 & 0 & 0 \\
+                0 & 0 & 1 & 0 \\
+                0 & 0 & 0 & 1
+            \end{pmatrix}.
+        \]
 
-    We may verify that this channel is not a unitary channel.
+        We may verify that this channel is not a unitary channel.
 
-    ```python exec="1" source="above"
-    from toqito.channels import depolarizing
-    from toqito.channel_props import is_unitary
+        ```python exec="1" source="above"
+        from toqito.channels import depolarizing
+        from toqito.channel_props import is_unitary
 
-    print(is_unitary(depolarizing(2)))
-    ```
+        print(is_unitary(depolarizing(2)))
+        ```
 
     Args:
         phi: The channel provided as either a Choi matrix or a list of Kraus operators.

@@ -105,68 +105,68 @@ def bell_inequality_max(
     `Navascues_2008_AConvergent`[@Navascues_2008_AConvergent].
 
     Examples:
-    The CHSH inequality in Full Correlator (FC) notation.
-    The classical maximum is 2, the quantum maximum (Tsirelson's bound) is \(2\sqrt{2}\),
-    and the no-signalling maximum is 4.
+        The CHSH inequality in Full Correlator (FC) notation.
+        The classical maximum is 2, the quantum maximum (Tsirelson's bound) is \(2\sqrt{2}\),
+        and the no-signalling maximum is 4.
 
-    \[
-        \langle A_1 B_1 \rangle + \langle A_1 B_2 \rangle + \langle A_2 B_1 \rangle - \langle A_2 B_2 \rangle \le V
-    \]
+        \[
+            \langle A_1 B_1 \rangle + \langle A_1 B_2 \rangle + \langle A_2 B_1 \rangle - \langle A_2 B_2 \rangle \le V
+        \]
 
-    Represented by the coefficient matrix:
+        Represented by the coefficient matrix:
 
-    \[
-        M_{FC} = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 1 & 1 \\ 0 & 1 & -1 \end{pmatrix}
-    \]
+        \[
+            M_{FC} = \begin{pmatrix} 0 & 0 & 0 \\ 0 & 1 & 1 \\ 0 & 1 & -1 \end{pmatrix}
+        \]
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.state_opt.bell_inequality_max import bell_inequality_max
-    M_chsh_fc = np.array([[0, 0, 0], [0, 1, 1], [0, 1, -1]])
-    desc_chsh = [2, 2, 2, 2]
-    bell_inequality_max(M_chsh_fc, desc_chsh, 'fc', 'classical')
-    bell_inequality_max(M_chsh_fc, desc_chsh, 'fc', 'quantum', tol=1e-7)
-    print(bell_inequality_max(M_chsh_fc, desc_chsh, 'fc', 'nosignal', tol=1e-9))
-    ```
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.state_opt.bell_inequality_max import bell_inequality_max
+        M_chsh_fc = np.array([[0, 0, 0], [0, 1, 1], [0, 1, -1]])
+        desc_chsh = [2, 2, 2, 2]
+        bell_inequality_max(M_chsh_fc, desc_chsh, 'fc', 'classical')
+        bell_inequality_max(M_chsh_fc, desc_chsh, 'fc', 'quantum', tol=1e-7)
+        print(bell_inequality_max(M_chsh_fc, desc_chsh, 'fc', 'nosignal', tol=1e-9))
+        ```
 
 
-    The CHSH inequality in Collins-Gisin (CG) notation.
-    The classical maximum is 0, the quantum maximum is \(1/\sqrt{2} - 1/2\),
-    and the no-signalling maximum is 1/2.
+        The CHSH inequality in Collins-Gisin (CG) notation.
+        The classical maximum is 0, the quantum maximum is \(1/\sqrt{2} - 1/2\),
+        and the no-signalling maximum is 1/2.
 
-    \[
-        p(00|11)+p(00|12)+p(00|21)-p(00|22)-p_A(0|1)-p_B(0|1) \le V
-    \]
+        \[
+            p(00|11)+p(00|12)+p(00|21)-p(00|22)-p_A(0|1)-p_B(0|1) \le V
+        \]
 
-    Represented by the coefficient matrix:
+        Represented by the coefficient matrix:
 
-    \[
-        M_{CG} = \begin{pmatrix} 0 & -1 & 0 \\ -1 & 1 & 1 \\ 0 & 1 & -1 \end{pmatrix}
-    \]
+        \[
+            M_{CG} = \begin{pmatrix} 0 & -1 & 0 \\ -1 & 1 & 1 \\ 0 & 1 & -1 \end{pmatrix}
+        \]
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.state_opt.bell_inequality_max import bell_inequality_max
-    M_chsh_cg = np.array([[0, -1, 0], [-1, 1, 1], [0, 1, -1]])
-    desc_chsh = [2, 2, 2, 2]
-    bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'classical')
-    bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'quantum', tol=1e-7)
-    print(bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'nosignal', tol=1e-9))
-    ```
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.state_opt.bell_inequality_max import bell_inequality_max
+        M_chsh_cg = np.array([[0, -1, 0], [-1, 1, 1], [0, 1, -1]])
+        desc_chsh = [2, 2, 2, 2]
+        bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'classical')
+        bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'quantum', tol=1e-7)
+        print(bell_inequality_max(M_chsh_cg, desc_chsh, 'cg', 'nosignal', tol=1e-9))
+        ```
 
-    The I3322 inequality in Collins-Gisin (CG) notation.
-    Classical max = 1, No-signalling max = 2. Quantum value is between 1 and 2.
+        The I3322 inequality in Collins-Gisin (CG) notation.
+        Classical max = 1, No-signalling max = 2. Quantum value is between 1 and 2.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.state_opt.bell_inequality_max import bell_inequality_max
-    M_i3322_cg = np.array([[0, 1, 0, 0], [1, -1, -1, -1], [0, -1, -1, 1], [0, -1, 1, 0]])
-    desc_i3322 = [2, 2, 3, 3]
-    bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'classical')
-    bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'quantum', k=1, tol=1e-7)
-    bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'quantum', k='1+ab', tol=1e-7)
-    print(bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'nosignal', tol=1e-9))
-    ```
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.state_opt.bell_inequality_max import bell_inequality_max
+        M_i3322_cg = np.array([[0, 1, 0, 0], [1, -1, -1, -1], [0, -1, -1, 1], [0, -1, 1, 0]])
+        desc_i3322 = [2, 2, 3, 3]
+        bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'classical')
+        bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'quantum', k=1, tol=1e-7)
+        bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'quantum', k='1+ab', tol=1e-7)
+        print(bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'nosignal', tol=1e-9))
+        ```
 
     Args:
         coefficients: A matrix or tensor specifying the Bell inequality coefficients in either
@@ -461,36 +461,36 @@ def bell_inequality_max_qubits(
 
 
     Examples:
-    Consider the I3322 Bell inequality from [@Collins_2004].
+        Consider the I3322 Bell inequality from [@Collins_2004].
 
-    \[
-        \begin{aligned}
-        I_{3322} &= P(A_1 = B_1) + P(B_1 = A_2) + P(A_2 = B_2) + P(B_2 = A_3) \\
-                 &\quad - P(A_1 = B_2) - P(A_2 = B_3) - P(A_3 = B_1) - P(A_3 = B_3) \\
-                 &\le 2
-        \end{aligned}
-    \]
+        \[
+            \begin{aligned}
+            I_{3322} &= P(A_1 = B_1) + P(B_1 = A_2) + P(A_2 = B_2) + P(B_2 = A_3) \\
+                     &\quad - P(A_1 = B_2) - P(A_2 = B_3) - P(A_3 = B_1) - P(A_3 = B_3) \\
+                     &\le 2
+            \end{aligned}
+        \]
 
-    The individual and joint coefficents and measurement values are encoded as matrices.
-    The upper bound can then be found in `|toqito⟩` as follows.
+        The individual and joint coefficents and measurement values are encoded as matrices.
+        The upper bound can then be found in `|toqito⟩` as follows.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.state_opt.bell_inequality_max import bell_inequality_max_qubits
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.state_opt.bell_inequality_max import bell_inequality_max_qubits
 
-    joint_coe = np.array([
-        [1, 1, -1],
-        [1, 1, 1],
-        [-1, 1, 0],
-    ])
-    a_coe = np.array([0, -1, 0])
-    b_coe = np.array([-1, -2, 0])
-    a_val = np.array([0, 1])
-    b_val = np.array([0, 1])
+        joint_coe = np.array([
+            [1, 1, -1],
+            [1, 1, 1],
+            [-1, 1, 0],
+        ])
+        a_coe = np.array([0, -1, 0])
+        b_coe = np.array([-1, -2, 0])
+        a_val = np.array([0, 1])
+        b_val = np.array([0, 1])
 
-    result = bell_inequality_max_qubits(joint_coe, a_coe, b_coe, a_val, b_val)
-    print(f"Bell inequality maximum value: {result:.3f}")
-    ```
+        result = bell_inequality_max_qubits(joint_coe, a_coe, b_coe, a_val, b_val)
+        print(f"Bell inequality maximum value: {result:.3f}")
+        ```
 
     Raises:
         ValueError: If `a_val` or `b_val` are not length 2.

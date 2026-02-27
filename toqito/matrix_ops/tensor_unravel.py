@@ -28,13 +28,13 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
     binary constraint system (BCS) games. For background on BCS games, refer to [@Cleve_2014_Characterization].
 
     Examples:
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_ops import tensor_unravel
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_ops import tensor_unravel
 
-    tensor_constraint = np.array([[-1, -1], [-1, 1]])
-    print(tensor_unravel(tensor_constraint))
-    ```
+        tensor_constraint = np.array([[-1, -1], [-1, 1]])
+        print(tensor_unravel(tensor_constraint))
+        ```
 
     Args:
         constraint_tensor: An n-dimensional tensor with shape `(2,)*n`, where each element is either -1 or +1.

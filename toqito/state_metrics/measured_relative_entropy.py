@@ -68,24 +68,24 @@ def measured_relative_entropy(rho: np.ndarray, sigma: np.ndarray, eps: float = 1
     on the interval \([0, 1]\).
 
     Examples:
-    Consider the following quantum state \(\rho = \frac{1}{2}(I + r \cdot \mathbf{\sigma})\)
-    and the PSD operator \(\sigma = \frac{1}{2}(I + s \cdot \mathbf{\sigma})\), where
-    \(r = (0.9, 0.05, -0.02)\), \(s = (-0.8, 0.1, 0.1)\), and \(\mathbf{\sigma} =
-    (\sigma_x, \sigma_y, \sigma_z)\) are the Pauli operators.
+        Consider the following quantum state \(\rho = \frac{1}{2}(I + r \cdot \mathbf{\sigma})\)
+        and the PSD operator \(\sigma = \frac{1}{2}(I + s \cdot \mathbf{\sigma})\), where
+        \(r = (0.9, 0.05, -0.02)\), \(s = (-0.8, 0.1, 0.1)\), and \(\mathbf{\sigma} =
+        (\sigma_x, \sigma_y, \sigma_z)\) are the Pauli operators.
 
-    Calculating the measured relative entropy can be done as follows.
+        Calculating the measured relative entropy can be done as follows.
 
-    ```python exec="1" source="above"
-    from toqito.matrices import pauli
-    from toqito.state_metrics import measured_relative_entropy
-    import numpy as np
+        ```python exec="1" source="above"
+        from toqito.matrices import pauli
+        from toqito.state_metrics import measured_relative_entropy
+        import numpy as np
 
-    r = np.array([0.9, 0.05, -0.02])
-    s = np.array([-0.8, 0.1, 0.1])
-    rho = 0.5 * (pauli("I") + r[0] * pauli("X") + r[1] * pauli("Y") + r[2] * pauli("Z"))
-    sigma = 0.5 * (pauli("I") + s[0] * pauli("X") + s[1] * pauli("Y") + s[2] * pauli("Z"))
-    print(measured_relative_entropy(rho, sigma, 1e-5))
-    ```
+        r = np.array([0.9, 0.05, -0.02])
+        s = np.array([-0.8, 0.1, 0.1])
+        rho = 0.5 * (pauli("I") + r[0] * pauli("X") + r[1] * pauli("Y") + r[2] * pauli("Z"))
+        sigma = 0.5 * (pauli("I") + s[0] * pauli("X") + s[1] * pauli("Y") + s[2] * pauli("Z"))
+        print(measured_relative_entropy(rho, sigma, 1e-5))
+        ```
 
     Raises:
         ValueError: If `rho` if not a density operator or if `sigma` is not positive semi-definite.

@@ -15,16 +15,16 @@ def is_nonnegative(input_mat: np.ndarray, mat_type: str = "nonnegative") -> bool
 
 
     Examples:
-    We expect an identity matrix to be nonnegative.
+        We expect an identity matrix to be nonnegative.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import is_nonnegative
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_nonnegative
 
-    print(is_nonnegative(np.eye(2)))
-    print(is_nonnegative(np.eye(2), "doubly"))
-    print(is_nonnegative(np.array([[1, -1], [1, 1]])))
-    ```
+        print(is_nonnegative(np.eye(2)))
+        print(is_nonnegative(np.eye(2), "doubly"))
+        print(is_nonnegative(np.array([[1, -1], [1, 1]])))
+        ```
 
 
     Raises:

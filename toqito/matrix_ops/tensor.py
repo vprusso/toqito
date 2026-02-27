@@ -38,67 +38,67 @@ def tensor(*args) -> np.ndarray | None:
     \]
 
     Examples:
-    Tensor product two matrices or vectors
+        Tensor product two matrices or vectors
 
-    Consider the following ket vector
+        Consider the following ket vector
 
-    \[
-        e_0 = \left[1, 0 \right]^{\text{T}}.
-    \]
+        \[
+            e_0 = \left[1, 0 \right]^{\text{T}}.
+        \]
 
-    Computing the following tensor product
+        Computing the following tensor product
 
-    \[
-    e_0 \otimes e_0 = [1, 0, 0, 0]^{\text{T}}.
-    \]
+        \[
+        e_0 \otimes e_0 = [1, 0, 0, 0]^{\text{T}}.
+        \]
 
-    This can be accomplished in `|toqito⟩` as follows.
+        This can be accomplished in `|toqito⟩` as follows.
 
-    ```python exec="1" source="above"
-    from toqito.states import basis
-    from toqito.matrix_ops import tensor
+        ```python exec="1" source="above"
+        from toqito.states import basis
+        from toqito.matrix_ops import tensor
 
-    e_0 = basis(2, 0)
+        e_0 = basis(2, 0)
 
-    print(tensor(e_0, e_0))
-    ```
+        print(tensor(e_0, e_0))
+        ```
 
 
-    Tensor product one matrix \(n\) times with itself.
+        Tensor product one matrix \(n\) times with itself.
 
-    We may also tensor some element with itself some integer number of times.
-    For instance we can compute
+        We may also tensor some element with itself some integer number of times.
+        For instance we can compute
 
-    \[
-        e_0^{\otimes 3} = \left[1, 0, 0, 0, 0, 0, 0, 0 \right]^{\text{T}}
-    \]
+        \[
+            e_0^{\otimes 3} = \left[1, 0, 0, 0, 0, 0, 0, 0 \right]^{\text{T}}
+        \]
 
-    in `|toqito⟩` as follows.
+        in `|toqito⟩` as follows.
 
-    ```python exec="1" source="above"
-    from toqito.states import basis
-    from toqito.matrix_ops import tensor
+        ```python exec="1" source="above"
+        from toqito.states import basis
+        from toqito.matrix_ops import tensor
 
-    e_0 = basis(2, 0)
+        e_0 = basis(2, 0)
 
-    print(tensor(e_0, 3))
-    ```
+        print(tensor(e_0, 3))
+        ```
 
-    Perform the tensor product on a list of vectors or matrices.
+        Perform the tensor product on a list of vectors or matrices.
 
-    If we wish to compute the tensor product against more than two matrices or
-    vectors, we can feed them in as a `list`. For instance, if we wish to
-    compute \(e_0 \otimes e_1 \otimes e_0\), we can do
-    so as follows.
+        If we wish to compute the tensor product against more than two matrices or
+        vectors, we can feed them in as a `list`. For instance, if we wish to
+        compute \(e_0 \otimes e_1 \otimes e_0\), we can do
+        so as follows.
 
-    ```python exec="1" source="above"
-    from toqito.states import basis
-    from toqito.matrix_ops import tensor
+        ```python exec="1" source="above"
+        from toqito.states import basis
+        from toqito.matrix_ops import tensor
 
-    e_0, e_1 = basis(2, 0), basis(2, 1)
+        e_0, e_1 = basis(2, 0), basis(2, 1)
 
-    print(tensor([e_0, e_1, e_0]))
-    ```
+        print(tensor([e_0, e_1, e_0]))
+        ```
 
     Raises:
         ValueError: Input must be a vector or matrix.

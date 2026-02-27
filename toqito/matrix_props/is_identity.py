@@ -22,48 +22,48 @@ def is_identity(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> boo
     \]
 
     Examples:
-    Consider the following matrix:
+        Consider the following matrix:
 
-    \[
-        A = \begin{pmatrix}
-                1 & 0 & 0 \\
-                0 & 1 & 0 \\
-                0 & 0 & 1
-            \end{pmatrix}
-    \]
+        \[
+            A = \begin{pmatrix}
+                    1 & 0 & 0 \\
+                    0 & 1 & 0 \\
+                    0 & 0 & 1
+                \end{pmatrix}
+        \]
 
-    our function indicates that this is indeed the identity matrix of dimension
-    3.
+        our function indicates that this is indeed the identity matrix of dimension
+        3.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import is_identity
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_identity
 
-    mat = np.eye(3)
+        mat = np.eye(3)
 
-    print(is_identity(mat))
-    ```
+        print(is_identity(mat))
+        ```
 
-    Alternatively, the following example matrix \(B\) defined as
+        Alternatively, the following example matrix \(B\) defined as
 
-    \[
-        B = \begin{pmatrix}
-                1 & 2 & 3 \\
-                4 & 5 & 6 \\
-                7 & 8 & 9
-            \end{pmatrix}
-    \]
+        \[
+            B = \begin{pmatrix}
+                    1 & 2 & 3 \\
+                    4 & 5 & 6 \\
+                    7 & 8 & 9
+                \end{pmatrix}
+        \]
 
-    is not an identity matrix.
+        is not an identity matrix.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import is_identity
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_identity
 
-    mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
 
-    print(is_identity(mat))
-    ```
+        print(is_identity(mat))
+        ```
 
     Args:
         mat: Matrix to check.

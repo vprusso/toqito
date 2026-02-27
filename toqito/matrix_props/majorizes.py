@@ -18,31 +18,31 @@ def majorizes(a_var: np.ndarray | list[int], b_var: np.ndarray | list[int]) -> b
     This function was adapted from the QETLAB package.
 
     Examples:
-    Simple example illustrating that the vector \((3, 0, 0)\) majorizes the vector
-    \((1, 1, 1)\).
+        Simple example illustrating that the vector \((3, 0, 0)\) majorizes the vector
+        \((1, 1, 1)\).
 
-    ```python exec="1" source="above"
-    from toqito.matrix_props import majorizes
+        ```python exec="1" source="above"
+        from toqito.matrix_props import majorizes
 
-    print(majorizes([3, 0, 0], [1, 1, 1]))
-    ```
+        print(majorizes([3, 0, 0], [1, 1, 1]))
+        ```
 
 
-    The majorization criterion says that every separable state
-    \(\rho \in \text{D}(\mathcal{A} \otimes \mathcal{B})\) is such that
-    \(\text{Tr}_{\mathcal{B}}(\rho)\) majorizes
-    \(\text{Tr}_{\mathcal{A}}(\rho)\).
+        The majorization criterion says that every separable state
+        \(\rho \in \text{D}(\mathcal{A} \otimes \mathcal{B})\) is such that
+        \(\text{Tr}_{\mathcal{B}}(\rho)\) majorizes
+        \(\text{Tr}_{\mathcal{A}}(\rho)\).
 
-    ```python exec="1" source="above"
-    from toqito.matrix_props import majorizes
-    from toqito.states import max_entangled
-    from toqito.matrix_ops import partial_trace
+        ```python exec="1" source="above"
+        from toqito.matrix_props import majorizes
+        from toqito.states import max_entangled
+        from toqito.matrix_ops import partial_trace
 
-    v_vec = max_entangled(3)
-    rho = v_vec @ v_vec.conj().T
+        v_vec = max_entangled(3)
+        rho = v_vec @ v_vec.conj().T
 
-    print(majorizes(partial_trace(rho, [1]), rho))
-    ```
+        print(majorizes(partial_trace(rho, [1]), rho))
+        ```
 
     Args:
         a_var: Matrix or vector provided as list or np.array.

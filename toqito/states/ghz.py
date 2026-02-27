@@ -23,26 +23,26 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray
     \]
 
     Examples:
-    When `dim = 2`, and `num_qubits = 3` this produces the standard GHZ state
+        When `dim = 2`, and `num_qubits = 3` this produces the standard GHZ state
 
-    \[
-        \frac{1}{\sqrt{2}} \left( |000 \rangle + |111 \rangle \right).
-    \]
+        \[
+            \frac{1}{\sqrt{2}} \left( |000 \rangle + |111 \rangle \right).
+        \]
 
-    Using `|toqito⟩`, we can see that this yields the proper state.
+        Using `|toqito⟩`, we can see that this yields the proper state.
 
-    ```python exec="1" source="above"
-    from toqito.states import ghz
-    print(ghz(2, 3))
-    ```
+        ```python exec="1" source="above"
+        from toqito.states import ghz
+        print(ghz(2, 3))
+        ```
 
-    As this function covers the generalized GHZ state, we can consider higher dimensions. For instance here is the GHZ
-    state in \(\mathbb{C}^{4^{\otimes 7}}\) as
+        As this function covers the generalized GHZ state, we can consider higher dimensions. For instance here is the GHZ
+        state in \(\mathbb{C}^{4^{\otimes 7}}\) as
 
-    \[
-        \frac{1}{\sqrt{30}} \left(|0000000 \rangle + 2|1111111 \rangle +
-        3|2222222 \rangle + 4|3333333\rangle \right).
-    \]
+        \[
+            \frac{1}{\sqrt{30}} \left(|0000000 \rangle + 2|1111111 \rangle +
+            3|2222222 \rangle + 4|3333333\rangle \right).
+        \]
 
     Raises:
         ValueError: Number of qubits is not a positive integer.

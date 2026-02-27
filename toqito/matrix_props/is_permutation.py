@@ -10,49 +10,49 @@ def is_permutation(mat: np.ndarray) -> bool:
     single element of 1 and all others are 0.
 
     Examples:
-    Consider the following permutation matrix
+        Consider the following permutation matrix
 
-    \[
-        A = \begin{pmatrix}
-                1 & 0 & 0 \\
-                0 & 0 & 1 \\
-                0 & 1 & 0
-            \end{pmatrix}
-    \]
+        \[
+            A = \begin{pmatrix}
+                    1 & 0 & 0 \\
+                    0 & 0 & 1 \\
+                    0 & 1 & 0
+                \end{pmatrix}
+        \]
 
-    which is indeed a permutation matrix.
+        which is indeed a permutation matrix.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import is_permutation
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_permutation
 
-    A = np.array([[1, 0, 0], [0, 0, 1], [0, 1, 0]])
+        A = np.array([[1, 0, 0], [0, 0, 1], [0, 1, 0]])
 
-    print(is_permutation(A))
-    ```
+        print(is_permutation(A))
+        ```
 
 
-    Alternatively, the following example matrix \(B\) defined as
+        Alternatively, the following example matrix \(B\) defined as
 
-    \[
-        B = \begin{pmatrix}
-                1 & 0 & 0 \\
-                1 & 0 & 0 \\
-                1 & 0 & 0
-            \end{pmatrix}
-    \]
+        \[
+            B = \begin{pmatrix}
+                    1 & 0 & 0 \\
+                    1 & 0 & 0 \\
+                    1 & 0 & 0
+                \end{pmatrix}
+        \]
 
-    has 2 columns with all zero values and is thus not a
-    permutation matrix.
+        has 2 columns with all zero values and is thus not a
+        permutation matrix.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import is_permutation
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_permutation
 
-    B = np.array([[1, 0, 0], [1, 0, 0], [1, 0, 0]])
+        B = np.array([[1, 0, 0], [1, 0, 0], [1, 0, 0]])
 
-    print(is_permutation(B))
-    ```
+        print(is_permutation(B))
+        ```
 
     Args:
         mat: The matrix to check.

@@ -29,12 +29,12 @@ def brauer(dim: int, p_val: int) -> np.ndarray:
     This function has been adapted from QETLAB.
 
     Examples:
-    Generate a matrix whose columns are all Brauer states on 4 qubits.
+        Generate a matrix whose columns are all Brauer states on 4 qubits.
 
-    ```python exec="1" source="above"
-    from toqito.states import brauer
-    print(brauer(2, 2))
-    ```
+        ```python exec="1" source="above"
+        from toqito.states import brauer
+        print(brauer(2, 2))
+        ```
 
     Args:
         dim: Dimension of each local subsystem

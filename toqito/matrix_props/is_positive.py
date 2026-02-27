@@ -15,16 +15,16 @@ def is_positive(input_mat: np.ndarray) -> bool:
         [`is_positive_semidefinite`][toqito.matrix_props.is_positive_semidefinite].
 
     Examples:
-    We expect a matrix full of 1s to be positive.
+        We expect a matrix full of 1s to be positive.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import is_positive
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_positive
 
-    input_mat = np.array([[1, 1, 1],[1, 1, 1],[1, 1, 1]])
+        input_mat = np.array([[1, 1, 1],[1, 1, 1],[1, 1, 1]])
 
-    print(is_positive(input_mat))
-    ```
+        print(is_positive(input_mat))
+        ```
 
     Args:
         input_mat: Matrix of interest.

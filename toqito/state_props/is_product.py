@@ -13,37 +13,37 @@ def is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = None)
     returned.
 
     Examples:
-    Consider the following Bell state
+        Consider the following Bell state
 
-    \[
-        u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \in \mathcal{X}.
-    \]
+        \[
+            u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \in \mathcal{X}.
+        \]
 
-    The corresponding density matrix of \(u\) may be calculated by:
+        The corresponding density matrix of \(u\) may be calculated by:
 
-    \[
-        \rho = u u^* = \frac{1}{2} \begin{pmatrix}
-                         1 & 0 & 0 & 1 \\
-                         0 & 0 & 0 & 0 \\
-                         0 & 0 & 0 & 0 \\
-                         1 & 0 & 0 & 1
-                       \end{pmatrix} \in \text{D}(\mathcal{X}).
-    \]
+        \[
+            \rho = u u^* = \frac{1}{2} \begin{pmatrix}
+                             1 & 0 & 0 & 1 \\
+                             0 & 0 & 0 & 0 \\
+                             0 & 0 & 0 & 0 \\
+                             1 & 0 & 0 & 1
+                           \end{pmatrix} \in \text{D}(\mathcal{X}).
+        \]
 
-    We can provide the input as either the vector \(u\) or the denisty matrix \(\rho\).
-    In either case, this represents an entangled state (and hence a non-product state).
+        We can provide the input as either the vector \(u\) or the denisty matrix \(\rho\).
+        In either case, this represents an entangled state (and hence a non-product state).
 
-    ```python exec="1" source="above" session="is_product_example"
-    from toqito.state_props import is_product
-    from toqito.states import bell
-    rho = bell(0) @ bell(0).conj().T
-    u_vec = bell(0)
-    print(is_product(rho))
-    ```
+        ```python exec="1" source="above" session="is_product_example"
+        from toqito.state_props import is_product
+        from toqito.states import bell
+        rho = bell(0) @ bell(0).conj().T
+        u_vec = bell(0)
+        print(is_product(rho))
+        ```
 
-    ```python exec="1" source="above" session="is_product_example"
-    print(is_product(u_vec))
-    ```
+        ```python exec="1" source="above" session="is_product_example"
+        print(is_product(u_vec))
+        ```
 
     Args:
         rho: The vector or matrix to check.

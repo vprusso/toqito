@@ -27,21 +27,21 @@ def gen_pauli_z(dim: int) -> np.ndarray:
     Pauli operators.
 
     Examples:
-    The gen_pauli_z matrix generated from \(d = 3\) yields the following matrix:
+        The gen_pauli_z matrix generated from \(d = 3\) yields the following matrix:
 
-    \[
-        \Sigma_{1, 3} = \begin{pmatrix}
-            1 & 0 & 0 \\
-            0 & \omega & 0 \\
-            0 & 0 & \omega^2
-        \end{pmatrix}
-    \]
+        \[
+            \Sigma_{1, 3} = \begin{pmatrix}
+                1 & 0 & 0 \\
+                0 & \omega & 0 \\
+                0 & 0 & \omega^2
+            \end{pmatrix}
+        \]
 
-    ```python exec="1" source="above"
-    from toqito.matrices import gen_pauli_z
+        ```python exec="1" source="above"
+        from toqito.matrices import gen_pauli_z
 
-    print(gen_pauli_z(3))
-    ```
+        print(gen_pauli_z(3))
+        ```
 
     Args:
         dim: Dimension of the matrix.

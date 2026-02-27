@@ -11,39 +11,39 @@ def has_same_dimension(items: list[np.ndarray]) -> bool:
     matrices. The function iterates through the provided list and ensures that every item has the same dimension.
 
     Examples:
-    Check a list of vectors with the same dimension:
+        Check a list of vectors with the same dimension:
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import has_same_dimension
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import has_same_dimension
 
-    vectors = [np.array([1, 2, 3]), np.array([4, 5, 6]), np.array([7, 8, 9])]
+        vectors = [np.array([1, 2, 3]), np.array([4, 5, 6]), np.array([7, 8, 9])]
 
-    print(has_same_dimension(vectors))
-    ```
+        print(has_same_dimension(vectors))
+        ```
 
 
-    Check a list of matrices with the same dimension:
+        Check a list of matrices with the same dimension:
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import has_same_dimension
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import has_same_dimension
 
-    matrices = [np.array([[1, 0], [0, 1]]), np.array([[2, 3], [4, 5]]), np.array([[6, 7], [8, 9]])]
+        matrices = [np.array([[1, 0], [0, 1]]), np.array([[2, 3], [4, 5]]), np.array([[6, 7], [8, 9]])]
 
-    print(has_same_dimension(matrices))
-    ```
+        print(has_same_dimension(matrices))
+        ```
 
-    Check a list containing items of different dimensions:
+        Check a list containing items of different dimensions:
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import has_same_dimension
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import has_same_dimension
 
-    mixed = [np.array([1, 2, 3]), np.array([[1, 0], [0, 1]])]
+        mixed = [np.array([1, 2, 3]), np.array([[1, 0], [0, 1]])]
 
-    print(has_same_dimension(mixed))
-    ```
+        print(has_same_dimension(mixed))
+        ```
 
     Raises:
         ValueError: If the input list is empty.

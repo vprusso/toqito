@@ -24,22 +24,22 @@ def gen_pauli_x(dim: int) -> np.ndarray:
     Pauli operators.
 
     Examples:
-    The gen_pauli_x matrix generated from \(d = 3\) yields the following matrix:
+        The gen_pauli_x matrix generated from \(d = 3\) yields the following matrix:
 
-    \[
-        \Sigma_{1, 3} =
-        \begin{pmatrix}
-            0 & 0 & 1 \\
-            1 & 0 & 0 \\
-            0 & 1 & 0
-        \end{pmatrix}
-    \]
+        \[
+            \Sigma_{1, 3} =
+            \begin{pmatrix}
+                0 & 0 & 1 \\
+                1 & 0 & 0 \\
+                0 & 1 & 0
+            \end{pmatrix}
+        \]
 
-    ```python exec="1" source="above"
-    from toqito.matrices import gen_pauli_x
+        ```python exec="1" source="above"
+        from toqito.matrices import gen_pauli_x
 
-    print(gen_pauli_x(3))
-    ```
+        print(gen_pauli_x(3))
+        ```
 
     Args:
         dim: Dimension of the matrix.

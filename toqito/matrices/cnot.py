@@ -19,11 +19,11 @@ def cnot() -> np.ndarray:
     \]
 
     Examples:
-    ```python exec="1" source="above"
-    from toqito.matrices import cnot
+        ```python exec="1" source="above"
+        from toqito.matrices import cnot
 
-    print(cnot())
-    ```
+        print(cnot())
+        ```
 
     Returns:
         The CNOT matrix.

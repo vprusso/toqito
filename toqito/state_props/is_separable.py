@@ -156,70 +156,70 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
 
 
     Examples:
-    Consider the following separable (by construction) state:
+        Consider the following separable (by construction) state:
 
-    \[
-        \rho = \rho_1 \otimes \rho_2,
-    \]
+        \[
+            \rho = \rho_1 \otimes \rho_2,
+        \]
 
-    \[
-    \begin{aligned}
-        \rho_1 &= \frac{1}{2} \left(|0 \rangle \langle 0| + |0 \rangle \langle 1|
-                + |1 \rangle \langle 0| + |1 \rangle \langle 1| \right), \\
-        \rho_2 &= \frac{1}{2} \left( |0 \rangle \langle 0| + |1 \rangle \langle 1| \right).
-    \end{aligned}
-    \]
+        \[
+        \begin{aligned}
+            \rho_1 &= \frac{1}{2} \left(|0 \rangle \langle 0| + |0 \rangle \langle 1|
+                    + |1 \rangle \langle 0| + |1 \rangle \langle 1| \right), \\
+            \rho_2 &= \frac{1}{2} \left( |0 \rangle \langle 0| + |1 \rangle \langle 1| \right).
+        \end{aligned}
+        \]
 
-    The resulting density matrix will be:
+        The resulting density matrix will be:
 
-    \[
-        \rho =  \frac{1}{4} \begin{pmatrix}
-                1 & 0 & 1 & 0 \\
-                0 & 1 & 0 & 1 \\
-                1 & 0 & 1 & 0 \\
-                0 & 1 & 0 & 1
-                \end{pmatrix} \in \text{D}(\mathcal{X}).
-    \]
+        \[
+            \rho =  \frac{1}{4} \begin{pmatrix}
+                    1 & 0 & 1 & 0 \\
+                    0 & 1 & 0 & 1 \\
+                    1 & 0 & 1 & 0 \\
+                    0 & 1 & 0 & 1
+                    \end{pmatrix} \in \text{D}(\mathcal{X}).
+        \]
 
-    We provide the input as a density matrix \(\rho\).
+        We provide the input as a density matrix \(\rho\).
 
-    On the other hand, a random density matrix will be an entangled state (a separable state).
+        On the other hand, a random density matrix will be an entangled state (a separable state).
 
-    ```python exec="1" source="above" session="is_separable_example"
-    import numpy as np
-    from toqito.rand.random_density_matrix import random_density_matrix
-    from toqito.state_props.is_separable import is_separable
-    rho_separable = np.array([[1, 0, 1, 0], [0, 1, 0, 1], [1, 0, 1, 0], [0, 1, 0, 1]])
-    print(is_separable(rho_separable))
-    ```
+        ```python exec="1" source="above" session="is_separable_example"
+        import numpy as np
+        from toqito.rand.random_density_matrix import random_density_matrix
+        from toqito.state_props.is_separable import is_separable
+        rho_separable = np.array([[1, 0, 1, 0], [0, 1, 0, 1], [1, 0, 1, 0], [0, 1, 0, 1]])
+        print(is_separable(rho_separable))
+        ```
 
-    ```python exec="1" source="above" session="is_separable_example"
-    rho_not_separable = np.array([[ 0.13407875+0.j        , -0.08263926-0.17760437j,
-            -0.0135111 -0.12352182j,  0.0368423 -0.05563985j],
-        [-0.08263926+0.17760437j,  0.53338542+0.j        ,
-            0.19782968-0.04549732j,  0.11287093+0.17024249j],
-        [-0.0135111 +0.12352182j,  0.19782968+0.04549732j,
-            0.21254612+0.j        , -0.00875865+0.11144344j],
-        [ 0.0368423 +0.05563985j,  0.11287093-0.17024249j,
-            -0.00875865-0.11144344j,  0.11998971+0.j        ]])
-    print(is_separable(rho_not_separable))
-    ```
+        ```python exec="1" source="above" session="is_separable_example"
+        rho_not_separable = np.array([[ 0.13407875+0.j        , -0.08263926-0.17760437j,
+                -0.0135111 -0.12352182j,  0.0368423 -0.05563985j],
+            [-0.08263926+0.17760437j,  0.53338542+0.j        ,
+                0.19782968-0.04549732j,  0.11287093+0.17024249j],
+            [-0.0135111 +0.12352182j,  0.19782968+0.04549732j,
+                0.21254612+0.j        , -0.00875865+0.11144344j],
+            [ 0.0368423 +0.05563985j,  0.11287093-0.17024249j,
+                -0.00875865-0.11144344j,  0.11998971+0.j        ]])
+        print(is_separable(rho_not_separable))
+        ```
 
-    We can also detect certain PPT-entangled states. For example, a state constructed from a Breuer-Hall map
-    is entangled but PPT.
+        We can also detect certain PPT-entangled states. For example, a state constructed from a Breuer-Hall map
+        is entangled but PPT.
 
-    ```python exec="1" source="above" session="is_separable_example"
-    from toqito.state_props.is_ppt import is_ppt
+        ```python exec="1" source="above" session="is_separable_example"
+        from toqito.state_props.is_ppt import is_ppt
 
-    # Construct a 2x3 separable PPT state of rank 2
-    # |ψ₁⟩ = |0⟩⊗|0⟩, |ψ₂⟩ = |1⟩⊗|1⟩
-    psi1 = np.kron([1, 0], [1, 0, 0])
-    psi2 = np.kron([0, 1], [0, 1, 0])
-    rho = 0.5 * (np.outer(psi1, psi1.conj()) + np.outer(psi2, psi2.conj()))
+        # Construct a 2x3 separable PPT state of rank 2
+        # |ψ₁⟩ = |0⟩⊗|0⟩, |ψ₂⟩ = |1⟩⊗|1⟩
+        psi1 = np.kron([1, 0], [1, 0, 0])
+        psi2 = np.kron([0, 1], [0, 1, 0])
+        rho = 0.5 * (np.outer(psi1, psi1.conj()) + np.outer(psi2, psi2.conj()))
 
-    print("Is the state PPT?", is_ppt(rho, dim=[2, 3]))         # True
-    print("Is the state separable?", is_separable(rho, dim=[2, 3]))  # True
-    ```
+        print("Is the state PPT?", is_ppt(rho, dim=[2, 3]))         # True
+        print("Is the state separable?", is_separable(rho, dim=[2, 3]))  # True
+        ```
 
     Raises:
         Warning: If the symmetric extension check is attempted but CVXPY or a suitable solver is not available.

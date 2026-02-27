@@ -25,48 +25,48 @@ def is_normal(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool
     \]
 
     Examples:
-    Consider the following matrix
+        Consider the following matrix
 
-    \[
-        A = \begin{pmatrix}
-                1 & 0 & 0 & 0 \\
-                0 & 1 & 0 & 0 \\
-                0 & 0 & 1 & 0 \\
-                0 & 0 & 0 & 1
-            \end{pmatrix}
-    \]
+        \[
+            A = \begin{pmatrix}
+                    1 & 0 & 0 & 0 \\
+                    0 & 1 & 0 & 0 \\
+                    0 & 0 & 1 & 0 \\
+                    0 & 0 & 0 & 1
+                \end{pmatrix}
+        \]
 
-    our function indicates that this is indeed a normal matrix.
+        our function indicates that this is indeed a normal matrix.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import is_normal
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_normal
 
-    A = np.identity(4)
+        A = np.identity(4)
 
-    print(is_normal(A))
-    ```
+        print(is_normal(A))
+        ```
 
-    Alternatively, the following example matrix \(B\) defined as
+        Alternatively, the following example matrix \(B\) defined as
 
-    \[
-        B = \begin{pmatrix}
-                1 & 2 & 3 \\
-                4 & 5 & 6 \\
-                7 & 8 & 9
-            \end{pmatrix}
-    \]
+        \[
+            B = \begin{pmatrix}
+                    1 & 2 & 3 \\
+                    4 & 5 & 6 \\
+                    7 & 8 & 9
+                \end{pmatrix}
+        \]
 
-    is not normal.
+        is not normal.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import is_normal
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_normal
 
-    B = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+        B = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
 
-    print(is_normal(B))
-    ```
+        print(is_normal(B))
+        ```
 
     Args:
         mat: The matrix to check.

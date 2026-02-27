@@ -33,40 +33,40 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float | np.floatin
     fidelity is a lower bound for the fidelity.
 
     Examples:
-    Consider the following Bell state
+        Consider the following Bell state
 
-    \[
-        u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \in \mathcal{X}.
-    \]
+        \[
+            u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \in \mathcal{X}.
+        \]
 
-    The corresponding density matrix of \(u\) may be calculated by:
+        The corresponding density matrix of \(u\) may be calculated by:
 
-    \[
-        \rho = u u^* = \frac{1}{2} \begin{pmatrix}
-                         1 & 0 & 0 & 1 \\
-                         0 & 0 & 0 & 0 \\
-                         0 & 0 & 0 & 0 \\
-                         1 & 0 & 0 & 1
-                       \end{pmatrix} \in \text{D}(\mathcal{X}).
-    \]
+        \[
+            \rho = u u^* = \frac{1}{2} \begin{pmatrix}
+                             1 & 0 & 0 & 1 \\
+                             0 & 0 & 0 & 0 \\
+                             0 & 0 & 0 & 0 \\
+                             1 & 0 & 0 & 1
+                           \end{pmatrix} \in \text{D}(\mathcal{X}).
+        \]
 
-    In the event where we calculate the Matsumoto fidelity between states that are identical, we should obtain the value
-    of \(1\). This can be observed in `|toqito⟩` as follows.
+        In the event where we calculate the Matsumoto fidelity between states that are identical, we should obtain the value
+        of \(1\). This can be observed in `|toqito⟩` as follows.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.state_metrics import matsumoto_fidelity
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.state_metrics import matsumoto_fidelity
 
-    rho = 1 / 2 * np.array(
-        [[1, 0, 0, 1],
-         [0, 0, 0, 0],
-         [0, 0, 0, 0],
-         [1, 0, 0, 1]]
-    )
-    sigma = rho
+        rho = 1 / 2 * np.array(
+            [[1, 0, 0, 1],
+             [0, 0, 0, 0],
+             [0, 0, 0, 0],
+             [1, 0, 0, 1]]
+        )
+        sigma = rho
 
-    print(np.around(matsumoto_fidelity(rho, sigma), decimals=2))
-    ```
+        print(np.around(matsumoto_fidelity(rho, sigma), decimals=2))
+        ```
 
     Raises:
         ValueError: If matrices are not of equal dimension.

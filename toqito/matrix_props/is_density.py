@@ -12,57 +12,57 @@ def is_density(mat: np.ndarray) -> bool:
     property of being positive semidefinite (PSD).
 
     Examples:
-    Consider the Bell state:
+        Consider the Bell state:
 
-    \[
-        u = \frac{1}{\sqrt{2}} |00 \rangle + \frac{1}{\sqrt{2}} |11 \rangle.
-    \]
+        \[
+            u = \frac{1}{\sqrt{2}} |00 \rangle + \frac{1}{\sqrt{2}} |11 \rangle.
+        \]
 
-    Constructing the matrix \(\rho = u u^*\) defined as
+        Constructing the matrix \(\rho = u u^*\) defined as
 
-    \[
-        \rho = \frac{1}{2} \begin{pmatrix}
-                                1 & 0 & 0 & 1 \\
-                                0 & 0 & 0 & 0 \\
-                                0 & 0 & 0 & 0 \\
-                                1 & 0 & 0 & 1
-                           \end{pmatrix}
-    \]
+        \[
+            \rho = \frac{1}{2} \begin{pmatrix}
+                                    1 & 0 & 0 & 1 \\
+                                    0 & 0 & 0 & 0 \\
+                                    0 & 0 & 0 & 0 \\
+                                    1 & 0 & 0 & 1
+                               \end{pmatrix}
+        \]
 
-    our function indicates that this is indeed a density operator as the trace
-    of \(\rho\) is equal to \(1\) and the matrix is positive
-    semidefinite.
+        our function indicates that this is indeed a density operator as the trace
+        of \(\rho\) is equal to \(1\) and the matrix is positive
+        semidefinite.
 
-    ```python exec="1" source="above"
-    from toqito.matrix_props import is_density
-    from toqito.states import bell
-    import numpy as np
-    rho = bell(0) @ bell(0).conj().T
-    print(is_density(rho))
-    ```
+        ```python exec="1" source="above"
+        from toqito.matrix_props import is_density
+        from toqito.states import bell
+        import numpy as np
+        rho = bell(0) @ bell(0).conj().T
+        print(is_density(rho))
+        ```
 
-    Alternatively, the following example matrix \(\sigma\) defined as
+        Alternatively, the following example matrix \(\sigma\) defined as
 
-    \[
-        \sigma = \frac{1}{2} \begin{pmatrix}
-                                1 & 2 \\
-                                3 & 1
-                             \end{pmatrix}
-    \]
+        \[
+            \sigma = \frac{1}{2} \begin{pmatrix}
+                                    1 & 2 \\
+                                    3 & 1
+                                 \end{pmatrix}
+        \]
 
-    does satisfy \(\text{Tr}(\sigma) = 1\), however fails to be positive
-    semidefinite, and is therefore not a density operator. This can be
-    illustrated using `|toqito⟩` as follows.
+        does satisfy \(\text{Tr}(\sigma) = 1\), however fails to be positive
+        semidefinite, and is therefore not a density operator. This can be
+        illustrated using `|toqito⟩` as follows.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.states import bell
-    from toqito.matrix_props import is_density
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.states import bell
+        from toqito.matrix_props import is_density
 
-    sigma = 1/2 * np.array([[1, 2], [3, 1]])
+        sigma = 1/2 * np.array([[1, 2], [3, 1]])
 
-    print(is_density(sigma))
-    ```
+        print(is_density(sigma))
+        ```
 
     Args:
         mat: Matrix to check.

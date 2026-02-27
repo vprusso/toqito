@@ -30,55 +30,55 @@ def renyi_entropy(rho: np.ndarray, alpha: float) -> float:
     \(\alpha=1\) and the min-entropy for \(\alpha=+\infty\).
 
     Examples:
-    Consider the following Bell state:
+        Consider the following Bell state:
 
-    \[
-        u = \frac{1}{\sqrt{2}} \left(|00 \rangle + |11 \rangle \right) \in \mathcal{X}.
-    \]
+        \[
+            u = \frac{1}{\sqrt{2}} \left(|00 \rangle + |11 \rangle \right) \in \mathcal{X}.
+        \]
 
-    The corresponding density matrix of \(u\) may be calculated by:
+        The corresponding density matrix of \(u\) may be calculated by:
 
-    \[
-        \rho = u u^* = \frac{1}{2} \begin{pmatrix}
-                         1 & 0 & 0 & 1 \\
-                         0 & 0 & 0 & 0 \\
-                         0 & 0 & 0 & 0 \\
-                         1 & 0 & 0 & 1
-                       \end{pmatrix} \in \text{D}(\mathcal{X}).
-    \]
+        \[
+            \rho = u u^* = \frac{1}{2} \begin{pmatrix}
+                             1 & 0 & 0 & 1 \\
+                             0 & 0 & 0 & 0 \\
+                             0 & 0 & 0 & 0 \\
+                             1 & 0 & 0 & 1
+                           \end{pmatrix} \in \text{D}(\mathcal{X}).
+        \]
 
-    Calculating the Rényi entropy of order \(2\) of \(\rho\) in `|toqito⟩` can be
-    done as follows.
+        Calculating the Rényi entropy of order \(2\) of \(\rho\) in `|toqito⟩` can be
+        done as follows.
 
-    ```python exec="1" source="above"
-    from toqito.state_props import renyi_entropy
-    import numpy as np
-    test_input_mat = np.array(
-            [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0],
-            [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
-        )
-    print(renyi_entropy(test_input_mat, 2))
-    ```
+        ```python exec="1" source="above"
+        from toqito.state_props import renyi_entropy
+        import numpy as np
+        test_input_mat = np.array(
+                [[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0],
+                [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]
+            )
+        print(renyi_entropy(test_input_mat, 2))
+        ```
 
-    Consider the density operator corresponding to the maximally mixed state of dimension two
+        Consider the density operator corresponding to the maximally mixed state of dimension two
 
-    \[
-        \rho = \frac{1}{2}
-        \begin{pmatrix}
-            1 & 0 \\
-            0 & 1
-        \end{pmatrix}.
-    \]
+        \[
+            \rho = \frac{1}{2}
+            \begin{pmatrix}
+                1 & 0 \\
+                0 & 1
+            \end{pmatrix}.
+        \]
 
-    As this state is maximally mixed, the Rényi entropy of \(\rho\) is
-    equal to one for all orders \(\alpha\). We can see this in `|toqito⟩` as follows.
+        As this state is maximally mixed, the Rényi entropy of \(\rho\) is
+        equal to one for all orders \(\alpha\). We can see this in `|toqito⟩` as follows.
 
-    ```python exec="1" source="above"
-    from toqito.state_props import renyi_entropy
-    import numpy as np
-    rho = 1/2 * np.identity(2)
-    print(renyi_entropy(rho, 3/2))
-    ```
+        ```python exec="1" source="above"
+        from toqito.state_props import renyi_entropy
+        import numpy as np
+        rho = 1/2 * np.identity(2)
+        print(renyi_entropy(rho, 3/2))
+        ```
 
     Args:
         rho: Density operator.

@@ -31,33 +31,33 @@ def domino(idx: int) -> np.ndarray:
     Returns one of the following nine domino states depending on the value of `idx`.
 
     Examples:
-    When `idx = 0`, this produces the following Domino state
+        When `idx = 0`, this produces the following Domino state
 
-    \[
-        |\phi_0 \rangle = |11 \rangle |11 \rangle.
-    \]
+        \[
+            |\phi_0 \rangle = |11 \rangle |11 \rangle.
+        \]
 
-    Using `|toqito⟩`, we can see that this yields the proper state.
+        Using `|toqito⟩`, we can see that this yields the proper state.
 
-    ```python exec="1" source="above"
-    from toqito.states import domino
-    print(domino(0))
-    ```
+        ```python exec="1" source="above"
+        from toqito.states import domino
+        print(domino(0))
+        ```
 
 
-    When `idx = 3`, this produces the following Domino state
+        When `idx = 3`, this produces the following Domino state
 
-    \[
-        |\phi_3\rangle = |2\rangle \left(\frac{|0\rangle + |1\rangle}
-        {\sqrt{2}}\right)
-    \]
+        \[
+            |\phi_3\rangle = |2\rangle \left(\frac{|0\rangle + |1\rangle}
+            {\sqrt{2}}\right)
+        \]
 
-    Using `|toqito⟩`, we can see that this yields the proper state.
+        Using `|toqito⟩`, we can see that this yields the proper state.
 
-    ```python exec="1" source="above"
-    from toqito.states import domino
-    print(domino(3))
-    ```
+        ```python exec="1" source="above"
+        from toqito.states import domino
+        print(domino(3))
+        ```
 
     Raises:
         ValueError: Invalid value for `idx`.

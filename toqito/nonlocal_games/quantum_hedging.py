@@ -14,128 +14,128 @@ class QuantumHedging:
     hedging to occur in certain two-party scenarios [@Arunachalam_2017_QuantumHedging, Molina_2012_Hedging].
 
     Examples:
-    This example illustrates the initial example of perfect hedging when Alice
-    and Bob play two repetitions of the game where Alice prepares the maximally
-    entangled state:
+        This example illustrates the initial example of perfect hedging when Alice
+        and Bob play two repetitions of the game where Alice prepares the maximally
+        entangled state:
 
-    \[
-        u = \frac{1}{\sqrt{2}}|00\rangle + \frac{1}{\sqrt{2}}|11\rangle,
-    \]
+        \[
+            u = \frac{1}{\sqrt{2}}|00\rangle + \frac{1}{\sqrt{2}}|11\rangle,
+        \]
 
-    and Alice applies the measurement operator defined by vector
+        and Alice applies the measurement operator defined by vector
 
-    \[
-        v = \cos(\pi/8)|00\rangle + \sin(\pi/8)|11\rangle.
-    \]
+        \[
+            v = \cos(\pi/8)|00\rangle + \sin(\pi/8)|11\rangle.
+        \]
 
-    As was illustrated in [@Molina_2012_Hedging], the hedging value of the above scenario is
-    \(\cos(\pi/8)^2 \approx 0.8536\)
+        As was illustrated in [@Molina_2012_Hedging], the hedging value of the above scenario is
+        \(\cos(\pi/8)^2 \approx 0.8536\)
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.states import basis
-    from numpy import kron, cos, sin, pi, sqrt, isclose
-    from toqito.nonlocal_games.quantum_hedging import QuantumHedging
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.states import basis
+        from numpy import kron, cos, sin, pi, sqrt, isclose
+        from toqito.nonlocal_games.quantum_hedging import QuantumHedging
 
-    e_0, e_1 = basis(2, 0), basis(2, 1)
-    e_00, e_01 = kron(e_0, e_0), kron(e_0, e_1)
-    e_10, e_11 = kron(e_1, e_0), kron(e_1, e_1)
+        e_0, e_1 = basis(2, 0), basis(2, 1)
+        e_00, e_01 = kron(e_0, e_0), kron(e_0, e_1)
+        e_10, e_11 = kron(e_1, e_0), kron(e_1, e_1)
 
-    alpha = 1 / sqrt(2)
-    theta = pi / 8
-    w_var = alpha * cos(theta) * e_00 + sqrt(1 - alpha ** 2) * sin(theta) * e_11
+        alpha = 1 / sqrt(2)
+        theta = pi / 8
+        w_var = alpha * cos(theta) * e_00 + sqrt(1 - alpha ** 2) * sin(theta) * e_11
 
-    l_1 = -alpha * sin(theta) * e_00 + sqrt(1 - alpha ** 2) * cos(theta) * e_11
-    l_2 = alpha * sin(theta) * e_10
-    l_3 = sqrt(1 - alpha ** 2) * cos(theta) * e_01
+        l_1 = -alpha * sin(theta) * e_00 + sqrt(1 - alpha ** 2) * cos(theta) * e_11
+        l_2 = alpha * sin(theta) * e_10
+        l_3 = sqrt(1 - alpha ** 2) * cos(theta) * e_01
 
-    q_1 = w_var @ w_var.conj().T
-    q_0 = l_1 @ l_1.conj().T + l_2 @ l_2.conj().T + l_3 @ l_3.conj().T
+        q_1 = w_var @ w_var.conj().T
+        q_0 = l_1 @ l_1.conj().T + l_2 @ l_2.conj().T + l_3 @ l_3.conj().T
 
-    molina_watrous = QuantumHedging(q_0, 1)
+        molina_watrous = QuantumHedging(q_0, 1)
 
-    # cos(pi/8)**2 \approx 0.8536
-    print(np.around(molina_watrous.max_prob_outcome_a_primal(), decimals=2))
-    ```
+        # cos(pi/8)**2 \approx 0.8536
+        print(np.around(molina_watrous.max_prob_outcome_a_primal(), decimals=2))
+        ```
 
-    This example demonstrates strong duality with matching primal and dual values, as can be seen below:
+        This example demonstrates strong duality with matching primal and dual values, as can be seen below:
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.states import basis
-    from numpy import kron, cos, sin, pi, sqrt, isclose
-    from toqito.nonlocal_games.quantum_hedging import QuantumHedging
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.states import basis
+        from numpy import kron, cos, sin, pi, sqrt, isclose
+        from toqito.nonlocal_games.quantum_hedging import QuantumHedging
 
-    e_0, e_1 = basis(2, 0), basis(2, 1)
-    e_00, e_01 = kron(e_0, e_0), kron(e_0, e_1)
-    e_10, e_11 = kron(e_1, e_0), kron(e_1, e_1)
+        e_0, e_1 = basis(2, 0), basis(2, 1)
+        e_00, e_01 = kron(e_0, e_0), kron(e_0, e_1)
+        e_10, e_11 = kron(e_1, e_0), kron(e_1, e_1)
 
-    alpha = 1 / sqrt(2)
-    theta = pi / 8
-    w_var = alpha * cos(theta) * e_00 + sqrt(1 - alpha ** 2) * sin(theta) * e_11
+        alpha = 1 / sqrt(2)
+        theta = pi / 8
+        w_var = alpha * cos(theta) * e_00 + sqrt(1 - alpha ** 2) * sin(theta) * e_11
 
-    l_1 = -alpha * sin(theta) * e_00 + sqrt(1 - alpha ** 2) * cos(theta) * e_11
-    l_2 = alpha * sin(theta) * e_10
-    l_3 = sqrt(1 - alpha ** 2) * cos(theta) * e_01
+        l_1 = -alpha * sin(theta) * e_00 + sqrt(1 - alpha ** 2) * cos(theta) * e_11
+        l_2 = alpha * sin(theta) * e_10
+        l_3 = sqrt(1 - alpha ** 2) * cos(theta) * e_01
 
-    q_1 = w_var @ w_var.conj().T
-    q_0 = l_1 @ l_1.conj().T + l_2 @ l_2.conj().T + l_3 @ l_3.conj().T
+        q_1 = w_var @ w_var.conj().T
+        q_0 = l_1 @ l_1.conj().T + l_2 @ l_2.conj().T + l_3 @ l_3.conj().T
 
-    molina_watrous = QuantumHedging(q_0, 1)
-    print(np.around(molina_watrous.max_prob_outcome_a_dual(), decimals=2))
-    ```
+        molina_watrous = QuantumHedging(q_0, 1)
+        print(np.around(molina_watrous.max_prob_outcome_a_dual(), decimals=2))
+        ```
 
-    and
+        and
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.states import basis
-    from numpy import kron, cos, sin, pi, sqrt, isclose
-    from toqito.nonlocal_games.quantum_hedging import QuantumHedging
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.states import basis
+        from numpy import kron, cos, sin, pi, sqrt, isclose
+        from toqito.nonlocal_games.quantum_hedging import QuantumHedging
 
-    e_0, e_1 = basis(2, 0), basis(2, 1)
-    e_00, e_01 = kron(e_0, e_0), kron(e_0, e_1)
-    e_10, e_11 = kron(e_1, e_0), kron(e_1, e_1)
+        e_0, e_1 = basis(2, 0), basis(2, 1)
+        e_00, e_01 = kron(e_0, e_0), kron(e_0, e_1)
+        e_10, e_11 = kron(e_1, e_0), kron(e_1, e_1)
 
-    alpha = 1 / sqrt(2)
-    theta = pi / 8
-    w_var = alpha * cos(theta) * e_00 + sqrt(1 - alpha ** 2) * sin(theta) * e_11
+        alpha = 1 / sqrt(2)
+        theta = pi / 8
+        w_var = alpha * cos(theta) * e_00 + sqrt(1 - alpha ** 2) * sin(theta) * e_11
 
-    l_1 = -alpha * sin(theta) * e_00 + sqrt(1 - alpha ** 2) * cos(theta) * e_11
-    l_2 = alpha * sin(theta) * e_10
-    l_3 = sqrt(1 - alpha ** 2) * cos(theta) * e_01
+        l_1 = -alpha * sin(theta) * e_00 + sqrt(1 - alpha ** 2) * cos(theta) * e_11
+        l_2 = alpha * sin(theta) * e_10
+        l_3 = sqrt(1 - alpha ** 2) * cos(theta) * e_01
 
-    q_1 = w_var @ w_var.conj().T
-    q_0 = l_1 @ l_1.conj().T + l_2 @ l_2.conj().T + l_3 @ l_3.conj().T
+        q_1 = w_var @ w_var.conj().T
+        q_0 = l_1 @ l_1.conj().T + l_2 @ l_2.conj().T + l_3 @ l_3.conj().T
 
-    molina_watrous = QuantumHedging(q_0, 1)
-    print(np.around(molina_watrous.min_prob_outcome_a_primal(), decimals=2))
-    ```
+        molina_watrous = QuantumHedging(q_0, 1)
+        print(np.around(molina_watrous.min_prob_outcome_a_primal(), decimals=2))
+        ```
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.states import basis
-    from numpy import kron, cos, sin, pi, sqrt, isclose
-    from toqito.nonlocal_games.quantum_hedging import QuantumHedging
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.states import basis
+        from numpy import kron, cos, sin, pi, sqrt, isclose
+        from toqito.nonlocal_games.quantum_hedging import QuantumHedging
 
-    e_0, e_1 = basis(2, 0), basis(2, 1)
-    e_00, e_01 = kron(e_0, e_0), kron(e_0, e_1)
-    e_10, e_11 = kron(e_1, e_0), kron(e_1, e_1)
+        e_0, e_1 = basis(2, 0), basis(2, 1)
+        e_00, e_01 = kron(e_0, e_0), kron(e_0, e_1)
+        e_10, e_11 = kron(e_1, e_0), kron(e_1, e_1)
 
-    alpha = 1 / sqrt(2)
-    theta = pi / 8
-    w_var = alpha * cos(theta) * e_00 + sqrt(1 - alpha ** 2) * sin(theta) * e_11
+        alpha = 1 / sqrt(2)
+        theta = pi / 8
+        w_var = alpha * cos(theta) * e_00 + sqrt(1 - alpha ** 2) * sin(theta) * e_11
 
-    l_1 = -alpha * sin(theta) * e_00 + sqrt(1 - alpha ** 2) * cos(theta) * e_11
-    l_2 = alpha * sin(theta) * e_10
-    l_3 = sqrt(1 - alpha ** 2) * cos(theta) * e_01
+        l_1 = -alpha * sin(theta) * e_00 + sqrt(1 - alpha ** 2) * cos(theta) * e_11
+        l_2 = alpha * sin(theta) * e_10
+        l_3 = sqrt(1 - alpha ** 2) * cos(theta) * e_01
 
-    q_1 = w_var @ w_var.conj().T
-    q_0 = l_1 @ l_1.conj().T + l_2 @ l_2.conj().T + l_3 @ l_3.conj().T
+        q_1 = w_var @ w_var.conj().T
+        q_0 = l_1 @ l_1.conj().T + l_2 @ l_2.conj().T + l_3 @ l_3.conj().T
 
-    molina_watrous = QuantumHedging(q_0, 1)
-    print(np.around(molina_watrous.min_prob_outcome_a_dual(), decimals=2))
-    ```
+        molina_watrous = QuantumHedging(q_0, 1)
+        print(np.around(molina_watrous.min_prob_outcome_a_dual(), decimals=2))
+        ```
 
     """
 
@@ -288,7 +288,7 @@ class QuantumHedging:
         \]
 
         Returns:
-        The optimal minimal probability for obtaining outcome "a".
+            The optimal minimal probability for obtaining outcome "a".
 
         """
         y_var = cvxpy.Variable((2**self._num_reps, 2**self._num_reps), hermitian=True)

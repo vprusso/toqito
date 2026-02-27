@@ -29,56 +29,56 @@ def is_completely_positive(
     channel is both Hermitian-preserving and positive semidefinite.
 
     Examples:
-    We can specify the input as a list of Kraus operators. Consider the map \(\Phi\) defined as
+        We can specify the input as a list of Kraus operators. Consider the map \(\Phi\) defined as
 
-    \[
-        \Phi(X) = X - U X U^*
-    \]
+        \[
+            \Phi(X) = X - U X U^*
+        \]
 
-    where
+        where
 
-    \[
-        U = \frac{1}{\sqrt{2}}
-        \begin{pmatrix}
-            1 & 1 \\
-            -1 & 1
-        \end{pmatrix}.
-    \]
+        \[
+            U = \frac{1}{\sqrt{2}}
+            \begin{pmatrix}
+                1 & 1 \\
+                -1 & 1
+            \end{pmatrix}.
+        \]
 
-    This map is not completely positive, as we can verify as follows.
+        This map is not completely positive, as we can verify as follows.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.channel_props import is_completely_positive
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.channel_props import is_completely_positive
 
-    unitary_mat = np.array([[1, 1], [-1, 1]]) / np.sqrt(2)
-    kraus_ops = [[np.identity(2), np.identity(2)], [unitary_mat, -unitary_mat]]
+        unitary_mat = np.array([[1, 1], [-1, 1]]) / np.sqrt(2)
+        kraus_ops = [[np.identity(2), np.identity(2)], [unitary_mat, -unitary_mat]]
 
-    print(is_completely_positive(kraus_ops))
-    ```
+        print(is_completely_positive(kraus_ops))
+        ```
 
-    We can also specify the input as a Choi matrix. For instance, consider the Choi matrix
-    corresponding to the \(2\)-dimensional completely depolarizing channel
+        We can also specify the input as a Choi matrix. For instance, consider the Choi matrix
+        corresponding to the \(2\)-dimensional completely depolarizing channel
 
-    \[
-        \Omega =
-        \frac{1}{2}
-        \begin{pmatrix}
-            1 & 0 & 0 & 0 \\
-            0 & 1 & 0 & 0 \\
-            0 & 0 & 1 & 0 \\
-            0 & 0 & 0 & 1
-        \end{pmatrix}.
-    \]
+        \[
+            \Omega =
+            \frac{1}{2}
+            \begin{pmatrix}
+                1 & 0 & 0 & 0 \\
+                0 & 1 & 0 & 0 \\
+                0 & 0 & 1 & 0 \\
+                0 & 0 & 0 & 1
+            \end{pmatrix}.
+        \]
 
-    We may verify that this channel is completely positive
+        We may verify that this channel is completely positive
 
-    ```python exec="1" source="above"
-    from toqito.channels import depolarizing
-    from toqito.channel_props import is_completely_positive
+        ```python exec="1" source="above"
+        from toqito.channels import depolarizing
+        from toqito.channel_props import is_completely_positive
 
-    print(is_completely_positive(depolarizing(2)))
-    ```
+        print(is_completely_positive(depolarizing(2)))
+        ```
 
     Args:
         phi: The channel provided as either a Choi matrix or a list of Kraus operators.

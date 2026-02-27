@@ -23,18 +23,18 @@ def sk_vector_norm(rho: np.ndarray, k: int = 1, dim: int | list[int] | None = No
     This function was adapted from QETLAB.
 
     Examples:
-    The smallest possible value of the \(S(k)\)-norm of a pure state is
-    \(\sqrt{\frac{k}{n}}\), and is attained exactly by the "maximally entangled
-    states".
+        The smallest possible value of the \(S(k)\)-norm of a pure state is
+        \(\sqrt{\frac{k}{n}}\), and is attained exactly by the "maximally entangled
+        states".
 
-    ```python exec="1" source="above"
-    from toqito.states import max_entangled
-    from toqito.state_props import sk_vector_norm
-    import numpy as np
-    # Maximally entagled state.
-    v = max_entangled(4)
-    print(sk_vector_norm(v))
-    ```
+        ```python exec="1" source="above"
+        from toqito.states import max_entangled
+        from toqito.state_props import sk_vector_norm
+        import numpy as np
+        # Maximally entagled state.
+        v = max_entangled(4)
+        print(sk_vector_norm(v))
+        ```
 
     Args:
         rho: A vector.

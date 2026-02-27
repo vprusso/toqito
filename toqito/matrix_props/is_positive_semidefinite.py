@@ -9,45 +9,45 @@ def is_positive_semidefinite(mat: np.ndarray, rtol: float = 1e-05, atol: float =
     r"""Check if matrix is positive semidefinite (PSD) [@WikiPosDef].
 
     Examples:
-    Consider the following matrix
+        Consider the following matrix
 
-    \[
-        A = \begin{pmatrix}
-                1 & -1 \\
-                -1 & 1
-            \end{pmatrix}
-    \]
+        \[
+            A = \begin{pmatrix}
+                    1 & -1 \\
+                    -1 & 1
+                \end{pmatrix}
+        \]
 
-    our function indicates that this is indeed a positive semidefinite matrix.
+        our function indicates that this is indeed a positive semidefinite matrix.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import is_positive_semidefinite
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_positive_semidefinite
 
-    A = np.array([[1, -1], [-1, 1]])
+        A = np.array([[1, -1], [-1, 1]])
 
-    print(is_positive_semidefinite(A))
-    ```
+        print(is_positive_semidefinite(A))
+        ```
 
-    Alternatively, the following example matrix \(B\) defined as
+        Alternatively, the following example matrix \(B\) defined as
 
-    \[
-        B = \begin{pmatrix}
-                -1 & -1 \\
-                -1 & -1
-            \end{pmatrix}
-    \]
+        \[
+            B = \begin{pmatrix}
+                    -1 & -1 \\
+                    -1 & -1
+                \end{pmatrix}
+        \]
 
-    is not positive semidefinite.
+        is not positive semidefinite.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import is_positive_semidefinite
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_positive_semidefinite
 
-    B = np.array([[-1, -1], [-1, -1]])
+        B = np.array([[-1, -1], [-1, -1]])
 
-    print(is_positive_semidefinite(B))
-    ```
+        print(is_positive_semidefinite(B))
+        ```
 
     Args:
         mat: Matrix to check.

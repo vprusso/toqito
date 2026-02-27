@@ -20,55 +20,55 @@ def is_pseudo_hermitian(mat: np.ndarray, signature: np.ndarray, rtol: float = 1e
     - \(\eta\) is a Hermitian, invertible matrix.
 
     Examples:
-    Consider the following matrix:
+        Consider the following matrix:
 
-    \[
-        H = \begin{pmatrix}
-            1 & 1+i \\
-            -1+i & -1
-        \end{pmatrix}
-    \]
+        \[
+            H = \begin{pmatrix}
+                1 & 1+i \\
+                -1+i & -1
+            \end{pmatrix}
+        \]
 
-    with the signature matrix:
+        with the signature matrix:
 
-    \[
-        \eta = \begin{pmatrix}
-            1 & 0 \\
-            0 & -1
-        \end{pmatrix}
-    \]
+        \[
+            \eta = \begin{pmatrix}
+                1 & 0 \\
+                0 & -1
+            \end{pmatrix}
+        \]
 
-    Our function confirms that \(H\) is pseudo-Hermitian:
+        Our function confirms that \(H\) is pseudo-Hermitian:
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import is_pseudo_hermitian
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_pseudo_hermitian
 
-    H = np.array([[1, 1+1j], [-1+1j, -1]])
-    eta = np.array([[1, 0], [0, -1]])
+        H = np.array([[1, 1+1j], [-1+1j, -1]])
+        eta = np.array([[1, 0], [0, -1]])
 
-    print(is_pseudo_hermitian(H, eta))
-    ```
+        print(is_pseudo_hermitian(H, eta))
+        ```
 
-    However, the following matrix \(A\)
+        However, the following matrix \(A\)
 
-    \[
-        A = \begin{pmatrix}
-            1 & i \\
-            -i & 1
-        \end{pmatrix}
-    \]
+        \[
+            A = \begin{pmatrix}
+                1 & i \\
+                -i & 1
+            \end{pmatrix}
+        \]
 
-    is not pseudo-Hermitian with respect to the same signature matrix.
+        is not pseudo-Hermitian with respect to the same signature matrix.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrix_props import is_pseudo_hermitian
-    eta = np.array([[1, 0], [0, -1]])
-    A = np.array([[1, 1j], [-1j, 1]])
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_pseudo_hermitian
+        eta = np.array([[1, 0], [0, -1]])
+        A = np.array([[1, 1j], [-1j, 1]])
 
-    print(is_pseudo_hermitian(A, eta))
-    ```
+        print(is_pseudo_hermitian(A, eta))
+        ```
 
     Raises:
         ValueError: If `signature` is not Hermitian or not invertible.

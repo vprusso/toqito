@@ -23,29 +23,29 @@ def is_ensemble(states: list[np.ndarray]) -> bool:
     \]
 
     Examples:
-    Consider the following set of matrices
+        Consider the following set of matrices
 
-    \[
-        \eta = \left\{ \rho_0, \rho_1 \right\}
-    \]
+        \[
+            \eta = \left\{ \rho_0, \rho_1 \right\}
+        \]
 
-    where
+        where
 
-    \[
-        \rho_0 = \frac{1}{2} \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}, \quad
-        \rho_1 = \frac{1}{2} \begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix}.
-    \]
+        \[
+            \rho_0 = \frac{1}{2} \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}, \quad
+            \rho_1 = \frac{1}{2} \begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix}.
+        \]
 
-    The set \(\eta\) constitutes a valid ensemble.
+        The set \(\eta\) constitutes a valid ensemble.
 
-    ```python exec="1" source="above"
-    from toqito.state_props import is_ensemble
-    import numpy as np
-    rho_0 = np.array([[0.5, 0], [0, 0]])
-    rho_1 = np.array([[0, 0], [0, 0.5]])
-    states = [rho_0, rho_1]
-    print(is_ensemble(states))
-    ```
+        ```python exec="1" source="above"
+        from toqito.state_props import is_ensemble
+        import numpy as np
+        rho_0 = np.array([[0.5, 0], [0, 0]])
+        rho_1 = np.array([[0, 0], [0, 0.5]])
+        states = [rho_0, rho_1]
+        print(is_ensemble(states))
+        ```
 
     Args:
         states: The list of states to check.

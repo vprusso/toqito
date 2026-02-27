@@ -25,13 +25,13 @@ def hadamard(n_param: int = 1) -> np.ndarray:
     \]
 
     Examples:
-    The standard 1-qubit Hadamard matrix can be generated in `toqito` as
+        The standard 1-qubit Hadamard matrix can be generated in `toqito` as
 
-    ```python exec="1" source="above"
-    from toqito.matrices import hadamard
+        ```python exec="1" source="above"
+        from toqito.matrices import hadamard
 
-    print(hadamard(1))
-    ```
+        print(hadamard(1))
+        ```
 
     """
     if n_param < 1:

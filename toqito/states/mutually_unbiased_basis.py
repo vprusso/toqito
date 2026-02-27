@@ -17,26 +17,26 @@ def mutually_unbiased_basis(dim: int) -> list[np.ndarray]:
     know how to generate general MUBs.
 
     Examples:
-    For the case of dimension 2, the three mutually unbiased bases are provided by:
+        For the case of dimension 2, the three mutually unbiased bases are provided by:
 
-    \[
-        M_0 = \left\{|0\rangle, |1\rangle \right\}, \\
-        M_1 = \left\{\frac{|0\rangle + |1\rangle}{\sqrt{2}}, \frac{|0\rangle - |1\rangle}{\sqrt{2}}\right\}
-        M_2 = \left\{\frac{|0\rangle + i|1\rangle}{\sqrt{2}}, \frac{|0\rangle - i|1\rangle}{\sqrt{2}}\right\}
-    \]
+        \[
+            M_0 = \left\{|0\rangle, |1\rangle \right\}, \\
+            M_1 = \left\{\frac{|0\rangle + |1\rangle}{\sqrt{2}}, \frac{|0\rangle - |1\rangle}{\sqrt{2}}\right\}
+            M_2 = \left\{\frac{|0\rangle + i|1\rangle}{\sqrt{2}}, \frac{|0\rangle - i|1\rangle}{\sqrt{2}}\right\}
+        \]
 
-    The six vectors above are obtained accordingly:
+        The six vectors above are obtained accordingly:
 
-    ```python exec="1" source="above" session="mubs"
-    from toqito.states import mutually_unbiased_basis
-    mubs = mutually_unbiased_basis(2)
-    print(len(mubs))
-    ```
+        ```python exec="1" source="above" session="mubs"
+        from toqito.states import mutually_unbiased_basis
+        mubs = mutually_unbiased_basis(2)
+        print(len(mubs))
+        ```
 
-    ```python exec="1" source="above" session="mubs"
-    lst =[vec.shape for vec in mubs]
-    print(lst)
-    ```
+        ```python exec="1" source="above" session="mubs"
+        lst =[vec.shape for vec in mubs]
+        print(lst)
+        ```
     Args:
         dim: The dimension of the mutually unbiased bases to produce.
 

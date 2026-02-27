@@ -20,13 +20,13 @@ def comparison(mat: np.ndarray) -> np.ndarray:
     \]
 
     Examples:
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.matrices import comparison
-    A = np.array([[2, -1],
-                [3, 4]])
-    print(comparison(A))
-    ```
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrices import comparison
+        A = np.array([[2, -1],
+                    [3, 4]])
+        print(comparison(A))
+        ```
 
     Raises:
         ValueError: If the input matrix is not square.

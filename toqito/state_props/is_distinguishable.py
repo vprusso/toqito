@@ -15,25 +15,25 @@ def is_distinguishable(states: list[np.ndarray], probs: list[float] | None = Non
     distinguishability SDP as defined in `state_distinguishability`
 
     Examples:
-    The set of Bell states are an example of distinguishable states. Recall that the Bell states are defined as:
+        The set of Bell states are an example of distinguishable states. Recall that the Bell states are defined as:
 
-    \[
-    \begin{aligned}
-    u_1 &= \frac{1}{\sqrt{2}} \left(|00\rangle + |11\rangle\right), \quad
-    u_2 = \frac{1}{\sqrt{2}} \left(|00\rangle - |11\rangle\right), \\
-    u_3 &= \frac{1}{\sqrt{2}} \left(|01\rangle + |10\rangle\right), \quad
-    u_4 = \frac{1}{\sqrt{2}} \left(|01\rangle - |10\rangle\right).
-    \end{aligned}
-    \]
+        \[
+        \begin{aligned}
+        u_1 &= \frac{1}{\sqrt{2}} \left(|00\rangle + |11\rangle\right), \quad
+        u_2 = \frac{1}{\sqrt{2}} \left(|00\rangle - |11\rangle\right), \\
+        u_3 &= \frac{1}{\sqrt{2}} \left(|01\rangle + |10\rangle\right), \quad
+        u_4 = \frac{1}{\sqrt{2}} \left(|01\rangle - |10\rangle\right).
+        \end{aligned}
+        \]
 
-    It can be checked in `toqito` that the Bell states are distinguishable:
+        It can be checked in `toqito` that the Bell states are distinguishable:
 
-    ```python exec="1" source="above"
-    from toqito.states import bell
-    from toqito.state_props import is_distinguishable
-    bell_states = [bell(0), bell(1), bell(2), bell(3)]
-    print(is_distinguishable(bell_states))
-    ```
+        ```python exec="1" source="above"
+        from toqito.states import bell
+        from toqito.state_props import is_distinguishable
+        bell_states = [bell(0), bell(1), bell(2), bell(3)]
+        print(is_distinguishable(bell_states))
+        ```
 
     Args:
         states: A set of vectors consisting of quantum states to determine the distinguishability of.

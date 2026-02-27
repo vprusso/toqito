@@ -18,41 +18,41 @@ def is_antidistinguishable(states: list[np.ndarray]) -> bool | np.bool_:
     the states are chosen from the set of vectors.
 
     Examples:
-    The set of Bell states are an example of antidistinguishable states. Recall that the Bell states are defined as:
+        The set of Bell states are an example of antidistinguishable states. Recall that the Bell states are defined as:
 
-    \[
-    \begin{aligned}
-    u_1 &= \frac{1}{\sqrt{2}} \left(|00\rangle + |11\rangle\right), \quad
-    u_2 = \frac{1}{\sqrt{2}} \left(|00\rangle - |11\rangle\right), \\
-    u_3 &= \frac{1}{\sqrt{2}} \left(|01\rangle + |10\rangle\right), \quad
-    u_4 = \frac{1}{\sqrt{2}} \left(|01\rangle - |10\rangle\right).
-    \end{aligned}
-    \]
+        \[
+        \begin{aligned}
+        u_1 &= \frac{1}{\sqrt{2}} \left(|00\rangle + |11\rangle\right), \quad
+        u_2 = \frac{1}{\sqrt{2}} \left(|00\rangle - |11\rangle\right), \\
+        u_3 &= \frac{1}{\sqrt{2}} \left(|01\rangle + |10\rangle\right), \quad
+        u_4 = \frac{1}{\sqrt{2}} \left(|01\rangle - |10\rangle\right).
+        \end{aligned}
+        \]
 
-    It can be checked in `toqito` that the Bell states are antidistinguishable:
+        It can be checked in `toqito` that the Bell states are antidistinguishable:
 
-    ```python exec="1" source="above"
-    from toqito.states import bell
-    from toqito.state_props import is_antidistinguishable
-    bell_states = [bell(0), bell(1), bell(2), bell(3)]
-    print(is_antidistinguishable(bell_states))
-    ```
+        ```python exec="1" source="above"
+        from toqito.states import bell
+        from toqito.state_props import is_antidistinguishable
+        bell_states = [bell(0), bell(1), bell(2), bell(3)]
+        print(is_antidistinguishable(bell_states))
+        ```
 
-    Consider the following measurement operators
+        Consider the following measurement operators
 
-    \[
-    M_i = \frac{1}{3}\left(\mathbb{I}_{\mathcal{X}} - u_i u_i^*\right)
-    \]
+        \[
+        M_i = \frac{1}{3}\left(\mathbb{I}_{\mathcal{X}} - u_i u_i^*\right)
+        \]
 
-    for all \(1 \leq i \leq 4\). It can be verified that these constitute a valid set of POVMs, that is
-    \(\sum_{i=1}^4 M_i = \mathbb{I}_{\mathcal{X}}\) and \(M_i \in \text{Pos}(\mathcal{X})\) for all \(1
-    leq i \leq 4\). It may also be verified that
+        for all \(1 \leq i \leq 4\). It can be verified that these constitute a valid set of POVMs, that is
+        \(\sum_{i=1}^4 M_i = \mathbb{I}_{\mathcal{X}}\) and \(M_i \in \text{Pos}(\mathcal{X})\) for all \(1
+        leq i \leq 4\). It may also be verified that
 
-    \[
-        \sum_{i=1}^4 \langle M_i, u_i u_i^* \rangle = 0,
-    \]
+        \[
+            \sum_{i=1}^4 \langle M_i, u_i u_i^* \rangle = 0,
+        \]
 
-    and hence, the Bell states are antidistinguishable.
+        and hence, the Bell states are antidistinguishable.
 
     Args:
         states: A set of vectors consisting of quantum states to determine the antidistinguishability of.

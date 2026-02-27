@@ -21,40 +21,40 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     corresponding to the case `rho = sigma`.
 
     Examples:
-    Consider the following Bell state
+        Consider the following Bell state
 
-    \[
-        u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \in \mathcal{X}.
-    \]
+        \[
+            u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \in \mathcal{X}.
+        \]
 
-    The corresponding density matrix of \(u\) may be calculated by:
+        The corresponding density matrix of \(u\) may be calculated by:
 
-    \[
-        \rho = u u^* = \frac{1}{2} \begin{pmatrix}
-                         1 & 0 & 0 & 1 \\
-                         0 & 0 & 0 & 0 \\
-                         0 & 0 & 0 & 0 \\
-                         1 & 0 & 0 & 1
-                       \end{pmatrix} \in \text{D}(\mathcal{X}).
-    \]
+        \[
+            \rho = u u^* = \frac{1}{2} \begin{pmatrix}
+                             1 & 0 & 0 & 1 \\
+                             0 & 0 & 0 & 0 \\
+                             0 & 0 & 0 & 0 \\
+                             1 & 0 & 0 & 1
+                           \end{pmatrix} \in \text{D}(\mathcal{X}).
+        \]
 
-    In the event where we calculate the fidelity between states that are identical, we should obtain the value of
-    \(1\). This can be observed in `|toqito⟩` as follows.
+        In the event where we calculate the fidelity between states that are identical, we should obtain the value of
+        \(1\). This can be observed in `|toqito⟩` as follows.
 
-    ```python exec="1" source="above"
-    import numpy as np
-    from toqito.state_metrics import fidelity
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.state_metrics import fidelity
 
-    rho = 1 / 2 * np.array(
-        [[1, 0, 0, 1],
-         [0, 0, 0, 0],
-         [0, 0, 0, 0],
-         [1, 0, 0, 1]]
-    )
-    sigma = rho
+        rho = 1 / 2 * np.array(
+            [[1, 0, 0, 1],
+             [0, 0, 0, 0],
+             [0, 0, 0, 0],
+             [1, 0, 0, 1]]
+        )
+        sigma = rho
 
-    print(fidelity(rho, sigma))
-    ```
+        print(fidelity(rho, sigma))
+        ```
 
     Raises:
         ValueError: If matrices are not density operators.
