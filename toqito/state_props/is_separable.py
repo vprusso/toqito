@@ -764,11 +764,11 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
             delta=1#flag for convergence
             while delta>min(dA,dB)*tol :#loop for see-saw attempting to find max overlap product state.
                 rho_part=partial_trace(rho_sub@np.kron(np.outer(v0,v0.conj().T),np.identity(dB)),sys=1,dim=[dA,dB])
-                dev1,dv1_new=np.linalg.eigh(rho_part)
+                dev1,dv1_new=np.linalg.eigh(np.asarray(rho_part))
                 v1_new=dv1_new[:,-1]
                 ev1_new=dev1[-1]
                 rho_part=partial_trace(rho_sub@np.kron(np.identity(dA),np.outer(v1_new,v1_new.conj().T)),sys=0,dim=[dA,dB])
-                dev0,dv0_new=np.linalg.eigh(rho_part)
+                dev0,dv0_new=np.linalg.eigh(np.asarray(rho_part))
                 v0_new=dv0_new[:,-1]
                 ev0=dev0[-1]
                 delta=np.linalg.norm(v1_new-v1)+np.linalg.norm(v0_new-v0)
@@ -776,14 +776,14 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                 v1=v1_new
             max_product_state= ev0*np.kron(np.outer(v0,v0.conj().T),np.outer(v1,v1.conj().T))   
             rho_sub=rho_sub-max_product_state
-            if is_positive_semidefinite(rho_sub):
+            if is_positive_semidefinite(rho_sub):#making sure that the residue can be a valid state
                 res= np.trace(rho_sub)
-                rho_sub=rho_sub/res
-                if in_separable_ball(rho_sub) or res<tol:
+                rho_sub=rho_sub/res#normalizing only if the residue can be a state.
+                if in_separable_ball(rho_sub) or res<tol:#return if the residual state is in the seperable ball or the residue is neglegible
                     return True
-                else:
+                else: #use the rho_sub to continue the algorithm to another iteration
                     break
-            else: 
+            else: #if not just return the same state to find another possible random product state to start with
                 rho_sub=rho_sub+max_product_state
 
 
