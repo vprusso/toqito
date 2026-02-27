@@ -534,7 +534,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         return True
 
     rho_pt_A = partial_transpose(current_state, sys=0, dim=dims_list)  # Partial transpose on system A
-    rank_pt_A = np.linalg.matrix_rank(rho_pt_A, tol=tol)
+    rank_pt_A = np.linalg.matrix_rank(np.asarray(rho_pt_A), tol=tol)
     threshold_horodecki = 2 * prod_dim_val - dA - dB + 2  # Threshold for sum of ranks
 
     if state_rank + rank_pt_A <= threshold_horodecki:  # rank(rho) + rank(rho^T_A) <= threshold
@@ -546,8 +546,8 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     # Its main use is for NPT states. Included for completeness of listed criteria.
     rho_A_marginal = partial_trace(current_state, sys=[1], dim=dims_list)
     rho_B_marginal = partial_trace(current_state, sys=[0], dim=dims_list)
-    op_reduct1 = np.kron(np.eye(dA), rho_B_marginal) - current_state
-    op_reduct2 = np.kron(rho_A_marginal, np.eye(dB)) - current_state
+    op_reduct1 = np.kron(np.eye(dA), np.asarray(rho_B_marginal)) - current_state
+    op_reduct2 = np.kron(np.asarray(rho_A_marginal), np.eye(dB)) - current_state
     if not (
         is_positive_semidefinite(op_reduct1, atol=tol, rtol=tol)
         and is_positive_semidefinite(op_reduct2, atol=tol, rtol=tol)
@@ -566,7 +566,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     val_A = max(0, 1 - tr_rho_A_sq)  # Ensure non-negativity from (1 - purity)
     val_B = max(0, 1 - tr_rho_B_sq)
     bound_zhang = np.sqrt(val_A * val_B) if (val_A * val_B >= 0) else 0
-    if trace_norm(realignment(current_state - np.kron(rho_A_marginal, rho_B_marginal), dims_list)) > bound_zhang + tol:
+    if trace_norm(realignment(current_state - np.kron(np.asarray(rho_A_marginal),np.asarray(rho_B_marginal)), dims_list)) > bound_zhang + tol:
         return False
     # TODO: #1246 Consider adding Filter CMC criterion from Gittsovich et al. 2008, which is stronger.
 
@@ -733,7 +733,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         # for k=2 (and level >=2), it declares separable.
         for k_actual_level_check in range(2, int(level) + 1):  # Ensure level is int for range
             try:
-                if has_symmetric_extension(rho=current_state, level=k_actual_level_check, dim=dims_list, tol=tol):
+                if has_symmetric_extension(rho=current_state, level=k_actual_level_check, dim=np.asarray(dims_list), tol=tol):
                     # State has a k-symmetric extension, considered separable by this test level.
                     return True
                 # If it does NOT have a k-symmetric extension, it is entangled.
