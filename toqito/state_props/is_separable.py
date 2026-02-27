@@ -17,7 +17,7 @@ from toqito.state_props.schmidt_rank import schmidt_rank
 from toqito.states.max_entangled import max_entangled
 
 
-def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: int = 2, tol: float = 1e-8) -> bool:
+def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: int = 2,max_iter: int=200,sep_factor: int=20, tol: float = 1e-8) -> bool:
     r"""Determine if a given state (given as a density matrix) is a separable state :footcite:`WikiSepSt`.
 
     A multipartite quantum state:
@@ -752,19 +752,16 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         return True
     # --- 14. Iterative product state subtraction---
     
-    max_iter=200 #to bound the number of random starts
-    max_depth=10*min(dA,dB) #mainly to bound the depth of the loop
-    def recursive_product_state_subtraction(rho,recursion_depth=max_depth,max_it=max_iter):
-        num_starts=0
-        rho_sub=rho.copy()
-        while num_starts<max_it and recursion_depth>0: #loop for random starts
-            num_starts+=1
+    rho_sub=state.copy()
+    for dep in range(max_depth):
+        count_rand_starts=0
+        while count_rand_starts<max_iter: #loop for random starts
+            count_rand_starts+=1
             v0=np.random.randn(dA)+1j*np.random.randn(dA)
             v0=v0/np.linalg.norm(v0)
             v1=np.zeros(dB,dtype=complex)
             delta=1#flag for convergence
-            depth=0
-            while delta>min(dA,dB)*tol or depth<max_depth:#loop for see-saw attempting to find max overlap product state.
+            while delta>min(dA,dB)*tol :#loop for see-saw attempting to find max overlap product state.
                 rho_part=partial_trace(rho_sub@np.kron(np.outer(v0,v0.conj().T),np.identity((dB,dB))),sys=1,dim=[dA,dB])
                 ev1,v1_new=np.linalg.eigh(rho_part)[:,-1]
                 rho_part=partial_trace(rho_sub@np.kron(np.identity((dA,dA)),np.outer(v1_new,v1_new.conj().T)),sys=0,dim=[dA,dB])
@@ -772,19 +769,22 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                 delta=np.linalg.norm(v1_new-v1)+np.linalg.norm(v0_new-v0)
                 v0=v0_new
                 v1=v1_new
-                depth+=1
             max_product_state= ev0*np.kron(np.outer(v0,v0.conj().T),np.outer(v1,v1.conj().T))   
             rho_sub=rho_sub-max_product_state
-
             if is_positive_semidefinite(rho_sub):
                 rho_sub=rho_sub/np.trace(rho_sub)
                 if in_separable_ball(rho_sub):
                     return True
                 else:
-                    return recursive_product_state_subtraction(rho_sub,recursion_depth-1)
+                    break
             else: 
                 rho_sub=rho_sub+max_product_state
-        
+                
+
+
+
+
+
 
     # If all implemented checks are inconclusive, and the state passed PPT (the most basic necessary condition checked),
     # it implies that the state is either separable but not caught by the simpler sufficient conditions,
