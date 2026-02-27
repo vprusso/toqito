@@ -777,8 +777,9 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
             max_product_state= ev0*np.kron(np.outer(v0,v0.conj().T),np.outer(v1,v1.conj().T))   
             rho_sub=rho_sub-max_product_state
             if is_positive_semidefinite(rho_sub):
-                rho_sub=rho_sub/np.trace(rho_sub)
-                if in_separable_ball(rho_sub):
+                res= np.trace(rho_sub)
+                rho_sub=rho_sub/res
+                if in_separable_ball(rho_sub) or res<tol:
                     return True
                 else:
                     break
