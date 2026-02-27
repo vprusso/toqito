@@ -15,7 +15,7 @@ def symmetric_extension_hierarchy(
     level: int = 2,
     dim: int | list[int] | None = None,
 ) -> float:
-    r"""Compute optimal value of the symmetric extension hierarchy SDP :footcite:`Navascues_2008_Pure`.
+    r"""Compute optimal value of the symmetric extension hierarchy SDP [@Navascues_2008_Pure].
 
     The probability of distinguishing a given set of states via PPT measurements serves as a natural
     upper bound to the value of obtaining via separable measurements. Due to the nature of separable
@@ -23,62 +23,63 @@ def symmetric_extension_hierarchy(
     programming techniques.
 
     We can, however, construct a hierarchy of semidefinite programs that attains closer and closer
-    approximations at the separable value via the techniques described in :footcite:`Navascues_2008_Pure`.
+    approximations at the separable value via the techniques described in [@Navascues_2008_Pure].
 
     The mathematical form of this hierarchy implemented here is explicitly given from equation 4.55
-    in :footcite:`Cosentino_2015_QuantumState`.
+    in [@Cosentino_2015_QuantumState].
 
-    .. math::
+    \[
+        \begin{equation}
+            \begin{aligned}
+                \text{maximize:} \quad & \sum_{k=1}^N p_k \langle \rho_k, \mu(k) \rangle, \\
+                \text{subject to:} \quad & \sum_{k=1}^N \mu(k) =
+                                           \mathbb{I}_{\mathcal{X} \otimes \mathcal{Y}}, \\
+                                        & \text{Tr}_{\mathcal{Y}_2 \otimes \ldots \otimes
+                                          \mathcal{Y}_s}(X_k) = \mu(k), \\
+                                        & \left( \mathbb{I}_{\mathcal{X}} \otimes
+                                          \Pi_{\mathcal{Y} \circledvee \mathcal{Y}_2 \circledvee \ldots \circledvee
+                                          \mathcal{Y}_s} \right) X_k
+                                          \left(\mathbb{I}_{\mathcal{X}} \otimes
+                                          \Pi_{\mathcal{Y} \circledvee \mathcal{Y}_2 \circledvee \ldots \circledvee
+                                          \mathcal{Y}_s} \right)
+                                          = X_k \\
+                                        & \text{T}_{\mathcal{X}}(X_k) \in \text{Pos}\left(
+                                            \mathcal{X} \otimes \mathcal{Y} \otimes \mathcal{Y}_2
+                                            \otimes \ldots \otimes \mathcal{Y}_s \right), \\
+                                        & \text{T}_{\mathcal{Y}_2 \otimes \ldots \otimes
+                                            \mathcal{Y}_s}(X_k) \in \text{Pos}\left(
+                                            \mathcal{X} \otimes \mathcal{Y} \otimes \mathcal{Y}_2
+                                            \otimes \ldots \otimes \mathcal{Y}_s \right), \\
+                                        & X_1, \ldots, X_N \in
+                                          \text{Pos}\left(\mathcal{X} \otimes \mathcal{Y} \otimes
+                                          \mathcal{Y}_2 \otimes \ldots \otimes \mathcal{Y}_s
+                                          \right).
+            \end{aligned}
+        \end{equation}
+    \]
 
-        \begin{aligned}
-            \text{maximize:} \quad & \sum_{k=1}^N p_k \langle \rho_k, \mu(k) \rangle, \\
-            \text{subject to:} \quad & \sum_{k=1}^N \mu(k) =
-                                        \mathbb{I}_{\mathcal{X} \otimes \mathcal{Y}}, \\
-                                    & \text{Tr}_{\mathcal{Y}_2 \otimes \ldots \otimes
-                                        \mathcal{Y}_s}(X_k) = \mu(k), \\
-                                    & \left( \mathbb{I}_{\mathcal{X}} \otimes
-                                        \Pi_{\mathcal{Y} \circledvee \mathcal{Y}_2 \circledvee \ldots \circledvee
-                                        \mathcal{Y}_s} \right) X_k
-                                        \left(\mathbb{I}_{\mathcal{X}} \otimes
-                                        \Pi_{\mathcal{Y} \circledvee \mathcal{Y}_2 \circledvee \ldots \circledvee
-                                        \mathcal{Y}_s} \right)
-                                        = X_k \\
-                                    & \text{T}_{\mathcal{X}}(X_k) \in \text{Pos}\left(
-                                        \mathcal{X} \otimes \mathcal{Y} \otimes \mathcal{Y}_2
-                                        \otimes \ldots \otimes \mathcal{Y}_s \right), \\
-                                    & \text{T}_{\mathcal{Y}_2 \otimes \ldots \otimes
-                                        \mathcal{Y}_s}(X_k) \in \text{Pos}\left(
-                                        \mathcal{X} \otimes \mathcal{Y} \otimes \mathcal{Y}_2
-                                        \otimes \ldots \otimes \mathcal{Y}_s \right), \\
-                                    & X_1, \ldots, X_N \in
-                                        \text{Pos}\left(\mathcal{X} \otimes \mathcal{Y} \otimes
-                                        \mathcal{Y}_2 \otimes \ldots \otimes \mathcal{Y}_s
-                                        \right).
-        \end{aligned}
+    Examples:
+        It is known from [@Cosentino_2015_QuantumState] that distinguishing three Bell states along with a resource
+        state \(|\tau_{\epsilon}\rangle\) via separable measurements has the following closed form
 
-    Examples
-    ==========
+        \[
+            \frac{1}{3} \left(2 + \sqrt{1 - \epsilon^2} \right)
+        \]
 
-    It is known from :footcite:`Cosentino_2015_QuantumState` that distinguishing three Bell states along with a resource
-    state :math:`|\tau_{\epsilon}\rangle` via separable measurements has the following closed form
+        where the resource state is defined as
 
-    .. math::
-        \frac{1}{3} \left(2 + \sqrt{1 - \epsilon^2} \right)
+        \[
+            |\tau_{\epsilon} \rangle = \sqrt{\frac{1+\epsilon}{2}} |00\rangle +
+                                       \sqrt{\frac{1-\epsilon}{2}} |11\rangle.
+        \]
 
-    where the resource state is defined as
+        The value of optimally distinguishing these states via PPT measurements is strictly larger than
+        the value one obtains from separable measurements. Calculating the first level of the hierarchy
+        provides for us the optimal value of PPT measurements.
 
-    .. math::
-        |\tau_{\epsilon} \rangle = \sqrt{\frac{1+\epsilon}{2}} |00\rangle +
-                                   \sqrt{\frac{1-\epsilon}{2}} |11\rangle.
+        Consider a fixed value of \(\epsilon = 0.5\).
 
-    The value of optimally distinguishing these states via PPT measurements is strictly larger than
-    the value one obtains from separable measurements. Calculating the first level of the hierarchy
-    provides for us the optimal value of PPT measurements.
-
-    Consider a fixed value of :math:`\epsilon = 0.5`.
-
-    .. jupyter-execute::
-
+        ```python exec="1" source="above"
         from toqito.states import basis, bell
         from toqito.perms import swap
         from toqito.state_opt import symmetric_extension_hierarchy
@@ -118,19 +119,16 @@ def symmetric_extension_hierarchy(
         print(f"Level 1 symmetric extension value: {np.around(val_lvl_1, decimals=2)}")
         print(f"Level 2 symmetric extension value: {np.around(val_lvl_2, decimals=2)}")
         print(f"True separable value: {np.around(true_sep_val, decimals=2)}")
+        ```
 
-    References
-    ==========
-    .. footbibliography::
+    Args:
+        states: A list of states provided as either matrices or vectors.
+        probs: Respective list of probabilities each state is selected.
+        level: Level of the hierarchy to compute.
+        dim: The default has both subsystems of equal dimension.
 
-
-
-    :param states: A list of states provided as either matrices or vectors.
-    :param probs: Respective list of probabilities each state is selected.
-    :param level: Level of the hierarchy to compute.
-    :param dim: The default has both subsystems of equal dimension.
-    :return: The optimal probability of the symmetric extension hierarchy SDP for level
-            :code:`level`.
+    Returns:
+        The optimal probability of the symmetric extension hierarchy SDP for level `level`.
 
     """
     obj_func = []

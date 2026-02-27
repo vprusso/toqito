@@ -4,14 +4,14 @@ import numpy as np
 
 
 def fourier(dim: int) -> np.ndarray:
-    r"""Generate the Fourier transform matrix :footcite:`WikiDFT`.
+    r"""Generate the Fourier transform matrix [@WikiDFT].
 
-    Generates the :code:`dim`-by-:code:`dim` unitary matrix that implements the
+    Generates the `dim`-by-`dim` unitary matrix that implements the
     quantum Fourier transform.
 
     The Fourier matrix is defined as:
 
-    .. math::
+    \[
         W_N = \frac{1}{\sqrt{N}}
         \begin{pmatrix}
             1 & 1 & 1 & 1 & \ldots & 1 \\
@@ -22,33 +22,31 @@ def fourier(dim: int) -> np.ndarray:
             1 & \omega^{N-1} & \omega^{2(N-1)} & \omega^{3(N-1)} &
             \ldots & \omega^{(N-1)(N-1)}
         \end{pmatrix}
+    \]
 
-    Examples
-    ========
+    Examples:
+        The Fourier matrix generated from \(d = 3\) yields the following matrix:
 
-    The Fourier matrix generated from :math:`d = 3` yields the following matrix:
+        \[
+            W_3 = \frac{1}{\sqrt{3}}
+            \begin{pmatrix}
+                1 & 1 & 1 \\
+                1 & \omega & \omega^2 \\
+                1 & \omega^2 & \omega^4
+            \end{pmatrix}
+        \]
 
-    .. math::
-        W_3 = \frac{1}{\sqrt{3}}
-        \begin{pmatrix}
-            1 & 1 & 1 \\
-            1 & \omega & \omega^2 \\
-            1 & \omega^2 & \omega^4
-        \end{pmatrix}
+        ```python exec="1" source="above"
+        from toqito.matrices import fourier
 
-    .. jupyter-execute::
+        print(fourier(3))
+        ```
 
-     from toqito.matrices import fourier
+    Args:
+        dim: The size of the Fourier matrix.
 
-     fourier(3)
-
-    References
-    ==========
-    .. footbibliography::
-
-
-    :param dim: The size of the Fourier matrix.
-    :return: The Fourier matrix of dimension :code:`dim`.
+    Returns:
+        The Fourier matrix of dimension `dim`.
 
     """
     # Primitive root of unity.

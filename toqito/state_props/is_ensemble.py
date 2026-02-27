@@ -8,51 +8,50 @@ from toqito.matrix_props import is_positive_semidefinite
 def is_ensemble(states: list[np.ndarray]) -> bool:
     r"""Determine if a set of states constitute an ensemble.
 
-    For more info, see Section: Ensemble Of Quantum States from footcite:`Watrous_2018_TQI`.
+    For more info, see Section: Ensemble Of Quantum States from [@Watrous_2018_TQI].
 
     An ensemble of quantum states is defined by a function
 
-    .. math::
+    \[
         \eta : \Gamma \rightarrow \text{Pos}(\mathcal{X})
+    \]
 
     that satisfies
 
-    .. math::
+    \[
         \text{Tr}\left( \sum_{a \in \Gamma} \eta(a) \right) = 1.
+    \]
 
-    Examples
-    ==========
+    Examples:
+        Consider the following set of matrices
 
-    Consider the following set of matrices
+        \[
+            \eta = \left\{ \rho_0, \rho_1 \right\}
+        \]
 
-    .. math::
-        \eta = \left\{ \rho_0, \rho_1 \right\}
+        where
 
-    where
+        \[
+            \rho_0 = \frac{1}{2} \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}, \quad
+            \rho_1 = \frac{1}{2} \begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix}.
+        \]
 
-    .. math::
-        \rho_0 = \frac{1}{2} \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}, \quad
-        \rho_1 = \frac{1}{2} \begin{pmatrix} 0 & 0 \\ 0 & 1 \end{pmatrix}.
+        The set \(\eta\) constitutes a valid ensemble.
 
-    The set :math:`\eta` constitutes a valid ensemble.
-
-    .. jupyter-execute::
-
+        ```python exec="1" source="above"
         from toqito.state_props import is_ensemble
         import numpy as np
         rho_0 = np.array([[0.5, 0], [0, 0]])
         rho_1 = np.array([[0, 0], [0, 0.5]])
         states = [rho_0, rho_1]
-        is_ensemble(states)
+        print(is_ensemble(states))
+        ```
 
-    References
-    ==========
-    .. footbibliography::
+    Args:
+        states: The list of states to check.
 
-
-
-    :param states: The list of states to check.
-    :return: :code:`True` if states form an ensemble and :code:`False` otherwise.
+    Returns:
+        `True` if states form an ensemble and `False` otherwise.
 
     """
     trace_sum = 0

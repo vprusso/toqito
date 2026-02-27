@@ -4,85 +4,86 @@ import numpy as np
 
 
 def unvec(vector: np.ndarray, shape: list[int] | None = None) -> np.ndarray:
-    r"""Perform the unvec operation on a vector to obtain a matrix :footcite:`Rigetti_2022_Forest`.
+    r"""Perform the unvec operation on a vector to obtain a matrix [@Rigetti_2022_Forest].
 
-    Takes a column vector and transforms it into a :code:`shape[0]`-by-:code:`shape[1]` matrix.
-    This operation is the inverse of :code:`vec` operation in :code:`|toqito⟩`.
+    Takes a column vector and transforms it into a `shape[0]`-by-`shape[1]` matrix.
+    This operation is the inverse of `vec` operation in `|toqito⟩`.
 
     For instance, for the following column vector
 
-    .. math::
+    \[
         u = \begin{pmatrix} 1 \\ 3 \\ 2 \\ 4 \end{pmatrix},
+    \]
 
     it holds that
 
-    .. math::
+    \[
         \text{unvec}(u) =
         \begin{pmatrix}
             1 & 2 \\
             3 & 4
         \end{pmatrix}
+    \]
 
     More formally, the vec operation is defined by
 
-    .. math::
+    \[
         \text{unvec}(e_a \otimes e_b) = E_{a,b}
+    \]
 
-    for all :math:`a` and :math:`b` where
+    for all \(a\) and \(b\) where
 
-    .. math::
+    \[
         E_{a,b}(c,d) = \begin{cases}
                           1 & \text{if} \ (c,d) = (a,b) \\
                           0 & \text{otherwise}
                         \end{cases}
+    \]
 
-    for all :math:`c` and :math:`d` and where
+    for all \(c\) and \(d\) and where
 
-    .. math::
+    \[
         e_a(b) = \begin{cases}
                      1 & \text{if} \ a = b \\
                      0 & \text{if} \ a \not= b
                  \end{cases}
+    \]
 
-    for all :math:`a` and :math:`b`.
+    for all \(a\) and \(b\).
 
-    This function has been adapted from :footcite:`Rigetti_2022_Forest`.
+    This function has been adapted from [@Rigetti_2022_Forest].
 
-    Examples
-    ==========
+    Examples:
+        Consider the following vector
 
-    Consider the following vector
+        \[
+            u = \begin{pmatrix} 1 \\ 3 \\ 2 \\ 4 \end{pmatrix}
+        \]
 
-    .. math::
-        u = \begin{pmatrix} 1 \\ 3 \\ 2 \\ 4 \end{pmatrix}
+        Performing the \(\text{unvec}\) operation on \(u\) yields
 
-    Performing the :math:`\text{unvec}` operation on :math:`u` yields
+        \[
+            \text{unvec}(u) = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}
+        \]
 
-    .. math::
-        \text{unvec}(u) = \begin{pmatrix} 1 & 2 \\ 3 & 4 \end{pmatrix}
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_ops import unvec
 
-    .. jupyter-execute::
+        u = np.array([1, 2, 3, 4])
 
-     import numpy as np
-     from toqito.matrix_ops import unvec
+        print(unvec(u))
+        ```
 
-     u = np.array([1, 2, 3, 4])
+        !!! See Also
+            [vec][toqito.matrix_ops.vec.vec]
 
-     unvec(u)
+    Args:
+        vector: A (`shape[0] * shape[1]`)-by-1 numpy array.
+        shape: The shape of the output matrix; by default, the matrix is assumed to be square.
 
-    See Also
-    ========
-    :py:func:`~toqito.matrix_ops.vec.vec`
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param vector: A (:code:`shape[0] * shape[1]`)-by-1 numpy array.
-    :param shape: The shape of the output matrix; by default, the matrix is assumed to be square.
-    :return: Returns a :code:`shape[0]`-by-:code:`shape[1]` matrix.
+    Returns:
+        Returns a `shape[0]`-by-`shape[1]` matrix.
 
     """
     vector = np.asarray(vector)

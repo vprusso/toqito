@@ -8,53 +8,53 @@ import numpy as np
 
 
 def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray:
-    r"""Generate a (generalized) GHZ state :footcite:`Greenberger_2007_Going`.
+    r"""Generate a (generalized) GHZ state [@Greenberger_2007_Going].
 
-    Returns a :code:`num_qubits`-partite GHZ state acting on :code:`dim` local dimensions, described
-    in :footcite:`Greenberger_2007_Going`. For example, :code:`ghz(2, 3)` returns the standard 3-qubit GHZ state on
+    Returns a `num_qubits`-partite GHZ state acting on `dim` local dimensions, described
+    in [@Greenberger_2007_Going]. For example, `ghz(2, 3)` returns the standard 3-qubit GHZ state on
     qubits. The output of this function is a dense NumPy array.
 
-    For a system of :code:`num_qubits` qubits (i.e., :code:`dim = 2`), the GHZ state can be written
+    For a system of `num_qubits` qubits (i.e., `dim = 2`), the GHZ state can be written
     as
 
-    .. math::
+    \[
         |GHZ \rangle = \frac{1}{\sqrt{n}} \left(|0\rangle^{\otimes n} +
         |1 \rangle^{\otimes n} \right)).
+    \]
 
-    Examples
-    ==========
+    Examples:
+        When `dim = 2`, and `num_qubits = 3` this produces the standard GHZ state
 
-    When :code:`dim = 2`, and :code:`num_qubits = 3` this produces the standard GHZ state
+        \[
+            \frac{1}{\sqrt{2}} \left( |000 \rangle + |111 \rangle \right).
+        \]
 
-    .. math::
-        \frac{1}{\sqrt{2}} \left( |000 \rangle + |111 \rangle \right).
+        Using `|toqito⟩`, we can see that this yields the proper state.
 
-    Using :code:`|toqito⟩`, we can see that this yields the proper state.
-
-    .. jupyter-execute::
-
+        ```python exec="1" source="above"
         from toqito.states import ghz
-        ghz(2, 3)
+        print(ghz(2, 3))
+        ```
 
-    As this function covers the generalized GHZ state, we can consider higher dimensions. For instance here is the GHZ
-    state in :math:`\mathbb{C}^{4^{\otimes 7}}` as
+        As this function covers the generalized GHZ state, we can consider higher dimensions. For instance here
+        is the GHZ
+        state in \(\mathbb{C}^{4^{\otimes 7}}\) as
 
-    .. math::
-        \frac{1}{\sqrt{30}} \left(|0000000 \rangle + 2|1111111 \rangle +
-        3|2222222 \rangle + 4|3333333\rangle \right).
+        \[
+            \frac{1}{\sqrt{30}} \left(|0000000 \rangle + 2|1111111 \rangle +
+            3|2222222 \rangle + 4|3333333\rangle \right).
+        \]
 
-    References
-    ==========
-    .. footbibliography::
+    Raises:
+        ValueError: Number of qubits is not a positive integer.
 
+    Args:
+        dim: The local dimension.
+        num_qubits: The number of parties (qubits/qudits)
+        coeff: (default `[1, 1, ..., 1])/sqrt(dim)`: a 1-by-`dim` vector of coefficients.
 
-
-    :raises ValueError: Number of qubits is not a positive integer.
-    :param dim: The local dimension.
-    :param num_qubits: The number of parties (qubits/qudits)
-    :param coeff: (default `[1, 1, ..., 1])/sqrt(dim)`:
-                  a 1-by-`dim` vector of coefficients.
-    :returns: Numpy vector array as GHZ state.
+    Returns:
+        Numpy vector array as GHZ state.
 
     """
     if dim < 1:

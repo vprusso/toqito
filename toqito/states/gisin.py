@@ -4,11 +4,11 @@ import numpy as np
 
 
 def gisin(lambda_var: float, theta: float) -> np.ndarray:
-    r"""Produce a Gisin state :footcite:`Gisin_1996_Hidden`.
+    r"""Produce a Gisin state [@Gisin_1996_Hidden].
 
-    Returns the Gisin state described in :footcite:`Gisin_1996_Hidden`. Specifically, the Gisin state can be defined as:
+    Returns the Gisin state described in [@Gisin_1996_Hidden]. Specifically, the Gisin state can be defined as:
 
-    .. math::
+    \[
         \begin{equation}
             \rho_{\lambda, \theta} = \lambda
                                     \begin{pmatrix}
@@ -27,27 +27,25 @@ def gisin(lambda_var: float, theta: float) -> np.ndarray:
                                         0 & 0 & 0 & 1
                                     \end{pmatrix}.
         \end{equation}
+    \]
 
-    Examples
-    ==========
+    Examples:
+        The following code generates the Gisin state \(\rho_{0.5, 1}\).
 
-    The following code generates the Gisin state :math:`\rho_{0.5, 1}`.
-
-    .. jupyter-execute::
-
+        ```python exec="1" source="above"
         from toqito.states import gisin
-        gisin(0.5, 1)
+        print(gisin(0.5, 1))
+        ```
 
-    References
-    ==========
-    .. footbibliography::
+    Raises:
+        ValueError: If `lambda_var` is not a real number.
 
+    Args:
+        lambda_var: A real parameter in [0, 1].
+        theta: A real parameter.
 
-
-    :raises ValueError: If :code:`lambda_var` is not a real number.
-    :param lambda_var: A real parameter in [0, 1].
-    :param theta: A real parameter.
-    :return: Gisin state.
+    Returns:
+        Gisin state.
 
     """
     if lambda_var < 0 or lambda_var > 1:

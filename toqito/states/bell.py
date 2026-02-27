@@ -7,45 +7,46 @@ import numpy as np
 
 
 def bell(idx: int) -> np.ndarray:
-    r"""Produce a Bell state :footcite:`WikiBellSt`.
+    r"""Produce a Bell state [@WikiBellSt].
 
-    Returns one of the following four Bell states depending on the value of :code:`idx`:
+    Returns one of the following four Bell states depending on the value of `idx`:
 
-    .. math::
-        \begin{aligned}
-            u_0 = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right), &
-            \qquad &
-            u_1 = \frac{1}{\sqrt{2}} \left( |00 \rangle - |11 \rangle \right), \\
-            u_2 = \frac{1}{\sqrt{2}} \left( |01 \rangle + |10 \rangle \right), &
-            \qquad &
-            u_3 = \frac{1}{\sqrt{2}} \left( |01 \rangle - |10 \rangle \right).
-        \end{aligned}
+    \[
+        \begin{equation}
+            \begin{aligned}
+                u_0 = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right), &
+                \qquad &
+                u_1 = \frac{1}{\sqrt{2}} \left( |00 \rangle - |11 \rangle \right), \\
+                u_2 = \frac{1}{\sqrt{2}} \left( |01 \rangle + |10 \rangle \right), &
+                \qquad &
+                u_3 = \frac{1}{\sqrt{2}} \left( |01 \rangle - |10 \rangle \right).
+            \end{aligned}
+        \end{equation}
+    \]
 
-    Examples
-    ==========
+    Examples:
+        When `idx = 0`, this produces the following Bell state:
 
-    When :code:`idx = 0`, this produces the following Bell state:
+        \[
+            u_0 = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right).
+        \]
 
-    .. math::
-        u_0 = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right).
+        Using `|toqito⟩`, we can see that this yields the proper state.
 
-    Using :code:`|toqito⟩`, we can see that this yields the proper state.
-
-    .. jupyter-execute::
-
+        ```python exec="1" source="above"
         from toqito.states import bell
         import numpy as np
-        bell(0)
+        print(bell(0))
+        ```
 
+    Raises:
+        ValueError: If `idx` is not an integer.
 
-    References
-    ==========
-    .. footbibliography::
+    Args:
+        idx: A parameter in [0, 1, 2, 3]
 
-
-    :raises ValueError: If :code:`idx` is not an integer.
-    :param idx: A parameter in [0, 1, 2, 3]
-    :return: Bell state with index :code:`idx`.
+    Returns:
+        Bell state with index `idx`.
 
     """
     match idx:

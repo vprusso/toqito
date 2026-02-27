@@ -10,35 +10,32 @@ from toqito.states import max_entangled
 
 
 def breuer(dim: int, lam: float) -> np.ndarray:
-    r"""Produce a Breuer state :footcite:`Breuer_2006_Optimal`.
+    r"""Produce a Breuer state [@Breuer_2006_Optimal].
 
-    Gives a Breuer bound entangled state for two qudits of local dimension :code:`dim`, with the
-    :code:`lam` parameter describing the weight of the singlet component as described in
-    :footcite:`Breuer_2006_Optimal`.
+    Gives a Breuer bound entangled state for two qudits of local dimension `dim`, with the
+    `lam` parameter describing the weight of the singlet component as described in
+    [@Breuer_2006_Optimal].
 
     This function was adapted from the QETLAB package.
 
-    Examples
-    ==========
+    Examples:
+        We can generate a Breuer state of dimension \(4\) with weight \(0.1\). For any weight above \(0\), the
+        state will be bound entangled, that is, it will satisfy the PPT criterion, but it will be entangled.
 
-    We can generate a Breuer state of dimension :math:`4` with weight :math:`0.1`. For any weight above :math:`0`, the
-    state will be bound entangled, that is, it will satisfy the PPT criterion, but it will be entangled.
-
-    .. jupyter-execute::
-
+        ```python exec="1" source="above"
         from toqito.states import breuer
-        breuer(2, 0.1)
+        print(breuer(2, 0.1))
+        ```
 
-    References
-    ==========
-    .. footbibliography::
+    Raises:
+        ValueError: Dimension must be greater than or equal to 1.
 
+    Args:
+        dim: Dimension of the Breuer state.
+        lam: The weight of the singlet component.
 
-
-    :raises ValueError: Dimension must be greater than or equal to 1.
-    :param dim: Dimension of the Breuer state.
-    :param lam: The weight of the singlet component.
-    :return: Breuer state of dimension :code:`dim` with weight :code:`lam`.
+    Returns:
+        Breuer state of dimension `dim` with weight `lam`.
 
     """
     if dim % 2 == 1 or dim <= 0:

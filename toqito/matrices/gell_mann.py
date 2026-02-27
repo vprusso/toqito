@@ -5,92 +5,89 @@ from scipy.sparse import csr_array
 
 
 def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | csr_array:
-    r"""Produce a Gell-Mann operator :footcite:`WikiGellMann`.
+    r"""Produce a Gell-Mann operator [@WikiGellMann].
 
     Generates the 3-by-3 Gell-Mann matrix indicated by the value of
-    :code:`ind`.  When :code:`ind = 0` gives the identity matrix, while values
+    `ind`.  When `ind = 0` gives the identity matrix, while values
     1 through 8 each indicate one of the other 8 Gell-Mann matrices.
 
     The 9 Gell-Mann matrices are defined as follows:
 
-    .. math::
-        \begin{aligned}
-            \lambda_0 = \begin{pmatrix}
-                            1 & 0 & 0 \\
-                            0 & 1 & 0 \\
-                            0 & 0 & 1
-                        \end{pmatrix}, \quad
-            \lambda_1 = \begin{pmatrix}
-                            0 & 1 & 0 \\
-                            1 & 0 & 0 \\
-                            0 & 0 & 0
-                        \end{pmatrix}, \quad &
+    \[
+        \begin{equation}
+            \begin{aligned}
+                \lambda_0 = \begin{pmatrix}
+                                1 & 0 & 0 \\
+                                0 & 1 & 0 \\
+                                0 & 0 & 1
+                            \end{pmatrix}, \quad
+                \lambda_1 = \begin{pmatrix}
+                                0 & 1 & 0 \\
+                                1 & 0 & 0 \\
+                                0 & 0 & 0
+                            \end{pmatrix}, \quad &
+                \lambda_2 = \begin{pmatrix}
+                                0 & -i & 0 \\
+                                i & 0 & 0 \\
+                                0 & 0 & 0
+                            \end{pmatrix},  \\
+                \lambda_3 = \begin{pmatrix}
+                                1 & 0 & 0 \\
+                                0 & -1 & 0 \\
+                                0 & 0 & 0
+                            \end{pmatrix}, \quad
+                \lambda_4 = \begin{pmatrix}
+                                0 & 0 & 1 \\
+                                0 & 0 & 0 \\
+                                1 & 0 & 0
+                            \end{pmatrix}, \quad &
+                \lambda_5 = \begin{pmatrix}
+                                0 & 0 & -i \\
+                                0 & 0 & 0 \\
+                                i & 0 & 0
+                            \end{pmatrix},  \\
+                \lambda_6 = \begin{pmatrix}
+                                0 & 0 & 0 \\
+                                0 & 0 & 1 \\
+                                0 & 1 & 0
+                            \end{pmatrix}, \quad
+                \lambda_7 = \begin{pmatrix}
+                                0 & 0 & 0 \\
+                                0 & 0 & -i \\
+                                0 & i & 0
+                            \end{pmatrix}, \quad &
+                \lambda_8 = \frac{1}{\sqrt{3}} \begin{pmatrix}
+                                                    1 & 0 & 0 \\
+                                                    0 & 1 & 0 \\
+                                                    0 & 0 & -2
+                                                \end{pmatrix}.
+                \end{aligned}
+            \end{equation}
+    \]
+
+    Examples:
+        The Gell-Mann matrix generated from `idx = 2` yields the following
+        matrix:
+
+        \[
             \lambda_2 = \begin{pmatrix}
-                            0 & -i & 0 \\
-                            i & 0 & 0 \\
-                            0 & 0 & 0
-                        \end{pmatrix},  \\
-            \lambda_3 = \begin{pmatrix}
-                            1 & 0 & 0 \\
-                            0 & -1 & 0 \\
-                            0 & 0 & 0
-                        \end{pmatrix}, \quad
-            \lambda_4 = \begin{pmatrix}
-                            0 & 0 & 1 \\
-                            0 & 0 & 0 \\
-                            1 & 0 & 0
-                        \end{pmatrix}, \quad &
-            \lambda_5 = \begin{pmatrix}
-                            0 & 0 & -i \\
-                            0 & 0 & 0 \\
-                            i & 0 & 0
-                        \end{pmatrix},  \\
-            \lambda_6 = \begin{pmatrix}
-                            0 & 0 & 0 \\
-                            0 & 0 & 1 \\
-                            0 & 1 & 0
-                        \end{pmatrix}, \quad
-            \lambda_7 = \begin{pmatrix}
-                            0 & 0 & 0 \\
-                            0 & 0 & -i \\
-                            0 & i & 0
-                        \end{pmatrix}, \quad &
-            \lambda_8 = \frac{1}{\sqrt{3}} \begin{pmatrix}
-                                                1 & 0 & 0 \\
-                                                0 & 1 & 0 \\
-                                                0 & 0 & -2
-                                            \end{pmatrix}.
-            \end{aligned}
+                                0 & -i & 0 \\
+                                i & 0 & 0 \\
+                                0 & 0 & 0
+                        \end{pmatrix}
+        \]
+        ```python exec="1" source="above"
+        from toqito.matrices import gell_mann
 
-    Examples
-    ==========
+        print(gell_mann(ind=2))
+        ```
 
-    The Gell-Mann matrix generated from :code:`idx = 2` yields the following
-    matrix:
+    Raises:
+        ValueError: Indices must be integers between 0 and 8.
 
-    .. math::
-
-        \lambda_2 = \begin{pmatrix}
-                            0 & -i & 0 \\
-                            i & 0 & 0 \\
-                            0 & 0 & 0
-                    \end{pmatrix}
-    .. jupyter-execute::
-
-     from toqito.matrices import gell_mann
-
-     gell_mann(ind=2)
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-
-    :raises ValueError: Indices must be integers between 0 and 8.
-    :param ind: An integer between 0 and 8 (inclusive).
-    :param is_sparse: Boolean to determine whether array is sparse. Default value is :code:`False`.
+    Args:
+        ind: An integer between 0 and 8 (inclusive).
+        is_sparse: Boolean to determine whether array is sparse. Default value is `False`.
 
     """
     if ind == 0:

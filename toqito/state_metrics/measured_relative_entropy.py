@@ -8,38 +8,37 @@ from toqito.matrix_props import is_density, is_positive_semidefinite
 
 
 def measured_relative_entropy(rho: np.ndarray, sigma: np.ndarray, eps: float = 1e-5) -> float:
-    r"""Compute the measured relative entropy of two quantum states. :footcite:`Huang_2025_Msrd_Rel_Entr`.
+    r"""Compute the measured relative entropy of two quantum states. [@Huang_2025_Msrd_Rel_Entr].
 
-    Given a quantum state :math:`\rho` and a positive semi-definite operator :math:`\sigma`,
+    Given a quantum state \(\rho\) and a positive semi-definite operator \(\sigma\),
     the measured relative entropy is defined by optimizing the relative entropy over all
     possible measurements:
 
-    .. math::
-
+    \[
         D^M(\rho \| \sigma) := \sup_{\mathcal{X}, (\Lambda_x)_{x \in \mathcal{X}}}
         \sum_{x \in \mathcal{X}} \operatorname{Tr}[\Lambda_x \rho] \ln \left(
         \frac{\operatorname{Tr}[\Lambda_x \rho]}{\operatorname{Tr}[\Lambda_x \sigma]} \right),
+    \]
 
-    where the supremum is over every finite alphabet :math:`\mathcal{X}` and every
-    positive-operator valued measure (POVM) :math:`(\Lambda_x)_{x \in \mathcal{X}}`
-    (i.e., satisfying :math:`\Lambda_x \geq 0` for all :math:`x \in \mathcal{X}` and
-    :math:`\sum_{x \in \mathcal{X}}\Lambda_x = I`).
+    where the supremum is over every finite alphabet \(\mathcal{X}\) and every
+    positive-operator valued measure (POVM) \((\Lambda_x)_{x \in \mathcal{X}}\)
+    (i.e., satisfying \(\Lambda_x \geq 0\) for all \(x \in \mathcal{X}\) and
+    \(\sum_{x \in \mathcal{X}}\Lambda_x = I\)).
 
-    When :math:`\rho` and :math:`\sigma` are :math:`d \times d` matrices, the quantity
-    :math:`D^M(\rho \| \sigma)` can be efficiently calculated by means of a semi-definite
-    program up to an additive error :math:`\varepsilon`, by means of
-    :math:`O(\sqrt{\ln(1/\varepsilon)})` linear matrix inequalities, each of size
-    :math:`2d \times 2d`. Specifically, there exist :math:`m, k \in \mathbb{N}` such that
-    :math:`m+k = O(\sqrt{\ln(1/\varepsilon)})` and the following inequality holds:
+    When \(\rho\) and \(\sigma\) are \(d \times d\) matrices, the quantity
+    \(D^M(\rho \| \sigma)\) can be efficiently calculated by means of a semi-definite
+    program up to an additive error \(\varepsilon\), by means of
+    \(O(\sqrt{\ln(1/\varepsilon)})\) linear matrix inequalities, each of size
+    \(2d \times 2d\). Specifically, there exist \(m, k \in \mathbb{N}\) such that
+    \(m+k = O(\sqrt{\ln(1/\varepsilon)})\) and the following inequality holds:
 
-    .. math::
-
+    \[
         |D^M(\rho \| \sigma) - D_{m,k}^M(\rho \| \sigma)| \leq \varepsilon,
+    \]
 
     where
 
-    .. math::
-
+    \[
         D_{m,k}^M(\rho \| \sigma) :=
         \mathop{\sup}\limits_{\substack{
             \omega > 0,\; \theta \in \mathbb{H},\\
@@ -61,24 +60,22 @@ def measured_relative_entropy(rho: np.ndarray, sigma: np.ndarray, eps: float = 1
         \ge 0
         \right\}_{j=1}^{m} \end{array}
         \right\}
+    \]
 
 
-    and, for all :math:`j \in \{1, \dots, m\}`, :math:`w_j` and :math:`t_j`
-    are the weights and nodes, respectively, for the :math:`m`-point Gauss--Legendre quadrature
-    on the interval :math:`[0, 1]`.
+    and, for all \(j \in \{1, \dots, m\}\), \(w_j\) and \(t_j\)
+    are the weights and nodes, respectively, for the \(m\)-point Gauss--Legendre quadrature
+    on the interval \([0, 1]\).
 
-    Examples
-    ==========
+    Examples:
+        Consider the following quantum state \(\rho = \frac{1}{2}(I + r \cdot \mathbf{\sigma})\)
+        and the PSD operator \(\sigma = \frac{1}{2}(I + s \cdot \mathbf{\sigma})\), where
+        \(r = (0.9, 0.05, -0.02)\), \(s = (-0.8, 0.1, 0.1)\), and \(\mathbf{\sigma} =
+        (\sigma_x, \sigma_y, \sigma_z)\) are the Pauli operators.
 
-    Consider the following quantum state :math:`\rho = \frac{1}{2}(I + r \cdot \boldsymbol{\sigma})`
-    and the PSD operator :math:`\sigma = \frac{1}{2}(I + s \cdot \boldsymbol{\sigma})`, where
-    :math:`r = (0.9, 0.05, -0.02)`, :math:`s = (-0.8, 0.1, 0.1)`, and :math:`\boldsymbol{\sigma} =
-    (\sigma_x, \sigma_y, \sigma_z)` are the Pauli operators.
+        Calculating the measured relative entropy can be done as follows.
 
-    Calculating the measured relative entropy can be done as follows.
-
-    .. jupyter-execute::
-
+        ```python exec="1" source="above"
         from toqito.matrices import pauli
         from toqito.state_metrics import measured_relative_entropy
         import numpy as np
@@ -87,17 +84,19 @@ def measured_relative_entropy(rho: np.ndarray, sigma: np.ndarray, eps: float = 1
         s = np.array([-0.8, 0.1, 0.1])
         rho = 0.5 * (pauli("I") + r[0] * pauli("X") + r[1] * pauli("Y") + r[2] * pauli("Z"))
         sigma = 0.5 * (pauli("I") + s[0] * pauli("X") + s[1] * pauli("Y") + s[2] * pauli("Z"))
-        measured_relative_entropy(rho, sigma, 1e-5)
+        print(measured_relative_entropy(rho, sigma, 1e-5))
+        ```
 
-    References
-    ==========
-    .. footbibliography::
+    Raises:
+        ValueError: If `rho` if not a density operator or if `sigma` is not positive semi-definite.
 
-    :raises ValueError: If :code:`rho` if not a density operator or if :code:`sigma` is not positive semi-definite.
-    :param rho: Density operator.
-    :param sigma: Positive semi-definite operator.
-    :param eps: Tolerance level.
-    :return: The measured relative entropy between :code:`rho` and :code:`sigma`.
+    Args:
+        rho: Density operator.
+        sigma: Positive semi-definite operator.
+        eps: Tolerance level.
+
+    Returns:
+        The measured relative entropy between `rho` and `sigma`.
 
     """
     if not is_density(rho):

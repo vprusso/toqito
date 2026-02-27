@@ -9,44 +9,41 @@ from toqito.matrix_ops import tensor
 
 
 def pusey_barrett_rudolph(n: int, theta: float) -> list[np.ndarray]:
-    r"""Produce set of Pusey-Barrett-Rudolph (PBR) states :footcite:`Pusey_2012_On`.
+    r"""Produce set of Pusey-Barrett-Rudolph (PBR) states [@Pusey_2012_On].
 
-    Let :math:`\theta \in [0, \pi/2]` be an angle. Define the states
+    Let \(\theta \in [0, \pi/2]\) be an angle. Define the states
 
-    .. math::
+    \[
         |\psi_0\rangle = \cos(\frac{\theta}{2})|0\rangle +
                          \sin(\frac{\theta}{2})|1\rangle
         \quad \text{and} \quad
         |\psi_1\rangle = \cos(\frac{\theta}{2})|0\rangle -
                          \sin(\frac{\theta}{2})|1\rangle.
+    \]
 
-    For some :math:`n \geq 1`, define a basis of :math:`2^n` states where
+    For some \(n \geq 1\), define a basis of \(2^n\) states where
 
-    .. math::
+    \[
         |\Psi_i\rangle = |\psi_{x_i}\rangle \otimes \cdots \otimes |\psi_{x_n}\rangle.
+    \]
 
-    These PBR states are defined in Equation (A6) from :footcite:`Pusey_2012_On`.
+    These PBR states are defined in Equation (A6) from [@Pusey_2012_On].
 
-    Examples
-    ========
+    Examples:
+        Generating the PBR states can be done by simply invoking the function with a given choice of `n` and
+        `theta`:
 
-    Generating the PBR states can be done by simply invoking the function with a given choice of :code:`n` and
-    :code:`theta`:
-
-    .. jupyter-execute::
-
+        ```python exec="1" source="above"
         from toqito.states import pusey_barrett_rudolph
-        pusey_barrett_rudolph(n=1, theta=0.5)
+        print(pusey_barrett_rudolph(n=1, theta=0.5))
+        ```
 
+    Args:
+        n: The number of states in the set.
+        theta: Angle parameter that defines the states.
 
-    References
-    ==========
-    .. footbibliography::
-
-
-    :param n: The number of states in the set.
-    :param theta: Angle parameter that defines the states.
-    :return: Vector of trine states.
+    Returns:
+        Vector of trine states.
 
     """
     e_0, e_1 = standard_basis(2)

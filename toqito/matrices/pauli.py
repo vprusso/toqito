@@ -7,96 +7,92 @@ from toqito.matrix_ops import tensor
 
 
 def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np.ndarray | csr_array | None:
-    r"""Produce a Pauli operator :footcite:`WikiPauli`.
+    r"""Produce a Pauli operator [@WikiPauli].
 
-    Produces the 2-by-2 Pauli matrix indicated by the value of :code:`ind` or a tensor product
-    of Pauli matrices when :code:`ind` is provided as a list. In general, when :code:`ind` is a list
-    :math:`[i_1, i_2, \dots, i_n]`, the function returns the tensor product
+    Produces the 2-by-2 Pauli matrix indicated by the value of `ind` or a tensor product
+    of Pauli matrices when `ind` is provided as a list. In general, when `ind` is a list
+    \([i_1, i_2, \dots, i_n]\), the function returns the tensor product
 
-    .. math:: P_{i_1} \otimes P_{i_2} \otimes \cdots \otimes P_{i_n}
+    \[
+        P_{i_1} \otimes P_{i_2} \otimes \cdots \otimes P_{i_n}
+    \]
 
-    where each :math:`i_k \in \{0,1,2,3\}`, with the correspondence:
-    :math:`P_{0} = I`, :math:`P_{1} = X`, :math:`P_{2} = Y`, and :math:`P_{3} = Z`.
+    where each \(i_k \in \{0,1,2,3\}\), with the correspondence:
+    \(P_{0} = I\), \(P_{1} = X\), \(P_{2} = Y\), and \(P_{3} = Z\).
 
     The 2-by-2 Pauli matrices are defined as follows:
 
-    .. math::
+    \[
+        \begin{equation}
+            \begin{aligned}
+                X = \begin{pmatrix}
+                        0 & 1 \\
+                        1 & 0
+                    \end{pmatrix}, \quad
+                Y = \begin{pmatrix}
+                        0 & -i \\
+                        i & 0
+                    \end{pmatrix}, \quad
+                Z = \begin{pmatrix}
+                        1 & 0 \\
+                        0 & -1
+                    \end{pmatrix}, \quad
+                I = \begin{pmatrix}
+                        1 & 0 \\
+                        0 & 1
+                    \end{pmatrix}.
+                \end{aligned}
+            \end{equation}
+    \]
 
-        \begin{aligned}
-            X = \begin{pmatrix}
-                    0 & 1 \\
-                    1 & 0
-                \end{pmatrix}, \quad
-            Y = \begin{pmatrix}
-                    0 & -i \\
-                    i & 0
-                \end{pmatrix}, \quad
-            Z = \begin{pmatrix}
-                    1 & 0 \\
-                    0 & -1
-                \end{pmatrix}, \quad
-            I = \begin{pmatrix}
-                    1 & 0 \\
-                    0 & 1
-                \end{pmatrix}.
-        \end{aligned}
+    Examples:
+        Example for identity Pauli matrix.
 
-    Examples
-    ==========
+        ```python exec="1" source="above"
+        from toqito.matrices import pauli
 
-    Example for identity Pauli matrix.
+        print(pauli("I"))
+        ```
 
-    .. jupyter-execute::
+        Example for Pauli-X matrix.
 
-     from toqito.matrices import pauli
+        ```python exec="1" source="above"
+        from toqito.matrices import pauli
 
-     pauli("I")
-
-    Example for Pauli-X matrix.
-
-    .. jupyter-execute::
-
-     from toqito.matrices import pauli
-
-     pauli("X")
-
-
-    Example for Pauli-Y matrix.
-
-    .. jupyter-execute::
-
-     from toqito.matrices import pauli
-
-     pauli("Y")
+        print(pauli("X"))
+        ```
 
 
-    Example for Pauli-Z matrix.
+        Example for Pauli-Y matrix.
 
-    .. jupyter-execute::
+        ```python exec="1" source="above"
+        from toqito.matrices import pauli
 
-     from toqito.matrices import pauli
-
-     pauli("Z")
-
-    Example using :code:`ind` as list.
-
-    .. jupyter-execute::
-
-     from toqito.matrices import pauli
-
-     pauli([0,1])
+        print(pauli("Y"))
+        ```
 
 
+        Example for Pauli-Z matrix.
 
-    References
-    ==========
-    .. footbibliography::
+        ```python exec="1" source="above"
+        from toqito.matrices import pauli
+
+        print(pauli("Z"))
+        ```
+
+        Example using `ind` as list.
+
+        ```python exec="1" source="above"
+        from toqito.matrices import pauli
+
+        print(pauli([0,1]))
+        ```
 
 
-    :param ind: The index to indicate which Pauli operator to generate.
-    :param is_sparse: Returns a compressed sparse row array if set to True and a non compressed
-                      sparse row array if set to False.
-
+    Args:
+        ind: The index to indicate which Pauli operator to generate.
+        is_sparse: Returns a compressed sparse row array if set to True and a non compressed sparse row array if set to
+        False.
 
     """
     if isinstance(ind, (int, str)):

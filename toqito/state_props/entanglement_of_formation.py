@@ -8,53 +8,50 @@ from toqito.state_props import concurrence, von_neumann_entropy
 
 
 def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int | None = None) -> float:
-    r"""Compute entanglement-of-formation of a bipartite quantum state :footcite:`Quantiki_EOF`.
+    r"""Compute entanglement-of-formation of a bipartite quantum state [@Quantiki_EOF].
 
     Entanglement-of-formation is the entropy of formation of the bipartite
-    quantum state :code:`rho`. Note that this function currently only supports
-    :code:`rho` being a pure state or a 2-qubit state: it is not known how to
+    quantum state `rho`. Note that this function currently only supports
+    `rho` being a pure state or a 2-qubit state: it is not known how to
     compute the entanglement-of-formation of higher-dimensional mixed states.
 
     This function was adapted from QETLAB.
 
-    Examples
-    ==========
+    Examples:
+        Compute the entanglement-of-formation of a Bell state.
 
-    Compute the entanglement-of-formation of a Bell state.
+        Let \(u = \frac{1}{\sqrt{2}} \left(|00\rangle + |11\rangle \right)\)
+        and let
 
-    Let :math:`u = \frac{1}{\sqrt{2}} \left(|00\rangle + |11\rangle \right)`
-    and let
+        \[
+            \rho = uu^* = \frac{1}{2}\begin{pmatrix}
+                                        1 & 0 & 0 & 1 \\
+                                        0 & 0 & 0 & 0 \\
+                                        0 & 0 & 0 & 0 \\
+                                        1 & 0 & 0 & 1
+                                     \end{pmatrix}.
+        \]
 
-    .. math::
-        \rho = uu^* = \frac{1}{2}\begin{pmatrix}
-                                    1 & 0 & 0 & 1 \\
-                                    0 & 0 & 0 & 0 \\
-                                    0 & 0 & 0 & 0 \\
-                                    1 & 0 & 0 & 1
-                                 \end{pmatrix}.
+        The entanglement-of-formation of \(\rho\) is equal to 1.
 
-    The entanglement-of-formation of :math:`\rho` is equal to 1.
-
-    .. jupyter-execute::
-
+        ```python exec="1" source="above"
         import numpy as np
         from toqito.state_props import entanglement_of_formation
         from toqito.states import bell
         u_vec = bell(0)
         rho = u_vec @ u_vec.conj().T
-        entanglement_of_formation(rho)
+        print(entanglement_of_formation(rho))
+        ```
 
-    References
-    ==========
-    .. footbibliography::
+    Raises:
+        ValueError: If matrices have improper dimension.
 
+    Args:
+        rho: A matrix or vector.
+        dim: The default has both subsystems of equal dimension.
 
-
-    :raises ValueError: If matrices have improper dimension.
-    :param rho: A matrix or vector.
-    :param dim: The default has both subsystems of equal dimension.
-    :return: A value between 0 and 1 that corresponds to the
-             entanglement-of-formation of :code:`rho`.
+    Returns:
+        A value between 0 and 1 that corresponds to the entanglement-of-formation of `rho`.
 
     """
     dim_x, dim_y = rho.shape
@@ -76,7 +73,7 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int | None = Non
 
     if np.prod(dim_arr) != max(dim_x, dim_y):
         raise ValueError("Invalid dimension: Please provide local dimensions that match the size of `rho`.")
-    # If :code:`rho` is a rank-1 density matrix, turn it into a vector instead
+    # If `rho` is a rank-1 density matrix, turn it into a vector instead
     # so we can compute the entanglement-of-formation easily.
     tmp_rho = scipy.linalg.orth(rho)
     if dim_x == dim_y and tmp_rho.shape[1] == 1:
@@ -89,7 +86,7 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int | None = Non
         dim_list = [int(x) for x in dim_arr]
         return von_neumann_entropy(partial_trace(rho @ rho.conj().T, [1], dim_list))
 
-    # Case: :code:`rho` is a density matrix.
+    # Case: `rho` is a density matrix.
     if dim_x == dim_y:
         # In the two-qubit case, we know how to compute the
         # entanglement-of-formation exactly.

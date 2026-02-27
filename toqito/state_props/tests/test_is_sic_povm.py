@@ -17,7 +17,7 @@ def tetrahedral_qubit_sic() -> list[np.ndarray]:
         np.array([0, 1], dtype=np.complex128),
         np.array([np.sqrt(2 / 3), 1 / np.sqrt(3)], dtype=np.complex128),
         np.array([np.sqrt(2 / 3), omega / np.sqrt(3)], dtype=np.complex128),
-        np.array([np.sqrt(2 / 3), (omega ** 2) / np.sqrt(3)], dtype=np.complex128),
+        np.array([np.sqrt(2 / 3), (omega**2) / np.sqrt(3)], dtype=np.complex128),
     ]
 
 

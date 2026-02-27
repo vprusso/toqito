@@ -11,34 +11,30 @@ from toqito.matrix_props import trace_norm
 def completely_bounded_trace_norm(phi: np.ndarray, solver: str = "cvxopt", **kwargs) -> float | np.floating:
     r"""Find the completely bounded trace norm of a quantum channel.
 
-    Also known as the diamond norm of a quantum
-    channel (Section 3.3.2 of :footcite:`Watrous_2018_TQI`). The algorithm in p.11 of :footcite:`Watrous_2012_Simpler`
-    with implementation in QETLAB :footcite:`QETLAB_link` is used.
+    Also known as the diamond norm of a quantum channel (Section 3.3.2 of [@Watrous_2018_TQI]). The algorithm in p.11 of
+    [@Watrous_2012_Simpler] with implementation in QETLAB [@QETLAB_link] is used.
 
-    Examples
-    ========
-    To computer the completely bounded spectral norm of a depolarizing channel,
+    Examples:
+        To compute the completely bounded trace norm of a depolarizing channel:
 
-    .. jupyter-execute::
-
+        ```python exec="1" source="above"
         from toqito.channels import depolarizing
         from toqito.channel_metrics import completely_bounded_trace_norm
         # Define the depolarizing channel
         choi_depolarizing = depolarizing(dim=2, param_p=0.2)
-        completely_bounded_trace_norm(choi_depolarizing)
+        print(completely_bounded_trace_norm(choi_depolarizing))
+        ```
 
+    Raises:
+        ValueError: If matrix is not square.
 
-    References
-    ==========
-    .. footbibliography::
+    Args:
+        phi: superoperator as choi matrix
+        solver: Optimization option for `picos` solver. Default option is `solver="cvxopt"`.
+        kwargs: Additional arguments to pass to picos' solve method.
 
-
-
-    :raises ValueError: If matrix is not square.
-    :param phi: superoperator as choi matrix
-    :param solver: Optimization option for `picos` solver. Default option is `solver="cvxopt"`.
-    :param kwargs: Additional arguments to pass to picos' solve method.
-    :return: The completely bounded trace norm of the channel
+    Returns:
+        The completely bounded trace norm of the channel
 
     """
     dim_lx, dim_ly = phi.shape

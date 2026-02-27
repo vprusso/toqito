@@ -15,80 +15,75 @@ def partial_channel(
     sys: int = 2,
     dim: list[int] | np.ndarray | None = None,
 ) -> np.ndarray:
-    r"""Apply channel to a subsystem of an operator :footcite:`Watrous_2018_TQI`.
+    r"""Apply channel to a subsystem of an operator [@Watrous_2018_TQI].
 
     Applies the operator
 
-    .. math::
+    \[
         \left(\mathbb{I} \otimes \Phi \right) \left(\rho \right).
+    \]
 
-    In other words, it is the result of applying the channel :math:`\Phi` to the second subsystem
-    of :math:`\rho`, which is assumed to act on two subsystems of equal dimension.
+    In other words, it is the result of applying the channel \(\Phi\) to the second subsystem
+    of \(\rho\), which is assumed to act on two subsystems of equal dimension.
 
-    The input :code:`phi_map` should be provided as a Choi matrix.
+    The input `phi_map` should be provided as a Choi matrix.
 
     This function is adapted from the QETLAB package.
 
-    Examples
-    ==========
+    Examples:
+        The following applies the completely depolarizing channel to the second
+        subsystem of a random density matrix.
 
-    The following applies the completely depolarizing channel to the second
-    subsystem of a random density matrix.
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.channel_ops import partial_channel
+        from toqito.channels import depolarizing
+        rho = np.array([
+           [0.3101, -0.0220 - 0.0219j, -0.0671 - 0.0030j, -0.0170 - 0.0694j],
+           [-0.0220 + 0.0219j, 0.1008, -0.0775 + 0.0492j, -0.0613 + 0.0529j],
+           [-0.0671 + 0.0030j, -0.0775 - 0.0492j, 0.1361, 0.0602 + 0.0062j],
+           [-0.0170 + 0.0694j, -0.0613 - 0.0529j, 0.0602 - 0.0062j, 0.4530]
+        ])
 
-    .. jupyter-execute::
+        res = partial_channel(rho, depolarizing(2))
 
-     import numpy as np
-     from toqito.channel_ops import partial_channel
-     from toqito.channels import depolarizing
-     rho = np.array([
-        [0.3101, -0.0220 - 0.0219j, -0.0671 - 0.0030j, -0.0170 - 0.0694j],
-        [-0.0220 + 0.0219j, 0.1008, -0.0775 + 0.0492j, -0.0613 + 0.0529j],
-        [-0.0671 + 0.0030j, -0.0775 - 0.0492j, 0.1361, 0.0602 + 0.0062j],
-        [-0.0170 + 0.0694j, -0.0613 - 0.0529j, 0.0602 - 0.0062j, 0.4530]
-     ])
-
-     res = partial_channel(rho, depolarizing(2))
-
-     np.set_printoptions(linewidth=150, suppress=False)
-     print(res)
+        np.set_printoptions(linewidth=150, suppress=False)
+        print(res)
+        ```
 
 
 
-    The following applies the completely depolarizing channel to the first
-    subsystem.
+        The following applies the completely depolarizing channel to the first
+        subsystem.
 
-    .. jupyter-execute::
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.channel_ops import partial_channel
+        from toqito.channels import depolarizing
 
-     import numpy as np
-     from toqito.channel_ops import partial_channel
-     from toqito.channels import depolarizing
+        rho = np.array([
+           [0.3101, -0.0220 - 0.0219j, -0.0671 - 0.0030j, -0.0170 - 0.0694j],
+           [-0.0220 + 0.0219j, 0.1008, -0.0775 + 0.0492j, -0.0613 + 0.0529j],
+           [-0.0671 + 0.0030j, -0.0775 - 0.0492j, 0.1361, 0.0602 + 0.0062j],
+           [-0.0170 + 0.0694j, -0.0613 - 0.0529j, 0.0602 - 0.0062j, 0.4530]
+        ])
 
-     rho = np.array([
-        [0.3101, -0.0220 - 0.0219j, -0.0671 - 0.0030j, -0.0170 - 0.0694j],
-        [-0.0220 + 0.0219j, 0.1008, -0.0775 + 0.0492j, -0.0613 + 0.0529j],
-        [-0.0671 + 0.0030j, -0.0775 - 0.0492j, 0.1361, 0.0602 + 0.0062j],
-        [-0.0170 + 0.0694j, -0.0613 - 0.0529j, 0.0602 - 0.0062j, 0.4530]
-     ])
+        res = partial_channel(rho, depolarizing(2))
+        np.set_printoptions(linewidth=150, suppress=False)
+        print(res)
+        ```
 
-     res = partial_channel(rho, depolarizing(2))
-     np.set_printoptions(linewidth=150, suppress=False)
-     print(res)
+    Raises:
+        ValueError: If Phi map is not provided as a Choi matrix or Kraus operators.
 
+    Args:
+        rho: A matrix.
+        phi_map: The map to partially apply.
+        sys: Scalar or vector specifying the size of the subsystems.
+        dim: Dimension of the subsystems. If `None`, all dimensions are assumed to be equal.
 
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :raises ValueError: If Phi map is not provided as a Choi matrix or Kraus
-                        operators.
-    :param rho: A matrix.
-    :param phi_map: The map to partially apply.
-    :param sys: Scalar or vector specifying the size of the subsystems.
-    :param dim: Dimension of the subsystems. If :code:`None`, all dimensions
-                are assumed to be equal.
-    :return: The partial map :code:`phi_map` applied to matrix :code:`rho`.
+    Returns:
+        The partial map `phi_map` applied to matrix `rho`.
 
     """
     if dim is None:

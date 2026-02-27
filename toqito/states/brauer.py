@@ -8,47 +8,41 @@ from toqito.states import max_entangled
 
 
 def brauer(dim: int, p_val: int) -> np.ndarray:
-    r"""Produce all Brauer states :footcite:`WikiBrauer`.
+    r"""Produce all Brauer states [@WikiBrauer].
 
-    Produce a matrix whose columns are all of the (unnormalized) "Brauer" states: states that are the :code:`p_val`-fold
-    tensor product of the standard maximally-entangled pure state on :code:`dim` local dimensions. There are many such
-    states, since there are many different ways to group the :code:`2 * p_val` parties into :code:`p_val` pairs (with
+    Produce a matrix whose columns are all of the (unnormalized) "Brauer" states: states that are the `p_val`-fold
+    tensor product of the standard maximally-entangled pure state on `dim` local dimensions. There are many such
+    states, since there are many different ways to group the `2 * p_val` parties into `p_val` pairs (with
     each pair corresponding to one maximally-entangled state).
 
     The exact number of such states is:
 
-    .. jupyter-execute::
-
-        import math
-        import numpy as np
-        p_val = 2
-        math.factorial(2 * p_val) / (math.factorial(p_val) * 2**p_val)
+    ```python exec="1" source="above"
+    import math
+    import numpy as np
+    p_val = 2
+    print(math.factorial(2 * p_val) / (math.factorial(p_val) * 2**p_val))
+    ```
 
     which is the number of columns of the returned matrix.
 
     This function has been adapted from QETLAB.
 
-    Examples
-    ==========
+    Examples:
+        Generate a matrix whose columns are all Brauer states on 4 qubits.
 
-    Generate a matrix whose columns are all Brauer states on 4 qubits.
-
-    .. jupyter-execute::
-
+        ```python exec="1" source="above"
         from toqito.states import brauer
-        brauer(2, 2)
+        print(brauer(2, 2))
+        ```
 
+    Args:
+        dim: Dimension of each local subsystem
+        p_val: Half of the number of parties (i.e., the state that this function computes will live in
+        \((\mathbb{C}^D)^{\otimes 2 P})\)
 
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param dim: Dimension of each local subsystem
-    :param p_val: Half of the number of parties (i.e., the state that this function computes will
-                  live in :math:`(\mathbb{C}^D)^{\otimes 2 P})`
-    :return: Matrix whose columns are all of the unnormalized Brauer states.
+    Returns:
+        Matrix whose columns are all of the unnormalized Brauer states.
 
     """
     # The Brauer states are computed from perfect matchings of the complete graph. So compute all

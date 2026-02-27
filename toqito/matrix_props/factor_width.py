@@ -20,46 +20,46 @@ def factor_width(
     solver_kwargs: dict | None = None,
     tol: float = 1e-8,
 ) -> dict:
-    r"""Decide whether a positive semidefinite matrix has factor width at most :math:`k`.
+    r"""Decide whether a positive semidefinite matrix has factor width at most \(k\).
 
-    The factor width of a matrix is the minimal value of :math:`k` for which it
-    admits a decomposition :math:`M = \sum_j v_j v_j^*` with each :math:`v_j`
-    supported on at most :math:`k` coordinates.  This routine implements the
-    low-rank algorithm in :footcite:`Johnston_2025_Complexity`.
+    The factor width of a matrix is the minimal value of \(k\) for which it
+    admits a decomposition \(M = \sum_j v_j v_j^*\) with each \(v_j\)
+    supported on at most \(k\) coordinates.  This routine implements the
+    low-rank algorithm in [@Johnston_2025_Complexity].
 
-    Examples
-    ========
+    Examples:
+        The matrix \(\operatorname{diag}(1, 1, 0)\) has factor width at most \(1\).
 
-    The matrix :math:`\operatorname{diag}(1, 1, 0)` has factor width at most :math:`1`.
-
-    .. jupyter-execute::
-
+        ```python exec="1" source="above"
         import numpy as np
         from toqito.matrix_props import factor_width
 
         diag_mat = np.diag([1, 1, 0])
         result = factor_width(diag_mat, k=1)
-        result["feasible"]
+        print(result["feasible"])
+        ```
 
-    Conversely, the rank-one matrix :math:`\begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix}/2` is not
-    :math:`1`-factorable.
+        Conversely, the rank-one matrix \(\begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix}/2\) is not
+        \(1\)-factorable.
 
-    .. jupyter-execute::
-
+        ```python exec="1" source="above"
         import numpy as np
         from toqito.matrix_props import factor_width
 
         hadamard = np.array([[1, 1], [1, 1]], dtype=np.complex128) / 2
         result = factor_width(hadamard, k=1)
-        result["feasible"]
+        print(result["feasible"])
+        ```
 
-    :param mat: Positive semidefinite matrix to test.
-    :param k: Target factor width bound.
-    :param solver: CVXPY solver name (defaults to :code:`"SCS"`).
-    :param solver_kwargs: Additional keyword arguments forwarded to
-        :meth:`cvxpy.Problem.solve`.
-    :param tol: Numerical tolerance used for rank computations and duplicate detection.
-    :return: Dictionary with keys
+    Args:
+        mat: Positive semidefinite matrix to test.
+        k: Target factor width bound.
+        solver: CVXPY solver name (defaults to `"SCS"`).
+        solver_kwargs: Additional keyword arguments forwarded to `cvxpy.Problem.solve`.
+        tol: Numerical tolerance used for rank computations and duplicate detection.
+
+    Returns:
+        Dictionary with keys
         ``feasible`` (boolean flag),
         ``status`` (solver status string),
         ``factors`` (list of PSD matrices whose sum equals ``mat`` when feasible), and
@@ -314,4 +314,3 @@ def _max_support_size(basis: np.ndarray, tol: float) -> int:
     # The support size is bounded by the number of indices not identically zero.
     mask = np.linalg.norm(basis, axis=1) > tol
     return int(np.count_nonzero(mask))
-

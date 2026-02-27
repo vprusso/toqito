@@ -4,46 +4,41 @@ import numpy as np
 
 
 def is_circulant(mat: np.ndarray) -> bool:
-    r"""Determine if matrix is circulant :footcite:`WikiCirc`.
+    r"""Determine if matrix is circulant [@WikiCirc].
 
     A circulant matrix is a square matrix in which all row vectors are composed
     of the same elements and each row vector is rotated one element to the right
     relative to the preceding row vector.
 
-    Examples
-    ==========
+    Examples:
+        Consider the following matrix:
 
-    Consider the following matrix:
+        \[
+            C = \begin{pmatrix}
+                    4 & 1 & 2 & 3 \\
+                    3 & 4 & 1 & 2 \\
+                    2 & 3 & 4 & 1 \\
+                    1 & 2 & 3 & 4
+                \end{pmatrix}
+        \]
 
-    .. math::
-        C = \begin{pmatrix}
-                4 & 1 & 2 & 3 \\
-                3 & 4 & 1 & 2 \\
-                2 & 3 & 4 & 1 \\
-                1 & 2 & 3 & 4
-            \end{pmatrix}
+        As can be seen, this matrix is circulant. We can verify this in
+        `|toqito⟩` as
 
-    As can be seen, this matrix is circulant. We can verify this in
-    :code:`|toqito⟩` as
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_circulant
 
-    .. jupyter-execute::
+        mat = np.array([[4, 1, 2, 3], [3, 4, 1, 2], [2, 3, 4, 1], [1, 2, 3, 4]])
 
-     import numpy as np
-     from toqito.matrix_props import is_circulant
+        print(is_circulant(mat))
+        ```
 
-     mat = np.array([[4, 1, 2, 3], [3, 4, 1, 2], [2, 3, 4, 1], [1, 2, 3, 4]])
+    Args:
+        mat: Matrix to check the circulancy of.
 
-     is_circulant(mat)
-
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param mat: Matrix to check the circulancy of.
-    :return: Return `True` if :code:`mat` is circulant; `False` otherwise.
+    Returns:
+        Return `True` if `mat` is circulant; `False` otherwise.
 
     """
     n, m = mat.shape

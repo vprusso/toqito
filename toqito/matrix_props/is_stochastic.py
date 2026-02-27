@@ -9,60 +9,58 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
     r"""Verify matrix is doubly, right or left stochastic.
 
     When the nonnegative elements in a row of a square matrix sum up to 1, the matrix is right stochastic and if the
-    columns sum up to 1, the matrix is left stochastic :footcite:`WikiStochasticMatrix`.
+    columns sum up to 1, the matrix is left stochastic [@WikiStochasticMatrix].
 
-    When a matrix is right and left stochastic, it is a doubly stochastic matrix :footcite:`WikiDoublyStochasticMatrix`
+    When a matrix is right and left stochastic, it is a doubly stochastic matrix [@WikiDoublyStochasticMatrix]
     .
 
-    See Also
-    ========
-    :py:func:`~toqito.matrix_props.is_doubly_stochastic.is_doubly_stochastic`
+    !!! See Also
+        [`is_doubly_stochastic()`][toqito.matrix_props.is_doubly_stochastic]
 
-    Examples
-    ========
-    The elements of an identity matrix and a Pauli-X matrix are nonnegative such that the rows and columns sum up to 1.
-    We expect these matrices to be left and right stochastic. The same cannot be said about a Pauli-Z or a Pauli-Y
-    matrix.
+    Examples:
+        The elements of an identity matrix and a Pauli-X matrix are nonnegative such that the rows and columns
+        sum up to 1.
+        We expect these matrices to be left and right stochastic. The same cannot be said about a Pauli-Z or a Pauli-Y
+        matrix.
 
-    .. jupyter-execute::
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_stochastic
 
-     import numpy as np
-     from toqito.matrix_props import is_stochastic
+        print(is_stochastic(np.eye(5), "right"))
+        print(is_stochastic(np.eye(5), "left"))
+        print(is_stochastic(np.eye(5), "doubly"))
+        ```
 
-     print(is_stochastic(np.eye(5), "right"))
-     print(is_stochastic(np.eye(5), "left"))
-     print(is_stochastic(np.eye(5), "doubly"))
+        ```python exec="1" source="above"
+        from toqito.matrices import pauli
+        from toqito.matrix_props import is_stochastic
 
-    .. jupyter-execute::
+        print(is_stochastic(pauli("X"), "left"))
+        print(is_stochastic(pauli("X"), "right"))
+        print(is_stochastic(pauli("X"), "doubly"))
+        ```
 
-     from toqito.matrices import pauli
-     from toqito.matrix_props import is_stochastic
+        ```python exec="1" source="above"
+        from toqito.matrices import pauli
+        from toqito.matrix_props import is_stochastic
 
-     print(is_stochastic(pauli("X"), "left"))
-     print(is_stochastic(pauli("X"), "right"))
-     print(is_stochastic(pauli("X"), "doubly"))
+        print(is_stochastic(pauli("Z"), "right"))
+        print(is_stochastic(pauli("Z"), "left"))
+        print(is_stochastic(pauli("Z"), "doubly"))
+        ```
+                          `mat_type`
 
-    .. jupyter-execute::
+    Raises:
+        TypeError: If something other than `"doubly"`, `"left"` or `"right"` is used for
 
-     from toqito.matrices import pauli
-     from toqito.matrix_props import is_stochastic
+    Args:
+        mat: Matrix of interest
+        mat_type: Type of stochastic matrix. `"left"` for left stochastic matrix and `"right"` for right stochastic
+        matrix and `"doubly"` for a doubly stochastic matrix.
 
-     print(is_stochastic(pauli("Z"), "right"))
-     print(is_stochastic(pauli("Z"), "left"))
-     print(is_stochastic(pauli("Z"), "doubly"))
-
-    References
-    ==========
-    .. footbibliography::
-
-
-    :param mat: Matrix of interest
-    :param mat_type: Type of stochastic matrix.
-                   :code:`"left"` for left stochastic matrix and :code:`"right"` for right stochastic matrix
-                   and :code:`"doubly"` for a doubly stochastic matrix.
-    :return: Returns :code:`True` if the matrix is doubly, right or left stochastic, :code:`False` otherwise.
-    :raises TypeError: If something other than :code:`"doubly"`, :code:`"left"` or :code:`"right"` is used for
-                      :code:`mat_type`
+    Returns:
+        Returns `True` if the matrix is doubly, right or left stochastic, `False` otherwise.
 
     """
     if mat_type not in {"left", "right", "doubly"}:

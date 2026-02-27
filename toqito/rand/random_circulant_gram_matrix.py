@@ -11,60 +11,53 @@ def random_circulant_gram_matrix(dim: int, seed: int | None = None) -> np.ndarra
     to the previous row. The eigenvalues and eigenvectors of this matrix are derived from the Discrete
     Fourier Transform (DFT).
 
-    For more information on circulant matrices, see :footcite:`WikiCirculantMat`. This function utilizes the
+    For more information on circulant matrices, see [@WikiCirculantMat]. This function utilizes the
     normalized DFT, a variation of DFT with normalized basis vectors.
 
-    For additional information, see :footcite:`DSPNormDFT`.
+    For additional information, see [@DSPNormDFT].
 
     The function creates a circulant matrix from a random diagonal matrix and the normalized DFT matrix.
     First, it generates a diagonal matrix with random non-negative entries. Next, it constructs the
     normalized DFT matrix. Finally, it computes the circulant matrix, which is real due to its origin
     from the DFT of a real diagonal matrix.
 
-    Examples
-    =========
-    Generate a random circulant Gram matrix of dimension 4.
+    Examples:
+        Generate a random circulant Gram matrix of dimension 4.
 
-    .. jupyter-execute::
+        ```python exec="1" source="above" session="random_circulant_gram_matrix_example"
+        import numpy as np
+        from toqito.rand import random_circulant_gram_matrix
 
-     import numpy as np
-     from toqito.rand import random_circulant_gram_matrix
+        circulant_matrix = random_circulant_gram_matrix(4)
 
-     circulant_matrix = random_circulant_gram_matrix(4)
+        print(f"Shape of circulant matrix is {circulant_matrix.shape}")
+        ```
 
-     print(f"Shape of circulant matrix is {circulant_matrix.shape}")
+        ```python exec="1" source="above" session="random_circulant_gram_matrix_example"
+        print(np.allclose(circulant_matrix, circulant_matrix.T))
+        ```
 
-    .. jupyter-execute::
+        ```python exec="1" source="above" session="random_circulant_gram_matrix_example"
+        print(circulant_matrix)
+        ```
 
-     print(np.allclose(circulant_matrix, circulant_matrix.T))
+        It is also possible to pass a seed to this function for reproducibility.
 
-    .. jupyter-execute::
+        ```python exec="1" source="above"
+        from toqito.rand import random_circulant_gram_matrix
 
-     circulant_matrix
+        circulant_matrix = random_circulant_gram_matrix(4, seed=42)
 
-    It is also possible to pass a seed to this function for reproducibility.
-
-    .. jupyter-execute::
-
-     from toqito.rand import random_circulant_gram_matrix
-
-     circulant_matrix = random_circulant_gram_matrix(4, seed=42)
-
-     circulant_matrix
-
-
-    References
-    ==========
-    .. footbibliography::
+        print(circulant_matrix)
+        ```
 
 
-    :param dim: int
-        The dimension of the circulant matrix to generate.
-    :param seed: int | None
-        A seed used to instantiate numpy's random number generator.
+    Args:
+        dim: int The dimension of the circulant matrix to generate.
+        seed: int | None A seed used to instantiate numpy's random number generator.
 
-    :return: numpy.ndarray
-        A `dim` x `dim` real, symmetric, circulant matrix.
+    Returns:
+        numpy.ndarray A `dim` x `dim` real, symmetric, circulant matrix.
 
     """
     gen = np.random.default_rng(seed=seed)

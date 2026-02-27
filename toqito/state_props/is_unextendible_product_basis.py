@@ -11,56 +11,55 @@ from toqito.state_props import is_product
 
 
 def is_unextendible_product_basis(vecs: list[np.ndarray], dims: list[int]) -> tuple[bool, np.ndarray | None]:
-    r"""Check if a set of vectors form an unextendible product basis (UPB) :footcite:`Bennett_1999_UPB`.
+    r"""Check if a set of vectors form an unextendible product basis (UPB) [@Bennett_1999_UPB].
 
-    Consider a multipartite quantum system :math:`\mathcal{H} = \bigotimes_{i=1}^{m} \mathcal{H}_{i}` with :math:`m`
-    parties with respective dimensions :math:`d_i, i = 1, 2, ..., m`. An (incomplete orthogonal) product basis (PB) is a
-    set :math:`S` of pure orthogonal product states spanning a proper subspace :math:`\mathcal{H}_S` of
-    :math:`\mathcal{H}`.  An unextendible product basis (UPB) is a PB whose complementary subspace
-    :math:`\mathcal{H}_S-\mathcal{H}` contains no product state.  This function is inspired from `IsUPB` in
-    :footcite:`QETLAB_link`.
+    Consider a multipartite quantum system \(\mathcal{H} = \bigotimes_{i=1}^{m} \mathcal{H}_{i}\) with \(m\)
+    parties with respective dimensions \(d_i, i = 1, 2, ..., m\). An (incomplete orthogonal) product basis (PB) is a
+    set \(S\) of pure orthogonal product states spanning a proper subspace \(\mathcal{H}_S\) of
+    \(\mathcal{H}\).  An unextendible product basis (UPB) is a PB whose complementary subspace
+    \(\mathcal{H}_S-\mathcal{H}\) contains no product state.  This function is inspired from `IsUPB` in
+    [@QETLAB_link].
 
-    Examples
-    ==========
-    See :py:func:`~toqito.states.tile.tile`. All the states together form a UPB:
+    Examples:
+        See [tile()][toqito.states.tile.tile]. All the states together form a UPB:
 
-    .. jupyter-execute::
-
+        ```python exec="1" source="above"
         import numpy as np
         from toqito.states import tile
         from toqito.state_props import is_unextendible_product_basis
         upb_tiles = np.array([tile(i) for i in range(5)])
         dims = np.array([3, 3])
-        is_unextendible_product_basis(upb_tiles, dims)
+        print(is_unextendible_product_basis(upb_tiles, dims))
+        ```
 
-    However, the first 4 do not:
+        However, the first 4 do not:
 
-    .. jupyter-execute::
-
+        ```python exec="1" source="above"
         import numpy as np
         from toqito.states import tile
         from toqito.state_props import is_unextendible_product_basis
         non_upb_tiles = np.array([tile(i) for i in range(4)])
         dims = np.array([3, 3])
-        is_unextendible_product_basis(non_upb_tiles, dims)
+        print(is_unextendible_product_basis(non_upb_tiles, dims))
+        ```
 
-    The orthogonal state is given by
+        The orthogonal state is given by
 
-    .. math::
-        \frac{1}{\sqrt{2}} |2\rangle \left( |1\rangle + |2\rangle \right)
+        \[
+            \frac{1}{\sqrt{2}} |2\rangle \left( |1\rangle + |2\rangle \right)
+        \]
 
-    References
-    ==========
-    .. footbibliography::
+    Raises:
+        ValueError: If product of dimensions does not match the size of a vector.
+        ValueError: If at least one vector is not a product state.
 
+    Args:
+        vecs: The list of states.
+        dims: The list of dimensions.
 
-    :raises ValueError: If product of dimensions does not match the size of a vector.
-    :raises ValueError: If at least one vector is not a product state.
-    :param vecs: The list of states.
-    :param dims: The list of dimensions.
-    :return: Returns a tuple. The first element is :code:`True` if input is a UPB and :code:`False` otherwise. The
-             second element is a witness (a product state orthogonal to all the input vectors) if the input is a
-             PB and :code:`None` otherwise.
+    Returns:
+        Returns a tuple. The first element is `True` if input is a UPB and `False` otherwise. The second element is a
+        witness (a product state orthogonal to all the input vectors) if the input is a PB and `None` otherwise.
 
     """
     vecs = np.array(vecs)

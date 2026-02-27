@@ -9,19 +9,17 @@ def natural_representation(kraus_ops: list[np.ndarray]) -> np.ndarray:
     r"""Convert a set of Kraus operators to the natural representation of a quantum channel.
 
     The natural representation of a quantum channel is given by:
-    :math:`\Phi = \sum_i K_i \otimes K_i^*`
-    where :math:`K_i^*` is the complex conjugate of :math:`K_i`.
+    \(\Phi = \sum_i K_i \otimes K_i^*\)
+    where \(K_i^*\) is the complex conjugate of \(K_i\).
 
-    Examples
-    ==========
-    .. jupyter-execute::
-
-     import numpy as np
-     from toqito.channel_ops import natural_representation
-     k0 = np.sqrt(1/2) * np.array([[1, 0], [0, 1]])
-     k1 = np.sqrt(1/2) * np.array([[0, 1], [1, 0]])
-     print(natural_representation([k0, k1]))
-
+    Examples:
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.channel_ops import natural_representation
+        k0 = np.sqrt(1/2) * np.array([[1, 0], [0, 1]])
+        k1 = np.sqrt(1/2) * np.array([[0, 1], [1, 0]])
+        print(natural_representation([k0, k1]))
+        ```
 
     """
     dim = kraus_ops[0].shape

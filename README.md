@@ -1,6 +1,6 @@
 <p align="center">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/vprusso/toqito/raw/cfb62c4a5ce04b782f64229e7acd2b1c97f09801/docs/figures/logo.svg" width="60%">
+   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/vprusso/toqito/raw/cfb62c4a5ce04b782f64229e7acd2b1c97f09801/docs/figures/logo-dark.svg" width="60%">
    <img src="https://github.com/vprusso/toqito/raw/cfb62c4a5ce04b782f64229e7acd2b1c97f09801/docs/figures/logo.svg" width="60%">
  </picture>
  </p>
@@ -9,7 +9,7 @@
 # |toqito⟩: Theory of Quantum Information Toolkit
 
 [![build status](https://github.com/vprusso/toqito/actions/workflows/build-test-actions.yml/badge.svg)](https://github.com/vprusso/toqito/actions/workflows/build-test-actions.yml)
-[![doc status](https://readthedocs.org/projects/toqito/badge/?version=latest)](https://toqito.readthedocs.io/en/latest/)
+[![doc status](https://img.shields.io/badge/docs-passing-brightgreen)](https://vprusso.github.io/toqito/)
 [![codecov](https://codecov.io/gh/vprusso/toqito/branch/master/graph/badge.svg)](https://codecov.io/gh/vprusso/toqito)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4743211.svg)](https://doi.org/10.5281/zenodo.4743211)
 [![Downloads](https://static.pepy.tech/personalized-badge/toqito?style=platic&period=total&units=none&left_color=black&right_color=brightgreen&left_text=Downloads)](https://pepy.tech/project/toqito)
@@ -19,8 +19,8 @@ The |toqito⟩ package is an open-source Python library for studying various
 objects in quantum information, namely, states, channels, and measurements.
 
 <p align="center">
-  <a href="https://toqito.readthedocs.io/en/latest/">
-  <img width=30% src="https://img.shields.io/badge/documentation-blue?style=for-the-badge&logo=read%20the%20docs" alt="Documentation" />
+  <a href="https://vprusso.github.io/toqito/">
+  <img width=30% src="https://img.shields.io/badge/documentation-blue?style=for-the-badge&logo=material%20for%20mkdocs" alt="Documentation" />
   </a>
 </p>
 
@@ -45,11 +45,11 @@ pip install toqito
 
 ## Examples
 
-For the full documentation, please consult: [Documentation](https://toqito.readthedocs.io/) | [Examples](https://toqito.readthedocs.io/en/latest/auto_examples/index.html)
+For the full documentation, please consult: [Documentation](https://vprusso.github.io/toqito/) | [Examples](https://vprusso.github.io/toqito/generated/gallery/)
 
 ### Example: Nonlocal games
 
-[Nonlocal games](https://toqito.readthedocs.io/en/latest/auto_examples/nonlocal_games/index.html) are a mathematical framework
+[Nonlocal games](https://vprusso.github.io/toqito/generated/gallery/03_nonlocal_games/) are a mathematical framework
 that abstractly models a physical system. The CHSH game is a subtype of nonlocal game referred to as an XOR game that
 characterizes the seminal [CHSH inequality](https://en.wikipedia.org/wiki/CHSH_inequality). 
 
@@ -116,7 +116,7 @@ ppt_res, _ = ppt_distinguishability(states, subsystems=[0], dimensions=[2, 2])
 print(f"Distinguishing four Bell states (PPT measurements): {ppt_res}")
 ```
 
-Consult the [quantum state tutorials](https://toqito.readthedocs.io/en/latest/auto_examples/quantum_states/index.html) for
+Consult the [quantum state tutorials](https://vprusso.github.io/toqito/generated/gallery/02_quantum_states/) for
 additional examples and information about quantum states within the context of |toqito⟩.
 
 ## Testing
@@ -207,7 +207,7 @@ Gupta, Tathagata and Mushid, Shayeef and Russo, Vincent and Bandyopadhyay, Somsh
 All contributions, bug reports, bug fixes, documentation improvements, enhancements, and ideas are welcome.
 
 A detailed overview of how to contribute can be found in the
-[contributing guide](https://toqito.readthedocs.io/en/latest/contributing.html#contrib-guide-reference-label).
+[contributing guide](https://vprusso.github.io/toqito/contributing-guide/).
 
 Chat with us in our |toqito⟩ channel on [Discord](http://discord.unitary.fund/). 
 

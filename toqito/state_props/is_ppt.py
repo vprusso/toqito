@@ -9,77 +9,70 @@ from toqito.matrix_props import is_positive_semidefinite
 def is_ppt(
     mat: np.ndarray, sys: int = 2, dim: int | list[int] | np.ndarray | None = None, tol: float | None = None
 ) -> bool:
-    r"""Determine whether or not a matrix has positive partial transpose :footcite:`WikiPeresHorodecki`.
+    r"""Determine whether or not a matrix has positive partial transpose [@WikiPeresHorodecki].
 
-    Yields either :code:`True` or :code:`False`, indicating that :code:`mat` does or does not have
-    positive partial transpose (within numerical error). The variable :code:`mat` is assumed to act
+    Yields either `True` or `False`, indicating that `mat` does or does not have
+    positive partial transpose (within numerical error). The variable `mat` is assumed to act
     on bipartite space.
 
-    For shared systems of :math:`2 \otimes 2` or :math:`2 \otimes 3`, the PPT criterion serves as a
+    For shared systems of \(2 \otimes 2\) or \(2 \otimes 3\), the PPT criterion serves as a
     method to determine whether a given state is entangled or separable. Therefore, for systems of
-    this size, the return value :code:`True` would indicate that the state is separable and a value
-    of :code:`False` would indicate the state is entangled.
+    this size, the return value `True` would indicate that the state is separable and a value
+    of `False` would indicate the state is entangled.
 
-    Examples
-    ==========
+    Examples:
+        Consider the following matrix
 
-    Consider the following matrix
+        \[
+            X =
+            \begin{pmatrix}
+                1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
+                0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
+            \end{pmatrix}.
+        \]
 
-    .. math::
-        X =
-        \begin{pmatrix}
-            1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-            0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
-            0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 0 \\
-            0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 \\
-            0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 0 \\
-            0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
-            0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 \\
-            0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 \\
-            0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
-        \end{pmatrix}.
+        This matrix trivially satisfies the PPT criterion as can be seen using the
+        `|toqito⟩` package.
 
-    This matrix trivially satisfies the PPT criterion as can be seen using the
-    :code:`|toqito⟩` package.
-
-    .. jupyter-execute::
-
+        ```python exec="1" source="above"
         from toqito.state_props import is_ppt
         import numpy as np
         mat = np.identity(9)
-        is_ppt(mat)
+        print(is_ppt(mat))
+        ```
 
-    Consider the following Bell state:
+        Consider the following Bell state:
 
-    .. math::
-        u = \frac{1}{\sqrt{2}}\left( |01 \rangle + |10 \rangle \right).
+        \[
+            u = \frac{1}{\sqrt{2}}\left( |01 \rangle + |10 \rangle \right).
+        \]
 
-    For the density matrix :math:`\rho = u u^*`, as this is an entangled state
-    of dimension :math:`2`, it will violate the PPT criterion, which can be seen
-    using the :code:`|toqito⟩` package.
+        For the density matrix \(\rho = u u^*\), as this is an entangled state
+        of dimension \(2\), it will violate the PPT criterion, which can be seen
+        using the `|toqito⟩` package.
 
-    .. jupyter-execute::
-
+        ```python exec="1" source="above"
         from toqito.states import bell
         from toqito.state_props import is_ppt
         rho = bell(2) @ bell(2).conj().T
-        is_ppt(rho)
+        print(is_ppt(rho))
+        ```
 
+    Args:
+        mat: A square matrix.
+        sys: Scalar or vector indicating which subsystems the transpose should be applied on.
+        dim: The dimension is a vector containing the dimensions of the subsystems on which `mat` acts.
+        tol: Tolerance with which to check whether `mat` is PPT.
 
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param mat: A square matrix.
-    :param sys: Scalar or vector indicating which subsystems the transpose
-                should be applied on.
-    :param dim: The dimension is a vector containing the dimensions of the
-                subsystems on which :code:`mat` acts.
-    :param tol: Tolerance with which to check whether `mat` is PPT.
-    :return: Returns :code:`True` if :code:`mat` is PPT and :code:`False` if
-             not.
+    Returns:
+        Returns `True` if `mat` is PPT and `False` if not.
 
     """
     eps = np.finfo(float).eps

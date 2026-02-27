@@ -4,103 +4,97 @@ import numpy as np
 
 
 def random_unitary(dim: list[int] | int, is_real: bool = False, seed: int | None = None) -> np.ndarray:
-    """Generate a random unitary or orthogonal matrix :footcite:`Ozols_2009_RandU`.
+    r"""Generate a random unitary or orthogonal matrix [@Ozols_2009_RandU].
 
-    Calculates a random unitary matrix (if :code:`is_real = False`) or a random real orthogonal
-    matrix (if :code:`is_real = True`), uniformly distributed according to the Haar measure.
+    Calculates a random unitary matrix (if `is_real = False`) or a random real orthogonal
+    matrix (if `is_real = True`), uniformly distributed according to the Haar measure.
 
-    Examples
-    ==========
+    Examples:
+        We may generate a random unitary matrix. Here is an example of how we may be able to generate a
+        random \(2\)-dimensional random unitary matrix with complex entries.
 
-    We may generate a random unitary matrix. Here is an example of how we may be able to generate a
-    random :math:`2`-dimensional random unitary matrix with complex entries.
+        ```python exec="1" source="above" session="complex_dm"
+        from toqito.rand import random_unitary
 
-    .. jupyter-execute::
+        complex_dm = random_unitary(2)
 
-     from toqito.rand import random_unitary
-
-     complex_dm = random_unitary(2)
-
-     complex_dm
+        print(complex_dm)
+        ```
 
 
-    We can verify that this is in fact a valid unitary matrix using the :code:`is_unitary` function
-    from :code:`|toqito⟩` as follows
+        We can verify that this is in fact a valid unitary matrix using the `is_unitary` function
+        from `|toqito⟩` as follows
 
-    .. jupyter-execute::
+        ```python exec="1" source="above" session="complex_dm"
+        from toqito.matrix_props import is_unitary
 
-     from toqito.matrix_props import is_unitary
+        print(is_unitary(complex_dm))
+        ```
 
-     is_unitary(complex_dm)
+        We can also generate random unitary matrices that are real-valued as follows.
 
-    We can also generate random unitary matrices that are real-valued as follows.
+        ```python exec="1" source="above" session="real_dm"
+        from toqito.rand import random_unitary
 
-    .. jupyter-execute::
+        real_dm = random_unitary(2, True)
 
-     from toqito.rand import random_unitary
-
-     real_dm = random_unitary(2, True)
-
-     real_dm
-
-
-    Again, verifying that this is a valid unitary matrix can be done as follows.
-
-    .. jupyter-execute::
-
-     from toqito.matrix_props import is_unitary
-
-     is_unitary(real_dm)
-
-    We may also generate unitaries such that the dimension argument provided is a :code:`list` as
-    opposed to an :code:`int`. Here is an example of a random unitary matrix of dimension :math:`4`.
-
-    .. jupyter-execute::
-
-     from toqito.rand import random_unitary
-
-     mat = random_unitary([4, 4], True)
-
-     mat
+        print(real_dm)
+        ```
 
 
-    As before, we can verify that this matrix generated is a valid unitary matrix.
+        Again, verifying that this is a valid unitary matrix can be done as follows.
 
-    .. jupyter-execute::
+        ```python exec="1" source="above" session="real_dm"
+        from toqito.matrix_props import is_unitary
 
-     from toqito.matrix_props import is_unitary
+        print(is_unitary(real_dm))
+        ```
 
-     is_unitary(mat)
+        We may also generate unitaries such that the dimension argument provided is a `list` as
+        opposed to an `int`. Here is an example of a random unitary matrix of dimension \(4\).
 
-    It is also possible to pass a seed to this function for reproducibility.
+        ```python exec="1" source="above" session="mat"
+        from toqito.rand import random_unitary
 
-    .. jupyter-execute::
+        mat = random_unitary([4, 4], True)
 
-     from toqito.matrix_props import is_unitary
-
-     seeded = random_unitary(2, seed=42)
-
-     seeded
-
-    And once again, we can verify that this matrix generated is a valid unitary matrix.
-
-    .. jupyter-execute::
-
-     from toqito.matrix_props import is_unitary
-
-     is_unitary(seeded)
-
-    References
-    ==========
-    .. footbibliography::
+        print(mat)
+        ```
 
 
+        As before, we can verify that this matrix generated is a valid unitary matrix.
 
-    :param dim: The number of rows (and columns) of the unitary matrix.
-    :param is_real: Boolean denoting whether the returned matrix has real
-                    entries or not. Default is :code:`False`.
-    :param seed: A seed used to instantiate numpy's random number generator.
-    :return: A :code:`dim`-by-:code:`dim` random unitary matrix.
+        ```python exec="1" source="above" session="mat"
+        from toqito.matrix_props import is_unitary
+
+        print(is_unitary(mat))
+        ```
+
+        It is also possible to pass a seed to this function for reproducibility.
+
+        ```python exec="1" source="above" session="seeded"
+        from toqito.rand import random_unitary
+
+        seeded = random_unitary(2, seed=42)
+
+        print(seeded)
+        ```
+
+        And once again, we can verify that this matrix generated is a valid unitary matrix.
+
+        ```python exec="1" source="above" session="seeded"
+        from toqito.matrix_props import is_unitary
+
+        print(is_unitary(seeded))
+        ```
+
+    Args:
+        dim: The number of rows (and columns) of the unitary matrix.
+        is_real: Boolean denoting whether the returned matrix has real entries or not. Default is `False`.
+        seed: A seed used to instantiate numpy's random number generator.
+
+    Returns:
+        A `dim`-by-`dim` random unitary matrix.
 
     """
     gen = np.random.default_rng(seed=seed)
