@@ -35,7 +35,8 @@ def is_totally_positive(mat: np.ndarray, tol: float = 1e-6, sub_sizes: list | No
             \end{equation}
         \]
 
-        Each of these entries is positive. There is only one 2x2 minor in this case, which is the determinant of the entire
+        Each of these entries is positive. There is only one 2x2 minor in this case, which is the determinant of
+        the entire
         matrix \(X\). The determinant of \(X\) is calculated as:
 
         \[

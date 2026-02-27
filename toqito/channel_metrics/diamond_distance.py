@@ -7,9 +7,9 @@ def diamond_distance(choi_1: np.ndarray, choi_2: np.ndarray) -> float | np.float
     r"""Return the diamond norm distance between two quantum channels.
 
     This function is a wrapper around
-    [`completely_bounded_trace_norm`][toqito.channel_metrics.completely_bounded_trace_norm.completely_bounded_trace_norm]
-    , in that it returns
-    half of the completely bounded trace norm of the difference of its arguments.
+    [`completely_bounded_trace_norm`]
+    [toqito.channel_metrics.completely_bounded_trace_norm.completely_bounded_trace_norm],
+    in that it returns half of the completely bounded trace norm of the difference of its arguments.
 
     !!! note
         This calculation becomes very slow for 4 or more qubits.

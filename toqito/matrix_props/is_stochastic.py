@@ -18,7 +18,8 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
         [`is_doubly_stochastic()`][toqito.matrix_props.is_doubly_stochastic]
 
     Examples:
-        The elements of an identity matrix and a Pauli-X matrix are nonnegative such that the rows and columns sum up to 1.
+        The elements of an identity matrix and a Pauli-X matrix are nonnegative such that the rows and columns
+        sum up to 1.
         We expect these matrices to be left and right stochastic. The same cannot be said about a Pauli-Z or a Pauli-Y
         matrix.
 

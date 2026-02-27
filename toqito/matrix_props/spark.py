@@ -23,7 +23,7 @@ def spark(mat: np.ndarray) -> int:
         print(spark(A))
         ```
 
-        Notes
+    Notes:
         - This function only works for 2D NumPy arrays.
         - If all columns are linearly independent, the function returns n_cols + 1.
         - The time complexity of this implementation is O(2^n) in the worst case,

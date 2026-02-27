@@ -108,7 +108,8 @@ def state_distinguishability(
         print(np.around(res, decimals=2))
         ```
 
-        Note that if we are just interested in obtaining the optimal value, it is computationally less intensive to compute
+        Note that if we are just interested in obtaining the optimal value, it is computationally less intensive
+        to compute
         the dual problem over the primal problem. However, the primal problem does allow us to extract the explicit
         measurement operators which may be of interest to us.
 

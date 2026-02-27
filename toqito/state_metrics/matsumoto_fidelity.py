@@ -50,7 +50,8 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float | np.floatin
                            \end{pmatrix} \in \text{D}(\mathcal{X}).
         \]
 
-        In the event where we calculate the Matsumoto fidelity between states that are identical, we should obtain the value
+        In the event where we calculate the Matsumoto fidelity between states that are identical, we should obtain
+        the value
         of \(1\). This can be observed in `|toqito⟩` as follows.
 
         ```python exec="1" source="above"

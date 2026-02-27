@@ -33,7 +33,8 @@ def permute_systems(
 
     Examples:
         For spaces \(\mathcal{A}\) and \(\mathcal{B}\) where \(\text{dim}(\mathcal{A}) =
-        \text{dim}(\mathcal{B}) = 2\) we may consider an operator \(X \in \mathcal{A} \otimes \mathcal{B}\). Applying the
+        \text{dim}(\mathcal{B}) = 2\) we may consider an operator \(X \in \mathcal{A} \otimes \mathcal{B}\).
+        Applying the
         `permute_systems` function with vector \([1,0]\) on \(X\), we may reorient the spaces such that \(X \in
         \mathcal{B} \otimes \mathcal{A}\).
 
