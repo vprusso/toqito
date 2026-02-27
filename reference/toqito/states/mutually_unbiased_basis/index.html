@@ -8943,8 +8943,10 @@ to the other bases, mutually unbiased basis states are orthonormal bases in the 
         <p>Generate list of MUBs for a given dimension <sup><a id="cite-toqito-states-mutually_unbiased_basis-mutually_unbiased_basis-1" href="#ref-toqito-states-mutually_unbiased_basis-mutually_unbiased_basis-1">1</a></sup>.</p>
 <p>Note that this function only works if the dimension provided is prime or a power of a prime. Otherwise, we don't
 know how to generate general MUBs.</p>
-<p>Examples:
-For the case of dimension 2, the three mutually unbiased bases are provided by:</p>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>For the case of dimension 2, the three mutually unbiased bases are provided by:</p>
 <div class="arithmatex">\[
     M_0 = \left\{|0\rangle, |1\rangle \right\}, \\
     M_1 = \left\{\frac{|0\rangle + |1\rangle}{\sqrt{2}}, \frac{|0\rangle - |1\rangle}{\sqrt{2}}\right\}
@@ -8956,11 +8958,11 @@ For the case of dimension 2, the three mutually unbiased bases are provided by:<
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mubs</span><span class="p">))</span>
 </code></pre></div>
 <p>6</p>
-<p><div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">lst</span> <span class="o">=</span><span class="p">[</span><span class="n">vec</span><span class="o">.</span><span class="n">shape</span> <span class="k">for</span> <span class="n">vec</span> <span class="ow">in</span> <span class="n">mubs</span><span class="p">]</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">lst</span> <span class="o">=</span><span class="p">[</span><span class="n">vec</span><span class="o">.</span><span class="n">shape</span> <span class="k">for</span> <span class="n">vec</span> <span class="ow">in</span> <span class="n">mubs</span><span class="p">]</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span>
 </code></pre></div>
 <p>[(2,), (2,), (2,), (2,), (2,), (2,)]</p>
-Args:
+        <p>Args:
     dim: The dimension of the mutually unbiased bases to produce.</p>
 
 
@@ -9044,26 +9046,26 @@ Args:
 <a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">    know how to generate general MUBs.</span>
 <a id="__codelineno-0-18" name="__codelineno-0-18"></a>
 <a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    For the case of dimension 2, the three mutually unbiased bases are provided by:</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">        For the case of dimension 2, the three mutually unbiased bases are provided by:</span>
 <a id="__codelineno-0-21" name="__codelineno-0-21"></a>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        M_0 = \left\{|0\rangle, |1\rangle \right\}, \\</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">        M_1 = \left\{\frac{|0\rangle + |1\rangle}{\sqrt{2}}, \frac{|0\rangle - |1\rangle}{\sqrt{2}}\right\}</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        M_2 = \left\{\frac{|0\rangle + i|1\rangle}{\sqrt{2}}, \frac{|0\rangle - i|1\rangle}{\sqrt{2}}\right\}</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">            M_0 = \left\{|0\rangle, |1\rangle \right\}, \\</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">            M_1 = \left\{\frac{|0\rangle + |1\rangle}{\sqrt{2}}, \frac{|0\rangle - |1\rangle}{\sqrt{2}}\right\}</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">            M_2 = \left\{\frac{|0\rangle + i|1\rangle}{\sqrt{2}}, \frac{|0\rangle - i|1\rangle}{\sqrt{2}}\right\}</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-27" name="__codelineno-0-27"></a>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    The six vectors above are obtained accordingly:</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">        The six vectors above are obtained accordingly:</span>
 <a id="__codelineno-0-29" name="__codelineno-0-29"></a>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;mubs&quot;</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">    from toqito.states import mutually_unbiased_basis</span>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">    mubs = mutually_unbiased_basis(2)</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">    print(len(mubs))</span>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;mubs&quot;</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        from toqito.states import mutually_unbiased_basis</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        mubs = mutually_unbiased_basis(2)</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        print(len(mubs))</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-35" name="__codelineno-0-35"></a>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;mubs&quot;</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    lst =[vec.shape for vec in mubs]</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">    print(lst)</span>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;mubs&quot;</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        lst =[vec.shape for vec in mubs]</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        print(lst)</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        dim: The dimension of the mutually unbiased bases to produce.</span>
 <a id="__codelineno-0-42" name="__codelineno-0-42"></a>

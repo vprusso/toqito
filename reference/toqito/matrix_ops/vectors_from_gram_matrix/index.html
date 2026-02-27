@@ -8942,8 +8942,10 @@
 <p>The function attempts to compute the Cholesky decomposition of the given Gram matrix. If the matrix is positive
 definite, the Cholesky decomposition is returned. If the matrix is not positive definite, the function falls back to
 eigendecomposition.</p>
-<p>Examples:
-Example of a positive definite matrix:</p>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Example of a positive definite matrix:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_ops</span><span class="w"> </span><span class="kn">import</span> <span class="n">vectors_from_gram_matrix</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
@@ -9066,28 +9068,28 @@ Example of a positive definite matrix:</p>
 <a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="sd">    eigendecomposition.</span>
 <a id="__codelineno-0-13" name="__codelineno-0-13"></a>
 <a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">    Example of a positive definite matrix:</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">        Example of a positive definite matrix:</span>
 <a id="__codelineno-0-16" name="__codelineno-0-16"></a>
-<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">    from toqito.matrix_ops import vectors_from_gram_matrix</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">        from toqito.matrix_ops import vectors_from_gram_matrix</span>
 <a id="__codelineno-0-20" name="__codelineno-0-20"></a>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    gram_matrix = np.array([[2, -1], [-1, 2]])</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">    vectors = vectors_from_gram_matrix(gram_matrix)</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">        gram_matrix = np.array([[2, -1], [-1, 2]])</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">        vectors = vectors_from_gram_matrix(gram_matrix)</span>
 <a id="__codelineno-0-23" name="__codelineno-0-23"></a>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    print(vectors)</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">        print(vectors)</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-26" name="__codelineno-0-26"></a>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">    Example of a matrix that is not positive definite:</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        Example of a matrix that is not positive definite:</span>
 <a id="__codelineno-0-28" name="__codelineno-0-28"></a>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">    from toqito.matrix_ops import vectors_from_gram_matrix</span>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">    gram_matrix = np.array([[0, 1], [1, 0]])</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">    vectors = vectors_from_gram_matrix(gram_matrix)</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        from toqito.matrix_ops import vectors_from_gram_matrix</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        gram_matrix = np.array([[0, 1], [1, 0]])</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        vectors = vectors_from_gram_matrix(gram_matrix)</span>
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">    print(vectors)  # Matrix is not positive semidefinite. Using eigendecomposition as alternative.</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        print(vectors)  # Matrix is not positive semidefinite. Using eigendecomposition as alternative.</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-37" name="__codelineno-0-37"></a>
 <a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">    Raises:</span>
 <a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        LinAlgError: If the Gram matrix is not square.</span>

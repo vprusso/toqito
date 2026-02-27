@@ -8973,8 +8973,10 @@ This operation is the inverse of <code>vec</code> operation in <code>|toqito⟩<
 \]</div>
 <p>for all <span class="arithmatex">\(a\)</span> and <span class="arithmatex">\(b\)</span>.</p>
 <p>This function has been adapted from <sup><a id="cite-toqito-matrix_ops-unvec-unvec-1" href="#ref-toqito-matrix_ops-unvec-unvec-1">1</a></sup>.</p>
-<p>Examples:
-Consider the following vector</p>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Consider the following vector</p>
 <div class="arithmatex">\[
     u = \begin{pmatrix} 1 \\ 3 \\ 2 \\ 4 \end{pmatrix}
 \]</div>
@@ -9175,29 +9177,29 @@ Consider the following vector</p>
 <a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">    This function has been adapted from [@Rigetti_2022_Forest].</span>
 <a id="__codelineno-0-55" name="__codelineno-0-55"></a>
 <a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">    Consider the following vector</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        Consider the following vector</span>
 <a id="__codelineno-0-58" name="__codelineno-0-58"></a>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        u = \begin{pmatrix} 1 \\ 3 \\ 2 \\ 4 \end{pmatrix}</span>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">            u = \begin{pmatrix} 1 \\ 3 \\ 2 \\ 4 \end{pmatrix}</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-62" name="__codelineno-0-62"></a>
-<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">    Performing the \(\text{unvec}\) operation on \(u\) yields</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">        Performing the \(\text{unvec}\) operation on \(u\) yields</span>
 <a id="__codelineno-0-64" name="__codelineno-0-64"></a>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        \text{unvec}(u) = \begin{pmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{pmatrix}</span>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">            \text{unvec}(u) = \begin{pmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{pmatrix}</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-68" name="__codelineno-0-68"></a>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">    from toqito.matrix_ops import unvec</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">        from toqito.matrix_ops import unvec</span>
 <a id="__codelineno-0-72" name="__codelineno-0-72"></a>
-<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">    u = np.array([1, 2, 3, 4])</span>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">        u = np.array([1, 2, 3, 4])</span>
 <a id="__codelineno-0-74" name="__codelineno-0-74"></a>
-<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">    print(unvec(u))</span>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">        print(unvec(u))</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-77" name="__codelineno-0-77"></a>
-<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">    !!! See Also</span>
-<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">        [vec][toqito.matrix_ops.vec.vec]</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">        !!! See Also</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">            [vec][toqito.matrix_ops.vec.vec]</span>
 <a id="__codelineno-0-80" name="__codelineno-0-80"></a>
 <a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">        vector: A (`shape[0] * shape[1]`)-by-1 numpy array.</span>

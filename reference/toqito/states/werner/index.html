@@ -8956,8 +8956,10 @@ state is returned. This multipartite Werner state is the normalization of I - <c
 <code>alpha(p!-1)*P(p!)</code>, where P(i) is the operator that permutes p subsystems according to the i-th permutation when
 they are written in lexicographical order (for example, the lexicographical ordering when p = 3 is: <code>[1, 2, 3], [1,
 3, 2], [2, 1,3], [2, 3, 1], [3, 1, 2], [3, 2, 1],</code> so P(4) in this case equals permutation_operator(dim, [2, 3, 1]).</p>
-<p>Examples:
-Computing the qutrit Werner state with <span class="arithmatex">\(\alpha = 1/2\)</span> can be done in <code>|toqito⟩</code> as</p>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Computing the qutrit Werner state with <span class="arithmatex">\(\alpha = 1/2\)</span> can be done in <code>|toqito⟩</code> as</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">werner</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">werner</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
 </code></pre></div>
@@ -9136,20 +9138,20 @@ Computing the qutrit Werner state with <span class="arithmatex">\(\alpha = 1/2\)
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">    3, 2], [2, 1,3], [2, 3, 1], [3, 1, 2], [3, 2, 1],` so P(4) in this case equals permutation_operator(dim, [2, 3, 1]).</span>
 <a id="__codelineno-0-35" name="__codelineno-0-35"></a>
 <a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    Computing the qutrit Werner state with \(\alpha = 1/2\) can be done in `|toqito⟩` as</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        Computing the qutrit Werner state with \(\alpha = 1/2\) can be done in `|toqito⟩` as</span>
 <a id="__codelineno-0-38" name="__codelineno-0-38"></a>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">    from toqito.states import werner</span>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">    print(werner(3, 1 / 2))</span>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        from toqito.states import werner</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        print(werner(3, 1 / 2))</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-43" name="__codelineno-0-43"></a>
 <a id="__codelineno-0-44" name="__codelineno-0-44"></a>
-<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">    We may also compute multipartite Werner states in `|toqito⟩` as well.</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        We may also compute multipartite Werner states in `|toqito⟩` as well.</span>
 <a id="__codelineno-0-46" name="__codelineno-0-46"></a>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">    from toqito.states import werner</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">    print(werner(2, [0.01, 0.02, 0.03, 0.04, 0.05]))</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        from toqito.states import werner</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        print(werner(2, [0.01, 0.02, 0.03, 0.04, 0.05]))</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-51" name="__codelineno-0-51"></a>
 <a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">    Raises:</span>
 <a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        ValueError: Alpha vector does not have the correct length.</span>

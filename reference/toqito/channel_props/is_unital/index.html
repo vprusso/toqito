@@ -8947,8 +8947,10 @@
 list <code>[[r,x], [c,y]]</code>. If it maps <span class="arithmatex">\(M_m\)</span> to <span class="arithmatex">\(M_n\)</span>, then <code>dim</code> can simply
 be the vector <code>[m,n]</code>.</p>
 <p>More information can be found in Chapter: Unital Channels And Majorization from <sup><a id="cite-toqito-channel_props-is_unital-is_unital-1" href="#ref-toqito-channel_props-is_unital-is_unital-1">1</a></sup>).</p>
-<p>Examples:
-Consider the channel whose Choi matrix is the swap operator. This channel is an example of a
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Consider the channel whose Choi matrix is the swap operator. This channel is an example of a
 unital channel.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.perms</span><span class="w"> </span><span class="kn">import</span> <span class="n">swap_operator</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.channel_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_unital</span>
@@ -9109,29 +9111,29 @@ a unital channel.</p>
 <a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    More information can be found in Chapter: Unital Channels And Majorization from [@Watrous_2018_TQI]).</span>
 <a id="__codelineno-0-29" name="__codelineno-0-29"></a>
 <a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">    Consider the channel whose Choi matrix is the swap operator. This channel is an example of a</span>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">    unital channel.</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        Consider the channel whose Choi matrix is the swap operator. This channel is an example of a</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        unital channel.</span>
 <a id="__codelineno-0-33" name="__codelineno-0-33"></a>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">    from toqito.perms import swap_operator</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    from toqito.channel_props import is_unital</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        from toqito.perms import swap_operator</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        from toqito.channel_props import is_unital</span>
 <a id="__codelineno-0-37" name="__codelineno-0-37"></a>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">    choi = swap_operator(3)</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        choi = swap_operator(3)</span>
 <a id="__codelineno-0-39" name="__codelineno-0-39"></a>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">    print(is_unital(choi))</span>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        print(is_unital(choi))</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-42" name="__codelineno-0-42"></a>
-<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">    Additionally, the channel whose Choi matrix is the depolarizing channel is another example of</span>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">    a unital channel.</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        Additionally, the channel whose Choi matrix is the depolarizing channel is another example of</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        a unital channel.</span>
 <a id="__codelineno-0-45" name="__codelineno-0-45"></a>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">    from toqito.channels import depolarizing</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">    from toqito.channel_props import is_unital</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        from toqito.channels import depolarizing</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        from toqito.channel_props import is_unital</span>
 <a id="__codelineno-0-49" name="__codelineno-0-49"></a>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">    choi = depolarizing(4)</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        choi = depolarizing(4)</span>
 <a id="__codelineno-0-51" name="__codelineno-0-51"></a>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">    print(is_unital(choi))</span>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        print(is_unital(choi))</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-54" name="__codelineno-0-54"></a>
 <a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        phi: The channel provided as either a Choi matrix or a list of Kraus operators.</span>

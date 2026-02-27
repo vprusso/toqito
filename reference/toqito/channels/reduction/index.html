@@ -8946,8 +8946,10 @@ Choi matrix of the map defined by:</p>
     R(X) = k * \text{Tr}(X) * \mathbb{I} - X,
 \]</div>
 <p>where <span class="arithmatex">\(\mathbb{I}\)</span> is the identity matrix. This map is <span class="arithmatex">\(k\)</span>-positive.</p>
-<p>Examples:
-Using <code>|toqito⟩</code>, we can generate the <span class="arithmatex">\(3\)</span>-dimensional (or standard) reduction map
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Using <code>|toqito⟩</code>, we can generate the <span class="arithmatex">\(3\)</span>-dimensional (or standard) reduction map
 as follows.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.channels</span><span class="w"> </span><span class="kn">import</span> <span class="n">reduction</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
@@ -9059,15 +9061,15 @@ as follows.</p>
 <a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    where \(\mathbb{I}\) is the identity matrix. This map is \(k\)-positive.</span>
 <a id="__codelineno-0-21" name="__codelineno-0-21"></a>
 <a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">    Using `|toqito⟩`, we can generate the \(3\)-dimensional (or standard) reduction map</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    as follows.</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        Using `|toqito⟩`, we can generate the \(3\)-dimensional (or standard) reduction map</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">        as follows.</span>
 <a id="__codelineno-0-25" name="__codelineno-0-25"></a>
 <a id="__codelineno-0-26" name="__codelineno-0-26"></a>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    from toqito.channels import reduction</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">        from toqito.channels import reduction</span>
 <a id="__codelineno-0-29" name="__codelineno-0-29"></a>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    print(reduction(3))</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        print(reduction(3))</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-32" name="__codelineno-0-32"></a>
 <a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        dim: A positive integer (the dimension of the reduction map).</span>

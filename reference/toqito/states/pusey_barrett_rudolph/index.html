@@ -8952,8 +8952,10 @@
     |\Psi_i\rangle = |\psi_{x_i}\rangle \otimes \cdots \otimes |\psi_{x_n}\rangle.
 \]</div>
 <p>These PBR states are defined in Equation (A6) from <sup><a id="cite-toqito-states-pusey_barrett_rudolph-pusey_barrett_rudolph-1" href="#ref-toqito-states-pusey_barrett_rudolph-pusey_barrett_rudolph-1">1</a></sup>.</p>
-<p>Examples:
-Generating the PBR states can be done by simply invoking the function with a given choice of <code>n</code> and
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Generating the PBR states can be done by simply invoking the function with a given choice of <code>n</code> and
 <code>theta</code>:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">pusey_barrett_rudolph</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">pusey_barrett_rudolph</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">theta</span><span class="o">=</span><span class="mf">0.5</span><span class="p">))</span>
@@ -9074,13 +9076,13 @@ Generating the PBR states can be done by simply invoking the function with a giv
 <a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    These PBR states are defined in Equation (A6) from [@Pusey_2012_On].</span>
 <a id="__codelineno-0-31" name="__codelineno-0-31"></a>
 <a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">    Generating the PBR states can be done by simply invoking the function with a given choice of `n` and</span>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">    `theta`:</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        Generating the PBR states can be done by simply invoking the function with a given choice of `n` and</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        `theta`:</span>
 <a id="__codelineno-0-35" name="__codelineno-0-35"></a>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    from toqito.states import pusey_barrett_rudolph</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">    print(pusey_barrett_rudolph(n=1, theta=0.5))</span>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        from toqito.states import pusey_barrett_rudolph</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        print(pusey_barrett_rudolph(n=1, theta=0.5))</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-40" name="__codelineno-0-40"></a>
 <a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        n: The number of states in the set.</span>

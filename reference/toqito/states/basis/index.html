@@ -8940,8 +8940,10 @@
     <div class="doc doc-contents ">
 
         <p>Obtain the ket of dimension <code>dim</code> <sup><a id="cite-toqito-states-basis-basis-1" href="#ref-toqito-states-basis-basis-1">1</a></sup>.</p>
-<p>Examples:
-The standard basis ket vectors given as <span class="arithmatex">\(|0 \rangle\)</span> and <span class="arithmatex">\(|1 \rangle\)</span> where</p>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>The standard basis ket vectors given as <span class="arithmatex">\(|0 \rangle\)</span> and <span class="arithmatex">\(|1 \rangle\)</span> where</p>
 <div class="arithmatex">\[
     |0 \rangle = \left[1, 0 \right]^{\text{T}} \quad \text{and} \quad
     |1 \rangle = \left[0, 1 \right]^{\text{T}},
@@ -9057,28 +9059,28 @@ The standard basis ket vectors given as <span class="arithmatex">\(|0 \rangle\)<
 <a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Obtain the ket of dimension `dim` [@WikiBraKet].</span>
 <a id="__codelineno-0-11" name="__codelineno-0-11"></a>
 <a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="sd">    The standard basis ket vectors given as \(|0 \rangle\) and \(|1 \rangle\) where</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="sd">        The standard basis ket vectors given as \(|0 \rangle\) and \(|1 \rangle\) where</span>
 <a id="__codelineno-0-14" name="__codelineno-0-14"></a>
-<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">        |0 \rangle = \left[1, 0 \right]^{\text{T}} \quad \text{and} \quad</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">        |1 \rangle = \left[0, 1 \right]^{\text{T}},</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">            |0 \rangle = \left[1, 0 \right]^{\text{T}} \quad \text{and} \quad</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">            |1 \rangle = \left[0, 1 \right]^{\text{T}},</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-19" name="__codelineno-0-19"></a>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    can be obtained in `|toqito⟩` as follows.</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">        can be obtained in `|toqito⟩` as follows.</span>
 <a id="__codelineno-0-21" name="__codelineno-0-21"></a>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">    Example:  Ket basis vector: \(|0\rangle\).</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">        Example:  Ket basis vector: \(|0\rangle\).</span>
 <a id="__codelineno-0-23" name="__codelineno-0-23"></a>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">    from toqito.states import basis</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">    print(basis(2, 0))</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        from toqito.states import basis</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">        print(basis(2, 0))</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-28" name="__codelineno-0-28"></a>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">    Example: Ket basis vector: \(|1\rangle\).</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        Example: Ket basis vector: \(|1\rangle\).</span>
 <a id="__codelineno-0-30" name="__codelineno-0-30"></a>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">    from toqito.states import basis</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">    print(basis(2, 1))</span>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        from toqito.states import basis</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        print(basis(2, 1))</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-35" name="__codelineno-0-35"></a>
 <a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    Raises:</span>
 <a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        ValueError: If the input position is not in the range [0, dim - 1].</span>

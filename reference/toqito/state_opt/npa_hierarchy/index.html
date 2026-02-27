@@ -9493,8 +9493,10 @@ Specifically, if <span class="arithmatex">\(i = (oa-1) \times x + a + 1\)</span>
                   <span class="arithmatex">\(B_{b|y}\)</span> (using <span class="arithmatex">\(0\)</span> to <span class="arithmatex">\(ob-2\)</span> for <span class="arithmatex">\(b\)</span>).</li>
 <li><code>p_var[i, j]</code> corresponds to the expectation of the product <span class="arithmatex">\(A_{a|x} B_{b|y}\)</span>.</li>
 </ul>
-<p>Examples:
-Consider the CHSH inequality scenario with <code>desc = [2, 2, 2, 2]</code>. We want to generate the NPA level 1 constraints.</p>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Consider the CHSH inequality scenario with <code>desc = [2, 2, 2, 2]</code>. We want to generate the NPA level 1 constraints.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">cvxpy</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_opt.npa_hierarchy</span><span class="w"> </span><span class="kn">import</span> <span class="n">bell_npa_constraints</span>
@@ -9551,7 +9553,7 @@ Gamma + Promote(-0.0, (9, 9)) &gt;&gt; 0</p>
           –
           <div class="doc-md-description">
             <p>A CVXPY Variable representing probabilities/correlations in Collins-Gisin notation.
-      Shape: :math:<code>((oa-1) \times ma+1, (ob-1) \times mb+1)</code>.</p>
+      Shape: <span class="arithmatex">\(((oa-1) \times ma+1, (ob-1) \times mb+1)\)</span>.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
@@ -9559,7 +9561,7 @@ Gamma + Promote(-0.0, (9, 9)) &gt;&gt; 0</p>
               (<code><span title="list">list</span>[<span title="int">int</span>]</code>)
           –
           <div class="doc-md-description">
-            <p>A list [:math:<code>oa</code>, :math:<code>ob</code>, :math:<code>ma</code>, :math:<code>mb</code>]
+            <p>A list [<span class="arithmatex">\(oa\)</span>, <span class="arithmatex">\(ob\)</span>, <span class="arithmatex">\(ma\)</span>, <span class="arithmatex">\(mb\)</span>]
         specifying outputs and inputs for Alice and Bob.</p>
           </div>
         </li>
@@ -9753,43 +9755,43 @@ Gamma + Promote(-0.0, (9, 9)) &gt;&gt; 0</p>
 <a id="__codelineno-0-500" name="__codelineno-0-500"></a><span class="sd">    - ``p_var[i, j]`` corresponds to the expectation of the product \(A_{a|x} B_{b|y}\).</span>
 <a id="__codelineno-0-501" name="__codelineno-0-501"></a>
 <a id="__codelineno-0-502" name="__codelineno-0-502"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-503" name="__codelineno-0-503"></a><span class="sd">    Consider the CHSH inequality scenario with ``desc = [2, 2, 2, 2]``. We want to generate the NPA level 1 constraints.</span>
+<a id="__codelineno-0-503" name="__codelineno-0-503"></a><span class="sd">        Consider the CHSH inequality scenario with ``desc = [2, 2, 2, 2]``. We want to generate the NPA level 1 constraints.</span>
 <a id="__codelineno-0-504" name="__codelineno-0-504"></a>
-<a id="__codelineno-0-505" name="__codelineno-0-505"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;npa_example&quot;</span>
-<a id="__codelineno-0-506" name="__codelineno-0-506"></a><span class="sd">    import cvxpy</span>
-<a id="__codelineno-0-507" name="__codelineno-0-507"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-508" name="__codelineno-0-508"></a><span class="sd">    from toqito.state_opt.npa_hierarchy import bell_npa_constraints</span>
-<a id="__codelineno-0-509" name="__codelineno-0-509"></a><span class="sd">    desc = [2, 2, 2, 2]</span>
-<a id="__codelineno-0-510" name="__codelineno-0-510"></a><span class="sd">    oa, ob, ma, mb = desc</span>
-<a id="__codelineno-0-511" name="__codelineno-0-511"></a><span class="sd">    p_var_dim = ((oa - 1) * ma + 1, (ob - 1) * mb + 1)</span>
-<a id="__codelineno-0-512" name="__codelineno-0-512"></a><span class="sd">    p_var = cvxpy.Variable(p_var_dim, name=&quot;p_cg&quot;)</span>
-<a id="__codelineno-0-513" name="__codelineno-0-513"></a><span class="sd">    constraints = bell_npa_constraints(p_var, desc, k=1)</span>
-<a id="__codelineno-0-514" name="__codelineno-0-514"></a><span class="sd">    print(len(constraints))</span>
-<a id="__codelineno-0-515" name="__codelineno-0-515"></a><span class="sd">    print(constraints[0])</span>
-<a id="__codelineno-0-516" name="__codelineno-0-516"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-505" name="__codelineno-0-505"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;npa_example&quot;</span>
+<a id="__codelineno-0-506" name="__codelineno-0-506"></a><span class="sd">        import cvxpy</span>
+<a id="__codelineno-0-507" name="__codelineno-0-507"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-508" name="__codelineno-0-508"></a><span class="sd">        from toqito.state_opt.npa_hierarchy import bell_npa_constraints</span>
+<a id="__codelineno-0-509" name="__codelineno-0-509"></a><span class="sd">        desc = [2, 2, 2, 2]</span>
+<a id="__codelineno-0-510" name="__codelineno-0-510"></a><span class="sd">        oa, ob, ma, mb = desc</span>
+<a id="__codelineno-0-511" name="__codelineno-0-511"></a><span class="sd">        p_var_dim = ((oa - 1) * ma + 1, (ob - 1) * mb + 1)</span>
+<a id="__codelineno-0-512" name="__codelineno-0-512"></a><span class="sd">        p_var = cvxpy.Variable(p_var_dim, name=&quot;p_cg&quot;)</span>
+<a id="__codelineno-0-513" name="__codelineno-0-513"></a><span class="sd">        constraints = bell_npa_constraints(p_var, desc, k=1)</span>
+<a id="__codelineno-0-514" name="__codelineno-0-514"></a><span class="sd">        print(len(constraints))</span>
+<a id="__codelineno-0-515" name="__codelineno-0-515"></a><span class="sd">        print(constraints[0])</span>
+<a id="__codelineno-0-516" name="__codelineno-0-516"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-517" name="__codelineno-0-517"></a>
-<a id="__codelineno-0-518" name="__codelineno-0-518"></a><span class="sd">    We can also use intermediate levels, like &quot;1+ab&quot;:</span>
+<a id="__codelineno-0-518" name="__codelineno-0-518"></a><span class="sd">        We can also use intermediate levels, like &quot;1+ab&quot;:</span>
 <a id="__codelineno-0-519" name="__codelineno-0-519"></a>
-<a id="__codelineno-0-520" name="__codelineno-0-520"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;npa_example&quot;</span>
-<a id="__codelineno-0-521" name="__codelineno-0-521"></a><span class="sd">    constraints_1ab = bell_npa_constraints(p_var, desc, k=&quot;1+ab&quot;)</span>
-<a id="__codelineno-0-522" name="__codelineno-0-522"></a><span class="sd">    print(len(constraints_1ab))</span>
-<a id="__codelineno-0-523" name="__codelineno-0-523"></a><span class="sd">    print(constraints_1ab[0])</span>
-<a id="__codelineno-0-524" name="__codelineno-0-524"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-520" name="__codelineno-0-520"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot; session=&quot;npa_example&quot;</span>
+<a id="__codelineno-0-521" name="__codelineno-0-521"></a><span class="sd">        constraints_1ab = bell_npa_constraints(p_var, desc, k=&quot;1+ab&quot;)</span>
+<a id="__codelineno-0-522" name="__codelineno-0-522"></a><span class="sd">        print(len(constraints_1ab))</span>
+<a id="__codelineno-0-523" name="__codelineno-0-523"></a><span class="sd">        print(constraints_1ab[0])</span>
+<a id="__codelineno-0-524" name="__codelineno-0-524"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-525" name="__codelineno-0-525"></a>
-<a id="__codelineno-0-526" name="__codelineno-0-526"></a><span class="sd">    For the CGLMP inequality with ``dim=3``, ``desc = [3, 3, 2, 2]``, level 1:</span>
+<a id="__codelineno-0-526" name="__codelineno-0-526"></a><span class="sd">        For the CGLMP inequality with ``dim=3``, ``desc = [3, 3, 2, 2]``, level 1:</span>
 <a id="__codelineno-0-527" name="__codelineno-0-527"></a>
-<a id="__codelineno-0-528" name="__codelineno-0-528"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-529" name="__codelineno-0-529"></a><span class="sd">    import cvxpy</span>
-<a id="__codelineno-0-530" name="__codelineno-0-530"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-531" name="__codelineno-0-531"></a><span class="sd">    from toqito.state_opt.npa_hierarchy import bell_npa_constraints</span>
-<a id="__codelineno-0-532" name="__codelineno-0-532"></a><span class="sd">    desc_cglmp = [3, 3, 2, 2]</span>
-<a id="__codelineno-0-533" name="__codelineno-0-533"></a><span class="sd">    oa_c, ob_c, ma_c, mb_c = desc_cglmp</span>
-<a id="__codelineno-0-534" name="__codelineno-0-534"></a><span class="sd">    p_var_dim_c = ((oa_c - 1) * ma_c + 1, (ob_c - 1) * mb_c + 1)</span>
-<a id="__codelineno-0-535" name="__codelineno-0-535"></a><span class="sd">    p_var_c = cvxpy.Variable(p_var_dim_c, name=&quot;p_cglmp&quot;)</span>
-<a id="__codelineno-0-536" name="__codelineno-0-536"></a><span class="sd">    constraints_c = bell_npa_constraints(p_var_c, desc_cglmp, k=1)</span>
-<a id="__codelineno-0-537" name="__codelineno-0-537"></a><span class="sd">    print(len(constraints_c))</span>
-<a id="__codelineno-0-538" name="__codelineno-0-538"></a><span class="sd">    print(constraints_c[0])</span>
-<a id="__codelineno-0-539" name="__codelineno-0-539"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-528" name="__codelineno-0-528"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-529" name="__codelineno-0-529"></a><span class="sd">        import cvxpy</span>
+<a id="__codelineno-0-530" name="__codelineno-0-530"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-531" name="__codelineno-0-531"></a><span class="sd">        from toqito.state_opt.npa_hierarchy import bell_npa_constraints</span>
+<a id="__codelineno-0-532" name="__codelineno-0-532"></a><span class="sd">        desc_cglmp = [3, 3, 2, 2]</span>
+<a id="__codelineno-0-533" name="__codelineno-0-533"></a><span class="sd">        oa_c, ob_c, ma_c, mb_c = desc_cglmp</span>
+<a id="__codelineno-0-534" name="__codelineno-0-534"></a><span class="sd">        p_var_dim_c = ((oa_c - 1) * ma_c + 1, (ob_c - 1) * mb_c + 1)</span>
+<a id="__codelineno-0-535" name="__codelineno-0-535"></a><span class="sd">        p_var_c = cvxpy.Variable(p_var_dim_c, name=&quot;p_cglmp&quot;)</span>
+<a id="__codelineno-0-536" name="__codelineno-0-536"></a><span class="sd">        constraints_c = bell_npa_constraints(p_var_c, desc_cglmp, k=1)</span>
+<a id="__codelineno-0-537" name="__codelineno-0-537"></a><span class="sd">        print(len(constraints_c))</span>
+<a id="__codelineno-0-538" name="__codelineno-0-538"></a><span class="sd">        print(constraints_c[0])</span>
+<a id="__codelineno-0-539" name="__codelineno-0-539"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-540" name="__codelineno-0-540"></a>
 <a id="__codelineno-0-541" name="__codelineno-0-541"></a>
 <a id="__codelineno-0-542" name="__codelineno-0-542"></a><span class="sd">    Raises:</span>
@@ -9797,8 +9799,8 @@ Gamma + Promote(-0.0, (9, 9)) &gt;&gt; 0</p>
 <a id="__codelineno-0-544" name="__codelineno-0-544"></a>
 <a id="__codelineno-0-545" name="__codelineno-0-545"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-546" name="__codelineno-0-546"></a><span class="sd">        p_var: A CVXPY Variable representing probabilities/correlations in Collins-Gisin notation.</span>
-<a id="__codelineno-0-547" name="__codelineno-0-547"></a><span class="sd">                  Shape: :math:`((oa-1) \times ma+1, (ob-1) \times mb+1)`.</span>
-<a id="__codelineno-0-548" name="__codelineno-0-548"></a><span class="sd">        desc: A list [:math:`oa`, :math:`ob`, :math:`ma`, :math:`mb`]</span>
+<a id="__codelineno-0-547" name="__codelineno-0-547"></a><span class="sd">                  Shape: \(((oa-1) \times ma+1, (ob-1) \times mb+1)\).</span>
+<a id="__codelineno-0-548" name="__codelineno-0-548"></a><span class="sd">        desc: A list [\(oa\), \(ob\), \(ma\), \(mb\)]</span>
 <a id="__codelineno-0-549" name="__codelineno-0-549"></a><span class="sd">                    specifying outputs and inputs for Alice and Bob.</span>
 <a id="__codelineno-0-550" name="__codelineno-0-550"></a><span class="sd">        k: The level of the NPA hierarchy (integer or string like &quot;1+ab&quot;). Default is 1.</span>
 <a id="__codelineno-0-551" name="__codelineno-0-551"></a>

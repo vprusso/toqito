@@ -8954,16 +8954,18 @@ For example, when <span class="arithmatex">\(q = 2\)</span>,</p>
 <p>If <code>prob</code> is a scalar, it generates a random <code>prob</code>-qubit Pauli channel.
 The length of the probability vector (if provided) must be <span class="arithmatex">\(4^q\)</span> for some
 integer <span class="arithmatex">\(q\)</span> (number of qubits).</p>
-<p>Examples:
-Generate a random single-qubit Pauli channel:</p>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Generate a random single-qubit Pauli channel:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.channels</span><span class="w"> </span><span class="kn">import</span> <span class="n">pauli_channel</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">pauli_channel</span><span class="p">(</span><span class="n">prob</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 </code></pre></div>
-<p>[[ 0.72754684+0.j  0.        +0.j  0.        +0.j  0.14926331+0.j]
- [ 0.        +0.j  0.27245316+0.j -0.07243549+0.j  0.        +0.j]
- [ 0.        +0.j -0.07243549+0.j  0.27245316+0.j  0.        +0.j]
- [ 0.14926331+0.j  0.        +0.j  0.        +0.j  0.72754684+0.j]]</p>
+<p>[[ 0.89384967+0.j  0.        +0.j  0.        +0.j -0.31487185+0.j]
+ [ 0.        +0.j  0.10615033+0.j -0.07168344+0.j  0.        +0.j]
+ [ 0.        +0.j -0.07168344+0.j  0.10615033+0.j  0.        +0.j]
+ [-0.31487185+0.j  0.        +0.j  0.        +0.j  0.89384967+0.j]]</p>
 <p>Apply a specific two-qubit Pauli channel to an input matrix:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.channels</span><span class="w"> </span><span class="kn">import</span> <span class="n">pauli_channel</span>
@@ -9171,25 +9173,25 @@ Generate a random single-qubit Pauli channel:</p>
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">    integer \(q\) (number of qubits).</span>
 <a id="__codelineno-0-35" name="__codelineno-0-35"></a>
 <a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    Generate a random single-qubit Pauli channel:</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        Generate a random single-qubit Pauli channel:</span>
 <a id="__codelineno-0-38" name="__codelineno-0-38"></a>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">    from toqito.channels import pauli_channel</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        from toqito.channels import pauli_channel</span>
 <a id="__codelineno-0-41" name="__codelineno-0-41"></a>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">    print(pauli_channel(prob=1))</span>
-<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        print(pauli_channel(prob=1))</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-44" name="__codelineno-0-44"></a>
-<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">    Apply a specific two-qubit Pauli channel to an input matrix:</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        Apply a specific two-qubit Pauli channel to an input matrix:</span>
 <a id="__codelineno-0-46" name="__codelineno-0-46"></a>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">    from toqito.channels import pauli_channel</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        from toqito.channels import pauli_channel</span>
 <a id="__codelineno-0-50" name="__codelineno-0-50"></a>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">    _, output = pauli_channel(</span>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        prob=np.array([0.1, 0.2, 0.3, 0.4]), input_mat=np.eye(2)</span>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">    )</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">    print(output)</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        _, output = pauli_channel(</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">            prob=np.array([0.1, 0.2, 0.3, 0.4]), input_mat=np.eye(2)</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        )</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        print(output)</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-56" name="__codelineno-0-56"></a>
 <a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">    Raises:</span>
 <a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        ValueError: If probabilities are negative or don&#39;t sum to 1.</span>

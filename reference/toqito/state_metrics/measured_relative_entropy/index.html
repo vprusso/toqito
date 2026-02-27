@@ -8987,8 +8987,10 @@ program up to an additive error <span class="arithmatex">\(\varepsilon\)</span>,
 <p>and, for all <span class="arithmatex">\(j \in \{1, \dots, m\}\)</span>, <span class="arithmatex">\(w_j\)</span> and <span class="arithmatex">\(t_j\)</span>
 are the weights and nodes, respectively, for the <span class="arithmatex">\(m\)</span>-point Gauss--Legendre quadrature
 on the interval <span class="arithmatex">\([0, 1]\)</span>.</p>
-<p>Examples:
-Consider the following quantum state <span class="arithmatex">\(\rho = \frac{1}{2}(I + r \cdot \mathbf{\sigma})\)</span>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Consider the following quantum state <span class="arithmatex">\(\rho = \frac{1}{2}(I + r \cdot \mathbf{\sigma})\)</span>
 and the PSD operator <span class="arithmatex">\(\sigma = \frac{1}{2}(I + s \cdot \mathbf{\sigma})\)</span>, where
 <span class="arithmatex">\(r = (0.9, 0.05, -0.02)\)</span>, <span class="arithmatex">\(s = (-0.8, 0.1, 0.1)\)</span>, and <span class="arithmatex">\(\mathbf{\sigma} =
 (\sigma_x, \sigma_y, \sigma_z)\)</span> are the Pauli operators.</p>
@@ -9252,24 +9254,24 @@ and the PSD operator <span class="arithmatex">\(\sigma = \frac{1}{2}(I + s \cdot
 <a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">    on the interval \([0, 1]\).</span>
 <a id="__codelineno-0-69" name="__codelineno-0-69"></a>
 <a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">    Consider the following quantum state \(\rho = \frac{1}{2}(I + r \cdot \mathbf{\sigma})\)</span>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">    and the PSD operator \(\sigma = \frac{1}{2}(I + s \cdot \mathbf{\sigma})\), where</span>
-<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">    \(r = (0.9, 0.05, -0.02)\), \(s = (-0.8, 0.1, 0.1)\), and \(\mathbf{\sigma} =</span>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">    (\sigma_x, \sigma_y, \sigma_z)\) are the Pauli operators.</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">        Consider the following quantum state \(\rho = \frac{1}{2}(I + r \cdot \mathbf{\sigma})\)</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">        and the PSD operator \(\sigma = \frac{1}{2}(I + s \cdot \mathbf{\sigma})\), where</span>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">        \(r = (0.9, 0.05, -0.02)\), \(s = (-0.8, 0.1, 0.1)\), and \(\mathbf{\sigma} =</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">        (\sigma_x, \sigma_y, \sigma_z)\) are the Pauli operators.</span>
 <a id="__codelineno-0-75" name="__codelineno-0-75"></a>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">    Calculating the measured relative entropy can be done as follows.</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">        Calculating the measured relative entropy can be done as follows.</span>
 <a id="__codelineno-0-77" name="__codelineno-0-77"></a>
-<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">    from toqito.matrices import pauli</span>
-<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">    from toqito.state_metrics import measured_relative_entropy</span>
-<a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">        from toqito.matrices import pauli</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">        from toqito.state_metrics import measured_relative_entropy</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">        import numpy as np</span>
 <a id="__codelineno-0-82" name="__codelineno-0-82"></a>
-<a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="sd">    r = np.array([0.9, 0.05, -0.02])</span>
-<a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">    s = np.array([-0.8, 0.1, 0.1])</span>
-<a id="__codelineno-0-85" name="__codelineno-0-85"></a><span class="sd">    rho = 0.5 * (pauli(&quot;I&quot;) + r[0] * pauli(&quot;X&quot;) + r[1] * pauli(&quot;Y&quot;) + r[2] * pauli(&quot;Z&quot;))</span>
-<a id="__codelineno-0-86" name="__codelineno-0-86"></a><span class="sd">    sigma = 0.5 * (pauli(&quot;I&quot;) + s[0] * pauli(&quot;X&quot;) + s[1] * pauli(&quot;Y&quot;) + s[2] * pauli(&quot;Z&quot;))</span>
-<a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">    print(measured_relative_entropy(rho, sigma, 1e-5))</span>
-<a id="__codelineno-0-88" name="__codelineno-0-88"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="sd">        r = np.array([0.9, 0.05, -0.02])</span>
+<a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">        s = np.array([-0.8, 0.1, 0.1])</span>
+<a id="__codelineno-0-85" name="__codelineno-0-85"></a><span class="sd">        rho = 0.5 * (pauli(&quot;I&quot;) + r[0] * pauli(&quot;X&quot;) + r[1] * pauli(&quot;Y&quot;) + r[2] * pauli(&quot;Z&quot;))</span>
+<a id="__codelineno-0-86" name="__codelineno-0-86"></a><span class="sd">        sigma = 0.5 * (pauli(&quot;I&quot;) + s[0] * pauli(&quot;X&quot;) + s[1] * pauli(&quot;Y&quot;) + s[2] * pauli(&quot;Z&quot;))</span>
+<a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">        print(measured_relative_entropy(rho, sigma, 1e-5))</span>
+<a id="__codelineno-0-88" name="__codelineno-0-88"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-89" name="__codelineno-0-89"></a>
 <a id="__codelineno-0-90" name="__codelineno-0-90"></a><span class="sd">    Raises:</span>
 <a id="__codelineno-0-91" name="__codelineno-0-91"></a><span class="sd">        ValueError: If `rho` if not a density operator or if `sigma` is not positive semi-definite.</span>

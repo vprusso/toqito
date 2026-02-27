@@ -8947,8 +8947,10 @@
 which <span class="arithmatex">\(\rho\)</span> acts are of equal dimension (if the local dimensions are unequal, specify
 them in the optional <code>dim</code> argument). The negativity of <span class="arithmatex">\(\rho\)</span> is the sum of the
 absolute value of the negative eigenvalues of the partial transpose of <span class="arithmatex">\(\rho\)</span>.</p>
-<p>Examples:
-Example of the negativity of density matrix of Bell state.</p>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Example of the negativity of density matrix of Bell state.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">bell</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">negativity</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">rho</span> <span class="o">=</span> <span class="n">bell</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">@</span> <span class="n">bell</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
@@ -9096,17 +9098,17 @@ Example of the negativity of density matrix of Bell state.</p>
 <a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    absolute value of the negative eigenvalues of the partial transpose of \(\rho\).</span>
 <a id="__codelineno-0-22" name="__codelineno-0-22"></a>
 <a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    Example of the negativity of density matrix of Bell state.</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">        Example of the negativity of density matrix of Bell state.</span>
 <a id="__codelineno-0-25" name="__codelineno-0-25"></a>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">    from toqito.states import bell</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    from toqito.state_props import negativity</span>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">    rho = bell(0) @ bell(0).conj().T</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    print(negativity(rho))</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        from toqito.states import bell</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">        from toqito.state_props import negativity</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        rho = bell(0) @ bell(0).conj().T</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        print(negativity(rho))</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-32" name="__codelineno-0-32"></a>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">    !!!See Also</span>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        [log_negativity()][toqito.state_props.log_negativity.log_negativity]</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        !!!See Also</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">            [log_negativity()][toqito.state_props.log_negativity.log_negativity]</span>
 <a id="__codelineno-0-35" name="__codelineno-0-35"></a>
 <a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    Raises:</span>
 <a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        ValueError: If dimension of matrix is invalid.</span>

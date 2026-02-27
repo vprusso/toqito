@@ -8941,13 +8941,15 @@
         <p>Generate a real random orthonormal basis of given dimension <span class="arithmatex">\(d\)</span>.</p>
 <p>The basis is generated from the columns of a random unitary matrix of the same dimension
 as the columns of a unitary matrix typically form an orthonormal basis <sup><a id="cite-toqito-rand-random_orthonormal_basis-random_orthonormal_basis-1" href="#ref-toqito-rand-random_orthonormal_basis-random_orthonormal_basis-1">1</a></sup>.</p>
-<p>Examples:
-To generate a random orthonormal basis of dimension <span class="arithmatex">\(4\)</span>,</p>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>To generate a random orthonormal basis of dimension <span class="arithmatex">\(4\)</span>,</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.rand</span><span class="w"> </span><span class="kn">import</span> <span class="n">random_orthonormal_basis</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">random_orthonormal_basis</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="n">is_real</span> <span class="o">=</span> <span class="kc">True</span><span class="p">))</span>
 </code></pre></div>
-<p>[array([-0.47436995, -0.8654046 ,  0.08709647, -0.13587581]), array([-0.16899729, -0.01949654,  0.3328219 ,  0.92751786]), array([-0.61671566,  0.23977138, -0.73340651,  0.15584086]), array([-0.6050412 ,  0.43955029,  0.58630937, -0.31138723])]</p>
+<p>[array([-0.34242508,  0.40822942,  0.24009755,  0.81144745]), array([-0.44078   ,  0.65530561,  0.20777875, -0.57716162]), array([-0.37945662, -0.56547838,  0.72665617, -0.09065148]), array([-0.7378826 , -0.29009911, -0.60922243,  0.01482572])]</p>
 <p>It is also possible to add a seed for reproducibility.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.rand</span><span class="w"> </span><span class="kn">import</span> <span class="n">random_orthonormal_basis</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
@@ -9030,21 +9032,21 @@ To generate a random orthonormal basis of dimension <span class="arithmatex">\(4
 <a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="sd">    as the columns of a unitary matrix typically form an orthonormal basis [@SE_1688950].</span>
 <a id="__codelineno-0-13" name="__codelineno-0-13"></a>
 <a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">    To generate a random orthonormal basis of dimension \(4\),</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">        To generate a random orthonormal basis of dimension \(4\),</span>
 <a id="__codelineno-0-16" name="__codelineno-0-16"></a>
-<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">    from toqito.rand import random_orthonormal_basis</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">        from toqito.rand import random_orthonormal_basis</span>
 <a id="__codelineno-0-19" name="__codelineno-0-19"></a>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    print(random_orthonormal_basis(4, is_real = True))</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">        print(random_orthonormal_basis(4, is_real = True))</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-22" name="__codelineno-0-22"></a>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">    It is also possible to add a seed for reproducibility.</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        It is also possible to add a seed for reproducibility.</span>
 <a id="__codelineno-0-24" name="__codelineno-0-24"></a>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">    from toqito.rand import random_orthonormal_basis</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">        from toqito.rand import random_orthonormal_basis</span>
 <a id="__codelineno-0-27" name="__codelineno-0-27"></a>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    print(random_orthonormal_basis(2, is_real=True, seed=42))</span>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">        print(random_orthonormal_basis(2, is_real=True, seed=42))</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-30" name="__codelineno-0-30"></a>
 <a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        dim: Number of elements in the random orthonormal basis.</span>

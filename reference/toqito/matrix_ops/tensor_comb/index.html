@@ -8944,8 +8944,10 @@ from a given list of quantum states, and computing the tensor product for each s
 <p>Given <code>n</code> quantum states, this function generates <span class="arithmatex">\(n^k\)</span> combinations of sequences of length <code>k</code>, computes
 the tensor product for each sequence, and converts each tensor product to its corresponding density matrix.</p>
 <p>For one definition and usage of a quantum sequence, refer to <sup><a id="cite-toqito-matrix_ops-tensor_comb-tensor_comb-1" href="#ref-toqito-matrix_ops-tensor_comb-tensor_comb-1">1</a></sup>.</p>
-<p>Examples:
-Consider the following basis vectors for a 2-dimensional quantum system.</p>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Consider the following basis vectors for a 2-dimensional quantum system.</p>
 <div class="arithmatex">\[
     e_0 = \left[1, 0 \right]^{\text{T}}, e_1 = \left[0, 1 \right]^{\text{T}}.
 \]</div>
@@ -9158,26 +9160,26 @@ Consider the following basis vectors for a 2-dimensional quantum system.</p>
 <a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    For one definition and usage of a quantum sequence, refer to [@Gupta_2024_Optimal].</span>
 <a id="__codelineno-0-25" name="__codelineno-0-25"></a>
 <a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">    Consider the following basis vectors for a 2-dimensional quantum system.</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        Consider the following basis vectors for a 2-dimensional quantum system.</span>
 <a id="__codelineno-0-28" name="__codelineno-0-28"></a>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        e_0 = \left[1, 0 \right]^{\text{T}}, e_1 = \left[0, 1 \right]^{\text{T}}.</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">            e_0 = \left[1, 0 \right]^{\text{T}}, e_1 = \left[0, 1 \right]^{\text{T}}.</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-32" name="__codelineno-0-32"></a>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">    We can generate all possible tensor products for sequences of length 2.</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        We can generate all possible tensor products for sequences of length 2.</span>
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    from toqito.matrix_ops import tensor_comb</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    import numpy as np</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        from toqito.matrix_ops import tensor_comb</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        import numpy as np</span>
 <a id="__codelineno-0-38" name="__codelineno-0-38"></a>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">    e_0 = np.array([1, 0])</span>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">    e_1 = np.array([0, 1])</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        e_0 = np.array([1, 0])</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        e_1 = np.array([0, 1])</span>
 <a id="__codelineno-0-41" name="__codelineno-0-41"></a>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">    result = tensor_comb([e_0, e_1], 2, mode=&quot;injective&quot;, density_matrix=True)</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        result = tensor_comb([e_0, e_1], 2, mode=&quot;injective&quot;, density_matrix=True)</span>
 <a id="__codelineno-0-43" name="__codelineno-0-43"></a>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">    for key, mat in result.items():</span>
-<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        print(f&quot;tensor_comb{key} =\n{mat}\n&quot;)</span>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        for key, mat in result.items():</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">            print(f&quot;tensor_comb{key} =\n{mat}\n&quot;)</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-47" name="__codelineno-0-47"></a>
 <a id="__codelineno-0-48" name="__codelineno-0-48"></a>
 <a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">    Raises:</span>

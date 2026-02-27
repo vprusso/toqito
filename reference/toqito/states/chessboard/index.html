@@ -8944,8 +8944,10 @@ chess piece.</p>
 <p>Generates the chessboard state defined in <sup><a id="cite-toqito-states-chessboard-chessboard-1" href="#ref-toqito-states-chessboard-chessboard-1">1</a></sup>. Note that, for certain choices of
 <code>s_param</code> and <code>t_param</code>, this state will not have positive partial transpose, and
 thus may not be bound entangled.</p>
-<p>Examples:
-The standard chessboard state can be invoked using <code>|toqito⟩</code> as</p>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>The standard chessboard state can be invoked using <code>|toqito⟩</code> as</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">chessboard</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">chessboard</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
 </code></pre></div>
@@ -9051,12 +9053,12 @@ The standard chessboard state can be invoked using <code>|toqito⟩</code> as</p
 <a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">    thus may not be bound entangled.</span>
 <a id="__codelineno-0-16" name="__codelineno-0-16"></a>
 <a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">    The standard chessboard state can be invoked using `|toqito⟩` as</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">        The standard chessboard state can be invoked using `|toqito⟩` as</span>
 <a id="__codelineno-0-19" name="__codelineno-0-19"></a>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    from toqito.states import chessboard</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">    print(chessboard([1, 2, 3, 4, 5, 6], 7, 8))</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">        from toqito.states import chessboard</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">        print(chessboard([1, 2, 3, 4, 5, 6], 7, 8))</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-24" name="__codelineno-0-24"></a>
 <a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">        mat_params: Parameters of the chessboard state as defined in [@Bruß_2000_Construction].</span>

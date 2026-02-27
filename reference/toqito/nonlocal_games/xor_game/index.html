@@ -9050,8 +9050,10 @@ from <sup><a id="cite-toqito-nonlocal_games-xor_game-XORGame-1" href="#ref-toqit
 <p>A tutorial is available in the documentation. Go to
 [Calculating the quantum and classical value of a two-player XOR game]
 (../../../generated/gallery/nonlocal_games/xor_quantum_val.md).</p>
-<p>Examples:
-The CHSH game</p>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>The CHSH game</p>
 <p>The CHSH game is a two-player nonlocal game with the following probability
 distribution and question and answer sets <sup><a id="cite-toqito-nonlocal_games-xor_game-XORGame-2" href="#ref-toqito-nonlocal_games-xor_game-XORGame-2">2</a></sup>.</p>
 <div class="arithmatex">\[
@@ -9137,7 +9139,7 @@ Classical value of the odd cycle game is 0.9</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Nonsignaling value of the odd cycle game is </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">odd_cycle</span><span class="o">.</span><span class="n">nonsignaling_value</span><span class="p">(),</span><span class="w"> </span><span class="n">decimals</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
 <p>Nonsignaling value of the odd cycle game is 1.0</p>
-<p><strong>References</strong></p>
+        <p><strong>References</strong></p>
 <p><span id="ref-toqito-nonlocal_games-xor_game-XORGame-1"><sup><a href="#cite-toqito-nonlocal_games-xor_game-XORGame-1">1</a></sup> Cleve, Richard and Hoyer, Peter and Toner, Ben and Watrous, John. <em>Consequences and Limits of Nonlocal Strategies</em>. (2010).</span><br>
 <span id="ref-toqito-nonlocal_games-xor_game-XORGame-2"><sup><a href="#cite-toqito-nonlocal_games-xor_game-XORGame-2">2</a></sup> Cleve, Richard and Slofstra, William and Unger, Falk and Upadhyay, Sarvagya. <em>Strong Parallel Repetition Theorem for Quantum XOR Proof Systems</em>. (2008).</span></p>
 
@@ -9358,9 +9360,19 @@ notes: Lecture 6 of <sup><a id="cite-toqito-nonlocal_games-xor_game-XORGame-quan
 D(x,y) = \pi(x, y) (-1)^{f(x,y)}
 \]</div>
 <p>In other words, <span class="arithmatex">\(\pi(x, y)\)</span> corresponds to <code>prob_mat[x, y]</code>, and <span class="arithmatex">\(f(x,y)\)</span> corresponds to <code>pred_mat[x, y]</code>.</p>
-<p>Returns:
-A value between [0, 1] representing the quantum value.</p>
-<p><strong>References</strong></p>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="float">float</span></code>
+          –
+          <div class="doc-md-description">
+            <p>A value between [0, 1] representing the quantum value.</p>
+          </div>
+        </li>
+    </ul>
+        <p><strong>References</strong></p>
 <p><span id="ref-toqito-nonlocal_games-xor_game-XORGame-quantum_value-1"><sup><a href="#cite-toqito-nonlocal_games-xor_game-XORGame-quantum_value-1">1</a></sup> Watrous, John. <em>Theory of Quantum Information Lecture Notes</em>. (2011). <a href="https://cs.uwaterloo.ca/~watrous/TQI-notes/">link</a>.</span></p>
 
 
@@ -9466,7 +9478,7 @@ A value between [0, 1] representing the quantum value.</p>
 <a id="__codelineno-0-213" name="__codelineno-0-213"></a><span class="sd">    In other words, \(\pi(x, y)\) corresponds to `prob_mat[x, y]`, and \(f(x,y)\) corresponds to `pred_mat[x, y]`.</span>
 <a id="__codelineno-0-214" name="__codelineno-0-214"></a>
 <a id="__codelineno-0-215" name="__codelineno-0-215"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-216" name="__codelineno-0-216"></a><span class="sd">    A value between [0, 1] representing the quantum value.</span>
+<a id="__codelineno-0-216" name="__codelineno-0-216"></a><span class="sd">        A value between [0, 1] representing the quantum value.</span>
 <a id="__codelineno-0-217" name="__codelineno-0-217"></a>
 <a id="__codelineno-0-218" name="__codelineno-0-218"></a><span class="sd">    &quot;&quot;&quot;</span>
 <a id="__codelineno-0-219" name="__codelineno-0-219"></a>    <span class="n">alice_in</span><span class="p">,</span> <span class="n">bob_in</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">prob_mat</span><span class="o">.</span><span class="n">shape</span>

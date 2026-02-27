@@ -8951,8 +8951,10 @@ The isotropic state has the following form</p>
 \]</div>
 <p>where <span class="arithmatex">\(|\psi_+ \rangle = \frac{1}{\sqrt{d}} \sum_j |j \rangle \otimes |j \rangle\)</span> is the maximally entangled
 state.</p>
-<p>Examples:
-To generate the isotropic state with parameter <span class="arithmatex">\(\alpha=1/2\)</span>, we can make the following call to
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>To generate the isotropic state with parameter <span class="arithmatex">\(\alpha=1/2\)</span>, we can make the following call to
 <code>|toqito⟩</code> as</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">isotropic</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">isotropic</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
@@ -9058,13 +9060,13 @@ To generate the isotropic state with parameter <span class="arithmatex">\(\alpha
 <a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">    state.</span>
 <a id="__codelineno-0-27" name="__codelineno-0-27"></a>
 <a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">    To generate the isotropic state with parameter \(\alpha=1/2\), we can make the following call to</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    `|toqito⟩` as</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        To generate the isotropic state with parameter \(\alpha=1/2\), we can make the following call to</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        `|toqito⟩` as</span>
 <a id="__codelineno-0-31" name="__codelineno-0-31"></a>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">    from toqito.states import isotropic</span>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">    print(isotropic(3, 1 / 2))</span>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        from toqito.states import isotropic</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        print(isotropic(3, 1 / 2))</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-36" name="__codelineno-0-36"></a>
 <a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        dim: The local dimension.</span>

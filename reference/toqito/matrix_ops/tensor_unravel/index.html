@@ -8958,14 +8958,16 @@ single unique entry that marks the satisfying assignment.</p>
 </ul>
 <p>The tensor-form constraint representation is commonly used in implementations of
 binary constraint system (BCS) games. For background on BCS games, refer to <sup><a id="cite-toqito-matrix_ops-tensor_unravel-tensor_unravel-4" href="#ref-toqito-matrix_ops-tensor_unravel-tensor_unravel-4">4</a></sup>.</p>
-<p>Examples:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_ops</span><span class="w"> </span><span class="kn">import</span> <span class="n">tensor_unravel</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">tensor_constraint</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">tensor_unravel</span><span class="p">(</span><span class="n">tensor_constraint</span><span class="p">))</span>
 </code></pre></div>
-<p>[1 1 1]</p></p>
+<p>[1 1 1]</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -9086,13 +9088,13 @@ binary constraint system (BCS) games. For background on BCS games, refer to <sup
 <a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    binary constraint system (BCS) games. For background on BCS games, refer to [@Cleve_2014_Characterization].</span>
 <a id="__codelineno-0-29" name="__codelineno-0-29"></a>
 <a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">    from toqito.matrix_ops import tensor_unravel</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        from toqito.matrix_ops import tensor_unravel</span>
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">    tensor_constraint = np.array([[-1, -1], [-1, 1]])</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    print(tensor_unravel(tensor_constraint))</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        tensor_constraint = np.array([[-1, -1], [-1, 1]])</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        print(tensor_unravel(tensor_constraint))</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-38" name="__codelineno-0-38"></a>
 <a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        constraint_tensor: An n-dimensional tensor with shape `(2,)*n`, where each element is either -1 or +1.</span>

@@ -8941,8 +8941,10 @@
         <p>Check whether a collection of vectors are (perfectly) distinguishable or not.</p>
 <p>The ability to determine whether a set of quantum states are distinguishable can be obtained via the state
 distinguishability SDP as defined in <code>state_distinguishability</code></p>
-<p>Examples:
-The set of Bell states are an example of distinguishable states. Recall that the Bell states are defined as:</p>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>The set of Bell states are an example of distinguishable states. Recall that the Bell states are defined as:</p>
 <div class="arithmatex">\[
 \begin{aligned}
 u_1 &amp;= \frac{1}{\sqrt{2}} \left(|00\rangle + |11\rangle\right), \quad
@@ -9042,25 +9044,25 @@ u_4 = \frac{1}{\sqrt{2}} \left(|01\rangle - |10\rangle\right).
 <a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">    distinguishability SDP as defined in `state_distinguishability`</span>
 <a id="__codelineno-0-16" name="__codelineno-0-16"></a>
 <a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">    The set of Bell states are an example of distinguishable states. Recall that the Bell states are defined as:</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">        The set of Bell states are an example of distinguishable states. Recall that the Bell states are defined as:</span>
 <a id="__codelineno-0-19" name="__codelineno-0-19"></a>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    \begin{aligned}</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">    u_1 &amp;= \frac{1}{\sqrt{2}} \left(|00\rangle + |11\rangle\right), \quad</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">    u_2 = \frac{1}{\sqrt{2}} \left(|00\rangle - |11\rangle\right), \\</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    u_3 &amp;= \frac{1}{\sqrt{2}} \left(|01\rangle + |10\rangle\right), \quad</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">    u_4 = \frac{1}{\sqrt{2}} \left(|01\rangle - |10\rangle\right).</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">    \end{aligned}</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">        \begin{aligned}</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">        u_1 &amp;= \frac{1}{\sqrt{2}} \left(|00\rangle + |11\rangle\right), \quad</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        u_2 = \frac{1}{\sqrt{2}} \left(|00\rangle - |11\rangle\right), \\</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">        u_3 &amp;= \frac{1}{\sqrt{2}} \left(|01\rangle + |10\rangle\right), \quad</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        u_4 = \frac{1}{\sqrt{2}} \left(|01\rangle - |10\rangle\right).</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">        \end{aligned}</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-28" name="__codelineno-0-28"></a>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">    It can be checked in `toqito` that the Bell states are distinguishable:</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        It can be checked in `toqito` that the Bell states are distinguishable:</span>
 <a id="__codelineno-0-30" name="__codelineno-0-30"></a>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">    from toqito.states import bell</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">    from toqito.state_props import is_distinguishable</span>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">    bell_states = [bell(0), bell(1), bell(2), bell(3)]</span>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">    print(is_distinguishable(bell_states))</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        from toqito.states import bell</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        from toqito.state_props import is_distinguishable</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        bell_states = [bell(0), bell(1), bell(2), bell(3)]</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        print(is_distinguishable(bell_states))</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-37" name="__codelineno-0-37"></a>
 <a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        states: A set of vectors consisting of quantum states to determine the distinguishability of.</span>

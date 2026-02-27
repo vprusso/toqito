@@ -8945,8 +8945,10 @@
 \]</div>
 <p>where <span class="arithmatex">\(|B\rangle = \text{vec}(B)\)</span> and <span class="arithmatex">\(\langle A|\)</span> is the dual vector to <span class="arithmatex">\(|A \rangle\)</span>.</p>
 <p>Note: This function has been adapted from <sup><a id="cite-toqito-state_metrics-hilbert_schmidt_inner_product-hilbert_schmidt_inner_product-2" href="#ref-toqito-state_metrics-hilbert_schmidt_inner_product-hilbert_schmidt_inner_product-2">2</a></sup>.</p>
-<p>Examples:
-One may consider taking the Hilbert-Schmidt distance between two Hadamard matrices.</p>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>One may consider taking the Hilbert-Schmidt distance between two Hadamard matrices.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrices</span><span class="w"> </span><span class="kn">import</span> <span class="n">hadamard</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">hilbert_schmidt_inner_product</span>
@@ -9044,17 +9046,17 @@ One may consider taking the Hilbert-Schmidt distance between two Hadamard matric
 <a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">    Note: This function has been adapted from [@Rigetti_2022_Forest].</span>
 <a id="__codelineno-0-18" name="__codelineno-0-18"></a>
 <a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    One may consider taking the Hilbert-Schmidt distance between two Hadamard matrices.</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">        One may consider taking the Hilbert-Schmidt distance between two Hadamard matrices.</span>
 <a id="__codelineno-0-21" name="__codelineno-0-21"></a>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    from toqito.matrices import hadamard</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">    from toqito.state_metrics import hilbert_schmidt_inner_product</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">        from toqito.matrices import hadamard</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        from toqito.state_metrics import hilbert_schmidt_inner_product</span>
 <a id="__codelineno-0-26" name="__codelineno-0-26"></a>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">    h = hadamard(1)</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        h = hadamard(1)</span>
 <a id="__codelineno-0-28" name="__codelineno-0-28"></a>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">    print(np.around(hilbert_schmidt_inner_product(h, h), decimals=2))</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        print(np.around(hilbert_schmidt_inner_product(h, h), decimals=2))</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-31" name="__codelineno-0-31"></a>
 <a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        a_mat: An input matrix provided as a numpy array.</span>

@@ -8952,8 +8952,10 @@ reduced Gram-matrix SDP</p>
 \]</div>
 <p>with constraint <span class="arithmatex">\(\sum_S W_S = G\)</span> (Gram matrix) and <span class="arithmatex">\(W_S \succeq 0\)</span>
 is also solved as a consistency check.</p>
-<p>Examples:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">learnability</span>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">learnability</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">basis</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">e0</span><span class="p">,</span> <span class="n">e1</span> <span class="o">=</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">basis</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -8968,7 +8970,7 @@ is also solved as a consistency check.</p>
        [ 0.00000000e+00+0.j, -1.14957476e-06+0.j]]), (1,): array([[-1.14957475e-06+0.j,  0.00000000e+00+0.j],
        [ 0.00000000e+00+0.j,  1.00000115e+00+0.j]])}, 'reduced_operators': {(0,): array([[ 1.00000115e+00+0.j,  0.00000000e+00+0.j],
        [ 0.00000000e+00+0.j, -1.14957476e-06+0.j]]), (1,): array([[-1.14957475e-06+0.j,  0.00000000e+00+0.j],
-       [ 0.00000000e+00+0.j,  1.00000115e+00+0.j]])}, 'total_value': -2.2991495080613626e-06, 'reduced_total_value': -2.2991495080613626e-06}</p></p>
+       [ 0.00000000e+00+0.j,  1.00000115e+00+0.j]])}, 'total_value': -2.2991495080613626e-06, 'reduced_total_value': -2.2991495080613626e-06}</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -9223,18 +9225,18 @@ is also solved as a consistency check.</p>
 <a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">    is also solved as a consistency check.</span>
 <a id="__codelineno-0-45" name="__codelineno-0-45"></a>
 <a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">    from toqito.state_props import learnability</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">    from toqito.states import basis</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        from toqito.state_props import learnability</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        from toqito.states import basis</span>
 <a id="__codelineno-0-50" name="__codelineno-0-50"></a>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">    e0, e1 = basis(2, 0), basis(2, 1)</span>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">    print(learnability(</span>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        [e0, e1],</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        k=1,</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        solver=&quot;SCS&quot;,</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        solver_kwargs={&quot;eps&quot;: 1e-6, &quot;max_iters&quot;: 5_000},</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">    ))</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        e0, e1 = basis(2, 0), basis(2, 1)</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        print(learnability(</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">            [e0, e1],</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">            k=1,</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">            solver=&quot;SCS&quot;,</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">            solver_kwargs={&quot;eps&quot;: 1e-6, &quot;max_iters&quot;: 5_000},</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        ))</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-59" name="__codelineno-0-59"></a>
 <a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        states: Sequence of state vectors or density matrices acting on the same space.</span>

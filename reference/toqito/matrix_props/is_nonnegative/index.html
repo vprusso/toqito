@@ -8942,8 +8942,10 @@
 <p>When all the entries in the matrix are larger than or equal to zero the matrix of interest is a
 nonnegative matrix <sup><a id="cite-toqito-matrix_props-is_nonnegative-is_nonnegative-1" href="#ref-toqito-matrix_props-is_nonnegative-is_nonnegative-1">1</a></sup>.</p>
 <p>When a matrix is nonegative and positive semidefinite <sup><a id="cite-toqito-matrix_props-is_nonnegative-is_nonnegative-2" href="#ref-toqito-matrix_props-is_nonnegative-is_nonnegative-2">2</a></sup>, the matrix is doubly nonnegative.</p>
-<p>Examples:
-We expect an identity matrix to be nonnegative.</p>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>We expect an identity matrix to be nonnegative.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_nonnegative</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
@@ -9046,16 +9048,16 @@ False</p>
 <a id="__codelineno-0-15" name="__codelineno-0-15"></a>
 <a id="__codelineno-0-16" name="__codelineno-0-16"></a>
 <a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">    We expect an identity matrix to be nonnegative.</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">        We expect an identity matrix to be nonnegative.</span>
 <a id="__codelineno-0-19" name="__codelineno-0-19"></a>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">    from toqito.matrix_props import is_nonnegative</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">        from toqito.matrix_props import is_nonnegative</span>
 <a id="__codelineno-0-23" name="__codelineno-0-23"></a>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    print(is_nonnegative(np.eye(2)))</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">    print(is_nonnegative(np.eye(2), &quot;doubly&quot;))</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">    print(is_nonnegative(np.array([[1, -1], [1, 1]])))</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">        print(is_nonnegative(np.eye(2)))</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        print(is_nonnegative(np.eye(2), &quot;doubly&quot;))</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">        print(is_nonnegative(np.array([[1, -1], [1, 1]])))</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-28" name="__codelineno-0-28"></a>
 <a id="__codelineno-0-29" name="__codelineno-0-29"></a>
 <a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    Raises:</span>

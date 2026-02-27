@@ -8949,8 +8949,10 @@ defined as:</p>
 <p>It's also equal to the Euclidean norm of the vector of <span class="arithmatex">\(|v\rangle\)</span>'s
 k largest Schmidt coefficients.</p>
 <p>This function was adapted from QETLAB.</p>
-<p>Examples:
-The smallest possible value of the <span class="arithmatex">\(S(k)\)</span>-norm of a pure state is
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>The smallest possible value of the <span class="arithmatex">\(S(k)\)</span>-norm of a pure state is
 <span class="arithmatex">\(\sqrt{\frac{k}{n}}\)</span>, and is attained exactly by the "maximally entangled
 states".</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">max_entangled</span>
@@ -9095,18 +9097,18 @@ states".</p>
 <a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">    This function was adapted from QETLAB.</span>
 <a id="__codelineno-0-24" name="__codelineno-0-24"></a>
 <a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">    The smallest possible value of the \(S(k)\)-norm of a pure state is</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">    \(\sqrt{\frac{k}{n}}\), and is attained exactly by the &quot;maximally entangled</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    states&quot;.</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">        The smallest possible value of the \(S(k)\)-norm of a pure state is</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        \(\sqrt{\frac{k}{n}}\), and is attained exactly by the &quot;maximally entangled</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">        states&quot;.</span>
 <a id="__codelineno-0-29" name="__codelineno-0-29"></a>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">    from toqito.states import max_entangled</span>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">    from toqito.state_props import sk_vector_norm</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">    # Maximally entagled state.</span>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">    v = max_entangled(4)</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    print(sk_vector_norm(v))</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        from toqito.states import max_entangled</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        from toqito.state_props import sk_vector_norm</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        # Maximally entagled state.</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        v = max_entangled(4)</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        print(sk_vector_norm(v))</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-38" name="__codelineno-0-38"></a>
 <a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        rho: A vector.</span>

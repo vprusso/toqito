@@ -8943,14 +8943,16 @@
 <p>A <em>Ginibre random matrix</em> is a matrix with independent and identically distributed complex standard Gaussian
 entries.</p>
 <p>Ginibre random matrices are used in the construction of Wishart-random POVMs <sup><a id="cite-toqito-rand-random_ginibre-random_ginibre-2" href="#ref-toqito-rand-random_ginibre-random_ginibre-2">2</a></sup>.</p>
-<p>Examples:
-Generate a random <span class="arithmatex">\(2\)</span>-by-<span class="arithmatex">\(2\)</span> Ginibre random matrix.</p>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Generate a random <span class="arithmatex">\(2\)</span>-by-<span class="arithmatex">\(2\)</span> Ginibre random matrix.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.rand</span><span class="w"> </span><span class="kn">import</span> <span class="n">random_ginibre</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">random_ginibre</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 </code></pre></div>
-<p>[[ 0.34296675+0.02689261j -1.31108872+0.66338119j]
- [ 0.96624119-0.20251051j -1.70141533+1.04391625j]]</p>
+<p>[[ 1.23727066-1.3132271j   0.08110033-0.91703959j]
+ [ 0.45153128-0.5569619j  -0.24299824+1.58460959j]]</p>
 <p>It is also possible to pass a seed to this function for reproducibility.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.rand</span><span class="w"> </span><span class="kn">import</span> <span class="n">random_ginibre</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
@@ -9056,21 +9058,21 @@ Generate a random <span class="arithmatex">\(2\)</span>-by-<span class="arithmat
 <a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="sd">    Ginibre random matrices are used in the construction of Wishart-random POVMs [@Heinosaari_2020_Random].</span>
 <a id="__codelineno-0-15" name="__codelineno-0-15"></a>
 <a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">    Generate a random \(2\)-by-\(2\) Ginibre random matrix.</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">        Generate a random \(2\)-by-\(2\) Ginibre random matrix.</span>
 <a id="__codelineno-0-18" name="__codelineno-0-18"></a>
-<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    from toqito.rand import random_ginibre</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">        from toqito.rand import random_ginibre</span>
 <a id="__codelineno-0-21" name="__codelineno-0-21"></a>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">    print(random_ginibre(2, 2))</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">        print(random_ginibre(2, 2))</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-24" name="__codelineno-0-24"></a>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">    It is also possible to pass a seed to this function for reproducibility.</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        It is also possible to pass a seed to this function for reproducibility.</span>
 <a id="__codelineno-0-26" name="__codelineno-0-26"></a>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    from toqito.rand import random_ginibre</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">        from toqito.rand import random_ginibre</span>
 <a id="__codelineno-0-29" name="__codelineno-0-29"></a>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    print(random_ginibre(2, 2, seed=42))</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        print(random_ginibre(2, 2, seed=42))</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-32" name="__codelineno-0-32"></a>
 <a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        dim_n: The number of rows of the Ginibre random matrix.</span>

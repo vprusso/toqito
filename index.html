@@ -9075,12 +9075,15 @@
 
 
 <p align="center">
-  <img src="figures/logo.svg" width="60%" class="theme-logo">
-</p>
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/vprusso/toqito/raw/cfb62c4a5ce04b782f64229e7acd2b1c97f09801/docs/figures/logo-dark.svg" width="60%">
+   <img src="https://github.com/vprusso/toqito/raw/cfb62c4a5ce04b782f64229e7acd2b1c97f09801/docs/figures/logo.svg" width="60%">
+ </picture>
+ </p>
 
 <h1 id="toqito-theory-of-quantum-information-toolkit">|toqito⟩: Theory of Quantum Information Toolkit<a class="headerlink" href="#toqito-theory-of-quantum-information-toolkit" title="Permanent link">&para;</a></h1>
 <p><a href="https://github.com/vprusso/toqito/actions/workflows/build-test-actions.yml"><img alt="build status" src="https://github.com/vprusso/toqito/actions/workflows/build-test-actions.yml/badge.svg" /></a>
-<a href="https://toqito.readthedocs.io/en/latest/"><img alt="doc status" src="https://readthedocs.org/projects/toqito/badge/?version=latest" /></a>
+<a href="https://vprusso.github.io/toqito/"><img alt="doc status" src="https://img.shields.io/badge/docs-passing-brightgreen" /></a>
 <a href="https://codecov.io/gh/vprusso/toqito"><img alt="codecov" src="https://codecov.io/gh/vprusso/toqito/branch/master/graph/badge.svg" /></a>
 <a href="https://doi.org/10.5281/zenodo.4743211"><img alt="DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.4743211.svg" /></a>
 <a href="https://pepy.tech/project/toqito"><img alt="Downloads" src="https://static.pepy.tech/personalized-badge/toqito?style=platic&amp;period=total&amp;units=none&amp;left_color=black&amp;right_color=brightgreen&amp;left_text=Downloads" /></a>
@@ -9088,8 +9091,8 @@
 <p>The |toqito⟩ package is an open-source Python library for studying various
 objects in quantum information, namely, states, channels, and measurements.</p>
 <p align="center">
-  <a href="https://toqito.readthedocs.io/en/latest/">
-  <img width=30% src="https://img.shields.io/badge/documentation-blue?style=for-the-badge&logo=read%20the%20docs" alt="Documentation" />
+  <a href="https://vprusso.github.io/toqito/">
+  <img width=30% src="https://img.shields.io/badge/documentation-blue?style=for-the-badge&logo=material%20for%20mkdocs" alt="Documentation" />
   </a>
 </p>
 
@@ -9107,9 +9110,9 @@ information.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>pip<span class="w"> </span>install<span class="w"> </span>toqito
 </code></pre></div>
 <h2 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
-<p>For the full documentation, please consult: <a href="https://toqito.readthedocs.io/">Documentation</a> | <a href="https://toqito.readthedocs.io/en/latest/auto_examples/index.html">Examples</a></p>
+<p>For the full documentation, please consult: <a href="https://vprusso.github.io/toqito/">Documentation</a> | <a href="https://vprusso.github.io/toqito/generated/gallery/">Examples</a></p>
 <h3 id="example-nonlocal-games">Example: Nonlocal games<a class="headerlink" href="#example-nonlocal-games" title="Permanent link">&para;</a></h3>
-<p><a href="https://toqito.readthedocs.io/en/latest/auto_examples/nonlocal_games/index.html">Nonlocal games</a> are a mathematical framework
+<p><a href="https://vprusso.github.io/toqito/generated/gallery/03_nonlocal_games/">Nonlocal games</a> are a mathematical framework
 that abstractly models a physical system. The CHSH game is a subtype of nonlocal game referred to as an XOR game that
 characterizes the seminal <a href="https://en.wikipedia.org/wiki/CHSH_inequality">CHSH inequality</a>. </p>
 <p>For XOR games, there exist optimization problems (that are provided via |toqito⟩) that one can compute to attain the
@@ -9165,7 +9168,7 @@ operators), the optimal probability of distinguishing the four Bell states using
 <a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="n">ppt_res</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">ppt_distinguishability</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">subsystems</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">dimensions</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
 <a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Distinguishing four Bell states (PPT measurements): </span><span class="si">{</span><span class="n">ppt_res</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </code></pre></div>
-<p>Consult the <a href="https://toqito.readthedocs.io/en/latest/auto_examples/quantum_states/index.html">quantum state tutorials</a> for
+<p>Consult the <a href="https://vprusso.github.io/toqito/generated/gallery/02_quantum_states/">quantum state tutorials</a> for
 additional examples and information about quantum states within the context of |toqito⟩.</p>
 <h2 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h2>
 <p>The <code>pytest</code> module is used for testing. To run the suite of tests for |toqito⟩,
@@ -9251,7 +9254,7 @@ Gupta, Tathagata and Mushid, Shayeef and Russo, Vincent and Bandyopadhyay, Somsh
 <h2 id="contributing">Contributing<a class="headerlink" href="#contributing" title="Permanent link">&para;</a></h2>
 <p>All contributions, bug reports, bug fixes, documentation improvements, enhancements, and ideas are welcome.</p>
 <p>A detailed overview of how to contribute can be found in the
-<a href="https://toqito.readthedocs.io/en/latest/contributing.html#contrib-guide-reference-label">contributing guide</a>.</p>
+<a href="https://vprusso.github.io/toqito/contributing-guide/">contributing guide</a>.</p>
 <p>Chat with us in our |toqito⟩ channel on <a href="http://discord.unitary.fund/">Discord</a>. </p>
 <h2 id="license">License<a class="headerlink" href="#license" title="Permanent link">&para;</a></h2>
 <p><a href="http://opensource.org/licenses/mit-license.php&gt;">MIT License</a></p>

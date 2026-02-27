@@ -8941,8 +8941,10 @@
         <p>Compute the kp_norm of vector or matrix.</p>
 <p>Calculate the p-norm of a vector or the k-largest singular values of a
 matrix.</p>
-<p>Examples:
-To compute the p-norm of a vector</p>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>To compute the p-norm of a vector</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">bell</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">kp_norm</span>
@@ -9059,27 +9061,27 @@ To compute the p-norm of a vector</p>
 <a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="sd">    matrix.</span>
 <a id="__codelineno-0-11" name="__codelineno-0-11"></a>
 <a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="sd">    To compute the p-norm of a vector</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="sd">        To compute the p-norm of a vector</span>
 <a id="__codelineno-0-14" name="__codelineno-0-14"></a>
-<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">    from toqito.states import bell</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">    from toqito.matrix_props import kp_norm</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">        from toqito.states import bell</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">        from toqito.matrix_props import kp_norm</span>
 <a id="__codelineno-0-19" name="__codelineno-0-19"></a>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    print(np.around(kp_norm(bell(0), 1, np.inf), decimals=2))</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">        print(np.around(kp_norm(bell(0), 1, np.inf), decimals=2))</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-22" name="__codelineno-0-22"></a>
 <a id="__codelineno-0-23" name="__codelineno-0-23"></a>
 <a id="__codelineno-0-24" name="__codelineno-0-24"></a>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">    To compute the k-largest singular values of a matrix:</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        To compute the k-largest singular values of a matrix:</span>
 <a id="__codelineno-0-26" name="__codelineno-0-26"></a>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">    from toqito.matrix_props import kp_norm</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    from toqito.rand import random_unitary</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        from toqito.matrix_props import kp_norm</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        from toqito.rand import random_unitary</span>
 <a id="__codelineno-0-31" name="__codelineno-0-31"></a>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">    print(np.around(kp_norm(random_unitary(5), 5, 2), decimals=2))</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        print(np.around(kp_norm(random_unitary(5), 5, 2), decimals=2))</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a>
 <a id="__codelineno-0-35" name="__codelineno-0-35"></a>
 <a id="__codelineno-0-36" name="__codelineno-0-36"></a>

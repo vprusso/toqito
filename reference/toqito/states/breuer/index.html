@@ -8944,8 +8944,10 @@
 <code>lam</code> parameter describing the weight of the singlet component as described in
 <sup><a id="cite-toqito-states-breuer-breuer-1" href="#ref-toqito-states-breuer-breuer-1">1</a></sup>.</p>
 <p>This function was adapted from the QETLAB package.</p>
-<p>Examples:
-We can generate a Breuer state of dimension <span class="arithmatex">\(4\)</span> with weight <span class="arithmatex">\(0.1\)</span>. For any weight above <span class="arithmatex">\(0\)</span>, the
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>We can generate a Breuer state of dimension <span class="arithmatex">\(4\)</span> with weight <span class="arithmatex">\(0.1\)</span>. For any weight above <span class="arithmatex">\(0\)</span>, the
 state will be bound entangled, that is, it will satisfy the PPT criterion, but it will be entangled.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">breuer</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">breuer</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">))</span>
@@ -9051,13 +9053,13 @@ state will be bound entangled, that is, it will satisfy the PPT criterion, but i
 <a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">    This function was adapted from the QETLAB package.</span>
 <a id="__codelineno-0-20" name="__codelineno-0-20"></a>
 <a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">    We can generate a Breuer state of dimension \(4\) with weight \(0.1\). For any weight above \(0\), the</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">    state will be bound entangled, that is, it will satisfy the PPT criterion, but it will be entangled.</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">        We can generate a Breuer state of dimension \(4\) with weight \(0.1\). For any weight above \(0\), the</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        state will be bound entangled, that is, it will satisfy the PPT criterion, but it will be entangled.</span>
 <a id="__codelineno-0-24" name="__codelineno-0-24"></a>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">    from toqito.states import breuer</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">    print(breuer(2, 0.1))</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">        from toqito.states import breuer</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        print(breuer(2, 0.1))</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-29" name="__codelineno-0-29"></a>
 <a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    Raises:</span>
 <a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        ValueError: Dimension must be greater than or equal to 1.</span>

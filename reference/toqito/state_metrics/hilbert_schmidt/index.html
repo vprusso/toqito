@@ -8944,8 +8944,10 @@
     D_{\text{HS}}(\rho, \sigma) = \text{Tr}((\rho - \sigma)^2) = \left\lVert \rho - \sigma
     \right\rVert_2^2.
 \]</div>
-<p>Examples:
-One may consider taking the Hilbert-Schmidt distance between two Bell states. In <code>|toqito⟩</code>,
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>One may consider taking the Hilbert-Schmidt distance between two Bell states. In <code>|toqito⟩</code>,
 one may accomplish this as</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">bell</span>
@@ -9057,19 +9059,19 @@ one may accomplish this as</p>
 <a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">    \]</span>
 <a id="__codelineno-0-17" name="__codelineno-0-17"></a>
 <a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">    One may consider taking the Hilbert-Schmidt distance between two Bell states. In `|toqito⟩`,</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    one may accomplish this as</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">        One may consider taking the Hilbert-Schmidt distance between two Bell states. In `|toqito⟩`,</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">        one may accomplish this as</span>
 <a id="__codelineno-0-21" name="__codelineno-0-21"></a>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    from toqito.states import bell</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">    from toqito.state_metrics import hilbert_schmidt</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">        from toqito.states import bell</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        from toqito.state_metrics import hilbert_schmidt</span>
 <a id="__codelineno-0-26" name="__codelineno-0-26"></a>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">    rho = bell(0) @ bell(0).conj().T</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    sigma = bell(3) @ bell(3).conj().T</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        rho = bell(0) @ bell(0).conj().T</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">        sigma = bell(3) @ bell(3).conj().T</span>
 <a id="__codelineno-0-29" name="__codelineno-0-29"></a>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    print(np.around(hilbert_schmidt(rho, sigma), decimals=2))</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        print(np.around(hilbert_schmidt(rho, sigma), decimals=2))</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-32" name="__codelineno-0-32"></a>
 <a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">    Raises:</span>
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        ValueError: If matrices are not density operators.</span>

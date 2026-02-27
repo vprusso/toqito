@@ -8941,8 +8941,10 @@
         <p>Generate a list of random quantum states.</p>
 <p>This function generates a list of quantum states, each of a specified dimension. The states are
 valid quantum states distributed according to the Haar measure.</p>
-<p>Examples:
-Generating three quantum states each of dimension 4.</p>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Generating three quantum states each of dimension 4.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.rand</span><span class="w"> </span><span class="kn">import</span> <span class="n">random_states</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">states</span> <span class="o">=</span> <span class="n">random_states</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
@@ -8957,20 +8959,20 @@ Generating three quantum states each of dimension 4.</p>
 <p>length of states is 3
 Shape of each state vector: (4, 1)</p>
 <p>State 0:
-[[ 0.45945541-0.26381208j]
- [-0.22445878-0.11720891j]
- [-0.58844658-0.14796843j]
- [ 0.53437252-0.03829116j]]</p>
+[[ 0.53638135+0.17035851j]
+ [-0.32746436-0.185783j  ]
+ [-0.60057262-0.25225625j]
+ [ 0.33821112+0.05307868j]]</p>
 <p>State 1:
-[[-0.573811  +0.01989217j]
- [ 0.03521902-0.06278593j]
- [ 0.29664253-0.35144389j]
- [ 0.51646097+0.4323439j ]]</p>
+[[ 0.56507686-0.10862219j]
+ [-0.24990008-0.13407025j]
+ [-0.54393235+0.01843536j]
+ [ 0.46246544-0.27997846j]]</p>
 <p>State 2:
-[[ 0.22018237+0.15032914j]
- [-0.32731904-0.52097555j]
- [-0.29639269-0.1611584j ]
- [ 0.53595871-0.38638737j]]</p>
+[[-0.60443266-0.27694291j]
+ [ 0.0170066 -0.25416207j]
+ [-0.66184356+0.03667276j]
+ [ 0.23154685-0.0089706j ]]</p>
 <p>It is also possible to pass a seed to this function for reproducibility.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.rand</span><span class="w"> </span><span class="kn">import</span> <span class="n">random_states</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
@@ -9099,32 +9101,32 @@ Shape of each state vector: (4, 1)</p>
 <a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="sd">    valid quantum states distributed according to the Haar measure.</span>
 <a id="__codelineno-0-11" name="__codelineno-0-11"></a>
 <a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="sd">    Generating three quantum states each of dimension 4.</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="sd">        Generating three quantum states each of dimension 4.</span>
 <a id="__codelineno-0-14" name="__codelineno-0-14"></a>
-<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">    from toqito.rand import random_states</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">        from toqito.rand import random_states</span>
 <a id="__codelineno-0-17" name="__codelineno-0-17"></a>
-<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">    states = random_states(3, 4)</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">    print(f&quot;length of states is {len(states)}&quot;)</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">        states = random_states(3, 4)</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">        print(f&quot;length of states is {len(states)}&quot;)</span>
 <a id="__codelineno-0-20" name="__codelineno-0-20"></a>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    print(f&quot;Shape of each state vector: {states[0].shape}&quot;)</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">        print(f&quot;Shape of each state vector: {states[0].shape}&quot;)</span>
 <a id="__codelineno-0-22" name="__codelineno-0-22"></a>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">    for idx, state in enumerate(states):</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">       print(f&quot;\nState {idx}:&quot;)</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">       print(state)</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        for idx, state in enumerate(states):</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">           print(f&quot;\nState {idx}:&quot;)</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">           print(state)</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-27" name="__codelineno-0-27"></a>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    It is also possible to pass a seed to this function for reproducibility.</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">        It is also possible to pass a seed to this function for reproducibility.</span>
 <a id="__codelineno-0-29" name="__codelineno-0-29"></a>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">    from toqito.rand import random_states</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        from toqito.rand import random_states</span>
 <a id="__codelineno-0-32" name="__codelineno-0-32"></a>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">    states = random_states(3, 4, seed=42)</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">        states = random_states(3, 4, seed=42)</span>
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">    for idx, state in enumerate(states):</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">       print(f&quot;\nState {idx}:&quot;)</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">       print(state)</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        for idx, state in enumerate(states):</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">           print(f&quot;\nState {idx}:&quot;)</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">           print(state)</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-39" name="__codelineno-0-39"></a>
 <a id="__codelineno-0-40" name="__codelineno-0-40"></a>
 <a id="__codelineno-0-41" name="__codelineno-0-41"></a>

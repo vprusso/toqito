@@ -8941,8 +8941,10 @@
         <p>Create the cyclic permutation matrix for a given dimension <code>n</code> <sup><a id="cite-toqito-matrices-cyclic_permutation_matrix-cyclic_permutation_matrix-1" href="#ref-toqito-matrices-cyclic_permutation_matrix-cyclic_permutation_matrix-1">1</a></sup>.</p>
 <p>This function creates a cyclic permutation matrix of 0's and 1's which is a special type of square matrix
 that represents a cyclic permutation of its rows. The function allows fixed points and successive applications.</p>
-<p>Examples:
-Generate fixed point.</p>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Generate fixed point.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrices</span><span class="w"> </span><span class="kn">import</span> <span class="n">cyclic_permutation_matrix</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">cyclic_permutation_matrix</span><span class="p">(</span><span class="n">n</span><span class="o">=</span><span class="mi">4</span><span class="p">))</span>
@@ -9069,21 +9071,21 @@ Generate fixed point.</p>
 <a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="sd">    that represents a cyclic permutation of its rows. The function allows fixed points and successive applications.</span>
 <a id="__codelineno-0-11" name="__codelineno-0-11"></a>
 <a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="sd">    Generate fixed point.</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="sd">        Generate fixed point.</span>
 <a id="__codelineno-0-14" name="__codelineno-0-14"></a>
-<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">    from toqito.matrices import cyclic_permutation_matrix</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">        from toqito.matrices import cyclic_permutation_matrix</span>
 <a id="__codelineno-0-17" name="__codelineno-0-17"></a>
-<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">    print(cyclic_permutation_matrix(n=4))</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">        print(cyclic_permutation_matrix(n=4))</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-20" name="__codelineno-0-20"></a>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    Generate successive application.</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">        Generate successive application.</span>
 <a id="__codelineno-0-22" name="__codelineno-0-22"></a>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    from toqito.matrices import cyclic_permutation_matrix</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">        from toqito.matrices import cyclic_permutation_matrix</span>
 <a id="__codelineno-0-25" name="__codelineno-0-25"></a>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">    print(cyclic_permutation_matrix(n=4, k=3))</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">        print(cyclic_permutation_matrix(n=4, k=3))</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-28" name="__codelineno-0-28"></a>
 <a id="__codelineno-0-29" name="__codelineno-0-29"></a>
 <a id="__codelineno-0-30" name="__codelineno-0-30"></a>

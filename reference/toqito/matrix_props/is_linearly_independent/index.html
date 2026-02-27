@@ -8939,8 +8939,10 @@
     <div class="doc doc-contents ">
 
         <p>Check if set of vectors are linearly independent <sup><a id="cite-toqito-matrix_props-is_linearly_independent-is_linearly_independent-1" href="#ref-toqito-matrix_props-is_linearly_independent-is_linearly_independent-1">1</a></sup>.</p>
-<p>Examples:
-The following vectors are an example of a linearly independent set of vectors in <span class="arithmatex">\(\mathbb{R}^3\)</span>.</p>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>The following vectors are an example of a linearly independent set of vectors in <span class="arithmatex">\(\mathbb{R}^3\)</span>.</p>
 <div class="arithmatex">\[
     \begin{pmatrix}
         1 \\ 0 \\ 1
@@ -9037,32 +9039,32 @@ The following vectors are an example of a linearly independent set of vectors in
 <a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Check if set of vectors are linearly independent [@WikiLinearIndependence].</span>
 <a id="__codelineno-0-8" name="__codelineno-0-8"></a>
 <a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="sd">    The following vectors are an example of a linearly independent set of vectors in \(\mathbb{R}^3\).</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="sd">        The following vectors are an example of a linearly independent set of vectors in \(\mathbb{R}^3\).</span>
 <a id="__codelineno-0-11" name="__codelineno-0-11"></a>
-<a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="sd">        \begin{pmatrix}</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="sd">            1 \\ 0 \\ 1</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">        \end{pmatrix}, \quad</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">        \begin{pmatrix}</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">            1 \\ 1 \\ 0</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">        \end{pmatrix}, \quad \text{and} \quad</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">        \begin{pmatrix}</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">            0 \\ 0 \\ 1</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">        \end{pmatrix}</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="sd">            \begin{pmatrix}</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="sd">                1 \\ 0 \\ 1</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">            \end{pmatrix}, \quad</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">            \begin{pmatrix}</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">                1 \\ 1 \\ 0</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">            \end{pmatrix}, \quad \text{and} \quad</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">            \begin{pmatrix}</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">                0 \\ 0 \\ 1</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">            \end{pmatrix}</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-23" name="__codelineno-0-23"></a>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    We can see that these are linearly independent.</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">        We can see that these are linearly independent.</span>
 <a id="__codelineno-0-25" name="__codelineno-0-25"></a>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    from toqito.matrix_props import is_linearly_independent</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">        from toqito.matrix_props import is_linearly_independent</span>
 <a id="__codelineno-0-29" name="__codelineno-0-29"></a>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    v_1 = np.array([[1], [0], [1]])</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">    v_2 = np.array([[1], [1], [0]])</span>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">    v_3 = np.array([[0], [0], [1]])</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        v_1 = np.array([[1], [0], [1]])</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        v_2 = np.array([[1], [1], [0]])</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        v_3 = np.array([[0], [0], [1]])</span>
 <a id="__codelineno-0-33" name="__codelineno-0-33"></a>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">    print(is_linearly_independent([v_1, v_2, v_3]))</span>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">        print(is_linearly_independent([v_1, v_2, v_3]))</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-36" name="__codelineno-0-36"></a>
 <a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        vectors: Vectors to check the linear independence of.</span>

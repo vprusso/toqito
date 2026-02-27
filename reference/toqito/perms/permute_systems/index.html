@@ -8949,8 +8949,10 @@ right.</p>
 <p>If <code>row_only = False</code>, then <code>dim</code> only needs to contain the row dimensions of the subsystems, even if
 <code>input_mat</code> is not square. If <code>inv_perm = True</code>, then the inverse permutation of <code>perm</code> is applied
 instead of <code>perm</code> itself.</p>
-<p>Examples:
-For spaces <span class="arithmatex">\(\mathcal{A}\)</span> and <span class="arithmatex">\(\mathcal{B}\)</span> where <span class="arithmatex">\(\text{dim}(\mathcal{A}) =
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>For spaces <span class="arithmatex">\(\mathcal{A}\)</span> and <span class="arithmatex">\(\mathcal{B}\)</span> where <span class="arithmatex">\(\text{dim}(\mathcal{A}) =
 \text{dim}(\mathcal{B}) = 2\)</span> we may consider an operator <span class="arithmatex">\(X \in \mathcal{A} \otimes \mathcal{B}\)</span>. Applying the
 <code>permute_systems</code> function with vector <span class="arithmatex">\([1,0]\)</span> on <span class="arithmatex">\(X\)</span>, we may reorient the spaces such that <span class="arithmatex">\(X \in
 \mathcal{B} \otimes \mathcal{A}\)</span>.</p>
@@ -9340,90 +9342,90 @@ yield the following matrix</p>
 <a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">    instead of `perm` itself.</span>
 <a id="__codelineno-0-33" name="__codelineno-0-33"></a>
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">    For spaces \(\mathcal{A}\) and \(\mathcal{B}\) where \(\text{dim}(\mathcal{A}) =</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    \text{dim}(\mathcal{B}) = 2\) we may consider an operator \(X \in \mathcal{A} \otimes \mathcal{B}\). Applying the</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    `permute_systems` function with vector \([1,0]\) on \(X\), we may reorient the spaces such that \(X \in</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">    \mathcal{B} \otimes \mathcal{A}\).</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        For spaces \(\mathcal{A}\) and \(\mathcal{B}\) where \(\text{dim}(\mathcal{A}) =</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        \text{dim}(\mathcal{B}) = 2\) we may consider an operator \(X \in \mathcal{A} \otimes \mathcal{B}\). Applying the</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        `permute_systems` function with vector \([1,0]\) on \(X\), we may reorient the spaces such that \(X \in</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        \mathcal{B} \otimes \mathcal{A}\).</span>
 <a id="__codelineno-0-39" name="__codelineno-0-39"></a>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">    For example, if we define \(X \in \mathcal{A} \otimes \mathcal{B}\) as</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        For example, if we define \(X \in \mathcal{A} \otimes \mathcal{B}\) as</span>
 <a id="__codelineno-0-41" name="__codelineno-0-41"></a>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        X = \begin{pmatrix}</span>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">            1 &amp; 2 &amp; 3 &amp; 4 \\</span>
-<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">            5 &amp; 6 &amp; 7 &amp; 8 \\</span>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">            9 &amp; 10 &amp; 11 &amp; 12 \\</span>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">            13 &amp; 14 &amp; 15 &amp; 16</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        \end{pmatrix},</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">            X = \begin{pmatrix}</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">                1 &amp; 2 &amp; 3 &amp; 4 \\</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">                5 &amp; 6 &amp; 7 &amp; 8 \\</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">                9 &amp; 10 &amp; 11 &amp; 12 \\</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">                13 &amp; 14 &amp; 15 &amp; 16</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">            \end{pmatrix},</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-50" name="__codelineno-0-50"></a>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">    then applying the `permute_systems` function on \(X\) to obtain \(X \in \mathcal{B} \otimes \mathcal{A}\)</span>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">    yield the following matrix</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        then applying the `permute_systems` function on \(X\) to obtain \(X \in \mathcal{B} \otimes \mathcal{A}\)</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        yield the following matrix</span>
 <a id="__codelineno-0-53" name="__codelineno-0-53"></a>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        X_{[1,0]} = \begin{pmatrix}</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">            1 &amp; 3 &amp; 2 &amp; 4 \\</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">            9 &amp; 11 &amp; 10 &amp; 12 \\</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">            5 &amp; 7 &amp; 6 &amp; 8 \\</span>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">            13 &amp; 15 &amp; 14 &amp; 16</span>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        \end{pmatrix}.</span>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">            X_{[1,0]} = \begin{pmatrix}</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">                1 &amp; 3 &amp; 2 &amp; 4 \\</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">                9 &amp; 11 &amp; 10 &amp; 12 \\</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">                5 &amp; 7 &amp; 6 &amp; 8 \\</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">                13 &amp; 15 &amp; 14 &amp; 16</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">            \end{pmatrix}.</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-62" name="__codelineno-0-62"></a>
-<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">    from toqito.perms import permute_systems</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        from toqito.perms import permute_systems</span>
 <a id="__codelineno-0-66" name="__codelineno-0-66"></a>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">    test_input_mat = np.arange(1, 17).reshape(4, 4)</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        test_input_mat = np.arange(1, 17).reshape(4, 4)</span>
 <a id="__codelineno-0-68" name="__codelineno-0-68"></a>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">    print(permute_systems(test_input_mat, [1, 0]))</span>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        print(permute_systems(test_input_mat, [1, 0]))</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-71" name="__codelineno-0-71"></a>
 <a id="__codelineno-0-72" name="__codelineno-0-72"></a>
-<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">    For spaces \(\mathcal{A}, \mathcal{B}\), and \(\mathcal{C}\) where \(\text{dim}(\mathcal{A}) =</span>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">    \text{dim}(\mathcal{B}) = \text{dim}(\mathcal{C}) = 2\) we may consider an operator \(X \in \mathcal{A} \otimes</span>
-<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">    \mathcal{B} \otimes \mathcal{C}\). Applying the `permute_systems` function with vector \([1,2,0]\) on</span>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">    \(X\), we may reorient the spaces such that \(X \in \mathcal{B} \otimes \mathcal{C} \otimes \mathcal{A}\).</span>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">        For spaces \(\mathcal{A}, \mathcal{B}\), and \(\mathcal{C}\) where \(\text{dim}(\mathcal{A}) =</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">        \text{dim}(\mathcal{B}) = \text{dim}(\mathcal{C}) = 2\) we may consider an operator \(X \in \mathcal{A} \otimes</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">        \mathcal{B} \otimes \mathcal{C}\). Applying the `permute_systems` function with vector \([1,2,0]\) on</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">        \(X\), we may reorient the spaces such that \(X \in \mathcal{B} \otimes \mathcal{C} \otimes \mathcal{A}\).</span>
 <a id="__codelineno-0-77" name="__codelineno-0-77"></a>
-<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">    For example, if we define \(X \in \mathcal{A} \otimes \mathcal{B} \otimes \mathcal{C}\) as</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">        For example, if we define \(X \in \mathcal{A} \otimes \mathcal{B} \otimes \mathcal{C}\) as</span>
 <a id="__codelineno-0-79" name="__codelineno-0-79"></a>
-<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">        X =</span>
-<a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">        \begin{pmatrix}</span>
-<a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="sd">            1 &amp; 2 &amp; 3 &amp; 4, 5 &amp; 6 &amp; 7 &amp; 8 \\</span>
-<a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">            9 &amp; 10 &amp; 11 &amp; 12 &amp; 13 &amp; 14 &amp; 15 &amp; 16 \\</span>
-<a id="__codelineno-0-85" name="__codelineno-0-85"></a><span class="sd">            17 &amp; 18 &amp; 19 &amp; 20 &amp; 21 &amp; 22 &amp; 23 &amp; 24 \\</span>
-<a id="__codelineno-0-86" name="__codelineno-0-86"></a><span class="sd">            25 &amp; 26 &amp; 27 &amp; 28 &amp; 29 &amp; 30 &amp; 31 &amp; 32 \\</span>
-<a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">            33 &amp; 34 &amp; 35 &amp; 36 &amp; 37 &amp; 38 &amp; 39 &amp; 40 \\</span>
-<a id="__codelineno-0-88" name="__codelineno-0-88"></a><span class="sd">            41 &amp; 42 &amp; 43 &amp; 44 &amp; 45 &amp; 46 &amp; 47 &amp; 48 \\</span>
-<a id="__codelineno-0-89" name="__codelineno-0-89"></a><span class="sd">            49 &amp; 50 &amp; 51 &amp; 52 &amp; 53 &amp; 54 &amp; 55 &amp; 56 \\</span>
-<a id="__codelineno-0-90" name="__codelineno-0-90"></a><span class="sd">            57 &amp; 58 &amp; 59 &amp; 60 &amp; 61 &amp; 62 &amp; 63 &amp; 64</span>
-<a id="__codelineno-0-91" name="__codelineno-0-91"></a><span class="sd">        \end{pmatrix},</span>
-<a id="__codelineno-0-92" name="__codelineno-0-92"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">            X =</span>
+<a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">            \begin{pmatrix}</span>
+<a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="sd">                1 &amp; 2 &amp; 3 &amp; 4, 5 &amp; 6 &amp; 7 &amp; 8 \\</span>
+<a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">                9 &amp; 10 &amp; 11 &amp; 12 &amp; 13 &amp; 14 &amp; 15 &amp; 16 \\</span>
+<a id="__codelineno-0-85" name="__codelineno-0-85"></a><span class="sd">                17 &amp; 18 &amp; 19 &amp; 20 &amp; 21 &amp; 22 &amp; 23 &amp; 24 \\</span>
+<a id="__codelineno-0-86" name="__codelineno-0-86"></a><span class="sd">                25 &amp; 26 &amp; 27 &amp; 28 &amp; 29 &amp; 30 &amp; 31 &amp; 32 \\</span>
+<a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">                33 &amp; 34 &amp; 35 &amp; 36 &amp; 37 &amp; 38 &amp; 39 &amp; 40 \\</span>
+<a id="__codelineno-0-88" name="__codelineno-0-88"></a><span class="sd">                41 &amp; 42 &amp; 43 &amp; 44 &amp; 45 &amp; 46 &amp; 47 &amp; 48 \\</span>
+<a id="__codelineno-0-89" name="__codelineno-0-89"></a><span class="sd">                49 &amp; 50 &amp; 51 &amp; 52 &amp; 53 &amp; 54 &amp; 55 &amp; 56 \\</span>
+<a id="__codelineno-0-90" name="__codelineno-0-90"></a><span class="sd">                57 &amp; 58 &amp; 59 &amp; 60 &amp; 61 &amp; 62 &amp; 63 &amp; 64</span>
+<a id="__codelineno-0-91" name="__codelineno-0-91"></a><span class="sd">            \end{pmatrix},</span>
+<a id="__codelineno-0-92" name="__codelineno-0-92"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-93" name="__codelineno-0-93"></a>
-<a id="__codelineno-0-94" name="__codelineno-0-94"></a><span class="sd">    then applying the `permute_systems` function on \(X\) to obtain \(X \in \mathcal{B} \otimes \mathcal{C}</span>
-<a id="__codelineno-0-95" name="__codelineno-0-95"></a><span class="sd">    \otimes \mathcal{C}\) yield the following matrix</span>
+<a id="__codelineno-0-94" name="__codelineno-0-94"></a><span class="sd">        then applying the `permute_systems` function on \(X\) to obtain \(X \in \mathcal{B} \otimes \mathcal{C}</span>
+<a id="__codelineno-0-95" name="__codelineno-0-95"></a><span class="sd">        \otimes \mathcal{C}\) yield the following matrix</span>
 <a id="__codelineno-0-96" name="__codelineno-0-96"></a>
-<a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-98" name="__codelineno-0-98"></a><span class="sd">        X_{[1, 2, 0]} =</span>
-<a id="__codelineno-0-99" name="__codelineno-0-99"></a><span class="sd">        \begin{pmatrix}</span>
-<a id="__codelineno-0-100" name="__codelineno-0-100"></a><span class="sd">            1 &amp; 5 &amp; 2 &amp; 6 &amp; 3 &amp; 7 &amp; 4, 8 \\</span>
-<a id="__codelineno-0-101" name="__codelineno-0-101"></a><span class="sd">            33 &amp; 37 &amp; 34 &amp; 38 &amp; 35 &amp; 39 &amp; 36 &amp; 40 \\</span>
-<a id="__codelineno-0-102" name="__codelineno-0-102"></a><span class="sd">            9 &amp; 13 &amp; 10 &amp; 14 &amp; 11 &amp; 15 &amp; 12 &amp; 16 \\</span>
-<a id="__codelineno-0-103" name="__codelineno-0-103"></a><span class="sd">            41 &amp; 45 &amp; 42 &amp; 46 &amp; 43 &amp; 47 &amp; 44 &amp; 48 \\</span>
-<a id="__codelineno-0-104" name="__codelineno-0-104"></a><span class="sd">            17 &amp; 21 &amp; 18 &amp; 22 &amp; 19 &amp; 23 &amp; 20 &amp; 24 \\</span>
-<a id="__codelineno-0-105" name="__codelineno-0-105"></a><span class="sd">            49 &amp; 53 &amp; 50 &amp; 54 &amp; 51 &amp; 55 &amp; 52 &amp; 56 \\</span>
-<a id="__codelineno-0-106" name="__codelineno-0-106"></a><span class="sd">            25 &amp; 29 &amp; 26 &amp; 30 &amp; 27 &amp; 31 &amp; 28 &amp; 32 \\</span>
-<a id="__codelineno-0-107" name="__codelineno-0-107"></a><span class="sd">            57 &amp; 61 &amp; 58 &amp; 62 &amp; 59 &amp; 63 &amp; 60 &amp; 64</span>
-<a id="__codelineno-0-108" name="__codelineno-0-108"></a><span class="sd">        \end{pmatrix}.</span>
-<a id="__codelineno-0-109" name="__codelineno-0-109"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-98" name="__codelineno-0-98"></a><span class="sd">            X_{[1, 2, 0]} =</span>
+<a id="__codelineno-0-99" name="__codelineno-0-99"></a><span class="sd">            \begin{pmatrix}</span>
+<a id="__codelineno-0-100" name="__codelineno-0-100"></a><span class="sd">                1 &amp; 5 &amp; 2 &amp; 6 &amp; 3 &amp; 7 &amp; 4, 8 \\</span>
+<a id="__codelineno-0-101" name="__codelineno-0-101"></a><span class="sd">                33 &amp; 37 &amp; 34 &amp; 38 &amp; 35 &amp; 39 &amp; 36 &amp; 40 \\</span>
+<a id="__codelineno-0-102" name="__codelineno-0-102"></a><span class="sd">                9 &amp; 13 &amp; 10 &amp; 14 &amp; 11 &amp; 15 &amp; 12 &amp; 16 \\</span>
+<a id="__codelineno-0-103" name="__codelineno-0-103"></a><span class="sd">                41 &amp; 45 &amp; 42 &amp; 46 &amp; 43 &amp; 47 &amp; 44 &amp; 48 \\</span>
+<a id="__codelineno-0-104" name="__codelineno-0-104"></a><span class="sd">                17 &amp; 21 &amp; 18 &amp; 22 &amp; 19 &amp; 23 &amp; 20 &amp; 24 \\</span>
+<a id="__codelineno-0-105" name="__codelineno-0-105"></a><span class="sd">                49 &amp; 53 &amp; 50 &amp; 54 &amp; 51 &amp; 55 &amp; 52 &amp; 56 \\</span>
+<a id="__codelineno-0-106" name="__codelineno-0-106"></a><span class="sd">                25 &amp; 29 &amp; 26 &amp; 30 &amp; 27 &amp; 31 &amp; 28 &amp; 32 \\</span>
+<a id="__codelineno-0-107" name="__codelineno-0-107"></a><span class="sd">                57 &amp; 61 &amp; 58 &amp; 62 &amp; 59 &amp; 63 &amp; 60 &amp; 64</span>
+<a id="__codelineno-0-108" name="__codelineno-0-108"></a><span class="sd">            \end{pmatrix}.</span>
+<a id="__codelineno-0-109" name="__codelineno-0-109"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-110" name="__codelineno-0-110"></a>
-<a id="__codelineno-0-111" name="__codelineno-0-111"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-112" name="__codelineno-0-112"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-113" name="__codelineno-0-113"></a><span class="sd">    from toqito.perms import permute_systems</span>
+<a id="__codelineno-0-111" name="__codelineno-0-111"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-112" name="__codelineno-0-112"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-113" name="__codelineno-0-113"></a><span class="sd">        from toqito.perms import permute_systems</span>
 <a id="__codelineno-0-114" name="__codelineno-0-114"></a>
-<a id="__codelineno-0-115" name="__codelineno-0-115"></a><span class="sd">    test_input_mat = np.arange(1, 65).reshape(8, 8)</span>
+<a id="__codelineno-0-115" name="__codelineno-0-115"></a><span class="sd">        test_input_mat = np.arange(1, 65).reshape(8, 8)</span>
 <a id="__codelineno-0-116" name="__codelineno-0-116"></a>
-<a id="__codelineno-0-117" name="__codelineno-0-117"></a><span class="sd">    print(permute_systems(test_input_mat, [1, 2, 0]))</span>
-<a id="__codelineno-0-118" name="__codelineno-0-118"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-117" name="__codelineno-0-117"></a><span class="sd">        print(permute_systems(test_input_mat, [1, 2, 0]))</span>
+<a id="__codelineno-0-118" name="__codelineno-0-118"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-119" name="__codelineno-0-119"></a>
 <a id="__codelineno-0-120" name="__codelineno-0-120"></a>
 <a id="__codelineno-0-121" name="__codelineno-0-121"></a>

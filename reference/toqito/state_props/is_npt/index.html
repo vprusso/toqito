@@ -8943,8 +8943,10 @@
 negative partial transpose (within numerical error). The variable <code>mat</code> is assumed to act
 on bipartite space. <sup><a id="cite-toqito-state_props-is_npt-is_npt-2" href="#ref-toqito-state_props-is_npt-is_npt-2">2</a></sup></p>
 <p>A state has negative partial transpose if it does not have positive partial transpose.</p>
-<p>Examples:
-To check if a matrix has negative partial transpose</p>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>To check if a matrix has negative partial transpose</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_npt</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">bell</span>
@@ -9052,14 +9054,14 @@ To check if a matrix has negative partial transpose</p>
 <a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">    A state has negative partial transpose if it does not have positive partial transpose.</span>
 <a id="__codelineno-0-16" name="__codelineno-0-16"></a>
 <a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">    To check if a matrix has negative partial transpose</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">        To check if a matrix has negative partial transpose</span>
 <a id="__codelineno-0-19" name="__codelineno-0-19"></a>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">    from toqito.state_props import is_npt</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">    from toqito.states import bell</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    print(is_npt(bell(2) @ bell(2).conj().T, 2))</span>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">        from toqito.state_props import is_npt</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        from toqito.states import bell</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">        print(is_npt(bell(2) @ bell(2).conj().T, 2))</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-26" name="__codelineno-0-26"></a>
 <a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">        mat: A square matrix.</span>

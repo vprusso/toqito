@@ -9043,8 +9043,10 @@
         <p>Calculate optimal winning probabilities for hedging scenarios.</p>
 <p>Calculate the maximal and minimal winning probabilities for quantum
 hedging to occur in certain two-party scenarios [@Arunachalam_2017_QuantumHedging, Molina_2012_Hedging].</p>
-<p>Examples:
-This example illustrates the initial example of perfect hedging when Alice
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>This example illustrates the initial example of perfect hedging when Alice
 and Bob play two repetitions of the game where Alice prepares the maximally
 entangled state:</p>
 <div class="arithmatex">\[
@@ -9156,7 +9158,7 @@ entangled state:</p>
 <a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">molina_watrous</span><span class="o">.</span><span class="n">min_prob_outcome_a_dual</span><span class="p">(),</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
 </code></pre></div>
 <p>0.15</p>
-<p><strong>References</strong></p>
+        <p><strong>References</strong></p>
 <p><span id="ref-toqito-nonlocal_games-quantum_hedging-QuantumHedging-1"><sup><a href="#cite-toqito-nonlocal_games-quantum_hedging-QuantumHedging-1">1</a></sup> Molina, Abel and Watrous, John. <em>Hedging bets with correlated quantum strategies</em>. <strong>Proceedings of the Royal Society A: Mathematical, Physical and Engineering Sciences</strong>. vol. 468(2145). (2012). <a href="https://arxiv.org/abs/1104.1140">link</a>.</span></p>
 
         <p>Initialize the variables for semidefinite program.</p>
@@ -9637,8 +9639,18 @@ entangled state:</p>
     \end{aligned}
 \end{equation}
 \]</div>
-<p>Returns:
-The optimal minimal probability for obtaining outcome "a".</p>
+
+
+<p><span class="doc-section-title">Returns:</span></p>
+    <ul>
+        <li class="doc-section-item field-body">
+              <code><span title="float">float</span></code>
+          –
+          <div class="doc-md-description">
+            <p>The optimal minimal probability for obtaining outcome "a".</p>
+          </div>
+        </li>
+    </ul>
 
 
             <details class="mkdocstrings-source">
@@ -9696,7 +9708,7 @@ The optimal minimal probability for obtaining outcome "a".</p>
 <a id="__codelineno-0-288" name="__codelineno-0-288"></a><span class="sd">    \]</span>
 <a id="__codelineno-0-289" name="__codelineno-0-289"></a>
 <a id="__codelineno-0-290" name="__codelineno-0-290"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-291" name="__codelineno-0-291"></a><span class="sd">    The optimal minimal probability for obtaining outcome &quot;a&quot;.</span>
+<a id="__codelineno-0-291" name="__codelineno-0-291"></a><span class="sd">        The optimal minimal probability for obtaining outcome &quot;a&quot;.</span>
 <a id="__codelineno-0-292" name="__codelineno-0-292"></a>
 <a id="__codelineno-0-293" name="__codelineno-0-293"></a><span class="sd">    &quot;&quot;&quot;</span>
 <a id="__codelineno-0-294" name="__codelineno-0-294"></a>    <span class="n">y_var</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="mi">2</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_reps</span><span class="p">,</span> <span class="mi">2</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_num_reps</span><span class="p">),</span> <span class="n">hermitian</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>

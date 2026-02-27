@@ -8954,8 +8954,10 @@
 <p>The return is a value between <span class="arithmatex">\(0\)</span> and <span class="arithmatex">\(1\)</span>, with <span class="arithmatex">\(0\)</span> corresponding to matrices <code>rho</code> and
 <code>sigma</code> with orthogonal support, and <span class="arithmatex">\(1\)</span> corresponding to the case <code>rho = sigma</code>. The Matsumoto
 fidelity is a lower bound for the fidelity.</p>
-<p>Examples:
-Consider the following Bell state</p>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Consider the following Bell state</p>
 <div class="arithmatex">\[
     u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \in \mathcal{X}.
 \]</div>
@@ -9165,40 +9167,40 @@ of <span class="arithmatex">\(1\)</span>. This can be observed in <code>|toqito�
 <a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">    fidelity is a lower bound for the fidelity.</span>
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a>
 <a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    Consider the following Bell state</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        Consider the following Bell state</span>
 <a id="__codelineno-0-37" name="__codelineno-0-37"></a>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \in \mathcal{X}.</span>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">            u = \frac{1}{\sqrt{2}} \left( |00 \rangle + |11 \rangle \right) \in \mathcal{X}.</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-41" name="__codelineno-0-41"></a>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">    The corresponding density matrix of \(u\) may be calculated by:</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        The corresponding density matrix of \(u\) may be calculated by:</span>
 <a id="__codelineno-0-43" name="__codelineno-0-43"></a>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        \rho = u u^* = \frac{1}{2} \begin{pmatrix}</span>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">                         1 &amp; 0 &amp; 0 &amp; 1 \\</span>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">                         0 &amp; 0 &amp; 0 &amp; 0 \\</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">                         0 &amp; 0 &amp; 0 &amp; 0 \\</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">                         1 &amp; 0 &amp; 0 &amp; 1</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">                       \end{pmatrix} \in \text{D}(\mathcal{X}).</span>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">            \rho = u u^* = \frac{1}{2} \begin{pmatrix}</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">                             1 &amp; 0 &amp; 0 &amp; 1 \\</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">                             0 &amp; 0 &amp; 0 &amp; 0 \\</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">                             0 &amp; 0 &amp; 0 &amp; 0 \\</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">                             1 &amp; 0 &amp; 0 &amp; 1</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">                           \end{pmatrix} \in \text{D}(\mathcal{X}).</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-52" name="__codelineno-0-52"></a>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">    In the event where we calculate the Matsumoto fidelity between states that are identical, we should obtain the value</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">    of \(1\). This can be observed in `|toqito⟩` as follows.</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        In the event where we calculate the Matsumoto fidelity between states that are identical, we should obtain the value</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        of \(1\). This can be observed in `|toqito⟩` as follows.</span>
 <a id="__codelineno-0-55" name="__codelineno-0-55"></a>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">    from toqito.state_metrics import matsumoto_fidelity</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        from toqito.state_metrics import matsumoto_fidelity</span>
 <a id="__codelineno-0-59" name="__codelineno-0-59"></a>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">    rho = 1 / 2 * np.array(</span>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        [[1, 0, 0, 1],</span>
-<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">         [0, 0, 0, 0],</span>
-<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">         [0, 0, 0, 0],</span>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">         [1, 0, 0, 1]]</span>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">    )</span>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">    sigma = rho</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        rho = 1 / 2 * np.array(</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">            [[1, 0, 0, 1],</span>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">             [0, 0, 0, 0],</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">             [0, 0, 0, 0],</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">             [1, 0, 0, 1]]</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        )</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        sigma = rho</span>
 <a id="__codelineno-0-67" name="__codelineno-0-67"></a>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">    print(np.around(matsumoto_fidelity(rho, sigma), decimals=2))</span>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        print(np.around(matsumoto_fidelity(rho, sigma), decimals=2))</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-70" name="__codelineno-0-70"></a>
 <a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">    Raises:</span>
 <a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">        ValueError: If matrices are not of equal dimension.</span>

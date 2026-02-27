@@ -8989,8 +8989,10 @@ this state and its properties. The 3x3 Horodecki state is defined explicitly in 
 <sup><a id="cite-toqito-states-horodecki-horodecki-1" href="#ref-toqito-states-horodecki-horodecki-1">1</a></sup> and the 2x4 Horodecki state is defined explicitly in Section 4.2 of
 <sup><a id="cite-toqito-states-horodecki-horodecki-1" href="#ref-toqito-states-horodecki-horodecki-1">1</a></sup>.</p>
 </div>
-<p>Examples:
-The following code generates a Horodecki state in <span class="arithmatex">\(\mathbb{C}^3 \otimes \mathbb{C}^3\)</span></p>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>The following code generates a Horodecki state in <span class="arithmatex">\(\mathbb{C}^3 \otimes \mathbb{C}^3\)</span></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">horodecki</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">horodecki</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">]))</span>
 </code></pre></div>
@@ -9015,7 +9017,7 @@ The following code generates a Horodecki state in <span class="arithmatex">\(\ma
  [0.11111111 0.         0.         0.         0.         0.11111111 0.         0.        ]
  [0.         0.11111111 0.         0.         0.         0.         0.11111111 0.        ]
  [0.         0.         0.11111111 0.         0.09622504 0.         0.         0.16666667]]</p>
-<p><strong>References</strong></p>
+        <p><strong>References</strong></p>
 <p><span id="ref-toqito-states-horodecki-horodecki-1"><sup><a href="#cite-toqito-states-horodecki-horodecki-1">1</a></sup> Horodecki, Pawel. <em>Separability criterion and inseparable mixed states with positive partial transposition</em>. <strong>Physics Letters A</strong>. vol. 232(5). (1997). <a href="https://doi.org/10.1016/s0375-9601(97)00416-7">doi:10.1016/s0375-9601(97)00416-7</a>.</span><br>
 <span id="ref-toqito-states-horodecki-horodecki-2"><sup><a href="#cite-toqito-states-horodecki-horodecki-2">2</a></sup> Chruściński, Dariusz and Kossakowski, Andrzej. <em>On the symmetry of the seminal Horodecki state</em>. <strong>Physics Letters A</strong>. vol. 375(3). (2011). <a href="https://doi.org/10.1016/j.physleta.2010.11.069">doi:10.1016/j.physleta.2010.11.069</a>.</span></p>
 
@@ -9194,20 +9196,20 @@ The following code generates a Horodecki state in <span class="arithmatex">\(\ma
 <a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">        [@Horodecki_1997_Separability].</span>
 <a id="__codelineno-0-64" name="__codelineno-0-64"></a>
 <a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">    The following code generates a Horodecki state in \(\mathbb{C}^3 \otimes \mathbb{C}^3\)</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        The following code generates a Horodecki state in \(\mathbb{C}^3 \otimes \mathbb{C}^3\)</span>
 <a id="__codelineno-0-67" name="__codelineno-0-67"></a>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">    from toqito.states import horodecki</span>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">    print(horodecki(0.5, [3, 3]))</span>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        from toqito.states import horodecki</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        print(horodecki(0.5, [3, 3]))</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-72" name="__codelineno-0-72"></a>
 <a id="__codelineno-0-73" name="__codelineno-0-73"></a>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">    The following code generates a Horodecki state in \(\mathbb{C}^2 \otimes \mathbb{C}^4\).</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">        The following code generates a Horodecki state in \(\mathbb{C}^2 \otimes \mathbb{C}^4\).</span>
 <a id="__codelineno-0-75" name="__codelineno-0-75"></a>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">    from toqito.states import horodecki</span>
-<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">    print(horodecki(0.5, [2, 4]))</span>
-<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">        from toqito.states import horodecki</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">        print(horodecki(0.5, [2, 4]))</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-80" name="__codelineno-0-80"></a>
 <a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">    &quot;&quot;&quot;</span>
 <a id="__codelineno-0-82" name="__codelineno-0-82"></a>    <span class="k">if</span> <span class="n">a_param</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">a_param</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>

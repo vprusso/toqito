@@ -8946,8 +8946,10 @@ vector <code>sys</code>.</p>
 row dimensions in the first row of <code>dim</code> and the column dimensions in the second row of <code>dim</code>.</p>
 <p>If <code>row_only</code> is set to <code>True</code>, then only the rows of <code>rho</code> are swapped, but not the columns --
 this is equivalent to multiplying <code>rho</code> on the left by the corresponding swap operator, but not on the right.</p>
-<p>Examples:
-Consider the following matrix</p>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Consider the following matrix</p>
 <div class="arithmatex">\[
     X =
     \begin{pmatrix}
@@ -9253,78 +9255,78 @@ that</p>
 <a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    this is equivalent to multiplying `rho` on the left by the corresponding swap operator, but not on the right.</span>
 <a id="__codelineno-0-25" name="__codelineno-0-25"></a>
 <a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">    Consider the following matrix</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        Consider the following matrix</span>
 <a id="__codelineno-0-28" name="__codelineno-0-28"></a>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        X =</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        \begin{pmatrix}</span>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">            1 &amp; 5 &amp; 9 &amp; 13 \\</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">            2 &amp; 6 &amp; 10 &amp; 14 \\</span>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">            3 &amp; 7 &amp; 11 &amp; 15 \\</span>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">            4 &amp; 8 &amp; 12 &amp; 16</span>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        \end{pmatrix}.</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">            X =</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">            \begin{pmatrix}</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">                1 &amp; 5 &amp; 9 &amp; 13 \\</span>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">                2 &amp; 6 &amp; 10 &amp; 14 \\</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">                3 &amp; 7 &amp; 11 &amp; 15 \\</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">                4 &amp; 8 &amp; 12 &amp; 16</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">            \end{pmatrix}.</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-38" name="__codelineno-0-38"></a>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">    If we apply the `swap` function provided by `|toqito⟩` on \(X\), we should obtain the following</span>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">    matrix</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        If we apply the `swap` function provided by `|toqito⟩` on \(X\), we should obtain the following</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        matrix</span>
 <a id="__codelineno-0-41" name="__codelineno-0-41"></a>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        \text{Swap}(X) =</span>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        \begin{pmatrix}</span>
-<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">            1 &amp; 9 &amp; 5 &amp; 13 \\</span>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">            3 &amp; 11 &amp; 7 &amp; 15 \\</span>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">            2 &amp; 10 &amp; 6 &amp; 14 \\</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">            4 &amp; 12 &amp; 8 &amp; 16</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        \end{pmatrix}.</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">            \text{Swap}(X) =</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">            \begin{pmatrix}</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">                1 &amp; 9 &amp; 5 &amp; 13 \\</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">                3 &amp; 11 &amp; 7 &amp; 15 \\</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">                2 &amp; 10 &amp; 6 &amp; 14 \\</span>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">                4 &amp; 12 &amp; 8 &amp; 16</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">            \end{pmatrix}.</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-51" name="__codelineno-0-51"></a>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">    This can be observed by the following example in `|toqito⟩`.</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        This can be observed by the following example in `|toqito⟩`.</span>
 <a id="__codelineno-0-53" name="__codelineno-0-53"></a>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">    from toqito.perms import swap</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        from toqito.perms import swap</span>
 <a id="__codelineno-0-57" name="__codelineno-0-57"></a>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">    test_mat = np.arange(1, 17).reshape(4, 4)</span>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        test_mat = np.arange(1, 17).reshape(4, 4)</span>
 <a id="__codelineno-0-59" name="__codelineno-0-59"></a>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">    print(swap(test_mat))</span>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        print(swap(test_mat))</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-62" name="__codelineno-0-62"></a>
-<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">    It is also possible to use the `sys` and `dim` arguments, it is possible to specify the system and</span>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">    dimension on which to apply the swap operator. For instance for `sys = [1 ,2]` and `dim = 2` we have</span>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">    that</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">        It is also possible to use the `sys` and `dim` arguments, it is possible to specify the system and</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">        dimension on which to apply the swap operator. For instance for `sys = [1 ,2]` and `dim = 2` we have</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        that</span>
 <a id="__codelineno-0-66" name="__codelineno-0-66"></a>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">        \text{Swap}(X)_{2, [1, 2]} =</span>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        \begin{pmatrix}</span>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">            1 &amp; 9 &amp; 5 &amp; 13 \\</span>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">            3 &amp; 11 &amp; 7 &amp; 15 \\</span>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">            2 &amp; 10 &amp; 6 &amp; 14 \\</span>
-<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">            4 &amp; 12 &amp; 8 &amp; 16</span>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">        \end{pmatrix}.</span>
-<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">            \text{Swap}(X)_{2, [1, 2]} =</span>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">            \begin{pmatrix}</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">                1 &amp; 9 &amp; 5 &amp; 13 \\</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">                3 &amp; 11 &amp; 7 &amp; 15 \\</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">                2 &amp; 10 &amp; 6 &amp; 14 \\</span>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">                4 &amp; 12 &amp; 8 &amp; 16</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">            \end{pmatrix}.</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-76" name="__codelineno-0-76"></a>
-<a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">    Using `|toqito⟩` we can see this gives the proper result.</span>
+<a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">        Using `|toqito⟩` we can see this gives the proper result.</span>
 <a id="__codelineno-0-78" name="__codelineno-0-78"></a>
-<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">    from toqito.perms import swap</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">        from toqito.perms import swap</span>
 <a id="__codelineno-0-82" name="__codelineno-0-82"></a>
-<a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="sd">    test_mat = np.array(</span>
-<a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">        [[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]]</span>
-<a id="__codelineno-0-85" name="__codelineno-0-85"></a><span class="sd">    )</span>
-<a id="__codelineno-0-86" name="__codelineno-0-86"></a><span class="sd">    print(swap(test_mat, [1, 2], 2))</span>
-<a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="sd">        test_mat = np.array(</span>
+<a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">            [[1, 5, 9, 13], [2, 6, 10, 14], [3, 7, 11, 15], [4, 8, 12, 16]]</span>
+<a id="__codelineno-0-85" name="__codelineno-0-85"></a><span class="sd">        )</span>
+<a id="__codelineno-0-86" name="__codelineno-0-86"></a><span class="sd">        print(swap(test_mat, [1, 2], 2))</span>
+<a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-88" name="__codelineno-0-88"></a>
-<a id="__codelineno-0-89" name="__codelineno-0-89"></a><span class="sd">    It is also possible to perform the `swap` function on vectors in addition to matrices.</span>
+<a id="__codelineno-0-89" name="__codelineno-0-89"></a><span class="sd">        It is also possible to perform the `swap` function on vectors in addition to matrices.</span>
 <a id="__codelineno-0-90" name="__codelineno-0-90"></a>
-<a id="__codelineno-0-91" name="__codelineno-0-91"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-92" name="__codelineno-0-92"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-93" name="__codelineno-0-93"></a><span class="sd">    from toqito.perms import swap</span>
+<a id="__codelineno-0-91" name="__codelineno-0-91"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-92" name="__codelineno-0-92"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-93" name="__codelineno-0-93"></a><span class="sd">        from toqito.perms import swap</span>
 <a id="__codelineno-0-94" name="__codelineno-0-94"></a>
-<a id="__codelineno-0-95" name="__codelineno-0-95"></a><span class="sd">    test_vec = np.array([1, 2, 3, 4])</span>
+<a id="__codelineno-0-95" name="__codelineno-0-95"></a><span class="sd">        test_vec = np.array([1, 2, 3, 4])</span>
 <a id="__codelineno-0-96" name="__codelineno-0-96"></a>
-<a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">    print(swap(test_vec))</span>
-<a id="__codelineno-0-98" name="__codelineno-0-98"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">        print(swap(test_vec))</span>
+<a id="__codelineno-0-98" name="__codelineno-0-98"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-99" name="__codelineno-0-99"></a>
 <a id="__codelineno-0-100" name="__codelineno-0-100"></a>
 <a id="__codelineno-0-101" name="__codelineno-0-101"></a>

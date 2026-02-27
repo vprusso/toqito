@@ -8957,8 +8957,10 @@ probability. This channel is defined by two parameters: <code>gamma</code> (the 
 \]</div>
 <p>These operators describe the evolution of a quantum state under the generalized amplitude
 damping process.</p>
-<p>Examples:
-Apply the generalized amplitude damping channel to a qubit state:</p>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Apply the generalized amplitude damping channel to a qubit state:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.channels</span><span class="w"> </span><span class="kn">import</span> <span class="n">amplitude_damping</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
@@ -9137,17 +9139,17 @@ Apply the generalized amplitude damping channel to a qubit state:</p>
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">    damping process.</span>
 <a id="__codelineno-0-35" name="__codelineno-0-35"></a>
 <a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    Apply the generalized amplitude damping channel to a qubit state:</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        Apply the generalized amplitude damping channel to a qubit state:</span>
 <a id="__codelineno-0-38" name="__codelineno-0-38"></a>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">    from toqito.channels import amplitude_damping</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        from toqito.channels import amplitude_damping</span>
 <a id="__codelineno-0-42" name="__codelineno-0-42"></a>
-<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">    rho = np.array([[1, 0], [0, 0]])  # |0&gt;&lt;0|</span>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">    result = amplitude_damping(rho, gamma=0.1, prob=0.5)</span>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        rho = np.array([[1, 0], [0, 0]])  # |0&gt;&lt;0|</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        result = amplitude_damping(rho, gamma=0.1, prob=0.5)</span>
 <a id="__codelineno-0-45" name="__codelineno-0-45"></a>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">    print(result)</span>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">        print(result)</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-48" name="__codelineno-0-48"></a>
 <a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        input_mat: The input matrix to which the channel is applied. If `None`, the function returns the Kraus operators</span>

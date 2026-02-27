@@ -8941,8 +8941,10 @@
         <p>Convert a given vector to a density matrix or return the density matrix if already given.</p>
 <p>If the input is a vector, this function computes the outer product to form a density matrix.
 If the input is already a density matrix (square matrix), it returns the matrix as is.</p>
-<p>Examples:
-As an example, consider one of the Bell states.</p>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>As an example, consider one of the Bell states.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">bell</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_ops</span><span class="w"> </span><span class="kn">import</span> <span class="n">to_density_matrix</span>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>
@@ -9044,14 +9046,14 @@ As an example, consider one of the Bell states.</p>
 <a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="sd">    If the input is already a density matrix (square matrix), it returns the matrix as is.</span>
 <a id="__codelineno-0-11" name="__codelineno-0-11"></a>
 <a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="sd">    As an example, consider one of the Bell states.</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="sd">        As an example, consider one of the Bell states.</span>
 <a id="__codelineno-0-14" name="__codelineno-0-14"></a>
-<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">    from toqito.states import bell</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">    from toqito.matrix_ops import to_density_matrix</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">        from toqito.states import bell</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">        from toqito.matrix_ops import to_density_matrix</span>
 <a id="__codelineno-0-18" name="__codelineno-0-18"></a>
-<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">    print(to_density_matrix(bell(0)))</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">        print(to_density_matrix(bell(0)))</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-21" name="__codelineno-0-21"></a>
 <a id="__codelineno-0-22" name="__codelineno-0-22"></a>
 <a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">    Raises:</span>

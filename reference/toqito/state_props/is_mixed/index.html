@@ -8940,8 +8940,10 @@
 
         <p>Determine if a given quantum state is mixed <sup><a id="cite-toqito-state_props-is_mixed-is_mixed-1" href="#ref-toqito-state_props-is_mixed-is_mixed-1">1</a></sup>.</p>
 <p>A mixed state by definition is a state that is not pure.</p>
-<p>Examples:
-Consider the following density matrix:</p>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Consider the following density matrix:</p>
 <div class="arithmatex">\[
     \rho =  \begin{pmatrix}
                 \frac{3}{4} &amp; 0 \\
@@ -9027,25 +9029,25 @@ confirmed in <code>|toqito⟩</code> as follows:</p>
 <a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="sd">    A mixed state by definition is a state that is not pure.</span>
 <a id="__codelineno-0-12" name="__codelineno-0-12"></a>
 <a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="sd">    Consider the following density matrix:</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="sd">        Consider the following density matrix:</span>
 <a id="__codelineno-0-15" name="__codelineno-0-15"></a>
-<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">        \rho =  \begin{pmatrix}</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">                    \frac{3}{4} &amp; 0 \\</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">                    0 &amp; \frac{1}{4}</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">                \end{pmatrix} \in \text{D}(\mathcal{X}).</span>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">            \rho =  \begin{pmatrix}</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">                        \frac{3}{4} &amp; 0 \\</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">                        0 &amp; \frac{1}{4}</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">                    \end{pmatrix} \in \text{D}(\mathcal{X}).</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-22" name="__codelineno-0-22"></a>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">    Calculating the rank of \(\rho\) yields that the \(\rho\) is a mixed state. This can be</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    confirmed in `|toqito⟩` as follows:</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        Calculating the rank of \(\rho\) yields that the \(\rho\) is a mixed state. This can be</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">        confirmed in `|toqito⟩` as follows:</span>
 <a id="__codelineno-0-25" name="__codelineno-0-25"></a>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">    from toqito.states import basis</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    from toqito.state_props import is_mixed</span>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">    e_0, e_1 = basis(2, 0), basis(2, 1)</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">    print(is_mixed(rho))</span>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        from toqito.states import basis</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">        from toqito.state_props import is_mixed</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        e_0, e_1 = basis(2, 0), basis(2, 1)</span>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">        rho = 3 / 4 * e_0 @ e_0.conj().T + 1 / 4 * e_1 @ e_1.conj().T</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">        print(is_mixed(rho))</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-33" name="__codelineno-0-33"></a>
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">        state: The density matrix representing the quantum state.</span>

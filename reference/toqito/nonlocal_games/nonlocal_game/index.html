@@ -9727,8 +9727,10 @@ semidefinite programs:</p>
         \end{aligned}
     \end{equation}
 \]</div>
-<p>Examples:
-The CHSH game</p>
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>The CHSH game</p>
 <p>The CHSH game is a two-player nonlocal game with the following
 probability distribution and question and answer sets.</p>
 <div class="arithmatex">\[
@@ -9777,7 +9779,7 @@ is <span class="arithmatex">\(3/4\)</span>.</p>
 <a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>
 <a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="nb">print</span><span class="p">(</span><span class="n">chsh</span><span class="o">.</span><span class="n">quantum_value_lower_bound</span><span class="p">())</span>
 </code></pre></div>
-<p>0.8535520924278233</p>
+<p>0.8535521133824748</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -10076,65 +10078,65 @@ is <span class="arithmatex">\(3/4\)</span>.</p>
 <a id="__codelineno-0-266" name="__codelineno-0-266"></a><span class="sd">    \]</span>
 <a id="__codelineno-0-267" name="__codelineno-0-267"></a>
 <a id="__codelineno-0-268" name="__codelineno-0-268"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-269" name="__codelineno-0-269"></a><span class="sd">    The CHSH game</span>
+<a id="__codelineno-0-269" name="__codelineno-0-269"></a><span class="sd">        The CHSH game</span>
 <a id="__codelineno-0-270" name="__codelineno-0-270"></a>
-<a id="__codelineno-0-271" name="__codelineno-0-271"></a><span class="sd">    The CHSH game is a two-player nonlocal game with the following</span>
-<a id="__codelineno-0-272" name="__codelineno-0-272"></a><span class="sd">    probability distribution and question and answer sets.</span>
+<a id="__codelineno-0-271" name="__codelineno-0-271"></a><span class="sd">        The CHSH game is a two-player nonlocal game with the following</span>
+<a id="__codelineno-0-272" name="__codelineno-0-272"></a><span class="sd">        probability distribution and question and answer sets.</span>
 <a id="__codelineno-0-273" name="__codelineno-0-273"></a>
-<a id="__codelineno-0-274" name="__codelineno-0-274"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-275" name="__codelineno-0-275"></a><span class="sd">        \begin{equation}</span>
-<a id="__codelineno-0-276" name="__codelineno-0-276"></a><span class="sd">        \begin{aligned}</span>
-<a id="__codelineno-0-277" name="__codelineno-0-277"></a><span class="sd">            \pi(x,y) = \frac{1}{4}, \qquad (x,y) \in \Sigma_A \times \Sigma_B,</span>
-<a id="__codelineno-0-278" name="__codelineno-0-278"></a><span class="sd">            \qquad \text{and} \qquad (a, b) \in \Gamma_A \times \Gamma_B,</span>
-<a id="__codelineno-0-279" name="__codelineno-0-279"></a><span class="sd">        \end{aligned}</span>
-<a id="__codelineno-0-280" name="__codelineno-0-280"></a><span class="sd">        \end{equation}</span>
-<a id="__codelineno-0-281" name="__codelineno-0-281"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-274" name="__codelineno-0-274"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-275" name="__codelineno-0-275"></a><span class="sd">            \begin{equation}</span>
+<a id="__codelineno-0-276" name="__codelineno-0-276"></a><span class="sd">            \begin{aligned}</span>
+<a id="__codelineno-0-277" name="__codelineno-0-277"></a><span class="sd">                \pi(x,y) = \frac{1}{4}, \qquad (x,y) \in \Sigma_A \times \Sigma_B,</span>
+<a id="__codelineno-0-278" name="__codelineno-0-278"></a><span class="sd">                \qquad \text{and} \qquad (a, b) \in \Gamma_A \times \Gamma_B,</span>
+<a id="__codelineno-0-279" name="__codelineno-0-279"></a><span class="sd">            \end{aligned}</span>
+<a id="__codelineno-0-280" name="__codelineno-0-280"></a><span class="sd">            \end{equation}</span>
+<a id="__codelineno-0-281" name="__codelineno-0-281"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-282" name="__codelineno-0-282"></a>
-<a id="__codelineno-0-283" name="__codelineno-0-283"></a><span class="sd">    where</span>
+<a id="__codelineno-0-283" name="__codelineno-0-283"></a><span class="sd">        where</span>
 <a id="__codelineno-0-284" name="__codelineno-0-284"></a>
-<a id="__codelineno-0-285" name="__codelineno-0-285"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-286" name="__codelineno-0-286"></a><span class="sd">        \begin{equation}</span>
-<a id="__codelineno-0-287" name="__codelineno-0-287"></a><span class="sd">        \Sigma_A = \{0, 1\}, \quad \Sigma_B = \{0, 1\}, \quad \Gamma_A =</span>
-<a id="__codelineno-0-288" name="__codelineno-0-288"></a><span class="sd">        \{0,1\}, \quad \text{and} \quad \Gamma_B = \{0, 1\}.</span>
-<a id="__codelineno-0-289" name="__codelineno-0-289"></a><span class="sd">        \end{equation}</span>
-<a id="__codelineno-0-290" name="__codelineno-0-290"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-285" name="__codelineno-0-285"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-286" name="__codelineno-0-286"></a><span class="sd">            \begin{equation}</span>
+<a id="__codelineno-0-287" name="__codelineno-0-287"></a><span class="sd">            \Sigma_A = \{0, 1\}, \quad \Sigma_B = \{0, 1\}, \quad \Gamma_A =</span>
+<a id="__codelineno-0-288" name="__codelineno-0-288"></a><span class="sd">            \{0,1\}, \quad \text{and} \quad \Gamma_B = \{0, 1\}.</span>
+<a id="__codelineno-0-289" name="__codelineno-0-289"></a><span class="sd">            \end{equation}</span>
+<a id="__codelineno-0-290" name="__codelineno-0-290"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-291" name="__codelineno-0-291"></a>
-<a id="__codelineno-0-292" name="__codelineno-0-292"></a><span class="sd">    Alice and Bob win the CHSH game if and only if the following equation is</span>
-<a id="__codelineno-0-293" name="__codelineno-0-293"></a><span class="sd">    satisfied.</span>
+<a id="__codelineno-0-292" name="__codelineno-0-292"></a><span class="sd">        Alice and Bob win the CHSH game if and only if the following equation is</span>
+<a id="__codelineno-0-293" name="__codelineno-0-293"></a><span class="sd">        satisfied.</span>
 <a id="__codelineno-0-294" name="__codelineno-0-294"></a>
-<a id="__codelineno-0-295" name="__codelineno-0-295"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-296" name="__codelineno-0-296"></a><span class="sd">        \begin{equation}</span>
-<a id="__codelineno-0-297" name="__codelineno-0-297"></a><span class="sd">        a \oplus b = x \land y.</span>
-<a id="__codelineno-0-298" name="__codelineno-0-298"></a><span class="sd">        \end{equation}</span>
-<a id="__codelineno-0-299" name="__codelineno-0-299"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-295" name="__codelineno-0-295"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-296" name="__codelineno-0-296"></a><span class="sd">            \begin{equation}</span>
+<a id="__codelineno-0-297" name="__codelineno-0-297"></a><span class="sd">            a \oplus b = x \land y.</span>
+<a id="__codelineno-0-298" name="__codelineno-0-298"></a><span class="sd">            \end{equation}</span>
+<a id="__codelineno-0-299" name="__codelineno-0-299"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-300" name="__codelineno-0-300"></a>
-<a id="__codelineno-0-301" name="__codelineno-0-301"></a><span class="sd">    Recall that \(\oplus\) refers to the XOR operation.</span>
+<a id="__codelineno-0-301" name="__codelineno-0-301"></a><span class="sd">        Recall that \(\oplus\) refers to the XOR operation.</span>
 <a id="__codelineno-0-302" name="__codelineno-0-302"></a>
-<a id="__codelineno-0-303" name="__codelineno-0-303"></a><span class="sd">    The optimal quantum value of CHSH is</span>
-<a id="__codelineno-0-304" name="__codelineno-0-304"></a><span class="sd">    \(\cos(\pi/8)^2 \approx 0.8536\) where the optimal classical value</span>
-<a id="__codelineno-0-305" name="__codelineno-0-305"></a><span class="sd">    is \(3/4\).</span>
+<a id="__codelineno-0-303" name="__codelineno-0-303"></a><span class="sd">        The optimal quantum value of CHSH is</span>
+<a id="__codelineno-0-304" name="__codelineno-0-304"></a><span class="sd">        \(\cos(\pi/8)^2 \approx 0.8536\) where the optimal classical value</span>
+<a id="__codelineno-0-305" name="__codelineno-0-305"></a><span class="sd">        is \(3/4\).</span>
 <a id="__codelineno-0-306" name="__codelineno-0-306"></a>
-<a id="__codelineno-0-307" name="__codelineno-0-307"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-308" name="__codelineno-0-308"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-309" name="__codelineno-0-309"></a><span class="sd">    from toqito.nonlocal_games.nonlocal_game import NonlocalGame</span>
+<a id="__codelineno-0-307" name="__codelineno-0-307"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-308" name="__codelineno-0-308"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-309" name="__codelineno-0-309"></a><span class="sd">        from toqito.nonlocal_games.nonlocal_game import NonlocalGame</span>
 <a id="__codelineno-0-310" name="__codelineno-0-310"></a>
-<a id="__codelineno-0-311" name="__codelineno-0-311"></a><span class="sd">    dim = 2</span>
-<a id="__codelineno-0-312" name="__codelineno-0-312"></a><span class="sd">    num_alice_inputs, num_alice_outputs = 2, 2</span>
-<a id="__codelineno-0-313" name="__codelineno-0-313"></a><span class="sd">    num_bob_inputs, num_bob_outputs = 2, 2</span>
-<a id="__codelineno-0-314" name="__codelineno-0-314"></a><span class="sd">    prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])</span>
-<a id="__codelineno-0-315" name="__codelineno-0-315"></a><span class="sd">    pred_mat = np.zeros((num_alice_outputs, num_bob_outputs, num_alice_inputs, num_bob_inputs))</span>
+<a id="__codelineno-0-311" name="__codelineno-0-311"></a><span class="sd">        dim = 2</span>
+<a id="__codelineno-0-312" name="__codelineno-0-312"></a><span class="sd">        num_alice_inputs, num_alice_outputs = 2, 2</span>
+<a id="__codelineno-0-313" name="__codelineno-0-313"></a><span class="sd">        num_bob_inputs, num_bob_outputs = 2, 2</span>
+<a id="__codelineno-0-314" name="__codelineno-0-314"></a><span class="sd">        prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])</span>
+<a id="__codelineno-0-315" name="__codelineno-0-315"></a><span class="sd">        pred_mat = np.zeros((num_alice_outputs, num_bob_outputs, num_alice_inputs, num_bob_inputs))</span>
 <a id="__codelineno-0-316" name="__codelineno-0-316"></a>
-<a id="__codelineno-0-317" name="__codelineno-0-317"></a><span class="sd">    for a_alice in range(num_alice_outputs):</span>
-<a id="__codelineno-0-318" name="__codelineno-0-318"></a><span class="sd">        for b_bob in range(num_bob_outputs):</span>
-<a id="__codelineno-0-319" name="__codelineno-0-319"></a><span class="sd">           for x_alice in range(num_alice_inputs):</span>
-<a id="__codelineno-0-320" name="__codelineno-0-320"></a><span class="sd">               for y_bob in range(num_bob_inputs):</span>
-<a id="__codelineno-0-321" name="__codelineno-0-321"></a><span class="sd">                   if np.mod(a_alice + b_bob + x_alice * y_bob, dim) == 0:</span>
-<a id="__codelineno-0-322" name="__codelineno-0-322"></a><span class="sd">                       pred_mat[a_alice, b_bob, x_alice, y_bob] = 1</span>
+<a id="__codelineno-0-317" name="__codelineno-0-317"></a><span class="sd">        for a_alice in range(num_alice_outputs):</span>
+<a id="__codelineno-0-318" name="__codelineno-0-318"></a><span class="sd">            for b_bob in range(num_bob_outputs):</span>
+<a id="__codelineno-0-319" name="__codelineno-0-319"></a><span class="sd">               for x_alice in range(num_alice_inputs):</span>
+<a id="__codelineno-0-320" name="__codelineno-0-320"></a><span class="sd">                   for y_bob in range(num_bob_inputs):</span>
+<a id="__codelineno-0-321" name="__codelineno-0-321"></a><span class="sd">                       if np.mod(a_alice + b_bob + x_alice * y_bob, dim) == 0:</span>
+<a id="__codelineno-0-322" name="__codelineno-0-322"></a><span class="sd">                           pred_mat[a_alice, b_bob, x_alice, y_bob] = 1</span>
 <a id="__codelineno-0-323" name="__codelineno-0-323"></a>
-<a id="__codelineno-0-324" name="__codelineno-0-324"></a><span class="sd">    chsh = NonlocalGame(prob_mat, pred_mat)</span>
+<a id="__codelineno-0-324" name="__codelineno-0-324"></a><span class="sd">        chsh = NonlocalGame(prob_mat, pred_mat)</span>
 <a id="__codelineno-0-325" name="__codelineno-0-325"></a>
-<a id="__codelineno-0-326" name="__codelineno-0-326"></a><span class="sd">    print(chsh.quantum_value_lower_bound())</span>
-<a id="__codelineno-0-327" name="__codelineno-0-327"></a><span class="sd">    ```</span>
+<a id="__codelineno-0-326" name="__codelineno-0-326"></a><span class="sd">        print(chsh.quantum_value_lower_bound())</span>
+<a id="__codelineno-0-327" name="__codelineno-0-327"></a><span class="sd">        ```</span>
 <a id="__codelineno-0-328" name="__codelineno-0-328"></a>
 <a id="__codelineno-0-329" name="__codelineno-0-329"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-330" name="__codelineno-0-330"></a><span class="sd">        dim: The dimension of the quantum system that Alice and Bob have</span>

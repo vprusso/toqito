@@ -8987,8 +8987,10 @@ state constraints.</p>
 <span class="arithmatex">\(B_1, B_2,  \ldots , B_{k}\)</span> which has no effect on the k-extended
 state <span class="arithmatex">\(\sigma_{AB^{k}}\)</span>.</p>
 <p>The other constraints are due to the PPT condition <sup><a id="cite-toqito-state_metrics-fidelity_of_separability-fidelity_of_separability-4" href="#ref-toqito-state_metrics-fidelity_of_separability-fidelity_of_separability-4">4</a></sup>.</p>
-<p>Examples:
-Let's consider a density matrix of a state that we know is pure and separable; <span class="arithmatex">\(|00 \rangle = |0 \rangle
+
+
+<p><span class="doc-section-title">Examples:</span></p>
+    <p>Let's consider a density matrix of a state that we know is pure and separable; <span class="arithmatex">\(|00 \rangle = |0 \rangle
 \otimes |0 \rangle\)</span>.</p>
 <p>The expected approximation of fidelity of separability is the maximum value possible i.e. very close to 1.</p>
 <div class="arithmatex">\[
@@ -9346,27 +9348,27 @@ Let's consider a density matrix of a state that we know is pure and separable; <
 <a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">    The other constraints are due to the PPT condition [@Peres_1996_Separability].</span>
 <a id="__codelineno-0-79" name="__codelineno-0-79"></a>
 <a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">    Let&#39;s consider a density matrix of a state that we know is pure and separable; \(|00 \rangle = |0 \rangle</span>
-<a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">    \otimes |0 \rangle\).</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81"></a><span class="sd">        Let&#39;s consider a density matrix of a state that we know is pure and separable; \(|00 \rangle = |0 \rangle</span>
+<a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">        \otimes |0 \rangle\).</span>
 <a id="__codelineno-0-83" name="__codelineno-0-83"></a>
-<a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">    The expected approximation of fidelity of separability is the maximum value possible i.e. very close to 1.</span>
+<a id="__codelineno-0-84" name="__codelineno-0-84"></a><span class="sd">        The expected approximation of fidelity of separability is the maximum value possible i.e. very close to 1.</span>
 <a id="__codelineno-0-85" name="__codelineno-0-85"></a>
-<a id="__codelineno-0-86" name="__codelineno-0-86"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">        \rho_{AB} = |00 \rangle \langle 00|</span>
-<a id="__codelineno-0-88" name="__codelineno-0-88"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-86" name="__codelineno-0-86"></a><span class="sd">        \[</span>
+<a id="__codelineno-0-87" name="__codelineno-0-87"></a><span class="sd">            \rho_{AB} = |00 \rangle \langle 00|</span>
+<a id="__codelineno-0-88" name="__codelineno-0-88"></a><span class="sd">        \]</span>
 <a id="__codelineno-0-89" name="__codelineno-0-89"></a>
-<a id="__codelineno-0-90" name="__codelineno-0-90"></a><span class="sd">    ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-91" name="__codelineno-0-91"></a><span class="sd">    import numpy as np</span>
-<a id="__codelineno-0-92" name="__codelineno-0-92"></a><span class="sd">    from toqito.state_metrics import fidelity_of_separability</span>
-<a id="__codelineno-0-93" name="__codelineno-0-93"></a><span class="sd">    from toqito.matrix_ops import tensor</span>
-<a id="__codelineno-0-94" name="__codelineno-0-94"></a><span class="sd">    from toqito.states import basis</span>
+<a id="__codelineno-0-90" name="__codelineno-0-90"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-91" name="__codelineno-0-91"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-92" name="__codelineno-0-92"></a><span class="sd">        from toqito.state_metrics import fidelity_of_separability</span>
+<a id="__codelineno-0-93" name="__codelineno-0-93"></a><span class="sd">        from toqito.matrix_ops import tensor</span>
+<a id="__codelineno-0-94" name="__codelineno-0-94"></a><span class="sd">        from toqito.states import basis</span>
 <a id="__codelineno-0-95" name="__codelineno-0-95"></a>
-<a id="__codelineno-0-96" name="__codelineno-0-96"></a><span class="sd">    state = tensor(basis(2, 0), basis(2, 0))</span>
-<a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">    rho = state @ state.conj().T</span>
+<a id="__codelineno-0-96" name="__codelineno-0-96"></a><span class="sd">        state = tensor(basis(2, 0), basis(2, 0))</span>
+<a id="__codelineno-0-97" name="__codelineno-0-97"></a><span class="sd">        rho = state @ state.conj().T</span>
 <a id="__codelineno-0-98" name="__codelineno-0-98"></a>
-<a id="__codelineno-0-99" name="__codelineno-0-99"></a><span class="sd">    print(np.around(fidelity_of_separability(rho, [2, 2]), decimals=2))</span>
-<a id="__codelineno-0-100" name="__codelineno-0-100"></a><span class="sd">    ```</span>
-<a id="__codelineno-0-101" name="__codelineno-0-101"></a><span class="sd">        is PSD with trace 1).</span>
+<a id="__codelineno-0-99" name="__codelineno-0-99"></a><span class="sd">        print(np.around(fidelity_of_separability(rho, [2, 2]), decimals=2))</span>
+<a id="__codelineno-0-100" name="__codelineno-0-100"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-101" name="__codelineno-0-101"></a><span class="sd">            is PSD with trace 1).</span>
 <a id="__codelineno-0-102" name="__codelineno-0-102"></a>
 <a id="__codelineno-0-103" name="__codelineno-0-103"></a><span class="sd">    Raises:</span>
 <a id="__codelineno-0-104" name="__codelineno-0-104"></a><span class="sd">        AssertionError: If the provided dimensions are not for a bipartite density matrix.</span>
