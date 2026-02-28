@@ -152,7 +152,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
     
       <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
@@ -8962,10 +8962,10 @@ integer <span class="arithmatex">\(q\)</span> (number of qubits).</p>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">pauli_channel</span><span class="p">(</span><span class="n">prob</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 </code></pre></div>
-<p>[[ 0.57545526+0.j  0.        +0.j  0.        +0.j  0.02211374+0.j]
- [ 0.        +0.j  0.42454474+0.j -0.25052797+0.j  0.        +0.j]
- [ 0.        +0.j -0.25052797+0.j  0.42454474+0.j  0.        +0.j]
- [ 0.02211374+0.j  0.        +0.j  0.        +0.j  0.57545526+0.j]]</p>
+<p>[[ 0.38031939+0.j  0.        +0.j  0.        +0.j  0.36939325+0.j]
+ [ 0.        +0.j  0.61968061+0.j -0.37199653+0.j  0.        +0.j]
+ [ 0.        +0.j -0.37199653+0.j  0.61968061+0.j  0.        +0.j]
+ [ 0.36939325+0.j  0.        +0.j  0.        +0.j  0.38031939+0.j]]</p>
 <p>Apply a specific two-qubit Pauli channel to an input matrix:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.channels</span><span class="w"> </span><span class="kn">import</span> <span class="n">pauli_channel</span>

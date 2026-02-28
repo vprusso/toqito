@@ -152,7 +152,7 @@
     
     
     
-    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="black" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
     
       <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
@@ -9135,17 +9135,13 @@ describes how to merge code changes into <code>|toqito⟩</code>.</p>
 <li>The docstring of a new feature should contain a theoretical
     description of the feature, one or more examples in an <code>Examples</code>
     subsection and a <code>References</code> subsection. The docstring code
-    examples should utilize
-    <a href="https://jupyter-sphinx.readthedocs.io/en/latest/">jupyter-sphinx</a>.</li>
+    examples should utilize fenced code blocks with <code>markdown-exec</code>.</li>
 <li>Added lines should show up as covered in the <code>pytest</code> code coverage
     report. See <a href="#testing">Testing</a>.</li>
 <li>Code and unit tests for the new feature should follow the style
     guidelines as discussed in <a href="#code-style">Code Style</a></li>
 <li>The new feature must be added to the <code>init</code> file of its module to
     avoid import issues.</li>
-<li>Finally, if the new feature is a new module, it has to be listed in
-    <code>docs/autoapi_members.rst</code> such that the new module appears in the
-    <code>API Reference</code> page due to <code>sphinx-autoapi</code>.</li>
 </ul>
 <h2 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h2>
 <p>A convenient way to verify if the installation procedure worked
@@ -9232,25 +9228,18 @@ function follows the formatting specifications in <a href="#code-style">Code Sty
 <a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a>
 <a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a><span class="sd">    &quot;&quot;&quot;</span>
 </code></pre></div>
-<p>Use <code>.. math::</code> mode for equations and use use <code>:cite:some_ref</code> for some
-reference in the docstring.</p>
+<p>Use <code>\(\)</code> for inline math and <code>\[\]</code> for display math in docstrings.
+Use `` for citations in docstrings.</p>
 <p>To add an attribution to a paper or a book, add your reference with
-<code>some_ref</code> as the citation key to <code>docs/refs.bib</code>. All references in
-<code>refs.bib</code> are arranged alphabetically according to the first author\'s
-last name. Take a look at the <a href="https://github.com/vprusso/toqito/blob/master/docs/refs.bib">existing
+<code>some_ref</code> as the citation key to <code>mkdocs/content/refs.bib</code>. All references in
+<code>refs.bib</code> are arranged alphabetically according to the first author's
+last name. Take a look at the <a href="https://github.com/vprusso/toqito/blob/master/mkdocs/content/refs.bib">existing
 entries</a> to
 get an idea of how to format the <code>bib</code> keys.</p>
-<p>Following is used in a docstring for the references to show up in the
-documentation build.</p>
-<p><div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>References
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>==========
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>.. footbibliography::
-</code></pre></div>
-//replace this later</p>
 <h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h2>
 <p>We use <code>sphinx</code> to build the documentation. Sync the docs dependency
 group first (<code>uv sync --group docs</code>), then run:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>toqito/docs$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>make<span class="w"> </span>clean<span class="w"> </span>html
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>toqito/docs$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>make<span class="w"> </span>clean<span class="w"> </span>html
 </code></pre></div>
 <p>If you would prefer to decrease the amount of time taken by <code>sphinx</code> to
 build the documentation locally, use <code>make html</code> instead after the
