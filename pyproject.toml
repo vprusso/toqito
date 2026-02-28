@@ -84,7 +84,7 @@ default-groups = ["dev"]
 [tool.isort]
 py_version = "311"
 skip = [".gitignore", "__init__.py"]
-skip_glob = ["docs/*", ".github/*"]
+skip_glob = [".github/*"]
 line_length = 120
 multi_line_output = 3
 use_parentheses = true
@@ -124,7 +124,7 @@ select = ["I", "E", "W", "D", "PL", "F"]
 
 
 # Rules considered over other incompatible ones
-exclude = ["docs/conf.py"]
+exclude = []
 
 
 ignore = ["D407", "D203", "D213", "D416", "PLR0912", "PLR0911", "PLR0915", "PLR2004", "PLR0913", "F811", "E203"]
@@ -154,5 +154,4 @@ ignore = ["D407", "D203", "D213", "D416", "PLR0912", "PLR0911", "PLR0915", "PLR2
 # I001 - skip checking Import block is un-sorted or un-formatted
 # F401 - Checks for unused imports, applying fixes to __init__.py currently under review
 # skip checking all the .py files in the examples gallery
-"docs/examples/*" = ["I", "E", "W", "D", "PL", "F"]
 "mkdocs/content/examples/*" = ["I", "E", "W", "D", "PL", "F"]

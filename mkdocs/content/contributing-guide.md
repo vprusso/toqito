@@ -83,17 +83,13 @@ If you add a new feature to `|toqito⟩`, make sure
 -   The docstring of a new feature should contain a theoretical
     description of the feature, one or more examples in an `Examples`
     subsection and a `References` subsection. The docstring code
-    examples should utilize
-    [jupyter-sphinx](https://jupyter-sphinx.readthedocs.io/en/latest/).
+    examples should utilize fenced code blocks with `markdown-exec`.
 -   Added lines should show up as covered in the `pytest` code coverage
     report. See [Testing](#testing).
 -   Code and unit tests for the new feature should follow the style
     guidelines as discussed in [Code Style](#code-style)
 -   The new feature must be added to the `init` file of its module to
     avoid import issues.
--   Finally, if the new feature is a new module, it has to be listed in
-    `docs/autoapi_members.rst` such that the new module appears in the
-    `API Reference` page due to `sphinx-autoapi`.
 
 ## Testing
 
@@ -205,25 +201,15 @@ def my_new_function(some_parameter: parameter_type) -> return_type:
     """
 ```
 
-Use `.. math::` mode for equations and use use `:cite:some_ref` for some
-reference in the docstring.
+Use `\(\)` for inline math and `\[\]` for display math in docstrings.
+Use `[@some_ref]` for citations in docstrings.
 
 To add an attribution to a paper or a book, add your reference with
-`some_ref` as the citation key to `docs/refs.bib`. All references in
-`refs.bib` are arranged alphabetically according to the first author\'s
+`some_ref` as the citation key to `mkdocs/content/refs.bib`. All references in
+`refs.bib` are arranged alphabetically according to the first author's
 last name. Take a look at the [existing
-entries](https://github.com/vprusso/toqito/blob/master/docs/refs.bib) to
+entries](https://github.com/vprusso/toqito/blob/master/mkdocs/content/refs.bib) to
 get an idea of how to format the `bib` keys.
-
-Following is used in a docstring for the references to show up in the
-documentation build.
-
-``` text
-References
-==========
-.. footbibliography::
-```
-//replace this later
 ## Documentation 
 
 We use `sphinx` to build the documentation. Sync the docs dependency
