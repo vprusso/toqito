@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - "mkdocs/**"
+      - "docs/**"
       - "toqito/**"
       - ".github/workflows/docs.yml"
   workflow_dispatch:
@@ -45,5 +45,5 @@ jobs:
 
       - name: Deploy to GitHub Pages
         run: |
-          cd mkdocs
+          cd docs
           uv run mkdocs gh-deploy --force
