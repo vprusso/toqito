@@ -8,8 +8,8 @@ edit_uri: edit/main/docs/content
 
 theme:
   name: material
-  logo: figures/logo.svg
-  favicon: figures/logo.svg
+  logo: figures/logo-icon.svg
+  favicon: figures/favicon.ico
   palette:
     - scheme: default
       primary: indigo
