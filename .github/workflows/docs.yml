@@ -2,9 +2,8 @@ name: Deploy Documentation
 
 on:
   push:
-    branches: 
+    branches:
       - master
-      - docs/gh-pages-switch
     paths:
       - "mkdocs/**"
       - "toqito/**"
