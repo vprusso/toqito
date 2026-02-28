@@ -21,6 +21,7 @@ This tutorial assumes familiarity with the basics of quantum information. For ba
 
 References:
     .. footbibliography::
+
 """
 
 from itertools import combinations
