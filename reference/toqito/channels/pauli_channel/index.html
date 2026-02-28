@@ -22,7 +22,7 @@
         
       
       
-      <link rel="icon" href="../../../../figures/logo.svg">
+      <link rel="icon" href="../../../../figures/favicon.ico">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
     
     
@@ -112,7 +112,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../../../.." title="toqito" class="md-header__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../../figures/logo.svg" alt="logo">
+  <img src="../../../../figures/logo-icon.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -247,7 +247,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../../../.." title="toqito" class="md-nav__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../../figures/logo.svg" alt="logo">
+  <img src="../../../../figures/logo-icon.svg" alt="logo">
 
     </a>
     toqito
@@ -8871,10 +8871,10 @@ integer <span class="arithmatex">\(q\)</span> (number of qubits).</p>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">pauli_channel</span><span class="p">(</span><span class="n">prob</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 </code></pre></div>
-<p>[[ 0.68251362+0.j  0.        +0.j  0.        +0.j -0.27612912+0.j]
- [ 0.        +0.j  0.31748638+0.j  0.00655733+0.j  0.        +0.j]
- [ 0.        +0.j  0.00655733+0.j  0.31748638+0.j  0.        +0.j]
- [-0.27612912+0.j  0.        +0.j  0.        +0.j  0.68251362+0.j]]</p>
+<p>[[0.49159921+0.j 0.        +0.j 0.        +0.j 0.15778338+0.j]
+ [0.        +0.j 0.50840079+0.j 0.3574095 +0.j 0.        +0.j]
+ [0.        +0.j 0.3574095 +0.j 0.50840079+0.j 0.        +0.j]
+ [0.15778338+0.j 0.        +0.j 0.        +0.j 0.49159921+0.j]]</p>
 <p>Apply a specific two-qubit Pauli channel to an input matrix:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.channels</span><span class="w"> </span><span class="kn">import</span> <span class="n">pauli_channel</span>
