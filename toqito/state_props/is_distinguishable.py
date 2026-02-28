@@ -38,7 +38,7 @@ def is_distinguishable(states: list[np.ndarray], probs: list[float] | None = Non
     Args:
         states: A set of vectors consisting of quantum states to determine the distinguishability of.
         probs: Respective list of probabilities each state is selected. If no probabilities are provided, a uniform
-        probability distribution is assumed.
+            probability distribution is assumed.
 
     Returns:
         `True` if the vectors are distinguishable; `False` otherwise.

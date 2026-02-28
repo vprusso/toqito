@@ -226,7 +226,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         TypeError: If the input `state` is not a NumPy array.
         RuntimeError: If the symmetric extension check is attempted but fails due to CVXPY solver issues.
         NotImplementedError: If the symmetric extension check is attempted but the level is not implemented
-        (e.g., level < 1).
+            (e.g., level < 1).
         ValueError:
             - If the input `state` is not a square matrix.
             - If the input `state` is not positive semidefinite.
@@ -425,7 +425,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
                                         except np.linalg.LinAlgError:  # Should be rare with orth basis
                                             p_np_arr[j_breuer - 1, k_breuer - 1, n_breuer - 1, m_breuer - 1] = np.nan
 
-            def get_p(t_tuple):
+            def get_p(t_tuple: tuple[int, ...]) -> float:
                 # Ensure indices are within bounds of p_np_arr before accessing
                 if not (
                     0 <= t_tuple[0] - 1 < p_np_arr.shape[0]

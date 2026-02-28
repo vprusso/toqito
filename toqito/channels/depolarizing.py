@@ -79,7 +79,7 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
     Args:
         dim: The dimensionality on which the channel acts.
         param_p: Depolarizing probability \(p \) \in [0,1] that mixes the input state with the maximally mixed state.
-        Default 0.
+            Default 0.
 
     Returns:
         The Choi matrix of the completely depolarizing channel.

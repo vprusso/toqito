@@ -53,8 +53,8 @@ def tensor_comb(
         states: A list of state vectors.
         k: The length of the sequence.
         mode: Determines the type of sequences. Default is `"injective"`. ``non-injective`` will allow repetitions in
-        sequences, ``injective`` will ensures sequences are injective (no repetitions) and ``diagonal`` will allow
-        sequences with repeated indices (diagonal elements).
+            sequences, ``injective`` will ensures sequences are injective (no repetitions) and ``diagonal`` will allow
+            sequences with repeated indices (diagonal elements).
         density_matrix: Determines whether the return is a density matrix or a ket. Default is ``True``.
 
     Returns:

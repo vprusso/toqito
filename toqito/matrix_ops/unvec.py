@@ -76,7 +76,7 @@ def unvec(vector: np.ndarray, shape: list[int] | None = None) -> np.ndarray:
         ```
 
         !!! See Also
-            [vec][toqito.matrix_ops.vec.vec]
+            [vec][toqito.perms.vec.vec]
 
     Args:
         vector: A (`shape[0] * shape[1]`)-by-1 numpy array.

@@ -26,7 +26,7 @@ class ExtendedNonlocalGame:
 
     For a detailed walkthrough and several examples, including the BB84 and CHSH
     games, please see the tutorial on
-    [Extended Nonlocal Games](../../../generated/gallery/extended_nonlocal_games/index.md).
+    [Extended Nonlocal Games](../../../generated/gallery/extended_nonlocal_games/enlg_introduction.md).
     """
 
     def __init__(self, prob_mat: np.ndarray, pred_mat: np.ndarray, reps: int = 1) -> None:
@@ -34,7 +34,7 @@ class ExtendedNonlocalGame:
 
         Args:
             prob_mat: A matrix whose (x, y)-entry gives the probability that the referee will give Alice the value `x`
-            and Bob the value `y`.
+                and Bob the value `y`.
             pred_mat: A matrix representing the predictions for the game.
             reps: Number of parallel repetitions to perform.
 
@@ -79,7 +79,7 @@ class ExtendedNonlocalGame:
             self.reps = reps
         self.__get_game_dims()
 
-    def __get_game_dims(self):
+    def __get_game_dims(self) -> None:
         """Initialize game dimensions from the prediction matrix.
 
         This private method checks whether the game dimensions have already been initialized by

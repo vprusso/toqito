@@ -1,5 +1,6 @@
 """Unique permutations is used to calculate the unique permutations of a list/vector and their count."""
 
+from collections.abc import Generator
 from dataclasses import dataclass
 
 
@@ -11,7 +12,7 @@ class UniqueElement:
     occurrences: int
 
 
-def unique_perms(elements: list[int]):
+def unique_perms(elements: list[int]) -> Generator[tuple[int, ...], None, None]:
     r"""Determine the number of unique permutations of a list.
 
     Examples:
@@ -46,7 +47,7 @@ def unique_perms(elements: list[int]):
     return perm_unique_helper(list_unique, [0] * len_elems, len_elems - 1)
 
 
-def perm_unique_helper(list_unique: list[UniqueElement], result_list: list[int], elem_d: int):
+def perm_unique_helper(list_unique: list[UniqueElement], result_list: list[int], elem_d: int) -> Generator[tuple[int, ...], None, None]:
     """Provide helper function for unique_perms.
 
     Args:

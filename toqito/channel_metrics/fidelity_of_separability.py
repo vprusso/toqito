@@ -99,14 +99,14 @@ def fidelity_of_separability(
     Args:
         psi: the density matrix for the tripartite state of interest psi_{BAR}
         psi_dims: the dimensions of System A, B, & R in the input state density matrix. It is assumed that the first
-        quantity in this list is the dimension of System B.
+            quantity in this list is the dimension of System B.
         k: value for k-extendibility.
         verbosity_option: Parameter option for `picos`. Default value is
             `verbosity = 0`. For more info, visit
             https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-verbosity.
         solver_option: Optimization option for `picos` solver. Default option is
             `solver_option="cvxopt"`. For more info, visit
-        https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-solver.
+            https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-solver.
 
     Returns:
         Optimized value of the SDP when maximized over a set of linear operators subject to some constraints.

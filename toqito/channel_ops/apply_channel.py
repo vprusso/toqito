@@ -90,7 +90,7 @@ def apply_channel(mat: np.ndarray, phi_op: np.ndarray | list[list[np.ndarray]]) 
     Args:
         mat: A matrix.
         phi_op: A superoperator. `phi_op` should be provided either as a Choi matrix, or as a list of numpy arrays with
-        either 1 or 2 columns whose entries are its Kraus operators.
+            either 1 or 2 columns whose entries are its Kraus operators.
 
     Returns:
         The result of applying the superoperator `phi_op` to the operator `mat`.

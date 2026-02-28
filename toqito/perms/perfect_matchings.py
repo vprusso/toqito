@@ -25,8 +25,8 @@ def perfect_matchings(num: list[int] | int | np.ndarray) -> np.ndarray:
 
     Args:
         num: Either an even integer, indicating that you would like all perfect matchings of the integers 0, 1, ... N-1,
-        or a `list` or `np.array` containing an even number of distinct entries, indicating that you would like all
-        perfect matchings of those entries.
+            or a `list` or `np.array` containing an even number of distinct entries, indicating that you would like all
+            perfect matchings of those entries.
 
     Returns:
         An array containing all valid perfect matchings of size `num`.

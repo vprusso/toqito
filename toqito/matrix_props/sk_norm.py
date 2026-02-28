@@ -68,7 +68,7 @@ def sk_operator_norm(
     Args:
         mat: A matrix.
         k: The "index" of the norm--that is, it is the Schmidt rank of the vectors that are multiplying X on the left
-        and right in the definition of the norm.
+            and right in the definition of the norm.
         dim: The dimension of the two sub-systems. By default it's assumed to be equal.
         target: A target value that you wish to prove that the norm is above or below.
         effort: An integer value indicating the amount of computation you want to devote to computing the bounds.

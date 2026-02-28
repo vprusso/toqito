@@ -39,7 +39,7 @@ def brauer(dim: int, p_val: int) -> np.ndarray:
     Args:
         dim: Dimension of each local subsystem
         p_val: Half of the number of parties (i.e., the state that this function computes will live in
-        \((\mathbb{C}^D)^{\otimes 2 P})\)
+            \((\mathbb{C}^D)^{\otimes 2 P})\)
 
     Returns:
         Matrix whose columns are all of the unnormalized Brauer states.

@@ -71,12 +71,12 @@ def random_state_vector(
 
     Args:
         dim: Either a positive integer giving the total Hilbert-space dimension, or a length-2 sequence specifying the
-        individual subsystem dimensions for bipartite sampling.
+            individual subsystem dimensions for bipartite sampling.
         is_real: Boolean denoting whether the returned vector has real entries. Default is `False`, which produces
-        complex amplitudes.
+            complex amplitudes.
         k_param: Optional upper bound on the Schmidt rank when ``dim`` describes a bipartite system.  Set to `0`
-        (default) to ignore the Schmidt rank constraint.  Must be non-negative and strictly less than the smaller
-        subsystem dimension when used.
+            (default) to ignore the Schmidt rank constraint.  Must be non-negative and strictly less than the smaller
+            subsystem dimension when used.
         seed: A seed used to instantiate numpy's random number generator.
 
     Returns:

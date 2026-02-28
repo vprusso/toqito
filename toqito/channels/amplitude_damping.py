@@ -48,7 +48,7 @@ def amplitude_damping(
 
     Args:
         input_mat: The input matrix to which the channel is applied. If `None`, the function returns the Kraus operators
-        of the channel.
+            of the channel.
         gamma: The damping rate, a float between 0 and 1. Represents the probability of energy dissipation.
         prob: The probability of energy loss, a float between 0 and 1.
 

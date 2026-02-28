@@ -53,12 +53,11 @@ def calculate_vector_matrix_dimension(item: np.ndarray) -> int:
 
     Raises:
         ValueError: If the input is not a numpy array, not a 1D array (vector), a 2D array representing a vector, or a
-        square 2D
-        array (density matrix).
+            square 2D array (density matrix).
 
     Args:
         item: The item whose dimension is being calculated. Can be a 1D array (vector), a 2D array representing a vector
-        with one dimension being 1, or a square 2D array (density matrix).
+            with one dimension being 1, or a square 2D array (density matrix).
 
     Returns:
         The dimension of the vector or matrix.

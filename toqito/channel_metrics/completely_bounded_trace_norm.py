@@ -1,5 +1,7 @@
 """Computes the completely bounded trace norm of a quantum channel."""
 
+from typing import Any
+
 import numpy as np
 import picos as pc
 
@@ -8,7 +10,7 @@ from toqito.channel_props import is_completely_positive, is_quantum_channel
 from toqito.matrix_props import trace_norm
 
 
-def completely_bounded_trace_norm(phi: np.ndarray, solver: str = "cvxopt", **kwargs) -> float | np.floating:
+def completely_bounded_trace_norm(phi: np.ndarray, solver: str = "cvxopt", **kwargs: Any) -> float | np.floating:
     r"""Find the completely bounded trace norm of a quantum channel.
 
     Also known as the diamond norm of a quantum channel (Section 3.3.2 of [@Watrous_2018_TQI]). The algorithm in p.11 of

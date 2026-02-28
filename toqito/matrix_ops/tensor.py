@@ -3,7 +3,7 @@
 import numpy as np
 
 
-def tensor(*args) -> np.ndarray | None:
+def tensor(*args: np.ndarray | int | list[np.ndarray]) -> np.ndarray | None:
     r"""Compute the Kronecker tensor product [@WikiTensorProd].
 
     Tensor two matrices or vectors together using the standard Kronecker
@@ -114,7 +114,7 @@ def tensor(*args) -> np.ndarray | None:
 
     """
 
-    def fast_exp(matrix, q):
+    def fast_exp(matrix: np.ndarray, q: int) -> np.ndarray:
         """Efficient exponentiation by squaring."""
         if q == 1:
             return matrix

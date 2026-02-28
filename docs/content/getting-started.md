@@ -100,7 +100,7 @@ To solve problem "X" we used `toqito`; a package for studying certain aspects of
 A BibTeX entry that you can use to cite `|toqito⟩` is provided here:
 
 ``` text
-@misc{toqito,
+\@misc{toqito,
    author       = {Vincent Russo},
    title        = {toqito: A {P}ython toolkit for quantum information, version 1.0.0},
    howpublished = {\url{https://github.com/vprusso/toqito}},

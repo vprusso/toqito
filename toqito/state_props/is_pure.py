@@ -59,7 +59,7 @@ def is_pure(state: list[np.ndarray] | np.ndarray) -> bool:
 
     Args:
         state: The density matrix representing the quantum state or a list of density matrices representing quantum
-        states.
+            states.
 
     Returns:
         `True` if state is pure and `False` otherwise.

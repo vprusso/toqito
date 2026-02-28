@@ -1,5 +1,7 @@
 """Calculates the probability of error of single state conclusive state exclusion."""
 
+from typing import Any
+
 import numpy as np
 import picos
 
@@ -13,7 +15,7 @@ def state_exclusion(
     strategy: str = "min_error",
     solver: str = "cvxopt",
     primal_dual: str = "dual",
-    **kwargs,
+    **kwargs: Any,
 ) -> tuple[float, list[picos.HermitianVariable] | tuple[picos.HermitianVariable, picos.RealVariable]]:
     r"""Compute probability of error of single state conclusive state exclusion.
 
@@ -163,9 +165,9 @@ def state_exclusion(
     Args:
         vectors: A list of states provided as vectors (for pure states) or density matrices (for mixed states).
         probs: Respective list of probabilities each state is selected. If no probabilities are provided, a uniform
-        probability distribution is assumed.
+            probability distribution is assumed.
         strategy: Whether to perform minimal error or unambiguous discrimination task. Possible values are "min_error"
-        and "unambiguous". Both strategies support pure and mixed states.
+            and "unambiguous". Both strategies support pure and mixed states.
         solver: Optimization option for `picos` solver. Default option is `solver_option="cvxopt"`.
         primal_dual: Option for the optimization problem.
         kwargs: Additional arguments to pass to picos' solve method.

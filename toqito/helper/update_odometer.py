@@ -27,9 +27,11 @@ def update_odometer(old_ind: list[int] | np.ndarray, upper_lim: list[int] | np.n
         import numpy as np
         vec = np.array([0, 0])
         upper_lim = np.array([3, 2])
+        print("```")
         for j in range(0, np.prod(upper_lim)-1):
                 vec = update_odometer(vec, upper_lim)
                 print(vec)
+        print("```")
         ```
 
     Args:

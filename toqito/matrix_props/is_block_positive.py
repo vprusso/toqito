@@ -43,16 +43,16 @@ def is_block_positive(
 
     Raises:
         RuntimeError: Unable to determine k-block positivity. Please consider increasing the relative tolerance or the
-        effort level.
+            effort level.
 
     Args:
         mat: A bipartite Hermitian operator.
         k: A positive integer indicating that the function should determine whether or not the input operator is k-block
-        positive, i.e., whether or not it remains nonnegative under left and right multiplication by vectors with
-        Schmidt rank <= k (default 1).
+            positive, i.e., whether or not it remains nonnegative under left and right multiplication by vectors with
+            Schmidt rank <= k (default 1).
         dim: The dimension of the two sub-systems. By default it's assumed to be equal.
         effort: An integer value indicating the amount of computation you want to devote to determine block positivity
-        before giving up.
+            before giving up.
         rtol: The relative tolerance parameter (default 1e-05).
 
     Returns:

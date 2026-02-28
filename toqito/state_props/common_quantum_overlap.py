@@ -67,7 +67,7 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
 
     Args:
         states: A list of quantum states represented as numpy arrays. States can be pure states
-        (represented as state vectors) or mixed states (represented as density matrices).
+            (represented as state vectors) or mixed states (represented as density matrices).
 
     Returns:
         The common quantum overlap value.

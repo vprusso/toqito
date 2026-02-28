@@ -80,8 +80,10 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
         M = np.array([[1, 1, 0], [0, 1, 1]])
         b = np.array([0, 1])
         row_masks, parity = generate_solution_group(M, b)
+        print("```")
         print(row_masks)  # Output: [3, 6]
         print(parity)     # Output: [0, 1]
+        print("```")
         ```
 
     Args:

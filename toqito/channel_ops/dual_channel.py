@@ -69,9 +69,9 @@ def dual_channel(
 
     Args:
         phi_op: A superoperator. It should be provided either as a Choi matrix, or as a (1d or 2d) list of numpy arrays
-        whose entries are its Kraus operators.
+            whose entries are its Kraus operators.
         dims: Dimension of the input and output systems, for Choi matrix representation. If `None`, try to infer them
-        from `phi_op.shape`.
+            from `phi_op.shape`.
 
     Returns:
         The map dual to `phi_op`, in the same representation.

@@ -1,5 +1,7 @@
 """Computes the maximum probability of distinguishing two quantum channels."""
 
+from typing import Any
+
 import numpy as np
 import picos as pc
 
@@ -16,7 +18,7 @@ def channel_distinguishability(
     strategy: str = "bayesian",
     solver: str = "cvxopt",
     primal_dual: str = "dual",
-    **kwargs,
+    **kwargs: Any,
 ) -> float | np.floating:
     r"""Compute the optimal probability of distinguishing two quantum channels.
 

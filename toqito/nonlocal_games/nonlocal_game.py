@@ -24,7 +24,7 @@ class NonlocalGame:
     The nonlocal game framework was originally introduced in [@Cleve_2010_Consequences].
 
     A tutorial is available in the documentation. For more info, see
-    [Nonlocal Games](../../../generated/gallery/nonlocal_games/index.md).
+    [Nonlocal Games](../../../generated/gallery/nonlocal_games/nonlocal_game.md).
     """
 
     def __init__(self, prob_mat: np.ndarray, pred_mat: np.ndarray, reps: int = 1) -> None:
@@ -139,7 +139,7 @@ class NonlocalGame:
         their satisfiability using a helper function.
 
         Raises:
-            If no constraints are stored (i.e., if the game was not created from a BCS game).
+            ValueError: If no constraints are stored (i.e., if the game was not created from a BCS game).
 
         Returns:
             True if a perfect commuting-operator strategy exists; False otherwise.
@@ -203,7 +203,7 @@ class NonlocalGame:
         dim: int = 2,
         iters: int = 5,
         tol: float = 10e-6,
-    ):
+    ) -> float:
         r"""Compute a lower bound on the quantum value of a nonlocal game [@Liang_2007_Bounds].
 
         Calculates a lower bound on the maximum value that the specified

@@ -61,7 +61,7 @@ def abs_ppt_constraints(
         p: The dimension of the smaller subsystem in the bipartite system.
         max_constraints: The maximum number of constraint matrices to compute. (default: 33,592)
         use_check: Use the "criss-cross" ordering check described in [@Johnston_2014_Orderings] to reduce the number of
-        constraint matrices. (default: `False`)
+            constraint matrices. (default: `False`)
 
     Returns:
         A list of `max_constraints` constraint matrices which must be positive semidefinite for an absolutely PPT

@@ -38,7 +38,7 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
 
     Args:
         constraint_tensor: An n-dimensional tensor with shape `(2,)*n`, where each element is either -1 or +1.
-        All entries should be equal except for one unique position that marks the satisfying assignment.
+            All entries should be equal except for one unique position that marks the satisfying assignment.
 
     Returns:
         A 1D `numpy` array of length \(n+1\) where the first \(n\) elements are the coordinates (indices), and the last

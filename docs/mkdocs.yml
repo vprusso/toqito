@@ -8,7 +8,7 @@ edit_uri: edit/main/docs/content
 
 theme:
   name: material
-  logo: figures/logo-icon.svg
+  logo: figures/logo-dark.svg
   favicon: figures/favicon.ico
   palette:
     - scheme: default

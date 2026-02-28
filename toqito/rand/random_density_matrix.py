@@ -115,7 +115,7 @@ def random_density_matrix(
         is_real: Boolean denoting whether the returned matrix will have all real entries or not.
         k_param: Default value is equal to `dim`.
         distance_metric: The distance metric used to randomly generate the density matrix. This metric is either the
-        Haar measure or the Bures measure. Default value is to use the Haar measure.
+            Haar measure or the Bures measure. Default value is to use the Haar measure.
         seed: A seed used to instantiate numpy's random number generator.
 
     Returns:

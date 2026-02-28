@@ -33,7 +33,7 @@ def is_nonnegative(input_mat: np.ndarray, mat_type: str = "nonnegative") -> bool
     Args:
         input_mat: np.ndarray Matrix of interest.
         mat_type: Type of nonnegative matrix. `"nonnegative"` for a nonnegative matrix and `"doubly"` for a doubly
-        nonnegative matrix.
+            nonnegative matrix.
 
     """
     valid_types = {"nonnegative", "doubly"}
