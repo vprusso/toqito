@@ -5,7 +5,7 @@
  </picture>
  </p>
 
-
+<!-- --8<-- [start:content] -->
 # |toqito⟩: Theory of Quantum Information Toolkit
 
 [![build status](https://github.com/vprusso/toqito/actions/workflows/build-test-actions.yml/badge.svg)](https://github.com/vprusso/toqito/actions/workflows/build-test-actions.yml)
@@ -214,3 +214,4 @@ Chat with us in our |toqito⟩ channel on [Discord](http://discord.unitary.fund/
 ## License
 
 [MIT License](http://opensource.org/licenses/mit-license.php>)
+<!-- --8<-- [end:content] -->
