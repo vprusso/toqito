@@ -10,36 +10,6 @@ measurements called **Symmetric Informationally Complete Positive Operator-Value
 simultaneously maximises symmetry, guarantees informational completeness, and places an absolute
 ceiling on Bob's success probability.
 
-A **Positive Operator-Valued Measure** (POVM) is a collection of positive semidefinite operators
-$\{M_i\}$ summing to the identity. Each $M_i$ represents one possible measurement outcome, and
-the probability of obtaining outcome $i$ when measuring state $\rho$ is $p_i = \mathrm{Tr}(M_i
-\rho)$. Projective measurements are the special case where every $M_i$ is a projector; POVMs
-generalise this by allowing non-orthogonal, even overcomplete, sets of outcomes. SIC-POVMs are
-the most symmetric possible overcomplete POVMs: they use exactly $d^2$ rank-1 elements in a
-$d$-dimensional Hilbert space, one more than the minimum needed for informational completeness,
-arranged so that every pair of elements is equally "close" in the sense of inner products.
-
-The reason to care about this symmetry is operational. In quantum state tomography, a
-practitioner must choose a measurement whose outcomes uniquely determine any unknown state.
-A SIC-POVM achieves this with the minimum number of outcomes consistent with symmetry, and its
-equiangularity makes the reconstruction formula — translating outcome frequencies back into a
-density matrix — as simple as possible. At the same time, the very symmetry that makes
-reconstruction clean also makes single-shot discrimination hard: no outcome is more informative
-than any other about which state was prepared.
-
-The tutorial is structured as a chain of concepts, each following naturally from the last:
-
-1. **State discrimination** establishes the operational setting and the SDP that solves it.
-2. **The qubit SIC tetrahedron** introduces equiangularity visually via the Bloch sphere.
-3. **The Gram matrix** makes equiangularity numerical and exact.
-4. **The discrimination bound** $2/[d(d+1)]$ shows the operational cost of equiangularity.
-5. **The Weyl-Heisenberg construction** extends SICs to arbitrary dimension $d$.
-6. **Projective 2-designs** reveal the statistical depth behind the geometry.
-7. **Resolution of the identity** confirms the POVM completeness condition.
-8. **State reconstruction** shows equiangularity enables exact tomography.
-9. **MUB comparison** contrasts SICs with the other canonical symmetric measurement family.
-10. **Learnability** connects single-shot and many-copy classification.
-
 !!! note
     Weyl-Heisenberg SIC fiducials have been found numerically in every dimension up to at least
     $d = 151$ and analytically in infinitely many dimensions, yet a proof of existence for all
@@ -66,6 +36,110 @@ from toqito.matrix_ops import vectors_to_gram_matrix
 from toqito.state_opt import state_distinguishability
 from toqito.state_props import learnability
 from toqito.states import mutually_unbiased_basis
+# Before discussing SIC-POVMs, we begin with the geometric language of qubits:
+# the Bloch sphere.  Every pure qubit state |ψ⟩ corresponds to a unique unit
+# vector r ∈ ℝ³ via
+#
+#     ρ = |ψ⟩⟨ψ| = ½ (I + r · σ),
+#
+# where σ = (σ_x, σ_y, σ_z) are the Pauli matrices.  The function `bloch_coords`
+# implements the coordinate extraction
+#
+#     r = (2 Re ρ_01, 2 Im ρ_10, ρ_00 − ρ_11).
+#
+# This dictionary translates linear-algebraic statements into geometry:
+#
+#     |⟨ψ|φ⟩|² = (1 + r_ψ · r_φ)/2.
+#
+# Thus:
+#   • Identical states → r · r = 1  (same point)
+#   • Orthogonal states → r · r = −1 (antipodal points)
+#
+# The Bloch sphere allows us to *see* distinguishability, overlap, and angular
+# structure without manipulating matrices.
+#
+# The helper `plot_bloch_sphere` renders:
+#   • A translucent unit sphere,
+#   • Principal meridians and axes,
+#   • State vectors as arrows from the origin.
+#
+# This geometric picture will be our foundation for understanding SIC-POVMs.
+
+
+# ---------------------------------------------------------------------------
+# 2. From Orthogonality to Symmetry
+# ---------------------------------------------------------------------------
+# Perfect distinguishability for qubits occurs when states are antipodal.
+# But SIC-POVMs require something more delicate: *maximal symmetry* rather
+# than maximal separation.
+#
+# A symmetric informationally complete POVM (SIC) in dimension d is a set
+# of d² rank-1 projectors {Π_i = |ψ_i⟩⟨ψ_i|} such that
+#
+#     |⟨ψ_i|ψ_j⟩|² = 1/(d+1)  for all i ≠ j.
+#
+# For d = 2 (qubits), this condition becomes
+#
+#     |⟨ψ_i|ψ_j⟩|² = 1/3.
+#
+# Using the Bloch dictionary:
+#
+#     (1 + r_i · r_j)/2 = 1/3
+#           ⇒  r_i · r_j = −1/3.
+#
+# So every pair of Bloch vectors must have dot product −1/3.
+#
+# Geometrically, this means:
+#   The vectors form the vertices of a regular tetrahedron inscribed
+#   in the unit sphere.
+#
+# The Bloch sphere immediately reveals why:
+#   −1/3 is precisely the cosine of the angle between tetrahedral vertices.
+
+
+# ---------------------------------------------------------------------------
+# 3. Visualising the Qubit SIC
+# ---------------------------------------------------------------------------
+# The `plot_bloch_sphere` function makes this structure visible.
+#
+# When we plot four states satisfying r_i · r_j = −1/3:
+#
+#   • The arrows form a perfectly symmetric tetrahedron,
+#   • All angular separations are identical,
+#   • No state is antipodal to any other,
+#   • The configuration is maximally spread but uniformly so.
+#
+# This contrasts sharply with orthogonal bases:
+#   Orthogonal basis → 2 antipodal points (max separation).
+#   SIC configuration → 4 equally spaced points (max symmetry).
+#
+# The tetrahedral arrangement is not an aesthetic coincidence —
+# it is the only configuration of 4 unit vectors in ℝ³ with equal
+# pairwise inner products.
+
+
+# ---------------------------------------------------------------------------
+# 4. Why This Matters for POVMs
+# ---------------------------------------------------------------------------
+# A SIC-POVM for qubits is constructed from these states as:
+#
+#     M_i = ½ Π_i   (since d = 2).
+#
+# They satisfy:
+#
+#     ∑_i M_i = I,
+#
+# meaning they form a valid POVM.
+#
+# Geometrically:
+#   • Each outcome corresponds to "pointing" toward one tetrahedral vertex.
+#   • The symmetry ensures informational completeness:
+#       measurement statistics uniquely determine the state.
+#
+# Bloch geometry makes this intuitive:
+#   Because the tetrahedron spans ℝ³ symmetrically,
+#   any Bloch vector can be reconstructed from its projections
+#   onto these four directions.
 
 
 def bloch_coords(state: np.ndarray) -> np.ndarray:
@@ -79,19 +153,6 @@ def bloch_coords(state: np.ndarray) -> np.ndarray:
 
     The Bloch sphere is our main geometric tool throughout the tutorial — it turns abstract
     inner-product conditions into visible angles and distances.
-
-    The formula above comes from expanding the density matrix of a qubit pure state in the
-    Pauli basis. Any single-qubit density matrix can be written as
-    $\rho = \tfrac{1}{2}(I + \vec{r}\cdot\vec{\sigma})$, where
-    $\vec{\sigma} = (\sigma_x, \sigma_y, \sigma_z)$ are the Pauli matrices and $\vec{r}$ is a
-    real vector. For a pure state $|\vec{r}| = 1$, so $\rho$ maps bijectively to a point on the
-    unit sphere. The inner product between two states is related to their Bloch vectors by
-
-    $$|\langle \psi | \phi \rangle|^2 = \frac{1 + \vec{r}_\psi \cdot \vec{r}_\phi}{2},$$
-
-    which means *orthogonal states map to antipodal points* (dot product $-1$) and *identical
-    states map to the same point* (dot product $1$). This geometric dictionary is what makes
-    the Bloch sphere such a powerful tool for understanding quantum measurement.
 
     Args:
         state: A length-2 complex unit vector representing a qubit pure state.
@@ -133,15 +194,6 @@ def plot_bloch_sphere(
     A translucent unit sphere is drawn together with the equator and the three principal
     meridians. Each group of states is rendered as scatter points with outgoing arrows from
     the origin, making angular separations between states immediately visible.
-
-    Visual inspection of the Bloch sphere immediately reveals properties that would otherwise
-    require algebra. The angle $\theta$ between two Bloch vectors satisfies
-    $\cos\theta = \vec{r}_i \cdot \vec{r}_j$, and the overlap-squared between the corresponding
-    states is $|\langle\psi_i|\psi_j\rangle|^2 = (1 + \cos\theta)/2$. For a SIC in $d=2$, all
-    pairwise overlaps-squared equal $1/3$, which means $\cos\theta = -1/3$ for every pair —
-    the exact condition for the vertices of a regular tetrahedron. The Bloch sphere thus
-    converts the abstract equiangularity condition into the familiar geometry of a Platonic
-    solid, making the key constraint immediately intuitive.
 
     Args:
         state_groups: Each inner list is a group of qubit state vectors to plot together.
@@ -228,16 +280,6 @@ def sic_d2() -> list:
     The states are constructed by rotating the north pole symmetrically in three equally-spaced
     azimuthal directions.
 
-    To see why exactly four states are needed in $d=2$, consider counting: a general qubit
-    density matrix $\rho$ has $d^2 - 1 = 3$ real degrees of freedom (the Bloch vector
-    components). To determine $\rho$ from measurement outcomes we need at least $d^2 = 4$
-    linearly independent operators, one more than the dimension of the traceless subspace. The
-    SIC construction achieves this minimum count while imposing maximal symmetry. The specific
-    value $1/(d+1) = 1/3$ is not chosen arbitrarily — it is the unique overlap consistent with
-    a tight frame of $d^2$ rank-1 operators that resolves the identity. Any larger overlap would
-    violate the frame condition; any smaller overlap is geometrically impossible for $d^2$
-    vectors in $\mathbb{C}^d$.
-
     Returns:
         A list of four length-2 complex unit vectors.
 
@@ -279,21 +321,6 @@ def sic_d3() -> list:
 
     produces all $d^2$ SIC states. The fiducial is a carefully chosen seed; the symmetry group
     then distributes it uniformly across the state space.
-
-    The Weyl-Heisenberg group is the discrete analogue of the Heisenberg group from quantum
-    mechanics. The clock operator $Z$ has eigenvalues $\omega^k = e^{2\pi i k/d}$ and
-    implements phase kicks, while the shift operator $X$ cyclically permutes the computational
-    basis: $X|j\rangle = |j+1 \bmod d\rangle$. Together they satisfy $XZ = \omega ZX$ with
-    $\omega = e^{2\pi i/d}$, which is the discrete Weyl commutation relation. The factor
-    $\tau^{jk}$ in $D_{jk}$ is a phase correction that ensures the displacement operators form
-    a projective unitary representation of $\mathbb{Z}_d \times \mathbb{Z}_d$.
-
-    The key insight of the Weyl-Heisenberg construction is that any fiducial vector $|\phi\rangle$
-    satisfying $|\langle\phi|D_{jk}|\phi\rangle|^2 = 1/(d+1)$ for all $(j,k) \neq (0,0)$
-    automatically generates a SIC via its orbit. This is because the group action preserves
-    inner products, so equiangularity of the orbit with the fiducial implies equiangularity of
-    the entire orbit with itself. Finding such a fiducial is the hard part — for $d=3$ the
-    Hesse SIC fiducial used here is one of the few analytically known examples.
 
     Returns:
         A list of nine length-3 complex unit vectors.
@@ -343,21 +370,6 @@ def frame_potential(states: list) -> float:
     The discrimination difficulty and the 2-design property are two faces of the same
     equiangularity coin.
 
-    To understand why 2-designs matter, recall that many quantum information protocols require
-    averaging over states in a way that is equivalent to integrating against the Haar measure.
-    The Haar measure is the unique unitarily invariant probability measure on pure states, but
-    sampling from it requires infinitely many states. A 2-design is a finite substitute: it
-    matches the Haar measure exactly for all polynomials of degree at most 2 in the state
-    components and their conjugates. Concretely, for any operator $O$,
-
-    $$\frac{1}{N}\sum_{i=1}^N |\psi_i\rangle\langle\psi_i| \otimes |\psi_i\rangle\langle\psi_i|
-    = \int |\psi\rangle\langle\psi|^{\otimes 2}\, d\psi$$
-
-    when $\{|\psi_i\rangle\}$ is a 2-design. This equality is precisely what is tested by the
-    frame potential: a set achieves $\Phi^{(2)}_{\min}$ if and only if the above holds. The
-    Welch bound itself follows from expanding the left side using the Cauchy-Schwarz inequality
-    and the identity for the symmetric subspace projector.
-
     Args:
         states: A list of complex unit vectors all of the same length $d$.
 
@@ -393,19 +405,6 @@ def resolution_residual(states: list) -> float:
     which ensures outcome probabilities sum to one. This is a non-trivial constraint: $d^2$
     rank-1 operators, each scaled by $1/d$, must sum to the full identity. It is equivalent to
     the SIC states forming a *tight frame*, and it follows directly from equiangularity.
-
-    The connection between equiangularity and the tight-frame property can be made precise. A
-    set of $N$ unit vectors $\{|\psi_i\rangle\}$ in $\mathbb{C}^d$ is a tight frame with frame
-    constant $\lambda$ if $\sum_i |\psi_i\rangle\langle\psi_i| = \lambda I_d$. Taking the
-    trace of both sides gives $\lambda = N/d$. For a SIC with $N = d^2$ this yields
-    $\lambda = d$, so $\sum_i |\psi_i\rangle\langle\psi_i| = d\,I_d$, which after dividing by
-    $d$ is exactly the resolution of identity $\sum_i M_i = I_d$.
-
-    The tight-frame property also has a Parseval interpretation: just as an orthonormal basis
-    satisfies $\sum_i |\langle\psi_i|v\rangle|^2 = \|v\|^2$ for every vector $v$, a tight
-    frame satisfies $\sum_i |\langle\psi_i|v\rangle|^2 = \lambda\|v\|^2$. For SIC states this
-    sum of squared overlaps is the same for every unit vector $v$, reflecting the uniform
-    coverage of state space that equiangularity enforces.
 
     Args:
         states: A list of $d^2$ complex unit vectors in $\mathbb{C}^d$.
@@ -444,16 +443,6 @@ def sic_reconstruct(probs: np.ndarray, states: list, d: int) -> np.ndarray:
     formula is the operational payoff of equiangularity: because all SIC elements are related
     by symmetry, the dual frame needed to invert the measurement has the same structure. No
     other IC-POVM with $d^2$ elements has such a clean dual.
-
-    To derive the formula, note that the SIC states form a tight frame, so the frame operator
-    $F = \sum_i |\psi_i\rangle\langle\psi_i|$ satisfies $F = d\,I_d$. Any operator $A$ can
-    be expanded as $A = \sum_i \langle\psi_i|A|\psi_i\rangle\,|\tilde\psi_i\rangle\langle
-    \tilde\psi_i|$ where $|\tilde\psi_i\rangle$ are the dual frame vectors. For a tight frame
-    $F^{-1} = I/d$, so the duals are $|\tilde\psi_i\rangle = |\psi_i\rangle/d$ — the same
-    vectors rescaled. Applying this to $\rho$ and substituting $\langle\psi_i|\rho|\psi_i\rangle
-    = d\,p_i$ (since $M_i = |\psi_i\rangle\langle\psi_i|/d$) yields the formula above after
-    accounting for the tracelessness of $\rho - I/d$. The coefficient $(d+1)p_i - 1/d$ is the
-    result of this dual-frame expansion combined with the normalisation $\mathrm{Tr}(\rho) = 1$.
 
     !!! note
         The same equiangularity that *limits* single-shot discrimination to $2/[d(d+1)]$ also
@@ -496,16 +485,6 @@ def sic_reconstruct(probs: np.ndarray, states: list, d: int) -> np.ndarray:
 # ---------------------------------------------------------------------------
 # 1. State Discrimination — Orthogonal Baseline
 # ---------------------------------------------------------------------------
-# The state discrimination problem formalises the scenario where a receiver must identify
-# which of several known quantum states was sent. Given an ensemble $\{(p_i, \rho_i)\}$ of
-# states with prior probabilities $p_i$, the receiver applies a POVM $\{M_i\}$ and guesses
-# state $i$ whenever outcome $i$ occurs. The average success probability is
-#
-#   p_succ = sum_i p_i Tr(M_i rho_i).
-#
-# Maximising over all valid POVMs (positive semidefinite, summing to the identity) is a
-# semidefinite programme (SDP), which toqito solves via state_distinguishability.
-#
 # The best possible discrimination case is *orthogonal* states: they point in completely
 # different directions, so a single projective measurement always tells them apart.  We verify
 # this baseline before introducing geometric complexity.
@@ -540,14 +519,6 @@ plot_bloch_sphere(
 # vectors_to_gram_matrix.  For a valid SIC every off-diagonal entry of |G|^2 equals 1/(d+1).
 # Six identical numbers confirm equiangularity, and exactly prevent Bob from finding any
 # privileged measurement direction.
-#
-# The Gram matrix G with G_ij = <psi_i|psi_j> encodes all pairwise inner products in one
-# matrix. Its diagonal entries are all 1 (unit normalisation) and its off-diagonal entries
-# are the complex overlaps between distinct states.  For a SIC, |G_ij|^2 = 1/(d+1) for all
-# i != j, so the matrix |G|^2 has a very simple structure: 1 on the diagonal and 1/(d+1)
-# everywhere else.  This uniformity is the algebraic signature of equiangularity, and it has
-# an immediate consequence: the SIC states cannot be "pulled apart" by any linear functional,
-# because no pair is more or less distinguishable than any other.
 
 sic2 = sic_d2()
 G2 = vectors_to_gram_matrix(sic2)
@@ -576,13 +547,6 @@ plot_bloch_sphere(
 # For any SIC ensemble the optimal success probability is known in closed form:
 #
 #   p_succ^SIC = 2 / (d(d+1)).
-#
-# This bound can be derived by noting that the optimal measurement for a SIC ensemble is the
-# SIC POVM itself — a consequence of the symmetry group acting transitively on the ensemble.
-# When the ensemble has a symmetry group that acts transitively (all states are related by
-# group elements), the optimal POVM shares that symmetry, which for SICs forces it to be the
-# SIC POVM itself.  Substituting M_i = |psi_i><psi_i|/d and p_i = 1/d^2 into the success
-# probability formula and using equiangularity directly gives p_succ = 2/[d(d+1)].
 #
 # For d=2 this gives p_succ = 1/3.  The SDP confirms the analytic bound, and placing both
 # ensembles side-by-side on the same sphere makes the geometric intuition concrete: the
@@ -620,17 +584,6 @@ plot_bloch_sphere(
 # holds.  The discrimination bound 2/[d(d+1)] is then confirmed by the SDP.  As d grows,
 # 2/[d(d+1)] falls like 1/d^2 — a direct consequence of the ever-tighter equiangular packing
 # in a larger space, and a sign that this same packing has a deeper statistical interpretation.
-#
-# The name "Hesse SIC" comes from the Hesse configuration in projective geometry — a classical
-# arrangement of 9 points and 12 lines in the complex projective plane that is related to the
-# symmetry group of the qutrit SIC.  The symmetry group of the Hesse SIC is the Hessian group
-# of order 216, which acts transitively on all nine SIC states and is responsible for the
-# equiangularity of the orbit.
-#
-# Verifying equiangularity by checking all 9*8 = 72 off-diagonal entries of the Gram matrix
-# is more demanding than the qubit case, where only 4*3 = 12 entries had to be checked.  The
-# standard deviation of the off-diagonal values provides a sensitive numerical test: if it is
-# at machine precision (around 1e-16) we can be confident the construction is exact.
 
 sic3 = sic_d3()
 
@@ -653,20 +606,6 @@ print(f"Analytic formula:   p_succ = {p_theory_d3:.6f}   [2 / d(d+1), d={d}]")
 # ---------------------------------------------------------------------------
 # Both SIC sets saturate the Welch bound, confirming they are projective 2-designs.
 # The discrimination difficulty and the 2-design property are two faces of the same coin.
-#
-# To appreciate what saturation means, consider an alternative: a uniformly random set of N
-# unit vectors.  Its expected frame potential equals N^2/(d^2) for large N (ignoring
-# coincidences), which is strictly larger than the Welch bound N^2/C(d+1,2) because
-# C(d+1,2) = d(d+1)/2 < d^2 for d >= 2.  Random sets thus waste "frame budget" on unequal
-# overlaps.  A SIC, by enforcing equal overlaps, routes all that budget into the minimum
-# achievable value — it is the most efficient possible finite approximation to the Haar
-# measure at second order.
-#
-# The practical consequence for benchmarking is significant.  Randomised benchmarking
-# protocols estimate average gate fidelities by averaging over random Clifford circuits.
-# Using a 2-design as the reference ensemble guarantees that the second-order statistics of
-# the benchmarking distribution are exactly those of Haar-random states, removing a systematic
-# bias that would otherwise require many more circuit samples to average out.
 
 N2, d2 = 4, 2
 phi2 = frame_potential(sic2)
@@ -686,19 +625,6 @@ print(f"d=3  frame potential: {phi3:.6f}   Welch bound: {phi3_min:.6f}   "
 # The POVM completeness condition ensures outcome probabilities sum to one.
 # Both SICs satisfy it to machine precision, confirming the tight-frame property.
 # With completeness verified, we can now ask what it buys us in practice.
-#
-# It is instructive to contrast this with a projective measurement, which also resolves the
-# identity but with orthogonal rank-1 projectors: sum_i |e_i><e_i| = I_d for any orthonormal
-# basis {|e_i>}.  There the resolution is trivial — it holds by definition of an orthonormal
-# basis.  For the SIC the resolution is non-trivial: d^2 non-orthogonal rank-1 operators, each
-# contributing only 1/d of their weight, must collectively tile the identity.  This tiling is
-# only possible because equiangularity forces a precise cancellation of all off-diagonal terms
-# in the sum, leaving only the identity.
-#
-# Numerically we measure the Frobenius residual ||sum_i M_i - I||_F.  Machine-precision
-# residuals (around 1e-15) confirm not just that the formula is correct in theory, but that
-# the floating-point construction of the SIC states is accurate enough to be used in
-# downstream computations such as state reconstruction.
 
 print(f"Resolution of identity residual  d=2: {resolution_residual(sic2):.2e}")
 print(f"Resolution of identity residual  d=3: {resolution_residual(sic3):.2e}")
@@ -709,17 +635,6 @@ print(f"Resolution of identity residual  d=3: {resolution_residual(sic3):.2e}")
 # Round-trip reconstruction of a random qubit state confirms the SIC POVM is informationally
 # complete.  The reconstruction is exact to floating-point precision, confirming that the same
 # equiangularity that limits single-shot discrimination also enables exact reconstruction.
-#
-# The random test state is constructed by drawing a random complex matrix A, forming A A^dag
-# to get a positive semidefinite matrix, and normalising by its trace to obtain a valid density
-# matrix.  This is not a pure state — the eigenvalues of rho are generally unequal — which
-# makes the test more demanding than checking reconstruction only for pure states.
-#
-# The four simulated measurement outcomes p_obs are the ideal (noiseless) probabilities
-# Tr(M_i rho).  In a real experiment these would be estimated from finite-sample frequencies,
-# introducing statistical noise; here we use exact probabilities to isolate the algebraic
-# reconstruction error from statistical fluctuations.  The Frobenius error of order 1e-16
-# confirms the reconstruction formula is algebraically exact, not just approximately correct.
 
 rng = np.random.default_rng(42)
 A = rng.standard_normal((2, 2)) + 1j * rng.standard_normal((2, 2))
@@ -744,23 +659,6 @@ print(f"Reconstruction Frobenius error: {np.linalg.norm(rho - rho_rec):.2e}   "
 # which improves discrimination relative to the SIC.  The six MUB states sit at octahedral
 # vertices including the two poles, so the MUB ensemble inherits some of the orthogonal-basis
 # discrimination advantage.  The SIC tetrahedron has no such privileged pair.
-#
-# MUBs and SICs each have natural domains of application.  MUBs are natural for tasks that
-# decompose along basis directions: quantum key distribution protocols (BB84 uses two MUBs),
-# entanglement witnesses, and Wigner function representations.  SICs are natural for tasks
-# requiring a single measurement with uniform sensitivity to all state parameters: quantum
-# state tomography, reference-frame-independent benchmarking, and the reconstruction formula
-# derived in section 7.
-#
-# For d=2, the d+1 = 3 MUBs together give 3*2 = 6 states, while the SIC gives only d^2 = 4
-# states.  Despite having more states, the MUB ensemble achieves a higher discrimination
-# probability per state.  This illustrates that more states does not automatically mean better
-# discrimination — the geometric arrangement matters more than the count.
-#
-# The block structure of the MUB Gram matrix (zeros and ones within each 2x2 block,
-# 1/2 across blocks) reflects the fact that states within the same basis are orthogonal and
-# thus perfectly distinguishable from each other, while states in different bases are
-# maximally non-orthogonal in the sense of having the largest possible inter-basis overlap.
 
 mub2 = mutually_unbiased_basis(2)
 G_mub = np.abs(vectors_to_gram_matrix(mub2)) ** 2
@@ -783,21 +681,6 @@ print(f"SIC (4 states, d=2)  p_succ = {p_succ_d2:.6f}")
 # At k=1 — a single copy — the result matches state discrimination exactly, confirming that
 # the two tasks are identical in the single-shot regime.  The same equiangularity that makes
 # reconstruction possible in the limit of many shots is exactly what caps the per-shot accuracy.
-#
-# The learnability framework makes this multi-copy picture precise.  With k copies of an
-# unknown state, Bob's composite system is in the tensor product state rho^(x)k and can apply
-# any joint measurement on all k copies simultaneously — including entangled measurements that
-# have no classical analogue.  As k -> infinity, the optimal classification error approaches
-# zero for any ensemble of distinct states, because sufficiently many copies determine rho
-# exactly via quantum state tomography.
-#
-# The interesting regime is small k.  For k=1 the learnability error equals 1 - p_succ from
-# the discrimination SDP, because a single copy admits no tomographic advantage.  For k=2 the
-# optimal joint measurement on rho^(x)2 can exploit quantum correlations and strictly outperform
-# any strategy based on two independent single-copy measurements.  This gap between joint and
-# independent strategies is a quantum phenomenon with no classical counterpart, and the SIC
-# ensemble — with its perfectly uniform single-copy statistics — provides a clean setting in
-# which to study it.
 
 learn_d2 = learnability(sic2, k=1)
 
@@ -817,14 +700,6 @@ print(f"State discrimination p_succ (d=2):                          {p_succ_d2:.
 #   4. The dual frame has the same structure           (clean reconstruction formula).
 #   5. No measurement axis is privileged               (discrimination capped at 2/[d(d+1)]).
 #
-# These five statements are not merely analogous — each one can be derived from any other as a
-# theorem.  Statement 1 is the definition; statement 3 follows from 1 by a direct computation
-# using the equiangularity value; statement 2 follows from 3 because a tight frame saturates
-# the Welch bound; statement 4 follows from 3 because the tight-frame inverse is proportional
-# to the identity; and statement 5 follows from the group-covariance of the ensemble together
-# with 1.  The chain is therefore a logical cycle, and verifying any one statement numerically
-# is sufficient to confirm all the others.
-#
 # The SIC-POVM sits between two extremes on the Bloch sphere:
 #
 #   Orthogonal bases:  antipodal states, perfect discrimination, incomplete rotational symmetry.
@@ -832,13 +707,3 @@ print(f"State discrimination p_succ (d=2):                          {p_succ_d2:.
 #
 # Using |toqito> we verified all five equivalent formulations numerically, establishing that
 # the discrimination viewpoint gives SIC symmetry a direct operational meaning.
-#
-# Beyond the properties explored here, SIC-POVMs appear in several active research areas.
-# In quantum Bayesianism (QBism), the SIC representation of quantum states — writing rho in
-# terms of SIC outcome probabilities — has been proposed as the most natural language for
-# quantum theory, because it maps every state to a valid probability distribution over d^2
-# outcomes.  In quantum gravity, the number-theoretic properties of SIC fiducials (which live
-# in ray class fields of real quadratic number fields for known exact solutions) have led to
-# conjectured connections with Hilbert's 12th problem.  And in applied quantum information,
-# SIC-POVMs are used as reference measurements in compressed sensing tomography, where their
-# 2-design property guarantees near-optimal sample complexity for state reconstruction.
