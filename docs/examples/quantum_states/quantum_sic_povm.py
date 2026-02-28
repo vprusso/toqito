@@ -2,7 +2,7 @@
 
 Imagine Alice picks a quantum state at random from a secret list and sends it to Bob. Bob's
 challenge: guess which state he received. The answer depends not just on how many states are in
-the list, but on their *geometry*  how similar or different they are from one another.
+the list, but on their *geometry* — how similar or different they are from one another.
 
 This tutorial builds intuition for that geometry by working through a special family of
 measurements called **Symmetric Informationally Complete Positive Operator-Valued Measures**
@@ -23,18 +23,18 @@ References:
     .. footbibliography::
 """
 
-import numpy as np
 from itertools import combinations
 from math import comb
 
 import matplotlib.pyplot as plt
+import numpy as np
 from mpl_toolkits.mplot3d import Axes3D  # noqa: F401
 
-from toqito.state_opt import state_distinguishability
-from toqito.matrix_ops import vectors_to_gram_matrix
 from toqito.matrices import gen_pauli, standard_basis
-from toqito.states import mutually_unbiased_basis
+from toqito.matrix_ops import vectors_to_gram_matrix
+from toqito.state_opt import state_distinguishability
 from toqito.state_props import learnability
+from toqito.states import mutually_unbiased_basis
 
 
 def bloch_coords(state: np.ndarray) -> np.ndarray:
@@ -68,6 +68,7 @@ def bloch_coords(state: np.ndarray) -> np.ndarray:
         z = np.real(rho[0, 0] - rho[1, 1])
         print(np.array([x, y, z]))
         ```
+
     """
     rho = np.outer(state, state.conj())
     x = 2 * np.real(rho[0, 1])
@@ -108,6 +109,7 @@ def plot_bloch_sphere(
         plot_bloch_sphere([[e0], [e1]], ["|0>", "|1>"], ["royalblue", "crimson"],
                           "Orthogonal basis", markers=["^", "v"])
         ```
+
     """
     if markers is None:
         markers = ["o"] * len(state_groups)
@@ -186,6 +188,7 @@ def sic_d2() -> list:
         overlaps = [abs(np.vdot(sic2[i], sic2[j])) ** 2 for i, j in combinations(range(4), 2)]
         print(np.round(overlaps, 6))
         ```
+
     """
     phi = 2 * np.pi / 3
     return [
@@ -228,6 +231,7 @@ def sic_d3() -> list:
         off = G_sq[~np.eye(9, dtype=bool)]
         print(f"mean={off.mean():.6f}  std={off.std():.2e}  all equal 1/4: {np.allclose(off, 0.25, atol=1e-8)}")
         ```
+
     """
     d = 3
     tau = np.exp(1j * np.pi / d)
@@ -279,6 +283,7 @@ def frame_potential(states: list) -> float:
         welch = N**2 / comb(d + 1, 2)
         print(f"frame potential={phi:.6f}  Welch bound={welch:.6f}  saturated={np.isclose(phi, welch)}")
         ```
+
     """
     G = np.abs(vectors_to_gram_matrix(states)) ** 2
     return float(np.sum(G ** 2))
@@ -312,6 +317,7 @@ def resolution_residual(states: list) -> float:
         print(f"d=2 residual: {resolution_residual(sic2):.2e}")
         print(f"d=3 residual: {resolution_residual(sic3):.2e}")
         ```
+
     """
     d = len(states[0])
     S = sum(np.outer(v, v.conj()) for v in states) / d
@@ -363,6 +369,7 @@ def sic_reconstruct(probs: np.ndarray, states: list, d: int) -> np.ndarray:
         rho_rec = sic_reconstruct(p_obs, sic2, d=2)
         print(f"Frobenius reconstruction error: {np.linalg.norm(rho - rho_rec):.2e}")
         ```
+
     """
     return sum(
         ((d + 1) * probs[i] - 1.0 / d) * np.outer(states[i], states[i].conj())
@@ -462,7 +469,7 @@ plot_bloch_sphere(
 )
 
 # Having understood the qubit case geometrically and numerically, we now ask whether the same
-# structure persists in higher dimensions  and how to construct SIC states when there is no
+# structure persists in higher dimensions — and how to construct SIC states when there is no
 # Bloch-sphere picture to guide intuition.
 
 # ---------------------------------------------------------------------------
