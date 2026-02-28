@@ -1,3 +1,0 @@
-# References
-
-\full_bibliography

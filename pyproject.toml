@@ -154,4 +154,4 @@ ignore = ["D407", "D203", "D213", "D416", "PLR0912", "PLR0911", "PLR0915", "PLR2
 # I001 - skip checking Import block is un-sorted or un-formatted
 # F401 - Checks for unused imports, applying fixes to __init__.py currently under review
 # skip checking all the .py files in the examples gallery
-"mkdocs/content/examples/*" = ["I", "E", "W", "D", "PL", "F"]
+"docs/content/examples/*" = ["I", "E", "W", "D", "PL", "F"]

@@ -49,7 +49,7 @@ For the full documentation, please consult: [Documentation](https://vprusso.gith
 
 ### Example: Nonlocal games
 
-[Nonlocal games](https://vprusso.github.io/toqito/generated/gallery/03_nonlocal_games/) are a mathematical framework
+[Nonlocal games](https://vprusso.github.io/toqito/generated/gallery/nonlocal_games/) are a mathematical framework
 that abstractly models a physical system. The CHSH game is a subtype of nonlocal game referred to as an XOR game that
 characterizes the seminal [CHSH inequality](https://en.wikipedia.org/wiki/CHSH_inequality). 
 
@@ -116,7 +116,7 @@ ppt_res, _ = ppt_distinguishability(states, subsystems=[0], dimensions=[2, 2])
 print(f"Distinguishing four Bell states (PPT measurements): {ppt_res}")
 ```
 
-Consult the [quantum state tutorials](https://vprusso.github.io/toqito/generated/gallery/02_quantum_states/) for
+Consult the [quantum state tutorials](https://vprusso.github.io/toqito/generated/gallery/quantum_states/) for
 additional examples and information about quantum states within the context of |toqito⟩.
 
 ## Testing
