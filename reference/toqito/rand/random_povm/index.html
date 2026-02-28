@@ -112,7 +112,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../../../.." title="toqito" class="md-header__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../../figures/logo-icon.svg" alt="logo">
+  <img src="../../../../figures/logo-dark.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -247,7 +247,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../../../.." title="toqito" class="md-nav__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../../figures/logo-icon.svg" alt="logo">
+  <img src="../../../../figures/logo-dark.svg" alt="logo">
 
     </a>
     toqito
@@ -8910,20 +8910,20 @@ POVMs of dimension with <span class="arithmatex">\(2\)</span> inputs and <span c
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">povms</span><span class="p">)</span>
 </code></pre></div>
-<p>[[[[ 0.39798763+0.j  0.60201237+0.j]
-   [ 0.86646823+0.j  0.13353177+0.j]]</p>
-<p>[[ 0.35126825+0.j -0.35126825+0.j]
-   [-0.18381098+0.j  0.18381098+0.j]]]</p>
-<p>[[[ 0.35126825+0.j -0.35126825+0.j]
-   [-0.18381098+0.j  0.18381098+0.j]]</p>
-<p>[[ 0.31944096+0.j  0.68055904+0.j]
-   [ 0.05512948+0.j  0.94487052+0.j]]]]</p>
+<p>[[[[ 0.92423903+0.j  0.07576097+0.j]
+   [ 0.00675406+0.j  0.99324594+0.j]]</p>
+<p>[[-0.22786697+0.j  0.22786697+0.j]
+   [-0.03285238+0.j  0.03285238+0.j]]]</p>
+<p>[[[-0.22786697+0.j  0.22786697+0.j]
+   [-0.03285238+0.j  0.03285238+0.j]]</p>
+<p>[[ 0.06716933+0.j  0.93283067+0.j]
+   [ 0.80523952+0.j  0.19476048+0.j]]]]</p>
 <p>We can verify that this constitutes a valid set of POVM elements as checking that these operators all sum to the
 identity operator.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">povms</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">povms</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>
 </code></pre></div>
-<p>[[1.+0.j 0.+0.j]
- [0.+0.j 1.+0.j]]</p>
+<p>[[ 1.+0.j -0.+0.j]
+ [-0.+0.j  1.+0.j]]</p>
 <p>It is also possible to add a seed for reproducibility.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.rand</span><span class="w"> </span><span class="kn">import</span> <span class="n">random_povm</span>

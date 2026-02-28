@@ -112,7 +112,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../../../.." title="toqito" class="md-header__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../../figures/logo-icon.svg" alt="logo">
+  <img src="../../../../figures/logo-dark.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -247,7 +247,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../../../.." title="toqito" class="md-nav__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../../figures/logo-icon.svg" alt="logo">
+  <img src="../../../../figures/logo-dark.svg" alt="logo">
 
     </a>
     toqito
@@ -8921,7 +8921,9 @@ the tensor product for each sequence, and converts each tensor product to its co
 )
           –
           <div class="doc-md-description">
-            <p>Determines the type of sequences. Default is <code>"injective"</code>. <code>non-injective</code> will allow repetitions in</p>
+            <p>Determines the type of sequences. Default is <code>"injective"</code>. <code>non-injective</code> will allow repetitions in
+sequences, <code>injective</code> will ensures sequences are injective (no repetitions) and <code>diagonal</code> will allow
+sequences with repeated indices (diagonal elements).</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
@@ -9098,8 +9100,8 @@ the tensor product for each sequence, and converts each tensor product to its co
 <a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        states: A list of state vectors.</span>
 <a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        k: The length of the sequence.</span>
 <a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        mode: Determines the type of sequences. Default is `&quot;injective&quot;`. ``non-injective`` will allow repetitions in</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        sequences, ``injective`` will ensures sequences are injective (no repetitions) and ``diagonal`` will allow</span>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">        sequences with repeated indices (diagonal elements).</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">            sequences, ``injective`` will ensures sequences are injective (no repetitions) and ``diagonal`` will allow</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">            sequences with repeated indices (diagonal elements).</span>
 <a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        density_matrix: Determines whether the return is a density matrix or a ket. Default is ``True``.</span>
 <a id="__codelineno-0-59" name="__codelineno-0-59"></a>
 <a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">    Returns:</span>

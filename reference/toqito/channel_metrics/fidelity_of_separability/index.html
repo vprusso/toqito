@@ -112,7 +112,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../../../.." title="toqito" class="md-header__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../../figures/logo-icon.svg" alt="logo">
+  <img src="../../../../figures/logo-dark.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -247,7 +247,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../../../.." title="toqito" class="md-nav__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../../figures/logo-icon.svg" alt="logo">
+  <img src="../../../../figures/logo-dark.svg" alt="logo">
 
     </a>
     toqito
@@ -8955,7 +8955,8 @@ is PSD with trace 1).</p>
               (<code><span title="list">list</span>[<span title="int">int</span>]</code>)
           –
           <div class="doc-md-description">
-            <p>the dimensions of System A, B, &amp; R in the input state density matrix. It is assumed that the first</p>
+            <p>the dimensions of System A, B, &amp; R in the input state density matrix. It is assumed that the first
+quantity in this list is the dimension of System B.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
@@ -8988,14 +8989,8 @@ https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-verbosi
           –
           <div class="doc-md-description">
             <p>Optimization option for <code>picos</code> solver. Default option is
-<code>solver_option="cvxopt"</code>. For more info, visit</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-            <b><code>https</code></b>
-          –
-          <div class="doc-md-description">
-            <p>//picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-solver.</p>
+<code>solver_option="cvxopt"</code>. For more info, visit
+https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-solver.</p>
           </div>
         </li>
     </ul>
@@ -9264,14 +9259,14 @@ https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-verbosi
 <a id="__codelineno-0-99" name="__codelineno-0-99"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-100" name="__codelineno-0-100"></a><span class="sd">        psi: the density matrix for the tripartite state of interest psi_{BAR}</span>
 <a id="__codelineno-0-101" name="__codelineno-0-101"></a><span class="sd">        psi_dims: the dimensions of System A, B, &amp; R in the input state density matrix. It is assumed that the first</span>
-<a id="__codelineno-0-102" name="__codelineno-0-102"></a><span class="sd">        quantity in this list is the dimension of System B.</span>
+<a id="__codelineno-0-102" name="__codelineno-0-102"></a><span class="sd">            quantity in this list is the dimension of System B.</span>
 <a id="__codelineno-0-103" name="__codelineno-0-103"></a><span class="sd">        k: value for k-extendibility.</span>
 <a id="__codelineno-0-104" name="__codelineno-0-104"></a><span class="sd">        verbosity_option: Parameter option for `picos`. Default value is</span>
 <a id="__codelineno-0-105" name="__codelineno-0-105"></a><span class="sd">            `verbosity = 0`. For more info, visit</span>
 <a id="__codelineno-0-106" name="__codelineno-0-106"></a><span class="sd">            https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-verbosity.</span>
 <a id="__codelineno-0-107" name="__codelineno-0-107"></a><span class="sd">        solver_option: Optimization option for `picos` solver. Default option is</span>
 <a id="__codelineno-0-108" name="__codelineno-0-108"></a><span class="sd">            `solver_option=&quot;cvxopt&quot;`. For more info, visit</span>
-<a id="__codelineno-0-109" name="__codelineno-0-109"></a><span class="sd">        https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-solver.</span>
+<a id="__codelineno-0-109" name="__codelineno-0-109"></a><span class="sd">            https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-solver.</span>
 <a id="__codelineno-0-110" name="__codelineno-0-110"></a>
 <a id="__codelineno-0-111" name="__codelineno-0-111"></a><span class="sd">    Returns:</span>
 <a id="__codelineno-0-112" name="__codelineno-0-112"></a><span class="sd">        Optimized value of the SDP when maximized over a set of linear operators subject to some constraints.</span>

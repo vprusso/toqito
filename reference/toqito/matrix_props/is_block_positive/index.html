@@ -112,7 +112,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../../../.." title="toqito" class="md-header__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../../figures/logo-icon.svg" alt="logo">
+  <img src="../../../../figures/logo-dark.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -247,7 +247,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../../../.." title="toqito" class="md-nav__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../../figures/logo-icon.svg" alt="logo">
+  <img src="../../../../figures/logo-dark.svg" alt="logo">
 
     </a>
     toqito
@@ -8878,7 +8878,8 @@ matrix of the transpose map.</p>
               <code><span title="RuntimeError">RuntimeError</span></code>
             –
           <div class="doc-md-description">
-            <p>Unable to determine k-block positivity. Please consider increasing the relative tolerance or the</p>
+            <p>Unable to determine k-block positivity. Please consider increasing the relative tolerance or the
+effort level.</p>
           </div>
         </li>
     </ul>
@@ -8901,7 +8902,9 @@ matrix of the transpose map.</p>
 )
           –
           <div class="doc-md-description">
-            <p>A positive integer indicating that the function should determine whether or not the input operator is k-block</p>
+            <p>A positive integer indicating that the function should determine whether or not the input operator is k-block
+positive, i.e., whether or not it remains nonnegative under left and right multiplication by vectors with
+Schmidt rank &lt;= k (default 1).</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
@@ -8921,7 +8924,8 @@ matrix of the transpose map.</p>
 )
           –
           <div class="doc-md-description">
-            <p>An integer value indicating the amount of computation you want to devote to determine block positivity</p>
+            <p>An integer value indicating the amount of computation you want to devote to determine block positivity
+before giving up.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
@@ -9101,16 +9105,16 @@ matrix of the transpose map.</p>
 <a id="__codelineno-0-43" name="__codelineno-0-43"></a>
 <a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">    Raises:</span>
 <a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        RuntimeError: Unable to determine k-block positivity. Please consider increasing the relative tolerance or the</span>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">        effort level.</span>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">            effort level.</span>
 <a id="__codelineno-0-47" name="__codelineno-0-47"></a>
 <a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        mat: A bipartite Hermitian operator.</span>
 <a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        k: A positive integer indicating that the function should determine whether or not the input operator is k-block</span>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        positive, i.e., whether or not it remains nonnegative under left and right multiplication by vectors with</span>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        Schmidt rank &lt;= k (default 1).</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">            positive, i.e., whether or not it remains nonnegative under left and right multiplication by vectors with</span>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">            Schmidt rank &lt;= k (default 1).</span>
 <a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        dim: The dimension of the two sub-systems. By default it&#39;s assumed to be equal.</span>
 <a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        effort: An integer value indicating the amount of computation you want to devote to determine block positivity</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        before giving up.</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">            before giving up.</span>
 <a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        rtol: The relative tolerance parameter (default 1e-05).</span>
 <a id="__codelineno-0-57" name="__codelineno-0-57"></a>
 <a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">    Returns:</span>

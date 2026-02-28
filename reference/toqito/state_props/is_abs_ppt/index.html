@@ -112,7 +112,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../../../.." title="toqito" class="md-header__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../../figures/logo-icon.svg" alt="logo">
+  <img src="../../../../figures/logo-dark.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -247,7 +247,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../../../.." title="toqito" class="md-nav__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../../figures/logo-icon.svg" alt="logo">
+  <img src="../../../../figures/logo-dark.svg" alt="logo">
 
     </a>
     toqito
@@ -8947,7 +8947,9 @@ if all checked constraints were satisfied.</p>
 )
           –
           <div class="doc-md-description">
-            <p>The dimension of any one subsystem on which <code>mat</code> acts. If <code>None</code>, <code>dim</code> is selected such that</p>
+            <p>The dimension of any one subsystem on which <code>mat</code> acts. If <code>None</code>, <code>dim</code> is selected such that
+<code>min(dim, mat.shape[0] // dim)</code> is maximised, since this gives the strongest conditions on being absolutely
+PPT (see Theorem 2 of <sup><a id="cite-toqito-state_props-is_abs_ppt-is_abs_ppt-1" href="#ref-toqito-state_props-is_abs_ppt-is_abs_ppt-1">1</a></sup>).</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
@@ -9193,8 +9195,8 @@ if all checked constraints were satisfied.</p>
 <a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">        mat: A square matrix.</span>
 <a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">        dim: The dimension of any one subsystem on which `mat` acts. If `None`, `dim` is selected such that</span>
-<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">        `min(dim, mat.shape[0] // dim)` is maximised, since this gives the strongest conditions on being absolutely PPT</span>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">        (see Theorem 2 of [@Hildebrand_2007_AbsPPT]).</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">            `min(dim, mat.shape[0] // dim)` is maximised, since this gives the strongest conditions on being absolutely</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">            PPT (see Theorem 2 of [@Hildebrand_2007_AbsPPT]).</span>
 <a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">        rtol: The relative tolerance parameter (default 1e-05).</span>
 <a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">        atol: The absolute tolerance parameter (default 1e-08).</span>
 <a id="__codelineno-0-79" name="__codelineno-0-79"></a>

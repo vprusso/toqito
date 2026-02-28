@@ -112,7 +112,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../../../.." title="toqito" class="md-header__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../../figures/logo-icon.svg" alt="logo">
+  <img src="../../../../figures/logo-dark.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -247,7 +247,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../../../.." title="toqito" class="md-nav__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../../figures/logo-icon.svg" alt="logo">
+  <img src="../../../../figures/logo-dark.svg" alt="logo">
 
     </a>
     toqito
@@ -8873,8 +8873,8 @@ The matrix is of rank &lt;= <code>k_param</code> distributed according to the di
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">complex_dm</span><span class="p">)</span>
 </code></pre></div>
-<p>[[ 0.75563271+0.j         -0.21329574+0.30568853j]
- [-0.21329574-0.30568853j  0.24436729+0.j        ]]</p>
+<p>[[0.66009729+0.j         0.11953447+0.09405629j]
+ [0.11953447-0.09405629j 0.33990271+0.j        ]]</p>
 <p>We can verify that this is in fact a valid density matrix using the <code>is_density</code> function from
 <code>|toqito⟩</code> as follows</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_density</span>
@@ -8889,8 +8889,8 @@ The matrix is of rank &lt;= <code>k_param</code> distributed according to the di
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">real_dm</span><span class="p">)</span>
 </code></pre></div>
-<p>[[0.16009551 0.2270611 ]
- [0.2270611  0.83990449]]</p>
+<p>[[0.62561992 0.43447692]
+ [0.43447692 0.37438008]]</p>
 <p>Again, verifying that this is a valid density matrix can be done as follows.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_density</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
@@ -8905,8 +8905,8 @@ random density matrix according to the Bures metric instead as follows.</p>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">bures_mat</span><span class="p">)</span>
 </code></pre></div>
-<p>[[0.35468358+0.j         0.4341514 -0.13738061j]
- [0.4341514 +0.13738061j 0.64531642+0.j        ]]</p>
+<p>[[ 0.78450607+0.j         -0.13677806-0.32651341j]
+ [-0.13677806+0.32651341j  0.21549393+0.j        ]]</p>
 <p>As before, we can verify that this matrix generated is a valid density matrix.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_density</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
@@ -8970,7 +8970,8 @@ random density matrix according to the Bures metric instead as follows.</p>
 )
           –
           <div class="doc-md-description">
-            <p>The distance metric used to randomly generate the density matrix. This metric is either the</p>
+            <p>The distance metric used to randomly generate the density matrix. This metric is either the
+Haar measure or the Bures measure. Default value is to use the Haar measure.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
@@ -9242,7 +9243,7 @@ random density matrix according to the Bures metric instead as follows.</p>
 <a id="__codelineno-0-115" name="__codelineno-0-115"></a><span class="sd">        is_real: Boolean denoting whether the returned matrix will have all real entries or not.</span>
 <a id="__codelineno-0-116" name="__codelineno-0-116"></a><span class="sd">        k_param: Default value is equal to `dim`.</span>
 <a id="__codelineno-0-117" name="__codelineno-0-117"></a><span class="sd">        distance_metric: The distance metric used to randomly generate the density matrix. This metric is either the</span>
-<a id="__codelineno-0-118" name="__codelineno-0-118"></a><span class="sd">        Haar measure or the Bures measure. Default value is to use the Haar measure.</span>
+<a id="__codelineno-0-118" name="__codelineno-0-118"></a><span class="sd">            Haar measure or the Bures measure. Default value is to use the Haar measure.</span>
 <a id="__codelineno-0-119" name="__codelineno-0-119"></a><span class="sd">        seed: A seed used to instantiate numpy&#39;s random number generator.</span>
 <a id="__codelineno-0-120" name="__codelineno-0-120"></a>
 <a id="__codelineno-0-121" name="__codelineno-0-121"></a><span class="sd">    Returns:</span>

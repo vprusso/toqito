@@ -112,7 +112,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../../../.." title="toqito" class="md-header__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../../figures/logo-icon.svg" alt="logo">
+  <img src="../../../../figures/logo-dark.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -247,7 +247,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../../../.." title="toqito" class="md-nav__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../../figures/logo-icon.svg" alt="logo">
+  <img src="../../../../figures/logo-dark.svg" alt="logo">
 
     </a>
     toqito
@@ -8886,7 +8886,8 @@ binary constraint system (BCS) games. For background on BCS games, refer to <sup
               (<code><span title="numpy.ndarray">ndarray</span></code>)
           –
           <div class="doc-md-description">
-            <p>An n-dimensional tensor with shape <code>(2,)*n</code>, where each element is either -1 or +1.</p>
+            <p>An n-dimensional tensor with shape <code>(2,)*n</code>, where each element is either -1 or +1.
+All entries should be equal except for one unique position that marks the satisfying assignment.</p>
           </div>
         </li>
     </ul>
@@ -9007,7 +9008,7 @@ binary constraint system (BCS) games. For background on BCS games, refer to <sup
 <a id="__codelineno-0-38" name="__codelineno-0-38"></a>
 <a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        constraint_tensor: An n-dimensional tensor with shape `(2,)*n`, where each element is either -1 or +1.</span>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        All entries should be equal except for one unique position that marks the satisfying assignment.</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">            All entries should be equal except for one unique position that marks the satisfying assignment.</span>
 <a id="__codelineno-0-42" name="__codelineno-0-42"></a>
 <a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">    Returns:</span>
 <a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        A 1D `numpy` array of length \(n+1\) where the first \(n\) elements are the coordinates (indices), and the last</span>

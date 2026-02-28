@@ -112,7 +112,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../../../.." title="toqito" class="md-header__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../../figures/logo-icon.svg" alt="logo">
+  <img src="../../../../figures/logo-dark.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -247,7 +247,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../../../.." title="toqito" class="md-nav__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../../figures/logo-icon.svg" alt="logo">
+  <img src="../../../../figures/logo-dark.svg" alt="logo">
 
     </a>
     toqito
@@ -9131,7 +9131,8 @@ Is the state separable? True</p>
               <code><span title="NotImplementedError">NotImplementedError</span></code>
             –
           <div class="doc-md-description">
-            <p>If the symmetric extension check is attempted but the level is not implemented</p>
+            <p>If the symmetric extension check is attempted but the level is not implemented
+(e.g., level &lt; 1).</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
@@ -10177,7 +10178,7 @@ Is the state separable? True</p>
 <a id="__codelineno-0-226" name="__codelineno-0-226"></a><span class="sd">        TypeError: If the input `state` is not a NumPy array.</span>
 <a id="__codelineno-0-227" name="__codelineno-0-227"></a><span class="sd">        RuntimeError: If the symmetric extension check is attempted but fails due to CVXPY solver issues.</span>
 <a id="__codelineno-0-228" name="__codelineno-0-228"></a><span class="sd">        NotImplementedError: If the symmetric extension check is attempted but the level is not implemented</span>
-<a id="__codelineno-0-229" name="__codelineno-0-229"></a><span class="sd">        (e.g., level &lt; 1).</span>
+<a id="__codelineno-0-229" name="__codelineno-0-229"></a><span class="sd">            (e.g., level &lt; 1).</span>
 <a id="__codelineno-0-230" name="__codelineno-0-230"></a><span class="sd">        ValueError:</span>
 <a id="__codelineno-0-231" name="__codelineno-0-231"></a><span class="sd">            - If the input `state` is not a square matrix.</span>
 <a id="__codelineno-0-232" name="__codelineno-0-232"></a><span class="sd">            - If the input `state` is not positive semidefinite.</span>
@@ -10376,7 +10377,7 @@ Is the state separable? True</p>
 <a id="__codelineno-0-425" name="__codelineno-0-425"></a>                                        <span class="k">except</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">LinAlgError</span><span class="p">:</span>  <span class="c1"># Should be rare with orth basis</span>
 <a id="__codelineno-0-426" name="__codelineno-0-426"></a>                                            <span class="n">p_np_arr</span><span class="p">[</span><span class="n">j_breuer</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">k_breuer</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_breuer</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">m_breuer</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 <a id="__codelineno-0-427" name="__codelineno-0-427"></a>
-<a id="__codelineno-0-428" name="__codelineno-0-428"></a>            <span class="k">def</span><span class="w"> </span><span class="nf">get_p</span><span class="p">(</span><span class="n">t_tuple</span><span class="p">):</span>
+<a id="__codelineno-0-428" name="__codelineno-0-428"></a>            <span class="k">def</span><span class="w"> </span><span class="nf">get_p</span><span class="p">(</span><span class="n">t_tuple</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <a id="__codelineno-0-429" name="__codelineno-0-429"></a>                <span class="c1"># Ensure indices are within bounds of p_np_arr before accessing</span>
 <a id="__codelineno-0-430" name="__codelineno-0-430"></a>                <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span>
 <a id="__codelineno-0-431" name="__codelineno-0-431"></a>                    <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">t_tuple</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">&lt;</span> <span class="n">p_np_arr</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>

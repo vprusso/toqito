@@ -112,7 +112,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../../../.." title="toqito" class="md-header__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../../figures/logo-icon.svg" alt="logo">
+  <img src="../../../../figures/logo-dark.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -247,7 +247,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../../../.." title="toqito" class="md-nav__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../../figures/logo-icon.svg" alt="logo">
+  <img src="../../../../figures/logo-dark.svg" alt="logo">
 
     </a>
     toqito
@@ -9025,7 +9025,7 @@ to Alice and Bob's answers to the questions sent by the referee.</p>
 information on these games can be found in <sup><a id="cite-toqito-nonlocal_games-extended_nonlocal_game-ExtendedNonlocalGame-2" href="#ref-toqito-nonlocal_games-extended_nonlocal_game-ExtendedNonlocalGame-2">2</a></sup>.</p>
 <p>For a detailed walkthrough and several examples, including the BB84 and CHSH
 games, please see the tutorial on
-<a href="../../../generated/gallery/extended_nonlocal_games/index.md">Extended Nonlocal Games</a>.</p>
+<a href="../../../../generated/gallery/extended_nonlocal_games/enlg_introduction/">Extended Nonlocal Games</a>.</p>
 <p><strong>References</strong></p>
 <p><span id="ref-toqito-nonlocal_games-extended_nonlocal_game-ExtendedNonlocalGame-1"><sup><a href="#cite-toqito-nonlocal_games-extended_nonlocal_game-ExtendedNonlocalGame-1">1</a></sup> Johnston, Nathaniel and Mittal, Rajat and Russo, Vincent and Watrous, John. <em>Extended non-local games and monogamy-of-entanglement games</em>. <strong>Proceedings of the Royal Society A: Mathematical, Physical and Engineering Sciences</strong>. vol. 472(2189). (2016). <a href="https://arxiv.org/abs/1510.02083">link</a>.</span><br>
 <span id="ref-toqito-nonlocal_games-extended_nonlocal_game-ExtendedNonlocalGame-2"><sup><a href="#cite-toqito-nonlocal_games-extended_nonlocal_game-ExtendedNonlocalGame-2">2</a></sup> Russo, Vincent. <em>Extended Nonlocal Games</em>. (2017).</span></p>
@@ -9040,7 +9040,8 @@ games, please see the tutorial on
               (<code><span title="numpy.ndarray">ndarray</span></code>)
           –
           <div class="doc-md-description">
-            <p>A matrix whose (x, y)-entry gives the probability that the referee will give Alice the value <code>x</code></p>
+            <p>A matrix whose (x, y)-entry gives the probability that the referee will give Alice the value <code>x</code>
+and Bob the value <code>y</code>.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
@@ -9125,7 +9126,7 @@ games, please see the tutorial on
 <a id="__codelineno-0-34" name="__codelineno-0-34"></a>
 <a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">        prob_mat: A matrix whose (x, y)-entry gives the probability that the referee will give Alice the value `x`</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        and Bob the value `y`.</span>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">            and Bob the value `y`.</span>
 <a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        pred_mat: A matrix representing the predictions for the game.</span>
 <a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        reps: Number of parallel repetitions to perform.</span>
 <a id="__codelineno-0-40" name="__codelineno-0-40"></a>
@@ -9193,7 +9194,7 @@ games, please see the tutorial on
 
 
 <a href="#toqito.nonlocal_games.extended_nonlocal_game.ExtendedNonlocalGame.__get_game_dims" class="headerlink" title="Permanent link">&para;</a></h3>
-<div class="doc-signature highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">__get_game_dims</span><span class="p">()</span>
+<div class="doc-signature highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nf">__get_game_dims</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 
     <div class="doc doc-contents ">
@@ -9240,7 +9241,7 @@ to prevent re-initialization on subsequent calls.</p>
 <span class="normal"><a href="#__codelineno-0-104">104</a></span>
 <span class="normal"><a href="#__codelineno-0-105">105</a></span>
 <span class="normal"><a href="#__codelineno-0-106">106</a></span>
-<span class="normal"><a href="#__codelineno-0-107">107</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="k">def</span><span class="w"> </span><span class="nf">__get_game_dims</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="normal"><a href="#__codelineno-0-107">107</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="k">def</span><span class="w"> </span><span class="nf">__get_game_dims</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <a id="__codelineno-0-83" name="__codelineno-0-83"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize game dimensions from the prediction matrix.</span>
 <a id="__codelineno-0-84" name="__codelineno-0-84"></a>
 <a id="__codelineno-0-85" name="__codelineno-0-85"></a><span class="sd">    This private method checks whether the game dimensions have already been initialized by</span>

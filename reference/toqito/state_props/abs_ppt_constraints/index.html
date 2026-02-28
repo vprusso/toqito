@@ -112,7 +112,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../../../.." title="toqito" class="md-header__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../../figures/logo-icon.svg" alt="logo">
+  <img src="../../../../figures/logo-dark.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -247,7 +247,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../../../.." title="toqito" class="md-nav__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../../figures/logo-icon.svg" alt="logo">
+  <img src="../../../../figures/logo-dark.svg" alt="logo">
 
     </a>
     toqito
@@ -8890,13 +8890,13 @@ constraint equations in the problem.</p>
 <a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>    <span class="nb">print</span><span class="p">(</span><span class="n">cons</span><span class="p">)</span>
 </code></pre></div>
 <p>Constraint 1:
-[[ 0.00627584 -0.3080392  -0.21137056]
- [-0.3080392   0.0904057  -0.06555959]
- [-0.21137056 -0.06555959  0.22322063]]
+[[ 3.67388902e-04 -4.11089981e-01 -1.72437211e-01]
+ [-4.11089981e-01  9.48023153e-02 -8.28672814e-02]
+ [-1.72437211e-01 -8.28672814e-02  1.98982710e-01]]
 Constraint 2:
-[[ 0.00627584 -0.3080392  -0.19380882]
- [-0.3080392   0.05528222 -0.06555959]
- [-0.19380882 -0.06555959  0.22322063]]</p>
+[[ 3.67388902e-04 -4.11089981e-01 -1.47191500e-01]
+ [-4.11089981e-01  4.43108927e-02 -8.28672814e-02]
+ [-1.47191500e-01 -8.28672814e-02  1.98982710e-01]]</p>
         <p>Raises:
     TypeError: If <code>eigs</code> is not a <code>numpy</code> ndarray or a <code>cvxpy</code> Variable.</p>
 
@@ -8936,14 +8936,8 @@ Constraint 2:
 )
           –
           <div class="doc-md-description">
-            <p>Use the "criss-cross" ordering check described in <sup><a id="cite-toqito-state_props-abs_ppt_constraints-abs_ppt_constraints-2" href="#ref-toqito-state_props-abs_ppt_constraints-abs_ppt_constraints-2">2</a></sup> to reduce the number of</p>
-          </div>
-        </li>
-        <li class="doc-section-item field-body">
-            <b><code>constraint matrices. (default</code></b>
-          –
-          <div class="doc-md-description">
-            <p><code>False</code>)</p>
+            <p>Use the "criss-cross" ordering check described in <sup><a id="cite-toqito-state_props-abs_ppt_constraints-abs_ppt_constraints-2" href="#ref-toqito-state_props-abs_ppt_constraints-abs_ppt_constraints-2">2</a></sup> to reduce the number of
+constraint matrices. (default: <code>False</code>)</p>
           </div>
         </li>
     </ul>
@@ -9193,7 +9187,7 @@ Constraint 2:
 <a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">        p: The dimension of the smaller subsystem in the bipartite system.</span>
 <a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        max_constraints: The maximum number of constraint matrices to compute. (default: 33,592)</span>
 <a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">        use_check: Use the &quot;criss-cross&quot; ordering check described in [@Johnston_2014_Orderings] to reduce the number of</span>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">        constraint matrices. (default: `False`)</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">            constraint matrices. (default: `False`)</span>
 <a id="__codelineno-0-65" name="__codelineno-0-65"></a>
 <a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">    Returns:</span>
 <a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        A list of `max_constraints` constraint matrices which must be positive semidefinite for an absolutely PPT</span>

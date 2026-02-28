@@ -112,7 +112,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../../../.." title="toqito" class="md-header__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../../figures/logo-icon.svg" alt="logo">
+  <img src="../../../../figures/logo-dark.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -247,7 +247,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../../../.." title="toqito" class="md-nav__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../../figures/logo-icon.svg" alt="logo">
+  <img src="../../../../figures/logo-dark.svg" alt="logo">
 
     </a>
     toqito
@@ -8873,7 +8873,9 @@ objects into pairs.</p>
               (<code><span title="list">list</span>[<span title="int">int</span>] | <span title="int">int</span> | <span title="numpy.ndarray">ndarray</span></code>)
           –
           <div class="doc-md-description">
-            <p>Either an even integer, indicating that you would like all perfect matchings of the integers 0, 1, ... N-1,</p>
+            <p>Either an even integer, indicating that you would like all perfect matchings of the integers 0, 1, ... N-1,
+or a <code>list</code> or <code>np.array</code> containing an even number of distinct entries, indicating that you would like all
+perfect matchings of those entries.</p>
           </div>
         </li>
     </ul>
@@ -8982,8 +8984,8 @@ objects into pairs.</p>
 <a id="__codelineno-0-25" name="__codelineno-0-25"></a>
 <a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">        num: Either an even integer, indicating that you would like all perfect matchings of the integers 0, 1, ... N-1,</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">        or a `list` or `np.array` containing an even number of distinct entries, indicating that you would like all</span>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">        perfect matchings of those entries.</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">            or a `list` or `np.array` containing an even number of distinct entries, indicating that you would like all</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">            perfect matchings of those entries.</span>
 <a id="__codelineno-0-30" name="__codelineno-0-30"></a>
 <a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">    Returns:</span>
 <a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">        An array containing all valid perfect matchings of size `num`.</span>

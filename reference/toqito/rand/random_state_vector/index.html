@@ -112,7 +112,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../../../.." title="toqito" class="md-header__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../../figures/logo-icon.svg" alt="logo">
+  <img src="../../../../figures/logo-dark.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -247,7 +247,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../../../.." title="toqito" class="md-nav__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../../figures/logo-icon.svg" alt="logo">
+  <img src="../../../../figures/logo-dark.svg" alt="logo">
 
     </a>
     toqito
@@ -8867,8 +8867,8 @@ combining them with a maximally entangled resource state.</p>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">vec</span><span class="p">)</span>
 </code></pre></div>
-<p>[[0.66590282+0.04045475j]
- [0.47664732+0.57248946j]]</p>
+<p>[[0.15963085+0.34205675j]
+ [0.17303564+0.90971086j]]</p>
 <p>We can verify that this is in fact a valid state vector by computing the corresponding density
 matrix of the vector and checking if the density matrix is pure.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_pure</span>
@@ -8905,7 +8905,8 @@ corresponding density matrix of the vector and checking if the density matrix is
               (<code><span title="list">list</span>[<span title="int">int</span>] | <span title="tuple">tuple</span>[<span title="int">int</span>, ...] | <span title="int">int</span></code>)
           –
           <div class="doc-md-description">
-            <p>Either a positive integer giving the total Hilbert-space dimension, or a length-2 sequence specifying the</p>
+            <p>Either a positive integer giving the total Hilbert-space dimension, or a length-2 sequence specifying the
+individual subsystem dimensions for bipartite sampling.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
@@ -8915,7 +8916,8 @@ corresponding density matrix of the vector and checking if the density matrix is
 )
           –
           <div class="doc-md-description">
-            <p>Boolean denoting whether the returned vector has real entries. Default is <code>False</code>, which produces</p>
+            <p>Boolean denoting whether the returned vector has real entries. Default is <code>False</code>, which produces
+complex amplitudes.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
@@ -8925,7 +8927,9 @@ corresponding density matrix of the vector and checking if the density matrix is
 )
           –
           <div class="doc-md-description">
-            <p>Optional upper bound on the Schmidt rank when <code>dim</code> describes a bipartite system.  Set to <code>0</code></p>
+            <p>Optional upper bound on the Schmidt rank when <code>dim</code> describes a bipartite system.  Set to <code>0</code>
+(default) to ignore the Schmidt rank constraint.  Must be non-negative and strictly less than the smaller
+subsystem dimension when used.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
@@ -9157,12 +9161,12 @@ corresponding density matrix of the vector and checking if the density matrix is
 <a id="__codelineno-0-71" name="__codelineno-0-71"></a>
 <a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">        dim: Either a positive integer giving the total Hilbert-space dimension, or a length-2 sequence specifying the</span>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">        individual subsystem dimensions for bipartite sampling.</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a><span class="sd">            individual subsystem dimensions for bipartite sampling.</span>
 <a id="__codelineno-0-75" name="__codelineno-0-75"></a><span class="sd">        is_real: Boolean denoting whether the returned vector has real entries. Default is `False`, which produces</span>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">        complex amplitudes.</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a><span class="sd">            complex amplitudes.</span>
 <a id="__codelineno-0-77" name="__codelineno-0-77"></a><span class="sd">        k_param: Optional upper bound on the Schmidt rank when ``dim`` describes a bipartite system.  Set to `0`</span>
-<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">        (default) to ignore the Schmidt rank constraint.  Must be non-negative and strictly less than the smaller</span>
-<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">        subsystem dimension when used.</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a><span class="sd">            (default) to ignore the Schmidt rank constraint.  Must be non-negative and strictly less than the smaller</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a><span class="sd">            subsystem dimension when used.</span>
 <a id="__codelineno-0-80" name="__codelineno-0-80"></a><span class="sd">        seed: A seed used to instantiate numpy&#39;s random number generator.</span>
 <a id="__codelineno-0-81" name="__codelineno-0-81"></a>
 <a id="__codelineno-0-82" name="__codelineno-0-82"></a><span class="sd">    Returns:</span>

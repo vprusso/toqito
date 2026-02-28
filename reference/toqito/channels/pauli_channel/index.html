@@ -112,7 +112,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href="../../../.." title="toqito" class="md-header__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../../figures/logo-icon.svg" alt="logo">
+  <img src="../../../../figures/logo-dark.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -247,7 +247,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href="../../../.." title="toqito" class="md-nav__button md-logo" aria-label="toqito" data-md-component="logo">
       
-  <img src="../../../../figures/logo-icon.svg" alt="logo">
+  <img src="../../../../figures/logo-dark.svg" alt="logo">
 
     </a>
     toqito
@@ -8871,10 +8871,10 @@ integer <span class="arithmatex">\(q\)</span> (number of qubits).</p>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">pauli_channel</span><span class="p">(</span><span class="n">prob</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 </code></pre></div>
-<p>[[ 0.39188324+0.j  0.        +0.j  0.        +0.j  0.18192086+0.j]
- [ 0.        +0.j  0.60811676+0.j -0.20174165+0.j  0.        +0.j]
- [ 0.        +0.j -0.20174165+0.j  0.60811676+0.j  0.        +0.j]
- [ 0.18192086+0.j  0.        +0.j  0.        +0.j  0.39188324+0.j]]</p>
+<p>[[ 0.57704266+0.j  0.        +0.j  0.        +0.j  0.33646777+0.j]
+ [ 0.        +0.j  0.42295734+0.j -0.1841614 +0.j  0.        +0.j]
+ [ 0.        +0.j -0.1841614 +0.j  0.42295734+0.j  0.        +0.j]
+ [ 0.33646777+0.j  0.        +0.j  0.        +0.j  0.57704266+0.j]]</p>
 <p>Apply a specific two-qubit Pauli channel to an input matrix:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.channels</span><span class="w"> </span><span class="kn">import</span> <span class="n">pauli_channel</span>
@@ -8914,7 +8914,9 @@ integer <span class="arithmatex">\(q\)</span> (number of qubits).</p>
               (<code><span title="int">int</span> | <span title="numpy.ndarray">ndarray</span></code>)
           –
           <div class="doc-md-description">
-            <p>Probability vector for Pauli operators. If scalar, generates random probabilities for <span class="arithmatex">\(q =\)</span> <code>prob</code></p>
+            <p>Probability vector for Pauli operators. If scalar, generates random probabilities for <span class="arithmatex">\(q =\)</span> <code>prob</code>
+qubits. The probabilities correspond to Pauli operators in lexographical order of length strictly equal to
+<span class="arithmatex">\(q\)</span>, when <code>prob</code> is a vector.</p>
           </div>
         </li>
         <li class="doc-section-item field-body">
@@ -9108,8 +9110,8 @@ integer <span class="arithmatex">\(q\)</span> (number of qubits).</p>
 <a id="__codelineno-0-60" name="__codelineno-0-60"></a>
 <a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">    Args:</span>
 <a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        prob: Probability vector for Pauli operators. If scalar, generates random probabilities for \(q =\) `prob`</span>
-<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">        qubits. The probabilities correspond to Pauli operators in lexographical order of length strictly equal to \(q\)</span>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">            ,when `prob` is a vector.</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">            qubits. The probabilities correspond to Pauli operators in lexographical order of length strictly equal to</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">            \(q\), when `prob` is a vector.</span>
 <a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        return_kraus_ops: Flag to return Kraus operators. Default is ``False``.</span>
 <a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        input_mat: Optional input matrix to apply the channel to. Default is ``None``.</span>
 <a id="__codelineno-0-67" name="__codelineno-0-67"></a>
