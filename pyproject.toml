@@ -104,7 +104,7 @@ requires = ["setuptools>=65.5.1"]
 build-backend = "setuptools.build_meta"
 
 [tool.ruff]
-exclude = ["__init__.py"]
+exclude = ["__init__.py", "docs/"]
 line-length = 120
 target-version = "py312"
 force-exclude = true
