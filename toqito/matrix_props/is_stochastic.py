@@ -15,7 +15,8 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
     .
 
     !!! See Also
-        [`is_stochastic()`][toqito.matrix_props.is_stochastic.is_stochastic] — use `mat_type="doubly"` for doubly stochastic check
+        [`is_stochastic()`][toqito.matrix_props.is_stochastic.is_stochastic]
+        — use `mat_type="doubly"` for doubly stochastic check
 
     Examples:
         The elements of an identity matrix and a Pauli-X matrix are nonnegative such that the rows and columns

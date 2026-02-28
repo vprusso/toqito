@@ -317,7 +317,9 @@ def _extract_state_vector(
     return (vector / norm).astype(np.complex128)
 
 
-def _sum_expressions(expressions: Iterable[cp.expressions.expression.Expression]) -> cp.expressions.expression.Expression | float:
+def _sum_expressions(
+    expressions: Iterable[cp.expressions.expression.Expression],
+) -> cp.expressions.expression.Expression | float:
     iterator = iter(expressions)
     try:
         total = next(iterator)
