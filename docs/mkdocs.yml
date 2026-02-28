@@ -1,0 +1,124 @@
+site_name: toqito
+site_url: https://vprusso.github.io/toqito/
+site_description: Python tools for the study of quantum information.
+repo_url: https://github.com/vprusso/toqito
+repo_name: vprusso/toqito
+docs_dir: content
+edit_uri: edit/main/docs/content
+
+theme:
+  name: material
+  logo: figures/logo.svg
+  favicon: figures/logo.svg
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: black
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.indexes
+    - navigation.top
+    - content.code.copy
+    - content.code.annotate
+    - search.highlight
+
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Contributing Guide: contributing-guide.md
+  - Code of Conduct: code-of-conduct.md
+  - Examples: generated/gallery
+  - API Reference
+  - References: references.md
+
+plugins:
+  - search
+  
+  - autorefs
+
+  - markdown-exec
+  
+  - mkdocstrings:
+      handlers:
+        python:
+          paths:
+            - ..
+          options:
+            show_root_heading: true
+            show_root_full_path: false
+            show_source: true
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            heading_level: 1
+            merge_init_into_class: true
+            signature_crossrefs: true
+            separate_signature: true
+            docstring_style: google
+            docstring_section_style: list
+            show_signature_annotations: true
+            members_order: source
+            extensions:
+              - _extensions/griffe_bibtex_docstring.py:BibtexDocstringExtension:
+                  bib_dir: content
+  
+  - api-autonav:
+      modules:
+        - ../toqito
+      nav_section_title: "API Reference"
+      api_root_uri: "reference"
+      exclude_private: true
+      show_full_namespace: false
+      exclude:
+        - "re:.*\\.tests($|\\.)"
+  
+  - gallery:
+      examples_dirs: content/examples
+      gallery_dirs: content/generated/gallery
+      filename_pattern: \.py$
+      ignore_pattern: __init__\.py
+      download_all_examples: false
+      backreferences_dir: content/generated/backreferences
+      doc_module:
+        - toqito
+      
+  - bibtex:
+      bib_dir: content
+
+markdown_extensions:
+  - footnotes
+  - admonition
+  - attr_list
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.snippets:
+      base_path: ['.', '..']
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.arithmatex:
+      generic: true
+  - toc:
+      permalink: true
+extra_css:
+  - assets/extra.css
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+hooks:
+  - _hooks/flatten_api_nav.py
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/vprusso/toqito
