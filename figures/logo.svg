@@ -140,13 +140,6 @@
          id="path11-5" />
     </clipPath>
   </defs>
-  <rect
-     style="fill:#ffffff;fill-rule:evenodd;stroke-width:1.04886"
-     id="rect20"
-     width="81.84581"
-     height="23.972284"
-     x="0.020996517"
-     y="0.010415655" />
   <g
      id="surface1"
      transform="translate(0.08555317,-1.5197344)">
@@ -155,7 +148,7 @@
        clip-rule="nonzero"
        id="g12">
       <g
-         style="fill:#000000;fill-opacity:1"
+         style="fill:#ffffff;fill-opacity:1"
          id="g11">
         <use
            xlink:href="#glyph0-1"
@@ -165,7 +158,7 @@
       </g>
     </g>
     <g
-       style="fill:#000000;fill-opacity:1"
+       style="fill:#ffffff;fill-opacity:1"
        id="g13">
       <use
          xlink:href="#glyph1-1"
@@ -178,7 +171,7 @@
        clip-rule="nonzero"
        id="g17">
       <g
-         style="fill:#000000;fill-opacity:1"
+         style="fill:#ffffff;fill-opacity:1"
          id="g16">
         <use
            xlink:href="#glyph1-2"
@@ -203,7 +196,7 @@
       </g>
     </g>
     <g
-       style="fill:#000000;fill-opacity:1"
+       style="fill:#ffffff;fill-opacity:1"
        id="g18">
       <use
          xlink:href="#glyph1-2"
@@ -216,7 +209,7 @@
        clip-rule="nonzero"
        id="g20">
       <g
-         style="fill:#000000;fill-opacity:1"
+         style="fill:#ffffff;fill-opacity:1"
          id="g19">
         <use
            xlink:href="#glyph0-2"

@@ -5,10 +5,10 @@ Examples using ``toqito.nonlocal_games.NonlocalGame``
 
 <div class="mkd-glr-thumbcontainer" tooltip="In this tutorial, we are going to cover the notion of a *nonlocal game*; a mathematical framewo...">
     <!--div class="figure align-default" id="id1"-->
-        <img alt="Nonlocal games" src="03_nonlocal_games/images/thumb/mkd_glr_nonlocal_game_thumb.svg" />
+        <img alt="Nonlocal games" src="nonlocal_games/images/thumb/mkd_glr_nonlocal_game_thumb.svg" />
         <p class="caption">
             <span class="caption-text">
-                <a class="reference internal" href="03_nonlocal_games/nonlocal_game">
+                <a class="reference internal" href="nonlocal_games/nonlocal_game">
                     <span class="std std-ref">Nonlocal games</span>
                 </a>
             </span>

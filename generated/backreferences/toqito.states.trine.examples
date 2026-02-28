@@ -5,10 +5,10 @@ Examples using ``toqito.states.trine``
 
 <div class="mkd-glr-thumbcontainer" tooltip="This tutorial illustrates the basics of how to use |toqito⟩. This will covers how to instantiat...">
     <!--div class="figure align-default" id="id1"-->
-        <img alt="Introductory Tutorial" src="01_basics/images/thumb/mkd_glr_intro_tutorial_thumb.png" />
+        <img alt="Introductory Tutorial" src="basics/images/thumb/mkd_glr_intro_tutorial_thumb.png" />
         <p class="caption">
             <span class="caption-text">
-                <a class="reference internal" href="01_basics/intro_tutorial">
+                <a class="reference internal" href="basics/intro_tutorial">
                     <span class="std std-ref">Introductory Tutorial</span>
                 </a>
             </span>
@@ -19,10 +19,10 @@ Examples using ``toqito.states.trine``
 
 <div class="mkd-glr-thumbcontainer" tooltip="In this tutorial, we are going to cover the problem of *quantum state exclusion*. We are going ...">
     <!--div class="figure align-default" id="id1"-->
-        <img alt="Quantum state exclusion" src="02_quantum_states/images/thumb/mkd_glr_state_exclusion_thumb.png" />
+        <img alt="Quantum state exclusion" src="quantum_states/images/thumb/mkd_glr_state_exclusion_thumb.png" />
         <p class="caption">
             <span class="caption-text">
-                <a class="reference internal" href="02_quantum_states/state_exclusion">
+                <a class="reference internal" href="quantum_states/state_exclusion">
                     <span class="std std-ref">Quantum state exclusion</span>
                 </a>
             </span>
@@ -33,10 +33,10 @@ Examples using ``toqito.states.trine``
 
 <div class="mkd-glr-thumbcontainer" tooltip="In this tutorial, we will explore the &quot;pretty good measurement&quot; (PGM) and its novel counterpart...">
     <!--div class="figure align-default" id="id1"-->
-        <img alt="The Pretty Good and Pretty Bad Measurements" src="02_quantum_states/images/thumb/mkd_glr_pgm_pbm_thumb.png" />
+        <img alt="The Pretty Good and Pretty Bad Measurements" src="quantum_states/images/thumb/mkd_glr_pgm_pbm_thumb.png" />
         <p class="caption">
             <span class="caption-text">
-                <a class="reference internal" href="02_quantum_states/pgm_pbm">
+                <a class="reference internal" href="quantum_states/pgm_pbm">
                     <span class="std std-ref">The Pretty Good and Pretty Bad Measurements</span>
                 </a>
             </span>

@@ -5,10 +5,10 @@ Examples using ``toqito.XORGame``
 
 <div class="mkd-glr-thumbcontainer" tooltip="In this tutorial, we will cover the concept of an *XOR game*. We will also showcase how the |to...">
     <!--div class="figure align-default" id="id1"-->
-        <img alt="Calculating the quantum and classical value of a two-player XOR game" src="03_nonlocal_games/images/thumb/mkd_glr_xor_quantum_value_thumb.png" />
+        <img alt="Calculating the quantum and classical value of a two-player XOR game" src="nonlocal_games/images/thumb/mkd_glr_xor_quantum_value_thumb.png" />
         <p class="caption">
             <span class="caption-text">
-                <a class="reference internal" href="03_nonlocal_games/xor_quantum_value">
+                <a class="reference internal" href="nonlocal_games/xor_quantum_value">
                     <span class="std std-ref">Calculating the quantum and classical value of a two-player XOR game</span>
                 </a>
             </span>

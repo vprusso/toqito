@@ -5,10 +5,10 @@ Examples using ``toqito.rand.random_povm``
 
 <div class="mkd-glr-thumbcontainer" tooltip="This tutorial illustrates the basics of how to use |toqito⟩. This will covers how to instantiat...">
     <!--div class="figure align-default" id="id1"-->
-        <img alt="Introductory Tutorial" src="01_basics/images/thumb/mkd_glr_intro_tutorial_thumb.png" />
+        <img alt="Introductory Tutorial" src="basics/images/thumb/mkd_glr_intro_tutorial_thumb.png" />
         <p class="caption">
             <span class="caption-text">
-                <a class="reference internal" href="01_basics/intro_tutorial">
+                <a class="reference internal" href="basics/intro_tutorial">
                     <span class="std std-ref">Introductory Tutorial</span>
                 </a>
             </span>

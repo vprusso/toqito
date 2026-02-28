@@ -25,83 +25,79 @@
          <lastmod>2026-02-28</lastmod>
     </url>
     <url>
-         <loc>https://vprusso.github.io/toqito/generated/gallery/01_basics/intro_tutorial/</loc>
+         <loc>https://vprusso.github.io/toqito/generated/gallery/basics/intro_tutorial/</loc>
          <lastmod>2026-02-28</lastmod>
     </url>
     <url>
-         <loc>https://vprusso.github.io/toqito/generated/gallery/01_basics/mg_execution_times/</loc>
+         <loc>https://vprusso.github.io/toqito/generated/gallery/basics/mg_execution_times/</loc>
          <lastmod>2026-02-28</lastmod>
     </url>
     <url>
-         <loc>https://vprusso.github.io/toqito/generated/gallery/01_basics/superdense_coding/</loc>
+         <loc>https://vprusso.github.io/toqito/generated/gallery/extended_nonlocal_games/bit_commitment/</loc>
          <lastmod>2026-02-28</lastmod>
     </url>
     <url>
-         <loc>https://vprusso.github.io/toqito/generated/gallery/02_quantum_states/circulant_states/</loc>
+         <loc>https://vprusso.github.io/toqito/generated/gallery/extended_nonlocal_games/enlg_bb84/</loc>
          <lastmod>2026-02-28</lastmod>
     </url>
     <url>
-         <loc>https://vprusso.github.io/toqito/generated/gallery/02_quantum_states/classification/</loc>
+         <loc>https://vprusso.github.io/toqito/generated/gallery/extended_nonlocal_games/enlg_chsh/</loc>
          <lastmod>2026-02-28</lastmod>
     </url>
     <url>
-         <loc>https://vprusso.github.io/toqito/generated/gallery/02_quantum_states/equiangular_threshold/</loc>
+         <loc>https://vprusso.github.io/toqito/generated/gallery/extended_nonlocal_games/enlg_introduction/</loc>
          <lastmod>2026-02-28</lastmod>
     </url>
     <url>
-         <loc>https://vprusso.github.io/toqito/generated/gallery/02_quantum_states/mg_execution_times/</loc>
+         <loc>https://vprusso.github.io/toqito/generated/gallery/extended_nonlocal_games/enlg_mub/</loc>
          <lastmod>2026-02-28</lastmod>
     </url>
     <url>
-         <loc>https://vprusso.github.io/toqito/generated/gallery/02_quantum_states/pbr_theorem/</loc>
+         <loc>https://vprusso.github.io/toqito/generated/gallery/extended_nonlocal_games/mg_execution_times/</loc>
          <lastmod>2026-02-28</lastmod>
     </url>
     <url>
-         <loc>https://vprusso.github.io/toqito/generated/gallery/02_quantum_states/pgm_pbm/</loc>
+         <loc>https://vprusso.github.io/toqito/generated/gallery/nonlocal_games/mg_execution_times/</loc>
          <lastmod>2026-02-28</lastmod>
     </url>
     <url>
-         <loc>https://vprusso.github.io/toqito/generated/gallery/02_quantum_states/state_distinguishability/</loc>
+         <loc>https://vprusso.github.io/toqito/generated/gallery/nonlocal_games/nonlocal_game/</loc>
          <lastmod>2026-02-28</lastmod>
     </url>
     <url>
-         <loc>https://vprusso.github.io/toqito/generated/gallery/02_quantum_states/state_exclusion/</loc>
+         <loc>https://vprusso.github.io/toqito/generated/gallery/nonlocal_games/xor_quantum_value/</loc>
          <lastmod>2026-02-28</lastmod>
     </url>
     <url>
-         <loc>https://vprusso.github.io/toqito/generated/gallery/03_nonlocal_games/mg_execution_times/</loc>
+         <loc>https://vprusso.github.io/toqito/generated/gallery/quantum_states/circulant_states/</loc>
          <lastmod>2026-02-28</lastmod>
     </url>
     <url>
-         <loc>https://vprusso.github.io/toqito/generated/gallery/03_nonlocal_games/nonlocal_game/</loc>
+         <loc>https://vprusso.github.io/toqito/generated/gallery/quantum_states/classification/</loc>
          <lastmod>2026-02-28</lastmod>
     </url>
     <url>
-         <loc>https://vprusso.github.io/toqito/generated/gallery/03_nonlocal_games/xor_quantum_value/</loc>
+         <loc>https://vprusso.github.io/toqito/generated/gallery/quantum_states/equiangular_threshold/</loc>
          <lastmod>2026-02-28</lastmod>
     </url>
     <url>
-         <loc>https://vprusso.github.io/toqito/generated/gallery/04_extended_nonlocal_games/bit_commitment/</loc>
+         <loc>https://vprusso.github.io/toqito/generated/gallery/quantum_states/mg_execution_times/</loc>
          <lastmod>2026-02-28</lastmod>
     </url>
     <url>
-         <loc>https://vprusso.github.io/toqito/generated/gallery/04_extended_nonlocal_games/enlg_bb84/</loc>
+         <loc>https://vprusso.github.io/toqito/generated/gallery/quantum_states/pbr_theorem/</loc>
          <lastmod>2026-02-28</lastmod>
     </url>
     <url>
-         <loc>https://vprusso.github.io/toqito/generated/gallery/04_extended_nonlocal_games/enlg_chsh/</loc>
+         <loc>https://vprusso.github.io/toqito/generated/gallery/quantum_states/pgm_pbm/</loc>
          <lastmod>2026-02-28</lastmod>
     </url>
     <url>
-         <loc>https://vprusso.github.io/toqito/generated/gallery/04_extended_nonlocal_games/enlg_introduction/</loc>
+         <loc>https://vprusso.github.io/toqito/generated/gallery/quantum_states/state_distinguishability/</loc>
          <lastmod>2026-02-28</lastmod>
     </url>
     <url>
-         <loc>https://vprusso.github.io/toqito/generated/gallery/04_extended_nonlocal_games/enlg_mub/</loc>
-         <lastmod>2026-02-28</lastmod>
-    </url>
-    <url>
-         <loc>https://vprusso.github.io/toqito/generated/gallery/04_extended_nonlocal_games/mg_execution_times/</loc>
+         <loc>https://vprusso.github.io/toqito/generated/gallery/quantum_states/state_exclusion/</loc>
          <lastmod>2026-02-28</lastmod>
     </url>
     <url>
