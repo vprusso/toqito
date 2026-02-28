@@ -8910,14 +8910,14 @@ POVMs of dimension with <span class="arithmatex">\(2\)</span> inputs and <span c
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">povms</span><span class="p">)</span>
 </code></pre></div>
-<p>[[[[ 0.92423903+0.j  0.07576097+0.j]
-   [ 0.00675406+0.j  0.99324594+0.j]]</p>
-<p>[[-0.22786697+0.j  0.22786697+0.j]
-   [-0.03285238+0.j  0.03285238+0.j]]]</p>
-<p>[[[-0.22786697+0.j  0.22786697+0.j]
-   [-0.03285238+0.j  0.03285238+0.j]]</p>
-<p>[[ 0.06716933+0.j  0.93283067+0.j]
-   [ 0.80523952+0.j  0.19476048+0.j]]]]</p>
+<p>[[[[ 0.60079474+0.j  0.39920526+0.j]
+   [ 0.68086451+0.j  0.31913549+0.j]]</p>
+<p>[[ 0.25077651+0.j -0.25077651+0.j]
+   [ 0.30369972+0.j -0.30369972+0.j]]]</p>
+<p>[[[ 0.25077651+0.j -0.25077651+0.j]
+   [ 0.30369972+0.j -0.30369972+0.j]]</p>
+<p>[[ 0.15142355+0.j  0.84857645+0.j]
+   [ 0.18352651+0.j  0.81647349+0.j]]]]</p>
 <p>We can verify that this constitutes a valid set of POVM elements as checking that these operators all sum to the
 identity operator.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">povms</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">povms</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>

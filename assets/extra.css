@@ -1,3 +1,7 @@
+/* Homepage logo: show correct variant based on MkDocs theme toggle */
+[data-md-color-scheme="default"] .only-dark { display: none; }
+[data-md-color-scheme="slate"] .only-light { display: none; }
+
 /* Code output styling for light mode */
 [data-md-color-scheme="default"] .highlight pre,
 [data-md-color-scheme="default"] .highlight code {
