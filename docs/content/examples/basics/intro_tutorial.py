@@ -39,7 +39,7 @@ entanglement and PPT.
 
 from toqito.matrices import standard_basis
 
-mkdocs_gallery_thumbnail_path = 'figures/logo.svg'
+mkdocs_gallery_thumbnail_path = 'figures/logo.png'
 # |0>
 standard_basis(2)[0]
 
