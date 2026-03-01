@@ -1,4 +1,4 @@
-"""Add functions for channel fidelity of Separability as defined in [@Philip_2023_Schrodinger].
+"""Add functions for channel fidelity of Separability as defined in [@philip2023schrodinger].
 
 The constrainsts for this function are positive partial transpose (PPT)
 & k-extendible channels.
@@ -20,23 +20,23 @@ def fidelity_of_separability(
     verbosity_option: int = 0,
     solver_option: str = "cvxopt",
 ) -> float:
-    r"""Define the first benchmark introduced in Appendix I of [@Philip_2023_Schrodinger].
+    r"""Define the first benchmark introduced in Appendix I of [@philip2023schrodinger].
 
     If you would like to instead use the benchmark introduced in Appendix H, go to
     [state_metrics.fidelity_of_separability][toqito.state_metrics.fidelity_of_separability].
 
-    In [@Philip_2023_Schrodinger], a variational quantum algorithm (VQA) is introduced to test the separability of
+    In [@philip2023schrodinger], a variational quantum algorithm (VQA) is introduced to test the separability of
     general bipartite state. The algorithm utilizes quantum steering between two separated systems such that the
     separability of the state is quantified.
 
     Due to the limitations of currently available quantum computers, two optimization semidefinite programs (SDP)
     benchmarks were introduced to maximize the fidelity of separability subject to some state constraints
-    (Positive Partial Transpose (PPT), symmetric extensions (k-extendibility) [@Hayden_2013_TwoMessage]).
+    (Positive Partial Transpose (PPT), symmetric extensions (k-extendibility) [@hayden2013twomessage]).
     Entangled states do not have k-symmetric extensions. If an extension exists, it cannot be assumed directly that the
     state is separable. This function approximates the fidelity of separability by maximizing over PPT channels &
-    k-extendible entanglement breaking channels i.e. an optimization problem over channels [@Watrous_2018_TQI].
+    k-extendible entanglement breaking channels i.e. an optimization problem over channels [@watrous2018theory].
 
-    The following discussion (Equation (I4) from [@Philip_2023_Schrodinger]) defines the constraints for approximating
+    The following discussion (Equation (I4) from [@philip2023schrodinger]) defines the constraints for approximating
     $\widetilde{F}_s^2(\rho_{AB})$ in $\frac{1}{2}(1+\widetilde{F}_s^2(\rho_{AB}))$.
 
     $$
@@ -66,7 +66,7 @@ def fidelity_of_separability(
     T_{A^{\prime}_{1\cdots j}}(\Gamma^{\mathcal{E}^{k}_{RA^{\prime k}}}) \geq 0 \quad \forall j\leq k
     $$
 
-    These other constraints are due to the PPT condition [@Peres_1996_Separability].
+    These other constraints are due to the PPT condition [@peres1996separability].
 
     Examples:
         Let's consider a density matrix of a state that we know is pure & separable.

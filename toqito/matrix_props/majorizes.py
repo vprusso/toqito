@@ -4,7 +4,7 @@ import numpy as np
 
 
 def majorizes(a_var: np.ndarray | list[int], b_var: np.ndarray | list[int]) -> bool:
-    r"""Determine if one vector or matrix majorizes another [@WikiMajorization].
+    r"""Determine if one vector or matrix majorizes another [@wikipediamajorization].
 
     Given \(a, b \in \mathbb{R}^d\), we say that \(a\) **weakly majorizes** (or dominates)
     \(b\) from below if and only if

@@ -7,7 +7,7 @@ import numpy as np
 def abs_ppt_constraints(
     eigs: np.ndarray | cp.Variable, p: int, max_constraints: int = 33_592, use_check: bool = False
 ) -> list[np.ndarray | cp.Expression]:
-    r"""Return the constraint matrices for the spectrum to be absolutely PPT [@Hildebrand_2007_AbsPPT].
+    r"""Return the constraint matrices for the spectrum to be absolutely PPT [@hildebrand2007positive].
 
     The returned matrices are constructed from the provided eigenvalues `eigs`, and they must all be positive
     semidefinite for the spectrum to be absolutely PPT.
@@ -15,7 +15,7 @@ def abs_ppt_constraints(
 
     !!! Note
         The function does not always return the optimal number of constraint matrices.
-        There are some redundant constraint matrices [@Johnston_2014_Orderings].
+        There are some redundant constraint matrices [@johnston2014counting].
 
         * With `use_checks=False`, the number of matrices returned starting from \(p=1\) is
           \([0, 1, 2, 12, 286, 33592, 23178480, \ldots]\).
@@ -36,7 +36,7 @@ def abs_ppt_constraints(
         It is recommended to set `use_check=True` for this use case to minimize the number of
         constraint equations in the problem.
 
-    This function is adapted from QETLAB [@QETLAB_link].
+    This function is adapted from QETLAB [@qetlablink].
 
     Examples:
         We can compute the constraint matrices for a random density matrix:
@@ -60,7 +60,7 @@ def abs_ppt_constraints(
         eigs: A list of eigenvalues.
         p: The dimension of the smaller subsystem in the bipartite system.
         max_constraints: The maximum number of constraint matrices to compute. (default: 33,592)
-        use_check: Use the "criss-cross" ordering check described in [@Johnston_2014_Orderings] to reduce the number of
+        use_check: Use the "criss-cross" ordering check described in [@johnston2014counting] to reduce the number of
             constraint matrices. (default: `False`)
 
     Returns:
@@ -139,7 +139,7 @@ def abs_ppt_constraints(
                 available[k] = True
 
     def _check_cross(order_matrix: np.ndarray, p: int) -> bool:
-        r"""Check if the order matrix satisfies the "criss-cross" check in [@Johnston_2014_Orderings]."""
+        r"""Check if the order matrix satisfies the "criss-cross" check in [@johnston2014counting]."""
         for j in range(p - 3):
             for k in range(2, p):
                 for m in range(p - 2):

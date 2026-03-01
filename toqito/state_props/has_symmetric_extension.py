@@ -18,7 +18,7 @@ def has_symmetric_extension(
 ) -> bool:
     r"""Determine whether there exists a symmetric extension for a given quantum state.
 
-    For more information, see [@Doherty_2002_Distinguishing].
+    For more information, see [@doherty2002distinguishing].
 
     Determining whether an operator possesses a symmetric extension at some level `level`
     can be used as a check to determine if the operator is entangled or not.
@@ -28,7 +28,7 @@ def has_symmetric_extension(
     Examples:
         2-qubit symmetric extension:
 
-        In [@Chen_2014_Symmetric], it was shown that a 2-qubit state \(\rho_{AB}\) has a
+        In [@chen2014symmetric], it was shown that a 2-qubit state \(\rho_{AB}\) has a
         symmetric extension if and only if
 
         \[

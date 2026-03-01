@@ -9,9 +9,9 @@ def is_nonnegative(input_mat: np.ndarray, mat_type: str = "nonnegative") -> bool
     r"""Check if the matrix is nonnegative.
 
     When all the entries in the matrix are larger than or equal to zero the matrix of interest is a
-    nonnegative matrix [@WikiNonNegative].
+    nonnegative matrix [@wikipedianonnegative].
 
-    When a matrix is nonegative and positive semidefinite [@WikiPosDef], the matrix is doubly nonnegative.
+    When a matrix is nonegative and positive semidefinite [@wikipediadefinite], the matrix is doubly nonnegative.
 
 
     Examples:

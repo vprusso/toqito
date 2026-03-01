@@ -12,7 +12,7 @@ with which this problem can be solved for a number of different scenarios.
 # tutorial on this topic.
 #
 # Further information beyond the scope of this tutorial can be found in the text
-# [@Pusey_2012_On] as well as the course [@Bandyopadhyay_2014_Conclusive].
+# [@pusey2012reality] as well as the course [@bandyopadhyay2014conclusive].
 #
 # ## The state exclusion problem
 #
@@ -208,7 +208,7 @@ print(f"Optimal SDP value: {np.around(opt_value, decimals=2)}")
 # ## Antidistinguishability and (n-1)-incoherence
 #
 # Antidistinguishability of a set of pure states is equivalent to a certain notion from the theory of quantum resources
-# referred to as $k$-incoherence [@Johnston_2022_Absolutely]:
+# referred to as $k$-incoherence [@johnston2022absolutely]:
 #
 # **Definition**: Let $n$ and $k$ be positive integers. Then $X \in \text{Pos}(\mathbb{C} ^n)$ is called
 # $k$-incoherent* if there exists a positive integer $m$, a set
@@ -221,7 +221,7 @@ print(f"Optimal SDP value: {np.around(opt_value, decimals=2)}")
 # $$
 #
 # It turns out that antidistinguishability is equivalent to $k$-incoherence in the $k = n - 1$ case.
-# Reproducing one of the results from [@Johnston_2025_Tight], we have the following theorem.
+# Reproducing one of the results from [@johnston2025tight], we have the following theorem.
 #
 # **Theorem**: Let $n \geq 2$ be an integer and let $S = \{|\phi_0\rangle, |\phi_1\rangle, \ldots, |\phi_{n-1}\rangle\}$.
 # Then $S$ is antidistinguishable if and only if the Gram matrix $G$ is $(n-1)$-incoherent.

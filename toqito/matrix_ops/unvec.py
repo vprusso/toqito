@@ -4,7 +4,7 @@ import numpy as np
 
 
 def unvec(vector: np.ndarray, shape: list[int] | None = None) -> np.ndarray:
-    r"""Perform the unvec operation on a vector to obtain a matrix [@Rigetti_2022_Forest].
+    r"""Perform the unvec operation on a vector to obtain a matrix [@rigetti2022forest].
 
     Takes a column vector and transforms it into a `shape[0]`-by-`shape[1]` matrix.
     This operation is the inverse of `vec` operation in `|toqito⟩`.
@@ -51,7 +51,7 @@ def unvec(vector: np.ndarray, shape: list[int] | None = None) -> np.ndarray:
 
     for all \(a\) and \(b\).
 
-    This function has been adapted from [@Rigetti_2022_Forest].
+    This function has been adapted from [@rigetti2022forest].
 
     Examples:
         Consider the following vector

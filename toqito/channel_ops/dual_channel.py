@@ -11,7 +11,7 @@ def dual_channel(
 ) -> np.ndarray | list[list[np.ndarray]] | list[np.ndarray]:
     r"""Compute the dual of a map (quantum channel).
 
-    (Section: Representations and Characterizations of Channels of [@Watrous_2018_TQI]).
+    (Section: Representations and Characterizations of Channels of [@watrous2018theory]).
 
     The map can be represented as a Choi matrix, with optional specification of input
     and output dimensions. If the input channel maps \(M_{r,c}\) to \(M_{x,y}\)

@@ -10,7 +10,7 @@ from toqito.states import max_entangled
 def kraus_to_choi(kraus_ops: list[np.ndarray] | list[list[np.ndarray]], sys: int = 2) -> np.ndarray:
     r"""Compute the Choi matrix of a list of Kraus operators.
 
-    (Section: Kraus Representations of [@Watrous_2018_TQI]).
+    (Section: Kraus Representations of [@watrous2018theory]).
 
     The Choi matrix of the list of Kraus operators, `kraus_ops`. The default convention is
     that the Choi matrix is the result of applying the map to the second subsystem of the

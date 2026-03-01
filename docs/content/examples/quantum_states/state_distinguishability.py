@@ -9,7 +9,7 @@
 
 # %%
 # Further information beyond the scope of this tutorial can be found in the text
-# [@Watrous_2018_TQI] as well as the course [@Sikora_2019_Semidefinite].
+# [@watrous2018theory] as well as the course [@sikora2019semidefinite].
 #
 # ## The state distinguishability problem
 #
@@ -140,7 +140,7 @@ print(np.around(state_distinguishability(states, probs)[0], decimals=2))
 #
 # The problem of state distinguishability with respect to PPT measurements can
 # also be framed as an SDP and was initially presented in this manner in
-# [@Cosentino_2013_PPT]
+# [@cosentino2013positive]
 #
 # $$
 # \begin{aligned}
@@ -164,7 +164,7 @@ print(np.around(state_distinguishability(states, probs)[0], decimals=2))
 # \end{aligned}
 # $$
 #
-# It was shown in [@Cosentino_2013_PPT] and later extended in [@Cosentino_2014_Small] that for the following set of states
+# It was shown in [@cosentino2013positive] and later extended in [@cosentino2014small] that for the following set of states
 #
 # $$
 # \begin{aligned}
@@ -179,7 +179,7 @@ print(np.around(state_distinguishability(states, probs)[0], decimals=2))
 # $7/8 \approx 0.875$.
 #
 # This ensemble of states and some of its properties with respect to
-# distinguishability were initially considered in [@Yu_2012_Four]. In `|toqito⟩`,
+# distinguishability were initially considered in [@yu2012four]. In `|toqito⟩`,
 # we can calculate the probability with which Bob can distinguish these states
 # via PPT measurements in the following manner.
 #
@@ -195,7 +195,7 @@ psi_1 = bell(2)
 psi_2 = bell(3)
 psi_3 = bell(1)
 
-# YDY vectors from [@Yu_2012_Four]:
+# YDY vectors from [@yu2012four]:
 x_1 = np.kron(psi_0, psi_0)
 x_2 = np.kron(psi_1, psi_3)
 x_3 = np.kron(psi_2, psi_3)
@@ -217,6 +217,6 @@ print(f"Optimal probability with PPT measurements: {np.around(ppt_val, decimals=
 # NP-hard. However, there does exist a hierarchy of semidefinite programs which
 # eventually does converge to the separable value. This hierarchy is based off
 # the notion of symmetric extensions. More information about this hierarchy of
-# SDPs can be found here [@Navascues_2008_Pure].
+# SDPs can be found here [@navascues2008pure].
 
 # %%

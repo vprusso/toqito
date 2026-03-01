@@ -1,7 +1,7 @@
 """# Quantum classification, factor width, k-incoherence
 
 This example accompanies the "The complexity of quantum state classification"
-paper [@Johnston_2025_Complexity].
+paper [@johnston2025complexity].
 
 In this tutorial, we will cover the concepts of the so-called "learnability" of
 quantum states along with related settings of "factor width" and the notion of
@@ -103,7 +103,7 @@ print(f"Average classification error (k=1): {learnability_result['value']}")
 # %%
 # ## k-Incoherence
 # The notion of $k$-incoherence comes from
-# [@Johnston_2022_Absolutely]. For a positive integers, $k$ and
+# [@johnston2022absolutely]. For a positive integers, $k$ and
 # $n$, the matrix $X \in \text{Pos}(\mathbb{C}^n)$ is called
 # $k$-incoherent if there exists a positive integer $m$, a set
 # $S = \{|\psi_0\rangle, |\psi_1\rangle,\ldots, |\psi_{m-1}\rangle\}
@@ -138,7 +138,7 @@ print(is_k_incoherent(mat, 2))
 # ## Factor width
 #
 # Another closely related definition to $k$-incoherence is that of
-# factor width [@Barioli_2003_Maximal][@Johnston_2025_Factor][@Boman_2005_factor] below.
+# factor width [@barioli2003maximal][@johnston2025factor][@boman2005factor] below.
 #
 # Let $k$ be a positive integer. The factor width of a positive
 # semidefinite matrix $X$ is the smallest $k$ such that it is
@@ -163,7 +163,7 @@ result = factor_width(hadamard, k=1)
 print(result["feasible"])
 
 # %%
-# This example comes directly from [@Johnston_2025_Factor]. Suppose we want to determine the factor width of
+# This example comes directly from [@johnston2025factor]. Suppose we want to determine the factor width of
 # the rank-$3$ matrix
 #
 # $$

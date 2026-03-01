@@ -14,7 +14,7 @@ def is_block_positive(
     effort: int = 2,
     rtol: float = 1e-5,
 ) -> bool | RuntimeError:
-    r"""Check if matrix is block positive [@Johnston_2012_Norms].
+    r"""Check if matrix is block positive [@johnston2012norms].
 
     Examples:
         The swap operator is always block positive, since it is the Choi
@@ -89,7 +89,7 @@ def is_block_positive(
     # We compute the S(k)-norm of this operator since
     # X k-block positive iff:
     #   c >= S(k)-norm of(c*I - X)
-    # See Corollary 4.2.9. of `[@Johnston_2012_Norms].
+    # See Corollary 4.2.9. of `[@johnston2012norms].
     c_mat = op_norm * np.eye(dim_xy) - mat
     lower_bound, upper_bound = sk_operator_norm(c_mat, k, dim_arr, op_norm, effort)
 

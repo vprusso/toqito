@@ -4,7 +4,7 @@ import numpy as np
 
 
 def is_positive_definite(mat: np.ndarray) -> bool:
-    r"""Check if matrix is positive definite (PD) [@WikiPosDef].
+    r"""Check if matrix is positive definite (PD) [@wikipediadefinite].
 
     Examples:
         Consider the following matrix

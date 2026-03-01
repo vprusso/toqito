@@ -30,7 +30,7 @@ def state_distinguishability(
     primal_dual: str = "dual",
     **kwargs: Any,
 ) -> tuple[float, list[picos.HermitianVariable] | list[np.ndarray] | tuple[picos.SymmetricVariable]]:
-    r"""Compute probability of state distinguishability [@Eldar_2003_SDPApproach].
+    r"""Compute probability of state distinguishability [@eldar2003semidefinite].
 
     The "quantum state distinguishability" problem involves a collection of \(n\) quantum states
 
@@ -349,7 +349,7 @@ def _unambiguous_primal(
 ) -> tuple[float, list[np.ndarray]]:
     """Solve the primal problem for unambiguous quantum state distinguishability SDP.
 
-    Implemented according to Equation (5) of [@Gupta_2024_Unambiguous]:.
+    Implemented according to Equation (5) of [@gupta2024unambiguous]:.
     Supports both pure states (vectors) and mixed states (density matrices).
     """
     n = len(vectors)
@@ -387,7 +387,7 @@ def _unambiguous_dual(
 ) -> tuple[float, tuple[picos.SymmetricVariable]]:
     """Solve the dual problem for unambiguous quantum state distinguishability SDP.
 
-    Implemented according to Equation (5) of [@Gupta_2024_Unambiguous].
+    Implemented according to Equation (5) of [@gupta2024unambiguous].
     Supports both pure states (vectors) and mixed states (density matrices).
     """
     n = len(vectors)

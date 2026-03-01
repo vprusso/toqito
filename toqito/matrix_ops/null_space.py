@@ -4,7 +4,7 @@ import numpy as np
 
 
 def null_space(mat: np.ndarray, tol: float = 1e-08) -> np.ndarray:
-    r"""Return an orthonormal basis for the kernel of ``mat`` [@WikiNullSpace].
+    r"""Return an orthonormal basis for the kernel of ``mat`` [@wikipediakernel].
 
     The routine employs the singular value decomposition so that the columns of the
     returned matrix span the null space and are orthonormal with respect to the

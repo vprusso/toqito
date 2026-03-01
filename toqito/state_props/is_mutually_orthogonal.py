@@ -6,7 +6,7 @@ import numpy as np
 
 
 def is_mutually_orthogonal(vec_list: list[np.ndarray | list[float | Any]]) -> bool:
-    r"""Check if list of vectors are mutually orthogonal [@WikiOrthog].
+    r"""Check if list of vectors are mutually orthogonal [@wikipediaorthogonality].
 
     We say that two bases
 

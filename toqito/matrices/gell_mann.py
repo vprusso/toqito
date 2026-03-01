@@ -5,7 +5,7 @@ from scipy.sparse import csr_array
 
 
 def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | csr_array:
-    r"""Produce a Gell-Mann operator [@WikiGellMann].
+    r"""Produce a Gell-Mann operator [@wikipediagellmann].
 
     Generates the 3-by-3 Gell-Mann matrix indicated by the value of
     `ind`.  When `ind = 0` gives the identity matrix, while values

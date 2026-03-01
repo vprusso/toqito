@@ -235,7 +235,7 @@ def npa_constraints(
 ) -> list[cvxpy.constraints.constraint.Constraint]:
     r"""Generate the constraints specified by the NPA hierarchy up to a finite level.
 
-    [@Navascues_2008_AConvergent]
+    [@navascues2008convergent]
 
     You can determine the level of the hierarchy by a positive integer or a string
     of a form like "1+ab+aab", which indicates that an intermediate level of the hierarchy
@@ -271,7 +271,7 @@ def npa_constraints(
         # Should not happen if IDENTITY_SYMBOL is always included
         raise ValueError("Generated word list is empty. Check _gen_words logic.")
 
-    # Moment matrix (Gamma matrix in [@Navascues_2008_AConvergent])
+    # Moment matrix (Gamma matrix in [@navascues2008convergent])
     # moment_matrix_R block corresponds to E[S_i^dagger S_j]
     moment_matrix_R = cvxpy.Variable((referee_dim * dim, referee_dim * dim), hermitian=True, name="R")
 
@@ -311,7 +311,7 @@ def npa_constraints(
             else:
                 product_S_i_adj_S_j = _reduce(tuple(product_unreduced))
 
-            # Moment matrix (Gamma matrix in NPA paper [@Navascues_2008_AConvergent] - arXiv:0803.4290)
+            # Moment matrix (Gamma matrix in NPA paper [@navascues2008convergent] - arXiv:0803.4290)
             # This hierarchy can be generalized, e.g., to incorporate referee systems
             # as seen in extended nonlocal games (see, e.g., F. Speelman's thesis, [@Speelman_2016_Position]).
             current_block = moment_matrix_R[
@@ -471,11 +471,11 @@ def bell_npa_constraints(
     desc: list[int],
     k: int | str = 1,
 ) -> list[cvxpy.constraints.constraint.Constraint]:
-    r"""Generate NPA hierarchy constraints for Bell inequalities [@Navascues_2008_AConvergent].
+    r"""Generate NPA hierarchy constraints for Bell inequalities [@navascues2008convergent].
 
     The constraints are based on the positivity of a moment matrix constructed from measurement
     operators. This function generates constraints for a CVXPY variable representing probabilities
-    or correlations in the Collins-Gisin notation. [@Collins_2004]
+    or correlations in the Collins-Gisin notation. [@collins2004relevant]
 
     The level of the hierarchy ``k`` can be an integer (standard NPA level) or a string specifying
     intermediate levels (e.g., "1+ab", "2+aab").

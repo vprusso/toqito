@@ -25,7 +25,7 @@ def factor_width(
     The factor width of a matrix is the minimal value of \(k\) for which it
     admits a decomposition \(M = \sum_j v_j v_j^*\) with each \(v_j\)
     supported on at most \(k\) coordinates.  This routine implements the
-    low-rank algorithm in [@Johnston_2025_Complexity].
+    low-rank algorithm in [@johnston2025complexity].
 
     Examples:
         The matrix \(\operatorname{diag}(1, 1, 0)\) has factor width at most \(1\).

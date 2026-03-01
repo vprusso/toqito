@@ -5,7 +5,7 @@ a significant no-go theorem in the foundations of quantum mechanics. We will
 describe the theorem's core argument and then use `|toqito⟩` to verify the
 central mathematical property that the theorem relies on.
 
-The PBR theorem [@Pusey_2012_On] addresses a fundamental question: Is the
+The PBR theorem [@pusey2012reality] addresses a fundamental question: Is the
 quantum state (e.g., the wavefunction $|\\psi\\rangle$) a real, objective
 property of a single system (an *ontic* state), or does it merely represent
 our incomplete knowledge or information about some deeper underlying reality
@@ -15,7 +15,7 @@ our incomplete knowledge or information about some deeper underlying reality
 # %%
 # ## PBR Argument
 #
-# The PBR theorem [@Pusey_2012_On] argues against a broad class of epistemic models.
+# The PBR theorem [@pusey2012reality] argues against a broad class of epistemic models.
 #
 # *1.*  **Epistemic Hypothesis**: An epistemic model assumes there is a
 #     "real" physical state of the system, often denoted by $\lambda$.
@@ -74,9 +74,9 @@ plt.tight_layout()
 #     $|\psi_0\rangle$ or $|\psi_1\rangle$. The PBR theorem shows that the
 #     existence of any such overlap (for any pair of distinct states) leads to a
 #     contradiction with quantum theory's predictions.
-#     Figure adapted from the PBR paper [@Pusey_2012_On].
+#     Figure adapted from the PBR paper [@pusey2012reality].
 #
-# *2.*  **Thought Experiment**: The PBR paper [@Pusey_2012_On] constructs a thought
+# *2.*  **Thought Experiment**: The PBR paper [@pusey2012reality] constructs a thought
 #     experiment to show this leads to a contradiction. Consider two
 #     non-orthogonal quantum states, for example:
 #
@@ -166,7 +166,7 @@ print(f"Are the four PBR states antidistinguishable? {is_ad}")
 # ## General PBR States
 # The theorem holds for any pair of non-orthogonal states. The `toqito`
 # library provides a function to generate the states from the more general
-# proof in the PBR paper [@Pusey_2012_On], which are defined by an angle $\theta$.
+# proof in the PBR paper [@pusey2012reality], which are defined by an angle $\theta$.
 #
 # $$
 # |\psi_0\rangle = \cos(\frac{\theta}{2})|0\rangle + \sin(\frac{\theta}{2})|1\rangle \quad \text{and }

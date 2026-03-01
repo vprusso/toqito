@@ -7,9 +7,9 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
     r"""Produce the partially depolarizing channel.
 
     (Section: Replacement Channels and the Completely Depolarizing Channel from
-    [@Watrous_2018_TQI]).
+    [@watrous2018theory]).
 
-    The Choi matrix of the completely depolarizing channel [@WikiDepo] that acts on
+    The Choi matrix of the completely depolarizing channel [@wikipediadepolarizing] that acts on
     `dim`-by-`dim` matrices.
 
     The *completely depolarizing channel* is defined as

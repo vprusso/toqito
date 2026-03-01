@@ -4,7 +4,7 @@ import numpy as np
 
 
 def is_linearly_independent(vectors: list[np.ndarray]) -> bool:
-    r"""Check if set of vectors are linearly independent [@WikiLinearIndependence].
+    r"""Check if set of vectors are linearly independent [@wikipedialinearindependence].
 
     Examples:
         The following vectors are an example of a linearly independent set of vectors in \(\mathbb{R}^3\).

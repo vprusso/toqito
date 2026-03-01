@@ -7,7 +7,7 @@ from toqito.perms import swap
 
 
 def realignment(input_mat: np.ndarray, dim: int | list[int] | np.ndarray | None = None) -> np.ndarray:
-    r"""Compute the realignment of a bipartite operator [@Lupo_2008_Bipartite].
+    r"""Compute the realignment of a bipartite operator [@lupo2008bipartite].
 
     Gives the realignment of the matrix `input_mat`, where it is assumed that the number
     of rows and columns of `input_mat` are both perfect squares and both subsystems have

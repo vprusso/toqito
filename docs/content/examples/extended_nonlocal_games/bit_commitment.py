@@ -5,7 +5,7 @@ extended nonlocal game where the "player" Alice attempts to cheat. Instead of
 calculating a cooperative winning probability, we will quantify Alice's maximum
 cheating probability. This allows us to provide a concrete illustration of the failure of the
 *binding* property, a key aspect of the famous Mayers-Lo-Chau (MLC) no-go
-theorem [@Mayers_1997_Unconditionally][@Lo_1997_Why].
+theorem [@mayers1997unconditionally][@lo1997why].
 
 """
 
@@ -30,7 +30,7 @@ theorem [@Mayers_1997_Unconditionally][@Lo_1997_Why].
 #   different bit during the **Reveal Phase**. If she committed to $b=0$,
 #   she cannot successfully open the commitment as $b=1$.
 #
-# The Mayers-Lo-Chau (MLC) no-go theorem [@Mayers_1997_Unconditionally][@Lo_1997_Why]
+# The Mayers-Lo-Chau (MLC) no-go theorem [@mayers1997unconditionally][@lo1997why]
 # proves that no quantum protocol can be both perfectly hiding and binding. Here,
 # we will use the [`ExtendedNonlocalGame`][toqito.nonlocal_games.extended_nonlocal_game.ExtendedNonlocalGame] framework not to prove the full
 # theorem in its generality, but to illustrate the failure of
@@ -38,7 +38,7 @@ theorem [@Mayers_1997_Unconditionally][@Lo_1997_Why].
 # the abstract threat of cheating concrete and quantifiable.
 #
 # The core of this impossibility proof lies in Alice's ability to use an
-# Einstein-Podolsky-Rosen (EPR) type of attack [@Mayers_1997_Unconditionally][@Lo_1997_Why]: she prepares an entangled state
+# Einstein-Podolsky-Rosen (EPR) type of attack [@mayers1997unconditionally][@lo1997why]: she prepares an entangled state
 # and shares one part with Bob, keeping the other. This entanglement allows her
 # to delay her decision and "steer" the outcome to her advantage later on.
 #

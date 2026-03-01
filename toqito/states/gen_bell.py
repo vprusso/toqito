@@ -11,7 +11,7 @@ from toqito.perms import vec
 
 
 def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
-    r"""Produce a generalized Bell state [@Sych_2009_AComplete].
+    r"""Produce a generalized Bell state [@sych2009complete].
 
     Produces a generalized Bell state. Note that the standard Bell states can be recovered as:
 

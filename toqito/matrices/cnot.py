@@ -4,7 +4,7 @@ import numpy as np
 
 
 def cnot() -> np.ndarray:
-    r"""Produce the CNOT matrix [@WikiCNOT].
+    r"""Produce the CNOT matrix [@wikipediacnot].
 
     The CNOT matrix is defined as
 

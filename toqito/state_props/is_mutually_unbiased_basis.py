@@ -6,7 +6,7 @@ import numpy as np
 
 
 def is_mutually_unbiased_basis(vectors: list[np.ndarray | list[float | Any]]) -> bool:
-    r"""Check if list of vectors constitute a mutually unbiased basis [@WikiMUB].
+    r"""Check if list of vectors constitute a mutually unbiased basis [@wikipediamub].
 
     We say that two orthonormal bases
 

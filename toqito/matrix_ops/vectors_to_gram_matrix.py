@@ -4,7 +4,7 @@ import numpy as np
 
 
 def vectors_to_gram_matrix(vectors: list[np.ndarray]) -> np.ndarray:
-    r"""Construct the Gram matrix from a list of vectors or density matrices [@WikiGram].
+    r"""Construct the Gram matrix from a list of vectors or density matrices [@wikipediagram].
 
     The Gram matrix is a matrix of inner products. This function automatically detects whether the inputs
     are vectors (pure states) or density matrices (mixed states) and computes the appropriate Gram matrix.

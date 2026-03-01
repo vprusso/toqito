@@ -70,7 +70,7 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
 
     Notes
     The method used to determine the existence of a perfect commuting strategy was originally introduced
-    in [@Cleve_2016_Perfect].
+    in [@cleve2016perfect].
 
     Examples:
         ```python exec="1" source="above"

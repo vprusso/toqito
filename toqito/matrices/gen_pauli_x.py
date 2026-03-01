@@ -4,9 +4,9 @@ import numpy as np
 
 
 def gen_pauli_x(dim: int) -> np.ndarray:
-    r"""Produce a `dim`-by-`dim` gen_pauli_x matrix [@WikiPauliGen].
+    r"""Produce a `dim`-by-`dim` gen_pauli_x matrix [@wikipediageneralizedpauli].
 
-    Returns the gen_pauli_x matrix of dimension `dim` described in [@WikiPauliGen].
+    Returns the gen_pauli_x matrix of dimension `dim` described in [@wikipediageneralizedpauli].
     The gen_pauli_x matrix generates the following `dim`-by-`dim` matrix:
 
     \[

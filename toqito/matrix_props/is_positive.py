@@ -7,7 +7,7 @@ def is_positive(input_mat: np.ndarray) -> bool:
     r"""Check if the matrix is positive.
 
     When all the entries in the matrix are larger than zero the matrix of interest is a
-    positive matrix [@WikiNonNegative].
+    positive matrix [@wikipedianonnegative].
 
     !!! note
         This function is different from [`is_positive_definite`][toqito.matrix_props.is_positive_definite],

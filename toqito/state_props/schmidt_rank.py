@@ -6,7 +6,7 @@ from toqito.perms import swap
 
 
 def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = None) -> int | float:
-    r"""Compute the Schmidt rank [@WikiScmidtDecomp].
+    r"""Compute the Schmidt rank [@wikipediaschmidt].
 
     For complex Euclidean spaces \(\mathcal{X}\) and \(\mathcal{Y}\), a pure state
     \(u \in \mathcal{X} \otimes \mathcal{Y}\) possesses an expansion of the form:

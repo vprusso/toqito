@@ -16,12 +16,12 @@ def ppt_distinguishability(
     solver: str = "cvxopt",
     primal_dual: str = "dual",
 ) -> float:
-    r"""Compute probability of optimally distinguishing a state via PPT measurements [@Cosentino_2013_PPT].
+    r"""Compute probability of optimally distinguishing a state via PPT measurements [@cosentino2013positive].
 
     Implements the semidefinite program (SDP) whose optimal value is equal to the maximum
     probability of perfectly distinguishing orthogonal maximally entangled states using any PPT
     measurement; a measurement whose operators are positive under partial transpose. This SDP was
-    explicitly provided in [@Cosentino_2013_PPT].
+    explicitly provided in [@cosentino2013positive].
 
     One can specify the distinguishability method using the `dist_method` argument.
 
@@ -53,7 +53,7 @@ def ppt_distinguishability(
             \end{equation}
         \]
 
-        It was illustrated in [@Yu_2012_Four] that for the following set of states
+        It was illustrated in [@yu2012four] that for the following set of states
 
         \[
             \begin{equation}
@@ -67,7 +67,7 @@ def ppt_distinguishability(
         \]
 
         that the optimal probability of distinguishing via a PPT measurement should yield
-        \(7/8 \approx 0.875\) as was proved in [@Yu_2012_Four].
+        \(7/8 \approx 0.875\) as was proved in [@yu2012four].
 
         ```python exec="1" source="above"
         import numpy as np
@@ -80,7 +80,7 @@ def ppt_distinguishability(
         psi_2 = bell(3)
         psi_3 = bell(1)
 
-        # YDY vectors from [@Yu_2012_Four].
+        # YDY vectors from [@yu2012four].
         x_1 = np.kron(psi_0, psi_0)
         x_2 = np.kron(psi_1, psi_3)
         x_3 = np.kron(psi_2, psi_3)

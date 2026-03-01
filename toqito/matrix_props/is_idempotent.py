@@ -6,7 +6,7 @@ from toqito.matrix_props import is_square
 
 
 def is_idempotent(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> bool:
-    r"""Check if matrix is the idempotent matrix [@WikiIdemPot].
+    r"""Check if matrix is the idempotent matrix [@wikipediaidempotent].
 
     An *idempotent matrix* is a square matrix, which, when multiplied by itself, yields itself.
     That is, the matrix \(A\) is idempotent if and only if \(A^2 = A\).

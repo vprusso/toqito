@@ -5,7 +5,7 @@
  </picture>
  </p>
 
-<!-- --8<-- [start:content] -->
+<!-- --8<-- [start:badges] -->
 # |toqito⟩: Theory of Quantum Information Toolkit
 
 [![build status](https://github.com/vprusso/toqito/actions/workflows/build-test-actions.yml/badge.svg)](https://github.com/vprusso/toqito/actions/workflows/build-test-actions.yml)
@@ -17,6 +17,7 @@
 
 The |toqito⟩ package is an open-source Python library for studying various
 objects in quantum information, namely, states, channels, and measurements.
+<!-- --8<-- [end:badges] -->
 
 <p align="center">
   <a href="https://vprusso.github.io/toqito/">
@@ -24,6 +25,7 @@ objects in quantum information, namely, states, channels, and measurements.
   </a>
 </p>
 
+<!-- --8<-- [start:content] -->
 |toqito⟩ focuses on providing numerical tools to study problems
 about entanglement theory, nonlocal games, matrix analysis, and other
 aspects of quantum information that are often associated with computer science.

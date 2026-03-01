@@ -7,7 +7,7 @@ from toqito.state_props import von_neumann_entropy
 
 
 def renyi_entropy(rho: np.ndarray, alpha: float) -> float:
-    r"""Compute the Rényi entropy of a density matrix [@Muller_2013_Renyi_Generalization].
+    r"""Compute the Rényi entropy of a density matrix [@mullerlennert2013quantum].
 
     Let \(P \in \text{Pos}(\mathcal{X})\) be a positive semidefinite operator, for a complex
     Euclidean space \(\mathcal{X}\). Then one defines the *Rényi entropy of order*

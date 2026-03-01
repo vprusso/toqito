@@ -11,7 +11,7 @@ from toqito.matrices import gen_pauli
 
 
 def mutually_unbiased_basis(dim: int) -> list[np.ndarray]:
-    r"""Generate list of MUBs for a given dimension [@WikiMUB].
+    r"""Generate list of MUBs for a given dimension [@wikipediamub].
 
     Note that this function only works if the dimension provided is prime or a power of a prime. Otherwise, we don't
     know how to generate general MUBs.

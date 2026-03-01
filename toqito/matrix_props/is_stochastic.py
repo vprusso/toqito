@@ -9,9 +9,9 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
     r"""Verify matrix is doubly, right or left stochastic.
 
     When the nonnegative elements in a row of a square matrix sum up to 1, the matrix is right stochastic and if the
-    columns sum up to 1, the matrix is left stochastic [@WikiStochasticMatrix].
+    columns sum up to 1, the matrix is left stochastic [@wikipediastochastic].
 
-    When a matrix is right and left stochastic, it is a doubly stochastic matrix [@WikiDoublyStochasticMatrix]
+    When a matrix is right and left stochastic, it is a doubly stochastic matrix [@wikipediadoublystochastic]
     .
 
     !!! See Also

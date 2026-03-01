@@ -21,7 +21,7 @@ def tensor_comb(
     Given ``n`` quantum states, this function generates \(n^k\) combinations of sequences of length ``k``, computes
     the tensor product for each sequence, and converts each tensor product to its corresponding density matrix.
 
-    For one definition and usage of a quantum sequence, refer to [@Gupta_2024_Optimal].
+    For one definition and usage of a quantum sequence, refer to [@gupta2024optimal].
 
     Examples:
         Consider the following basis vectors for a 2-dimensional quantum system.

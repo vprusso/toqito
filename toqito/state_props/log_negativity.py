@@ -7,7 +7,7 @@ from toqito.matrix_ops import to_density_matrix
 
 
 def log_negativity(rho: np.ndarray, dim: list[int] | int | None = None) -> float:
-    r"""Compute the log-negativity of a bipartite quantum state [@WikiNeg].
+    r"""Compute the log-negativity of a bipartite quantum state [@wikipedianegativity].
 
     The log-negativity of a subsystem can be defined in terms of a density matrix \(\rho\):
 

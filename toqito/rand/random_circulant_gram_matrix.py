@@ -11,10 +11,10 @@ def random_circulant_gram_matrix(dim: int, seed: int | None = None) -> np.ndarra
     to the previous row. The eigenvalues and eigenvectors of this matrix are derived from the Discrete
     Fourier Transform (DFT).
 
-    For more information on circulant matrices, see [@WikiCirculantMat]. This function utilizes the
+    For more information on circulant matrices, see [@wikipediacirculant]. This function utilizes the
     normalized DFT, a variation of DFT with normalized basis vectors.
 
-    For additional information, see [@DSPNormDFT].
+    For additional information, see [@dspnormdft].
 
     The function creates a circulant matrix from a random diagonal matrix and the normalized DFT matrix.
     First, it generates a diagonal matrix with random non-negative entries. Next, it constructs the

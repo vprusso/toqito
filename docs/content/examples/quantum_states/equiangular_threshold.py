@@ -3,7 +3,7 @@
 In this tutorial, we explore a sharp threshold for the antidistinguishability
 of a special class of quantum states known as equiangular states. We will
 numerically verify a tight bound presented in the paper by Johnson et.al
-[@Johnston_2025_Tight] and visualize the "sharp cliff" where this
+[@johnston2025tight] and visualize the "sharp cliff" where this
 property changes.
 
 This tutorial builds upon the concepts introduced in the [Quantum state exclusion](../state_exclusion) tutorial.
@@ -17,11 +17,11 @@ This tutorial builds upon the concepts introduced in the [Quantum state exclusio
 # any two distinct states is a constant, i.e.,
 # $|\langle \psi_i | \psi_j \rangle| = \gamma$ for all $i \neq j$.
 #
-# Johnston et.al [@Johnston_2025_Tight]
+# Johnston et.al [@johnston2025tight]
 # introduced a simple and powerful necessary condition for a set of states to be
 # antidistinguishable.
 #
-# According to **Corollary 4.2 from** [@Johnston_2025_Tight], when $n \geq 2$, $S = \{|
+# According to **Corollary 4.2 from** [@johnston2025tight], when $n \geq 2$, $S = \{|
 # \psi_0\rangle, \ldots, |\psi_{n-1}\rangle\}$ is not anstidistinguishable if the following condition is satisfied.
 #
 # $$
@@ -39,7 +39,7 @@ This tutorial builds upon the concepts introduced in the [Quantum state exclusio
 # ### Numerical Verification
 #
 # To demonstrate the tightness of this bound, we follow Example 3.3 from
-# the paper [@Johnston_2025_Tight]. The Gram matrix for a set of $n$
+# the paper [@johnston2025tight]. The Gram matrix for a set of $n$
 # equiangular states is given by
 #
 # $$
@@ -101,7 +101,7 @@ print(f"  - Is the set antidistinguishable? {is_ad_above} (as expected)")
 # %%
 # ## Antidistinguishability and (n-1)-Incoherence
 #
-# The core theoretical result of (Theorem 3.2) [@Johnston_2025_Tight]
+# The core theoretical result of (Theorem 3.2) [@johnston2025tight]
 # is that a set of $n$ pure states is antidistinguishable if and only if its
 # Gram matrix is $(n-1)$-incoherent. Our numerical results above,
 # obtained by solving the state exclusion SDP, implicitly verify this
@@ -112,7 +112,7 @@ print(f"  - Is the set antidistinguishable? {is_ad_above} (as expected)")
 #
 # We can make this "sharp cliff" even clearer by plotting the optimal error
 # probability of state exclusion against the inner product $\gamma$. To
-# match the style of Figure 2 from [@Johnston_2025_Tight], we will
+# match the style of Figure 2 from [@johnston2025tight], we will
 # plot this for several values of $n$.
 #
 # The value returned by [`state_exclusion`][toqito.state_opt.state_exclusion.state_exclusion] is the optimal
@@ -166,7 +166,7 @@ plt.show()
 
 # %%
 # This plot, which numerically reproduces the results from Figure 2 of
-# [@Johnston_2025_Tight], shows that the optimal
+# [@johnston2025tight], shows that the optimal
 # probability of error is exactly $0$ for all
 # $\gamma \leq (n-2)/(n-1)$, indicating that the states are perfectly
 # antidistinguishable. The moment $\gamma$ exceeds this value, the

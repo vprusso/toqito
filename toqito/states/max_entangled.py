@@ -8,7 +8,7 @@ from scipy.sparse import coo_array
 
 
 def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True) -> np.ndarray | coo_array:
-    r"""Produce a maximally entangled bipartite pure state [@WikiMaxEnt].
+    r"""Produce a maximally entangled bipartite pure state [@wikipediamaximallyentangled].
 
     Produces a maximally entangled pure state as above that is sparse if `is_sparse = True` and is full if
     `is_sparse = False`. The pure state is normalized to have Euclidean norm 1 if `is_normalized = True`,

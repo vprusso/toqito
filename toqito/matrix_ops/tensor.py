@@ -4,7 +4,7 @@ import numpy as np
 
 
 def tensor(*args: np.ndarray | int | list[np.ndarray]) -> np.ndarray | None:
-    r"""Compute the Kronecker tensor product [@WikiTensorProd].
+    r"""Compute the Kronecker tensor product [@wikipediatensor].
 
     Tensor two matrices or vectors together using the standard Kronecker
     operation provided from numpy.

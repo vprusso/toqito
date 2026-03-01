@@ -9,12 +9,12 @@ from toqito.matrix_props import is_nonnegative, is_square
 def positive_semidefinite_rank(mat: np.ndarray, max_rank: int = 10) -> int | None:
     r"""Compute the positive semidefinite rank (PSD rank) of a nonnegative matrix.
 
-    The definition of PSD rank is defined in [@Fawzi_2015_Positive].
+    The definition of PSD rank is defined in [@fawzi2015positive].
 
     Finds the PSD rank of an input matrix by checking feasibility for increasing rank.
 
     Examples:
-        As an example (Equation 21 from [@Heinosaari_2024_Can]), the PSD rank of the following matrix
+        As an example (Equation 21 from [@heinosaari2024can]), the PSD rank of the following matrix
 
         \[
             A = \frac{1}{2}
@@ -35,7 +35,7 @@ def positive_semidefinite_rank(mat: np.ndarray, max_rank: int = 10) -> int | Non
         ```
 
 
-        The PSD rank of the identity matrix is the dimension of the matrix [@Fawzi_2015_Positive].
+        The PSD rank of the identity matrix is the dimension of the matrix [@fawzi2015positive].
 
         ```python exec="1" source="above"
         import numpy as np

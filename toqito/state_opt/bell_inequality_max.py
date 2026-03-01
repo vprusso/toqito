@@ -102,7 +102,7 @@ def bell_inequality_max(
 
     The maximum classical and no-signalling values are computed exactly. The maximum quantum value
     is upper bounded using the NPA (Navascués-Pironio-Acín) hierarchy
-    `Navascues_2008_AConvergent`[@Navascues_2008_AConvergent].
+    `Navascues_2008_AConvergent`[@navascues2008convergent].
 
     Examples:
         The CHSH inequality in Full Correlator (FC) notation.
@@ -446,8 +446,8 @@ def bell_inequality_max_qubits(
     r"""Return the upper bound for the maximum violation(Tsirelson Bound) for a given bipartite Bell inequality.
 
     This computes the upper bound for the maximum value of a given bipartite Bell inequality using an SDP.
-    The method is from [@Navascues_2014_Characterization] and the implementation is based on
-    [@QETLAB_link]. This is useful for various tasks in device independent quantum information processing.
+    The method is from [@navascues2014characterization] and the implementation is based on
+    [@qetlablink]. This is useful for various tasks in device independent quantum information processing.
 
     The function formulates the problem as a SDP problem in the following format for the \(W\)-state.
 
@@ -461,7 +461,7 @@ def bell_inequality_max_qubits(
 
 
     Examples:
-        Consider the I3322 Bell inequality from [@Collins_2004].
+        Consider the I3322 Bell inequality from [@collins2004relevant].
 
         \[
             \begin{aligned}

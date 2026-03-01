@@ -139,4 +139,4 @@ print("The standard quantum value lower bound is ", np.around(q_val, decimals=2)
 #    2/3 \geq \omega^*(G) \geq 0.6609.
 # $$
 #
-# For further information on the $G_{MUB}$ game, consult [@Russo_2017_Extended].
+# For further information on the $G_{MUB}$ game, consult [@russo2017extended].

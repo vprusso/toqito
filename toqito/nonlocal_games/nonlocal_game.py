@@ -21,7 +21,7 @@ class NonlocalGame:
     are not allowed to communicate with each other once the game has started and
     who play cooperative against an adversary referred to as the referee.
 
-    The nonlocal game framework was originally introduced in [@Cleve_2010_Consequences].
+    The nonlocal game framework was originally introduced in [@cleve2010consequences].
 
     A tutorial is available in the documentation. For more info, see
     [Nonlocal Games](../../../generated/gallery/nonlocal_games/nonlocal_game.md).
@@ -76,7 +76,7 @@ class NonlocalGame:
     def from_bcs_game(cls, constraints: list[np.ndarray], reps: int = 1) -> "NonlocalGame":
         r"""Convert constraints that specify a binary constraint system game to a nonlocal game.
 
-        Binary constraint system games (BCS) games were originally defined in [@Cleve_2014_Characterization].
+        Binary constraint system games (BCS) games were originally defined in [@cleve2014characterization].
 
         Args:
             constraints: List of binary constraints that define the game.
@@ -204,7 +204,7 @@ class NonlocalGame:
         iters: int = 5,
         tol: float = 10e-6,
     ) -> float:
-        r"""Compute a lower bound on the quantum value of a nonlocal game [@Liang_2007_Bounds].
+        r"""Compute a lower bound on the quantum value of a nonlocal game [@liang2007bounds].
 
         Calculates a lower bound on the maximum value that the specified
         nonlocal game can take on in quantum mechanical settings where Alice and
@@ -222,7 +222,7 @@ class NonlocalGame:
         number of times and keep the highest value obtained.
 
         The algorithm is based on the alternating projections algorithm as it
-        can be applied to Bell inequalities as shown in [@Liang_2007_Bounds].
+        can be applied to Bell inequalities as shown in [@liang2007bounds].
 
         The alternating projection algorithm has also been referred to as the
         "see-saw" algorithm as it goes back and forth between the following two
@@ -582,7 +582,7 @@ class NonlocalGame:
         r"""Compute an upper bound on the commuting measurement value of the nonlocal game.
 
         This function calculates an upper bound on the commuting measurement value by
-            using k-levels of the NPA hierarchy [@Navascues_2008_AConvergent]. The NPA hierarchy is a uniform
+            using k-levels of the NPA hierarchy [@navascues2008convergent]. The NPA hierarchy is a uniform
             family of semidefinite programs that converges to the commuting measurement value of
             any nonlocal game.
 

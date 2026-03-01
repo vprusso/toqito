@@ -1,4 +1,4 @@
-"""Add function for fidelity of separability as defined in [@Philip_2023_Schrodinger].
+"""Add function for fidelity of separability as defined in [@philip2023schrodinger].
 
 Fidelity of separability is an entanglement measure that can be approximated with semidefinite programs.
 The constraints for this function are positive partial transpose (PPT) & k-extendible states.
@@ -19,12 +19,12 @@ def fidelity_of_separability(
     verbosity_option: int = 0,
     solver_option: str = "cvxopt",
 ) -> float:
-    r"""Define the first benchmark introduced in Appendix H of [@Philip_2023_Schrodinger].
+    r"""Define the first benchmark introduced in Appendix H of [@philip2023schrodinger].
 
     If you would like to instead use the benchmark introduced in Appendix I, go to
     [channel_metrics.fidelity_of_separability][toqito.channel_metrics.fidelity_of_separability].
 
-    In [@Philip_2023_Schrodinger] a variational quantum algorithm (VQA) is introduced to test
+    In [@philip2023schrodinger] a variational quantum algorithm (VQA) is introduced to test
     the separability of a general bipartite state. The algorithm utilizes
     quantum steering between two separated systems such that the separability
     of the state is quantified.
@@ -33,11 +33,11 @@ def fidelity_of_separability(
     optimization semidefinite programs (SDP) benchmarks were introduced to
     maximize the fidelity of separability subject to some state constraints
     (Positive Partial Transpose (PPT), symmetric extensions (k-extendibility
-    ) [@Hayden_2013_TwoMessage] ) This function approximites the fidelity of separability by
+    ) [@hayden2013twomessage] ) This function approximites the fidelity of separability by
     maximizing over PPT states & k-extendible states i.e. an optimization
-    problem over states [@Watrous_2018_TQI].
+    problem over states [@watrous2018theory].
 
-    The following expression (Equation (H2) from [@Philip_2023_Schrodinger] ) defines the
+    The following expression (Equation (H2) from [@philip2023schrodinger] ) defines the
     constraints for approxiamting
 
     \(\sqrt{\widetilde{F}_s^1}(\rho_{AB}) {:}=\)
@@ -75,7 +75,7 @@ def fidelity_of_separability(
     \(B_1, B_2,  \ldots , B_{k}\) which has no effect on the k-extended
     state \(\sigma_{AB^{k}}\).
 
-    The other constraints are due to the PPT condition [@Peres_1996_Separability].
+    The other constraints are due to the PPT condition [@peres1996separability].
 
     Examples:
         Let's consider a density matrix of a state that we know is pure and separable; \(|00 \rangle = |0 \rangle

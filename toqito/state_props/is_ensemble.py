@@ -8,7 +8,7 @@ from toqito.matrix_props import is_positive_semidefinite
 def is_ensemble(states: list[np.ndarray]) -> bool:
     r"""Determine if a set of states constitute an ensemble.
 
-    For more info, see Section: Ensemble Of Quantum States from [@Watrous_2018_TQI].
+    For more info, see Section: Ensemble Of Quantum States from [@watrous2018theory].
 
     An ensemble of quantum states is defined by a function
 

@@ -25,7 +25,7 @@ def is_unital(
     list `[[r,x], [c,y]]`. If it maps \(M_m\) to \(M_n\), then `dim` can simply
     be the vector `[m,n]`.
 
-    More information can be found in Chapter: Unital Channels And Majorization from [@Watrous_2018_TQI]).
+    More information can be found in Chapter: Unital Channels And Majorization from [@watrous2018theory]).
 
     Examples:
         Consider the channel whose Choi matrix is the swap operator. This channel is an example of a

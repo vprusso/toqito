@@ -11,7 +11,7 @@ from toqito.state_props.in_separable_ball import in_separable_ball
 def is_abs_ppt(
     mat: np.ndarray | cp.Variable, dim: int | None = None, rtol: float = 1e-05, atol: float = 1e-08
 ) -> bool | None | list[cp.Constraint]:
-    r"""Determine whether or not a matrix is absolutely PPT [@Hildebrand_2007_AbsPPT].
+    r"""Determine whether or not a matrix is absolutely PPT [@hildebrand2007positive].
 
     A Hermitian positive semidefinite matrix is absolutely PPT iff it is PPT under all unitary transformations.
     Equivalently, if the matrix operates on a Hilbert space \(H_{nm}\) of dimension \(nm\), then it is
@@ -22,7 +22,7 @@ def is_abs_ppt(
 
     - If `mat` is a `numpy` ndarray, the function first checks if `mat` is Hermitian positive
         semidefinite. Then, it checks if its eigenvalues satisfy the Gerschgorin circle property (see Theorem 7.2 of
-        [@Jivulescu_2015_Reduction]). Then it checks if the matrix belongs to the separable ball by calling
+        [@jivulescu2015positive]). Then it checks if the matrix belongs to the separable ball by calling
         `in_separable_ball`. Finally, if all the above checks fail to return a definite result, it determines if
         the matrix is absolutely PPT by checking if all the constraint matrices returned by
         `abs_ppt_constraints` are positive semidefinite.
@@ -31,14 +31,14 @@ def is_abs_ppt(
         space of absolutely PPT matrices. This includes the positive semidefinite constraint on each constraint matrix
         as well as `mat[0] ≥ mat[1] ≥ ... ≥ mat[-1] ≥ 0`.
 
-    This function is adapted from QETLAB [@QETLAB_link].
+    This function is adapted from QETLAB [@qetlablink].
 
     !!! Note
         If `min(dim)` \(\leq 6\), this function checks all constraints
         and therefore returns `True` or `False` in all cases. However, if
         `min(dim)` \(\geq 7\), only the first \(33592\) constraints are
         checked, since there are over \(23178480\) constraints in this case
-        [@Johnston_2014_Orderings]. Therefore the function returns either
+        [@johnston2014counting]. Therefore the function returns either
         `False` if at least one constraint was not satisfied, or `None`
         if all checked constraints were satisfied.
 
@@ -73,7 +73,7 @@ def is_abs_ppt(
         mat: A square matrix.
         dim: The dimension of any one subsystem on which `mat` acts. If `None`, `dim` is selected such that
             `min(dim, mat.shape[0] // dim)` is maximised, since this gives the strongest conditions on being absolutely
-            PPT (see Theorem 2 of [@Hildebrand_2007_AbsPPT]).
+            PPT (see Theorem 2 of [@hildebrand2007positive]).
         rtol: The relative tolerance parameter (default 1e-05).
         atol: The absolute tolerance parameter (default 1e-08).
 
@@ -123,7 +123,7 @@ def is_abs_ppt(
         # 2. Check if mat is PSD.
         if eigs[-1] < -abs(atol):
             return False
-        # 3. Check Theorem 7.2 of [@Jivulescu_2015_Reduction].
+        # 3. Check Theorem 7.2 of [@jivulescu2015positive].
         if sum(eigs[: p - 1]) <= eigs[-1] + sum(eigs[-p:]):
             return True
         # 4. Check if mat is in separable ball.

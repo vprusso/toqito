@@ -26,7 +26,7 @@ def channel_distinguishability(
 
     For Bayesian discrimination, channels to be distinguished should have a given a priori probability distribution.
     The task of discriminating channels can be connected to the completely bounded trace norm
-    (Section 3.3.3 of [@Watrous_2018_TQI]).
+    (Section 3.3.3 of [@watrous2018theory]).
     The problem is finding POVMs for which error probability of discrimination of
     output states is minimized after input state is acted on by the two quantum channels.
     In the language of statistical decision theory, the problem is equivalent to minimizing quantum Bayes' risk.
@@ -34,10 +34,10 @@ def channel_distinguishability(
     In the minimax problem, there are no a priori probabilities.
     Minimax discrimination of two channels consists of finding the
     optimal input state so that the two possible output states are discriminated
-    with minimum risk. ([@d2005minimax]).
+    with minimum risk. ([@dariano2005minimax]).
 
-    QETLAB's functionality inspired the Bayesian option [@QETLAB_link]
-    and the minimax option is adapted from QuTIpy [@QuTIpy_link].
+    QETLAB's functionality inspired the Bayesian option [@qetlablink]
+    and the minimax option is adapted from QuTIpy [@qutipylink].
 
     Examples:
         Optimal probability of distinguishing two amplitude damping channels in the Bayesian setting:

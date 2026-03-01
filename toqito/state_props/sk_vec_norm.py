@@ -6,7 +6,7 @@ from toqito.state_ops import schmidt_decomposition
 
 
 def sk_vector_norm(rho: np.ndarray, k: int = 1, dim: int | list[int] | None = None) -> float | np.floating:
-    r"""Compute the S(k)-norm of a vector [@Johnston_2010_AFamily].
+    r"""Compute the S(k)-norm of a vector [@johnston2010family].
 
     The \(S(k)\)-norm of of a vector \(|v \rangle\) is
     defined as:

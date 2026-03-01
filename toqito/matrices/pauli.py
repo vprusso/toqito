@@ -7,7 +7,7 @@ from toqito.matrix_ops import tensor
 
 
 def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np.ndarray | csr_array | None:
-    r"""Produce a Pauli operator [@WikiPauli].
+    r"""Produce a Pauli operator [@wikipediapauli].
 
     Produces the 2-by-2 Pauli matrix indicated by the value of `ind` or a tensor product
     of Pauli matrices when `ind` is provided as a list. In general, when `ind` is a list

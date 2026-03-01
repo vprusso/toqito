@@ -8,10 +8,10 @@ import numpy as np
 
 
 def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray:
-    r"""Generate a (generalized) GHZ state [@Greenberger_2007_Going].
+    r"""Generate a (generalized) GHZ state [@greenberger2007going].
 
     Returns a `num_qubits`-partite GHZ state acting on `dim` local dimensions, described
-    in [@Greenberger_2007_Going]. For example, `ghz(2, 3)` returns the standard 3-qubit GHZ state on
+    in [@greenberger2007going]. For example, `ghz(2, 3)` returns the standard 3-qubit GHZ state on
     qubits. The output of this function is a dense NumPy array.
 
     For a system of `num_qubits` qubits (i.e., `dim = 2`), the GHZ state can be written

@@ -21,8 +21,8 @@ class ExtendedNonlocalGame:
     made by the referee, on its part of the shared quantum state, in addition
     to Alice and Bob's answers to the questions sent by the referee.
 
-    Extended nonlocal games were initially defined in [@Johnston_2016_Extended] and more
-    information on these games can be found in [@Russo_2017_Extended].
+    Extended nonlocal games were initially defined in [@johnston2016extended] and more
+    information on these games can be found in [@russo2017extended].
 
     For a detailed walkthrough and several examples, including the BB84 and CHSH
     games, please see the tutorial on
@@ -519,7 +519,7 @@ class ExtendedNonlocalGame:
         r"""Compute an upper bound on the commuting measurement value of an extended nonlocal game.
 
         This function calculates an upper bound on the commuting measurement value by
-            using k-levels of the NPA hierarchy [@Navascues_2008_AConvergent]. The NPA hierarchy is a uniform
+            using k-levels of the NPA hierarchy [@navascues2008convergent]. The NPA hierarchy is a uniform
             family of semidefinite programs that converges to the commuting measurement value of
             any extended nonlocal game.
 

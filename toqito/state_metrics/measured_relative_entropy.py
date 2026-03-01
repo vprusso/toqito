@@ -8,7 +8,7 @@ from toqito.matrix_props import is_density, is_positive_semidefinite
 
 
 def measured_relative_entropy(rho: np.ndarray, sigma: np.ndarray, eps: float = 1e-5) -> float:
-    r"""Compute the measured relative entropy of two quantum states. [@Huang_2025_Msrd_Rel_Entr].
+    r"""Compute the measured relative entropy of two quantum states. [@huang2025semidefinite].
 
     Given a quantum state \(\rho\) and a positive semi-definite operator \(\sigma\),
     the measured relative entropy is defined by optimizing the relative entropy over all

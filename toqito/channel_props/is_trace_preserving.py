@@ -82,7 +82,7 @@ def is_trace_preserving(
         ```
 
         Further information for determining the trace preserving properties of channels consult (Section: Linear Maps Of
-        Square Operators from [@Watrous_2018_TQI]).
+        Square Operators from [@watrous2018theory]).
 
     Args:
         phi: The channel provided as either a Choi matrix or a list of Kraus operators.

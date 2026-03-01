@@ -10,7 +10,7 @@ from toqito.matrix_props import is_hermitian, is_positive_semidefinite
 def choi_to_kraus(
     choi_mat: np.ndarray, tol: float = 1e-9, dim: int | list[int] | np.ndarray | None = None
 ) -> list[np.ndarray] | list[list[np.ndarray]]:
-    r"""Compute a list of Kraus operators from the Choi matrix from [@Rigetti_2022_Forest].
+    r"""Compute a list of Kraus operators from the Choi matrix from [@rigetti2022forest].
 
     Note that unlike the Choi or natural representation of operators, the Kraus representation is
     *not* unique.
@@ -22,7 +22,7 @@ def choi_to_kraus(
     For completely positive maps the output is a single flat list of numpy arrays since the left and
     right Kraus maps are the same.
 
-    This function has been adapted from [@Rigetti_2022_Forest] and QETLAB [@QETLAB_link].
+    This function has been adapted from [@rigetti2022forest] and QETLAB [@qetlablink].
 
     Examples:
         Consider taking the Kraus operators of the Choi matrix that characterizes the "swap operator"

@@ -202,7 +202,7 @@ def my_new_function(some_parameter: parameter_type) -> return_type:
 ```
 
 Use `\(\)` for inline math and `\[\]` for display math in docstrings.
-Use `[@ citation_key]` for citations in docstrings (e.g., `[@Johnston_2014_Orderings]`).
+Use `[@ citation_key]` for citations in docstrings (e.g., `[@johnston2014counting]`).
 
 To add an attribution to a paper or a book, add your reference with
 `some_ref` as the citation key to `docs/content/refs.bib`. All references in

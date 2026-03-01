@@ -9,7 +9,7 @@ def random_orthonormal_basis(dim: int, is_real: bool = False, seed: int | None =
     r"""Generate a real random orthonormal basis of given dimension \(d\).
 
     The basis is generated from the columns of a random unitary matrix of the same dimension
-    as the columns of a unitary matrix typically form an orthonormal basis [@SE_1688950].
+    as the columns of a unitary matrix typically form an orthonormal basis [@se1688950].
 
     Examples:
         To generate a random orthonormal basis of dimension \(4\),

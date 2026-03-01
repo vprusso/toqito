@@ -83,7 +83,7 @@ bb84_prob_mat = 1 / 2 * np.identity(2)
 # %%
 # ## The unentangled value of the BB84 extended nonlocal game
 #
-# It was shown in [@Tomamichel_2013_AMonogamy] and [@Johnston_2016_Extended] that
+# It was shown in [@tomamichel2013monogamy] and [@johnston2016extended] that
 #
 # $$
 # \omega(G_{BB84}) = \cos^2(\pi/8).
@@ -120,7 +120,7 @@ bb84_2_reps = ExtendedNonlocalGame(bb84_prob_mat, bb84_pred_mat, 2)
 print("The unentangled value for two parallel repetitions is ", np.around(bb84_2_reps.unentangled_value(), decimals=2))
 
 # %%
-# It was shown in [@Johnston_2016_Extended] that the BB84 game possesses the property of strong
+# It was shown in [@johnston2016extended] that the BB84 game possesses the property of strong
 # parallel repetition. That is,
 #
 # $$
@@ -147,7 +147,7 @@ bb84_lb = ExtendedNonlocalGame(bb84_prob_mat, bb84_pred_mat)
 print("The standard quantum value is ", np.around(bb84_lb.quantum_value_lower_bound(), decimals=2))
 
 # %%
-# From [@Johnston_2016_Extended], it is known that $\omega(G_{BB84}) =
+# From [@johnston2016extended], it is known that $\omega(G_{BB84}) =
 # \omega^*(G_{BB84})$, however, if we did not know this beforehand, we could
 # attempt to calculate upper bounds on the standard quantum value.
 #
@@ -181,7 +181,7 @@ print("The non-signaling value is ", np.around(bb84.nonsignaling_value(), decima
 # $$
 #
 # It turns out that strong parallel repetition does *not* hold in the
-# non-signaling scenario for the BB84 game. This was shown in [@Russo_2017_Extended], and we
+# non-signaling scenario for the BB84 game. This was shown in [@russo2017extended], and we
 # can observe this by the following snippet.
 #
 

@@ -7,7 +7,7 @@ from toqito.state_ops import schmidt_decomposition
 
 
 def is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = None) -> tuple:
-    r"""Determine if a given vector is a product state [@WikiSepSt].
+    r"""Determine if a given vector is a product state [@wikipediaseparable].
 
     If the input is deemed to be product, then the product decomposition is also
     returned.

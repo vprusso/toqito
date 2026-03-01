@@ -26,7 +26,7 @@ def sk_operator_norm(
     target: float | None = None,
     effort: int = 2,
 ) -> tuple[float, float]:
-    r"""Compute the S(k)-norm of a matrix [@Johnston_2010_AFamily].
+    r"""Compute the S(k)-norm of a matrix [@johnston2010family].
 
     The \(S(k)\)-norm of of a matrix \(X\) is defined as:
 
@@ -39,7 +39,7 @@ def sk_operator_norm(
         \Big\}
     \]
 
-    Since computing the exact value of S(k)-norm [@Johnston_2012_Norms] is in the general case an intractable
+    Since computing the exact value of S(k)-norm [@johnston2012norms] is in the general case an intractable
     problem, this function tries to find some good lower and upper bounds. You can control the amount of computation you
     want to devote to computing the bounds by `effort` input argument. Note that if the input matrix is not positive
     semidefinite the output bounds might be quite poor.

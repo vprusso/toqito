@@ -6,7 +6,7 @@ import numpy as np
 def vec(mat: np.ndarray) -> np.ndarray:
     r"""Perform the vec operation on a matrix.
 
-    For more info, see Section: The Operator-Vector Correspondence from [@Watrous_2018_TQI].
+    For more info, see Section: The Operator-Vector Correspondence from [@watrous2018theory].
 
     The function reorders the given matrix into a column vector by stacking the columns of the matrix sequentially.
 

@@ -4,7 +4,7 @@ import numpy as np
 
 
 def gen_gell_mann(ind_1: int, ind_2: int, dim: int) -> np.ndarray:
-    r"""Produce a generalized Gell-Mann operator [@WikiGellMann].
+    r"""Produce a generalized Gell-Mann operator [@wikipediagellmann].
 
     Construct a `dim`-by-`dim` Hermitian operator. These matrices
     span the entire space of `dim`-by-`dim` matrices as

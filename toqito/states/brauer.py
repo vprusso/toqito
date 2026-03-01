@@ -8,7 +8,7 @@ from toqito.states import max_entangled
 
 
 def brauer(dim: int, p_val: int) -> np.ndarray:
-    r"""Produce all Brauer states [@WikiBrauer].
+    r"""Produce all Brauer states [@wikipediabrauer].
 
     Produce a matrix whose columns are all of the (unnormalized) "Brauer" states: states that are the `p_val`-fold
     tensor product of the standard maximally-entangled pure state on `dim` local dimensions. There are many such

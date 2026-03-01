@@ -6,7 +6,7 @@ from toqito.matrix_props import is_density
 
 
 def von_neumann_entropy(rho: np.ndarray) -> float:
-    r"""Compute the von Neumann entropy of a density matrix [@WikiUVonNeumann].
+    r"""Compute the von Neumann entropy of a density matrix [@wikipediavonneumann].
 
     Let \(P \in \text{Pos}(\mathcal{X})\) be a positive semidefinite operator, for a complex
     Euclidean space \(\mathcal{X}\). Then one defines the *von Neumann entropy* as
@@ -27,7 +27,7 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
     nonnegative real numbers indexed by \(\Sigma\).
 
     Further information for computing the von Neumann entropy of a density matrix can be found in Section: "Definitions
-    Of Quantum Entropic Functions" from [@Watrous_2018_TQI]).
+    Of Quantum Entropic Functions" from [@watrous2018theory]).
 
     Examples:
         Consider the following Bell state:

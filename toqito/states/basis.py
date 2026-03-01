@@ -7,7 +7,7 @@ import numpy as np
 
 
 def basis(dim: int, pos: int) -> np.ndarray:
-    r"""Obtain the ket of dimension `dim` [@WikiBraKet].
+    r"""Obtain the ket of dimension `dim` [@wikipediabraket].
 
     Examples:
         The standard basis ket vectors given as \(|0 \rangle\) and \(|1 \rangle\) where
