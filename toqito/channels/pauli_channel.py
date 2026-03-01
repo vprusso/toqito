@@ -1,10 +1,11 @@
 """Generates and applies Pauli Channel to a matrix."""
 
+import itertools
+
 import numpy as np
 from scipy import sparse
 
 from toqito.channel_ops.kraus_to_choi import kraus_to_choi
-from toqito.helper.update_odometer import update_odometer
 from toqito.matrices.pauli import pauli
 
 
@@ -88,13 +89,11 @@ def pauli_channel(
     Phi = sparse.csc_matrix((4**q, 4**q), dtype=complex)
 
     kraus_operators = []
-    ind = np.zeros(q, dtype=int)
 
-    for j in range(len(prob)):
-        pauli_op = pauli(ind.tolist())
+    for j, ind in enumerate(itertools.product(range(4), repeat=q)):
+        pauli_op = pauli(list(ind))
         kraus_operators.append(np.sqrt(prob[j]) * pauli_op)
         Phi += prob[j] * kraus_to_choi([[pauli_op, pauli_op.conj().T]])
-        ind = update_odometer(ind, 4 * np.ones(q, dtype=int))
 
     output_mat = None
     if input_mat is not None:

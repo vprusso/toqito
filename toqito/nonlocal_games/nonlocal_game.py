@@ -1,11 +1,11 @@
 """Two-player nonlocal game."""
 
+import itertools
 from collections import defaultdict
 
 import cvxpy
 import numpy as np
 
-from toqito.helper import update_odometer
 from toqito.matrix_ops import tensor
 from toqito.matrix_ops.tensor_unravel import tensor_unravel
 from toqito.nonlocal_games.binary_constraint_system_game import check_perfect_commuting_strategy
@@ -57,16 +57,12 @@ class NonlocalGame:
                     num_bob_in**reps,
                 )
             )
-            i_ind = np.zeros(reps, dtype=int)
-            j_ind = np.zeros(reps, dtype=int)
-            for i in range(num_alice_in**reps):
-                for j in range(num_bob_in**reps):
+            for i, i_ind in enumerate(itertools.product(range(num_alice_in), repeat=reps)):
+                for j, j_ind in enumerate(itertools.product(range(num_bob_in), repeat=reps)):
                     to_tensor = np.empty([reps, num_alice_out, num_bob_out])
                     for k in range(reps - 1, -1, -1):
                         to_tensor[k] = pred_mat[:, :, i_ind[k], j_ind[k]]
                     pred_mat2[:, :, i, j] = tensor(to_tensor)
-                    j_ind = update_odometer(j_ind, num_bob_in * np.ones(reps))
-                i_ind = update_odometer(i_ind, num_alice_in * np.ones(reps))
             self.pred_mat = pred_mat2
             self.reps = reps
         # _raw_constraints will store the original 1D BCS constraints (if provided) for later analysis.

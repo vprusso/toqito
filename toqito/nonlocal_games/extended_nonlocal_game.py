@@ -6,7 +6,6 @@ from collections import defaultdict
 import cvxpy
 import numpy as np
 
-from toqito.helper import update_odometer
 from toqito.matrix_ops import tensor
 from toqito.rand import random_unitary
 from toqito.state_opt.npa_hierarchy import npa_constraints
@@ -65,16 +64,12 @@ class ExtendedNonlocalGame:
                     self.num_bob_in**reps,
                 )
             )
-            i_ind = np.zeros(reps, dtype=int)
-            j_ind = np.zeros(reps, dtype=int)
-            for i in range(self.num_alice_in**reps):
-                for j in range(self.num_bob_in**reps):
+            for i, i_ind in enumerate(itertools.product(range(self.num_alice_in), repeat=reps)):
+                for j, j_ind in enumerate(itertools.product(range(self.num_bob_in), repeat=reps)):
                     to_tensor = np.empty([reps, self.dim_x, self.dim_y, self.num_alice_out, self.num_bob_out])
                     for k in range(reps - 1, -1, -1):
                         to_tensor[k] = pred_mat[:, :, :, :, i_ind[k], j_ind[k]]
                     pred_mat2[:, :, :, :, i, j] = tensor(to_tensor)
-                    j_ind = update_odometer(j_ind, self.num_bob_in * np.ones(reps))
-                i_ind = update_odometer(i_ind, self.num_alice_in * np.ones(reps))
             self.pred_mat = pred_mat2
             self.reps = reps
         self.__get_game_dims()
