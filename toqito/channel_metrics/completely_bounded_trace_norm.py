@@ -13,8 +13,8 @@ from toqito.matrix_props import trace_norm
 def completely_bounded_trace_norm(phi: np.ndarray, solver: str = "cvxopt", **kwargs: Any) -> float | np.floating:
     r"""Find the completely bounded trace norm of a quantum channel.
 
-    Also known as the diamond norm of a quantum channel (Section 3.3.2 of [@watrous2018theory]). The algorithm in p.11 of
-    [@watrous2012simpler] with implementation in QETLAB [@qetlablink] is used.
+    Also known as the diamond norm of a quantum channel (Section 3.3.2 of [@watrous2018theory]).
+    The algorithm in p.11 of [@watrous2012simpler] with implementation in QETLAB [@qetlablink] is used.
 
     Examples:
         To compute the completely bounded trace norm of a depolarizing channel:
