@@ -24,8 +24,6 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     \(\rho \in \text{D}(\mathcal{H}_1 \otimes \mathcal{H}_2 \otimes \dots \otimes \mathcal{H}_N)\)
     is defined as fully separable if it can be written as a convex combination of product states.
 
-    Overview
-    ==========
     This function implements several criteria to determine separability, broadly following a similar
     order of checks as seen in tools like QETLAB's `IsSeparable` function [@qetlablink].
 
