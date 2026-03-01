@@ -8883,14 +8883,14 @@ POVMs of dimension with <span class="arithmatex">\(2\)</span> inputs and <span c
 <a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
 <a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nb">print</span><span class="p">(</span><span class="n">povms</span><span class="p">)</span>
 </code></pre></div>
-<p>[[[[ 0.34532582+0.j  0.65467418+0.j]
-   [ 0.50040459+0.j  0.49959541+0.j]]</p>
-<p>[[-0.09152622+0.j  0.09152622+0.j]
-   [-0.30060783+0.j  0.30060783+0.j]]]</p>
-<p>[[[-0.09152622+0.j  0.09152622+0.j]
-   [-0.30060783+0.j  0.30060783+0.j]]</p>
-<p>[[ 0.44485643+0.j  0.55514357+0.j]
-   [ 0.52873762+0.j  0.47126238+0.j]]]]</p>
+<p>[[[[ 0.02531603+0.j  0.97468397+0.j]
+   [ 0.05173719+0.j  0.94826281+0.j]]</p>
+<p>[[ 0.03818936+0.j -0.03818936+0.j]
+   [-0.01558881+0.j  0.01558881+0.j]]]</p>
+<p>[[[ 0.03818936+0.j -0.03818936+0.j]
+   [-0.01558881+0.j  0.01558881+0.j]]</p>
+<p>[[ 0.52086868+0.j  0.47913132+0.j]
+   [ 0.01804706+0.j  0.98195294+0.j]]]]</p>
 <p>We can verify that this constitutes a valid set of POVM elements as checking that these operators all sum to the
 identity operator.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">povms</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">povms</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]))</span>
