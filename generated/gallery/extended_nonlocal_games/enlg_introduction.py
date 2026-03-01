@@ -15,13 +15,13 @@ measurement on that shared state.
 # %%
 # We will also look at existing results in the literature on these values and be
 # able to replicate them using `|toqito⟩`. Much of the written content in
-# this tutorial will be directly taken from [@Russo_2017_Extended].
+# this tutorial will be directly taken from [@russo2017extended].
 
 # %%
 # Extended nonlocal games have a natural physical interpretation in the setting
-# of tripartite steering [@Cavalcanti_2015_Detection] and in device-independent quantum scenarios
-# [@Tomamichel_2013_AMonogamy]. For more information on extended nonlocal games, please refer to
-# [@Johnston_2016_Extended] and [@Russo_2017_Extended].
+# of tripartite steering [@cavalcanti2015detection] and in device-independent quantum scenarios
+# [@tomamichel2013monogamy]. For more information on extended nonlocal games, please refer to
+# [@johnston2016extended] and [@russo2017extended].
 
 # %%
 # ## The extended nonlocal game model
@@ -241,5 +241,5 @@ measurement on that shared state.
 # games and use `|toqito⟩` to calculate their various values.
 #
 # %%
-# mkdocs_gallery_thumbnail_path = 'figures/logo.png'
+mkdocs_gallery_thumbnail_path = 'figures/extended_nonlocal_game.svg'
 # We will start by examining the BB84 extended nonlocal game in [The BB84 extended nonlocal game](../enlg_bb84)

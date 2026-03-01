@@ -4,8 +4,8 @@
 In this tutorial, we will explore the "pretty good measurement" (PGM) and its
 novel counterpart, the "pretty bad measurement" (PBM). The PGM, also known as the
 square-root measurement, is a widely used measurement for quantum
-state discrimination [@Belavkin_1975_Optimal][@Hughston_1993_Complete]. The PBM, in contrast,
-was recently introduced by McIrvin et. al. [@McIrvin_2024_Pretty]. Both these measurements
+state discrimination [@belavkin1975optimal][@hughston1993complete]. The PBM, in contrast,
+was recently introduced by McIrvin et. al. [@mcirvin2024pretty]. Both these measurements
 provide elegant, easy-to-construct tools for two opposing goals in quantum
 information: state discrimination and state exclusion.
 PGM is useful for the former while PBM is of use for the latter.
@@ -65,7 +65,7 @@ results and figures from the paper using `|toqito⟩`.
 # P_{\text{PBM}} = \sum_{i=1}^k p_i \text{Tr}(\rho_i B_i)
 # $$
 #
-# A key result from McIrvin et.al [@McIrvin_2024_Pretty] is the tight relationship
+# A key result from McIrvin et.al [@mcirvin2024pretty] is the tight relationship
 # between the success probabilities of these two measurements:
 #
 # $$
@@ -83,7 +83,7 @@ results and figures from the paper using `|toqito⟩`.
 #
 # ### Numerical Example: The Trine States
 #
-# Figure 3 from McIrvin et.al [@McIrvin_2024_Pretty] analyzes the performance
+# Figure 3 from McIrvin et.al [@mcirvin2024pretty] analyzes the performance
 # of these measurements for the three **trine states** with a uniform prior
 # probability. The trine states are a classic example of a set that is
 # antidistinguishable but not distinguishable, a property demonstrated in the [Quantum state exclusion](../state_exclusion) tutorial.
@@ -196,7 +196,7 @@ print(f"  P_PBM >= P_Worst:   {p_pbm:.4f} >= {p_worst:.4f} ->  {p_pbm >= p_worst
 # %%
 # ## Visualizing Performance on Random States
 #
-# Figures 4 and 5 from McIrvin et. al [@McIrvin_2024_Pretty] show that for many randomly generated
+# Figures 4 and 5 from McIrvin et. al [@mcirvin2024pretty] show that for many randomly generated
 # states, the PGM and PBM probabilities cluster around the blind guessing
 # baseline of $1/k$. We can reproduce a similar plot.
 #

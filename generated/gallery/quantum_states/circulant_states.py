@@ -4,7 +4,7 @@ In this tutorial, we investigate the antidistinguishability of a special
 class of quantum states known as circulant states. We will numerically verify a
 necessary and sufficient condition based on the eigenvalues of the
 states' Gram matrix, as presented in the paper by Johnston et al.
-[@Johnston_2025_Tight].
+[@johnston2025tight].
 
 This tutorial builds upon the concepts introduced in the [Quantum state exclusion](../state_exclusion) tutorial.
 """
@@ -17,7 +17,7 @@ This tutorial builds upon the concepts introduced in the [Quantum state exclusio
 # row above it. Such sets of states have a high degree of symmetry and appear
 # in various quantum information contexts.
 #
-# A key result from (Theorem 5.1) [@Johnston_2025_Tight] provides a
+# A key result from (Theorem 5.1) [@johnston2025tight] provides a
 # simple and exact criterion for determining if a circulant set is
 # antidistinguishable, based solely on the eigenvalues of its Gram matrix.
 #
@@ -101,6 +101,6 @@ print("------------------------------------------------------")
 # %%
 # The results from both the analytical eigenvalue criterion and the numerical
 # check using `|toqito⟩`'s helper function agree, providing a concrete verification of Theorem 5.1 from
-# [@Johnston_2025_Tight]. This demonstrates how a deep theoretical
+# [@johnston2025tight]. This demonstrates how a deep theoretical
 # result can provide a powerful and efficient shortcut for a problem that would
 # otherwise require a more computationally intensive optimization.

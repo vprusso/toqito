@@ -17,7 +17,7 @@ Examples using ``toqito.matrix_props.is_k_incoherent``
     <!--/div-->
 </div>
 
-<div class="mkd-glr-thumbcontainer" tooltip="This example accompanies the &quot;The complexity of quantum state classification&quot; paper [@Johnston_...">
+<div class="mkd-glr-thumbcontainer" tooltip="This example accompanies the &quot;The complexity of quantum state classification&quot; paper [@johnston2...">
     <!--div class="figure align-default" id="id1"-->
         <img alt="Quantum classification, factor width, k-incoherence" src="quantum_states/images/thumb/mkd_glr_classification_thumb.png" />
         <p class="caption">

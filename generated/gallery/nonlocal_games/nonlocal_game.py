@@ -27,8 +27,8 @@ cooperatively against an adversary referred to as the referee.
 # quantum value.
 #
 # Further information beyond the scope of this tutorial on nonlocal games can be
-# found in [@Cleve_2010_Consequences]. Further information on the lower bound technique can be found in
-# [@Liang_2007_Bounds].
+# found in [@cleve2010consequences]. Further information on the lower bound technique can be found in
+# [@liang2007bounds].
 #
 # ## Two-player nonlocal games
 #
@@ -185,7 +185,7 @@ cooperatively against an adversary referred to as the referee.
 #
 # For an arbitrary nonlocal game, there exist approaches that place upper and
 # lower bounds on the quantum value. The lower bound approach is calculated using
-# the technique of semidefinite programming [@Liang_2007_Bounds]. While this method is efficient
+# the technique of semidefinite programming [@liang2007bounds]. While this method is efficient
 # to carry out, it does not guarantee convergence to the quantum value (although
 # in certain cases, it is attained).
 #
@@ -364,7 +364,7 @@ print(f"Maximum quantum value after multiple runs is: {max(results)}")
 # $$
 #
 # It is well-known that both the classical and quantum value of this nonlocal
-# game is $2/3$ [@Cleve_2010_Consequences]. We can verify this fact using `|toqito⟩`.
+# game is $2/3$ [@cleve2010consequences]. We can verify this fact using `|toqito⟩`.
 # The following example encodes the FFL game. We then calculate the classical
 # value and calculate lower bounds on the quantum value of the FFL game.
 #
@@ -413,7 +413,7 @@ print(f"Quantum value (lower bound): {np.around(ffl.quantum_value_lower_bound(),
 # ## Binary constraint system games
 #
 # The notion of a binary constraint system game was introduced in
-# [@Cleve_2014_Characterization] and the following introductory material is
+# [@cleve2014characterization] and the following introductory material is
 # extracted from that work.
 #
 # A *binary constraint system* (BCS) (sometimes also called a *linear system*

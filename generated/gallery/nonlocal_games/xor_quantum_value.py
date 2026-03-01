@@ -13,7 +13,7 @@ classical and quantum value of a given XOR game.
 #
 # Further information beyond the scope of this tutorial on the notion of XOR
 # games along with the method of computing their quantum value may be found in
-# [@Cleve_2008_Strong].
+# [@cleve2008strong].
 #
 # ## Two-player XOR games
 #
