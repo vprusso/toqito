@@ -93,7 +93,7 @@ print(f"  Conclusion: The set IS antidistinguishable: {numerical_is_ad}")
 print("\n------------------------------------------------------")
 print(f"Do the analytical and numerical results agree? {analytical_is_ad == numerical_is_ad}")
 print("------------------------------------------------------")
-mkdocs_gallery_thumbnail_path = 'figures/logo.svg'
+mkdocs_gallery_thumbnail_path = 'figures/logo.png'
 
 # %%
 # The results from both the analytical eigenvalue criterion and the numerical

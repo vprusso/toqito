@@ -119,7 +119,7 @@ bc_binding_game = ExtendedNonlocalGame(bc_prob_mat, bc_pred_mat)
 q_val = bc_binding_game.commuting_measurement_value_upper_bound(k=1)
 
 print("Upper bound on the quantum value (Alice's cheating probability): ", np.around(q_val, decimals=5))
-mkdocs_gallery_thumbnail_path = 'figures/logo.svg'
+mkdocs_gallery_thumbnail_path = 'figures/logo.png'
 
 # %%
 # ## Interpreting the Result

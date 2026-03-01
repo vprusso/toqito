@@ -141,7 +141,7 @@ chsh = ExtendedNonlocalGame(chsh_prob_mat, chsh_pred_mat)
 
 # The non-signaling value is 3/4 = 0.75
 print("The non-signaling value is ", np.around(chsh.nonsignaling_value(), decimals=2))
-mkdocs_gallery_thumbnail_path = 'figures/logo.svg'
+mkdocs_gallery_thumbnail_path = 'figures/logo.png'
 
 # %%
 # As we know that $\omega(G_{CHSH}) = \omega_{ns}(G_{CHSH}) = 3/4$ and that
