@@ -3,7 +3,7 @@
 Examples using ``toqito.states.ghz``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-<div class="mkd-glr-thumbcontainer" tooltip="This tutorial illustrates the basics of how to use |toqito⟩. This will covers how to instantiat...">
+<div class="mkd-glr-thumbcontainer" tooltip="Learn the basics of toqito: how to create and manipulate quantum states, channels, and measurem...">
     <!--div class="figure align-default" id="id1"-->
         <img alt="Introductory Tutorial" src="basics/images/thumb/mkd_glr_intro_tutorial_thumb.png" />
         <p class="caption">

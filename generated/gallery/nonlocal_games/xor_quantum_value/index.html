@@ -8890,10 +8890,11 @@
 to download the full example code</p>
 </div>
 <h1 id="calculating-the-quantum-and-classical-value-of-a-two-player-xor-game">Calculating the quantum and classical value of a two-player XOR game<a class="headerlink" href="#calculating-the-quantum-and-classical-value-of-a-two-player-xor-game" title="Permanent link">&para;</a></h1>
-<p>In this tutorial, we will cover the concept of an <em>XOR game</em>. We will also
-showcase how the <code>|toqito⟩</code> software package can be used to calculate the
-classical and quantum value of a given XOR game.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 9-90 -->
+<p>Covers XOR games, a special class of nonlocal games where the winning condition
+depends only on the XOR of Alice and Bob's outputs. Uses toqito to calculate
+classical and quantum values for the CHSH game and odd-cycle games via
+semidefinite programming.</p>
+<!-- GENERATED FROM PYTHON SOURCE LINES 10-91 -->
 
 <p>For readers who are already familiar with XOR games and who simply want to see
 how to use <code>|toqito⟩</code> to study these objects, they are welcome to consult the
@@ -8987,14 +8988,14 @@ condition must be equal to for each question tuple to induce a winning outcome.<
 </li>
 </ul>
 <p>For the CHSH game, the <code>prob_mat</code> and <code>pred_mat</code> variables are defined as follows.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 90-95 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 91-96 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">prob_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">4</span><span class="p">]])</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">pred_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 96-164 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 97-165 -->
 
 <p>That is, the <code>prob_mat</code> matrix encapsulates that each question pair
 <span class="arithmatex">\(\{(0,0), (0, 1), (1, 0), (1, 1)\}\)</span> is equally likely.</p>
@@ -9051,7 +9052,7 @@ is <span class="arithmatex">\(3/4\)</span>, or stated in an equivalent way</p>
 \]</div>
 <p>We can verify this by making use of <code>|toqito⟩</code> to compute the classical
 value of the CHSH game.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 164-169 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 165-170 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.nonlocal_games.xor_game</span><span class="w"> </span><span class="kn">import</span> <span class="n">XORGame</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
@@ -9061,7 +9062,7 @@ value of the CHSH game.</p>
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>The<span class="w"> </span>classical<span class="w"> </span>value<span class="w"> </span>of<span class="w"> </span>game<span class="w"> </span>is:<span class="w"> </span><span class="m">0</span>.75
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 170-267 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 171-268 -->
 
 <h3 id="a-quantum-strategy-for-the-chsh-game">A quantum strategy for the CHSH game<a class="headerlink" href="#a-quantum-strategy-for-the-chsh-game" title="Permanent link">&para;</a></h3>
 <p>What is very intriguing about the CHSH game is that it is an example of a
@@ -9148,7 +9149,7 @@ quantum strategy is optimal, which we can represent as
 <span class="arithmatex">\(\omega^*(G_{CHSH}) = \cos^2(\pi/8)\)</span>.</p>
 <p>We can calculate the quantum value of the CHSH game using <code>|toqito⟩</code> as
 follows:</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 267-273 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 268-274 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
@@ -9157,11 +9158,11 @@ follows:</p>
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>The<span class="w"> </span>quantum<span class="w"> </span>value<span class="w"> </span>of<span class="w"> </span>game<span class="w"> </span>is:<span class="w"> </span><span class="m">0</span>.85
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 274-276 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 275-277 -->
 
 <p>For reference, the complete code to calculate both the classical and quantum
 values of the CHSH game is provided below.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 276-287 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 277-288 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
@@ -9177,7 +9178,7 @@ values of the CHSH game is provided below.</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>The<span class="w"> </span>classical<span class="w"> </span>value<span class="w"> </span>of<span class="w"> </span>games<span class="w"> </span>is:<span class="w"> </span><span class="m">0</span>.75
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>The<span class="w"> </span>quantum<span class="w"> </span>value<span class="w"> </span>of<span class="w"> </span>games<span class="w"> </span>is:<span class="w"> </span><span class="m">0</span>.85
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 288-305 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 289-306 -->
 
 <h2 id="the-odd-cycle-game">The odd cycle game<a class="headerlink" href="#the-odd-cycle-game" title="Permanent link">&para;</a></h2>
 <p>The <em>odd cycle game</em> is another two-player XOR game with the following question and answer sets</p>
@@ -9191,7 +9192,7 @@ values of the CHSH game is provided below.</p>
 <p>where <span class="arithmatex">\(\pi\)</span> is the uniform probability distribution over the question set.</p>
 <p>As an example, we can specify the odd cycle game for <span class="arithmatex">\(n=5\)</span> and calculate
 the classical and quantum values of this game.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 305-323 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 306-324 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
@@ -9209,13 +9210,13 @@ the classical and quantum values of this game.</p>
 <a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="n">odd_cycle</span> <span class="o">=</span> <span class="n">XORGame</span><span class="p">(</span><span class="n">prob_mat</span><span class="p">,</span> <span class="n">pred_mat</span><span class="p">)</span>
 <a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The classical value of games is: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">odd_cycle</span><span class="o">.</span><span class="n">classical_value</span><span class="p">(),</span><span class="w"> </span><span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;The quantum value of games is: </span><span class="si">{</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">odd_cycle</span><span class="o">.</span><span class="n">quantum_value</span><span class="p">(),</span><span class="w"> </span><span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="c1"># mkdocs_gallery_thumbnail_path = &#39;figures/logo.png&#39;</span>
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="n">mkdocs_gallery_thumbnail_path</span> <span class="o">=</span> <span class="s1">&#39;figures/logo.svg&#39;</span>
 </code></pre></div>
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>The<span class="w"> </span>classical<span class="w"> </span>value<span class="w"> </span>of<span class="w"> </span>games<span class="w"> </span>is:<span class="w"> </span><span class="m">0</span>.9
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>The<span class="w"> </span>quantum<span class="w"> </span>value<span class="w"> </span>of<span class="w"> </span>games<span class="w"> </span>is:<span class="w"> </span><span class="m">0</span>.98
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 324-337 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 325-338 -->
 
 <p>Note that the odd cycle game is another example of an XOR game where the
 players are able to win with a strictly higher probability if they adopt a

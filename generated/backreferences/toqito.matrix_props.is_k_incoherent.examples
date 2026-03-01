@@ -3,7 +3,7 @@
 Examples using ``toqito.matrix_props.is_k_incoherent``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-<div class="mkd-glr-thumbcontainer" tooltip="In this tutorial, we are going to cover the problem of *quantum state exclusion*. We are going ...">
+<div class="mkd-glr-thumbcontainer" tooltip="Covers the quantum state exclusion problem, the dual of state distinguishability. Uses toqito t...">
     <!--div class="figure align-default" id="id1"-->
         <img alt="Quantum state exclusion" src="quantum_states/images/thumb/mkd_glr_state_exclusion_thumb.png" />
         <p class="caption">
@@ -17,7 +17,7 @@ Examples using ``toqito.matrix_props.is_k_incoherent``
     <!--/div-->
 </div>
 
-<div class="mkd-glr-thumbcontainer" tooltip="This example accompanies the &quot;The complexity of quantum state classification&quot; paper [@johnston2...">
+<div class="mkd-glr-thumbcontainer" tooltip="Explores k-learnability of quantum states, factor width of positive matrices, and k-incoherence...">
     <!--div class="figure align-default" id="id1"-->
         <img alt="Quantum classification, factor width, k-incoherence" src="quantum_states/images/thumb/mkd_glr_classification_thumb.png" />
         <p class="caption">

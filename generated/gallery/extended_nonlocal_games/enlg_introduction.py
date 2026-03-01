@@ -1,10 +1,9 @@
 """# Extended nonlocal games
 
-In this tutorial, we will define the concept of an *extended nonlocal game*.
-Extended nonlocal games are a more general abstraction of nonlocal games
-wherein the referee, who previously only provided questions and answers to the
-players, now share a state with the players and is able to perform a
-measurement on that shared state.
+This tutorial defines the extended nonlocal game model, where the referee shares
+a quantum state with Alice and Bob and performs measurements on that state to
+determine the game outcome. Covers standard quantum, unentangled, and
+non-signaling strategies as well as the relationships between their values.
 """
 # %%
 # Every extended nonlocal game has a *value* associated to it. Analogously to

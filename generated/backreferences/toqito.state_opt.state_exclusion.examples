@@ -3,7 +3,7 @@
 Examples using ``toqito.state_opt.state_exclusion``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-<div class="mkd-glr-thumbcontainer" tooltip="In this tutorial, we are going to cover the problem of *quantum state exclusion*. We are going ...">
+<div class="mkd-glr-thumbcontainer" tooltip="Covers the quantum state exclusion problem, the dual of state distinguishability. Uses toqito t...">
     <!--div class="figure align-default" id="id1"-->
         <img alt="Quantum state exclusion" src="quantum_states/images/thumb/mkd_glr_state_exclusion_thumb.png" />
         <p class="caption">

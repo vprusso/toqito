@@ -9090,10 +9090,11 @@
 to download the full example code</p>
 </div>
 <h1 id="introductory-tutorial">Introductory Tutorial<a class="headerlink" href="#introductory-tutorial" title="Permanent link">&para;</a></h1>
-<p>This tutorial illustrates the basics of how to use <code>|toqito⟩</code>. This will covers how to
-instantiate and use the fundamental objects that <code>|toqito⟩</code> provides; namely
-quantum states, channels, and measurements.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 8-38 -->
+<p>Learn the basics of toqito: how to create and manipulate quantum states,
+channels, and measurements. Covers constructing common states like Bell and
+Werner states, applying quantum channels, and checking properties such as
+entanglement and PPT.</p>
+<!-- GENERATED FROM PYTHON SOURCE LINES 9-39 -->
 
 <p>This is an introduction to the functionality in <code>|toqito⟩</code> and is not meant to serve as an
 introduction to quantum information. For more information, please consult the book <sup id="fnref:nielsen2011quantum"><a class="footnote-ref" href="#fn:nielsen2011quantum">1</a></sup> or the freely available lecture notes <sup id="fnref:watrous2018theory"><a class="footnote-ref" href="#fn:watrous2018theory">2</a></sup>.</p>
@@ -9115,11 +9116,11 @@ set of matrices that are positive semidefinite with trace equal to <span class="
 | 0 \rangle = [1, 0]^{\text{T}} \quad \text{and} \quad | 1 \rangle = [0, 1]^{\text{T}}
 \]</div>
 <p>can be defined in <code>|toqito⟩</code> as such</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 38-45 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 39-46 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrices</span><span class="w"> </span><span class="kn">import</span> <span class="n">standard_basis</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1"># mkdocs_gallery_thumbnail_path = &#39;figures/logo.png&#39;</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">mkdocs_gallery_thumbnail_path</span> <span class="o">=</span> <span class="s1">&#39;figures/logo.svg&#39;</span>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1"># |0&gt;</span>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">standard_basis</span><span class="p">(</span><span class="mi">2</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 </code></pre></div>
@@ -9127,10 +9128,10 @@ set of matrices that are positive semidefinite with trace equal to <span class="
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>array<span class="o">([[</span><span class="m">1</span>.<span class="o">]</span>,
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">       </span><span class="o">[</span><span class="m">0</span>.<span class="o">]])</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 46-47 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 47-48 -->
 
 <p>To get the other ket</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 47-51 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 48-52 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># |1&gt;</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">standard_basis</span><span class="p">(</span><span class="mi">2</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
@@ -9139,14 +9140,14 @@ set of matrices that are positive semidefinite with trace equal to <span class="
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>array<span class="o">([[</span><span class="m">0</span>.<span class="o">]</span>,
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">       </span><span class="o">[</span><span class="m">1</span>.<span class="o">]])</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 52-59 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 53-60 -->
 
 <p>One may define one of the four Bell states written as</p>
 <div class="arithmatex">\[
 u_0 = \frac{1}{\sqrt{2}} \left(| 00 \rangle + | 11 \rangle \right)
 \]</div>
 <p>using <code>|toqito⟩</code> as</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 59-67 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 60-68 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
@@ -9160,7 +9161,7 @@ u_0 = \frac{1}{\sqrt{2}} \left(| 00 \rangle + | 11 \rangle \right)
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">       </span><span class="o">[</span><span class="m">0</span>.<span class="w">        </span><span class="o">]</span>,
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">       </span><span class="o">[</span><span class="m">0</span>.70710678<span class="o">]])</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 68-81 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 69-82 -->
 
 <p>The corresponding density operator of <span class="arithmatex">\(u_0\)</span> can be obtained from</p>
 <div class="arithmatex">\[
@@ -9173,7 +9174,7 @@ u_0 = \frac{1}{\sqrt{2}} \left(| 00 \rangle + | 11 \rangle \right)
 \end{pmatrix} \in \text{D}(\mathcal{X}).
 \]</div>
 <p>In <code>|toqito⟩</code>, that can be obtained as</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 81-90 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 82-91 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
@@ -9188,7 +9189,7 @@ u_0 = \frac{1}{\sqrt{2}} \left(| 00 \rangle + | 11 \rangle \right)
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">       </span><span class="o">[</span><span class="m">0</span>.<span class="w"> </span>,<span class="w"> </span><span class="m">0</span>.<span class="w"> </span>,<span class="w"> </span><span class="m">0</span>.<span class="w"> </span>,<span class="w"> </span><span class="m">0</span>.<span class="w"> </span><span class="o">]</span>,
 <a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">       </span><span class="o">[</span><span class="m">0</span>.5,<span class="w"> </span><span class="m">0</span>.<span class="w"> </span>,<span class="w"> </span><span class="m">0</span>.<span class="w"> </span>,<span class="w"> </span><span class="m">0</span>.5<span class="o">]])</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 91-106 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 92-107 -->
 
 <p>Alternatively, we may leverage the <code>bell</code> function in <code>|toqito⟩</code> to
 generate all four Bell states defined as</p>
@@ -9203,7 +9204,7 @@ generate all four Bell states defined as</p>
 \end{equation}
 \]</div>
 <p>in a more concise manner as</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 106-113 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 107-114 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
@@ -9217,7 +9218,7 @@ generate all four Bell states defined as</p>
 <a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">       </span><span class="o">[</span><span class="m">0</span>.<span class="w">        </span><span class="o">]</span>,
 <a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="w">       </span><span class="o">[</span><span class="m">0</span>.70710678<span class="o">]])</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 114-123 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 115-124 -->
 
 <p>The Bell states constitute one such well-known class of quantum states. There
 are many other classes of states that are widely used in the field of quantum
@@ -9226,7 +9227,7 @@ For instance, the GHZ state</p>
 | GHZ \rangle = \frac{1}{\sqrt{2}} \left( | 000 \rangle + | 111 \rangle \right)
 \]</div>
 <p>is a well-known 3-qubit quantum state. We can invoke this using <code>|toqito⟩</code> as</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 123-129 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 124-130 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">ghz</span>
 <a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
@@ -9242,7 +9243,7 @@ For instance, the GHZ state</p>
 <a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">       </span><span class="o">[</span><span class="m">0</span>.<span class="w">        </span><span class="o">]</span>,
 <a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">       </span><span class="o">[</span><span class="m">0</span>.70710678<span class="o">]])</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 130-145 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 131-146 -->
 
 <p>While the 3-qubit form of the GHZ state is arguably the most notable, it is
 possible to define a generalized GHZ state</p>
@@ -9256,7 +9257,7 @@ here is the GHZ state <span class="arithmatex">\(\mathbb{C}^{4^{\otimes 7}}\)</s
 \frac{1}{\sqrt{30}} \left(| 0000000 \rangle + 2| 1111111 \rangle + 3|
 2222222 \rangle + 4| 3333333\rangle \right).
 \]</div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 145-158 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 146-159 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
@@ -9275,7 +9276,7 @@ here is the GHZ state <span class="arithmatex">\(\mathbb{C}^{4^{\otimes 7}}\)</s
 <a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>Index:<span class="w"> </span><span class="m">10922</span>,<span class="w"> </span>Value:<span class="w"> </span><span class="m">0</span>.54772256
 <a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>Index:<span class="w"> </span><span class="m">16383</span>,<span class="w"> </span>Value:<span class="w"> </span><span class="m">0</span>.73029674
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 159-168 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 160-169 -->
 
 <h3 id="properties-of-quantum-states">Properties of Quantum States<a class="headerlink" href="#properties-of-quantum-states" title="Permanent link">&para;</a></h3>
 <p>Given a quantum state, it is often useful to be able to determine certain
@@ -9283,7 +9284,7 @@ here is the GHZ state <span class="arithmatex">\(\mathbb{C}^{4^{\otimes 7}}\)</s
 <p>For instance, we can check if a quantum state is pure, that is, if the density
 matrix that describes the state has rank 1.</p>
 <p>Any one of the Bell states serve as an example of a pure state</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 168-176 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 169-177 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_pure</span>
 <a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">bell</span>
@@ -9294,7 +9295,7 @@ matrix that describes the state has rank 1.</p>
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>True
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 177-189 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 178-190 -->
 
 <p>Another property that is useful is whether a given state is PPT (positive
 partial transpose), that is, whether the state remains positive after taking
@@ -9306,7 +9307,7 @@ separable.</p>
 <p>As an example, any one of the Bell states constitute a canonical maximally
 entangled state over <span class="arithmatex">\(2 \otimes 2\)</span> and therefore should not satisfy the
 PPT criterion.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 189-197 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 190-198 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_ppt</span>
 <a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">bell</span>
@@ -9317,7 +9318,7 @@ PPT criterion.</p>
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>False
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 198-208 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 199-209 -->
 
 <p>As we can see, the PPT criterion is <code>False</code> for an entangled state in
 <span class="arithmatex">\(2 \otimes 2\)</span>.</p>
@@ -9327,7 +9328,7 @@ quantum state, we can use <code>|toqito⟩</code> to run a number of separabilit
 from the literature to determine if it is separable or entangled.</p>
 <p>For instance, the following bound-entangled tile state is found to be entangled
 (i.e. not separable).</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 208-222 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 209-223 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>
@@ -9344,7 +9345,7 @@ from the literature to determine if it is separable or entangled.</p>
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>False
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 223-248 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 224-249 -->
 
 <p>Further properties that one can check via <code>|toqito⟩</code> may be found in the
 <a class="autorefs autorefs-internal" title="            state_props" href="../../../../reference/toqito/state_props/#toqito.state_props">state properties module</a>.</p>
@@ -9364,7 +9365,7 @@ as different as can be and where a value of <span class="arithmatex">\(1\)</span
 where <span class="arithmatex">\(\rho\)</span> and <span class="arithmatex">\(\sigma\)</span> are identical.</p>
 <p>Let us consider an example in <code>|toqito⟩</code> where we wish to calculate the
 fidelity function between quantum states that happen to be identical.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 248-261 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 249-262 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>
@@ -9386,7 +9387,7 @@ fidelity function between quantum states that happen to be identical.</p>
 <a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>
 <a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>np.float64<span class="o">(</span><span class="m">1</span>.0<span class="o">)</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 262-318 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 263-319 -->
 
 <p>There are a number of other metrics one can compute on two density matrices
 including the trace norm, trace distance. These and others are also available
@@ -9430,7 +9431,7 @@ X = \begin{pmatrix}
 \]</div>
 <p>By default, the partial trace function in <code>|toqito⟩</code> takes the trace of the second
 subsystem.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 318-327 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 319-328 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>
@@ -9443,7 +9444,7 @@ subsystem.</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>array<span class="o">([[</span><span class="w"> </span><span class="m">7</span>,<span class="w"> </span><span class="m">11</span><span class="o">]</span>,
 <a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="w">       </span><span class="o">[</span><span class="m">23</span>,<span class="w"> </span><span class="m">27</span><span class="o">]])</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 328-339 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 329-340 -->
 
 <p>By specifying the <code>sys = [0]</code> argument, we can perform the partial trace over the first
 subsystem (instead of the default second subsystem as done above). Performing the partial
@@ -9454,7 +9455,7 @@ X_{pt, 1} = \begin{pmatrix}
                 20 &amp; 22
             \end{pmatrix}.
 \]</div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 339-347 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 340-348 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>
@@ -9467,7 +9468,7 @@ X_{pt, 1} = \begin{pmatrix}
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>array<span class="o">([[</span><span class="m">12</span>,<span class="w"> </span><span class="m">14</span><span class="o">]</span>,
 <a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="w">       </span><span class="o">[</span><span class="m">20</span>,<span class="w"> </span><span class="m">22</span><span class="o">]])</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 348-391 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 349-392 -->
 
 <p>Another often useful channel is the <em>partial transpose</em>. The <em>partial transpose</em>
 is defined as</p>
@@ -9503,7 +9504,7 @@ X^{T_B} = \begin{pmatrix}
 \]</div>
 <p>By default, in <code>|toqito⟩</code>, the partial transpose function performs the transposition on
 the second subsystem as follows.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 391-400 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 392-401 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>
@@ -9518,7 +9519,7 @@ the second subsystem as follows.</p>
 <a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="w">       </span><span class="o">[</span><span class="w"> </span><span class="m">9</span>,<span class="w"> </span><span class="m">13</span>,<span class="w"> </span><span class="m">11</span>,<span class="w"> </span><span class="m">15</span><span class="o">]</span>,
 <a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="w">       </span><span class="o">[</span><span class="m">10</span>,<span class="w"> </span><span class="m">14</span>,<span class="w"> </span><span class="m">12</span>,<span class="w"> </span><span class="m">16</span><span class="o">]])</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 401-413 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 402-414 -->
 
 <p>By specifying the <code>sys = [0]</code> argument, we can perform the partial transpose over the
 first subsystem (instead of the default second subsystem as done above). Performing the partial
@@ -9531,7 +9532,7 @@ X_{pt, 1} = \begin{pmatrix}
                 7 &amp; 8 &amp; 15 &amp; 16
             \end{pmatrix}.
 \]</div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 413-421 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 414-422 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>
@@ -9546,7 +9547,7 @@ X_{pt, 1} = \begin{pmatrix}
 <a id="__codelineno-29-3" name="__codelineno-29-3" href="#__codelineno-29-3"></a><span class="w">       </span><span class="o">[</span><span class="w"> </span><span class="m">3</span>,<span class="w">  </span><span class="m">4</span>,<span class="w"> </span><span class="m">11</span>,<span class="w"> </span><span class="m">12</span><span class="o">]</span>,
 <a id="__codelineno-29-4" name="__codelineno-29-4" href="#__codelineno-29-4"></a><span class="w">       </span><span class="o">[</span><span class="w"> </span><span class="m">7</span>,<span class="w">  </span><span class="m">8</span>,<span class="w"> </span><span class="m">15</span>,<span class="w"> </span><span class="m">16</span><span class="o">]])</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 422-437 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 423-438 -->
 
 <p><strong>Applying Quantum Channels</strong></p>
 <p>Another important operation when working with quantum channels is applying them to quantum states. <a class="autorefs autorefs-internal" title="            apply_channel" href="../../../../reference/toqito/channel_ops/apply_channel/#toqito.channel_ops.apply_channel.apply_channel"><code>apply_channel</code></a> in <code>|toqito⟩</code> provides a convenient way to apply a quantum channel (represented by its Choi matrix) to a given quantum state.</p>
@@ -9557,7 +9558,7 @@ X_{pt, 1} = \begin{pmatrix}
 \mathcal{N}(\rho) = (1-p) \rho + p\,\frac{\mathbb{I}}{d},
 \]</div>
 <p>where <span class="arithmatex">\(\mathbb{I}\)</span> is the identity operator and <span class="arithmatex">\(d\)</span> is the dimension of the Hilbert space. The example below applies the depolarizing channel with <span class="arithmatex">\(p=0.3\)</span> to the computational basis state <span class="arithmatex">\(|0\rangle\)</span>.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 437-453 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 438-454 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>
@@ -9578,7 +9579,7 @@ X_{pt, 1} = \begin{pmatrix}
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="o">[[</span><span class="m">0</span>.65<span class="w"> </span><span class="m">0</span>.<span class="w">  </span><span class="o">]</span>
 <a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="w"> </span><span class="o">[</span><span class="m">0</span>.<span class="w">   </span><span class="m">0</span>.35<span class="o">]]</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 454-463 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 455-464 -->
 
 <p><strong>Dephasing Channel</strong></p>
 <p>The dephasing channel reduces the off-diagonal elements of a density matrix without changing the diagonal entries, thereby diminishing quantum coherence. It is commonly expressed as</p>
@@ -9586,7 +9587,7 @@ X_{pt, 1} = \begin{pmatrix}
 \mathcal{N}(\rho) = (1-p) \rho + p\, Z \rho Z,
 \]</div>
 <p>where <span class="arithmatex">\(Z\)</span> is the Pauli-Z operator and <span class="arithmatex">\(p\)</span> represents the dephasing probability. The example below demonstrates how to apply the dephasing channel with <span class="arithmatex">\(p=0.4\)</span> to the plus state <span class="arithmatex">\(|+\rangle = \frac{1}{\sqrt{2}}(|0\rangle + |1\rangle)\)</span>.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 463-480 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 464-481 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>
@@ -9607,7 +9608,7 @@ X_{pt, 1} = \begin{pmatrix}
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-33-1" name="__codelineno-33-1" href="#__codelineno-33-1"></a><span class="o">[[</span><span class="m">0</span>.5<span class="w"> </span><span class="m">0</span>.2<span class="o">]</span>
 <a id="__codelineno-33-2" name="__codelineno-33-2" href="#__codelineno-33-2"></a><span class="w"> </span><span class="o">[</span><span class="m">0</span>.2<span class="w"> </span><span class="m">0</span>.5<span class="o">]]</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 481-495 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 482-496 -->
 
 <h3 id="noisy-channels">Noisy Channels<a class="headerlink" href="#noisy-channels" title="Permanent link">&para;</a></h3>
 <p>Quantum noise channels model the interaction between quantum systems and their environment, resulting in decoherence and loss of quantum information. The <code>|toqito⟩</code> library provides implementations of common noise models used in quantum information processing.</p>
@@ -9618,7 +9619,7 @@ K_0 = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; \sqrt{1 - \gamma} \end{pmatrix}, \qua
 K_1 = \begin{pmatrix} 0 &amp; 0 \\ 0 &amp; \sqrt{\gamma} \end{pmatrix}
 \]</div>
 <p>The phase damping channel can be applied to a quantum state as follows:</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 495-507 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 496-508 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-34-2" name="__codelineno-34-2" href="#__codelineno-34-2"></a>
@@ -9635,7 +9636,7 @@ K_1 = \begin{pmatrix} 0 &amp; 0 \\ 0 &amp; \sqrt{\gamma} \end{pmatrix}
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a><span class="o">[[</span><span class="m">1</span>.<span class="w">       </span>+0.j<span class="w"> </span><span class="m">0</span>.4472136+0.j<span class="o">]</span>
 <a id="__codelineno-35-2" name="__codelineno-35-2" href="#__codelineno-35-2"></a><span class="w"> </span><span class="o">[</span><span class="m">0</span>.4472136+0.j<span class="w"> </span><span class="m">1</span>.<span class="w">       </span>+0.j<span class="o">]]</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 508-520 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 509-521 -->
 
 <p>Note that the off-diagonal elements (coherences) are reduced by a factor of <span class="arithmatex">\(\sqrt{1-\gamma}\)</span>, while the diagonal elements (populations) remain unchanged.</p>
 <p><strong>Amplitude Damping Channel</strong></p>
@@ -9645,7 +9646,7 @@ K_0 = \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; \sqrt{1 - \gamma} \end{pmatrix}, \qua
 K_1 = \begin{pmatrix} 0 &amp; \sqrt{\gamma} \\ 0 &amp; 0 \end{pmatrix}
 \]</div>
 <p>Here's how to use the amplitude damping channel:</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 520-532 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 521-533 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-36-2" name="__codelineno-36-2" href="#__codelineno-36-2"></a>
@@ -9662,7 +9663,7 @@ K_1 = \begin{pmatrix} 0 &amp; \sqrt{\gamma} \\ 0 &amp; 0 \end{pmatrix}
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a><span class="o">[[</span><span class="m">0</span>.65<span class="w">      </span>+0.j<span class="w"> </span><span class="m">0</span>.41833001+0.j<span class="o">]</span>
 <a id="__codelineno-37-2" name="__codelineno-37-2" href="#__codelineno-37-2"></a><span class="w"> </span><span class="o">[</span><span class="m">0</span>.41833001+0.j<span class="w"> </span><span class="m">0</span>.35<span class="w">      </span>+0.j<span class="o">]]</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 533-541 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 534-542 -->
 
 <p><strong>Bit-Flip Channel</strong></p>
 <p>The bit-flip channel randomly flips the state of a qubit with probability <span class="arithmatex">\(p\)</span>, analogous to the classical bit-flip error in classical information theory.</p>
@@ -9670,7 +9671,7 @@ K_1 = \begin{pmatrix} 0 &amp; \sqrt{\gamma} \\ 0 &amp; 0 \end{pmatrix}
 K_0 = \sqrt{1 - p} \, I = \sqrt{1 - p} \begin{pmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{pmatrix}, \quad
 K_1 = \sqrt{p} \, X = \sqrt{p} \begin{pmatrix} 0 &amp; 1 \\ 1 &amp; 0 \end{pmatrix}
 \]</div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 541-553 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 542-554 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-38-2" name="__codelineno-38-2" href="#__codelineno-38-2"></a>
@@ -9687,7 +9688,7 @@ K_1 = \sqrt{p} \, X = \sqrt{p} \begin{pmatrix} 0 &amp; 1 \\ 1 &amp; 0 \end{pmatr
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="o">[[</span><span class="m">0</span>.75+0.j<span class="w"> </span><span class="m">0</span>.<span class="w">  </span>+0.j<span class="o">]</span>
 <a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a><span class="w"> </span><span class="o">[</span><span class="m">0</span>.<span class="w">  </span>+0.j<span class="w"> </span><span class="m">0</span>.25+0.j<span class="o">]]</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 554-579 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 555-580 -->
 
 <p>Observe that the result is a mixed state with 75% probability of being in state <span class="arithmatex">\(|0\rangle\)</span> and 25% probability of being in state <span class="arithmatex">\(|1\rangle\)</span>, as expected for a bit flip error with probability <span class="arithmatex">\(p = 0.25\)</span>.</p>
 <p><strong>Pauli Channel</strong></p>
@@ -9713,7 +9714,7 @@ these operators are extended as tensor products.</p>
 </li>
 </ul>
 <p>The Pauli channel can be used to apply noise to an input quantum state or generate a Choi matrix.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 579-595 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 580-596 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>
@@ -9733,7 +9734,7 @@ these operators are extended as tensor products.</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="o">[[</span><span class="m">0</span>.6+0.j<span class="w"> </span><span class="m">0</span>.<span class="w"> </span>+0.j<span class="o">]</span>
 <a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a><span class="w"> </span><span class="o">[</span><span class="m">0</span>.<span class="w"> </span>+0.j<span class="w"> </span><span class="m">0</span>.4+0.j<span class="o">]]</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 596-639 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 597-640 -->
 
 <p>Here, the probabilities correspond to applying the identity (<span class="arithmatex">\(I\)</span>), bit-flip (<span class="arithmatex">\(X\)</span>),
 phase-flip (<span class="arithmatex">\(Z\)</span>), and combined bit-phase flip (<span class="arithmatex">\(Y\)</span>) operators.</p>
@@ -9767,7 +9768,7 @@ M_1 =
 \]</div>
 <p>Our function expects this set of operators to be a POVM because it checks if the operators
 sum up to the identity, ensuring that the measurement outcomes are properly normalized.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 639-649 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 640-650 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>
@@ -9781,12 +9782,12 @@ sum up to the identity, ensuring that the measurement outcomes are properly norm
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-43-1" name="__codelineno-43-1" href="#__codelineno-43-1"></a>True
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 650-654 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 651-655 -->
 
 <h3 id="random-povm">Random POVM<a class="headerlink" href="#random-povm" title="Permanent link">&para;</a></h3>
 <p>We may also use <a class="autorefs autorefs-internal" title="            random_povm" href="../../../../reference/toqito/rand/random_povm/#toqito.rand.random_povm"><code>random_povm</code></a> to randomly generate a POVM, and can verify that a
 randomly generated set satisfies the criteria for being a POVM set.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 654-664 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 655-665 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-44-1" name="__codelineno-44-1" href="#__codelineno-44-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-44-2" name="__codelineno-44-2" href="#__codelineno-44-2"></a>
@@ -9800,7 +9801,7 @@ randomly generated set satisfies the criteria for being a POVM set.</p>
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-45-1" name="__codelineno-45-1" href="#__codelineno-45-1"></a>True
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 665-681 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 666-682 -->
 
 <p>Alternatively, the following matrices do not constitute a POVM set.</p>
 <div class="arithmatex">\[
@@ -9816,7 +9817,7 @@ M_1 =
     7 &amp; 8
 \end{pmatrix},
 \]</div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 681-690 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 682-691 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-46-1" name="__codelineno-46-1" href="#__codelineno-46-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-46-2" name="__codelineno-46-2" href="#__codelineno-46-2"></a>
@@ -9830,7 +9831,7 @@ M_1 =
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a>False
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 691-711 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 692-712 -->
 
 <h3 id="measurement-operators">Measurement Operators<a class="headerlink" href="#measurement-operators" title="Permanent link">&para;</a></h3>
 <p>Consider the following state:</p>
@@ -9846,7 +9847,7 @@ e_0 = \begin{pmatrix} 1 \\ 0 \end{pmatrix} \quad \text{and} \quad e_1 = \begin{p
 <div class="arithmatex">\[
 P_0 = e_0 e_0^* \quad \text{and} \quad P_1 = e_1 e_1^*.
 \]</div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 711-725 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 712-726 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a>
@@ -9861,33 +9862,33 @@ P_0 = e_0 e_0^* \quad \text{and} \quad P_1 = e_1 e_1^*.
 <a id="__codelineno-48-11" name="__codelineno-48-11" href="#__codelineno-48-11"></a><span class="n">proj_0</span> <span class="o">=</span> <span class="n">e_0</span> <span class="o">@</span> <span class="n">e_0</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
 <a id="__codelineno-48-12" name="__codelineno-48-12" href="#__codelineno-48-12"></a><span class="n">proj_1</span> <span class="o">=</span> <span class="n">e_1</span> <span class="o">@</span> <span class="n">e_1</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 726-731 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 727-732 -->
 
 <p>Then the probability of obtaining outcome <span class="arithmatex">\(0\)</span> is given by</p>
 <div class="arithmatex">\[
 \langle P_0, \rho \rangle = \frac{1}{3}.
 \]</div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 731-734 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 732-735 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-49-1" name="__codelineno-49-1" href="#__codelineno-49-1"></a><span class="n">measure</span><span class="p">(</span><span class="n">proj_0</span><span class="p">,</span> <span class="n">rho</span><span class="p">)</span>
 </code></pre></div>
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a>np.float64<span class="o">(</span><span class="m">0</span>.3333333333333334<span class="o">)</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 735-740 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 736-741 -->
 
 <p>Similarly, the probability of obtaining outcome <span class="arithmatex">\(1\)</span> is given by</p>
 <div class="arithmatex">\[
 \langle P_1, \rho \rangle = \frac{2}{3}.
 \]</div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 740-743 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 741-744 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="n">measure</span><span class="p">(</span><span class="n">proj_1</span><span class="p">,</span> <span class="n">rho</span><span class="p">)</span>
 </code></pre></div>
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>np.float64<span class="o">(</span><span class="m">0</span>.6666666666666667<span class="o">)</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 744-764 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 745-765 -->
 
 <h3 id="pretty-good-measurement">Pretty Good Measurement<a class="headerlink" href="#pretty-good-measurement" title="Permanent link">&para;</a></h3>
 <p>Consider "pretty good measurement" on the set of trine states.</p>
@@ -9903,7 +9904,7 @@ u_0 = |0\rangle, \quad
 u_1 = -\frac{1}{2}\left(|0\rangle + \sqrt{3}|1\rangle\right), \quad \text{and} \quad
 u_2 = -\frac{1}{2}\left(|0\rangle - \sqrt{3}|1\rangle\right).
 \]</div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 764-773 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 765-774 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.measurements</span><span class="w"> </span><span class="kn">import</span> <span class="n">pretty_good_measurement</span>
 <a id="__codelineno-53-2" name="__codelineno-53-2" href="#__codelineno-53-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">trine</span>
@@ -9919,7 +9920,7 @@ u_2 = -\frac{1}{2}\left(|0\rangle - \sqrt{3}|1\rangle\right).
 <a id="__codelineno-54-3" name="__codelineno-54-3" href="#__codelineno-54-3"></a><span class="w">       </span><span class="o">[</span><span class="m">0</span>.28867513,<span class="w"> </span><span class="m">0</span>.5<span class="w">       </span><span class="o">]])</span>,<span class="w"> </span>array<span class="o">([[</span><span class="w"> </span><span class="m">0</span>.16666667,<span class="w"> </span>-0.28867513<span class="o">]</span>,
 <a id="__codelineno-54-4" name="__codelineno-54-4" href="#__codelineno-54-4"></a><span class="w">       </span><span class="o">[</span>-0.28867513,<span class="w">  </span><span class="m">0</span>.5<span class="w">       </span><span class="o">]])]</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 774-791 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 775-792 -->
 
 <h3 id="pretty-bad-measurement">Pretty Bad Measurement<a class="headerlink" href="#pretty-bad-measurement" title="Permanent link">&para;</a></h3>
 <p>Similarly, we can consider so-called "pretty bad measurement" (PBM) on the set of trine states <sup id="fnref:mcirvin2024pretty"><a class="footnote-ref" href="#fn:mcirvin2024pretty">4</a></sup>.</p>
@@ -9933,7 +9934,7 @@ u_0 = |0\rangle, \quad
 u_1 = -\frac{1}{2}\left(|0\rangle + \sqrt{3}|1\rangle\right), \quad \text{and} \quad
 u_2 = -\frac{1}{2}\left(|0\rangle - \sqrt{3}|1\rangle\right).
 \]</div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 791-800 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 792-801 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-55-1" name="__codelineno-55-1" href="#__codelineno-55-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.measurements</span><span class="w"> </span><span class="kn">import</span> <span class="n">pretty_bad_measurement</span>
 <a id="__codelineno-55-2" name="__codelineno-55-2" href="#__codelineno-55-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.states</span><span class="w"> </span><span class="kn">import</span> <span class="n">trine</span>
@@ -9949,7 +9950,7 @@ u_2 = -\frac{1}{2}\left(|0\rangle - \sqrt{3}|1\rangle\right).
 <a id="__codelineno-56-3" name="__codelineno-56-3" href="#__codelineno-56-3"></a><span class="w">       </span><span class="o">[</span>-0.14433757,<span class="w">  </span><span class="m">0</span>.25<span class="w">      </span><span class="o">]])</span>,<span class="w"> </span>array<span class="o">([[</span><span class="m">0</span>.41666667,<span class="w"> </span><span class="m">0</span>.14433757<span class="o">]</span>,
 <a id="__codelineno-56-4" name="__codelineno-56-4" href="#__codelineno-56-4"></a><span class="w">       </span><span class="o">[</span><span class="m">0</span>.14433757,<span class="w"> </span><span class="m">0</span>.25<span class="w">      </span><span class="o">]])]</span>
 </code></pre></div>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  3.309 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  3.177 seconds)</p>
 <div id="download_links"></div>
 
 <p><a class="md-button center" href="../intro_tutorial.py"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M256 32c0-17.7-14.3-32-32-32s-32 14.3-32 32v210.7l-41.4-41.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 242.7zM64 320c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64v-32c0-35.3-28.7-64-64-64h-46.9l-56.6 56.6c-31.2 31.2-81.9 31.2-113.1 0L110.9 320zm304 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48"/></svg></span> Download Python source code: intro_tutorial.py</a></p>

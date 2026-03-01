@@ -8912,29 +8912,28 @@
 to download the full example code</p>
 </div>
 <h1 id="extended-nonlocal-games">Extended nonlocal games<a class="headerlink" href="#extended-nonlocal-games" title="Permanent link">&para;</a></h1>
-<p>In this tutorial, we will define the concept of an <em>extended nonlocal game</em>.
-Extended nonlocal games are a more general abstraction of nonlocal games
-wherein the referee, who previously only provided questions and answers to the
-players, now share a state with the players and is able to perform a
-measurement on that shared state.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 10-14 -->
+<p>This tutorial defines the extended nonlocal game model, where the referee shares
+a quantum state with Alice and Bob and performs measurements on that state to
+determine the game outcome. Covers standard quantum, unentangled, and
+non-signaling strategies as well as the relationships between their values.</p>
+<!-- GENERATED FROM PYTHON SOURCE LINES 9-13 -->
 
 <p>Every extended nonlocal game has a <em>value</em> associated to it. Analogously to
 nonlocal games, this value is a quantity that dictates how well the players can
 perform a task in the extended nonlocal game model when given access to certain
 resources. We will be using <code>|toqito⟩</code> to calculate these quantities.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 16-19 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 15-18 -->
 
 <p>We will also look at existing results in the literature on these values and be
 able to replicate them using <code>|toqito⟩</code>. Much of the written content in
 this tutorial will be directly taken from <sup id="fnref:russo2017extended"><a class="footnote-ref" href="#fn:russo2017extended">1</a></sup>.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 21-25 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 20-24 -->
 
 <p>Extended nonlocal games have a natural physical interpretation in the setting
 of tripartite steering <sup id="fnref:cavalcanti2015detection"><a class="footnote-ref" href="#fn:cavalcanti2015detection">2</a></sup> and in device-independent quantum scenarios
 <sup id="fnref:tomamichel2013monogamy"><a class="footnote-ref" href="#fn:tomamichel2013monogamy">3</a></sup>. For more information on extended nonlocal games, please refer to
 <sup id="fnref:johnston2016extended"><a class="footnote-ref" href="#fn:johnston2016extended">4</a></sup> and <sup id="fnref2:russo2017extended"><a class="footnote-ref" href="#fn:russo2017extended">1</a></sup>.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 27-244 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 26-243 -->
 
 <h2 id="the-extended-nonlocal-game-model">The extended nonlocal game model<a class="headerlink" href="#the-extended-nonlocal-game-model" title="Permanent link">&para;</a></h2>
 <p>An <em>extended nonlocal game</em> is similar to a nonlocal game in the sense that it
@@ -9102,7 +9101,7 @@ games, we can explore some concrete examples. In the following tutorials, we
 will construct well-known games such as the BB84 and CHSH extended nonlocal
 games and use <code>|toqito⟩</code> to calculate their various values.</p>
 <p>%%</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 244-246 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 243-245 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">mkdocs_gallery_thumbnail_path</span> <span class="o">=</span> <span class="s1">&#39;figures/extended_nonlocal_game.svg&#39;</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1"># We will start by examining the BB84 extended nonlocal game in [The BB84 extended nonlocal game](../enlg_bb84)</span>

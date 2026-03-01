@@ -3,7 +3,7 @@
 Examples using ``toqito.nonlocal_games.ExtendedNonlocalGame.nonsignaling_value``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-<div class="mkd-glr-thumbcontainer" tooltip="Following our analysis of the BB84 game, let us now define another important extended nonlocal ...">
+<div class="mkd-glr-thumbcontainer" tooltip="Constructs the CHSH extended nonlocal game and calculates its unentangled, standard quantum, an...">
     <!--div class="figure align-default" id="id1"-->
         <img alt="The CHSH extended nonlocal game" src="extended_nonlocal_games/images/thumb/mkd_glr_enlg_chsh_thumb.png" />
         <p class="caption">
@@ -17,9 +17,9 @@ Examples using ``toqito.nonlocal_games.ExtendedNonlocalGame.nonsignaling_value``
     <!--/div-->
 </div>
 
-<div class="mkd-glr-thumbcontainer" tooltip="In our [Extended nonlocal games](../enlg_introduction) tutorial, we introduced the framework fo...">
+<div class="mkd-glr-thumbcontainer" tooltip="Constructs the BB84 extended nonlocal game and uses toqito to calculate its unentangled, standa...">
     <!--div class="figure align-default" id="id1"-->
-        <img alt="The BB84 extended nonlocal game" src="extended_nonlocal_games/images/thumb/mkd_glr_enlg_bb84_thumb.svg" />
+        <img alt="The BB84 extended nonlocal game" src="extended_nonlocal_games/images/thumb/mkd_glr_enlg_bb84_thumb.png" />
         <p class="caption">
             <span class="caption-text">
                 <a class="reference internal" href="extended_nonlocal_games/enlg_bb84">

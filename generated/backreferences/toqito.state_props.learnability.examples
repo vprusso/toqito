@@ -3,7 +3,7 @@
 Examples using ``toqito.state_props.learnability``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-<div class="mkd-glr-thumbcontainer" tooltip="This example accompanies the &quot;The complexity of quantum state classification&quot; paper [@johnston2...">
+<div class="mkd-glr-thumbcontainer" tooltip="Explores k-learnability of quantum states, factor width of positive matrices, and k-incoherence...">
     <!--div class="figure align-default" id="id1"-->
         <img alt="Quantum classification, factor width, k-incoherence" src="quantum_states/images/thumb/mkd_glr_classification_thumb.png" />
         <p class="caption">

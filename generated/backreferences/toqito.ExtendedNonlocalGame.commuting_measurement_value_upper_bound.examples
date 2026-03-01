@@ -3,7 +3,7 @@
 Examples using ``toqito.ExtendedNonlocalGame.commuting_measurement_value_upper_bound``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-<div class="mkd-glr-thumbcontainer" tooltip="In this tutorial, we will model a quantum bit commitment protocol as an extended nonlocal game ...">
+<div class="mkd-glr-thumbcontainer" tooltip="Models a quantum bit commitment protocol as an extended nonlocal game to quantify Alice&#x27;s maxim...">
     <!--div class="figure align-default" id="id1"-->
         <img alt="Modeling Bit Commitment Binding Failure" src="extended_nonlocal_games/images/thumb/mkd_glr_bit_commitment_thumb.png" />
         <p class="caption">

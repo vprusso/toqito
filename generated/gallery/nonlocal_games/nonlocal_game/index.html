@@ -9034,12 +9034,11 @@
 to download the full example code</p>
 </div>
 <h1 id="nonlocal-games">Nonlocal games<a class="headerlink" href="#nonlocal-games" title="Permanent link">&para;</a></h1>
-<p>In this tutorial, we are going to cover the notion of a <em>nonlocal game</em>; a
-mathematical framework that abstractly models a physical system. The simplest
-instance of a nonlocal game involves two players, Alice and Bob, who are not
-allowed to communicate with each other once the game has started and who play
-cooperatively against an adversary referred to as the referee.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 10-279 -->
+<p>Covers the nonlocal game model where Alice and Bob cooperate against a referee
+without communication. Uses toqito to calculate classical, quantum, and
+non-signaling values for well-known games including CHSH, the FFL game, and
+games defined by binary constraint systems.</p>
+<!-- GENERATED FROM PYTHON SOURCE LINES 9-278 -->
 
 <p>A primary challenge that arises when studying these games is to determine the
 maximum probability with which Alice and Bob are able to achieve a winning
@@ -9275,16 +9274,16 @@ probabilities with which the questions are asked to Alice and Bob. As defined in
 the CHSH game, each of the four pairs
 <span class="arithmatex">\(\{(0, 0), (0, 1), (1, 0), (1, 1)\}\)</span> are all equally likely. We encode
 this in the matrix as follows.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 281-282 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 280-281 -->
 
 <p>Creating the probability matrix.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 282-286 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 281-285 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">prob_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span> <span class="o">/</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">4</span><span class="p">]])</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 287-295 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 286-294 -->
 
 <p>Next, we want to loop through all possible combinations of question and answer
 pairs and populate the <span class="arithmatex">\((a, b, x, y)^{th}\)</span> entry of that matrix with a
@@ -9293,7 +9292,7 @@ the winning condition is not satisfied for that particular choice of
 <span class="arithmatex">\(a, b, x,\)</span> and <span class="arithmatex">\(y\)</span>, we place a <span class="arithmatex">\(0\)</span> at that position.</p>
 <p>The following code performs this operation and places the appropriate entries
 in this matrix into the <code>pred_mat</code> variable.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 295-314 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 294-313 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Creating the predicate matrix.</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -9325,11 +9324,11 @@ in this matrix into the <code>pred_mat</code> variable.</p>
 <a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">        </span><span class="o">[[</span><span class="m">1</span>.,<span class="w"> </span><span class="m">1</span>.<span class="o">]</span>,
 <a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">         </span><span class="o">[</span><span class="m">1</span>.,<span class="w"> </span><span class="m">0</span>.<span class="o">]]]])</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 315-317 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 314-316 -->
 
 <p>Now that we have both <code>prob_mat</code> and <code>pred_mat</code> defined, we can
 use <code>|toqito⟩</code> to determine the lower bound on the quantum value.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 317-327 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 316-326 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
@@ -9343,7 +9342,7 @@ use <code>|toqito⟩</code> to determine the lower bound on the quantum value.</
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Maximum<span class="w"> </span>quantum<span class="w"> </span>value<span class="w"> </span>after<span class="w"> </span>multiple<span class="w"> </span>runs<span class="w"> </span>is:<span class="w"> </span><span class="m">0</span>.85
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 328-371 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 327-370 -->
 
 <p>In this case, we can see that the quantum value of the CHSH game is in fact
 attained as <span class="arithmatex">\(\cos^2(\pi/8) \approx 0.85355\)</span>.</p>
@@ -9379,7 +9378,7 @@ a \lor x = b \lor y.
 game is <span class="arithmatex">\(2/3\)</span> <sup id="fnref2:cleve2010consequences"><a class="footnote-ref" href="#fn:cleve2010consequences">1</a></sup>. We can verify this fact using <code>|toqito⟩</code>.
 The following example encodes the FFL game. We then calculate the classical
 value and calculate lower bounds on the quantum value of the FFL game.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 371-397 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 370-396 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
@@ -9410,7 +9409,7 @@ value and calculate lower bounds on the quantum value of the FFL game.</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Classical<span class="w"> </span>value:<span class="w"> </span><span class="m">0</span>.67
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>Quantum<span class="w"> </span>value<span class="w"> </span><span class="o">(</span>lower<span class="w"> </span>bound<span class="o">)</span>:<span class="w"> </span><span class="m">0</span>.67
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 398-443 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 397-442 -->
 
 <p>In this case, we obtained the correct quantum value of <span class="arithmatex">\(2/3\)</span>, however,
 the lower bound technique is not guaranteed to converge to the true quantum
@@ -9446,13 +9445,13 @@ variable <code>x_t</code>. The verifier accepts the answer if and only if:</p>
 v_1 \oplus v_2 = 0 \quad \text{and} \quad v_1 \oplus v_2 = 1
 \]</div>
 <p>In <code>|toqito⟩</code>, we can encode this as a BCS game as follows</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 443-469 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 442-468 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
 <a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.nonlocal_games</span><span class="w"> </span><span class="kn">import</span> <span class="n">NonlocalGame</span>
 <a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="c1"># mkdocs_gallery_thumbnail_path = &#39;figures/nonlocal_game.svg&#39;</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="n">mkdocs_gallery_thumbnail_path</span> <span class="o">=</span> <span class="s1">&#39;figures/nonlocal_game.svg&#39;</span>
 <a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="c1"># Define constraints c_1 and c_2.</span>
 <a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="n">c_1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 <a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="n">c_2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
@@ -9478,7 +9477,7 @@ v_1 \oplus v_2 = 0 \quad \text{and} \quad v_1 \oplus v_2 = 1
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Classical<span class="w"> </span>value:<span class="w"> </span><span class="m">0</span>.75
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>Maximum<span class="w"> </span>quantum<span class="w"> </span>value<span class="w"> </span>after<span class="w"> </span>multiple<span class="w"> </span>runs<span class="w"> </span>is:<span class="w"> </span><span class="m">0</span>.85
 </code></pre></div>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  23.638 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  22.963 seconds)</p>
 <div id="download_links"></div>
 
 <p><a class="md-button center" href="../nonlocal_game.py"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M256 32c0-17.7-14.3-32-32-32s-32 14.3-32 32v210.7l-41.4-41.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 242.7zM64 320c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64v-32c0-35.3-28.7-64-64-64h-46.9l-56.6 56.6c-31.2 31.2-81.9 31.2-113.1 0L110.9 320zm304 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48"/></svg></span> Download Python source code: nonlocal_game.py</a></p>

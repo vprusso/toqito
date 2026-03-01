@@ -8973,14 +8973,13 @@ describes how to merge code changes into <code>|toqito⟩</code>.</p>
 <li>Now, navigate to your local clone of the <code>|toqito⟩</code> repository as
     shown below.</li>
 </ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>toqito/
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">cd</span><span class="w"> </span>toqito/
 </code></pre></div>
 <ol>
-<li>Use <code>uv</code> as shown below in the <code>|toqito⟩</code> folder. This installs an
-    editable version of <code>|toqito⟩</code> along with the default development
-    tools.</li>
+<li>Use <code>uv</code> to install an editable version of <code>|toqito⟩</code> along with
+    the default development tools.</li>
 </ol>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>toqito/<span class="w"> </span>$<span class="w"> </span>uv<span class="w"> </span>sync
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>uv<span class="w"> </span>sync
 </code></pre></div>
 <p>You are now free to make the desired changes in your fork of <code>|toqito⟩</code>.</p>
 <h2 id="making-changes">Making Changes<a class="headerlink" href="#making-changes" title="Permanent link">&para;</a></h2>
@@ -9029,9 +9028,8 @@ describes how to merge code changes into <code>|toqito⟩</code>.</p>
 </ul>
 <h2 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h2>
 <p>A convenient way to verify if the installation procedure worked
-correctly, use [pytest]{.title-ref} in the <code>|toqito⟩</code> folder as shown
-below.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>toqito/<span class="w"> </span>$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>pytest
+correctly is to run <code>pytest</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>uv<span class="w"> </span>run<span class="w"> </span>pytest
 </code></pre></div>
 <p>The <code>pytest</code> module is used for testing and <code>pytest-cov</code> can be used to
 generate coverage reports locally. In order to run and <code>pytest</code>, you
@@ -9123,7 +9121,7 @@ get an idea of how to format the <code>bib</code> keys.</p>
 <h2 id="documentation">Documentation<a class="headerlink" href="#documentation" title="Permanent link">&para;</a></h2>
 <p>We use <code>sphinx</code> to build the documentation. Sync the docs dependency
 group first (<code>uv sync --group docs</code>), then run:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>toqito/docs$<span class="w"> </span>uv<span class="w"> </span>run<span class="w"> </span>make<span class="w"> </span>clean<span class="w"> </span>html
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>uv<span class="w"> </span>run<span class="w"> </span>make<span class="w"> </span>clean<span class="w"> </span>html
 </code></pre></div>
 <p>If you would prefer to decrease the amount of time taken by <code>sphinx</code> to
 build the documentation locally, use <code>make html</code> instead after the

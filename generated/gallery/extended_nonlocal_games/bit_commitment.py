@@ -1,11 +1,9 @@
 """# Modeling Bit Commitment Binding Failure
 
-In this tutorial, we will model a quantum bit commitment protocol as an
-extended nonlocal game where the "player" Alice attempts to cheat. Instead of
-calculating a cooperative winning probability, we will quantify Alice's maximum
-cheating probability. This allows us to provide a concrete illustration of the failure of the
-*binding* property, a key aspect of the famous Mayers-Lo-Chau (MLC) no-go
-theorem [@mayers1997unconditionally][@lo1997why].
+Models a quantum bit commitment protocol as an extended nonlocal game to
+quantify Alice's maximum cheating probability. Provides a concrete
+illustration of the failure of the binding property from the Mayers-Lo-Chau
+no-go theorem using toqito's SDP solvers.
 
 """
 
@@ -121,7 +119,7 @@ bc_binding_game = ExtendedNonlocalGame(bc_prob_mat, bc_pred_mat)
 q_val = bc_binding_game.commuting_measurement_value_upper_bound(k=1)
 
 print("Upper bound on the quantum value (Alice's cheating probability): ", np.around(q_val, decimals=5))
-# mkdocs_gallery_thumbnail_path = 'figures/logo.png'
+mkdocs_gallery_thumbnail_path = 'figures/logo.svg'
 
 # %%
 # ## Interpreting the Result

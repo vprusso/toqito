@@ -8812,13 +8812,11 @@
 to download the full example code</p>
 </div>
 <h1 id="modeling-bit-commitment-binding-failure">Modeling Bit Commitment Binding Failure<a class="headerlink" href="#modeling-bit-commitment-binding-failure" title="Permanent link">&para;</a></h1>
-<p>In this tutorial, we will model a quantum bit commitment protocol as an
-extended nonlocal game where the "player" Alice attempts to cheat. Instead of
-calculating a cooperative winning probability, we will quantify Alice's maximum
-cheating probability. This allows us to provide a concrete illustration of the failure of the
-<em>binding</em> property, a key aspect of the famous Mayers-Lo-Chau (MLC) no-go
-theorem <sup id="fnref:mayers1997unconditionally"><a class="footnote-ref" href="#fn:mayers1997unconditionally">1</a></sup><sup id="fnref:lo1997why"><a class="footnote-ref" href="#fn:lo1997why">2</a></sup>.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 13-83 -->
+<p>Models a quantum bit commitment protocol as an extended nonlocal game to
+quantify Alice's maximum cheating probability. Provides a concrete
+illustration of the failure of the binding property from the Mayers-Lo-Chau
+no-go theorem using toqito's SDP solvers.</p>
+<!-- GENERATED FROM PYTHON SOURCE LINES 11-81 -->
 
 <p>A bit commitment (BC) protocol is a cryptographic task involving two parties,
 Alice (the sender) and Bob (the receiver), which proceeds in two phases:</p>
@@ -8840,14 +8838,14 @@ Alice (the sender) and Bob (the receiver), which proceeds in two phases:</p>
   different bit during the <strong>Reveal Phase</strong>. If she committed to <span class="arithmatex">\(b=0\)</span>,
   she cannot successfully open the commitment as <span class="arithmatex">\(b=1\)</span>.</li>
 </ul>
-<p>The Mayers-Lo-Chau (MLC) no-go theorem <sup id="fnref2:mayers1997unconditionally"><a class="footnote-ref" href="#fn:mayers1997unconditionally">1</a></sup><sup id="fnref2:lo1997why"><a class="footnote-ref" href="#fn:lo1997why">2</a></sup>
+<p>The Mayers-Lo-Chau (MLC) no-go theorem <sup id="fnref:mayers1997unconditionally"><a class="footnote-ref" href="#fn:mayers1997unconditionally">1</a></sup><sup id="fnref:lo1997why"><a class="footnote-ref" href="#fn:lo1997why">2</a></sup>
 proves that no quantum protocol can be both perfectly hiding and binding. Here,
 we will use the <a class="autorefs autorefs-internal" title="            ExtendedNonlocalGame" href="../../../../reference/toqito/nonlocal_games/extended_nonlocal_game/#toqito.nonlocal_games.extended_nonlocal_game.ExtendedNonlocalGame"><code>ExtendedNonlocalGame</code></a> framework not to prove the full
 theorem in its generality, but to illustrate the failure of
 the binding property. We will model a simplified, single-shot protocol to make
 the abstract threat of cheating concrete and quantifiable.</p>
 <p>The core of this impossibility proof lies in Alice's ability to use an
-Einstein-Podolsky-Rosen (EPR) type of attack <sup id="fnref3:mayers1997unconditionally"><a class="footnote-ref" href="#fn:mayers1997unconditionally">1</a></sup><sup id="fnref3:lo1997why"><a class="footnote-ref" href="#fn:lo1997why">2</a></sup>: she prepares an entangled state
+Einstein-Podolsky-Rosen (EPR) type of attack <sup id="fnref2:mayers1997unconditionally"><a class="footnote-ref" href="#fn:mayers1997unconditionally">1</a></sup><sup id="fnref2:lo1997why"><a class="footnote-ref" href="#fn:lo1997why">2</a></sup>: she prepares an entangled state
 and shares one part with Bob, keeping the other. This entanglement allows her
 to delay her decision and "steer" the outcome to her advantage later on.</p>
 <p>The failure of binding property occurs when the protocol is <em>hiding</em> but not <em>binding</em>,
@@ -8891,7 +8889,7 @@ quantum key distribution. The power of the no-go theorem is that the protocol
 would remain insecure regardless of the specific orthogonal states Bob uses for
 his verification.</p>
 <p>Now, let's translate this game into code.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 83-113 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 81-111 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
@@ -8923,10 +8921,10 @@ his verification.</p>
 <a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="c1"># If Referee&#39;s challenge is y=1 (b_in=1), the winning operator is proj_p.</span>
 <a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="n">bc_pred_mat</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">proj_p</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 114-116 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 112-114 -->
 
 <p>Calculating Alice's Maximum Cheating Probability</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 116-126 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 114-124 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.nonlocal_games.extended_nonlocal_game</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExtendedNonlocalGame</span>
 <a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
@@ -8936,12 +8934,12 @@ his verification.</p>
 <a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">q_val</span> <span class="o">=</span> <span class="n">bc_binding_game</span><span class="o">.</span><span class="n">commuting_measurement_value_upper_bound</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
 <a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Upper bound on the quantum value (Alice&#39;s cheating probability): &quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">q_val</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
-<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="c1"># mkdocs_gallery_thumbnail_path = &#39;figures/logo.png&#39;</span>
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="n">mkdocs_gallery_thumbnail_path</span> <span class="o">=</span> <span class="s1">&#39;figures/logo.svg&#39;</span>
 </code></pre></div>
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Upper<span class="w"> </span>bound<span class="w"> </span>on<span class="w"> </span>the<span class="w"> </span>quantum<span class="w"> </span>value<span class="w"> </span><span class="o">(</span>Alice<span class="err">&#39;</span>s<span class="w"> </span>cheating<span class="w"> </span>probability<span class="o">)</span>:<span class="w">  </span><span class="m">0</span>.85355
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 127-163 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 125-161 -->
 
 <h2 id="interpreting-the-result">Interpreting the Result<a class="headerlink" href="#interpreting-the-result" title="Permanent link">&para;</a></h2>
 <p>The value returned by the solver, <span class="arithmatex">\(\approx 0.85355\)</span>, is not arbitrary. It represents
@@ -8970,7 +8968,7 @@ cannot gain any information at all about the bit before the reveal phase), Alice
 cheating strategy can succeed with <span class="arithmatex">\(100\)</span>% probability. This example demonstrates the
 fragility of the binding property, which worsens to a total failure in the
 perfectly hiding limit.</p>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  0.587 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  0.589 seconds)</p>
 <div id="download_links"></div>
 
 <p><a class="md-button center" href="../bit_commitment.py"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M256 32c0-17.7-14.3-32-32-32s-32 14.3-32 32v210.7l-41.4-41.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 242.7zM64 320c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64v-32c0-35.3-28.7-64-64-64h-46.9l-56.6 56.6c-31.2 31.2-81.9 31.2-113.1 0L110.9 320zm304 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48"/></svg></span> Download Python source code: bit_commitment.py</a></p>
@@ -8980,10 +8978,10 @@ perfectly hiding limit.</p>
 <hr />
 <ol>
 <li id="fn:mayers1997unconditionally">
-<p>Dominic Mayers. Unconditionally secure quantum bit commitment is impossible. <em>Phys. Rev. Lett.</em>, 78:3414–3417, Apr 1997. URL: <a href="https://link.aps.org/doi/10.1103/PhysRevLett.78.3414">https://link.aps.org/doi/10.1103/PhysRevLett.78.3414</a>, <a href="https://doi.org/10.1103/PhysRevLett.78.3414">doi:10.1103/PhysRevLett.78.3414</a>.&#160;<a class="footnote-backref" href="#fnref:mayers1997unconditionally" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:mayers1997unconditionally" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:mayers1997unconditionally" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>Dominic Mayers. Unconditionally secure quantum bit commitment is impossible. <em>Phys. Rev. Lett.</em>, 78:3414–3417, Apr 1997. URL: <a href="https://link.aps.org/doi/10.1103/PhysRevLett.78.3414">https://link.aps.org/doi/10.1103/PhysRevLett.78.3414</a>, <a href="https://doi.org/10.1103/PhysRevLett.78.3414">doi:10.1103/PhysRevLett.78.3414</a>.&#160;<a class="footnote-backref" href="#fnref:mayers1997unconditionally" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:mayers1997unconditionally" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 <li id="fn:lo1997why">
-<p>Hoi-Kwong Lo and H. F. Chau. Why quantum bit commitment and ideal quantum coin tossing are impossible. 1997. <a href="https://arxiv.org/abs/quant-ph/9711065">arXiv:quant-ph/9711065</a>.&#160;<a class="footnote-backref" href="#fnref:lo1997why" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:lo1997why" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:lo1997why" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<p>Hoi-Kwong Lo and H. F. Chau. Why quantum bit commitment and ideal quantum coin tossing are impossible. 1997. <a href="https://arxiv.org/abs/quant-ph/9711065">arXiv:quant-ph/9711065</a>.&#160;<a class="footnote-backref" href="#fnref:lo1997why" title="Jump back to footnote 2 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:lo1997why" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>

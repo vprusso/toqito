@@ -1,8 +1,8 @@
 """# The CHSH extended nonlocal game
 
-Following our analysis of the BB84 game, let us now define another important
-extended nonlocal game, $G_{CHSH}$. This game is defined by a winning
-condition reminiscent of the standard CHSH nonlocal game.
+Constructs the CHSH extended nonlocal game and calculates its unentangled,
+standard quantum, and non-signaling values using toqito. Compares the
+properties of this game to the BB84 extended nonlocal game.
 
 """
 
@@ -141,7 +141,7 @@ chsh = ExtendedNonlocalGame(chsh_prob_mat, chsh_pred_mat)
 
 # The non-signaling value is 3/4 = 0.75
 print("The non-signaling value is ", np.around(chsh.nonsignaling_value(), decimals=2))
-# mkdocs_gallery_thumbnail_path = 'figures/logo.png'
+mkdocs_gallery_thumbnail_path = 'figures/logo.svg'
 
 # %%
 # As we know that $\omega(G_{CHSH}) = \omega_{ns}(G_{CHSH}) = 3/4$ and that

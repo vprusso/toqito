@@ -1,8 +1,9 @@
 """# Calculating the quantum and classical value of a two-player XOR game
 
-In this tutorial, we will cover the concept of an *XOR game*. We will also
-showcase how the `|toqito⟩` software package can be used to calculate the
-classical and quantum value of a given XOR game.
+Covers XOR games, a special class of nonlocal games where the winning condition
+depends only on the XOR of Alice and Bob's outputs. Uses toqito to calculate
+classical and quantum values for the CHSH game and odd-cycle games via
+semidefinite programming.
 """
 
 # %%
@@ -318,7 +319,7 @@ pred_mat = np.array([[0, 1, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 0, 1, 0], [0, 0, 0
 odd_cycle = XORGame(prob_mat, pred_mat)
 print(f"The classical value of games is: {np.around(odd_cycle.classical_value(), decimals=2)}")
 print(f"The quantum value of games is: {np.around(odd_cycle.quantum_value(), decimals=2)}")
-# mkdocs_gallery_thumbnail_path = 'figures/logo.png'
+mkdocs_gallery_thumbnail_path = 'figures/logo.svg'
 
 # %%
 # Note that the odd cycle game is another example of an XOR game where the

@@ -8834,13 +8834,11 @@
 to download the full example code</p>
 </div>
 <h1 id="quantum-classification-factor-width-k-incoherence">Quantum classification, factor width, k-incoherence<a class="headerlink" href="#quantum-classification-factor-width-k-incoherence" title="Permanent link">&para;</a></h1>
-<p>This example accompanies the "The complexity of quantum state classification"
-paper <sup id="fnref:johnston2025complexity"><a class="footnote-ref" href="#fn:johnston2025complexity">1</a></sup>.</p>
-<p>In this tutorial, we will cover the concepts of the so-called "learnability" of
-quantum states along with related settings of "factor width" and the notion of
-<span class="arithmatex">\(k\)</span>-incoherence of a matrix. More details can be found in the
-aforementioned paper.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 13-28 -->
+<p>Explores k-learnability of quantum states, factor width of positive matrices,
+and k-incoherence. Accompanies the paper on the complexity of quantum state
+classification and uses toqito to verify theoretical bounds via semidefinite
+programming.</p>
+<!-- GENERATED FROM PYTHON SOURCE LINES 10-25 -->
 
 <h2 id="learnability-of-quantum-states">Learnability of quantum states<a class="headerlink" href="#learnability-of-quantum-states" title="Permanent link">&para;</a></h2>
 <p>To illustrate <span class="arithmatex">\(k\)</span>-learnability, consider the following generalization
@@ -8854,7 +8852,7 @@ of the trine states to four states in three dimensions, called the
 \ket{\psi_4} = \frac{1}{\sqrt{3}} (-\ket{0} + \ket{1} - \ket{2}).
 \end{aligned}
 \]</div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 28-42 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 25-39 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
@@ -8873,11 +8871,11 @@ of the trine states to four states in three dimensions, called the
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="o">[</span>array<span class="o">([</span><span class="m">0</span>.57735027+0.j,<span class="w"> </span><span class="m">0</span>.57735027+0.j,<span class="w"> </span><span class="m">0</span>.57735027+0.j<span class="o">])</span>,<span class="w"> </span>array<span class="o">([</span><span class="w"> </span><span class="m">0</span>.57735027+0.j,<span class="w"> </span>-0.57735027+0.j,<span class="w"> </span>-0.57735027+0.j<span class="o">])</span>,<span class="w"> </span>array<span class="o">([</span>-0.57735027+0.j,<span class="w"> </span>-0.57735027+0.j,<span class="w">  </span><span class="m">0</span>.57735027+0.j<span class="o">])</span>,<span class="w"> </span>array<span class="o">([</span>-0.57735027+0.j,<span class="w">  </span><span class="m">0</span>.57735027+0.j,<span class="w"> </span>-0.57735027+0.j<span class="o">])]</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 43-45 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 40-42 -->
 
 <p>This set of states is <span class="arithmatex">\(2\)</span>-learnable, upon receiving one of them, one
 can always guess two states from which it was selected without error.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 45-53 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 42-50 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">learnability</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
@@ -8888,7 +8886,7 @@ can always guess two states from which it was selected without error.</p>
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Average<span class="w"> </span>classification<span class="w"> </span>error<span class="w"> </span><span class="o">(</span><span class="nv">k</span><span class="o">=</span><span class="m">2</span><span class="o">)</span>:<span class="w"> </span><span class="m">8</span>.148409456433525e-06
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 54-68 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 51-65 -->
 
 <p>Indeed, can be accomplished using the following POVM <span class="arithmatex">\(M_{i,j} =
 \frac{1}{2} \ket{\phi_{i,j}} \bra{\phi_{i,j}}\)</span>, where</p>
@@ -8902,7 +8900,7 @@ can always guess two states from which it was selected without error.</p>
 \ket{\phi_{3,4}} = \frac{1}{\sqrt{2}}(\ket{1} - \ket{2}).
 \end{aligned}
 \]</div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 68-96 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 65-93 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">povm_residual</span><span class="p">(</span><span class="n">states</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">povm</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
 <a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the maximum POVM reconstruction and support violations.&quot;&quot;&quot;</span>
@@ -8936,10 +8934,10 @@ can always guess two states from which it was selected without error.</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>max<span class="p">|</span>Σ<span class="w"> </span>M_S<span class="w"> </span>-<span class="w"> </span>I<span class="p">|</span><span class="w">             </span>:<span class="w"> </span><span class="m">2</span>.22e-16
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>max<span class="p">|</span>⟨ψ_i<span class="p">|</span>M_S<span class="p">|</span>ψ_i⟩<span class="p">|</span><span class="w"> </span><span class="o">(</span>i∉S<span class="o">)</span><span class="w">   </span>:<span class="w"> </span><span class="m">0</span>.00e+00
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 97-98 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 94-95 -->
 
 <p>By contrast however, these states are not <span class="arithmatex">\(k=1\)</span>-learnable:</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 98-103 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 95-100 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">states</span> <span class="o">=</span> <span class="n">tetrahedral_states</span><span class="p">()</span>
 <a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">learnability_result</span> <span class="o">=</span> <span class="n">learnability</span><span class="p">(</span><span class="n">states</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -8948,11 +8946,11 @@ can always guess two states from which it was selected without error.</p>
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Average<span class="w"> </span>classification<span class="w"> </span>error<span class="w"> </span><span class="o">(</span><span class="nv">k</span><span class="o">=</span><span class="m">1</span><span class="o">)</span>:<span class="w"> </span><span class="m">0</span>.25000013200130955
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 104-132 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 101-129 -->
 
 <h2 id="k-incoherence">k-Incoherence<a class="headerlink" href="#k-incoherence" title="Permanent link">&para;</a></h2>
 <p>The notion of <span class="arithmatex">\(k\)</span>-incoherence comes from
-<sup id="fnref:johnston2022absolutely"><a class="footnote-ref" href="#fn:johnston2022absolutely">2</a></sup>. For a positive integers, <span class="arithmatex">\(k\)</span> and
+<sup id="fnref:johnston2022absolutely"><a class="footnote-ref" href="#fn:johnston2022absolutely">1</a></sup>. For a positive integers, <span class="arithmatex">\(k\)</span> and
 <span class="arithmatex">\(n\)</span>, the matrix <span class="arithmatex">\(X \in \text{Pos}(\mathbb{C}^n)\)</span> is called
 <span class="arithmatex">\(k\)</span>-incoherent if there exists a positive integer <span class="arithmatex">\(m\)</span>, a set
 <span class="arithmatex">\(S = \{|\psi_0\rangle, |\psi_1\rangle,\ldots, |\psi_{m-1}\rangle\}
@@ -8972,7 +8970,7 @@ k-incoherent. It returns True if <code>mat</code> is k-incoherent and False if
 \end{pmatrix}
 \]</div>
 <p>Indeed, one can verify this numerically using the <a class="autorefs autorefs-internal" title="            is_k_incoherent" href="../../../../reference/toqito/matrix_props/is_k_incoherent/#toqito.matrix_props.is_k_incoherent.is_k_incoherent"><code>is_k_incoherent</code></a>.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 132-137 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 129-134 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_k_incoherent</span>
 <a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
@@ -8982,17 +8980,17 @@ k-incoherent. It returns True if <code>mat</code> is k-incoherent and False if
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>True
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 138-149 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 135-146 -->
 
 <h2 id="factor-width">Factor width<a class="headerlink" href="#factor-width" title="Permanent link">&para;</a></h2>
 <p>Another closely related definition to <span class="arithmatex">\(k\)</span>-incoherence is that of
-factor width <sup id="fnref:barioli2003maximal"><a class="footnote-ref" href="#fn:barioli2003maximal">3</a></sup><sup id="fnref:johnston2025factor"><a class="footnote-ref" href="#fn:johnston2025factor">4</a></sup><sup id="fnref:boman2005factor"><a class="footnote-ref" href="#fn:boman2005factor">5</a></sup> below.</p>
+factor width <sup id="fnref:barioli2003maximal"><a class="footnote-ref" href="#fn:barioli2003maximal">2</a></sup><sup id="fnref:johnston2025factor"><a class="footnote-ref" href="#fn:johnston2025factor">3</a></sup><sup id="fnref:boman2005factor"><a class="footnote-ref" href="#fn:boman2005factor">4</a></sup> below.</p>
 <p>Let <span class="arithmatex">\(k\)</span> be a positive integer. The factor width of a positive
 semidefinite matrix <span class="arithmatex">\(X\)</span> is the smallest <span class="arithmatex">\(k\)</span> such that it is
 <span class="arithmatex">\(k\)</span>-incoherent.</p>
 <p>For example, the matrix <span class="arithmatex">\(\operatorname{diag}(1, 1, 0)\)</span> has factor width
 at most <span class="arithmatex">\(1\)</span>.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 149-157 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 146-154 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">factor_width</span>
 <a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
@@ -9003,11 +9001,11 @@ at most <span class="arithmatex">\(1\)</span>.</p>
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>True
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 158-160 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 155-157 -->
 
 <p>Conversely, the rank-one matrix <span class="arithmatex">\(\frac{1}{2}\begin{pmatrix} 1 &amp; 1 \\ 1
 &amp; 1 \end{pmatrix}\)</span> is not <span class="arithmatex">\(1\)</span>-factorable.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 160-165 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 157-162 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">hadamard</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
 <a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">result</span> <span class="o">=</span> <span class="n">factor_width</span><span class="p">(</span><span class="n">hadamard</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
@@ -9016,9 +9014,9 @@ at most <span class="arithmatex">\(1\)</span>.</p>
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>False
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 166-228 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 163-225 -->
 
-<p>This example comes directly from <sup id="fnref2:johnston2025factor"><a class="footnote-ref" href="#fn:johnston2025factor">4</a></sup>. Suppose we want to determine the factor width of
+<p>This example comes directly from <sup id="fnref2:johnston2025factor"><a class="footnote-ref" href="#fn:johnston2025factor">3</a></sup>. Suppose we want to determine the factor width of
 the rank-<span class="arithmatex">\(3\)</span> matrix</p>
 <div class="arithmatex">\[
 M = \begin{bmatrix}
@@ -9071,7 +9069,7 @@ M_1 = \begin{bmatrix}
 \end{bmatrix},
 \]</div>
 <p>so <span class="arithmatex">\(M\)</span> is <span class="arithmatex">\(3\)</span>-incoherent. For example, we can verify this numerically using the <a class="autorefs autorefs-internal" title="            factor_width" href="../../../../reference/toqito/matrix_props/factor_width/#toqito.matrix_props.factor_width.factor_width"><code>factor_width</code></a>.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 228-240 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 225-237 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="n">mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
 <a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>    <span class="p">[</span>
@@ -9095,7 +9093,7 @@ M_1 = \begin{bmatrix}
 <a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="w"> </span><span class="o">[</span>-9.99999983e-01+0.j<span class="w">  </span><span class="m">9</span>.99999984e-01+0.j<span class="w"> </span>-9.99999985e-01+0.j
 <a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="w">   </span><span class="m">1</span>.99999997e+00+0.j<span class="o">]]</span>
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 241-265 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 238-262 -->
 
 <p>To similarly determine whether or not <span class="arithmatex">\(M\)</span> is <span class="arithmatex">\(2\)</span>-incoherent, we proceed further with the recursive
 construction by computing</p>
@@ -9115,16 +9113,16 @@ M = c_1 v_1 v_1^* + c_2 v_2 v_2^* + c_3 v_3 v_3^* + c_4 v_4 v_4^*.
 <p>It is straightforward to use semidefinite programming (or even just solve by hand in this small example) to see
 that no such scalars exist, so <span class="arithmatex">\(X\)</span> is not <span class="arithmatex">\(2\)</span>-incoherent. It follows that <span class="arithmatex">\(X\)</span> has factor width
 <span class="arithmatex">\(3\)</span>.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 265-268 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 262-265 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">result</span> <span class="o">=</span> <span class="n">factor_width</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="s2">&quot;feasible&quot;</span><span class="p">])</span>
-<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="c1"># mkdocs_gallery_thumbnail_path = &#39;figures/logo.png&#39;</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="n">mkdocs_gallery_thumbnail_path</span> <span class="o">=</span> <span class="s1">&#39;figures/classification_tetrahedron.png&#39;</span>
 </code></pre></div>
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>False
 </code></pre></div>
-<p><strong>Total running time of the script:</strong> ( 0 minutes  0.227 seconds)</p>
+<p><strong>Total running time of the script:</strong> ( 0 minutes  0.226 seconds)</p>
 <div id="download_links"></div>
 
 <p><a class="md-button center" href="../classification.py"><span class="twemoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M256 32c0-17.7-14.3-32-32-32s-32 14.3-32 32v210.7l-41.4-41.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l96 96c12.5 12.5 32.8 12.5 45.3 0l96-96c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 242.7zM64 320c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64h320c35.3 0 64-28.7 64-64v-32c0-35.3-28.7-64-64-64h-46.9l-56.6 56.6c-31.2 31.2-81.9 31.2-113.1 0L110.9 320zm304 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48"/></svg></span> Download Python source code: classification.py</a></p>
@@ -9133,20 +9131,17 @@ that no such scalars exist, so <span class="arithmatex">\(X\)</span> is not <spa
 <div class="footnote">
 <hr />
 <ol>
-<li id="fn:johnston2025complexity">
-<p>Nathaniel Johnston, Benjamin Lovitz, Vincent Russo, and Jamie Sikora. The complexity of quantum state classification. 2025. <a href="https://arxiv.org/abs/X">arXiv:X</a>.&#160;<a class="footnote-backref" href="#fnref:johnston2025complexity" title="Jump back to footnote 1 in the text">&#8617;</a></p>
-</li>
 <li id="fn:johnston2022absolutely">
-<p>Nathaniel Johnston, Shirin Moein, Rajesh Pereira, and Sarah Plosker. Absolutely k-incoherent quantum states and spectral inequalities for the factor width of a matrix. <em>Physical Review A</em>, 106(5):052417, 2022.&#160;<a class="footnote-backref" href="#fnref:johnston2022absolutely" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+<p>Nathaniel Johnston, Shirin Moein, Rajesh Pereira, and Sarah Plosker. Absolutely k-incoherent quantum states and spectral inequalities for the factor width of a matrix. <em>Physical Review A</em>, 106(5):052417, 2022.&#160;<a class="footnote-backref" href="#fnref:johnston2022absolutely" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 <li id="fn:barioli2003maximal">
-<p>Francesco Barioli and Abraham Berman. The maximal CP-rank of rank <span class="arithmatex">\(k\)</span> completely positive matrices. <em>Linear Algebra and its Applications</em>, 363:17–33, 2003. <a href="https://doi.org/10.1016/S0024-3795(02)00250-1">doi:10.1016/S0024-3795(02)00250-1</a>.&#160;<a class="footnote-backref" href="#fnref:barioli2003maximal" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+<p>Francesco Barioli and Abraham Berman. The maximal CP-rank of rank <span class="arithmatex">\(k\)</span> completely positive matrices. <em>Linear Algebra and its Applications</em>, 363:17–33, 2003. <a href="https://doi.org/10.1016/S0024-3795(02)00250-1">doi:10.1016/S0024-3795(02)00250-1</a>.&#160;<a class="footnote-backref" href="#fnref:barioli2003maximal" title="Jump back to footnote 2 in the text">&#8617;</a></p>
 </li>
 <li id="fn:johnston2025factor">
-<p>Nathaniel Johnston, Shirin Moein, and Sarah Plosker. The factor width rank of a matrix. <em>Linear Algebra and its Applications</em>, 716:32–59, 2025. <a href="https://doi.org/10.1016/j.laa.2025.03.016">doi:10.1016/j.laa.2025.03.016</a>.&#160;<a class="footnote-backref" href="#fnref:johnston2025factor" title="Jump back to footnote 4 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:johnston2025factor" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+<p>Nathaniel Johnston, Shirin Moein, and Sarah Plosker. The factor width rank of a matrix. <em>Linear Algebra and its Applications</em>, 716:32–59, 2025. <a href="https://doi.org/10.1016/j.laa.2025.03.016">doi:10.1016/j.laa.2025.03.016</a>.&#160;<a class="footnote-backref" href="#fnref:johnston2025factor" title="Jump back to footnote 3 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:johnston2025factor" title="Jump back to footnote 3 in the text">&#8617;</a></p>
 </li>
 <li id="fn:boman2005factor">
-<p>Erik G Boman, Doron Chen, Ojas Parekh, and Sivan Toledo. On factor width and symmetric H-matrices. <em>Linear algebra and its applications</em>, 405:239–248, 2005. <a href="https://doi.org/10.1016/j.laa.2005.03.029">doi:10.1016/j.laa.2005.03.029</a>.&#160;<a class="footnote-backref" href="#fnref:boman2005factor" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+<p>Erik G Boman, Doron Chen, Ojas Parekh, and Sivan Toledo. On factor width and symmetric H-matrices. <em>Linear algebra and its applications</em>, 405:239–248, 2005. <a href="https://doi.org/10.1016/j.laa.2005.03.029">doi:10.1016/j.laa.2005.03.029</a>.&#160;<a class="footnote-backref" href="#fnref:boman2005factor" title="Jump back to footnote 4 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>

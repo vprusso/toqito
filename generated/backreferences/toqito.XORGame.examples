@@ -3,7 +3,7 @@
 Examples using ``toqito.XORGame``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-<div class="mkd-glr-thumbcontainer" tooltip="In this tutorial, we will cover the concept of an *XOR game*. We will also showcase how the |to...">
+<div class="mkd-glr-thumbcontainer" tooltip="Covers XOR games, a special class of nonlocal games where the winning condition depends only on...">
     <!--div class="figure align-default" id="id1"-->
         <img alt="Calculating the quantum and classical value of a two-player XOR game" src="nonlocal_games/images/thumb/mkd_glr_xor_quantum_value_thumb.png" />
         <p class="caption">

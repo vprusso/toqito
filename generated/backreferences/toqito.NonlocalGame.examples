@@ -3,9 +3,9 @@
 Examples using ``toqito.NonlocalGame``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-<div class="mkd-glr-thumbcontainer" tooltip="In this tutorial, we are going to cover the notion of a *nonlocal game*; a mathematical framewo...">
+<div class="mkd-glr-thumbcontainer" tooltip="Covers the nonlocal game model where Alice and Bob cooperate against a referee without communic...">
     <!--div class="figure align-default" id="id1"-->
-        <img alt="Nonlocal games" src="nonlocal_games/images/thumb/mkd_glr_nonlocal_game_thumb.svg" />
+        <img alt="Nonlocal games" src="nonlocal_games/images/thumb/mkd_glr_nonlocal_game_thumb.png" />
         <p class="caption">
             <span class="caption-text">
                 <a class="reference internal" href="nonlocal_games/nonlocal_game">

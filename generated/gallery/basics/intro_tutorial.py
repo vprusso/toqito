@@ -1,8 +1,9 @@
 """# Introductory Tutorial
 
-This tutorial illustrates the basics of how to use `|toqito⟩`. This will covers how to
-instantiate and use the fundamental objects that `|toqito⟩` provides; namely
-quantum states, channels, and measurements.
+Learn the basics of toqito: how to create and manipulate quantum states,
+channels, and measurements. Covers constructing common states like Bell and
+Werner states, applying quantum channels, and checking properties such as
+entanglement and PPT.
 """
 # %%
 # This is an introduction to the functionality in `|toqito⟩` and is not meant to serve as an
@@ -38,7 +39,7 @@ quantum states, channels, and measurements.
 
 from toqito.matrices import standard_basis
 
-# mkdocs_gallery_thumbnail_path = 'figures/logo.png'
+mkdocs_gallery_thumbnail_path = 'figures/logo.svg'
 # |0>
 standard_basis(2)[0]
 

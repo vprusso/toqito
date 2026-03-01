@@ -8824,20 +8824,18 @@
 to download the full example code</p>
 </div>
 <h1 id="antidistinguishability-of-circulant-states-and-the-eigenvalue-criterion">Antidistinguishability of Circulant States and the Eigenvalue Criterion<a class="headerlink" href="#antidistinguishability-of-circulant-states-and-the-eigenvalue-criterion" title="Permanent link">&para;</a></h1>
-<p>In this tutorial, we investigate the antidistinguishability of a special
-class of quantum states known as circulant states. We will numerically verify a
-necessary and sufficient condition based on the eigenvalues of the
-states' Gram matrix, as presented in the paper by Johnston et al.
-<sup id="fnref:johnston2025tight"><a class="footnote-ref" href="#fn:johnston2025tight">1</a></sup>.</p>
-<p>This tutorial builds upon the concepts introduced in the <a href="../state_exclusion">Quantum state exclusion</a> tutorial.</p>
-<!-- GENERATED FROM PYTHON SOURCE LINES 13-50 -->
+<p>Investigates antidistinguishability of circulant quantum states by numerically
+verifying a necessary and sufficient eigenvalue condition on the Gram matrix.
+Builds on the state exclusion tutorial and accompanies the paper by Johnston
+et al. on tight bounds for antidistinguishability.</p>
+<!-- GENERATED FROM PYTHON SOURCE LINES 10-47 -->
 
 <h2 id="eigenvalue-criterion-for-circulant-states">Eigenvalue Criterion for Circulant States<a class="headerlink" href="#eigenvalue-criterion-for-circulant-states" title="Permanent link">&para;</a></h2>
 <p>A set of <span class="arithmatex">\(n\)</span> pure states is called <em>circulant</em> if its Gram matrix is
 circulant. A matrix is circulant if each of its rows is a cyclic shift of the
 row above it. Such sets of states have a high degree of symmetry and appear
 in various quantum information contexts.</p>
-<p>A key result from (Theorem 5.1) <sup id="fnref2:johnston2025tight"><a class="footnote-ref" href="#fn:johnston2025tight">1</a></sup> provides a
+<p>A key result from (Theorem 5.1) <sup id="fnref:johnston2025tight"><a class="footnote-ref" href="#fn:johnston2025tight">1</a></sup> provides a
 simple and exact criterion for determining if a circulant set is
 antidistinguishable, based solely on the eigenvalues of its Gram matrix.</p>
 <p>The theorem states that a set of <span class="arithmatex">\(n\)</span> states with a circulant Gram
@@ -8864,7 +8862,7 @@ verify this equivalence.
     <a class="autorefs autorefs-internal" title="            is_antidistinguishable" href="../../../../reference/toqito/state_props/is_antidistinguishable/#toqito.state_props.is_antidistinguishable.is_antidistinguishable"><code>is_antidistinguishable</code></a> to directly verify the property.</li>
 <li>Confirm that the analytical and numerical checks yield the same conclusion.</li>
 </ol>
-<!-- GENERATED FROM PYTHON SOURCE LINES 50-101 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 47-98 -->
 
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
@@ -8914,7 +8912,7 @@ verify this equivalence.
 <a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">------------------------------------------------------&quot;</span><span class="p">)</span>
 <a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Do the analytical and numerical results agree? </span><span class="si">{</span><span class="n">analytical_is_ad</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">numerical_is_ad</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;------------------------------------------------------&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a><span class="c1"># mkdocs_gallery_thumbnail_path = &#39;figures/logo.png&#39;</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a><span class="n">mkdocs_gallery_thumbnail_path</span> <span class="o">=</span> <span class="s1">&#39;figures/logo.svg&#39;</span>
 </code></pre></div>
 <p class="mkd-glr-script-out">Out:</p>
 <div class="mkd-glr-script-out-disp highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Generating<span class="w"> </span>a<span class="w"> </span>random<span class="w"> </span>5x5<span class="w"> </span>circulant<span class="w"> </span>Gram<span class="w"> </span>matrix<span class="w"> </span><span class="o">(</span><span class="nv">seed</span><span class="o">=</span><span class="m">42</span><span class="o">)</span>...
@@ -8932,11 +8930,11 @@ verify this equivalence.
 <a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>Do<span class="w"> </span>the<span class="w"> </span>analytical<span class="w"> </span>and<span class="w"> </span>numerical<span class="w"> </span>results<span class="w"> </span>agree?<span class="w"> </span>True
 <a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>------------------------------------------------------
 </code></pre></div>
-<!-- GENERATED FROM PYTHON SOURCE LINES 102-107 -->
+<!-- GENERATED FROM PYTHON SOURCE LINES 99-104 -->
 
 <p>The results from both the analytical eigenvalue criterion and the numerical
 check using <code>|toqito⟩</code>'s helper function agree, providing a concrete verification of Theorem 5.1 from
-<sup id="fnref3:johnston2025tight"><a class="footnote-ref" href="#fn:johnston2025tight">1</a></sup>. This demonstrates how a deep theoretical
+<sup id="fnref2:johnston2025tight"><a class="footnote-ref" href="#fn:johnston2025tight">1</a></sup>. This demonstrates how a deep theoretical
 result can provide a powerful and efficient shortcut for a problem that would
 otherwise require a more computationally intensive optimization.</p>
 <p><strong>Total running time of the script:</strong> ( 0 minutes  0.021 seconds)</p>
@@ -8949,7 +8947,7 @@ otherwise require a more computationally intensive optimization.</p>
 <hr />
 <ol>
 <li id="fn:johnston2025tight">
-<p>Nathaniel Johnston, Vincent Russo, and Jamie Sikora. Tight bounds for antidistinguishability and circulant sets of pure quantum states. <em>Quantum</em>, 9:1622, 2025.&#160;<a class="footnote-backref" href="#fnref:johnston2025tight" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:johnston2025tight" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref3:johnston2025tight" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+<p>Nathaniel Johnston, Vincent Russo, and Jamie Sikora. Tight bounds for antidistinguishability and circulant sets of pure quantum states. <em>Quantum</em>, 9:1622, 2025.&#160;<a class="footnote-backref" href="#fnref:johnston2025tight" title="Jump back to footnote 1 in the text">&#8617;</a><a class="footnote-backref" href="#fnref2:johnston2025tight" title="Jump back to footnote 1 in the text">&#8617;</a></p>
 </li>
 </ol>
 </div>

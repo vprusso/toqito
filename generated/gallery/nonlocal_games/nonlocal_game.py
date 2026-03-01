@@ -1,10 +1,9 @@
 """# Nonlocal games
 
-In this tutorial, we are going to cover the notion of a *nonlocal game*; a
-mathematical framework that abstractly models a physical system. The simplest
-instance of a nonlocal game involves two players, Alice and Bob, who are not
-allowed to communicate with each other once the game has started and who play
-cooperatively against an adversary referred to as the referee.
+Covers the nonlocal game model where Alice and Bob cooperate against a referee
+without communication. Uses toqito to calculate classical, quantum, and
+non-signaling values for well-known games including CHSH, the FFL game, and
+games defined by binary constraint systems.
 """
 # %%
 # A primary challenge that arises when studying these games is to determine the
@@ -444,7 +443,7 @@ import numpy as np
 
 from toqito.nonlocal_games import NonlocalGame
 
-# mkdocs_gallery_thumbnail_path = 'figures/nonlocal_game.svg'
+mkdocs_gallery_thumbnail_path = 'figures/nonlocal_game.svg'
 # Define constraints c_1 and c_2.
 c_1 = np.zeros((2, 2))
 c_2 = np.zeros((2, 2))

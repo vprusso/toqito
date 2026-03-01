@@ -17,7 +17,7 @@ Examples using ``toqito.state_props.is_antidistinguishable``
     <!--/div-->
 </div>
 
-<div class="mkd-glr-thumbcontainer" tooltip="In this tutorial, we investigate the antidistinguishability of a special class of quantum state...">
+<div class="mkd-glr-thumbcontainer" tooltip="Investigates antidistinguishability of circulant quantum states by numerically verifying a nece...">
     <!--div class="figure align-default" id="id1"-->
         <img alt="Antidistinguishability of Circulant States and the Eigenvalue Criterion" src="quantum_states/images/thumb/mkd_glr_circulant_states_thumb.png" />
         <p class="caption">
@@ -31,7 +31,7 @@ Examples using ``toqito.state_props.is_antidistinguishable``
     <!--/div-->
 </div>
 
-<div class="mkd-glr-thumbcontainer" tooltip="In this tutorial, we are going to cover the problem of *quantum state exclusion*. We are going ...">
+<div class="mkd-glr-thumbcontainer" tooltip="Covers the quantum state exclusion problem, the dual of state distinguishability. Uses toqito t...">
     <!--div class="figure align-default" id="id1"-->
         <img alt="Quantum state exclusion" src="quantum_states/images/thumb/mkd_glr_state_exclusion_thumb.png" />
         <p class="caption">

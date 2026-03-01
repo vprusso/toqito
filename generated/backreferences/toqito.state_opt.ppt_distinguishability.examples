@@ -3,9 +3,9 @@
 Examples using ``toqito.state_opt.ppt_distinguishability``
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-<div class="mkd-glr-thumbcontainer" tooltip="Quantum state distinguishability">
+<div class="mkd-glr-thumbcontainer" tooltip="Covers the quantum state distinguishability (discrimination) problem and shows how to use toqit...">
     <!--div class="figure align-default" id="id1"-->
-        <img alt="Quantum state distinguishability" src="quantum_states/images/thumb/mkd_glr_state_distinguishability_thumb.svg" />
+        <img alt="Quantum state distinguishability" src="quantum_states/images/thumb/mkd_glr_state_distinguishability_thumb.png" />
         <p class="caption">
             <span class="caption-text">
                 <a class="reference internal" href="quantum_states/state_distinguishability">
