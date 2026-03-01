@@ -8902,10 +8902,10 @@ measurement operators which may be of interest to us.</p>
 <a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>
 <a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">measurements</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">5</span><span class="p">))</span>
 </code></pre></div>
-<p>[[ 0.5+0.j  0. -0.j -0. +0.j  0.5+0.j]
- [ 0. +0.j  0. +0.j  0. +0.j  0. +0.j]
- [-0. -0.j  0. -0.j  0. +0.j -0. -0.j]
- [ 0.5-0.j  0. -0.j -0. +0.j  0.5+0.j]]</p>
+<p>[[ 0.5+0.j -0. -0.j  0. +0.j  0.5-0.j]
+ [-0. +0.j  0. +0.j  0. -0.j -0. +0.j]
+ [ 0. -0.j  0. +0.j  0. +0.j  0. -0.j]
+ [ 0.5+0.j -0. -0.j  0. +0.j  0.5+0.j]]</p>
 <p>Unambiguous state distinguishability for unbiased pure states.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.state_opt</span><span class="w"> </span><span class="kn">import</span> <span class="n">state_distinguishability</span>

@@ -8821,8 +8821,8 @@
     <div class="doc doc-contents ">
 
         <p>Find the completely bounded trace norm of a quantum channel.</p>
-<p>Also known as the diamond norm of a quantum channel (Section 3.3.2 of <sup><a id="cite-toqito-channel_metrics-completely_bounded_trace_norm-completely_bounded_trace_norm-1" href="#ref-toqito-channel_metrics-completely_bounded_trace_norm-completely_bounded_trace_norm-1">1</a></sup>). The algorithm in p.11 of
-<sup><a id="cite-toqito-channel_metrics-completely_bounded_trace_norm-completely_bounded_trace_norm-2" href="#ref-toqito-channel_metrics-completely_bounded_trace_norm-completely_bounded_trace_norm-2">2</a></sup> with implementation in QETLAB <sup><a id="cite-toqito-channel_metrics-completely_bounded_trace_norm-completely_bounded_trace_norm-3" href="#ref-toqito-channel_metrics-completely_bounded_trace_norm-completely_bounded_trace_norm-3">3</a></sup> is used.</p>
+<p>Also known as the diamond norm of a quantum channel (Section 3.3.2 of <sup><a id="cite-toqito-channel_metrics-completely_bounded_trace_norm-completely_bounded_trace_norm-1" href="#ref-toqito-channel_metrics-completely_bounded_trace_norm-completely_bounded_trace_norm-1">1</a></sup>).
+The algorithm in p.11 of <sup><a id="cite-toqito-channel_metrics-completely_bounded_trace_norm-completely_bounded_trace_norm-2" href="#ref-toqito-channel_metrics-completely_bounded_trace_norm-completely_bounded_trace_norm-2">2</a></sup> with implementation in QETLAB <sup><a id="cite-toqito-channel_metrics-completely_bounded_trace_norm-completely_bounded_trace_norm-3" href="#ref-toqito-channel_metrics-completely_bounded_trace_norm-completely_bounded_trace_norm-3">3</a></sup> is used.</p>
 
 
 <p><span class="doc-section-title">Examples:</span></p>
@@ -8958,8 +8958,8 @@
 <span class="normal"><a href="#__codelineno-0-69">69</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="k">def</span><span class="w"> </span><span class="nf">completely_bounded_trace_norm</span><span class="p">(</span><span class="n">phi</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">solver</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;cvxopt&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">floating</span><span class="p">:</span>
 <a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Find the completely bounded trace norm of a quantum channel.</span>
 <a id="__codelineno-0-15" name="__codelineno-0-15"></a>
-<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">    Also known as the diamond norm of a quantum channel (Section 3.3.2 of [@watrous2018theory]). The algorithm in p.11 of</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">    [@watrous2012simpler] with implementation in QETLAB [@qetlablink] is used.</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">    Also known as the diamond norm of a quantum channel (Section 3.3.2 of [@watrous2018theory]).</span>
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">    The algorithm in p.11 of [@watrous2012simpler] with implementation in QETLAB [@qetlablink] is used.</span>
 <a id="__codelineno-0-18" name="__codelineno-0-18"></a>
 <a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">    Examples:</span>
 <a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">        To compute the completely bounded trace norm of a depolarizing channel:</span>
