@@ -477,6 +477,7 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         expected = (3 + np.sqrt(5)) / 8
         self.assertAlmostEqual(res, expected, places=5)
 
+    @pytest.mark.slow
     def test_four_mub_quantum_lower_bound(self):
         """Quantum heuristic lower bound of the 4-MUB game."""
         pi, pred_mat = self.four_mub_game()
@@ -484,6 +485,7 @@ class TestExtendedNonlocalGame(unittest.TestCase):
         lb = game.quantum_value_lower_bound(initial_bob_is_random=True, seed=42, iters=50, tol=1e-6, verbose=False)
         self.assertAlmostEqual(lb, 0.660986, delta=7e-3)
 
+    @pytest.mark.slow
     def test_four_mub_npa_upper_bound_k1ab(self):
         """NPA upper bound at k='1+ab' for the 4-MUB game."""
         pi, pred_mat = self.four_mub_game()
@@ -520,6 +522,7 @@ class TestExtendedNonlocalGameVerbosePrints:
         prob_mat[1, 1] = 1 / 2
         return ExtendedNonlocalGame(prob_mat, pred_mat)
 
+    @pytest.mark.slow
     def test_quantum_lb_max_steps_reached_verbose_print(self, capsys):
         """Test verbose print when see-saw reaches max steps."""
         game = self._get_bb84_game()

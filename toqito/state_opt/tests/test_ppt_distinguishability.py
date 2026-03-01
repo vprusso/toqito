@@ -7,6 +7,7 @@ from toqito.state_opt import ppt_distinguishability
 from toqito.states import basis, bell
 
 
+@pytest.mark.slow
 def test_ppt_distinguishability_yyd_density_matrices():
     """PPT distinguishing the YYD states from :footcite:`Yu_2012_Four` should yield `7/8 ~ 0.875`.
 
@@ -62,6 +63,7 @@ def test_ppt_distinguishability_yyd_density_matrices():
     assert np.isclose(primal_res, 3 / 4, atol=0.001)
 
 
+@pytest.mark.slow
 def test_ppt_distinguishability_yyd_vectors():
     """PPT distinguishing the YYD states from :footcite:`Yu_2012_Four` should yield `7/8 ~ 0.875`.
 
@@ -113,6 +115,7 @@ def test_ppt_distinguishability_yyd_vectors():
     assert np.isclose(primal_res, 3 / 4, atol=0.001)
 
 
+@pytest.mark.slow
 def test_ppt_distinguishability_yyd_states_no_probs():
     """PPT distinguishing the YYD states from :footcite:`Yu_2012_Four` should yield `7/8 ~ 0.875`.
 
@@ -153,6 +156,7 @@ def test_ppt_distinguishability_yyd_states_no_probs():
     assert np.isclose(primal_res, 3 / 4, atol=0.001)
 
 
+@pytest.mark.slow
 def test_ppt_distinguishability_four_bell_states():
     r"""PPT distinguishing the four Bell states.
 
