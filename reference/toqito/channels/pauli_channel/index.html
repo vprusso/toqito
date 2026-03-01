@@ -2612,8 +2612,6 @@
       
         
       
-        
-      
     
     
     
@@ -2706,34 +2704,6 @@
     
   
     <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>np_array_as_expr
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../helper/update_odometer/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>update_odometer
   
 
     
@@ -8844,10 +8814,10 @@ integer <span class="arithmatex">\(q\)</span> (number of qubits).</p>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
 <a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nb">print</span><span class="p">(</span><span class="n">pauli_channel</span><span class="p">(</span><span class="n">prob</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 </code></pre></div>
-<p>[[ 0.46079179+0.j  0.        +0.j  0.        +0.j -0.28670741+0.j]
- [ 0.        +0.j  0.53920821+0.j  0.01858666+0.j  0.        +0.j]
- [ 0.        +0.j  0.01858666+0.j  0.53920821+0.j  0.        +0.j]
- [-0.28670741+0.j  0.        +0.j  0.        +0.j  0.46079179+0.j]]</p>
+<p>[[ 0.31701243+0.j  0.        +0.j  0.        +0.j -0.05032479+0.j]
+ [ 0.        +0.j  0.68298757+0.j -0.54348142+0.j  0.        +0.j]
+ [ 0.        +0.j -0.54348142+0.j  0.68298757+0.j  0.        +0.j]
+ [-0.05032479+0.j  0.        +0.j  0.        +0.j  0.31701243+0.j]]</p>
 <p>Apply a specific two-qubit Pauli channel to an input matrix:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.channels</span><span class="w"> </span><span class="kn">import</span> <span class="n">pauli_channel</span>
@@ -8936,8 +8906,7 @@ qubits. The probabilities correspond to Pauli operators in lexographical order o
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>toqito/channels/pauli_channel.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-11"> 11</a></span>
-<span class="normal"><a href="#__codelineno-0-12"> 12</a></span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-12"> 12</a></span>
 <span class="normal"><a href="#__codelineno-0-13"> 13</a></span>
 <span class="normal"><a href="#__codelineno-0-14"> 14</a></span>
 <span class="normal"><a href="#__codelineno-0-15"> 15</a></span>
@@ -9030,103 +8999,100 @@ qubits. The probabilities correspond to Pauli operators in lexographical order o
 <span class="normal"><a href="#__codelineno-0-102">102</a></span>
 <span class="normal"><a href="#__codelineno-0-103">103</a></span>
 <span class="normal"><a href="#__codelineno-0-104">104</a></span>
-<span class="normal"><a href="#__codelineno-0-105">105</a></span>
-<span class="normal"><a href="#__codelineno-0-106">106</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="k">def</span><span class="w"> </span><span class="nf">pauli_channel</span><span class="p">(</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12"></a>    <span class="n">prob</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">return_kraus_ops</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">input_mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-<a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="n">sparse</span><span class="o">.</span><span class="n">csc_matrix</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">:</span>
-<a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Generate and apply a Pauli channel to a matrix.</span>
-<a id="__codelineno-0-15" name="__codelineno-0-15"></a>
-<a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="sd">    Generates the Choi matrix of a Pauli channel with given probabilities and optionally applies it</span>
-<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">    to an input matrix. The Pauli channel is defined by the set of Pauli operators weighted by</span>
-<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">    the probability vector. For a given probability vector \((p_0, \ldots, p_{4^q -1 })\), the</span>
-<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">    channel is defined as shown below. Where, $q$ is the number of qubits.</span>
-<a id="__codelineno-0-20" name="__codelineno-0-20"></a>
-<a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="sd">    \[</span>
-<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">        \Phi(\rho) = \sum_{i=0}^{4^q - 1} p_i P_i \rho P_i^*</span>
-<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">    \]</span>
-<a id="__codelineno-0-24" name="__codelineno-0-24"></a>
-<a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="sd">    where \(P_i\) are Pauli operators generated by a lexographically increasing sequence of pauli operators of</span>
-<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">    length strictly equal to \(q\), and \(p_i\) is the corresponding probability of that operator.</span>
-<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">    For example, when \(q = 2\),</span>
-<a id="__codelineno-0-28" name="__codelineno-0-28"></a>
-<a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="sd">    \(P_{0} = I \otimes I\), \(P_{1} = I \otimes X\), \(P_{2} = I \otimes Y\), \(P_{3} = I \otimes Z\),</span>
-<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    \(P_{4} = X \otimes I\), \(P_{5} = X \otimes Y , \ldots P_{15} = Z \otimes Z\)</span>
-<a id="__codelineno-0-31" name="__codelineno-0-31"></a>
-<a id="__codelineno-0-32" name="__codelineno-0-32"></a><span class="sd">    If `prob` is a scalar, it generates a random `prob`-qubit Pauli channel.</span>
-<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">    The length of the probability vector (if provided) must be \(4^q\) for some</span>
-<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">    integer \(q\) (number of qubits).</span>
-<a id="__codelineno-0-35" name="__codelineno-0-35"></a>
-<a id="__codelineno-0-36" name="__codelineno-0-36"></a><span class="sd">    Examples:</span>
-<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">        Generate a random single-qubit Pauli channel:</span>
-<a id="__codelineno-0-38" name="__codelineno-0-38"></a>
-<a id="__codelineno-0-39" name="__codelineno-0-39"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        from toqito.channels import pauli_channel</span>
-<a id="__codelineno-0-41" name="__codelineno-0-41"></a>
-<a id="__codelineno-0-42" name="__codelineno-0-42"></a><span class="sd">        print(pauli_channel(prob=1))</span>
-<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-44" name="__codelineno-0-44"></a>
-<a id="__codelineno-0-45" name="__codelineno-0-45"></a><span class="sd">        Apply a specific two-qubit Pauli channel to an input matrix:</span>
-<a id="__codelineno-0-46" name="__codelineno-0-46"></a>
-<a id="__codelineno-0-47" name="__codelineno-0-47"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
-<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        import numpy as np</span>
-<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        from toqito.channels import pauli_channel</span>
-<a id="__codelineno-0-50" name="__codelineno-0-50"></a>
-<a id="__codelineno-0-51" name="__codelineno-0-51"></a><span class="sd">        _, output = pauli_channel(</span>
-<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">            prob=np.array([0.1, 0.2, 0.3, 0.4]), input_mat=np.eye(2)</span>
-<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">        )</span>
-<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        print(output)</span>
-<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        ```</span>
-<a id="__codelineno-0-56" name="__codelineno-0-56"></a>
-<a id="__codelineno-0-57" name="__codelineno-0-57"></a><span class="sd">    Raises:</span>
-<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">        ValueError: If probabilities are negative or don&#39;t sum to 1.</span>
-<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        ValueError: If length of probability vector is not ``4^q`` for some integer ``q``.</span>
-<a id="__codelineno-0-60" name="__codelineno-0-60"></a>
-<a id="__codelineno-0-61" name="__codelineno-0-61"></a><span class="sd">    Args:</span>
-<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">        prob: Probability vector for Pauli operators. If scalar, generates random probabilities for \(q =\) `prob`</span>
-<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">            qubits. The probabilities correspond to Pauli operators in lexographical order of length strictly equal to</span>
-<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">            \(q\), when `prob` is a vector.</span>
-<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">        return_kraus_ops: Flag to return Kraus operators. Default is ``False``.</span>
-<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        input_mat: Optional input matrix to apply the channel to. Default is ``None``.</span>
-<a id="__codelineno-0-67" name="__codelineno-0-67"></a>
-<a id="__codelineno-0-68" name="__codelineno-0-68"></a><span class="sd">    Returns:</span>
-<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">        The Choi matrix of the channel. If ``input_mat`` is provided, also returns the output matrix.</span>
-<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        If ``return_kraus_ops`` is ``True``, returns Kraus operators as well.</span>
-<a id="__codelineno-0-71" name="__codelineno-0-71"></a>
-<a id="__codelineno-0-72" name="__codelineno-0-72"></a><span class="sd">    &quot;&quot;&quot;</span>
-<a id="__codelineno-0-73" name="__codelineno-0-73"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">prob</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
-<a id="__codelineno-0-74" name="__codelineno-0-74"></a>        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">prob</span><span class="p">):</span>
-<a id="__codelineno-0-75" name="__codelineno-0-75"></a>            <span class="n">q</span> <span class="o">=</span> <span class="n">prob</span>
-<a id="__codelineno-0-76" name="__codelineno-0-76"></a>            <span class="n">prob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">4</span><span class="o">**</span><span class="n">q</span><span class="p">)</span>
-<a id="__codelineno-0-77" name="__codelineno-0-77"></a>            <span class="n">prob</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span>
-<a id="__codelineno-0-78" name="__codelineno-0-78"></a>        <span class="k">else</span><span class="p">:</span>
-<a id="__codelineno-0-79" name="__codelineno-0-79"></a>            <span class="n">prob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span>
-<a id="__codelineno-0-80" name="__codelineno-0-80"></a>
-<a id="__codelineno-0-81" name="__codelineno-0-81"></a>    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">prob</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">prob</span><span class="p">),</span> <span class="mi">1</span><span class="p">):</span>
-<a id="__codelineno-0-82" name="__codelineno-0-82"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Probabilities must be non-negative and sum to 1.&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-83" name="__codelineno-0-83"></a>
-<a id="__codelineno-0-84" name="__codelineno-0-84"></a>    <span class="n">q</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">prob</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
-<a id="__codelineno-0-85" name="__codelineno-0-85"></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">4</span><span class="o">**</span><span class="n">q</span><span class="p">:</span>
-<a id="__codelineno-0-86" name="__codelineno-0-86"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The length of the probability vector must be 4^q for some integer q (number of qubits).&quot;</span><span class="p">)</span>
-<a id="__codelineno-0-87" name="__codelineno-0-87"></a>
-<a id="__codelineno-0-88" name="__codelineno-0-88"></a>    <span class="n">Phi</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">csc_matrix</span><span class="p">((</span><span class="mi">4</span><span class="o">**</span><span class="n">q</span><span class="p">,</span> <span class="mi">4</span><span class="o">**</span><span class="n">q</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
-<a id="__codelineno-0-89" name="__codelineno-0-89"></a>
-<a id="__codelineno-0-90" name="__codelineno-0-90"></a>    <span class="n">kraus_operators</span> <span class="o">=</span> <span class="p">[]</span>
-<a id="__codelineno-0-91" name="__codelineno-0-91"></a>    <span class="n">ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+<span class="normal"><a href="#__codelineno-0-105">105</a></span></pre></div></td><td class="code"><div><pre><span></span><code><a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="k">def</span><span class="w"> </span><span class="nf">pauli_channel</span><span class="p">(</span>
+<a id="__codelineno-0-13" name="__codelineno-0-13"></a>    <span class="n">prob</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">return_kraus_ops</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">input_mat</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="n">sparse</span><span class="o">.</span><span class="n">csc_matrix</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">:</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Generate and apply a Pauli channel to a matrix.</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16"></a>
+<a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="sd">    Generates the Choi matrix of a Pauli channel with given probabilities and optionally applies it</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="sd">    to an input matrix. The Pauli channel is defined by the set of Pauli operators weighted by</span>
+<a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="sd">    the probability vector. For a given probability vector \((p_0, \ldots, p_{4^q -1 })\), the</span>
+<a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="sd">    channel is defined as shown below. Where, $q$ is the number of qubits.</span>
+<a id="__codelineno-0-21" name="__codelineno-0-21"></a>
+<a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">    \[</span>
+<a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="sd">        \Phi(\rho) = \sum_{i=0}^{4^q - 1} p_i P_i \rho P_i^*</span>
+<a id="__codelineno-0-24" name="__codelineno-0-24"></a><span class="sd">    \]</span>
+<a id="__codelineno-0-25" name="__codelineno-0-25"></a>
+<a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="sd">    where \(P_i\) are Pauli operators generated by a lexographically increasing sequence of pauli operators of</span>
+<a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="sd">    length strictly equal to \(q\), and \(p_i\) is the corresponding probability of that operator.</span>
+<a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="sd">    For example, when \(q = 2\),</span>
+<a id="__codelineno-0-29" name="__codelineno-0-29"></a>
+<a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="sd">    \(P_{0} = I \otimes I\), \(P_{1} = I \otimes X\), \(P_{2} = I \otimes Y\), \(P_{3} = I \otimes Z\),</span>
+<a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="sd">    \(P_{4} = X \otimes I\), \(P_{5} = X \otimes Y , \ldots P_{15} = Z \otimes Z\)</span>
+<a id="__codelineno-0-32" name="__codelineno-0-32"></a>
+<a id="__codelineno-0-33" name="__codelineno-0-33"></a><span class="sd">    If `prob` is a scalar, it generates a random `prob`-qubit Pauli channel.</span>
+<a id="__codelineno-0-34" name="__codelineno-0-34"></a><span class="sd">    The length of the probability vector (if provided) must be \(4^q\) for some</span>
+<a id="__codelineno-0-35" name="__codelineno-0-35"></a><span class="sd">    integer \(q\) (number of qubits).</span>
+<a id="__codelineno-0-36" name="__codelineno-0-36"></a>
+<a id="__codelineno-0-37" name="__codelineno-0-37"></a><span class="sd">    Examples:</span>
+<a id="__codelineno-0-38" name="__codelineno-0-38"></a><span class="sd">        Generate a random single-qubit Pauli channel:</span>
+<a id="__codelineno-0-39" name="__codelineno-0-39"></a>
+<a id="__codelineno-0-40" name="__codelineno-0-40"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-41" name="__codelineno-0-41"></a><span class="sd">        from toqito.channels import pauli_channel</span>
+<a id="__codelineno-0-42" name="__codelineno-0-42"></a>
+<a id="__codelineno-0-43" name="__codelineno-0-43"></a><span class="sd">        print(pauli_channel(prob=1))</span>
+<a id="__codelineno-0-44" name="__codelineno-0-44"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-45" name="__codelineno-0-45"></a>
+<a id="__codelineno-0-46" name="__codelineno-0-46"></a><span class="sd">        Apply a specific two-qubit Pauli channel to an input matrix:</span>
+<a id="__codelineno-0-47" name="__codelineno-0-47"></a>
+<a id="__codelineno-0-48" name="__codelineno-0-48"></a><span class="sd">        ```python exec=&quot;1&quot; source=&quot;above&quot;</span>
+<a id="__codelineno-0-49" name="__codelineno-0-49"></a><span class="sd">        import numpy as np</span>
+<a id="__codelineno-0-50" name="__codelineno-0-50"></a><span class="sd">        from toqito.channels import pauli_channel</span>
+<a id="__codelineno-0-51" name="__codelineno-0-51"></a>
+<a id="__codelineno-0-52" name="__codelineno-0-52"></a><span class="sd">        _, output = pauli_channel(</span>
+<a id="__codelineno-0-53" name="__codelineno-0-53"></a><span class="sd">            prob=np.array([0.1, 0.2, 0.3, 0.4]), input_mat=np.eye(2)</span>
+<a id="__codelineno-0-54" name="__codelineno-0-54"></a><span class="sd">        )</span>
+<a id="__codelineno-0-55" name="__codelineno-0-55"></a><span class="sd">        print(output)</span>
+<a id="__codelineno-0-56" name="__codelineno-0-56"></a><span class="sd">        ```</span>
+<a id="__codelineno-0-57" name="__codelineno-0-57"></a>
+<a id="__codelineno-0-58" name="__codelineno-0-58"></a><span class="sd">    Raises:</span>
+<a id="__codelineno-0-59" name="__codelineno-0-59"></a><span class="sd">        ValueError: If probabilities are negative or don&#39;t sum to 1.</span>
+<a id="__codelineno-0-60" name="__codelineno-0-60"></a><span class="sd">        ValueError: If length of probability vector is not ``4^q`` for some integer ``q``.</span>
+<a id="__codelineno-0-61" name="__codelineno-0-61"></a>
+<a id="__codelineno-0-62" name="__codelineno-0-62"></a><span class="sd">    Args:</span>
+<a id="__codelineno-0-63" name="__codelineno-0-63"></a><span class="sd">        prob: Probability vector for Pauli operators. If scalar, generates random probabilities for \(q =\) `prob`</span>
+<a id="__codelineno-0-64" name="__codelineno-0-64"></a><span class="sd">            qubits. The probabilities correspond to Pauli operators in lexographical order of length strictly equal to</span>
+<a id="__codelineno-0-65" name="__codelineno-0-65"></a><span class="sd">            \(q\), when `prob` is a vector.</span>
+<a id="__codelineno-0-66" name="__codelineno-0-66"></a><span class="sd">        return_kraus_ops: Flag to return Kraus operators. Default is ``False``.</span>
+<a id="__codelineno-0-67" name="__codelineno-0-67"></a><span class="sd">        input_mat: Optional input matrix to apply the channel to. Default is ``None``.</span>
+<a id="__codelineno-0-68" name="__codelineno-0-68"></a>
+<a id="__codelineno-0-69" name="__codelineno-0-69"></a><span class="sd">    Returns:</span>
+<a id="__codelineno-0-70" name="__codelineno-0-70"></a><span class="sd">        The Choi matrix of the channel. If ``input_mat`` is provided, also returns the output matrix.</span>
+<a id="__codelineno-0-71" name="__codelineno-0-71"></a><span class="sd">        If ``return_kraus_ops`` is ``True``, returns Kraus operators as well.</span>
+<a id="__codelineno-0-72" name="__codelineno-0-72"></a>
+<a id="__codelineno-0-73" name="__codelineno-0-73"></a><span class="sd">    &quot;&quot;&quot;</span>
+<a id="__codelineno-0-74" name="__codelineno-0-74"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">prob</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+<a id="__codelineno-0-75" name="__codelineno-0-75"></a>        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isscalar</span><span class="p">(</span><span class="n">prob</span><span class="p">):</span>
+<a id="__codelineno-0-76" name="__codelineno-0-76"></a>            <span class="n">q</span> <span class="o">=</span> <span class="n">prob</span>
+<a id="__codelineno-0-77" name="__codelineno-0-77"></a>            <span class="n">prob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">4</span><span class="o">**</span><span class="n">q</span><span class="p">)</span>
+<a id="__codelineno-0-78" name="__codelineno-0-78"></a>            <span class="n">prob</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span>
+<a id="__codelineno-0-79" name="__codelineno-0-79"></a>        <span class="k">else</span><span class="p">:</span>
+<a id="__codelineno-0-80" name="__codelineno-0-80"></a>            <span class="n">prob</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span>
+<a id="__codelineno-0-81" name="__codelineno-0-81"></a>
+<a id="__codelineno-0-82" name="__codelineno-0-82"></a>    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">prob</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">prob</span><span class="p">),</span> <span class="mi">1</span><span class="p">):</span>
+<a id="__codelineno-0-83" name="__codelineno-0-83"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Probabilities must be non-negative and sum to 1.&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-84" name="__codelineno-0-84"></a>
+<a id="__codelineno-0-85" name="__codelineno-0-85"></a>    <span class="n">q</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">prob</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span><span class="p">))</span>
+<a id="__codelineno-0-86" name="__codelineno-0-86"></a>    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">prob</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">4</span><span class="o">**</span><span class="n">q</span><span class="p">:</span>
+<a id="__codelineno-0-87" name="__codelineno-0-87"></a>        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The length of the probability vector must be 4^q for some integer q (number of qubits).&quot;</span><span class="p">)</span>
+<a id="__codelineno-0-88" name="__codelineno-0-88"></a>
+<a id="__codelineno-0-89" name="__codelineno-0-89"></a>    <span class="n">Phi</span> <span class="o">=</span> <span class="n">sparse</span><span class="o">.</span><span class="n">csc_matrix</span><span class="p">((</span><span class="mi">4</span><span class="o">**</span><span class="n">q</span><span class="p">,</span> <span class="mi">4</span><span class="o">**</span><span class="n">q</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">complex</span><span class="p">)</span>
+<a id="__codelineno-0-90" name="__codelineno-0-90"></a>
+<a id="__codelineno-0-91" name="__codelineno-0-91"></a>    <span class="n">kraus_operators</span> <span class="o">=</span> <span class="p">[]</span>
 <a id="__codelineno-0-92" name="__codelineno-0-92"></a>
-<a id="__codelineno-0-93" name="__codelineno-0-93"></a>    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">prob</span><span class="p">)):</span>
-<a id="__codelineno-0-94" name="__codelineno-0-94"></a>        <span class="n">pauli_op</span> <span class="o">=</span> <span class="n">pauli</span><span class="p">(</span><span class="n">ind</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+<a id="__codelineno-0-93" name="__codelineno-0-93"></a>    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">ind</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">repeat</span><span class="o">=</span><span class="n">q</span><span class="p">)):</span>
+<a id="__codelineno-0-94" name="__codelineno-0-94"></a>        <span class="n">pauli_op</span> <span class="o">=</span> <span class="n">pauli</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">ind</span><span class="p">))</span>
 <a id="__codelineno-0-95" name="__codelineno-0-95"></a>        <span class="n">kraus_operators</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">prob</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="o">*</span> <span class="n">pauli_op</span><span class="p">)</span>
 <a id="__codelineno-0-96" name="__codelineno-0-96"></a>        <span class="n">Phi</span> <span class="o">+=</span> <span class="n">prob</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">kraus_to_choi</span><span class="p">([[</span><span class="n">pauli_op</span><span class="p">,</span> <span class="n">pauli_op</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">]])</span>
-<a id="__codelineno-0-97" name="__codelineno-0-97"></a>        <span class="n">ind</span> <span class="o">=</span> <span class="n">update_odometer</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">))</span>
-<a id="__codelineno-0-98" name="__codelineno-0-98"></a>
-<a id="__codelineno-0-99" name="__codelineno-0-99"></a>    <span class="n">output_mat</span> <span class="o">=</span> <span class="kc">None</span>
-<a id="__codelineno-0-100" name="__codelineno-0-100"></a>    <span class="k">if</span> <span class="n">input_mat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<a id="__codelineno-0-101" name="__codelineno-0-101"></a>        <span class="n">output_mat</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">k</span> <span class="o">@</span> <span class="n">input_mat</span> <span class="o">@</span> <span class="n">k</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">kraus_operators</span><span class="p">)</span>
-<a id="__codelineno-0-102" name="__codelineno-0-102"></a>
-<a id="__codelineno-0-103" name="__codelineno-0-103"></a>    <span class="k">if</span> <span class="n">return_kraus_ops</span><span class="p">:</span>
-<a id="__codelineno-0-104" name="__codelineno-0-104"></a>        <span class="k">return</span> <span class="p">(</span><span class="n">Phi</span><span class="p">,</span> <span class="n">output_mat</span><span class="p">,</span> <span class="n">kraus_operators</span><span class="p">)</span> <span class="k">if</span> <span class="n">input_mat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">(</span><span class="n">Phi</span><span class="p">,</span> <span class="n">kraus_operators</span><span class="p">)</span>
-<a id="__codelineno-0-105" name="__codelineno-0-105"></a>
-<a id="__codelineno-0-106" name="__codelineno-0-106"></a>    <span class="k">return</span> <span class="p">(</span><span class="n">Phi</span><span class="p">,</span> <span class="n">output_mat</span><span class="p">)</span> <span class="k">if</span> <span class="n">input_mat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">Phi</span>
+<a id="__codelineno-0-97" name="__codelineno-0-97"></a>
+<a id="__codelineno-0-98" name="__codelineno-0-98"></a>    <span class="n">output_mat</span> <span class="o">=</span> <span class="kc">None</span>
+<a id="__codelineno-0-99" name="__codelineno-0-99"></a>    <span class="k">if</span> <span class="n">input_mat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<a id="__codelineno-0-100" name="__codelineno-0-100"></a>        <span class="n">output_mat</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">k</span> <span class="o">@</span> <span class="n">input_mat</span> <span class="o">@</span> <span class="n">k</span><span class="o">.</span><span class="n">conj</span><span class="p">()</span><span class="o">.</span><span class="n">T</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">kraus_operators</span><span class="p">)</span>
+<a id="__codelineno-0-101" name="__codelineno-0-101"></a>
+<a id="__codelineno-0-102" name="__codelineno-0-102"></a>    <span class="k">if</span> <span class="n">return_kraus_ops</span><span class="p">:</span>
+<a id="__codelineno-0-103" name="__codelineno-0-103"></a>        <span class="k">return</span> <span class="p">(</span><span class="n">Phi</span><span class="p">,</span> <span class="n">output_mat</span><span class="p">,</span> <span class="n">kraus_operators</span><span class="p">)</span> <span class="k">if</span> <span class="n">input_mat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">(</span><span class="n">Phi</span><span class="p">,</span> <span class="n">kraus_operators</span><span class="p">)</span>
+<a id="__codelineno-0-104" name="__codelineno-0-104"></a>
+<a id="__codelineno-0-105" name="__codelineno-0-105"></a>    <span class="k">return</span> <span class="p">(</span><span class="n">Phi</span><span class="p">,</span> <span class="n">output_mat</span><span class="p">)</span> <span class="k">if</span> <span class="n">input_mat</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">Phi</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>

@@ -2552,8 +2552,6 @@
       
         
       
-        
-      
     
     
     
@@ -2646,34 +2644,6 @@
     
   
     <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>np_array_as_expr
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../helper/update_odometer/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    <code class="doc-symbol doc-symbol-nav doc-symbol-module"></code>update_odometer
   
 
     
@@ -8846,8 +8816,8 @@ The matrix is of rank &lt;= <code>k_param</code> distributed according to the di
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">complex_dm</span><span class="p">)</span>
 </code></pre></div>
-<p>[[0.29395242+0.j         0.34384304+0.26852677j]
- [0.34384304-0.26852677j 0.70604758+0.j        ]]</p>
+<p>[[ 0.61357069+0.j         -0.0395964 +0.11058064j]
+ [-0.0395964 -0.11058064j  0.38642931+0.j        ]]</p>
 <p>We can verify that this is in fact a valid density matrix using the <code>is_density</code> function from
 <code>|toqito⟩</code> as follows</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_density</span>
@@ -8862,8 +8832,8 @@ The matrix is of rank &lt;= <code>k_param</code> distributed according to the di
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">real_dm</span><span class="p">)</span>
 </code></pre></div>
-<p>[[0.63522066 0.35162751]
- [0.35162751 0.36477934]]</p>
+<p>[[0.00825784 0.08812463]
+ [0.08812463 0.99174216]]</p>
 <p>Again, verifying that this is a valid density matrix can be done as follows.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_density</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
@@ -8878,8 +8848,8 @@ random density matrix according to the Bures metric instead as follows.</p>
 <a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
 <a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="nb">print</span><span class="p">(</span><span class="n">bures_mat</span><span class="p">)</span>
 </code></pre></div>
-<p>[[0.66936452+0.j         0.17414085+0.25228226j]
- [0.17414085-0.25228226j 0.33063548+0.j        ]]</p>
+<p>[[ 0.60154268+0.j         -0.05775135+0.10844097j]
+ [-0.05775135-0.10844097j  0.39845732+0.j        ]]</p>
 <p>As before, we can verify that this matrix generated is a valid density matrix.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">from</span><span class="w"> </span><span class="nn">toqito.matrix_props</span><span class="w"> </span><span class="kn">import</span> <span class="n">is_density</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
