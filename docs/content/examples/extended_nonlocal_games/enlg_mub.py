@@ -1,10 +1,8 @@
 r"""# An extended nonlocal game with quantum advantage
 
-In the previous tutorials on [The BB84 extended nonlocal game](../enlg_bb84) and [The CHSH extended nonlocal game](../enlg_chsh), we
-saw examples where the standard quantum and unentangled values were equal
-($\omega(G) = \omega^*(G)$). Here, we will construct an extended
-nonlocal game where the standard quantum value is *strictly higher* than the
-unentangled value, demonstrating a true quantum advantage.
+Constructs an extended nonlocal game based on mutually unbiased bases (MUBs)
+where the standard quantum value is strictly higher than the unentangled value,
+demonstrating a true quantum advantage in the extended nonlocal game setting.
 
 """
 # %%
@@ -125,7 +123,7 @@ print("The unentangled value is ", np.around(unent_val, decimals=2))
 g_mub = ExtendedNonlocalGame(prob_mat, pred_mat)
 q_val = g_mub.quantum_value_lower_bound()
 print("The standard quantum value lower bound is ", np.around(q_val, decimals=2))
-# mkdocs_gallery_thumbnail_path = 'figures/logo.png'
+mkdocs_gallery_thumbnail_path = 'figures/logo.svg'
 
 # %%
 # Note that as we are calculating a lower bound, it is possible that a value this

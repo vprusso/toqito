@@ -1,12 +1,9 @@
 """# Antidistinguishability of Circulant States and the Eigenvalue Criterion
 
-In this tutorial, we investigate the antidistinguishability of a special
-class of quantum states known as circulant states. We will numerically verify a
-necessary and sufficient condition based on the eigenvalues of the
-states' Gram matrix, as presented in the paper by Johnston et al.
-[@johnston2025tight].
-
-This tutorial builds upon the concepts introduced in the [Quantum state exclusion](../state_exclusion) tutorial.
+Investigates antidistinguishability of circulant quantum states by numerically
+verifying a necessary and sufficient eigenvalue condition on the Gram matrix.
+Builds on the state exclusion tutorial and accompanies the paper by Johnston
+et al. on tight bounds for antidistinguishability.
 """
 
 # %%
@@ -96,7 +93,7 @@ print(f"  Conclusion: The set IS antidistinguishable: {numerical_is_ad}")
 print("\n------------------------------------------------------")
 print(f"Do the analytical and numerical results agree? {analytical_is_ad == numerical_is_ad}")
 print("------------------------------------------------------")
-# mkdocs_gallery_thumbnail_path = 'figures/logo.png'
+mkdocs_gallery_thumbnail_path = 'figures/logo.svg'
 
 # %%
 # The results from both the analytical eigenvalue criterion and the numerical

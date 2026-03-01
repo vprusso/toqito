@@ -1,12 +1,9 @@
 """# Quantum classification, factor width, k-incoherence
 
-This example accompanies the "The complexity of quantum state classification"
-paper [@johnston2025complexity].
-
-In this tutorial, we will cover the concepts of the so-called "learnability" of
-quantum states along with related settings of "factor width" and the notion of
-$k$-incoherence of a matrix. More details can be found in the
-aforementioned paper.
+Explores k-learnability of quantum states, factor width of positive matrices,
+and k-incoherence. Accompanies the paper on the complexity of quantum state
+classification and uses toqito to verify theoretical bounds via semidefinite
+programming.
 """
 
 # %%
@@ -264,4 +261,4 @@ print(sum(result["factors"]))
 #
 result = factor_width(mat, k=2)
 print(result["feasible"])
-# mkdocs_gallery_thumbnail_path = 'figures/logo.png'
+mkdocs_gallery_thumbnail_path = 'figures/classification_tetrahedron.png'

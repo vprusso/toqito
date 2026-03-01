@@ -1,4 +1,10 @@
-"""# Quantum state distinguishability"""
+"""# Quantum state distinguishability
+
+Covers the quantum state distinguishability (discrimination) problem and
+shows how to use toqito to calculate optimal distinguishing probabilities
+under minimum-error and unambiguous strategies using PPT and positive
+measurements via semidefinite programming.
+"""
 # %%
 # In this tutorial we are going to cover the problem of *quantum state
 # distinguishability* (sometimes analogously referred to as quantum state
@@ -188,7 +194,7 @@ import numpy as np
 from toqito.state_opt import ppt_distinguishability
 from toqito.states import bell
 
-# mkdocs_gallery_thumbnail_path = 'figures/quantum_state_distinguish.svg'
+mkdocs_gallery_thumbnail_path = 'figures/quantum_state_distinguish.svg'
 # Bell vectors:
 psi_0 = bell(0)
 psi_1 = bell(2)

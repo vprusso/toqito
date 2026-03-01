@@ -33,15 +33,14 @@ describes how to merge code changes into `|toqito⟩`.
     shown below.
 
 ``` bash
-$ cd toqito/
+cd toqito/
 ```
 
-7.  Use `uv` as shown below in the `|toqito⟩` folder. This installs an
-    editable version of `|toqito⟩` along with the default development
-    tools.
+7.  Use `uv` to install an editable version of `|toqito⟩` along with
+    the default development tools.
 
 ``` bash
-toqito/ $ uv sync
+uv sync
 ```
 
 You are now free to make the desired changes in your fork of `|toqito⟩`.
@@ -94,11 +93,10 @@ If you add a new feature to `|toqito⟩`, make sure
 ## Testing
 
 A convenient way to verify if the installation procedure worked
-correctly, use [pytest]{.title-ref} in the `|toqito⟩` folder as shown
-below.
+correctly is to run `pytest`.
 
 ``` bash
-toqito/ $ uv run pytest
+uv run pytest
 ```
 
 The `pytest` module is used for testing and `pytest-cov` can be used to
@@ -216,7 +214,7 @@ We use `sphinx` to build the documentation. Sync the docs dependency
 group first (`uv sync --group docs`), then run:
 
 ``` bash
-toqito/docs$ uv run make clean html
+uv run make clean html
 ```
 
 If you would prefer to decrease the amount of time taken by `sphinx` to

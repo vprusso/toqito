@@ -1,9 +1,9 @@
 """# Quantum state exclusion
 
-In this tutorial, we are going to cover the problem of *quantum state
-exclusion*. We are going to briefly describe the problem setting and then
-describe how one may use `|toqito⟩` to calculate the optimal probability
-with which this problem can be solved for a number of different scenarios.
+Covers the quantum state exclusion problem, the dual of state
+distinguishability. Uses toqito to calculate optimal exclusion probabilities
+under minimum-error and unambiguous strategies for various ensembles including
+Bell states and trine states.
 """
 # %%
 # Quantum state exclusion is very closely related to the problem of quantum state
@@ -245,7 +245,7 @@ from toqito.matrix_props import is_k_incoherent
 from toqito.rand import random_states
 from toqito.state_props import is_antidistinguishable
 
-# mkdocs_gallery_thumbnail_path = 'figures/trine.png'
+mkdocs_gallery_thumbnail_path = 'figures/trine.png'
 n, d = 3, 3
 states = random_states(n, d)
 gram = vectors_to_gram_matrix(states)

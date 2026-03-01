@@ -1,8 +1,9 @@
 """# The BB84 extended nonlocal game
 
-In our [Extended nonlocal games](../enlg_introduction)
-tutorial, we introduced the framework for extended nonlocal games. Now, we will
-construct our first concrete example, the *BB84 extended nonlocal game*.
+Constructs the BB84 extended nonlocal game and uses toqito to calculate its
+unentangled, standard quantum, and non-signaling values. Demonstrates that all
+three values coincide and that strong parallel repetition holds for the
+unentangled value but fails in the non-signaling setting.
 """
 
 # %%
@@ -188,7 +189,7 @@ print("The non-signaling value is ", np.around(bb84.nonsignaling_value(), decima
 # The non-signaling value of BB84 under parallel repetition.
 import numpy as np
 
-# mkdocs_gallery_thumbnail_path = 'figures/extended_nonlocal_game.svg'
+mkdocs_gallery_thumbnail_path = 'figures/logo.svg'
 from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
 
 # Define the bb84 game for two parallel repetitions.

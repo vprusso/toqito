@@ -1,8 +1,5 @@
 # Getting started
 
-!!! warning
-    Efficiency of `|toqito⟩` has not been verified on Windows.
-
 ## Installing
 
 1\. Ensure you have Python 3.11 or greater (up to 3.14) installed on your machine or
@@ -32,7 +29,7 @@ provided in the [Contributing Guide](./contributing-guide.md).
 If you prefer to not install an editable version of `|toqito⟩`, use:
 
 ``` bash
-(local_venv) pip install toqito
+pip install toqito
 ```
 
 Above command will also install other additional dependencies for
