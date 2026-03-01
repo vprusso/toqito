@@ -4,8 +4,9 @@ If a system prepared in an eigenstate of one of the bases gives an equal probabi
 to the other bases, mutually unbiased basis states are orthonormal bases in the Hilbert space Cᵈ.
 """
 
+import math
+
 import numpy as np
-from sympy import isprime, primerange
 
 from toqito.matrices import gen_pauli
 
@@ -48,13 +49,13 @@ def mutually_unbiased_basis(dim: int) -> list[np.ndarray]:
     mats = [np.eye(dim)]
 
     pauli_x = gen_pauli(1, 0, dim)
-    if isprime(dim):
+    if _is_prime(dim):
         pauli_z = gen_pauli(0, 1, dim)
 
         for j in range(dim, 0, -1):
             _, eigen_vec = np.linalg.eig(pauli_x @ pauli_z ** (j))
             mats.append(eigen_vec)
-    elif _is_prime_power(dim) and not isprime(dim):
+    elif _is_prime_power(dim) and not _is_prime(dim):
         raise ValueError(f"Dimension {dim} is a prime power but not prime (more complicated no support at the moment).")
     else:
         raise ValueError(f"No general construction of MUBs is known for dimension: {dim}.")
@@ -70,6 +71,11 @@ def mutually_unbiased_basis(dim: int) -> list[np.ndarray]:
     return mubs
 
 
+def _is_prime(n: int) -> bool:
+    """Check if n is a prime number."""
+    return n >= 2 and all(n % i != 0 for i in range(2, math.isqrt(n) + 1))
+
+
 def _is_prime_power(n: int) -> bool:
     """Determine if a number is a prime power.
 
@@ -82,18 +88,13 @@ def _is_prime_power(n: int) -> bool:
         True if n is a prime power, False otherwise.
 
     """
-    # 1 is not considered a prime power
-    if n == 1:
+    if n < 2:
         return False
-
-    # Iterate over primes using a generator
-    for p in primerange(2, int(n**0.5) + 1):
-        # If p is a divisor of n
+    for p in range(2, math.isqrt(n) + 1):
         if n % p == 0:
-            # Keep dividing n by p as long as possible
+            if not _is_prime(p):
+                continue
             while n % p == 0:
                 n //= p
-            # If n becomes 1, then it's a prime power
             return n == 1
-    # If n is itself a prime number
-    return isprime(n)
+    return True
