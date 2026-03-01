@@ -16,7 +16,7 @@ describes how to merge code changes into `|toqito⟩`.
     Avoid ad-hoc `pip install -e .` workflows; the project standardizes on
     `uv` for syncing dependencies.
 
-4.  As stated in [Getting started](./getting-started.md), ensure you have Python 3.10 or greater installed on
+4.  As stated in [Getting started](./getting-started.md), ensure you have Python 3.11 or greater installed on
     your machine or in a virtual environment
     ([pyenv](https://github.com/pyenv/pyenv), [pyenv
     tutorial](https://realpython.com/intro-to-pyenv/)). Consider using a
