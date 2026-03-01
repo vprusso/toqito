@@ -20,7 +20,7 @@ jobs:
       fail-fast: false
       matrix:
           # Add versions here to expand support matrix
-        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
         os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
     env:
@@ -55,7 +55,7 @@ jobs:
       fail-fast: false
       matrix:
         # Add versions here to expand support matrix
-        python-version: ["3.10", "3.11", "3.12", "3.13", "3.14"]
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
         os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
         # https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs#using-a-matrix-strategy
