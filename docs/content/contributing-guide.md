@@ -48,7 +48,7 @@ You are now free to make the desired changes in your fork of `|toqito⟩`.
 
 ## Making Changes
 
-1.  Add some really awesome code to your local fork. It\'s usually a
+1.  Add some really awesome code to your local fork. It's usually a
     [good
     idea](http://blog.jasonmeridth.com/posts/do-not-issue-pull-requests-from-your-master-branch/)
     to make changes on a
@@ -58,17 +58,17 @@ You are now free to make the desired changes in your fork of `|toqito⟩`.
     feature, navigate to your fork of `|toqito⟩` on GitHub and open a
     [pull
     request(PR)](https://help.github.com/articles/using-pull-requests/)
-    . Note that after you launch a PR from one of your fork\'s branches,
+    . Note that after you launch a PR from one of your fork's branches,
     all subsequent commits to that branch will be added to the open pull
     request automatically. Each commit added to the PR will be validated
     for mergeability, compilation and test suite compliance; the results
     of these tests will be visible on the PR page.
-3.  If you\'re adding a new feature, you must add test cases and
+3.  If you're adding a new feature, you must add test cases and
     documentation. See [Adding a new feature](#adding-a-new-feature) for
     a detailed checklist.
 4.  When the code is ready to go, make sure you run the test suite using
     `pytest`, `ruff`, etc.
-5.  When you\'re ready to be considered for merging, comment on your PR
+5.  When you're ready to be considered for merging, comment on your PR
     that it is ready for a review to let the `|toqito⟩` devs know that
     the changes are complete. The code will not be reviewed until you
     have commented so, the continuous integration workflow passes, and

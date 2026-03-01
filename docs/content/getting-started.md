@@ -25,7 +25,7 @@ use `pyenv` with `virtualenv` [to manage different Python
 versions](https://github.com/pyenv/pyenv-virtualenv).
 
 3\. The preferred way to install the `|toqito⟩` package is via `uv`,
-which keeps dependencies in sync with the project\'s lockfile. An
+which keeps dependencies in sync with the project's lockfile. An
 editable version of `|toqito⟩` can be installed through the instructions
 provided in the [Contributing Guide](./contributing-guide.md).
 
@@ -41,7 +41,7 @@ Above command will also install other additional dependencies for
 The `|toqito⟩` module makes heavy use of the `cvxpy` module for solving
 various convex optimization problems that naturally arise for certain
 problems in quantum information. The installation instructions for
-`cvxpy` may be found on the project\'s [installation
+`cvxpy` may be found on the project's [installation
 page](https://www.cvxpy.org/install/index.html). However these
 installation instructions can be ignored as `pip install toqito` will
 also install `cvxpy` as a dependency.
