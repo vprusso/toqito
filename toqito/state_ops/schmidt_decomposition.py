@@ -22,16 +22,6 @@ def schmidt_decomposition(
         print(max_entangled(3))
         ```
 
-        array([[0.57735027],
-            [0.        ],
-            [0.        ],
-            [0.        ],
-            [0.57735027],
-            [0.        ],
-            [0.        ],
-            [0.        ],
-            [0.57735027]])
-
         Computing the Schmidt decomposition of \(u\), we can obtain the corresponding singular values of \(u\) as
 
         \[
