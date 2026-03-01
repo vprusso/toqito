@@ -30,7 +30,7 @@ dependencies = [
     "more-itertools==10.8.0",
     "numpy==2.4.1",
     "scipy==1.17.1",
-    "scs==3.2.7.post2",
+    "scs==3.2.11",
     "picos>=2.6.2",
     "networkx>=3.4,<4.0",
     "numba>=0.63.0",
