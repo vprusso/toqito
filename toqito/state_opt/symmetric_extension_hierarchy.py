@@ -164,8 +164,7 @@ def symmetric_extension_hierarchy(
 
     dim_x, dim_y = int(dim[0]), int(dim[1])
 
-    dim_list = [dim_x] + [dim_y] * level
-    dim_list = np.int_(dim_list)
+    dim_list = np.array([dim_x] + [dim_y] * level, dtype=int)
     # The `sys_list` variable contains the numbering pertaining to the symmetrically extended
     # spaces.
     sys_list = list(range(2, 2 + level - 1))

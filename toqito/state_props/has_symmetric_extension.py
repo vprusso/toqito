@@ -119,7 +119,7 @@ def has_symmetric_extension(
     else:
         dim_arr = np.array(dim)
 
-    dim_arr = np.int_(dim_arr)
+    dim_arr = dim_arr.astype(int)
 
     dim_x, dim_y = int(dim_arr[0]), int(dim_arr[1])
     # In certain situations, we don't need semidefinite programming.
@@ -144,7 +144,7 @@ def has_symmetric_extension(
     # We solve a feasibility SDP: find sigma on X ⊗ Y^⊗level such that
     # tr_{Y_2,...,Y_level}(sigma) = rho, sigma >= 0, sigma is symmetric
     # under permutations of Y copies, and (optionally) PPT constraints hold.
-    dim_list = np.int_([dim_x] + [dim_y] * level)
+    dim_list = np.array([dim_x] + [dim_y] * level, dtype=int)
     sys_list = list(range(2, 2 + level - 1))
     sym = symmetric_projection(dim_y, level)
     dim_total = int(np.prod(dim_list))

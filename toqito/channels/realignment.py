@@ -69,7 +69,7 @@ def realignment(input_mat: np.ndarray, dim: int | list[int] | np.ndarray | None 
         dim_arr = np.array([dim_arr, dim_arr])
 
     dim_x = np.array([[dim_arr[0][1], dim_arr[0][0]], [dim_arr[1][0], dim_arr[1][1]]])
-    dim_x = np.int_(dim_x)
+    dim_x = dim_x.astype(int)
     dim_y = np.array([[dim_arr[1][0], dim_arr[0][0]], [dim_arr[0][1], dim_arr[1][1]]])
 
     x_tmp = swap(input_mat, [1, 2], dim_arr, True)
