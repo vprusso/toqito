@@ -199,7 +199,7 @@ class NonlocalGame:
         self,
         dim: int = 2,
         iters: int = 5,
-        tol: float = 10e-6,
+        tol: float = 1e-6,
     ) -> float:
         r"""Compute a lower bound on the quantum value of a nonlocal game [@liang2007bounds].
 
@@ -400,21 +400,16 @@ class NonlocalGame:
             for y_ques in range(num_inputs_bob):
                 for a_ans in range(num_outputs_alice):
                     for b_ans in range(num_outputs_bob):
-                        if isinstance(bob_povms[y_ques, b_ans], np.ndarray):
-                            win += (
-                                self.prob_mat[x_ques, y_ques]
-                                * self.pred_mat[a_ans, b_ans, x_ques, y_ques]
-                                * cvxpy.trace(bob_povms[y_ques, b_ans].conj().T @ alice_povms[x_ques, a_ans])
-                            )
-                        if isinstance(
-                            bob_povms[y_ques, b_ans],
-                            cvxpy.expressions.variable.Variable,
-                        ):
-                            win += (
-                                self.prob_mat[x_ques, y_ques]
-                                * self.pred_mat[a_ans, b_ans, x_ques, y_ques]
-                                * cvxpy.trace(bob_povms[y_ques, b_ans].value.conj().T @ alice_povms[x_ques, a_ans])
-                            )
+                        bob_povm = bob_povms[y_ques, b_ans]
+                        if isinstance(bob_povm, np.ndarray):
+                            bob_val = bob_povm.conj().T
+                        else:
+                            bob_val = bob_povm.value.conj().T
+                        win += (
+                            self.prob_mat[x_ques, y_ques]
+                            * self.pred_mat[a_ans, b_ans, x_ques, y_ques]
+                            * cvxpy.trace(bob_val @ alice_povms[x_ques, a_ans])
+                        )
 
         objective = cvxpy.Maximize(cvxpy.real(win))
 
@@ -433,7 +428,7 @@ class NonlocalGame:
 
         problem = cvxpy.Problem(objective, constraints)
 
-        lower_bound = problem.solve()
+        lower_bound = problem.solve(verbose=False)
         return alice_povms, lower_bound
 
     def __optimize_bob(self, dim, alice_povms) -> tuple[dict, float]:
@@ -477,7 +472,7 @@ class NonlocalGame:
 
         problem = cvxpy.Problem(objective, constraints)
 
-        lower_bound = problem.solve()
+        lower_bound = problem.solve(verbose=False)
         return bob_povms, lower_bound
 
     def nonsignaling_value(self) -> float:

@@ -238,7 +238,7 @@ class XORGame:
         ]
 
         problem = cvxpy.Problem(objective, constraints)
-        problem.solve()
+        problem.solve(verbose=False)
 
         if self.reps == 1:
             return np.real(problem.value) / 4 + 1 / 2

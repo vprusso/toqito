@@ -199,7 +199,7 @@ class QuantumHedging:
         constraints = [partial_trace(x_var, self._sys, self._dim) == np.identity(2**self._num_reps), x_var >> 0]
         problem = cvxpy.Problem(objective, constraints)
 
-        return problem.solve()
+        return problem.solve(verbose=False)
 
     def max_prob_outcome_a_dual(self) -> float:
         r"""Compute the maximal probability for calculating outcome "a".
@@ -234,7 +234,7 @@ class QuantumHedging:
             constraints = [cvxpy.real(self._pperm @ kron_var @ self._pperm.conj().T) >> self._q_a]
         problem = cvxpy.Problem(objective, constraints)
 
-        return problem.solve()
+        return problem.solve(verbose=False)
 
     def min_prob_outcome_a_primal(self) -> float:
         r"""Compute the minimal probability for calculating outcome "a".
@@ -267,7 +267,7 @@ class QuantumHedging:
         constraints = [partial_trace(x_var, self._sys, self._dim) == np.identity(2**self._num_reps), x_var >> 0]
         problem = cvxpy.Problem(objective, constraints)
 
-        return problem.solve()
+        return problem.solve(verbose=False)
 
     def min_prob_outcome_a_dual(self) -> float:
         r"""Compute the minimal probability for calculating outcome "a".
@@ -303,4 +303,4 @@ class QuantumHedging:
             constraints = [cvxpy.real(self._pperm @ kron_var @ self._pperm.conj().T) << self._q_a]
         problem = cvxpy.Problem(objective, constraints)
 
-        return problem.solve()
+        return problem.solve(verbose=False)
