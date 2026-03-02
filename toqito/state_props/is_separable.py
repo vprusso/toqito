@@ -17,8 +17,8 @@ from toqito.state_props.schmidt_rank import schmidt_rank
 from toqito.states.max_entangled import max_entangled
 
 
-def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: int = 2, tol: float = 1e-8) -> bool:
-    r"""Determine if a given state (given as a density matrix) is a separable state [@wikipediaseparable].
+def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: int = 2,STR: int=1, tol: float = 1e-8) -> bool:
+    r"""Determine if a given state (given as a density matrix) is a separable state :footcite:`WikiSepSt`.
 
     A multipartite quantum state:
     \(\rho \in \text{D}(\mathcal{H}_1 \otimes \mathcal{H}_2 \otimes \dots \otimes \mathcal{H}_N)\)
@@ -147,11 +147,21 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         !!! Note
             The symmetric extension check requires CVXPY and a suitable solver. If these are not installed,
             or if the solver fails, a warning is printed to the console and this check is skipped.
-
-        !!! Note
-            QETLAB's `SymmetricExtension` typically tests k-PPT-extendibility, where failure means entangled.
-            It also has `SymmetricInnerExtension`, which can prove separability.
-
+        .. note::
+            QETLAB's :code:`SymmetricExtension` typically tests k-PPT-extendibility, where failure means entangled.
+            It also has :code:`SymmetricInnerExtension`, which can prove separability.
+    
+    14. **Iterative :math:`S_k` decomposition**: 
+        
+        - The test is only activated when :code:`STR>=2` as this is an computationaly expensive check.
+        - We use :code:`STR` to control the level of the :math:`S_k` decomposition and the maximum allowed random product states to start the test. 
+        .. note::
+            QETLAB's :code:`sk_iterate` routined for testing seperability. Though the original test has capabilites to split the state for any schmidt rank,
+            this implimentation  is restricted to Schimdt rank 1 decomposition.
+ 
+    Examples
+    ==========
+    Consider the following separable (by construction) state:
 
     Examples:
         Consider the following separable (by construction) state:
@@ -217,40 +227,57 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
 
         print("Is the state PPT?", is_ppt(rho, dim=[2, 3]))         # True
         print("Is the state separable?", is_separable(rho, dim=[2, 3]))  # True
-        ```
-
-    Raises:
-        Warning: If the symmetric extension check is attempted but CVXPY or a suitable solver is not available.
-        TypeError: If the input `state` is not a NumPy array.
-        RuntimeError: If the symmetric extension check is attempted but fails due to CVXPY solver issues.
-        NotImplementedError: If the symmetric extension check is attempted but the level is not implemented
-            (e.g., level < 1).
-        ValueError:
-            - If the input `state` is not a square matrix.
-            - If the input `state` is not positive semidefinite.
-            - If the input `state` has a trace close to zero but contains significant non-zero elements.
-            - If the input `state` has a numerically insignificant trace but significant elements;
-                cannot normalize reliably.
-            - If the `dim` parameter has an invalid type (not None, int, or list).
-            - If `dim` is provided as an integer that does not evenly divide the state's dimension.
-            - If `dim` is provided as a list with a number of elements other than two.
-            - If `dim` is provided as a list with non-integer or negative elements.
-            - If the product of the dimensions in the `dim` list does not match the state's dimension.
-            - If a dimension of zero is provided for a non-empty state (or vice-versa).
 
 
-    Args:
-        state: The density matrix to check.
-        dim: The dimension of the input state, e.g., [dim_A, dim_B]. Optional; inferred if None.
-        level:
-            - The level for symmetric extension (DPS) hierarchy (default: 2)
-            - If 1, only PPT is checked.
-            - If >=2, checks for k-symmetric extension up to this level.
-            - If -1, attempts all implemented checks exhaustively (not all possible checks are implemented).
-        tol: Numerical tolerance (default: 1e-8).
+    References
+    ==========
+    .. footbibliography::
 
-    Returns:
-        `True` if separable, `False` if entangled or inconclusive by implemented checks.
+
+    :raises Warning:
+
+        If the symmetric extension check is attempted but CVXPY or a suitable solver is not available.
+
+    :raises TypeError:
+
+        - If the input `state` is not a NumPy array.
+
+    :raises RuntimeError:
+
+        - If the symmetric extension check is attempted but fails due to CVXPY solver issues.
+
+    :raises NotImplementedError:
+
+        - If the symmetric extension check is attempted but the level is not implemented (e.g., level < 1).
+
+    :raises ValueError:
+
+        - If the input `state` is not a square matrix.
+        - If the input `state` is not positive semidefinite.
+        - If the input `state` has a trace close to zero but contains significant non-zero elements.
+        - If the input `state` has a numerically insignificant trace but significant elements;
+          cannot normalize reliably.
+        - If the `dim` parameter has an invalid type (not None, int, or list).
+        - If `dim` is provided as an integer that does not evenly divide the state's dimension.
+        - If `dim` is provided as a list with a number of elements other than two.
+        - If `dim` is provided as a list with non-integer or negative elements.
+        - If the product of the dimensions in the `dim` list does not match the state's dimension.
+        - If a dimension of zero is provided for a non-empty state (or vice-versa).
+
+    :param state: The density matrix to check.
+    :param dim: The dimension of the input state, e.g., [dim_A, dim_B]. Optional; inferred if None.
+    :param level: The level for symmetric extension (DPS) hierarchy (default: 2).
+
+        - If 1, only PPT is checked.
+        - If >=2, checks for k-symmetric extension up to this level.
+        - If -1, attempts all implemented checks exhaustively (not all possible checks are implemented).
+    :param STR: Computational strength of the test, larger is slower but possibly covers more. (default: 2).
+
+        - If <2 iterative product state subtraction is not applied.
+        - Else, attempts to split the given state into a sum of STR*10*min(dA,dB) product states and attempts to find a maximum overlap with STR*100 random starting product states
+    :param tol: Numerical tolerance (default: 1e-8).
+
+    :return: :code:`True` if separable, :code:`False` if entangled or inconclusive by implemented checks.
 
     """
     # --- 1. Input Validation, Normalization, Dimension Setup ---
@@ -518,7 +545,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         return True
 
     rho_pt_A = partial_transpose(current_state, sys=0, dim=dims_list)  # Partial transpose on system A
-    rank_pt_A = np.linalg.matrix_rank(rho_pt_A, tol=tol)
+    rank_pt_A = np.linalg.matrix_rank(np.asarray(rho_pt_A), tol=tol)
     threshold_horodecki = 2 * prod_dim_val - dA - dB + 2  # Threshold for sum of ranks
 
     if state_rank + rank_pt_A <= threshold_horodecki:  # rank(rho) + rank(rho^T_A) <= threshold
@@ -530,8 +557,8 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     # Its main use is for NPT states. Included for completeness of listed criteria.
     rho_A_marginal = partial_trace(current_state, sys=[1], dim=dims_list)
     rho_B_marginal = partial_trace(current_state, sys=[0], dim=dims_list)
-    op_reduct1 = np.kron(np.eye(dA), rho_B_marginal) - current_state
-    op_reduct2 = np.kron(rho_A_marginal, np.eye(dB)) - current_state
+    op_reduct1 = np.kron(np.eye(dA), np.asarray(rho_B_marginal)) - current_state
+    op_reduct2 = np.kron(np.asarray(rho_A_marginal), np.eye(dB)) - current_state
     if not (
         is_positive_semidefinite(op_reduct1, atol=tol, rtol=tol)
         and is_positive_semidefinite(op_reduct2, atol=tol, rtol=tol)
@@ -550,7 +577,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     val_A = max(0, 1 - tr_rho_A_sq)  # Ensure non-negativity from (1 - purity)
     val_B = max(0, 1 - tr_rho_B_sq)
     bound_zhang = np.sqrt(val_A * val_B) if (val_A * val_B >= 0) else 0
-    if trace_norm(realignment(current_state - np.kron(rho_A_marginal, rho_B_marginal), dims_list)) > bound_zhang + tol:
+    if trace_norm(realignment(current_state - np.kron(np.asarray(rho_A_marginal),np.asarray(rho_B_marginal)), dims_list)) > bound_zhang + tol:
         return False
     # TODO: #1246 Consider adding Filter CMC criterion from Gittsovich et al. 2008, which is stronger.
 
@@ -717,7 +744,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         # for k=2 (and level >=2), it declares separable.
         for k_actual_level_check in range(2, int(level) + 1):  # Ensure level is int for range
             try:
-                if has_symmetric_extension(rho=current_state, level=k_actual_level_check, dim=dims_list, tol=tol):
+                if has_symmetric_extension(rho=current_state, level=k_actual_level_check, dim=np.asarray(dims_list), tol=tol):
                     # State has a k-symmetric extension, considered separable by this test level.
                     return True
                 # If it does NOT have a k-symmetric extension, it is entangled.
@@ -737,6 +764,49 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     elif level == 1 and is_state_ppt:  # is_state_ppt is True at this point
         # 1-extendibility is equivalent to PPT.
         return True
+    # --- 14. Iterative product state subtraction---
+    if STR>=2:#As this test is computationally expensive it only gets activated when the STR parameter is larger than 2.
+        max_iter=STR*100
+        sep_factor= STR*10
+        rho_sub=state.copy()
+        max_depth=sep_factor*min(dA,dB) #mainly to bound the depth of the loop
+        for dep in range(max_depth):
+            count_rand_starts=0
+            while count_rand_starts<max_iter: #loop for random starts
+                count_rand_starts+=1
+                v0=np.random.randn(dA)+1j*np.random.randn(dA)
+                v0=v0/np.linalg.norm(v0)
+                v1=np.zeros(dB,dtype=complex)
+                delta=1#flag for convergence
+                while delta>min(dA,dB)*tol :#loop for see-saw attempting to find max overlap product state.
+                    rho_part=partial_trace(rho_sub@np.kron(np.outer(v0,v0.conj().T),np.identity(dB)),sys=1,dim=[dA,dB])
+                    dev1,dv1_new=np.linalg.eigh(np.asarray(rho_part))
+                    v1_new=dv1_new[:,-1]
+                    ev1_new=dev1[-1]
+                    rho_part=partial_trace(rho_sub@np.kron(np.identity(dA),np.outer(v1_new,v1_new.conj().T)),sys=0,dim=[dA,dB])
+                    dev0,dv0_new=np.linalg.eigh(np.asarray(rho_part))
+                    v0_new=dv0_new[:,-1]
+                    ev0=dev0[-1]
+                    delta=np.linalg.norm(v1_new-v1)+np.linalg.norm(v0_new-v0)
+                    v0=v0_new
+                    v1=v1_new
+                max_product_state= ev0*np.kron(np.outer(v0,v0.conj().T),np.outer(v1,v1.conj().T))   
+                rho_sub=rho_sub-max_product_state
+                if is_positive_semidefinite(rho_sub):#making sure that the residue can be a valid state
+                    res= trace_norm(rho_sub)
+                    rho_sub=rho_sub/res#normalizing only if the residue can be a state.
+                    if in_separable_ball(rho_sub) or res<tol:#return if the residual state is in the seperable ball or the residue is neglegible
+                        return True
+                    else: #use the rho_sub to continue the algorithm to another iteration
+                        break
+                else: #if not just return the same state to find another possible random product state to start with
+                    rho_sub=rho_sub+max_product_state
+
+
+
+
+
+
 
     # If all implemented checks are inconclusive, and the state passed PPT (the most basic necessary condition checked),
     # it implies that the state is either separable but not caught by the simpler sufficient conditions,
