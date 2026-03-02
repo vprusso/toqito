@@ -10,7 +10,7 @@
 
 [![build status](https://github.com/vprusso/toqito/actions/workflows/build-test-actions.yml/badge.svg)](https://github.com/vprusso/toqito/actions/workflows/build-test-actions.yml)
 [![doc status](https://img.shields.io/badge/docs-passing-brightgreen)](https://vprusso.github.io/toqito/)
-[![codecov](https://codecov.io/gh/vprusso/toqito/branch/master/graph/badge.svg)](https://codecov.io/gh/vprusso/toqito)
+[![codecov](https://codecov.io/gh/vprusso/toqito/branch/master/graph/badge.svg)](https://app.codecov.io/gh/vprusso/toqito)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4743211.svg)](https://doi.org/10.5281/zenodo.4743211)
 [![Downloads](https://static.pepy.tech/personalized-badge/toqito?style=platic&period=total&units=none&left_color=black&right_color=brightgreen&left_text=Downloads)](https://pepy.tech/project/toqito)
 [![Unitary Foundation](https://img.shields.io/badge/Supported%20By-Unitary%20Foundation-FFFF00.svg)](https://unitary.foundation)
