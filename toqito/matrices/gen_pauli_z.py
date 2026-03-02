@@ -6,9 +6,9 @@ import numpy as np
 
 
 def gen_pauli_z(dim: int) -> np.ndarray:
-    r"""Produce gen_pauli_z matrix [@WikiClock].
+    r"""Produce gen_pauli_z matrix [@wikipediaclock].
 
-    Returns the gen_pauli_z matrix of dimension `dim` described in [@WikiClock].
+    Returns the gen_pauli_z matrix of dimension `dim` described in [@wikipediaclock].
     The gen_pauli_z matrix generates the following `dim`-by-`dim` matrix
 
     \[

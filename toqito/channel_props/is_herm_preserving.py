@@ -13,7 +13,7 @@ def is_herm_preserving(
 ) -> bool:
     r"""Determine whether the given channel is Hermitian-preserving.
 
-    (Section: Linear Maps Of Square Operators from [@Watrous_2018_TQI]).
+    (Section: Linear Maps Of Square Operators from [@watrous2018theory]).
 
     A map \(\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)\) is
     *Hermitian-preserving* if it holds that

@@ -9,9 +9,9 @@ from scipy.sparse import csr_array
 
 
 def w_state(num_qubits: int, coeff: list[int] | None = None) -> np.ndarray:
-    r"""Produce a W-state [@Dur_2000_ThreeQubits].
+    r"""Produce a W-state [@dur2000three].
 
-    Returns the W-state described in [@Dur_2000_ThreeQubits]. The W-state on `num_qubits` qubits is defined by:
+    Returns the W-state described in [@dur2000three]. The W-state on `num_qubits` qubits is defined by:
 
     \[
         |W \rangle = \frac{1}{\sqrt{num\_qubits}}

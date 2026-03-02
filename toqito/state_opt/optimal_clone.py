@@ -13,7 +13,7 @@ def optimal_clone(
     num_reps: int = 1,
     strategy: bool = False,
 ) -> float | np.ndarray:
-    r"""Compute probability of counterfeiting quantum money [@Molina_2012_Optimal].
+    r"""Compute probability of counterfeiting quantum money [@molina2012optimal].
 
     The primal problem for the \(n\)-fold parallel repetition is given as follows:
 
@@ -49,8 +49,8 @@ def optimal_clone(
     \]
 
     Examples:
-        Wiesner's original quantum money scheme [@Wiesner_1983_Conjugate] was shown in
-        [@Molina_2012_Optimal] to have an optimal probability of 3/4 for succeeding a counterfeiting attack.
+        Wiesner's original quantum money scheme [@wiesner1983conjugate] was shown in
+        [@molina2012optimal] to have an optimal probability of 3/4 for succeeding a counterfeiting attack.
 
         Specifically, in the single-qubit case, Wiesner's quantum money scheme corresponds to the
         following ensemble:

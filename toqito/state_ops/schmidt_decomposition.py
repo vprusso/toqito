@@ -6,7 +6,7 @@ import numpy as np
 def schmidt_decomposition(
     rho: np.ndarray, dim: int | list[int] | np.ndarray | None = None, k_param: int = 0
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    r"""Compute the Schmidt decomposition of a bipartite vector [@WikiScmidtDecomp].
+    r"""Compute the Schmidt decomposition of a bipartite vector [@wikipediaschmidt].
 
     Examples:
         Consider the \(3\)-dimensional maximally entangled state:
@@ -21,16 +21,6 @@ def schmidt_decomposition(
         from toqito.states import max_entangled
         print(max_entangled(3))
         ```
-
-        array([[0.57735027],
-            [0.        ],
-            [0.        ],
-            [0.        ],
-            [0.57735027],
-            [0.        ],
-            [0.        ],
-            [0.        ],
-            [0.57735027]])
 
         Computing the Schmidt decomposition of \(u\), we can obtain the corresponding singular values of \(u\) as
 

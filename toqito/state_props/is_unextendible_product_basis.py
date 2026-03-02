@@ -11,14 +11,14 @@ from toqito.state_props import is_product
 
 
 def is_unextendible_product_basis(vecs: list[np.ndarray], dims: list[int]) -> tuple[bool, np.ndarray | None]:
-    r"""Check if a set of vectors form an unextendible product basis (UPB) [@Bennett_1999_UPB].
+    r"""Check if a set of vectors form an unextendible product basis (UPB) [@bennett1999unextendible].
 
     Consider a multipartite quantum system \(\mathcal{H} = \bigotimes_{i=1}^{m} \mathcal{H}_{i}\) with \(m\)
     parties with respective dimensions \(d_i, i = 1, 2, ..., m\). An (incomplete orthogonal) product basis (PB) is a
     set \(S\) of pure orthogonal product states spanning a proper subspace \(\mathcal{H}_S\) of
     \(\mathcal{H}\).  An unextendible product basis (UPB) is a PB whose complementary subspace
     \(\mathcal{H}_S-\mathcal{H}\) contains no product state.  This function is inspired from `IsUPB` in
-    [@QETLAB_link].
+    [@qetlablink].
 
     Examples:
         See [tile()][toqito.states.tile.tile]. All the states together form a UPB:

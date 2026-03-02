@@ -8,7 +8,7 @@ from toqito.perms import perm_sign, permutation_operator
 
 
 def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) -> np.ndarray:
-    r"""Produce the projection onto the antisymmetric subspace [@WikiAsymmOp].
+    r"""Produce the projection onto the antisymmetric subspace [@wikipediaantisymmetric].
 
     Produces the orthogonal projection onto the anti-symmetric subspace of `p_param` copies of
     `dim`-dimensional space. If `partial = True`, then the antisymmetric projection (PA) isn't the

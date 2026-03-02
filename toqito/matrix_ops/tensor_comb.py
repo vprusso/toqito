@@ -21,7 +21,7 @@ def tensor_comb(
     Given ``n`` quantum states, this function generates \(n^k\) combinations of sequences of length ``k``, computes
     the tensor product for each sequence, and converts each tensor product to its corresponding density matrix.
 
-    For one definition and usage of a quantum sequence, refer to [@Gupta_2024_Optimal].
+    For one definition and usage of a quantum sequence, refer to [@gupta2024optimal].
 
     Examples:
         Consider the following basis vectors for a 2-dimensional quantum system.
@@ -53,8 +53,8 @@ def tensor_comb(
         states: A list of state vectors.
         k: The length of the sequence.
         mode: Determines the type of sequences. Default is `"injective"`. ``non-injective`` will allow repetitions in
-        sequences, ``injective`` will ensures sequences are injective (no repetitions) and ``diagonal`` will allow
-        sequences with repeated indices (diagonal elements).
+            sequences, ``injective`` will ensures sequences are injective (no repetitions) and ``diagonal`` will allow
+            sequences with repeated indices (diagonal elements).
         density_matrix: Determines whether the return is a density matrix or a ket. Default is ``True``.
 
     Returns:

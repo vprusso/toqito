@@ -14,7 +14,7 @@ class XORGame:
     communicate during the game itself.
 
     The quantum value of an XOR game can be solved via the semidefinite program
-    from [@Cleve_2010_Consequences].
+    from [@cleve2010consequences].
 
     This function is adapted from the QETLAB package.
 
@@ -26,7 +26,7 @@ class XORGame:
         The CHSH game
 
         The CHSH game is a two-player nonlocal game with the following probability
-        distribution and question and answer sets [@Cleve_2008_Strong].
+        distribution and question and answer sets [@cleve2008strong].
 
         \[
             \begin{equation}
@@ -86,7 +86,7 @@ class XORGame:
 
         The odd cycle game
 
-        The odd cycle game is another XOR game [@Cleve_2010_Consequences]. For this game, we can
+        The odd cycle game is another XOR game [@cleve2010consequences]. For this game, we can
         specify the probability and predicate matrices as follows.
 
         ```python exec="1" source="above" session="odd_cycle"
@@ -185,7 +185,7 @@ class XORGame:
 
         To obtain the quantum value of the XOR game, we calculate the following
         simplified dual problem of the semidefinite program from the set of
-        notes: Lecture 6 of [@Watrous_2011_Lecture_Notes]
+        notes: Lecture 6 of [@watrous2011theory]
 
         \[
         \begin{equation}

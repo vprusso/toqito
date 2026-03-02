@@ -4,7 +4,7 @@ import numpy as np
 
 
 def hadamard(n_param: int = 1) -> np.ndarray:
-    r"""Produce a `2^{n_param}` dimensional Hadamard matrix [@WikiHadamard].
+    r"""Produce a `2^{n_param}` dimensional Hadamard matrix [@wikipediahadamard].
 
     The standard Hadamard matrix that is often used in quantum information as a
     one-qubit quantum gate is defined as

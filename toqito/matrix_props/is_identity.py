@@ -6,7 +6,7 @@ from toqito.matrix_props import is_square
 
 
 def is_identity(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> bool:
-    r"""Check if matrix is the identity matrix [@WikiIden].
+    r"""Check if matrix is the identity matrix [@wikipediaidentity].
 
     For dimension \(n\), the \(n \times n\) identity matrix is defined as
 

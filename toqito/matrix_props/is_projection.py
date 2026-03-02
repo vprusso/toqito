@@ -6,7 +6,7 @@ from toqito.matrix_props import is_square
 
 
 def is_projection(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
-    r"""Check if matrix is a projection matrix [@WikiProjMat].
+    r"""Check if matrix is a projection matrix [@wikipediaprojection].
 
     A matrix is a projection matrix if it is positive semidefinite (PSD) and if
 

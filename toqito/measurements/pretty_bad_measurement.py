@@ -11,7 +11,7 @@ def pretty_bad_measurement(
     r"""Return the set of pretty bad measurements from a set of vectors and corresponding probabilities.
 
     This computes the "pretty bad measurement" (PBM) as defined in
-    [@McIrvin_2024_Pretty]. The PBM is an analogue to the "pretty
+    [@mcirvin2024pretty]. The PBM is an analogue to the "pretty
     good measurement" defined in [@Belavkin_1975_Optimal,Hughston_1993_Complete]
     and is useful for approximating the optimal measurement
     for state exclusion.

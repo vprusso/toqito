@@ -8,9 +8,9 @@ import numpy as np
 
 
 def chessboard(mat_params: list[float], s_param: float | None = None, t_param: float | None = None) -> np.ndarray:
-    r"""Produce a chessboard state [@Bruß_2000_Construction].
+    r"""Produce a chessboard state [@bruss2000construction].
 
-    Generates the chessboard state defined in [@Bruß_2000_Construction]. Note that, for certain choices of
+    Generates the chessboard state defined in [@bruss2000construction]. Note that, for certain choices of
     `s_param` and `t_param`, this state will not have positive partial transpose, and
     thus may not be bound entangled.
 
@@ -23,7 +23,7 @@ def chessboard(mat_params: list[float], s_param: float | None = None, t_param: f
         ```
 
     Args:
-        mat_params: Parameters of the chessboard state as defined in [@Bruß_2000_Construction].
+        mat_params: Parameters of the chessboard state as defined in [@bruss2000construction].
         s_param: Default is `np.conj(mat_params[2]) / np.conj(mat_params[5])`.
         t_param: Default is `t_param = mat_params[0] * mat_params[3] / mat_params[4]`.
 

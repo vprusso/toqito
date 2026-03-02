@@ -5,8 +5,8 @@ from itertools import combinations
 import numpy as np
 
 
-def is_totally_positive(mat: np.ndarray, tol: float = 1e-6, sub_sizes: list | None = None):
-    r"""Determine whether a matrix is totally positive. [@WikiTotPosMat].
+def is_totally_positive(mat: np.ndarray, tol: float = 1e-6, sub_sizes: list | None = None) -> bool:
+    r"""Determine whether a matrix is totally positive. [@wikipediatotallypositive].
 
     A totally positive matrix is a square matrix where all the minors are positive. Equivalently, the determinant of
     every square submatrix is a positive number.

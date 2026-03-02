@@ -14,7 +14,7 @@ def is_quantum_channel(
     r"""Determine whether the given input is a quantum channel.
 
     For more info, see Section 2.2.1: Definitions and Basic Notions Concerning Channels from
-    [@Watrous_2018_TQI].
+    [@watrous2018theory].
 
     A map \(\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)\) is a *quantum
     channel* for some choice of complex Euclidean spaces \(\mathcal{X}\)

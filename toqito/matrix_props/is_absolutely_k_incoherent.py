@@ -7,17 +7,17 @@ from toqito.matrix_props import is_positive_semidefinite, is_square
 
 
 def is_absolutely_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
-    r"""Determine whether a quantum state is absolutely k-incoherent [@Johnston_2022_Absolutely].
+    r"""Determine whether a quantum state is absolutely k-incoherent [@johnston2022absolutely].
 
     Formally, for positive integers \(n\) and \(k\), a mixed quantum state is said to be absolutely k-incoherent
     if \(U \rho U^* \in \mathbb{I}_{k, n}\) for all unitary matrices \(U \in \text{U}(\mathbb{C}^n)\).
 
     This function checks if the provided density matrix is absolutely k-incoherent based on the criteria introduced in
-    [@Johnston_2022_Absolutely] and the corresponding QETLAB functionality [@QETLAB_link]. When
+    [@johnston2022absolutely] and the corresponding QETLAB functionality [@qetlablink]. When
     necessary, an SDP is set up via ``cvxpy``.
 
     The notion of absolute k-incoherence is connected to the notion of quantum state antidistinguishability as discussed
-    in [@Johnston_2025_Tight].
+    in [@johnston2025tight].
 
     Examples:
         ```python exec="1" source="above"

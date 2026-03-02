@@ -8,7 +8,7 @@ from scipy.sparse import dia_array, eye_array
 
 
 def max_mixed(dim: int, is_sparse: bool = False) -> np.ndarray | dia_array:
-    r"""Produce the maximally mixed state [@Aaronson_2018_MaxMixed].
+    r"""Produce the maximally mixed state [@aaronson2018mixed].
 
     Produces the maximally mixed state on of `dim` dimensions. The maximally mixed state is defined as
 

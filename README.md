@@ -1,11 +1,11 @@
 <p align="center">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://github.com/vprusso/toqito/raw/cfb62c4a5ce04b782f64229e7acd2b1c97f09801/docs/figures/logo-dark.svg" width="60%">
-   <img src="https://github.com/vprusso/toqito/raw/cfb62c4a5ce04b782f64229e7acd2b1c97f09801/docs/figures/logo.svg" width="60%">
+   <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/vprusso/toqito/master/docs/content/figures/logo-dark.svg" width="60%">
+   <img src="https://raw.githubusercontent.com/vprusso/toqito/master/docs/content/figures/logo.svg" width="60%">
  </picture>
  </p>
 
-
+<!-- --8<-- [start:badges] -->
 # |toqito⟩: Theory of Quantum Information Toolkit
 
 [![build status](https://github.com/vprusso/toqito/actions/workflows/build-test-actions.yml/badge.svg)](https://github.com/vprusso/toqito/actions/workflows/build-test-actions.yml)
@@ -17,6 +17,7 @@
 
 The |toqito⟩ package is an open-source Python library for studying various
 objects in quantum information, namely, states, channels, and measurements.
+<!-- --8<-- [end:badges] -->
 
 <p align="center">
   <a href="https://vprusso.github.io/toqito/">
@@ -24,6 +25,7 @@ objects in quantum information, namely, states, channels, and measurements.
   </a>
 </p>
 
+<!-- --8<-- [start:content] -->
 |toqito⟩ focuses on providing numerical tools to study problems
 about entanglement theory, nonlocal games, matrix analysis, and other
 aspects of quantum information that are often associated with computer science.
@@ -49,7 +51,7 @@ For the full documentation, please consult: [Documentation](https://vprusso.gith
 
 ### Example: Nonlocal games
 
-[Nonlocal games](https://vprusso.github.io/toqito/generated/gallery/03_nonlocal_games/) are a mathematical framework
+[Nonlocal games](https://vprusso.github.io/toqito/generated/gallery/nonlocal_games/) are a mathematical framework
 that abstractly models a physical system. The CHSH game is a subtype of nonlocal game referred to as an XOR game that
 characterizes the seminal [CHSH inequality](https://en.wikipedia.org/wiki/CHSH_inequality). 
 
@@ -116,7 +118,7 @@ ppt_res, _ = ppt_distinguishability(states, subsystems=[0], dimensions=[2, 2])
 print(f"Distinguishing four Bell states (PPT measurements): {ppt_res}")
 ```
 
-Consult the [quantum state tutorials](https://vprusso.github.io/toqito/generated/gallery/02_quantum_states/) for
+Consult the [quantum state tutorials](https://vprusso.github.io/toqito/generated/gallery/quantum_states/) for
 additional examples and information about quantum states within the context of |toqito⟩.
 
 ## Testing
@@ -214,3 +216,4 @@ Chat with us in our |toqito⟩ channel on [Discord](http://discord.unitary.fund/
 ## License
 
 [MIT License](http://opensource.org/licenses/mit-license.php>)
+<!-- --8<-- [end:content] -->

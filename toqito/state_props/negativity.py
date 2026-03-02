@@ -7,7 +7,7 @@ from toqito.matrix_ops import to_density_matrix
 
 
 def negativity(rho: np.ndarray, dim: list[int] | int | None = None) -> float | np.floating:
-    r"""Compute the negativity of a bipartite quantum state [@WikiNeg].
+    r"""Compute the negativity of a bipartite quantum state [@wikipedianegativity].
 
     The negativity of a subsystem can be defined in terms of a density matrix \(\rho\):
 

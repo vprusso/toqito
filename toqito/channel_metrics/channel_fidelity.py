@@ -7,7 +7,7 @@ from toqito.matrix_ops import partial_trace
 
 
 def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray, eps: float = 1e-7) -> float:
-    r"""Compute the channel fidelity between two quantum channels [@Katariya_2021_Geometric].
+    r"""Compute the channel fidelity between two quantum channels [@katariya2021geometric].
 
     Let \(\Phi : \text{L}(\mathcal{Y}) \rightarrow \text{L}(\mathcal{X})\) and
     \(\Psi: \text{L}(\mathcal{Y}) \rightarrow \text{L}(\mathcal{X})\) be quantum channels. Then
@@ -18,7 +18,7 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray, eps: float = 1e-7) 
     \]
 
     where \(\rho \in \text{D}(\mathcal{Z} \otimes \mathcal{X})\) can be calculated by means of
-    the following semidefinite program (Proposition 50) in [@Katariya_2021_Geometric],
+    the following semidefinite program (Proposition 50) in [@katariya2021geometric],
 
     \[
         \begin{align*}

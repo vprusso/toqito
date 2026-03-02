@@ -85,10 +85,12 @@ def measure(
     K1 = np.array([[0, 0], [0, 1]])
 
     # Returns list of probabilities.
+    print("```")
     print(measure(rho, [K0, K1]))
 
     # Returns list of (probability, post_state) tuples.
     print(measure(rho, [K0, K1], state_update=True))
+    print("```")
     ```
 
 
@@ -98,10 +100,10 @@ def measure(
     Args:
         state: Quantum state as a density matrix shape (d, d) where d is the dimension of the Hilbert space.
         measurement: Either a single measurement operator (an np.ndarray) or a list/tuple of operators. When providing a
-        list, they are assumed to be Kraus operators satisfying the completeness relation.
+            list, they are assumed to be Kraus operators satisfying the completeness relation.
         tol: Tolerance for numerical precision (default is 1e-10).
         state_update: If True, also return the post-measurement state(s); otherwise, only the probability or
-        probabilities are returned.
+            probabilities are returned.
 
     Returns:
         If a single operator is provided, returns a float (probability) or a tuple (probability, post_state) if

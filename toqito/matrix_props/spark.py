@@ -9,7 +9,7 @@ def spark(mat: np.ndarray) -> int:
     """Compute the spark of a matrix.
 
     The spark of a matrix A is the smallest number of columns from A that are linearly
-    dependent [@Elad_2010_Sparse].
+    dependent [@elad2010sparse].
 
     Examples:
         ```python exec="1" source="above"

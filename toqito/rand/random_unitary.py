@@ -4,7 +4,7 @@ import numpy as np
 
 
 def random_unitary(dim: list[int] | int, is_real: bool = False, seed: int | None = None) -> np.ndarray:
-    r"""Generate a random unitary or orthogonal matrix [@Ozols_2009_RandU].
+    r"""Generate a random unitary or orthogonal matrix [@ozols2009how].
 
     Calculates a random unitary matrix (if `is_real = False`) or a random real orthogonal
     matrix (if `is_real = True`), uniformly distributed according to the Haar measure.

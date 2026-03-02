@@ -4,7 +4,7 @@ import numpy as np
 
 
 def is_rank_one(mat: np.ndarray, tol: float = 1e-08) -> bool:
-    r"""Determine whether the given matrix has rank one [@WikiMatrixRank].
+    r"""Determine whether the given matrix has rank one [@wikipediarank].
 
     The function evaluates the singular values (equivalently, eigenvalues for Hermitian matrices)
     and counts how many are greater than the provided tolerance.

@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths:
-      - "mkdocs/**"
+      - "docs/**"
       - "toqito/**"
       - ".github/workflows/docs.yml"
   workflow_dispatch:
@@ -33,7 +33,7 @@ jobs:
           sudo apt-get install -y libblas-dev liblapack-dev gfortran libatlas-base-dev
           
       - name: Install uv
-        uses: astral-sh/setup-uv@v5
+        uses: astral-sh/setup-uv@v7
 
       - name: Install dependencies with uv
         run: uv sync --group docs
@@ -45,5 +45,5 @@ jobs:
 
       - name: Deploy to GitHub Pages
         run: |
-          cd mkdocs
+          cd docs
           uv run mkdocs gh-deploy --force

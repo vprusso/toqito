@@ -13,7 +13,7 @@ def partial_transpose(
     sys: list[int] | np.ndarray | int | None = None,
     dim: list[int] | np.ndarray | None = None,
 ) -> np.ndarray | Expression:
-    r"""Compute the partial transpose of a matrix [@WikiPeresHorodecki].
+    r"""Compute the partial transpose of a matrix [@wikipediapereshorodecki].
 
     The *partial transpose* is defined as
 

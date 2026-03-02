@@ -4,7 +4,7 @@ import numpy as np
 
 
 def random_povm(dim: int, num_inputs: int, num_outputs: int, seed: int | None = None) -> np.ndarray:
-    r"""Generate random positive operator valued measurements (POVMs) [@WikiPOVM].
+    r"""Generate random positive operator valued measurements (POVMs) [@wikipediapovm].
 
     Randomness model
     ----------------

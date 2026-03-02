@@ -4,11 +4,11 @@ import numpy as np
 
 
 def in_separable_ball(mat: np.ndarray) -> bool | np.bool_:
-    r"""Check whether an operator is contained in ball of separability [@Gurvits_2002_Largest].
+    r"""Check whether an operator is contained in ball of separability [@gurvits2002largest].
 
     Determines whether `mat` is contained within the ball of separable operators centered
     at the identity matrix (i.e. the maximally-mixed state). The size of this ball was derived in
-    [@Gurvits_2002_Largest].
+    [@gurvits2002largest].
 
     This function can be used as a method for separability testing of states in certain scenarios.
 
@@ -73,5 +73,5 @@ def in_separable_ball(mat: np.ndarray) -> bool | np.bool_:
     mat = mat / np.trace(mat)
 
     # The following check relies on the fact that we scaled the matrix so that trace(mat) = 1.
-    # The following condition is then exactly the condition mentioned in [@Gurvits_2002_Largest].
+    # The following condition is then exactly the condition mentioned in [@gurvits2002largest].
     return np.linalg.norm(mat / np.linalg.norm(mat, "fro") ** 2 - np.eye(max_dim), "fro") <= 1

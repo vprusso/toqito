@@ -10,7 +10,7 @@ from toqito.matrix_props import is_positive_semidefinite, is_square
 
 
 def is_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
-    r"""Determine whether a quantum state is k-incoherent [@Johnston_2022_Absolutely].
+    r"""Determine whether a quantum state is k-incoherent [@johnston2022absolutely].
 
     For a positive integers, \(k\) and \(n\), the matrix \(X \in \text{Pos}(\mathbb{C}^n)\) is called
     \(k\)-incoherent if there exists a positive integer \(m\), a set  \(S = \{|\psi_0\rangle,
@@ -82,7 +82,7 @@ def is_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> bool:
     elif k == 2:
         return False
 
-    # [@Johnston_2022_Absolutely] (8): Check if trace(mat^2) <= 1/(d - 1) (for k > 2).
+    # [@johnston2022absolutely] (8): Check if trace(mat^2) <= 1/(d - 1) (for k > 2).
     if k > 2 and np.trace(mat @ mat) <= 1 / (d - 1):
         return True
 

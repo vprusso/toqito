@@ -15,7 +15,7 @@ def partial_channel(
     sys: int = 2,
     dim: list[int] | np.ndarray | None = None,
 ) -> np.ndarray:
-    r"""Apply channel to a subsystem of an operator [@Watrous_2018_TQI].
+    r"""Apply channel to a subsystem of an operator [@watrous2018theory].
 
     Applies the operator
 

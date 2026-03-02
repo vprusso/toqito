@@ -18,7 +18,7 @@ def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
          \right| \right).
     \]
 
-    More information on the trace distance can be found in [@Quantiki_TrDist].
+    More information on the trace distance can be found in [@quantikitracedistance].
 
     Examples:
         Consider the following Bell state

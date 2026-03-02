@@ -7,7 +7,7 @@ from toqito.state_props import von_neumann_entropy
 
 
 def renyi_entropy(rho: np.ndarray, alpha: float) -> float:
-    r"""Compute the Rényi entropy of a density matrix [@Muller_2013_Renyi_Generalization].
+    r"""Compute the Rényi entropy of a density matrix [@mullerlennert2013quantum].
 
     Let \(P \in \text{Pos}(\mathcal{X})\) be a positive semidefinite operator, for a complex
     Euclidean space \(\mathcal{X}\). Then one defines the *Rényi entropy of order*
@@ -83,7 +83,7 @@ def renyi_entropy(rho: np.ndarray, alpha: float) -> float:
     Args:
         rho: Density operator.
         alpha: Order for the Rényi entropy. Note that numerical instability may happen for small positive values because
-        of the computation of the spectral decomposition.
+            of the computation of the spectral decomposition.
 
     Returns:
         The Rényi entropy of order `alpha` of `rho`.

@@ -9,7 +9,7 @@ from toqito.matrix_ops import tensor
 
 
 def pusey_barrett_rudolph(n: int, theta: float) -> list[np.ndarray]:
-    r"""Produce set of Pusey-Barrett-Rudolph (PBR) states [@Pusey_2012_On].
+    r"""Produce set of Pusey-Barrett-Rudolph (PBR) states [@pusey2012reality].
 
     Let \(\theta \in [0, \pi/2]\) be an angle. Define the states
 
@@ -27,7 +27,7 @@ def pusey_barrett_rudolph(n: int, theta: float) -> list[np.ndarray]:
         |\Psi_i\rangle = |\psi_{x_i}\rangle \otimes \cdots \otimes |\psi_{x_n}\rangle.
     \]
 
-    These PBR states are defined in Equation (A6) from [@Pusey_2012_On].
+    These PBR states are defined in Equation (A6) from [@pusey2012reality].
 
     Examples:
         Generating the PBR states can be done by simply invoking the function with a given choice of `n` and

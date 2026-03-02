@@ -15,7 +15,7 @@ def channel_measured_relative_entropy(
     hamiltonian: np.ndarray,
     energy: float,
 ) -> float:
-    r"""Compute the measured relative entropy of two quantum channels [@Huang_2025_Msrd_Rel_Entr].
+    r"""Compute the measured relative entropy of two quantum channels [@huang2025semidefinite].
 
     Given a quantum channel $\mathcal{N}_{A \to B}$, a completely positive map $\mathcal{M}_{A \to B}$,
     a Hamiltonian $H_A$ (Hermitian operator acting on system $A$), and an energy constraint

@@ -6,7 +6,7 @@ from toqito.matrix_props import is_square
 
 
 def is_unitary(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
-    r"""Check if matrix is unitary [@WikiUniMat].
+    r"""Check if matrix is unitary [@wikipediaunitary].
 
     A matrix is unitary if its inverse is equal to its conjugate transpose.
 

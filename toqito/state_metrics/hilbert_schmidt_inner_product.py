@@ -4,7 +4,7 @@ import numpy as np
 
 
 def hilbert_schmidt_inner_product(a_mat: np.ndarray, b_mat: np.ndarray) -> complex:
-    r"""Compute the Hilbert-Schmidt inner product between two matrices [@WikiHilbSchOp].
+    r"""Compute the Hilbert-Schmidt inner product between two matrices [@wikipediahilbertschmidt].
 
     The Hilbert-Schmidt inner product between `a_mat` and `b_mat` is defined as
 
@@ -14,7 +14,7 @@ def hilbert_schmidt_inner_product(a_mat: np.ndarray, b_mat: np.ndarray) -> compl
 
     where \(|B\rangle = \text{vec}(B)\) and \(\langle A|\) is the dual vector to \(|A \rangle\).
 
-    Note: This function has been adapted from [@Rigetti_2022_Forest].
+    Note: This function has been adapted from [@rigetti2022forest].
 
     Examples:
         One may consider taking the Hilbert-Schmidt distance between two Hadamard matrices.

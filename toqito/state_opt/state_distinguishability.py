@@ -1,5 +1,7 @@
 """Calculates the probability of optimally distinguishing quantum states."""
 
+from typing import Any
+
 import numpy as np
 import picos
 
@@ -26,9 +28,9 @@ def state_distinguishability(
     strategy: str = "min_error",
     solver: str = "cvxopt",
     primal_dual: str = "dual",
-    **kwargs,
+    **kwargs: Any,
 ) -> tuple[float, list[picos.HermitianVariable] | list[np.ndarray] | tuple[picos.SymmetricVariable]]:
-    r"""Compute probability of state distinguishability [@Eldar_2003_SDPApproach].
+    r"""Compute probability of state distinguishability [@eldar2003semidefinite].
 
     The "quantum state distinguishability" problem involves a collection of \(n\) quantum states
 
@@ -160,9 +162,9 @@ def state_distinguishability(
     Args:
         vectors: A list of states provided as vectors (for pure states) or density matrices (for mixed states).
         probs: Respective list of probabilities each state is selected. If no probabilities are provided, a uniform
-        probability distribution is assumed.
+            probability distribution is assumed.
         strategy: Whether to perform unambiguous or minimal error discrimination task. Possible values are "min_error"
-        and "unambiguous". Default option is `strategy="min_error"`. Both strategies support pure and mixed states.
+            and "unambiguous". Default option is `strategy="min_error"`. Both strategies support pure and mixed states.
         solver: Optimization option for `picos` solver. Default option is `solver="cvxopt"`.
         primal_dual: Option for the optimization problem. Default option is `"dual"`.
         kwargs: Additional arguments to pass to picos' solve method.
@@ -347,7 +349,7 @@ def _unambiguous_primal(
 ) -> tuple[float, list[np.ndarray]]:
     """Solve the primal problem for unambiguous quantum state distinguishability SDP.
 
-    Implemented according to Equation (5) of [@Gupta_2024_Unambiguous]:.
+    Implemented according to Equation (5) of [@gupta2024unambiguous]:.
     Supports both pure states (vectors) and mixed states (density matrices).
     """
     n = len(vectors)
@@ -385,7 +387,7 @@ def _unambiguous_dual(
 ) -> tuple[float, tuple[picos.SymmetricVariable]]:
     """Solve the dual problem for unambiguous quantum state distinguishability SDP.
 
-    Implemented according to Equation (5) of [@Gupta_2024_Unambiguous].
+    Implemented according to Equation (5) of [@gupta2024unambiguous].
     Supports both pure states (vectors) and mixed states (density matrices).
     """
     n = len(vectors)

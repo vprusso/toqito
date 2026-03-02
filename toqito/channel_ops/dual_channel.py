@@ -11,7 +11,7 @@ def dual_channel(
 ) -> np.ndarray | list[list[np.ndarray]] | list[np.ndarray]:
     r"""Compute the dual of a map (quantum channel).
 
-    (Section: Representations and Characterizations of Channels of [@Watrous_2018_TQI]).
+    (Section: Representations and Characterizations of Channels of [@watrous2018theory]).
 
     The map can be represented as a Choi matrix, with optional specification of input
     and output dimensions. If the input channel maps \(M_{r,c}\) to \(M_{x,y}\)
@@ -69,9 +69,9 @@ def dual_channel(
 
     Args:
         phi_op: A superoperator. It should be provided either as a Choi matrix, or as a (1d or 2d) list of numpy arrays
-        whose entries are its Kraus operators.
+            whose entries are its Kraus operators.
         dims: Dimension of the input and output systems, for Choi matrix representation. If `None`, try to infer them
-        from `phi_op.shape`.
+            from `phi_op.shape`.
 
     Returns:
         The map dual to `phi_op`, in the same representation.

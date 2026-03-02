@@ -5,7 +5,7 @@ from scipy import linalg
 
 
 def perm_sign(perm: np.ndarray | list[int]) -> float:
-    r"""Compute the "sign" of a permutation [@WikiParPerm].
+    r"""Compute the "sign" of a permutation [@wikipediaparity].
 
     The sign (either -1 or 1) of the permutation `perm` is `-1**inv`, where `inv` is the number of
     inversions contained in `perm`.

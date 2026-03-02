@@ -8,7 +8,7 @@ from toqito.matrix_props import is_density
 
 
 def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
-    r"""Compute the fidelity of two density matrices [@WikiFidQuant].
+    r"""Compute the fidelity of two density matrices [@wikipediafidelity].
 
     Calculate the fidelity between the two density matrices `rho` and `sigma`, defined by:
 

@@ -558,34 +558,29 @@ def test_classical_nonbinary_cg_to_fp_internal_error():
 # --- Qubit Solver Tests ---
 
 
-@pytest.mark.parametrize(
-    "joint_coe, a_coe, b_coe, a_val, b_val, expected",
-    # Bell I3322 inequality.
-    [
-        (
-            np.array([[1, 1, -1], [1, 1, 1], [-1, 1, 0]]),
-            np.array([0, -1, 0]),
-            np.array([-1, -2, 0]),
-            np.array([0, 1]),
-            np.array([0, 1]),
-            0.250,
-        ),
-        # Bell CHSH inequality.
-        (
-            np.array([[1, 1], [1, -1]]),
-            np.array([0, 0]),
-            np.array([0, 0]),
-            np.array([1, -1]),
-            np.array([1, -1]),
-            2 * np.sqrt(2),
-        ),
-    ],
-)
-def test_bell_inequality_max_qubits_valid(joint_coe, a_coe, b_coe, a_val, b_val, expected):
-    """Test bell_inequality_max_qubits returns the expected value using valid input."""
-    # Call via module alias
-    result = bim.bell_inequality_max_qubits(joint_coe, a_coe, b_coe, a_val, b_val)
-    assert pytest.approx(result, 0.01) == expected
+@pytest.mark.slow
+def test_bell_inequality_max_qubits_i3322():
+    """Test bell_inequality_max_qubits with I3322 inequality (slow SDP)."""
+    result = bim.bell_inequality_max_qubits(
+        np.array([[1, 1, -1], [1, 1, 1], [-1, 1, 0]]),
+        np.array([0, -1, 0]),
+        np.array([-1, -2, 0]),
+        np.array([0, 1]),
+        np.array([0, 1]),
+    )
+    assert pytest.approx(result, 0.01) == 0.250
+
+
+def test_bell_inequality_max_qubits_chsh():
+    """Test bell_inequality_max_qubits with CHSH inequality."""
+    result = bim.bell_inequality_max_qubits(
+        np.array([[1, 1], [1, -1]]),
+        np.array([0, 0]),
+        np.array([0, 0]),
+        np.array([1, -1]),
+        np.array([1, -1]),
+    )
+    assert pytest.approx(result, 0.01) == 2 * np.sqrt(2)
 
 
 @pytest.mark.parametrize(

@@ -1,11 +1,11 @@
 """Two-player nonlocal game."""
 
+import itertools
 from collections import defaultdict
 
 import cvxpy
 import numpy as np
 
-from toqito.helper import update_odometer
 from toqito.matrix_ops import tensor
 from toqito.matrix_ops.tensor_unravel import tensor_unravel
 from toqito.nonlocal_games.binary_constraint_system_game import check_perfect_commuting_strategy
@@ -21,10 +21,10 @@ class NonlocalGame:
     are not allowed to communicate with each other once the game has started and
     who play cooperative against an adversary referred to as the referee.
 
-    The nonlocal game framework was originally introduced in [@Cleve_2010_Consequences].
+    The nonlocal game framework was originally introduced in [@cleve2010consequences].
 
     A tutorial is available in the documentation. For more info, see
-    [Nonlocal Games](../../../generated/gallery/nonlocal_games/index.md).
+    [Nonlocal Games](../../../generated/gallery/nonlocal_games/nonlocal_game.md).
     """
 
     def __init__(self, prob_mat: np.ndarray, pred_mat: np.ndarray, reps: int = 1) -> None:
@@ -57,16 +57,12 @@ class NonlocalGame:
                     num_bob_in**reps,
                 )
             )
-            i_ind = np.zeros(reps, dtype=int)
-            j_ind = np.zeros(reps, dtype=int)
-            for i in range(num_alice_in**reps):
-                for j in range(num_bob_in**reps):
+            for i, i_ind in enumerate(itertools.product(range(num_alice_in), repeat=reps)):
+                for j, j_ind in enumerate(itertools.product(range(num_bob_in), repeat=reps)):
                     to_tensor = np.empty([reps, num_alice_out, num_bob_out])
                     for k in range(reps - 1, -1, -1):
                         to_tensor[k] = pred_mat[:, :, i_ind[k], j_ind[k]]
                     pred_mat2[:, :, i, j] = tensor(to_tensor)
-                    j_ind = update_odometer(j_ind, num_bob_in * np.ones(reps))
-                i_ind = update_odometer(i_ind, num_alice_in * np.ones(reps))
             self.pred_mat = pred_mat2
             self.reps = reps
         # _raw_constraints will store the original 1D BCS constraints (if provided) for later analysis.
@@ -76,7 +72,7 @@ class NonlocalGame:
     def from_bcs_game(cls, constraints: list[np.ndarray], reps: int = 1) -> "NonlocalGame":
         r"""Convert constraints that specify a binary constraint system game to a nonlocal game.
 
-        Binary constraint system games (BCS) games were originally defined in [@Cleve_2014_Characterization].
+        Binary constraint system games (BCS) games were originally defined in [@cleve2014characterization].
 
         Args:
             constraints: List of binary constraints that define the game.
@@ -139,7 +135,7 @@ class NonlocalGame:
         their satisfiability using a helper function.
 
         Raises:
-            If no constraints are stored (i.e., if the game was not created from a BCS game).
+            ValueError: If no constraints are stored (i.e., if the game was not created from a BCS game).
 
         Returns:
             True if a perfect commuting-operator strategy exists; False otherwise.
@@ -203,8 +199,8 @@ class NonlocalGame:
         dim: int = 2,
         iters: int = 5,
         tol: float = 10e-6,
-    ):
-        r"""Compute a lower bound on the quantum value of a nonlocal game [@Liang_2007_Bounds].
+    ) -> float:
+        r"""Compute a lower bound on the quantum value of a nonlocal game [@liang2007bounds].
 
         Calculates a lower bound on the maximum value that the specified
         nonlocal game can take on in quantum mechanical settings where Alice and
@@ -222,7 +218,7 @@ class NonlocalGame:
         number of times and keep the highest value obtained.
 
         The algorithm is based on the alternating projections algorithm as it
-        can be applied to Bell inequalities as shown in [@Liang_2007_Bounds].
+        can be applied to Bell inequalities as shown in [@liang2007bounds].
 
         The alternating projection algorithm has also been referred to as the
         "see-saw" algorithm as it goes back and forth between the following two
@@ -491,7 +487,7 @@ class NonlocalGame:
 
         """
         alice_out, bob_out, alice_in, bob_in = self.pred_mat.shape
-        dim_x, dim_y = 2, 2
+        dim_x, dim_y = 1, 1
 
         constraints = []
 
@@ -582,7 +578,7 @@ class NonlocalGame:
         r"""Compute an upper bound on the commuting measurement value of the nonlocal game.
 
         This function calculates an upper bound on the commuting measurement value by
-            using k-levels of the NPA hierarchy [@Navascues_2008_AConvergent]. The NPA hierarchy is a uniform
+            using k-levels of the NPA hierarchy [@navascues2008convergent]. The NPA hierarchy is a uniform
             family of semidefinite programs that converges to the commuting measurement value of
             any nonlocal game.
 

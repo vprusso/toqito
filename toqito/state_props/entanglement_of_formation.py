@@ -8,7 +8,7 @@ from toqito.state_props import concurrence, von_neumann_entropy
 
 
 def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int | None = None) -> float:
-    r"""Compute entanglement-of-formation of a bipartite quantum state [@Quantiki_EOF].
+    r"""Compute entanglement-of-formation of a bipartite quantum state [@quantikientanglement].
 
     Entanglement-of-formation is the entropy of formation of the bipartite
     quantum state `rho`. Note that this function currently only supports

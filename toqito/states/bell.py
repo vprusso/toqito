@@ -7,7 +7,7 @@ import numpy as np
 
 
 def bell(idx: int) -> np.ndarray:
-    r"""Produce a Bell state [@WikiBellSt].
+    r"""Produce a Bell state [@wikipediabellstate].
 
     Returns one of the following four Bell states depending on the value of `idx`:
 

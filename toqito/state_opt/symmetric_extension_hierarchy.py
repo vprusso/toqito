@@ -15,7 +15,7 @@ def symmetric_extension_hierarchy(
     level: int = 2,
     dim: int | list[int] | None = None,
 ) -> float:
-    r"""Compute optimal value of the symmetric extension hierarchy SDP [@Navascues_2008_Pure].
+    r"""Compute optimal value of the symmetric extension hierarchy SDP [@navascues2008pure].
 
     The probability of distinguishing a given set of states via PPT measurements serves as a natural
     upper bound to the value of obtaining via separable measurements. Due to the nature of separable
@@ -23,10 +23,10 @@ def symmetric_extension_hierarchy(
     programming techniques.
 
     We can, however, construct a hierarchy of semidefinite programs that attains closer and closer
-    approximations at the separable value via the techniques described in [@Navascues_2008_Pure].
+    approximations at the separable value via the techniques described in [@navascues2008pure].
 
     The mathematical form of this hierarchy implemented here is explicitly given from equation 4.55
-    in [@Cosentino_2015_QuantumState].
+    in [@cosentino2015quantum].
 
     \[
         \begin{equation}
@@ -59,7 +59,7 @@ def symmetric_extension_hierarchy(
     \]
 
     Examples:
-        It is known from [@Cosentino_2015_QuantumState] that distinguishing three Bell states along with a resource
+        It is known from [@cosentino2015quantum] that distinguishing three Bell states along with a resource
         state \(|\tau_{\epsilon}\rangle\) via separable measurements has the following closed form
 
         \[

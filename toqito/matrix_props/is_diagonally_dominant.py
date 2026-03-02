@@ -6,7 +6,7 @@ from toqito.matrix_props import is_square
 
 
 def is_diagonally_dominant(mat: np.ndarray, is_strict: bool = True) -> bool:
-    r"""Check if matrix is diagnal dominant (DD) [@WikiDiagDom].
+    r"""Check if matrix is diagnal dominant (DD) [@wikipediadiagonallydominant].
 
     A matrix is diagonally dominant if the matrix is square
     and if for every row of the matrix, the magnitude of the diagonal entry in a row is greater

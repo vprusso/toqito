@@ -18,7 +18,7 @@ def amplitude_damping(
     To also include standard implementation of amplitude damping, we have set `prob = 1` as the default implementation.
 
     !!! note
-        This channel is defined for qubit systems in the standard literature [@Khatri_2020_Information].
+        This channel is defined for qubit systems in the standard literature [@khatri2020information].
 
 
     The Kraus operators for the generalized amplitude damping channel are given by:
@@ -48,7 +48,7 @@ def amplitude_damping(
 
     Args:
         input_mat: The input matrix to which the channel is applied. If `None`, the function returns the Kraus operators
-        of the channel.
+            of the channel.
         gamma: The damping rate, a float between 0 and 1. Represents the probability of energy dissipation.
         prob: The probability of energy loss, a float between 0 and 1.
 
