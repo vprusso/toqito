@@ -1,6 +1,7 @@
 """Two-player nonlocal game."""
 
 import itertools
+import warnings
 from collections import defaultdict
 
 import cvxpy
@@ -520,9 +521,8 @@ class NonlocalGame:
             for b_out in range(bob_out):
                 for x_in in range(alice_in):
                     for y_in in range(bob_in):
-                        p_win += self.prob_mat[x_in, y_in] * cvxpy.trace(
-                            self.pred_mat[a_out, b_out, x_in, y_in].conj().T * k_var[a_out, b_out, x_in, y_in]
-                        )
+                        coeff = complex(self.prob_mat[x_in, y_in] * np.conj(self.pred_mat[a_out, b_out, x_in, y_in]))
+                        p_win += coeff * cvxpy.trace(k_var[a_out, b_out, x_in, y_in])
 
         objective = cvxpy.Maximize(cvxpy.real(p_win))
 
@@ -569,8 +569,10 @@ class NonlocalGame:
         constraints.append(cvxpy.trace(tau) == 1)
         constraints.append(tau >> 0)
 
-        problem = cvxpy.Problem(objective, constraints)
-        ns_val = problem.solve()
+        with warnings.catch_warnings():
+            warnings.filterwarnings("ignore", message="Initializing a Constant with a nested list")
+            problem = cvxpy.Problem(objective, constraints)
+            ns_val = problem.solve()
 
         return ns_val
 

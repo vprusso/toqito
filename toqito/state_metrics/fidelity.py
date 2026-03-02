@@ -1,5 +1,7 @@
 """Fidelity is a metric that qualifies how close two quantum states are."""
 
+import warnings
+
 import cvxpy
 import numpy as np
 import scipy
@@ -85,6 +87,9 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
         raise ValueError("Fidelity is only defined for density operators.")
 
     # If `rho` or `sigma` are *not* cvxpy variables, compute fidelity normally, since this is much faster.
-    sq_rho = scipy.linalg.sqrtm(rho)
-    sq_fid = scipy.linalg.sqrtm(sq_rho @ sigma @ sq_rho)
+    # Suppress LinAlgWarning from sqrtm on rank-deficient density matrices — the result is still valid.
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", scipy.linalg.LinAlgWarning)
+        sq_rho = scipy.linalg.sqrtm(rho)
+        sq_fid = scipy.linalg.sqrtm(sq_rho @ sigma @ sq_rho)
     return np.real(np.trace(sq_fid))

@@ -222,8 +222,10 @@ def sk_operator_norm(
         else:
             constraints.append(k * cvxpy.kron(partial_trace(rho, [1], dim), np.eye(dim[1])) >> rho)
 
-        problem = cvxpy.Problem(objective, constraints)
-        cvx_optval = problem.solve()
+        with warnings.catch_warnings():
+            warnings.filterwarnings("ignore", message="Constraint.*subexpressions")
+            problem = cvxpy.Problem(objective, constraints)
+            cvx_optval = problem.solve()
         if problem.status != "optimal":
             raise ValueError("Numerical problems encountered.")
 
@@ -266,8 +268,10 @@ def sk_operator_norm(
                     partial_transpose(rho, list(range(0, int(np.ceil(j / 2)) + 1)), sym_dim) >> 0,
                 ]
 
-                problem = cvxpy.Problem(objective, constraints)
-                cvx_optval = problem.solve()
+                with warnings.catch_warnings():
+                    warnings.filterwarnings("ignore", message="Constraint.*subexpressions")
+                    problem = cvxpy.Problem(objective, constraints)
+                    cvx_optval = problem.solve()
                 if problem.status != "optimal":
                     raise ValueError("Numerical problems encountered.")
 
