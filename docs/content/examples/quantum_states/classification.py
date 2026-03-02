@@ -261,4 +261,4 @@ print(sum(result["factors"]))
 #
 result = factor_width(mat, k=2)
 print(result["feasible"])
-mkdocs_gallery_thumbnail_path = 'figures/classification_tetrahedron.png'
+# mkdocs_gallery_thumbnail_path = 'figures/classification_tetrahedron.png'

@@ -319,7 +319,7 @@ pred_mat = np.array([[0, 1, 0, 0, 0], [0, 0, 1, 0, 0], [0, 0, 0, 1, 0], [0, 0, 0
 odd_cycle = XORGame(prob_mat, pred_mat)
 print(f"The classical value of games is: {np.around(odd_cycle.classical_value(), decimals=2)}")
 print(f"The quantum value of games is: {np.around(odd_cycle.quantum_value(), decimals=2)}")
-mkdocs_gallery_thumbnail_path = 'figures/logo.png'
+# mkdocs_gallery_thumbnail_path = 'figures/nonlocal_game_quantum_strategy.svg'
 
 # %%
 # Note that the odd cycle game is another example of an XOR game where the

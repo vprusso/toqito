@@ -190,5 +190,6 @@ general_pbr_states = pusey_barrett_rudolph(n=2, theta=np.pi / 3)
 is_ad_general = is_antidistinguishable(general_pbr_states)
 
 print(f"\nAre the four general PBR states (n=2, theta=pi/3) antidistinguishable? {is_ad_general}")
+# mkdocs_gallery_thumbnail_path = 'figures/pbr_theorem.png'
 
 # %%

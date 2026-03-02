@@ -123,7 +123,7 @@ print("The unentangled value is ", np.around(unent_val, decimals=2))
 g_mub = ExtendedNonlocalGame(prob_mat, pred_mat)
 q_val = g_mub.quantum_value_lower_bound()
 print("The standard quantum value lower bound is ", np.around(q_val, decimals=2))
-mkdocs_gallery_thumbnail_path = 'figures/logo.png'
+# mkdocs_gallery_thumbnail_path = 'figures/measurement_inclusions.svg'
 
 # %%
 # Note that as we are calculating a lower bound, it is possible that a value this
