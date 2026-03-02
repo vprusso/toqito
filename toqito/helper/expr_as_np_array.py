@@ -7,8 +7,12 @@ from cvxpy.expressions.expression import Expression
 def expr_as_np_array(cvx_expr: Expression) -> np.ndarray:
     """Convert cvxpy expression into a numpy array.
 
-    :param cvx_expr: The cvxpy expression to be converted.
-    :return: The numpy array of the cvxpy expression.
+    Args:
+        cvx_expr: The cvxpy expression to be converted.
+
+    Returns:
+        The numpy array of the cvxpy expression.
+
     """
     if cvx_expr.is_scalar():
         return np.array(cvx_expr)

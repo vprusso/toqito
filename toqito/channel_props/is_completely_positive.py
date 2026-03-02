@@ -14,80 +14,79 @@ def is_completely_positive(
 ) -> bool:
     r"""Determine whether the given channel is completely positive.
 
-    (Section: Linear Maps Of Square Operators from :footcite:`Watrous_2018_TQI`).
+    (Section: Linear Maps Of Square Operators from [@watrous2018theory]).
 
-    A map :math:`\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)` is *completely
+    A map \(\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)\) is *completely
     positive* if it holds that
 
-    .. math::
+    \[
         \Phi \otimes \mathbb{I}_{\text{L}(\mathcal{Z})}
+    \]
 
-    is a positive map for every complex Euclidean space :math:`\mathcal{Z}`.
+    is a positive map for every complex Euclidean space \(\mathcal{Z}\).
 
     Alternatively, a channel is completely positive if the corresponding Choi matrix of the
     channel is both Hermitian-preserving and positive semidefinite.
 
-    Examples
-    ==========
+    Examples:
+        We can specify the input as a list of Kraus operators. Consider the map \(\Phi\) defined as
 
-    We can specify the input as a list of Kraus operators. Consider the map :math:`\Phi` defined as
+        \[
+            \Phi(X) = X - U X U^*
+        \]
 
-    .. math::
-        \Phi(X) = X - U X U^*
+        where
 
-    where
+        \[
+            U = \frac{1}{\sqrt{2}}
+            \begin{pmatrix}
+                1 & 1 \\
+                -1 & 1
+            \end{pmatrix}.
+        \]
 
-    .. math::
-        U = \frac{1}{\sqrt{2}}
-        \begin{pmatrix}
-            1 & 1 \\
-            -1 & 1
-        \end{pmatrix}.
+        This map is not completely positive, as we can verify as follows.
 
-    This map is not completely positive, as we can verify as follows.
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.channel_props import is_completely_positive
 
-    .. jupyter-execute::
+        unitary_mat = np.array([[1, 1], [-1, 1]]) / np.sqrt(2)
+        kraus_ops = [[np.identity(2), np.identity(2)], [unitary_mat, -unitary_mat]]
 
-     import numpy as np
-     from toqito.channel_props import is_completely_positive
+        print(is_completely_positive(kraus_ops))
+        ```
 
-     unitary_mat = np.array([[1, 1], [-1, 1]]) / np.sqrt(2)
-     kraus_ops = [[np.identity(2), np.identity(2)], [unitary_mat, -unitary_mat]]
+        We can also specify the input as a Choi matrix. For instance, consider the Choi matrix
+        corresponding to the \(2\)-dimensional completely depolarizing channel
 
-     is_completely_positive(kraus_ops)
+        \[
+            \Omega =
+            \frac{1}{2}
+            \begin{pmatrix}
+                1 & 0 & 0 & 0 \\
+                0 & 1 & 0 & 0 \\
+                0 & 0 & 1 & 0 \\
+                0 & 0 & 0 & 1
+            \end{pmatrix}.
+        \]
 
-    We can also specify the input as a Choi matrix. For instance, consider the Choi matrix
-    corresponding to the :math:`2`-dimensional completely depolarizing channel
+        We may verify that this channel is completely positive
 
-    .. math::
-        \Omega =
-        \frac{1}{2}
-        \begin{pmatrix}
-            1 & 0 & 0 & 0 \\
-            0 & 1 & 0 & 0 \\
-            0 & 0 & 1 & 0 \\
-            0 & 0 & 0 & 1
-        \end{pmatrix}.
+        ```python exec="1" source="above"
+        from toqito.channels import depolarizing
+        from toqito.channel_props import is_completely_positive
 
-    We may verify that this channel is completely positive
+        print(is_completely_positive(depolarizing(2)))
+        ```
 
-    .. jupyter-execute::
+    Args:
+        phi: The channel provided as either a Choi matrix or a list of Kraus operators.
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
 
-     from toqito.channels import depolarizing
-     from toqito.channel_props import is_completely_positive
-
-     is_completely_positive(depolarizing(2))
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param phi: The channel provided as either a Choi matrix or a list of Kraus operators.
-    :param rtol: The relative tolerance parameter (default 1e-05).
-    :param atol: The absolute tolerance parameter (default 1e-08).
-    :return: True if the channel is completely positive, and False otherwise.
+    Returns:
+        True if the channel is completely positive, and False otherwise.
 
     """
     # If the variable `phi` is provided as a list, we assume this is a list
@@ -95,5 +94,5 @@ def is_completely_positive(
     if isinstance(phi, list):
         phi = kraus_to_choi(phi)
 
-    # Use Choi's theorem to determine whether :code:`phi` is completely positive.
+    # Use Choi's theorem to determine whether `phi` is completely positive.
     return is_herm_preserving(phi, rtol, atol) and is_positive_semidefinite(phi, rtol, atol)

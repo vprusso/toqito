@@ -4,82 +4,80 @@ import numpy as np
 
 
 def is_commuting(mat_1: np.ndarray, mat_2: np.ndarray) -> bool:
-    r"""Determine if two linear operators commute with each other :footcite:`WikiComm`.
+    r"""Determine if two linear operators commute with each other [@wikipediacommuting].
 
-    For any pair of operators :math:`X, Y \in \text{L}(\mathcal{X})`, the
-    Lie bracket :math:`\left[X, Y\right] \in \text{L}(\mathcal{X})` is defined
+    For any pair of operators \(X, Y \in \text{L}(\mathcal{X})\), the
+    Lie bracket \(\left[X, Y\right] \in \text{L}(\mathcal{X})\) is defined
     as
 
-    .. math::
+    \[
         \left[X, Y\right] = XY - YX.
+    \]
 
-    It holds that :math:`\left[X,Y\right]=0` if and only if :math:`X` and
-    :math:`Y` commute (Section: Lie Brackets And Commutants from :footcite:`Watrous_2018_TQI`).
+    It holds that \(\left[X,Y\right]=0\) if and only if \(X\) and
+    \(Y\) commute (Section: Lie Brackets And Commutants from [@watrous2018theory]).
 
-    Examples
-    ==========
+    Examples:
+        Consider the following matrices:
 
-    Consider the following matrices:
+        \[
+            A = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix},
+            \quad \text{and} \quad
+            B = \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}.
+        \]
 
-    .. math::
-        A = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix},
-        \quad \text{and} \quad
-        B = \begin{pmatrix} 1 & 0 \\ 0 & 0 \end{pmatrix}.
+        It holds that \(AB=0\), however
 
-    It holds that :math:`AB=0`, however
+        \[
+            BA = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} = A,
+        \]
 
-    .. math::
-        BA = \begin{pmatrix} 0 & 1 \\ 0 & 0 \end{pmatrix} = A,
+        and hence, do not commute.
 
-    and hence, do not commute.
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_commuting
 
-    .. jupyter-execute::
+        mat_1 = np.array([[0, 1], [0, 0]])
+        mat_2 = np.array([[1, 0], [0, 0]])
 
-     import numpy as np
-     from toqito.matrix_props import is_commuting
+        print(is_commuting(mat_1, mat_2))
+        ```
 
-     mat_1 = np.array([[0, 1], [0, 0]])
-     mat_2 = np.array([[1, 0], [0, 0]])
+        Consider the following pair of matrices:
 
-     is_commuting(mat_1, mat_2)
+        \[
+            A = \begin{pmatrix}
+                1 & 0 & 0 \\
+                0 & 1 & 0 \\
+                1 & 0 & 2
+                \end{pmatrix} \quad \text{and} \quad
+            B = \begin{pmatrix}
+                2 & 4 & 0 \\
+                3 & 1 & 0 \\
+                -1 & -4 & 1
+                \end{pmatrix}.
+        \]
 
-    Consider the following pair of matrices:
+        It may be verified that \(AB = BA = 0\), and therefore \(A\) and
+        \(B\) commute.
 
-    .. math::
-        A = \begin{pmatrix}
-            1 & 0 & 0 \\
-            0 & 1 & 0 \\
-            1 & 0 & 2
-            \end{pmatrix} \quad \text{and} \quad
-        B = \begin{pmatrix}
-            2 & 4 & 0 \\
-            3 & 1 & 0 \\
-            -1 & -4 & 1
-            \end{pmatrix}.
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_commuting
 
-    It may be verified that :math:`AB = BA = 0`, and therefore :math:`A` and
-    :math:`B` commute.
+        mat_1 = np.array([[1, 0, 0], [0, 1, 0], [1, 0, 2]])
+        mat_2 = np.array([[2, 4, 0], [3, 1, 0], [-1, -4, 1]])
 
-    .. jupyter-execute::
+        print(is_commuting(mat_1, mat_2))
+        ```
 
-     import numpy as np
-     from toqito.matrix_props import is_commuting
+    Args:
+        mat_1: First matrix to check.
+        mat_2: Second matrix to check.
 
-     mat_1 = np.array([[1, 0, 0], [0, 1, 0], [1, 0, 2]])
-     mat_2 = np.array([[2, 4, 0], [3, 1, 0], [-1, -4, 1]])
-
-     is_commuting(mat_1, mat_2)
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-
-    :param mat_1: First matrix to check.
-    :param mat_2: Second matrix to check.
-    :return: Return `True` if :code:`mat_1` commutes with :code:`mat_2` and False otherwise.
+    Returns:
+        Return `True` if `mat_1` commutes with `mat_2` and False otherwise.
 
     """
     return np.allclose(mat_1 @ mat_2 - mat_2 @ mat_1, 0)

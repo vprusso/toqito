@@ -10,71 +10,69 @@ from toqito.perms import permutation_operator
 
 
 def symmetric_projection(dim: int, p_val: int = 2, partial: bool = False) -> np.ndarray:
-    r"""Produce the projection onto the symmetric subspace :footcite:`Chen_2014_Symmetric`.
+    r"""Produce the projection onto the symmetric subspace [@chen2014symmetric].
 
-    For a complex Euclidean space :math:`\mathcal{X}` and a positive integer :math:`n`, the projection onto the
+    For a complex Euclidean space \(\mathcal{X}\) and a positive integer \(n\), the projection onto the
     symmetric subspace is given by
 
-    .. math::
+    \[
         \frac{1}{n!} \sum_{\pi \in S_n} W_{\pi}
+    \]
 
-    where :math:`W_{\pi}` is the swap operator and where :math:`S_n` is the symmetric group on :math:`n` symbols.
+    where \(W_{\pi}\) is the swap operator and where \(S_n\) is the symmetric group on \(n\) symbols.
 
-    Produces the orthogonal projection onto the symmetric subspace of :code:`p_val` copies of `dim`-dimensional space.
+    Produces the orthogonal projection onto the symmetric subspace of `p_val` copies of `dim`-dimensional space.
     If `partial = True`, then the symmetric projection (PS) isn't the orthogonal projection itself, but rather a matrix
     whose columns form an orthonormal basis for the symmetric subspace (and hence the PS * PS' is the orthogonal
     projection onto the symmetric subspace).
 
     This function was adapted from the QETLAB package.
 
-    Examples
-    ==========
+    Examples:
+        The \(2\)-dimensional symmetric projection with \(p=1\) is given as \(2\)-by-\(2\) identity matrix
 
-    The :math:`2`-dimensional symmetric projection with :math:`p=1` is given as :math:`2`-by-:math:`2` identity matrix
+        \[
+            \begin{pmatrix}
+                1 & 0 \\
+                0 & 1
+            \end{pmatrix}.
+        \]
 
-    .. math::
-        \begin{pmatrix}
-            1 & 0 \\
-            0 & 1
-        \end{pmatrix}.
+        Using `|toqito⟩`, we can see this gives the proper result.
 
-    Using :code:`|toqito⟩`, we can see this gives the proper result.
+        ```python exec="1" source="above"
+        from toqito.perms import symmetric_projection
 
-    .. jupyter-execute::
-
-     from toqito.perms import symmetric_projection
-
-     symmetric_projection(2, 1)
-
-
-    When :math:`d = 2` and :math:`p = 2` we have that
-
-    .. math::
-        \begin{pmatrix}
-            1 & 0 & 0 & 0 \\
-            0 & 1/2 & 1/2 & 0 \\
-            0 & 1/2 & 1/2 & 0 \\
-            0 & 0 & 0 & 1
-        \end{pmatrix}.
-
-    Using :code:`|toqito⟩` we can see this gives the proper result.
-
-    .. jupyter-execute::
-
-     from toqito.perms import symmetric_projection
-
-     symmetric_projection(dim=2)
-
-    References
-    ==========
-    .. footbibliography::
+        print(symmetric_projection(2, 1))
+        ```
 
 
+        When \(d = 2\) and \(p = 2\) we have that
 
-    :param dim: The dimension of the local systems.
-    :param p_val: Default value of 2.
-    :param partial: Default value of 0.
-    :return: Projection onto the symmetric subspace.
+        \[
+            \begin{pmatrix}
+                1 & 0 & 0 & 0 \\
+                0 & 1/2 & 1/2 & 0 \\
+                0 & 1/2 & 1/2 & 0 \\
+                0 & 0 & 0 & 1
+            \end{pmatrix}.
+        \]
+
+        Using `|toqito⟩` we can see this gives the proper result.
+
+        ```python exec="1" source="above"
+        from toqito.perms import symmetric_projection
+
+        print(symmetric_projection(dim=2))
+        ```
+
+    Args:
+        dim: The dimension of the local systems.
+        p_val: Default value of 2.
+        partial: Default value of 0.
+
+    Returns:
+        Projection onto the symmetric subspace.
 
     """
     if dim < 1:

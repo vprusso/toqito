@@ -7,44 +7,41 @@ from toqito.matrix_ops import to_density_matrix
 
 
 def negativity(rho: np.ndarray, dim: list[int] | int | None = None) -> float | np.floating:
-    r"""Compute the negativity of a bipartite quantum state :footcite:`WikiNeg`.
+    r"""Compute the negativity of a bipartite quantum state [@wikipedianegativity].
 
-    The negativity of a subsystem can be defined in terms of a density matrix :math:`\rho`:
+    The negativity of a subsystem can be defined in terms of a density matrix \(\rho\):
 
-    .. math::
+    \[
         \mathcal{N}(\rho) \equiv \frac{||\rho^{\Gamma_A}||_1-1}{2}.
+    \]
 
-    Calculate the negativity of the quantum state :math:`\rho`, assuming that the two subsystems on
-    which :math:`\rho` acts are of equal dimension (if the local dimensions are unequal, specify
-    them in the optional :code:`dim` argument). The negativity of :math:`\rho` is the sum of the
-    absolute value of the negative eigenvalues of the partial transpose of :math:`\rho`.
+    Calculate the negativity of the quantum state \(\rho\), assuming that the two subsystems on
+    which \(\rho\) acts are of equal dimension (if the local dimensions are unequal, specify
+    them in the optional `dim` argument). The negativity of \(\rho\) is the sum of the
+    absolute value of the negative eigenvalues of the partial transpose of \(\rho\).
 
-    Examples
-    ==========
+    Examples:
+        Example of the negativity of density matrix of Bell state.
 
-    Example of the negativity of density matrix of Bell state.
-
-    .. jupyter-execute::
-
+        ```python exec="1" source="above"
         from toqito.states import bell
         from toqito.state_props import negativity
         rho = bell(0) @ bell(0).conj().T
-        negativity(rho)
+        print(negativity(rho))
+        ```
 
-    See Also
-    ==========
-    :py:func:`~toqito.state_props.log_negativity.log_negativity`
+        !!!See Also
+            [log_negativity()][toqito.state_props.log_negativity.log_negativity]
 
-    References
-    ==========
-    .. footbibliography::
+    Raises:
+        ValueError: If dimension of matrix is invalid.
 
+    Args:
+        rho: A density matrix of a pure state vector.
+        dim: The default has both subsystems of equal dimension.
 
-
-    :raises ValueError: If dimension of matrix is invalid.
-    :param rho: A density matrix of a pure state vector.
-    :param dim: The default has both subsystems of equal dimension.
-    :return: A value between 0 and 1 that corresponds to the negativity of :math:`\rho`.
+    Returns:
+        A value between 0 and 1 that corresponds to the negativity of \(\rho\).
 
     """
     # Allow the user to input either a pure state vector or a density matrix.

@@ -16,49 +16,21 @@ on:
 
 jobs:
   code-style:
-    strategy:
-      fail-fast: false
-      matrix:
-          # Add versions here to expand support matrix
-        python-version: ["3.10", "3.11", "3.12", "3.13"]
-        os: [ubuntu-latest, macos-latest]
-    runs-on: ${{ matrix.os }}
-    env:
-      PYTHON: ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
       - uses: astral-sh/ruff-action@v3
       - run: ruff check --fix
       - run: ruff format
-      # https://github.com/astral-sh/ruff-action
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v6
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: Install blas, lapack for Linux
-        if: runner.os == 'Linux'
-        run: |
-          sudo apt-get install -y libblas-dev liblapack-dev
-      - name: Install suite-sparse for macOS
-        if: runner.os == 'macOS'
-        run: |
-          brew install suite-sparse
-      - name: Install uv
-        uses: astral-sh/setup-uv@v7
-      - name: Install toqito + dependencies
-        run: |
-          uv sync --group dev --no-group docs --no-group lint
-
 
   toqito-pytest:
     strategy:
       fail-fast: false
       matrix:
         # Add versions here to expand support matrix
-        python-version: ["3.10", "3.11", "3.12", "3.13"]
+        python-version: ["3.11", "3.12", "3.13", "3.14"]
         os: [ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
-        # https://docs.github.com/en/actions/using-jobs/using-a-matrix-for-your-jobs#using-a-matrix-strategy
     env:
       PYTHON: ${{ matrix.python-version }}
     steps:
@@ -67,6 +39,7 @@ jobs:
         uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
+          allow-prereleases: true
       - name: Install blas, lapack for Linux
         if: runner.os == 'Linux'
         run: |
@@ -81,8 +54,13 @@ jobs:
         run: |
           uv sync --group dev --no-group docs --no-group lint
       - name: Run tests
-        run: uv run pytest -v --cov-config=.coveragerc --cov-report=xml --cov-report term-missing:skip-covered --cov=toqito
+        if: matrix.python-version != '3.12' || matrix.os != 'ubuntu-latest'
+        run: uv run pytest -v -m "not slow"
+      - name: Run tests with coverage (including slow tests)
+        if: matrix.python-version == '3.12' && matrix.os == 'ubuntu-latest'
+        run: uv run pytest -v --runslow --cov-config=.coveragerc --cov-report=xml --cov-report term-missing:skip-covered --cov=toqito
       - name: Upload coverage information
+        if: matrix.python-version == '3.12' && matrix.os == 'ubuntu-latest'
         uses: codecov/codecov-action@v5
         with:
           token: 42c62957-6808-41de-af29-3bbc4f8f0867

@@ -1,9 +1,9 @@
 [project]
 name = "toqito"
-version = "1.1.3"
+version = "1.1.4"
 description = "Python tools for the study of quantum information."
 readme = "README.md"
-requires-python = ">=3.10,<4"
+requires-python = ">=3.11,<4"
 authors = [
     { name = "Vincent Russo", email = "vincentrusso1@gmail.com" },
 ]
@@ -18,25 +18,24 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Physics",
     "Topic :: Scientific/Engineering :: Quantum Computing",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "License :: OSI Approved :: BSD License",
     "Operating System :: OS Independent",
 ]
 dependencies = [
-    "cvxpy==1.7.1",
+    "cvxpy==1.8.1",
     "more-itertools==10.8.0",
-    "numpy==2.2.6",
-    "scipy==1.15.3",
-    "scs==3.2.7.post2",
+    "numpy==2.4.1",
+    "scipy==1.17.1",
+    "scs==3.2.11",
     "picos>=2.6.2",
     "networkx>=3.4,<4.0",
-    "numba>=0.62.0,<0.64.0",
+    "numba>=0.63.0",
     "jupyter-sphinx>=0.5.3,<0.6.0",
-    "matplotlib==3.10.1",
-    "sympy==1.14.0",
+    "matplotlib==3.10.8",
 ]
 
 [project.urls]
@@ -64,24 +63,28 @@ lint = [
     "ty==0.0.12",
 ]
 docs = [
-    "readthedocs-sphinx-ext",
-    "sphinx==8.1.3",
-    "sphinx-gallery==0.20.0",
-    "matplotlib==3.10.1",
-    "furo==2025.12.19",
-    "sphinxcontrib-bibtex==2.6.3",
-    "jupyter-sphinx>=0.5.3,<0.6.0",
-    "sphinx-autoapi==3.6.0",
-    "sphinx-copybutton==0.5.2",
+    "matplotlib==3.10.8",
+    "mkdocs>=1.5",
+    "mkdocs-material>=9.0",
+    "mkdocstrings[python]>=0.24",
+    "mkdocs-bibtex>=4.3",
+    "pypandoc>=1.13",
+    "mkdocs-jupyter>=0.24",
+    "mkdocs-gallery>=0.10.0",
+    "pymdown-extensions>=10.0",
+    "mkdocs-api-autonav>=0.4.0",
+    "markdown-exec[ansi]>=1.7",
+    "pybtex>=0.24",
 ]
 
 [tool.uv]
 default-groups = ["dev"]
+constraint-dependencies = ["cvxopt>=1.3.3"]
 
 [tool.isort]
 py_version = "311"
 skip = [".gitignore", "__init__.py"]
-skip_glob = ["docs/*", ".github/*"]
+skip_glob = [".github/*"]
 line_length = 120
 multi_line_output = 3
 use_parentheses = true
@@ -101,13 +104,13 @@ requires = ["setuptools>=65.5.1"]
 build-backend = "setuptools.build_meta"
 
 [tool.ruff]
-exclude = ["__init__.py"]
+exclude = ["__init__.py", "docs/"]
 line-length = 120
 target-version = "py312"
 force-exclude = true
 
 [tool.ty.environment]
-python-version = "3.10"
+python-version = "3.11"
 
 
 [tool.ruff.lint]
@@ -121,7 +124,7 @@ select = ["I", "E", "W", "D", "PL", "F"]
 
 
 # Rules considered over other incompatible ones
-exclude = ["docs/conf.py"]
+exclude = []
 
 
 ignore = ["D407", "D203", "D213", "D416", "PLR0912", "PLR0911", "PLR0915", "PLR2004", "PLR0913", "F811", "E203"]
@@ -151,4 +154,4 @@ ignore = ["D407", "D203", "D213", "D416", "PLR0912", "PLR0911", "PLR0915", "PLR2
 # I001 - skip checking Import block is un-sorted or un-formatted
 # F401 - Checks for unused imports, applying fixes to __init__.py currently under review
 # skip checking all the .py files in the examples gallery
-"docs/examples/*" = ["I", "E", "W", "D", "PL", "F"]
+"docs/content/examples/*" = ["I", "E", "W", "D", "PL", "F"]

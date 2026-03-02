@@ -7,44 +7,41 @@ import numpy as np
 
 
 def basis(dim: int, pos: int) -> np.ndarray:
-    r"""Obtain the ket of dimension :code:`dim` :footcite:`WikiBraKet`.
+    r"""Obtain the ket of dimension `dim` [@wikipediabraket].
 
-    Examples
-    ==========
+    Examples:
+        The standard basis ket vectors given as \(|0 \rangle\) and \(|1 \rangle\) where
 
-    The standard basis ket vectors given as :math:`|0 \rangle` and :math:`|1 \rangle` where
+        \[
+            |0 \rangle = \left[1, 0 \right]^{\text{T}} \quad \text{and} \quad
+            |1 \rangle = \left[0, 1 \right]^{\text{T}},
+        \]
 
-    .. math::
-        |0 \rangle = \left[1, 0 \right]^{\text{T}} \quad \text{and} \quad
-        |1 \rangle = \left[0, 1 \right]^{\text{T}},
+        can be obtained in `|toqito⟩` as follows.
 
-    can be obtained in :code:`|toqito⟩` as follows.
+        Example:  Ket basis vector: \(|0\rangle\).
 
-    Example:  Ket basis vector: :math:`|0\rangle`.
-
-    .. jupyter-execute::
-
+        ```python exec="1" source="above"
         from toqito.states import basis
-        basis(2, 0)
+        print(basis(2, 0))
+        ```
 
-    Example: Ket basis vector: :math:`|1\rangle`.
+        Example: Ket basis vector: \(|1\rangle\).
 
-    .. jupyter-execute::
-
+        ```python exec="1" source="above"
         from toqito.states import basis
-        basis(2, 1)
+        print(basis(2, 1))
+        ```
 
-    References
-    ==========
-    .. footbibliography::
+    Raises:
+        ValueError: If the input position is not in the range [0, dim - 1].
 
+    Args:
+        dim: The dimension of the column vector.
+        pos: 0-indexed position of the basis vector where the 1 will be placed.
 
-
-    :raises ValueError: If the input position is not in the range [0, dim - 1].
-    :param dim: The dimension of the column vector.
-    :param pos: 0-indexed position of the basis vector where the 1 will be placed.
-    :return: The column vector of dimension :code:`dim` with all entries set to `0` except the entry
-             at `pos` which is set to `1`.
+    Returns:
+        The column vector of dimension `dim` with all entries set to `0` except the entry at `pos` which is set to `1`.
 
     """
     if pos >= dim or pos < 0:

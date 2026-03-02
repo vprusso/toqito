@@ -6,59 +6,56 @@ from toqito.matrix_props import is_hermitian
 
 
 def is_positive_semidefinite(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool:
-    r"""Check if matrix is positive semidefinite (PSD) :footcite:`WikiPosDef`.
+    r"""Check if matrix is positive semidefinite (PSD) [@wikipediadefinite].
 
-    Examples
-    ==========
+    Examples:
+        Consider the following matrix
 
-    Consider the following matrix
+        \[
+            A = \begin{pmatrix}
+                    1 & -1 \\
+                    -1 & 1
+                \end{pmatrix}
+        \]
 
-    .. math::
-        A = \begin{pmatrix}
-                1 & -1 \\
-                -1 & 1
-            \end{pmatrix}
+        our function indicates that this is indeed a positive semidefinite matrix.
 
-    our function indicates that this is indeed a positive semidefinite matrix.
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_positive_semidefinite
 
-    .. jupyter-execute::
+        A = np.array([[1, -1], [-1, 1]])
 
-     import numpy as np
-     from toqito.matrix_props import is_positive_semidefinite
+        print(is_positive_semidefinite(A))
+        ```
 
-     A = np.array([[1, -1], [-1, 1]])
+        Alternatively, the following example matrix \(B\) defined as
 
-     is_positive_semidefinite(A)
+        \[
+            B = \begin{pmatrix}
+                    -1 & -1 \\
+                    -1 & -1
+                \end{pmatrix}
+        \]
 
-    Alternatively, the following example matrix :math:`B` defined as
+        is not positive semidefinite.
 
-    .. math::
-        B = \begin{pmatrix}
-                -1 & -1 \\
-                -1 & -1
-            \end{pmatrix}
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_positive_semidefinite
 
-    is not positive semidefinite.
+        B = np.array([[-1, -1], [-1, -1]])
 
-    .. jupyter-execute::
+        print(is_positive_semidefinite(B))
+        ```
 
-     import numpy as np
-     from toqito.matrix_props import is_positive_semidefinite
+    Args:
+        mat: Matrix to check.
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
 
-     B = np.array([[-1, -1], [-1, -1]])
-
-     is_positive_semidefinite(B)
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param mat: Matrix to check.
-    :param rtol: The relative tolerance parameter (default 1e-05).
-    :param atol: The absolute tolerance parameter (default 1e-08).
-    :return: Return :code:`True` if matrix is PSD, and :code:`False` otherwise.
+    Returns:
+        Return `True` if matrix is PSD, and `False` otherwise.
 
     """
     if not is_hermitian(mat, rtol, atol):

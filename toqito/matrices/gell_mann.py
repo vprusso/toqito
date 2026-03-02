@@ -5,15 +5,15 @@ from scipy.sparse import csr_array
 
 
 def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | csr_array:
-    r"""Produce a Gell-Mann operator :footcite:`WikiGellMann`.
+    r"""Produce a Gell-Mann operator [@wikipediagellmann].
 
     Generates the 3-by-3 Gell-Mann matrix indicated by the value of
-    :code:`ind`.  When :code:`ind = 0` gives the identity matrix, while values
+    `ind`.  When `ind = 0` gives the identity matrix, while values
     1 through 8 each indicate one of the other 8 Gell-Mann matrices.
 
     The 9 Gell-Mann matrices are defined as follows:
 
-    .. math::
+    \[
         \begin{equation}
             \begin{aligned}
                 \lambda_0 = \begin{pmatrix}
@@ -63,36 +63,31 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | csr_array:
                                                 \end{pmatrix}.
                 \end{aligned}
             \end{equation}
+    \]
 
-    Examples
-    ==========
+    Examples:
+        The Gell-Mann matrix generated from `idx = 2` yields the following
+        matrix:
 
-    The Gell-Mann matrix generated from :code:`idx = 2` yields the following
-    matrix:
+        \[
+            \lambda_2 = \begin{pmatrix}
+                                0 & -i & 0 \\
+                                i & 0 & 0 \\
+                                0 & 0 & 0
+                        \end{pmatrix}
+        \]
+        ```python exec="1" source="above"
+        from toqito.matrices import gell_mann
 
-    .. math::
+        print(gell_mann(ind=2))
+        ```
 
-        \lambda_2 = \begin{pmatrix}
-                            0 & -i & 0 \\
-                            i & 0 & 0 \\
-                            0 & 0 & 0
-                    \end{pmatrix}
-    .. jupyter-execute::
+    Raises:
+        ValueError: Indices must be integers between 0 and 8.
 
-     from toqito.matrices import gell_mann
-
-     gell_mann(ind=2)
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-
-    :raises ValueError: Indices must be integers between 0 and 8.
-    :param ind: An integer between 0 and 8 (inclusive).
-    :param is_sparse: Boolean to determine whether array is sparse. Default value is :code:`False`.
+    Args:
+        ind: An integer between 0 and 8 (inclusive).
+        is_sparse: Boolean to determine whether array is sparse. Default value is `False`.
 
     """
     if ind == 0:

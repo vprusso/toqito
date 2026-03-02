@@ -15,6 +15,7 @@ learnability_module = import_module("toqito.state_props.learnability")
 @pytest.fixture(autouse=True)
 def mock_cvxpy_problem_solve(monkeypatch):
     """Replace CVXPY's solve method to avoid heavy solver calls in tests."""
+
     def fake_solve(self, *args, **kwargs):
         self._status = "optimal"
         self._value = 0.0

@@ -8,67 +8,64 @@ from scipy.sparse import dia_array, eye_array
 
 
 def max_mixed(dim: int, is_sparse: bool = False) -> np.ndarray | dia_array:
-    r"""Produce the maximally mixed state :footcite:`Aaronson_2018_MaxMixed`.
+    r"""Produce the maximally mixed state [@aaronson2018mixed].
 
-    Produces the maximally mixed state on of :code:`dim` dimensions. The maximally mixed state is defined as
+    Produces the maximally mixed state on of `dim` dimensions. The maximally mixed state is defined as
 
-    .. math::
+    \[
         \omega = \frac{1}{d} \begin{pmatrix}
                         1 & 0 & \ldots & 0 \\
                         0 & 1 & \ldots & 0 \\
                         \vdots & \vdots & \ddots & \vdots \\
                         0 & 0 & \ldots & 1
                     \end{pmatrix},
+    \]
 
     or equivalently, it is defined as
 
-    .. math::
+    \[
         \omega = \frac{\mathbb{I}}{\text{dim}(\mathcal{X})}
+    \]
 
-    for some complex Euclidean space :math:`\mathcal{X}`. The maximally mixed state is sometimes also referred to as the
+    for some complex Euclidean space \(\mathcal{X}\). The maximally mixed state is sometimes also referred to as the
     tracial state.
 
-    The maximally mixed state is returned as a sparse matrix if :code:`is_sparse = True` and is full if :code:`is_sparse
+    The maximally mixed state is returned as a sparse matrix if `is_sparse = True` and is full if `is_sparse
     = False`.
 
-    Examples
-    ==========
+    Examples:
+        Using `|toqito⟩`, we can generate the \(2\)-dimensional maximally mixed state
 
-    Using :code:`|toqito⟩`, we can generate the :math:`2`-dimensional maximally mixed state
+        \[
+            \omega_2 = \frac{1}{2}
+            \begin{pmatrix}
+                1 & 0 \\
+                0 & 1
+            \end{pmatrix}
+        \]
 
-    .. math::
-        \omega_2 = \frac{1}{2}
-        \begin{pmatrix}
-            1 & 0 \\
-            0 & 1
-        \end{pmatrix}
+        as follows.
 
-    as follows.
-
-    .. jupyter-execute::
-
+        ```python exec="1" source="above"
         from toqito.states import max_mixed
-        max_mixed(2, is_sparse=False)
+        print(max_mixed(2, is_sparse=False))
+        ```
 
 
 
-    One may also generate a maximally mixed state returned as a sparse matrix
+        One may also generate a maximally mixed state returned as a sparse matrix
 
-    .. jupyter-execute::
-
+        ```python exec="1" source="above"
         from toqito.states import max_mixed
-        max_mixed(2, is_sparse=True)
+        print(max_mixed(2, is_sparse=True))
+        ```
 
+    Args:
+        dim: Dimension of the entangled state.
+        is_sparse: `True` if vector is sparse and `False` otherwise.
 
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param dim: Dimension of the entangled state.
-    :param is_sparse: `True` if vector is sparse and `False` otherwise.
-    :return: The maximally mixed state of dimension `dim`.
+    Returns:
+        The maximally mixed state of dimension `dim`.
 
     """
     if is_sparse:

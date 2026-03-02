@@ -1,5 +1,7 @@
 """Calculates the probability of optimally distinguishing quantum states."""
 
+from typing import Any
+
 import numpy as np
 import picos
 
@@ -10,8 +12,12 @@ from toqito.matrix_props import has_same_dimension
 def _is_pure_state(vector: np.ndarray) -> bool:
     """Check if input is a pure state (vector) or mixed state (density matrix).
 
-    :param vector: Quantum state as vector or density matrix.
-    :return: True if pure state (vector), False if mixed state (density matrix).
+    Args:
+        vector: Quantum state as vector or density matrix.
+
+    Returns:
+        True if pure state (vector), False if mixed state (density matrix).
+
     """
     return vector.ndim == 1 or (vector.ndim == 2 and vector.shape[1] == 1)
 
@@ -22,150 +28,150 @@ def state_distinguishability(
     strategy: str = "min_error",
     solver: str = "cvxopt",
     primal_dual: str = "dual",
-    **kwargs,
+    **kwargs: Any,
 ) -> tuple[float, list[picos.HermitianVariable] | list[np.ndarray] | tuple[picos.SymmetricVariable]]:
-    r"""Compute probability of state distinguishability :footcite:`Eldar_2003_SDPApproach`.
+    r"""Compute probability of state distinguishability [@eldar2003semidefinite].
 
-    The "quantum state distinguishability" problem involves a collection of :math:`n` quantum states
+    The "quantum state distinguishability" problem involves a collection of \(n\) quantum states
 
-    .. math::
+    \[
         \rho = \{ \rho_1, \ldots, \rho_n \},
+    \]
 
     as well as a list of corresponding probabilities
 
-    .. math::
+    \[
         p = \{ p_1, \ldots, p_n \}.
+    \]
 
-    Alice chooses :math:`i` with probability :math:`p_i` and creates the state :math:`\rho_i`. Bob
+    Alice chooses \(i\) with probability \(p_i\) and creates the state \(\rho_i\). Bob
     wants to guess which state he was given from the collection of states.
 
-    For :code:`strategy = "min_error"`, this is the default method that yields the minimal
+    For `strategy = "min_error"`, this is the default method that yields the minimal
     probability of error for Bob.
 
     In that case, this function implements the following semidefinite program that provides the
     optimal probability with which Bob can conduct quantum state distinguishability.
 
-    .. math::
+    \[
         \begin{align*}
             \text{maximize:} \quad & \sum_{i=0}^n p_i \langle M_i, \rho_i \rangle \\
             \text{subject to:} \quad & M_0 + \ldots + M_n = \mathbb{I},\\
                                      & M_0, \ldots, M_n \geq 0.
         \end{align*}
+    \]
 
-    For :code:`strategy = "unambiguous"`, Bob never provides an incorrect answer, although it is
+    For `strategy = "unambiguous"`, Bob never provides an incorrect answer, although it is
     possible that his answer is inconclusive.
 
     In that case, this function implements the following semidefinite program that provides the
     optimal probability with which Bob can conduct unambiguous quantum state distinguishability.
 
-    .. math::
+    \[
         \begin{align*}
             \text{maximize:} \quad & \mathbf{p} \cdot \mathbf{q} \\
             \text{subject to:} \quad & \Gamma - Q \geq 0,\\
                                      & \mathbf{q} \geq 0
         \end{align*}
+    \]
 
-    .. math::
+    \[
         \begin{align*}
             \text{minimize:} \quad & \text{Tr}(\Gamma Z) \\
             \text{subject to:} \quad & z_i + p_i + \text{Tr}\left(F_iZ\right)=0,\\
                                      & Z, z \geq 0
         \end{align*}
+    \]
 
-    where :math:`\mathbf{p}` is the vector whose :math:`i`-th coordinate contains the probability
-    that the state is prepared in state :math:`\left|\psi_i\right\rangle`, :math:`\Gamma` is
-    the Gram matrix of :math:`\left|\psi_1\right\rangle,\cdots,\left|\psi_n\right\rangle` and :math:`F_i` is
-    :math:`-|i\rangle\langle i|`.
+    where \(\mathbf{p}\) is the vector whose \(i\)-th coordinate contains the probability
+    that the state is prepared in state \(\left|\psi_i\right\rangle\), \(\Gamma\) is
+    the Gram matrix of \(\left|\psi_1\right\rangle,\cdots,\left|\psi_n\right\rangle\) and \(F_i\) is
+    \(-|i\rangle\langle i|\).
 
-    .. note::
+    !!! Note
         For unambiguous discrimination, this function supports both pure states (vectors) and mixed states
         (density matrices). For pure states, the states should be linearly independent. For mixed states,
         the Gram matrix is computed as Tr(ρᵢ ρⱼ). If the states cannot be unambiguously distinguished,
         the optimal probability will be low or zero.
 
-    Examples
-    ==========
+    Examples:
+        Minimal-error state distinguishability for the Bell states (which are perfectly distinguishable).
 
-    Minimal-error state distinguishability for the Bell states (which are perfectly distinguishable).
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.states import bell
+        from toqito.state_opt import state_distinguishability
 
-    .. jupyter-execute::
+        states = [bell(0), bell(1), bell(2), bell(3)]
+        probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
 
-     import numpy as np
-     from toqito.states import bell
-     from toqito.state_opt import state_distinguishability
+        res, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="dual")
 
-     states = [bell(0), bell(1), bell(2), bell(3)]
-     probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
+        print(np.around(res, decimals=2))
+        ```
 
-     res, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="dual")
+        Note that if we are just interested in obtaining the optimal value, it is computationally less intensive
+        to compute
+        the dual problem over the primal problem. However, the primal problem does allow us to extract the explicit
+        measurement operators which may be of interest to us.
 
-     np.around(res, decimals=2)
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.states import bell
+        from toqito.state_opt import state_distinguishability
 
-    Note that if we are just interested in obtaining the optimal value, it is computationally less intensive to compute
-    the dual problem over the primal problem. However, the primal problem does allow us to extract the explicit
-    measurement operators which may be of interest to us.
+        states = [bell(0), bell(1), bell(2), bell(3)]
+        probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
 
-    .. jupyter-execute::
+        res, measurements = state_distinguishability(vectors=states, probs=probs, primal_dual="primal")
 
-     import numpy as np
-     from toqito.states import bell
-     from toqito.state_opt import state_distinguishability
+        print(np.around(measurements[0], decimals=5))
+        ```
 
-     states = [bell(0), bell(1), bell(2), bell(3)]
-     probs = [1 / 4, 1 / 4, 1 / 4, 1 / 4]
+        Unambiguous state distinguishability for unbiased pure states.
 
-     res, measurements = state_distinguishability(vectors=states, probs=probs, primal_dual="primal")
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.state_opt import state_distinguishability
 
-     np.around(measurements[0], decimals=5)
+        states = [np.array([[1.], [0.]]), np.array([[1.],[1.]]) / np.sqrt(2)]
+        probs = [1 / 2, 1 / 2]
 
-    Unambiguous state distinguishability for unbiased pure states.
+        res, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="primal", strategy="unambiguous")
 
-    .. jupyter-execute::
+        print(np.around(res, decimals=2))
+        ```
 
-     import numpy as np
-     from toqito.state_opt import state_distinguishability
+        Unambiguous state distinguishability for mixed states.
 
-     states = [np.array([[1.], [0.]]), np.array([[1.],[1.]]) / np.sqrt(2)]
-     probs = [1 / 2, 1 / 2]
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.state_opt import state_distinguishability
 
-     res, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="primal", strategy="unambiguous")
+        # Two mixed states (Werner-like states)
+        rho1 = 0.7 * np.array([[1., 0.], [0., 0.]]) + 0.3 * np.eye(2) / 2
+        rho2 = 0.7 * np.array([[0., 0.], [0., 1.]]) + 0.3 * np.eye(2) / 2
+        states = [rho1, rho2]
+        probs = [1 / 2, 1 / 2]
 
-     np.around(res, decimals=2)
+        res, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="primal", strategy="unambiguous")
 
-    Unambiguous state distinguishability for mixed states.
+        print(np.around(res, decimals=2))
+        ```
 
-    .. jupyter-execute::
+    Args:
+        vectors: A list of states provided as vectors (for pure states) or density matrices (for mixed states).
+        probs: Respective list of probabilities each state is selected. If no probabilities are provided, a uniform
+            probability distribution is assumed.
+        strategy: Whether to perform unambiguous or minimal error discrimination task. Possible values are "min_error"
+            and "unambiguous". Default option is `strategy="min_error"`. Both strategies support pure and mixed states.
+        solver: Optimization option for `picos` solver. Default option is `solver="cvxopt"`.
+        primal_dual: Option for the optimization problem. Default option is `"dual"`.
+        kwargs: Additional arguments to pass to picos' solve method.
 
-     import numpy as np
-     from toqito.state_opt import state_distinguishability
-
-     # Two mixed states (Werner-like states)
-     rho1 = 0.7 * np.array([[1., 0.], [0., 0.]]) + 0.3 * np.eye(2) / 2
-     rho2 = 0.7 * np.array([[0., 0.], [0., 1.]]) + 0.3 * np.eye(2) / 2
-     states = [rho1, rho2]
-     probs = [1 / 2, 1 / 2]
-
-     res, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="primal", strategy="unambiguous")
-
-     np.around(res, decimals=2)
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param vectors: A list of states provided as vectors (for pure states) or density matrices (for mixed states).
-    :param probs: Respective list of probabilities each state is selected. If no
-                  probabilities are provided, a uniform probability distribution is assumed.
-    :param strategy: Whether to perform unambiguous or minimal error discrimination task. Possible
-                     values are "min_error" and "unambiguous". Default option is `strategy="min_error"`.
-                     Both strategies support pure and mixed states.
-    :param solver: Optimization option for `picos` solver. Default option is `solver="cvxopt"`.
-    :param primal_dual: Option for the optimization problem. Default option is `"dual"`.
-    :param kwargs: Additional arguments to pass to picos' solve method.
-    :return: The optimal probability with which Bob can guess the state he was
-             not given from `states` along with the optimal set of measurements.
+    Returns:
+        The optimal probability with which Bob can guess the state he was not given from `states` along with the optimal
+        set of measurements.
 
     """
     if not has_same_dimension(vectors):
@@ -234,16 +240,19 @@ def _min_error_dual(
     return solution.value, measurements
 
 
-
 def _reconstruct_povm_pure(vectors: list[np.ndarray], q: np.ndarray, dim: int) -> list[np.ndarray]:
     """Reconstruct POVM for unambiguous discrimination of pure states.
 
     Uses reciprocal/dual states construction: M_i = q_i |ψ̃ᵢ⟩⟨ψ̃ᵢ| where ψ̃ᵢ are dual states.
 
-    :param vectors: List of pure state vectors.
-    :param q: Success probabilities for each state.
-    :param dim: Dimension of the Hilbert space.
-    :return: List of POVM elements [M_inconclusive, M_1, ..., M_n].
+    Args:
+        vectors: List of pure state vectors.
+        q: Success probabilities for each state.
+        dim: Dimension of the Hilbert space.
+
+    Returns:
+        List of POVM elements [M_inconclusive, M_1, ..., M_n].
+
     """
     n = len(vectors)
 
@@ -275,20 +284,22 @@ def _reconstruct_povm_pure(vectors: list[np.ndarray], q: np.ndarray, dim: int) -
     return measurements
 
 
-def _reconstruct_povm_mixed(
-    vectors: list[np.ndarray], q: np.ndarray, dim: int, gram: np.ndarray
-) -> list[np.ndarray]:
+def _reconstruct_povm_mixed(vectors: list[np.ndarray], q: np.ndarray, dim: int, gram: np.ndarray) -> list[np.ndarray]:
     """Reconstruct POVM for unambiguous discrimination of mixed states.
 
     For mixed states, we solve for the POVM elements directly using the SDP conditions.
     We use a relaxed approach where we maximize the success probability while enforcing
     the unambiguous property.
 
-    :param vectors: List of density matrices.
-    :param q: Success probabilities for each state (used as target).
-    :param dim: Dimension of the Hilbert space.
-    :param gram: Gram matrix with entries Tr(ρᵢ ρⱼ).
-    :return: List of POVM elements [M_inconclusive, M_1, ..., M_n].
+    Args:
+        vectors: List of density matrices.
+        q: Success probabilities for each state (used as target).
+        dim: Dimension of the Hilbert space.
+        gram: Gram matrix with entries Tr(ρᵢ ρⱼ).
+
+    Returns:
+        List of POVM elements [M_inconclusive, M_1, ..., M_n].
+
     """
     n = len(vectors)
 
@@ -338,7 +349,7 @@ def _unambiguous_primal(
 ) -> tuple[float, list[np.ndarray]]:
     """Solve the primal problem for unambiguous quantum state distinguishability SDP.
 
-    Implemented according to Equation (5) of :footcite:`Gupta_2024_Unambiguous`:.
+    Implemented according to Equation (5) of [@gupta2024unambiguous]:.
     Supports both pure states (vectors) and mixed states (density matrices).
     """
     n = len(vectors)
@@ -376,7 +387,7 @@ def _unambiguous_dual(
 ) -> tuple[float, tuple[picos.SymmetricVariable]]:
     """Solve the dual problem for unambiguous quantum state distinguishability SDP.
 
-    Implemented according to Equation (5) of :footcite:`Gupta_2024_Unambiguous`.
+    Implemented according to Equation (5) of [@gupta2024unambiguous].
     Supports both pure states (vectors) and mixed states (density matrices).
     """
     n = len(vectors)

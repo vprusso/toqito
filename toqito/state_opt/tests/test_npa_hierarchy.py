@@ -644,6 +644,7 @@ def test_bell_npa_constraints_output_structure(k, desc, expected_gamma_shape):
     assert gamma_var is not None
     assert gamma_var.shape == expected_gamma_shape
 
+
 @pytest.mark.parametrize(
     "word, desc, expected_index",
     [
@@ -670,6 +671,7 @@ def test_word_to_p_cg_index(word, desc, expected_index):
     """Test mapping operator words to CG indices."""
     oa, ob, ma, mb = desc
     assert _word_to_p_cg_index(word, oa, ob, ma, mb) == expected_index
+
 
 def test_bell_npa_constraints_identity_constraint():
     """Test that Gamma[0,0] == p_var[0,0] constraint exists."""

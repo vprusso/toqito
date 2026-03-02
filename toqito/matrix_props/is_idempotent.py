@@ -6,63 +6,59 @@ from toqito.matrix_props import is_square
 
 
 def is_idempotent(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> bool:
-    r"""Check if matrix is the idempotent matrix :footcite:`WikiIdemPot`.
+    r"""Check if matrix is the idempotent matrix [@wikipediaidempotent].
 
     An *idempotent matrix* is a square matrix, which, when multiplied by itself, yields itself.
-    That is, the matrix :math:`A` is idempotent if and only if :math:`A^2 = A`.
+    That is, the matrix \(A\) is idempotent if and only if \(A^2 = A\).
 
-    Examples
-    ==========
+    Examples:
+        The following is an example of a \(2 x 2\) idempotent matrix:
 
-    The following is an example of a :math:`2 x 2` idempotent matrix:
-
-    .. math::
-        A = \begin{pmatrix}
-            3 & -6 \\
-            1 & -2
-        \end{pmatrix}
-
-    .. jupyter-execute::
-
-     import numpy as np
-     from toqito.matrix_props import is_idempotent
-
-     mat = np.array([[3, -6], [1, -2]])
-
-     is_idempotent(mat)
-
-
-    Alternatively, the following matrix
-
-    .. math::
-        B = \begin{pmatrix}
-                1 & 2 & 3 \\
-                4 & 5 & 6 \\
-                7 & 8 & 9
+        \[
+            A = \begin{pmatrix}
+                3 & -6 \\
+                1 & -2
             \end{pmatrix}
+        \]
 
-    is not idempotent.
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_idempotent
 
-    .. jupyter-execute::
+        mat = np.array([[3, -6], [1, -2]])
 
-     import numpy as np
-     from toqito.matrix_props import is_idempotent
-
-     mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-
-     is_idempotent(mat)
-
-    References
-    ==========
-    .. footbibliography::
+        print(is_idempotent(mat))
+        ```
 
 
+        Alternatively, the following matrix
 
-    :param mat: Matrix to check.
-    :param rtol: The relative tolerance parameter (default 1e-05).
-    :param atol: The absolute tolerance parameter (default 1e-08).
-    :return: Return :code:`True` if matrix is the idempotent matrix, and
-            :code:`False` otherwise.
+        \[
+            B = \begin{pmatrix}
+                    1 & 2 & 3 \\
+                    4 & 5 & 6 \\
+                    7 & 8 & 9
+                \end{pmatrix}
+        \]
+
+        is not idempotent.
+
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_idempotent
+
+        mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+
+        print(is_idempotent(mat))
+        ```
+
+    Args:
+        mat: Matrix to check.
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
+
+    Returns:
+        Return `True` if matrix is the idempotent matrix, and `False` otherwise.
 
     """
     if not is_square(mat):

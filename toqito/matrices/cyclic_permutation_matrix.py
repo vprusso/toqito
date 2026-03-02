@@ -4,46 +4,38 @@ import numpy as np
 
 
 def cyclic_permutation_matrix(n: int, k: int = 1) -> np.ndarray:
-    r"""Create the cyclic permutation matrix for a given dimension :code:`n` :footcite:`WikiCyclicPermutation`.
+    r"""Create the cyclic permutation matrix for a given dimension `n` [@wikipediacyclic].
 
     This function creates a cyclic permutation matrix of 0's and 1's which is a special type of square matrix
     that represents a cyclic permutation of its rows. The function allows fixed points and successive applications.
 
-    Examples
-    ==========
-    Generate fixed point.
+    Examples:
+        Generate fixed point.
 
-    .. jupyter-execute::
+        ```python exec="1" source="above"
+        from toqito.matrices import cyclic_permutation_matrix
 
-     from toqito.matrices import cyclic_permutation_matrix
+        print(cyclic_permutation_matrix(n=4))
+        ```
 
-     cyclic_permutation_matrix(n=4)
+        Generate successive application.
 
-    Generate successive application.
+        ```python exec="1" source="above"
+        from toqito.matrices import cyclic_permutation_matrix
 
-    .. jupyter-execute::
-
-     from toqito.matrices import cyclic_permutation_matrix
-
-     cyclic_permutation_matrix(n=4, k=3)
-
-    References
-    ==========
-    .. footbibliography::
+        print(cyclic_permutation_matrix(n=4, k=3))
+        ```
 
 
-    :param n: int
-        The number of rows and columns in the cyclic permutation matrix.
 
-    :param k: int
-        The power to which the elements are raised, representing successive applications.
+    Args:
+        n: int The number of rows and columns in the cyclic permutation matrix.
+        k: int The power to which the elements are raised, representing successive applications.
 
-    :return:
-        A NumPy array representing a cyclic permutation matrix of dimension :code:`n x n`.
-        Each row of the matrix is shifted one position to the right in a cyclic manner,
-        creating a circular permutation pattern. If :code:`k` is specified, the function
-        raises the matrix to the power of :code:`k`, representing successive applications
-        of the cyclic permutation.
+    Returns:
+         A NumPy array representing a cyclic permutation matrix of dimension `n x n`. Each row of the matrix is shifted
+         one position to the right in a cyclic manner, creating a circular permutation pattern. If `k` is specified, the
+         function raises the matrix to the power of `k`, representing successive applications of the cyclic permutation.
 
     """
     if not isinstance(n, int):

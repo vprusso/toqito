@@ -15,35 +15,34 @@ def channel_measured_relative_entropy(
     hamiltonian: np.ndarray,
     energy: float,
 ) -> float:
-    r"""Compute the measured relative entropy of two quantum channels :footcite:`Huang_2025_Msrd_Rel_Entr`.
+    r"""Compute the measured relative entropy of two quantum channels [@huang2025semidefinite].
 
-    Given a quantum channel :math:`\mathcal{N}_{A \to B}`, a completely positive map :math:`\mathcal{M}_{A \to B}`,
-    a Hamiltonian :math:`H_A` (Hermitian operator acting on system :math:`A`), and an energy constraint
-    :math:`E \in \mathbb{R}`, the energy-constrained measured relative entropy of channels is defined as
+    Given a quantum channel $\mathcal{N}_{A \to B}$, a completely positive map $\mathcal{M}_{A \to B}$,
+    a Hamiltonian $H_A$ (Hermitian operator acting on system $A$), and an energy constraint
+    $E \in \mathbb{R}$, the energy-constrained measured relative entropy of channels is defined as:
 
-    .. math::
-
+    $$
         D^{M}_{H,E}(\mathcal{N}\Vert\mathcal{M}) :=
         \sup_{\substack{d_{R'} \in \mathbb{N},\\ \rho_{R'A} \in \mathcal{D}(\mathcal{H}_{R'A})}}
         \left\{D^{M}\!\left(\mathcal{N}_{A \to B}(\rho_{R'A}) \middle\Vert \mathcal{M}_{A \to B}(\rho_{R'A})\right):
         \operatorname{Tr}[H_A \rho_A] \le E\right\}.
+    $$
 
-    When their Choi operators :math:`\Gamma^{\mathcal{N}}` and :math:`\Gamma^{\mathcal{M}}` are
-    :math:`d_A d_B \times d_A d_B` matrices, the quantity :math:`D^{M}_{H,E}(\mathcal{N}\Vert\mathcal{M})` can be
-    efficiently calculated by means of a semi-definite program up to an additive error :math:`\varepsilon`,
-    by means of :math:`O(\sqrt{\ln(1/\varepsilon)})` linear matrix inequalities, each of size
-    :math:`2d_A d_B \times 2d_A d_B`. Specifically, there exist :math:`m, k \in \mathbb{N}` such that
-    :math:`m + k = O(\sqrt{\ln(1/\varepsilon)})` and the following inequality holds:
+    When their Choi operators $\Gamma^{\mathcal{N}}$ and $\Gamma^{\mathcal{M}}$ are
+    $d_A d_B \times d_A d_B$ matrices, the quantity $D^{M}_{H,E}(\mathcal{N}\Vert\mathcal{M})$ can be
+    efficiently calculated by means of a semi-definite program up to an additive error $\varepsilon$,
+    by means of $O(\sqrt{\ln(1/\varepsilon)})$ linear matrix inequalities, each of size
+    $2d_A d_B \times 2d_A d_B$. Specifically, there exist $m, k \in \mathbb{N}$ such that
+    $m + k = O(\sqrt{\ln(1/\varepsilon)})$ and the following inequality holds:
 
-    .. math::
-
+    $$
         \left|D^{M}_{H,E}(\mathcal{N}\Vert\mathcal{M})
         - D^{M}_{H,E,m,k}(\mathcal{N}\Vert\mathcal{M})\right| \le \varepsilon,
+    $$
 
     where
 
-    .. math::
-
+    $$
         D_{H,E,m,k}^{M}(\mathcal{N} \| \mathcal{M}) :=
         \sup\limits_{\substack{\Omega, \rho > 0, \Theta \in \mathbb{H}, \\
         T_1, \dots, T_m \in \mathbb{H}, \\ Z_0, \dots, Z_k \in \mathbb{H}}}
@@ -57,22 +56,20 @@ def channel_measured_relative_entropy(
         \left\{ \begin{bmatrix} Z_k - \rho \otimes I - T_j & -\sqrt{t_j} T_j \\
         -\sqrt{t_j} T_j & \rho \otimes I - t_j T_j \end{bmatrix} \geq 0 \right\}_{j=1}^m
         \end{gathered} \right\}
+    $$
 
-    and, for all :math:`j \in \{1, \dots, m\}`, :math:`w_j` and :math:`t_j`
-    are the weights and nodes, respectively, for the :math:`m`-point Gauss--Legendre quadrature
-    on the interval :math:`[0, 1]`.
+    and, for all $j \in \{1, \dots, m\}$, $w_j$ and $t_j$
+    are the weights and nodes, respectively, for the $m$-point Gauss--Legendre quadrature
+    on the interval $[0, 1]$.
 
-    Examples
-    ==========
-    We can find the measured relative entropy between a depolarizing channel of dimension 2
-    and the identity channel, constrained by a Hamiltonian and energy, as follows:
+    Examples:
+        We can find the measured relative entropy between a depolarizing channel of dimension 2
+        and the identity channel, constrained by a Hamiltonian and energy, as follows:
 
-    .. jupyter-execute::
-
+        ```python exec="1" source="above"
         from toqito.channel_metrics import channel_measured_relative_entropy
         from toqito.channels import depolarizing
         import numpy as np
-
         channel_1 = depolarizing(2, 0.2)
         channel_2 = np.eye(4)
         in_dim = 2
@@ -80,21 +77,23 @@ def channel_measured_relative_entropy(
         k = 5
         hamiltonian = np.zeros((2, 2))
         energy = 100
-        channel_measured_relative_entropy(channel_1, channel_2, in_dim, m, k, hamiltonian, energy)
+        print(channel_measured_relative_entropy(channel_1, channel_2, in_dim, m, k, hamiltonian, energy))
+        ```
 
-    References
-    ==========
-    .. footbibliography::
+    Raises:
+        ValueError: If `channel_1` is not a quantum channel or `channel_2` is not completely positive.
 
-    :raises ValueError: If :code:`channel_1` is not a quantum channel/:code:`channel_2` is not completely positive.
-    :param channel_1: Choi matrix for first channel.
-    :param channel_2: Choi matrix for second channel.
-    :param in_dim: the dimension of the input of the quantum channels.
-    :param m: one of the optimization parameters.
-    :param k: the other optimization parameter.
-    :param hamiltonian: the Hamiltonian.
-    :param energy: the energy constraint.
-    :return: The measured relative entropy between :code:`channel_1` and :code:`channel_2`.
+    Args:
+        channel_1: Choi matrix for the first channel.
+        channel_2: Choi matrix for the second channel.
+        in_dim: The dimension of the input of the quantum channels.
+        m: One of the optimization parameters.
+        k: The other optimization parameter.
+        hamiltonian: The Hamiltonian.
+        energy: The energy constraint.
+
+    Returns:
+        The measured relative entropy between `channel_1` and `channel_2`.
 
     """
     if not is_quantum_channel(channel_1):

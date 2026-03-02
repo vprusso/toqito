@@ -1,4 +1,4 @@
-"""Add function for fidelity of separability as defined in :footcite:`Philip_2023_Schrodinger`.
+"""Add function for fidelity of separability as defined in [@philip2023schrodinger].
 
 Fidelity of separability is an entanglement measure that can be approximated with semidefinite programs.
 The constraints for this function are positive partial transpose (PPT) & k-extendible states.
@@ -19,12 +19,12 @@ def fidelity_of_separability(
     verbosity_option: int = 0,
     solver_option: str = "cvxopt",
 ) -> float:
-    r"""Define the first benchmark introduced in Appendix H of :footcite:`Philip_2023_Schrodinger`.
+    r"""Define the first benchmark introduced in Appendix H of [@philip2023schrodinger].
 
     If you would like to instead use the benchmark introduced in Appendix I, go to
-    :obj:`toqito.channel_metrics.fidelity_of_separability`.
+    [channel_metrics.fidelity_of_separability][toqito.channel_metrics.fidelity_of_separability].
 
-    In :footcite:`Philip_2023_Schrodinger` a variational quantum algorithm (VQA) is introduced to test
+    In [@philip2023schrodinger] a variational quantum algorithm (VQA) is introduced to test
     the separability of a general bipartite state. The algorithm utilizes
     quantum steering between two separated systems such that the separability
     of the state is quantified.
@@ -33,17 +33,16 @@ def fidelity_of_separability(
     optimization semidefinite programs (SDP) benchmarks were introduced to
     maximize the fidelity of separability subject to some state constraints
     (Positive Partial Transpose (PPT), symmetric extensions (k-extendibility
-    ) :footcite:`Hayden_2013_TwoMessage` ) This function approximites the fidelity of separability by
+    ) [@hayden2013twomessage] ) This function approximites the fidelity of separability by
     maximizing over PPT states & k-extendible states i.e. an optimization
-    problem over states :footcite:`Watrous_2018_TQI`.
+    problem over states [@watrous2018theory].
 
-    The following expression (Equation (H2) from :footcite:`Philip_2023_Schrodinger` ) defines the
+    The following expression (Equation (H2) from [@philip2023schrodinger] ) defines the
     constraints for approxiamting
 
-    :math:`\sqrt{\widetilde{F}_s^1}(\rho_{AB}) {:}=`
+    \(\sqrt{\widetilde{F}_s^1}(\rho_{AB}) {:}=\)
 
-    .. math::
-
+    \[
         \begin{multline}
         \max_{\substack{X_{AB} \in\mathcal{L}(\mathcal{H}_{AB}),\\\sigma_{AB^{k}}\geq0}}
         \left\{\begin{array}
@@ -59,70 +58,66 @@ def fidelity_of_separability(
                 T_{B_{1\cdots j}}(\sigma_{AB_{1\cdots j}})\geq 0 \quad \forall j\leq k
             \end{array}\right\}
         \end{multline}
+    \]
 
-    :math:`\sqrt{\widetilde{F}_s^1}(\rho_{AB})` is the quantity to be
+    \(\sqrt{\widetilde{F}_s^1}(\rho_{AB})\) is the quantity to be
     approximated but this function returns
-    :math:`\widetilde{F}_s^1(\rho_{AB})`.
+    \(\widetilde{F}_s^1(\rho_{AB})\).
 
-    :math:`\operatorname{Re}[\operatorname{Tr}[X_{AB}]]` is the maximization problem subject to PPT & k-extendibile
+    \(\operatorname{Re}[\operatorname{Tr}[X_{AB}]]\) is the maximization problem subject to PPT & k-extendibile
     state constraints.
 
-    Here, :math:`\mathcal{L}(\mathcal{H}_{AB})` is the space of linear operators over space :math:`\mathcal{H}_{AB}`.
+    Here, \(\mathcal{L}(\mathcal{H}_{AB})\) is the space of linear operators over space \(\mathcal{H}_{AB}\).
 
-    :math:`\sigma_{AB^{k}}` is a k-extension of :math:`\rho_{AB}`.
+    \(\sigma_{AB^{k}}\) is a k-extension of \(\rho_{AB}\).
 
-    :math:`\mathcal{P}_{B^{k}}` is the permutation operator among systems
-    :math:`B_1, B_2,  \ldots , B_{k}` which has no effect on the k-extended
-    state :math:`\sigma_{AB^{k}}`.
+    \(\mathcal{P}_{B^{k}}\) is the permutation operator among systems
+    \(B_1, B_2,  \ldots , B_{k}\) which has no effect on the k-extended
+    state \(\sigma_{AB^{k}}\).
 
-    The other constraints are due to the PPT condition :footcite:`Peres_1996_Separability`.
+    The other constraints are due to the PPT condition [@peres1996separability].
 
-    Examples
-    ==========
-    Let's consider a density matrix of a state that we know is pure and separable; :math:`|00 \rangle = |0 \rangle
-    \otimes |0 \rangle`.
+    Examples:
+        Let's consider a density matrix of a state that we know is pure and separable; \(|00 \rangle = |0 \rangle
+        \otimes |0 \rangle\).
 
-    The expected approximation of fidelity of separability is the maximum value possible i.e. very close to 1.
+        The expected approximation of fidelity of separability is the maximum value possible i.e. very close to 1.
 
-    .. math::
-        \rho_{AB} = |00 \rangle \langle 00|
+        \[
+            \rho_{AB} = |00 \rangle \langle 00|
+        \]
 
-    .. jupyter-execute::
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.state_metrics import fidelity_of_separability
+        from toqito.matrix_ops import tensor
+        from toqito.states import basis
 
-     import numpy as np
-     from toqito.state_metrics import fidelity_of_separability
-     from toqito.matrix_ops import tensor
-     from toqito.states import basis
+        state = tensor(basis(2, 0), basis(2, 0))
+        rho = state @ state.conj().T
 
-     state = tensor(basis(2, 0), basis(2, 0))
-     rho = state @ state.conj().T
+        print(np.around(fidelity_of_separability(rho, [2, 2]), decimals=2))
+        ```
+            is PSD with trace 1).
 
-     np.around(fidelity_of_separability(rho, [2, 2]), decimals=2)
+    Raises:
+        AssertionError: If the provided dimensions are not for a bipartite density matrix.
+        ValueError: If the matrix is not a density matrix (square matrix that
+        ValueError: the input state is entangled.
+        ValueError: the input state is a mixed state.
 
-    References
-    ==========
-    .. footbibliography::
+    Args:
+        input_state_rho: the density matrix for the bipartite state of interest.
+        input_state_rho_dims: the dimensions of System A & B respectively in the input state density matrix. It is
+            assumed that the first quantity in this list is the dimension of System A.
+        k: value for k-extendibility.
+        verbosity_option: Parameter option for `picos`. Default value is `verbosity = 0`. For more info, visit
+            https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-verbosity.
+        solver_option: Optimization option for `picos` solver. Default option is `solver_option="cvxopt"`. For more
+            info, visit https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-solver.
 
-
-
-    :param input_state_rho: the density matrix for the bipartite state of interest.
-    :param input_state_rho_dims: the dimensions of System A & B respectively in
-        the input state density matrix. It is assumed that the first
-        quantity in this list is the dimension of System A.
-    :param k: value for k-extendibility.
-    :param verbosity_option: Parameter option for `picos`. Default value is
-        `verbosity = 0`. For more info, visit
-        https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-verbosity.
-    :param solver_option: Optimization option for `picos` solver. Default option is
-        `solver_option="cvxopt"`. For more info, visit
-        https://picos-api.gitlab.io/picos/api/picos.modeling.options.html#option-solver.
-    :raises AssertionError: If the provided dimensions are not for a bipartite density matrix.
-    :raises ValueError: If the matrix is not a density matrix (square matrix that
-        is PSD with trace 1).
-    :raises ValueError: the input state is entangled.
-    :raises ValueError: the input state is a mixed state.
-    :return: Optimized value of the SDP when maximized over a set of linear operators subject
-        to some constraints.
+    Returns:
+        Optimized value of the SDP when maximized over a set of linear operators subject to some constraints.
 
     """
     # rho is relabelled as rho_{AB} where A >= B.

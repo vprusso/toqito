@@ -1,5 +1,14 @@
-# This workflow will upload a Python Package using Twine when a release is created
-# For more information see: https://help.github.com/en/actions/language-and-framework-guides/using-python-with-github-actions#publishing-to-package-registries
+# Publish to PyPI using Trusted Publishers (OIDC) when a GitHub release is created.
+# No API tokens or secrets needed — PyPI trusts this repository directly.
+#
+# Prerequisites (one-time setup on PyPI):
+#   1. Go to https://pypi.org/manage/project/toqito/settings/publishing/
+#   2. Add a new "GitHub Actions" trusted publisher with:
+#        - Owner: vprusso
+#        - Repository: toqito
+#        - Workflow name: publish-release.yml
+#        - Environment: pypi
+#   3. That's it — no tokens to rotate or store.
 
 name: Upload Release Package to PyPI
 
@@ -7,28 +16,47 @@ on:
   release:
     types: [published]
   workflow_dispatch:
-    inputs: {}
 
 jobs:
-  deploy:
+  build:
     if: github.repository_owner == 'vprusso'
     runs-on: ubuntu-latest
     steps:
       - name: Check out toqito
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
         with:
-          ref: ${{ github.ref }} # only publish to PyPI on tag pushes
+          ref: ${{ github.ref }}
+
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.12"
+
       - name: Install uv
-        uses: astral-sh/setup-uv@v7
-      - name: Build and publish
-        env:
-          TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
-          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-        run: |
-          uv build
-          pip install twine
-          twine upload dist/*  
+        uses: astral-sh/setup-uv@v5
+
+      - name: Build sdist and wheel
+        run: uv build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  publish:
+    needs: build
+    if: github.repository_owner == 'vprusso'
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write  # required for Trusted Publishers (OIDC)
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1

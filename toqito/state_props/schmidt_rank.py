@@ -6,62 +6,61 @@ from toqito.perms import swap
 
 
 def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = None) -> int | float:
-    r"""Compute the Schmidt rank :footcite:`WikiScmidtDecomp`.
+    r"""Compute the Schmidt rank [@wikipediaschmidt].
 
-    For complex Euclidean spaces :math:`\mathcal{X}` and :math:`\mathcal{Y}`, a pure state
-    :math:`u \in \mathcal{X} \otimes \mathcal{Y}` possesses an expansion of the form:
+    For complex Euclidean spaces \(\mathcal{X}\) and \(\mathcal{Y}\), a pure state
+    \(u \in \mathcal{X} \otimes \mathcal{Y}\) possesses an expansion of the form:
 
-    .. math::
+    \[
         u = \sum_{i} \lambda_i v_i w_i,
+    \]
 
-    where :math:`v_i \in \mathcal{X}` and :math:`w_i \in \mathcal{Y}` are orthonormal states.
+    where \(v_i \in \mathcal{X}\) and \(w_i \in \mathcal{Y}\) are orthonormal states.
 
     The Schmidt coefficients are calculated from
 
-    .. math::
+    \[
         A = \text{Tr}_{\mathcal{B}}(u^* u).
+    \]
 
-    The Schmidt rank is the number of non-zero eigenvalues of :math:`A`. The Schmidt rank allows us
+    The Schmidt rank is the number of non-zero eigenvalues of \(A\). The Schmidt rank allows us
     to determine if a given state is entangled or separable. For instance:
 
-        - If the Schmidt rank is 1: The state is separable,
-        - If the Schmidt rank > 1: The state is entangled.
+    - If the Schmidt rank is 1: The state is separable,
+    - If the Schmidt rank > 1: The state is entangled.
 
-    Compute the Schmidt rank of the input :code:`rho`, provided as either a vector or a matrix that
+    Compute the Schmidt rank of the input `rho`, provided as either a vector or a matrix that
     is assumed to live in bipartite space, where both subsystems have dimension equal to
-    :code:`sqrt(len(vec))`.
+    `sqrt(len(vec))`.
 
-    The dimension may be specified by the 1-by-2 vector :code:`dim` and the rank in that case is
-    determined as the number of Schmidt coefficients larger than :code:`tol`.
+    The dimension may be specified by the 1-by-2 vector `dim` and the rank in that case is
+    determined as the number of Schmidt coefficients larger than `tol`.
 
-    Examples
-    ==========
+    Examples:
+        Computing the Schmidt rank of the entangled Bell state should yield a value greater than one.
 
-    Computing the Schmidt rank of the entangled Bell state should yield a value greater than one.
-
-    .. jupyter-execute::
-
+        ```python exec="1" source="above"
         from toqito.states import bell
         from toqito.state_props import schmidt_rank
         rho = bell(0) @ bell(0).conj().T
-        schmidt_rank(rho)
+        print(schmidt_rank(rho))
+        ```
 
 
-    Computing the Schmidt rank of the entangled singlet state should yield a value greater than
-    :math:`1`.
+        Computing the Schmidt rank of the entangled singlet state should yield a value greater than
+        \(1\).
 
-    .. jupyter-execute::
-
+        ```python exec="1" source="above"
         from toqito.states import bell
         from toqito.state_props import schmidt_rank
         u = bell(2) @ bell(2).conj().T
-        schmidt_rank(u)
+        print(schmidt_rank(u))
+        ```
 
 
-    Computing the Schmidt rank of a separable state should yield a value equal to :math:`1`.
+        Computing the Schmidt rank of a separable state should yield a value equal to \(1\).
 
-    .. jupyter-execute::
-
+        ```python exec="1" source="above"
         from toqito.states import basis
         from toqito.state_props import schmidt_rank
         import numpy as np
@@ -72,18 +71,15 @@ def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = Non
         e_11 = np.kron(e_1, e_1)
         rho = 1 / 2 * (e_00 - e_01 - e_10 + e_11)
         rho = rho @ rho.conj().T
-        schmidt_rank(rho)
+        print(schmidt_rank(rho))
+        ```
 
+    Args:
+        rho: A bipartite vector or matrix to have its Schmidt rank computed.
+        dim: A 1-by-2 vector or matrix.
 
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param rho: A bipartite vector or matrix to have its Schmidt rank computed.
-    :param dim: A 1-by-2 vector or matrix.
-    :return: The Schmidt rank of :code:`rho`.
+    Returns:
+        The Schmidt rank of `rho`.
 
     """
     # If the input is provided as a matrix, compute the operator Schmidt rank.
@@ -108,6 +104,7 @@ def _operator_schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray | 
 
     If the input is provided as a density operator instead of a vector, compute
     the operator Schmidt rank.
+
     """
     if dim is None:
         dim_x = rho.shape
