@@ -175,26 +175,22 @@ function follows the formatting specifications in [Code Style](#code-style). A s
 def my_new_function(some_parameter: parameter_type) -> return_type:
     r"""One liner description of the new function.
 
-        Detailed description of the function.
+    Detailed description of the function [@some_citation_key].
 
-        Examples
-        ==========
+    Examples:
         Demonstrate how the function works with expected output.
 
-        .. jupyter-execute::
+        ```python exec="1" source="above"
+        import numpy as np
+        x = np.array([[1, 2], [3, 4]])
+        print(x)
+        ```
 
-            import numpy as np
-            x = np.array([[1, 2], [3, 4]])
-            print(x)
+    Raises:
+        SomeError: Description for when the function raises an error.
 
-        References
-        ==========
-        .. footbibliography::
-
-
-        :param name_of_parameter: Description of the parameter.
-        :raises SomeError: Description for when the function raises an error.
-        :return: Description of what the function returns.
+    Returns:
+        Description of what the function returns.
 
     """
 ```
@@ -208,26 +204,29 @@ To add an attribution to a paper or a book, add your reference with
 last name. Take a look at the [existing
 entries](https://github.com/vprusso/toqito/blob/master/docs/content/refs.bib) to
 get an idea of how to format the `bib` keys.
-## Documentation 
+## Documentation
 
-We use `sphinx` to build the documentation. Sync the docs dependency
-group first (`uv sync --group docs`), then run:
+We use [MkDocs](https://www.mkdocs.org/) with
+[Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) to
+build the documentation. Sync the docs dependency group first, then
+serve locally:
 
 ``` bash
-uv run make clean html
+uv sync --group docs
+uv run mkdocs serve -f docs/mkdocs.yml
 ```
 
-If you would prefer to decrease the amount of time taken by `sphinx` to
-build the documentation locally, use `make html` instead after the
-documentation has been built once.
+This starts a live-reloading server at `http://127.0.0.1:8000`.
 
-A standard document has to follow the `.rst` format. For more
-information on `sphinx`, `rst` fromat and the documentation theme
-`furo`, visit [sphinx
-documentation](https://docs.readthedocs.io/en/stable/intro/getting-started-with-sphinx.html)
-, [rst
-primer](https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html)
-& [furo documentation](https://sphinx-themes.org/sample-sites/furo/) .
+To produce a static build instead:
+
+``` bash
+uv run mkdocs build -f docs/mkdocs.yml
+```
+
+For more information, visit the
+[MkDocs documentation](https://www.mkdocs.org/getting-started/) and the
+[Material for MkDocs reference](https://squidfunk.github.io/mkdocs-material/getting-started/).
 
 ## Additional Resources
 
