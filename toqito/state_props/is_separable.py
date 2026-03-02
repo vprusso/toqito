@@ -17,7 +17,7 @@ from toqito.state_props.schmidt_rank import schmidt_rank
 from toqito.states.max_entangled import max_entangled
 
 
-def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: int = 2,STR: int=2, tol: float = 1e-8) -> bool:
+def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: int = 2,STR: int=1, tol: float = 1e-8) -> bool:
     r"""Determine if a given state (given as a density matrix) is a separable state :footcite:`WikiSepSt`.
 
     A multipartite quantum state:
@@ -152,9 +152,15 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         .. note::
             QETLAB's :code:`SymmetricExtension` typically tests k-PPT-extendibility, where failure means entangled.
             It also has :code:`SymmetricInnerExtension`, which can prove separability.
-    14 **Iterative :math:`S_k` decomposition**: 
-        - If   
-
+    
+    14. **Iterative :math:`S_k` decomposition**: 
+        
+        - The test is only activated when :code:`STR>=2` as this is an computationaly expensive check.
+        - We use :code:`STR` to control the level of the :math:`S_k` decomposition and the maximum allowed random product states to start the test. 
+        .. note::
+            QETLAB's :code:`sk_iterate` routined for testing seperability. Though the original test has capabilites to split the state for any schmidt rank,
+            this implimentation  is restricted to Schimdt rank 1 decomposition.
+ 
     Examples
     ==========
     Consider the following separable (by construction) state:
