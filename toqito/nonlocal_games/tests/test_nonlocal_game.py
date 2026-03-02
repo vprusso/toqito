@@ -3,6 +3,7 @@
 import unittest
 
 import numpy as np
+import pytest
 
 from toqito.nonlocal_games.nonlocal_game import NonlocalGame
 
@@ -168,6 +169,7 @@ class TestNonlocalGame(unittest.TestCase):
         expected_res = 2 / 3
         self.assertEqual(np.isclose(res, expected_res), True)
 
+    @pytest.mark.slow
     def test_ffl_game_quantum_value_lower_bound_value_rep_2(self):
         """Lower bound on quantum value for the FFL game for 2 reps."""
         prob_mat, pred_mat = self.ffl_nonlocal_game()

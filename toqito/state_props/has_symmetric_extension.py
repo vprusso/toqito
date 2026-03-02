@@ -18,83 +18,84 @@ def has_symmetric_extension(
 ) -> bool:
     r"""Determine whether there exists a symmetric extension for a given quantum state.
 
-    For more information, see :footcite:`Doherty_2002_Distinguishing`.
+    For more information, see [@doherty2002distinguishing].
 
-    Determining whether an operator possesses a symmetric extension at some level :code:`level`
+    Determining whether an operator possesses a symmetric extension at some level `level`
     can be used as a check to determine if the operator is entangled or not.
 
     This function was adapted from QETLAB.
 
-    Examples
-    ==========
+    Examples:
+        2-qubit symmetric extension:
 
-    2-qubit symmetric extension:
+        In [@chen2014symmetric], it was shown that a 2-qubit state \(\rho_{AB}\) has a
+        symmetric extension if and only if
 
-    In :footcite:`Chen_2014_Symmetric`, it was shown that a 2-qubit state :math:`\rho_{AB}` has a
-    symmetric extension if and only if
+        \[
+            \text{Tr}(\rho_B^2) \geq \text{Tr}(\rho_{AB}^2) - 4 \sqrt{\text{det}(\rho_{AB})}.
+        \]
 
-    .. math::
-        \text{Tr}(\rho_B^2) \geq \text{Tr}(\rho_{AB}^2) - 4 \sqrt{\text{det}(\rho_{AB})}.
+        This closed-form equation is much quicker to check than running the semidefinite program.
 
-    This closed-form equation is much quicker to check than running the semidefinite program.
-
-    .. jupyter-execute::
-
+        ```python exec="1" source="above" session="has_symmetric_example"
         import numpy as np
         from toqito.state_props import has_symmetric_extension
         from toqito.matrix_ops import partial_trace
         rho = np.array([[1, 0, 0, -1], [0, 1, 1/2, 0], [0, 1/2, 1, 0], [-1, 0, 0, 1]])
         # Show the closed-form equation holds
-        np.trace(np.linalg.matrix_power(partial_trace(rho, 1), 2)) >= np.trace(rho**2) - 4 * np.sqrt(np.linalg.det(rho))
+        print(
+        np.trace(np.linalg.matrix_power(partial_trace(rho, 1), 2))
+        >= np.trace(rho**2) - 4 * np.sqrt(np.linalg.det(rho)))
+        ```
 
-    .. jupyter-execute::
-
+        ```python exec="1" source="above" session="has_symmetric_example"
         # Now show that the `has_symmetric_extension` function recognizes this case.
-        has_symmetric_extension(rho)
+        print(has_symmetric_extension(rho))
+        ```
 
-    Higher qubit systems:
+        Higher qubit systems:
 
-    Consider a density operator corresponding to one of the Bell states.
+        Consider a density operator corresponding to one of the Bell states.
 
-    .. math::
-        \rho = \frac{1}{2} \begin{pmatrix}
-                            1 & 0 & 0 & 1 \\
-                            0 & 0 & 0 & 0 \\
-                            0 & 0 & 0 & 0 \\
-                            1 & 0 & 0 & 1
-                           \end{pmatrix}
+        \[
+            \rho = \frac{1}{2} \begin{pmatrix}
+                                1 & 0 & 0 & 1 \\
+                                0 & 0 & 0 & 0 \\
+                                0 & 0 & 0 & 0 \\
+                                1 & 0 & 0 & 1
+                               \end{pmatrix}
+        \]
 
-    To make this state over more than just two qubits, let's construct the following state
+        To make this state over more than just two qubits, let's construct the following state
 
-    .. math::
-        \sigma = \rho \otimes \rho.
+        \[
+            \sigma = \rho \otimes \rho.
+        \]
 
-    As the state :math:`\sigma` is entangled, there should not exist a symmetric extension at some
-    level. We see this being the case for a relatively low level of the hierarchy.
+        As the state \(\sigma\) is entangled, there should not exist a symmetric extension at some
+        level. We see this being the case for a relatively low level of the hierarchy.
 
-    .. jupyter-execute::
-
+        ```python exec="1" source="above"
         import numpy as np
         from toqito.states import bell
         from toqito.state_props import has_symmetric_extension
         rho = bell(0) @ bell(0).conj().T
         sigma = np.kron(rho, rho)
-        has_symmetric_extension(sigma)
+        print(has_symmetric_extension(sigma))
+        ```
 
+    Raises:
+        ValueError: If dimension does not evenly divide matrix length.
 
-    References
-    ==========
-    .. footbibliography::
+    Args:
+        rho: A matrix or vector.
+        level: Level of the hierarchy to compute.
+        dim: The default has both subsystems of equal dimension.
+        ppt: If `True`, this enforces that the symmetric extension must be PPT.
+        tol: Tolerance when determining whether a symmetric extension exists.
 
-
-
-    :raises ValueError: If dimension does not evenly divide matrix length.
-    :param rho: A matrix or vector.
-    :param level: Level of the hierarchy to compute.
-    :param dim: The default has both subsystems of equal dimension.
-    :param ppt: If :code:`True`, this enforces that the symmetric extension must be PPT.
-    :param tol: Tolerance when determining whether a symmetric extension exists.
-    :return: :code:`True` if :code:`mat` has a symmetric extension; :code:`False` otherwise.
+    Returns:
+        `True` if `mat` has a symmetric extension; `False` otherwise.
 
     """
     len_mat = rho.shape[1]

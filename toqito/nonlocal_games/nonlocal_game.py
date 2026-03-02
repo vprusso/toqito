@@ -1,11 +1,11 @@
 """Two-player nonlocal game."""
 
+import itertools
 from collections import defaultdict
 
 import cvxpy
 import numpy as np
 
-from toqito.helper import update_odometer
 from toqito.matrix_ops import tensor
 from toqito.matrix_ops.tensor_unravel import tensor_unravel
 from toqito.nonlocal_games.binary_constraint_system_game import check_perfect_commuting_strategy
@@ -21,28 +21,24 @@ class NonlocalGame:
     are not allowed to communicate with each other once the game has started and
     who play cooperative against an adversary referred to as the referee.
 
-    The nonlocal game framework was originally introduced in :footcite:`Cleve_2010_Consequences`.
+    The nonlocal game framework was originally introduced in [@cleve2010consequences].
 
     A tutorial is available in the documentation. For more info, see
-    :ref:`sphx_glr_auto_examples_nonlocal_games_nonlocal_game.py`.
-
-    References
-    ==========
-    .. footbibliography::
-
-
+    [Nonlocal Games](../../../generated/gallery/nonlocal_games/nonlocal_game.md).
     """
 
     def __init__(self, prob_mat: np.ndarray, pred_mat: np.ndarray, reps: int = 1) -> None:
         """Construct nonlocal game object.
 
-        :param prob_mat: A matrix whose (x, y)-entry gives the probability
-                        that the referee will give Alice the value `x` and Bob
-                        the value `y`.
-        :param pred_mat: A four-dimensional matrix whose (a,b,x,y)-entry gives
-                         the outcome for answers "a" and "b" given questions
-                         "x" and "y".
-        :param reps: Number of parallel repetitions to perform. Default is 1.
+        Args:
+            prob_mat: A matrix whose (x, y)-entry gives the probability
+                      that the referee will give Alice the value `x` and Bob
+                      the value `y`.
+            pred_mat: A four-dimensional matrix whose (a,b,x,y)-entry gives
+                      the outcome for answers "a" and "b" given questions
+                      "x" and "y".
+            reps: Number of parallel repetitions to perform. Default is 1.
+
         """
         if reps == 1:
             self.prob_mat = prob_mat
@@ -61,16 +57,12 @@ class NonlocalGame:
                     num_bob_in**reps,
                 )
             )
-            i_ind = np.zeros(reps, dtype=int)
-            j_ind = np.zeros(reps, dtype=int)
-            for i in range(num_alice_in**reps):
-                for j in range(num_bob_in**reps):
+            for i, i_ind in enumerate(itertools.product(range(num_alice_in), repeat=reps)):
+                for j, j_ind in enumerate(itertools.product(range(num_bob_in), repeat=reps)):
                     to_tensor = np.empty([reps, num_alice_out, num_bob_out])
                     for k in range(reps - 1, -1, -1):
                         to_tensor[k] = pred_mat[:, :, i_ind[k], j_ind[k]]
                     pred_mat2[:, :, i, j] = tensor(to_tensor)
-                    j_ind = update_odometer(j_ind, num_bob_in * np.ones(reps))
-                i_ind = update_odometer(i_ind, num_alice_in * np.ones(reps))
             self.pred_mat = pred_mat2
             self.reps = reps
         # _raw_constraints will store the original 1D BCS constraints (if provided) for later analysis.
@@ -80,15 +72,14 @@ class NonlocalGame:
     def from_bcs_game(cls, constraints: list[np.ndarray], reps: int = 1) -> "NonlocalGame":
         r"""Convert constraints that specify a binary constraint system game to a nonlocal game.
 
-        Binary constraint system games (BCS) games were originally defined in :footcite:`Cleve_2014_Characterization`.
+        Binary constraint system games (BCS) games were originally defined in [@cleve2014characterization].
 
-        :param constraints: List of binary constraints that define the game.
-        :param reps: Number of parallel repetitions to perform. Default is 1.
-        :return: A NonlocalGame object arising from the variables and constraints that define the game.
+        Args:
+            constraints: List of binary constraints that define the game.
+            reps: Number of parallel repetitions to perform. Default is 1.
 
-        References
-        ==========
-        .. footbibliography::
+        Returns:
+            A NonlocalGame object arising from the variables and constraints that define the game.
 
         """
         if (num_constraints := len(constraints)) == 0:
@@ -136,15 +127,18 @@ class NonlocalGame:
         return game
 
     def is_bcs_perfect_commuting_strategy(self) -> bool:
-        """Determine if the BCS game admits a perfect commuting-operator strategy.
+        r"""Determine if the BCS game admits a perfect commuting-operator strategy.
 
         This method checks whether the binary constraint system game, from which the current
         nonlocal game was constructed, has a perfect quantum strategy in the commuting-operator model.
         It converts the raw BCS tensor constraints (if needed) into matrix form and evaluates
         their satisfiability using a helper function.
 
-        :return: True if a perfect commuting-operator strategy exists; False otherwise.
-        :raise: If no constraints are stored (i.e., if the game was not created from a BCS game).
+        Raises:
+            ValueError: If no constraints are stored (i.e., if the game was not created from a BCS game).
+
+        Returns:
+            True if a perfect commuting-operator strategy exists; False otherwise.
 
         """
         # If the stored constraints are tensor-form (i.e. not 1D), convert them to raw (1D) form.
@@ -165,7 +159,7 @@ class NonlocalGame:
         return check_perfect_commuting_strategy(M_array, b_array)
 
     def classical_value(self) -> float:
-        """Compute the classical value of the nonlocal game using Numba acceleration."""
+        r"""Compute the classical value of the nonlocal game using Numba acceleration."""
         A_out, B_out, A_in, B_in = self.pred_mat.shape
         pm = np.copy(self.pred_mat)
         pm *= self.prob_mat[np.newaxis, np.newaxis, :A_in, :B_in]
@@ -205,8 +199,8 @@ class NonlocalGame:
         dim: int = 2,
         iters: int = 5,
         tol: float = 10e-6,
-    ):
-        r"""Compute a lower bound on the quantum value of a nonlocal game :footcite:`Liang_2007_Bounds`.
+    ) -> float:
+        r"""Compute a lower bound on the quantum value of a nonlocal game [@liang2007bounds].
 
         Calculates a lower bound on the maximum value that the specified
         nonlocal game can take on in quantum mechanical settings where Alice and
@@ -224,14 +218,13 @@ class NonlocalGame:
         number of times and keep the highest value obtained.
 
         The algorithm is based on the alternating projections algorithm as it
-        can be applied to Bell inequalities as shown in :footcite:`Liang_2007_Bounds`.
+        can be applied to Bell inequalities as shown in [@liang2007bounds].
 
         The alternating projection algorithm has also been referred to as the
         "see-saw" algorithm as it goes back and forth between the following two
         semidefinite programs:
 
-        .. math::
-
+        \[
             \begin{equation}
                 \begin{aligned}
                     \textbf{SDP-1:} \quad & \\
@@ -249,9 +242,9 @@ class NonlocalGame:
                                         & \tau \in \text{D}(\mathcal{A}).
                 \end{aligned}
             \end{equation}
+        \]
 
-        .. math::
-
+        \[
             \begin{equation}
                 \begin{aligned}
                     \textbf{SDP-2:} \quad & \\
@@ -266,80 +259,79 @@ class NonlocalGame:
                                     \forall b \in \Gamma_{\mathsf{B}}.
                 \end{aligned}
             \end{equation}
+        \]
 
-        Examples
-        ==========
+        Examples:
+            The CHSH game
 
-        The CHSH game
+            The CHSH game is a two-player nonlocal game with the following
+            probability distribution and question and answer sets.
 
-        The CHSH game is a two-player nonlocal game with the following
-        probability distribution and question and answer sets.
+            \[
+                \begin{equation}
+                \begin{aligned}
+                    \pi(x,y) = \frac{1}{4}, \qquad (x,y) \in \Sigma_A \times \Sigma_B,
+                    \qquad \text{and} \qquad (a, b) \in \Gamma_A \times \Gamma_B,
+                \end{aligned}
+                \end{equation}
+            \]
 
-        .. math::
-            \begin{equation}
-            \begin{aligned}
-              \pi(x,y) = \frac{1}{4}, \qquad (x,y) \in \Sigma_A \times \Sigma_B,
-              \qquad \text{and} \qquad (a, b) \in \Gamma_A \times \Gamma_B,
-            \end{aligned}
-            \end{equation}
+            where
 
-        where
+            \[
+                \begin{equation}
+                \Sigma_A = \{0, 1\}, \quad \Sigma_B = \{0, 1\}, \quad \Gamma_A =
+                \{0,1\}, \quad \text{and} \quad \Gamma_B = \{0, 1\}.
+                \end{equation}
+            \]
 
-        .. math::
-            \begin{equation}
-            \Sigma_A = \{0, 1\}, \quad \Sigma_B = \{0, 1\}, \quad \Gamma_A =
-            \{0,1\}, \quad \text{and} \quad \Gamma_B = \{0, 1\}.
-            \end{equation}
+            Alice and Bob win the CHSH game if and only if the following equation is
+            satisfied.
 
-        Alice and Bob win the CHSH game if and only if the following equation is
-        satisfied.
+            \[
+                \begin{equation}
+                a \oplus b = x \land y.
+                \end{equation}
+            \]
 
-        .. math::
-            \begin{equation}
-            a \oplus b = x \land y.
-            \end{equation}
+            Recall that \(\oplus\) refers to the XOR operation.
 
-        Recall that :math:`\oplus` refers to the XOR operation.
+            The optimal quantum value of CHSH is
+            \(\cos(\pi/8)^2 \approx 0.8536\) where the optimal classical value
+            is \(3/4\).
 
-        The optimal quantum value of CHSH is
-        :math:`\cos(\pi/8)^2 \approx 0.8536` where the optimal classical value
-        is :math:`3/4`.
+            ```python exec="1" source="above"
+            import numpy as np
+            from toqito.nonlocal_games.nonlocal_game import NonlocalGame
 
-        .. jupyter-execute::
+            dim = 2
+            num_alice_inputs, num_alice_outputs = 2, 2
+            num_bob_inputs, num_bob_outputs = 2, 2
+            prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
+            pred_mat = np.zeros((num_alice_outputs, num_bob_outputs, num_alice_inputs, num_bob_inputs))
 
-         import numpy as np
-         from toqito.nonlocal_games.nonlocal_game import NonlocalGame
+            for a_alice in range(num_alice_outputs):
+                for b_bob in range(num_bob_outputs):
+                   for x_alice in range(num_alice_inputs):
+                       for y_bob in range(num_bob_inputs):
+                           if np.mod(a_alice + b_bob + x_alice * y_bob, dim) == 0:
+                               pred_mat[a_alice, b_bob, x_alice, y_bob] = 1
 
-         dim = 2
-         num_alice_inputs, num_alice_outputs = 2, 2
-         num_bob_inputs, num_bob_outputs = 2, 2
-         prob_mat = np.array([[1 / 4, 1 / 4], [1 / 4, 1 / 4]])
-         pred_mat = np.zeros((num_alice_outputs, num_bob_outputs, num_alice_inputs, num_bob_inputs))
+            chsh = NonlocalGame(prob_mat, pred_mat)
 
-         for a_alice in range(num_alice_outputs):
-             for b_bob in range(num_bob_outputs):
-                for x_alice in range(num_alice_inputs):
-                    for y_bob in range(num_bob_inputs):
-                        if np.mod(a_alice + b_bob + x_alice * y_bob, dim) == 0:
-                            pred_mat[a_alice, b_bob, x_alice, y_bob] = 1
+            print(chsh.quantum_value_lower_bound())
+            ```
 
-         chsh = NonlocalGame(prob_mat, pred_mat)
-
-         chsh.quantum_value_lower_bound()
-
-        References
-        ==========
-        .. footbibliography::
-
-
-
-        :param dim: The dimension of the quantum system that Alice and Bob have
+        Args:
+            dim: The dimension of the quantum system that Alice and Bob have
                     access to (default = 2).
-        :param iters: The number of times to run the alternating projection
+            iters: The number of times to run the alternating projection
                       algorithm.
-        :param tol: The tolerance before quitting out of the alternating
+            tol: The tolerance before quitting out of the alternating
                     projection semidefinite program.
-        :return: The lower bound on the quantum value of a nonlocal game.
+
+        Returns:
+            The lower bound on the quantum value of a nonlocal game.
 
         """
         # Get number of inputs and outputs.
@@ -490,10 +482,12 @@ class NonlocalGame:
     def nonsignaling_value(self) -> float:
         """Compute the non-signaling value of the nonlocal game.
 
-        :return: A value between [0, 1] representing the non-signaling value.
+        Returns:
+            A value between [0, 1] representing the non-signaling value.
+
         """
         alice_out, bob_out, alice_in, bob_in = self.pred_mat.shape
-        dim_x, dim_y = 2, 2
+        dim_x, dim_y = 1, 1
 
         constraints = []
 
@@ -581,25 +575,23 @@ class NonlocalGame:
         return ns_val
 
     def commuting_measurement_value_upper_bound(self, k: int | str = 1) -> float:
-        """Compute an upper bound on the commuting measurement value of the nonlocal game.
+        r"""Compute an upper bound on the commuting measurement value of the nonlocal game.
 
         This function calculates an upper bound on the commuting measurement value by
-        using k-levels of the NPA hierarchy :footcite:`Navascues_2008_AConvergent`. The NPA hierarchy is a uniform
-        family of semidefinite programs that converges to the commuting measurement value of
-        any nonlocal game.
+            using k-levels of the NPA hierarchy [@navascues2008convergent]. The NPA hierarchy is a uniform
+            family of semidefinite programs that converges to the commuting measurement value of
+            any nonlocal game.
 
         You can determine the level of the hierarchy by a positive integer or a string
-        of a form like '1+ab+aab', which indicates that an intermediate level of the hierarchy
-        should be used, where this example uses all products of one measurement, all products of
-        one Alice and one Bob measurement, and all products of two Alice and one Bob measurements.
+            of a form like '1+ab+aab', which indicates that an intermediate level of the hierarchy
+            should be used, where this example uses all products of one measurement, all products of
+            one Alice and one Bob measurement, and all products of two Alice and one Bob measurements.
 
-        References
-        ==========
-        .. footbibliography::
+        Args:
+            k: The level of the NPA hierarchy to use (default=1).
 
-
-        :param k: The level of the NPA hierarchy to use (default=1).
-        :return: The upper bound on the commuting strategy value of a nonlocal game.
+        Returns:
+            The upper bound on the commuting strategy value of a nonlocal game.
 
         """
         alice_out, bob_out, alice_in, bob_in = self.pred_mat.shape
