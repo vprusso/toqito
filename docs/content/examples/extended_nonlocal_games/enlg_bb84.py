@@ -189,7 +189,7 @@ print("The non-signaling value is ", np.around(bb84.nonsignaling_value(), decima
 # The non-signaling value of BB84 under parallel repetition.
 import numpy as np
 
-# mkdocs_gallery_thumbnail_path = 'figures/referee.svg'
+# mkdocs_gallery_thumbnail_path = 'figures/bb84_bases.png'
 from toqito.nonlocal_games.extended_nonlocal_game import ExtendedNonlocalGame
 
 # Define the bb84 game for two parallel repetitions.
