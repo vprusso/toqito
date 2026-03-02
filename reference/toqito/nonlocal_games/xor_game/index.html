@@ -9355,7 +9355,7 @@ D(x,y) = \pi(x, y) (-1)^{f(x,y)}
 <a id="__codelineno-0-238" name="__codelineno-0-238"></a>    <span class="p">]</span>
 <a id="__codelineno-0-239" name="__codelineno-0-239"></a>
 <a id="__codelineno-0-240" name="__codelineno-0-240"></a>    <span class="n">problem</span> <span class="o">=</span> <span class="n">cvxpy</span><span class="o">.</span><span class="n">Problem</span><span class="p">(</span><span class="n">objective</span><span class="p">,</span> <span class="n">constraints</span><span class="p">)</span>
-<a id="__codelineno-0-241" name="__codelineno-0-241"></a>    <span class="n">problem</span><span class="o">.</span><span class="n">solve</span><span class="p">()</span>
+<a id="__codelineno-0-241" name="__codelineno-0-241"></a>    <span class="n">problem</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <a id="__codelineno-0-242" name="__codelineno-0-242"></a>
 <a id="__codelineno-0-243" name="__codelineno-0-243"></a>    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reps</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
 <a id="__codelineno-0-244" name="__codelineno-0-244"></a>        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">problem</span><span class="o">.</span><span class="n">value</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span>
