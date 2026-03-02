@@ -259,9 +259,9 @@ def _reconstruct_povm_pure(vectors: list[np.ndarray], q: np.ndarray, dim: int) -
     # Stack states into Psi = [psi_1 ... psi_n].
     psi = np.hstack(vectors)  # shape (dim, n)
 
-    # Gram and its inverse.
+    # Gram matrix and its (pseudo-)inverse for numerical stability.
     gram_np = psi.conj().T @ psi
-    gram_inv = np.linalg.inv(gram_np)
+    gram_inv = np.linalg.pinv(gram_np)
 
     # Dual (reciprocal) states: Psi_tilde = Psi * Gamma^{-1}.
     psi_tilde = psi @ gram_inv  # shape (dim, n)
