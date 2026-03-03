@@ -15,59 +15,55 @@ def is_unital(
 ) -> bool:
     r"""Determine whether the given channel is unital.
 
-    A map :math:`\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)` is *unital* if it holds that:
+    A map \(\Phi \in \text{T} \left(\mathcal{X}, \mathcal{Y} \right)\) is *unital* if it holds that:
 
-    .. math::
+    \[
         \Phi(\mathbb{I}_{\mathcal{X}}) = \mathbb{I}_{\mathcal{Y}}.
+    \]
 
-    If the input channel maps :math:`M_{r,c}` to :math:`M_{x,y}` then :code:`dim` should be the
-    list :code:`[[r,x], [c,y]]`. If it maps :math:`M_m` to :math:`M_n`, then :code:`dim` can simply
-    be the vector :code:`[m,n]`.
+    If the input channel maps \(M_{r,c}\) to \(M_{x,y}\) then `dim` should be the
+    list `[[r,x], [c,y]]`. If it maps \(M_m\) to \(M_n\), then `dim` can simply
+    be the vector `[m,n]`.
 
-    More information can be found in Chapter: Unital Channels And Majorization from :footcite:`Watrous_2018_TQI`).
+    More information can be found in Chapter: Unital Channels And Majorization from [@watrous2018theory]).
 
-    Examples
-    ==========
+    Examples:
+        Consider the channel whose Choi matrix is the swap operator. This channel is an example of a
+        unital channel.
 
-    Consider the channel whose Choi matrix is the swap operator. This channel is an example of a
-    unital channel.
+        ```python exec="1" source="above"
+        from toqito.perms import swap_operator
+        from toqito.channel_props import is_unital
 
-    .. jupyter-execute::
+        choi = swap_operator(3)
 
-     from toqito.perms import swap_operator
-     from toqito.channel_props import is_unital
+        print(is_unital(choi))
+        ```
 
-     choi = swap_operator(3)
+        Additionally, the channel whose Choi matrix is the depolarizing channel is another example of
+        a unital channel.
 
-     is_unital(choi)
+        ```python exec="1" source="above"
+        from toqito.channels import depolarizing
+        from toqito.channel_props import is_unital
 
-    Additionally, the channel whose Choi matrix is the depolarizing channel is another example of
-    a unital channel.
+        choi = depolarizing(4)
 
-    .. jupyter-execute::
+        print(is_unital(choi))
+        ```
 
-     from toqito.channels import depolarizing
-     from toqito.channel_props import is_unital
+    Args:
+        phi: The channel provided as either a Choi matrix or a list of Kraus operators.
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
+        dim: A scalar, vector or matrix containing the input and output dimensions of PHI.
 
-     choi = depolarizing(4)
-
-     is_unital(choi)
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param phi: The channel provided as either a Choi matrix or a list of Kraus operators.
-    :param rtol: The relative tolerance parameter (default 1e-05).
-    :param atol: The absolute tolerance parameter (default 1e-08).
-    :param dim: A scalar, vector or matrix containing the input and output dimensions of PHI.
-    :return: :code:`True` if the channel is unital, and :code:`False` otherwise.
+    Returns:
+        `True` if the channel is unital, and `False` otherwise.
 
     """
     dim_in, _, _ = channel_dim(phi, dim=dim, allow_rect=False, compute_env_dim=False)
 
-    # Channel is unital if :code:`mat` is the identity matrix.
+    # Channel is unital if `mat` is the identity matrix.
     mat = apply_channel(np.identity(dim_in), phi)
     return is_identity(mat, rtol=rtol, atol=atol)

@@ -1,5 +1,6 @@
 """Unique permutations is used to calculate the unique permutations of a list/vector and their count."""
 
+from collections.abc import Generator
 from dataclasses import dataclass
 
 
@@ -11,32 +12,32 @@ class UniqueElement:
     occurrences: int
 
 
-def unique_perms(elements: list[int]):
+def unique_perms(elements: list[int]) -> Generator[tuple[int, ...], None, None]:
     r"""Determine the number of unique permutations of a list.
 
-    Examples
-    ==========
+    Examples:
+        Consider the following vector
 
-    Consider the following vector
+        \[
+            \left[1, 1, 2, 2, 1, 2, 1, 3, 3, 3\right].
+        \]
 
-    .. math::
-        \left[1, 1, 2, 2, 1, 2, 1, 3, 3, 3\right].
+        The number of possible permutations possible with the above vector is \(4200\). This can be
+        obtained using the `|toqito⟩` package as follows.
 
-    The number of possible permutations possible with the above vector is :math:`4200`. This can be
-    obtained using the :code:`|toqito⟩` package as follows.
+        ```python exec="1" source="above"
+        from toqito.perms import unique_perms
 
-    .. jupyter-execute::
+        vec_nums = [1, 1, 2, 2, 1, 2, 1, 3, 3, 3]
 
-     from toqito.perms import unique_perms
+        print(len(list(unique_perms(vec_nums))))
+        ```
 
-     vec_nums = [1, 1, 2, 2, 1, 2, 1, 3, 3, 3]
+    Args:
+        elements: List of integers.
 
-     len(list(unique_perms(vec_nums)))
-
-
-
-    :param elements: List of integers.
-    :return: The number of possible permutations possible.
+    Returns:
+        The number of possible permutations possible.
 
     """
     elem_set = set(elements)
@@ -46,13 +47,16 @@ def unique_perms(elements: list[int]):
     return perm_unique_helper(list_unique, [0] * len_elems, len_elems - 1)
 
 
-def perm_unique_helper(list_unique: list[UniqueElement], result_list: list[int], elem_d: int):
+def perm_unique_helper(
+    list_unique: list[UniqueElement], result_list: list[int], elem_d: int,
+) -> Generator[tuple[int, ...], None, None]:
     """Provide helper function for unique_perms.
 
-    :param list_unique:
-    :param result_list:
-    :param elem_d:
-    :return:
+    Args:
+        list_unique: list[UniqueElement]
+        result_list: list[int]
+        elem_d: int
+
     """
     if elem_d < 0:
         yield tuple(result_list)

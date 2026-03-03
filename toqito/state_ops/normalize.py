@@ -8,24 +8,27 @@ import numpy as np
 def normalize(vector: Sequence[complex] | np.ndarray, *, tol: float = 1e-8) -> np.ndarray:
     r"""Return a normalized copy of the input state vector.
 
-    The input may be a one-dimensional array or a column/row vector. A zero vector raises
-    :class:`ValueError`.
+    The input may be a one-dimensional array or a column/row vector. A zero vector raises `ValueError`.
 
-    Examples
-    ========
-
-    .. jupyter-execute::
-
+    Examples:
+        ```python exec="1" source="above"
         import numpy as np
         from toqito.state_ops import normalize
 
         v = np.array([1, 1], dtype=np.complex128)
-        normalize(v)
+        print(normalize(v))
+        ```
 
-    :param vector: State vector expressed as a 1D array or column/row vector.
-    :param tol: Numerical tolerance used to detect zero-norm inputs.
-    :raises ValueError: If the input is not vector-shaped or has vanishing norm.
-    :return: Normalized vector as a 1D NumPy array.
+
+    Raises:
+        ValueError: If the input is not vector-shaped or has vanishing norm.
+
+    Args:
+        vector: State vector expressed as a 1D array or column/row vector.
+        tol: Numerical tolerance used to detect zero-norm inputs.
+
+    Returns:
+        Normalized vector as a 1D NumPy array.
 
     """
     array = np.asarray(vector, dtype=np.complex128)

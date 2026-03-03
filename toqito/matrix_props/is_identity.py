@@ -6,11 +6,11 @@ from toqito.matrix_props import is_square
 
 
 def is_identity(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> bool:
-    r"""Check if matrix is the identity matrix :footcite:`WikiIden`.
+    r"""Check if matrix is the identity matrix [@wikipediaidentity].
 
-    For dimension :math:`n`, the :math:`n \times n` identity matrix is defined as
+    For dimension \(n\), the \(n \times n\) identity matrix is defined as
 
-    .. math::
+    \[
         I_n =
         \begin{pmatrix}
             1 & 0 & 0 & \ldots & 0 \\
@@ -19,63 +19,59 @@ def is_identity(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> boo
             \vdots & \vdots & \vdots & \ddots & \vdots \\
             0 & 0 & 0 & \ldots & 1
         \end{pmatrix}.
+    \]
 
-    Examples
-    ==========
+    Examples:
+        Consider the following matrix:
 
-    Consider the following matrix:
+        \[
+            A = \begin{pmatrix}
+                    1 & 0 & 0 \\
+                    0 & 1 & 0 \\
+                    0 & 0 & 1
+                \end{pmatrix}
+        \]
 
-    .. math::
-        A = \begin{pmatrix}
-                1 & 0 & 0 \\
-                0 & 1 & 0 \\
-                0 & 0 & 1
-            \end{pmatrix}
+        our function indicates that this is indeed the identity matrix of dimension
+        3.
 
-    our function indicates that this is indeed the identity matrix of dimension
-    3.
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_identity
 
-    .. jupyter-execute::
+        mat = np.eye(3)
 
-     import numpy as np
-     from toqito.matrix_props import is_identity
+        print(is_identity(mat))
+        ```
 
-     mat = np.eye(3)
+        Alternatively, the following example matrix \(B\) defined as
 
-     is_identity(mat)
+        \[
+            B = \begin{pmatrix}
+                    1 & 2 & 3 \\
+                    4 & 5 & 6 \\
+                    7 & 8 & 9
+                \end{pmatrix}
+        \]
 
-    Alternatively, the following example matrix :math:`B` defined as
+        is not an identity matrix.
 
-    .. math::
-        B = \begin{pmatrix}
-                1 & 2 & 3 \\
-                4 & 5 & 6 \\
-                7 & 8 & 9
-            \end{pmatrix}
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_identity
 
-    is not an identity matrix.
+        mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
 
-    .. jupyter-execute::
+        print(is_identity(mat))
+        ```
 
-     import numpy as np
-     from toqito.matrix_props import is_identity
+    Args:
+        mat: Matrix to check.
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
 
-     mat = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-
-     is_identity(mat)
-
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param mat: Matrix to check.
-    :param rtol: The relative tolerance parameter (default 1e-05).
-    :param atol: The absolute tolerance parameter (default 1e-08).
-    :return: Return :code:`True` if matrix is the identity matrix, and
-            :code:`False` otherwise.
+    Returns:
+        Return `True` if matrix is the identity matrix, and `False` otherwise.
 
     """
     if not is_square(mat):

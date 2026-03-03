@@ -1,5 +1,7 @@
 """Computes the maximum probability of distinguishing two quantum channels."""
 
+from typing import Any
+
 import numpy as np
 import picos as pc
 
@@ -16,7 +18,7 @@ def channel_distinguishability(
     strategy: str = "bayesian",
     solver: str = "cvxopt",
     primal_dual: str = "dual",
-    **kwargs,
+    **kwargs: Any,
 ) -> float | np.floating:
     r"""Compute the optimal probability of distinguishing two quantum channels.
 
@@ -24,7 +26,7 @@ def channel_distinguishability(
 
     For Bayesian discrimination, channels to be distinguished should have a given a priori probability distribution.
     The task of discriminating channels can be connected to the completely bounded trace norm
-    (Section 3.3.3 of :footcite:`Watrous_2018_TQI`).
+    (Section 3.3.3 of [@watrous2018theory]).
     The problem is finding POVMs for which error probability of discrimination of
     output states is minimized after input state is acted on by the two quantum channels.
     In the language of statistical decision theory, the problem is equivalent to minimizing quantum Bayes' risk.
@@ -32,18 +34,15 @@ def channel_distinguishability(
     In the minimax problem, there are no a priori probabilities.
     Minimax discrimination of two channels consists of finding the
     optimal input state so that the two possible output states are discriminated
-    with minimum risk. (:footcite:`d2005minimax`).
+    with minimum risk. ([@dariano2005minimax]).
 
-    QETLAB's functionality inspired the Bayesian option  :footcite:`QETLAB_link`
-    and the minimax option is adapted from  QuTIpy :footcite:`QuTIpy_link`.
+    QETLAB's functionality inspired the Bayesian option [@qetlablink]
+    and the minimax option is adapted from QuTIpy [@qutipylink].
 
+    Examples:
+        Optimal probability of distinguishing two amplitude damping channels in the Bayesian setting:
 
-    Examples
-    ========
-    Optimal probability of distinguishing two amplitude damping channels in the Bayesian setting:
-
-    .. jupyter-execute::
-
+        ```python exec="1" source="above"
         from toqito.channels import amplitude_damping
         from toqito.channel_ops import kraus_to_choi
         from toqito.channel_metrics import channel_distinguishability
@@ -53,12 +52,12 @@ def channel_distinguishability(
 
         p = [0.5, 0.5]
 
-        channel_distinguishability(choi_ch_1, choi_ch_2, p)
+        print(channel_distinguishability(choi_ch_1, choi_ch_2, p))
+        ```
 
-    Optimal probability of distinguishing two amplitude damping channels in the minimax setting:
+        Optimal probability of distinguishing two amplitude damping channels in the minimax setting:
 
-    .. jupyter-execute::
-
+        ```python exec="1" source="above"
         from toqito.channels import amplitude_damping
         from toqito.channel_ops import kraus_to_choi
         from toqito.channel_metrics import channel_distinguishability
@@ -66,31 +65,31 @@ def channel_distinguishability(
         choi_ch_1 = kraus_to_choi(amplitude_damping(gamma=0.25))
         choi_ch_2 = kraus_to_choi(amplitude_damping(gamma=0.5))
 
-        channel_distinguishability(choi_ch_1, choi_ch_2, None, [2, 2], strategy="minimax",
-                        primal_dual="primal")
+        print(channel_distinguishability(choi_ch_1, choi_ch_2, None, [2, 2], strategy="minimax",primal_dual="primal"))
+        ```
 
+    Raises:
+        ValueError: If prior probabilities not provided at all for Bayesian strategy.
+        ValueError: If strategy is neither Bayesian nor minimax.
+        ValueError: If channels have different input or output dimensions.
+        ValueError: If prior probabilities do not add up to 1.
+        ValueError: If number of prior probabilities not equal to 2.
 
-    References
-    ==========
-    .. footbibliography::
+    Args:
+        phi: A superoperator. It should be provided either as a Choi matrix,
+             or as a (1d or 2d) list of numpy arrays whose entries are its Kraus operators.
+        psi: A superoperator. It should be provided either as a Choi matrix,
+             or as a (1d or 2d) list of numpy arrays whose entries are its Kraus operators.
+        p: Prior probabilities of the two channels.
+        dim: Input and output dimensions of the channels.
+        strategy: Whether to perform Bayesian or minimax discrimination task. Possible
+                  values are "Bayesian" and "minimax". Default option is `strategy="Bayesian"`.
+        solver: Optimization option for `picos` solver. Default option is `solver="cvxopt"`.
+        primal_dual: Option for the optimization problem. Default option is `solver="cvxopt"`.
+        kwargs: Additional arguments to pass to picos' solve method.
 
-    :raises ValueError: If prior probabilities not provided at all for Bayesian strategy.
-    :raises ValueError: If strategy is neither Bayesian nor minimax.
-    :raises ValueError: If channels have different input or output dimensions.
-    :raises ValueError: If prior probabilities do not add up to 1.
-    :raises ValueError: If number of prior probabilities not equal to 2.
-    :param phi: A superoperator. It should be provided either as a Choi matrix,
-                or as a (1d or 2d) list of numpy arrays whose entries are its Kraus operators.
-    :param psi: A superoperator. It should be provided either as a Choi matrix,
-                or as a (1d or 2d) list of numpy arrays whose entries are its Kraus operators.
-    :param p: Prior probabilities of the two channels.
-    :param dim: Input and output dimensions of the channels.
-    :param strategy: Whether to perform Bayesian or minimax discrimination task. Possible
-                     values are "Bayesian" and "minimax". Defualt option is :code:`strategy="Bayesian"`.
-    :param solver: Optimization option for :code:`picos` solver. Default option is :code:`solver="cvxopt"`.
-    :param primal_dual: Option for the optimization problem. Defualt option is :code:`solver="cvxopt"`.
-    :param kwargs: Additional arguments to pass to picos' solve method.
-    :return: The optimal probability of discriminating two quantum channels.
+    Returns:
+        The optimal probability of discriminating two quantum channels.
 
     """
     # Get the input, output and environment dimensions of phi and psi.

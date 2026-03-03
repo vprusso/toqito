@@ -13,109 +13,109 @@ def partial_trace(
     sys: int | list[int] | None = None,
     dim: int | list[int] | np.ndarray | None = None,
 ) -> np.ndarray | Expression:
-    r"""Compute the partial trace of a matrix :footcite:`WikiPartialTr`.
+    r"""Compute the partial trace of a matrix [@wikipediapartialtrace].
 
     The *partial trace* is defined as
 
-    .. math::
+    \[
         \left( \text{Tr} \otimes \mathbb{I}_{\mathcal{Y}} \right)
         \left(X \otimes Y \right) = \text{Tr}(X)Y
+    \]
 
-    where :math:`X \in \text{L}(\mathcal{X})` and :math:`Y \in \text{L}(\mathcal{Y})` are linear
-    operators over complex Euclidean spaces :math:`\mathcal{X}` and :math:`\mathcal{Y}`.
+    where \(X \in \text{L}(\mathcal{X})\) and \(Y \in \text{L}(\mathcal{Y})\) are linear
+    operators over complex Euclidean spaces \(\mathcal{X}\) and \(\mathcal{Y}\).
 
     Gives the partial trace of the matrix X, where the dimensions of the (possibly more than 2)
-    subsystems are given by the vector :code:`dim` and the subsystems to take the trace on are
-    given by the scalar or vector :code:`sys`.
+    subsystems are given by the vector `dim` and the subsystems to take the trace on are
+    given by the scalar or vector `sys`.
 
-    Examples
-    ==========
+    Examples:
+        Consider the following matrix
 
-    Consider the following matrix
+        \[
+            X = \begin{pmatrix}
+                    1 & 2 & 3 & 4 \\
+                    5 & 6 & 7 & 8 \\
+                    9 & 10 & 11 & 12 \\
+                    13 & 14 & 15 & 16
+                \end{pmatrix}.
+        \]
 
-    .. math::
-        X = \begin{pmatrix}
-                1 & 2 & 3 & 4 \\
-                5 & 6 & 7 & 8 \\
-                9 & 10 & 11 & 12 \\
-                13 & 14 & 15 & 16
-            \end{pmatrix}.
+        Taking the partial trace over the second subsystem of \(X\) yields the following matrix
 
-    Taking the partial trace over the second subsystem of :math:`X` yields the following matrix
+        \[
+            X_{pt, 2} = \begin{pmatrix}
+                        7 & 11 \\
+                        23 & 27
+                     \end{pmatrix}.
+        \]
 
-    .. math::
-        X_{pt, 2} = \begin{pmatrix}
-                    7 & 11 \\
-                    23 & 27
-                 \end{pmatrix}.
+        By default, the partial trace function in `|toqito⟩` takes the trace of the second
+        subsystem.
 
-    By default, the partial trace function in :code:`|toqito⟩` takes the trace of the second
-    subsystem.
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_ops import partial_trace
 
-    .. jupyter-execute::
+        test_input_mat = np.arange(1, 17).reshape(4, 4)
 
-     import numpy as np
-     from toqito.matrix_ops import partial_trace
-
-     test_input_mat = np.arange(1, 17).reshape(4, 4)
-
-     partial_trace(test_input_mat)
-
-
-    By specifying the :code:`sys = [0]` argument, we can perform the partial trace over the first
-    subsystem (instead of the default second subsystem as done above). Performing the partial
-    trace over the first subsystem yields the following matrix
-
-    .. math::
-        X_{pt, 1} = \begin{pmatrix}
-                        12 & 14 \\
-                        20 & 22
-                    \end{pmatrix}
-
-    .. jupyter-execute::
-
-     import numpy as np
-     from toqito.matrix_ops import partial_trace
-
-     test_input_mat = np.arange(1, 17).reshape(4, 4)
-
-     partial_trace(test_input_mat, [0])
-
-    We can also specify both dimension and system size as :code:`list` arguments. Consider the
-    following :math:`16`-by-:math:`16` matrix.
-
-    .. jupyter-execute::
-
-     import numpy as np
-     from toqito.matrix_ops import partial_trace
-
-     test_input_mat = np.arange(1, 257).reshape(16, 16)
-     test_input_mat
+        print(partial_trace(test_input_mat))
+        ```
 
 
-    We can take the partial trace on the first and third subsystems and assume that the size of
-    each of the 4 systems is of dimension 2.
+        By specifying the `sys = [0]` argument, we can perform the partial trace over the first
+        subsystem (instead of the default second subsystem as done above). Performing the partial
+        trace over the first subsystem yields the following matrix
 
-    .. jupyter-execute::
+        \[
+            X_{pt, 1} = \begin{pmatrix}
+                            12 & 14 \\
+                            20 & 22
+                        \end{pmatrix}
+        \]
 
-     import numpy as np
-     from toqito.matrix_ops import partial_trace
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_ops import partial_trace
 
-     partial_trace(test_input_mat, [0, 2], [2, 2, 2, 2])
+        test_input_mat = np.arange(1, 17).reshape(4, 4)
+
+        print(partial_trace(test_input_mat, [0]))
+        ```
+
+        We can also specify both dimension and system size as `list` arguments. Consider the
+        following \(16\)-by-\(16\) matrix.
+
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_ops import partial_trace
+
+        test_input_mat = np.arange(1, 257).reshape(16, 16)
+        print(test_input_mat)
+        ```
 
 
-    References
-    ==========
-    .. footbibliography::
+        We can take the partial trace on the first and third subsystems and assume that the size of
+        each of the 4 systems is of dimension 2.
 
+        ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_ops import partial_trace
+        test_input_mat = np.arange(1, 257).reshape(16, 16)
 
+        print(partial_trace(test_input_mat, [0, 2], [2, 2, 2, 2]))
+        ```
 
-    :raises ValueError: If matrix dimension is not equal to the number of subsystems.
-    :param input_mat: A square matrix.
-    :param sys: Scalar or vector specifying the size of the subsystems.
-    :param dim: Dimension of the subsystems. If :code:`None`, all dimensions are assumed to be
-                equal.
-    :return: The partial trace of matrix :code:`input_mat`.
+    Raises:
+        ValueError: If matrix dimension is not equal to the number of subsystems.
+
+    Args:
+        input_mat: A square matrix.
+        sys: Scalar or vector specifying the size of the subsystems.
+        dim: Dimension of the subsystems. If `None`, all dimensions are assumed to be equal.
+
+    Returns:
+        The partial trace of matrix `input_mat`.
 
     """
     if not isinstance(sys, int):

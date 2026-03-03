@@ -12,48 +12,48 @@ def pretty_good_measurement(
 
     This computes the "pretty good measurement" (PGM), also known as the
     square-root measurement, which is a widely used measurement for quantum
-    state discrimination :footcite:`Belavkin_1975_Optimal,Hughston_1993_Complete`.
+    state discrimination [@Belavkin_1975_Optimal,Hughston_1993_Complete].
 
-    The PGM is the set of POVMs :math:`(G_1, \ldots, G_n)` such that
+    The PGM is the set of POVMs \((G_1, \ldots, G_n)\) such that
 
-    .. math::
+    \[
         G_i = P^{-1/2} \left(p_i \rho_i\right) P^{-1/2} \quad \text{where} \quad
         P = \sum_{i=1}^n p_i \rho_i.
+    \]
 
-    See Also
-    ========
-    :py:func:`~toqito.measurements.pretty_bad_measurement.pretty_bad_measurement`
+    !!! See Also
+        [pretty_bad_measurement()][toqito.measurements.pretty_bad_measurement.pretty_bad_measurement]
 
-    Examples
-    ========
-    Consider the collection of trine states.
+    Examples:
+        Consider the collection of trine states.
 
-    .. math::
-        u_0 = |0\rangle, \quad
-        u_1 = -\frac{1}{2}\left(|0\rangle + \sqrt{3}|1\rangle\right), \quad \text{and} \quad
-        u_2 = -\frac{1}{2}\left(|0\rangle - \sqrt{3}|1\rangle\right).
+        \[
+            u_0 = |0\rangle, \quad
+            u_1 = -\frac{1}{2}\left(|0\rangle + \sqrt{3}|1\rangle\right), \quad \text{and} \quad
+            u_2 = -\frac{1}{2}\left(|0\rangle - \sqrt{3}|1\rangle\right).
+        \]
 
-    .. jupyter-execute::
+        ```python exec="1" source="above"
+        from toqito.states import trine
+        from toqito.measurements import pretty_good_measurement
 
-     from toqito.states import trine
-     from toqito.measurements import pretty_good_measurement
+        states = trine()
+        probs = [1 / 3, 1 / 3, 1 / 3]
+        pgm = pretty_good_measurement(states, probs)
+        print(pgm)
+        ```
 
-     states = trine()
-     probs = [1 / 3, 1 / 3, 1 / 3]
-     pgm = pretty_good_measurement(states, probs)
-     pgm
+    Raises:
+        ValueError: If number of vectors does not match number of probabilities.
+        ValueError: If probabilities do not sum to 1.
 
-    References
-    ==========
-    .. footbibliography::
+    Args:
+        states: A collection of states provided as either vectors or density matrices.
+        probs: A set of fixed probabilities for each quantum state. If not provided, a uniform distribution is assumed.
+        tol: A tolerance value for numerical comparisons.
 
-    :raises ValueError: If number of vectors does not match number of probabilities.
-    :raises ValueError: If probabilities do not sum to 1.
-    :param states: A collection of states provided as either vectors or density matrices.
-    :param probs: A set of fixed probabilities for each quantum state.
-                  If not provided, a uniform distribution is assumed.
-    :param tol: A tolerance value for numerical comparisons.
-    :return: A list of POVM operators for the PGM.
+    Returns:
+        A list of POVM operators for the PGM.
 
     """
     n = len(states)
