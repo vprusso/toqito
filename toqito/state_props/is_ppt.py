@@ -78,7 +78,7 @@ def is_ppt(
     eps = np.finfo(float).eps
 
     sqrt_rho_dims = np.round(np.sqrt(list(mat.shape)))
-    sqrt_rho_dims = np.int_(sqrt_rho_dims)
+    sqrt_rho_dims = sqrt_rho_dims.astype(int)
 
     if dim is None:
         dim = [

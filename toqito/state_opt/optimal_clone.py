@@ -153,8 +153,7 @@ def primal_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
     sys = [elem - 1 for elem in sys]
 
     # The dimension of each subsystem is assumed to be of dimension 2.
-    dim = 2 * np.ones((1, num_spaces * num_reps)).astype(int).flatten()
-    dim = dim.tolist()
+    dim = [2] * (num_spaces * num_reps)
 
     x_var = cvxpy.Variable((8**num_reps, 8**num_reps), hermitian=True)
     if num_reps == 1:
@@ -167,7 +166,7 @@ def primal_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
     ]
     problem = cvxpy.Problem(objective, constraints)
 
-    return problem.solve()
+    return problem.solve(verbose=False)
 
 
 def dual_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
@@ -188,4 +187,4 @@ def dual_problem(q_a: np.ndarray, pperm: np.ndarray, num_reps: int) -> float:
         constraints = [cvxpy.real(kron_var) >> pperm @ q_a @ pperm.conj().T]
     problem = cvxpy.Problem(objective, constraints)
 
-    return problem.solve()
+    return problem.solve(verbose=False)

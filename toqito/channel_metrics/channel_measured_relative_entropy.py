@@ -1,5 +1,7 @@
 """Measured relative entropy (channel) is how well two channels can be distinguished by measuring them individually."""
 
+import warnings
+
 import cvxpy as cvx
 import numpy as np
 
@@ -137,7 +139,9 @@ def channel_measured_relative_entropy(
     channel_2_cvx = cvx.Constant(channel_2)
     obj = cvx.Maximize(cvx.real(cvx.trace(theta @ channel_1_cvx) - cvx.trace(omega @ channel_2_cvx) + 1))
     problem = cvx.Problem(obj, constraints=cons)
-    problem.solve(verbose=False)
+    with warnings.catch_warnings():
+        warnings.filterwarnings("ignore", message="Solution may be inaccurate")
+        problem.solve(solver=cvx.SCS, eps=1e-8, verbose=False)
     return obj.value
 
 

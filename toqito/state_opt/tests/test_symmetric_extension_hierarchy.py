@@ -133,6 +133,19 @@ def test_invalid_symmetric_extension_hierarchy_states():
         symmetric_extension_hierarchy(states)
 
 
+def test_invalid_symmetric_extension_hierarchy_states_none():
+    """None as states raises ValueError."""
+    with np.testing.assert_raises(ValueError):
+        symmetric_extension_hierarchy(None)
+
+
+def test_invalid_symmetric_extension_hierarchy_probs_not_summing_to_one():
+    """Probabilities that do not sum to 1 raise ValueError."""
+    with np.testing.assert_raises(ValueError):
+        rho = bell(0) @ bell(0).conj().T
+        symmetric_extension_hierarchy([rho], [0.5])
+
+
 def test_symmetric_extension_hierarchy_extremal_werner_states():
     """Symmetric extension hierarchy for two extremal Werner states."""
     dim = 5

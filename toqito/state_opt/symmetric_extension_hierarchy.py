@@ -1,5 +1,7 @@
 """Calculates the optimal value of symmetric extension hierarchy SDP (semi definite programs)."""
 
+import warnings
+
 import cvxpy
 import numpy as np
 
@@ -162,8 +164,7 @@ def symmetric_extension_hierarchy(
 
     dim_x, dim_y = int(dim[0]), int(dim[1])
 
-    dim_list = [dim_x] + [dim_y] * level
-    dim_list = np.int_(dim_list)
+    dim_list = np.array([dim_x] + [dim_y] * level, dtype=int)
     # The `sys_list` variable contains the numbering pertaining to the symmetrically extended
     # spaces.
     sys_list = list(range(2, 2 + level - 1))
@@ -186,7 +187,9 @@ def symmetric_extension_hierarchy(
     constraints.append(sum(meas) == np.identity(dim_xy))
 
     objective = cvxpy.Maximize(cvxpy.real(sum(obj_func)))
-    problem = cvxpy.Problem(objective, constraints)
-    sol_default = problem.solve()
+    with warnings.catch_warnings():
+        warnings.filterwarnings("ignore", message="Constraint.*subexpressions")
+        problem = cvxpy.Problem(objective, constraints)
+        sol_default = problem.solve()
 
     return sol_default

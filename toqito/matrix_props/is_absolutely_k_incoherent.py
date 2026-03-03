@@ -1,5 +1,7 @@
 """Checks if the matrix is absolutely $k$-incoherent."""
 
+import warnings
+
 import cvxpy as cp
 import numpy as np
 
@@ -112,7 +114,9 @@ def is_absolutely_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> b
             # Dummy objective function.
             objective = cp.Minimize(1)
             prob = cp.Problem(objective, constraints)
-            opt_val = prob.solve(solver=cp.SCS, verbose=False)
+            with warnings.catch_warnings():
+                warnings.filterwarnings("ignore", message="Solution may be inaccurate")
+                opt_val = prob.solve(solver=cp.SCS, eps=1e-8, verbose=False)
             if np.isclose(opt_val, 1.0):
                 return True
     return False

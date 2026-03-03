@@ -1,5 +1,7 @@
 """Matsumoto fidelity is the maximum classical fidelity associated with a classical-to-quantum preparation procedure."""
 
+import warnings
+
 import cvxpy
 import numpy as np
 import scipy
@@ -103,13 +105,16 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float | np.floatin
         rho, sigma = sigma, rho
 
     # If rho is singular, add epsilon
-    try:
-        sq_rho = scipy.linalg.sqrtm(rho)
-        sqinv_rho = scipy.linalg.inv(sq_rho)
-    except np.linalg.LinAlgError:
-        sq_rho = scipy.linalg.sqrtm(rho + 1e-7)  # if rho is not invertible, add epsilon=1e-7 to it
-        # note if epsilon=1e-8 or smaller, it leads to test failures.
-        sqinv_rho = scipy.linalg.inv(sq_rho)
+    # Suppress LinAlgWarning from sqrtm on rank-deficient density matrices — the result is still valid.
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", scipy.linalg.LinAlgWarning)
+        try:
+            sq_rho = scipy.linalg.sqrtm(rho)
+            sqinv_rho = scipy.linalg.inv(sq_rho)
+        except np.linalg.LinAlgError:
+            sq_rho = scipy.linalg.sqrtm(rho + 1e-7)  # if rho is not invertible, add epsilon=1e-7 to it
+            # note if epsilon=1e-8 or smaller, it leads to test failures.
+            sqinv_rho = scipy.linalg.inv(sq_rho)
 
-    sq_mfid = sq_rho @ scipy.linalg.sqrtm(sqinv_rho @ sigma @ sqinv_rho) @ sq_rho
+        sq_mfid = sq_rho @ scipy.linalg.sqrtm(sqinv_rho @ sigma @ sqinv_rho) @ sq_rho
     return np.real(np.trace(sq_mfid))
