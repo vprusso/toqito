@@ -1,0 +1,234 @@
+"""# Geometric quantum state discrimination with toqito"""
+# %%
+# ## Preamble
+#
+# This tutorial builds geometric intuition for minimum-error quantum state
+# discrimination (QSD) and demonstrates practical workflows in `toqito`:
+#
+# - `toqito.state_opt.state_distinguishability` for SDP-based optimal success
+#   probability,
+# - `toqito.measurements.pretty_good_measurement` for the PGM heuristic,
+# - Bloch-sphere and overlap visualizations for symmetric ensembles.
+#
+# We also include two visual sections inspired by geometry-first QSD
+# presentations:
+#
+# 1. state-geometry panel (trine vs SIC tetrahedron),
+# 2. performance-comparison panel (optimal SDP vs PGM).
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+from toqito.measurements import pretty_good_measurement
+from toqito.state_opt import state_distinguishability
+
+
+# %%
+# ## SIC-POVM background and geometry
+#
+# A SIC-POVM (Symmetric Informationally Complete POVM) in dimension ``d`` is a
+# set of ``d^2`` rank-1 effects
+#
+# ``E_i = (1 / d) |psi_i><psi_i|`` for ``i = 1, ..., d^2``
+#
+# with constant pairwise overlaps
+#
+# ``|<psi_i|psi_j>|^2 = 1 / (d + 1)`` for ``i != j``.
+#
+# Why this matters for QSD examples:
+#
+# - SIC ensembles are maximally symmetric and geometrically clean.
+# - The overlap structure is explicit and easy to visualize.
+# - They are a useful benchmark for comparing optimal SDP discrimination
+#   against PGM.
+#
+# For qubits (``d = 2``), a SIC corresponds to four pure states whose Bloch
+# vectors are the vertices of a regular tetrahedron.
+
+
+# %%
+# ## Helper functions
+
+
+def bloch_to_density(n: np.ndarray) -> np.ndarray:
+    """Map a Bloch vector ``n`` in R^3 to a qubit density matrix."""
+    n = np.asarray(n, dtype=float).reshape(3)
+    sx = np.array([[0, 1], [1, 0]], dtype=complex)
+    sy = np.array([[0, -1j], [1j, 0]], dtype=complex)
+    sz = np.array([[1, 0], [0, -1]], dtype=complex)
+    ident = np.eye(2, dtype=complex)
+    return 0.5 * (ident + n[0] * sx + n[1] * sy + n[2] * sz)
+
+
+def density_to_bloch(rho: np.ndarray) -> np.ndarray:
+    """Map a qubit density matrix ``rho`` to Bloch vector components."""
+    sx = np.array([[0, 1], [1, 0]], dtype=complex)
+    sy = np.array([[0, -1j], [1j, 0]], dtype=complex)
+    sz = np.array([[1, 0], [0, -1]], dtype=complex)
+    return np.array([
+        np.real(np.trace(rho @ sx)),
+        np.real(np.trace(rho @ sy)),
+        np.real(np.trace(rho @ sz)),
+    ])
+
+
+def calculate_success_prob(states: list[np.ndarray], probs: list[float], povm_ops: list[np.ndarray]) -> float:
+    """Compute ``sum_i p_i Tr[M_i rho_i]``."""
+    return float(np.real(sum(p * np.trace(meas @ rho) for p, meas, rho in zip(probs, povm_ops, states))))
+
+
+def plot_bloch_vectors(
+    vectors: np.ndarray,
+    title: str = "Bloch vectors",
+    ax: plt.Axes | None = None,
+    color: str = "tab:blue",
+    label: str | None = None,
+) -> plt.Axes:
+    """Draw Bloch sphere and vectors."""
+    if ax is None:
+        fig = plt.figure(figsize=(6, 6))
+        ax = fig.add_subplot(111, projection="3d")
+
+    u = np.linspace(0, 2 * np.pi, 60)
+    v = np.linspace(0, np.pi, 30)
+    x = np.outer(np.cos(u), np.sin(v))
+    y = np.outer(np.sin(u), np.sin(v))
+    z = np.outer(np.ones_like(u), np.cos(v))
+    ax.plot_surface(x, y, z, alpha=0.12, color="lightgray", linewidth=0)
+
+    vectors = np.asarray(vectors, dtype=float)
+    for vec in vectors:
+        ax.plot([0, vec[0]], [0, vec[1]], [0, vec[2]], color=color, lw=2)
+    ax.scatter(vectors[:, 0], vectors[:, 1], vectors[:, 2], color=color, s=60, label=label)
+
+    ax.set_xlabel("x")
+    ax.set_ylabel("y")
+    ax.set_zlabel("z")
+    ax.set_box_aspect((1, 1, 1))
+    ax.set_title(title)
+    return ax
+
+
+# %%
+# ## Qubit SIC example (tetrahedron)
+#
+# We choose tetrahedral Bloch vectors
+#
+# ``(1,1,1)/sqrt(3), (1,-1,-1)/sqrt(3), (-1,1,-1)/sqrt(3), (-1,-1,1)/sqrt(3)``
+#
+# which satisfy the qubit SIC condition ``Tr(rho_i rho_j) = 1/3`` for all
+# ``i != j``.
+
+tetra = np.array([[1, 1, 1], [1, -1, -1], [-1, 1, -1], [-1, -1, 1]], dtype=float) / np.sqrt(3)
+states_sic = [bloch_to_density(n_vec) for n_vec in tetra]
+probs_sic = [1 / 4] * 4
+
+overlaps_sic = np.array([[np.real(np.trace(a @ b)) for b in states_sic] for a in states_sic])
+
+print("Purities Tr(rho_i^2):")
+for i, rho in enumerate(states_sic):
+    print(f"  state {i}: {np.real(np.trace(rho @ rho)):.6f}")
+
+print("\nPairwise overlaps Tr(rho_i rho_j):")
+print(np.round(overlaps_sic, 6))
+
+fig = plt.figure(figsize=(6, 6))
+ax = fig.add_subplot(111, projection="3d")
+plot_bloch_vectors(tetra, title="Qubit SIC states (tetrahedral vertices)", ax=ax, color="tab:purple")
+plt.tight_layout()
+plt.show()
+
+
+# %%
+# ## Discrimination with toqito: optimal vs PGM
+
+p_best_sic, _ = state_distinguishability(states_sic, probs_sic)
+pgm_sic = pretty_good_measurement(states_sic, probs_sic)
+p_pgm_sic = calculate_success_prob(states_sic, probs_sic, pgm_sic)
+
+print(f"SIC ensemble: P_best = {float(p_best_sic):.6f}")
+print(f"SIC ensemble: P_pgm  = {float(p_pgm_sic):.6f}")
+
+
+# %%
+# ## Geometric QSD
+#
+# Geometry-first visualizations of two symmetric qubit ensembles:
+#
+# - trine states (equatorial triangle),
+# - SIC tetrahedron (regular tetrahedron).
+#
+# The side-by-side Bloch plots highlight how state arrangement influences
+# distinguishability.
+
+angles = np.array([0, 2 * np.pi / 3, 4 * np.pi / 3])
+trine = np.stack([np.cos(angles), np.sin(angles), np.zeros_like(angles)], axis=1)
+
+fig = plt.figure(figsize=(12, 5))
+ax1 = fig.add_subplot(121, projection="3d")
+plot_bloch_vectors(trine, title="Trine ensemble (equatorial triangle)", ax=ax1, color="tab:green")
+ax1.view_init(elev=18, azim=35)
+
+ax2 = fig.add_subplot(122, projection="3d")
+plot_bloch_vectors(tetra, title="Qubit SIC ensemble (tetrahedron)", ax=ax2, color="tab:purple")
+ax2.view_init(elev=18, azim=35)
+
+plt.tight_layout()
+plt.show()
+
+
+# %%
+# ## Performance comparison
+#
+# We scan a one-parameter family of binary ensembles and compare:
+#
+# - optimal SDP value (`state_distinguishability`),
+# - PGM success probability (`pretty_good_measurement`).
+#
+# Family used: two pure qubit states with equal priors, where the Bloch angle
+# ``theta in [0, pi]`` controls distinguishability.
+
+
+def pure_state_from_bloch(theta: float) -> np.ndarray:
+    """Return a pure qubit density matrix with Bloch vector (sin(theta), 0, cos(theta))."""
+    n_vec = np.array([np.sin(theta), 0.0, np.cos(theta)])
+    return bloch_to_density(n_vec)
+
+
+thetas = np.linspace(0, np.pi, 31)
+opt_vals, pgm_vals = [], []
+
+for theta in thetas:
+    rho_0 = pure_state_from_bloch(0.0)
+    rho_1 = pure_state_from_bloch(theta)
+    states = [rho_0, rho_1]
+    probs = [0.5, 0.5]
+
+    p_opt, _ = state_distinguishability(states, probs)
+    m_pgm = pretty_good_measurement(states, probs)
+    p_pgm = calculate_success_prob(states, probs, m_pgm)
+
+    opt_vals.append(float(p_opt))
+    pgm_vals.append(float(p_pgm))
+
+fig, ax = plt.subplots(figsize=(7, 4.5))
+ax.plot(thetas, opt_vals, lw=2, label="Optimal SDP (state_distinguishability)")
+ax.plot(thetas, pgm_vals, "--", lw=2, label="PGM (pretty_good_measurement)")
+ax.set_xlabel(r"Bloch angle $\\theta$ between states")
+ax.set_ylabel("Success probability")
+ax.set_title("Performance comparison")
+ax.grid(alpha=0.25)
+ax.legend()
+plt.tight_layout()
+plt.show()
+
+
+# %%
+# ## Takeaways
+#
+# - SIC-POVMs provide a canonical symmetric testbed for geometric QSD.
+# - `toqito` makes it easy to compare exact SDP-optimal discrimination and PGM.
+# - Geometric (Bloch) and operational (success-probability) views complement
+#   one another.
+#
+# Extensions: higher-dimensional SICs and Gram-matrix visualizations for ``d>2``.

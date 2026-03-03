@@ -1,0 +1,102 @@
+
+
+Examples using ``toqito.measurements.pretty_good_measurement``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+<div class="mkd-glr-thumbcontainer" tooltip="This tutorial illustrates the basics of how to use |toqito⟩. This will covers how to instantiat...">
+    <!--div class="figure align-default" id="id1"-->
+        <img alt="Introductory Tutorial" src="01_basics/images/thumb/mkd_glr_intro_tutorial_thumb.png" />
+        <p class="caption">
+            <span class="caption-text">
+                <a class="reference internal" href="01_basics/intro_tutorial">
+                    <span class="std std-ref">Introductory Tutorial</span>
+                </a>
+            </span>
+            <!--a class="headerlink" href="#id1" title="Permalink to this image"></a-->
+        </p>
+    <!--/div-->
+</div>
+
+<div class="mkd-glr-thumbcontainer" tooltip="In this tutorial, we will explore the &quot;pretty good measurement&quot; (PGM) and its novel counterpart...">
+    <!--div class="figure align-default" id="id1"-->
+        <img alt="The Pretty Good and Pretty Bad Measurements" src="02_quantum_states/images/thumb/mkd_glr_pgm_pbm_thumb.png" />
+        <p class="caption">
+            <span class="caption-text">
+                <a class="reference internal" href="02_quantum_states/pgm_pbm">
+                    <span class="std std-ref">The Pretty Good and Pretty Bad Measurements</span>
+                </a>
+            </span>
+            <!--a class="headerlink" href="#id1" title="Permalink to this image"></a-->
+        </p>
+    <!--/div-->
+</div>
+
+<div class="mkd-glr-thumbcontainer" tooltip="Geometric QSD performance comparison: optimal SDP vs PGM">
+    <!--div class="figure align-default" id="id1"-->
+        <img alt="Geometric QSD performance comparison: optimal SDP vs PGM" src="05_geometric_QSD/images/thumb/mkd_glr_geometric_qsd_performance_comparison_thumb.png" />
+        <p class="caption">
+            <span class="caption-text">
+                <a class="reference internal" href="05_geometric_QSD/geometric_qsd_performance_comparison">
+                    <span class="std std-ref">Geometric QSD performance comparison: optimal SDP vs PGM</span>
+                </a>
+            </span>
+            <!--a class="headerlink" href="#id1" title="Permalink to this image"></a-->
+        </p>
+    <!--/div-->
+</div>
+
+<div class="mkd-glr-thumbcontainer" tooltip="SIC-POVM intuition and discrimination with toqito">
+    <!--div class="figure align-default" id="id1"-->
+        <img alt="SIC-POVM intuition and discrimination with toqito" src="05_geometric_QSD/images/thumb/mkd_glr_sic_povm_intuition_thumb.png" />
+        <p class="caption">
+            <span class="caption-text">
+                <a class="reference internal" href="05_geometric_QSD/sic_povm_intuition">
+                    <span class="std std-ref">SIC-POVM intuition and discrimination with toqito</span>
+                </a>
+            </span>
+            <!--a class="headerlink" href="#id1" title="Permalink to this image"></a-->
+        </p>
+    <!--/div-->
+</div>
+
+<div class="mkd-glr-thumbcontainer" tooltip="Geometric QSD animation: Bloch-angle sweep for binary discrimination">
+    <!--div class="figure align-default" id="id1"-->
+        <img alt="Geometric QSD animation: Bloch-angle sweep for binary discrimination" src="05_geometric_QSD/images/thumb/mkd_glr_geometric_qsd_animation_thumb.png" />
+        <p class="caption">
+            <span class="caption-text">
+                <a class="reference internal" href="05_geometric_QSD/geometric_qsd_animation">
+                    <span class="std std-ref">Geometric QSD animation: Bloch-angle sweep for binary discrimination</span>
+                </a>
+            </span>
+            <!--a class="headerlink" href="#id1" title="Permalink to this image"></a-->
+        </p>
+    <!--/div-->
+</div>
+
+<div class="mkd-glr-thumbcontainer" tooltip="Geometric quantum state discrimination with toqito">
+    <!--div class="figure align-default" id="id1"-->
+        <img alt="Geometric quantum state discrimination with toqito" src="05_geometric_QSD/images/thumb/mkd_glr_geometric_qsd_thumb.png" />
+        <p class="caption">
+            <span class="caption-text">
+                <a class="reference internal" href="05_geometric_QSD/geometric_qsd">
+                    <span class="std std-ref">Geometric quantum state discrimination with toqito</span>
+                </a>
+            </span>
+            <!--a class="headerlink" href="#id1" title="Permalink to this image"></a-->
+        </p>
+    <!--/div-->
+</div>
+
+<div class="mkd-glr-thumbcontainer" tooltip="Geometric quantum state discrimination (qubit SIC-POVM)">
+    <!--div class="figure align-default" id="id1"-->
+        <img alt="Geometric quantum state discrimination (qubit SIC-POVM)" src="geometricQSD/images/thumb/mkd_glr_geometric_qsd_thumb.png" />
+        <p class="caption">
+            <span class="caption-text">
+                <a class="reference internal" href="geometricQSD/geometric_qsd">
+                    <span class="std std-ref">Geometric quantum state discrimination (qubit SIC-POVM)</span>
+                </a>
+            </span>
+            <!--a class="headerlink" href="#id1" title="Permalink to this image"></a-->
+        </p>
+    <!--/div-->
+</div>

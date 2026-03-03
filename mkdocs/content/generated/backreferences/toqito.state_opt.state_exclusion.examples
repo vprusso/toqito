@@ -1,0 +1,46 @@
+
+
+Examples using ``toqito.state_opt.state_exclusion``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+<div class="mkd-glr-thumbcontainer" tooltip="In this tutorial, we are going to cover the problem of *quantum state exclusion*. We are going ...">
+    <!--div class="figure align-default" id="id1"-->
+        <img alt="Quantum state exclusion" src="02_quantum_states/images/thumb/mkd_glr_state_exclusion_thumb.png" />
+        <p class="caption">
+            <span class="caption-text">
+                <a class="reference internal" href="02_quantum_states/state_exclusion">
+                    <span class="std std-ref">Quantum state exclusion</span>
+                </a>
+            </span>
+            <!--a class="headerlink" href="#id1" title="Permalink to this image"></a-->
+        </p>
+    <!--/div-->
+</div>
+
+<div class="mkd-glr-thumbcontainer" tooltip="In this tutorial, we explore a sharp threshold for the antidistinguishability of a special clas...">
+    <!--div class="figure align-default" id="id1"-->
+        <img alt="Equiangular States and the Antidistinguishability Threshold" src="02_quantum_states/images/thumb/mkd_glr_equiangular_threshold_thumb.png" />
+        <p class="caption">
+            <span class="caption-text">
+                <a class="reference internal" href="02_quantum_states/equiangular_threshold">
+                    <span class="std std-ref">Equiangular States and the Antidistinguishability Threshold</span>
+                </a>
+            </span>
+            <!--a class="headerlink" href="#id1" title="Permalink to this image"></a-->
+        </p>
+    <!--/div-->
+</div>
+
+<div class="mkd-glr-thumbcontainer" tooltip="In this tutorial, we will explore the &quot;pretty good measurement&quot; (PGM) and its novel counterpart...">
+    <!--div class="figure align-default" id="id1"-->
+        <img alt="The Pretty Good and Pretty Bad Measurements" src="02_quantum_states/images/thumb/mkd_glr_pgm_pbm_thumb.png" />
+        <p class="caption">
+            <span class="caption-text">
+                <a class="reference internal" href="02_quantum_states/pgm_pbm">
+                    <span class="std std-ref">The Pretty Good and Pretty Bad Measurements</span>
+                </a>
+            </span>
+            <!--a class="headerlink" href="#id1" title="Permalink to this image"></a-->
+        </p>
+    <!--/div-->
+</div>

@@ -1,0 +1,18 @@
+
+
+Examples using ``toqito.state_props.is_distinguishable``
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+<div class="mkd-glr-thumbcontainer" tooltip="In this tutorial, we are going to cover the problem of *quantum state exclusion*. We are going ...">
+    <!--div class="figure align-default" id="id1"-->
+        <img alt="Quantum state exclusion" src="02_quantum_states/images/thumb/mkd_glr_state_exclusion_thumb.png" />
+        <p class="caption">
+            <span class="caption-text">
+                <a class="reference internal" href="02_quantum_states/state_exclusion">
+                    <span class="std std-ref">Quantum state exclusion</span>
+                </a>
+            </span>
+            <!--a class="headerlink" href="#id1" title="Permalink to this image"></a-->
+        </p>
+    <!--/div-->
+</div>
