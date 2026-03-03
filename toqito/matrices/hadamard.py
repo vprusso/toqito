@@ -4,40 +4,34 @@ import numpy as np
 
 
 def hadamard(n_param: int = 1) -> np.ndarray:
-    r"""Produce a :code:`2^{n_param}` dimensional Hadamard matrix :footcite:`WikiHadamard`.
+    r"""Produce a `2^{n_param}` dimensional Hadamard matrix [@wikipediahadamard].
 
     The standard Hadamard matrix that is often used in quantum information as a
     one-qubit quantum gate is defined as
 
-    .. math::
+    \[
         H_1 = \frac{1}{\sqrt{2}} \begin{pmatrix}
                                     1 & 1 \\
                                     1 & -1
                                  \end{pmatrix}
+    \]
 
-    In general, the Hadamard matrix of dimension :code:`2^{n_param}` may be
+    In general, the Hadamard matrix of dimension `2^{n_param}` may be
     defined as
 
-    .. math::
+    \[
         \left( H_n \right)_{i, j} = \frac{1}{2^{\frac{n}{2}}}
         \left(-1\right)^{i \cdot j}
+    \]
 
-    Examples
-    ==========
-    The standard 1-qubit Hadamard matrix can be generated in :code:`toqito` as
+    Examples:
+        The standard 1-qubit Hadamard matrix can be generated in `toqito` as
 
-    .. jupyter-execute::
+        ```python exec="1" source="above"
+        from toqito.matrices import hadamard
 
-     from toqito.matrices import hadamard
-
-     hadamard(1)
-
-    References
-    ==========
-    .. footbibliography::
-
-    :param n_param: A non-negative integer (default = 1).
-    :return: The Hadamard matrix of dimension :code:`2^{n_param}`.
+        print(hadamard(1))
+        ```
 
     """
     if n_param < 1:
@@ -49,12 +43,17 @@ def hadamard(n_param: int = 1) -> np.ndarray:
 
 
 def _hamming_distance(x_param: int) -> int:
-    """Calculate the bit-wise Hamming distance of :code:`x_param` from 0.
+    """Calculate the bit-wise Hamming distance of `x_param` from 0.
 
-    The Hamming distance is the number of 1s in the integer :code:`x_param`.
+    The Hamming distance is the number of 1s in the integer `x_param`.
 
-    :param x_param: A non-negative integer.
-    :return: The Hamming distance of :code:`x_param` from 0.
+    Args:
+        n_param: A non-negative integer (default = 1).
+        x_param: A non-negative integer.
+
+    Returns:
+        The Hamming distance of `x_param` from 0.
+
     """
     tot = 0
     while x_param:

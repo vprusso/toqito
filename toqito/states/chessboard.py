@@ -8,33 +8,27 @@ import numpy as np
 
 
 def chessboard(mat_params: list[float], s_param: float | None = None, t_param: float | None = None) -> np.ndarray:
-    r"""Produce a chessboard state :footcite:`Bruß_2000_Construction`.
+    r"""Produce a chessboard state [@bruss2000construction].
 
-    Generates the chessboard state defined in :footcite:`Bruß_2000_Construction`. Note that, for certain choices of
-    :code:`s_param` and :code:`t_param`, this state will not have positive partial transpose, and
+    Generates the chessboard state defined in [@bruss2000construction]. Note that, for certain choices of
+    `s_param` and `t_param`, this state will not have positive partial transpose, and
     thus may not be bound entangled.
 
-    Examples
-    ==========
+    Examples:
+        The standard chessboard state can be invoked using `|toqito⟩` as
 
-    The standard chessboard state can be invoked using :code:`|toqito⟩` as
+        ```python exec="1" source="above"
+        from toqito.states import chessboard
+        print(chessboard([1, 2, 3, 4, 5, 6], 7, 8))
+        ```
 
-    .. jupyter-execute::
+    Args:
+        mat_params: Parameters of the chessboard state as defined in [@bruss2000construction].
+        s_param: Default is `np.conj(mat_params[2]) / np.conj(mat_params[5])`.
+        t_param: Default is `t_param = mat_params[0] * mat_params[3] / mat_params[4]`.
 
-      from toqito.states import chessboard
-      chessboard([1, 2, 3, 4, 5, 6], 7, 8)
-
-
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param mat_params: Parameters of the chessboard state as defined in :footcite:`Bruß_2000_Construction`.
-    :param s_param: Default is :code:`np.conj(mat_params[2]) / np.conj(mat_params[5])`.
-    :param t_param: Default is :code:`t_param = mat_params[0] * mat_params[3] / mat_params[4]`.
-    :return: A chessboard state.
+    Returns:
+        A chessboard state.
 
     """
     if s_param is None:
