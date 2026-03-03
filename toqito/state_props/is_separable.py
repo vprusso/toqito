@@ -10,9 +10,9 @@ from toqito.matrix_props.is_positive_semidefinite import is_positive_semidefinit
 from toqito.matrix_props.trace_norm import trace_norm
 from toqito.perms.swap import swap
 from toqito.perms.swap_operator import swap_operator
-from toqito.state_props import is_ppt
 from toqito.state_props.has_symmetric_extension import has_symmetric_extension
 from toqito.state_props.in_separable_ball import in_separable_ball
+from toqito.state_props.is_ppt import is_ppt
 from toqito.state_props.schmidt_rank import schmidt_rank
 from toqito.states.max_entangled import max_entangled
 
