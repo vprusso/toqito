@@ -6,7 +6,7 @@ A random value is added sampled from a normal distribution scaled by `eps`.
 import numpy as np
 
 
-def perturb_vectors(vectors: list[np.ndarray], eps: float = 0.1) -> list[np.ndarray]:
+def perturb_vectors(vectors: list[np.ndarray], eps: float = 0.1) -> np.ndarray:
     """Perturb the vectors by adding a small random number to each element.
 
     :param vectors: List of vectors to perturb.

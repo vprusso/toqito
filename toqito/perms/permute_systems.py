@@ -12,7 +12,7 @@ from toqito.perms import vec
 def permute_systems(
     input_mat: np.ndarray,
     perm: np.ndarray | list[int],
-    dim: np.ndarray | list[int] = None,
+    dim: np.ndarray | list[int] | None = None,
     row_only: bool = False,
     inv_perm: bool = False,
 ) -> np.ndarray:
@@ -136,10 +136,11 @@ def permute_systems(
     if dim is None:
         x_tmp = input_mat_dims[0] ** (1 / num_sys) * np.ones(num_sys)
         y_tmp = input_mat_dims[1] ** (1 / num_sys) * np.ones(num_sys)
-        dim = np.array([x_tmp, y_tmp])
-
-    if isinstance(dim, list):
-        dim = np.array(dim)
+        dim_arr = np.array([x_tmp, y_tmp])
+    elif isinstance(dim, list):
+        dim_arr = np.array(dim)
+    else:
+        dim_arr = dim
 
     if is_vec:
         # 1 if column vector
@@ -149,17 +150,17 @@ def permute_systems(
         else:
             vec_orien = 1
 
-    if len(dim.shape) == 1:
+    if len(dim_arr.shape) == 1:
         # Force dim to be a row vector.
-        dim_tmp = dim[:].T
+        dim_tmp = dim_arr[:].T
         if is_vec:
-            dim = np.ones((2, len(dim)))
-            dim[vec_orien, :] = dim_tmp
+            dim_arr = np.ones((2, len(dim_arr)))
+            dim_arr[vec_orien, :] = dim_tmp
         else:
-            dim = np.array([[dim_tmp], [dim_tmp]])
+            dim_arr = np.array([[dim_tmp], [dim_tmp]])
 
-    prod_dim_r = int(np.prod(dim[0, :]))
-    prod_dim_c = int(np.prod(dim[1, :]))
+    prod_dim_r = int(np.prod(dim_arr[0, :]))
+    prod_dim_c = int(np.prod(dim_arr[1, :]))
 
     if sorted(perm) != list(range(num_sys)):
         raise ValueError("InvalidPerm: `perm` must be a permutation vector.")
@@ -174,7 +175,7 @@ def permute_systems(
         # it's better to use methods designed for handling permutations directly.
         # This avoids the risk of negative indices and is more straightforward.
         num_sys -= 1  # 0-indexing (Since we're using 0-indexing, we need to subtract 1 from the number of subsystems.)
-        permuted_mat_1 = input_mat.reshape(dim[vec_orien, ::-1].astype(int), order="F")
+        permuted_mat_1 = input_mat.reshape(dim_arr[vec_orien, ::-1].astype(int), order="F")
         if inv_perm:
             permuted_mat = vec(np.transpose(permuted_mat_1, np.argsort(num_sys - np.array(perm[::-1])))).T
         else:
@@ -188,10 +189,10 @@ def permute_systems(
 
     # If the dimensions are specified, ensure they are given to the
     # recursive calls as flattened lists.
-    if len(dim[0][:]) == 1:
-        dim = functools.reduce(operator.iconcat, dim, [])
+    if len(dim_arr[0][:]) == 1:
+        dim_arr = functools.reduce(operator.iconcat, dim_arr, [])
 
-    row_perm = permute_systems(vec_arg, perm, dim[0][:], False, inv_perm)
+    row_perm = permute_systems(vec_arg, perm, dim_arr[0][:], False, inv_perm)
 
     # This condition is only necessary if the `input_mat` variable is sparse.
     if sparse.issparse(input_mat):
@@ -203,7 +204,7 @@ def permute_systems(
 
     if not row_only:
         vec_arg = np.array(list(range(0, input_mat_dims[1])))
-        col_perm = permute_systems(vec_arg, perm, dim[1][:], False, inv_perm)
+        col_perm = permute_systems(vec_arg, perm, dim_arr[1][:], False, inv_perm)
         permuted_mat = permuted_mat[:, col_perm]
 
     return permuted_mat

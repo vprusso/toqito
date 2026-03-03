@@ -6,7 +6,7 @@ from toqito.channel_metrics import completely_bounded_trace_norm
 from toqito.channel_ops import dual_channel
 
 
-def completely_bounded_spectral_norm(phi: np.ndarray) -> float:
+def completely_bounded_spectral_norm(phi: np.ndarray) -> float | np.floating:
     r"""Compute the completely bounded spectral norm of a quantum channel.
 
     As defined in :footcite:`Watrous_2009_Semidefinite` and :footcite:`QETLAB_link`.

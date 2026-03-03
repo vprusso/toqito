@@ -11,7 +11,7 @@ def is_trace_preserving(
     rtol: float = 1e-05,
     atol: float = 1e-08,
     sys: int | list[int] = 2,
-    dim: list[int] | np.ndarray = None,
+    dim: list[int] | np.ndarray | None = None,
 ) -> bool:
     r"""Determine whether the given channel is trace-preserving.
 

@@ -52,11 +52,13 @@ def permutation_operator(
     """
     # Allow the user to enter a single number for `dim`.
     if isinstance(dim, int):
-        dim = [dim] * np.ones(max(perm) + 1)
-    if isinstance(dim, list):
-        dim = np.array(dim)
+        dim_arr = np.array([dim] * np.ones(max(perm) + 1))
+    elif isinstance(dim, list):
+        dim_arr = np.array(dim)
+    else:
+        dim_arr = dim
 
-    mat = sp.sparse.identity(int(np.prod(dim))) if is_sparse else np.identity(int(np.prod(dim)))
+    mat = sp.sparse.identity(int(np.prod(dim_arr))) if is_sparse else np.identity(int(np.prod(dim_arr)))
     # Swap the rows of the identity matrix appropriately.
 
-    return permute_systems(mat, perm, dim, True, inv_perm)
+    return permute_systems(mat, perm, dim_arr, True, inv_perm)

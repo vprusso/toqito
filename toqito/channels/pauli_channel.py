@@ -10,7 +10,7 @@ from toqito.matrices.pauli import pauli
 
 def pauli_channel(
     prob: int | np.ndarray, return_kraus_ops: bool = False, input_mat: np.ndarray | None = None
-) -> np.ndarray:
+) -> np.ndarray | sparse.csc_matrix | tuple:
     r"""Generate and apply a Pauli channel to a matrix.
 
     Generates the Choi matrix of a Pauli channel with given probabilities and optionally applies it

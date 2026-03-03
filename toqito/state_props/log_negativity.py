@@ -6,7 +6,7 @@ from picos import partial_transpose
 from toqito.matrix_ops import to_density_matrix
 
 
-def log_negativity(rho: np.ndarray, dim: list[int] | int = None) -> float:
+def log_negativity(rho: np.ndarray, dim: list[int] | int | None = None) -> float:
     r"""Compute the log-negativity of a bipartite quantum state :footcite:`WikiNeg`.
 
     The log-negativity of a subsystem can be defined in terms of a density matrix :math:`\rho`:

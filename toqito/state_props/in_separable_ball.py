@@ -3,7 +3,7 @@
 import numpy as np
 
 
-def in_separable_ball(mat: np.ndarray) -> bool:
+def in_separable_ball(mat: np.ndarray) -> bool | np.bool_:
     r"""Check whether an operator is contained in ball of separability :footcite:`Gurvits_2002_Largest`.
 
     Determines whether :code:`mat` is contained within the ball of separable operators centered

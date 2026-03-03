@@ -8,7 +8,7 @@ import numpy as np
 from toqito.matrix_props import is_density, trace_norm
 
 
-def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float:
+def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
     r"""Compute the trace distance between density operators `rho` and `sigma`.
 
     The trace distance between :math:`\rho` and :math:`\sigma` is defined as

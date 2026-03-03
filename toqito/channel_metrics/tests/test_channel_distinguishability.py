@@ -63,14 +63,13 @@ def test_channel_distinguishability_minimax(test_input_1, test_input_2, prior_pr
 
 
 @pytest.mark.parametrize(
-    "test_input_1, test_input_2, prior_prob, dim",
+    "test_input_1, test_input_2, prior_prob",
     [
         # Inconsistent dimensions between two channels.
         (
             depolarizing(4),
             dephasing(2),
             [0.5, 0.5],
-            [2, 2],
         ),
     ],
 )
@@ -81,13 +80,13 @@ def test_channel_distinguishability_minimax(test_input_1, test_input_2, prior_pr
         "Minimax",
     ],
 )
-def test_state_distinguishability_invalid_channels(test_input_1, test_input_2, prior_prob, dim, strategy):
+def test_state_distinguishability_invalid_channels(test_input_1, test_input_2, prior_prob, strategy):
     """Test function raises error for invalid channel dimensions for both bayesian and minimax settings."""
     with pytest.raises(
         ValueError,
         match="The channels must have the same dimension input and output spaces as each other.",
     ):
-        channel_distinguishability(test_input_1, test_input_2, prior_prob, dim, strategy=strategy)
+        channel_distinguishability(test_input_1, test_input_2, prior_prob, strategy=strategy)
 
 
 @pytest.mark.parametrize(

@@ -10,8 +10,8 @@ from toqito.perms import permute_systems
 
 def partial_transpose(
     rho: np.ndarray | Variable,
-    sys: list[int] | np.ndarray | int = None,
-    dim: list[int] | np.ndarray = None,
+    sys: list[int] | np.ndarray | int | None = None,
+    dim: list[int] | np.ndarray | None = None,
 ) -> np.ndarray | Expression:
     r"""Compute the partial transpose of a matrix :footcite:`WikiPeresHorodecki`.
 

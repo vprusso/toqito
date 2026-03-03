@@ -6,7 +6,7 @@ from picos import partial_transpose
 from toqito.matrix_ops import to_density_matrix
 
 
-def negativity(rho: np.ndarray, dim: list[int] | int = None) -> float:
+def negativity(rho: np.ndarray, dim: list[int] | int | None = None) -> float | np.floating:
     r"""Compute the negativity of a bipartite quantum state :footcite:`WikiNeg`.
 
     The negativity of a subsystem can be defined in terms of a density matrix :math:`\rho`:

@@ -8,7 +8,7 @@ import numpy as np
 from scipy.sparse import csr_array
 
 
-def w_state(num_qubits: int, coeff: list[int] = None) -> np.ndarray:
+def w_state(num_qubits: int, coeff: list[int] | None = None) -> np.ndarray:
     r"""Produce a W-state :footcite:`Dur_2000_ThreeQubits`.
 
     Returns the W-state described in :footcite:`Dur_2000_ThreeQubits`. The W-state on `num_qubits` qubits is defined by:
@@ -64,16 +64,16 @@ def w_state(num_qubits: int, coeff: list[int] = None) -> np.ndarray:
     if num_qubits < 2:
         raise ValueError("InvalidNumQubits: `num_qubits` must be at least 2.")
     if coeff is None:
-        coeff = np.ones(num_qubits)
+        coeff_arr = np.ones(num_qubits)
     else:
-        coeff = np.array(coeff)
-    if len(coeff) != num_qubits:
+        coeff_arr = np.array(coeff)
+    if len(coeff_arr) != num_qubits:
         raise ValueError("InvalidCoeff: The variable `coeff` must be a vector of length equal to `num_qubits`.")
 
     # Normalize coefficients if necessary.
-    norm = np.linalg.norm(coeff)
+    norm = np.linalg.norm(coeff_arr)
     if not np.isclose(norm, 1.0):
-        coeff = coeff / norm
+        coeff_arr = coeff_arr / norm
 
     # Initialize a state vector of appropriate size.
     ret_w_state = csr_array((2**num_qubits, 1)).toarray()
@@ -82,5 +82,5 @@ def w_state(num_qubits: int, coeff: list[int] = None) -> np.ndarray:
     for i in range(num_qubits):
         # The position for an excitation on qubit i is at index 2**i.
         # We assign the coefficient to the position corresponding to an excitation in that qubit.
-        ret_w_state[2**i] = coeff[num_qubits - i - 1]
+        ret_w_state[2**i] = coeff_arr[num_qubits - i - 1]
     return np.around(ret_w_state, 4)

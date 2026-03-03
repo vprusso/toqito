@@ -7,7 +7,7 @@ from toqito.matrix_ops import partial_trace
 from toqito.state_props import concurrence, von_neumann_entropy
 
 
-def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> float:
+def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int | None = None) -> float:
     r"""Compute entanglement-of-formation of a bipartite quantum state :footcite:`Quantiki_EOF`.
 
     Entanglement-of-formation is the entropy of formation of the bipartite
@@ -61,14 +61,20 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
     round_dim = int(np.round(np.sqrt(max(dim_x, dim_y))))
 
     if dim is None:
-        dim = round_dim
+        dim_int = round_dim
+    elif isinstance(dim, int):
+        dim_int = dim
+    else:
+        dim_int = None
 
     # User can specify dimension as integer.
-    if isinstance(dim, int):
-        dim = np.array([dim, max(dim_x, dim_y) / dim], dtype=int)
-        dim[1] = np.round(dim[1])
+    if dim_int is not None:
+        dim_arr = np.array([dim_int, max(dim_x, dim_y) / dim_int], dtype=int)
+        dim_arr[1] = np.round(dim_arr[1])
+    else:
+        dim_arr = np.array(dim)
 
-    if np.prod(dim) != max(dim_x, dim_y):
+    if np.prod(dim_arr) != max(dim_x, dim_y):
         raise ValueError("Invalid dimension: Please provide local dimensions that match the size of `rho`.")
     # If :code:`rho` is a rank-1 density matrix, turn it into a vector instead
     # so we can compute the entanglement-of-formation easily.
@@ -80,8 +86,8 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int = None) -> f
     # Start computing entanglement-of-formation.
     if min(dim_x, dim_y) == 1:
         rho = rho[:]
-        dim = [int(x) for x in dim]
-        return von_neumann_entropy(partial_trace(rho @ rho.conj().T, [1], dim))
+        dim_list = [int(x) for x in dim_arr]
+        return von_neumann_entropy(partial_trace(rho @ rho.conj().T, [1], dim_list))
 
     # Case: :code:`rho` is a density matrix.
     if dim_x == dim_y:

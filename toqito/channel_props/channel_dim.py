@@ -8,9 +8,9 @@ import numpy as np
 def channel_dim(
     phi: np.ndarray | list[np.ndarray] | list[list[np.ndarray]],
     allow_rect: bool = True,
-    dim: int | list[int] | np.ndarray = None,
+    dim: int | list[int] | np.ndarray | None = None,
     compute_env_dim: bool = True,
-) -> tuple[np.ndarray | int]:
+) -> tuple[np.ndarray | int, np.ndarray | int, int | None]:
     """Compute the input, output, and environment dimensions of a channel.
 
     This function returns the dimensions of the input, output, and environment spaces of

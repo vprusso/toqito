@@ -7,7 +7,7 @@ classical communication (LOCC).
 import numpy as np
 
 
-def horodecki(a_param: float, dim: list[int] = None) -> np.ndarray:
+def horodecki(a_param: float, dim: list[int] | None = None) -> np.ndarray:
     r"""Produce a Horodecki state :footcite:`Horodecki_1997_Separability, Chruscinski_2011_OnTheSymmetry`.
 
     Returns the Horodecki state in either :math:`(3 \otimes 3)`-dimensional space or :math:`(2 \otimes 4)`-dimensional

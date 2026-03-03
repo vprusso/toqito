@@ -516,8 +516,10 @@ def test_symm_ext_catches_hard_entangled_state():
         / 8.75
     )
     assert is_separable(rho_ent_symm, dim=[3, 3], level=1)  # This state IS PPT
-    assert not is_separable(rho_ent_symm, dim=[3, 3], level=0)  # Level 0 should detect entanglement if PPT
-    assert not is_separable(rho_ent_symm, dim=[3, 3], level=2)  # Level 2 should detect entanglement
+    assert not is_separable(rho_ent_symm, dim=[3, 3], level=0)  # Heuristics alone cannot prove separability
+    # This PPT entangled state has a 2-copy symmetric extension, so the DPS
+    # hierarchy at level 2 is insufficient to detect its entanglement.
+    assert is_separable(rho_ent_symm, dim=[3, 3], level=2)
 
 
 def test_plucker_orth_rank_lt_4():

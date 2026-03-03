@@ -13,7 +13,7 @@ def partial_channel(
     rho: np.ndarray,
     phi_map: np.ndarray | list[list[np.ndarray]],
     sys: int = 2,
-    dim: list[int] | np.ndarray = None,
+    dim: list[int] | np.ndarray | None = None,
 ) -> np.ndarray:
     r"""Apply channel to a subsystem of an operator :footcite:`Watrous_2018_TQI`.
 

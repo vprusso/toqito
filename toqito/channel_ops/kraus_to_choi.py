@@ -7,7 +7,7 @@ from toqito.channel_props.channel_dim import channel_dim
 from toqito.states import max_entangled
 
 
-def kraus_to_choi(kraus_ops: list[list[np.ndarray]], sys: int = 2) -> np.ndarray:
+def kraus_to_choi(kraus_ops: list[np.ndarray] | list[list[np.ndarray]], sys: int = 2) -> np.ndarray:
     r"""Compute the Choi matrix of a list of Kraus operators.
 
     (Section: Kraus Representations of :footcite:`Watrous_2018_TQI`).

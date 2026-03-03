@@ -141,7 +141,7 @@ class XORGame:
         prob_mat: np.ndarray,
         pred_mat: np.ndarray,
         reps: int = 1,
-        tol: float = None,
+        tol: float | None = None,
     ) -> None:
         """Construct XOR game object.
 

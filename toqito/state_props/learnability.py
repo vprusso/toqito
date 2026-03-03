@@ -22,7 +22,7 @@ def learnability(
     verify_reduced: bool = True,
     verify_tolerance: float = 1e-4,
     tol: float = 1e-8,
-) -> dict[str, float | str | None]:
+) -> dict[str, float | str | None | dict]:
     r"""Compute the average error value of the learnability semidefinite program.
 
     This routine minimizes

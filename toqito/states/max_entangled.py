@@ -7,7 +7,7 @@ import numpy as np
 from scipy.sparse import coo_array
 
 
-def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True) -> [np.ndarray, coo_array]:
+def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True) -> np.ndarray | coo_array:
     r"""Produce a maximally entangled bipartite pure state :footcite:`WikiMaxEnt`.
 
     Produces a maximally entangled pure state as above that is sparse if :code:`is_sparse = True` and is full if

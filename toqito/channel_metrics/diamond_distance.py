@@ -3,7 +3,7 @@
 import numpy as np
 
 
-def diamond_distance(choi_1: np.ndarray, choi_2: np.ndarray) -> float:
+def diamond_distance(choi_1: np.ndarray, choi_2: np.ndarray) -> float | np.floating:
     r"""Return the diamond norm distance between two quantum channels.
 
     This function is a wrapper around
