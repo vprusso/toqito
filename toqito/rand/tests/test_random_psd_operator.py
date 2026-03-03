@@ -33,12 +33,13 @@ def test_random_psd_operator(dim, is_real, distribution):
 
 
 @pytest.mark.parametrize(
-    "dim, is_real, seed, expected_mat",
+    "dim, is_real, seed, distribution, expected_mat",
     [
         (
             2,
             True,
             13,
+            "uniform",
             np.array(
                 [
                     [1.0778147, 0.52948168],
@@ -50,6 +51,7 @@ def test_random_psd_operator(dim, is_real, distribution):
             3,
             False,
             42,
+            "uniform",
             np.array(
                 [
                     [0.95967267 + 1.23259516e-32j, 0.64147554 + 2.12105374e-01j, 0.58409076 - 4.68163042e-03j],
@@ -62,6 +64,7 @@ def test_random_psd_operator(dim, is_real, distribution):
             5,
             True,
             13,
+            "uniform",
             np.array(
                 [
                     [1.10423147, 0.58541728, 0.23882546, 0.38725184, 0.47981462],
@@ -72,12 +75,32 @@ def test_random_psd_operator(dim, is_real, distribution):
                 ]
             ),
         ),
+        (
+            3,
+            True,
+            7,
+            "wishart",
+            None,  # expected_mat computed below via is_positive_semidefinite check
+        ),
+        (
+            3,
+            False,
+            7,
+            "wishart",
+            None,
+        ),
     ],
 )
-def test_random_psd_operator_with_seed(dim, is_real, seed, expected_mat):
+def test_random_psd_operator_with_seed(dim, is_real, seed, distribution, expected_mat):
     """Test that random_psd_operator function returns the expected output when seeded."""
-    matrix = random_psd_operator(dim, is_real, seed)
-    assert_allclose(matrix, expected_mat)
+    matrix = random_psd_operator(dim, is_real, seed, distribution=distribution)
+    if expected_mat is not None:
+        assert_allclose(matrix, expected_mat)
+    else:
+        # For wishart, verify reproducibility and PSD property.
+        matrix2 = random_psd_operator(dim, is_real, seed, distribution=distribution)
+        assert_allclose(matrix, matrix2)
+        assert is_positive_semidefinite(matrix)
 
 
 @pytest.mark.parametrize(
@@ -87,6 +110,8 @@ def test_random_psd_operator_with_seed(dim, is_real, seed, expected_mat):
         ("4", "uniform"),
         # Negative dim.
         (-2, "uniform"),
+        # Zero dim.
+        (0, "uniform"),
     ],
 )
 def test_random_psd_operator_invalid_dim(dim, distribution):
@@ -99,3 +124,28 @@ def test_random_psd_operator_invalid_distribution():
     """Test that invalid distribution raises ValueError."""
     with pytest.raises(ValueError):
         random_psd_operator(4, distribution="invalid")
+
+
+@pytest.mark.parametrize(
+    "scale, num_degrees, match",
+    [
+        # scale shape mismatch.
+        (np.eye(3), None, "scale must be a 4x4 matrix"),
+        # non-PSD scale matrix.
+        (np.array([[1.0, 2.0], [2.0, 0.0], [0.0, 0.0], [0.0, 0.0]]).reshape(4, 4) * -1, None, "positive semidefinite"),
+        # num_degrees zero.
+        (None, 0, "num_degrees must be a positive integer"),
+        # num_degrees negative.
+        (None, -3, "num_degrees must be a positive integer"),
+    ],
+)
+def test_random_psd_operator_wishart_invalid_params(scale, num_degrees, match):
+    """Test that invalid Wishart parameters raise ValueError."""
+    with pytest.raises(ValueError, match=match):
+        random_psd_operator(4, distribution="wishart", scale=scale, num_degrees=num_degrees)
+
+
+def test_random_psd_operator_uniform_ignores_wishart_params():
+    """Test that passing scale or num_degrees with distribution='uniform' raises a warning."""
+    with pytest.warns(UserWarning, match="scale and num_degrees are ignored"):
+        random_psd_operator(4, distribution="uniform", scale=np.eye(4), num_degrees=5)

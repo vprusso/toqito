@@ -1,6 +1,10 @@
 """Generates a random positive semidefinite operator."""
 
+import warnings
+
 import numpy as np
+
+from toqito.matrix_props import is_positive_semidefinite
 
 
 def random_psd_operator(
@@ -14,87 +18,90 @@ def random_psd_operator(
     r"""Generate a random positive semidefinite operator.
 
     A positive semidefinite operator is a Hermitian operator that has only real and non-negative eigenvalues.
-    This function generates a random PSD operator using one of two sampling strategies: ``"uniform"``
-    constructs a Hermitian matrix via random sampling and eigendecomposition, while ``"wishart"`` samples
+    This function generates a random PSD operator using one of two sampling strategies: :code:`"uniform"`
+    constructs a Hermitian matrix via random sampling and eigendecomposition, while :code:`"wishart"` samples
     from the Wishart distribution parameterized by a scale matrix and degrees of freedom.
 
-    Examples
-    ========
+    Examples:
+        Using :code:`|toqito⟩`, we may generate a random positive semidefinite matrix.
+        For :math:`\text{dim}=2`, this can be accomplished as follows.
 
-    Using :code:`|toqito⟩`, we may generate a random positive semidefinite matrix.
-    For :math:`\text{dim}=2`, this can be accomplished as follows.
+        ```python exec="1" source="above" session="psd_operator"
+        from toqito.rand import random_psd_operator
+        complex_psd_mat = random_psd_operator(2)
+        print(complex_psd_mat)
+        ```
 
-    .. jupyter-execute::
+        We can confirm that this matrix indeed represents a valid positive semidefinite matrix by utilizing
+        the :code:`is_positive_semidefinite` function from :code:`|toqito⟩`.
 
-     from toqito.rand import random_psd_operator
+        ```python exec="1" source="above" session="psd_operator"
+        from toqito.matrix_props import is_positive_semidefinite
+        print(is_positive_semidefinite(complex_psd_mat))
+        ```
 
-     complex_psd_mat = random_psd_operator(2)
+        We can also generate random positive semidefinite matrices that are real-valued as follows.
 
-     complex_psd_mat
+        ```python exec="1" source="above" session="psd_operator"
+        real_psd_mat = random_psd_operator(2, is_real=True)
+        print(real_psd_mat)
+        ```
 
-    We can confirm that this matrix indeed represents a valid positive semidefinite matrix by utilizing
-    the :code:`is_positive_semidefinite` function from the :code:`|toqito⟩` library, as demonstrated below:
+        Again, verifying that this is a valid positive semidefinite matrix can be done as follows.
 
-    .. jupyter-execute::
+        ```python exec="1" source="above" session="psd_operator"
+        print(is_positive_semidefinite(real_psd_mat))
+        ```
 
-     from toqito.matrix_props import is_positive_semidefinite
+        It is also possible to add a seed for reproducibility.
 
-     is_positive_semidefinite(complex_psd_mat)
+        ```python exec="1" source="above" session="psd_operator"
+        seeded = random_psd_operator(2, is_real=True, seed=42)
+        print(seeded)
+        ```
 
+        To generate a random PSD operator using the Wishart distribution, pass
+        :code:`distribution="wishart"`. Optional parameters :code:`scale` (a PSD scale matrix) and
+        :code:`num_degrees` (degrees of freedom) can be provided to fully parameterize the distribution.
 
-    We can also generate random positive semidefinite matrices that are real-valued as follows.
+        ```python exec="1" source="above" session="psd_operator"
+        wishart_mat = random_psd_operator(3, distribution="wishart", num_degrees=5)
+        print(wishart_mat)
+        ```
 
-    .. jupyter-execute::
+    References:
+        .. footbibliography::
 
-     from toqito.rand import random_psd_operator
+    Args:
+        dim: The dimension of the operator.
+        is_real: Boolean denoting whether the returned matrix will have all real entries or not.
+            Default is :code:`False`.
+        seed: A seed used to instantiate numpy's random number generator.
+        distribution: The sampling strategy to use. Either :code:`"uniform"` (default) or
+            :code:`"wishart"`. The :code:`"uniform"` strategy constructs a Hermitian matrix via
+            random sampling and eigendecomposition. The :code:`"wishart"` strategy samples from
+            the Wishart distribution, which guarantees a PSD matrix by construction.
+        scale: Scale matrix for the Wishart distribution. Must be a positive semidefinite matrix of
+            shape :code:`(dim, dim)`. Defaults to the identity matrix if not provided.
+            Only used when :code:`distribution="wishart"`.
+        num_degrees: Degrees of freedom for the Wishart distribution. Must be a positive integer.
+            Defaults to :code:`dim` if not provided. Only used when :code:`distribution="wishart"`.
 
-     real_psd_mat = random_psd_operator(2, is_real=True)
-
-     real_psd_mat
-
-
-    Again, verifying that this is a valid positive semidefinite matrix can be done as follows.
-
-    .. jupyter-execute::
-
-     from toqito.matrix_props import is_positive_semidefinite
-
-     is_positive_semidefinite(real_psd_mat)
-
-
-    It is also possible to add a seed for reproducibility.
-
-    .. jupyter-execute::
-
-     from toqito.rand import random_psd_operator
-
-     seeded = random_psd_operator(2, is_real=True, seed=42)
-
-
-    References
-    ==========
-    .. footbibliography::
-
-
-    :param dim: The dimension of the operator.
-    :param is_real: Boolean denoting whether the returned matrix will have all real entries or not.
-                    Default is :code:`False`.
-    :param seed: A seed used to instantiate numpy's random number generator.
-    :param distribution: The sampling strategy to use. Either ``"uniform"`` (default) or ``"wishart"``.
-    :param scale: Scale matrix for the Wishart distribution. Defaults to the identity matrix if not provided.
-                  Only used when ``distribution="wishart"``.
-    :param num_degrees: Degrees of freedom for the Wishart distribution. Defaults to ``dim`` if not provided.
-                        Only used when ``distribution="wishart"``.
-    :return: A :code:`dim` x :code:`dim` random positive semidefinite matrix.
+    Returns:
+        A :code:`dim` x :code:`dim` random positive semidefinite matrix.
 
     """
-    # Generate a random matrix of dimension dim x dim.
-    if not isinstance(dim, int) or dim < 0:
-        raise ValueError("dim must be a non-negative integer.")
-
-    gen = np.random.default_rng(seed=seed)
+    if not isinstance(dim, int) or dim < 1:
+        raise ValueError("dim must be a positive integer.")
 
     if distribution == "uniform":
+        if scale is not None or num_degrees is not None:
+            warnings.warn(
+                "scale and num_degrees are ignored when distribution='uniform'.",
+                UserWarning,
+                stacklevel=2,
+            )
+        gen = np.random.default_rng(seed=seed)
         rand_mat = gen.random((dim, dim))
         if not is_real:
             rand_mat = rand_mat + 1j * gen.random((dim, dim))
@@ -106,15 +113,29 @@ def random_psd_operator(
     if distribution == "wishart":
         if scale is None:
             scale = np.eye(dim)
+        else:
+            if scale.shape != (dim, dim):
+                raise ValueError(f"scale must be a {dim}x{dim} matrix, got {scale.shape}.")
+            if not is_positive_semidefinite(scale):
+                raise ValueError("scale must be a positive semidefinite matrix.")
+
         if num_degrees is None:
             num_degrees = dim
+        if num_degrees < 1:
+            raise ValueError("num_degrees must be a positive integer.")
+
+        gen = np.random.default_rng(seed=seed)
         if is_real:
             x_mat = gen.multivariate_normal(np.zeros(dim), scale, size=num_degrees).T
         else:
+            # Each component is drawn independently with covariance `scale`.
+            # Dividing by sqrt(2) ensures the resulting complex Wishart matrix
+            # x_mat @ x_mat.conj().T has the expected scale matrix `scale`
+            # rather than 2 * scale.
             x_mat = (
                 gen.multivariate_normal(np.zeros(dim), scale, size=num_degrees).T
                 + 1j * gen.multivariate_normal(np.zeros(dim), scale, size=num_degrees).T
-            )
+            ) / np.sqrt(2)
         return x_mat @ x_mat.conj().T
 
     raise ValueError("Invalid distribution. Supported options are 'uniform' and 'wishart'.")
