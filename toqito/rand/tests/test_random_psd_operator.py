@@ -132,7 +132,7 @@ def test_random_psd_operator_invalid_distribution():
         # scale shape mismatch.
         (np.eye(3), None, "scale must be a 4x4 matrix"),
         # non-PSD scale matrix.
-        (np.array([[1.0, 2.0], [2.0, 0.0], [0.0, 0.0], [0.0, 0.0]]).reshape(4, 4) * -1, None, "positive semidefinite"),
+        (np.array([[1.0, 2.0, 0.0, 0.0], [2.0, 0.0, 0.0, 0.0], [0.0, 0.0, 1.0, 0.0], [0.0, 0.0, 0.0, 1.0]]) * -1, None, "positive semidefinite"),
         # num_degrees zero.
         (None, 0, "num_degrees must be a positive integer"),
         # num_degrees negative.
