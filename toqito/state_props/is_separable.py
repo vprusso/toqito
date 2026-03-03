@@ -149,16 +149,19 @@ def is_separable(
         !!! Note
             The symmetric extension check requires CVXPY and a suitable solver. If these are not installed,
             or if the solver fails, a warning is printed to the console and this check is skipped.
-        .. note::
-        QETLAB's :code:`SymmetricExtension` typically tests k-PPT-extendibility, where failure means entangled.
+        !!! Note
+            QETLAB's :code:`SymmetricExtension` typically tests k-PPT-extendibility, where failure means entangled.
             It also has :code:`SymmetricInnerExtension`, which can prove separability.
+
     14. **Iterative :math:`S_k` decomposition**:
+
         - The test is only activated when :code:`STR>=2` as this is an computationaly expensive check.
         - We use :code:`STR` to control the level of the :math:`S_k` decomposition and the maximum
         allowed random product states to start the test.
-        .. note::
-        QETLAB's :code:`sk_iterate` routined for testing seperability. Though the original test has capabilites to
-                split the state for any schmidt rank,this implimentation  is restricted to Schimdt rank 1 decomposition.
+
+        !!! Note
+            QETLAB's :code:`sk_iterate` routined for testing seperability. Though the original test has capabilites to
+            split the state for any schmidt rank,this implimentation  is restricted to Schimdt rank 1 decomposition.
 
     Examples
     ==========
