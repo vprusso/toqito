@@ -150,18 +150,24 @@ def is_separable(
             The symmetric extension check requires CVXPY and a suitable solver. If these are not installed,
             or if the solver fails, a warning is printed to the console and this check is skipped.
         !!! Note
-            QETLAB's :code:`SymmetricExtension` typically tests k-PPT-extendibility, where failure means entangled.
-            It also has :code:`SymmetricInnerExtension`, which can prove separability.
+            QETLAB's `SymmetricExtension` typically tests k-PPT-extendibility, where failure means entangled.
+            It also has `SymmetricInnerExtension`, which can prove separability.
 
-    14. **Iterative :math:`S_k` decomposition**:
+    14. **Iterative `S_k` decomposition**:
 
-        - The test is only activated when :code:`STR>=2` as this is an computationaly expensive check.
-        - We use :code:`STR` to control the level of the :math:`S_k` decomposition and the maximum
-        allowed random product states to start the test.
+        - The test is only activated when `STR>=2` as this is an computationaly expensive check.
+        - We use `STR` to control the level of the `S_k` decomposition and the maximum
+          allowed random product states to start the test.
+        - Finds the maximal product state overlap using see-saw method(i.e. fix one party and optimize over the other
+          and repeat until convergence). Then subtracts the optimal product state. If the resulting state is negligible
+          or the resulting state falls in the seperable ball then the state is separable. Else, we return the original
+          state and try to repeat the optimization starting with another random product state. How long this process
+          continues is controlled by `STR`.
 
         !!! Note
-            QETLAB's :code:`sk_iterate` routined for testing seperability. Though the original test has capabilites to
-            split the state for any schmidt rank,this implimentation  is restricted to Schimdt rank 1 decomposition.
+            QETLAB's[@qetlablink] `sk_iterate` routined for testing seperability. Though the original test has
+            capabilites to split the state for any schmidt rank,this implimentation  is restricted to Schimdt rank 1
+            decomposition.
 
     Examples
     ==========
@@ -231,58 +237,43 @@ def is_separable(
 
         print("Is the state PPT?", is_ppt(rho, dim=[2, 3]))         # True
         print("Is the state separable?", is_separable(rho, dim=[2, 3]))  # True
+        ```
 
 
-    References
-    ==========
-    .. footbibliography::
 
+    Raises:
+        Warning: If the symmetric extension check is attempted but CVXPY or a suitable solver is not available.
+        TypeError: If the input `state` is not a NumPy array.
+        RuntimeError: If the symmetric extension check is attempted but fails due to CVXPY solver issues.
+        NotImplementedError: If the symmetric extension check is attempted but the level is not implemented
+                             (e.g., level < 1).
+        ValueError: If the input `state` is not a square matrix.
+        ValueError: If the input `state` is not positive semidefinite.
+        ValueError: If the input `state` has a trace close to zero but contains significant non-zero elements.
+        ValueError: If the input `state` has a numerically insignificant trace but significant elements;
+                    cannot normalize reliably.
+        ValueError: If the `dim` parameter has an invalid type (not None, int, or list).
+        ValueError: If `dim` is provided as an integer that does not evenly divide the state's dimension.
+        ValueError: If `dim` is provided as a list with a number of elements other than two.
+        ValueError: If `dim` is provided as a list with non-integer or negative elements.
+        ValueError: If the product of the dimensions in the `dim` list does not match the state's dimension.
+        ValueError: If a dimension of zero is provided for a non-empty state (or vice-versa).
 
-    :raises Warning:
+    Args:
+        state: The density matrix to check.
+        dim: The dimension of the input state, e.g., [dim_A, dim_B]. Optional; inferred if None.
+        level: The level for symmetric extension (DPS) hierarchy (default: 2).
+            - If 1, only PPT is checked.
+            - If >=2, checks for k-symmetric extension up to this level.
+            - If -1, attempts all implemented checks exhaustively (not all possible checks are implemented).
+        STR: Computational strength of the test, larger is slower but possibly covers more. (default: 2).
+            - If <2 iterative product state subtraction is not applied.
+            - Else, attempts to split the given state into a sum of STR*10*min(dA,dB) product states and
+            attempts to find a maximum overlap with STR*100 random starting product states
+        tol: Numerical tolerance (default: 1e-8).
 
-        If the symmetric extension check is attempted but CVXPY or a suitable solver is not available.
-
-    :raises TypeError:
-
-        - If the input `state` is not a NumPy array.
-
-    :raises RuntimeError:
-
-        - If the symmetric extension check is attempted but fails due to CVXPY solver issues.
-
-    :raises NotImplementedError:
-
-        - If the symmetric extension check is attempted but the level is not implemented (e.g., level < 1).
-
-    :raises ValueError:
-
-        - If the input `state` is not a square matrix.
-        - If the input `state` is not positive semidefinite.
-        - If the input `state` has a trace close to zero but contains significant non-zero elements.
-        - If the input `state` has a numerically insignificant trace but significant elements;
-          cannot normalize reliably.
-        - If the `dim` parameter has an invalid type (not None, int, or list).
-        - If `dim` is provided as an integer that does not evenly divide the state's dimension.
-        - If `dim` is provided as a list with a number of elements other than two.
-        - If `dim` is provided as a list with non-integer or negative elements.
-        - If the product of the dimensions in the `dim` list does not match the state's dimension.
-        - If a dimension of zero is provided for a non-empty state (or vice-versa).
-
-    :param state: The density matrix to check.
-    :param dim: The dimension of the input state, e.g., [dim_A, dim_B]. Optional; inferred if None.
-    :param level: The level for symmetric extension (DPS) hierarchy (default: 2).
-
-        - If 1, only PPT is checked.
-        - If >=2, checks for k-symmetric extension up to this level.
-        - If -1, attempts all implemented checks exhaustively (not all possible checks are implemented).
-    :param STR: Computational strength of the test, larger is slower but possibly covers more. (default: 2).
-
-        - If <2 iterative product state subtraction is not applied.
-        - Else, attempts to split the given state into a sum of STR*10*min(dA,dB) product states and
-         attempts to find a maximum overlap with STR*100 random starting product states
-    :param tol: Numerical tolerance (default: 1e-8).
-
-    :return: :code:`True` if separable, :code:`False` if entangled or inconclusive by implemented checks.
+    Returns:
+        `True` if separable, `False` if entangled or inconclusive by implemented checks.
 
     """
     # --- 1. Input Validation, Normalization, Dimension Setup ---
