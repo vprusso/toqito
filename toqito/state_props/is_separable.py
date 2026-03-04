@@ -18,7 +18,7 @@ from toqito.states.max_entangled import max_entangled
 
 
 def is_separable(
-    state: np.ndarray, dim: None | int | list[int] = None, level: int = 2, STR: int = 1, tol: float = 1e-8
+    state: np.ndarray, dim: None | int | list[int] = None, level: int = 2, search_depth: int = 1, tol: float = 1e-8
 ) -> bool:
     r"""Determine if a given state (given as a density matrix) is a separable state :footcite:`WikiSepSt`.
 
@@ -155,23 +155,19 @@ def is_separable(
 
     14. **Iterative `S_k` decomposition**:
 
-        - The test is only activated when `STR>=2` as this is an computationaly expensive check.
-        - We use `STR` to control the level of the `S_k` decomposition and the maximum
+        - The test is only activated when `search_depth>=2` as this is an computationaly expensive check.
+        - We use `search_depth` to control the level of the `S_k` decomposition and the maximum
           allowed random product states to start the test.
         - Finds the maximal product state overlap using see-saw method(i.e. fix one party and optimize over the other
           and repeat until convergence). Then subtracts the optimal product state. If the resulting state is negligible
           or the resulting state falls in the seperable ball then the state is separable. Else, we return the original
           state and try to repeat the optimization starting with another random product state. How long this process
-          continues is controlled by `STR`.
+          continues is controlled by `search_depth`.
 
         !!! Note
             QETLAB's[@qetlablink] `sk_iterate` routined for testing seperability. Though the original test has
             capabilites to split the state for any schmidt rank,this implimentation  is restricted to Schimdt rank 1
             decomposition.
-
-    Examples
-    ==========
-    Consider the following separable (by construction) state:
 
     Examples:
         Consider the following separable (by construction) state:
@@ -266,10 +262,10 @@ def is_separable(
             - If 1, only PPT is checked.
             - If >=2, checks for k-symmetric extension up to this level.
             - If -1, attempts all implemented checks exhaustively (not all possible checks are implemented).
-        STR: Computational strength of the test, larger is slower but possibly covers more. (default: 2).
+        search_depth: Computational strength of the test, larger is slower but possibly covers more. (default: 2).
             - If <2 iterative product state subtraction is not applied.
-            - Else, attempts to split the given state into a sum of STR*10*min(dA,dB) product states and
-            attempts to find a maximum overlap with STR*100 random starting product states
+            - Else, attempts to split the given state into a sum of search_depth*10*min(dA,dB) product states and
+            attempts to find a maximum overlap with search_depth*100 random starting product states
         tol: Numerical tolerance (default: 1e-8).
 
     Returns:
@@ -768,26 +764,31 @@ def is_separable(
         # 1-extendibility is equivalent to PPT.
         return True
     # --- 14. Iterative product state subtraction---
-    if (
-        STR >= 2
-    ):  # As this test is computationally expensive it only gets activated when the STR parameter is larger than 2.
-        max_iter = STR * 100
-        sep_factor = STR * 10
+    if search_depth >= 2:
+        # As this test is computationally expensive it only gets activated when the search_depth parameter is larger
+        # than 2.
+        seed = 100
+        max_iter = search_depth * 100
+        max_see_saw_iters = 1000
+        sep_factor = search_depth * 10
         rho_sub = np.asarray(state.copy())
         max_depth = sep_factor * min(dA, dB)  # mainly to bound the depth of the loop
         for dep in range(max_depth):
             count_rand_starts = 0
             while count_rand_starts < max_iter:  # loop for random starts
                 count_rand_starts += 1
-                v0 = np.random.randn(dA) + 1j * np.random.randn(dA)
+                v0 = np.random.default_rng(seed=seed)(dA) + 1j * np.random.default_rng(seed=seed + 1)(dA)
                 v0 = v0 / np.linalg.norm(v0)
                 v1 = np.zeros(dB, dtype=complex)
                 delta = 1  # flag for convergence
-                while delta > min(dA, dB) * tol:  # loop for see-saw attempting to find max overlap product state.
+                max_see_saw_iters = 1000
+                while (
+                    delta > min(dA, dB) * tol and max_see_saw_iters > 0
+                ):  # loop for see-saw attempting to find max overlap product state.
                     rho_part = partial_trace(
                         rho_sub @ np.kron(np.outer(v0, v0.conj().T), np.identity(dB)), sys=1, dim=[dA, dB]
                     )
-                    dev1, dv1_new = np.linalg.eigh(np.asarray(rho_part))
+                    _, dv1_new = np.linalg.eigh(np.asarray(rho_part))
                     v1_new = dv1_new[:, -1]
                     rho_part = partial_trace(
                         rho_sub @ np.kron(np.identity(dA), np.outer(v1_new, v1_new.conj().T)), sys=0, dim=[dA, dB]
@@ -798,6 +799,7 @@ def is_separable(
                     delta = np.linalg.norm(v1_new - v1) + np.linalg.norm(v0_new - v0)
                     v0 = v0_new
                     v1 = v1_new
+                    max_see_saw_iters -= 1
                 max_product_state = ev0 * np.kron(np.outer(v0, v0.conj().T), np.outer(v1, v1.conj().T))
                 rho_sub = rho_sub - max_product_state
                 if np.allclose(rho_sub, np.zeros(np.shape(rho_sub)), atol=tol, rtol=tol):
