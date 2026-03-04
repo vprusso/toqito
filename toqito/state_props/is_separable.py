@@ -782,7 +782,7 @@ def is_separable(
     ):  # As this test is computationally expensive it only gets activated when the STR parameter is larger than 2.
         max_iter = STR * 100
         sep_factor = STR * 10
-        rho_sub = state.copy()
+        rho_sub = np.asarray(state.copy())
         max_depth = sep_factor * min(dA, dB)  # mainly to bound the depth of the loop
         for dep in range(max_depth):
             count_rand_starts = 0
@@ -809,11 +809,13 @@ def is_separable(
                     v1 = v1_new
                 max_product_state = ev0 * np.kron(np.outer(v0, v0.conj().T), np.outer(v1, v1.conj().T))
                 rho_sub = rho_sub - max_product_state
-                if is_positive_semidefinite(rho_sub):  # making sure that the residue can be a valid state
-                    res = trace_norm(rho_sub)
-                    rho_sub = rho_sub / res  # normalizing only if the residue can be a state.
-                    if (
-                        in_separable_ball(rho_sub) or res < tol
+                if np.allclose(rho_sub, np.zeros(np.shape(rho_sub)), atol=tol, rtol=tol):
+                    return True
+                elif is_positive_semidefinite(rho_sub):  # making sure that the residue can be a valid state
+                    residue = trace_norm(rho_sub)
+                    rho_sub = rho_sub / residue  # normalizing only if the residue can be a state.
+                    if in_separable_ball(
+                        rho_sub
                     ):  # return if the residual state is in the seperable ball or the residue is neglegible
                         return True
                     else:  # use the rho_sub to continue the algorithm to another iteration
