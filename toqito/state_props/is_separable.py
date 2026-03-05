@@ -155,18 +155,18 @@ def is_separable(
 
     14. **Iterative `S_k` decomposition**:
 
-        - The test is only activated when `search_depth>=2` as this is an computationaly expensive check.
+        - The test is only activated when `search_depth>=2` as this is a computationally expensive check.
         - We use `search_depth` to control the level of the `S_k` decomposition and the maximum
           allowed random product states to start the test.
         - Finds the maximal product state overlap using see-saw method(i.e. fix one party and optimize over the other
           and repeat until convergence). Then subtracts the optimal product state. If the resulting state is negligible
-          or the resulting state falls in the seperable ball then the state is separable. Else, we return the original
+          or the resulting state falls in the separable ball then the state is separable. Else, we return the original
           state and try to repeat the optimization starting with another random product state. How long this process
           continues is controlled by `search_depth`.
 
         !!! Note
-            QETLAB's[@qetlablink] `sk_iterate` routined for testing seperability. Though the original test has
-            capabilites to split the state for any schmidt rank,this implimentation  is restricted to Schimdt rank 1
+            QETLAB's[@qetlablink] `sk_iterate` routined for testing separability. Though the original test has
+            capabilities to split the state for any Schmidt rank, this implementation is restricted to Schmidt rank 1
             decomposition.
 
     Examples:
@@ -537,7 +537,7 @@ def is_separable(
         return True
 
     rho_pt_A = partial_transpose(current_state, sys=0, dim=dims_list)  # Partial transpose on system A
-    rank_pt_A = np.linalg.matrix_rank(np.asarray(rho_pt_A), tol=tol)
+    rank_pt_A = np.linalg.matrix_rank(rho_pt_A, tol=tol)
     threshold_horodecki = 2 * prod_dim_val - dA - dB + 2  # Threshold for sum of ranks
 
     if state_rank + rank_pt_A <= threshold_horodecki:  # rank(rho) + rank(rho^T_A) <= threshold
@@ -549,8 +549,8 @@ def is_separable(
     # Its main use is for NPT states. Included for completeness of listed criteria.
     rho_A_marginal = partial_trace(current_state, sys=[1], dim=dims_list)
     rho_B_marginal = partial_trace(current_state, sys=[0], dim=dims_list)
-    op_reduct1 = np.kron(np.eye(dA), np.asarray(rho_B_marginal)) - current_state
-    op_reduct2 = np.kron(np.asarray(rho_A_marginal), np.eye(dB)) - current_state
+    op_reduct1 = np.kron(np.eye(dA), rho_B_marginal) - current_state
+    op_reduct2 = np.kron(rho_A_marginal, np.eye(dB)) - current_state
     if not (
         is_positive_semidefinite(op_reduct1, atol=tol, rtol=tol)
         and is_positive_semidefinite(op_reduct2, atol=tol, rtol=tol)
@@ -569,12 +569,7 @@ def is_separable(
     val_A = max(0, 1 - tr_rho_A_sq)  # Ensure non-negativity from (1 - purity)
     val_B = max(0, 1 - tr_rho_B_sq)
     bound_zhang = np.sqrt(val_A * val_B) if (val_A * val_B >= 0) else 0
-    if (
-        trace_norm(
-            realignment(current_state - np.kron(np.asarray(rho_A_marginal), np.asarray(rho_B_marginal)), dims_list)
-        )
-        > bound_zhang + tol
-    ):
+    if trace_norm(realignment(current_state - np.kron(rho_A_marginal, rho_B_marginal), dims_list)) > bound_zhang + tol:
         return False
     # TODO: #1246 Consider adding Filter CMC criterion from Gittsovich et al. 2008, which is stronger.
 
@@ -741,9 +736,7 @@ def is_separable(
         # for k=2 (and level >=2), it declares separable.
         for k_actual_level_check in range(2, int(level) + 1):  # Ensure level is int for range
             try:
-                if has_symmetric_extension(
-                    rho=current_state, level=k_actual_level_check, dim=np.asarray(dims_list), tol=tol
-                ):
+                if has_symmetric_extension(rho=current_state, level=k_actual_level_check, dim=dims_list, tol=tol):
                     # State has a k-symmetric extension, considered separable by this test level.
                     return True
                 # If it does NOT have a k-symmetric extension, it is entangled.
@@ -767,11 +760,14 @@ def is_separable(
     if search_depth >= 2:
         # As this test is computationally expensive it only gets activated when the search_depth parameter is larger
         # than 2.
+        def is_same(state1: np.ndarray, state2: np.ndarray, tol: float = 1e-9) -> bool:
+            return np.allclose(state1, state2, atol=tol, rtol=tol)
+
         seed = 100
         max_iter = search_depth * 100
         max_see_saw_iters = 1000
         sep_factor = search_depth * 10
-        rho_sub = np.asarray(state.copy())
+        rho_sub = state.copy()
         max_depth = sep_factor * min(dA, dB)  # mainly to bound the depth of the loop
         for dep in range(max_depth):
             count_rand_starts = 0
@@ -786,30 +782,30 @@ def is_separable(
                     delta > min(dA, dB) * tol and max_see_saw_iters > 0
                 ):  # loop for see-saw attempting to find max overlap product state.
                     rho_part = partial_trace(
-                        rho_sub @ np.kron(np.outer(v0, v0.conj().T), np.identity(dB)), sys=1, dim=[dA, dB]
+                        rho_sub @ np.kron(np.outer(v0, v0.conj()), np.identity(dB)), sys=1, dim=[dA, dB]
                     )
-                    _, dv1_new = np.linalg.eigh(np.asarray(rho_part))
+                    _, dv1_new = np.linalg.eigh(rho_part)
                     v1_new = dv1_new[:, -1]
                     rho_part = partial_trace(
-                        rho_sub @ np.kron(np.identity(dA), np.outer(v1_new, v1_new.conj().T)), sys=0, dim=[dA, dB]
+                        rho_sub @ np.kron(np.identity(dA), np.outer(v1_new, v1_new.conj())), sys=0, dim=[dA, dB]
                     )
-                    dev0, dv0_new = np.linalg.eigh(np.asarray(rho_part))
+                    dev0, dv0_new = np.linalg.eigh(rho_part)
                     v0_new = dv0_new[:, -1]
                     ev0 = dev0[-1]
                     delta = np.linalg.norm(v1_new - v1) + np.linalg.norm(v0_new - v0)
                     v0 = v0_new
                     v1 = v1_new
                     max_see_saw_iters -= 1
-                max_product_state = ev0 * np.kron(np.outer(v0, v0.conj().T), np.outer(v1, v1.conj().T))
+                max_product_state = ev0 * np.kron(np.outer(v0, v0.conj()), np.outer(v1, v1.conj()))
                 rho_sub = rho_sub - max_product_state
-                if np.allclose(rho_sub, np.zeros(np.shape(rho_sub)), atol=tol, rtol=tol):
+                if is_same(rho_sub, np.zeros(np.shape(rho_sub))):
                     return True
                 elif is_positive_semidefinite(rho_sub):  # making sure that the residue can be a valid state
                     residue = trace_norm(rho_sub)
                     rho_sub = rho_sub / residue  # normalizing only if the residue can be a state.
                     if in_separable_ball(
                         rho_sub
-                    ):  # return if the residual state is in the seperable ball or the residue is neglegible
+                    ):  # return if the residual state is in the separable ball or the residue is negligible
                         return True
                     else:  # use the rho_sub to continue the algorithm to another iteration
                         break

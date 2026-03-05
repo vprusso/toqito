@@ -820,8 +820,8 @@ def test_rank1_pert_eigvalsh_fails_eigvals_fallback():
 
 # ---  testing the iterative product state subtraction ---
 def test_is_separable_iterative_pass_with_nearly_zero_residue_state():
-    """Test the STR >= 2 iterative product state subtraction finds the residue is nearly zero."""
-    # genenrating a random rank-1 perturbative product state
+    """Test the search_depth >= 2 iterative product state subtraction finds the residue is nearly zero."""
+    # generating a random rank-1 product state
     np.random.seed(42)
     vec1 = np.random.rand(3) + 1j * np.random.rand(3)
     vec1 = vec1 / np.linalg.norm(vec1)
@@ -839,25 +839,25 @@ def test_is_separable_iterative_pass_with_nearly_zero_residue_state():
         if call_count["count_sep_ball"] <= 2:
             # using a small number to make it pass the first 3 iterations to keep the loop testing.
             return False  # Bypass initial check
-        return True  # Succeed inside STR >= 2 block
+        return True  # Succeed inside search_depth >= 2 block
 
-    def mock_all_close(state, *args, **kwargs):
+    def mock_all_close(state1, state2, *args, **kwargs):
         call_count["count_all_close"] += 1
         if call_count["count_all_close"] >= 2 and call_count["count_all_close"] <= 5:
             # letting the first one pass to skip the test of being PSD and using a small
             # number to make it pass the next 4 iterations to keep the loop testing.
             return False  # Bypass initial check
-        return True  # Succeed inside STR >= 2 block
+        return True  # Succeed inside search_depth >= 2 block
 
     with mock.patch("toqito.state_props.in_separable_ball.in_separable_ball", side_effect=mock_in_sep_ball):
         with mock.patch("toqito.state_props.is_ppt.is_ppt", return_value=True):
             with mock.patch("numpy.allclose", side_effect=mock_all_close):
-                assert is_separable(rho, dim=dim, level=0, STR=2)
+                assert is_separable(rho, dim=dim, level=0, search_depth=2)
 
 
 def test_is_separable_iterative_pass_with_falling_to_sep_ball():
-    """Test the STR >= 2 iterative product state subtraction finds result is in the separable ball."""
-    # genenrating a random rank-1 perturbative product state
+    """Test the search_depth >= 2 iterative product state subtraction finds result is in the separable ball."""
+    # generating a random rank-1 perturbative product state
 
     np.random.seed(42)
     vec1 = np.random.rand(3) + 1j * np.random.rand(3)
@@ -877,7 +877,7 @@ def test_is_separable_iterative_pass_with_falling_to_sep_ball():
             call_count["count_sep_ball"] <= 4
         ):  # using a small number to make it pass the first 3 iterations to keep the loop testing.
             return False  # Bypass initial check
-        return True  # Succeed inside STR >= 2 block
+        return True  # Succeed inside search_depth >= 2 block
 
     def mock_all_close(state, *args, **kwargs):
         call_count["count_all_close"] += 1
@@ -885,12 +885,12 @@ def test_is_separable_iterative_pass_with_falling_to_sep_ball():
             # letting the first one pass to skip the test of being PSD and using a small
             # making sure that the residue never small enough
             return False  # Bypass initial check
-        return True  # Succeed inside STR >= 2 block
+        return True  # Succeed inside search_depth >= 2 block
 
     with mock.patch("toqito.state_props.in_separable_ball.in_separable_ball", side_effect=mock_in_sep_ball):
         with mock.patch("toqito.state_props.is_ppt.is_ppt", return_value=True):
             with mock.patch("numpy.allclose", side_effect=mock_all_close):
-                assert is_separable(rho, dim=dim, level=0, STR=5)
+                assert is_separable(rho, dim=dim, level=0, search_depth=5)
 
 
 # --- attempt to Targeted Tests for Coverage ---
