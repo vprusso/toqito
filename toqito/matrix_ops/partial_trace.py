@@ -131,7 +131,7 @@ def partial_trace(
 
     # Ensure input_mat is square.
     if input_mat.ndim != 2 or input_mat.shape[0] != input_mat.shape[1]:
-        raise ValueError("input_mat must be a square matrix.")
+        raise ValueError("input_mat must be a 2D square matrix.")
     n = input_mat.shape[0]
 
     if dim is None:

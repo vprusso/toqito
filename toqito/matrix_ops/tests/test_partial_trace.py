@@ -11,7 +11,7 @@ from toqito.matrix_ops import partial_trace
 
 
 @pytest.mark.parametrize(
-    "input_mat, , sys_arg, dim_arg, msg",
+    "input_mat, sys_arg, dim_arg, msg",
     [
         (
             np.array([[1 / 2, 0, 0, 1 / 2], [0, 0, 0, 0], [0, 0, 0, 0], [1 / 2, 0, 0, 1 / 2]]),
@@ -29,7 +29,7 @@ from toqito.matrix_ops import partial_trace
             np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]]),
             [1],
             None,
-            re.escape("input_mat must be a square matrix."),
+            re.escape("input_mat must be a 2D square matrix."),
         ),
         (
             np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]]),
@@ -646,9 +646,9 @@ def test_is_trace_prserving(input_mat, expected_result, sys_arg, dim_arg):
 @pytest.mark.parametrize(
     "sys_value",
     [
-        2,      # int out-of-bounds
-        [2],    # list out-of-bounds
-        [-1],   # negative index
+        2,  # int out-of-bounds
+        [2],  # list out-of-bounds
+        [-1],  # negative index
     ],
 )
 def test_sys_out_of_bounds(sys_value):
@@ -661,8 +661,8 @@ def test_sys_out_of_bounds(sys_value):
 @pytest.mark.parametrize(
     "dim_value",
     [
-        [2],       # len == 1 branch
-        [2, 2],    # len > 1 branch
+        [2],  # len == 1 branch
+        [2, 2],  # len > 1 branch
     ],
 )
 def test_dim_list_branches(dim_value):
@@ -691,4 +691,3 @@ def test_partial_trace_invalid_inputs(input_mat, sys_value, dim_value, error_msg
     """Test various invalid parameter combinations."""
     with pytest.raises(ValueError, match=error_msg):
         partial_trace(input_mat, sys_value, dim_value)
-
