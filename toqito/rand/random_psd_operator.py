@@ -18,25 +18,28 @@ def random_psd_operator(
     r"""Generate a random positive semidefinite operator.
 
     A positive semidefinite operator is a Hermitian operator that has only real and non-negative eigenvalues.
-    This function generates a random PSD operator using one of two sampling strategies: :code:`"uniform"`
-    constructs a Hermitian matrix via random sampling and eigendecomposition, while :code:`"wishart"` samples
+    This function generates a random PSD operator using one of two sampling strategies: `"uniform"`
+    constructs a Hermitian matrix via random sampling and eigendecomposition, while `"wishart"` samples
     from the Wishart distribution parameterized by a scale matrix and degrees of freedom.
 
     Examples:
-        Using :code:`|toqito⟩`, we may generate a random positive semidefinite matrix.
-        For :math:`\text{dim}=2`, this can be accomplished as follows.
+        Using `|toqito⟩`, we may generate a random positive semidefinite matrix.
+        For \(\text{dim}=2\), this can be accomplished as follows.
 
         ```python exec="1" source="above" session="psd_operator"
         from toqito.rand import random_psd_operator
+
         complex_psd_mat = random_psd_operator(2)
+
         print(complex_psd_mat)
         ```
 
         We can confirm that this matrix indeed represents a valid positive semidefinite matrix by utilizing
-        the :code:`is_positive_semidefinite` function from :code:`|toqito⟩`.
+        the `is_positive_semidefinite` function from `|toqito⟩`.
 
         ```python exec="1" source="above" session="psd_operator"
         from toqito.matrix_props import is_positive_semidefinite
+
         print(is_positive_semidefinite(complex_psd_mat))
         ```
 
@@ -44,6 +47,7 @@ def random_psd_operator(
 
         ```python exec="1" source="above" session="psd_operator"
         real_psd_mat = random_psd_operator(2, is_real=True)
+
         print(real_psd_mat)
         ```
 
@@ -57,38 +61,40 @@ def random_psd_operator(
 
         ```python exec="1" source="above" session="psd_operator"
         seeded = random_psd_operator(2, is_real=True, seed=42)
+
         print(seeded)
         ```
 
         To generate a random PSD operator using the Wishart distribution, pass
-        :code:`distribution="wishart"`. Optional parameters :code:`scale` (a PSD scale matrix) and
-        :code:`num_degrees` (degrees of freedom) can be provided to fully parameterize the distribution.
+        `distribution="wishart"`. Optional parameters `scale` (a PSD scale matrix) and
+        `num_degrees` (degrees of freedom) can be provided to fully parameterize the distribution.
+        Note that when `num_degrees < dim`, the resulting matrix is rank-deficient (singular) by
+        construction, though still valid PSD.
 
         ```python exec="1" source="above" session="psd_operator"
         wishart_mat = random_psd_operator(3, distribution="wishart", num_degrees=5)
+
         print(wishart_mat)
         ```
-
-    References:
-        .. footbibliography::
 
     Args:
         dim: The dimension of the operator.
         is_real: Boolean denoting whether the returned matrix will have all real entries or not.
-            Default is :code:`False`.
+            Default is `False`.
         seed: A seed used to instantiate numpy's random number generator.
-        distribution: The sampling strategy to use. Either :code:`"uniform"` (default) or
-            :code:`"wishart"`. The :code:`"uniform"` strategy constructs a Hermitian matrix via
-            random sampling and eigendecomposition. The :code:`"wishart"` strategy samples from
-            the Wishart distribution, which guarantees a PSD matrix by construction.
+        distribution: The sampling strategy to use. Either `"uniform"` (default) or `"wishart"`.
+            The `"uniform"` strategy constructs a Hermitian matrix via random sampling and
+            eigendecomposition. The `"wishart"` strategy samples from the Wishart distribution,
+            which guarantees a PSD matrix by construction.
         scale: Scale matrix for the Wishart distribution. Must be a positive semidefinite matrix of
-            shape :code:`(dim, dim)`. Defaults to the identity matrix if not provided.
-            Only used when :code:`distribution="wishart"`.
+            shape `(dim, dim)`. Defaults to the identity matrix if not provided.
+            Only used when `distribution="wishart"`.
         num_degrees: Degrees of freedom for the Wishart distribution. Must be a positive integer.
-            Defaults to :code:`dim` if not provided. Only used when :code:`distribution="wishart"`.
+            Defaults to `dim` if not provided. Only used when `distribution="wishart"`. Note that
+            when `num_degrees < dim`, the resulting matrix will be rank-deficient.
 
     Returns:
-        A :code:`dim` x :code:`dim` random positive semidefinite matrix.
+        A `dim` x `dim` random positive semidefinite matrix.
 
     """
     if not isinstance(dim, int) or dim < 1:
@@ -123,6 +129,12 @@ def random_psd_operator(
             num_degrees = dim
         if num_degrees < 1:
             raise ValueError("num_degrees must be a positive integer.")
+        if num_degrees < dim:
+            warnings.warn(
+                f"num_degrees={num_degrees} < dim={dim}: the resulting Wishart matrix will be rank-deficient.",
+                UserWarning,
+                stacklevel=2,
+            )
 
         gen = np.random.default_rng(seed=seed)
         if is_real:
