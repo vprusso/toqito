@@ -10,15 +10,17 @@ from toqito.matrix_props.is_positive_semidefinite import is_positive_semidefinit
 from toqito.matrix_props.trace_norm import trace_norm
 from toqito.perms.swap import swap
 from toqito.perms.swap_operator import swap_operator
-from toqito.state_props import is_ppt
 from toqito.state_props.has_symmetric_extension import has_symmetric_extension
 from toqito.state_props.in_separable_ball import in_separable_ball
+from toqito.state_props.is_ppt import is_ppt
 from toqito.state_props.schmidt_rank import schmidt_rank
 from toqito.states.max_entangled import max_entangled
 
 
-def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: int = 2, tol: float = 1e-8) -> bool:
-    r"""Determine if a given state (given as a density matrix) is a separable state [@wikipediaseparable].
+def is_separable(
+    state: np.ndarray, dim: None | int | list[int] = None, level: int = 2, search_depth: int = 1, tol: float = 1e-8
+) -> bool:
+    r"""Determine if a given state (given as a density matrix) is a separable state :footcite:`WikiSepSt`.
 
     A multipartite quantum state:
     \(\rho \in \text{D}(\mathcal{H}_1 \otimes \mathcal{H}_2 \otimes \dots \otimes \mathcal{H}_N)\)
@@ -147,11 +149,25 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         !!! Note
             The symmetric extension check requires CVXPY and a suitable solver. If these are not installed,
             or if the solver fails, a warning is printed to the console and this check is skipped.
-
         !!! Note
             QETLAB's `SymmetricExtension` typically tests k-PPT-extendibility, where failure means entangled.
             It also has `SymmetricInnerExtension`, which can prove separability.
 
+    14. **Iterative `S_k` decomposition**:
+
+        - The test is only activated when `search_depth>=2` as this is a computationally expensive check.
+        - We use `search_depth` to control the level of the `S_k` decomposition and the maximum
+          allowed random product states to start the test.
+        - Finds the maximal product state overlap using see-saw method(i.e. fix one party and optimize over the other
+          and repeat until convergence). Then subtracts the optimal product state. If the resulting state is negligible
+          or the resulting state falls in the separable ball then the state is separable. Else, we return the original
+          state and try to repeat the optimization starting with another random product state. How long this process
+          continues is controlled by `search_depth`.
+
+        !!! Note
+            QETLAB's[@qetlablink] `sk_iterate` routined for testing separability. Though the original test has
+            capabilities to split the state for any Schmidt rank, this implementation is restricted to Schmidt rank 1
+            decomposition.
 
     Examples:
         Consider the following separable (by construction) state:
@@ -219,34 +235,37 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         print("Is the state separable?", is_separable(rho, dim=[2, 3]))  # True
         ```
 
+
+
     Raises:
         Warning: If the symmetric extension check is attempted but CVXPY or a suitable solver is not available.
         TypeError: If the input `state` is not a NumPy array.
         RuntimeError: If the symmetric extension check is attempted but fails due to CVXPY solver issues.
         NotImplementedError: If the symmetric extension check is attempted but the level is not implemented
-            (e.g., level < 1).
-        ValueError:
-            - If the input `state` is not a square matrix.
-            - If the input `state` is not positive semidefinite.
-            - If the input `state` has a trace close to zero but contains significant non-zero elements.
-            - If the input `state` has a numerically insignificant trace but significant elements;
-                cannot normalize reliably.
-            - If the `dim` parameter has an invalid type (not None, int, or list).
-            - If `dim` is provided as an integer that does not evenly divide the state's dimension.
-            - If `dim` is provided as a list with a number of elements other than two.
-            - If `dim` is provided as a list with non-integer or negative elements.
-            - If the product of the dimensions in the `dim` list does not match the state's dimension.
-            - If a dimension of zero is provided for a non-empty state (or vice-versa).
-
+                             (e.g., level < 1).
+        ValueError: If the input `state` is not a square matrix.
+        ValueError: If the input `state` is not positive semidefinite.
+        ValueError: If the input `state` has a trace close to zero but contains significant non-zero elements.
+        ValueError: If the input `state` has a numerically insignificant trace but significant elements;
+                    cannot normalize reliably.
+        ValueError: If the `dim` parameter has an invalid type (not None, int, or list).
+        ValueError: If `dim` is provided as an integer that does not evenly divide the state's dimension.
+        ValueError: If `dim` is provided as a list with a number of elements other than two.
+        ValueError: If `dim` is provided as a list with non-integer or negative elements.
+        ValueError: If the product of the dimensions in the `dim` list does not match the state's dimension.
+        ValueError: If a dimension of zero is provided for a non-empty state (or vice-versa).
 
     Args:
         state: The density matrix to check.
         dim: The dimension of the input state, e.g., [dim_A, dim_B]. Optional; inferred if None.
-        level:
-            - The level for symmetric extension (DPS) hierarchy (default: 2)
+        level: The level for symmetric extension (DPS) hierarchy (default: 2).
             - If 1, only PPT is checked.
             - If >=2, checks for k-symmetric extension up to this level.
             - If -1, attempts all implemented checks exhaustively (not all possible checks are implemented).
+        search_depth: Computational strength of the test, larger is slower but possibly covers more. (default: 2).
+            - If <2 iterative product state subtraction is not applied.
+            - Else, attempts to split the given state into a sum of search_depth*10*min(dA,dB) product states and
+            attempts to find a maximum overlap with search_depth*100 random starting product states
         tol: Numerical tolerance (default: 1e-8).
 
     Returns:
@@ -737,6 +756,61 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     elif level == 1 and is_state_ppt:  # is_state_ppt is True at this point
         # 1-extendibility is equivalent to PPT.
         return True
+    # --- 14. Iterative product state subtraction---
+    if search_depth >= 2:
+        # As this test is computationally expensive it only gets activated when the search_depth parameter is larger
+        # than 2.
+        def is_same(state1: np.ndarray, state2: np.ndarray, tol: float = 1e-9) -> bool:
+            return np.allclose(state1, state2, atol=tol, rtol=tol)
+
+        seed = 100
+        max_iter = search_depth * 100
+        max_see_saw_iters = 1000
+        sep_factor = search_depth * 10
+        rho_sub = state.copy()
+        max_depth = sep_factor * min(dA, dB)  # mainly to bound the depth of the loop
+        for dep in range(max_depth):
+            count_rand_starts = 0
+            while count_rand_starts < max_iter:  # loop for random starts
+                count_rand_starts += 1
+                v0 = np.random.default_rng(seed=seed)(dA) + 1j * np.random.default_rng(seed=seed + 1)(dA)
+                v0 = v0 / np.linalg.norm(v0)
+                v1 = np.zeros(dB, dtype=complex)
+                delta = 1  # flag for convergence
+                max_see_saw_iters = 1000
+                while (
+                    delta > min(dA, dB) * tol and max_see_saw_iters > 0
+                ):  # loop for see-saw attempting to find max overlap product state.
+                    rho_part = partial_trace(
+                        rho_sub @ np.kron(np.outer(v0, v0.conj()), np.identity(dB)), sys=1, dim=[dA, dB]
+                    )
+                    _, dv1_new = np.linalg.eigh(rho_part)
+                    v1_new = dv1_new[:, -1]
+                    rho_part = partial_trace(
+                        rho_sub @ np.kron(np.identity(dA), np.outer(v1_new, v1_new.conj())), sys=0, dim=[dA, dB]
+                    )
+                    dev0, dv0_new = np.linalg.eigh(rho_part)
+                    v0_new = dv0_new[:, -1]
+                    ev0 = dev0[-1]
+                    delta = np.linalg.norm(v1_new - v1) + np.linalg.norm(v0_new - v0)
+                    v0 = v0_new
+                    v1 = v1_new
+                    max_see_saw_iters -= 1
+                max_product_state = ev0 * np.kron(np.outer(v0, v0.conj()), np.outer(v1, v1.conj()))
+                rho_sub = rho_sub - max_product_state
+                if is_same(rho_sub, np.zeros(np.shape(rho_sub))):
+                    return True
+                elif is_positive_semidefinite(rho_sub):  # making sure that the residue can be a valid state
+                    residue = trace_norm(rho_sub)
+                    rho_sub = rho_sub / residue  # normalizing only if the residue can be a state.
+                    if in_separable_ball(
+                        rho_sub
+                    ):  # return if the residual state is in the separable ball or the residue is negligible
+                        return True
+                    else:  # use the rho_sub to continue the algorithm to another iteration
+                        break
+                else:  # if not just return the same state to find another possible random product state to start with
+                    rho_sub = rho_sub + max_product_state
 
     # If all implemented checks are inconclusive, and the state passed PPT (the most basic necessary condition checked),
     # it implies that the state is either separable but not caught by the simpler sufficient conditions,
