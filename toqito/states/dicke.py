@@ -14,33 +14,31 @@ def dicke(num_qubit: int, num_exfootcited: int, return_dm: bool = False) -> np.n
     an equal superposition of all possible states with the specified number of exfootcited qubits.
 
     Example
-    ==========
     Consider generating a Dicke state with 3 qubits and 1 excitation:
 
-    .. jupyter-execute::
-
-        from toqito.states import dicke
-        dicke(3, 1)
+    ```python exec="1" source="above"
+    from toqito.states import dicke
+    print(dicke(3, 1))
+    ```
 
     If we request the density matrix for this state, the return value is:
 
-    .. jupyter-execute::
-
-        from toqito.states import dicke
-        dicke(3, 1, return_dm=True)
-
-
-    References
-    ==========
-    .. footbibliography::
+    ```python exec="1" source="above"
+    from toqito.states import dicke
+    print(dicke(3, 1, return_dm=True))
+    ```
 
 
-    :raises ValueError: If the number of excitations exceeds the number of qubits.
-    :param num_qubit: The total number of qubits in the system.
-    :param num_exfootcited: The number of qubits that are in the exfootcited state.
-    :param return_dm: If True, returns the state as a density matrix (default is False).
+    Raises:
+        ValueError: If the number of excitations exceeds the number of qubits.
 
-    :return: The Dicke state vector or density matrix as a NumPy array.
+    Args:
+        num_qubit: The total number of qubits in the system.
+        num_exfootcited: The number of qubits that are in the exfootcited state.
+        return_dm: If True, returns the state as a density matrix (default is False).
+
+    Returns:
+        The Dicke state vector or density matrix as a NumPy array.
 
     """
     if num_exfootcited > num_qubit:

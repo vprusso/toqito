@@ -17,7 +17,7 @@ __all__ = [
 ]
 
 
-def __getattr__(name):
+def __getattr__(name: str) -> object:
     if name not in __all__:
         raise AttributeError(f"module '{__name__}' has no attribute '{name}'")
     module = import_module(f"{__name__}.{name}")
@@ -26,5 +26,5 @@ def __getattr__(name):
     return attr
 
 
-def __dir__():
+def __dir__() -> list[str]:
     return sorted(__all__)

@@ -9,42 +9,37 @@ from toqito.states import max_entangled
 
 
 def isotropic(dim: int, alpha: float) -> np.ndarray:
-    r"""Produce a isotropic state :footcite:`Horodecki_1998_Reduction`.
+    r"""Produce a isotropic state [@horodecki1998reduction].
 
-    Returns the isotropic state with parameter :code:`alpha` acting on (:code:`dim`-by-:code:`dim`)-dimensional space.
+    Returns the isotropic state with parameter `alpha` acting on (`dim`-by-`dim`)-dimensional space.
     The isotropic state has the following form
 
-    .. math::
+    \[
         \begin{equation}
             \rho_{\alpha} = \frac{1 - \alpha}{d^2} \mathbb{I} \otimes
             \mathbb{I} + \alpha |\psi_+ \rangle \langle \psi_+ | \in
             \mathbb{C}^d \otimes \mathbb{C}^2
         \end{equation}
+    \]
 
-    where :math:`|\psi_+ \rangle = \frac{1}{\sqrt{d}} \sum_j |j \rangle \otimes |j \rangle` is the maximally entangled
+    where \(|\psi_+ \rangle = \frac{1}{\sqrt{d}} \sum_j |j \rangle \otimes |j \rangle\) is the maximally entangled
     state.
 
-    Examples
-    ==========
+    Examples:
+        To generate the isotropic state with parameter \(\alpha=1/2\), we can make the following call to
+        `|toqito⟩` as
 
-    To generate the isotropic state with parameter :math:`\alpha=1/2`, we can make the following call to
-    :code:`|toqito⟩` as
-
-    .. jupyter-execute::
-
+        ```python exec="1" source="above"
         from toqito.states import isotropic
-        isotropic(3, 1 / 2)
+        print(isotropic(3, 1 / 2))
+        ```
 
+    Args:
+        dim: The local dimension.
+        alpha: The parameter of the isotropic state.
 
-    References
-    ==========
-    .. footbibliography::
-
-
-
-    :param dim: The local dimension.
-    :param alpha: The parameter of the isotropic state.
-    :return: Isotropic state of dimension :code:`dim`.
+    Returns:
+        Isotropic state of dimension `dim`.
 
     """
     psi = max_entangled(dim, False, False)
