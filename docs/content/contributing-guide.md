@@ -228,6 +228,14 @@ For more information, visit the
 [MkDocs documentation](https://www.mkdocs.org/getting-started/) and the
 [Material for MkDocs reference](https://squidfunk.github.io/mkdocs-material/getting-started/).
 
+## AI Policy
+
+We support the responsible use of AI-driven tools, but reserve the right not to
+engage or close contributions that are not reviewed or properly understood by
+the submitter. AI can save time in some instances, but when poorly applied, it
+can produce correct-but-wrong output and waste the time of both the contributor
+and the reviewers.
+
 ## Additional Resources
 
 -   [General GitHub documentation](https://help.github.com/)

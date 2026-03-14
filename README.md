@@ -168,6 +168,9 @@ helpful in probing. Feel free to add to this list and/or contribute solutions!
 
 The |toqito⟩ project has been used or referenced in the following works:
 
+- [![a](https://img.shields.io/static/v1?label=arXiv&message=2603.05452&color=inactive&style=flat-square)](https://arxiv.org/abs/2603.05452) Gupta, Tathagata and Mohan, Ankith and Murshid, Shayeef and Russo, Vincent and Sikora, Jamie and Zeng, Alice
+*"Local strategies are pretty good at computing Boolean properties of quantum sequences"*, arXiv:2603.05452, (2026).
+
 - [![a](https://img.shields.io/static/v1?label=arXiv&message=2510.20789&color=inactive&style=flat-square)](https://arxiv.org/abs/2510.20789) Lovitz, Benjamin and Johnston, Nathaniel and Russo, Vincent and Sikora, Jamie
 *"The complexity of perfect quantum state classification"*, arXiv:2510.20789, (2025).
 
