@@ -11,3 +11,8 @@ from toqito.state_metrics.bures_distance import bures_distance
 from toqito.state_metrics.bures_angle import bures_angle
 from toqito.state_metrics.matsumoto_fidelity import matsumoto_fidelity
 from toqito.state_metrics.measured_relative_entropy import measured_relative_entropy
+from toqito.state_metrics.conditional_renyi_entropies import (
+    petz_conditional_entropy_downarrow,
+    petz_conditional_entropy_uparrow,
+    sandwiched_conditional_entropy_downarrow,
+)
