@@ -10,6 +10,14 @@ def is_hermitian(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> b
 
     A Hermitian matrix is a complex square matrix that is equal to its own conjugate transpose.
 
+    Args:
+        mat: Matrix to check.
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
+
+    Returns:
+        Return True if matrix is Hermitian, and False otherwise.
+
     Examples:
         Consider the following matrix:
 
@@ -56,14 +64,6 @@ def is_hermitian(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> b
 
         print(is_hermitian(mat))
         ```
-
-    Args:
-        mat: Matrix to check.
-        rtol: The relative tolerance parameter (default 1e-05).
-        atol: The absolute tolerance parameter (default 1e-08).
-
-    Returns:
-        Return True if matrix is Hermitian, and False otherwise.
 
     """
     if not is_square(mat):

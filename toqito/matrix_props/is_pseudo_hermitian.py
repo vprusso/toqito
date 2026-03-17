@@ -19,6 +19,18 @@ def is_pseudo_hermitian(mat: np.ndarray, signature: np.ndarray, rtol: float = 1e
     - \(H^{\dagger}\) is the conjugate transpose (Hermitian transpose) of \(H\),
     - \(\eta\) is a Hermitian, invertible matrix.
 
+    Args:
+        mat: The matrix to check.
+        signature: The signature matrix \(\eta\), which must be Hermitian and invertible.
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
+
+    Returns:
+        Return `True` if the matrix is pseudo-Hermitian, and `False` otherwise.
+
+    Raises:
+        ValueError: If `signature` is not Hermitian or not invertible.
+
     Examples:
         Consider the following matrix:
 
@@ -69,18 +81,6 @@ def is_pseudo_hermitian(mat: np.ndarray, signature: np.ndarray, rtol: float = 1e
 
         print(is_pseudo_hermitian(A, eta))
         ```
-
-    Raises:
-        ValueError: If `signature` is not Hermitian or not invertible.
-
-    Args:
-        mat: The matrix to check.
-        signature: The signature matrix \(\eta\), which must be Hermitian and invertible.
-        rtol: The relative tolerance parameter (default 1e-05).
-        atol: The absolute tolerance parameter (default 1e-08).
-
-    Returns:
-        Return `True` if the matrix is pseudo-Hermitian, and `False` otherwise.
 
     """
     if not is_hermitian(signature):

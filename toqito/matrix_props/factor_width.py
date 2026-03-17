@@ -27,30 +27,6 @@ def factor_width(
     supported on at most \(k\) coordinates.  This routine implements the
     low-rank algorithm in [@johnston2025complexity].
 
-    Examples:
-        The matrix \(\operatorname{diag}(1, 1, 0)\) has factor width at most \(1\).
-
-        ```python exec="1" source="above"
-        import numpy as np
-        from toqito.matrix_props import factor_width
-
-        diag_mat = np.diag([1, 1, 0])
-        result = factor_width(diag_mat, k=1)
-        print(result["feasible"])
-        ```
-
-        Conversely, the rank-one matrix \(\begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix}/2\) is not
-        \(1\)-factorable.
-
-        ```python exec="1" source="above"
-        import numpy as np
-        from toqito.matrix_props import factor_width
-
-        hadamard = np.array([[1, 1], [1, 1]], dtype=np.complex128) / 2
-        result = factor_width(hadamard, k=1)
-        print(result["feasible"])
-        ```
-
     Args:
         mat: Positive semidefinite matrix to test.
         k: Target factor width bound.
@@ -64,6 +40,28 @@ def factor_width(
         ``status`` (solver status string),
         ``factors`` (list of PSD matrices whose sum equals ``mat`` when feasible), and
         ``subspaces`` (orthonormal bases spanning the subspaces used in the decomposition).
+
+    Examples:
+        The matrix \(\operatorname{diag}(1, 1, 0)\) has factor width at most \(1\).
+```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import factor_width
+
+        diag_mat = np.diag([1, 1, 0])
+        result = factor_width(diag_mat, k=1)
+        print(result["feasible"])
+```
+
+        Conversely, the rank-one matrix \(\begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix}/2\) is not
+        \(1\)-factorable.
+```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import factor_width
+
+        hadamard = np.array([[1, 1], [1, 1]], dtype=np.complex128) / 2
+        result = factor_width(hadamard, k=1)
+        print(result["feasible"])
+```
 
     """
     mat = np.asarray(mat, dtype=np.complex128)

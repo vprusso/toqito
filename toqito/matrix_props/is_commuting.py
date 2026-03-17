@@ -17,6 +17,13 @@ def is_commuting(mat_1: np.ndarray, mat_2: np.ndarray) -> bool:
     It holds that \(\left[X,Y\right]=0\) if and only if \(X\) and
     \(Y\) commute (Section: Lie Brackets And Commutants from [@watrous2018theory]).
 
+    Args:
+        mat_1: First matrix to check.
+        mat_2: Second matrix to check.
+
+    Returns:
+        Return `True` if `mat_1` commutes with `mat_2` and False otherwise.
+
     Examples:
         Consider the following matrices:
 
@@ -71,13 +78,6 @@ def is_commuting(mat_1: np.ndarray, mat_2: np.ndarray) -> bool:
 
         print(is_commuting(mat_1, mat_2))
         ```
-
-    Args:
-        mat_1: First matrix to check.
-        mat_2: Second matrix to check.
-
-    Returns:
-        Return `True` if `mat_1` commutes with `mat_2` and False otherwise.
 
     """
     return np.allclose(mat_1 @ mat_2 - mat_2 @ mat_1, 0)

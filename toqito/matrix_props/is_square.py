@@ -8,6 +8,15 @@ def is_square(mat: np.ndarray) -> bool:
 
     A matrix is square if the dimensions of the rows and columns are equivalent.
 
+    Args:
+        mat: The matrix to check.
+
+    Returns:
+        Returns `True` if the matrix is square and `False` otherwise.
+
+    Raises:
+        ValueError: If variable is not a matrix.
+
     Examples:
         Consider the following matrix
 
@@ -49,15 +58,6 @@ def is_square(mat: np.ndarray) -> bool:
 
         print(is_square(B))
         ```
-
-    Raises:
-        ValueError: If variable is not a matrix.
-
-    Args:
-        mat: The matrix to check.
-
-    Returns:
-        Returns `True` if the matrix is square and `False` otherwise.
 
     """
     if len(mat.shape) != 2:

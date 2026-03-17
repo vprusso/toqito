@@ -14,6 +14,12 @@ def is_positive(input_mat: np.ndarray) -> bool:
         [`is_totally_positive`][toqito.matrix_props.is_totally_positive] and
         [`is_positive_semidefinite`][toqito.matrix_props.is_positive_semidefinite].
 
+    Args:
+        input_mat: Matrix of interest.
+
+    Returns:
+        Return `True` if matrix is positive, and `False` otherwise.
+
     Examples:
         We expect a matrix full of 1s to be positive.
 
@@ -25,9 +31,6 @@ def is_positive(input_mat: np.ndarray) -> bool:
 
         print(is_positive(input_mat))
         ```
-
-    Args:
-        input_mat: Matrix of interest.
 
     """
     return bool(np.all(input_mat > 0))

@@ -11,12 +11,18 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
     When the nonnegative elements in a row of a square matrix sum up to 1, the matrix is right stochastic and if the
     columns sum up to 1, the matrix is left stochastic [@wikipediastochastic].
 
-    When a matrix is right and left stochastic, it is a doubly stochastic matrix [@wikipediadoublystochastic]
-    .
+    When a matrix is right and left stochastic, it is a doubly stochastic matrix [@wikipediadoublystochastic].
 
-    !!! See Also
-        [`is_stochastic()`][toqito.matrix_props.is_stochastic.is_stochastic]
-        — use `mat_type="doubly"` for doubly stochastic check
+    Args:
+        mat: Matrix of interest.
+        mat_type: Type of stochastic matrix. `"left"` for left stochastic matrix, `"right"` for right stochastic
+            matrix, and `"doubly"` for a doubly stochastic matrix.
+
+    Returns:
+        Returns `True` if the matrix is doubly, right or left stochastic, `False` otherwise.
+
+    Raises:
+        TypeError: If something other than `"doubly"`, `"left"`, or `"right"` is used for `mat_type`.
 
     Examples:
         The elements of an identity matrix and a Pauli-X matrix are nonnegative such that the rows and columns
@@ -50,18 +56,10 @@ def is_stochastic(mat: np.ndarray, mat_type: str) -> bool:
         print(is_stochastic(pauli("Z"), "left"))
         print(is_stochastic(pauli("Z"), "doubly"))
         ```
-                          `mat_type`
 
-    Raises:
-        TypeError: If something other than `"doubly"`, `"left"` or `"right"` is used for
-
-    Args:
-        mat: Matrix of interest
-        mat_type: Type of stochastic matrix. `"left"` for left stochastic matrix and `"right"` for right stochastic
-            matrix and `"doubly"` for a doubly stochastic matrix.
-
-    Returns:
-        Returns `True` if the matrix is doubly, right or left stochastic, `False` otherwise.
+        !!! See Also
+            [`is_stochastic()`][toqito.matrix_props.is_stochastic.is_stochastic]
+            — use `mat_type="doubly"` for doubly stochastic check
 
     """
     if mat_type not in {"left", "right", "doubly"}:

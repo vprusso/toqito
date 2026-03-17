@@ -21,6 +21,14 @@ def is_identity(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> boo
         \end{pmatrix}.
     \]
 
+    Args:
+        mat: Matrix to check.
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
+
+    Returns:
+        Return `True` if matrix is the identity matrix, and `False` otherwise.
+
     Examples:
         Consider the following matrix:
 
@@ -64,14 +72,6 @@ def is_identity(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-8) -> boo
 
         print(is_identity(mat))
         ```
-
-    Args:
-        mat: Matrix to check.
-        rtol: The relative tolerance parameter (default 1e-05).
-        atol: The absolute tolerance parameter (default 1e-08).
-
-    Returns:
-        Return `True` if matrix is the identity matrix, and `False` otherwise.
 
     """
     if not is_square(mat):

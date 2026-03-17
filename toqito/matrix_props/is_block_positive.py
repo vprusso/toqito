@@ -16,35 +16,6 @@ def is_block_positive(
 ) -> bool | RuntimeError:
     r"""Check if matrix is block positive [@johnston2012norms].
 
-    Examples:
-        The swap operator is always block positive, since it is the Choi
-        matrix of the transpose map.
-
-        ```python exec="1" source="above"
-        from toqito.perms.swap_operator import swap_operator
-        from toqito.matrix_props.is_block_positive import is_block_positive
-
-        mat = swap_operator(3)
-
-        print(is_block_positive(mat=mat))
-        ```
-
-
-        However, it's not 2 - block positive.
-
-        ```python exec="1" source="above"
-        from toqito.perms.swap_operator import swap_operator
-        from toqito.matrix_props.is_block_positive import is_block_positive
-
-        mat = swap_operator(3)
-
-        print(is_block_positive(mat=mat, k=2))
-        ```
-
-    Raises:
-        RuntimeError: Unable to determine k-block positivity. Please consider increasing the relative tolerance or the
-            effort level.
-
     Args:
         mat: A bipartite Hermitian operator.
         k: A positive integer indicating that the function should determine whether or not the input operator is k-block
@@ -58,6 +29,32 @@ def is_block_positive(
     Returns:
         Return `True` if matrix is k-block positive definite, `False` if not, or raise a runtime error if we are unable
         to determine whether or not the operator is block positive.
+
+    Raises:
+        RuntimeError: Unable to determine k-block positivity. Please consider increasing the relative tolerance or the
+            effort level.
+
+    Examples:
+        The swap operator is always block positive, since it is the Choi
+        matrix of the transpose map.
+```python exec="1" source="above"
+        from toqito.perms.swap_operator import swap_operator
+        from toqito.matrix_props.is_block_positive import is_block_positive
+
+        mat = swap_operator(3)
+
+        print(is_block_positive(mat=mat))
+```
+
+        However, it's not 2 - block positive.
+```python exec="1" source="above"
+        from toqito.perms.swap_operator import swap_operator
+        from toqito.matrix_props.is_block_positive import is_block_positive
+
+        mat = swap_operator(3)
+
+        print(is_block_positive(mat=mat, k=2))
+```
 
     """
     if not is_hermitian(mat):

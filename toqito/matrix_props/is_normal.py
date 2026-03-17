@@ -24,6 +24,14 @@ def is_normal(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool
         \end{equation}.
     \]
 
+    Args:
+        mat: The matrix to check.
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
+
+    Returns:
+        Returns `True` if the matrix is normal and `False` otherwise.
+
     Examples:
         Consider the following matrix
 
@@ -67,14 +75,6 @@ def is_normal(mat: np.ndarray, rtol: float = 1e-05, atol: float = 1e-08) -> bool
 
         print(is_normal(B))
         ```
-
-    Args:
-        mat: The matrix to check.
-        rtol: The relative tolerance parameter (default 1e-05).
-        atol: The absolute tolerance parameter (default 1e-08).
-
-    Returns:
-        Returns `True` if the matrix is normal and `False` otherwise.
 
     """
     if not is_square(mat):
