@@ -2,6 +2,7 @@
 
 import numpy as np
 import scipy
+import warnings
 
 
 def vectors_from_gram_matrix(gram: np.ndarray) -> list[np.ndarray]:
@@ -32,7 +33,6 @@ def vectors_from_gram_matrix(gram: np.ndarray) -> list[np.ndarray]:
         gram_matrix = np.array([[0, 1], [1, 0]])
         vectors = vectors_from_gram_matrix(gram_matrix)
 
-        print(vectors)  # Matrix is not positive semidefinite. Using eigendecomposition as alternative.
         ```
 
     Raises:
@@ -55,6 +55,6 @@ def vectors_from_gram_matrix(gram: np.ndarray) -> list[np.ndarray]:
         return [decomp[i][:] for i in range(dim)]
     # Otherwise, need to do eigendecomposition:
     except np.linalg.LinAlgError:
-        print("Matrix is not positive semidefinite. Using eigendecomposition as alternative.")
+        warnings.warn("Matrix is not positive semidefinite. Using eigendecomposition as alternative.")
         d, v = np.linalg.eig(gram)
         return [scipy.linalg.sqrtm(np.diag(d)) @ v[i].conj().T for i in range(dim)]
