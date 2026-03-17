@@ -142,7 +142,7 @@ class QuantumHedging:
     def __init__(self, q_a: np.ndarray, num_reps: int) -> None:
         """Initialize the variables for semidefinite program.
 
-    Args:
+        Args:
             q_a: The fixed SDP variable.
             num_reps: The number of parallel repetitions.
 
@@ -190,7 +190,7 @@ class QuantumHedging:
             \end{equation}
         \]
 
-    Returns:
+        Returns:
             The optimal maximal probability for obtaining outcome "a".
 
         """
@@ -219,7 +219,7 @@ class QuantumHedging:
             \end{equation}
         \]
 
-    Returns:
+        Returns:
             The optimal maximal probability for obtaining outcome "a".
 
         """
@@ -258,7 +258,7 @@ class QuantumHedging:
             \end{equation}
         \]
 
-    Returns:
+        Returns:
             The optimal minimal probability for obtaining outcome "a".
 
         """
@@ -287,7 +287,7 @@ class QuantumHedging:
         \end{equation}
         \]
 
-    Returns:
+        Returns:
             The optimal minimal probability for obtaining outcome "a".
 
         """

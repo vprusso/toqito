@@ -143,7 +143,6 @@ def _minimax_dual(
     solver: str = "cvxopt",
     **kwargs,
 ) -> float:
-
     """Find the dual problem for minimax quantum channel distinguishability SDP."""
     J_var = list([phi, psi])
 
@@ -176,7 +175,6 @@ def _minimax_primal(
     solver: str = "cvxopt",
     **kwargs,
 ) -> float:
-
     """Find the primal problem for minimax quantum channel distinguishability SDP."""
     J_var = list([phi, psi])
 

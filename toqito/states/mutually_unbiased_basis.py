@@ -73,13 +73,11 @@ def mutually_unbiased_basis(dim: int) -> list[np.ndarray]:
 
 
 def _is_prime(n: int) -> bool:
-
     """Check if n is a prime number."""
     return n >= 2 and all(n % i != 0 for i in range(2, math.isqrt(n) + 1))
 
 
 def _is_prime_power(n: int) -> bool:
-
     """Determine if a number is a prime power.
 
     A number is a prime power if it can be written as p^k, where p is a prime number and k is an integer greater than 0.

@@ -141,11 +141,11 @@ class XORGame:
     ) -> None:
         """Construct XOR game object.
 
-    Raises:
+        Raises:
             ValueError: If dimension of probability matrix is not equal to
                                                 dimension of predicate matrix.
 
-    Args:
+        Args:
             prob_mat: A matrix whose (q_0, q_1)-entry gives the probability that
                                  the referee will give Alice the value `q_0` and Bob the
                                  value `q_1`.
@@ -212,7 +212,7 @@ class XORGame:
 
         In other words, \(\pi(x, y)\) corresponds to `prob_mat[x, y]`, and \(f(x,y)\) corresponds to `pred_mat[x, y]`.
 
-    Returns:
+        Returns:
             A value between [0, 1] representing the quantum value.
 
         """
@@ -252,7 +252,7 @@ class XORGame:
     def classical_value(self) -> float:
         r"""Compute the classical value of the XOR game.
 
-    Returns:
+        Returns:
             A value between [0, 1] representing the classical value.
 
         """
@@ -263,7 +263,7 @@ class XORGame:
 
         Here, the existing function in the `NonlocalGame` class is called.
 
-    Returns:
+        Returns:
             A value between [0, 1] representing the nonsignaling value.
 
         """
@@ -272,7 +272,7 @@ class XORGame:
     def to_nonlocal_game(self) -> NonlocalGame:
         """Given an XOR game, compute a predicate matrix representing the more generic `NonlocalGame` equivalent.
 
-    Returns:
+        Returns:
             A `NonlocalGame` object equivalent to the XOR game.
 
         """

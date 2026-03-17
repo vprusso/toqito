@@ -32,7 +32,7 @@ class ExtendedNonlocalGame:
     def __init__(self, prob_mat: np.ndarray, pred_mat: np.ndarray, reps: int = 1) -> None:
         """Construct extended nonlocal game object.
 
-    Args:
+        Args:
             prob_mat: A matrix whose (x, y)-entry gives the probability that the referee will give Alice the value `x`
                 and Bob the value `y`.
             pred_mat: A matrix representing the predictions for the game.
@@ -121,7 +121,7 @@ class ExtendedNonlocalGame:
         where the maximum is over all functions \(f : \Sigma_A \rightarrow
         \Gamma_A\) and \(g : \Sigma_B \rightarrow \Gamma_B\).
 
-    Returns:
+        Returns:
             The unentangled value of the extended nonlocal game.
 
         """
@@ -176,7 +176,7 @@ class ExtendedNonlocalGame:
         for every choice of \(x \in \Sigma_A\) and \(y \in \Sigma_B\)
         where \(\tau \in \text{D}(\mathcal{R})\) is a density operator.
 
-    Returns:
+        Returns:
             The non-signaling value of the extended nonlocal game.
 
         """
@@ -285,7 +285,7 @@ class ExtendedNonlocalGame:
 
         Uses an iterative see-saw method involving two SDPs.
 
-    Args:
+        Args:
             iters: Maximum number of see-saw iterations (Alice optimizes, Bob optimizes (default is 20).
             tol: Tolerance for stopping see-saw iteration based on improvement (default is 1e-8).
             seed: Optional seed for initializing random POVMs for reproducibility (default is None).
@@ -294,7 +294,7 @@ class ExtendedNonlocalGame:
             solver_params: Optional parameters for solver (default is {"eps": 1e-8, "verbose": False}).
             verbose: Optional printout for optimizer step (default is False).
 
-    Returns:
+        Returns:
             The best lower bound found on the quantum value.
 
         """
@@ -524,11 +524,11 @@ class ExtendedNonlocalGame:
             should be used, where this example uses all products of one measurement, all products of
             one Alice and one Bob measurement, and all products of two Alice and one Bob measurements.
 
-    Args:
+        Args:
             k: The level of the NPA hierarchy to use (default=1).
             no_signaling: Whether to enforce the no-signaling constraints (default=True).
 
-    Returns:
+        Returns:
             The upper bound on the commuting strategy value of an extended nonlocal game.
 
         """

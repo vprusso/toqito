@@ -23,7 +23,7 @@ def vectors_to_gram_matrix(vectors: list[np.ndarray]) -> np.ndarray:
 
     Examples:
         Example with real vectors:
-```python exec="1" source="above"
+    ```python exec="1" source="above"
         import numpy as np
         from toqito.matrix_ops import vectors_to_gram_matrix
 
@@ -31,10 +31,10 @@ def vectors_to_gram_matrix(vectors: list[np.ndarray]) -> np.ndarray:
         gram_matrix = vectors_to_gram_matrix(vectors)
 
         print(gram_matrix)
-```
+    ```
 
         Example with complex vectors:
-```python exec="1" source="above"
+    ```python exec="1" source="above"
         import numpy as np
         from toqito.matrix_ops import vectors_to_gram_matrix
 
@@ -42,10 +42,10 @@ def vectors_to_gram_matrix(vectors: list[np.ndarray]) -> np.ndarray:
         gram_matrix = vectors_to_gram_matrix(vectors)
 
         print(gram_matrix)
-```
+    ```
 
         Example with density matrices (mixed states):
-```python exec="1" source="above"
+    ```python exec="1" source="above"
         import numpy as np
         from toqito.matrix_ops import vectors_to_gram_matrix
 
@@ -56,7 +56,7 @@ def vectors_to_gram_matrix(vectors: list[np.ndarray]) -> np.ndarray:
 
         gram_matrix = vectors_to_gram_matrix(states)
         print(gram_matrix)
-```
+    ```
 
     """
     # Check that all vectors are of the same shape

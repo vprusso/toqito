@@ -32,7 +32,7 @@ class NonlocalGame:
     def __init__(self, prob_mat: np.ndarray, pred_mat: np.ndarray, reps: int = 1) -> None:
         """Construct nonlocal game object.
 
-    Args:
+        Args:
             prob_mat: A matrix whose (x, y)-entry gives the probability
                       that the referee will give Alice the value `x` and Bob
                       the value `y`.
@@ -76,11 +76,11 @@ class NonlocalGame:
 
         Binary constraint system games (BCS) games were originally defined in [@cleve2014characterization].
 
-    Args:
+        Args:
             constraints: List of binary constraints that define the game.
             reps: Number of parallel repetitions to perform. Default is 1.
 
-    Returns:
+        Returns:
             A NonlocalGame object arising from the variables and constraints that define the game.
 
         """
@@ -136,10 +136,10 @@ class NonlocalGame:
         It converts the raw BCS tensor constraints (if needed) into matrix form and evaluates
         their satisfiability using a helper function.
 
-    Raises:
+        Raises:
             ValueError: If no constraints are stored (i.e., if the game was not created from a BCS game).
 
-    Returns:
+        Returns:
             True if a perfect commuting-operator strategy exists; False otherwise.
 
         """
@@ -263,7 +263,7 @@ class NonlocalGame:
             \end{equation}
         \]
 
-    Args:
+        Args:
             dim: The dimension of the quantum system that Alice and Bob have
                     access to (default = 2).
             iters: The number of times to run the alternating projection
@@ -271,10 +271,10 @@ class NonlocalGame:
             tol: The tolerance before quitting out of the alternating
                     projection semidefinite program.
 
-    Returns:
+        Returns:
             The lower bound on the quantum value of a nonlocal game.
 
-            Examples:
+        Examples:
             The CHSH game
 
             The CHSH game is a two-player nonlocal game with the following
@@ -479,7 +479,7 @@ class NonlocalGame:
     def nonsignaling_value(self) -> float:
         """Compute the non-signaling value of the nonlocal game.
 
-    Returns:
+        Returns:
             A value between [0, 1] representing the non-signaling value.
 
         """
@@ -585,10 +585,10 @@ class NonlocalGame:
             should be used, where this example uses all products of one measurement, all products of
             one Alice and one Bob measurement, and all products of two Alice and one Bob measurements.
 
-    Args:
+        Args:
             k: The level of the NPA hierarchy to use (default=1).
 
-    Returns:
+        Returns:
             The upper bound on the commuting strategy value of a nonlocal game.
 
         """

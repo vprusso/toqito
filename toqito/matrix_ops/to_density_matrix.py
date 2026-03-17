@@ -4,7 +4,6 @@ import numpy as np
 
 
 def to_density_matrix(input_array: np.ndarray) -> np.ndarray:
-
     """Convert a given vector to a density matrix or return the density matrix if already given.
 
     If the input is a vector, this function computes the outer product to form a density matrix.
@@ -21,12 +20,12 @@ def to_density_matrix(input_array: np.ndarray) -> np.ndarray:
 
     Examples:
         As an example, consider one of the Bell states.
-```python exec="1" source="above"
+    ```python exec="1" source="above"
         from toqito.states import bell
         from toqito.matrix_ops import to_density_matrix
 
         print(to_density_matrix(bell(0)))
-```
+    ```
 
     """
     # Check if the input is a vector (1D array) or a 2D array

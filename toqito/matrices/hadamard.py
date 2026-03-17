@@ -43,7 +43,6 @@ def hadamard(n_param: int = 1) -> np.ndarray:
 
 
 def _hamming_distance(x_param: int) -> int:
-
     """Calculate the bit-wise Hamming distance of `x_param` from 0.
 
     The Hamming distance is the number of 1s in the integer `x_param`.

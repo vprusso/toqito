@@ -18,17 +18,17 @@ def vectors_from_gram_matrix(gram: np.ndarray) -> list[np.ndarray]:
 
     Returns:
         A list of vectors (np.ndarray) corresponding to the ensemble of states.
-=======
+    =======
         print(vectors)
-```
->>>>>>> d965b901 (Fix: Reorder docstring sections in matrix_ops (#1455))
+    ```
+    >>>>>>> d965b901 (Fix: Reorder docstring sections in matrix_ops (#1455))
 
     Raises:
         LinAlgError: If the Gram matrix is not square.
 
     Examples:
         Example of a positive definite matrix:
-```python exec="1" source="above"
+    ```python exec="1" source="above"
         import numpy as np
         from toqito.matrix_ops import vectors_from_gram_matrix
 
@@ -36,17 +36,17 @@ def vectors_from_gram_matrix(gram: np.ndarray) -> list[np.ndarray]:
         vectors = vectors_from_gram_matrix(gram_matrix)
 
         print(vectors)
-```
+    ```
 
         Example of a matrix that is not positive definite:
-```python exec="1" source="above"
+    ```python exec="1" source="above"
         import numpy as np
         from toqito.matrix_ops import vectors_from_gram_matrix
 
         gram_matrix = np.array([[0, 1], [1, 0]])
         vectors = vectors_from_gram_matrix(gram_matrix)
 
-<<<<<<< HEAD
+    <<<<<<< HEAD
         ```
 
     """

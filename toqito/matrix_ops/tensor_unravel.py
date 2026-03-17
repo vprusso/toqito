@@ -36,13 +36,13 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
         element is the unique constant (rhs).
 
     Examples:
-```python exec="1" source="above"
+    ```python exec="1" source="above"
         import numpy as np
         from toqito.matrix_ops import tensor_unravel
 
         tensor_constraint = np.array([[-1, -1], [-1, 1]])
         print(tensor_unravel(tensor_constraint))
-```
+    ```
 
     """
     values, counts = np.unique(constraint_tensor, return_counts=True)

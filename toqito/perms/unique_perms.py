@@ -50,7 +50,6 @@ def unique_perms(elements: list[int]) -> Generator[tuple[int, ...], None, None]:
 def perm_unique_helper(
     list_unique: list[UniqueElement], result_list: list[int], elem_d: int,
 ) -> Generator[tuple[int, ...], None, None]:
-
     """Provide helper function for unique_perms.
 
     Args:
