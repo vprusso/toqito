@@ -24,6 +24,14 @@ def choi_to_kraus(
 
     This function has been adapted from [@rigetti2022forest] and QETLAB [@qetlablink].
 
+    Args:
+        choi_mat: A Choi matrix
+        tol: optional threshold parameter for eigenvalues/kraus ops to be discarded
+        dim: A scalar, vector or matrix containing the input and output dimensions of Choi matrix.
+
+    Returns:
+        List of Kraus operators
+
     Examples:
         Consider taking the Kraus operators of the Choi matrix that characterizes the "swap operator"
         defined as
@@ -75,14 +83,6 @@ def choi_to_kraus(
 
         !!! See Also
             [kraus_to_choi][toqito.channel_ops.kraus_to_choi.kraus_to_choi]
-
-    Args:
-        choi_mat: A Choi matrix
-        tol: optional threshold parameter for eigenvalues/kraus ops to be discarded
-        dim: A scalar, vector or matrix containing the input and output dimensions of Choi matrix.
-
-    Returns:
-        List of Kraus operators
 
     """
     d_in, d_out, _ = channel_dim(choi_mat, dim=dim, compute_env_dim=False)

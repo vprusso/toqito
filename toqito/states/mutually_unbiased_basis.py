@@ -17,6 +17,12 @@ def mutually_unbiased_basis(dim: int) -> list[np.ndarray]:
     Note that this function only works if the dimension provided is prime or a power of a prime. Otherwise, we don't
     know how to generate general MUBs.
 
+    Args:
+        dim: The dimension of the mutually unbiased bases to produce.
+
+    Returns:
+        The set of mutually unbiased bases of dimension `dim` (if known).
+
     Examples:
         For the case of dimension 2, the three mutually unbiased bases are provided by:
 
@@ -38,11 +44,6 @@ def mutually_unbiased_basis(dim: int) -> list[np.ndarray]:
         lst =[vec.shape for vec in mubs]
         print(lst)
         ```
-    Args:
-        dim: The dimension of the mutually unbiased bases to produce.
-
-    Returns:
-        The set of mutually unbiased bases of dimension `dim` (if known).
 
     """
     # The first basis will always be the standard basis:

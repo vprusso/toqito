@@ -27,15 +27,6 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
     The tensor-form constraint representation is commonly used in implementations of
     binary constraint system (BCS) games. For background on BCS games, refer to [@cleve2014characterization].
 
-    Examples:
-        ```python exec="1" source="above"
-        import numpy as np
-        from toqito.matrix_ops import tensor_unravel
-
-        tensor_constraint = np.array([[-1, -1], [-1, 1]])
-        print(tensor_unravel(tensor_constraint))
-        ```
-
     Args:
         constraint_tensor: An n-dimensional tensor with shape `(2,)*n`, where each element is either -1 or +1.
             All entries should be equal except for one unique position that marks the satisfying assignment.
@@ -43,6 +34,15 @@ def tensor_unravel(constraint_tensor: np.ndarray) -> np.ndarray:
     Returns:
         A 1D `numpy` array of length \(n+1\) where the first \(n\) elements are the coordinates (indices), and the last
         element is the unique constant (rhs).
+
+    Examples:
+    ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_ops import tensor_unravel
+
+        tensor_constraint = np.array([[-1, -1], [-1, 1]])
+        print(tensor_unravel(tensor_constraint))
+    ```
 
     """
     values, counts = np.unique(constraint_tensor, return_counts=True)

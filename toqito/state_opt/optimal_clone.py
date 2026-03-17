@@ -48,6 +48,15 @@ def optimal_clone(
         \end{equation}
     \]
 
+    Args:
+        states: A list of states provided as either matrices or vectors.
+        probs: Respective list of probabilities each state is selected.
+        num_reps: Number of parallel repetitions to perform.
+        strategy: Boolean that denotes whether to return strategy.
+
+    Returns:
+        The optimal probability with of counterfeiting quantum money.
+
     Examples:
         Wiesner's original quantum money scheme [@wiesner1983conjugate] was shown in
         [@molina2012optimal] to have an optimal probability of 3/4 for succeeding a counterfeiting attack.
@@ -89,15 +98,6 @@ def optimal_clone(
 
         print(np.around(optimal_clone(states, probs), decimals=2))
         ```
-
-    Args:
-        states: A list of states provided as either matrices or vectors.
-        probs: Respective list of probabilities each state is selected.
-        num_reps: Number of parallel repetitions to perform.
-        strategy: Boolean that denotes whether to return strategy.
-
-    Returns:
-        The optimal probability with of counterfeiting quantum money.
 
     """
     dim = len(states[0]) ** 3

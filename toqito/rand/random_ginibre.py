@@ -13,6 +13,14 @@ def random_ginibre(dim_n: int, dim_m: int, seed: int | None = None) -> np.ndarra
 
     Ginibre random matrices are used in the construction of Wishart-random POVMs [@heinosaari2020random].
 
+    Args:
+        dim_n: The number of rows of the Ginibre random matrix.
+        dim_m: The number of columns of the Ginibre random matrix.
+        seed: A seed used to instantiate numpy's random number generator.
+
+    Returns:
+        A `dim_n`-by-`dim_m` Ginibre random matrix.
+
     Examples:
         Generate a random \(2\)-by-\(2\) Ginibre random matrix.
 
@@ -29,14 +37,6 @@ def random_ginibre(dim_n: int, dim_m: int, seed: int | None = None) -> np.ndarra
 
         print(random_ginibre(2, 2, seed=42))
         ```
-
-    Args:
-        dim_n: The number of rows of the Ginibre random matrix.
-        dim_m: The number of columns of the Ginibre random matrix.
-        seed: A seed used to instantiate numpy's random number generator.
-
-    Returns:
-        A `dim_n`-by-`dim_m` Ginibre random matrix.
 
     """
     gen = np.random.default_rng(seed=seed)

@@ -46,6 +46,20 @@ def sk_operator_norm(
 
     This function was adapted from QETLAB.
 
+    Args:
+        mat: A matrix.
+        k: The "index" of the norm--that is, it is the Schmidt rank of the vectors that are multiplying X on the left
+            and right in the definition of the norm.
+        dim: The dimension of the two sub-systems. By default it's assumed to be equal.
+        target: A target value that you wish to prove that the norm is above or below.
+        effort: An integer value indicating the amount of computation you want to devote to computing the bounds.
+
+    Returns:
+        A lower and an upper bound on S(k)-norm of `mat`.
+
+    Raises:
+        ValueError: If dimension of the input matrix is not specified.
+
     Examples:
         The \(S(1)\)-norm of a Werner state \(\rho_a \in M_n \otimes M_n\) is
 
@@ -61,20 +75,6 @@ def sk_operator_norm(
 
         print(sk_operator_norm(rho))
         ```
-
-    Raises:
-        ValueError: If dimension of the input matrix is not specified.
-
-    Args:
-        mat: A matrix.
-        k: The "index" of the norm--that is, it is the Schmidt rank of the vectors that are multiplying X on the left
-            and right in the definition of the norm.
-        dim: The dimension of the two sub-systems. By default it's assumed to be equal.
-        target: A target value that you wish to prove that the norm is above or below.
-        effort: An integer value indicating the amount of computation you want to devote to computing the bounds.
-
-    Returns:
-        A lower and an upper bound on S(k)-norm of `mat`.
 
     """
     eps = np.finfo(float).eps
@@ -290,21 +290,13 @@ def sk_operator_norm(
     return lower_bound, upper_bound
 
 
-# This function checks whether or not the lower bound or upper bound already computed meets the desired target value
-# (within numerical error) and thus we can abort early.
 def __target_is_proved(lower_bound: float, upper_bound: float, op_norm: float, tol: float, target: float) -> bool:
+    """Check if the lower/upper bound meets the target value."""
     return op_norm * (lower_bound + tol) >= op_norm * upper_bound or (
         target is not None and (op_norm * (lower_bound - tol) >= target or op_norm * (upper_bound + tol) <= target)
     )
 
 
-# This function computes a lower bound of the S(k)-norm of the input matrix via a randomized method that searches for
-# local maxima.
-#
-# In more detail, starting from a random vector of Schmidt-rank less than k, we alternately fix the Schmidt vectors of
-# one sub-system and optimize the Schmidt vectors of the other sub-system. This optimization is equivalent to a
-# generalized eigenvalue problem. The algorithm terminates when an iteration cannot improve the lower bound by more than
-# tol.
 def __lower_bound_sk_norm_randomized(
     mat: np.ndarray,
     k: int = 1,
@@ -312,6 +304,7 @@ def __lower_bound_sk_norm_randomized(
     tol: float = 1e-5,
     start_vec: np.ndarray | None = None,
 ) -> float:
+    """Compute a lower bound of the S(k)-norm via a randomized method."""
     if mat.shape[0] != mat.shape[1]:
         raise ValueError("Input matrix must be square.")
 
@@ -328,8 +321,8 @@ def __lower_bound_sk_norm_randomized(
         singular_vals, vt_mat, u_mat = schmidt_decomposition(start_vec, dim)
         if (s_rank := len(singular_vals)) > k:
             warnings.warn(
-                f"The Schmidt rank of the initial vector is {s_rank}, which is larger than k={k}. \
-                Using a randomly-generated initial vector instead."
+                f"The Schmidt rank of the initial vector is {s_rank}, which is larger than k={k}. "
+                "Using a randomly-generated initial vector instead."
             )
         else:
             opt_vec = start_vec
@@ -356,7 +349,7 @@ def __lower_bound_sk_norm_randomized(
 
         # Loop through the 2 parties.
         for p in range(2):
-            # If Schmidt rank is not full, we will have numerical problems; go to lower Schmidt rank iteration.
+            # If Schmidt rank is not full, go to lower Schmidt rank iteration.
             if (s_rank := schmidt_rank(opt_vec, dim)) < k:
                 return __lower_bound_sk_norm_randomized(mat, s_rank, dim, tol, opt_vec)
 

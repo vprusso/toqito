@@ -27,6 +27,13 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
     The common quantum overlap is a key concept in analyzing epistemic models of quantum
     mechanics and understanding quantum state preparation contextuality.
 
+    Args:
+        states: A list of quantum states represented as numpy arrays. States can be pure states
+            (represented as state vectors) or mixed states (represented as density matrices).
+
+    Returns:
+        The common quantum overlap value.
+
     Examples:
         Consider the Bell states:
 
@@ -64,13 +71,6 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
         states = [np.array([1, 0]), np.array([np.cos(theta), np.sin(theta)])]
         print(common_quantum_overlap(states)) # Should approximate (1-sqrt(1-cos²(π/4)))
         ```
-
-    Args:
-        states: A list of quantum states represented as numpy arrays. States can be pure states
-            (represented as state vectors) or mixed states (represented as density matrices).
-
-    Returns:
-        The common quantum overlap value.
 
     """
     n = len(states)

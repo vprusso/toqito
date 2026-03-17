@@ -21,23 +21,6 @@ def is_absolutely_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> b
     The notion of absolute k-incoherence is connected to the notion of quantum state antidistinguishability as discussed
     in [@johnston2025tight].
 
-    Examples:
-        ```python exec="1" source="above"
-        import numpy as np
-        from toqito.matrix_props import is_absolutely_k_incoherent
-        mat = np.array([[2, 1, 2],
-                    [1, 2, -1],
-                    [2, -1, 5]])
-        print(is_absolutely_k_incoherent(mat, 4))
-        ```
-
-        !!! See
-            [is_antidistinguishable()][toqito.state_props.is_antidistinguishable.is_antidistinguishable],
-            [is_k_incoherent()][toqito.matrix_props.is_k_incoherent.is_k_incoherent]
-
-    Raises:
-        ValueError: If the input matrix is not square.
-
     Args:
         mat: Matrix to check for absolute k-incoherence.
         k: The positive integer indicating the absolute coherence level.
@@ -45,6 +28,24 @@ def is_absolutely_k_incoherent(mat: np.ndarray, k: int, tol: float = 1e-15) -> b
 
     Returns:
         True if the quantum state is absolutely k-incoherent, False otherwise.
+
+    Raises:
+        ValueError: If the input matrix is not square.
+
+    Examples:
+    ```python exec="1" source="above"
+        import numpy as np
+        from toqito.matrix_props import is_absolutely_k_incoherent
+
+        mat = np.array([[2, 1, 2],
+                    [1, 2, -1],
+                    [2, -1, 5]])
+        print(is_absolutely_k_incoherent(mat, 4))
+    ```
+
+        !!! See
+            [is_antidistinguishable()][toqito.state_props.is_antidistinguishable.is_antidistinguishable],
+            [is_k_incoherent()][toqito.matrix_props.is_k_incoherent.is_k_incoherent]
 
     """
     if k <= 0:

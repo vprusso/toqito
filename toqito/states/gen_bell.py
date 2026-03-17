@@ -24,6 +24,11 @@ def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
         bell(3) : gen_bell(1, 1, 2)
 
 
+    Args:
+        k_1: An integer 0 <= k_1 <= n.
+        k_2: An integer 0 <= k_2 <= n.
+        dim: The dimension of the generalized Bell state.
+
     Examples:
         For \(d = 2\) and \(k_1 = k_2 = 0\), this generates the following matrix
 
@@ -62,11 +67,6 @@ def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
         k_2 = 0
         print(gen_bell(k_1, k_2, dim))
         ```
-
-    Args:
-        k_1: An integer 0 <= k_1 <= n.
-        k_2: An integer 0 <= k_2 <= n.
-        dim: The dimension of the generalized Bell state.
 
     """
     gen_pauli_w = gen_pauli(k_1, k_2, dim)

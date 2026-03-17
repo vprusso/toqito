@@ -19,6 +19,16 @@ def log_negativity(rho: np.ndarray, dim: list[int] | int | None = None) -> float
     on which \(\rho\) acts are of equal dimension (if the local dimensions are unequal, specify
     them in the optional `dim` argument).
 
+    Args:
+        rho: A density matrix of a pure state vector.
+        dim: The default has both subsystems of equal dimension.
+
+    Returns:
+        A positive value that corresponds to the logarithmic negativity of \(\rho\).
+
+    Raises:
+        ValueError: If the input matrix is not a density matrix.
+
     Examples:
         Example of the log-negativity of density matrix of Bell state.
 
@@ -31,16 +41,6 @@ def log_negativity(rho: np.ndarray, dim: list[int] | int | None = None) -> float
 
         !!!See Also
             [negativity()][toqito.state_props.negativity.negativity]
-
-    Raises:
-        ValueError: If the input matrix is not a density matrix.
-
-    Args:
-        rho: A density matrix of a pure state vector.
-        dim: The default has both subsystems of equal dimension.
-
-    Returns:
-        A positive value that corresponds to the logarithmic negativity of \(\rho\).
 
     """
     # Allow the user to input either a pure state vector or a density matrix.

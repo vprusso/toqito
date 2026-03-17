@@ -16,6 +16,9 @@ def trine() -> list[np.ndarray]:
         u_2 = -\frac{1}{2}\left(|0\rangle - \sqrt{3}|1\rangle\right).
     \]
 
+    Returns:
+        Vector of trine states.
+
     Examples:
         Generating the trine states can be done by simply invoking the function:
 
@@ -23,9 +26,6 @@ def trine() -> list[np.ndarray]:
         from toqito.states import trine
         print(trine())
         ```
-
-    Returns:
-        Vector of trine states.
 
     """
     e_0, e_1 = basis(2, 0), basis(2, 1)

@@ -27,6 +27,14 @@ def is_positive(
     Alternatively, a channel is positive if the corresponding Choi matrix of the channel is both
     Hermitian-preserving and positive semidefinite.
 
+    Args:
+        phi: The channel provided as either a Choi matrix or a list of Kraus operators.
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
+
+    Returns:
+        True if the channel is positive, and False otherwise.
+
     Examples:
         We can specify the input as a list of Kraus operators. Consider the map \(\Phi\) defined as
 
@@ -66,14 +74,6 @@ def is_positive(
 
         print(is_positive(depolarizing(4)))
         ```
-
-    Args:
-        phi: The channel provided as either a Choi matrix or a list of Kraus operators.
-        rtol: The relative tolerance parameter (default 1e-05).
-        atol: The absolute tolerance parameter (default 1e-08).
-
-    Returns:
-        True if the channel is positive, and False otherwise.
 
     """
     # If the variable `phi` is provided as a list, we assume this is a list

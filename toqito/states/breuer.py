@@ -18,6 +18,16 @@ def breuer(dim: int, lam: float) -> np.ndarray:
 
     This function was adapted from the QETLAB package.
 
+    Args:
+        dim: Dimension of the Breuer state.
+        lam: The weight of the singlet component.
+
+    Returns:
+        Breuer state of dimension `dim` with weight `lam`.
+
+    Raises:
+        ValueError: Dimension must be greater than or equal to 1.
+
     Examples:
         We can generate a Breuer state of dimension \(4\) with weight \(0.1\). For any weight above \(0\), the
         state will be bound entangled, that is, it will satisfy the PPT criterion, but it will be entangled.
@@ -26,16 +36,6 @@ def breuer(dim: int, lam: float) -> np.ndarray:
         from toqito.states import breuer
         print(breuer(2, 0.1))
         ```
-
-    Raises:
-        ValueError: Dimension must be greater than or equal to 1.
-
-    Args:
-        dim: Dimension of the Breuer state.
-        lam: The weight of the singlet component.
-
-    Returns:
-        Breuer state of dimension `dim` with weight `lam`.
 
     """
     if dim % 2 == 1 or dim <= 0:

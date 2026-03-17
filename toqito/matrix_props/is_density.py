@@ -11,6 +11,12 @@ def is_density(mat: np.ndarray) -> bool:
     A matrix is a density matrix if its trace is equal to one and it has the
     property of being positive semidefinite (PSD).
 
+    Args:
+        mat: Matrix to check.
+
+    Returns:
+        Return `True` if matrix is a density matrix, and `False` otherwise.
+
     Examples:
         Consider the Bell state:
 
@@ -63,12 +69,6 @@ def is_density(mat: np.ndarray) -> bool:
 
         print(is_density(sigma))
         ```
-
-    Args:
-        mat: Matrix to check.
-
-    Returns:
-        Return `True` if matrix is a density matrix, and `False` otherwise.
 
     """
     return bool(is_positive_semidefinite(mat) and np.isclose(np.trace(mat), 1))

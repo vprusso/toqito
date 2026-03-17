@@ -15,6 +15,14 @@ def diamond_distance(choi_1: np.ndarray, choi_2: np.ndarray) -> float | np.float
         This calculation becomes very slow for 4 or more qubits.
 
 
+    Args:
+        choi_1: A 4**N by 4**N matrix (where N is the number of qubits).
+        choi_2: A 4**N by 4**N matrix (where N is the number of qubits).
+
+    Raises:
+        ValueError: If matrices are not of equal dimension.
+        ValueError: If matrices are not square.
+
     Examples:
         Consider the depolarizing and identity channels in a 2-dimensional space. The depolarizing channel parameter is
         set to 0.2:
@@ -39,14 +47,6 @@ def diamond_distance(choi_1: np.ndarray, choi_2: np.ndarray) -> float | np.float
         choi_identity = np.identity(2**2)
         print(diamond_distance(choi_dephasing, choi_identity))
         ```
-
-    Raises:
-        ValueError: If matrices are not of equal dimension.
-        ValueError: If matrices are not square.
-
-    Args:
-        choi_1: A 4**N by 4**N matrix (where N is the number of qubits).
-        choi_2: A 4**N by 4**N matrix (where N is the number of qubits).
 
     """
     from toqito.channel_metrics import completely_bounded_trace_norm  # noqa

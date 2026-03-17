@@ -67,6 +67,17 @@ def measured_relative_entropy(rho: np.ndarray, sigma: np.ndarray, eps: float = 1
     are the weights and nodes, respectively, for the \(m\)-point Gauss--Legendre quadrature
     on the interval \([0, 1]\).
 
+    Args:
+        rho: Density operator.
+        sigma: Positive semi-definite operator.
+        eps: Tolerance level.
+
+    Returns:
+        The measured relative entropy between `rho` and `sigma`.
+
+    Raises:
+        ValueError: If `rho` if not a density operator or if `sigma` is not positive semi-definite.
+
     Examples:
         Consider the following quantum state \(\rho = \frac{1}{2}(I + r \cdot \mathbf{\sigma})\)
         and the PSD operator \(\sigma = \frac{1}{2}(I + s \cdot \mathbf{\sigma})\), where
@@ -86,17 +97,6 @@ def measured_relative_entropy(rho: np.ndarray, sigma: np.ndarray, eps: float = 1
         sigma = 0.5 * (pauli("I") + s[0] * pauli("X") + s[1] * pauli("Y") + s[2] * pauli("Z"))
         print(measured_relative_entropy(rho, sigma, 1e-5))
         ```
-
-    Raises:
-        ValueError: If `rho` if not a density operator or if `sigma` is not positive semi-definite.
-
-    Args:
-        rho: Density operator.
-        sigma: Positive semi-definite operator.
-        eps: Tolerance level.
-
-    Returns:
-        The measured relative entropy between `rho` and `sigma`.
 
     """
     if not is_density(rho):

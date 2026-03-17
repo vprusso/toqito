@@ -18,6 +18,7 @@ def _reduce(word: tuple[Symbol, ...]) -> tuple[Symbol, ...]:
     Commutation: Alice operators commute with Bob operators. Canonical form: A...AB...B
     Orthogonality: P_x,a P_x,b = 0 if a != b (for same player x)
     Idempotence: P_x,a P_x,a = P_x,a (for same player x)
+
     """
     if not word:
         return ()
@@ -499,6 +500,20 @@ def bell_npa_constraints(
                       \(B_{b|y}\) (using \(0\) to \(ob-2\) for \(b\)).
     - ``p_var[i, j]`` corresponds to the expectation of the product \(A_{a|x} B_{b|y}\).
 
+    Args:
+        p_var: A CVXPY Variable representing probabilities/correlations in Collins-Gisin notation.
+                  Shape: \(((oa-1) \times ma+1, (ob-1) \times mb+1)\).
+        desc: A list [\(oa\), \(ob\), \(ma\), \(mb\)]
+                    specifying outputs and inputs for Alice and Bob.
+        k: The level of the NPA hierarchy (integer or string like "1+ab"). Default is 1.
+
+
+    Returns:
+        A list of CVXPY constraints.
+
+    Raises:
+        ValueError: If internal identity mapping fails.
+
     Examples:
         Consider the CHSH inequality scenario with ``desc = [2, 2, 2, 2]``. We want to generate the NPA level 1
         constraints.
@@ -539,20 +554,6 @@ def bell_npa_constraints(
         print(constraints_c[0])
         ```
 
-
-    Raises:
-        ValueError: If internal identity mapping fails.
-
-    Args:
-        p_var: A CVXPY Variable representing probabilities/correlations in Collins-Gisin notation.
-                  Shape: \(((oa-1) \times ma+1, (ob-1) \times mb+1)\).
-        desc: A list [\(oa\), \(ob\), \(ma\), \(mb\)]
-                    specifying outputs and inputs for Alice and Bob.
-        k: The level of the NPA hierarchy (integer or string like "1+ab"). Default is 1.
-
-
-    Returns:
-        A list of CVXPY constraints.
 
     """
     oa, ob, ma, mb = desc

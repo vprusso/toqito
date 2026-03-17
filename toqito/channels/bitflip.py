@@ -30,6 +30,14 @@ def bitflip(
         K_1 = \sqrt{p} \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix}
     \]
 
+    Args:
+        input_mat: A matrix or state to apply the channel to. If `None`, returns the Kraus operators.
+        prob: The probability of a bitflip occurring.
+
+    Returns:
+        Either the Kraus operators of the bitflip channel if `input_mat` is `None`, or the result of applying the
+        channel to `input_mat`.
+
     Examples:
         We can generate the Kraus operators for the bitflip channel with probability 0.3:
 
@@ -50,14 +58,6 @@ def bitflip(
         rho = np.array([[1, 0], [0, 0]])  # |0><0|
         print(bitflip(rho, prob=0.3))
         ```
-
-    Args:
-        input_mat: A matrix or state to apply the channel to. If `None`, returns the Kraus operators.
-        prob: The probability of a bitflip occurring.
-
-    Returns:
-        Either the Kraus operators of the bitflip channel if `input_mat` is `None`, or the result of applying the
-        channel to `input_mat`.
 
     """
     if not (0 <= prob <= 1):

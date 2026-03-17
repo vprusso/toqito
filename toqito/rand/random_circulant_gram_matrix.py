@@ -21,6 +21,13 @@ def random_circulant_gram_matrix(dim: int, seed: int | None = None) -> np.ndarra
     normalized DFT matrix. Finally, it computes the circulant matrix, which is real due to its origin
     from the DFT of a real diagonal matrix.
 
+    Args:
+        dim: int The dimension of the circulant matrix to generate.
+        seed: int | None A seed used to instantiate numpy's random number generator.
+
+    Returns:
+        numpy.ndarray A `dim` x `dim` real, symmetric, circulant matrix.
+
     Examples:
         Generate a random circulant Gram matrix of dimension 4.
 
@@ -51,13 +58,6 @@ def random_circulant_gram_matrix(dim: int, seed: int | None = None) -> np.ndarra
         print(circulant_matrix)
         ```
 
-
-    Args:
-        dim: int The dimension of the circulant matrix to generate.
-        seed: int | None A seed used to instantiate numpy's random number generator.
-
-    Returns:
-        numpy.ndarray A `dim` x `dim` real, symmetric, circulant matrix.
 
     """
     gen = np.random.default_rng(seed=seed)

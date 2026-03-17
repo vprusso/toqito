@@ -18,15 +18,28 @@ def is_pseudo_unitary(mat: np.ndarray, p: int, q: int, rtol: float = 1e-05, atol
 
     - \(A^*\) is the conjugate transpose (Hermitian transpose) of \(A\),
     - \(J\) is a diagonal matrix with first \(p\) diagonal entries equal to 1 and next \(q\)
-        diagonal entries equal to -1
+        diagonal entries equal to -1.
+
+    Args:
+        mat: The matrix to check.
+        p: Number of positive entries in the signature matrix.
+        q: Number of negative entries in the signature matrix.
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
+
+    Returns:
+        Return `True` if the matrix is pseudo-unitary, and `False` otherwise.
+
+    Raises:
+        ValueError: When p < 0 or q < 0.
 
     Examples:
         Consider the following matrix:
 
         \[
             A = \begin{pmatrix}
-                cosh(1) & sinh(1) \\
-                sinh(1) & cosh(1)
+                \cosh(1) & \sinh(1) \\
+                \sinh(1) & \cosh(1)
             \end{pmatrix}
         \]
 
@@ -51,7 +64,7 @@ def is_pseudo_unitary(mat: np.ndarray, p: int, q: int, rtol: float = 1e-05, atol
         ```
 
 
-        However, the following matrix \(B\)
+        Alternatively, the following matrix \(B\)
 
         \[
             B = \begin{pmatrix}
@@ -70,19 +83,6 @@ def is_pseudo_unitary(mat: np.ndarray, p: int, q: int, rtol: float = 1e-05, atol
 
         print(is_pseudo_unitary(B, p=1, q=1))
         ```
-
-    Raises:
-        ValueError: When p < 0 or q < 0.
-
-    Args:
-        mat: The matrix to check.
-        p: Number of positive entries in the signature matrix.
-        q: Number of negative entries in the signature matrix.
-        rtol: The relative tolerance parameter (default 1e-05).
-        atol: The absolute tolerance parameter (default 1e-08).
-
-    Returns:
-        Return :code:True if the matrix is pseudo-unitary, and :code:False otherwise.
 
     """
     if p < 0 or q < 0:

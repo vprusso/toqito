@@ -94,6 +94,20 @@ def state_distinguishability(
         the Gram matrix is computed as Tr(ρᵢ ρⱼ). If the states cannot be unambiguously distinguished,
         the optimal probability will be low or zero.
 
+    Args:
+        vectors: A list of states provided as vectors (for pure states) or density matrices (for mixed states).
+        probs: Respective list of probabilities each state is selected. If no probabilities are provided, a uniform
+            probability distribution is assumed.
+        strategy: Whether to perform unambiguous or minimal error discrimination task. Possible values are "min_error"
+            and "unambiguous". Default option is `strategy="min_error"`. Both strategies support pure and mixed states.
+        solver: Optimization option for `picos` solver. Default option is `solver="cvxopt"`.
+        primal_dual: Option for the optimization problem. Default option is `"dual"`.
+        kwargs: Additional arguments to pass to picos' solve method.
+
+    Returns:
+        The optimal probability with which Bob can guess the state he was not given from `states` along with the optimal
+        set of measurements.
+
     Examples:
         Minimal-error state distinguishability for the Bell states (which are perfectly distinguishable).
 
@@ -158,20 +172,6 @@ def state_distinguishability(
 
         print(np.around(res, decimals=2))
         ```
-
-    Args:
-        vectors: A list of states provided as vectors (for pure states) or density matrices (for mixed states).
-        probs: Respective list of probabilities each state is selected. If no probabilities are provided, a uniform
-            probability distribution is assumed.
-        strategy: Whether to perform unambiguous or minimal error discrimination task. Possible values are "min_error"
-            and "unambiguous". Default option is `strategy="min_error"`. Both strategies support pure and mixed states.
-        solver: Optimization option for `picos` solver. Default option is `solver="cvxopt"`.
-        primal_dual: Option for the optimization problem. Default option is `"dual"`.
-        kwargs: Additional arguments to pass to picos' solve method.
-
-    Returns:
-        The optimal probability with which Bob can guess the state he was not given from `states` along with the optimal
-        set of measurements.
 
     """
     if not has_same_dimension(vectors):
@@ -351,6 +351,7 @@ def _unambiguous_primal(
 
     Implemented according to Equation (5) of [@gupta2024unambiguous]:.
     Supports both pure states (vectors) and mixed states (density matrices).
+
     """
     n = len(vectors)
     probs = [1 / n] * n if probs is None else probs
@@ -389,6 +390,7 @@ def _unambiguous_dual(
 
     Implemented according to Equation (5) of [@gupta2024unambiguous].
     Supports both pure states (vectors) and mixed states (density matrices).
+
     """
     n = len(vectors)
     problem = picos.Problem()

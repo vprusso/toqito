@@ -25,6 +25,13 @@ def isotropic(dim: int, alpha: float) -> np.ndarray:
     where \(|\psi_+ \rangle = \frac{1}{\sqrt{d}} \sum_j |j \rangle \otimes |j \rangle\) is the maximally entangled
     state.
 
+    Args:
+        dim: The local dimension.
+        alpha: The parameter of the isotropic state.
+
+    Returns:
+        Isotropic state of dimension `dim`.
+
     Examples:
         To generate the isotropic state with parameter \(\alpha=1/2\), we can make the following call to
         `|toqito⟩` as
@@ -33,13 +40,6 @@ def isotropic(dim: int, alpha: float) -> np.ndarray:
         from toqito.states import isotropic
         print(isotropic(3, 1 / 2))
         ```
-
-    Args:
-        dim: The local dimension.
-        alpha: The parameter of the isotropic state.
-
-    Returns:
-        Isotropic state of dimension `dim`.
 
     """
     psi = max_entangled(dim, False, False)

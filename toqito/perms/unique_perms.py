@@ -15,6 +15,12 @@ class UniqueElement:
 def unique_perms(elements: list[int]) -> Generator[tuple[int, ...], None, None]:
     r"""Determine the number of unique permutations of a list.
 
+    Args:
+        elements: List of integers.
+
+    Returns:
+        The number of possible permutations possible.
+
     Examples:
         Consider the following vector
 
@@ -32,12 +38,6 @@ def unique_perms(elements: list[int]) -> Generator[tuple[int, ...], None, None]:
 
         print(len(list(unique_perms(vec_nums))))
         ```
-
-    Args:
-        elements: List of integers.
-
-    Returns:
-        The number of possible permutations possible.
 
     """
     elem_set = set(elements)

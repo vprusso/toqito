@@ -36,6 +36,12 @@ def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
 
     This implementation is based on [@qetlablink].
 
+    Args:
+        A: A single matrix of the form np.ndarray or a list of square matrices of the same dimension.
+
+    Returns:
+        A list of matrices forming an orthonormal basis for the commutant.
+
     Examples:
         Consider the following set of matrices:
 
@@ -51,8 +57,7 @@ def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
         \]
 
         The commutant consists of matrices that commute with both \(A_1\) and \(A_2\).
-
-        ```python exec="1" source="above"
+    ```python exec="1" source="above"
         import numpy as np
         from toqito.matrix_props import commutant
 
@@ -62,8 +67,7 @@ def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
         basis = commutant([A1, A2])
 
         print(basis)
-        ```
-
+    ```
 
         Now, consider a single matrix:
 
@@ -73,8 +77,7 @@ def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
                     0 & 1
                 \end{pmatrix}
         \]
-
-        ```python exec="1" source="above"
+    ```python exec="1" source="above"
         import numpy as np
         from toqito.matrix_props import commutant
 
@@ -84,13 +87,7 @@ def commutant(A: np.ndarray | list[np.ndarray]) -> list[np.ndarray]:
 
         for i, basis_ in enumerate(basis):
            print(f"basis{ i} :\n{basis_} \n")
-        ```
-
-    Args:
-        A: A single matrix of the form np.ndarray or a list of square matrices of the same dimension.
-
-    Returns:
-        A list of matrices forming an orthonormal basis for the commutant.
+    ```
 
     """
     # Handle list of matrices.

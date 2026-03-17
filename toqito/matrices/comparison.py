@@ -19,6 +19,15 @@ def comparison(mat: np.ndarray) -> np.ndarray:
         \end{cases}
     \]
 
+    Args:
+        mat: The input square matrix.
+
+    Returns:
+        The comparison matrix of the input matrix.
+
+    Raises:
+        ValueError: If the input matrix is not square.
+
     Examples:
         ```python exec="1" source="above"
         import numpy as np
@@ -27,15 +36,6 @@ def comparison(mat: np.ndarray) -> np.ndarray:
                     [3, 4]])
         print(comparison(A))
         ```
-
-    Raises:
-        ValueError: If the input matrix is not square.
-
-    Args:
-        mat: The input square matrix.
-
-    Returns:
-        The comparison matrix of the input matrix.
 
     """
     if len(mat.shape) != 2 or mat.shape[0] != mat.shape[1]:
