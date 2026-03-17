@@ -1,8 +1,9 @@
 """Calculates the vectors associated to a Gram matrix."""
 
+import warnings
+
 import numpy as np
 import scipy
-import warnings
 
 
 def vectors_from_gram_matrix(gram: np.ndarray) -> list[np.ndarray]:
