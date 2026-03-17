@@ -12,10 +12,18 @@ def vectors_to_gram_matrix(vectors: list[np.ndarray]) -> np.ndarray:
     For vectors |ψᵢ⟩: G[i, j] = ⟨ψᵢ|ψⱼ⟩
     For density matrices ρᵢ: G[i, j] = Tr(ρᵢ ρⱼ)
 
+    Args:
+        vectors: A list of vectors (1D/column arrays for pure states) or density matrices (2D arrays for mixed states).
+
+    Returns:
+        The Gram matrix with entries G[i,j] = ⟨vᵢ|vⱼ⟩ for vectors or Tr(ρᵢρⱼ) for density matrices.
+
+    Raises:
+        ValueError: If the vectors are not all of the same shape.
+
     Examples:
         Example with real vectors:
-
-        ```python exec="1" source="above"
+```python exec="1" source="above"
         import numpy as np
         from toqito.matrix_ops import vectors_to_gram_matrix
 
@@ -23,11 +31,10 @@ def vectors_to_gram_matrix(vectors: list[np.ndarray]) -> np.ndarray:
         gram_matrix = vectors_to_gram_matrix(vectors)
 
         print(gram_matrix)
-        ```
+```
 
         Example with complex vectors:
-
-        ```python exec="1" source="above"
+```python exec="1" source="above"
         import numpy as np
         from toqito.matrix_ops import vectors_to_gram_matrix
 
@@ -35,11 +42,10 @@ def vectors_to_gram_matrix(vectors: list[np.ndarray]) -> np.ndarray:
         gram_matrix = vectors_to_gram_matrix(vectors)
 
         print(gram_matrix)
-        ```
+```
 
         Example with density matrices (mixed states):
-
-        ```python exec="1" source="above"
+```python exec="1" source="above"
         import numpy as np
         from toqito.matrix_ops import vectors_to_gram_matrix
 
@@ -50,16 +56,7 @@ def vectors_to_gram_matrix(vectors: list[np.ndarray]) -> np.ndarray:
 
         gram_matrix = vectors_to_gram_matrix(states)
         print(gram_matrix)
-        ```
-
-    Raises:
-        ValueError: If the vectors are not all of the same shape.
-
-    Args:
-        vectors: A list of vectors (1D/column arrays for pure states) or density matrices (2D arrays for mixed states).
-
-    Returns:
-        The Gram matrix with entries G[i,j] = ⟨vᵢ|vⱼ⟩ for vectors or Tr(ρᵢρⱼ) for density matrices.
+```
 
     """
     # Check that all vectors are of the same shape

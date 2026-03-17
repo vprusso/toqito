@@ -37,6 +37,18 @@ def tensor(*args: np.ndarray | int | list[np.ndarray]) -> np.ndarray | None:
         v_1 \otimes v_2 \otimes \cdots \otimes v_n.
     \]
 
+    Args:
+        args: Input to the tensor function is expected to be either:
+            - list[np.ndarray]: List of numpy matrices,
+            - np.ndarray, ... , np.ndarray: An arbitrary number of numpy arrays,
+            - np.ndarray, int: A numpy array and an integer.
+
+    Returns:
+        The computed tensor product.
+
+    Raises:
+        ValueError: Input must be a vector or matrix.
+
     Examples:
         Tensor product two matrices or vectors
 
@@ -53,16 +65,14 @@ def tensor(*args: np.ndarray | int | list[np.ndarray]) -> np.ndarray | None:
         \]
 
         This can be accomplished in `|toqito⟩` as follows.
-
-        ```python exec="1" source="above"
+```python exec="1" source="above"
         from toqito.states import basis
         from toqito.matrix_ops import tensor
 
         e_0 = basis(2, 0)
 
         print(tensor(e_0, e_0))
-        ```
-
+```
 
         Tensor product one matrix \(n\) times with itself.
 
@@ -74,15 +84,14 @@ def tensor(*args: np.ndarray | int | list[np.ndarray]) -> np.ndarray | None:
         \]
 
         in `|toqito⟩` as follows.
-
-        ```python exec="1" source="above"
+```python exec="1" source="above"
         from toqito.states import basis
         from toqito.matrix_ops import tensor
 
         e_0 = basis(2, 0)
 
         print(tensor(e_0, 3))
-        ```
+```
 
         Perform the tensor product on a list of vectors or matrices.
 
@@ -90,27 +99,14 @@ def tensor(*args: np.ndarray | int | list[np.ndarray]) -> np.ndarray | None:
         vectors, we can feed them in as a `list`. For instance, if we wish to
         compute \(e_0 \otimes e_1 \otimes e_0\), we can do
         so as follows.
-
-        ```python exec="1" source="above"
+```python exec="1" source="above"
         from toqito.states import basis
         from toqito.matrix_ops import tensor
 
         e_0, e_1 = basis(2, 0), basis(2, 1)
 
         print(tensor([e_0, e_1, e_0]))
-        ```
-
-    Raises:
-        ValueError: Input must be a vector or matrix.
-
-    Args:
-        args: Input to the tensor function is expected to be either:
-            - list[np.ndarray]: List of numpy matrices,
-            - np.ndarray, ... , np.ndarray: An arbitrary number of numpy arrays,
-            - np.ndarray, int: A numpy array and an integer.
-
-    Returns:
-        The computed tensor product.
+```
 
     """
 
