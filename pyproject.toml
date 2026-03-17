@@ -71,6 +71,7 @@ docs = [
     "pymdown-extensions>=10.0",
     "mkdocs-api-autonav>=0.4.0",
     "markdown-exec[ansi]>=1.7",
+    "ruff>=0.1.0",
     "pybtex>=0.24",
 ]
 
