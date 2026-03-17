@@ -27,7 +27,7 @@ def mutual_coherence(vectors: list[np.ndarray]) -> float | np.floating:
         from toqito.matrix_props.mutual_coherence import mutual_coherence
         example_A = [np.array([1, 0]), np.array([0, 1])]
         print("Result for example_A = ", mutual_coherence(example_A))
-        
+
         # An example with a larger set of vectors
         example_B = [np.array([1, 0, 1]), np.array([0, 1, 1]), np.array([1, 1, 0])]
         print("Result for example_B = ", mutual_coherence(example_B))

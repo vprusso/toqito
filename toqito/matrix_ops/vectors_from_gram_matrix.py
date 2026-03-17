@@ -18,8 +18,12 @@ def vectors_from_gram_matrix(gram: np.ndarray) -> list[np.ndarray]:
 
     Returns:
         A list of vectors (np.ndarray) corresponding to the ensemble of states.
+=======
+        print(vectors)
+```
+>>>>>>> d965b901 (Fix: Reorder docstring sections in matrix_ops (#1455))
 
-    Raises:
+        Raises:
         LinAlgError: If the Gram matrix is not square.
 
     Examples:
@@ -45,20 +49,7 @@ def vectors_from_gram_matrix(gram: np.ndarray) -> list[np.ndarray]:
 <<<<<<< HEAD
         ```
 
-    Raises:
-        LinAlgError: If the Gram matrix is not square.
-
-    Args:
-        gram: A square, symmetric matrix representing the Gram matrix.
-
-    Returns:
-        A list of vectors (np.ndarray) corresponding to the ensemble of states.
-=======
-        print(vectors)
-```
->>>>>>> d965b901 (Fix: Reorder docstring sections in matrix_ops (#1455))
-
-    """
+"""
     dim = gram.shape[0]
     if gram.shape[0] != gram.shape[1]:
         raise np.linalg.LinAlgError("The Gram matrix must be square.")
