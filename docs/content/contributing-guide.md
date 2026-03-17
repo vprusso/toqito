@@ -175,7 +175,7 @@ function follows the formatting specifications in [Code Style](#code-style). A s
 def my_new_function(some_parameter: parameter_type) -> return_type:
     r"""One liner description of the new function.
 
-    Detailed description of the function [@some_citation_key].
+    Detailed description of the function (cite relevant paper using [@author_year_key] format).
 
     Examples:
         Demonstrate how the function works with expected output.
