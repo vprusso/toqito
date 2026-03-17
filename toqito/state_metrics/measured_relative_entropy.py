@@ -137,7 +137,6 @@ def measured_relative_entropy(rho: np.ndarray, sigma: np.ndarray, eps: float = 1
 
 
 def _gauss_legendre_on_01(m: int) -> tuple[np.ndarray, np.ndarray]:
-
     """m-point Gauss legendre quadrature weights on the interval [0,1]."""
     x = np.polynomial.legendre.leggauss(m)[0]
     w = np.polynomial.legendre.leggauss(m)[1]
@@ -147,7 +146,6 @@ def _gauss_legendre_on_01(m: int) -> tuple[np.ndarray, np.ndarray]:
 
 
 def _compute_a(rho: np.ndarray, sigma: np.ndarray) -> float:
-
     """Find optimal a."""
     rho_half_inv = scipy.linalg.inv(scipy.linalg.sqrtm(rho))
     X = rho_half_inv @ sigma @ rho_half_inv
@@ -157,7 +155,6 @@ def _compute_a(rho: np.ndarray, sigma: np.ndarray) -> float:
 
 
 def _find_mk(rho: np.ndarray, sigma: np.ndarray, eps: float) -> tuple[int, int]:
-
     """Find m and k for the desired epsilon value."""
     a = _compute_a(rho, sigma)
     k1 = int(np.ceil(np.log2(np.log(a))) + 1)

@@ -291,7 +291,6 @@ def sk_operator_norm(
 
 
 def __target_is_proved(lower_bound: float, upper_bound: float, op_norm: float, tol: float, target: float) -> bool:
-
     """Checks if the lower/upper bound meets the target value."""
     return op_norm * (lower_bound + tol) >= op_norm * upper_bound or (
         target is not None and (op_norm * (lower_bound - tol) >= target or op_norm * (upper_bound + tol) <= target)
@@ -305,7 +304,6 @@ def __lower_bound_sk_norm_randomized(
     tol: float = 1e-5,
     start_vec: np.ndarray | None = None,
 ) -> float:
-
     """Computes a lower bound of the S(k)-norm via a randomized method."""
     if mat.shape[0] != mat.shape[1]:
         raise ValueError("Input matrix must be square.")

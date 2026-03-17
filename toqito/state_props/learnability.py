@@ -253,7 +253,6 @@ def _solve_problem(
     solver: str | None,
     solver_kwargs: dict[str, Any] | None,
 ) -> tuple[float, str]:
-
     """Solve a CVXPY problem and return both the optimal value and status."""
     solve_kwargs = dict(solver_kwargs or {})
 
@@ -271,7 +270,6 @@ def _solve_problem_with_scs(
     problem: cp.Problem,
     solver_kwargs: dict[str, Any],
 ) -> tuple[float, str]:
-
     """Solve with SCS ensuring sparse matrices use CSC format to avoid warnings."""
     warm_start = bool(solver_kwargs.pop("warm_start", False))
     verbose = bool(solver_kwargs.pop("verbose", False))
@@ -293,7 +291,6 @@ def _solve_problem_with_scs(
 
 
 def _is_scs_solver(solver: Any | None) -> bool:
-
     """Return True when the requested solver corresponds to SCS."""
     if solver is None:
         return False

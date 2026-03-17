@@ -166,7 +166,6 @@ def _solve_problem(
     solver: str | None,
     solver_kwargs: dict[str, Any] | None,
 ) -> str:
-
     """Solve a CVXPY problem and return the solver status."""
     solve_kwargs = dict(solver_kwargs or {})
 
@@ -184,7 +183,6 @@ def _solve_problem_with_scs(
     problem: cp.Problem,
     solver_kwargs: dict[str, Any],
 ) -> str:
-
     """Solve with SCS ensuring sparse matrices are provided in CSC form."""
     warm_start = bool(solver_kwargs.pop("warm_start", False))
     verbose = bool(solver_kwargs.pop("verbose", False))
@@ -206,7 +204,6 @@ def _solve_problem_with_scs(
 
 
 def _is_scs_solver(solver: Any | None) -> bool:
-
     """Return ``True`` when the solver selection corresponds to SCS."""
     if solver is None:
         return False
@@ -218,7 +215,6 @@ def _is_scs_solver(solver: Any | None) -> bool:
 
 
 def _complex_to_real_block(mat: np.ndarray) -> np.ndarray:
-
     """Embed a complex matrix into its real block representation."""
     real = mat.real
     imag = mat.imag
@@ -228,7 +224,6 @@ def _complex_to_real_block(mat: np.ndarray) -> np.ndarray:
 
 
 def _real_block_to_complex(block: np.ndarray) -> np.ndarray:
-
     """Recover a complex matrix from its real block representation."""
     rows, cols = block.shape
     if rows % 2 != 0 or cols % 2 != 0:
@@ -245,7 +240,6 @@ def _enumerate_support_subspaces(
     max_zero_count: int,
     tol: float,
 ) -> list:
-
     """Enumerate the unique subspaces obtained by zeroing coordinates."""
     d, _ = range_basis.shape
     queue: deque[tuple[frozenset[int], np.ndarray]] = deque()
@@ -286,7 +280,6 @@ def _enumerate_support_subspaces(
 
 
 def _canonical_key(basis: np.ndarray, tol: float) -> tuple[bytes, np.ndarray]:
-
     """Return a hashable key and orthonormal basis for a subspace."""
     if basis.size == 0:
         zero_basis = np.zeros((basis.shape[0], 0), dtype=np.complex128)
@@ -298,7 +291,6 @@ def _canonical_key(basis: np.ndarray, tol: float) -> tuple[bytes, np.ndarray]:
 
 
 def _intersect_with_zero(basis: np.ndarray, index: int, tol: float) -> np.ndarray:
-
     """Intersect the subspace spanned by ``basis`` with the hyperplane ``v_index = 0``."""
     if basis.shape[1] == 0:
         return basis
@@ -314,7 +306,6 @@ def _intersect_with_zero(basis: np.ndarray, index: int, tol: float) -> np.ndarra
 
 
 def _max_support_size(basis: np.ndarray, tol: float) -> int:
-
     """Compute the maximum support size of vectors in the span of ``basis``."""
     if basis.shape[1] == 0:
         return 0

@@ -10,7 +10,6 @@ from toqito.matrix_props import has_same_dimension
 
 
 def _is_pure_state(vector: np.ndarray) -> bool:
-
     """Check if input is a pure state (vector) or mixed state (density matrix).
 
     Args:
@@ -201,7 +200,6 @@ def _min_error_primal(
     solver: str = "cvxopt",
     **kwargs,
 ) -> tuple[float, list[picos.HermitianVariable]]:
-
     """Find the primal problem for minimum-error quantum state distinguishability SDP."""
     n = len(vectors)
 
@@ -225,7 +223,6 @@ def _min_error_dual(
     solver: str = "cvxopt",
     **kwargs,
 ) -> tuple[float, list[picos.HermitianVariable]]:
-
     """Find the dual problem for minimum-error quantum state distinguishability SDP."""
     n = len(vectors)
     problem = picos.Problem()
@@ -244,7 +241,6 @@ def _min_error_dual(
 
 
 def _reconstruct_povm_pure(vectors: list[np.ndarray], q: np.ndarray, dim: int) -> list[np.ndarray]:
-
     """Reconstruct POVM for unambiguous discrimination of pure states.
 
     Uses reciprocal/dual states construction: M_i = q_i |ψ̃ᵢ⟩⟨ψ̃ᵢ| where ψ̃ᵢ are dual states.
@@ -289,7 +285,6 @@ def _reconstruct_povm_pure(vectors: list[np.ndarray], q: np.ndarray, dim: int) -
 
 
 def _reconstruct_povm_mixed(vectors: list[np.ndarray], q: np.ndarray, dim: int, gram: np.ndarray) -> list[np.ndarray]:
-
     """Reconstruct POVM for unambiguous discrimination of mixed states.
 
     For mixed states, we solve for the POVM elements directly using the SDP conditions.
@@ -352,7 +347,6 @@ def _unambiguous_primal(
     solver: str = "cvxopt",
     **kwargs,
 ) -> tuple[float, list[np.ndarray]]:
-
     """Solve the primal problem for unambiguous quantum state distinguishability SDP.
 
     Implemented according to Equation (5) of [@gupta2024unambiguous]:.
@@ -392,7 +386,6 @@ def _unambiguous_dual(
     solver: str = "cvxopt",
     **kwargs,
 ) -> tuple[float, tuple[picos.SymmetricVariable]]:
-
     """Solve the dual problem for unambiguous quantum state distinguishability SDP.
 
     Implemented according to Equation (5) of [@gupta2024unambiguous].

@@ -63,7 +63,6 @@ def positive_semidefinite_rank(mat: np.ndarray, max_rank: int = 10) -> int | Non
 
 
 def _check_psd_rank(mat: np.ndarray, max_rank: int) -> bool:
-
     """Check if the given PSD rank k is feasible for matrix M.
 
     Args:

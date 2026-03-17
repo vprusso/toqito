@@ -100,7 +100,6 @@ def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = Non
 
 
 def _operator_schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = None) -> int | float:
-
     """Operator Schmidt rank of variable.
 
     If the input is provided as a density operator instead of a vector, compute

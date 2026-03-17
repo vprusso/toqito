@@ -263,7 +263,18 @@ class NonlocalGame:
             \end{equation}
         \]
 
-    Examples:
+    Args:
+            dim: The dimension of the quantum system that Alice and Bob have
+                    access to (default = 2).
+            iters: The number of times to run the alternating projection
+                      algorithm.
+            tol: The tolerance before quitting out of the alternating
+                    projection semidefinite program.
+
+    Returns:
+            The lower bound on the quantum value of a nonlocal game.
+
+            Examples:
             The CHSH game
 
             The CHSH game is a two-player nonlocal game with the following
@@ -324,18 +335,7 @@ class NonlocalGame:
             print(chsh.quantum_value_lower_bound())
             ```
 
-    Args:
-            dim: The dimension of the quantum system that Alice and Bob have
-                    access to (default = 2).
-            iters: The number of times to run the alternating projection
-                      algorithm.
-            tol: The tolerance before quitting out of the alternating
-                    projection semidefinite program.
-
-    Returns:
-            The lower bound on the quantum value of a nonlocal game.
-
-        """
+"""
         # Get number of inputs and outputs.
         _, num_outputs_bob, _, num_inputs_bob = self.pred_mat.shape
 

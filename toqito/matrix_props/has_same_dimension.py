@@ -4,7 +4,6 @@ import numpy as np
 
 
 def has_same_dimension(items: list[np.ndarray]) -> bool:
-
     """Check if all vectors or matrices in a list have the same dimension.
 
     For a vector (1D array), the dimension is its length. For a matrix, the dimension can be considered as the total

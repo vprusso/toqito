@@ -11,7 +11,6 @@ def channel_dim(
     dim: int | list[int] | np.ndarray | None = None,
     compute_env_dim: bool = True,
 ) -> tuple[np.ndarray | int, np.ndarray | int, int | None]:
-
     """Compute the input, output, and environment dimensions of a channel.
 
     This function returns the dimensions of the input, output, and environment spaces of
