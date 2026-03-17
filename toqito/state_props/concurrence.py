@@ -80,7 +80,7 @@ def concurrence(rho: np.ndarray) -> float:
         print(concurrence(sigma))
         ```
 
-"""
+    """
     if rho.shape != (4, 4):
         raise ValueError("InvalidDim: Concurrence is only defined for bipartite systems.")
 

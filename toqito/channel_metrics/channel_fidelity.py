@@ -74,7 +74,7 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray, eps: float = 1e-7) 
         print(channel_fidelity(choi_1, choi_2))
         ```
 
-"""
+    """
     if choi_1.shape != choi_2.shape:
         raise ValueError("The Choi matrices provided should be of equal dimension.")
 

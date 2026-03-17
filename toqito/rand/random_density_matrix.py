@@ -121,7 +121,7 @@ def random_density_matrix(
 
 
 
-"""
+    """
     gen = np.random.default_rng(seed=seed)
     if k_param is None:
         k_param = dim

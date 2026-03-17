@@ -34,7 +34,7 @@ def standard_basis(dim: int, flatten: bool = False) -> list[np.ndarray]:
         print(standard_basis(2))
         ```
 
-"""
+    """
     first_basis_vector = np.zeros(dim) if flatten else np.zeros((dim, 1))
     first_basis_vector[0] = 1.0
 

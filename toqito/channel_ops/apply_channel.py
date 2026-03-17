@@ -95,7 +95,7 @@ def apply_channel(mat: np.ndarray, phi_op: np.ndarray | list[list[np.ndarray]]) 
         print(apply_channel(test_input_mat, swap_operator(3)))
         ```
 
-"""
+    """
     # Both of the following methods of applying the superoperator are much faster than naively
     # looping through the Kraus operators or constructing eigenvectors of a Choi matrix.
 

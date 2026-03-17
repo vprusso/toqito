@@ -51,7 +51,7 @@ def max_entangled(dim: int, is_sparse: bool = False, is_normalized: bool = True)
         print(max_entangled(2, False, False))
         ```
 
-"""
+    """
     # Allow both standard int and numpy integer types
     if not isinstance(dim, (int, np.integer)) or dim <= 0:
         raise ValueError("Dimension must be a positive integer.")

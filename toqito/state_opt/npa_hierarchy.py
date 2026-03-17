@@ -12,6 +12,7 @@ PLAYERS = ("Alice", "Bob")
 
 
 def _reduce(word: tuple[Symbol, ...]) -> tuple[Symbol, ...]:
+
     """Reduce an operator word to its canonical form using NPA rules.
 
     Identity: I*S = S*I = S, I*I = I
@@ -442,6 +443,7 @@ def npa_constraints(
 
 
 def _word_to_p_cg_index(word: tuple[Symbol, ...], oa: int, ob: int, ma: int, mb: int) -> int | None:
+
     """Map an operator word to its corresponding index in the flattened CG vector."""
     dim_a = (oa - 1) * ma
     dim_b = (ob - 1) * mb
@@ -555,7 +557,7 @@ def bell_npa_constraints(
         ```
 
 
-"""
+    """
     oa, ob, ma, mb = desc
     words = _gen_words(k, oa, ma, ob, mb)
     dim = len(words)

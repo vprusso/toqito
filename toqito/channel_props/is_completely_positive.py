@@ -88,7 +88,7 @@ def is_completely_positive(
         print(is_completely_positive(depolarizing(2)))
         ```
 
-"""
+    """
     # If the variable `phi` is provided as a list, we assume this is a list
     # of Kraus operators.
     if isinstance(phi, list):

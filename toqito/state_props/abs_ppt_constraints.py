@@ -67,7 +67,8 @@ def abs_ppt_constraints(
             print(f"Constraint {i}:")
             print(cons)
         ```
-"""
+
+    """
     if isinstance(eigs, np.ndarray):
         eigs = np.sort(eigs)[::-1]
     elif isinstance(eigs, cp.Variable):

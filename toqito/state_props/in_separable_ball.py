@@ -54,7 +54,7 @@ def in_separable_ball(mat: np.ndarray) -> bool | np.bool_:
         print(in_separable_ball(rho))
         ```
 
-"""
+    """
     mat_dims = mat.shape
     max_dim = max(mat_dims)
 

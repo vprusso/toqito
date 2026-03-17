@@ -60,7 +60,7 @@ def is_antidistinguishable(states: list[np.ndarray]) -> bool | np.bool_:
 
         and hence, the Bell states are antidistinguishable.
 
-"""
+    """
     probs = [1] * len(states)
 
     # The dual problem is less computationally intensive to compute in comparison to primal.

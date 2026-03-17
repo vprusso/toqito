@@ -91,7 +91,7 @@ def channel_distinguishability(
         print(channel_distinguishability(choi_ch_1, choi_ch_2, None, [2, 2], strategy="minimax",primal_dual="primal"))
         ```
 
-"""
+    """
     # Get the input, output and environment dimensions of phi and psi.
     d_in_phi, d_out_phi, d_e = channel_dim(phi, dim=dim)
     d_in_psi, d_out_psi, d_e = channel_dim(psi, dim=dim)
@@ -143,6 +143,7 @@ def _minimax_dual(
     solver: str = "cvxopt",
     **kwargs,
 ) -> float:
+
     """Find the dual problem for minimax quantum channel distinguishability SDP."""
     J_var = list([phi, psi])
 
@@ -175,6 +176,7 @@ def _minimax_primal(
     solver: str = "cvxopt",
     **kwargs,
 ) -> float:
+
     """Find the primal problem for minimax quantum channel distinguishability SDP."""
     J_var = list([phi, psi])
 

@@ -32,7 +32,7 @@ def bb84() -> list[list[np.ndarray]]:
         print(bb84())
         ```
 
-"""
+    """
     # Computational basis states |0>, |1>:
     e_0, e_1 = standard_basis(2)
     # Plus/minus basis |+>, |->

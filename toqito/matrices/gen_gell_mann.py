@@ -59,7 +59,7 @@ def gen_gell_mann(ind_1: int, ind_2: int, dim: int) -> np.ndarray:
         gen_gell_mann(ind_1=2, ind_2=3, dim=4)
         ```
 
-"""
+    """
     if ind_1 == ind_2:
         if ind_1 == 0:
             gm_op = np.eye(dim)

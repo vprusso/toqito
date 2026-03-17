@@ -81,7 +81,7 @@ def is_abs_ppt(
         print(f"ρ is absolutely PPT: {is_abs_ppt(rho, 3)}")
         ```
 
-"""
+    """
     if isinstance(mat, np.ndarray):
         if not is_square(mat):
             raise ValueError(f"Expected mat to be square: however mat.shape was {mat.shape}")

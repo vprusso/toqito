@@ -75,7 +75,7 @@ def is_herm_preserving(
         print(is_herm_preserving(choi_mat))
         ```
 
-"""
+    """
     # If the variable `phi` is provided as a list, we assume this is a list
     # of Kraus operators.
     if isinstance(phi, list):

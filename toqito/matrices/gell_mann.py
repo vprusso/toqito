@@ -89,7 +89,7 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | csr_array:
         print(gell_mann(ind=2))
         ```
 
-"""
+    """
     if ind == 0:
         gm_op = np.identity(3)
     elif ind == 1:

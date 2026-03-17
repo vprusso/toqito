@@ -43,7 +43,7 @@ def is_distinguishable(states: list[np.ndarray], probs: list[float] | None = Non
         print(is_distinguishable(bell_states))
         ```
 
-"""
+    """
     # The dual problem is less computationally intensive to compute in comparison to primal.
     opt_val, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="dual")
     return np.isclose(opt_val, 1)

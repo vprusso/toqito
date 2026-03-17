@@ -42,7 +42,7 @@ def log_negativity(rho: np.ndarray, dim: list[int] | int | None = None) -> float
         !!!See Also
             [negativity()][toqito.state_props.negativity.negativity]
 
-"""
+    """
     # Allow the user to input either a pure state vector or a density matrix.
     rho = to_density_matrix(rho)
     rho_dims = rho.shape

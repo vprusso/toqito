@@ -48,7 +48,7 @@ def fourier(dim: int) -> np.ndarray:
         print(fourier(3))
         ```
 
-"""
+    """
     # Primitive root of unity.
     root_unity = np.exp(2 * 1j * np.pi / dim)
     entry_1 = np.arange(0, dim)[:, None]

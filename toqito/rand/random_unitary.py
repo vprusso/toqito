@@ -96,7 +96,7 @@ def random_unitary(dim: list[int] | int, is_real: bool = False, seed: int | None
         print(is_unitary(seeded))
         ```
 
-"""
+    """
     gen = np.random.default_rng(seed=seed)
 
     if isinstance(dim, int):

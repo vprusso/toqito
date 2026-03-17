@@ -73,7 +73,7 @@ def is_quantum_channel(
         print(is_quantum_channel(choi_depolarizing))
         ```
 
-"""
+    """
     # If the variable `phi` is provided as a list, we assume this is a list
     # of Kraus operators.
     if not (

@@ -84,7 +84,7 @@ def cg_to_fc(cg_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         print(cg_to_fc(p_cg, behavior=True))
         ```
 
-"""
+    """
     ia = cg_mat.shape[0] - 1
     ib = cg_mat.shape[1] - 1
 
@@ -188,7 +188,7 @@ def fc_to_cg(fc_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         print(fc_to_cg(p_fc, behavior=True))
         ```
 
-"""
+    """
     ia = fc_mat.shape[0] - 1
     ib = fc_mat.shape[1] - 1
 
@@ -279,7 +279,7 @@ def cg_to_fp(cg_mat: np.ndarray, desc: list[int], behavior: bool = False) -> np.
         print(cg_to_fp(p_cg, desc, behavior=True))
         ```
 
-"""
+    """
     oa, ob, ia, ib = desc
     v_mat = np.zeros((oa, ob, ia, ib))
 
@@ -440,7 +440,7 @@ def fc_to_fp(fc_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         print(fc_to_fp(p_fc, behavior=True))
         ```
 
-"""
+    """
     ia = fc_mat.shape[0] - 1
     ib = fc_mat.shape[1] - 1
     # Assumes oa=2, ob=2 based on FC notation structure
@@ -538,7 +538,7 @@ def fp_to_cg(v_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         print(fp_to_cg(pr_box, behavior=True))
         ```
 
-"""
+    """
     oa, ob, ia, ib = v_mat.shape
 
     alice_pars = max(0, ia * (oa - 1)) + 1 if oa > 0 else 0
@@ -684,7 +684,7 @@ def fp_to_fc(v_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         print(fp_to_fc(pr_box, behavior=True))
         ```
 
-"""
+    """
     oa, ob, ia, ib = v_mat.shape
 
     if oa != 2 or ob != 2:

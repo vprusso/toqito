@@ -85,7 +85,7 @@ def partial_channel(
         print(res)
         ```
 
-"""
+    """
     if dim is None:
         dim = np.round(np.sqrt(list(rho.shape))).conj().T * np.ones(2)
     if isinstance(dim, list):

@@ -68,7 +68,7 @@ def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) 
         print(antisymmetric_projection(2, 3))
         ```
 
-"""
+    """
     dimp = dim**p_param
 
     if p_param == 1:

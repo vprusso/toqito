@@ -335,7 +335,7 @@ class NonlocalGame:
             print(chsh.quantum_value_lower_bound())
             ```
 
-"""
+        """
         # Get number of inputs and outputs.
         _, num_outputs_bob, _, num_inputs_bob = self.pred_mat.shape
 

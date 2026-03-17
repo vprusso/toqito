@@ -100,7 +100,7 @@ def is_povm(mat_list: list[np.ndarray]) -> bool:
         print(is_povm(non_meas))
         ```
 
-"""
+    """
     dim = mat_list[0].shape[0]
 
     mat_sum = np.zeros((dim, dim), dtype=complex)

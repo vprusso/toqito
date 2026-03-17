@@ -37,7 +37,7 @@ def cyclic_permutation_matrix(n: int, k: int = 1) -> np.ndarray:
 
 
 
-"""
+    """
     if not isinstance(n, int):
         raise TypeError("'n' must be an integer.")
     if n <= 0:

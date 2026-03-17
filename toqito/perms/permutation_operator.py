@@ -52,7 +52,7 @@ def permutation_operator(
         ```
 
 
-"""
+    """
     # Allow the user to enter a single number for `dim`.
     if isinstance(dim, int):
         dim_arr = np.array([dim] * np.ones(max(perm) + 1))

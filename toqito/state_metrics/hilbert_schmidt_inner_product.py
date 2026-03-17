@@ -36,5 +36,5 @@ def hilbert_schmidt_inner_product(a_mat: np.ndarray, b_mat: np.ndarray) -> compl
         print(np.around(hilbert_schmidt_inner_product(h, h), decimals=2))
         ```
 
-"""
+    """
     return np.trace(a_mat.conj().T @ b_mat)

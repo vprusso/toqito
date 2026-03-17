@@ -84,7 +84,7 @@ def choi_to_kraus(
         !!! See Also
             [kraus_to_choi][toqito.channel_ops.kraus_to_choi.kraus_to_choi]
 
-"""
+    """
     d_in, d_out, _ = channel_dim(choi_mat, dim=dim, compute_env_dim=False)
     if is_hermitian(choi_mat):
         eigvals, v_mat = np.linalg.eigh(choi_mat)

@@ -4,6 +4,7 @@ import numpy as np
 
 
 def to_density_matrix(input_array: np.ndarray) -> np.ndarray:
+
     """Convert a given vector to a density matrix or return the density matrix if already given.
 
     If the input is a vector, this function computes the outer product to form a density matrix.

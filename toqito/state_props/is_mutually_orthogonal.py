@@ -57,7 +57,7 @@ def is_mutually_orthogonal(vec_list: list[np.ndarray | list[float | Any]]) -> bo
         print(is_mutually_orthogonal(states))
         ```
 
-"""
+    """
     if len(vec_list) <= 1:
         raise ValueError("There must be at least two vectors provided as input.")
 

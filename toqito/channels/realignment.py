@@ -45,7 +45,7 @@ def realignment(input_mat: np.ndarray, dim: int | list[int] | np.ndarray | None 
         print(realignment(test_input_mat))
         ```
 
-"""
+    """
     dim_mat = input_mat.shape
     round_dim = np.round(np.sqrt(dim_mat))
     if dim is None:

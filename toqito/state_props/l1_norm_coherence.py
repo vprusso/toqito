@@ -44,6 +44,6 @@ def l1_norm_coherence(rho: np.ndarray) -> float:
         print(l1_norm_coherence(v))
         ```
 
-"""
+    """
     rho = to_density_matrix(rho)
     return np.sum(np.sum(np.abs(rho))) - np.trace(rho)

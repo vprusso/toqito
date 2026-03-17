@@ -88,7 +88,7 @@ def renyi_entropy(rho: np.ndarray, alpha: float) -> float:
         print(renyi_entropy(rho, 3/2))
         ```
 
-"""
+    """
     if not is_density(rho):
         raise ValueError("Rényi entropy is only defined for density operators.")
     if alpha < 0:

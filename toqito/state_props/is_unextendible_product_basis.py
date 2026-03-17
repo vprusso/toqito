@@ -61,7 +61,7 @@ def is_unextendible_product_basis(vecs: list[np.ndarray], dims: list[int]) -> tu
             \frac{1}{\sqrt{2}} |2\rangle \left( |1\rangle + |2\rangle \right)
         \]
 
-"""
+    """
     vecs = np.array(vecs)
     dims = np.array(dims)
 

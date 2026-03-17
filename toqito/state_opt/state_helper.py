@@ -4,6 +4,7 @@ import numpy as np
 
 
 def __is_states_valid(states: list[np.ndarray]) -> bool:
+
     """Check if states provided are valid."""
     # Assume that at least one state is provided.
     if states is None or states == []:
@@ -12,6 +13,7 @@ def __is_states_valid(states: list[np.ndarray]) -> bool:
 
 
 def __is_probs_valid(probs: list[float]) -> bool:
+
     """Check if probabilities provided are valid."""
     if not np.isclose(sum(probs), 1):
         raise ValueError("InvalidProbabilities: Probabilities must sum to 1.")

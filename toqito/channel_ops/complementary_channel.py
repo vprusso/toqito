@@ -66,7 +66,7 @@ def complementary_channel(kraus_ops: list[np.ndarray]) -> list[np.ndarray]:
             print(op)
         ```
 
-"""
+    """
     num_kraus = len(kraus_ops)
     if num_kraus == 0:
         raise ValueError("All Kraus operators must be non-empty matrices.")

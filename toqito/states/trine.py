@@ -27,7 +27,7 @@ def trine() -> list[np.ndarray]:
         print(trine())
         ```
 
-"""
+    """
     e_0, e_1 = basis(2, 0), basis(2, 1)
     return [
         e_0,

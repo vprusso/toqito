@@ -85,7 +85,7 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
         print(von_neumann_entropy(rho))
         ```
 
-"""
+    """
     if not is_density(rho):
         raise ValueError("Von Neumann entropy is only defined for density operators.")
     eigs, _ = np.linalg.eig(rho)

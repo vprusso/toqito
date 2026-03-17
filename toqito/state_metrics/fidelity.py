@@ -68,7 +68,7 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
         print(fidelity(rho, sigma))
         ```
 
-"""
+    """
     # Perform some error checking.
     if not np.all(rho.shape == sigma.shape):
         raise ValueError("InvalidDim: `rho` and `sigma` must be matrices of the same size.")

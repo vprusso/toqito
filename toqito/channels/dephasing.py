@@ -78,7 +78,7 @@ def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
         print(apply_channel(test_input_mat, dephasing(4, 0.5)))
         ```
 
-"""
+    """
     # Compute the Choi matrix of the dephasing channel.
 
     # Gives a sparse non-normalized state.

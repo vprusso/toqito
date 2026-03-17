@@ -49,7 +49,7 @@ def random_states(n: int, d: int, seed: int | None = None) -> list[np.ndarray]:
 
 
 
-"""
+    """
     gen = np.random.default_rng(seed=seed)
     samples = gen.normal(size=(n, d)) + 1j * gen.normal(size=(n, d))
     samples /= np.linalg.norm(samples, axis=1)[:, np.newaxis]

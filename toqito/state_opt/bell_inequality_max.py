@@ -21,6 +21,7 @@ from toqito.state_opt.npa_hierarchy import bell_npa_constraints
 
 
 def _integer_digits(number: int, base: int, digits: int) -> np.ndarray:
+
     """Convert an integer to a fixed-length array of its digits in a given base."""
     dits = np.zeros(digits, dtype=int)
     temp_number = number
@@ -31,6 +32,7 @@ def _integer_digits(number: int, base: int, digits: int) -> np.ndarray:
 
 
 def _cg_to_fp_cp(p_cg_var: cp.Variable, desc: list[int]) -> list[cp.Expression]:
+
     """Generate cp expressions for full probabilities from a CG variable."""
     oa, ob, ia, ib = desc
     fp_expressions = []
@@ -194,7 +196,7 @@ def bell_inequality_max(
         print(bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'nosignal', tol=1e-9))
         ```
 
-"""
+    """
     oa, ob, ma, mb = desc
     mtype_low = mtype.lower()
     notation_low = notation.lower()
@@ -506,7 +508,7 @@ def bell_inequality_max_qubits(
         print(f"Bell inequality maximum value: {result:.3f}")
         ```
 
-"""
+    """
     m, _ = joint_coe.shape
 
     # Ensure the input vectors are column vectors.

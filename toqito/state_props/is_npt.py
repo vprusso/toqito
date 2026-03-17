@@ -33,5 +33,5 @@ def is_npt(mat: np.ndarray, sys: int = 2, dim: int | list[int] | None = None, to
         print(is_npt(bell(2) @ bell(2).conj().T, 2))
         ```
 
-"""
+    """
     return not is_ppt(mat, sys, dim, tol)

@@ -68,6 +68,6 @@ def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
         print(gen_bell(k_1, k_2, dim))
         ```
 
-"""
+    """
     gen_pauli_w = gen_pauli(k_1, k_2, dim)
     return 1 / dim * vec(gen_pauli_w) @ vec(gen_pauli_w).conj().T

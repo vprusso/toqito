@@ -38,6 +38,6 @@ def random_ginibre(dim_n: int, dim_m: int, seed: int | None = None) -> np.ndarra
         print(random_ginibre(2, 2, seed=42))
         ```
 
-"""
+    """
     gen = np.random.default_rng(seed=seed)
     return (gen.standard_normal((dim_n, dim_m)) + 1j * gen.standard_normal((dim_n, dim_m))) / np.sqrt(2)

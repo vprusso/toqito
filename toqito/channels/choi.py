@@ -86,6 +86,6 @@ def choi(a_var: int = 1, b_var: int = 1, c_var: int = 0) -> np.ndarray:
         !!! See Also
             [reduction][toqito.channels.reduction.reduction]
 
-"""
+    """
     psi = max_entangled(3, False, False)
     return np.diag([a_var + 1, c_var, b_var, b_var, a_var + 1, c_var, c_var, b_var, a_var + 1]) - psi @ psi.conj().T

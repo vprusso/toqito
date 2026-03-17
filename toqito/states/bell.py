@@ -48,7 +48,7 @@ def bell(idx: int) -> np.ndarray:
         print(bell(0))
         ```
 
-"""
+    """
     match idx:
         case 0:
             return 1 / np.sqrt(2) * np.array([[1], [0], [0], [1]])

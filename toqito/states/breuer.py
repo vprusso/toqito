@@ -37,7 +37,7 @@ def breuer(dim: int, lam: float) -> np.ndarray:
         print(breuer(2, 0.1))
         ```
 
-"""
+    """
     if dim % 2 == 1 or dim <= 0:
         raise ValueError(f"The value {dim} must be an even positive integer.")
 

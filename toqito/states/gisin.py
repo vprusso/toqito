@@ -47,7 +47,7 @@ def gisin(lambda_var: float, theta: float) -> np.ndarray:
         print(gisin(0.5, 1))
         ```
 
-"""
+    """
     if lambda_var < 0 or lambda_var > 1:
         raise ValueError("InvalidLambda: Variable lambda must be between 0 and 1.")
 

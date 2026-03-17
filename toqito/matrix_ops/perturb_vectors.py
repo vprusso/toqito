@@ -7,6 +7,7 @@ import numpy as np
 
 
 def perturb_vectors(vectors: list[np.ndarray], eps: float = 0.1) -> np.ndarray:
+
     """Perturb the vectors by adding a small random number to each element.
 
     Args:

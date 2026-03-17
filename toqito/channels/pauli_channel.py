@@ -70,7 +70,7 @@ def pauli_channel(
         print(output)
         ```
 
-"""
+    """
     if not isinstance(prob, np.ndarray):
         if np.isscalar(prob):
             q = prob

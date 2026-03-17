@@ -76,7 +76,7 @@ def dual_channel(
         print(output)
         ```
 
-"""
+    """
     # If phi_op is a list, assume it contains couples of Kraus operators
     # and take the Hermitian conjugate.
     if isinstance(phi_op, list):

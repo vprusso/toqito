@@ -59,7 +59,7 @@ def werner(dim: int, alpha: float | list[float]) -> np.ndarray:
         print(werner(2, [0.01, 0.02, 0.03, 0.04, 0.05]))
         ```
 
-"""
+    """
     # Multipartite Werner state.
     if isinstance(alpha, list):
         n_fac = len(alpha) + 1

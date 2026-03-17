@@ -6,7 +6,6 @@ from dataclasses import dataclass
 
 @dataclass
 class UniqueElement:
-
     """Class for unique elements to keep track of occurrences."""
 
     value: int
@@ -40,7 +39,7 @@ def unique_perms(elements: list[int]) -> Generator[tuple[int, ...], None, None]:
         print(len(list(unique_perms(vec_nums))))
         ```
 
-"""
+    """
     elem_set = set(elements)
     list_unique = [UniqueElement(value=i, occurrences=elements.count(i)) for i in elem_set]
     len_elems = len(elements)
@@ -51,6 +50,7 @@ def unique_perms(elements: list[int]) -> Generator[tuple[int, ...], None, None]:
 def perm_unique_helper(
     list_unique: list[UniqueElement], result_list: list[int], elem_d: int,
 ) -> Generator[tuple[int, ...], None, None]:
+
     """Provide helper function for unique_perms.
 
     Args:

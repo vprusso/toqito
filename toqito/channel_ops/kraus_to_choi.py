@@ -54,7 +54,7 @@ def kraus_to_choi(kraus_ops: list[np.ndarray] | list[list[np.ndarray]], sys: int
         !!! See Also
             [choi_to_kraus][toqito.channel_ops.choi_to_kraus.choi_to_kraus]
 
-"""
+    """
     if sys < 0:
         raise ValueError("The `sys` parameter must be non-negative.")
 

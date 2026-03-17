@@ -62,7 +62,7 @@ def helstrom_holevo(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
         print(helstrom_holevo(rho, sigma))
         ```
 
-"""
+    """
     if not is_density(rho) or not is_density(sigma):
         raise ValueError("Helstrom-Holevo is only defined for density operators.")
     return 1 / 2 + 1 / 2 * (trace_norm(rho - sigma)) / 2

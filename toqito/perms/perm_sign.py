@@ -47,5 +47,5 @@ def perm_sign(perm: np.ndarray | list[int]) -> float:
         print(perm_sign([1, 2, 4, 3, 5]))
         ```
 
-"""
+    """
     return linalg.det(np.eye(len(perm))[:, np.array(perm) - 1])

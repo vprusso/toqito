@@ -44,7 +44,7 @@ def brauer(dim: int, p_val: int) -> np.ndarray:
         print(brauer(2, 2))
         ```
 
-"""
+    """
     # The Brauer states are computed from perfect matchings of the complete graph. So compute all
     # perfect matchings first.
     phi = tensor(max_entangled(dim, False, False), p_val)

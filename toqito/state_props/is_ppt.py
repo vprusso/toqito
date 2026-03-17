@@ -74,7 +74,7 @@ def is_ppt(
         print(is_ppt(rho))
         ```
 
-"""
+    """
     eps = np.finfo(float).eps
 
     sqrt_rho_dims = np.round(np.sqrt(list(mat.shape)))

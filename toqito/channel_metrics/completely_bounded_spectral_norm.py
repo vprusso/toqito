@@ -28,5 +28,5 @@ def completely_bounded_spectral_norm(phi: np.ndarray) -> float | np.floating:
         print(completely_bounded_spectral_norm(choi_depolarizing))
         ```
 
-"""
+    """
     return completely_bounded_trace_norm(dual_channel(phi))

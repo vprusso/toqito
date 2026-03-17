@@ -37,7 +37,7 @@ def comparison(mat: np.ndarray) -> np.ndarray:
         print(comparison(A))
         ```
 
-"""
+    """
     if len(mat.shape) != 2 or mat.shape[0] != mat.shape[1]:
         raise ValueError("Input matrix must be square.")
 

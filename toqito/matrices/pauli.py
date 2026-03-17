@@ -94,7 +94,7 @@ def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np
         ```
 
 
-"""
+    """
     if isinstance(ind, (int, str)):
         allowed_ind_options = {"x", "X", 1, "y", "Y", 2, "z", "Z", 3, "i", "I", 0}
         if ind not in allowed_ind_options:

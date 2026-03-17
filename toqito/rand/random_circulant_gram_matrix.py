@@ -59,7 +59,7 @@ def random_circulant_gram_matrix(dim: int, seed: int | None = None) -> np.ndarra
         ```
 
 
-"""
+    """
     gen = np.random.default_rng(seed=seed)
     # Step 1: Generate a random diagonal matrix with non-negative entries
     diag_mat = np.diag(gen.random(dim))

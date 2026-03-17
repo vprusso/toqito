@@ -49,7 +49,7 @@ def vectors_from_gram_matrix(gram: np.ndarray) -> list[np.ndarray]:
 <<<<<<< HEAD
         ```
 
-"""
+    """
     dim = gram.shape[0]
     if gram.shape[0] != gram.shape[1]:
         raise np.linalg.LinAlgError("The Gram matrix must be square.")

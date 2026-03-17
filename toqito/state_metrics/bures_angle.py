@@ -68,7 +68,7 @@ def bures_angle(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> flo
         print(bures_angle(rho, sigma))
         ```
 
-"""
+    """
     # Perform error checking.
     if not np.all(rho_1.shape == rho_2.shape):
         raise ValueError("InvalidDim: `rho_1` and `rho_2` must be matrices of the same size.")

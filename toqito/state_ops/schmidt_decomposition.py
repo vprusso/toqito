@@ -56,7 +56,7 @@ def schmidt_decomposition(
             print(f"{name}:\n{mat}\n")
         ```
 
-"""
+    """
     # If the input is provided as a matrix, compute the operator Schmidt decomposition.
     if len(rho.shape) == 2:
         if rho.shape[0] != 1 and rho.shape[1] != 1:

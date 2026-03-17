@@ -55,7 +55,7 @@ def pretty_good_measurement(
         print(pgm)
         ```
 
-"""
+    """
     n = len(states)
 
     # If not probabilities are explicitly given, assume a uniform distribution.

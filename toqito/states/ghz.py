@@ -56,7 +56,7 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray
             3|2222222 \rangle + 4|3333333\rangle \right).
         \]
 
-"""
+    """
     if dim < 1:
         raise ValueError("InvalidDim: `dim` must be at least 1.")
     if num_qubits < 1:

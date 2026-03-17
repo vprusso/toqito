@@ -81,7 +81,7 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float | np.floatin
         print(np.around(matsumoto_fidelity(rho, sigma), decimals=2))
         ```
 
-"""
+    """
     if not np.all(rho.shape == sigma.shape):
         raise ValueError("InvalidDim: `rho` and `sigma` must be matrices of the same size.")
 

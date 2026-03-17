@@ -48,7 +48,7 @@ def diamond_distance(choi_1: np.ndarray, choi_2: np.ndarray) -> float | np.float
         print(diamond_distance(choi_dephasing, choi_identity))
         ```
 
-"""
+    """
     from toqito.channel_metrics import completely_bounded_trace_norm  # noqa
 
     return completely_bounded_trace_norm(choi_1 - choi_2)

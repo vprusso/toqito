@@ -53,7 +53,7 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int | None = Non
         print(entanglement_of_formation(rho))
         ```
 
-"""
+    """
     dim_x, dim_y = rho.shape
     round_dim = int(np.round(np.sqrt(max(dim_x, dim_y))))
 

@@ -84,7 +84,7 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
         print(apply_channel(test_input_mat, depolarizing(4, 0.5)))
         ```
 
-"""
+    """
     # Compute the Choi matrix of the depolarizing channel.
     if param_p > 1 or param_p < 0:
         raise ValueError("The depolarizing probability must be between 0 and 1.")

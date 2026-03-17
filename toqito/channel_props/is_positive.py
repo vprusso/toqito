@@ -75,7 +75,7 @@ def is_positive(
         print(is_positive(depolarizing(4)))
         ```
 
-"""
+    """
     # If the variable `phi` is provided as a list, we assume this is a list
     # of Kraus operators.
     if isinstance(phi, list):

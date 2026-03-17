@@ -61,7 +61,7 @@ def is_unital(
         print(is_unital(choi))
         ```
 
-"""
+    """
     dim_in, _, _ = channel_dim(phi, dim=dim, allow_rect=False, compute_env_dim=False)
 
     # Channel is unital if `mat` is the identity matrix.

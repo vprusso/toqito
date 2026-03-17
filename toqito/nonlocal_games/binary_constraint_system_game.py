@@ -94,7 +94,7 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
         print("```")
         ```
 
-"""
+    """
     # Ensure M and b are binary.
     M = np.array(M, dtype=int) % 2
     b = np.array(b, dtype=int) % 2

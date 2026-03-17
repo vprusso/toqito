@@ -50,7 +50,7 @@ def swap_operator(dim: list[int] | int, is_sparse: bool = False) -> np.ndarray:
 
 
 
-"""
+    """
     # Allow the user to enter a single number for dimension.
     if isinstance(dim, int):
         dim = np.array([dim, dim])

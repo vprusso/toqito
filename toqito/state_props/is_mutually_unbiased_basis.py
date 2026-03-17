@@ -80,7 +80,7 @@ def is_mutually_unbiased_basis(vectors: list[np.ndarray | list[float | Any]]) ->
         print(is_mutually_unbiased_basis(mubs))
         ```
 
-"""
+    """
     num_vectors = len(vectors)
     dim_full = np.shape(vectors[0])
     dim = dim_full[0]

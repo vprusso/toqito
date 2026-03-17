@@ -38,7 +38,7 @@ def completely_bounded_trace_norm(phi: np.ndarray, solver: str = "cvxopt", **kwa
         print(completely_bounded_trace_norm(choi_depolarizing))
         ```
 
-"""
+    """
     dim_lx, dim_ly = phi.shape
 
     if dim_lx != dim_ly:

@@ -73,7 +73,7 @@ def random_psd_operator(
         print(seeded)
         ```
 
-"""
+    """
     # Generate a random matrix of dimension dim x dim.
     gen = np.random.default_rng(seed=seed)
     rand_mat = gen.random((dim, dim))

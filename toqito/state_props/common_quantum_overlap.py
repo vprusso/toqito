@@ -72,7 +72,7 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
         print(common_quantum_overlap(states)) # Should approximate (1-sqrt(1-cos²(π/4)))
         ```
 
-"""
+    """
     n = len(states)
     opt_val, _ = state_exclusion(vectors=states, probs=[1] * n, primal_dual="dual")
     return n * (1 - (1 - opt_val / n))

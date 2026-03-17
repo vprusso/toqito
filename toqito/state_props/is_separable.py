@@ -252,7 +252,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
         print("Is the state separable?", is_separable(rho, dim=[2, 3]))  # True
         ```
 
-"""
+    """
     # --- 1. Input Validation, Normalization, Dimension Setup ---
     if not isinstance(state, np.ndarray):
         raise TypeError("Input state must be a NumPy array.")

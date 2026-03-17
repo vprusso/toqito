@@ -52,11 +52,12 @@ def is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = None)
         print(is_product(u_vec))
         ```
 
-"""
+    """
     return _is_product(rho, dim)
 
 
 def _is_product(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = None) -> tuple:
+
     """Determine if input is a product state recursive helper.
 
     Args:

@@ -132,7 +132,7 @@ def symmetric_extension_hierarchy(
         print(f"True separable value: {np.around(true_sep_val, decimals=2)}")
         ```
 
-"""
+    """
     obj_func = []
     meas = []
     x_var = []

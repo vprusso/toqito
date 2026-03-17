@@ -58,7 +58,7 @@ def pretty_bad_measurement(
         print(pbm)
         ```
 
-"""
+    """
     n = len(states)
 
     # If not probabilities are explicitly given, assume a uniform distribution.

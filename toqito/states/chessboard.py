@@ -30,7 +30,7 @@ def chessboard(mat_params: list[float], s_param: float | None = None, t_param: f
         print(chessboard([1, 2, 3, 4, 5, 6], 7, 8))
         ```
 
-"""
+    """
     if s_param is None:
         s_param = np.conj(mat_params[2]) / np.conj(mat_params[5])
     if t_param is None:

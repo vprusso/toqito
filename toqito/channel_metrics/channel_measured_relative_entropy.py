@@ -97,7 +97,7 @@ def channel_measured_relative_entropy(
         print(channel_measured_relative_entropy(channel_1, channel_2, in_dim, m, k, hamiltonian, energy))
         ```
 
-"""
+    """
     if not is_quantum_channel(channel_1):
         raise ValueError("Measured relative entropy is only defined if channel_1 is a quantum channel.")
     if not is_completely_positive(channel_2):
@@ -146,6 +146,7 @@ def channel_measured_relative_entropy(
 
 
 def _gauss_legendre_on_01(m: int) -> tuple[np.ndarray, np.ndarray]:
+
     """m-point Gauss legendre quadrature weights on the interval [0,1]."""
     x = np.polynomial.legendre.leggauss(m)[0]
     w = np.polynomial.legendre.leggauss(m)[1]

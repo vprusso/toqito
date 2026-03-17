@@ -50,5 +50,5 @@ def singlet(dim: int) -> np.ndarray:
         print(singlet(dim))
         ```
 
-"""
+    """
     return (np.identity(dim**2) - swap_operator([dim, dim])) / ((dim**2) - dim)

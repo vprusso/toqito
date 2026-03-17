@@ -45,7 +45,7 @@ def pusey_barrett_rudolph(n: int, theta: float) -> list[np.ndarray]:
         print(pusey_barrett_rudolph(n=1, theta=0.5))
         ```
 
-"""
+    """
     e_0, e_1 = standard_basis(2)
 
     psi_0 = np.cos(theta / 2) * e_0 + np.sin(theta / 2) * e_1

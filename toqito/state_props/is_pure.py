@@ -64,7 +64,7 @@ def is_pure(state: list[np.ndarray] | np.ndarray) -> bool:
         print(is_pure([rho0, rho1, rho2, rho3]))
         ```
 
-"""
+    """
     # Allow the user to enter a list of states to check.
     if isinstance(state, list):
         for rho in state:

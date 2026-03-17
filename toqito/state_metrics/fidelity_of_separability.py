@@ -119,7 +119,7 @@ def fidelity_of_separability(
         ```
             is PSD with trace 1).
 
-"""
+    """
     # rho is relabelled as rho_{AB} where A >= B.
     if not is_density(input_state_rho):
         raise ValueError("Provided input state is not a density matrix.")

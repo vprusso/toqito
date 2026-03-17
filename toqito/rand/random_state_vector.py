@@ -83,7 +83,7 @@ def random_state_vector(
         ```
 
 
-"""
+    """
     gen = np.random.default_rng(seed=seed)
     if k_param < 0:
         msg = "k_param must be non-negative."

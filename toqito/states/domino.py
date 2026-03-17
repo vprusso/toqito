@@ -68,7 +68,7 @@ def domino(idx: int) -> np.ndarray:
         print(domino(3))
         ```
 
-"""
+    """
     e_0, e_1, e_2 = basis(3, 0), basis(3, 1), basis(3, 2)
     match idx:
         case 0:

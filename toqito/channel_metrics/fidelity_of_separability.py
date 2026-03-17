@@ -111,7 +111,7 @@ def fidelity_of_separability(
         print(fidelity_of_separability(rho, [2, 2]))
         ```
 
-"""
+    """
     if not is_density(psi):
         raise ValueError("Provided input state is not a density matrix.")
     tripartite_num = 3

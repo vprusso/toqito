@@ -77,7 +77,7 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int, seed: int | None = 
         print(np.round(povms[:, :, 0, 0] + povms[:, :, 0, 1]))
         ```
 
-"""
+    """
     povms = []
     gen = np.random.default_rng(seed=seed)
     gram_vectors = gen.normal(size=(num_inputs, num_outputs, dim, dim))

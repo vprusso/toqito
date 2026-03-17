@@ -57,7 +57,7 @@ def w_state(num_qubits: int, coeff: list[int] | None = None) -> np.ndarray:
         print(w_state(4, coeffs))
         ```
 
-"""
+    """
     if num_qubits < 2:
         raise ValueError("InvalidNumQubits: `num_qubits` must be at least 2.")
     if coeff is None:

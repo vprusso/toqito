@@ -65,7 +65,7 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
         print(gen_pauli(k_1=1, k_2=1, dim=2))
         ```
 
-"""
+    """
     gpx_val = gen_pauli_x(dim)
     gpz_val = gen_pauli_z(dim)
 

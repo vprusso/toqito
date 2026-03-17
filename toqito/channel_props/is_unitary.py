@@ -70,7 +70,7 @@ def is_unitary(phi: np.ndarray | list[list[np.ndarray]]) -> bool:
         print(is_unitary(depolarizing(2)))
         ```
 
-"""
+    """
     # If the variable `phi` is provided as a ndarray, we assume this is a
     # Choi matrix.
     if isinstance(phi, np.ndarray):

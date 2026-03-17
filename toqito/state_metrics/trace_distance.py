@@ -61,7 +61,7 @@ def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
         print(trace_distance(rho, sigma))
         ```
 
-"""
+    """
     if not is_density(rho) or not is_density(sigma):
         raise ValueError("Trace distance only defined for density matrices.")
     return trace_norm(np.abs(rho - sigma)) / 2

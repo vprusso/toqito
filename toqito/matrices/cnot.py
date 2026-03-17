@@ -28,5 +28,5 @@ def cnot() -> np.ndarray:
         print(cnot())
         ```
 
-"""
+    """
     return np.array([[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 0, 1], [0, 0, 1, 0]])

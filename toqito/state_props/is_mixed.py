@@ -37,5 +37,5 @@ def is_mixed(state: np.ndarray) -> bool:
         print(is_mixed(rho))
         ```
 
-"""
+    """
     return not is_pure(state)

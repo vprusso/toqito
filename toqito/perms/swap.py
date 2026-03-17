@@ -112,7 +112,7 @@ def swap(
 
 
 
-"""
+    """
     if dim is not None and not isinstance(dim, (int, list, np.ndarray)):
         raise TypeError("dim must be None, int, list, or np.ndarray.")
 

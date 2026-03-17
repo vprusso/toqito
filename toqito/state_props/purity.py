@@ -56,7 +56,7 @@ def purity(rho: np.ndarray) -> float:
         print(purity(rho))
         ```
 
-"""
+    """
     if not is_density(rho):
         raise ValueError("Purity is only defined for density operators.")
     # "np.real" get rid of the close-to-0 imaginary part.

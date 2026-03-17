@@ -94,7 +94,7 @@ def is_trace_preserving(
         Further information for determining the trace preserving properties of channels consult (Section: Linear Maps Of
         Square Operators from [@watrous2018theory]).
 
-"""
+    """
     # If the variable `phi` is provided as a list, we assume this is a list
     # of Kraus operators.
     if isinstance(phi, list):

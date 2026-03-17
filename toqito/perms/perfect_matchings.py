@@ -31,7 +31,7 @@ def perfect_matchings(num: list[int] | int | np.ndarray) -> np.ndarray:
         print(perfect_matchings(4))
         ```
 
-"""
+    """
     if isinstance(num, int):
         num = np.arange(num)
     if isinstance(num, list):

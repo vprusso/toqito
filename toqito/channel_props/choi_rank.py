@@ -75,7 +75,7 @@ def choi_rank(phi: np.ndarray | list[list[np.ndarray]]) -> int:
         print(choi_rank(choi_matrix))
         ```
 
-"""
+    """
     if isinstance(phi, list):
         phi = kraus_to_choi(phi)
     elif not isinstance(phi, np.ndarray):

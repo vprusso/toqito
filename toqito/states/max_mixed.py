@@ -67,7 +67,7 @@ def max_mixed(dim: int, is_sparse: bool = False) -> np.ndarray | dia_array:
         print(max_mixed(2, is_sparse=True))
         ```
 
-"""
+    """
     if is_sparse:
         return 1 / dim * eye_array(dim)
     return 1 / dim * np.eye(dim)

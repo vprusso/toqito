@@ -33,6 +33,6 @@ def random_orthonormal_basis(dim: int, is_real: bool = False, seed: int | None =
         print(random_orthonormal_basis(2, is_real=True, seed=42))
         ```
 
-"""
+    """
     random_mat = random_unitary(dim, is_real, seed)
     return [random_mat[:, i] for i in range(dim)]

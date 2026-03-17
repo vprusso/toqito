@@ -74,7 +74,7 @@ def symmetric_projection(dim: int, p_val: int = 2, partial: bool = False) -> np.
         print(symmetric_projection(dim=2))
         ```
 
-"""
+    """
     if dim < 1:
         raise ValueError("InvalidDim: `dim` must be at least 1.")
     if p_val < 1:

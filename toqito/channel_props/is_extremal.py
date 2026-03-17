@@ -53,7 +53,7 @@ def is_extremal(phi: np.ndarray | list[np.ndarray | list[np.ndarray]], tol: floa
         print(is_extremal(kraus_ops))
         ```
 
-"""
+    """
     # If input is a Choi matrix, convert to a (flat) list of Kraus operators.
     if isinstance(phi, np.ndarray):
         kraus_ops = choi_to_kraus(phi)

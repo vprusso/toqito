@@ -49,7 +49,7 @@ def gen_pauli_z(dim: int) -> np.ndarray:
         print(gen_pauli_z(3))
         ```
 
-"""
+    """
     c_var = 2j * pi / dim
     omega = (exp(k * c_var) for k in range(dim))
     return np.diag(list(omega))

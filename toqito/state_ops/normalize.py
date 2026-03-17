@@ -30,7 +30,7 @@ def normalize(vector: Sequence[complex] | np.ndarray, *, tol: float = 1e-8) -> n
         ```
 
 
-"""
+    """
     array = np.asarray(vector, dtype=np.complex128)
 
     if array.ndim == 1:

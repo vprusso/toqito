@@ -53,7 +53,7 @@ def is_ensemble(states: list[np.ndarray]) -> bool:
         print(is_ensemble(states))
         ```
 
-"""
+    """
     trace_sum = 0
     for state in states:
         trace_sum += np.trace(state)

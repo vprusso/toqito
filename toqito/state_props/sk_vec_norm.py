@@ -44,7 +44,7 @@ def sk_vector_norm(rho: np.ndarray, k: int = 1, dim: int | list[int] | None = No
         print(sk_vector_norm(v))
         ```
 
-"""
+    """
     dim_xy = rho.shape[0]
 
     # Set default dimension if none was provided.

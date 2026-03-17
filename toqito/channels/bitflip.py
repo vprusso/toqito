@@ -59,7 +59,7 @@ def bitflip(
         print(bitflip(rho, prob=0.3))
         ```
 
-"""
+    """
     if not (0 <= prob <= 1):
         raise ValueError("Probability must be between 0 and 1.")
 

@@ -43,7 +43,7 @@ def basis(dim: int, pos: int) -> np.ndarray:
         print(basis(2, 1))
         ```
 
-"""
+    """
     if pos >= dim or pos < 0:
         raise ValueError("Invalid: The `pos` variable needs to be between [0, dim - 1] for ket function.")
 

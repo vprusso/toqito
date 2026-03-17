@@ -99,7 +99,7 @@ def has_symmetric_extension(
         print(has_symmetric_extension(sigma))
         ```
 
-"""
+    """
     len_mat = rho.shape[1]
 
     # Set default dimension if none was provided.

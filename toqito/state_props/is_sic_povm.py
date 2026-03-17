@@ -60,7 +60,7 @@ def is_sic_povm(states: Sequence[np.ndarray], *, tol: float = 1e-6) -> bool:
         print(is_sic_povm(non_sic))
         ```
 
-"""
+    """
     if not states:
         raise ValueError("At least one vector must be provided.")
 

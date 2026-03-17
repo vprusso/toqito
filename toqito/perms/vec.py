@@ -86,5 +86,5 @@ def vec(mat: np.ndarray) -> np.ndarray:
         !!! See Also
             [`unvec()`][toqito.matrix_ops.unvec.unvec]
 
-"""
+    """
     return mat.reshape((-1, 1), order="F")

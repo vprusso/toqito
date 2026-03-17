@@ -41,6 +41,6 @@ def isotropic(dim: int, alpha: float) -> np.ndarray:
         print(isotropic(3, 1 / 2))
         ```
 
-"""
+    """
     psi = max_entangled(dim, False, False)
     return (1 - alpha) * np.identity(dim**2) / dim**2 + alpha * psi @ psi.conj().T / dim

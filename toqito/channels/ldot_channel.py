@@ -67,7 +67,7 @@ def ldot_channel(mat: np.ndarray, efficient: bool = True) -> np.ndarray:
         print(np.allclose(once, twice))
         ```
 
-"""
+    """
     if mat.ndim != 2 or mat.shape[0] != mat.shape[1]:
         raise ValueError("Input matrix must be square.")
 
@@ -77,6 +77,7 @@ def ldot_channel(mat: np.ndarray, efficient: bool = True) -> np.ndarray:
 
 
 def _ldot_channel_standard_basis(mat: np.ndarray) -> np.ndarray:
+
     """Efficient implementation by zeroing forbidden entries in the computational basis."""
     dim_sq = mat.shape[0]
     dim = int(np.sqrt(dim_sq))

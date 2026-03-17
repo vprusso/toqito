@@ -99,7 +99,7 @@ def optimal_clone(
         print(np.around(optimal_clone(states, probs), decimals=2))
         ```
 
-"""
+    """
     dim = len(states[0]) ** 3
 
     # Construct the following operator:

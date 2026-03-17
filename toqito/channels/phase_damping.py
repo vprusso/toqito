@@ -40,7 +40,7 @@ def phase_damping(
         print(result)
         ```
 
-"""
+    """
     if not (0 <= gamma <= 1):
         raise ValueError("Gamma must be between 0 and 1.")
 
