@@ -27,7 +27,7 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
     Returns:
         A generalized Pauli operator.
 
-        Examples:
+    Examples:
         The generalized Pauli operator for `k_1 = 1`, `k_2 = 0`, and
         `dim = 2` is given as the standard Pauli-X matrix
 

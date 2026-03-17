@@ -29,7 +29,7 @@ def gen_bell(k_1: int, k_2: int, dim: int) -> np.ndarray:
         k_2: An integer 0 <= k_2 <= n.
         dim: The dimension of the generalized Bell state.
 
-        Examples:
+    Examples:
         For \(d = 2\) and \(k_1 = k_2 = 0\), this generates the following matrix
 
         \[

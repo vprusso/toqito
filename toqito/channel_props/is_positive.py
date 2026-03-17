@@ -35,7 +35,7 @@ def is_positive(
     Returns:
         True if the channel is positive, and False otherwise.
 
-        Examples:
+    Examples:
         We can specify the input as a list of Kraus operators. Consider the map \(\Phi\) defined as
 
         \[

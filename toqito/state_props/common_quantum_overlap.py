@@ -34,7 +34,7 @@ def common_quantum_overlap(states: list[np.ndarray]) -> float:
     Returns:
         The common quantum overlap value.
 
-        Examples:
+    Examples:
         Consider the Bell states:
 
         ```python exec="1" source="above"

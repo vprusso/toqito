@@ -30,7 +30,7 @@ def bell(idx: int) -> np.ndarray:
     Returns:
         Bell state with index `idx`.
 
-        Raises:
+    Raises:
         ValueError: If `idx` is not an integer.
 
     Examples:

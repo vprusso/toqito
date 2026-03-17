@@ -29,7 +29,7 @@ def dephasing(dim: int, param_p: float = 0) -> np.ndarray:
     Returns:
         The Choi matrix of the dephasing channel.
 
-        Examples:
+    Examples:
         The completely dephasing channel maps kills everything off the diagonal. Consider the
         following matrix
 

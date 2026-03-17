@@ -83,7 +83,7 @@ def fidelity_of_separability(
     Returns:
         Optimized value of the SDP when maximized over a set of linear operators subject to some constraints.
 
-        Raises:
+    Raises:
         AssertionError: If the provided dimensions are not for a tripartite density matrix.
         ValueError: If the matrix is not a density matrix (square matrix that
             is PSD with trace 1).

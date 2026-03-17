@@ -80,7 +80,7 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
         A list of integer bitmasks.
         A list of parity values.
 
-        Examples:
+    Examples:
         ```python exec="1" source="above"
         import numpy as np
         from toqito.nonlocal_games.binary_constraint_system_game import generate_solution_group

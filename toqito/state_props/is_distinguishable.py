@@ -22,7 +22,7 @@ def is_distinguishable(states: list[np.ndarray], probs: list[float] | None = Non
     Returns:
         `True` if the vectors are distinguishable; `False` otherwise.
 
-        Examples:
+    Examples:
         The set of Bell states are an example of distinguishable states. Recall that the Bell states are defined as:
 
         \[

@@ -23,7 +23,7 @@ def is_antidistinguishable(states: list[np.ndarray]) -> bool | np.bool_:
     Returns:
         `True` if the vectors are antidistinguishable; `False` otherwise.
 
-        Examples:
+    Examples:
         The set of Bell states are an example of antidistinguishable states. Recall that the Bell states are defined as:
 
         \[

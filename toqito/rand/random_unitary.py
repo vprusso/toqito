@@ -17,7 +17,7 @@ def random_unitary(dim: list[int] | int, is_real: bool = False, seed: int | None
     Returns:
         A `dim`-by-`dim` random unitary matrix.
 
-        Examples:
+    Examples:
         We may generate a random unitary matrix. Here is an example of how we may be able to generate a
         random \(2\)-dimensional random unitary matrix with complex entries.
 

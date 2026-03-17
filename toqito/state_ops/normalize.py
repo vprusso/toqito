@@ -17,7 +17,7 @@ def normalize(vector: Sequence[complex] | np.ndarray, *, tol: float = 1e-8) -> n
     Returns:
         Normalized vector as a 1D NumPy array.
 
-        Raises:
+    Raises:
         ValueError: If the input is not vector-shaped or has vanishing norm.
 
     Examples:

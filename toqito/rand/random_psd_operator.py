@@ -22,7 +22,7 @@ def random_psd_operator(
     Returns:
         A `dim` x `dim` random positive semidefinite matrix.
 
-        Examples:
+    Examples:
         Using `|toqito⟩`, we may generate a random positive semidefinite matrix.
         For \(\text{dim}=2\), this can be accomplished as follows.
 

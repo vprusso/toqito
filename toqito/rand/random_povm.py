@@ -33,7 +33,7 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int, seed: int | None = 
     Returns:
         A set of `dim`-by-`dim` POVMs of shape `(dim, dim, num_inputs, num_outputs)`.
 
-        Examples:
+    Examples:
         We can generate a set of `dim`-by-`dim` POVMs consisting of a specific dimension along with a given number of
         measurement inputs and measurement outputs. As an example, we can construct a random set of \(2\)-by-\(2\)
         POVMs of dimension with \(2\) inputs and \(2\) outputs.

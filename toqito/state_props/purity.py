@@ -23,7 +23,7 @@ def purity(rho: np.ndarray) -> float:
     Returns:
         A value between 0 and 1 that corresponds to the purity of \(\rho\).
 
-        Raises:
+    Raises:
         ValueError: If matrix is not density operator.
 
     Examples:

@@ -58,7 +58,7 @@ def vec(mat: np.ndarray) -> np.ndarray:
     Returns:
         The vec representation of the matrix.
 
-        Examples:
+    Examples:
         Consider the following matrix
 
         \[

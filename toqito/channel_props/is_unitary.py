@@ -25,7 +25,7 @@ def is_unitary(phi: np.ndarray | list[list[np.ndarray]]) -> bool:
     Returns:
         `True` if the channel is a unitary channel, and `False` otherwise.
 
-        Examples:
+    Examples:
         The identity channel is one example of a unitary channel:
 
         \[

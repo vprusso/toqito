@@ -51,7 +51,7 @@ def ppt_distinguishability(
     Returns:
         The optimal probability with which the states can be distinguished via PPT measurements.
 
-        Examples:
+    Examples:
         Consider the following Bell states:
 
         \[
@@ -137,6 +137,7 @@ def _min_error_primal(
     solver: str = "cvxopt",
     strategy: str = "min_error",
 ):
+
     """Primal problem for the SDP with PPT constraints."""
     n = len(vectors)
     d = calculate_vector_matrix_dimension(vectors[0])
@@ -182,6 +183,7 @@ def _min_error_dual(
     solver: str = "cvxopt",
     strategy: str = "min_error",
 ):
+
     """Semidefinite program with PPT constraints (dual problem)."""
     d = vectors[0].shape[0]
 

@@ -22,7 +22,7 @@ def chessboard(mat_params: list[float], s_param: float | None = None, t_param: f
     Returns:
         A chessboard state.
 
-        Examples:
+    Examples:
         The standard chessboard state can be invoked using `|toqito⟩` as
 
         ```python exec="1" source="above"

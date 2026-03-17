@@ -21,6 +21,7 @@ from toqito.state_opt.npa_hierarchy import bell_npa_constraints
 
 
 def _integer_digits(number: int, base: int, digits: int) -> np.ndarray:
+
     """Convert an integer to a fixed-length array of its digits in a given base."""
     dits = np.zeros(digits, dtype=int)
     temp_number = number
@@ -31,6 +32,7 @@ def _integer_digits(number: int, base: int, digits: int) -> np.ndarray:
 
 
 def _cg_to_fp_cp(p_cg_var: cp.Variable, desc: list[int]) -> list[cp.Expression]:
+
     """Generate cp expressions for full probabilities from a CG variable."""
     oa, ob, ia, ib = desc
     fp_expressions = []
@@ -130,7 +132,7 @@ def bell_inequality_max(
         ValueError: If generating NPA constraints fails.
         cp.error.SolverError: If the cp solver fails.
 
-        Examples:
+    Examples:
         The CHSH inequality in Full Correlator (FC) notation.
         The classical maximum is 2, the quantum maximum (Tsirelson's bound) is \(2\sqrt{2}\),
         and the no-signalling maximum is 4.
@@ -471,7 +473,7 @@ def bell_inequality_max_qubits(
     Returns:
         The upper bound for the maximum violation of the Bell inequality.
 
-        Raises:
+    Raises:
         ValueError: If `a_val` or `b_val` are not length 2.
 
     Examples:

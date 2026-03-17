@@ -32,7 +32,7 @@ def pretty_good_measurement(
     Returns:
         A list of POVM operators for the PGM.
 
-        Raises:
+    Raises:
         ValueError: If number of vectors does not match number of probabilities.
         ValueError: If probabilities do not sum to 1.
 

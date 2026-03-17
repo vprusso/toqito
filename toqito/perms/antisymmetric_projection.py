@@ -23,7 +23,7 @@ def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) 
     Returns:
         Projection onto the antisymmetric subspace.
 
-        Examples:
+    Examples:
         The \(2\)-dimensional antisymmetric projection with \(p=1\) is given as
         \(2\)-by-\(2\) identity matrix
 

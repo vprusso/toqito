@@ -35,7 +35,7 @@ def pretty_bad_measurement(
     Returns:
         A list of POVM operators for the PBM.
 
-        Raises:
+    Raises:
         ValueError: If number of states does not match number of probabilities.
         ValueError: If probabilities do not sum to 1.
 

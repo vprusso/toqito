@@ -20,7 +20,7 @@ def is_pure(state: list[np.ndarray] | np.ndarray) -> bool:
     Returns:
         `True` if state is pure and `False` otherwise.
 
-        Examples:
+    Examples:
         Consider the following Bell state:
 
         \[

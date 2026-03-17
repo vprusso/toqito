@@ -19,7 +19,7 @@ def swap_operator(dim: list[int] | int, is_sparse: bool = False) -> np.ndarray:
     Returns:
         The swap operator of dimension `dim`.
 
-        Examples:
+    Examples:
         The \(2\)-dimensional swap operator is given by the following matrix
 
         \[

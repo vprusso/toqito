@@ -12,12 +12,14 @@ PLAYERS = ("Alice", "Bob")
 
 
 def _reduce(word: tuple[Symbol, ...]) -> tuple[Symbol, ...]:
+
     """Reduce an operator word to its canonical form using NPA rules.
 
     Identity: I*S = S*I = S, I*I = I
     Commutation: Alice operators commute with Bob operators. Canonical form: A...AB...B
     Orthogonality: P_x,a P_x,b = 0 if a != b (for same player x)
     Idempotence: P_x,a P_x,a = P_x,a (for same player x)
+
     """
     if not word:
         return ()
@@ -441,6 +443,7 @@ def npa_constraints(
 
 
 def _word_to_p_cg_index(word: tuple[Symbol, ...], oa: int, ob: int, ma: int, mb: int) -> int | None:
+
     """Map an operator word to its corresponding index in the flattened CG vector."""
     dim_a = (oa - 1) * ma
     dim_b = (ob - 1) * mb
@@ -510,7 +513,7 @@ def bell_npa_constraints(
     Returns:
         A list of CVXPY constraints.
 
-        Raises:
+    Raises:
         ValueError: If internal identity mapping fails.
 
     Examples:

@@ -41,7 +41,7 @@ def permute_systems(
     Returns:
         The matrix or vector that has been permuted.
 
-        Raises:
+    Raises:
         ValueError: If dimension does not match the number of subsystems.
 
     Examples:

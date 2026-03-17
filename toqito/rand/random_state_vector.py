@@ -38,7 +38,7 @@ def random_state_vector(
         A normalized column vector of shape ``(total_dim, 1)`` where ``total_dim`` equals `dim` if ``dim`` is an integer
         and equals the product of entries in ``dim`` otherwise.
 
-        Examples:
+    Examples:
         We may generate a random state vector. For instance, here is an example where we can generate a
         \(2\)-dimensional random state vector.
 

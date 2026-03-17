@@ -35,7 +35,7 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
     Returns:
         The von Neumann entropy of `rho`.
 
-        Examples:
+    Examples:
         Consider the following Bell state:
 
         \[

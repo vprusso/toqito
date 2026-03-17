@@ -32,7 +32,7 @@ def isotropic(dim: int, alpha: float) -> np.ndarray:
     Returns:
         Isotropic state of dimension `dim`.
 
-        Examples:
+    Examples:
         To generate the isotropic state with parameter \(\alpha=1/2\), we can make the following call to
         `|toqito⟩` as
 

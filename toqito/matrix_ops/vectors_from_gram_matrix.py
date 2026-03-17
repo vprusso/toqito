@@ -23,7 +23,7 @@ def vectors_from_gram_matrix(gram: np.ndarray) -> list[np.ndarray]:
 ```
 >>>>>>> d965b901 (Fix: Reorder docstring sections in matrix_ops (#1455))
 
-        Raises:
+    Raises:
         LinAlgError: If the Gram matrix is not square.
 
     Examples:

@@ -6,6 +6,7 @@ from cvxpy.expressions.expression import Expression
 
 
 def np_array_as_expr(np_arr: np.ndarray) -> Expression:
+
     """Convert numpy array into a cvxpy expression.
 
     Args:

@@ -39,7 +39,7 @@ def tile(idx: int) -> np.ndarray:
     Returns:
         Tile state.
 
-        Raises:
+    Raises:
         ValueError: Invalid value for `idx`.
 
     Examples:

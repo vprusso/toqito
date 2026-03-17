@@ -166,7 +166,7 @@ def is_separable(state: np.ndarray, dim: None | int | list[int] = None, level: i
     Returns:
         `True` if separable, `False` if entangled or inconclusive by implemented checks.
 
-        Raises:
+    Raises:
         Warning: If the symmetric extension check is attempted but CVXPY or a suitable solver is not available.
         TypeError: If the input `state` is not a NumPy array.
         RuntimeError: If the symmetric extension check is attempted but fails due to CVXPY solver issues.

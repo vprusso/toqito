@@ -23,7 +23,7 @@ def hilbert_schmidt_inner_product(a_mat: np.ndarray, b_mat: np.ndarray) -> compl
     Returns:
         The Hilbert-Schmidt inner product between `a_mat` and `b_mat`.
 
-        Examples:
+    Examples:
         One may consider taking the Hilbert-Schmidt distance between two Hadamard matrices.
 
         ```python exec="1" source="above"

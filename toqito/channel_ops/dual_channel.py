@@ -45,7 +45,7 @@ def dual_channel(
     Returns:
         The map dual to `phi_op`, in the same representation.
 
-        Raises:
+    Raises:
         ValueError: If matrices are not Choi matrix.
 
     Examples:

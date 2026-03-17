@@ -57,7 +57,7 @@ def optimal_clone(
     Returns:
         The optimal probability with of counterfeiting quantum money.
 
-        Examples:
+    Examples:
         Wiesner's original quantum money scheme [@wiesner1983conjugate] was shown in
         [@molina2012optimal] to have an optimal probability of 3/4 for succeeding a counterfeiting attack.
 

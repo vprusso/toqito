@@ -16,7 +16,7 @@ def choi_rank(phi: np.ndarray | list[list[np.ndarray]]) -> int:
     Returns:
         The Choi rank of the provided channel representation.
 
-        Raises:
+    Raises:
         ValueError: If matrix is not Choi.
 
     Examples:

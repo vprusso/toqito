@@ -27,7 +27,7 @@ def reduction(dim: int, k: int = 1) -> np.ndarray:
     Returns:
         The reduction map.
 
-        Examples:
+    Examples:
         Using `|toqito⟩`, we can generate the \(3\)-dimensional (or standard) reduction map
         as follows.
 

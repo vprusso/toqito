@@ -17,7 +17,7 @@ def schmidt_decomposition(
     Returns:
         The Schmidt decomposition of the `rho` input.
 
-        Raises:
+    Raises:
         ValueError: If matrices are not of equal dimension.
 
     Examples:

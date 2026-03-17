@@ -23,7 +23,7 @@ def w_state(num_qubits: int, coeff: list[int] | None = None) -> np.ndarray:
         num_qubits: An integer representing the number of qubits.
         coeff: default is `[1, 1, ..., 1]/sqrt(num_qubits)`: a 1-by-`num_qubts` vector of coefficients.
 
-        Raises:
+    Raises:
         ValueError: The number of qubits must be greater than or equal to 1.
 
     Examples:

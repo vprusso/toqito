@@ -33,7 +33,7 @@ def is_mutually_unbiased_basis(vectors: list[np.ndarray | list[float | Any]]) ->
     Returns:
         `True` if `vec_list` constitutes a mutually unbiased basis, and `False` otherwise.
 
-        Raises:
+    Raises:
         ValueError: If at least two vectors are not provided.
 
     Examples:

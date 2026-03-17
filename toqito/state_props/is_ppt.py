@@ -29,7 +29,7 @@ def is_ppt(
     Returns:
         Returns `True` if `mat` is PPT and `False` if not.
 
-        Examples:
+    Examples:
         Consider the following matrix
 
         \[

@@ -54,7 +54,7 @@ def is_abs_ppt(
         If `mat` is a 1D `cvxpy` Variable, return a list of `cvxpy` Constraints required for optimizing over the space
         of absolutely PPT matrices.
 
-        Raises:
+    Raises:
         TypeError: If `mat` is not a `numpy` ndarray or a `cvxpy` Variable.
         ValueError: If `mat` is a `numpy` ndarray but is not square.
         ValueError: If `mat` is a `cvxpy` Variable but is not 1D.

@@ -24,7 +24,7 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int | None = Non
     Returns:
         A value between 0 and 1 that corresponds to the entanglement-of-formation of `rho`.
 
-        Raises:
+    Raises:
         ValueError: If matrices have improper dimension.
 
     Examples:

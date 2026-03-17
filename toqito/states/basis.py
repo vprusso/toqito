@@ -16,7 +16,7 @@ def basis(dim: int, pos: int) -> np.ndarray:
     Returns:
         The column vector of dimension `dim` with all entries set to `0` except the entry at `pos` which is set to `1`.
 
-        Raises:
+    Raises:
         ValueError: If the input position is not in the range [0, dim - 1].
 
     Examples:

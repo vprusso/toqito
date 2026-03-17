@@ -32,7 +32,7 @@ def concurrence(rho: np.ndarray) -> float:
     Returns:
         The concurrence of the bipartite state \(\rho\).
 
-        Raises:
+    Raises:
         ValueError: If system is not bipartite.
 
     Examples:

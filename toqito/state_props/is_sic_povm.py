@@ -28,7 +28,7 @@ def is_sic_povm(states: Sequence[np.ndarray], *, tol: float = 1e-6) -> bool:
     Returns:
         `True` when the vectors form a SIC POVM and `False` otherwise.
 
-        Raises:
+    Raises:
         ValueError: If the vectors cannot represent valid quantum states.
 
     Examples:

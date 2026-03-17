@@ -26,7 +26,7 @@ def is_povm(mat_list: list[np.ndarray]) -> bool:
     Returns:
         Return `True` if set of matrices constitutes a set of measurements, and `False` otherwise.
 
-        Examples:
+    Examples:
         Consider the following matrices:
 
         \[

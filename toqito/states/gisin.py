@@ -36,7 +36,7 @@ def gisin(lambda_var: float, theta: float) -> np.ndarray:
     Returns:
         Gisin state.
 
-        Raises:
+    Raises:
         ValueError: If `lambda_var` is not a real number.
 
     Examples:

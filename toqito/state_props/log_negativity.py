@@ -26,7 +26,7 @@ def log_negativity(rho: np.ndarray, dim: list[int] | int | None = None) -> float
     Returns:
         A positive value that corresponds to the logarithmic negativity of \(\rho\).
 
-        Raises:
+    Raises:
         ValueError: If the input matrix is not a density matrix.
 
     Examples:

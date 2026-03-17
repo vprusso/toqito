@@ -14,7 +14,7 @@ def singlet(dim: int) -> np.ndarray:
     Returns:
         The singlet state of dimension `dim`.
 
-        Examples:
+    Examples:
         For \(n = 2\) this generates the following matrix
 
         \[

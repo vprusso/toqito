@@ -23,7 +23,7 @@ def bb84() -> list[list[np.ndarray]]:
     Returns:
         The four BB84 basis states.
 
-        Examples:
+    Examples:
         The BB84 basis states can be obtained in `|toqito⟩` as follows in the form of a list of
         arrays.
 

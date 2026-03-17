@@ -30,7 +30,7 @@ def fourier(dim: int) -> np.ndarray:
     Returns:
         The Fourier matrix of dimension `dim`.
 
-        Examples:
+    Examples:
         The Fourier matrix generated from \(d = 3\) yields the following matrix:
 
         \[

@@ -36,7 +36,7 @@ def is_unital(
     Returns:
         `True` if the channel is unital, and `False` otherwise.
 
-        Examples:
+    Examples:
         Consider the channel whose Choi matrix is the swap operator. This channel is an example of a
         unital channel.
 

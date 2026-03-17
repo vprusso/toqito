@@ -23,7 +23,7 @@ def complementary_channel(kraus_ops: list[np.ndarray]) -> list[np.ndarray]:
     Returns:
         A list of numpy arrays representing the Kraus operators of the complementary map.
 
-        Raises:
+    Raises:
         ValueError: If the input is not a valid list of Kraus operators.
 
     Examples:

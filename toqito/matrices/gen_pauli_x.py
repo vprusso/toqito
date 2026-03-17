@@ -29,7 +29,7 @@ def gen_pauli_x(dim: int) -> np.ndarray:
     Returns:
         `dim`-by-`dim` gen_pauli_x matrix.
 
-        Examples:
+    Examples:
         The gen_pauli_x matrix generated from \(d = 3\) yields the following matrix:
 
         \[

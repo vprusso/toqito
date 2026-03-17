@@ -25,7 +25,7 @@ def comparison(mat: np.ndarray) -> np.ndarray:
     Returns:
         The comparison matrix of the input matrix.
 
-        Raises:
+    Raises:
         ValueError: If the input matrix is not square.
 
     Examples:

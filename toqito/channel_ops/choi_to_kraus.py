@@ -32,7 +32,7 @@ def choi_to_kraus(
     Returns:
         List of Kraus operators
 
-        Examples:
+    Examples:
         Consider taking the Kraus operators of the Choi matrix that characterizes the "swap operator"
         defined as
 

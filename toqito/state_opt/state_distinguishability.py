@@ -10,6 +10,7 @@ from toqito.matrix_props import has_same_dimension
 
 
 def _is_pure_state(vector: np.ndarray) -> bool:
+
     """Check if input is a pure state (vector) or mixed state (density matrix).
 
     Args:
@@ -108,7 +109,7 @@ def state_distinguishability(
         The optimal probability with which Bob can guess the state he was not given from `states` along with the optimal
         set of measurements.
 
-        Examples:
+    Examples:
         Minimal-error state distinguishability for the Bell states (which are perfectly distinguishable).
 
         ```python exec="1" source="above"
@@ -200,6 +201,7 @@ def _min_error_primal(
     solver: str = "cvxopt",
     **kwargs,
 ) -> tuple[float, list[picos.HermitianVariable]]:
+
     """Find the primal problem for minimum-error quantum state distinguishability SDP."""
     n = len(vectors)
 
@@ -223,6 +225,7 @@ def _min_error_dual(
     solver: str = "cvxopt",
     **kwargs,
 ) -> tuple[float, list[picos.HermitianVariable]]:
+
     """Find the dual problem for minimum-error quantum state distinguishability SDP."""
     n = len(vectors)
     problem = picos.Problem()
@@ -241,6 +244,7 @@ def _min_error_dual(
 
 
 def _reconstruct_povm_pure(vectors: list[np.ndarray], q: np.ndarray, dim: int) -> list[np.ndarray]:
+
     """Reconstruct POVM for unambiguous discrimination of pure states.
 
     Uses reciprocal/dual states construction: M_i = q_i |ψ̃ᵢ⟩⟨ψ̃ᵢ| where ψ̃ᵢ are dual states.
@@ -285,6 +289,7 @@ def _reconstruct_povm_pure(vectors: list[np.ndarray], q: np.ndarray, dim: int) -
 
 
 def _reconstruct_povm_mixed(vectors: list[np.ndarray], q: np.ndarray, dim: int, gram: np.ndarray) -> list[np.ndarray]:
+
     """Reconstruct POVM for unambiguous discrimination of mixed states.
 
     For mixed states, we solve for the POVM elements directly using the SDP conditions.
@@ -347,10 +352,12 @@ def _unambiguous_primal(
     solver: str = "cvxopt",
     **kwargs,
 ) -> tuple[float, list[np.ndarray]]:
+
     """Solve the primal problem for unambiguous quantum state distinguishability SDP.
 
     Implemented according to Equation (5) of [@gupta2024unambiguous]:.
     Supports both pure states (vectors) and mixed states (density matrices).
+
     """
     n = len(vectors)
     probs = [1 / n] * n if probs is None else probs
@@ -385,10 +392,12 @@ def _unambiguous_dual(
     solver: str = "cvxopt",
     **kwargs,
 ) -> tuple[float, tuple[picos.SymmetricVariable]]:
+
     """Solve the dual problem for unambiguous quantum state distinguishability SDP.
 
     Implemented according to Equation (5) of [@gupta2024unambiguous].
     Supports both pure states (vectors) and mixed states (density matrices).
+
     """
     n = len(vectors)
     problem = picos.Problem()

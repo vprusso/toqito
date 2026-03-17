@@ -55,7 +55,7 @@ def channel_distinguishability(
     Returns:
         The optimal probability of discriminating two quantum channels.
 
-        Raises:
+    Raises:
         ValueError: If prior probabilities not provided at all for Bayesian strategy.
         ValueError: If strategy is neither Bayesian nor minimax.
         ValueError: If channels have different input or output dimensions.
@@ -143,6 +143,7 @@ def _minimax_dual(
     solver: str = "cvxopt",
     **kwargs,
 ) -> float:
+
     """Find the dual problem for minimax quantum channel distinguishability SDP."""
     J_var = list([phi, psi])
 
@@ -175,6 +176,7 @@ def _minimax_primal(
     solver: str = "cvxopt",
     **kwargs,
 ) -> float:
+
     """Find the primal problem for minimax quantum channel distinguishability SDP."""
     J_var = list([phi, psi])
 

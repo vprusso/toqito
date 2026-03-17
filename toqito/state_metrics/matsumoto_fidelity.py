@@ -41,7 +41,7 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float | np.floatin
     Returns:
         The Matsumoto fidelity between `rho` and `sigma`.
 
-        Raises:
+    Raises:
         ValueError: If matrices are not of equal dimension.
 
     Examples:

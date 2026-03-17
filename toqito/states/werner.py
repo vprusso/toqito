@@ -40,7 +40,7 @@ def werner(dim: int, alpha: float | list[float]) -> np.ndarray:
     Returns:
         A Werner state of dimension `dim`.
 
-        Raises:
+    Raises:
         ValueError: Alpha vector does not have the correct length.
 
     Examples:

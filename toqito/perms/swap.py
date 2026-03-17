@@ -32,7 +32,7 @@ def swap(
     Returns:
         The swapped matrix.
 
-        Raises:
+    Raises:
         ValueError: If dimension does not match the number of subsystems.
 
     Examples:

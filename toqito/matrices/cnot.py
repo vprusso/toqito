@@ -21,7 +21,7 @@ def cnot() -> np.ndarray:
     Returns:
         The CNOT matrix.
 
-        Examples:
+    Examples:
         ```python exec="1" source="above"
         from toqito.matrices import cnot
 

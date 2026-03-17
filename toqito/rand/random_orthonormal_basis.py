@@ -16,7 +16,7 @@ def random_orthonormal_basis(dim: int, is_real: bool = False, seed: int | None =
         is_real: Bool
         seed: A seed used to instantiate numpy's random number generator.
 
-        Examples:
+    Examples:
         To generate a random orthonormal basis of dimension \(4\),
 
         ```python exec="1" source="above"

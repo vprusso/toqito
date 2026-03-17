@@ -113,7 +113,7 @@ def state_exclusion(
         The optimal probability with which Bob can guess the state he was not given from `states` along with the optimal
         set of measurements.
 
-        Examples:
+    Examples:
         Consider the following two Bell states
 
         \[
@@ -203,6 +203,7 @@ def _min_error_primal(
     solver: str = "cvxopt",
     **kwargs,
 ) -> tuple[float, list[picos.HermitianVariable]]:
+
     """Find the primal problem for minimum-error quantum state exclusion SDP."""
     n = len(vectors)
     problem = picos.Problem()
@@ -225,6 +226,7 @@ def _min_error_dual(
     solver: str = "cvxopt",
     **kwargs,
 ) -> tuple[float, list[picos.HermitianVariable]]:
+
     """Find the dual problem for minimum-error quantum state exclusion SDP."""
     n = len(vectors)
     problem = picos.Problem()
@@ -249,9 +251,11 @@ def _unambiguous_primal(
     solver: str = "cvxopt",
     **kwargs,
 ) -> tuple[float, list[picos.HermitianVariable]]:
+
     """Solve the primal problem for unambiguous quantum state distinguishability SDP.
 
     Implemented according to Equation (33) of [@bandyopadhyay2014conclusive].
+
     """
     n = len(vectors)
     problem = picos.Problem()
@@ -279,9 +283,11 @@ def _unambiguous_dual(
     solver: str = "cvxopt",
     **kwargs,
 ) -> tuple[float, tuple[picos.HermitianVariable, picos.RealVariable]]:
+
     """Solve the dual problem for unambiguous quantum state distinguishability SDP.
 
     Implemented according to Equation (35) of [@bandyopadhyay2014conclusive].
+
     """
     n = len(vectors)
     problem = picos.Problem()

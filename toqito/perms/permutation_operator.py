@@ -29,7 +29,7 @@ def permutation_operator(
     Returns:
         Permutation operator of dimension `dim`.
 
-        Examples:
+    Examples:
         The permutation operator obtained with dimension \(d = 2\) is equivalent to the standard swap operator on two
         qubits
 

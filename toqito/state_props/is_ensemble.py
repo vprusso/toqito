@@ -28,7 +28,7 @@ def is_ensemble(states: list[np.ndarray]) -> bool:
     Returns:
         `True` if states form an ensemble and `False` otherwise.
 
-        Examples:
+    Examples:
         Consider the following set of matrices
 
         \[

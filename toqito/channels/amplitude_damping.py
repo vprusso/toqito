@@ -43,7 +43,7 @@ def amplitude_damping(
         The evolved quantum state after applying the generalized amplitude damping channel. If `input_mat` is `None`, it
         returns the list of Kraus operators.
 
-        Examples:
+    Examples:
         Apply the generalized amplitude damping channel to a qubit state:
 
         ```python exec="1" source="above"

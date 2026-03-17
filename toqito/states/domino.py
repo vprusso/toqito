@@ -36,7 +36,7 @@ def domino(idx: int) -> np.ndarray:
     Returns:
         Domino state of index `idx`.
 
-        Raises:
+    Raises:
         ValueError: Invalid value for `idx`.
 
     Examples:

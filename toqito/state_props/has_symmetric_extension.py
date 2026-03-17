@@ -37,7 +37,7 @@ def has_symmetric_extension(
     Returns:
         `True` if `mat` has a symmetric extension; `False` otherwise.
 
-        Raises:
+    Raises:
         ValueError: If dimension does not evenly divide matrix length.
 
     Examples:

@@ -17,7 +17,7 @@ def random_states(n: int, d: int, seed: int | None = None) -> list[np.ndarray]:
     Returns:
         A list of `n` numpy arrays, each representing a d-dimensional quantum state as a column vector.
 
-        Examples:
+    Examples:
         Generating three quantum states each of dimension 4.
 
         ```python exec="1" source="above"

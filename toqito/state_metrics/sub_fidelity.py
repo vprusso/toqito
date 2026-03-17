@@ -28,7 +28,7 @@ def sub_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     Returns:
         The sub-fidelity between `rho` and `sigma`.
 
-        Raises:
+    Raises:
         ValueError: If matrices are not of equal dimension.
 
     Examples:

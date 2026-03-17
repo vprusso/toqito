@@ -16,7 +16,7 @@ def perm_sign(perm: np.ndarray | list[int]) -> float:
     Returns:
         The value 1 if the permutation is of even length and the value of -1 if the permutation is of odd length.
 
-        Examples:
+    Examples:
         For the following vector
 
         \[

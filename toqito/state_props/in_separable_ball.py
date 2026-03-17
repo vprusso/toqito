@@ -20,7 +20,7 @@ def in_separable_ball(mat: np.ndarray) -> bool | np.bool_:
     Returns:
         `True` if the matrix `mat` is contained within the separable ball, and `False` otherwise.
 
-        Examples:
+    Examples:
         The only states acting on \(\mathbb{C}^m \otimes \mathbb{C}^n\) in the
         separable ball that do not have full rank are those with exactly 1 zero
         eigenvalue, and the \(mn - 1\) non-zero eigenvalues equal to each

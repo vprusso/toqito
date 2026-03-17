@@ -43,7 +43,7 @@ def channel_fidelity(choi_1: np.ndarray, choi_2: np.ndarray, eps: float = 1e-7) 
         The channel fidelity between the channels specified by the quantum channels corresponding to the Choi matrices
         `choi_1` and `choi_2`.
 
-        Raises:
+    Raises:
         ValueError: If matrices are not of equal dimension.
         ValueError: If matrices are not square.
 

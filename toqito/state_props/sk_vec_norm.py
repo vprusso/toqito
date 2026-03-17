@@ -30,7 +30,7 @@ def sk_vector_norm(rho: np.ndarray, k: int = 1, dim: int | list[int] | None = No
     Returns:
         The S(k)-norm of `rho`.
 
-        Examples:
+    Examples:
         The smallest possible value of the \(S(k)\)-norm of a pure state is
         \(\sqrt{\frac{k}{n}}\), and is attained exactly by the "maximally entangled
         states".

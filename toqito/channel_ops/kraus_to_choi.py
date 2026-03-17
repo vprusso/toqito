@@ -28,7 +28,7 @@ def kraus_to_choi(kraus_ops: list[np.ndarray] | list[list[np.ndarray]], sys: int
     Returns:
         The corresponding Choi matrix of the provided Kraus operators.
 
-        Examples:
+    Examples:
         The transpose map:
 
         The Choi matrix of the transpose map is the swap operator. Notice that the transpose map

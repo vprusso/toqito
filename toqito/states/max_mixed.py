@@ -40,7 +40,7 @@ def max_mixed(dim: int, is_sparse: bool = False) -> np.ndarray | dia_array:
     Returns:
         The maximally mixed state of dimension `dim`.
 
-        Examples:
+    Examples:
         Using `|toqito⟩`, we can generate the \(2\)-dimensional maximally mixed state
 
         \[

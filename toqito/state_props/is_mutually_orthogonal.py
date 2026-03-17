@@ -33,7 +33,7 @@ def is_mutually_orthogonal(vec_list: list[np.ndarray | list[float | Any]]) -> bo
     Returns:
         `True` if `vec_list` are mutually orthogonal, and `False` otherwise.
 
-        Raises:
+    Raises:
         ValueError: If at least two vectors are not provided.
 
     Examples:

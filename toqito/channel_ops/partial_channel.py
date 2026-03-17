@@ -39,7 +39,7 @@ def partial_channel(
     Returns:
         The partial map `phi_map` applied to matrix `rho`.
 
-        Raises:
+    Raises:
         ValueError: If Phi map is not provided as a Choi matrix or Kraus operators.
 
     Examples:

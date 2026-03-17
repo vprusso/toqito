@@ -24,7 +24,7 @@ def completely_bounded_trace_norm(phi: np.ndarray, solver: str = "cvxopt", **kwa
     Returns:
         The completely bounded trace norm of the channel
 
-        Raises:
+    Raises:
         ValueError: If matrix is not square.
 
     Examples:

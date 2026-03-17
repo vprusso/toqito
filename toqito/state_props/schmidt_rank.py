@@ -43,7 +43,7 @@ def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = Non
     Returns:
         The Schmidt rank of `rho`.
 
-        Examples:
+    Examples:
         Computing the Schmidt rank of the entangled Bell state should yield a value greater than one.
 
         ```python exec="1" source="above"
@@ -100,6 +100,7 @@ def schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = Non
 
 
 def _operator_schmidt_rank(rho: np.ndarray, dim: int | list[int] | np.ndarray | None = None) -> int | float:
+
     """Operator Schmidt rank of variable.
 
     If the input is provided as a density operator instead of a vector, compute

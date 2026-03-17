@@ -45,7 +45,7 @@ def pauli_channel(
         The Choi matrix of the channel. If ``input_mat`` is provided, also returns the output matrix.
         If ``return_kraus_ops`` is ``True``, returns Kraus operators as well.
 
-        Raises:
+    Raises:
         ValueError: If probabilities are negative or don't sum to 1.
         ValueError: If length of probability vector is not ``4^q`` for some integer ``q``.
 

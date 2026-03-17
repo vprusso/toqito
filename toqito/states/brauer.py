@@ -36,7 +36,7 @@ def brauer(dim: int, p_val: int) -> np.ndarray:
     Returns:
         Matrix whose columns are all of the unnormalized Brauer states.
 
-        Examples:
+    Examples:
         Generate a matrix whose columns are all Brauer states on 4 qubits.
 
         ```python exec="1" source="above"

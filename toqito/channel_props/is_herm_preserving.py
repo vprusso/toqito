@@ -32,7 +32,7 @@ def is_herm_preserving(
     Returns:
         True if the channel is Hermitian-preserving, and False otherwise.
 
-        Examples:
+    Examples:
         The map \(\Phi\) defined as
 
         \[

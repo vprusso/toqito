@@ -18,7 +18,7 @@ def cyclic_permutation_matrix(n: int, k: int = 1) -> np.ndarray:
          one position to the right in a cyclic manner, creating a circular permutation pattern. If `k` is specified, the
          function raises the matrix to the power of `k`, representing successive applications of the cyclic permutation.
 
-        Examples:
+    Examples:
         Generate fixed point.
 
         ```python exec="1" source="above"

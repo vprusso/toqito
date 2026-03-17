@@ -27,7 +27,7 @@ def trace_distance(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
     Returns:
         The trace distance between `rho` and `sigma`.
 
-        Raises:
+    Raises:
         ValueError: If matrices are not of density operators.
 
     Examples:

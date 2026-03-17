@@ -16,7 +16,7 @@ def is_mixed(state: np.ndarray) -> bool:
     Returns:
         `True` if state is mixed and `False` otherwise.
 
-        Examples:
+    Examples:
         Consider the following density matrix:
 
         \[

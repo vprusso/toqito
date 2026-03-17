@@ -36,7 +36,7 @@ def random_density_matrix(
     Returns:
         A `dim`-by-`dim` random density matrix.
 
-        Examples:
+    Examples:
         Using `|toqito⟩`, we may generate a random complex-valued \(n\)- dimensional density matrix. For
         \(d=2\), this can be accomplished as follows.
 

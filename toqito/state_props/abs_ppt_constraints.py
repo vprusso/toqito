@@ -49,7 +49,7 @@ def abs_ppt_constraints(
         A list of `max_constraints` constraint matrices which must be positive semidefinite for an absolutely PPT
         spectrum.
 
-        Raises:
+    Raises:
         TypeError: If `eigs` is not a `numpy` ndarray or a `cvxpy` Variable.
 
     Examples:

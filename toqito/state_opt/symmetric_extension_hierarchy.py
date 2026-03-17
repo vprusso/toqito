@@ -69,7 +69,7 @@ def symmetric_extension_hierarchy(
     Returns:
         The optimal probability of the symmetric extension hierarchy SDP for level `level`.
 
-        Examples:
+    Examples:
         It is known from [@cosentino2015quantum] that distinguishing three Bell states along with a resource
         state \(|\tau_{\epsilon}\rangle\) via separable measurements has the following closed form
 

@@ -34,7 +34,7 @@ def depolarizing(dim: int, param_p: float = 0) -> np.ndarray:
     Returns:
         The Choi matrix of the completely depolarizing channel.
 
-        Raises:
+    Raises:
         ValueError: If `param_p` is outside the interval [0,1].
 
     Examples:

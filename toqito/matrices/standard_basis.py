@@ -27,7 +27,7 @@ def standard_basis(dim: int, flatten: bool = False) -> list[np.ndarray]:
     Returns:
         A list of numpy.ndarray of shape (n, 1).
 
-        Examples:
+    Examples:
         ```python exec="1" source="above"
         from toqito.matrices import standard_basis
 

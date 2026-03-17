@@ -22,7 +22,7 @@ def hilbert_schmidt(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
     Returns:
         The Hilbert-Schmidt distance between `rho` and `sigma`.
 
-        Raises:
+    Raises:
         ValueError: If matrices are not density operators.
 
     Examples:

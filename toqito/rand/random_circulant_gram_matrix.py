@@ -28,7 +28,7 @@ def random_circulant_gram_matrix(dim: int, seed: int | None = None) -> np.ndarra
     Returns:
         numpy.ndarray A `dim` x `dim` real, symmetric, circulant matrix.
 
-        Examples:
+    Examples:
         Generate a random circulant Gram matrix of dimension 4.
 
         ```python exec="1" source="above" session="random_circulant_gram_matrix_example"

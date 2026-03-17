@@ -38,7 +38,7 @@ def bitflip(
         Either the Kraus operators of the bitflip channel if `input_mat` is `None`, or the result of applying the
         channel to `input_mat`.
 
-        Examples:
+    Examples:
         We can generate the Kraus operators for the bitflip channel with probability 0.3:
 
         ```python exec="1" source="above"

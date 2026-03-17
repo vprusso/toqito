@@ -25,7 +25,7 @@ def realignment(input_mat: np.ndarray, dim: int | list[int] | np.ndarray | None 
     Returns:
         The realignment map matrix.
 
-        Raises:
+    Raises:
         ValueError: If dimension of matrix is invalid.
 
     Examples:

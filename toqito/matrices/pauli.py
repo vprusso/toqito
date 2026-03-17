@@ -50,7 +50,7 @@ def pauli(ind: int | str | list[int] | list[str], is_sparse: bool = False) -> np
         is_sparse: Returns a compressed sparse row array if set to True and a non compressed sparse row array if set to
             False.
 
-        Examples:
+    Examples:
         Example for identity Pauli matrix.
 
         ```python exec="1" source="above"

@@ -35,7 +35,7 @@ def is_extremal(phi: np.ndarray | list[np.ndarray | list[np.ndarray]], tol: floa
     Returns:
         True if the channel is extremal; False otherwise.
 
-        Raises:
+    Raises:
         ValueError: If the input is neither a valid list of Kraus operators nor a Choi matrix.
 
     Examples:

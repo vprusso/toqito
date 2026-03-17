@@ -20,7 +20,7 @@ def gen_gell_mann(ind_1: int, ind_2: int, dim: int) -> np.ndarray:
     Returns:
         The generalized Gell-Mann operator as an array.
 
-        Examples:
+    Examples:
         The generalized Gell-Mann matrix for `ind_1 = 0`, `ind_2 = 1`
         and `dim = 2` is given as
 

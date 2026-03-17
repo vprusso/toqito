@@ -30,7 +30,7 @@ def ghz(dim: int, num_qubits: int, coeff: list[int] | None = None) -> np.ndarray
     Returns:
         Numpy vector array as GHZ state.
 
-        Raises:
+    Raises:
         ValueError: Number of qubits is not a positive integer.
 
     Examples:

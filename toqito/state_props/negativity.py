@@ -27,7 +27,7 @@ def negativity(rho: np.ndarray, dim: list[int] | int | None = None) -> float | n
     Returns:
         A value between 0 and 1 that corresponds to the negativity of \(\rho\).
 
-        Raises:
+    Raises:
         ValueError: If dimension of matrix is invalid.
 
     Examples:

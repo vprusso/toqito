@@ -27,7 +27,7 @@ def phase_damping(
         The transformed quantum state after applying the phase damping channel. If `input_mat` is `None`, returns the
         list of Kraus operators.
 
-        Examples:
+    Examples:
         Applying the phase damping channel to a qubit state:
 
         ```python exec="1" source="above"

@@ -41,7 +41,7 @@ def apply_channel(mat: np.ndarray, phi_op: np.ndarray | list[list[np.ndarray]]) 
     Returns:
         The result of applying the superoperator `phi_op` to the operator `mat`.
 
-        Raises:
+    Raises:
         ValueError: If matrix is not Choi matrix.
 
     Examples:

@@ -53,7 +53,7 @@ def is_trace_preserving(
     Returns:
         True if the channel is trace-preserving, and False otherwise.
 
-        Examples:
+    Examples:
         The map \(\Phi\) defined as
 
         \[

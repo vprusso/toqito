@@ -42,7 +42,7 @@ def cg_to_fc(cg_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
     !!! Note
         This function is adapted from the QETLAB MATLAB package function ``CG2FC``.
 
-        Examples:
+    Examples:
         Consider the CHSH inequality in CG notation for a functional:
 
         \[
@@ -147,7 +147,7 @@ def fc_to_cg(fc_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
     !!! Note
         This function is adapted from the QETLAB MATLAB package function ``FC2CG``.
 
-        Examples:
+    Examples:
         Consider the CHSH inequality in FC notation for a functional:
 
         \[
@@ -236,7 +236,7 @@ def cg_to_fp(cg_mat: np.ndarray, desc: list[int], behavior: bool = False) -> np.
     !!! Note
         This function is adapted from the QETLAB MATLAB package function ``CG2FP``.
 
-        Examples:
+    Examples:
         Consider the CHSH inequality functional in CG notation:
 
         \[
@@ -397,7 +397,7 @@ def fc_to_fp(fc_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         entries represent *averaged* marginal correlators (like the output of ``fp_to_fc(..., behavior=True)``),
         the resulting FP tensor might not represent a valid probability distribution (e.g., entries could be negative).
 
-        Examples:
+    Examples:
         Consider the CHSH inequality functional in FC notation:
 
         \[
@@ -506,7 +506,7 @@ def fp_to_cg(v_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         summing over the other party's outcomes for a *fixed* input setting of the other party
         (\(y=0\) for Alice's marginal \(p_A(a|x)\), \(x=0\) for Bob's marginal \(p_B(b|y)\)).
 
-        Examples:
+    Examples:
         Consider the CHSH inequality functional in FP notation:
         (Here V represents coefficients, not probabilities)
 
@@ -655,7 +655,7 @@ def fp_to_fc(v_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         and dividing by the number of inputs (\(ib\) or \(ia\)).
         The joint correlators \(\langle A_x B_y \rangle\) are calculated directly for each (\(x\), \(y\)).
 
-        Examples:
+    Examples:
         Consider the CHSH inequality functional in FP notation:
         (Here V represents coefficients, not probabilities)
 

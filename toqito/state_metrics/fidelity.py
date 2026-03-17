@@ -29,7 +29,7 @@ def fidelity(rho: np.ndarray, sigma: np.ndarray) -> float:
     Returns:
         The fidelity between `rho` and `sigma`.
 
-        Raises:
+    Raises:
         ValueError: If matrices are not density operators.
 
     Examples:

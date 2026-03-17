@@ -25,7 +25,7 @@ def breuer(dim: int, lam: float) -> np.ndarray:
     Returns:
         Breuer state of dimension `dim` with weight `lam`.
 
-        Raises:
+    Raises:
         ValueError: Dimension must be greater than or equal to 1.
 
     Examples:

@@ -19,7 +19,7 @@ def trine() -> list[np.ndarray]:
     Returns:
         Vector of trine states.
 
-        Examples:
+    Examples:
         Generating the trine states can be done by simply invoking the function:
 
         ```python exec="1" source="above"

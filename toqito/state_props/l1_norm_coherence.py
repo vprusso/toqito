@@ -30,7 +30,7 @@ def l1_norm_coherence(rho: np.ndarray) -> float:
     Returns:
         The l1-norm coherence of `rho`.
 
-        Examples:
+    Examples:
         The largest possible value of the \(\ell_1\)-norm of coherence on
         \(d\)-dimensional states is \(d-1\), and is attained exactly by
         the "maximally coherent states": pure states whose entries all have the

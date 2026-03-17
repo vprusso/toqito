@@ -36,7 +36,7 @@ def pusey_barrett_rudolph(n: int, theta: float) -> list[np.ndarray]:
     Returns:
         Vector of trine states.
 
-        Examples:
+    Examples:
         Generating the PBR states can be done by simply invoking the function with a given choice of `n` and
         `theta`:
 

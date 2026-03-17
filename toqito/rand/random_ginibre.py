@@ -21,7 +21,7 @@ def random_ginibre(dim_n: int, dim_m: int, seed: int | None = None) -> np.ndarra
     Returns:
         A `dim_n`-by-`dim_m` Ginibre random matrix.
 
-        Examples:
+    Examples:
         Generate a random \(2\)-by-\(2\) Ginibre random matrix.
 
         ```python exec="1" source="above"
