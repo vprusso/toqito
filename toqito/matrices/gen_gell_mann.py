@@ -12,7 +12,15 @@ def gen_gell_mann(ind_1: int, ind_2: int, dim: int) -> np.ndarray:
     and they generalize the Pauli operators when `dim = 2` and the
     Gell-Mann operators when `dim = 3`.
 
-    Examples:
+    Args:
+        ind_1: A non-negative integer from 0 to `dim-1` (inclusive).
+        ind_2: A non-negative integer from 0 to `dim-1` (inclusive).
+        dim: The dimension of the Gell-Mann operator.
+
+    Returns:
+        The generalized Gell-Mann operator as an array.
+
+        Examples:
         The generalized Gell-Mann matrix for `ind_1 = 0`, `ind_2 = 1`
         and `dim = 2` is given as
 
@@ -51,15 +59,7 @@ def gen_gell_mann(ind_1: int, ind_2: int, dim: int) -> np.ndarray:
         gen_gell_mann(ind_1=2, ind_2=3, dim=4)
         ```
 
-    Args:
-        ind_1: A non-negative integer from 0 to `dim-1` (inclusive).
-        ind_2: A non-negative integer from 0 to `dim-1` (inclusive).
-        dim: The dimension of the Gell-Mann operator.
-
-    Returns:
-        The generalized Gell-Mann operator as an array.
-
-    """
+"""
     if ind_1 == ind_2:
         if ind_1 == 0:
             gm_op = np.eye(dim)

@@ -24,6 +24,15 @@ def bell(idx: int) -> np.ndarray:
         \end{equation}
     \]
 
+    Args:
+        idx: A parameter in [0, 1, 2, 3]
+
+    Returns:
+        Bell state with index `idx`.
+
+        Raises:
+        ValueError: If `idx` is not an integer.
+
     Examples:
         When `idx = 0`, this produces the following Bell state:
 
@@ -39,16 +48,7 @@ def bell(idx: int) -> np.ndarray:
         print(bell(0))
         ```
 
-    Raises:
-        ValueError: If `idx` is not an integer.
-
-    Args:
-        idx: A parameter in [0, 1, 2, 3]
-
-    Returns:
-        Bell state with index `idx`.
-
-    """
+"""
     match idx:
         case 0:
             return 1 / np.sqrt(2) * np.array([[1], [0], [0], [1]])

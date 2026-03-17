@@ -34,6 +34,16 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float | np.floatin
     `sigma` with orthogonal support, and \(1\) corresponding to the case `rho = sigma`. The Matsumoto
     fidelity is a lower bound for the fidelity.
 
+    Args:
+        rho: Density operator.
+        sigma: Density operator.
+
+    Returns:
+        The Matsumoto fidelity between `rho` and `sigma`.
+
+        Raises:
+        ValueError: If matrices are not of equal dimension.
+
     Examples:
         Consider the following Bell state
 
@@ -71,17 +81,7 @@ def matsumoto_fidelity(rho: np.ndarray, sigma: np.ndarray) -> float | np.floatin
         print(np.around(matsumoto_fidelity(rho, sigma), decimals=2))
         ```
 
-    Raises:
-        ValueError: If matrices are not of equal dimension.
-
-    Args:
-        rho: Density operator.
-        sigma: Density operator.
-
-    Returns:
-        The Matsumoto fidelity between `rho` and `sigma`.
-
-    """
+"""
     if not np.all(rho.shape == sigma.shape):
         raise ValueError("InvalidDim: `rho` and `sigma` must be matrices of the same size.")
 

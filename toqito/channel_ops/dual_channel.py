@@ -36,6 +36,18 @@ def dual_channel(
         \Phi(X) = \sum_a A_a X A^*_a.
     \]
 
+    Args:
+        phi_op: A superoperator. It should be provided either as a Choi matrix, or as a (1d or 2d) list of numpy arrays
+            whose entries are its Kraus operators.
+        dims: Dimension of the input and output systems, for Choi matrix representation. If `None`, try to infer them
+            from `phi_op.shape`.
+
+    Returns:
+        The map dual to `phi_op`, in the same representation.
+
+        Raises:
+        ValueError: If matrices are not Choi matrix.
+
     Examples:
         When a channel is represented by a 1-D list of of Kraus operators, the CPTP dual channel can be determined
         as shown below.
@@ -64,19 +76,7 @@ def dual_channel(
         print(output)
         ```
 
-    Raises:
-        ValueError: If matrices are not Choi matrix.
-
-    Args:
-        phi_op: A superoperator. It should be provided either as a Choi matrix, or as a (1d or 2d) list of numpy arrays
-            whose entries are its Kraus operators.
-        dims: Dimension of the input and output systems, for Choi matrix representation. If `None`, try to infer them
-            from `phi_op.shape`.
-
-    Returns:
-        The map dual to `phi_op`, in the same representation.
-
-    """
+"""
     # If phi_op is a list, assume it contains couples of Kraus operators
     # and take the Hermitian conjugate.
     if isinstance(phi_op, list):

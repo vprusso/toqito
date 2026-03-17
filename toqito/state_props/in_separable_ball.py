@@ -14,7 +14,13 @@ def in_separable_ball(mat: np.ndarray) -> bool | np.bool_:
 
     This function is adapted from QETLAB.
 
-    Examples:
+    Args:
+        mat: A positive semidefinite matrix or a vector of the eigenvalues of a positive semidefinite matrix.
+
+    Returns:
+        `True` if the matrix `mat` is contained within the separable ball, and `False` otherwise.
+
+        Examples:
         The only states acting on \(\mathbb{C}^m \otimes \mathbb{C}^n\) in the
         separable ball that do not have full rank are those with exactly 1 zero
         eigenvalue, and the \(mn - 1\) non-zero eigenvalues equal to each
@@ -48,13 +54,7 @@ def in_separable_ball(mat: np.ndarray) -> bool | np.bool_:
         print(in_separable_ball(rho))
         ```
 
-    Args:
-        mat: A positive semidefinite matrix or a vector of the eigenvalues of a positive semidefinite matrix.
-
-    Returns:
-        `True` if the matrix `mat` is contained within the separable ball, and `False` otherwise.
-
-    """
+"""
     mat_dims = mat.shape
     max_dim = max(mat_dims)
 

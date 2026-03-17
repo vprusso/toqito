@@ -99,7 +99,21 @@ def state_exclusion(
     The conclusive state exclusion SDP is written explicitly in [@bandyopadhyay2014conclusive]. The problem
     of conclusive state exclusion was also thought about under a different guise in [@pusey2012reality].
 
-    Examples:
+    Args:
+        vectors: A list of states provided as vectors (for pure states) or density matrices (for mixed states).
+        probs: Respective list of probabilities each state is selected. If no probabilities are provided, a uniform
+            probability distribution is assumed.
+        strategy: Whether to perform minimal error or unambiguous discrimination task. Possible values are "min_error"
+            and "unambiguous". Both strategies support pure and mixed states.
+        solver: Optimization option for `picos` solver. Default option is `solver_option="cvxopt"`.
+        primal_dual: Option for the optimization problem.
+        kwargs: Additional arguments to pass to picos' solve method.
+
+    Returns:
+        The optimal probability with which Bob can guess the state he was not given from `states` along with the optimal
+        set of measurements.
+
+        Examples:
         Consider the following two Bell states
 
         \[
@@ -162,21 +176,7 @@ def state_exclusion(
 
             See https://gitlab.com/picos-api/picos/-/issues/341
 
-    Args:
-        vectors: A list of states provided as vectors (for pure states) or density matrices (for mixed states).
-        probs: Respective list of probabilities each state is selected. If no probabilities are provided, a uniform
-            probability distribution is assumed.
-        strategy: Whether to perform minimal error or unambiguous discrimination task. Possible values are "min_error"
-            and "unambiguous". Both strategies support pure and mixed states.
-        solver: Optimization option for `picos` solver. Default option is `solver_option="cvxopt"`.
-        primal_dual: Option for the optimization problem.
-        kwargs: Additional arguments to pass to picos' solve method.
-
-    Returns:
-        The optimal probability with which Bob can guess the state he was not given from `states` along with the optimal
-        set of measurements.
-
-    """
+"""
     if not has_same_dimension(vectors):
         raise ValueError("Vectors for state distinguishability must all have the same dimension.")
 

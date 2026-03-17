@@ -20,13 +20,6 @@ def standard_basis(dim: int, flatten: bool = False) -> list[np.ndarray]:
 
     This function was inspired by [@Seshadri_2021_Git, Seshadri_2021_Theory, Seshadri_2021_Versatile]
 
-    Examples:
-        ```python exec="1" source="above"
-        from toqito.matrices import standard_basis
-
-        print(standard_basis(2))
-        ```
-
     Args:
         dim: The dimension of the basis.
         flatten: If True, the basis is returned as a flattened list.
@@ -34,7 +27,14 @@ def standard_basis(dim: int, flatten: bool = False) -> list[np.ndarray]:
     Returns:
         A list of numpy.ndarray of shape (n, 1).
 
-    """
+        Examples:
+        ```python exec="1" source="above"
+        from toqito.matrices import standard_basis
+
+        print(standard_basis(2))
+        ```
+
+"""
     first_basis_vector = np.zeros(dim) if flatten else np.zeros((dim, 1))
     first_basis_vector[0] = 1.0
 

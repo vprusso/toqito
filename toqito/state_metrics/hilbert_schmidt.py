@@ -15,6 +15,16 @@ def hilbert_schmidt(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
         \right\rVert_2^2.
     \]
 
+    Args:
+        rho: An input matrix.
+        sigma: An input matrix.
+
+    Returns:
+        The Hilbert-Schmidt distance between `rho` and `sigma`.
+
+        Raises:
+        ValueError: If matrices are not density operators.
+
     Examples:
         One may consider taking the Hilbert-Schmidt distance between two Bell states. In `|toqito⟩`,
         one may accomplish this as
@@ -30,17 +40,7 @@ def hilbert_schmidt(rho: np.ndarray, sigma: np.ndarray) -> float | np.floating:
         print(np.around(hilbert_schmidt(rho, sigma), decimals=2))
         ```
 
-    Raises:
-        ValueError: If matrices are not density operators.
-
-    Args:
-        rho: An input matrix.
-        sigma: An input matrix.
-
-    Returns:
-        The Hilbert-Schmidt distance between `rho` and `sigma`.
-
-    """
+"""
     if not is_density(rho) or not is_density(sigma):
         raise ValueError("Hilbert-Schmidt is only defined for density operators.")
     return np.linalg.norm(rho - sigma, ord=2) ** 2

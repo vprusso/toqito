@@ -27,6 +27,15 @@ def is_mutually_orthogonal(vec_list: list[np.ndarray | list[float | Any]]) -> bo
     is orthogonal with \(\mathcal{B}_x^{\prime}\) for all \(x \not= x^{\prime}\) with
     \(x, x^{\prime} \in \Sigma\).
 
+    Args:
+        vec_list: The list of vectors to check.
+
+    Returns:
+        `True` if `vec_list` are mutually orthogonal, and `False` otherwise.
+
+        Raises:
+        ValueError: If at least two vectors are not provided.
+
     Examples:
         The Bell states constitute a set of mutually orthogonal vectors.
 
@@ -48,16 +57,7 @@ def is_mutually_orthogonal(vec_list: list[np.ndarray | list[float | Any]]) -> bo
         print(is_mutually_orthogonal(states))
         ```
 
-    Raises:
-        ValueError: If at least two vectors are not provided.
-
-    Args:
-        vec_list: The list of vectors to check.
-
-    Returns:
-        `True` if `vec_list` are mutually orthogonal, and `False` otherwise.
-
-    """
+"""
     if len(vec_list) <= 1:
         raise ValueError("There must be at least two vectors provided as input.")
 

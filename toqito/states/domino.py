@@ -30,6 +30,15 @@ def domino(idx: int) -> np.ndarray:
 
     Returns one of the following nine domino states depending on the value of `idx`.
 
+    Args:
+        idx: A parameter in [0, 1, 2, 3, 4, 5, 6, 7, 8]
+
+    Returns:
+        Domino state of index `idx`.
+
+        Raises:
+        ValueError: Invalid value for `idx`.
+
     Examples:
         When `idx = 0`, this produces the following Domino state
 
@@ -59,16 +68,7 @@ def domino(idx: int) -> np.ndarray:
         print(domino(3))
         ```
 
-    Raises:
-        ValueError: Invalid value for `idx`.
-
-    Args:
-        idx: A parameter in [0, 1, 2, 3, 4, 5, 6, 7, 8]
-
-    Returns:
-        Domino state of index `idx`.
-
-    """
+"""
     e_0, e_1, e_2 = basis(3, 0), basis(3, 1), basis(3, 2)
     match idx:
         case 0:

@@ -29,7 +29,13 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
     Further information for computing the von Neumann entropy of a density matrix can be found in Section: "Definitions
     Of Quantum Entropic Functions" from [@watrous2018theory]).
 
-    Examples:
+    Args:
+        rho: Density operator.
+
+    Returns:
+        The von Neumann entropy of `rho`.
+
+        Examples:
         Consider the following Bell state:
 
         \[
@@ -79,13 +85,7 @@ def von_neumann_entropy(rho: np.ndarray) -> float:
         print(von_neumann_entropy(rho))
         ```
 
-    Args:
-        rho: Density operator.
-
-    Returns:
-        The von Neumann entropy of `rho`.
-
-    """
+"""
     if not is_density(rho):
         raise ValueError("Von Neumann entropy is only defined for density operators.")
     eigs, _ = np.linalg.eig(rho)

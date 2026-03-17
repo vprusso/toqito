@@ -10,6 +10,15 @@ def choi_rank(phi: np.ndarray | list[list[np.ndarray]]) -> int:
 
     (Section 2.2: Quantum Channels from [@watrous2018theory]).
 
+    Args:
+        phi: Either a Choi matrix or a list of Kraus operators
+
+    Returns:
+        The Choi rank of the provided channel representation.
+
+        Raises:
+        ValueError: If matrix is not Choi.
+
     Examples:
         The transpose map can be written either in Choi representation (as a
         SWAP operator) or in Kraus representation. If we choose the latter, it
@@ -66,16 +75,7 @@ def choi_rank(phi: np.ndarray | list[list[np.ndarray]]) -> int:
         print(choi_rank(choi_matrix))
         ```
 
-    Raises:
-        ValueError: If matrix is not Choi.
-
-    Args:
-        phi: Either a Choi matrix or a list of Kraus operators
-
-    Returns:
-        The Choi rank of the provided channel representation.
-
-    """
+"""
     if isinstance(phi, list):
         phi = kraus_to_choi(phi)
     elif not isinstance(phi, np.ndarray):

@@ -25,7 +25,18 @@ def random_density_matrix(
     - `bures`:
         The Bures measure.
 
-    Examples:
+    Args:
+        dim: The number of rows (and columns) of the density matrix.
+        is_real: Boolean denoting whether the returned matrix will have all real entries or not.
+        k_param: Default value is equal to `dim`.
+        distance_metric: The distance metric used to randomly generate the density matrix. This metric is either the
+            Haar measure or the Bures measure. Default value is to use the Haar measure.
+        seed: A seed used to instantiate numpy's random number generator.
+
+    Returns:
+        A `dim`-by-`dim` random density matrix.
+
+        Examples:
         Using `|toqito⟩`, we may generate a random complex-valued \(n\)- dimensional density matrix. For
         \(d=2\), this can be accomplished as follows.
 
@@ -110,18 +121,7 @@ def random_density_matrix(
 
 
 
-    Args:
-        dim: The number of rows (and columns) of the density matrix.
-        is_real: Boolean denoting whether the returned matrix will have all real entries or not.
-        k_param: Default value is equal to `dim`.
-        distance_metric: The distance metric used to randomly generate the density matrix. This metric is either the
-            Haar measure or the Bures measure. Default value is to use the Haar measure.
-        seed: A seed used to instantiate numpy's random number generator.
-
-    Returns:
-        A `dim`-by-`dim` random density matrix.
-
-    """
+"""
     gen = np.random.default_rng(seed=seed)
     if k_param is None:
         k_param = dim

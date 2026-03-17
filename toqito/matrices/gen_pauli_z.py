@@ -26,7 +26,13 @@ def gen_pauli_z(dim: int) -> np.ndarray:
     The gen_pauli_z matrix is primarily used in the construction of the generalized
     Pauli operators.
 
-    Examples:
+    Args:
+        dim: Dimension of the matrix.
+
+    Returns:
+        `dim`-by-`dim` gen_pauli_z matrix.
+
+        Examples:
         The gen_pauli_z matrix generated from \(d = 3\) yields the following matrix:
 
         \[
@@ -43,13 +49,7 @@ def gen_pauli_z(dim: int) -> np.ndarray:
         print(gen_pauli_z(3))
         ```
 
-    Args:
-        dim: Dimension of the matrix.
-
-    Returns:
-        `dim`-by-`dim` gen_pauli_z matrix.
-
-    """
+"""
     c_var = 2j * pi / dim
     omega = (exp(k * c_var) for k in range(dim))
     return np.diag(list(omega))

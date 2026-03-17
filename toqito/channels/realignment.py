@@ -18,6 +18,16 @@ def realignment(input_mat: np.ndarray, dim: int | list[int] | np.ndarray | None 
     putting the row dimensions in the first row of `dim` and the column dimensions in the
     second row of `dim`.
 
+    Args:
+        input_mat: The input matrix.
+        dim: Default has all equal dimensions.
+
+    Returns:
+        The realignment map matrix.
+
+        Raises:
+        ValueError: If dimension of matrix is invalid.
+
     Examples:
         The standard realignment map
 
@@ -35,17 +45,7 @@ def realignment(input_mat: np.ndarray, dim: int | list[int] | np.ndarray | None 
         print(realignment(test_input_mat))
         ```
 
-    Raises:
-        ValueError: If dimension of matrix is invalid.
-
-    Args:
-        input_mat: The input matrix.
-        dim: Default has all equal dimensions.
-
-    Returns:
-        The realignment map matrix.
-
-    """
+"""
     dim_mat = input_mat.shape
     round_dim = np.round(np.sqrt(dim_mat))
     if dim is None:

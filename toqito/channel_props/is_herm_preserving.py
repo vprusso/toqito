@@ -24,7 +24,15 @@ def is_herm_preserving(
 
     for every Hermitian operator \(H \in \text{Herm}(\mathcal{X})\).
 
-    Examples:
+    Args:
+        phi: The channel provided as either a Choi matrix or a list of Kraus operators.
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
+
+    Returns:
+        True if the channel is Hermitian-preserving, and False otherwise.
+
+        Examples:
         The map \(\Phi\) defined as
 
         \[
@@ -67,15 +75,7 @@ def is_herm_preserving(
         print(is_herm_preserving(choi_mat))
         ```
 
-    Args:
-        phi: The channel provided as either a Choi matrix or a list of Kraus operators.
-        rtol: The relative tolerance parameter (default 1e-05).
-        atol: The absolute tolerance parameter (default 1e-08).
-
-    Returns:
-        True if the channel is Hermitian-preserving, and False otherwise.
-
-    """
+"""
     # If the variable `phi` is provided as a list, we assume this is a list
     # of Kraus operators.
     if isinstance(phi, list):

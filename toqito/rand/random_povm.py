@@ -24,7 +24,16 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int, seed: int | None = 
     \(\sum_a M_{x,a} = \mathbb{I}\).  This procedure induces the (Hilbert–Schmidt) normalized
     Wishart measure on the POVM effects.  Supplying ``seed`` reproduces the same sample sequence.
 
-    Examples:
+    Args:
+        dim: The dimensions of the measurements.
+        num_inputs: The number of inputs for the measurement.
+        num_outputs: The number of outputs for the measurement.
+        seed: A seed used to instantiate numpy's random number generator (Ginibre sampling).
+
+    Returns:
+        A set of `dim`-by-`dim` POVMs of shape `(dim, dim, num_inputs, num_outputs)`.
+
+        Examples:
         We can generate a set of `dim`-by-`dim` POVMs consisting of a specific dimension along with a given number of
         measurement inputs and measurement outputs. As an example, we can construct a random set of \(2\)-by-\(2\)
         POVMs of dimension with \(2\) inputs and \(2\) outputs.
@@ -68,16 +77,7 @@ def random_povm(dim: int, num_inputs: int, num_outputs: int, seed: int | None = 
         print(np.round(povms[:, :, 0, 0] + povms[:, :, 0, 1]))
         ```
 
-    Args:
-        dim: The dimensions of the measurements.
-        num_inputs: The number of inputs for the measurement.
-        num_outputs: The number of outputs for the measurement.
-        seed: A seed used to instantiate numpy's random number generator (Ginibre sampling).
-
-    Returns:
-        A set of `dim`-by-`dim` POVMs of shape `(dim, dim, num_inputs, num_outputs)`.
-
-    """
+"""
     povms = []
     gen = np.random.default_rng(seed=seed)
     gram_vectors = gen.normal(size=(num_inputs, num_outputs, dim, dim))

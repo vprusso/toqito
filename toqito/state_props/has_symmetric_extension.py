@@ -27,6 +27,19 @@ def has_symmetric_extension(
 
     This function was adapted from QETLAB.
 
+    Args:
+        rho: A matrix or vector.
+        level: Level of the hierarchy to compute.
+        dim: The default has both subsystems of equal dimension.
+        ppt: If `True`, this enforces that the symmetric extension must be PPT.
+        tol: Tolerance when determining whether a symmetric extension exists.
+
+    Returns:
+        `True` if `mat` has a symmetric extension; `False` otherwise.
+
+        Raises:
+        ValueError: If dimension does not evenly divide matrix length.
+
     Examples:
         2-qubit symmetric extension:
 
@@ -86,20 +99,7 @@ def has_symmetric_extension(
         print(has_symmetric_extension(sigma))
         ```
 
-    Raises:
-        ValueError: If dimension does not evenly divide matrix length.
-
-    Args:
-        rho: A matrix or vector.
-        level: Level of the hierarchy to compute.
-        dim: The default has both subsystems of equal dimension.
-        ppt: If `True`, this enforces that the symmetric extension must be PPT.
-        tol: Tolerance when determining whether a symmetric extension exists.
-
-    Returns:
-        `True` if `mat` has a symmetric extension; `False` otherwise.
-
-    """
+"""
     len_mat = rho.shape[1]
 
     # Set default dimension if none was provided.

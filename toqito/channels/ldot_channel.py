@@ -29,7 +29,17 @@ def ldot_channel(mat: np.ndarray, efficient: bool = True) -> np.ndarray:
     that average to zero under the twirl. This keeps the complexity polynomial in \(n\) instead
     of the exponential \(O(2^n)\) for the brute-force approach.
 
-    Examples:
+    Args:
+        mat: A square matrix of dimension \(n^2 \times n^2\) representing a bipartite
+                operator on \(\mathcal{X} \otimes \mathcal{Y}\) where
+                \(\mathcal{X} = \mathcal{Y} = \mathbb{C}^n\).
+        efficient: If True, use the efficient O(n²) standard basis implementation. If False,
+                      use the brute-force O(2ⁿ) implementation (useful for verification).
+
+    Returns:
+        The LDOI projection of the input matrix.
+
+        Examples:
         Apply LDOT channel to project an arbitrary matrix onto LDOI subspace:
 
         ```python exec="1" source="above"
@@ -57,17 +67,7 @@ def ldot_channel(mat: np.ndarray, efficient: bool = True) -> np.ndarray:
         print(np.allclose(once, twice))
         ```
 
-    Args:
-        mat: A square matrix of dimension \(n^2 \times n^2\) representing a bipartite
-                operator on \(\mathcal{X} \otimes \mathcal{Y}\) where
-                \(\mathcal{X} = \mathcal{Y} = \mathbb{C}^n\).
-        efficient: If True, use the efficient O(n²) standard basis implementation. If False,
-                      use the brute-force O(2ⁿ) implementation (useful for verification).
-
-    Returns:
-        The LDOI projection of the input matrix.
-
-    """
+"""
     if mat.ndim != 2 or mat.shape[0] != mat.shape[1]:
         raise ValueError("Input matrix must be square.")
 

@@ -33,6 +33,15 @@ def tile(idx: int) -> np.ndarray:
         \end{equation}
     \]
 
+    Args:
+        idx: A parameter in [0, 1, 2, 3, 4]
+
+    Returns:
+        Tile state.
+
+        Raises:
+        ValueError: Invalid value for `idx`.
+
     Examples:
         When `idx = 0`, this produces the following tile state
 
@@ -48,16 +57,7 @@ def tile(idx: int) -> np.ndarray:
         print(tile(0))
         ```
 
-    Raises:
-        ValueError: Invalid value for `idx`.
-
-    Args:
-        idx: A parameter in [0, 1, 2, 3, 4]
-
-    Returns:
-        Tile state.
-
-    """
+"""
     e_0, e_1, e_2 = basis(3, 0), basis(3, 1), basis(3, 2)
     match idx:
         case 0:

@@ -65,6 +65,13 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | csr_array:
             \end{equation}
     \]
 
+    Args:
+        ind: An integer between 0 and 8 (inclusive).
+        is_sparse: Boolean to determine whether array is sparse. Default value is `False`.
+
+        Raises:
+        ValueError: Indices must be integers between 0 and 8.
+
     Examples:
         The Gell-Mann matrix generated from `idx = 2` yields the following
         matrix:
@@ -82,14 +89,7 @@ def gell_mann(ind: int, is_sparse: bool = False) -> np.ndarray | csr_array:
         print(gell_mann(ind=2))
         ```
 
-    Raises:
-        ValueError: Indices must be integers between 0 and 8.
-
-    Args:
-        ind: An integer between 0 and 8 (inclusive).
-        is_sparse: Boolean to determine whether array is sparse. Default value is `False`.
-
-    """
+"""
     if ind == 0:
         gm_op = np.identity(3)
     elif ind == 1:

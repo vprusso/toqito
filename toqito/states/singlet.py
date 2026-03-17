@@ -8,7 +8,13 @@ from toqito.perms import swap_operator
 def singlet(dim: int) -> np.ndarray:
     r"""Produce a generalized singlet state acting on two n-dimensional systems [@cabello2002nparticle].
 
-    Examples:
+    Args:
+        dim: The dimension of the generalized singlet state.
+
+    Returns:
+        The singlet state of dimension `dim`.
+
+        Examples:
         For \(n = 2\) this generates the following matrix
 
         \[
@@ -44,11 +50,5 @@ def singlet(dim: int) -> np.ndarray:
         print(singlet(dim))
         ```
 
-    Args:
-        dim: The dimension of the generalized singlet state.
-
-    Returns:
-        The singlet state of dimension `dim`.
-
-    """
+"""
     return (np.identity(dim**2) - swap_operator([dim, dim])) / ((dim**2) - dim)

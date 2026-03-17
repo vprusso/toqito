@@ -20,7 +20,16 @@ def permutation_operator(
     If `inv_perm` = True, it implements the inverse permutation of `perm`. The permutation operator return
     is full is `is_sparse` is `False` and sparse if `is_sparse` is `True`.
 
-    Examples:
+    Args:
+        dim: The dimensions of the subsystems to be permuted.
+        perm: A permutation vector.
+        inv_perm: Boolean dictating if `perm` is inverse or not.
+        is_sparse: Boolean indicating if return is sparse or not.
+
+    Returns:
+        Permutation operator of dimension `dim`.
+
+        Examples:
         The permutation operator obtained with dimension \(d = 2\) is equivalent to the standard swap operator on two
         qubits
 
@@ -43,16 +52,7 @@ def permutation_operator(
         ```
 
 
-    Args:
-        dim: The dimensions of the subsystems to be permuted.
-        perm: A permutation vector.
-        inv_perm: Boolean dictating if `perm` is inverse or not.
-        is_sparse: Boolean indicating if return is sparse or not.
-
-    Returns:
-        Permutation operator of dimension `dim`.
-
-    """
+"""
     # Allow the user to enter a single number for `dim`.
     if isinstance(dim, int):
         dim_arr = np.array([dim] * np.ones(max(perm) + 1))

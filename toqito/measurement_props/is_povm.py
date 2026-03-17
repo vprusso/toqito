@@ -20,7 +20,13 @@ def is_povm(mat_list: list[np.ndarray]) -> bool:
         \sum_{a \in \Gamma} P_a = I_{\mathcal{X}}.
     \]
 
-    Examples:
+    Args:
+        mat_list: A list of matrices.
+
+    Returns:
+        Return `True` if set of matrices constitutes a set of measurements, and `False` otherwise.
+
+        Examples:
         Consider the following matrices:
 
         \[
@@ -94,13 +100,7 @@ def is_povm(mat_list: list[np.ndarray]) -> bool:
         print(is_povm(non_meas))
         ```
 
-    Args:
-        mat_list: A list of matrices.
-
-    Returns:
-        Return `True` if set of matrices constitutes a set of measurements, and `False` otherwise.
-
-    """
+"""
     dim = mat_list[0].shape[0]
 
     mat_sum = np.zeros((dim, dim), dtype=complex)

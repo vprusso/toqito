@@ -17,6 +17,16 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int | None = Non
 
     This function was adapted from QETLAB.
 
+    Args:
+        rho: A matrix or vector.
+        dim: The default has both subsystems of equal dimension.
+
+    Returns:
+        A value between 0 and 1 that corresponds to the entanglement-of-formation of `rho`.
+
+        Raises:
+        ValueError: If matrices have improper dimension.
+
     Examples:
         Compute the entanglement-of-formation of a Bell state.
 
@@ -43,17 +53,7 @@ def entanglement_of_formation(rho: np.ndarray, dim: list[int] | int | None = Non
         print(entanglement_of_formation(rho))
         ```
 
-    Raises:
-        ValueError: If matrices have improper dimension.
-
-    Args:
-        rho: A matrix or vector.
-        dim: The default has both subsystems of equal dimension.
-
-    Returns:
-        A value between 0 and 1 that corresponds to the entanglement-of-formation of `rho`.
-
-    """
+"""
     dim_x, dim_y = rho.shape
     round_dim = int(np.round(np.sqrt(max(dim_x, dim_y))))
 

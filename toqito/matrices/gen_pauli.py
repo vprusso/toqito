@@ -19,7 +19,15 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
     "discrete Weyl operators". (Lecture 6: Further Remarks On Measurements And Channels from
     [@watrous2011theory])
 
-    Examples:
+    Args:
+        k_1: (a non-negative integer from 0 to `dim-1` inclusive).
+        k_2: (a non-negative integer from 0 to `dim-1` inclusive).
+        dim: (a positive integer indicating the dimension).
+
+    Returns:
+        A generalized Pauli operator.
+
+        Examples:
         The generalized Pauli operator for `k_1 = 1`, `k_2 = 0`, and
         `dim = 2` is given as the standard Pauli-X matrix
 
@@ -57,15 +65,7 @@ def gen_pauli(k_1: int, k_2: int, dim: int) -> np.ndarray:
         print(gen_pauli(k_1=1, k_2=1, dim=2))
         ```
 
-    Args:
-        k_1: (a non-negative integer from 0 to `dim-1` inclusive).
-        k_2: (a non-negative integer from 0 to `dim-1` inclusive).
-        dim: (a positive integer indicating the dimension).
-
-    Returns:
-        A generalized Pauli operator.
-
-    """
+"""
     gpx_val = gen_pauli_x(dim)
     gpz_val = gen_pauli_z(dim)
 

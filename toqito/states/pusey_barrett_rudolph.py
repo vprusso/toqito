@@ -29,7 +29,14 @@ def pusey_barrett_rudolph(n: int, theta: float) -> list[np.ndarray]:
 
     These PBR states are defined in Equation (A6) from [@pusey2012reality].
 
-    Examples:
+    Args:
+        n: The number of states in the set.
+        theta: Angle parameter that defines the states.
+
+    Returns:
+        Vector of trine states.
+
+        Examples:
         Generating the PBR states can be done by simply invoking the function with a given choice of `n` and
         `theta`:
 
@@ -38,14 +45,7 @@ def pusey_barrett_rudolph(n: int, theta: float) -> list[np.ndarray]:
         print(pusey_barrett_rudolph(n=1, theta=0.5))
         ```
 
-    Args:
-        n: The number of states in the set.
-        theta: Angle parameter that defines the states.
-
-    Returns:
-        Vector of trine states.
-
-    """
+"""
     e_0, e_1 = standard_basis(2)
 
     psi_0 = np.cos(theta / 2) * e_0 + np.sin(theta / 2) * e_1

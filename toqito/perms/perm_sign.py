@@ -10,7 +10,13 @@ def perm_sign(perm: np.ndarray | list[int]) -> float:
     The sign (either -1 or 1) of the permutation `perm` is `-1**inv`, where `inv` is the number of
     inversions contained in `perm`.
 
-    Examples:
+    Args:
+        perm: The permutation vector to be checked.
+
+    Returns:
+        The value 1 if the permutation is of even length and the value of -1 if the permutation is of odd length.
+
+        Examples:
         For the following vector
 
         \[
@@ -41,11 +47,5 @@ def perm_sign(perm: np.ndarray | list[int]) -> float:
         print(perm_sign([1, 2, 4, 3, 5]))
         ```
 
-    Args:
-        perm: The permutation vector to be checked.
-
-    Returns:
-        The value 1 if the permutation is of even length and the value of -1 if the permutation is of odd length.
-
-    """
+"""
     return linalg.det(np.eye(len(perm))[:, np.array(perm) - 1])

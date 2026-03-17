@@ -29,6 +29,16 @@ def gisin(lambda_var: float, theta: float) -> np.ndarray:
         \end{equation}
     \]
 
+    Args:
+        lambda_var: A real parameter in [0, 1].
+        theta: A real parameter.
+
+    Returns:
+        Gisin state.
+
+        Raises:
+        ValueError: If `lambda_var` is not a real number.
+
     Examples:
         The following code generates the Gisin state \(\rho_{0.5, 1}\).
 
@@ -37,17 +47,7 @@ def gisin(lambda_var: float, theta: float) -> np.ndarray:
         print(gisin(0.5, 1))
         ```
 
-    Raises:
-        ValueError: If `lambda_var` is not a real number.
-
-    Args:
-        lambda_var: A real parameter in [0, 1].
-        theta: A real parameter.
-
-    Returns:
-        Gisin state.
-
-    """
+"""
     if lambda_var < 0 or lambda_var > 1:
         raise ValueError("InvalidLambda: Variable lambda must be between 0 and 1.")
 

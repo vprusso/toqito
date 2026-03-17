@@ -14,7 +14,15 @@ def is_distinguishable(states: list[np.ndarray], probs: list[float] | None = Non
     The ability to determine whether a set of quantum states are distinguishable can be obtained via the state
     distinguishability SDP as defined in `state_distinguishability`
 
-    Examples:
+    Args:
+        states: A set of vectors consisting of quantum states to determine the distinguishability of.
+        probs: Respective list of probabilities each state is selected. If no probabilities are provided, a uniform
+            probability distribution is assumed.
+
+    Returns:
+        `True` if the vectors are distinguishable; `False` otherwise.
+
+        Examples:
         The set of Bell states are an example of distinguishable states. Recall that the Bell states are defined as:
 
         \[
@@ -35,15 +43,7 @@ def is_distinguishable(states: list[np.ndarray], probs: list[float] | None = Non
         print(is_distinguishable(bell_states))
         ```
 
-    Args:
-        states: A set of vectors consisting of quantum states to determine the distinguishability of.
-        probs: Respective list of probabilities each state is selected. If no probabilities are provided, a uniform
-            probability distribution is assumed.
-
-    Returns:
-        `True` if the vectors are distinguishable; `False` otherwise.
-
-    """
+"""
     # The dual problem is less computationally intensive to compute in comparison to primal.
     opt_val, _ = state_distinguishability(vectors=states, probs=probs, primal_dual="dual")
     return np.isclose(opt_val, 1)

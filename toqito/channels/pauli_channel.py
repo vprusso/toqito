@@ -34,6 +34,21 @@ def pauli_channel(
     The length of the probability vector (if provided) must be \(4^q\) for some
     integer \(q\) (number of qubits).
 
+    Args:
+        prob: Probability vector for Pauli operators. If scalar, generates random probabilities for \(q =\) `prob`
+            qubits. The probabilities correspond to Pauli operators in lexographical order of length strictly equal to
+            \(q\), when `prob` is a vector.
+        return_kraus_ops: Flag to return Kraus operators. Default is ``False``.
+        input_mat: Optional input matrix to apply the channel to. Default is ``None``.
+
+    Returns:
+        The Choi matrix of the channel. If ``input_mat`` is provided, also returns the output matrix.
+        If ``return_kraus_ops`` is ``True``, returns Kraus operators as well.
+
+        Raises:
+        ValueError: If probabilities are negative or don't sum to 1.
+        ValueError: If length of probability vector is not ``4^q`` for some integer ``q``.
+
     Examples:
         Generate a random single-qubit Pauli channel:
 
@@ -55,22 +70,7 @@ def pauli_channel(
         print(output)
         ```
 
-    Raises:
-        ValueError: If probabilities are negative or don't sum to 1.
-        ValueError: If length of probability vector is not ``4^q`` for some integer ``q``.
-
-    Args:
-        prob: Probability vector for Pauli operators. If scalar, generates random probabilities for \(q =\) `prob`
-            qubits. The probabilities correspond to Pauli operators in lexographical order of length strictly equal to
-            \(q\), when `prob` is a vector.
-        return_kraus_ops: Flag to return Kraus operators. Default is ``False``.
-        input_mat: Optional input matrix to apply the channel to. Default is ``None``.
-
-    Returns:
-        The Choi matrix of the channel. If ``input_mat`` is provided, also returns the output matrix.
-        If ``return_kraus_ops`` is ``True``, returns Kraus operators as well.
-
-    """
+"""
     if not isinstance(prob, np.ndarray):
         if np.isscalar(prob):
             q = prob

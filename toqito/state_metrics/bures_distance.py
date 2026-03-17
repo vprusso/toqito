@@ -21,6 +21,17 @@ def bures_distance(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> 
     \(0\) and \(\sqrt{2}\),with \(0\) corresponding to matrices: `rho_1 = rho_2` and \(\sqrt{2}\)
     corresponding to the case: `rho_1` and `rho_2` with orthogonal support.
 
+    Args:
+        rho_1: Density operator.
+        rho_2: Density operator.
+        decimals: Number of decimal places to round to (default 10).
+
+    Returns:
+        The Bures distance between `rho_1` and `rho_2`.
+
+        Raises:
+        ValueError: If matrices are not of equal dimension.
+
     Examples:
         Consider the following Bell state
 
@@ -58,18 +69,7 @@ def bures_distance(rho_1: np.ndarray, rho_2: np.ndarray, decimals: int = 10) -> 
         print(bures_distance(rho, sigma))
         ```
 
-    Raises:
-        ValueError: If matrices are not of equal dimension.
-
-    Args:
-        rho_1: Density operator.
-        rho_2: Density operator.
-        decimals: Number of decimal places to round to (default 10).
-
-    Returns:
-        The Bures distance between `rho_1` and `rho_2`.
-
-    """
+"""
     # Perform some error checking.
     if not np.all(rho_1.shape == rho_2.shape):
         raise ValueError("InvalidDim: `rho_1` and `rho_2` must be matrices of the same size.")

@@ -11,7 +11,13 @@ def completely_bounded_spectral_norm(phi: np.ndarray) -> float | np.floating:
 
     As defined in [@watrous2009semidefinite] and [@qetlablink].
 
-    Examples:
+    Args:
+        phi: superoperator
+
+    Returns:
+        The completely bounded spectral norm of the channel
+
+        Examples:
         To compute the completely bounded spectral norm of a depolarizing channel:
 
         ```python exec="1" source="above"
@@ -22,11 +28,5 @@ def completely_bounded_spectral_norm(phi: np.ndarray) -> float | np.floating:
         print(completely_bounded_spectral_norm(choi_depolarizing))
         ```
 
-    Args:
-        phi: superoperator
-
-    Returns:
-        The completely bounded spectral norm of the channel
-
-    """
+"""
     return completely_bounded_trace_norm(dual_channel(phi))

@@ -24,7 +24,21 @@ def random_state_vector(
     integer) with Schmidt rank at most ``k_param``.  This is achieved by drawing local factors and
     combining them with a maximally entangled resource state.
 
-    Examples:
+    Args:
+        dim: Either a positive integer giving the total Hilbert-space dimension, or a length-2 sequence specifying the
+            individual subsystem dimensions for bipartite sampling.
+        is_real: Boolean denoting whether the returned vector has real entries. Default is `False`, which produces
+            complex amplitudes.
+        k_param: Optional upper bound on the Schmidt rank when ``dim`` describes a bipartite system.  Set to `0`
+            (default) to ignore the Schmidt rank constraint.  Must be non-negative and strictly less than the smaller
+            subsystem dimension when used.
+        seed: A seed used to instantiate numpy's random number generator.
+
+    Returns:
+        A normalized column vector of shape ``(total_dim, 1)`` where ``total_dim`` equals `dim` if ``dim`` is an integer
+        and equals the product of entries in ``dim`` otherwise.
+
+        Examples:
         We may generate a random state vector. For instance, here is an example where we can generate a
         \(2\)-dimensional random state vector.
 
@@ -69,21 +83,7 @@ def random_state_vector(
         ```
 
 
-    Args:
-        dim: Either a positive integer giving the total Hilbert-space dimension, or a length-2 sequence specifying the
-            individual subsystem dimensions for bipartite sampling.
-        is_real: Boolean denoting whether the returned vector has real entries. Default is `False`, which produces
-            complex amplitudes.
-        k_param: Optional upper bound on the Schmidt rank when ``dim`` describes a bipartite system.  Set to `0`
-            (default) to ignore the Schmidt rank constraint.  Must be non-negative and strictly less than the smaller
-            subsystem dimension when used.
-        seed: A seed used to instantiate numpy's random number generator.
-
-    Returns:
-        A normalized column vector of shape ``(total_dim, 1)`` where ``total_dim`` equals `dim` if ``dim`` is an integer
-        and equals the product of entries in ``dim`` otherwise.
-
-    """
+"""
     gen = np.random.default_rng(seed=seed)
     if k_param < 0:
         msg = "k_param must be non-negative."

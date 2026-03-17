@@ -8,6 +8,18 @@ def schmidt_decomposition(
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     r"""Compute the Schmidt decomposition of a bipartite vector [@wikipediaschmidt].
 
+    Args:
+        rho: A bipartite quantum state to compute the Schmidt decomposition of.
+        dim: An array consisting of the dimensions of the subsystems (default gives subsystems
+                equal dimensions).
+        k_param: How many terms of the Schmidt decomposition should be computed (default is 0).
+
+    Returns:
+        The Schmidt decomposition of the `rho` input.
+
+        Raises:
+        ValueError: If matrices are not of equal dimension.
+
     Examples:
         Consider the \(3\)-dimensional maximally entangled state:
 
@@ -44,19 +56,7 @@ def schmidt_decomposition(
             print(f"{name}:\n{mat}\n")
         ```
 
-    Raises:
-        ValueError: If matrices are not of equal dimension.
-
-    Args:
-        rho: A bipartite quantum state to compute the Schmidt decomposition of.
-        dim: An array consisting of the dimensions of the subsystems (default gives subsystems
-                equal dimensions).
-        k_param: How many terms of the Schmidt decomposition should be computed (default is 0).
-
-    Returns:
-        The Schmidt decomposition of the `rho` input.
-
-    """
+"""
     # If the input is provided as a matrix, compute the operator Schmidt decomposition.
     if len(rho.shape) == 2:
         if rho.shape[0] != 1 and rho.shape[1] != 1:

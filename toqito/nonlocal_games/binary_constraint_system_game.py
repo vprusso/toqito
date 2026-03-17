@@ -72,7 +72,15 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
     The method used to determine the existence of a perfect commuting strategy was originally introduced
     in [@cleve2016perfect].
 
-    Examples:
+    Args:
+        M: A binary matrix of shape (m, n).Each row encodes which variables appear in a constraint.
+        b: A binary vector of length m.Each entry determines the parity for its corresponding constraint row.
+
+    Returns:
+        A list of integer bitmasks.
+        A list of parity values.
+
+        Examples:
         ```python exec="1" source="above"
         import numpy as np
         from toqito.nonlocal_games.binary_constraint_system_game import generate_solution_group
@@ -86,15 +94,7 @@ def generate_solution_group(M: np.ndarray, b: np.ndarray) -> tuple[list[int], li
         print("```")
         ```
 
-    Args:
-        M: A binary matrix of shape (m, n).Each row encodes which variables appear in a constraint.
-        b: A binary vector of length m.Each entry determines the parity for its corresponding constraint row.
-
-    Returns:
-        A list of integer bitmasks.
-        A list of parity values.
-
-    """
+"""
     # Ensure M and b are binary.
     M = np.array(M, dtype=int) % 2
     b = np.array(b, dtype=int) % 2

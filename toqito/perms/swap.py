@@ -23,6 +23,18 @@ def swap(
     If `row_only` is set to `True`, then only the rows of `rho` are swapped, but not the columns --
     this is equivalent to multiplying `rho` on the left by the corresponding swap operator, but not on the right.
 
+    Args:
+        rho: A vector or matrix to have its subsystems swapped.
+        sys: Default: [1, 2]
+        dim: Default: `[sqrt(len(X), sqrt(len(X)))]`
+        row_only: Default: `False`
+
+    Returns:
+        The swapped matrix.
+
+        Raises:
+        ValueError: If dimension does not match the number of subsystems.
+
     Examples:
         Consider the following matrix
 
@@ -100,19 +112,7 @@ def swap(
 
 
 
-    Raises:
-        ValueError: If dimension does not match the number of subsystems.
-
-    Args:
-        rho: A vector or matrix to have its subsystems swapped.
-        sys: Default: [1, 2]
-        dim: Default: `[sqrt(len(X), sqrt(len(X)))]`
-        row_only: Default: `False`
-
-    Returns:
-        The swapped matrix.
-
-    """
+"""
     if dim is not None and not isinstance(dim, (int, list, np.ndarray)):
         raise TypeError("dim must be None, int, list, or np.ndarray.")
 

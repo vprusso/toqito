@@ -9,7 +9,15 @@ def random_states(n: int, d: int, seed: int | None = None) -> list[np.ndarray]:
     This function generates a list of quantum states, each of a specified dimension. The states are
     valid quantum states distributed according to the Haar measure.
 
-    Examples:
+    Args:
+        n: int The number of random states to generate.
+        d: int The dimension of each quantum state.
+        seed: int | None A seed used to instantiate numpy's random number generator.
+
+    Returns:
+        A list of `n` numpy arrays, each representing a d-dimensional quantum state as a column vector.
+
+        Examples:
         Generating three quantum states each of dimension 4.
 
         ```python exec="1" source="above"
@@ -41,15 +49,7 @@ def random_states(n: int, d: int, seed: int | None = None) -> list[np.ndarray]:
 
 
 
-    Args:
-        n: int The number of random states to generate.
-        d: int The dimension of each quantum state.
-        seed: int | None A seed used to instantiate numpy's random number generator.
-
-    Returns:
-        A list of `n` numpy arrays, each representing a d-dimensional quantum state as a column vector.
-
-    """
+"""
     gen = np.random.default_rng(seed=seed)
     samples = gen.normal(size=(n, d)) + 1j * gen.normal(size=(n, d))
     samples /= np.linalg.norm(samples, axis=1)[:, np.newaxis]

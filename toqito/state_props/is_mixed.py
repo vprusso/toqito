@@ -10,7 +10,13 @@ def is_mixed(state: np.ndarray) -> bool:
 
     A mixed state by definition is a state that is not pure.
 
-    Examples:
+    Args:
+        state: The density matrix representing the quantum state.
+
+    Returns:
+        `True` if state is mixed and `False` otherwise.
+
+        Examples:
         Consider the following density matrix:
 
         \[
@@ -31,11 +37,5 @@ def is_mixed(state: np.ndarray) -> bool:
         print(is_mixed(rho))
         ```
 
-    Args:
-        state: The density matrix representing the quantum state.
-
-    Returns:
-        `True` if state is mixed and `False` otherwise.
-
-    """
+"""
     return not is_pure(state)

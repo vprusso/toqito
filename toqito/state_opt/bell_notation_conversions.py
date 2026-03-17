@@ -32,7 +32,17 @@ def cg_to_fc(cg_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
 
     This function converts between these two notations.
 
-    Examples:
+    Args:
+        cg_mat: The matrix in Collins-Gisin notation.
+        behavior: If True, assume input is a behavior (default: False, assume functional).
+
+    Returns:
+        The matrix in Full Correlator notation.
+
+    !!! Note
+        This function is adapted from the QETLAB MATLAB package function ``CG2FC``.
+
+        Examples:
         Consider the CHSH inequality in CG notation for a functional:
 
         \[
@@ -74,17 +84,7 @@ def cg_to_fc(cg_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         print(cg_to_fc(p_cg, behavior=True))
         ```
 
-    Args:
-        cg_mat: The matrix in Collins-Gisin notation.
-        behavior: If True, assume input is a behavior (default: False, assume functional).
-
-    Returns:
-        The matrix in Full Correlator notation.
-
-    !!! Note
-        This function is adapted from the QETLAB MATLAB package function ``CG2FC``.
-
-    """
+"""
     ia = cg_mat.shape[0] - 1
     ib = cg_mat.shape[1] - 1
 
@@ -137,7 +137,17 @@ def fc_to_cg(fc_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
 
     This function converts between these two notations.
 
-    Examples:
+    Args:
+        fc_mat: The matrix in Full Correlator notation.
+        behavior: If True, assume input is a behavior (default: False, assume functional).
+
+    Returns:
+        The matrix in Collins-Gisin notation.
+
+    !!! Note
+        This function is adapted from the QETLAB MATLAB package function ``FC2CG``.
+
+        Examples:
         Consider the CHSH inequality in FC notation for a functional:
 
         \[
@@ -178,17 +188,7 @@ def fc_to_cg(fc_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         print(fc_to_cg(p_fc, behavior=True))
         ```
 
-    Args:
-        fc_mat: The matrix in Full Correlator notation.
-        behavior: If True, assume input is a behavior (default: False, assume functional).
-
-    Returns:
-        The matrix in Collins-Gisin notation.
-
-    !!! Note
-        This function is adapted from the QETLAB MATLAB package function ``FC2CG``.
-
-    """
+"""
     ia = fc_mat.shape[0] - 1
     ib = fc_mat.shape[1] - 1
 
@@ -224,7 +224,19 @@ def cg_to_fp(cg_mat: np.ndarray, desc: list[int], behavior: bool = False) -> np.
 
     This function converts from CG to FP notation.
 
-    Examples:
+    Args:
+        cg_mat: The matrix in Collins-Gisin notation.
+        desc: A list [\(oa\), \(ob\), \(ia\), \(ib\)] describing the number of outputs
+                  (\(oa\), \(ob\)) and inputs (\(ia\), \(ib\)).
+        behavior: If True, assume input is a behavior (default: False, assume functional).
+
+    Returns:
+        The probability tensor \(V[a, b, x, y]\) in Full Probability notation.
+
+    !!! Note
+        This function is adapted from the QETLAB MATLAB package function ``CG2FP``.
+
+        Examples:
         Consider the CHSH inequality functional in CG notation:
 
         \[
@@ -267,19 +279,7 @@ def cg_to_fp(cg_mat: np.ndarray, desc: list[int], behavior: bool = False) -> np.
         print(cg_to_fp(p_cg, desc, behavior=True))
         ```
 
-    Args:
-        cg_mat: The matrix in Collins-Gisin notation.
-        desc: A list [\(oa\), \(ob\), \(ia\), \(ib\)] describing the number of outputs
-                  (\(oa\), \(ob\)) and inputs (\(ia\), \(ib\)).
-        behavior: If True, assume input is a behavior (default: False, assume functional).
-
-    Returns:
-        The probability tensor \(V[a, b, x, y]\) in Full Probability notation.
-
-    !!! Note
-        This function is adapted from the QETLAB MATLAB package function ``CG2FP``.
-
-    """
+"""
     oa, ob, ia, ib = desc
     v_mat = np.zeros((oa, ob, ia, ib))
 
@@ -379,7 +379,25 @@ def fc_to_fp(fc_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
 
     This function converts from FC to FP notation.
 
-    Examples:
+    Args:
+        fc_mat: The matrix in Full Correlator notation.
+        behavior: If True, assume input is a behavior (default: False, assume functional).
+
+    Returns:
+        The probability tensor \(V[a, b, x, y]\) in Full Probability notation (oa=2, ob=2).
+
+    !!! Note
+        This function is adapted from the QETLAB MATLAB package function ``FC2FP`` [@QETLAB].
+        For `behavior=True`, it applies the standard formula relating probabilities to correlators:
+        \(P(a', b' | x, y) = (1 + a'\langle A_x \rangle + b'\langle B_y \rangle +\)
+        \(a'b'\langle A_x B_y \rangle) / 4\),
+        where \(a', b' \in \{+1, -1\}\).
+        Crucially, it uses the values \(\langle A_x \rangle\) and \(\langle B_y \rangle\) directly
+        from the input ``fc_mat``. If this input matrix was generated using a convention where these
+        entries represent *averaged* marginal correlators (like the output of ``fp_to_fc(..., behavior=True)``),
+        the resulting FP tensor might not represent a valid probability distribution (e.g., entries could be negative).
+
+        Examples:
         Consider the CHSH inequality functional in FC notation:
 
         \[
@@ -422,25 +440,7 @@ def fc_to_fp(fc_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         print(fc_to_fp(p_fc, behavior=True))
         ```
 
-    Args:
-        fc_mat: The matrix in Full Correlator notation.
-        behavior: If True, assume input is a behavior (default: False, assume functional).
-
-    Returns:
-        The probability tensor \(V[a, b, x, y]\) in Full Probability notation (oa=2, ob=2).
-
-    !!! Note
-        This function is adapted from the QETLAB MATLAB package function ``FC2FP`` [@QETLAB].
-        For `behavior=True`, it applies the standard formula relating probabilities to correlators:
-        \(P(a', b' | x, y) = (1 + a'\langle A_x \rangle + b'\langle B_y \rangle +\)
-        \(a'b'\langle A_x B_y \rangle) / 4\),
-        where \(a', b' \in \{+1, -1\}\).
-        Crucially, it uses the values \(\langle A_x \rangle\) and \(\langle B_y \rangle\) directly
-        from the input ``fc_mat``. If this input matrix was generated using a convention where these
-        entries represent *averaged* marginal correlators (like the output of ``fp_to_fc(..., behavior=True)``),
-        the resulting FP tensor might not represent a valid probability distribution (e.g., entries could be negative).
-
-    """
+"""
     ia = fc_mat.shape[0] - 1
     ib = fc_mat.shape[1] - 1
     # Assumes oa=2, ob=2 based on FC notation structure
@@ -493,7 +493,20 @@ def fp_to_cg(v_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
 
     This function converts from FP to CG notation.
 
-    Examples:
+    Args:
+        v_mat: The probability tensor \(V[a, b, x, y]\) in Full Probability notation.
+        behavior: If True, assume input is a behavior (default: False, assume functional).
+
+    Returns:
+        The matrix in Collins-Gisin notation.
+
+    !!! Note
+        This function is adapted from the QETLAB MATLAB package function ``FP2CG``.
+        For ``behavior=True``, it uses the QETLAB convention for calculating marginal probabilities,
+        summing over the other party's outcomes for a *fixed* input setting of the other party
+        (\(y=0\) for Alice's marginal \(p_A(a|x)\), \(x=0\) for Bob's marginal \(p_B(b|y)\)).
+
+        Examples:
         Consider the CHSH inequality functional in FP notation:
         (Here V represents coefficients, not probabilities)
 
@@ -525,20 +538,7 @@ def fp_to_cg(v_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         print(fp_to_cg(pr_box, behavior=True))
         ```
 
-    Args:
-        v_mat: The probability tensor \(V[a, b, x, y]\) in Full Probability notation.
-        behavior: If True, assume input is a behavior (default: False, assume functional).
-
-    Returns:
-        The matrix in Collins-Gisin notation.
-
-    !!! Note
-        This function is adapted from the QETLAB MATLAB package function ``FP2CG``.
-        For ``behavior=True``, it uses the QETLAB convention for calculating marginal probabilities,
-        summing over the other party's outcomes for a *fixed* input setting of the other party
-        (\(y=0\) for Alice's marginal \(p_A(a|x)\), \(x=0\) for Bob's marginal \(p_B(b|y)\)).
-
-    """
+"""
     oa, ob, ia, ib = v_mat.shape
 
     alice_pars = max(0, ia * (oa - 1)) + 1 if oa > 0 else 0
@@ -640,7 +640,22 @@ def fp_to_fc(v_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
 
     This function converts from FP to FC notation.
 
-    Examples:
+    Args:
+        v_mat: The probability tensor \(V[a, b, x, y]\)
+                          in Full Probability notation (:math:`oa=2`, :math:`ob=2`).
+        behavior: If True, assume input is a behavior (default: False, assume functional).
+
+    Returns:
+        The matrix in Full Correlator notation.
+
+    !!! Note
+        This function is adapted from the QETLAB MATLAB package function ``FP2FC``.
+        For ``behavior=True``, it calculates the *average* marginal correlators \(\langle A_x \rangle\)
+        and \(\langle B_y \rangle\) by summing over the other party's inputs
+        and dividing by the number of inputs (\(ib\) or \(ia\)).
+        The joint correlators \(\langle A_x B_y \rangle\) are calculated directly for each (\(x\), \(y\)).
+
+        Examples:
         Consider the CHSH inequality functional in FP notation:
         (Here V represents coefficients, not probabilities)
 
@@ -669,22 +684,7 @@ def fp_to_fc(v_mat: np.ndarray, behavior: bool = False) -> np.ndarray:
         print(fp_to_fc(pr_box, behavior=True))
         ```
 
-    Args:
-        v_mat: The probability tensor \(V[a, b, x, y]\)
-                          in Full Probability notation (:math:`oa=2`, :math:`ob=2`).
-        behavior: If True, assume input is a behavior (default: False, assume functional).
-
-    Returns:
-        The matrix in Full Correlator notation.
-
-    !!! Note
-        This function is adapted from the QETLAB MATLAB package function ``FP2FC``.
-        For ``behavior=True``, it calculates the *average* marginal correlators \(\langle A_x \rangle\)
-        and \(\langle B_y \rangle\) by summing over the other party's inputs
-        and dividing by the number of inputs (\(ib\) or \(ia\)).
-        The joint correlators \(\langle A_x B_y \rangle\) are calculated directly for each (\(x\), \(y\)).
-
-    """
+"""
     oa, ob, ia, ib = v_mat.shape
 
     if oa != 2 or ob != 2:

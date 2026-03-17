@@ -19,7 +19,15 @@ def phase_damping(
         K_1 = \begin{pmatrix} 0 & 0 \\ 0 & \sqrt{\gamma} \end{pmatrix},
     \]
 
-    Examples:
+    Args:
+        input_mat: The input matrix to apply the channel to. If `None`, the function returns the Kraus operators.
+        gamma: The dephasing rate (between 0 and 1), representing the probability of phase decoherence.
+
+    Returns:
+        The transformed quantum state after applying the phase damping channel. If `input_mat` is `None`, returns the
+        list of Kraus operators.
+
+        Examples:
         Applying the phase damping channel to a qubit state:
 
         ```python exec="1" source="above"
@@ -32,15 +40,7 @@ def phase_damping(
         print(result)
         ```
 
-    Args:
-        input_mat: The input matrix to apply the channel to. If `None`, the function returns the Kraus operators.
-        gamma: The dephasing rate (between 0 and 1), representing the probability of phase decoherence.
-
-    Returns:
-        The transformed quantum state after applying the phase damping channel. If `input_mat` is `None`, returns the
-        list of Kraus operators.
-
-    """
+"""
     if not (0 <= gamma <= 1):
         raise ValueError("Gamma must be between 0 and 1.")
 

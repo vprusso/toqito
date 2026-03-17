@@ -20,6 +20,18 @@ def is_unextendible_product_basis(vecs: list[np.ndarray], dims: list[int]) -> tu
     \(\mathcal{H}_S-\mathcal{H}\) contains no product state.  This function is inspired from `IsUPB` in
     [@qetlablink].
 
+    Args:
+        vecs: The list of states.
+        dims: The list of dimensions.
+
+    Returns:
+        Returns a tuple. The first element is `True` if input is a UPB and `False` otherwise. The second element is a
+        witness (a product state orthogonal to all the input vectors) if the input is a PB and `None` otherwise.
+
+        Raises:
+        ValueError: If product of dimensions does not match the size of a vector.
+        ValueError: If at least one vector is not a product state.
+
     Examples:
         See [tile()][toqito.states.tile.tile]. All the states together form a UPB:
 
@@ -49,19 +61,7 @@ def is_unextendible_product_basis(vecs: list[np.ndarray], dims: list[int]) -> tu
             \frac{1}{\sqrt{2}} |2\rangle \left( |1\rangle + |2\rangle \right)
         \]
 
-    Raises:
-        ValueError: If product of dimensions does not match the size of a vector.
-        ValueError: If at least one vector is not a product state.
-
-    Args:
-        vecs: The list of states.
-        dims: The list of dimensions.
-
-    Returns:
-        Returns a tuple. The first element is `True` if input is a UPB and `False` otherwise. The second element is a
-        witness (a product state orthogonal to all the input vectors) if the input is a PB and `None` otherwise.
-
-    """
+"""
     vecs = np.array(vecs)
     dims = np.array(dims)
 

@@ -20,6 +20,16 @@ def negativity(rho: np.ndarray, dim: list[int] | int | None = None) -> float | n
     them in the optional `dim` argument). The negativity of \(\rho\) is the sum of the
     absolute value of the negative eigenvalues of the partial transpose of \(\rho\).
 
+    Args:
+        rho: A density matrix of a pure state vector.
+        dim: The default has both subsystems of equal dimension.
+
+    Returns:
+        A value between 0 and 1 that corresponds to the negativity of \(\rho\).
+
+        Raises:
+        ValueError: If dimension of matrix is invalid.
+
     Examples:
         Example of the negativity of density matrix of Bell state.
 
@@ -33,17 +43,7 @@ def negativity(rho: np.ndarray, dim: list[int] | int | None = None) -> float | n
         !!!See Also
             [log_negativity()][toqito.state_props.log_negativity.log_negativity]
 
-    Raises:
-        ValueError: If dimension of matrix is invalid.
-
-    Args:
-        rho: A density matrix of a pure state vector.
-        dim: The default has both subsystems of equal dimension.
-
-    Returns:
-        A value between 0 and 1 that corresponds to the negativity of \(\rho\).
-
-    """
+"""
     # Allow the user to input either a pure state vector or a density matrix.
     rho = to_density_matrix(rho)
     rho_dims = rho.shape

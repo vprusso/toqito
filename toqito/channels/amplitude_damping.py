@@ -33,7 +33,17 @@ def amplitude_damping(
     These operators describe the evolution of a quantum state under the generalized amplitude
     damping process.
 
-    Examples:
+    Args:
+        input_mat: The input matrix to which the channel is applied. If `None`, the function returns the Kraus operators
+            of the channel.
+        gamma: The damping rate, a float between 0 and 1. Represents the probability of energy dissipation.
+        prob: The probability of energy loss, a float between 0 and 1.
+
+    Returns:
+        The evolved quantum state after applying the generalized amplitude damping channel. If `input_mat` is `None`, it
+        returns the list of Kraus operators.
+
+        Examples:
         Apply the generalized amplitude damping channel to a qubit state:
 
         ```python exec="1" source="above"
@@ -46,17 +56,7 @@ def amplitude_damping(
         print(result)
         ```
 
-    Args:
-        input_mat: The input matrix to which the channel is applied. If `None`, the function returns the Kraus operators
-            of the channel.
-        gamma: The damping rate, a float between 0 and 1. Represents the probability of energy dissipation.
-        prob: The probability of energy loss, a float between 0 and 1.
-
-    Returns:
-        The evolved quantum state after applying the generalized amplitude damping channel. If `input_mat` is `None`, it
-        returns the list of Kraus operators.
-
-    """
+"""
     if not (0 <= prob <= 1):
         raise ValueError("Probability must be between 0 and 1.")
 

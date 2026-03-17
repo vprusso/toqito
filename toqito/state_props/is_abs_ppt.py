@@ -42,6 +42,24 @@ def is_abs_ppt(
         `False` if at least one constraint was not satisfied, or `None`
         if all checked constraints were satisfied.
 
+    Args:
+        mat: A square matrix.
+        dim: The dimension of any one subsystem on which `mat` acts. If `None`, `dim` is selected such that
+            `min(dim, mat.shape[0] // dim)` is maximised, since this gives the strongest conditions on being absolutely
+            PPT (see Theorem 2 of [@hildebrand2007positive]).
+        rtol: The relative tolerance parameter (default 1e-05).
+        atol: The absolute tolerance parameter (default 1e-08).
+
+    Returns:
+        If `mat` is a 1D `cvxpy` Variable, return a list of `cvxpy` Constraints required for optimizing over the space
+        of absolutely PPT matrices.
+
+        Raises:
+        TypeError: If `mat` is not a `numpy` ndarray or a `cvxpy` Variable.
+        ValueError: If `mat` is a `numpy` ndarray but is not square.
+        ValueError: If `mat` is a `cvxpy` Variable but is not 1D.
+        ValueError: If `dim` does not divide the dimensions of `mat`.
+
     Examples:
         A random density matrix will likely not be absolutely PPT:
 
@@ -63,25 +81,7 @@ def is_abs_ppt(
         print(f"ρ is absolutely PPT: {is_abs_ppt(rho, 3)}")
         ```
 
-    Raises:
-        TypeError: If `mat` is not a `numpy` ndarray or a `cvxpy` Variable.
-        ValueError: If `mat` is a `numpy` ndarray but is not square.
-        ValueError: If `mat` is a `cvxpy` Variable but is not 1D.
-        ValueError: If `dim` does not divide the dimensions of `mat`.
-
-    Args:
-        mat: A square matrix.
-        dim: The dimension of any one subsystem on which `mat` acts. If `None`, `dim` is selected such that
-            `min(dim, mat.shape[0] // dim)` is maximised, since this gives the strongest conditions on being absolutely
-            PPT (see Theorem 2 of [@hildebrand2007positive]).
-        rtol: The relative tolerance parameter (default 1e-05).
-        atol: The absolute tolerance parameter (default 1e-08).
-
-    Returns:
-        If `mat` is a 1D `cvxpy` Variable, return a list of `cvxpy` Constraints required for optimizing over the space
-        of absolutely PPT matrices.
-
-    """
+"""
     if isinstance(mat, np.ndarray):
         if not is_square(mat):
             raise ValueError(f"Expected mat to be square: however mat.shape was {mat.shape}")

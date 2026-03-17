@@ -14,7 +14,15 @@ def random_psd_operator(
     This function generates a random positive semidefinite operator by constructing a Hermitian matrix,
     based on the fact that a Hermitian matrix can have real eigenvalues.
 
-    Examples:
+    Args:
+        dim: The dimension of the operator.
+        is_real: Boolean denoting whether the returned matrix will have all real entries or not. Default is `False`.
+        seed: A seed used to instantiate numpy's random number generator.
+
+    Returns:
+        A `dim` x `dim` random positive semidefinite matrix.
+
+        Examples:
         Using `|toqito⟩`, we may generate a random positive semidefinite matrix.
         For \(\text{dim}=2\), this can be accomplished as follows.
 
@@ -65,15 +73,7 @@ def random_psd_operator(
         print(seeded)
         ```
 
-    Args:
-        dim: The dimension of the operator.
-        is_real: Boolean denoting whether the returned matrix will have all real entries or not. Default is `False`.
-        seed: A seed used to instantiate numpy's random number generator.
-
-    Returns:
-        A `dim` x `dim` random positive semidefinite matrix.
-
-    """
+"""
     # Generate a random matrix of dimension dim x dim.
     gen = np.random.default_rng(seed=seed)
     rand_mat = gen.random((dim, dim))

@@ -17,7 +17,13 @@ def is_antidistinguishable(states: list[np.ndarray]) -> bool | np.bool_:
     exclusion SDP [@bandyopadhyay2014conclusive] such that we ignore the associated probabilities with which
     the states are chosen from the set of vectors.
 
-    Examples:
+    Args:
+        states: A set of vectors consisting of quantum states to determine the antidistinguishability of.
+
+    Returns:
+        `True` if the vectors are antidistinguishable; `False` otherwise.
+
+        Examples:
         The set of Bell states are an example of antidistinguishable states. Recall that the Bell states are defined as:
 
         \[
@@ -54,13 +60,7 @@ def is_antidistinguishable(states: list[np.ndarray]) -> bool | np.bool_:
 
         and hence, the Bell states are antidistinguishable.
 
-    Args:
-        states: A set of vectors consisting of quantum states to determine the antidistinguishability of.
-
-    Returns:
-        `True` if the vectors are antidistinguishable; `False` otherwise.
-
-    """
+"""
     probs = [1] * len(states)
 
     # The dual problem is less computationally intensive to compute in comparison to primal.

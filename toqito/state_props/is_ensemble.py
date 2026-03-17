@@ -22,7 +22,13 @@ def is_ensemble(states: list[np.ndarray]) -> bool:
         \text{Tr}\left( \sum_{a \in \Gamma} \eta(a) \right) = 1.
     \]
 
-    Examples:
+    Args:
+        states: The list of states to check.
+
+    Returns:
+        `True` if states form an ensemble and `False` otherwise.
+
+        Examples:
         Consider the following set of matrices
 
         \[
@@ -47,13 +53,7 @@ def is_ensemble(states: list[np.ndarray]) -> bool:
         print(is_ensemble(states))
         ```
 
-    Args:
-        states: The list of states to check.
-
-    Returns:
-        `True` if states form an ensemble and `False` otherwise.
-
-    """
+"""
     trace_sum = 0
     for state in states:
         trace_sum += np.trace(state)

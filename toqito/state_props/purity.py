@@ -17,6 +17,15 @@ def purity(rho: np.ndarray) -> float:
 
     where \(\text{Tr}\) is the trace function.
 
+    Args:
+        rho: A density matrix of a pure state vector.
+
+    Returns:
+        A value between 0 and 1 that corresponds to the purity of \(\rho\).
+
+        Raises:
+        ValueError: If matrix is not density operator.
+
     Examples:
         Consider the following scaled state defined as the scaled identity matrix
 
@@ -47,16 +56,7 @@ def purity(rho: np.ndarray) -> float:
         print(purity(rho))
         ```
 
-    Raises:
-        ValueError: If matrix is not density operator.
-
-    Args:
-        rho: A density matrix of a pure state vector.
-
-    Returns:
-        A value between 0 and 1 that corresponds to the purity of \(\rho\).
-
-    """
+"""
     if not is_density(rho):
         raise ValueError("Purity is only defined for density operators.")
     # "np.real" get rid of the close-to-0 imaginary part.

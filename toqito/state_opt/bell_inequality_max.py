@@ -104,7 +104,33 @@ def bell_inequality_max(
     is upper bounded using the NPA (Navascués-Pironio-Acín) hierarchy
     `Navascues_2008_AConvergent`[@navascues2008convergent].
 
-    Examples:
+    Args:
+        coefficients: A matrix or tensor specifying the Bell inequality coefficients in either
+                             full probability (FP), full correlator (FC), or Collins-Gisin (CG) notation.
+        desc: A list [\(oa\), \(ob\), \(ma\), \(mb\)]
+                     describing the number of outputs for Alice (\(oa\)) and Bob (\(ob\)),
+                     and the number of inputs for Alice (\(ma\)) and Bob (\(mb\)).
+        notation: A string ('fp', 'fc', or 'cg') indicating the notation of the ``coefficients``.
+        mtype: The type of theory to maximize over ('classical', 'quantum', or 'nosignal').
+                      Defaults to 'classical'. Note: 'quantum' computes an upper bound via NPA hierarchy.
+        k: The level of the NPA hierarchy to use if ``mtype='quantum'``. Can be an integer (e.g., 1, 2)
+                  or a string specifying intermediate levels (e.g., '1+ab', '1+aab'). Defaults to 1.
+                  Higher levels yield tighter bounds but require more computation. Ignored if ``mtype`` is
+                  not 'quantum'.
+        tol: Tolerance for numerical comparisons and solver precision. Defaults to ``1e-8``.
+
+    Returns:
+        The maximum value (or quantum upper bound) of the Bell inequality.
+
+    Raises:
+        ValueError: If the input ``notation`` is invalid.
+        ValueError: If the input ``mtype`` is invalid.
+        ValueError: If notation conversion fails (e.g., 'fc' for non-binary outputs).
+        ValueError: If the NPA level ``k`` is invalid.
+        ValueError: If generating NPA constraints fails.
+        cp.error.SolverError: If the cp solver fails.
+
+        Examples:
         The CHSH inequality in Full Correlator (FC) notation.
         The classical maximum is 2, the quantum maximum (Tsirelson's bound) is \(2\sqrt{2}\),
         and the no-signalling maximum is 4.
@@ -168,33 +194,7 @@ def bell_inequality_max(
         print(bell_inequality_max(M_i3322_cg, desc_i3322, 'cg', 'nosignal', tol=1e-9))
         ```
 
-    Args:
-        coefficients: A matrix or tensor specifying the Bell inequality coefficients in either
-                             full probability (FP), full correlator (FC), or Collins-Gisin (CG) notation.
-        desc: A list [\(oa\), \(ob\), \(ma\), \(mb\)]
-                     describing the number of outputs for Alice (\(oa\)) and Bob (\(ob\)),
-                     and the number of inputs for Alice (\(ma\)) and Bob (\(mb\)).
-        notation: A string ('fp', 'fc', or 'cg') indicating the notation of the ``coefficients``.
-        mtype: The type of theory to maximize over ('classical', 'quantum', or 'nosignal').
-                      Defaults to 'classical'. Note: 'quantum' computes an upper bound via NPA hierarchy.
-        k: The level of the NPA hierarchy to use if ``mtype='quantum'``. Can be an integer (e.g., 1, 2)
-                  or a string specifying intermediate levels (e.g., '1+ab', '1+aab'). Defaults to 1.
-                  Higher levels yield tighter bounds but require more computation. Ignored if ``mtype`` is
-                  not 'quantum'.
-        tol: Tolerance for numerical comparisons and solver precision. Defaults to ``1e-8``.
-
-    Returns:
-        The maximum value (or quantum upper bound) of the Bell inequality.
-
-    Raises:
-        ValueError: If the input ``notation`` is invalid.
-        ValueError: If the input ``mtype`` is invalid.
-        ValueError: If notation conversion fails (e.g., 'fc' for non-binary outputs).
-        ValueError: If the NPA level ``k`` is invalid.
-        ValueError: If generating NPA constraints fails.
-        cp.error.SolverError: If the cp solver fails.
-
-    """
+"""
     oa, ob, ma, mb = desc
     mtype_low = mtype.lower()
     notation_low = notation.lower()
@@ -460,6 +460,20 @@ def bell_inequality_max_qubits(
     \]
 
 
+    Args:
+        joint_coe: The coefficents for terms containing both A and B.
+        a_coe: The coefficent for terms only containing A.
+        b_coe: The coefficent for terms only containing B.
+        a_val: The value of each measurement outcome for A.
+        b_val: The value of each measurement outcome for B.
+        solver_name: The solver used.
+
+    Returns:
+        The upper bound for the maximum violation of the Bell inequality.
+
+        Raises:
+        ValueError: If `a_val` or `b_val` are not length 2.
+
     Examples:
         Consider the I3322 Bell inequality from [@collins2004relevant].
 
@@ -492,21 +506,7 @@ def bell_inequality_max_qubits(
         print(f"Bell inequality maximum value: {result:.3f}")
         ```
 
-    Raises:
-        ValueError: If `a_val` or `b_val` are not length 2.
-
-    Args:
-        joint_coe: The coefficents for terms containing both A and B.
-        a_coe: The coefficent for terms only containing A.
-        b_coe: The coefficent for terms only containing B.
-        a_val: The value of each measurement outcome for A.
-        b_val: The value of each measurement outcome for B.
-        solver_name: The solver used.
-
-    Returns:
-        The upper bound for the maximum violation of the Bell inequality.
-
-    """
+"""
     m, _ = joint_coe.shape
 
     # Ensure the input vectors are column vectors.

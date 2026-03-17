@@ -9,7 +9,16 @@ def cyclic_permutation_matrix(n: int, k: int = 1) -> np.ndarray:
     This function creates a cyclic permutation matrix of 0's and 1's which is a special type of square matrix
     that represents a cyclic permutation of its rows. The function allows fixed points and successive applications.
 
-    Examples:
+    Args:
+        n: int The number of rows and columns in the cyclic permutation matrix.
+        k: int The power to which the elements are raised, representing successive applications.
+
+    Returns:
+         A NumPy array representing a cyclic permutation matrix of dimension `n x n`. Each row of the matrix is shifted
+         one position to the right in a cyclic manner, creating a circular permutation pattern. If `k` is specified, the
+         function raises the matrix to the power of `k`, representing successive applications of the cyclic permutation.
+
+        Examples:
         Generate fixed point.
 
         ```python exec="1" source="above"
@@ -28,16 +37,7 @@ def cyclic_permutation_matrix(n: int, k: int = 1) -> np.ndarray:
 
 
 
-    Args:
-        n: int The number of rows and columns in the cyclic permutation matrix.
-        k: int The power to which the elements are raised, representing successive applications.
-
-    Returns:
-         A NumPy array representing a cyclic permutation matrix of dimension `n x n`. Each row of the matrix is shifted
-         one position to the right in a cyclic manner, creating a circular permutation pattern. If `k` is specified, the
-         function raises the matrix to the power of `k`, representing successive applications of the cyclic permutation.
-
-    """
+"""
     if not isinstance(n, int):
         raise TypeError("'n' must be an integer.")
     if n <= 0:

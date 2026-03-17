@@ -15,7 +15,15 @@ def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) 
     orthogonal projection itself, but rather a matrix whose columns form an orthonormal basis for the symmetric subspace
     (and hence the PA * PA' is the orthogonal projection onto the symmetric subspace.)
 
-    Examples:
+    Args:
+        dim: The dimension of the local systems.
+        p_param: Default value of 2.
+        partial: Default value of 0.
+
+    Returns:
+        Projection onto the antisymmetric subspace.
+
+        Examples:
         The \(2\)-dimensional antisymmetric projection with \(p=1\) is given as
         \(2\)-by-\(2\) identity matrix
 
@@ -60,15 +68,7 @@ def antisymmetric_projection(dim: int, p_param: int = 2, partial: bool = False) 
         print(antisymmetric_projection(2, 3))
         ```
 
-    Args:
-        dim: The dimension of the local systems.
-        p_param: Default value of 2.
-        partial: Default value of 0.
-
-    Returns:
-        Projection onto the antisymmetric subspace.
-
-    """
+"""
     dimp = dim**p_param
 
     if p_param == 1:

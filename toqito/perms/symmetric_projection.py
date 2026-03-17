@@ -28,7 +28,15 @@ def symmetric_projection(dim: int, p_val: int = 2, partial: bool = False) -> np.
 
     This function was adapted from the QETLAB package.
 
-    Examples:
+    Args:
+        dim: The dimension of the local systems.
+        p_val: Default value of 2.
+        partial: Default value of 0.
+
+    Returns:
+        Projection onto the symmetric subspace.
+
+        Examples:
         The \(2\)-dimensional symmetric projection with \(p=1\) is given as \(2\)-by-\(2\) identity matrix
 
         \[
@@ -66,15 +74,7 @@ def symmetric_projection(dim: int, p_val: int = 2, partial: bool = False) -> np.
         print(symmetric_projection(dim=2))
         ```
 
-    Args:
-        dim: The dimension of the local systems.
-        p_val: Default value of 2.
-        partial: Default value of 0.
-
-    Returns:
-        Projection onto the symmetric subspace.
-
-    """
+"""
     if dim < 1:
         raise ValueError("InvalidDim: `dim` must be at least 1.")
     if p_val < 1:

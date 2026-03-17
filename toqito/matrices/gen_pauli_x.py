@@ -23,7 +23,13 @@ def gen_pauli_x(dim: int) -> np.ndarray:
     The gen_pauli_x matrix is primarily used in the construction of the generalized
     Pauli operators.
 
-    Examples:
+    Args:
+        dim: Dimension of the matrix.
+
+    Returns:
+        `dim`-by-`dim` gen_pauli_x matrix.
+
+        Examples:
         The gen_pauli_x matrix generated from \(d = 3\) yields the following matrix:
 
         \[
@@ -41,12 +47,6 @@ def gen_pauli_x(dim: int) -> np.ndarray:
         print(gen_pauli_x(3))
         ```
 
-    Args:
-        dim: Dimension of the matrix.
-
-    Returns:
-        `dim`-by-`dim` gen_pauli_x matrix.
-
-    """
+"""
     # First column of the identity matrix becomes the last column due to `shift = -1` and `axis=1`
     return np.roll(np.identity(dim), -1, axis=1)
